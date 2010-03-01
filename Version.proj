@@ -8,6 +8,9 @@
     <SvnVersion LocalPath=".">
       <Output TaskParameter="Revision" PropertyName="Build" />
     </SvnVersion>
+    <Subtract Numbers="$(Build);40000" Condition="$(Build)&gt;40000">
+      <Output TaskParameter="Result" PropertyName="Build" />
+    </Subtract>
     <CreateItem Include="Major" AdditionalMetadata="ReplacementValue=$(Major)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>
     <CreateItem Include="Minor" AdditionalMetadata="ReplacementValue=$(Minor)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>
     <CreateItem Include="SchemaRevision" AdditionalMetadata="ReplacementValue=$(SchemaRevision)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>

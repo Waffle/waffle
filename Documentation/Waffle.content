@@ -4,5 +4,6 @@
     <Topic id="1489d227-4898-4952-9941-aaad7a4a67f2" visible="True" title="Getting Started" />
     <Topic id="bbb83190-b983-4e43-96ef-c3a9d1050ab3" visible="True" title="Java Integration" />
     <Topic id="1e7a6c2f-1a9c-4b33-adc7-ee82ac339857" visible="True" title="Contributing &amp; Help" />
+    <Topic id="bfd78578-6e10-47e5-8b41-44426e0a1ac1" visible="True" title="License" />
   </Topic>
 </Topics>
