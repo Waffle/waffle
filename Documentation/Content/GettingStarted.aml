@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="1489d227-4898-4952-9941-aaad7a4a67f2" revisionNumber="1">
+  <developerHowToDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para>
+        This library publishes several Windows authentication, authorization and membership interfaces.
+      </para>
+    </introduction>
+    <procedure>
+      <title>Register Auth DLL</title>
+      <steps class="ordered">
+        <step>
+          <content>
+            <para>
+              <code language="cmd">
+                <![CDATA[regasm.exe /codebase /tlb:Waffle.Windows.AuthProvider.tlb Waffle.Windows.AuthProvider.dll]]>
+              </code>
+            </para>
+          </content>
+        </step>
+      </steps>
+    </procedure>
+  </developerHowToDocument>
+</topic>

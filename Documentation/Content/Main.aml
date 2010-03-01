@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="BF441469-57AD-438f-9DAC-B06F90418483" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <summary>
+      <para>
+        <newTerm>WAFFLE</newTerm> stands for Windows Authentication Functional Framework (Light Edition). WAFFLE
+        is a .NET library with a COM interface and a Java bridge that aims to provide a working library for 
+        performing server-side Windows authentication, including Negotiate, NTLM and others.
+        <list class="bullet">
+          <listItem>
+            <codeEntityReference qualifyHint="true">N:Waffle.Windows.AuthProvider</codeEntityReference>
+          </listItem>
+        </list>
+      </para>
+    </summary>
+  </developerConceptualDocument>
+</topic>

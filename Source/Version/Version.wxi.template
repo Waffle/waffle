@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+ <?define ProductVersion="${Major}.${Minor}.${Build}.${Revision}" ?>
+ <?define CompanyName="${CompanyName}" ?>
+ <?define Copyright="${Copyright}" ?>
+ <?define Trademark="${Trademark}" ?>
+ <?define ProductName="${ProductName}" ?>
+ <?define MSBuildProjectDirectory="${MSBuildProjectDirectory}" ?>
+ <?define Configuration="${Configuration}" ?>
+</Include>

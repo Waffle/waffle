@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="1e7a6c2f-1a9c-4b33-adc7-ee82ac339857" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para>
+        You're encouraged to contribute to WAFFLE. The latest information about this project
+        can be found at <externalLink>
+          <linkUri>http://waffle.codeplex.com</linkUri>
+          <linkText>http://waffle.codeplex.com</linkText>
+        </externalLink>.
+      </para>
+    </introduction>
+    <section address="SourceCode">
+      <title>Source Code</title>
+      <content>
+        <para>
+          Source code is located in
+          <externalLink>
+            <linkUri>https://waffle.svn.codeplex.com/svn/trunk</linkUri>
+            <linkText>
+              https://waffle.svn.codeplex.com/svn/trunk
+            </linkText>
+          </externalLink>.
+          Double-click the Visual Studio solution file, Auth.sln and Visual Studio will open.
+        </para>
+      </content>
+    </section>
+    <section address="Building">
+      <title>Building the Project</title>
+      <content>
+        <para>
+          You can build all C# code in Visual Studio. To build the entire project, including this documentation use MSBuild
+          from command line and type <literal>build all</literal>. This builds both Debug and Release.
+          <code language="cmd">
+            <![CDATA[c:\source\Auth\trunk> build all]]>
+          </code>
+          Output is placed in the <literal>Waffle.Auth\Debug|Release</literal> directories.
+        </para>
+      </content>
+    </section>
+    <section address="Patches">
+      <title>Patches and Code Reviews</title>
+      <content>
+        <para>
+          All changes must be code reviewed. Submit patches for code review for <literal>ddoubro</literal> to
+          <externalLink>
+            <linkUri>http://reviewboard</linkUri>
+            <linkText>http://reviewboard</linkText>
+          </externalLink>.
+          The project is <literal>CommonComponents</literal>
+          and the path <literal>Auth/trunk</literal>.
+        </para>
+        <para>
+          For further instructions on how to use ReviewBoard, see
+          <externalLink>
+            <linkUri>http://appseclink/sites/engineering/Engineering%20Documents/Code%20Reviews.aspx</linkUri>
+            <linkText>this page</linkText>
+          </externalLink>.
+        </para>
+      </content>
+    </section>
+    <section address="Documentation">
+      <title>Writing Documentation</title>
+      <content>
+        <para>
+          Documentation is written in MAML, using SandCastle Documentation Framework. You cannot build documentation from within
+          Visual Studio, but you can build the documentation by typing <literal>build doc</literal>.
+          <list class="bullet">
+            <listItem>
+              <externalLink>
+                <linkUri>http://www.codeplex.com/SHFB</linkUri>
+                <linkText>SandCastle Help File Builder</linkText>
+              </externalLink>
+              provides an extensive
+              <externalLink>
+                <linkUri>http://www.ewoodruff.us/shfbdocs/Index.aspx?topic=html/b772e00e-1705-4062-adb6-774826ce6700.htm</linkUri>
+                <linkText>Getting Started</linkText>
+              </externalLink>
+              guide.
+            </listItem>
+            <listItem>
+              <externalLink>
+                <linkUri>file:////nycapt35k.com/public/applications/Microsoft/Sandcastle/SandcastleMAMLGuide.chm</linkUri>
+                <linkText>SandClastle MAML Guide</linkText>
+              </externalLink>
+              is an excellent quick reference for MAML.
+            </listItem>
+          </list>
+        </para>
+      </content>
+    </section>
+    <section address="DevEnvironment">
+      <title>Setting Up a Development Environment</title>
+      <content>
+        <para>
+          A development environment for Auth developers requires the following software.
+          <list class="bullet">
+            <listItem>
+              <externalLink>
+                <linkUri>file://nycapt35k.com/public/applications/Microsoft%20Visual%20Studio%202005/Professional/CD1/setup.exe</linkUri>
+                <linkText>
+                  Microsoft Visual Studio 2005
+                </linkText>
+              </externalLink>
+              + <externalLink>
+                <linkUri>file://nycapt35k.com/public/applications/Microsoft%20Visual%20Studio%202005/Service%20Pack%201/VS80sp1-KB926601-X86-ENU.exe</linkUri>
+                <linkText>SP1</linkText>
+              </externalLink>
+            </listItem>
+            <listItem>
+              Subversion, tested with
+              <externalLink>
+                <linkUri>file://nycapt35k.com/public/applications/SubVersion/svn-1.4.5-setup.exe</linkUri>
+                <linkText>1.4.5</linkText>
+              </externalLink>
+              and optionally TortoiseSVN, tested with
+              <externalLink>
+                <linkUri>file://nycapt35k.com/public/applications/TortoiseSVN/TortoiseSVN-1.4.1.7992-win32-svn-1.4.2.msi</linkUri>
+                <linkText>1.4.2</linkText>
+              </externalLink>
+            </listItem>
+            <listItem>
+              MSBuild Community Tasks, tested with
+              <externalLink>
+                <linkUri>file://nycapt35k.com/public/applications/MSBuild%20Community%20Tasks/MSBuild.Community.Tasks.1.3.0.msi</linkUri>
+                <linkText>1.3.0</linkText>
+              </externalLink>
+            </listItem>
+            <listItem>
+              Windows Installer Xml (WIX) tested with
+              <externalLink>
+                <linkUri>file:////nycapt35k.com/public/applications/Wix/3.0/Wix3-3.0.5419.0</linkUri>
+                <linkText>Wix 3.0.5419.0</linkText>
+              </externalLink>.
+            </listItem>
+            <listItem>
+              <externalLink>
+                <linkUri>http://www.codeplex.com/Sandcastle</linkUri>
+                <linkText>SandCastle</linkText>
+              </externalLink>,
+              tested with
+              <externalLink>
+                <linkUri>file://nycapt35k.com/public/applications/Microsoft/Sandcastle/Sandcastle-2.4.10520.msi</linkUri>
+                <linkText>2.4 (May 2008)</linkText>
+              </externalLink>
+              , update the contents of your installation (in <literal>c:\program files\sandcastle</literal>) with the contents of
+              <externalLink>
+                <linkUri>file://nycapt35k.com/public/applications/Microsoft/Sandcastle/SCPatch_May08_2_4_10520_Rev2.zip</linkUri>
+                <linkText>SandCastle Styles Project 2.4 patch</linkText>
+              </externalLink>
+            </listItem>
+            <listItem>
+              <externalLink>
+                <linkUri>http://www.codeplex.com/SHFB</linkUri>
+                <linkText>Sandcastle Help File Builder</linkText>
+              </externalLink>,
+              tested with
+              <externalLink>
+                <linkUri>file://nycapt35k.com/public/applications/Microsoft/Sandcastle/SandcastleBuilderSetup-1.8-Alpha.msi</linkUri>
+                <linkText>1.8 (Alpha)</linkText>
+              </externalLink>
+            </listItem>
+          </list>
+        </para>
+      </content>
+    </section>
+  </developerConceptualDocument>
+</topic>

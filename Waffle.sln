@@ -1,0 +1,72 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsAuthProvider", "Source\WindowsAuthProvider\WindowsAuthProvider.csproj", "{CD4002DB-54D8-4186-8E78-AEA1AE226D7B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1DA8F5AA-2EE1-4204-A72F-0373BF541395} = {1DA8F5AA-2EE1-4204-A72F-0373BF541395}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsAuthProviderUnitTests", "Source\WindowsAuthProviderUnitTests\WindowsAuthProviderUnitTests.csproj", "{598EB66E-F9D1-4956-9C13-62E0E6B47679}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1DA8F5AA-2EE1-4204-A72F-0373BF541395} = {1DA8F5AA-2EE1-4204-A72F-0373BF541395}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{1677E891-62D4-4EB7-A5AD-51FE1FF727B0}"
+	ProjectSection(SolutionItems) = preProject
+		build.cmd = build.cmd
+		Version.proj = Version.proj
+		Waffle.proj = Waffle.proj
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{D799ED43-5848-47CF-80B8-B804880E0819}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\Waffle.content = Documentation\Waffle.content
+		Documentation\Waffle.shfbproj = Documentation\Waffle.shfbproj
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Content", "Content", "{581579B2-97D8-4954-9687-A281F3EA2B33}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\Content\DevContribute.aml = Documentation\Content\DevContribute.aml
+		Documentation\Content\GettingStarted.aml = Documentation\Content\GettingStarted.aml
+		Documentation\Content\JavaIntegration.aml = Documentation\Content\JavaIntegration.aml
+		Documentation\Content\Main.aml = Documentation\Content\Main.aml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Version", "Source\Version\Version.csproj", "{1DA8F5AA-2EE1-4204-A72F-0373BF541395}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "WindowsAuthProviderMergeModule", "Source\WindowsAuthProviderMergeModule\WindowsAuthProviderMergeModule.wixproj", "{8E2E9431-3FD1-41E9-97CF-CC96DD32386F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1DA8F5AA-2EE1-4204-A72F-0373BF541395} = {1DA8F5AA-2EE1-4204-A72F-0373BF541395}
+		{CD4002DB-54D8-4186-8E78-AEA1AE226D7B} = {CD4002DB-54D8-4186-8E78-AEA1AE226D7B}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CD4002DB-54D8-4186-8E78-AEA1AE226D7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD4002DB-54D8-4186-8E78-AEA1AE226D7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD4002DB-54D8-4186-8E78-AEA1AE226D7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD4002DB-54D8-4186-8E78-AEA1AE226D7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{598EB66E-F9D1-4956-9C13-62E0E6B47679}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{598EB66E-F9D1-4956-9C13-62E0E6B47679}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{598EB66E-F9D1-4956-9C13-62E0E6B47679}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{598EB66E-F9D1-4956-9C13-62E0E6B47679}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DA8F5AA-2EE1-4204-A72F-0373BF541395}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DA8F5AA-2EE1-4204-A72F-0373BF541395}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DA8F5AA-2EE1-4204-A72F-0373BF541395}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DA8F5AA-2EE1-4204-A72F-0373BF541395}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E2E9431-3FD1-41E9-97CF-CC96DD32386F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E2E9431-3FD1-41E9-97CF-CC96DD32386F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E2E9431-3FD1-41E9-97CF-CC96DD32386F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E2E9431-3FD1-41E9-97CF-CC96DD32386F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{581579B2-97D8-4954-9687-A281F3EA2B33} = {D799ED43-5848-47CF-80B8-B804880E0819}
+	EndGlobalSection
+EndGlobal
