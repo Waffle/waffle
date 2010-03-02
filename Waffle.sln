@@ -1,16 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsAuthProvider", "Source\WindowsAuthProvider\WindowsAuthProvider.csproj", "{CD4002DB-54D8-4186-8E78-AEA1AE226D7B}"
-	ProjectSection(ProjectDependencies) = postProject
-		{1DA8F5AA-2EE1-4204-A72F-0373BF541395} = {1DA8F5AA-2EE1-4204-A72F-0373BF541395}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsAuthProviderUnitTests", "Source\WindowsAuthProviderUnitTests\WindowsAuthProviderUnitTests.csproj", "{598EB66E-F9D1-4956-9C13-62E0E6B47679}"
-	ProjectSection(ProjectDependencies) = postProject
-		{1DA8F5AA-2EE1-4204-A72F-0373BF541395} = {1DA8F5AA-2EE1-4204-A72F-0373BF541395}
-	EndProjectSection
-EndProject
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{1677E891-62D4-4EB7-A5AD-51FE1FF727B0}"
 	ProjectSection(SolutionItems) = preProject
 		build.cmd = build.cmd
@@ -22,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 	ProjectSection(SolutionItems) = preProject
 		Documentation\Waffle.content = Documentation\Waffle.content
 		Documentation\Waffle.shfbproj = Documentation\Waffle.shfbproj
+		Documentation\WhatsNew.html = Documentation\WhatsNew.html
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Content", "Content", "{581579B2-97D8-4954-9687-A281F3EA2B33}"
@@ -30,6 +21,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Content", "Content", "{5815
 		Documentation\Content\GettingStarted.aml = Documentation\Content\GettingStarted.aml
 		Documentation\Content\JavaIntegration.aml = Documentation\Content\JavaIntegration.aml
 		Documentation\Content\Main.aml = Documentation\Content\Main.aml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsAuthProvider", "Source\WindowsAuthProvider\WindowsAuthProvider.csproj", "{CD4002DB-54D8-4186-8E78-AEA1AE226D7B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1DA8F5AA-2EE1-4204-A72F-0373BF541395} = {1DA8F5AA-2EE1-4204-A72F-0373BF541395}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsAuthProviderUnitTests", "Source\WindowsAuthProviderUnitTests\WindowsAuthProviderUnitTests.csproj", "{598EB66E-F9D1-4956-9C13-62E0E6B47679}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1DA8F5AA-2EE1-4204-A72F-0373BF541395} = {1DA8F5AA-2EE1-4204-A72F-0373BF541395}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Version", "Source\Version\Version.csproj", "{1DA8F5AA-2EE1-4204-A72F-0373BF541395}"

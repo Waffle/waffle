@@ -18,7 +18,7 @@
     <Copyright>Copyright (c) Application Security Inc. &amp; Contributors</Copyright>
     <Trademark>All Rights Reserved</Trademark>
     <MajorVersion>1</MajorVersion>
-    <MinorVersion>2</MinorVersion>
+    <MinorVersion>3</MinorVersion>
   </PropertyGroup>
   <Target Name="all" DependsOnTargets="configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
     <CallTarget Targets="clean" />
@@ -53,13 +53,14 @@
   <Target Name="doc" DependsOnTargets="version;configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
     <Error Condition="'$(DXROOT)'==''" Text="Missing Sandcastle, DXROOT environment variable not set, install from http://www.codeplex.com/Sandcastle" />
     <Error Condition="'$(SHFBROOT)'==''" Text="Missing Sandcastle Builder, SHFBROOT environment variable not set, install from http://www.codeplex.com/SHFB" />
-    <Delete Files="Documentation\%(Configuration.Identity)\Waffle.chm" Condition="'%(Configuration.Identity)'=='Release'" />
-    <MSBuild Projects="Documentation\Waffle.shfbproj" Properties="Configuration=%(Configuration.Identity)" Condition="'%(Configuration.Identity)'=='Release'" />
+    <Delete Files="Documentation\%(Configuration.Identity)\Waffle.chm" />
+    <MSBuild Projects="Documentation\Waffle.shfbproj" Properties="Configuration=%(Configuration.Identity)" />
     <Error Condition="Exists('Documentation\%(Configuration.Identity)\LastBuild.log')" Text="Documentation build failed, check Documentation\%(Configuration.Identity)\LastBuild.log" />
   </Target>
   <Target Name="drop" DependsOnTargets="version;configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
     <Copy SourceFiles="License\epl-v10.html" DestinationFiles="$(ReleaseDir)\License.htm" />
-    <Copy SourceFiles="Documentation\%(Configuration.Identity)\Waffle.chm" DestinationFolder="$(ReleaseDir)" Condition="'%(Configuration.Identity)'=='Release'" />
+    <TemplateFile Template="Documentation\WhatsNew.html" OutputFilename="..\$(ReleaseDir)\WhatsNew.html" Tokens="@(AssemblyInfoTokens)" />
+    <Copy SourceFiles="Documentation\%(Configuration.Identity)\Waffle.chm" DestinationFolder="$(ReleaseDir)" />
     <CreateItem Include="Source\**\%(Configuration.Identity)/Waffle.*.dll" Exclude="Source\**\%(Configuration.Identity)/Waffle.*UnitTests.dll">
       <Output TaskParameter="Include" ItemName="BinaryFiles" />
     </CreateItem>

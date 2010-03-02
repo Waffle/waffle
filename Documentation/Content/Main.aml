@@ -8,6 +8,12 @@
         performing server-side Windows authentication, including Negotiate, NTLM and others.
         <list class="bullet">
           <listItem>
+            <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="1489d227-4898-4952-9941-aaad7a4a67f2" />
+          </listItem>
+          <listItem>
+            <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="bbb83190-b983-4e43-96ef-c3a9d1050ab3" />
+          </listItem>
+          <listItem>
             <codeEntityReference qualifyHint="true">N:Waffle.Windows.AuthProvider</codeEntityReference>
           </listItem>
         </list>

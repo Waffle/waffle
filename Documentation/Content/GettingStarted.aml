@@ -1,24 +1,48 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <topic id="1489d227-4898-4952-9941-aaad7a4a67f2" revisionNumber="1">
-  <developerHowToDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
     <introduction>
       <para>
         This library publishes several Windows authentication, authorization and membership interfaces.
+        It exposes a COM interface that requires registration.
       </para>
     </introduction>
-    <procedure>
+    <section address="registerauthdll">
       <title>Register Auth DLL</title>
-      <steps class="ordered">
-        <step>
-          <content>
-            <para>
-              <code language="cmd">
-                <![CDATA[regasm.exe /codebase /tlb:Waffle.Windows.AuthProvider.tlb Waffle.Windows.AuthProvider.dll]]>
-              </code>
-            </para>
-          </content>
-        </step>
-      </steps>
-    </procedure>
-  </developerHowToDocument>
+      <content>
+        <para>
+          <code language="cmd">
+            <![CDATA[regasm.exe /codebase /tlb:Waffle.Windows.AuthProvider.tlb Waffle.Windows.AuthProvider.dll]]>
+          </code>
+        </para>
+      </content>
+    </section>
+    <section address="csharp">
+      <title>Getting Started in C#</title>
+      <content>
+        <para>
+          Reference <localUri>Waffle.Windows.AuthProvider.dll</localUri>.
+          Create a new instance of 
+          <codeEntityReference qualifyHint="true">T:Waffle.Windows.AuthProvider.WindowsAuthProviderImpl</codeEntityReference>.
+          <code language="cs">
+<![CDATA[
+WindowsAuthProviderImpl waffle = new WindowsAuthProviderImpl();
+IWindowsAccount admin = waffle.LookupAccount("Administrator");
+Console.WriteLine(admin.SidString);
+Console.WriteLine(admin.Fqn);
+]]>
+          </code>
+      </para>
+      </content>
+    </section>
+    <section address="java">
+      <title>Getting Started in Java</title>
+      <content>
+        <para>
+          Add <localUri>waffle-auth.jar</localUri> to your CLASSPATH.
+          Create a new instance of <newTerm>com.waffle.auth.WindowsAuthProviderImpl</newTerm>.
+        </para>
+      </content>
+    </section>
+  </developerConceptualDocument>
 </topic>

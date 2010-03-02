@@ -8,9 +8,9 @@
     <SvnVersion LocalPath=".">
       <Output TaskParameter="Revision" PropertyName="Build" />
     </SvnVersion>
-    <Subtract Numbers="$(Build);40000" Condition="$(Build)&gt;40000">
+    <Divide Numbers="$(Build);10" Condition="$(Build)&gt;10000" TruncateResult="true">
       <Output TaskParameter="Result" PropertyName="Build" />
-    </Subtract>
+    </Divide>
     <CreateItem Include="Major" AdditionalMetadata="ReplacementValue=$(Major)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>
     <CreateItem Include="Minor" AdditionalMetadata="ReplacementValue=$(Minor)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>
     <CreateItem Include="SchemaRevision" AdditionalMetadata="ReplacementValue=$(SchemaRevision)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>
@@ -24,6 +24,7 @@
     <CreateItem Include="MSBuildProjectDirectory" AdditionalMetadata="ReplacementValue=$(MSBuildProjectDirectory)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>
     <CreateItem Include="UserName" AdditionalMetadata="ReplacementValue=$(UserName)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>
     <CreateItem Include="ComputerName" AdditionalMetadata="ReplacementValue=$(ComputerName)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>
+    <CreateItem Include="Date" AdditionalMetadata="ReplacementValue=$(Month)/$(Day)/$(Year)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>
     <Message Text="Version: $(Major).$(Minor).$(Build).$(Revision)"/>
     <AssemblyInfo CodeLanguage="CS" OutputFile="Source\Common\GlobalAssemblyInfo.cs"
        AssemblyCompany="$(CompanyName)" AssemblyProduct="$(ProductName)"

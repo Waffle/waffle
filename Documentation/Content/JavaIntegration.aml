@@ -8,7 +8,7 @@
       <title>IntegrationTools</title>
       <content>
         <para>
-          The following tools are used in the build process to generate <localUri>auth.jar</localUri>.
+          The following tools are used in the build process to generate <localUri>waffle-auth.jar</localUri>.
           <tableDefinition>
             <definedTerm>JNI</definedTerm>
             <definition>
