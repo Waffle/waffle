@@ -8,9 +8,9 @@
     <SvnVersion LocalPath=".">
       <Output TaskParameter="Revision" PropertyName="Build" />
     </SvnVersion>
-    <Divide Numbers="$(Build);10" Condition="$(Build)&gt;10000" TruncateResult="true">
+    <Modulo Numbers="$(Build);10000">
       <Output TaskParameter="Result" PropertyName="Build" />
-    </Divide>
+    </Modulo>
     <CreateItem Include="Major" AdditionalMetadata="ReplacementValue=$(Major)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>
     <CreateItem Include="Minor" AdditionalMetadata="ReplacementValue=$(Minor)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>
     <CreateItem Include="SchemaRevision" AdditionalMetadata="ReplacementValue=$(SchemaRevision)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>

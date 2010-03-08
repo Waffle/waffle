@@ -28,6 +28,7 @@
     <CallTarget Targets="doc" />
     <CallTarget Targets="drop" />
     <CallTarget Targets="javainterface" Condition="'%(Configuration.Identity)'=='Release'" />
+    <CallTarget Targets="jna" Condition="'%(Configuration.Identity)'=='Release'" />
     <CallTarget Targets="zip" />
   </Target>
   <Target Name="clean" DependsOnTargets="configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
@@ -72,6 +73,14 @@
       <Output TaskParameter="Include" ItemName="SampleFiles" />
     </CreateItem>
     <Copy SourceFiles="@(SampleFiles)" DestinationFolder="$(ReleaseDir)\Samples" />
+  </Target>
+  <Target Name="jna">
+    <CreateItem Include="Source\ThirdParty\jna\**\*.jar">
+      <Output TaskParameter="Include" ItemName="JNAClassPath" />
+    </CreateItem>
+    <Exec Command="&quot;$(JAVA_HOME)\bin\javac.exe&quot; -cp @(JNAClassPath) Source\JNAWindowsAuthProvider\src\waffle\windows\auth\*.java Source\JNAWindowsAuthProvider\src\waffle\windows\auth\impl\*.java" />
+    <Exec WorkingDirectory="Source\JNAWindowsAuthProvider\src" Command="&quot;$(JAVA_HOME)\bin\jar.exe&quot; cvf &quot;$(MSBuildProjectDirectory)\$(ReleaseDir)\Bin\waffle-jna-auth.jar&quot; waffle\windows\auth\*.class waffle\windows\auth\impl\*.class" />
+    <Exec WorkingDirectory="Source\JNAWindowsAuthProvider\src" Command="&quot;$(JAVA_HOME)\bin\jar.exe&quot; cvf &quot;$(MSBuildProjectDirectory)\$(ReleaseDir)\Bin\waffle-jna-auth-src.zip&quot; waffle\windows\auth\*.java waffle\windows\auth\impl\*.java" />  
   </Target>
   <Target Name="javainterface">
     <Exec WorkingDirectory="Source\WindowsAuthProvider\bin\Release" Command="regasm.exe /codebase /tlb:Waffle.Windows.AuthProvider.tlb Waffle.Windows.AuthProvider.dll" />
