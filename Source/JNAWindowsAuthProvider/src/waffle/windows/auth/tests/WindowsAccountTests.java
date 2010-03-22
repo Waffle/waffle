@@ -1,8 +1,8 @@
 package waffle.windows.auth.tests;
 
+import junit.framework.TestCase;
 import waffle.windows.auth.IWindowsAccount;
 import waffle.windows.auth.impl.WindowsAccountImpl;
-import junit.framework.TestCase;
 
 public class WindowsAccountTests extends TestCase {
 	

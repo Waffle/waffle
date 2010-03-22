@@ -1,8 +1,12 @@
 package waffle.windows.auth.impl;
 
+import java.util.ArrayList;
+
 import waffle.windows.auth.IWindowsComputer;
 
-import com.sun.jna.contrib.win32.w32util.Netapi32Util;
+import com.sun.jna.platform.win32.LMJoin;
+import com.sun.jna.platform.win32.Netapi32Util;
+import com.sun.jna.platform.win32.Netapi32Util.LocalGroup;
 
 public class WindowsComputerImpl implements IWindowsComputer {
 
@@ -16,14 +20,28 @@ public class WindowsComputerImpl implements IWindowsComputer {
 
 	@Override
 	public String[] getGroups() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<String> groupNames = new ArrayList<String>();
+		LocalGroup[] groups = Netapi32Util.getLocalGroups(computerName);
+		for(LocalGroup group : groups) {
+			groupNames.add(group.name);
+		}
+		return groupNames.toArray(new String[0]);
 	}
 
 	@Override
 	public String getJoinStatus() {
-		// TODO
-		return null;
+		int joinStatus = Netapi32Util.getJoinStatus(computerName);
+		switch(joinStatus) {
+		case LMJoin.NETSETUP_JOIN_STATUS.NetSetupDomainName:
+			return "NetSetupDomainName";
+		case LMJoin.NETSETUP_JOIN_STATUS.NetSetupUnjoined:
+			return "NetSetupUnjoined";
+		case LMJoin.NETSETUP_JOIN_STATUS.NetSetupWorkgroupName:
+			return "NetSetupWorkgroupName";
+		case LMJoin.NETSETUP_JOIN_STATUS.NetSetupUnknownStatus:
+			return "NetSetupUnknownStatus";
+		}
+		throw new RuntimeException("Unsupported join status: " + joinStatus);
 	}
 
 	@Override

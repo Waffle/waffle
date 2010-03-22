@@ -25,10 +25,4 @@ public interface IWindowsIdentity {
 	 * @return
 	 */
 	public String[] getGroups();
-
-	/**
-	 * 
-	 * @return
-	 */
-	public IWindowsImpersonationContext impersonate();
 }

@@ -1,9 +1,9 @@
 package waffle.windows.auth.tests;
 
+import junit.framework.TestCase;
 import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.IWindowsComputer;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
-import junit.framework.TestCase;
 
 public class WindowsAuthProviderTests extends TestCase {
 
@@ -13,7 +13,12 @@ public class WindowsAuthProviderTests extends TestCase {
 		System.out.println(computer.getComputerName());
 		assertTrue(computer.getComputerName().length() > 0);
 		System.out.println(computer.getJoinStatus());
-		System.out.println(computer.getMemberOf());		
-	}
-	
+		System.out.println(computer.getMemberOf());
+		String[] localGroups = computer.getGroups();
+		assertNotNull(localGroups);
+		assertTrue(localGroups.length > 0);
+		for(String localGroup : localGroups) {
+			System.out.println(" " + localGroup);
+		}		
+	}	
 }
