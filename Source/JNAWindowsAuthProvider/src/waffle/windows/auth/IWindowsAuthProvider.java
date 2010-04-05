@@ -67,13 +67,6 @@ public interface IWindowsAuthProvider {
 	
 	/**
 	 * 
-	 * @param friendlyDomainName
-	 * @return
-	 */
-	public IWindowsDomain getDomain(String friendlyDomainName);
-	
-	/**
-	 * 
 	 * @param token
 	 * @param securityPackage
 	 * @return

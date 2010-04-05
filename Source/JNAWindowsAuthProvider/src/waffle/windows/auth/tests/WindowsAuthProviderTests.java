@@ -8,6 +8,7 @@ import junit.framework.TestCase;
 import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.IWindowsComputer;
 import waffle.windows.auth.IWindowsCredentialsHandle;
+import waffle.windows.auth.IWindowsDomain;
 import waffle.windows.auth.IWindowsSecurityContext;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 import waffle.windows.auth.impl.WindowsCredentialsHandleImpl;
@@ -29,6 +30,16 @@ public class WindowsAuthProviderTests extends TestCase {
 			System.out.println(" " + localGroup);
 		}		
 	}	
+	
+	public void testGetDomains() {
+		IWindowsAuthProvider prov = new WindowsAuthProviderImpl();
+		IWindowsDomain[] domains = prov.getDomains();
+		assertNotNull(domains);
+		for(IWindowsDomain domain : domains) {
+			System.out.println(domain.getFqn() + ": " + 
+					domain.getTrustDirectionString());
+		}
+	}
 	
 	public void testAcceptSecurityToken() {
 		String securityPackage = "Negotiate";

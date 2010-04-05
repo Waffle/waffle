@@ -16,12 +16,6 @@ public interface IWindowsDomain {
 	 * 
 	 * @return
 	 */
-	public String getCanonicalName();
-
-	/**
-	 * 
-	 * @return
-	 */
 	public String getTrustDirectionString();
 
 	/**
@@ -29,10 +23,4 @@ public interface IWindowsDomain {
 	 * @return
 	 */
 	public String getTrustTypeString();
-
-	/**
-	 * 
-	 * @return
-	 */
-	public String[] getGroups();
 }

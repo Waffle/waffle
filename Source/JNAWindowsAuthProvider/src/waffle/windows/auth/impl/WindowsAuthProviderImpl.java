@@ -2,6 +2,8 @@ package waffle.windows.auth.impl;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 
 import waffle.windows.auth.IWindowsAccount;
 import waffle.windows.auth.IWindowsAuthProvider;
@@ -15,10 +17,12 @@ import com.sun.jna.LastErrorException;
 import com.sun.jna.NativeLong;
 import com.sun.jna.platform.win32.Advapi32;
 import com.sun.jna.platform.win32.Kernel32;
+import com.sun.jna.platform.win32.Netapi32Util;
 import com.sun.jna.platform.win32.Secur32;
 import com.sun.jna.platform.win32.Sspi;
 import com.sun.jna.platform.win32.W32Errors;
 import com.sun.jna.platform.win32.WinBase;
+import com.sun.jna.platform.win32.Netapi32Util.DomainTrust;
 import com.sun.jna.platform.win32.Sspi.CtxtHandle;
 import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 import com.sun.jna.platform.win32.W32API.HANDLEByReference;
@@ -77,15 +81,13 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
 	}
 
 	@Override
-	public IWindowsDomain getDomain(String friendlyDomainName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public IWindowsDomain[] getDomains() {
-		// TODO Auto-generated method stub
-		return null;
+		List<IWindowsDomain> domains = new ArrayList<IWindowsDomain>();
+		DomainTrust[] trusts = Netapi32Util.getDomainTrusts();
+		for(DomainTrust trust : trusts) {
+			domains.add(new WindowsDomainImpl(trust));
+		}
+		return domains.toArray(new IWindowsDomain[0]);
 	}
 
 	@Override
