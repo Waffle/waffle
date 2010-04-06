@@ -80,7 +80,9 @@
     </CreateItem>
     <Exec Command="&quot;$(JAVA_HOME)\bin\javac.exe&quot; -cp @(JNAClassPath) Source\JNAWindowsAuthProvider\src\waffle\windows\auth\*.java Source\JNAWindowsAuthProvider\src\waffle\windows\auth\impl\*.java" />
     <Exec WorkingDirectory="Source\JNAWindowsAuthProvider\src" Command="&quot;$(JAVA_HOME)\bin\jar.exe&quot; cvf &quot;$(MSBuildProjectDirectory)\$(ReleaseDir)\Bin\waffle-jna-auth.jar&quot; waffle\windows\auth\*.class waffle\windows\auth\impl\*.class" />
-    <Exec WorkingDirectory="Source\JNAWindowsAuthProvider\src" Command="&quot;$(JAVA_HOME)\bin\jar.exe&quot; cvf &quot;$(MSBuildProjectDirectory)\$(ReleaseDir)\Bin\waffle-jna-auth-src.zip&quot; waffle\windows\auth\*.java waffle\windows\auth\impl\*.java" />  
+    <Exec WorkingDirectory="Source\JNAWindowsAuthProvider\src" Command="&quot;$(JAVA_HOME)\bin\jar.exe&quot; cvf &quot;$(MSBuildProjectDirectory)\$(ReleaseDir)\Bin\waffle-jna-auth-src.zip&quot; waffle\windows\auth\*.java waffle\windows\auth\impl\*.java" />
+    <Copy SourceFiles="Source\ThirdParty\jna\jna.jar" DestinationFolder="$(ReleaseDir)\Bin" />
+    <Copy SourceFiles="Source\ThirdParty\jna\platform.jar" DestinationFolder="$(ReleaseDir)\Bin" />
   </Target>
   <Target Name="javainterface">
     <Exec WorkingDirectory="Source\WindowsAuthProvider\bin\Release" Command="regasm.exe /codebase /tlb:Waffle.Windows.AuthProvider.tlb Waffle.Windows.AuthProvider.dll" />
