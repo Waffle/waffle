@@ -8,6 +8,7 @@ public interface IWindowsAccount {
 	/**
 	 * Security identifier.
 	 * @return
+	 *  String in the S- format.
 	 */
 	public String getSidString();
 
@@ -15,6 +16,20 @@ public interface IWindowsAccount {
 	/**
 	 * Fully qualified username.
 	 * @return
+	 *  String
 	 */
 	public String getFqn();
+	
+	/**
+	 * User name.
+	 * @return
+	 *  String.
+	 */
+	public String getName();
+	
+	/**
+	 * Domain name.
+	 * @return
+	 */
+	public String getDomain();
 }

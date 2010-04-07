@@ -24,5 +24,5 @@ public interface IWindowsIdentity {
 	 * 
 	 * @return
 	 */
-	public String[] getGroups();
+	public IWindowsAccount[] getGroups();
 }

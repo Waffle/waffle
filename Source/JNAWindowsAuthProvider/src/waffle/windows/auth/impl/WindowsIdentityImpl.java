@@ -2,16 +2,16 @@ package waffle.windows.auth.impl;
 
 import java.util.ArrayList;
 
+import waffle.windows.auth.IWindowsAccount;
+import waffle.windows.auth.IWindowsIdentity;
+
 import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.Advapi32Util.Account;
-import com.sun.jna.platform.win32.Advapi32Util.Group;
 import com.sun.jna.platform.win32.W32API.HANDLE;
-
-import waffle.windows.auth.IWindowsIdentity;
 
 public class WindowsIdentityImpl implements IWindowsIdentity {
 
-	private Group[] userGroups;
+	private Account[] userGroups;
 	private Account windowsAccount;
 	
 	@Override
@@ -20,12 +20,13 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
 	}
 
 	@Override
-	public String[] getGroups() {
-		ArrayList<String> result = new ArrayList<String>(userGroups.length);
-		for(Group userGroup : userGroups) {
-			result.add(userGroup.name);			
+	public IWindowsAccount[] getGroups() {
+		ArrayList<IWindowsAccount> result = new ArrayList<IWindowsAccount>(userGroups.length);
+		for(Account userGroup : userGroups) {
+			WindowsAccountImpl account = new WindowsAccountImpl(userGroup);
+			result.add(account);			
 		}
-		return result.toArray(new String[0]);
+		return result.toArray(new IWindowsAccount[0]);
 	}
 
 	@Override

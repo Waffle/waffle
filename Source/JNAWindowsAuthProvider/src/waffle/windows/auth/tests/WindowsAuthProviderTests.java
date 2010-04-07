@@ -5,6 +5,7 @@ import com.sun.jna.platform.win32.Sspi;
 import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 
 import junit.framework.TestCase;
+import waffle.windows.auth.IWindowsAccount;
 import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.IWindowsComputer;
 import waffle.windows.auth.IWindowsCredentialsHandle;
@@ -72,7 +73,11 @@ public class WindowsAuthProviderTests extends TestCase {
         } while (clientContext.getContinue() || serverContext.getContinue());
         
         assertTrue(serverContext.getIdentity().getFqn().length() > 0);
-        // System.out.println(serverContext.getIdentity().getFqn());
+
+        System.out.println(serverContext.getIdentity().getFqn());
+        for (IWindowsAccount group : serverContext.getIdentity().getGroups()) {
+        	System.out.println(" " + group.getFqn());
+        }        	
         
         serverContext.dispose();
         clientContext.dispose();
