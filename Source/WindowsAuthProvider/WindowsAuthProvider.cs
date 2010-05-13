@@ -215,9 +215,10 @@ namespace Waffle.Windows.AuthProvider
                         serverToken,
                         securityPackage,
                         true);
+                default:
+                    _continueSecHandle = Secur32.SecHandle.Zero;
+                    throw new Win32Exception(rc);
             }
-
-            throw new Win32Exception(rc);
         }
     }
 }

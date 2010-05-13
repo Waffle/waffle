@@ -68,6 +68,7 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
             	sc.setContinue(true);
             	break;
         	default:
+            	_phServerContext = null;
                 throw new LastErrorException(rc);
         }
     	
