@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry excluding="**/.svn|**/.svn/*" kind="src" path="src"/>
+	<classpathentry excluding="**/.svn|**/.svn/*" kind="src" path="src-test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
 	<classpathentry kind="lib" path="/ThirdParty/jna/jna.jar"/>
 	<classpathentry kind="lib" path="/ThirdParty/jna/platform.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/tomcat/lib/catalina.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/tomcat/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/tomcat/lib/tomcat-coyote.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/tomcat/bin/tomcat-juli.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

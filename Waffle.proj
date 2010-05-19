@@ -34,7 +34,7 @@
   <Target Name="clean" DependsOnTargets="configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
     <Message Importance="high" Text="Cleaning project, %(Configuration.Identity) ..." />
     <DeleteTree Directories="target" Recursive="true" />
-    <DeleteTree Directories="Source\**\bin;Source\**\obj;Source\Jar" Recursive="true" />
+    <DeleteTree Directories="Source\**\obj;Source\Jar" Recursive="true" />
     <MSBuild Projects="Waffle.sln" Targets="Clean" Properties="Configuration=%(Configuration.Identity)" />
     <Delete Files="Source\Version\GlobalAssemblyInfo.cs" />
     <Delete Files="Waffle.$(Major).$(Minor).zip" />
@@ -78,9 +78,16 @@
     <CreateItem Include="Source\ThirdParty\jna\**\*.jar">
       <Output TaskParameter="Include" ItemName="JNAClassPath" />
     </CreateItem>
+    <CreateItem Include="Source\ThirdParty\tomcat\**\*.jar">
+      <Output TaskParameter="Include" ItemName="TomcatClassPath" />
+    </CreateItem>
     <Exec Command="&quot;$(JAVA_HOME)\bin\javac.exe&quot; -cp @(JNAClassPath) Source\JNAWindowsAuthProvider\src\waffle\windows\auth\*.java Source\JNAWindowsAuthProvider\src\waffle\windows\auth\impl\*.java" />
+    <!-- waffle -->
     <Exec WorkingDirectory="Source\JNAWindowsAuthProvider\src" Command="&quot;$(JAVA_HOME)\bin\jar.exe&quot; cvf &quot;$(MSBuildProjectDirectory)\$(ReleaseDir)\Bin\waffle-jna-auth.jar&quot; waffle\windows\auth\*.class waffle\windows\auth\impl\*.class" />
     <Exec WorkingDirectory="Source\JNAWindowsAuthProvider\src" Command="&quot;$(JAVA_HOME)\bin\jar.exe&quot; cvf &quot;$(MSBuildProjectDirectory)\$(ReleaseDir)\Bin\waffle-jna-auth-src.zip&quot; waffle\windows\auth\*.java waffle\windows\auth\impl\*.java" />
+    <!-- tomcat authenticator -->
+    <Exec Command="&quot;$(JAVA_HOME)\bin\javac.exe&quot; -cp @(JNAClassPath);@(TomcatClassPath);&quot;$(MSBuildProjectDirectory)\$(ReleaseDir)\Bin\waffle-jna-auth.jar&quot; Source\JNAWindowsAuthProvider\src\waffle\tomcat\*.java" />
+    <Exec WorkingDirectory="Source\JNAWindowsAuthProvider\src" Command="&quot;$(JAVA_HOME)\bin\jar.exe&quot; cvf &quot;$(MSBuildProjectDirectory)\$(ReleaseDir)\Bin\waffle-tomcat-auth.jar&quot; waffle\tomcat\*.class" />
     <Copy SourceFiles="Source\ThirdParty\jna\jna.jar" DestinationFolder="$(ReleaseDir)\Bin" />
     <Copy SourceFiles="Source\ThirdParty\jna\platform.jar" DestinationFolder="$(ReleaseDir)\Bin" />
   </Target>
