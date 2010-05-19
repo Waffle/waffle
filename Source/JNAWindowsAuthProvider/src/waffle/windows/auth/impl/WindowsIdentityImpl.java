@@ -7,7 +7,7 @@ import waffle.windows.auth.IWindowsIdentity;
 
 import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.Advapi32Util.Account;
-import com.sun.jna.platform.win32.W32API.HANDLE;
+import com.sun.jna.platform.win32.WinNT.HANDLE;
 
 public class WindowsIdentityImpl implements IWindowsIdentity {
 

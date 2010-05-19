@@ -1,8 +1,8 @@
 package waffle.windows.auth.impl;
 
-import com.sun.jna.platform.win32.Netapi32Util.DomainTrust;
-
 import waffle.windows.auth.IWindowsDomain;
+
+import com.sun.jna.platform.win32.Netapi32Util.DomainTrust;
 
 public class WindowsDomainImpl implements IWindowsDomain {
 

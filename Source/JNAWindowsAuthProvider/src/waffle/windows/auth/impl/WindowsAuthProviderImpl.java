@@ -4,6 +4,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 import waffle.windows.auth.IWindowsAccount;
 import waffle.windows.auth.IWindowsAuthProvider;
@@ -25,15 +26,16 @@ import com.sun.jna.platform.win32.WinBase;
 import com.sun.jna.platform.win32.Netapi32Util.DomainTrust;
 import com.sun.jna.platform.win32.Sspi.CtxtHandle;
 import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
-import com.sun.jna.platform.win32.W32API.HANDLEByReference;
+import com.sun.jna.platform.win32.WinNT.HANDLEByReference;
 import com.sun.jna.ptr.NativeLongByReference;
 
 public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
 	
-	private static ThreadLocal<CtxtHandle> _phServerContext = null;
-
+	private static ConcurrentHashMap<String, CtxtHandle> _continueContexts = 
+		new ConcurrentHashMap<String, CtxtHandle>();
+	
 	@Override
-	public IWindowsSecurityContext acceptSecurityToken(byte[] token, String securityPackage) {
+	public IWindowsSecurityContext acceptSecurityToken(String connectionId, byte[] token, String securityPackage) {
 
         IWindowsCredentialsHandle serverCredential = new WindowsCredentialsHandleImpl(
                 null, Sspi.SECPKG_CRED_INBOUND, securityPackage);
@@ -43,10 +45,11 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
         SecBufferDesc pbClientToken = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, token);
     	NativeLongByReference pfClientContextAttr = new NativeLongByReference();
     	
+    	CtxtHandle continueContext = _continueContexts.get(connectionId);
+    	
     	CtxtHandle phNewServerContext = new CtxtHandle();
     	int rc = Secur32.INSTANCE.AcceptSecurityContext(serverCredential.getHandle(), 
-    			_phServerContext == null ? null : _phServerContext.get(),
-    			pbClientToken, new NativeLong(Sspi.ISC_REQ_CONNECTION), 
+    			continueContext, pbClientToken, new NativeLong(Sspi.ISC_REQ_CONNECTION), 
     			new NativeLong(Sspi.SECURITY_NATIVE_DREP), phNewServerContext, 
     			pbServerToken, pfClientContextAttr, null);
 
@@ -58,17 +61,16 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
     	switch (rc)
         {
             case W32Errors.SEC_E_OK:
-            	_phServerContext = null;
+            	_continueContexts.remove(connectionId);
             	sc.setContinue(false);
             	break;
             case W32Errors.SEC_I_CONTINUE_NEEDED:
-            	_phServerContext = new ThreadLocal<CtxtHandle>();
-            	_phServerContext.set(phNewServerContext);
+            	_continueContexts.put(connectionId, phNewServerContext);
             	sc.setToken(pbServerToken.getBytes());
             	sc.setContinue(true);
             	break;
         	default:
-            	_phServerContext = null;
+            	_continueContexts.remove(connectionId);
                 throw new LastErrorException(rc);
         }
     	
@@ -77,8 +79,12 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
 	}
 
 	@Override
-	public IWindowsComputer getCurrentComputer() throws UnknownHostException {
-		return new WindowsComputerImpl(InetAddress.getLocalHost().getHostName());
+	public IWindowsComputer getCurrentComputer() {
+		try {
+			return new WindowsComputerImpl(InetAddress.getLocalHost().getHostName());
+		} catch (UnknownHostException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
@@ -108,7 +114,7 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
 			}
 			return new WindowsIdentityImpl(phUser.getValue());
 		} finally {
-			if (phUser.getValue() != Kernel32.INVALID_HANDLE_VALUE) {
+			if (phUser.getValue() != WinBase.INVALID_HANDLE_VALUE) {
 				Kernel32.INSTANCE.CloseHandle(phUser.getValue());
 			}
 		}
@@ -130,5 +136,10 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
 	@Override
 	public IWindowsAccount lookupAccount(String username) {
 		return new WindowsAccountImpl(username);
-	}	
+	}
+
+	@Override
+	public void resetSecurityToken(String connectionId) {
+    	_continueContexts.remove(connectionId);
+	}
 }

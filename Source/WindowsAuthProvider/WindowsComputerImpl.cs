@@ -20,7 +20,7 @@ namespace Waffle.Windows.AuthProvider
         /// Default constructor for the current computer.
         /// </summary>
         public WindowsComputerImpl()
-            : this(string.Empty)
+            : this(Environment.MachineName)
         {
 
         }
@@ -31,15 +31,7 @@ namespace Waffle.Windows.AuthProvider
         /// <param name="computerName">Computer name.</param>
         public WindowsComputerImpl(string computerName)
         {
-            if (string.IsNullOrEmpty(computerName))
-            {
-                _computerName = Environment.MachineName;
-            }
-            else
-            {
-                _computerName = computerName;
-            }
-
+            _computerName = computerName;
 
             IntPtr pDomain = IntPtr.Zero;
             try

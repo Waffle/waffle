@@ -13,6 +13,7 @@ namespace Waffle.Windows.AuthProvider.UnitTests
         [Test]
         public void LookupAccountNameUnitTest()
         {
+            Console.WriteLine(WindowsIdentity.GetCurrent().Name);
             WindowsAccountImpl windowsAccount = new WindowsAccountImpl(WindowsIdentity.GetCurrent().Name);
             Console.WriteLine(windowsAccount.Fqn);
             Console.WriteLine(windowsAccount.SidString);

@@ -18,8 +18,7 @@ namespace Waffle.Windows.AuthProvider
     [ClassInterface(ClassInterfaceType.None), ProgId("Waffle.Windows.AuthProvider")]
     public class WindowsAuthProviderImpl : IWindowsAuthProvider
     {
-        [ThreadStatic]
-        private Secur32.SecHandle _continueSecHandle = Secur32.SecHandle.Zero;
+        private Dictionary<string, Secur32.SecHandle> _continueSecHandles = new Dictionary<string, Secur32.SecHandle>();
 
         /// <summary>
         /// Implementation of <see cref="T:Waffle.Windows.AuthProvider.IWindowsAuthProvider.LogonUser" />.
@@ -149,10 +148,11 @@ namespace Waffle.Windows.AuthProvider
         /// <remarks>
         /// This function supports AcceptSecurityToken continuation on the same thread.
         /// </remarks>
+        /// <param name="connectionId">Connection id.</param>
         /// <param name="token">Security token.</param>
         /// <param name="securityPackage">Security package, eg. "Negotiate".</param>
         /// <returns></returns>
-        public IWindowsSecurityContext AcceptSecurityToken(byte[] token, string securityPackage)
+        public IWindowsSecurityContext AcceptSecurityToken(string connectionId, byte[] token, string securityPackage)
         {
             Secur32.SecHandle newContext = Secur32.SecHandle.Zero;
             Secur32.SecBufferDesc serverToken = Secur32.SecBufferDesc.Zero;
@@ -167,8 +167,14 @@ namespace Waffle.Windows.AuthProvider
             clientToken = new Secur32.SecBufferDesc(token);
             uint serverContextAttributes = 0;
 
+            Secur32.SecHandle continueSecHandle = Secur32.SecHandle.Zero;
+            lock (_continueSecHandles)
+            {
+                _continueSecHandles.TryGetValue(connectionId, out continueSecHandle);
+            }
+
             int rc = 0;
-            if (_continueSecHandle == Secur32.SecHandle.Zero)
+            if (continueSecHandle == Secur32.SecHandle.Zero)
             {
                 rc = Secur32.AcceptSecurityContext(
                     ref credentialsHandle.Handle,
@@ -185,7 +191,7 @@ namespace Waffle.Windows.AuthProvider
             {
                 rc = Secur32.AcceptSecurityContext(
                     ref credentialsHandle.Handle,
-                    ref _continueSecHandle,
+                    ref continueSecHandle,
                     ref clientToken,
                     Secur32.ISC_REQ_CONNECTION,
                     Secur32.SECURITY_NATIVE_DREP,
@@ -198,7 +204,12 @@ namespace Waffle.Windows.AuthProvider
             switch (rc)
             {
                 case Secur32.SEC_E_OK:
-                    _continueSecHandle = Secur32.SecHandle.Zero;
+
+                    lock (_continueSecHandles)
+                    {
+                        _continueSecHandles.Remove(connectionId);
+                    }
+
                     return new WindowsSecurityContext(
                         newContext,
                         serverContextAttributes,
@@ -207,7 +218,12 @@ namespace Waffle.Windows.AuthProvider
                         securityPackage,
                         false);
                 case Secur32.SEC_I_CONTINUE_NEEDED:
-                    _continueSecHandle = newContext;
+
+                    lock (_continueSecHandles)
+                    {
+                        _continueSecHandles[connectionId] = newContext;
+                    }
+
                     return new WindowsSecurityContext(
                         newContext,
                         serverContextAttributes,
@@ -216,9 +232,27 @@ namespace Waffle.Windows.AuthProvider
                         securityPackage,
                         true);
                 default:
-                    _continueSecHandle = Secur32.SecHandle.Zero;
+
+                    lock (_continueSecHandles)
+                    {
+                        _continueSecHandles.Remove(connectionId);
+                    }
+
                     throw new Win32Exception(rc);
             }
         }
+
+        /// <summary>
+        /// Reset previously saved connection-based security token.
+        /// </summary>
+        /// <param name="connectionId">Connection id.</param>
+        public void ResetSecurityToken(string connectionId)
+        {
+            lock (_continueSecHandles)
+            {
+                _continueSecHandles.Remove(connectionId);
+            }
+        }
+
     }
 }

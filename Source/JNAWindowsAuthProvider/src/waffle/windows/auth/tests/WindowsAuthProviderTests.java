@@ -1,9 +1,5 @@
 package waffle.windows.auth.tests;
 
-import com.sun.jna.platform.win32.Advapi32Util;
-import com.sun.jna.platform.win32.Sspi;
-import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
-
 import junit.framework.TestCase;
 import waffle.windows.auth.IWindowsAccount;
 import waffle.windows.auth.IWindowsAuthProvider;
@@ -14,6 +10,12 @@ import waffle.windows.auth.IWindowsSecurityContext;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 import waffle.windows.auth.impl.WindowsCredentialsHandleImpl;
 import waffle.windows.auth.impl.WindowsSecurityContextImpl;
+
+import com.sun.jna.platform.win32.Advapi32Util;
+import com.sun.jna.platform.win32.LMJoin;
+import com.sun.jna.platform.win32.Netapi32Util;
+import com.sun.jna.platform.win32.Sspi;
+import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 
 public class WindowsAuthProviderTests extends TestCase {
 
@@ -33,6 +35,9 @@ public class WindowsAuthProviderTests extends TestCase {
 	}	
 	
 	public void testGetDomains() {
+		if (Netapi32Util.getJoinStatus() != LMJoin.NETSETUP_JOIN_STATUS.NetSetupDomainName)
+			return;
+		
 		IWindowsAuthProvider prov = new WindowsAuthProviderImpl();
 		IWindowsDomain[] domains = prov.getDomains();
 		assertNotNull(domains);
@@ -57,6 +62,7 @@ public class WindowsAuthProviderTests extends TestCase {
 		// accept on the server
         WindowsAuthProviderImpl provider = new WindowsAuthProviderImpl();
         IWindowsSecurityContext serverContext = null;
+        String connectionId = "testConnection";
         do
         {        	
         	if (serverContext != null) {
@@ -67,7 +73,7 @@ public class WindowsAuthProviderTests extends TestCase {
         	}
         	
         	// accept the token on the server
-            serverContext = provider.acceptSecurityToken(clientContext.getToken(), 
+            serverContext = provider.acceptSecurityToken(connectionId, clientContext.getToken(), 
             		securityPackage);
             
         } while (clientContext.getContinue() || serverContext.getContinue());

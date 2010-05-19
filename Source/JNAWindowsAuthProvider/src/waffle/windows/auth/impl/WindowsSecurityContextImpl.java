@@ -15,7 +15,7 @@ import com.sun.jna.platform.win32.Sspi.CredHandle;
 import com.sun.jna.platform.win32.Sspi.CtxtHandle;
 import com.sun.jna.platform.win32.Sspi.PSecHandle;
 import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
-import com.sun.jna.platform.win32.W32API.HANDLEByReference;
+import com.sun.jna.platform.win32.WinNT.HANDLEByReference;
 import com.sun.jna.ptr.NativeLongByReference;
 
 public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
