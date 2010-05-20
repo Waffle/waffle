@@ -22,6 +22,10 @@ import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.IWindowsSecurityContext;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
+/**
+ * A Tomcat Negotiate (NTLM, Kerberos) authenticator.
+ * @author dblock[at]dblock[dot]org
+ */
 public class NegotiateAuthenticator extends AuthenticatorBase {
 
     private static Log _log = LogFactory.getLog(NegotiateAuthenticator.class);

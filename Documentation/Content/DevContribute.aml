@@ -21,7 +21,8 @@
               https://waffle.svn.codeplex.com/svn/trunk
             </linkText>
           </externalLink>.
-          Double-click the Visual Studio solution file, Auth.sln and Visual Studio will open.
+          For the C# implementation, double-click the Visual Studio solution file, <localUri>Waffle.sln</localUri> 
+          and Visual Studio will open. For Java, use Eclipse and import the projects under <localUri>Source</localUri>.
         </para>
       </content>
     </section>
@@ -32,9 +33,9 @@
           You can build all C# code in Visual Studio. To build the entire project, including this documentation use MSBuild
           from command line and type <literal>build all</literal>. This builds both Debug and Release.
           <code language="cmd">
-            <![CDATA[c:\source\Auth\trunk> build all]]>
+            <![CDATA[c:\source\Waffle\trunk> build all]]>
           </code>
-          Output is placed in the <literal>Waffle.Auth\Debug|Release</literal> directories.
+          Output is placed in the <literal>target\Debug|Release</literal> directories.
         </para>
       </content>
     </section>
@@ -86,7 +87,8 @@
         <para>
           A development environment for Auth developers requires the following software.
           <list class="bullet">
-            <listItem>Microsoft Visual Studio 2008</listItem>
+            <listItem>Microsoft Visual Studio 2008 for C#</listItem>
+            <listItem>Eclipse for Java</listItem>
             <listItem>Command-line Subversion Client (not TortoiseSVN Shell Extension)</listItem>
             <listItem>
               <externalLink>

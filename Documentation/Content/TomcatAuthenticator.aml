@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="610B3ED3-3F1B-4759-8F97-80C3C88C89EB" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para>
+        The Waffle Tomcat authenticator implements the Negotiate protocol with Kerberos and NTLM single sign-on support.
+        This allows users to browse to a Windows intranet site without having to re-enter credentials.
+      </para>
+    </introduction>
+    <section address="configuration">
+      <title>Configuring Tomcat</title>
+      <content>
+        <para>
+          The following steps are required to configure Tomcat with Waffle authenticator.
+          <list class="ordered">
+            <listItem>
+              Copy <localUri>waffle-jna-auth.jar</localUri>, <localUri>waffle-tomcat-auth.jar</localUri>,
+              <localUri>jna.jar</localUri> and <localUri>platform.jar</localUri> to Tomcat's <localUri>lib</localUri>
+              directory.
+            </listItem>
+            <listItem>
+              Add a valve to the application context in <localUri>server.xml</localUri>. The following example works for
+              a default Tomcat installation.
+              <code lang="xml">
+                <![CDATA[
+<Context path="" docbase=".">
+	<Valve className="waffle.tomcat.NegotiateAuthenticator" />
+</Context>]]>
+              </code>
+            </listItem>
+            <listItem>
+              Configure security roles in <localUri>web.xml</localUri>. The Waffle authenticator adds all
+              user's security groups (including nested and domain groups) as roles during authentication.
+              <code lang="xml">
+                <![CDATA[
+<security-role>
+  <description>All Users</description>
+  <role-name>BUILTIN\Users</role-name>
+</security-role>]]>
+              </code>
+            </listItem>
+            <listItem>
+              Restrict access to website resources. For example, to restrict the entire website to locally authenticated
+              users add the following in <localUri>web.xml</localUri>.
+              <code lang="xml">
+                <![CDATA[
+<security-constraint>
+  <web-resource-collection>
+    <web-resource-name>
+      Entire Application
+    </web-resource-name>
+    <url-pattern>/*</url-pattern>
+    <http-method>GET</http-method>
+    <http-method>POST</http-method>
+  </web-resource-collection>
+  <auth-constraint>
+    <role-name>BUILTIN\Users</role-name>
+  </auth-constraint>
+</security-constraint>]]>
+              </code>
+            </listItem>
+          </list>
+        </para>
+      </content>
+    </section>
+    <section address="browserie">
+      <title>Internet Explorer</title>
+      <content>
+        <para>
+          Ensure that Integrated Windows Authentication is enabled.
+          <list class="ordered">
+            <listItem>Choose the <ui>Tools, Internet Options</ui> menu.</listItem>
+            <listItem>Click the <ui>Advanced</ui> tab.</listItem>
+            <listItem>Scroll down to <ui>Security</ui></listItem>
+            <listItem>Check <ui>Enable Integrated Windows Authentication</ui>.</listItem>
+            <listItem>Restart the browser.</listItem>
+          </list>
+        </para>
+        <para>
+          The target website must be in the <newTerm>Intranet Zone</newTerm>.
+          <list class="ordered">
+            <listItem>Navigate to the website.</listItem>
+            <listItem>Choose the <ui>Tools, Internet Options</ui> menu.</listItem>
+            <listItem>Click the <ui>Local Intranet</ui> icon.</listItem>
+            <listItem>Click the <ui>Sites</ui> button.</listItem>
+            <listItem>Check <ui>Autmatically detect intranet network</ui>.</listItem>
+            <listItem>If the above didn't solve the problem, click <ui>Advanced</ui>.</listItem>
+            <listItem>Add the website to the list.</listItem>
+          </list>
+        </para>
+      </content>
+    </section>
+    <section address="browserfirefox">
+      <title>Firefox</title>
+      <content>
+        <para>
+          <list class="ordered">
+            <listItem>Type <literal>about:config</literal> in the address bar and hit enter.</listItem>
+            <listItem>Type <literal>network.negotiate-auth.trusted-uris</literal> in the Filter box.</listItem>
+            <listItem>Put your server name as the value. If you have more than one server, you can enter them all as a comma separated list.</listItem>
+            <listItem>Close the tab.</listItem>
+          </list>
+        </para>
+      </content>
+    </section>
+    <section address="troubleshoting">
+      <title>Troubleshooting</title>
+      <content>
+        <para>
+          <list class="bullet">
+            <listItem>
+              Enable waffle logging. Add the following to <localUri>conf\logging.properties</localUri> in your
+              Tomcat installation.
+              <code lang="properties">
+                <![CDATA[
+waffle.tomcat.NegotiateAuthenticator.level = FINE
+                ]]>
+              </code>
+            </listItem>
+            <listItem>
+              Restart Tomcat and review <localUri>logs\Catalina*.log</localUri>.
+            </listItem>
+          </list>
+        </para>
+      </content>
+    </section>
+  </developerConceptualDocument>
+</topic>

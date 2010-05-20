@@ -4,14 +4,29 @@
     <summary>
       <para>
         <newTerm>WAFFLE</newTerm> stands for Windows Authentication Functional Framework (Light Edition). WAFFLE
-        is a .NET library with a COM interface and a Java bridge that aims to provide a working library for 
-        performing server-side Windows authentication, including Negotiate, NTLM and others.
+        includes the following.
+        <list class="bullet">
+          <listItem>
+            A .NET and a native Java (JNA) library that expose a C#, COM and a native Java interface respectively to
+            perform typical Windows  authentication tasks, such as logging in a user with a username and password or
+            accepting NTLM and Kerberos security tokens.
+          </listItem>
+          <listItem>
+            An Apache Tomcat authenticator that uses the native Java library that implements the Negotiate protocol
+            with NTLM and Kerberos support.
+          </listItem>
+        </list>
+      </para>
+      <para>
+        Please choose one of the following topics.
+      </para>
+      <para>
         <list class="bullet">
           <listItem>
             <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="1489d227-4898-4952-9941-aaad7a4a67f2" />
           </listItem>
           <listItem>
-            <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="bbb83190-b983-4e43-96ef-c3a9d1050ab3" />
+            <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="610B3ED3-3F1B-4759-8F97-80C3C88C89EB" />
           </listItem>
           <listItem>
             <codeEntityReference qualifyHint="true">N:Waffle.Windows.AuthProvider</codeEntityReference>

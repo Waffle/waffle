@@ -19,8 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Content", "Content", "{5815
 	ProjectSection(SolutionItems) = preProject
 		Documentation\Content\DevContribute.aml = Documentation\Content\DevContribute.aml
 		Documentation\Content\GettingStarted.aml = Documentation\Content\GettingStarted.aml
-		Documentation\Content\JavaIntegration.aml = Documentation\Content\JavaIntegration.aml
 		Documentation\Content\Main.aml = Documentation\Content\Main.aml
+		Documentation\Content\TomcatAuthenticator.aml = Documentation\Content\TomcatAuthenticator.aml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsAuthProvider", "Source\WindowsAuthProvider\WindowsAuthProvider.csproj", "{CD4002DB-54D8-4186-8E78-AEA1AE226D7B}"
