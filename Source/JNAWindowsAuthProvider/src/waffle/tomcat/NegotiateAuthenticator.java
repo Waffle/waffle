@@ -1,9 +1,13 @@
+/*
+ * Copyright (c) Application Security Inc., 2010
+ * All Rights Reserved
+ * Eclipse Public License (EPLv1)
+ * http://waffle.codeplex.com/license
+ */
 package waffle.tomcat;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,11 +16,9 @@ import org.apache.catalina.authenticator.AuthenticatorBase;
 import org.apache.catalina.connector.Request;
 import org.apache.catalina.connector.Response;
 import org.apache.catalina.deploy.LoginConfig;
-import org.apache.catalina.realm.GenericPrincipal;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 
-import waffle.windows.auth.IWindowsAccount;
 import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.IWindowsSecurityContext;
@@ -66,9 +68,9 @@ public class NegotiateAuthenticator extends AuthenticatorBase {
 				((authorization == null) ? "<none>" : authorization));
 		
 		// When using NTLM authentication and the browser is making a POST request, it 
-		// pre-emptively sends a Type 2 authentication message (without the POSTed 
+		// preemptively sends a Type 2 authentication message (without the POSTed 
 		// data). The server responds with a 401, and the browser sends a Type 3 
-		// request *with* the POSTed data.This is to avoid the situation where a user's 
+		// request with the POSTed data. This is to avoid the situation where user's 
 		// credentials might be potentially invalid, and all this data is being POSTed 
 		// across the wire.
 
@@ -133,13 +135,24 @@ public class NegotiateAuthenticator extends AuthenticatorBase {
 				response.sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE);
 				return false;
 			}
-			
+
+			// create and register the user principal with the session
 			IWindowsIdentity windowsIdentity = securityContext.getIdentity();
+			
 			_log.debug("logged in user: " + windowsIdentity.getFqn() + 
 					" (" + windowsIdentity.getSidString() + ")");
-			principal = getGenericPrincipal(windowsIdentity);			
+			
+			WindowsPrincipal windowsPrincipal = new WindowsPrincipal(windowsIdentity, context.getRealm());
+			if (_log.isDebugEnabled()) {
+				for(String group : windowsPrincipal.getGroups().keySet()) {
+					_log.debug(" group: " + group);
+				}
+			}
+			
+			principal = windowsPrincipal;
 			register(request, response, principal, securityPackage, principal.getName(), null);
 			_log.info("successfully logged in user: " + principal.getName());
+			
 			return true;
 		}
 		
@@ -148,6 +161,12 @@ public class NegotiateAuthenticator extends AuthenticatorBase {
 		return false;
 	}
 	
+	/**
+	 * Send a 401 Unauthorized along with protocol authentication headers.
+	 * @param response
+	 *  HTTP Response
+	 * @throws IOException
+	 */
 	private void responseUnauthorized(Response response) throws IOException {
 		response.addHeader("WWW-Authenticate", "Negotiate");
 		response.addHeader("WWW-Authenticate", "NTLM");
@@ -157,28 +176,12 @@ public class NegotiateAuthenticator extends AuthenticatorBase {
 	}
 	
 	/**
-	 * Retrieve a generic principal where the principal name is the user fully qualified name
-	 * and the password is the SID.
-	 * @param securityContext
-	 *  Security context.
+	 * Returns a supported security package string.
+	 * @param authorization
+	 *  Authorization header.
 	 * @return
-	 *  A generic principal.
+	 *  Negotiate or NTLM.
 	 */
-	private Principal getGenericPrincipal(IWindowsIdentity windowsIdentity) {
-		
-		IWindowsAccount[] groups = windowsIdentity.getGroups();
-		List<String> groupNames = new ArrayList<String>(groups.length);
-		for(IWindowsAccount group : groups) {
-			_log.debug(" group: " + group.getFqn());
-			groupNames.add(group.getFqn());
-		}		
-		
-		return new GenericPrincipal(context.getRealm(),
-				windowsIdentity.getFqn(), 
-				windowsIdentity.getSidString(), 
-				groupNames);	
-	}
-	
 	private static String getSecurityPackage(String authorization) {
 		if (authorization.startsWith("Negotiate ")) {
 			return "Negotiate";

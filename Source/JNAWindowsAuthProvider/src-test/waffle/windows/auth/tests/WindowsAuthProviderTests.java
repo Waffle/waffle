@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) Application Security Inc., 2010
+ * All Rights Reserved
+ * Eclipse Public License (EPLv1)
+ * http://waffle.codeplex.com/license
+ */
 package waffle.windows.auth.tests;
 
 import junit.framework.TestCase;
@@ -17,6 +23,9 @@ import com.sun.jna.platform.win32.Netapi32Util;
 import com.sun.jna.platform.win32.Sspi;
 import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 
+/**
+ * @author dblock[at]dblock[dot]org
+ */
 public class WindowsAuthProviderTests extends TestCase {
 
 	public void testGetCurrentComputer() throws Exception {

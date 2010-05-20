@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) Application Security Inc., 2010
+ * All Rights Reserved
+ * Eclipse Public License (EPLv1)
+ * http://waffle.codeplex.com/license
+ */
 package waffle.windows.auth.impl;
 
 import waffle.windows.auth.IWindowsCredentialsHandle;
@@ -14,6 +20,7 @@ import com.sun.jna.platform.win32.Sspi.TimeStamp;
  * Pre-existing credentials of a security principal. This is a handle to a previously 
  * authenticated logon data used by a security principal to establish  its own identity, 
  * such as a password, or a Kerberos protocol ticket.
+ * @author dblock[at]dblock[dot]org
  */
 public class WindowsCredentialsHandleImpl implements IWindowsCredentialsHandle {
 	

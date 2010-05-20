@@ -1,9 +1,18 @@
+/*
+ * Copyright (c) Application Security Inc., 2010
+ * All Rights Reserved
+ * Eclipse Public License (EPLv1)
+ * http://waffle.codeplex.com/license
+ */
 package waffle.windows.auth.tests;
 
 import junit.framework.TestCase;
 import waffle.windows.auth.IWindowsAccount;
 import waffle.windows.auth.impl.WindowsAccountImpl;
 
+/**
+ * @author dblock[at]dblock[dot]org
+ */
 public class WindowsAccountTests extends TestCase {
 	
 	public void testGetCurrentUsername() {

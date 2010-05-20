@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) Application Security Inc., 2010
+ * All Rights Reserved
+ * Eclipse Public License (EPLv1)
+ * http://waffle.codeplex.com/license
+ */
 package waffle.windows.auth.impl;
 
 import java.util.ArrayList;
@@ -8,6 +14,10 @@ import com.sun.jna.platform.win32.LMJoin;
 import com.sun.jna.platform.win32.Netapi32Util;
 import com.sun.jna.platform.win32.Netapi32Util.LocalGroup;
 
+/**
+ * Windows Computer.
+ * @author dblock[at]dblock[dot]org
+ */
 public class WindowsComputerImpl implements IWindowsComputer {
 
 	private String computerName;

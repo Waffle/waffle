@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) Application Security Inc., 2010
+ * All Rights Reserved
+ * Eclipse Public License (EPLv1)
+ * http://waffle.codeplex.com/license
+ */
 package waffle.windows.auth.impl;
 
 import java.net.InetAddress;
@@ -29,6 +35,10 @@ import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 import com.sun.jna.platform.win32.WinNT.HANDLEByReference;
 import com.sun.jna.ptr.NativeLongByReference;
 
+/**
+ * Windows Auth Provider.
+ * @author dblock[at]dblock[dot]org
+ */
 public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
 	
 	private static ConcurrentHashMap<String, CtxtHandle> _continueContexts = 
