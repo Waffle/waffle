@@ -1,0 +1,254 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Catalina Functional Specifications - Administrative Apps - Overall Requirements</title><meta value="Craig McClanahan" name="author"><meta value="craigmcc@apache.org" name="email"><style media="print" type="text/css">
+			.noPrint {display: none;}
+			td#mainBody {width: 100%;}
+		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
+      Catalina Functional Specifications
+    " align="right" src="../images/tomcat.gif"></a></td><td><font face="arial,helvetica,sanserif"><h1>Apache Tomcat 6.0</h1></font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap="true" valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li><li><a href="index.html">Functional Specs</a></li></ul><p><strong>Administrative Apps</strong></p><ul><li><a href="fs-admin-apps.html">Overall Requirements</a></li><li><a href="mbean-names.html">Tomcat MBean Names</a></li><li><a href="fs-admin-objects.html">Administered Objects</a></li><li><a href="fs-admin-opers.html">Supported Operations</a></li></ul><p><strong>Internal Servlets</strong></p><ul><li><a href="fs-default.html">Default Servlet</a></li><li><a href="fs-invoker.html">Invoker Servlet</a></li></ul><p><strong>Realm Implementations</strong></p><ul><li><a href="fs-jdbc-realm.html">JDBC Realm</a></li><li><a href="fs-jndi-realm.html">JNDI Realm</a></li><li><a href="fs-memory-realm.html">Memory Realm</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Catalina Functional Specifications</h1><h2>Administrative Apps - Overall Requirements</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Overview"><strong>Overview</strong></a></font></td></tr><tr><td><blockquote>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The purpose of this specification is to define high level requirements
+    for administrative applications that can be used to manage the operation
+    of a running Tomcat 6 container.  A variety of <em>Access Methods</em>
+    to the supported administrative functionality shall be supported, to
+    meet varying requirements:</p>
+    <ul>
+    <li><em>As A Scriptable Web Application</em> - The existing
+        <code>Manager</code> web application provides a simple HTTP-based
+        interface for managing Tomcat through commands that are expressed
+        entirely through a request URI.  This is useful in environments
+        where you wish to script administrative commands with tools that
+        can generate HTTP transactions.</li>
+    <li><em>As An HTML-Based Web Application</em> - Use an HTML presentation
+        to provide a GUI-like user interface for humans to interact with the
+        administrative capabilities.</li>
+    <li><em>As SOAP-Based Web Services</em> - The operational commands to
+        administer Tomcat are made available as web services that utilize
+        SOAP message formats.</li>
+    <li><em>As Java Management Extensions (JMX) Commands</em> - The operational
+        commands to administer Tomcat are made available through JMX APIs,
+        for integration into management consoles that utilize them.</li>
+    <li><em>Other Remote Access APIs</em> - Other remote access APIs, such
+        as JINI, RMI, and CORBA can also be utilized to access administrative
+        capabilities.</li>
+    </ul>
+
+    <p>Underlying all of the access methods described above, it is assumed
+    that the actual operations are performed either directly on the
+    corresponding Catalina components (such as calling the
+    <code>Deployer.deploy()</code> method to deploy a new web application),
+    or through a "business logic" layer that can be shared across all of the
+    access methods.  This approach minimizes the cost of adding new
+    administrative capabilities later -- it is only necessary to add the
+    corresponding business logic function, and then write adapters to it for
+    all desired access methods.</p>
+
+    <p>The current status of this functional specification is
+    <strong>PROPOSED</strong>.  It has not yet been discussed and
+    agreed to on the TOMCAT-DEV mailing list.</p>
+
+  </blockquote></td></tr></table>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="External Specifications"><strong>External Specifications</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The implementation of this functionality depends on the following
+    external specifications:</p>
+    <ul>
+    <li><a href="http://java.sun.com/products/jdk/idl/index.html">Java
+        IDL</a> (for CORBA, included in the JDK)</li>
+    <li><a href="http://java.sun.com/products/JavaManagement/index.html">
+        Java Management Extensions</a></li>
+    <li><a href="http://java.sun.com/products/rmi/index.html">Remote
+        Method Invocation</a> (Included in the JDK)</li>
+    </ul>
+
+  </blockquote></td></tr></table>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Implementation Requirements"><strong>Implementation Requirements</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The implementation of this functionality shall conform to the
+    following requirements:</p>
+    <ul>
+    <li>To the maximum extent feasible, all administrative functions,
+        and the access methods that support them, shall run portably
+        on all platforms where Tomcat 6 itself runs.</li>
+    <li>In a default Tomcat distribution, all administrative capabilities
+        shall be disabled.  It shall be necessary for a system
+        administrator to specifically enable the desired access methods
+        (such as by adding a username/password with a specific role to
+        the Tomcat user's database.</li>
+    <li>Administrative functions shall be realized as direct calls to
+        corresponding Catalina APIs, or through a business logic layer
+        that is independent of the access method used to initiate it.</li>
+    <li>The common business logic components shall be implemented in
+        package <code>org.apache.catalina.admin</code>.</li>
+    <li>The common business logic components shall be built as part of the
+        standard Catalina build process, and made visible in the
+        Catalina class loader.</li>
+    <li>The Java components required for each access method shall be
+        implemented in subpackages of <code>org.apache.catalina.admin</code>.
+        </li>
+    <li>The build scripts should treat each access method as optional,
+        so that it will be built only if the corresponding required
+        APIs are present at build time.</li>
+    <li>It shall be possible to save the configured state of the running
+        Tomcat container such that this state can be reproduced when the
+        container is shut down and restarted.</li>
+    <li>Adminstrative commands to start up and shut down the overall
+        Tomcat container are <strong>out of scope</strong> for the
+        purposes of these applications.  It is assumed that other
+        (usually platform-specific) mechanisms will be used for container
+        startup and shutdown.</li>
+    </ul>
+
+  </blockquote></td></tr></table>
+
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Dependencies"><strong>Dependencies</strong></a></font></td></tr><tr><td><blockquote>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Environmental Dependencies"><strong>Environmental Dependencies</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The following environmental dependencies must be met in order for
+    administrative applications to operate correctly:</p>
+    <ul>
+    <li>For access methods that require creation of server sockets, the
+        appropriate ports must be configured and available.</li>
+    </ul>
+
+  </blockquote></td></tr></table>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Container Dependencies"><strong>Container Dependencies</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>Correct operation of administrative applications depends on the
+       following specific features of the surrounding container:</p>
+    <ul>
+    <li>To the maximum extent feasible, Catalina components that offer
+        direct administrative APIs and property setters shall support
+        "live" changes to their operation, without requiring a container
+        restart.</li>
+    </ul>
+
+  </blockquote></td></tr></table>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="External Technologies"><strong>External Technologies</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The availability of the following technologies can be assumed
+    for the implementation and operation of the various access methods
+    and the corresponding administrative business logic:</p>
+    <ul>
+    <li><a href="http://java.sun.com/j2se/">Java 2 Standard Edition</a>
+        (Version 1.2 or later)</li>
+    <li><a href="http://www.jcp.org/jsr/detail/154.jsp">Servlet 2.4</a>
+        (supported natively by Tomcat 6)</li>
+    <li><a href="http://www.jcp.org/jsr/detail/152.jsp">JavaServer Pages 2.0</a>
+        (supported natively by Tomcat 6)</li>
+    <li><a href="http://jakarta.apache.org/taglibs/doc/standard-doc/intro.html">JavaServer Pages Standard Tag Library 1.0 (Jakarta Taglibs-Standard 1.0.3)</a></li>
+    <li><a href="http://jakarta.apache.org/struts/">Struts Framework</a>
+        (Version 1.0) - MVC Framework for Web Applications</li>
+    <li><strong>TO BE DETERMINED</strong> - Application for hosting SOAP
+        based web services</li>
+    </ul>
+
+  </blockquote></td></tr></table>
+
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Functionality"><strong>Functionality</strong></a></font></td></tr><tr><td><blockquote>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Properties of Administered Objects"><strong>Properties of Administered Objects</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>Functional requirements for administrative applications are specified
+  in terms of <em>Administered Objects</em>, whose definitions and detailed
+  properties are listed <a href="fs-admin-objects.html">here</a>.  In general,
+  Administered Objects correspond to components in the Catalina architecture,
+  but these objects are defined separately here for the following reasons:</p>
+  <ul>
+  <li>It is possible that the administrative applications do not expose
+      every possible configurable facet of the underlying components.</li>
+  <li>In some cases, an Administered Object (from the perspective of an
+      administrative operation) is realized by more than one Catalina
+      component, at a finer-grained level of detail.</li>
+  <li>It is necessary to represent the configuration information for a
+      component separately from the component itself (for instance, in
+      order to store that configuration information for later use).</li>
+  <li>It is necessary to represent configuration information (such as
+      a Default Context) when there is no corresponding component instance.
+      </li>
+  <li>Administered Objects, when realized as Java classes, will include
+      methods for administrative operations that have no correspondence
+      to operations performed by the corresponding actual components.</li>
+  </ul>
+
+  <p>It is assumed that the reader is familiar with the overall component
+  architecture of Catalina.  For further information, see the corresponding
+  Developer Documentation.  To distinguish names that are used as both
+  <em>Administered Objects</em> and <code>Components</code>, different
+  font presentations are utilized.  Default values for many properties
+  are listed in [square brackets].</p>
+
+  </blockquote></td></tr></table>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Supported Administrative Operations"><strong>Supported Administrative Operations</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>The administrative operations that are available are described in terms
+  of the corresponding Administered Objects (as defined above), in a manner
+  that is independent of the access method by which these operations are
+  requested.  In general, such operations are relevant only in the context
+  of a particular Administered Object (and will most likely be realized as
+  method calls on the corresponding Administered Object classes), so they
+  are organized based on the currently "focused" administered object.
+  The available Supported Operations are documented
+  <a href="fs-admin-opers.html">here</a>.</p>
+
+  </blockquote></td></tr></table>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Access Method Specific Requirements"><strong>Access Method Specific Requirements</strong></a></font></td></tr><tr><td><blockquote>
+
+  <h5>Scriptable Web Application</h5>
+
+  <p>An appropriate subset of the administrative operations described above
+  shall be implemented as commands that can be performed by the "Manager"
+  web application.  <strong>FIXME</strong> - Enumerate them.</p>
+
+  <p>In addition, this web application shall conform to the following
+  requirements:</p>
+  <ul>
+  <li>All request URIs shall be protected by a security constraint that
+      requires security role <code>manager</code> for processing.</li>
+  <li>The default user database shall <strong>not</strong> contain any
+      user that has been assigned the role <code>manager</code>.</li>
+  </ul>
+
+  <h5>HTML-Based Web Application</h5>
+
+  <p>The entire suite of administrative operations described above shall be
+  made available through a web application designed for human interaction.
+  In addition, this web application shall conform to the following
+  requirements:</p>
+  <ul>
+  <li>Must be implemented using servlet, JSP, and MVC framework technologies
+      described under "External Technologies", above.</li>
+  <li>Prompts and error messages must be internationalizable to multiple
+      languages.</li>
+  <li>Rendered HTML must be compatible with Netscape Navigator (verson 4.7
+      or later) and Internet Explorer (version 5.0 or later).</li>
+  </ul>
+
+  </blockquote></td></tr></table>
+
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Testable Assertions"><strong>Testable Assertions</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p><strong>FIXME</strong> - Complete this section.</p>
+
+</blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
+        Copyright &copy; 1999-2008, Apache Software Foundation
+        </em></font></div></td></tr></table></body></html>

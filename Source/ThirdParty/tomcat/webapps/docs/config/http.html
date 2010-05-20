@@ -1,0 +1,584 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat Configuration Reference - The HTTP Connector</title><meta value="Craig R. McClanahan" name="author"><meta value="craigmcc@apache.org" name="email"><meta value="Yoav Shapira" name="author"><meta value="yoavs@apache.org" name="email"><style media="print" type="text/css">
+			.noPrint {display: none;}
+			td#mainBody {width: 100%;}
+		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
+    The Apache Tomcat Servlet/JSP Container
+  " align="right" src="../images/tomcat.gif"></a></td><td><font face="arial,helvetica,sanserif"><h1>Apache Tomcat 6.0</h1></font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap="true" valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li><li><a href="index.html">Config Ref. Home</a></li></ul><p><strong>Top Level Elements</strong></p><ul><li><a href="server.html">Server</a></li><li><a href="service.html">Service</a></li></ul><p><strong>Executors</strong></p><ul><li><a href="executor.html">Executor</a></li></ul><p><strong>Connectors</strong></p><ul><li><a href="http.html">HTTP</a></li><li><a href="ajp.html">AJP</a></li></ul><p><strong>Containers</strong></p><ul><li><a href="context.html">Context</a></li><li><a href="engine.html">Engine</a></li><li><a href="host.html">Host</a></li><li><a href="cluster.html">Cluster</a></li></ul><p><strong>Nested Components</strong></p><ul><li><a href="listeners.html">Listeners</a></li><li><a href="globalresources.html">Global Resources</a></li><li><a href="loader.html">Loader</a></li><li><a href="manager.html">Manager</a></li><li><a href="realm.html">Realm</a></li><li><a href="resources.html">Resources</a></li><li><a href="valve.html">Valve</a></li></ul><p><strong>Cluster Elements</strong></p><ul><li><a href="cluster.html">Cluster</a></li><li><a href="cluster-manager.html">Manager</a></li><li><a href="cluster-channel.html">Channel</a></li><li><a href="cluster-membership.html">Channel/Membership</a></li><li><a href="cluster-sender.html">Channel/Sender</a></li><li><a href="cluster-receiver.html">Channel/Receiver</a></li><li><a href="cluster-interceptor.html">Channel/Interceptor</a></li><li><a href="cluster-valve.html">Valve</a></li><li><a href="cluster-deployer.html">Deployer</a></li><li><a href="cluster-listener.html">ClusterListener</a></li></ul><p><strong>Global Settings</strong></p><ul><li><a href="systemprops.html">System properties</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat Configuration Reference</h1><h2>The HTTP Connector</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>The <strong>HTTP Connector</strong> element represents a
+  <strong>Connector</strong> component that supports the HTTP/1.1 protocol.
+  It enables Catalina to function as a stand-alone web server, in addition
+  to its ability to execute servlets and JSP pages.  A particular instance
+  of this component listens for connections on a specific TCP port number
+  on the server.  One or more such <strong>Connectors</strong> can be
+  configured as part of a single <a href="service.html">Service</a>, each
+  forwarding to the associated <a href="engine.html">Engine</a> to perform
+  request processing and create the response.</p>
+
+  <p>If you wish to configure the <strong>Connector</strong> that is used
+  for connections to web servers using the AJP protocol (such as the
+  <code>mod_jk 1.2.x</code> connector for Apache 1.3), see
+  <a href="ajp.html">here</a> instead.</p>
+
+  <p>Each incoming request requires
+  a thread for the duration of that request.  If more simultaneous requests
+  are received than can be handled by the currently available request
+  processing threads, additional threads will be created up to the
+  configured maximum (the value of the <code>maxThreads</code> attribute).
+  If still more simultaneous requests are received, they are stacked up
+  inside the server socket created by the <strong>Connector</strong>, up to
+  the configured maximum (the value of the <code>acceptCount</code>
+  attribute.  Any further simultaneous requests will receive "connection
+  refused" errors, until resources are available to process them.</p>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Attributes"><strong>Attributes</strong></a></font></td></tr><tr><td><blockquote>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Common Attributes"><strong>Common Attributes</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>All implementations of <strong>Connector</strong>
+  support the following attributes:</p>
+
+  <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>allowTrace</code></td><td valign="center" align="left">
+      <p>A boolean value which can be used to enable or disable the TRACE
+      HTTP method. If not specified, this attribute is set to false.</p>
+    </td></tr><tr><td valign="center" align="left"><code>emptySessionPath</code></td><td valign="center" align="left">
+      <p>If set to <code>true</code>, all paths for session cookies will be set
+      to <code>/</code>. This can be useful for portlet specification implementations.
+      If not specified, this attribute is set to <code>false</code>.</p>
+    </td></tr><tr><td valign="center" align="left"><code>enableLookups</code></td><td valign="center" align="left">
+      <p>Set to <code>true</code> if you want calls to
+      <code>request.getRemoteHost()</code> to perform DNS lookups in
+      order to return the actual host name of the remote client.  Set
+      to <code>false</code> to skip the DNS lookup and return the IP
+      address in String form instead (thereby improving performance).
+      By default, DNS lookups are enabled.</p>
+    </td></tr><tr><td valign="center" align="left"><code>maxPostSize</code></td><td valign="center" align="left">
+      <p>The maximum size in bytes of the POST which will be handled by
+      the container FORM URL parameter parsing. The limit can be disabled by
+      setting this attribute to a value less than or equal to 0.
+      If not specified, this attribute is set to 2097152 (2 megabytes).</p>
+    </td></tr><tr><td valign="center" align="left"><code>maxSavePostSize</code></td><td valign="center" align="left">
+      <p>The maximum size in bytes of the POST which will be saved/buffered by
+      the container during FORM or CLIENT-CERT authentication. For both types
+      of authentication, the POST will be saved/buffered before the user is
+      authenticated. For CLIENT-CERT authentication, the POST is buffered for
+      the duration of the SSL handshake and the buffer emptied when the request
+      is processed. For FORM authentication the POST is saved whilst the user
+      is re-directed to the login form and is retained until the user
+      successfully authenticates or the session associated with the
+      authentication request expires. The limit can be disabled by setting this
+      attribute to -1. Setting the attribute to zero will disable the saving of
+      POST data during authentication. If not specified, this attribute is set
+      to 4096 (4 kilobytes).</p>
+    </td></tr><tr><td valign="center" align="left"><code>protocol</code></td><td valign="center" align="left">
+      <p>
+        Sets the protocol to handle incoming traffic.
+        The default value is <code>HTTP/1.1</code> and configures the 
+        <code>org.apache.coyote.http11.Http11Protocol</code>. This is the blocking Java connector.<br>
+        If the <code>PATH(Windows)</code> or <code>LD_LIBRARY_PATH(on most unix system)</code>  
+        environment variables contain the Tomcat native library, the APR connector
+        will automatically be configured. Please be advised that the APR connector has different
+        settings for HTTPS than the default Java connector.<br>
+        Other values for this attribute are, but not limited to:<br>
+        <code>org.apache.coyote.http11.Http11Protocol</code> - same as HTTP/1.1<br>
+        <code>org.apache.coyote.http11.Http11NioProtocol</code> - non blocking Java connector<br>
+        <code>org.apache.coyote.http11.Http11AprProtocol</code> - the APR connector.<br>
+        Take a look at our <a href="#Connector Comparison">Connector Comparison</a> chart.
+        The configuration for both Java connectors are identical, both for http and https. <br>
+        For more information on the APR connector and APR specific SSL settings please 
+        visit the <a href="../apr.html">APR documentation</a>
+        
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>proxyName</code></td><td valign="center" align="left">
+      <p>If this <strong>Connector</strong> is being used in a proxy
+      configuration, configure this attribute to specify the server name
+      to be returned for calls to <code>request.getServerName()</code>.
+      See <a href="#Proxy Support">Proxy Support</a> for more
+      information.</p>
+    </td></tr><tr><td valign="center" align="left"><code>proxyPort</code></td><td valign="center" align="left">
+      <p>If this <strong>Connector</strong> is being used in a proxy
+      configuration, configure this attribute to specify the server port
+      to be returned for calls to <code>request.getServerPort()</code>.
+      See <a href="#Proxy Support">Proxy Support</a> for more
+      information.</p>
+    </td></tr><tr><td valign="center" align="left"><code>redirectPort</code></td><td valign="center" align="left">
+      <p>If this <strong>Connector</strong> is supporting non-SSL
+      requests, and a request is received for which a matching
+      <code>&lt;security-constraint&gt;</code> requires SSL transport,
+      Catalina will automatically redirect the request to the port
+      number specified here.</p>
+    </td></tr><tr><td valign="center" align="left"><code>SSLEnabled</code></td><td valign="center" align="left">
+      <p>
+      Use this attribute to enable SSL traffic on a connector.
+      To turn on SSL handshake/encryption/decryption on a connector
+      set this value to <code>true</code>.
+      The default value is <code>false</code>.
+      When turning this value <code>true</code> you will want to set the 
+      <code>scheme</code> and the <code>secure</code> attributes as well
+      to pass the correct <code>request.getScheme()</code> and 
+      <code>request.isSecure()</code> values to the servlets
+      See <a href="#SSL Support">SSL Support</a> for more information.
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>scheme</code></td><td valign="center" align="left">
+      <p>Set this attribute to the name of the protocol you wish to have
+      returned by calls to <code>request.getScheme()</code>.  For
+      example, you would set this attribute to "<code>https</code>"
+      for an SSL Connector.  The default value is "<code>http</code>".
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>secure</code></td><td valign="center" align="left">
+      <p>Set this attribute to <code>true</code> if you wish to have
+      calls to <code>request.isSecure()</code> to return <code>true</code>
+      for requests received by this Connector. You would want this on an
+      SSL Connector or a non SSL connector that is receiving data from a 
+      SSL accelerator, like a crypto card, a SSL appliance or even a webserver.
+      The default value is <code>false</code>.</p>
+    </td></tr><tr><td valign="center" align="left"><code>URIEncoding</code></td><td valign="center" align="left">
+      <p>This specifies the character encoding used to decode the URI bytes,
+      after %xx decoding the URL. If not specified, ISO-8859-1 will be used.
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>useBodyEncodingForURI</code></td><td valign="center" align="left">
+      <p>This specifies if the encoding specified in contentType should be used
+      for URI query parameters, instead of using the URIEncoding. This
+      setting is present for compatibility with Tomcat 4.1.x, where the
+      encoding specified in the contentType, or explicitely set using
+      Request.setCharacterEncoding method was also used for the parameters from
+      the URL. The default value is <code>false</code>.
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>useIPVHosts</code></td><td valign="center" align="left">
+      <p>Set this attribute to <code>true</code> to cause Tomcat to use
+      the IP address that the request was recieved on to determine the Host
+      to send the request to.  The default value is <code>false</code>.</p>
+    </td></tr><tr><td valign="center" align="left"><code>xpoweredBy</code></td><td valign="center" align="left">
+      <p>Set this attribute to <code>true</code> to cause Tomcat to advertise
+      support for the Servlet specification using the header recommended in the
+      specification.  The default value is <code>false</code>.</p>
+    </td></tr></table>
+
+  </blockquote></td></tr></table>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Standard Implementation"><strong>Standard Implementation</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>
+  HTTP supports the following additional attributes (in addition to the
+  common attributes listed above):</p>
+
+  <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>acceptCount</code></td><td valign="center" align="left">
+      <p>The maximum queue length for incoming connection requests when
+      all possible request processing threads are in use.  Any requests
+      received when the queue is full will be refused.  The default
+      value is 10.</p>
+    </td></tr><tr><td valign="center" align="left"><code>address</code></td><td valign="center" align="left">
+      <p>For servers with more than one IP address, this attribute
+      specifies which address will be used for listening on the specified
+      port.  By default, this port will be used on all IP addresses
+      associated with the server.</p>
+    </td></tr><tr><td valign="center" align="left"><code>bufferSize</code></td><td valign="center" align="left">
+      <p>The size (in bytes) of the buffer to be provided for input
+      streams created by this connector.  By default, buffers of
+      2048 bytes will be provided.</p>
+    </td></tr><tr><td valign="center" align="left"><code>compressableMimeType</code></td><td valign="center" align="left">
+      <p>The value is a comma separated list of MIME types for which HTTP
+      compression may be used.
+      The default value is <code>text/html,text/xml,text/plain</code>.</p>
+    </td></tr><tr><td valign="center" align="left"><code>compression</code></td><td valign="center" align="left">
+      <p>The <strong>Connector</strong> may use HTTP/1.1 GZIP compression in
+      an attempt to save server bandwidth. The acceptable values for the
+      parameter is "off" (disable compression), "on" (allow compression, which
+      causes text data to be compressed), "force" (forces compression in all
+      cases), or a numerical integer value (which is equivalent to "on", but
+      specifies the minimum amount of data before the output is compressed). If
+      the content-length is not known and compression is set to "on" or more
+      aggressive, the output will also be compressed. If not specified, this
+      attribute is set to "off".</p>
+    </td></tr><tr><td valign="center" align="left"><code>connectionLinger</code></td><td valign="center" align="left">
+      <p>The number of milliseconds during which the sockets used by this
+      <strong>Connector</strong> will linger when they are closed.
+      The default value is -1 (socket linger is disabled).</p>
+    </td></tr><tr><td valign="center" align="left"><code>connectionTimeout</code></td><td valign="center" align="left">
+      <p>The number of milliseconds this <strong>Connector</strong> will wait,
+      after accepting a connection, for the request URI line to be
+      presented.  The default value is 60000 (i.e. 60 seconds).</p>
+    </td></tr><tr><td valign="center" align="left"><code>executor</code></td><td valign="center" align="left">
+      <p>A reference to the name in an <a href="executor.html">Executor</a> element.
+         If this attribute is enabled, and the named executor exists, the connector will
+         use the executor, and all the other thread attributes will be ignored.</p>
+    </td></tr><tr><td valign="center" align="left"><code>keepAliveTimeout</code></td><td valign="center" align="left">
+      <p>The number of milliseconds this <strong>Connector</strong> will wait for
+       another HTTP request before closing the connection.
+       The default value is to use the value that has been set for the
+       connectionTimeout attribute.</p>
+    </td></tr><tr><td valign="center" align="left"><code>disableUploadTimeout</code></td><td valign="center" align="left">
+      <p>This flag allows the servlet container to use a different, longer
+      connection timeout while a servlet is being executed, which in the end
+      allows either the servlet a longer amount of time to complete its
+      execution, or a longer timeout during data upload. If not specified,
+      this attribute is set to "true".</p>
+    </td></tr><tr><td valign="center" align="left"><code>maxHttpHeaderSize</code></td><td valign="center" align="left">
+      <p>The maximum size of the request and response HTTP header, specified
+      in bytes.
+      If not specified, this attribute is set to 8192 (8 KB).</p>
+    </td></tr><tr><td valign="center" align="left"><code>maxKeepAliveRequests</code></td><td valign="center" align="left">
+      <p>The maximum number of HTTP requests which can be pipelined until
+      the connection is closed by the server. Setting this attribute to 1 will
+      disable HTTP/1.0 keep-alive, as well as HTTP/1.1 keep-alive and
+      pipelining. Setting this to -1 will allow an unlimited amount of
+      pipelined or keep-alive HTTP requests.
+      If not specified, this attribute is set to 100.</p>
+    </td></tr><tr><td valign="center" align="left"><code>maxThreads</code></td><td valign="center" align="left">
+      <p>The maximum number of request processing threads to be created
+      by this <strong>Connector</strong>, which therefore determines the
+      maximum number of simultaneous requests that can be handled.  If
+      not specified, this attribute is set to 200. If an executor is associated
+      with this connector, this attribute is ignored as the connector will 
+      execute tasks using the executor rather than an internal thread pool.</p>
+    </td></tr><tr><td valign="center" align="left"><code>noCompressionUserAgents</code></td><td valign="center" align="left">
+      <p>The value is a comma separated list of regular expressions matching
+      user-agents of HTTP clients for which compression should not be used,
+      because these clients, although they do advertise support for the
+      feature, have a broken implementation.
+      The default value is an empty String (regexp matching disabled).</p>
+    </td></tr><tr><td valign="center" align="left"><strong><code>port</code></strong></td><td valign="center" align="left">
+      <p>The TCP port number on which this <strong>Connector</strong>
+      will create a server socket and await incoming connections.  Your
+      operating system will allow only one server application to listen
+      to a particular port number on a particular IP address.</p>
+    </td></tr><tr><td valign="center" align="left"><code>restrictedUserAgents</code></td><td valign="center" align="left">
+      <p>The value is a comma separated list of regular expressions matching
+      user-agents of HTTP clients for which HTTP/1.1 or HTTP/1.0 keep alive
+      should not be used, even if the clients advertise support for these
+      features.
+      The default value is an empty String (regexp matching disabled).</p>
+    </td></tr><tr><td valign="center" align="left"><code>server</code></td><td valign="center" align="left">
+      <p>The Server header for the http response.
+         Unless you are paranoid, you won't need this feature.
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>socketBuffer</code></td><td valign="center" align="left">
+      <p>The size (in bytes) of the buffer to be provided for socket
+      output buffering. -1 can be specified to disable the use of a buffer.
+      By default, a buffers of 9000 bytes will be used.</p>
+    </td></tr><tr><td valign="center" align="left"><code>tcpNoDelay</code></td><td valign="center" align="left">
+      <p>If set to <code>true</code>, the TCP_NO_DELAY option will be
+      set on the server socket, which improves performance under most
+      circumstances.  This is set to <code>true</code> by default.</p>
+    </td></tr><tr><td valign="center" align="left"><code>threadPriority</code></td><td valign="center" align="left">
+      <p>The priority of the request processing threads within the JVM.
+      The default value is <code>java.lang.Thread#NORM_PRIORITY</code>.
+      See the JavaDoc for the java.lang.Thread class for more details on
+      what this priority means.
+      </p>
+    </td></tr></table>
+
+  </blockquote></td></tr></table>
+  
+    <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Nio Implementation"><strong>Nio Implementation</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The NIO connector exposes all the low level socket properties that can be used to tune the connector.
+    Most of these attributes are directly linked to the socket implementation in the JDK so you can find out 
+    about the actual meaning in the JDK API documentation.<br>
+    <strong>Note</strong>On some JDK versions, setTrafficClass causes a problem, a work around for this is to add 
+    the <code>-Djava.net.preferIPv4Stack=true</code> value to your command line</p>
+
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>useSendfile</code></td><td valign="center" align="left">
+        <p>(bool)Use this attribute to enable or disable sendfile capability.
+           The default value is <code>true</code>
+        </p>
+      </td></tr><tr><td valign="center" align="left"><code>useExecutor</code></td><td valign="center" align="left">
+        <p>(bool)Set to true to use the NIO thread pool executor. The default value is <code>true</code>.
+        If set to false, it uses a thread pool based on a stack for its execution.
+        Generally, using the executor yields a little bit slower performance, but yields a better
+        fairness for processing connections in a high load environment as the traffic gets queued through a 
+        FIFO queue. If set to true(default) then the max pool size is the <code>maxThreads</code> attribute
+        and the core pool size is the <code>minSpareThreads</code>.
+        This value is ignored if the <code>executor</code> attribute is present and points to a valid shared thread pool.
+        </p>
+      </td></tr><tr><td valign="center" align="left"><code>executor</code></td><td valign="center" align="left">
+        <p>A reference to the name in an <a href="executor.html">Executor</a> element.
+           If this attribute is enabled, and the named executor exists, the connector will
+           use the executor, and all the other thread attributes will be ignored.</p>
+      </td></tr><tr><td valign="center" align="left"><code>acceptorThreadCount</code></td><td valign="center" align="left">
+        <p>(int)The number of threads to be used to accept connections. Increase this value on a multi CPU machine,
+        although you would never really need more than <code>2</code>. Also, with a lot of non keep alive connections,
+        you might want to increase this value as well. Default value is <code>1</code>.</p>
+      </td></tr><tr><td valign="center" align="left"><code>pollerThreadCount</code></td><td valign="center" align="left">
+        <p>(int)The number of threads to be used to run for the polling events.
+        Default value is <code>1</code> per processor. Can't see a reason to go
+        above that. But experiment and find your own results.</p>
+      </td></tr><tr><td valign="center" align="left"><code>pollerThreadPriority</code></td><td valign="center" align="left">
+        <p>(int)The priority of the poller threads.
+          The default value is <code>java.lang.Thread#NORM_PRIORITY</code>.
+          See the JavaDoc for the java.lang.Thread class for more details on
+          what this priority means.
+        </p>
+      </td></tr><tr><td valign="center" align="left"><code>acceptorThreadPriority</code></td><td valign="center" align="left">
+        <p>(int)The priority of the acceptor threads. The threads used to accept new connections.
+          The default value is <code>java.lang.Thread#NORM_PRIORITY</code>.
+          See the JavaDoc for the java.lang.Thread class for more details on
+          what this priority means.
+        </p>
+      </td></tr><tr><td valign="center" align="left"><code>selectorTimeout</code></td><td valign="center" align="left">
+        <p>(int)The time in milliseconds to timeout on a select() for the poller.
+           This value is important, since connection clean up is done on the same thread, so dont set this 
+           value to an extremely high one. The default value is <code>1000</code> milliseconds.</p>
+      </td></tr><tr><td valign="center" align="left"><code>useComet</code></td><td valign="center" align="left">
+        <p>(bool)Whether to allow comet servlets or not, Default value is <code>true</code>.</p>
+      </td></tr><tr><td valign="center" align="left"><code>processCache</code></td><td valign="center" align="left">
+        <p>(int)The protocol handler caches Http11NioProcessor objects to speed up performance.
+           This setting dictates how many of these objects get cached.
+           <code>-1</code> means unlimited, default is <code>200</code>. Set this value somewhere close to your maxThreads value.
+        </p>
+      </td></tr><tr><td valign="center" align="left"><code>maxKeepAliveRequests</code></td><td valign="center" align="left">
+        <p>The maximum number of HTTP requests which can be pipelined until
+        the connection is closed by the server. Setting this attribute to 1 will
+        disable HTTP/1.0 keep-alive, as well as HTTP/1.1 keep-alive and
+        pipelining. Setting this to -1 will allow an unlimited amount of
+        pipelined or keep-alive HTTP requests.
+        If not specified, this attribute is set to 100.</p>
+      </td></tr><tr><td valign="center" align="left"><code>socket.directBuffer</code></td><td valign="center" align="left">
+        <p>(bool)Boolean value, whether to use direct ByteBuffers or java mapped ByteBuffers. Default is <code>false</code>
+           <br>When you are using direct buffers, make sure you allocate the appropriate amount of memory for the 
+                direct memory space. On Sun's JDK that would be something like <code>-XX:MaxDirectMemorySize=256m</code></p>
+      </td></tr><tr><td valign="center" align="left"><code>socket.rxBufSize</code></td><td valign="center" align="left">
+        <p>(int)The socket receive buffer (SO_RCVBUF) size in bytes. Default value is <code>25188</code></p>
+      </td></tr><tr><td valign="center" align="left"><code>socket.txBufSize</code></td><td valign="center" align="left">
+        <p>(int)The socket send buffer (SO_SNDBUF) size in bytes. Default value is <code>43800</code></p>
+      </td></tr><tr><td valign="center" align="left"><code>socket.appReadBufSize</code></td><td valign="center" align="left">
+        <p>(int)Each connection that is opened up in Tomcat get associated with a read and a write ByteBuffer
+           This attribute controls the size of these buffers. By default this read buffer is sized at <code>8192</code> bytes.
+           For lower concurrency, you can increase this to buffer more data.
+           For an extreme amount of keep alive connections, decrease this number or increase your heap size.</p>
+      </td></tr><tr><td valign="center" align="left"><code>socket.appWriteBufSize</code></td><td valign="center" align="left">
+        <p>(int)Each connection that is opened up in Tomcat get associated with a read and a write ByteBuffer
+           This attribute controls the size of these buffers. By default this write buffer is sized at <code>8192</code> bytes.
+           For low concurrency you can increase this to buffer more response data.
+           For an extreme amount of keep alive connections, decrease this number or increase your heap size.
+           <br>
+           The default value here is pretty low, you should up it if you are not dealing with tens of thousands
+           concurrent connections.</p>
+      </td></tr><tr><td valign="center" align="left"><code>socket.bufferPool</code></td><td valign="center" align="left">
+        <p>(int)The Nio connector uses a class called NioChannel that holds elements linked to a socket.
+           To reduce garbage collection, the Nio connector caches these channel objects.
+           This value specifies the size of this cache.
+           The default value is <code>500</code>, and represents that the cache will hold 500 NioChannel objects.
+           Other values are <code>-1</code>. unlimited cache, and <code>0</code>, no cache.</p>
+      </td></tr><tr><td valign="center" align="left"><code>socket.bufferPoolSize</code></td><td valign="center" align="left">
+        <p>(int)The NioChannel pool can also be size based, not used object based. The size is calculated as follows:<br>
+        NioChannel <code>buffer size = read buffer size + write buffer size</code><br>
+        SecureNioChannel <code>buffer size = application read buffer size + application write buffer size + network read buffer size + network write buffer size</code><br>
+        The value is in bytes, the default value is <code>1024*1024*100</code> (100MB)
+        </p>
+      </td></tr><tr><td valign="center" align="left"><code>socket.processorCache</code></td><td valign="center" align="left">
+        <p>(int)Tomcat will cache SocketProcessor objects to reduce garbage collection.
+           The integer value specifies how many objects to keep in the cache at most.
+           The default is <code>500</code>.
+           Other values are <code>-1</code>. unlimited cache, and <code>0</code>, no cache.</p>
+      </td></tr><tr><td valign="center" align="left"><code>socket.keyCache</code></td><td valign="center" align="left">
+        <p>(int)Tomcat will cache KeyAttachment objects to reduce garbage collection.
+           The integer value specifies how many objects to keep in the cache at most.
+           The default is <code>500</code>.
+           Other values are <code>-1</code>. unlimited cache, and <code>0</code>, no cache.</p>
+      </td></tr><tr><td valign="center" align="left"><code>socket.eventCache</code></td><td valign="center" align="left">
+        <p>(int)Tomcat will cache PollerEvent objects to reduce garbage collection.
+           The integer value specifies how many objects to keep in the cache at most.
+           The default is <code>500</code>.
+           Other values are <code>-1</code>. unlimited cache, and <code>0</code>, no cache.</p>
+      </td></tr><tr><td valign="center" align="left"><code>socket.tcpNoDelay</code></td><td valign="center" align="left">
+        <p>(bool)same as the standard setting <code>tcpNoDelay</code>. Default value is <code>false</code></p>
+      </td></tr><tr><td valign="center" align="left"><code>socket.soKeepAlive</code></td><td valign="center" align="left">
+        <p>(bool)Boolean value for the socket's keep alive setting (SO_KEEPALIVE). Default is <code>false</code>. </p>
+      </td></tr><tr><td valign="center" align="left"><code>socket.ooBInline</code></td><td valign="center" align="left">
+        <p>(bool)Boolean value for the socket OOBINLINE setting. Default value is <code>true</code></p>
+      </td></tr><tr><td valign="center" align="left"><code>socket.soReuseAddress</code></td><td valign="center" align="left">
+        <p>(bool)Boolean value for the sockets reuse address option (SO_REUSEADDR). Default value is <code>true</code></p>
+      </td></tr><tr><td valign="center" align="left"><code>socket.soLingerOn</code></td><td valign="center" align="left">
+        <p>(bool)Boolean value for the sockets so linger option (SO_LINGER). Default value is <code>true</code>.
+           This option is paired with the <code>soLingerTime</code> value.</p>
+      </td></tr><tr><td valign="center" align="left"><code>socket.soLingerTime</code></td><td valign="center" align="left">
+        <p>(bool)Value in seconds for the sockets so linger option (SO_LINGER). Default value is <code>25</code> seconds.
+           This option is paired with the soLinger value.</p>
+      </td></tr><tr><td valign="center" align="left"><code>socket.soTimeout</code></td><td valign="center" align="left">
+        <p>(int)Value in milliseconds for the sockets read timeout (SO_TIMEOUT). Default value is <code>5000</code> milliseconds.</p>
+      </td></tr><tr><td valign="center" align="left"><code>socket.soTrafficClass</code></td><td valign="center" align="left">
+        <p>(byte)Value between <code>0</code> and <code>255</code> for the traffic class on the socket, <code>0x04 | 0x08 | 0x010</code></p>
+      </td></tr><tr><td valign="center" align="left"><code>socket.performanceConnectionTime</code></td><td valign="center" align="left">
+        <p>(int)The first value for the performance settings. Default is <code>1</code>, see <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/net/Socket.html#setPerformancePreferences(int,%20int,%20int)">Socket Performance Options</a></p>
+      </td></tr><tr><td valign="center" align="left"><code>socket.performanceLatency</code></td><td valign="center" align="left">
+        <p>(int)The second value for the performance settings. Default is <code>0</code>, see <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/net/Socket.html#setPerformancePreferences(int,%20int,%20int)">Socket Performance Options</a></p>
+      </td></tr><tr><td valign="center" align="left"><code>socket.performanceBandwidth</code></td><td valign="center" align="left">
+        <p>(int)The third value for the performance settings. Default is <code>1</code>, see <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/net/Socket.html#setPerformancePreferences(int,%20int,%20int)">Socket Performance Options</a></p>
+      </td></tr><tr><td valign="center" align="left"><code>selectorPool.maxSelectors</code></td><td valign="center" align="left">
+        <p>(int)The max selectors to be used in the pool, to reduce selector contention.
+        Use this option when the command line <code>org.apache.tomcat.util.net.NioSelectorShared</code> value is set to false.
+        Default value is <code>200</code>.</p>
+      </td></tr><tr><td valign="center" align="left"><code>selectorPool.maxSpareSelectors</code></td><td valign="center" align="left">
+        <p>(int)The max spare selectors to be used in the pool, to reduce selector contention.
+        When a selector is returned to the pool, the system can decide to keep it or let it be GC:ed.
+        Use this option when the command line <code>org.apache.tomcat.util.net.NioSelectorShared</code> value is set to false.
+        Default value is <code>-1</code> (unlimited)</p>
+      </td></tr><tr><td valign="center" align="left"><code>command-line-options</code></td><td valign="center" align="left">
+        <p>The following command line options are available for the NIO connector:<br>
+        <code>-Dorg.apache.tomcat.util.net.NioSelectorShared=true|false</code> - default is <code>true</code>.
+        Set this value to false if you wish to use a selector for each thread.
+        the property. If you do set it to false, you can control the size of the pool of selectors by using the 
+        selectorPool.maxSelectors attribute</p>
+      </td></tr><tr><td valign="center" align="left"><code>oomParachute</code></td><td valign="center" align="left">
+        <p>(int)The NIO connector implements an OutOfMemoryError strategy called parachute.
+           It holds a chunk of data as a byte array. In case of an OOM,
+           this chunk of data is released and the error is reported. This will give the VM enough room
+           to clean up. The <code>oomParachute</code> represent the size in bytes of the parachute(the byte array).
+           The default value is <code>1024*1024</code>(1MB).
+           Please note, this only works for OOM errors regarding the Java Heap space, and there is absolutely no 
+           guarantee that you will be able to recover at all.
+           If you have an OOM outside of the Java Heap, then this parachute trick will not help.
+        </p>
+      </td></tr></table>
+  </blockquote></td></tr></table>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Nested Components"><strong>Nested Components</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>None at this time.</p>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Special Features"><strong>Special Features</strong></a></font></td></tr><tr><td><blockquote>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="HTTP/1.1 and HTTP/1.0 Support"><strong>HTTP/1.1 and HTTP/1.0 Support</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>This <strong>Connector</strong> supports all of the required features
+  of the HTTP/1.1 protocol, as described in RFC 2616, including persistent
+  connections, pipelining, expectations and chunked encoding.  If the client
+  (typically a browser) supports only HTTP/1.0, the
+  <strong>Connector</strong> will gracefully fall back to supporting this
+  protocol as well.  No special configuration is required to enable this
+  support. The <strong>Connector</strong> also supports HTTP/1.0
+  keep-alive.</p>
+
+  <p>RFC 2616 requires that HTTP servers always begin their responses with
+  the highest HTTP version that they claim to support.  Therefore, this
+  <strong>Connector</strong> will always return <code>HTTP/1.1</code> at
+  the beginning of its responses.</p>
+
+  </blockquote></td></tr></table>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Proxy Support"><strong>Proxy Support</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>The <code>proxyName</code> and <code>proxyPort</code> attributes can
+  be used when Tomcat is run behind a proxy server.  These attributes
+  modify the values returned to web applications that call the
+  <code>request.getServerName()</code> and <code>request.getServerPort()</code>
+  methods, which are often used to construct absolute URLs for redirects.
+  Without configuring these attributes, the values returned would reflect
+  the server name and port on which the connection from the proxy server
+  was received, rather than the server name and port to whom the client
+  directed the original request.</p>
+
+  <p>For more information, see the
+  <a href="../proxy-howto.html">Proxy Support HOW-TO</a>.</p>
+
+  </blockquote></td></tr></table>
+
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="SSL Support"><strong>SSL Support</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>You can enable SSL support for a particular instance of this
+  <strong>Connector</strong> by setting the <code>secure</code> attribute to
+  <code>true</code>.  In addition, you may need to configure the following
+  attributes:</p>
+
+  <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>algorithm</code></td><td valign="center" align="left">
+      <p>The certificate encoding algorithm to be used. This defaults to the Sun
+      implementation (<code>SunX509</code>). For IBM JVMs you should use the
+      value <code>IbmX509</code>. For other vendors, consult the JVM
+      documentation for the correct value.</p>
+    </td></tr><tr><td valign="center" align="left"><code>clientAuth</code></td><td valign="center" align="left">
+      <p>Set to <code>true</code> if you want the SSL stack to require a
+      valid certificate chain from the client before accepting a connection.
+      Set to <code>want</code> if you want the SSL stack to request a client
+      Certificate, but not fail if one isn't presented. A <code>false</code>
+      value (which is the default) will not require a certificate chain
+      unless the client requests a resource protected by a security
+      constraint that uses <code>CLIENT-CERT</code> authentication. See the
+      <a href="../ssl-howto.html">SSL HowTo</a> for an example.</p>
+    </td></tr><tr><td valign="center" align="left"><code>keystoreFile</code></td><td valign="center" align="left">
+      <p>The pathname of the keystore file where you have stored the
+      server certificate to be loaded.  By default, the pathname is
+      the file "<code>.keystore</code>" in the operating system home
+      directory of the user that is running Tomcat. If your
+      <code>keystoreType</code> doesn't need a file use <code>""</code>
+      (empty string) for this parameter.</p>
+    </td></tr><tr><td valign="center" align="left"><code>keystorePass</code></td><td valign="center" align="left">
+      <p>The password used to access the server certificate from the
+      specified keystore file.  The default value is "<code>changeit</code>".
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>keystoreType</code></td><td valign="center" align="left">
+      <p>The type of keystore file to be used for the server certificate.
+      If not specified, the default value is "<code>JKS</code>".</p>
+    </td></tr><tr><td valign="center" align="left"><code>keystoreProvider</code></td><td valign="center" align="left">
+      <p>The name of the keystore provider to be used for the server
+      certificate. If not specified, the list of registered providers is
+      traversed in preference order and the first provider that supports the
+      <code>keystoreType</code> is used.
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>sslProtocol</code></td><td valign="center" align="left">
+      <p>The version of the SSL protocol to use.  If not specified,
+      the default is "<code>TLS</code>".</p>
+    </td></tr><tr><td valign="center" align="left"><code>ciphers</code></td><td valign="center" align="left">
+      <p>The comma separated list of encryption ciphers that this socket is 
+      allowed to use. By default, the default ciphers for the JVM will be used.
+      Note that this usually means that the weak export grade ciphers will be
+      included in the list of available ciphers. The ciphers are specified using
+      the JSSE cipher naming convention.</p>
+    </td></tr><tr><td valign="center" align="left"><code>keyAlias</code></td><td valign="center" align="left">
+      <p>The alias used to for the server certificate in the keystore. If not
+      specified the first key read in the keystore will be used.</p>
+    </td></tr><tr><td valign="center" align="left"><code>truststoreFile</code></td><td valign="center" align="left">
+      <p>The TrustStore file to use to validate client certificates.</p>
+    </td></tr><tr><td valign="center" align="left"><code>truststorePass</code></td><td valign="center" align="left">
+      <p>The password to access the TrustStore. This defaults to the value
+      of <code>keystorePass</code>.</p>
+    </td></tr><tr><td valign="center" align="left"><code>truststoreType</code></td><td valign="center" align="left">
+      <p>Add this element if your are using a different format for the
+      TrustStore then you are using for the KeyStore.</p>
+     </td></tr><tr><td valign="center" align="left"><code>truststoreProvider</code></td><td valign="center" align="left">
+      <p>The name of the truststore provider to be used for the server
+      certificate. If not specified, the list of registered providers is
+      traversed in preference order and the first provider that supports the
+      <code>truststoreType</code> is used.
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>sessionCacheSize</code></td><td valign="center" align="left">
+      <p>The number of SSL sessions to maintain in the session cache. Use 0 to
+      specify an unlimited cache size. If not specified, a default of 0 is
+      used.</p>
+    </td></tr><tr><td valign="center" align="left"><code>sessionTimeout</code></td><td valign="center" align="left">
+      <p>The time, in seconds, after the creation of an SSL session that it will
+      timeout. Use 0 to specify an unlimited timeout. If not specified, a
+      default of 86400 (24 hours) is used.</p>
+    </td></tr></table>
+
+  <p>For more information, see the
+  <a href="../ssl-howto.html">SSL Configuration HOW-TO</a>.</p>
+
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Connector Comparison"><strong>Connector Comparison</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>Below is a small chart that shows how the connectors differentiate.</p>
+    <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+                  Java Blocking Connector       Java Nio Blocking Connector       APR Connector
+    Classname         Http11Protocol                  Http11NioProtocol         Http11AprProtocol
+    Tomcat Version   3.x 4.x 5.x 6.x                       6.x                     5.5.x 6.x
+    Support Polling         NO                             YES                        YES
+    Polling Size           N/A                   Unlimited - Restricted by mem        Unlimited - Configurable
+    Read HTTP Request     Blocking                     Non Blocking                   Blocking
+    Read HTTP Body        Blocking                     Sim Blocking                   Blocking
+    Write HTTP Response   Blocking                     Sim Blocking                   Blocking
+    SSL Support           Java SSL                     Java SSL                       OpenSSL
+    SSL Handshake         Blocking                     Non blocking                   Blocking
+    Max Connections       maxThreads                   See polling size               See polling size
+    
+    
+    </pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td></tr></table></div>
+
+  </blockquote></td></tr></table>
+</blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
+        Copyright &copy; 1999-2008, Apache Software Foundation
+        </em></font></div></td></tr></table></body></html>

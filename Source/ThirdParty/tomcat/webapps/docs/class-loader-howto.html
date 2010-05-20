@@ -1,0 +1,162 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat 6.0 - Class Loader HOW-TO</title><meta value="Craig R. McClanahan" name="author"><meta value="craigmcc@apache.org" name="email"><meta value="Yoav Shapira" name="author"><meta value="yoavs@apache.org" name="email"><style media="print" type="text/css">
+			.noPrint {display: none;}
+			td#mainBody {width: 100%;}
+		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
+      The Apache Tomcat Servlet/JSP Container
+    " align="right" src="./images/tomcat.gif"></a></td><td><font face="arial,helvetica,sanserif"><h1>Apache Tomcat 6.0</h1></font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="./images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap="true" valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="index.html">Docs Home</a></li><li><a href="http://wiki.apache.org/tomcat/FAQ">FAQ</a></li></ul><p><strong>User Guide</strong></p><ul><li><a href="introduction.html">1) Introduction</a></li><li><a href="setup.html">2) Setup</a></li><li><a href="appdev/index.html">3) First webapp</a></li><li><a href="deployer-howto.html">4) Deployer</a></li><li><a href="manager-howto.html">5) Manager</a></li><li><a href="realm-howto.html">6) Realms and AAA</a></li><li><a href="security-manager-howto.html">7) Security Manager</a></li><li><a href="jndi-resources-howto.html">8) JNDI Resources</a></li><li><a href="jndi-datasource-examples-howto.html">9) JDBC DataSources</a></li><li><a href="class-loader-howto.html">10) Classloading</a></li><li><a href="jasper-howto.html">11) JSPs</a></li><li><a href="ssl-howto.html">12) SSL</a></li><li><a href="ssi-howto.html">13) SSI</a></li><li><a href="cgi-howto.html">14) CGI</a></li><li><a href="proxy-howto.html">15) Proxy Support</a></li><li><a href="mbeans-descriptor-howto.html">16) MBean Descriptor</a></li><li><a href="default-servlet.html">17) Default Servlet</a></li><li><a href="cluster-howto.html">18) Clustering</a></li><li><a href="balancer-howto.html">19) Load Balancer</a></li><li><a href="connectors.html">20) Connectors</a></li><li><a href="monitoring.html">21) Monitoring and Management</a></li><li><a href="logging.html">22) Logging</a></li><li><a href="apr.html">23) APR/Native</a></li><li><a href="virtual-hosting-howto.html">24) Virtual Hosting</a></li><li><a href="aio.html">25) Advanced IO</a></li><li><a href="extras.html">26) Additional Components</a></li><li><a href="maven-jars.html">27) Mavenized</a></li></ul><p><strong>Reference</strong></p><ul><li><a href="RELEASE-NOTES.txt">Release Notes</a></li><li><a href="config/index.html">Configuration</a></li><li><a href="api/index.html">Javadocs</a></li><li><a href="http://tomcat.apache.org/connectors-doc/">JK 1.2 Documentation</a></li></ul><p><strong>Apache Tomcat Development</strong></p><ul><li><a href="building.html">Building</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="http://wiki.apache.org/tomcat/TomcatVersions">Status</a></li><li><a href="developers.html">Developers</a></li><li><a href="architecture/index.html">Architecture</a></li><li><a href="funcspecs/index.html">Functional Specs.</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat 6.0</h1><h2>Class Loader HOW-TO</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Overview"><strong>Overview</strong></a></font></td></tr><tr><td><blockquote>
+
+<p>Like many server applications, Tomcat 6 installs a variety of class loaders
+(that is, classes that implement <code>java.lang.ClassLoader</code>) to allow
+different portions of the container, and the web applications running on the
+container, to have access to different repositories of available classes and
+resources.  This mechanism is used to provide the functionality defined in the
+Servlet Specification, version 2.4 -- in particular, Sections 9.4 and 9.6.</p>
+
+<p>In a J2SE 2 (that is, J2SE 1.2 or later) environment, class loaders are
+arranged in a parent-child tree.  Normally, when a class loader is asked to
+load a particular class or resource, it delegates the request to a parent
+class loader first, and then looks in its own repositories only if the parent
+class loader(s) cannot find the requested class or resource.  The model for
+web application class loaders differs slightly from this, as discussed below,
+but the main principles are the same.</p>
+
+<p>When Tomcat 6 is started, it creates a set of class loaders that are
+organized into the following parent-child relationships, where the parent
+class loader is above the child class loader:</p>
+
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+      Bootstrap
+          |
+       System
+          |
+       Common
+       /     \
+  Webapp1   Webapp2 ... 
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
+
+<p>The characteristics of each of these class loaders, including the source
+of classes and resources that they make visible, are discussed in detail in
+the following section.</p>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Class Loader Definitions"><strong>Class Loader Definitions</strong></a></font></td></tr><tr><td><blockquote>
+
+<p>As indicated in the diagram above, Tomcat 6 creates the following class
+loaders as it is initialized:</p>
+<ul>
+<li><strong>Bootstrap</strong> - This class loader contains the basic runtime
+    classes provided by the Java Virtual Machine, plus any classes from JAR
+    files present in the System Extensions directory
+    (<code>$JAVA_HOME/jre/lib/ext</code>).  <em>NOTE</em> - Some JVMs may
+    implement this as more than one class loader, or it may not be visible
+    (as a class loader) at all.</li>
+<li><strong>System</strong> - This class loader is normally initialized from
+    the contents of the <code>CLASSPATH</code> environment variable.  All such
+    classes are visible to both Tomcat internal classes, and to web
+    applications.  However, the standard Tomcat 6 startup scripts
+    (<code>$CATALINA_HOME/bin/catalina.sh</code> or
+    <code>%CATALINA_HOME%\bin\catalina.bat</code>) totally ignore the contents
+    of the <code>CLASSPATH</code> environment variable itself, and instead
+    build the System class loader from the following repositories:
+    <ul>
+    <li><em>$CATALINA_HOME/bin/bootstrap.jar</em> - Contains the main() method
+        that is used to initialize the Tomcat 6 server, and the class loader
+        implementation classes it depends on.</li>
+    <li><em>$CATALINA_HOME/bin/tomcat-juli.jar</em> - Package renamed Jakarta commons 
+        logging API, and java.util.logging LogManager.</li>
+    </ul></li>
+<li><strong>Common</strong> - This class loader contains additional classes
+    that are made visible to both Tomcat internal classes and to all web
+    applications.  Normally, application classes should <strong>NOT</strong>
+    be placed here.  All unpacked classes and resources in
+    <code>$CATALINA_HOME/lib</code>, as well as classes and
+    resources in JAR files are made visible through this
+    class loader.  By default, that includes the following:
+    <ul>
+    <li><em>annotations-api.jar</em> - JEE annotations classes.</li>
+    <li><em>catalina.jar</em> - Implementation of the Catalina servlet
+        container portion of Tomcat 6.</li>
+    <li><em>catalina-ant.jar</em> - Tomcat Catalina Ant tasks.</li>
+    <li><em>catalina-ha.jar</em> - High availability package.</li>
+    <li><em>catalina-tribes.jar</em> - Group communication package.</li>
+    <li><em>el-api.jar</em> - EL 2.1 API.</li>
+    <li><em>jasper.jar</em> - Jasper 2 Compiler and Runtime.</li>
+    <li><em>jasper-el.jar</em> - Jasper 2 EL implementation.</li>
+    <li><em>jasper-jdt.jar</em> - Eclipse JDT 3.2 Java compiler.</li>
+    <li><em>jsp-api.jar</em> - JSP 2.1 API.</li>
+    <li><em>servlet-api.jar</em> - Servlet 2.5 API.</li>
+    <li><em>tomcat-coyote.jar</em> - Tomcat connectors and utility classes.</li>
+    <li><em>tomcat-dbcp.jar</em> - package renamed database connection 
+        pool based on Commons DBCP.</li>
+    <li><em>tomcat-i18n-**.jar</em> - Optional JARs containing resource bundles
+        for other languages. As default bundles are also included in each 
+        individual JAR, they can be safely removed if no internationalization
+        of messages is needed.</li>
+    </ul></li>
+<li><strong>WebappX</strong> - A class loader is created for each web
+    application that is deployed in a single Tomcat 6 instance.  All unpacked
+    classes and resources in the <code>/WEB-INF/classes</code> directory of
+    your web application archive, plus classes and resources in JAR files
+    under the <code>/WEB-INF/lib</code> directory of your web application
+    archive, are made visible to the containing web application, but to
+    no others.</li>
+</ul>
+
+<p>As mentioned above, the web application class loader diverges from the
+default Java 2 delegation model (in accordance with the recommendations in the
+Servlet Specification, version 2.3, section 9.7.2 Web Application Classloader).  
+When a request to load a
+class from the web application's <em>WebappX</em> class loader is processed,
+this class loader will look in the local repositories <strong>first</strong>,
+instead of delegating before looking.  There are exceptions. Classes which are
+part of the JRE base classes cannot be overriden. For some classes (such as
+the XML parser components in J2SE 1.4+), the J2SE 1.4 endorsed feature can be 
+used.
+Last, any JAR containing servlet API classes will be ignored by the 
+classloader.
+All other class loaders in Tomcat 6 follow the usual delegation pattern.</p>
+
+<p>Therefore, from the perspective of a web application, class or resource
+loading looks in the following repositories, in this order:</p>
+<ul>
+<li>Bootstrap classes of your JVM</li>
+<li>System class loader classses (described above)</li>
+<li><em>/WEB-INF/classes</em> of your web application</li>
+<li><em>/WEB-INF/lib/*.jar</em> of your web application</li>
+<li><em>$CATALINA_HOME/lib</em></li>
+<li><em>$CATALINA_HOME/lib/*.jar</em></li>
+</ul>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="XML Parsers and JSE 5"><strong>XML Parsers and JSE 5</strong></a></font></td></tr><tr><td><blockquote>
+
+<p>Among many other changes, the JSE 5 release packages the JAXP APIs, and
+a version of Xerces, inside the JRE.  This has impacts on applications that
+wish to use their own XML parser.</p>
+
+<p>In previous versions of Tomcat, you could simply replace the XML parser
+in the <code>$CATALINA_HOME/common/lib</code> directory to change the parser
+used by all web applications.  However, this technique will not be effective
+when you are running on JSE 5, because the usual class loader delegation
+process will always choose the implementation inside the JDK in preference
+to this one.</p>
+
+<p>JDK 1.5 supports a mechanism called the "Endorsed Standards Override
+Mechanism" to allow replacement of APIs created outside of the JCP (i.e.
+DOM and SAX from W3C).  It can also be used to update the XML parser
+implementation.  For more information, see:
+<a href="http://java.sun.com/j2se/1.5/docs/guide/standards/index.html">
+http://java.sun.com/j2se/1.5/docs/guide/standards/index.html</a>.</p>
+
+<p>Tomcat utilizes this mechanism by including the system property setting
+<code>-Djava.endorsed.dirs=$JAVA_ENDORSED_DIRS</code> in the
+command line that starts the container.</p>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Running under a security manager"><strong>Running under a security manager</strong></a></font></td></tr><tr><td><blockquote>
+
+<p>When running under a security manager the locations from which classes
+are permitted to be loaded will also depend on the contents of your policy
+file. See <a href="security-manager-howto.html">Security Manager HOW-TO</a>
+for further information.</p>
+
+</blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
+        Copyright &copy; 1999-2008, Apache Software Foundation
+        </em></font></div></td></tr></table></body></html>

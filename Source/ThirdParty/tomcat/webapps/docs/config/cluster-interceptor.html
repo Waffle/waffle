@@ -1,0 +1,126 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat Configuration Reference - The Channel Interceptor object</title><meta value="Filip Hanik" name="author"><meta value="fhanik@apache.org" name="email"><style media="print" type="text/css">
+			.noPrint {display: none;}
+			td#mainBody {width: 100%;}
+		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
+    The Apache Tomcat Servlet/JSP Container
+  " align="right" src="../images/tomcat.gif"></a></td><td><font face="arial,helvetica,sanserif"><h1>Apache Tomcat 6.0</h1></font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap="true" valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li><li><a href="index.html">Config Ref. Home</a></li></ul><p><strong>Top Level Elements</strong></p><ul><li><a href="server.html">Server</a></li><li><a href="service.html">Service</a></li></ul><p><strong>Executors</strong></p><ul><li><a href="executor.html">Executor</a></li></ul><p><strong>Connectors</strong></p><ul><li><a href="http.html">HTTP</a></li><li><a href="ajp.html">AJP</a></li></ul><p><strong>Containers</strong></p><ul><li><a href="context.html">Context</a></li><li><a href="engine.html">Engine</a></li><li><a href="host.html">Host</a></li><li><a href="cluster.html">Cluster</a></li></ul><p><strong>Nested Components</strong></p><ul><li><a href="listeners.html">Listeners</a></li><li><a href="globalresources.html">Global Resources</a></li><li><a href="loader.html">Loader</a></li><li><a href="manager.html">Manager</a></li><li><a href="realm.html">Realm</a></li><li><a href="resources.html">Resources</a></li><li><a href="valve.html">Valve</a></li></ul><p><strong>Cluster Elements</strong></p><ul><li><a href="cluster.html">Cluster</a></li><li><a href="cluster-manager.html">Manager</a></li><li><a href="cluster-channel.html">Channel</a></li><li><a href="cluster-membership.html">Channel/Membership</a></li><li><a href="cluster-sender.html">Channel/Sender</a></li><li><a href="cluster-receiver.html">Channel/Receiver</a></li><li><a href="cluster-interceptor.html">Channel/Interceptor</a></li><li><a href="cluster-valve.html">Valve</a></li><li><a href="cluster-deployer.html">Deployer</a></li><li><a href="cluster-listener.html">ClusterListener</a></li></ul><p><strong>Global Settings</strong></p><ul><li><a href="systemprops.html">System properties</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat Configuration Reference</h1><h2>The Channel Interceptor object</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+  <p>
+  Apache Tribes supports an interceptor architecture to intercept both messages and membership notifications.
+  This architecture allows decoupling of logic and opens the way for some very kewl feature add ons.
+  </p>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Available Interceptors"><strong>Available Interceptors</strong></a></font></td></tr><tr><td><blockquote>
+ <p>
+   <ul>
+    <li><code>org.apache.catalina.tribes.group.interceptors.TcpFailureDetector</code></li>
+    <li><code>org.apache.catalina.tribes.group.interceptors.ThroughputInterceptor</code></li>
+    <li><code>org.apache.catalina.tribes.group.interceptors.MessageDispatch15Interceptor</code></li>
+    <li><code>org.apache.catalina.tribes.group.interceptors.MessageDispatchInterceptor</code></li>
+    <li><code>org.apache.catalina.tribes.group.interceptors.NonBlockingCoordinator</code></li>
+    <li><code>org.apache.catalina.tribes.group.interceptors.OrderInterceptor</code></li>
+    <li><code>org.apache.catalina.tribes.group.interceptors.SimpleCoordinator</code></li>
+    <li><code>org.apache.catalina.tribes.group.interceptors.StaticMembershipInterceptor</code></li>
+    <li><code>org.apache.catalina.tribes.group.interceptors.TwoPhaseCommitInterceptor</code></li>
+    <li><code>org.apache.catalina.tribes.group.interceptors.DomainFilterInterceptor</code></li>
+    <li><code>org.apache.catalina.tribes.group.interceptors.FragmentationInterceptor</code></li>
+    <li><code>org.apache.catalina.tribes.group.interceptors.GzipInterceptor</code></li>
+   </ul>
+ </p>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Static Membership"><strong>Static Membership</strong></a></font></td></tr><tr><td><blockquote>
+  <p>
+   In addition to dynamic discovery, Apache Tribes also supports static membership, with membership verification.
+   To achieve this add the <code>org.apache.catalina.tribes.group.interceptors.StaticMembershipInterceptor</code>
+   underneath the <code>org.apache.catalina.tribes.group.interceptors.TcpFailureDetector</code> interceptor.
+   Inside the <code>StaticMembershipInterceptor</code> you can add the static members you wish to have.
+   The <code>TcpFailureDetector</code> will do a health check on the static members,and also monitor them for crashes
+   so they will have the same level of notification mechanism as the members that are automatically discovered.
+   <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+     &lt;Interceptor className="org.apache.catalina.tribes.group.interceptors.StaticMembershipInterceptor"&gt;
+       &lt;Member className="org.apache.catalina.tribes.membership.StaticMember"
+                  port="5678"
+                  securePort="-1"
+                  host="tomcat01.mydomain.com"
+                  domain="staging-cluster"
+                  uniqueId="{0,1,2,3,4,5,6,7,8,9}"/&gt;
+     &lt;/Interceptor&gt;
+   
+   </pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td></tr></table></div>
+  </p>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Attributes"><strong>Attributes</strong></a></font></td></tr><tr><td><blockquote>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Common Attributes"><strong>Common Attributes</strong></a></font></td></tr><tr><td><blockquote>
+   <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>className</code></strong></td><td valign="center" align="left">
+       Required, as there is no default 
+     </td></tr><tr><td valign="center" align="left"><code>optionFlag</code></td><td valign="center" align="left">
+       If you want the interceptor to trigger on certain message depending on the message's option flag,
+       you can setup the interceptors flag here.
+       The default value is <code>0</code>, meaning this interceptor will trigger on all messages.
+     </td></tr></table>
+  </blockquote></td></tr></table>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="org.apache.catalina.tribes.group.interceptors.MessageDispatch15Interceptor Attributes"><strong>org.apache.catalina.tribes.group.interceptors.MessageDispatch15Interceptor Attributes</strong></a></font></td></tr><tr><td><blockquote>
+   <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>className</code></strong></td><td valign="center" align="left">
+       Required, This dispatcher uses JDK 1.5 java.util.concurrent package 
+     </td></tr><tr><td valign="center" align="left"><code>optionFlag</code></td><td valign="center" align="left">
+       The default and hard coded value is <code>8 (org.apache.catalina.tribes.Channel.SEND_OPTIONS_ASYNCHRONOUS)</code>.
+       The dispatcher will trigger on this value only, as it is predefined by Tribes.
+       The other attributes are inherited from its base class <code>org.apache.catalina.tribes.group.interceptors.MessageDispatchInterceptor</code>.
+     </td></tr></table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="org.apache.catalina.tribes.group.interceptors.MessageDispatchInterceptor Attributes"><strong>org.apache.catalina.tribes.group.interceptors.MessageDispatchInterceptor Attributes</strong></a></font></td></tr><tr><td><blockquote>
+   <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>className</code></strong></td><td valign="center" align="left">
+       Required, Same implementation as <code>MessageDispatch15Interceptor</code>, but with JDK 1.4 compliance.
+     </td></tr><tr><td valign="center" align="left"><code>optionFlag</code></td><td valign="center" align="left">
+       The default and hard coded value is <code>8 (org.apache.catalina.tribes.Channel.SEND_OPTIONS_ASYNCHRONOUS)</code>.
+       The dispatcher will trigger on this value only, as it is predefined by Tribes.
+     </td></tr><tr><td valign="center" align="left"><code>alwaysSend</code></td><td valign="center" align="left">
+       What behavior should be executed when the dispatch queue is full. If <code>true</code> (default), then the message is
+       is sent synchronously, if <code>false</code> an error is thrown.   
+     </td></tr><tr><td valign="center" align="left"><code>maxQueueSize</code></td><td valign="center" align="left">
+       Size in bytes of the dispatch queue, the default value is <code> 1024*1024*64 (64MB)</code> sets the maximum queue size for the dispatch queue
+       if the queue fills up, one can trigger the behavior, if <code>alwaysSend</code> is set to true, the mesage will be sent synchronously
+       if the flag is false, an error is thrown  
+     </td></tr></table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="org.apache.catalina.tribes.group.interceptors.TcpFailureDetector Attributes"><strong>org.apache.catalina.tribes.group.interceptors.TcpFailureDetector Attributes</strong></a></font></td></tr><tr><td><blockquote>
+   <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr></table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="org.apache.catalina.tribes.group.interceptors.ThroughputInterceptor Attributes"><strong>org.apache.catalina.tribes.group.interceptors.ThroughputInterceptor Attributes</strong></a></font></td></tr><tr><td><blockquote>
+   <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>interval</code></td><td valign="center" align="left">
+       Defines the interval in number of messages when we are to report the throughput statistics.
+       The report is logged to the <code>org.apache.juli.logging.LogFactory.getLog(ThroughputInterceptor.class)</code>
+       logger under the <code>INFO</code> level.
+       Default value is to report every <code>10000</code> messages.
+     </td></tr></table>
+  </blockquote></td></tr></table>
+  
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Nested element StaticMember Attributes"><strong>Nested element StaticMember Attributes</strong></a></font></td></tr><tr><td><blockquote>
+   <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>className</code></strong></td><td valign="center" align="left">
+       Only one implementation available:<code>org.apache.catalina.tribes.membership.StaticMember</code>
+     </td></tr><tr><td valign="center" align="left"><strong><code>port</code></strong></td><td valign="center" align="left">
+       The port that this static member listens to for cluster messages
+     </td></tr><tr><td valign="center" align="left"><code>securePort</code></td><td valign="center" align="left">
+       The secure port this static member listens to for encrypted cluster messages
+       default value is <code>-1</code>, this value means the member is not listening on a secure port
+     </td></tr><tr><td valign="center" align="left"><strong><code>host</code></strong></td><td valign="center" align="left">
+       The host (or network interface) that this static member listens for cluster messages.
+       Three different type of values are possible:<br>
+       1. IP address in the form of "216.123.1.23"<br>
+       2. Hostnames like "tomcat01.mydomain.com" or "tomcat01" as long as they resolve correctly<br>
+       3. byte array in string form, for example {216,123,12,3}<br>
+     </td></tr><tr><td valign="center" align="left"><strong><code>domain</code></strong></td><td valign="center" align="left">
+       The logical cluster domain for this this static member listens for cluster messages.
+       Two different type of values are possible:<br>
+       1. Regular string values like "staging-domain" or "tomcat-cluster" will be converted into bytes 
+       using ISO-8859-1 encoding.
+       2. byte array in string form, for example {216,123,12,3}<br>
+     </td></tr><tr><td valign="center" align="left"><strong><code>uniqueId</code></strong></td><td valign="center" align="left">
+       A universally uniqueId for this static member.
+       The values must be 16 bytes in the following form:<br>
+       1. byte array in string form, for example {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15}<br>
+     </td></tr></table>
+  </blockquote></td></tr></table>
+  
+  
+</blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
+        Copyright &copy; 1999-2008, Apache Software Foundation
+        </em></font></div></td></tr></table></body></html>

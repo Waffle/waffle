@@ -1,0 +1,73 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat 6.0 - Additional Components</title><meta value="Remy Maucherat" name="author"><meta value="" name="email"><style media="print" type="text/css">
+			.noPrint {display: none;}
+			td#mainBody {width: 100%;}
+		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
+      The Apache Tomcat Servlet/JSP Container
+    " align="right" src="./images/tomcat.gif"></a></td><td><font face="arial,helvetica,sanserif"><h1>Apache Tomcat 6.0</h1></font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="./images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap="true" valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="index.html">Docs Home</a></li><li><a href="http://wiki.apache.org/tomcat/FAQ">FAQ</a></li></ul><p><strong>User Guide</strong></p><ul><li><a href="introduction.html">1) Introduction</a></li><li><a href="setup.html">2) Setup</a></li><li><a href="appdev/index.html">3) First webapp</a></li><li><a href="deployer-howto.html">4) Deployer</a></li><li><a href="manager-howto.html">5) Manager</a></li><li><a href="realm-howto.html">6) Realms and AAA</a></li><li><a href="security-manager-howto.html">7) Security Manager</a></li><li><a href="jndi-resources-howto.html">8) JNDI Resources</a></li><li><a href="jndi-datasource-examples-howto.html">9) JDBC DataSources</a></li><li><a href="class-loader-howto.html">10) Classloading</a></li><li><a href="jasper-howto.html">11) JSPs</a></li><li><a href="ssl-howto.html">12) SSL</a></li><li><a href="ssi-howto.html">13) SSI</a></li><li><a href="cgi-howto.html">14) CGI</a></li><li><a href="proxy-howto.html">15) Proxy Support</a></li><li><a href="mbeans-descriptor-howto.html">16) MBean Descriptor</a></li><li><a href="default-servlet.html">17) Default Servlet</a></li><li><a href="cluster-howto.html">18) Clustering</a></li><li><a href="balancer-howto.html">19) Load Balancer</a></li><li><a href="connectors.html">20) Connectors</a></li><li><a href="monitoring.html">21) Monitoring and Management</a></li><li><a href="logging.html">22) Logging</a></li><li><a href="apr.html">23) APR/Native</a></li><li><a href="virtual-hosting-howto.html">24) Virtual Hosting</a></li><li><a href="aio.html">25) Advanced IO</a></li><li><a href="extras.html">26) Additional Components</a></li><li><a href="maven-jars.html">27) Mavenized</a></li></ul><p><strong>Reference</strong></p><ul><li><a href="RELEASE-NOTES.txt">Release Notes</a></li><li><a href="config/index.html">Configuration</a></li><li><a href="api/index.html">Javadocs</a></li><li><a href="http://tomcat.apache.org/connectors-doc/">JK 1.2 Documentation</a></li></ul><p><strong>Apache Tomcat Development</strong></p><ul><li><a href="building.html">Building</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="http://wiki.apache.org/tomcat/TomcatVersions">Status</a></li><li><a href="developers.html">Developers</a></li><li><a href="architecture/index.html">Architecture</a></li><li><a href="funcspecs/index.html">Functional Specs.</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat 6.0</h1><h2>Additional Components</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+  <p>
+    A number of additional third party components may be used with Apache
+    Tomcat. These components may be built by users should they need them or they
+    can be downloaded from one of the mirrors.
+  </p>
+
+  </blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Downloading"><strong>Downloading</strong></a></font></td></tr><tr><td><blockquote>
+  <p>
+    To down load the extras components open the Tomcat 6 download page and
+    select browse from the Quick Navigation Links. The extras components can be
+    found in bin/extras. 
+  </p>
+  </blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Building"><strong>Building</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>
+      The additional components are built using the <code>extras.xml</code> Ant
+      script which is present in the source bundle of Tomcat.
+    </p>
+    
+    <p>The build process is the following:</p>
+    
+    <ul>
+    <li>Follow the <a href="building.html">build instructions</a> to build a
+        Tomcat binary from the source bundle (note: it will be used by the build
+        process of the additional components, but does not need to be actually
+        used later on)</li>
+    <li>Execute the command <code>ant -f extras.xml</code> to run the build
+        script</li>
+    <li>The additional components JARs will be placed in the
+        <code>output/extras</code> folder</li>
+    <li>Refer to the documentation below about the usage of these JARs</li>
+    </ul>
+	
+  </blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Components list"><strong>Components list</strong></a></font></td></tr><tr><td><blockquote>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Full commons-logging implementation"><strong>Full commons-logging implementation</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>
+    Tomcat uses a package renamed commons-logging API implementation which is
+    hardcoded to use the java.util.logging API. The commons-logging additional
+    component builds a full fledged package renames commons-logging
+    implementation which can be used to replace the implementation provided with
+    Tomcat. See the <a href="logging.html">logging</a> page for usage
+    instructions.
+  </p>
+
+  </blockquote></td></tr></table>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Web Services support (JSR 109)"><strong>Web Services support (JSR 109)</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>
+    Tomcat provides factories for JSR 109 which may be used to resolve web
+    services references. Place the generated catalina-ws.jar as well as
+    jaxrpc.jar and wsdl4j.jar (or another implementation of JSR 109) in the
+    Tomcat lib folder.
+  </p>
+
+  <p>
+    Users should be aware that wsdl4j.jar is licenced under CPL 1.0 and not the
+    Apache License version 2.0.
+  </p>
+
+  </blockquote></td></tr></table>
+
+  </blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
+        Copyright &copy; 1999-2008, Apache Software Foundation
+        </em></font></div></td></tr></table></body></html>

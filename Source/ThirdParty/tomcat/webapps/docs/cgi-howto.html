@@ -1,0 +1,61 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat 6.0 - CGI How To</title><meta value="Glenn L. Nielsen" name="author"><meta value="glenn@apache.org" name="email"><style media="print" type="text/css">
+			.noPrint {display: none;}
+			td#mainBody {width: 100%;}
+		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
+      The Apache Tomcat Servlet/JSP Container
+    " align="right" src="./images/tomcat.gif"></a></td><td><font face="arial,helvetica,sanserif"><h1>Apache Tomcat 6.0</h1></font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="./images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap="true" valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="index.html">Docs Home</a></li><li><a href="http://wiki.apache.org/tomcat/FAQ">FAQ</a></li></ul><p><strong>User Guide</strong></p><ul><li><a href="introduction.html">1) Introduction</a></li><li><a href="setup.html">2) Setup</a></li><li><a href="appdev/index.html">3) First webapp</a></li><li><a href="deployer-howto.html">4) Deployer</a></li><li><a href="manager-howto.html">5) Manager</a></li><li><a href="realm-howto.html">6) Realms and AAA</a></li><li><a href="security-manager-howto.html">7) Security Manager</a></li><li><a href="jndi-resources-howto.html">8) JNDI Resources</a></li><li><a href="jndi-datasource-examples-howto.html">9) JDBC DataSources</a></li><li><a href="class-loader-howto.html">10) Classloading</a></li><li><a href="jasper-howto.html">11) JSPs</a></li><li><a href="ssl-howto.html">12) SSL</a></li><li><a href="ssi-howto.html">13) SSI</a></li><li><a href="cgi-howto.html">14) CGI</a></li><li><a href="proxy-howto.html">15) Proxy Support</a></li><li><a href="mbeans-descriptor-howto.html">16) MBean Descriptor</a></li><li><a href="default-servlet.html">17) Default Servlet</a></li><li><a href="cluster-howto.html">18) Clustering</a></li><li><a href="balancer-howto.html">19) Load Balancer</a></li><li><a href="connectors.html">20) Connectors</a></li><li><a href="monitoring.html">21) Monitoring and Management</a></li><li><a href="logging.html">22) Logging</a></li><li><a href="apr.html">23) APR/Native</a></li><li><a href="virtual-hosting-howto.html">24) Virtual Hosting</a></li><li><a href="aio.html">25) Advanced IO</a></li><li><a href="extras.html">26) Additional Components</a></li><li><a href="maven-jars.html">27) Mavenized</a></li></ul><p><strong>Reference</strong></p><ul><li><a href="RELEASE-NOTES.txt">Release Notes</a></li><li><a href="config/index.html">Configuration</a></li><li><a href="api/index.html">Javadocs</a></li><li><a href="http://tomcat.apache.org/connectors-doc/">JK 1.2 Documentation</a></li></ul><p><strong>Apache Tomcat Development</strong></p><ul><li><a href="building.html">Building</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="http://wiki.apache.org/tomcat/TomcatVersions">Status</a></li><li><a href="developers.html">Developers</a></li><li><a href="architecture/index.html">Architecture</a></li><li><a href="funcspecs/index.html">Functional Specs.</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat 6.0</h1><h2>CGI How To</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+
+<p>The CGI (Common Gateway Interface) defines a way for a web server to
+interact with external content-generating programs, which are often
+referred to as CGI programs or CGI scripts.
+</p>
+
+<p>Within Tomcat, CGI support can be added when you are using Tomcat as your
+HTTP server and require CGI support.  Typically this is done
+during development when you don't want to run a web server like 
+Apache httpd.
+Tomcat's CGI support is largely compatible with Apache httpd's, 
+but there are some limitations (e.g., only one cgi-bin directory).
+</p>
+
+<p>CGI support is implemented using the servlet class
+<code>org.apache.catalina.servlets.CGIServlet</code>.  Traditionally,
+this servlet is mapped to the URL pattern "/cgi-bin/*".</p>
+
+<p>By default CGI support is disabled in Tomcat.</p>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Installation"><strong>Installation</strong></a></font></td></tr><tr><td><blockquote>
+
+<p><strong>CAUTION</strong> - CGI scripts are used to execute programs
+external to the Tomcat JVM. If you are using the Java SecurityManager this
+will bypass your security policy configuration in <code>catalina.policy.</code></p>
+
+<p>Remove the XML comments from around the CGI servlet and servlet-mapping
+configuration in <code>$CATALINA_BASE/conf/web.xml</code>.</p>
+
+<p>Only Contexts which are marked as privileged may use the CGI servlet (see the
+privileged property of the Context element).</p>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Configuration"><strong>Configuration</strong></a></font></td></tr><tr><td><blockquote>
+
+<p>There are several servlet init parameters which can be used to
+configure the behaviour of the CGI servlet.
+<ul>
+<li><strong>cgiPathPrefix</strong> - The CGI search path will start at
+the web application root directory + File.separator + this prefix.
+The default cgiPathPrefix is <code>WEB-INF/cgi</code></li>
+<li><strong>debug</strong> - Debugging detail level for messages logged
+by this servlet. Default 0.</li>
+<li><strong>executable</strong> - The of the executable to be used to
+run the script. Default is <code>perl</code>.</li>
+<li><strong>parameterEncoding</strong> - Name of the parameter encoding
+to be used with the GCI servlet. Default is
+<code>System.getProperty("file.encoding","UTF-8")</code>.</li>
+<li><strong>passShellEnvironment</strong> - Should the shell environment
+variables (if any) be passed to the CGI script? Default is
+<code>false</code>.</li>
+</ul>
+</p>
+
+</blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
+        Copyright &copy; 1999-2008, Apache Software Foundation
+        </em></font></div></td></tr></table></body></html>

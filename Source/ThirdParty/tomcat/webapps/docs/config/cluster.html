@@ -1,0 +1,120 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat Configuration Reference - The Cluster object</title><meta value="Filip Hanik" name="author"><meta value="fhanik@apache.org" name="email"><style media="print" type="text/css">
+			.noPrint {display: none;}
+			td#mainBody {width: 100%;}
+		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
+    The Apache Tomcat Servlet/JSP Container
+  " align="right" src="../images/tomcat.gif"></a></td><td><font face="arial,helvetica,sanserif"><h1>Apache Tomcat 6.0</h1></font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap="true" valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li><li><a href="index.html">Config Ref. Home</a></li></ul><p><strong>Top Level Elements</strong></p><ul><li><a href="server.html">Server</a></li><li><a href="service.html">Service</a></li></ul><p><strong>Executors</strong></p><ul><li><a href="executor.html">Executor</a></li></ul><p><strong>Connectors</strong></p><ul><li><a href="http.html">HTTP</a></li><li><a href="ajp.html">AJP</a></li></ul><p><strong>Containers</strong></p><ul><li><a href="context.html">Context</a></li><li><a href="engine.html">Engine</a></li><li><a href="host.html">Host</a></li><li><a href="cluster.html">Cluster</a></li></ul><p><strong>Nested Components</strong></p><ul><li><a href="listeners.html">Listeners</a></li><li><a href="globalresources.html">Global Resources</a></li><li><a href="loader.html">Loader</a></li><li><a href="manager.html">Manager</a></li><li><a href="realm.html">Realm</a></li><li><a href="resources.html">Resources</a></li><li><a href="valve.html">Valve</a></li></ul><p><strong>Cluster Elements</strong></p><ul><li><a href="cluster.html">Cluster</a></li><li><a href="cluster-manager.html">Manager</a></li><li><a href="cluster-channel.html">Channel</a></li><li><a href="cluster-membership.html">Channel/Membership</a></li><li><a href="cluster-sender.html">Channel/Sender</a></li><li><a href="cluster-receiver.html">Channel/Receiver</a></li><li><a href="cluster-interceptor.html">Channel/Interceptor</a></li><li><a href="cluster-valve.html">Valve</a></li><li><a href="cluster-deployer.html">Deployer</a></li><li><a href="cluster-listener.html">ClusterListener</a></li></ul><p><strong>Global Settings</strong></p><ul><li><a href="systemprops.html">System properties</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat Configuration Reference</h1><h2>The Cluster object</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+  <p>
+  The tomcat cluster implementation provides session replication, context attribute replication and
+  cluster wide WAR file deployment.
+  While the <code>Cluster</code> configuration is fairly complex, the default configuration will work
+  for most people out of the box. </p><p>
+  The Tomcat Cluster implementation is very extensible, and hence we have exposed a myriad of options,
+  making the configuration seem like a lot, but don't lose faith, instead you have a tremendous control
+  over what is going on.</p>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Engine vs Host placement"><strong>Engine vs Host placement</strong></a></font></td></tr><tr><td><blockquote>
+  <p>
+   You can place the <code>&lt;Cluster&gt;</code> element inside either the <code>&lt;Engine&gt;</code>
+   container or the <code>&lt;Host&gt;</code> container.<br>
+   Placing it in the engine, means that you will support clustering in all virtual hosts of Tomcat,
+   and share the messaging component. When you place the <code>&lt;Cluster&gt;</code> inside the <code>&lt;Engine&gt;</code>
+   element, the cluster will append the host name of each session manager to the managers name so that two contexts with 
+   the same name but sitting inside two different hosts will be distinguishable.
+  </p>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Context Attribute Replication"><strong>Context Attribute Replication</strong></a></font></td></tr><tr><td><blockquote>
+  <p>To configure context attribute replication, simply do this by swapping out the context implementation
+  used for your application context.
+    <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>&lt;Context className="org.apache.catalina.ha.context.ReplicatedContext"/&gt;</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td></tr></table></div>
+    This context extends the Tomcat <code><a href="context.html">StandardContext</a></code>
+    so all the options from the <a href="context.html">base implementation</a> are valid.
+  </p>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Nested Components"><strong>Nested Components</strong></a></font></td></tr><tr><td><blockquote>
+  <p><b><a href="cluster-manager.html">Manager</a>:</b> <br>
+    The session manager element identifies what kind of session manager is used in this cluster implementation.
+    This manager configuration is identical to the one you would use in a regular <code><a href="context.html#Nested%20xComponents">&lt;Context&gt;</a></code> configuration.
+    <br>The default value is the <code>org.apache.catalina.ha.session.DeltaManager</code> that is closely coupled with
+    the <code>SimpleTcpCluster</code> implementation. Other managers like the <code>org.apache.catalina.ha.session.BackupManager</code>
+    are/could be loosely coupled and don't rely on the <code>SimpleTcpCluster</code> for its data replication.
+  </p>
+  <p><b><a href="cluster-channel.html">Channel</a>:</b> <br>
+    The Channel and its sub components are all part of the IO layer 
+    for the cluster group, and is a module in it's own that we have nick named "Tribes"
+    <br>
+    Any configuring and tuning of the network layer, the messaging and the membership logic
+    will be done in the channel and its nested components.
+    You can always find out more about <a href="../tribes/introduction.html">Apache Tribes</a>
+  </p>
+  <p><b><a href="cluster-valve.html">Valve</a>:</b> <br>
+    The Tomcat Cluster implementation uses <code>Tomcat <a href="valve.html">Valves</a></code> to
+    track when requests enter and exit the servlet container. It uses these valves to be able to make
+    intelligent decisions on when to replicate data, which is always at the end of a request.
+  </p>
+  <p><b><a href="cluster-deployer.html">Deployer</a>:</b> <br>
+    The Deployer component is the Tomcat Farm Deployer. It allows you to deploy and undeploy applications
+    cluster wide.
+  </p>
+  <p><b><a href="cluster-listener.html">ClusterListener</a>:</b> <br>
+    ClusterListener's are used to track messages sent and received using the <code>SimpleTcpCluster</code>.
+    If you wish to track messages, you can add a listener here, or you can add a valve to the channel object.
+  </p>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Deprecated configuration options"><strong>Deprecated configuration options</strong></a></font></td></tr><tr><td><blockquote>
+  <p>
+    <b>Deprecated settings:</b> In the previous version of Tomcat you were able to control session
+       manager settings using manager.&lt;property&gt;=value.
+       This has been discontinued, as the way it was written interfers with 
+       the ability to support multiple different manager classes under one cluster implementation,
+       as the same properties might have the different effect on different managers.
+  </p>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Attributes"><strong>Attributes</strong></a></font></td></tr><tr><td><blockquote>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="SimpleTcpCluster Attributes"><strong>SimpleTcpCluster Attributes</strong></a></font></td></tr><tr><td><blockquote>
+  <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>className</code></strong></td><td valign="center" align="left">
+      <p>The main cluster class, currently only one is available,
+         <code>org.apache.catalina.ha.tcp.SimpleTcpCluster</code>
+      </p>
+    </td></tr><tr><td valign="center" align="left"><strong><code>channelSendOptions</code></strong></td><td valign="center" align="left">
+      <p>The Tribes channel send options, default is <code>8</code>.<br>
+         This option is used to set the flag that all messages sent through the 
+         SimpleTcpCluster uses. The flag decides how the messages are sent, and is a simple logical OR.<br>
+         
+      <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+        int options= Channel.SEND_OPTIONS_ASYNCHRONOUS | 
+                     Channel.SEND_OPTIONS_SYNCHRONIZED_ACK | 
+                     Channel.SEND_OPTIONS_USE_ACK;
+      </pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td></tr></table></div>
+      Some of the values are:<br>
+      <code>Channel.SEND_OPTIONS_SYNCHRONIZED_ACK = 0x0004</code><br>
+      <code>Channel.SEND_OPTIONS_ASYNCHRONOUS = 0x0008</code><br>
+      <code>Channel.SEND_OPTIONS_USE_ACK = 0x0002</code><br>
+      So to use ACK and ASYNC messaging, the flag would be <code>10 (8+2) or 0x000B</code><br>
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>channelStartOptions</code></td><td valign="center" align="left">
+      <p>Sets the start and stop flags for the &lt;Channel&gt; object used by the cluster.
+         The default is <code>Channel.DEFAULT</code> which starts all the channel services, such as 
+         sender, receiver, multicast sender and multicast receiver.
+         The following flags are available today:
+         <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+           Channel.DEFAULT = Channel.SND_RX_SEQ (1)| Channel.SND_TX_SEQ (2)| Channel.MBR_RX_SEQ (4)| Channel.MBR_TX_SEQ (8);
+         </pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td></tr></table></div>
+         To start a channel without multicasting, you would want to use the value <code>Channel.SND_RX_SEQ | Channel.SND_TX_SEQ</code>
+         that equals to <code>3</code>.
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>heartbeatBackgroundEnabled</code></td><td valign="center" align="left">
+      <p>Enable this flag don't forget to disable the channel heartbeat thread.
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>doClusterLog</code></td><td valign="center" align="left">
+      <p><b>Deprecated since 6.0.0</b></p>
+      <p>Possible values are <code>true</code> or <code>false</code><br>
+         Value is inherited from Tomcat 5.5 and has no official meaning.
+         to configure logging, use the standard tomcat logging configuration.
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>clusterLogName</code></td><td valign="center" align="left">
+      <p><b>Deprecated since 6.0.0</b></p>
+      <p>
+        Value is inherited from Tomcat 5.5 and has no official meaning.
+         to configure logging, use the standard tomcat logging configuration.
+      </p>
+    </td></tr></table>
+  </blockquote></td></tr></table>
+</blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
+        Copyright &copy; 1999-2008, Apache Software Foundation
+        </em></font></div></td></tr></table></body></html>

@@ -1,0 +1,2589 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat 6.0 - Changelog</title><meta value="Remy Maucherat" name="author"><meta value="remm@apache.org" name="email"><meta value="Yoav Shapira" name="author"><meta value="yoavs@apache.org" name="email"><meta value="Filip Hanik" name="author"><meta value="fhanik@apache.org" name="email"><meta value="Rainer Jung" name="author"><meta value="rjung@apache.org" name="email"><meta value="Peter Rossbach" name="author"><meta value="pero@apache.org" name="email"><style media="print" type="text/css">
+			.noPrint {display: none;}
+			td#mainBody {width: 100%;}
+		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
+      The Apache Tomcat Servlet/JSP Container
+    " align="right" src="./images/tomcat.gif"></a></td><td><font face="arial,helvetica,sanserif"><h1>Apache Tomcat 6.0</h1></font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="./images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap="true" valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="index.html">Docs Home</a></li><li><a href="http://wiki.apache.org/tomcat/FAQ">FAQ</a></li></ul><p><strong>User Guide</strong></p><ul><li><a href="introduction.html">1) Introduction</a></li><li><a href="setup.html">2) Setup</a></li><li><a href="appdev/index.html">3) First webapp</a></li><li><a href="deployer-howto.html">4) Deployer</a></li><li><a href="manager-howto.html">5) Manager</a></li><li><a href="realm-howto.html">6) Realms and AAA</a></li><li><a href="security-manager-howto.html">7) Security Manager</a></li><li><a href="jndi-resources-howto.html">8) JNDI Resources</a></li><li><a href="jndi-datasource-examples-howto.html">9) JDBC DataSources</a></li><li><a href="class-loader-howto.html">10) Classloading</a></li><li><a href="jasper-howto.html">11) JSPs</a></li><li><a href="ssl-howto.html">12) SSL</a></li><li><a href="ssi-howto.html">13) SSI</a></li><li><a href="cgi-howto.html">14) CGI</a></li><li><a href="proxy-howto.html">15) Proxy Support</a></li><li><a href="mbeans-descriptor-howto.html">16) MBean Descriptor</a></li><li><a href="default-servlet.html">17) Default Servlet</a></li><li><a href="cluster-howto.html">18) Clustering</a></li><li><a href="balancer-howto.html">19) Load Balancer</a></li><li><a href="connectors.html">20) Connectors</a></li><li><a href="monitoring.html">21) Monitoring and Management</a></li><li><a href="logging.html">22) Logging</a></li><li><a href="apr.html">23) APR/Native</a></li><li><a href="virtual-hosting-howto.html">24) Virtual Hosting</a></li><li><a href="aio.html">25) Advanced IO</a></li><li><a href="extras.html">26) Additional Components</a></li><li><a href="maven-jars.html">27) Mavenized</a></li></ul><p><strong>Reference</strong></p><ul><li><a href="RELEASE-NOTES.txt">Release Notes</a></li><li><a href="config/index.html">Configuration</a></li><li><a href="api/index.html">Javadocs</a></li><li><a href="http://tomcat.apache.org/connectors-doc/">JK 1.2 Documentation</a></li></ul><p><strong>Apache Tomcat Development</strong></p><ul><li><a href="building.html">Building</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="http://wiki.apache.org/tomcat/TomcatVersions">Status</a></li><li><a href="developers.html">Developers</a></li><li><a href="architecture/index.html">Architecture</a></li><li><a href="funcspecs/index.html">Functional Specs.</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat 6.0</h1><h2>Changelog</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 6.0.20 (remm)"><strong>Tomcat 6.0.20 (remm)</strong></a></font></td></tr><tr><td><blockquote>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Catalina"><strong>Catalina</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42579">42579</a>: Handle both relative and absolute search results in
+        the JNDIRealm. Patch provided by Brandon DuRette. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46562">46562</a>: Close shtml files after processing to allow other
+        processes to modify the files. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46815">46815</a>: Make the MemoryUserDatabase read-only by default.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46816">46816</a>: Align session manager mbean descriptor with
+        implementation. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix a typo in the OPTIONS response from the default servlet. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46822">46822</a>: Remove unnecessary object creation from
+        StandardContext. Patch provided by Anthony Whitford. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46866">46866</a>: Better initialisation of Random objects. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46875">46875</a>: Catch and handle possible IllegalStateExceptions
+        in CometConnectionManagerValve related to session expiration. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Correct some errors reported when testing the WebDAV servlet with the
+        Litmus test suite. (markt)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46933">46933</a>: Update StringManager to use Java 5 features. Patch
+        provided by Jens Kapitza. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46990">46990</a>: Fix synchronization issues reported by FindBugs. Patch
+        provided by Sebb. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Coyote"><strong>Coyote</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Allow huge request body packets for AJP13. (rjung)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45026">45026</a>: Never return an empty HTTP status reason phrase.
+        mod_jk and httpd 2.x do not like that. (rjung)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Set remote port for AJP connectors from the optional request
+        attribute AJP_REMOTE_PORT. (rjung)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Update tc-native to 1.1.16 (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46982">46982</a>: Correct reporting of DST offset in access logs.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46984">46984</a>: Invalid characters in HTTP request method now result
+        in a 400 response. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46991">46991</a>: Fix AJP connector always reporting bytes received as
+        zero. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Jasper"><strong>Jasper</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=37929">37929</a>: Fix invalidated session causing pageContext methods to
+        fail. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41606">41606</a>: Prevent double initialisation of JSPs. Patch provided
+        by Chris Halstead. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46354">46354</a>: ArrayIndexOutOfBoundsException when using
+        org.apache.jasper.runtime.BodyContentImpl.LIMIT_BUFFER=true
+        Patch provided by Konstantin Kolinko. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46909">46909</a>: Only include semi-colon in type attribute for
+        &lt;jsp:plugin&gt; when it is required. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=47013">47013</a>: Use system property rather than hard-coded string for
+        pre-compilation flag. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Cluster"><strong>Cluster</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        A node should ignore its own heartbeat messages. (rjung)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Webapps"><strong>Webapps</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46509">46509</a>: Use correct link on error page in JSP security
+        example. Patch provided by Michael Moody. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46599">46599</a>: Document known DAEMON issue. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46807">46807</a>: Correct docs for configuration of tag pooling. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46924">46924</a>: Clarify behaviour when auto deployment is enabled and
+        a WAR, directory or context file is deleted or updated. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46958">46958</a>: All xml manager status output to work regardless of
+        context path. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Other"><strong>Other</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46351">46351</a>: Refactor the build script. Patch provided by Marc
+        Guillemot. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46910">46910</a>: Properties files corrupted by build process. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46915">46915</a>: When resolving ResourceBundle properties, don't claim
+        to have resolved the property unless we really have resolved it. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix .pdf and .exe corruption in -src.tar.gz distribution. (markt)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        Enable running Tomcat directly from the build directory on linux
+        systems. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 6.0.19 (remm)"><strong>Tomcat 6.0.19 (remm)</strong></a></font></td></tr><tr><td><blockquote>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Catalina"><strong>Catalina</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Manager application prints FAIL if application was deployed but failed to start (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        When shutdown port is disabled, print user friendly message and not a stack trace. (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=37458">37458</a>: Correct sync issue that leads to NPE in rare
+        circumstances. Patch provided by Konstantin Kolinko. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=38553">38553</a>: Return 401 rather than 400 if client does not present
+        a certificate CLIENT-CERT authentication. (markt)        
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=38570">38570</a>: When checking docBase against appBase, make sure we
+        check for an exact match against the appBase. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=39013">39013</a>: When testing for invalid docBase, test for an exact
+        match with the appBase dir. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=39396">39396</a>: Don't include TRACEE in OPTIONS response unless we
+        know it hasn't been disabled in the connector. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42747">42747</a>: Ensure context.xml takes effect on first deployment
+        for WAR and DIR deployments. context.xml is now copied to
+        CATALINA_BASE/&lt;engine name&gt;/&lt;host name&gt; for DIR as well as
+        WAR deployments. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td><a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43071">43071</a>Start poller before acceptor (r719267)</td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Fix read/write timeout of async comet operations
+        (r719264)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td> 
+        Implement async close behaviour for Comet/NIO.
+        No-op for APR (same behavior as before)
+        (r719262)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Default thread count for HTTP connectors is 200. (r713186)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Comet should always invoke END and properly invoke READ (r713174)
+     </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix class cast exception when shutting down a replicated context but no cluster has been configured in server.xml (r713177)
+     </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Dererence socket when its no longer used. Frees up socket buffers and memory. No functional change. (r713175)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Correct wrong "No role found" debug message,
+        logged in RealmBase even if a role was found. (rjung)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td><a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44809">44809</a>Improve AprLifecycleListener Error Messages. (jfclere)</td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Log AccessControlException for context specific logging.properties
+        during startup with security manager. (rjung)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41407">41407</a>: Add CLIENT-CERT support to the JAAS Realm. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42409">42409</a>: Make custom and standard error page handling
+        consistent by using resetBuffer() which will not alter previously set
+        headers. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42673">42673</a>: Fix SSI virtual includes for multi-level contexts.
+        Patch provided by Peter Jodeleit. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42707">42707</a>: Make adding a host alias via JMX take effect
+        immediately. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43656">43656</a>: Correct regression in previous fix for this bug. Patch
+        provided by Nils Eckert. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45419">45419</a>: Set Accept-Ranges for static resources served by
+        DefaultServlet. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45441">45441</a>: Correctly map filters for FORWARD and INCLUDE. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45447">45447</a>: Convert Spanish resource files to use UTF-8 and provide
+        translations where previously missing. Patch provided by Jesus Marin.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45453">45453</a>: Remove potential race condition in JDBC Realm.
+        Based on a patch by Santtu Hyrkk. (markt)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45576">45576</a>: Add DIGEST support to the JAAS Realm. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45585">45585</a>: Allow Tomcat to start if using
+        <code>$CATALINA_BASE</code> but not JULI. Patch based on a suggestion by
+        Ian Ward Comfort. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        The JAAS Realm did not assign roles to authenticated users. (markt)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        Provide full stacktrace and message when the ErrorReportValveClass can't
+        be instantiated. (funkman) 
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45608">45608</a>: Make allocated servlet count synchronized to ensure
+        the correct allocated servlet count is available during shutdown.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45628">45628</a>: When checking MANIFEST dependancies, JARs without
+        dependencies should allows be considered to be full-filled. (markt) 
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45735">45735</a>: Improve ETag handling. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45785">45785</a>: Ignore directories named xxx.jar in WEB-INF/lib.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45823">45823</a>: Log missing request headers as '-' not 'null'. Based
+        on a patch by Per Landberg. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45825">45825</a>: Correctly handle annotations in parent classes. Based
+        on a patch by Florent Benoit. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45906">45906</a>: Further ETag handling improvements. Patch provided by
+        Chris Hubick. (markt)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        Add the CombinedRealm that enables authentication to be attempted
+        against multiple realms. (markt) 
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        Add the LockOutRealm that enables a standard Realm to be wrapped with
+        the functionality to lock out a user after too many failed logins.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        Make the upper size limit of the static resource cache configurable
+        since the default of <code>cacheMaxSize/20</code> gave too high a value
+        for large caches. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix HTML decoding error in SSI processing. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix cast error in JULI log factory. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix some thread safety issues in date formatting. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix a String comparison bug in the digester property replacement that
+        resulted in non-optimal operation. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Correct handle multi-level contexts defined using context.xml files.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45933">45933</a>: Don't use xml parser from web-app to process tld
+        files. (markt)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45951">45951</a>: Support changing of JSESSIONID cookie name and
+        jsessionid path parameter name. Based on a patch by Jean-frederic Clere.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46011">46011</a>: Make Principal accessible (if set) via
+        <code>Subject.getSubject(AccessController.getContext())</code> when
+        processing filters. Based on a patch by tsveg1. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46075">46075</a>: When uploading files, don't create buffers at the
+        maximum configured size. Use the default size and let the buffers grow
+        to the maximum size if necessary. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46085">46085</a>: Fix a rare thread safety issue with session
+        expiration. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46096">46096</a>:  Support annotation processing whilst running under a
+        security manager. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        The invoker servlet has been deprecated and will be removed in Tomcat 7
+        onwards. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46105">46105</a>:  Correctly set URI encoding when replaying a request
+        after FORM authentication. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Remove unnecessary reference to commons-logging from the bootstrap JAR
+        manifest. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46232">46232</a>: Enabled the XMl parser to be over-ridden using the
+        standard endorsed mechanism. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46261">46261</a>: Treat %2F in a context name literally rather than
+        converting it (inconsistently) to '/' - that is what '#' is for. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46298">46298</a>: Throw an SQLException with a useful message rather
+        than a NPE if the URL for the JDBCRealm is invalid. Based on a patch by
+        Owen Jacobson. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46304">46304</a>: Further fixes to make Principal accessible (if set)
+        via <code>Subject.getSubject(AccessController.getContext())</code> when
+        processing filters. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46403">46403</a>: Provide a workaround for an IE and Safari bug that
+        means the Max-Age attribute of a cookie is ignored. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46408">46408</a>: Fix invalid cast in security utility package. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Remove duplicate normalisation implementations and make normalise
+        behaviour consistent throughout code base. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46683">46683</a>: Fix typo in French localisation file name for the
+        org.apache.catalina.loader package. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46606">46606</a>: Make the max DEPTH for a WebDAV request configurable.
+        The default is still 3. (markt)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44382">44382</a>: Add support for using httpOnly for session cookies.
+        This is disabled by default. (markt/fhanik)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix possible NCDFE when using FORM authentication. (jfclere)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix possible synchronisation bottleneck in cookie creation. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix various spelling errors reported on the mailing lists. (markt) 
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        Make the logging manager and properties file configurable via
+        environment variables. (fhanik)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Coyote"><strong>Coyote</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td><a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45154">45154</a>
+        Implement SEND_FILE behavior for SSL connections using NIO (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Fix file descriptor leak during NIO send file behavior. (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Implement usage of keyAlias attribute for NIO, previously attribute was ignored. (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Prevent server from calling close on an already closed NIO socket. One that had timed out. (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Fix bug with SEND_FILE behavior in NIO. Send file would delay until selector timed out, even though socket was ready to be written. (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Fix possible NPE in NioEndpoint.java (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Update tc-native to 1.1.15 in build.properties.default (jfclere)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43327">43327</a>: Socket bind fails when using APR on a system with IPv6
+        enabled but no explicit IPv6 address configured. (markt/jfclere)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44285">44285</a>: Make the SSL session cache size and timeout
+        configurable. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45074">45074</a>: Add configuration parameters to enable the tuning
+        of sendfile and poller thread count in the APR HTTP connector. Patch
+        provided by Alex Barclay. (jfclere/markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45528">45528</a>: Add detection for invalid SSL configuration to prevent
+        infinite logging loop on start-up. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45591">45591</a>: NPE on start-up failure in some cases. Based on a
+        patch by Matt Passell. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46077">46077</a>: Expose deferAccept for configuration. Patch provided
+        by Michael Leinartas. (markt)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+         Don't swallow input if we know the connection is going to be closed. (billbarker)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46125">46125</a>: Return a status code of 400 if the request headers are
+        too large. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+       Make certain that classes are first loaded by trusted code when working in a sandbox. (billbarker)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        Log a message if we reach maxThreads in a connector thread pool. (markt)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        Enable the thread pool limits to be modified via JMX. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+       Fix HTTP/1.0 redirects handling with APR AJP connector. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46666">46666</a>: keepAliveTimeout should be used regardless of setting
+        of disableUploadTimeout. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Jasper"><strong>Jasper</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=36923">36923</a>: Treat EL expressions as template text is EL
+        expressions are disabled. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=37515">37515</a>: Support 1.6 and 1.7 as source and target for
+        compilation. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        ClassCastException in EL ExpressionBuilder. (rjung)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Use more generics in EL to improve type safety. (rjung)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Use a lookahead to remove potential ambiguity in EL parsing. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Correct typo in JSP EL examples. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=38197">38197</a>: Take account of jsp:attribute elements when pooling
+        tags. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42077">42077</a>: Ensure the iterator returned by
+        javax.el.CompositeELResolver#getFeatureDescriptor() skips any null
+        FeatureDescriptors. Patch provided by Mathias Broekelmann. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42693">42693</a>: Fix JSP generation error with recursive tag file
+        structure. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45427">45427</a>: Correctly handle unmatched quotes in EL expressions.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45511">45511</a>: The failure of the <code>empty</code> keyword was a
+        regression caused by the previous fix for <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42565">42565</a>. The original
+        fix for <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42565">42565</a> has been reverted and a new fix applied.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45648">45648</a>: Don't trim the last character when parsing the EL
+        namespace. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45666">45666</a>: Prevent infinite loop on include. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45691">45691</a>: Prevent generation of duplicate variable names when
+        generating code for JSPs. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Correct signed/unsigned conversion error in ASCII parsing. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix various edge-cases when parsing EL, particularly inside attribute
+        values. Note the the Expert Group has confirmed that JSP.1.6 takes
+        precedence over JSP.1.3.10. Therefore EL in attributes must be escaped
+        twice. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46047">46047</a>: Include the path to the JAR when recording
+        dependencies that are located inside a JAR file. Patch provided by
+        C&eacute;dric Mailleux. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46381">46381</a>: Composite expressions used for attribute values must
+        be coerced to Strings. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46397">46397</a>: Don't pool tag instances that implement JspIdConsumer.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46462">46462</a>: Limit package test to just the o.a.jsp package to
+        allow use of packages such as o.a.jspwiki. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46471">46471</a>: Fix naming clash when tags in different libraries have
+        the same name. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46564">46564</a>: Make page encoding check for tagx compilation
+        case-insensitive. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Cluster"><strong>Cluster</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        Prevent NPE for ReplicationValve (pero)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        Provide TCP only start-up option when using static membership. (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        Document the multicast recovery options. (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45261">45261</a>: Add a new SimpleCoordinator for tribes provided by
+        Robert Newson. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45618">45618</a>: Make sure NIO selector is closed when no longer used.
+        Unlikely to be an issue in normal usage. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45851">45851</a>: Fix out of order message processing issues with the
+        FarmWarDeployer. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix small memory leak in FarmWarDeployer. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46357">46357</a>: Corrected test for host's parent must be an engine.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix so that JvmrouteBinderValve can rewrite session suffix with parallel
+        requests from same client. (pero)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Webapps"><strong>Webapps</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45940">45940</a>: Correct name of username attribute for JDBC resources
+        in JNDI how to. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46035">46035</a>: Fix multiple typos in monitoring how to. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46067">46067</a>: Fix typos in Advanced IO how to. (markt) 
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46115">46115</a>: Correct Manager UI to show that path is required when
+        using the deploy command. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46121">46121</a>: Add note to manager documentation regarding possible
+        naming clash with new Ant 1.7 resources datatype and how to avoid it.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Remove unsed parameters from Native/APR example connector configuration
+        in docs. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Use CSS based solution for printer-friendly docs. Patch provided by
+        vitezslav.smid as part of GSoc with additional work by Tim Funk. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Update the FAQ linsk in the docs to refer to the wiki. Use xlst task
+        rather than style task to generate docs. (funkman/markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Document the LifecycleListeners. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix broken URL mapping in the examples. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46563">46563</a>: Update doc for correct default for pollerThreadCount.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46600">46600</a>: Document maxKeepAliveRequests for the NIO connector.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix CVE-2009-0781. XSS in calendar example. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Other"><strong>Other</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41861">41861</a>: Update service name to Apache Tomcat 6 to prevent
+        conflicts with previous major Tomcat versions. (markt/rjung)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45852">45852</a>: Add special handling for cp932 (aka ms932) when
+        creating tomcat-users.xml with Windows installer. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45878">45878</a>: Restore manifest, licence and notice files to the jsp
+        and servlet jars. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45879">45879</a>: Move NOTICE file from documentation webapp to the
+        installation directory. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Add a workaround for DBCP-191. Tomcat will now build without error on a
+        1.6 JDK but because it does this by skipping DBCP, release builds must
+        be generated with a 1.5 JDK. (costin/markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=46366">46366</a>: Correct information in RUNNING.txt regarding use of
+        CATALINA_HOME and CATALINA_BASE. (markt) 
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Use more useful JPDA defaults in catalina.bat. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Correct error in 2.5 web-app XSD.
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 6.0.18 (remm)"><strong>Tomcat 6.0.18 (remm)</strong></a></font></td></tr><tr><td><blockquote>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Catalina"><strong>Catalina</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42727">42727</a>: Correctly handle request lines that are exact
+        multiples of 4096 in length. Patch provided by Will Pugh. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42678">42678</a>: Only ignore docBase if it really is a subdir of
+        appBase. Patch provided by juergen. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42722">42722</a>: Possible NPE in CGI Servlet. (markt)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45285">45285</a>: Look for annotations in class hierarchy. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Add additional checks for URI normalization. (remm)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Jasper"><strong>Jasper</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42565">42565</a>: Make EL ternary expression without space before colon
+        work. Patch provided by Lucas Galfaso. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Webapps"><strong>Webapps</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45323">45323</a>: Add note that context.xml files can only contain a
+        single Context element. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Cluster"><strong>Cluster</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45317">45317</a>: Properly document and log the value of the state transfer timeout flag (fhanik)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Other"><strong>Other</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45332">45332</a>: Specify the correct encoding (the current Windows code
+        page) rather than assuming UTF-8 when creating tomcat-users.xml with the
+        Windows installer. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 6.0.17 (remm)"><strong>Tomcat 6.0.17 (remm)</strong></a></font></td></tr><tr><td><blockquote>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="General"><strong>General</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45315">45315</a>: Add Unix support for NSIS. (remm)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Catalina"><strong>Catalina</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td><a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45272">45272</a>: Put in work around for Internet Explorer not accepting a quoted Path: value using the Set-Cookie header (fhanik)</td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        APR connector now adds connection to poller after using send file.
+        (remm)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Add ManagerBase session getLastAccessedTimestamp and
+        getCreationTimestamp for better remote JMX access. (pero)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Expose alwaysSend flag for message dispatch interceptor. (fhanik)
+      </td></tr>  
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=29936">29936</a>: Create digesters and parsers earlier so we aren't
+        using the webapp class loader when we create them. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42662">42662</a>: Properly resolve reflection proxies during session
+        replication. (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42750">42750</a>: Request line should be tolerant of multiple
+        whitespaces. (markt/fhanik)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42934">42934</a>: Change the order of events on context start so
+        <code>contextInitialized()</code> event is fired before
+        <code>sessionDidActivate()</code>. The spec isn't 100% clear on the
+        required order but this seems more logical than the current behaviour.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43079">43079</a>: Fix identification of suspicious URL patterns. Patch
+        provided by John Kew. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43080">43080</a>: Log suspicious URL patterns to the correct web app.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43117">43117</a>: Setting an empty workDir could result in all of
+        CATALINA_HOME being deleted. Patch provided by Takayuki Kaneko. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43142">43142</a>: Don't assume a directory named xxx.war is a war file.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43150">43150</a>: Allow Tomcat to start correctly when installed on a
+        path that contains a # character. (markt)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        The fix for <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43285">43285</a> had the side-effct of coercing
+        <code>null</code> values to zero. This side-effect has been made
+        configurable with a system property,
+        <code>org.apache.el.parser.COERCE_TO_ZERO</code> which defaults to
+        <code>true</code>. Patch provided by Nils Eckert. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43343">43343</a>: Correctly handle requesting a session we are in the
+        middle of persisting. Based on a suggestion by Wade Chandler. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43425">43425</a>: Make annotations spec compliant. Patch provided by
+        Dain Sundstrom. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43470">43470</a>: Fix various class cast exceptions. Based on a patch
+        by Lucas Galfaso. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43578">43578</a>: Fix startup when installation path contains a space.
+        Patch provided by Ray Sauers. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43683">43683</a>: Fix 404 that could occur if a Servlet is accessed
+        while the context is reloading. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>ExtendedAccessLogValve cs-uri not print empty querystring. (pero)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        ServletContext.getResource("noslash/resource") only requires forward
+        slash if STRICT_SERVLET_COMPLIANCE flag is set to true. This mimics the
+        behavior of 6.0.15 and earlier. (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44021">44021</a>: Add support for using the # character to define
+        multi-level contexts in WARs and directories in the appBase. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44282">44282</a>: Fix TRACE level class loader logging message when a
+        security manager is used. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44337">44337</a>: Dir listing crashes if no readme-file present.
+        (funkman)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        If listener declared in web.xml, only add it once. (funkman)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix NPE when iterating through sessions for expiration. (fhanik/jim)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44380">44380</a>: Don't scan non-file URLs for TLDs. Patch provided by
+        Florent Benoit. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44389">44389</a>: Fix memory leak that occurred if using a
+        RequestDispatcher. Patch provided by Arto Huusko. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44529">44529</a>: Correct handling of resource constraints so no roles
+        (deny all) overrides no aoth-constraint (allow all). (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44562">44562</a>: HEAD requests cannot use includes. Patch provided by
+        David Jencks. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44595">44595</a>: Add possibility to request the QueueSize of an
+        executor via JMX. (jfclere)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix CGI Servlet so it correctly reads the environment variables on
+        Vista. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44611">44611</a>: DirContextURLConnection didn't implement
+        getHeaderFields(), getHeaderField(String name) was case sensitive and
+        returned "" rather than null for header values that did not exist. Patch
+        provided by Chris Hubick. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44633">44633</a>: Provide a more helpful error message if a class can't
+        be loaded due to a version error. (rjung/markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44646">44646</a>: Correct various issues, including an ISE, in
+        CometConnectionManagerValve. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44673">44673</a>: ServletInputStream is no longer readable once closed.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Better handling of lack of permission for context specific logging.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Add permission required to read JDK logging config. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Update web.xml to reflect packaging of SSI and CGI. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Add missing access check for ThreadWithAttributes. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44833">44833</a>: Correctly override StandardSession methods from
+        DeltaSession. (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44943">44943</a>: Use the same engine name in server.xml comments to
+        reduce copy and pastes issues. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44988">44988</a>: Use Java5 syntax for debug options. Patch provided
+        by Cedrik Lime. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45101">45101</a>: Format header dates obtained from
+        <code>DirContextURLConnection</code> as per the HTTP spec. Patch
+        provided by Chris Hubick. (markt)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        A new valve, <code>org.apache.catalina.valves.WebdavFixValve</code>,
+        that forces MS clients connecting to the WebDAV Servlet on port 80 to
+        use a client that works rather than the default broken one. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45195">45195</a>: Passing in null into setAttribute or removeAttribute
+        cause NPE. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Coyote"><strong>Coyote</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        NIO: Fix bug in NIO sendfile, symptoms during heavy traffic is that
+        connection don't get closed. For previous versions, one can disable
+        sendfile to work around the problem. (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        APR: Allow to specify the "random device" to use to collect the entropy.
+        (jfclere)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Fix NIO/SSL live lock during client disconnect. (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix possible ArrayIndexOutOfBoundsException. Patch provided by Charles R
+        Caldarale. (markt/jim)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Add support for keystore types that do not need a file. Based on a patch
+        by Bruno Harbulot. (markt)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43094">43094</a>: Allow specification of keystore providers. Based on a
+        patch by Bruno Harbulot. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43191">43191</a>: Make it possible to override the defaults with the
+        compressableMimeType attribute. Based on a patch by Len Popp. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44391">44391</a>: Correct handling of escaped values in SSI processing.
+        (markt) 
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44392">44392</a>: HTML entities now handled correctly in SSI processing.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44558">44558</a>: Improve error message so address is included if
+        binding fails. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44494">44494</a>: Character input limited to 8KB. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44620">44620</a>: Infinite loop in NIO connector. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44785">44785</a>: Correctly document default maxThreads for AJP
+        connector. (markt)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Log errors for AJP signoffs at DEBUG level, 
+        since it is harmless if mod_jk has hung up the phone. (billbarker)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44968">44968</a>: Provide more information when the load of a keystore
+        fails. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Jasper"><strong>Jasper</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=31257">31257</a>: Quote endorsed dirs if they contain a space. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42943">42943</a>: Make sure nested element is inside &lt;jsp:text&gt;
+        element before throwing exception. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43617">43617</a>: Correctly escape attribute values in tag files.
+        Based on a patch by Lucas Galfaso. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43656">43656</a>: Fix various numeric coercion bugs. Includes a patch by
+        Nils Eckert and fixes related issues identified in a test case provided
+        by Konstantin Kolinko. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43741">43741</a>: Correctly handle dependencies for tag files in JARs.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44408">44408</a>: Reduce synchronisation when evaluating EL expressions.
+        Patch provided by Robert Andersson. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44428">44428</a>: Fix possible NPE during serialization. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44766">44766</a>: EL doesn't coerce custom Number subclasses. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44877">44877</a>: Prevent collisions on tag pool names. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44986">44986</a>: Make page encoding consistency checks
+        case-insensitive. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44994">44994</a>: Enable nested conditional expressions in JSP EL. Patch
+        provided by James Manger. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45015">45015</a>: You can't use an unescaped quote if you quote the
+        value with that character. (markt/fhanik)  
+      </td></tr>  
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        Add HTML filtering of error messages for included resources in case the
+        app has tried to include an unsafe URL that does not exist. This is
+        really an app responsibility but the filtering has been added for XSS
+        safety. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Webapps"><strong>Webapps</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Update documentation to use correct version number, correct file paths
+        and to use $CATALINA_BASE rather than $CATALINA_HOME where applicable.
+        (markt/jim)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        Add a section on available system property configuration options.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Amend the JNDI datasource doc to reflect new value for no limit used by
+        updated commons-pool and commons-DBCP. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43333">43333</a>: Fix errors in sendfile documentation. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43366">43366</a>: Provide backwards compatibility for manager sessions
+        command. (markt)
+      </td></tr> 
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44541">44541</a>: Document packetSize attribute for AJP connector.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44715">44715</a>: Document secret attribute for AJP connector. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix some links in the ROOT application that are broken if ROOT is
+        renamed. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Align the Realm documentation so that both the configuration and the
+        how-to are consistent. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45277">45277</a>: Fix typo in logging docs. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Cluster"><strong>Cluster</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45212">45212</a>: AbstractReplicatedMap.entrySet() now returns entries
+        rather than vaules. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td><a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45279">45279</a>Properly close multicast socket.</td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Fix session replication dead lock during non sticky load balancing.
+        (fhanik)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Other"><strong>Other</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        Improve the Tests for unit tests for the cookie issues. (jfclere)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix build for JavaDoc. Patch provided by Stephen Bannasch. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44955">44955</a>: Use correct location for endorsed directory in Windows
+        installer. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 6.0.16 (remm)"><strong>Tomcat 6.0.16 (remm)</strong></a></font></td></tr><tr><td><blockquote>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="General"><strong>General</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Update commons-logging to version 1.1.1 and the NSIS installer to 2.34.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Update to commons-pool version 1.4, native version 1.1.12 and update
+        the download location for the commons libraries. (markt)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Change chunked input parsing, always parse CRLF directly after a chunk has been
+        received, except if data is not available. If data is not available for CRLF
+        parsing, we run into BZ 11117, and must defer the parsing of CRLF to the next read event.
+        This fixes the incorrect blocking when using CometProcessor and the draining data during the READ event
+        where it before would block incorrectly waiting for the next chunk (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        The CometProcessor interface now extends the javax.servlet.Servlet interface(fhanik)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix CVE-2007-5342 by limiting permissions granted to JULI. (markt)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Fix handling of CometEvent.close when called during BEGIN event (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43594">43594</a>: Use setenv from CATALINA_BASE (if set) in preference
+        to the one in CATALINA_HOME. Patch provided by Shaddy Baddah.
+        (markt/jim)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43692">43692</a>: Clean up unused entires from build scripts. Patch
+        provided by Paul Shemansky. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43775">43775</a>: Don't try to change line endings of binary files in
+        the source distribution. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td><a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43846">43846</a>:
+        Fix block simulated read and writes causing timeouts.
+        Add non blocking parsing of HTTP request headers.
+        Perf improvements(fhanik)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43957">43957</a>: Service.bat doesn't configure logging correctly. Patch
+        provided by  Richard Fearn. (markt/jim)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Cookie handling/parsing changes!
+        The following behavior has been changed with regards to Tomcat's cookie handling
+        a) Cookies containing control characters, except 0x09(HT), are rejected using an InvalidArgumentException <br>
+        b) If cookies are not quoted, they will be quoted if they contain tspecials(ver0), tspecials2(ver1) characters<br>
+        c) Escape character '\\' is allowed and respected as a escape character, will be unescaped during parsing
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Cookie parsing of $Version regression from 6.0.15 has been fixed
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        The script that builds the windows installer was including additional
+        files due to the way it processes recurrsive file selectors. The
+        selectors have been modified to only include the intended files. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Catalina"><strong>Catalina</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix ManagerServlet.expireSessions throws Exceptions as iterate longer
+        session lists at production servers. (pero)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td><a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=38131">38131</a>: WatchedResource doesn't work if app is outside host appbase webapps.
+        Patch provided by Peter Lynch (pero)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>Add -Dorg.apache.catalina.tribes.dns_lookups=false as default. The ability to turn off reverse DNS lookups for membership.(fhanik)</td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+         Set correct StandardManager.sessionCounter after reload/restart. (pero)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42503">42503</a>: ServletContext.getResourceAsStream() could return
+        stale data. Patch provided by Arvind Srinivasan. (funkman/jim)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43236">43236</a>: When resetting the response, also reset the flags
+        associated with using a writer or an output stream to allow the user to
+        change character set after the reset. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43241">43241</a>: Make ServletContext.getResourceAsStream() conform to
+        the specification. Patch provided by John Kew. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43530 ">43530 </a>: doc link fixes provided by  Paul Shemansky (funkman)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43675">43675</a>: Fix a possible logging related classloader leak.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td><a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43687">43687</a> Remove conditional headers on Form Auth replay,
+           since the UA (esp. FireFox) isn't expecting it.
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43706">43706</a>: WebDAV copy/move now returns 201 on success. Based on
+        a patch by Panagiotis Astithas. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43840">43840</a>: Include user principal if possible when serializing /
+        de-serializing sessions. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43868">43868</a>: MBean methods getInvoke and getSetter were broken.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43887">43887</a>: Make error messages much more helpful when illegal
+        Servlet names are used. Based on a patch provided by Mike Baranczak.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix a bug that causes CGI Servlet to fail when it is included. (markt)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Improve the webDAV Servlet Javadocs to make clear that the WebDAV
+        Servlet can not be used as the default servlet. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43993">43993</a>: mime mapping for WS-Policy. Patch by Fabian Ritzmann  (funkman)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44041">44041</a>: Fix duplicate class definition under load. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44084">44084</a>: JASSRealm was broken for application provided
+        Principals. Patch provided by Noah Levitt. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44223">44223</a>: Use the javax.net.ssl.trustStoreType setting if no
+        explicit connector configuration is provided and the property is set.
+        (markt/jim)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44268">44268</a>: Log a warning if a duplicate listener configuration is
+        ignored. (markt/jim)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Coyote"><strong>Coyote</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43622">43622</a>: Don't overwrite the min compression size set by the
+        compression attribute with the default. (markt/jim)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43839">43839</a>: URL based session tracking failed when a session
+        cookie from a parent context was present. Based on a patch by Yuan
+        Qingyun. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43914">43914</a>: URLs in location headers should be encoded. Patch
+        provided by Ivan Todoroski. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Jasper"><strong>Jasper</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43285">43285</a>: Missing EL Coercion causes argument type mismatch.
+        Patch provided by Bernhard Huemer. (funkman/jim)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43675">43675</a>: Fix a possible logging related classloader leak.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43702">43702</a>: Inner class files have unnecessarily long names.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43743">43743</a>: Fix NPE when compiling nest tag files packaged in a
+        JAR. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43757">43757</a>: Rather than use string matching to work out the line
+        in the JSP with the error, use the SMAP info and the knowledge that for
+        a scriptlet there is a one to one line mapping. (markt/jim)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43758">43758</a>: Fix NPE when scripting elements are empty. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43909">43909</a>: Make sure locale maps to wrapped ELContext. Patch
+        provided by Tuomas Kiviaho. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43944">43944</a>: Fix a missing resource exception. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Improve docs for Jasper configuration. Put options in alphabetcial
+        order, add some missing options, deprecate an unused one and address
+        feedback about the page provided on the users list.
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Webapps"><strong>Webapps</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43173">43173</a>: Fix typo in logging documentation regarding location
+        of logging.properties. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43344">43344</a>: Fix typo in if.jsp example. Patch provided by Tim
+        Nowaczyk. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43468">43468</a>: Fix possible NPE when listing contexts in the Manager
+        application. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43515">43515</a>: Fix bug in Manager application that may have caused
+        problems when listing contexts. Patch provided by Lucas Galfaso. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43611">43611</a>: Provide an error message if user tries to upload a war
+        for a context defined in server.xml rather than failing silently.
+        (markt/jim)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43800">43800</a>: Make relationship between APR and the native connector
+        clearer. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44088">44088</a>: Fix expire session button in manager. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=44094">44094</a>: Add a note about the side effects of configuring a
+        context as privileged. (markt)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Update JNDI documentation to refer to configuring contexts via
+        context.xml rather than server.xml. (markt/jim)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+   <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Cluster"><strong>Cluster</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix FarmWarDeployer can be only configured as host subelement (pero)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix wrong &amp;&amp; at ReplicationValve (pero)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Add get/set methods for properties in the Tcp Failure detector.
+        (fhanik/jim)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 6.0.15 (remm)"><strong>Tomcat 6.0.15 (remm)</strong></a></font></td></tr><tr><td><blockquote>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="General"><strong>General</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>Fix the MD5 file contents in distribution</td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Add ANT script to be able to publish signed Tomcat JAR's to ASF Maven repo (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Use Eclipse JDT 3.3.1. (pero)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Catalina"><strong>Catalina</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>Guess java location from the PATH environment and improve fix for 37284</td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>Add NIO connector to server.xml parsing warning, remove Connector as exception case</td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td><a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43653">43653</a>: Fix SSL buffer mixup when response is unable to write more than socket buffer can handle</td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td><a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43643">43643</a>: If connector doesn't support external executor, display warning</td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td><a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43641">43641</a>: Property bind multicast address for cluster membership</td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td><a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42693">42693</a>: Fix JSP compiler bug</td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>Add mbean descriptor for virtual webapp loader</td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td><a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43487">43487</a>:
+        Fix request processing stats
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43435">43435</a>: Don't iterate and relocate sessions if they are not part of the map.
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43356">43356</a>: Keystore parameter is relative to CATALINA_BASE,
+        Truststore is either defined as parameter, javax.net.ssl.trustStore or if empty
+        defaults to the keystore.
+        SSL Client cert authentication changed from boolean to "true|false|want" (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=30949">30949</a>: Improve previous fix. Ensure requests are re-cycled
+        on cross-context includes and forwards when an exception occurs in the
+        target page. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42944">42944</a>: Correctly handle servlet mappings that use a '+'
+        character as part of the url pattern. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+         <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42951">42951</a>: Don't use CATALINA_OPTS when stopping Tomcat. This
+         allows options for starting and stopping to be set on JAVA_OPTS and
+         options for starting only to be set on CATALINA_OPTS. Without this
+         fix, some startup options (eg the port for remote JMX) would cause
+         stop to fail. Based on a fix suggested by Michael Vorburger.
+         Port of r454193 (<a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=36976">36976</a>) from Tomcat 5.5.x. (markt,rjung)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+         Validation of attributes and elements used in server.xml. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43175">43175</a>: Fix typos in servlet XSD files. Patch provided by
+        Takayuki Kaneko. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43216">43216</a>: Set correct StandardSession#accessCount as StandardSession.ACTIVITY_CHECK is true.
+        Patch provided by Takayuki Kaneko (pero)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        Made session createTime accessible for all SessionManager via JMX (pero)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43129">43129</a>: Support logging of all response header values at AccessLogValve (ex. add %{Set-Cookie}o to your pattern). (pero)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        Support logging of all response header values at ExtendedAccessLogValve (ex. add x-O(Set-Cookie) to your pattern). (pero)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        Support logging of current thread name at AccessLogValve (ex. add %I to your pattern).
+        Usefull to compare access logging entry later with a stacktraces. (pero)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Improve large-file support (more then 4 Gb) at all AccessLogValves, backport from 5.5.25. (pero)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Optimized JDBCAccessLogValve combined pattern request attribute access. (pero)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        o.a.juli.ClassLoaderLogManager handle more then one system property replacement at file logging.properties. (pero)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43338">43338</a>: Support '*' servlet-name mapping at filter-mapping.
+        Patch provided by Keiichi Fujino. (pero)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41797">41797</a>: CNFE/NPE thrown from function mapper when externalizing
+        Patch by Tuomas Kiviaho- tuomas.kiviahos at ikis fi (funkman)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43453">43453</a>: ClassCastException at
+        org.apache.catalina.core.StandardContext.findStatusPage(int)
+         (funkman)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix important vulnerability when webdav is enabled for write. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Call stopAwait in StandardServer.stop if port == -1. (pero)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43668">43668</a> Fix NPE when the outer most wrapper is a ServletRequest/ResponseWrapper, but not a HttpServletRequest/ResponseWrapper on a Forward. (billbarker)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Coyote"><strong>Coyote</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Harmonize with HTTP java.io code. Otherwise the socket is not closed.
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        In the APR connector, start accepting connections after fully starting
+        the connector, to prevent possible exceptions due to non initialized fields. (remm)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Cookie parser refactoring, submitted by John Kew. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Make cookie escaping / unescaping consistent. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43479">43479</a>: Memory leak cleaning up sendfile connections, submitted by Chris Elving. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42925">42925</a>: Add maintain for sendfile. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix explicit flush before response commit in the org.apache.jk AJP connector. (pero)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43621">43621</a> Fix possible Dos condition when using the experimental NIO/AJP Connector (billbarker)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Jasper"><strong>Jasper</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=37326">37326</a>: No error reported when an included page does not
+        exist. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Webapps"><strong>Webapps</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix WebDAV Servlet so it works correctly with MS clients. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix CVE-2007-5461, an important information disclosure vulnerability in
+        the WebDAV Servlet. Based on a patch by Marc Schoenefeld. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42979">42979</a>: Update sample.war to include recent security fixes
+        in the source code. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Minor connector doc fix. (jfclere)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+   <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Cluster"><strong>Cluster</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+         Set correct BioReceiver transfer buffer size. (pero)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Other"><strong>Other</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+         Tests for unit tests for the cookie issues. (jfclere)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 6.0.14 (remm)"><strong>Tomcat 6.0.14 (remm)</strong></a></font></td></tr><tr><td><blockquote>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="General"><strong>General</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/docs.gif" class="icon" alt="docs"></td><td>
+        Correct j.u.l log levels in JULI docs. (rjung)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Catalina"><strong>Catalina</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Handle special case of ROOT when re-loading webapp after ROOT.xml has
+        been modified. In some circumstances the reloaded ROOT webapp had no
+        associated resources. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Remove invalid attribute "encoding" of MBean MemoryUserDatabase,
+        which lead to errors in the manager webapp JMXProxy output. (rjung)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=33774">33774</a> Retry JNDI authentiction on ServiceUnavailableException
+        as at least one provider throws this after an idle connection has been
+        closed. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+         <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=39875">39875</a>: Fix BPE in RealmBase.init(). Port of yoavs's fix from
+         Tomcat 5. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41722">41722</a>: Make the role-link element optional (as required by
+        the spec) when using a security-role-ref element. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+         <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42361">42361</a>: Handle multi-part forms when saving requests during
+         FORM authentication process. Patch provided by Peter Runge. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+         <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42401">42401</a>: Update RUNNING.txt with better JRE/JDK information.
+         (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+         <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42444">42444</a>: prevent NPE for AccessLogValve
+         Patch provided by Nils Hammar (funkman)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+         <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42449">42449</a>:
+         JNDIRealm does not catch NullPointerException for Sun's
+         LDAP provider (See bug for details) (funkman)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+         <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42497">42497</a>: Ensure ETag header is present in a 304 response.
+         Patch provided by Len Popp. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix XSS security vulnerability (CVE-2007-2450) in the Manager and Host
+        Manager. Reported by Daiki Fukumori. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42547">42547</a>: Fix NPE when a ResourceLink in context.xml tries to
+        override an env-entry in web.xml. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Avoid some casting in ErrorReportValve (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix persistence API annotation, submitted by Bill Burke (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        In Comet mode, if bytes are not read, send an error event (otherwise,
+        fields referring to the connection could remain) (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix Comet when running Tomcat with the security manager (remm)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Jasper"><strong>Jasper</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=39425">39425</a> Add additional system property permission to
+        catalina.policy for pre-compiled JSPs. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42438">42438</a> Duplicate temporary variables were created when
+        jsp:attribute was used in conjunction with custom tags. Patch provided
+        by Brian Lenz. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42643">42643</a> Prevent creation of duplicate JSP function mapper
+        variables. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Coyote"><strong>Coyote</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Separate sequence increment from getter in ThreadPool to avoid
+        misleading increments during monitoring via JMX. (rjung)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Add back missing socketBuffer attribute in the java.io HTTP connector (remm)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Webapps"><strong>Webapps</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Don't write error on System.out, use log() instead. (rjung)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=39813">39813</a>: Correct handling of new line characters in JMX
+        attributes. Patch provided by R Bramley. Ported from tc5.5.x r415029. (markt,rjung)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+         <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42459">42459</a>: Fix Tomcat Web Application Manager table error. (rjung)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix XSS security vulnerabilities (CVE-2007-2449) in the examples.
+        Reported by Toshiharu Sugiyama. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 6.0.13 (remm)"><strong>Tomcat 6.0.13 (remm)</strong></a></font></td></tr><tr><td><blockquote>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Catalina"><strong>Catalina</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+         More accurate available() method. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+         Add recycle check in the event object, since it is a facade like the others. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+         When processing a read event, enforce that the servlet consumes all available bytes. (remm)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+         Add a flag in ContainerBase which could be used in embedded scenarios to avoid a double start
+         of contexts (this problem generally occurs when adding contexts to a started host). (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+         <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42309">42309</a>: Ability to create a connector using a custom protocol specification for embedded.
+         (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+         Add SSL engine flag to AprLifecycleListener. (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+         Improve event processing, so that an END event is generated when encountering EOF, and an
+         ERROR is always generated on client disconnects. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+         Add declarations for the new XSD files. (remm)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Coyote"><strong>Coyote</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+         Add heartbeatBackgroundEnabled flag to SimpleTcpCluster.
+         Enable this flag don't forget to disable the channel heartbeat thread (pero)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+         Possible memory leak when using comet, caused by adding the socket to the poller before
+         cleaning up the connection tracking structure. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+         <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42308">42308</a>: nextRequest recycles the request, which caused issues with statistics. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+         Fix non recycled comet flag in the APR connector. (remm)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Cluster"><strong>Cluster</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+         Add heartbeatBackgroundEnabled flag to SimpleTcpCluster.
+         Enable this flag don't forget to disable the channel heartbeat thread (pero)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+         Method name cleanup. (fhanik)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Webapps"><strong>Webapps</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+         Some examples webapp fixes. Submitted by Frank McCown. (remm)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 6.0.12 (remm)"><strong>Tomcat 6.0.12 (remm)</strong></a></font></td></tr><tr><td><blockquote>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="General"><strong>General</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        License source headers. Submitted by Niall Pemberton. (remm)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Catalina"><strong>Catalina</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42039">42039</a> Log a stack trace if a servlet throws an
+         UnavailableException. Patch provided by Kawasima Kazuh. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41990">41990</a> Add some additional mime-type mappings. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41655">41655</a> Fix message translations. Japanese translations
+        provided by Suzuki Yuichiro. (markt)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        Add enabled attribute to AccessLogValve (pero)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42085">42085</a>: Avoid adding handlers for the root logger twice when they are explicitly
+        specified. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Reduce thread local manipulation in the request dispatcher. Submitted by
+        Arvind Srinivasan. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Avoid keeping references to loggers tied to the webapp classloaders after a reload in
+        a couple more places. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42202">42202</a>: Fix container parsing of TLDs in webapps when Tomcat is installed in
+        a URL encodable path. (remm)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Coyote"><strong>Coyote</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42119">42119</a> Fix return value for request.getCharacterEncoding() when
+        Content-Type headers contain parameters other than charset. Patch by
+        Leigh L Klotz Jr. (markt)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Move away from using a thread local processor for the APR and java.io
+        connectors, as this does not work well when using an executor. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Remove Comet timeout hack in the APR connector. Comet connections will now
+        use the regular timeout or the keepalive timeout if specified. (remm)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Webapps"><strong>Webapps</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42025">42025</a>: Update valve documentation to refer to correct regular
+        expression implementation. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix various paths in the manager webapps (remm)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        Session viewer and editor for the HTML manager. Submitted by C&eacute;drik Lime. (remm)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        Session handling tools for the manager. Submitted by Rainer Jung. (remm)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Jasper"><strong>Jasper</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41869">41869</a> TagData.getAttribute() should return
+        TagData.REQUEST_TIME_VALUE when the attribute value is an EL expression.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42071">42071</a> Fix IllegalStateException on multiple requests to
+        an unavailable JSP. Patch provided by Kawasima Kazuh. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        After a JSP throws an UnavailableException allow it to be accessed once
+        the unavailable period has expired. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Cluster"><strong>Cluster</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+         Add toString method to better logging session replication message at tribes MESSAGES (pero)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 6.0.11 (remm)"><strong>Tomcat 6.0.11 (remm)</strong></a></font></td></tr><tr><td><blockquote>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="General"><strong>General</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Update DBCP to 1.2.2, pool to 1.3, JDT to 3.2.2 and remove collections
+        build dependency (pero, remm)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Catalina"><strong>Catalina</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Don't log pattern subtoken at ExtendedAccesLogValve (pero)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Add some missing JMX attributes for new AccessLogValve (pero)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41786  ">41786  </a> Incorrect reference to catalina_home in catalina.sh/bat Patch provided by Mike Hanafey (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41703">41703</a> SingleSignOnMessage invalid setter, patch provided by Nils Hammar (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41682">41682</a> ClassCastException when logging is turned on (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41530  ">41530  </a>Don't log error messages when connector is stopped (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41166">41166</a> Invalid handling when using replicated context (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        Added SENDFILE support for the NIO connector. (fhanik) <br>
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        Added support for shared thread pools by adding in the &lt;Executor&gt;
+        element as a nested element to the &lt;Service&gt; element. (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41666">41666</a> Correct handling of boundary conditions for
+        If-Unmodified-Since and If-Modified-Since headers. Patch provided by
+        Suzuki Yuichiro. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41739">41739</a> Correct handling of servlets with a load-on-startup
+        value of zero. These are now the first servlets to be started. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41747">41747</a> Correct example ant script for deploy task. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41752">41752</a> Correct error message on exception in MemoryRealm.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=39883">39883</a> Add documentation warning about using antiResourceLocking
+        on a webapp outside the Host's appBase. (yoavs)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=40150">40150</a> Ensure user and roll classnames are validated on startup.  Patch by
+          Tom. (yoavs)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Refactor extend access log valve using the optimized access log valve. Submitted by
+        Takayuki Kaneko. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Possible deadlock in classloading when defining packages. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Remove excessive syncing from listener support. (remm)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        Web services support. The actual factory implementations are implemented in the
+        extras. Submitted by Fabien Carrion. (remm)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Add logging to display APR capabilities on the platform. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Expose executors in JMX. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        CRLF inside a URL pattern is always invalid. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Tweak startup time display. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Adjustments to handling exceptions with Comet. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        If the event is closed asynchronously, generate an end event for cleanup on the
+        next event. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Cleanup hello webapp from the docs and fix a XSS issue in the JSP.  (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Examples webapp cleanup. Submitted by Takayuki Kaneko and Markus Sch&ouml;nhaber. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41289">41289</a>: Create configBase, since it is no longer created elsewhere.
+        Submitted by Shiva Kumar H R. (remm)
+      </td></tr>
+     </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Coyote"><strong>Coyote</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Fixed NIO memory leak caused by the NioChannel cache not working properly.
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Added flag to enable/disable the usage of the pollers selector instead of a Selector pool
+        when the serviet is reading/writing from the input/output streams
+        The flag is <code>-Dorg.apache.tomcat.util.net.NioSelectorShared=true</code>
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Requests with multiple content-length headers are now rejected. (markt)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41675">41675</a> Add a couple of DEBUG-level logging statements to Http11Processors
+          when sending error responses.  Patch by Ralf Hauser. (yoavs)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Reuse digester used by the modeler. (remm)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        When the platform does not support deferred accept, put accepted sockets in the
+        poller. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix problem with blocking reads for keepalive when using an executor (the number
+        of busy threads is always 0). (remm)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        The poller now has good performance, so remove firstReadTimeout. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=42119">42119</a> Fix return value for request.getCharacterEncoding() when
+        Content-Type headers contain parameters other than charset. Patch by
+        Leigh L Klotz Jr. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Webapps"><strong>Webapps</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix previous update to servlet 2.5 xsd to use correct declaration.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Update host configuration document for new behaviour for directories
+        in appBase. (markt)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=39540">39540</a> Add link to httpd 2.2 mod_proxy_ajp docs in AJP connector doc. (yoavs)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Jasper"><strong>Jasper</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41227">41227</a> Add a bit of DEBUG-level logging to JspC so users know
+          which file is being compiled. (yoavs)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Remove some dead utility code, and refactor stream capture as part of the Ant compiler. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Support the trim directive of JSP 2.1 as an equivalent of Jasper's own parameter. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41790">41790</a>: Close file stream used to read the Java source. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix reporting of errors which do not correspond to a portion of the JSP source. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Remove try/catch usage for annotation processing in classic tags. The usage
+        of the log method might have been questionable as well. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Cleanup of the message that is displayed for compilation errors. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Skip BOM when reading a JSP file. (remm)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+ </blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 6.0.10 (remm)"><strong>Tomcat 6.0.10 (remm)</strong></a></font></td></tr><tr><td><blockquote>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Catalina"><strong>Catalina</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Unify usage of security manager flag, submitted by Arvind Srinivasan. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix formatting of CGI variable SCRIPT_NAME. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41521">41521</a>: Support * for servlet-name, submitted by Paul McMahan. (remm)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Cache getServletContext value, submitted by Arvind Srinivasan. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Add options for handling special URL characters in paths, and disallow '\' and encoded '/'
+        due to possible differences in behavior between Tomcat and a front end webserver. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix bad comparison for FORM processing, submitted by Anil Saldhana. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41608">41608</a> Make log levels consistent when Servlet.service()
+        throws an exception. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Coyote"><strong>Coyote</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Reduce usage of MessageBytes.getLength(), submitted by Arvind Srinivasan. (remm)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Jasper"><strong>Jasper</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41558">41558</a>: Don't call synced method on every request, submitted by Arvind Srinivasan. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Switch to a thread local page context pool. (remm)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 6.0.9 (remm)"><strong>Tomcat 6.0.9 (remm)</strong></a></font></td></tr><tr><td><blockquote>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="General"><strong>General</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Use 2.5 xsd in Tomcat webapps. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Compression filter improvements, submitted by Eric Hedstr&ouml;m. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Catalina"><strong>Catalina</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Properly return connector names. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Remove logging of the XML validation flag. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Correct error messages for context.xml. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41217">41217</a>: Set secure flag correctly on SSO cookie, submitted by
+        Chris Halstead. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=40524">40524</a>: request.getAuthType() now returns CLIENT_CERT rather
+        than CLIENT-CERT. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=40526">40526</a>: Return support for JPDA_OPTS to catalina.bat and add
+        a new option JPDA_SUSPEND, submitted by by Kurt Roy. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41265">41265</a>: In embedded, remove the code that resets checkInterval
+        values of zero to 300. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Coyote"><strong>Coyote</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=37869">37869</a>: Fix getting client certificate, submitted by Christophe Pierret. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=40960">40960</a>: Throw a timeout exception when getting a timeout rather than a
+        generic IOE, submitted by Christophe Pierret. (remm)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Jasper"><strong>Jasper</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        EL validation fixes for attributes. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41327">41327</a>: Show full URI for a 404. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        JspException now uses getCause() as the result for getRootCause(). (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Cluster"><strong>Cluster</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41466">41466</a>: When using the NioChannel and SecureNioChannel its
+        important to use the channels buffers. (fhanik)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 6.0.8 (remm)"><strong>Tomcat 6.0.8 (remm)</strong></a></font></td></tr><tr><td><blockquote>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Catalina"><strong>Catalina</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Make provided instances of RequestDispatcher thread safe. (markt)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        Optional development oriented loader implementation. (funkman)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        Optimized access log valve, submitted by Takayuki Kaneko. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix error messages when parsing context.xml that incorrectly referred to
+        web.xml. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41217">41217</a>: Set secure attribute on SSO cookie when cookie is
+        created during a secure request. Patch provided by Chris Halstead.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=40524">40524</a>: HttpServletRequest.getAuthType() now returns
+        CLIENT_CERT rather than CLIENT-CERT for certificate authentication
+        as per the spec. Note that web.xml continues to use CLIENT-CERT to
+        specify the certificate authentication should be used. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41401">41401</a>: Add support for JPDA_OPTS to catalina.bat and add a
+        JPDA_SUSPEND environment variable to both startup scripts. Patch
+        provided by Kurt Roy. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Coyote"><strong>Coyote</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Use the tomcat-native-1.1.10 as recommended version.
+        OpenSSL detection on some platforms was broken 1.1.8 will continue to work,
+        although on some platforms there can be JVM crash if IPV6 is enabled and
+        platform doesn't support IPV4 mapped addresses on IPV6 sockets.
+      </td></tr>
+  </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Jasper"><strong>Jasper</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        When displaying JSP source after an exception, handle included files.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Display the JSP source when a compilation error occurs and display
+        the correct line number rather than start of a scriptlet block. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix NPE when processing dynamic attributes. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        More accurate EL usage validation. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix regression for implicit taglib and page data version numbers. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41265">41265</a>: Allow JspServlet checkInterval init parameter to be
+        explicitly set to the stated default value of zero by removing the
+        code that resets it to 300 if explicitly specified as zero. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41327">41327</a>: Show full URI for a 404. Patch provided by Vijay.
+        (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Webapps"><strong>Webapps</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/docs.gif" class="icon" alt="docs"></td><td>
+        Add a virtual hosting how-to contributed by Hassan Schroeder. (markt)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Update all webapps to use the servlet 2.5 xsd. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=39572">39572</a>: Improvements to CompressionFilter example provided by
+        Eric Hedstr&ouml;m. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 6.0.7 (remm)"><strong>Tomcat 6.0.7 (remm)</strong></a></font></td></tr><tr><td><blockquote>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="General"><strong>General</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix installer's bitmap (mturk)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Catalina"><strong>Catalina</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Refactor logging of errors which may occur when reading a post body (remm)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Coyote"><strong>Coyote</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=37869">37869</a>: Also use the SSL_INFO_CLIENT_CERT field if the chain is empty,
+        submitted by Grzegorz Grzybek (remm)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 6.0.6 (remm)"><strong>Tomcat 6.0.6 (remm)</strong></a></font></td></tr><tr><td><blockquote>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="General"><strong>General</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix tagging which did not include 6.0.5's changelog (remm)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 6.0.5 (remm)"><strong>Tomcat 6.0.5 (remm)</strong></a></font></td></tr><tr><td><blockquote>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Catalina"><strong>Catalina</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=40585">40585</a>: Fix parameterised constructor for o.a.juli.FileHandler
+        so parameters have an effect. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Escape invalid characters from request.getLocale. (markt, remm)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Update required version for native to 1.1.8. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Do not log broken pipe errors which can occur when flushing the content of an error page. (remm)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Coyote"><strong>Coyote</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix firstReadTimeout behavior for the AJP connector. (remm)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Jasper"><strong>Jasper</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41057">41057</a>: Make jsp:plugin output XHTML compliant. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Cluster"><strong>Cluster</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Cluster interface cleanup. (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Refactoring to allow usage of executors. (fhanik)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 6.0.4 (remm)"><strong>Tomcat 6.0.4 (remm)</strong></a></font></td></tr><tr><td><blockquote>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="General"><strong>General</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Update to NSIS 2.22 (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix regression in 6.0.3 with Windows wrapper (mturk)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 6.0.3 (remm)"><strong>Tomcat 6.0.3 (remm)</strong></a></font></td></tr><tr><td><blockquote>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="General"><strong>General</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Catalina"><strong>Catalina</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=37509">37509</a>: Do not remove whitespace from the end of values
+        defined in logging.properties files. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=38198">38198</a>: Add reference to Context documentation from Host
+        documentation that explains how Context name is obtained from the
+        Context filename. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=40844">40844</a> Missing syncs in JDBCRealm. (markt)
+      </td></tr>
+       <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=40901">40901</a>: Encode directory listing output. Based on a patch
+        provided by Chris Halstead. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=40929">40929</a>: Correct JavaDoc for StandardClassLoader. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41008">41008</a>: Allow POST to be used for indexed queries with CGI
+        Servlet. Patch provided by Chris Halstead. (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix usage of print on the servlet output stream if the processor never used
+        a writer (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix logic of sameSameObjects used to determine correct wrapping of request and
+        response objects (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Update TLD scan lists, and disable caching for now (remm)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Add system property to WebappClassLoader to allow disabling setting references
+        to null when stopping it (remm)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        Add clustered SSO code, submitted by Fabien Carrion (remm)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Coyote"><strong>Coyote</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=40860">40860</a>: Log exceptions and other problems during parameter
+        processing. (markt)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Enable JMX for trust store attributes for SSL connector. (markt)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Port memory usage reduction changes to the java.io HTTP connector. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        MessageBytes.setString(null) will remove the String value. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41057">41057</a>: Caching large strings is not useful and takes too much
+        memory, so don't cache these (remm)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Add keepAliveTimeout attribute to most connectors (mturk, remm)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Jasper"><strong>Jasper</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Relax EL type validation for litterals. (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Update some version numbers to 2.1. (funkman, remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Add xsds for JSP 2.1 (remm)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41106">41106</a>: Update validation checks for EL to also include
+        legacy 1.2 tags (remm)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Webapps"><strong>Webapps</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=40677">40677</a>: Update SSL documentation to indicate that PKCS11
+        keystores may be used. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 6.0.2 (remm)"><strong>Tomcat 6.0.2 (remm)</strong></a></font></td></tr><tr><td><blockquote>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="General"><strong>General</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Various tweaks to distribution (remm, funkman)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Update Tomcat native to 1.1.7 (mturk)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Update to JDT 3.2.1 (remm)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Catalina"><strong>Catalina</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix EJB annotation interface (remm)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Coyote"><strong>Coyote</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix passing of the keystore password for the NIO connector (fhanik)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 6.0.1 (remm)"><strong>Tomcat 6.0.1 (remm)</strong></a></font></td></tr><tr><td><blockquote>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="General"><strong>General</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=37439">37439</a>, <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=40823">40823</a>: Documentation cleanup (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Catalina"><strong>Catalina</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Refactor exception processing using Throwable.getCause to improve exception chaining (remm)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        Remove dead code involving the Logger (funkman)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=37458">37458</a>: Fix some exceptions which could happen during classloading (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=40817">40817</a>: Fix CGI path (markt)
+      </td></tr>
+      <tr><td><img src="./images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=34956">34956</a>: Add the possibility to enforce usage of request and response
+        wrapper objects (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Jasper"><strong>Jasper</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Many fixes for JSP 2.1 compliance, invloving tag files handling, deferred expressions
+        validation, bom encoding support (remm)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Coyote"><strong>Coyote</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Many HTTP NIO connector fixes and refactorings (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        HTTP NIO connector performance improvements (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Add packetSize option for the classic AJP connector (jfclere)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Implement explicit flushing in AJP (mturk)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 6.0.0 (remm)"><strong>Tomcat 6.0.0 (remm)</strong></a></font></td></tr><tr><td><blockquote>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Catalina"><strong>Catalina</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        SSLEngine attribute added to the AprLifecycleListener(fhanik)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        Add API for Comet IO handling (remm, fhanik)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        Servlet 2.5 support (remm)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Jasper"><strong>Jasper</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        JSP 2.1 support (jhook, remm)
+      </td></tr>
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        Unifed EL 2.1 support (jhook)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Coyote"><strong>Coyote</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        SSLEnabled attribute required for SSL to be turned on, on all HTTP connectors (fhanik)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Memory usage reduction for the HTTP connectors, except java.io (remm)
+      </td></tr>
+      <tr><td><img src="./images/update.gif" class="icon" alt="update"></td><td>
+        Modeler update to use dynamic mbeans rather than model mbeans, which consume more
+        resources (costin)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Cluster"><strong>Cluster</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./images/add.gif" class="icon" alt="add"></td><td>
+        New cluster configuration and new documentation (fhanik)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Webapps"><strong>Webapps</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+    </table>
+  </blockquote></td></tr></table>
+</blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
+        Copyright &copy; 1999-2008, Apache Software Foundation
+        </em></font></div></td></tr></table></body></html>

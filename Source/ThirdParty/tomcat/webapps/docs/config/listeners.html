@@ -1,0 +1,109 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat Configuration Reference - The LifeCycle Listener Component</title><style media="print" type="text/css">
+			.noPrint {display: none;}
+			td#mainBody {width: 100%;}
+		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
+    The Apache Tomcat Servlet/JSP Container
+  " align="right" src="../images/tomcat.gif"></a></td><td><font face="arial,helvetica,sanserif"><h1>Apache Tomcat 6.0</h1></font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap="true" valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li><li><a href="index.html">Config Ref. Home</a></li></ul><p><strong>Top Level Elements</strong></p><ul><li><a href="server.html">Server</a></li><li><a href="service.html">Service</a></li></ul><p><strong>Executors</strong></p><ul><li><a href="executor.html">Executor</a></li></ul><p><strong>Connectors</strong></p><ul><li><a href="http.html">HTTP</a></li><li><a href="ajp.html">AJP</a></li></ul><p><strong>Containers</strong></p><ul><li><a href="context.html">Context</a></li><li><a href="engine.html">Engine</a></li><li><a href="host.html">Host</a></li><li><a href="cluster.html">Cluster</a></li></ul><p><strong>Nested Components</strong></p><ul><li><a href="listeners.html">Listeners</a></li><li><a href="globalresources.html">Global Resources</a></li><li><a href="loader.html">Loader</a></li><li><a href="manager.html">Manager</a></li><li><a href="realm.html">Realm</a></li><li><a href="resources.html">Resources</a></li><li><a href="valve.html">Valve</a></li></ul><p><strong>Cluster Elements</strong></p><ul><li><a href="cluster.html">Cluster</a></li><li><a href="cluster-manager.html">Manager</a></li><li><a href="cluster-channel.html">Channel</a></li><li><a href="cluster-membership.html">Channel/Membership</a></li><li><a href="cluster-sender.html">Channel/Sender</a></li><li><a href="cluster-receiver.html">Channel/Receiver</a></li><li><a href="cluster-interceptor.html">Channel/Interceptor</a></li><li><a href="cluster-valve.html">Valve</a></li><li><a href="cluster-deployer.html">Deployer</a></li><li><a href="cluster-listener.html">ClusterListener</a></li></ul><p><strong>Global Settings</strong></p><ul><li><a href="systemprops.html">System properties</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat Configuration Reference</h1><h2>The LifeCycle Listener Component</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>A <strong>Listener</strong> element defines a component that performs
+  actions when specific events occur, usually Tomcat starting or Tomcat
+  stopping.</p>
+
+  <p>Listeners may be nested inside a <a href="server.html">Server</a>, 
+  <a href="engine.html">Engine</a>, <a href="host.html">Host</a> or
+  <a href="context.html">Context</a>. Some Listeners are only intended to be
+  nested inside specific elements. These constraints are noted in the
+  documentation below.</p>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Attributes"><strong>Attributes</strong></a></font></td></tr><tr><td><blockquote>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Common Attributes"><strong>Common Attributes</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>All implementations of <strong>Listener</strong>
+    support the following attributes:</p>
+
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>className</code></strong></td><td valign="center" align="left">
+        <p>Java class name of the implementation to use. This class must
+        implement the <code>org.apache.catalina.LifecycleListener</code>
+        interface.</p>
+      </td></tr></table>
+
+  </blockquote></td></tr></table>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Standard Implementation"><strong>Standard Implementation</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>Unlike most Catalina components, there are several standard
+    <strong>Listener</strong> implementations available.  As a result,
+    the <code>className</code> attribute MUST be used to select the
+    implementation you wish to use.</p>
+
+    <h3>APR Lifecycle Listener (org.apache.catalina.core.AprLifecycleListener)</h3>
+
+    <p>The <strong>APR Lifecycle Listener</strong> checks for the presence of
+    the APR/native library and loads the library if it is present. For more
+    information see the <a href="../apr.html">APR/native guide</a>.</p>
+
+    <p>This listener must only be nested within <a href="server.html">Server</a>
+    elements.</p>
+
+    <p>The following additional attributes are support by the <strong>APR
+    Lifecycle Listener</strong>:</p>
+
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>SSLEngine</code></td><td valign="center" align="left">
+        <p>Name of the SSLEngine to use. off: Do not use SSL, on: Use SSL but no
+        specific ENGINE. The default value is <b>on</b>. This initializes the
+        native SSL engine, which must be enabled in the APR/native connector by
+        the use of the <code>SSLEnabled</code> attribute.</p>
+        <p>See the <a href="http://www.openssl.org">Official OpenSSL website</a>
+        for more details on supported SSL hardware engines and manufacturers.
+        </p>
+      </td></tr></table>
+
+    <h3>Jasper Listener (org.apache.catalina.core.JasperListener)</h3>
+
+    <p>The <strong>Jasper Listener</strong> initialises the Jasper 2 JSP engine
+    before any web applications that may use it are loaded. For more
+    information on the Jasper 2 JSP engine see the
+    <a href="../jasper-howto.html">Jasper How To</a>.</p>
+
+    <p>This listener must only be nested within <a href="server.html">Server</a>
+    elements.</p>
+
+    <p>No additional attributes are support by the <strong>Jasper Listener
+    </strong>.</p>
+
+    <h3>Server Lifecycle Listener
+    (org.apache.catalina.mbeans.ServerLifecycleListener)</h3>
+
+    <p>The <strong>Server Lifecycle Listener</strong> initialises the
+    MBeanServer for the MBeans that may be used to manager Tomcat via JMX.
+    Without this listener, none of the Tomcat MBeans will be available.</p>
+
+    <p>This listener must only be nested within <a href="server.html">Server</a>
+    elements.</p>
+
+    <p>No additional attributes are support by the <strong>Server Lifecycle
+    Listener</strong>.</p>
+
+    <h3>Global Resources Lifecycle Listener
+    (org.apache.catalina.mbeans.GlobalResourcesLifecycleListener)</h3>
+
+    <p>The <strong>Global Resources Lifecycle Listener</strong> initialises the
+    Global JNDI resources defined in server.xml as part of the <a href="globalresources.html">Global Resources</a> element. Without this
+    listener, none of the Global Resources will be available.</p>
+
+    <p>This listener must only be nested within <a href="server.html">Server</a>
+    elements.</p>
+
+    <p>No additional attributes are support by the <strong>Global Resources
+    Lifecycle Listener</strong>.</p>
+
+  </blockquote></td></tr></table>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Nested Components"><strong>Nested Components</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>No element may be nested inside a <strong>Listener</strong>.</p>
+
+</blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
+        Copyright &copy; 1999-2008, Apache Software Foundation
+        </em></font></div></td></tr></table></body></html>

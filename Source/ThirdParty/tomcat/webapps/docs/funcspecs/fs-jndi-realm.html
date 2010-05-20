@@ -1,0 +1,379 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Catalina Functional Specifications - JNDIRealm</title><meta value="Craig McClanahan" name="author"><meta value="craigmcc@apache.org" name="email"><style media="print" type="text/css">
+			.noPrint {display: none;}
+			td#mainBody {width: 100%;}
+		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
+      Catalina Functional Specifications
+    " align="right" src="../images/tomcat.gif"></a></td><td><font face="arial,helvetica,sanserif"><h1>Apache Tomcat 6.0</h1></font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap="true" valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li><li><a href="index.html">Functional Specs</a></li></ul><p><strong>Administrative Apps</strong></p><ul><li><a href="fs-admin-apps.html">Overall Requirements</a></li><li><a href="mbean-names.html">Tomcat MBean Names</a></li><li><a href="fs-admin-objects.html">Administered Objects</a></li><li><a href="fs-admin-opers.html">Supported Operations</a></li></ul><p><strong>Internal Servlets</strong></p><ul><li><a href="fs-default.html">Default Servlet</a></li><li><a href="fs-invoker.html">Invoker Servlet</a></li></ul><p><strong>Realm Implementations</strong></p><ul><li><a href="fs-jdbc-realm.html">JDBC Realm</a></li><li><a href="fs-jndi-realm.html">JNDI Realm</a></li><li><a href="fs-memory-realm.html">Memory Realm</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Catalina Functional Specifications</h1><h2>JNDIRealm</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Overview"><strong>Overview</strong></a></font></td></tr><tr><td><blockquote>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The purpose of the <strong>JNDIRealm</strong> implementation is to
+    provide a mechanism by which Tomcat 6 can acquire information needed
+    to authenticate web application users, and define their security roles,
+    from a directory server or other service accessed via JNDI APIs.  For
+    integration with Catalina, this class must implement the
+    <code>org.apache.catalina.Realm</code> interface.</p>
+
+    <p>This specification reflects a combination of functionality that is
+    already present in the <code>org.apache.catalina.realm.JNDIRealm</code>
+    class, as well as requirements for enhancements that have been
+    discussed.  Where appropriate, requirements statements are marked
+    <em>[Current]</em> and <em>[Requested]</em> to distinguish them.</p>
+
+    <p>The current status of this functional specification is
+    <strong>PROPOSED</strong>.  It has not yet been discussed and
+    agreed to on the TOMCAT-DEV mailing list.</p>
+
+    <p>The code in the current version of <code>JNDIRealm</code>, and the
+    ideas expressed in this functional specification, are the results of
+    contributions from many individuals, including (alphabetically):</p>
+    <ul>
+    <li>Holman, John &lt;j.g.holman@qmw.ac.uk&gt;</li>
+    <li>Lockhart, Ellen &lt;elockhart@home.com&gt;</li>
+    <li>McClanahan, Craig &lt;craigmcc@apache.org&gt;</li>
+    </ul>
+
+  </blockquote></td></tr></table>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="External Specifications"><strong>External Specifications</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The implementation of this functionality depends on the following
+    external specifications:</p>
+    <ul>
+    <li><a href="http://java.sun.com/products/jndi/">Java Naming and
+        Directory Interface</a> (version 1.2.1 or later)</li>
+    </ul>
+
+  </blockquote></td></tr></table>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Implementation Requirements"><strong>Implementation Requirements</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The implementation of this functionality shall conform to the
+    following requirements:</p>
+    <ul>
+    <li>Be realized in one or more implementation classes.</li>
+    <li>Implement the <code>org.apache.catalina.Realm</code> interface.
+        [Current]</li>
+    <li>Implement the <code>org.apache.catalina.Lifecycle</code>
+        interface.  [Current]</li>
+    <li>Subclass the <code>org.apache.catalina.realm.RealmBase</code>
+        base class.</li>
+    <li>Live in the <code>org.apache.catalina.realm</code> package.
+        [Current]</li>
+    <li>Support a configurable debugging detail level. [Current]</li>
+    <li>Log debugging and operational messages (suitably internationalized)
+        via the <code>getContainer().log()</code> method. [Current]</li>
+    </ul>
+
+  </blockquote></td></tr></table>
+
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Dependencies"><strong>Dependencies</strong></a></font></td></tr><tr><td><blockquote>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Environmental Dependencies"><strong>Environmental Dependencies</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The following environmental dependencies must be met in order for
+    JNDIRealm to operate correctly:</p>
+    <ul>
+    <li>The desire to utilize JNDIRealm must be registered in
+        <code>$CATALINA_BASE/conf/server.xml</code>, in a
+        <code>&lt;Realm&gt;</code> element that is nested inside a
+        corresponding <code>&lt;Engine&gt;</code>, <code>&lt;Host&gt;</code>,
+        or <code>&lt;Context&gt;</code> element.</li>
+    <li>If the <em>Administrator Login</em> operational mode is selected,
+        the configured administrator username and password must be configured
+        in the corresponding directory server.</li>
+    <li>If the <em>Username Login</em> operational mode is selected,
+        the corresponding directory server must be configured to accept
+        logins with the username and password that will be passed to
+        <code>JNDIRealm</code> by the appropriate <code>Authenticator</code>.
+        </li>
+    </ul>
+
+  </blockquote></td></tr></table>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Container Dependencies"><strong>Container Dependencies</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>Correct operation of JNDIRealm depends on the following
+    specific features of the surrounding container:</p>
+    <ul>
+    <li>Interactions with <code>JNDIRealm</code> will be initiated by
+        the appropriate <code>Authenticator</code> implementation, based
+        on the login method that is selected.</li>
+    <li><code>JNDIRealm</code> must have the JNDI API classes available
+        to it.  For a JDK 1.2 container, that means <code>jndi.jar</code>
+        and the appropriate implementation (such as <code>ldap.jar</code>)
+        must be placed in the <code>server/lib</code> directory.</li>
+    </ul>
+
+  </blockquote></td></tr></table>
+
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Functionality"><strong>Functionality</strong></a></font></td></tr><tr><td><blockquote>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Operational Modes"><strong>Operational Modes</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The completed <code>JNDIRealm</code> must support two major operational
+    modes in order to support all of the required use cases.  For the purposes
+    of this document, the modes are called <em>administrator login</em> and
+    <em>Username Login</em>.  They are described further in the following
+    paragraphs.</p>
+
+    <p>For <em>Administrator Login</em> mode, <code>JNDIRealm</code> will be
+    configured to establish one or more connections (using a connection pool)
+    to an appropriate directory server, using JNDI APIs, under a "system
+    administrator" username and password.  This is similar to the approach
+    normally used to configure <code>JDBCRealm</code> to access authentication
+    and access control information in a database.  It is assumed that the
+    system administrator username and password that are configured provide
+    sufficient privileges within the directory server to read (but not modify)
+    the username, password, and assigned roles for each valid user of the
+    web application associated with this <code>Realm</code>.  The password
+    can be stored in cleartext, or in one of the digested modes supported by
+    the <code>org.apache.catalina.realm.RealmBase</code> base class.</p>
+
+    <p>For <em>Username Login</em> mode, <code>JNDIRealm</code> does not
+    normally remain connected to the directory server.  Instead, whenever a
+    user is to be authenticated, a connection to the directory server
+    (using the username and password received from the authenticator) is
+    attempted.  If this connection is successful, the user is assumed to be
+    successfully authenticated.  This connection is then utilized to read
+    the corresponding security roles associated with this user, and the
+    connection is then broken.</p>
+
+    <p><strong>NOTE</strong> - <em>Username Login</em> mode cannot be used
+    if you have selected login method <code>DIGEST</code> in your web
+    application deployment descriptor (<code>web.xml</code>) file.  This
+    restriction exists because the cleartext password is never available
+    to the container, so it is not possible to bind to the directory server
+    using the user's username and password.</p>
+
+    <p>Because these operational modes work so differently, the functionality
+    for each mode will be described separately.  Whether or not both modes
+    are actually supported by a single class (versus a class per mode) is
+    an implementation detail left to the designer.</p>
+
+    <p><strong>NOTE</strong> - The current implementation only implements
+    part of the <em>Administrator Lookup</em> mode requirements.  It does
+    not support the <em>Username Lookup</em> mode at all, at this point.</p>
+
+  </blockquote></td></tr></table>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Administrator Login Mode Functionality"><strong>Administrator Login Mode Functionality</strong></a></font></td></tr><tr><td><blockquote>
+
+
+    <h3>Configurable Properties</h3>
+
+    <p>The implementation shall support the following properties
+    that can be configured with JavaBeans property setters:</p>
+    <ul>
+    <li><code>connectionURL</code> - URL of the directory server we will
+        be contacting.</li>
+    <li><code>contextFactory</code> - Fully qualified class name of the JNDI
+        context factory used to retrieve our InitialContext.
+        [com.sun.jndi.ldap.LdapCtxFactory]</li>
+    <li>Additional configuration properties required to establish the
+        appropriate connection.  [Requested]</li>
+    <li>Connection pool configuration properties.  [Requested]</li>
+    <li>Configuration properties defining how a particular user is
+        authenticated.  The following capabilities should be supported:
+        <ul>
+        <li>Substitute the specified username into a string.  [Requested]</li>
+        <li>Retrieve the distinguished name (DN) of an authorized user via an
+            LDAP search string with a replacement placeholder for the
+            username, and comparison of the password to a configurable
+            attribute retrieved from the search result.  [Current]</li>
+        </ul></li>
+    <li>Configuration properties defining how the roles associated with a
+        particular authenticated user can be retrieved.  The following
+        approaches should be supported:
+        <ul>
+        <li>Retrieve a specified attribute (possibly multi-valued)
+            from an LDAP search expression,
+            with a replacement placeholder for the DN of the user.
+            [Current]</li>
+        <li>Retrieve a set of role names that are defined implicitly (by
+            selecting principals that match a search pattern) rather than
+            explicitly (by finding a particular attribute value).
+            [Requested]</li>
+        </ul></li>
+    </ul>
+
+    <h3>Lifecycle Functionality</h3>
+
+    <p>The following processing must be performed when the <code>start()</code>
+    method is called:</p>
+    <ul>
+    <li>Establish a connection to the configured directory server, using the
+        configured system administrator username and password.  [Current]</li>
+    <li>Configure and establish a connection pool of connections to the
+        directory server.  [Requested]</li>
+    </ul>
+
+    <p>The following processing must be performed when the <code>stop()</code>
+    method is called:</p>
+    <ul>
+    <li>Close any opened connections to the directory server.</li>
+    </ul>
+
+
+    <h3>Method authenticate() Functionality</h3>
+
+    <p>When <code>authenticate()</code> is called, the following processing
+    is required:</p>
+    <ul>
+    <li>Acquire the one and only connection [Current] or acquire a connection
+        from the connection pool [Requested].</li>
+    <li>Authenticate the user by retrieving the user's Distinguished Name,
+        based on the specified username and password.</li>
+    <li>If the user was not authenticated, release the allocated connection
+        and return <code>null</code>.</li>
+    <li>Acquire a <code>List</code> of the security roles assigned to the
+        authenticated user.</li>
+    <li>Construct a new instance of class
+        <code>org.apache.catalina.realm.GenericPrincipal</code>, passing as
+        constructor arguments:  this realm instance, the authenticated
+        username, and a <code>List</code> of the security roles associated
+        with this user.</li>
+    <li><strong>WARNING</strong> - Do not attempt to cache and reuse previous
+        <code>GenericPrincipal</code> objects for a particular user, because
+        the information in the directory server might have changed since the
+        last time this user was authenticated.</li>
+    <li>Return the newly constructed <code>GenericPrincipal</code>.</li>
+    </ul>
+
+
+    <h3>Method hasRole() Functionality</h3>
+
+    <p>When <code>hasRole()</code> is called, the following processing
+    is required:</p>
+    <ul>
+    <li>The <code>principal</code> that is passed as an argument SHOULD
+        be one that we returned (instanceof class
+        <code>org.apache.catalina.realm.GenericPrincipal</code>, with a
+        <code>realm</code> property that is equal to our instance.</li>
+    <li>If the passed <code>principal</code> meets these criteria, check
+        the specified role against the list returned by
+        <code>getRoles()</code>, and return <code>true</code> if the
+        specified role is included; otherwise, return <code>false</code>.</li>
+    <li>If the passed <code>principal</code> does not meet these criteria,
+        return <code>false</code>.</li>
+    </ul>
+
+  </blockquote></td></tr></table>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Username Login Mode Functionality"><strong>Username Login Mode Functionality</strong></a></font></td></tr><tr><td><blockquote>
+
+    <h3>Configurable Properties</h3>
+
+    <p>The implementation shall support the following properties
+    that can be configured with JavaBeans property setters:</p>
+    <ul>
+    <li><code>connectionURL</code> - URL of the directory server we will
+        be contacting.</li>
+    <li><code>contextFactory</code> - Fully qualified class name of the JNDI
+        context factory used to retrieve our InitialContext.
+        [com.sun.jndi.ldap.LdapCtxFactory]</li>
+    <li>Additional configuration properties required to establish the
+        appropriate connection.  [Requested]</li>
+    <li>Connection pool configuration properties.  [Requested]</li>
+    <li>Configuration properties defining if and how a user might be looked
+        up before binding to the directory server.  The following approaches
+        should be supported:
+        <ul>
+        <li>No previous lookup is required - username specified by the user
+            is the same as that used to authenticate to the directory
+            server.</li>
+        <li>Substitute the specified username into a string.</li>
+        <li>Search the directory server based on configured criteria to
+            retrieve the distinguished name of the user, then attempt to
+            bind with that distinguished name.</li>
+        </ul></li>
+    <li>Configuration properties defining how the roles associated with a
+        particular authenticated user can be retrieved.  The following
+        approaches should be supported:
+        <ul>
+        <li>Retrieve a specified attribute (possibly multi-valued)
+            from an LDAP search expression,
+            with a replacement placeholder for the DN of the user.
+            [Current]</li>
+        </ul></li>
+    </ul>
+
+    <h3>Lifecycle Functionality</h3>
+
+    <p>The following processing must be performed when the <code>start()</code>
+    method is called:</p>
+    <ul>
+    <li>None required.</li>
+    </ul>
+
+    <p>The following processing must be performed when the <code>stop()</code>
+    method is called:</p>
+    <ul>
+    <li>None required.</li>
+    </ul>
+
+
+    <h3>Method authenticate() Functionality</h3>
+
+    <p>When <code>authenticate()</code> is called, the following processing
+    is required:</p>
+    <ul>
+    <li>Attempt to bind to the directory server, using the username and
+        password provided by the user.</li>
+    <li>If the user was not authenticated, release the allocated connection
+        and return <code>null</code>.</li>
+    <li>Acquire a <code>List</code> of the security roles assigned to the
+        authenticated user.</li>
+    <li>Construct a new instance of class
+        <code>org.apache.catalina.realm.GenericPrincipal</code>, passing as
+        constructor arguments:  this realm instance, the authenticated
+        username, and a <code>List</code> of the security roles associated
+        with this user.</li>
+    <li><strong>WARNING</strong> - Do not attempt to cache and reuse previous
+        <code>GenericPrincipal</code> objects for a particular user, because
+        the information in the directory server might have changed since the
+        last time this user was authenticated.</li>
+    <li>Return the newly constructed <code>GenericPrincipal</code>.</li>
+    </ul>
+
+
+    <h3>Method hasRole() Functionality</h3>
+
+    <p>When <code>hasRole()</code> is called, the following processing
+    is required:</p>
+    <ul>
+    <li>The <code>principal</code> that is passed as an argument SHOULD
+        be one that we returned (instanceof class
+        <code>org.apache.catalina.realm.GenericPrincipal</code>, with a
+        <code>realm</code> property that is equal to our instance.</li>
+    <li>If the passed <code>principal</code> meets these criteria, check
+        the specified role against the list returned by
+        <code>getRoles()</code>, and return <code>true</code> if the
+        specified role is included; otherwise, return <code>false</code>.</li>
+    <li>If the passed <code>principal</code> does not meet these criteria,
+        return <code>false</code>.</li>
+    </ul>
+
+  </blockquote></td></tr></table>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Testable Assertions"><strong>Testable Assertions</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>In addition the the assertions implied by the functionality requirements
+  listed above, the following additional assertions shall be tested to
+  validate the behavior of <code>JNDIRealm</code>:</p>
+  <ul>
+  </ul>
+
+</blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
+        Copyright &copy; 1999-2008, Apache Software Foundation
+        </em></font></div></td></tr></table></body></html>

@@ -1,0 +1,106 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat Configuration Reference - The Cluster Receiver object</title><meta value="Filip Hanik" name="author"><meta value="fhanik@apache.org" name="email"><style media="print" type="text/css">
+			.noPrint {display: none;}
+			td#mainBody {width: 100%;}
+		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
+    The Apache Tomcat Servlet/JSP Container
+  " align="right" src="../images/tomcat.gif"></a></td><td><font face="arial,helvetica,sanserif"><h1>Apache Tomcat 6.0</h1></font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap="true" valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li><li><a href="index.html">Config Ref. Home</a></li></ul><p><strong>Top Level Elements</strong></p><ul><li><a href="server.html">Server</a></li><li><a href="service.html">Service</a></li></ul><p><strong>Executors</strong></p><ul><li><a href="executor.html">Executor</a></li></ul><p><strong>Connectors</strong></p><ul><li><a href="http.html">HTTP</a></li><li><a href="ajp.html">AJP</a></li></ul><p><strong>Containers</strong></p><ul><li><a href="context.html">Context</a></li><li><a href="engine.html">Engine</a></li><li><a href="host.html">Host</a></li><li><a href="cluster.html">Cluster</a></li></ul><p><strong>Nested Components</strong></p><ul><li><a href="listeners.html">Listeners</a></li><li><a href="globalresources.html">Global Resources</a></li><li><a href="loader.html">Loader</a></li><li><a href="manager.html">Manager</a></li><li><a href="realm.html">Realm</a></li><li><a href="resources.html">Resources</a></li><li><a href="valve.html">Valve</a></li></ul><p><strong>Cluster Elements</strong></p><ul><li><a href="cluster.html">Cluster</a></li><li><a href="cluster-manager.html">Manager</a></li><li><a href="cluster-channel.html">Channel</a></li><li><a href="cluster-membership.html">Channel/Membership</a></li><li><a href="cluster-sender.html">Channel/Sender</a></li><li><a href="cluster-receiver.html">Channel/Receiver</a></li><li><a href="cluster-interceptor.html">Channel/Interceptor</a></li><li><a href="cluster-valve.html">Valve</a></li><li><a href="cluster-deployer.html">Deployer</a></li><li><a href="cluster-listener.html">ClusterListener</a></li></ul><p><strong>Global Settings</strong></p><ul><li><a href="systemprops.html">System properties</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat Configuration Reference</h1><h2>The Cluster Receiver object</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+  <p>
+  The receiver component is responsible for receiving cluster messages.
+  As you might notice through the configuration, is that the receiving of messages
+  and sending of messages are two different components, this is different from many other 
+  frameworks, but there is a good reason for it, to decouple the logic for how messages are sent from
+  how messages are received.<br>
+  The receiver is very much like the Tomcat Connector, its the base of the thread pool
+  for incoming cluster messages. The receiver is straight forward, but all the socket settings
+  for incoming traffic are managed here.
+  </p>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Blocking vs Non-Blocking Receiver"><strong>Blocking vs Non-Blocking Receiver</strong></a></font></td></tr><tr><td><blockquote>
+  <p>
+  The receiver supports both a non blocking, <code>org.apache.catalina.tribes.transport.nio.NioReceiver</code>, and a 
+  blocking, <code>org.apache.catalina.tribes.transport.bio.BioReceiver</code>. It is preferred to use the non blocking receiver
+  to be able to grow your cluster without running into thread starvation.<br>
+  Using the non blocking receiver allows you to with a very limited thread count to serve a large number of messages.
+  Usually the rule is to use 1 thread per node in the cluster for small clusters, and then depending on your message frequency
+  and your hardware, you'll find an optimal number of threads peak out at a certain number.
+  </p>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Attributes"><strong>Attributes</strong></a></font></td></tr><tr><td><blockquote>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Common Attributes"><strong>Common Attributes</strong></a></font></td></tr><tr><td><blockquote>
+  <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>className</code></strong></td><td valign="center" align="left">
+      The implementation of the receiver component. Two implementations available,
+      <code>org.apache.catalina.tribes.transport.nio.NioReceiver</code> and 
+      <code>org.apache.catalina.tribes.transport.bio.BioReceiver</code>.<br>
+      The <code>org.apache.catalina.tribes.transport.nio.NioReceiver</code> is the 
+      preferred implementation
+    </td></tr><tr><td valign="center" align="left"><code>address</code></td><td valign="center" align="left">
+      The address (network interface) to listen for incoming traffic.
+      Same as the bind address. The default value is <code>auto</code> and translates to
+      <code>java.net.InetAddress.getLocalHost().getHostAddress()</code>.
+    </td></tr><tr><td valign="center" align="left"><code>direct</code></td><td valign="center" align="left">
+      Possible values are <code>true</code> or <code>false</code>. 
+      Set to true if you want the receiver to use direct bytebuffers when reading data
+      from the sockets.
+    </td></tr><tr><td valign="center" align="left"><code>port</code></td><td valign="center" align="left">
+      The listen port for incoming data. The default value is <code>4000</code>.
+      To avoid port conflicts the receiver will automatically bind to a free port within the range of 
+      <code> port &lt;= bindPort &lt;= port+autoBind</code>
+      So for example, if port is 4000, and autoBind is set to 10, then the receiver will open up 
+      a server socket on the first available port in the range 4000-4100.
+    </td></tr><tr><td valign="center" align="left"><code>autoBind</code></td><td valign="center" align="left">
+      Default value is <code>100</code>.
+      Use this value if you wish to automatically avoid port conflicts the cluster receiver will try to open a 
+      server socket on the <code>port</code> attribute port, and then work up <code>autoBind</code> number of times.
+    </td></tr><tr><td valign="center" align="left"><code>securePort</code></td><td valign="center" align="left">
+      The secure listen port. This port is SSL enabled. If this attribute is omitted no SSL port is opened up.
+      There default value is unset, meaning there is no SSL socket available.
+    </td></tr><tr><td valign="center" align="left"><code>selectorTimeout</code></td><td valign="center" align="left">
+      The value in milliseconds for the polling timeout in the <code>NioReceiver</code>. On older versions of the JDK
+      there have been bugs, that should all now be cleared out where the selector never woke up.
+      The default value is a very high <code>5000</code> milliseconds.
+    </td></tr><tr><td valign="center" align="left"><code>maxThreads</code></td><td valign="center" align="left">
+      The maximum number of threads in the receiver thread pool. The default value is <code>6</code>
+      Adjust this value relative to the number of nodes in the cluster, the number of messages being exchanged and 
+      the hardware you are running on. A higher value doesn't mean more effiecency, tune this value according to your 
+      own test results.
+    </td></tr><tr><td valign="center" align="left"><code>minThreads</code></td><td valign="center" align="left">
+      Minimum number of threads to be created when the receiver is started up. Default value is <code>6</code>
+    </td></tr><tr><td valign="center" align="left"><code>ooBInline</code></td><td valign="center" align="left">
+      Boolean value for the socket OOBINLINE option. Possible values are <code>true</code> or <code>false</code>.
+    </td></tr><tr><td valign="center" align="left"><code>rxBufSize</code></td><td valign="center" align="left">
+      The receiver buffer size on the receiving sockets. Value is in bytes, the default value is <code>43800</code> bytes.
+    </td></tr><tr><td valign="center" align="left"><code>txBufSize</code></td><td valign="center" align="left">
+      The sending buffer size on the receiving sockets. Value is in bytes, the default value is <code>25188</code> bytes.
+    </td></tr><tr><td valign="center" align="left"><code>soKeepAlive</code></td><td valign="center" align="left">
+      Boolean value for the socket SO_KEEPALIVE option. Possible values are <code>true</code> or <code>false</code>.
+    </td></tr><tr><td valign="center" align="left"><code>soLingerOn</code></td><td valign="center" align="left">
+      Boolean value to determine whether to use the SO_LINGER socket option. 
+      Possible values are <code>true</code> or <code>false</code>. Default value is <code>true</code>.
+    </td></tr><tr><td valign="center" align="left"><code>soLingerTime</code></td><td valign="center" align="left">
+      Sets the SO_LINGER socket option time value. The value is in seconds. 
+      The default value is <code>3</code> seconds.
+    </td></tr><tr><td valign="center" align="left"><code>soReuseAddress</code></td><td valign="center" align="left">
+     Boolean value for the socket SO_REUSEADDR option. Possible values are <code>true</code> or <code>false</code>.
+    </td></tr><tr><td valign="center" align="left"><code>soTrafficClass</code></td><td valign="center" align="left">
+     Sets the traffic class level for the socket, the value is between 0 and 255.
+     Different values are defined in <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/net/Socket.html#setTrafficClass(int)">
+     java.net.Socket#setTrafficClass(int)</a>.
+    </td></tr><tr><td valign="center" align="left"><code>tcpNoDelay</code></td><td valign="center" align="left">
+     Boolean value for the socket TCP_NODELAY option. Possible values are <code>true</code> or <code>false</code>.
+     The default value is <code>true</code>
+    </td></tr><tr><td valign="center" align="left"><code>timeout</code></td><td valign="center" align="left">
+     Sets the SO_TIMEOUT option on the socket. The value is in milliseconds and the default value is <code>3000</code> 
+     milliseconds.
+    </td></tr><tr><td valign="center" align="left"><code>useBufferPool</code></td><td valign="center" align="left">
+     Boolean value whether to use a shared buffer pool of cached <code>org.apache.catalina.tribes.io.XByteBuffer</code>
+     objects. If set to true, the XByteBuffer that is used to pass a message up the channel, will be recycled at the end 
+     of the requests. This means that interceptors in the channel must not maintain a reference to the object
+     after the <code>org.apache.catalina.tribes.ChannelInterceptor#messageReceived</code> method has exited.
+    </td></tr></table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="NioReceiver"><strong>NioReceiver</strong></a></font></td></tr><tr><td><blockquote>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="BioReceiver"><strong>BioReceiver</strong></a></font></td></tr><tr><td><blockquote>
+  </blockquote></td></tr></table>
+
+</blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
+        Copyright &copy; 1999-2008, Apache Software Foundation
+        </em></font></div></td></tr></table></body></html>

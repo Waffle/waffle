@@ -1,0 +1,73 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat Configuration Reference - The ClusterManager object</title><meta value="Filip Hanik" name="author"><meta value="fhanik@apache.org" name="email"><style media="print" type="text/css">
+			.noPrint {display: none;}
+			td#mainBody {width: 100%;}
+		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
+    The Apache Tomcat Servlet/JSP Container
+  " align="right" src="../images/tomcat.gif"></a></td><td><font face="arial,helvetica,sanserif"><h1>Apache Tomcat 6.0</h1></font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap="true" valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li><li><a href="index.html">Config Ref. Home</a></li></ul><p><strong>Top Level Elements</strong></p><ul><li><a href="server.html">Server</a></li><li><a href="service.html">Service</a></li></ul><p><strong>Executors</strong></p><ul><li><a href="executor.html">Executor</a></li></ul><p><strong>Connectors</strong></p><ul><li><a href="http.html">HTTP</a></li><li><a href="ajp.html">AJP</a></li></ul><p><strong>Containers</strong></p><ul><li><a href="context.html">Context</a></li><li><a href="engine.html">Engine</a></li><li><a href="host.html">Host</a></li><li><a href="cluster.html">Cluster</a></li></ul><p><strong>Nested Components</strong></p><ul><li><a href="listeners.html">Listeners</a></li><li><a href="globalresources.html">Global Resources</a></li><li><a href="loader.html">Loader</a></li><li><a href="manager.html">Manager</a></li><li><a href="realm.html">Realm</a></li><li><a href="resources.html">Resources</a></li><li><a href="valve.html">Valve</a></li></ul><p><strong>Cluster Elements</strong></p><ul><li><a href="cluster.html">Cluster</a></li><li><a href="cluster-manager.html">Manager</a></li><li><a href="cluster-channel.html">Channel</a></li><li><a href="cluster-membership.html">Channel/Membership</a></li><li><a href="cluster-sender.html">Channel/Sender</a></li><li><a href="cluster-receiver.html">Channel/Receiver</a></li><li><a href="cluster-interceptor.html">Channel/Interceptor</a></li><li><a href="cluster-valve.html">Valve</a></li><li><a href="cluster-deployer.html">Deployer</a></li><li><a href="cluster-listener.html">ClusterListener</a></li></ul><p><strong>Global Settings</strong></p><ul><li><a href="systemprops.html">System properties</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat Configuration Reference</h1><h2>The ClusterManager object</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+  <p>
+  A cluster manager is an extension to Tomcat's session manager interface, 
+  <code>org.apache.catalina.Manager</code>
+  A cluster manager must implement the <code>org.apache.catalina.ha.ClusterManager</code> and is solely 
+  responsible for how the session is replicated.<br>
+  There are currently two different managers, the <code>org.apache.catalina.ha.session.DeltaManager</code> replicates deltas 
+  of session data to all members in the cluster. This implementation is proven and works very well, but has a limitation
+  as it requires the cluster members to be homogeneous, all nodes must deploy the same applications and be exact replicas.
+  The <code>org.apache.catalina.ha.session.BackupManager</code> also replicates deltas but only to one backup node.
+  The location of the backup node is known to all nodes in the cluster. It also supports heterogeneous deployments,
+  so the manager knows at what locations the webapp is deployed.<br>
+  We are planning to add more managers with even more sophisticated backup mechanism to support even larger clusters.
+  Check back soon! 
+  </p>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="The <Manager>"><strong>The &lt;Manager&gt;</strong></a></font></td></tr><tr><td><blockquote>
+  <p>
+   The <code>&lt;Manager&gt;</code> element defined inside the <code>&lt;Cluster&gt;</code> element
+   is the template defined for all web applications that are marked <code>&lt;distributable/&gt;</code>
+   in their <code>web.xml</code> file. 
+   However, you can still override the manager implementation on a per web application basis,
+   by putting the <code>&lt;Manager&gt;</code> inside the <code>&lt;Context&gt;</code> element either in the 
+   <code><a href="context.html">context.xml</a></code> file or the <code><a href="index.html">server.xml</a></code> file.
+  </p> 
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Attributes"><strong>Attributes</strong></a></font></td></tr><tr><td><blockquote>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Common Attributes"><strong>Common Attributes</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>className</code></strong></td><td valign="center" align="left">
+     </td></tr><tr><td valign="center" align="left"><code>name</code></td><td valign="center" align="left">
+      <b>The name of this cluster manager, the name is used to identify a session manager on a node.
+      The name might get modified by the <code>Cluster</code> element to make it unique in the container.</b>
+     </td></tr><tr><td valign="center" align="left"><code>defaultMode</code></td><td valign="center" align="left">
+      <b>Deprecated since 6.0.0</b>
+     </td></tr><tr><td valign="center" align="left"><code>notifyListenersOnReplication</code></td><td valign="center" align="left">
+       Set to <code>true</code> if you wish to have session listeners notified when
+       session attributes are being replicated or removed across Tomcat nodes in the cluster.
+     </td></tr><tr><td valign="center" align="left"><code>expireSessionsOnShutdown</code></td><td valign="center" align="left">
+       When a webapplication is being shutdown, Tomcat issues an expire call to each session to 
+       notify all the listeners. If you wish for all sessions to expire on all nodes when
+       a shutdown occurs on one node, set this value to <code>true</code>.
+       Default value is <code>false</code>.
+     </td></tr></table>
+  </blockquote></td></tr></table> 
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="org.apache.catalina.ha.session.DeltaManager Attributes"><strong>org.apache.catalina.ha.session.DeltaManager Attributes</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>domainReplication</code></td><td valign="center" align="left">
+      Set to true if you wish sessions to be replicated only to members that have the same logical
+      domain set. If set to false, session replication will ignore the domain setting the 
+      <code><a href="cluster-membership.html">&lt;Membership&gt;</a></code>
+      element.
+     </td></tr><tr><td valign="center" align="left"><code>expireSessionsOnShutdown</code></td><td valign="center" align="left">
+       When a webapplication is being shutdown, Tomcat issues an expire call to each session to 
+       notify all the listeners. If you wish for all sessions to expire on all nodes when
+       a shutdown occurs on one node, set this value to <code>true</code>.
+       Default value is <code>false</code>.
+     </td></tr><tr><td valign="center" align="left"><code>stateTransferTimeout</code></td><td valign="center" align="left">
+       The time in seconds to wait for a session state transfer to complete from another node
+       when a node is starting up.
+       Default value is <code>60</code> seconds.
+     </td></tr></table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="org.apache.catalina.ha.session.BackupManager Attributes"><strong>org.apache.catalina.ha.session.BackupManager Attributes</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>mapSendOptions</code></td><td valign="center" align="left">
+       The backup manager uses a replicated map, this map is sending and receiving messages.
+       You can setup the flag for how this map is sending messages, the default value is <code>6</code>(asynchronous).
+     </td></tr></table>
+  </blockquote></td></tr></table>
+</blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
+        Copyright &copy; 1999-2008, Apache Software Foundation
+        </em></font></div></td></tr></table></body></html>

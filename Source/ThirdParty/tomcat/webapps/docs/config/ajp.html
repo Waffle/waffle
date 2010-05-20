@@ -1,0 +1,243 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat Configuration Reference - The AJP Connector</title><meta value="Remy Maucherat" name="author"><meta value="remm@apache.org" name="email"><meta value="Yoav Shapira" name="author"><meta value="yoavs@apache.org" name="email"><meta value="Andrew R. Jaquith" name="author"><meta value="arjaquith@mindspring.com" name="email"><style media="print" type="text/css">
+			.noPrint {display: none;}
+			td#mainBody {width: 100%;}
+		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
+    The Apache Tomcat Servlet/JSP Container
+  " align="right" src="../images/tomcat.gif"></a></td><td><font face="arial,helvetica,sanserif"><h1>Apache Tomcat 6.0</h1></font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap="true" valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li><li><a href="index.html">Config Ref. Home</a></li></ul><p><strong>Top Level Elements</strong></p><ul><li><a href="server.html">Server</a></li><li><a href="service.html">Service</a></li></ul><p><strong>Executors</strong></p><ul><li><a href="executor.html">Executor</a></li></ul><p><strong>Connectors</strong></p><ul><li><a href="http.html">HTTP</a></li><li><a href="ajp.html">AJP</a></li></ul><p><strong>Containers</strong></p><ul><li><a href="context.html">Context</a></li><li><a href="engine.html">Engine</a></li><li><a href="host.html">Host</a></li><li><a href="cluster.html">Cluster</a></li></ul><p><strong>Nested Components</strong></p><ul><li><a href="listeners.html">Listeners</a></li><li><a href="globalresources.html">Global Resources</a></li><li><a href="loader.html">Loader</a></li><li><a href="manager.html">Manager</a></li><li><a href="realm.html">Realm</a></li><li><a href="resources.html">Resources</a></li><li><a href="valve.html">Valve</a></li></ul><p><strong>Cluster Elements</strong></p><ul><li><a href="cluster.html">Cluster</a></li><li><a href="cluster-manager.html">Manager</a></li><li><a href="cluster-channel.html">Channel</a></li><li><a href="cluster-membership.html">Channel/Membership</a></li><li><a href="cluster-sender.html">Channel/Sender</a></li><li><a href="cluster-receiver.html">Channel/Receiver</a></li><li><a href="cluster-interceptor.html">Channel/Interceptor</a></li><li><a href="cluster-valve.html">Valve</a></li><li><a href="cluster-deployer.html">Deployer</a></li><li><a href="cluster-listener.html">ClusterListener</a></li></ul><p><strong>Global Settings</strong></p><ul><li><a href="systemprops.html">System properties</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat Configuration Reference</h1><h2>The AJP Connector</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>The <strong>AJP Connector</strong> element represents a
+  <strong>Connector</strong> component that communicates with a web
+  connector via the <code>AJP</code> protocol.  This is used for cases
+  where you wish to invisibly integrate Tomcat 6 into an existing (or new)
+  Apache installation, and you want Apache to handle the static content
+  contained in the web application, and/or utilize Apache's SSL
+  processing.</p>
+
+  <p>This connector supports load balancing when used in conjunction with
+  the <code>jvmRoute</code> attribute of the 
+  <a href="engine.html">Engine</a>.</p>
+
+<p>The native connectors supported with this Tomcat release are:
+<ul>
+  <li>JK 1.2.x with any of the supported servers</li>
+  <li>mod_proxy on Apache httpd 2.x (included by default in Apache HTTP Server 2.2), 
+      with AJP enabled: see
+      <a href="http://httpd.apache.org/docs/2.2/mod/mod_proxy_ajp.html">the httpd docs</a>
+      for details.</li>
+</ul>
+</p>
+
+<p><b>Other native connectors supporting AJP may work, but are no longer supported.</b></p>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Attributes"><strong>Attributes</strong></a></font></td></tr><tr><td><blockquote>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Common Attributes"><strong>Common Attributes</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>All implementations of <strong>Connector</strong>
+  support the following attributes:</p>
+
+  <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>allowTrace</code></td><td valign="center" align="left">
+      <p>A boolean value which can be used to enable or disable the TRACE
+      HTTP method. If not specified, this attribute is set to false.</p>
+    </td></tr><tr><td valign="center" align="left"><code>emptySessionPath</code></td><td valign="center" align="left">
+      <p>If set to <code>true</code>, all paths for session cookies will be set
+      to <code>/</code>. This can be useful for portlet specification implementations.
+      If not specified, this attribute is set to <code>false</code>.</p>
+    </td></tr><tr><td valign="center" align="left"><code>enableLookups</code></td><td valign="center" align="left">
+      <p>Set to <code>true</code> if you want calls to
+      <code>request.getRemoteHost()</code> to perform DNS lookups in
+      order to return the actual host name of the remote client.  Set
+      to <code>false</code> to skip the DNS lookup and return the IP
+      address in String form instead (thereby improving performance).
+      By default, DNS lookups are enabled.</p>
+    </td></tr><tr><td valign="center" align="left"><code>maxPostSize</code></td><td valign="center" align="left">
+      <p>The maximum size in bytes of the POST which will be handled by
+      the container FORM URL parameter parsing. The feature can be disabled by
+      setting this attribute to a value less than or equal to 0.
+      If not specified, this attribute is set to 2097152 (2 megabytes).</p>
+    </td></tr><tr><td valign="center" align="left"><code>maxSavePostSize</code></td><td valign="center" align="left">
+      <p>The maximum size in bytes of the POST which will be saved/buffered by
+      the container during FORM or CLIENT-CERT authentication. For both types
+      of authentication, the POST will be saved/buffered before the user is
+      authenticated. For CLIENT-CERT authentication, the POST is buffered for
+      the duration of the SSL handshake and the buffer emptied when the request
+      is processed. For FORM authentication the POST is saved whilst the user
+      is re-directed to the login form and is retained until the user
+      successfully authenticates or the session associated with the
+      authentication request expires. The limit can be disabled by setting this
+      attribute to -1. Setting the attribute to zero will disable the saving of
+      POST data during authentication. If not specified, this attribute is set
+      to 4096 (4 kilobytes).</p>
+    </td></tr><tr><td valign="center" align="left"><code>protocol</code></td><td valign="center" align="left">
+      <p>Sets the protocol to handle incoming traffic. The default value is
+        <code>AJP/1.3</code> and configures
+        <code>org.apache.jk.server.JkCoyoteHandler</code> the original blocking
+        Java connector by default.<br>
+        If the <code>PATH(Windows)</code> or <code>LD_LIBRARY_PATH
+        (on most unix system)</code> environment variables contain the Tomcat
+        native library, the native/APR connector will automatically be
+        configured instead.<br>
+        To use an explicit protocol rather than rely on the auto-switching
+        mechanism described above, the following values may be used:<br>
+        <code>org.apache.jk.server.JkCoyoteHandler</code>
+        - original blocking Java connector<br>
+        <code>org.apache.coyote.ajp.AjpProtocol</code>
+        - new blocking Java connector that supports an executor<br>
+        <code>org.apache.coyote.ajp.AjpAprProtocol</code>
+        - the APR/native connector.<br>
+      Custom implementations may also be used.</p>
+    </td></tr><tr><td valign="center" align="left"><code>proxyName</code></td><td valign="center" align="left">
+      <p>If this <strong>Connector</strong> is being used in a proxy
+      configuration, configure this attribute to specify the server name
+      to be returned for calls to <code>request.getServerName()</code>.
+      See <a href="#Proxy Support">Proxy Support</a> for more
+      information.</p>
+    </td></tr><tr><td valign="center" align="left"><code>proxyPort</code></td><td valign="center" align="left">
+      <p>If this <strong>Connector</strong> is being used in a proxy
+      configuration, configure this attribute to specify the server port
+      to be returned for calls to <code>request.getServerPort()</code>.
+      See <a href="#Proxy Support">Proxy Support</a> for more
+      information.</p>
+    </td></tr><tr><td valign="center" align="left"><code>redirectPort</code></td><td valign="center" align="left">
+      <p>If this <strong>Connector</strong> is supporting non-SSL
+      requests, and a request is received for which a matching
+      <code>&lt;security-constraint&gt;</code> requires SSL transport,
+      Catalina will automatically redirect the request to the port
+      number specified here.</p>
+    </td></tr><tr><td valign="center" align="left"><code>request.registerRequests</code></td><td valign="center" align="left">
+      <p>This attribute controls request registration for JMX monitoring
+      of the Connector.  It is enabled by default, but may be turned
+      it off to save a bit of memory.</p>
+    </td></tr><tr><td valign="center" align="left"><code>scheme</code></td><td valign="center" align="left">
+      <p>Set this attribute to the name of the protocol you wish to have
+      returned by calls to <code>request.getScheme()</code>.  For
+      example, you would set this attribute to "<code>https</code>"
+      for an SSL Connector.  The default value is "<code>http</code>".
+      See <a href="#SSL Support">SSL Support</a> for more information.</p>
+    </td></tr><tr><td valign="center" align="left"><code>secure</code></td><td valign="center" align="left">
+      <p>Set this attribute to <code>true</code> if you wish to have
+      calls to <code>request.isSecure()</code> to return <code>true</code>
+      for requests received by this Connector (you would want this on an
+      SSL Connector).  The default value is <code>false</code>.</p>
+    </td></tr><tr><td valign="center" align="left"><code>URIEncoding</code></td><td valign="center" align="left">
+      <p>This specifies the character encoding used to decode the URI bytes,
+      after %xx decoding the URL. If not specified, ISO-8859-1 will be used.
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>useBodyEncodingForURI</code></td><td valign="center" align="left">
+      <p>This specifies if the encoding specified in contentType should be used
+      for URI query parameters, instead of using the URIEncoding. This
+      setting is present for compatibility with Tomcat 4.1.x, where the
+      encoding specified in the contentType, or explicitely set using
+      Request.setCharacterEncoding method was also used for the parameters from
+      the URL. The default value is <code>false</code>.
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>useIPVHosts</code></td><td valign="center" align="left">
+      <p>Set this attribute to <code>true</code> to cause Tomcat to use
+      the ServerName passed by the native web server to determine the Host
+      to send the request to.  The default value is <code>false</code>.</p>
+    </td></tr><tr><td valign="center" align="left"><code>xpoweredBy</code></td><td valign="center" align="left">
+      <p>Set this attribute to <code>true</code> to cause Tomcat to advertise
+      support for the Srevlet specification using the header recommended in the
+      specification.  The default value is <code>false</code>.</p>
+    </td></tr></table>
+
+  </blockquote></td></tr></table>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Standard Implementations"><strong>Standard Implementations</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>To use AJP, you
+  must specify the protocol attribute (see above).</p>
+
+  <p><strong>These implementations support the AJP 1.3 protocol.</strong></p>
+
+  <p>They support the following additional attributes (in addition to the
+  common attributes listed above):</p>
+
+  <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>address</code></td><td valign="center" align="left">
+      <p>For servers with more than one IP address, this attribute
+      specifies which address will be used for listening on the specified
+      port.  By default, this port will be used on all IP addresses
+      associated with the server. A value of <code>127.0.0.1</code>
+      indicates that the Connector will only listen on the loopback
+      interface.</p>
+    </td></tr><tr><td valign="center" align="left"><code>backlog</code></td><td valign="center" align="left">
+      <p>The maximum queue length for incoming connection requests when
+      all possible request processing threads are in use.  Any requests
+      received when the queue is full will be refused.  The default
+      value is 10.</p>
+    </td></tr><tr><td valign="center" align="left"><code>bufferSize</code></td><td valign="center" align="left">
+      <p>The size of the output buffer to use.  If less than or equal to zero,
+         then output buffering is disabled.  The default value is -1
+         (i.e. buffering disabled)</p>
+    </td></tr><tr><td valign="center" align="left"><code>connectionTimeout</code></td><td valign="center" align="left">
+      <p>The number of milliseconds this <strong>Connector</strong> will wait,
+      after accepting a connection, for the request URI line to be
+      presented.  The default value is infinite (i.e. no timeout).</p>
+    </td></tr><tr><td valign="center" align="left"><code>deferAccept</code></td><td valign="center" align="left">
+      <p>Sets the <code>TCP_DEFER_ACCEPT</code> flag on the listening socket for
+      this connector. The default value is <code>true</code> where
+      <code>TCP_DEFER_ACCEPT</code> is supported by the operating system,
+      otherwise it is <code>false</code>.</p>
+    </td></tr><tr><td valign="center" align="left"><code>executor</code></td><td valign="center" align="left">
+      <p>A reference to the name in an <a href="executor.html">Executor</a> element.
+         If this attribute is enabled, and the named executor exists, the connector will
+         use the executor, and all the other thread attributes will be ignored.
+         This attribute is not supported by the original blocking Java
+         connector.</p>
+    </td></tr><tr><td valign="center" align="left"><code>keepAliveTimeout</code></td><td valign="center" align="left">
+      <p>The number of milliseconds this <strong>Connector</strong> will wait for
+       another AJP request before closing the connection.
+       The default value is to use the value that has been set for the
+       connectionTimeout attribute.</p>
+    </td></tr><tr><td valign="center" align="left"><code>maxThreads</code></td><td valign="center" align="left">
+      <p>The maximum number of request processing threads to be created
+      by this <strong>Connector</strong>, which therefore determines the
+      maximum number of simultaneous requests that can be handled.  If
+      not specified, this attribute is set to 200. If an executor is associated
+      with this connector, this attribute is ignored as the connector will 
+      execute tasks using the executor rather than an internal thread pool.</p>
+    </td></tr><tr><td valign="center" align="left"><code>packetSize</code></td><td valign="center" align="left">
+      <p>This attribute sets the maximum AJP packet size in Bytes. The maximum
+      value is 65536. It should be the same as the <code>max_packet_size</code>
+      directive configured for mod_jk. Normally it is not necessary to change
+      the maximum packet size. Problems with the default value have been
+      reported when sending certificates or certificate chains. The default
+      value is 8192.</p>
+    </td></tr><tr><td valign="center" align="left"><strong><code>port</code></strong></td><td valign="center" align="left">
+      <p>The TCP port number on which this <strong>Connector</strong>
+      will create a server socket and await incoming connections.  Your
+      operating system will allow only one server application to listen
+      to a particular port number on a particular IP address.</p>
+    </td></tr><tr><td valign="center" align="left"><code>request.secret</code></td><td valign="center" align="left">
+      <p>Only requests from workers with this secret keyword will be accepted.
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>request.shutdownEnabled</code></td><td valign="center" align="left">
+      <p>If true and a secret has been configured, a correctly fomatted AJP
+      request (that includes the secret) will shutdown the Tomcat instance
+      associated with this connector. This is set to <code>false</code> by
+      default.</p>
+    </td></tr><tr><td valign="center" align="left"><code>request.useSecret</code></td><td valign="center" align="left">
+      <p>If set to <code>true</code>, then a random value for
+      <code>request.secret</code> will be generated. It is for use with
+      <code>request.shutdownEnabled</code>. This is set to <code>false</code>
+      by default.</p>
+    </td></tr><tr><td valign="center" align="left"><code>tcpNoDelay</code></td><td valign="center" align="left">
+      <p>If set to <code>true</code>, the TCP_NO_DELAY option will be
+      set on the server socket, which improves performance under most
+      circumstances.  This is set to <code>true</code> by default.</p>
+    </td></tr><tr><td valign="center" align="left"><code>tomcatAuthentication</code></td><td valign="center" align="left">
+      <p>If set to <code>true</code>, the authetication will be done in Tomcat. 
+      Otherwise, the authenticated principal will be propagated from the native
+      webserver and used for authorization in Tomcat.  
+      The default value is <code>true</code>.</p>
+    </td></tr></table>
+
+  </blockquote></td></tr></table>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Nested Components"><strong>Nested Components</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>None at this time.</p>
+
+</blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
+        Copyright &copy; 1999-2008, Apache Software Foundation
+        </em></font></div></td></tr></table></body></html>

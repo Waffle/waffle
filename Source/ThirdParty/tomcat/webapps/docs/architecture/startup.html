@@ -1,0 +1,44 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat Architecture - Startup</title><meta value="Yoav Shapira" name="author"><meta value="yoavs@apache.org" name="email"><style media="print" type="text/css">
+			.noPrint {display: none;}
+			td#mainBody {width: 100%;}
+		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
+      The Apache Tomcat Servlet/JSP Container
+    " align="right" src="../images/tomcat.gif"></a></td><td><font face="arial,helvetica,sanserif"><h1>Apache Tomcat 6.0</h1></font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap="true" valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li></ul><p><strong>Contents</strong></p><ul><li><a href="index.html">Contents</a></li><li><a href="overview.html">Overview</a></li><li><a href="startup.html">Server Startup</a></li><li><a href="requestProcess.html">Request Process</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat Architecture</h1><h2>Startup</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Server Startup"><strong>Server Startup</strong></a></font></td></tr><tr><td><blockquote>
+
+<p>
+This page describes how the Tomcat server starts up.  There are several
+different ways to start tomcat, including:
+<ul>
+  <li>From the command line.</li>
+  <li>From a Java program as an embedded server.</li>
+  <li>Automatically as a Windows service.</li>
+</ul>
+</p>
+
+<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="description"><strong>description</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+A text description of the startup procedure is available
+<a href="startup/serverStartup.txt">here.</a>
+</p>
+</blockquote></td></tr></table>
+
+<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="diagram"><strong>diagram</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+A UML sequence diagram of the startup procedure is available
+<a href="startup/serverStartup.pdf">here.</a>
+</p>
+</blockquote></td></tr></table>
+
+<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="comments"><strong>comments</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+The startup process can be customized in many ways, both
+by modifying Tomcat code and by implementing your own
+LifecycleListeners which are then registered in the server.xml
+configuration file.
+</p>
+
+</blockquote></td></tr></table>
+
+</blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
+        Copyright &copy; 1999-2008, Apache Software Foundation
+        </em></font></div></td></tr></table></body></html>
