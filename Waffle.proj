@@ -49,7 +49,7 @@
       <Output TaskParameter="Include" ItemName="UnitTestAssemblies"/>
     </CreateItem>
     <Message Text="@(UnitTestAssemblies)" />
-    <NUnit Assemblies="@(UnitTestAssemblies)" ToolPath="$(NUnitDir)\bin" ContinueOnError="true" />
+    <NUnit Assemblies="@(UnitTestAssemblies)" ToolPath="$(NUnitDir)\bin" />
   </Target>
   <Target Name="doc" DependsOnTargets="version;configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
     <Error Condition="'$(DXROOT)'==''" Text="Missing Sandcastle, DXROOT environment variable not set, install from http://www.codeplex.com/Sandcastle" />

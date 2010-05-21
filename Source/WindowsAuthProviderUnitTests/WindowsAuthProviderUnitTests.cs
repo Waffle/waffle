@@ -45,7 +45,7 @@ namespace Waffle.Windows.AuthProvider.UnitTests
 
         [Test, ExpectedException(typeof(Win32Exception), ExpectedMessage = "Logon failure: unknown user name or bad password")]
         public void TestLogonUserWithDomain()
-        {
+        {            
             WindowsAuthProviderImpl windowsAuthProviderImpl = new WindowsAuthProviderImpl();
             windowsAuthProviderImpl.LogonDomainUser("Administrator", "domain", "invalid password");
         }
@@ -65,6 +65,11 @@ namespace Waffle.Windows.AuthProvider.UnitTests
             string testDomainNETBIOS = ConfigurationSettings.AppSettings["testDomainNETBIOS"];
             string testUsername = ConfigurationSettings.AppSettings["testUsername"];
             string testPassword = ConfigurationSettings.AppSettings["testPassword"];
+
+            if (string.IsNullOrEmpty(testUsername))
+            {
+                Assert.Ignore("Missing username.");
+            }
 
             string testDomainUsernameNETBIOS = string.Format(@"{0}\{1}", testDomainNETBIOS, testUsername);
             string testDomainUsernameDNS = string.Format(@"{0}\{1}", testDomainDNS, testUsername);
@@ -96,6 +101,11 @@ namespace Waffle.Windows.AuthProvider.UnitTests
             string testDomainNETBIOS = ConfigurationSettings.AppSettings["testDomainNETBIOS"];
             string testUsername = ConfigurationSettings.AppSettings["testUsername"];
             string testPassword = ConfigurationSettings.AppSettings["testPassword"];
+
+            if (string.IsNullOrEmpty(testUsername))
+            {
+                Assert.Ignore("Missing logon username.");
+            }
 
             string testDomainUsernameNETBIOS = string.Format(@"{0}\{1}", testDomainNETBIOS, testUsername);
             string testDomainUsernameDNS = string.Format(@"{0}\{1}", testDomainDNS, testUsername);
