@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?include ..\Version\Version.wxi ?>
-<?ifdef Debug ?>
- <?define Configuration=Debug?>
-<?else ?>
- <?define Configuration=Release?>
+<?ifndef Configuration ?>
+ <?ifdef Debug ?>
+  <?define Configuration=Debug?>
+ <?else ?>
+  <?define Configuration=Release?>
+ <?endif ?>
 <?endif ?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <Module Id="WindowsAuthProviderMSM" Language="1033" Version="$(var.ProductVersion)">
