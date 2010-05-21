@@ -44,7 +44,7 @@ Console.WriteLine(admin.Fqn);
       <title>Getting Started in Java (Native)</title>
       <content>
         <para>
-          Add <localUri>waffle-jna-auth.jar</localUri>, <localUri>jna.jar</localUri> and <localUri>platform.jar</localUri> 
+          Add <localUri>waffle-jna.jar</localUri>, <localUri>jna.jar</localUri> and <localUri>platform.jar</localUri> 
           to your CLASSPATH. Create a new instance of <newTerm>waffle.windows.auth.impl.WindowsAuthProviderImpl</newTerm>.
         </para>
       </content>

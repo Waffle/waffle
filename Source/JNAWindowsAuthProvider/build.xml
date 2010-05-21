@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="waffle" default="build" basedir=".">
+	<property name="waffle.version" value="1.3" />
+	<property name="waffle.copyright" value="Application Security, Inc." />
+	<property name="waffle.root" value="${basedir}" />
+    <property name="waffle.build" value="${waffle.root}/build" />
+    <property name="waffle.lib" value="${waffle.root}/lib" />
+    <property name="waffle.src" value="${waffle.root}/src" />
+    <property name="waffle.test.src" value="${waffle.root}/src-test" />
+    <property name="waffle.test.lib" value="${waffle.root}/lib-test" />
+    <property name="thirdparty.dir" location="${basedir}/../ThirdParty" />
+    <path id="jna.classpath">
+	    <fileset dir="${thirdparty.dir}/jna">
+	    	<include name="jna.jar" />
+	    	<include name="platform.jar" />
+	    </fileset>
+    </path>
+    <path id="tomcat.classpath">
+	    <fileset dir="${thirdparty.dir}/tomcat">
+	    	<include name="**/*.jar" />
+	    </fileset>
+    </path>
+    <path id="waffle.classpath">   	
+        <path refid="jna.classpath" />	
+        <path refid="tomcat.classpath" />	
+    </path>
+    <path id="waffle.test.classpath">
+	    <fileset dir="${waffle.build}">
+	    	<include name="waffle-jna.jar" />
+	    	<include name="waffle-tomcat.jar" />
+	    </fileset>
+        <path refid="waffle.classpath" />  	
+    	<fileset dir="${thirdparty.dir}/junit">
+    		<include name="*.jar" />
+    	</fileset>
+		<pathelement location="${waffle.test.lib}" />
+    </path>
+    <target name="compile">
+        <mkdir dir="${waffle.lib}" />
+	    <javac srcdir="${waffle.src}"  destdir="${waffle.lib}" optimize="on">
+			<classpath refid="waffle.classpath" />
+	        <include name="**/*.java" />
+		</javac>
+    </target>
+    <target name="compile-tests">
+        <mkdir dir="${waffle.test.lib}" />
+	    <javac srcdir="${waffle.test.src}"  destdir="${waffle.test.lib}">
+			<classpath refid="waffle.test.classpath" />
+	        <include name="**/*.java" />
+		</javac>
+    </target>
+    <target name="jar">
+    	<delete dir="${waffle.build}" />
+    	<mkdir dir="${waffle.build}" />
+        <jar jarfile="${waffle.build}/waffle-jna.jar">
+            <fileset dir="${waffle.lib}">
+                <include name="waffle/windows/**/*.class" />
+            </fileset>
+            <manifest>
+                <attribute name="Version" value="${waffle.version}" />
+                <attribute name="Created-By" value="${waffle.copyright}" />
+            </manifest>
+        </jar>
+        <jar jarfile="${waffle.build}/waffle-tomcat.jar">
+            <fileset dir="${waffle.lib}">
+                <include name="waffle/windows/**/*.class" />
+                <include name="waffle/tomcat/**/*.class" />
+            </fileset>
+            <manifest>
+                <attribute name="Version" value="${waffle.version}" />
+                <attribute name="Created-By" value="${waffle.copyright}" />
+            </manifest>
+        </jar>    	
+        <jar jarfile="${waffle.build}/waffle-src.zip">
+            <fileset dir="${waffle.src}">
+                <include name="waffle/**/*.java" />
+            </fileset>
+            <manifest>
+                <attribute name="Version" value="${waffle.version}" />
+                <attribute name="Created-By" value="${waffle.copyright}" />
+            </manifest>
+        </jar>    	
+    </target>
+    <target name="test" depends="jar,compile-tests">
+		<junit showoutput="true" newenvironment="true">
+            <formatter type="plain" usefile="false" />
+    		<classpath refid="waffle.test.classpath" />
+			<batchtest>
+				<fileset dir="${waffle.test.lib}" includes="**/*Tests.class" />
+			</batchtest>
+        </junit>
+    </target>
+    <target name="clean">
+    	<delete dir="${waffle.build}" />
+    	<delete dir="${waffle.lib}" />
+    	<delete dir="${waffle.test.lib}" />
+    </target>
+	<target name="build" depends="compile,jar,test" />
+	<target name="clean-build" depends="clean,build" />
+</project>
