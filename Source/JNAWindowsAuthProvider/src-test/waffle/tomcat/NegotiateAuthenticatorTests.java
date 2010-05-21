@@ -50,8 +50,9 @@ public class NegotiateAuthenticatorTests extends TestCase {
 		assertTrue(authenticator.getInfo().length() > 0);		
 	}
 
-	public void testChallenge() {
+	public void testChallengeGET() {
 		SimpleHttpRequest request = new SimpleHttpRequest();
+		request.setMethod("GET");
 		SimpleHttpResponse response = new SimpleHttpResponse();
 		authenticator.authenticate(request, response, null);
 		String[] wwwAuthenticates = response.getHeaderValues("WWW-Authenticate");
@@ -62,6 +63,31 @@ public class NegotiateAuthenticatorTests extends TestCase {
 		assertEquals(2, response.getHeaderNames().length);
 		assertEquals(401, response.getStatus());
 	}
+	
+	public void testChallengePOST() {
+		String securityPackage = "Negotiate";
+		// client credentials handle
+		IWindowsCredentialsHandle clientCredentials = WindowsCredentialsHandleImpl.getCurrent(securityPackage);
+		clientCredentials.initialize();
+		// initial client security context
+		WindowsSecurityContextImpl clientContext = new WindowsSecurityContextImpl();
+		clientContext.setPrincipalName(Advapi32Util.getUserName());
+		clientContext.setCredentialsHandle(clientCredentials.getHandle());
+		clientContext.setSecurityPackage(securityPackage);
+		clientContext.initialize();
+		SimpleHttpRequest request = new SimpleHttpRequest();
+		request.setMethod("POST");
+		request.setContentLength(0);
+		String clientToken = Base64.encode(clientContext.getToken());
+		request.addHeader("Authorization", "NTLM " + clientToken);
+		SimpleHttpResponse response = new SimpleHttpResponse();
+		authenticator.authenticate(request, response, null);
+		assertTrue(response.getHeader("WWW-Authenticate").startsWith("NTLM "));
+		assertEquals("keep-alive", response.getHeader("Connection"));
+		assertEquals(2, response.getHeaderNames().length);
+		assertEquals(401, response.getStatus());
+	}
+
 	
 	public void testNegotiate() {
 		String securityPackage = "Negotiate";
@@ -76,9 +102,9 @@ public class NegotiateAuthenticatorTests extends TestCase {
 		clientContext.initialize();
 		// negotiate
 		boolean authenticated = false;
+		SimpleHttpRequest request = new SimpleHttpRequest();
         while(true)
         {
-    		SimpleHttpRequest request = new SimpleHttpRequest();
     		String clientToken = Base64.encode(clientContext.getToken());
     		request.addHeader("Authorization", "NTLM " + clientToken);
     		

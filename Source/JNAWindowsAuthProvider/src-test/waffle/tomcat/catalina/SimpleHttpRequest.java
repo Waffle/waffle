@@ -16,10 +16,16 @@ import org.apache.catalina.connector.Request;
  */
 public class SimpleHttpRequest extends Request {
 	
+	private static int _remotePort_s = 0;
+	
 	private String _method = "GET";
 	private int _remotePort = -1;
 	private Map<String, String> _headers = new HashMap<String, String>();
 	private byte[] _content = null;
+	
+	public SimpleHttpRequest() {
+		_remotePort = ++ _remotePort_s;
+	}
 	
 	@Override
 	public void addHeader(String headerName, String headerValue) {
@@ -44,5 +50,15 @@ public class SimpleHttpRequest extends Request {
 	@Override
 	public int getRemotePort() {
 		return _remotePort;
+	}
+	
+	@Override
+	public void setMethod(String methodName) {
+		_method = methodName;
+	}
+	
+	@Override
+	public void setContentLength(int length) {
+		_content = new byte[length];
 	}
 }
