@@ -62,7 +62,7 @@ Console.WriteLine(admin.Fqn);
           <![CDATA[regasm.exe /codebase /tlb:Waffle.Windows.AuthProvider.tlb Waffle.Windows.AuthProvider.dll]]>
         </code>
         <para>
-          Add <localUri>waffle-auth.jar</localUri> to your CLASSPATH.
+          Add <localUri>waffle-jacob.jar</localUri> to your CLASSPATH.
           Create a new instance of <newTerm>com.waffle.auth.WindowsAuthProviderImpl</newTerm>.
         </para>
       </content>
