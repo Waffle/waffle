@@ -11,7 +11,6 @@ import java.security.Principal;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.catalina.Realm;
 import org.apache.catalina.authenticator.AuthenticatorBase;
 import org.apache.catalina.connector.Request;
 import org.apache.catalina.connector.Response;
@@ -54,8 +53,7 @@ public class NegotiateAuthenticator extends AuthenticatorBase {
 	}
 
 	@Override
-	protected boolean authenticate(Request request, Response response, LoginConfig loginConfig)
-			throws IOException {
+	protected boolean authenticate(Request request, Response response, LoginConfig loginConfig) {
 		
 		Principal principal = request.getUserPrincipal();
 		
@@ -124,15 +122,14 @@ public class NegotiateAuthenticator extends AuthenticatorBase {
     			}
 			} catch (Exception e) {
 				_log.warn("error logging in user: " + e.getMessage());
-				responseUnauthorized(response);
+				sendUnauthorized(response);
 				return false;
 			}
 			
 			// realm: fail if no realm is configured
-			Realm realm = context.getRealm();
-			if(realm == null) {
+			if(context == null || context.getRealm() == null) {
 				_log.warn("missing realm");
-				response.sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE);
+				sendError(response, HttpServletResponse.SC_SERVICE_UNAVAILABLE);
 				return false;
 			}
 
@@ -157,7 +154,7 @@ public class NegotiateAuthenticator extends AuthenticatorBase {
 		}
 		
 		_log.debug("authorization required");
-		responseUnauthorized(response);
+		sendUnauthorized(response);
 		return false;
 	}
 	
@@ -165,14 +162,33 @@ public class NegotiateAuthenticator extends AuthenticatorBase {
 	 * Send a 401 Unauthorized along with protocol authentication headers.
 	 * @param response
 	 *  HTTP Response
-	 * @throws IOException
 	 */
-	private void responseUnauthorized(Response response) throws IOException {
-		response.addHeader("WWW-Authenticate", "Negotiate");
-		response.addHeader("WWW-Authenticate", "NTLM");
-		response.setHeader("Connection", "close");
-		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-		response.flushBuffer();		
+	private void sendUnauthorized(Response response) {
+		try {
+			response.addHeader("WWW-Authenticate", "Negotiate");
+			response.addHeader("WWW-Authenticate", "NTLM");
+			response.setHeader("Connection", "close");
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			response.flushBuffer();		
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		
+	}
+	
+	/**
+	 * Send an error code.
+	 * @param response
+	 *  HTTP Response
+	 * @param code
+	 *  Error Code
+	 */
+	private void sendError(Response response, int code) {
+		try {
+			response.sendError(code);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}		
 	}
 	
 	/**
