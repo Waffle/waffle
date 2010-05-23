@@ -31,11 +31,17 @@ public class WindowsAccountImpl implements IWindowsAccount {
 		return _account.sidString;
 	}
 		
+	/**
+	 * Account name.
+	 */
 	@Override
 	public String getName() {
 		return _account.name;
 	}
 
+	/**
+	 * Account domain.
+	 */
 	@Override
 	public String getDomain() {
 		return _account.domain;
@@ -44,19 +50,37 @@ public class WindowsAccountImpl implements IWindowsAccount {
 	/**
 	 * Get the SAM-compatible username of the currently logged-on user.
 	 * @return
+	 *  String.
 	 */
 	public static String getCurrentUsername() {
 		return Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);
 	}
 	
+	/**
+	 * Windows Account.
+	 * @param userName
+	 *  Fully qualified username.
+	 */
 	public WindowsAccountImpl(String userName) {
 		this(userName, null);
 	}
 	
+	/**
+	 * Windows Account
+	 * @param accountName
+	 *  Username, without a domain or machine.
+	 * @param systemName
+	 *  Machine name.
+	 */
 	public WindowsAccountImpl(String accountName, String systemName) {
 		this(Advapi32Util.getAccountByName(systemName, accountName));
 	}
-	
+
+	/**
+	 * Windows Account.
+	 * @param account
+	 *  Account.
+	 */
 	public WindowsAccountImpl(Account account) {
 		_account = account;
 	}

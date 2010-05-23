@@ -17,35 +17,45 @@ import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 public interface IWindowsSecurityContext {
 
 	/**
-	 * 
+	 * Security package name.
 	 * @return
+	 *  String.
 	 */	
 	public String getSecurityPackage();
 
 	/**
-	 * 
+	 * Principal name.
 	 * @return
+	 *  String.
 	 */
 	public String getPrincipalName();
 	
 	/**
-	 * 
+	 * Token.
 	 * @return
+	 *  Array of bytes.
 	 */
 	public byte[] getToken();
 
 	/**
-	 * 
+	 * True if protocol requires continuation.
 	 * @return
+	 *  True or false.
 	 */
 	public boolean getContinue();
 
 	/**
-	 * 
+	 * Windows Identity.
 	 * @return
+	 *  Windows Identity.
 	 */
 	public IWindowsIdentity getIdentity();
-	
+
+	/**
+	 * Context handle.
+	 * @return
+	 *  Handle.
+	 */
 	public Sspi.CtxtHandle getHandle();
 
 	/**
@@ -56,6 +66,9 @@ public interface IWindowsSecurityContext {
 	/**
 	 * Initialize the security context, continuing from a previous one.
 	 * @param continueCtx
+	 *  Continue context.
+	 * @param continueToken
+	 *  Continue token.
 	 */
 	public void initialize(CtxtHandle continueCtx, SecBufferDesc continueToken);
 	

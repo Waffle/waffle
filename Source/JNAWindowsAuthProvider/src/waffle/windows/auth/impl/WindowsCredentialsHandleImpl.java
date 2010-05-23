@@ -63,12 +63,6 @@ public class WindowsCredentialsHandleImpl implements IWindowsCredentialsHandle {
 
 	/**
 	 * Initialize a new credentials handle.
-	 * @param principalName
-	 *  Principal name.
-	 * @param credentialsType
-	 *  Credentials type.
-	 * @param securityPackage
-	 *  Security package.
 	 */
 	public void initialize() {		
 		_handle = new CredHandle();
@@ -94,6 +88,9 @@ public class WindowsCredentialsHandleImpl implements IWindowsCredentialsHandle {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public CredHandle getHandle() {
 		return _handle;

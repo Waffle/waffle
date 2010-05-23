@@ -13,26 +13,30 @@ package waffle.windows.auth;
 public interface IWindowsIdentity {
 
 	/**
-	 * 
+	 * Sid.
 	 * @return
+	 *  String.
 	 */
 	public String getSidString();
 
 	/**
-	 * 
+	 * Sid.
 	 * @return
+	 *  Array of bytes.
 	 */
 	public byte[] getSid();
 
 	/**
-	 * 
+	 * Fully qualified name.
 	 * @return
+	 *  String.
 	 */
 	public String getFqn();
 
 	/**
-	 * 
+	 * Group memberships.
 	 * @return
+	 *  Array of accounts.
 	 */
 	public IWindowsAccount[] getGroups();
 }

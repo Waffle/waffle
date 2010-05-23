@@ -23,7 +23,7 @@ public interface IWindowsAccount {
 	/**
 	 * Fully qualified username.
 	 * @return
-	 *  String
+	 *  String.
 	 */
 	public String getFqn();
 	
@@ -37,6 +37,7 @@ public interface IWindowsAccount {
 	/**
 	 * Domain name.
 	 * @return
+	 *  String.
 	 */
 	public String getDomain();
 }

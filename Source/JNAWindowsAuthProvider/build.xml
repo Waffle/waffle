@@ -4,6 +4,7 @@
 	<property name="waffle.copyright" value="Application Security, Inc." />
 	<property name="waffle.root" value="${basedir}" />
     <property name="waffle.build" value="${waffle.root}/build" />
+    <property name="waffle.doc" value="${waffle.root}/doc" />
     <property name="waffle.lib" value="${waffle.root}/lib" />
     <property name="waffle.src" value="${waffle.root}/src" />
     <property name="waffle.test.src" value="${waffle.root}/src-test" />
@@ -90,11 +91,16 @@
 			</batchtest>
         </junit>
     </target>
+	<target name="doc">
+		<javadoc destdir="${waffle.doc}" sourcepath="${waffle.src}" 
+			classpathref="waffle.classpath" />
+	</target>
     <target name="clean">
     	<delete dir="${waffle.build}" />
     	<delete dir="${waffle.lib}" />
     	<delete dir="${waffle.test.lib}" />
+    	<delete dir="${waffle.doc}" />
     </target>
-	<target name="build" depends="compile,jar,test" />
+	<target name="build" depends="compile,jar,test,doc" />
 	<target name="clean-build" depends="clean,build" />
 </project>
