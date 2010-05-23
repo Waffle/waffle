@@ -18,17 +18,18 @@
               to Tomcat's <localUri>lib</localUri> directory.
             </listItem>
             <listItem>
-              Add a valve to the application context in <localUri>server.xml</localUri>. The following example works for
-              a default Tomcat installation.
+              Add a valve and a realm to the application context. For an application, modify <localUri>META-INF\context.xml</localUri>.
               <code lang="xml">
                 <![CDATA[
-<Context path="" docbase=".">
-	<Valve className="waffle.tomcat.NegotiateAuthenticator" />
-</Context>]]>
+<?xml version='1.0' encoding='utf-8'?>
+<Context>
+  <Valve className="waffle.tomcat.NegotiateAuthenticator" />
+  <Realm className="waffle.tomcat.WindowsRealm" />
+</Context>]]>                
               </code>
             </listItem>
             <listItem>
-              Configure security roles in <localUri>web.xml</localUri>. The Waffle authenticator adds all
+              Configure security roles in <localUri>WEB-INF\web.xml</localUri>. The Waffle authenticator adds all
               user's security groups (including nested and domain groups) as roles during authentication.
               <code lang="xml">
                 <![CDATA[
@@ -46,7 +47,7 @@
 <security-constraint>
   <web-resource-collection>
     <web-resource-name>
-      Entire Application
+      Demo Application
     </web-resource-name>
     <url-pattern>/*</url-pattern>
     <http-method>GET</http-method>
@@ -102,6 +103,32 @@
         </para>
       </content>
     </section>
+    <section address="jsp">
+      <title>Java Server Pages (JSP)</title>
+      <content>
+        <para>
+          It is possible to display the current user with roles in a JSP page.
+          <code lang="jsp"><![CDATA[
+<%@ page import="java.security.Principal,org.apache.catalina.realm.GenericPrincipal" %>
+<html>
+ <body>
+  Hello, <%= request.getUserPrincipal().getName() %>
+  <%
+	final Principal userPrincipal = request.getUserPrincipal(); 
+	GenericPrincipal genericPrincipal = (GenericPrincipal) userPrincipal; 
+	final String[] roles = genericPrincipal.getRoles();
+	out.println("<p>You have " + roles.length + " role(s).</p>");
+	out.println("<ul>");
+	for(String role : roles) {
+		out.println("<li>" + role);
+	}
+	out.println("</ul>");
+  %>
+ </body>
+</html>]]></code>
+        </para>
+      </content>
+    </section>
     <section address="troubleshoting">
       <title>Troubleshooting</title>
       <content>
@@ -120,6 +147,16 @@ waffle.tomcat.NegotiateAuthenticator.level = FINE
               Restart Tomcat and review <localUri>logs\Catalina*.log</localUri>.
             </listItem>
           </list>
+        </para>
+      </content>
+    </section>
+    <section address="demoapplication">
+      <title>Waffle Demo</title>
+      <content>
+        <para>
+          A demo application can be found in the Waffle distribution in the <localUri>Samples\Tomcat\waffle</localUri>
+          directory. Copy the entire directory into Tomcat's <localUri>webapps</localUri> directory and navigate to
+          <ficticiousUri>http://localhost:8080/waffle/</ficticiousUri>.
         </para>
       </content>
     </section>

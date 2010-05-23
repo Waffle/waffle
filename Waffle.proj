@@ -29,6 +29,7 @@
     <CallTarget Targets="drop" />
     <CallTarget Targets="javainterface" Condition="'%(Configuration.Identity)'=='Release'" />
     <CallTarget Targets="jar" Condition="'%(Configuration.Identity)'=='Release'" />
+    <CallTarget Targets="javademo" Condition="'%(Configuration.Identity)'=='Release'" />
     <CallTarget Targets="zip" />
   </Target>
   <Target Name="clean" DependsOnTargets="configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
@@ -88,6 +89,13 @@
     <Exec WorkingDirectory="Tools\JacobGen" Command="jacobgen.bat -destdir:&quot;$(MSBuildProjectDirectory)\Source\Jar&quot; -package:com.waffle.auth &quot;$(MSBuildProjectDirectory)/Source/WindowsAuthProvider/bin/Release/Waffle.Windows.AuthProvider.tlb&quot;" />
     <Exec WorkingDirectory="Source\Jar" Command="&quot;$(JAVA_HOME)\bin\javac.exe&quot; com\waffle\auth\*.java -cp ..\..\Tools\JacobGen\jacob.jar" />
     <Exec WorkingDirectory="Source\Jar" Command="&quot;$(JAVA_HOME)\bin\jar.exe&quot; cvf &quot;$(MSBuildProjectDirectory)\$(ReleaseDir)\Bin\waffle-jacob.jar&quot; com\waffle\auth\*.class" />
+  </Target>
+  <ItemGroup>
+    <DemoFiles Include="Source\JNAWindowsAuthProvider\demo\**\*.jsp" />
+    <DemoFiles Include="Source\JNAWindowsAuthProvider\demo\**\*.xml" />
+  </ItemGroup>
+  <Target Name="javademo">
+    <Copy SourceFiles="@(DemoFiles)" DestinationFolder="$(ReleaseDir)\Samples\Tomcat\%(RecursiveDir)" />
   </Target>
   <Target Name="zip" DependsOnTargets="version">
     <CreateItem Include="target\$(Configuration)\**\*" Exclude="target\$(Configuration)\*.zip">
