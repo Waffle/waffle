@@ -7,7 +7,8 @@
 package waffle.jaas;
 
 import java.security.Principal;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -32,10 +33,12 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  */
 public class WindowsLoginModule implements LoginModule {
 
+	private String _username = null;
+    private boolean _debug = false;
     private Subject _subject = null;
     private CallbackHandler _callbackHandler = null;
 	private static IWindowsAuthProvider _auth = new WindowsAuthProviderImpl();
-    private Set<Principal> _principals = null;
+    private List<Principal> _principals = null;
 
 	@Override
 	public void initialize(Subject subject, CallbackHandler callbackHandler,
@@ -43,7 +46,7 @@ public class WindowsLoginModule implements LoginModule {
 		
 		_subject = subject;
 		_callbackHandler = callbackHandler;
-        System.out.println("initialize: " + _subject.getPrincipals());
+        _debug = "true".equalsIgnoreCase((String) options.get("debug"));
 	}
 
 	/**
@@ -74,19 +77,20 @@ public class WindowsLoginModule implements LoginModule {
         } catch (java.io.IOException e) {
             throw new LoginException(e.toString());
         } catch (UnsupportedCallbackException e) {
-            throw new LoginException("Callback " + e.getCallback().toString() +
+            throw new LoginException("Callback " + e.getCallback().getClass().getName() +
                     " not available to gather authentication information from the user.");
         }
         
         IWindowsIdentity windowsIdentity = _auth.logonUser(username, password);
         
-        _principals = new HashSet<Principal>();
+        _principals = new ArrayList<Principal>();
         _principals.add(new UserPrincipal(windowsIdentity.getFqn()));
         for(IWindowsAccount group : windowsIdentity.getGroups()) {
         	_principals.add(new RolePrincipal(group.getFqn()));
         }
         
-        System.out.println("logged in: " + windowsIdentity.getFqn());
+        _username = windowsIdentity.getFqn();
+        debug("successfully logged in " + _username);
         return true;
 	}
 	    
@@ -107,7 +111,14 @@ public class WindowsLoginModule implements LoginModule {
     
         Set<Principal> principals = _subject.getPrincipals();
         principals.addAll(_principals);
-        System.out.println("commit: " + _subject.getPrincipals().size());
+        
+        debug("committing " + _subject.getPrincipals().size() + " principals");
+        if (_debug) {
+        	for (Principal principal : principals) {
+        		debug(" principal: " + principal.getName());
+        	}
+        }
+        
 		return true;
 	}
 
@@ -119,7 +130,40 @@ public class WindowsLoginModule implements LoginModule {
 
         _subject.getPrincipals().clear();
 		_principals = null;
-        System.out.println("logout: " + _subject.getPrincipals().size());
+        debug("logging out " + _username);
 		return true;
+	}
+	
+	private void debug(String message) {
+		if (_debug) {
+			System.out.println("[waffle.jaas.WindowsLoginModule] " + message);
+		}
+	}
+	
+	/**
+	 * True if Debug is enabled.
+	 * @return
+	 *  True or false.
+	 */
+	public boolean getDebug() {
+		return _debug;
+	}
+	
+	/**
+	 * Windows auth provider.
+	 * @return
+	 *  IWindowsAuthProvider.
+	 */
+	public static IWindowsAuthProvider getAuth() {
+		return _auth;
+	}
+	
+	/**
+	 * Set Windows auth provider.
+	 * @param provider
+	 *  Class implements IWindowsAuthProvider.
+	 */
+	public static void setAuth(IWindowsAuthProvider provider) {
+		_auth = provider;
 	}
 }

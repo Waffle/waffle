@@ -18,8 +18,8 @@ public class RolePrincipal implements Principal {
 
 	/**
 	 * A windows principal.
-	 * @param windowsIdentity
-	 *  Windows identity.
+	 * @param fqn
+	 *  Fully qualified name.
 	 */
 	public RolePrincipal(String fqn) {
 		_fqn = fqn;

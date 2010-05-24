@@ -18,6 +18,7 @@ public class SimpleHttpRequest extends Request {
 	
 	private static int _remotePort_s = 0;
 	
+	private String _remoteUser = null;
 	private String _method = "GET";
 	private int _remotePort = -1;
 	private Map<String, String> _headers = new HashMap<String, String>();
@@ -60,5 +61,14 @@ public class SimpleHttpRequest extends Request {
 	@Override
 	public void setContentLength(int length) {
 		_content = new byte[length];
+	}
+	
+	public void setRemoteUser(String username) {
+		_remoteUser = username;
+	}
+	
+	@Override 
+	public String getRemoteUser() {
+		return _remoteUser;
 	}
 }

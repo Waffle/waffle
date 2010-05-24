@@ -11,17 +11,19 @@ import java.io.IOException;
 import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.callback.NameCallback;
+import javax.security.auth.callback.PasswordCallback;
 import javax.security.auth.callback.UnsupportedCallbackException;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author dblock[at]dblock[dot]org
  */
-public class HttpAuthCallbackHandler implements CallbackHandler {
+public class UsernamePasswordCallbackHandler implements CallbackHandler {
 	private String _username;
+	private String _password;
 
-	public HttpAuthCallbackHandler(HttpServletRequest request) {
-		_username = request.getRemoteUser();
+	public UsernamePasswordCallbackHandler(String username, String password) {
+		_username = username;
+		_password = password;
 	}
 
 	public void handle(Callback[] cb) throws IOException, UnsupportedCallbackException {
@@ -29,9 +31,12 @@ public class HttpAuthCallbackHandler implements CallbackHandler {
 			if (cb[i] instanceof NameCallback) {
 				NameCallback nc = (NameCallback) cb[i];
 				nc.setName(_username);
+			} else if (cb[i] instanceof PasswordCallback) {
+				PasswordCallback pc = (PasswordCallback) cb[i];
+				pc.setPassword(_password.toCharArray());
 			} else {
-				throw new UnsupportedCallbackException(cb[i],
-						"HttpAuthCallbackHandler");
+				throw new UnsupportedCallbackException(cb[i], 
+						"UsernamePasswordCallbackHandler");
 			}
 		}
 	}

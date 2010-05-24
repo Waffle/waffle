@@ -4,7 +4,7 @@
  * Eclipse Public License (EPLv1)
  * http://waffle.codeplex.com/license
  */
-package waffle.windows.auth.tests;
+package waffle.windows.auth;
 
 import junit.framework.TestCase;
 import waffle.windows.auth.IWindowsSecurityContext;

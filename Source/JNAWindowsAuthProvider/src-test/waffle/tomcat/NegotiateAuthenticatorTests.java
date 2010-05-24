@@ -23,38 +23,38 @@ import waffle.windows.auth.impl.WindowsSecurityContextImpl;
 import junit.framework.TestCase;
 
 /**
- * Walle Tomcat Authenticator Tests
+ * Waffle Tomcat Authenticator Tests
  * @author dblock[at]dblock[dot]org
  */
 public class NegotiateAuthenticatorTests extends TestCase {
 
-	NegotiateAuthenticator authenticator = null;
+	NegotiateAuthenticator _authenticator = null;
 	
 	@Override
 	public void setUp() {
-		authenticator = new NegotiateAuthenticator();
+		_authenticator = new NegotiateAuthenticator();
 		SimpleContext ctx = new SimpleContext();
 		Realm realm = new SimpleRealm();
 		ctx.setRealm(realm);
-		authenticator.setContainer(ctx);
-		authenticator.start();
+		_authenticator.setContainer(ctx);
+		_authenticator.start();
 	}
 
 	@Override
 	public void tearDown() {
-		authenticator.stop();
-		authenticator = null;
+		_authenticator.stop();
+		_authenticator = null;
 	}
 	
 	public void testGetInfo() {
-		assertTrue(authenticator.getInfo().length() > 0);		
+		assertTrue(_authenticator.getInfo().length() > 0);		
 	}
 
 	public void testChallengeGET() {
 		SimpleHttpRequest request = new SimpleHttpRequest();
 		request.setMethod("GET");
 		SimpleHttpResponse response = new SimpleHttpResponse();
-		authenticator.authenticate(request, response, null);
+		_authenticator.authenticate(request, response, null);
 		String[] wwwAuthenticates = response.getHeaderValues("WWW-Authenticate");
 		assertEquals(2, wwwAuthenticates.length);
 		assertEquals("Negotiate", wwwAuthenticates[0]);
@@ -81,7 +81,7 @@ public class NegotiateAuthenticatorTests extends TestCase {
 		String clientToken = Base64.encode(clientContext.getToken());
 		request.addHeader("Authorization", "NTLM " + clientToken);
 		SimpleHttpResponse response = new SimpleHttpResponse();
-		authenticator.authenticate(request, response, null);
+		_authenticator.authenticate(request, response, null);
 		assertTrue(response.getHeader("WWW-Authenticate").startsWith("NTLM "));
 		assertEquals("keep-alive", response.getHeader("Connection"));
 		assertEquals(2, response.getHeaderNames().length);
@@ -109,7 +109,7 @@ public class NegotiateAuthenticatorTests extends TestCase {
     		request.addHeader("Authorization", "NTLM " + clientToken);
     		
     		SimpleHttpResponse response = new SimpleHttpResponse();
-    		authenticated = authenticator.authenticate(request, response, null);
+    		authenticated = _authenticator.authenticate(request, response, null);
 
     		if (authenticated) {
         		assertEquals(0, response.getHeaderNames().length);
