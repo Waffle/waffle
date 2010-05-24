@@ -29,6 +29,7 @@
 	    <fileset dir="${waffle.build}">
 	    	<include name="waffle-jna.jar" />
 	    	<include name="waffle-tomcat.jar" />
+	    	<include name="waffle-jaas.jar" />
 	    </fileset>
         <path refid="waffle.classpath" />  	
     	<fileset dir="${thirdparty.dir}/junit">
@@ -66,6 +67,15 @@
             <fileset dir="${waffle.lib}">
                 <include name="waffle/windows/**/*.class" />
                 <include name="waffle/tomcat/**/*.class" />
+            </fileset>
+            <manifest>
+                <attribute name="Version" value="${waffle.version}" />
+                <attribute name="Created-By" value="${waffle.copyright}" />
+            </manifest>
+        </jar>    	
+        <jar jarfile="${waffle.build}/waffle-jaas.jar">
+            <fileset dir="${waffle.lib}">
+                <include name="waffle/windows/**/*.class" />
                 <include name="waffle/jaas/**/*.class" />
             </fileset>
             <manifest>

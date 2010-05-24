@@ -27,8 +27,11 @@
     <ul>
         <li><strong>Features</strong>:
             <ul>
-                <li>Added <code>waffle-jna.jar</code>, native Java with JNA port.</li>
-                <li>Added a Negotiate (NTLM and Kerberos) Tomcat authenticator, <code>waffle-tomcat.jar</code>.</li> 
+                <li>Ported Waffle to native Java with JNA, added <code>waffle-jna.jar</code>.</li>
+                <li>Added a Negotiate (NTLM and Kerberos) Tomcat authenticator, <code>waffle.tomcat.TomcatAuthenticator</code>
+                    in <code>waffle-tomcat.jar</code>.</li>
+                <li>Added a JAAS Windows Login module, <code>waffle.jaas.WindowsLoginModule</code>
+                    in <code>waffle-jaas.jar</code>.</li>
             </ul>
         </li>
         <li><strong>Misc</strong>:
