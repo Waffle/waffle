@@ -5,18 +5,24 @@
    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
    version="2.5">
 
-  <description>Waffle Tomcat Authenticator Demo</description>
+  <description>Waffle Tomcat Authenticator Demo (Basic)</description>
   <display-name>Waffle Demo</display-name>
+  
+  <filter>
+    <filter-name>SecurityFilter</filter-name>
+    <filter-class>waffle.jaas.SecurityFilter</filter-class>
+  </filter>
 
+  <filter-mapping>
+    <filter-name>SecurityFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
   <security-constraint>
     <display-name>Waffle Security Constraint</display-name>
     <web-resource-collection>
       <web-resource-name>Protected Area</web-resource-name>
       <url-pattern>/*</url-pattern>
-      <http-method>DELETE</http-method>
-      <http-method>GET</http-method>
-      <http-method>POST</http-method>
-      <http-method>PUT</http-method>
     </web-resource-collection>
     <auth-constraint>
       <role-name>Everyone</role-name>
@@ -25,4 +31,9 @@
   <security-role>
     <role-name>Everyone</role-name>
   </security-role>
+  
+  <login-config>
+	<auth-method>BASIC</auth-method>
+	<realm-name>Jaas</realm-name>
+  </login-config>
 </web-app>

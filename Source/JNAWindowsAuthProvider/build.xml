@@ -66,6 +66,7 @@
             <fileset dir="${waffle.lib}">
                 <include name="waffle/windows/**/*.class" />
                 <include name="waffle/tomcat/**/*.class" />
+                <include name="waffle/jaas/**/*.class" />
             </fileset>
             <manifest>
                 <attribute name="Version" value="${waffle.version}" />
