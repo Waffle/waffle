@@ -2,7 +2,8 @@
 <Topics defaultTopic="BF441469-57AD-438f-9DAC-B06F90418483">
   <Topic id="BF441469-57AD-438f-9DAC-B06F90418483" visible="True" title="WAFFLE">
     <Topic id="1489d227-4898-4952-9941-aaad7a4a67f2" visible="True" title="Getting Started" />
-    <Topic id="610B3ED3-3F1B-4759-8F97-80C3C88C89EB" visible="True" title="Tomcat Authenticator" />
+    <Topic id="610B3ED3-3F1B-4759-8F97-80C3C88C89EB" visible="True" title="Tomcat Single-SignOn (NTLM/Kerberos)" />
+    <Topic id="26BED49A-C11C-4e40-9D0F-1B5ACECFCEF4" visible="True" title="Tomcat Windows Login (JAAS)" />
     <Topic id="1e7a6c2f-1a9c-4b33-adc7-ee82ac339857" visible="True" title="Contributing &amp; Help" />
     <Topic id="bfd78578-6e10-47e5-8b41-44426e0a1ac1" visible="True" title="License" />
   </Topic>

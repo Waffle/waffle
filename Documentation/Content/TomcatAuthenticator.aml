@@ -34,14 +34,13 @@
               <code lang="xml">
                 <![CDATA[
 <security-role>
-  <description>All Users</description>
   <role-name>BUILTIN\Users</role-name>
 </security-role>]]>
               </code>
             </listItem>
             <listItem>
               Restrict access to website resources. For example, to restrict the entire website to locally authenticated
-              users add the following in <localUri>web.xml</localUri>.
+              users add the following in <localUri>WEB-INF\web.xml</localUri>.
               <code lang="xml">
                 <![CDATA[
 <security-constraint>
@@ -107,7 +106,7 @@
       <title>Java Server Pages (JSP)</title>
       <content>
         <para>
-          It is possible to display the current user with roles in a JSP page.
+          For example, it is possible to display the current user with roles in a JSP page.
           <code lang="jsp"><![CDATA[
 <%@ page import="java.security.Principal,org.apache.catalina.realm.GenericPrincipal" %>
 <html>
@@ -154,9 +153,9 @@ waffle.tomcat.NegotiateAuthenticator.level = FINE
       <title>Waffle Demo</title>
       <content>
         <para>
-          A demo application can be found in the Waffle distribution in the <localUri>Samples\Tomcat\waffle</localUri>
+          A demo application can be found in the Waffle distribution in the <localUri>Samples\Tomcat\waffle-negotiate</localUri>
           directory. Copy the entire directory into Tomcat's <localUri>webapps</localUri> directory and navigate to
-          <ficticiousUri>http://localhost:8080/waffle/</ficticiousUri>.
+          <ficticiousUri>http://localhost:8080/waffle-negotiate/</ficticiousUri>.
         </para>
       </content>
     </section>

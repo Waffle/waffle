@@ -5,5 +5,5 @@
  	userClassNames="waffle.jaas.UserPrincipal"       
     roleClassNames="waffle.jaas.RolePrincipal"
     useContextClassLoader="false"
-    debug="0" />
+    debug="true" />
 </Context>

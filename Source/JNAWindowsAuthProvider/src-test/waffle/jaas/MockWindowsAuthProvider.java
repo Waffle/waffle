@@ -58,8 +58,9 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
 			groups.add("Users");
 			groups.add("Everyone");
 			return new MockWindowsIdentity(currentUsername, groups);
+		} else {
+			throw new RuntimeException("Mock error: " + username);
 		}
-		return null;
 	}
 
 	@Override

@@ -13,7 +13,8 @@
           </listItem>
           <listItem>
             An Apache Tomcat authenticator that uses the native Java library that implements the Negotiate protocol
-            with NTLM and Kerberos support.
+            with NTLM and Kerberos support. A JAAS Windows Login Module enables you to add BASIC, DIGEST or FORMS
+            authentication to your web application.
           </listItem>
         </list>
       </para>
@@ -27,6 +28,9 @@
           </listItem>
           <listItem>
             <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="610B3ED3-3F1B-4759-8F97-80C3C88C89EB" />
+          </listItem>
+          <listItem>
+            <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="26BED49A-C11C-4e40-9D0F-1B5ACECFCEF4" />
           </listItem>
           <listItem>
             <codeEntityReference qualifyHint="true">N:Waffle.Windows.AuthProvider</codeEntityReference>

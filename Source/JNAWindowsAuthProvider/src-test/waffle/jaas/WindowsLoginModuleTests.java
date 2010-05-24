@@ -10,13 +10,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.security.auth.Subject;
-import javax.security.auth.callback.PasswordCallback;
 import javax.security.auth.login.LoginException;
 
-import waffle.tomcat.catalina.SimpleHttpRequest;
-import waffle.windows.auth.impl.WindowsAccountImpl;
-
 import junit.framework.TestCase;
+import waffle.windows.auth.impl.WindowsAccountImpl;
 
 /**
  * @author dblock[at]dblock[dot]org
@@ -37,8 +34,7 @@ public class WindowsLoginModuleTests extends TestCase {
 
 	public void testInitialize() {
 		Subject subject = new Subject();
-		SimpleHttpRequest request = new SimpleHttpRequest();
-		HttpAuthCallbackHandler callbackHandler = new HttpAuthCallbackHandler(request);
+		UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler("", "");
 		Map<String, String> options = new HashMap<String, String>();
 		options.put("debug", "true");
 		_loginModule.initialize(subject, callbackHandler, null, options);
@@ -65,8 +61,7 @@ public class WindowsLoginModuleTests extends TestCase {
 	
 	public void testLoginNoUsername() {
 		Subject subject = new Subject();
-		SimpleHttpRequest request = new SimpleHttpRequest();
-		HttpAuthCallbackHandler callbackHandler = new HttpAuthCallbackHandler(request);
+		UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler("", "");
 		Map<String, String> options = new HashMap<String, String>();
 		options.put("debug", "true");
 		_loginModule.initialize(subject, callbackHandler, null, options);
@@ -74,8 +69,7 @@ public class WindowsLoginModuleTests extends TestCase {
 			assertFalse(_loginModule.login());
 			fail("Expected LoginException");
 		} catch(LoginException e) {
-			assertEquals(e.getMessage(), "Callback " + PasswordCallback.class.getName() 
-             + " not available to gather authentication information from the user.");
+			assertTrue(e.getMessage().startsWith("Mock error: "));
 		}
 	}
 }

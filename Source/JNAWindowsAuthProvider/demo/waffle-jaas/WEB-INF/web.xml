@@ -8,16 +8,6 @@
   <description>Waffle Tomcat Authenticator Demo (Basic)</description>
   <display-name>Waffle Demo</display-name>
   
-  <filter>
-    <filter-name>SecurityFilter</filter-name>
-    <filter-class>waffle.jaas.SecurityFilter</filter-class>
-  </filter>
-
-  <filter-mapping>
-    <filter-name>SecurityFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-  
   <security-constraint>
     <display-name>Waffle Security Constraint</display-name>
     <web-resource-collection>

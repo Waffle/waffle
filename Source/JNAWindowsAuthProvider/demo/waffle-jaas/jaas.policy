@@ -1,3 +1,7 @@
+//
+// -Djava.security.auth.policy=<path-to-file>/jaas.policy
+//
+
 grant Principal * * {
   permission java.security.AllPermission "/*";
 };

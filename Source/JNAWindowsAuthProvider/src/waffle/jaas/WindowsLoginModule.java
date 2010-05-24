@@ -80,8 +80,13 @@ public class WindowsLoginModule implements LoginModule {
             throw new LoginException("Callback " + e.getCallback().getClass().getName() +
                     " not available to gather authentication information from the user.");
         }
-        
-        IWindowsIdentity windowsIdentity = _auth.logonUser(username, password);
+
+        IWindowsIdentity windowsIdentity = null;
+        try {
+        	windowsIdentity = _auth.logonUser(username, password);
+        } catch (Exception e) {
+        	throw new LoginException(e.getMessage());
+        }
         
         _principals = new ArrayList<Principal>();
         _principals.add(new UserPrincipal(windowsIdentity.getFqn()));
