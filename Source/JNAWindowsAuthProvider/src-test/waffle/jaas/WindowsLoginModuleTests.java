@@ -20,10 +20,12 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
  */
 public class WindowsLoginModuleTests extends TestCase {
 	WindowsLoginModule _loginModule = null;
+	MockWindowsAuthProvider _provider = null;
 	
 	@Override
 	public void setUp() {
-		WindowsLoginModule.setAuth(new MockWindowsAuthProvider());
+		_provider = new MockWindowsAuthProvider();
+		WindowsLoginModule.setAuth(_provider);
 		_loginModule = new WindowsLoginModule();
 	}
 
@@ -71,5 +73,60 @@ public class WindowsLoginModuleTests extends TestCase {
 		} catch(LoginException e) {
 			assertTrue(e.getMessage().startsWith("Mock error: "));
 		}
+	}
+	
+	public void testRoleFormatNone() throws LoginException {
+		Subject subject = new Subject();
+		UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
+				WindowsAccountImpl.getCurrentUsername(), "password");
+		Map<String, String> options = new HashMap<String, String>();
+		options.put("debug", "true");
+		options.put("roleFormat", "none");
+		_loginModule.initialize(subject, callbackHandler, null, options);
+		assertTrue(_loginModule.login());
+		assertTrue(_loginModule.commit());
+		assertEquals(1, subject.getPrincipals().size());
+	}
+	
+	public void testRoleFormatBoth() throws LoginException {
+		Subject subject = new Subject();
+		UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
+				WindowsAccountImpl.getCurrentUsername(), "password");
+		Map<String, String> options = new HashMap<String, String>();
+		options.put("debug", "true");
+		options.put("roleFormat", "both");
+		_loginModule.initialize(subject, callbackHandler, null, options);
+		assertTrue(_loginModule.login());
+		assertTrue(_loginModule.commit());
+		assertEquals(5, subject.getPrincipals().size());
+	}
+	
+	public void testPrincipalFormatBoth() throws LoginException {
+		Subject subject = new Subject();
+		UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
+				WindowsAccountImpl.getCurrentUsername(), "password");
+		Map<String, String> options = new HashMap<String, String>();
+		options.put("debug", "true");
+		options.put("principalFormat", "both");
+		options.put("roleFormat", "none");
+		_loginModule.initialize(subject, callbackHandler, null, options);
+		assertTrue(_loginModule.login());
+		assertTrue(_loginModule.commit());
+		assertEquals(2, subject.getPrincipals().size());
+	}
+	
+	public void testRoleUnique() throws LoginException {
+		Subject subject = new Subject();
+		// the mock has an "Everyone" group
+		UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
+				WindowsAccountImpl.getCurrentUsername(), "password");
+		_provider.addGroup("Group 1");
+		_provider.addGroup("Group 1");
+		Map<String, String> options = new HashMap<String, String>();
+		options.put("debug", "true");
+		_loginModule.initialize(subject, callbackHandler, null, options);
+		assertTrue(_loginModule.login());
+		assertTrue(_loginModule.commit());
+		assertEquals(4, subject.getPrincipals().size());
 	}
 }

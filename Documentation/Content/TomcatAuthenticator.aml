@@ -14,7 +14,7 @@
           The following steps are required to configure Tomcat with Waffle authenticator.
           <list class="ordered">
             <listItem>
-              Copy <localUri>waffle-tomcat.jar</localUri>, <localUri>jna.jar</localUri> and <localUri>platform.jar</localUri> 
+              Copy <localUri>waffle-tomcat.jar</localUri>, <localUri>jna.jar</localUri> and <localUri>platform.jar</localUri>
               to Tomcat's <localUri>lib</localUri> directory.
             </listItem>
             <listItem>
@@ -25,7 +25,7 @@
 <Context>
   <Valve className="waffle.tomcat.NegotiateAuthenticator" />
   <Realm className="waffle.tomcat.WindowsRealm" />
-</Context>]]>                
+</Context>]]>
               </code>
             </listItem>
             <listItem>
@@ -68,10 +68,18 @@
         <para>
           Ensure that Integrated Windows Authentication is enabled.
           <list class="ordered">
-            <listItem>Choose the <ui>Tools, Internet Options</ui> menu.</listItem>
-            <listItem>Click the <ui>Advanced</ui> tab.</listItem>
-            <listItem>Scroll down to <ui>Security</ui></listItem>
-            <listItem>Check <ui>Enable Integrated Windows Authentication</ui>.</listItem>
+            <listItem>
+              Choose the <ui>Tools, Internet Options</ui> menu.
+            </listItem>
+            <listItem>
+              Click the <ui>Advanced</ui> tab.
+            </listItem>
+            <listItem>
+              Scroll down to <ui>Security</ui>
+            </listItem>
+            <listItem>
+              Check <ui>Enable Integrated Windows Authentication</ui>.
+            </listItem>
             <listItem>Restart the browser.</listItem>
           </list>
         </para>
@@ -79,11 +87,21 @@
           The target website must be in the <newTerm>Intranet Zone</newTerm>.
           <list class="ordered">
             <listItem>Navigate to the website.</listItem>
-            <listItem>Choose the <ui>Tools, Internet Options</ui> menu.</listItem>
-            <listItem>Click the <ui>Local Intranet</ui> icon.</listItem>
-            <listItem>Click the <ui>Sites</ui> button.</listItem>
-            <listItem>Check <ui>Autmatically detect intranet network</ui>.</listItem>
-            <listItem>If the above didn't solve the problem, click <ui>Advanced</ui>.</listItem>
+            <listItem>
+              Choose the <ui>Tools, Internet Options</ui> menu.
+            </listItem>
+            <listItem>
+              Click the <ui>Local Intranet</ui> icon.
+            </listItem>
+            <listItem>
+              Click the <ui>Sites</ui> button.
+            </listItem>
+            <listItem>
+              Check <ui>Autmatically detect intranet network</ui>.
+            </listItem>
+            <listItem>
+              If the above didn't solve the problem, click <ui>Advanced</ui>.
+            </listItem>
             <listItem>Add the website to the list.</listItem>
           </list>
         </para>
@@ -94,8 +112,12 @@
       <content>
         <para>
           <list class="ordered">
-            <listItem>Type <literal>about:config</literal> in the address bar and hit enter.</listItem>
-            <listItem>Type <literal>network.negotiate-auth.trusted-uris</literal> in the Filter box.</listItem>
+            <listItem>
+              Type <literal>about:config</literal> in the address bar and hit enter.
+            </listItem>
+            <listItem>
+              Type <literal>network.negotiate-auth.trusted-uris</literal> in the Filter box.
+            </listItem>
             <listItem>Put your server name as the value. If you have more than one server, you can enter them all as a comma separated list.</listItem>
             <listItem>Close the tab.</listItem>
           </list>
@@ -107,7 +129,8 @@
       <content>
         <para>
           For example, it is possible to display the current user with roles in a JSP page.
-          <code lang="jsp"><![CDATA[
+          <code lang="jsp">
+            <![CDATA[
 <%@ page import="java.security.Principal,org.apache.catalina.realm.GenericPrincipal" %>
 <html>
  <body>
@@ -124,7 +147,8 @@
 	out.println("</ul>");
   %>
  </body>
-</html>]]></code>
+</html>]]>
+          </code>
         </para>
       </content>
     </section>
@@ -156,6 +180,63 @@ waffle.tomcat.NegotiateAuthenticator.level = FINE
           A demo application can be found in the Waffle distribution in the <localUri>Samples\Tomcat\waffle-negotiate</localUri>
           directory. Copy the entire directory into Tomcat's <localUri>webapps</localUri> directory and navigate to
           <ficticiousUri>http://localhost:8080/waffle-negotiate/</ficticiousUri>.
+        </para>
+      </content>
+    </section>
+    <section address="demoapplication">
+      <title>Valve Options</title>
+      <content>
+        <para>
+          The following options are supported by the Valve.
+          <code lang="xml">
+            <![CDATA[
+<?xml version='1.0' encoding='utf-8'?>
+<Context>
+  <Valve className="waffle.tomcat.NegotiateAuthenticator" principalFormat="fqn" roleFormat="both" />
+</Context>]]>
+          </code>
+          <tableDefinition>
+            <definedTerm>principalFormat</definedTerm>
+            <definition>
+              Specifies the name format for the principal.
+              <tableDefinition>
+                <definedTerm>fqn</definedTerm>
+                <definition>
+                  Fully qualified names, such as domain\username. When unavailable, a SID is used.
+                  This is the default.
+                </definition>
+                <definedTerm>sid</definedTerm>
+                <definition>SID in the S- format.</definition>
+                <definedTerm>both</definedTerm>
+                <definition>
+                  Both a fully qualified name and a SID in the S- format. The fully qualified name is placed in the
+                  list first. Tomcat assumes that the first entry of this list is a username.
+                </definition>
+                <definedTerm>none</definedTerm>
+                <definition>Do not include a principal name in the list of roles.</definition>
+              </tableDefinition>
+            </definition>
+            <definedTerm>roleFormat</definedTerm>
+            <definition>
+              Specifies the name format for the role.
+              <tableDefinition>
+                <definedTerm>fqn</definedTerm>
+                <definition>
+                  Fully qualified names, such as domain\group. When unavailable, a SID is used.
+                  This is the default.
+                </definition>
+                <definedTerm>sid</definedTerm>
+                <definition>Group SID in the S- format.</definition>
+                <definedTerm>both</definedTerm>
+                <definition>
+                  Both a fully qualified name and a SID in the S- format. This makes the roles list twice as long,
+                  alternativing group names and SIDs. When a group name is not available, a SID is used.
+                </definition>
+                <definedTerm>none</definedTerm>
+                <definition>Do not include group names in the roles list.</definition>
+              </tableDefinition>
+            </definition>
+          </tableDefinition>
         </para>
       </content>
     </section>

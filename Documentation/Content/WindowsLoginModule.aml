@@ -3,9 +3,9 @@
   <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
     <introduction>
       <para>
-        Waffle implements a standard Java Authentication and Authorization login module that can be notably used with 
-        a JAAS realm to authenticate Windows users in Tomcat. This enables you to add a BASIC, DIGEST or FORMS login to 
-        your application and authenticate against a Windows Active Directory using Windows local or domain groups as 
+        Waffle implements a standard Java Authentication and Authorization login module that can be notably used with
+        a JAAS realm to authenticate Windows users in Tomcat. This enables you to add a BASIC, DIGEST or FORMS login to
+        your application and authenticate against a Windows Active Directory using Windows local or domain groups as
         means of authorization.
       </para>
     </introduction>
@@ -16,7 +16,7 @@
           The following steps are required to configure Tomcat with Waffle authenticator.
           <list class="ordered">
             <listItem>
-              Copy <localUri>waffle-jaas.jar</localUri>, <localUri>jna.jar</localUri> and <localUri>platform.jar</localUri> 
+              Copy <localUri>waffle-jaas.jar</localUri>, <localUri>jna.jar</localUri> and <localUri>platform.jar</localUri>
               to Tomcat's <localUri>lib</localUri> directory.
             </listItem>
             <listItem>
@@ -87,12 +87,62 @@
           <code lang="properties">
             <![CDATA[
 Jaas {
-    waffle.jaas.WindowsLoginModule sufficient;
+    waffle.jaas.WindowsLoginModule sufficient debug=false;
 };
 ]]>
           </code>
-          The <localUri>login.conf</localUri> configuration file is passed to Java with 
+          The <localUri>login.conf</localUri> configuration file is passed to Java with
           <command>-Djava.security.auth.login.config=&lt;path-to-file&gt;/login.conf</command>.
+        </para>
+        <para>
+          The following options are supported by the module.
+          <tableDefinition>
+            <definedTerm>debug</definedTerm>
+            <definition>
+              Set to "true" to enable debug mode. In debug mode the module will output information about
+              successful logins, including group memberships.
+            </definition>
+            <definedTerm>principalFormat</definedTerm>
+            <definition>
+              Specifies the name format for the principal.
+              <tableDefinition>
+                <definedTerm>fqn</definedTerm>
+                <definition>
+                  Fully qualified names, such as domain\username. When unavailable, a SID is used.
+                  This is the default.
+                </definition>
+                <definedTerm>sid</definedTerm>
+                <definition>SID in the S- format.</definition>
+                <definedTerm>both</definedTerm>
+                <definition>
+                  Both a fully qualified name and a SID in the S- format. The fully qualified name is placed in the
+                  list first. Tomcat assumes that the first entry of this list is a username.
+                </definition>
+              </tableDefinition>
+            </definition>
+            <definedTerm>roleFormat</definedTerm>
+            <definition>
+              Specifies the name format for the role.
+              <tableDefinition>
+                <definedTerm>fqn</definedTerm>
+                <definition>
+                  Fully qualified names, such as domain\group. When unavailable, a SID is used.
+                  This is the default.
+                </definition>
+                <definedTerm>sid</definedTerm>
+                <definition>Group SID in the S- format.</definition>
+                <definedTerm>both</definedTerm>
+                <definition>
+                  Both a fully qualified name and a SID in the S- format. This makes the roles list twice as long,
+                  alternativing group names and SIDs. When a group name is not available, a SID is used.
+                </definition>
+                <definedTerm>none</definedTerm>
+                <definition>
+                  Do not retrieve roles.
+                </definition>
+              </tableDefinition>
+            </definition>
+          </tableDefinition>
         </para>
       </content>
     </section>
@@ -109,7 +159,7 @@ grant Principal * * {
 };
 ]]>
           </code>
-          The policy file is passed to Java with 
+          The policy file is passed to Java with
           <command>-Djava.security.auth.policy=&lt;path-to-file&gt;/jaas.policy</command>.
         </para>
       </content>
@@ -118,8 +168,8 @@ grant Principal * * {
       <title>Starting Tomcat w/ Security Manager</title>
       <content>
         <para>
-          You must start Tomcat with Security Manager enabled (<command>-security</command>) and configure it 
-          with a login configuration and policy. For example, the following will start Tomcat using the demo 
+          You must start Tomcat with Security Manager enabled (<command>-security</command>) and configure it
+          with a login configuration and policy. For example, the following will start Tomcat using the demo
           <localUri>login.conf</localUri> and <localUri>jaas.policy</localUri> from the Waffle samples.
           <code lang="bat">
             <![CDATA[
@@ -128,7 +178,7 @@ setlocal
 set JAVA_OPTS=-Djava.security.auth.login.config="C:/Program Files/Tomcat/webapps/waffle-jaas/login.conf" -Djava.security.auth.policy="C:/Program Files/Tomcat/webapps/waffle-jaas/jaas.policy"
 call bin/catalina.bat run -security
 endlocal
-            ]]>            
+            ]]>
           </code>
         </para>
       </content>
@@ -138,7 +188,8 @@ endlocal
       <content>
         <para>
           For example, it is possible to display the current user with roles in a JSP page.
-          <code lang="jsp"><![CDATA[
+          <code lang="jsp">
+            <![CDATA[
 <%@ page import="java.security.Principal,org.apache.catalina.realm.GenericPrincipal" %>
 <html>
  <body>
@@ -155,7 +206,8 @@ endlocal
 	out.println("</ul>");
   %>
  </body>
-</html>]]></code>
+</html>]]>
+          </code>
         </para>
       </content>
     </section>
@@ -165,7 +217,7 @@ endlocal
         <para>
           <list class="bullet">
             <listItem>
-              Most issues are caused by an incorrect JAAS configuration. Enable JAAS logging by adding the following to 
+              Most issues are caused by an incorrect JAAS configuration. Enable JAAS logging by adding the following to
               <localUri>conf\logging.properties</localUri> in your Tomcat installation.
               <code lang="properties">
                 <![CDATA[

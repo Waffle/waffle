@@ -19,6 +19,17 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
 
 public class MockWindowsAuthProvider implements IWindowsAuthProvider {
 
+	private List<String> _groups = new ArrayList<String>();
+	
+	public MockWindowsAuthProvider() {
+		_groups.add("Users");
+		_groups.add("Everyone");		
+	}
+	
+	public void addGroup(String name) {
+		_groups.add(name);
+	}
+	
 	@Override
 	public IWindowsSecurityContext acceptSecurityToken(String connectionId,
 			byte[] token, String securityPackage) {
@@ -54,10 +65,7 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
 	public IWindowsIdentity logonUser(String username, String password) {
 		String currentUsername = WindowsAccountImpl.getCurrentUsername(); 
 		if (username.equals(currentUsername)) {
-			List<String> groups = new ArrayList<String>();
-			groups.add("Users");
-			groups.add("Everyone");
-			return new MockWindowsIdentity(currentUsername, groups);
+			return new MockWindowsIdentity(currentUsername, _groups);
 		} else {
 			throw new RuntimeException("Mock error: " + username);
 		}

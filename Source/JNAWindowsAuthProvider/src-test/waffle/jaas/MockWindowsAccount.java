@@ -36,6 +36,6 @@ public class MockWindowsAccount implements IWindowsAccount {
 
 	@Override
 	public String getSidString() {
-		return null;
+		return "S-" + _fqn.hashCode();
 	}
 }

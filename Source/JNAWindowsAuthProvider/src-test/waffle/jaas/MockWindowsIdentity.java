@@ -46,7 +46,7 @@ public class MockWindowsIdentity implements IWindowsIdentity {
 
 	@Override
 	public String getSidString() {
-		return null;
+		return "S-" + _fqn.hashCode();
 	}
 
 }

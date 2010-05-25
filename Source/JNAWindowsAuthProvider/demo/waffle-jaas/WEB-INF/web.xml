@@ -7,7 +7,7 @@
 
   <description>Waffle Tomcat Authenticator Demo (Basic)</description>
   <display-name>Waffle Demo</display-name>
-  
+
   <security-constraint>
     <display-name>Waffle Security Constraint</display-name>
     <web-resource-collection>
@@ -21,9 +21,9 @@
   <security-role>
     <role-name>Everyone</role-name>
   </security-role>
-  
+
   <login-config>
-	<auth-method>BASIC</auth-method>
-	<realm-name>Jaas</realm-name>
+    <auth-method>BASIC</auth-method>
+    <realm-name>Jaas</realm-name>
   </login-config>
 </web-app>

@@ -21,6 +21,7 @@ import org.apache.juli.logging.LogFactory;
 import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.IWindowsSecurityContext;
+import waffle.windows.auth.PrincipalFormat;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
 /**
@@ -32,6 +33,8 @@ public class NegotiateAuthenticator extends AuthenticatorBase {
     private static Log _log = LogFactory.getLog(NegotiateAuthenticator.class);
 	private static IWindowsAuthProvider _auth = new WindowsAuthProviderImpl();
     protected static final String _info = "waffle.tomcat.NegotiateAuthenticator/1.0";
+    private PrincipalFormat _principalFormat = PrincipalFormat.fqn;
+    private PrincipalFormat _roleFormat = PrincipalFormat.fqn;
 
     @Override
     public String getInfo() {
@@ -47,6 +50,44 @@ public class NegotiateAuthenticator extends AuthenticatorBase {
 		_log.info("[waffle.tomcat.NegotiateAuthenticator] started");		
 	}
 	
+	/**
+	 * Set the principal format.
+	 * @param format
+	 *  Principal format.
+	 */
+	public void setPrincipalFormat(String format) {
+		_principalFormat = PrincipalFormat.parse(format);
+		_log.debug("principal format: " + _principalFormat);
+	}
+
+	/**
+	 * Principal format.
+	 * @return
+	 *  Principal format.
+	 */
+	public PrincipalFormat getPrincipalFormat() {
+		return _principalFormat;
+	}
+
+	/**
+	 * Set the principal format.
+	 * @param format
+	 *  Role format.
+	 */
+	public void setRoleFormat(String format) {
+		_roleFormat = PrincipalFormat.parse(format);
+		_log.debug("role format: " + _roleFormat);
+	}
+
+	/**
+	 * Principal format.
+	 * @return
+	 *  Role format.
+	 */
+	public PrincipalFormat getRoleFormat() {
+		return _roleFormat;
+	}
+
 	@Override
 	public void stop() {
 		_log.info("[waffle.tomcat.NegotiateAuthenticator] stopped");		
@@ -139,10 +180,11 @@ public class NegotiateAuthenticator extends AuthenticatorBase {
 			_log.debug("logged in user: " + windowsIdentity.getFqn() + 
 					" (" + windowsIdentity.getSidString() + ")");
 			
-			WindowsPrincipal windowsPrincipal = new WindowsPrincipal(windowsIdentity, context.getRealm());
+			WindowsPrincipal windowsPrincipal = new WindowsPrincipal(
+					windowsIdentity, context.getRealm(), _principalFormat, _roleFormat);
 			if (_log.isDebugEnabled()) {
-				for(String group : windowsPrincipal.getGroups().keySet()) {
-					_log.debug(" group: " + group);
+				for(String role : windowsPrincipal.getRoles()) {
+					_log.debug(" role: " + role);
 				}
 			}
 			

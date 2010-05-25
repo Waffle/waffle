@@ -16,6 +16,7 @@ import org.apache.catalina.realm.GenericPrincipal;
 
 import waffle.windows.auth.IWindowsAccount;
 import waffle.windows.auth.IWindowsIdentity;
+import waffle.windows.auth.PrincipalFormat;
 
 /**
  * A Windows Principal.
@@ -33,20 +34,27 @@ public class WindowsPrincipal extends GenericPrincipal {
 	 *  Windows identity.
 	 * @param realm
 	 *  Authentication realm.
+	 * @param principalFormat
+	 *  Principal format.
+	 * @param roleFormat
+	 *  Role format.
 	 */
-	public WindowsPrincipal(IWindowsIdentity windowsIdentity, Realm realm) {
-		super(realm, windowsIdentity.getFqn(), "", getRoles(windowsIdentity.getGroups()));	
+	public WindowsPrincipal(IWindowsIdentity windowsIdentity, Realm realm, 
+			PrincipalFormat principalFormat, PrincipalFormat roleFormat) {
+		super(realm, windowsIdentity.getFqn(), "", getRoles(windowsIdentity, principalFormat, roleFormat));	
 		_sid = windowsIdentity.getSid();
 		_sidString = windowsIdentity.getSidString();
 		_groups = getGroups(windowsIdentity.getGroups());
 	}
 
-	private static List<String> getRoles(IWindowsAccount[] groups) {
-		List<String> groupNames = new ArrayList<String>(groups.length);
-		for(IWindowsAccount group : groups) {
-			groupNames.add(group.getFqn());
+	private static List<String> getRoles(IWindowsIdentity windowsIdentity, 
+			PrincipalFormat principalFormat, PrincipalFormat roleFormat) {
+		List<String> roles = new ArrayList<String>();
+		roles.addAll(getPrincipalNames(windowsIdentity, principalFormat));
+		for(IWindowsAccount group : windowsIdentity.getGroups()) {
+			roles.addAll(getRoleNames(group, roleFormat));
 		}
-		return groupNames;
+		return roles;
 	}
 	
 	private static Map<String, WindowsAccount> getGroups(IWindowsAccount[] groups) {
@@ -82,5 +90,67 @@ public class WindowsPrincipal extends GenericPrincipal {
 	 */
 	public Map<String, WindowsAccount> getGroups() {
 		return _groups;
+	}
+
+	/**
+	 * Returns a list of role principal objects.
+	 * @param group
+	 *  Windows group.
+	 * @param principalFormat
+	 *  Principal format.
+	 * @return
+	 *  List of role principal objects.
+	 */
+	private static List<String> getRoleNames(
+			IWindowsAccount group, PrincipalFormat principalFormat) {
+		
+		List<String> principals = new ArrayList<String>();
+        switch(principalFormat) {
+        case fqn:
+            principals.add(group.getFqn());
+        	break;
+        case sid:
+            principals.add(group.getSidString());
+        	break;
+        case both:
+            principals.add(group.getFqn());
+            principals.add(group.getSidString());
+        	break;
+        case none:
+        	break;
+        }
+        
+        return principals;
+	}
+
+	/**
+	 * Returns a list of user principal objects.
+	 * @param windowsIdentity
+	 *  Windows identity.
+	 * @param principalFormat
+	 *  Principal format.
+	 * @return
+	 *  A list of user principal objects.
+	 */
+	private static List<String> getPrincipalNames(
+			IWindowsIdentity windowsIdentity, PrincipalFormat principalFormat) {
+		
+		List<String> principals = new ArrayList<String>();
+        switch(principalFormat) {
+        case fqn:
+            principals.add(windowsIdentity.getFqn());
+        	break;
+        case sid:
+            principals.add(windowsIdentity.getSidString());
+        	break;
+        case both:
+            principals.add(windowsIdentity.getFqn());
+            principals.add(windowsIdentity.getSidString());
+        	break;
+        case none:
+        	break;
+        }
+        
+        return principals;
 	}
 }
