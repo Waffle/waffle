@@ -11,6 +11,14 @@
     <Modulo Numbers="$(Build);10000">
       <Output TaskParameter="Result" PropertyName="Build" />
     </Modulo>
+    <Time>
+      <Output TaskParameter="Month" PropertyName="Month" />
+      <Output TaskParameter="Day" PropertyName="Day" />
+      <Output TaskParameter="Year" PropertyName="Year" />
+      <Output TaskParameter="Hour" PropertyName="Hour" />
+      <Output TaskParameter="Minute" PropertyName="Minute" />
+      <Output TaskParameter="Second" PropertyName="Second" />
+    </Time>
     <CreateItem Include="Major" AdditionalMetadata="ReplacementValue=$(Major)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>
     <CreateItem Include="Minor" AdditionalMetadata="ReplacementValue=$(Minor)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>
     <CreateItem Include="SchemaRevision" AdditionalMetadata="ReplacementValue=$(SchemaRevision)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>
