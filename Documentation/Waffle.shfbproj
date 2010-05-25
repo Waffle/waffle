@@ -60,6 +60,8 @@
     <None Include="Content\TomcatSecurityFilter.aml" />
     <None Include="Content\WindowsLoginModule.aml" />
     <None Include="Content\License.aml" />
+    <None Include="Content\Browsers.aml" />
+    <None Include="Content\JspDemo.aml" />
   </ItemGroup>
   <ItemGroup>
     <ContentLayout Include="Waffle.content" />

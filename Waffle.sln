@@ -17,10 +17,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Content", "Content", "{581579B2-97D8-4954-9687-A281F3EA2B33}"
 	ProjectSection(SolutionItems) = preProject
+		Documentation\Content\Browsers.aml = Documentation\Content\Browsers.aml
 		Documentation\Content\DevContribute.aml = Documentation\Content\DevContribute.aml
 		Documentation\Content\GettingStarted.aml = Documentation\Content\GettingStarted.aml
+		Documentation\Content\JspDemo.aml = Documentation\Content\JspDemo.aml
 		Documentation\Content\Main.aml = Documentation\Content\Main.aml
 		Documentation\Content\TomcatAuthenticator.aml = Documentation\Content\TomcatAuthenticator.aml
+		Documentation\Content\TomcatSecurityFilter.aml = Documentation\Content\TomcatSecurityFilter.aml
 		Documentation\Content\WindowsLoginModule.aml = Documentation\Content\WindowsLoginModule.aml
 	EndProjectSection
 EndProject

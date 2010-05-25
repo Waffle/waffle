@@ -3,8 +3,9 @@
   <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
     <introduction>
       <para>
-        The Waffle Tomcat authenticator implements the Negotiate protocol with Kerberos and NTLM single sign-on support.
-        This allows users to browse to a Windows intranet site without having to re-enter credentials.
+        The Waffle Tomcat Authenticator implements the Negotiate protocol with Kerberos and NTLM single sign-on support.
+        This allows users to browse to a Windows intranet site without having to re-enter credentials. The authenticator
+        integrates with Tomcat Realms and therefore allows you to protect select areas of the website.
       </para>
     </introduction>
     <section address="configuration">
@@ -62,97 +63,7 @@
         </para>
       </content>
     </section>
-    <section address="browserie">
-      <title>Internet Explorer</title>
-      <content>
-        <para>
-          Ensure that Integrated Windows Authentication is enabled.
-          <list class="ordered">
-            <listItem>
-              Choose the <ui>Tools, Internet Options</ui> menu.
-            </listItem>
-            <listItem>
-              Click the <ui>Advanced</ui> tab.
-            </listItem>
-            <listItem>
-              Scroll down to <ui>Security</ui>
-            </listItem>
-            <listItem>
-              Check <ui>Enable Integrated Windows Authentication</ui>.
-            </listItem>
-            <listItem>Restart the browser.</listItem>
-          </list>
-        </para>
-        <para>
-          The target website must be in the <newTerm>Intranet Zone</newTerm>.
-          <list class="ordered">
-            <listItem>Navigate to the website.</listItem>
-            <listItem>
-              Choose the <ui>Tools, Internet Options</ui> menu.
-            </listItem>
-            <listItem>
-              Click the <ui>Local Intranet</ui> icon.
-            </listItem>
-            <listItem>
-              Click the <ui>Sites</ui> button.
-            </listItem>
-            <listItem>
-              Check <ui>Autmatically detect intranet network</ui>.
-            </listItem>
-            <listItem>
-              If the above didn't solve the problem, click <ui>Advanced</ui>.
-            </listItem>
-            <listItem>Add the website to the list.</listItem>
-          </list>
-        </para>
-      </content>
-    </section>
-    <section address="browserfirefox">
-      <title>Firefox</title>
-      <content>
-        <para>
-          <list class="ordered">
-            <listItem>
-              Type <literal>about:config</literal> in the address bar and hit enter.
-            </listItem>
-            <listItem>
-              Type <literal>network.negotiate-auth.trusted-uris</literal> in the Filter box.
-            </listItem>
-            <listItem>Put your server name as the value. If you have more than one server, you can enter them all as a comma separated list.</listItem>
-            <listItem>Close the tab.</listItem>
-          </list>
-        </para>
-      </content>
-    </section>
-    <section address="jsp">
-      <title>Java Server Pages (JSP)</title>
-      <content>
-        <para>
-          For example, it is possible to display the current user with roles in a JSP page.
-          <code lang="jsp">
-            <![CDATA[
-<%@ page import="java.security.Principal,org.apache.catalina.realm.GenericPrincipal" %>
-<html>
- <body>
-  Hello, <%= request.getUserPrincipal().getName() %>
-  <%
-	final Principal userPrincipal = request.getUserPrincipal(); 
-	GenericPrincipal genericPrincipal = (GenericPrincipal) userPrincipal; 
-	final String[] roles = genericPrincipal.getRoles();
-	out.println("<p>You have " + roles.length + " role(s).</p>");
-	out.println("<ul>");
-	for(String role : roles) {
-		out.println("<li>" + role);
-	}
-	out.println("</ul>");
-  %>
- </body>
-</html>]]>
-          </code>
-        </para>
-      </content>
-    </section>
-    <section address="troubleshoting">
+    <section address="troubleshooting">
       <title>Troubleshooting</title>
       <content>
         <para>
@@ -174,7 +85,7 @@ waffle.tomcat.NegotiateAuthenticator.level = FINE
       </content>
     </section>
     <section address="demoapplication">
-      <title>Waffle Demo</title>
+      <title>Waffle Authenticator Demo</title>
       <content>
         <para>
           A demo application can be found in the Waffle distribution in the <localUri>Samples\Tomcat\waffle-negotiate</localUri>
@@ -183,7 +94,7 @@ waffle.tomcat.NegotiateAuthenticator.level = FINE
         </para>
       </content>
     </section>
-    <section address="demoapplication">
+    <section address="valveoptions">
       <title>Valve Options</title>
       <content>
         <para>
@@ -197,48 +108,39 @@ waffle.tomcat.NegotiateAuthenticator.level = FINE
           </code>
           <tableDefinition>
             <definedTerm>principalFormat</definedTerm>
-            <definition>
-              Specifies the name format for the principal.
-              <tableDefinition>
-                <definedTerm>fqn</definedTerm>
-                <definition>
-                  Fully qualified names, such as domain\username. When unavailable, a SID is used.
-                  This is the default.
-                </definition>
-                <definedTerm>sid</definedTerm>
-                <definition>SID in the S- format.</definition>
-                <definedTerm>both</definedTerm>
-                <definition>
-                  Both a fully qualified name and a SID in the S- format. The fully qualified name is placed in the
-                  list first. Tomcat assumes that the first entry of this list is a username.
-                </definition>
-                <definedTerm>none</definedTerm>
-                <definition>Do not include a principal name in the list of roles.</definition>
-              </tableDefinition>
-            </definition>
+            <definition>Specifies the name format for the principal.</definition>
             <definedTerm>roleFormat</definedTerm>
+            <definition>Specifies the name format for the role.</definition>
+          </tableDefinition>
+        </para>
+        <para>
+          The following principal/group formats are supported.
+          <tableDefinition>
+            <definedTerm>fqn</definedTerm>
             <definition>
-              Specifies the name format for the role.
-              <tableDefinition>
-                <definedTerm>fqn</definedTerm>
-                <definition>
-                  Fully qualified names, such as domain\group. When unavailable, a SID is used.
-                  This is the default.
-                </definition>
-                <definedTerm>sid</definedTerm>
-                <definition>Group SID in the S- format.</definition>
-                <definedTerm>both</definedTerm>
-                <definition>
-                  Both a fully qualified name and a SID in the S- format. This makes the roles list twice as long,
-                  alternativing group names and SIDs. When a group name is not available, a SID is used.
-                </definition>
-                <definedTerm>none</definedTerm>
-                <definition>Do not include group names in the roles list.</definition>
-              </tableDefinition>
+              Fully qualified names, such as domain\username. When unavailable, a SID is used.
+              This is the default.
+            </definition>
+            <definedTerm>sid</definedTerm>
+            <definition>
+              SID in the S- format.
+            </definition>
+            <definedTerm>both</definedTerm>
+            <definition>
+              Both a fully qualified name and a SID in the S- format. The fully qualified name is placed in the
+              list first. Tomcat assumes that the first entry of this list is a username.
+            </definition>
+            <definedTerm>none</definedTerm>
+            <definition>
+              Do not include a principal name. Allowed only for roles.
             </definition>
           </tableDefinition>
         </para>
       </content>
     </section>
+    <relatedTopics>
+      <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="D665805A-215E-44e6-8CC5-4519B8844455" />
+      <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="ABA7606B-08F8-49e2-A973-8FBE62649118" />
+    </relatedTopics>
   </developerConceptualDocument>
 </topic>

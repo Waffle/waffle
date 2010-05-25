@@ -3,8 +3,64 @@
   <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
     <introduction>
       <para>
-        The Waffle Tomcat security filter ...
+        The Waffle Tomcat Security Filter implements the Negotiate protocol with Kerberos and NTLM single sign-on support.
+        This allows users to browse to a Windows intranet site without having to re-enter credentials. While it still enables
+        you to protect different resources based on different user roles (user groups), the filter is a catch-all solution to 
+        enable Windows single-sign-on for the entire Tomcat installation. All users are required to authenticate.
       </para>
     </introduction>
+    <section address="configuration">
+      <title>Configuring Tomcat</title>
+      <content>
+        <para>
+          The following steps are required to configure Tomcat with the Waffle Security Filter.
+          <list class="ordered">
+            <listItem>
+              Copy <localUri>waffle-tomcat.jar</localUri>, <localUri>jna.jar</localUri> and <localUri>platform.jar</localUri>
+              to Tomcat's <localUri>lib</localUri> directory.
+            </listItem>
+            <listItem>
+              Add a security filter to <localUri>web.xml</localUri>.
+              <code lang="xml">
+                <![CDATA[
+<filter>
+  <filter-name>SecurityFilter</filter-name>
+  <filter-class>waffle.tomcat.NegotiateSecurityFilter</filter-class>
+</filter>
+<filter-mapping>
+  <filter-name>SecurityFilter</filter-name>
+  <url-pattern>/*</url-pattern>
+</filter-mapping>]]>
+              </code>
+            </listItem>
+          </list>
+        </para>
+      </content>
+    </section>
+    <section address="troubleshooting">
+      <title>Troubleshooting</title>
+      <content>
+        <para>
+          <list class="bullet">
+            <listItem>
+              Enable waffle logging. Add the following to <localUri>conf\logging.properties</localUri> in your
+              Tomcat installation.
+              <code lang="properties">
+                <![CDATA[
+waffle.tomcat.NegotiateSecurityFilter.level = FINE
+                ]]>
+              </code>
+            </listItem>
+            <listItem>
+              Restart Tomcat and review <localUri>logs\Catalina*.log</localUri>.
+            </listItem>
+          </list>
+        </para>
+      </content>
+    </section>
+    <relatedTopics>
+      <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="D665805A-215E-44e6-8CC5-4519B8844455" />
+      <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="ABA7606B-08F8-49e2-A973-8FBE62649118" />
+    </relatedTopics>
   </developerConceptualDocument>
 </topic>

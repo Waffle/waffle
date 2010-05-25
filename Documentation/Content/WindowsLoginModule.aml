@@ -103,44 +103,30 @@ Jaas {
               successful logins, including group memberships.
             </definition>
             <definedTerm>principalFormat</definedTerm>
-            <definition>
-              Specifies the name format for the principal.
-              <tableDefinition>
-                <definedTerm>fqn</definedTerm>
-                <definition>
-                  Fully qualified names, such as domain\username. When unavailable, a SID is used.
-                  This is the default.
-                </definition>
-                <definedTerm>sid</definedTerm>
-                <definition>SID in the S- format.</definition>
-                <definedTerm>both</definedTerm>
-                <definition>
-                  Both a fully qualified name and a SID in the S- format. The fully qualified name is placed in the
-                  list first. Tomcat assumes that the first entry of this list is a username.
-                </definition>
-              </tableDefinition>
-            </definition>
+            <definition>Specifies the name format for the principal.</definition>
             <definedTerm>roleFormat</definedTerm>
+            <definition>Specifies the name format for the role.</definition>
+          </tableDefinition>
+          The following principal and role formats are available.
+          <tableDefinition>
+            <definedTerm>fqn</definedTerm>
             <definition>
-              Specifies the name format for the role.
-              <tableDefinition>
-                <definedTerm>fqn</definedTerm>
-                <definition>
-                  Fully qualified names, such as domain\group. When unavailable, a SID is used.
-                  This is the default.
-                </definition>
-                <definedTerm>sid</definedTerm>
-                <definition>Group SID in the S- format.</definition>
-                <definedTerm>both</definedTerm>
-                <definition>
-                  Both a fully qualified name and a SID in the S- format. This makes the roles list twice as long,
-                  alternativing group names and SIDs. When a group name is not available, a SID is used.
-                </definition>
-                <definedTerm>none</definedTerm>
-                <definition>
-                  Do not retrieve roles.
-                </definition>
-              </tableDefinition>
+              Fully qualified names, such as domain\group. When unavailable, a SID is used.
+              This is the default.
+            </definition>
+            <definedTerm>sid</definedTerm>
+            <definition>
+              Group SID in the S- format.
+            </definition>
+            <definedTerm>both</definedTerm>
+            <definition>
+              Both a fully qualified name and a SID in the S- format.
+              When a group name is not available, a SID is used.
+            </definition>
+            <definedTerm>none</definedTerm>
+            <definition>
+              Available for <literal>roleFormat</literal> only.
+              Do not retrieve roles.
             </definition>
           </tableDefinition>
         </para>
@@ -183,35 +169,7 @@ endlocal
         </para>
       </content>
     </section>
-    <section address="jsp">
-      <title>Java Server Pages (JSP)</title>
-      <content>
-        <para>
-          For example, it is possible to display the current user with roles in a JSP page.
-          <code lang="jsp">
-            <![CDATA[
-<%@ page import="java.security.Principal,org.apache.catalina.realm.GenericPrincipal" %>
-<html>
- <body>
-  Hello, <%= request.getUserPrincipal().getName() %>
-  <%
-	final Principal userPrincipal = request.getUserPrincipal(); 
-	GenericPrincipal genericPrincipal = (GenericPrincipal) userPrincipal; 
-	final String[] roles = genericPrincipal.getRoles();
-	out.println("<p>You have " + roles.length + " role(s).</p>");
-	out.println("<ul>");
-	for(String role : roles) {
-		out.println("<li>" + role);
-	}
-	out.println("</ul>");
-  %>
- </body>
-</html>]]>
-          </code>
-        </para>
-      </content>
-    </section>
-    <section address="troubleshoting">
+    <section address="troubleshooting">
       <title>Troubleshooting</title>
       <content>
         <para>
@@ -233,7 +191,7 @@ org.apache.catalina.realm.level = FINE
       </content>
     </section>
     <section address="demoapplication">
-      <title>Waffle Demo</title>
+      <title>Waffle JAAS Demo</title>
       <content>
         <para>
           A demo application can be found in the Waffle distribution in the <localUri>Samples\Tomcat\waffle-jaas</localUri>

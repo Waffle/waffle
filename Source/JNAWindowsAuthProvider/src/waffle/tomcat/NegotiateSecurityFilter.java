@@ -35,7 +35,7 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  */
 public class NegotiateSecurityFilter implements Filter {
 
-    private static Log _log = LogFactory.getLog(NegotiateAuthenticator.class);
+    private static Log _log = LogFactory.getLog(NegotiateSecurityFilter.class);
 	private static IWindowsAuthProvider _auth = new WindowsAuthProviderImpl();
     private PrincipalFormat _principalFormat = PrincipalFormat.fqn;
     private PrincipalFormat _roleFormat = PrincipalFormat.fqn;

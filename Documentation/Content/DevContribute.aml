@@ -3,7 +3,7 @@
   <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
     <introduction>
       <para>
-        You're encouraged to contribute to WAFFLE. The latest information about this project
+        You're encouraged to contribute to WAFFLE. The latest information about this project and source code
         can be found at <externalLink>
           <linkUri>http://waffle.codeplex.com</linkUri>
           <linkText>http://waffle.codeplex.com</linkText>
@@ -30,8 +30,9 @@
       <title>Building the Project</title>
       <content>
         <para>
-          You can build all C# code in Visual Studio. To build the entire project, including this documentation use MSBuild
-          from command line and type <literal>build all</literal>. This builds both Debug and Release.
+          You can build all C# code in Visual Studio and all Java code in Eclipse. To build the entire project, 
+          including this documentation use MSBuild from command line and type <literal>build all</literal>. 
+          This builds both Debug and Release .NET binaries as well as a final .zip package with all artifacts.
           <code language="cmd">
             <![CDATA[c:\source\Waffle\trunk> build all]]>
           </code>
@@ -90,6 +91,7 @@
             <listItem>Microsoft Visual Studio 2008 for C#</listItem>
             <listItem>Eclipse for Java</listItem>
             <listItem>Command-line Subversion Client (not TortoiseSVN Shell Extension)</listItem>
+            <listItem>ANT for Command-Line Java Build</listItem>
             <listItem>
               <externalLink>
                 <linkUri>http://dl.dropbox.com/u/4321494/MSBuild%20Community%20Tasks/MSBuild.Community.Tasks.1.3.0.msi</linkUri>
