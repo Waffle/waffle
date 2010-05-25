@@ -9,12 +9,15 @@ package waffle.tomcat.catalina;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.catalina.connector.Request;
 
 /**
  * @author dblock[at]dblock[dot]org
  */
-public class SimpleHttpRequest extends Request {
+public class SimpleHttpRequest extends Request implements HttpServletRequest {
 	
 	private static int _remotePort_s = 0;
 	
@@ -23,6 +26,7 @@ public class SimpleHttpRequest extends Request {
 	private int _remotePort = -1;
 	private Map<String, String> _headers = new HashMap<String, String>();
 	private byte[] _content = null;
+	private HttpSession _session = new SimpleHttpSession();
 	
 	public SimpleHttpRequest() {
 		_remotePort = ++ _remotePort_s;
@@ -70,5 +74,17 @@ public class SimpleHttpRequest extends Request {
 	@Override 
 	public String getRemoteUser() {
 		return _remoteUser;
+	}
+	
+	@Override 
+	public HttpSession getSession() {
+		return _session;
+	}
+	
+	public HttpSession getSession(boolean create) {
+		if (_session == null && create) {
+			_session = new SimpleHttpSession();
+		}
+		return _session;
 	}
 }

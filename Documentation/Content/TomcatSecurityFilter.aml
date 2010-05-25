@@ -20,7 +20,7 @@
               to Tomcat's <localUri>lib</localUri> directory.
             </listItem>
             <listItem>
-              Add a security filter to <localUri>web.xml</localUri>.
+              Add a security filter to <localUri>WEB-INF\web.xml</localUri>.
               <code lang="xml">
                 <![CDATA[
 <filter>
@@ -34,6 +34,16 @@
               </code>
             </listItem>
           </list>
+        </para>
+      </content>
+    </section>
+    <section address="demoapplication">
+      <title>Waffle Security Filter Demo</title>
+      <content>
+        <para>
+          A demo application can be found in the Waffle distribution in the <localUri>Samples\Tomcat\waffle-filter</localUri>
+          directory. Copy the entire directory into Tomcat's <localUri>webapps</localUri> directory and navigate to
+          <ficticiousUri>http://localhost:8080/waffle-filter/</ficticiousUri>.
         </para>
       </content>
     </section>

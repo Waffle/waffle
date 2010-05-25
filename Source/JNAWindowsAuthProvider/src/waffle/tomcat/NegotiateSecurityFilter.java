@@ -135,7 +135,11 @@ public class NegotiateSecurityFilter implements Filter {
 					" (" + windowsIdentity.getSidString() + ")");
 			
 			HttpSession session = request.getSession(true);
-			Subject subject = (Subject)session.getAttribute("javax.security.auth.subject");			
+			if (session == null) {
+				throw new ServletException("Expected HttpSession");
+			}
+			
+			Subject subject = (Subject) session.getAttribute("javax.security.auth.subject");			
 			if (subject == null) {
 				subject = new Subject();
 			}
