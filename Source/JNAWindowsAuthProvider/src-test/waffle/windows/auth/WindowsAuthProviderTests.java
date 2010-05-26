@@ -58,44 +58,53 @@ public class WindowsAuthProviderTests extends TestCase {
 	
 	public void testAcceptSecurityToken() {
 		String securityPackage = "Negotiate";
-		// client credentials handle
-		IWindowsCredentialsHandle clientCredentials = WindowsCredentialsHandleImpl.getCurrent(
-				securityPackage);
-		clientCredentials.initialize();
-		// initial client security context
-		WindowsSecurityContextImpl clientContext = new WindowsSecurityContextImpl();
-		clientContext.setPrincipalName(Advapi32Util.getUserName());
-		clientContext.setCredentialsHandle(clientCredentials.getHandle());
-		clientContext.setSecurityPackage(securityPackage);
-		clientContext.initialize();
-		// accept on the server
-        WindowsAuthProviderImpl provider = new WindowsAuthProviderImpl();
+		IWindowsCredentialsHandle clientCredentials = null;
+		WindowsSecurityContextImpl clientContext = null;
         IWindowsSecurityContext serverContext = null;
-        String connectionId = "testConnection";
-        do
-        {        	
-        	if (serverContext != null) {
-        		// initialize on the client
-                SecBufferDesc continueToken = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, 
-            		serverContext.getToken());
-                clientContext.initialize(clientContext.getHandle(), continueToken);
-        	}
-        	
-        	// accept the token on the server
-            serverContext = provider.acceptSecurityToken(connectionId, clientContext.getToken(), 
-            		securityPackage);
-            
-        } while (clientContext.getContinue() || serverContext.getContinue());
-        
-        assertTrue(serverContext.getIdentity().getFqn().length() > 0);
-
-        System.out.println(serverContext.getIdentity().getFqn());
-        for (IWindowsAccount group : serverContext.getIdentity().getGroups()) {
-        	System.out.println(" " + group.getFqn());
-        }        	
-        
-        serverContext.dispose();
-        clientContext.dispose();
-        clientCredentials.dispose();
+		try {
+			// client credentials handle
+			clientCredentials = WindowsCredentialsHandleImpl.getCurrent(securityPackage);
+			clientCredentials.initialize();
+			// initial client security context
+			clientContext = new WindowsSecurityContextImpl();
+			clientContext.setPrincipalName(Advapi32Util.getUserName());
+			clientContext.setCredentialsHandle(clientCredentials.getHandle());
+			clientContext.setSecurityPackage(securityPackage);
+			clientContext.initialize();
+			// accept on the server
+	        WindowsAuthProviderImpl provider = new WindowsAuthProviderImpl();
+	        String connectionId = "testConnection";
+	        do
+	        {        	
+	        	if (serverContext != null) {
+	        		// initialize on the client
+	                SecBufferDesc continueToken = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, 
+	            		serverContext.getToken());
+	                clientContext.initialize(clientContext.getHandle(), continueToken);
+	        	}
+	        	
+	        	// accept the token on the server
+	            serverContext = provider.acceptSecurityToken(connectionId, clientContext.getToken(), 
+	            		securityPackage);
+	            
+	        } while (clientContext.getContinue() || serverContext.getContinue());
+	        
+	        assertTrue(serverContext.getIdentity().getFqn().length() > 0);
+	
+	        System.out.println(serverContext.getIdentity().getFqn());
+	        for (IWindowsAccount group : serverContext.getIdentity().getGroups()) {
+	        	System.out.println(" " + group.getFqn());
+	        }	        
+		} finally {
+			if (serverContext != null) {
+				serverContext.dispose();
+			}
+			if (clientContext != null) {
+				clientContext.dispose();
+			}
+			if (clientCredentials != null) {
+				clientCredentials.dispose();
+			}
+		}
 	}
 }

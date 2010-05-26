@@ -23,6 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Content", "Content", "{5815
 		Documentation\Content\JspDemo.aml = Documentation\Content\JspDemo.aml
 		Documentation\Content\Main.aml = Documentation\Content\Main.aml
 		Documentation\Content\TomcatAuthenticator.aml = Documentation\Content\TomcatAuthenticator.aml
+		Documentation\Content\TomcatMixedAuthenticator.aml = Documentation\Content\TomcatMixedAuthenticator.aml
 		Documentation\Content\TomcatSecurityFilter.aml = Documentation\Content\TomcatSecurityFilter.aml
 		Documentation\Content\WindowsLoginModule.aml = Documentation\Content\WindowsLoginModule.aml
 	EndProjectSection

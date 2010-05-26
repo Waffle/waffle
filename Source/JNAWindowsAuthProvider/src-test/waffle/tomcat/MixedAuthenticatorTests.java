@@ -6,17 +6,18 @@
  */
 package waffle.tomcat;
 
-import java.io.IOException;
-
-import javax.security.auth.Subject;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-
 import junit.framework.TestCase;
-import waffle.tomcat.catalina.SimpleFilterChain;
+
+import org.apache.catalina.Realm;
+import org.apache.catalina.deploy.LoginConfig;
+
+import waffle.jaas.MockWindowsAuthProvider;
+import waffle.tomcat.catalina.SimpleContext;
 import waffle.tomcat.catalina.SimpleHttpRequest;
 import waffle.tomcat.catalina.SimpleHttpResponse;
+import waffle.tomcat.catalina.SimpleRealm;
 import waffle.windows.auth.IWindowsCredentialsHandle;
+import waffle.windows.auth.impl.WindowsAccountImpl;
 import waffle.windows.auth.impl.WindowsCredentialsHandleImpl;
 import waffle.windows.auth.impl.WindowsSecurityContextImpl;
 
@@ -25,34 +26,39 @@ import com.sun.jna.platform.win32.Sspi;
 import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 
 /**
- * Waffle Tomcat Security Filter Tests
+ * Waffle Tomcat Mixed Authenticator Tests
  * @author dblock[at]dblock[dot]org
  */
-public class NegotiateSecurityFilterTests extends TestCase {
+public class MixedAuthenticatorTests extends TestCase {
 
-	NegotiateSecurityFilter _filter = null;
+	MixedAuthenticator _authenticator = null;
 	
 	@Override
 	public void setUp() {
-		_filter = new NegotiateSecurityFilter();
-		try {
-			_filter.init(null);
-		} catch (ServletException e) {
-			fail(e.getMessage());
-		}
+		_authenticator = new MixedAuthenticator();
+		SimpleContext ctx = new SimpleContext();
+		Realm realm = new SimpleRealm();
+		ctx.setRealm(realm);
+		_authenticator.setContainer(ctx);
+		_authenticator.start();
 	}
 
 	@Override
 	public void tearDown() {
-		_filter.destroy();
-		_filter = null;
+		_authenticator.stop();
+		_authenticator = null;
 	}
 	
-	public void testChallengeGET() throws IOException, ServletException {
+	public void testGetInfo() {
+		assertTrue(_authenticator.getInfo().length() > 0);		
+	}
+
+	public void testChallengeGET() {
 		SimpleHttpRequest request = new SimpleHttpRequest();
 		request.setMethod("GET");
+		request.setQueryString("j_negotiate_check");
 		SimpleHttpResponse response = new SimpleHttpResponse();
-		_filter.doFilter(request, response, null);
+		_authenticator.authenticate(request, response, null);
 		String[] wwwAuthenticates = response.getHeaderValues("WWW-Authenticate");
 		assertEquals(2, wwwAuthenticates.length);
 		assertEquals("Negotiate", wwwAuthenticates[0]);
@@ -62,7 +68,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		assertEquals(401, response.getStatus());
 	}
 	
-	public void testChallengePOST() throws IOException, ServletException {
+	public void testChallengePOST() {
 		String securityPackage = "Negotiate";
 		IWindowsCredentialsHandle clientCredentials = null;
 		WindowsSecurityContextImpl clientContext = null;
@@ -77,12 +83,13 @@ public class NegotiateSecurityFilterTests extends TestCase {
 			clientContext.setSecurityPackage(securityPackage);
 			clientContext.initialize();
 			SimpleHttpRequest request = new SimpleHttpRequest();
+			request.setQueryString("j_negotiate_check");
 			request.setMethod("POST");
 			request.setContentLength(0);
 			String clientToken = Base64.encode(clientContext.getToken());
 			request.addHeader("Authorization", securityPackage + " " + clientToken);
 			SimpleHttpResponse response = new SimpleHttpResponse();
-			_filter.doFilter(request, response, null);
+			_authenticator.authenticate(request, response, null);
 			assertTrue(response.getHeader("WWW-Authenticate").startsWith(securityPackage + " "));
 			assertEquals("keep-alive", response.getHeader("Connection"));
 			assertEquals(2, response.getHeaderNames().length);
@@ -96,9 +103,8 @@ public class NegotiateSecurityFilterTests extends TestCase {
 			}			
 		}
 	}
-
 	
-	public void testNegotiate() throws IOException, ServletException {
+	public void testNegotiate() {
 		String securityPackage = "Negotiate";
 		// client credentials handle
 		IWindowsCredentialsHandle clientCredentials = null;
@@ -113,21 +119,17 @@ public class NegotiateSecurityFilterTests extends TestCase {
 			clientContext.setCredentialsHandle(clientCredentials.getHandle());
 			clientContext.setSecurityPackage(securityPackage);
 			clientContext.initialize();
-			// filter chain
-			FilterChain filterChain = new SimpleFilterChain();
 			// negotiate
 			boolean authenticated = false;
 			SimpleHttpRequest request = new SimpleHttpRequest();
+			request.setQueryString("j_negotiate_check");
 	        while(true)
 	        {
 	    		String clientToken = Base64.encode(clientContext.getToken());
 	    		request.addHeader("Authorization", securityPackage + " " + clientToken);
 	    		
 	    		SimpleHttpResponse response = new SimpleHttpResponse();
-	    		_filter.doFilter(request, response, filterChain);
-	    		
-	    		Subject subject = (Subject) request.getSession().getAttribute("javax.security.auth.subject");
-	    		authenticated = (subject != null && subject.getPrincipals().size() > 0);
+	    		authenticated = _authenticator.authenticate(request, response, null);
 	
 	    		if (authenticated) {
 	        		assertEquals(0, response.getHeaderNames().length);
@@ -153,5 +155,45 @@ public class NegotiateSecurityFilterTests extends TestCase {
 				clientCredentials.dispose();
 			}			
 		}
+	}
+
+	public void testGet() {
+		LoginConfig loginConfig = new LoginConfig();
+		loginConfig.setErrorPage("error.html");
+		loginConfig.setLoginPage("login.html");
+		SimpleHttpRequest request = new SimpleHttpRequest();
+		SimpleHttpResponse response = new SimpleHttpResponse();
+		assertFalse(_authenticator.authenticate(request, response, loginConfig));
+		assertEquals(304, response.getStatus());
+		assertEquals("login.html", response.getHeader("Location"));
+		assertEquals(1, response.getHeaderNames().length);
+	}
+
+	public void testPostSecurityCheck() {
+		LoginConfig loginConfig = new LoginConfig();
+		loginConfig.setErrorPage("error.html");
+		loginConfig.setLoginPage("login.html");
+		SimpleHttpRequest request = new SimpleHttpRequest();
+		request.setQueryString("j_security_check");
+		request.addParameter("j_username", "username");
+		request.addParameter("j_password", "password");
+		SimpleHttpResponse response = new SimpleHttpResponse();
+		assertFalse(_authenticator.authenticate(request, response, loginConfig));
+		assertEquals(304, response.getStatus());
+		assertEquals("error.html", response.getHeader("Location"));
+		assertEquals(1, response.getHeaderNames().length);
+	}
+
+	public void testSecurityCheck() {
+		NegotiateAuthenticator.setAuth(new MockWindowsAuthProvider());
+		LoginConfig loginConfig = new LoginConfig();
+		loginConfig.setErrorPage("error.html");
+		loginConfig.setLoginPage("login.html");
+		SimpleHttpRequest request = new SimpleHttpRequest();
+		request.setQueryString("j_security_check");
+		request.addParameter("j_username", WindowsAccountImpl.getCurrentUsername());
+		request.addParameter("j_password", "");
+		SimpleHttpResponse response = new SimpleHttpResponse();
+		assertTrue(_authenticator.authenticate(request, response, loginConfig));
 	}
 }

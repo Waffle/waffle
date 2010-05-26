@@ -21,10 +21,13 @@ public class SimpleHttpRequest extends Request implements HttpServletRequest {
 	
 	private static int _remotePort_s = 0;
 	
+	private String _requestURI = null;
+	private String _queryString = null;
 	private String _remoteUser = null;
 	private String _method = "GET";
 	private int _remotePort = -1;
 	private Map<String, String> _headers = new HashMap<String, String>();
+	private Map<String, String> _parameters = new HashMap<String, String>();
 	private byte[] _content = null;
 	private HttpSession _session = new SimpleHttpSession();
 	
@@ -86,5 +89,34 @@ public class SimpleHttpRequest extends Request implements HttpServletRequest {
 			_session = new SimpleHttpSession();
 		}
 		return _session;
+	}
+	
+	@Override
+	public String getQueryString() {
+		return _queryString;
+	}
+	
+	@Override
+	public void setQueryString(String queryString) {
+		_queryString = queryString;
+	}
+	
+	@Override
+	public void setRequestURI(String uri) {
+		_requestURI = uri;
+	}
+	
+	@Override
+	public String getRequestURI() {
+		return _requestURI;
+	}
+	
+	@Override
+	public String getParameter(String parameterName) {
+		return _parameters.get(parameterName);
+	}
+	
+	public void addParameter(String parameterName, String parameterValue) {		
+		_parameters.put(parameterName, parameterValue);
 	}
 }

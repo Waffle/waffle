@@ -31,11 +31,29 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 public class NegotiateAuthenticator extends AuthenticatorBase {
 
     private static Log _log = LogFactory.getLog(NegotiateAuthenticator.class);
-	private static IWindowsAuthProvider _auth = new WindowsAuthProviderImpl();
+	protected static IWindowsAuthProvider _auth = new WindowsAuthProviderImpl();
     protected static final String _info = "waffle.tomcat.NegotiateAuthenticator/1.0";
-    private PrincipalFormat _principalFormat = PrincipalFormat.fqn;
-    private PrincipalFormat _roleFormat = PrincipalFormat.fqn;
+    protected PrincipalFormat _principalFormat = PrincipalFormat.fqn;
+    protected PrincipalFormat _roleFormat = PrincipalFormat.fqn;
 
+	/**
+	 * Windows auth provider.
+	 * @return
+	 *  IWindowsAuthProvider.
+	 */
+	public static IWindowsAuthProvider getAuth() {
+		return _auth;
+	}
+	
+	/**
+	 * Set Windows auth provider.
+	 * @param provider
+	 *  Class implements IWindowsAuthProvider.
+	 */
+	public static void setAuth(IWindowsAuthProvider provider) {
+		_auth = provider;
+	}
+    
     @Override
     public String getInfo() {
         return _info;
@@ -235,6 +253,7 @@ public class NegotiateAuthenticator extends AuthenticatorBase {
 		try {
 			response.sendError(code);
 		} catch (IOException e) {
+			_log.error(e.getMessage());
 			throw new RuntimeException(e);
 		}		
 	}

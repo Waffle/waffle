@@ -94,13 +94,14 @@
         </jar>    	
     </target>
     <target name="test" depends="jar,compile-tests">
-		<junit showoutput="true" newenvironment="true">
+		<junit showoutput="true" newenvironment="true" failureproperty="tests.failed">
             <formatter type="plain" usefile="false" />
     		<classpath refid="waffle.test.classpath" />
 			<batchtest>
 				<fileset dir="${waffle.test.lib}" includes="**/*Tests.class" />
 			</batchtest>
         </junit>
+    	<fail message="Unit Tests failed" if="tests.failed" />
     </target>
 	<target name="doc">
 		<javadoc destdir="${waffle.doc}" sourcepath="${waffle.src}" 

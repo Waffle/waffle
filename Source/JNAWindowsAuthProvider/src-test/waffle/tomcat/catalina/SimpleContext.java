@@ -41,6 +41,7 @@ import org.apache.tomcat.util.http.mapper.Mapper;
 public class SimpleContext implements Context {
 
 	private Realm _realm = null;
+	private ServletContext _servletContext = new SimpleServletContext();
 	
 	@Override
 	public void addApplicationListener(String arg0) {
@@ -445,8 +446,7 @@ public class SimpleContext implements Context {
 
 	@Override
 	public ServletContext getServletContext() {
-
-		return null;
+		return _servletContext;
 	}
 
 	@Override
