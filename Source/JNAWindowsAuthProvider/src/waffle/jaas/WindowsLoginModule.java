@@ -157,7 +157,12 @@ public class WindowsLoginModule implements LoginModule {
 
         _subject.getPrincipals().clear();
 		_principals = null;
-        debug("logging out " + _username);
+		
+		if (_username != null) {
+			debug("logging out " + _username);
+			_username = null;
+		}
+		
 		return true;
 	}
 	
