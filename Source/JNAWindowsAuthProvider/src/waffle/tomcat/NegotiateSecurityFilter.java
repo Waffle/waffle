@@ -111,12 +111,17 @@ public class NegotiateSecurityFilter implements Filter {
 				byte[] tokenBuffer = Base64.decode(token);
 				_log.debug("token buffer: " + tokenBuffer.length + " bytes");
 				securityContext = _auth.acceptSecurityToken(connectionId, tokenBuffer, securityPackage);
+				
+				byte[] continueTokenBytes = securityContext.getToken();
+				if (continueTokenBytes != null) {
+					String continueToken = new String(Base64.encode(continueTokenBytes));
+					_log.debug("continue token: " + continueToken);
+					response.addHeader("WWW-Authenticate", securityPackage + " " + continueToken);
+				}
+				
 				_log.debug("continue required: " + securityContext.getContinue());
     			if (securityContext.getContinue() || ntlmPost) {
     				response.setHeader("Connection", "keep-alive");
-    				String continueToken = new String(Base64.encode(securityContext.getToken()));
-    				_log.debug("continue token: " + continueToken);
-    				response.addHeader("WWW-Authenticate", securityPackage + " " + continueToken);
     				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
     				response.flushBuffer();
     				return;

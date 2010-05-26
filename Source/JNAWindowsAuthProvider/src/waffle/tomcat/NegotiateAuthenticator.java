@@ -152,15 +152,21 @@ public class NegotiateAuthenticator extends AuthenticatorBase {
 				_log.debug("token buffer: " + tokenBuffer.length + " bytes");
 				securityContext = _auth.acceptSecurityToken(connectionId, tokenBuffer, securityPackage);
 				_log.debug("continue required: " + securityContext.getContinue());
+
+				byte[] continueTokenBytes = securityContext.getToken();
+				if (continueTokenBytes != null) {
+					String continueToken = new String(Base64.encode(continueTokenBytes));
+					_log.debug("continue token: " + continueToken);
+					response.addHeader("WWW-Authenticate", securityPackage + " " + continueToken);
+				}
+				
     			if (securityContext.getContinue() || ntlmPost) {
     				response.setHeader("Connection", "keep-alive");
-    				String continueToken = new String(Base64.encode(securityContext.getToken()));
-    				_log.debug("continue token: " + continueToken);
-    				response.addHeader("WWW-Authenticate", securityPackage + " " + continueToken);
     				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
     				response.flushBuffer();
     				return false;
     			}
+    			
 			} catch (Exception e) {
 				_log.warn("error logging in user: " + e.getMessage());
 				sendUnauthorized(response);
