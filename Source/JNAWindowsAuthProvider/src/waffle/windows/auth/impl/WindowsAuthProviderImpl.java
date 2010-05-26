@@ -20,7 +20,6 @@ import waffle.windows.auth.IWindowsDomain;
 import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.IWindowsSecurityContext;
 
-import com.sun.jna.LastErrorException;
 import com.sun.jna.NativeLong;
 import com.sun.jna.platform.win32.Advapi32;
 import com.sun.jna.platform.win32.Kernel32;
@@ -28,6 +27,7 @@ import com.sun.jna.platform.win32.Netapi32Util;
 import com.sun.jna.platform.win32.Secur32;
 import com.sun.jna.platform.win32.Sspi;
 import com.sun.jna.platform.win32.W32Errors;
+import com.sun.jna.platform.win32.Win32Exception;
 import com.sun.jna.platform.win32.WinBase;
 import com.sun.jna.platform.win32.Netapi32Util.DomainTrust;
 import com.sun.jna.platform.win32.Sspi.CtxtHandle;
@@ -67,7 +67,7 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
     	sc.setCredentialsHandle(serverCredential.getHandle());
     	sc.setSecurityPackage(securityPackage);
     	sc.setSecurityContext(phNewServerContext);
-    	
+
     	switch (rc)
         {
             case W32Errors.SEC_E_OK:
@@ -80,12 +80,13 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
             	sc.setContinue(true);
             	break;
         	default:
+        		sc.dispose();
+        		WindowsSecurityContextImpl.dispose(continueContext);
             	_continueContexts.remove(connectionId);
-                throw new LastErrorException(rc);
+                throw new Win32Exception(rc);
         }
     	
     	return sc;
-
 	}
 
 	@Override
@@ -120,7 +121,7 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
 		try {
 			if (! Advapi32.INSTANCE.LogonUser(username, domain, password, 
 					logonType, logonProvider, phUser)) {
-				throw new LastErrorException(Kernel32.INSTANCE.GetLastError());
+				throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
 			}
 			return new WindowsIdentityImpl(phUser.getValue());
 		} finally {

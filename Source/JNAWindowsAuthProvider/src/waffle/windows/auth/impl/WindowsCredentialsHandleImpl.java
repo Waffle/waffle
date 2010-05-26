@@ -8,11 +8,11 @@ package waffle.windows.auth.impl;
 
 import waffle.windows.auth.IWindowsCredentialsHandle;
 
-import com.sun.jna.LastErrorException;
 import com.sun.jna.NativeLong;
 import com.sun.jna.platform.win32.Secur32;
 import com.sun.jna.platform.win32.Sspi;
 import com.sun.jna.platform.win32.W32Errors;
+import com.sun.jna.platform.win32.Win32Exception;
 import com.sun.jna.platform.win32.Sspi.CredHandle;
 import com.sun.jna.platform.win32.Sspi.TimeStamp;
 
@@ -71,7 +71,7 @@ public class WindowsCredentialsHandleImpl implements IWindowsCredentialsHandle {
 				_securityPackage, _credentialsType, null, null, null, null, 
 				_handle, _clientLifetime);
 		if (W32Errors.SEC_E_OK != rc) {
-			throw new LastErrorException(rc);
+			throw new Win32Exception(rc);
 		}
 	}
 
@@ -82,7 +82,7 @@ public class WindowsCredentialsHandleImpl implements IWindowsCredentialsHandle {
 		if (_handle != null && ! _handle.isNull()) {
 			int rc = Secur32.INSTANCE.FreeCredentialsHandle(_handle);
 			if (W32Errors.SEC_E_OK != rc) {
-				throw new LastErrorException(rc);
+				throw new Win32Exception(rc);
 			}
 			_handle = null;
 		}

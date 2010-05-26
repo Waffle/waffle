@@ -10,13 +10,13 @@ import waffle.windows.auth.IWindowsCredentialsHandle;
 import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.IWindowsSecurityContext;
 
-import com.sun.jna.LastErrorException;
 import com.sun.jna.NativeLong;
 import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.Kernel32;
 import com.sun.jna.platform.win32.Secur32;
 import com.sun.jna.platform.win32.Sspi;
 import com.sun.jna.platform.win32.W32Errors;
+import com.sun.jna.platform.win32.Win32Exception;
 import com.sun.jna.platform.win32.Sspi.CredHandle;
 import com.sun.jna.platform.win32.Sspi.CtxtHandle;
 import com.sun.jna.platform.win32.Sspi.PSecHandle;
@@ -44,13 +44,13 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
     	PSecHandle pphServerContext = new PSecHandle(_ctx);
     	int rc = Secur32.INSTANCE.QuerySecurityContextToken(pphServerContext, phContextToken);
     	if (W32Errors.SEC_E_OK != rc) {
-    		throw new LastErrorException(rc);
+    		throw new Win32Exception(rc);
     	}
     	try {
     		return new WindowsIdentityImpl(phContextToken.getValue());
     	} finally {
     		if (! Kernel32.INSTANCE.CloseHandle(phContextToken.getValue())) {
-    			throw new LastErrorException(Kernel32.INSTANCE.GetLastError());
+    			throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
     		}
     	}
 	}
@@ -115,17 +115,31 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
     		_continue = false;
     		break;
      	default:
-    		throw new LastErrorException(rc);
+    		throw new Win32Exception(rc);
     	}
 	}
 	
 	@Override
 	public void dispose() {
-		if (_ctx != null && ! _ctx.isNull()) {
-	    	int rc = Secur32.INSTANCE.DeleteSecurityContext(_ctx);			
+		dispose(_ctx);
+	}
+	
+	/**
+	 * Dispose a security context.
+	 * @param ctx
+	 *  Security context.
+	 * @return
+	 *  True if a context was disposed.
+	 */
+	public static boolean dispose(CtxtHandle ctx) {
+		if (ctx != null && ! ctx.isNull()) {
+	    	int rc = Secur32.INSTANCE.DeleteSecurityContext(ctx);			
 			if (W32Errors.SEC_E_OK != rc) {
-				throw new LastErrorException(rc);
-			}    	
+				throw new Win32Exception(rc);
+			}
+			return true;
+		} else {
+			return false;
 		}
 	}
 
