@@ -67,9 +67,7 @@ namespace Waffle.Windows.AuthProvider.UnitTests
             string testPassword = ConfigurationSettings.AppSettings["testPassword"];
 
             if (string.IsNullOrEmpty(testUsername))
-            {
-                Assert.Ignore("Missing username.");
-            }
+                Assert.Ignore("Missing testUsername in .config.");
 
             string testDomainUsernameNETBIOS = string.Format(@"{0}\{1}", testDomainNETBIOS, testUsername);
             string testDomainUsernameDNS = string.Format(@"{0}\{1}", testDomainDNS, testUsername);
@@ -103,9 +101,7 @@ namespace Waffle.Windows.AuthProvider.UnitTests
             string testPassword = ConfigurationSettings.AppSettings["testPassword"];
 
             if (string.IsNullOrEmpty(testUsername))
-            {
-                Assert.Ignore("Missing logon username.");
-            }
+                Assert.Ignore("Missing testUsername in .config.");
 
             string testDomainUsernameNETBIOS = string.Format(@"{0}\{1}", testDomainNETBIOS, testUsername);
             string testDomainUsernameDNS = string.Format(@"{0}\{1}", testDomainDNS, testUsername);
@@ -128,11 +124,7 @@ namespace Waffle.Windows.AuthProvider.UnitTests
                 Console.WriteLine(account.Fqn);
                 Assert.AreEqual(test.Fqn.ToLower(), account.Fqn.ToLower());
                 Assert.IsTrue(Advapi32.IsValidSid(account.Sid));
-
-                foreach (string groupName in account.Groups)
-                {
-                    Console.WriteLine("Group: {0}", groupName);
-                }
+                Console.WriteLine("Groups: {0}", account.Groups.Length);
             }
         }
 
@@ -164,10 +156,7 @@ namespace Waffle.Windows.AuthProvider.UnitTests
 
                 try
                 {
-                    foreach (string group in domain.Groups)
-                    {
-                        Console.WriteLine(" Group: {0}", group);
-                    }
+                    Console.WriteLine("Groups: {0}", domain.Groups.Length);
                 }
                 catch (Exception ex)
                 {
@@ -183,6 +172,9 @@ namespace Waffle.Windows.AuthProvider.UnitTests
             string testDomainNETBIOS = ConfigurationSettings.AppSettings["testDomainNETBIOS"];
             string testUsername = ConfigurationSettings.AppSettings["testUsername"];
             string testPassword = ConfigurationSettings.AppSettings["testPassword"];
+
+            if (string.IsNullOrEmpty(testUsername))
+                Assert.Ignore("Missing testUsername in .config.");
 
             string testDomainUsernameNETBIOS = string.Format(@"{0}\{1}", testDomainNETBIOS, testUsername);
             string testDomainUsernameDNS = string.Format(@"{0}\{1}", testDomainDNS, testUsername);
@@ -227,10 +219,7 @@ namespace Waffle.Windows.AuthProvider.UnitTests
             IWindowsComputer computer = windowsAuthProviderImpl.GetCurrentComputer();
             Console.WriteLine("{0}, {1} ({2})", computer.ComputerName, computer.MemberOf, computer.JoinStatus);
             Assert.IsTrue(computer.Groups.Length > 0);
-            foreach (string group in computer.Groups)
-            {
-                Console.WriteLine(" Group: {0}", group);
-            }
+            Console.WriteLine("Groups: {0}", computer.Groups.Length);
         }
 
         [Test]
@@ -249,10 +238,7 @@ namespace Waffle.Windows.AuthProvider.UnitTests
             Console.WriteLine("Domain canonical name: {0}", currentDomain.CanonicalName);
             Assert.AreEqual(computer.MemberOf, currentDomain.Fqn);
             Assert.AreEqual(Domain.GetComputerDomain().Name, currentDomain.CanonicalName);
-            foreach (string group in currentDomain.Groups)
-            {
-                Console.WriteLine(" Group: {0}", group);
-            }
+            Console.WriteLine("Groups: {0}", currentDomain.Groups.Length);
         }
 
         [Test, ExpectedException(typeof(Win32Exception), ExpectedMessage = "The logon attempt failed")]
@@ -281,7 +267,7 @@ namespace Waffle.Windows.AuthProvider.UnitTests
         [Test]
         public void TestAcceptSecurityToken()
         {
-            string[] securityPackages = { "Negotiate", "NTLM" };
+            string[] securityPackages = { "Negotiate" };
 
             foreach (string package in securityPackages)
             {
