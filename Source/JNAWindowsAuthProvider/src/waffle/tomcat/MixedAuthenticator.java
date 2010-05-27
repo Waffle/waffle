@@ -22,25 +22,27 @@ public class MixedAuthenticator extends NegotiateAuthenticator {
 	@Override
 	protected boolean authenticate(Request request, Response response, LoginConfig loginConfig) {
 
-		_log.debug("request method: " + request.getMethod());
-		_log.debug("contentLength: " + request.getContentLength());
-		
-		Principal principal = request.getUserPrincipal();		
-		_log.debug("principal: " + ((principal == null) ? "<none>" : principal.getName()));	
-		String authorization = request.getHeader("Authorization");
-		_log.debug("authorization: " + ((authorization == null) ? "<none>" : authorization));
 		String queryString = request.getQueryString();
 		boolean negotiateCheck = (queryString != null && queryString.equals("j_negotiate_check"));
 		_log.debug("negotiateCheck: " + negotiateCheck + " (" +  ((queryString == null) ? "<none>" : queryString) + ")");
 		boolean securityCheck = (queryString != null && queryString.equals("j_security_check"));
 		_log.debug("securityCheck: " + securityCheck + " (" +  ((queryString == null) ? "<none>" : queryString) + ")");
 
-		boolean ntlmPost = (request.getMethod() == "POST" 
-			&& request.getContentLength() == 0
-			&& authorization != null);
+		Principal principal = request.getUserPrincipal();		
+		_log.debug("principal: " + ((principal == null) ? "<none>" : principal.getName()));	
+		AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
+		_log.debug("authorization: " + authorizationHeader.toString());
 		
+		// When using NTLM authentication and the browser is making a POST request, it 
+		// preemptively sends a Type 2 authentication message (without the POSTed 
+		// data). The server responds with a 401, and the browser sends a Type 3 
+		// request with the POSTed data. This is to avoid the situation where user's 
+		// credentials might be potentially invalid, and all this data is being POSTed 
+		// across the wire.
+
+		boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
 		_log.debug("NTLM post: " + ntlmPost);
-		
+	
 		if (principal != null && ! ntlmPost) {
 			_log.debug("previously authenticated user: " + principal.getName());
 			return true;

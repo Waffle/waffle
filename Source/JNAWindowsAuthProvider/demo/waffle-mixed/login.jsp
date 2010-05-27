@@ -21,6 +21,6 @@
 </form>
 <hr>
 <form method="POST" name="loginform" action="index.jsp?j_negotiate_check">
-	<input type="submit" value="Login (Negotiate)" />
+	<input type="submit" value="Login w/ Current Windows Credentials" />
 </form>
 </body>
