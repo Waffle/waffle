@@ -51,7 +51,7 @@
 	        <include name="**/*.java" />
 		</javac>
     </target>
-    <target name="jar">
+    <target name="jar" depends="compile">
     	<delete dir="${waffle.build}" />
     	<mkdir dir="${waffle.build}" />
         <jar jarfile="${waffle.build}/waffle-jna.jar">
@@ -94,8 +94,8 @@
         </jar>    	
     </target>
     <target name="test" depends="jar,compile-tests">
-		<junit showoutput="true" newenvironment="true" failureproperty="tests.failed">
-            <formatter type="plain" usefile="false" />
+		<junit fork="true" newenvironment="true" failureproperty="tests.failed" 
+			printsummary="on" outputtoformatters="false">
     		<classpath refid="waffle.test.classpath" />
 			<batchtest>
 				<fileset dir="${waffle.test.lib}" includes="**/*Tests.class" />
@@ -113,6 +113,6 @@
     	<delete dir="${waffle.test.lib}" />
     	<delete dir="${waffle.doc}" />
     </target>
-	<target name="build" depends="compile,jar,test,doc" />
+	<target name="build" depends="jar,test,doc" />
 	<target name="clean-build" depends="clean,build" />
 </project>
