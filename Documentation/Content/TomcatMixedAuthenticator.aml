@@ -3,7 +3,7 @@
   <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
     <introduction>
       <para>
-        The Waffle Tomcat Mixed Authenticator implements both the Negotiate protocol with Kerberos and NTLM single sign-on 
+        The Waffle Tomcat Mixed Authenticator implements both the Negotiate protocol with Kerberos and NTLM single sign-on
         support and form-based authentication. Users can choose whether to login with current Windows credentials or
         with another username and password entered in a form.
       </para>
@@ -41,8 +41,7 @@
             </listItem>
             <listItem>
               Restrict access to website resources. For example, to restrict the entire website to locally authenticated
-              users add the following in <localUri>WEB-INF\web.xml</localUri>. Add a second constraint that
-              leaves the login URI open.
+              users add the following in <localUri>WEB-INF\web.xml</localUri>.
               <code lang="xml">
                 <![CDATA[
 <security-constraint>
@@ -57,7 +56,14 @@
   <auth-constraint>
     <role-name>BUILTIN\Users</role-name>
   </auth-constraint>
-</security-constraint>
+</security-constraint>]]>
+              </code>
+            </listItem>
+            <listItem>
+              Add a second security constraint that leaves the login page unprotected in
+              <localUri>WEB-INF\web.xml</localUri>.
+              <code lang="xml">
+                <![CDATA[            
 <security-constraint>
   <display-name>Login Page</display-name>
   <web-resource-collection>
@@ -81,11 +87,11 @@
               </code>
             </listItem>
             <listItem>
-              Create a login page based on the following code. Note that
-              the form-based authentication is posting to any valid URL with the
-              <literal>j_security_check</literal> parameter while the single sign-on
-              form posts to any valid URL with the <literal>j_negotiate_check</literal>
-              parameter.
+              Create a login page based on the following code. There're two requirements for the login form.
+              The form-based authentication must post to any valid location with the <literal>j_security_check</literal> 
+              parameter. The destination page will be loaded after a successful login.
+              The single sign-on form must similarly post to any valid location with the <literal>j_negotiate_check</literal>
+              parameter in the query string.
               <code lang="xml">
                 <![CDATA[
 <form method="POST" name="loginform" action="index.jsp?j_security_check">
@@ -105,9 +111,7 @@
 </form>
 <hr>
 <form method="POST" name="loginform" action="index.jsp?j_negotiate_check">
-	<input type="submit" value="Login (Negotiate)" />
-	<!-- bug: http://waffle.codeplex.com/WorkItem/View.aspx?WorkItemId=8544 -->
-	<input type="hidden" name="dummy" value="dummy" />
+	<input type="submit" name="loginbutton" value="Login (Negotiate)" />
 </form>]]>
               </code>
             </listItem>
@@ -121,9 +125,8 @@
         <para>
           <list class="bullet">
             <listItem>
-              Enable waffle logging for the Mixed Authenticator and the Negotiate Authenticator. Mixed 
-              Authenticator is based on the Negotiate one. Add the following to 
-              <localUri>conf\logging.properties</localUri> in your Tomcat installation.
+              The Tomcat Mixed Authenticator is based on the Negotiate Authenticator, hence you must enable logging for both.
+              Add the following to <localUri>conf\logging.properties</localUri> in your Tomcat installation.
               <code lang="properties">
                 <![CDATA[
 waffle.tomcat.NegotiateAuthenticator.level = FINE
@@ -152,47 +155,13 @@ waffle.tomcat.MixedAuthenticator.level = FINE
       <title>Valve Options</title>
       <content>
         <para>
-          The following options are supported by the Valve.
-          <code lang="xml">
-            <![CDATA[
-<?xml version='1.0' encoding='utf-8'?>
-<Context>
-  <Valve className="waffle.tomcat.NegotiateAuthenticator" principalFormat="fqn" roleFormat="both" />
-</Context>]]>
-          </code>
-          <tableDefinition>
-            <definedTerm>principalFormat</definedTerm>
-            <definition>Specifies the name format for the principal.</definition>
-            <definedTerm>roleFormat</definedTerm>
-            <definition>Specifies the name format for the role.</definition>
-          </tableDefinition>
-        </para>
-        <para>
-          The following principal/group formats are supported.
-          <tableDefinition>
-            <definedTerm>fqn</definedTerm>
-            <definition>
-              Fully qualified names, such as domain\username. When unavailable, a SID is used.
-              This is the default.
-            </definition>
-            <definedTerm>sid</definedTerm>
-            <definition>
-              SID in the S- format.
-            </definition>
-            <definedTerm>both</definedTerm>
-            <definition>
-              Both a fully qualified name and a SID in the S- format. The fully qualified name is placed in the
-              list first. Tomcat assumes that the first entry of this list is a username.
-            </definition>
-            <definedTerm>none</definedTerm>
-            <definition>
-              Do not include a principal name. Allowed only for roles.
-            </definition>
-          </tableDefinition>
+          See <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="610B3ED3-3F1B-4759-8F97-80C3C88C89EB" />
+          for supported valve options.
         </para>
       </content>
     </section>
     <relatedTopics>
+      <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="610B3ED3-3F1B-4759-8F97-80C3C88C89EB" />
       <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="D665805A-215E-44e6-8CC5-4519B8844455" />
       <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="ABA7606B-08F8-49e2-A973-8FBE62649118" />
     </relatedTopics>

@@ -22,7 +22,5 @@
 <hr>
 <form method="POST" name="loginform" action="index.jsp?j_negotiate_check">
 	<input type="submit" value="Login (Negotiate)" />
-	<!-- bug: http://waffle.codeplex.com/WorkItem/View.aspx?WorkItemId=8544 -->
-	<input type="hidden" name="dummy" value="dummy" />
 </form>
 </body>

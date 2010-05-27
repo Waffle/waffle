@@ -60,11 +60,9 @@ public class NegotiateSecurityFilter implements Filter {
 		
 		_log.debug("principal: " + 
 				((principal == null) ? "<none>" : principal.getName()));
-		
-		String authorization = request.getHeader("Authorization");
 
-		_log.debug("authorization: " + 
-				((authorization == null) ? "<none>" : authorization));
+		AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
+		_log.debug("authorization: " + authorizationHeader.toString());
 		
 		// When using NTLM authentication and the browser is making a POST request, it 
 		// preemptively sends a Type 2 authentication message (without the POSTed 
@@ -73,9 +71,7 @@ public class NegotiateSecurityFilter implements Filter {
 		// credentials might be potentially invalid, and all this data is being POSTed 
 		// across the wire.
 
-		boolean ntlmPost = (request.getMethod() == "POST" 
-			&& request.getContentLength() == 0
-			&& authorization != null);
+		boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
 		
 		_log.debug("request method: " + request.getMethod());
 		_log.debug("contentLength: " + request.getContentLength());
@@ -88,10 +84,10 @@ public class NegotiateSecurityFilter implements Filter {
 		}
 			
 		// authenticate user
-		if (authorization != null) {
+		if (! authorizationHeader.isNull()) {
 			
 			// extract security package from the authorization header
-			String securityPackage = getSecurityPackage(authorization);
+			String securityPackage = authorizationHeader.getSecurityPackage();
 			_log.debug("security package: " + securityPackage);
 			
 			// maintain a connection-based session for NTLM tokens
@@ -105,10 +101,9 @@ public class NegotiateSecurityFilter implements Filter {
 			
 			// log the user in using the token
 			IWindowsSecurityContext securityContext = null;
-			String token = authorization.substring(securityPackage.length() + 1);
 			
 			try {
-				byte[] tokenBuffer = Base64.decode(token);
+				byte[] tokenBuffer = authorizationHeader.getTokenBytes();
 				_log.debug("token buffer: " + tokenBuffer.length + " bytes");
 				securityContext = _auth.acceptSecurityToken(connectionId, tokenBuffer, securityPackage);
 				
@@ -233,22 +228,5 @@ public class NegotiateSecurityFilter implements Filter {
 			throw new RuntimeException(e);
 		}
 		
-	}
-	
-	/**
-	 * Returns a supported security package string.
-	 * @param authorization
-	 *  Authorization header.
-	 * @return
-	 *  Negotiate or NTLM.
-	 */
-	private static String getSecurityPackage(String authorization) {
-		if (authorization.startsWith("Negotiate ")) {
-			return "Negotiate";
-		} else if (authorization.startsWith("NTLM ")) {
-			return "NTLM";
-		} else {
-			throw new RuntimeException("Unsupported security package: " + authorization);
-		}		
 	}
 }
