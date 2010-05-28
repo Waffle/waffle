@@ -125,11 +125,9 @@
         <para>
           <list class="bullet">
             <listItem>
-              The Tomcat Mixed Authenticator is based on the Negotiate Authenticator, hence you must enable logging for both.
               Add the following to <localUri>conf\logging.properties</localUri> in your Tomcat installation.
               <code lang="properties">
                 <![CDATA[
-waffle.tomcat.NegotiateAuthenticator.level = FINE
 waffle.tomcat.MixedAuthenticator.level = FINE
                 ]]>
               </code>
@@ -155,8 +153,43 @@ waffle.tomcat.MixedAuthenticator.level = FINE
       <title>Valve Options</title>
       <content>
         <para>
-          See <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="610B3ED3-3F1B-4759-8F97-80C3C88C89EB" />
-          for supported valve options.
+          The following options are supported by the Valve.
+          <code lang="xml">
+            <![CDATA[
+<?xml version='1.0' encoding='utf-8'?>
+<Context>
+  <Valve className="waffle.tomcat.MixedAuthenticator" principalFormat="fqn" roleFormat="both" />
+</Context>]]>
+          </code>
+          <tableDefinition>
+            <definedTerm>principalFormat</definedTerm>
+            <definition>Specifies the name format for the principal.</definition>
+            <definedTerm>roleFormat</definedTerm>
+            <definition>Specifies the name format for the role.</definition>
+          </tableDefinition>
+        </para>
+        <para>
+          The following principal/group formats are supported.
+          <tableDefinition>
+            <definedTerm>fqn</definedTerm>
+            <definition>
+              Fully qualified names, such as domain\username. When unavailable, a SID is used.
+              This is the default.
+            </definition>
+            <definedTerm>sid</definedTerm>
+            <definition>
+              SID in the S- format.
+            </definition>
+            <definedTerm>both</definedTerm>
+            <definition>
+              Both a fully qualified name and a SID in the S- format. The fully qualified name is placed in the
+              list first. Tomcat assumes that the first entry of this list is a username.
+            </definition>
+            <definedTerm>none</definedTerm>
+            <definition>
+              Do not include a principal name. Permitted only for <literal>roleFormat</literal>.
+            </definition>
+          </tableDefinition>
         </para>
       </content>
     </section>

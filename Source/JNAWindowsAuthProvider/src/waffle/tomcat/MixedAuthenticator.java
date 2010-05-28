@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) Application Security Inc., 2010
+ * All Rights Reserved
+ * Eclipse Public License (EPLv1)
+ * http://waffle.codeplex.com/license
+ */
 package waffle.tomcat;
 
 import java.io.IOException;
@@ -6,48 +12,74 @@ import java.security.Principal;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.catalina.connector.Request;
 import org.apache.catalina.connector.Response;
 import org.apache.catalina.deploy.LoginConfig;
-import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 
 import waffle.windows.auth.IWindowsIdentity;
+import waffle.windows.auth.IWindowsSecurityContext;
 
-public class MixedAuthenticator extends NegotiateAuthenticator {
+/**
+ * Mixed Negotiate + Form Authenticator.
+ * @author dblock[at]dblock[dot]org
+ */
+public class MixedAuthenticator extends WaffleAuthenticatorBase {
 
-    private static Log _log = LogFactory.getLog(MixedAuthenticator.class);
+	public MixedAuthenticator() {
+		super();
+		_log = LogFactory.getLog(MixedAuthenticator.class);
+    	_info = "waffle.tomcat.MixedAuthenticator/1.0";
+    	_log.debug("[waffle.tomcat.MixedAuthenticator] loaded");
+	}
+
+	@Override
+	public void start() {
+		_log.info("[waffle.tomcat.MixedAuthenticator] started");		
+	}
+	
+	@Override
+	public void stop() {
+		_log.info("[waffle.tomcat.MixedAuthenticator] stopped");		
+	}
 
 	@Override
 	protected boolean authenticate(Request request, Response response, LoginConfig loginConfig) {
 
+		// realm: fail if no realm is configured
+		if(context == null || context.getRealm() == null) {
+			_log.warn("missing context/realm");
+			sendError(response, HttpServletResponse.SC_SERVICE_UNAVAILABLE);
+			return false;
+		}
+
+		_log.debug(request.getMethod() + " " + request.getRequestURI() + ", contentlength: " + request.getContentLength());
+		
 		String queryString = request.getQueryString();
 		boolean negotiateCheck = (queryString != null && queryString.equals("j_negotiate_check"));
 		_log.debug("negotiateCheck: " + negotiateCheck + " (" +  ((queryString == null) ? "<none>" : queryString) + ")");
 		boolean securityCheck = (queryString != null && queryString.equals("j_security_check"));
 		_log.debug("securityCheck: " + securityCheck + " (" +  ((queryString == null) ? "<none>" : queryString) + ")");
 
-		Principal principal = request.getUserPrincipal();		
-		_log.debug("principal: " + ((principal == null) ? "<none>" : principal.getName()));	
-		AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
-		_log.debug("authorization: " + authorizationHeader.toString());
+		Principal principal = request.getUserPrincipal();
 		
-		// When using NTLM authentication and the browser is making a POST request, it 
-		// preemptively sends a Type 2 authentication message (without the POSTed 
-		// data). The server responds with a 401, and the browser sends a Type 3 
-		// request with the POSTed data. This is to avoid the situation where user's 
-		// credentials might be potentially invalid, and all this data is being POSTed 
-		// across the wire.
-
+		AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);		
 		boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
-		_log.debug("NTLM post: " + ntlmPost);
+		_log.debug("authorization: " + authorizationHeader.toString() + ", ntlm post: " + ntlmPost);
 	
 		if (principal != null && ! ntlmPost) {
 			_log.debug("previously authenticated user: " + principal.getName());
 			return true;
 		} else if (negotiateCheck) {
-			return super.authenticate(request, response, loginConfig);
+			if (! authorizationHeader.isNull()) {
+				return negotiate(request, response, authorizationHeader);
+			} else {
+				_log.debug("authorization required");
+				sendUnauthorized(response);
+				return false;
+			}
 		} else if (securityCheck) {
 			boolean postResult = post(request, response, loginConfig);
 			if (postResult) {
@@ -60,6 +92,67 @@ public class MixedAuthenticator extends NegotiateAuthenticator {
 			redirectTo(request, response, loginConfig.getLoginPage());
 			return false;
 		}
+	}
+	
+	private boolean negotiate(Request request, Response response, AuthorizationHeader authorizationHeader) {
+
+		String securityPackage = authorizationHeader.getSecurityPackage();			
+		// maintain a connection-based session for NTLM tokens
+		String connectionId = Integer.toString(request.getRemotePort());
+		
+		_log.debug("security package: " + securityPackage + ", connection id: " + connectionId);
+		
+		boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
+		
+		if (ntlmPost) {
+			// type 1 NTLM authentication message received
+			_auth.resetSecurityToken(connectionId);
+		}
+		
+		// log the user in using the token
+		IWindowsSecurityContext securityContext = null;
+		
+		try {
+			byte[] tokenBuffer = authorizationHeader.getTokenBytes();
+			_log.debug("token buffer: " + tokenBuffer.length + " byte(s)");
+			securityContext = _auth.acceptSecurityToken(connectionId, tokenBuffer, securityPackage);
+			_log.debug("continue required: " + securityContext.getContinue());
+
+			byte[] continueTokenBytes = securityContext.getToken();
+			if (continueTokenBytes != null) {
+				String continueToken = new String(Base64.encode(continueTokenBytes));
+				_log.debug("continue token: " + continueToken);
+				response.addHeader("WWW-Authenticate", securityPackage + " " + continueToken);
+			}
+			
+			if (securityContext.getContinue() || ntlmPost) {
+				response.setHeader("Connection", "keep-alive");
+				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+				response.flushBuffer();
+				return false;
+			}
+			
+		} catch (Exception e) {
+			_log.warn("error logging in user: " + e.getMessage());
+			sendUnauthorized(response);
+			return false;
+		}
+		
+		// create and register the user principal with the session
+		IWindowsIdentity windowsIdentity = securityContext.getIdentity();
+		
+		_log.debug("logged in user: " + windowsIdentity.getFqn() + 
+				" (" + windowsIdentity.getSidString() + ")");
+		
+		WindowsPrincipal windowsPrincipal = new WindowsPrincipal(
+				windowsIdentity, context.getRealm(), _principalFormat, _roleFormat);
+		
+		_log.debug("roles: " + windowsPrincipal.getRolesString());
+
+		register(request, response, windowsPrincipal, securityPackage, windowsPrincipal.getName(), null);
+		_log.info("successfully logged in user: " + windowsPrincipal.getName());
+		
+		return true;
 	}
 	
 	private boolean post(Request request, Response response, LoginConfig loginConfig) {
@@ -82,11 +175,7 @@ public class MixedAuthenticator extends NegotiateAuthenticator {
 		WindowsPrincipal windowsPrincipal = new WindowsPrincipal(
 				windowsIdentity, context.getRealm(), _principalFormat, _roleFormat);
 		
-		if (_log.isDebugEnabled()) {
-			for(String role : windowsPrincipal.getRoles()) {
-				_log.debug(" role: " + role);
-			}
-		}
+		_log.debug("roles: " + windowsPrincipal.getRolesString());
 		
 		register(request, response, windowsPrincipal, "FORM", windowsPrincipal.getName(), null);
 		_log.info("successfully logged in user: " + windowsPrincipal.getName());

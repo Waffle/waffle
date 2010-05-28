@@ -3,7 +3,7 @@ package waffle.tomcat;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * An authorization header.
+ * Authorization header.
  * @author dblock[at]dblock[dot]org
  */
 class AuthorizationHeader {

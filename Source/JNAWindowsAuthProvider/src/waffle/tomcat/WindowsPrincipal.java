@@ -153,4 +153,20 @@ public class WindowsPrincipal extends GenericPrincipal {
         
         return principals;
 	}
+	
+	/**
+	 * Get an array of roles as a string.
+	 * @return
+	 *  Role1, Role2, ...
+	 */
+	public String getRolesString() {
+		StringBuilder sb = new StringBuilder();
+		for(String role : getRoles()) {
+			if (sb.length() > 0) {
+				sb.append(", ");
+			}
+			sb.append(role);
+		}
+		return sb.toString();
+	}
 }

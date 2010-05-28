@@ -30,7 +30,7 @@ import waffle.windows.auth.PrincipalFormat;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
 /**
- * A Negotiate authentication security filter.
+ * A Negotiate (NTLM/Kerberos) Security Filter
  * @author dblock[at]dblock[dot]org
  */
 public class NegotiateSecurityFilter implements Filter {
@@ -56,26 +56,13 @@ public class NegotiateSecurityFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) sreq;
 		HttpServletResponse response = (HttpServletResponse) sres;
 
-		Principal principal = request.getUserPrincipal();
+		_log.debug(request.getMethod() + " " + request.getRequestURI() + ", contentlength: " + request.getContentLength());
 		
-		_log.debug("principal: " + 
-				((principal == null) ? "<none>" : principal.getName()));
-
+		Principal principal = request.getUserPrincipal();		
 		AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
-		_log.debug("authorization: " + authorizationHeader.toString());
-		
-		// When using NTLM authentication and the browser is making a POST request, it 
-		// preemptively sends a Type 2 authentication message (without the POSTed 
-		// data). The server responds with a 401, and the browser sends a Type 3 
-		// request with the POSTed data. This is to avoid the situation where user's 
-		// credentials might be potentially invalid, and all this data is being POSTed 
-		// across the wire.
-
 		boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
 		
-		_log.debug("request method: " + request.getMethod());
-		_log.debug("contentLength: " + request.getContentLength());
-		_log.debug("NTLM post: " + ntlmPost);
+		_log.debug("authorization: " + authorizationHeader.toString() + ", ntlm post: " + ntlmPost);
 		
 		if (principal != null && ! ntlmPost) {
 			// user already authenticated
@@ -88,11 +75,11 @@ public class NegotiateSecurityFilter implements Filter {
 			
 			// extract security package from the authorization header
 			String securityPackage = authorizationHeader.getSecurityPackage();
-			_log.debug("security package: " + securityPackage);
 			
 			// maintain a connection-based session for NTLM tokens
 			String connectionId = Integer.toString(request.getRemotePort());
-			_log.debug("connection id: " + connectionId);
+
+			_log.debug("security package: " + securityPackage + ", connection id: " + connectionId);
 			
 			if (ntlmPost) {
 				// type 2 NTLM authentication message received
@@ -104,7 +91,7 @@ public class NegotiateSecurityFilter implements Filter {
 			
 			try {
 				byte[] tokenBuffer = authorizationHeader.getTokenBytes();
-				_log.debug("token buffer: " + tokenBuffer.length + " bytes");
+				_log.debug("token buffer: " + tokenBuffer.length + " byte(s)");
 				securityContext = _auth.acceptSecurityToken(connectionId, tokenBuffer, securityPackage);
 				
 				byte[] continueTokenBytes = securityContext.getToken();
@@ -147,12 +134,7 @@ public class NegotiateSecurityFilter implements Filter {
 			WindowsPrincipal windowsPrincipal = new WindowsPrincipal(windowsIdentity, 
 					null, _principalFormat, _roleFormat);
 			
-			if (_log.isDebugEnabled()) {
-				for(String role : windowsPrincipal.getRoles()) {
-					_log.debug(" role: " + role);
-				}
-			}
-			
+			_log.debug("roles: " + windowsPrincipal.getRolesString());			
 			subject.getPrincipals().add(windowsPrincipal);
 			session.setAttribute("javax.security.auth.subject", subject);
 			
