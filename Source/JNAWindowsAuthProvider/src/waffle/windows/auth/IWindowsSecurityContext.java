@@ -73,6 +73,13 @@ public interface IWindowsSecurityContext {
 	public void initialize(CtxtHandle continueCtx, SecBufferDesc continueToken);
 	
 	/**
+	 * Impersonate this security context.
+	 * @return
+	 *  A Windows Impersonation Context.
+	 */
+	public IWindowsImpersonationContext impersonate();
+	
+	/**
 	 * Disposes of the context.
 	 */
 	public void dispose();

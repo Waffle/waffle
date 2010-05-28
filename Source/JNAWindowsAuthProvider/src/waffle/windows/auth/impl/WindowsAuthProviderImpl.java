@@ -127,17 +127,11 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
 	public IWindowsIdentity logonDomainUserEx(String username, String domain,
 			String password, int logonType, int logonProvider) {
 		HANDLEByReference phUser = new HANDLEByReference();
-		try {
-			if (! Advapi32.INSTANCE.LogonUser(username, domain, password, 
-					logonType, logonProvider, phUser)) {
-				throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
-			}
-			return new WindowsIdentityImpl(phUser.getValue());
-		} finally {
-			if (phUser.getValue() != WinBase.INVALID_HANDLE_VALUE) {
-				Kernel32.INSTANCE.CloseHandle(phUser.getValue());
-			}
+		if (! Advapi32.INSTANCE.LogonUser(username, domain, password, 
+				logonType, logonProvider, phUser)) {
+			throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
 		}
+		return new WindowsIdentityImpl(phUser.getValue());
 	}
 
 	@Override

@@ -8,18 +8,17 @@ package waffle.windows.auth.impl;
 
 import waffle.windows.auth.IWindowsCredentialsHandle;
 import waffle.windows.auth.IWindowsIdentity;
+import waffle.windows.auth.IWindowsImpersonationContext;
 import waffle.windows.auth.IWindowsSecurityContext;
 
 import com.sun.jna.NativeLong;
 import com.sun.jna.platform.win32.Advapi32Util;
-import com.sun.jna.platform.win32.Kernel32;
 import com.sun.jna.platform.win32.Secur32;
 import com.sun.jna.platform.win32.Sspi;
 import com.sun.jna.platform.win32.W32Errors;
 import com.sun.jna.platform.win32.Win32Exception;
 import com.sun.jna.platform.win32.Sspi.CredHandle;
 import com.sun.jna.platform.win32.Sspi.CtxtHandle;
-import com.sun.jna.platform.win32.Sspi.PSecHandle;
 import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 import com.sun.jna.platform.win32.WinNT.HANDLEByReference;
 import com.sun.jna.ptr.NativeLongByReference;
@@ -41,18 +40,11 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 	@Override
 	public IWindowsIdentity getIdentity() {
     	HANDLEByReference phContextToken = new HANDLEByReference();
-    	PSecHandle pphServerContext = new PSecHandle(_ctx);
-    	int rc = Secur32.INSTANCE.QuerySecurityContextToken(pphServerContext, phContextToken);
+    	int rc = Secur32.INSTANCE.QuerySecurityContextToken(_ctx, phContextToken);
     	if (W32Errors.SEC_E_OK != rc) {
     		throw new Win32Exception(rc);
     	}
-    	try {
-    		return new WindowsIdentityImpl(phContextToken.getValue());
-    	} finally {
-    		if (! Kernel32.INSTANCE.CloseHandle(phContextToken.getValue())) {
-    			throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
-    		}
-    	}
+    	return new WindowsIdentityImpl(phContextToken.getValue());
 	}
 
 	@Override
@@ -180,5 +172,10 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 
 	public void setContinue(boolean b) {
 		_continue = b;
+	}
+
+	@Override
+	public IWindowsImpersonationContext impersonate() {
+		return new WindowsSecurityContextImpersonationContextImpl(_ctx);
 	}
 }

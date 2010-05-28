@@ -115,35 +115,38 @@ public class NegotiateSecurityFilter implements Filter {
 			}
 
 			IWindowsIdentity windowsIdentity = securityContext.getIdentity();
-			
-			// store the logged in user
 
-			_log.debug("logged in user: " + windowsIdentity.getFqn() + 
-					" (" + windowsIdentity.getSidString() + ")");
-			
-			HttpSession session = request.getSession(true);
-			if (session == null) {
-				throw new ServletException("Expected HttpSession");
+			try {
+				_log.debug("logged in user: " + windowsIdentity.getFqn() + 
+						" (" + windowsIdentity.getSidString() + ")");
+				
+				HttpSession session = request.getSession(true);
+				if (session == null) {
+					throw new ServletException("Expected HttpSession");
+				}
+				
+				Subject subject = (Subject) session.getAttribute("javax.security.auth.subject");			
+				if (subject == null) {
+					subject = new Subject();
+				}
+							
+				WindowsPrincipal windowsPrincipal = new WindowsPrincipal(windowsIdentity, 
+						null, _principalFormat, _roleFormat);
+				
+				_log.debug("roles: " + windowsPrincipal.getRolesString());			
+				subject.getPrincipals().add(windowsPrincipal);
+				session.setAttribute("javax.security.auth.subject", subject);
+				
+				_log.info("successfully logged in user: " + windowsIdentity.getFqn());
+				
+				NegotiateRequestWrapper requestWrapper = new NegotiateRequestWrapper(
+						request, windowsPrincipal);
+				
+				chain.doFilter(requestWrapper, response);
+			} finally {
+				windowsIdentity.dispose();
 			}
-			
-			Subject subject = (Subject) session.getAttribute("javax.security.auth.subject");			
-			if (subject == null) {
-				subject = new Subject();
-			}
-						
-			WindowsPrincipal windowsPrincipal = new WindowsPrincipal(windowsIdentity, 
-					null, _principalFormat, _roleFormat);
-			
-			_log.debug("roles: " + windowsPrincipal.getRolesString());			
-			subject.getPrincipals().add(windowsPrincipal);
-			session.setAttribute("javax.security.auth.subject", subject);
-			
-			_log.info("successfully logged in user: " + windowsIdentity.getFqn());
-			
-			NegotiateRequestWrapper requestWrapper = new NegotiateRequestWrapper(
-					request, windowsPrincipal);
-			
-			chain.doFilter(requestWrapper, response);
+
 			return;
 		}
 		

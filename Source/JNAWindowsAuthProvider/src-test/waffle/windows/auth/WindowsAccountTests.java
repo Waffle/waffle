@@ -7,7 +7,6 @@
 package waffle.windows.auth;
 
 import junit.framework.TestCase;
-import waffle.windows.auth.IWindowsAccount;
 import waffle.windows.auth.impl.WindowsAccountImpl;
 
 /**
@@ -27,5 +26,5 @@ public class WindowsAccountTests extends TestCase {
 		System.out.println("Fqn: " + account.getFqn());
 		assertTrue(account.getSidString().length() > 0);
 		System.out.println("Sid: " + account.getSidString());
-	}
+	}	
 }

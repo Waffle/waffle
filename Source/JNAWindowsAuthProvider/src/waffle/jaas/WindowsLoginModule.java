@@ -102,16 +102,21 @@ public class WindowsLoginModule implements LoginModule {
         	throw new LoginException(e.getMessage());
         }
         
-        _principals = new LinkedHashSet<Principal>();
-        _principals.addAll(getUserPrincipals(windowsIdentity, _principalFormat));
-        if (_roleFormat != PrincipalFormat.none) {
-	        for(IWindowsAccount group : windowsIdentity.getGroups()) {
-	        	_principals.addAll(getRolePrincipals(group, _roleFormat));
+        try {
+	        _principals = new LinkedHashSet<Principal>();
+	        _principals.addAll(getUserPrincipals(windowsIdentity, _principalFormat));
+	        if (_roleFormat != PrincipalFormat.none) {
+		        for(IWindowsAccount group : windowsIdentity.getGroups()) {
+		        	_principals.addAll(getRolePrincipals(group, _roleFormat));
+		        }
 	        }
+	        
+	        _username = windowsIdentity.getFqn();
+	        debug("successfully logged in " + _username + " (" + windowsIdentity.getSidString() + ")");
+        } finally {
+        	windowsIdentity.dispose();
         }
         
-        _username = windowsIdentity.getFqn();
-        debug("successfully logged in " + _username + " (" + windowsIdentity.getSidString() + ")");
         return true;
 	}
 	    

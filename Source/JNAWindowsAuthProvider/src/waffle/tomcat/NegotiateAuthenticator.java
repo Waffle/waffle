@@ -110,17 +110,22 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 			// create and register the user principal with the session
 			IWindowsIdentity windowsIdentity = securityContext.getIdentity();
 			
-			_log.debug("logged in user: " + windowsIdentity.getFqn() + 
-					" (" + windowsIdentity.getSidString() + ")");
-			
-			WindowsPrincipal windowsPrincipal = new WindowsPrincipal(
-					windowsIdentity, context.getRealm(), _principalFormat, _roleFormat);
-			
-			_log.debug("roles: " + windowsPrincipal.getRolesString());
-			
-			principal = windowsPrincipal;
-			register(request, response, principal, securityPackage, principal.getName(), null);
-			_log.info("successfully logged in user: " + principal.getName());
+			try {
+				_log.debug("logged in user: " + windowsIdentity.getFqn() + 
+						" (" + windowsIdentity.getSidString() + ")");
+				
+				WindowsPrincipal windowsPrincipal = new WindowsPrincipal(
+						windowsIdentity, context.getRealm(), _principalFormat, _roleFormat);
+				
+				_log.debug("roles: " + windowsPrincipal.getRolesString());
+				
+				principal = windowsPrincipal;
+				register(request, response, principal, securityPackage, principal.getName(), null);
+				_log.info("successfully logged in user: " + principal.getName());
+				
+			} finally {
+				windowsIdentity.dispose();
+			}
 			
 			return true;
 		}

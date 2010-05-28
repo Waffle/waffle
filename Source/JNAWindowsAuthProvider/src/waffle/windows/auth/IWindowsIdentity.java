@@ -39,4 +39,16 @@ public interface IWindowsIdentity {
 	 *  Array of accounts.
 	 */
 	public IWindowsAccount[] getGroups();
+	
+	/**
+	 * Impersonate a logged on user.
+	 * @return
+	 *  An impersonation context.
+	 */
+	public IWindowsImpersonationContext impersonate();
+	
+	/**
+	 * Dispose of the Windows identity.
+	 */
+	public void dispose();
 }

@@ -141,16 +141,22 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 		// create and register the user principal with the session
 		IWindowsIdentity windowsIdentity = securityContext.getIdentity();
 		
-		_log.debug("logged in user: " + windowsIdentity.getFqn() + 
-				" (" + windowsIdentity.getSidString() + ")");
-		
-		WindowsPrincipal windowsPrincipal = new WindowsPrincipal(
-				windowsIdentity, context.getRealm(), _principalFormat, _roleFormat);
-		
-		_log.debug("roles: " + windowsPrincipal.getRolesString());
-
-		register(request, response, windowsPrincipal, securityPackage, windowsPrincipal.getName(), null);
-		_log.info("successfully logged in user: " + windowsPrincipal.getName());
+		try {
+			
+			_log.debug("logged in user: " + windowsIdentity.getFqn() + 
+					" (" + windowsIdentity.getSidString() + ")");
+			
+			WindowsPrincipal windowsPrincipal = new WindowsPrincipal(
+					windowsIdentity, context.getRealm(), _principalFormat, _roleFormat);
+			
+			_log.debug("roles: " + windowsPrincipal.getRolesString());
+	
+			register(request, response, windowsPrincipal, securityPackage, windowsPrincipal.getName(), null);
+			_log.info("successfully logged in user: " + windowsPrincipal.getName());
+			
+		} finally {
+			windowsIdentity.dispose();
+		}
 		
 		return true;
 	}
@@ -169,16 +175,20 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
         	_log.error(e.getMessage());
         	return false;
         }
-        
-        _log.debug("successfully logged in " + username + " (" + windowsIdentity.getSidString() + ")");       
-        
-		WindowsPrincipal windowsPrincipal = new WindowsPrincipal(
-				windowsIdentity, context.getRealm(), _principalFormat, _roleFormat);
-		
-		_log.debug("roles: " + windowsPrincipal.getRolesString());
-		
-		register(request, response, windowsPrincipal, "FORM", windowsPrincipal.getName(), null);
-		_log.info("successfully logged in user: " + windowsPrincipal.getName());
+
+        try {
+	        _log.debug("successfully logged in " + username + " (" + windowsIdentity.getSidString() + ")");       
+	        
+			WindowsPrincipal windowsPrincipal = new WindowsPrincipal(
+					windowsIdentity, context.getRealm(), _principalFormat, _roleFormat);
+			
+			_log.debug("roles: " + windowsPrincipal.getRolesString());
+			
+			register(request, response, windowsPrincipal, "FORM", windowsPrincipal.getName(), null);
+			_log.info("successfully logged in user: " + windowsPrincipal.getName());
+        } finally {
+        	windowsIdentity.dispose();
+        }
 		
 		return true;
 	}

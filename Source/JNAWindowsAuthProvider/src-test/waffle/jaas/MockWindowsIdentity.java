@@ -11,6 +11,7 @@ import java.util.List;
 
 import waffle.windows.auth.IWindowsAccount;
 import waffle.windows.auth.IWindowsIdentity;
+import waffle.windows.auth.IWindowsImpersonationContext;
 
 /**
  * @author dblock[at]dblock[dot]org
@@ -48,5 +49,14 @@ public class MockWindowsIdentity implements IWindowsIdentity {
 	public String getSidString() {
 		return "S-" + _fqn.hashCode();
 	}
+	
+	@Override
+	public void dispose() {
+		
+	}
 
+	@Override
+	public IWindowsImpersonationContext impersonate() {
+		return new MockWindowsImpersonationContext();
+	}
 }
