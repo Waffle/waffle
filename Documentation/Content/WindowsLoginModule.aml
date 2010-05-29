@@ -16,8 +16,9 @@
           The following steps are required to configure Tomcat with Waffle authenticator.
           <list class="ordered">
             <listItem>
-              Copy <localUri>waffle-jaas.jar</localUri>, <localUri>jna.jar</localUri> and <localUri>platform.jar</localUri>
-              to Tomcat's <localUri>lib</localUri> directory.
+              Copy <localUri>waffle-jaas.jar</localUri>, <localUri>commons-logging-1.1.1.jar</localUri>,
+              <localUri>jna.jar</localUri> and <localUri>platform.jar</localUri> to Tomcat's 
+              <localUri>lib</localUri> directory.
             </listItem>
             <listItem>
               Add a JAAS realm to the application context. Modify <localUri>META-INF\context.xml</localUri>.

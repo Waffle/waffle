@@ -81,6 +81,7 @@
     <Copy SourceFiles="Source\JNAWindowsAuthProvider\build\waffle-jaas.jar" DestinationFolder="$(ReleaseDir)\Bin" />
     <Copy SourceFiles="Source\JNAWindowsAuthProvider\build\waffle-jna.jar" DestinationFolder="$(ReleaseDir)\Bin" />
     <Copy SourceFiles="Source\JNAWindowsAuthProvider\build\waffle-src.zip" DestinationFolder="$(ReleaseDir)\Bin" />
+    <Copy SourceFiles="Source\ThirdParty\commons-logging\commons-logging-1.1.1.jar" DestinationFolder="$(ReleaseDir)\Bin" />
     <Copy SourceFiles="Source\ThirdParty\jna\jna.jar" DestinationFolder="$(ReleaseDir)\Bin" />
     <Copy SourceFiles="Source\ThirdParty\jna\platform.jar" DestinationFolder="$(ReleaseDir)\Bin" />
   </Target>

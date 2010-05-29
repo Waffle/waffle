@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.catalina.authenticator.AuthenticatorBase;
 import org.apache.catalina.connector.Response;
-import org.apache.juli.logging.Log;
+import org.apache.commons.logging.Log;
 
 import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.PrincipalFormat;

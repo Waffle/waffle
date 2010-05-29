@@ -10,5 +10,6 @@
 	<classpathentry kind="lib" path="/ThirdParty/tomcat/lib/servlet-api.jar"/>
 	<classpathentry kind="lib" path="/ThirdParty/tomcat/lib/tomcat-coyote.jar"/>
 	<classpathentry kind="lib" path="/ThirdParty/tomcat/bin/tomcat-juli.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/commons-logging/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

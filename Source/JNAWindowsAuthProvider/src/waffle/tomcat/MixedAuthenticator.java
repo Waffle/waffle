@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.catalina.connector.Request;
 import org.apache.catalina.connector.Response;
 import org.apache.catalina.deploy.LoginConfig;
-import org.apache.juli.logging.LogFactory;
+import org.apache.commons.logging.LogFactory;
 
 import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.IWindowsSecurityContext;
