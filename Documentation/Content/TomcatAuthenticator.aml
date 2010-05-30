@@ -15,7 +15,7 @@
           The following steps are required to configure Tomcat with Waffle authenticator.
           <list class="ordered">
             <listItem>
-              Copy <localUri>waffle-tomcat.jar</localUri>, <localUri>commons-logging-1.1.1.jar</localUri>, 
+              Copy <localUri>waffle-jna.jar</localUri>, <localUri>commons-logging-1.1.1.jar</localUri>, 
               <localUri>jna.jar</localUri> and <localUri>platform.jar</localUri> to Tomcat's 
               <localUri>lib</localUri> directory.
             </listItem>
@@ -25,8 +25,8 @@
                 <![CDATA[
 <?xml version='1.0' encoding='utf-8'?>
 <Context>
-  <Valve className="waffle.tomcat.NegotiateAuthenticator" />
-  <Realm className="waffle.tomcat.WindowsRealm" />
+  <Valve className="waffle.apache.NegotiateAuthenticator" />
+  <Realm className="waffle.apache.WindowsRealm" />
 </Context>]]>
               </code>
             </listItem>
@@ -74,7 +74,7 @@
               Tomcat installation.
               <code lang="properties">
                 <![CDATA[
-waffle.tomcat.NegotiateAuthenticator.level = FINE
+waffle.apache.NegotiateAuthenticator.level = FINE
                 ]]>
               </code>
             </listItem>
@@ -104,7 +104,7 @@ waffle.tomcat.NegotiateAuthenticator.level = FINE
             <![CDATA[
 <?xml version='1.0' encoding='utf-8'?>
 <Context>
-  <Valve className="waffle.tomcat.NegotiateAuthenticator" principalFormat="fqn" roleFormat="both" />
+  <Valve className="waffle.apache.NegotiateAuthenticator" principalFormat="fqn" roleFormat="both" />
 </Context>]]>
           </code>
           <tableDefinition>

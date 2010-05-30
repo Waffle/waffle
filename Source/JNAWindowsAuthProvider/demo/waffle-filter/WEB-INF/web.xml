@@ -7,7 +7,7 @@
    
   <filter>
     <filter-name>SecurityFilter</filter-name>
-    <filter-class>waffle.tomcat.NegotiateSecurityFilter</filter-class>
+    <filter-class>waffle.servlet.NegotiateSecurityFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>SecurityFilter</filter-name>

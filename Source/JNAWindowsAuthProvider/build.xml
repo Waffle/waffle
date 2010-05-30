@@ -34,8 +34,6 @@
     <path id="waffle.test.classpath">
 	    <fileset dir="${waffle.build}">
 	    	<include name="waffle-jna.jar" />
-	    	<include name="waffle-tomcat.jar" />
-	    	<include name="waffle-jaas.jar" />
 	    </fileset>
         <path refid="waffle.classpath" />  	
     	<fileset dir="${thirdparty.dir}/junit">
@@ -62,33 +60,13 @@
     	<mkdir dir="${waffle.build}" />
         <jar jarfile="${waffle.build}/waffle-jna.jar">
             <fileset dir="${waffle.lib}">
-                <include name="waffle/windows/**/*.class" />
+                <include name="waffle/**/*.class" />
             </fileset>
             <manifest>
                 <attribute name="Version" value="${waffle.version}" />
                 <attribute name="Created-By" value="${waffle.copyright}" />
             </manifest>
         </jar>
-        <jar jarfile="${waffle.build}/waffle-tomcat.jar">
-            <fileset dir="${waffle.lib}">
-                <include name="waffle/windows/**/*.class" />
-                <include name="waffle/tomcat/**/*.class" />
-            </fileset>
-            <manifest>
-                <attribute name="Version" value="${waffle.version}" />
-                <attribute name="Created-By" value="${waffle.copyright}" />
-            </manifest>
-        </jar>    	
-        <jar jarfile="${waffle.build}/waffle-jaas.jar">
-            <fileset dir="${waffle.lib}">
-                <include name="waffle/windows/**/*.class" />
-                <include name="waffle/jaas/**/*.class" />
-            </fileset>
-            <manifest>
-                <attribute name="Version" value="${waffle.version}" />
-                <attribute name="Created-By" value="${waffle.copyright}" />
-            </manifest>
-        </jar>    	
         <jar jarfile="${waffle.build}/waffle-src.zip">
             <fileset dir="${waffle.src}">
                 <include name="waffle/**/*.java" />

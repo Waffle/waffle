@@ -77,8 +77,6 @@
   </Target>
   <Target Name="jar">
     <Exec WorkingDirectory="Source\JNAWindowsAuthProvider" Command="ant" />
-    <Copy SourceFiles="Source\JNAWindowsAuthProvider\build\waffle-tomcat.jar" DestinationFolder="$(ReleaseDir)\Bin" />
-    <Copy SourceFiles="Source\JNAWindowsAuthProvider\build\waffle-jaas.jar" DestinationFolder="$(ReleaseDir)\Bin" />
     <Copy SourceFiles="Source\JNAWindowsAuthProvider\build\waffle-jna.jar" DestinationFolder="$(ReleaseDir)\Bin" />
     <Copy SourceFiles="Source\JNAWindowsAuthProvider\build\waffle-src.zip" DestinationFolder="$(ReleaseDir)\Bin" />
     <Copy SourceFiles="Source\ThirdParty\commons-logging\commons-logging-1.1.1.jar" DestinationFolder="$(ReleaseDir)\Bin" />

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Context>
-  <Valve className="waffle.tomcat.MixedAuthenticator" principalFormat="fqn" roleFormat="both" />
-  <Realm className="waffle.tomcat.WindowsRealm" />
+  <Valve className="waffle.apache.MixedAuthenticator" principalFormat="fqn" roleFormat="both" />
+  <Realm className="waffle.apache.WindowsRealm" />
 </Context>
