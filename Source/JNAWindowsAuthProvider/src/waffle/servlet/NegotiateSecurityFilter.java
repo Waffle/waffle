@@ -133,7 +133,7 @@ public class NegotiateSecurityFilter implements Filter {
 				}
 							
 				WindowsPrincipal windowsPrincipal = new WindowsPrincipal(windowsIdentity, 
-						null, _principalFormat, _roleFormat);
+						_principalFormat, _roleFormat);
 				
 				_log.debug("roles: " + windowsPrincipal.getRolesString());			
 				subject.getPrincipals().add(windowsPrincipal);

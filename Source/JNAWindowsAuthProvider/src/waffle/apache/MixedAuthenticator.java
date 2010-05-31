@@ -19,7 +19,6 @@ import org.apache.catalina.connector.Response;
 import org.apache.catalina.deploy.LoginConfig;
 import org.apache.commons.logging.LogFactory;
 
-import waffle.servlet.WindowsPrincipal;
 import waffle.util.AuthorizationHeader;
 import waffle.util.Base64;
 import waffle.windows.auth.IWindowsIdentity;
@@ -149,7 +148,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 			_log.debug("logged in user: " + windowsIdentity.getFqn() + 
 					" (" + windowsIdentity.getSidString() + ")");
 			
-			WindowsPrincipal windowsPrincipal = new WindowsPrincipal(
+			GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(
 					windowsIdentity, context.getRealm(), _principalFormat, _roleFormat);
 			
 			_log.debug("roles: " + windowsPrincipal.getRolesString());
@@ -182,7 +181,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
         try {
 	        _log.debug("successfully logged in " + username + " (" + windowsIdentity.getSidString() + ")");       
 	        
-			WindowsPrincipal windowsPrincipal = new WindowsPrincipal(
+			GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(
 					windowsIdentity, context.getRealm(), _principalFormat, _roleFormat);
 			
 			_log.debug("roles: " + windowsPrincipal.getRolesString());

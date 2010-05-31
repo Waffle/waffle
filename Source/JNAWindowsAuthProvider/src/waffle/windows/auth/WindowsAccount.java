@@ -4,12 +4,12 @@
  * Eclipse Public License (EPLv1)
  * http://waffle.codeplex.com/license
  */
-package waffle.servlet;
+package waffle.windows.auth;
 
 import waffle.windows.auth.IWindowsAccount;
 
 /**
- * A Windows Account used in a Windows principal.
+ * A flattened Windows Account used in a Windows principal.
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsAccount {

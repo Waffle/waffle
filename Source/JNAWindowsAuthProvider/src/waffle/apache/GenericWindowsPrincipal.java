@@ -1,16 +1,18 @@
-/*
+/**
  * Copyright (c) Application Security Inc., 2010
  * All Rights Reserved
  * Eclipse Public License (EPLv1)
  * http://waffle.codeplex.com/license
  */
-package waffle.servlet;
+package waffle.apache;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.catalina.Realm;
+import org.apache.catalina.realm.GenericPrincipal;
 
 import waffle.windows.auth.IWindowsAccount;
 import waffle.windows.auth.IWindowsIdentity;
@@ -21,14 +23,12 @@ import waffle.windows.auth.WindowsAccount;
  * A Windows Principal.
  * @author dblock[at]dblock[dot]org
  */
-public class WindowsPrincipal implements Principal {
+public class GenericWindowsPrincipal extends GenericPrincipal {
 
-	private String _fqn;
 	private byte[] _sid;
 	private String _sidString;
-	private List<String> _roles;
 	private Map<String, WindowsAccount> _groups;
-	
+
 	/**
 	 * A windows principal.
 	 * @param windowsIdentity
@@ -40,13 +40,12 @@ public class WindowsPrincipal implements Principal {
 	 * @param roleFormat
 	 *  Role format.
 	 */
-	public WindowsPrincipal(IWindowsIdentity windowsIdentity, 
+	public GenericWindowsPrincipal(IWindowsIdentity windowsIdentity, Realm realm, 
 			PrincipalFormat principalFormat, PrincipalFormat roleFormat) {
-		_fqn = windowsIdentity.getFqn();
+		super(realm, windowsIdentity.getFqn(), "", getRoles(windowsIdentity, principalFormat, roleFormat));	
 		_sid = windowsIdentity.getSid();
 		_sidString = windowsIdentity.getSidString();
 		_groups = getGroups(windowsIdentity.getGroups());
-		_roles = getRoles(windowsIdentity, principalFormat, roleFormat);	
 	}
 
 	private static List<String> getRoles(IWindowsIdentity windowsIdentity, 
@@ -163,17 +162,12 @@ public class WindowsPrincipal implements Principal {
 	 */
 	public String getRolesString() {
 		StringBuilder sb = new StringBuilder();
-		for(String role : _roles) {
+		for(String role : getRoles()) {
 			if (sb.length() > 0) {
 				sb.append(", ");
 			}
 			sb.append(role);
 		}
 		return sb.toString();
-	}
-
-	@Override
-	public String getName() {
-		return _fqn;
 	}
 }
