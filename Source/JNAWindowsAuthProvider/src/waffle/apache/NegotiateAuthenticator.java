@@ -17,6 +17,7 @@ import org.apache.commons.logging.LogFactory;
 
 import waffle.util.AuthorizationHeader;
 import waffle.util.Base64;
+import waffle.util.NtlmServletRequest;
 import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.IWindowsSecurityContext;
 
@@ -64,7 +65,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 			
 			String securityPackage = authorizationHeader.getSecurityPackage();			
 			// maintain a connection-based session for NTLM tokens
-			String connectionId = Integer.toString(request.getRemotePort());
+			String connectionId = NtlmServletRequest.getConnectionId(request);
 			
 			_log.debug("security package: " + securityPackage + ", connection id: " + connectionId);
 			

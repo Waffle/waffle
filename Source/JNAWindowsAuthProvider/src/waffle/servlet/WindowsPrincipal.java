@@ -33,8 +33,6 @@ public class WindowsPrincipal implements Principal {
 	 * A windows principal.
 	 * @param windowsIdentity
 	 *  Windows identity.
-	 * @param realm
-	 *  Authentication realm.
 	 * @param principalFormat
 	 *  Principal format.
 	 * @param roleFormat
