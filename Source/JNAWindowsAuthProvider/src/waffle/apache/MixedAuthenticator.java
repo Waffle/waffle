@@ -13,6 +13,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.catalina.connector.Request;
 import org.apache.catalina.connector.Response;
@@ -154,6 +155,10 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 			
 			_log.debug("roles: " + windowsPrincipal.getRolesString());
 	
+			// create a session associated with this request if there's none
+			HttpSession session = request.getSession(true);
+			_log.debug("session id:" + session.getId());
+
 			register(request, response, windowsPrincipal, securityPackage, windowsPrincipal.getName(), null);
 			_log.info("successfully logged in user: " + windowsPrincipal.getName());
 			
@@ -187,6 +192,10 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 			
 			_log.debug("roles: " + windowsPrincipal.getRolesString());
 			
+			// create a session associated with this request if there's none
+			HttpSession session = request.getSession(true);
+			_log.debug("session id:" + session.getId());
+
 			register(request, response, windowsPrincipal, "FORM", windowsPrincipal.getName(), null);
 			_log.info("successfully logged in user: " + windowsPrincipal.getName());
         } finally {

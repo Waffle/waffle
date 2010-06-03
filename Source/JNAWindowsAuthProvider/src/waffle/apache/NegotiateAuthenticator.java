@@ -9,6 +9,7 @@ package waffle.apache;
 import java.security.Principal;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.catalina.connector.Request;
 import org.apache.catalina.connector.Response;
@@ -123,6 +124,12 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 				_log.debug("roles: " + windowsPrincipal.getRolesString());
 				
 				principal = windowsPrincipal;
+				
+				// create a session associated with this request if there's none
+				HttpSession session = request.getSession(true);
+				_log.debug("session id:" + session.getId());
+				
+				// register the authenticated principal
 				register(request, response, principal, securityPackage, principal.getName(), null);
 				_log.info("successfully logged in user: " + principal.getName());
 				
