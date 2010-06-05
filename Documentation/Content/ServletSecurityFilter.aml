@@ -3,25 +3,26 @@
   <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
     <introduction>
       <para>
-        The Waffle Servlet Security Filter implements the Negotiate protocol with Kerberos and NTLM single sign-on support.
-        This allows users to browse to a Windows intranet site without having to re-enter credentials. While it still enables
-        you to protect different resources based on different user roles (user groups), the filter is a catch-all solution to 
-        enable Windows single-sign-on for a web server that implements servlets (Tomcat, Jetty, etc.).
+        The Waffle Servlet Security Filter implements the Negotiate and Basic protocols with Kerberos and NTLM single 
+        sign-on support. This allows users to browse to a Windows intranet site without having to re-enter credentials for
+        browsers that support Kerberos or NTLM and to fall back to Basic authentication for those that do not. While it 
+        still enables you to protect different resources based on different user roles (user groups), the filter is a 
+        catch-all solution to  enable Windows single-sign-on for a web server that implements servlets (Tomcat, Jetty, etc.).
       </para>
     </introduction>
     <section address="configuration">
-      <title>Configuring Tomcat</title>
+      <title>Configuring Web Servers</title>
       <content>
         <para>
-          The following steps are required to configure Tomcat with the Waffle Servlet Security Filter.
+          The following steps are required to configure a web server with the Waffle Servlet Security Filter.
           <list class="ordered">
             <listItem>
               Copy <localUri>waffle-jna.jar</localUri>, <localUri>commons-logging-1.1.1.jar</localUri>, 
-              <localUri>jna.jar</localUri> and <localUri>platform.jar</localUri> to Tomcat's 
+              <localUri>jna.jar</localUri> and <localUri>platform.jar</localUri> to the server's 
               <localUri>lib</localUri> directory.
             </listItem>
             <listItem>
-              Add a security filter to <localUri>WEB-INF\web.xml</localUri>.
+              Add a security filter to <localUri>WEB-INF\web.xml</localUri> of your application.
               <code lang="xml">
                 <![CDATA[
 <filter>
@@ -43,13 +44,13 @@
       <content>
         <para>
           A demo application can be found in the Waffle distribution in the <localUri>Samples\Tomcat\waffle-filter</localUri>
-          directory. Copy the entire directory into Tomcat's <localUri>webapps</localUri> directory and navigate to
+          directory. Copy the entire directory into Tomcat's or Jetty's <localUri>webapps</localUri> directory and navigate to
           <ficticiousUri>http://localhost:8080/waffle-filter/</ficticiousUri>.
         </para>
       </content>
     </section>
-    <section address="troubleshooting">
-      <title>Troubleshooting</title>
+    <section address="troubleshootingtomcat">
+      <title>Troubleshooting (Tomcat)</title>
       <content>
         <para>
           <list class="bullet">
@@ -59,6 +60,8 @@
               <code lang="properties">
                 <![CDATA[
 waffle.servlet.NegotiateSecurityFilter.level = FINE
+waffle.servlet.spi.NegotiateSecurityFilterProvider.level = FINE
+waffle.servlet.spi.BasicSecurityFilterProvider.level = FINE
                 ]]>
               </code>
             </listItem>

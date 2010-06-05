@@ -4,7 +4,7 @@
  * Eclipse Public License (EPLv1)
  * http://waffle.codeplex.com/license
  */
-package waffle.jaas;
+package waffle.mock;
 
 import waffle.windows.auth.IWindowsAccount;
 

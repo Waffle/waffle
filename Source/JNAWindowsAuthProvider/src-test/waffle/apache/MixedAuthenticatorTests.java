@@ -11,13 +11,11 @@ import junit.framework.TestCase;
 import org.apache.catalina.Realm;
 import org.apache.catalina.deploy.LoginConfig;
 
-import waffle.apache.MixedAuthenticator;
-import waffle.apache.NegotiateAuthenticator;
 import waffle.apache.catalina.SimpleContext;
 import waffle.apache.catalina.SimpleHttpRequest;
 import waffle.apache.catalina.SimpleHttpResponse;
 import waffle.apache.catalina.SimpleRealm;
-import waffle.jaas.MockWindowsAuthProvider;
+import waffle.mock.MockWindowsAuthProvider;
 import waffle.util.Base64;
 import waffle.windows.auth.IWindowsCredentialsHandle;
 import waffle.windows.auth.impl.WindowsAccountImpl;

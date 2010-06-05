@@ -23,12 +23,10 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import waffle.servlet.spi.SecurityFilterProviderCollection;
 import waffle.util.AuthorizationHeader;
-import waffle.util.Base64;
-import waffle.util.NtlmServletRequest;
 import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.IWindowsIdentity;
-import waffle.windows.auth.IWindowsSecurityContext;
 import waffle.windows.auth.PrincipalFormat;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
@@ -39,9 +37,10 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 public class NegotiateSecurityFilter implements Filter {
 
     private static Log _log = LogFactory.getLog(NegotiateSecurityFilter.class);
-	private static IWindowsAuthProvider _auth = new WindowsAuthProviderImpl();
     private PrincipalFormat _principalFormat = PrincipalFormat.fqn;
     private PrincipalFormat _roleFormat = PrincipalFormat.fqn;
+    private SecurityFilterProviderCollection _providers = null;
+	private static IWindowsAuthProvider _auth = new WindowsAuthProviderImpl();
 
 	public NegotiateSecurityFilter() {
 		_log.debug("[waffle.servlet.NegotiateSecurityFilter] loaded");
@@ -59,68 +58,39 @@ public class NegotiateSecurityFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) sreq;
 		HttpServletResponse response = (HttpServletResponse) sres;
 
-		_log.debug(request.getMethod() + " " + request.getRequestURI() + ", contentlength: " + request.getContentLength());
+		_log.info(request.getMethod() + " " + request.getRequestURI() + ", contentlength: " + request.getContentLength());
 		
-		Principal principal = request.getUserPrincipal();		
-		AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
-		boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
-		
-		_log.debug("authorization: " + authorizationHeader.toString() + ", ntlm post: " + ntlmPost);
-		
-		if (principal != null && ! ntlmPost) {
+		Principal principal = request.getUserPrincipal();
+		if (principal != null && ! _providers.isPrincipalException(request)) {
 			// user already authenticated
-			_log.debug("previously authenticated user: " + principal.getName());
+			_log.info("previously authenticated user: " + principal.getName());
 			chain.doFilter(request, response);
+			return;
 		}
-			
+		
+		AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
+		
 		// authenticate user
 		if (! authorizationHeader.isNull()) {
 			
-			// extract security package from the authorization header
-			String securityPackage = authorizationHeader.getSecurityPackage();
-			
-			// maintain a connection-based session for NTLM tokens
-			String connectionId = NtlmServletRequest.getConnectionId(request);
-
-			_log.debug("security package: " + securityPackage + ", connection id: " + connectionId);
-			
-			if (ntlmPost) {
-				// type 2 NTLM authentication message received
-				_auth.resetSecurityToken(connectionId);
-			}
-			
 			// log the user in using the token
-			IWindowsSecurityContext securityContext = null;
-			
+			IWindowsIdentity windowsIdentity = null;
+						
 			try {
-				byte[] tokenBuffer = authorizationHeader.getTokenBytes();
-				_log.debug("token buffer: " + tokenBuffer.length + " byte(s)");
-				securityContext = _auth.acceptSecurityToken(connectionId, tokenBuffer, securityPackage);
 				
-				byte[] continueTokenBytes = securityContext.getToken();
-				if (continueTokenBytes != null) {
-					String continueToken = new String(Base64.encode(continueTokenBytes));
-					_log.debug("continue token: " + continueToken);
-					response.addHeader("WWW-Authenticate", securityPackage + " " + continueToken);
+				windowsIdentity = _providers.doFilter(request, response);
+				if (windowsIdentity == null) {
+					return;
 				}
 				
-				_log.debug("continue required: " + securityContext.getContinue());
-    			if (securityContext.getContinue() || ntlmPost) {
-    				response.setHeader("Connection", "keep-alive");
-    				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-    				response.flushBuffer();
-    				return;
-    			}
 			} catch (Exception e) {
 				_log.warn("error logging in user: " + e.getMessage());
 				sendUnauthorized(response);
 				return;
 			}
 
-			IWindowsIdentity windowsIdentity = securityContext.getIdentity();
-
 			try {
-				_log.debug("logged in user: " + windowsIdentity.getFqn() + 
+				_log.info("logged in user: " + windowsIdentity.getFqn() + 
 						" (" + windowsIdentity.getSidString() + ")");
 				
 				HttpSession session = request.getSession(true);
@@ -136,7 +106,7 @@ public class NegotiateSecurityFilter implements Filter {
 				WindowsPrincipal windowsPrincipal = new WindowsPrincipal(windowsIdentity, 
 						_principalFormat, _roleFormat);
 				
-				_log.debug("roles: " + windowsPrincipal.getRolesString());			
+				_log.info("roles: " + windowsPrincipal.getRolesString());			
 				subject.getPrincipals().add(windowsPrincipal);
 				session.setAttribute("javax.security.auth.subject", subject);
 				
@@ -153,12 +123,13 @@ public class NegotiateSecurityFilter implements Filter {
 			return;
 		}
 		
-		_log.debug("authorization required");
+		_log.info("authorization required");
 		sendUnauthorized(response);
 	}
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
+		_providers = new SecurityFilterProviderCollection(_auth);
 		_log.info("[waffle.servlet.NegotiateSecurityFilter] started");		
 	}
 	
@@ -169,7 +140,7 @@ public class NegotiateSecurityFilter implements Filter {
 	 */
 	public void setPrincipalFormat(String format) {
 		_principalFormat = PrincipalFormat.parse(format);
-		_log.debug("principal format: " + _principalFormat);
+		_log.info("principal format: " + _principalFormat);
 	}
 
 	/**
@@ -188,7 +159,7 @@ public class NegotiateSecurityFilter implements Filter {
 	 */
 	public void setRoleFormat(String format) {
 		_roleFormat = PrincipalFormat.parse(format);
-		_log.debug("role format: " + _roleFormat);
+		_log.info("role format: " + _roleFormat);
 	}
 
 	/**
@@ -207,14 +178,30 @@ public class NegotiateSecurityFilter implements Filter {
 	 */
 	private void sendUnauthorized(HttpServletResponse response) {
 		try {
-			response.addHeader("WWW-Authenticate", "Negotiate");
-			response.addHeader("WWW-Authenticate", "NTLM");
+			_providers.sendUnauthorized(response);
 			response.setHeader("Connection", "close");
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			response.flushBuffer();		
 		} catch (IOException e) {
 			throw new RuntimeException(e);
-		}
-		
+		}		
+	}
+	
+	/**
+	 * Windows auth provider.
+	 * @return
+	 *  IWindowsAuthProvider.
+	 */
+	public static IWindowsAuthProvider getAuth() {
+		return _auth;
+	}
+	
+	/**
+	 * Set Windows auth provider.
+	 * @param provider
+	 *  Class implements IWindowsAuthProvider.
+	 */
+	public static void setAuth(IWindowsAuthProvider provider) {
+		_auth = provider;
 	}
 }

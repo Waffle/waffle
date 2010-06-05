@@ -3,7 +3,7 @@
   <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
     <summary>
       <para>
-        <newTerm>WAFFLE</newTerm> stands for Windows Authentication Functional Framework (Light Edition).
+        <newTerm>WAFFLE</newTerm> is short for Windows Authentication Functional Framework (Light Edition).
         WAFFLE uses the Win32 API, runs only on Windows and includes the following.
         <list class="bullet">
           <listItem>
@@ -12,14 +12,18 @@
             accepting NTLM and Kerberos security tokens.
           </listItem>
           <listItem>
-            An Apache Tomcat Authenticator and a Security Filter that use the native Java library that implements
-            Single Sign-On Negotiate protocol with NTLM and Kerberos support.
+            An Apache Tomcat Authenticator that uses the native Java library that implements Single Sign-On Negotiate 
+            protocol with NTLM and Kerberos support.
           </listItem>
           <listItem>
             An Apache Tomcat Authenticator that enables mixed-mode Single Sign-On and Form-based authentication.
           </listItem>
           <listItem>
             A JAAS Windows Login Module enables you to add BASIC, DIGEST or FORMS authentication to your web application.
+          </listItem>
+          <listItem>
+            A Servlet Security Filter that uses the native Java library that implements Negotiate and Basic
+            protocols.
           </listItem>
         </list>
       </para>

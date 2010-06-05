@@ -13,6 +13,7 @@ import javax.security.auth.Subject;
 import javax.security.auth.login.LoginException;
 
 import junit.framework.TestCase;
+import waffle.mock.MockWindowsAuthProvider;
 import waffle.windows.auth.impl.WindowsAccountImpl;
 
 /**

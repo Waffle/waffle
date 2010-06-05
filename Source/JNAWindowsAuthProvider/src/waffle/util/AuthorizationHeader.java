@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author dblock[at]dblock[dot]org
  */
 public class AuthorizationHeader {
-	
+
 	private HttpServletRequest _request;
 	
 	public AuthorizationHeader(HttpServletRequest request) {
@@ -35,13 +35,12 @@ public class AuthorizationHeader {
 			throw new RuntimeException("Missing Authorization: header");
 		}
 		
-		if (header.startsWith("Negotiate ")) {
-			return "Negotiate";
-		} else if (header.startsWith("NTLM ")) {
-			return "NTLM";
-		} else {
-			throw new RuntimeException("Unsupported security package in " + header);
+		int space = header.indexOf(' ');
+		if (space > 0) {
+			return header.substring(0, space);
 		}
+		
+		throw new RuntimeException("Invalid Authorization header: " + header);
 	}
 	
 	@Override

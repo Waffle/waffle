@@ -18,6 +18,7 @@ import waffle.apache.catalina.SimpleHttpRequest;
 import waffle.apache.catalina.SimpleHttpResponse;
 import waffle.util.Base64;
 import waffle.windows.auth.IWindowsCredentialsHandle;
+import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 import waffle.windows.auth.impl.WindowsCredentialsHandleImpl;
 import waffle.windows.auth.impl.WindowsSecurityContextImpl;
 
@@ -35,6 +36,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 	
 	@Override
 	public void setUp() {
+		NegotiateSecurityFilter.setAuth(new WindowsAuthProviderImpl());		
 		_filter = new NegotiateSecurityFilter();
 		try {
 			_filter.init(null);
@@ -55,9 +57,10 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		SimpleHttpResponse response = new SimpleHttpResponse();
 		_filter.doFilter(request, response, null);
 		String[] wwwAuthenticates = response.getHeaderValues("WWW-Authenticate");
-		assertEquals(2, wwwAuthenticates.length);
+		assertEquals(3, wwwAuthenticates.length);
 		assertEquals("Negotiate", wwwAuthenticates[0]);
 		assertEquals("NTLM", wwwAuthenticates[1]);
+		assertTrue(wwwAuthenticates[2].startsWith("Basic realm=\""));
 		assertEquals("close", response.getHeader("Connection"));
 		assertEquals(2, response.getHeaderNames().length);
 		assertEquals(401, response.getStatus());
@@ -97,7 +100,6 @@ public class NegotiateSecurityFilterTests extends TestCase {
 			}			
 		}
 	}
-
 	
 	public void testNegotiate() throws IOException, ServletException {
 		String securityPackage = "Negotiate";

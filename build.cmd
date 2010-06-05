@@ -8,20 +8,21 @@ if "%~1"=="" (
 pushd "%~dp0"
 setlocal ENABLEEXTENSIONS ENABLEDELAYEDEXPANSION
 
-for /D %%n in ( "%ProgramFiles%\NUnit*" ) do (
+set ProgramFilesDir=%ProgramFiles%
+if NOT "%ProgramFiles(x86)%"=="" set ProgramFilesDir=%ProgramFiles(x86)%
+
+set VisualStudioCmd=%ProgramFilesDir%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat
+if EXIST "%VisualStudioCmd%" call "%VisualStudioCmd%"
+
+for /D %%n in ( "%ProgramFilesDir%\NUnit*" ) do (
  set NUnitDir=%%~n
 )
 
-if NOT EXIST "%NUnitDir%" (
- echo Missing NUnit, expected in %NUnitDir%
- exit /b -1
-)
+if EXIST "%NUnitDir%\bin" set NUnitBinDir=%NUnitDir%\bin
+if EXIST "%NUnitDir%\bin\net-2.0" set NUnitBinDir=%NUnitDir%\bin\net-2.0
 
-set VisualStudioCmd=%ProgramFiles%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat
-
-if EXIST "%VisualStudioCmd%" ( 
- call "%VisualStudioCmd%"
-)
+if NOT EXIST "%NUnitBinDir%" echo Missing NUnit, expected in %NUnitDir%
+if NOT EXIST "%NUnitBinDir%" exit /b -1
 
 set FrameworkVersion=v3.5
 set FrameworkDir=%SystemRoot%\Microsoft.NET\Framework

@@ -1,4 +1,4 @@
-package waffle.jaas;
+package waffle.mock;
 
 import waffle.windows.auth.IWindowsImpersonationContext;
 
