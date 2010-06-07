@@ -25,18 +25,8 @@ namespace Waffle.Windows.AuthProvider
         /// </summary>
         public IWindowsIdentity LogonUser(string username, string password)
         {
-            // username@domain UPN format is natively supported by the Windows LogonUser API
-            // process domain\username format
-
-            string domain = string.Empty;
-            string[] userNameDomain = username.Split("\\".ToCharArray(), 2);
-            if (userNameDomain.Length == 2)
-            {
-                username = userNameDomain[1];
-                domain = userNameDomain[0];
-            }
-
-            return LogonDomainUser(username, domain, password);
+            WindowsAccountName windowsAccountName = new WindowsAccountName(username);
+            return LogonDomainUser(windowsAccountName.AccountName, windowsAccountName.DomainName, password);
         }
 
         /// <summary>
@@ -151,8 +141,11 @@ namespace Waffle.Windows.AuthProvider
         /// <param name="connectionId">Connection id.</param>
         /// <param name="token">Security token.</param>
         /// <param name="securityPackage">Security package, eg. "Negotiate".</param>
+        /// <param name="fContextReq"></param>
+        /// <param name="targetDataRep"></param>
         /// <returns></returns>
-        public IWindowsSecurityContext AcceptSecurityToken(string connectionId, byte[] token, string securityPackage)
+        public IWindowsSecurityContext AcceptSecurityToken(string connectionId, byte[] token, string securityPackage,
+            int fContextReq, int targetDataRep)
         {
             Secur32.SecHandle newContext = Secur32.SecHandle.Zero;
             Secur32.SecBufferDesc serverToken = Secur32.SecBufferDesc.Zero;
@@ -180,8 +173,8 @@ namespace Waffle.Windows.AuthProvider
                     ref credentialsHandle.Handle,
                     IntPtr.Zero,
                     ref clientToken,
-                    Secur32.ISC_REQ_CONNECTION,
-                    Secur32.SECURITY_NATIVE_DREP,
+                    fContextReq,
+                    targetDataRep,
                     ref newContext,
                     ref serverToken,
                     out serverContextAttributes,
@@ -193,8 +186,8 @@ namespace Waffle.Windows.AuthProvider
                     ref credentialsHandle.Handle,
                     ref continueSecHandle,
                     ref clientToken,
-                    Secur32.ISC_REQ_CONNECTION,
-                    Secur32.SECURITY_NATIVE_DREP,
+                    fContextReq,
+                    targetDataRep,
                     ref newContext,
                     ref serverToken,
                     out serverContextAttributes,

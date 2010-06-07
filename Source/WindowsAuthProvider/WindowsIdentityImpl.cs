@@ -61,8 +61,8 @@ namespace Waffle.Windows.AuthProvider
         {
             get
             {
-                string[] parts = _identity.Name.Split("\\".ToCharArray(), 2);
-                return (parts.Length == 2) ? parts[1] : parts[0];
+                WindowsAccountName windowsAccountName = new WindowsAccountName(_identity.Name);
+                return windowsAccountName.AccountName;
             }
         }
 

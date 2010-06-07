@@ -79,7 +79,7 @@ namespace Waffle.Windows.AuthProvider
         /// <param name="securityPackage"></param>
         /// <param name="token"></param>        
         public WindowsSecurityContext(
-            Secur32.SecHandle context, 
+            Secur32.SecHandle context,
             uint contextAttributes,
             Secur32.SECURITY_INTEGER contextLifetime,
             Secur32.SecBufferDesc token,
@@ -100,7 +100,10 @@ namespace Waffle.Windows.AuthProvider
         /// <param name="username">Target username for this security context.</param>
         /// <param name="credentials">Credentials handle.</param>
         /// <param name="securityPackage">Security package.</param>
-        public WindowsSecurityContext(string username, WindowsCredentialsHandle credentials, string securityPackage)
+        /// <param name="fContextReq">Bit flags that indicate requests for the context.</param>
+        /// <param name="targetDataRep">Target data representation.</param>
+        public WindowsSecurityContext(string username, WindowsCredentialsHandle credentials, string securityPackage, 
+            int fContextReq, int targetDataRep)
         {
             _username = username;
             _credentials = credentials.Handle;
@@ -110,9 +113,9 @@ namespace Waffle.Windows.AuthProvider
                 ref credentials.Handle,
                 IntPtr.Zero,
                 username, // service principal name
-                Secur32.ISC_REQ_CONNECTION,
+                fContextReq,
                 0,
-                Secur32.SECURITY_NATIVE_DREP,
+                targetDataRep,
                 IntPtr.Zero,
                 0,
                 ref _context,
@@ -135,18 +138,32 @@ namespace Waffle.Windows.AuthProvider
         /// <summary>
         /// A continuation Windows Security Context.
         /// </summary>
-        public WindowsSecurityContext(WindowsSecurityContext init, byte[] continueToken)
+        /// <param name="init">
+        /// Initial context that contains a handle to the credentials returned by 
+        /// AcquireCredentialsHandle. This handle is used to build the security context. 
+        /// </param>
+        /// <param name="continueToken">
+        /// Token returned by the remote computer.
+        /// </param>
+        /// <param name="fContextReq">
+        /// Bit flags that indicate requests for the context. Not all packages can support all requirements. 
+        /// Flags used for this parameter are prefixed with ISC_REQ_, for example, ISC_REQ_DELEGATE.
+        /// </param>
+        /// <param name="targetDataRep">
+        /// </param>
+        public WindowsSecurityContext(WindowsSecurityContext init, byte[] continueToken, int fContextReq, int targetDataRep)
         {
             _securityPackage = init._securityPackage;
             Secur32.SecBufferDesc continueTokenBuffer = new Secur32.SecBufferDesc(continueToken);
             _token = new Secur32.SecBufferDesc(Secur32.MAX_TOKEN_SIZE);
+
             int rc = Secur32.InitializeSecurityContext(
                 ref init._credentials,
                 ref init._context,
-                init._username, 
-                Secur32.ISC_REQ_CONNECTION,
+                init._username,
+                fContextReq,
                 0,
-                Secur32.SECURITY_NATIVE_DREP,
+                targetDataRep,
                 ref continueTokenBuffer,
                 0,
                 ref _context,
@@ -170,16 +187,42 @@ namespace Waffle.Windows.AuthProvider
         /// Returns the security context of the currently logged on user for a given package.
         /// </summary>
         /// <param name="package"></param>
+        /// <param name="fContextReq"></param>
+        /// <param name="targetDataRep"></param>
         /// <returns></returns>
-        public static WindowsSecurityContext GetCurrent(string package)
+        public static WindowsSecurityContext GetCurrent(string package, int fContextReq, int targetDataRep)
         {
             using (WindowsCredentialsHandle credentialsHandle = new WindowsCredentialsHandle(
                 string.Empty, Secur32.SECPKG_CRED_OUTBOUND, package))
             {
                 return new WindowsSecurityContext(
-                    WindowsIdentity.GetCurrent().Name, 
+                    WindowsIdentity.GetCurrent().Name,
                     credentialsHandle,
-                    package);
+                    package, 
+                    fContextReq, 
+                    targetDataRep);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="package"></param>
+        /// <param name="identity"></param>
+        /// <param name="fContextReq"></param>
+        /// <param name="targetDataRep"></param>
+        /// <returns></returns>
+        public static WindowsSecurityContext Get(string package, WindowsAuthIdentity identity, int fContextReq, int targetDataRep)
+        {
+            using (WindowsCredentialsHandle credentialsHandle = new WindowsCredentialsHandle(
+                string.Empty, identity, Secur32.SECPKG_CRED_OUTBOUND, package))
+            {
+                return new WindowsSecurityContext(
+                    WindowsIdentity.GetCurrent().Name,
+                    credentialsHandle,
+                    package,
+                    fContextReq,
+                    targetDataRep);
             }
         }
 

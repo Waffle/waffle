@@ -20,7 +20,9 @@ namespace Waffle.Windows.AuthProvider.UnitTests
                 using (WindowsSecurityContext context = new WindowsSecurityContext(
                     WindowsIdentity.GetCurrent().Name,
                     credentialsHandle,
-                    package))
+                    package,
+                    Secur32.ISC_REQ_CONNECTION,
+                    Secur32.SECURITY_NATIVE_DREP))
                 {
                     Assert.AreNotEqual(context.Context, Secur32.SecHandle.Zero);
                     Assert.IsNotNull(context.Token);
@@ -32,7 +34,8 @@ namespace Waffle.Windows.AuthProvider.UnitTests
 
         public void TestGetCurrentNegotiate()
         {
-            using (WindowsSecurityContext context = WindowsSecurityContext.GetCurrent("Negotiate"))
+            using (WindowsSecurityContext context = WindowsSecurityContext.GetCurrent("Negotiate", 
+                Secur32.ISC_REQ_CONNECTION, Secur32.SECURITY_NATIVE_DREP))
             {
                 Assert.AreNotEqual(context.Context, Secur32.SecHandle.Zero);
                 Assert.IsNotNull(context.Token);
@@ -44,7 +47,8 @@ namespace Waffle.Windows.AuthProvider.UnitTests
         [Test]
         public void TestGetCurrentNTLM()
         {
-            using (WindowsSecurityContext context = WindowsSecurityContext.GetCurrent("NTLM"))
+            using (WindowsSecurityContext context = WindowsSecurityContext.GetCurrent("NTLM",
+                Secur32.ISC_REQ_CONNECTION, Secur32.SECURITY_NATIVE_DREP))
             {
                 Assert.AreNotEqual(context.Context, Secur32.SecHandle.Zero);
                 Assert.IsNotNull(context.Token);
@@ -56,7 +60,7 @@ namespace Waffle.Windows.AuthProvider.UnitTests
         [Test, ExpectedException(typeof(Win32Exception), ExpectedMessage = "The requested security package does not exist")]
         public void TestGetCurrentInvalidPackage()
         {
-            using (WindowsSecurityContext context = WindowsSecurityContext.GetCurrent(Guid.NewGuid().ToString()))
+            using (WindowsSecurityContext context = WindowsSecurityContext.GetCurrent(Guid.NewGuid().ToString(), 0, 0))
             {
                 Assert.AreNotEqual(context.Context, Secur32.SecHandle.Zero);
                 Assert.IsNotNull(context.Token);

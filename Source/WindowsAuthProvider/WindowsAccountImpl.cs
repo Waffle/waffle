@@ -48,9 +48,9 @@ namespace Waffle.Windows.AuthProvider
         /// to ensure that LookupAccountName finds the account in the desired domain.
         /// </param>
         public WindowsAccountImpl(string username)
-            : this(username, string.Empty)
         {
-
+            WindowsAccountName windowsAccountName = new WindowsAccountName(username);
+            LookupAccount(windowsAccountName.AccountName, windowsAccountName.DomainName);
         }
 
         private void LookupAccount(string accountname, string systemname)
@@ -85,15 +85,8 @@ namespace Waffle.Windows.AuthProvider
                     string.IsNullOrEmpty(systemname) ? "." : systemname, accountname));
             }
 
-            string[] accountNamePartsBs = accountname.Split(@"\\".ToCharArray(), 2);
-            string[] accountNamePartsAt = accountname.Split("@".ToCharArray(), 2);
-
-            if (accountNamePartsBs.Length == 2)
-                _accountName = accountNamePartsBs[1];
-            else if (accountNamePartsAt.Length == 2)
-                _accountName = accountNamePartsAt[0];
-            else 
-                _accountName = accountname;
+            WindowsAccountName windowsAccountName = new WindowsAccountName(accountname);
+            _accountName = windowsAccountName.AccountName;
 
             _sid = new SecurityIdentifier(sid, 0);
             _fqn = string.Format(@"{0}\{1}", _referencedDomainName, _accountName);

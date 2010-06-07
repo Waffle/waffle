@@ -147,6 +147,69 @@ namespace Waffle.Windows.AuthProvider
         public const int SECBUFFER_VERSION = 0;
 
         /// <summary>
+        /// ANSI Identity.
+        /// </summary>
+        public const int SEC_WINNT_AUTH_IDENTITY_ANSI = 0x1;
+
+        /// <summary>
+        /// Unicode Identity.
+        /// </summary>
+        public const int SEC_WINNT_AUTH_IDENTITY_UNICODE = 0x2;
+
+        /// <summary>
+        /// A Windows auth identity.
+        /// </summary>
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+        public struct SEC_WINNT_AUTH_IDENTITY
+        {
+            /// <summary>
+            /// A Windows auth identity
+            /// </summary>
+            /// <param name="username">Username.</param>
+            /// <param name="domain">Domain.</param>
+            /// <param name="password">Password.</param>
+            public SEC_WINNT_AUTH_IDENTITY(string username, string domain, string password)
+            {
+                User = username;
+                UserLength = (username == null ? 0 : username.Length);
+                Domain = domain;
+                DomainLength = (domain == null ? 0 : domain.Length);
+                Password = password;
+                PasswordLength = (password == null ? 0 : password.Length);
+                Flags = SEC_WINNT_AUTH_IDENTITY_UNICODE;
+            }
+
+            /// <summary>
+            /// A string that contains the user name.
+            /// </summary>
+            public string User;
+            /// <summary>
+            /// The length, in characters, of the user string, not including the terminating null character.
+            /// </summary>
+            public int UserLength;
+            /// <summary>
+            /// A string that contains the domain name or the workgroup name.
+            /// </summary>
+            public string Domain;
+            /// <summary>
+            /// The length, in characters, of the domain string, not including the terminating null character.
+            /// </summary>
+            public int DomainLength;
+            /// <summary>
+            /// A string that contains the password of the user in the domain or workgroup.
+            /// </summary>
+            public string Password;
+            /// <summary>
+            /// The length, in characters, of the password string, not including the terminating null character.
+            /// </summary>
+            public int PasswordLength;
+            /// <summary>
+            /// Flags.
+            /// </summary>
+            public int Flags;
+        };
+
+        /// <summary>
         /// SECURITY_INTEGER is a structure that holds a numeric value. It is used in defining other types.
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
@@ -606,8 +669,8 @@ namespace Waffle.Windows.AuthProvider
             [In] ref SecHandle phCredential,
             [In][Out] ref SecHandle phContext,
             [In] ref SecBufferDesc pInput,
-            [In] uint fContextReq,
-            [In] uint TargetDataRep,
+            [In] int fContextReq,
+            [In] int TargetDataRep,
             [In][Out] ref SecHandle phNewContext,
             [In][Out] ref SecBufferDesc pOutput,
             [Out] out uint pfContextAttr,
@@ -636,8 +699,8 @@ namespace Waffle.Windows.AuthProvider
             [In] ref SecHandle phCredential,
             [In] IntPtr phContext,
             [In] ref SecBufferDesc pInput,
-            [In] uint fContextReq,
-            [In] uint TargetDataRep,
+            [In] int fContextReq,
+            [In] int TargetDataRep,
             [In][Out] ref SecHandle phNewContext,
             [In][Out] ref SecBufferDesc pOutput,
             [Out] out uint pfContextAttr,

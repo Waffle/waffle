@@ -126,9 +126,12 @@ namespace Waffle.Windows.AuthProvider
         /// package supported by both the client and the server. This is usually set to "Negotiate" which
         /// will use SPNEGO to determine which security package to use. 
         /// Other common values are "Kerberos" and "NTLM"</param>
+        /// <param name="fContextReq"></param>
+        /// <param name="targetDataRep"></param>
         /// <returns>Windows account.</returns>
         [DispId(8)]
-        IWindowsSecurityContext AcceptSecurityToken(string connectionId, byte[] token, string securityPackage);
+        IWindowsSecurityContext AcceptSecurityToken(string connectionId, byte[] token, string securityPackage,
+            int fContextReq, int targetDataRep);
 
         /// <summary>
         /// Reset a previously saved continuation security token for a given connection id.
