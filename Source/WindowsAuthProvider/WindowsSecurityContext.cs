@@ -187,16 +187,17 @@ namespace Waffle.Windows.AuthProvider
         /// Returns the security context of the currently logged on user for a given package.
         /// </summary>
         /// <param name="package"></param>
+        /// <param name="targetName"></param>
         /// <param name="fContextReq"></param>
         /// <param name="targetDataRep"></param>
         /// <returns></returns>
-        public static WindowsSecurityContext GetCurrent(string package, int fContextReq, int targetDataRep)
+        public static WindowsSecurityContext GetCurrent(string package, string targetName, int fContextReq, int targetDataRep)
         {
             using (WindowsCredentialsHandle credentialsHandle = new WindowsCredentialsHandle(
                 string.Empty, Secur32.SECPKG_CRED_OUTBOUND, package))
             {
                 return new WindowsSecurityContext(
-                    WindowsIdentity.GetCurrent().Name,
+                    targetName,
                     credentialsHandle,
                     package, 
                     fContextReq, 
@@ -209,16 +210,18 @@ namespace Waffle.Windows.AuthProvider
         /// </summary>
         /// <param name="package"></param>
         /// <param name="identity"></param>
+        /// <param name="targetName"></param>
         /// <param name="fContextReq"></param>
         /// <param name="targetDataRep"></param>
         /// <returns></returns>
-        public static WindowsSecurityContext Get(string package, WindowsAuthIdentity identity, int fContextReq, int targetDataRep)
+        public static WindowsSecurityContext Get(string package, string targetName, 
+            WindowsAuthIdentity identity, int fContextReq, int targetDataRep)
         {
             using (WindowsCredentialsHandle credentialsHandle = new WindowsCredentialsHandle(
                 string.Empty, identity, Secur32.SECPKG_CRED_OUTBOUND, package))
             {
                 return new WindowsSecurityContext(
-                    WindowsIdentity.GetCurrent().Name,
+                    targetName,
                     credentialsHandle,
                     package,
                     fContextReq,

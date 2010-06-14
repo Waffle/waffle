@@ -101,5 +101,48 @@ namespace Waffle.Windows
             [MarshalAs(UnmanagedType.LPWStr)]
             public string name;
         }
+
+        /// <summary>
+        /// The USER_INFO_1 structure contains information about a user account, including account name, 
+        /// password data, privilege level, and the path to the user's home directory.
+        /// </summary>
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+        public struct USER_INFO_1
+        {
+            public string usri1_name;
+            public string usri1_password;
+            public int usri1_password_age;
+            public int usri1_priv;
+            public string usri1_home_dir;
+            public string comment;
+            public int usri1_flags;
+            public string usri1_script_path;
+        }
+
+        /// <summary>
+        /// The NetUserAdd function adds a user account and assigns a password and privilege level.
+        /// </summary>
+        /// <param name="servername"></param>
+        /// <param name="level"></param>
+        /// <param name="buf"></param>
+        /// <param name="parm_err"></param>
+        /// <returns></returns>
+        [DllImport("Netapi32.dll")]
+        public extern static int NetUserAdd(
+            [MarshalAs(UnmanagedType.LPWStr)] string servername, 
+            int level,
+            ref USER_INFO_1 buf, 
+            int parm_err);
+
+        /// <summary>
+        /// The NetUserDel function deletes a user account from a server.
+        /// </summary>
+        /// <param name="servername"></param>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        [DllImport("Netapi32.dll")]
+        public extern static int NetUserDel(
+            [MarshalAs(UnmanagedType.LPWStr)] string servername, 
+            [MarshalAs(UnmanagedType.LPWStr)] string username);
     }
 }

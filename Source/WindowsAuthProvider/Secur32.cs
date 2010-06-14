@@ -142,6 +142,11 @@ namespace Waffle.Windows.AuthProvider
         public const int ISC_REQ_STREAM = 0x00008000;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public const int ISC_REQ_USE_SUPPLIED_CREDS = 0x00000080;
+
+        /// <summary>
         /// Version of the SecBuffer struct.
         /// </summary>
         public const int SECBUFFER_VERSION = 0;

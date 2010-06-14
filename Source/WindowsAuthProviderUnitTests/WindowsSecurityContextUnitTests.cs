@@ -34,8 +34,8 @@ namespace Waffle.Windows.AuthProvider.UnitTests
 
         public void TestGetCurrentNegotiate()
         {
-            using (WindowsSecurityContext context = WindowsSecurityContext.GetCurrent("Negotiate", 
-                Secur32.ISC_REQ_CONNECTION, Secur32.SECURITY_NATIVE_DREP))
+            using (WindowsSecurityContext context = WindowsSecurityContext.GetCurrent("Negotiate",
+                WindowsIdentity.GetCurrent().Name, Secur32.ISC_REQ_CONNECTION, Secur32.SECURITY_NATIVE_DREP))
             {
                 Assert.AreNotEqual(context.Context, Secur32.SecHandle.Zero);
                 Assert.IsNotNull(context.Token);
@@ -48,7 +48,7 @@ namespace Waffle.Windows.AuthProvider.UnitTests
         public void TestGetCurrentNTLM()
         {
             using (WindowsSecurityContext context = WindowsSecurityContext.GetCurrent("NTLM",
-                Secur32.ISC_REQ_CONNECTION, Secur32.SECURITY_NATIVE_DREP))
+                WindowsIdentity.GetCurrent().Name, Secur32.ISC_REQ_CONNECTION, Secur32.SECURITY_NATIVE_DREP))
             {
                 Assert.AreNotEqual(context.Context, Secur32.SecHandle.Zero);
                 Assert.IsNotNull(context.Token);
@@ -60,7 +60,8 @@ namespace Waffle.Windows.AuthProvider.UnitTests
         [Test, ExpectedException(typeof(Win32Exception), ExpectedMessage = "The requested security package does not exist")]
         public void TestGetCurrentInvalidPackage()
         {
-            using (WindowsSecurityContext context = WindowsSecurityContext.GetCurrent(Guid.NewGuid().ToString(), 0, 0))
+            using (WindowsSecurityContext context = WindowsSecurityContext.GetCurrent(Guid.NewGuid().ToString(),
+                WindowsIdentity.GetCurrent().Name, 0, 0))
             {
                 Assert.AreNotEqual(context.Context, Secur32.SecHandle.Zero);
                 Assert.IsNotNull(context.Token);
