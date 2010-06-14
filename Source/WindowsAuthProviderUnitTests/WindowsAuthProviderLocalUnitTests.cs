@@ -4,6 +4,7 @@ using System.Text;
 using NUnit.Framework;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
+using System.ComponentModel;
 
 namespace Waffle.Windows.AuthProvider.UnitTests
 {
@@ -27,14 +28,16 @@ namespace Waffle.Windows.AuthProvider.UnitTests
             _testUser.usri1_home_dir = null;
             _testUser.comment = "Waffle test user.";
             _testUser.usri1_script_path = null;
-            Assert.AreEqual(0, Netapi32.NetUserAdd(null, 1, ref _testUser, 0));
+            int rc = Netapi32.NetUserAdd(null, 1, ref _testUser, 0);
+            Assert.AreEqual(0, rc, new Win32Exception(rc).Message);
             // computer
             _computerName = Environment.MachineName;
             // fqn
             _testUserFqn = string.Format("{0}\\{1}", _computerName, _testUser.usri1_name);
             // join status 
             IntPtr pDomain = IntPtr.Zero;
-            Assert.AreEqual(Netapi32.NERR_Success, Netapi32.NetGetJoinInformation(null, out pDomain, out _joinStatus));
+            rc = Netapi32.NetGetJoinInformation(null, out pDomain, out _joinStatus);
+            Assert.AreEqual(Netapi32.NERR_Success, rc, new Win32Exception(rc).Message);
             _memberOf = Marshal.PtrToStringAuto(pDomain);
             Netapi32.NetApiBufferFree(pDomain);
         }
@@ -42,7 +45,8 @@ namespace Waffle.Windows.AuthProvider.UnitTests
         [TearDown]
         public void TearDown()
         {
-            Assert.AreEqual(0, Netapi32.NetUserDel(null, _testUser.usri1_name));
+            int rc = Netapi32.NetUserDel(null, _testUser.usri1_name);
+            Assert.AreEqual(0, rc, new Win32Exception(rc).Message);
         }
 
         [Test]

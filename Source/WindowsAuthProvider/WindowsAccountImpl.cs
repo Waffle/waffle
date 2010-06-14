@@ -48,9 +48,9 @@ namespace Waffle.Windows.AuthProvider
         /// to ensure that LookupAccountName finds the account in the desired domain.
         /// </param>
         public WindowsAccountImpl(string username)
+            : this(username, string.Empty)
         {
-            WindowsAccountName windowsAccountName = new WindowsAccountName(username);
-            LookupAccount(windowsAccountName.AccountName, windowsAccountName.DomainName);
+
         }
 
         private void LookupAccount(string accountname, string systemname)
@@ -62,7 +62,7 @@ namespace Waffle.Windows.AuthProvider
 
             if (Advapi32.LookupAccountName(systemname, accountname, sid, ref cbSid, _referencedDomainName, ref cchReferencedDomainName, out _sidNameUse))
             {
-                throw new Exception(string.Format("LookupAccountName failed for {0}\\{1}",
+                throw new Win32Exception(Marshal.GetLastWin32Error(), string.Format("LookupAccountName failed for {0}\\{1}",
                     string.IsNullOrEmpty(systemname) ? "." : systemname, accountname));
             }
 
