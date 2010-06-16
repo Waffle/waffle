@@ -107,6 +107,18 @@ Jaas {
             <definition>Specifies the name format for the principal.</definition>
             <definedTerm>roleFormat</definedTerm>
             <definition>Specifies the name format for the role.</definition>
+            <definedTerm>allowGuestLogin</definedTerm>
+            <definition>
+              Allow guest login. When <literal>true</literal> and the system's Guest account is enabled,
+              any invalid login succeeds as Guest.
+              <alert class="note">
+                <para>
+                  While the default value of <literal>allowGuestLogin</literal> is true, it is recommended
+                  that you disable the system's Guest account to disallow Guest login. This option is provided
+                  for systems where you don't have administrative privileges.
+                </para>
+              </alert>
+            </definition>
           </tableDefinition>
           The following principal and role formats are available.
           <tableDefinition>

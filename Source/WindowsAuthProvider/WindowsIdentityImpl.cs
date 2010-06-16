@@ -107,5 +107,17 @@ namespace Waffle.Windows.AuthProvider
         {
             return new WindowsImpersonationContextImpl(_identity.Impersonate());
         }
+
+        /// <summary>
+        /// Returns true if the identity represents a Guest account.
+        /// </summary>
+        /// <returns>True if the identity represents a Guest account, false otherwise.</returns>
+        public bool IsGuest
+        {
+            get
+            {
+                return _identity.IsGuest;
+            }
+        }
     }
 }

@@ -4,7 +4,7 @@
     <introduction>
       <para>
         The Waffle Tomcat Negotiate Authenticator implements the Negotiate protocol with Kerberos and NTLM single sign-on
-        support. This allows users to browse to a Windows intranet site without having to re-enter credentials. 
+        support. This allows users to browse to a Windows intranet site without having to re-enter credentials.
         The authenticator integrates with Tomcat Realms and therefore allows you to protect select areas of the website.
       </para>
     </introduction>
@@ -15,8 +15,8 @@
           The following steps are required to configure Tomcat with Waffle authenticator.
           <list class="ordered">
             <listItem>
-              Copy <localUri>waffle-jna.jar</localUri>, <localUri>commons-logging-1.1.1.jar</localUri>, 
-              <localUri>jna.jar</localUri> and <localUri>platform.jar</localUri> to Tomcat's 
+              Copy <localUri>waffle-jna.jar</localUri>, <localUri>commons-logging-1.1.1.jar</localUri>,
+              <localUri>jna.jar</localUri> and <localUri>platform.jar</localUri> to Tomcat's
               <localUri>lib</localUri> directory.
             </listItem>
             <listItem>
@@ -112,6 +112,18 @@ waffle.apache.NegotiateAuthenticator.level = FINE
             <definition>Specifies the name format for the principal.</definition>
             <definedTerm>roleFormat</definedTerm>
             <definition>Specifies the name format for the role.</definition>
+            <definedTerm>allowGuestLogin</definedTerm>
+            <definition>
+              Allow guest login. When <literal>true</literal> and the system's Guest account is enabled,
+              any invalid login succeeds as Guest.
+              <alert class="note">
+                <para>
+                  While the default value of <literal>allowGuestLogin</literal> is true, it is recommended
+                  that you disable the system's Guest account to disallow Guest login. This option is provided
+                  for systems where you don't have administrative privileges.
+                </para>
+              </alert>
+            </definition>
           </tableDefinition>
         </para>
         <para>

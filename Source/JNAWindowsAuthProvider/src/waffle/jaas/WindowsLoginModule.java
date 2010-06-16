@@ -44,6 +44,7 @@ public class WindowsLoginModule implements LoginModule {
     private Set<Principal> _principals = null;
     private PrincipalFormat _principalFormat = PrincipalFormat.fqn;
     private PrincipalFormat _roleFormat = PrincipalFormat.fqn;
+    private boolean _allowGuestLogin = true;
 
 	@Override
 	public void initialize(Subject subject, CallbackHandler callbackHandler,
@@ -101,6 +102,12 @@ public class WindowsLoginModule implements LoginModule {
         } catch (Exception e) {
         	throw new LoginException(e.getMessage());
         }
+        
+		// disable guest login
+		if (! _allowGuestLogin && windowsIdentity.isGuest()) {
+			debug("guest login disabled: " + windowsIdentity.getFqn());
+			throw new LoginException("Guest login disabled");			
+		}
         
         try {
 	        _principals = new LinkedHashSet<Principal>();
@@ -264,5 +271,25 @@ public class WindowsLoginModule implements LoginModule {
         }
         
         return principals;
+	}
+	
+	/**
+	 * True if Guest login permitted.
+	 * @return
+	 *  True if Guest login permitted, false otherwise.
+	 */
+	public boolean getAllowGuestLogin() {
+		return _allowGuestLogin;
+	}
+	
+	/**
+	 * Set whether Guest login is permitted.
+	 * Default is true, if the Guest account is enabled, an invalid username/password
+	 * results in a Guest login.
+	 * @param value
+	 *  True or false.
+	 */
+	public void setAllowGuestLogin(boolean value) {
+		_allowGuestLogin = value;
 	}
 }

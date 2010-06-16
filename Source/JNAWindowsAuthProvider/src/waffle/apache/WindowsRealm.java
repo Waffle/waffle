@@ -11,7 +11,7 @@ import java.security.Principal;
 import org.apache.catalina.realm.RealmBase;
 
 /**
- * A Rudementary Windows realm.
+ * A rudimentary Windows realm.
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsRealm extends RealmBase {

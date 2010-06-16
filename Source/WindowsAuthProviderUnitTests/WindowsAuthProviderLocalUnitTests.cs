@@ -54,10 +54,12 @@ namespace Waffle.Windows.AuthProvider.UnitTests
         {
             WindowsAuthProviderImpl windowsAuthProviderImpl = new WindowsAuthProviderImpl();
             IWindowsIdentity account = windowsAuthProviderImpl.LogonUser(_testUser.usri1_name, _testUser.usri1_password);
-            Console.WriteLine(account.SidString);
-            Console.WriteLine(account.Fqn);
+            Console.WriteLine("Sid: {0}", account.SidString);
+            Console.WriteLine("Fqn: {0}", account.Fqn);
+            Console.WriteLine("Guest: {0}", account.IsGuest);
             Assert.AreEqual(account.Fqn.ToLower(), _testUserFqn.ToLower());
             Assert.IsTrue(Advapi32.IsValidSid(account.Sid));
+            Assert.IsFalse(account.IsGuest);
             Console.WriteLine("Groups: {0}", account.Groups.Length);
         }
 

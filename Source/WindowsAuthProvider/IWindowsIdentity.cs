@@ -34,5 +34,10 @@ namespace Waffle.Windows.AuthProvider
         /// Impersonate, return the impersonation context.
         /// </summary>
         IWindowsImpersonationContext Impersonate();
+        /// <summary>
+        /// Returns true if the identity represents a Guest account.
+        /// </summary>
+        /// <returns>True if the identity represents a Guest account, false otherwise.</returns>
+        bool IsGuest { get; }
     }
 }

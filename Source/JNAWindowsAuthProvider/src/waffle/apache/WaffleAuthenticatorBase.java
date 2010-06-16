@@ -17,6 +17,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
     protected Log _log = null;
     protected PrincipalFormat _principalFormat = PrincipalFormat.fqn;
     protected PrincipalFormat _roleFormat = PrincipalFormat.fqn;
+	protected boolean _allowGuestLogin = true;
 	
     protected static IWindowsAuthProvider _auth = new WindowsAuthProviderImpl();
 
@@ -79,6 +80,26 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 	 */
 	public PrincipalFormat getRoleFormat() {
 		return _roleFormat;
+	}
+
+	/**
+	 * True if Guest login permitted.
+	 * @return
+	 *  True if Guest login permitted, false otherwise.
+	 */
+	public boolean getAllowGuestLogin() {
+		return _allowGuestLogin;
+	}
+	
+	/**
+	 * Set whether Guest login is permitted.
+	 * Default is true, if the Guest account is enabled, an invalid username/password
+	 * results in a Guest login.
+	 * @param value
+	 *  True or false.
+	 */
+	public void setAllowGuestLogin(boolean value) {
+		_allowGuestLogin = value;
 	}
 	
 	/**

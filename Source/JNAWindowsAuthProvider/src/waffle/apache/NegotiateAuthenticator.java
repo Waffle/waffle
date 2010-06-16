@@ -114,6 +114,13 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 			// create and register the user principal with the session
 			IWindowsIdentity windowsIdentity = securityContext.getIdentity();
 			
+			// disable guest login
+			if (! _allowGuestLogin && windowsIdentity.isGuest()) {
+				_log.warn("guest login disabled: " + windowsIdentity.getFqn());
+				sendUnauthorized(response);
+				return false;			
+			}
+			
 			try {
 				_log.debug("logged in user: " + windowsIdentity.getFqn() + 
 						" (" + windowsIdentity.getSidString() + ")");

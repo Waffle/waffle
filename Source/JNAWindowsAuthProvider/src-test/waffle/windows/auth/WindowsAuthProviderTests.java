@@ -40,13 +40,14 @@ public class WindowsAuthProviderTests extends TestCase {
 			IWindowsAuthProvider prov = new WindowsAuthProviderImpl();
 			IWindowsIdentity identity = prov.logonUser(userInfo.usri1_name.toString(), userInfo.usri1_password.toString());
 			assertTrue(identity.getFqn().endsWith("\\" + userInfo.usri1_name.toString()));
+			assertFalse(identity.isGuest());
 			identity.dispose();
 		} finally {
 	    	assertEquals(LMErr.NERR_Success, Netapi32.INSTANCE.NetUserDel(
 	    			null, userInfo.usri1_name.toString()));			
-		}		
+		}
 	}
-
+	
 	public void testImpersonateLoggedOnUser() {
     	LMAccess.USER_INFO_1 userInfo = new LMAccess.USER_INFO_1();
     	userInfo.usri1_name = new WString("WaffleTestUser");

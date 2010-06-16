@@ -41,6 +41,7 @@ public class NegotiateSecurityFilter implements Filter {
     private PrincipalFormat _roleFormat = PrincipalFormat.fqn;
     private SecurityFilterProviderCollection _providers = null;
 	private static IWindowsAuthProvider _auth = new WindowsAuthProviderImpl();
+	private boolean _allowGuestLogin = true;
 
 	public NegotiateSecurityFilter() {
 		_log.debug("[waffle.servlet.NegotiateSecurityFilter] loaded");
@@ -88,7 +89,13 @@ public class NegotiateSecurityFilter implements Filter {
 				sendUnauthorized(response);
 				return;
 			}
-
+			
+			if (! _allowGuestLogin && windowsIdentity.isGuest()) {
+				_log.warn("guest login disabled: " + windowsIdentity.getFqn());
+				sendUnauthorized(response);
+				return;					
+			}
+			
 			try {
 				_log.info("logged in user: " + windowsIdentity.getFqn() + 
 						" (" + windowsIdentity.getSidString() + ")");

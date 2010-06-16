@@ -16,6 +16,7 @@ import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.Kernel32;
 import com.sun.jna.platform.win32.Advapi32Util.Account;
 import com.sun.jna.platform.win32.WinNT.HANDLE;
+import com.sun.jna.platform.win32.WinNT.WELL_KNOWN_SID_TYPE;
 
 /**
  * Windows Identity.
@@ -85,5 +86,14 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
 
 	public WindowsIdentityImpl(HANDLE windowsIdentity) {
 		_windowsIdentity = windowsIdentity;
+	}
+
+	@Override
+	public boolean isGuest() {
+		for(Account userGroup : getUserGroups()) {
+			if (Advapi32Util.isWellKnownSid(userGroup.sid, WELL_KNOWN_SID_TYPE.WinWorldSid))
+				return true;
+		}
+		return false;
 	}
 }

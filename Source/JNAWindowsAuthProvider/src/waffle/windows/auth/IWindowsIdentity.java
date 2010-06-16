@@ -51,4 +51,11 @@ public interface IWindowsIdentity {
 	 * Dispose of the Windows identity.
 	 */
 	public void dispose();
+	
+	/**
+	 * Returns true if the identity represents a Guest account.
+	 * @return
+	 *  True if the identity represents a Guest account, false otherwise.
+	 */
+	public boolean isGuest();
 }
