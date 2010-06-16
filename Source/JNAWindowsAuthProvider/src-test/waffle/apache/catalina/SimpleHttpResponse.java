@@ -93,4 +93,14 @@ public class SimpleHttpResponse extends Response {
 	public String[] getHeaderNames() {
 		return _headers.keySet().toArray(new String[0]);
 	}
+	
+	@Override
+	public void sendError(int rc, String message) {
+		_status = rc;		
+	}
+	
+	@Override
+	public void sendError(int rc) {
+		_status = rc;		
+	}
 }

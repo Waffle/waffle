@@ -91,7 +91,11 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
 	@Override
 	public boolean isGuest() {
 		for(Account userGroup : getUserGroups()) {
-			if (Advapi32Util.isWellKnownSid(userGroup.sid, WELL_KNOWN_SID_TYPE.WinWorldSid))
+			if (Advapi32Util.isWellKnownSid(userGroup.sid, WELL_KNOWN_SID_TYPE.WinBuiltinGuestsSid))
+				return true;
+			if (Advapi32Util.isWellKnownSid(userGroup.sid, WELL_KNOWN_SID_TYPE.WinAccountDomainGuestsSid))
+				return true;
+			if (Advapi32Util.isWellKnownSid(userGroup.sid, WELL_KNOWN_SID_TYPE.WinAccountGuestSid))
 				return true;
 		}
 		return false;

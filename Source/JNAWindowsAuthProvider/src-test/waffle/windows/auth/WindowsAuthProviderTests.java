@@ -29,6 +29,18 @@ public class WindowsAuthProviderTests extends TestCase {
 	private void debug(String s) {
 		// System.out.println(s);
 	}
+
+	/*
+	public void testLogonGuestUser() {
+		IWindowsAuthProvider prov = new WindowsAuthProviderImpl();
+		IWindowsIdentity identity = prov.logonUser("garbage", "garbage");
+		debug("Fqn: " + identity.getFqn());
+		debug("Guest: " + identity.isGuest());
+		assertTrue(identity.getFqn().endsWith("\\Guest"));
+		assertTrue(identity.isGuest());
+		identity.dispose();
+	}
+	*/
 	
 	public void testLogonUser() {
     	LMAccess.USER_INFO_1 userInfo = new LMAccess.USER_INFO_1();
