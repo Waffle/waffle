@@ -187,7 +187,7 @@ public class NegotiateSecurityFilter implements Filter {
 		try {
 			_providers.sendUnauthorized(response);
 			response.setHeader("Connection", "close");
-			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
 			response.flushBuffer();		
 		} catch (IOException e) {
 			throw new RuntimeException(e);

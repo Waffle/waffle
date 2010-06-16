@@ -25,4 +25,10 @@
   <security-role>
     <role-name>Everyone</role-name>
   </security-role>
+  
+  <error-page>
+   <error-code>401</error-code>
+   <location>/401.html</location>
+  </error-page>
+   
 </web-app>

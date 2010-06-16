@@ -30,6 +30,11 @@
     </web-resource-collection>
   </security-constraint>
   
+  <error-page>
+   <error-code>401</error-code>
+   <location>/401.html</location>
+  </error-page>
+  
   <login-config>
      <form-login-config>
 		<form-login-page>/login.jsp</form-login-page>  
