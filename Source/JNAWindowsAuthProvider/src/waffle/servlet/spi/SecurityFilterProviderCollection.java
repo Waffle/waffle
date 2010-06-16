@@ -7,11 +7,15 @@
 package waffle.servlet.spi;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import waffle.util.AuthorizationHeader;
 import waffle.windows.auth.IWindowsAuthProvider;
@@ -23,7 +27,25 @@ import waffle.windows.auth.IWindowsIdentity;
  */
 public class SecurityFilterProviderCollection {
 
+    private static Log _log = LogFactory.getLog(SecurityFilterProviderCollection.class);
 	private List<SecurityFilterProvider> _providers = new ArrayList<SecurityFilterProvider>();
+
+	@SuppressWarnings("unchecked")
+	public SecurityFilterProviderCollection(String[] providerNames, IWindowsAuthProvider auth) {
+		for(String providerName : providerNames) {
+			providerName = providerName.trim();
+			_log.info("loading '" + providerName + "'");
+			try {
+				Class<SecurityFilterProvider> providerClass = (Class<SecurityFilterProvider>) Class.forName(providerName);
+				Constructor c = providerClass.getConstructor(IWindowsAuthProvider.class);
+				SecurityFilterProvider provider = (SecurityFilterProvider) c.newInstance(auth); 
+				_providers.add(provider);
+			} catch (Exception e) {
+				_log.error("error loading '" + providerName + "': " + e.getMessage());				
+				throw new RuntimeException(e);
+			}
+		}
+	}
 	
 	public SecurityFilterProviderCollection(IWindowsAuthProvider auth) {
 		_providers.add(new NegotiateSecurityFilterProvider(auth));

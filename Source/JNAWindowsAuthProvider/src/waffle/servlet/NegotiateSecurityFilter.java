@@ -8,6 +8,7 @@ package waffle.servlet;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Enumeration;
 
 import javax.security.auth.Subject;
 import javax.servlet.Filter;
@@ -134,9 +135,34 @@ public class NegotiateSecurityFilter implements Filter {
 		sendUnauthorized(response);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		_providers = new SecurityFilterProviderCollection(_auth);
+		if (filterConfig != null) {
+			Enumeration parameterNames = filterConfig.getInitParameterNames();
+			while(parameterNames.hasMoreElements()) {
+				String parameterName = (String) parameterNames.nextElement();
+				String parameterValue = filterConfig.getInitParameter(parameterName);
+				_log.debug(parameterName + "=" + parameterValue);
+				if (parameterName.equals("principalFormat")) {
+					_principalFormat = PrincipalFormat.parse(parameterValue);
+				} else if (parameterName.equals("roleFormat")) {
+					_roleFormat = PrincipalFormat.parse(parameterValue);
+				} else if (parameterName.equals("allowGuestLogin")) {
+					_allowGuestLogin = Boolean.parseBoolean(parameterValue);
+				} else if (parameterName.equals("securityFilterProviders")) {
+					_providers = new SecurityFilterProviderCollection(
+							parameterValue.split("\n"), _auth);
+				} else {
+					_log.error("invalid parameter: " + parameterName);
+					throw new ServletException("Invalid parameter: " + parameterName);
+				}
+			}
+		}
+		if (_providers == null) {
+			_log.debug("initializing default secuirty filter providers");
+			_providers = new SecurityFilterProviderCollection(_auth);
+		}
 		_log.info("[waffle.servlet.NegotiateSecurityFilter] started");		
 	}
 	

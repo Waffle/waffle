@@ -39,6 +39,70 @@
         </para>
       </content>
     </section>
+    <section address="filteroptions">
+      <title>Filter Options</title>
+      <content>
+        <para>
+          The filter can be configured with the following <literal>init-param</literal> options.
+          <tableDefinition>
+            <definedTerm>principalFormat</definedTerm>
+            <definition>Specifies the name format for the principal.</definition>
+            <definedTerm>roleFormat</definedTerm>
+            <definition>Specifies the name format for the role.</definition>
+            <definedTerm>allowGuestLogin</definedTerm>
+            <definition>
+              Allow guest login. When <literal>true</literal> and the system's Guest account is enabled,
+              any invalid login succeeds as Guest.
+              <alert class="note">
+                <para>
+                  While the default value of <literal>allowGuestLogin</literal> is true, it is recommended
+                  that you disable the system's Guest account to disallow Guest login. This option is provided
+                  for systems where you don't have administrative privileges.
+                </para>
+              </alert>
+            </definition>
+            <definedTerm>securityFilterProviders</definedTerm>
+            <definition>
+              A list of security filter providers. By default, <literal>BasicSecurityFilterProvider</literal>
+              and <literal>NegotiateSecurityFilterProvider</literal> will be loaded.
+            </definition>
+          </tableDefinition>
+        </para>
+      </content>
+    </section>
+    <section address="filterconfigurationexample">
+      <title>Filter Configuration Example</title>
+      <content>
+        <para>
+          <code lang="xml">
+            <![CDATA[
+<filter>
+  <filter-name>SecurityFilter</filter-name>
+  <filter-class>waffle.servlet.NegotiateSecurityFilter</filter-class>   
+  <init-param>
+  	<param-name>principalFormat</param-name>
+  	<param-value>fqn</param-value>
+  </init-param>
+  <init-param>
+  	<param-name>roleFormat</param-name>
+  	<param-value>both</param-value>
+  </init-param>
+  <init-param>
+  	<param-name>allowGuestLogin</param-name>
+  	<param-value>true</param-value>
+  </init-param>
+  <init-param>
+  	<param-name>securityFilterProviders</param-name>
+  	<param-value>
+  		waffle.servlet.spi.BasicSecurityFilterProvider
+  		waffle.servlet.spi.NegotiateSecurityFilterProvider
+  	</param-value>
+  </init-param>    
+</filter>]]>
+          </code>
+        </para>
+      </content>
+    </section>
     <section address="demoapplication">
       <title>Waffle Security Filter Demo</title>
       <content>
@@ -60,6 +124,7 @@
               <code lang="properties">
                 <![CDATA[
 waffle.servlet.NegotiateSecurityFilter.level = FINE
+waffle.servlet.spi.SecurityFilterProviderCollection.level = FINE
 waffle.servlet.spi.NegotiateSecurityFilterProvider.level = FINE
 waffle.servlet.spi.BasicSecurityFilterProvider.level = FINE
                 ]]>
