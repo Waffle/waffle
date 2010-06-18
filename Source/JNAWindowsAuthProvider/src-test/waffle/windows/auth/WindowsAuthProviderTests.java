@@ -125,7 +125,7 @@ public class WindowsAuthProviderTests extends TestCase {
 			clientContext.initialize();
 			// accept on the server
 	        WindowsAuthProviderImpl provider = new WindowsAuthProviderImpl();
-	        String connectionId = "testConnection";
+	        String connectionId = "testConnection-" + Thread.currentThread().getId();
 	        do
 	        {        	
 	        	if (serverContext != null) {

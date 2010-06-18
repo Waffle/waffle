@@ -43,6 +43,7 @@ public class NegotiateSecurityFilter implements Filter {
     private SecurityFilterProviderCollection _providers = null;
 	private static IWindowsAuthProvider _auth = new WindowsAuthProviderImpl();
 	private boolean _allowGuestLogin = true;
+	private boolean _checkUserPrincipal = false;
 
 	public NegotiateSecurityFilter() {
 		_log.debug("[waffle.servlet.NegotiateSecurityFilter] loaded");
@@ -62,12 +63,14 @@ public class NegotiateSecurityFilter implements Filter {
 
 		_log.info(request.getMethod() + " " + request.getRequestURI() + ", contentlength: " + request.getContentLength());
 		
-		Principal principal = request.getUserPrincipal();
-		if (principal != null && ! _providers.isPrincipalException(request)) {
-			// user already authenticated
-			_log.info("previously authenticated user: " + principal.getName());
-			chain.doFilter(request, response);
-			return;
+		if (_checkUserPrincipal) {
+			Principal principal = request.getUserPrincipal();
+			if (principal != null && ! _providers.isPrincipalException(request)) {
+				// user already authenticated
+				_log.info("previously authenticated user: " + principal.getName());
+				chain.doFilter(request, response);
+				return;
+			}
 		}
 		
 		AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
@@ -87,14 +90,14 @@ public class NegotiateSecurityFilter implements Filter {
 				
 			} catch (Exception e) {
 				_log.warn("error logging in user: " + e.getMessage());
-				sendUnauthorized(response);
+				sendUnauthorized(response, true);
 				return;
 			}
 			
 			if (! _allowGuestLogin && windowsIdentity.isGuest()) {
 				_log.warn("guest login disabled: " + windowsIdentity.getFqn());
-				sendUnauthorized(response);
-				return;					
+				sendUnauthorized(response, true);
+				return;
 			}
 			
 			try {
@@ -132,7 +135,7 @@ public class NegotiateSecurityFilter implements Filter {
 		}
 		
 		_log.info("authorization required");
-		sendUnauthorized(response);
+		sendUnauthorized(response, false);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -153,6 +156,8 @@ public class NegotiateSecurityFilter implements Filter {
 				} else if (parameterName.equals("securityFilterProviders")) {
 					_providers = new SecurityFilterProviderCollection(
 							parameterValue.split("\n"), _auth);
+				} else if (parameterName.equals("checkUserPrincipal")) {
+					_checkUserPrincipal = Boolean.parseBoolean(parameterValue);
 				} else {
 					_log.error("invalid parameter: " + parameterName);
 					throw new ServletException("Invalid parameter: " + parameterName);
@@ -208,13 +213,19 @@ public class NegotiateSecurityFilter implements Filter {
 	 * Send a 401 Unauthorized along with protocol authentication headers.
 	 * @param response
 	 *  HTTP Response
+	 * @param close
+	 *  Close connection.
 	 */
-	private void sendUnauthorized(HttpServletResponse response) {
+	private void sendUnauthorized(HttpServletResponse response, boolean close) {
 		try {
 			_providers.sendUnauthorized(response);
-			response.setHeader("Connection", "close");
+			if (close) {
+				response.setHeader("Connection", "close");
+			} else {				
+				response.setHeader("Connection", "keep-alive");
+			}
 			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-			response.flushBuffer();		
+			response.flushBuffer();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}		

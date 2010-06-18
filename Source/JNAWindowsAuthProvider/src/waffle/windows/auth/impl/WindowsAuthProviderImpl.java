@@ -41,7 +41,7 @@ import com.sun.jna.ptr.NativeLongByReference;
  */
 public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
 	
-	private static ConcurrentHashMap<String, CtxtHandle> _continueContexts = 
+	private ConcurrentHashMap<String, CtxtHandle> _continueContexts = 
 		new ConcurrentHashMap<String, CtxtHandle>();
 	
 	@Override

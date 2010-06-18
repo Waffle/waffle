@@ -19,14 +19,14 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
     protected PrincipalFormat _roleFormat = PrincipalFormat.fqn;
 	protected boolean _allowGuestLogin = true;
 	
-    protected static IWindowsAuthProvider _auth = new WindowsAuthProviderImpl();
+    protected IWindowsAuthProvider _auth = new WindowsAuthProviderImpl();
 
 	/**
 	 * Windows authentication provider.
 	 * @return
 	 *  IWindowsAuthProvider.
 	 */
-	public static IWindowsAuthProvider getAuth() {
+	public IWindowsAuthProvider getAuth() {
 		return _auth;
 	}
 	
@@ -35,7 +35,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 	 * @param provider
 	 *  Class implements IWindowsAuthProvider.
 	 */
-	public static void setAuth(IWindowsAuthProvider provider) {
+	public void setAuth(IWindowsAuthProvider provider) {
 		_auth = provider;
 	}
     

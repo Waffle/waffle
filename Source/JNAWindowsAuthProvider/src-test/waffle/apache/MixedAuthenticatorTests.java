@@ -186,7 +186,7 @@ public class MixedAuthenticatorTests extends TestCase {
 	}
 
 	public void testSecurityCheck() {
-		NegotiateAuthenticator.setAuth(new MockWindowsAuthProvider());
+		_authenticator.setAuth(new MockWindowsAuthProvider());
 		LoginConfig loginConfig = new LoginConfig();
 		loginConfig.setErrorPage("error.html");
 		loginConfig.setLoginPage("login.html");
