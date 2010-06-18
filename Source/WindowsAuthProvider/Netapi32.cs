@@ -109,13 +109,42 @@ namespace Waffle.Windows
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         public struct USER_INFO_1
         {
+            /// <summary>
+            /// A Unicode string that specifies the name of the user account. 
+            /// </summary>
             public string usri1_name;
+            /// <summary>
+            /// a Unicode string that specifies the password of the user indicated by the usri1_name member. 
+            /// The length cannot exceed PWLEN bytes. By convention, the length of passwords is limited 
+            /// to LM20_PWLEN characters.
+            /// </summary>
             public string usri1_password;
+            /// <summary>
+            /// The number of seconds that have elapsed since the usri1_password member was last changed. 
+            /// </summary>
             public int usri1_password_age;
+            /// <summary>
+            /// The level of privilege assigned to the usri1_name member. 
+            /// </summary>
             public int usri1_priv;
+            /// <summary>
+            /// A Unicode string specifying the path of the home directory for the user specified in the 
+            /// usri1_name member. The string can be null.
+            /// </summary>
             public string usri1_home_dir;
+            /// <summary>
+            /// A Unicode string that contains a comment to associate with the user account. This string can 
+            /// be a null string, or it can have any number of characters before the terminating null character.
+            /// </summary>
             public string comment;
+            /// <summary>
+            /// User flags, one of UF_ values.
+            /// </summary>
             public int usri1_flags;
+            /// <summary>
+            /// A Unicode string specifying the path for the user's logon script file. 
+            /// The script file can be a .CMD file, an .EXE file, or a .BAT file. The string can also be null.
+            /// </summary>
             public string usri1_script_path;
         }
 
