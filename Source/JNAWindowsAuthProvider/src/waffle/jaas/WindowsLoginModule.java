@@ -40,7 +40,7 @@ public class WindowsLoginModule implements LoginModule {
     private boolean _debug = false;
     private Subject _subject = null;
     private CallbackHandler _callbackHandler = null;
-	private static IWindowsAuthProvider _auth = new WindowsAuthProviderImpl();
+	private IWindowsAuthProvider _auth = new WindowsAuthProviderImpl();
     private Set<Principal> _principals = null;
     private PrincipalFormat _principalFormat = PrincipalFormat.fqn;
     private PrincipalFormat _roleFormat = PrincipalFormat.fqn;
@@ -198,7 +198,7 @@ public class WindowsLoginModule implements LoginModule {
 	 * @return
 	 *  IWindowsAuthProvider.
 	 */
-	public static IWindowsAuthProvider getAuth() {
+	public IWindowsAuthProvider getAuth() {
 		return _auth;
 	}
 	
@@ -207,7 +207,7 @@ public class WindowsLoginModule implements LoginModule {
 	 * @param provider
 	 *  Class implements IWindowsAuthProvider.
 	 */
-	public static void setAuth(IWindowsAuthProvider provider) {
+	public void setAuth(IWindowsAuthProvider provider) {
 		_auth = provider;
 	}
 	

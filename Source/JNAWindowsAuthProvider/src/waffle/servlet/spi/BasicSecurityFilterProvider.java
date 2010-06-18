@@ -25,9 +25,9 @@ import waffle.windows.auth.IWindowsIdentity;
  */
 public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 
-    private static Log _log = LogFactory.getLog(BasicSecurityFilterProvider.class);
+    private Log _log = LogFactory.getLog(BasicSecurityFilterProvider.class);
 	private String _realm = "BasicSecurityFilterProvider";
-	private static IWindowsAuthProvider _auth = null;
+	private IWindowsAuthProvider _auth = null;
 
 	public BasicSecurityFilterProvider(IWindowsAuthProvider auth) {
 		_auth = auth;		

@@ -37,11 +37,11 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  */
 public class NegotiateSecurityFilter implements Filter {
 
-    private static Log _log = LogFactory.getLog(NegotiateSecurityFilter.class);
+    private Log _log = LogFactory.getLog(NegotiateSecurityFilter.class);
     private PrincipalFormat _principalFormat = PrincipalFormat.fqn;
     private PrincipalFormat _roleFormat = PrincipalFormat.fqn;
     private SecurityFilterProviderCollection _providers = null;
-	private static IWindowsAuthProvider _auth = new WindowsAuthProviderImpl();
+	private IWindowsAuthProvider _auth = new WindowsAuthProviderImpl();
 	private boolean _allowGuestLogin = true;
 	private static final String PRINCIPAL_SESSION_KEY = NegotiateSecurityFilter.class.getName() + ".PRINCIPAL";
 
@@ -278,7 +278,7 @@ public class NegotiateSecurityFilter implements Filter {
 	 * @return
 	 *  IWindowsAuthProvider.
 	 */
-	public static IWindowsAuthProvider getAuth() {
+	public IWindowsAuthProvider getAuth() {
 		return _auth;
 	}
 	
@@ -287,7 +287,7 @@ public class NegotiateSecurityFilter implements Filter {
 	 * @param provider
 	 *  Class implements IWindowsAuthProvider.
 	 */
-	public static void setAuth(IWindowsAuthProvider provider) {
+	public void setAuth(IWindowsAuthProvider provider) {
 		_auth = provider;
 	}
 }

@@ -27,9 +27,9 @@ import waffle.windows.auth.IWindowsSecurityContext;
  */
 public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
-    private static Log _log = LogFactory.getLog(NegotiateSecurityFilterProvider.class);
+    private Log _log = LogFactory.getLog(NegotiateSecurityFilterProvider.class);
 	private String[] _protocols = { "Negotiate", "NTLM" };
-	private static IWindowsAuthProvider _auth = null;
+	private IWindowsAuthProvider _auth = null;
 
 	public NegotiateSecurityFilterProvider(IWindowsAuthProvider auth) {
 		_auth = auth;

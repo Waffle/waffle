@@ -31,8 +31,8 @@ public class BasicSecurityFilterTests extends TestCase {
 	
 	@Override
 	public void setUp() {
-		NegotiateSecurityFilter.setAuth(new MockWindowsAuthProvider());
 		_filter = new NegotiateSecurityFilter();
+		_filter.setAuth(new MockWindowsAuthProvider());
 		try {
 			_filter.init(null);
 		} catch (ServletException e) {

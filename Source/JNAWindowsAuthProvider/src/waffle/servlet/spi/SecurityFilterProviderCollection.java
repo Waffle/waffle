@@ -27,7 +27,7 @@ import waffle.windows.auth.IWindowsIdentity;
  */
 public class SecurityFilterProviderCollection {
 
-    private static Log _log = LogFactory.getLog(SecurityFilterProviderCollection.class);
+    private Log _log = LogFactory.getLog(SecurityFilterProviderCollection.class);
 	private List<SecurityFilterProvider> _providers = new ArrayList<SecurityFilterProvider>();
 
 	@SuppressWarnings("unchecked")

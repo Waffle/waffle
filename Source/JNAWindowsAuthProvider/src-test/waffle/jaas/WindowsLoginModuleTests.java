@@ -26,8 +26,8 @@ public class WindowsLoginModuleTests extends TestCase {
 	@Override
 	public void setUp() {
 		_provider = new MockWindowsAuthProvider();
-		WindowsLoginModule.setAuth(_provider);
 		_loginModule = new WindowsLoginModule();
+		_loginModule.setAuth(_provider);
 	}
 
 	@Override

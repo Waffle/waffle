@@ -36,8 +36,8 @@ public class NegotiateSecurityFilterTests extends TestCase {
 	
 	@Override
 	public void setUp() {
-		NegotiateSecurityFilter.setAuth(new WindowsAuthProviderImpl());		
 		_filter = new NegotiateSecurityFilter();
+		_filter.setAuth(new WindowsAuthProviderImpl());		
 		try {
 			_filter.init(null);
 		} catch (ServletException e) {
