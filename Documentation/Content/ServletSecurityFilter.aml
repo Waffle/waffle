@@ -61,12 +61,6 @@
                 </para>
               </alert>
             </definition>
-            <definedTerm>checkUserPrincipal</definedTerm>
-            <definition>
-              Check user principal on each request. This is useful if another security filter is declared earlier that
-              may authenticate the user. The <literal>NegotiateSecurityFilterProvider</literal> will then skip
-              authentication. Default value is False.
-            </definition>
             <definedTerm>securityFilterProviders</definedTerm>
             <definition>
               A list of security filter providers. By default, <literal>BasicSecurityFilterProvider</literal>
@@ -96,10 +90,6 @@
   <init-param>
   	<param-name>allowGuestLogin</param-name>
   	<param-value>true</param-value>
-  </init-param>
-  <init-param>
-  	<param-name>checkUserPrincipal</param-name>
-  	<param-value>false</param-value>
   </init-param>
   <init-param>
   	<param-name>securityFilterProviders</param-name>

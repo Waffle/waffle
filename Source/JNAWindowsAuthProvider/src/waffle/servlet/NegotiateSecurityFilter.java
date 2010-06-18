@@ -43,7 +43,7 @@ public class NegotiateSecurityFilter implements Filter {
     private SecurityFilterProviderCollection _providers = null;
 	private static IWindowsAuthProvider _auth = new WindowsAuthProviderImpl();
 	private boolean _allowGuestLogin = true;
-	private boolean _checkUserPrincipal = false;
+	private static final String PRINCIPAL_SESSION_KEY = NegotiateSecurityFilter.class.getName() + ".PRINCIPAL";
 
 	public NegotiateSecurityFilter() {
 		_log.debug("[waffle.servlet.NegotiateSecurityFilter] loaded");
@@ -53,7 +53,7 @@ public class NegotiateSecurityFilter implements Filter {
 	public void destroy() {
 		_log.info("[waffle.servlet.NegotiateSecurityFilter] stopped");
 	}
-
+	
 	@Override
 	public void doFilter(ServletRequest sreq, ServletResponse sres,
 			FilterChain chain) throws IOException, ServletException {
@@ -62,12 +62,9 @@ public class NegotiateSecurityFilter implements Filter {
 		HttpServletResponse response = (HttpServletResponse) sres;
 
 		_log.info(request.getMethod() + " " + request.getRequestURI() + ", contentlength: " + request.getContentLength());
-		
-		Principal principal = request.getUserPrincipal();
-		if (principal != null && ! _providers.isPrincipalException(request)) {
-			// user already authenticated
-			_log.info("previously authenticated user: " + principal.getName());
-			chain.doFilter(request, response);
+
+		if (doFilterPrincipal(request, response, chain)) {
+			// previously authenticated user
 			return;
 		}
 		
@@ -118,8 +115,10 @@ public class NegotiateSecurityFilter implements Filter {
 				_log.info("roles: " + windowsPrincipal.getRolesString());			
 				subject.getPrincipals().add(windowsPrincipal);
 				session.setAttribute("javax.security.auth.subject", subject);
-				
+
 				_log.info("successfully logged in user: " + windowsIdentity.getFqn());
+				
+				request.getSession().setAttribute(PRINCIPAL_SESSION_KEY, windowsPrincipal);
 				
 				NegotiateRequestWrapper requestWrapper = new NegotiateRequestWrapper(
 						request, windowsPrincipal);
@@ -136,6 +135,53 @@ public class NegotiateSecurityFilter implements Filter {
 		sendUnauthorized(response, false);
 	}
 
+	/**
+	 * Filter for a previously logged on user.
+	 * @param request
+	 *  HTTP request.
+	 * @param response
+	 *  HTTP response.
+	 * @param chain
+	 *  Filter chain.
+	 * @return
+	 *  True if a user already authenticated.
+	 * @throws ServletException 
+	 * @throws IOException 
+	 */
+	private boolean doFilterPrincipal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+		Principal principal = request.getUserPrincipal();
+		if (principal == null) {
+			HttpSession session = request.getSession(false);
+			if (session != null) {
+				principal = (Principal) session.getAttribute(PRINCIPAL_SESSION_KEY);
+			}
+		}
+		
+		if (principal == null) {
+			// no principal in this request
+			return false;
+		}
+
+		if (_providers.isPrincipalException(request)) {
+			// the providers signal to authenticate despite an existing principal, eg. NTLM post
+			return false;
+		}
+		
+		// user already authenticated
+		
+		if (principal instanceof WindowsPrincipal) {
+			_log.info("previously authenticated Windows user: " + principal.getName());
+			WindowsPrincipal windowsPrincipal = (WindowsPrincipal) principal;
+			NegotiateRequestWrapper requestWrapper = new NegotiateRequestWrapper(
+					request, windowsPrincipal);
+			chain.doFilter(requestWrapper, response);
+		} else {
+			_log.info("previously authenticated user: " + principal.getName());
+			chain.doFilter(request, response);
+		}
+		return true;
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -154,8 +200,6 @@ public class NegotiateSecurityFilter implements Filter {
 				} else if (parameterName.equals("securityFilterProviders")) {
 					_providers = new SecurityFilterProviderCollection(
 							parameterValue.split("\n"), _auth);
-				} else if (parameterName.equals("checkUserPrincipal")) {
-					_checkUserPrincipal = Boolean.parseBoolean(parameterValue);
 				} else {
 					_log.error("invalid parameter: " + parameterName);
 					throw new ServletException("Invalid parameter: " + parameterName);
