@@ -63,14 +63,12 @@ public class NegotiateSecurityFilter implements Filter {
 
 		_log.info(request.getMethod() + " " + request.getRequestURI() + ", contentlength: " + request.getContentLength());
 		
-		if (_checkUserPrincipal) {
-			Principal principal = request.getUserPrincipal();
-			if (principal != null && ! _providers.isPrincipalException(request)) {
-				// user already authenticated
-				_log.info("previously authenticated user: " + principal.getName());
-				chain.doFilter(request, response);
-				return;
-			}
+		Principal principal = request.getUserPrincipal();
+		if (principal != null && ! _providers.isPrincipalException(request)) {
+			// user already authenticated
+			_log.info("previously authenticated user: " + principal.getName());
+			chain.doFilter(request, response);
+			return;
 		}
 		
 		AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
