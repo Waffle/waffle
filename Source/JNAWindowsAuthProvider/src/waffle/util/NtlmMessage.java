@@ -1,6 +1,5 @@
 package waffle.util;
 
-import java.util.Arrays;
 
 /**
  * Rudimentary NTLM message utility.
@@ -15,8 +14,12 @@ public abstract class NtlmMessage {
 		if (message == null || message.length < ntlmsspSignature.length)
 			return false;
 		
-		byte[] messageSignature = Arrays.copyOfRange(message, 0, ntlmsspSignature.length);
-		return Arrays.equals(ntlmsspSignature, messageSignature);
+		for(int i = 0; i < ntlmsspSignature.length; i++) {
+			if (ntlmsspSignature[i] != message[i])
+				return false;
+		}
+		
+		return true;
 	}
 	
 	/**
