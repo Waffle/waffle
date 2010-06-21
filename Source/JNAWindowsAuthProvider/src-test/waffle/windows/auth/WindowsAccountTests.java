@@ -21,10 +21,18 @@ public class WindowsAccountTests extends TestCase {
 	}
 	
 	public void testGetCurrentAccount() throws Exception {
-		IWindowsAccount account = new WindowsAccountImpl(WindowsAccountImpl.getCurrentUsername());
+		String currentUsername = WindowsAccountImpl.getCurrentUsername();
+		IWindowsAccount account = new WindowsAccountImpl(currentUsername);
+		assertTrue(account.getName().length() > 0);
+		System.out.println("Name: " + account.getName());
+		assertTrue(account.getDomain().length() > 0);
+		System.out.println("Domain: " + account.getDomain());
 		assertTrue(account.getFqn().length() > 0);
 		System.out.println("Fqn: " + account.getFqn());
 		assertTrue(account.getSidString().length() > 0);
 		System.out.println("Sid: " + account.getSidString());
+		assertEquals(currentUsername, account.getFqn());
+		assertTrue(currentUsername.endsWith("\\" + account.getName()));
+		assertTrue(currentUsername.startsWith(account.getDomain() + "\\"));
 	}
 }

@@ -14,14 +14,23 @@ import waffle.windows.auth.IWindowsAccount;
 public class MockWindowsAccount implements IWindowsAccount {
 
 	private String _fqn;
+	private String _name;
+	private String _domain;
 	
 	public MockWindowsAccount(String fqn) {
 		_fqn = fqn;
+        String[] userNameDomain = fqn.split("\\\\", 2);
+        if (userNameDomain.length == 2) {
+            _name = userNameDomain[1];
+            _domain = userNameDomain[0];
+        } else {
+        	_name = fqn;        	
+        }
 	}
 	
 	@Override
 	public String getDomain() {
-		return null;
+		return _domain;
 	}
 
 	@Override
@@ -31,7 +40,7 @@ public class MockWindowsAccount implements IWindowsAccount {
 
 	@Override
 	public String getName() {
-		return null;
+		return _name;
 	}
 
 	@Override

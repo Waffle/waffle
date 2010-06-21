@@ -29,7 +29,7 @@ public class SecurityFilterProviderCollection {
 
     private Log _log = LogFactory.getLog(SecurityFilterProviderCollection.class);
 	private List<SecurityFilterProvider> _providers = new ArrayList<SecurityFilterProvider>();
-
+	
 	@SuppressWarnings("unchecked")
 	public SecurityFilterProviderCollection(String[] providerNames, IWindowsAuthProvider auth) {
 		for(String providerName : providerNames) {
@@ -107,4 +107,13 @@ public class SecurityFilterProviderCollection {
 			provider.sendUnauthorized(response);
 		}
 	} 
+	
+	/**
+	 * Number of providers.
+	 * @return
+	 *  Number of providers.
+	 */
+	public int size() {
+		return _providers.size();
+	}
 }

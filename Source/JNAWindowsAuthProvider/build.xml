@@ -87,7 +87,8 @@
 			haltonfailure="no" haltonerror="no" printsummary="on" 
 			errorproperty="tests.failed">
 	        <batchtest todir="${waffle.test}">
-				<fileset dir="${waffle.test.lib}" includes="**/*Tests.class" />
+				<fileset dir="${waffle.test.lib}" includes="**/*Tests.class"
+				 excludes="**/*LoadTests.class" />
 			</batchtest>
 			<formatter type="xml" />
     		<classpath refid="waffle.test.classpath" />

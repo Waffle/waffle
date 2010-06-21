@@ -57,9 +57,9 @@ public class WindowsLoginModule implements LoginModule {
 			if (option.getKey().equalsIgnoreCase("debug")) {
 				_debug = Boolean.parseBoolean((String) option.getValue());
 			} else if (option.getKey().equalsIgnoreCase("principalFormat")) {
-				_principalFormat = PrincipalFormat.parse((String) option.getValue());
+				_principalFormat = PrincipalFormat.valueOf((String) option.getValue());
 			} else if (option.getKey().equalsIgnoreCase("roleFormat")) {
-				_roleFormat = PrincipalFormat.parse((String) option.getValue());
+				_roleFormat = PrincipalFormat.valueOf((String) option.getValue());
 			}
 		}
 	}

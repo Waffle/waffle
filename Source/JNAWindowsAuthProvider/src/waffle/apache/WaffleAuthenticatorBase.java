@@ -50,7 +50,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 	 *  Principal format.
 	 */
 	public void setPrincipalFormat(String format) {
-		_principalFormat = PrincipalFormat.parse(format);
+		_principalFormat = PrincipalFormat.valueOf(format);
 		_log.debug("principal format: " + _principalFormat);
 	}
 
@@ -69,7 +69,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 	 *  Role format.
 	 */
 	public void setRoleFormat(String format) {
-		_roleFormat = PrincipalFormat.parse(format);
+		_roleFormat = PrincipalFormat.valueOf(format);
 		_log.debug("role format: " + _roleFormat);
 	}
 

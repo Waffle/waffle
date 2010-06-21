@@ -192,9 +192,9 @@ public class NegotiateSecurityFilter implements Filter {
 				String parameterValue = filterConfig.getInitParameter(parameterName);
 				_log.debug(parameterName + "=" + parameterValue);
 				if (parameterName.equals("principalFormat")) {
-					_principalFormat = PrincipalFormat.parse(parameterValue);
+					_principalFormat = PrincipalFormat.valueOf(parameterValue);
 				} else if (parameterName.equals("roleFormat")) {
-					_roleFormat = PrincipalFormat.parse(parameterValue);
+					_roleFormat = PrincipalFormat.valueOf(parameterValue);
 				} else if (parameterName.equals("allowGuestLogin")) {
 					_allowGuestLogin = Boolean.parseBoolean(parameterValue);
 				} else if (parameterName.equals("securityFilterProviders")) {
@@ -219,7 +219,7 @@ public class NegotiateSecurityFilter implements Filter {
 	 *  Principal format.
 	 */
 	public void setPrincipalFormat(String format) {
-		_principalFormat = PrincipalFormat.parse(format);
+		_principalFormat = PrincipalFormat.valueOf(format);
 		_log.info("principal format: " + _principalFormat);
 	}
 
@@ -238,7 +238,7 @@ public class NegotiateSecurityFilter implements Filter {
 	 *  Role format.
 	 */
 	public void setRoleFormat(String format) {
-		_roleFormat = PrincipalFormat.parse(format);
+		_roleFormat = PrincipalFormat.valueOf(format);
 		_log.info("role format: " + _roleFormat);
 	}
 
@@ -289,5 +289,23 @@ public class NegotiateSecurityFilter implements Filter {
 	 */
 	public void setAuth(IWindowsAuthProvider provider) {
 		_auth = provider;
+	}
+
+	/**
+	 * True if guest login is allowed.
+	 * @return
+	 *  True if guest login is allowed, false otherwise.
+	 */
+	public boolean getAllowGuestLogin() {
+		return _allowGuestLogin;
+	}
+	
+	/**
+	 * Security filter providers.
+	 * @return
+	 *  A collection of security filter providers.
+	 */
+	public SecurityFilterProviderCollection getProviders() { 
+		return _providers;
 	}
 }

@@ -6,6 +6,7 @@
  */
 package waffle.apache.catalina;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +33,7 @@ public class SimpleHttpRequest extends Request implements HttpServletRequest {
 	private Map<String, String> _parameters = new HashMap<String, String>();
 	private byte[] _content = null;
 	private HttpSession _session = new SimpleHttpSession();
+	private Principal _principal = null;
 	
 	public SimpleHttpRequest() {
 		_remotePort = ++ _remotePort_s;
@@ -140,5 +142,15 @@ public class SimpleHttpRequest extends Request implements HttpServletRequest {
 	@Override
 	public void setRemoteAddr(String remoteAddr) {
 		_remoteAddr = remoteAddr;
+	}
+	
+	@Override 
+	public Principal getUserPrincipal() {
+		return _principal;
+	}
+	
+	@Override
+	public void setUserPrincipal(Principal principal) {
+		_principal = principal;
 	}
 }

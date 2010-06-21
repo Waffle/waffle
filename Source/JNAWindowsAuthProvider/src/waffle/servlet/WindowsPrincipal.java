@@ -28,6 +28,15 @@ public class WindowsPrincipal implements Principal {
 	private String _sidString;
 	private List<String> _roles;
 	private Map<String, WindowsAccount> _groups;
+
+	/**
+	 * A windows principal.
+	 * @param windowsIdentity
+	 *  Windows identity.
+	 */
+	public WindowsPrincipal(IWindowsIdentity windowsIdentity) {
+		this(windowsIdentity, PrincipalFormat.fqn, PrincipalFormat.fqn);
+	}
 	
 	/**
 	 * A windows principal.

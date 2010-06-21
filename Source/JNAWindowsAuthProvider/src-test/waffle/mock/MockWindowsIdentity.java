@@ -14,6 +14,7 @@ import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.IWindowsImpersonationContext;
 
 /**
+ * A Mock windows identity.
  * @author dblock[at]dblock[dot]org
  */
 public class MockWindowsIdentity implements IWindowsIdentity {
@@ -21,7 +22,7 @@ public class MockWindowsIdentity implements IWindowsIdentity {
 	private String _fqn;
 	private List<String> _groups;
 	private boolean _guest = false;
-	
+
 	public MockWindowsIdentity(String fqn, List<String> groups) {
 		_fqn = fqn;
 		_groups = groups;

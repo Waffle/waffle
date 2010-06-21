@@ -10,15 +10,11 @@ package waffle.util;
  * Base64 encoder/decoder. 
  * from https://spnego.svn.sourceforge.net/svnroot/spnego/trunk/src/java/net/sourceforge/spnego/Base64.java 
  */
-public final class Base64 {
+public abstract class Base64 {
 
     private static final String ALPHABET =
             "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
-    private Base64() {
-        // default private
-    }
-    
     /**
      * Base-64 encodes the supplied block of data.  Line wrapping is not
      * applied on output.
