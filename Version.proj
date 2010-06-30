@@ -41,5 +41,6 @@
        AssemblyVersion="$(Major).$(Minor).$(Build).$(Revision)"
        AssemblyFileVersion="$(Major).$(Minor).$(Build).$(Revision)" />
     <TemplateFile Template="Source\Version\Version.wxi.template" OutputFilename="Version.wxi" Tokens="@(AssemblyInfoTokens)" />
+    <TemplateFile Template="Source\Version\Version.properties.template" OutputFilename="Version.properties" Tokens="@(AssemblyInfoTokens)" />
   </Target>
 </Project>
