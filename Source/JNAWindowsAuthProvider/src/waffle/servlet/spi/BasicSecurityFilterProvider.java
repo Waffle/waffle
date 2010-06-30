@@ -7,6 +7,7 @@
 package waffle.servlet.spi;
 
 import java.io.IOException;
+import java.security.InvalidParameterException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -80,4 +81,15 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 		_realm = realm;
 	}
 
+	/**
+	 * Init configuration parameters.
+	 */
+	@Override
+	public void initParameter(String parameterName, String parameterValue) {
+		if (parameterName.equals("realm")) {
+			setRealm(parameterValue);
+		} else {
+			throw new InvalidParameterException(parameterName);
+		}
+	}
 }

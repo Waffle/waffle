@@ -7,6 +7,10 @@
 package waffle.servlet.spi;
 
 import java.io.IOException;
+import java.security.InvalidParameterException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,17 +32,20 @@ import waffle.windows.auth.IWindowsSecurityContext;
 public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
     private Log _log = LogFactory.getLog(NegotiateSecurityFilterProvider.class);
-	private String[] _protocols = { "Negotiate", "NTLM" };
+	private List<String> _protocols = new ArrayList<String>();
 	private IWindowsAuthProvider _auth = null;
 
 	public NegotiateSecurityFilterProvider(IWindowsAuthProvider auth) {
 		_auth = auth;
+		_protocols.add("Negotiate");
+		_protocols.add("NTLM");
 	}
 	
 	@Override
 	public void sendUnauthorized(HttpServletResponse response) {
-		for(String protocol : _protocols) {
-			response.addHeader("WWW-Authenticate", protocol);
+		Iterator<String> protocolsIterator = _protocols.iterator();
+		while(protocolsIterator.hasNext()) {
+			response.addHeader("WWW-Authenticate", protocolsIterator.next());
 		}
 	}
 
@@ -96,5 +103,28 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 				return true;
 		}
 		return false;
+	}
+
+	@Override
+	public void initParameter(String parameterName, String parameterValue) {
+		if (parameterName.equals("protocols")) {
+			_protocols = new ArrayList<String>();
+			String[] protocolNames = parameterValue.split("\n");
+			for(String protocolName : protocolNames) {
+				protocolName = protocolName.trim();
+				if (! protocolName.isEmpty()) {
+					_log.debug("init protocol: " + protocolName);
+					if (protocolName.equals("Negotiate") ||
+							protocolName.equals("NTLM")) {
+						_protocols.add(protocolName);
+					} else {
+						_log.error("unsupported protocol: " + protocolName);
+						throw new RuntimeException("Unsupported protocol: " + protocolName);
+					}
+				}
+			}
+		} else {
+			throw new InvalidParameterException(parameterName);			
+		}
 	}	
 }

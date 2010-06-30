@@ -26,7 +26,18 @@
     		waffle.servlet.spi.BasicSecurityFilterProvider
     		waffle.servlet.spi.NegotiateSecurityFilterProvider
     	</param-value>
-    </init-param>    
+    </init-param>
+    <init-param>
+    	<param-name>waffle.servlet.spi.NegotiateSecurityFilterProvider/protocols</param-name>
+    	<param-value>
+    		Negotiate
+    		NTLM
+    	</param-value>
+    </init-param>
+    <init-param>    
+    	<param-name>waffle.servlet.spi.BasicSecurityFilterProvider/realm</param-name>
+    	<param-value>WaffleFilterDemo</param-value>
+    </init-param>
   </filter>
   <filter-mapping>
     <filter-name>SecurityFilter</filter-name>

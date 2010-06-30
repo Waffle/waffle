@@ -63,8 +63,17 @@
             </definition>
             <definedTerm>securityFilterProviders</definedTerm>
             <definition>
-              A list of security filter providers. By default, <literal>BasicSecurityFilterProvider</literal>
+              A list of security filter providers. By default, both <literal>BasicSecurityFilterProvider</literal>
               and <literal>NegotiateSecurityFilterProvider</literal> will be loaded.
+            </definition>
+            <definedTerm>waffle.servlet.spi.NegotiateSecurityFilterProvider/protocols</definedTerm>
+            <definition>
+              A list of security protocols supported by the NegotiateSecurityFilterProvider. 
+              Can be one of or a combination of <literal>Negotiate</literal> and <literal>NTLM</literal>.              
+            </definition>
+            <definedTerm>waffle.servlet.spi.BasicSecurityFilterProvider/realm</definedTerm>
+            <definition>
+              The name of the Realm for BASIC authentication.
             </definition>
           </tableDefinition>
         </para>
@@ -97,7 +106,18 @@
   		waffle.servlet.spi.BasicSecurityFilterProvider
   		waffle.servlet.spi.NegotiateSecurityFilterProvider
   	</param-value>
-  </init-param>    
+  </init-param>
+  <init-param>
+	  <param-name>waffle.servlet.spi.NegotiateSecurityFilterProvider/protocols</param-name>
+	  <param-value>
+		  Negotiate
+		  NTLM
+	  </param-value>
+  </init-param>
+  <init-param>    
+	  <param-name>waffle.servlet.spi.BasicSecurityFilterProvider/realm</param-name>
+	  <param-value>WaffleFilterDemo</param-value>
+  </init-param>
 </filter>]]>
           </code>
         </para>

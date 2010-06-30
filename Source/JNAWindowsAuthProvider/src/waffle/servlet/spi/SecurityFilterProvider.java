@@ -56,4 +56,13 @@ public interface SecurityFilterProvider {
 	 *  True if the security package is supported, false otherwise.
 	 */
 	public boolean isSecurityPackageSupported(String securityPackage);
+
+	/**
+	 * Init a parameter.
+	 * @param parameterName
+	 *  Parameter name.
+	 * @param parameterValue
+	 *  Parameter value.
+	 */
+	public void initParameter(String parameterName, String parameterValue);
 }

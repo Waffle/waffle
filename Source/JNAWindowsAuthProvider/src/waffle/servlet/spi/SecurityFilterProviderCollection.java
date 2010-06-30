@@ -116,4 +116,21 @@ public class SecurityFilterProviderCollection {
 	public int size() {
 		return _providers.size();
 	}
+	
+	/**
+	 * Get a security provider by class name.
+	 * @param name
+	 *  Class name.
+	 * @return
+	 *  A security provider instance.
+	 * @throws ClassNotFoundException
+	 */
+	public SecurityFilterProvider getByClassName(String name) throws ClassNotFoundException {
+		for(SecurityFilterProvider provider : _providers) {
+			if (provider.getClass().getName().equals(name)) {
+				return provider;
+			}
+		}		
+		throw new ClassNotFoundException(name);
+	}
 }

@@ -9,6 +9,9 @@ package waffle.servlet;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.security.auth.Subject;
 import javax.servlet.Filter;
@@ -24,6 +27,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import waffle.servlet.spi.SecurityFilterProvider;
 import waffle.servlet.spi.SecurityFilterProviderCollection;
 import waffle.util.AuthorizationHeader;
 import waffle.windows.auth.IWindowsAuthProvider;
@@ -185,6 +189,8 @@ public class NegotiateSecurityFilter implements Filter {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
+		Map<String, String> implParameters = new HashMap<String, String>();
+
 		if (filterConfig != null) {
 			Enumeration parameterNames = filterConfig.getInitParameterNames();
 			while(parameterNames.hasMoreElements()) {
@@ -201,15 +207,43 @@ public class NegotiateSecurityFilter implements Filter {
 					_providers = new SecurityFilterProviderCollection(
 							parameterValue.split("\n"), _auth);
 				} else {
-					_log.error("invalid parameter: " + parameterName);
-					throw new ServletException("Invalid parameter: " + parameterName);
+					implParameters.put(parameterName, parameterValue);
 				}
 			}
 		}
+		
+		// create default providers if none specified
 		if (_providers == null) {
 			_log.debug("initializing default secuirty filter providers");
 			_providers = new SecurityFilterProviderCollection(_auth);
 		}
+		
+		// apply provider implementation parameters
+		for(Entry<String, String> implParameter : implParameters.entrySet()) {
+			String[] classAndParameter = implParameter.getKey().split("/", 2);
+			if (classAndParameter.length == 2) {
+				try {
+					
+					_log.debug("setting " + classAndParameter[0] + 
+							", " + classAndParameter[1] + "=" + implParameter.getValue());
+					
+					SecurityFilterProvider provider = _providers.getByClassName(classAndParameter[0]); 
+					provider.initParameter(classAndParameter[1], implParameter.getValue());
+					
+				} catch (ClassNotFoundException e) {
+					_log.error("invalid class: " + classAndParameter[0] + " in " + implParameter.getKey());
+					throw new ServletException(e);
+				} catch (Exception e) {
+					_log.error(classAndParameter[0] + ": error setting '" + 
+							classAndParameter[1] + "': " + e.getMessage());
+					throw new ServletException(e);
+				}
+			} else {
+				_log.error("Invalid parameter: " + implParameter.getKey());
+				throw new ServletException("Invalid parameter: " + implParameter.getKey());				
+			}
+		}
+		
 		_log.info("[waffle.servlet.NegotiateSecurityFilter] started");		
 	}
 	

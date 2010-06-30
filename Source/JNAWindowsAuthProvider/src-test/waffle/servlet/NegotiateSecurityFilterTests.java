@@ -220,17 +220,41 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		assertEquals(401, response.getStatus());
 	}
 	
-	public void testInit() throws ServletException {
+	public void testInitBasicSecurityFilterProvider() throws ServletException {
 		SimpleFilterConfig filterConfig = new SimpleFilterConfig();
 		filterConfig.setParameter("principalFormat", "sid");
 		filterConfig.setParameter("roleFormat", "none");
 		filterConfig.setParameter("allowGuestLogin", "true");
-		filterConfig.setParameter("securityFilterProviders", "waffle.servlet.spi.BasicSecurityFilterProvider");		
+		filterConfig.setParameter("securityFilterProviders", "waffle.servlet.spi.BasicSecurityFilterProvider\n");
+		filterConfig.setParameter("waffle.servlet.spi.BasicSecurityFilterProvider/realm", "DemoRealm");
 		_filter.init(filterConfig);
 		assertEquals(_filter.getPrincipalFormat(), PrincipalFormat.sid);
 		assertEquals(_filter.getRoleFormat(), PrincipalFormat.none);
 		assertTrue(_filter.getAllowGuestLogin());
 		assertEquals(1, _filter.getProviders().size());
+	}
+	
+	public void testInitNegotiateSecurityFilterProvider() throws ServletException {
+		SimpleFilterConfig filterConfig = new SimpleFilterConfig();
+		filterConfig.setParameter("securityFilterProviders", "waffle.servlet.spi.NegotiateSecurityFilterProvider\n");
+		filterConfig.setParameter("waffle.servlet.spi.NegotiateSecurityFilterProvider/protocols", "NTLM");		
+		_filter.init(filterConfig);
+		assertEquals(_filter.getPrincipalFormat(), PrincipalFormat.fqn);
+		assertEquals(_filter.getRoleFormat(), PrincipalFormat.fqn);
+		assertTrue(_filter.getAllowGuestLogin());
+		assertEquals(1, _filter.getProviders().size());
+	}
+
+	public void testInitNegotiateSecurityFilterProviderInvalidProtocol() throws ServletException {
+		SimpleFilterConfig filterConfig = new SimpleFilterConfig();
+		filterConfig.setParameter("securityFilterProviders", "waffle.servlet.spi.NegotiateSecurityFilterProvider\n");
+		filterConfig.setParameter("waffle.servlet.spi.NegotiateSecurityFilterProvider/protocols", "INVALID");		
+		try {
+			_filter.init(filterConfig);
+			fail("expected ServletException");
+		} catch (ServletException e) {
+			assertEquals("java.lang.RuntimeException: Unsupported protocol: INVALID", e.getMessage());
+		}
 	}
 	
 	public void testInitInvalidParameter() {
@@ -241,6 +265,17 @@ public class NegotiateSecurityFilterTests extends TestCase {
 			fail("expected ServletException");
 		} catch (ServletException e) {
 			assertEquals("Invalid parameter: invalidParameter", e.getMessage());
+		}
+	}
+	
+	public void testInitInvalidClassInParameter() {
+		try {
+			SimpleFilterConfig filterConfig = new SimpleFilterConfig();
+			filterConfig.setParameter("invalidClass/invalidParameter", "random");
+			_filter.init(filterConfig);
+			fail("expected ServletException");
+		} catch (ServletException e) {
+			assertEquals("java.lang.ClassNotFoundException: invalidClass", e.getMessage());
 		}
 	}
 }
