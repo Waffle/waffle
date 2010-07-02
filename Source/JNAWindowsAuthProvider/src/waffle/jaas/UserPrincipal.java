@@ -28,7 +28,6 @@ public class UserPrincipal implements Principal {
 	/**
 	 * Fully qualified username.
 	 */
-	@Override
 	public String getName() {
 		return _fqn;
 	}

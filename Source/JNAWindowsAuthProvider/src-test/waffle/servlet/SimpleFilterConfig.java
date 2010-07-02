@@ -17,7 +17,6 @@ public class SimpleFilterConfig implements FilterConfig {
 	private String _filterName = "Simple Filter";
 	private Map<String, String> _parameters = new TreeMap<String, String>();
 
-	@Override
 	public String getFilterName() {
 		return _filterName;
 	}
@@ -26,20 +25,17 @@ public class SimpleFilterConfig implements FilterConfig {
 		_filterName = filterName;
 	}
 
-	@Override
 	public String getInitParameter(String s) {
 		return _parameters.get(s);
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public Enumeration getInitParameterNames() {
 		Vector<String> keys = new Vector<String>();
 		keys.addAll(_parameters.keySet());		
 		return (Enumeration) keys.elements();
 	}
 
-	@Override
 	public ServletContext getServletContext() {
 		return null;
 	}

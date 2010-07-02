@@ -28,7 +28,6 @@ public class RolePrincipal implements Principal {
 	/**
 	 * Role name (Windows Group).
 	 */
-	@Override
 	public String getName() {
 		return _fqn;
 	}

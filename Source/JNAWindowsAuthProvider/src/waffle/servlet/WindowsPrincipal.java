@@ -179,7 +179,6 @@ public class WindowsPrincipal implements Principal {
 		return sb.toString();
 	}
 
-	@Override
 	public String getName() {
 		return _fqn;
 	}

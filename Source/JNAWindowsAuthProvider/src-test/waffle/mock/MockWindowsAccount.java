@@ -28,22 +28,18 @@ public class MockWindowsAccount implements IWindowsAccount {
         }
 	}
 	
-	@Override
 	public String getDomain() {
 		return _domain;
 	}
 
-	@Override
 	public String getFqn() {
 		return _fqn;
 	}
 
-	@Override
 	public String getName() {
 		return _name;
 	}
 
-	@Override
 	public String getSidString() {
 		return "S-" + _fqn.hashCode();
 	}

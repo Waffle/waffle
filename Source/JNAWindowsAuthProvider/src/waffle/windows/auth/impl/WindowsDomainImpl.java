@@ -36,17 +36,14 @@ public class WindowsDomainImpl implements IWindowsDomain {
 	private TrustDirection _trustDirection = TrustDirection.Bidirectional;
 	private TrustType _trustType = TrustType.Unknown;
 	
-	@Override
 	public String getFqn() {
 		return _fqn;
 	}
 
-	@Override
 	public String getTrustDirectionString() {
 		return _trustDirection.toString();
 	}
 
-	@Override
 	public String getTrustTypeString() {
 		return _trustType.toString();
 	}

@@ -30,7 +30,6 @@ public class SimpleFilterChain implements FilterChain {
 		return _response;
 	}
 	
-	@Override
 	public void doFilter(ServletRequest sreq, ServletResponse srep)
 			throws IOException, ServletException {
 		

@@ -23,12 +23,10 @@ public class WindowsComputerImpl implements IWindowsComputer {
 	private String computerName;
 	private String domainName;
 	
-	@Override
 	public String getComputerName() {
 		return computerName;
 	}
 
-	@Override
 	public String[] getGroups() {
 		ArrayList<String> groupNames = new ArrayList<String>();
 		LocalGroup[] groups = Netapi32Util.getLocalGroups(computerName);
@@ -38,7 +36,6 @@ public class WindowsComputerImpl implements IWindowsComputer {
 		return groupNames.toArray(new String[0]);
 	}
 
-	@Override
 	public String getJoinStatus() {
 		int joinStatus = Netapi32Util.getJoinStatus(computerName);
 		switch(joinStatus) {
@@ -54,7 +51,6 @@ public class WindowsComputerImpl implements IWindowsComputer {
 		throw new RuntimeException("Unsupported join status: " + joinStatus);
 	}
 
-	@Override
 	public String getMemberOf() {
 		return domainName;
 	}

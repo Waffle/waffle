@@ -91,7 +91,6 @@ public class WindowsCredentialsHandleImpl implements IWindowsCredentialsHandle {
 	/**
 	 * 
 	 */
-	@Override
 	public CredHandle getHandle() {
 		return _handle;
 	}
