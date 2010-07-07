@@ -32,4 +32,23 @@ public class AuthorizationHeaderTests extends TestCase {
 		request.addHeader("Authorization", "NTLM TlRMTVNTUAABAAAABzIAAAYABgArAAAACwALACAAAABXT1JLU1RBVElPTkRPTUFJTg==");
 		assertTrue(header.isNtlmType1Message());	
 	}
+	
+	public void testIsNtlmType1PostAuthorizationHeader() {
+		SimpleHttpRequest request = new SimpleHttpRequest();
+		request.setContentLength(0);
+		request.addHeader("Authorization", "NTLM TlRMTVNTUAABAAAABzIAAAYABgArAAAACwALACAAAABXT1JLU1RBVElPTkRPTUFJTg==");
+		// GET
+		request.setMethod("GET");
+		AuthorizationHeader header = new AuthorizationHeader(request);
+		assertFalse(header.isNtlmType1PostAuthorizationHeader());
+		// POST
+		request.setMethod("POST");
+		assertTrue(header.isNtlmType1PostAuthorizationHeader());
+		// PUT
+		request.setMethod("PUT");
+		assertTrue(header.isNtlmType1PostAuthorizationHeader());
+		// String(POST)
+		request.setMethod(new String("POST"));
+		assertTrue(header.isNtlmType1PostAuthorizationHeader());
+	}
 }
