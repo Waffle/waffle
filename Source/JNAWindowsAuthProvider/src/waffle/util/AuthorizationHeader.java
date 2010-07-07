@@ -74,10 +74,10 @@ public class AuthorizationHeader {
 	 * the POSTed data. This is to avoid the situation where user's credentials 
 	 * might be potentially invalid, and all this data is being POSTed across the wire.
 	 * @return
-	 *  True if request is na NTLM POST with an Authorization header and no data
+	 *  True if request is an NTLM POST or PUT with an Authorization header and no data.
 	 */
 	public boolean isNtlmType1PostAuthorizationHeader() {
-		if (_request.getMethod() != "POST")
+		if ((_request.getMethod() != "POST") && (_request.getMethod() != "PUT"))
 			return false;
 		
 		if (_request.getContentLength() != 0)

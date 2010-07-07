@@ -219,6 +219,26 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		assertEquals("keep-alive", response.getHeader("Connection"));
 		assertEquals(401, response.getStatus());
 	}
+
+	public void testChallengeNTLMPUT() throws IOException, ServletException {
+		MockWindowsIdentity mockWindowsIdentity = new MockWindowsIdentity("user", new ArrayList<String>());
+		SimpleHttpRequest request = new SimpleHttpRequest();
+		WindowsPrincipal windowsPrincipal = new WindowsPrincipal(mockWindowsIdentity);
+		request.setUserPrincipal(windowsPrincipal);
+		request.setMethod("PUT");
+		request.setContentLength(0);
+		request.addHeader("Authorization", "NTLM TlRMTVNTUAABAAAABzIAAAYABgArAAAACwALACAAAABXT1JLU1RBVElPTkRPTUFJTg==");
+		SimpleFilterChain filterChain = new SimpleFilterChain();
+		SimpleHttpResponse response = new SimpleHttpResponse();
+		_filter.doFilter(request, response, filterChain);
+		assertEquals(401, response.getStatus());
+		String[] wwwAuthenticates = response.getHeaderValues("WWW-Authenticate");
+		assertEquals(1, wwwAuthenticates.length);
+		assertTrue(wwwAuthenticates[0].startsWith("NTLM "));
+		assertEquals(2, response.getHeaderNames().length);
+		assertEquals("keep-alive", response.getHeader("Connection"));
+		assertEquals(401, response.getStatus());
+	}
 	
 	public void testInitBasicSecurityFilterProvider() throws ServletException {
 		SimpleFilterConfig filterConfig = new SimpleFilterConfig();
