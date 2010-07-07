@@ -77,7 +77,7 @@ public class AuthorizationHeader {
 	 *  True if request is an NTLM POST or PUT with an Authorization header and no data.
 	 */
 	public boolean isNtlmType1PostAuthorizationHeader() {
-		if ((_request.getMethod() != "POST") && (_request.getMethod() != "PUT"))
+		if (! _request.getMethod().equals("POST") && ! _request.getMethod().equals("PUT"))
 			return false;
 		
 		if (_request.getContentLength() != 0)
