@@ -1,0 +1,199 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>15.&nbsp;Expression-Based Access Control</title><link rel="stylesheet" href="css/manual.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="springsecurity.html" title="Spring Security"><link rel="up" href="authorization.html" title="Part&nbsp;IV.&nbsp;Authorization"><link rel="prev" href="secure-object-impls.html" title="14.&nbsp;Secure Object Implementations"><link rel="next" href="advanced-topics.html" title="Part&nbsp;V.&nbsp;Additional Topics"><!--Begin Google Analytics code--><script type="text/javascript">
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		</script><script type="text/javascript">
+			var pageTracker = _gat._getTracker("UA-2728886-3");
+			pageTracker._setDomainName("none");
+			pageTracker._setAllowLinker(true);
+			pageTracker._trackPageview();
+		</script><!--End Google Analytics code--></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">15.&nbsp;Expression-Based Access Control</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="secure-object-impls.html">Prev</a>&nbsp;</td><th width="60%" align="center">Part&nbsp;IV.&nbsp;Authorization</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="advanced-topics.html">Next</a></td></tr></table><hr></div><div class="chapter" title="15.&nbsp;Expression-Based Access Control"><div class="titlepage"><div><div><h2 class="title"><a name="el-access"></a>15.&nbsp;Expression-Based Access Control</h2></div></div></div>
+    
+    <p> Spring Security 3.0 introduced the ability to use Spring EL expressions as an
+        authorization mechanism in addition to the simple use of configuration attributes and
+        access-decision voters which have seen before. Expression-based access control is built on
+        the same architecture but allows complicated boolean logic to be encapsulated in a single
+        expression.</p>
+    <div class="section" title="15.1&nbsp;Overview"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4e2086"></a>15.1&nbsp;Overview</h2></div></div></div>
+        
+        <p>Spring Security uses Spring EL for expression support and you should look at how that
+            works if you are interested in understanding the topic in more depth. Expressions are
+            evaluated with a <span class="quote">&#8220;<span class="quote">root object</span>&#8221;</span> as part of the evaluation context. Spring
+            Security uses specific classes for web and method security as the root object, in order
+            to provide built-in expressions and access to values such as the current
+            principal.</p>
+        <div class="section" title="15.1.1&nbsp;Common Built-In Expressions"><div class="titlepage"><div><div><h3 class="title"><a name="el-common-built-in"></a>15.1.1&nbsp;Common Built-In Expressions</h3></div></div></div>
+            
+            <p>The base class for expression root objects is
+                    <code class="classname">SecurityExpressionRoot</code>. This provides some common
+                expressions which are available in both web and method security.</p>
+            <div class="table"><a name="d4e2094"></a><p class="title"><b>Table&nbsp;15.1.&nbsp;Common built-in expressions</b></p><div class="table-contents">
+                
+                <table summary="Common built-in expressions" style="border: none;"><colgroup><col><col></colgroup><thead><tr><th style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; ">Expression</th><th style="border-bottom: 0.5pt solid ; ">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><code class="literal">hasRole([role])</code></td><td style="border-bottom: 0.5pt solid ; ">Returns <code class="literal">true</code> if the current principal has the
+                                specified role.</td></tr><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><code class="literal">hasAnyRole([role1,role2])</code></td><td style="border-bottom: 0.5pt solid ; ">Returns <code class="literal">true</code> if the current principal has any
+                                of the supplied roles (given as a comma-separated list of
+                                strings)</td></tr><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><code class="literal">principal</code></td><td style="border-bottom: 0.5pt solid ; ">Allows direct access to the principal object representing the
+                                current user</td></tr><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><code class="literal">authentication</code></td><td style="border-bottom: 0.5pt solid ; ">Allows direct access to the current
+                                    <code class="interfacename">Authentication</code> object obtained
+                                from the <code class="interfacename">SecurityContext</code></td></tr><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><code class="literal">permitAll</code></td><td style="border-bottom: 0.5pt solid ; ">Always evaluates to <code class="literal">true</code></td></tr><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><code class="literal">denyAll</code></td><td style="border-bottom: 0.5pt solid ; ">Always evaluates to <code class="literal">false</code></td></tr><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><code class="literal">isAnonymous()</code></td><td style="border-bottom: 0.5pt solid ; ">Returns <code class="literal">true</code> if the current principal is an
+                                anonymous user</td></tr><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><code class="literal">isRememberMe()</code></td><td style="border-bottom: 0.5pt solid ; ">Returns <code class="literal">true</code> if the current principal is a
+                                remember-me user</td></tr><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><code class="literal">isAuthenticated()</code></td><td style="border-bottom: 0.5pt solid ; ">Returns <code class="literal">true</code> if the user is not
+                                anonymous</td></tr><tr><td style="border-right: 0.5pt solid ; "><code class="literal">isFullyAuthenticated()</code></td><td style="">Returns <code class="literal">true</code> if the user is not an anonymous
+                                or a remember-me user</td></tr></tbody></table>
+            </div></div><br class="table-break">
+        </div>
+    </div>
+    <div class="section" title="15.2&nbsp;Web Security Expressions"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="el-access-web"></a>15.2&nbsp;Web Security Expressions</h2></div></div></div>
+        
+        <p> To use expressions to secure individual URLs, you would first need to set the
+                <code class="literal">use-expressions</code> attribute in the <code class="literal">&lt;http&gt;</code>
+            element to <code class="literal">true</code>. Spring Security will then expect the
+                <code class="literal">access</code> attributes of the <code class="literal">&lt;intercept-url&gt;</code>
+            elements to contain Spring EL expressions. The expressions should evaluate to a boolean,
+            defining whether access should be allowed or not. For example:</p><pre class="programlisting">
+  &lt;http use-expressions="true"&gt;
+    &lt;intercept-url pattern="/admin*"
+        access="hasRole('admin') and hasIpAddress('192.168.1.0/24')"/&gt;
+    ...
+  &lt;/http&gt;
+</pre><p>Here we have defined that the <span class="quote">&#8220;<span class="quote">admin</span>&#8221;</span> area of an application
+            (defined by the URL pattern) should only be available to users who have the granted
+            authority <span class="quote">&#8220;<span class="quote">admin</span>&#8221;</span> and whose IP address matches a local subnet. We've
+            already seen the built-in <code class="literal">hasRole</code> expression in the previous section.
+            The expression <code class="literal">hasIpAddress</code> is an additional built-in expression
+            which is specific to web security. It is defined by the
+                <code class="classname">WebSecurityExpressionRoot</code> class, an instance of which is used
+            as the expression root object when evaluation web-access expressions. This object also
+            directly exposed the <code class="interfacename">HttpServletRequest</code> object under the
+            name <code class="literal">request</code> so you can invoke the request directly in an
+            expression.</p>
+        <p>If expressions are being used, a <code class="classname">WebExpressionVoter</code> will be
+            added to the <code class="interfacename">AccessDecisionManager</code> which is used by the
+            namespace. So if you aren't using the namespace and want to use expressions, you will
+            have to add one of these to your configuration.</p>
+    </div>
+    <div class="section" title="15.3&nbsp;Method Security Expressions"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4e2173"></a>15.3&nbsp;Method Security Expressions</h2></div></div></div>
+        
+        <p>Method security is a bit more complicated than a simple allow or deny rule. Spring
+            Security 3.0 introduced some new annotations in order to allow comprehensive support for
+            the use of expressions.</p>
+        <div class="section" title="15.3.1&nbsp;@Pre and @Post Annotations"><div class="titlepage"><div><div><h3 class="title"><a name="el-pre-post-annotations"></a>15.3.1&nbsp;<code class="literal">@Pre</code> and <code class="literal">@Post</code> Annotations</h3></div></div></div>
+            
+            <p>There are four annotations which support expression attributes to allow pre and
+                post-invocation authorization checks and also to support filtering of submitted
+                collection arguments or return values. They are <code class="literal">@PreAuthorize</code>,
+                    <code class="literal">@PreFilter</code>, <code class="literal">@PostAuthorize</code> and
+                    <code class="literal">@PostFilter</code>. Their use is enabled through the
+                    <code class="literal">global-method-security</code> namespace
+                element:</p><pre class="programlisting">&lt;global-method-security pre-post-annotations="enabled"/&gt;</pre>
+            <div class="section" title="Access Control using @PreAuthorize and @PostAuthorize"><div class="titlepage"><div><div><h4 class="title"><a name="d4e2187"></a>Access Control using <code class="literal">@PreAuthorize</code> and
+                        <code class="literal">@PostAuthorize</code></h4></div></div></div>
+                
+                <p>The most obviously useful annotation is <code class="literal">@PreAuthorize</code> which
+                    decides whether a method can actually be invoked or not. For example (from the
+                        <span class="quote">&#8220;<span class="quote">Contacts</span>&#8221;</span> sample
+                    application)</p><pre class="programlisting">  @PreAuthorize("hasRole('ROLE_USER')")
+  public void create(Contact contact);</pre><p>which
+                    means that access will only be allowed for users with the role "ROLE_USER".
+                    Obviously the same thing could easily be achieved using a traditional
+                    configuration and a simple configuration attribute for the required role. But
+                    what
+                    about:</p><pre class="programlisting">  @PreAuthorize("hasPermission(#contact, 'admin')")
+  public void deletePermission(Contact contact, Sid recipient, Permission permission);</pre><p>Here
+                    we're actually using a method argument as part of the expression to decide
+                    whether the current user has the <span class="quote">&#8220;<span class="quote">admin</span>&#8221;</span>permission for the given
+                    contact. The built-in <code class="literal">hasPermission()</code> expression is linked
+                    into the Spring Security ACL module through the application context, as we'll
+                        <a class="ulink" href="#el-permission-evaluator" target="_top">see below</a>. You can access
+                    any of the method arguments by name as expression variables, provided your code
+                    has debug information compiled in. Any Spring-EL functionality is available
+                    within the expression, so you can also access properties on the arguments. For
+                    example, if you wanted a particular method to only allow access to a user whose
+                    username matched that of the contact, you could write</p>
+                <pre class="programlisting">  @PreAuthorize("#contact.name == principal.name)")
+  public void doSomething(Contact contact);</pre>
+                <p>Here we are accessing another built&#8211;in expression, which is the
+                        <code class="literal">principal</code> of the current Spring Security
+                        <code class="interfacename">Authentication</code> object obtained from the
+                    security context. You can also access the
+                        <code class="interfacename">Authentication</code> object itself directly using
+                    the expression name <code class="literal">authentication</code>.</p>
+                <p>Less commonly, you may wish to perform an access-control check after the
+                    method has been invoked. This can be achieved using the
+                        <code class="literal">@PostAuthorize</code> annotation. To access the return value
+                    from a method, use the built&#8211;in name <code class="literal">returnObject</code> in the
+                    expression.</p>
+            </div>
+            <div class="section" title="Filtering using @PreFilter and @PostFilter"><div class="titlepage"><div><div><h4 class="title"><a name="d4e2208"></a>Filtering using <code class="literal">@PreFilter</code> and
+                        <code class="literal">@PostFilter</code></h4></div></div></div>
+                
+                <p>As you may already be aware, Spring Security supports filtering of collections
+                    and arrays and this can now be achieved using expressions. This is most commonly
+                    performed on the return value of a method. For
+                    example:</p><pre class="programlisting">  @PreAuthorize("hasRole('ROLE_USER')")
+  @PostFilter("hasPermission(filterObject, 'read') or hasPermission(filterObject, 'admin')")
+  public List&lt;Contact&gt; getAll();</pre><p>When
+                    using the <code class="literal">@PostFilter</code> annotation, Spring Security iterates
+                    through the returned collection and removes any elements for which the supplied
+                    expression is false. The name <code class="literal">filterObject</code> refers to the
+                    current object in the collection. You can also filter before the method call,
+                    using <code class="literal">@PreFilter</code>, though this is a less common requirement.
+                    The syntax is just the same, but if there is more than one argument which is a
+                    collection type then you have to select one by name using the
+                        <code class="literal">filterTarget</code> property of this annotation.</p>
+                <p>Note that filtering is obviously not a substitute for tuning your data
+                    retrieval queries. If you are filtering large collections and removing many of
+                    the entries then this is likely to be inefficient.</p>
+            </div>
+        </div>
+        <div class="section" title="15.3.2&nbsp;Built-In Expressions"><div class="titlepage"><div><div><h3 class="title"><a name="el-method-built-in"></a>15.3.2&nbsp;Built-In Expressions</h3></div></div></div>
+            
+            <p>There are some built-in expressions which are specific to method security, which
+                we have already seen in use above. The <code class="literal">filterTarget</code> and
+                    <code class="literal">returnValue</code> values are simple enough, but the use of the
+                    <code class="literal">hasPermission()</code> expression warrants a closer look.</p>
+            <div class="section" title="The PermissionEvaluator interface"><div class="titlepage"><div><div><h4 class="title"><a name="el-permission-evaluator"></a>The <code class="interfacename">PermissionEvaluator</code> interface</h4></div></div></div>
+                
+                <p><code class="literal">hasPermission()</code> expressions are delegated to an instance of
+                        <code class="interfacename">PermissionEvaluator</code>. It is intended to bridge
+                    between the expression system and Spring Security's ACL system, allowing you to
+                    specify authorization constraints on domain objects, based on abstract
+                    permissions. It has no explicit dependencies on the ACL module, so you could
+                    swap that out for an alternative implementation if required. The interface has
+                    two methods:
+                    </p><pre class="programlisting">  <span class="hl-keyword">boolean</span> hasPermission(Authentication authentication, Object targetDomainObject, Object permission);
+
+  <span class="hl-keyword">boolean</span> hasPermission(Authentication authentication, Serializable targetId, String targetType, Object permission);</pre><p>which
+                    map directly to the available versions of the expression, with the exception
+                    that the first argument (the <code class="interfacename">Authentication</code>
+                    object) is not supplied. The first is used in situations where the domain
+                    object, to which access is being controlled, is already loaded. Then expression
+                    will return true if the current user has the given permission for that object.
+                    The second version is used in cases where the object is not loaded, but its
+                    identifier is known. An abstract <span class="quote">&#8220;<span class="quote">type</span>&#8221;</span> specifier for the domain
+                    object is also required, allowing the correct ACL permissions to be loaded. This
+                    has traditionally been the Java class of the object, but does not have to be as
+                    long as it is consistent with how the permissions are loaded.</p>
+                <p>To use <code class="literal">hasPermission()</code> expressions, you have to explicitly
+                    configure a <code class="interfacename">PermissionEvaluator</code> in your
+                    application context. This would look something like this:</p><pre class="programlisting">  <span class="hl-tag">&lt;security:global-method-security</span> <span class="hl-attribute">pre-post-annotations</span>=<span class="hl-value">"enabled"</span><span class="hl-tag">&gt;</span>
+    <span class="hl-tag">&lt;security:expression-handler</span> <span class="hl-attribute">ref</span>=<span class="hl-value">"expressionHandler"</span><span class="hl-tag">/&gt;</span>
+  <span class="hl-tag">&lt;/security:global-method-security&gt;</span>
+
+  <span class="hl-tag">&lt;bean</span> <span class="hl-attribute">id</span>=<span class="hl-value">"expressionHandler"</span>
+      <span class="hl-attribute">class</span>=<span class="hl-value">"org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler"</span><span class="hl-tag">&gt;</span>
+        <span class="hl-tag">&lt;property</span> <span class="hl-attribute">name</span>=<span class="hl-value">"permissionEvaluator"</span> <span class="hl-attribute">ref</span>=<span class="hl-value">"myPermissionEvaluator"</span><span class="hl-tag">/&gt;</span>
+  <span class="hl-tag">&lt;/bean&gt;</span></pre><p>Where <code class="literal">myPermissionEvaluator</code> is the bean which
+                    implements <code class="interfacename">PermissionEvaluator</code>. Usually this will
+                    be the implementation from the ACL module which is called
+                        <code class="classname">AclPermissionEvaluator</code>. See the
+                        <span class="quote">&#8220;<span class="quote">Contacts</span>&#8221;</span> sample application configuration for more
+                    details.</p>
+            </div>
+        </div>
+    </div>
+</div><!--Begin LoopFuse code--><script src="http://loopfuse.net/webrecorder/js/listen.js" type="text/javascript"></script><script type="text/javascript">
+			_lf_cid = "LF_48be82fa";
+			_lf_remora();
+		</script><!--End LoopFuse code--><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="secure-object-impls.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="authorization.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="advanced-topics.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">14.&nbsp;Secure Object Implementations&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="springsecurity.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;Part&nbsp;V.&nbsp;Additional Topics</td></tr></table></div></body></html>

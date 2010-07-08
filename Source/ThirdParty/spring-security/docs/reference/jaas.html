@@ -1,0 +1,149 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>20.&nbsp;Java Authentication and Authorization Service (JAAS) Provider</title><link rel="stylesheet" href="css/manual.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="springsecurity.html" title="Spring Security"><link rel="up" href="advanced-topics.html" title="Part&nbsp;V.&nbsp;Additional Topics"><link rel="prev" href="taglibs.html" title="19.&nbsp;JSP Tag Libraries"><link rel="next" href="cas.html" title="21.&nbsp;CAS Authentication"><!--Begin Google Analytics code--><script type="text/javascript">
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		</script><script type="text/javascript">
+			var pageTracker = _gat._getTracker("UA-2728886-3");
+			pageTracker._setDomainName("none");
+			pageTracker._setAllowLinker(true);
+			pageTracker._trackPageview();
+		</script><!--End Google Analytics code--></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">20.&nbsp;Java Authentication and Authorization Service (JAAS) Provider</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="taglibs.html">Prev</a>&nbsp;</td><th width="60%" align="center">Part&nbsp;V.&nbsp;Additional Topics</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="cas.html">Next</a></td></tr></table><hr></div><div class="chapter" title="20.&nbsp;Java Authentication and Authorization Service (JAAS) Provider"><div class="titlepage"><div><div><h2 class="title"><a name="jaas"></a>20.&nbsp;Java Authentication and Authorization Service (JAAS) Provider</h2></div></div></div>
+    
+
+    <div class="section" title="20.1&nbsp;Overview"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="jaas-overview"></a>20.1&nbsp;Overview</h2></div></div></div>
+        
+        <p>Spring Security provides a package able to delegate
+            authentication requests to the Java Authentication and Authorization
+            Service (JAAS). This package is discussed in detail below.</p>
+
+        <p>Central to JAAS operation are login configuration files. To
+            learn more about JAAS login configuration files, consult the JAAS
+            reference documentation available from Sun Microsystems. We expect you
+            to have a basic understanding of JAAS and its login configuration file
+            syntax in order to understand this section.</p>
+    </div>
+
+    <div class="section" title="20.2&nbsp;Configuration"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="jaas-config"></a>20.2&nbsp;Configuration</h2></div></div></div>
+        
+        <p>The <code class="literal">JaasAuthenticationProvider</code> attempts to
+            authenticate a user&#8217;s principal and credentials through JAAS.</p>
+
+        <p>Let&#8217;s assume we have a JAAS login configuration file,
+            <code class="literal">/WEB-INF/login.conf</code>, with the following
+            contents:
+</p><pre class="programlisting">
+JAASTest {
+    sample.SampleLoginModule required;
+};</pre>
+        <p>Like all Spring Security beans, the
+            <code class="classname">JaasAuthenticationProvider</code> is configured via the
+            application context. The following definitions would correspond to the
+            above JAAS login configuration file:
+</p><pre class="programlisting">
+&lt;bean id="jaasAuthenticationProvider"
+   class="org.springframework.security.authentication.jaas.JaasAuthenticationProvider"&gt;
+ &lt;property name="loginConfig" value="/WEB-INF/login.conf"/&gt;
+ &lt;property name="loginContextName" value="JAASTest"/&gt;
+ &lt;property name="callbackHandlers"&gt;
+  &lt;list&gt;
+   &lt;bean
+     class="org.springframework.security.authentication.jaas.JaasNameCallbackHandler"/&gt;
+   &lt;bean
+     class="org.springframework.security.authentication.jaas.JaasPasswordCallbackHandler"/&gt;
+  &lt;/list&gt;
+  &lt;/property&gt;
+  &lt;property name="authorityGranters"&gt;
+    &lt;list&gt;
+      &lt;bean class="org.springframework.security.authentication.jaas.TestAuthorityGranter"/&gt;
+    &lt;/list&gt;
+  &lt;/property&gt;
+&lt;/bean&gt;
+</pre>
+
+        <p>The <code class="literal">CallbackHandler</code>s and
+            <code class="interfacename">AuthorityGranter</code>s are discussed below.</p>
+
+        <div class="section" title="20.2.1&nbsp;JAAS CallbackHandler"><div class="titlepage"><div><div><h3 class="title"><a name="jaas-callbackhandler"></a>20.2.1&nbsp;JAAS CallbackHandler</h3></div></div></div>
+            
+
+            <p>Most JAAS <code class="literal">LoginModule</code>s require a callback
+                of some sort. These callbacks are usually used to obtain the
+                username and password from the user.</p>
+
+            <p>In a Spring Security deployment, Spring Security is
+                responsible for this user interaction (via the authentication
+                mechanism). Thus, by the time the authentication request is
+                delegated through to JAAS, Spring Security's authentication
+                mechanism will already have fully-populated an
+                <code class="interfacename">Authentication</code> object containing all the
+                information required by the JAAS
+                <code class="literal">LoginModule</code>.</p>
+
+            <p>Therefore, the JAAS package for Spring Security provides two
+                default callback handlers,
+                <code class="literal">JaasNameCallbackHandler</code> and
+                <code class="literal">JaasPasswordCallbackHandler</code>. Each of these
+                callback handlers implement
+                <code class="literal">JaasAuthenticationCallbackHandler</code>. In most cases
+                these callback handlers can simply be used without understanding the
+                internal mechanics.</p>
+
+            <p>For those needing full control over the callback behavior,
+                internally <code class="literal">JaasAuthenticationProvider</code> wraps these
+                <code class="literal">JaasAuthenticationCallbackHandler</code>s with an
+                <code class="literal">InternalCallbackHandler</code>. The
+                <code class="literal">InternalCallbackHandler</code> is the class that
+                actually implements JAAS&#8217; normal <code class="literal">CallbackHandler</code>
+                interface. Any time that the JAAS <code class="literal">LoginModule</code> is
+                used, it is passed a list of application context configured
+                <code class="literal">InternalCallbackHandler</code>s. If the
+                <code class="literal">LoginModule</code> requests a callback against the
+                <code class="literal">InternalCallbackHandler</code>s, the callback is in-turn
+                passed to the <code class="literal">JaasAuthenticationCallbackHandler</code>s
+                being wrapped.</p>
+        </div>
+
+        <div class="section" title="20.2.2&nbsp;JAAS AuthorityGranter"><div class="titlepage"><div><div><h3 class="title"><a name="jaas-authoritygranter"></a>20.2.2&nbsp;JAAS AuthorityGranter</h3></div></div></div>
+            
+
+            <p>JAAS works with principals. Even "roles" are represented as
+                principals in JAAS. Spring Security, on the other hand, works with
+                <code class="interfacename">Authentication</code> objects. Each
+                <code class="interfacename">Authentication</code> object contains a single
+                principal, and multiple <code class="interfacename">GrantedAuthority</code>[]s. To
+                facilitate mapping between these different concepts, Spring
+                Security's JAAS package includes an
+                <code class="literal">AuthorityGranter</code> interface.</p>
+
+            <p>An <code class="literal">AuthorityGranter</code> is responsible for
+                inspecting a JAAS principal and returning a set of
+                <code class="literal">String</code>s, representing the authorities assigned to the principal.
+                For each returned authority string, the
+                <code class="classname">JaasAuthenticationProvider</code> creates a
+                <code class="classname">JaasGrantedAuthority</code> (which implements Spring
+                Security&#8217;s <code class="interfacename">GrantedAuthority</code> interface) containing
+                the authority string and the JAAS principal that the
+                <code class="interfacename">AuthorityGranter</code> was passed. The
+                <code class="classname">JaasAuthenticationProvider</code> obtains the JAAS
+                principals by firstly successfully authenticating the user&#8217;s
+                credentials using the JAAS <code class="literal">LoginModule</code>, and then
+                accessing the <code class="literal">LoginContext</code> it returns. A call to
+                <code class="literal">LoginContext.getSubject().getPrincipals()</code> is
+                made, with each resulting principal passed to each
+                <code class="interfacename">AuthorityGranter</code> defined against the
+                <code class="literal">JaasAuthenticationProvider.setAuthorityGranters(List)</code>
+                property.</p>
+
+            <p>Spring Security does not include any production
+                <code class="interfacename">AuthorityGranter</code>s given that every JAAS principal
+                has an implementation-specific meaning. However, there is a
+                <code class="literal">TestAuthorityGranter</code> in the unit tests that
+                demonstrates a simple <code class="literal">AuthorityGranter</code>
+                implementation.</p>
+        </div>
+    </div>
+</div><!--Begin LoopFuse code--><script src="http://loopfuse.net/webrecorder/js/listen.js" type="text/javascript"></script><script type="text/javascript">
+			_lf_cid = "LF_48be82fa";
+			_lf_remora();
+		</script><!--End LoopFuse code--><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="taglibs.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="advanced-topics.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="cas.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">19.&nbsp;JSP Tag Libraries&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="springsecurity.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;21.&nbsp;CAS Authentication</td></tr></table></div></body></html>

@@ -1,0 +1,187 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>7.&nbsp;The Security Filter Chain</title><link rel="stylesheet" href="css/manual.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="springsecurity.html" title="Spring Security"><link rel="up" href="web-app-security.html" title="Part&nbsp;III.&nbsp;Web Application Security"><link rel="prev" href="web-app-security.html" title="Part&nbsp;III.&nbsp;Web Application Security"><link rel="next" href="core-web-filters.html" title="8.&nbsp;Core Security Filters"><!--Begin Google Analytics code--><script type="text/javascript">
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		</script><script type="text/javascript">
+			var pageTracker = _gat._getTracker("UA-2728886-3");
+			pageTracker._setDomainName("none");
+			pageTracker._setAllowLinker(true);
+			pageTracker._trackPageview();
+		</script><!--End Google Analytics code--></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">7.&nbsp;The Security Filter Chain</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="web-app-security.html">Prev</a>&nbsp;</td><th width="60%" align="center">Part&nbsp;III.&nbsp;Web Application Security</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="core-web-filters.html">Next</a></td></tr></table><hr></div><div class="chapter" title="7.&nbsp;The Security Filter Chain"><div class="titlepage"><div><div><h2 class="title"><a name="security-filter-chain"></a>7.&nbsp;The Security Filter Chain</h2></div></div></div>
+  
+  <p>Spring Security's web infrastructure is based entirely on standard servlet filters. It
+    doesn't use servlets or any other servlet-based frameworks (such as Spring MVC) internally, so
+    it has no strong links to any particular web technology. It deals in
+      <code class="classname">HttpServletRequest</code>s and <code class="classname">HttpServletResponse</code>s and
+    doesn't care whether the requests come from a browser, a web service client, an
+      <code class="classname">HttpInvoker</code> or an AJAX application. </p>
+  <p> Spring Security maintains a filter chain internally where each of the filters has a
+    particular responsibility and filters are added or removed from the configuration depending on
+    which services are required. The ordering of the filters is important as there are dependencies
+    between them. If you have been using <a class="ulink" href="#ns-config" target="_top">namespace
+      configuration</a>, then the filters are automatically configured for you and you don't have
+    to define any Spring beans explicitly but here may be times when you want full control over the
+    security filter chain, either because you are using features which aren't supported in the
+    namespace, or you are using your own customized versions of classes.</p>
+  <div class="section" title="7.1&nbsp;DelegatingFilterProxy"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="delegating-filter-proxy"></a>7.1&nbsp;<code class="classname">DelegatingFilterProxy</code></h2></div></div></div>
+    
+    <p> When using servlet filters, you obviously need to declare them in your
+        <code class="filename">web.xml</code>, or they will be ignored by the servlet container. In Spring
+      Security, the filter classes are also Spring beans defined in the application context and thus
+      able to take advantage of Spring's rich dependency-injection facilities and lifecycle
+      interfaces. Spring's <code class="classname">DelegatingFilterProxy</code> provides the link between
+        <code class="filename">web.xml</code> and the application context. </p>
+    <p>When using <code class="classname">DelegatingFilterProxy</code>, you will see something like this
+      in the <code class="filename">web.xml</code> file: </p><pre class="programlisting">
+  &lt;filter&gt;
+    &lt;filter-name&gt;myFilter&lt;/filter-name&gt;
+    &lt;filter-class&gt;org.springframework.web.filter.DelegatingFilterProxy&lt;/filter-class&gt;
+  &lt;/filter&gt;
+
+  &lt;filter-mapping&gt;
+    &lt;filter-name&gt;myFilter&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+  &lt;/filter-mapping&gt;
+      </pre><p> Notice that the filter is actually a
+        <code class="literal">DelegatingFilterProxy</code>, and not the class that will actually implement the
+      logic of the filter. What <code class="classname">DelegatingFilterProxy</code> does is delegate the
+        <code class="interfacename">Filter</code>'s methods through to a bean which is obtained from the
+      Spring application context. This enables the bean to benefit from the Spring web application
+      context lifecycle support and configuration flexibility. The bean must implement
+        <code class="interfacename">javax.servlet.Filter</code> and it must have the same name as that
+      in the <code class="literal">filter-name</code> element. Read the Javadoc for
+        <code class="classname">DelegatingFilterProxy</code> for more information</p>
+  </div>
+  <div class="section" title="7.2&nbsp;FilterChainProxy"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="filter-chain-proxy"></a>7.2&nbsp;<code class="classname">FilterChainProxy</code></h2></div></div></div>
+    
+    <p> It should now be clear that you can declare each Spring Security filter bean that you
+      require in your application context file and add a corresponding
+        <code class="classname">DelegatingFilterProxy</code> entry to <code class="filename">web.xml</code> for each
+      filter, making sure that they are ordered correctly. This is a cumbersome approach and
+      clutters up the <code class="filename">web.xml</code> file quickly if we have a lot of filters. We
+      would prefer to just add a single entry to <code class="filename">web.xml</code> and deal entirely with
+      the application context file for managing our web security beans. This is where Spring
+      Secuiryt's <code class="classname">FilterChainProxy</code> comes in. It is wired using a
+        <code class="literal">DelegatingFilterProxy</code>, just like in the example above, but with the
+        <code class="literal">filter-name</code> set to the bean name <span class="quote">&#8220;<span class="quote">filterChainProxy</span>&#8221;</span>. The
+      filter chain is then declared in the application context with the same bean name. Here's an
+      example: </p><pre class="programlisting">
+<span class="hl-tag">&lt;bean</span> <span class="hl-attribute">id</span>=<span class="hl-value">"filterChainProxy"</span> <span class="hl-attribute">class</span>=<span class="hl-value">"org.springframework.security.web.FilterChainProxy"</span><span class="hl-tag">&gt;</span>
+  <span class="hl-tag">&lt;sec:filter-chain-map</span> <span class="hl-attribute">path-type</span>=<span class="hl-value">"ant"</span><span class="hl-tag">&gt;</span>
+     <span class="hl-tag">&lt;sec:filter-chain</span> <span class="hl-attribute">pattern</span>=<span class="hl-value">"/webServices/**"</span> <span class="hl-attribute">filters</span>=<span class="hl-value">"
+           securityContextPersistenceFilterWithASCFalse,
+           basicAuthenticationFilter,
+           exceptionTranslationFilter,
+           filterSecurityInterceptor"</span><span class="hl-tag"> /&gt;</span>
+     <span class="hl-tag">&lt;sec:filter-chain</span> <span class="hl-attribute">pattern</span>=<span class="hl-value">"/**"</span> <span class="hl-attribute">filters</span>=<span class="hl-value">"
+           securityContextPersistenceFilterWithASCTrue,
+           formLoginFilter,
+           exceptionTranslationFilter,
+           filterSecurityInterceptor"</span><span class="hl-tag"> /&gt;</span>
+  <span class="hl-tag">&lt;/sec:filter-chain-map&gt;</span>
+<span class="hl-tag">&lt;/bean&gt;</span>
+
+    </pre><p> The namespace element <code class="literal">filter-chain-map</code> is used
+      to set up the security filter chain(s) which are required within the
+          application<sup>[<a name="d4e1274" href="#ftn.d4e1274" class="footnote">6</a>]</sup>. It maps a
+      particular URL pattern to a chain of filters built up from the bean names specified in the
+        <code class="literal">filters</code> element. Both regular expressions and Ant Paths are supported,
+      and the most specific URIs appear first. At runtime the
+        <code class="classname">FilterChainProxy</code> will locate the first URI pattern that matches the
+      current web request and the list of filter beans specified by the <code class="literal">filters</code>
+      attribute will be applied to that request. The filters will be invoked in the order they are
+      defined, so you have complete control over the filter chain which is applied to a particular
+      URL.</p>
+    <p>You may have noticed we have declared two
+        <code class="classname">SecurityContextPersistenceFilter</code>s in the filter chain
+        (<code class="literal">ASC</code> is short for <code class="literal">allowSessionCreation</code>, a property of
+        <code class="classname">SecurityContextPersistenceFilter</code>). As web services will never present
+      a <code class="literal">jsessionid</code> on future requests, creating <code class="literal">HttpSession</code>s
+      for such user agents would be wasteful. If you had a high-volume application which required
+      maximum scalability, we recommend you use the approach shown above. For smaller applications,
+      using a single <code class="classname">SecurityContextPersistenceFilter</code> (with its default
+        <code class="literal">allowSessionCreation</code> as <code class="literal">true</code>) would likely be
+      sufficient.</p>
+    <p>In relation to lifecycle issues, the <code class="classname">FilterChainProxy</code> will always
+      delegate <code class="methodname">init(FilterConfig)</code> and <code class="methodname">destroy()</code>
+      methods through to the underlaying <code class="interfacename">Filter</code>s if such methods are
+      called against <code class="classname">FilterChainProxy</code> itself. In this case,
+        <code class="classname">FilterChainProxy</code> guarantees to only initialize and destroy each
+        <code class="literal">Filter</code> bean once, no matter how many times it is declared in the filter
+      chain(s). You control the overall choice as to whether these methods are called or not via the
+        <code class="literal">targetFilterLifecycle</code> initialization parameter of
+        <code class="literal">DelegatingFilterProxy</code>. By default this property is
+        <code class="literal">false</code> and servlet container lifecycle invocations are not delegated
+      through <code class="literal">DelegatingFilterProxy</code>.</p>
+    <p> When we looked at how to set up web security using <a class="ulink" href="#ns-web-xml" target="_top">namespace configuration</a>, we used a <code class="literal">DelegatingFilterProxy</code> with the
+      name <span class="quote">&#8220;<span class="quote">springSecurityFilterChain</span>&#8221;</span>. You should now be able to see that this is the
+      name of the <code class="classname">FilterChainProxy</code> which is created by the namespace. </p>
+    <div class="section" title="7.2.1&nbsp;Bypassing the Filter Chain"><div class="titlepage"><div><div><h3 class="title"><a name="d4e1306"></a>7.2.1&nbsp;Bypassing the Filter Chain</h3></div></div></div>
+      
+      <p> As with the namespace, you can use the attribute <code class="literal">filters = "none"</code> as
+        an alternative to supplying a filter bean list. This will omit the request pattern from the
+        security filter chain entirely. Note that anything matching this path will then have no
+        authentication or authorization services applied and will be freely accessible. If you want
+        to make use of the contents of the <code class="classname">SecurityContext</code> contents during a
+        request, then it must have passed through the security filter chain. Otherwise the
+          <code class="classname">SecurityContextHolder</code> will not have been populated and the contents
+        will be null.</p>
+    </div>
+  </div>
+  <div class="section" title="7.3&nbsp;Filter Ordering"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4e1312"></a>7.3&nbsp;Filter Ordering</h2></div></div></div>
+    
+    <p>The order that filters are defined in the chain is very important. Irrespective of which
+      filters you are actually using, the order should be as follows:
+              </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p><code class="classname">ChannelProcessingFilter</code>, because
+            it might need to redirect to a different
+              protocol</p></li><li class="listitem"><p><code class="classname">ConcurrentSessionFilter</code>,
+            because it doesn't use any <code class="classname">SecurityContextHolder</code> functionality
+            but needs to update the <code class="interfacename">SessionRegistry</code> to reflect
+            ongoing requests from the
+              principal</p></li><li class="listitem"><p><code class="classname">SecurityContextPersistenceFilter</code>,
+            so a <code class="interfacename">SecurityContext</code> can be set up in the
+              <code class="classname">SecurityContextHolder</code> at the beginning of a web request, and
+            any changes to the <code class="interfacename">SecurityContext</code> can be copied to the
+              <code class="literal">HttpSession</code> when the web request ends (ready for use with the next
+            web request)</p></li><li class="listitem"><p>Authentication processing mechanisms -
+              <code class="classname">UsernamePasswordAuthenticationFilter</code>,
+              <code class="classname">CasAuthenticationFilter</code>,
+              <code class="classname">BasicAuthenticationFilter</code> etc - so that the
+              <code class="classname">SecurityContextHolder</code> can be modified to contain a valid
+              <code class="interfacename">Authentication</code> request
+            token</p></li><li class="listitem"><p>The
+              <code class="literal">SecurityContextHolderAwareRequestFilter</code>, if you are using it to
+            install a Spring Security aware <code class="literal">HttpServletRequestWrapper</code> into your
+            servlet
+              container</p></li><li class="listitem"><p><code class="classname">RememberMeAuthenticationFilter</code>,
+            so that if no earlier authentication processing mechanism updated the
+              <code class="classname">SecurityContextHolder</code>, and the request presents a cookie that
+            enables remember-me services to take place, a suitable remembered
+              <code class="interfacename">Authentication</code> object will be put
+          there</p></li><li class="listitem"><p><code class="classname">AnonymousAuthenticationFilter</code>,
+            so that if no earlier authentication processing mechanism updated the
+              <code class="classname">SecurityContextHolder</code>, an anonymous
+              <code class="interfacename">Authentication</code> object will be put
+          there</p></li><li class="listitem"><p><code class="classname">ExceptionTranslationFilter</code>,
+            to catch any Spring Security exceptions so that either an HTTP error response can be
+            returned or an appropriate <code class="interfacename">AuthenticationEntryPoint</code> can
+            be
+              launched</p></li><li class="listitem"><p><code class="classname">FilterSecurityInterceptor</code>,
+            to protect web URIs and raise exceptions when access is
+        denied</p></li></ol></div>
+  </div>
+  <div class="section" title="7.4&nbsp;Use with other Filter-Based Frameworks"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4e1359"></a>7.4&nbsp;Use with other Filter-Based Frameworks</h2></div></div></div>
+    
+    <p>If you're using some other framework that is also filter-based, then you need to make sure
+      that the Spring Security filters come first. This enables the
+        <code class="classname">SecurityContextHolder</code> to be populated in time for use by the other
+      filters. Examples are the use of SiteMesh to decorate your web pages or a web framework like
+      Wicket which uses a filter to handle its requests. </p>
+  </div>
+  
+<div class="footnotes"><br><hr width="100" align="left"><div class="footnote"><p><sup>[<a name="ftn.d4e1274" href="#d4e1274" class="para">6</a>] </sup>Note that you'll need to include the security namespace in your
+          application context XML file in order to use this syntax.</p></div></div></div><!--Begin LoopFuse code--><script src="http://loopfuse.net/webrecorder/js/listen.js" type="text/javascript"></script><script type="text/javascript">
+			_lf_cid = "LF_48be82fa";
+			_lf_remora();
+		</script><!--End LoopFuse code--><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="web-app-security.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="web-app-security.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="core-web-filters.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Part&nbsp;III.&nbsp;Web Application Security&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="springsecurity.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;8.&nbsp;Core Security Filters</td></tr></table></div></body></html>

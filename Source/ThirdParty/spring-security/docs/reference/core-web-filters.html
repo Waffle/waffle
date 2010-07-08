@@ -1,0 +1,311 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>8.&nbsp;Core Security Filters</title><link rel="stylesheet" href="css/manual.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="springsecurity.html" title="Spring Security"><link rel="up" href="web-app-security.html" title="Part&nbsp;III.&nbsp;Web Application Security"><link rel="prev" href="security-filter-chain.html" title="7.&nbsp;The Security Filter Chain"><link rel="next" href="basic.html" title="9.&nbsp;Basic and Digest Authentication"><!--Begin Google Analytics code--><script type="text/javascript">
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		</script><script type="text/javascript">
+			var pageTracker = _gat._getTracker("UA-2728886-3");
+			pageTracker._setDomainName("none");
+			pageTracker._setAllowLinker(true);
+			pageTracker._trackPageview();
+		</script><!--End Google Analytics code--></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">8.&nbsp;Core Security Filters</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="security-filter-chain.html">Prev</a>&nbsp;</td><th width="60%" align="center">Part&nbsp;III.&nbsp;Web Application Security</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="basic.html">Next</a></td></tr></table><hr></div><div class="chapter" title="8.&nbsp;Core Security Filters"><div class="titlepage"><div><div><h2 class="title"><a name="core-web-filters"></a>8.&nbsp;Core Security Filters</h2></div></div></div>
+    
+    <p> There are some key filters which will always be used in a web application which uses
+        Spring Security, so we'll look at these and their supporting classes and interfaces first.
+        We won't cover every feature, so be sure to look at the Javadoc for them if you want to get
+        the complete picture.</p>
+    <div class="section" title="8.1&nbsp;FilterSecurityInterceptor"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="filter-security-interceptor"></a>8.1&nbsp;<code class="classname">FilterSecurityInterceptor</code></h2></div></div></div>
+        
+        <p>We've already seen <code class="classname">FilterSecurityInterceptor</code> briefly when
+            discussing <a class="ulink" href="#tech-intro-access-control" target="_top">access-control in
+                general</a>, and we've already used it with the namespace where the
+                <code class="literal">&lt;intercept-url&gt;</code> elements are combined to configure it
+            internally. Now we'll see how to explicitly configure it for use with a
+                <code class="classname">FilterChainProxy</code>, along with its companion filter
+                <code class="classname">ExceptionTranslationFilter</code>. A typical configuration example
+            is shown below: </p><pre class="programlisting">
+<span class="hl-tag">&lt;bean</span> <span class="hl-attribute">id</span>=<span class="hl-value">"filterSecurityInterceptor"</span>
+        <span class="hl-attribute">class</span>=<span class="hl-value">"org.springframework.security.web.access.intercept.FilterSecurityInterceptor"</span><span class="hl-tag">&gt;</span>
+  <span class="hl-tag">&lt;property</span> <span class="hl-attribute">name</span>=<span class="hl-value">"authenticationManager"</span> <span class="hl-attribute">ref</span>=<span class="hl-value">"authenticationManager"</span><span class="hl-tag">/&gt;</span>
+  <span class="hl-tag">&lt;property</span> <span class="hl-attribute">name</span>=<span class="hl-value">"accessDecisionManager"</span> <span class="hl-attribute">ref</span>=<span class="hl-value">"accessDecisionManager"</span><span class="hl-tag">/&gt;</span>
+  <span class="hl-tag">&lt;property</span> <span class="hl-attribute">name</span>=<span class="hl-value">"securityMetadataSource"</span><span class="hl-tag">&gt;</span>
+    <span class="hl-tag">&lt;security:filter-security-metadata-source&gt;</span>
+      <span class="hl-tag">&lt;security:intercept-url</span> <span class="hl-attribute">pattern</span>=<span class="hl-value">"/secure/super/**"</span> <span class="hl-attribute">access</span>=<span class="hl-value">"ROLE_WE_DONT_HAVE"</span><span class="hl-tag">/&gt;</span>
+      <span class="hl-tag">&lt;security:intercept-url</span> <span class="hl-attribute">pattern</span>=<span class="hl-value">"/secure/**"</span> <span class="hl-attribute">access</span>=<span class="hl-value">"ROLE_SUPERVISOR,ROLE_TELLER"</span><span class="hl-tag">/&gt;</span>
+    <span class="hl-tag">&lt;/security:filter-security-metadata-source&gt;</span>
+  <span class="hl-tag">&lt;/property&gt;</span>
+<span class="hl-tag">&lt;/bean&gt;</span></pre>
+        <p><code class="classname">FilterSecurityInterceptor</code> is responsible for handling the
+            security of HTTP resources. It requires a reference to an
+                <code class="interfacename">AuthenticationManager</code> and an
+                <code class="interfacename">AccessDecisionManager</code>. It is also supplied with
+            configuration attributes that apply to different HTTP URL requests. Refer back to <a class="ulink" href="#tech-intro-config-attributes" target="_top">the original discussion on these</a>
+            in the technical introduction.</p>
+        <p>The <code class="classname">FilterSecurityInterceptor</code> can be configured with
+            configuration attributes in two ways. The first, which is shown above, is using the
+                <code class="literal">&lt;filter-security-metadata-source&gt;</code> namespace element. This
+            is similar to the <code class="literal">&lt;filter-chain-map&gt;</code> used to configure a
+                <code class="classname">FilterChainProxy</code> but the
+                <code class="literal">&lt;intercept-url&gt;</code> child elements only use the
+                <code class="literal">pattern</code> and <code class="literal">access</code> attributes. Commas are used
+            to delimit the different configuration attributes that apply to each HTTP URL. The
+            second option is to write your own
+            <code class="interfacename">SecurityMetadataSource</code>, but this is beyond the scope of
+            this document. Irrespective of the approach used, the
+                <code class="interfacename">SecurityMetadataSource</code> is responsible for returning a
+                <code class="literal">List&lt;ConfigAttribute&gt;</code> containing all of the configuration
+            attributes associated with a single secure HTTP URL.</p>
+        <p>It should be noted that the
+                <code class="literal">FilterSecurityInterceptor.setSecurityMetadataSource()</code> method
+            actually expects an instance of
+                <code class="interfacename">FilterSecurityMetadataSource</code>. This is a marker
+            interface which subclasses <code class="interfacename">SecurityMetadataSource</code>. It
+            simply denotes the <code class="interfacename">SecurityMetadataSource</code> understands
+                <code class="classname">FilterInvocation</code>s. In the interests of simplicity we'll
+            continue to refer to the
+                <code class="interfacename">FilterInvocationSecurityMetadataSource</code> as a
+                <code class="interfacename">SecurityMetadataSource</code>, as the distinction is of
+            little relevance to most users.</p>
+        <p>The <code class="interfacename">SecurityMetadataSource</code> created by the namespace
+            syntax obtains the configuration attributes for a particular
+                <code class="classname">FilterInvocation</code> by matching the request URL against the
+            configured <code class="literal">pattern</code> attributes. This behaves in the same way as it
+            does for namespace configuration. The default is to treat all expressions as Apache Ant
+            paths and regular expressions are also supported for more complex cases. The
+                <code class="literal">path-type</code> attribute is used to specify the type of pattern being
+            used. It is not possible to mix expression syntaxes within the same definition. As an
+            example, the previous configuration using regular expressions instead of Ant paths would
+            be written as follows:</p>
+        <pre class="programlisting">
+<span class="hl-tag">&lt;bean</span> <span class="hl-attribute">id</span>=<span class="hl-value">"filterInvocationInterceptor"</span>
+     <span class="hl-attribute">class</span>=<span class="hl-value">"org.springframework.security.web.access.intercept.FilterSecurityInterceptor"</span><span class="hl-tag">&gt;</span>
+  <span class="hl-tag">&lt;property</span> <span class="hl-attribute">name</span>=<span class="hl-value">"authenticationManager"</span> <span class="hl-attribute">ref</span>=<span class="hl-value">"authenticationManager"</span><span class="hl-tag">/&gt;</span>
+  <span class="hl-tag">&lt;property</span> <span class="hl-attribute">name</span>=<span class="hl-value">"accessDecisionManager"</span> <span class="hl-attribute">ref</span>=<span class="hl-value">"accessDecisionManager"</span><span class="hl-tag">/&gt;</span>
+  <span class="hl-tag">&lt;property</span> <span class="hl-attribute">name</span>=<span class="hl-value">"runAsManager"</span> <span class="hl-attribute">ref</span>=<span class="hl-value">"runAsManager"</span><span class="hl-tag">/&gt;</span>
+  <span class="hl-tag">&lt;property</span> <span class="hl-attribute">name</span>=<span class="hl-value">"securityMetadataSource"</span><span class="hl-tag">&gt;</span>
+    <span class="hl-tag">&lt;security:filter-security-metadata-source</span> <span class="hl-attribute">path-type</span>=<span class="hl-value">"regex"</span><span class="hl-tag">&gt;</span>
+      <span class="hl-tag">&lt;security:intercept-url</span> <span class="hl-attribute">pattern</span>=<span class="hl-value">"\A/secure/super/.*\Z"</span> <span class="hl-attribute">access</span>=<span class="hl-value">"ROLE_WE_DONT_HAVE"</span><span class="hl-tag">/&gt;</span>
+      <span class="hl-tag">&lt;security:intercept-url</span> <span class="hl-attribute">pattern</span>=<span class="hl-value">"\A/secure/.*\"</span> <span class="hl-attribute">access</span>=<span class="hl-value">"ROLE_SUPERVISOR,ROLE_TELLER"</span><span class="hl-tag">/&gt;</span>
+    <span class="hl-tag">&lt;/security:filter-security-metadata-source&gt;</span>
+  <span class="hl-tag">&lt;/property&gt;</span>
+<span class="hl-tag">&lt;/bean&gt;</span>        </pre>
+        <p>Patterns are always evaluated in the order they are defined. Thus it is important that
+            more specific patterns are defined higher in the list than less specific patterns. This
+            is reflected in our example above, where the more specific
+                <code class="literal">/secure/super/</code> pattern appears higher than the less specific
+                <code class="literal">/secure/</code> pattern. If they were reversed, the
+                <code class="literal">/secure/</code> pattern would always match and the
+                <code class="literal">/secure/super/</code> pattern would never be evaluated.</p>
+        
+    </div>
+    <div class="section" title="8.2&nbsp; ExceptionTranslationFilter"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="exception-translation-filter"></a>8.2&nbsp;
+            <code class="classname">ExceptionTranslationFilter</code></h2></div></div></div>
+        
+        <p>The <code class="classname">ExceptionTranslationFilter</code> sits above the
+                <code class="classname">FilterSecurityInterceptor</code> in the security filter stack. It
+            doesn't do any actual security enforcement itself, but handles exceptions thrown by the
+            security interceptors and provides suitable and HTTP responses. </p><pre class="programlisting">
+<span class="hl-tag">&lt;bean</span> <span class="hl-attribute">id</span>=<span class="hl-value">"exceptionTranslationFilter"</span>
+     <span class="hl-attribute">class</span>=<span class="hl-value">"org.springframework.security.web.access.ExceptionTranslationFilter"</span><span class="hl-tag">&gt;</span>
+  <span class="hl-tag">&lt;property</span> <span class="hl-attribute">name</span>=<span class="hl-value">"authenticationEntryPoint"</span> <span class="hl-attribute">ref</span>=<span class="hl-value">"authenticationEntryPoint"</span><span class="hl-tag">/&gt;</span>
+  <span class="hl-tag">&lt;property</span> <span class="hl-attribute">name</span>=<span class="hl-value">"accessDeniedHandler"</span> <span class="hl-attribute">ref</span>=<span class="hl-value">"accessDeniedHandler"</span><span class="hl-tag">/&gt;</span>
+<span class="hl-tag">&lt;/bean&gt;</span>
+
+<span class="hl-tag">&lt;bean</span> <span class="hl-attribute">id</span>=<span class="hl-value">"authenticationEntryPoint"</span>
+     <span class="hl-attribute">class</span>=<span class="hl-value">"org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint"</span><span class="hl-tag">&gt;</span>
+  <span class="hl-tag">&lt;property</span> <span class="hl-attribute">name</span>=<span class="hl-value">"loginFormUrl"</span> <span class="hl-attribute">value</span>=<span class="hl-value">"/login.jsp"</span><span class="hl-tag">/&gt;</span>
+<span class="hl-tag">&lt;/bean&gt;</span>
+
+<span class="hl-tag">&lt;bean</span> <span class="hl-attribute">id</span>=<span class="hl-value">"accessDeniedHandler"</span>
+     <span class="hl-attribute">class</span>=<span class="hl-value">"org.springframework.security.web.access.AccessDeniedHandlerImpl"</span><span class="hl-tag">&gt;</span>
+  <span class="hl-tag">&lt;property</span> <span class="hl-attribute">name</span>=<span class="hl-value">"errorPage"</span> <span class="hl-attribute">value</span>=<span class="hl-value">"/accessDenied.htm"</span><span class="hl-tag">/&gt;</span>
+<span class="hl-tag">&lt;/bean&gt;</span>
+</pre>
+        <div class="section" title="8.2.1&nbsp;AuthenticationEntryPoint"><div class="titlepage"><div><div><h3 class="title"><a name="auth-entry-point"></a>8.2.1&nbsp;<code class="interfacename">AuthenticationEntryPoint</code></h3></div></div></div>
+            
+            <p> The <code class="interfacename">AuthenticationEntryPoint</code> will be called if the
+                user requests a secure HTTP resource but they are not authenticated. An appropriate
+                    <code class="exceptionname">AuthenticationException</code> or
+                    <code class="exceptionname">AccessDeniedException</code> will be thrown by a
+                security interceptor further down the call stack, triggering the
+                    <code class="methodname">commence</code> method on the entry point. This does the job
+                of presenting the appropriate response to the user so that authentication can begin.
+                The one we've used here is <code class="classname">LoginUrlAuthenticationEntryPoint</code>,
+                which redirects the request to a different URL (typically a login page). The actual
+                implementation used will depend on the authentication mechanism you want to be used
+                in your application. </p>
+        </div>
+        <div class="section" title="8.2.2&nbsp;AccessDeniedHandler"><div class="titlepage"><div><div><h3 class="title"><a name="access-denied-handler"></a>8.2.2&nbsp;<code class="interfacename">AccessDeniedHandler</code></h3></div></div></div>
+            
+            <p>What happens if a user is already authenticated an they try to access a protected
+                resource? In normal usage, this shouldn't happen because the application workflow
+                should be restricted to operations to which a user has access. For example, an HTML
+                link to an administration page might be hidden from users who do not have an admin
+                role. You can't rely on hiding links for security though, as there's always a
+                possibility that a user will just enter the URL directly in an attempt to bypass the
+                restrictions. Or they might modify a RESTful URL to change some of the argument
+                values. Your application must be protected against these scenarios or it will
+                definitely be insecure. You will typically use simple web layer security to apply
+                constraints to basic URLs and use more specific method-based security on your
+                service layer interfaces to really nail down what is permissible.</p>
+            <p>If an <code class="exceptionname">AccessDeniedException</code> is thrown and a user
+                has already been authenticated, then this means that an operation has been attempted
+                for which they don't have enough permissions. In this case,
+                    <code class="classname">ExceptionTranslationFilter</code> will invoke a second strategy,
+                the <code class="interfacename">AccessDeniedHandler</code>. By default, an
+                    <code class="classname">AccessDeniedHandlerImpl</code> is used, which just sends a 403
+                (Forbidden) response to the client. Alternatively you can configure an instance
+                explicitly (as in the above example) and set an error page URL which it will
+                forwards the request to <sup>[<a name="d4e1436" href="#ftn.d4e1436" class="footnote">7</a>]</sup>. This can be a simple <span class="quote">&#8220;<span class="quote">access denied</span>&#8221;</span> page, such as a JSP,
+                or it could be a more complex handler such as an MVC controller. And of course, you
+                can implement the interface yourself and use your own implementation. </p>
+            <p>It's also possible to supply a custom
+                    <code class="interfacename">AccessDeniedHandler</code> when you're using the
+                namespace to configure your application. See <a class="ulink" href="#nsa-access-denied-handler" target="_top">the namespace appendix</a> for more
+                details.</p>
+        </div>
+    </div>
+    <div class="section" title="8.3&nbsp;SecurityContextPersistenceFilter"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="security-context-persistence-filter"></a>8.3&nbsp;<code class="classname">SecurityContextPersistenceFilter</code></h2></div></div></div>
+        
+        <p> We covered the purpose of this all-important filter in the <a class="ulink" href="#tech-intro-sec-context-persistence" target="_top">Technical Overview</a> chapter
+            so you might want to re-read that section at this point. Let's first take a look at how
+            you would configure it for use with a <code class="classname">FilterChainProxy</code>. A basic
+            configuration only requires the bean itself </p><pre class="programlisting">
+&lt;bean id="securityContextPersistenceFilter"
+class="org.springframework.security.web.context.SecurityContextPersistenceFilter"/&gt;
+</pre><p> As we saw previously, this filter has two main tasks. It is responsible for
+            storage of the <code class="classname">SecurityContext</code> contents between HTTP requests and
+            for clearing the <code class="classname">SecurityContextHolder</code> when a request is
+            completed. Clearing the <code class="classname">ThreadLocal</code> in which the context is
+            stored is essential, as it might otherwise be possible for a thread to be replaced into
+            the servlet container's thread pool, with the security context for a particular user
+            still attached. This thread might then be used at a later stage, performing operations
+            with the wrong credentials. </p>
+        <div class="section" title="8.3.1&nbsp;SecurityContextRepository"><div class="titlepage"><div><div><h3 class="title"><a name="security-context-repository"></a>8.3.1&nbsp;<code class="interfacename">SecurityContextRepository</code></h3></div></div></div>
+            
+            <p>From Spring Security 3.0, the job of loading and storing the security context is
+                now delegated to a separate strategy interface:
+                </p><pre class="programlisting">
+<span class="hl-keyword">public</span> <span class="hl-keyword">interface</span> SecurityContextRepository {
+  SecurityContext loadContext(HttpRequestResponseHolder requestResponseHolder);
+  <span class="hl-keyword">void</span> saveContext(SecurityContext context, HttpServletRequest request,
+         HttpServletResponse response);
+}
+</pre><p>
+                The <code class="classname">HttpRequestResponseHolder</code> is simply a container for the
+                incoming request and response objects, allowing the implementation to replace these
+                with wrapper classes. The returned contents will be passed to the filter chain. </p>
+            <p> The default implementation is
+                    <code class="classname">HttpSessionSecurityContextRepository</code>, which stores the
+                security context as an <code class="interfacename">HttpSession</code> attribute <sup>[<a name="d4e1461" href="#ftn.d4e1461" class="footnote">8</a>]</sup>. The most important configuration parameter for this implementation is
+                the <code class="literal">allowSessionCreation</code> property, which defaults to
+                    <code class="literal">true</code>, thus allowing the class to create a session if it needs
+                one to store the security context for an authenticated user (it won't create one
+                unless authentication has taken place and the contents of the security context have
+                changed). If you don't want a session to be created, then you can set this property
+                to <code class="literal">false</code>: </p><pre class="programlisting">
+<span class="hl-tag">&lt;bean</span> <span class="hl-attribute">id</span>=<span class="hl-value">"securityContextPersistenceFilter"</span>
+<span class="hl-attribute">class</span>=<span class="hl-value">"org.springframework.security.web.context.SecurityContextPersistenceFilter"</span><span class="hl-tag">&gt;</span>
+<span class="hl-tag">&lt;property</span> <span class="hl-attribute">name</span>=<span class="hl-value">'securityContextRepository'</span><span class="hl-tag">&gt;</span>
+<span class="hl-tag">&lt;bean</span> <span class="hl-attribute">class</span>=<span class="hl-value">'org.springframework.security.web.context.HttpSessionSecurityContextRepository'</span><span class="hl-tag">&gt;</span>
+  <span class="hl-tag">&lt;property</span> <span class="hl-attribute">name</span>=<span class="hl-value">'allowSessionCreation'</span> <span class="hl-attribute">value</span>=<span class="hl-value">'false'</span><span class="hl-tag"> /&gt;</span>
+<span class="hl-tag">&lt;/bean&gt;</span>
+<span class="hl-tag">&lt;/property&gt;</span>
+<span class="hl-tag">&lt;/bean&gt;</span>
+</pre><p> Alternatively you could provide a null implementation of the
+                    <code class="interfacename">SecurityContextRepository</code> interface, which will
+                prevent the security context from being stored, even if a session has already been
+                created during the request. </p>
+        </div>
+    </div>
+    <div class="section" title="8.4&nbsp;UsernamePasswordAuthenticationFilter"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="form-login-filter"></a>8.4&nbsp;<code class="classname">UsernamePasswordAuthenticationFilter</code></h2></div></div></div>
+        
+        <p>We've now seen the three main filters which are always present in a Spring Security
+            web configuration. These are also the three which are automatically created by the
+            namespace <code class="literal">&lt;http&gt;</code> element and cannot be substituted with
+            alternatives. The only thing that's missing now is an actual authentication mechanism,
+            something that will allow a user to authenticate. This filter is the most commonly used
+            authentication filter and the one that is most often customized <sup>[<a name="d4e1475" href="#ftn.d4e1475" class="footnote">9</a>]</sup>. It also provides the implementation used by the
+                <code class="literal">&lt;form-login&gt;</code> element from the namespace. There are three
+            stages required to configure it. </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+                    <p>Configure a <code class="classname">LoginUrlAuthenticationEntryPoint</code> with
+                        the URL of the login page, just as we did above, and set it on the
+                            <code class="classname">ExceptionTranslationFilter</code>. </p>
+                </li><li class="listitem">
+                    <p>Implement the login page (using a JSP or MVC controller).</p>
+                </li><li class="listitem">
+                    <p>Configure an instance of
+                            <code class="classname">UsernamePasswordAuthenticationFilter</code> in the
+                        application context</p>
+                </li><li class="listitem">
+                    <p>Add the filter bean to your filter chain proxy (making sure you pay
+                        attention to the order). </p>
+                </li></ol></div><p> The login form simply contains <code class="literal">j_username</code> and
+                <code class="literal">j_password</code> input fields, and posts to the URL that is monitored
+            by the filter (by default this is <code class="literal">/j_spring_security_check</code>). The
+            basic filter configuration looks something like this: </p><pre class="programlisting">
+&lt;bean id="authenticationFilter" class=
+"org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter"&gt;
+  &lt;property name="authenticationManager" ref="authenticationManager"/&gt;
+  &lt;property name="filterProcessesUrl" value="/j_spring_security_check"/&gt;
+&lt;/bean&gt; 
+                </pre>
+        <div class="section" title="8.4.1&nbsp;Application Flow on Authentication Success and Failure"><div class="titlepage"><div><div><h3 class="title"><a name="form-login-flow-handling"></a>8.4.1&nbsp;Application Flow on Authentication Success and Failure</h3></div></div></div>
+            
+            <p> The filter calls the configured
+                    <code class="interfacename">AuthenticationManager</code> to process each
+                authentication request. The destination following a successful authentication or an
+                authentication failure is controlled by the
+                    <code class="interfacename">AuthenticationSuccessHandler</code> and
+                    <code class="interfacename">AuthenticationFailureHandler</code> strategy interfaces,
+                respectively. The filter has properties which allow you to set these so you can
+                customize the behaviour completely <sup>[<a name="d4e1502" href="#ftn.d4e1502" class="footnote">10</a>]</sup>. Some standard implementations are supplied such as
+                    <code class="classname">SimpleUrlAuthenticationSuccessHandler</code>,
+                    <code class="classname">SavedRequestAwareAuthenticationSuccessHandler</code>,
+                    <code class="classname">SimpleUrlAuthenticationFailureHandler</code> and
+                    <code class="classname">ExceptionMappingAuthenticationFailureHandler</code>. Have a look
+                at the Javadoc for these classes to see how they work. </p>
+            <p>If authentication is successful, the resulting
+                    <code class="interfacename">Authentication</code> object will be placed into the
+                    <code class="classname">SecurityContextHolder</code>. The configured
+                    <code class="interfacename">AuthenticationSuccessHandler</code> will then be called
+                to either redirect or forward the user to the appropriate destination. By default a
+                    <code class="classname">SavedRequestAwareAuthenticationSuccessHandler</code> is used,
+                which means that the user will be redirected to the original destination they
+                requested before they were asked to login. </p><div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="images/note.png"></td><th align="left">Note</th></tr><tr><td align="left" valign="top">
+                    <p> The <code class="classname">ExceptionTranslationFilter</code> caches the original
+                        request a user makes. When the user authenticates, the request handler makes
+                        use of this cached request to obtain the original URL and redirect to it.
+                        The original request is then rebuilt and used as an alternative. </p>
+                </td></tr></table></div><p> If authentication fails, the configured
+                    <code class="interfacename">AuthenticationFailureHandler</code> will be invoked.
+            </p>
+        </div>
+    </div>
+<div class="footnotes"><br><hr width="100" align="left"><div class="footnote">
+                    <p><sup>[<a name="ftn.d4e1436" href="#d4e1436" class="para">7</a>] </sup>We use a forward so that the SecurityContextHolder still contains details
+                        of the principal, which may be useful for displaying to the user. In old
+                        releases of Spring Security we relied upon the servlet container to handle a
+                        403 error message, which lacked this useful contextual information.</p>
+                </div><div class="footnote">
+                    <p><sup>[<a name="ftn.d4e1461" href="#d4e1461" class="para">8</a>] </sup>In Spring Security 2.0 and earlier, this filter was called
+                            <code class="classname">HttpSessionContextIntegrationFilter</code> and performed
+                        all the work of storing the context was performed by the filter itself. If
+                        you were familiar with this class, then most of the configuration options
+                        which were available can now be found on
+                            <code class="classname">HttpSessionSecurityContextRepository</code>. </p>
+                </div><div class="footnote">
+                <p><sup>[<a name="ftn.d4e1475" href="#d4e1475" class="para">9</a>] </sup>For historical reasons, prior to Spring Security 3.0, this filter was called
+                        <code class="classname">AuthenticationProcessingFilter</code> and the entry point
+                    was called <code class="classname">AuthenticationProcessingFilterEntryPoint</code>.
+                    Since the framework now supports many different forms of authentication, they
+                    have both been given more specific names in 3.0.</p>
+            </div><div class="footnote">
+                    <p><sup>[<a name="ftn.d4e1502" href="#d4e1502" class="para">10</a>] </sup>In versions prior to 3.0, the application flow at this point had evolved
+                        to a stage was controlled by a mix of properties on this class and strategy
+                        plugins. The decision was made for 3.0 to refactor the code to make these
+                        two strategies entirely responsible. </p>
+                </div></div></div><!--Begin LoopFuse code--><script src="http://loopfuse.net/webrecorder/js/listen.js" type="text/javascript"></script><script type="text/javascript">
+			_lf_cid = "LF_48be82fa";
+			_lf_remora();
+		</script><!--End LoopFuse code--><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="security-filter-chain.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="web-app-security.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="basic.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">7.&nbsp;The Security Filter Chain&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="springsecurity.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;9.&nbsp;Basic and Digest Authentication</td></tr></table></div></body></html>

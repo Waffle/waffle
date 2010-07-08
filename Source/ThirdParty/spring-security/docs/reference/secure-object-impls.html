@@ -1,0 +1,156 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>14.&nbsp;Secure Object Implementations</title><link rel="stylesheet" href="css/manual.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="springsecurity.html" title="Spring Security"><link rel="up" href="authorization.html" title="Part&nbsp;IV.&nbsp;Authorization"><link rel="prev" href="authz-arch.html" title="13.&nbsp;Authorization Architecture"><link rel="next" href="el-access.html" title="15.&nbsp;Expression-Based Access Control"><!--Begin Google Analytics code--><script type="text/javascript">
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		</script><script type="text/javascript">
+			var pageTracker = _gat._getTracker("UA-2728886-3");
+			pageTracker._setDomainName("none");
+			pageTracker._setAllowLinker(true);
+			pageTracker._trackPageview();
+		</script><!--End Google Analytics code--></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">14.&nbsp;Secure Object Implementations</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="authz-arch.html">Prev</a>&nbsp;</td><th width="60%" align="center">Part&nbsp;IV.&nbsp;Authorization</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="el-access.html">Next</a></td></tr></table><hr></div><div class="chapter" title="14.&nbsp;Secure Object Implementations"><div class="titlepage"><div><div><h2 class="title"><a name="secure-object-impls"></a>14.&nbsp;Secure Object Implementations</h2></div></div></div>
+  
+  <div class="section" title="14.1&nbsp;AOP Alliance (MethodInvocation) Security Interceptor"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="aop-alliance"></a>14.1&nbsp;AOP Alliance (MethodInvocation) Security Interceptor</h2></div></div></div>
+    
+    <p> Prior to Spring Security 2.0, securing <code class="classname">MethodInvocation</code>s needed
+      quite a lot of boiler plate configuration. Now the recommended approach for method security is
+      to use <a class="ulink" href="#ns-method-security" target="_top">namespace configuration</a>. This way the
+      method security infrastructure beans are configured automatically for you so you don't really
+      need to know about the implementation classes. We'll just provide a quick overview of the
+      classes that are involved here. </p>
+    <p> Method security in enforced using a <code class="classname">MethodSecurityInterceptor</code>,
+      which secures <code class="classname">MethodInvocation</code>s. Depending on the configuration
+      approach, an interceptor may be specific to a single bean or shared between multiple beans.
+      The interceptor uses a <code class="interfacename">MethodSecurityMetadataSource</code> instance to
+      obtain the configuration attributes that apply to a particular method invocation.
+        <code class="classname">MapBasedMethodSecurityMetadataSource</code> is used to store configuration
+      attributes keyed by method names (which can be wildcarded) and will be used internally when
+      the attributes are defined in the application context using the
+        <code class="literal">&lt;intercept-methods&gt;</code> or <code class="literal">&lt;protect-point&gt;</code>
+      elements. Other implementations will be used to handle annotation-based configuration. </p>
+    <div class="section" title="14.1.1&nbsp;Explicit MethodSecurityInterceptor Configuration"><div class="titlepage"><div><div><h3 class="title"><a name="d4e2042"></a>14.1.1&nbsp;Explicit MethodSecurityInterceptor Configuration</h3></div></div></div>
+      
+      <p> You can of course configure a <code class="classname">MethodSecurityIterceptor</code> directly
+        in your application context for use with one of Spring AOP's proxying mechanisms: </p><pre class="programlisting">
+&lt;bean id="bankManagerSecurity"
+    class="org.springframework.security.access.intercept.aopalliance.MethodSecurityInterceptor"&gt;
+  &lt;property name="authenticationManager" ref="authenticationManager"/&gt;
+  &lt;property name="accessDecisionManager" ref="accessDecisionManager"/&gt;
+  &lt;property name="afterInvocationManager" ref="afterInvocationManager"/&gt;
+  &lt;property name="securityMetadataSource"&gt;
+    &lt;value&gt;
+      com.mycompany.BankManager.delete*=ROLE_SUPERVISOR
+      com.mycompany.BankManager.getBalance=ROLE_TELLER,ROLE_SUPERVISOR
+    &lt;/value&gt;
+  &lt;/property&gt;
+&lt;/bean&gt; 
+</pre>
+    </div>
+  </div>
+  <div class="section" title="14.2&nbsp;AspectJ (JoinPoint) Security Interceptor"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="aspectj"></a>14.2&nbsp;AspectJ (JoinPoint) Security Interceptor</h2></div></div></div>
+    
+    <p>The AspectJ security interceptor is very similar to the AOP Alliance security interceptor
+      discussed in the previous section. Indeed we will only discuss the differences in this
+      section.</p>
+    <p>The AspectJ interceptor is named <code class="literal">AspectJSecurityInterceptor</code>. Unlike the
+      AOP Alliance security interceptor, which relies on the Spring application context to weave in
+      the security interceptor via proxying, the <code class="literal">AspectJSecurityInterceptor</code> is
+      weaved in via the AspectJ compiler. It would not be uncommon to use both types of security
+      interceptors in the same application, with <code class="literal">AspectJSecurityInterceptor</code> being
+      used for domain object instance security and the AOP Alliance
+        <code class="classname">MethodSecurityInterceptor</code> being used for services layer
+      security.</p>
+    <p>Let's first consider how the <code class="literal">AspectJSecurityInterceptor</code> is configured
+      in the Spring application context:</p>
+    <pre class="programlisting">
+&lt;bean id="bankManagerSecurity"
+     class="org.springframework.security.access.intercept.aspectj.AspectJSecurityInterceptor"&gt;
+  &lt;property name="authenticationManager" ref="authenticationManager"/&gt;
+  &lt;property name="accessDecisionManager" ref="accessDecisionManager"/&gt;
+  &lt;property name="afterInvocationManager" ref="afterInvocationManager"/&gt;
+  &lt;property name="securityMetadataSource"&gt;
+    &lt;value&gt;
+        com.mycompany.BankManager.delete*=ROLE_SUPERVISOR
+        com.mycompany.BankManager.getBalance=ROLE_TELLER,ROLE_SUPERVISOR
+    &lt;/value&gt;
+&lt;/property&gt;
+&lt;/bean&gt;        </pre>
+    <p>As you can see, aside from the class name, the
+        <code class="literal">AspectJSecurityInterceptor</code> is exactly the same as the AOP Alliance
+      security interceptor. Indeed the two interceptors can share the same
+        <code class="literal">securityMetadataSource</code>, as the
+        <code class="interfacename">SecurityMetadataSource</code> works with
+        <code class="literal">java.lang.reflect.Method</code>s rather than an AOP library-specific class. Of
+      course, your access decisions have access to the relevant AOP library-specific invocation (ie
+        <code class="classname">MethodInvocation</code> or <code class="literal">JoinPoint</code>) and as such can
+      consider a range of addition criteria when making access decisions (such as method
+      arguments).</p>
+    <p>Next you'll need to define an AspectJ <code class="literal">aspect</code>. For example:</p>
+    <pre class="programlisting">
+<span class="hl-keyword">package</span> org.springframework.security.samples.aspectj;
+
+<span class="hl-keyword">import</span> org.springframework.security.access.intercept.aspectj.AspectJSecurityInterceptor;
+<span class="hl-keyword">import</span> org.springframework.security.access.intercept.aspectj.AspectJCallback;
+<span class="hl-keyword">import</span> org.springframework.beans.factory.InitializingBean;
+
+<span class="hl-keyword">public</span> aspect DomainObjectInstanceSecurityAspect <span class="hl-keyword">implements</span> InitializingBean {
+
+    <span class="hl-keyword">private</span> AspectJSecurityInterceptor securityInterceptor;
+
+    pointcut domainObjectInstanceExecution(): target(PersistableEntity)
+        &amp;&amp; execution(<span class="hl-keyword">public</span> * *(..)) &amp;&amp; !within(DomainObjectInstanceSecurityAspect);
+
+    Object around(): domainObjectInstanceExecution() {
+        <span class="hl-keyword">if</span> (<span class="hl-keyword">this</span>.securityInterceptor == null) {
+            <span class="hl-keyword">return</span> proceed();
+        }
+
+        AspectJCallback callback = <span class="hl-keyword">new</span> AspectJCallback() {
+            <span class="hl-keyword">public</span> Object proceedWithObject() {
+                <span class="hl-keyword">return</span> proceed();
+            }
+        };
+
+        <span class="hl-keyword">return</span> <span class="hl-keyword">this</span>.securityInterceptor.invoke(thisJoinPoint, callback);
+    }
+
+    <span class="hl-keyword">public</span> AspectJSecurityInterceptor getSecurityInterceptor() {
+        <span class="hl-keyword">return</span> securityInterceptor;
+    }
+
+    <span class="hl-keyword">public</span> <span class="hl-keyword">void</span> setSecurityInterceptor(AspectJSecurityInterceptor securityInterceptor) {
+        <span class="hl-keyword">this</span>.securityInterceptor = securityInterceptor;
+    }
+
+    <span class="hl-keyword">public</span> <span class="hl-keyword">void</span> afterPropertiesSet() <span class="hl-keyword">throws</span> Exception {
+        <span class="hl-keyword">if</span> (<span class="hl-keyword">this</span>.securityInterceptor == null)
+            <span class="hl-keyword">throw</span> <span class="hl-keyword">new</span> IllegalArgumentException(<span class="hl-string">"securityInterceptor required"</span>);
+        }
+    }
+}
+</pre>
+    <p>In the above example, the security interceptor will be applied to every instance of
+        <code class="literal">PersistableEntity</code>, which is an abstract class not shown (you can use any
+      other class or <code class="literal">pointcut</code> expression you like). For those curious,
+        <code class="literal">AspectJCallback</code> is needed because the <code class="literal">proceed();</code>
+      statement has special meaning only within an <code class="literal">around()</code> body. The
+        <code class="literal">AspectJSecurityInterceptor</code> calls this anonymous
+        <code class="literal">AspectJCallback</code> class when it wants the target object to continue.</p>
+    <p>You will need to configure Spring to load the aspect and wire it with the
+        <code class="literal">AspectJSecurityInterceptor</code>. A bean declaration which achieves this is
+      shown below:</p>
+    <pre class="programlisting">
+&lt;bean id="domainObjectInstanceSecurityAspect"
+     class="security.samples.aspectj.DomainObjectInstanceSecurityAspect"
+     factory-method="aspectOf"&gt;
+  &lt;property name="securityInterceptor" ref="bankManagerSecurity"/&gt;
+&lt;/bean&gt;
+    </pre>
+    <p>That's it! Now you can create your beans from anywhere within your application, using
+      whatever means you think fit (eg <code class="literal">new Person();</code>) and they will have the
+      security interceptor applied.</p>
+  </div>
+</div><!--Begin LoopFuse code--><script src="http://loopfuse.net/webrecorder/js/listen.js" type="text/javascript"></script><script type="text/javascript">
+			_lf_cid = "LF_48be82fa";
+			_lf_remora();
+		</script><!--End LoopFuse code--><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="authz-arch.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="authorization.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="el-access.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">13.&nbsp;Authorization Architecture&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="springsecurity.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;15.&nbsp;Expression-Based Access Control</td></tr></table></div></body></html>

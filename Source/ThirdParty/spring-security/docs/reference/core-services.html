@@ -1,0 +1,302 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>6.&nbsp;Core Services</title><link rel="stylesheet" href="css/manual.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="springsecurity.html" title="Spring Security"><link rel="up" href="overall-architecture.html" title="Part&nbsp;II.&nbsp;Architecture and Implementation"><link rel="prev" href="technical-overview.html" title="5.&nbsp;Technical Overview"><link rel="next" href="web-app-security.html" title="Part&nbsp;III.&nbsp;Web Application Security"><!--Begin Google Analytics code--><script type="text/javascript">
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		</script><script type="text/javascript">
+			var pageTracker = _gat._getTracker("UA-2728886-3");
+			pageTracker._setDomainName("none");
+			pageTracker._setAllowLinker(true);
+			pageTracker._trackPageview();
+		</script><!--End Google Analytics code--></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.&nbsp;Core Services</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="technical-overview.html">Prev</a>&nbsp;</td><th width="60%" align="center">Part&nbsp;II.&nbsp;Architecture and Implementation</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="web-app-security.html">Next</a></td></tr></table><hr></div><div class="chapter" title="6.&nbsp;Core Services"><div class="titlepage"><div><div><h2 class="title"><a name="core-services"></a>6.&nbsp;Core Services</h2></div></div></div>
+    
+    <p> Now that we have a high-level overview of the Spring Security architecture and its core
+        classes, let's take a closer look at one or two of the core interfaces and their
+        implementations, in particular the <code class="interfacename">AuthenticationManager</code>,
+            <code class="interfacename">UserDetailsService</code> and the
+            <code class="interfacename">AccessDecisionManager</code>. These crop up regularly throughout
+        the remainder of this document so it's important you know how they are configured and how
+        they operate. </p>
+    <div class="section" title="6.1&nbsp;The AuthenticationManager, ProviderManager and AuthenticationProviders"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="core-services-authentication-manager"></a>6.1&nbsp;The <code class="interfacename">AuthenticationManager</code>,
+                <code class="classname">ProviderManager</code> and
+                <code class="classname">AuthenticationProvider</code>s</h2></div></div></div>
+        
+        <p>The <code class="interfacename">AuthenticationManager</code> is just an interface, so the
+            implementation can be anything we choose, but how does it work in practice? What if we
+            need to check multiple authentication databases or a combination of different
+            authentication services such as a database and an LDAP server?</p>
+        <p>The default implementation in Spring Security is called
+                <code class="classname">ProviderManager</code> and rather than handling the authentication
+            request itself, it delegates to a list of configured
+                <code class="classname">AuthenticationProvider</code>s, each of which is queried in turn to
+            see if it can perform the authentication. Each provider will either throw an exception
+            or return a fully populated <code class="interfacename">Authentication</code> object.
+            Remember our good friends, <code class="interfacename">UserDetails</code> and
+                <code class="interfacename">UserDetailsService</code>? If not, head back to the previous
+            chapter and refresh your memory. The most common approach to verifying an authentication
+            request is to load the corresponding <code class="interfacename">UserDetails</code> and
+            check the loaded password against the one that has been entered by the user. This is the
+            approach used by the <code class="classname">DaoAuthenticationProvider</code> (see below). The
+            loaded <code class="interfacename">UserDetails</code> object - and particularly the
+                <code class="literal">GrantedAuthority</code>s it contains - will be used when building the
+            fully populated <code class="interfacename">Authentication</code> object which is returned
+            from a successful authentication and stored in the
+                <code class="classname">SecurityContext</code>. </p>
+        <p> If you are using the namespace, an instance of
+                <code class="classname">ProviderManager</code> is created and maintained internally, and
+            you add providers to it by using the namespace authentication provider elements
+            (see <a class="ulink" href="#ns-auth-manager" target="_top">the namespace chapter</a>). In this
+            case, you should not declare a <code class="classname">ProviderManager</code> bean in your
+            application context. However, if you are not using the namespace then you would declare
+            it like so: </p><pre class="programlisting">
+<span class="hl-tag">&lt;bean</span> <span class="hl-attribute">id</span>=<span class="hl-value">"authenticationManager"</span>
+     <span class="hl-attribute">class</span>=<span class="hl-value">"org.springframework.security.authentication.ProviderManager"</span><span class="hl-tag">&gt;</span>
+  <span class="hl-tag">&lt;property</span> <span class="hl-attribute">name</span>=<span class="hl-value">"providers"</span><span class="hl-tag">&gt;</span>
+    <span class="hl-tag">&lt;list&gt;</span>
+      <span class="hl-tag">&lt;ref</span> <span class="hl-attribute">local</span>=<span class="hl-value">"daoAuthenticationProvider"</span><span class="hl-tag">/&gt;</span>
+      <span class="hl-tag">&lt;ref</span> <span class="hl-attribute">local</span>=<span class="hl-value">"anonymousAuthenticationProvider"</span><span class="hl-tag">/&gt;</span>
+      <span class="hl-tag">&lt;ref</span> <span class="hl-attribute">local</span>=<span class="hl-value">"ldapAuthenticationProvider"</span><span class="hl-tag">/&gt;</span>
+    <span class="hl-tag">&lt;/list&gt;</span>
+  <span class="hl-tag">&lt;/property&gt;</span>
+<span class="hl-tag">&lt;/bean&gt;</span></pre>
+        <p>In the above example we have three providers. They are tried in the order shown (which
+            is implied by the use of a <code class="literal">List</code>), with each provider able to attempt
+            authentication, or skip authentication by simply returning <code class="literal">null</code>. If
+            all implementations return null, the <code class="literal">ProviderManager</code> will throw a
+                <code class="exceptionname">ProviderNotFoundException</code>. If you're interested in
+            learning more about chaining providers, please refer to the
+                <code class="literal">ProviderManager</code> JavaDocs.</p>
+        <p> Authentication mechanisms such as a web form-login processing filter are injected
+            with a reference to the <code class="interfacename">ProviderManager</code> and will call it
+            to handle their authentication requests. The providers you require will sometimes be
+            interchangeable with the authentication mechanisms, while at other times they will
+            depend on a specific authentication mechanism. For example,
+                <code class="classname">DaoAuthenticationProvider</code> and
+                <code class="classname">LdapAuthenticationProvider</code> are compatible with any mechanism
+            which submits a simple username/password authentication request and so will work with
+            form-based logins or HTTP Basic authentication. On the other hand, some authentication
+            mechanisms create an authentication request object which can only be interpreted by a
+            single type of <code class="classname">AuthenticationProvider</code>. An example of this would
+            be JA-SIG CAS, which uses the notion of a service ticket and so can therefore only be
+            authenticated by a <code class="classname">CasAuthenticationProvider</code>. You needn't be too
+            concerned about this, because if you forget to register a suitable provider, you'll
+            simply receive a <code class="literal">ProviderNotFoundException</code> when an attempt to
+            authenticate is made.</p>
+        <div class="section" title="6.1.1&nbsp;DaoAuthenticationProvider"><div class="titlepage"><div><div><h3 class="title"><a name="core-services-dao-provider"></a>6.1.1&nbsp;<code class="literal">DaoAuthenticationProvider</code></h3></div></div></div>
+            
+            <p>The simplest <code class="interfacename">AuthenticationProvider</code> implemented by
+                Spring Security is <code class="literal">DaoAuthenticationProvider</code>, which is also one
+                of the earliest supported by the framework. It leverages a
+                    <code class="interfacename">UserDetailsService</code> (as a DAO) in order to lookup
+                the username, password and <code class="interfacename">GrantedAuthority</code>s. It
+                authenticates the user simply by comparing the password submitted in a
+                    <code class="classname">UsernamePasswordAuthenticationToken</code> against the one
+                loaded by the <code class="interfacename">UserDetailsService</code>. Configuring the
+                provider is quite simple: </p><pre class="programlisting">
+<span class="hl-tag">&lt;bean</span> <span class="hl-attribute">id</span>=<span class="hl-value">"daoAuthenticationProvider"</span>
+    <span class="hl-attribute">class</span>=<span class="hl-value">"org.springframework.security.authentication.dao.DaoAuthenticationProvider"</span><span class="hl-tag">&gt;</span>
+  <span class="hl-tag">&lt;property</span> <span class="hl-attribute">name</span>=<span class="hl-value">"userDetailsService"</span> <span class="hl-attribute">ref</span>=<span class="hl-value">"inMemoryDaoImpl"</span><span class="hl-tag">/&gt;</span>
+  <span class="hl-tag">&lt;property</span> <span class="hl-attribute">name</span>=<span class="hl-value">"saltSource"</span> <span class="hl-attribute">ref</span> <span class="hl-attribute">bean</span>=<span class="hl-value">"saltSource"</span><span class="hl-tag">/&gt;</span>
+  <span class="hl-tag">&lt;property</span> <span class="hl-attribute">name</span>=<span class="hl-value">"passwordEncoder"</span> <span class="hl-attribute">ref</span>=<span class="hl-value">"passwordEncoder"</span><span class="hl-tag">/&gt;</span>
+<span class="hl-tag">&lt;/bean&gt;</span></pre><p> The <code class="interfacename">PasswordEncoder</code> and
+                    <code class="interfacename">SaltSource</code> are optional. A
+                    <code class="interfacename">PasswordEncoder</code> provides encoding and decoding of
+                passwords presented in the <code class="interfacename">UserDetails</code> object that is
+                returned from the configured <code class="interfacename">UserDetailsService</code>. A
+                    <code class="interfacename">SaltSource</code> enables the passwords to be populated
+                with a "salt", which enhances the security of the passwords in the authentication
+                repository. These will be discussed in more detail <a class="ulink" href="#core-services-password-encoding" target="_top">below</a>. </p>
+        </div>
+        <div class="section" title="6.1.2&nbsp;Erasing Credentials on Successful Authentication"><div class="titlepage"><div><div><h3 class="title"><a name="core-services-erasing-credentials"></a>6.1.2&nbsp;Erasing Credentials on Successful Authentication</h3></div></div></div>
+            
+            <p>
+                From Spring Security 3.0.3, you can configure the <code class="classname">ProviderManager</code>
+                will attempt to clear any sensitive credentials information from the
+                <code class="interfacename">Authentication</code> object which is returned by a successful
+                authentication request, to prevent information like passwords being retained longer
+                than necessary. This feature is controlled by the <code class="literal">eraseCredentialsAfterAuthentication</code>
+                property on <code class="classname">ProviderManager</code>. It is off by default.
+                See the Javadoc for more information.
+            </p>
+            <p>
+                This may cause issues when you are using a cache of user objects, for example, to
+                improve performance in a stateless application. If the <code class="interfacename">Authentication</code>
+                contains a reference to an object in the cache (such as a <code class="interfacename">UserDetails</code>
+                instance) and this has its credentials removed, then it will no longer be possible to authenticate
+                against the cached value. You need to take this into account if you are using a cache. An obvious
+                solution is to make a copy of the object first, either in the cache implementation or in
+                the <code class="interfacename">AuthenticationProvider</code> which creates the returned
+                <code class="interfacename">Authentication</code> object.
+            </p>
+        </div>
+    </div>
+    <div class="section" title="6.2&nbsp;UserDetailsService Implementations"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4e1154"></a>6.2&nbsp;<code class="interfacename">UserDetailsService</code> Implementations</h2></div></div></div>
+        
+        <p>As mentioned in the earlier in this reference guide, most authentication providers
+            take advantage of the <code class="interfacename">UserDetails</code> and
+                <code class="interfacename">UserDetailsService</code> interfaces. Recall that the
+            contract for <code class="interfacename">UserDetailsService</code> is a single
+            method:</p>
+        <p>
+            </p><pre class="programlisting">
+  UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+            </pre><p>
+        </p>
+        <p>The returned <code class="interfacename">UserDetails</code> is an interface that provides
+            getters that guarantee non-null provision of authentication information such as the
+            username, password, granted authorities and whether the user account is enabled or
+            disabled. Most authentication providers will use a
+                <code class="interfacename">UserDetailsService</code>, even if the username and password
+            are not actually used as part of the authentication decision. They may use the returned
+                <code class="interfacename">UserDetails</code> object just for its
+                <code class="literal">GrantedAuthority</code> information, because some other system (like
+            LDAP or X.509 or CAS etc) has undertaken the responsibility of actually validating the
+            credentials.</p>
+        <p>Given <code class="interfacename">UserDetailsService</code> is so simple to implement, it
+            should be easy for users to retrieve authentication information using a persistence
+            strategy of their choice. Having said that, Spring Security does include a couple of
+            useful base implementations, which we'll look at below.</p>
+        <div class="section" title="6.2.1&nbsp;In-Memory Authentication"><div class="titlepage"><div><div><h3 class="title"><a name="core-services-in-memory-service"></a>6.2.1&nbsp;In-Memory Authentication</h3></div></div></div>
+            
+            <p>Is easy to use create a custom <code class="interfacename">UserDetailsService</code>
+                implementation that extracts information from a persistence engine of choice, but
+                many applications do not require such complexity. This is particularly true if
+                you're building a prototype application or just starting integrating Spring
+                Security, when you don't really want to spend time configuring databases or writing
+                    <code class="interfacename">UserDetailsService</code> implementations. For this sort
+                of situation, a simple option is to use the <code class="literal">user-service</code> element
+                from the security <a class="ulink" href="#ns-minimal" target="_top">namespace</a>: </p><pre class="programlisting">
+  &lt;user-service id="userDetailsService"&gt;
+    &lt;user name="jimi" password="jimispassword" authorities="ROLE_USER, ROLE_ADMIN" /&gt;
+    &lt;user name="bob" password="bobspassword" authorities="ROLE_USER" /&gt;
+  &lt;/user-service&gt;
+  
+                    </pre><p> This also supports the use of an external properties
+                file: </p><pre class="programlisting">
+  &lt;user-service id="userDetailsService" properties="users.properties"/&gt;
+  </pre><p> The properties file should contain entries in the form
+                </p><pre class="programlisting">username=password,grantedAuthority[,grantedAuthority][,enabled|disabled]</pre><p>
+                For example
+                </p><pre class="programlisting">
+ jimi=jimispassword,ROLE_USER,ROLE_ADMIN,enabled
+ bob=bobspassword,ROLE_USER,enabled</pre>
+        </div>
+        <div class="section" title="6.2.2&nbsp;JdbcDaoImpl"><div class="titlepage"><div><div><h3 class="title"><a name="core-services-jdbc-user-service"></a>6.2.2&nbsp;<code class="literal">JdbcDaoImpl</code></h3></div></div></div>
+            
+            <p>Spring Security also includes a <code class="interfacename">UserDetailsService</code>
+                that can obtain authentication information from a JDBC data source. Internally
+                Spring JDBC is used, so it avoids the complexity of a fully-featured object
+                relational mapper (ORM) just to store user details. If your application does use an
+                ORM tool, you might prefer to write a custom
+                    <code class="interfacename">UserDetailsService</code> to reuse the mapping files
+                you've probably already created. Returning to <code class="literal">JdbcDaoImpl</code>, an
+                example configuration is shown below:</p>
+            <p>
+                </p><pre class="programlisting">
+<span class="hl-tag">&lt;bean</span> <span class="hl-attribute">id</span>=<span class="hl-value">"dataSource"</span> <span class="hl-attribute">class</span>=<span class="hl-value">"org.springframework.jdbc.datasource.DriverManagerDataSource"</span><span class="hl-tag">&gt;</span>
+  <span class="hl-tag">&lt;property</span> <span class="hl-attribute">name</span>=<span class="hl-value">"driverClassName"</span> <span class="hl-attribute">value</span>=<span class="hl-value">"org.hsqldb.jdbcDriver"</span><span class="hl-tag">/&gt;</span>
+  <span class="hl-tag">&lt;property</span> <span class="hl-attribute">name</span>=<span class="hl-value">"url"</span> <span class="hl-attribute">value</span>=<span class="hl-value">"jdbc:hsqldb:hsql://localhost:9001"</span><span class="hl-tag">/&gt;</span>
+  <span class="hl-tag">&lt;property</span> <span class="hl-attribute">name</span>=<span class="hl-value">"username"</span> <span class="hl-attribute">value</span>=<span class="hl-value">"sa"</span><span class="hl-tag">/&gt;</span>
+  <span class="hl-tag">&lt;property</span> <span class="hl-attribute">name</span>=<span class="hl-value">"password"</span> <span class="hl-attribute">value</span>=<span class="hl-value">""</span><span class="hl-tag">/&gt;</span>
+<span class="hl-tag">&lt;/bean&gt;</span>
+
+<span class="hl-tag">&lt;bean</span> <span class="hl-attribute">id</span>=<span class="hl-value">"userDetailsService"</span> <span class="hl-attribute">class</span>=<span class="hl-value">"org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl"</span><span class="hl-tag">&gt;</span>
+  <span class="hl-tag">&lt;property</span> <span class="hl-attribute">name</span>=<span class="hl-value">"dataSource"</span> <span class="hl-attribute">ref</span>=<span class="hl-value">"dataSource"</span><span class="hl-tag">/&gt;</span>
+<span class="hl-tag">&lt;/bean&gt;</span>        </pre><p>
+            </p>
+            <p>You can use different relational database management systems by modifying the
+                    <code class="literal">DriverManagerDataSource</code> shown above. You can also use a
+                global data source obtained from JNDI, as with any other Spring
+                configuration.</p>
+            <div class="section" title="Authority Groups"><div class="titlepage"><div><div><h4 class="title"><a name="d4e1192"></a>Authority Groups</h4></div></div></div>
+                
+                <p>By default, <code class="classname">JdbcDaoImpl</code> loads the authorities for a
+                    single user with the assumption that the authorities are mapped directly to
+                    users (see the <a class="ulink" href="#appendix-schema" target="_top">database schema
+                        appendix</a>). An alternative approach is to partition the authorities
+                    into groups and assign groups to the user. Some people prefer this approach as a
+                    means of administering user rights. See the <code class="classname">JdbcDaoImpl</code>
+                    Javadoc for more information on how to enable the use of group authorities. The
+                    group schema is also included in the appendix.</p>
+            </div>
+            
+        </div>
+    </div>
+    <div class="section" title="6.3&nbsp;Password Encoding"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="core-services-password-encoding"></a>6.3&nbsp;Password Encoding</h2></div></div></div>
+        
+        <p>Spring Security's <code class="interfacename">PasswordEncoder</code> interface is used to
+            support the use of passwords which are encoded in some way in persistent storage. This
+            will normally mean that the passwords are <span class="quote">&#8220;<span class="quote">hashed</span>&#8221;</span> using a digest algorithm
+            such as MD5 or SHA.</p>
+        <div class="section" title="6.3.1&nbsp;What is a hash?"><div class="titlepage"><div><div><h3 class="title"><a name="d4e1203"></a>6.3.1&nbsp;What is a hash?</h3></div></div></div>
+            
+            <p>Password hashing is not unique to Spring Security but is a common source of
+                confusion for users who are not familiar with the concept. A hash (or digest)
+                algorithm is a one-way function which produces a piece of fixed-length output data
+                (the hash) from some input data, such as a password. As an example, the MD5 hash of
+                the string <span class="quote">&#8220;<span class="quote">password</span>&#8221;</span> (in hexadecimal) is
+                </p><pre class="programlisting">
+    5f4dcc3b5aa765d61d8327deb882cf99
+</pre><p> A hash is
+                    <span class="quote">&#8220;<span class="quote">one-way</span>&#8221;</span> in the sense that it is very difficult (effectively
+                impossible) to obtain the original input given the hash value, or indeed any
+                possible input which would produce that hash value. This property makes hash values
+                very useful for authentication purposes. They can be stored in your user database as
+                an alternative to plaintext passwords and even if the values are compromised they do
+                not immediately reveal a password which can be used to login. Note that this also
+                means you have no way of recovering the password once it is encoded.</p>
+        </div>
+        <div class="section" title="6.3.2&nbsp;Adding Salt to a Hash"><div class="titlepage"><div><div><h3 class="title"><a name="d4e1209"></a>6.3.2&nbsp;Adding Salt to a Hash</h3></div></div></div>
+            
+            <p> One potential problem with the use of password hashes that it is relatively easy
+                to get round the one-way property of the hash if a common word is used for the
+                input. For example, if you search for the hash value
+                    <code class="literal">5f4dcc3b5aa765d61d8327deb882cf99</code> using google, you will
+                quickly find the original word <span class="quote">&#8220;<span class="quote">password</span>&#8221;</span>. In a similar way, an
+                attacker can build a dictionary of hashes from a standard word list and use this to
+                lookup the original password. One way to help prevent this is to have a suitably
+                strong password policy to try to prevent common words from being used. Another is to
+                use a <span class="quote">&#8220;<span class="quote">salt</span>&#8221;</span> when calculating the hashes. This is an additional string
+                of known data for each user which is combined with the password before calculating
+                the hash. Ideally the data should be as random as possible, but in practice any salt
+                value is usually preferable to none. Spring Security has a
+                    <code class="interfacename">SaltSource</code> interface which can be used by an
+                authentication provider to generate a salt value for a particular user. Using a salt
+                means that an attacker has to build a separate dictionary of hashes for each salt
+                value, making the attack more complicated (but not impossible).</p>
+        </div>
+        <div class="section" title="6.3.3&nbsp; Hashing and Authentication"><div class="titlepage"><div><div><h3 class="title"><a name="d4e1216"></a>6.3.3&nbsp; Hashing and Authentication</h3></div></div></div>
+            
+            <p>When an authentication provider (such as Spring Security's
+                    <code class="classname">DaoAuthenticationProvider</code> needs to check the password in
+                a submitted authentication request against the known value for a user, and the
+                stored password is encoded in some way, then the submitted value must be encoded
+                using exactly the same algorithm. It's up to you to check that these are compatible
+                as Spring Security has no control over the persistent values. If you add password
+                hashing to your authentication configuration in Spring Security, and your database
+                contains plaintext passwords, then there is no way authentication can succeed. Even
+                if you are aware that your database is using MD5 to encode the passwords, for
+                example, and your application is configured to use Spring Security's
+                    <code class="classname">Md5PasswordEncoder</code>, there are still things that can go
+                wrong. The database may have the passwords encoded in Base 64, for example while the
+                enocoder is using hexadecimal strings (the default)<sup>[<a name="d4e1221" href="#ftn.d4e1221" class="footnote">5</a>]</sup>. Alternatively your database
+                may be using upper-case while the output from the encoder is lower-case. Make sure
+                you write a test to check the output from your configured password encoder with a
+                known password and salt combination and check that it matches the database value
+                before going further and attempting to authenticate through your application. For
+                more information on the default method for merging salt and password, see the
+                Javadoc for <code class="classname">BasePasswordEncoder</code>. If you want to generate
+                encoded passwords directly in Java for storage in your user database, then you can
+                use the <code class="methodname">encodePassword</code> method on the
+                    <code class="interfacename">PasswordEncoder</code>.</p>
+        </div>
+    </div>
+<div class="footnotes"><br><hr width="100" align="left"><div class="footnote"><p><sup>[<a name="ftn.d4e1221" href="#d4e1221" class="para">5</a>] </sup>You can configure
+                        the encoder to use Base 64 instead of hex by setting the
+                            <code class="literal">encodeHashAsBase64</code> property to
+                            <code class="literal">true</code>. Check the Javadoc for
+                            <code class="classname">MessageDigestPasswordEncoder</code> and its parent
+                        classes for more information.</p></div></div></div><!--Begin LoopFuse code--><script src="http://loopfuse.net/webrecorder/js/listen.js" type="text/javascript"></script><script type="text/javascript">
+			_lf_cid = "LF_48be82fa";
+			_lf_remora();
+		</script><!--End LoopFuse code--><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="technical-overview.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="overall-architecture.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="web-app-security.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">5.&nbsp;Technical Overview&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="springsecurity.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;Part&nbsp;III.&nbsp;Web Application Security</td></tr></table></div></body></html>

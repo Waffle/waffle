@@ -12,5 +12,15 @@
 	<classpathentry kind="lib" path="/ThirdParty/tomcat/bin/tomcat-juli.jar"/>
 	<classpathentry kind="lib" path="/ThirdParty/commons-logging/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="lib" path="/ThirdParty/groboutils/lib/GroboUtils-5-core.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/spring-security/dist/spring-security-core-3.0.3.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/spring-security/dist/spring-security-web-3.0.3.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/spring/dist/org.springframework.web-3.0.3.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/spring/dist/org.springframework.beans-3.0.3.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/spring/dist/org.springframework.context-3.0.3.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/spring/dist/org.springframework.core-3.0.3.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/spring/dist/org.springframework.asm-3.0.3.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/spring-security/dist/spring-security-config-3.0.3.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/spring/dist/org.springframework.aop-3.0.3.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/spring/dist/org.springframework.expression-3.0.3.RELEASE.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

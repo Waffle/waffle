@@ -1,0 +1,147 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>12.&nbsp;Anonymous Authentication</title><link rel="stylesheet" href="css/manual.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="springsecurity.html" title="Spring Security"><link rel="up" href="web-app-security.html" title="Part&nbsp;III.&nbsp;Web Application Security"><link rel="prev" href="session-mgmt.html" title="11.&nbsp;Session Management"><link rel="next" href="authorization.html" title="Part&nbsp;IV.&nbsp;Authorization"><!--Begin Google Analytics code--><script type="text/javascript">
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		</script><script type="text/javascript">
+			var pageTracker = _gat._getTracker("UA-2728886-3");
+			pageTracker._setDomainName("none");
+			pageTracker._setAllowLinker(true);
+			pageTracker._trackPageview();
+		</script><!--End Google Analytics code--></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">12.&nbsp;Anonymous Authentication</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="session-mgmt.html">Prev</a>&nbsp;</td><th width="60%" align="center">Part&nbsp;III.&nbsp;Web Application Security</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="authorization.html">Next</a></td></tr></table><hr></div><div class="chapter" title="12.&nbsp;Anonymous Authentication"><div class="titlepage"><div><div><h2 class="title"><a name="anonymous"></a>12.&nbsp;Anonymous Authentication</h2></div></div></div>
+    
+    <div class="section" title="12.1&nbsp;Overview"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="anonymous-overview"></a>12.1&nbsp;Overview</h2></div></div></div>
+        
+        <p>It's generally considered good security practice to adopt a
+                <span class="quote">&#8220;<span class="quote">deny-by-default</span>&#8221;</span> where you explicitly specify what is allowed and
+            disallow everything else. Defining what is accessible to unauthenticated users is a
+            similar situation, particularly for web applications. Many sites require that users must
+            be authenticated for anything other than a few URLs (for example the home and login
+            pages). In this case it is easiest to define access configuration attributes for these
+            specific URLs rather than have for every secured resource. Put differently, sometimes it
+            is nice to say <code class="literal">ROLE_SOMETHING</code> is required by default and only allow
+            certain exceptions to this rule, such as for login, logout and home pages of an
+            application. You could also omit these pages from the filter chain entirely, thus
+            bypassing the access control checks, but this may be undesirable for other reasons,
+            particularly if the pages behave differently for authenticated users.</p>
+        <p>This is what we mean by anonymous authentication. Note that there is no real
+            conceptual difference between a user who is <span class="quote">&#8220;<span class="quote">anonymously authenticated</span>&#8221;</span> and
+            an unauthenticated user. Spring Security's anonymous authentication just gives you a
+            more convenient way to configure your access-control attributes. Calls to servlet API
+            calls such as <code class="methodname">getCallerPrincipal</code>, for example, will still
+            return null even though there is actually an anonymous authentication object in the
+                <code class="classname">SecurityContextHolder</code>.</p>
+        <p>There are other situations where anonymous authentication is useful, such as when an
+            auditing interceptor queries the <code class="classname">SecurityContextHolder</code> to
+            identify which principal was responsible for a given operation. Classes can be authored
+            more robustly if they know the <code class="classname">SecurityContextHolder</code> always
+            contains an <code class="interfacename">Authentication</code> object, and never
+                <code class="literal">null</code>.</p>
+    </div>
+    <div class="section" title="12.2&nbsp;Configuration"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="anonymous-config"></a>12.2&nbsp;Configuration</h2></div></div></div>
+        
+        <p>Anonymous authentication support is provided automatically when using the HTTP
+            configuration Spring Security 3.0 and can be customized (or disabled) using the
+                <code class="literal">&lt;anonymous&gt;</code> element. You don't need to configure the beans
+            described here unless you are using traditional bean configuration.</p>
+        <p>Three classes that together provide the anonymous authentication feature.
+                <code class="literal">AnonymousAuthenticationToken</code> is an implementation of
+                <code class="interfacename">Authentication</code>, and stores the
+                <code class="interfacename">GrantedAuthority</code>s which apply to the anonymous
+            principal. There is a corresponding <code class="literal">AnonymousAuthenticationProvider</code>,
+            which is chained into the <code class="literal">ProviderManager</code> so that
+                <code class="literal">AnonymousAuthenticationToken</code>s are accepted. Finally, there is an
+                <code class="classname">AnonymousAuthenticationFilter</code>, which is chained after the
+            normal authentication mechanisms and automatically adds an
+                <code class="literal">AnonymousAuthenticationToken</code> to the
+                <code class="classname">SecurityContextHolder</code> if there is no existing
+                <code class="interfacename">Authentication</code> held there. The definition of the
+            filter and authentication provider appears as follows:</p>
+        <p>
+            </p><pre class="programlisting">
+
+&lt;bean id="anonymousAuthFilter"
+    class="org.springframework.security.web.authentication.AnonymousAuthenticationFilter"&gt;
+  &lt;property name="key" value="foobar"/&gt;
+  &lt;property name="userAttribute" value="anonymousUser,ROLE_ANONYMOUS"/&gt;
+&lt;/bean&gt;
+
+&lt;bean id="anonymousAuthenticationProvider"
+    class="org.springframework.security.authentication.AnonymousAuthenticationProvider"&gt;
+  &lt;property name="key" value="foobar"/&gt;
+&lt;/bean&gt;
+    </pre><p>
+        </p>
+        <p>The <code class="literal">key</code> is shared between the filter and authentication provider,
+            so that tokens created by the former are accepted by the latter<sup>[<a name="d4e1786" href="#ftn.d4e1786" class="footnote">13</a>]</sup>. The
+                <code class="literal">userAttribute</code> is expressed in the form of
+                <code class="literal">usernameInTheAuthenticationToken,grantedAuthority[,grantedAuthority]</code>.
+            This is the same syntax as used after the equals sign for
+                <code class="literal">InMemoryDaoImpl</code>'s <code class="literal">userMap</code> property.</p>
+        <p>As explained earlier, the benefit of anonymous authentication is that all URI patterns
+            can have security applied to them. For example:</p>
+        <p>
+            </p><pre class="programlisting">
+
+&lt;bean id="filterSecurityInterceptor"
+    class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor"&gt;
+  &lt;property name="authenticationManager" ref="authenticationManager"/&gt;
+  &lt;property name="accessDecisionManager" ref="httpRequestAccessDecisionManager"/&gt;
+  &lt;property name="securityMetadata"&gt;
+    &lt;security:filter-security-metadata-source&gt;
+      &lt;security:intercept-url pattern='/index.jsp' access='ROLE_ANONYMOUS,ROLE_USER'/&gt;
+      &lt;security:intercept-url pattern='/hello.htm' access='ROLE_ANONYMOUS,ROLE_USER'/&gt;
+      &lt;security:intercept-url pattern='/logoff.jsp' access='ROLE_ANONYMOUS,ROLE_USER'/&gt;
+      &lt;security:intercept-url pattern='/login.jsp' access='ROLE_ANONYMOUS,ROLE_USER'/&gt;
+      &lt;security:intercept-url pattern='/**' access='ROLE_USER'/&gt;
+    &lt;/security:filter-security-metadata-source&gt;" +
+  &lt;/property&gt;
+&lt;/bean&gt;
+    </pre><p>
+        </p>
+    </div>
+    <div class="section" title="12.3&nbsp;AuthenticationTrustResolver"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="anonymous-auth-trust-resolver"></a>12.3&nbsp;<code class="interfacename">AuthenticationTrustResolver</code></h2></div></div></div>
+        
+        <p> Rounding out the anonymous authentication discussion is the
+                <code class="interfacename">AuthenticationTrustResolver</code> interface, with its
+            corresponding <code class="literal">AuthenticationTrustResolverImpl</code> implementation. This
+            interface provides an <code class="literal">isAnonymous(Authentication)</code> method, which
+            allows interested classes to take into account this special type of authentication
+            status. The <code class="classname">ExceptionTranslationFilter</code> uses this interface in
+            processing <code class="literal">AccessDeniedException</code>s. If an
+                <code class="literal">AccessDeniedException</code> is thrown, and the authentication is of an
+            anonymous type, instead of throwing a 403 (forbidden) response, the filter will instead
+            commence the <code class="interfacename">AuthenticationEntryPoint</code> so the principal
+            can authenticate properly. This is a necessary distinction, otherwise principals would
+            always be deemed <span class="quote">&#8220;<span class="quote">authenticated</span>&#8221;</span> and never be given an opportunity to login
+            via form, basic, digest or some other normal authentication mechanism. </p>
+        <p> You will often see the <code class="literal">ROLE_ANONYMOUS</code> attribute in the above
+            interceptor configuration replaced with <code class="literal">IS_AUTHENTICATED_ANONYMOUSLY</code>,
+            which is effectively the same thing when defining access controls. This is an example of
+            the use of the <code class="classname">AuthenticatedVoter</code> which we will see in the <a class="ulink" href="#authz-authenticated-voter" target="_top">authorization chapter</a>. It uses an
+                <code class="interfacename">AuthenticationTrustResolver</code> to process this
+            particular configuration attribute and grant access to anonymous users. The
+                <code class="classname">AuthenticatedVoter</code> approach is more powerful, since it allows
+            you to differentiate between anonymous, remember-me and fully-authenticated users. If
+            you don't need this functionality though, then you can stick with
+                <code class="literal">ROLE_ANONYMOUS</code>, which will be processed by Spring Security's
+            standard <code class="classname">RoleVoter</code>. </p>
+    </div>
+<div class="footnotes"><br><hr width="100" align="left"><div class="footnote"><p><sup>[<a name="ftn.d4e1786" href="#d4e1786" class="para">13</a>] </sup>The use
+                    of the <code class="literal">key</code> property should not be regarded as providing any
+                    real security here. It is merely a book-keeping exercise. If you are sharing a
+                        <code class="classname">ProviderManager</code> which contains an
+                        <code class="classname">AnonymousAuthenticationProvider</code> in a scenario where
+                    it is possible for an authenticating client to construct the
+                        <code class="interfacename">Authentication</code> object (such as with RMI
+                    invocations), then a malicious client could submit an
+                        <code class="classname">AnonymousAuthenticationToken</code> which it had created
+                    itself (with chosen username and authority list). If the <code class="literal">key</code>
+                    is guessable or can be found out, then the token would be accepted by the
+                    anonymous provider. This isn't a problem with normal usage but if you are using
+                    RMI you would be best to use a customized <code class="classname">ProviderManager</code>
+                    which omits the anonymous provider rather than sharing the one you use for your
+                    HTTP authentication mechanisms.</p></div></div></div><!--Begin LoopFuse code--><script src="http://loopfuse.net/webrecorder/js/listen.js" type="text/javascript"></script><script type="text/javascript">
+			_lf_cid = "LF_48be82fa";
+			_lf_remora();
+		</script><!--End LoopFuse code--><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="session-mgmt.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="web-app-security.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="authorization.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">11.&nbsp;Session Management&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="springsecurity.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;Part&nbsp;IV.&nbsp;Authorization</td></tr></table></div></body></html>

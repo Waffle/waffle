@@ -1,0 +1,605 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>5.&nbsp;Technical Overview</title><link rel="stylesheet" href="css/manual.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="springsecurity.html" title="Spring Security"><link rel="up" href="overall-architecture.html" title="Part&nbsp;II.&nbsp;Architecture and Implementation"><link rel="prev" href="overall-architecture.html" title="Part&nbsp;II.&nbsp;Architecture and Implementation"><link rel="next" href="core-services.html" title="6.&nbsp;Core Services"><!--Begin Google Analytics code--><script type="text/javascript">
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		</script><script type="text/javascript">
+			var pageTracker = _gat._getTracker("UA-2728886-3");
+			pageTracker._setDomainName("none");
+			pageTracker._setAllowLinker(true);
+			pageTracker._trackPageview();
+		</script><!--End Google Analytics code--></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5.&nbsp;Technical Overview</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="overall-architecture.html">Prev</a>&nbsp;</td><th width="60%" align="center">Part&nbsp;II.&nbsp;Architecture and Implementation</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="core-services.html">Next</a></td></tr></table><hr></div><div class="chapter" title="5.&nbsp;Technical Overview"><div class="titlepage"><div><div><h2 class="title"><a name="technical-overview"></a>5.&nbsp;Technical Overview</h2></div></div></div>
+  
+  <div class="section" title="5.1&nbsp;Runtime Environment"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="runtime-environment"></a>5.1&nbsp;Runtime Environment</h2></div></div></div>
+    
+    <p>Spring Security 3.0 requires a Java 5.0 Runtime Environment or higher. As Spring Security
+      aims to operate in a self-contained manner, there is no need to place any special
+      configuration files into your Java Runtime Environment. In particular, there is no need to
+      configure a special Java Authentication and Authorization Service (JAAS) policy file or place
+      Spring Security into common classpath locations.</p>
+    <p>Similarly, if you are using an EJB Container or Servlet Container there is no need to put
+      any special configuration files anywhere, nor include Spring Security in a server classloader.
+      All the required files will be contained within your application.</p>
+    <p>This design offers maximum deployment time flexibility, as you can simply copy your target
+      artifact (be it a JAR, WAR or EAR) from one system to another and it will immediately
+      work.</p>
+  </div>
+  <div class="section" title="5.2&nbsp;Core Components"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="core-components"></a>5.2&nbsp;Core Components</h2></div></div></div>
+    
+    <p>In Spring Security 3.0, the contents of the <code class="filename">spring-security-core</code> jar
+      were stripped down to the bare minimum. It no longer contains any code related to
+      web-application security, LDAP or namespace configuration. We'll take a look here at some of
+      the Java types that you'll find in the core module. They represent the building blocks of the
+      the framework, so if you ever need to go beyond a simple namespace configuration then it's
+      important that you understand what they are, even if you don't actually need to interact with
+      them directly.</p>
+    <div class="section" title="5.2.1&nbsp; SecurityContextHolder, SecurityContext and Authentication Objects"><div class="titlepage"><div><div><h3 class="title"><a name="d4e733"></a>5.2.1&nbsp; SecurityContextHolder, SecurityContext and Authentication Objects </h3></div></div></div>
+      
+      <p>The most fundamental object is <code class="classname">SecurityContextHolder</code>. This is
+        where we store details of the present security context of the application, which includes
+        details of the principal currently using the application. By default the
+          <code class="classname">SecurityContextHolder</code> uses a <code class="literal">ThreadLocal</code> to
+        store these details, which means that the security context is always available to methods in
+        the same thread of execution, even if the security context is not explicitly passed around
+        as an argument to those methods. Using a <code class="literal">ThreadLocal</code> in this way is quite
+        safe if care is taken to clear the thread after the present principal's request is
+        processed. Of course, Spring Security takes care of this for you automatically so there is
+        no need to worry about it.</p>
+      <p>Some applications aren't entirely suitable for using a <code class="literal">ThreadLocal</code>,
+        because of the specific way they work with threads. For example, a Swing client might want
+        all threads in a Java Virtual Machine to use the same security context.
+          <code class="classname">SecurityContextHolder</code> can be configured with a strategy on startup
+        to specify how you would like the context to be stored. For a standalone application you
+        would use the <code class="literal">SecurityContextHolder.MODE_GLOBAL</code> strategy. Other
+        applications might want to have threads spawned by the secure thread also assume the same
+        security identity. This is achieved by using
+          <code class="literal">SecurityContextHolder.MODE_INHERITABLETHREADLOCAL</code>. You can change the
+        mode from the default <code class="literal">SecurityContextHolder.MODE_THREADLOCAL</code> in two ways.
+        The first is to set a system property, the second is to call a static method on
+          <code class="classname">SecurityContextHolder</code>. Most applications won't need to change from
+        the default, but if you do, take a look at the JavaDocs for
+          <code class="classname">SecurityContextHolder</code> to learn more.</p>
+      <div class="section" title="Obtaining information about the current user"><div class="titlepage"><div><div><h4 class="title"><a name="d4e748"></a>Obtaining information about the current user</h4></div></div></div>
+        
+        <p>Inside the <code class="classname">SecurityContextHolder</code> we store details of the
+          principal currently interacting with the application. Spring Security uses an
+            <code class="interfacename">Authentication</code> object to represent this information. You
+          won't normally need to create an <code class="interfacename">Authentication</code> object
+          yourself, but it is fairly common for users to query the
+            <code class="interfacename">Authentication</code> object. You can use the following code
+          block - from anywhere in your application - to obtain the name of the currently
+          authenticated user, for example:</p>
+        <pre class="programlisting">
+Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+<span class="hl-keyword">if</span> (principal <span class="hl-keyword">instanceof</span> UserDetails) {
+  String username = ((UserDetails)principal).getUsername();
+} <span class="hl-keyword">else</span> {
+  String username = principal.toString();
+}</pre>
+        <p>The object returned by the call to <code class="methodname">getContext()</code> is an
+          instance of the <code class="interfacename">SecurityContext</code> interface. This is the
+          object that is kept in thread-local storage. As we'll see below, most authentication
+          mechanisms withing Spring Security return an instance of
+            <code class="interfacename">UserDetails</code> as the principal. </p>
+      </div>
+    </div>
+    <div class="section" title="5.2.2&nbsp;The UserDetailsService"><div class="titlepage"><div><div><h3 class="title"><a name="d4e760"></a>5.2.2&nbsp;The UserDetailsService</h3></div></div></div>
+      
+      <p>Another item to note from the above code fragment is that you can obtain a principal
+        from the <code class="interfacename">Authentication</code> object. The principal is just an
+          <code class="literal">Object</code>. Most of the time this can be cast into a
+          <code class="interfacename">UserDetails</code> object.
+          <code class="interfacename">UserDetails</code> is a central interface in Spring Security. It
+        represents a principal, but in an extensible and application-specific way. Think of
+          <code class="interfacename">UserDetails</code> as the adapter between your own user database
+        and what Spring Security needs inside the <code class="classname">SecurityContextHolder</code>.
+        Being a representation of something from your own user database, quite often you will cast
+        the <code class="interfacename">UserDetails</code> to the original object that your application
+        provided, so you can call business-specific methods (like <code class="literal">getEmail()</code>,
+          <code class="literal">getEmployeeNumber()</code> and so on).</p>
+      <p>By now you're probably wondering, so when do I provide a
+          <code class="interfacename">UserDetails</code> object? How do I do that? I thought you said
+        this thing was declarative and I didn't need to write any Java code - what gives? The short
+        answer is that there is a special interface called
+          <code class="interfacename">UserDetailsService</code>. The only method on this interface
+        accepts a <code class="literal">String</code>-based username argument and returns a
+          <code class="interfacename">UserDetails</code>:
+        </p><pre class="programlisting">
+  UserDetails loadUserByUsername(String username) <span class="hl-keyword">throws</span> UsernameNotFoundException;
+</pre><p>
+        This is the most common approach to loading information for a user within Spring Security
+        and you will see it used throughout the framework whenever information on a user is
+        required.</p>
+      <p> On successful authentication, <code class="interfacename">UserDetails</code> is used to
+        build the <code class="interfacename">Authentication</code> object that is stored in the
+          <code class="classname">SecurityContextHolder</code> (more on this <a class="ulink" href="#tech-intro-authentication" target="_top">below</a>). The good news is that we provide a
+        number of <code class="interfacename">UserDetailsService</code> implementations, including one
+        that uses an in-memory map (<code class="classname">InMemoryDaoImpl</code>) and another that uses
+        JDBC (<code class="classname">JdbcDaoImpl</code>). Most users tend to write their own, though, with
+        their implementations often simply sitting on top of an existing Data Access Object (DAO)
+        that represents their employees, customers, or other users of the application. Remember the
+        advantage that whatever your <code class="interfacename">UserDetailsService</code> returns can
+        always be obtained from the <code class="classname">SecurityContextHolder</code> using the above
+        code fragment. </p>
+    </div>
+    <div class="section" title="5.2.3&nbsp;GrantedAuthority"><div class="titlepage"><div><div><h3 class="title"><a name="tech-granted-authority"></a>5.2.3&nbsp;GrantedAuthority</h3></div></div></div>
+      
+      <p>Besides the principal, another important method provided by
+          <code class="interfacename">Authentication</code> is <code class="literal">getAuthorities(</code>). This
+        method provides an array of <code class="interfacename">GrantedAuthority</code> objects. A
+          <code class="interfacename">GrantedAuthority</code> is, not surprisingly, an authority that is
+        granted to the principal. Such authorities are usually <span class="quote">&#8220;<span class="quote">roles</span>&#8221;</span>, such as
+          <code class="literal">ROLE_ADMINISTRATOR</code> or <code class="literal">ROLE_HR_SUPERVISOR</code>. These
+        roles are later on configured for web authorization, method authorization and domain object
+        authorization. Other parts of Spring Security are capable of interpreting these authorities,
+        and expect them to be present. <code class="interfacename">GrantedAuthority</code> objects are
+        usually loaded by the <code class="interfacename">UserDetailsService</code>.</p>
+      <p>Usually the <code class="interfacename">GrantedAuthority</code> objects are application-wide
+        permissions. They are not specific to a given domain object. Thus, you wouldn't likely have
+        a <code class="interfacename">GrantedAuthority</code> to represent a permission to
+          <code class="literal">Employee</code> object number 54, because if there are thousands of such
+        authorities you would quickly run out of memory (or, at the very least, cause the
+        application to take a long time to authenticate a user). Of course, Spring Security is
+        expressly designed to handle this common requirement, but you'd instead use the project's
+        domain object security capabilities for this purpose.</p>
+    </div>
+    <div class="section" title="5.2.4&nbsp;Summary"><div class="titlepage"><div><div><h3 class="title"><a name="d4e804"></a>5.2.4&nbsp;Summary</h3></div></div></div>
+      
+      <p>Just to recap, the major building blocks of Spring Security that we've seen so far
+        are:</p>
+      <div class="itemizedlist"><ul class="itemizedlist" type="disc" compact><li class="listitem">
+          <p><code class="classname">SecurityContextHolder</code>, to provide access to the
+              <code class="interfacename">SecurityContext</code>.</p>
+        </li><li class="listitem">
+          <p><code class="interfacename">SecurityContext</code>, to hold the
+              <code class="interfacename">Authentication</code> and possibly request-specific security
+            information.</p>
+        </li><li class="listitem">
+          <p><code class="interfacename">Authentication</code>, to represent the principal in a
+            Spring Security-specific manner.</p>
+        </li><li class="listitem">
+          <p><code class="interfacename">GrantedAuthority</code>, to reflect the application-wide
+            permissions granted to a principal.</p>
+        </li><li class="listitem">
+          <p><code class="interfacename">UserDetails</code>, to provide the necessary information to
+            build an Authentication object from your application's DAOs or other source source of
+            security data.</p>
+        </li><li class="listitem">
+          <p><code class="interfacename">UserDetailsService</code>, to create a
+              <code class="interfacename">UserDetails</code> when passed in a
+            <code class="literal">String</code>-based username (or certificate ID or the like).</p>
+        </li></ul></div>
+      <p>Now that you've gained an understanding of these repeatedly-used components, let's take
+        a closer look at the process of authentication.</p>
+    </div>
+  </div>
+  <div class="section" title="5.3&nbsp;Authentication"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="tech-intro-authentication"></a>5.3&nbsp;Authentication</h2></div></div></div>
+    
+    <p>Spring Security can participate in many different authentication environments. While we
+      recommend people use Spring Security for authentication and not integrate with existing
+      Container Managed Authentication, it is nevertheless supported - as is integrating with your
+      own proprietary authentication system. </p>
+    <div class="section" title="5.3.1&nbsp;What is authentication in Spring Security?"><div class="titlepage"><div><div><h3 class="title"><a name="d4e836"></a>5.3.1&nbsp;What is authentication in Spring Security?</h3></div></div></div>
+      
+      <p> Let's consider a standard authentication scenario that everyone is familiar with.
+              </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>A user is prompted to log in with a username and
+              password.</p></li><li class="listitem"><p>The system (successfully) verifies that the
+              password is correct for the username.</p></li><li class="listitem"><p>The context
+              information for that user is obtained (their list of roles and so
+            on).</p></li><li class="listitem"><p>A security context is established for the
+              user</p></li><li class="listitem"><p>The user proceeds, potentially to perform some
+              operation which is potentially protected by an access control mechanism which checks
+              the required permissions for the operation against the current security context
+              information. </p></li></ol></div><p> The first three items constitute the
+        authentication process so we'll take a look at how these take place within Spring
+              Security.</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>The username and password are obtained and
+              combined into an instance of
+                <code class="classname">UsernamePasswordAuthenticationToken</code> (an instance of the
+                <code class="interfacename">Authentication</code> interface, which we saw
+              earlier).</p></li><li class="listitem"><p>The token is passed to an instance of
+                <code class="interfacename">AuthenticationManager</code> for
+            validation.</p></li><li class="listitem"><p>The
+                <code class="interfacename">AuthenticationManager</code> returns a fully populated
+                <code class="interfacename">Authentication</code> instance on successful
+              authentication.</p></li><li class="listitem"><p>The security context is established
+              by calling <code class="code">SecurityContextHolder.getContext().setAuthentication(...)</code>,
+              passing in the returned authentication object.</p></li></ol></div><p>From
+        that point on, the user is considered to be authenticated. Let's look at some code as an
+        example.
+        </p><pre class="programlisting"><span class="hl-keyword">import</span> org.springframework.security.authentication.*;
+<span class="hl-keyword">import</span> org.springframework.security.core.*;
+<span class="hl-keyword">import</span> org.springframework.security.core.authority.GrantedAuthorityImpl;
+<span class="hl-keyword">import</span> org.springframework.security.core.context.SecurityContextHolder;
+
+<span class="hl-keyword">public</span> <span class="hl-keyword">class</span> AuthenticationExample {
+  <span class="hl-keyword">private</span> <span class="hl-keyword">static</span> AuthenticationManager am = <span class="hl-keyword">new</span> SampleAuthenticationManager();
+
+  <span class="hl-keyword">public</span> <span class="hl-keyword">static</span> <span class="hl-keyword">void</span> main(String[] args) <span class="hl-keyword">throws</span> Exception {
+    BufferedReader in = <span class="hl-keyword">new</span> BufferedReader(<span class="hl-keyword">new</span> InputStreamReader(System.in));
+
+    <span class="hl-keyword">while</span>(true) {
+      System.out.println(<span class="hl-string">"Please enter your username:"</span>);
+      String name = in.readLine();
+      System.out.println(<span class="hl-string">"Please enter your password:"</span>);
+      String password = in.readLine();
+      <span class="hl-keyword">try</span> {
+        Authentication request = <span class="hl-keyword">new</span> UsernamePasswordAuthenticationToken(name, password);
+        Authentication result = am.authenticate(request);
+        SecurityContextHolder.getContext().setAuthentication(result);
+        <span class="hl-keyword">break</span>;
+      } <span class="hl-keyword">catch</span>(AuthenticationException e) {
+        System.out.println(<span class="hl-string">"Authentication failed: "</span> + e.getMessage());
+      }
+    }
+    System.out.println(<span class="hl-string">"Successfully authenticated. Security context contains: "</span> +
+              SecurityContextHolder.getContext().getAuthentication());
+  }
+}
+
+<span class="hl-keyword">class</span> SampleAuthenticationManager <span class="hl-keyword">implements</span> AuthenticationManager {
+  <span class="hl-keyword">static</span> <span class="hl-keyword">final</span> List&lt;GrantedAuthority&gt; AUTHORITIES = <span class="hl-keyword">new</span> ArrayList&lt;GrantedAuthority&gt;();
+
+  <span class="hl-keyword">static</span> {
+    AUTHORITIES.add(<span class="hl-keyword">new</span> GrantedAuthorityImpl(<span class="hl-string">"ROLE_USER"</span>));
+  }
+
+  <span class="hl-keyword">public</span> Authentication authenticate(Authentication auth) <span class="hl-keyword">throws</span> AuthenticationException {
+    <span class="hl-keyword">if</span> (auth.getName().equals(auth.getCredentials())) {
+      <span class="hl-keyword">return</span> <span class="hl-keyword">new</span> UsernamePasswordAuthenticationToken(auth.getName(),
+        auth.getCredentials(), AUTHORITIES);
+      }
+      <span class="hl-keyword">throw</span> <span class="hl-keyword">new</span> BadCredentialsException(<span class="hl-string">"Bad Credentials"</span>);
+  }
+}</pre><p>Here
+        we have written a little program that asks the user to enter a username and password and
+        performs the above sequence. The <code class="interfacename">AuthenticationManager</code> which
+        we've implemented here will authenticate any user whose username and password are the same.
+        It assigns a single role to every user. The output from the above will be something
+        like:</p><pre class="programlisting">
+Please enter your username:
+bob
+Please enter your password:
+password
+Authentication failed: Bad Credentials
+Please enter your username:
+bob
+Please enter your password:
+bob
+Successfully authenticated. Security context contains: \
+ org.springframework.security.authentication.UsernamePasswordAuthenticationToken@441d0230: \
+ Principal: bob; Password: [PROTECTED]; \
+ Authenticated: true; Details: null; \
+ Granted Authorities: ROLE_USER
+        </pre>
+      <p>Note that you don't normally need to write any code like this. The process will normally
+        occur internally, in a web authentication filter for example. We've just included the code
+        here to show that the question of what actually constitutes authentication in Spring
+        Security has quite a simple answer. A user is authenticated when the
+          <code class="classname">SecurityContextHolder</code> contains a fully populated
+          <code class="interfacename">Authentication</code> object.</p>
+    </div>
+    <div class="section" title="5.3.2&nbsp;Setting the SecurityContextHolder Contents Directly"><div class="titlepage"><div><div><h3 class="title"><a name="d4e871"></a>5.3.2&nbsp;Setting the SecurityContextHolder Contents Directly</h3></div></div></div>
+      
+      <p>In fact, Spring Security doesn't mind how you put the
+          <code class="interfacename">Authentication</code> object inside the
+          <code class="classname">SecurityContextHolder</code>. The only critical requirement is that the
+          <code class="classname">SecurityContextHolder</code> contains an
+          <code class="interfacename">Authentication</code> which represents a principal before the
+          <code class="classname">AbstractSecurityInterceptor</code> (which we'll see more about later)
+        needs to authorize a user operation.</p>
+      <p>You can (and many users do) write their own filters or MVC controllers to provide
+        interoperability with authentication systems that are not based on Spring Security. For
+        example, you might be using Container-Managed Authentication which makes the current user
+        available from a ThreadLocal or JNDI location. Or you might work for a company that has a
+        legacy proprietary authentication system, which is a corporate "standard" over which you
+        have little control. In situations like this it's quite easy to get Spring Security to work,
+        and still provide authorization capabilities. All you need to do is write a filter (or
+        equivalent) that reads the third-party user information from a location, build a Spring
+        Security-specific <code class="interfacename">Authentication</code> object, and put it into the
+          <code class="classname">SecurityContextHolder</code>.</p>
+      <p> If you're wondering how the <code class="interfacename">AuthenticationManager</code>
+        manager is implemented in a real world example, we'll look at that in the <a class="ulink" href="#core-services-authentication-manager" target="_top">core services chapter</a>.</p>
+    </div>
+  </div>
+  <div class="section" title="5.4&nbsp;Authentication in a Web Application"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="tech-intro-web-authentication"></a>5.4&nbsp;Authentication in a Web Application</h2></div></div></div>
+    
+    <p> Now let's explore the situation where you are using Spring Security in a web application
+      (without <code class="filename">web.xml</code> security enabled). How is a user authenticated and the
+      security context established?</p>
+    <p>Consider a typical web application's authentication process:</p>
+    <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+        <p>You visit the home page, and click on a link.</p>
+      </li><li class="listitem">
+        <p>A request goes to the server, and the server decides that you've asked for a protected
+          resource.</p>
+      </li><li class="listitem">
+        <p>As you're not presently authenticated, the server sends back a response indicating
+          that you must authenticate. The response will either be an HTTP response code, or a
+          redirect to a particular web page.</p>
+      </li><li class="listitem">
+        <p>Depending on the authentication mechanism, your browser will either redirect to the
+          specific web page so that you can fill out the form, or the browser will somehow retrieve
+          your identity (via a BASIC authentication dialogue box, a cookie, a X.509 certificate
+          etc.).</p>
+      </li><li class="listitem">
+        <p>The browser will send back a response to the server. This will either be an HTTP POST
+          containing the contents of the form that you filled out, or an HTTP header containing your
+          authentication details.</p>
+      </li><li class="listitem">
+        <p>Next the server will decide whether or not the presented credentials are valid. If
+          they're valid, the next step will happen. If they're invalid, usually your browser will be
+          asked to try again (so you return to step two above).</p>
+      </li><li class="listitem">
+        <p>The original request that you made to cause the authentication process will be
+          retried. Hopefully you've authenticated with sufficient granted authorities to access the
+          protected resource. If you have sufficient access, the request will be successful.
+          Otherwise, you'll receive back an HTTP error code 403, which means "forbidden".</p>
+      </li></ol></div>
+    <p>Spring Security has distinct classes responsible for most of the steps described above.
+      The main participants (in the order that they are used) are the
+        <code class="classname">ExceptionTranslationFilter</code>, an
+        <code class="interfacename">AuthenticationEntryPoint</code> and an <span class="quote">&#8220;<span class="quote">authentication
+        mechanism</span>&#8221;</span>, which is responsible for calling the
+        <code class="classname">AuthenticationManager</code> which we saw in the previous section.</p>
+    <div class="section" title="5.4.1&nbsp;ExceptionTranslationFilter"><div class="titlepage"><div><div><h3 class="title"><a name="d4e910"></a>5.4.1&nbsp;ExceptionTranslationFilter</h3></div></div></div>
+      
+      <p><code class="classname">ExceptionTranslationFilter</code> is a Spring Security filter that has
+        responsibility for detecting any Spring Security exceptions that are thrown. Such exceptions
+        will generally be thrown by an <code class="classname">AbstractSecurityInterceptor</code>, which is
+        the main provider of authorization services. We will discuss
+          <code class="classname">AbstractSecurityInterceptor</code> in the next section, but for now we
+        just need to know that it produces Java exceptions and knows nothing about HTTP or how to go
+        about authenticating a principal. Instead the
+          <code class="classname">ExceptionTranslationFilter</code> offers this service, with specific
+        responsibility for either returning error code 403 (if the principal has been authenticated
+        and therefore simply lacks sufficient access - as per step seven above), or launching an
+          <code class="interfacename">AuthenticationEntryPoint</code> (if the principal has not been
+        authenticated and therefore we need to go commence step three).</p>
+    </div>
+    <div class="section" title="5.4.2&nbsp;AuthenticationEntryPoint"><div class="titlepage"><div><div><h3 class="title"><a name="tech-intro-auth-entry-point"></a>5.4.2&nbsp;AuthenticationEntryPoint</h3></div></div></div>
+      
+      <p>The <code class="interfacename">AuthenticationEntryPoint</code> is responsible for step
+        three in the above list. As you can imagine, each web application will have a default
+        authentication strategy (well, this can be configured like nearly everything else in Spring
+        Security, but let's keep it simple for now). Each major authentication system will have its
+        own <code class="interfacename">AuthenticationEntryPoint</code> implementation, which typically
+        performs one of the actions described in step 3.</p>
+    </div>
+    <div class="section" title="5.4.3&nbsp;Authentication Mechanism"><div class="titlepage"><div><div><h3 class="title"><a name="d4e923"></a>5.4.3&nbsp;Authentication Mechanism</h3></div></div></div>
+      
+      <p>Once your browser submits your authentication credentials (either as an HTTP form post
+        or HTTP header) there needs to be something on the server that <span class="quote">&#8220;<span class="quote">collects</span>&#8221;</span> these
+        authentication details. By now we're at step six in the above list. In Spring Security we
+        have a special name for the function of collecting authentication details from a user agent
+        (usually a web browser), referring to it as the <span class="quote">&#8220;<span class="quote">authentication mechanism</span>&#8221;</span>.
+        Examples are form-base login and Basic authentication. Once the authentication details have
+        been collected from the user agent, an <code class="interfacename">Authentication</code>
+        <span class="quote">&#8220;<span class="quote">request</span>&#8221;</span> object is built and then presented to the
+          <code class="interfacename">AuthenticationManager</code>.</p>
+      <p>After the authentication mechanism receives back the fully-populated
+          <code class="interfacename">Authentication</code> object, it will deem the request valid, put
+        the <code class="interfacename">Authentication</code> into the
+          <code class="classname">SecurityContextHolder</code>, and cause the original request to be retried
+        (step seven above). If, on the other hand, the <code class="classname">AuthenticationManager</code>
+        rejected the request, the authentication mechanism will ask the user agent to retry (step
+        two above).</p>
+    </div>
+    <div class="section" title="5.4.4&nbsp;Storing the SecurityContext between requests"><div class="titlepage"><div><div><h3 class="title"><a name="tech-intro-sec-context-persistence"></a>5.4.4&nbsp;Storing the <code class="interfacename">SecurityContext</code> between requests</h3></div></div></div>
+      
+      <p>Depending on the type of application, there may need to be a strategy in place to store
+        the security context between user operations. In a typical web application, a user logs in
+        once and is subsequently identified by their session Id. The server caches the principal
+        information for the duration session. In Spring Security, the responsibility for storing the
+          <code class="interfacename">SecurityContext</code> between requests falls to the
+          <code class="classname">SecurityContextPersistenceFilter</code>, which by default stores the
+        context as an <code class="literal">HttpSession</code> attribute between HTTP requests. It restores
+        the context to the <code class="classname">SecurityContextHolder</code> for each request and,
+        crucially, clears the <code class="classname">SecurityContextHolder</code> when the request
+        completes. You shouldn't interact directly with the <code class="literal">HttpSession</code> for
+        security purposes. There is simply no justification for doing so - always use the
+          <code class="classname">SecurityContextHolder</code> instead. </p>
+      <p> Many other types of application (for example, a stateless RESTful web service) do not
+        use HTTP sessions and will re-authenticate on every request. However, it is still important
+        that the <code class="classname">SecurityContextPersistenceFilter</code> is included in the chain to
+        make sure that the <code class="classname">SecurityContextHolder</code> is cleared after each
+        request.</p>
+      <div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="images/note.png"></td><th align="left">Note</th></tr><tr><td align="left" valign="top">
+        <p>In an application which receives concurrent requests in a single session, the same
+            <code class="interfacename">SecurityContext</code> instance will be shared between threads.
+          Even though a <code class="classname">ThreadLocal</code> is being used, it is the same instance
+          that is retrieved from the <code class="interfacename">HttpSession</code> for each thread.
+          This has implications if you wish to temporarily change the context under which a thread
+          is running. If you just use
+            <code class="code">SecurityContextHolder.getContext().setAuthentication(anAuthentication)</code>,
+          then the <code class="interfacename">Authentication</code> object will change in
+            <span class="emphasis"><em>all</em></span> concurrent threads which share the same
+            <code class="interfacename">SecurityContext</code> instance. You can customize the behaviour
+          of <code class="classname">SecurityContextPersistenceFilter</code> to create a completely new
+            <code class="interfacename">SecurityContext</code> for each request, preventing changes in
+          one thread from affecting another. Alternatively you can create a new instance just at the
+          point where you temporarily change the context. The method
+            <code class="code">SecurityContextHolder.createEmptyContext()</code> always returns a new context
+          instance.</p>
+      </td></tr></table></div>
+    </div>
+  </div>
+  <div class="section" title="5.5&nbsp;Access-Control (Authorization) in Spring Security"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="tech-intro-access-control"></a>5.5&nbsp;Access-Control (Authorization) in Spring Security</h2></div></div></div>
+    
+    <p> The main interface responsible for making access-control decisions in Spring Security is
+      the <code class="interfacename">AccessDecisionManager</code>. It has a
+        <code class="methodname">decide</code> method which takes an
+        <code class="interfacename">Authentication</code> object representing the principal requesting
+      access, a <span class="quote">&#8220;<span class="quote">secure object</span>&#8221;</span> (see below) and a list of security metadata attributes
+      which apply for the object (such as a list of roles which are required for access to be
+      granted). </p>
+    <div class="section" title="5.5.1&nbsp;Security and AOP Advice"><div class="titlepage"><div><div><h3 class="title"><a name="d4e969"></a>5.5.1&nbsp;Security and AOP Advice</h3></div></div></div>
+      
+      <p>If you're familiar with AOP, you'd be aware there are different types of advice
+        available: before, after, throws and around. An around advice is very useful, because an
+        advisor can elect whether or not to proceed with a method invocation, whether or not to
+        modify the response, and whether or not to throw an exception. Spring Security provides an
+        around advice for method invocations as well as web requests. We achieve an around advice
+        for method invocations using Spring's standard AOP support and we achieve an around advice
+        for web requests using a standard Filter.</p>
+      <p>For those not familiar with AOP, the key point to understand is that Spring Security can
+        help you protect method invocations as well as web requests. Most people are interested in
+        securing method invocations on their services layer. This is because the services layer is
+        where most business logic resides in current-generation J2EE applications. If you just need
+        to secure method invocations in the services layer, Spring's standard AOP will be adequate.
+        If you need to secure domain objects directly, you will likely find that AspectJ is worth
+        considering.</p>
+      <p>You can elect to perform method authorization using AspectJ or Spring AOP, or you can
+        elect to perform web request authorization using filters. You can use zero, one, two or
+        three of these approaches together. The mainstream usage pattern is to perform some web
+        request authorization, coupled with some Spring AOP method invocation authorization on the
+        services layer.</p>
+    </div>
+    <div class="section" title="5.5.2&nbsp;Secure Objects and the AbstractSecurityInterceptor"><div class="titlepage"><div><div><h3 class="title"><a name="secure-objects"></a>5.5.2&nbsp;Secure Objects and the <code class="classname">AbstractSecurityInterceptor</code></h3></div></div></div>
+      
+      <p>So what <span class="emphasis"><em>is</em></span> a <span class="quote">&#8220;<span class="quote">secure object</span>&#8221;</span> anyway? Spring Security
+        uses the term to refer to any object that can have security (such as an authorization
+        decision) applied to it. The most common examples are method invocations and web
+        requests.</p>
+      <p>Each supported secure object type has its own interceptor class, which is a subclass of
+          <code class="classname">AbstractSecurityInterceptor</code>. Importantly, by the time the
+          <code class="classname">AbstractSecurityInterceptor</code> is called, the
+          <code class="classname">SecurityContextHolder</code> will contain a valid
+          <code class="interfacename">Authentication</code> if the principal has been
+        authenticated.</p>
+      <p><code class="classname">AbstractSecurityInterceptor</code> provides a consistent workflow for
+        handling secure object requests, typically: </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>Look up the
+                <span class="quote">&#8220;<span class="quote">configuration attributes</span>&#8221;</span> associated with the present
+            request</p></li><li class="listitem"><p>Submitting the secure object, current
+                <code class="interfacename">Authentication</code> and configuration attributes to the
+                <code class="interfacename">AccessDecisionManager</code> for an authorization
+              decision</p></li><li class="listitem"><p>Optionally change the
+                <code class="interfacename">Authentication</code> under which the invocation takes
+              place</p></li><li class="listitem"><p>Allow the secure object invocation to proceed
+              (assuming access was granted)</p></li><li class="listitem"><p>Call the
+                <code class="interfacename">AfterInvocationManager</code> if configured, once the
+              invocation has returned.</p></li></ol></div>
+      <div class="section" title="What are Configuration Attributes?"><div class="titlepage"><div><div><h4 class="title"><a name="tech-intro-config-attributes"></a>What are Configuration Attributes?</h4></div></div></div>
+        
+        <p> A <span class="quote">&#8220;<span class="quote">configuration attribute</span>&#8221;</span> can be thought of as a String that has
+          special meaning to the classes used by <code class="classname">AbstractSecurityInterceptor</code>.
+          They are represented by the interface <code class="interfacename">ConfigAttribute</code>
+          within the framework. They may be simple role names or have more complex meaning,
+          depending on the how sophisticated the
+            <code class="interfacename">AccessDecisionManager</code> implementation is. The
+            <code class="classname">AbstractSecurityInterceptor</code> is configured with a
+            <code class="interfacename">SecurityMetadataSource</code> which it uses to look up the
+          attributes for a secure object. Usually this configuration will be hidden from the user.
+          Configuration attributes will be entered as annotations on secured methods or as access
+          attributes on secured URLs. For example, when we saw something like
+            <code class="literal">&lt;intercept-url pattern='/secure/**' access='ROLE_A,ROLE_B'/&gt;</code> in
+          the namespace introduction, this is saying that the configuration attributes
+            <code class="literal">ROLE_A</code> and <code class="literal">ROLE_B</code> apply to web requests matching
+          the given pattern. In practice, with the default
+            <code class="interfacename">AccessDecisionManager</code> configuration, this means that
+          anyone who has a <code class="interfacename">GrantedAuthority</code> matching either of these
+          two attributes will be allowed access. Strictly speaking though, they are just attributes
+          and the interpretation is dependent on the
+            <code class="interfacename">AccessDecisionManager</code> implementation. The use of the
+          prefix <code class="literal">ROLE_</code> is a marker to indicate that these attributes are roles
+          and should be consumed by Spring Security's <code class="classname">RoleVoter</code>. This is only
+          relevant when a voter-based <code class="interfacename">AccessDecisionManager</code> is in
+          use. We'll see how the <code class="interfacename">AccessDecisionManager</code> is implemented
+          in the <a class="ulink" href="#authz-arch" target="_top">authorization chapter</a>.</p>
+      </div>
+      <div class="section" title="RunAsManager"><div class="titlepage"><div><div><h4 class="title"><a name="d4e1023"></a>RunAsManager</h4></div></div></div>
+        
+        <p>Assuming <code class="interfacename">AccessDecisionManager</code> decides to allow the
+          request, the <code class="classname">AbstractSecurityInterceptor</code> will normally just proceed
+          with the request. Having said that, on rare occasions users may want to replace the
+            <code class="interfacename">Authentication</code> inside the
+            <code class="interfacename">SecurityContext</code> with a different
+            <code class="interfacename">Authentication</code>, which is handled by the
+            <code class="interfacename">AccessDecisionManager</code> calling a
+            <code class="literal">RunAsManager</code>. This might be useful in reasonably unusual situations,
+          such as if a services layer method needs to call a remote system and present a different
+          identity. Because Spring Security automatically propagates security identity from one
+          server to another (assuming you're using a properly-configured RMI or HttpInvoker remoting
+          protocol client), this may be useful.</p>
+      </div>
+      <div class="section" title="AfterInvocationManager"><div class="titlepage"><div><div><h4 class="title"><a name="d4e1033"></a>AfterInvocationManager</h4></div></div></div>
+        
+        <p>Following the secure object proceeding and then returning - which may mean a method
+          invocation completing or a filter chain proceeding - the
+            <code class="classname">AbstractSecurityInterceptor</code> gets one final chance to handle the
+          invocation. At this stage the <code class="classname">AbstractSecurityInterceptor</code> is
+          interested in possibly modifying the return object. We might want this to happen because
+          an authorization decision couldn't be made <span class="quote">&#8220;<span class="quote">on the way in</span>&#8221;</span> to a secure object
+          invocation. Being highly pluggable, <code class="classname">AbstractSecurityInterceptor</code>
+          will pass control to an <code class="literal">AfterInvocationManager</code> to actually modify the
+          object if needed. This class can even entirely replace the object, or throw an exception,
+          or not change it in any way as it chooses.</p>
+        <p><code class="classname">AbstractSecurityInterceptor</code> and its related objects are shown
+          in <a class="xref" href="technical-overview.html#abstract-security-interceptor" title="Figure&nbsp;5.1.&nbsp;Security interceptors and the &#8220;secure object&#8221; model">Figure&nbsp;5.1, &#8220;Security interceptors and the
+                <span class="quote">&#8220;<span class="quote">secure object</span>&#8221;</span> model&#8221;</a>. </p><div class="figure"><a name="abstract-security-interceptor"></a><p class="title"><b>Figure&nbsp;5.1.&nbsp;Security interceptors and the
+                <span class="quote">&#8220;<span class="quote">secure object</span>&#8221;</span> model</b></p><div class="figure-contents"><div class="mediaobject" align="center"><img src="images/security-interception.png" align="middle" alt="Security interceptors and the secure object model"></div></div></div><p><br class="figure-break"></p>
+      </div>
+      <div class="section" title="Extending the Secure Object Model"><div class="titlepage"><div><div><h4 class="title"><a name="d4e1050"></a>Extending the Secure Object Model</h4></div></div></div>
+        
+        <p>Only developers contemplating an entirely new way of intercepting and authorizing
+          requests would need to use secure objects directly. For example, it would be possible to
+          build a new secure object to secure calls to a messaging system. Anything that requires
+          security and also provides a way of intercepting a call (like the AOP around advice
+          semantics) is capable of being made into a secure object. Having said that, most Spring
+          applications will simply use the three currently supported secure object types (AOP
+          Alliance <code class="classname">MethodInvocation</code>, AspectJ <code class="classname">JoinPoint</code>
+          and web request <code class="classname">FilterInvocation</code>) with complete
+          transparency.</p>
+      </div>
+    </div>
+  </div>
+  <div class="section" title="5.6&nbsp;Localization"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="localization"></a>5.6&nbsp;Localization</h2></div></div></div>
+    
+    <p>Spring Security supports localization of exception messages that end users are likely to
+      see. If your application is designed for English-speaking users, you don't need to do anything
+      as by default all Security Security messages are in English. If you need to support other
+      locales, everything you need to know is contained in this section.</p>
+    <p>All exception messages can be localized, including messages related to authentication
+      failures and access being denied (authorization failures). Exceptions and logging that is
+      focused on developers or system deployers (including incorrect attributes, interface contract
+      violations, using incorrect constructors, startup time validation, debug-level logging) etc
+      are not localized and instead are hard-coded in English within Spring Security's code.</p>
+    <p>Shipping in the <code class="literal">spring-security-core-xx.jar</code> you will find an
+        <code class="literal">org.springframework.security</code> package that in turn contains a
+        <code class="literal">messages.properties</code> file. This should be referred to by your
+        <code class="literal">ApplicationContext</code>, as Spring Security classes implement Spring's
+        <code class="literal">MessageSourceAware</code> interface and expect the message resolver to be
+      dependency injected at application context startup time. Usually all you need to do is
+      register a bean inside your application context to refer to the messages. An example is shown
+      below:</p>
+    <p>
+      </p><pre class="programlisting">
+&lt;bean id="messageSource"
+    class="org.springframework.context.support.ReloadableResourceBundleMessageSource"&gt;
+  &lt;property name="basename" value="org/springframework/security/messages"/&gt;
+&lt;/bean&gt;
+</pre><p>
+    </p>
+    <p>The <code class="literal">messages.properties</code> is named in accordance with standard resource
+      bundles and represents the default language supported by Spring Security messages. This
+      default file is in English. If you do not register a message source, Spring Security will
+      still work correctly and fallback to hard-coded English versions of the messages.</p>
+    <p>If you wish to customize the <code class="literal">messages.properties</code> file, or support other
+      languages, you should copy the file, rename it accordingly, and register it inside the above
+      bean definition. There are not a large number of message keys inside this file, so
+      localization should not be considered a major initiative. If you do perform localization of
+      this file, please consider sharing your work with the community by logging a JIRA task and
+      attaching your appropriately-named localized version of
+      <code class="literal">messages.properties</code>.</p>
+    <p>Rounding out the discussion on localization is the Spring <code class="literal">ThreadLocal</code>
+      known as <code class="classname">org.springframework.context.i18n.LocaleContextHolder</code>. You
+      should set the <code class="classname">LocaleContextHolder</code> to represent the preferred
+        <code class="literal">Locale</code> of each user. Spring Security will attempt to locate a message
+      from the message source using the <code class="literal">Locale</code> obtained from this
+        <code class="literal">ThreadLocal</code>. Please refer to the Spring Framework documentation for
+      further details on using <code class="literal">LocaleContextHolder</code>.</p>
+  </div>
+</div><!--Begin LoopFuse code--><script src="http://loopfuse.net/webrecorder/js/listen.js" type="text/javascript"></script><script type="text/javascript">
+			_lf_cid = "LF_48be82fa";
+			_lf_remora();
+		</script><!--End LoopFuse code--><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="overall-architecture.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="overall-architecture.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="core-services.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Part&nbsp;II.&nbsp;Architecture and Implementation&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="springsecurity.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;6.&nbsp;Core Services</td></tr></table></div></body></html>

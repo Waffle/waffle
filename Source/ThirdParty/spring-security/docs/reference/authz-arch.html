@@ -1,0 +1,226 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>13.&nbsp;Authorization Architecture</title><link rel="stylesheet" href="css/manual.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="springsecurity.html" title="Spring Security"><link rel="up" href="authorization.html" title="Part&nbsp;IV.&nbsp;Authorization"><link rel="prev" href="authorization.html" title="Part&nbsp;IV.&nbsp;Authorization"><link rel="next" href="secure-object-impls.html" title="14.&nbsp;Secure Object Implementations"><!--Begin Google Analytics code--><script type="text/javascript">
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		</script><script type="text/javascript">
+			var pageTracker = _gat._getTracker("UA-2728886-3");
+			pageTracker._setDomainName("none");
+			pageTracker._setAllowLinker(true);
+			pageTracker._trackPageview();
+		</script><!--End Google Analytics code--></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">13.&nbsp;Authorization Architecture</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="authorization.html">Prev</a>&nbsp;</td><th width="60%" align="center">Part&nbsp;IV.&nbsp;Authorization</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="secure-object-impls.html">Next</a></td></tr></table><hr></div><div class="chapter" title="13.&nbsp;Authorization Architecture"><div class="titlepage"><div><div><h2 class="title"><a name="authz-arch"></a>13.&nbsp;Authorization Architecture</h2></div></div></div>
+  
+  <div class="section" title="13.1&nbsp;Authorities"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="authz-authorities"></a>13.1&nbsp;Authorities</h2></div></div></div>
+    
+    <p>As we saw in the <a class="ulink" href="#tech-granted-authority" target="_top">technical overview</a>, all
+        <code class="interfacename">Authentication</code> implementations store a list of
+        <code class="interfacename">GrantedAuthority</code> objects. These represent the authorities
+      that have been granted to the principal. The <code class="interfacename">GrantedAuthority</code>
+      objects are inserted into the <code class="interfacename">Authentication</code> object by the
+        <code class="interfacename">AuthenticationManager</code> and are later read by
+        <code class="interfacename">AccessDecisionManager</code>s when making authorization
+      decisions.</p>
+    <p><code class="interfacename">GrantedAuthority</code> is an interface with only one method:
+      </p><pre class="programlisting">
+  String getAuthority();
+    </pre><p> This method allows
+        <code class="interfacename">AccessDecisionManager</code>s to obtain a precise
+        <code class="literal">String</code> representation of the
+        <code class="interfacename">GrantedAuthority</code>. By returning a representation as a
+        <code class="literal">String</code>, a <code class="interfacename">GrantedAuthority</code> can be easily
+        <span class="quote">&#8220;<span class="quote">read</span>&#8221;</span> by most <code class="interfacename">AccessDecisionManager</code>s. If a
+        <code class="interfacename">GrantedAuthority</code> cannot be precisely represented as a
+        <code class="literal">String</code>, the <code class="interfacename">GrantedAuthority</code> is considered
+        <span class="quote">&#8220;<span class="quote">complex</span>&#8221;</span> and <code class="literal">getAuthority()</code> must return
+        <code class="literal">null</code>.</p>
+    <p>An example of a <span class="quote">&#8220;<span class="quote">complex</span>&#8221;</span>
+      <code class="interfacename">GrantedAuthority</code> would be an implementation that stores a list
+      of operations and authority thresholds that apply to different customer account numbers.
+      Representing this complex <code class="interfacename">GrantedAuthority</code> as a
+        <code class="literal">String</code> would be quite difficult, and as a result the
+        <code class="literal">getAuthority()</code> method should return <code class="literal">null</code>. This will
+      indicate to any <code class="interfacename">AccessDecisionManager</code> that it will need to
+      specifically support the <code class="interfacename">GrantedAuthority</code> implementation in
+      order to understand its contents.</p>
+    <p>Spring Security includes one concrete <code class="interfacename">GrantedAuthority</code>
+      implementation, <code class="literal">GrantedAuthorityImpl</code>. This allows any user-specified
+        <code class="literal">String</code> to be converted into a
+        <code class="interfacename">GrantedAuthority</code>. All
+        <code class="classname">AuthenticationProvider</code>s included with the security architecture use
+        <code class="literal">GrantedAuthorityImpl</code> to populate the
+        <code class="interfacename">Authentication</code> object.</p>
+  </div>
+  <div class="section" title="13.2&nbsp;Pre-Invocation Handling"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="authz-pre-invocation"></a>13.2&nbsp;Pre-Invocation Handling</h2></div></div></div>
+    
+    <p> As we've also seen in the <a class="ulink" href="#secure-objects" target="_top">Technical Overview</a>
+      chapter, Spring Security provides interceptors which control access to secure objects such as
+      method invocations or web requests. A pre-invocation decision on whether the invocation is
+      allowed to proceed is made by the <code class="interfacename">AccessDecisionManager</code>. </p>
+    <div class="section" title="13.2.1&nbsp;The AccessDecisionManager"><div class="titlepage"><div><div><h3 class="title"><a name="authz-access-decision-manager"></a>13.2.1&nbsp;The AccessDecisionManager</h3></div></div></div>
+      
+      <p>The <code class="interfacename">AccessDecisionManager</code> is called by the
+          <code class="classname">AbstractSecurityInterceptor</code> and is responsible for making final
+        access control decisions. The <code class="interfacename">AccessDecisionManager</code> interface
+        contains three methods:
+        </p><pre class="programlisting">
+ void decide(Authentication authentication, Object secureObject,
+     List&lt;ConfigAttribute&gt; config) throws AccessDeniedException;
+ boolean supports(ConfigAttribute attribute);
+ boolean supports(Class clazz);
+      </pre><p>
+        The <code class="interfacename">AccessDecisionManager</code>'s <code class="methodname">decide</code>
+        method is passed all the relevant information it needs in order to make an authorization
+        decision. In particular, passing the secure <code class="literal">Object</code> enables those
+        arguments contained in the actual secure object invocation to be inspected. For example,
+        let's assume the secure object was a <code class="classname">MethodInvocation</code>. It would be
+        easy to query the <code class="classname">MethodInvocation</code> for any
+          <code class="literal">Customer</code> argument, and then implement some sort of security logic in
+        the <code class="interfacename">AccessDecisionManager</code> to ensure the principal is
+        permitted to operate on that customer. Implementations are expected to throw an
+          <code class="literal">AccessDeniedException</code> if access is denied.</p>
+      <p>The <code class="literal">supports(ConfigAttribute)</code> method is called by the
+          <code class="classname">AbstractSecurityInterceptor</code> at startup time to determine if the
+          <code class="interfacename">AccessDecisionManager</code> can process the passed
+          <code class="literal">ConfigAttribute</code>. The <code class="literal">supports(Class)</code> method is
+        called by a security interceptor implementation to ensure the configured
+          <code class="interfacename">AccessDecisionManager</code> supports the type of secure object
+        that the security interceptor will present.</p>
+    </div>
+    <div class="section" title="13.2.2&nbsp;Voting-Based AccessDecisionManager Implementations"><div class="titlepage"><div><div><h3 class="title"><a name="authz-voting-based"></a>13.2.2&nbsp;Voting-Based AccessDecisionManager Implementations</h3></div></div></div>
+      
+      <p>Whilst users can implement their own
+          <code class="interfacename">AccessDecisionManager</code> to control all aspects of
+        authorization, Spring Security includes several
+          <code class="interfacename">AccessDecisionManager</code> implementations that are based on
+        voting. <a class="xref" href="authz-arch.html#authz-access-voting" title="Figure&nbsp;13.1.&nbsp;Voting Decision Manager">Figure&nbsp;13.1, &#8220;Voting Decision Manager&#8221;</a> illustrates the relevant classes.</p>
+      <div class="figure"><a name="authz-access-voting"></a><p class="title"><b>Figure&nbsp;13.1.&nbsp;Voting Decision Manager</b></p><div class="figure-contents">
+        
+        <div class="mediaobject" align="center"><img src="images/access-decision-voting.png" align="middle" alt="Voting Decision Manager"></div>
+      </div></div><br class="figure-break">
+      <p>Using this approach, a series of <code class="interfacename">AccessDecisionVoter</code>
+        implementations are polled on an authorization decision. The
+          <code class="interfacename">AccessDecisionManager</code> then decides whether or not to throw
+        an <code class="literal">AccessDeniedException</code> based on its assessment of the votes.</p>
+      <p>The <code class="interfacename">AccessDecisionVoter</code> interface has three methods:
+        </p><pre class="programlisting">
+int vote(Authentication authentication, Object object, List&lt;ConfigAttribute&gt; config);
+boolean supports(ConfigAttribute attribute);
+boolean supports(Class clazz);
+</pre><p>
+        Concrete implementations return an <code class="literal">int</code>, with possible values being
+        reflected in the <code class="interfacename">AccessDecisionVoter</code> static fields
+          <code class="literal">ACCESS_ABSTAIN</code>, <code class="literal">ACCESS_DENIED</code> and
+          <code class="literal">ACCESS_GRANTED</code>. A voting implementation will return
+          <code class="literal">ACCESS_ABSTAIN</code> if it has no opinion on an authorization decision. If it
+        does have an opinion, it must return either <code class="literal">ACCESS_DENIED</code> or
+          <code class="literal">ACCESS_GRANTED</code>.</p>
+      <p>There are three concrete <code class="interfacename">AccessDecisionManager</code>s provided
+        with Spring Security that tally the votes. The <code class="literal">ConsensusBased</code>
+        implementation will grant or deny access based on the consensus of non-abstain votes.
+        Properties are provided to control behavior in the event of an equality of votes or if all
+        votes are abstain. The <code class="literal">AffirmativeBased</code> implementation will grant access
+        if one or more <code class="literal">ACCESS_GRANTED</code> votes were received (i.e. a deny vote will
+        be ignored, provided there was at least one grant vote). Like the
+          <code class="literal">ConsensusBased</code> implementation, there is a parameter that controls the
+        behavior if all voters abstain. The <code class="literal">UnanimousBased</code> provider expects
+        unanimous <code class="literal">ACCESS_GRANTED</code> votes in order to grant access, ignoring
+        abstains. It will deny access if there is any <code class="literal">ACCESS_DENIED</code> vote. Like
+        the other implementations, there is a parameter that controls the behaviour if all voters
+        abstain.</p>
+      <p>It is possible to implement a custom
+          <code class="interfacename">AccessDecisionManager</code> that tallies votes differently. For
+        example, votes from a particular <code class="interfacename">AccessDecisionVoter</code> might
+        receive additional weighting, whilst a deny vote from a particular voter may have a veto
+        effect.</p>
+      <div class="section" title="RoleVoter"><div class="titlepage"><div><div><h4 class="title"><a name="authz-role-voter"></a><code class="classname">RoleVoter</code></h4></div></div></div>
+        
+        <p> The most commonly used <code class="interfacename">AccessDecisionVoter</code> provided
+          with Spring Security is the simple <code class="classname">RoleVoter</code>, which treats
+          configuration attributes as simple role names and votes to grant access if the user has
+          been assigned that role.</p>
+        <p>It will vote if any <code class="interfacename">ConfigAttribute</code> begins with the
+          prefix <code class="literal">ROLE_</code>. It will vote to grant access if there is a
+            <code class="interfacename">GrantedAuthority</code> which returns a
+            <code class="literal">String</code> representation (via the <code class="literal">getAuthority()</code>
+          method) exactly equal to one or more <code class="literal">ConfigAttributes</code> starting with the
+          prefix <code class="literal">ROLE_</code>. If there is no exact match of any
+            <code class="literal">ConfigAttribute</code> starting with <code class="literal">ROLE_</code>, the
+            <code class="literal">RoleVoter</code> will vote to deny access. If no
+            <code class="literal">ConfigAttribute</code> begins with <code class="literal">ROLE_</code>, the voter will
+          abstain.</p>
+      </div>
+      <div class="section" title="AuthenticatedVoter"><div class="titlepage"><div><div><h4 class="title"><a name="authz-authenticated-voter"></a><code class="classname">AuthenticatedVoter</code></h4></div></div></div>
+        
+        <p> Another voter which we've implicitly seen is the
+            <code class="classname">AuthenticatedVoter</code>, which can be used to differentiate between
+          anonymous, fully-authenticated and remember-me authenticated users. Many sites allow
+          certain limited access under remember-me authentication, but require a user to confirm
+          their identity by logging in for full access.</p>
+        <p>When we've used the attribute <code class="literal">IS_AUTHENTICATED_ANONYMOUSLY</code> to grant
+          anonymous access, this attribute was being processed by the
+            <code class="classname">AuthenticatedVoter</code>. See the Javadoc for this class for more
+          information. </p>
+      </div>
+      <div class="section" title="Custom Voters"><div class="titlepage"><div><div><h4 class="title"><a name="d4e1972"></a>Custom Voters</h4></div></div></div>
+        
+        <p>It is also possible to implement a custom
+            <code class="interfacename">AccessDecisionVoter</code>. Several examples are provided in
+          Spring Security unit tests, including <code class="literal">ContactSecurityVoter</code> and
+            <code class="literal">DenyVoter</code>. The <code class="literal">ContactSecurityVoter</code> abstains from
+          voting decisions where a <code class="literal">CONTACT_OWNED_BY_CURRENT_USER</code>
+          <code class="literal">ConfigAttribute</code> is not found. If voting, it queries the
+            <code class="classname">MethodInvocation</code> to extract the owner of the
+            <code class="literal">Contact</code> object that is subject of the method call. It votes to grant
+          access if the <code class="literal">Contact</code> owner matches the principal presented in the
+            <code class="interfacename">Authentication</code> object. It could have just as easily
+          compared the <code class="literal">Contact</code> owner with some
+            <code class="interfacename">GrantedAuthority</code> the
+            <code class="interfacename">Authentication</code> object presented. All of this is achieved
+          with relatively few lines of code and demonstrates the flexibility of the authorization
+          model.</p>
+      </div>
+    </div>
+  </div>
+  <div class="section" title="13.3&nbsp;After Invocation Handling"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="authz-after-invocation-handling"></a>13.3&nbsp;After Invocation Handling</h2></div></div></div>
+    
+    <p>Whilst the <code class="interfacename">AccessDecisionManager</code> is called by the
+        <code class="classname">AbstractSecurityInterceptor</code> before proceeding with the secure object
+      invocation, some applications need a way of modifying the object actually returned by the
+      secure object invocation. Whilst you could easily implement your own AOP concern to achieve
+      this, Spring Security provides a convenient hook that has several concrete implementations
+      that integrate with its ACL capabilities.</p>
+    <p><a class="xref" href="authz-arch.html#authz-after-invocation" title="Figure&nbsp;13.2.&nbsp;After Invocation Implementation">Figure&nbsp;13.2, &#8220;After Invocation Implementation&#8221;</a> illustrates Spring Security's
+        <code class="literal">AfterInvocationManager</code> and its concrete implementations. </p><div class="figure"><a name="authz-after-invocation"></a><p class="title"><b>Figure&nbsp;13.2.&nbsp;After Invocation Implementation</b></p><div class="figure-contents">
+        
+        <div class="mediaobject" align="center"><img src="images/after-invocation.png" align="middle" alt="After Invocation Implementation"></div>
+      </div></div><p><br class="figure-break"></p>
+    <p>Like many other parts of Spring Security, <code class="literal">AfterInvocationManager</code> has a
+      single concrete implementation, <code class="literal">AfterInvocationProviderManager</code>, which polls
+      a list of <code class="literal">AfterInvocationProvider</code>s. Each
+        <code class="literal">AfterInvocationProvider</code> is allowed to modify the return object or throw
+      an <code class="literal">AccessDeniedException</code>. Indeed multiple providers can modify the object,
+      as the result of the previous provider is passed to the next in the list.</p>
+    <p>Please be aware that if you're using <code class="literal">AfterInvocationManager</code>, you will
+      still need configuration attributes that allow the
+        <code class="classname">MethodSecurityInterceptor</code>'s
+        <code class="interfacename">AccessDecisionManager</code> to allow an operation. If you're using
+      the typical Spring Security included <code class="interfacename">AccessDecisionManager</code>
+      implementations, having no configuration attributes defined for a particular secure method
+      invocation will cause each <code class="interfacename">AccessDecisionVoter</code> to abstain from
+      voting. In turn, if the <code class="interfacename">AccessDecisionManager</code> property
+        "<code class="literal">allowIfAllAbstainDecisions</code>" is <code class="literal">false</code>, an
+        <code class="literal">AccessDeniedException</code> will be thrown. You may avoid this potential issue
+      by either (i) setting "<code class="literal">allowIfAllAbstainDecisions</code>" to
+        <code class="literal">true</code> (although this is generally not recommended) or (ii) simply ensure
+      that there is at least one configuration attribute that an
+        <code class="interfacename">AccessDecisionVoter</code> will vote to grant access for. This
+      latter (recommended) approach is usually achieved through a <code class="literal">ROLE_USER</code> or
+        <code class="literal">ROLE_AUTHENTICATED</code> configuration attribute.</p>
+    
+    
+  </div>
+  
+</div><!--Begin LoopFuse code--><script src="http://loopfuse.net/webrecorder/js/listen.js" type="text/javascript"></script><script type="text/javascript">
+			_lf_cid = "LF_48be82fa";
+			_lf_remora();
+		</script><!--End LoopFuse code--><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="authorization.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="authorization.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="secure-object-impls.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Part&nbsp;IV.&nbsp;Authorization&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="springsecurity.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;14.&nbsp;Secure Object Implementations</td></tr></table></div></body></html>

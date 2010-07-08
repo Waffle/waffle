@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+
+	<bean id="spnegoEntryPoint" class="waffle.spring.NegotiateEntryPoint">
+		<property name="Provider" ref="waffleNegotiateAuthenticationProvider" />
+	</bean>
+	
+	<!-- spring authentication provider -->
+	<sec:authentication-manager alias="authenticationProvider">
+		<sec:authentication-provider ref="waffleNegotiateAuthenticationProvider" />
+	</sec:authentication-manager>
+	
+	<bean id="waffleNegotiateAuthenticationProvider" class="waffle.spring.NegotiateAuthenticationProvider">
+		<property name="AllowGuestLogin" value="false" />
+		<property name="PrincipalFormat" value="fqn" />
+		<property name="RoleFormat" value="both" />
+		<property name="Providers" ref="waffleSecurityFilterProviderCollection" />
+	</bean>
+	
+	<!-- spring security filter -->
+	<bean id="waffleNegotiateSecurityFilter" class="waffle.spring.NegotiateSecurityFilter">
+		<property name="Provider" ref="waffleNegotiateAuthenticationProvider" />
+	</bean>
+	
+		<!-- collection of security filters -->
+	<bean id="waffleSecurityFilterProviderCollection" class="waffle.servlet.spi.SecurityFilterProviderCollection">
+		<constructor-arg>
+			<list>
+    			<value>waffle.servlet.spi.NegotiateSecurityFilterProvider</value>
+				<value>waffle.servlet.spi.BasicSecurityFilterProvider</value>
+			</list>
+		</constructor-arg>
+		<constructor-arg ref="waffleWindowsAuthProvider" />	
+	</bean>
+	
+	<!-- windows authentication provider -->
+	<bean id="waffleWindowsAuthProvider" class="waffle.mock.MockWindowsAuthProvider" />
+</beans>
