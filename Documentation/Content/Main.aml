@@ -19,11 +19,14 @@
             An Apache Tomcat Authenticator that enables mixed-mode Single Sign-On and Form-based authentication.
           </listItem>
           <listItem>
-            A JAAS Windows Login Module enables you to add BASIC, DIGEST or FORMS authentication to your web application.
+            A JAAS Windows Login Module enables you to add Basic, Digest or Forms authentication to your web application.
           </listItem>
           <listItem>
-            A Servlet Security and a Spring-Security Filter that uses the native Java library that implements Negotiate 
-            and Basic protocols.
+            A standard Servlet and Spring-Security Security Filter that uses the native Java library that implements 
+            Negotiate and Basic protocols.
+          </listItem>
+          <listItem>
+            A Spring-Security Authentication Manager that enables Form-based scenarios with Spring-enabled applications.
           </listItem>
         </list>
       </para>
