@@ -6,7 +6,7 @@
 		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 
 	<!-- windows authentication provider -->
-	<bean id="waffleWindowsAuthProvider" class="waffle.windows.auth.impl.WindowsAuthProviderImpl" />
+	<bean id="waffleWindowsAuthProvider" class="waffle.mock.MockWindowsAuthProvider" />
 	
 	<!-- collection of security filters -->
 	<bean id="negotiateSecurityFilterProvider" class="waffle.servlet.spi.NegotiateSecurityFilterProvider">
@@ -15,6 +15,7 @@
 	
 	<bean id="basicSecurityFilterProvider" class="waffle.servlet.spi.BasicSecurityFilterProvider">
 		<constructor-arg ref="waffleWindowsAuthProvider" />
+		<property name="Realm" value="DemoRealm" />
 	</bean>
 	
 	<bean id="waffleSecurityFilterProviderCollection" class="waffle.servlet.spi.SecurityFilterProviderCollection">
@@ -26,20 +27,10 @@
 		</constructor-arg>
 	</bean>
 	
-	<!-- spring filter entry point -->
-	<sec:http entry-point-ref="negotiateSecurityFilterEntryPoint">
-		<sec:intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY" />
-		<sec:custom-filter ref="waffleNegotiateSecurityFilter" position="BASIC_AUTH_FILTER" />
-	</sec:http>
-
 	<bean id="negotiateSecurityFilterEntryPoint" class="waffle.spring.NegotiateSecurityFilterEntryPoint">
 		<property name="Provider" ref="waffleSecurityFilterProviderCollection" />
 	</bean>
 	
-	<!-- spring authentication provider -->
-	<sec:authentication-manager alias="authenticationProvider" />
-		
-	<!-- spring security filter -->
 	<bean id="waffleNegotiateSecurityFilter" class="waffle.spring.NegotiateSecurityFilter">
 		<property name="Provider" ref="waffleSecurityFilterProviderCollection" />
 		<property name="AllowGuestLogin" value="false" />

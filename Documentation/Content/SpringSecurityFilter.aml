@@ -3,11 +3,10 @@
   <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
     <introduction>
       <para>
-        The Waffle Spring-Security Filter and Authenticator implements the Negotiate and Basic protocols with Kerberos
-        and NTLM single sign-on support as well as form-based authentication for web applications that utilize Spring-Security.
-        This allows users to browse to a Windows intranet site without having to re-enter credentials for
-        browsers that support Kerberos or NTLM and to fall back to Basic authentication for those that do not.
-        For more information about Spring-Security see <externalLink>
+        The Waffle Spring-Security Filter implements the Negotiate and Basic protocols with Kerberos and NTLM single sign-on support 
+        for web applications that utilize Spring-Security. This allows users to browse to a Windows intranet site without having to 
+        re-enter credentials for browsers that support Kerberos or NTLM and to fall back to Basic authentication for those that do 
+        not. For more information about Spring-Security see <externalLink>
           <linkUri>http://static.springsource.org/spring-security/site/</linkUri>
           <linkText>http://static.springsource.org/spring-security/site/</linkText>
         </externalLink>.
@@ -17,7 +16,7 @@
       <title>Configuring Spring Security</title>
       <content>
         <para>
-          The following steps are required to configure a web server with the Waffle Spring-Security Filter and Authenticator.
+          The following steps are required to configure a web server with the Waffle Spring-Security Filter.
           <list class="ordered">
             <listItem>
               We'll assume that Spring-Security is configured via <localUri>web.xml</localUri> with a filter chain and a 
@@ -76,55 +75,38 @@
 			<ref bean="basicSecurityFilterProvider" />   			
 		</list>
 	</constructor-arg>
-</bean>
-]]>
-              </code>
-            </listItem>
-            <listItem>
-              Declare a Negotiate authentication provider that defines how HTTP authentication is handled by Waffle.
-              <code lang="xml">
-                <![CDATA[
-<bean id="waffleNegotiateAuthenticationProvider" class="waffle.spring.NegotiateAuthenticationProvider">
-	<property name="AllowGuestLogin" value="false" />
-	<property name="PrincipalFormat" value="fqn" />
-	<property name="RoleFormat" value="both" />
-	<property name="Providers" ref="waffleSecurityFilterProviderCollection" />
-</bean>
-                ]]>
-              </code>
-            </listItem>
-            <listItem>
-              Define a Spring-Security authentication manager.
-              <code lang="xml">
-                <![CDATA[
-<sec:authentication-manager alias="authenticationProvider">
-	<sec:authentication-provider ref="waffleNegotiateAuthenticationProvider" />
-</sec:authentication-manager>]]>
-              </code>
-            </listItem>
-            <listItem>
-              Define a Spring-Security filter.
-              <code lang="xml">
-                <![CDATA[
-<bean id="waffleNegotiateSecurityFilter" class="waffle.spring.NegotiateSecurityFilter">
-	<property name="Provider" ref="waffleNegotiateAuthenticationProvider" />
 </bean>]]>
               </code>
             </listItem>
-            <listItem>              
-              Add the Waffle security filter and a SPNEGO entry point to the <literal>sec:http</literal> configuration section.
-              The filter will be positioned before the BASIC authentication filter that ships with Spring-Security.
-              The filter uses the authentication provider to iterate through available Waffle security filter providers
-              to perform authentication.
+            <listItem>
+              Add the Waffle security filter and entry point to the <literal>sec:http</literal> configuration section.
+              The filter will be placed before the BASIC authentication filter that ships with Spring-Security.
+              The filter uses the collection of authentication filter providers defined above to perform authentication.
               <code lang="xml">
                 <![CDATA[
-<sec:http entry-point-ref="spnegoEntryPoint">
+<sec:http entry-point-ref="negotiateSecurityFilterEntryPoint">
 	<sec:intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY" />
 	<sec:custom-filter ref="waffleNegotiateSecurityFilter" position="BASIC_AUTH_FILTER" />
 </sec:http>
 
-<bean id="spnegoEntryPoint" class="waffle.spring.NegotiateEntryPoint">
-	<property name="Provider" ref="waffleNegotiateAuthenticationProvider" />
+<bean id="negotiateSecurityFilterEntryPoint" class="waffle.spring.NegotiateSecurityFilterEntryPoint">
+	<property name="Provider" ref="waffleSecurityFilterProviderCollection" />
+</bean>]]>
+              </code>
+            </listItem>
+            <listItem>
+              Define a required default Spring-Security authentication manager.
+              <code lang="xml">
+                <![CDATA[
+<sec:authentication-manager alias="authenticationProvider" />]]>
+              </code>
+            </listItem>
+            <listItem>
+              Define a Spring-Security filter that uses the collection of security filter providers to perform authentication.
+              <code lang="xml">
+                <![CDATA[
+<bean id="waffleNegotiateSecurityFilter" class="waffle.spring.NegotiateSecurityFilter">
+	<property name="Provider" ref="waffleSecurityFilterProviderCollection" />
 </bean>]]>
               </code>
             </listItem>
@@ -142,11 +124,11 @@
         </para>
       </content>
     </section>
-    <section address="authprovideroptions">
-      <title>Authentication Provider Options</title>
+    <section address="waffleNegotiateSecurityFilter_options">
+      <title>Security Filter Options</title>
       <content>
         <para>
-          The <newTerm>waffleNegotiateAuthenticationProvider</newTerm> bean can be configured with the following options.
+          The <newTerm>waffleNegotiateSecurityFilter</newTerm> bean can be configured with the following options.
           <tableDefinition>
             <definedTerm>principalFormat</definedTerm>
             <definition>Specifies the name format for the principal.</definition>
@@ -166,10 +148,21 @@
             </definition>
           </tableDefinition>
         </para>
+        <para>
+          <code lang="xml">
+            <![CDATA[
+<bean id="waffleNegotiateSecurityFilter" class="waffle.spring.NegotiateSecurityFilter">
+	<property name="Provider" ref="waffleSecurityFilterProviderCollection" />
+	<property name="AllowGuestLogin" value="false" />
+	<property name="PrincipalFormat" value="fqn" />
+	<property name="RoleFormat" value="both" />
+</bean>]]>
+          </code>
+        </para>
       </content>
     </section>
-    <section address="providercollectionoptions">
-      <title>Security Filter Collection Options</title>
+    <section address="waffleSecurityFilterProviderCollection_options">
+      <title>Security Filter Provider Collection Options</title>
       <content>
         <para>
           The <newTerm>waffleSecurityFilterProviderCollection</newTerm> bean can be constructed with a list

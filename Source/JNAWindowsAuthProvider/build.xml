@@ -70,6 +70,7 @@
 		<fileset dir="${thirdparty.dir}/junit">
 			<include name="*.jar" />
 		</fileset>
+		<pathelement location="${waffle.test.src}" />
 		<pathelement location="${waffle.test.lib}" />
 		<path refid="groboutils.classpath" />
 		<path refid="emma.classpath" />

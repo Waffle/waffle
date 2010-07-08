@@ -32,8 +32,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
 
 import waffle.servlet.WindowsPrincipal;
+import waffle.servlet.spi.SecurityFilterProviderCollection;
 import waffle.util.AuthorizationHeader;
 import waffle.windows.auth.IWindowsIdentity;
+import waffle.windows.auth.PrincipalFormat;
 
 /**
  * A Spring Negotiate security filter.
@@ -42,10 +44,12 @@ import waffle.windows.auth.IWindowsIdentity;
 public class NegotiateSecurityFilter extends GenericFilterBean {
     
     private Log _log = LogFactory.getLog(NegotiateSecurityFilter.class);
-    private NegotiateAuthenticationProvider _provider = null;
-	
-	public NegotiateSecurityFilter() 
-	{
+    private SecurityFilterProviderCollection _provider = null;
+    private PrincipalFormat _principalFormat = PrincipalFormat.fqn;
+    private PrincipalFormat _roleFormat = PrincipalFormat.fqn;
+	private boolean _allowGuestLogin = true;
+
+	public NegotiateSecurityFilter() {
 		_log.debug("[waffle.spring.NegotiateSecurityFilter] loaded");
 	}
     
@@ -68,7 +72,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
 						
 			try {
 				
-				windowsIdentity = _provider.getProviders().doFilter(request, response);
+				windowsIdentity = _provider.doFilter(request, response);
 				if (windowsIdentity == null) {
 					return;
 				}
@@ -79,22 +83,22 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
 				return;
 			}
 			
-			if (! _provider.getAllowGuestLogin() && windowsIdentity.isGuest()) {
+			if (! _allowGuestLogin && windowsIdentity.isGuest()) {
 				_log.warn("guest login disabled: " + windowsIdentity.getFqn());
 				sendUnauthorized(response, true);
 				return;
 			}
 			
 			try {
-				_log.info("logged in user: " + windowsIdentity.getFqn() + 
+				_log.debug("logged in user: " + windowsIdentity.getFqn() + 
 						" (" + windowsIdentity.getSidString() + ")");
 
 				WindowsPrincipal principal = new WindowsPrincipal(
-						windowsIdentity, _provider.getPrincipalFormat(), _provider.getRoleFormat());
+						windowsIdentity, _principalFormat, _roleFormat);
 				
-				Authentication authentication = new WindowsAuthenticationToken(
-						principal);
+				_log.debug("roles: " + principal.getRolesString());			
 				
+				Authentication authentication = new WindowsAuthenticationToken(principal);				
 	            SecurityContextHolder.getContext().setAuthentication(authentication);
 
 				_log.info("successfully logged in user: " + windowsIdentity.getFqn());
@@ -125,7 +129,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
 	 */
 	private void sendUnauthorized(HttpServletResponse response, boolean close) {
 		try {
-			_provider.getProviders().sendUnauthorized(response);
+			_provider.sendUnauthorized(response);
 			if (close) {
 				response.setHeader("Connection", "close");
 			} else {				
@@ -138,11 +142,35 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
 		}		
 	}
 	
-    public NegotiateAuthenticationProvider getProvider() {
-    	return _provider;
-    }
-    
-    public void setProvider(NegotiateAuthenticationProvider provider) {
-    	_provider = provider;
-    }
+	public PrincipalFormat getPrincipalFormat() {
+		return _principalFormat;
+	}
+	
+	public void setPrincipalFormat(PrincipalFormat principalFormat) {
+		_principalFormat = principalFormat;
+	}
+	
+	public PrincipalFormat getRoleFormat() {
+		return _roleFormat;
+	}
+	
+	public void setRoleFormat(PrincipalFormat principalFormat) {
+		_roleFormat = principalFormat;
+	}
+	
+	public boolean getAllowGuestLogin() {
+		return _allowGuestLogin;
+	}
+	
+	public void setAllowGuestLogin(boolean allowGuestLogin) {
+		_allowGuestLogin = allowGuestLogin;
+	}
+	
+	public SecurityFilterProviderCollection getProvider() {
+		return _provider;
+	}
+	
+	public void setProvider(SecurityFilterProviderCollection provider) {
+		_provider = provider;
+	}
 }

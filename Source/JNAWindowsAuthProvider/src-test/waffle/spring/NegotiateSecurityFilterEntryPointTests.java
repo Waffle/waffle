@@ -10,25 +10,26 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 
+import junit.framework.TestCase;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import junit.framework.TestCase;
 import waffle.apache.catalina.SimpleHttpRequest;
 import waffle.apache.catalina.SimpleHttpResponse;
 
 /**
  * @author dblock[at]dblock[dot]org
  */
-public class NegotiateEntryPointTests extends TestCase {
+public class NegotiateSecurityFilterEntryPointTests extends TestCase {
 
-	private NegotiateEntryPoint _entryPoint = null;
+	private NegotiateSecurityFilterEntryPoint _entryPoint = null;
 	
 	@Override
 	public void setUp() {
-		String[] configFiles = new String[] { "springTestBeans.xml" };
+		String[] configFiles = new String[] { "springTestFilterBeans.xml" };
 		ApplicationContext ctx = new ClassPathXmlApplicationContext(configFiles);	
-		_entryPoint = (NegotiateEntryPoint) ctx.getBean("spnegoEntryPoint");
+		_entryPoint = (NegotiateSecurityFilterEntryPoint) ctx.getBean("negotiateSecurityFilterEntryPoint");
 	}
 
 	@Override

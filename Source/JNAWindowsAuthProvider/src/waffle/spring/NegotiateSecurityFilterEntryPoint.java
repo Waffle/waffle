@@ -17,16 +17,18 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
+import waffle.servlet.spi.SecurityFilterProviderCollection;
+
 /**
  * Sends back a request for a Negotiate Authentication to the browser.
  * @author dblock[at]dblock[dot]org
  */
-public class NegotiateEntryPoint implements AuthenticationEntryPoint {
+public class NegotiateSecurityFilterEntryPoint implements AuthenticationEntryPoint {
 
-    private Log _log = LogFactory.getLog(NegotiateEntryPoint.class);
-    private NegotiateAuthenticationProvider _provider = null;
+    private Log _log = LogFactory.getLog(NegotiateSecurityFilterEntryPoint.class);
+    private SecurityFilterProviderCollection _provider = null;
 
-	public NegotiateEntryPoint() {
+	public NegotiateSecurityFilterEntryPoint() {
 		_log.debug("[waffle.spring.NegotiateEntryPoint] loaded");
 	}
 	
@@ -41,15 +43,15 @@ public class NegotiateEntryPoint implements AuthenticationEntryPoint {
     	
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
     	response.setHeader("Connection", "keep-alive");
-        _provider.getProviders().sendUnauthorized(response);
+        _provider.sendUnauthorized(response);
         response.flushBuffer();
     }
     
-    public NegotiateAuthenticationProvider getProvider() {
+    public SecurityFilterProviderCollection getProvider() {
     	return _provider;
     }
     
-    public void setProvider(NegotiateAuthenticationProvider provider) {
+    public void setProvider(SecurityFilterProviderCollection provider) {
     	_provider = provider;
     }
 }

@@ -98,7 +98,7 @@ public class NegotiateSecurityFilter implements Filter {
 			}
 			
 			try {
-				_log.info("logged in user: " + windowsIdentity.getFqn() + 
+				_log.debug("logged in user: " + windowsIdentity.getFqn() + 
 						" (" + windowsIdentity.getSidString() + ")");
 				
 				HttpSession session = request.getSession(true);
@@ -114,7 +114,7 @@ public class NegotiateSecurityFilter implements Filter {
 				WindowsPrincipal windowsPrincipal = new WindowsPrincipal(windowsIdentity, 
 						_principalFormat, _roleFormat);
 				
-				_log.info("roles: " + windowsPrincipal.getRolesString());			
+				_log.debug("roles: " + windowsPrincipal.getRolesString());			
 				subject.getPrincipals().add(windowsPrincipal);
 				session.setAttribute("javax.security.auth.subject", subject);
 
