@@ -61,6 +61,7 @@
     <None Include="Content\TomcatMixedAuthenticator.aml" />
     <None Include="Content\WindowsLoginModule.aml" />
     <None Include="Content\SpringSecurityFilter.aml" />
+    <None Include="Content\SpringSecurityAuthenticator.aml" />
     <None Include="Content\License.aml" />
     <None Include="Content\Browsers.aml" />
     <None Include="Content\JspDemo.aml" />
