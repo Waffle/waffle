@@ -60,6 +60,7 @@
     <None Include="Content\ServletSecurityFilter.aml" />
     <None Include="Content\TomcatMixedAuthenticator.aml" />
     <None Include="Content\WindowsLoginModule.aml" />
+    <None Include="Content\SpringSecurity.aml" />
     <None Include="Content\License.aml" />
     <None Include="Content\Browsers.aml" />
     <None Include="Content\JspDemo.aml" />

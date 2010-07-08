@@ -22,8 +22,8 @@
             A JAAS Windows Login Module enables you to add BASIC, DIGEST or FORMS authentication to your web application.
           </listItem>
           <listItem>
-            A Servlet Security Filter that uses the native Java library that implements Negotiate and Basic
-            protocols.
+            A Servlet Security and a Spring-Security Filter that uses the native Java library that implements Negotiate 
+            and Basic protocols.
           </listItem>
         </list>
       </para>
@@ -40,6 +40,9 @@
           </listItem>
           <listItem>
             <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="5B8B568A-AE04-444a-80AF-394A5EE7ACCA" />
+          </listItem>
+          <listItem>
+            <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="9E607F50-A40B-4872-8B5E-584D98E76DE2" />
           </listItem>
           <listItem>
             <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="26BED49A-C11C-4e40-9D0F-1B5ACECFCEF4" />

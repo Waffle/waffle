@@ -17,9 +17,9 @@
           The following steps are required to configure a web server with the Waffle Servlet Security Filter.
           <list class="ordered">
             <listItem>
-              Copy <localUri>waffle-jna.jar</localUri>, <localUri>commons-logging-1.1.1.jar</localUri>,
-              <localUri>jna.jar</localUri> and <localUri>platform.jar</localUri> to the server's
-              <localUri>lib</localUri> directory.
+              Package <localUri>waffle-jna.jar</localUri>, <localUri>commons-logging-1.1.1.jar</localUri>,
+              <localUri>jna.jar</localUri> and <localUri>platform.jar</localUri> in the application's
+              <localUri>lib</localUri> directory or copy them to your web server's <localUri>lib</localUri>.
             </listItem>
             <listItem>
               Add a security filter to <localUri>WEB-INF\web.xml</localUri> of your application.
@@ -127,7 +127,7 @@
       <title>Waffle Security Filter Demo</title>
       <content>
         <para>
-          A demo application can be found in the Waffle distribution in the <localUri>Samples\Tomcat\waffle-filter</localUri>
+          A demo application can be found in the Waffle distribution in the <localUri>Samples\waffle-filter</localUri>
           directory. Copy the entire directory into Tomcat's or Jetty's <localUri>webapps</localUri> directory and navigate to
           <ficticiousUri>http://localhost:8080/waffle-filter/</ficticiousUri>.
         </para>

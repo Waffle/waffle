@@ -95,7 +95,7 @@
     <DemoFiles Include="Source\JNAWindowsAuthProvider\demo\**\*.xml" />
   </ItemGroup>
   <Target Name="javademo">
-    <Copy SourceFiles="@(DemoFiles)" DestinationFolder="$(ReleaseDir)\Samples\Tomcat\%(RecursiveDir)" />
+    <Copy SourceFiles="@(DemoFiles)" DestinationFolder="$(ReleaseDir)\Samples\%(RecursiveDir)" />
   </Target>
   <Target Name="zip" DependsOnTargets="version">
     <CreateItem Include="target\$(Configuration)\**\*" Exclude="target\$(Configuration)\*.zip">

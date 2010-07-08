@@ -29,6 +29,13 @@ public class SecurityFilterProviderCollection {
 
     private Log _log = LogFactory.getLog(SecurityFilterProviderCollection.class);
 	private List<SecurityFilterProvider> _providers = new ArrayList<SecurityFilterProvider>();
+
+	public SecurityFilterProviderCollection(SecurityFilterProvider[] providers) {
+		for(SecurityFilterProvider provider : providers) {
+			_log.info("using '" + provider.getClass().getName() + "'");
+			_providers.add(provider);
+		}		
+	}
 	
 	@SuppressWarnings("unchecked")
 	public SecurityFilterProviderCollection(String[] providerNames, IWindowsAuthProvider auth) {

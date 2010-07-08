@@ -26,15 +26,29 @@
 		<property name="Provider" ref="waffleNegotiateAuthenticationProvider" />
 	</bean>
 	
-		<!-- collection of security filters -->
+	<!-- collection of security filters -->
+	<bean id="negotiateSecurityFilterProvider" class="waffle.servlet.spi.NegotiateSecurityFilterProvider">
+		<constructor-arg ref="waffleWindowsAuthProvider" />
+		<property name="protocols">
+			<list>
+				<value>Negotiate</value>
+				<value>NTLM</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="basicSecurityFilterProvider" class="waffle.servlet.spi.BasicSecurityFilterProvider">
+		<constructor-arg ref="waffleWindowsAuthProvider" />
+		<property name="realm" value="DemoRealm" />
+	</bean>
+	
 	<bean id="waffleSecurityFilterProviderCollection" class="waffle.servlet.spi.SecurityFilterProviderCollection">
 		<constructor-arg>
 			<list>
-    			<value>waffle.servlet.spi.NegotiateSecurityFilterProvider</value>
-				<value>waffle.servlet.spi.BasicSecurityFilterProvider</value>
+				<ref bean="negotiateSecurityFilterProvider" />   			
+				<ref bean="basicSecurityFilterProvider" />   			
 			</list>
 		</constructor-arg>
-		<constructor-arg ref="waffleWindowsAuthProvider" />	
 	</bean>
 	
 	<!-- windows authentication provider -->

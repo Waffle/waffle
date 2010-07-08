@@ -41,6 +41,14 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 		_protocols.add("NTLM");
 	}
 	
+	public List<String> getProtocols() {
+		return _protocols;
+	}
+	
+	public void setProtocols(List<String> protocols) {
+		_protocols = protocols;
+	}
+	
 	public void sendUnauthorized(HttpServletResponse response) {
 		Iterator<String> protocolsIterator = _protocols.iterator();
 		while(protocolsIterator.hasNext()) {

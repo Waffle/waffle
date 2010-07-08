@@ -15,9 +15,9 @@
           The following steps are required to configure Tomcat with Waffle authenticator.
           <list class="ordered">
             <listItem>
-              Copy <localUri>waffle-jna.jar</localUri>, <localUri>commons-logging-1.1.1.jar</localUri>,
-              <localUri>jna.jar</localUri> and <localUri>platform.jar</localUri> to Tomcat's
-              <localUri>lib</localUri> directory.
+              Package <localUri>waffle-jna.jar</localUri>, <localUri>commons-logging-1.1.1.jar</localUri>,
+              <localUri>jna.jar</localUri> and <localUri>platform.jar</localUri> in the application's
+              <localUri>lib</localUri> directory or copy them to Tomcat's <localUri>lib</localUri>.
             </listItem>
             <listItem>
               Add a valve and a realm to the application context. For an application, modify <localUri>META-INF\context.xml</localUri>.
@@ -89,7 +89,7 @@ waffle.apache.NegotiateAuthenticator.level = FINE
       <title>Waffle Authenticator Demo</title>
       <content>
         <para>
-          A demo application can be found in the Waffle distribution in the <localUri>Samples\Tomcat\waffle-negotiate</localUri>
+          A demo application can be found in the Waffle distribution in the <localUri>Samples\waffle-negotiate</localUri>
           directory. Copy the entire directory into Tomcat's <localUri>webapps</localUri> directory and navigate to
           <ficticiousUri>http://localhost:8080/waffle-negotiate/</ficticiousUri>.
         </para>
