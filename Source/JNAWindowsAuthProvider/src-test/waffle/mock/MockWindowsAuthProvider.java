@@ -32,7 +32,8 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
 	
 	public IWindowsSecurityContext acceptSecurityToken(String connectionId,
 			byte[] token, String securityPackage) {
-		return null;
+		
+		return new MockWindowsSecurityContext();
 	}
 
 	public IWindowsComputer getCurrentComputer() {

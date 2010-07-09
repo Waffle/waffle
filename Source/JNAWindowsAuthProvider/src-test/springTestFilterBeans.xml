@@ -11,11 +11,17 @@
 	<!-- collection of security filters -->
 	<bean id="negotiateSecurityFilterProvider" class="waffle.servlet.spi.NegotiateSecurityFilterProvider">
 		<constructor-arg ref="waffleWindowsAuthProvider" />
+		<property name="protocols">
+			<list>
+				<value>NTLM</value>
+				<value>Negotiate</value>
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="basicSecurityFilterProvider" class="waffle.servlet.spi.BasicSecurityFilterProvider">
 		<constructor-arg ref="waffleWindowsAuthProvider" />
-		<property name="Realm" value="DemoRealm" />
+		<property name="Realm" value="TestRealm" />
 	</bean>
 	
 	<bean id="waffleSecurityFilterProviderCollection" class="waffle.servlet.spi.SecurityFilterProviderCollection">

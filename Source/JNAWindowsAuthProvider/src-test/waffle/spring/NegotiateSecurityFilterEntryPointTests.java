@@ -44,9 +44,9 @@ public class NegotiateSecurityFilterEntryPointTests extends TestCase {
 		_entryPoint.commence(request, response, null);
 		String[] wwwAuthenticates = response.getHeaderValues("WWW-Authenticate");
 		assertEquals(3, wwwAuthenticates.length);
-		assertEquals("Negotiate", wwwAuthenticates[0]);
-		assertEquals("NTLM", wwwAuthenticates[1]);
-		assertTrue(wwwAuthenticates[2].startsWith("Basic realm=\""));
+		assertEquals("NTLM", wwwAuthenticates[0]);
+		assertEquals("Negotiate", wwwAuthenticates[1]);
+		assertTrue(wwwAuthenticates[2].equals("Basic realm=\"TestRealm\""));
 		assertEquals(2, response.getHeaderNames().length);
 		assertEquals("keep-alive", response.getHeader("Connection"));
 		assertEquals(401, response.getStatus());
