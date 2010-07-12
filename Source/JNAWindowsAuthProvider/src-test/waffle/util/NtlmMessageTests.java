@@ -1,7 +1,16 @@
+/*
+ * Copyright (c) Application Security Inc., 2010
+ * All Rights Reserved
+ * Eclipse Public License (EPLv1)
+ * http://waffle.codeplex.com/license
+ */
 package waffle.util;
 
 import junit.framework.TestCase;
 
+/**
+ * @author dblock[at]dblock[dot]org
+ */
 public class NtlmMessageTests extends TestCase {
 	public void testIsNtlmMessage() {
 		assertFalse(NtlmMessage.isNtlmMessage(null));
@@ -11,6 +20,8 @@ public class NtlmMessageTests extends TestCase {
 		assertFalse(NtlmMessage.isNtlmMessage(shortMessage));
 		byte[] longMessage = { 0x4e, 0x54, 0x4c, 0x4d, 0x53, 0x53, 0x50, 0x00, 0x00 };
 		assertTrue(NtlmMessage.isNtlmMessage(longMessage));
+		byte[] badMessage = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+		assertFalse(NtlmMessage.isNtlmMessage(badMessage));
 	}
 	
 	public void testGetNtlmMessageType() {

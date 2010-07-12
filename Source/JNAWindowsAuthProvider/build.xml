@@ -134,7 +134,7 @@
 				<fileset dir="${waffle.cover}">
 					<include name="*.emma" />
 				</fileset>
-				<html outfile="${waffle.cover}/coverage.html" />
+				<html outfile="${waffle.cover}/coverage.html" />			
 			</report>
 		</emma>
 	</target>

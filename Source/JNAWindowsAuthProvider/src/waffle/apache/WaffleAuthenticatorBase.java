@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) Application Security Inc., 2010
+ * All Rights Reserved
+ * Eclipse Public License (EPLv1)
+ * http://waffle.codeplex.com/license
+ */
 package waffle.apache;
 
 import java.io.IOException;
@@ -12,6 +18,9 @@ import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.PrincipalFormat;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
+/**
+ * @author dblock[at]dblock[dot]org
+ */
 abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
     protected String _info = null;
     protected Log _log = null;

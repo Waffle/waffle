@@ -14,6 +14,7 @@ import junit.framework.TestCase;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -60,6 +61,7 @@ public class WindowsAuthenticationProviderTests extends TestCase {
 		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(principal, "password");
 		Authentication authenticated = _provider.authenticate(authentication);
 		assertNotNull(authenticated);
+		assertTrue(authenticated.isAuthenticated());
 		Collection<GrantedAuthority> authorities = authenticated.getAuthorities();
 		Iterator<GrantedAuthority> authoritiesIterator = authorities.iterator();
 		assertEquals(3, authorities.size());
@@ -67,5 +69,18 @@ public class WindowsAuthenticationProviderTests extends TestCase {
 		assertEquals("ROLE_USERS", authoritiesIterator.next().getAuthority());
 		assertEquals("ROLE_EVERYONE", authoritiesIterator.next().getAuthority());
 		assertTrue(authenticated.getPrincipal() instanceof WindowsPrincipal);
+	}
+	
+	public void testGuestIsDisabled() {
+		try {
+			MockWindowsIdentity mockIdentity = new MockWindowsIdentity("Guest", new ArrayList<String>());
+			_provider.setAllowGuestLogin(false);
+			WindowsPrincipal principal = new WindowsPrincipal(mockIdentity);
+			UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(principal, "password");
+			_provider.authenticate(authentication);
+			fail("expected AuthenticationServiceException");
+		} catch (AuthenticationServiceException e) {
+			assertTrue(e.getCause() instanceof GuestLoginDisabledAuthenticationException);
+		}
 	}
 }

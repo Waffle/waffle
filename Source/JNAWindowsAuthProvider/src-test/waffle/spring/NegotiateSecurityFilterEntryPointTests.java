@@ -51,4 +51,19 @@ public class NegotiateSecurityFilterEntryPointTests extends TestCase {
 		assertEquals("keep-alive", response.getHeader("Connection"));
 		assertEquals(401, response.getStatus());
 	}	
+	
+	public void testGetSetProvider() {
+		try {
+			assertNotNull(_entryPoint.getProvider());
+			_entryPoint.setProvider(null);
+			SimpleHttpRequest request = new SimpleHttpRequest();
+			request.setMethod("GET");
+			SimpleHttpResponse response = new SimpleHttpResponse();
+			_entryPoint.commence(request, response, null);
+			fail("expected ServletException");
+		} catch (Exception e) {
+			assertTrue(e instanceof ServletException);
+		}
+			
+	}
 }

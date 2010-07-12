@@ -1,8 +1,17 @@
+/*
+ * Copyright (c) Application Security Inc., 2010
+ * All Rights Reserved
+ * Eclipse Public License (EPLv1)
+ * http://waffle.codeplex.com/license
+ */
 package waffle.util;
 
 import waffle.apache.catalina.SimpleHttpRequest;
 import junit.framework.TestCase;
 
+/**
+ * @author dblock[at]dblock[dot]org
+ */
 public class AuthorizationHeaderTests extends TestCase {
 	public void testIsNull() {
 		SimpleHttpRequest request = new SimpleHttpRequest();

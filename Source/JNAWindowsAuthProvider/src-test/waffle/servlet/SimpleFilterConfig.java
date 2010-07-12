@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) Application Security Inc., 2010
+ * All Rights Reserved
+ * Eclipse Public License (EPLv1)
+ * http://waffle.codeplex.com/license
+ */
 package waffle.servlet;
 
 import java.util.Enumeration;
@@ -9,7 +15,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletContext;
 
 /**
- * Simple filter configuration.
  * @author dblock[at]dblock[dot]org
  */
 public class SimpleFilterConfig implements FilterConfig {

@@ -21,7 +21,6 @@ public class MockWindowsIdentity implements IWindowsIdentity {
 
 	private String _fqn;
 	private List<String> _groups;
-	private boolean _guest = false;
 
 	public MockWindowsIdentity(String fqn, List<String> groups) {
 		_fqn = fqn;
@@ -53,9 +52,9 @@ public class MockWindowsIdentity implements IWindowsIdentity {
 	}
 	
 	public boolean isGuest() {
-		return _guest;
+		return _fqn.equals("Guest");
 	}
-
+	
 	public IWindowsImpersonationContext impersonate() {
 		return new MockWindowsImpersonationContext();
 	}

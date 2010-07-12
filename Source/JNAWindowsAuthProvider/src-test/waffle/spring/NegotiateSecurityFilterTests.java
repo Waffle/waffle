@@ -28,6 +28,7 @@ import waffle.servlet.spi.NegotiateSecurityFilterProvider;
 import waffle.servlet.spi.SecurityFilterProviderCollection;
 import waffle.util.Base64;
 import waffle.windows.auth.PrincipalFormat;
+import waffle.windows.auth.impl.WindowsAccountImpl;
 
 /**
  * @author dblock[at]dblock[dot]org
@@ -40,6 +41,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 	public void setUp() {
 		String[] configFiles = new String[] { "springTestFilterBeans.xml" };
 		ApplicationContext ctx = new ClassPathXmlApplicationContext(configFiles);	
+		SecurityContextHolder.getContext().setAuthentication(null);
 		_filter = (NegotiateSecurityFilter) ctx.getBean("waffleNegotiateSecurityFilter");
 	}
 
@@ -78,7 +80,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		SimpleFilterChain filterChain = new SimpleFilterChain();
 		SimpleHttpRequest request = new SimpleHttpRequest();
 		
-		String clientToken = Base64.encode("dummy".getBytes());
+		String clientToken = Base64.encode(WindowsAccountImpl.getCurrentUsername().getBytes());
 		request.addHeader("Authorization", securityPackage + " " + clientToken);
 		
 		SimpleHttpResponse response = new SimpleHttpResponse();
@@ -94,5 +96,31 @@ public class NegotiateSecurityFilterTests extends TestCase {
         assertEquals("ROLE_USERS", authoritiesIterator.next().getAuthority());
         assertEquals("ROLE_EVERYONE", authoritiesIterator.next().getAuthority());
     	assertEquals(0, response.getHeaderNames().length);
+	}
+	
+	public void testGuestIsDisabled() throws IOException, ServletException {
+		String securityPackage = "Negotiate";
+		SimpleFilterChain filterChain = new SimpleFilterChain();
+		SimpleHttpRequest request = new SimpleHttpRequest();
+		
+		String clientToken = Base64.encode("Guest".getBytes());
+		request.addHeader("Authorization", securityPackage + " " + clientToken);
+		
+		SimpleHttpResponse response = new SimpleHttpResponse();
+		_filter.doFilter(request, response, filterChain);
+		
+		assertEquals(401, response.getStatus());
+        assertNull(SecurityContextHolder.getContext().getAuthentication());
+	}
+	
+	
+	public void testAfterPropertiesSet() {
+		_filter.setProvider(null);
+		try {
+			_filter.afterPropertiesSet();
+			fail("expected ServletException");
+		} catch (Exception e) {
+			assertTrue(e instanceof ServletException);
+		}
 	}
 }

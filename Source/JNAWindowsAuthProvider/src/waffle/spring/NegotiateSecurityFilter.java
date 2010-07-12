@@ -99,7 +99,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
 				_log.debug("roles: " + principal.getRolesString());			
 				
 				Authentication authentication = new WindowsAuthenticationToken(principal);				
-	            SecurityContextHolder.getContext().setAuthentication(authentication);
+				SecurityContextHolder.getContext().setAuthentication(authentication);
 
 				_log.info("successfully logged in user: " + windowsIdentity.getFqn());
 				

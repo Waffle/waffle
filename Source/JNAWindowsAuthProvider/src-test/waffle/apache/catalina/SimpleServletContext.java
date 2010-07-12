@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) Application Security Inc., 2010
+ * All Rights Reserved
+ * Eclipse Public License (EPLv1)
+ * http://waffle.codeplex.com/license
+ */
 package waffle.apache.catalina;
 
 import java.io.InputStream;
@@ -11,6 +17,9 @@ import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
+/**
+ * @author dblock[at]dblock[dot]org
+ */
 @SuppressWarnings("unchecked")
 public class SimpleServletContext implements ServletContext {
 

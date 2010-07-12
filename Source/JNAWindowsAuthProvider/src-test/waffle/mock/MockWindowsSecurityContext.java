@@ -9,13 +9,12 @@ package waffle.mock;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.jna.platform.win32.Sspi.CtxtHandle;
-import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
-
 import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.IWindowsImpersonationContext;
 import waffle.windows.auth.IWindowsSecurityContext;
-import waffle.windows.auth.impl.WindowsAccountImpl;
+
+import com.sun.jna.platform.win32.Sspi.CtxtHandle;
+import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 
 /**
  * @author dblock[at]dblock[dot]org
@@ -24,11 +23,11 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
 
 	private IWindowsIdentity _identity = null;
 	
-	public MockWindowsSecurityContext() {
+	public MockWindowsSecurityContext(String username) {
 		List<String> groups = new ArrayList<String>();
 		groups.add("Users");
 		groups.add("Everyone");
-		_identity = new MockWindowsIdentity(WindowsAccountImpl.getCurrentUsername(), groups);		
+		_identity = new MockWindowsIdentity(username, groups);		
 	}
 	
 	public void dispose() {

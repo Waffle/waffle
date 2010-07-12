@@ -41,7 +41,7 @@ public class WindowsAuthProviderTests extends TestCase {
 		identity.dispose();
 	}
 	*/
-	
+
 	public void testLogonUser() {
     	LMAccess.USER_INFO_1 userInfo = new LMAccess.USER_INFO_1();
     	userInfo.usri1_name = new WString("WaffleTestUser");

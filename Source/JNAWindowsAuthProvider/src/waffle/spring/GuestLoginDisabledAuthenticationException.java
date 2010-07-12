@@ -19,12 +19,4 @@ public class GuestLoginDisabledAuthenticationException extends AuthenticationExc
 	public GuestLoginDisabledAuthenticationException(String msg) {
 		super(msg);
 	}
-
-	public GuestLoginDisabledAuthenticationException(String msg, Throwable t) {
-		super(msg, t);
-	}
-	
-	public GuestLoginDisabledAuthenticationException(String msg, Object extraInformation) {
-		super(msg, extraInformation);
-	}
 }

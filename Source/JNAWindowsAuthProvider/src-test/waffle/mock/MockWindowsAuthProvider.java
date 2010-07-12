@@ -17,6 +17,9 @@ import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.IWindowsSecurityContext;
 import waffle.windows.auth.impl.WindowsAccountImpl;
 
+/**
+ * @author dblock[at]dblock[dot]org
+ */
 public class MockWindowsAuthProvider implements IWindowsAuthProvider {
 
 	private List<String> _groups = new ArrayList<String>();
@@ -33,7 +36,7 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
 	public IWindowsSecurityContext acceptSecurityToken(String connectionId,
 			byte[] token, String securityPackage) {
 		
-		return new MockWindowsSecurityContext();
+		return new MockWindowsSecurityContext(new String(token));
 	}
 
 	public IWindowsComputer getCurrentComputer() {
@@ -56,11 +59,15 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
 
 	/**
 	 * Will login the current user with any password.
+	 * Will logon a "Guest" user as guest.
 	 */
 	public IWindowsIdentity logonUser(String username, String password) {
 		String currentUsername = WindowsAccountImpl.getCurrentUsername(); 
 		if (username.equals(currentUsername)) {
 			return new MockWindowsIdentity(currentUsername, _groups);
+		} else if (username.equals("Guest")) {
+			MockWindowsIdentity identity = new MockWindowsIdentity("Guest", _groups);
+			return identity;
 		} else {
 			throw new RuntimeException("Mock error: " + username);
 		}
