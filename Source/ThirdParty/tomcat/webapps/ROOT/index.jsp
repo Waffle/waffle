@@ -97,7 +97,7 @@
       </td>
       <td align="left" valign="top"><b><%= application.getServerInfo() %></b></td>
       <td align="right">
-        <a href="http://jakarta.apache.org/">
+        <a href="http://www.apache.org/">
 	  <img src="asf-logo-wide.gif" height="51" width="537" alt="The Apache Software Foundation"/>
 	</a>
        </td>
@@ -216,7 +216,7 @@
             <p id="footer"><img src="tomcat-power.gif" width="77" height="80" alt="Powered by Tomcat"/><br/>
 	    &nbsp;
 
-	    Copyright &copy; 1999-2006 Apache Software Foundation<br/>
+	    Copyright &copy; 1999-2010 Apache Software Foundation<br/>
             All Rights Reserved
             </p>
         </td>

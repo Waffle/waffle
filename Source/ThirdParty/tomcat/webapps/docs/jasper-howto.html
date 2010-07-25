@@ -1,16 +1,10 @@
-<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat 6.0 - Jasper 2 JSP Engine How To</title><meta value="Glenn L. Nielsen" name="author"><meta value="glenn@apache.org" name="email"><meta value="Peter Rossbach" name="author"><meta value="pero@apache.org" name="email"><style media="print" type="text/css">
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat 6.0 - Jasper 2 JSP Engine How To</title><meta content="Glenn L. Nielsen" name="author"><meta content="Peter Rossbach" name="author"><style media="print" type="text/css">
 			.noPrint {display: none;}
 			td#mainBody {width: 100%;}
 		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
       The Apache Tomcat Servlet/JSP Container
-    " align="right" src="./images/tomcat.gif"></a></td><td><font face="arial,helvetica,sanserif"><h1>Apache Tomcat 6.0</h1></font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="./images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap="true" valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="index.html">Docs Home</a></li><li><a href="http://wiki.apache.org/tomcat/FAQ">FAQ</a></li></ul><p><strong>User Guide</strong></p><ul><li><a href="introduction.html">1) Introduction</a></li><li><a href="setup.html">2) Setup</a></li><li><a href="appdev/index.html">3) First webapp</a></li><li><a href="deployer-howto.html">4) Deployer</a></li><li><a href="manager-howto.html">5) Manager</a></li><li><a href="realm-howto.html">6) Realms and AAA</a></li><li><a href="security-manager-howto.html">7) Security Manager</a></li><li><a href="jndi-resources-howto.html">8) JNDI Resources</a></li><li><a href="jndi-datasource-examples-howto.html">9) JDBC DataSources</a></li><li><a href="class-loader-howto.html">10) Classloading</a></li><li><a href="jasper-howto.html">11) JSPs</a></li><li><a href="ssl-howto.html">12) SSL</a></li><li><a href="ssi-howto.html">13) SSI</a></li><li><a href="cgi-howto.html">14) CGI</a></li><li><a href="proxy-howto.html">15) Proxy Support</a></li><li><a href="mbeans-descriptor-howto.html">16) MBean Descriptor</a></li><li><a href="default-servlet.html">17) Default Servlet</a></li><li><a href="cluster-howto.html">18) Clustering</a></li><li><a href="balancer-howto.html">19) Load Balancer</a></li><li><a href="connectors.html">20) Connectors</a></li><li><a href="monitoring.html">21) Monitoring and Management</a></li><li><a href="logging.html">22) Logging</a></li><li><a href="apr.html">23) APR/Native</a></li><li><a href="virtual-hosting-howto.html">24) Virtual Hosting</a></li><li><a href="aio.html">25) Advanced IO</a></li><li><a href="extras.html">26) Additional Components</a></li><li><a href="maven-jars.html">27) Mavenized</a></li></ul><p><strong>Reference</strong></p><ul><li><a href="RELEASE-NOTES.txt">Release Notes</a></li><li><a href="config/index.html">Configuration</a></li><li><a href="api/index.html">Javadocs</a></li><li><a href="http://tomcat.apache.org/connectors-doc/">JK 1.2 Documentation</a></li></ul><p><strong>Apache Tomcat Development</strong></p><ul><li><a href="building.html">Building</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="http://wiki.apache.org/tomcat/TomcatVersions">Status</a></li><li><a href="developers.html">Developers</a></li><li><a href="architecture/index.html">Architecture</a></li><li><a href="funcspecs/index.html">Functional Specs.</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat 6.0</h1><h2>Jasper 2 JSP Engine How To</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
-<p>
-<a href="#Introduction">Introduction</a><br>
-<a href="#Configuration">Configuration</a><br>
-<a href="#Production Configuration">Production Configuration</a><br>
-<a href="#Web Application Compilation">Web Application Compilation</a><br>
-<a href="#Using Jikes">Using Jikes</a><br>
-</p>
+    " align="right" src="./images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="./images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="index.html">Docs Home</a></li><li><a href="http://wiki.apache.org/tomcat/FAQ">FAQ</a></li></ul><p><strong>User Guide</strong></p><ul><li><a href="introduction.html">1) Introduction</a></li><li><a href="setup.html">2) Setup</a></li><li><a href="appdev/index.html">3) First webapp</a></li><li><a href="deployer-howto.html">4) Deployer</a></li><li><a href="manager-howto.html">5) Manager</a></li><li><a href="realm-howto.html">6) Realms and AAA</a></li><li><a href="security-manager-howto.html">7) Security Manager</a></li><li><a href="jndi-resources-howto.html">8) JNDI Resources</a></li><li><a href="jndi-datasource-examples-howto.html">9) JDBC DataSources</a></li><li><a href="class-loader-howto.html">10) Classloading</a></li><li><a href="jasper-howto.html">11) JSPs</a></li><li><a href="ssl-howto.html">12) SSL</a></li><li><a href="ssi-howto.html">13) SSI</a></li><li><a href="cgi-howto.html">14) CGI</a></li><li><a href="proxy-howto.html">15) Proxy Support</a></li><li><a href="mbeans-descriptor-howto.html">16) MBean Descriptor</a></li><li><a href="default-servlet.html">17) Default Servlet</a></li><li><a href="cluster-howto.html">18) Clustering</a></li><li><a href="balancer-howto.html">19) Load Balancer</a></li><li><a href="connectors.html">20) Connectors</a></li><li><a href="monitoring.html">21) Monitoring and Management</a></li><li><a href="logging.html">22) Logging</a></li><li><a href="apr.html">23) APR/Native</a></li><li><a href="virtual-hosting-howto.html">24) Virtual Hosting</a></li><li><a href="aio.html">25) Advanced IO</a></li><li><a href="extras.html">26) Additional Components</a></li><li><a href="maven-jars.html">27) Mavenized</a></li></ul><p><strong>Reference</strong></p><ul><li><a href="RELEASE-NOTES.txt">Release Notes</a></li><li><a href="config/index.html">Configuration</a></li><li><a href="api/index.html">Javadocs</a></li><li><a href="http://tomcat.apache.org/connectors-doc/">JK 1.2 Documentation</a></li></ul><p><strong>Apache Tomcat Development</strong></p><ul><li><a href="building.html">Building</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="http://wiki.apache.org/tomcat/TomcatVersions">Status</a></li><li><a href="developers.html">Developers</a></li><li><a href="architecture/index.html">Architecture</a></li><li><a href="funcspecs/index.html">Functional Specs.</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat 6.0</h1><h2>Jasper 2 JSP Engine How To</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
+<ul><li><a href="#Introduction">Introduction</a></li><li><a href="#Configuration">Configuration</a></li><li><a href="#Known_issues">Known issues</a></li><li><a href="#Production_Configuration">Production Configuration</a></li><li><a href="#Web_Application_Compilation">Web Application Compilation</a></li><li><a href="#Using_Jikes">Using Jikes</a></li></ul>
 </blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
 
 <p>Tomcat 6.0 uses the Jasper 2 JSP Engine to implement
@@ -18,7 +12,7 @@ the <a href="http://java.sun.com/products/jsp/">JavaServer Pages 2.0</a>
 specification.</p>
 
 <p>Jasper 2 has been redesigned to significantly improve performance over
-the orignal Jasper.  In addition to general code improvements the following
+the original Jasper.  In addition to general code improvements the following
 changes were made:
 <ul>
 <li><strong>JSP Custom Tag Pooling</strong> - The java objects instantiated
@@ -28,7 +22,7 @@ the performance of JSP pages which use custom tags.</li>
 a JSP page which had already been compiled Jasper 2 can recompile that
 page in the background.  The previously compiled JSP page will still be
 available to serve requests.  Once the new page has been compiled
-successfully it will replace the old page.  This helps improve availablity
+successfully it will replace the old page.  This helps improve availability
 of your JSP pages on a production server.</li>
 <li><strong>Recompile JSP when included page changes</strong> - Jasper 2
 can now detect when a page included at compile time from a JSP has changed
@@ -76,10 +70,10 @@ then the default Eclipse JDT Java compiler will be used instead of using Ant.
 No default value.</li>
 
 <li><strong>compilerSourceVM</strong> - What JDK version are the source files
-compatible with? (Default JDK 1.4)</li>
+compatible with? (Default value: <code>1.5</code>)</li>
 
 <li><strong>compilerTargetVM</strong> - What JDK version are the generated files
-compatible with? (Default JDK 1.4)</li>
+compatible with? (Default value: <code>1.5</code>)</li>
 
 <li><strong>development</strong> - Is Jasper used in development mode? If true,
 the frequency at which JSPs are checked for modification may be specified via
@@ -111,10 +105,10 @@ valid bean class? <code>true</code> or <code>false</code>, default
 <code>true</code>.</li>
 
 <li><strong>fork</strong> - Have Ant fork JSP page compiles so they are
-performed in a seperate JVM from Tomcat? <code>true</code> or
+performed in a separate JVM from Tomcat? <code>true</code> or
 <code>false</code>, default <code>true</code>.</li>
 
-<li><strong>genStringAsCharArray</strong> - Should text strings be generated as char
+<li><strong>genStrAsCharArray</strong> - Should text strings be generated as char
 arrays, to improve performance in some cases? Default <code>false</code>.</li>
 
 <li><strong>ieClassId</strong> - The class-id value to be sent to Internet
@@ -137,6 +131,11 @@ files) to not be checked for modification during the specified time interval
 (in seconds) from the last time the JSP was checked for modification. A value of
 0 will cause the JSP to be checked on every access. Used in development mode
 only. Default is <code>4</code> seconds.</li>
+
+<li><strong>recompileOnFail</strong> - If a JSP compilation fails should the
+modificationTestInterval be ignored and the next access trigger a re-compilation
+attempt? Used in development mode only and is disabled by default as compilation
+may be expensive and could lead to excessive resource usage.</li>
 
 <li><strong>scratchdir</strong> - What scratch directory should we use when
 compiling JSP pages? Default is the work directory for the current web
@@ -167,7 +166,24 @@ and placing the <code>ant.jar</code> file from the latest Ant distribution in
 the <code>lib</code> folder.  If you do this, you also need to use the "javac"
 argument to catalina.sh.</p>
 
-</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Production Configuration"><strong>Production Configuration</strong></a></font></td></tr><tr><td><blockquote>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Known issues"><!--()--></a><a name="Known_issues"><strong>Known issues</strong></a></font></td></tr><tr><td><blockquote>
+
+<p>As described in
+<a href="https://issues.apache.org/bugzilla/show_bug.cgi?id=39089">
+bug 39089</a>, a known JVM issue,
+<a href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6294277">
+bug 6294277</a>, may cause a
+<code>java.lang.InternalError: name is too long to represent</code> exception
+when compiling very large JSPs. If this is observed then it may be worked around
+by using one of the following:
+<ul>
+<li>reduce the size of the JSP</li>
+<li>disable SMAP generation and JSR-045 support by setting
+<code>suppressSmap</code> to <code>true</code>.</li>
+</ul>
+</p>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Production Configuration"><!--()--></a><a name="Production_Configuration"><strong>Production Configuration</strong></a></font></td></tr><tr><td><blockquote>
 
 <p>The main JSP optimization which can be done is precompilation of JSPs.
 However, this might not be possible (for example, when using the
@@ -189,7 +205,7 @@ set this to <code>true</code>.</li>
 </ul>
 </p>
 
-</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Web Application Compilation"><strong>Web Application Compilation</strong></a></font></td></tr><tr><td><blockquote>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Web Application Compilation"><!--()--></a><a name="Web_Application_Compilation"><strong>Web Application Compilation</strong></a></font></td></tr><tr><td><blockquote>
 
 <p>Using Ant is the preferred way to compile web applications using JSPC. Note
 that when pre-compiling JSPs, SMAP information only be included in the final
@@ -199,7 +215,7 @@ download) to precompile a webapp:
 </p>
 
 <p>
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 &lt;project name="Webapp Precompilation" default="all" basedir="."&gt; 
 
    &lt;import file="${tomcat.home}/bin/catalina-tasks.xml"/&gt;
@@ -254,16 +270,16 @@ download) to precompile a webapp:
   &lt;/target&gt;
 
 &lt;/project&gt;
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
 </p>
 
 <p>
 The following command line can be used to run the script
 (replacing the tokens with the Tomcat base path and the path to the webapp 
 which should be precompiled):<br>
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 $ANT_HOME/bin/ant -Dtomcat.home=&lt;$TOMCAT_HOME&gt; -Dwebapp.path=&lt;$WEBAPP_PATH&gt;
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
 </p>
 
 <p>
@@ -312,7 +328,7 @@ that changing from the defaults may affect performance, but it will vary
 depending on the application.</li>
 </ul>
 </p>
-</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Using Jikes"><strong>Using Jikes</strong></a></font></td></tr><tr><td><blockquote>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Using Jikes"><!--()--></a><a name="Using_Jikes"><strong>Using Jikes</strong></a></font></td></tr><tr><td><blockquote>
 
 <p>If you wish to use
 <a href="http://oss.software.ibm.com/developerworks/opensource/jikes/">
@@ -336,5 +352,5 @@ setting the init parameter <code>javaEncoding</code> to
 </p>
 
 </blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
-        Copyright &copy; 1999-2008, Apache Software Foundation
+        Copyright &copy; 1999-2010, Apache Software Foundation
         </em></font></div></td></tr></table></body></html>

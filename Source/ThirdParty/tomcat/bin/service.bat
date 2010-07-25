@@ -26,17 +26,17 @@ rem
 rem name        (optional) If the second argument is present it is considered
 rem                        to be new service name                                           
 rem
-rem $Id: service.bat 734543 2009-01-14 23:00:49Z markt $
+rem $Id: service.bat 908749 2010-02-10 23:26:42Z markt $
 rem ---------------------------------------------------------------------------
 
 rem Guess CATALINA_HOME if not defined
-set CURRENT_DIR=%cd%
+set "CURRENT_DIR=%cd%"
 if not "%CATALINA_HOME%" == "" goto gotHome
-set CATALINA_HOME=%cd%
+set "CATALINA_HOME=%cd%"
 if exist "%CATALINA_HOME%\bin\tomcat6.exe" goto okHome
 rem CD to the upper dir
 cd ..
-set CATALINA_HOME=%cd%
+set "CATALINA_HOME=%cd%"
 :gotHome
 if exist "%CATALINA_HOME%\bin\tomcat6.exe" goto okHome
 echo The tomcat.exe was not found...
@@ -50,10 +50,10 @@ echo This environment variable is needed to run this program
 goto end 
 :okHome
 if not "%CATALINA_BASE%" == "" goto gotBase
-set CATALINA_BASE=%CATALINA_HOME%
+set "CATALINA_BASE=%CATALINA_HOME%"
 :gotBase
  
-set EXECUTABLE=%CATALINA_HOME%\bin\tomcat6.exe
+set "EXECUTABLE=%CATALINA_HOME%\bin\tomcat6.exe"
 
 rem Set default Service name
 set SERVICE_NAME=Tomcat6
@@ -82,26 +82,26 @@ goto end
 :doInstall
 rem Install the service
 echo Installing the service '%SERVICE_NAME%' ...
-echo Using CATALINA_HOME:    %CATALINA_HOME%
-echo Using CATALINA_BASE:    %CATALINA_BASE%
-echo Using JAVA_HOME:        %JAVA_HOME%
+echo Using CATALINA_HOME:    "%CATALINA_HOME%"
+echo Using CATALINA_BASE:    "%CATALINA_BASE%"
+echo Using JAVA_HOME:        "%JAVA_HOME%"
 
 rem Use the environment variables as an example
 rem Each command line option is prefixed with PR_
 
-set PR_DESCRIPTION=Apache Tomcat Server - http://tomcat.apache.org/
-set PR_INSTALL=%EXECUTABLE%
-set PR_LOGPATH=%CATALINA_BASE%\logs
-set PR_CLASSPATH=%CATALINA_HOME%\bin\bootstrap.jar
+set PR_DESCRIPTION=Apache Tomcat 6.0.29 Server - http://tomcat.apache.org/
+set "PR_INSTALL=%EXECUTABLE%"
+set "PR_LOGPATH=%CATALINA_BASE%\logs"
+set "PR_CLASSPATH=%CATALINA_BASE%\bin\tomcat-juli.jar;%CATALINA_HOME%\bin\tomcat-juli.jar;%CATALINA_HOME%\bin\bootstrap.jar"
 rem Set the server jvm from JAVA_HOME
-set PR_JVM=%JAVA_HOME%\jre\bin\server\jvm.dll
+set "PR_JVM=%JAVA_HOME%\jre\bin\server\jvm.dll"
 if exist "%PR_JVM%" goto foundJvm
 rem Set the client jvm from JAVA_HOME
-set PR_JVM=%JAVA_HOME%\jre\bin\client\jvm.dll
+set "PR_JVM=%JAVA_HOME%\jre\bin\client\jvm.dll"
 if exist "%PR_JVM%" goto foundJvm
 set PR_JVM=auto
 :foundJvm
-echo Using JVM:              %PR_JVM%
+echo Using JVM:              "%PR_JVM%"
 "%EXECUTABLE%" //IS//%SERVICE_NAME% --StartClass org.apache.catalina.startup.Bootstrap --StopClass org.apache.catalina.startup.Bootstrap --StartParams start --StopParams stop
 if not errorlevel 1 goto installed
 echo Failed installing '%SERVICE_NAME%' service
@@ -117,11 +117,11 @@ set PR_JVM=
 rem Set extra parameters
 "%EXECUTABLE%" //US//%SERVICE_NAME% --JvmOptions "-Dcatalina.base=%CATALINA_BASE%;-Dcatalina.home=%CATALINA_HOME%;-Djava.endorsed.dirs=%CATALINA_HOME%\endorsed" --StartMode jvm --StopMode jvm
 rem More extra parameters
-set PR_LOGPATH=%CATALINA_BASE%\logs
+set "PR_LOGPATH=%CATALINA_BASE%\logs"
 set PR_STDOUTPUT=auto
 set PR_STDERROR=auto
 "%EXECUTABLE%" //US//%SERVICE_NAME% ++JvmOptions "-Djava.io.tmpdir=%CATALINA_BASE%\temp;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djava.util.logging.config.file=%CATALINA_BASE%\conf\logging.properties" --JvmMs 128 --JvmMx 256
 echo The service '%SERVICE_NAME%' has been installed.
 
 :end
-cd %CURRENT_DIR%
+cd "%CURRENT_DIR%"

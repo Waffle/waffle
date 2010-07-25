@@ -1,9 +1,11 @@
-<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Application Developer's Guide - Source Organization</title><meta value="Craig R. McClanahan" name="author"><meta value="craigmcc@apache.org" name="email"><style media="print" type="text/css">
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Application Developer's Guide - Source Organization</title><meta content="Craig R. McClanahan" name="author"><style media="print" type="text/css">
 			.noPrint {display: none;}
 			td#mainBody {width: 100%;}
 		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
       The Apache Tomcat Servlet/JSP Container
-    " align="right" src="../images/tomcat.gif"></a></td><td><font face="arial,helvetica,sanserif"><h1>Apache Tomcat 6.0</h1></font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap="true" valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li></ul><p><strong>Contents</strong></p><ul><li><a href="index.html">Contents</a></li><li><a href="introduction.html">Introduction</a></li><li><a href="installation.html">Installation</a></li><li><a href="deployment.html">Deployment</a></li><li><a href="source.html">Source Code</a></li><li><a href="processes.html">Processes</a></li><li><a href="sample/">Example App</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Application Developer's Guide</h1><h2>Source Organization</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Directory Structure"><strong>Directory Structure</strong></a></font></td></tr><tr><td><blockquote>
+    " align="right" src="../images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li></ul><p><strong>Contents</strong></p><ul><li><a href="index.html">Contents</a></li><li><a href="introduction.html">Introduction</a></li><li><a href="installation.html">Installation</a></li><li><a href="deployment.html">Deployment</a></li><li><a href="source.html">Source Code</a></li><li><a href="processes.html">Processes</a></li><li><a href="sample/">Example App</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Application Developer's Guide</h1><h2>Source Organization</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
+<ul><li><a href="#Directory_Structure">Directory Structure</a><ol><li><a href="#External_Dependencies">External Dependencies</a></li></ol></li><li><a href="#Source_Code_Control">Source Code Control</a></li><li><a href="#BUILD.XML_Configuration_File">BUILD.XML Configuration File</a></li></ul>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Directory Structure"><!--()--></a><a name="Directory_Structure"><strong>Directory Structure</strong></a></font></td></tr><tr><td><blockquote>
 
     <blockquote><em>
     <p>The description below uses the variable name $CATALINA_BASE to refer the
@@ -94,7 +96,7 @@ any source files in these directories if you want to maintain a permanent
 record of the changes, because the changes will be lost the next time that a
 build is performed.</p>
 
-  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="External Dependencies"><strong>External Dependencies</strong></a></font></td></tr><tr><td><blockquote>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="External Dependencies"><!--()--></a><a name="External_Dependencies"><strong>External Dependencies</strong></a></font></td></tr><tr><td><blockquote>
 
   <p>What do you do if your application requires JAR files (or other
   resources) from external projects or packages?  A common example is that
@@ -125,14 +127,14 @@ build is performed.</p>
   "standard" build properties stored in the developer's home directory.</p>
 
   <p>In many cases, your development system administrator will have already
-  installed the required JAR files into Tomcat 6's <code>lib</code> directory.
+  installed the required JAR files into the <code>lib</code> directory of Tomcat.
   If this has been done, you need
   to take no actions at all - the example <code>build.xml</code> file
   automatically constructs a compile classpath that includes these files.</p>
 
   </blockquote></td></tr></table>
 
-</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Source Code Control"><strong>Source Code Control</strong></a></font></td></tr><tr><td><blockquote>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Source Code Control"><!--()--></a><a name="Source_Code_Control"><strong>Source Code Control</strong></a></font></td></tr><tr><td><blockquote>
 
 <p>As mentioned earlier, it is highly recommended that you place all of the
 source files that comprise your application under the management of a
@@ -148,11 +150,11 @@ created by your development process in the source code control system.  An
 easy way to tell CVS to ignore these directories is to create a file named
 <code>.cvsignore</code> (note the leading period) in your top-level source
 directory, with the following contents:</p>
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 build
 dist
 build.properties
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td></tr></table></div>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr></table></div>
 
 <p>The reason for mentioning <code>build.properties</code> here will be
 explained in the <a href="processes.html">Processes</a> section.</p>
@@ -190,7 +192,7 @@ support for multiple development branches that can later be merged).  See the
 links and references in the <a href="introduction.html">Introduction</a> for
 more information.</p>
 
-</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="BUILD.XML Configuration File"><strong>BUILD.XML Configuration File</strong></a></font></td></tr><tr><td><blockquote>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="BUILD.XML Configuration File"><!--()--></a><a name="BUILD.XML_Configuration_File"><strong>BUILD.XML Configuration File</strong></a></font></td></tr><tr><td><blockquote>
 
 <p>We will be using the <strong>ant</strong> tool to manage the compilation of
 our Java source code files, and creation of the deployment hierarchy.  Ant
@@ -207,10 +209,10 @@ archive file so you can distribute your application.  A well-constructed
 <code>build.xml</code> file will contain internal documentation describing
 the targets that are designed for use by the developer, versus those targets
 used internally.  To ask Ant to display the project documentation, change to
-the directory containing the <code>build.xml</code> flie and type:</p>
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+the directory containing the <code>build.xml</code> file and type:</p>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 ant -projecthelp
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="../images/void.gif"></td></tr></table></div>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr></table></div>
 
 <p>To give you a head start, a <a href="build.xml.txt">basic build.xml file</a>
 is provided that you can customize and install in the project source directory
@@ -281,5 +283,5 @@ Tomcat 6, the following additional targets are defined:</p>
 one-time setup that is described on the next page.</p>
 
 </blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
-        Copyright &copy; 1999-2008, Apache Software Foundation
+        Copyright &copy; 1999-2010, Apache Software Foundation
         </em></font></div></td></tr></table></body></html>

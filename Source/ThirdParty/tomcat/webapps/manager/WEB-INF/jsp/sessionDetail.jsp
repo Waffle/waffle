@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<!--
+<%--
  Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
   this work for additional information regarding copyright ownership.
@@ -14,7 +14,7 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
--->
+--%>
 <%@page session="false" contentType="text/html; charset=ISO-8859-1" %>
 <%@page import="java.util.Enumeration" %>
 <%@page import="javax.servlet.http.HttpSession" %>
@@ -40,7 +40,7 @@
 	<meta http-equiv="expires" content="0"/><!-- 0 is an invalid value and should be treated as 'now' -->
 	<meta http-equiv="content-language" content="en"/>
 	<meta name="author" content="Cedrik LIME"/>
-	<meta name="copyright" content="copyright 2005-2007 the Apache Software Foundation"/>
+	<meta name="copyright" content="copyright 2005-2010 the Apache Software Foundation"/>
 	<meta name="robots" content="noindex,nofollow,noarchive"/>
 	<title>Sessions Administration: details for <%= currentSessionId %></title>
 </head>

@@ -1,16 +1,18 @@
-<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat 6.0 - Tomcat Web Application Manager How To</title><meta value="Glenn L. Nielsen" name="author"><meta value="glenn@apache.org" name="email"><style media="print" type="text/css">
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat 6.0 - Tomcat Web Application Manager How To</title><meta content="Glenn L. Nielsen" name="author"><style media="print" type="text/css">
 			.noPrint {display: none;}
 			td#mainBody {width: 100%;}
 		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
       The Apache Tomcat Servlet/JSP Container
-    " align="right" src="./images/tomcat.gif"></a></td><td><font face="arial,helvetica,sanserif"><h1>Apache Tomcat 6.0</h1></font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="./images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap="true" valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="index.html">Docs Home</a></li><li><a href="http://wiki.apache.org/tomcat/FAQ">FAQ</a></li></ul><p><strong>User Guide</strong></p><ul><li><a href="introduction.html">1) Introduction</a></li><li><a href="setup.html">2) Setup</a></li><li><a href="appdev/index.html">3) First webapp</a></li><li><a href="deployer-howto.html">4) Deployer</a></li><li><a href="manager-howto.html">5) Manager</a></li><li><a href="realm-howto.html">6) Realms and AAA</a></li><li><a href="security-manager-howto.html">7) Security Manager</a></li><li><a href="jndi-resources-howto.html">8) JNDI Resources</a></li><li><a href="jndi-datasource-examples-howto.html">9) JDBC DataSources</a></li><li><a href="class-loader-howto.html">10) Classloading</a></li><li><a href="jasper-howto.html">11) JSPs</a></li><li><a href="ssl-howto.html">12) SSL</a></li><li><a href="ssi-howto.html">13) SSI</a></li><li><a href="cgi-howto.html">14) CGI</a></li><li><a href="proxy-howto.html">15) Proxy Support</a></li><li><a href="mbeans-descriptor-howto.html">16) MBean Descriptor</a></li><li><a href="default-servlet.html">17) Default Servlet</a></li><li><a href="cluster-howto.html">18) Clustering</a></li><li><a href="balancer-howto.html">19) Load Balancer</a></li><li><a href="connectors.html">20) Connectors</a></li><li><a href="monitoring.html">21) Monitoring and Management</a></li><li><a href="logging.html">22) Logging</a></li><li><a href="apr.html">23) APR/Native</a></li><li><a href="virtual-hosting-howto.html">24) Virtual Hosting</a></li><li><a href="aio.html">25) Advanced IO</a></li><li><a href="extras.html">26) Additional Components</a></li><li><a href="maven-jars.html">27) Mavenized</a></li></ul><p><strong>Reference</strong></p><ul><li><a href="RELEASE-NOTES.txt">Release Notes</a></li><li><a href="config/index.html">Configuration</a></li><li><a href="api/index.html">Javadocs</a></li><li><a href="http://tomcat.apache.org/connectors-doc/">JK 1.2 Documentation</a></li></ul><p><strong>Apache Tomcat Development</strong></p><ul><li><a href="building.html">Building</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="http://wiki.apache.org/tomcat/TomcatVersions">Status</a></li><li><a href="developers.html">Developers</a></li><li><a href="architecture/index.html">Architecture</a></li><li><a href="funcspecs/index.html">Functional Specs.</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat 6.0</h1><h2>Tomcat Web Application Manager How To</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+    " align="right" src="./images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="./images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="index.html">Docs Home</a></li><li><a href="http://wiki.apache.org/tomcat/FAQ">FAQ</a></li></ul><p><strong>User Guide</strong></p><ul><li><a href="introduction.html">1) Introduction</a></li><li><a href="setup.html">2) Setup</a></li><li><a href="appdev/index.html">3) First webapp</a></li><li><a href="deployer-howto.html">4) Deployer</a></li><li><a href="manager-howto.html">5) Manager</a></li><li><a href="realm-howto.html">6) Realms and AAA</a></li><li><a href="security-manager-howto.html">7) Security Manager</a></li><li><a href="jndi-resources-howto.html">8) JNDI Resources</a></li><li><a href="jndi-datasource-examples-howto.html">9) JDBC DataSources</a></li><li><a href="class-loader-howto.html">10) Classloading</a></li><li><a href="jasper-howto.html">11) JSPs</a></li><li><a href="ssl-howto.html">12) SSL</a></li><li><a href="ssi-howto.html">13) SSI</a></li><li><a href="cgi-howto.html">14) CGI</a></li><li><a href="proxy-howto.html">15) Proxy Support</a></li><li><a href="mbeans-descriptor-howto.html">16) MBean Descriptor</a></li><li><a href="default-servlet.html">17) Default Servlet</a></li><li><a href="cluster-howto.html">18) Clustering</a></li><li><a href="balancer-howto.html">19) Load Balancer</a></li><li><a href="connectors.html">20) Connectors</a></li><li><a href="monitoring.html">21) Monitoring and Management</a></li><li><a href="logging.html">22) Logging</a></li><li><a href="apr.html">23) APR/Native</a></li><li><a href="virtual-hosting-howto.html">24) Virtual Hosting</a></li><li><a href="aio.html">25) Advanced IO</a></li><li><a href="extras.html">26) Additional Components</a></li><li><a href="maven-jars.html">27) Mavenized</a></li></ul><p><strong>Reference</strong></p><ul><li><a href="RELEASE-NOTES.txt">Release Notes</a></li><li><a href="config/index.html">Configuration</a></li><li><a href="api/index.html">Javadocs</a></li><li><a href="http://tomcat.apache.org/connectors-doc/">JK 1.2 Documentation</a></li></ul><p><strong>Apache Tomcat Development</strong></p><ul><li><a href="building.html">Building</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="http://wiki.apache.org/tomcat/TomcatVersions">Status</a></li><li><a href="developers.html">Developers</a></li><li><a href="architecture/index.html">Architecture</a></li><li><a href="funcspecs/index.html">Functional Specs.</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat 6.0</h1><h2>Tomcat Web Application Manager How To</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
+<ul><li><a href="#Introduction">Introduction</a></li><li><a href="#Message">Message</a></li><li><a href="#Manager">Manager</a></li><li><a href="#Applications">Applications</a><ol><li><a href="#Start">Start</a></li><li><a href="#Stop">Stop</a></li><li><a href="#Reload">Reload</a></li><li><a href="#Undeploy">Undeploy</a></li></ol></li><li><a href="#Deploy">Deploy</a><ol><li><a href="#Deploy_directory_or_WAR_file_located_on_server">Deploy directory or WAR file located on server</a></li><li><a href="#Upload_a_WAR_file_to_install">Upload a WAR file to install</a></li><li><a href="#Deployment_Notes">Deployment Notes</a></li><li><a href="#Deploy_Message">Deploy Message</a></li></ol></li><li><a href="#Diagnostics">Diagnostics</a><ol><li><a href="#Finding_memory_leaks">Finding memory leaks</a></li></ol></li><li><a href="#Server_Information">Server Information</a></li></ul>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
 
 <p>In many production environments it is very useful to have the capability
 to manage your web applications without having to shut down and restart
 Tomcat.  This document is for the HTML web interface to the web application
 <a href="manager-howto.html">manager</a>.</p>
 
-<p>The interface is divided into five sections:
+<p>The interface is divided into six sections:</p>
 <ul>
   <li><strong>Message</strong> - Displays success and failure messages.</li>
   <li><strong>Manager</strong> - General manager operations like list and
@@ -18,10 +20,10 @@ Tomcat.  This document is for the HTML web interface to the web application
   <li><strong>Applications</strong> - List of web applications and
       commands.</li>
   <li><strong>Deploy</strong> - Deploying web applications.</li>
+  <li><strong>Diagnostics</strong> - Identifying potential problems.</li>
   <li><strong>Server Information</strong> - Information about the Tomcat
       server.</li>
 </ul>
-</p>
 
 </blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Message"><strong>Message</strong></a></font></td></tr><tr><td><blockquote>
 
@@ -37,7 +39,7 @@ application documentation.
 
 </blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Manager"><strong>Manager</strong></a></font></td></tr><tr><td><blockquote>
 
-<p>The Manager section has three links:
+<p>The Manager section has three links:</p>
 <ul>
   <li><strong>List Applications</strong> - Redisplay a list of web
       applications.</li>
@@ -45,15 +47,14 @@ application documentation.
   <li><strong>Manager Help</strong> - A link to the comprehensive Manager
       App HOW TO.</li>
 </ul>
-</p>
 
 </blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Applications"><strong>Applications</strong></a></font></td></tr><tr><td><blockquote>
 
 <p>The Applications section lists information about all the installed web
 applications and provides links for managing them. For each web application
-the following is displayed:
+the following is displayed:</p>
 <ul>
-  <li><strong>Path</strong> - The web applicaton context path.</li>
+  <li><strong>Path</strong> - The web application context path.</li>
   <li><strong>Display Name</strong> - The display name for the web application
       if it has one configured in its "web.xml" file.</li>
   <li><strong>Running</strong> - Whether the web application is running and
@@ -80,7 +81,6 @@ the following is displayed:
       </ul>
   </li>
 </ul>
-</p>
 
 <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Start"><strong>Start</strong></a></font></td></tr><tr><td><blockquote>
 
@@ -91,12 +91,12 @@ stop the web application that relies on this database rather than letting
 users continuously encounter database exceptions.</p>
 
 <p>If this command succeeds, you will see a Message like this:</p>
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 OK - Started application at context path /examples
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
 
 <p>Otherwise, the Message will start with <code>FAIL</code> and include an
-error message.  Possible causes for problems include:
+error message.  Possible causes for problems include:</p>
 <ul>
 <li><em>Encountered exception</em>
     <blockquote>             
@@ -119,7 +119,6 @@ error message.  Possible causes for problems include:
     The <code>path</code> parameter is required.
     </blockquote></li>       
 </ul>
-</p>
 
 </blockquote></td></tr></table>
 
@@ -131,12 +130,12 @@ stopped will see an HTTP error 404, and this application will show as
 "stopped" on a list applications command.</p>
                              
 <p>If this command succeeds, you will see a Message like this:</p>
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 OK - Stopped application at context path /examples
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
                              
 <p>Otherwise, the Message will start with <code>FAIL</code> and include an
-error message.  Possible causes for problems include:
+error message.  Possible causes for problems include:</p>
 <ul>                         
 <li><em>Encountered exception</em>
     <blockquote>             
@@ -159,7 +158,6 @@ error message.  Possible causes for problems include:
     The <code>path</code> parameter is required.
     </blockquote></li>       
 </ul>
-</p>
 
 </blockquote></td></tr></table>
 
@@ -179,12 +177,12 @@ then start the web application.
 </p>
 
 <p>If this command succeeds, you will see a Message like this:</p>
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 OK - Reloaded application at context path /examples
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
 
 <p>Otherwise, the Message will start with <code>FAIL</code> and include an
-error message.  Possible causes for problems include:
+error message.  Possible causes for problems include:</p>
 <ul>
 <li><em>Encountered exception</em>
     <blockquote>             
@@ -217,7 +215,6 @@ error message.  Possible causes for problems include:
     the application again to pick up your changes.
     </blockquote></li>       
 </ul>
-</p>
 
 </blockquote></td></tr></table>
 
@@ -237,12 +234,12 @@ reuse later).  This command is the logical opposite of the
 in the HTML manager.</p>
                              
 <p>If this command succeeds, you will see a Message like this:</p>
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 OK - Undeployed application at context path /examples
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
                              
 <p>Otherwise, the Message will start with <code>FAIL</code> and include an
-error message.  Possible causes for problems include:
+error message.  Possible causes for problems include:</p>
 <ul>                         
 <li><em>Encountered exception</em>
     <blockquote>             
@@ -265,7 +262,6 @@ error message.  Possible causes for problems include:
     The <code>path</code> parameter is required.
     </blockquote></li>       
 </ul>
-</p>
 
 </blockquote></td></tr></table>
 
@@ -279,7 +275,7 @@ file to the server.</p>
 of install you want to do and then submit it using the <i>Install</i>
 button.</p>
 
-<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Deploy directory or WAR file located on server"><strong>Deploy directory or WAR file located on server</strong></a></font></td></tr><tr><td><blockquote>
+<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Deploy directory or WAR file located on server"><!--()--></a><a name="Deploy_directory_or_WAR_file_located_on_server"><strong>Deploy directory or WAR file located on server</strong></a></font></td></tr><tr><td><blockquote>
 
 <p>Deploy and start a new web application, attached to the specified <i>Context
 Path:</i> (which must not be in use by any other web application).
@@ -300,22 +296,22 @@ refer to the entire WAR file.</p>
 
 <p>In this example the web application located in the directory
 <code>C:\path\to\foo</code> on the Tomcat server (running on Windows)
-is deployed as the web application context named <code>/footoo</code>.
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+is deployed as the web application context named <code>/footoo</code>.</p>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 Context Path: /footoo
 WAR or Directory URL: file:C:/path/to/foo
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
-</p>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+
 
 <p>In this example the ".war" file <code>/path/to/bar.war</code> on the
 Tomcat server (running on Unix) is deployed as the web application
 context named <code>/bar</code>. Notice that there is no <code>path</code>
 parameter so the context path defaults to the name of the web application
-archive file without the ".war" extension.
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+archive file without the ".war" extension.</p>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 WAR or Directory URL: jar:file:/path/to/bar.war!/
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
-</p>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+
 
 <h3>Deploy a Directory or War from the Host appBase</h3>
 
@@ -327,20 +323,20 @@ or the war file name without the ".war" extension is used as the path.</p>
 <code>foo</code> in the Host appBase directory of the Tomcat server is
 deployed as the web application context named <code>/foo</code>. Notice
 that there is no <code>path</code> parameter so the context path defaults
-to the name of the web application directory.
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+to the name of the web application directory.</p>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 WAR or Directory URL: foo
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
-</p>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+
 
 <p>In this example the ".war" file <code>bar.war</code> located in your
 Host appBase directory on the Tomcat server is deployed as the web
-application context named <code>/bartoo</code>.
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+application context named <code>/bartoo</code>.</p>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 Context Path: /bartoo
 WAR or Directory URL: bar.war
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
-</p>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+
 
 <h3>Deploy using a Context configuration ".xml" file</h3>
 
@@ -353,8 +349,8 @@ configuration file.</p>
 <p>A Context configuration ".xml" file can contain valid XML for a
 web application Context just as if it were configured in your
 Tomcat <code>server.xml</code> configuration file. Here is an
-example for Tomcat running on Windows:
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+example for Tomcat running on Windows:</p>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 &lt;Context path="/foobar" docBase="C:\path\to\application\foobar"
          debug="0"&gt;
 
@@ -363,32 +359,32 @@ example for Tomcat running on Windows:
                 type="org.apache.catalina.UserDatabase"/&gt;
 
 &lt;/Context&gt;
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
-</p>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+
 
 <p>Use of the <i>WAR or Directory URL</i> is optional. When used
 to select a web application ".war" file or directory it overrides any
 docBase configured in the context configuration ".xml" file.</p>
 
 <p>Here is an example of installing an application using a Context
-configuration ".xml" file for Tomcat running on Windows.
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+configuration ".xml" file for Tomcat running on Windows.</p>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 XML Configuration file URL: file:C:/path/to/context.xml
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
-</p>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+
 
 <p>Here is an example of installing an application using a Context
 configuration ".xml" file and a web application ".war" file located
-on the server (Tomcat running on Unix).
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+on the server (Tomcat running on Unix).</p>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 XML Configuration file URL: file:/path/to/context.xml
 WAR or Directory URL: jar:file:/path/to/bar.war!/
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
-</p>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+
 
 </blockquote></td></tr></table>
 
-<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Upload a WAR file to install"><strong>Upload a WAR file to install</strong></a></font></td></tr><tr><td><blockquote>
+<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Upload a WAR file to install"><!--()--></a><a name="Upload_a_WAR_file_to_install"><strong>Upload a WAR file to install</strong></a></font></td></tr><tr><td><blockquote>
 
 <p>Upload a WAR file from your local system and install it into the
 appBase for your Host. The name of the WAR file without the ".war"
@@ -428,7 +424,7 @@ including a Context configuration XML file in
 
 </blockquote></td></tr></table>
 
-<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Deployment Notes"><strong>Deployment Notes</strong></a></font></td></tr><tr><td><blockquote>
+<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Deployment Notes"><!--()--></a><a name="Deployment_Notes"><strong>Deployment Notes</strong></a></font></td></tr><tr><td><blockquote>
 
 <p>If the Host is configured with unpackWARs=true and you install a war
 file, the war will be unpacked into a directory in your Host appBase
@@ -447,13 +443,13 @@ files located outside of their Host appBase.</p>
 
 </blockquote></td></tr></table>
 
-<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Deploy Message"><strong>Deploy Message</strong></a></font></td></tr><tr><td><blockquote>
+<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Deploy Message"><!--()--></a><a name="Deploy_Message"><strong>Deploy Message</strong></a></font></td></tr><tr><td><blockquote>
 
 <p>If deployment and startup is successful, you will receive a Message
 like this:</p>
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 OK - Deployed application at context path /foo
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
 
 <p>Otherwise, the Message will start with <code>FAIL</code> and include an
 error message.  Possible causes for problems include:</p>
@@ -510,12 +506,38 @@ error message.  Possible causes for problems include:</p>
 </ul>
 
 </blockquote></td></tr></table>
-</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Server Information"><strong>Server Information</strong></a></font></td></tr><tr><td><blockquote>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Diagnostics"><strong>Diagnostics</strong></a></font></td></tr><tr><td><blockquote>
+
+<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Finding memory leaks"><!--()--></a><a name="Finding_memory_leaks"><strong>Finding memory leaks</strong></a></font></td></tr><tr><td><blockquote>
+
+<p><strong>The find leaks diagnostic triggers a full garbage collection. It
+should be used with extreme caution on production systems.</strong></p>
+
+<p>The find leaks diagnostic attempts to identify web applications that have
+caused memory leaks when they were stopped, reloaded or undeployed. Results
+should always be confirmed
+with a profiler. The diagnostic uses additional functionality provided by the
+StandardHost implementation. It will not work if a custom host is used that
+does not extend StandardHost.</p>
+
+<p>This diagnostic will list context paths for the web applications that were
+stopped, reloaded or undeployed, but which classes from the previous runs
+are still present in memory, thus being a memory leak. If an application
+has been reloaded several times, it may be listed several times.</p>
+
+<p>Explicitly triggering a full garbage collection from Java code is documented
+to be unreliable. Furthermore, depending on the JVM used, there are options to
+disable explicit GC triggering, like <code>-XX:+DisableExplicitGC</code>.
+If you want to make sure, that the diagnostics were successfully running a full GC,
+you will need to check using tools like GC logging, JConsole or similar.</p>
+
+</blockquote></td></tr></table>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Server Information"><!--()--></a><a name="Server_Information"><strong>Server Information</strong></a></font></td></tr><tr><td><blockquote>
 
 <p>This section displays information about Tomcat, the operating system of
 the server Tomcat is hosted on, and the Java Virtual Machine Tomcat is
 running in.</p>
 
 </blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
-        Copyright &copy; 1999-2008, Apache Software Foundation
+        Copyright &copy; 1999-2010, Apache Software Foundation
         </em></font></div></td></tr></table></body></html>

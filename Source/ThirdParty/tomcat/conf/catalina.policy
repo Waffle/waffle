@@ -14,16 +14,17 @@
 // limitations under the License.
 
 // ============================================================================
-// catalina.corepolicy - Security Policy Permissions for Tomcat 6
+// catalina.policy - Security Policy Permissions for Tomcat 6
 //
 // This file contains a default set of security policies to be enforced (by the
 // JVM) when Catalina is executed with the "-security" option.  In addition
 // to the permissions granted here, the following additional permissions are
 // granted to the codebase specific to each web application:
 //
-// * Read access to the document root directory
+// * Read access to its document root directory
+// * Read, write and delete access to its working directory
 //
-// $Id: catalina.policy 648343 2008-04-15 17:21:29Z markt $
+// $Id: catalina.policy 957098 2010-06-23 02:11:20Z kkolinko $
 // ============================================================================
 
 
@@ -61,21 +62,37 @@ grant codeBase "file:${catalina.home}/bin/commons-daemon.jar" {
 };
 
 // These permissions apply to the logging API
+// Note: If tomcat-juli.jar is in ${catalina.base} and not in ${catalina.home},
+// update this section accordingly.
+//  grant codeBase "file:${catalina.base}/bin/tomcat-juli.jar" {..}
 grant codeBase "file:${catalina.home}/bin/tomcat-juli.jar" {
+        permission java.io.FilePermission
+         "${java.home}${file.separator}lib${file.separator}logging.properties", "read"; 
+
+        permission java.io.FilePermission
+         "${catalina.base}${file.separator}conf${file.separator}logging.properties", "read";
+        permission java.io.FilePermission
+         "${catalina.base}${file.separator}logs", "read, write";
+        permission java.io.FilePermission
+         "${catalina.base}${file.separator}logs${file.separator}*", "read, write";
+
+        permission java.lang.RuntimePermission "shutdownHooks";
+        permission java.lang.RuntimePermission "getClassLoader";
+        permission java.lang.RuntimePermission "setContextClassLoader";
+
+        permission java.util.logging.LoggingPermission "control";
+
         permission java.util.PropertyPermission "java.util.logging.config.class", "read";
         permission java.util.PropertyPermission "java.util.logging.config.file", "read";
-        permission java.io.FilePermission "${java.home}${file.separator}lib${file.separator}logging.properties", "read"; 
-        permission java.lang.RuntimePermission "shutdownHooks";
-        permission java.io.FilePermission "${catalina.base}${file.separator}conf${file.separator}logging.properties", "read";
         permission java.util.PropertyPermission "catalina.base", "read";
-        permission java.util.logging.LoggingPermission "control";
-        permission java.io.FilePermission "${catalina.base}${file.separator}logs", "read, write";
-        permission java.io.FilePermission "${catalina.base}${file.separator}logs${file.separator}*", "read, write";
-        permission java.lang.RuntimePermission "getClassLoader";
-        // To enable per context logging configuration, permit read access to the appropriate file.
-        // Be sure that the logging configuration is secure before enabling such access
-        // eg for the examples web application:
-        // permission java.io.FilePermission "${catalina.base}${file.separator}webapps${file.separator}examples${file.separator}WEB-INF${file.separator}classes${file.separator}logging.properties", "read";
+
+        // Note: To enable per context logging configuration, permit read access to
+        // the appropriate file. Be sure that the logging configuration is
+        // secure before enabling such access.
+        // E.g. for the examples web application:
+        // permission java.io.FilePermission "${catalina.base}${file.separator}
+        //  webapps${file.separator}examples${file.separator}WEB-INF
+        //  ${file.separator}classes${file.separator}logging.properties", "read";
 };
 
 // These permissions apply to the server startup code
@@ -89,6 +106,13 @@ grant codeBase "file:${catalina.home}/bin/bootstrap.jar" {
 grant codeBase "file:${catalina.home}/lib/-" {
         permission java.security.AllPermission;
 };
+
+
+// If using a per instance lib directory, i.e. ${catalina.base}/lib,
+// then the following permission will need to be uncommented
+// grant codeBase "file:${catalina.base}/lib/-" {
+//         permission java.security.AllPermission;
+// };
 
 
 // ========== WEB APPLICATION PERMISSIONS =====================================
@@ -134,15 +158,25 @@ grant {
     // Allow read of JAXP compliant XML parser debug
     permission java.util.PropertyPermission "jaxp.debug", "read";
 
-    // Precompiled JSPs need access to this package.
+    // Precompiled JSPs need access to these packages.
+    permission java.lang.RuntimePermission "accessClassInPackage.org.apache.jasper.el";
     permission java.lang.RuntimePermission "accessClassInPackage.org.apache.jasper.runtime";
     permission java.lang.RuntimePermission "accessClassInPackage.org.apache.jasper.runtime.*";
     
-    // Precompiled JSPs need access to this system property.
-    permission java.util.PropertyPermission "org.apache.jasper.runtime.BodyContentImpl.LIMIT_BUFFER", "read";
-
+    // Precompiled JSPs need access to these system properties.
+    permission java.util.PropertyPermission
+     "org.apache.jasper.runtime.BodyContentImpl.LIMIT_BUFFER", "read";
+    permission java.util.PropertyPermission "org.apache.el.parser.COERCE_TO_ZERO", "read";
 };
 
+
+// The Manager application needs access to the following packages to support the
+// session display functionality
+grant codeBase "file:${catalina.base}/webapps/manager/-" {
+    permission java.lang.RuntimePermission "accessClassInPackage.org.apache.catalina";
+    permission java.lang.RuntimePermission "accessClassInPackage.org.apache.catalina.manager";
+    permission java.lang.RuntimePermission "accessClassInPackage.org.apache.catalina.manager.util";
+};
 
 // You can assign additional permissions to particular web applications by
 // adding additional "grant" entries here, based on the code base for that

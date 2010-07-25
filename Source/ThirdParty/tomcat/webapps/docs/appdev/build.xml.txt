@@ -29,13 +29,13 @@
 
         src                  Java source code (and associated resource files)
                              to be compiled to the "WEB-INF/classes"
-                             subdirectory of your web applicaiton.
+                             subdirectory of your web application.
 
         web                  Static HTML, JSP, and other content (such as
                              image files), including the WEB-INF subdirectory
                              and its configuration file contents.
 
-     $Id: build.xml.txt 562814 2007-08-05 03:52:04Z markt $
+     $Id: build.xml.txt 785727 2009-06-17 17:03:57Z kkolinko $
 -->
 
 

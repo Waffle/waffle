@@ -1,9 +1,11 @@
-<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat 6.0 - Security Manager HOW-TO</title><meta value="Glenn Nielsen" name="author"><meta value="glenn@voyager.apg.more.net" name="email"><meta value="Jean-Francois Arcand" name="author"><meta value="jeanfrancois.arcand@sun.com" name="email"><style media="print" type="text/css">
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat 6.0 - Security Manager HOW-TO</title><meta content="Glenn Nielsen" name="author"><meta content="Jean-Francois Arcand" name="author"><style media="print" type="text/css">
 			.noPrint {display: none;}
 			td#mainBody {width: 100%;}
 		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
       The Apache Tomcat Servlet/JSP Container
-    " align="right" src="./images/tomcat.gif"></a></td><td><font face="arial,helvetica,sanserif"><h1>Apache Tomcat 6.0</h1></font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="./images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap="true" valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="index.html">Docs Home</a></li><li><a href="http://wiki.apache.org/tomcat/FAQ">FAQ</a></li></ul><p><strong>User Guide</strong></p><ul><li><a href="introduction.html">1) Introduction</a></li><li><a href="setup.html">2) Setup</a></li><li><a href="appdev/index.html">3) First webapp</a></li><li><a href="deployer-howto.html">4) Deployer</a></li><li><a href="manager-howto.html">5) Manager</a></li><li><a href="realm-howto.html">6) Realms and AAA</a></li><li><a href="security-manager-howto.html">7) Security Manager</a></li><li><a href="jndi-resources-howto.html">8) JNDI Resources</a></li><li><a href="jndi-datasource-examples-howto.html">9) JDBC DataSources</a></li><li><a href="class-loader-howto.html">10) Classloading</a></li><li><a href="jasper-howto.html">11) JSPs</a></li><li><a href="ssl-howto.html">12) SSL</a></li><li><a href="ssi-howto.html">13) SSI</a></li><li><a href="cgi-howto.html">14) CGI</a></li><li><a href="proxy-howto.html">15) Proxy Support</a></li><li><a href="mbeans-descriptor-howto.html">16) MBean Descriptor</a></li><li><a href="default-servlet.html">17) Default Servlet</a></li><li><a href="cluster-howto.html">18) Clustering</a></li><li><a href="balancer-howto.html">19) Load Balancer</a></li><li><a href="connectors.html">20) Connectors</a></li><li><a href="monitoring.html">21) Monitoring and Management</a></li><li><a href="logging.html">22) Logging</a></li><li><a href="apr.html">23) APR/Native</a></li><li><a href="virtual-hosting-howto.html">24) Virtual Hosting</a></li><li><a href="aio.html">25) Advanced IO</a></li><li><a href="extras.html">26) Additional Components</a></li><li><a href="maven-jars.html">27) Mavenized</a></li></ul><p><strong>Reference</strong></p><ul><li><a href="RELEASE-NOTES.txt">Release Notes</a></li><li><a href="config/index.html">Configuration</a></li><li><a href="api/index.html">Javadocs</a></li><li><a href="http://tomcat.apache.org/connectors-doc/">JK 1.2 Documentation</a></li></ul><p><strong>Apache Tomcat Development</strong></p><ul><li><a href="building.html">Building</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="http://wiki.apache.org/tomcat/TomcatVersions">Status</a></li><li><a href="developers.html">Developers</a></li><li><a href="architecture/index.html">Architecture</a></li><li><a href="funcspecs/index.html">Functional Specs.</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat 6.0</h1><h2>Security Manager HOW-TO</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Background"><strong>Background</strong></a></font></td></tr><tr><td><blockquote>
+    " align="right" src="./images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="./images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="index.html">Docs Home</a></li><li><a href="http://wiki.apache.org/tomcat/FAQ">FAQ</a></li></ul><p><strong>User Guide</strong></p><ul><li><a href="introduction.html">1) Introduction</a></li><li><a href="setup.html">2) Setup</a></li><li><a href="appdev/index.html">3) First webapp</a></li><li><a href="deployer-howto.html">4) Deployer</a></li><li><a href="manager-howto.html">5) Manager</a></li><li><a href="realm-howto.html">6) Realms and AAA</a></li><li><a href="security-manager-howto.html">7) Security Manager</a></li><li><a href="jndi-resources-howto.html">8) JNDI Resources</a></li><li><a href="jndi-datasource-examples-howto.html">9) JDBC DataSources</a></li><li><a href="class-loader-howto.html">10) Classloading</a></li><li><a href="jasper-howto.html">11) JSPs</a></li><li><a href="ssl-howto.html">12) SSL</a></li><li><a href="ssi-howto.html">13) SSI</a></li><li><a href="cgi-howto.html">14) CGI</a></li><li><a href="proxy-howto.html">15) Proxy Support</a></li><li><a href="mbeans-descriptor-howto.html">16) MBean Descriptor</a></li><li><a href="default-servlet.html">17) Default Servlet</a></li><li><a href="cluster-howto.html">18) Clustering</a></li><li><a href="balancer-howto.html">19) Load Balancer</a></li><li><a href="connectors.html">20) Connectors</a></li><li><a href="monitoring.html">21) Monitoring and Management</a></li><li><a href="logging.html">22) Logging</a></li><li><a href="apr.html">23) APR/Native</a></li><li><a href="virtual-hosting-howto.html">24) Virtual Hosting</a></li><li><a href="aio.html">25) Advanced IO</a></li><li><a href="extras.html">26) Additional Components</a></li><li><a href="maven-jars.html">27) Mavenized</a></li></ul><p><strong>Reference</strong></p><ul><li><a href="RELEASE-NOTES.txt">Release Notes</a></li><li><a href="config/index.html">Configuration</a></li><li><a href="api/index.html">Javadocs</a></li><li><a href="http://tomcat.apache.org/connectors-doc/">JK 1.2 Documentation</a></li></ul><p><strong>Apache Tomcat Development</strong></p><ul><li><a href="building.html">Building</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="http://wiki.apache.org/tomcat/TomcatVersions">Status</a></li><li><a href="developers.html">Developers</a></li><li><a href="architecture/index.html">Architecture</a></li><li><a href="funcspecs/index.html">Functional Specs.</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat 6.0</h1><h2>Security Manager HOW-TO</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
+<ul><li><a href="#Background">Background</a></li><li><a href="#Permissions">Permissions</a><ol><li><a href="#Standard_Permissions">Standard Permissions</a></li><li><a href="#Tomcat_Custom_Permissions">Tomcat Custom Permissions</a></li></ol></li><li><a href="#Configuring_Tomcat_With_A_SecurityManager">Configuring Tomcat With A SecurityManager</a></li><li><a href="#Configuring_Package_Protection_in_Tomcat">Configuring Package Protection in Tomcat</a></li><li><a href="#Troubleshooting">Troubleshooting</a></li></ul>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Background"><strong>Background</strong></a></font></td></tr><tr><td><blockquote>
 
   <p>The Java <strong>SecurityManager</strong> is what allows a web browser
   to run an applet in its own sandbox to prevent untrusted code from
@@ -16,9 +18,9 @@
 
   <p>Imagine if someone who is authorized to publish JSPs on your site
   inadvertently included the following in their JSP:</p>
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 &lt;% System.exit(1); %&gt;
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
 
   <p>Every time this JSP was executed by Tomcat, Tomcat would exit.
   Using the Java SecurityManager is just one more line of defense a
@@ -41,7 +43,7 @@
   Tomcat 6.</p>
 
 
-  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Standard Permissions"><strong>Standard Permissions</strong></a></font></td></tr><tr><td><blockquote>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Standard Permissions"><!--()--></a><a name="Standard_Permissions"><strong>Standard Permissions</strong></a></font></td></tr><tr><td><blockquote>
 
     <p>This is just a short summary of the standard system SecurityManager
     Permission classes applicable to Tomcat.  See
@@ -72,7 +74,7 @@
   </blockquote></td></tr></table>
 
 
-  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat Custom Permissions"><strong>Tomcat Custom Permissions</strong></a></font></td></tr><tr><td><blockquote>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat Custom Permissions"><!--()--></a><a name="Tomcat_Custom_Permissions"><strong>Tomcat Custom Permissions</strong></a></font></td></tr><tr><td><blockquote>
 
     <p>Tomcat utilizes a custom permission class called
     <strong>org.apache.naming.JndiPermission</strong>.  This permission
@@ -81,26 +83,33 @@
     used to do wild card matching for a JNDI named file resource when
     granting permission.  For example, you might include the following
     in your policy file:</p>
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 permission  org.apache.naming.JndiPermission  "jndi://localhost/examples/*";
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
 
     <p>A Permission entry like this is generated dynamically for each web
     application that is deployed, to allow it to read its own static resources
     but disallow it from using file access to read any other files (unless
     permissions for those files are explicitly granted).</p>
 
-    <p>Also, Tomcat always dynamically creates the following file permission:</p>
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>  
+    <p>Also, Tomcat always dynamically creates the following file permissions:</p>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 permission java.io.FilePermission "** your application context**", "read";
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>  
-    <p>Where **your application context** equals the folder(or WAR file) under which 
-    your application has been deployed. </p>  
+
+permission java.io.FilePermission
+  "** application working directory**", "read,write";
+permission java.io.FilePermission
+  "** application working directory**/-", "read,write,delete";
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+    <p>Where **your application context** equals the folder (or WAR file) under which 
+    your application has been deployed and **application working directory** is the
+    temporary directory provided to your application as required by the
+    Servlet Specification.</p>
 
   </blockquote></td></tr></table>
 
 
-</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Configuring Tomcat With A SecurityManager"><strong>Configuring Tomcat With A SecurityManager</strong></a></font></td></tr><tr><td><blockquote>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Configuring Tomcat With A SecurityManager"><!--()--></a><a name="Configuring_Tomcat_With_A_SecurityManager"><strong>Configuring Tomcat With A SecurityManager</strong></a></font></td></tr><tr><td><blockquote>
 
   <h3>Policy File Format</h3>
 
@@ -114,13 +123,13 @@ permission java.io.FilePermission "** your application context**", "read";
 
   <p>Entries in the <code>catalina.policy</code> file use the standard
   <code>java.policy</code> file format, as follows:</p>
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 // Example policy file entry
 
 grant [signedBy &lt;signer&gt;,] [codeBase &lt;code source&gt;] {
   permission  &lt;class&gt;  [&lt;name&gt; [, &lt;action list&gt;]];
 };
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
 
   <p>The <strong>signedBy</strong> and <strong>codeBase</strong> entries are
   optional when granting permissions.  Comment lines begin with "//" and
@@ -135,16 +144,17 @@ grant [signedBy &lt;signer&gt;,] [codeBase &lt;code source&gt;] {
 
   <p>The default <code>$CATALINA_BASE/conf/catalina.policy</code> file
   looks like this:</p>
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 // ============================================================================
-// catalina.corepolicy - Security Policy Permissions for Tomcat 6
+// catalina.policy - Security Policy Permissions for Tomcat 6
 //
 // This file contains a default set of security policies to be enforced (by the
 // JVM) when Catalina is executed with the "-security" option.  In addition
 // to the permissions granted here, the following additional permissions are
 // granted to the codebase specific to each web application:
 //
-// * Read access to the document root directory
+// * Read access to its document root directory
+// * Read, write and delete access to its working directory
 //
 // ============================================================================
 
@@ -183,8 +193,37 @@ grant codeBase "file:${catalina.home}/bin/commons-daemon.jar" {
 };
 
 // These permissions apply to the logging API
+// Note: If tomcat-juli.jar is in ${catalina.base} and not in ${catalina.home},
+// update this section accordingly.
+//  grant codeBase "file:${catalina.base}/bin/tomcat-juli.jar" {..}
 grant codeBase "file:${catalina.home}/bin/tomcat-juli.jar" {
-        permission java.security.AllPermission;
+        permission java.io.FilePermission
+         "${java.home}${file.separator}lib${file.separator}logging.properties", "read"; 
+
+        permission java.io.FilePermission
+         "${catalina.base}${file.separator}conf${file.separator}logging.properties", "read";
+        permission java.io.FilePermission
+         "${catalina.base}${file.separator}logs", "read, write";
+        permission java.io.FilePermission
+         "${catalina.base}${file.separator}logs${file.separator}*", "read, write";
+
+        permission java.lang.RuntimePermission "shutdownHooks";
+        permission java.lang.RuntimePermission "getClassLoader";
+        permission java.lang.RuntimePermission "setContextClassLoader";
+
+        permission java.util.logging.LoggingPermission "control";
+
+        permission java.util.PropertyPermission "java.util.logging.config.class", "read";
+        permission java.util.PropertyPermission "java.util.logging.config.file", "read";
+        permission java.util.PropertyPermission "catalina.base", "read";
+
+        // Note: To enable per context logging configuration, permit read access to
+        // the appropriate file. Be sure that the logging configuration is
+        // secure before enabling such access.
+        // E.g. for the examples web application:
+        // permission java.io.FilePermission "${catalina.base}${file.separator}
+        //  webapps${file.separator}examples${file.separator}WEB-INF
+        //  ${file.separator}classes${file.separator}logging.properties", "read";
 };
 
 // These permissions apply to the server startup code
@@ -198,6 +237,13 @@ grant codeBase "file:${catalina.home}/bin/bootstrap.jar" {
 grant codeBase "file:${catalina.home}/lib/-" {
         permission java.security.AllPermission;
 };
+
+
+// If using a per instance lib directory, i.e. ${catalina.base}/lib,
+// then the following permission will need to be uncommented
+// grant codeBase "file:${catalina.base}/lib/-" {
+//         permission java.security.AllPermission;
+// };
 
 
 // ========== WEB APPLICATION PERMISSIONS =====================================
@@ -226,29 +272,42 @@ grant {
     permission java.util.PropertyPermission "java.vendor", "read";
     permission java.util.PropertyPermission "java.vendor.url", "read";
     permission java.util.PropertyPermission "java.class.version", "read";
-	permission java.util.PropertyPermission "java.specification.version", "read";
-	permission java.util.PropertyPermission "java.specification.vendor", "read";
-	permission java.util.PropertyPermission "java.specification.name", "read";
+    permission java.util.PropertyPermission "java.specification.version", "read";
+    permission java.util.PropertyPermission "java.specification.vendor", "read";
+    permission java.util.PropertyPermission "java.specification.name", "read";
 
-	permission java.util.PropertyPermission "java.vm.specification.version", "read";
-	permission java.util.PropertyPermission "java.vm.specification.vendor", "read";
-	permission java.util.PropertyPermission "java.vm.specification.name", "read";
-	permission java.util.PropertyPermission "java.vm.version", "read";
-	permission java.util.PropertyPermission "java.vm.vendor", "read";
-	permission java.util.PropertyPermission "java.vm.name", "read";
+    permission java.util.PropertyPermission "java.vm.specification.version", "read";
+    permission java.util.PropertyPermission "java.vm.specification.vendor", "read";
+    permission java.util.PropertyPermission "java.vm.specification.name", "read";
+    permission java.util.PropertyPermission "java.vm.version", "read";
+    permission java.util.PropertyPermission "java.vm.vendor", "read";
+    permission java.util.PropertyPermission "java.vm.name", "read";
 
     // Required for OpenJMX
     permission java.lang.RuntimePermission "getAttribute";
 
-	// Allow read of JAXP compliant XML parser debug
-	permission java.util.PropertyPermission "jaxp.debug", "read";
+    // Allow read of JAXP compliant XML parser debug
+    permission java.util.PropertyPermission "jaxp.debug", "read";
 
-    // Precompiled JSPs need access to this package.
+    // Precompiled JSPs need access to these packages.
+    permission java.lang.RuntimePermission "accessClassInPackage.org.apache.jasper.el";
     permission java.lang.RuntimePermission "accessClassInPackage.org.apache.jasper.runtime";
     permission java.lang.RuntimePermission "accessClassInPackage.org.apache.jasper.runtime.*";
     
+    // Precompiled JSPs need access to these system properties.
+    permission java.util.PropertyPermission
+     "org.apache.jasper.runtime.BodyContentImpl.LIMIT_BUFFER", "read";
+    permission java.util.PropertyPermission "org.apache.el.parser.COERCE_TO_ZERO", "read";
 };
 
+
+// The Manager application needs access to the following packages to support the
+// session display functionality
+grant codeBase "file:${catalina.base}/webapps/manager/-" {
+    permission java.lang.RuntimePermission "accessClassInPackage.org.apache.catalina";
+    permission java.lang.RuntimePermission "accessClassInPackage.org.apache.catalina.manager";
+    permission java.lang.RuntimePermission "accessClassInPackage.org.apache.catalina.manager.util";
+};
 
 // You can assign additional permissions to particular web applications by
 // adding additional "grant" entries here, based on the code base for that
@@ -281,19 +340,19 @@ grant {
 // grant codeBase "jar:file:${catalina.home}/webapps/examples/WEB-INF/lib/scrape.jar!/-" {
 //      permission java.net.SocketPermission "*.noaa.gov:80", "connect";
 // };
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
 
   <h3>Starting Tomcat With A SecurityManager</h3>
 
   <p>Once you have configured the <code>catalina.policy</code> file for use
   with a SecurityManager, Tomcat can be started with a SecurityManager in
   place by using the "-security" option:</p>
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 $CATALINA_HOME/bin/catalina.sh start -security    (Unix)
 %CATALINA_HOME%\bin\catalina start -security      (Windows)
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
 
-</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Configuring Package Protection in Tomcat"><strong>Configuring Package Protection in Tomcat</strong></a></font></td></tr><tr><td><blockquote>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Configuring Package Protection in Tomcat"><!--()--></a><a name="Configuring_Package_Protection_in_Tomcat"><strong>Configuring Package Protection in Tomcat</strong></a></font></td></tr><tr><td><blockquote>
   <p>Starting with Tomcat 5, it is now possible to configure which Tomcat
   internal package are protected againts package definition and access. See
   <a href="http://java.sun.com/security/seccodeguide.html">
@@ -308,7 +367,7 @@ $CATALINA_HOME/bin/catalina.sh start -security    (Unix)
 
   <p>The default <code>$CATALINA_BASE/conf/catalina.properties</code> file
   looks like this:</p>
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>  
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>  
 #
 # List of comma-separated packages that start with or equal this string
 # will cause a security exception to be thrown when
@@ -329,7 +388,7 @@ org.apache.jasper.
 #
 package.definition=sun.,java.,org.apache.catalina.,org.apache.coyote.,
 org.apache.tomcat.,org.apache.jasper.
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
   <p>Once you have configured the <code>catalina.properties</code> file for use
   with a SecurityManager, remember to re-start Tomcat.</p>
 </blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Troubleshooting"><strong>Troubleshooting</strong></a></font></td></tr><tr><td><blockquote>
@@ -343,10 +402,10 @@ org.apache.tomcat.,org.apache.jasper.
   is done by setting a system property before starting Tomcat.  The easiest
   way to do this is via the <code>CATALINA_OPTS</code> environment variable.
   Execute this command:</p>
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 export CATALINA_OPTS=-Djava.security.debug=all    (Unix)
 set CATALINA_OPTS=-Djava.security.debug=all       (Windows)
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
 
   <p>before starting Tomcat.</p>
 
@@ -357,5 +416,5 @@ set CATALINA_OPTS=-Djava.security.debug=all       (Windows)
   specify here as well.</p>
 
 </blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
-        Copyright &copy; 1999-2008, Apache Software Foundation
+        Copyright &copy; 1999-2010, Apache Software Foundation
         </em></font></div></td></tr></table></body></html>

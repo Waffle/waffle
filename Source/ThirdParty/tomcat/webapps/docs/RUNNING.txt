@@ -15,7 +15,7 @@
   limitations under the License.
 ================================================================================
 
-$Id: RUNNING.txt 354430 2005-12-06 13:44:26Z yoavs $
+$Id: RUNNING.txt 896899 2010-01-07 15:05:58Z kkolinko $
 
             ===================================================
             Running The Apache Tomcat 6.0 Servlet/JSP Container
@@ -104,7 +104,7 @@ When you use $CATALINA_BASE, Tomcat will calculate all relative references for
 files in the following directories based on the value of $CATALINA_BASE instead
 of $CATALINA_HOME:
 
-* bin  - Only setenv.sh (*nix) and setenv.bat (windows)
+* bin  - Only setenv.sh (*nix), setenv.bat (windows) and tomcat-juli.jar
 
 * conf - Server configuration files (including server.xml)
 
@@ -116,8 +116,13 @@ of $CATALINA_HOME:
 
 * temp - Directory used by the JVM for temporary files (java.io.tmpdir)
 
-If you do set $CATALINA_BASE, $CATALINA_BASE will default to the same value as
-$CATALINA_HOME, which means that the same directory is used for all relative
+Note that by default Tomcat will first try to load classes and JARs from
+$CATALINA_BASE/lib and then $CATALINA_HOME/lib. You can place instance specific
+JARs and classes (e.g. JDBC drivers) in $CATALINA_BASE/lib whilst keeping the
+standard Tomcat JARs in $CATALINA_HOME/lib.  
+
+If you do not set $CATALINA_BASE, $CATALINA_BASE will default to the same value
+as $CATALINA_HOME, which means that the same directory is used for all relative
 path resolutions.
 
 

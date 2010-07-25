@@ -79,7 +79,12 @@
   <!--   localXsltFile       Make directory listings an XML doc and         -->
   <!--                       pass the result to this style sheet residing   -->
   <!--                       in that directory. This overrides              -->
-  <!--                        globalXsltFile[null]                          -->
+  <!--                       contextXsltFile and globalXsltFile[null]       -->
+  <!--                                                                      -->
+  <!--   contextXsltFile     Make directory listings an XML doc and         -->
+  <!--                       pass the result to this style sheet which is   -->
+  <!--                       relative to the context root. This overrides   -->
+  <!--                       globalXsltFile[null]                           -->
   <!--                                                                      -->
   <!--   globalXsltFile      Site wide configuration version of             -->
   <!--                       localXsltFile This argument is expected        -->
@@ -156,15 +161,9 @@
   <!--                       pages.  See the jasper documentation for more  -->
   <!--                       information.                                   -->
   <!--                                                                      -->
-  <!--   compilerSourceVM    Compiler source VM                             -->
-  <!--                       default is System.properties                   -->
-  <!--                        java.specification.version > 1.4              -->
-  <!--                        [1.5] else [1.4]                              -->
+  <!--   compilerSourceVM    Compiler source VM. [1.5]                      -->
   <!--                                                                      -->
-  <!--   compilerTargetVM    Compiler target VM                             -->  
-  <!--                       default is System.properties                   -->
-  <!--                        java.specification.version > 1.4              -->
-  <!--                        [1.5] else [1.4]                              -->
+  <!--   compilerTargetVM    Compiler target VM. [1.5]                      -->  
   <!--                                                                      -->
   <!--   development         Is Jasper used in development mode? If true,   -->
   <!--                       the frequency at which JSPs are checked for    -->
@@ -223,6 +222,14 @@
   <!--                       modification. A value of 0 will cause the JSP  -->
   <!--                       to be checked on every access.                 -->
   <!--                       Used in development mode only. [4]             -->
+  <!--                                                                      -->
+  <!--   recompileOnFail     If a JSP compilation fails should the          -->
+  <!--                       modificationTestInterval be ignored and the    -->
+  <!--                       next access trigger a re-compilation attempt?  -->
+  <!--                       Used in development mode only and is disabled  -->
+  <!--                       by default as compilation may be expensive and -->
+  <!--                       could lead to excessive resource usage.        -->
+  <!--                       [false]                                        -->
   <!--                                                                      -->
   <!--   scratchdir          What scratch directory should we use when      -->
   <!--                       compiling JSP pages?  [default work directory  -->
@@ -285,6 +292,8 @@
   <!--                                                                      -->
   <!--   outputEncoding      The encoding to use for the page that results  -->
   <!--                       from the SSI processing. [UTF-8]               -->
+  <!--                                                                      -->
+  <!--   allowExec           Is use of the exec command enabled? [false]    -->
 
 <!--
     <servlet>
@@ -328,7 +337,7 @@
   <!--   debug                Debugging detail level for messages logged    -->
   <!--                        by this servlet.  [0]                         -->
   <!--                                                                      -->
-  <!--   executable           Name of the exectuable used to run the        -->
+  <!--   executable           Name of the executable used to run the        -->
   <!--                        script. [perl]                                -->
   <!--                                                                      -->
   <!--   parameterEncoding    Name of parameter encoding to be used with    -->
@@ -337,6 +346,10 @@
   <!--                                                                      -->
   <!--   passShellEnvironment Should the shell environment variables (if    -->
   <!--                        any) be passed to the CGI script? [false]     -->
+  <!--                                                                      -->
+  <!--   stderrTimeout        The time (in milliseconds) to wait for the    -->
+  <!--                        reading of stderr to complete before          -->
+  <!--                        terminating the CGI process. [2000]           -->
 
 <!--
     <servlet>
@@ -437,6 +450,8 @@
   <!--                       Should "virtual" paths be interpreted as       -->
   <!--                       relative to the context root, instead of       -->
   <!--                       the server root?  (0=false, 1=true) [0]        -->
+  <!--                                                                      -->
+  <!--   allowExec           Is use of the exec command enabled? [false]    -->
 
 <!--
     <filter>
@@ -911,7 +926,11 @@
     </mime-mapping>
     <mime-mapping>
         <extension>ppt</extension>
-        <mime-type>application/powerpoint</mime-type>
+        <mime-type>application/vnd.ms-powerpoint</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>pps</extension>
+        <mime-type>application/vnd.ms-powerpoint</mime-type>
     </mime-mapping>
     <mime-mapping>
         <extension>ps</extension>
@@ -1000,6 +1019,14 @@
         <mime-type>application/x-sv4crc</mime-type>
     </mime-mapping>
     <mime-mapping>
+        <extension>svg</extension>
+        <mime-type>image/svg+xml</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>svgz</extension>
+        <mime-type>image/svg+xml</mime-type>
+    </mime-mapping>
+    <mime-mapping>
         <extension>swf</extension>
         <mime-type>application/x-shockwave-flash</mime-type>
     </mime-mapping>
@@ -1072,6 +1099,10 @@
         <mime-type>application/xhtml+xml</mime-type>
     </mime-mapping>
     <mime-mapping>
+        <extension>xls</extension>
+        <mime-type>application/vnd.ms-excel</mime-type>
+    </mime-mapping>
+    <mime-mapping>
         <extension>xml</extension>
         <mime-type>application/xml</mime-type>
     </mime-mapping>
@@ -1096,20 +1127,12 @@
         <mime-type>image/x-xwindowdump</mime-type>
     </mime-mapping>
     <mime-mapping>
-        <extension>wav</extension>
-        <mime-type>audio/x-wav</mime-type>
-    </mime-mapping>
-    <mime-mapping>
-        <extension>svg</extension>
-        <mime-type>image/svg+xml</mime-type>
-    </mime-mapping>
-    <mime-mapping>
-        <extension>svgz</extension>
-        <mime-type>image/svg+xml</mime-type>
-    </mime-mapping>
-    <mime-mapping>
         <extension>vsd</extension>
         <mime-type>application/x-visio</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>wav</extension>
+        <mime-type>audio/x-wav</mime-type>
     </mime-mapping>
     <mime-mapping>
         <!-- Wireless Bitmap -->
@@ -1159,18 +1182,6 @@
     <mime-mapping>
         <extension>zip</extension>
         <mime-type>application/zip</mime-type>
-    </mime-mapping>
-    <mime-mapping>
-        <extension>xls</extension>
-        <mime-type>application/vnd.ms-excel</mime-type>
-    </mime-mapping>
-    <mime-mapping>
-        <extension>doc</extension>
-        <mime-type>application/vnd.ms-word</mime-type>
-    </mime-mapping>
-    <mime-mapping>
-        <extension>ppt</extension>
-        <mime-type>application/vnd.ms-powerpoint</mime-type>
     </mime-mapping>
 
   <!-- ==================== Default Welcome File List ===================== -->

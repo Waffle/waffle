@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<!--
+<%--
  Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
   this work for additional information regarding copyright ownership.
@@ -14,7 +14,7 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
--->
+--%>
 <%@page session="false" contentType="text/html; charset=ISO-8859-1" %>
 <%@page import="java.util.Collection" %>
 <%@page import="java.util.Iterator" %>
@@ -26,7 +26,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <% String path = (String) request.getAttribute("path");
-   String submitUrl = ((HttpServletRequest)pageContext.getRequest()).getRequestURL().append("?path=").append(path).toString();
+   String submitUrl = ((HttpServletRequest)pageContext.getRequest()).getRequestURI() + "?path=" + path;
    Collection activeSessions = (Collection) request.getAttribute("activeSessions");
 %>
 <head>
@@ -36,7 +36,7 @@
 	<meta http-equiv="expires" content="0"/><!-- 0 is an invalid value and should be treated as 'now' -->
 	<meta http-equiv="content-language" content="en"/>
 	<meta name="author" content="Cedrik LIME"/>
-	<meta name="copyright" content="copyright 2005-2007 the Apache Software Foundation"/>
+	<meta name="copyright" content="copyright 2005-2010 the Apache Software Foundation"/>
 	<meta name="robots" content="noindex,nofollow,noarchive"/>
 	<title>Sessions Administration for <%= path %></title>
 </head>
@@ -99,7 +99,7 @@
 %>
 				<tr>
 					<td>
-<input type="checkbox" name="sessionIds" value="<%= currentSessionId %>" /><a href="<%= submitUrl %>&amp;action=sessionDetail&amp;sessionId=<%= currentSessionId %>" target="_new"><%= JspHelper.escapeXml(currentSessionId) %></a>
+<input type="checkbox" name="sessionIds" value="<%= currentSessionId %>" /><a href="<%= submitUrl %>&amp;action=sessionDetail&amp;sessionId=<%= currentSessionId %>" target="_blank"><%= JspHelper.escapeXml(currentSessionId) %></a>
 					</td>
 					<td style="text-align: center;"><%= JspHelper.guessDisplayLocaleFromSession(currentSession) %></td>
 					<td style="text-align: center;"><%= JspHelper.guessDisplayUserFromSession(currentSession) %></td>

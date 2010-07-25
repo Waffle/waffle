@@ -687,4 +687,28 @@ public class SimpleContext implements Context {
 	public void setResources(DirContext arg0) {
 
 	}
+
+	public String getSessionCookieDomain() {
+		return null;
+	}
+
+	public String getSessionCookieName() {
+		return null;
+	}
+
+	public String getSessionCookiePath() {
+		return null;
+	}
+
+	public void setSessionCookieDomain(String arg0) {
+		
+	}
+
+	public void setSessionCookieName(String arg0) {
+		
+	}
+
+	public void setSessionCookiePath(String arg0) {
+		
+	}
 }

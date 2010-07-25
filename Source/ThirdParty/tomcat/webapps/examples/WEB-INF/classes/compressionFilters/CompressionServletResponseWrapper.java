@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletResponseWrapper;
  *
  * @author Amy Roh
  * @author Dmitri Valdin
- * @version $Revision: 500668 $, $Date: 2007-01-28 00:07:51 +0100 (Sun, 28 Jan 2007) $
+ * @version $Id: CompressionServletResponseWrapper.java 939521 2010-04-30 00:16:33Z kkolinko $
  */
 
 public class CompressionServletResponseWrapper extends HttpServletResponseWrapper {

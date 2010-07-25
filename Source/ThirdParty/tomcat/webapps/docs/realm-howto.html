@@ -1,37 +1,11 @@
-<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat 6.0 - Realm Configuration HOW-TO</title><meta value="Craig R. McClanahan" name="author"><meta value="craigmcc@apache.org" name="email"><meta value="Yoav Shapira" name="author"><meta value="yoavs@apache.org" name="email"><meta value="Andrew R. Jaquith" name="author"><meta value="arjaquith@mindspring.com" name="email"><style media="print" type="text/css">
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat 6.0 - Realm Configuration HOW-TO</title><meta content="Craig R. McClanahan" name="author"><meta content="Yoav Shapira" name="author"><meta content="Andrew R. Jaquith" name="author"><style media="print" type="text/css">
 			.noPrint {display: none;}
 			td#mainBody {width: 100%;}
 		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
       The Apache Tomcat Servlet/JSP Container
-    " align="right" src="./images/tomcat.gif"></a></td><td><font face="arial,helvetica,sanserif"><h1>Apache Tomcat 6.0</h1></font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="./images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap="true" valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="index.html">Docs Home</a></li><li><a href="http://wiki.apache.org/tomcat/FAQ">FAQ</a></li></ul><p><strong>User Guide</strong></p><ul><li><a href="introduction.html">1) Introduction</a></li><li><a href="setup.html">2) Setup</a></li><li><a href="appdev/index.html">3) First webapp</a></li><li><a href="deployer-howto.html">4) Deployer</a></li><li><a href="manager-howto.html">5) Manager</a></li><li><a href="realm-howto.html">6) Realms and AAA</a></li><li><a href="security-manager-howto.html">7) Security Manager</a></li><li><a href="jndi-resources-howto.html">8) JNDI Resources</a></li><li><a href="jndi-datasource-examples-howto.html">9) JDBC DataSources</a></li><li><a href="class-loader-howto.html">10) Classloading</a></li><li><a href="jasper-howto.html">11) JSPs</a></li><li><a href="ssl-howto.html">12) SSL</a></li><li><a href="ssi-howto.html">13) SSI</a></li><li><a href="cgi-howto.html">14) CGI</a></li><li><a href="proxy-howto.html">15) Proxy Support</a></li><li><a href="mbeans-descriptor-howto.html">16) MBean Descriptor</a></li><li><a href="default-servlet.html">17) Default Servlet</a></li><li><a href="cluster-howto.html">18) Clustering</a></li><li><a href="balancer-howto.html">19) Load Balancer</a></li><li><a href="connectors.html">20) Connectors</a></li><li><a href="monitoring.html">21) Monitoring and Management</a></li><li><a href="logging.html">22) Logging</a></li><li><a href="apr.html">23) APR/Native</a></li><li><a href="virtual-hosting-howto.html">24) Virtual Hosting</a></li><li><a href="aio.html">25) Advanced IO</a></li><li><a href="extras.html">26) Additional Components</a></li><li><a href="maven-jars.html">27) Mavenized</a></li></ul><p><strong>Reference</strong></p><ul><li><a href="RELEASE-NOTES.txt">Release Notes</a></li><li><a href="config/index.html">Configuration</a></li><li><a href="api/index.html">Javadocs</a></li><li><a href="http://tomcat.apache.org/connectors-doc/">JK 1.2 Documentation</a></li></ul><p><strong>Apache Tomcat Development</strong></p><ul><li><a href="building.html">Building</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="http://wiki.apache.org/tomcat/TomcatVersions">Status</a></li><li><a href="developers.html">Developers</a></li><li><a href="architecture/index.html">Architecture</a></li><li><a href="funcspecs/index.html">Functional Specs.</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat 6.0</h1><h2>Realm Configuration HOW-TO</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
-
-<p>
-<a href="#Quick Start">Quick Start</a><br>
-<blockquote>
-<a href="#What is a Realm?">What is a Realm?</a><br>
-<a href="#Configuring a Realm">Configuring a Realm</a><br>
-</blockquote>
-<a href="#Common Features">Common Features</a><br>
-<blockquote>
-<a href="#Digested Passwords">Digested Passwords</a><br>
-<a href="#Example Application">Example Application</a><br>
-<a href="#Manager Application">Manager Application</a><br>
-<a href="#Realm Logging">Logging Within Realms</a><br>
-</blockquote>
-<a href="#Standard Realm Implementations">
-Standard Realm Implementations</a><br>
-<blockquote>
-<a href="#JDBCRealm">JDBCRealm</a><br>
-<a href="#DataSourceRealm">DataSourceRealm</a><br>
-<a href="#JNDIRealm">JNDIRealm</a><br>
-<a href="#MemoryRealm">MemoryRealm</a><br>
-<a href="#JAASRealm">JAASRealm</a><br>
-<a href="#CombinedRealm">CombinedRealm</a><br>
-<a href="#LockOutRealm">LockOutRealm</a><br>
-</blockquote>
-</p>
-
-</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Quick Start"><strong>Quick Start</strong></a></font></td></tr><tr><td><blockquote>
+    " align="right" src="./images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="./images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="index.html">Docs Home</a></li><li><a href="http://wiki.apache.org/tomcat/FAQ">FAQ</a></li></ul><p><strong>User Guide</strong></p><ul><li><a href="introduction.html">1) Introduction</a></li><li><a href="setup.html">2) Setup</a></li><li><a href="appdev/index.html">3) First webapp</a></li><li><a href="deployer-howto.html">4) Deployer</a></li><li><a href="manager-howto.html">5) Manager</a></li><li><a href="realm-howto.html">6) Realms and AAA</a></li><li><a href="security-manager-howto.html">7) Security Manager</a></li><li><a href="jndi-resources-howto.html">8) JNDI Resources</a></li><li><a href="jndi-datasource-examples-howto.html">9) JDBC DataSources</a></li><li><a href="class-loader-howto.html">10) Classloading</a></li><li><a href="jasper-howto.html">11) JSPs</a></li><li><a href="ssl-howto.html">12) SSL</a></li><li><a href="ssi-howto.html">13) SSI</a></li><li><a href="cgi-howto.html">14) CGI</a></li><li><a href="proxy-howto.html">15) Proxy Support</a></li><li><a href="mbeans-descriptor-howto.html">16) MBean Descriptor</a></li><li><a href="default-servlet.html">17) Default Servlet</a></li><li><a href="cluster-howto.html">18) Clustering</a></li><li><a href="balancer-howto.html">19) Load Balancer</a></li><li><a href="connectors.html">20) Connectors</a></li><li><a href="monitoring.html">21) Monitoring and Management</a></li><li><a href="logging.html">22) Logging</a></li><li><a href="apr.html">23) APR/Native</a></li><li><a href="virtual-hosting-howto.html">24) Virtual Hosting</a></li><li><a href="aio.html">25) Advanced IO</a></li><li><a href="extras.html">26) Additional Components</a></li><li><a href="maven-jars.html">27) Mavenized</a></li></ul><p><strong>Reference</strong></p><ul><li><a href="RELEASE-NOTES.txt">Release Notes</a></li><li><a href="config/index.html">Configuration</a></li><li><a href="api/index.html">Javadocs</a></li><li><a href="http://tomcat.apache.org/connectors-doc/">JK 1.2 Documentation</a></li></ul><p><strong>Apache Tomcat Development</strong></p><ul><li><a href="building.html">Building</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="http://wiki.apache.org/tomcat/TomcatVersions">Status</a></li><li><a href="developers.html">Developers</a></li><li><a href="architecture/index.html">Architecture</a></li><li><a href="funcspecs/index.html">Functional Specs.</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat 6.0</h1><h2>Realm Configuration HOW-TO</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
+<ul><li><a href="#Quick_Start">Quick Start</a></li><li><a href="#Overview">Overview</a><ol><li><a href="#What_is_a_Realm?">What is a Realm?</a></li><li><a href="#Configuring_a_Realm">Configuring a Realm</a></li></ol></li><li><a href="#Common_Features">Common Features</a><ol><li><a href="#Digested_Passwords">Digested Passwords</a></li><li><a href="#Example_Application">Example Application</a></li><li><a href="#Manager_Application">Manager Application</a></li><li><a href="#Realm_Logging">Realm Logging</a></li></ol></li><li><a href="#Standard_Realm_Implementations">Standard Realm Implementations</a><ol><li><a href="#JDBCRealm">JDBCRealm</a></li><li><a href="#DataSourceRealm">DataSourceRealm</a></li><li><a href="#JNDIRealm">JNDIRealm</a></li><li><a href="#UserDatabaseRealm">UserDatabaseRealm</a></li><li><a href="#MemoryRealm">MemoryRealm</a></li><li><a href="#JAASRealm">JAASRealm</a></li><li><a href="#CombinedRealm">CombinedRealm</a></li><li><a href="#LockOutRealm">LockOutRealm</a></li></ol></li></ul>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Quick Start"><!--()--></a><a name="Quick_Start"><strong>Quick Start</strong></a></font></td></tr><tr><td><blockquote>
 
 <p>This document describes how to configure Tomcat to support <em>container
 managed security</em>, by connecting to an existing "database" of usernames,
@@ -54,7 +28,7 @@ set of web applications associated with a virtual host), see
 </blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Overview"><strong>Overview</strong></a></font></td></tr><tr><td><blockquote>
 
 
-<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="What is a Realm?"><strong>What is a Realm?</strong></a></font></td></tr><tr><td><blockquote>
+<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="What is a Realm?"><!--()--></a><a name="What_is_a_Realm?"><strong>What is a Realm?</strong></a></font></td></tr><tr><td><blockquote>
 
 <p>A <strong>Realm</strong> is a "database" of usernames and passwords that
 identify valid users of a web application (or set of web applications), plus
@@ -69,7 +43,7 @@ associated with their username.</p>
 applications to <em>declare</em> their security requirements (in the
 <code>web.xml</code> deployment descriptor), there is no portable API
 defining the interface between a servlet container and the associated user
-and role information.  In many cases, however, it is desireable to "connect"
+and role information.  In many cases, however, it is desirable to "connect"
 a servlet container to some existing authentication database or mechanism
 that already exists in the production environment.  Therefore, Tomcat 6
 defines a Java interface (<code>org.apache.catalina.Realm</code>) that
@@ -85,6 +59,9 @@ sources of authentication information:</p>
 <li><a href="#JNDIRealm">JNDIRealm</a> - Accesses authentication information
     stored in an LDAP based directory server, accessed via a JNDI provider.
     </li>
+<li><a href="#UserDatabaseRealm">UserDatabaseRealm</a> - Accesses authentication
+    information stored in an UserDatabase JNDI resource, which is typically
+    backed by an XML document (<code>conf/tomcat-users.xml</code>).</li>
 <li><a href="#MemoryRealm">MemoryRealm</a> - Accesses authentication
     information stored in an in-memory object collection, which is initialized
     from an XML document (<code>conf/tomcat-users.xml</code>).</li>
@@ -106,17 +83,17 @@ and integrate it with Tomcat 6.  To do so, you need to:
 </blockquote></td></tr></table>
 
 
-<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Configuring a Realm"><strong>Configuring a Realm</strong></a></font></td></tr><tr><td><blockquote>
+<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Configuring a Realm"><!--()--></a><a name="Configuring_a_Realm"><strong>Configuring a Realm</strong></a></font></td></tr><tr><td><blockquote>
 
 <p>Before getting into the details of the standard Realm implementations, it is
 important to understand, in general terms, how a Realm is configured.  In
 general, you will be adding an XML element to your <code>conf/server.xml</code>
 configuration file, that looks something like this:</p>
 
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 &lt;Realm className="... class name for this implementation"
        ... other attributes for this implementation .../&gt;
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
 
 <p>The <code>&lt;Realm&gt;</code> element can be nested inside any one of 
 of the following <code>Container</code> elements.  The location of the
@@ -140,14 +117,14 @@ Realm element has a direct impact on the "scope" of that Realm
 </blockquote></td></tr></table>
 
 
-</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Common Features"><strong>Common Features</strong></a></font></td></tr><tr><td><blockquote>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Common Features"><!--()--></a><a name="Common_Features"><strong>Common Features</strong></a></font></td></tr><tr><td><blockquote>
 
 
-<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Digested Passwords"><strong>Digested Passwords</strong></a></font></td></tr><tr><td><blockquote>
+<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Digested Passwords"><!--()--></a><a name="Digested_Passwords"><strong>Digested Passwords</strong></a></font></td></tr><tr><td><blockquote>
 
 <p>For each of the standard <code>Realm</code> implementations, the
 user's password (by default) is stored in clear text.  In many
-environments, this is undesireable because casual observers of the
+environments, this is undesirable because casual observers of the
 authentication data can collect enough information to log on
 successfully, and impersonate other users.  To avoid this problem, the
 standard implementations support the concept of <em>digesting</em>
@@ -183,10 +160,10 @@ techniques are supported:</p>
     method will return the digested password.</li>
 <li>If you want to execute a command line utility to calculate the digested
     password, simply execute
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 java org.apache.catalina.realm.RealmBase \
     -a {algorithm} {cleartext-password}
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
     and the digested version of this cleartext password will be returned to
     standard output.</li>
 </ul>
@@ -196,7 +173,11 @@ java org.apache.catalina.realm.RealmBase \
    <code>{cleartext-password}</code> must be replaced with 
    <code>{username}:{realm}:{cleartext-password}</code>. For example, in a
    development environment this might take the form
-   <code>testUser:localhost:8080:testPassword</code>.</p>
+   <code>testUser:Authentication required:testPassword</code>. The value for
+   <code>{realm}</code> is taken from the <code>&lt;realm-name&gt;</code>
+   element of the web application's <code>&lt;login-config&gt;</code>. If
+   not specified in web.xml, the default value of <code>Authentication
+   required</code> is used.</p>
 
 <p>To use either of the above techniques, the
 <code>$CATALINA_HOME/lib/catalina.jar</code> and 
@@ -205,9 +186,9 @@ on your class path to make the <code>RealmBase</code> class available.
 </p>
 
 <p>Non-ASCII usernames and/or passwords are supported using
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>java org.apache.catalina.realm.RealmBase \
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>java org.apache.catalina.realm.RealmBase \
     -a {algorithm} -e {encoding} {input}
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
 but care is required to ensure that the non-ASCII input is
 correctly passed to the digester.
 The digester returns <code>{input}:{digest}</code>. If the input appears
@@ -217,19 +198,19 @@ corrupted in the return, the digest will be invalid.</p>
 
 
 
-<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Example Application"><strong>Example Application</strong></a></font></td></tr><tr><td><blockquote>
+<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Example Application"><!--()--></a><a name="Example_Application"><strong>Example Application</strong></a></font></td></tr><tr><td><blockquote>
 
 <p>The example application shipped with Tomcat 6 includes an area that is
 protected by a security constraint, utilizing form-based login.  To access it,
 point your browser at
 <a href="http://localhost:8080/examples/jsp/security/protected/">http://localhost:8080/examples/jsp/security/protected/</a>
 and log on with one of the usernames and passwords described for the default
-<a href="#MemoryRealm">MemoryRealm</a>.</p>
+<a href="#UserDatabaseRealm">UserDatabaseRealm</a>.</p>
 
 </blockquote></td></tr></table>
 
 
-<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Manager Application"><strong>Manager Application</strong></a></font></td></tr><tr><td><blockquote>
+<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Manager Application"><!--()--></a><a name="Manager_Application"><strong>Manager Application</strong></a></font></td></tr><tr><td><blockquote>
 
 <p>If you wish to use the <a href="manager-howto.html">Manager Application</a>
 to deploy and undeploy applications in a running Tomcat 6 installation, you
@@ -239,13 +220,13 @@ security constraint that requires role "manager" to access ANY request URI
 within that application.</p>
 
 <p>For security reasons, no username in the default Realm (i.e. using
-<code>conf/tomcat-users.xml</code> is assigned the "manager" role.  Therfore,
+<code>conf/tomcat-users.xml</code> is assigned the "manager" role.  Therefore,
 no one will be able to utilize the features of this application until the
 Tomcat administrator specifically assigns this role to one or more users.</p>
 
 </blockquote></td></tr></table>
 
-<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Realm Logging"><strong>Realm Logging</strong></a></font></td></tr><tr><td><blockquote>
+<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Realm Logging"><!--()--></a><a name="Realm_Logging"><strong>Realm Logging</strong></a></font></td></tr><tr><td><blockquote>
 
 <p>Debugging and exception messages logged by a <code>Realm</code> will
    be recorded by the logging configuration associated with the container
@@ -255,7 +236,7 @@ Tomcat administrator specifically assigns this role to one or more users.</p>
 
 </blockquote></td></tr></table>
 
-</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Standard Realm Implementations"><strong>Standard Realm Implementations</strong></a></font></td></tr><tr><td><blockquote>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Standard Realm Implementations"><!--()--></a><a name="Standard_Realm_Implementations"><strong>Standard Realm Implementations</strong></a></font></td></tr><tr><td><blockquote>
 
 <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="JDBCRealm"><strong>JDBCRealm</strong></a></font></td></tr><tr><td><blockquote>
 
@@ -312,56 +293,15 @@ database structure conforms to the following requirements:</p>
 
 <p>To configure JDBCRealm, you will create a <code>&lt;Realm&gt;</code>
 element and nest it in your <code>$CATALINA_BASE/conf/server.xml</code> file,
-as described <a href="#Configuring a Realm">above</a>.  The following
-attributes are supported by this implementation:</p>
-
-<table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>className</code></strong></td><td valign="center" align="left">
-    <p>The fully qualified Java class name of this Realm implementation.
-    You <strong>MUST</strong> specify the value
-    "<code>org.apache.catalina.realm.JDBCRealm</code>" here.</p>
-  </td></tr><tr><td valign="center" align="left"><strong><code>connectionName</code></strong></td><td valign="center" align="left">
-    <p>The database username used to establish a JDBC connection.</p>
-  </td></tr><tr><td valign="center" align="left"><strong><code>connectionPassword</code></strong></td><td valign="center" align="left">
-    <p>The database password used to establish a JDBC connection.</p>
-  </td></tr><tr><td valign="center" align="left"><strong><code>connectionURL</code></strong></td><td valign="center" align="left">
-    <p>The database URL used to establish a JDBC connection.</p>
-  </td></tr><tr><td valign="center" align="left"><code>digest</code></td><td valign="center" align="left">
-    <p>The digest algorithm used to store passwords in non-plaintext formats.
-    Valid values are those accepted for the algorithm name by the
-    <code>java.security.MessageDigest</code> class.  See
-    <a href="#Digested Passwords">Digested Passwords</a> for more
-    information.  If not specified, passwords are stored in clear text.</p>
-  </td></tr><tr><td valign="center" align="left"><strong><code>driverName</code></strong></td><td valign="center" align="left">
-    <p>The fully qualified Java class name of the JDBC driver to be used.
-    Consult the documentation for your JDBC driver for the appropriate
-    value.</p>
-  </td></tr><tr><td valign="center" align="left"><strong><code>roleNameCol</code></strong></td><td valign="center" align="left">
-    <p>The name of the column, in the <em>user roles</em> table, that
-    contains the name of a role assigned to this user.</p>
-  </td></tr><tr><td valign="center" align="left"><strong><code>userCredCol</code></strong></td><td valign="center" align="left">
-    <p>The name of the column, in the <em>users</em> table, that contains
-    the password for this user (either in clear text, or digested if the
-    <code>digest</code> attribute is set).</p>
-  </td></tr><tr><td valign="center" align="left"><strong><code>userNameCol</code></strong></td><td valign="center" align="left">
-    <p>The name of the column, in the <em>users</em> and <em>user roles</em>
-    tables, that contains the username of this user.</p>
-  </td></tr><tr><td valign="center" align="left"><strong><code>userRoleTable</code></strong></td><td valign="center" align="left">
-    <p>The name of the table that contains one row for each <em>role</em>
-    assigned to a particular <em>username</em>.  This table must include at
-    least the columns named by the <code>userNameCol</code> and
-    <code>roleNameCol</code> attributes.</p>
-  </td></tr><tr><td valign="center" align="left"><strong><code>userTable</code></strong></td><td valign="center" align="left">
-    <p>The name of the table that contains one row for each <em>username</em>
-    to be recognized by Tomcat.  This table must include at least the columns
-    named by the <code>userNameCol</code> and <code>userCredCol</code>
-    attributes.</p>
-  </td></tr></table>
+as described <a href="#Configuring a Realm">above</a>. The attributes for the
+JDBCRealm are defined in the <a href="config/realm.html">Realm</a> configuration
+documentation.</p>
 
 <h3>Example</h3>
 
 <p>An example SQL script to create the needed tables might look something
 like this (adapt the syntax as required for your particular database):</p>
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 create table users (
   user_name         varchar(15) not null primary key,
   user_pass         varchar(15) not null
@@ -372,19 +312,19 @@ create table user_roles (
   role_name         varchar(15) not null,
   primary key (user_name, role_name)
 );
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
 
 <p>Example <code>Realm</code> elements are included (commented out) in the
 default <code>$CATALINA_BASE/conf/server.xml</code> file.  Here's an example
 for using a MySQL database called "authority", configured with the tables
 described above, and accessed with username "dbuser" and password "dbpass":</p>
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 &lt;Realm className="org.apache.catalina.realm.JDBCRealm" debug="99"
       driverName="org.gjt.mm.mysql.Driver"
    connectionURL="jdbc:mysql://localhost/authority?user=dbuser&amp;amp;password=dbpass"
        userTable="users" userNameCol="user_name" userCredCol="user_pass"
    userRoleTable="user_roles" roleNameCol="role_name"/&gt;
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
 
 <h3>Additional Notes</h3>
 
@@ -466,56 +406,15 @@ as your database structure conforms to the following requirements:</p>
 
 <p>To configure DataSourceRealm, you will create a <code>&lt;Realm&gt;</code>
 element and nest it in your <code>$CATALINA_BASE/conf/server.xml</code> file,
-as described <a href="#Configuring a Realm">above</a>.  The following
-attributes are supported by this implementation:</p>
-
-<table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>className</code></strong></td><td valign="center" align="left">
-    <p>The fully qualified Java class name of this Realm implementation.
-    You <strong>MUST</strong> specify the value
-    "<code>org.apache.catalina.realm.DataSourceRealm</code>" here.</p>
-  </td></tr><tr><td valign="center" align="left"><strong><code>dataSourceName</code></strong></td><td valign="center" align="left">
-    <p>The JNDI named JDBC DataSource for your database. If the DataSource is
-    local to the context, the name is relative to <code>java:/comp/env</code>,
-    and otherwise the name should match the name used to define the global
-    DataSource.</p>
-  </td></tr><tr><td valign="center" align="left"><code>digest</code></td><td valign="center" align="left">
-    <p>The digest algorithm used to store passwords in non-plaintext formats.
-    Valid values are those accepted for the algorithm name by the
-    <code>java.security.MessageDigest</code> class.  See
-    <a href="#Digested Passwords">Digested Passwords</a> for more
-    information.  If not specified, passwords are stored in clear text.</p>
-  </td></tr><tr><td valign="center" align="left"><code>localDataSource</code></td><td valign="center" align="left">
-    <p>When the realm is nested inside a Context element, this allows the 
-    realm to use a DataSource defined for the Context rather than a global
-    DataSource.  If not specified, the default is <code>false</code>: use a 
-    global DataSource.</p>
-  </td></tr><tr><td valign="center" align="left"><strong><code>roleNameCol</code></strong></td><td valign="center" align="left">
-    <p>The name of the column, in the <em>user roles</em> table, that
-    contains the name of a role assigned to this user.</p>
-  </td></tr><tr><td valign="center" align="left"><strong><code>userCredCol</code></strong></td><td valign="center" align="left">
-    <p>The name of the column, in the <em>users</em> table, that contains
-    the password for this user (either in clear text, or digested if the
-    <code>digest</code> attribute is set).</p>
-  </td></tr><tr><td valign="center" align="left"><strong><code>userNameCol</code></strong></td><td valign="center" align="left">
-    <p>The name of the column, in the <em>users</em> and <em>user roles</em>
-    tables, that contains the username of this user.</p>
-  </td></tr><tr><td valign="center" align="left"><strong><code>userRoleTable</code></strong></td><td valign="center" align="left">
-    <p>The name of the table that contains one row for each <em>role</em>
-    assigned to a particular <em>username</em>.  This table must include at
-    least the columns named by the <code>userNameCol</code> and
-    <code>roleNameCol</code> attributes.</p>
-  </td></tr><tr><td valign="center" align="left"><strong><code>userTable</code></strong></td><td valign="center" align="left">
-    <p>The name of the table that contains one row for each <em>username</em>
-    to be recognized by Tomcat.  This table must include at least the columns
-    named by the <code>userNameCol</code> and <code>userCredCol</code>
-    attributes.</p>
-  </td></tr></table>
+as described <a href="#Configuring a Realm">above</a>. The attributes for the
+DataSourceRealm are defined in the <a href="config/realm.html">Realm</a>
+configuration documentation.</p>
 
 <h3>Example</h3>
 
 <p>An example SQL script to create the needed tables might look something
 like this (adapt the syntax as required for your particular database):</p>
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 create table users (
   user_name         varchar(15) not null primary key,
   user_pass         varchar(15) not null
@@ -526,17 +425,17 @@ create table user_roles (
   role_name         varchar(15) not null,
   primary key (user_name, role_name)
 );
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
 
 <p>Here is an example for using a MySQL database called "authority", configured
 with the tables described above, and accessed with the JNDI JDBC DataSource with
 name "java:/comp/env/jdbc/authority".</p>
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 &lt;Realm className="org.apache.catalina.realm.DataSourceRealm" debug="99"
    dataSourceName="jdbc/authority"
    userTable="users" userNameCol="user_name" userCredCol="user_pass"
    userRoleTable="user_roles" roleNameCol="role_name"/&gt;
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
 
 <h3>Additional Notes</h3>
 
@@ -716,6 +615,12 @@ find the names of roles associated with the authenticated user:</p>
 <li><strong>roleName</strong> - the attribute in a role entry
      containing the name of that role.</li>
 
+<li><strong>roleNested</strong> - enable nested roles. Set to
+     <code>true</code> if you want to nest roles in roles. If configured
+     every newly found roleName and distinguished
+     Name will be recursively tried for a new role search.
+     The default value is <code>false</code>.</li>
+
 </ul>
 
 </li>
@@ -754,134 +659,9 @@ the name of this attribute.</p>
 
 <p>To configure JNDIRealm, you will create a <code>&lt;Realm&gt;</code>
 element and nest it in your <code>$CATALINA_BASE/conf/server.xml</code> file,
-as described <a href="#Configuring a Realm">above</a>.  The following
-attributes are supported by this implementation:</p>
-
-<table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>className</code></strong></td><td valign="center" align="left">
-    <p>The fully qualified Java class name of this Realm implementation.
-    You <strong>MUST</strong> specify the value
-    "<code>org.apache.catalina.realm.JNDIRealm</code>" here.</p>
-  </td></tr><tr><td valign="center" align="left"><code>alternateURL</code></td><td valign="center" align="left">
-        <p>If a socket connection can not be made to the provider at
-        the <code>connectionURL</code> an attempt will be made to use the
-        <code>alternateURL</code>.</p>
-      </td></tr><tr><td valign="center" align="left"><code>authentication</code></td><td valign="center" align="left">
-        <p>A string specifying the type of authentication to use.
-        "none", "simple", "strong" or a provider specific definition
-        can be used. If no value is given the providers default is used.</p>
-      </td></tr><tr><td valign="center" align="left"><code>connectionName</code></td><td valign="center" align="left">
-        <p>The directory username to use when establishing a
-        connection to the directory for LDAP search operations. If not
-        specified an anonymous connection is made, which is often
-        sufficient unless you specify the <code>userPassword</code>
-        property.</p>
-      </td></tr><tr><td valign="center" align="left"><code>connectionPassword</code></td><td valign="center" align="left">
-        <p>The directory password to use when establishing a
-        connection to the directory for LDAP search operations. If not
-        specified an anonymous connection is made, which is often
-        sufficient unless you specify the <code>userPassword</code>
-        property.</p>
-      </td></tr><tr><td valign="center" align="left"><strong><code>connectionURL</code></strong></td><td valign="center" align="left">
-        <p>The connection URL to be passed to the JNDI driver when
-        establishing a connection to the directory.</p>
-      </td></tr><tr><td valign="center" align="left"><code>contextFactory</code></td><td valign="center" align="left">
-        <p>The fully qualified Java class name of the JNDI context
-        factory to be used for this connection.  By default, the standard
-        JNDI LDAP provider is used
-        (<code>com.sun.jndi.ldap.LdapCtxFactory</code>).</p>
-      </td></tr><tr><td valign="center" align="left"><code>digest</code></td><td valign="center" align="left">
-        <p>The digest algorithm to apply to the plaintext password offered
-        by the user before comparing it with the value retrieved from the
-        directory.  Valid values are those accepted for the algorithm name
-        by the <code>java.security.MessageDigest</code> class.  See <a href="#Digested Passwords">Digested Passwords</a> for more
-        information. If not specified the plaintext password is assumed to
-        be retrieved. Not required unless <code>userPassword</code> is
-        specified</p>
-      </td></tr><tr><td valign="center" align="left"><code>protocol</code></td><td valign="center" align="left">
-         <p>A string specifying the security protocol to use. If not given
-         the providers default is used.</p>
-      </td></tr><tr><td valign="center" align="left"><code>roleBase</code></td><td valign="center" align="left">
-        <p>The base directory entry for performing role searches. If
-        not specified, the top level element in the directory context
-        will be used.</p>
-      </td></tr><tr><td valign="center" align="left"><code>roleName</code></td><td valign="center" align="left">
-        <p>The name of the attribute that contains role names in the
-        directory entries found by a role search. In addition you can
-        use the <code>userRoleName</code> property to specify the name
-        of an attribute, in the user's entry, containing additional
-        role names.  If <code>roleName</code> is not specified a role
-        search does not take place, and roles are taken only from the
-        user's entry.</p>
-      </td></tr><tr><td valign="center" align="left"><code>roleSearch</code></td><td valign="center" align="left">
-        <p>The LDAP filter expression used for performing role
-        searches, following the syntax supported by the
-        <code>java.text.MessageFormat</code> class.  Use
-        <code>{0}</code> to substitute the distinguished name (DN) of
-        the user, and/or <code>{1}</code> to substitute the
-        username. If not specified a role search does not take place
-        and roles are taken only from the attribute in the user's
-        entry specified by the <code>userRoleName</code> property.</p>
-      </td></tr><tr><td valign="center" align="left"><code>roleSubtree</code></td><td valign="center" align="left">
-        <p>Set to <code>true</code> if you want to search the entire
-        subtree of the element specified by the <code>roleBase</code>
-        property for role entries associated with the user. The
-        default value of <code>false</code> causes only the top level
-        to be searched.</p>
-      </td></tr><tr><td valign="center" align="left"><code>userBase</code></td><td valign="center" align="left">
-        <p>The base element for user searches performed using the
-        <code>userSearch</code> expression.  If not specified, the top
-        level element in the directory context will be used. Not used
-        if you are using the <code>userPattern</code> expression.</p>
-      </td></tr><tr><td valign="center" align="left"><code>userPassword</code></td><td valign="center" align="left">
-        <p>Name of the attribute in the user's entry containing the
-        user's password.  If you specify this value, JNDIRealm will
-        bind to the directory using the values specified by
-        <code>connectionName</code> and
-        <code>connectionPassword</code> properties, and retrieve the
-        corresponding attribute for comparison to the value specified
-        by the user being authenticated.  If the <code>digest</code>
-        attribute is set, the specified digest algorithm is applied to
-        the password offered by the user before comparing it with the
-        value retrieved from the directory.  If you do
-        <strong>not</strong> specify this value, JNDIRealm will
-        attempt a simple bind to the directory using the DN of the
-        user's entry and password specified by the user, with a
-        successful bind being interpreted as an authenticated
-        user.</p>
-      </td></tr><tr><td valign="center" align="left"><code>userPattern</code></td><td valign="center" align="left">
-        <p>A pattern for the distinguished name (DN) of the user's
-        directory entry, following the syntax supported by the
-        <code>java.text.MessageFormat</code> class with
-        <code>{0}</code> marking where the actual username should be
-        inserted. You can use this property instead of
-        <code>userSearch</code>, <code>userSubtree</code> and
-        <code>userBase</code> when the distinguished name contains the
-        username and is otherwise the same for all users.</p>
-      </td></tr><tr><td valign="center" align="left"><code>userRoleName</code></td><td valign="center" align="left">
-        <p>The name of an attribute in the user's directory entry
-        containing zero or more values for the names of roles assigned
-        to this user.  In addition you can use the
-        <code>roleName</code> property to specify the name of an
-        attribute to be retrieved from individual role entries found
-        by searching the directory. If <code>userRoleName</code> is
-        not specified all the roles for a user derive from the role
-        search.</p>
-      </td></tr><tr><td valign="center" align="left"><code>userSearch</code></td><td valign="center" align="left">
-        <p>The LDAP filter expression to use when searching for a
-        user's directory entry, with <code>{0}</code> marking where
-        the actual username should be inserted.  Use this property
-        (along with the <code>userBase</code> and
-        <code>userSubtree</code> properties) instead of
-        <code>userPattern</code> to search the directory for the
-        user's entry.</p>
-      </td></tr><tr><td valign="center" align="left"><code>userSubtree</code></td><td valign="center" align="left">
-        <p>Set to <code>true</code> if you want to search the entire
-        subtree of the element specified by the <code>userBase</code>
-        property for the user's entry. The default value of
-        <code>false</code> causes only the top level to be searched.
-        Not used if you are using the <code>userPattern</code>
-        expression.</p>
-      </td></tr></table>
+as described <a href="#Configuring a Realm">above</a>. The attributes for the
+JNDIRealm are defined in the <a href="config/realm.html">Realm</a> configuration
+documentation.</p>
 
 <h3>Example</h3>
 
@@ -893,12 +673,12 @@ can be downloaded from
 <a href="http://www.openldap.org">http://www.openldap.org</a>.  Assume that
 your <code>slapd.conf</code> file contains the following settings
 (among others):</p>
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 database ldbm
 suffix dc="mycompany",dc="com"
 rootdn "cn=Manager,dc=mycompany,dc=com"
 rootpw secret
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
 
 <p>We will assume for <code>connectionURL</code> that the directory
 server runs on the same machine as Tomcat.  See <a href="http://java.sun.com/products/jndi/docs.html">http://java.sun.com/products/jndi/docs.html</a>
@@ -908,7 +688,7 @@ provider.</p>
 <p>Next, assume that this directory server has been populated with elements
 as shown below (in LDIF format):</p>
 
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 
 # Define top-level entry
 dn: dc=mycompany,dc=com
@@ -957,7 +737,7 @@ dn: cn=role1,ou=groups,dc=mycompany,dc=com
 objectClass: groupOfUniqueNames
 cn: role1
 uniqueMember: uid=fbloggs,ou=people,dc=mycompany,dc=com
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
 
 <p>An example <code>Realm</code> element for the OpenLDAP directory
 server configured as described above might look like this, assuming
@@ -965,7 +745,7 @@ that users use their uid (e.g. jjones) to login to the
 application and that an anonymous connection is sufficient to search
 the directory and retrieve role information:</p>
 
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 &lt;Realm   className="org.apache.catalina.realm.JNDIRealm" debug="99"
      connectionURL="ldap://localhost:389"
        userPattern="uid={0},ou=people,dc=mycompany,dc=com"
@@ -973,7 +753,7 @@ the directory and retrieve role information:</p>
           roleName="cn"
         roleSearch="(uniqueMember={0})"
 /&gt;
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
 
 <p>With this configuration, the realm will determine the user's
 distinguished name by substituting the username into the
@@ -991,7 +771,7 @@ to different organizational units or company locations).</p>
 use an attribute of the user's entry to hold roles. Now the entry for
 Janet Jones might read as follows:</p>
 
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 dn: uid=jjones,ou=people,dc=mycompany,dc=com
 objectClass: inetOrgPerson
 uid: jjones
@@ -1001,11 +781,11 @@ mail: j.jones@mycompany.com
 memberOf: role2
 memberOf: role3
 userPassword: janet
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
 
 <p> This realm configuration would satisfy the new requirements:</p>
 
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 &lt;Realm   className="org.apache.catalina.realm.JNDIRealm" debug="99"
      connectionURL="ldap://localhost:389"
           userBase="ou=people,dc=mycompany,dc=com"
@@ -1015,7 +795,7 @@ userPassword: janet
           roleName="cn"
         roleSearch="(uniqueMember={0})"
 /&gt;
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
 
 <p>Now when Janet Jones logs in as "j.jones@mycompany.com", the realm
 searches the directory for a unique entry with that value as its mail
@@ -1030,7 +810,7 @@ only group entry of which she is a member.</p>
 the password from the directory and making a local comparison in the
 realm, you might use a realm configuration like this:</p>
 
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 &lt;Realm   className="org.apache.catalina.realm.JNDIRealm" debug="99"
     connectionName="cn=Manager,dc=mycompany,dc=com"
 connectionPassword="secret"
@@ -1041,7 +821,7 @@ connectionPassword="secret"
           roleName="cn"
         roleSearch="(uniqueMember={0})"
 /&gt;
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
 
 <p>However, as discussed above, the default bind mode for
 authentication is usually to be preferred.</p>
@@ -1071,6 +851,71 @@ authentication is usually to be preferred.</p>
 </blockquote></td></tr></table>
 
 
+<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="UserDatabaseRealm"><strong>UserDatabaseRealm</strong></a></font></td></tr><tr><td><blockquote>
+
+<h3>Introduction</h3>
+
+<p><strong>UserDatabaseRealm</strong> is an implementation of the Tomcat 6
+<code>Realm</code> interface that uses a JNDI resource to store user
+information. By default, the JNDI resource is backed by an XML file. It is not
+designed for large-scale production use. At startup time, the UserDatabaseRealm
+loads information about all users, and their corresponding roles, from an XML
+document (by default, this document is loaded from
+<code>$CATALINA_BASE/conf/tomcat-users.xml</code>). The users, their passwords
+and their roles may all be editing dynamically, typically via JMX. Changes may
+be saved and will be reflected in the XMl file.</p>
+
+<h3>Realm Element Attributes</h3>
+
+<p>To configure UserDatabaseRealm, you will create a <code>&lt;Realm&gt;</code>
+element and nest it in your <code>$CATALINA_BASE/conf/server.xml</code> file,
+as described <a href="#Configuring a Realm">above</a>. The attributes for the
+UserDatabaseRealm are defined in the <a href="config/realm.html">Realm</a>
+configuration documentation.</p>
+
+<h3>User File Format</h3>
+
+<p>The users file uses the same format as the
+<a href="#MemoryRealm">MemoryRealm</a>.</p>
+
+<h3>Example</h3>
+
+<p>The default installation of Tomcat 6 is configured with a UserDatabaseRealm
+nested inside the <code>&lt;Engine&gt;</code> element, so that it applies
+to all virtual hosts and web applications.  The default contents of the
+<code>conf/tomcat-users.xml</code> file is:</p>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+&lt;tomcat-users&gt;
+  &lt;user name="tomcat" password="tomcat" roles="tomcat" /&gt;
+  &lt;user name="role1"  password="tomcat" roles="role1"  /&gt;
+  &lt;user name="both"   password="tomcat" roles="tomcat,role1" /&gt;
+&lt;/tomcat-users&gt;
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+
+<h3>Additional Notes</h3>
+
+<p>UserDatabaseRealm operates according to the following rules:</p>
+<ul>
+<li>When Tomcat first starts up, it loads all defined users and their
+    associated information from the users file. Changes made to the data in
+    this file will <strong>not</strong> be recognized until Tomcat is
+    restarted. Changes may be made via the UserDatabase resource. Tomcat
+    provides MBeans that may be accessed via JMX for this purpose.</li>
+<li>When a user attempts to access a protected resource for the first time,
+    Tomcat 6 will call the <code>authenticate()</code> method of this
+    <code>Realm</code>.</li>
+<li>Once a user has been authenticated, the user (and his or her associated
+    roles) are cached within Tomcat for the duration of the user's login.
+    (For FORM-based authentication, that means until the session times out or
+    is invalidated; for BASIC authentication, that means until the user
+    closes their browser).  The cached user is <strong>not</strong> saved and
+    restored across sessions serialisations.</li>
+</ul>
+
+
+</blockquote></td></tr></table>
+
+
 <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="MemoryRealm"><strong>MemoryRealm</strong></a></font></td></tr><tr><td><blockquote>
 
 <h3>Introduction</h3>
@@ -1078,32 +923,17 @@ authentication is usually to be preferred.</p>
 <p><strong>MemoryRealm</strong> is a simple demonstration implementation of the
 Tomcat 6 <code>Realm</code> interface.  It is not designed for production use.
 At startup time, MemoryRealm loads information about all users, and their
-corresponding roles, from an XML document (by default, this document is loaded from <code>$CATALINA_BASE/conf/tomcat-users.xml</code>).  Changes to the data
+corresponding roles, from an XML document (by default, this document is loaded
+from <code>$CATALINA_BASE/conf/tomcat-users.xml</code>).  Changes to the data
 in this file are not recognized until Tomcat is restarted.</p>
 
 <h3>Realm Element Attributes</h3>
 
 <p>To configure MemoryRealm, you will create a <code>&lt;Realm&gt;</code>
 element and nest it in your <code>$CATALINA_BASE/conf/server.xml</code> file,
-as described <a href="#Configuring a Realm">above</a>.  The following
-attributes are supported by this implementation:</p>
-
-<table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>className</code></strong></td><td valign="center" align="left">
-    <p>The fully qualified Java class name of this Realm implementation.
-    You <strong>MUST</strong> specify the value
-    "<code>org.apache.catalina.realm.MemoryRealm</code>" here.</p>
-  </td></tr><tr><td valign="center" align="left"><code>digest</code></td><td valign="center" align="left">
-    <p>The digest algorithm used to store passwords in non-plaintext formats.
-    Valid values are those accepted for the algorithm name by the
-    <code>java.security.MessageDigest</code> class.  See
-    <a href="#Digested Passwords">Digested Passwords</a> for more
-    information.  If not specified, passwords are stored in clear text.</p>
-  </td></tr><tr><td valign="center" align="left"><code>pathname</code></td><td valign="center" align="left">
-    <p>Absolute or relative (to $CATALINA_BASE) pathname of the XML document
-    containing our valid usernames, passwords, and roles.  See below for more
-    information on the format of this file.  If not specified, the value
-    <code>conf/tomcat-users.xml</code> is used.</p>
-  </td></tr></table>
+as described <a href="#Configuring a Realm">above</a>. The attributes for the
+MemoryRealm are defined in the <a href="config/realm.html">Realm</a>
+configuration documentation.</p>
 
 <h3>User File Format</h3>
 
@@ -1120,20 +950,6 @@ valid user, consisting of the following attributes:</p>
 <li><strong>roles</strong> - Comma-delimited list of the role names
     associated with this user.</li>
 </ul>
-
-<h3>Example</h3>
-
-<p>The default installation of Tomcat 6 is configured with a MemoryRealm
-nested inside the <code>&lt;Engine&gt;</code> element, so that it applies
-to all virtual hosts and web applications.  The default contents of the
-<code>conf/tomcat-users.xml</code> file is:</p>
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
-&lt;tomcat-users&gt;
-  &lt;user name="tomcat" password="tomcat" roles="tomcat" /&gt;
-  &lt;user name="role1"  password="tomcat" roles="role1"  /&gt;
-  &lt;user name="both"   password="tomcat" roles="tomcat,role1" /&gt;
-&lt;/tomcat-users&gt;
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
 
 <h3>Additional Notes</h3>
 
@@ -1219,41 +1035,21 @@ the resources you want to protect</li>
         <p>To configure JAASRealm as for step 6 above, you create
 a <code>&lt;Realm&gt;</code> element and nest it in your 
 <code>$CATALINA_BASE/conf/server.xml</code>
-file within your <code>&lt;Engine&gt;</code> node. The following attributes 
-are supported by this implementation:</p>
-
-<table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>className</code></strong></td><td valign="center" align="left">
-    <p>The fully qualified Java class name of this Realm implementation.
-    You <strong>MUST</strong> specify the value
-    "<code>org.apache.catalina.realm.JAASRealm</code>" here.</p>
-  </td></tr><tr><td valign="center" align="left"><strong><code>appName</code></strong></td><td valign="center" align="left">
-    <p>The name of the application as configured in your login configuration file 
-    (<a href="http://java.sun.com/j2se/1.4.1/docs/guide/security/jaas/tutorials/LoginConfigFile.html">JAAS LoginConfig</a>).</p>
-  </td></tr><tr><td valign="center" align="left"><strong><code>userClassNames</code></strong></td><td valign="center" align="left">
-    <p>A comma-seperated list of the names of the classes that you have made 
-    for your user <code>Principals</code>.</p>
-  </td></tr><tr><td valign="center" align="left"><code>roleClassNames</code></td><td valign="center" align="left">
-    <p>A comma-seperated list of the names of the classes that you have made 
-    for your role <code>Principals</code>.</p>
-  </td></tr><tr><td valign="center" align="left"><code>useContextClassLoader</code></td><td valign="center" align="left">
-    <p>Instructs JAASRealm to use the context class loader for loading the user-specified
-    <code>LoginModule</code> class and associated <code>Principal</code> classes. The
-    default value is <code>true</code>, which is backwards-compatible with the way 
-    Tomcat 4 works. To load classes using the container's classloader, specify
-    <code>false</code>.</p>
-  </td></tr></table>
+file within your <code>&lt;Engine&gt;</code> node. The attributes for the
+JAASRealm are defined in the <a href="config/realm.html">Realm</a>
+configuration documentation.</p>
 
 <h3>Example</h3>
 
 <p>Here is an example of how your server.xml snippet should look.</p>
 
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 &lt;Realm className="org.apache.catalina.realm.JAASRealm"                 
                 appName="MyFooRealm"       
     userClassNames="org.foobar.realm.FooUser"       
      roleClassNames="org.foobar.realm.FooRole" 
                       debug="99"/&gt;
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
 
 <p>It is the responsibility of your login module to create and save User and 
 Role objects representing Principals for the user 
@@ -1318,21 +1114,14 @@ and restarting the server, without any code changes to your application.</li>
     element and nest it in your <code>$CATALINA_BASE/conf/server.xml</code>
     file within your <code>&lt;Engine&gt;</code> or <code>&lt;Host&gt;</code>.
     You can also nest inside a <code>&lt;Context&gt;</code> node in a
-    <code>context.xml</code> file. The following attributes are supported by
-    this implementation:</p>
-
-<table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>className</code></strong></td><td valign="center" align="left">
-    <p>The fully qualified Java class name of this Realm implementation.
-    You <strong>MUST</strong> specify the value
-    "<code>org.apache.catalina.realm.CombinedRealm</code>" here.</p>
-  </td></tr></table>
-
+    <code>context.xml</code> file.</p>
+    
 <h3>Example</h3>
 
 <p>Here is an example of how your server.xml snippet should look to use a
 UserDatabase Realm and a DataSource Realm.</p>
 
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 &lt;Realm className="org.apache.catalina.realm.CombinedRealm" &gt;
    &lt;Realm className="org.apache.catalina.realm.UserDatabaseRealm"
              resourceName="UserDatabase"/&gt;
@@ -1340,8 +1129,8 @@ UserDatabase Realm and a DataSource Realm.</p>
              dataSourceName="jdbc/authority"
              userTable="users" userNameCol="user_name" userCredCol="user_pass"
              userRoleTable="user_roles" roleNameCol="role_name"/&gt;
-&lt;Realm/&gt;
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
+&lt;/Realm&gt;
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
 
 </blockquote></td></tr></table>
 
@@ -1375,43 +1164,24 @@ UserDatabase Realm and a DataSource Realm.</p>
     element and nest it in your <code>$CATALINA_BASE/conf/server.xml</code>
     file within your <code>&lt;Engine&gt;</code> or <code>&lt;Host&gt;</code>.
     You can also nest inside a <code>&lt;Context&gt;</code> node in a
-    <code>context.xml</code> file. The following attributes are supported by
-    this implementation:</p>
-
-<table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>className</code></strong></td><td valign="center" align="left">
-    <p>The fully qualified Java class name of this Realm implementation.
-    You <strong>MUST</strong> specify the value
-    "<code>org.apache.catalina.realm.LockOutRealm</code>" here.</p>
-  </td></tr><tr><td valign="center" align="left"><code>cacheRemovalWarningTime</code></td><td valign="center" align="left">
-    <p>If a failed user is removed from the cache because the cache is too
-    big before it has been in the cache for at least this period of time (in
-    seconds) a warning message will be logged. Defaults to 3600 (1 hour).</p>
-  </td></tr><tr><td valign="center" align="left"><code>cacheSize</code></td><td valign="center" align="left">
-    <p>Number of users that have failed authentication to keep in cache. Over
-    time the cache will grow to this size and may not shrink. Defaults to
-    1000.</p>
-  </td></tr><tr><td valign="center" align="left"><code>failureCount</code></td><td valign="center" align="left">
-    <p>The number of times in a row a user has to fail authentication to be
-    locked out. Defaults to 5.</p>
-  </td></tr><tr><td valign="center" align="left"><code>lockOutTime</code></td><td valign="center" align="left">
-    <p>The time (in seconds) a user is locked out for after too many
-    authentication failures. Defaults to 300 (5 minutes).</p>
-  </td></tr></table>
-
+    <code>context.xml</code> file. The attributes for the
+    LockOutRealm are defined in the <a href="config/realm.html">Realm</a>
+    configuration documentation.</p>
+    
 <h3>Example</h3>
 
 <p>Here is an example of how your server.xml snippet should look to add lock out
 functionality to a UserDatabase Realm.</p>
 
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 &lt;Realm className="org.apache.catalina.realm.LockOutRealm" &gt;
    &lt;Realm className="org.apache.catalina.realm.UserDatabaseRealm"
              resourceName="UserDatabase"/&gt;
-&lt;Realm/&gt;
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" src="./images/void.gif"></td></tr></table></div>
+&lt;/Realm&gt;
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
 
 </blockquote></td></tr></table>
 
 </blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
-        Copyright &copy; 1999-2008, Apache Software Foundation
+        Copyright &copy; 1999-2010, Apache Software Foundation
         </em></font></div></td></tr></table></body></html>

@@ -1,7 +1,12 @@
-<html><body><pre>
-&lt;!doctype html public "-//w3c//dtd html 4.0 transitional//en">
-&lt;html>
-&lt;!--
+<%@page contentType="text/html; charset=UTF-8" %>
+<% if (session.getAttribute("nickname") == null) {
+    response.sendRedirect("login.jsp");
+    return;
+}
+%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+<html>
+<!--
  Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
   this work for additional information regarding copyright ownership.
@@ -17,18 +22,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-&lt;head>
-   &lt;title>JSP Chat&lt;/title>
-&lt;/head>
-
-&lt;body bgcolor="#FFFFFF">
-
-&lt;!-- Body -->
-&lt;frameset>
-  &lt;frame name="post" src="post.jsp" scrolling="no" title="Post message">
-  &lt;frame name="chat" src="chat" scrolling="yes" title="Chat">
-&lt;/frameset>
-
-&lt;/body>
-&lt;/html>
-</pre></body></html>
+<head>
+   <title>JSP Chat</title>
+</head>
+<frameset rows="1*,4*">
+  <frame name="post" src="post.jsp" scrolling="no" title="Post message">
+  <frame name="chat" src="chat" scrolling="yes" title="Chat">
+</frameset>
+</html>

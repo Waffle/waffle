@@ -1,5 +1,6 @@
 <html><body><pre>
-&lt;!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+&lt;%@page contentType="text/html; charset=UTF-8" %>
 &lt;html>
 &lt;!--
  Licensed to the Apache Software Foundation (ASF) under one or more
@@ -24,15 +25,33 @@
 &lt;body bgcolor="#FFFFFF">
 
 &lt;form method="POST" action='chat' name="postForm">
-&lt;input type="hidden" name="action" value="post"/>
-Message: &lt;input type="text" name="message"/>
+&lt;input type="hidden" name="action" value="post">
+Message: &lt;input type="text" name="message">
+&lt;input type="submit">
 &lt;/form>
 
 &lt;br>
-&lt;br>
+&lt;%
+  String serverName = request.getServerName();
+  if ("localhost".equals(serverName)) {
+      serverName = "127.0.0.1";
+  } else if ("127.0.0.1".equals(serverName)) {
+      serverName = "localhost";
+  }
 
-&lt;a href="javascript:openWindow('http://127.0.0.1:8080/examples/jsp/chat/chat', 640, 480 ,0 ,0 ,0 ,0 ,0 ,1 ,10 ,10 )">Click to open chat window&lt;/a>
+  String chatUrl = request.getScheme() + "://" + serverName + ":"
+    + request.getServerPort() + request.getContextPath()
+    + request.getServletPath();
 
+  // strip "post.jsp" from the address
+  chatUrl = chatUrl.substring(0, chatUrl.lastIndexOf("/") + 1);
+%>
+&lt;a target="_blank" href="&lt;%=chatUrl %>">Click to open a new chat window&lt;/a>
+&lt;em>Note&lt;/em>: To avoid hitting the limit on the count of simultaneous
+connections to the same host, imposed by the
+&lt;a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec8.html#sec8.1.4">HTTP specification&lt;/a>,
+the second chat window should be opened using a different URL, e.g. with
+an IP address instead of the host name.
 &lt;/body>
 &lt;/html>
 </pre></body></html>
