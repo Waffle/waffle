@@ -42,7 +42,7 @@
               Click the <ui>Sites</ui> button.
             </listItem>
             <listItem>
-              Check <ui>Autmatically detect intranet network</ui>.
+              Check <ui>Automatically detect intranet network</ui>.
             </listItem>
             <listItem>
               If the above didn't solve the problem, click <ui>Advanced</ui>.
