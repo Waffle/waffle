@@ -98,6 +98,16 @@ public class NegotiateSecurityFilterTests extends TestCase {
     	assertEquals(0, response.getHeaderNames().length);
 	}
 	
+	public void testUnsupportedSecurityPackagePassthrough() throws IOException, ServletException {
+		SimpleFilterChain filterChain = new SimpleFilterChain();
+		SimpleHttpRequest request = new SimpleHttpRequest();		
+		request.addHeader("Authorization", "Unsupported challenge");		
+		SimpleHttpResponse response = new SimpleHttpResponse();
+		_filter.doFilter(request, response, filterChain);		
+		// the filter should ignore authorization for an unsupported security package, ie. not return a 401
+		assertEquals(500, response.getStatus());
+	}
+	
 	public void testGuestIsDisabled() throws IOException, ServletException {
 		String securityPackage = "Negotiate";
 		SimpleFilterChain filterChain = new SimpleFilterChain();

@@ -34,7 +34,7 @@ public class SimpleFilterConfig implements FilterConfig {
 		return _parameters.get(s);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public Enumeration getInitParameterNames() {
 		Vector<String> keys = new Vector<String>();
 		keys.addAll(_parameters.keySet());		

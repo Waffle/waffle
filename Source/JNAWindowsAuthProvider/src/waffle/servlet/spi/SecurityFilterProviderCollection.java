@@ -37,7 +37,7 @@ public class SecurityFilterProviderCollection {
 		}		
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public SecurityFilterProviderCollection(String[] providerNames, IWindowsAuthProvider auth) {
 		for(String providerName : providerNames) {
 			providerName = providerName.trim();
@@ -59,13 +59,25 @@ public class SecurityFilterProviderCollection {
 		_providers.add(new BasicSecurityFilterProvider(auth));
 	}
 	
+	/**
+	 * Tests whether a specific security package is supported by
+	 * any of the underlying providers.
+	 * @param securityPackage
+	 *  Security package.
+	 * @return
+	 *  True if the security package is supported, false otherwise.
+	 */
+	public boolean isSecurityPackageSupported(String securityPackage) {
+		return get(securityPackage) != null;
+	}
+	
 	private SecurityFilterProvider get(String securityPackage) {
 		for(SecurityFilterProvider provider : _providers) {
 			if (provider.isSecurityPackageSupported(securityPackage)) {
 				return provider;
 			}
-		}		
-		throw new RuntimeException("Unsupported security package: " + securityPackage);
+		}
+		return null;
 	}
 	
 	/**
@@ -83,15 +95,18 @@ public class SecurityFilterProviderCollection {
 		
 		AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
 		SecurityFilterProvider provider = get(authorizationHeader.getSecurityPackage());
+		if (provider == null) {
+			throw new RuntimeException("Unsupported security package: " + authorizationHeader.getSecurityPackage());
+		}
 		return provider.doFilter(request, response);
 	}
 	
 	/**
-	 * Returns true if authenticaiton still needs to happen despite an existing principal.
+	 * Returns true if authentication still needs to happen despite an existing principal.
 	 * @param request
 	 *  Http Request
 	 * @return
-	 *  True if authenticaiton is required.
+	 *  True if authentication is required.
 	 */
 	public boolean isPrincipalException(HttpServletRequest request) {
 		

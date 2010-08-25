@@ -65,7 +65,8 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
 		AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
 		
 		// authenticate user
-		if (! authorizationHeader.isNull()) {
+		if (! authorizationHeader.isNull() 
+				&& _provider.isSecurityPackageSupported(authorizationHeader.getSecurityPackage())) {
 			
 			// log the user in using the token
 			IWindowsIdentity windowsIdentity = null;

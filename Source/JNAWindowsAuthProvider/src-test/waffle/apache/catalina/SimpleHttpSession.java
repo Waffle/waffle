@@ -27,7 +27,7 @@ public class SimpleHttpSession implements HttpSession {
 		return _attributes.get(attributeName);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public Enumeration getAttributeNames() {
 		return null;
 	}

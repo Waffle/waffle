@@ -101,13 +101,13 @@ public class WindowsLoginModule implements LoginModule {
         	throw new LoginException(e.getMessage());
         }
         
-		// disable guest login
-		if (! _allowGuestLogin && windowsIdentity.isGuest()) {
-			debug("guest login disabled: " + windowsIdentity.getFqn());
-			throw new LoginException("Guest login disabled");			
-		}
-        
         try {
+			// disable guest login
+			if (! _allowGuestLogin && windowsIdentity.isGuest()) {
+				debug("guest login disabled: " + windowsIdentity.getFqn());
+				throw new LoginException("Guest login disabled");			
+			}
+			
 	        _principals = new LinkedHashSet<Principal>();
 	        _principals.addAll(getUserPrincipals(windowsIdentity, _principalFormat));
 	        if (_roleFormat != PrincipalFormat.none) {

@@ -20,7 +20,7 @@ import javax.servlet.ServletException;
 /**
  * @author dblock[at]dblock[dot]org
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings("rawtypes")
 public class SimpleServletContext implements ServletContext {
 
 	public Object getAttribute(String arg0) {		

@@ -91,13 +91,13 @@ public class NegotiateSecurityFilter implements Filter {
 				return;
 			}
 			
-			if (! _allowGuestLogin && windowsIdentity.isGuest()) {
-				_log.warn("guest login disabled: " + windowsIdentity.getFqn());
-				sendUnauthorized(response, true);
-				return;
-			}
-			
 			try {
+				if (! _allowGuestLogin && windowsIdentity.isGuest()) {
+					_log.warn("guest login disabled: " + windowsIdentity.getFqn());
+					sendUnauthorized(response, true);
+					return;
+				}
+				
 				_log.debug("logged in user: " + windowsIdentity.getFqn() + 
 						" (" + windowsIdentity.getSidString() + ")");
 				
@@ -184,7 +184,7 @@ public class NegotiateSecurityFilter implements Filter {
 		return true;
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public void init(FilterConfig filterConfig) throws ServletException {
 		Map<String, String> implParameters = new HashMap<String, String>();
 
