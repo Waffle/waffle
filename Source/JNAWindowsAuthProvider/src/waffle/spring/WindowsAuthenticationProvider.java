@@ -13,6 +13,7 @@ import org.springframework.security.authentication.AuthenticationServiceExceptio
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 
 import waffle.servlet.WindowsPrincipal;
 import waffle.windows.auth.IWindowsAuthProvider;
@@ -30,6 +31,8 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
     private PrincipalFormat _roleFormat = PrincipalFormat.fqn;
 	private boolean _allowGuestLogin = true;
 	private IWindowsAuthProvider _authProvider = null;
+	private GrantedAuthorityFactory _grantedAuthorityFactory = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY_FACTORY;
+	private GrantedAuthority _defaultGrantedAuthority = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY;
 	
 	public WindowsAuthenticationProvider() {
 		_log.debug("[waffle.spring.WindowsAuthenticationProvider] loaded");		
@@ -47,8 +50,13 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
 			}
 			
 	        WindowsPrincipal windowsPrincipal = new WindowsPrincipal(windowsIdentity, _principalFormat, _roleFormat);
-			_log.debug("roles: " + windowsPrincipal.getRolesString());			
-	        WindowsAuthenticationToken token = new WindowsAuthenticationToken(windowsPrincipal);
+			_log.debug("roles: " + windowsPrincipal.getRolesString());
+			
+	        WindowsAuthenticationToken token = new WindowsAuthenticationToken(
+	            windowsPrincipal,
+	            _grantedAuthorityFactory,
+	            _defaultGrantedAuthority);
+	        
 			_log.info("successfully logged in user: " + windowsIdentity.getFqn());
 			return token;
         } catch (Exception e) {
@@ -90,5 +98,21 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
 	
 	public void setAuthProvider(IWindowsAuthProvider authProvider) {
 		_authProvider = authProvider;
+	}
+
+	public GrantedAuthorityFactory getGrantedAuthorityFactory() {
+		return _grantedAuthorityFactory;
+	}
+
+	public void setGrantedAuthorityFactory(GrantedAuthorityFactory grantedAuthorityFactory) {
+		_grantedAuthorityFactory = grantedAuthorityFactory;
+	}
+
+	public GrantedAuthority getDefaultGrantedAuthority() {
+		return _defaultGrantedAuthority;
+	}
+
+	public void setDefaultGrantedAuthority(GrantedAuthority defaultGrantedAuthority) {
+		_defaultGrantedAuthority = defaultGrantedAuthority;
 	}
 }

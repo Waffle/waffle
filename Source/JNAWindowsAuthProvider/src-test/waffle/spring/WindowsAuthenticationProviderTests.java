@@ -71,6 +71,25 @@ public class WindowsAuthenticationProviderTests extends TestCase {
 		assertTrue(authenticated.getPrincipal() instanceof WindowsPrincipal);
 	}
 	
+	public void testAuthenticateWithCustomGrantedAuthorityFactory() {
+	    _provider.setDefaultGrantedAuthority(null);
+	    _provider.setGrantedAuthorityFactory(new FqnGrantedAuthorityFactory(null, false));
+	    
+	    MockWindowsIdentity mockIdentity = new MockWindowsIdentity(WindowsAccountImpl.getCurrentUsername(), new ArrayList<String>());
+	    WindowsPrincipal principal = new WindowsPrincipal(mockIdentity);
+	    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(principal, "password");
+	    
+	    Authentication authenticated = _provider.authenticate(authentication);
+	    assertNotNull(authenticated);
+	    assertTrue(authenticated.isAuthenticated());
+	    Collection<GrantedAuthority> authorities = authenticated.getAuthorities();
+	    Iterator<GrantedAuthority> authoritiesIterator = authorities.iterator();
+	    assertEquals(2, authorities.size());
+	    assertEquals("Users", authoritiesIterator.next().getAuthority());
+	    assertEquals("Everyone", authoritiesIterator.next().getAuthority());
+	    assertTrue(authenticated.getPrincipal() instanceof WindowsPrincipal);
+	}
+	
 	public void testGuestIsDisabled() {
 		try {
 			MockWindowsIdentity mockIdentity = new MockWindowsIdentity("Guest", new ArrayList<String>());

@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
 
@@ -49,6 +50,9 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
     private PrincipalFormat _roleFormat = PrincipalFormat.fqn;
 	private boolean _allowGuestLogin = true;
 
+	private GrantedAuthorityFactory _grantedAuthorityFactory = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY_FACTORY;
+	private GrantedAuthority _defaultGrantedAuthority = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY;
+	
 	public NegotiateSecurityFilter() {
 		_log.debug("[waffle.spring.NegotiateSecurityFilter] loaded");
 	}
@@ -99,7 +103,11 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
 				
 				_log.debug("roles: " + principal.getRolesString());			
 				
-				Authentication authentication = new WindowsAuthenticationToken(principal);				
+				WindowsAuthenticationToken authentication = new WindowsAuthenticationToken(
+					principal,
+					_grantedAuthorityFactory,
+					_defaultGrantedAuthority);
+				
 				SecurityContextHolder.getContext().setAuthentication(authentication);
 
 				_log.info("successfully logged in user: " + windowsIdentity.getFqn());
@@ -173,5 +181,21 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
 	
 	public void setProvider(SecurityFilterProviderCollection provider) {
 		_provider = provider;
+	}
+	
+	public GrantedAuthorityFactory getGrantedAuthorityFactory() {
+		return _grantedAuthorityFactory;
+	}
+
+	public void setGrantedAuthorityFactory(GrantedAuthorityFactory grantedAuthorityFactory) {
+		_grantedAuthorityFactory = grantedAuthorityFactory;
+	}
+
+	public GrantedAuthority getDefaultGrantedAuthority() {
+		return _defaultGrantedAuthority;
+	}
+
+	public void setDefaultGrantedAuthority(GrantedAuthority defaultGrantedAuthority) {
+		_defaultGrantedAuthority = defaultGrantedAuthority;
 	}
 }

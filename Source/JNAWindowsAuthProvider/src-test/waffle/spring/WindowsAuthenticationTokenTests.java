@@ -49,6 +49,25 @@ public class WindowsAuthenticationTokenTests extends TestCase {
 		assertEquals(_principal, _token.getPrincipal());
 	}
 	
+	public void testCustomGrantedAuthorityFactory() {
+		
+		WindowsAuthenticationToken token = new WindowsAuthenticationToken(
+			_principal,
+			new FqnGrantedAuthorityFactory(null, false),
+			null);
+		
+		assertNull(token.getCredentials());
+		assertNull(token.getDetails());
+		assertTrue(token.isAuthenticated());
+		assertEquals("localhost\\user1", token.getName());
+		Collection<GrantedAuthority> authorities = token.getAuthorities();
+		Iterator<GrantedAuthority> authoritiesIterator = authorities.iterator();
+		assertEquals(2, authorities.size());
+		assertEquals("group1", authoritiesIterator.next().getAuthority());
+		assertEquals("group2", authoritiesIterator.next().getAuthority());
+		assertEquals(_principal, token.getPrincipal());
+	}
+	
 	public void testAuthenticated() {
 		assertTrue(_token.isAuthenticated());
 		try {

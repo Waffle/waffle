@@ -115,12 +115,23 @@
       </content>
     </section>
     <section address="authproviderroles">
-      <title>User Roles</title>
+      <title>Granted Authorities</title>
       <content>
         <para>
-          Upon successful login, Waffle adds a <newTerm>ROLE_USER</newTerm> to the list of granted authorities along with 
-          user's identity and groups prefixed with <newTerm>ROLE_</newTerm>. For example, if a user is a member of the
-          <newTerm>Everyone</newTerm> group, he obtains the <newTerm>ROLE_EVERYONE</newTerm> granted authority.
+          Upon successful login, Waffle will populate Spring Security's Authentication object with GrantedAuthority objects.
+        </para>
+        <para>
+          By default, Waffle will populate the Authentication object with the following GrantedAuthority objects:
+          <list class="bullet">
+            <listItem>A GrantedAuthority with the string <newTerm>ROLE_USER</newTerm>.</listItem>
+            <listItem>One GrantedAuthority per group to which the user belongs.  The  GrantedAuthority strings will be  
+              the uppercase group name prefixed with <newTerm>ROLE_</newTerm>. For example, if a user is a member of the
+              <newTerm>Everyone</newTerm> group, he obtains the <newTerm>ROLE_EVERYONE</newTerm> granted authority.</listItem>
+          <list>
+        </para>
+        <para>
+          The default behavior can be changed by configuring a different <newTerm>defaultGrantedAuthority</newTerm> and
+          <newTerm>grantedAuthorityFactory</newTerm> on the <newTerm>waffleNegotiateSecurityFilter</newTerm>.
         </para>
       </content>
     </section>
@@ -145,6 +156,19 @@
                   for systems where you don't have administrative privileges.
                 </para>
               </alert>
+            </definition>
+            <definedTerm>defaultGrantedAuthority</definedTerm>
+            <definition>
+              Specifies the GrantedAuthority to be added to every successfully authenticated user.
+              By default, the defaultGrantedAuthority will add a GrantedAuthority for <newTerm>ROLE_USER</newTerm>.  If
+              you do not want this behavior, you can set the defaultGrantedAuthority to null (if you do not want a 
+              GrantedAuthority to be added by default), or some other GrantedAuthority. 
+            </definition>
+            <definedTerm>grantedAuthorityFactory</definedTerm>
+            <definition>
+              Used to create GrantedAuthority objects for each of the groups to which the authenticated user belongs.
+              The default grantedAuthorityFactory will construct GrantedAuthority objects whose string is 
+              the uppercase group name prefixed with <newTerm>ROLE_</newTerm>.
             </definition>
           </tableDefinition>
         </para>
