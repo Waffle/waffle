@@ -3,9 +3,9 @@
   <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
     <introduction>
       <para>
-        The Waffle Spring-Security Filter implements the Negotiate and Basic protocols with Kerberos and NTLM single sign-on support 
-        for web applications that utilize Spring-Security. This allows users to browse to a Windows intranet site without having to 
-        re-enter credentials for browsers that support Kerberos or NTLM and to fall back to Basic authentication for those that do 
+        The Waffle Spring-Security Filter implements the Negotiate and Basic protocols with Kerberos and NTLM single sign-on support
+        for web applications that utilize Spring-Security. This allows users to browse to a Windows intranet site without having to
+        re-enter credentials for browsers that support Kerberos or NTLM and to fall back to Basic authentication for those that do
         not. For more information about Spring-Security see <externalLink>
           <linkUri>http://static.springsource.org/spring-security/site/</linkUri>
           <linkText>http://static.springsource.org/spring-security/site/</linkText>
@@ -19,8 +19,8 @@
           The following steps are required to configure a web server with the Waffle Spring-Security Filter.
           <list class="ordered">
             <listItem>
-              We'll assume that Spring-Security is configured via <localUri>web.xml</localUri> with a filter chain and a 
-              Spring context loader listener. The Waffle beans configuration will be added to 
+              We'll assume that Spring-Security is configured via <localUri>web.xml</localUri> with a filter chain and a
+              Spring context loader listener. The Waffle beans configuration will be added to
               <localUri>waffle-filter.xml</localUri>.
               <code lang="xml">
                 <![CDATA[
@@ -53,7 +53,7 @@
               <code lang="xml">
                 <![CDATA[
 <bean id="waffleWindowsAuthProvider" class="waffle.windows.auth.impl.WindowsAuthProviderImpl" />
-                ]]>               
+                ]]>
               </code>
             </listItem>
             <listItem>
@@ -118,20 +118,26 @@
       <title>Granted Authorities</title>
       <content>
         <para>
-          Upon successful login, Waffle will populate Spring Security's Authentication object with GrantedAuthority objects.
+          Upon successful login, Waffle will populate Spring Security's <literal>Authentication</literal>
+          instance with <literal>GrantedAuthority</literal> objects.
         </para>
         <para>
-          By default, Waffle will populate the Authentication object with the following GrantedAuthority objects:
+          By default, Waffle will populate the <literal>Authentication</literal> instance with the following 
+          <literal>GrantedAuthority</literal> objects:
           <list class="bullet">
-            <listItem>A GrantedAuthority with the string <newTerm>ROLE_USER</newTerm>.</listItem>
-            <listItem>One GrantedAuthority per group to which the user belongs.  The  GrantedAuthority strings will be  
-              the uppercase group name prefixed with <newTerm>ROLE_</newTerm>. For example, if a user is a member of the
-              <newTerm>Everyone</newTerm> group, he obtains the <newTerm>ROLE_EVERYONE</newTerm> granted authority.</listItem>
-          <list>
+            <listItem>
+              A <literal>GrantedAuthority</literal> with the string <literal>ROLE_USER</literal>.
+            </listItem>
+            <listItem>
+              One <literal>GrantedAuthority</literal> per group to which the user belongs.  The <literal>GrantedAuthority</literal>
+              strings will be the uppercase group name prefixed with <literal>ROLE_</literal>. For example, if a user is a member 
+              of the <literal>Everyone</literal> group, he obtains the <literal>ROLE_EVERYONE</literal> granted authority.
+            </listItem>
+          </list>
         </para>
         <para>
-          The default behavior can be changed by configuring a different <newTerm>defaultGrantedAuthority</newTerm> and
-          <newTerm>grantedAuthorityFactory</newTerm> on the <newTerm>waffleNegotiateSecurityFilter</newTerm>.
+          The default behavior can be changed by configuring a different <literal>defaultGrantedAuthority</literal> and
+          <literal>grantedAuthorityFactory</literal> on the <literal>waffleNegotiateSecurityFilter</literal> object.
         </para>
       </content>
     </section>
@@ -161,13 +167,13 @@
             <definition>
               Specifies the GrantedAuthority to be added to every successfully authenticated user.
               By default, the defaultGrantedAuthority will add a GrantedAuthority for <newTerm>ROLE_USER</newTerm>.  If
-              you do not want this behavior, you can set the defaultGrantedAuthority to null (if you do not want a 
-              GrantedAuthority to be added by default), or some other GrantedAuthority. 
+              you do not want this behavior, you can set the defaultGrantedAuthority to null (if you do not want a
+              GrantedAuthority to be added by default), or some other GrantedAuthority.
             </definition>
             <definedTerm>grantedAuthorityFactory</definedTerm>
             <definition>
               Used to create GrantedAuthority objects for each of the groups to which the authenticated user belongs.
-              The default grantedAuthorityFactory will construct GrantedAuthority objects whose string is 
+              The default grantedAuthorityFactory will construct GrantedAuthority objects whose string is
               the uppercase group name prefixed with <newTerm>ROLE_</newTerm>.
             </definition>
           </tableDefinition>
