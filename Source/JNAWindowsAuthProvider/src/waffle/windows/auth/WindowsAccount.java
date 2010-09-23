@@ -6,14 +6,15 @@
  */
 package waffle.windows.auth;
 
-import waffle.windows.auth.IWindowsAccount;
+import java.io.Serializable;
 
 /**
  * A flattened Windows Account used in a Windows principal.
  * @author dblock[at]dblock[dot]org
  */
-public class WindowsAccount {
+public class WindowsAccount implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	private String _sidString;
 	private String _fqn;
 	private String _name;
@@ -40,5 +41,24 @@ public class WindowsAccount {
 
 	public String getDomain() {
 		return _domain;
+	}
+	
+	@Override
+    public boolean equals(Object o) {
+
+		if (this == o) {
+			return true;			
+		}
+		
+		if (! (o instanceof WindowsAccount)) {
+			return false;
+		}
+		
+        return ((WindowsAccount) o).getSidString().equals(getSidString());
+    }
+	
+	@Override
+	public int hashCode() { 
+		return getSidString().hashCode();
 	}
 }

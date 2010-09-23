@@ -6,14 +6,16 @@
  */
 package waffle.jaas;
 
+import java.io.Serializable;
 import java.security.Principal;
 
 /**
  * User Principal.
  * @author dblock[at]dblock[dot]org
  */
-public class UserPrincipal implements Principal {
+public class UserPrincipal implements Principal, Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private String _fqn;
 
 	/**
@@ -32,19 +34,26 @@ public class UserPrincipal implements Principal {
 		return _fqn;
 	}
 	
+	@Override
     public boolean equals(Object o) {
-        if (o == null)
-            return false;
 
-        if (this == o)
-            return true;
-
-        if (o instanceof String)
+		if (this == o) {
+			return true;			
+		}
+		
+		if (o instanceof String) {
         	return getName().equals((String) o);
-        
-        if (o instanceof UserPrincipal)
+		}
+		
+		if (o instanceof UserPrincipal) {
         	return getName().equals(((UserPrincipal) o).getName());
-
-        return false;
+		}
+		
+		return false;
     }
+	
+	@Override
+	public int hashCode() { 
+		return getName().hashCode();
+	}
 }

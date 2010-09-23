@@ -6,6 +6,7 @@
  */
 package waffle.servlet;
 
+import java.io.Serializable;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,8 +22,9 @@ import waffle.windows.auth.WindowsAccount;
  * A Windows Principal.
  * @author dblock[at]dblock[dot]org
  */
-public class WindowsPrincipal implements Principal {
+public class WindowsPrincipal implements Principal, Serializable {
 
+	private static final long serialVersionUID = 1L;	
 	private String _fqn;
 	private byte[] _sid;
 	private String _sidString;
