@@ -91,6 +91,10 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
 			if (Advapi32Util.isWellKnownSid(userGroup.sid, WELL_KNOWN_SID_TYPE.WinAccountGuestSid))
 				return true;
 		}
+		
+		if (Advapi32Util.isWellKnownSid(getSid(), WELL_KNOWN_SID_TYPE.WinAnonymousSid))
+			return true;
+		
 		return false;
 	}
 }
