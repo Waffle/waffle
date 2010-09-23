@@ -31,21 +31,25 @@
                     of <code>GrantedAuthority</code> string in Spring Security filter and authentication
                     manager.</li>
             </ul>
-            <li><strong>Misc</strong>:
-                <ul>
-                    <li>Upgraded ThirdParty Tomcat to 6.0.29.</li>
-                </ul>
-            </li>
-            <li><strong>Bugs</strong>:
-                <ul>
-                    <li><a href="http://waffle.codeplex.com/workitem/9274">#9274</a>: Guest <code>WindowsIdentity</code>
-                        leaks a handle when guest login disabled.</li>
-                    <li><a href="http://waffle.codeplex.com/Thread/View.aspx?ThreadId=224546">#224546</a>:
-                        Unable to deploy other Spring-security providers alongside Waffle. Spring Security
-                        Filter will now fall through to the remaining filter chain for unsupported security
-                        protocols.</li>
-                </ul>
-            </li>
+        </li>
+        <li><strong>Misc</strong>:
+            <ul>
+                <li>Upgraded ThirdParty Tomcat to 6.0.29.</li>
+                <li><a href="http://waffle.codeplex.com/workitem/9456">#9456</a>: Added <code>Serializable</code>
+                    to <code>waffle.jaas.RolePrincipal</code>, <code>UserPrincipal</code>, <code>waffle.servlet.WindowsPrincipal</code>
+                    and <code>waffle.windows.Auth</code>.</li>
+            </ul>
+        </li>
+        <li><strong>Bugs</strong>:
+            <ul>
+                <li><a href="http://waffle.codeplex.com/workitem/9274">#9274</a>: Guest <code>WindowsIdentity</code>
+                    leaks a handle when guest login disabled.</li>
+                <li><a href="http://waffle.codeplex.com/Thread/View.aspx?ThreadId=224546">#224546</a>:
+                    Unable to deploy other Spring-security providers alongside Waffle. Spring Security
+                    Filter will now fall through to the remaining filter chain for unsupported security
+                    protocols.</li>
+            </ul>
+        </li>
     </ul>
     <h3>
         1.3 (7/21/2010)</h3>
