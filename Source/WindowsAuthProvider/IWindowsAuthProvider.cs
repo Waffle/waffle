@@ -126,8 +126,12 @@ namespace Waffle.Windows.AuthProvider
         /// package supported by both the client and the server. This is usually set to "Negotiate" which
         /// will use SPNEGO to determine which security package to use. 
         /// Other common values are "Kerberos" and "NTLM"</param>
-        /// <param name="fContextReq"></param>
-        /// <param name="targetDataRep"></param>
+        /// <param name="fContextReq">Bit flags that indicate requirements for the context. 
+        /// Not all packages can support all requirements. Flags used for this parameter are defined 
+        /// in Secur32 and are prefixed with ISC_REQ_. This parameter can be one or more 
+        /// of the ISC_REQ_ attribute flags.</param>
+        /// <param name="targetDataRep">The data representation, such as byte ordering, on the target. 
+        /// This parameter can be either Secur32.SECURITY_NATIVE_DREP or Secur32.SECURITY_NETWORK_DREP</param>
         /// <returns>Windows account.</returns>
         [DispId(8)]
         IWindowsSecurityContext AcceptSecurityToken(string connectionId, byte[] token, string securityPackage,
