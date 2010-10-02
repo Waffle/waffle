@@ -180,7 +180,21 @@ public class WindowsPrincipal implements Principal, Serializable {
 		}
 		return sb.toString();
 	}
+	
+	/**
+	 * Checks whether the principal has a given role.
+	 * @param role
+	 *  Role name.
+	 * @return
+	 *  True if the principal has a role, false otherwise.
+	 */
+	public boolean hasRole(String role) {
+		return _roles.contains(role);
+	}
 
+	/**
+	 * Fully qualified name.
+	 */
 	public String getName() {
 		return _fqn;
 	}

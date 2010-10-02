@@ -44,7 +44,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 	@Override
 	public void setUp() {
 		_filter = new NegotiateSecurityFilter();
-		_filter.setAuth(new WindowsAuthProviderImpl());		
+		_filter.setAuth(new WindowsAuthProviderImpl());
 		try {
 			_filter.init(null);
 		} catch (ServletException e) {
@@ -113,6 +113,8 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		// client credentials handle
 		IWindowsCredentialsHandle clientCredentials = null;
 		WindowsSecurityContextImpl clientContext = null;
+		// role will contain both Everyone and SID
+		_filter.setRoleFormat("both");		
 		try {
 			// client credentials handle
 			clientCredentials = WindowsCredentialsHandleImpl.getCurrent(securityPackage);
@@ -163,6 +165,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 	        		wrappedRequest.getRemoteUser());
 	        assertTrue(wrappedRequest.getUserPrincipal() instanceof WindowsPrincipal);
 	        assertTrue(wrappedRequest.isUserInRole("Everyone"));
+	        assertTrue(wrappedRequest.isUserInRole("S-1-1-0"));
 		} finally {
 			if (clientContext != null) {
 				clientContext.dispose();

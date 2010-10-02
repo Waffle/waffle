@@ -14,6 +14,9 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
+<%@page import="java.security.Principal" %>
+<%@page import="waffle.windows.auth.WindowsAccount" %>
+<%@page import="waffle.servlet.WindowsPrincipal" %>
 <%
   if (request.getParameter("logoff") != null) {
     session.invalidate();
@@ -67,5 +70,20 @@
   You can logoff by clicking
   <a href='<%= response.encodeURL("index.jsp?logoff=true") %>'>here</a>.
   This should cause automatic re-logon with Waffle and a new session ID.
+  <br><br>
+  All user groups:
+  <ul>
+  <%
+  Principal principal = request.getUserPrincipal();
+  if (principal instanceof WindowsPrincipal) {
+	  WindowsPrincipal windowsPrincipal = (WindowsPrincipal) principal;
+	  for(WindowsAccount account : windowsPrincipal.getGroups().values()) {
+		  %>
+		  <li><%= account.getFqn() %> (<%= account.getSidString() %>)
+		  <%
+	  }
+  }
+  %>
+  </ul>
  </body>
 </html>

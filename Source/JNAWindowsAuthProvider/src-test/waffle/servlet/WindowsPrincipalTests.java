@@ -46,4 +46,11 @@ public class WindowsPrincipalTests extends TestCase {
 	    assertEquals(_windowsPrincipal.getSidString(), copy.getSidString());
 	    assertEquals(_windowsPrincipal.getSid(), copy.getSid());
 	}
+	
+	public void testHasRole() {
+		assertTrue(_windowsPrincipal.hasRole("Administrator"));
+		assertTrue(_windowsPrincipal.hasRole("Users"));
+		assertTrue(_windowsPrincipal.hasRole("Everyone"));
+		assertFalse(_windowsPrincipal.hasRole("RoleDoesNotExist"));
+	}
 }

@@ -49,10 +49,10 @@ public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
 	}
 	
 	/**
-	 * Returns true if the user is in a role.
+	 * Returns true if the user is in a given role.
 	 */
 	@Override
 	public boolean isUserInRole(String role) {
-		return _principal.getGroups().containsKey(role);
+		return _principal.hasRole(role);
 	}
 }
