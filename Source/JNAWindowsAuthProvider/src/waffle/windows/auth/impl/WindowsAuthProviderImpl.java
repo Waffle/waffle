@@ -10,7 +10,8 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.TimeUnit;
 
 import waffle.windows.auth.IWindowsAccount;
 import waffle.windows.auth.IWindowsAuthProvider;
@@ -20,18 +21,19 @@ import waffle.windows.auth.IWindowsDomain;
 import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.IWindowsSecurityContext;
 
+import com.google.common.collect.MapMaker;
 import com.sun.jna.NativeLong;
 import com.sun.jna.platform.win32.Advapi32;
 import com.sun.jna.platform.win32.Kernel32;
 import com.sun.jna.platform.win32.Netapi32Util;
+import com.sun.jna.platform.win32.Netapi32Util.DomainTrust;
 import com.sun.jna.platform.win32.Secur32;
 import com.sun.jna.platform.win32.Sspi;
+import com.sun.jna.platform.win32.Sspi.CtxtHandle;
+import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 import com.sun.jna.platform.win32.W32Errors;
 import com.sun.jna.platform.win32.Win32Exception;
 import com.sun.jna.platform.win32.WinBase;
-import com.sun.jna.platform.win32.Netapi32Util.DomainTrust;
-import com.sun.jna.platform.win32.Sspi.CtxtHandle;
-import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 import com.sun.jna.platform.win32.WinNT.HANDLEByReference;
 import com.sun.jna.ptr.NativeLongByReference;
 
@@ -41,9 +43,10 @@ import com.sun.jna.ptr.NativeLongByReference;
  */
 public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
 	
-	private ConcurrentHashMap<String, CtxtHandle> _continueContexts = 
-		new ConcurrentHashMap<String, CtxtHandle>();
-	
+	ConcurrentMap<String, CtxtHandle> _continueContexts = new MapMaker()
+		.expiration(10, TimeUnit.SECONDS)
+		.makeMap();
+
 	public IWindowsSecurityContext acceptSecurityToken(String connectionId, byte[] token, String securityPackage) {
 
         IWindowsCredentialsHandle serverCredential = new WindowsCredentialsHandleImpl(

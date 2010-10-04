@@ -22,5 +22,6 @@
 	<classpathentry kind="lib" path="/ThirdParty/spring-security/dist/spring-security-config-3.0.3.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/ThirdParty/spring/dist/org.springframework.aop-3.0.3.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/ThirdParty/spring/dist/org.springframework.expression-3.0.3.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/guava/guava-r07.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

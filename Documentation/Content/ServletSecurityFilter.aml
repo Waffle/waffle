@@ -18,8 +18,8 @@
           <list class="ordered">
             <listItem>
               Package <localUri>waffle-jna.jar</localUri>, <localUri>commons-logging-1.1.1.jar</localUri>,
-              <localUri>jna.jar</localUri> and <localUri>platform.jar</localUri> in the application's
-              <localUri>lib</localUri> directory or copy them to your web server's <localUri>lib</localUri>.
+              <localUri>guava-r07.jar</localUri>, <localUri>jna.jar</localUri> and <localUri>platform.jar</localUri> 
+              in the application's <localUri>lib</localUri> directory or copy them to your web server's <localUri>lib</localUri>.
             </listItem>
             <listItem>
               Add a security filter to <localUri>WEB-INF\web.xml</localUri> of your application.

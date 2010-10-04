@@ -82,6 +82,7 @@
     <Copy SourceFiles="Source\ThirdParty\commons-logging\commons-logging-1.1.1.jar" DestinationFolder="$(ReleaseDir)\Bin" />
     <Copy SourceFiles="Source\ThirdParty\jna\jna.jar" DestinationFolder="$(ReleaseDir)\Bin" />
     <Copy SourceFiles="Source\ThirdParty\jna\platform.jar" DestinationFolder="$(ReleaseDir)\Bin" />
+    <Copy SourceFiles="Source\ThirdParty\guava\guava-r07.jar" DestinationFolder="$(ReleaseDir)\Bin" />
   </Target>
   <Target Name="javainterface">
     <Exec WorkingDirectory="Source\WindowsAuthProvider\bin\Release" Command="regasm.exe /codebase /tlb:Waffle.Windows.AuthProvider.tlb Waffle.Windows.AuthProvider.dll" />

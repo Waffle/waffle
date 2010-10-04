@@ -44,9 +44,9 @@
             </listItem>
             <listItem>
               Copy <localUri>waffle-jna.jar</localUri>, <localUri>commons-logging-1.1.1.jar</localUri>,
-              <localUri>jna.jar</localUri> and <localUri>platform.jar</localUri> to the application's
-              <localUri>lib</localUri> directory or copy them to your web server's <localUri>lib</localUri>, along with
-              Spring and Spring-Security JARs.
+              <localUri>guava-r07.jar</localUri>, <localUri>jna.jar</localUri> and <localUri>platform.jar</localUri> to 
+              the application's <localUri>lib</localUri> directory or copy them to your web server's <localUri>lib</localUri>, 
+              along with Spring and Spring-Security JARs.
             </listItem>
             <listItem>
               Declare a Windows Authentication provider. This is the link between Waffle and the operating system.

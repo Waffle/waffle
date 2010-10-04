@@ -16,8 +16,8 @@
           <list class="ordered">
             <listItem>
               Package <localUri>waffle-jna.jar</localUri>, <localUri>commons-logging-1.1.1.jar</localUri>, 
-              <localUri>jna.jar</localUri> and <localUri>platform.jar</localUri> in your application's
-              <localUri>lib</localUri> directory or copy them to Tomcat's <localUri>lib</localUri>.
+              <localUri>guava-r07.jar</localUri>, <localUri>jna.jar</localUri> and <localUri>platform.jar</localUri> 
+              in your application's <localUri>lib</localUri> directory or copy them to Tomcat's <localUri>lib</localUri>.
             </listItem>
             <listItem>
               Add a valve and a realm to the application context. For an application, modify <localUri>META-INF\context.xml</localUri>.

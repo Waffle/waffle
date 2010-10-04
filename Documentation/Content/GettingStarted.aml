@@ -45,8 +45,8 @@ Console.WriteLine(admin.Fqn);
       <content>
         <para>
           Add <localUri>waffle-jna.jar</localUri>, <localUri>commons-logging-1.1.1.jar</localUri>, 
-          <localUri>jna.jar</localUri> and <localUri>platform.jar</localUri> to your CLASSPATH. 
-          Create a new instance of <newTerm>waffle.windows.auth.impl.WindowsAuthProviderImpl</newTerm>.
+          <localUri>guava-r07.jar</localUri>, <localUri>jna.jar</localUri> and <localUri>platform.jar</localUri>
+          to your CLASSPATH. Create a new instance of <newTerm>waffle.windows.auth.impl.WindowsAuthProviderImpl</newTerm>.
         </para>
       </content>
     </section>
