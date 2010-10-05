@@ -43,9 +43,22 @@ import com.sun.jna.ptr.NativeLongByReference;
  */
 public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
 	
-	ConcurrentMap<String, CtxtHandle> _continueContexts = new MapMaker()
-		.expiration(10, TimeUnit.SECONDS)
-		.makeMap();
+	ConcurrentMap<String, CtxtHandle> _continueContexts = null;
+	
+	public WindowsAuthProviderImpl() {
+		this(30);
+	}
+	
+	/**
+	 * A Windows authentication provider.
+	 * @param continueContextsTimeout
+	 *  Timeout for security contexts in seconds.
+	 */
+	public WindowsAuthProviderImpl(int continueContextsTimeout) {
+		_continueContexts = new MapMaker()
+			.expiration(continueContextsTimeout, TimeUnit.SECONDS)
+			.makeMap();
+	}
 
 	public IWindowsSecurityContext acceptSecurityToken(String connectionId, byte[] token, String securityPackage) {
 
@@ -150,5 +163,14 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
 
 	public void resetSecurityToken(String connectionId) {
     	_continueContexts.remove(connectionId);
+	}
+	
+	/**
+	 * Number of elements in the continue contexts map.
+	 * @return
+	 *  Number of elements in the hash map.
+	 */
+	public int getContinueContextsSize() {
+		return _continueContexts.size();
 	}
 }

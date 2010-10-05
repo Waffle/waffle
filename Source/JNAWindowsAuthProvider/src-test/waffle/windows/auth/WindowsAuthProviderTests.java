@@ -160,6 +160,46 @@ public class WindowsAuthProviderTests extends TestCase {
 		}
 	}
 	
+	public void testSecurityContextsExpire() throws InterruptedException {
+		String securityPackage = "Negotiate";
+		IWindowsCredentialsHandle clientCredentials = null;
+		WindowsSecurityContextImpl clientContext = null;
+        IWindowsSecurityContext serverContext = null;
+		try {
+			// client credentials handle
+			clientCredentials = WindowsCredentialsHandleImpl.getCurrent(securityPackage);
+			clientCredentials.initialize();
+			// initial client security context
+			clientContext = new WindowsSecurityContextImpl();
+			clientContext.setPrincipalName(Advapi32Util.getUserName());
+			clientContext.setCredentialsHandle(clientCredentials.getHandle());
+			clientContext.setSecurityPackage(securityPackage);
+			clientContext.initialize();
+			// accept on the server
+	        WindowsAuthProviderImpl provider = new WindowsAuthProviderImpl(1);
+	        int max = 100;
+	        for(int i = 0; i < max; i++) {
+		        Thread.sleep(10);
+	        	String connectionId = "testConnection_" + i;
+	        	serverContext = provider.acceptSecurityToken(connectionId, 
+	        			clientContext.getToken(), securityPackage);
+	        	assertTrue(provider.getContinueContextsSize() > 0);
+	        }
+	        debug("Cached security contexts: " + provider.getContinueContextsSize());
+	        assertFalse(max == provider.getContinueContextsSize());	        
+		} finally {
+			if (serverContext != null) {
+				serverContext.dispose();
+			}
+			if (clientContext != null) {
+				clientContext.dispose();
+			}
+			if (clientCredentials != null) {
+				clientCredentials.dispose();
+			}
+		}		
+	}
+	
 	public void testAcceptAndImpersonateSecurityToken() {
 		String securityPackage = "Negotiate";
 		IWindowsCredentialsHandle clientCredentials = null;
