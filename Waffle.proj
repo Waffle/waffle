@@ -94,6 +94,10 @@
   <ItemGroup>
     <DemoFiles Include="Source\JNAWindowsAuthProvider\demo\**\*.jsp" />
     <DemoFiles Include="Source\JNAWindowsAuthProvider\demo\**\*.xml" />
+    <DemoFiles Include="Source\JNAWindowsAuthProvider\demo\**\*.html" />
+    <DemoFiles Include="Source\JNAWindowsAuthProvider\demo\**\*.properties" />
+    <DemoFiles Include="Source\JNAWindowsAuthProvider\demo\**\*.policy" />
+    <DemoFiles Include="Source\JNAWindowsAuthProvider\demo\**\*.conf" />
   </ItemGroup>
   <Target Name="javademo">
     <Copy SourceFiles="@(DemoFiles)" DestinationFolder="$(ReleaseDir)\Samples\%(RecursiveDir)" />
