@@ -44,12 +44,18 @@
 			<include name="**/*.jar" />
 		</fileset>
 	</path>
+	<path id="jcifs.classpath">
+		<fileset dir="${thirdparty.dir}/jcifs">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
 	<path id="waffle.classpath">
 		<path refid="jna.classpath" />
 		<path refid="tomcat.classpath" />
 		<path refid="commons-logging.classpath" />
 		<path refid="spring.classpath" />
 		<path refid="guava.classpath" />
+		<path refid="jcifs.classpath" />
 	</path>
 	<macrodef name="compile">
 		<attribute name="optimize" />

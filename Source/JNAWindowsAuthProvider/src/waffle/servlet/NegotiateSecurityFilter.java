@@ -45,7 +45,7 @@ public class NegotiateSecurityFilter implements Filter {
     private PrincipalFormat _principalFormat = PrincipalFormat.fqn;
     private PrincipalFormat _roleFormat = PrincipalFormat.fqn;
     private SecurityFilterProviderCollection _providers = null;
-	private IWindowsAuthProvider _auth = new WindowsAuthProviderImpl();
+	private IWindowsAuthProvider _auth;
 	private boolean _allowGuestLogin = true;
 	private static final String PRINCIPAL_SESSION_KEY = NegotiateSecurityFilter.class.getName() + ".PRINCIPAL";
 
@@ -188,6 +188,7 @@ public class NegotiateSecurityFilter implements Filter {
 	public void init(FilterConfig filterConfig) throws ServletException {
 		Map<String, String> implParameters = new HashMap<String, String>();
 
+		String[] providerNames = null;
 		if (filterConfig != null) {
 			Enumeration parameterNames = filterConfig.getInitParameterNames();
 			while(parameterNames.hasMoreElements()) {
@@ -201,12 +202,29 @@ public class NegotiateSecurityFilter implements Filter {
 				} else if (parameterName.equals("allowGuestLogin")) {
 					_allowGuestLogin = Boolean.parseBoolean(parameterValue);
 				} else if (parameterName.equals("securityFilterProviders")) {
-					_providers = new SecurityFilterProviderCollection(
-							parameterValue.split("\n"), _auth);
+					providerNames = parameterValue.split("\n");
 				} else {
 					implParameters.put(parameterName, parameterValue);
 				}
 			}
+		}
+		
+		String authProviderClass = implParameters.remove("authProvider");
+		if (authProviderClass == null) {
+			if (_auth == null) {
+				_auth = new WindowsAuthProviderImpl();
+			}
+		} else {
+			try {
+				_auth = (IWindowsAuthProvider) Class.forName(authProviderClass).getConstructor(Map.class).newInstance(implParameters);
+			} catch (Exception e) {
+				_log.error("error loading '" + authProviderClass + "': " + e.getMessage());				
+				throw new ServletException(e);
+			}
+		}
+		
+		if (providerNames != null) {
+			_providers = new SecurityFilterProviderCollection(providerNames, _auth);
 		}
 		
 		// create default providers if none specified
