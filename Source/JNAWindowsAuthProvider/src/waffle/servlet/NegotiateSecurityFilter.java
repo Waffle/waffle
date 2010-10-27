@@ -188,6 +188,7 @@ public class NegotiateSecurityFilter implements Filter {
 	public void init(FilterConfig filterConfig) throws ServletException {
 		Map<String, String> implParameters = new HashMap<String, String>();
 
+		String authProvider = null;
 		String[] providerNames = null;
 		if (filterConfig != null) {
 			Enumeration parameterNames = filterConfig.getInitParameterNames();
@@ -203,24 +204,25 @@ public class NegotiateSecurityFilter implements Filter {
 					_allowGuestLogin = Boolean.parseBoolean(parameterValue);
 				} else if (parameterName.equals("securityFilterProviders")) {
 					providerNames = parameterValue.split("\n");
+				} else if (parameterName.equals("authProvider")) {
+					authProvider = parameterValue;
 				} else {
 					implParameters.put(parameterName, parameterValue);
 				}
 			}
 		}
 		
-		String authProviderClass = implParameters.remove("authProvider");
-		if (authProviderClass == null) {
-			if (_auth == null) {
-				_auth = new WindowsAuthProviderImpl();
-			}
-		} else {
+		if (authProvider != null) {
 			try {
-				_auth = (IWindowsAuthProvider) Class.forName(authProviderClass).getConstructor(Map.class).newInstance(implParameters);
+				_auth = (IWindowsAuthProvider) Class.forName(authProvider).getConstructor().newInstance();
 			} catch (Exception e) {
-				_log.error("error loading '" + authProviderClass + "': " + e.getMessage());				
+				_log.error("error loading '" + authProvider + "': " + e.getMessage());
 				throw new ServletException(e);
 			}
+		}
+		
+		if (_auth == null) {
+			_auth = new WindowsAuthProviderImpl();
 		}
 		
 		if (providerNames != null) {
@@ -229,7 +231,7 @@ public class NegotiateSecurityFilter implements Filter {
 		
 		// create default providers if none specified
 		if (_providers == null) {
-			_log.debug("initializing default secuirty filter providers");
+			_log.debug("initializing default security filter providers");
 			_providers = new SecurityFilterProviderCollection(_auth);
 		}
 		

@@ -61,6 +61,11 @@
                 </para>
               </alert>
             </definition>
+            <definedTerm>authProvider</definedTerm>
+            <definition>
+              A class that implements <literal>IWindowsAuthProvider</literal> and has a parameterless
+              constructor.
+            </definition>
             <definedTerm>securityFilterProviders</definedTerm>
             <definition>
               A list of security filter providers. By default, both <literal>BasicSecurityFilterProvider</literal>

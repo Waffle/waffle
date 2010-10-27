@@ -19,6 +19,7 @@ import org.apache.catalina.realm.GenericPrincipal;
 import waffle.apache.catalina.SimpleFilterChain;
 import waffle.apache.catalina.SimpleHttpRequest;
 import waffle.apache.catalina.SimpleHttpResponse;
+import waffle.mock.MockWindowsAuthProvider;
 import waffle.mock.MockWindowsIdentity;
 import waffle.util.Base64;
 import waffle.windows.auth.IWindowsCredentialsHandle;
@@ -250,11 +251,13 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		filterConfig.setParameter("allowGuestLogin", "true");
 		filterConfig.setParameter("securityFilterProviders", "waffle.servlet.spi.BasicSecurityFilterProvider\n");
 		filterConfig.setParameter("waffle.servlet.spi.BasicSecurityFilterProvider/realm", "DemoRealm");
+		filterConfig.setParameter("authProvider", MockWindowsAuthProvider.class.getName());
 		_filter.init(filterConfig);
 		assertEquals(_filter.getPrincipalFormat(), PrincipalFormat.sid);
 		assertEquals(_filter.getRoleFormat(), PrincipalFormat.none);
 		assertTrue(_filter.getAllowGuestLogin());
 		assertEquals(1, _filter.getProviders().size());
+		assertTrue(_filter.getAuth() instanceof MockWindowsAuthProvider);
 	}
 	
 	public void testInitNegotiateSecurityFilterProvider() throws ServletException {
