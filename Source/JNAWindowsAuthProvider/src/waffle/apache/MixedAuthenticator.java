@@ -60,12 +60,11 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 		}
 
 		_log.debug(request.getMethod() + " " + request.getRequestURI() + ", contentlength: " + request.getContentLength());
-		
-		String queryString = request.getQueryString();
-		boolean negotiateCheck = (queryString != null && queryString.equals("j_negotiate_check"));
-		_log.debug("negotiateCheck: " + negotiateCheck + " (" +  ((queryString == null) ? "<none>" : queryString) + ")");
-		boolean securityCheck = (queryString != null && queryString.equals("j_security_check"));
-		_log.debug("securityCheck: " + securityCheck + " (" +  ((queryString == null) ? "<none>" : queryString) + ")");
+
+		boolean negotiateCheck = request.getParameter("j_negotiate_check") != null;
+		_log.debug("negotiateCheck: " + negotiateCheck);
+		boolean securityCheck = request.getParameter("j_security_check") != null;
+		_log.debug("securityCheck: " + securityCheck);
 
 		Principal principal = request.getUserPrincipal();
 		

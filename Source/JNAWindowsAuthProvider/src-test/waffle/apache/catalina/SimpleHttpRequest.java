@@ -103,6 +103,13 @@ public class SimpleHttpRequest extends Request implements HttpServletRequest {
 	@Override
 	public void setQueryString(String queryString) {
 		_queryString = queryString;
+		if (_queryString != null) {
+			for (String eachParameter : _queryString.split("[&]")) {
+				String[] pair = eachParameter.split("=");
+				String value = (pair.length == 2) ? pair[1] : "";
+				addParameter(pair[0], value);
+			}
+		}
 	}
 	
 	@Override

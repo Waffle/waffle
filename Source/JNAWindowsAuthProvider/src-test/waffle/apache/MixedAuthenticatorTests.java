@@ -185,13 +185,26 @@ public class MixedAuthenticatorTests extends TestCase {
 		assertEquals(1, response.getHeaderNames().length);
 	}
 
-	public void testSecurityCheck() {
+	public void testSecurityCheckQueryString() {
 		_authenticator.setAuth(new MockWindowsAuthProvider());
 		LoginConfig loginConfig = new LoginConfig();
 		loginConfig.setErrorPage("error.html");
 		loginConfig.setLoginPage("login.html");
 		SimpleHttpRequest request = new SimpleHttpRequest();
 		request.setQueryString("j_security_check");
+		request.addParameter("j_username", WindowsAccountImpl.getCurrentUsername());
+		request.addParameter("j_password", "");
+		SimpleHttpResponse response = new SimpleHttpResponse();
+		assertTrue(_authenticator.authenticate(request, response, loginConfig));
+	}
+	
+	public void testSecurityCheckParameters() {
+		_authenticator.setAuth(new MockWindowsAuthProvider());
+		LoginConfig loginConfig = new LoginConfig();
+		loginConfig.setErrorPage("error.html");
+		loginConfig.setLoginPage("login.html");
+		SimpleHttpRequest request = new SimpleHttpRequest();
+		request.addParameter("j_security_check", "");
 		request.addParameter("j_username", WindowsAccountImpl.getCurrentUsername());
 		request.addParameter("j_password", "");
 		SimpleHttpResponse response = new SimpleHttpResponse();
