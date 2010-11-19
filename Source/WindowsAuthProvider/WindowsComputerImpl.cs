@@ -84,11 +84,11 @@ namespace Waffle.Windows.AuthProvider
             {
                 int rc = 0;
                 int size = 1024;
-                int totalentries = 0;
+                int entriesread = 0;
                 IntPtr bufptr = new IntPtr(size);
                 do
                 {
-                    int entriesread = 0;
+                    int totalentries = 0;
                     int resume_handle = 0;
                     rc = Netapi32.NetLocalGroupEnum(
                         _computerName,
@@ -108,6 +108,7 @@ namespace Waffle.Windows.AuthProvider
                             size *= 2;
                             bufptr = new IntPtr(size);
                             resume_handle = 0;
+                            entriesread = 0;
                             break;
                         case Netapi32.NERR_Success:
                             break;
@@ -118,9 +119,9 @@ namespace Waffle.Windows.AuthProvider
                 }
                 while (rc == Windows.ERROR_MORE_DATA);
 
-                string[] groups = new string[totalentries];
+                string[] groups = new string[entriesread];
                 IntPtr iter = bufptr;
-                for (int i = 0; i < totalentries; i++)
+                for (int i = 0; i < entriesread; i++)
                 {
                     Netapi32.LOCALGROUP_USERS_INFO_0 group = new Netapi32.LOCALGROUP_USERS_INFO_0();
                     group = (Netapi32.LOCALGROUP_USERS_INFO_0)Marshal.PtrToStructure(iter, typeof(Netapi32.LOCALGROUP_USERS_INFO_0));
