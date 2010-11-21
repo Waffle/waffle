@@ -88,7 +88,7 @@
     <Exec WorkingDirectory="Source\WindowsAuthProvider\bin\Release" Command="regasm.exe /codebase /tlb:Waffle.Windows.AuthProvider.tlb Waffle.Windows.AuthProvider.dll" />
     <Exec WorkingDirectory="Source\WindowsAuthProvider\bin\Release" Command="regasm.exe /codebase /regfile:Waffle.Windows.AuthProvider.reg Waffle.Windows.AuthProvider.dll" />
     <Exec WorkingDirectory="Tools\JacobGen" Command="jacobgen.bat -destdir:&quot;$(MSBuildProjectDirectory)\Source\Jar&quot; -package:com.waffle.auth &quot;$(MSBuildProjectDirectory)/Source/WindowsAuthProvider/bin/Release/Waffle.Windows.AuthProvider.tlb&quot;" />
-    <Exec WorkingDirectory="Source\Jar" Command="&quot;$(JAVA_HOME)\bin\javac.exe&quot; com\waffle\auth\*.java -cp ..\..\Tools\JacobGen\jacob.jar" />
+    <Exec WorkingDirectory="Source\Jar" Command="&quot;$(JAVA_HOME)\bin\javac.exe&quot; com\waffle\auth\*.java -cp ..\..\Tools\Jacob\jacob.jar" />
     <Exec WorkingDirectory="Source\Jar" Command="&quot;$(JAVA_HOME)\bin\jar.exe&quot; cvf &quot;$(MSBuildProjectDirectory)\$(ReleaseDir)\Bin\waffle-jacob.jar&quot; com\waffle\auth\*.class" />
   </Target>
   <ItemGroup>
