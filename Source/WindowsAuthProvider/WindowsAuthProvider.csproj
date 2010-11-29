@@ -51,6 +51,7 @@
     <Compile Include="IWindowsSecurityContext.cs" />
     <Compile Include="IWindowsComputer.cs" />
     <Compile Include="IWindowsImpersonationContext.cs" />
+    <Compile Include="LMCons.cs" />
     <Compile Include="Netapi32.cs" />
     <Compile Include="Secur32.cs" />
     <Compile Include="WindowsAccountName.cs" />
