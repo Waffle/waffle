@@ -23,7 +23,7 @@ namespace Waffle.Windows.AuthProvider.UnitTests
             // test user
             _testUser = new Netapi32.USER_INFO_1();
             _testUser.usri1_name = "WaffleTestUser";
-            _testUser.usri1_password = "password";
+            _testUser.usri1_password = Guid.NewGuid().ToString();
             _testUser.usri1_priv = 1;
             _testUser.usri1_home_dir = null;
             _testUser.comment = "Waffle test user.";
