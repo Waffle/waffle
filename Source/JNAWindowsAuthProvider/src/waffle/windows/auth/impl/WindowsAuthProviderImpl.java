@@ -62,6 +62,11 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
 
 	public IWindowsSecurityContext acceptSecurityToken(String connectionId, byte[] token, String securityPackage) {
 
+		if (token == null || token.length == 0) {
+        	_continueContexts.remove(connectionId);
+            throw new Win32Exception(W32Errors.SEC_E_INVALID_TOKEN);			
+		}
+		
         IWindowsCredentialsHandle serverCredential = new WindowsCredentialsHandleImpl(
                 null, Sspi.SECPKG_CRED_INBOUND, securityPackage);
         serverCredential.initialize();

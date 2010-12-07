@@ -24,14 +24,14 @@ import waffle.mock.MockWindowsIdentity;
 import waffle.util.Base64;
 import waffle.windows.auth.IWindowsCredentialsHandle;
 import waffle.windows.auth.PrincipalFormat;
+import waffle.windows.auth.impl.WindowsAccountImpl;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 import waffle.windows.auth.impl.WindowsCredentialsHandleImpl;
 import waffle.windows.auth.impl.WindowsSecurityContextImpl;
 
-import com.sun.jna.platform.win32.Advapi32Util;
+import com.sun.jna.platform.win32.Secur32.EXTENDED_NAME_FORMAT;
 import com.sun.jna.platform.win32.Secur32Util;
 import com.sun.jna.platform.win32.Sspi;
-import com.sun.jna.platform.win32.Secur32.EXTENDED_NAME_FORMAT;
 import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 
 /**
@@ -84,7 +84,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 			clientCredentials.initialize();
 			// initial client security context
 			clientContext = new WindowsSecurityContextImpl();
-			clientContext.setPrincipalName(Advapi32Util.getUserName());
+			clientContext.setPrincipalName(WindowsAccountImpl.getCurrentUsername());
 			clientContext.setCredentialsHandle(clientCredentials.getHandle());
 			clientContext.setSecurityPackage(securityPackage);
 			clientContext.initialize();
@@ -122,7 +122,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 			clientCredentials.initialize();
 			// initial client security context
 			clientContext = new WindowsSecurityContextImpl();
-			clientContext.setPrincipalName(Advapi32Util.getUserName());
+			clientContext.setPrincipalName(WindowsAccountImpl.getCurrentUsername());
 			clientContext.setCredentialsHandle(clientCredentials.getHandle());
 			clientContext.setSecurityPackage(securityPackage);
 			clientContext.initialize();
@@ -143,7 +143,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 	    		authenticated = (subject != null && subject.getPrincipals().size() > 0);
 	
 	    		if (authenticated) {
-	        		assertEquals(0, response.getHeaderNames().length);
+	        		assertTrue(response.getHeaderNames().length >= 1);
 	    			break;
 	    		}
 	    		

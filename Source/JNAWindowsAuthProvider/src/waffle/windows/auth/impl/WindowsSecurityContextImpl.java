@@ -12,14 +12,13 @@ import waffle.windows.auth.IWindowsImpersonationContext;
 import waffle.windows.auth.IWindowsSecurityContext;
 
 import com.sun.jna.NativeLong;
-import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.Secur32;
 import com.sun.jna.platform.win32.Sspi;
-import com.sun.jna.platform.win32.W32Errors;
-import com.sun.jna.platform.win32.Win32Exception;
 import com.sun.jna.platform.win32.Sspi.CredHandle;
 import com.sun.jna.platform.win32.Sspi.CtxtHandle;
 import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
+import com.sun.jna.platform.win32.W32Errors;
+import com.sun.jna.platform.win32.Win32Exception;
 import com.sun.jna.platform.win32.WinNT.HANDLEByReference;
 import com.sun.jna.ptr.NativeLongByReference;
 
@@ -67,7 +66,7 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 		credentialsHandle.initialize();
 		try {
 			WindowsSecurityContextImpl ctx = new WindowsSecurityContextImpl();
-			ctx.setPrincipalName(Advapi32Util.getUserName());
+			ctx.setPrincipalName(WindowsAccountImpl.getCurrentUsername());
 			ctx.setCredentialsHandle(credentialsHandle.getHandle()); 
 			ctx.setSecurityPackage(securityPackage);
 			ctx.initialize();
@@ -91,7 +90,7 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 		_token = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, Sspi.MAX_TOKEN_SIZE);
     	_ctx = new CtxtHandle();
     	int rc = Secur32.INSTANCE.InitializeSecurityContext(_credentials, continueCtx, 
-    			Advapi32Util.getUserName(), new NativeLong(Sspi.ISC_REQ_CONNECTION), new NativeLong(0), 
+    			WindowsAccountImpl.getCurrentUsername(), new NativeLong(Sspi.ISC_REQ_CONNECTION), new NativeLong(0), 
     			new NativeLong(Sspi.SECURITY_NATIVE_DREP), continueToken, new NativeLong(0), _ctx, _token, 
     			_attr, null);
     	switch(rc) {

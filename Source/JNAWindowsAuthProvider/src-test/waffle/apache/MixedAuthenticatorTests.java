@@ -22,7 +22,6 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
 import waffle.windows.auth.impl.WindowsCredentialsHandleImpl;
 import waffle.windows.auth.impl.WindowsSecurityContextImpl;
 
-import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.Sspi;
 import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 
@@ -79,7 +78,7 @@ public class MixedAuthenticatorTests extends TestCase {
 			clientCredentials.initialize();
 			// initial client security context
 			clientContext = new WindowsSecurityContextImpl();
-			clientContext.setPrincipalName(Advapi32Util.getUserName());
+			clientContext.setPrincipalName(WindowsAccountImpl.getCurrentUsername());
 			clientContext.setCredentialsHandle(clientCredentials.getHandle());
 			clientContext.setSecurityPackage(securityPackage);
 			clientContext.initialize();
@@ -116,7 +115,7 @@ public class MixedAuthenticatorTests extends TestCase {
 			clientCredentials.initialize();
 			// initial client security context
 			clientContext = new WindowsSecurityContextImpl();
-			clientContext.setPrincipalName(Advapi32Util.getUserName());
+			clientContext.setPrincipalName(WindowsAccountImpl.getCurrentUsername());
 			clientContext.setCredentialsHandle(clientCredentials.getHandle());
 			clientContext.setSecurityPackage(securityPackage);
 			clientContext.initialize();
@@ -133,7 +132,7 @@ public class MixedAuthenticatorTests extends TestCase {
 	    		authenticated = _authenticator.authenticate(request, response, null);
 	
 	    		if (authenticated) {
-	        		assertEquals(0, response.getHeaderNames().length);
+	        		assertTrue(response.getHeaderNames().length >= 1);
 	    			break;
 	    		}
 	    		

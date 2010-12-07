@@ -17,11 +17,11 @@ import waffle.apache.catalina.SimpleRealm;
 import waffle.util.Base64;
 import waffle.windows.auth.IWindowsCredentialsHandle;
 import waffle.windows.auth.PrincipalFormat;
+import waffle.windows.auth.impl.WindowsAccountImpl;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 import waffle.windows.auth.impl.WindowsCredentialsHandleImpl;
 import waffle.windows.auth.impl.WindowsSecurityContextImpl;
 
-import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.Sspi;
 import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 
@@ -95,7 +95,7 @@ public class NegotiateAuthenticatorTests extends TestCase {
 			clientCredentials.initialize();
 			// initial client security context
 			clientContext = new WindowsSecurityContextImpl();
-			clientContext.setPrincipalName(Advapi32Util.getUserName());
+			clientContext.setPrincipalName(WindowsAccountImpl.getCurrentUsername());
 			clientContext.setCredentialsHandle(clientCredentials.getHandle());
 			clientContext.setSecurityPackage(securityPackage);
 			clientContext.initialize();
@@ -130,7 +130,7 @@ public class NegotiateAuthenticatorTests extends TestCase {
 			clientCredentials.initialize();
 			// initial client security context
 			clientContext = new WindowsSecurityContextImpl();
-			clientContext.setPrincipalName(Advapi32Util.getUserName());
+			clientContext.setPrincipalName(WindowsAccountImpl.getCurrentUsername());
 			clientContext.setCredentialsHandle(clientCredentials.getHandle());
 			clientContext.setSecurityPackage(securityPackage);
 			clientContext.initialize();
@@ -148,7 +148,7 @@ public class NegotiateAuthenticatorTests extends TestCase {
 	    		authenticated = _authenticator.authenticate(request, response, null);
 	
 	    		if (authenticated) {
-	        		assertEquals(0, response.getHeaderNames().length);
+	        		assertTrue(response.getHeaderNames().length >= 1);
 	    			break;
 	    		}
 	    		
@@ -183,7 +183,7 @@ public class NegotiateAuthenticatorTests extends TestCase {
 			clientCredentials.initialize();
 			// initial client security context
 			clientContext = new WindowsSecurityContextImpl();
-			clientContext.setPrincipalName(Advapi32Util.getUserName());
+			clientContext.setPrincipalName(WindowsAccountImpl.getCurrentUsername());
 			clientContext.setCredentialsHandle(clientCredentials.getHandle());
 			clientContext.setSecurityPackage(securityPackage);
 			clientContext.initialize();
@@ -205,7 +205,7 @@ public class NegotiateAuthenticatorTests extends TestCase {
 	    			assertTrue(windowsPrincipal.getSidString().startsWith("S-"));
 	    			assertTrue(windowsPrincipal.getSid().length > 0);
 	    			assertTrue(windowsPrincipal.getGroups().containsKey("Everyone"));
-	        		assertEquals(0, response.getHeaderNames().length);
+	        		assertTrue(response.getHeaderNames().length <= 1);
 	    			break;
 	    		}
 	    		

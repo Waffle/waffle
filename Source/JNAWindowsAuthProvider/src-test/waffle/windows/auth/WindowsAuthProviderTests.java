@@ -7,6 +7,8 @@
 package waffle.windows.auth;
 
 import junit.framework.TestCase;
+import waffle.util.Base64;
+import waffle.windows.auth.impl.WindowsAccountImpl;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 import waffle.windows.auth.impl.WindowsCredentialsHandleImpl;
 import waffle.windows.auth.impl.WindowsSecurityContextImpl;
@@ -119,7 +121,7 @@ public class WindowsAuthProviderTests extends TestCase {
 			clientCredentials.initialize();
 			// initial client security context
 			clientContext = new WindowsSecurityContextImpl();
-			clientContext.setPrincipalName(Advapi32Util.getUserName());
+			clientContext.setPrincipalName(WindowsAccountImpl.getCurrentUsername());
 			clientContext.setCredentialsHandle(clientCredentials.getHandle());
 			clientContext.setSecurityPackage(securityPackage);
 			clientContext.initialize();
@@ -127,18 +129,19 @@ public class WindowsAuthProviderTests extends TestCase {
 	        WindowsAuthProviderImpl provider = new WindowsAuthProviderImpl();
 	        String connectionId = "testConnection-" + Thread.currentThread().getId();
 	        do
-	        {        	
+	        {
+	        	// accept the token on the server
+	            serverContext = provider.acceptSecurityToken(connectionId, clientContext.getToken(), 
+	            		securityPackage);
+
 	        	if (serverContext != null) {
 	        		// initialize on the client
 	                SecBufferDesc continueToken = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, 
 	            		serverContext.getToken());
-	                clientContext.initialize(clientContext.getHandle(), continueToken);
+	                clientContext.initialize(clientContext.getHandle(), continueToken);	                
+                    debug("Token: " + Base64.encode(serverContext.getToken()));
 	        	}
-	        	
-	        	// accept the token on the server
-	            serverContext = provider.acceptSecurityToken(connectionId, clientContext.getToken(), 
-	            		securityPackage);
-	            
+	        	            
 	        } while (clientContext.getContinue() || serverContext.getContinue());
 	        
 	        assertTrue(serverContext.getIdentity().getFqn().length() > 0);
@@ -171,7 +174,7 @@ public class WindowsAuthProviderTests extends TestCase {
 			clientCredentials.initialize();
 			// initial client security context
 			clientContext = new WindowsSecurityContextImpl();
-			clientContext.setPrincipalName(Advapi32Util.getUserName());
+			clientContext.setPrincipalName(WindowsAccountImpl.getCurrentUsername());
 			clientContext.setCredentialsHandle(clientCredentials.getHandle());
 			clientContext.setSecurityPackage(securityPackage);
 			clientContext.initialize();
@@ -211,7 +214,7 @@ public class WindowsAuthProviderTests extends TestCase {
 			clientCredentials.initialize();
 			// initial client security context
 			clientContext = new WindowsSecurityContextImpl();
-			clientContext.setPrincipalName(Advapi32Util.getUserName());
+			clientContext.setPrincipalName(WindowsAccountImpl.getCurrentUsername());
 			clientContext.setCredentialsHandle(clientCredentials.getHandle());
 			clientContext.setSecurityPackage(securityPackage);
 			clientContext.initialize();
@@ -220,6 +223,10 @@ public class WindowsAuthProviderTests extends TestCase {
 	        String connectionId = "testConnection";
 	        do
 	        {        	
+	        	// accept the token on the server
+	            serverContext = provider.acceptSecurityToken(connectionId, clientContext.getToken(), 
+	            		securityPackage);
+	            
 	        	if (serverContext != null) {
 	        		// initialize on the client
 	                SecBufferDesc continueToken = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, 
@@ -227,10 +234,6 @@ public class WindowsAuthProviderTests extends TestCase {
 	                clientContext.initialize(clientContext.getHandle(), continueToken);
 	        	}
 	        	
-	        	// accept the token on the server
-	            serverContext = provider.acceptSecurityToken(connectionId, clientContext.getToken(), 
-	            		securityPackage);
-	            
 	        } while (clientContext.getContinue() || serverContext.getContinue());
 	        
 	        assertTrue(serverContext.getIdentity().getFqn().length() > 0);
