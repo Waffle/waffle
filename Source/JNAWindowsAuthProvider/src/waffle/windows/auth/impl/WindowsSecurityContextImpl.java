@@ -67,7 +67,7 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 	 * @return
 	 *  Windows security context.
 	 */
-	public static IWindowsSecurityContext getCurrent(String securityPackage) {
+	public static IWindowsSecurityContext getCurrent(String securityPackage, String targetName) {
 		IWindowsCredentialsHandle credentialsHandle = WindowsCredentialsHandleImpl.getCurrent(
 				securityPackage);
 		credentialsHandle.initialize();
@@ -76,7 +76,7 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 			ctx.setPrincipalName(WindowsAccountImpl.getCurrentUsername());
 			ctx.setCredentialsHandle(credentialsHandle.getHandle()); 
 			ctx.setSecurityPackage(securityPackage);
-			ctx.initialize();
+			ctx.initialize(null, null, targetName);
 			return ctx;
 		} finally {
 			credentialsHandle.dispose();
@@ -87,17 +87,12 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 		
 	}
 	
-	public void initialize() {
-		initialize(null, null);
-	}
-	
-	public void initialize(CtxtHandle continueCtx, SecBufferDesc continueToken) {
-		
+	public void initialize(CtxtHandle continueCtx, SecBufferDesc continueToken, String targetName) {
 		_attr = new NativeLongByReference();
 		_token = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, Sspi.MAX_TOKEN_SIZE);
     	_ctx = new CtxtHandle();
     	int rc = Secur32.INSTANCE.InitializeSecurityContext(_credentials, continueCtx, 
-    			WindowsAccountImpl.getCurrentUsername(), new NativeLong(Sspi.ISC_REQ_CONNECTION), new NativeLong(0), 
+    			targetName, new NativeLong(Sspi.ISC_REQ_CONNECTION), new NativeLong(0), 
     			new NativeLong(Sspi.SECURITY_NATIVE_DREP), continueToken, new NativeLong(0), _ctx, _token, 
     			_attr, null);
     	switch(rc) {

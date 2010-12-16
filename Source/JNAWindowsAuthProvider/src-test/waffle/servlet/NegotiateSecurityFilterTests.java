@@ -94,7 +94,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 			clientContext.setPrincipalName(WindowsAccountImpl.getCurrentUsername());
 			clientContext.setCredentialsHandle(clientCredentials.getHandle());
 			clientContext.setSecurityPackage(securityPackage);
-			clientContext.initialize();
+			clientContext.initialize(null, null, WindowsAccountImpl.getCurrentUsername());
 			SimpleHttpRequest request = new SimpleHttpRequest();
 			request.setMethod("POST");
 			request.setContentLength(0);
@@ -132,7 +132,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 			clientContext.setPrincipalName(WindowsAccountImpl.getCurrentUsername());
 			clientContext.setCredentialsHandle(clientCredentials.getHandle());
 			clientContext.setSecurityPackage(securityPackage);
-			clientContext.initialize();
+			clientContext.initialize(null, null, WindowsAccountImpl.getCurrentUsername());
 			// filter chain
 			SimpleFilterChain filterChain = new SimpleFilterChain();
 			// negotiate
@@ -162,7 +162,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 	    		byte[] continueTokenBytes = Base64.decode(continueToken);
 	    		assertTrue(continueTokenBytes.length > 0);
 	            SecBufferDesc continueTokenBuffer = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, continueTokenBytes);
-	            clientContext.initialize(clientContext.getHandle(), continueTokenBuffer);
+	            clientContext.initialize(clientContext.getHandle(), continueTokenBuffer, "localhost");
 	        }        
 	        assertTrue(authenticated);
 	        assertTrue(filterChain.getRequest() instanceof NegotiateRequestWrapper);

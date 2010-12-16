@@ -73,7 +73,7 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
 		
 	}
 
-	public void initialize(CtxtHandle continueCtx, SecBufferDesc continueToken) {
+	public void initialize(CtxtHandle continueCtx, SecBufferDesc continueToken, String targetPrincipalName) {
 		
 	}
 }

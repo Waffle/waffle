@@ -66,18 +66,15 @@ public interface IWindowsSecurityContext {
 	public Sspi.CtxtHandle getHandle();
 
 	/**
-	 * Initialize the security context.
-	 */
-	public void initialize();
-	
-	/**
 	 * Initialize the security context, continuing from a previous one.
 	 * @param continueCtx
 	 *  Continue context.
 	 * @param continueToken
 	 *  Continue token.
+	 * @param targetName
+	 *  The target of the context. The string contents are security-package specific.
 	 */
-	public void initialize(CtxtHandle continueCtx, SecBufferDesc continueToken);
+	public void initialize(CtxtHandle continueCtx, SecBufferDesc continueToken, String targetName);
 	
 	/**
 	 * Impersonate this security context.

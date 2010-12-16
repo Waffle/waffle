@@ -105,7 +105,7 @@ public class NegotiateAuthenticatorTests extends TestCase {
 			clientContext.setPrincipalName(WindowsAccountImpl.getCurrentUsername());
 			clientContext.setCredentialsHandle(clientCredentials.getHandle());
 			clientContext.setSecurityPackage(securityPackage);
-			clientContext.initialize();
+			clientContext.initialize(null, null, WindowsAccountImpl.getCurrentUsername());
 			SimpleHttpRequest request = new SimpleHttpRequest();
 			request.setMethod("POST");
 			request.setContentLength(0);
@@ -140,7 +140,7 @@ public class NegotiateAuthenticatorTests extends TestCase {
 			clientContext.setPrincipalName(WindowsAccountImpl.getCurrentUsername());
 			clientContext.setCredentialsHandle(clientCredentials.getHandle());
 			clientContext.setSecurityPackage(securityPackage);
-			clientContext.initialize();
+			clientContext.initialize(null, null, WindowsAccountImpl.getCurrentUsername());
 			// negotiate
 			boolean authenticated = false;
 			SimpleHttpRequest request = new SimpleHttpRequest();
@@ -167,7 +167,7 @@ public class NegotiateAuthenticatorTests extends TestCase {
 	    		byte[] continueTokenBytes = Base64.decode(continueToken);
 	    		assertTrue(continueTokenBytes.length > 0);
 	            SecBufferDesc continueTokenBuffer = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, continueTokenBytes);
-	            clientContext.initialize(clientContext.getHandle(), continueTokenBuffer);
+	            clientContext.initialize(clientContext.getHandle(), continueTokenBuffer, WindowsAccountImpl.getCurrentUsername());
 	        }
 	        assertTrue(authenticated);
 		} finally {
@@ -193,7 +193,7 @@ public class NegotiateAuthenticatorTests extends TestCase {
 			clientContext.setPrincipalName(WindowsAccountImpl.getCurrentUsername());
 			clientContext.setCredentialsHandle(clientCredentials.getHandle());
 			clientContext.setSecurityPackage(securityPackage);
-			clientContext.initialize();
+			clientContext.initialize(null, null, WindowsAccountImpl.getCurrentUsername());
 			// negotiate
 			boolean authenticated = false;
 			SimpleHttpRequest request = new SimpleHttpRequest();
@@ -224,7 +224,7 @@ public class NegotiateAuthenticatorTests extends TestCase {
 	    		byte[] continueTokenBytes = Base64.decode(continueToken);
 	    		assertTrue(continueTokenBytes.length > 0);
 	            SecBufferDesc continueTokenBuffer = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, continueTokenBytes);
-	            clientContext.initialize(clientContext.getHandle(), continueTokenBuffer);
+	            clientContext.initialize(clientContext.getHandle(), continueTokenBuffer, WindowsAccountImpl.getCurrentUsername());
 	        }
 	        assertTrue(authenticated);	        
 		} finally {
