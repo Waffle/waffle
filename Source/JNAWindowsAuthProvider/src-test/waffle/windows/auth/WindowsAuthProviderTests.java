@@ -119,6 +119,7 @@ public class WindowsAuthProviderTests extends TestCase {
 	
 	public void testAcceptSecurityToken() {
 		String securityPackage = "Negotiate";
+		String targetName = "localhost";
 		IWindowsCredentialsHandle clientCredentials = null;
 		WindowsSecurityContextImpl clientContext = null;
         IWindowsSecurityContext serverContext = null;
@@ -131,7 +132,7 @@ public class WindowsAuthProviderTests extends TestCase {
 			clientContext.setPrincipalName(WindowsAccountImpl.getCurrentUsername());
 			clientContext.setCredentialsHandle(clientCredentials.getHandle());
 			clientContext.setSecurityPackage(securityPackage);
-			clientContext.initialize(null, null, WindowsAccountImpl.getCurrentUsername());
+			clientContext.initialize(null, null, targetName);
 			// accept on the server
 	        WindowsAuthProviderImpl provider = new WindowsAuthProviderImpl();
 	        String connectionId = "testConnection-" + Thread.currentThread().getId();
@@ -145,7 +146,7 @@ public class WindowsAuthProviderTests extends TestCase {
 	        		// initialize on the client
 	                SecBufferDesc continueToken = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, 
 	            		serverContext.getToken());
-	                clientContext.initialize(clientContext.getHandle(), continueToken, WindowsAccountImpl.getCurrentUsername());	                
+	                clientContext.initialize(clientContext.getHandle(), continueToken, targetName);	                
                     debug("Token: " + Base64.encode(serverContext.getToken()));
 	        	}
 	        	            
@@ -212,6 +213,7 @@ public class WindowsAuthProviderTests extends TestCase {
 	
 	public void testAcceptAndImpersonateSecurityToken() {
 		String securityPackage = "Negotiate";
+		String targetName = "localhost";
 		IWindowsCredentialsHandle clientCredentials = null;
 		WindowsSecurityContextImpl clientContext = null;
         IWindowsSecurityContext serverContext = null;
@@ -224,7 +226,7 @@ public class WindowsAuthProviderTests extends TestCase {
 			clientContext.setPrincipalName(WindowsAccountImpl.getCurrentUsername());
 			clientContext.setCredentialsHandle(clientCredentials.getHandle());
 			clientContext.setSecurityPackage(securityPackage);
-			clientContext.initialize(null, null, WindowsAccountImpl.getCurrentUsername());
+			clientContext.initialize(null, null, targetName);
 			// accept on the server
 	        WindowsAuthProviderImpl provider = new WindowsAuthProviderImpl();
 	        String connectionId = "testConnection";
@@ -238,7 +240,7 @@ public class WindowsAuthProviderTests extends TestCase {
 	        		// initialize on the client
 	                SecBufferDesc continueToken = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, 
 	            		serverContext.getToken());
-	                clientContext.initialize(clientContext.getHandle(), continueToken, WindowsAccountImpl.getCurrentUsername());
+	                clientContext.initialize(clientContext.getHandle(), continueToken, targetName);
 	        	}
 	        	
 	        } while (clientContext.getContinue() || serverContext.getContinue());

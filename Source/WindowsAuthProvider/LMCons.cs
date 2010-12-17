@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Waffle.Windows.AuthProvider
 {
+    /// <summary>
+    /// LMCons.h definitions.
+    /// </summary>
     public abstract class LMCons
     {
         /// <summary>
