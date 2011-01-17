@@ -9,6 +9,10 @@
         still enables you to protect different resources based on different user roles (user groups), the filter is a
         catch-all solution to  enable Windows single-sign-on for a web server that implements servlets (Tomcat, Jetty, etc.).
       </para>
+      <para>
+        Moreover, this filter supports impersonating the remote client, enabling to perform actions as the remote user using 
+        native Windows APIs.
+      </para>
     </introduction>
     <section address="configuration">
       <title>Configuring Web Servers</title>
@@ -80,6 +84,17 @@
             <definition>
               The name of the Realm for BASIC authentication.
             </definition>
+            <definedTerm>impersonate</definedTerm>
+            <definition>
+              Allow impersonation. When <literal>true</literal> the remote user will be impersonated.
+              <alert class="note">
+                <para>
+                  There is no mapping between the Windows native threads, under which the impersonation takes place,
+                  and the Java threads. Thus you'll need to use Windows native APIs to perform impersonated actions.
+                  Any action done in Java will still be performed with the user account running the servlet container.
+                </para>
+              </alert>
+            </definition>
           </tableDefinition>
         </para>
       </content>
@@ -103,6 +118,10 @@
   </init-param>
   <init-param>
   	<param-name>allowGuestLogin</param-name>
+  	<param-value>true</param-value>
+  </init-param>
+  <init-param>
+  	<param-name>impersonate</param-name>
   	<param-value>true</param-value>
   </init-param>
   <init-param>

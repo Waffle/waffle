@@ -20,6 +20,9 @@ import waffle.windows.auth.IWindowsAccount;
  */
 public class MockWindowsAccount implements IWindowsAccount {
 
+	public static final String TEST_USER_NAME = "WaffleTestUser";
+	public static final String TEST_PASSWORD = "!WAFFLEP$$Wrd0";
+	
 	private String _fqn;
 	private String _name;
 	private String _domain;

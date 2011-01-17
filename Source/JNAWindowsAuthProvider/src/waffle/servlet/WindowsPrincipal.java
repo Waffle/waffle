@@ -36,6 +36,7 @@ public class WindowsPrincipal implements Principal, Serializable {
 	private byte[] _sid;
 	private String _sidString;
 	private List<String> _roles;
+	private transient IWindowsIdentity _identity;
 	private Map<String, WindowsAccount> _groups;
 
 	/**
@@ -58,6 +59,7 @@ public class WindowsPrincipal implements Principal, Serializable {
 	 */
 	public WindowsPrincipal(IWindowsIdentity windowsIdentity, 
 			PrincipalFormat principalFormat, PrincipalFormat roleFormat) {
+		_identity = windowsIdentity;
 		_fqn = windowsIdentity.getFqn();
 		_sid = windowsIdentity.getSid();
 		_sidString = windowsIdentity.getSidString();
@@ -204,5 +206,10 @@ public class WindowsPrincipal implements Principal, Serializable {
 	 */
 	public String getName() {
 		return _fqn;
+	}
+	
+	/** Underlying identity */
+	public IWindowsIdentity getIdentity() {
+		return _identity;
 	}
 }

@@ -39,6 +39,7 @@ import waffle.servlet.spi.SecurityFilterProviderCollection;
 import waffle.util.AuthorizationHeader;
 import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.IWindowsIdentity;
+import waffle.windows.auth.IWindowsImpersonationContext;
 import waffle.windows.auth.PrincipalFormat;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
@@ -54,6 +55,7 @@ public class NegotiateSecurityFilter implements Filter {
     private SecurityFilterProviderCollection _providers = null;
 	private IWindowsAuthProvider _auth;
 	private boolean _allowGuestLogin = true;
+	private boolean _impersonate = false;
 	private static final String PRINCIPAL_SESSION_KEY = NegotiateSecurityFilter.class.getName() + ".PRINCIPAL";
 
 	public NegotiateSecurityFilter() {
@@ -98,6 +100,7 @@ public class NegotiateSecurityFilter implements Filter {
 				return;
 			}
 			
+			IWindowsImpersonationContext ctx = null;
 			try {
 				if (! _allowGuestLogin && windowsIdentity.isGuest()) {
 					_log.warn("guest login disabled: " + windowsIdentity.getFqn());
@@ -117,9 +120,14 @@ public class NegotiateSecurityFilter implements Filter {
 				if (subject == null) {
 					subject = new Subject();
 				}
-							
-				WindowsPrincipal windowsPrincipal = new WindowsPrincipal(windowsIdentity, 
+				
+				WindowsPrincipal windowsPrincipal = null;
+				if (_impersonate) {
+					windowsPrincipal = new AutoDisposableWindowsPrincipal(windowsIdentity, _principalFormat, _roleFormat);
+				} else {
+					windowsPrincipal = new WindowsPrincipal(windowsIdentity, 
 						_principalFormat, _roleFormat);
+				}
 				
 				_log.debug("roles: " + windowsPrincipal.getRolesString());			
 				subject.getPrincipals().add(windowsPrincipal);
@@ -132,9 +140,19 @@ public class NegotiateSecurityFilter implements Filter {
 				NegotiateRequestWrapper requestWrapper = new NegotiateRequestWrapper(
 						request, windowsPrincipal);
 				
+				if (_impersonate) {
+					_log.debug("impersonating user");
+					ctx = windowsIdentity.impersonate();
+				}
+				
 				chain.doFilter(requestWrapper, response);
 			} finally {
-				windowsIdentity.dispose();
+				if (_impersonate && ctx != null) {
+					_log.debug("terminating impersonation");
+					ctx.RevertToSelf();
+				} else {
+					windowsIdentity.dispose();
+				}
 			}
 
 			return;
@@ -181,9 +199,30 @@ public class NegotiateSecurityFilter implements Filter {
 		if (principal instanceof WindowsPrincipal) {
 			_log.info("previously authenticated Windows user: " + principal.getName());
 			WindowsPrincipal windowsPrincipal = (WindowsPrincipal) principal;
+			
+			if (_impersonate && windowsPrincipal.getIdentity() == null) {
+				// This can happen when the session has been serialized then de-serialized
+				// and because the IWindowsIdentity field is transient. In this case re-ask an
+				// authentication to get a new identity.
+				return false;
+			}
+			
 			NegotiateRequestWrapper requestWrapper = new NegotiateRequestWrapper(
 					request, windowsPrincipal);
-			chain.doFilter(requestWrapper, response);
+			
+			IWindowsImpersonationContext ctx = null;
+			if (_impersonate) {
+				_log.debug("re-impersonating user");
+				ctx = windowsPrincipal.getIdentity().impersonate();
+			}
+			try {
+				chain.doFilter(requestWrapper, response);
+			} finally {
+				if (_impersonate && ctx != null) {
+					_log.debug("terminating impersonation");
+					ctx.RevertToSelf();
+				}
+			}
 		} else {
 			_log.info("previously authenticated user: " + principal.getName());
 			chain.doFilter(request, response);
@@ -209,6 +248,8 @@ public class NegotiateSecurityFilter implements Filter {
 					_roleFormat = PrincipalFormat.valueOf(parameterValue);
 				} else if (parameterName.equals("allowGuestLogin")) {
 					_allowGuestLogin = Boolean.parseBoolean(parameterValue);
+				} else if (parameterName.equals("impersonate")) {
+					_impersonate = Boolean.parseBoolean(parameterValue);
 				} else if (parameterName.equals("securityFilterProviders")) {
 					providerNames = parameterValue.split("\n");
 				} else if (parameterName.equals("authProvider")) {
@@ -356,6 +397,21 @@ public class NegotiateSecurityFilter implements Filter {
 	 */
 	public boolean getAllowGuestLogin() {
 		return _allowGuestLogin;
+	}
+	
+	/**
+	 * Enable/Disable impersonation
+	 * @param impersonate true to enable impersonation, false otherwise
+	 */
+	public void setImpersonate(boolean impersonate) {
+		_impersonate = impersonate;
+	}
+	
+	/**
+	 * @return true if impersonation is enabled, false otherwise
+	 */
+	public boolean getImpersonate() {
+		return _impersonate;
 	}
 	
 	/**

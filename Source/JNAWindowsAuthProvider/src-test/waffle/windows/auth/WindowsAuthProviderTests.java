@@ -14,6 +14,7 @@
 package waffle.windows.auth;
 
 import junit.framework.TestCase;
+import waffle.mock.MockWindowsAccount;
 import waffle.util.Base64;
 import waffle.windows.auth.impl.WindowsAccountImpl;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
@@ -71,8 +72,8 @@ public class WindowsAuthProviderTests extends TestCase {
 	
 	public void testImpersonateLoggedOnUser() {
     	LMAccess.USER_INFO_1 userInfo = new LMAccess.USER_INFO_1();
-    	userInfo.usri1_name = new WString("WaffleTestUser");
-    	userInfo.usri1_password = new WString("!WAFFLEP$$Wrd0");
+    	userInfo.usri1_name = new WString(MockWindowsAccount.TEST_USER_NAME);
+    	userInfo.usri1_password = new WString(MockWindowsAccount.TEST_PASSWORD);
     	userInfo.usri1_priv = LMAccess.USER_PRIV_USER;
     	assertEquals(LMErr.NERR_Success, Netapi32.INSTANCE.NetUserAdd(null, 1, userInfo, null));
 		try {

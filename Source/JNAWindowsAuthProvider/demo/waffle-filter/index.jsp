@@ -17,6 +17,8 @@
 <%@page import="java.security.Principal" %>
 <%@page import="waffle.windows.auth.WindowsAccount" %>
 <%@page import="waffle.servlet.WindowsPrincipal" %>
+<%@page import="com.sun.jna.platform.win32.Secur32" %>
+<%@page import="com.sun.jna.platform.win32.Secur32Util" %>
 <%
   if (request.getParameter("logoff") != null) {
     session.invalidate();
@@ -29,7 +31,8 @@
   <title>Protected Page for Examples</title>
  </head>
  <body bgcolor="white">
-  You are logged in as remote user <b><%= request.getRemoteUser() %></b> in session <b><%= session.getId() %></b>.
+  You are logged in as remote user <b><%= request.getRemoteUser() %></b> in session <b><%= session.getId() %></b>.<br>
+  You are impersonating user <b><%= Secur32Util.getUserNameEx(Secur32.EXTENDED_NAME_FORMAT.NameSamCompatible) %></b>.
   <br><br>
   <%
 	if (request.getUserPrincipal() != null) {
