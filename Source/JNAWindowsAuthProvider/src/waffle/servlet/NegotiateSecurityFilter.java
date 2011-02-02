@@ -251,7 +251,7 @@ public class NegotiateSecurityFilter implements Filter {
 				} else if (parameterName.equals("impersonate")) {
 					_impersonate = Boolean.parseBoolean(parameterValue);
 				} else if (parameterName.equals("securityFilterProviders")) {
-					providerNames = parameterValue.split("\n");
+					providerNames = parameterValue.split("\\s+");
 				} else if (parameterName.equals("authProvider")) {
 					authProvider = parameterValue;
 				} else {

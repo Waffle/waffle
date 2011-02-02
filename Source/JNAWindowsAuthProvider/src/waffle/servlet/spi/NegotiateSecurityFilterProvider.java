@@ -119,7 +119,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 	public void initParameter(String parameterName, String parameterValue) {
 		if (parameterName.equals("protocols")) {
 			_protocols = new ArrayList<String>();
-			String[] protocolNames = parameterValue.split("\n");
+			String[] protocolNames = parameterValue.split("\\s+");
 			for(String protocolName : protocolNames) {
 				protocolName = protocolName.trim();
 				if (protocolName.length() > 0) {

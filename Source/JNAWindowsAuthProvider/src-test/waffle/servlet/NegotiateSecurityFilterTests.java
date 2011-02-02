@@ -267,10 +267,19 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		assertTrue(_filter.getAuth() instanceof MockWindowsAuthProvider);
 	}
 	
+	public void testInitTwoSecurityFilterProviders() throws ServletException {
+		// make sure that providers can be specified separated by any kind of space
+		SimpleFilterConfig filterConfig = new SimpleFilterConfig();
+		filterConfig.setParameter("securityFilterProviders", "waffle.servlet.spi.BasicSecurityFilterProvider\n" +
+				"waffle.servlet.spi.NegotiateSecurityFilterProvider waffle.servlet.spi.BasicSecurityFilterProvider");
+		_filter.init(filterConfig);
+		assertEquals(3, _filter.getProviders().size());
+	}
+	
 	public void testInitNegotiateSecurityFilterProvider() throws ServletException {
 		SimpleFilterConfig filterConfig = new SimpleFilterConfig();
 		filterConfig.setParameter("securityFilterProviders", "waffle.servlet.spi.NegotiateSecurityFilterProvider\n");
-		filterConfig.setParameter("waffle.servlet.spi.NegotiateSecurityFilterProvider/protocols", "NTLM");		
+		filterConfig.setParameter("waffle.servlet.spi.NegotiateSecurityFilterProvider/protocols", "NTLM\nNegotiate NTLM");
 		_filter.init(filterConfig);
 		assertEquals(_filter.getPrincipalFormat(), PrincipalFormat.fqn);
 		assertEquals(_filter.getRoleFormat(), PrincipalFormat.fqn);
