@@ -6,6 +6,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <ReleaseDir>target\$(Configuration)\Waffle</ReleaseDir>
+    <MSBuild_4_0_ExeFilePath>%SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild.exe</MSBuild_4_0_ExeFilePath>
   </PropertyGroup>
   <Target Name="configurations">
     <CreateItem Include="$(Configuration)">
@@ -56,7 +57,7 @@
     <Error Condition="'$(DXROOT)'==''" Text="Missing Sandcastle, DXROOT environment variable not set, install from http://www.codeplex.com/Sandcastle" />
     <Error Condition="'$(SHFBROOT)'==''" Text="Missing Sandcastle Builder, SHFBROOT environment variable not set, install from http://www.codeplex.com/SHFB" />
     <Delete Files="Documentation\%(Configuration.Identity)\Waffle.chm" />
-    <MSBuild Projects="Documentation\Waffle.shfbproj" Properties="Configuration=%(Configuration.Identity)" />
+    <Exec Command="$(MSBuild_4_0_ExeFilePath) Documentation\Waffle.shfbproj /p:Configuration=%(Configuration.Identity)" />
     <Error Condition="Exists('Documentation\%(Configuration.Identity)\LastBuild.log')" Text="Documentation build failed, check Documentation\%(Configuration.Identity)\LastBuild.log" />
   </Target>
   <Target Name="drop" DependsOnTargets="version;configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
