@@ -191,7 +191,7 @@ public class WindowsAuthProviderTests extends TestCase {
 	        WindowsAuthProviderImpl provider = new WindowsAuthProviderImpl(1);
 	        int max = 100;
 	        for(int i = 0; i < max; i++) {
-		        Thread.sleep(10);
+		        Thread.sleep(25);
 	        	String connectionId = "testConnection_" + i;
 	        	serverContext = provider.acceptSecurityToken(connectionId, 
 	        			clientContext.getToken(), securityPackage);
