@@ -104,8 +104,10 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 			response.flushBuffer();
 			return null;
 		}
-		
-		return securityContext.getIdentity();
+
+        final IWindowsIdentity identity = securityContext.getIdentity();
+        securityContext.dispose();
+        return identity;
 	}
 
 	public boolean isSecurityPackageSupported(String securityPackage) {
