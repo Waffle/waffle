@@ -5,8 +5,8 @@
       <para>
         You're encouraged to contribute to WAFFLE. The latest information about this project and source code
         can be found at <externalLink>
-          <linkUri>http://waffle.codeplex.com</linkUri>
-          <linkText>http://waffle.codeplex.com</linkText>
+          <linkUri>http://github.com/dblock/waffle</linkUri>
+          <linkText>http://github.com/dblock/waffle</linkText>
         </externalLink>.
       </para>
     </introduction>
@@ -16,9 +16,9 @@
         <para>
           Source code is located in
           <externalLink>
-            <linkUri>https://waffle.svn.codeplex.com/svn/trunk</linkUri>
+            <linkUri>https://github.com/dblock/waffle</linkUri>
             <linkText>
-              https://waffle.svn.codeplex.com/svn/trunk
+              https://github.com/dblock/waffle
             </linkText>
           </externalLink>.
           For the C# implementation, double-click the Visual Studio solution file, <localUri>Waffle.sln</localUri> 
@@ -44,11 +44,12 @@
       <title>Patches and Code Reviews</title>
       <content>
         <para>
-          All changes must be code reviewed. Submit patches under issues at
+          Fork the project on
           <externalLink>
-            <linkUri>http://waffle.codeplex.com/WorkItem/List.aspx</linkUri>
-            <linkText>http://waffle.codeplex.com/WorkItem/List.aspx</linkText>
+            <linkUri>https://github.com/dblock/waffle</linkUri>
+            <linkText>Github</linkText>
           </externalLink>.
+          Make pull requests. Bonus points for topic branches.
         </para>
       </content>
     </section>
@@ -90,7 +91,7 @@
           <list class="bullet">
             <listItem>Microsoft Visual Studio 2008 for C#</listItem>
             <listItem>Eclipse for Java</listItem>
-            <listItem>Command-line Subversion Client (not TortoiseSVN Shell Extension)</listItem>
+            <listItem>GIT</listItem>
             <listItem>ANT for Command-Line Java Build</listItem>
             <listItem>
               <externalLink>
