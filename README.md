@@ -11,7 +11,7 @@ Essentials
 * [Download Version 1.4](https://github.com/downloads/dblock/waffle/Waffle.1.4.zip)
 * [Need Help? Google Group](http://groups.google.com/group/waffle-users)
 * [F.A.Q / CodePlex](http://waffle.codeplex.com/wikipage?title=Frequently%20Asked%20Questions&referringTitle=Documentation)
-* [TroubleShooting Negotiate / CodePlex](http://waffle.codeplex.com/wikipage?title=Troubleshooting%20Negotiate&referringTitle=Documentation)
+* [Troubleshooting Negotiate / CodePlex](http://waffle.codeplex.com/wikipage?title=Troubleshooting%20Negotiate&referringTitle=Documentation)
 * [Older Versions on CodePlex](http://waffle.codeplex.com/).
 
 Short Story
