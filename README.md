@@ -40,10 +40,7 @@ Features
 * Returns computer domain / workgroup join information.
 * Supports logon for local and domain users returning consistent fully qualified names, identity (SIDs), local and domain groups, including nested.
 * Supports all functions required for implementing server-side single-signon with Negotiate and NTLM and various implementations for Java web servers.
-* Supports Windows IdenQuest Vintella Single-Sign-On (Commercial)
-IOPlex Jespa (Commercial)
-Josso
-Tomcat SPNEGOtity impersonation.
+* Supports Windows Identity impersonation.
 * Includes a Windows Installer Merge Module for distribution of C# binaries.
 
 Branches
