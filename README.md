@@ -8,8 +8,10 @@ WAFFLE - Windows Authentication Functional Framework (Light Edition) is a native
 Essentials
 ----------
 
-* [Need Help? Google Group](http://groups.google.com/group/waffle-users) and [F.A.Q](https://github.com/dblock/waffle/blob/master/Documentation/FAQ.md)
 * [Download Version 1.4](https://github.com/downloads/dblock/waffle/Waffle.1.4.zip)
+* [Need Help? Google Group](http://groups.google.com/group/waffle-users)
+* [F.A.Q / CodePlex](http://waffle.codeplex.com/wikipage?title=Frequently%20Asked%20Questions&referringTitle=Documentation)
+* [TroubleShooting Negotiate / CodePlex](http://waffle.codeplex.com/wikipage?title=Troubleshooting%20Negotiate&referringTitle=Documentation)
 * [Older Versions on CodePlex](http://waffle.codeplex.com/).
 
 Short Story
@@ -38,13 +40,24 @@ Features
 * Returns computer domain / workgroup join information.
 * Supports logon for local and domain users returning consistent fully qualified names, identity (SIDs), local and domain groups, including nested.
 * Supports all functions required for implementing server-side single-signon with Negotiate and NTLM and various implementations for Java web servers.
-* Supports Windows Identity impersonation.
+* Supports Windows IdenQuest Vintella Single-Sign-On (Commercial)
+IOPlex Jespa (Commercial)
+Josso
+Tomcat SPNEGOtity impersonation.
 * Includes a Windows Installer Merge Module for distribution of C# binaries.
 
 Branches
 --------
 
 Waffle includes a servlet filter that works with any servlet container, including Tomcat, Jetty and Websphere. It also contains a native package for Tomcat 6 and Spring Security 3. There're branches for Tomcat 5, Tomcat 7 as well as Spring Security 2 support.
+
+Related and Simiar Products
+---------------------------
+
+* [Quest Vintella Single-Sign-On](http://www.quest.com/single-sign-on-for-java/) (Commercial)
+* [IOPlex Jespa](http://www.ioplex.com/) (Commercial)
+* [Josso](http://www.josso.org/confluence/display/JOSSO1/JOSSO+-+Java+Open+Single+Sign-On+Project+Home)
+* [Tomcat SPNEGO](http://tomcatspnego.codeplex.com/)
 
 License and Copyright
 ---------------------
