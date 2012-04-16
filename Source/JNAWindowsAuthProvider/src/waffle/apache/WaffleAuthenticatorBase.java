@@ -18,7 +18,6 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.catalina.authenticator.AuthenticatorBase;
-import org.apache.catalina.connector.Response;
 import org.apache.commons.logging.Log;
 
 import waffle.windows.auth.IWindowsAuthProvider;
@@ -123,7 +122,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 	 * @param response
 	 *  HTTP Response
 	 */
-	protected void sendUnauthorized(Response response) {
+	protected void sendUnauthorized(HttpServletResponse response) {
 		try {
 			response.addHeader("WWW-Authenticate", "Negotiate");
 			response.addHeader("WWW-Authenticate", "NTLM");
@@ -143,12 +142,18 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 	 * @param code
 	 *  Error Code
 	 */
-	protected void sendError(Response response, int code) {
+	protected void sendError(HttpServletResponse response, int code) {
 		try {
 			response.sendError(code);
 		} catch (IOException e) {
 			_log.error(e.getMessage());
 			throw new RuntimeException(e);
 		}		
+	}
+	
+
+	@Override
+	protected String getAuthMethod() {
+		return null;
 	}
 }

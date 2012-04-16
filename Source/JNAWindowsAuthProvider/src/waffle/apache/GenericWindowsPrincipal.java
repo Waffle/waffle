@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.catalina.Realm;
 import org.apache.catalina.realm.GenericPrincipal;
 
 import waffle.windows.auth.IWindowsAccount;
@@ -40,16 +39,14 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
 	 * A windows principal.
 	 * @param windowsIdentity
 	 *  Windows identity.
-	 * @param realm
-	 *  Authentication realm.
 	 * @param principalFormat
 	 *  Principal format.
 	 * @param roleFormat
 	 *  Role format.
 	 */
-	public GenericWindowsPrincipal(IWindowsIdentity windowsIdentity, Realm realm, 
+	public GenericWindowsPrincipal(IWindowsIdentity windowsIdentity,  
 			PrincipalFormat principalFormat, PrincipalFormat roleFormat) {
-		super(realm, windowsIdentity.getFqn(), "", getRoles(windowsIdentity, principalFormat, roleFormat));	
+		super(windowsIdentity.getFqn(), "", getRoles(windowsIdentity, principalFormat, roleFormat));	
 		_sid = windowsIdentity.getSid();
 		_sidString = windowsIdentity.getSidString();
 		_groups = getGroups(windowsIdentity.getGroups());

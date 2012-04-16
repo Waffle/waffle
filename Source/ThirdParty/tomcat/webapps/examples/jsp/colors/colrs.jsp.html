@@ -21,7 +21,7 @@
 &lt;jsp:setProperty name="cb" property="*" />
 
 &lt;%
-	cb.processRequest(request);
+    cb.processRequest();
 %>
 
 &lt;body bgcolor=&lt;%= cb.getColor1() %>>
@@ -29,20 +29,20 @@
 &lt;p>
 
 &lt;% if (cb.getHint()==true) { %>
-	
-	&lt;p> Hint #1: Vampires prey at night!
-	&lt;p>  &lt;p> Hint #2: Nancy without the n.
+    
+    &lt;p> Hint #1: Vampires prey at night!
+    &lt;p>  &lt;p> Hint #2: Nancy without the n.
 
 &lt;% } %>
 
 &lt;% if  (cb.getSuccess()==true) { %>
 
     &lt;p> CONGRATULATIONS!!
-	&lt;% if  (cb.getHintTaken()==true) { %>
+    &lt;% if  (cb.getHintTaken()==true) { %>
     
         &lt;p> ( although I know you cheated and peeked into the hints)
 
-	&lt;% } %>
+    &lt;% } %>
 
 &lt;% } %>
 

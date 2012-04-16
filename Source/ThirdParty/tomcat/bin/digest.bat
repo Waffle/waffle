@@ -18,7 +18,7 @@ if "%OS%" == "Windows_NT" setlocal
 rem ---------------------------------------------------------------------------
 rem Script to digest password using the algorithm specified
 rem
-rem $Id: digest.bat 908749 2010-02-10 23:26:42Z markt $
+rem $Id: digest.bat 895392 2010-01-03 14:02:31Z kkolinko $
 rem ---------------------------------------------------------------------------
 
 rem Guess CATALINA_HOME if not defined

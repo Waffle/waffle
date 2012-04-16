@@ -1,18 +1,19 @@
-<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat Configuration Reference - The Context Container</title><meta content="Craig R. McClanahan" name="author"><style media="print" type="text/css">
-			.noPrint {display: none;}
-			td#mainBody {width: 100%;}
-		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat 7 Configuration Reference (7.0.4) - The Context Container</title><meta name="author" content="Craig R. McClanahan"><style type="text/css" media="print">
+            .noPrint {display: none;}
+            td#mainBody {width: 100%;}
+        </style></head><body bgcolor="#ffffff" text="#000000" link="#525D76" alink="#525D76" vlink="#525D76"><table border="0" width="100%" cellspacing="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img src="../images/tomcat.gif" align="right" alt="
     The Apache Tomcat Servlet/JSP Container
-  " align="right" src="../images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li><li><a href="index.html">Config Ref. Home</a></li></ul><p><strong>Top Level Elements</strong></p><ul><li><a href="server.html">Server</a></li><li><a href="service.html">Service</a></li></ul><p><strong>Executors</strong></p><ul><li><a href="executor.html">Executor</a></li></ul><p><strong>Connectors</strong></p><ul><li><a href="http.html">HTTP</a></li><li><a href="ajp.html">AJP</a></li></ul><p><strong>Containers</strong></p><ul><li><a href="context.html">Context</a></li><li><a href="engine.html">Engine</a></li><li><a href="host.html">Host</a></li><li><a href="cluster.html">Cluster</a></li></ul><p><strong>Nested Components</strong></p><ul><li><a href="listeners.html">Listeners</a></li><li><a href="globalresources.html">Global Resources</a></li><li><a href="loader.html">Loader</a></li><li><a href="manager.html">Manager</a></li><li><a href="realm.html">Realm</a></li><li><a href="resources.html">Resources</a></li><li><a href="valve.html">Valve</a></li></ul><p><strong>Cluster Elements</strong></p><ul><li><a href="cluster.html">Cluster</a></li><li><a href="cluster-manager.html">Manager</a></li><li><a href="cluster-channel.html">Channel</a></li><li><a href="cluster-membership.html">Channel/Membership</a></li><li><a href="cluster-sender.html">Channel/Sender</a></li><li><a href="cluster-receiver.html">Channel/Receiver</a></li><li><a href="cluster-interceptor.html">Channel/Interceptor</a></li><li><a href="cluster-valve.html">Valve</a></li><li><a href="cluster-deployer.html">Deployer</a></li><li><a href="cluster-listener.html">ClusterListener</a></li></ul><p><strong>Global Settings</strong></p><ul><li><a href="systemprops.html">System properties</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat Configuration Reference</h1><h2>The Context Container</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
+  " border="0"></a></td><td><font face="arial,helvetica,sanserif"><h1>Apache Tomcat 7</h1>
+            Version 7.0.4, Oct 14 2010</font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img src="../images/asf-logo.gif" align="right" alt="Apache Logo" border="0"></a></td></tr></table><table border="0" width="100%" cellspacing="4"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr noshade size="1"></td></tr><tr><!--LEFT SIDE NAVIGATION--><td width="20%" valign="top" nowrap class="noPrint"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li><li><a href="index.html">Config Ref. Home</a></li></ul><p><strong>Top Level Elements</strong></p><ul><li><a href="server.html">Server</a></li><li><a href="service.html">Service</a></li></ul><p><strong>Executors</strong></p><ul><li><a href="executor.html">Executor</a></li></ul><p><strong>Connectors</strong></p><ul><li><a href="http.html">HTTP</a></li><li><a href="ajp.html">AJP</a></li></ul><p><strong>Containers</strong></p><ul><li><a href="context.html">Context</a></li><li><a href="engine.html">Engine</a></li><li><a href="host.html">Host</a></li><li><a href="cluster.html">Cluster</a></li></ul><p><strong>Nested Components</strong></p><ul><li><a href="filter.html">Filter</a></li><li><a href="globalresources.html">Global Resources</a></li><li><a href="jar-scanner.html">JarScanner</a></li><li><a href="listeners.html">Listeners</a></li><li><a href="loader.html">Loader</a></li><li><a href="manager.html">Manager</a></li><li><a href="realm.html">Realm</a></li><li><a href="resources.html">Resources</a></li><li><a href="valve.html">Valve</a></li></ul><p><strong>Cluster Elements</strong></p><ul><li><a href="cluster.html">Cluster</a></li><li><a href="cluster-manager.html">Manager</a></li><li><a href="cluster-channel.html">Channel</a></li><li><a href="cluster-membership.html">Channel/Membership</a></li><li><a href="cluster-sender.html">Channel/Sender</a></li><li><a href="cluster-receiver.html">Channel/Receiver</a></li><li><a href="cluster-interceptor.html">Channel/Interceptor</a></li><li><a href="cluster-valve.html">Valve</a></li><li><a href="cluster-deployer.html">Deployer</a></li><li><a href="cluster-listener.html">ClusterListener</a></li></ul><p><strong>Global Settings</strong></p><ul><li><a href="systemprops.html">System properties</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td width="80%" valign="top" align="left" id="mainBody"><h1>The Context Container</h1><table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#525D76"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
 <ul><li><a href="#Introduction">Introduction</a></li><li><a href="#Attributes">Attributes</a><ol><li><a href="#Common_Attributes">Common Attributes</a></li><li><a href="#Standard_Implementation">Standard Implementation</a></li></ol></li><li><a href="#Nested_Components">Nested Components</a></li><li><a href="#Special_Features">Special Features</a><ol><li><a href="#Logging">Logging</a></li><li><a href="#Access_Logs">Access Logs</a></li><li><a href="#Automatic_Context_Configuration">Automatic Context Configuration</a></li><li><a href="#Context_Parameters">Context Parameters</a></li><li><a href="#Environment_Entries">Environment Entries</a></li><li><a href="#Lifecycle_Listeners">Lifecycle Listeners</a></li><li><a href="#Request_Filters">Request Filters</a></li><li><a href="#Resource_Definitions">Resource Definitions</a></li><li><a href="#Resource_Links">Resource Links</a></li><li><a href="#Transaction">Transaction</a></li></ol></li></ul>
-</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+</blockquote></td></tr></table><table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#525D76"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
 
     <blockquote><em>
     <p>The description below uses the variable name $CATALINA_BASE to refer the
     base directory against which most relative paths are resolved. If you have
-    not configured Tomcat 6 for multiple instances by setting a CATALINA_BASE
+    not configured Tomcat for multiple instances by setting a CATALINA_BASE
     directory, then $CATALINA_BASE will be set to the value of $CATALINA_HOME,
-    the directory into which you have installed Tomcat 6.</p>
+    the directory into which you have installed Tomcat.</p>
     </em></blockquote>
 
   <p>The <strong>Context</strong> element represents a <em>web
@@ -42,7 +43,8 @@
   web application for this virtual host, and is used to process all
   requests that do not match any other Context's context path.</p>
 
-  <p><b>For Tomcat 6, unlike Tomcat 4.x, it is NOT recommended to place
+  <p><b>For the current versions of Tomcat, unlike Tomcat 4.x,
+  it is NOT recommended to place
   &lt;Context&gt; elements directly in the server.xml file.</b> This
   is because it makes modifying the <strong>Context</strong> configuration
   more invasive since the main <code>conf/server.xml</code> file cannot be
@@ -88,14 +90,14 @@
   <a href="host.html#User Web Applications">User Web Applications</a>
   for more information.</p>
 
-</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Attributes"><strong>Attributes</strong></a></font></td></tr><tr><td><blockquote>
+</blockquote></td></tr></table><table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#525D76"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Attributes"><strong>Attributes</strong></a></font></td></tr><tr><td><blockquote>
 
-  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Common Attributes"><!--()--></a><a name="Common_Attributes"><strong>Common Attributes</strong></a></font></td></tr><tr><td><blockquote>
+  <table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#828DA6"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Common Attributes"><!--()--></a><a name="Common_Attributes"><strong>Common Attributes</strong></a></font></td></tr><tr><td><blockquote>
 
     <p>All implementations of <strong>Context</strong>
     support the following attributes:</p>
 
-    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>backgroundProcessorDelay</code></td><td valign="center" align="left">
+    <table border="1" cellpadding="5"><tr><th width="15%" bgcolor="#023264"><font color="#ffffff">Attribute</font></th><th width="85%" bgcolor="#023264"><font color="#ffffff">Description</font></th></tr><tr><td align="left" valign="center"><code>backgroundProcessorDelay</code></td><td align="left" valign="center">
         <p>This value represents the delay in seconds between the 
         invocation of the backgroundProcess method on this context and 
         its child containers, including all wrappers. 
@@ -109,24 +111,24 @@
         reloading. If not specified, the default value for this attribute is 
         -1, which means the context will rely on the background processing 
         thread of its parent host.</p>
-      </td></tr><tr><td valign="center" align="left"><code>className</code></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><code>className</code></td><td align="left" valign="center">
         <p>Java class name of the implementation to use.  This class must
         implement the <code>org.apache.catalina.Context</code> interface.
         If not specified, the standard value (defined below) will be used.</p>
-      </td></tr><tr><td valign="center" align="left"><code>cookies</code></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><code>cookies</code></td><td align="left" valign="center">
         <p>Set to <code>true</code> if you want cookies to be used for
         session identifier communication if supported by the client (this
         is the default).  Set to <code>false</code> if you want to disable
         the use of cookies for session identifier communication, and rely
         only on URL rewriting by the application.</p>
-      </td></tr><tr><td valign="center" align="left"><code>crossContext</code></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><code>crossContext</code></td><td align="left" valign="center">
         <p>Set to <code>true</code> if you want calls within this application
         to <code>ServletContext.getContext()</code> to successfully return a
         request dispatcher for other web applications running on this virtual
         host.  Set to <code>false</code> (the default) in security
         conscious environments, to make <code>getContext()</code> always
         return <code>null</code>.</p>
-      </td></tr><tr><td valign="center" align="left"><strong><code>docBase</code></strong></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><strong><code>docBase</code></strong></td><td align="left" valign="center">
         <p>The <em>Document Base</em> (also known as the <em>Context
         Root</em>) directory for this web application, or the pathname
         to the web application archive file (if this web application is
@@ -137,16 +139,23 @@
         <p>The value of this field must not be set when the Context is
         configured using a <code>META-INF/context.xml</code> file as it will be
         inferred by the automatic deployment process.</p>
-      </td></tr><tr><td valign="center" align="left"><code>override</code></td><td valign="center" align="left">
-        <p>Set to <code>true</code> to have explicit settings in this
-        Context element override any corresponding settings in either the global
+      </td></tr><tr><td align="left" valign="center"><code>logEffectiveWebXml</code></td><td align="left" valign="center">
+        <p>Set to <code>true</code> if you want the effective web.xml used for a
+        web application to be logged (at INFO level) when the application
+        starts. The effective web.xml is the result of combining the
+        application's web.xml with any defaults configured by Tomcat and any
+        web-fragment.xml files and annotations discovered. If not specified, the
+        default value of <code>false</code> is used.</p>
+      </td></tr><tr><td align="left" valign="center"><code>override</code></td><td align="left" valign="center">
+        <p>Set to <code>true</code> to ignore any settings in both the global
         or <a href="host.html">Host</a> default contexts.  By default, settings
-        from a default context will be used.</p>
+        from a default context will be used but may be overridden by a setting
+        the same attribute explicitly for the Context.</p>
         <p>If a symbolic link is used for docBase then changes to the
         symbolic link will only be effective after a Tomcat restart or
         by undeploying and redeploying the context. A context reload is not
         sufficient.</p>
-      </td></tr><tr><td valign="center" align="left"><code>privileged</code></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><code>privileged</code></td><td align="left" valign="center">
         <p>Set to <code>true</code> to allow this context to use container
         servlets, like the manager servlet. Use of the <code>privileged</code>
         attribute will change the context's parent class loader to be the
@@ -154,7 +163,7 @@
         loader. Note that in a default installation, the <em>Common</em> class
         loader is used for both the <em>Server</em> and the <em>Shared</em>
         class loaders.</p>
-      </td></tr><tr><td valign="center" align="left"><code>path</code></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><code>path</code></td><td align="left" valign="center">
         <p>The <em>context path</em> of this web application, which is
         matched against the beginning of each request URI to select the
         appropriate web application for processing.  All of the context paths
@@ -165,7 +174,7 @@
         <p>The value of this field must not be set except when statically
         defining a Context in server.xml, as it will be inferred from the
         filenames used for either the .xml context file or the docBase.</p>
-      </td></tr><tr><td valign="center" align="left"><code>reloadable</code></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><code>reloadable</code></td><td align="left" valign="center">
         <p>Set to <code>true</code> if you want Catalina to monitor classes in
         <code>/WEB-INF/classes/</code> and <code>/WEB-INF/lib</code> for
         changes, and automatically reload the web application if a change
@@ -176,42 +185,94 @@
         can use the <a href="../manager-howto.html">Manager</a> web
         application, however, to trigger reloads of deployed applications
         on demand.</p>
-      </td></tr><tr><td valign="center" align="left"><code>sessionCookieDomain</code></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><code>sessionCookieDomain</code></td><td align="left" valign="center">
         <p>The domain to be used for all session cookies created for this
-        Context. If not set, no domain will be specified for session cookies.
-        </p>
-      </td></tr><tr><td valign="center" align="left"><code>sessionCookieName</code></td><td valign="center" align="left">
-        <p>The name to be used for all session cookies created for this
-        Context. If not set, the default of JSESSIONID will be used. Note that
-        this default will be overridden by the
-        <strong>org.apache.catalina.SESSION_COOKIE_NAME</strong> system
-        property.</p>
-      </td></tr><tr><td valign="center" align="left"><code>sessionCookiePath</code></td><td valign="center" align="left">
+        context. If set, this overrides any domain set by the web application.
+        If not set, the value specified by the web application, if any, will be
+        used.</p>
+      </td></tr><tr><td align="left" valign="center"><code>sessionCookiePath</code></td><td align="left" valign="center">
         <p>The path to be used for all session cookies created for this
-        Context. If not set, the context path will be used. Note that this will
-        be overridden by the <strong>emptySessionPath</strong> attribute on the
-        connector used to access this Context.</p>
-      </td></tr><tr><td valign="center" align="left"><code>wrapperClass</code></td><td valign="center" align="left">
+        context. If set, this overrides any path set by the web application.
+        If not set, the value specified by the web application will be used, or
+        the context path used if the web application does not explicitly set
+        one. To configure all web application to use an empty path (this can be
+        useful for portlet specification implementations) set this attribute to
+        <code>/</code> in the global <code>CATALINA_BASE/conf/context.xml</code>
+        file.</p>
+      </td></tr><tr><td align="left" valign="center"><code>tldNamespaceAware</code></td><td align="left" valign="center">
+        <p>If the value of this flag is <code>true</code>, the TLD files
+        XML validation will be namespace-aware.  If you turn this flag on,
+        you should probably also turn <code>tldValidation</code> on. If the
+        <code>org.apache.catalina.STRICT_SERVLET_COMPLIANCE</code>
+        <a href="systemprops.html">system property</a> is set to
+        <code>true</code>, the default value of this attribute will be
+        <code>true</code>, else the default value will be <code>false</code>.
+        Setting this attribute to <code>true</code> will incur a performance
+        penalty.</p>
+      </td></tr><tr><td align="left" valign="center"><code>tldValidation</code></td><td align="left" valign="center">
+        <p>If the value of this flag is <code>true</code>, the TLD files
+        will be XML validated on context startup. If the
+        <code>org.apache.catalina.STRICT_SERVLET_COMPLIANCE</code>
+        <a href="systemprops.html">system property</a> is set to
+        <code>true</code>, the default value of this attribute will be
+        <code>true</code>, else the default value will be <code>false</code>.
+        Setting this attribute to <code>true</code> will incur a performance
+        penalty.</p>
+      </td></tr><tr><td align="left" valign="center"><code>wrapperClass</code></td><td align="left" valign="center">
         <p>Java class name of the <code>org.apache.catalina.Wrapper</code>
         implementation class that will be used for servlets managed by this
         Context.  If not specified, a standard default value will be used.</p>
-      </td></tr><tr><td valign="center" align="left"><code>useHttpOnly</code></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><code>useHttpOnly</code></td><td align="left" valign="center">
        <p>Should the HttpOnly flag be set on session cookies to prevent client
           side script from accessing the session ID? Defaults to
-          <code>false</code>.</p>
+          <code>true</code>.</p>
+      </td></tr><tr><td align="left" valign="center"><code>xmlNamespaceAware</code></td><td align="left" valign="center">
+        <p>If the value of this flag is <code>true</code>, the validation of
+        XML files will be namespace-aware.  If you turn this flag on,
+        you should probably also turn <code>xmlValidation</code> on. If
+        the <code>org.apache.catalina.STRICT_SERVLET_COMPLIANCE</code>
+        <a href="systemprops.html">system property</a> is set to
+        <code>true</code>, the default value of this attribute will be
+        <code>true</code>, else the default value will be <code>false</code>.
+        Setting this attribute to <code>true</code> will incur a performance
+        penalty.</p>
+      </td></tr><tr><td align="left" valign="center"><code>xmlValidation</code></td><td align="left" valign="center">
+        <p>If the value of this flag is <code>true</code>, the XML files
+        will be validated on context startup. If the
+        <code>org.apache.catalina.STRICT_SERVLET_COMPLIANCE</code>
+        <a href="systemprops.html">system property</a> is set to
+        <code>true</code>, the default value of this attribute will be
+        <code>true</code>, else the default value will be <code>false</code>.
+        Setting this attribute to <code>true</code> will incur a performance
+        penalty.</p>
       </td></tr></table>
 
   </blockquote></td></tr></table>
 
 
-  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Standard Implementation"><!--()--></a><a name="Standard_Implementation"><strong>Standard Implementation</strong></a></font></td></tr><tr><td><blockquote>
+  <table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#828DA6"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Standard Implementation"><!--()--></a><a name="Standard_Implementation"><strong>Standard Implementation</strong></a></font></td></tr><tr><td><blockquote>
 
     <p>The standard implementation of <strong>Context</strong> is
     <strong>org.apache.catalina.core.StandardContext</strong>.
     It supports the following additional attributes (in addition to the
     common attributes listed above):</p>
 
-    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>allowLinking</code></td><td valign="center" align="left">
+    <table border="1" cellpadding="5"><tr><th width="15%" bgcolor="#023264"><font color="#ffffff">Attribute</font></th><th width="85%" bgcolor="#023264"><font color="#ffffff">Description</font></th></tr><tr><td align="left" valign="center"><code>aliases</code></td><td align="left" valign="center">
+        <p>This attribute provides a list of external locations from which to
+        load resources for this context. The list of aliases should be of
+        the form <code>"/aliasPath1=docBase1,/aliasPath2=docBase2"</code> where
+        <code>aliasPathN</code> must include a leading '/' and
+        <code>docBaseN</code> must be an absolute path to either a .war file or
+        a directory.</p>
+        <p>A resource will be searched for in the first <code>docBaseN</code>
+        for which <code>aliasPathN</code> is a leading path segment of the
+        resource. If there is no such alias, then the resource will be searched
+        in the usual way.</p>
+        <p>Using '/' as an aliasPath is not allowed. Consider using
+        <code>docBase</code> instead.</p>
+        <p>These external locations will not be emptied if the context
+        is un-deployed.</p>
+      </td></tr><tr><td align="left" valign="center"><code>allowLinking</code></td><td align="left" valign="center">
         <p>If the value of this flag is <code>true</code>, symlinks will be
         allowed inside the web application, pointing to resources outside the
         web application base path. If not specified, the default value
@@ -220,13 +281,13 @@
         (or any other OS which does not have a case sensitive filesystem),
         as it will disable case sensitivity checks, allowing JSP source code
         disclosure, among other security problems.</b></p>
-      </td></tr><tr><td valign="center" align="left"><code>antiJARLocking</code></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><code>antiJARLocking</code></td><td align="left" valign="center">
         <p>If true, the Tomcat classloader will take extra measures to avoid
         JAR file locking when resources are accessed inside JARs through URLs.
         This will impact startup time of applications, but could prove to be useful
         on platforms or configurations where file locking can occur.
         If not specified, the default value is <code>false</code>.</p>
-      </td></tr><tr><td valign="center" align="left"><code>antiResourceLocking</code></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><code>antiResourceLocking</code></td><td align="left" valign="center">
         <p>If true, Tomcat will prevent any file locking.
         This will significantly impact startup time of applications, 
         but allows full webapp hot deploy and undeploy on platforms 
@@ -246,35 +307,34 @@
         do this, so think twice before setting antiResourceLocking=true on a webapp
         that's outside the appBase for its Host.
         </p>
-      </td></tr><tr><td valign="center" align="left"><code>cacheMaxSize</code></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><code>cacheMaxSize</code></td><td align="left" valign="center">
         <p>Maximum size of the static resource cache in kilobytes. 
         If not specified, the default value is <code>10240</code>
         (10 megabytes).</p>
-      </td></tr><tr><td valign="center" align="left"><code>cacheObjectMaxSize</code></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><code>cacheObjectMaxSize</code></td><td align="left" valign="center">
         <p>Maximum size of the static resource that will be placed in the cache.
         If not specified, the default value is <code>512</code>
         (512 kilobytes). If this value is greater than
         <code>cacheMaxSize/20</code> it will be reduced to
         <code>cacheMaxSize/20</code>.</p>
-      </td></tr><tr><td valign="center" align="left"><code>cacheTTL</code></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><code>cacheTTL</code></td><td align="left" valign="center">
         <p>Amount of time in milliseconds between cache entries revalidation.
         If not specified, the default value is <code>5000</code> 
         (5 seconds).</p>
-      </td></tr><tr><td valign="center" align="left"><code>cachingAllowed</code></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><code>cachingAllowed</code></td><td align="left" valign="center">
         <p>If the value of this flag is <code>true</code>, the cache for static
         resources will be used. If not specified, the default value
         of the flag is <code>true</code>.</p>
-      </td></tr><tr><td valign="center" align="left"><code>caseSensitive</code></td><td valign="center" align="left">
-        <p>Deprecated. This option will be removed in Tomcat 7 onwards where the
-        default of <code>true</code> will always be used.</p>
-        <p>If the value of this flag is <code>false</code>, all case sensitivity
-        checks will be disabled. If not 
-        specified, the default value of the flag is <code>true</code>.</p>
-        <p><b>NOTE: This flag MUST NOT be set to false on the Windows platform
-        (or any other OS which does not have a case sensitive filesystem),
-        as it will disable case sensitivity checks, allowing JSP source code
-        disclosure, among other security problems.</b></p>
-      </td></tr><tr><td valign="center" align="left"><code>clearReferencesStopThreads</code></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><code>clearReferencesStatic</code></td><td align="left" valign="center">
+        <p>If <code>true</code>, Tomcat attempts to null out any static or final
+        fields from loaded classes when a web application is stopped as a work
+        around for apparent garbage collection bugs and application coding
+        errors. There have been some issues reported with log4j when this
+        is <code>true</code>. Applications without memory leaks using recent
+        JVMs should operate correctly with this attribute set to
+        <code>false</code>. If not specified, the default value of
+        <code>false</code> will be used.</p>
+      </td></tr><tr><td align="left" valign="center"><code>clearReferencesStopThreads</code></td><td align="left" valign="center">
         <p>If <code>true</code>, Tomcat attempts to terminate threads that have
         been started by the web application. Stopping threads is performed via
         the deprecated (for good reason) <code>Thread.stop()</code> method and
@@ -282,53 +342,41 @@
         viewed as an option of last resort in a development environment and is
         not recommended in a production environment. If not specified, the
         default value of <code>false</code> will be used.</p>
-      </td></tr><tr><td valign="center" align="left"><code>clearReferencesStopTimerThreads</code></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><code>clearReferencesStopTimerThreads</code></td><td align="left" valign="center">
         <p>If <code>true</code>, Tomcat attempts to terminate
         <code>java.util.Timer</code> threads that have been started by the web
         application. Unlike standard threads, timer threads can be stopped
         safely although there may still be side-effects for the application. If
         not specified, the default value of <code>false</code> will be used.</p>
-      </td></tr><tr><td valign="center" align="left"><code>clearReferencesThreadLocals</code></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><code>clearReferencesThreadLocals</code></td><td align="left" valign="center">
         <p>If <code>true</code>, Tomcat attempts to clear any ThreadLocal
         objects that are instances of classes loaded by this class loader.
         Failure to remove any such objects will result in a memory leak on web
         application stop, undeploy or reload.  If not specified, the default
         value of <code>false</code> will be used since the clearing of the
         ThreadLocal objects is not performed in a thread-safe manner.</p>
-      </td></tr><tr><td valign="center" align="left"><code>processTlds</code></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><code>processTlds</code></td><td align="left" valign="center">
         <p>Whether the context should process TLDs on startup.  The default
         is true.  The false setting is intended for special cases
         that know in advance TLDs are not part of the webapp.</p>
-      </td></tr><tr><td valign="center" align="left"><code>swallowOutput</code></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><code>swallowOutput</code></td><td align="left" valign="center">
         <p>If the value of this flag is <code>true</code>, the bytes output to
         System.out and System.err by the web application will be redirected to
         the web application logger. If not specified, the default value
         of the flag is <code>false</code>.</p>
-      </td></tr><tr><td valign="center" align="left"><code>tldNamespaceAware</code></td><td valign="center" align="left">
-        <p>If the value of this flag is <code>true</code>, the TLD files
-        XML validation will be namespace-aware.  If you turn this flag on,
-        you should probably also turn <code>tldValidation</code> on.  The
-        default value for this flag is <code>false</code>, and setting it
-        to true will incur a performance penalty.
-        </p>
-      </td></tr><tr><td valign="center" align="left"><code>tldValidation</code></td><td valign="center" align="left">
-        <p>If the value of this flag is <code>true</code>, the TLD files
-        will be XML validated on context startup.  The default value for
-        this flag is <code>false</code>, and setting it to true will incur
-        a performance penalty.</p>
-      </td></tr><tr><td valign="center" align="left"><code>unloadDelay</code></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><code>unloadDelay</code></td><td align="left" valign="center">
         <p>Number of ms that the container will wait for servlets to unload.
         If not specified, the default value is <code>2000</code> ms.</p>
-      </td></tr><tr><td valign="center" align="left"><code>unpackWAR</code></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><code>unpackWAR</code></td><td align="left" valign="center">
         <p>If true, Tomcat will unpack all compressed web applications before
         running them.
         If not specified, the default value is <code>true</code>.</p>
-      </td></tr><tr><td valign="center" align="left"><code>useNaming</code></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><code>useNaming</code></td><td align="left" valign="center">
         <p>Set to <code>true</code> (the default) to have Catalina enable a
         JNDI <code>InitialContext</code> for this web application that is
         compatible with Java2 Enterprise Edition (J2EE) platform
         conventions.</p>
-      </td></tr><tr><td valign="center" align="left"><code>workDir</code></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><code>workDir</code></td><td align="left" valign="center">
         <p>Pathname to a scratch directory to be provided by this Context
         for temporary read-write use by servlets within the associated web
         application.  This directory will be made visible to servlets in the
@@ -342,7 +390,7 @@
   </blockquote></td></tr></table>
 
 
-</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Nested Components"><!--()--></a><a name="Nested_Components"><strong>Nested Components</strong></a></font></td></tr><tr><td><blockquote>
+</blockquote></td></tr></table><table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#525D76"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Nested Components"><!--()--></a><a name="Nested_Components"><strong>Nested Components</strong></a></font></td></tr><tr><td><blockquote>
 
   <p>You can nest at most one instance of the following utility components
   by nesting a corresponding element inside your <strong>Context</strong>
@@ -372,10 +420,10 @@
       must be a string.</li>
   </ul>
 
-</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Special Features"><!--()--></a><a name="Special_Features"><strong>Special Features</strong></a></font></td></tr><tr><td><blockquote>
+</blockquote></td></tr></table><table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#525D76"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Special Features"><!--()--></a><a name="Special_Features"><strong>Special Features</strong></a></font></td></tr><tr><td><blockquote>
 
 
-  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Logging"><strong>Logging</strong></a></font></td></tr><tr><td><blockquote>
+  <table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#828DA6"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Logging"><strong>Logging</strong></a></font></td></tr><tr><td><blockquote>
 
     <p>A context is associated with the 
        <code>org.apache.catalina.core.ContainerBase.[enginename].[hostname].[path]</code>
@@ -384,7 +432,7 @@
   </blockquote></td></tr></table>
 
 
-  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Access Logs"><!--()--></a><a name="Access_Logs"><strong>Access Logs</strong></a></font></td></tr><tr><td><blockquote>
+  <table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#828DA6"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Access Logs"><!--()--></a><a name="Access_Logs"><strong>Access Logs</strong></a></font></td></tr><tr><td><blockquote>
 
     <p>When you run a web server, one of the output files normally generated
     is an <em>access log</em>, which generates one line of information for
@@ -398,7 +446,7 @@
     <a href="host.html">Host</a>, or <a href="context.html">Context</a>
     by nesting a <a href="valve.html">Valve</a> element like this:</p>
 
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table cellspacing="4" cellpadding="0" border="0"><tr><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#ffffff" height="1"><pre>
 &lt;Context path="/examples" ...&gt;
   ...
   &lt;Valve className="org.apache.catalina.valves.AccessLogValve"
@@ -406,7 +454,7 @@
          pattern="common"/&gt;
   ...
 &lt;/Context&gt;
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr></table></div>
+</pre></td><td bgcolor="#023264" width="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr></table></div>
 
     <p>See <a href="valve.html#Access Log Valve">Access Log Valve</a>
     for more information on the configuration attributes that are
@@ -415,7 +463,7 @@
   </blockquote></td></tr></table>
 
 
-  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Automatic Context Configuration"><!--()--></a><a name="Automatic_Context_Configuration"><strong>Automatic Context Configuration</strong></a></font></td></tr><tr><td><blockquote>
+  <table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#828DA6"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Automatic Context Configuration"><!--()--></a><a name="Automatic_Context_Configuration"><strong>Automatic Context Configuration</strong></a></font></td></tr><tr><td><blockquote>
 
     <p>If you use the standard <strong>Context</strong> implementation,
     the following configuration steps occur automatically when Catalina
@@ -446,47 +494,47 @@
   </blockquote></td></tr></table>
 
 
-  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Context Parameters"><!--()--></a><a name="Context_Parameters"><strong>Context Parameters</strong></a></font></td></tr><tr><td><blockquote>
+  <table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#828DA6"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Context Parameters"><!--()--></a><a name="Context_Parameters"><strong>Context Parameters</strong></a></font></td></tr><tr><td><blockquote>
 
     <p>You can configure named values that will be made visible to the
     web application as servlet context initialization parameters by nesting
     <code>&lt;Parameter&gt;</code> elements inside this element.  For
     example, you can create an initialization parameter like this:</p>
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table cellspacing="4" cellpadding="0" border="0"><tr><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#ffffff" height="1"><pre>
 &lt;Context ...&gt;
   ...
   &lt;Parameter name="companyName" value="My Company, Incorporated"
          override="false"/&gt;
   ...
 &lt;/Context&gt;
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr></table></div>
+</pre></td><td bgcolor="#023264" width="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr></table></div>
 
     <p>This is equivalent to the inclusion of the following element in the
     web application deployment descriptor (<code>/WEB-INF/web.xml</code>):
     </p>
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table cellspacing="4" cellpadding="0" border="0"><tr><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#ffffff" height="1"><pre>
 &lt;context-param&gt;
   &lt;param-name&gt;companyName&lt;/param-name&gt;
   &lt;param-value&gt;My Company, Incorporated&lt;/param-value&gt;
 &lt;/context-param&gt;
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr></table></div>
+</pre></td><td bgcolor="#023264" width="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr></table></div>
     <p>but does <em>not</em> require modification of the deployment descriptor
     to customize this value.</p>
 
     <p>The valid attributes for a <code>&lt;Parameter&gt;</code> element
     are as follows:</p>
 
-    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>description</code></td><td valign="center" align="left">
+    <table border="1" cellpadding="5"><tr><th width="15%" bgcolor="#023264"><font color="#ffffff">Attribute</font></th><th width="85%" bgcolor="#023264"><font color="#ffffff">Description</font></th></tr><tr><td align="left" valign="center"><code>description</code></td><td align="left" valign="center">
         <p>Optional, human-readable description of this context
         initialization parameter.</p>
-      </td></tr><tr><td valign="center" align="left"><strong><code>name</code></strong></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><strong><code>name</code></strong></td><td align="left" valign="center">
         <p>The name of the context initialization parameter to be created.</p>
-      </td></tr><tr><td valign="center" align="left"><code>override</code></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><code>override</code></td><td align="left" valign="center">
         <p>Set this to <code>false</code> if you do <strong>not</strong> want
         a <code>&lt;context-param&gt;</code> for the same parameter name,
         found in the web application deployment descriptor, to override the
         value specified here.  By default, overrides are allowed.</p>
-      </td></tr><tr><td valign="center" align="left"><strong><code>value</code></strong></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><strong><code>value</code></strong></td><td align="left" valign="center">
         <p>The parameter value that will be presented to the application
         when requested by calling
         <code>ServletContext.getInitParameter()</code>.</p>
@@ -495,48 +543,48 @@
   </blockquote></td></tr></table>
 
 
-  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Environment Entries"><!--()--></a><a name="Environment_Entries"><strong>Environment Entries</strong></a></font></td></tr><tr><td><blockquote>
+  <table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#828DA6"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Environment Entries"><!--()--></a><a name="Environment_Entries"><strong>Environment Entries</strong></a></font></td></tr><tr><td><blockquote>
 
     <p>You can configure named values that will be made visible to the
     web application as environment entry resources, by nesting
     <code>&lt;Environment&gt;</code> entries inside this element.  For
     example, you can create an environment entry like this:</p>
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table cellspacing="4" cellpadding="0" border="0"><tr><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#ffffff" height="1"><pre>
 &lt;Context ...&gt;
   ...
   &lt;Environment name="maxExemptions" value="10"
          type="java.lang.Integer" override="false"/&gt;
   ...
 &lt;/Context&gt;
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr></table></div>
+</pre></td><td bgcolor="#023264" width="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr></table></div>
 
     <p>This is equivalent to the inclusion of the following element in the
     web application deployment descriptor (<code>/WEB-INF/web.xml</code>):
     </p>
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table cellspacing="4" cellpadding="0" border="0"><tr><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#ffffff" height="1"><pre>
 &lt;env-entry&gt;
   &lt;env-entry-name&gt;maxExemptions&lt;/param-name&gt;
   &lt;env-entry-value&gt;10&lt;/env-entry-value&gt;
   &lt;env-entry-type&gt;java.lang.Integer&lt;/env-entry-type&gt;
 &lt;/env-entry&gt;
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr></table></div>
+</pre></td><td bgcolor="#023264" width="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr></table></div>
     <p>but does <em>not</em> require modification of the deployment descriptor
     to customize this value.</p>
 
     <p>The valid attributes for an <code>&lt;Environment&gt;</code> element
     are as follows:</p>
 
-    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>description</code></td><td valign="center" align="left">
+    <table border="1" cellpadding="5"><tr><th width="15%" bgcolor="#023264"><font color="#ffffff">Attribute</font></th><th width="85%" bgcolor="#023264"><font color="#ffffff">Description</font></th></tr><tr><td align="left" valign="center"><code>description</code></td><td align="left" valign="center">
         <p>Optional, human-readable description of this environment entry.</p>
-      </td></tr><tr><td valign="center" align="left"><strong><code>name</code></strong></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><strong><code>name</code></strong></td><td align="left" valign="center">
         <p>The name of the environment entry to be created, relative to the
         <code>java:comp/env</code> context.</p>
-      </td></tr><tr><td valign="center" align="left"><code>override</code></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><code>override</code></td><td align="left" valign="center">
         <p>Set this to <code>false</code> if you do <strong>not</strong> want
         an <code>&lt;env-entry&gt;</code> for the same environment entry name,
         found in the web application deployment descriptor, to override the
         value specified here.  By default, overrides are allowed.</p>
-      </td></tr><tr><td valign="center" align="left"><strong><code>type</code></strong></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><strong><code>type</code></strong></td><td align="left" valign="center">
         <p>The fully qualified Java class name expected by the web application
         for this environment entry.  Must be one of the legal values for
         <code>&lt;env-entry-type&gt;</code> in the web application deployment
@@ -545,7 +593,7 @@
         <code>java.lang.Double</code>, <code>java.lang.Float</code>,
         <code>java.lang.Integer</code>, <code>java.lang.Long</code>,
         <code>java.lang.Short</code>, or <code>java.lang.String</code>.</p>
-      </td></tr><tr><td valign="center" align="left"><strong><code>value</code></strong></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><strong><code>value</code></strong></td><td align="left" valign="center">
         <p>The parameter value that will be presented to the application
         when requested from the JNDI context.  This value must be convertable
         to the Java type defined by the <code>type</code> attribute.</p>
@@ -554,7 +602,7 @@
   </blockquote></td></tr></table>
 
 
-  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Lifecycle Listeners"><!--()--></a><a name="Lifecycle_Listeners"><strong>Lifecycle Listeners</strong></a></font></td></tr><tr><td><blockquote>
+  <table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#828DA6"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Lifecycle Listeners"><!--()--></a><a name="Lifecycle_Listeners"><strong>Lifecycle Listeners</strong></a></font></td></tr><tr><td><blockquote>
 
     <p>If you have implemented a Java object that needs to know when this
     <strong>Context</strong> is started or stopped, you can declare it by
@@ -566,13 +614,13 @@
     It will be notified about the occurrence of the corresponding
     lifecycle events.  Configuration of such a listener looks like this:</p>
 
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table cellspacing="4" cellpadding="0" border="0"><tr><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#ffffff" height="1"><pre>
 &lt;Context path="/examples" ...&gt;
   ...
   &lt;Listener className="com.mycompany.mypackage.MyListener" ... &gt;
   ...
 &lt;/Context&gt;
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr></table></div>
+</pre></td><td bgcolor="#023264" width="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr></table></div>
 
     <p>Note that a Listener can have any number of additional properties
     that may be configured from this element.  Attribute names are matched
@@ -582,7 +630,7 @@
   </blockquote></td></tr></table>
 
 
-  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Request Filters"><!--()--></a><a name="Request_Filters"><strong>Request Filters</strong></a></font></td></tr><tr><td><blockquote>
+  <table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#828DA6"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Request Filters"><!--()--></a><a name="Request_Filters"><strong>Request Filters</strong></a></font></td></tr><tr><td><blockquote>
 
     <p>You can ask Catalina to check the IP address, or host name, on every
     incoming request directed to the surrounding
@@ -595,7 +643,7 @@
     not accepted will be rejected with an HTTP "Forbidden" error.
     Example filter declarations:</p>
 
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table cellspacing="4" cellpadding="0" border="0"><tr><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#ffffff" height="1"><pre>
 &lt;Context path="/examples" ...&gt;
   ...
   &lt;Valve className="org.apache.catalina.valves.RemoteHostValve"
@@ -604,7 +652,7 @@
          deny="192.168.1.*"/&gt;
   ...
 &lt;/Context&gt;
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr></table></div>
+</pre></td><td bgcolor="#023264" width="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr></table></div>
 
     <p>See <a href="valve.html#Remote Address Filter">Remote Address Filter</a>
     and <a href="valve.html#Remote Host Filter">Remote Host Filter</a> for
@@ -613,7 +661,7 @@
   </blockquote></td></tr></table>
 
 
-  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Resource Definitions"><!--()--></a><a name="Resource_Definitions"><strong>Resource Definitions</strong></a></font></td></tr><tr><td><blockquote>
+  <table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#828DA6"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Resource Definitions"><!--()--></a><a name="Resource_Definitions"><strong>Resource Definitions</strong></a></font></td></tr><tr><td><blockquote>
 
     <p>You can declare the characteristics of the resource
     to be returned for JNDI lookups of <code>&lt;resource-ref&gt;</code> and
@@ -624,7 +672,7 @@
     already), and the properties used to configure that object factory.</p>
 
     <p>For example, you can create a resource definition like this:</p>
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table cellspacing="4" cellpadding="0" border="0"><tr><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#ffffff" height="1"><pre>
 &lt;Context ...&gt;
   ...
   &lt;Resource name="jdbc/EmployeeDB" auth="Container"
@@ -632,18 +680,18 @@
      description="Employees Database for HR Applications"/&gt;
   ...
 &lt;/Context&gt;
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr></table></div>
+</pre></td><td bgcolor="#023264" width="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr></table></div>
 
     <p>This is equivalent to the inclusion of the following element in the
     web application deployment descriptor (<code>/WEB-INF/web.xml</code>):</p>
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table cellspacing="4" cellpadding="0" border="0"><tr><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#ffffff" height="1"><pre>
 &lt;resource-ref&gt;
   &lt;description&gt;Employees Database for HR Applications&lt;/description&gt;
   &lt;res-ref-name&gt;jdbc/EmployeeDB&lt;/res-ref-name&gt;
   &lt;res-ref-type&gt;javax.sql.DataSource&lt;/res-ref-type&gt;
   &lt;res-auth&gt;Container&lt;/res-auth&gt;
 &lt;/resource-ref&gt;
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr></table></div>
+</pre></td><td bgcolor="#023264" width="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr></table></div>
 
     <p>but does <em>not</em> require modification of the deployment
     descriptor to customize this value.</p>
@@ -651,7 +699,7 @@
     <p>The valid attributes for a <code>&lt;Resource&gt;</code> element
     are as follows:</p>
 
-    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>auth</code></td><td valign="center" align="left">
+    <table border="1" cellpadding="5"><tr><th width="15%" bgcolor="#023264"><font color="#ffffff">Attribute</font></th><th width="85%" bgcolor="#023264"><font color="#ffffff">Description</font></th></tr><tr><td align="left" valign="center"><code>auth</code></td><td align="left" valign="center">
         <p>Specify whether the web Application code signs on to the
         corresponding resource manager programatically, or whether the
         Container will sign on to the resource manager on behalf of the
@@ -661,17 +709,17 @@
         will use a <code>&lt;resource-ref&gt;</code> element in the web
         application deployment descriptor, but is optional if the
         application uses a <code>&lt;resource-env-ref&gt;</code> instead.</p>
-      </td></tr><tr><td valign="center" align="left"><code>description</code></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><code>description</code></td><td align="left" valign="center">
         <p>Optional, human-readable description of this resource.</p>
-      </td></tr><tr><td valign="center" align="left"><strong><code>name</code></strong></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><strong><code>name</code></strong></td><td align="left" valign="center">
         <p>The name of the resource to be created, relative to the
         <code>java:comp/env</code> context.</p>
-      </td></tr><tr><td valign="center" align="left"><code>scope</code></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><code>scope</code></td><td align="left" valign="center">
         <p>Specify whether connections obtained through this resource
         manager can be shared.  The value of this attribute must be
         <code>Shareable</code> or <code>Unshareable</code>.  By default,
         connections are assumed to be shareable.</p>
-      </td></tr><tr><td valign="center" align="left"><strong><code>type</code></strong></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><strong><code>type</code></strong></td><td align="left" valign="center">
         <p>The fully qualified Java class name expected by the web
         application when it performs a lookup for this resource.</p>
       </td></tr></table>
@@ -680,14 +728,14 @@
   </blockquote></td></tr></table>
 
 
-  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Resource Links"><!--()--></a><a name="Resource_Links"><strong>Resource Links</strong></a></font></td></tr><tr><td><blockquote>
+  <table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#828DA6"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Resource Links"><!--()--></a><a name="Resource_Links"><strong>Resource Links</strong></a></font></td></tr><tr><td><blockquote>
 
      <p>This element is used to create a link to a global JNDI resource. Doing
      a JNDI lookup on the link name will then return the linked global 
      resource.</p>
 
     <p>For example, you can create a resource link like this:</p>
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+<div align="left"><table cellspacing="4" cellpadding="0" border="0"><tr><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#ffffff" height="1"><pre>
 &lt;Context ...&gt;
   ...
   &lt;ResourceLink name="linkToGlobalResource"
@@ -695,25 +743,25 @@
             type="java.lang.Integer"
   ...
 &lt;/Context&gt;
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr></table></div>
+</pre></td><td bgcolor="#023264" width="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="../images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr></table></div>
 
     <p>The valid attributes for a <code>&lt;ResourceLink&gt;</code> element
     are as follows:</p>
 
-    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>global</code></strong></td><td valign="center" align="left">
+    <table border="1" cellpadding="5"><tr><th width="15%" bgcolor="#023264"><font color="#ffffff">Attribute</font></th><th width="85%" bgcolor="#023264"><font color="#ffffff">Description</font></th></tr><tr><td align="left" valign="center"><strong><code>global</code></strong></td><td align="left" valign="center">
         <p>The name of the linked global resource in the 
         global JNDI context.</p>
-      </td></tr><tr><td valign="center" align="left"><strong><code>name</code></strong></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><strong><code>name</code></strong></td><td align="left" valign="center">
         <p>The name of the resource link to be created, relative to the
         <code>java:comp/env</code> context.</p>
-      </td></tr><tr><td valign="center" align="left"><strong><code>type</code></strong></td><td valign="center" align="left">
+      </td></tr><tr><td align="left" valign="center"><strong><code>type</code></strong></td><td align="left" valign="center">
         <p>The fully qualified Java class name expected by the web
         application when it performs a lookup for this resource link.</p>
       </td></tr></table>
 
   </blockquote></td></tr></table>
 
-  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Transaction"><strong>Transaction</strong></a></font></td></tr><tr><td><blockquote>
+  <table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#828DA6"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Transaction"><strong>Transaction</strong></a></font></td></tr><tr><td><blockquote>
 
     <p>You can declare the characteristics of the UserTransaction
     to be returned for JNDI lookup for <code>java:comp/UserTransaction</code>. 
@@ -725,12 +773,12 @@
     <p>The valid attributes for the <code>&lt;Transaction&gt;</code> element
     are as follows:</p>
 
-    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>factory</code></strong></td><td valign="center" align="left">
+    <table border="1" cellpadding="5"><tr><th width="15%" bgcolor="#023264"><font color="#ffffff">Attribute</font></th><th width="85%" bgcolor="#023264"><font color="#ffffff">Description</font></th></tr><tr><td align="left" valign="center"><strong><code>factory</code></strong></td><td align="left" valign="center">
         <p>The class name for the JNDI object factory.</p>
       </td></tr></table>
 
   </blockquote></td></tr></table>
 
-</blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
+</blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr noshade size="1"></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font color="#525D76" size="-1"><em>
         Copyright &copy; 1999-2010, Apache Software Foundation
         </em></font></div></td></tr></table></body></html>

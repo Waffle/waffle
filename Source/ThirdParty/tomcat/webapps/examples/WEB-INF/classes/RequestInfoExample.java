@@ -14,14 +14,18 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-/* $Id: RequestInfoExample.java 500674 2007-01-27 23:15:00Z markt $
+/* $Id: RequestInfoExample.java 982412 2010-08-04 21:55:19Z markt $
  *
  */
 
-import java.io.*;
-import java.util.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ResourceBundle;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import util.HTMLFilter;
 
@@ -33,9 +37,11 @@ import util.HTMLFilter;
 
 public class RequestInfoExample extends HttpServlet {
 
+    private static final long serialVersionUID = 1L;
 
-    ResourceBundle rb = ResourceBundle.getBundle("LocalStrings");
+    private static final ResourceBundle RB = ResourceBundle.getBundle("LocalStrings");
 
+    @Override
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response)
         throws IOException, ServletException
@@ -47,18 +53,18 @@ public class RequestInfoExample extends HttpServlet {
         out.println("<body>");
         out.println("<head>");
 
-        String title = rb.getString("requestinfo.title");
+        String title = RB.getString("requestinfo.title");
         out.println("<title>" + title + "</title>");
         out.println("</head>");
         out.println("<body bgcolor=\"white\">");
 
         // img stuff not req'd for source code html showing
-	// all links relative!
+        // all links relative!
 
         // XXX
         // making these absolute till we work out the
         // addition of a PathInfo issue
-	
+
         out.println("<a href=\"../reqinfo.html\">");
         out.println("<img src=\"../images/code.gif\" height=24 " +
                     "width=24 align=right border=0 alt=\"view code\"></a>");
@@ -68,41 +74,41 @@ public class RequestInfoExample extends HttpServlet {
 
         out.println("<h3>" + title + "</h3>");
         out.println("<table border=0><tr><td>");
-        out.println(rb.getString("requestinfo.label.method"));
+        out.println(RB.getString("requestinfo.label.method"));
         out.println("</td><td>");
         out.println(request.getMethod());
         out.println("</td></tr><tr><td>");
-        out.println(rb.getString("requestinfo.label.requesturi"));
+        out.println(RB.getString("requestinfo.label.requesturi"));
         out.println("</td><td>");        
         out.println(HTMLFilter.filter(request.getRequestURI()));
         out.println("</td></tr><tr><td>");        
-        out.println(rb.getString("requestinfo.label.protocol"));
+        out.println(RB.getString("requestinfo.label.protocol"));
         out.println("</td><td>");        
         out.println(request.getProtocol());
         out.println("</td></tr><tr><td>");
-        out.println(rb.getString("requestinfo.label.pathinfo"));
+        out.println(RB.getString("requestinfo.label.pathinfo"));
         out.println("</td><td>");        
         out.println(HTMLFilter.filter(request.getPathInfo()));
         out.println("</td></tr><tr><td>");
-        out.println(rb.getString("requestinfo.label.remoteaddr"));
+        out.println(RB.getString("requestinfo.label.remoteaddr"));
 
- 	String cipherSuite=
- 	    (String)request.getAttribute("javax.servlet.request.cipher_suite");
+        String cipherSuite=
+            (String)request.getAttribute("javax.servlet.request.cipher_suite");
         out.println("</td><td>");                
         out.println(request.getRemoteAddr());
         out.println("</table>");
-
- 	if(cipherSuite!=null){
- 	    out.println("</td></tr><tr><td>");	
- 	    out.println("SSLCipherSuite:");
- 	    out.println("</td>");
- 	    out.println("<td>");	    
- 	    out.println(request.getAttribute("javax.servlet.request.cipher_suite"));
-	    out.println("</td>");	    
- 	}
-	
+        
+        if(cipherSuite!=null){
+            out.println("</td></tr><tr><td>");
+            out.println("SSLCipherSuite:");
+            out.println("</td>");
+            out.println("<td>");    
+            out.println(request.getAttribute("javax.servlet.request.cipher_suite"));
+            out.println("</td>");
+        }
     }
 
+    @Override
     public void doPost(HttpServletRequest request,
                       HttpServletResponse response)
         throws IOException, ServletException

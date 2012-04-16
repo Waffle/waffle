@@ -26,18 +26,18 @@
 &lt;hr>
 The checked fruits (got using request) are: &lt;br>
 &lt;% 
-	fruits = request.getParameterValues("fruit");
+    fruits = request.getParameterValues("fruit");
 %>
 &lt;ul>
 &lt;%
     if (fruits != null) {
-	  for (int i = 0; i &lt; fruits.length; i++) {
+      for (int i = 0; i &lt; fruits.length; i++) {
 %>
 &lt;li>
 &lt;%
-	      out.println (util.HTMLFilter.filter(fruits[i]));
-	  }
-	} else out.println ("none selected");
+          out.println (util.HTMLFilter.filter(fruits[i]));
+      }
+    } else out.println ("none selected");
 %>
 &lt;/ul>
 &lt;br>
@@ -46,18 +46,18 @@ The checked fruits (got using request) are: &lt;br>
 The checked fruits (got using beans) are &lt;br>
 
 &lt;% 
-		fruits = foo.getFruit();
+        fruits = foo.getFruit();
 %>
 &lt;ul>
 &lt;%
     if (!fruits[0].equals("1")) {
-	  for (int i = 0; i &lt; fruits.length; i++) {
+      for (int i = 0; i &lt; fruits.length; i++) {
 %>
 &lt;li>
 &lt;%
-		  out.println (util.HTMLFilter.filter(fruits[i]));
-	  }
-	} else out.println ("none selected");
+          out.println (util.HTMLFilter.filter(fruits[i]));
+      }
+    } else out.println ("none selected");
 %>
 &lt;/ul>
 &lt;/font>

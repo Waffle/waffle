@@ -35,7 +35,7 @@
                              image files), including the WEB-INF subdirectory
                              and its configuration file contents.
 
-     $Id: build.xml.txt 785727 2009-06-17 17:03:57Z kkolinko $
+     $Id: build.xml.txt 785688 2009-06-17 15:51:55Z kkolinko $
 -->
 
 

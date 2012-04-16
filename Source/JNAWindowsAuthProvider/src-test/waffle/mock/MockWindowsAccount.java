@@ -26,15 +26,9 @@ public class MockWindowsAccount implements IWindowsAccount {
 	private String _fqn;
 	private String _name;
 	private String _domain;
-	private String _sid;
 	
 	public MockWindowsAccount(String fqn) {
-		this(fqn, "S-" + fqn.hashCode());		
-	}
-	
-	public MockWindowsAccount(String fqn, String sid) {
 		_fqn = fqn;
-		_sid = sid;
         String[] userNameDomain = fqn.split("\\\\", 2);
         if (userNameDomain.length == 2) {
             _name = userNameDomain[1];
@@ -57,6 +51,6 @@ public class MockWindowsAccount implements IWindowsAccount {
 	}
 
 	public String getSidString() {
-		return _sid;
+		return "S-" + _fqn.hashCode();
 	}
 }

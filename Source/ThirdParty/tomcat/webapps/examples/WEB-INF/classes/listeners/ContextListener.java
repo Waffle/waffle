@@ -14,7 +14,6 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-
 package listeners;
 
 
@@ -32,7 +31,7 @@ import javax.servlet.ServletContextListener;
  * associated with our servlet context.
  *
  * @author Craig R. McClanahan
- * @version $Id: ContextListener.java 939521 2010-04-30 00:16:33Z kkolinko $
+ * @version $Id: ContextListener.java 982399 2010-08-04 20:52:23Z markt $
  */
 
 public final class ContextListener
@@ -56,10 +55,11 @@ public final class ContextListener
      *
      * @param event The servlet context attribute event
      */
+    @Override
     public void attributeAdded(ServletContextAttributeEvent event) {
 
-	log("attributeAdded('" + event.getName() + "', '" +
-	    event.getValue() + "')");
+        log("attributeAdded('" + event.getName() + "', '" +
+                event.getValue() + "')");
 
     }
 
@@ -69,10 +69,11 @@ public final class ContextListener
      *
      * @param event The servlet context attribute event
      */
+    @Override
     public void attributeRemoved(ServletContextAttributeEvent event) {
 
-	log("attributeRemoved('" + event.getName() + "', '" +
-	    event.getValue() + "')");
+        log("attributeRemoved('" + event.getName() + "', '" +
+                event.getValue() + "')");
 
     }
 
@@ -82,10 +83,11 @@ public final class ContextListener
      *
      * @param event The servlet context attribute event
      */
+    @Override
     public void attributeReplaced(ServletContextAttributeEvent event) {
 
-	log("attributeReplaced('" + event.getName() + "', '" +
-	    event.getValue() + "')");
+        log("attributeReplaced('" + event.getName() + "', '" +
+                event.getValue() + "')");
 
     }
 
@@ -95,10 +97,11 @@ public final class ContextListener
      *
      * @param event The servlet context event
      */
+    @Override
     public void contextDestroyed(ServletContextEvent event) {
 
-	log("contextDestroyed()");
-	this.context = null;
+        log("contextDestroyed()");
+        this.context = null;
 
     }
 
@@ -108,10 +111,11 @@ public final class ContextListener
      *
      * @param event The servlet context event
      */
+    @Override
     public void contextInitialized(ServletContextEvent event) {
 
-	this.context = event.getServletContext();
-	log("contextInitialized()");
+        this.context = event.getServletContext();
+        log("contextInitialized()");
 
     }
 
@@ -126,10 +130,10 @@ public final class ContextListener
      */
     private void log(String message) {
 
-	if (context != null)
-	    context.log("ContextListener: " + message);
-	else
-	    System.out.println("ContextListener: " + message);
+        if (context != null)
+            context.log("ContextListener: " + message);
+        else
+            System.out.println("ContextListener: " + message);
 
     }
 

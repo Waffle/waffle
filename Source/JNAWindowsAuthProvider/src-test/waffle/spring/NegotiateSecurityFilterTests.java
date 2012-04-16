@@ -102,7 +102,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
         assertEquals("ROLE_USER", authoritiesIterator.next().getAuthority());
         assertEquals("ROLE_USERS", authoritiesIterator.next().getAuthority());
         assertEquals("ROLE_EVERYONE", authoritiesIterator.next().getAuthority());
-    	assertEquals(0, response.getHeaderNames().length);
+    	assertEquals(0, response.getHeaderNames().size());
 	}
 	
 	public void testUnsupportedSecurityPackagePassthrough() throws IOException, ServletException {

@@ -81,8 +81,23 @@ rem                   set TITLE=Tomcat.Cluster#1.Server#1 [%DATE% %TIME%]
 rem
 rem
 rem
-rem $Id: catalina.bat 947714 2010-05-24 16:57:18Z markt $
+rem $Id: catalina.bat 947837 2010-05-24 22:19:23Z kkolinko $
 rem ---------------------------------------------------------------------------
+
+rem Suppress Terminate batch job on CTRL+C
+if not ""%1"" == ""run"" goto mainEntry
+if ""%TEMP%"" == """" goto mainEntry
+if exist "%TEMP%\%~nx0.run" goto mainEntry
+echo Y>"%TEMP%\%~nx0.run"
+if not exist "%TEMP%\%~nx0.run" goto mainEntry
+echo Y>"%TEMP%\%~nx0.Y"
+call "%~f0" %* <"%TEMP%\%~nx0.Y"
+rem Use provided errorlevel
+set RETVAL=%ERRORLEVEL%
+del /Q "%TEMP%\%~nx0.Y" >NUL 2>&1
+exit /B %RETVAL%
+:mainEntry
+del /Q "%TEMP%\%~nx0.run" >NUL 2>&1
 
 rem Guess CATALINA_HOME if not defined
 set "CURRENT_DIR=%cd%"
@@ -121,6 +136,14 @@ set "BASEDIR=%CATALINA_HOME%"
 call "%CATALINA_HOME%\bin\setclasspath.bat" %1
 if errorlevel 1 goto end
 
+rem Add on extra jar file to CLASSPATH
+rem Note that there are no quotes as we do not want to introduce random
+rem quotes into the CLASSPATH
+if "%CLASSPATH%" == "" goto emptyClasspath
+set "CLASSPATH=%CLASSPATH%;"
+:emptyClasspath
+set "CLASSPATH=%CLASSPATH%%CATALINA_HOME%\bin\bootstrap.jar"
+
 if not "%CATALINA_BASE%" == "" goto gotBase
 set "CATALINA_BASE=%CATALINA_HOME%"
 :gotBase
@@ -129,19 +152,13 @@ if not "%CATALINA_TMPDIR%" == "" goto gotTmpdir
 set "CATALINA_TMPDIR=%CATALINA_BASE%\temp"
 :gotTmpdir
 
-rem Add tomcat-juli.jar and bootstrap.jar to classpath
+rem Add tomcat-juli.jar to classpath
 rem tomcat-juli.jar can be over-ridden per instance
-rem Note that there are no quotes as we do not want to introduce random
-rem quotes into the CLASSPATH
-if "%CLASSPATH%" == "" goto emptyClasspath
-set "CLASSPATH=%CLASSPATH%;"
-:emptyClasspath
-if "%CATALINA_BASE%" == "%CATALINA_HOME%" goto juliClasspathHome
 if not exist "%CATALINA_BASE%\bin\tomcat-juli.jar" goto juliClasspathHome
-set "CLASSPATH=%CLASSPATH%%CATALINA_BASE%\bin\tomcat-juli.jar;%CATALINA_HOME%\bin\bootstrap.jar"
+set "CLASSPATH=%CLASSPATH%;%CATALINA_BASE%\bin\tomcat-juli.jar"
 goto juliClasspathDone
 :juliClasspathHome
-set "CLASSPATH=%CLASSPATH%%CATALINA_HOME%\bin\bootstrap.jar"
+set "CLASSPATH=%CLASSPATH%;%CATALINA_HOME%\bin\tomcat-juli.jar"
 :juliClasspathDone
 
 if not "%LOGGING_CONFIG%" == "" goto noJuliConfig

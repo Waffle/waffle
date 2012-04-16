@@ -32,23 +32,23 @@
     &lt;h2>Products&lt;/h2>
     &lt;tags:displayProducts>
       &lt;jsp:attribute name="normalPrice">
-	Item: ${name}&lt;br/>
-	Price: ${price}
+        Item: ${name}&lt;br/>
+        Price: ${price}
       &lt;/jsp:attribute>
       &lt;jsp:attribute name="onSale">
-	Item: ${name}&lt;br/>
-	&lt;font color="red">&lt;strike>Was: ${origPrice}&lt;/strike>&lt;/font>&lt;br/>
-	&lt;b>Now: ${salePrice}&lt;/b>
+        Item: ${name}&lt;br/>
+        &lt;font color="red">&lt;strike>Was: ${origPrice}&lt;/strike>&lt;/font>&lt;br/>
+        &lt;b>Now: ${salePrice}&lt;/b>
       &lt;/jsp:attribute>
     &lt;/tags:displayProducts>
     &lt;hr>
     &lt;h2>Products (Same tag, alternate style)&lt;/h2>
     &lt;tags:displayProducts>
       &lt;jsp:attribute name="normalPrice">
-	&lt;b>${name}&lt;/b> @ ${price} ea.
+        &lt;b>${name}&lt;/b> @ ${price} ea.
       &lt;/jsp:attribute>
       &lt;jsp:attribute name="onSale">
-	&lt;b>${name}&lt;/b> @ ${salePrice} ea. (was: ${origPrice})
+        &lt;b>${name}&lt;/b> @ ${salePrice} ea. (was: ${origPrice})
       &lt;/jsp:attribute>
     &lt;/tags:displayProducts>
   &lt;/body>

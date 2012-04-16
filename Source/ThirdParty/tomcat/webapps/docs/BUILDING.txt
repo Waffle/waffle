@@ -15,14 +15,14 @@
   limitations under the License.
 ================================================================================
 
-$Id: BUILDING.txt 717919 2008-11-15 19:48:42Z markt $
+$Id: BUILDING.txt 989742 2010-08-26 15:07:54Z rjung $
 
             ====================================================
-            Building The Apache Tomcat 6.0 Servlet/JSP Container
+            Building The Apache Tomcat 7.0 Servlet/JSP Container
             ====================================================
 
-This subproject contains the source code for Tomcat 6.0, a container that
-implements the Servlet 2.5 and JSP 2.1 specifications from the Java
+This subproject contains the source code for Tomcat 7.0, a container that
+implements the Servlet 3.0 and JSP 2.1 specifications from the Java
 Community Process <http://www.jcp.org/>.  In order to build a binary
 distribution version of the container from a source distribution, 
 do the following:
@@ -32,9 +32,9 @@ do the following:
 
 * If the JDK is already installed, skip to (1).
 
-* Download a Java Development Kit (JDK) release (version 1.5.x or later) from:
+* Download a Java Development Kit (JDK) release (version 1.6.x or later) from:
 
-    http://java.sun.com/j2se/
+    http://www.oracle.com/technetwork/java/javase/downloads/index.html
 
 * Install the JDK according to the instructions included with the release.
 
@@ -42,11 +42,11 @@ do the following:
   into which you installed the JDK release.
 
 
-(1) Install Apache Ant 1.6.x on your computer
+(1) Install Apache Ant 1.8.x on your computer
 
-* If Apache Ant 1.6.x is already installed on your computer, skip to (2).
+* If Apache Ant 1.8.x is already installed on your computer, skip to (2).
 
-* Download a binary distribution of Ant 1.6.x from:
+* Download a binary distribution of Ant 1.8.x from:
 
     http://ant.apache.org/bindownload.cgi
 
@@ -64,19 +64,19 @@ do the following:
   available, which will be used to actually perform the build.
 
 
-(2) Building Tomcat 6.0
+(2) Building Tomcat 7.0
 
-(2.1) Checkout or obtain the source code for Tomcat 6.0
+(2.1) Checkout or obtain the source code for Tomcat 7.0
 
 * Tomcat SVN repository URL:
-  http://svn.apache.org/repos/asf/tomcat/tc6.0.x/
+  http://svn.apache.org/repos/asf/tomcat/tc7.0.x/
 
 * Download a source package from:
-  http://tomcat.apache.org/download-60.cgi
+  http://tomcat.apache.org/download-70.cgi
 
 * Checkout the source using SVN, selecting the desired version or
   branch (current development source is at 
-  http://svn.apache.org/repos/asf/tomcat/tc6.0.x/trunk/), or 
+  http://svn.apache.org/repos/asf/tomcat/tc7.0.x/trunk/), or 
   unpack the source package. The location where the source has been
   placed will be referred as ${tomcat.source}.
 
@@ -85,7 +85,6 @@ do the following:
 * Go to that directory, and do:
 
     cd ${tomcat.source}
-    ant download
     ant
 
 * NOTE: Users accessing the Internet through a proxy must use a properties
@@ -113,13 +112,13 @@ do the following:
 
 (3) Updating sources
 
-It is recommended that you regularly update the downloaded Tomcat 6 sources
+It is recommended that you regularly update the downloaded Tomcat 7 sources
 using your SVN client.
 
 (4) Rebuilds
 
 For a quick rebuild of only modified code you can use:
-   
+
     cd ${tomcat.source}
     ant
 
@@ -128,15 +127,15 @@ For a quick rebuild of only modified code you can use:
 The documentation can be easly built:
 
     cd ${tomcat.source}
-    ant -f dist.xml dist-javadoc
+    ant javadoc
 
 (6) Building the extras (commons-logging, webservices etc.).
     cd ${tomcat.source}
-    ant -f extras.xml
+    ant extras
 
-(7) Building a release running tests:
+(7) Building a full release (as provided via the ASF download pages):
 
     cd ${tomcat.source}
-    ant -f dist.xml release
+    ant release
 
 

@@ -18,28 +18,28 @@
 -->
 &lt;body bgcolor="lightblue">
 
-	&lt;%@ page errorPage="errorpge.jsp" %>
-	&lt;jsp:useBean id="foo" scope="request" class="error.Smart" />
-	&lt;% 
-		String name = null;
+    &lt;%@ page errorPage="errorpge.jsp" %>
+    &lt;jsp:useBean id="foo" scope="request" class="error.Smart" />
+    &lt;% 
+        String name = null;
 
-		if (request.getParameter("name") == null) {
-	%>
-	&lt;%@ include file="error.html" %>
-	&lt;%
-		} else {
-		  foo.setName(request.getParameter("name"));
-		  if (foo.getName().equalsIgnoreCase("integra"))
-		  	name = "acura";
-		  if (name.equalsIgnoreCase("acura")) {
-	%>
+        if (request.getParameter("name") == null) {
+    %>
+    &lt;%@ include file="error.html" %>
+    &lt;%
+        } else {
+          foo.setName(request.getParameter("name"));
+          if (foo.getName().equalsIgnoreCase("integra"))
+              name = "acura";
+          if (name.equalsIgnoreCase("acura")) {
+    %>
 
-	&lt;H1> Yes!!! &lt;a href="http://www.acura.com">Acura&lt;/a> is my favorite car.
+    &lt;H1> Yes!!! &lt;a href="http://www.acura.com">Acura&lt;/a> is my favorite car.
 
-	&lt;% 
-		  }
-		}	
-	%>	
+    &lt;% 
+          }
+        }
+    %>
 &lt;/body>
 &lt;/html>
 

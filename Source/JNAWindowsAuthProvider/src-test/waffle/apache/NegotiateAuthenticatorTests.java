@@ -15,17 +15,18 @@ package waffle.apache;
 
 import junit.framework.TestCase;
 
+import org.apache.catalina.LifecycleException;
 import org.apache.catalina.Realm;
 
 import waffle.apache.catalina.SimpleContext;
+import waffle.apache.catalina.SimpleEngine;
 import waffle.apache.catalina.SimpleHttpRequest;
 import waffle.apache.catalina.SimpleHttpResponse;
+import waffle.apache.catalina.SimplePipeline;
 import waffle.apache.catalina.SimpleRealm;
-import waffle.mock.MockWindowsAccount;
 import waffle.util.Base64;
 import waffle.windows.auth.IWindowsCredentialsHandle;
 import waffle.windows.auth.PrincipalFormat;
-import waffle.windows.auth.WindowsAccount;
 import waffle.windows.auth.impl.WindowsAccountImpl;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 import waffle.windows.auth.impl.WindowsCredentialsHandleImpl;
@@ -43,17 +44,22 @@ public class NegotiateAuthenticatorTests extends TestCase {
 	NegotiateAuthenticator _authenticator = null;
 	
 	@Override
-	public void setUp() {
+	public void setUp() throws LifecycleException {
 		_authenticator = new NegotiateAuthenticator();
 		SimpleContext ctx = new SimpleContext();
 		Realm realm = new SimpleRealm();
 		ctx.setRealm(realm);
+		SimpleEngine engine = new SimpleEngine();
+		ctx.setParent(engine);
+		SimplePipeline pipeline = new SimplePipeline();
+		engine.setPipeline(pipeline);
+		ctx.setPipeline(pipeline);
 		_authenticator.setContainer(ctx);		
 		_authenticator.start();
 	}
 
 	@Override
-	public void tearDown() {
+	public void tearDown() throws LifecycleException {
 		_authenticator.stop();
 		_authenticator = null;
 	}
@@ -91,7 +97,7 @@ public class NegotiateAuthenticatorTests extends TestCase {
 		assertEquals("Negotiate", wwwAuthenticates[0]);
 		assertEquals("NTLM", wwwAuthenticates[1]);
 		assertEquals("close", response.getHeader("Connection"));
-		assertEquals(2, response.getHeaderNames().length);
+		assertEquals(2, response.getHeaderNames().size());
 		assertEquals(401, response.getStatus());
 	}
 	
@@ -117,7 +123,7 @@ public class NegotiateAuthenticatorTests extends TestCase {
 			_authenticator.authenticate(request, response, null);
 			assertTrue(response.getHeader("WWW-Authenticate").startsWith(securityPackage + " "));
 			assertEquals("keep-alive", response.getHeader("Connection"));
-			assertEquals(2, response.getHeaderNames().length);
+			assertEquals(2, response.getHeaderNames().size());
 			assertEquals(401, response.getStatus());
 		} finally {
 			if (clientContext != null) {
@@ -157,13 +163,13 @@ public class NegotiateAuthenticatorTests extends TestCase {
 	    		authenticated = _authenticator.authenticate(request, response, null);
 	
 	    		if (authenticated) {
-	        		assertTrue(response.getHeaderNames().length >= 0);
+	        	assertTrue(response.getHeaderNames().size() >= 0);
 	    			break;
 	    		}
 	    		
 	    		assertTrue(response.getHeader("WWW-Authenticate").startsWith(securityPackage + " "));
 	    		assertEquals("keep-alive", response.getHeader("Connection"));
-	    		assertEquals(2, response.getHeaderNames().length);
+	    		assertEquals(2, response.getHeaderNames().size());
 	    		assertEquals(401, response.getStatus());
 	    		String continueToken = response.getHeader("WWW-Authenticate").substring(securityPackage.length() + 1);
 	    		byte[] continueTokenBytes = Base64.decode(continueToken);
@@ -213,15 +219,14 @@ public class NegotiateAuthenticatorTests extends TestCase {
 	    			GenericWindowsPrincipal windowsPrincipal = (GenericWindowsPrincipal) request.getUserPrincipal();
 	    			assertTrue(windowsPrincipal.getSidString().startsWith("S-"));
 	    			assertTrue(windowsPrincipal.getSid().length > 0);
-	    			WindowsAccount everyone = new WindowsAccount(new MockWindowsAccount("Everyone", "S-1-1-0"));
-	    			assertTrue(windowsPrincipal.getGroups().containsValue(everyone));
-	        		assertTrue(response.getHeaderNames().length <= 1);
+	    			assertTrue(windowsPrincipal.getGroups().containsKey("Everyone"));
+	        	assertTrue(response.getHeaderNames().size() <= 1);
 	    			break;
 	    		}
 	    		
 	    		assertTrue(response.getHeader("WWW-Authenticate").startsWith(securityPackage + " "));
 	    		assertEquals("keep-alive", response.getHeader("Connection"));
-	    		assertEquals(2, response.getHeaderNames().length);
+	    		assertEquals(2, response.getHeaderNames().size());
 	    		assertEquals(401, response.getStatus());
 	    		String continueToken = response.getHeader("WWW-Authenticate").substring(securityPackage.length() + 1);
 	    		byte[] continueTokenBytes = Base64.decode(continueToken);

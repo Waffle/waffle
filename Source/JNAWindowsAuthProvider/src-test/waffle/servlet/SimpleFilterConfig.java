@@ -41,11 +41,10 @@ public class SimpleFilterConfig implements FilterConfig {
 		return _parameters.get(s);
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Enumeration getInitParameterNames() {
+	public Enumeration<String> getInitParameterNames() {
 		Vector<String> keys = new Vector<String>();
 		keys.addAll(_parameters.keySet());		
-		return (Enumeration) keys.elements();
+		return keys.elements();
 	}
 
 	public ServletContext getServletContext() {

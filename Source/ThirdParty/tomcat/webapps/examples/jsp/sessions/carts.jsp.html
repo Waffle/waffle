@@ -21,7 +21,7 @@
 
 &lt;jsp:setProperty name="cart" property="*" />
 &lt;%
-	cart.processRequest();
+    cart.processRequest();
 %>
 
 
@@ -29,12 +29,12 @@
 &lt;br> You have the following items in your cart:
 &lt;ol>
 &lt;% 
-	String[] items = cart.getItems();
-	for (int i=0; i&lt;items.length; i++) {
+    String[] items = cart.getItems();
+    for (int i=0; i&lt;items.length; i++) {
 %>
 &lt;li> &lt;% out.print(util.HTMLFilter.filter(items[i])); %> 
 &lt;%
-	}
+    }
 %>
 &lt;/ol>
 

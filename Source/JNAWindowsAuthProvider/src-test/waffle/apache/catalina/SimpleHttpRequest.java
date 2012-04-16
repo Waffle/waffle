@@ -54,7 +54,6 @@ public class SimpleHttpRequest extends Request implements HttpServletRequest {
 		_remotePort_s = 0;
 	}
 	
-	@Override
 	public void addHeader(String headerName, String headerValue) {
 		_headers.put(headerName, headerValue);
 	}
@@ -79,12 +78,10 @@ public class SimpleHttpRequest extends Request implements HttpServletRequest {
 		return _remotePort;
 	}
 	
-	@Override
 	public void setMethod(String methodName) {
 		_method = methodName;
 	}
 	
-	@Override
 	public void setContentLength(int length) {
 		_content = new byte[length];
 	}
@@ -115,7 +112,6 @@ public class SimpleHttpRequest extends Request implements HttpServletRequest {
 		return _queryString;
 	}
 	
-	@Override
 	public void setQueryString(String queryString) {
 		_queryString = queryString;
 		if (_queryString != null) {
@@ -127,7 +123,6 @@ public class SimpleHttpRequest extends Request implements HttpServletRequest {
 		}
 	}
 	
-	@Override
 	public void setRequestURI(String uri) {
 		_requestURI = uri;
 	}

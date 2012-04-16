@@ -17,7 +17,7 @@
   limitations under the License.
 -->
 &lt;HEAD>&lt;TITLE> 
-	Calendar: A JSP APPLICATION
+    Calendar: A JSP APPLICATION
 &lt;/TITLE>&lt;/HEAD>
 
 
@@ -27,8 +27,8 @@
 &lt;jsp:useBean id="table" scope="session" class="cal.TableBean" />
 
 &lt;%
-	table.processRequest(request);
-	if (table.getProcessError() == false) {
+    table.processRequest(request);
+    if (table.getProcessError() == false) {
 %>
 
 &lt;!-- html table goes here -->
@@ -49,20 +49,20 @@
 &lt;/TR>
 &lt;FORM METHOD=POST ACTION=cal1.jsp>
 &lt;%
-	for(int i=0; i&lt;table.getEntries().getRows(); i++) {
-	   cal.Entry entr = table.getEntries().getEntry(i);	
+    for(int i=0; i&lt;table.getEntries().getRows(); i++) {
+       cal.Entry entr = table.getEntries().getEntry(i);
 %>
-	&lt;TR>
-	&lt;TD> 
-	&lt;A HREF=cal2.jsp?time=&lt;%= entr.getHour() %>>
-		&lt;%= entr.getHour() %> &lt;/A>
-	&lt;/TD>
-	&lt;TD BGCOLOR=&lt;%= entr.getColor() %>>
-	&lt;% out.print(util.HTMLFilter.filter(entr.getDescription())); %>
-	&lt;/TD> 
-	&lt;/TR>
+    &lt;TR>
+    &lt;TD> 
+    &lt;A HREF=cal2.jsp?time=&lt;%= entr.getHour() %>>
+        &lt;%= entr.getHour() %> &lt;/A>
+    &lt;/TD>
+    &lt;TD BGCOLOR=&lt;%= entr.getColor() %>>
+    &lt;% out.print(util.HTMLFilter.filter(entr.getDescription())); %>
+    &lt;/TD> 
+    &lt;/TR>
 &lt;%
-	}
+    }
 %>
 &lt;/FORM>
 &lt;/TABLE>
@@ -72,26 +72,24 @@
 &lt;TABLE WIDTH=60% BGCOLOR=yellow CELLPADDING=15>
 &lt;TR>
 &lt;TD ALIGN=CENTER>  &lt;% out.print(util.HTMLFilter.filter(table.getName())); %> : 
-		     &lt;% out.print(util.HTMLFilter.filter(table.getEmail())); %> &lt;/TD>
+             &lt;% out.print(util.HTMLFilter.filter(table.getEmail())); %> &lt;/TD>
 &lt;/TR>
 &lt;/TABLE>
 &lt;/CENTER>
 
 &lt;%
-	} else {
+    } else {
 %>
 &lt;font size=5>
-	You must enter your name and email address correctly.
+    You must enter your name and email address correctly.
 &lt;/font>
 &lt;%
-	}
+    }
 %>
 
 
 &lt;/BODY>
 &lt;/HTML>
-
-
 
 
 </pre></body></html>

@@ -27,7 +27,7 @@
 #                   the same directory that CATALINA_HOME points to.
 #
 #   CATALINA_OUT    (Optional) Full path to a file where stdout and stderr
-#                   will be redirected. 
+#                   will be redirected.
 #                   Default is $CATALINA_BASE/logs/catalina.out
 #
 #   CATALINA_OPTS   (Optional) Java runtime options used when the "start",
@@ -47,8 +47,8 @@
 #                   "stop", or "run" command is executed.
 #
 #   JAVA_ENDORSED_DIRS (Optional) Lists of of colon separated directories
-#                   containing some jars in order to allow replacement of APIs 
-#                   created outside of the JCP (i.e. DOM and SAX from W3C). 
+#                   containing some jars in order to allow replacement of APIs
+#                   created outside of the JCP (i.e. DOM and SAX from W3C).
 #                   It can also be used to update the XML parser implementation.
 #                   Defaults to $CATALINA_HOME/endorsed.
 #
@@ -77,11 +77,11 @@
 #                   Example (all one line)
 #                   LOGGING_CONFIG="-Djava.util.logging.config.file=$CATALINA_BASE/conf/logging.properties"
 #
-#   LOGGING_MANAGER (Optional) Override Tomcat's logging manager 
+#   LOGGING_MANAGER (Optional) Override Tomcat's logging manager
 #                   Example (all one line)
 #                   LOGGING_MANAGER="-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager"
 #
-# $Id: catalina.sh 947714 2010-05-24 16:57:18Z markt $
+# $Id: catalina.sh 1003556 2010-10-01 15:08:23Z markt $
 # -----------------------------------------------------------------------------
 
 # OS specific support.  $var _must_ be set to either true or false.
@@ -117,10 +117,11 @@ PRGDIR=`dirname "$PRG"`
 # but allow them to be specified in setenv.sh, in rare case when it is needed.
 CLASSPATH=
 
-if [ -r "$CATALINA_BASE"/bin/setenv.sh ]; then
-  . "$CATALINA_BASE"/bin/setenv.sh
-elif [ -r "$CATALINA_HOME"/bin/setenv.sh ]; then
-  . "$CATALINA_HOME"/bin/setenv.sh
+SETENVPATH="${CATALINA_BASE:-$CATALINA_HOME}"
+if [ -r "$SETENVPATH/bin/setenv.sh" ]; then
+  . "$SETENVPATH/bin/setenv.sh"
+elif [ -r "$CATALINA_HOME/bin/setenv.sh" ]; then
+  . "$CATALINA_HOME/bin/setenv.sh"
 fi
 
 # For Cygwin, ensure paths are in UNIX format before anything is touched
@@ -151,7 +152,7 @@ if $os400; then
   # 2. owned by the PRIMARY group of the user
   # this will not work if the user belongs in secondary groups
   BASEDIR="$CATALINA_HOME"
-  . "$CATALINA_HOME"/bin/setclasspath.sh 
+  . "$CATALINA_HOME"/bin/setclasspath.sh
 else
   if [ -r "$CATALINA_HOME"/bin/setclasspath.sh ]; then
     BASEDIR="$CATALINA_HOME"
@@ -163,19 +164,14 @@ else
   fi
 fi
 
-if [ -z "$CATALINA_BASE" ] ; then
-  CATALINA_BASE="$CATALINA_HOME"
-fi
-
-# Add tomcat-juli.jar and bootstrap.jar to classpath
-# tomcat-juli.jar can be over-ridden per instance
+# Add on extra jar files to CLASSPATH
 if [ ! -z "$CLASSPATH" ] ; then
   CLASSPATH="$CLASSPATH":
 fi
-if [ "$CATALINA_BASE" != "$CATALINA_HOME" ] && [ -r "$CATALINA_BASE/bin/tomcat-juli.jar" ] ; then
-  CLASSPATH="$CLASSPATH""$CATALINA_BASE"/bin/tomcat-juli.jar:"$CATALINA_HOME"/bin/bootstrap.jar
-else
-  CLASSPATH="$CLASSPATH""$CATALINA_HOME"/bin/bootstrap.jar
+CLASSPATH="$CLASSPATH""$CATALINA_HOME"/bin/bootstrap.jar
+
+if [ -z "$CATALINA_BASE" ] ; then
+  CATALINA_BASE="$CATALINA_HOME"
 fi
 
 if [ -z "$CATALINA_OUT" ] ; then
@@ -185,6 +181,14 @@ fi
 if [ -z "$CATALINA_TMPDIR" ] ; then
   # Define the java.io.tmpdir to use for Catalina
   CATALINA_TMPDIR="$CATALINA_BASE"/temp
+fi
+
+# Add tomcat-juli.jar to classpath
+# tomcat-juli.jar can be over-ridden per instance
+if [ -r "$CATALINA_BASE/bin/tomcat-juli.jar" ] ; then
+  CLASSPATH=$CLASSPATH:$CATALINA_BASE/bin/tomcat-juli.jar
+else
+  CLASSPATH=$CLASSPATH:$CATALINA_HOME/bin/tomcat-juli.jar
 fi
 
 # Bugzilla 37848: When no TTY is available, don't output to console
@@ -216,7 +220,7 @@ fi
 
 if [ -z "$LOGGING_MANAGER" ]; then
   JAVA_OPTS="$JAVA_OPTS -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager"
-else 
+else
   JAVA_OPTS="$JAVA_OPTS $LOGGING_MANAGER"
 fi
 
@@ -233,6 +237,9 @@ if [ $have_tty -eq 1 ]; then
     echo "Using JRE_HOME:        $JRE_HOME"
   fi
   echo "Using CLASSPATH:       $CLASSPATH"
+  if [ ! -z "$CATALINA_PID" ]; then
+    echo "Using CATALINA_PID:    $CATALINA_PID"
+  fi
 fi
 
 if [ "$1" = "jpda" ] ; then
@@ -291,20 +298,20 @@ elif [ "$1" = "run" ]; then
       echo "Using Security Manager"
     fi
     shift
-    exec "$_RUNJAVA" "$LOGGING_CONFIG" $JAVA_OPTS $CATALINA_OPTS \
-      -Djava.endorsed.dirs="$JAVA_ENDORSED_DIRS" -classpath "$CLASSPATH" \
+    eval \"$_RUNJAVA\" \"$LOGGING_CONFIG\" $JAVA_OPTS $CATALINA_OPTS \
+      -Djava.endorsed.dirs=\"$JAVA_ENDORSED_DIRS\" -classpath \"$CLASSPATH\" \
       -Djava.security.manager \
-      -Djava.security.policy=="$CATALINA_BASE"/conf/catalina.policy \
-      -Dcatalina.base="$CATALINA_BASE" \
-      -Dcatalina.home="$CATALINA_HOME" \
-      -Djava.io.tmpdir="$CATALINA_TMPDIR" \
+      -Djava.security.policy==\"$CATALINA_BASE/conf/catalina.policy\" \
+      -Dcatalina.base=\"$CATALINA_BASE\" \
+      -Dcatalina.home=\"$CATALINA_HOME\" \
+      -Djava.io.tmpdir=\"$CATALINA_TMPDIR\" \
       org.apache.catalina.startup.Bootstrap "$@" start
   else
-    exec "$_RUNJAVA" "$LOGGING_CONFIG" $JAVA_OPTS $CATALINA_OPTS \
-      -Djava.endorsed.dirs="$JAVA_ENDORSED_DIRS" -classpath "$CLASSPATH" \
-      -Dcatalina.base="$CATALINA_BASE" \
-      -Dcatalina.home="$CATALINA_HOME" \
-      -Djava.io.tmpdir="$CATALINA_TMPDIR" \
+    eval \"$_RUNJAVA\" \"$LOGGING_CONFIG\" $JAVA_OPTS $CATALINA_OPTS \
+      -Djava.endorsed.dirs=\"$JAVA_ENDORSED_DIRS\" -classpath \"$CLASSPATH\" \
+      -Dcatalina.base=\"$CATALINA_BASE\" \
+      -Dcatalina.home=\"$CATALINA_HOME\" \
+      -Djava.io.tmpdir=\"$CATALINA_TMPDIR\" \
       org.apache.catalina.startup.Bootstrap "$@" start
   fi
 
@@ -312,8 +319,33 @@ elif [ "$1" = "start" ] ; then
 
   if [ ! -z "$CATALINA_PID" ]; then
     if [ -f "$CATALINA_PID" ]; then
-      echo "PID file ($CATALINA_PID) found. Is Tomcat still running? Start aborted."
-      exit 1
+      echo "Existing PID file found during start."
+      if [ -s "$CATALINA_PID" ]; then
+        if [ -r "$CATALINA_PID" ]; then
+          PID=`cat "$CATALINA_PID"`
+          ps -p $PID >/dev/null 2>&1
+          if [ $? -eq 0 ] ; then
+            echo "Tomcat appears to still be running with PID $PID. Start aborted."
+            exit 1
+          else
+            echo "Removing stale PID file."
+            rm -f "$CATALINA_PID" >/dev/null 2>&1
+            if [ $? != 0 ]; then
+              echo "Unable to remove stale PID file. Start aborted."
+              exit 1
+            fi
+          fi
+        else
+          echo "Unable to read PID file. Start aborted."
+          exit 1
+        fi
+      else
+        echo "Removing empty PID file."
+        rm -f "$CATALINA_PID" >/dev/null 2>&1
+        if [ $? != 0 ]; then
+          echo "Unable to remove empty PID file. Start will continue."
+        fi
+      fi
     fi
   fi
 
@@ -324,29 +356,29 @@ elif [ "$1" = "start" ] ; then
       echo "Using Security Manager"
     fi
     shift
-    "$_RUNJAVA" "$LOGGING_CONFIG" $JAVA_OPTS $CATALINA_OPTS \
-      -Djava.endorsed.dirs="$JAVA_ENDORSED_DIRS" -classpath "$CLASSPATH" \
+    eval \"$_RUNJAVA\" \"$LOGGING_CONFIG\" $JAVA_OPTS $CATALINA_OPTS \
+      -Djava.endorsed.dirs=\"$JAVA_ENDORSED_DIRS\" -classpath \"$CLASSPATH\" \
       -Djava.security.manager \
-      -Djava.security.policy=="$CATALINA_BASE"/conf/catalina.policy \
-      -Dcatalina.base="$CATALINA_BASE" \
-      -Dcatalina.home="$CATALINA_HOME" \
-      -Djava.io.tmpdir="$CATALINA_TMPDIR" \
+      -Djava.security.policy==\"$CATALINA_BASE/conf/catalina.policy\" \
+      -Dcatalina.base=\"$CATALINA_BASE\" \
+      -Dcatalina.home=\"$CATALINA_HOME\" \
+      -Djava.io.tmpdir=\"$CATALINA_TMPDIR\" \
       org.apache.catalina.startup.Bootstrap "$@" start \
-      >> "$CATALINA_OUT" 2>&1 &
+      >> "$CATALINA_OUT" 2>&1 "&"
 
   else
-    "$_RUNJAVA" "$LOGGING_CONFIG" $JAVA_OPTS $CATALINA_OPTS \
-      -Djava.endorsed.dirs="$JAVA_ENDORSED_DIRS" -classpath "$CLASSPATH" \
-      -Dcatalina.base="$CATALINA_BASE" \
-      -Dcatalina.home="$CATALINA_HOME" \
-      -Djava.io.tmpdir="$CATALINA_TMPDIR" \
+    eval \"$_RUNJAVA\" \"$LOGGING_CONFIG\" $JAVA_OPTS $CATALINA_OPTS \
+      -Djava.endorsed.dirs=\"$JAVA_ENDORSED_DIRS\" -classpath \"$CLASSPATH\" \
+      -Dcatalina.base=\"$CATALINA_BASE\" \
+      -Dcatalina.home=\"$CATALINA_HOME\" \
+      -Djava.io.tmpdir=\"$CATALINA_TMPDIR\" \
       org.apache.catalina.startup.Bootstrap "$@" start \
-      >> "$CATALINA_OUT" 2>&1 &
+      >> "$CATALINA_OUT" 2>&1 "&"
 
   fi
 
-  if [ ! -z "$CATALINA_PID" ]; then
-    echo $! > $CATALINA_PID
+  if [ ! -z "$CATALINA_PID" -a ! -f "$CATALINA_PID" ]; then
+    echo $! > "$CATALINA_PID"
   fi
 
 elif [ "$1" = "stop" ] ; then
@@ -355,7 +387,7 @@ elif [ "$1" = "stop" ] ; then
 
   SLEEP=5
   if [ ! -z "$1" ]; then
-    echo $1 | grep "[^0-9]" > /dev/null 2>&1
+    echo $1 | grep "[^0-9]" >/dev/null 2>&1
     if [ $? -gt 0 ]; then
       SLEEP=$1
       shift
@@ -369,31 +401,38 @@ elif [ "$1" = "stop" ] ; then
   fi
 
   if [ ! -z "$CATALINA_PID" ]; then
-    if [ -f "$CATALINA_PID" ]; then
-      kill -0 `cat $CATALINA_PID` >/dev/null 2>&1
-      if [ $? -gt 0 ]; then
-        echo "PID file ($CATALINA_PID) found but no matching process was found. Stop aborted."
+    if [ -s "$CATALINA_PID" ]; then
+      if [ -f "$CATALINA_PID" ]; then
+        kill -0 `cat "$CATALINA_PID"` >/dev/null 2>&1
+        if [ $? -gt 0 ]; then
+          echo "PID file found but no matching process was found. Stop aborted."
+          exit 1
+        fi
+      else
+        echo "\$CATALINA_PID was set but the specified file does not exist. Is Tomcat running? Stop aborted."
         exit 1
       fi
     else
-      echo "\$CATALINA_PID was set ($CATALINA_PID) but the specified file does not exist. Is Tomcat running? Stop aborted."
-      exit 1
+      echo "PID file is empty and has been ignored."
     fi
   fi
-  
-  "$_RUNJAVA" $JAVA_OPTS \
-    -Djava.endorsed.dirs="$JAVA_ENDORSED_DIRS" -classpath "$CLASSPATH" \
-    -Dcatalina.base="$CATALINA_BASE" \
-    -Dcatalina.home="$CATALINA_HOME" \
-    -Djava.io.tmpdir="$CATALINA_TMPDIR" \
+
+  eval \"$_RUNJAVA\" $JAVA_OPTS \
+    -Djava.endorsed.dirs=\"$JAVA_ENDORSED_DIRS\" -classpath \"$CLASSPATH\" \
+    -Dcatalina.base=\"$CATALINA_BASE\" \
+    -Dcatalina.home=\"$CATALINA_HOME\" \
+    -Djava.io.tmpdir=\"$CATALINA_TMPDIR\" \
     org.apache.catalina.startup.Bootstrap "$@" stop
 
   if [ ! -z "$CATALINA_PID" ]; then
     if [ -f "$CATALINA_PID" ]; then
-      while [ $SLEEP -ge 0 ]; do 
-        kill -0 `cat $CATALINA_PID` >/dev/null 2>&1
+      while [ $SLEEP -ge 0 ]; do
+        kill -0 `cat "$CATALINA_PID"` >/dev/null 2>&1
         if [ $? -gt 0 ]; then
-          rm $CATALINA_PID
+          rm -f "$CATALINA_PID" >/dev/null 2>&1
+          if [ $? != 0 ]; then
+            echo "Tomcat stopped but the PID file could not be removed."
+          fi
           break
         fi
         if [ $SLEEP -gt 0 ]; then
@@ -414,9 +453,13 @@ elif [ "$1" = "stop" ] ; then
       echo "Kill failed: \$CATALINA_PID not set"
     else
       if [ -f "$CATALINA_PID" ]; then
-        echo "Killing: `cat $CATALINA_PID`"
-        kill -9 `cat $CATALINA_PID`
-        rm $CATALINA_PID
+        PID=`cat "$CATALINA_PID"`
+        echo "Killing Tomcat with the PID: $PID"
+        kill -9 $PID
+        rm -f "$CATALINA_PID" >/dev/null 2>&1
+        if [ $? != 0 ]; then
+          echo "Tomcat was killed but the PID file could not be removed."
+        fi
       fi
     fi
   fi

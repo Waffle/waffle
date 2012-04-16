@@ -44,14 +44,13 @@ public class SecurityFilterProviderCollection {
 		}		
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public SecurityFilterProviderCollection(String[] providerNames, IWindowsAuthProvider auth) {
 		for(String providerName : providerNames) {
 			providerName = providerName.trim();
 			_log.info("loading '" + providerName + "'");
 			try {
-				Class<SecurityFilterProvider> providerClass = (Class<SecurityFilterProvider>) Class.forName(providerName);
-				Constructor c = providerClass.getConstructor(IWindowsAuthProvider.class);
+				Class<?> providerClass = Class.forName(providerName);
+				Constructor<?> c = providerClass.getConstructor(IWindowsAuthProvider.class);
 				SecurityFilterProvider provider = (SecurityFilterProvider) c.newInstance(auth); 
 				_providers.add(provider);
 			} catch (Exception e) {

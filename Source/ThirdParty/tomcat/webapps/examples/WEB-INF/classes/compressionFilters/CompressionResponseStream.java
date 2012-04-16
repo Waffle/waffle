@@ -19,6 +19,7 @@ package compressionFilters;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.zip.GZIPOutputStream;
+
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
@@ -29,7 +30,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Amy Roh
  * @author Dmitri Valdin
- * @version $Id: CompressionResponseStream.java 939521 2010-04-30 00:16:33Z kkolinko $
+ * @version $Id: CompressionResponseStream.java 987920 2010-08-22 15:34:34Z markt $
  */
 
 public class CompressionResponseStream
@@ -130,6 +131,7 @@ public class CompressionResponseStream
      * Close this output stream, causing any buffered data to be flushed and
      * any further output data to throw an IOException.
      */
+    @Override
     public void close() throws IOException {
 
         if (debug > 1) {
@@ -164,6 +166,7 @@ public class CompressionResponseStream
      * Flush any buffered data for this output stream, which also causes the
      * response to be committed.
      */
+    @Override
     public void flush() throws IOException {
 
         if (debug > 1) {
@@ -201,6 +204,7 @@ public class CompressionResponseStream
      *
      * @exception IOException if an input/output error occurs
      */
+    @Override
     public void write(int b) throws IOException {
 
         if (debug > 1) {
@@ -226,6 +230,7 @@ public class CompressionResponseStream
      *
      * @exception IOException if an input/output error occurs
      */
+    @Override
     public void write(byte b[]) throws IOException {
 
         write(b, 0, b.length);
@@ -243,6 +248,7 @@ public class CompressionResponseStream
      *
      * @exception IOException if an input/output error occurs
      */
+    @Override
     public void write(byte b[], int off, int len) throws IOException {
 
         if (debug > 1) {
@@ -301,6 +307,16 @@ public class CompressionResponseStream
                 gzipstream = output;
             } else {
                 response.addHeader("Content-Encoding", "gzip");
+                String vary = response.getHeader("Vary");
+                if (vary == null) {
+                    // Add a new Vary header
+                    response.setHeader("Vary", "Accept-Encoding");
+                } else if (vary.equals("*")) {
+                    // No action required
+                } else {
+                    // Merge into current header
+                    response.setHeader("Vary", vary + ",Accept-Encoding");
+                }
                 gzipstream = new GZIPOutputStream(output);
             }
         }

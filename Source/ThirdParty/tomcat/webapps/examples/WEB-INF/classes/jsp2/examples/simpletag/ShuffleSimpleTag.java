@@ -18,10 +18,11 @@
 
 package jsp2.examples.simpletag;
 
+import java.io.IOException;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
-import java.io.IOException;
 
 /**
  * SimpleTag handler that accepts takes three attributes of type
@@ -32,6 +33,7 @@ public class ShuffleSimpleTag extends SimpleTagSupport {
     private JspFragment fragment2;
     private JspFragment fragment3;
 
+    @Override
     public void doTag() throws JspException, IOException {
         switch( (int)(Math.random() * 6) ) {
             case 0:

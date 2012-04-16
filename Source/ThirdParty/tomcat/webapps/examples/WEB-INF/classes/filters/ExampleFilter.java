@@ -19,6 +19,7 @@ package filters;
 
 
 import java.io.IOException;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -41,7 +42,7 @@ import javax.servlet.ServletResponse;
  * </ul>
  *
  * @author Craig McClanahan
- * @version $Id: ExampleFilter.java 939521 2010-04-30 00:16:33Z kkolinko $
+ * @version $Id: ExampleFilter.java 987920 2010-08-22 15:34:34Z markt $
  */
 
 public final class ExampleFilter implements Filter {
@@ -69,6 +70,7 @@ public final class ExampleFilter implements Filter {
     /**
      * Take this filter out of service.
      */
+    @Override
     public void destroy() {
 
         this.attribute = null;
@@ -82,27 +84,28 @@ public final class ExampleFilter implements Filter {
      * current filter stack, including the ultimately invoked servlet.
      *
      * @param request The servlet request we are processing
-     * @param result The servlet response we are creating
+     * @param response The servlet response we are creating
      * @param chain The filter chain we are processing
      *
      * @exception IOException if an input/output error occurs
      * @exception ServletException if a servlet error occurs
      */
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain)
-	throws IOException, ServletException {
+        throws IOException, ServletException {
 
-	// Store ourselves as a request attribute (if requested)
-	if (attribute != null)
-	    request.setAttribute(attribute, this);
+        // Store ourselves as a request attribute (if requested)
+        if (attribute != null)
+            request.setAttribute(attribute, this);
 
-	// Time and log the subsequent processing
-	long startTime = System.currentTimeMillis();
+        // Time and log the subsequent processing
+        long startTime = System.currentTimeMillis();
         chain.doFilter(request, response);
-	long stopTime = System.currentTimeMillis();
-	filterConfig.getServletContext().log
-	    (this.toString() + ": " + (stopTime - startTime) +
-	     " milliseconds");
+        long stopTime = System.currentTimeMillis();
+        filterConfig.getServletContext().log
+            (this.toString() + ": " + (stopTime - startTime) +
+             " milliseconds");
 
     }
 
@@ -110,12 +113,13 @@ public final class ExampleFilter implements Filter {
     /**
      * Place this filter into service.
      *
-     * @param filterConfig The filter configuration object
+     * @param fConfig The filter configuration object
      */
-    public void init(FilterConfig filterConfig) throws ServletException {
+    @Override
+    public void init(FilterConfig fConfig) throws ServletException {
 
-	this.filterConfig = filterConfig;
-        this.attribute = filterConfig.getInitParameter("attribute");
+        this.filterConfig = fConfig;
+        this.attribute = fConfig.getInitParameter("attribute");
 
     }
 
@@ -123,14 +127,15 @@ public final class ExampleFilter implements Filter {
     /**
      * Return a String representation of this object.
      */
+    @Override
     public String toString() {
 
-	if (filterConfig == null)
-	    return ("InvokerFilter()");
-	StringBuffer sb = new StringBuffer("InvokerFilter(");
-	sb.append(filterConfig);
-	sb.append(")");
-	return (sb.toString());
+        if (filterConfig == null)
+            return ("TimingFilter()");
+        StringBuilder sb = new StringBuilder("TimingFilter(");
+        sb.append(filterConfig);
+        sb.append(")");
+        return (sb.toString());
 
     }
 

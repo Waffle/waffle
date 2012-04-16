@@ -34,8 +34,7 @@ public class SimpleHttpSession implements HttpSession {
 		return _attributes.get(attributeName);
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Enumeration getAttributeNames() {
+	public Enumeration<String> getAttributeNames() {
 		return null;
 	}
 

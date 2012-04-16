@@ -22,8 +22,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.LifecycleException;
 import org.apache.catalina.connector.Request;
-import org.apache.catalina.connector.Response;
 import org.apache.catalina.deploy.LoginConfig;
 import org.apache.commons.logging.LogFactory;
 
@@ -47,17 +47,19 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 	}
 
 	@Override
-	public void start() {
+	public void startInternal() throws LifecycleException {
 		_log.info("[waffle.apache.MixedAuthenticator] started");		
+		super.startInternal();
 	}
 	
 	@Override
-	public void stop() {
+	public void stopInternal() throws LifecycleException {
+		super.stopInternal();
 		_log.info("[waffle.apache.MixedAuthenticator] stopped");		
 	}
 
 	@Override
-	protected boolean authenticate(Request request, Response response, LoginConfig loginConfig) {
+	public boolean authenticate(Request request, HttpServletResponse response, LoginConfig loginConfig) {
 
 		// realm: fail if no realm is configured
 		if(context == null || context.getRealm() == null) {
@@ -104,7 +106,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 		}
 	}
 	
-	private boolean negotiate(Request request, Response response, AuthorizationHeader authorizationHeader) {
+	private boolean negotiate(Request request, HttpServletResponse response, AuthorizationHeader authorizationHeader) {
 
 		String securityPackage = authorizationHeader.getSecurityPackage();			
 		// maintain a connection-based session for NTLM tokens
@@ -164,7 +166,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 					" (" + windowsIdentity.getSidString() + ")");
 			
 			GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(
-					windowsIdentity, context.getRealm(), _principalFormat, _roleFormat);
+					windowsIdentity, _principalFormat, _roleFormat);
 			
 			_log.debug("roles: " + windowsPrincipal.getRolesString());
 	
@@ -182,7 +184,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 		return true;
 	}
 	
-	private boolean post(Request request, Response response, LoginConfig loginConfig) {
+	private boolean post(Request request, HttpServletResponse response, LoginConfig loginConfig) {
 		
 		String username = request.getParameter("j_username");
 		String password = request.getParameter("j_password");
@@ -207,7 +209,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 	        _log.debug("successfully logged in " + username + " (" + windowsIdentity.getSidString() + ")");       
 	        
 			GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(
-					windowsIdentity, context.getRealm(), _principalFormat, _roleFormat);
+					windowsIdentity, _principalFormat, _roleFormat);
 			
 			_log.debug("roles: " + windowsPrincipal.getRolesString());
 			
@@ -224,7 +226,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 		return true;
 	}
 	
-	private void redirectTo(Request request, Response response, String url) {
+	private void redirectTo(Request request, HttpServletResponse response, String url) {
 		try {
 			_log.debug("redirecting to: " + url);
 			ServletContext servletContext = context.getServletContext();

@@ -18,8 +18,8 @@ import java.security.Principal;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.LifecycleException;
 import org.apache.catalina.connector.Request;
-import org.apache.catalina.connector.Response;
 import org.apache.catalina.deploy.LoginConfig;
 import org.apache.commons.logging.LogFactory;
 
@@ -43,17 +43,19 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
     }
 	
 	@Override
-	public void start() {
-		_log.info("[waffle.apache.NegotiateAuthenticator] started");		
+	public void startInternal() throws LifecycleException {
+		_log.info("[waffle.apache.NegotiateAuthenticator] started");
+		super.startInternal();
 	}
 	
 	@Override
-	public void stop() {
-		_log.info("[waffle.apache.NegotiateAuthenticator] stopped");		
+	public void stopInternal() throws LifecycleException {
+		super.stopInternal();
+		_log.info("[waffle.apache.NegotiateAuthenticator] stopped");
 	}
 
 	@Override
-	protected boolean authenticate(Request request, Response response, LoginConfig loginConfig) {
+	public boolean authenticate(Request request, HttpServletResponse response, LoginConfig loginConfig) {
 		
 		Principal principal = request.getUserPrincipal();
 		AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
@@ -133,7 +135,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 						" (" + windowsIdentity.getSidString() + ")");
 				
 				GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(
-						windowsIdentity, context.getRealm(), _principalFormat, _roleFormat);
+						windowsIdentity, _principalFormat, _roleFormat);
 				
 				_log.debug("roles: " + windowsPrincipal.getRolesString());
 				

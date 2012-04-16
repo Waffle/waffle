@@ -24,13 +24,13 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-import org.apache.catalina.CometEvent;
-import org.apache.catalina.CometProcessor;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.catalina.comet.CometEvent;
+import org.apache.catalina.comet.CometProcessor;
 
 
 /**
@@ -39,12 +39,15 @@ import javax.servlet.http.HttpServletResponse;
 public class ChatServlet
     extends HttpServlet implements CometProcessor {
 
+    private static final long serialVersionUID = 1L;
+
     private static final String CHARSET = "UTF-8";
 
     protected ArrayList<HttpServletResponse> connections = 
         new ArrayList<HttpServletResponse>();
-    protected MessageSender messageSender = null;
+    protected transient MessageSender messageSender = null;
     
+    @Override
     public void init() throws ServletException {
         messageSender = new MessageSender();
         Thread messageSenderThread = 
@@ -53,6 +56,7 @@ public class ChatServlet
         messageSenderThread.start();
     }
 
+    @Override
     public void destroy() {
         connections.clear();
         messageSender.stop();
@@ -66,6 +70,7 @@ public class ChatServlet
      * @throws IOException
      * @throws ServletException
      */
+    @Override
     public void event(CometEvent event)
         throws IOException, ServletException {
 
@@ -83,22 +88,20 @@ public class ChatServlet
                     response.sendRedirect("index.jsp");
                     event.close();
                     return;
-                } else {
-                    String nickname = (String) request.getSession(true).getAttribute("nickname");
-                    String message = request.getParameter("message");
-                    messageSender.send(nickname, message);
-                    response.sendRedirect("post.jsp");
-                    event.close();
-                    return;
                 }
-            } else {
-                if (request.getSession(true).getAttribute("nickname") == null) {
-                    // Redirect to "login"
-                    log("Redirect to login for session: " + request.getSession(true).getId());
-                    response.sendRedirect("login.jsp");
-                    event.close();
-                    return;
-                }
+                String nickname = (String) request.getSession(true).getAttribute("nickname");
+                String message = request.getParameter("message");
+                messageSender.send(nickname, message);
+                response.sendRedirect("post.jsp");
+                event.close();
+                return;
+            }
+            if (request.getSession(true).getAttribute("nickname") == null) {
+                // Redirect to "login"
+                log("Redirect to login for session: " + request.getSession(true).getId());
+                response.sendRedirect("login.jsp");
+                event.close();
+                return;
             }
             begin(event, request, response);
         } else if (event.getEventType() == CometEvent.EventType.ERROR) {
@@ -110,8 +113,9 @@ public class ChatServlet
         }
     }
 
-    protected void begin(CometEvent event, HttpServletRequest request, HttpServletResponse response)
-        throws IOException, ServletException {
+    protected void begin(@SuppressWarnings("unused") CometEvent event,
+            HttpServletRequest request, HttpServletResponse response)
+        throws IOException {
         log("Begin for session: " + request.getSession(true).getId());
 
         response.setContentType("text/html; charset=" + CHARSET);
@@ -130,7 +134,7 @@ public class ChatServlet
     }
     
     protected void end(CometEvent event, HttpServletRequest request, HttpServletResponse response)
-        throws IOException, ServletException {
+        throws IOException {
         log("End for session: " + request.getSession(true).getId());
         synchronized(connections) {
             connections.remove(response);
@@ -143,7 +147,7 @@ public class ChatServlet
     }
     
     protected void error(CometEvent event, HttpServletRequest request, HttpServletResponse response)
-        throws IOException, ServletException {
+        throws IOException {
         log("Error for session: " + request.getSession(true).getId());
         synchronized(connections) {
             connections.remove(response);
@@ -152,7 +156,7 @@ public class ChatServlet
     }
     
     protected void read(CometEvent event, HttpServletRequest request, HttpServletResponse response)
-        throws IOException, ServletException {
+        throws IOException {
         InputStream is = request.getInputStream();
         byte[] buf = new byte[512];
         while (is.available() > 0) {
@@ -169,6 +173,7 @@ public class ChatServlet
         }
     }
 
+    @Override
     protected void service(HttpServletRequest request, HttpServletResponse response)
         throws IOException, ServletException {
         // Compatibility method: equivalent method using the regular connection model
@@ -191,6 +196,7 @@ public class ChatServlet
         protected ArrayList<String> messages = new ArrayList<String>();
         
         public MessageSender() {
+            // Default contructor
         }
         
         public void stop() {
@@ -200,14 +206,6 @@ public class ChatServlet
             }
         }
 
-        /**
-         * Add specified socket and associated pool to the poller. The socket will
-         * be added to a temporary array, and polled first after a maximum amount
-         * of time equal to pollTime (in most cases, latency will be much lower,
-         * however).
-         *
-         * @param socket to add to the poller
-         */
         public void send(String user, String message) {
             synchronized (messages) {
                 messages.add("[" + user + "]: " + message);
@@ -219,6 +217,7 @@ public class ChatServlet
          * The background thread that listens for incoming TCP/IP connections and
          * hands them off to an appropriate processor.
          */
+        @Override
         public void run() {
 
             // Loop until we receive a shutdown command

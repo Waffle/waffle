@@ -30,14 +30,17 @@ rem
 rem   JAVA_OPTS     (Optional) Java runtime options used when the "start",
 rem                 "stop", or "run" command is executed.
 rem
-rem $Id: tool-wrapper.bat 908749 2010-02-10 23:26:42Z markt $
+rem $Id: tool-wrapper.bat 952945 2010-06-09 10:29:00Z rjung $
 rem ---------------------------------------------------------------------------
 
 rem Guess CATALINA_HOME if not defined
+set "CURRENT_DIR=%cd%"
 if not "%CATALINA_HOME%" == "" goto gotHome
-set CATALINA_HOME=.
+set "CATALINA_HOME=%CURRENT_DIR%"
 if exist "%CATALINA_HOME%\bin\tool-wrapper.bat" goto okHome
-set CATALINA_HOME=..
+cd ..
+set "CATALINA_HOME=%cd%"
+cd "%CURRENT_DIR%"
 :gotHome
 if exist "%CATALINA_HOME%\bin\tool-wrapper.bat" goto okHome
 echo The CATALINA_HOME environment variable is not defined correctly
@@ -59,17 +62,18 @@ echo This file is needed to run this program
 goto end
 :okSetclasspath
 set "BASEDIR=%CATALINA_HOME%"
-call "%CATALINA_HOME%\bin\setclasspath.bat"
+call "%CATALINA_HOME%\bin\setclasspath.bat" %1
+if errorlevel 1 goto end
 
 rem Add on extra jar files to CLASSPATH
 rem Note that there are no quotes as we do not want to introduce random
 rem quotes into the CLASSPATH
-if "%CLASSPATH%" == "" goto noclasspath
-set "CLASSPATH=%CLASSPATH%;%CATALINA_HOME%\bin\bootstrap.jar;%BASEDIR%\lib\servlet-api.jar"
-goto okclasspath
-:noclasspath
-set "CLASSPATH=%CATALINA_HOME%\bin\bootstrap.jar;%BASEDIR%\lib\servlet-api.jar"
-:okclasspath
+if "%CLASSPATH%" == "" goto emptyClasspath
+set "CLASSPATH=%CLASSPATH%;"
+:emptyClasspath
+set "CLASSPATH=%CLASSPATH%%CATALINA_HOME%\bin\bootstrap.jar;%CATALINA_HOME%\bin\tomcat-juli.jar;%CATALINA_HOME%\lib\servlet-api.jar"
+
+set JAVA_OPTS=%JAVA_OPTS% -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
 
 rem Get remaining unshifted command line arguments and save them in the
 set CMD_LINE_ARGS=

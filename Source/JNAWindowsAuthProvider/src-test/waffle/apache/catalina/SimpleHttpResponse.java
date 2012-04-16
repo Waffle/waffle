@@ -14,6 +14,7 @@
 package waffle.apache.catalina;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,7 +76,6 @@ public class SimpleHttpResponse extends Response {
 		}
 	}
 	
-	@Override
 	public String[] getHeaderValues(String headerName) {
 		List<String> headerValues = _headers.get(headerName);
 		return headerValues == null ? null : headerValues.toArray(new String[0]);
@@ -97,8 +97,8 @@ public class SimpleHttpResponse extends Response {
 	}
 	
 	@Override
-	public String[] getHeaderNames() {
-		return _headers.keySet().toArray(new String[0]);
+	public Collection<String> getHeaderNames() {
+		return _headers.keySet();
 	}
 	
 	@Override

@@ -230,14 +230,13 @@ public class NegotiateSecurityFilter implements Filter {
 		return true;
 	}
 	
-	@SuppressWarnings("rawtypes")
 	public void init(FilterConfig filterConfig) throws ServletException {
 		Map<String, String> implParameters = new HashMap<String, String>();
 
 		String authProvider = null;
 		String[] providerNames = null;
 		if (filterConfig != null) {
-			Enumeration parameterNames = filterConfig.getInitParameterNames();
+			Enumeration<String> parameterNames = filterConfig.getInitParameterNames();
 			while(parameterNames.hasMoreElements()) {
 				String parameterName = (String) parameterNames.nextElement();
 				String parameterValue = filterConfig.getInitParameter(parameterName);

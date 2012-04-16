@@ -16,9 +16,11 @@
 # limitations under the License.
 
 # -----------------------------------------------------------------------------
-#  Set CLASSPATH and Java options
+#  Set JAVA_HOME or JRE_HOME if not already set, ensure any provided settings
+#  are valid and consistent with the selected start-up options and set up the
+#  endorsed directory. 
 #
-#  $Id: setclasspath.sh 795037 2009-07-17 10:52:16Z markt $
+#  $Id: setclasspath.sh 964208 2010-07-14 21:24:45Z markt $
 # -----------------------------------------------------------------------------
 
 # Make sure prerequisite environment variables are set
@@ -96,17 +98,6 @@ fi
 if [ -z "$JAVA_ENDORSED_DIRS" ]; then
   # Set the default -Djava.endorsed.dirs argument
   JAVA_ENDORSED_DIRS="$BASEDIR"/endorsed
-fi
-
-# OSX hack to CLASSPATH
-JIKESPATH=
-if [ `uname -s` = "Darwin" ]; then
-  OSXHACK="/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Classes"
-  if [ -d "$OSXHACK" ]; then
-    for i in "$OSXHACK"/*.jar; do
-      JIKESPATH="$JIKESPATH":"$i"
-    done
-  fi
 fi
 
 # Set standard commands for invoking Java.

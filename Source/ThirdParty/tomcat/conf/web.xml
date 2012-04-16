@@ -16,9 +16,10 @@
   limitations under the License.
 -->
 <web-app xmlns="http://java.sun.com/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-    version="2.5">
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+  version="3.0"> 
 
   <!-- ======================== Introduction ============================== -->
   <!-- This document defines default values for *all* web applications      -->
@@ -107,37 +108,6 @@
     </servlet>
 
 
-  <!-- This servlet has been deprecated due to security concerns. Servlets  -->
-  <!-- should be explicitly mapped in web.xml                               -->
-  <!--                                                                      -->
-  <!-- The "invoker" servlet, which executes anonymous servlet classes      -->
-  <!-- that have not been defined in a web.xml file.  Traditionally, this   -->
-  <!-- servlet is mapped to the URL pattern "/servlet/*", but you can map   -->
-  <!-- it to other patterns as well.  The extra path info portion of such a -->
-  <!-- request must be the fully qualified class name of a Java class that  -->
-  <!-- implements Servlet (or extends HttpServlet), or the servlet name     -->
-  <!-- of an existing servlet definition.     This servlet supports the     -->
-  <!-- following initialization parameters (default values are in square    -->
-  <!-- brackets):                                                           -->
-  <!--                                                                      -->
-  <!--   debug               Debugging detail level for messages logged     -->
-  <!--                       by this servlet.  [0]                          -->
-
-<!--
-    <servlet>
-        <servlet-name>invoker</servlet-name>
-        <servlet-class>
-          org.apache.catalina.servlets.InvokerServlet
-        </servlet-class>
-        <init-param>
-            <param-name>debug</param-name>
-            <param-value>0</param-value>
-        </init-param>
-        <load-on-startup>2</load-on-startup>
-    </servlet>
--->
-
-
   <!-- The JSP page compiler and execution servlet, which is the mechanism  -->
   <!-- used by Tomcat to support JSP pages.  Traditionally, this servlet    -->
   <!-- is mapped to the URL pattern "*.jsp".  This servlet supports the     -->
@@ -161,9 +131,9 @@
   <!--                       pages.  See the jasper documentation for more  -->
   <!--                       information.                                   -->
   <!--                                                                      -->
-  <!--   compilerSourceVM    Compiler source VM. [1.5]                      -->
+  <!--   compilerSourceVM    Compiler source VM. [1.6]                      -->
   <!--                                                                      -->
-  <!--   compilerTargetVM    Compiler target VM. [1.5]                      -->  
+  <!--   compilerTargetVM    Compiler target VM. [1.6]                      -->
   <!--                                                                      -->
   <!--   development         Is Jasper used in development mode? If true,   -->
   <!--                       the frequency at which JSPs are checked for    -->
@@ -196,7 +166,8 @@
   <!--                       a separate JVM is used for JSP page compiles   -->
   <!--                       from the one Tomcat is running in. [true]      -->
   <!--                                                                      -->
-  <!--   genStrAsCharArray   Should text strings be generated as char       -->
+  <!--   genStringAsCharArray                                               -->
+  <!--                       Should text strings be generated as char       -->
   <!--                       arrays, to improve performance in some cases?  -->
   <!--                       [false]                                        -->
   <!--                                                                      -->
@@ -213,6 +184,14 @@
   <!--   mappedfile          Should we generate static content with one     -->
   <!--                       print statement per input line, to ease        -->
   <!--                       debugging?  [true]                             -->
+  <!--                                                                      -->
+  <!--   maxLoadedJsps       The maximum number of JSPs that will be loaded -->
+  <!--                       for a web application. If more than this       -->
+  <!--                       number of JSPs are loaded, the least recently  -->
+  <!--                       used JSPs will be unloaded so that the number  -->
+  <!--                       of JSPs loaded at any one time does not exceed -->
+  <!--                       this limit. A value of zero or less indicates  -->
+  <!--                       no limit. [-1]                                 -->
   <!--                                                                      -->
   <!--   modificationTestInterval                                           -->
   <!--                       Causes a JSP (and its dependent files) to not  -->
@@ -243,10 +222,6 @@
   <!--                                                                      -->
   <!--   xpoweredBy          Determines whether X-Powered-By response       -->
   <!--                       header is added by generated servlet  [false]  -->
-  <!--                                                                      -->
-  <!-- If you wish to use Jikes to compile JSP pages:                       -->
-  <!--   Please see the "Using Jikes" section of the Jasper-HowTo           -->
-  <!--   page in the Tomcat documentation.                                  -->
 
     <servlet>
         <servlet-name>jsp</servlet-name>
@@ -381,14 +356,6 @@
         <servlet-name>default</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-
-    <!-- The mapping for the deprecated invoker servlet -->
-<!--
-    <servlet-mapping>
-        <servlet-name>invoker</servlet-name>
-        <url-pattern>/servlet/*</url-pattern>
-    </servlet-mapping>
--->
 
     <!-- The mapping for the JSP servlet -->
     <servlet-mapping>
@@ -852,10 +819,6 @@
         <mime-type>application/vnd.oasis.opendocument.text</mime-type>
     </mime-mapping>
     <mime-mapping>
-        <extension>ogg</extension>
-        <mime-type>application/ogg</mime-type>
-    </mime-mapping>
-    <mime-mapping>
         <!-- OpenDocument Drawing Template -->
         <extension>otg </extension>
         <mime-type>application/vnd.oasis.opendocument.graphics-template</mime-type>
@@ -879,6 +842,47 @@
         <!-- OpenDocument Text Template -->
         <extension>ott</extension>
         <mime-type>application/vnd.oasis.opendocument.text-template</mime-type>
+    </mime-mapping>
+    <!-- xiph mime types -->
+    <mime-mapping>
+        <extension>ogx</extension>
+        <mime-type>application/ogg</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>ogv</extension>
+        <mime-type>video/ogg</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>oga</extension>
+        <mime-type>audio/ogg</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>ogg</extension>
+        <mime-type>audio/ogg</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>spx</extension>
+        <mime-type>audio/ogg</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>flac</extension>
+        <mime-type>audio/flac</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>anx</extension>
+        <mime-type>application/annodex</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>axa</extension>
+        <mime-type>audio/annodex</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>axv</extension>
+        <mime-type>video/annodex</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>xspf</extension>
+        <mime-type>application/xspf+xml</mime-type>
     </mime-mapping>
     <mime-mapping>
         <extension>pbm</extension>

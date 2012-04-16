@@ -19,6 +19,7 @@ package compressionFilters;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
@@ -29,7 +30,7 @@ import javax.servlet.http.HttpServletResponseWrapper;
  *
  * @author Amy Roh
  * @author Dmitri Valdin
- * @version $Id: CompressionServletResponseWrapper.java 939521 2010-04-30 00:16:33Z kkolinko $
+ * @version $Id: CompressionServletResponseWrapper.java 987920 2010-08-22 15:34:34Z markt $
  */
 
 public class CompressionServletResponseWrapper extends HttpServletResponseWrapper {
@@ -100,6 +101,7 @@ public class CompressionServletResponseWrapper extends HttpServletResponseWrappe
     /**
      * Set content type
      */
+    @Override
     public void setContentType(String contentType) {
         if (debug > 1) {
             System.out.println("setContentType to "+contentType);
@@ -139,11 +141,12 @@ public class CompressionServletResponseWrapper extends HttpServletResponseWrappe
             System.out.println("createOutputStream gets called");
         }
 
-        CompressionResponseStream stream = new CompressionResponseStream(origResponse);
-        stream.setDebugLevel(debug);
-        stream.setBuffer(threshold);
+        CompressionResponseStream compressedStream =
+            new CompressionResponseStream(origResponse);
+        compressedStream.setDebugLevel(debug);
+        compressedStream.setBuffer(threshold);
 
-        return stream;
+        return compressedStream;
 
     }
 
@@ -160,6 +163,7 @@ public class CompressionServletResponseWrapper extends HttpServletResponseWrappe
                     stream.close();
             }
         } catch (IOException e) {
+            // Ignore
         }
     }
 
@@ -172,6 +176,7 @@ public class CompressionServletResponseWrapper extends HttpServletResponseWrappe
      *
      * @exception IOException if an input/output error occurs
      */
+    @Override
     public void flushBuffer() throws IOException {
         if (debug > 1) {
             System.out.println("flush buffer @ CompressionServletResponseWrapper");
@@ -187,6 +192,7 @@ public class CompressionServletResponseWrapper extends HttpServletResponseWrappe
      *  already been called for this response
      * @exception IOException if an input/output error occurs
      */
+    @Override
     public ServletOutputStream getOutputStream() throws IOException {
 
         if (writer != null)
@@ -209,6 +215,7 @@ public class CompressionServletResponseWrapper extends HttpServletResponseWrappe
      *  already been called for this response
      * @exception IOException if an input/output error occurs
      */
+    @Override
     public PrintWriter getWriter() throws IOException {
 
         if (writer != null)
@@ -238,8 +245,9 @@ public class CompressionServletResponseWrapper extends HttpServletResponseWrappe
 
     }
 
-
+    @Override
     public void setContentLength(int length) {
+        // Don't, as compression will change it
     }
 
 }

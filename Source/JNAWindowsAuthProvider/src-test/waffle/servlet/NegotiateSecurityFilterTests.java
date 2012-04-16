@@ -36,7 +36,6 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 import waffle.windows.auth.impl.WindowsCredentialsHandleImpl;
 import waffle.windows.auth.impl.WindowsSecurityContextImpl;
 
-import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.Secur32.EXTENDED_NAME_FORMAT;
 import com.sun.jna.platform.win32.Secur32Util;
 import com.sun.jna.platform.win32.Sspi;
@@ -77,7 +76,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		assertEquals("Negotiate", wwwAuthenticates[0]);
 		assertEquals("NTLM", wwwAuthenticates[1]);
 		assertTrue(wwwAuthenticates[2].startsWith("Basic realm=\""));
-		assertEquals(2, response.getHeaderNames().length);
+		assertEquals(2, response.getHeaderNames().size());
 		assertEquals("keep-alive", response.getHeader("Connection"));
 		assertEquals(401, response.getStatus());
 	}
@@ -105,7 +104,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 			_filter.doFilter(request, response, null);
 			assertTrue(response.getHeader("WWW-Authenticate").startsWith(securityPackage + " "));
 			assertEquals("keep-alive", response.getHeader("Connection"));
-			assertEquals(2, response.getHeaderNames().length);
+			assertEquals(2, response.getHeaderNames().size());
 			assertEquals(401, response.getStatus());
 		} finally {
 			if (clientContext != null) {
@@ -151,13 +150,13 @@ public class NegotiateSecurityFilterTests extends TestCase {
 	    		authenticated = (subject != null && subject.getPrincipals().size() > 0);
 	
 	    		if (authenticated) {
-	        		assertTrue(response.getHeaderNames().length >= 0);
+	        	assertTrue(response.getHeaderNames().size() >= 0);
 	    			break;
 	    		}
 	    		
 	    		assertTrue(response.getHeader("WWW-Authenticate").startsWith(securityPackage + " "));
 	    		assertEquals("keep-alive", response.getHeader("Connection"));
-	    		assertEquals(2, response.getHeaderNames().length);
+	    		assertEquals(2, response.getHeaderNames().size());
 	    		assertEquals(401, response.getStatus());
 	    		String continueToken = response.getHeader("WWW-Authenticate").substring(securityPackage.length() + 1);
 	    		byte[] continueTokenBytes = Base64.decode(continueToken);
@@ -172,9 +171,8 @@ public class NegotiateSecurityFilterTests extends TestCase {
 	        assertEquals("NEGOTIATE", wrappedRequest.getAuthType());
 	        assertEquals(Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible), 
 	        		wrappedRequest.getRemoteUser());
-	        assertTrue(wrappedRequest.getUserPrincipal() instanceof WindowsPrincipal);	        
-	        String everyoneGroupName = Advapi32Util.getAccountBySid("S-1-1-0").name;
-	        assertTrue(wrappedRequest.isUserInRole(everyoneGroupName));
+	        assertTrue(wrappedRequest.getUserPrincipal() instanceof WindowsPrincipal);
+	        assertTrue(wrappedRequest.isUserInRole("Everyone"));
 	        assertTrue(wrappedRequest.isUserInRole("S-1-1-0"));
 		} finally {
 			if (clientContext != null) {
@@ -202,7 +200,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 
 	public void testNegotiatePreviousAuthWithGenericPrincipal() 
 		throws IOException, ServletException {
-		GenericPrincipal genericPrincipal = new GenericPrincipal(null, "name", "password");
+		GenericPrincipal genericPrincipal = new GenericPrincipal("name", "password");
 		SimpleHttpRequest request = new SimpleHttpRequest();
 		request.setUserPrincipal(genericPrincipal);
 		SimpleFilterChain filterChain = new SimpleFilterChain();
@@ -228,7 +226,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		String[] wwwAuthenticates = response.getHeaderValues("WWW-Authenticate");
 		assertEquals(1, wwwAuthenticates.length);
 		assertTrue(wwwAuthenticates[0].startsWith("NTLM "));
-		assertEquals(2, response.getHeaderNames().length);
+		assertEquals(2, response.getHeaderNames().size());
 		assertEquals("keep-alive", response.getHeader("Connection"));
 		assertEquals(401, response.getStatus());
 	}
@@ -248,7 +246,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		String[] wwwAuthenticates = response.getHeaderValues("WWW-Authenticate");
 		assertEquals(1, wwwAuthenticates.length);
 		assertTrue(wwwAuthenticates[0].startsWith("NTLM "));
-		assertEquals(2, response.getHeaderNames().length);
+		assertEquals(2, response.getHeaderNames().size());
 		assertEquals("keep-alive", response.getHeader("Connection"));
 		assertEquals(401, response.getStatus());
 	}

@@ -19,12 +19,13 @@
 
 package jsp2.examples.simpletag;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.tagext.SimpleTagSupport;
 import javax.servlet.jsp.tagext.DynamicAttributes;
-import java.util.ArrayList;
-import java.io.IOException;
+import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 /**
  * SimpleTag handler that echoes all its attributes 
@@ -33,24 +34,26 @@ public class EchoAttributesTag
     extends SimpleTagSupport
     implements DynamicAttributes
 {
-    private ArrayList keys = new ArrayList();
-    private ArrayList values = new ArrayList();
+    private ArrayList&lt;String> keys = new ArrayList&lt;String>();
+    private ArrayList&lt;Object> values = new ArrayList&lt;Object>();
 
+    @Override
     public void doTag() throws JspException, IOException {
-	JspWriter out = getJspContext().getOut();
-	for( int i = 0; i &lt; keys.size(); i++ ) {
-	    String key = (String)keys.get( i );
-	    Object value = values.get( i );
-	    out.println( "&lt;li>" + key + " = " + value + "&lt;/li>" );
+        JspWriter out = getJspContext().getOut();
+        for( int i = 0; i &lt; keys.size(); i++ ) {
+            String key = keys.get( i );
+            Object value = values.get( i );
+            out.println( "&lt;li>" + key + " = " + value + "&lt;/li>" );
         }
     }
 
+    @Override
     public void setDynamicAttribute( String uri, String localName, 
-	Object value ) 
-	throws JspException
+        Object value ) 
+        throws JspException
     {
-	keys.add( localName );
-	values.add( value );
+        keys.add( localName );
+        values.add( value );
     }
 }
 </pre></body></html>

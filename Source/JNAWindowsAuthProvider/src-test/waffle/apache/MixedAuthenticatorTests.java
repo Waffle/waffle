@@ -15,12 +15,15 @@ package waffle.apache;
 
 import junit.framework.TestCase;
 
+import org.apache.catalina.LifecycleException;
 import org.apache.catalina.Realm;
 import org.apache.catalina.deploy.LoginConfig;
 
 import waffle.apache.catalina.SimpleContext;
+import waffle.apache.catalina.SimpleEngine;
 import waffle.apache.catalina.SimpleHttpRequest;
 import waffle.apache.catalina.SimpleHttpResponse;
+import waffle.apache.catalina.SimplePipeline;
 import waffle.apache.catalina.SimpleRealm;
 import waffle.mock.MockWindowsAuthProvider;
 import waffle.util.Base64;
@@ -41,17 +44,22 @@ public class MixedAuthenticatorTests extends TestCase {
 	MixedAuthenticator _authenticator = null;
 	
 	@Override
-	public void setUp() {
+	public void setUp() throws LifecycleException {
 		_authenticator = new MixedAuthenticator();
 		SimpleContext ctx = new SimpleContext();
 		Realm realm = new SimpleRealm();
 		ctx.setRealm(realm);
-		_authenticator.setContainer(ctx);
+		SimpleEngine engine = new SimpleEngine();
+		ctx.setParent(engine);
+		SimplePipeline pipeline = new SimplePipeline();
+		engine.setPipeline(pipeline);
+		ctx.setPipeline(pipeline);
+		_authenticator.setContainer(ctx);		
 		_authenticator.start();
 	}
 
 	@Override
-	public void tearDown() {
+	public void tearDown() throws LifecycleException {
 		_authenticator.stop();
 		_authenticator = null;
 	}
@@ -71,7 +79,7 @@ public class MixedAuthenticatorTests extends TestCase {
 		assertEquals("Negotiate", wwwAuthenticates[0]);
 		assertEquals("NTLM", wwwAuthenticates[1]);
 		assertEquals("close", response.getHeader("Connection"));
-		assertEquals(2, response.getHeaderNames().length);
+		assertEquals(2, response.getHeaderNames().size());
 		assertEquals(401, response.getStatus());
 	}
 	
@@ -99,7 +107,7 @@ public class MixedAuthenticatorTests extends TestCase {
 			_authenticator.authenticate(request, response, null);
 			assertTrue(response.getHeader("WWW-Authenticate").startsWith(securityPackage + " "));
 			assertEquals("keep-alive", response.getHeader("Connection"));
-			assertEquals(2, response.getHeaderNames().length);
+			assertEquals(2, response.getHeaderNames().size());
 			assertEquals(401, response.getStatus());
 		} finally {
 			if (clientContext != null) {
@@ -139,13 +147,13 @@ public class MixedAuthenticatorTests extends TestCase {
 	    		authenticated = _authenticator.authenticate(request, response, null);
 	
 	    		if (authenticated) {
-	        		assertTrue(response.getHeaderNames().length >= 0);
+            assertTrue(response.getHeaderNames().size() >= 0);
 	    			break;
 	    		}
 	    		
 	    		assertTrue(response.getHeader("WWW-Authenticate").startsWith(securityPackage + " "));
 	    		assertEquals("keep-alive", response.getHeader("Connection"));
-	    		assertEquals(2, response.getHeaderNames().length);
+	    		assertEquals(2, response.getHeaderNames().size());
 	    		assertEquals(401, response.getStatus());
 	    		String continueToken = response.getHeader("WWW-Authenticate").substring(securityPackage.length() + 1);
 	    		byte[] continueTokenBytes = Base64.decode(continueToken);
@@ -173,7 +181,7 @@ public class MixedAuthenticatorTests extends TestCase {
 		assertFalse(_authenticator.authenticate(request, response, loginConfig));
 		assertEquals(304, response.getStatus());
 		assertEquals("login.html", response.getHeader("Location"));
-		assertEquals(1, response.getHeaderNames().length);
+		assertEquals(1, response.getHeaderNames().size());
 	}
 
 	public void testPostSecurityCheck() {
@@ -188,7 +196,7 @@ public class MixedAuthenticatorTests extends TestCase {
 		assertFalse(_authenticator.authenticate(request, response, loginConfig));
 		assertEquals(304, response.getStatus());
 		assertEquals("error.html", response.getHeader("Location"));
-		assertEquals(1, response.getHeaderNames().length);
+		assertEquals(1, response.getHeaderNames().size());
 	}
 
 	public void testSecurityCheckQueryString() {

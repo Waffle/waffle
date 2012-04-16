@@ -15,20 +15,27 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-import javax.servlet.http.*;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class servletToJsp extends HttpServlet {
 
-    public void doGet (HttpServletRequest request,
-		       HttpServletResponse response) {
+    private static final long serialVersionUID = 1L;
 
-	try {
-	    // Set the attribute and Forward to hello.jsp
-	    request.setAttribute ("servletName", "servletToJsp");
-	    getServletConfig().getServletContext().getRequestDispatcher("/jsp/jsptoserv/hello.jsp").forward(request, response);
-	} catch (Exception ex) {
-	    ex.printStackTrace ();
-	}
+    @Override
+    public void doGet (HttpServletRequest request,
+            HttpServletResponse response) {
+
+       try {
+           // Set the attribute and Forward to hello.jsp
+           request.setAttribute ("servletName", "servletToJsp");
+           getServletConfig().getServletContext().getRequestDispatcher(
+                   "/jsp/jsptoserv/hello.jsp").forward(request, response);
+       } catch (Exception ex) {
+           ex.printStackTrace ();
+       }
     }
 }
 </pre></body></html>

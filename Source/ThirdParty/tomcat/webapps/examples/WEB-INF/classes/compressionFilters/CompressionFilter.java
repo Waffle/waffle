@@ -19,6 +19,7 @@ package compressionFilters;
 
 import java.io.IOException;
 import java.util.Enumeration;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -35,7 +36,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Amy Roh
  * @author Dmitri Valdin
- * @version $Id: CompressionFilter.java 939521 2010-04-30 00:16:33Z kkolinko $
+ * @version $Id: CompressionFilter.java 987920 2010-08-22 15:34:34Z markt $
  */
 
 public class CompressionFilter implements Filter{
@@ -68,6 +69,7 @@ public class CompressionFilter implements Filter{
      * @param filterConfig The filter configuration object
      */
 
+    @Override
     public void init(FilterConfig filterConfig) {
 
         config = filterConfig;
@@ -101,6 +103,7 @@ public class CompressionFilter implements Filter{
     /**
     * Take this filter out of service.
     */
+    @Override
     public void destroy() {
 
         this.config = null;
@@ -124,6 +127,7 @@ public class CompressionFilter implements Filter{
      * (<code>chain.doFilter()</code>), <br>
      **/
 
+    @Override
     public void doFilter ( ServletRequest request, ServletResponse response,
                         FilterChain chain ) throws IOException, ServletException {
 
@@ -146,7 +150,7 @@ public class CompressionFilter implements Filter{
             }
 
             // Are we allowed to compress ?
-            String s = (String) ((HttpServletRequest)request).getParameter("gzip");
+            String s = ((HttpServletRequest)request).getParameter("gzip");
             if ("false".equals(s)) {
                 if (debug > 0) {
                     System.out.println("got parameter gzip=false --> don't compress, just chain filter");
@@ -155,10 +159,10 @@ public class CompressionFilter implements Filter{
                 return;
             }
 
-            Enumeration e =
+            Enumeration<String> e =
                 ((HttpServletRequest)request).getHeaders("Accept-Encoding");
             while (e.hasMoreElements()) {
-                String name = (String)e.nextElement();
+                String name = e.nextElement();
                 if (name.indexOf("gzip") != -1) {
                     if (debug > 0) {
                         System.out.println("supports compression");
@@ -178,22 +182,22 @@ public class CompressionFilter implements Filter{
             }
             chain.doFilter(request, response);
             return;
-        } else {
-            if (response instanceof HttpServletResponse) {
-                CompressionServletResponseWrapper wrappedResponse =
-                    new CompressionServletResponseWrapper((HttpServletResponse)response);
-                wrappedResponse.setDebugLevel(debug);
-                wrappedResponse.setCompressionThreshold(compressionThreshold);
-                if (debug > 0) {
-                    System.out.println("doFilter gets called with compression");
-                }
-                try {
-                    chain.doFilter(request, wrappedResponse);
-                } finally {
-                    wrappedResponse.finishResponse();
-                }
-                return;
+        } 
+        
+        if (response instanceof HttpServletResponse) {
+            CompressionServletResponseWrapper wrappedResponse =
+                new CompressionServletResponseWrapper((HttpServletResponse)response);
+            wrappedResponse.setDebugLevel(debug);
+            wrappedResponse.setCompressionThreshold(compressionThreshold);
+            if (debug > 0) {
+                System.out.println("doFilter gets called with compression");
             }
+            try {
+                chain.doFilter(request, wrappedResponse);
+            } finally {
+                wrappedResponse.finishResponse();
+            }
+            return;
         }
     }
 

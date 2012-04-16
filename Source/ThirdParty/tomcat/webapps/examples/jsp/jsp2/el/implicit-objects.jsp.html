@@ -53,37 +53,37 @@
     &lt;blockquote>
       &lt;u>&lt;b>Change Parameter&lt;/b>&lt;/u>
       &lt;form action="implicit-objects.jsp" method="GET">
-	  foo = &lt;input type="text" name="foo" value="${fn:escapeXml(param["foo"])}">
+          foo = &lt;input type="text" name="foo" value="${fn:escapeXml(param["foo"])}">
           &lt;input type="submit">
       &lt;/form>
       &lt;br>
       &lt;code>
         &lt;table border="1">
           &lt;thead>
-	    &lt;td>&lt;b>EL Expression&lt;/b>&lt;/td>
-	    &lt;td>&lt;b>Result&lt;/b>&lt;/td>
-	  &lt;/thead>
-	  &lt;tr>
-	    &lt;td>\${param.foo}&lt;/td>
-	    &lt;td>${fn:escapeXml(param["foo"])}&amp;nbsp;&lt;/td>
-	  &lt;/tr>
-	  &lt;tr>
-	    &lt;td>\${param["foo"]}&lt;/td>
-	    &lt;td>${fn:escapeXml(param["foo"])}&amp;nbsp;&lt;/td>
-	  &lt;/tr>
-	  &lt;tr>
-	    &lt;td>\${header["host"]}&lt;/td>
-	    &lt;td>${fn:escapeXml(header["host"])}&amp;nbsp;&lt;/td>
-	  &lt;/tr>
-	  &lt;tr>
-	    &lt;td>\${header["accept"]}&lt;/td>
-	    &lt;td>${fn:escapeXml(header["accept"])}&amp;nbsp;&lt;/td>
-	  &lt;/tr>
-	  &lt;tr>
-	    &lt;td>\${header["user-agent"]}&lt;/td>
-	    &lt;td>${fn:escapeXml(header["user-agent"])}&amp;nbsp;&lt;/td>
-	  &lt;/tr>
-	&lt;/table>
+            &lt;td>&lt;b>EL Expression&lt;/b>&lt;/td>
+            &lt;td>&lt;b>Result&lt;/b>&lt;/td>
+          &lt;/thead>
+          &lt;tr>
+            &lt;td>\${param.foo}&lt;/td>
+            &lt;td>${fn:escapeXml(param["foo"])}&amp;nbsp;&lt;/td>
+          &lt;/tr>
+          &lt;tr>
+            &lt;td>\${param["foo"]}&lt;/td>
+            &lt;td>${fn:escapeXml(param["foo"])}&amp;nbsp;&lt;/td>
+          &lt;/tr>
+          &lt;tr>
+            &lt;td>\${header["host"]}&lt;/td>
+            &lt;td>${fn:escapeXml(header["host"])}&amp;nbsp;&lt;/td>
+          &lt;/tr>
+          &lt;tr>
+            &lt;td>\${header["accept"]}&lt;/td>
+            &lt;td>${fn:escapeXml(header["accept"])}&amp;nbsp;&lt;/td>
+          &lt;/tr>
+          &lt;tr>
+            &lt;td>\${header["user-agent"]}&lt;/td>
+            &lt;td>${fn:escapeXml(header["user-agent"])}&amp;nbsp;&lt;/td>
+          &lt;/tr>
+        &lt;/table>
       &lt;/code>
     &lt;/blockquote>
   &lt;/body>
