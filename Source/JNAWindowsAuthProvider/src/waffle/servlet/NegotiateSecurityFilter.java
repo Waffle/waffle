@@ -72,7 +72,7 @@ public class NegotiateSecurityFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) sreq;
 		HttpServletResponse response = (HttpServletResponse) sres;
 
-		_log.info(request.getMethod() + " " + request.getRequestURI() + ", contentlength: " + request.getContentLength());
+		_log.debug(request.getMethod() + " " + request.getRequestURI() + ", contentlength: " + request.getContentLength());
 
 		if (doFilterPrincipal(request, response, chain)) {
 			// previously authenticated user
@@ -158,7 +158,7 @@ public class NegotiateSecurityFilter implements Filter {
 			return;
 		}
 		
-		_log.info("authorization required");
+		_log.debug("authorization required");
 		sendUnauthorized(response, false);
 	}
 
@@ -197,7 +197,7 @@ public class NegotiateSecurityFilter implements Filter {
 		// user already authenticated
 		
 		if (principal instanceof WindowsPrincipal) {
-			_log.info("previously authenticated Windows user: " + principal.getName());
+			_log.debug("previously authenticated Windows user: " + principal.getName());
 			WindowsPrincipal windowsPrincipal = (WindowsPrincipal) principal;
 			
 			if (_impersonate && windowsPrincipal.getIdentity() == null) {
@@ -224,7 +224,7 @@ public class NegotiateSecurityFilter implements Filter {
 				}
 			}
 		} else {
-			_log.info("previously authenticated user: " + principal.getName());
+			_log.debug("previously authenticated user: " + principal.getName());
 			chain.doFilter(request, response);
 		}
 		return true;
