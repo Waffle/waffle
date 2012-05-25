@@ -61,7 +61,8 @@
     <Error Condition="Exists('Documentation\%(Configuration.Identity)\LastBuild.log')" Text="Documentation build failed, check Documentation\%(Configuration.Identity)\LastBuild.log" />
   </Target>
   <Target Name="drop" DependsOnTargets="version;configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
-    <Copy SourceFiles="License\epl-v10.html" DestinationFiles="$(ReleaseDir)\License.htm" />
+    <Copy SourceFiles="CHANGELOG.md" DestinationFiles="$(ReleaseDir)\CHANGELOG.md" />
+    <Copy SourceFiles="LICENSE" DestinationFiles="$(ReleaseDir)\LICENSE" />
     <Copy SourceFiles="Documentation\%(Configuration.Identity)\Waffle.chm" DestinationFolder="$(ReleaseDir)" />
     <CreateItem Include="Source\**\%(Configuration.Identity)/Waffle.*.dll" Exclude="Source\**\%(Configuration.Identity)/Waffle.*UnitTests.dll">
       <Output TaskParameter="Include" ItemName="BinaryFiles" />
