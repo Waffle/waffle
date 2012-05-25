@@ -62,7 +62,6 @@
   </Target>
   <Target Name="drop" DependsOnTargets="version;configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
     <Copy SourceFiles="License\epl-v10.html" DestinationFiles="$(ReleaseDir)\License.htm" />
-    <TemplateFile Template="Documentation\WhatsNew.html" OutputFilename="..\$(ReleaseDir)\WhatsNew.html" Tokens="@(AssemblyInfoTokens)" />
     <Copy SourceFiles="Documentation\%(Configuration.Identity)\Waffle.chm" DestinationFolder="$(ReleaseDir)" />
     <CreateItem Include="Source\**\%(Configuration.Identity)/Waffle.*.dll" Exclude="Source\**\%(Configuration.Identity)/Waffle.*UnitTests.dll">
       <Output TaskParameter="Include" ItemName="BinaryFiles" />
