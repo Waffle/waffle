@@ -1,6 +1,11 @@
 Next Release
 ============
 
+Misc
+----
+
+* Adjusted some logging levels to make waffle less noisy 
+
 First release off [Github](http://github.com/dblock/waffle).
 
 1.4 (6/21/2011) 
