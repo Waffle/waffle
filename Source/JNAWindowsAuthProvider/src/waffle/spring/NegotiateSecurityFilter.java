@@ -61,7 +61,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
         
-		_log.info(request.getMethod() + " " + request.getRequestURI() + ", contentlength: " + request.getContentLength());
+		_log.debug(request.getMethod() + " " + request.getRequestURI() + ", contentlength: " + request.getContentLength());
 
 		AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
 		

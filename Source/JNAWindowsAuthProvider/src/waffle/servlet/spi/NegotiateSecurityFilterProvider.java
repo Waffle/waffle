@@ -66,7 +66,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 	public boolean isPrincipalException(HttpServletRequest request) {
 		AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
 		boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
-		_log.info("authorization: " + authorizationHeader.toString() + ", ntlm post: " + ntlmPost);
+		_log.debug("authorization: " + authorizationHeader.toString() + ", ntlm post: " + ntlmPost);
 		return ntlmPost;
 	}
 
@@ -79,7 +79,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 		// maintain a connection-based session for NTLM tokns
 		String connectionId = NtlmServletRequest.getConnectionId(request);
 		String securityPackage = authorizationHeader.getSecurityPackage();
-		_log.info("security package: " + securityPackage + ", connection id: " + connectionId);
+		_log.debug("security package: " + securityPackage + ", connection id: " + connectionId);
 		
 		if (ntlmPost) {
 			// type 2 NTLM authentication message received
@@ -87,17 +87,17 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 		}
 		
 		byte[] tokenBuffer = authorizationHeader.getTokenBytes();
-		_log.info("token buffer: " + tokenBuffer.length + " byte(s)");
+		_log.debug("token buffer: " + tokenBuffer.length + " byte(s)");
 		IWindowsSecurityContext securityContext = _auth.acceptSecurityToken(connectionId, tokenBuffer, securityPackage);
 			
 		byte[] continueTokenBytes = securityContext.getToken();
 		if (continueTokenBytes != null) {
 			String continueToken = new String(Base64.encode(continueTokenBytes));
-			_log.info("continue token: " + continueToken);
+			_log.debug("continue token: " + continueToken);
 			response.addHeader("WWW-Authenticate", securityPackage + " " + continueToken);
 		}
 			
-		_log.info("continue required: " + securityContext.getContinue());
+		_log.debug("continue required: " + securityContext.getContinue());
 		if (securityContext.getContinue() || ntlmPost) {
 			response.setHeader("Connection", "keep-alive");
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
