@@ -1,21 +1,16 @@
 Next Release
 ============
 
-1.5 SNAPSHOT (6/25/2012)
-===============
-
 Misc
 ----
 
-* Added master test cases
-* Upgraded thirdparty Guava to 12.0
-* Upgraded thirdparty JUnit to 4.10.
-* Adjusted some logging levels to make waffle less noisy 
-
-First release off [Github](http://github.com/dblock/waffle).
+* [#2](https://github.com/dblock/waffle/pull/2): Upgraded thirdparty Guava to 12.0 - [@hazendaz](https://github.com/hazendaz).
+* [#2](https://github.com/dblock/waffle/pull/2): Upgraded thirdparty JUnit to 4.10 - [@hazendaz](https://github.com/hazendaz).
 
 1.4 (6/21/2011) 
 ===============
+
+First release off [Github](http://github.com/dblock/waffle).
 
 Features
 --------
