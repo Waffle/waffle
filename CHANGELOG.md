@@ -9,6 +9,7 @@ Misc
 
 * Converted commons-logging to slf4j logging - @hazendaz.
 * Added slf4j with additional jars for jcl, jdk, log4j, nop, simple logging solutions - @hazendaz.
+* Added jcl over slf4j jar for spring as it still uses commons-logging - @hazendaz.
 * Added logback for native slf4j solution - @hazendaz.
 * Added sample xml files for logback solution to all demos - @hazendaz.
 * Added master test cases - @hazendaz.
