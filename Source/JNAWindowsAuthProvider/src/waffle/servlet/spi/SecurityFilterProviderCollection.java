@@ -21,8 +21,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import waffle.util.AuthorizationHeader;
 import waffle.windows.auth.IWindowsAuthProvider;
@@ -34,7 +34,7 @@ import waffle.windows.auth.IWindowsIdentity;
  */
 public class SecurityFilterProviderCollection {
 
-    private Log _log = LogFactory.getLog(SecurityFilterProviderCollection.class);
+    private Logger _log = LoggerFactory.getLogger(SecurityFilterProviderCollection.class);
 	private List<SecurityFilterProvider> _providers = new ArrayList<SecurityFilterProvider>();
 
 	public SecurityFilterProviderCollection(SecurityFilterProvider[] providers) {

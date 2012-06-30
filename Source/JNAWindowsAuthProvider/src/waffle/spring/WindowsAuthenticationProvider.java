@@ -13,8 +13,8 @@
 *******************************************************************************/
 package waffle.spring;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -33,7 +33,7 @@ import waffle.windows.auth.PrincipalFormat;
  */
 public class WindowsAuthenticationProvider implements AuthenticationProvider {
 
-    private Log _log = LogFactory.getLog(WindowsAuthenticationProvider.class);
+    private Logger _log = LoggerFactory.getLogger(WindowsAuthenticationProvider.class);
     private PrincipalFormat _principalFormat = PrincipalFormat.fqn;
     private PrincipalFormat _roleFormat = PrincipalFormat.fqn;
 	private boolean _allowGuestLogin = true;

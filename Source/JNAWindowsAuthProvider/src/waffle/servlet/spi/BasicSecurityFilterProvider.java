@@ -19,8 +19,8 @@ import java.security.InvalidParameterException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import waffle.util.AuthorizationHeader;
 import waffle.windows.auth.IWindowsAuthProvider;
@@ -33,7 +33,7 @@ import waffle.windows.auth.IWindowsIdentity;
  */
 public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 
-    private Log _log = LogFactory.getLog(BasicSecurityFilterProvider.class);
+    private Logger _log = LoggerFactory.getLogger(BasicSecurityFilterProvider.class);
 	private String _realm = "BasicSecurityFilterProvider";
 	private IWindowsAuthProvider _auth = null;
 
