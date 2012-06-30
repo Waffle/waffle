@@ -7,10 +7,10 @@ Next Release
 Misc
 ----
 
-* Added master test cases
-* Upgraded thirdparty Guava to 12.0
-* Upgraded thirdparty JUnit to 4.10.
-* Adjusted some logging levels to make waffle less noisy 
+* Added master test cases - @hazendaz.
+* Upgraded thirdparty Guava to 12.0 - @hazendaz.
+* Upgraded thirdparty JUnit to 4.10 - @hazendaz.
+* Adjusted some logging levels to make waffle less noisy -@mcfly83.
 
 First release off [Github](http://github.com/dblock/waffle).
 
