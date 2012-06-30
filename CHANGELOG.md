@@ -7,10 +7,15 @@ Next Release
 Misc
 ----
 
-* Added master test cases
-* Upgraded thirdparty Guava to 12.0
-* Upgraded thirdparty JUnit to 4.10.
-* Adjusted some logging levels to make waffle less noisy 
+* Converted commons-logging to slf4j logging - @hazendaz.
+* Added slf4j with additional jars for jcl, jdk, log4j, nop, simple logging solutions - @hazendaz.
+* Added logback for native slf4j solution - @hazendaz.
+* Added sample xml files for logback solution to all demos - @hazendaz.
+* Added master test cases - @hazendaz.
+* Upgraded thirdparty Guava to 12.0 - @hazendaz.
+* Upgraded thirdparty JUnit to 4.10 - @hazendaz.
+* Adjusted some logging levels to make waffle less noisy - @mcfly83.
+
 
 First release off [Github](http://github.com/dblock/waffle).
 
