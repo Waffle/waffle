@@ -4,6 +4,11 @@ Next Release
 Misc
 ----
 
+* [#3](https://github.com/dblock/waffle/pull/3): Converted commons-logging to slf4j logging - [@hazendaz](https://github.com/hazendaz).
+  * Added slf4j with additional jars for jcl, jdk, log4j, nop, simple logging solutions.
+  * Added jcl over slf4j jar for spring as it still uses commons-logging.
+  * Added logback for native slf4j solution.
+  * Added sample xml files for logback solution to all demos.
 * [#2](https://github.com/dblock/waffle/pull/2): Upgraded thirdparty Guava to 12.0 - [@hazendaz](https://github.com/hazendaz).
 * [#2](https://github.com/dblock/waffle/pull/2): Upgraded thirdparty JUnit to 4.10 - [@hazendaz](https://github.com/hazendaz).
 * [#1](https://github.com/dblock/waffle/pull/1): Adjusted logging from info to debug to reduce noise level - [@mcfly83](https://github.com/mcfly83).

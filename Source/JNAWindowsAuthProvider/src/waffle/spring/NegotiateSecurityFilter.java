@@ -23,8 +23,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
@@ -41,7 +41,7 @@ import waffle.windows.auth.PrincipalFormat;
  */
 public class NegotiateSecurityFilter extends GenericFilterBean {
     
-    private Log _log = LogFactory.getLog(NegotiateSecurityFilter.class);
+    private Logger _log = LoggerFactory.getLogger(NegotiateSecurityFilter.class);
     private SecurityFilterProviderCollection _provider = null;
     private PrincipalFormat _principalFormat = PrincipalFormat.fqn;
     private PrincipalFormat _roleFormat = PrincipalFormat.fqn;

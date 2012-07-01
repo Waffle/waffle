@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.catalina.connector.Request;
 import org.apache.catalina.connector.Response;
 import org.apache.catalina.deploy.LoginConfig;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.LoggerFactory;
 
 import waffle.util.AuthorizationHeader;
 import waffle.util.Base64;
@@ -37,7 +37,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 
     public NegotiateAuthenticator() {
     	super();
-    	_log = LogFactory.getLog(NegotiateAuthenticator.class);
+    	_log = LoggerFactory.getLogger(NegotiateAuthenticator.class);
     	_info = "waffle.apache.NegotiateAuthenticator/1.0";
     	_log.debug("[waffle.apache.NegotiateAuthenticator] loaded");
     }

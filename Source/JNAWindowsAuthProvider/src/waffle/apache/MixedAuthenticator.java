@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.catalina.connector.Request;
 import org.apache.catalina.connector.Response;
 import org.apache.catalina.deploy.LoginConfig;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.LoggerFactory;
 
 import waffle.util.AuthorizationHeader;
 import waffle.util.Base64;
@@ -41,7 +41,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 
 	public MixedAuthenticator() {
 		super();
-		_log = LogFactory.getLog(MixedAuthenticator.class);
+		_log = LoggerFactory.getLogger(MixedAuthenticator.class);
     	_info = "waffle.apache.MixedAuthenticator/1.0";
     	_log.debug("[waffle.apache.MixedAuthenticator] loaded");
 	}
