@@ -14,10 +14,10 @@ Misc
 * [#1](https://github.com/dblock/waffle/pull/1): Adjusted logging from info to debug to reduce noise level - [@mcfly83](https://github.com/mcfly83).
 
 
-First release off [Github](http://github.com/dblock/waffle).
-
 1.4 (6/21/2011) 
 ===============
+
+First release off [Github](http://github.com/dblock/waffle).
 
 Features
 --------
