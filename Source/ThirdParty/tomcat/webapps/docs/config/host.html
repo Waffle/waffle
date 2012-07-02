@@ -1,9 +1,9 @@
-<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat Configuration Reference - The Host Container</title><meta content="Craig R. McClanahan" name="author"><meta content="Remy Maucherat" name="author"><meta content="Yoav Shapira" name="author"><style media="print" type="text/css">
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat Configuration Reference (6.0.35) - The Host Container</title><meta content="Craig R. McClanahan" name="author"><meta content="Remy Maucherat" name="author"><meta content="Yoav Shapira" name="author"><style media="print" type="text/css">
 			.noPrint {display: none;}
 			td#mainBody {width: 100%;}
 		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
     The Apache Tomcat Servlet/JSP Container
-  " align="right" src="../images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li><li><a href="index.html">Config Ref. Home</a></li></ul><p><strong>Top Level Elements</strong></p><ul><li><a href="server.html">Server</a></li><li><a href="service.html">Service</a></li></ul><p><strong>Executors</strong></p><ul><li><a href="executor.html">Executor</a></li></ul><p><strong>Connectors</strong></p><ul><li><a href="http.html">HTTP</a></li><li><a href="ajp.html">AJP</a></li></ul><p><strong>Containers</strong></p><ul><li><a href="context.html">Context</a></li><li><a href="engine.html">Engine</a></li><li><a href="host.html">Host</a></li><li><a href="cluster.html">Cluster</a></li></ul><p><strong>Nested Components</strong></p><ul><li><a href="listeners.html">Listeners</a></li><li><a href="globalresources.html">Global Resources</a></li><li><a href="loader.html">Loader</a></li><li><a href="manager.html">Manager</a></li><li><a href="realm.html">Realm</a></li><li><a href="resources.html">Resources</a></li><li><a href="valve.html">Valve</a></li></ul><p><strong>Cluster Elements</strong></p><ul><li><a href="cluster.html">Cluster</a></li><li><a href="cluster-manager.html">Manager</a></li><li><a href="cluster-channel.html">Channel</a></li><li><a href="cluster-membership.html">Channel/Membership</a></li><li><a href="cluster-sender.html">Channel/Sender</a></li><li><a href="cluster-receiver.html">Channel/Receiver</a></li><li><a href="cluster-interceptor.html">Channel/Interceptor</a></li><li><a href="cluster-valve.html">Valve</a></li><li><a href="cluster-deployer.html">Deployer</a></li><li><a href="cluster-listener.html">ClusterListener</a></li></ul><p><strong>Global Settings</strong></p><ul><li><a href="systemprops.html">System properties</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat Configuration Reference</h1><h2>The Host Container</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
+  " align="right" src="../images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1><font face="arial,helvetica,sanserif">Version 6.0.35, Nov 28 2011</font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li><li><a href="index.html">Config Ref. Home</a></li></ul><p><strong>Top Level Elements</strong></p><ul><li><a href="server.html">Server</a></li><li><a href="service.html">Service</a></li></ul><p><strong>Executors</strong></p><ul><li><a href="executor.html">Executor</a></li></ul><p><strong>Connectors</strong></p><ul><li><a href="http.html">HTTP</a></li><li><a href="ajp.html">AJP</a></li></ul><p><strong>Containers</strong></p><ul><li><a href="context.html">Context</a></li><li><a href="engine.html">Engine</a></li><li><a href="host.html">Host</a></li><li><a href="cluster.html">Cluster</a></li></ul><p><strong>Nested Components</strong></p><ul><li><a href="filter.html">Filter</a></li><li><a href="globalresources.html">Global Resources</a></li><li><a href="listeners.html">Listeners</a></li><li><a href="loader.html">Loader</a></li><li><a href="manager.html">Manager</a></li><li><a href="realm.html">Realm</a></li><li><a href="resources.html">Resources</a></li><li><a href="valve.html">Valve</a></li></ul><p><strong>Cluster Elements</strong></p><ul><li><a href="cluster.html">Cluster</a></li><li><a href="cluster-manager.html">Manager</a></li><li><a href="cluster-channel.html">Channel</a></li><li><a href="cluster-membership.html">Channel/Membership</a></li><li><a href="cluster-sender.html">Channel/Sender</a></li><li><a href="cluster-receiver.html">Channel/Receiver</a></li><li><a href="cluster-interceptor.html">Channel/Interceptor</a></li><li><a href="cluster-valve.html">Valve</a></li><li><a href="cluster-deployer.html">Deployer</a></li><li><a href="cluster-listener.html">ClusterListener</a></li></ul><p><strong>Global Settings</strong></p><ul><li><a href="systemprops.html">System properties</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat Configuration Reference</h1><h2>The Host Container</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
 <ul><li><a href="#Introduction">Introduction</a></li><li><a href="#Attributes">Attributes</a><ol><li><a href="#Common_Attributes">Common Attributes</a></li><li><a href="#Standard_Implementation">Standard Implementation</a></li></ol></li><li><a href="#Nested_Components">Nested Components</a></li><li><a href="#Special_Features">Special Features</a><ol><li><a href="#Logging">Logging</a></li><li><a href="#Access_Logs">Access Logs</a></li><li><a href="#Automatic_Application_Deployment">Automatic Application Deployment</a></li><li><a href="#Host_Name_Aliases">Host Name Aliases</a></li><li><a href="#Lifecycle_Listeners">Lifecycle Listeners</a></li><li><a href="#Request_Filters">Request Filters</a></li><li><a href="#Single_Sign_On">Single Sign On</a></li><li><a href="#User_Web_Applications">User Web Applications</a></li></ol></li></ul>
 </blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
 
@@ -82,6 +82,20 @@
         <p>Java class name of the implementation to use.  This class must
         implement the <code>org.apache.catalina.Host</code> interface.
         If not specified, the standard value (defined below) will be used.</p>
+      </td></tr><tr><td valign="center" align="left"><code>deployIgnore</code></td><td valign="center" align="left">
+        <p>A regular expression defining paths to ignore when
+        <code>autoDeploy</code> and <code>deployOnStartup</code> are set. This
+        allows you to keep your configuration in a version control system, for
+        example, and not deploy a .svn or CVS folder that happens to be in the
+        <code>appBase</code>.</p>
+        <p>This regular expression is relative to <code>appBase</code>. It is
+        also <em>anchored</em>, meaning the match is performed against the
+        entire file/directory name. So, <code>foo</code> matches only a file or
+        directory named <code>foo</code> but not <code>foo.war</code>,
+        <code>foobar</code>, or <code>myfooapp</code>. To match anything with
+        "foo", you could use <code>.*foo.*</code>.</p>
+        <p>See <a href="#Automatic Application Deployment">Automatic Application
+        Deployment</a> for more information.</p>
       </td></tr><tr><td valign="center" align="left"><code>deployOnStartup</code></td><td valign="center" align="left">
         <p>This flag value indicates if web applications from this host should
         be automatically deployed when Tomcat starts. The flag's value defaults
@@ -243,14 +257,15 @@
         <code>ROOT.xml</code>.</li>
     <li>Any web application archive file within the Host's <code>appBase</code>
         directory that has not already been deployed as a result of a context
-        XML descriptor and does not have a corresponding directory of the same
-        name (without the ".war" extension) will be deployed next. The context
-        path used will be a slash character ("/") followed by the web
-        application archive name less the ".war" extension. The one exception to
-        this rule is that a web application archive named "ROOT.war" will be
-        deployed with a context path of <code>/</code>. Multi-level contexts may
-        be defined by using #, e.g. use a WAR named <code>foo#bar.war</code> for
-        a context path of <code>/foo/bar</code>.<br>
+        XML descriptor, does not have a corresponding directory of the same
+        name (without the ".war" extension), and is not excluded by
+        <code>deployIgnore</code> will be deployed next. The context path
+        used will be a slash character ("/") followed by the web application
+        archive name less the ".war" extension. The one exception to this rule
+        is that a web application archive named "ROOT.war" will be deployed with
+        a context path of <code>/</code>. Multi-level contexts may be defined by
+        using #, e.g. use a WAR named <code>foo#bar.war</code> for a context
+        path of <code>/foo/bar</code>.<br>
         If the <code>unpackWARs</code> attribute is <code>true</code>, the web
         application archive file will be expanded to a directory of the same
         name (without the ".war" extension".<br>
@@ -270,11 +285,12 @@
         </li>
     <li>Finally, any sub-directory within the Host's <code>appBase</code> that
         has not already been deployed as a result of a context XML descriptor
-        will be deployed. The context path used will be a slash character
-        ("/") followed by the directory name, unless the directory name is ROOT,
-        in which case the context path will <code>/</code>. Multi-level contexts
-        may be defined by using #, e.g. use a directory named
-        <code>foo#bar</code> for a context path of <code>/foo/bar</code>.<br>
+        and is not excluded by <code>deployIgnore</code> will be deployed.
+        The context path used will be a slash character ("/") followed by the
+        directory name, unless the directory name is ROOT, in which case the
+        context path will <code>/</code>. Multi-level contexts may be defined by
+        using #, e.g. use a directory named <code>foo#bar</code> for a context
+        path of <code>/foo/bar</code>.<br>
         Any directory within the Hosts's <code>appBase</code> directory that
         does not have a corresponding context XML descriptor in
         <code>$CATALINA_BASE/conf/[engine_name]/[host_name]</code> will be
@@ -327,15 +343,16 @@
 
     <p>When using automatic deployment, the <code>docBase</code> defined by
     an XML <a href="context.html">Context</a> file should be outside of the
-    <code>appBase</code> directory. If this is not the case difficulties
+    <code>appBase</code> directory. If this is not the case, difficulties
     may be experienced deploying the web application or the application may
-    be deployed twice.</p>
+    be deployed twice. The <code>deployIgnore</code> attribute can be used
+    to avoid this situation.</p>
 
     <p>Finally, note that if you are defining contexts explicitly in server.xml,
-    you should probably turn off automatic application deployment.  Otherwise,
-    the web applications will each be deployed twice, and that may cause
-    problems for the applications.
-    </p>
+    you should probably turn off automatic application deployment or specify
+    <code>deployIgnore</code> carefully. Otherwise, the web applications
+    will each be deployed twice, and that may cause problems for the
+    applications.</p>
 
   </blockquote></td></tr></table>
 
@@ -408,9 +425,8 @@
     <a href="engine.html">Engine</a>, <a href="host.html">Host</a>, or
     <a href="context.html">Context</a> element.  The remote address or name
     will be checked against a configured list of "accept" and/or "deny"
-    filters, which are defined using the Regular Expression syntax supported
-    by the <a href="http://jakarta.apache.org/regexp/">Jakarta Regexp</a>
-    regular expression library.  Requests that come from locations that are
+    filters, which are defined using <code>java.util.regex</code> Regular
+    Expression syntax.  Requests that come from locations that are
     not accepted will be rejected with an HTTP "Forbidden" error.
     Example filter declarations:</p>
 
@@ -418,9 +434,9 @@
 &lt;Host name="localhost" ...&gt;
   ...
   &lt;Valve className="org.apache.catalina.valves.RemoteHostValve"
-         allow="*.mycompany.com,www.yourcompany.com"/&gt;
+         allow=".*\.mycompany\.com|www\.yourcompany\.com"/&gt;
   &lt;Valve className="org.apache.catalina.valves.RemoteAddrValve"
-         deny="192.168.1.*"/&gt;
+         deny="192\.168\.1\.\d+"/&gt;
   ...
 &lt;/Host&gt;
 </pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr></table></div>
@@ -443,8 +459,7 @@
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 &lt;Host name="localhost" ...&gt;
   ...
-  &lt;Valve className="org.apache.catalina.authenticator.SingleSignOn"
-         debug="0"/&gt;
+  &lt;Valve className="org.apache.catalina.authenticator.SingleSignOn"/&gt;
   ...
 &lt;/Host&gt;
 </pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr></table></div>
@@ -544,5 +559,5 @@ http://www.mycompany.com:8080/~craigmcc
 
 
 </blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
-        Copyright &copy; 1999-2010, Apache Software Foundation
+        Copyright &copy; 1999-2011, Apache Software Foundation
         </em></font></div></td></tr></table></body></html>

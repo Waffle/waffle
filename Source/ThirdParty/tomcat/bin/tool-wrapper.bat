@@ -18,7 +18,7 @@ if "%OS%" == "Windows_NT" setlocal
 rem ---------------------------------------------------------------------------
 rem Wrapper script for command line tools
 rem
-rem Environment Variable Prequisites
+rem Environment Variable Prerequisites
 rem
 rem   CATALINA_HOME May point at your Catalina "build" directory.
 rem
@@ -30,7 +30,7 @@ rem
 rem   JAVA_OPTS     (Optional) Java runtime options used when the "start",
 rem                 "stop", or "run" command is executed.
 rem
-rem $Id: tool-wrapper.bat 908749 2010-02-10 23:26:42Z markt $
+rem $Id: tool-wrapper.bat 1040555 2010-11-30 15:00:25Z rjung $
 rem ---------------------------------------------------------------------------
 
 rem Guess CATALINA_HOME if not defined

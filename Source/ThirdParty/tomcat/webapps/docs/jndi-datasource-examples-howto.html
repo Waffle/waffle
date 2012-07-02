@@ -1,10 +1,10 @@
-<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat 6.0 - JNDI Datasource HOW-TO</title><meta content="Les Hughes" name="author"><meta content="David Haraburda" name="author"><meta content="Glenn Nielsen" name="author"><meta content="Yoav Shapira" name="author"><style media="print" type="text/css">
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat 6.0 (6.0.35) - JNDI Datasource HOW-TO</title><meta content="Les Hughes" name="author"><meta content="David Haraburda" name="author"><meta content="Glenn Nielsen" name="author"><meta content="Yoav Shapira" name="author"><style media="print" type="text/css">
 			.noPrint {display: none;}
 			td#mainBody {width: 100%;}
 		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
       The Apache Tomcat Servlet/JSP Container
-    " align="right" src="./images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="./images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="index.html">Docs Home</a></li><li><a href="http://wiki.apache.org/tomcat/FAQ">FAQ</a></li></ul><p><strong>User Guide</strong></p><ul><li><a href="introduction.html">1) Introduction</a></li><li><a href="setup.html">2) Setup</a></li><li><a href="appdev/index.html">3) First webapp</a></li><li><a href="deployer-howto.html">4) Deployer</a></li><li><a href="manager-howto.html">5) Manager</a></li><li><a href="realm-howto.html">6) Realms and AAA</a></li><li><a href="security-manager-howto.html">7) Security Manager</a></li><li><a href="jndi-resources-howto.html">8) JNDI Resources</a></li><li><a href="jndi-datasource-examples-howto.html">9) JDBC DataSources</a></li><li><a href="class-loader-howto.html">10) Classloading</a></li><li><a href="jasper-howto.html">11) JSPs</a></li><li><a href="ssl-howto.html">12) SSL</a></li><li><a href="ssi-howto.html">13) SSI</a></li><li><a href="cgi-howto.html">14) CGI</a></li><li><a href="proxy-howto.html">15) Proxy Support</a></li><li><a href="mbeans-descriptor-howto.html">16) MBean Descriptor</a></li><li><a href="default-servlet.html">17) Default Servlet</a></li><li><a href="cluster-howto.html">18) Clustering</a></li><li><a href="balancer-howto.html">19) Load Balancer</a></li><li><a href="connectors.html">20) Connectors</a></li><li><a href="monitoring.html">21) Monitoring and Management</a></li><li><a href="logging.html">22) Logging</a></li><li><a href="apr.html">23) APR/Native</a></li><li><a href="virtual-hosting-howto.html">24) Virtual Hosting</a></li><li><a href="aio.html">25) Advanced IO</a></li><li><a href="extras.html">26) Additional Components</a></li><li><a href="maven-jars.html">27) Mavenized</a></li></ul><p><strong>Reference</strong></p><ul><li><a href="RELEASE-NOTES.txt">Release Notes</a></li><li><a href="config/index.html">Configuration</a></li><li><a href="api/index.html">Javadocs</a></li><li><a href="http://tomcat.apache.org/connectors-doc/">JK 1.2 Documentation</a></li></ul><p><strong>Apache Tomcat Development</strong></p><ul><li><a href="building.html">Building</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="http://wiki.apache.org/tomcat/TomcatVersions">Status</a></li><li><a href="developers.html">Developers</a></li><li><a href="architecture/index.html">Architecture</a></li><li><a href="funcspecs/index.html">Functional Specs.</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat 6.0</h1><h2>JNDI Datasource HOW-TO</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
-<ul><li><a href="#Introduction">Introduction</a></li><li><a href="#Database_Connection_Pool_(DBCP)_Configurations">Database Connection Pool (DBCP) Configurations</a><ol><li><a href="#Installation">Installation</a></li><li><a href="#Preventing_dB_connection_pool_leaks">Preventing dB connection pool leaks</a></li><li><a href="#MySQL_DBCP_Example">MySQL DBCP Example</a></li><li><a href="#Oracle_8i,_9i_&_10g">Oracle 8i, 9i &amp; 10g</a></li><li><a href="#PostgreSQL">PostgreSQL</a></li></ol></li><li><a href="#Non-DBCP_Solutions">Non-DBCP Solutions</a></li><li><a href="#Oracle_8i_with_OCI_client">Oracle 8i with OCI client</a><ol><li><a href="#Oracle_8i_with_OCI_client/Introduction">Introduction</a></li><li><a href="#Putting_it_all_together">Putting it all together</a></li></ol></li><li><a href="#Common_Problems">Common Problems</a><ol><li><a href="#Intermittent_dB_Connection_Failures">Intermittent dB Connection Failures</a></li><li><a href="#Random_Connection_Closed_Exceptions">Random Connection Closed Exceptions</a></li><li><a href="#Context_versus_GlobalNamingResources">Context versus GlobalNamingResources</a></li><li><a href="#JNDI_Resource_Naming_and_Realm_Interaction">JNDI Resource Naming and Realm Interaction</a></li></ol></li></ul>
+    " align="right" src="./images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1><font face="arial,helvetica,sanserif">Version 6.0.35, Nov 28 2011</font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="./images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="index.html">Docs Home</a></li><li><a href="http://wiki.apache.org/tomcat/FAQ">FAQ</a></li></ul><p><strong>User Guide</strong></p><ul><li><a href="introduction.html">1) Introduction</a></li><li><a href="setup.html">2) Setup</a></li><li><a href="appdev/index.html">3) First webapp</a></li><li><a href="deployer-howto.html">4) Deployer</a></li><li><a href="manager-howto.html">5) Manager</a></li><li><a href="realm-howto.html">6) Realms and AAA</a></li><li><a href="security-manager-howto.html">7) Security Manager</a></li><li><a href="jndi-resources-howto.html">8) JNDI Resources</a></li><li><a href="jndi-datasource-examples-howto.html">9) JDBC DataSources</a></li><li><a href="class-loader-howto.html">10) Classloading</a></li><li><a href="jasper-howto.html">11) JSPs</a></li><li><a href="ssl-howto.html">12) SSL</a></li><li><a href="ssi-howto.html">13) SSI</a></li><li><a href="cgi-howto.html">14) CGI</a></li><li><a href="proxy-howto.html">15) Proxy Support</a></li><li><a href="mbeans-descriptor-howto.html">16) MBean Descriptor</a></li><li><a href="default-servlet.html">17) Default Servlet</a></li><li><a href="cluster-howto.html">18) Clustering</a></li><li><a href="balancer-howto.html">19) Load Balancer</a></li><li><a href="connectors.html">20) Connectors</a></li><li><a href="monitoring.html">21) Monitoring and Management</a></li><li><a href="logging.html">22) Logging</a></li><li><a href="apr.html">23) APR/Native</a></li><li><a href="virtual-hosting-howto.html">24) Virtual Hosting</a></li><li><a href="aio.html">25) Advanced IO</a></li><li><a href="extras.html">26) Additional Components</a></li><li><a href="maven-jars.html">27) Mavenized</a></li></ul><p><strong>Reference</strong></p><ul><li><a href="RELEASE-NOTES.txt">Release Notes</a></li><li><a href="config/index.html">Configuration</a></li><li><a href="api/index.html">Javadocs</a></li><li><a href="http://tomcat.apache.org/connectors-doc/">JK 1.2 Documentation</a></li></ul><p><strong>Apache Tomcat Development</strong></p><ul><li><a href="building.html">Building</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="http://wiki.apache.org/tomcat/TomcatVersions">Status</a></li><li><a href="developers.html">Developers</a></li><li><a href="architecture/index.html">Architecture</a></li><li><a href="funcspecs/index.html">Functional Specs.</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat 6.0</h1><h2>JNDI Datasource HOW-TO</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
+<ul><li><a href="#Introduction">Introduction</a></li><li><a href="#DriverManager,_the_service_provider_mechanism_and_memory_leaks">DriverManager, the service provider mechanism and memory leaks</a></li><li><a href="#Database_Connection_Pool_(DBCP)_Configurations">Database Connection Pool (DBCP) Configurations</a><ol><li><a href="#Installation">Installation</a></li><li><a href="#Preventing_database_connection_pool_leaks">Preventing database connection pool leaks</a></li><li><a href="#MySQL_DBCP_Example">MySQL DBCP Example</a></li><li><a href="#Oracle_8i,_9i_&_10g">Oracle 8i, 9i &amp; 10g</a></li><li><a href="#PostgreSQL">PostgreSQL</a></li></ol></li><li><a href="#Non-DBCP_Solutions">Non-DBCP Solutions</a></li><li><a href="#Oracle_8i_with_OCI_client">Oracle 8i with OCI client</a><ol><li><a href="#Oracle_8i_with_OCI_client/Introduction">Introduction</a></li><li><a href="#Putting_it_all_together">Putting it all together</a></li></ol></li><li><a href="#Common_Problems">Common Problems</a><ol><li><a href="#Intermittent_Database_Connection_Failures">Intermittent Database Connection Failures</a></li><li><a href="#Random_Connection_Closed_Exceptions">Random Connection Closed Exceptions</a></li><li><a href="#Context_versus_GlobalNamingResources">Context versus GlobalNamingResources</a></li><li><a href="#JNDI_Resource_Naming_and_Realm_Interaction">JNDI Resource Naming and Realm Interaction</a></li></ol></li></ul>
 </blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
 
 <p>JNDI Datasource configuration is covered extensively in the
@@ -33,81 +33,127 @@ tutorial in particular, assumes that you have read and understood the
 <a href="config/host.html">Host</a> configuration references, including
 the section about Automatic Application Deployment in the latter reference.
 </p>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="DriverManager, the service provider mechanism and memory leaks"><!--()--></a><a name="DriverManager,_the_service_provider_mechanism_and_memory_leaks"><strong>DriverManager, the service provider mechanism and memory leaks</strong></a></font></td></tr><tr><td><blockquote>
+
+<p><code>java.sql.DriverManager</code> supports the
+<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/sql/DriverManager.html">service
+provider</a> mechanism. This feature is that all the available JDBC drivers
+that announce themselves by providing a <code>META-INF/services/java.sql.Driver</code>
+file are automatically discovered, loaded and registered,
+relieving you from the need to load the database driver explicitly before
+you create a JDBC connection.
+However, the implementation is fundamentally broken in all Java versions for
+a servlet container environment. The problem is that
+<code>java.sql.DriverManager</code> will scan for the drivers only once.</p>
+
+<p>The <a href="config/listeners.html">JRE Memory Leak Prevention Listener</a>
+that is included with Apache Tomcat solves this by triggering the drivers scan
+during Tomcat startup. This is enabled by default. It means that only
+libraries visible to the listener such as the ones in
+<code>$CATALINA_BASE/lib</code> will be scanned for database drivers.
+If you are considering disabling this feature, note that
+the scan would be triggered by the first web application that is
+using JDBC, leading to failures when this web application is reloaded
+and for other web applications that rely on this feature.
+</p>
+
+<p>Thus, the web applications that have database drivers in their
+<code>WEB-INF/lib</code> directory cannot rely on the service provider
+mechanism and should register the drivers explicitly.</p>
+
+<p>The list of drivers in <code>java.sql.DriverManager</code> is also
+a known source of memory leaks. Any Drivers registered
+by a web application must be deregistered when the web application stops.
+Tomcat will attempt to automatically discover and deregister any
+JDBC drivers loaded by the web application class loader when the web
+application stops.
+However, it is expected that applications do this for themselves via
+a <code>ServletContextListener</code>.
+</p>
+
 </blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Database Connection Pool (DBCP) Configurations"><!--()--></a><a name="Database_Connection_Pool_(DBCP)_Configurations"><strong>Database Connection Pool (DBCP) Configurations</strong></a></font></td></tr><tr><td><blockquote>
 
-<p>DBCP provides support for JDBC 2.0.  On systems using a 1.4 JVM DBCP
-will support JDBC 3.0. Please let us know if you have used DBCP and its
-JDBC 3.0 features with a 1.4 JVM.
+<p>The default database connection pool implementation in Apache Tomcat
+relies on the libraries from the
+<a href="http://commons.apache.org/">Apache Commons</a> project.
+The following libraries are used:
 </p>
 
-<p>See the <a href="http://commons.apache.org/dbcp/configuration.html">
-DBCP documentation</a> for a complete list of configuration parameters.
-</p>
-
-<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Installation"><strong>Installation</strong></a></font></td></tr><tr><td><blockquote>
-<p>DBCP uses the Commons Database Connection Pool. It relies on
-number of Commons components:
 <ul>
 <li>Commons DBCP</li>
 <li>Commons Pool</li>
 </ul>
+
+<p>
 These libraries are located in a single JAR at 
 <code>$CATALINA_HOME/lib/tomcat-dbcp.jar</code>. However,
 only the classes needed for connection pooling have been included, and the
 packages have been renamed to avoid interfering with applications.
 </p>
 
+<p>DBCP 1.3 provides support for JDBC 3.0.</p>
+
+<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Installation"><strong>Installation</strong></a></font></td></tr><tr><td><blockquote>
+
+<p>See the <a href="http://commons.apache.org/dbcp/configuration.html">
+DBCP documentation</a> for a complete list of configuration parameters.
+</p>
+
 </blockquote></td></tr></table>
 
-<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Preventing dB connection pool leaks"><!--()--></a><a name="Preventing_dB_connection_pool_leaks"><strong>Preventing dB connection pool leaks</strong></a></font></td></tr><tr><td><blockquote>
+<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Preventing database connection pool leaks"><!--()--></a><a name="Preventing_database_connection_pool_leaks"><strong>Preventing database connection pool leaks</strong></a></font></td></tr><tr><td><blockquote>
 
 <p>
 A database connection pool creates and manages a pool of connections
 to a database. Recycling and reusing already existing connections
-to a dB is more efficient than opening a new connection.
+to a database is more efficient than opening a new connection.
 </p>
 
 <p>
 There is one problem with connection pooling.  A web application has
 to explicitly close ResultSet's, Statement's, and Connection's.
 Failure of a web application to close these resources can result in
-them never being available again for reuse, a db connection pool "leak".
-This can eventually result in your web application db connections failing
+them never being available again for reuse, a database connection pool "leak".
+This can eventually result in your web application database connections failing
 if there are no more available connections.</p>
 
 <p>
-There is a solution to this problem. Commons DBCP can be
-configured to track and recover these abandoned dB connections.  Not
+There is a solution to this problem.  The Apache Commons DBCP can be
+configured to track and recover these abandoned database connections.  Not
 only can it recover them, but also generate a stack trace for the code
 which opened these resources and never closed them.</p>
 
 <p>
-To configure a DBCP DataSource so that abandoned dB connections are
+To configure a DBCP DataSource so that abandoned database connections are
 removed and recycled add the following attribute to the
 <code>Resource</code> configuration for your DBCP DataSource:
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
-            removeAbandoned="true"
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
-When available db connections run low DBCP will recover and recycle
-any abandoned dB connections it finds. The default is <code>false</code>.
+</p>
+
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>removeAbandoned="true"</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+
+<p>
+When available database connections run low DBCP will recover and recycle
+any abandoned database connections it finds. The default is <code>false</code>.
 </p>
 
 <p>
 Use the <code>removeAbandonedTimeout</code> attribute to set the number
-of seconds a dB connection has been idle before it is considered abandoned.
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
-            removeAbandonedTimeout="60"
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+of seconds a database connection has been idle before it is considered abandoned.
+</p>
+
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>removeAbandonedTimeout="60"</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+
+<p>
 The default timeout for removing abandoned connections is 300 seconds.
 </p>
 
 <p>
 The <code>logAbandoned</code> attribute can be set to <code>true</code>
 if you want DBCP to log a stack trace of the code which abandoned the
-dB connection resources.
-<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
-            logAbandoned="true"
-</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+database connection resources.
+</p>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>logAbandoned="true"</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+<p>
 The default is <code>false</code>.
 </p>
 
@@ -116,13 +162,14 @@ The default is <code>false</code>.
 <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="MySQL DBCP Example"><!--()--></a><a name="MySQL_DBCP_Example"><strong>MySQL DBCP Example</strong></a></font></td></tr><tr><td><blockquote>
 
 <h3>0. Introduction</h3>
-<p>Versions of <a href="http://www.mysql.com/products/mysql/index.html">MySQL</a> and JDBC drivers that have been reported to work:
+<p>Versions of <a href="http://www.mysql.com/products/mysql/index.html">MySQL</a> and JDBC
+drivers that have been reported to work:
+</p>
 <ul>
 <li>MySQL 3.23.47, MySQL 3.23.47 using InnoDB,, MySQL 3.23.58,  MySQL 4.0.1alpha</li>
 <li><a href="http://www.mysql.com/products/connector-j">Connector/J</a> 3.0.11-stable (the official JDBC Driver)</li>
 <li><a href="http://mmmysql.sourceforge.net">mm.mysql</a> 2.0.14 (an old 3rd party JDBC Driver)</li>
 </ul>
-</p>
 
 <p>Before you proceed, don't forget to copy the JDBC Driver's jar into <code>$CATALINA_HOME/lib</code>.</p>
 
@@ -134,6 +181,7 @@ Ensure that you follow these instructions as variations can cause problems.
 <p>Create a new test user, a new database and a single test table.
 Your MySQL user <strong>must</strong> have a password assigned. The driver
 will fail if you try to connect with an empty password.
+</p>
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 mysql&gt; GRANT ALL PRIVILEGES ON *.* TO javauser@localhost 
     -&gt;   IDENTIFIED BY 'javadude' WITH GRANT OPTION;
@@ -148,9 +196,9 @@ mysql&gt; create table testdata (
 <strong>Note:</strong> the above user should be removed once testing is
 complete!
 </blockquote>
-</p>
 
 <p>Next insert some test data into the testdata table.
+</p>
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 mysql&gt; insert into testdata values(null, 'hello', 12345);
 Query OK, 1 row affected (0.00 sec)
@@ -165,40 +213,37 @@ mysql&gt; select * from testdata;
 
 mysql&gt;
 </pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
-</p>
 
 <h3>2. Context configuration</h3>
 <p>Configure the JNDI DataSource in Tomcat by adding a declaration for your
 resource to your <a href="config/context.html">Context</a>.</p>
-<p>For example:
-
+<p>For example:</p>
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
-&lt;Context path="/DBTest" docBase="DBTest"
-        debug="5" reloadable="true" crossContext="true"&gt;
+&lt;Context&gt;
 
-    &lt;!-- maxActive: Maximum number of dB connections in pool. Make sure you
+    &lt;!-- maxActive: Maximum number of database connections in pool. Make sure you
          configure your mysqld max_connections large enough to handle
          all of your db connections. Set to -1 for no limit.
          --&gt;
 
-    &lt;!-- maxIdle: Maximum number of idle dB connections to retain in pool.
+    &lt;!-- maxIdle: Maximum number of idle database connections to retain in pool.
          Set to -1 for no limit.  See also the DBCP documentation on this
          and the minEvictableIdleTimeMillis configuration parameter.
          --&gt;
 
-    &lt;!-- maxWait: Maximum time to wait for a dB connection to become available
+    &lt;!-- maxWait: Maximum time to wait for a database connection to become available
          in ms, in this example 10 seconds. An Exception is thrown if
          this timeout is exceeded.  Set to -1 to wait indefinitely.
          --&gt;
 
-    &lt;!-- username and password: MySQL dB username and password for dB connections  --&gt;
+    &lt;!-- username and password: MySQL username and password for database connections  --&gt;
 
     &lt;!-- driverClassName: Class name for the old mm.mysql JDBC driver is
          org.gjt.mm.mysql.Driver - we recommend using Connector/J though.
          Class name for the official MySQL Connector/J driver is com.mysql.jdbc.Driver.
          --&gt;
     
-    &lt;!-- url: The JDBC connection url for connecting to your MySQL dB.
+    &lt;!-- url: The JDBC connection url for connecting to your MySQL database.
          --&gt;
 
   &lt;Resource name="jdbc/TestDB" auth="Container" type="javax.sql.DataSource"
@@ -208,11 +253,10 @@ resource to your <a href="config/context.html">Context</a>.</p>
 
 &lt;/Context&gt;
 </pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
-</p>
 
 <h3>3. web.xml configuration</h3>
 
-<p>Now create a <code>WEB-INF/web.xml</code> for this test application.
+<p>Now create a <code>WEB-INF/web.xml</code> for this test application.</p>
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 &lt;web-app xmlns="http://java.sun.com/xml/ns/j2ee"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -228,7 +272,6 @@ http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
   &lt;/resource-ref&gt;
 &lt;/web-app&gt;
 </pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
-</p>
 
 <h3>4. Test code</h3>
 <p>Now create a simple <code>test.jsp</code> page for use later.
@@ -258,7 +301,12 @@ select id, foo, bar from testdata
 </pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
 </p>
 
-<p>That JSP page makes use of <a href="http://java.sun.com/products/jsp/jstl">JSTL</a>'s SQL and Core taglibs. You can get it from Sun's <a href="http://java.sun.com/webservices/downloads/webservicespack.html">Java Web Services Developer Pack</a> or <a href="http://jakarta.apache.org/taglibs/doc/standard-doc/intro.html">Jakarta Taglib Standard 1.1</a> project - just make sure you get a 1.1.x release. Once you have JSTL, copy <code>jstl.jar</code> and <code>standard.jar</code> to your web app's <code>WEB-INF/lib</code> directory.
+<p>That JSP page makes use of <a href="http://java.sun.com/products/jsp/jstl">JSTL</a>'s
+SQL and Core taglibs. You can get it from
+<a href="http://tomcat.apache.org/taglibs/standard/">Apache Tomcat Taglibs - Standard Tag Library</a>
+project &mdash; just make sure you get a 1.1.x release. Once you have JSTL,
+copy <code>jstl.jar</code> and <code>standard.jar</code> to your web app's
+<code>WEB-INF/lib</code> directory.
 
 </p>
 
@@ -298,6 +346,7 @@ not the same as the tnsname). The schema used will be the default schema for the
 user scott.</p>
 
 <p>Use of the OCI driver should simply involve a changing thin to oci in the URL string.
+</p>
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 &lt;Resource name="jdbc/myoracle" auth="Container"
               type="javax.sql.DataSource" driverClassName="oracle.jdbc.OracleDriver"
@@ -305,7 +354,6 @@ user scott.</p>
               username="scott" password="tiger" maxActive="20" maxIdle="10"
               maxWait="-1"/&gt; 
 </pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
-</p>
 
 <h3>2.    web.xml configuration</h3>
 <p>You should ensure that you respect the element ordering defined by the DTD when you
@@ -378,8 +426,7 @@ The Context element should look something like the following.
 </p>
 
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
-&lt;Context path="/someApp" docBase="someApp"
-   crossContext="true" reloadable="true" debug="1"&gt;
+&lt;Context&gt;
 
 &lt;Resource name="jdbc/postgres" auth="Container"
           type="javax.sql.DataSource" driverClassName="org.postgresql.Driver"
@@ -496,13 +543,13 @@ Change the database connect string (of the form <code>host:port:SID</code>) with
 <p>Here are some common problems encountered with a web application which
 uses a database and tips for how to solve them.</p>
 
-<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Intermittent dB Connection Failures"><!--()--></a><a name="Intermittent_dB_Connection_Failures"><strong>Intermittent dB Connection Failures</strong></a></font></td></tr><tr><td><blockquote>
+<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Intermittent Database Connection Failures"><!--()--></a><a name="Intermittent_Database_Connection_Failures"><strong>Intermittent Database Connection Failures</strong></a></font></td></tr><tr><td><blockquote>
 <p>
 Tomcat runs within a JVM.  The JVM periodically performs garbage collection
 (GC) to remove java objects which are no longer being used.  When the JVM
 performs GC execution of code within Tomcat freezes. If the maximum time
-configured for establishment of a dB connection is less than the amount
-of time garbage collection took you can get a db conneciton failure.
+configured for establishment of a database connection is less than the amount
+of time garbage collection took you can get a database connection failure.
 </p>
 
 <p>To collect data on how long garbage collection is taking add the
@@ -528,6 +575,7 @@ connection just returns it to the pool for reuse by another request,
 it doesn't close the connection.  And Tomcat uses multiple threads to
 handle concurrent requests. Here is an example of the sequence
 of events which could cause this error in Tomcat:
+</p>
 <pre>
   Request 1 running in Thread 1 gets a db connection.
 
@@ -547,8 +595,10 @@ of events which could cause this error in Tomcat:
   Request 2 Thread 2 tries to use the db connection but fails
   because Request 1 closed it.
 </pre>
-Here is an example of properly written code to use a db connection
+<p>
+Here is an example of properly written code to use a database connection
 obtained from a connection pool:
+</p>
 <pre>
   Connection conn = null;
   Statement stmt = null;  // Or PreparedStatement if needed
@@ -583,7 +633,6 @@ obtained from a connection pool:
     }
   }
 </pre>
-</p>
 
 </blockquote></td></tr></table>
 
@@ -606,5 +655,5 @@ obtained from a connection pool:
 </blockquote></td></tr></table> 
 
 </blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
-        Copyright &copy; 1999-2010, Apache Software Foundation
+        Copyright &copy; 1999-2011, Apache Software Foundation
         </em></font></div></td></tr></table></body></html>

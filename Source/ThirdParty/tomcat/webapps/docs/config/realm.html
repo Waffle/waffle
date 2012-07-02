@@ -1,9 +1,9 @@
-<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat Configuration Reference - The Realm Component</title><meta content="Craig R. McClanahan" name="author"><style media="print" type="text/css">
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat Configuration Reference (6.0.35) - The Realm Component</title><meta content="Craig R. McClanahan" name="author"><style media="print" type="text/css">
 			.noPrint {display: none;}
 			td#mainBody {width: 100%;}
 		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
     The Apache Tomcat Servlet/JSP Container
-  " align="right" src="../images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li><li><a href="index.html">Config Ref. Home</a></li></ul><p><strong>Top Level Elements</strong></p><ul><li><a href="server.html">Server</a></li><li><a href="service.html">Service</a></li></ul><p><strong>Executors</strong></p><ul><li><a href="executor.html">Executor</a></li></ul><p><strong>Connectors</strong></p><ul><li><a href="http.html">HTTP</a></li><li><a href="ajp.html">AJP</a></li></ul><p><strong>Containers</strong></p><ul><li><a href="context.html">Context</a></li><li><a href="engine.html">Engine</a></li><li><a href="host.html">Host</a></li><li><a href="cluster.html">Cluster</a></li></ul><p><strong>Nested Components</strong></p><ul><li><a href="listeners.html">Listeners</a></li><li><a href="globalresources.html">Global Resources</a></li><li><a href="loader.html">Loader</a></li><li><a href="manager.html">Manager</a></li><li><a href="realm.html">Realm</a></li><li><a href="resources.html">Resources</a></li><li><a href="valve.html">Valve</a></li></ul><p><strong>Cluster Elements</strong></p><ul><li><a href="cluster.html">Cluster</a></li><li><a href="cluster-manager.html">Manager</a></li><li><a href="cluster-channel.html">Channel</a></li><li><a href="cluster-membership.html">Channel/Membership</a></li><li><a href="cluster-sender.html">Channel/Sender</a></li><li><a href="cluster-receiver.html">Channel/Receiver</a></li><li><a href="cluster-interceptor.html">Channel/Interceptor</a></li><li><a href="cluster-valve.html">Valve</a></li><li><a href="cluster-deployer.html">Deployer</a></li><li><a href="cluster-listener.html">ClusterListener</a></li></ul><p><strong>Global Settings</strong></p><ul><li><a href="systemprops.html">System properties</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat Configuration Reference</h1><h2>The Realm Component</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
+  " align="right" src="../images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1><font face="arial,helvetica,sanserif">Version 6.0.35, Nov 28 2011</font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li><li><a href="index.html">Config Ref. Home</a></li></ul><p><strong>Top Level Elements</strong></p><ul><li><a href="server.html">Server</a></li><li><a href="service.html">Service</a></li></ul><p><strong>Executors</strong></p><ul><li><a href="executor.html">Executor</a></li></ul><p><strong>Connectors</strong></p><ul><li><a href="http.html">HTTP</a></li><li><a href="ajp.html">AJP</a></li></ul><p><strong>Containers</strong></p><ul><li><a href="context.html">Context</a></li><li><a href="engine.html">Engine</a></li><li><a href="host.html">Host</a></li><li><a href="cluster.html">Cluster</a></li></ul><p><strong>Nested Components</strong></p><ul><li><a href="filter.html">Filter</a></li><li><a href="globalresources.html">Global Resources</a></li><li><a href="listeners.html">Listeners</a></li><li><a href="loader.html">Loader</a></li><li><a href="manager.html">Manager</a></li><li><a href="realm.html">Realm</a></li><li><a href="resources.html">Resources</a></li><li><a href="valve.html">Valve</a></li></ul><p><strong>Cluster Elements</strong></p><ul><li><a href="cluster.html">Cluster</a></li><li><a href="cluster-manager.html">Manager</a></li><li><a href="cluster-channel.html">Channel</a></li><li><a href="cluster-membership.html">Channel/Membership</a></li><li><a href="cluster-sender.html">Channel/Sender</a></li><li><a href="cluster-receiver.html">Channel/Receiver</a></li><li><a href="cluster-interceptor.html">Channel/Interceptor</a></li><li><a href="cluster-valve.html">Valve</a></li><li><a href="cluster-deployer.html">Deployer</a></li><li><a href="cluster-listener.html">ClusterListener</a></li></ul><p><strong>Global Settings</strong></p><ul><li><a href="systemprops.html">System properties</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat Configuration Reference</h1><h2>The Realm Component</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
 <ul><li><a href="#Introduction">Introduction</a></li><li><a href="#Attributes">Attributes</a><ol><li><a href="#Common_Attributes">Common Attributes</a></li><li><a href="#Standard_Implementation">Standard Implementation</a></li></ol></li><li><a href="#Nested_Components">Nested Components</a></li><li><a href="#Special_Features">Special Features</a></li></ul>
 </blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
 
@@ -70,7 +70,18 @@
     connection to the underlying database, as well as the table and
     column names used to retrieve the required information:</p>
 
-    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>connectionName</code></strong></td><td valign="center" align="left">
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>allRolesMode</code></td><td valign="center" align="left">
+        <p>This attribute controls how the special role name <code>*</code> is
+        handled when processing authorization constraints in web.xml. By
+        default, the specification compliant value of <code>strict</code> is
+        used which means that the user must be assigned one of the roles defined
+        in web.xml. The alternative values are <code>authOnly</code> which means
+        that the user must be authenticated but no check is made for assigned
+        roles and <code>strictAuthOnly</code> which means that the user must be
+        authenticated and no check will be made for assigned roles unless roles
+        are defined in web.xml in which case the user must be assigned at least
+        one of those roles.</p>
+      </td></tr><tr><td valign="center" align="left"><strong><code>connectionName</code></strong></td><td valign="center" align="left">
         <p>The database username to use when establishing the JDBC
         connection.</p>
       </td></tr><tr><td valign="center" align="left"><strong><code>connectionPassword</code></strong></td><td valign="center" align="left">
@@ -141,7 +152,18 @@
     of the JNDI JDBC DataSource, as well as the table and
     column names used to retrieve the required information:</p>
 
-    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>dataSourceName</code></strong></td><td valign="center" align="left">
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>allRolesMode</code></td><td valign="center" align="left">
+        <p>This attribute controls how the special role name <code>*</code> is
+        handled when processing authorization constraints in web.xml. By
+        default, the specification compliant value of <code>strict</code> is
+        used which means that the user must be assigned one of the roles defined
+        in web.xml. The alternative values are <code>authOnly</code> which means
+        that the user must be authenticated but no check is made for assigned
+        roles and <code>strictAuthOnly</code> which means that the user must be
+        authenticated and no check will be made for assigned roles unless roles
+        are defined in web.xml in which case the user must be assigned at least
+        one of those roles.</p>
+      </td></tr><tr><td valign="center" align="left"><strong><code>dataSourceName</code></strong></td><td valign="center" align="left">
         <p>The name of the JNDI JDBC DataSource for this Realm.</p>
       </td></tr><tr><td valign="center" align="left"><code>digest</code></td><td valign="center" align="left">
         <p>The name of the <code>MessageDigest</code> algorithm used
@@ -224,6 +246,17 @@
         set this attribute to "true". Unfortunately there's no stable way
         to detect, if the Exceptions really come from an AD referral.
         The default value is "false".</p>
+      </td></tr><tr><td valign="center" align="left"><code>allRolesMode</code></td><td valign="center" align="left">
+        <p>This attribute controls how the special role name <code>*</code> is
+        handled when processing authorization constraints in web.xml. By
+        default, the specification compliant value of <code>strict</code> is
+        used which means that the user must be assigned one of the roles defined
+        in web.xml. The alternative values are <code>authOnly</code> which means
+        that the user must be authenticated but no check is made for assigned
+        roles and <code>strictAuthOnly</code> which means that the user must be
+        authenticated and no check will be made for assigned roles unless roles
+        are defined in web.xml in which case the user must be assigned at least
+        one of those roles.</p>
       </td></tr><tr><td valign="center" align="left"><code>alternateURL</code></td><td valign="center" align="left">
         <p>If a socket connection can not be made to the provider at
         the <code>connectionURL</code> an attempt will be made to use the
@@ -371,7 +404,18 @@
     <p>The Memory Based Realm implementation supports the following
     additional attributes:</p>
 
-    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>resourceName</code></strong></td><td valign="center" align="left">
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>allRolesMode</code></td><td valign="center" align="left">
+        <p>This attribute controls how the special role name <code>*</code> is
+        handled when processing authorization constraints in web.xml. By
+        default, the specification compliant value of <code>strict</code> is
+        used which means that the user must be assigned one of the roles defined
+        in web.xml. The alternative values are <code>authOnly</code> which means
+        that the user must be authenticated but no check is made for assigned
+        roles and <code>strictAuthOnly</code> which means that the user must be
+        authenticated and no check will be made for assigned roles unless roles
+        are defined in web.xml in which case the user must be assigned at least
+        one of those roles.</p>
+      </td></tr><tr><td valign="center" align="left"><strong><code>resourceName</code></strong></td><td valign="center" align="left">
         <p>The name of the resource that this realm will use for user, password
         and role information.</p>
       </td></tr></table>
@@ -396,7 +440,18 @@
     <p>The Memory Based Realm implementation supports the following
     additional attributes:</p>
 
-    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>digest</code></td><td valign="center" align="left">
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>allRolesMode</code></td><td valign="center" align="left">
+        <p>This attribute controls how the special role name <code>*</code> is
+        handled when processing authorization constraints in web.xml. By
+        default, the specification compliant value of <code>strict</code> is
+        used which means that the user must be assigned one of the roles defined
+        in web.xml. The alternative values are <code>authOnly</code> which means
+        that the user must be authenticated but no check is made for assigned
+        roles and <code>strictAuthOnly</code> which means that the user must be
+        authenticated and no check will be made for assigned roles unless roles
+        are defined in web.xml in which case the user must be assigned at least
+        one of those roles.</p>
+      </td></tr><tr><td valign="center" align="left"><code>digest</code></td><td valign="center" align="left">
         <p>The digest algorithm used to store passwords in non-plaintext
         formats. Valid values are those accepted for the algorithm name by the
         <code>java.security.MessageDigest</code> class. If not specified,
@@ -456,7 +511,18 @@
     <p>The JAAS Realm implementation supports the following additional
     attributes:</p>
 
-    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>appName</code></strong></td><td valign="center" align="left">
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>allRolesMode</code></td><td valign="center" align="left">
+        <p>This attribute controls how the special role name <code>*</code> is
+        handled when processing authorization constraints in web.xml. By
+        default, the specification compliant value of <code>strict</code> is
+        used which means that the user must be assigned one of the roles defined
+        in web.xml. The alternative values are <code>authOnly</code> which means
+        that the user must be authenticated but no check is made for assigned
+        roles and <code>strictAuthOnly</code> which means that the user must be
+        authenticated and no check will be made for assigned roles unless roles
+        are defined in web.xml in which case the user must be assigned at least
+        one of those roles.</p>
+      </td></tr><tr><td valign="center" align="left"><strong><code>appName</code></strong></td><td valign="center" align="left">
        <p>The name of the application as configured in your login configuration
        file 
        (<a href="http://java.sun.com/j2se/1.4.1/docs/guide/security/jaas/tutorials/LoginConfigFile.html">JAAS LoginConfig</a>).</p>
@@ -570,5 +636,5 @@
   configuring Single Sign On support for a virtual host.</p>
 
 </blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
-        Copyright &copy; 1999-2010, Apache Software Foundation
+        Copyright &copy; 1999-2011, Apache Software Foundation
         </em></font></div></td></tr></table></body></html>

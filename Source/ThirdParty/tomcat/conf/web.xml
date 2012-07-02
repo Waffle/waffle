@@ -37,7 +37,7 @@
   <!-- The default servlet for all web applications, that serves static     -->
   <!-- resources.  It processes all requests that are not mapped to other   -->
   <!-- servlets with servlet mappings (defined either here or in your own   -->
-  <!-- web.xml file.  This servlet supports the following initialization    -->
+  <!-- web.xml file).  This servlet supports the following initialization   -->
   <!-- parameters (default values are in square brackets):                  -->
   <!--                                                                      -->
   <!--   debug               Debugging detail level for messages logged     -->
@@ -421,6 +421,19 @@
 
   <!-- ================== Built In Filter Definitions ===================== -->
 
+  <!-- A filter that triggers request parameters parsing and rejects the    -->
+  <!-- request if some parameters were skipped because of parsing errors or -->
+  <!-- request size limitations.                                            -->
+<!--
+    <filter>
+        <filter-name>failedRequestFilter</filter-name>
+        <filter-class>
+          org.apache.catalina.filters.FailedRequestFilter
+        </filter-class>
+    </filter>
+-->
+
+
   <!-- NOTE: An SSI Servlet is also available as an alternative SSI         -->
   <!-- implementation. Use either the Servlet or the Filter but NOT both.   -->
   <!--                                                                      -->
@@ -480,6 +493,14 @@
 
 
   <!-- ==================== Built In Filter Mappings ====================== -->
+
+  <!-- The mapping for the Failed Request Filter -->
+<!--
+    <filter-mapping>
+        <filter-name>failedRequestFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+-->
 
   <!-- The mapping for the SSI Filter -->
 <!--
@@ -857,7 +878,7 @@
     </mime-mapping>
     <mime-mapping>
         <!-- OpenDocument Drawing Template -->
-        <extension>otg </extension>
+        <extension>otg</extension>
         <mime-type>application/vnd.oasis.opendocument.graphics-template</mime-type>
     </mime-mapping>
     <mime-mapping>
@@ -873,7 +894,7 @@
     <mime-mapping>
         <!-- OpenDocument Spreadsheet Template -->
         <extension>ots</extension>
-        <mime-type>application/vnd.oasis.opendocument.spreadsheet-template </mime-type>
+        <mime-type>application/vnd.oasis.opendocument.spreadsheet-template</mime-type>
     </mime-mapping>
     <mime-mapping>
         <!-- OpenDocument Text Template -->

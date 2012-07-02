@@ -1,0 +1,113 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat Configuration Reference (6.0.35) - Container Provided Filters</title><style media="print" type="text/css">
+			.noPrint {display: none;}
+			td#mainBody {width: 100%;}
+		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
+    The Apache Tomcat Servlet/JSP Container
+  " align="right" src="../images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1><font face="arial,helvetica,sanserif">Version 6.0.35, Nov 28 2011</font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li><li><a href="index.html">Config Ref. Home</a></li></ul><p><strong>Top Level Elements</strong></p><ul><li><a href="server.html">Server</a></li><li><a href="service.html">Service</a></li></ul><p><strong>Executors</strong></p><ul><li><a href="executor.html">Executor</a></li></ul><p><strong>Connectors</strong></p><ul><li><a href="http.html">HTTP</a></li><li><a href="ajp.html">AJP</a></li></ul><p><strong>Containers</strong></p><ul><li><a href="context.html">Context</a></li><li><a href="engine.html">Engine</a></li><li><a href="host.html">Host</a></li><li><a href="cluster.html">Cluster</a></li></ul><p><strong>Nested Components</strong></p><ul><li><a href="filter.html">Filter</a></li><li><a href="globalresources.html">Global Resources</a></li><li><a href="listeners.html">Listeners</a></li><li><a href="loader.html">Loader</a></li><li><a href="manager.html">Manager</a></li><li><a href="realm.html">Realm</a></li><li><a href="resources.html">Resources</a></li><li><a href="valve.html">Valve</a></li></ul><p><strong>Cluster Elements</strong></p><ul><li><a href="cluster.html">Cluster</a></li><li><a href="cluster-manager.html">Manager</a></li><li><a href="cluster-channel.html">Channel</a></li><li><a href="cluster-membership.html">Channel/Membership</a></li><li><a href="cluster-sender.html">Channel/Sender</a></li><li><a href="cluster-receiver.html">Channel/Receiver</a></li><li><a href="cluster-interceptor.html">Channel/Interceptor</a></li><li><a href="cluster-valve.html">Valve</a></li><li><a href="cluster-deployer.html">Deployer</a></li><li><a href="cluster-listener.html">ClusterListener</a></li></ul><p><strong>Global Settings</strong></p><ul><li><a href="systemprops.html">System properties</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat Configuration Reference</h1><h2>Container Provided Filters</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
+<ul><li><a href="#Introduction">Introduction</a></li><li><a href="#CSRF_Prevention_Filter">CSRF Prevention Filter</a><ol><li><a href="#CSRF_Prevention_Filter/Introduction">Introduction</a></li><li><a href="#CSRF_Prevention_Filter/Filter_Class_Name">Filter Class Name</a></li><li><a href="#CSRF_Prevention_Filter/Initialisation_parameters">Initialisation parameters</a></li></ol></li><li><a href="#Failed_Request_Filter">Failed Request Filter</a><ol><li><a href="#Failed_Request_Filter/Introduction">Introduction</a></li><li><a href="#Failed_Request_Filter/Filter_Class_Name">Filter Class Name</a></li><li><a href="#Failed_Request_Filter/Initialisation_parameters">Initialisation parameters</a></li></ol></li></ul>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>Tomcat provides a number of <strong>Filters</strong> which may be
+  configured for use with all web applications using
+  <code>$CATALINA_BASE/conf/web.xml</code> or may be configured for individual
+  web applications by configuring them in the application's
+  <code>WEB-INF/web.xml</code>. Each filter is described below.</p>
+
+    <blockquote><em>
+    <p>This description uses the variable name $CATALINA_BASE to refer the
+    base directory against which most relative paths are resolved. If you have
+    not configured Tomcat for multiple instances by setting a CATALINA_BASE
+    directory, then $CATALINA_BASE will be set to the value of $CATALINA_HOME,
+    the directory into which you have installed Tomcat.</p>
+    </em></blockquote>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="CSRF Prevention Filter"><!--()--></a><a name="CSRF_Prevention_Filter"><strong>CSRF Prevention Filter</strong></a></font></td></tr><tr><td><blockquote>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="CSRF Prevention Filter/Introduction"><!--()--></a><a name="CSRF_Prevention_Filter/Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>This filter provides basic CSRF protection for a web application. The
+    filter assumes that it is mapped to <code>/*</code> and that all URLs
+    returned to the client are encoded via a call to
+    <code>HttpServletResponse#encodeRedirectURL(String)</code> or
+    <code>HttpServletResponse#encodeURL(String)</code>.</p>
+    
+    <p>This filter prevents CSRF by generating a nonce and storing it in the
+    session. URLs are also encoded with the same nonce. When the next request is
+    received the nonce in the request is compared to the nonce in the session
+    and only if they are the same is the request allowed to continue.</p>
+    
+  </blockquote></td></tr></table>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="CSRF Prevention Filter/Filter Class Name"><!--()--></a><a name="CSRF_Prevention_Filter/Filter_Class_Name"><strong>Filter Class Name</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The filter class name for the CSRF Prevention Filter is
+    <strong><code>org.apache.catalina.filters.CsrfPreventionFilter</code>
+    </strong>.</p>
+
+  </blockquote></td></tr></table>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="CSRF Prevention Filter/Initialisation parameters"><!--()--></a><a name="CSRF_Prevention_Filter/Initialisation_parameters"><strong>Initialisation parameters</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The CSRF Prevention Filter supports the following initialisation
+    parameters:</p>
+
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>entryPoints</code></td><td valign="center" align="left">
+        <p>A comma separated list of URLs that will not be tested for the
+        presence of a valid nonce. They are used to provide a way to navigate
+        back to a protected application after having navigated away from it.
+        Entry points will be limited to HTTP GET requests and should not trigger
+        any security sensitive actions.</p>
+      </td></tr><tr><td valign="center" align="left"><code>nonceCacheSize</code></td><td valign="center" align="left">
+        <p>The number of previously issued nonces that will be cached on a LRU
+        basis to support parallel requests, limited use of the refresh and back
+        in the browser and similar behaviors that may result in the submission
+        of a previous nonce rather than the current one. If not set, the default
+        value of 5 will be used.</p>
+      </td></tr><tr><td valign="center" align="left"><code>randomClass</code></td><td valign="center" align="left">
+        <p>The name of the class to use to generate nonces. The class must be an
+        instance of <code>java.util.Random</code>. If not set, the default value
+        of <code>java.security.SecureRandom</code> will be used.</p>
+      </td></tr></table>
+    
+  </blockquote></td></tr></table>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Failed Request Filter"><!--()--></a><a name="Failed_Request_Filter"><strong>Failed Request Filter</strong></a></font></td></tr><tr><td><blockquote>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Failed Request Filter/Introduction"><!--()--></a><a name="Failed_Request_Filter/Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>This filter triggers parameters parsing in a request and rejects the
+    request if some parameters were skipped during parameter parsing because
+    of parsing errors or request size limitations (such as
+    <code>maxParameterCount</code> attribute in a
+    <a href="http.html">Connector</a>).
+    This filter can be used to ensure that none parameter values submitted by
+    client are lost.</p>
+
+    <p>Note that parameter parsing may consume the body of an HTTP request, so
+    caution is needed if the servlet protected by this filter uses
+    <code>request.getInputStream()</code> or <code>request.getReader()</code>
+    calls. In general the risk of breaking a web application by adding this
+    filter is not so high, because parameter parsing does check content type
+    of the request before consuming the request body.</p>
+
+    <p>The request is rejected with HTTP status code 400 (Bad Request).</p>
+
+  </blockquote></td></tr></table>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Failed Request Filter/Filter Class Name"><!--()--></a><a name="Failed_Request_Filter/Filter_Class_Name"><strong>Filter Class Name</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The filter class name for the Failed Request Filter is
+    <strong><code>org.apache.catalina.filters.FailedRequestFilter</code>
+    </strong>.</p>
+
+  </blockquote></td></tr></table>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Failed Request Filter/Initialisation parameters"><!--()--></a><a name="Failed_Request_Filter/Initialisation_parameters"><strong>Initialisation parameters</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The Failed Request Filter does not support any initialization parameters.</p>
+
+  </blockquote></td></tr></table>
+
+</blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
+        Copyright &copy; 1999-2011, Apache Software Foundation
+        </em></font></div></td></tr></table></body></html>

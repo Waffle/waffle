@@ -1,9 +1,9 @@
-<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat 6.0 - Manager App HOW-TO</title><meta content="Craig R. McClanahan" name="author"><style media="print" type="text/css">
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat 6.0 (6.0.35) - Manager App HOW-TO</title><meta content="Craig R. McClanahan" name="author"><style media="print" type="text/css">
 			.noPrint {display: none;}
 			td#mainBody {width: 100%;}
 		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
       The Apache Tomcat Servlet/JSP Container
-    " align="right" src="./images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="./images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="index.html">Docs Home</a></li><li><a href="http://wiki.apache.org/tomcat/FAQ">FAQ</a></li></ul><p><strong>User Guide</strong></p><ul><li><a href="introduction.html">1) Introduction</a></li><li><a href="setup.html">2) Setup</a></li><li><a href="appdev/index.html">3) First webapp</a></li><li><a href="deployer-howto.html">4) Deployer</a></li><li><a href="manager-howto.html">5) Manager</a></li><li><a href="realm-howto.html">6) Realms and AAA</a></li><li><a href="security-manager-howto.html">7) Security Manager</a></li><li><a href="jndi-resources-howto.html">8) JNDI Resources</a></li><li><a href="jndi-datasource-examples-howto.html">9) JDBC DataSources</a></li><li><a href="class-loader-howto.html">10) Classloading</a></li><li><a href="jasper-howto.html">11) JSPs</a></li><li><a href="ssl-howto.html">12) SSL</a></li><li><a href="ssi-howto.html">13) SSI</a></li><li><a href="cgi-howto.html">14) CGI</a></li><li><a href="proxy-howto.html">15) Proxy Support</a></li><li><a href="mbeans-descriptor-howto.html">16) MBean Descriptor</a></li><li><a href="default-servlet.html">17) Default Servlet</a></li><li><a href="cluster-howto.html">18) Clustering</a></li><li><a href="balancer-howto.html">19) Load Balancer</a></li><li><a href="connectors.html">20) Connectors</a></li><li><a href="monitoring.html">21) Monitoring and Management</a></li><li><a href="logging.html">22) Logging</a></li><li><a href="apr.html">23) APR/Native</a></li><li><a href="virtual-hosting-howto.html">24) Virtual Hosting</a></li><li><a href="aio.html">25) Advanced IO</a></li><li><a href="extras.html">26) Additional Components</a></li><li><a href="maven-jars.html">27) Mavenized</a></li></ul><p><strong>Reference</strong></p><ul><li><a href="RELEASE-NOTES.txt">Release Notes</a></li><li><a href="config/index.html">Configuration</a></li><li><a href="api/index.html">Javadocs</a></li><li><a href="http://tomcat.apache.org/connectors-doc/">JK 1.2 Documentation</a></li></ul><p><strong>Apache Tomcat Development</strong></p><ul><li><a href="building.html">Building</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="http://wiki.apache.org/tomcat/TomcatVersions">Status</a></li><li><a href="developers.html">Developers</a></li><li><a href="architecture/index.html">Architecture</a></li><li><a href="funcspecs/index.html">Functional Specs.</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat 6.0</h1><h2>Manager App HOW-TO</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
+    " align="right" src="./images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1><font face="arial,helvetica,sanserif">Version 6.0.35, Nov 28 2011</font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="./images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="index.html">Docs Home</a></li><li><a href="http://wiki.apache.org/tomcat/FAQ">FAQ</a></li></ul><p><strong>User Guide</strong></p><ul><li><a href="introduction.html">1) Introduction</a></li><li><a href="setup.html">2) Setup</a></li><li><a href="appdev/index.html">3) First webapp</a></li><li><a href="deployer-howto.html">4) Deployer</a></li><li><a href="manager-howto.html">5) Manager</a></li><li><a href="realm-howto.html">6) Realms and AAA</a></li><li><a href="security-manager-howto.html">7) Security Manager</a></li><li><a href="jndi-resources-howto.html">8) JNDI Resources</a></li><li><a href="jndi-datasource-examples-howto.html">9) JDBC DataSources</a></li><li><a href="class-loader-howto.html">10) Classloading</a></li><li><a href="jasper-howto.html">11) JSPs</a></li><li><a href="ssl-howto.html">12) SSL</a></li><li><a href="ssi-howto.html">13) SSI</a></li><li><a href="cgi-howto.html">14) CGI</a></li><li><a href="proxy-howto.html">15) Proxy Support</a></li><li><a href="mbeans-descriptor-howto.html">16) MBean Descriptor</a></li><li><a href="default-servlet.html">17) Default Servlet</a></li><li><a href="cluster-howto.html">18) Clustering</a></li><li><a href="balancer-howto.html">19) Load Balancer</a></li><li><a href="connectors.html">20) Connectors</a></li><li><a href="monitoring.html">21) Monitoring and Management</a></li><li><a href="logging.html">22) Logging</a></li><li><a href="apr.html">23) APR/Native</a></li><li><a href="virtual-hosting-howto.html">24) Virtual Hosting</a></li><li><a href="aio.html">25) Advanced IO</a></li><li><a href="extras.html">26) Additional Components</a></li><li><a href="maven-jars.html">27) Mavenized</a></li></ul><p><strong>Reference</strong></p><ul><li><a href="RELEASE-NOTES.txt">Release Notes</a></li><li><a href="config/index.html">Configuration</a></li><li><a href="api/index.html">Javadocs</a></li><li><a href="http://tomcat.apache.org/connectors-doc/">JK 1.2 Documentation</a></li></ul><p><strong>Apache Tomcat Development</strong></p><ul><li><a href="building.html">Building</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="http://wiki.apache.org/tomcat/TomcatVersions">Status</a></li><li><a href="developers.html">Developers</a></li><li><a href="architecture/index.html">Architecture</a></li><li><a href="funcspecs/index.html">Functional Specs.</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat 6.0</h1><h2>Manager App HOW-TO</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
 <ul><li><a href="#Introduction">Introduction</a></li><li><a href="#Configuring_Manager_Application_Access">Configuring Manager Application Access</a></li><li><a href="#Supported_Manager_Commands">Supported Manager Commands</a><ol><li><a href="#Deploy_A_New_Application_Remotely">Deploy A New Application Remotely</a></li><li><a href="#Deploy_A_New_Application_from_a_Local_Path">Deploy A New Application from a Local Path</a></li><li><a href="#List_Currently_Deployed_Applications">List Currently Deployed Applications</a></li><li><a href="#Reload_An_Existing_Application">Reload An Existing Application</a></li><li><a href="#List_OS_and_JVM_Properties">List OS and JVM Properties</a></li><li><a href="#List_Available_Global_JNDI_Resources">List Available Global JNDI Resources</a></li><li><a href="#List_Available_Security_Roles">List Available Security Roles</a></li><li><a href="#Session_Statistics">Session Statistics</a></li><li><a href="#Start_an_Existing_Application">Start an Existing Application</a></li><li><a href="#Stop_an_Existing_Application">Stop an Existing Application</a></li><li><a href="#Undeploy_an_Existing_Application">Undeploy an Existing Application</a></li><li><a href="#Finding_memory_leaks">Finding memory leaks</a></li><li><a href="#Server_Status">Server Status</a></li></ol></li><li><a href="#Executing_Manager_Commands_With_Ant">Executing Manager Commands With Ant</a><ol><li><a href="#Tasks_output_capture">Tasks output capture</a></li></ol></li><li><a href="#Using_the_JMX_Proxy_Servlet">Using the JMX Proxy Servlet</a><ol><li><a href="#What_is_JMX_Proxy_Servlet">What is JMX Proxy Servlet</a></li><li><a href="#JMX_Query_command">JMX Query command</a></li><li><a href="#JMX_Set_command">JMX Set command</a></li></ol></li></ul>
 </blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
 
@@ -44,15 +44,15 @@ Manager web application <code>Context</code> to a new host install the
 <code>$CATALINA_BASE/conf/[enginename]/[hostname]</code> folder. Here is an
 example:</p>
 <pre>
-&lt;Context path="/manager" debug="0" privileged="true"
-         docBase="/usr/local/kinetic/tomcat6/server/webapps/manager"&gt;
+&lt;Context path="/manager" privileged="true"
+         docBase="/usr/local/tomcat6/webapps/manager"&gt;
 &lt;/Context&gt;
 </pre>
 
 <p>If you have Tomcat configured to support multiple virtual hosts
 (websites) you would need to configure a Manager for each.</p>
 
-<p>There are three ways to use the <code>Manager</code> web application.</p>
+<p>There are three ways to use the <strong>Manager</strong> web application.</p>
 <ul>
 <li>As an application with a user interface you use in your browser.
 Here is an example URL where you can replace <code>localhost</code> with
@@ -82,17 +82,29 @@ With Ant</a> for more information.</li>
 anyone on the Internet to execute the Manager application on your server.
 Therefore, the Manager application is shipped with the requirement that anyone
 who attempts to use it must authenticate themselves, using a username and
-password that have the role <strong>manager</strong> associated with them.
+password that have the appropriate role associated with them.
 Further, there is no username in the default users file
-(<code>$CATALINA_BASE/conf/tomcat-users.xml</code>) that is assigned this
-role.  Therefore, access to the Manager application is completely disabled
-by default.</p>
+(<code>$CATALINA_BASE/conf/tomcat-users.xml</code>) that is assigned an
+appropriate role.  Therefore, access to the Manager application is completely
+disabled by default.</p>
 
 <p>To enable access to the Manager web application, you must either create
-a new username/password combination and associate the role name
-<strong>manager</strong> with it, or add the <strong>manager</strong> role
-to some existing username/password combination.  Exactly where this is done
-depends on which <code>Realm</code> implementation you are using:</p>
+a new username/password combination and associate on of the manager roles with
+it, or add a manager role to some existing username/password combination. There
+are four roles defined by the manager application:</p>
+<ul>
+<li><em>manager-gui</em> - Allows access to the html interface</li>
+<li><em>manager-script</em> - Allows access to the plain text interface</li>
+<li><em>manager-jmx</em> - Allows access to the JMX proxy interface</li>
+<li><em>manager-status</em> - Allows access to the read-only status pages</li>
+</ul>
+<p>The manager application is configured to use the CSRF prevention filter. For
+this filter to be effective, any user assigned the <code>manager-gui</code> role
+must not be assigned the <code>manager-script</code> nor the
+<code>manager-jmx</code> roles.</p>
+
+<p>Exactly where roles are associated to users depends on which
+<code>Realm</code> implementation you are using:</p>
 <ul>
 <li><em>MemoryRealm</em> - If you have not customized your
     <code>$CATALINA_BASE/conf/server.xml</code> to select a different one,
@@ -102,22 +114,22 @@ depends on which <code>Realm</code> implementation you are using:</p>
     <code>&lt;user&gt;</code> for each individual user, which might
     look something like this:
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
-&lt;user name="craigmcc" password="secret" roles="standard,manager" /&gt;
+&lt;user name="craigmcc" password="secret" roles="standard,manager-gui" /&gt;
 </pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
     which defines the username and password used by this individual to
     log on, and the role names he or she is associated with.  You can
-    add the <strong>manager</strong> role to the comma-delimited
+    add a role, e.g. <strong>manager-gui</strong>, to the comma-delimited
     <code>roles</code> attribute for one or more existing users, and/or
     create new users with that assigned role.</li>
 <li><em>JDBCRealm</em> - Your user and role information is stored in
-    a database accessed via JDBC.  Add the <strong>manager</strong> role
-    to one or more existing users, and/or create one or more new users
-    with this role assigned, following the standard procedures for your
+    a database accessed via JDBC.  Add the required role(s) to one or more
+    existing users, and/or create one or more new users with the required
+    role(s) assigned, following the standard procedures for your
     environment.</li>
 <li><em>JNDIRealm</em> - Your user and role information is stored in
-    a directory server accessed via LDAP.  Add the <strong>manager</strong>
-    role to one or more existing users, and/or create one or more new users
-    with this role assigned, following the standard procedures for your
+    a directory server accessed via LDAP.  Add the required role(s) to one or
+    more existing users, and/or create one or more new users with the required
+    role(s) assigned, following the standard procedures for your
     environment.</li>
 </ul>
 
@@ -125,15 +137,14 @@ depends on which <code>Realm</code> implementation you are using:</p>
 described in the next section, you will be challenged to log on using
 BASIC authentication.  The username and password you enter do not matter,
 as long as they identify a valid user in the users database who possesses
-the role <strong>manager</strong>.</p>
+the appropriate role.</p>
 
 <p>In addition to the password restrictions the manager web application
 could be restricted by the remote IP address or host by adding a
 <code>RemoteAddrValve</code> or <code>RemoteHostValve</code>.  Here is
 an example of restricting access to the localhost by IP address:</p>
 <pre>
-&lt;Context path="/manager" privileged="true"
-         docBase="/usr/local/kinetic/tomcat6/server/webapps/manager"&gt;
+&lt;Context privileged="true"&gt;
          &lt;Valve className="org.apache.catalina.valves.RemoteAddrValve"
                 allow="127\.0\.0\.1"/&gt;
 &lt;/Context&gt;
@@ -350,8 +361,7 @@ web application Context just as if it were configured in your
 Tomcat <code>server.xml</code> configuration file. Here is an
 example:</p>
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
-&lt;Context path="/foobar" docBase="/path/to/application/foobar"
-         debug="0"&gt;
+&lt;Context path="/foobar" docBase="/path/to/application/foobar"&gt;
 
   &lt;!-- Link to the user database we will get roles from --&gt;
   &lt;ResourceLink name="users" global="UserDatabase"
@@ -929,7 +939,7 @@ commands, you must perform the following setup operations:</p>
 <li>Add the <code>$ANT_HOME/bin</code> directory to your <code>PATH</code>
     environment variable.</li>
 <li>Configure at least one username/password combination in your Tomcat
-    user database that includes the <code>manager</code> role.</li>
+    user database that includes the <code>manager-script</code> role.</li>
 </ul>
 
 <p>To use custom tasks within Ant, you must declare them first with a
@@ -1285,5 +1295,5 @@ Error: java.lang.NumberFormatException: For input string: "cowbell"
 
 
 </blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
-        Copyright &copy; 1999-2010, Apache Software Foundation
+        Copyright &copy; 1999-2011, Apache Software Foundation
         </em></font></div></td></tr></table></body></html>
