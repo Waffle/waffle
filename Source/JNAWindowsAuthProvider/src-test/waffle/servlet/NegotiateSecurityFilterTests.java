@@ -289,7 +289,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		assertEquals(1, _filter.getProviders().size());
 	}
 
-	public void testInitNegotiateSecurityFilterProviderInvalidProtocol() throws ServletException {
+	public void testInitNegotiateSecurityFilterProviderInvalidProtocol() {
 		SimpleFilterConfig filterConfig = new SimpleFilterConfig();
 		filterConfig.setParameter("securityFilterProviders", "waffle.servlet.spi.NegotiateSecurityFilterProvider\n");
 		filterConfig.setParameter("waffle.servlet.spi.NegotiateSecurityFilterProvider/protocols", "INVALID");		

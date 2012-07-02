@@ -41,6 +41,7 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 		_auth = auth;		
 	}
 	
+	@Override
 	public IWindowsIdentity doFilter(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		
@@ -54,14 +55,17 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 		return _auth.logonUser(usernamePasswordArray[0], usernamePasswordArray[1]);        
 	}
 
+	@Override
 	public boolean isPrincipalException(HttpServletRequest request) {
 		return false;
 	}
 
+	@Override
 	public boolean isSecurityPackageSupported(String securityPackage) {
 		return securityPackage.equalsIgnoreCase("Basic");
 	}
 
+	@Override
 	public void sendUnauthorized(HttpServletResponse response) {
 		response.addHeader("WWW-Authenticate", "Basic realm=\"" + _realm + "\"");
 	}
@@ -87,6 +91,7 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 	/**
 	 * Init configuration parameters.
 	 */
+	@Override
 	public void initParameter(String parameterName, String parameterValue) {
 		if (parameterName.equals("realm")) {
 			setRealm(parameterValue);

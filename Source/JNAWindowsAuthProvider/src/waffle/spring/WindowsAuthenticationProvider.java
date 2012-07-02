@@ -45,6 +45,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
 		_log.debug("[waffle.spring.WindowsAuthenticationProvider] loaded");		
 	}
 	
+	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         try {
 	        UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;
@@ -71,6 +72,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
         }
 	}
 
+	@Override
 	public boolean supports(Class<? extends Object> authentication) {
         return (UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication));
 	}

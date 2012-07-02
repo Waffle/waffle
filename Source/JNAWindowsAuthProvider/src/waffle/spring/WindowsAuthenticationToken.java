@@ -80,30 +80,37 @@ public class WindowsAuthenticationToken implements Authentication {
 		}
 	}
 	
+	@Override
 	public Collection<GrantedAuthority> getAuthorities() {
 		return _authorities;
 	}
 
+	@Override
 	public Object getCredentials() {
 		return null;
 	}
 
+	@Override
 	public Object getDetails() {
 		return null;
 	}
 
+	@Override
 	public Object getPrincipal() {
 		return _principal;
 	}
 
+	@Override
 	public boolean isAuthenticated() {
 		return (_principal != null);
 	}
 
+	@Override
 	public void setAuthenticated(boolean authenticated) throws IllegalArgumentException {
 		throw new IllegalArgumentException();	
 	}
 
+	@Override
 	public String getName() {
 		return _principal.getName();
 	}

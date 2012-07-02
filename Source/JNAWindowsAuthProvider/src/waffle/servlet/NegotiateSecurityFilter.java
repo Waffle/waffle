@@ -62,10 +62,12 @@ public class NegotiateSecurityFilter implements Filter {
 		_log.debug("[waffle.servlet.NegotiateSecurityFilter] loaded");
 	}
     
+	@Override
 	public void destroy() {
 		_log.info("[waffle.servlet.NegotiateSecurityFilter] stopped");
 	}
 	
+	@Override
 	public void doFilter(ServletRequest sreq, ServletResponse sres,
 			FilterChain chain) throws IOException, ServletException {
 		
@@ -230,6 +232,7 @@ public class NegotiateSecurityFilter implements Filter {
 		return true;
 	}
 	
+	@Override
 	@SuppressWarnings("rawtypes")
 	public void init(FilterConfig filterConfig) throws ServletException {
 		Map<String, String> implParameters = new HashMap<String, String>();

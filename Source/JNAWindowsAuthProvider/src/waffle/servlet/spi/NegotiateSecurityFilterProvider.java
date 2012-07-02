@@ -56,6 +56,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 		_protocols = protocols;
 	}
 	
+	@Override
 	public void sendUnauthorized(HttpServletResponse response) {
 		Iterator<String> protocolsIterator = _protocols.iterator();
 		while(protocolsIterator.hasNext()) {
@@ -63,6 +64,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 		}
 	}
 
+	@Override
 	public boolean isPrincipalException(HttpServletRequest request) {
 		AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
 		boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
@@ -70,6 +72,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 		return ntlmPost;
 	}
 
+	@Override
 	public IWindowsIdentity doFilter(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 
@@ -110,6 +113,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
         return identity;
 	}
 
+	@Override
 	public boolean isSecurityPackageSupported(String securityPackage) {
 		for(String protocol : _protocols) {
 			if (protocol.equalsIgnoreCase(securityPackage))
@@ -118,6 +122,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 		return false;
 	}
 
+	@Override
 	public void initParameter(String parameterName, String parameterValue) {
 		if (parameterName.equals("protocols")) {
 			_protocols = new ArrayList<String>();
