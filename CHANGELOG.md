@@ -2,7 +2,7 @@ Next Release
 ============
 
 Misc
------
+----
 
 * [#3](https://github.com/dblock/waffle/pull/3): Upgraded thirdparty tomcat to 6.0.35 - [@hazendaz](https://github.com/hazendaz).
 * [#3](https://github.com/dblock/waffle/pull/3): Converted commons-logging to slf4j logging - [@hazendaz](https://github.com/hazendaz).
