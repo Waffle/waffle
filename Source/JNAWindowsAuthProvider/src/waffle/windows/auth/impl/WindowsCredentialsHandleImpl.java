@@ -71,6 +71,7 @@ public class WindowsCredentialsHandleImpl implements IWindowsCredentialsHandle {
 	/**
 	 * Initialize a new credentials handle.
 	 */
+	@Override
 	public void initialize() {		
 		_handle = new CredHandle();
 		_clientLifetime = new TimeStamp();
@@ -85,6 +86,7 @@ public class WindowsCredentialsHandleImpl implements IWindowsCredentialsHandle {
 	/**
 	 * Dispose of the credentials handle.
 	 */
+	@Override
 	public void dispose() {
 		if (_handle != null && ! _handle.isNull()) {
 			int rc = Secur32.INSTANCE.FreeCredentialsHandle(_handle);
@@ -98,6 +100,7 @@ public class WindowsCredentialsHandleImpl implements IWindowsCredentialsHandle {
 	/**
 	 * 
 	 */
+	@Override
 	public CredHandle getHandle() {
 		return _handle;
 	}

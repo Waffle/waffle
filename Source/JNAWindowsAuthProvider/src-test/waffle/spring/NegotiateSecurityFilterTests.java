@@ -82,7 +82,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		assertEquals(500, response.getStatus());
 	}
 	
-	public void testNegotiate() throws IOException, ServletException, ClassNotFoundException {
+	public void testNegotiate() throws IOException, ServletException {
 		String securityPackage = "Negotiate";
 		SimpleFilterChain filterChain = new SimpleFilterChain();
 		SimpleHttpRequest request = new SimpleHttpRequest();

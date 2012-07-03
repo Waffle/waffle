@@ -67,6 +67,7 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
 			.build();
 	}
 
+	@Override
 	public IWindowsSecurityContext acceptSecurityToken(String connectionId, byte[] token, String securityPackage) {
 
 		if (token == null || token.length == 0) {
@@ -125,6 +126,7 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
     	return sc;
 	}
 
+	@Override
 	public IWindowsComputer getCurrentComputer() {
 		try {
 			return new WindowsComputerImpl(InetAddress.getLocalHost().getHostName());
@@ -133,6 +135,7 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
 		}
 	}
 
+	@Override
 	public IWindowsDomain[] getDomains() {
 		List<IWindowsDomain> domains = new ArrayList<IWindowsDomain>();
 		DomainTrust[] trusts = Netapi32Util.getDomainTrusts();
@@ -142,11 +145,13 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
 		return domains.toArray(new IWindowsDomain[0]);
 	}
 
+	@Override
 	public IWindowsIdentity logonDomainUser(String username, String domain, String password) {
 		return logonDomainUserEx(username, domain, password,
 				WinBase.LOGON32_LOGON_NETWORK, WinBase.LOGON32_PROVIDER_DEFAULT);
 	}
 
+	@Override
 	public IWindowsIdentity logonDomainUserEx(String username, String domain,
 			String password, int logonType, int logonProvider) {
 		HANDLEByReference phUser = new HANDLEByReference();
@@ -157,6 +162,7 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
 		return new WindowsIdentityImpl(phUser.getValue());
 	}
 
+	@Override
 	public IWindowsIdentity logonUser(String username, String password) {		
         // username@domain UPN format is natively supported by the 
 		// Windows LogonUser API process domain\\username format
@@ -169,10 +175,12 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
         return logonDomainUser(username, domain, password);
 	}
 
+	@Override
 	public IWindowsAccount lookupAccount(String username) {
 		return new WindowsAccountImpl(username);
 	}
 
+	@Override
 	public void resetSecurityToken(String connectionId) {
     	_continueContexts.asMap().remove(connectionId);
 	}

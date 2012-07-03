@@ -11,7 +11,7 @@
 	<classpathentry kind="lib" path="/ThirdParty/tomcat/lib/tomcat-coyote.jar"/>
 	<classpathentry kind="lib" path="/ThirdParty/tomcat/bin/tomcat-juli.jar"/>
 	<classpathentry kind="lib" path="/ThirdParty/slf4j/slf4j-1.6.6/slf4j-api-1.6.6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Jeremy Landis/My Programs/Java/slf4j/slf4j-1.6.6/jcl-over-slf4j-1.6.6.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/slf4j/slf4j-1.6.6/jcl-over-slf4j-1.6.6.jar"/>
 	<classpathentry kind="lib" path="/ThirdParty/groboutils/lib/GroboUtils-5-core.jar"/>
 	<classpathentry kind="lib" path="/ThirdParty/spring-security/dist/spring-security-core-3.0.3.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/ThirdParty/spring-security/dist/spring-security-web-3.0.3.RELEASE.jar"/>

@@ -36,6 +36,7 @@ public class WindowsSecurityContextImpersonationContextImpl implements IWindowsI
 		_ctx = ctx;
 	}
 	
+	@Override
 	public void RevertToSelf() {
 		int rc = Secur32.INSTANCE.RevertSecurityContext(_ctx); 
 		if (rc != W32Errors.SEC_E_OK) {

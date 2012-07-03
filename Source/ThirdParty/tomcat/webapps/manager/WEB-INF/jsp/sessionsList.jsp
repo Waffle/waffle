@@ -26,7 +26,9 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <% String path = (String) request.getAttribute("path");
-   String submitUrl = ((HttpServletRequest)pageContext.getRequest()).getRequestURI() + "?path=" + path;
+   String submitUrl = JspHelper.escapeXml(response.encodeURL(
+           ((HttpServletRequest) pageContext.getRequest()).getRequestURI() +
+           "?path=" + path));
    Collection activeSessions = (Collection) request.getAttribute("activeSessions");
 %>
 <head>
@@ -36,12 +38,12 @@
 	<meta http-equiv="expires" content="0"/><!-- 0 is an invalid value and should be treated as 'now' -->
 	<meta http-equiv="content-language" content="en"/>
 	<meta name="author" content="Cedrik LIME"/>
-	<meta name="copyright" content="copyright 2005-2010 the Apache Software Foundation"/>
+	<meta name="copyright" content="copyright 2005-2011 the Apache Software Foundation"/>
 	<meta name="robots" content="noindex,nofollow,noarchive"/>
-	<title>Sessions Administration for <%= path %></title>
+	<title>Sessions Administration for <%= JspHelper.escapeXml(path) %></title>
 </head>
 <body>
-<h1>Sessions Administration for <%= path %></h1>
+<h1>Sessions Administration for <%= JspHelper.escapeXml(path) %></h1>
 
 <p>Tips:</p>
 <ul>
@@ -55,13 +57,13 @@
 <form action="<%= submitUrl %>" method="post" id="sessionsForm">
 	<fieldset><legend>Active HttpSessions informations</legend>
 		<input type="hidden" name="action" id="sessionsFormAction" value="injectSessions"/>
-		<input type="hidden" name="sort" id="sessionsFormSort" value="<%= (String) request.getAttribute("sort") %>"/>
+		<input type="hidden" name="sort" id="sessionsFormSort" value="<%= JspHelper.escapeXml(request.getAttribute("sort")) %>"/>
 		<% String order = (String) request.getAttribute("order");
 		   if (order == null || "".equals(order)) {
 		   	order = "ASC";
 		   }
 		%>
-		<input type="hidden" name="order" id="sessionsFormSortOrder" value="<%= order %>"/>
+		<input type="hidden" name="order" id="sessionsFormSortOrder" value="<%= JspHelper.escapeXml(order) %>"/>
 		<input type="submit" name="refresh" id="refreshButton" value="Refresh Sessions list" onclick="document.getElementById('sessionsFormAction').value='refreshSessions'; return true;"/>
 		<%= JspHelper.formatNumber(activeSessions.size()) %> active Sessions<br/>
 		<table border="1" cellpadding="2" cellspacing="2" width="100%">
@@ -95,11 +97,11 @@
 <% Iterator iter = activeSessions.iterator();
    while (iter.hasNext()) {
    	Session currentSession = (Session) iter.next();
-   	String currentSessionId = currentSession.getId();
+   	String currentSessionId = JspHelper.escapeXml(currentSession.getId());
 %>
 				<tr>
 					<td>
-<input type="checkbox" name="sessionIds" value="<%= currentSessionId %>" /><a href="<%= submitUrl %>&amp;action=sessionDetail&amp;sessionId=<%= currentSessionId %>" target="_blank"><%= JspHelper.escapeXml(currentSessionId) %></a>
+<input type="checkbox" name="sessionIds" value="<%= currentSessionId %>" /><a href="<%= submitUrl %>&amp;action=sessionDetail&amp;sessionId=<%= currentSessionId %>"><%= currentSessionId %></a>
 					</td>
 					<td style="text-align: center;"><%= JspHelper.guessDisplayLocaleFromSession(currentSession) %></td>
 					<td style="text-align: center;"><%= JspHelper.guessDisplayUserFromSession(currentSession) %></td>
@@ -118,7 +120,11 @@
 	</fieldset>
 </form>
 
-<p style="text-align: center;"><button type="button" onclick="window.close()">Close window</button></p>
+<form method="get" action="<%=request.getContextPath()%>/html">
+  <p style="text-align: center;">
+    <input type="submit" value="Return to main page" />
+  </p>
+</form>
 
 <%--div style="display: none;">
 <p>

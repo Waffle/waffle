@@ -30,6 +30,7 @@ public class WindowsPrincipalTests extends TestCase {
 	
 	private WindowsPrincipal _windowsPrincipal = null;
 	
+	@Override
 	public void setUp() {
 		MockWindowsSecurityContext ctx = new MockWindowsSecurityContext("Administrator");
 		_windowsPrincipal = new WindowsPrincipal(ctx.getIdentity());

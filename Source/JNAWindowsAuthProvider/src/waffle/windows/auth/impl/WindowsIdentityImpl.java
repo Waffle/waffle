@@ -49,10 +49,12 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
 		return _userGroups;		
 	}
 	
+	@Override
 	public String getFqn() {
 		return getWindowsAccount().fqn;
 	}
 
+	@Override
 	public IWindowsAccount[] getGroups() {
 
 		Account[] userGroups = getUserGroups();
@@ -66,14 +68,17 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
 		return result.toArray(new IWindowsAccount[0]);
 	}
 	
+	@Override
 	public byte[] getSid() {
 		return getWindowsAccount().sid;
 	}
 
+	@Override
 	public String getSidString() {
 		return getWindowsAccount().sidString;
 	}
 	
+	@Override
 	public void dispose() {
 		if (_windowsIdentity != null) {
 			Kernel32.INSTANCE.CloseHandle(_windowsIdentity);
@@ -81,6 +86,7 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
 		}
 	}
 	
+	@Override
 	public IWindowsImpersonationContext impersonate() {
 		return new WindowsIdentityImpersonationContextImpl(_windowsIdentity);
 	}
@@ -89,6 +95,7 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
 		_windowsIdentity = windowsIdentity;
 	}
 
+	@Override
 	public boolean isGuest() {
 		for(Account userGroup : getUserGroups()) {
 			if (Advapi32Util.isWellKnownSid(userGroup.sid, WELL_KNOWN_SID_TYPE.WinBuiltinGuestsSid))

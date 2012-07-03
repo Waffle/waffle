@@ -1,9 +1,9 @@
-<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat Configuration Reference - The Context Container</title><meta content="Craig R. McClanahan" name="author"><style media="print" type="text/css">
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat Configuration Reference (6.0.35) - The Context Container</title><meta content="Craig R. McClanahan" name="author"><style media="print" type="text/css">
 			.noPrint {display: none;}
 			td#mainBody {width: 100%;}
 		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
     The Apache Tomcat Servlet/JSP Container
-  " align="right" src="../images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li><li><a href="index.html">Config Ref. Home</a></li></ul><p><strong>Top Level Elements</strong></p><ul><li><a href="server.html">Server</a></li><li><a href="service.html">Service</a></li></ul><p><strong>Executors</strong></p><ul><li><a href="executor.html">Executor</a></li></ul><p><strong>Connectors</strong></p><ul><li><a href="http.html">HTTP</a></li><li><a href="ajp.html">AJP</a></li></ul><p><strong>Containers</strong></p><ul><li><a href="context.html">Context</a></li><li><a href="engine.html">Engine</a></li><li><a href="host.html">Host</a></li><li><a href="cluster.html">Cluster</a></li></ul><p><strong>Nested Components</strong></p><ul><li><a href="listeners.html">Listeners</a></li><li><a href="globalresources.html">Global Resources</a></li><li><a href="loader.html">Loader</a></li><li><a href="manager.html">Manager</a></li><li><a href="realm.html">Realm</a></li><li><a href="resources.html">Resources</a></li><li><a href="valve.html">Valve</a></li></ul><p><strong>Cluster Elements</strong></p><ul><li><a href="cluster.html">Cluster</a></li><li><a href="cluster-manager.html">Manager</a></li><li><a href="cluster-channel.html">Channel</a></li><li><a href="cluster-membership.html">Channel/Membership</a></li><li><a href="cluster-sender.html">Channel/Sender</a></li><li><a href="cluster-receiver.html">Channel/Receiver</a></li><li><a href="cluster-interceptor.html">Channel/Interceptor</a></li><li><a href="cluster-valve.html">Valve</a></li><li><a href="cluster-deployer.html">Deployer</a></li><li><a href="cluster-listener.html">ClusterListener</a></li></ul><p><strong>Global Settings</strong></p><ul><li><a href="systemprops.html">System properties</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat Configuration Reference</h1><h2>The Context Container</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
+  " align="right" src="../images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1><font face="arial,helvetica,sanserif">Version 6.0.35, Nov 28 2011</font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li><li><a href="index.html">Config Ref. Home</a></li></ul><p><strong>Top Level Elements</strong></p><ul><li><a href="server.html">Server</a></li><li><a href="service.html">Service</a></li></ul><p><strong>Executors</strong></p><ul><li><a href="executor.html">Executor</a></li></ul><p><strong>Connectors</strong></p><ul><li><a href="http.html">HTTP</a></li><li><a href="ajp.html">AJP</a></li></ul><p><strong>Containers</strong></p><ul><li><a href="context.html">Context</a></li><li><a href="engine.html">Engine</a></li><li><a href="host.html">Host</a></li><li><a href="cluster.html">Cluster</a></li></ul><p><strong>Nested Components</strong></p><ul><li><a href="filter.html">Filter</a></li><li><a href="globalresources.html">Global Resources</a></li><li><a href="listeners.html">Listeners</a></li><li><a href="loader.html">Loader</a></li><li><a href="manager.html">Manager</a></li><li><a href="realm.html">Realm</a></li><li><a href="resources.html">Resources</a></li><li><a href="valve.html">Valve</a></li></ul><p><strong>Cluster Elements</strong></p><ul><li><a href="cluster.html">Cluster</a></li><li><a href="cluster-manager.html">Manager</a></li><li><a href="cluster-channel.html">Channel</a></li><li><a href="cluster-membership.html">Channel/Membership</a></li><li><a href="cluster-sender.html">Channel/Sender</a></li><li><a href="cluster-receiver.html">Channel/Receiver</a></li><li><a href="cluster-interceptor.html">Channel/Interceptor</a></li><li><a href="cluster-valve.html">Valve</a></li><li><a href="cluster-deployer.html">Deployer</a></li><li><a href="cluster-listener.html">ClusterListener</a></li></ul><p><strong>Global Settings</strong></p><ul><li><a href="systemprops.html">System properties</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat Configuration Reference</h1><h2>The Context Container</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
 <ul><li><a href="#Introduction">Introduction</a></li><li><a href="#Attributes">Attributes</a><ol><li><a href="#Common_Attributes">Common Attributes</a></li><li><a href="#Standard_Implementation">Standard Implementation</a></li></ol></li><li><a href="#Nested_Components">Nested Components</a></li><li><a href="#Special_Features">Special Features</a><ol><li><a href="#Logging">Logging</a></li><li><a href="#Access_Logs">Access Logs</a></li><li><a href="#Automatic_Context_Configuration">Automatic Context Configuration</a></li><li><a href="#Context_Parameters">Context Parameters</a></li><li><a href="#Environment_Entries">Environment Entries</a></li><li><a href="#Lifecycle_Listeners">Lifecycle Listeners</a></li><li><a href="#Request_Filters">Request Filters</a></li><li><a href="#Resource_Definitions">Resource Definitions</a></li><li><a href="#Resource_Links">Resource Links</a></li><li><a href="#Transaction">Transaction</a></li></ol></li></ul>
 </blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
 
@@ -22,7 +22,7 @@
   unpacked contents, as described in the Servlet Specification (version
   2.2 or later).  For more information about web application archives,
   you can download the
-  <a href="http://java.sun.com/products/servlet/download.html">Servlet
+  <a href="http://wiki.apache.org/tomcat/Specifications">Servlet
   Specification</a>, and review the Tomcat
   <a href="../appdev/index.html">Application Developer's Guide</a>.</p>
 
@@ -126,6 +126,15 @@
         host.  Set to <code>false</code> (the default) in security
         conscious environments, to make <code>getContext()</code> always
         return <code>null</code>.</p>
+      </td></tr><tr><td valign="center" align="left"><code>disableURLRewriting</code></td><td valign="center" align="left">
+        <p>Set to <code>true</code> to disable support for using URL rewriting
+        to track session IDs for clients of this Context. URL rewriting is an
+        optional component of the servlet 2.5 specification but disabling URL
+        rewriting will result in non-compliant behaviour since the specification
+        requires that there <em>must</em> be a way to retain sessions if the
+        client doesn't allow session cookies. If not specified, the
+        specification compliant default value of <code>false</code> will be
+        used.</p>
       </td></tr><tr><td valign="center" align="left"><strong><code>docBase</code></strong></td><td valign="center" align="left">
         <p>The <em>Document Base</em> (also known as the <em>Context
         Root</em>) directory for this web application, or the pathname
@@ -137,15 +146,15 @@
         <p>The value of this field must not be set when the Context is
         configured using a <code>META-INF/context.xml</code> file as it will be
         inferred by the automatic deployment process.</p>
+        <p>If a symbolic link is used for docBase then changes to the
+        symbolic link will only be effective after a Tomcat restart or
+        by undeploying and redeploying the context. A context reload is not
+        sufficient.</p>
       </td></tr><tr><td valign="center" align="left"><code>override</code></td><td valign="center" align="left">
         <p>Set to <code>true</code> to have explicit settings in this
         Context element override any corresponding settings in either the global
         or <a href="host.html">Host</a> default contexts.  By default, settings
         from a default context will be used.</p>
-        <p>If a symbolic link is used for docBase then changes to the
-        symbolic link will only be effective after a Tomcat restart or
-        by undeploying and redeploying the context. A context reload is not
-        sufficient.</p>
       </td></tr><tr><td valign="center" align="left"><code>privileged</code></td><td valign="center" align="left">
         <p>Set to <code>true</code> to allow this context to use container
         servlets, like the manager servlet. Use of the <code>privileged</code>
@@ -162,9 +171,15 @@
         If you specify a context path of an empty string (""), you are
         defining the <em>default</em> web application for this Host, which
         will process all requests not assigned to other Contexts.</p>
-        <p>The value of this field must not be set except when statically
-        defining a Context in server.xml, as it will be inferred from the
-        filenames used for either the .xml context file or the docBase.</p>
+        <p>This attribute must only be used when statically defining a Context
+        in server.xml. In all other circumstances, the path will be inferred
+        from the filenames used for either the .xml context file or the docBase.
+        </p>
+        <p>Even when statically defining a Context in server.xml, this attribute
+        must not be set unless either the docBase is not located under the
+        <a href="host.html">Host</a>'s <code>appBase</code> or both
+        <code>deployOnStartup</code> and <code>autoDeploy</code> are false. If
+        this rule is not followed, double deployment is likely to result.</p>
       </td></tr><tr><td valign="center" align="left"><code>reloadable</code></td><td valign="center" align="left">
         <p>Set to <code>true</code> if you want Catalina to monitor classes in
         <code>/WEB-INF/classes/</code> and <code>/WEB-INF/lib</code> for
@@ -223,9 +238,14 @@
       </td></tr><tr><td valign="center" align="left"><code>antiJARLocking</code></td><td valign="center" align="left">
         <p>If true, the Tomcat classloader will take extra measures to avoid
         JAR file locking when resources are accessed inside JARs through URLs.
-        This will impact startup time of applications, but could prove to be useful
-        on platforms or configurations where file locking can occur.
+        This will impact startup time of applications, but could prove to be
+        useful on platforms or configurations where file locking can occur.
         If not specified, the default value is <code>false</code>.</p>
+
+        <p><code>antiJARLocking</code> is a subset of
+        <code>antiResourceLocking</code> and therefore, to prevent duplicate
+        work and possible issues, only one of these attributes should be set
+        to <code>true</code> at any one time.</p>
       </td></tr><tr><td valign="center" align="left"><code>antiResourceLocking</code></td><td valign="center" align="left">
         <p>If true, Tomcat will prevent any file locking.
         This will significantly impact startup time of applications, 
@@ -233,19 +253,22 @@
         or configurations where file locking can occur.
         If not specified, the default value is <code>false</code>.</p>
    
-        <p>Please note that setting this to <code>true</code> has some side effects,
-        including the disabling of JSP reloading in a running server: see
-        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=37668">Bugzilla 37668</a>.
-        </p>
+        <p><code>antiJARLocking</code> is a subset of
+        <code>antiResourceLocking</code> and therefore, to prevent duplicate
+        work and possible issues, only one of these attributes should be set
+        to <code>true</code> at any one time.</p>
 
-        <p>
-        Please note that setting this flag to true in applications that are
+        <p>Please note that setting this to <code>true</code> has some side
+        effects, including the disabling of JSP reloading in a running server:
+        see <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=37668">
+        Bugzilla 37668</a>.</p>
+
+        <p>Please note that setting this flag to true in applications that are
         outside the appBase for the Host (the <code>webapps</code> directory
-        by default) will cause the application to be
-        <strong>deleted</strong> on Tomcat shutdown.  You probably don't want to
-        do this, so think twice before setting antiResourceLocking=true on a webapp
-        that's outside the appBase for its Host.
-        </p>
+        by default) will cause the application to be <strong>deleted</strong> on
+        Tomcat shutdown.  You probably don't want to do this, so think twice 
+        before setting antiResourceLocking=true on a webapp that's outside the
+        appBase for its Host.</p>
       </td></tr><tr><td valign="center" align="left"><code>cacheMaxSize</code></td><td valign="center" align="left">
         <p>Maximum size of the static resource cache in kilobytes. 
         If not specified, the default value is <code>10240</code>
@@ -265,8 +288,8 @@
         resources will be used. If not specified, the default value
         of the flag is <code>true</code>.</p>
       </td></tr><tr><td valign="center" align="left"><code>caseSensitive</code></td><td valign="center" align="left">
-        <p>Deprecated. This option will be removed in Tomcat 7 onwards where the
-        default of <code>true</code> will always be used.</p>
+        <p><strong>Deprecated.</strong> This option is removed in Tomcat 7
+        onwards where the default of <code>true</code> is always used.</p>
         <p>If the value of this flag is <code>false</code>, all case sensitivity
         checks will be disabled. If not 
         specified, the default value of the flag is <code>true</code>.</p>
@@ -274,6 +297,16 @@
         (or any other OS which does not have a case sensitive filesystem),
         as it will disable case sensitivity checks, allowing JSP source code
         disclosure, among other security problems.</b></p>
+      </td></tr><tr><td valign="center" align="left"><code>clearReferencesHttpClientKeepAliveThread</code></td><td valign="center" align="left">
+        <p>If <code>true</code> and an <code>sun.net.www.http.HttpClient</code>
+        keep-alive timer thread has been started by this web application and is
+        still running, Tomcat will change the context class loader for that
+        thread from the current <code>WebappClassLoader</code> to
+        <code>WebappClassLoader#parent</code> to prevent a memory leak. Note
+        that the keep-alive timer thread will stop on its own once the
+        keep-alives all expire however, on a busy system that might not happen
+        for some time. If not specified, the default value of
+        <code>true</code> will be used.</p>
       </td></tr><tr><td valign="center" align="left"><code>clearReferencesStopThreads</code></td><td valign="center" align="left">
         <p>If <code>true</code>, Tomcat attempts to terminate threads that have
         been started by the web application. Stopping threads is performed via
@@ -399,7 +432,7 @@
     by nesting a <a href="valve.html">Valve</a> element like this:</p>
 
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
-&lt;Context path="/examples" ...&gt;
+&lt;Context&gt;
   ...
   &lt;Valve className="org.apache.catalina.valves.AccessLogValve"
          prefix="localhost_access_log." suffix=".txt"
@@ -453,7 +486,7 @@
     <code>&lt;Parameter&gt;</code> elements inside this element.  For
     example, you can create an initialization parameter like this:</p>
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
-&lt;Context ...&gt;
+&lt;Context&gt;
   ...
   &lt;Parameter name="companyName" value="My Company, Incorporated"
          override="false"/&gt;
@@ -502,7 +535,7 @@
     <code>&lt;Environment&gt;</code> entries inside this element.  For
     example, you can create an environment entry like this:</p>
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
-&lt;Context ...&gt;
+&lt;Context&gt;
   ...
   &lt;Environment name="maxExemptions" value="10"
          type="java.lang.Integer" override="false"/&gt;
@@ -515,7 +548,7 @@
     </p>
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 &lt;env-entry&gt;
-  &lt;env-entry-name&gt;maxExemptions&lt;/param-name&gt;
+  &lt;env-entry-name&gt;maxExemptions&lt;/env-entry-name&gt;
   &lt;env-entry-value&gt;10&lt;/env-entry-value&gt;
   &lt;env-entry-type&gt;java.lang.Integer&lt;/env-entry-type&gt;
 &lt;/env-entry&gt;
@@ -567,7 +600,7 @@
     lifecycle events.  Configuration of such a listener looks like this:</p>
 
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
-&lt;Context path="/examples" ...&gt;
+&lt;Context&gt;
   ...
   &lt;Listener className="com.mycompany.mypackage.MyListener" ... &gt;
   ...
@@ -589,19 +622,18 @@
     <a href="engine.html">Engine</a>, <a href="host.html">Host</a>, or
     <a href="context.html">Context</a> element.  The remote address or name
     will be checked against a configured list of "accept" and/or "deny"
-    filters, which are defined using the Regular Expression syntax supported
-    by the <a href="http://jakarta.apache.org/regexp/">Jakarta Regexp</a>
-    regular expression library.  Requests that come from locations that are
+    filters, which are defined using <code>java.util.regex</code> Regular
+    Expression syntax.  Requests that come from locations that are
     not accepted will be rejected with an HTTP "Forbidden" error.
     Example filter declarations:</p>
 
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
-&lt;Context path="/examples" ...&gt;
+&lt;Context&gt;
   ...
   &lt;Valve className="org.apache.catalina.valves.RemoteHostValve"
-         allow="*.mycompany.com,www.yourcompany.com"/&gt;
+         allow=".*\.mycompany\.com|www\.yourcompany\.com"/&gt;
   &lt;Valve className="org.apache.catalina.valves.RemoteAddrValve"
-         deny="192.168.1.*"/&gt;
+         deny="192\.168\.1\.\d+"/&gt;
   ...
 &lt;/Context&gt;
 </pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr></table></div>
@@ -625,7 +657,7 @@
 
     <p>For example, you can create a resource definition like this:</p>
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
-&lt;Context ...&gt;
+&lt;Context&gt;
   ...
   &lt;Resource name="jdbc/EmployeeDB" auth="Container"
             type="javax.sql.DataSource"
@@ -688,7 +720,7 @@
 
     <p>For example, you can create a resource link like this:</p>
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
-&lt;Context ...&gt;
+&lt;Context&gt;
   ...
   &lt;ResourceLink name="linkToGlobalResource"
             global="simpleValue"
@@ -709,8 +741,65 @@
       </td></tr><tr><td valign="center" align="left"><strong><code>type</code></strong></td><td valign="center" align="left">
         <p>The fully qualified Java class name expected by the web
         application when it performs a lookup for this resource link.</p>
+      </td></tr><tr><td valign="center" align="left"><code>factory</code></td><td valign="center" align="left">
+        <p>The fully qualified Java class name for the class creating these objects.
+        This class should implement the <code>javax.naming.spi.ObjectFactory</code> interface.</p>
       </td></tr></table>
 
+    <p>When the attribute <code>factory="org.apache.naming.factory.DataSourceLinkFactory"</code> the resource link can be used with
+       two additional attributes to allow a shared data source to be used with different credentials.
+       When these two additional attributes are used in combination with the <code>javax.sql.DataSource</code>
+       type, different contexts can share a global data source with different credentials.
+       Under the hood, what happens is that a call to <a href="http://download.oracle.com/javase/6/docs/api/javax/sql/DataSource.html#getConnection()"><code>getConnection()</code></a>
+       is simply translated to a call <a href="http://download.oracle.com/javase/6/docs/api/javax/sql/DataSource.html#getConnection(java.lang.String,%20java.lang.String)">
+       <code>getConnection(username, password)</code></a> on the global data source. This is an easy way to get code to be transparent to what schemas are being used,
+       yet be able to control connections (or pools) in the global configuration. 
+    </p>
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>username</code></td><td valign="center" align="left">
+        <p><code>username</code> value for the <code>getConnection(username, password)</code>
+           call on the linked global DataSource.
+        </p>
+      </td></tr><tr><td valign="center" align="left"><code>password</code></td><td valign="center" align="left">
+        <p><code>password</code> value for the <code>getConnection(username, password)</code>
+           call on the linked global DataSource.
+        </p>
+      </td></tr></table>
+    <p>Shared Data Source Example</p>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+&lt;GlobalNamingResources&gt;
+  ...
+  &lt;Resource name="sharedDataSource"
+            global="sharedDataSource"
+            type="javax.sql.DataSource"
+            username="bar"
+            password="barpass"
+            
+            ...
+  ...
+&lt;/GlobalNamingResources&gt;
+
+&lt;Context path="/foo"...&gt;
+  ...
+  &lt;ResourceLink 
+            name="appDataSource"
+            global="sharedDataSource"
+            type="javax.sql.DataSource"
+            factory="org.apache.naming.factory.DataSourceLinkFactory"
+            username="foo"
+            password="foopass"
+  ...
+&lt;/Context&gt;
+&lt;Context path="/bar"...&gt;
+  ...
+  &lt;ResourceLink 
+            name="appDataSource"
+            global="sharedDataSource"
+            type="javax.sql.DataSource"
+  ...
+&lt;/Context&gt;
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr></table></div>    
+    <p>When a request for <code>getConnection()</code> is made in the <code>/foo</code> context, the request is translated into
+       <code>getConnection("foo","foopass")</code>, while a request in the <code>/bar</code> gets passed straight through.</p>
   </blockquote></td></tr></table>
 
   <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Transaction"><strong>Transaction</strong></a></font></td></tr><tr><td><blockquote>
@@ -732,5 +821,5 @@
   </blockquote></td></tr></table>
 
 </blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
-        Copyright &copy; 1999-2010, Apache Software Foundation
+        Copyright &copy; 1999-2011, Apache Software Foundation
         </em></font></div></td></tr></table></body></html>

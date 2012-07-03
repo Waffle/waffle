@@ -17,7 +17,6 @@ import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.catalina.connector.Request;
@@ -25,7 +24,7 @@ import org.apache.catalina.connector.Request;
 /**
  * @author dblock[at]dblock[dot]org
  */
-public class SimpleHttpRequest extends Request implements HttpServletRequest {
+public class SimpleHttpRequest extends Request {
 	
 	private static int _remotePort_s = 0;
 	
@@ -103,6 +102,7 @@ public class SimpleHttpRequest extends Request implements HttpServletRequest {
 		return _session;
 	}
 	
+	@Override
 	public HttpSession getSession(boolean create) {
 		if (_session == null && create) {
 			_session = new SimpleHttpSession();

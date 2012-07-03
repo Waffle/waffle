@@ -33,6 +33,7 @@ public class UsernamePasswordCallbackHandler implements CallbackHandler {
 		_password = password;
 	}
 
+	@Override
 	public void handle(Callback[] cb) throws IOException, UnsupportedCallbackException {
 		for (int i = 0; i < cb.length; i++) {
 			if (cb[i] instanceof NameCallback) {

@@ -34,10 +34,12 @@ public class MockWindowsIdentity implements IWindowsIdentity {
 		_groups = groups;
 	}
 	
+	@Override
 	public String getFqn() {
 		return _fqn;
 	}
 
+	@Override
 	public IWindowsAccount[] getGroups() {
 		List<MockWindowsAccount> groups = new ArrayList<MockWindowsAccount>();
 		for(String group : _groups) {
@@ -46,22 +48,27 @@ public class MockWindowsIdentity implements IWindowsIdentity {
 		return groups.toArray(new IWindowsAccount[0]);
 	}
 
+	@Override
 	public byte[] getSid() {
 		return null;
 	}
 
+	@Override
 	public String getSidString() {
 		return "S-" + _fqn.hashCode();
 	}
 	
+	@Override
 	public void dispose() {
 		
 	}
 	
+	@Override
 	public boolean isGuest() {
 		return _fqn.equals("Guest");
 	}
 	
+	@Override
 	public IWindowsImpersonationContext impersonate() {
 		return new MockWindowsImpersonationContext();
 	}

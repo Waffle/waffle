@@ -15,7 +15,7 @@
   limitations under the License.
 ================================================================================
 
-$Id: BUILDING.txt 717919 2008-11-15 19:48:42Z markt $
+$Id: BUILDING.txt 1202262 2011-11-15 15:54:27Z kkolinko $
 
             ====================================================
             Building The Apache Tomcat 6.0 Servlet/JSP Container
@@ -23,9 +23,14 @@ $Id: BUILDING.txt 717919 2008-11-15 19:48:42Z markt $
 
 This subproject contains the source code for Tomcat 6.0, a container that
 implements the Servlet 2.5 and JSP 2.1 specifications from the Java
-Community Process <http://www.jcp.org/>.  In order to build a binary
-distribution version of the container from a source distribution, 
-do the following:
+Community Process <http://www.jcp.org/>.
+
+Note: If you just need to run Apache Tomcat, it is not necessary to build
+it. You may simply download a binary distribution. It is cross-platform.
+Read RUNNING.txt for the instruction on how to run it.
+
+In order to build a binary distribution version of Apache Tomcat from a
+source distribution, do the following:
 
 
 (0) Download and Install a Java Development Kit
@@ -68,17 +73,16 @@ do the following:
 
 (2.1) Checkout or obtain the source code for Tomcat 6.0
 
-* Tomcat SVN repository URL:
-  http://svn.apache.org/repos/asf/tomcat/tc6.0.x/
+* Tomcat 6.0 SVN repository URL:
+  http://svn.apache.org/repos/asf/tomcat/tc6.0.x/trunk/
 
 * Download a source package from:
   http://tomcat.apache.org/download-60.cgi
 
-* Checkout the source using SVN, selecting the desired version or
-  branch (current development source is at 
-  http://svn.apache.org/repos/asf/tomcat/tc6.0.x/trunk/), or 
-  unpack the source package. The location where the source has been
-  placed will be referred as ${tomcat.source}.
+* Checkout the source using SVN, selecting a tag for released version or
+  trunk for the current development code, or unpack a source package. The
+  location where the source has been placed will be referred as
+  ${tomcat.source}.
 
 (2.2) Building
 
@@ -88,13 +92,18 @@ do the following:
     ant download
     ant
 
+* WARNING: Running "ant download" command will download libraries required
+  to build Tomcat to the /usr/share/java directory.  On a typical Linux or
+  MacOX system an ordinary user  will not have access to write to this
+  directory, and, even if you do, it may not be appropriate for you to
+  write there.
+
+  On Windows this usually corresponds to the "C:\usr\share\java"
+  directory, unless Cygwin is used. Read below to learn how to customize
+  the directory used to download the binaries.
+
 * NOTE: Users accessing the Internet through a proxy must use a properties
   file to indicate to Ant the proxy configuration. Read below.
-
-* WARNING: Running this command will download binaries to the /usr/share/java 
-  directory. Make sure this is appropriate to do on your computer. On Windows, 
-  this usually corresponds to the "C:\usr\share\java" directory, unless Cygwin 
-  is used. Read below to customize the directory used to download the binaries.
 
 * The build can be controlled by creating a ${tomcat.source}/build.properties
   file, and adding the following content to it:
@@ -108,7 +117,7 @@ do the following:
     # ----- Default Base Path for Dependent Packages -----
     # Replace this path with the directory path where dependencies binaries
     # should be downloaded
-    base.path=/usr/share/java
+    base.path=/home/me/some-place-to-download-to
 
 
 (3) Updating sources
@@ -138,5 +147,3 @@ The documentation can be easly built:
 
     cd ${tomcat.source}
     ant -f dist.xml release
-
-

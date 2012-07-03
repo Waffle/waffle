@@ -37,34 +37,42 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
 		_identity = new MockWindowsIdentity(username, groups);		
 	}
 	
+	@Override
 	public void dispose() {
 		
 	}
 
+	@Override
 	public boolean getContinue() {
 		return false;
 	}
 
+	@Override
 	public CtxtHandle getHandle() {
 		return new CtxtHandle();
 	}
 
+	@Override
 	public IWindowsIdentity getIdentity() {
 		return _identity;
 	}
 
+	@Override
 	public String getPrincipalName() {
 		return _identity.getFqn();
 	}
 
+	@Override
 	public String getSecurityPackage() {
 		return "Mock";
 	}
 
+	@Override
 	public byte[] getToken() {
 		return null;
 	}
 
+	@Override
 	public IWindowsImpersonationContext impersonate() {
 		return new MockWindowsImpersonationContext();
 	}
@@ -73,6 +81,7 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
 		
 	}
 
+	@Override
 	public void initialize(CtxtHandle continueCtx, SecBufferDesc continueToken, String targetPrincipalName) {
 		
 	}

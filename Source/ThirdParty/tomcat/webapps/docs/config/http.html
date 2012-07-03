@@ -1,9 +1,9 @@
-<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat Configuration Reference - The HTTP Connector</title><meta content="Craig R. McClanahan" name="author"><meta content="Yoav Shapira" name="author"><style media="print" type="text/css">
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat Configuration Reference (6.0.35) - The HTTP Connector</title><meta content="Craig R. McClanahan" name="author"><meta content="Yoav Shapira" name="author"><style media="print" type="text/css">
 			.noPrint {display: none;}
 			td#mainBody {width: 100%;}
 		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
     The Apache Tomcat Servlet/JSP Container
-  " align="right" src="../images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li><li><a href="index.html">Config Ref. Home</a></li></ul><p><strong>Top Level Elements</strong></p><ul><li><a href="server.html">Server</a></li><li><a href="service.html">Service</a></li></ul><p><strong>Executors</strong></p><ul><li><a href="executor.html">Executor</a></li></ul><p><strong>Connectors</strong></p><ul><li><a href="http.html">HTTP</a></li><li><a href="ajp.html">AJP</a></li></ul><p><strong>Containers</strong></p><ul><li><a href="context.html">Context</a></li><li><a href="engine.html">Engine</a></li><li><a href="host.html">Host</a></li><li><a href="cluster.html">Cluster</a></li></ul><p><strong>Nested Components</strong></p><ul><li><a href="listeners.html">Listeners</a></li><li><a href="globalresources.html">Global Resources</a></li><li><a href="loader.html">Loader</a></li><li><a href="manager.html">Manager</a></li><li><a href="realm.html">Realm</a></li><li><a href="resources.html">Resources</a></li><li><a href="valve.html">Valve</a></li></ul><p><strong>Cluster Elements</strong></p><ul><li><a href="cluster.html">Cluster</a></li><li><a href="cluster-manager.html">Manager</a></li><li><a href="cluster-channel.html">Channel</a></li><li><a href="cluster-membership.html">Channel/Membership</a></li><li><a href="cluster-sender.html">Channel/Sender</a></li><li><a href="cluster-receiver.html">Channel/Receiver</a></li><li><a href="cluster-interceptor.html">Channel/Interceptor</a></li><li><a href="cluster-valve.html">Valve</a></li><li><a href="cluster-deployer.html">Deployer</a></li><li><a href="cluster-listener.html">ClusterListener</a></li></ul><p><strong>Global Settings</strong></p><ul><li><a href="systemprops.html">System properties</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat Configuration Reference</h1><h2>The HTTP Connector</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
+  " align="right" src="../images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1><font face="arial,helvetica,sanserif">Version 6.0.35, Nov 28 2011</font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li><li><a href="index.html">Config Ref. Home</a></li></ul><p><strong>Top Level Elements</strong></p><ul><li><a href="server.html">Server</a></li><li><a href="service.html">Service</a></li></ul><p><strong>Executors</strong></p><ul><li><a href="executor.html">Executor</a></li></ul><p><strong>Connectors</strong></p><ul><li><a href="http.html">HTTP</a></li><li><a href="ajp.html">AJP</a></li></ul><p><strong>Containers</strong></p><ul><li><a href="context.html">Context</a></li><li><a href="engine.html">Engine</a></li><li><a href="host.html">Host</a></li><li><a href="cluster.html">Cluster</a></li></ul><p><strong>Nested Components</strong></p><ul><li><a href="filter.html">Filter</a></li><li><a href="globalresources.html">Global Resources</a></li><li><a href="listeners.html">Listeners</a></li><li><a href="loader.html">Loader</a></li><li><a href="manager.html">Manager</a></li><li><a href="realm.html">Realm</a></li><li><a href="resources.html">Resources</a></li><li><a href="valve.html">Valve</a></li></ul><p><strong>Cluster Elements</strong></p><ul><li><a href="cluster.html">Cluster</a></li><li><a href="cluster-manager.html">Manager</a></li><li><a href="cluster-channel.html">Channel</a></li><li><a href="cluster-membership.html">Channel/Membership</a></li><li><a href="cluster-sender.html">Channel/Sender</a></li><li><a href="cluster-receiver.html">Channel/Receiver</a></li><li><a href="cluster-interceptor.html">Channel/Interceptor</a></li><li><a href="cluster-valve.html">Valve</a></li><li><a href="cluster-deployer.html">Deployer</a></li><li><a href="cluster-listener.html">ClusterListener</a></li></ul><p><strong>Global Settings</strong></p><ul><li><a href="systemprops.html">System properties</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat Configuration Reference</h1><h2>The HTTP Connector</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
 <ul><li><a href="#Introduction">Introduction</a></li><li><a href="#Attributes">Attributes</a><ol><li><a href="#Common_Attributes">Common Attributes</a></li><li><a href="#Standard_Implementation">Standard Implementation</a></li><li><a href="#Nio_Implementation">Nio Implementation</a></li></ol></li><li><a href="#Nested_Components">Nested Components</a></li><li><a href="#Special_Features">Special Features</a><ol><li><a href="#HTTP/1.1_and_HTTP/1.0_Support">HTTP/1.1 and HTTP/1.0 Support</a></li><li><a href="#Proxy_Support">Proxy Support</a></li><li><a href="#SSL_Support">SSL Support</a></li><li><a href="#Connector_Comparison">Connector Comparison</a></li></ol></li></ul>
 </blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
 
@@ -60,6 +60,12 @@
       to <code>false</code> to skip the DNS lookup and return the IP
       address in String form instead (thereby improving performance).
       By default, DNS lookups are enabled.</p>
+    </td></tr><tr><td valign="center" align="left"><code>maxParameterCount</code></td><td valign="center" align="left">
+      <p>The maximum number of parameters (GET plus POST) which will be
+      automatically parsed by the container. A value of less than 0 means no
+      limit. If not specified, a default of 10000 is used. Note that
+      <code>FailedRequestFilter</code> <a href="filter.html">filter</a> can be
+      used to reject requests that hit the limit.</p>
     </td></tr><tr><td valign="center" align="left"><code>maxPostSize</code></td><td valign="center" align="left">
       <p>The maximum size in bytes of the POST which will be handled by
       the container FORM URL parameter parsing. The limit can be disabled by
@@ -197,10 +203,24 @@
       the content-length is not known and compression is set to "on" or more
       aggressive, the output will also be compressed. If not specified, this
       attribute is set to "off".</p>
+      <p><em>Note</em>: There is a tradeoff between using compression (saving
+      your bandwidth) and using the sendfile feature (saving your CPU cycles).
+      If the connector supports the sendfile feature, e.g. the NIO connector,
+      using sendfile will take precedence over compression. The symptoms will
+      be that static files greater that 48 Kb will be sent uncompressed.
+      You can turn off sendfile by setting <code>useSendfile</code> attribute
+      of the connector, as documented below, or change the sendfile usage
+      threshold in the configuration of the
+      <a href="../default-servlet.html">DefaultServlet</a> in the default
+      <code>conf/web.xml</code> or in the <code>web.xml</code> of your web
+      application.
+      </p>
     </td></tr><tr><td valign="center" align="left"><code>connectionLinger</code></td><td valign="center" align="left">
-      <p>The number of milliseconds during which the sockets used by this
-      <strong>Connector</strong> will linger when they are closed.
-      The default value is -1 (socket linger is disabled).</p>
+      <p>The number of seconds during which the sockets used by this
+      <strong>Connector</strong> will linger when they are closed. Setting this
+      attribute to <code>-1</code> will disable connection linger. The default
+      value for the BIO and AJP connectors is 100. The default value for the NIO
+      connection is 25.</p>
     </td></tr><tr><td valign="center" align="left"><code>connectionTimeout</code></td><td valign="center" align="left">
       <p>The number of milliseconds this <strong>Connector</strong> will wait,
       after accepting a connection, for the request URI line to be
@@ -286,7 +306,7 @@
     <p>The NIO connector exposes all the low level socket properties that can be used to tune the connector.
     Most of these attributes are directly linked to the socket implementation in the JDK so you can find out 
     about the actual meaning in the JDK API documentation.<br>
-    <strong>Note</strong>On some JDK versions, setTrafficClass causes a problem, a work around for this is to add 
+    <strong>Note:</strong> On some JDK versions, setTrafficClass causes a problem, a work around for this is to add 
     the <code>-Djava.net.preferIPv4Stack=true</code> value to your command line</p>
 
     <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>useSendfile</code></td><td valign="center" align="left">
@@ -332,7 +352,7 @@
            value to an extremely high one. The default value is <code>1000</code> milliseconds.</p>
       </td></tr><tr><td valign="center" align="left"><code>useComet</code></td><td valign="center" align="left">
         <p>(bool)Whether to allow comet servlets or not, Default value is <code>true</code>.</p>
-      </td></tr><tr><td valign="center" align="left"><code>processCache</code></td><td valign="center" align="left">
+      </td></tr><tr><td valign="center" align="left"><code>processorCache</code></td><td valign="center" align="left">
         <p>(int)The protocol handler caches Http11NioProcessor objects to speed up performance.
            This setting dictates how many of these objects get cached.
            <code>-1</code> means unlimited, default is <code>200</code>. Set this value somewhere close to your maxThreads value.
@@ -427,10 +447,11 @@
         Default value is <code>-1</code> (unlimited)</p>
       </td></tr><tr><td valign="center" align="left"><code>command-line-options</code></td><td valign="center" align="left">
         <p>The following command line options are available for the NIO connector:<br>
-        <code>-Dorg.apache.tomcat.util.net.NioSelectorShared=true|false</code> - default is <code>true</code>.
-        Set this value to false if you wish to use a selector for each thread.
-        the property. If you do set it to false, you can control the size of the pool of selectors by using the 
-        selectorPool.maxSelectors attribute</p>
+        <code>-Dorg.apache.tomcat.util.net.NioSelectorShared=true|false</code>
+        - default is <code>true</code>. Set this value to <code>false</code> if you wish to
+        use a selector for each thread. When you set it to <code>false</code>, you can
+        control the size of the pool of selectors by using the 
+        <strong>selectorPool.maxSelectors</strong> attribute</p>
       </td></tr><tr><td valign="center" align="left"><code>oomParachute</code></td><td valign="center" align="left">
         <p>(int)The NIO connector implements an OutOfMemoryError strategy called parachute.
            It holds a chunk of data as a byte array. In case of an OOM,
@@ -506,10 +527,11 @@
   attributes:</p>
 
   <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>algorithm</code></td><td valign="center" align="left">
-      <p>The certificate encoding algorithm to be used. This defaults to the Sun
-      implementation (<code>SunX509</code>). For IBM JVMs you should use the
-      value <code>IbmX509</code>. For other vendors, consult the JVM
-      documentation for the correct value.</p>
+      <p>The certificate encoding algorithm to be used. This defaults to
+      <code>KeyManagerFactory.getDefaultAlgorithm()</code> which returns
+      <code>SunX509</code> for Sun JVMs. IBM JVMs return
+      <code>IbmX509</code>. For other vendors, consult the JVM
+      documentation for the default value.</p>
     </td></tr><tr><td valign="center" align="left"><code>clientAuth</code></td><td valign="center" align="left">
       <p>Set to <code>true</code> if you want the SSL stack to require a
       valid certificate chain from the client before accepting a connection.
@@ -519,6 +541,15 @@
       unless the client requests a resource protected by a security
       constraint that uses <code>CLIENT-CERT</code> authentication. See the
       <a href="../ssl-howto.html">SSL HowTo</a> for an example.</p>
+    </td></tr><tr><td valign="center" align="left"><code>clientCertProvider</code></td><td valign="center" align="left">
+      <p>When client certificate information is presented in a form other than
+      instances of <code>java.security.cert.X509Certificate</code> it needs to
+      be converted before it can be used and this property controls which JSSE
+      provider is used to perform the conversion. For example it is used with
+      the <a href="ajp.html">AJP connectors</a>, the HTTP APR connector and
+      with the <a href="valve.html#SSL_Authenticator_Valve">
+      org.apache.catalina.valves.SSLValve</a>. If not specified, the default
+      provider will be used.</p>
     </td></tr><tr><td valign="center" align="left"><code>keystoreFile</code></td><td valign="center" align="left">
       <p>The pathname of the keystore file where you have stored the
       server certificate to be loaded.  By default, the pathname is
@@ -551,6 +582,12 @@
     </td></tr><tr><td valign="center" align="left"><code>keyAlias</code></td><td valign="center" align="left">
       <p>The alias used to for the server certificate in the keystore. If not
       specified the first key read in the keystore will be used.</p>
+    </td></tr><tr><td valign="center" align="left"><code>trustManagerClassName</code></td><td valign="center" align="left">
+      <p>The name of a custom trust manager class to use to validate client
+      certificates. The class must have a zero argument constructor and must
+      also implement <code>javax.net.ssl.X509TrustManager</code>. If this
+      attribute is set, the trust store attributes may be ignored.
+      </p>
     </td></tr><tr><td valign="center" align="left"><code>truststoreFile</code></td><td valign="center" align="left">
       <p>The trust store file to use to validate client certificates. The
       default is the value of the <code>javax.net.ssl.trustStore</code> system
@@ -560,8 +597,12 @@
       <p>The password to access the trust store. The default is the value of the
       <code>javax.net.ssl.trustStorePassword</code> system property. If that
       property is null, the value of <code>keystorePass</code> is used as the
-      default. If neither this attribute, the default system property nor
-      <code>keystorePass</code>is set, no trust store will be configured.</p>
+      default. If an invalid trust store password is specified, a warning will
+      be logged and an attempt will be made to access the trust store without a
+      password which will skip validation of the trust store contents. If the
+      trust store password is defined as <code>""</code> then no
+      password will be used to access the store which will also skip validation
+      of the trust store contents.</p>
     </td></tr><tr><td valign="center" align="left"><code>truststoreType</code></td><td valign="center" align="left">
       <p>The type of key store used for the trust store. The default is the
       value of the <code>javax.net.ssl.trustStoreType</code> system property. If
@@ -592,7 +633,13 @@
       <p>Is unsafe legacy TLS renegotiation allowed which is likely to expose
       users to CVE-2009-3555, a man-in-the-middle vulnerability in the TLS
       protocol that allows an attacker to inject arbitrary data into the user's
-      request. If not specified, a default of <code>false</code> is used.</p>
+      request. If not specified, a default of <code>false</code> is used. This
+      attribute only has an effect if the JVM does not support RFC 5746 as
+      indicated by the presence of the pseudo-ciphersuite
+      TLS_EMPTY_RENEGOTIATION_INFO_SCSV. This is available JRE/JDK 6 update 22
+      onwards. Where RFC 5746 is supported the renegotiation - including support
+      for unsafe legacy renegotiation - is controlled by the JVM configuration.
+      </p>
     </td></tr></table>
 
   <p>For more information, see the
@@ -620,5 +667,5 @@
 
   </blockquote></td></tr></table>
 </blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
-        Copyright &copy; 1999-2010, Apache Software Foundation
+        Copyright &copy; 1999-2011, Apache Software Foundation
         </em></font></div></td></tr></table></body></html>

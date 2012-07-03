@@ -18,7 +18,7 @@
 # -----------------------------------------------------------------------------
 # Start/Stop Script for the CATALINA Server
 #
-# Environment Variable Prequisites
+# Environment Variable Prerequisites
 #
 #   CATALINA_HOME   May point at your Catalina "build" directory.
 #
@@ -27,7 +27,7 @@
 #                   the same directory that CATALINA_HOME points to.
 #
 #   CATALINA_OUT    (Optional) Full path to a file where stdout and stderr
-#                   will be redirected. 
+#                   will be redirected.
 #                   Default is $CATALINA_BASE/logs/catalina.out
 #
 #   CATALINA_OPTS   (Optional) Java runtime options used when the "start",
@@ -47,8 +47,8 @@
 #                   "stop", or "run" command is executed.
 #
 #   JAVA_ENDORSED_DIRS (Optional) Lists of of colon separated directories
-#                   containing some jars in order to allow replacement of APIs 
-#                   created outside of the JCP (i.e. DOM and SAX from W3C). 
+#                   containing some jars in order to allow replacement of APIs
+#                   created outside of the JCP (i.e. DOM and SAX from W3C).
 #                   It can also be used to update the XML parser implementation.
 #                   Defaults to $CATALINA_HOME/endorsed.
 #
@@ -77,11 +77,11 @@
 #                   Example (all one line)
 #                   LOGGING_CONFIG="-Djava.util.logging.config.file=$CATALINA_BASE/conf/logging.properties"
 #
-#   LOGGING_MANAGER (Optional) Override Tomcat's logging manager 
+#   LOGGING_MANAGER (Optional) Override Tomcat's logging manager
 #                   Example (all one line)
 #                   LOGGING_MANAGER="-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager"
 #
-# $Id: catalina.sh 947714 2010-05-24 16:57:18Z markt $
+# $Id: catalina.sh 1146097 2011-07-13 15:25:05Z markt $
 # -----------------------------------------------------------------------------
 
 # OS specific support.  $var _must_ be set to either true or false.
@@ -113,14 +113,17 @@ PRGDIR=`dirname "$PRG"`
 # Only set CATALINA_HOME if not already set
 [ -z "$CATALINA_HOME" ] && CATALINA_HOME=`cd "$PRGDIR/.." >/dev/null; pwd`
 
+# Copy CATALINA_BASE from CATALINA_HOME if not already set
+[ -z "$CATALINA_BASE" ] && CATALINA_BASE="$CATALINA_HOME"
+
 # Ensure that any user defined CLASSPATH variables are not used on startup,
 # but allow them to be specified in setenv.sh, in rare case when it is needed.
 CLASSPATH=
 
-if [ -r "$CATALINA_BASE"/bin/setenv.sh ]; then
-  . "$CATALINA_BASE"/bin/setenv.sh
-elif [ -r "$CATALINA_HOME"/bin/setenv.sh ]; then
-  . "$CATALINA_HOME"/bin/setenv.sh
+if [ -r "$CATALINA_BASE/bin/setenv.sh" ]; then
+  . "$CATALINA_BASE/bin/setenv.sh"
+elif [ -r "$CATALINA_HOME/bin/setenv.sh" ]; then
+  . "$CATALINA_HOME/bin/setenv.sh"
 fi
 
 # For Cygwin, ensure paths are in UNIX format before anything is touched
@@ -151,7 +154,7 @@ if $os400; then
   # 2. owned by the PRIMARY group of the user
   # this will not work if the user belongs in secondary groups
   BASEDIR="$CATALINA_HOME"
-  . "$CATALINA_HOME"/bin/setclasspath.sh 
+  . "$CATALINA_HOME"/bin/setclasspath.sh
 else
   if [ -r "$CATALINA_HOME"/bin/setclasspath.sh ]; then
     BASEDIR="$CATALINA_HOME"
@@ -216,7 +219,7 @@ fi
 
 if [ -z "$LOGGING_MANAGER" ]; then
   JAVA_OPTS="$JAVA_OPTS -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager"
-else 
+else
   JAVA_OPTS="$JAVA_OPTS $LOGGING_MANAGER"
 fi
 
@@ -233,6 +236,9 @@ if [ $have_tty -eq 1 ]; then
     echo "Using JRE_HOME:        $JRE_HOME"
   fi
   echo "Using CLASSPATH:       $CLASSPATH"
+  if [ ! -z "$CATALINA_PID" ]; then
+    echo "Using CATALINA_PID:    $CATALINA_PID"
+  fi
 fi
 
 if [ "$1" = "jpda" ] ; then
@@ -312,8 +318,39 @@ elif [ "$1" = "start" ] ; then
 
   if [ ! -z "$CATALINA_PID" ]; then
     if [ -f "$CATALINA_PID" ]; then
-      echo "PID file ($CATALINA_PID) found. Is Tomcat still running? Start aborted."
-      exit 1
+      if [ -s "$CATALINA_PID" ]; then
+        echo "Existing PID file found during start."
+        if [ -r "$CATALINA_PID" ]; then
+          PID=`cat "$CATALINA_PID"`
+          ps -p $PID >/dev/null 2>&1
+          if [ $? -eq 0 ] ; then
+            echo "Tomcat appears to still be running with PID $PID. Start aborted."
+            exit 1
+          else
+            echo "Removing/clearing stale PID file."
+            rm -f "$CATALINA_PID" >/dev/null 2>&1
+            if [ $? != 0 ]; then
+              if [ -w "$CATALINA_PID" ]; then
+                cat /dev/null > "$CATALINA_PID"
+              else
+                echo "Unable to remove or clear stale PID file. Start aborted."
+                exit 1
+              fi
+            fi
+          fi
+        else
+          echo "Unable to read PID file. Start aborted."
+          exit 1
+        fi
+      else
+        rm -f "$CATALINA_PID" >/dev/null 2>&1
+        if [ $? != 0 ]; then
+          if [ ! -w "$CATALINA_PID" ]; then
+            echo "Unable to remove or write to empty PID file. Start aborted."
+            exit 1
+          fi
+        fi
+      fi
     fi
   fi
 
@@ -346,7 +383,7 @@ elif [ "$1" = "start" ] ; then
   fi
 
   if [ ! -z "$CATALINA_PID" ]; then
-    echo $! > $CATALINA_PID
+    echo $! > "$CATALINA_PID"
   fi
 
 elif [ "$1" = "stop" ] ; then
@@ -355,7 +392,7 @@ elif [ "$1" = "stop" ] ; then
 
   SLEEP=5
   if [ ! -z "$1" ]; then
-    echo $1 | grep "[^0-9]" > /dev/null 2>&1
+    echo $1 | grep "[^0-9]" >/dev/null 2>&1
     if [ $? -gt 0 ]; then
       SLEEP=$1
       shift
@@ -370,13 +407,17 @@ elif [ "$1" = "stop" ] ; then
 
   if [ ! -z "$CATALINA_PID" ]; then
     if [ -f "$CATALINA_PID" ]; then
-      kill -0 `cat $CATALINA_PID` >/dev/null 2>&1
-      if [ $? -gt 0 ]; then
-        echo "PID file ($CATALINA_PID) found but no matching process was found. Stop aborted."
-        exit 1
+      if [ -s "$CATALINA_PID" ]; then
+        kill -0 `cat "$CATALINA_PID"` >/dev/null 2>&1
+        if [ $? -gt 0 ]; then
+          echo "PID file found but no matching process was found. Stop aborted."
+          exit 1
+        fi
+      else
+        echo "PID file is empty and has been ignored."
       fi
     else
-      echo "\$CATALINA_PID was set ($CATALINA_PID) but the specified file does not exist. Is Tomcat running? Stop aborted."
+      echo "\$CATALINA_PID was set but the specified file does not exist. Is Tomcat running? Stop aborted."
       exit 1
     fi
   fi
@@ -390,10 +431,17 @@ elif [ "$1" = "stop" ] ; then
 
   if [ ! -z "$CATALINA_PID" ]; then
     if [ -f "$CATALINA_PID" ]; then
-      while [ $SLEEP -ge 0 ]; do 
-        kill -0 `cat $CATALINA_PID` >/dev/null 2>&1
+      while [ $SLEEP -ge 0 ]; do
+        kill -0 `cat "$CATALINA_PID"` >/dev/null 2>&1
         if [ $? -gt 0 ]; then
-          rm $CATALINA_PID
+          rm -f "$CATALINA_PID" >/dev/null 2>&1
+          if [ $? != 0 ]; then
+            if [ -w "$CATALINA_PID" ]; then
+              cat /dev/null > "$CATALINA_PID"
+            else
+              echo "Tomcat stopped but the PID file could not be removed or cleared."
+            fi
+          fi
           break
         fi
         if [ $SLEEP -gt 0 ]; then
@@ -414,9 +462,13 @@ elif [ "$1" = "stop" ] ; then
       echo "Kill failed: \$CATALINA_PID not set"
     else
       if [ -f "$CATALINA_PID" ]; then
-        echo "Killing: `cat $CATALINA_PID`"
-        kill -9 `cat $CATALINA_PID`
-        rm $CATALINA_PID
+        PID=`cat "$CATALINA_PID"`
+        echo "Killing Tomcat with the PID: $PID"
+        kill -9 $PID
+        rm -f "$CATALINA_PID" >/dev/null 2>&1
+        if [ $? != 0 ]; then
+          echo "Tomcat was killed but the PID file could not be removed."
+        fi
       fi
     fi
   fi

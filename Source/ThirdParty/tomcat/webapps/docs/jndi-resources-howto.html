@@ -1,9 +1,9 @@
-<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat 6.0 - JNDI Resources HOW-TO</title><meta content="Craig R. McClanahan" name="author"><meta content="Yoav Shapira" name="author"><style media="print" type="text/css">
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat 6.0 (6.0.35) - JNDI Resources HOW-TO</title><meta content="Craig R. McClanahan" name="author"><meta content="Yoav Shapira" name="author"><style media="print" type="text/css">
 			.noPrint {display: none;}
 			td#mainBody {width: 100%;}
 		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
       The Apache Tomcat Servlet/JSP Container
-    " align="right" src="./images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="./images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="index.html">Docs Home</a></li><li><a href="http://wiki.apache.org/tomcat/FAQ">FAQ</a></li></ul><p><strong>User Guide</strong></p><ul><li><a href="introduction.html">1) Introduction</a></li><li><a href="setup.html">2) Setup</a></li><li><a href="appdev/index.html">3) First webapp</a></li><li><a href="deployer-howto.html">4) Deployer</a></li><li><a href="manager-howto.html">5) Manager</a></li><li><a href="realm-howto.html">6) Realms and AAA</a></li><li><a href="security-manager-howto.html">7) Security Manager</a></li><li><a href="jndi-resources-howto.html">8) JNDI Resources</a></li><li><a href="jndi-datasource-examples-howto.html">9) JDBC DataSources</a></li><li><a href="class-loader-howto.html">10) Classloading</a></li><li><a href="jasper-howto.html">11) JSPs</a></li><li><a href="ssl-howto.html">12) SSL</a></li><li><a href="ssi-howto.html">13) SSI</a></li><li><a href="cgi-howto.html">14) CGI</a></li><li><a href="proxy-howto.html">15) Proxy Support</a></li><li><a href="mbeans-descriptor-howto.html">16) MBean Descriptor</a></li><li><a href="default-servlet.html">17) Default Servlet</a></li><li><a href="cluster-howto.html">18) Clustering</a></li><li><a href="balancer-howto.html">19) Load Balancer</a></li><li><a href="connectors.html">20) Connectors</a></li><li><a href="monitoring.html">21) Monitoring and Management</a></li><li><a href="logging.html">22) Logging</a></li><li><a href="apr.html">23) APR/Native</a></li><li><a href="virtual-hosting-howto.html">24) Virtual Hosting</a></li><li><a href="aio.html">25) Advanced IO</a></li><li><a href="extras.html">26) Additional Components</a></li><li><a href="maven-jars.html">27) Mavenized</a></li></ul><p><strong>Reference</strong></p><ul><li><a href="RELEASE-NOTES.txt">Release Notes</a></li><li><a href="config/index.html">Configuration</a></li><li><a href="api/index.html">Javadocs</a></li><li><a href="http://tomcat.apache.org/connectors-doc/">JK 1.2 Documentation</a></li></ul><p><strong>Apache Tomcat Development</strong></p><ul><li><a href="building.html">Building</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="http://wiki.apache.org/tomcat/TomcatVersions">Status</a></li><li><a href="developers.html">Developers</a></li><li><a href="architecture/index.html">Architecture</a></li><li><a href="funcspecs/index.html">Functional Specs.</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat 6.0</h1><h2>JNDI Resources HOW-TO</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
+    " align="right" src="./images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1><font face="arial,helvetica,sanserif">Version 6.0.35, Nov 28 2011</font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="./images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="index.html">Docs Home</a></li><li><a href="http://wiki.apache.org/tomcat/FAQ">FAQ</a></li></ul><p><strong>User Guide</strong></p><ul><li><a href="introduction.html">1) Introduction</a></li><li><a href="setup.html">2) Setup</a></li><li><a href="appdev/index.html">3) First webapp</a></li><li><a href="deployer-howto.html">4) Deployer</a></li><li><a href="manager-howto.html">5) Manager</a></li><li><a href="realm-howto.html">6) Realms and AAA</a></li><li><a href="security-manager-howto.html">7) Security Manager</a></li><li><a href="jndi-resources-howto.html">8) JNDI Resources</a></li><li><a href="jndi-datasource-examples-howto.html">9) JDBC DataSources</a></li><li><a href="class-loader-howto.html">10) Classloading</a></li><li><a href="jasper-howto.html">11) JSPs</a></li><li><a href="ssl-howto.html">12) SSL</a></li><li><a href="ssi-howto.html">13) SSI</a></li><li><a href="cgi-howto.html">14) CGI</a></li><li><a href="proxy-howto.html">15) Proxy Support</a></li><li><a href="mbeans-descriptor-howto.html">16) MBean Descriptor</a></li><li><a href="default-servlet.html">17) Default Servlet</a></li><li><a href="cluster-howto.html">18) Clustering</a></li><li><a href="balancer-howto.html">19) Load Balancer</a></li><li><a href="connectors.html">20) Connectors</a></li><li><a href="monitoring.html">21) Monitoring and Management</a></li><li><a href="logging.html">22) Logging</a></li><li><a href="apr.html">23) APR/Native</a></li><li><a href="virtual-hosting-howto.html">24) Virtual Hosting</a></li><li><a href="aio.html">25) Advanced IO</a></li><li><a href="extras.html">26) Additional Components</a></li><li><a href="maven-jars.html">27) Mavenized</a></li></ul><p><strong>Reference</strong></p><ul><li><a href="RELEASE-NOTES.txt">Release Notes</a></li><li><a href="config/index.html">Configuration</a></li><li><a href="api/index.html">Javadocs</a></li><li><a href="http://tomcat.apache.org/connectors-doc/">JK 1.2 Documentation</a></li></ul><p><strong>Apache Tomcat Development</strong></p><ul><li><a href="building.html">Building</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="http://wiki.apache.org/tomcat/TomcatVersions">Status</a></li><li><a href="developers.html">Developers</a></li><li><a href="architecture/index.html">Architecture</a></li><li><a href="funcspecs/index.html">Functional Specs.</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat 6.0</h1><h2>JNDI Resources HOW-TO</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
 <ul><li><a href="#Introduction">Introduction</a></li><li><a href="#web.xml_configuration">web.xml configuration</a></li><li><a href="#context.xml_configuration">context.xml configuration</a></li><li><a href="#Global_configuration">Global configuration</a></li><li><a href="#Using_resources">Using resources</a></li><li><a href="#Tomcat_Standard_Resource_Factories">Tomcat Standard Resource Factories</a><ol><li><a href="#Generic_JavaBean_Resources">Generic JavaBean Resources</a></li><li><a href="#UserDatabase_Resources">UserDatabase Resources</a></li><li><a href="#JavaMail_Sessions">JavaMail Sessions</a></li><li><a href="#JDBC_Data_Sources">JDBC Data Sources</a></li></ol></li><li><a href="#Adding_Custom_Resource_Factories">Adding Custom Resource Factories</a></li></ul>
 </blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
 
@@ -111,7 +111,7 @@ attribute to "true").</p>
 <p>Tomcat 6 maintains a separate namespace of global resources for the 
 entire server.  These are configured in the 
 <a href="config/globalresources.html">
-<code><strong>&lt;GlobalNameingResources&gt;</strong></code></a> element of 
+<code><strong>&lt;GlobalNamingResources&gt;</strong></code></a> element of 
 <code>$CATALINA_BASE/conf/server.xml</code>. You may expose these resources to 
 web applications by using a 
 <a href="config/context.html#Resource Links">&lt;ResourceLink&gt;</a> to
@@ -243,7 +243,7 @@ public class MyBean {
     <p><strong>WARNING</strong> - Be sure you respect the element ordering
     that is required by the DTD for web application deployment descriptors!
     See the
-    <a href="http://java.sun.com/products/servlet/download.html">Servlet
+    <a href="http://wiki.apache.org/tomcat/Specifications">Servlet
     Specification</a> for details.</p>
 
   <h3>3.  Code Your Application's Use Of This Resource</h3>
@@ -405,7 +405,7 @@ writer.println("foo = " + bean.getFoo() + ", bar = " +
     <p><strong>WARNING</strong> - Be sure you respect the element ordering
     that is required by the DTD for web application deployment descriptors!
     See the
-    <a href="http://java.sun.com/products/servlet/download.html">Servlet
+    <a href="http://wiki.apache.org/tomcat/Specifications">Servlet
     Specification</a> for details.</p>
 
     <h3>2.  Code Your Application's Use Of This Resource</h3>
@@ -417,7 +417,7 @@ Context envCtx = (Context) initCtx.lookup("java:comp/env");
 Session session = (Session) envCtx.lookup("mail/Session");
 
 Message message = new MimeMessage(session);
-message.setFrom(new InternetAddress(request.getParameter("from"));
+message.setFrom(new InternetAddress(request.getParameter("from")));
 InternetAddress to[] = new InternetAddress[1];
 to[0] = new InternetAddress(request.getParameter("to"));
 message.setRecipients(Message.RecipientType.TO, to);
@@ -455,19 +455,20 @@ Transport.send(message);
 
     <h3>4.  Install the JavaMail libraries</h3>
 
-    <p><a href="http://java.sun.com/products/javamail/downloads/index.html">
+    <p><a href="http://www.oracle.com/technetwork/java/index-138643.html">
     Download the JavaMail API</a>.  The JavaMail API requires the Java Activation
-    Framework (JAF) API as well.  The Java Activation Framework can be downloaded
-    from <a href="http://java.sun.com/products/javabeans/glasgow/jaf.html">Sun's site</a>.
+    Framework (JAF) API as well.  The Java Activation Framework is included in
+    Java SE 6 onwards. Java SE 5 users can download the latest version, 
+    <a href="http://www.oracle.com/technetwork/java/javase/downloads/index-135046.html">
+    JAF 1.1.1</a>.
     </p>
 
-    <p>This download includes 2 vital libraries for the configuration; 
-    activation.jar and mail.jar. Unpackage both distributions and place 
-    them into $CATALINA_HOME/lib so that they are available to
-    Tomcat during the initialization of the mail Session Resource.
-    <strong>Note:</strong> placing these jars in both $CATALINA_HOME/lib and a 
-    web application's lib folder will cause an error, so ensure you have
-    them in the $CATALINA_HOME/lib location only.
+    <p>Unpackage the distribution(s) and place mail.jar (and activation.jar if
+    required) into $CATALINA_HOME/lib so the JAR(s) is(are) available to Tomcat
+    during the initialization of the mail Session Resource.
+    <strong>Note:</strong> placing jars in both $CATALINA_HOME/lib and a web
+    application's lib folder will cause an error, so ensure mail.jar (and
+    activation.jar) is(are) placed only the $CATALINA_HOME/lib location.
     </p>
 
     <h3>Example Application</h3>
@@ -564,7 +565,7 @@ Transport.send(message);
     <p><strong>WARNING</strong> - Be sure you respect the element ordering
     that is required by the DTD for web application deployment descriptors!
     See the
-    <a href="http://java.sun.com/products/servlet/download.html">Servlet
+    <a href="http://wiki.apache.org/tomcat/Specifications">Servlet
     Specification</a> for details.</p>
 
     <h3>3.  Code Your Application's Use Of This Resource</h3>
@@ -624,24 +625,108 @@ conn.close();
     <ul>
     <li><strong>driverClassName</strong> - Fully qualified Java class name
         of the JDBC driver to be used.</li>
-    <li><strong>maxActive</strong> - The maximum number of active instances
-        that can be allocated from this pool at the same time.</li>
-    <li><strong>maxIdle</strong> - The maximum number of connections that
-        can sit idle in this pool at the same time.</li>
-    <li><strong>maxWait</strong> - The maximum number of milliseconds that the
-        pool will wait (when there are no available connections) for a
-        connection to be returned before throwing an exception.</li>
+    <li><strong>username</strong> - Database username to be passed to our
+        JDBC driver.</li>
     <li><strong>password</strong> - Database password to be passed to our
         JDBC driver.</li>
     <li><strong>url</strong> - Connection URL to be passed to our JDBC driver.
         (For backwards compatibility, the property <code>driverName</code>
         is also recognized.)</li>
-    <li><strong>username</strong> - Database username to be passed to our
-        JDBC driver.</li>
+    <li><strong>initialSize</strong> - The initial number of connections
+        that will be created in the pool during pool initialization. Default: 0</li>
+    <li><strong>maxActive</strong> - The maximum number of connections
+        that can be allocated from this pool at the same time. Default: 8</li>
+    <li><strong>minIdle</strong> - The minimum number of connections that
+        will sit idle in this pool at the same time. Default: 0</li>
+    <li><strong>maxIdle</strong> - The maximum number of connections that
+        can sit idle in this pool at the same time. Default: 8</li>
+    <li><strong>maxWait</strong> - The maximum number of milliseconds that the
+        pool will wait (when there are no available connections) for a
+        connection to be returned before throwing an exception. Default: -1 (infinite)</li>
+    </ul>
+    <p>Some additional properties handle connection validation:</p>
+    <ul>
     <li><strong>validationQuery</strong> - SQL query that can be used by the
         pool to validate connections before they are returned to the
         application.  If specified, this query MUST be an SQL SELECT
         statement that returns at least one row.</li>
+    <li><strong>validationQueryTimeout</strong> - Timeout in seconds
+        for the validation query to return. Default: -1 (infinite)</li>
+    <li><strong>testOnBorrow</strong> - true or false: whether a connection
+        should be validated using the validation query each time it is
+        borrowed from the pool. Default: true</li>
+    <li><strong>testOnReturn</strong> - true or false: whether a connection
+        should be validated using the validation query each time it is
+        returned to the pool. Default: false</li>
+    </ul>
+    <p>The optional evictor thread is responsible for shrinking the pool
+    by removing any conections which are idle for a long time. The evictor
+    does not respect <code>minIdle</code>. Note that you do not need to
+    activate the evictor thread if you only want the pool to shrink according
+    to the configured <code>maxIdle</code> property.</p>
+    <p>The evictor is disabled by default and can be configured using
+    the following properties:</p>
+    <ul>
+    <li><strong>timeBetweenEvictionRunsMillis</strong> - The number of
+        milliseconds between consecutive runs of the evictor.
+        Default: 30*60*1000 (30 minutes)</li>
+    <li><strong>numTestsPerEvictionRun</strong> - The number of connections
+        that will be checked for idleness by the evitor during each
+        run of the evictor. Default: 3</li>
+    <li><strong>minEvictableIdleTimeMillis</strong> - The idle time in
+        milliseconds after which a connection can be removed from the pool
+        by the evictor. Default: -1 (disabled)</li>
+    <li><strong>testWhileIdle</strong> - true or false: whether a connection
+        should be validated by the evictor thread using the validation query
+        while sitting idle in the pool. Default: false</li>
+    </ul>
+    <p>Another optional feature is the removal of abandoned connections.
+    A connection is called abandoned if the application does not return it
+    to the pool for a long time. The pool can close such connections
+    automatically and remove them from the pool. This is a workaround
+    for applications leaking connections.</p>
+    <p>The abandoning feature is disabled by default and can be configured
+    using the following properties:</p>
+    <ul>
+    <li><strong>removeAbandoned</strong> - true or false: whether to
+        remove abandoned connections from the pool. Default: false</li>
+    <li><strong>removeAbandonedTimeout</strong> - The number of
+        seconds after which a borrowed connection is assumed to be abandoned.
+        Default: 300</li>
+    <li><strong>logAbandoned</strong> - true or false: whether to log
+        stack traces for application code which abandoned a statement
+        or connection. This adds serious overhead. Default: false</li>
+    </ul>
+    <p>Finally there are various properties that allow further fine tuning
+    of the pool behaviour:</p>
+    <ul>
+    <li><strong>defaultAutoCommit</strong> - true or false: default
+        auto-commit state of the connections created by this pool.
+        Default: true</li>
+    <li><strong>defaultReadOnly</strong> - true or false: default
+        read-only state of the connections created by this pool.
+        Default: false</li>
+    <li><strong>defaultTransactionIsolation</strong> - This sets the
+        default transaction isolation level. Can be one of
+        <code>NONE</code>, <code>READ_COMMITTED</code>,
+        <code>READ_UNCOMMITTED</code>, <code>REPEATABLE_READ</code>,
+        <code>SERIALIZABLE</code>. Default: no default set</li>
+    <li><strong>poolPreparedStatements</strong> - true or false: whether to
+        pool PreparedStatements and CallableStatements. Default: false</li>
+    <li><strong>maxOpenPreparedStatements</strong> - The maximum number of open
+        statements that can be allocated from the statement pool at the same time.
+        Default: -1 (unlimited)</li>
+    <li><strong>defaultCatalog</strong> - The name of the default catalog.
+        Default: not set</li>
+    <li><strong>connectionInitSqls</strong> - A list of SQL statements
+        run once after a Connection is created. Separate multiple statements
+        by semicolons (<code>;</code>). Default: no statement</li>
+    <li><strong>connectionProperties</strong> - A list of driver specific
+        properties passed to the driver for creating connections. Each
+        property is given as <code>name=value</code>, multiple properties
+        are separated by semicolons (<code>;</code>). Default: no properties</li>
+    <li><strong>accessToUnderlyingConnectionAllowed</strong> - true or false: whether
+        accessing the underlying connections is allowed. Default: false</li>
     </ul>
     <p>For more details, please refer to the commons-dbcp documentation.</p>
 
@@ -779,7 +864,7 @@ public class MyBeanFactory implements ObjectFactory {
     <p><strong>WARNING</strong> - Be sure you respect the element ordering
     that is required by the DTD for web application deployment descriptors!
     See the
-    <a href="http://java.sun.com/products/servlet/download.html">Servlet
+    <a href="http://wiki.apache.org/tomcat/Specifications">Servlet
     Specification</a> for details.</p>
 
   <h3>3.  Code Your Application's Use Of This Resource</h3>
@@ -831,5 +916,5 @@ writer.println("foo = " + bean.getFoo() + ", bar = " +
     compatible APIs.</p>
 
 </blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
-        Copyright &copy; 1999-2010, Apache Software Foundation
+        Copyright &copy; 1999-2011, Apache Software Foundation
         </em></font></div></td></tr></table></body></html>
