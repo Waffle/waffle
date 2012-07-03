@@ -19,7 +19,6 @@ Misc
 
 First release off [Github](http://github.com/dblock/waffle).
 
-
 Features
 --------
 
