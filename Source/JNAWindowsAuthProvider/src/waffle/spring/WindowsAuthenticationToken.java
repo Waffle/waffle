@@ -18,7 +18,7 @@ import java.util.Collection;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import waffle.servlet.WindowsPrincipal;
 import waffle.windows.auth.WindowsAccount;
@@ -41,7 +41,7 @@ public class WindowsAuthenticationToken implements Authentication {
 	 * The {@link GrantedAuthority} that will be added to every 
 	 * WindowsAuthenticationToken, unless another (or null) is specified.
 	 */
-	public static final GrantedAuthority DEFAULT_GRANTED_AUTHORITY = new GrantedAuthorityImpl("ROLE_USER");
+	public static final GrantedAuthority DEFAULT_GRANTED_AUTHORITY = new SimpleGrantedAuthority("ROLE_USER");
 
 	private static final long serialVersionUID = 1L;
 	private WindowsPrincipal _principal = null;

@@ -69,7 +69,7 @@ public class WindowsAuthenticationProviderTests extends TestCase {
 		Authentication authenticated = _provider.authenticate(authentication);
 		assertNotNull(authenticated);
 		assertTrue(authenticated.isAuthenticated());
-		Collection<GrantedAuthority> authorities = authenticated.getAuthorities();
+		Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) authenticated.getAuthorities();
 		Iterator<GrantedAuthority> authoritiesIterator = authorities.iterator();
 		assertEquals(3, authorities.size());
 		assertEquals("ROLE_USER", authoritiesIterator.next().getAuthority());
@@ -89,7 +89,7 @@ public class WindowsAuthenticationProviderTests extends TestCase {
 	    Authentication authenticated = _provider.authenticate(authentication);
 	    assertNotNull(authenticated);
 	    assertTrue(authenticated.isAuthenticated());
-	    Collection<GrantedAuthority> authorities = authenticated.getAuthorities();
+	    Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) authenticated.getAuthorities();
 	    Iterator<GrantedAuthority> authoritiesIterator = authorities.iterator();
 	    assertEquals(2, authorities.size());
 	    assertEquals("Users", authoritiesIterator.next().getAuthority());
