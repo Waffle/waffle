@@ -14,7 +14,7 @@
 package waffle.spring;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import waffle.windows.auth.WindowsAccount;
 
@@ -50,6 +50,6 @@ public class FqnGrantedAuthorityFactory implements GrantedAuthorityFactory {
 			grantedAuthorityString = grantedAuthorityString.toUpperCase();
 		}
 		
-		return new GrantedAuthorityImpl(grantedAuthorityString);
+		return new SimpleGrantedAuthority(grantedAuthorityString);
 	}
 }

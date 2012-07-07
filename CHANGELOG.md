@@ -4,6 +4,7 @@ Next Release
 Misc
 ----
 
+* [#4](https://github.com/dblock/waffle/pull/4): Upgraded Spring/Spring Security 3.1.1 - [@hazendaz](https://github.com/hazendaz).
 * [#3](https://github.com/dblock/waffle/pull/3): Converted commons-logging to slf4j logging - [@hazendaz](https://github.com/hazendaz).
   * Added slf4j with additional jars for jcl, jdk, log4j, nop, simple logging solutions.
   * Added jcl over slf4j jar for spring as it still uses commons-logging.
