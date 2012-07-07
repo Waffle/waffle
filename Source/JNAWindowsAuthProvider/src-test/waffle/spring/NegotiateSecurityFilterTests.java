@@ -95,7 +95,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         assertNotNull(auth);
-        Collection<GrantedAuthority> authorities = auth.getAuthorities();
+        Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) auth.getAuthorities();
         assertNotNull(authorities);
         assertEquals(3, authorities.size());
         Iterator<GrantedAuthority> authoritiesIterator = authorities.iterator();

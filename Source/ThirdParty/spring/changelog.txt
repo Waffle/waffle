@@ -3,6 +3,361 @@ SPRING FRAMEWORK CHANGELOG
 http://www.springsource.org
 
 
+Changes in version 3.1.1 (2012-02-16)
+-------------------------------------
+
+* official support for Hibernate 4.0.0/4.0.1 as well as Hibernate 4.1
+* JBossNativeJdbcExtractor is compatible with JBoss AS 7 as well
+* restored JBossLoadTimeWeaver compatibility with JBoss AS 5.1
+* Provider injection works with generically typed collections of beans as well
+* @ActiveProfiles mechanism in test context framework works with @ImportResource as well
+* context:property-placeholder's "file-encoding" attribute value is being applied correctly
+* clarified Resource's "getFilename" method to return null if resource type does not have a filename
+* Resource "contentLength()" implementations work with OSGi bundle resources and JBoss VFS resources
+* PathMatchingResourcePatternResolver preserves caching for JNLP (Java Web Start) jar connections
+* optimized converter lookup in GenericConversionService to avoid contention in JDK proxy check
+* DataBinder correctly handles ParseException from Formatter for String->String case
+* CacheNamespaceHandler actually parses cache:annotation-driven's "key-generator" attribute
+* introduced CustomSQLExceptionTranslatorRegistry/Registrar for JDBC error code translation
+* officially deprecated TopLinkJpaDialect in favor of EclipseLink and Spring's EclipseLinkJpaDialect
+* fixed LocalContainerEntityManagerFactoryBean's "packagesToScan" to avoid additional provider scan
+* LocalContainerEntityManagerFactoryBean's "persistenceUnitName" applies to "packagesToScan" as well
+* DefaultPersistenceUnitManager uses containing jar as persistence unit root URL for default unit
+* added protected "isPersistenceUnitOverrideAllowed()" method to DefaultPersistenceUnitManager
+* Hibernate synchronization properly unbinds Session even in case of afterCompletion exception
+* Hibernate exception translation covers NonUniqueObjectException to DuplicateKeyException case
+* Hibernate 4 LocalSessionFactoryBean implements PersistenceExceptionTranslator interface as well
+* Hibernate 4 LocalSessionFactoryBean does not insist on a "dataSource" reference being set
+* added "entityInterceptor" property to Hibernate 4 LocalSessionFactoryBean
+* added "getConfiguration" accessor to Hibernate 4 LocalSessionFactoryBean
+* added "durability" and "description" properties to JobDetailFactoryBean
+* fixed QuartzJobBean and MethodInvokingJobDetailFactoryBean for compatibility with Quartz 2.0/2.1
+* JMS CachingConnectionFactory never caches consumers for temporary queues and topics
+* JMS SimpleMessageListenerContainer silently falls back to lazy registration of consumers
+* added "receive-timeout" attribute to jms:listener-container element in JMS namespace
+* ServletServerHttpRequest/Response fall back on the Content-Type and encoding of the request
+* preserve quotes in MediaType parameters
+* added "normalize()" method to UriComponents
+* remove empty path segments from input to UriComponentsBuilder
+* added "fromRequestUri(request)" and "fromCurrentRequestUri()" methods to ServletUriComponentsBuilder
+* Servlet/PortletContextResource's "isReadable()" implementation returns false for directories
+* allow adding flash attributes in methods with a ModelAndView return value
+* make flash attributes available in the model of Parameterizable/UrlFilenameViewController
+* revised the FlashMapManager contract and implementation to address a flaw in its design
+* removed check for HTTP POST when resolving multipart request controller method arguments
+* fixed request mapping bug involving direct vs pattern path matches with HTTP methods
+* updated @RequestMapping and reference docs wrt differences between @MVC 3.1 and @MVC 2.5-3.0
+* improved @SessionAttributes handling to provide better support for clustered sessions
+* added property to RedirectView to disable expanding URI variables in redirect URL
+
+
+Changes in version 3.1 GA (2011-12-12)
+--------------------------------------
+
+* SmartLifecycle beans in Lifecycle dependency graphs are only being started when isAutoStartup=true
+* ConversionService is able to work with "Collections.emptyList()" as target type (again)
+* restored DataBinder's ability to bind to an auto-growing List with unknown element type
+* added SmartValidator interface with general support for validation hints
+* added custom @Validated annotation with support for JSR-303 validation groups
+* JSR-303 SpringValidatorAdapter and MVC data binding provide support for validation groups
+* restored SpringValidatorAdapter's ability to handle bean constraints with property paths
+* added MethodValidationInterceptor/PostProcessor for Hibernate Validator 4.2 based method validation
+* fixed QuartzJobBean to work with Quartz 2.0/2.1 as well
+* @Transactional qualifiers match against transaction manager definitions in parent contexts as well
+* optimized AnnotationTransactionAspect and AnnotationCacheAspect pointcuts to avoid runtime checks
+* renamed @CacheEvict's "afterInvocation" attribute to "beforeInvocation" (for better readability)
+* added "mappingResources" property to LocalContainerEntityManagerFactoryBean (pointing to orm.xml)
+* Hibernate 4.0 variant of HibernateTransactionManager properly works with Open Session in View now
+* JmsInvokerClientInterceptor/FactoryBean always uses createConnection/createSession when on JMS 1.1
+* added out-of-the-box MappingJacksonMessageConverter impl for Spring's JMS MessageConverter facility
+* DispatcherServlet's "dispatchOptionsRequest" only sets the default 'Allow' header if actually needed
+* ResourceHttpRequestHandler sends content without content-type header if no media type found
+* ResourceHttpRequestHandler and ContentNegotiatingViewResolver use consistent mime type resolution
+* simplified support package layout in "web.method" and "web.servlet.mvc.method"
+* added "useTrailingSlashMatch" property to RequestMappingHandlerMapping
+* Portlet MVC annotation mapping allows for distributing action names across controllers
+* added String constants to MediaType
+
+ 
+Changes in version 3.1 RC2 (2011-11-28)
+---------------------------------------
+
+* fixed OSGi manifest for spring-web bundle to not require Apache HttpComponents anymore
+* fixed GenericTypeResolver to consistently return null if not resolvable
+* added proper "contentLength()" implementation to ByteArrayResource
+* refined Resource "exists()" check for HTTP URLs to always return false for 404 status
+* LocaleEditor and StringToLocaleConverter do not restrict variant part through validation
+* LinkedCaseInsensitiveMap overrides putAll method as well (for IBM JDK 1.6 compatibility)
+* optimized DefaultListableBeanFactory's PropertyDescriptor caching for concurrent access
+* renamed ValueWrapperImpl to SimpleValueWrapper (for use in Cache implementations)
+* exposed EHCache 1.7's "statisticsEnabled"/"sampledStatisticsEnabled" on EhCacheFactoryBean
+* SpringValidatorAdapter accepts non-indexed set paths (for Hibernate Validator compatibility)
+* TransactionSynchronizationManager eagerly cleans up void ResourceHolders on any access
+* SimpleJdbcTestUtils executeSqlScript properly closes its LineNumberReader after use
+* JDO PersistenceManager synchronization performs close attempt after completion (if necessary)
+* JPA EntityManagerFactoryUtils silently ignores IllegalArgumentExceptions from setHint calls
+* fixed HibernateTransactionManager for Hibernate 4.0 to refer to correct openSession() method
+* added "namingStrategy" property to Hibernate 4 LocalSessionFactoryBean variant
+* HibernateJpaDialect does NOT expose underlying Session for underlying SessionFactory anymore
+* fixed MethodInvokingJobDetailFactoryBean's Quartz 2.0 support
+* added Quartz 2.1 compatibility while preserving Quartz 2.0 support
+* introduced JobDetail/CronTrigger/SimpleTriggerFactoryBean variants for Quartz 2.0/2.1 support
+* added "forwarder" property to ConnectorServerFactoryBean, accepting an MBeanServerForwarder
+* RmiClientInterceptor detects nested SocketException as connect failure as well
+* fixed StandardServlet/PortletEnvironment to check for JNDI (for Google App Engine compatibility)
+* Servlet/PortletContextResource's getFile prefers "file:" URL resolution over calling getRealPath
+* Portlet session mutex uses global session attribute to be shared among all portlets in the session
+* using original request URI in FlashMap matching logic to account for URL rewriting
+* now supporting target request with multiple parameter values in FlashMap matching logic
+* fixed issue in SimpleMappingExceptionResolver causing exception when setting "statusCodes" property
+* added ignoreDefaultModelOnRedirect attribute to <mvc:annotation-driven/>
+* added methods to UriComponentsBuilder for replacing the path or the query
+* support UriComponentsBuilder as @Controller method argument
+* added ServletUriComponentsBuilder to build a UriComponents instance starting with a ServletRequest
+* fixed issue with cache ignoring prototype-scoped controllers in RequestMappingHandlerAdapter
+* fixed issue with setting Content-Length header depending on the charset of the response
+* fixed @RequestMapping header matching to correctly process negated header conditions
+* added getObjectMapper() accessor to MappingJacksonHttpMessageConverter
+* AbstractCachingViewResolver caches unresolved view names by default ("cacheUnresolved"=true)
+* form input tag now allows type values other than "text" such as HTML5-specific types
+* form hidden tag now supports "disabled" attribute
+* fixed "formMultiSelect"/"formCheckboxes" FreeMarker macros to compare against actual field value
+* MockHttpServletRequest/Response now keep contentType field and Content-Type header in sync
+* updated Spring MVC configuration section to include MVC Java config and the MVC namespace
+
+
+Changes in version 3.1 RC1 (2011-10-11)
+---------------------------------------
+
+* upgraded to JUnit 4.9
+* updated Quartz support package for Quartz 2.0 compatibility
+* support for load-time weaving on WebSphere 7 and 8
+* updated JBossLoadTimeWeaver to automatically detect and support JBoss AS 7 as well
+* added support for Hibernate 4.0 (HibernateJpaDialect as well as natively in orm.hibernate4)
+* added 'destroy method inference' (SPR-8751)
+* prepared Spring's DataSource and RowSet adapters for forward compatibility with JDBC 4.1
+* introduced ForkJoinPoolFactoryBean for Java 7 (alternative: add new jsr166.jar to Java 6)
+* introduced extended WritableResource interface
+* ConversionService prevents Converter from trying to convert to a subtype of its actual target type
+* CollectionCollection/MapToMapConverter preserve original Collection/Map if no converted elements
+* DefaultListableBeanFactory is only deserializable through a SerializedBeanFactoryReference
+* DefaultListableBeanFactory's getBean(name, type) attempts type conversion if necessary
+* DefaultListableBeanFactory allows for init methods to register further bean definitions (again)
+* XmlBeanDefinitionReader accepts description subelement within map entry as well (as per the XSD)
+* ConfigurationClassPostProcessor supports use of same processor instance with several factories
+* SpringBeanAutowiringSupport is able to process @Value annotations on any given target instance
+* introduced @EnableAspectJAutoProxy
+* overridden @PersistenceContext annotations on subclass methods are being processed correctly
+* DataBinder uses a default limit of 256 for array/collection auto-growing
+* added "autoGrowNestedPaths" property to ConfigurableWebBindingInitializer
+* added "getMultipartContentType(String)" method to MultipartRequest interface
+* added headers support to MultipartFile abstraction (actually supported on Servlet 3.0)
+* revised Servlet 3.0 based StandardServletMultipartResolver for correct param/file distinction
+* MultipartFilter uses a Servlet 3.0 based StandardServletMultipartResolver by default
+* added RequestPartServletServerHttpRequest and corresponding @RequestPart support in Spring MVC
+* added "connectTimeout" and "readTimeout" properties to Simple/CommonsClientHttpRequestFactory
+* added flash attribute support through FlashMap and FlashMapManager abstractions
+* added RedirectAttributes abstraction as supported method argument type of @RequestMapping methods
+* added "ignoreDefaultModelOnRedirect" flag to RequestMappingHandlerAdapter
+* fixed @ExceptionHandler exception type matching (ExceptionDepthComparator)
+* ResourceHttpRequestHandler detects invalid directory traversal in given path
+* HtmlUtils properly escapes single quotes as well
+* Spring JSP tags do not use their own expression support on Servlet 3.0 containers by default
+* added support for web.xml context-param "springJspExpressionSupport" (explicit "true"/"false")
+* ContextLoader and FrameworkServlet support "contextId" parameter for custom serialization id
+* added "acceptProxyClasses" flag to RemoteInvocationSerializingExporter
+* refined WebLogic RMI descriptor to only mark 'getTargetInterfaceName' method as idempotent
+* revised JMS CachedConnectionFactory to avoid unnecessary rollback calls on Session return
+* fixed JMS CachedConnectionFactory to fully synchronize its Session list
+* JpaTransactionManager etc can find EntityManagerFactory by "persistenceUnitName" property now
+* HibernateJpaDialect exposes underlying Session for underlying SessionFactory
+* deprecated JpaTemplate/JpaInterceptor/JpaDaoSupport and JdoTemplate/JdoInterceptor/JdoDaoSupport
+* updated H2 error codes in sql-error-codes.xml
+* fixed NamedParameterJdbcTemplate to use correct maximum type for queryForInt/Long
+* jdbc:script's "separator" and "execution" attributes work nested with embedded-database as well
+* added "encoding" attribute to jdbc:script element
+* JavaMailSenderImpl detects and respects "mail.transport.protocol" property in existing Session
+* added ConcurrentMapCacheManager, dynamically building ConcurrentMapCache instances at runtime
+* added "disabled" property to EhCacheFactoryBean
+* introduced generic invokeMethod() in ReflectionTestUtils
+* introduced DelegatingSmartContextLoader as new default ContextLoader for TestContext framework
+* deprecated @ExpectedException
+* AnnotationConfigContextLoader now detects default configuration classes within test classes
+* TestContext now uses MergedContextConfiguration for the ContextCache key
+* extended Servlet API mocks for Servlet 3.0 forward compatibility as far as possible
+* made MockHttpServletResponse compatible with Servlet 3.0 getHeader(s) method returning Strings
+* added getHeaderValue(s) method to MockHttpServletResponse for raw value access
+
+
+Changes in version 3.1 M2 (2011-06-08)
+--------------------------------------
+
+* revised TypeDescriptor signature and implementation for clearer handling of nested generics
+* full support for arbitrary nesting of collections in fields
+* proper type detection in nested collections within arrays
+* collection/array conversion returns original collection if possible (instead of first element)
+* AnnotatedBeanDefinitionReader now inherits Environment of supplied BeanDefinitionRegistry
+* eliminated @Feature support in favor of @Enable* and framework-provided @Configuration classes
+* introduced @EnableTransactionManagement, @EnableScheduling, etc
+* add Java config alternative to MVC namespace via @EnableWebMvc annotation
+* introduce HandlerMethod abstraction selecting and invoking @RequestMapping methods
+* add HandlerMethod-based implementations of HandlerMapping, HandlerAdapter, HandlerExceptionResolver
+* merge @PathVariables in the model before rendering except for JSON/XML serialization/marshalling.
+* use @PathVariables in addition to request parameters in data binding
+* support URI variable placeholders in "redirect:" prefixed view names
+* add flag to extract value from single-key model in MappingJacksonJsonView
+* support @Valid on @RequestBody method arguments
+* allow bean references in mvc:interceptor namespace elements
+* consolidate initialization and use of MappedInterceptors in AbstractHandlerMapping
+* added Servlet 3.0 based WebApplicationInitializer mechanism for programmatic bootstrapping
+* added Servlet 3.0 based StandardServletMultipartResolver
+* added "packagesToScan" feature to LocalContainerEntityManagerFactoryBean (avoiding persistence.xml)
+* fixed JPA 2.0 timeout hints to correctly specify milliseconds
+* added support for shutdown scripts to DataSourceInitializer (see "databaseCleaner" property)
+* added "separator" and "execution" attributes to jdbc:script element
+* revised cache abstraction to focus on minimal atomic access operations
+* updated Quartz package to support Quartz 1.8 as well (note: not fully supporting Quartz 2.0 yet)
+* RemoteExporter uses an opaque proxy for 'serviceInterface' (no AOP interfaces exposed)
+* introduced AnnotationConfigContextLoader to provide TestContext support for @Configuration classes
+* introduced @ActiveProfiles for declarative configuration of bean definition profiles in tests
+* TestContext generates context cache key based on all applicable configuration metadata
+* deprecated AbstractJUnit38SpringContextTests and AbstractTransactionalJUnit38SpringContextTests
+
+
+Changes in version 3.1 M1 (2011-02-11)
+--------------------------------------
+
+* upgraded to JUnit 4.8.1 and TestNG 5.12.1
+* fixed aspects bundle to declare dependencies for @Async aspect as well
+* introduced Environment abstraction with flexible placeholder resolution
+* introduced support for environment profiles in XML bean definition files
+* introduced @Profile annotation for configuration classes and individual component classes
+* introduced PropertySourcesPlaceholderConfigurer as alternative to PropertyPlaceholderConfigurer
+* introduced "c:" namespace for constructor argument shortcuts (analogous to the "p:" namespace)
+* introduced @FeatureConfiguration classes with @Feature methods that return FeatureSpecifications
+* added TxAnnotationDriven, MvcAnnotationDriven, etc. as out-of-the-box FeatureSpecifications
+* introduced caching abstraction and cache annotation support
+* moved EhCache FactoryBeans from context-support to context module
+* EhCacheManagerFactoryBean properly closes "ehcache.xml" input stream, if any
+* exceptions thrown by @Scheduled methods will be propagated to a registered ErrorHandler
+* ProxyCreationContext uses "ThreadLocal.remove()" over "ThreadLocal.set(null)" as well
+* BeanDefinitionVisitor now actually visits factory method names
+* fixed potential InjectionMetadata NPE when using SpringBeanAutowiringInterceptor
+* fixed AbstractBindingResult to avoid NPE in "hashCode()" if target is null
+* Servlet/PortletRequestDataBinder perform unwrapping for MultipartRequest as well
+* ResourceHttpRequestHandler does not set Content-Length header for 304 response
+* LocaleChangeInterceptor validates locale values in order to prevent XSS vulnerability
+
+
+Changes in version 3.0.5 (2010-10-20)
+-------------------------------------
+
+* support for Hibernate 3.6 final
+* added core serializer abstraction with default implementations using Java Serialization
+* consistent use of JDK 1.5's "ThreadLocal.remove()" over "ThreadLocal.set(null)"
+* fixed JodaTimeContextHolder to use a non-inheritable ThreadLocal and expose a reset method
+* revised "ClassUtils.isAssignable" semantics to cover primitives vs wrappers in both directions
+* optimized AnnotationUtils findAnnotation performance for repeated search on same interfaces
+* ConversionService protects itself against infinite recursion in ObjectToCollectionConverter
+* fixed TypeDescriptor to correctly resolve nested collections and their element types
+* BeanWrapper does not attempt to populate Map values on access (just auto-grows Map itself)
+* fixed Autowired/CommonAnnotationBeanPostProcessor to prevent race condition in skipping check
+* fixed @Value injection to correctly cache temporary null results for non-singleton beans
+* ApplicationContext registers context-specific ClassArrayEditor for its bean ClassLoader
+* refined ApplicationContext singleton processing to not fail for manually registered null instances
+* fixed ApplicationContext event processing for repeated invocations to non-singleton listener beans
+* optimized @Bean error messages for static factory methods as well as for argument type mismatches
+* modified expression parsing to pass full TypeDescriptor context through to ConversionService calls
+* adapted expression parser's Constructor/MethodResolver to accept TypeDescriptors instead of raw types
+* SpEL supports projection on any kind of Collection (not just on Lists and arrays)
+* SpEL MapAccessor consistently rejects "target.key" style access to Maps if no such key is found
+* SpEL method invocations prefer method with fewest parameters (e.g. no-arg over vararg)
+* AspectJExpressionPointcut uses bean ClassLoader for initializing the AspectJ pointcut parser
+* added AnnotationAsyncExecutionAspect as AspectJ-based variant of @Async processing
+* added mode="proxy"/"aspectj" and proxy-target-class options to task:annotation-driven
+* JDBC bundle uses local ClassLoader as bean ClassLoader for "sql-error-codes.xml" parsing
+* EmbeddedDatabaseFactory shuts down database when failing to populate it in "initDatabase()"
+* embedded database support now also works with Derby >= 10.6
+* "jdbc:embedded-database" uses id as database name to allow multiple ones in parallel
+* ResourceDatabasePopulator throws descriptive ScriptStatementFailedException with resource details
+* added configurable Connection/Statement/ResultSet target types to Jdbc4NativeJdbcExtractor
+* added OracleJdbc4NativeJdbcExtractor with pre-configured Oracle JDBC API types
+* DefaultLobHandler's "wrapAsLob" mode works with PostgreSQL's "getAsciiStream()" requirement
+* ResultSetWrappingSqlRowSet (as used by JdbcTemplate's "queryForRowSet") supports column labels now
+* LocalSessionFactoryBean's "entityCacheStrategies" works with region names on Hibernate 3.6 as well
+* fixed DefaultMessageListenerContainer's no-message-received commit to work without Session caching
+* DefaultMessageListenerContainer's skips no-message-received commit on Tibco (avoiding a deadlock)
+* JaxWsPortClientInterceptor does not fall back to annotation-specified name as portName anymore
+* UriTemplate is serializable now
+* fixed AnnotationMethodHandlerAdapter's caching to avoid concurrency issues in RequestMappingInfo
+* fixed @MVC processing of parameter-level annotations to work with interface-based proxies again
+* revised @RequestParam processing to support CSV-to-array/collection binding with ConversionService
+* fixed EvalTag's EvaluationContext caching to properly handle JSP tag caching across requests
+* AbstractJasperReportsView only sets locale model attributes if not present already
+* DispatcherPortlet throws custom NoHandlerFoundException instead of misleading UnavailableException
+* DispatcherPortlet copies all action parameters to render parameters in case of an action exception
+* DispatcherPortlet's default resource serving explicitly prevents access to WEB-INF and META-INF
+* Portlet @ExceptionHandler methods allow for writing the response directly (like in the Servlet case)
+* MockHttpServletRequest/HttpSession/etc returns independent Enumeration from "getAttributeNames()"
+
+
+Changes in version 3.0.4 (2010-08-19)
+-------------------------------------
+
+* support for Hibernate Core 3.6, Hibernate Validator 4.1, EclipseLink 2.1, EHCache 2.2
+* OSGi manifest version range accepts EHCache 2.x as well
+* added "contentLength()" method to Resource abstraction
+* URL-based Resource variants introspect "last-modified" and "content-length" response headers
+* refined "exists()" check for UrlResource (HEAD request) and ClassPathResource (URL resolution)
+* ConversionService is able to deal with empty collections and nested collections (fixed regression)
+* ConversionService properly handles nested Resource arrays in Map values (fixed regression)
+* ConversionService does not accidentally use copy constructor for same type
+* fixed double ConversionFailedException nesting for ObjectToObjectConverter invocations
+* BeanWrapper preserves annotation information for individual array/list/map elements
+* Spring's constructor resolution consistently finds non-public multi-arg constructors
+* revised constructor argument caching, avoiding a race condition for converted argument values
+* SpEL passes full collection type context (generics, annotations) to ConversionService
+* SpEL 'select last' operator now works consistently with maps
+* BeanWrapper/DataBinder's "autoGrowNestedPaths" works for Maps as well
+* fixed concurrency issue in TypedStringValue, showing for nested typed Maps in prototype beans
+* fixed WeakReferenceMonitor to never stop its monitoring thread if an entry has been registered
+* fixed CronTrigger to correctly parse month parts expressed as numbers (1-12 instead of 0-11)
+* TaskExecutorFactoryBean (as used by task:executor) exposes full ThreadPoolTaskExecutor type
+* JmsResourceHolder does not ignore IllegalStateException from locally synchronized transaction
+* fixed JMS CachingConnectionFactory to correctly cache a producer without fixed destination as well
+* DefaultMessageListenerContainer triggers Session commit even if no message has been received
+* DefaultMessageListenerContainer supports client id setting even for non-shared Connections
+* Spring's MessageEndpointFactory classes are now JCA 1.6 compliant as well
+* AbstractJaxWsServiceExporter supports "bindingType" bean property, overriding @BindingType
+* AbstractJaxWsServiceExporter supports "webServiceFeatures" bean property on JAX-WS 2.2
+* JaxWsPortProxyFactoryBean takes "wsdlDocumentUrl", "namespaceUri" etc defaults from @WebService
+* Jaxb2Marshaller's "marshallerProperties" Map accepts any value type
+* SpringTemplateLoader for FreeMarker supports last-modified timestamp through Resource abstraction
+* HibernateJpaDialect correctly closes borrowed connections even for nested JDBC executions
+* DefaultJdoDialect supports JDO 3.0 query timeout facility (as supported by DataNucleus 2.1)
+* transaction names based on method id from most specific method (target class instead of interface)
+* added "validationMessageSource" to LocalValidatorFactoryBean, for Spring-based validation messages
+* Spring field error arguments include actually declared annotation attributes in alphabetical order
+* JSR-303 Pattern message resolvable through Spring MessageSource (despite special characters) 
+* DispatcherServlet applies default view name translation to error views as well
+* mvc:annotation-driven reliably detects JSR-303 and JAXB2 in an OSGi environment as well
+* revised @MVC handler method resolution with respect to handler methods on generic interfaces
+* @MVC handler methods reliably resolve MultipartRequest arguments with HiddenHttpMethodFilter
+* WebDataBinder and @MVC request params detect and introspect MultipartFile arrays as well
+* fixed @PathVariable regression in combination with ConversionService usage on DataBinder
+* @CookieValue returns decoded cookie value in a Servlet environment (analogous to @RequestParam)
+* MVC HandlerExceptionResolvers prevent caching for exception views if preventResponseCaching=true
+* @ExceptionHandler works for inherited method and CGLIB proxies on Portlet controllers as well
+* Portlet @MVC's implicit render model will be updated at the end of the event phase
+* Portlet AbstractController consistently uses session mutex if "synchronizeOnSession" is active
+* PortletWrappingController supports Portlet 2.0 resource and event requests as well
+* fixed JSP EvalTag to render null result as empty String instead of "null" String
+* JSP EvalTag resolves "@myBeanName" references in expressions against the WebApplicationContext
+* added support for static resource serving: ResourceHttpRequestHandler, mvc:resources
+* revised DispatcherServlet's last-modified handling to properly work with scoped controllers
+* MockMultipartHttpServletRequest pre-defines method "POST" and content type "multipart/form-data"
+
+
 Changes in version 3.0.3 (2010-06-15)
 -------------------------------------
 
