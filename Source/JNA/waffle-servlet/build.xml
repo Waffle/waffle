@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="waffle-servlet" default="build" basedir=".">
+	<property name="project.jar" value="waffle-servlet" />
+	<path id="waffle-api.classpath" location="${basedir}/../waffle-api/build/waffle-api.jar" />
+	<path id="waffle-core.classpath" location="${basedir}/../waffle-core/build/waffle-core.jar" />
+	<path id="waffle-mock.classpath" location="${basedir}/../waffle-mock/build/waffle-mock.jar" />
+	<import file="${basedir}/../build/build.xml" />
+	<path id="javax.classpath">
+		<fileset dir="${thirdparty.dir}/javax">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+	<path id="project.classpath">
+		<path refid="waffle-api.classpath" />
+		<path refid="waffle-core.classpath" />
+		<path refid="javax.classpath" />
+	</path>
+  <path id="project.test.classpath">
+		<path refid="waffle-mock.classpath" />
+  </path>
+</project>

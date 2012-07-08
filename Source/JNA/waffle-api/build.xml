@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="waffle-core" default="build" basedir=".">
+	<property name="project.jar" value="waffle-api" />
+  <path id="project.classpath" />
+  <path id="project.test.classpath" />
+	<import file="${basedir}/../build/build.xml" />
+</project>
