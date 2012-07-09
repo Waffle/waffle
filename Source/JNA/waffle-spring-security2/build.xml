@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="waffle-spring-security2" default="build" basedir=".">
+  <import file="${basedir}/../build/common.xml" />
+	<property name="project.jar" value="waffle-spring-security2" />
+	<path id="waffle-api.classpath" location="${common.build}/waffle-api.jar" />
+	<path id="waffle-core.classpath" location="${common.build}/waffle-core.jar" />
+	<path id="waffle-mock.classpath" location="${common.build}/waffle-mock.jar" />
+	<path id="waffle-servlet.classpath" location="${common.build}/waffle-servlet.jar" />
+	<import file="${basedir}/../build/build.xml" />
+	<path id="javax.classpath">
+		<fileset dir="${thirdparty.dir}/javax">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+	<path id="spring.classpath">
+		<fileset dir="${thirdparty.dir}/spring2/dist">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+	<path id="spring-security.classpath">
+		<fileset dir="${thirdparty.dir}/spring-security2/dist">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+	<path id="project.classpath">
+		<path refid="waffle-api.classpath" />
+		<path refid="waffle-core.classpath" />
+		<path refid="waffle-servlet.classpath" />
+		<path refid="javax.classpath" />
+		<path refid="spring.classpath" />
+    <path refid="spring-security.classpath" />
+	</path>
+  <path id="project.test.classpath">
+		<path refid="waffle-mock.classpath" />
+  </path>
+</project>

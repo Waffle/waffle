@@ -1,0 +1,327 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Chapter&nbsp;6.&nbsp;Supporting Infrastructure</title><link rel="stylesheet" href="css/html.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"><link rel="start" href="springsecurity.html" title="Spring Security"><link rel="up" href="overall-architecture.html" title="Part&nbsp;II.&nbsp;Overall Architecture"><link rel="prev" href="technical-overview.html" title="Chapter&nbsp;5.&nbsp;Technical Overview"><link rel="next" href="channel-security.html" title="Chapter&nbsp;7.&nbsp;Channel Security"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div xmlns:fo="http://www.w3.org/1999/XSL/Format" style="background-color:white;border:none;height:73px;border:1px solid black;"><a style="border:none;" href="http://static.springframework.org/spring-security/site/" title="The Spring Framework - Spring Web Services"><img style="border:none;" src="images/xdev-spring_logo.jpg"></a><a style="border:none;" href="http://www.springsource.com/" title="SpringSource"><img style="border:none;position:absolute;padding-top:5px;right:42px;" src="images/s2-banner-rhs.png"></a></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h1 class="title"><a name="supporting-infrastructure"></a>Supporting Infrastructure</h1></div></div></div>
+  
+  
+  
+
+  <p>This chapter introduces some of the supplementary and supporting
+  infrastructure used by Spring Security. If a capability is not directly
+  related to security, yet included in the Spring Security project, we
+  will discuss it in this chapter.</p>
+
+  <div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="localization"></a>6.1.&nbsp;Localization</h2></div></div></div>
+    
+    <p>Spring Security supports localization of exception messages that
+    end users are likely to see. If your application is designed for
+    English users, you don't need to do anything as by default all
+    Security Security messages are in English. If you need to support
+    other locales, everything you need to know is contained in this
+    section.</p>
+
+    <p>All exception messages can be localized, including messages
+    related to authentication failures and access being denied
+    (authorization failures). Exceptions and logging that is focused on
+    developers or system deployers (including incorrect attributes,
+    interface contract violations, using incorrect constructors, startup
+    time validation, debug-level logging) etc are not localized and
+    instead are hard-coded in English within Spring Security's
+    code.</p>
+
+    <p>Shipping in the <code class="literal">spring-security-core-xx.jar</code> you
+    will find an <code class="literal">org.springframework.security</code> package
+    that in turn contains a <code class="literal">messages.properties</code> file.
+    This should be referred to by your
+    <code class="literal">ApplicationContext</code>, as Spring Security classes
+    implement Spring's <code class="literal">MessageSourceAware</code> interface and
+    expect the message resolver to be dependency injected at application
+    context startup time. Usually all you need to do is register a bean
+    inside your application context to refer to the messages. An example
+    is shown below:</p>
+
+    <pre class="programlisting">
+&lt;bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"&gt;
+  &lt;property name="basename" value="org/springframework/security/messages"/&gt;
+&lt;/bean&gt;
+</pre>
+
+    <p>The <code class="literal">messages.properties</code> is named in
+    accordance with standard resource bundles and represents the default
+    language supported by Spring Security messages. This default file is
+    in English. If you do not register a message source, Spring Security
+    will still work correctly and fallback to hard-coded English versions
+    of the messages.</p>
+
+    <p>If you wish to customize the
+    <code class="literal">messages.properties</code> file, or support other
+    languages, you should copy the file, rename it accordingly, and
+    register it inside the above bean definition. There are not a large
+    number of message keys inside this file, so localization should not be
+    considered a major initiative. If you do perform localization of this
+    file, please consider sharing your work with the community by logging
+    a JIRA task and attaching your appropriately-named localized version
+    of <code class="literal">messages.properties</code>.</p>
+
+    <p>Rounding out the discussion on localization is the Spring
+    <code class="literal">ThreadLocal</code> known as
+    <code class="literal">org.springframework.context.i18n.LocaleContextHolder</code>.
+    You should set the <code class="literal">LocaleContextHolder</code> to represent
+    the preferred <code class="literal">Locale</code> of each user. Spring Security
+    will attempt to locate a message from the message source using the
+    <code class="literal">Locale</code> obtained from this
+    <code class="literal">ThreadLocal</code>. Please refer to Spring documentation
+    for further details on using <code class="literal">LocaleContextHolder</code>
+    and the helper classes that can automatically set it for you (eg
+    <code class="literal">AcceptHeaderLocaleResolver</code>,
+    <code class="literal">CookieLocaleResolver</code>,
+    <code class="literal">FixedLocaleResolver</code>,
+    <code class="literal">SessionLocaleResolver</code> etc)</p>
+  </div>
+
+  <div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="filters"></a>6.2.&nbsp;Filters</h2></div></div></div>
+    
+
+    <p>Spring Security uses many filters, as referred to throughout the
+      remainder of this reference guide. If you are using <a href="ns-config.html" title="Chapter&nbsp;2.&nbsp;Security Namespace Configuration">namespace configuration</a>,
+      then the you don't usually have to declare the filter beans explicitly. There may be times when you want full control
+      over the security filter chain, either because you are using features which aren't supported in the namespace, or you
+      are using your own customized versions of classes.</p>
+    <p>In this case, you have a choice in how these filters are added to your web application, in that you can use either
+        Spring's <code class="literal">DelegatingFilterProxy</code> or 
+    <code class="classname">FilterChainProxy</code>. We'll look at both below.</p>
+      
+    <p>When using <code class="literal">DelegatingFilterProxy</code>, you will see
+      something like this in the web.xml file:
+      
+        </p><pre class="programlisting">
+    &lt;filter&gt;
+        &lt;filter-name&gt;myFilter&lt;/filter-name&gt;
+        &lt;filter-class&gt;org.springframework.web.filter.DelegatingFilterProxy&lt;/filter-class&gt;
+    &lt;/filter&gt;
+
+    &lt;filter-mapping&gt;
+      &lt;filter-name&gt;myFilter&lt;/filter-name&gt;
+      &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+    &lt;/filter-mapping&gt;
+        </pre><p>     
+       
+        Notice that the filter  is actually a <code class="literal">DelegatingFilterProxy</code>, 
+        and not the filter that will actually implement the logic of the filter. What
+        <code class="literal">DelegatingFilterProxy</code> does is delegate the
+    <code class="literal">Filter</code>'s methods through to a bean which is
+    obtained from the Spring application context. This enables the bean to
+    benefit from the Spring web application context lifecycle support and
+    configuration flexibility. The bean must implement
+    <code class="literal">javax.servlet.Filter</code> and it must have the same name as that in
+        the <code class="literal">filter-name</code> element.</p>
+
+    <p>There is a lifecycle issue to consider when hosting
+    <code class="literal">Filter</code>s in an IoC container instead of a servlet
+    container. Specifically, which container should be responsible for
+    calling the <code class="literal">Filter</code>'s "startup" and "shutdown"
+    methods? It is noted that the order of initialization and destruction
+    of a <code class="literal">Filter</code> can vary by servlet container, and this
+    can cause problems if one <code class="literal">Filter</code> depends on
+    configuration settings established by an earlier initialized
+    <code class="literal">Filter</code>. The Spring IoC container on the other hand
+    has more comprehensive lifecycle/IoC interfaces (such as
+    <code class="literal">InitializingBean</code>,
+    <code class="literal">DisposableBean</code>, <code class="literal">BeanNameAware</code>,
+    <code class="literal">ApplicationContextAware</code> and many others) as well as
+    a well-understood interface contract, predictable method invocation
+    ordering, autowiring support, and even options to avoid implementing
+    Spring interfaces (eg the <code class="literal">destroy-method</code> attribute
+    in Spring XML). For this reason we recommend the use of Spring
+    lifecycle services instead of servlet container lifecycle services
+    wherever possible. Read the Javadoc for <code class="classname">DelegatingFilterProxy</code>
+    for more information</p>
+
+      <p>Rather than using <code class="literal">DelegatingFilterProxy</code>, we
+    strongly recommend that you use <code class="classname">FilterChainProxy</code> instead.
+          Whilst <code class="literal">DelegatingFilterProxy</code> is a very useful class,
+    the problem is that the number of lines of code required for
+    <code class="literal">&lt;filter&gt;</code> and
+    <code class="literal">&lt;filter-mapping&gt;</code> entries in
+    <code class="literal">web.xml</code> explodes when using more than a few
+    filters. To overcome this issue, Spring Security provides a
+    <code class="classname">FilterChainProxy</code> class. It is wired using a
+          <code class="literal">DelegatingFilterProxy</code> (just like in the example above),
+    but the target class is
+    <code class="literal">org.springframework.security.util.FilterChainProxy</code>.
+    The filter chain is then declared in the application context, using
+    code such as this:</p>
+
+    <pre class="programlisting">
+&lt;bean id="filterChainProxy" class="org.springframework.security.util.FilterChainProxy"&gt;
+  &lt;sec:filter-chain-map path-type="ant"&gt;
+     &lt;sec:filter-chain pattern="/webServices/**" 
+         filters="httpSessionContextIntegrationFilterWithASCFalse,basicProcessingFilter,exceptionTranslationFilter,filterSecurityInterceptor"/&gt;
+     &lt;sec:filter-chain pattern="/**" 
+         filters="httpSessionContextIntegrationFilterWithASCTrue,authenticationProcessingFilter,exceptionTranslationFilter,filterSecurityInterceptor"/&gt;
+  &lt;/sec:filter-chain-map&gt;
+&lt;/bean&gt;
+         
+    </pre>
+
+    <p>You may notice similarities with the way
+    <code class="classname">FilterSecurityInterceptor</code> is declared. Both regular
+    expressions and Ant Paths are supported, and the most specific URIs
+    appear first. At runtime the <code class="classname">FilterChainProxy</code> will
+    locate the first URI pattern that matches the current web request and the list
+    of filter beans specified by the <code class="literal">filters</code> attribute
+    will be applied to that request. The filters will be invoked in the order
+    they are defined, so you have complete control over the filter chain
+    which is applied to a particular URL.</p>
+
+    <p>You may have noticed we have declared two
+    <code class="classname">HttpSessionContextIntegrationFilter</code>s in the filter
+    chain (<code class="literal">ASC</code> is short for
+    <code class="literal">allowSessionCreation</code>, a property of
+    <code class="classname">HttpSessionContextIntegrationFilter</code>). As web
+    services will never present a <code class="literal">jsessionid</code> on future
+    requests, creating <code class="literal">HttpSession</code>s for such user
+    agents would be wasteful. If you had a high-volume application which
+    required maximum scalability, we recommend you use the approach shown
+    above. For smaller applications, using a single
+    <code class="classname">HttpSessionContextIntegrationFilter</code> (with its
+    default <code class="literal">allowSessionCreation</code> as
+    <code class="literal">true</code>) would likely be sufficient.</p>
+
+    <p>In relation to lifecycle issues, the
+    <code class="classname">FilterChainProxy</code> will always delegate
+    <code class="literal">init(FilterConfig)</code> and <code class="literal">destroy()</code>
+    methods through to the underlaying <code class="literal">Filter</code>s if such
+    methods are called against <code class="classname">FilterChainProxy</code> itself.
+    In this case, <code class="classname">FilterChainProxy</code> guarantees to only
+    initialize and destroy each <code class="literal">Filter</code> once,
+    irrespective of how many times it is declared by the
+    <code class="interfacename">FilterInvocationDefinitionSource</code>. You control the
+    overall choice as to whether these methods are called or not via the
+        <code class="literal">targetFilterLifecycle</code> initialization parameter of the
+        <code class="literal">DelegatingFilterProxy</code> that proxies
+        <code class="literal">DelegatingFilterProxy</code>. As discussed above, by default
+    any servlet container lifecycle invocations are not delegated through
+    to <code class="literal">DelegatingFilterProxy</code>.</p>
+
+    <p>You can use the attribute <code class="literal">filters = "none"</code>
+      in the same way that you do when using <a href="">namespace configuration</a>
+      to build the <code class="classname">FilterChainProxy</code>. This will omit the
+      request pattern from the security filter chain entirely.
+       Note that anything matching this path will then have
+    no authentication or authorization services applied and will be freely
+    accessible.</p>
+
+    <p>The order that filters are defined in <code class="literal">web.xml</code>
+    is very important. Irrespective of which filters you are actually
+    using, the order of the <code class="literal">&lt;filter-mapping&gt;</code>s
+    should be as follows:</p>
+
+    <div class="orderedlist"><ol type="1"><li>
+        <p><code class="literal">ChannelProcessingFilter</code>, because it might
+        need to redirect to a different protocol</p>
+      </li><li>
+        <p><code class="literal">ConcurrentSessionFilter</code>, because it
+        doesn't use any <code class="classname">SecurityContextHolder</code>
+        functionality but needs to update the
+        <code class="interfacename">SessionRegistry</code> to reflect ongoing requests
+        from the principal</p>
+      </li><li>
+        <p><code class="classname">HttpSessionContextIntegrationFilter</code>, so a
+        <code class="interfacename">SecurityContext</code> can be setup in the
+        <code class="classname">SecurityContextHolder</code> at the beginning of a web
+        request, and any changes to the <code class="interfacename">SecurityContext</code>
+        can be copied to the <code class="literal">HttpSession</code> when the web
+        request ends (ready for use with the next web request)</p>
+      </li><li>
+        <p>Authentication processing mechanisms -
+        <code class="literal">AuthenticationProcessingFilter</code>,
+        <code class="literal">CasProcessingFilter</code>,
+        <code class="literal">BasicProcessingFilter, HttpRequestIntegrationFilter,
+        JbossIntegrationFilter</code> etc - so that the
+        <code class="classname">SecurityContextHolder</code> can be modified to
+        contain a valid <code class="interfacename">Authentication</code> request
+        token</p>
+      </li><li>
+        <p>The
+        <code class="literal">SecurityContextHolderAwareRequestFilter</code>, if you
+        are using it to install a Spring Security aware
+        <code class="literal">HttpServletRequestWrapper</code> into your servlet
+        container</p>
+      </li><li>
+        <p><code class="classname">RememberMeProcessingFilter</code>, so that if no
+        earlier authentication processing mechanism updated the
+        <code class="classname">SecurityContextHolder</code>, and the request presents
+        a cookie that enables remember-me services to take place, a
+        suitable remembered
+        <code class="interfacename">Authentication</code> object will
+        be put there</p>
+      </li><li>
+        <p><code class="literal">AnonymousProcessingFilter</code>, so that if no
+        earlier authentication processing mechanism updated the
+        <code class="classname">SecurityContextHolder</code>, an anonymous
+        <code class="interfacename">Authentication</code> object will be put there</p>
+      </li><li>
+        <p><code class="classname">ExceptionTranslationFilter</code>, to catch any
+        Spring Security exceptions so that either an HTTP error response
+        can be returned or an appropriate
+        <code class="interfacename">AuthenticationEntryPoint</code> can be launched</p>
+      </li><li>
+        <p><code class="classname">FilterSecurityInterceptor</code>, to protect web
+        URIs</p>
+      </li></ol></div>
+
+    <p>All of the above filters use
+    <code class="literal">DelegatingFilterProxy</code> or
+    <code class="classname">FilterChainProxy</code>. It is recommended that a single
+        <code class="literal">DelegatingFilterProxy</code> proxy through to a single
+    <code class="classname">FilterChainProxy</code> for each application, with that
+    <code class="classname">FilterChainProxy</code> defining all of Spring Security
+    filters.</p>
+
+    <p>If you're using SiteMesh, ensure Spring Security filters execute
+    before the SiteMesh filters are called. This enables the
+    <code class="classname">SecurityContextHolder</code> to be populated in time for
+    use by SiteMesh decorators</p>
+  </div>
+  
+  <div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="taglib"></a>6.3.&nbsp;Tag Libraries</h2></div></div></div>
+     
+
+    <p>Spring Security comes bundled with several JSP tag libraries which provide a range of different
+      services.</p>
+    
+    <div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="taglib-config"></a>6.3.1.&nbsp;Configuration</h3></div></div></div>
+      
+      <p>All taglib classes are included in the core
+        <code class="literal">spring-security-xx.jar</code> file, with the
+        <code class="literal">security.tld</code> located in the JAR's
+        <code class="literal">META-INF</code> directory. This means for JSP 1.2+ web
+        containers you can simply include the JAR in the WAR's
+        <code class="literal">WEB-INF/lib</code> directory and it will be available. If
+        you're using a JSP 1.1 container, you'll need to declare the JSP
+        taglib in your <code class="literal">web.xml file</code>, and include
+        <code class="literal">security.tld</code> in the <code class="literal">WEB-INF/lib</code>
+        directory. The following fragment is added to
+        <code class="literal">web.xml</code>:
+</p><pre class="programlisting">
+&lt;taglib&gt;
+  &lt;taglib-uri&gt;http://www.springframework.org/security/tags&lt;/taglib-uri&gt; 
+  &lt;taglib-location&gt;/WEB-INF/security.tld&lt;/taglib-location&gt;
+&lt;/taglib&gt;
+</pre>
+    </div>
+    
+    <div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="taglib-usage"></a>6.3.2.&nbsp;Usage</h3></div></div></div>
+      
+      <p>Now that you've configured the tag libraries, refer to the
+        individual reference guide sections for details on how to use them.
+        Note that when using the tags, you should include the taglib reference
+        in your JSP: 
+</p><pre class="programlisting">
+  &lt;%@ taglib prefix='security' uri='http://www.springframework.org/security/tags' %&gt;
+          
+        </pre>
+    </div>
+  </div>
+</div><div xmlns:fo="http://www.w3.org/1999/XSL/Format" class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="technical-overview.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="springsecurity.html">Home</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="channel-security.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter&nbsp;5.&nbsp;Technical Overview&nbsp;</td><td width="20%" align="center"><span style="color:white;font-size:90%;"><a href="http://www.springsource.com/" title="SpringSource">Sponsored by SpringSource
+                                        </a></span></td><td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;7.&nbsp;Channel Security</td></tr></table></div></body></html>

@@ -1,0 +1,147 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Chapter&nbsp;13.&nbsp;Digest Authentication</title><link rel="stylesheet" href="css/html.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"><link rel="start" href="springsecurity.html" title="Spring Security"><link rel="up" href="authentication.html" title="Part&nbsp;III.&nbsp;Authentication"><link rel="prev" href="basic.html" title="Chapter&nbsp;12.&nbsp;BASIC Authentication Mechanism"><link rel="next" href="remember-me.html" title="Chapter&nbsp;14.&nbsp;Remember-Me Authentication"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div xmlns:fo="http://www.w3.org/1999/XSL/Format" style="background-color:white;border:none;height:73px;border:1px solid black;"><a style="border:none;" href="http://static.springframework.org/spring-security/site/" title="The Spring Framework - Spring Web Services"><img style="border:none;" src="images/xdev-spring_logo.jpg"></a><a style="border:none;" href="http://www.springsource.com/" title="SpringSource"><img style="border:none;position:absolute;padding-top:5px;right:42px;" src="images/s2-banner-rhs.png"></a></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h1 class="title"><a name="digest"></a>Digest Authentication</h1></div></div></div>
+    
+    
+    <div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="digest-overview"></a>13.1.&nbsp;Overview</h2></div></div></div>
+        
+        
+        <p>Spring Security provides a
+            <code class="literal">DigestProcessingFilter</code> which is capable of
+            processing digest authentication credentials presented in HTTP
+            headers. Digest Authentication attempts to solve many of the
+            weaknesses of Basic authentication, specifically by ensuring
+            credentials are never sent in clear text across the wire. Many user
+            agents support Digest Authentication, including FireFox and Internet
+            Explorer. The standard governing HTTP Digest Authentication is defined
+            by RFC 2617, which updates an earlier version of the Digest
+            Authentication standard prescribed by RFC 2069. Most user agents
+            implement RFC 2617. Spring Security
+            <code class="literal">DigestProcessingFilter</code> is compatible with the
+            "<code class="literal">auth</code>" quality of protection
+            (<code class="literal">qop</code>) prescribed by RFC 2617, which also provides
+            backward compatibility with RFC 2069. Digest Authentication is a
+            highly attractive option if you need to use unencrypted HTTP (ie no
+            TLS/HTTPS) and wish to maximise security of the authentication
+            process. Indeed Digest Authentication is a mandatory requirement for
+            the WebDAV protocol, as noted by RFC 2518 Section 17.1, so we should
+            expect to see it increasingly deployed and replacing Basic
+            Authentication.</p>
+        
+        <p>Digest Authentication is definitely the most secure choice
+            between Form Authentication, Basic Authentication and Digest
+            Authentication, although extra security also means more complex user
+            agent implementations. Central to Digest Authentication is a "nonce".
+            This is a value the server generates. Spring Security's nonce adopts
+            the following format:</p>
+        
+        <pre class="programlisting">
+    base64(expirationTime + ":" + md5Hex(expirationTime + ":" + key))
+            
+    expirationTime:   The date and time when the nonce expires, expressed in milliseconds
+    key:              A private key to prevent modification of the nonce token
+        </pre>
+        
+        <p>The <code class="literal">DigestProcessingFilterEntryPoint</code> has a
+            property specifying the <code class="literal">key</code> used for generating the
+            nonce tokens, along with a <code class="literal">nonceValiditySeconds</code>
+            property for determining the expiration time (default 300, which
+            equals five minutes). Whist ever the nonce is valid, the digest is
+            computed by concatenating various strings including the username,
+            password, nonce, URI being requested, a client-generated nonce (merely
+            a random value which the user agent generates each request), the realm
+            name etc, then performing an MD5 hash. Both the server and user agent
+            perform this digest computation, resulting in different hash codes if
+            they disagree on an included value (eg password). In Spring Security
+            implementation, if the server-generated nonce has merely expired (but
+            the digest was otherwise valid), the
+            <code class="literal">DigestProcessingFilterEntryPoint</code> will send a
+            <code class="literal">"stale=true"</code> header. This tells the user agent
+            there is no need to disturb the user (as the password and username etc
+            is correct), but simply to try again using a new nonce.</p>
+        
+        <p>An appropriate value for
+            <code class="literal">DigestProcessingFilterEntryPoint</code>'s
+            <code class="literal">nonceValiditySeconds</code> parameter will depend on your
+            application. Extremely secure applications should note that an
+            intercepted authentication header can be used to impersonate the
+            principal until the <code class="literal">expirationTime</code> contained in the
+            nonce is reached. This is the key principle when selecting an
+            appropriate setting, but it would be unusual for immensely secure
+            applications to not be running over TLS/HTTPS in the first
+            instance.</p>
+        
+        <p>Because of the more complex implementation of Digest
+            Authentication, there are often user agent issues. For example,
+            Internet Explorer fails to present an "<code class="literal">opaque</code>"
+            token on subsequent requests in the same session. Spring Security
+            filters therefore encapsulate all state information into the
+            "<code class="literal">nonce</code>" token instead. In our testing, Spring
+            Security implementation works reliably with FireFox and Internet
+            Explorer, correctly handling nonce timeouts etc.</p>
+    </div>
+    
+    <div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="digest-config"></a>13.2.&nbsp;Configuration</h2></div></div></div>
+        
+        
+        <p>Now that we've reviewed the theory, let's see how to use it. To
+            implement HTTP Digest Authentication, it is necessary to define
+            <code class="literal">DigestProcessingFilter</code> in the fitler chain. The
+            application context will need to define the
+            <code class="literal">DigestProcessingFilter</code> and its required
+            collaborators:</p>
+        
+        <pre class="programlisting">
+
+&lt;bean id="digestProcessingFilter" 
+    class="org.springframework.security.ui.digestauth.DigestProcessingFilter"&gt;
+  &lt;property name="userDetailsService" ref="jdbcDaoImpl"/&gt;
+  &lt;property name="authenticationEntryPoint" ref="digestProcessingFilterEntryPoint"/&gt;
+  &lt;property name="userCache" ref="userCache"/&gt;
+&lt;/bean&gt;
+
+&lt;bean id="digestProcessingFilterEntryPoint"
+    class="org.springframework.security.ui.digestauth.DigestProcessingFilterEntryPoint"&gt;
+  &lt;property name="realmName" value="Contacts Realm via Digest Authentication"/&gt;
+  &lt;property name="key" value="acegi"/&gt;
+  &lt;property name="nonceValiditySeconds" value="10"/&gt;
+&lt;/bean&gt;
+            
+        </pre>
+        
+        <p>The configured <code class="interfacename">UserDetailsService</code> is needed
+            because <code class="literal">DigestProcessingFilter</code> must have direct
+            access to the clear text password of a user. Digest Authentication
+            will NOT work if you are using encoded passwords in your DAO. The DAO
+            collaborator, along with the <code class="literal">UserCache</code>, are
+            typically shared directly with a
+            <code class="literal">DaoAuthenticationProvider</code>. The
+            <code class="literal">authenticationEntryPoint</code> property must be
+            <code class="literal">DigestProcessingFilterEntryPoint</code>, so that
+            <code class="literal">DigestProcessingFilter</code> can obtain the correct
+            <code class="literal">realmName</code> and <code class="literal">key</code> for digest
+            calculations.</p>
+        
+        <p>Like <code class="literal">BasicAuthenticationFilter</code>, if
+            authentication is successful an <code class="interfacename">Authentication</code>
+            request token will be placed into the
+            <code class="classname">SecurityContextHolder</code>. If the authentication event
+            was successful, or authentication was not attempted because the HTTP
+            header did not contain a Digest Authentication request, the filter
+            chain will continue as normal. The only time the filter chain will be
+            interrupted is if authentication fails and the
+            <code class="interfacename">AuthenticationEntryPoint</code> is called, as discussed in
+            the previous paragraph.</p>
+        
+        <p>Digest Authentication's RFC offers a range of additional
+            features to further increase security. For example, the nonce can be
+            changed on every request. Despite this, Spring Security implementation
+            was designed to minimise the complexity of the implementation (and the
+            doubtless user agent incompatibilities that would emerge), and avoid
+            needing to store server-side state. You are invited to review RFC 2617
+            if you wish to explore these features in more detail. As far as we are
+            aware, Spring Security's implementation does comply with the minimum
+            standards of this RFC.</p>
+    </div>
+</div><div xmlns:fo="http://www.w3.org/1999/XSL/Format" class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="basic.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="springsecurity.html">Home</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="remember-me.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter&nbsp;12.&nbsp;BASIC Authentication Mechanism&nbsp;</td><td width="20%" align="center"><span style="color:white;font-size:90%;"><a href="http://www.springsource.com/" title="SpringSource">Sponsored by SpringSource
+                                        </a></span></td><td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;14.&nbsp;Remember-Me Authentication</td></tr></table></div></body></html>

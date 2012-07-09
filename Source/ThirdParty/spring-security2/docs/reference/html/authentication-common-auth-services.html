@@ -1,0 +1,462 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Chapter&nbsp;8.&nbsp;Common Authentication Services</title><link rel="stylesheet" href="css/html.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"><link rel="start" href="springsecurity.html" title="Spring Security"><link rel="up" href="authentication.html" title="Part&nbsp;III.&nbsp;Authentication"><link rel="prev" href="authentication.html" title="Part&nbsp;III.&nbsp;Authentication"><link rel="next" href="dao-provider.html" title="Chapter&nbsp;9.&nbsp;DAO Authentication Provider"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div xmlns:fo="http://www.w3.org/1999/XSL/Format" style="background-color:white;border:none;height:73px;border:1px solid black;"><a style="border:none;" href="http://static.springframework.org/spring-security/site/" title="The Spring Framework - Spring Web Services"><img style="border:none;" src="images/xdev-spring_logo.jpg"></a><a style="border:none;" href="http://www.springsource.com/" title="SpringSource"><img style="border:none;position:absolute;padding-top:5px;right:42px;" src="images/s2-banner-rhs.png"></a></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h1 class="title"><a name="authentication-common-auth-services"></a>Common Authentication Services</h1></div></div></div>
+  
+
+  <div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="mechanisms-providers-entry-points"></a>8.1.&nbsp;Mechanisms, Providers and Entry Points</h2></div></div></div>
+    
+
+    <p>To use Spring Security's authentication services,
+    you'll usually need to configure a web filter, together
+    with an <code class="classname">AuthenticationProvider</code> and
+    <code class="interfacename">AuthenticationEntryPoint</code>. In this section we are
+    going to explore an example application that needs to support both
+    form-based authentication (so a nice HTML page is presented to a
+    user for them to login) and BASIC authentication (so a web service
+    or similar can access protected resources).</p>
+
+    <p>In the web.xml, this application will need a single Spring
+    Security filter in order to use the FilterChainProxy. Nearly every
+    Spring Security application will have such an entry, and it looks like
+    this:</p>
+
+    <pre class="programlisting">
+&lt;filter&gt;
+    &lt;filter-name&gt;filterChainProxy&lt;/filter-name&gt;
+    &lt;filter-class&gt;org.springframework.web.filter.DelegatingFilterProxy&lt;/filter-class&gt;
+&lt;/filter&gt;
+
+&lt;filter-mapping&gt;
+  &lt;filter-name&gt;filterChainProxy&lt;/filter-name&gt;
+  &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+&lt;/filter-mapping&gt;
+</pre>
+
+    <p>The above declarations will cause every web request to be passed
+        through to the bean called <code class="literal">filterChainProxy</code>
+        which will usually be an instance of Spring Security's 
+        <code class="classname">FilterChainProxy</code>. 
+     As explained in the filters section of this reference guide, the
+    <code class="classname">FilterChainProxy</code> is a generally-useful class
+    that enables web requests to be passed to different filters based on
+    URL patterns. Those delegated filters are managed inside the
+    application context, so they can benefit from dependency injection.
+    Let's have a look at what the FilterChainProxy bean definition would
+    look like inside your application context:</p>
+
+    <pre class="programlisting">
+&lt;bean id="filterChainProxy"
+        class="org.springframework.security.util.FilterChainProxy"&gt;
+  &lt;security:filter-chain-map path-type="ant"&gt;
+    &lt;security:filter-chain pattern="/**" filters="httpSessionContextIntegrationFilter,logoutFilter,authenticationProcessingFilter,basicProcessingFilter,securityContextHolderAwareRequestFilter,rememberMeProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor,switchUserProcessingFilter"/&gt;
+  &lt;/security:filter-chain-map&gt;
+&lt;/bean&gt;</pre>
+
+    <p>The <code class="literal">filter-chain-map</code> syntax from the security namespace
+      allows you to define the mapping from URLs to filter chains, using a sequence of
+      <code class="literal">filter-chain</code> child elements. Each of these defines a set of URLs using
+      the <code class="literal">pattern</code> attribute and a chain of filters using the <code class="literal">filters</code>
+      attribute.What's important to note at this stage is that a series of filters will be
+    run - in the order specified by the declaration - and each of those
+    filters are actually the <code class="literal">id</code> of another
+    bean in the application context. So, in our case some extra beans
+    will also appear in the application context, and they'll be named
+    <code class="literal">httpSessionContextIntegrationFilter</code>,
+    <code class="literal">logoutFilter</code> and so on. The order that the filters
+    should appear is discussed in the filters section of the reference
+    guide - although they are correct in the above example.</p>
+
+    <p>In our example we have the
+    <code class="literal">AuthenticationProcessingFilter</code> and
+    <code class="literal">BasicProcessingFilter</code> being used. These are the
+    "authentication mechanisms" that respond to form-based authentication
+    and BASIC HTTP header-based authentication respectively (we discussed
+    the role of authentication mechanisms earlier in this reference
+    guide). If you weren't using form or BASIC authentication, neither of
+    these beans would be defined. You'd instead define filters applicable
+    to your desired authentication environment, such as
+    <code class="literal">DigestProcessingFilter</code> or
+    <code class="literal">CasProcessingFilter</code>. Refer to the individual
+    chapters of this part of the reference guide to learn how to configure
+    each of these authentication mechanisms.</p>
+
+    <p>Recall that
+    <code class="classname">HttpSessionContextIntegrationFilter</code> keeps the
+    contents of the <code class="interfacename">SecurityContext</code> between invocations
+    inside an HTTP session. This means the authentication mechanisms are
+    only used once, being when the principal initially tries to
+    authenticate. The rest of the time the authentication mechanisms sit
+    there and silently pass the request through to the next filter in the
+    chain. That is a practical requirement due to the fact that few
+    authentication approaches present credentials on each and every call
+    (BASIC authentication being a notable exception), but what happens if
+    a principal's account gets cancelled or disabled or otherwise changed
+    (eg an increase or decrease in <code class="literal">GrantedAuthority[]</code>s)
+    after the initial authentication step? Let's look at how that is
+    handled now.</p>
+
+    <p>The major authorization provider for secure objects has
+    previously been introduced as
+    <code class="classname">AbstractSecurityInterceptor</code>. This class needs to
+    have access to an <code class="interfacename">AuthenticationManager</code>. It also
+    has configurable settings to indicate whether an
+    <code class="interfacename">Authentication</code> object should be re-authenticated on
+    each secure object invocation. By default it just accepts any
+    <code class="interfacename">Authentication</code> inside the
+    <code class="classname">SecurityContextHolder</code> is authenticated if
+    <code class="literal">Authentication.isAuthenticated()</code> returns true. This
+    is great for performance, but not ideal if you want to ensure
+    up-to-the-moment authentication validity. For such cases you'll
+    probably want to set the
+    <code class="literal">AbstractSecurityInterceptor.alwaysReauthenticate</code>
+    property to true.</p>
+
+    <p>You might be asking yourself, "what's this
+    <code class="interfacename">AuthenticationManager</code>?". We haven't explored it
+    before, but we have discussed the concept of an
+    <code class="classname">AuthenticationProvider</code>. Quite simply, an
+    <code class="interfacename">AuthenticationManager</code> is responsible
+    for passing requests through a chain of AuthenticationProviders. It's
+    a little like the filter chain we discussed earlier, although there
+    are some differences. There is only one
+    <code class="interfacename">AuthenticationManager</code> implementation
+    shipped with Spring Security, so let's look at how it's configured for
+    the example we're using in this chapter:</p>
+
+    <pre class="programlisting">&lt;bean id="authenticationManager"
+        class="org.springframework.security.providers.ProviderManager"&gt;
+&lt;property name="providers"&gt;
+&lt;list&gt;
+  &lt;ref local="daoAuthenticationProvider"/&gt;
+  &lt;ref local="anonymousAuthenticationProvider"/&gt;
+  &lt;ref local="rememberMeAuthenticationProvider"/&gt;
+&lt;/list&gt;
+&lt;/property&gt;
+&lt;/bean&gt;</pre>
+
+    <p>It's probably worth mentioning at this point that your
+    authentication mechanisms (which are usually filters) are also
+    injected with a reference to the
+    <code class="interfacename">AuthenticationManager</code>. So both
+    <code class="classname">AbstractSecurityInterceptor</code> as well as the
+    authentication mechanisms will use the above
+    <code class="literal">ProviderManager</code> to poll a list of
+    <code class="classname">AuthenticationProvider</code>s.</p>
+
+    <p>In our example we have three providers. They are tried in the
+    order shown (which is implied by the use of a <code class="literal">List</code>
+    instead of a <code class="literal">Set</code>), with each provider able to
+    attempt authentication, or skip authentication by simply returning
+    <code class="literal">null</code>. If all implementations return null, the
+    <code class="literal">ProviderManager</code> will throw a suitable exception. If
+    you're interested in learning more about chaining providers, please
+    refer to the <code class="literal">ProviderManager</code> JavaDocs.</p>
+
+    <p>The providers to use will sometimes be interchangeable with the
+    authentication mechanisms, whilst at other times they will depend on a
+    specific authentication mechanism. For example, the
+    <code class="literal">DaoAuthenticationProvider</code> just needs a string-based
+    username and password. Various authentication mechanisms result in the
+    collection of a string-based username and password, including (but not
+    limited to) BASIC and form authentication. Equally, some
+    authentication mechanisms create an authentication request object
+    which can only be interpreted by a single type of
+    <code class="classname">AuthenticationProvider</code>. An example of this
+    one-to-one mapping would be JA-SIG CAS, which uses the notion of a
+    service ticket which can therefore only be authenticated by
+    <code class="literal">CasAuthenticationProvider</code>. A further example of a
+    one-to-one mapping would be the LDAP authentication mechanism, which
+    can only be processed an the
+    <code class="literal">LdapAuthenticationProvider</code>. The specifics of such
+    relationships are detailed in the JavaDocs for each class, plus the
+    authentication approach-specific chapters of this reference guide. You
+    need not be terribly concerned about this implementation detail,
+    because if you forget to register a suitable provider, you'll simply
+    receive a <code class="literal">ProviderNotFoundException</code> when an attempt
+    to authenticate is made.</p>
+
+    <p>After configuring the correct authentication mechanisms in the
+    <code class="classname">FilterChainProxy</code>, and ensuring that a corresponding
+    <code class="classname">AuthenticationProvider</code> is registered in the
+    <code class="literal">ProviderManager</code>, your last step is to configure an
+    <code class="interfacename">AuthenticationEntryPoint</code>. Recall that earlier we
+    discussed the role of <code class="classname">ExceptionTranslationFilter</code>,
+    which is used when HTTP-based requests should receive back an HTTP
+    header or HTTP redirect in order to start authentication. Continuing
+    on with our earlier example:</p>
+
+    <pre class="programlisting">
+&lt;bean id="exceptionTranslationFilter"
+        class="org.springframework.security.ui.ExceptionTranslationFilter"&gt;
+  &lt;property name="authenticationEntryPoint" ref="authenticationProcessingFilterEntryPoint"/&gt;
+  &lt;property name="accessDeniedHandler"&gt;
+    &lt;bean class="org.springframework.security.ui.AccessDeniedHandlerImpl"&gt;
+      &lt;property name="errorPage" value="/accessDenied.jsp"/&gt;
+    &lt;/bean&gt;
+  &lt;/property&gt;
+&lt;/bean&gt;
+
+&lt;bean id="authenticationProcessingFilterEntryPoint"
+        class="org.springframework.security.ui.webapp.AuthenticationProcessingFilterEntryPoint"&gt;
+  &lt;property name="loginFormUrl" value="/login.jsp"/&gt;
+  &lt;property name="forceHttps"&gt;&lt; value="false"/&gt;
+&lt;/bean&gt;</pre>
+
+    <p>Notice that the <code class="classname">ExceptionTranslationFilter</code>
+    requires two collaborators. The first,
+    <code class="literal">AccessDeniedHandlerImpl</code>, uses a
+    <code class="literal">RequestDispatcher</code> forward to display the specified
+    access denied error page. We use a forward so that the
+    <code class="classname">SecurityContextHolder</code> still contains details of the
+    principal, which may be useful for display to the user (in old
+    releases of Spring Security we relied upon the servlet container to
+    handle a 403 error message, which lacked this useful contextual
+    information). <code class="literal">AccessDeniedHandlerImpl</code> will also set
+    the HTTP header to 403, which is the official error code to indicate
+    access denied. In the case of the
+    <code class="literal">AuthentionEntryPoint</code>, here we're setting what
+    action we would like taken when an unauthenticated principal attempts
+    to perform a protected operation. Because in our example we're going
+    to be using form-based authentication, we specify
+    <code class="literal">AuthenticationProcessinFilterEntryPoint</code> and the URL
+    of the login page. Your application will usually only have one entry
+    point, and most authentication approaches define their own specific
+    <code class="interfacename">AuthenticationEntryPoint</code>. Details of which entry
+    point to use for each authentication approach is discussed in the
+    authentication approach-specific chapters of this reference
+    guide.</p>
+  </div>
+
+  <div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="userdetails-and-associated-types"></a>8.2.&nbsp;UserDetails and Associated Types</h2></div></div></div>
+    
+    
+
+    <p>As mentioned in the first part of the reference guide, most
+    authentication providers take advantage of the
+    <code class="interfacename">UserDetails</code> and
+    <code class="interfacename">UserDetailsService</code> interfaces. The contract for
+    this latter interface consists of a single method:</p>
+
+    <pre class="programlisting">
+  UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException;
+    </pre>
+
+    <p>The returned <code class="interfacename">UserDetails</code> is an interface that
+    provides getters that guarantee non-null provision of basic
+    authentication information such as the username, password, granted
+    authorities and whether the user is enabled or disabled. Most
+    authentication providers will use a
+    <code class="interfacename">UserDetailsService</code>, even if the username and
+    password are not actually used as part of the authentication decision.
+    Generally such providers will be using the returned
+    <code class="interfacename">UserDetails</code> object just for its
+    <code class="literal">GrantedAuthority[]</code> information, because some other
+    system (like LDAP or X509 or CAS etc) has undertaken the
+    responsibility of actually validating the credentials.</p>
+
+    <p>A single concrete implementation of
+    <code class="interfacename">UserDetails</code> is provided with Spring Security, being
+    the <code class="literal">User</code> class. Spring Security users will need to
+    decide when writing their <code class="interfacename">UserDetailsService</code> what
+    concrete <code class="interfacename">UserDetails</code> class to return. In most cases
+    <code class="literal">User</code> will be used directly or subclassed, although
+    special circumstances (such as object relational mappers) may require
+    users to write their own <code class="interfacename">UserDetails</code> implementation
+    from scratch. This is not such an unusual situation, and users should
+    not hesitate to simply return their normal domain object that
+    represents a user of the system. This is especially common given that
+    <code class="interfacename">UserDetails</code> is often used to store additional
+    principal-related properties (such as their telephone number and email
+    address), so that they can be easily used by web views.</p>
+
+    <p>Given <code class="interfacename">UserDetailsService</code> is so simple to
+    implement, it should be easy for users to retrieve authentication
+    information using a persistence strategy of their choice. Having said
+    that, Spring Security does include a couple of useful base
+    implementations, which we'll look at below.</p>
+
+    <div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="in-memory-service"></a>8.2.1.&nbsp;In-Memory Authentication</h3></div></div></div>
+      
+      <p>Whilst it is easy to use create a custom
+      <code class="interfacename">UserDetailsService</code> implementation that extracts
+      information from a persistence engine of choice, many applications
+      do not require such complexity. This is particularly true if you're
+      undertaking a rapid prototype or just starting integrating Spring
+      Security, when you don't really want to spend time configuring
+      databases or writing <code class="interfacename">UserDetailsService</code>
+      implementations. For this sort of situation, a simple option is to
+      use the <code class="literal">user-service</code> element from the security 
+        <a href="">namespace</a>:
+</p><pre class="programlisting">
+    &lt;user-service id="userDetailsService"&gt;
+      &lt;user name="jimi" password="jimispassword" authorities="ROLE_USER, ROLE_ADMIN" /&gt;
+      &lt;user name="bob" password="bobspassword" authorities="ROLE_USER" /&gt;
+    &lt;/user-service&gt;
+  
+</pre><p>
+        This also suppots the use of an external properties file:
+        </p><pre class="programlisting">
+    &lt;user-service id="userDetailsService" properties="users.properties"/&gt;
+  
+        </pre><p>
+        The properties file should contain entries in the form
+</p><pre class="programlisting">
+  username=password,grantedAuthority[,grantedAuthority][,enabled|disabled]
+</pre><p>
+        For example
+</p><pre class="programlisting">
+  jimi=jimispassword,ROLE_USER,ROLE_ADMIN,enabled
+  bob=bobspassword,ROLE_USER,enabled  
+</pre><p>
+      </p>
+    </div>
+
+    <div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="jdbc-service"></a>8.2.2.&nbsp;JDBC Authentication</h3></div></div></div>
+      
+      <p>Spring Security also includes a
+      <code class="interfacename">UserDetailsService</code> that can obtain authentication
+      information from a JDBC data source. Internally Spring JDBC is used,
+      so it avoids the complexity of a fully-featured object relational
+      mapper (ORM) just to store user details. If your application does
+      use an ORM tool, you might prefer to write a custom
+        <code class="interfacename">UserDetailsService</code> to reuse the mapping files
+      you've probably already created. Returning to
+      <code class="literal">JdbcDaoImpl</code>, an example configuration is shown
+      below:</p>
+
+      <pre class="programlisting">
+
+&lt;bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"&gt;
+  &lt;property name="driverClassName" value="org.hsqldb.jdbcDriver"/&gt;
+  &lt;property name="url" value="jdbc:hsqldb:hsql://localhost:9001"/&gt;
+  &lt;property name="username" value="sa"/&gt;
+  &lt;property name="password" value=""/&gt;
+&lt;/bean&gt;
+
+&lt;bean id="userDetailsService" class="org.springframework.security.userdetails.jdbc.JdbcDaoImpl"&gt;
+  &lt;property name="dataSource" ref="dataSource"/&gt;
+&lt;/bean&gt;        </pre>
+
+      <p>You can use different relational database management systems
+      by modifying the <code class="literal">DriverManagerDataSource</code> shown
+      above. You can also use a global data source obtained from JNDI, as
+      per normal Spring options.
+      </p>
+      
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="jdbc-default-schema"></a>8.2.2.1.&nbsp;Default User Database Schema</h4></div></div></div>
+        
+      <p>
+      Irrespective of the database you are using and how
+      a <code class="literal">DataSource</code> is obtained, a standard schema must
+      be in place. The DDL for an HSQL database instance would be:
+</p><pre class="programlisting">
+  CREATE TABLE users (
+  username VARCHAR(50) NOT NULL PRIMARY KEY,
+  password VARCHAR(50) NOT NULL,
+  enabled BIT NOT NULL
+  );
+  
+  CREATE TABLE authorities (
+  username VARCHAR(50) NOT NULL,
+  authority VARCHAR(50) NOT NULL
+  );
+  
+  ALTER TABLE authorities ADD CONSTRAINT fk_authorities_users foreign key (username) REFERENCES users(username);
+</pre><p>      
+      </p>
+
+      <p>If the default schema is unsuitable for your needs,
+      <code class="literal">JdbcDaoImpl</code> provides properties that allow
+      customisation of the SQL statements. Please refer to the JavaDocs for 
+      details, but note that the class is not intended for complex custom subclasses.
+      If you have a complex schema or would like a
+      custom <code class="interfacename">UserDetails</code> implementation returned,
+      you'd be better off writing your own
+      <code class="interfacename">UserDetailsService</code>. The base implementation
+      provided with Spring Security is intended for typical situations,
+      rather than catering for all possible requirements.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="concurrent-sessions"></a>8.3.&nbsp;Concurrent Session Handling</h2></div></div></div>
+    
+
+    <p>Spring Security is able to prevent a principal from concurrently
+    authenticating to the same application more than a specified number of
+    times. Many ISVs take advantage of this to enforce licensing, whilst
+    network administrators like this feature because it helps prevent
+    people from sharing login names. You can, for example, stop user
+    "Batman" from logging onto the web application from two different
+    sessions.</p>
+
+    <p>To use concurrent session support, you'll need to add the
+    following to <code class="literal">web.xml</code>:
+      </p><pre class="programlisting">
+&lt;listener&gt;
+    &lt;listener-class&gt;org.springframework.security.ui.session.HttpSessionEventPublisher&lt;/listener-class&gt;
+&lt;/listener&gt;        
+      </pre><p>
+    </p>
+
+    <p>In addition, you will need to add the
+    <code class="literal">org.springframework.security.concurrent.ConcurrentSessionFilter</code>
+    to your <code class="classname">FilterChainProxy</code>. The
+    <code class="classname">ConcurrentSessionFilter</code> requires two
+    properties, <code class="literal">sessionRegistry</code>, which generally points
+    to an instance of <code class="literal">SessionRegistryImpl</code>, and
+    <code class="literal">expiredUrl</code>, which points to the page to display
+    when a session has expired.</p>
+
+    <p>The <code class="literal">web.xml</code>
+    <code class="literal">HttpSessionEventPublisher</code> causes an
+    <code class="literal">ApplicationEvent</code> to be published to the Spring
+    <code class="literal">ApplicationContext</code> every time a
+    <code class="literal">HttpSession</code> commences or terminates. This is
+    critical, as it allows the <code class="classname">SessionRegistryImpl</code> to
+    be notified when a session ends.</p>
+
+    <p>You will also need to wire up the
+      <code class="classname">ConcurrentSessionControllerImpl</code> and refer to it
+    from your <code class="literal">ProviderManager</code> bean:</p>
+
+    <p>
+      </p><pre class="programlisting">
+&lt;bean id="authenticationManager"
+    class="org.springframework.security.providers.ProviderManager"&gt;
+  &lt;property name="providers"&gt;
+    &lt;!-- your providers go here --&gt;
+  &lt;/property&gt;
+  &lt;property name="sessionController" ref="concurrentSessionController"/&gt;
+&lt;/bean&gt;
+
+&lt;bean id="concurrentSessionController"
+    class="org.springframework.security.concurrent.ConcurrentSessionControllerImpl"&gt;
+  &lt;property name="maximumSessions" value="1"/&gt;
+  &lt;property name="sessionRegistry"&gt;
+    &lt;bean class="org.springframework.security.concurrent.SessionRegistryImpl"/&gt;
+  &lt;property&gt;
+&lt;/bean&gt;
+</pre>
+  </div>
+
+  <div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="authentication-taglibs"></a>8.4.&nbsp;Authentication Tag Libraries</h2></div></div></div>
+    
+    
+    <p><code class="literal">AuthenticationTag</code> is used to simply output a
+    property of the current <code class="interfacename">Authentication</code> object to the web
+    page.</p>
+
+    <p>The following JSP fragment illustrates how to use the
+    <code class="literal">AuthenticationTag</code>:</p>
+
+    <pre class="programlisting">&lt;security:authentication property="principal.username"/&gt;</pre>
+
+    <p>This tag would cause the principal's name to be output. Here we
+    are assuming the <code class="literal">Authentication.getPrincipal()</code> is a
+    <code class="interfacename">UserDetails</code> object, which is generally the case
+    when using one of Spring Security's stadard <code class="classname">AuthenticationProvider</code>
+      implementations.</p>
+  </div>
+</div><div xmlns:fo="http://www.w3.org/1999/XSL/Format" class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="authentication.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="springsecurity.html">Home</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="dao-provider.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Part&nbsp;III.&nbsp;Authentication&nbsp;</td><td width="20%" align="center"><span style="color:white;font-size:90%;"><a href="http://www.springsource.com/" title="SpringSource">Sponsored by SpringSource
+                                        </a></span></td><td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;9.&nbsp;DAO Authentication Provider</td></tr></table></div></body></html>

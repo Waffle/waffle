@@ -1,0 +1,635 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Appendix&nbsp;B.&nbsp;The Security Namespace</title><link rel="stylesheet" href="css/html.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"><link rel="start" href="springsecurity.html" title="Spring Security"><link rel="up" href="springsecurity.html" title="Spring Security"><link rel="prev" href="appendix-schema.html" title="Appendix&nbsp;A.&nbsp;Security Database Schema"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div xmlns:fo="http://www.w3.org/1999/XSL/Format" style="background-color:white;border:none;height:73px;border:1px solid black;"><a style="border:none;" href="http://static.springframework.org/spring-security/site/" title="The Spring Framework - Spring Web Services"><img style="border:none;" src="images/xdev-spring_logo.jpg"></a><a style="border:none;" href="http://www.springsource.com/" title="SpringSource"><img style="border:none;position:absolute;padding-top:5px;right:42px;" src="images/s2-banner-rhs.png"></a></div><div class="appendix" lang="en"><div class="titlepage"><div><div><h1 class="title"><a name="appendix-namespace"></a>The Security Namespace</h1></div></div></div>
+
+  
+
+  <p>
+    This appendix provides a reference to the elements available in the security namespace and information on
+    the underlying beans they create (a knowledge of the individual classes and how they work together is assumed -
+    you can find more information in the project Javadoc and elsewhere in this document).
+    If you haven't used the namespace before, please read the
+    <a href="ns-config.html" title="Chapter&nbsp;2.&nbsp;Security Namespace Configuration">introductory chapter</a> on namespace configuration, 
+    as this is intended as a supplement to the information there. Using a good quality XML editor while editing a 
+    configuration based on the schema is recommended as this will provide contextual information on which elements 
+    and attributes are available as well as comments explaining their purpose.
+  </p>
+
+  <div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="nsa-http"></a>B.1.&nbsp;Web Application Security - the <code class="literal">&lt;http&gt;</code> Element</h2></div></div></div>
+    
+    <p>
+      The <code class="literal">&lt;http&gt;</code> element encapsulates the security configuration for the web layer of your application. 
+      It creates a <code class="classname">FilterChainProxy</code> bean named "springSecurityFilterChain" which maintains the stack of
+      security filters which make up the web security configuration <sup>[<a name="d4e3058" href="#ftn.d4e3058">4</a>]</sup>. Some core filters are always created and others will
+       be added to the stack depending on the attributes child elements which are present. The positions of the standard
+      filters are fixed (see <a href="ns-config.html#filter-stack" title="Table&nbsp;2.1.&nbsp;Standard Filter Aliases and Ordering">the filter order table</a> in the namespace introduction),
+      removing a common source of errors with previous versions of the framework when users had to configure the
+      filter chain explicitly in the<code class="classname">FilterChainProxy</code> bean. You can, of course, still do this
+      if you need full control of the configuration.
+    </p>
+    <p>
+      All filters which require a reference to the <code class="interfacename">AuthenticationManager</code> will be automatically
+      injected with the internal instance created by the namespace configuration (see the
+      <a href="ns-config.html#ns-auth-manager" title="2.6.&nbsp;The Default Authentication Manager"> introductory chapter</a> for more on the <code class="interfacename">AuthenticationManager</code>).
+    </p>
+    <p>
+        The <code class="literal">&lt;http&gt;</code> namespace block always creates an <code class="classname">HttpSessionContextIntegrationFilter</code>,
+        an <code class="classname">ExceptionTranslationFilter</code> and a <code class="classname">FilterSecurityInterceptor</code>. These are fixed
+        and cannot be replaced with alternatives.
+    </p>
+
+    <div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="nsa-http-attributes"></a>B.1.1.&nbsp;<code class="literal">&lt;http&gt;</code> Attributes</h3></div></div></div>
+      
+      <p>
+        The attributes on the <code class="literal">&lt;http&gt;</code> element control some of the properties on the
+        core filters.
+      </p>
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="nsa-servlet-api-provision"></a>B.1.1.1.&nbsp;<code class="literal">servlet-api-provision</code></h4></div></div></div>
+        
+        <p>
+          Provides versions of <code class="literal">HttpServletRequest</code> security methods such as
+          <code class="literal">isUserInRole()</code> and <code class="literal">getPrincipal()</code> which are implemented by
+          adding a <code class="classname">SecurityContextHolderAwareRequestFilter</code> bean to the stack. Defaults to "true".
+        </p>
+      </div>
+
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="nsa-path-type"></a>B.1.1.2.&nbsp;<code class="literal">path-type</code></h4></div></div></div>
+        
+        <p>
+          Controls whether URL patterns are interpreted as ant paths (the default) or regular expressions. In practice
+          this sets a particular <code class="interfacename">UrlMatcher</code> instance on the <code class="classname">FilterChainProxy</code>.
+        </p>
+      </div>
+
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="nsa-lowercase-comparisons"></a>B.1.1.3.&nbsp;<code class="literal">lowercase-comparisons</code></h4></div></div></div>
+        
+        <p>
+          Whether test URLs should be converted to lower case prior to comparing with defined path patterns. If unspecified,
+          defaults to "true"
+        </p>
+      </div>
+
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="session-fixation-protection"></a>B.1.1.4.&nbsp;<code class="literal">session-fixation-protection</code></h4></div></div></div>
+        
+        <p>
+          Indicates whether an existing session should be invalidated when a user authenticates and a new session started.
+          If set to "none" no change will be made. "newSession" will create a new empty session.
+          "migrateSession" will create a new session and copy the session attributes to the new session. Defaults to "migrateSession".
+        </p>
+        <p>
+          If enabled this will add a <code class="classname">SessionFixationProtectionFilter</code> to the stack. The session fixation protection
+          options on namespace-created instances of <code class="classname">AbstractProcessingFilter</code> will also be set appropriately.
+        </p>
+      </div>
+
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="nsa-realm"></a>B.1.1.5.&nbsp;<code class="literal">realm</code></h4></div></div></div>
+        
+        <p>
+          Sets the realm name used for basic authentication (if enabled). Corresponds to the <code class="literal">realmName</code> proerty on
+          <code class="classname">BasicProcessingFilterEntryPoint</code>.
+        </p>
+      </div>
+
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="nsa-entry-point-ref"></a>B.1.1.6.&nbsp;<code class="literal">entry-point-ref</code></h4></div></div></div>
+        
+        <p>
+          Normally the <code class="interfacename">AuthenticationEntryPoint</code> used will be set depending on which
+          authentication mechanisms have been configured. This attribute allows this behaviour to be overridden
+          by defining a customized <code class="interfacename">AuthenticationEntryPoint</code> bean which will start the authentication
+          process.
+        </p>
+      </div>
+
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="nsa-access-decision-manager-ref"></a>B.1.1.7.&nbsp;<code class="literal">access-decision-manager-ref</code></h4></div></div></div>
+        
+        <p>
+          Optional attribute specifying the ID of the <code class="interfacename">AccessDecisionManager</code> implementation which should be
+          used for authorizing HTTP requests. By default an <code class="classname">AffirmativeBased</code> implementation is used for with
+          a <code class="classname">RoleVoter</code> and an <code class="classname">AuthenticatedVoter</code>.
+        </p>
+      </div>
+
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="nsa-access-denied-page"></a>B.1.1.8.&nbsp;<code class="literal">access-denied-page</code></h4></div></div></div>
+        
+        <p>
+          Allows the access denied page to be set (the user will be redirected here if an
+          <code class="exceptionname">AccessDeniedException</code> is raised). Corresponds to the
+          <code class="literal">errorPage</code> property set on the <code class="classname">AccessDeniedHandlerImpl</code> which is
+          used by the <code class="classname">ExceptionTranslationFilter</code>.
+        </p>
+      </div>
+
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="nsa-once-per-request"></a>B.1.1.9.&nbsp;<code class="literal">once-per-request</code></h4></div></div></div>
+        
+        <p>
+          Corresponds to the <code class="literal">observeOncePerRequest</code> property of
+          <code class="classname">FilterSecurityInterceptor</code>. Defaults to "true".
+        </p>
+      </div>
+      
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="create-session"></a>B.1.1.10.&nbsp;<code class="literal">create-session</code></h4></div></div></div>
+        
+        <p>
+          Controls the eagerness with which an HTTP session is created. If not set, defaults to "ifRequired". Other options are "always" and "never".
+          The setting of this attribute affect the <code class="literal">allowSessionCreation</code> and <code class="literal">forceEagerSessionCreation</code>
+          properties of <code class="classname">HttpSessionContextIntegrationFilter</code>. <code class="literal">allowSessionCreation</code> will always be true unless
+          this attribute is set to "never". <code class="literal">forceEagerSessionCreation</code> is "false" unless it is set to "always".
+          So the default configuration allows session creation but does not force it. The exception is if concurrent session control is enabled,
+          when <code class="literal">forceEagerSessionCreation</code> will be set to true, regardless of what the setting is here. Using "never" would
+          then cause an exception during the initialization of <code class="classname">HttpSessionContextIntegrationFilter</code>.
+        </p>
+      </div>
+    </div>
+
+    <div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="d4e3148"></a>B.1.2.&nbsp;The <code class="literal">&lt;intercept-url&gt;</code> Element</h3></div></div></div>
+      
+      <p>
+        This element is used to define the set of URL patterns that the application is interested in
+        and to configure how they should be handled. It is used to construct the
+        <code class="interfacename">FilterInvocationDefinitionSource</code> used by the <code class="classname">FilterSecurityInterceptor</code> and
+        to exclude particular patterns from the filter chain entirely (by setting the attribute <code class="literal">filters="none"</code>). 
+        It is also responsible for configuring a <code class="classname">ChannelProcessingFilter</code> if particular URLs need to be accessed
+        by HTTPS, for example.
+      </p>
+
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="nsa-pattern"></a>B.1.2.1.&nbsp;<code class="literal">pattern</code></h4></div></div></div>
+        
+        <p>
+          The pattern which defines the URL path. The content will depend on the <code class="literal">path-type</code> attribute from the 
+          containing http element, so will default to ant path syntax.
+        </p>
+      </div>
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="nsa-method"></a>B.1.2.2.&nbsp;<code class="literal">method</code></h4></div></div></div>
+        
+        <p>
+          The HTTP Method which will be used in combination with the pattern to match an incoming request. If omitted, any method will match.
+        </p>
+      </div>
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="nsa-access"></a>B.1.2.3.&nbsp;<code class="literal">access</code></h4></div></div></div>
+        
+        <p>
+          Lists the access attributes which will be stored in the <code class="interfacename">FilterInvocationDefinitionSource</code> for the defined 
+          URL pattern/method combination. This should be a comma-separated list of the attributes (such as role names). 
+        </p>
+      </div>
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="nsa-requires-channel"></a>B.1.2.4.&nbsp;<code class="literal">requires-channel</code></h4></div></div></div>
+        
+        <p>
+          Can be "http" or "https" depending on whether a particular URL pattern should be accessed over HTTP or HTTPS respectively. Alternatively
+          the value "any" can be used when there is no preference. If this attribute is present on any <code class="literal">&lt;intercept-url&gt;</code>
+          element, then a <code class="classname">ChannelProcessingFilter</code> will be added to the filter stack and its additional dependencies added
+          to the application context. See the chapter on <a href="channel-security.html#channel-security-config" title="7.2.&nbsp;Configuration">channel security</a> for an
+          example configuration using traditional beans.
+        </p>
+        <p>
+          If a <code class="literal">&lt;port-mappings&gt;</code> configuration is added, this will be used to by the <code class="classname">SecureChannelProcessor</code>
+          and <code class="classname">InsecureChannelProcessor</code> beans to determine the ports used for redirecting to HTTP/HTTPS. 
+        </p>
+      </div>      
+    </div>
+    
+    <div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="d4e3181"></a>B.1.3.&nbsp;The <code class="literal">&lt;port-mappings&gt;</code> Element</h3></div></div></div>
+      
+      <p>
+        By default, an instance of <code class="classname">PortMapperImpl</code> will be added to the configuration for use in redirecting
+        to secure and insecure URLs. This element can optionally be used to override the default mappings which that class defines. Each
+        child <code class="literal">&lt;port-mapping&gt;</code> element defines a pair of HTTP:HTTPS ports. The default mappings are 80:443
+        and 8080:8443. An example of overriding these can be found in the <a href="ns-config.html#ns-requires-channel" title="2.3.2.&nbsp;Adding HTTP/HTTPS Channel Security">namespace introduction</a>.
+      </p>
+    </div>
+
+    <div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="nsa-form-login"></a>B.1.4.&nbsp;The <code class="literal">&lt;form-login&gt;</code> Element</h3></div></div></div>
+      
+      <p>
+        Used to add an <code class="classname">AuthenticationProcessingFilter</code> to the filter stack and an 
+        <code class="classname">AuthenticationProcessingFilterEntryPoint</code> to the application context to provide authentication
+        on demand. This will always take precedence over other namespace-created entry points.
+        If no attributes are supplied, a login page will be generated automatically at the URL "/spring-security-login"
+        <sup>[<a name="d4e3194" href="#ftn.d4e3194">5</a>]</sup>
+        The behaviour can be customized using the following attributes.
+      </p>
+
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="d4e3197"></a>B.1.4.1.&nbsp;<code class="literal">login-page</code></h4></div></div></div>
+        
+        <p>
+          The URL that should be used to render the login page. Maps to the <code class="literal">loginFormUrl</code>
+          property of the <code class="classname">AuthenticationProcessingFilterEntryPoint</code>. Defaults to
+          "/spring-security-login".
+        </p>
+      </div>
+
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="d4e3203"></a>B.1.4.2.&nbsp;<code class="literal">login-processing-url</code></h4></div></div></div>
+        
+        <p>
+          Maps to the <code class="literal">filterProcessesUrl</code> property of <code class="classname">AuthenticationProcessingFilter</code>.
+          The default value is "/j_spring_security_check".
+        </p>
+      </div>
+      
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="d4e3209"></a>B.1.4.3.&nbsp;<code class="literal">default-target-url</code></h4></div></div></div>
+        
+        <p>Maps to the <code class="literal">defaultTargetUrl</code> property of <code class="classname">AuthenticationProcessingFilter</code>. If
+        not set, the default value is "/" (the application root). A user will be taken to this URL after logging in, provided they
+        were not asked to login while attempting to access a secured resource, when they will be taken to the originally requested URL.
+        </p>
+      </div>
+      
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="d4e3215"></a>B.1.4.4.&nbsp;<code class="literal">always-use-default-target</code></h4></div></div></div>
+        
+        <p>
+          If set to "true", the user will always start at the value given by <code class="literal">default-target-url</code>, regardless of how 
+          they arrived at the login page. Maps to the <code class="literal">alwaysUseDefaultTargetUrl</code> property of
+          <code class="classname">AuthenticationProcessingFilter</code>. Default value is "false".
+        </p>
+      </div>
+
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="d4e3222"></a>B.1.4.5.&nbsp;<code class="literal">authentication-failure-url</code></h4></div></div></div>
+        
+        <p>
+          Maps to the <code class="literal">authenticationFailureUrl</code> property of <code class="classname">AuthenticationProcessingFilter</code>.
+          Defines the URL the browser will be redirected to on login failure. Defaults to "/spring_security_login?login_error", which will
+          be automatically handled by the automatic login page generator, re-rendering the login page with an error message.
+        </p>
+      </div>
+    </div>
+    
+    <div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="nsa-http-basic"></a>B.1.5.&nbsp;The <code class="literal">&lt;http-basic&gt;</code> Element</h3></div></div></div>
+      
+      <p>
+        Adds a <code class="classname">BasicProcessingFilter</code> and <code class="classname">BasicProcessingFilterEntryPoint</code> to the
+        configuration. The latter will only be used as the configuration entry point if form-based login is not enabled.
+      </p>
+    </div>
+
+    <div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="nsa-remember-me"></a>B.1.6.&nbsp;The <code class="literal">&lt;remember-me&gt;</code> Element</h3></div></div></div>
+      
+      <p>
+        Adds the <code class="classname">RememberMeProcessingFilter</code> to the stack. This in turn will
+        be configured with either a <code class="classname">TokenBasedRememberMeServices</code>, a <code class="classname">PersistentTokenBasedRememberMeServices</code>
+        or a user-specified bean implementing <code class="interfacename">RememberMeServices</code> depending on the attribute settings.
+      </p>
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="d4e3242"></a>B.1.6.1.&nbsp;<code class="literal">data-source-ref</code></h4></div></div></div>
+        
+        <p>
+          If this is set, <code class="classname">PersistentTokenBasedRememberMeServices</code> will be used and configured with 
+          a <code class="classname">JdbcTokenRepositoryImpl</code> instance.
+        </p>
+      </div>
+      
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="d4e3248"></a>B.1.6.2.&nbsp;<code class="literal">token-repository-ref</code></h4></div></div></div>
+        
+        <p>
+          Configures a <code class="classname">PersistentTokenBasedRememberMeServices</code> but allows the use of a custom
+          <code class="interfacename">PersistentTokenRepository</code> bean.
+        </p>
+      </div>      
+      
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="d4e3254"></a>B.1.6.3.&nbsp;<code class="literal">services-ref</code></h4></div></div></div>
+        
+        <p>
+          Allows complete control of the <code class="interfacename">RememberMeServices</code> implementation that will be used
+          by the filter. The value should be the Id of a bean in the application context which implements this interface.
+        </p>
+      </div> 
+      
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="d4e3259"></a>B.1.6.4.&nbsp;<code class="literal">token-repository-ref</code></h4></div></div></div>
+        
+        <p>
+          Configures a <code class="classname">PersistentTokenBasedRememberMeServices</code> but allows the use of a custom
+          <code class="interfacename">PersistentTokenRepository</code> bean.
+        </p>
+      </div>       
+      
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="d4e3265"></a>B.1.6.5.&nbsp;The <code class="literal">key</code> Attribute</h4></div></div></div>
+        
+        <p>Maps to the "key" property of <code class="classname">AbstractRememberMeServices</code>. Should be set to a unique
+        value to ensure that remember-me cookies are only valid within the one application <sup>[<a name="d4e3270" href="#ftn.d4e3270">6</a>]</sup>.
+        </p>
+      </div>
+
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="d4e3273"></a>B.1.6.6.&nbsp;<code class="literal">token-validity-seconds</code></h4></div></div></div>
+        
+        <p>
+          Maps to the <code class="literal">tokenValiditySeconds</code> property of <code class="classname">AbstractRememberMeServices</code>. Specifies the period
+          in seconds for which the remember-me cookie should be valid. By default it will be valid for 14 days.
+        </p>
+      </div>
+
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="d4e3279"></a>B.1.6.7.&nbsp;<code class="literal">user-service-ref</code></h4></div></div></div>
+        
+        <p>
+          The remember-me services implementations require access to a <code class="interfacename">UserDetailsService</code>, so there has to be 
+          one defined in the application context. If there is only one, it will be selected and used automatically by the namespace configuration.
+          If there are multiple instances, you can specify a bean Id explicitly using this attribute.
+        </p>
+      </div>
+    </div>
+
+    <div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="nsa-concurrent-session-control"></a>B.1.7.&nbsp;The <code class="literal">&lt;concurrent-session-control&gt;</code> Element</h3></div></div></div>
+      
+      <p>
+        Adds support for concurrent session control, allowing limits to be placed on the number of active sessions a user can have.
+        A <code class="classname">ConcurrentSessionFilter</code> will be created, along with a <code class="classname">ConcurrentSessionControllerImpl</code>
+        and an instance of <code class="interfacename">SessionRegistry</code> (a <code class="classname">SessionRegistryImpl</code> instance unless the user
+        wishes to use a custom bean). The controller is registered with the namespace's <code class="interfacename">AuthenticationManager</code> 
+        (<code class="classname">ProviderManager</code>). Other namespace-created beans which require a reference to the <code class="interfacename">SessionRegistry</code>
+        will automatically have it injected. 
+      </p>
+      <p>
+        Note that the <code class="literal">forceEagerSessionCreation</code> of <code class="classname">HttpSessionContextIntegrationFilter</code> will
+        be set to <code class="literal">true</code> if concurrent session control is in use.
+      </p>
+      
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="d4e3299"></a>B.1.7.1.&nbsp;The <code class="literal">max-sessions</code> attribute</h4></div></div></div>
+        
+        <p>Maps to the <code class="literal">maximumSessions</code> property of <code class="classname">ConcurrentSessionControllerImpl</code>.</p>
+      </div>
+
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="d4e3305"></a>B.1.7.2.&nbsp;The <code class="literal">expired-url</code> attribute</h4></div></div></div>
+        
+        <p>
+          The URL a user will be redirected to if they attempt to use a session which has been "expired" by 
+          the concurrent session controller because the user has exceeded the number of allowed sessions and has logged 
+          in again elsewhere. Should be set unless <code class="literal">exception-if-maximum-exceeded</code> is set.
+          If no value is supplied, an expiry message will just be written directly back to the response.
+        </p>
+      </div>
+      
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="d4e3310"></a>B.1.7.3.&nbsp;The <code class="literal">exception-if-maximum-exceeded</code> attribute</h4></div></div></div>
+        
+        <p>If set to "true" a <code class="exceptionname">ConcurrentLoginException</code> should be raised when a user 
+          attempts to exceed the maximum allowed number of sessions. The default behaviour is to expire the original session.
+        </p>
+      </div>
+      
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="d4e3315"></a>B.1.7.4.&nbsp;The <code class="literal">session-registry-alias</code> and <code class="literal">session-registry-ref</code> attributes</h4></div></div></div>
+        
+        <p>
+          The user can supply their own <code class="interfacename">SessionRegistry</code> implementation using the
+          <code class="literal">session-registry-ref</code> attribute. The other concurrent session control beans will be wired
+          up to use it. 
+        </p>
+        <p>
+          It can also be useful to have a reference to the internal session registry for use in your own
+          beans or an admin interface. You can expose the interal bean using the <code class="literal">session-registry-alias</code>
+          attribute, giving it a name that you can use elsewhere in your configuration.
+        </p>
+      </div>
+
+    </div>
+    
+    <div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="nsa-anonymous"></a>B.1.8.&nbsp;The <code class="literal">&lt;anonymous&gt;</code> Element</h3></div></div></div>
+      
+      <p>
+        Adds an <code class="classname">AnonymousProcessingFilter</code> to the stack and an <code class="classname">AnonymousAuthenticationProvider</code>. 
+        Required if you are using the <code class="literal">IS_AUTHENTICATED_ANONYMOUSLY</code> attribute.
+      </p>
+    </div>
+    
+    <div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="nsa-x509"></a>B.1.9.&nbsp;The <code class="literal">&lt;x509&gt;</code> Element</h3></div></div></div>
+      
+      <p>
+        Adds support for X.509 authentication. An <code class="classname">X509PreAuthenticatedProcessingFilter</code> will be 
+        added to the stack and a <code class="classname">PreAuthenticatedProcessingFilterEntryPoint</code> bean will be created. The
+        latter will only be used if no other authentication mechanisms are in use (it's only functionality is to return an HTTP
+        403 error code). A <code class="classname">PreAuthenticatedAuthenticationProvider</code> will also be created which delegates the
+        loading of user authorities to a <code class="interfacename">UserDetailsService</code>.
+      </p>
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="d4e3339"></a>B.1.9.1.&nbsp;The <code class="literal">subject-principal-regex</code> attribute</h4></div></div></div>
+        
+        <p>
+          Defines a regular expression which will be used to extract the username from the certificate (for use with the
+          <code class="interfacename">UserDetailsService</code>). 
+        </p>
+      </div>
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="d4e3344"></a>B.1.9.2.&nbsp;The <code class="literal">user-service-ref</code> attribute</h4></div></div></div>
+        
+        <p>
+          Allows a specific <code class="interfacename">UserDetailsService</code> to be used with X.509 in the case where
+          multiple instances are configured. If not set, an attempt will be made to locate a suitable instance automatically and
+          use that.
+        </p>
+      </div>
+    </div>
+
+    <div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="nsa-openid-login"></a>B.1.10.&nbsp;The <code class="literal">&lt;openid-login&gt;</code> Element</h3></div></div></div>
+      
+      <p>
+        Similar to <code class="literal">&lt;form-login&gt;</code> and has the same attributes. The default value for <code class="literal">login-processing-url</code> 
+        is "/j_spring_openid_security_check". An <code class="classname">OpenIDAuthenticationProcessingFilter</code> and <code class="classname">OpenIDAuthenticationProvider</code>
+        will be registered. The latter requires a reference to a <code class="interfacename">UserDetailsService</code>. Again, this can be
+        specified by Id, using the <code class="literal">user-service-ref</code> attribute, or will be located automatically in the application context.
+      </p>
+    </div>
+
+    <div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="nsa-logout"></a>B.1.11.&nbsp;The <code class="literal">&lt;logout&gt;</code> Element</h3></div></div></div>
+      
+      <p>
+        Adds a <code class="classname">LogoutFilter</code> to the filter stack. This is configured 
+        with a <code class="classname">SecurityContextLogoutHandler</code>.
+      </p>
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="d4e3365"></a>B.1.11.1.&nbsp;The <code class="literal">logout-url</code> attribute</h4></div></div></div>
+        
+        <p>
+          The URL which will cause a logout (i.e. which will be processed by the filter). Defaults to "/j_spring_security_logout".
+        </p>
+      </div>
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="d4e3369"></a>B.1.11.2.&nbsp;The <code class="literal">logout-success-url</code> attribute</h4></div></div></div>
+        
+        <p>
+          The destination URL which the user will be taken to after logging out. Defaults to "/".
+        </p>
+      </div>
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="d4e3373"></a>B.1.11.3.&nbsp;The <code class="literal">invalidate-session</code> attribute</h4></div></div></div>
+        
+        <p>
+          Maps to the <code class="literal">invalidateHttpSession</code> of the <code class="classname">SecurityContextLogoutHandler</code>.
+          Defaults to "true", so the session will be invalidated on logout.
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4e3379"></a>B.2.&nbsp;Authentication Services</h2></div></div></div>
+    
+    <p>
+      If you are using the namespace, an <code class="interfacename">AuthenticationManager</code> is
+      automatically registered and will be used by all the namespace-created beans which need to reference it.
+      The bean is an instance of Spring Security's <code class="classname">ProviderManager</code> class, which needs to be
+      configured with a list of one or more<code class="interfacename">AuthenticationProvider</code> instances.
+      These can either be created using syntax elements provided by the namespace, or they can be
+      standard bean definitions, marked for addition to the list using the 
+      <code class="literal">custom-authentication-provider</code> element.
+    </p>
+    
+    <div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="d4e3386"></a>B.2.1.&nbsp;The &lt;authentication-provider&gt; Element</h3></div></div></div>
+      
+      <p>
+        This element is basically a shorthand syntax for configuring a <a href="dao-provider.html" title="Chapter&nbsp;9.&nbsp;DAO Authentication Provider"><code class="classname">DaoAuthenticationProvider</code></a>.
+        <code class="classname">DaoAuthenticationProvider</code> loads user information from a <code class="interfacename">UserDetailsService</code> and 
+        compares the username/password combination with the values supplied at login. The <code class="interfacename">UserDetailsService</code> instance
+        can be defined either by using an available namespace element (<code class="literal">jdbc-user-service</code> or by using the <code class="literal">user-service-ref</code> 
+        attribute to point to a bean defined elsewhere in the application context). You can find examples of these variations in the
+        <a href="ns-config.html#ns-auth-providers" title="2.2.3.&nbsp;Using other Authentication Providers">namespace introduction</a>.
+      </p>
+    </div>
+    <div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="d4e3397"></a>B.2.2.&nbsp;Using <code class="literal">&lt;custom-authentication-provider&gt;</code> to register an AuthenticationProvider</h3></div></div></div>
+      
+      <p>
+        If you have written your own <code class="interfacename">AuthenticationProvider</code> implementation (or want
+        to configure one of Spring Security's own implementations as a traditional bean for some reason, then
+        you can use the following syntax to add it to the internal <code class="classname">ProviderManager</code>'s list:
+        </p><pre class="programlisting">
+  &lt;bean id="myAuthenticationProvider" class="com.something.MyAuthenticationProvider"&gt;
+    &lt;security:custom-authentication-provider /&gt;
+  &lt;/bean&gt;
+  </pre><p>
+      </p>
+    </div>
+    
+    <div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="d4e3404"></a>B.2.3.&nbsp;The <code class="literal">&lt;authentication-manager&gt;</code> Element</h3></div></div></div>
+      
+      <p>
+        Since the <code class="interfacename">AuthenticationManager</code> will be automatically registered in the application
+        context, this element is entirely optional. It allows you to define an alias name for the internal instance for use
+        in your own configuration and also to supply a link to a <code class="interfacename">ConcurrentSessionController</code>
+        if you are configuring concurrent session control yourself rather than through the namespace (a rare requirement).
+        Its use is described in the <a href="ns-config.html#ns-auth-manager" title="2.6.&nbsp;The Default Authentication Manager">namespace introduction</a>.
+      </p>
+    </div>
+    
+  </div>
+  
+  <div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4e3411"></a>B.3.&nbsp;Method Security</h2></div></div></div>
+    
+    
+    <div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="d4e3413"></a>B.3.1.&nbsp;The <code class="literal">&lt;global-method-security&gt;</code> Element</h3></div></div></div>
+      
+      <p>
+        This element is the primary means of adding support for securing methods on Spring Security beans. Methods can
+        be secured by the use of annotations (defined at the interface or class level) or by defining a set of 
+        pointcuts as child elements, using AspectJ syntax.
+      </p>
+      <p>
+        Method security uses the same <code class="interfacename">AccessDecisionManager</code> configuration as web security,
+        but this can be overridden as explained above <a href="appendix-namespace.html#nsa-access-decision-manager-ref" title="B.1.1.7.&nbsp;access-decision-manager-ref">Section&nbsp;B.1.1.7, &#8220;<code class="literal">access-decision-manager-ref</code>&#8221;</a>, using the same
+        attribute.
+      </p>
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="d4e3420"></a>B.3.1.1.&nbsp;The <code class="literal">&lt;secured-annotations&gt;</code> and <code class="literal">&lt;jsr250-annotations&gt;</code> Attributes</h4></div></div></div>
+        
+        <p>
+          Setting these to "true" will enable support for Spring Security's own <code class="literal">@Secured</code> annotations and
+          JSR-250 annotations, respectively. They are both disabled by default. Use of JSR-250 annotations also adds a
+          <code class="classname">Jsr250Voter</code> to the <code class="interfacename">AccessDecisionManager</code>, so you need to 
+          make sure you do this if you are using a custom implementation and want to use these annotations.
+        </p>
+      </div>
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="d4e3428"></a>B.3.1.2.&nbsp;Securing Methods using <code class="literal">&lt;protect-pointcut&gt;</code></h4></div></div></div>
+        
+        <p>
+          Rather than defining security attributes on an individual method or class basis using the 
+          <code class="literal">@Secured</code> annotation, you can define cross-cutting security constraints across whole 
+          sets of methods and interfaces in your service layer using the <code class="literal">&lt;protect-pointcut&gt;</code> 
+          element. This has two attributes:
+          </p><div class="itemizedlist"><ul type="disc"><li><p><code class="literal">expression</code> - the pointcut expression</p></li><li><p><code class="literal">access</code> - the security attributes which apply</p></li></ul></div><p>
+          You can find an example in the <a href="ns-config.html#ns-protect-pointcut" title="2.4.1.1.&nbsp;Adding Security Pointcuts using protect-pointcut">namespace introduction</a>.
+        </p>
+      </div>
+    </div>
+
+    <div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="d4e3442"></a>B.3.2.&nbsp;LDAP Namespace Options</h3></div></div></div>
+      
+      <p>
+        LDAP is covered in some details in <a href="ldap.html" title="Chapter&nbsp;10.&nbsp;LDAP Authentication">its own chapter</a>. We will expand on that
+        here with some explanation of how the namespace options map to Spring beans. The LDAP implementation uses
+        Spring LDAP extensively, so some familiarity with that project's API may be useful. 
+      </p>
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="d4e3446"></a>B.3.2.1.&nbsp;Defining the LDAP Server using the <code class="literal">&lt;ldap-server&gt;</code> Element</h4></div></div></div>
+        
+        <p>
+          This element sets up a Spring LDAP <code class="interfacename">ContextSource</code> for use by the 
+          other LDAP beans, defining the location of the LDAP server and other information (such as a username
+          and password, if it doesn't allow anonymous access) for connecting to it. It can also be used to 
+          create an embedded server for testing. 
+          Details of the syntax for both options are covered in the <a href="ldap.html#ldap-server" title="10.3.&nbsp;Configuring an LDAP Server">LDAP chapter</a>.
+          The actual <code class="interfacename">ContextSource</code> implementation is 
+          <code class="classname">DefaultSpringSecurityContextSource</code> which extends Spring LDAP's 
+          <code class="classname">LdapContextSource</code> class. The <code class="literal">manager-dn</code> and <code class="literal">manager-password</code>
+          attributes map to the latter's <code class="literal">userDn</code> and <code class="literal">password</code> properties respectively.
+        </p>
+        <p>
+          If you only have one server defined in your application context, the other LDAP namespace-defined beans
+          will use it automatically. Otherwise, you can give the element an "id" attribute and refer to it from other
+          namespace beans using the <code class="literal">server-ref</code> attribute. This is actually the bean Id of the 
+          <code class="literal">ContextSource</code> instance, if you want to use it in other traditional Spring beans.
+        </p>
+      </div>
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="d4e3462"></a>B.3.2.2.&nbsp;The <code class="literal">&lt;ldap-provider&gt;</code> Element</h4></div></div></div>
+        
+        <p>
+          This element is shorthand for the creation of an <code class="classname">LdapAuthenticationProvider</code> instance.
+          By default this will be configured with a <code class="classname">BindAuthenticator</code> instance and a 
+          <code class="classname">DefaultAuthoritiesPopulator</code>. 
+        </p>
+        <div class="section" lang="en"><div class="titlepage"><div><div><h5 class="title"><a name="d4e3469"></a>B.3.2.2.1.&nbsp;The <code class="literal">user-dn-pattern</code> Attribute</h5></div></div></div>
+          
+          <p>
+            If your users are at a fixed location in the directory (i.e. you can work out the DN
+            directly from the username without doing a directory search), you can use this attribute
+            to map directly to the DN. It maps directly to the <code class="literal">userDnPatterns</code>
+            property of <code class="classname">AbstractLdapAuthenticator</code>.
+          </p>
+        </div>
+
+        <div class="section" lang="en"><div class="titlepage"><div><div><h5 class="title"><a name="d4e3475"></a>B.3.2.2.2.&nbsp;The <code class="literal">user-search-base</code> and <code class="literal">user-search-filter</code> Attributes</h5></div></div></div>
+          
+          <p>
+            If you need to perform a search to locate the user in the directory, then you
+            can set these attributes to control the search. The <code class="classname">BindAuthenticator</code> will be configured
+            with a <code class="classname">FilterBasedLdapUserSearch</code> and the attribute values map directly to the first two
+            arguments of that bean's constructor. If these attributes aren't set and no <code class="literal">user-dn-pattern</code>
+            has been supplied as an alternative, then the default search values of <code class="literal">user-search-filter="(uid={0})"</code>
+            and <code class="literal">user-search-base=""</code> will be used.
+          </p>
+        </div>
+        <div class="section" lang="en"><div class="titlepage"><div><div><h5 class="title"><a name="d4e3485"></a>B.3.2.2.3.&nbsp;<code class="literal">group-search-filter</code>, <code class="literal">group-search-base</code>, <code class="literal">group-role-attribute</code> and <code class="literal">role-prefix</code> Attributes</h5></div></div></div>
+          
+          <p>
+            The value of <code class="literal">group-search-base</code> is mapped to the <code class="literal">groupSearchBase</code> constructor argument
+            of <code class="classname">DefaultAuthoritiesPopulator</code> and defaults to "ou=groups". The default filter value is
+            "(uniqueMember={0})", which assumes that the entry is of type "groupOfUniqueNames". <code class="literal">group-role-attribute</code>
+            maps to the <code class="literal">groupRoleAttribute</code> attribute and defaults to "cn". Similarly <code class="literal">role-prefix</code>
+            maps to <code class="literal">rolePrefix</code> and defaults to "ROLE_".
+          </p>
+        </div>
+        <div class="section" lang="en"><div class="titlepage"><div><div><h5 class="title"><a name="d4e3499"></a>B.3.2.2.4.&nbsp;The <code class="literal">&lt;password-compare&gt;</code> Element</h5></div></div></div>
+          
+          <p>
+            This is used as child element to <code class="literal">&lt;ldap-provider&gt;</code>  and switches
+            the authentication strategy from <code class="classname">BindAuthenticator</code> to
+            <code class="classname">PasswordComparisonAuthenticator</code>. This can optionally be supplied with a 
+            <code class="literal">hash</code> attribute or with a child <code class="literal">&lt;password-encoder&gt;</code>
+            element to hash the password before submitting it to the directory for comparison.
+          </p>
+        </div>
+      </div>
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="d4e3508"></a>B.3.2.3.&nbsp;The <code class="literal">&lt;ldap-user-service&gt;</code> Element</h4></div></div></div>
+        
+        <p>
+          This element configures an LDAP <code class="interfacename">UserDetailsService</code>. The class used
+          is <code class="classname">LdapUserDetailsService</code> which is a combination of a  <code class="classname">FilterBasedLdapUserSearch</code>
+          and a <code class="classname">DefaultAuthoritiesPopulator</code>. The attributes it supports have the same usage as in
+          <code class="literal">&lt;ldap-provider&gt;</code>.
+        </p>
+      </div>
+    </div>
+  </div>
+
+<div class="footnotes"><br><hr width="100" align="left"><div class="footnote"><p><sup>[<a name="ftn.d4e3058" href="#d4e3058">4</a>] </sup>See the
+      <a href="ns-config.html#ns-web-xml" title="2.2.1.&nbsp;web.xml Configuration"> introductory chapter</a> for how to set up the mapping from
+        your <code class="literal">web.xml</code></p></div><div class="footnote"><p><sup>[<a name="ftn.d4e3194" href="#d4e3194">5</a>] </sup>This feature is really just provided for convenience and is not intended for production (where a 
+        view technology will have been chosen and can be used to render a customized login page). The class 
+        <code class="classname">DefaultLoginPageGeneratingFilter</code> is responsible for rendering the login
+        page and will provide login forms for both normal form login and/or OpenID if required.</p></div><div class="footnote"><p><sup>[<a name="ftn.d4e3270" href="#d4e3270">6</a>] </sup>This doesn't affect
+          the use of <code class="classname">PersistentTokenBasedRememberMeServices</code>, where the tokens are stored on the server side.</p></div></div></div><div xmlns:fo="http://www.w3.org/1999/XSL/Format" class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="appendix-schema.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="springsecurity.html">Home</a></td><td width="40%" align="right">&nbsp;</td></tr><tr><td width="40%" align="left" valign="top">Appendix&nbsp;A.&nbsp;Security Database Schema&nbsp;</td><td width="20%" align="center"><span style="color:white;font-size:90%;"><a href="http://www.springsource.com/" title="SpringSource">Sponsored by SpringSource
+                                        </a></span></td><td width="40%" align="right" valign="top">&nbsp;</td></tr></table></div></body></html>

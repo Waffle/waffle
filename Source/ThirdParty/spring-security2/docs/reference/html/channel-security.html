@@ -1,0 +1,163 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Chapter&nbsp;7.&nbsp;Channel Security</title><link rel="stylesheet" href="css/html.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"><link rel="start" href="springsecurity.html" title="Spring Security"><link rel="up" href="overall-architecture.html" title="Part&nbsp;II.&nbsp;Overall Architecture"><link rel="prev" href="supporting-infrastructure.html" title="Chapter&nbsp;6.&nbsp;Supporting Infrastructure"><link rel="next" href="authentication.html" title="Part&nbsp;III.&nbsp;Authentication"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div xmlns:fo="http://www.w3.org/1999/XSL/Format" style="background-color:white;border:none;height:73px;border:1px solid black;"><a style="border:none;" href="http://static.springframework.org/spring-security/site/" title="The Spring Framework - Spring Web Services"><img style="border:none;" src="images/xdev-spring_logo.jpg"></a><a style="border:none;" href="http://www.springsource.com/" title="SpringSource"><img style="border:none;position:absolute;padding-top:5px;right:42px;" src="images/s2-banner-rhs.png"></a></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h1 class="title"><a name="channel-security"></a>Channel Security</h1></div></div></div>
+
+
+
+<div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="channel-security-overview"></a>7.1.&nbsp;Overview</h2></div></div></div>
+    
+    
+    <p>In addition to coordinating the authentication and authorization
+        requirements of your application, Spring Security is also able to
+        ensure unauthenticated web requests have certain properties. These
+        properties may include being of a particular transport type, having a
+        particular <code class="literal">HttpSession</code> attribute set and so on. The
+        most common requirement is for your web requests to be received using
+        a particular transport protocol, such as HTTPS.</p>
+    
+    <p>An important issue in considering transport security is that of
+        session hijacking. Your web container manages a
+        <code class="literal">HttpSession</code> by reference to a
+        <code class="literal">jsessionid</code> that is sent to user agents either via a
+        cookie or URL rewriting. If the <code class="literal">jsessionid</code> is ever
+        sent over HTTP, there is a possibility that session identifier can be
+        intercepted and used to impersonate the user after they complete the
+        authentication process. This is because most web containers maintain
+        the same session identifier for a given user, even after they switch
+        from HTTP to HTTPS pages.</p>
+    
+    <p>If session hijacking is considered too significant a risk for
+        your particular application, the only option is to use HTTPS for every
+        request. This means the <code class="literal">jsessionid</code> is never sent
+        across an insecure channel. You will need to ensure your
+        <code class="literal">web.xml</code>-defined
+        <code class="literal">&lt;welcome-file&gt;</code> points to an HTTPS location,
+        and the application never directs the user to an HTTP location. Spring
+        Security provides a solution to assist with the latter.</p>
+</div>
+
+<div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="channel-security-config"></a>7.2.&nbsp;Configuration</h2></div></div></div>
+    
+    <p>Channel security is supported by the <a href="ns-config.html#ns-requires-channel" title="2.3.2.&nbsp;Adding HTTP/HTTPS Channel Security">security namespace</a>
+        by means of the <code class="literal">requires-channel</code> attribute on the <code class="literal">&lt;intercept-url&gt;</code>
+        element and this is the simplest (and recommended approach)</p>
+    <p>To confiure channel security explicitly, you would define the following the filter in your application
+        context:
+</p><pre class="programlisting">
+&lt;bean id="channelProcessingFilter" class="org.springframework.security.securechannel.ChannelProcessingFilter"&gt;
+  &lt;property name="channelDecisionManager" ref="channelDecisionManager"/&gt;
+  &lt;property name="filterInvocationDefinitionSource"&gt;
+    &lt;security:filter-invocation-definition-source path-type="regex"&gt;
+      &lt;security:intercept-url pattern="\A/secure/.*\Z" access="REQUIRES_SECURE_CHANNEL"/&gt;
+      &lt;security:intercept-url pattern="\A/acegilogin.jsp.*\Z" access="REQUIRES_SECURE_CHANNEL"/&gt;
+      &lt;security:intercept-url pattern="\A/j_spring_security_check.*\Z" access="REQUIRES_SECURE_CHANNEL"/&gt;
+      &lt;security:intercept-url pattern="\A/.*\Z" access="ANY_CHANNEL"/&gt;
+    &lt;/security:filter-invocation-definition-source&gt;                
+  &lt;/property&gt;
+&lt;/bean&gt;
+    
+&lt;bean id="channelDecisionManager" class="org.springframework.security.securechannel.ChannelDecisionManagerImpl"&gt;
+  &lt;property name="channelProcessors"&gt;
+    &lt;list&gt;
+    &lt;ref bean="secureChannelProcessor"/&gt;
+    &lt;ref bean="insecureChannelProcessor"/&gt;
+    &lt;/list&gt;
+  &lt;/property&gt;
+&lt;/bean&gt;
+    
+&lt;bean id="secureChannelProcessor" class="org.springframework.security.securechannel.SecureChannelProcessor"/&gt;
+&lt;bean id="insecureChannelProcessor" class="org.springframework.security.securechannel.InsecureChannelProcessor"/&gt;      
+</pre><p>
+        Like <code class="classname">FilterSecurityInterceptor</code>, Apache Ant
+        style paths are also supported by the
+        <code class="literal">ChannelProcessingFilter</code>.</p>
+    
+    <p>The <code class="literal">ChannelProcessingFilter</code> operates by
+        filtering all web requests and determining the configuration
+        attributes that apply. It then delegates to the
+        <code class="literal">ChannelDecisionManager</code>. The default implementation,
+        <code class="literal">ChannelDecisionManagerImpl</code>, should suffice in most
+        cases. It simply delegates to the list of configured
+        <code class="literal">ChannelProcessor</code> instances. The attribute <code class="literal">ANY_CHANNEL</code>
+        can be used to override this behaviour and skip a particular URL. Otherwise, a
+        <code class="literal">ChannelProcessor</code> will review the request, and if it
+        is unhappy with the request (e.g. if it was received across the incorrect
+        transport protocol), it will perform a redirect, throw an exception or
+        take whatever other action is appropriate.</p>
+    
+    <p>Included with Spring Security are two concrete
+        <code class="literal">ChannelProcessor</code> implementations:
+        <code class="literal">SecureChannelProcessor</code> ensures requests with a
+        configuration attribute of <code class="literal">REQUIRES_SECURE_CHANNEL</code>
+        are received over HTTPS, whilst
+        <code class="literal">InsecureChannelProcessor</code> ensures requests with a
+        configuration attribute of
+        <code class="literal">REQUIRES_INSECURE_CHANNEL</code> are received over HTTP.
+        Both implementations delegate to a
+        <code class="literal">ChannelEntryPoint</code> if the required transport
+        protocol is not used. The two <code class="literal">ChannelEntryPoint</code>
+        implementations included with Spring Security simply redirect the
+        request to HTTP and HTTPS as appropriate. Appropriate defaults are
+        assigned to the <code class="literal">ChannelProcessor</code> implementations
+        for the configuration attribute keywords they respond to and the
+        <code class="interfacename">ChannelEntryPoint</code> they delegate to, although you
+        have the ability to override these using the application
+        context.</p>
+    
+    <p>Note that the redirections are absolute (eg
+        <code class="literal">http://www.company.com:8080/app/page</code>), not relative
+        (eg <code class="literal">/app/page</code>). During testing it was discovered
+        that Internet Explorer 6 Service Pack 1 has a bug whereby it does not
+        respond correctly to a redirection instruction which also changes the
+        port to use. Accordingly, absolute URLs are used in conjunction with
+        bug detection logic in the <code class="classname">PortResolverImpl</code> that is
+        wired up by default to many Spring Security beans. Please refer to the
+        JavaDocs for <code class="classname">PortResolverImpl</code> for further
+        details.</p>
+    
+    <p>You should note that using a secure channel is recommended if
+        usernames and passwords are to be kept secure during the login
+        process. If you do decide to use
+        <code class="classname">ChannelProcessingFilter</code> with form-based login,
+        please ensure that your login page is set to
+        <code class="literal">REQUIRES_SECURE_CHANNEL</code>, and that the
+        <code class="literal">AuthenticationProcessingFilterEntryPoint.forceHttps</code>
+        property is <code class="literal">true</code>.</p>
+</div>
+
+<div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="channel-security-conclusion"></a>7.3.&nbsp;Conclusion</h2></div></div></div>
+    
+
+    <p>Once configured, using the channel security filter is very easy.
+        Simply request pages without regard to the protocol (ie HTTP or HTTPS)
+        or port (eg 80, 8080, 443, 8443 etc). Obviously you'll still need a
+        way of making the initial request (probably via the
+        <code class="literal">web.xml</code> <code class="literal">&lt;welcome-file&gt;</code> or
+        a well-known home page URL), but once this is done the filter will
+        perform redirects as defined by your application context.</p>
+    
+    <p>You can also add your own <code class="literal">ChannelProcessor</code>
+        implementations to the <code class="literal">ChannelDecisionManagerImpl</code>.
+        For example, you might set a <code class="literal">HttpSession</code> attribute
+        when a human user is detected via a "enter the contents of this
+        graphic" procedure. Your <code class="literal">ChannelProcessor</code> would
+        respond to say <code class="literal">REQUIRES_HUMAN_USER</code> configuration
+        attributes and redirect to an appropriate entry point to start the
+        human user validation process if the <code class="literal">HttpSession</code>
+        attribute is not currently set.</p>
+    
+    <p>To decide whether a security check belongs in a
+        <code class="literal">ChannelProcessor</code> or an
+        <code class="interfacename">AccessDecisionVoter</code>, remember that the former is
+        designed to handle unauthenticated requests, whilst the latter is
+        designed to handle authenticated requests. The latter therefore has
+        access to the granted authorities of the authenticated principal. In
+        addition, problems detected by a <code class="literal">ChannelProcessor</code>
+        will generally cause an HTTP/HTTPS redirection so its requirements can
+        be met, whilst problems detected by an
+        <code class="interfacename">AccessDecisionVoter</code> will ultimately result in an
+        <code class="literal">AccessDeniedException</code> (depending on the governing
+        <code class="interfacename">AccessDecisionManager</code>).</p>
+</div>
+</div><div xmlns:fo="http://www.w3.org/1999/XSL/Format" class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="supporting-infrastructure.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="springsecurity.html">Home</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="authentication.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter&nbsp;6.&nbsp;Supporting Infrastructure&nbsp;</td><td width="20%" align="center"><span style="color:white;font-size:90%;"><a href="http://www.springsource.com/" title="SpringSource">Sponsored by SpringSource
+                                        </a></span></td><td width="40%" align="right" valign="top">&nbsp;Part&nbsp;III.&nbsp;Authentication</td></tr></table></div></body></html>

@@ -1,0 +1,132 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Chapter&nbsp;9.&nbsp;DAO Authentication Provider</title><link rel="stylesheet" href="css/html.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"><link rel="start" href="springsecurity.html" title="Spring Security"><link rel="up" href="authentication.html" title="Part&nbsp;III.&nbsp;Authentication"><link rel="prev" href="authentication-common-auth-services.html" title="Chapter&nbsp;8.&nbsp;Common Authentication Services"><link rel="next" href="ldap.html" title="Chapter&nbsp;10.&nbsp;LDAP Authentication"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div xmlns:fo="http://www.w3.org/1999/XSL/Format" style="background-color:white;border:none;height:73px;border:1px solid black;"><a style="border:none;" href="http://static.springframework.org/spring-security/site/" title="The Spring Framework - Spring Web Services"><img style="border:none;" src="images/xdev-spring_logo.jpg"></a><a style="border:none;" href="http://www.springsource.com/" title="SpringSource"><img style="border:none;position:absolute;padding-top:5px;right:42px;" src="images/s2-banner-rhs.png"></a></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h1 class="title"><a name="dao-provider"></a>DAO Authentication Provider</h1></div></div></div>
+
+
+
+<div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="dao-provider-overview"></a>9.1.&nbsp;Overview</h2></div></div></div>
+    
+
+    <p>Spring Security includes a production-quality
+        <code class="classname">AuthenticationProvider</code> implementation called
+        <code class="literal">DaoAuthenticationProvider</code>. This authentication
+        provider is compatible with all of the authentication mechanisms that
+        generate a <code class="literal">UsernamePasswordAuthenticationToken</code>, and
+        is probably the most commonly used provider in the framework. Like
+        most of the other authentication providers, the
+        DaoAuthenticationProvider leverages a UserDetailsService in order to
+        lookup the username, password and GrantedAuthority[]s. Unlike most of
+        the other authentication providers that leverage UserDetailsService,
+        this authentication provider actually requires the password to be
+        presented, and the provider will actually evaluate the validity or
+        otherwise of the password presented in an authentication request
+        object.</p>
+</div>
+
+<div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="dao-provider-config"></a>9.2.&nbsp;Configuration</h2></div></div></div>
+    
+    
+    <p>Aside from adding DaoAuthenticationProvider to your
+        ProviderManager list (as discussed at the start of this part of the
+        reference guide), and ensuring a suitable authentication mechanism is
+        configured to present a UsernamePasswordAuthenticationToken, the
+        configuration of the provider itself is rather simple:</p>
+    
+    <pre class="programlisting">
+        
+&lt;bean id="daoAuthenticationProvider"
+    class="org.springframework.security.providers.dao.DaoAuthenticationProvider"&gt;
+  &lt;property name="userDetailsService" ref="inMemoryDaoImpl"/&gt;
+  &lt;property name="saltSource" ref bean="saltSource"/&gt;
+  &lt;property name="passwordEncoder" ref="passwordEncoder"/&gt;
+&lt;/bean&gt;        
+    </pre>
+    
+    <p>The <code class="literal">PasswordEncoder</code> and
+        <code class="literal">SaltSource</code> are optional. A
+        <code class="literal">PasswordEncoder</code> provides encoding and decoding of
+        passwords presented in the <code class="interfacename">UserDetails</code> object that
+        is returned from the configured <code class="interfacename">UserDetailsService</code>.
+        A <code class="literal">SaltSource</code> enables the passwords to be populated
+        with a "salt", which enhances the security of the passwords in the
+        authentication repository. <code class="literal">PasswordEncoder</code>
+        implementations are provided with Spring Security covering MD5, SHA
+        and cleartext encodings. Two <code class="literal">SaltSource</code>
+        implementations are also provided:
+        <code class="literal">SystemWideSaltSource</code> which encodes all passwords
+        with the same salt, and <code class="literal">ReflectionSaltSource</code>, which
+        inspects a given property of the returned
+        <code class="interfacename">UserDetails</code> object to obtain the salt. Please refer
+        to the JavaDocs for further details on these optional features.</p>
+    
+    <p>In addition to the properties above, the
+        <code class="literal">DaoAuthenticationProvider</code> supports optional caching
+        of <code class="interfacename">UserDetails</code> objects. The
+        <code class="literal">UserCache</code> interface enables the
+        <code class="literal">DaoAuthenticationProvider</code> to place a
+        <code class="interfacename">UserDetails</code> object into the cache, and retrieve it
+        from the cache upon subsequent authentication attempts for the same
+        username. By default the <code class="literal">DaoAuthenticationProvider</code>
+        uses the <code class="literal">NullUserCache</code>, which performs no caching.
+        A usable caching implementation is also provided,
+        <code class="literal">EhCacheBasedUserCache</code>, which is configured as
+        follows:</p>
+    <pre class="programlisting">
+&lt;bean id="daoAuthenticationProvider"
+    class="org.springframework.security.providers.dao.DaoAuthenticationProvider"&gt;
+  &lt;property name="userDetailsService" ref="userDetailsService"/&gt;
+  &lt;property name="userCache" ref="userCache"/&gt;
+&lt;/bean&gt;
+        
+&lt;bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"&gt;
+  &lt;property name="configLocation" value="classpath:/ehcache-failsafe.xml"/&gt;
+&lt;/bean&gt;
+    
+&lt;bean id="userCacheBackend" class="org.springframework.cache.ehcache.EhCacheFactoryBean"&gt;
+  &lt;property name="cacheManager" ref="cacheManager"/&gt;
+  &lt;property name="cacheName" value="userCache"/&gt;
+&lt;/bean&gt;
+
+&lt;bean id="userCache" class="org.springframework.security.providers.dao.cache.EhCacheBasedUserCache"&gt;
+  &lt;property name="cache" ref="userCacheBackend"/&gt;
+&lt;/bean&gt;        
+    </pre>
+    
+    <p>All Spring Security EH-CACHE implementations (including
+        <code class="literal">EhCacheBasedUserCache</code>) require an EH-CACHE
+        <code class="literal">Cache</code> object. The <code class="literal">Cache</code> object
+        can be obtained from wherever you like, although we recommend you use
+        Spring's factory classes as shown in the above configuration. If using
+        Spring's factory classes, please refer to the Spring documentation for
+        further details on how to optimise the cache storage location, memory
+        usage, eviction policies, timeouts etc.</p>
+    <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>In the majority of cases, where your application is a stateful web
+        application, you don't need to use a cache as the user's authentication
+        information will be stored in the <code class="literal">HttpSession</code>.
+    </p></div>
+    
+    <p>A design decision was made not to support account locking in the
+        <code class="literal">DaoAuthenticationProvider</code>, as doing so would have
+        increased the complexity of the <code class="interfacename">UserDetailsService</code>
+        interface. For instance, a method would be required to increase the
+        count of unsuccessful authentication attempts. Such functionality
+        could be easily provided by leveraging the application event
+        publishing features discussed below.</p>
+    
+    <p><code class="literal">DaoAuthenticationProvider</code> returns an
+        <code class="interfacename">Authentication</code> object which in turn has its
+        <code class="literal">principal</code> property set. The principal will be
+        either a <code class="literal">String</code> (which is essentially the username)
+        or a <code class="interfacename">UserDetails</code> object (which was looked up from
+        the <code class="interfacename">UserDetailsService</code>). By default the
+        <code class="interfacename">UserDetails</code> is returned, as this enables
+        applications to add extra properties potentially of use in
+        applications, such as the user's full name, email address etc. If
+        using container adapters, or if your applications were written to
+        operate with <code class="literal">String</code>s (as was the case for releases
+        prior to Spring Security 0.6), you should set the
+        <code class="literal">DaoAuthenticationProvider.forcePrincipalAsString</code>
+        property to <code class="literal">true</code> in your application context</p>
+</div>
+</div><div xmlns:fo="http://www.w3.org/1999/XSL/Format" class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="authentication-common-auth-services.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="springsecurity.html">Home</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ldap.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter&nbsp;8.&nbsp;Common Authentication Services&nbsp;</td><td width="20%" align="center"><span style="color:white;font-size:90%;"><a href="http://www.springsource.com/" title="SpringSource">Sponsored by SpringSource
+                                        </a></span></td><td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;10.&nbsp;LDAP Authentication</td></tr></table></div></body></html>

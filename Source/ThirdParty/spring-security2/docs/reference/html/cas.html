@@ -1,0 +1,162 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Chapter&nbsp;19.&nbsp;CAS Authentication</title><link rel="stylesheet" href="css/html.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"><link rel="start" href="springsecurity.html" title="Spring Security"><link rel="up" href="authentication.html" title="Part&nbsp;III.&nbsp;Authentication"><link rel="prev" href="x509.html" title="Chapter&nbsp;18.&nbsp;X.509 Authentication"><link rel="next" href="runas.html" title="Chapter&nbsp;20.&nbsp;Run-As Authentication Replacement"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div xmlns:fo="http://www.w3.org/1999/XSL/Format" style="background-color:white;border:none;height:73px;border:1px solid black;"><a style="border:none;" href="http://static.springframework.org/spring-security/site/" title="The Spring Framework - Spring Web Services"><img style="border:none;" src="images/xdev-spring_logo.jpg"></a><a style="border:none;" href="http://www.springsource.com/" title="SpringSource"><img style="border:none;position:absolute;padding-top:5px;right:42px;" src="images/s2-banner-rhs.png"></a></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="cas"></a>Chapter&nbsp;19.&nbsp;CAS Authentication</h2></div></div></div>
+  
+  
+
+  <div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="cas-overview"></a>19.1.&nbsp;Overview</h2></div></div></div>
+    
+
+    <p>JA-SIG produces an enterprise-wide single sign on system known
+    as CAS. Unlike other initiatives, JA-SIG's Central Authentication
+    Service is open source, widely used, simple to understand, platform
+    independent, and supports proxy capabilities. Spring Security fully
+    supports CAS, and provides an easy migration path from
+    single-application deployments of Spring Security through to
+    multiple-application deployments secured by an enterprise-wide CAS
+    server.</p>
+
+    <p>You can learn more about CAS at
+    <code class="literal">http://www.ja-sig.org/products/cas/</code>. You will also need
+    to visit this site to download the CAS Server files.</p>
+  </div>
+
+  <div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="cas-how-it-works"></a>19.2.&nbsp;How CAS Works</h2></div></div></div>
+    
+
+    <p>Whilst the CAS web site contains documents that detail
+    the architecture of CAS, we present the general overview again here
+    within the context of Spring Security. Spring Security 2.0 supports
+    CAS 3. At the time of writing, the CAS server was at version 3.2.</p>
+
+    <p>Somewhere in your enterprise you will need to setup a CAS
+    server. The CAS server is simply a standard WAR file, so there isn't
+    anything difficult about setting up your server. Inside the WAR file
+    you will customise the login and other single sign on pages displayed
+    to users.</p>
+
+    <p>When deploying a CAS 3.2 server, you will also need to specify an
+    <code class="literal">AuthenticationHandler</code> in the
+    <code class="filename">deployerConfigContext.xml</code> included with CAS. The
+    <code class="literal">AuthenticationHandler</code> has a simple method that
+    returns a boolean as to whether a given set of Credentials is valid.
+    Your <code class="literal">AuthenticationHandler</code> implementation will need
+    to link into some type of backend authentication repository, such as
+    an LDAP server or database. CAS itself includes numerous
+    <code class="literal">AuthenticationHandler</code>s out of the box to assist
+    with this. When you download and deploy the server war file, it is set up
+    to successfully authenticate users who enter a password matching their
+    username, which is useful for testing.</p>
+
+    <p>Apart from the CAS server itself, the other key players are of
+    course the secure web applications deployed throughout your
+    enterprise. These web applications are known as "services". There are
+    two types of services: standard services and proxy services. A proxy
+    service is able to request resources from other services on behalf of
+    the user. This will be explained more fully later.</p>
+    
+
+  </div>
+
+  <div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="cas-client"></a>19.3.&nbsp;Configuration of CAS Client</h2></div></div></div>
+    
+
+    <p>The web application side of CAS is made easy due to Spring
+    Security. It is assumed you already know the basics of using Spring
+    Security, so these are not covered again below. We'll assume a namespace
+    based configuration is being used and add in the CAS beans as required.
+    </p>
+
+    <p>You will need to add a <code class="literal">ServiceProperties</code> bean
+    to your application context. This represents your service:</p>
+
+    <pre class="programlisting">
+  &lt;bean id="serviceProperties" class="org.springframework.security.ui.cas.ServiceProperties"&gt;
+    &lt;property name="service" value="https://localhost:8443/cas-sample/j_spring_cas_security_check"/&gt;
+    &lt;property name="sendRenew" value="false"/&gt;
+  &lt;/bean&gt;
+    </pre>
+
+    <p>The <code class="literal">service</code> must equal a URL that will be
+    monitored by the <code class="literal">CasProcessingFilter</code>. The
+    <code class="literal">sendRenew</code> defaults to false, but should be set to
+    true if your application is particularly sensitive. What this
+    parameter does is tell the CAS login service that a single sign on
+    login is unacceptable. Instead, the user will need to re-enter their
+    username and password in order to gain access to the service.</p>
+
+    <p>The following beans should be configured to commence the CAS
+    authentication process:</p>
+
+    <pre class="programlisting">
+&lt;security:authentication-manager alias="authenticationManager"/&gt;      
+      
+&lt;bean id="casProcessingFilter" class="org.springframework.security.ui.cas.CasProcessingFilter"&gt;
+  &lt;security:custom-filter after="CAS_PROCESSING_FILTER"/&gt;
+  &lt;property name="authenticationManager" ref="authenticationManager"/&gt;
+  &lt;property name="authenticationFailureUrl" value="/casfailed.jsp"/&gt;
+  &lt;property name="defaultTargetUrl" value="/"/&gt;
+&lt;/bean&gt;
+
+&lt;bean id="casProcessingFilterEntryPoint" 
+    class="org.springframework.security.ui.cas.CasProcessingFilterEntryPoint"&gt;
+  &lt;property name="loginUrl" value="https://localhost:9443/cas/login"/&gt;
+  &lt;property name="serviceProperties" ref="serviceProperties"/&gt;
+&lt;/bean&gt;
+
+ 
+    </pre>
+    
+    <p>
+      The <code class="classname">CasProcessingFilterEntryPoint</code> should be selected to
+      drive authentication using <a xmlns:xlink="http://www.w3.org/1999/xlink" href="ns-entry-point-ref" target="_top"><code class="literal">entry-point-ref</code></a>.
+    </p>
+
+    <p>The <code class="literal">CasProcessingFilter</code> has very similar
+    properties to the <code class="literal">AuthenticationProcessingFilter</code>
+    (used for form-based logins). Each property is
+    self-explanatory. Note that we've also used the namespace syntax 
+    for setting up an alias to the authentication mnager, since the 
+      <code class="literal">CasProcessingFilter</code> needs a reference to it.</p>
+
+    <p>For CAS to operate, the
+    <code class="classname">ExceptionTranslationFilter</code> must have its
+    <code class="literal">authenticationEntryPoint</code> property set to the
+    <code class="literal">CasProcessingFilterEntryPoint</code> bean.</p>
+
+    <p>The <code class="literal">CasProcessingFilterEntryPoint</code> must refer
+    to the <code class="literal">ServiceProperties</code> bean (discussed above),
+    which provides the URL to the enterprise's CAS login server. This is
+    where the user's browser will be redirected.</p>
+
+    <p>Next you need to add a <code class="literal">CasAuthenticationProvider</code> and its
+    collaborators:
+      </p><pre class="programlisting">
+  &lt;bean id="casAuthenticationProvider" class="org.springframework.security.providers.cas.CasAuthenticationProvider"&gt;
+    &lt;security:custom-authentication-provider /&gt;
+    &lt;property name="userDetailsService" ref="userService"/&gt;
+    &lt;property name="serviceProperties" ref="serviceProperties" /&gt;
+    &lt;property name="ticketValidator"&gt;
+      &lt;bean class="org.jasig.cas.client.validation.Cas20ServiceTicketValidator"&gt;
+        &lt;constructor-arg index="0" value="https://localhost:9443/cas" /&gt;
+        &lt;/bean&gt;
+    &lt;/property&gt;
+    &lt;property name="key" value="an_id_for_this_auth_provider_only"/&gt;
+  &lt;/bean&gt;
+  
+  &lt;security:user-service id="userService"&gt;
+    &lt;security:user name="joe" password="joe" authorities="ROLE_USER" /&gt;
+    ...
+  &lt;/security:user-service&gt;      
+      </pre><p>
+      The <code class="classname">CasAuthenticationProvider</code> uses a <code class="interfacename">UserDetailsService</code>
+      instance to load the authorities for a user, once they have been authentiated by CAS. We've shown a simple
+      in-memory setup here.
+    </p>
+
+    <p>The beans are all reasonable self-explanatory if you refer back
+    to the "How CAS Works" section.</p>
+  </div>
+
+</div><div xmlns:fo="http://www.w3.org/1999/XSL/Format" class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="x509.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="springsecurity.html">Home</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="runas.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter&nbsp;18.&nbsp;X.509 Authentication&nbsp;</td><td width="20%" align="center"><span style="color:white;font-size:90%;"><a href="http://www.springsource.com/" title="SpringSource">Sponsored by SpringSource
+                                        </a></span></td><td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;20.&nbsp;Run-As Authentication Replacement</td></tr></table></div></body></html>

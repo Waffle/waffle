@@ -1,0 +1,108 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Chapter&nbsp;17.&nbsp;Anonymous Authentication</title><link rel="stylesheet" href="css/html.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"><link rel="start" href="springsecurity.html" title="Spring Security"><link rel="up" href="authentication.html" title="Part&nbsp;III.&nbsp;Authentication"><link rel="prev" href="preauth.html" title="Chapter&nbsp;16.&nbsp;Pre-Authentication Scenarios"><link rel="next" href="x509.html" title="Chapter&nbsp;18.&nbsp;X.509 Authentication"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div xmlns:fo="http://www.w3.org/1999/XSL/Format" style="background-color:white;border:none;height:73px;border:1px solid black;"><a style="border:none;" href="http://static.springframework.org/spring-security/site/" title="The Spring Framework - Spring Web Services"><img style="border:none;" src="images/xdev-spring_logo.jpg"></a><a style="border:none;" href="http://www.springsource.com/" title="SpringSource"><img style="border:none;position:absolute;padding-top:5px;right:42px;" src="images/s2-banner-rhs.png"></a></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h1 class="title"><a name="anonymous"></a>Anonymous Authentication</h1></div></div></div>
+
+
+
+
+<div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="anonymous-overview"></a>17.1.&nbsp;Overview</h2></div></div></div>
+    
+
+    <p>Particularly in the case of web request URI security, sometimes
+        it is more convenient to assign configuration attributes against every
+        possible secure object invocation. Put differently, sometimes it is
+        nice to say <code class="literal">ROLE_SOMETHING</code> is required by default
+        and only allow certain exceptions to this rule, such as for login,
+        logout and home pages of an application. There are also other
+        situations where anonymous authentication would be desired, such as
+        when an auditing interceptor queries the
+        <code class="classname">SecurityContextHolder</code> to identify which principal
+        was responsible for a given operation. Such classes can be authored
+        with more robustness if they know the
+        <code class="classname">SecurityContextHolder</code> always contains an
+        <code class="interfacename">Authentication</code> object, and never
+        <code class="literal">null</code>.</p>
+</div>
+
+<div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="anonymous-config"></a>17.2.&nbsp;Configuration</h2></div></div></div>
+    
+
+    <p>Spring Security provides three classes that together provide an
+        anonymous authentication feature.
+        <code class="literal">AnonymousAuthenticationToken</code> is an implementation
+        of <code class="interfacename">Authentication</code>, and stores the
+        <code class="interfacename">GrantedAuthority</code>[]s which apply to the anonymous
+        principal. There is a corresponding
+        <code class="literal">AnonymousAuthenticationProvider</code>, which is chained
+        into the <code class="literal">ProviderManager</code> so that
+        <code class="literal">AnonymousAuthenticationTokens</code> are accepted.
+        Finally, there is an AnonymousProcessingFilter, which is chained after
+        the normal authentication mechanisms and automatically add an
+        <code class="literal">AnonymousAuthenticationToken</code> to the
+        <code class="classname">SecurityContextHolder</code> if there is no existing
+        <code class="interfacename">Authentication</code> held there. The definition of the
+        filter and authentication provider appears as follows:</p>
+
+    <pre class="programlisting">
+
+&lt;bean id="anonymousProcessingFilter"
+    class="org.springframework.security.providers.anonymous.AnonymousProcessingFilter"&gt;
+  &lt;property name="key" value="foobar"/&gt;
+  &lt;property name="userAttribute" value="anonymousUser,ROLE_ANONYMOUS"/&gt;
+&lt;/bean&gt;
+
+&lt;bean id="anonymousAuthenticationProvider"
+    class="org.springframework.security.providers.anonymous.AnonymousAuthenticationProvider"&gt;
+  &lt;property name="key" value="foobar"/&gt;
+&lt;/bean&gt;
+    </pre>
+
+    <p>The <code class="literal">key</code> is shared between the filter and
+        authentication provider, so that tokens created by the former are
+        accepted by the latter. The <code class="literal">userAttribute</code> is
+        expressed in the form of
+        <code class="literal">usernameInTheAuthenticationToken,grantedAuthority[,grantedAuthority]</code>.
+        This is the same syntax as used after the equals sign for
+        <code class="literal">InMemoryDaoImpl</code>'s <code class="literal">userMap</code>
+        property.</p>
+
+    <p>As explained earlier, the benefit of anonymous authentication is
+        that all URI patterns can have security applied to them. For
+        example:</p>
+
+    <pre class="programlisting">
+
+&lt;bean id="filterInvocationInterceptor"
+    class="org.springframework.security.intercept.web.FilterSecurityInterceptor"&gt;
+  &lt;property name="authenticationManager" ref="authenticationManager"/&gt;
+  &lt;property name="accessDecisionManager" ref="httpRequestAccessDecisionManager"/&gt;
+  &lt;property name="objectDefinitionSource"&gt;
+    &lt;security:filter-invocation-definition-source&gt;
+      &lt;security:intercept-url pattern='/index.jsp' access='ROLE_ANONYMOUS,ROLE_USER'/&gt;
+      &lt;security:intercept-url pattern='/hello.htm' access='ROLE_ANONYMOUS,ROLE_USER'/&gt;
+      &lt;security:intercept-url pattern='/logoff.jsp' access='ROLE_ANONYMOUS,ROLE_USER'/&gt;
+      &lt;security:intercept-url pattern='/login.jsp' access='ROLE_ANONYMOUS,ROLE_USER'/&gt;
+      &lt;security:intercept-url pattern='/**' access='ROLE_USER'/&gt;
+    &lt;/security:filter-invocation-definition-source&gt;" +
+  &lt;/property&gt;
+&lt;/bean&gt;
+    </pre><p>Rounding out the anonymous authentication discussion
+        is the <code class="literal">AuthenticationTrustResolver</code> interface, with
+        its corresponding <code class="literal">AuthenticationTrustResolverImpl</code>
+        implementation. This interface provides an
+        <code class="literal">isAnonymous(Authentication)</code> method, which allows
+        interested classes to take into account this special type of
+        authentication status. The
+        <code class="classname">ExceptionTranslationFilter</code> uses this interface in
+        processing <code class="literal">AccessDeniedException</code>s. If an
+        <code class="literal">AccessDeniedException</code> is thrown, and the
+        authentication is of an anonymous type, instead of throwing a 403
+        (forbidden) response, the filter will instead commence the
+        <code class="interfacename">AuthenticationEntryPoint</code> so the principal can
+        authenticate properly. This is a necessary distinction, otherwise
+        principals would always be deemed "authenticated" and never be given
+        an opportunity to login via form, basic, digest or some other normal
+        authentication mechanism</p>
+</div>
+</div><div xmlns:fo="http://www.w3.org/1999/XSL/Format" class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="preauth.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="springsecurity.html">Home</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="x509.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter&nbsp;16.&nbsp;Pre-Authentication Scenarios&nbsp;</td><td width="20%" align="center"><span style="color:white;font-size:90%;"><a href="http://www.springsource.com/" title="SpringSource">Sponsored by SpringSource
+                                        </a></span></td><td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;18.&nbsp;X.509 Authentication</td></tr></table></div></body></html>

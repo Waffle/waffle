@@ -1,0 +1,87 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Chapter&nbsp;18.&nbsp;X.509 Authentication</title><link rel="stylesheet" href="css/html.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"><link rel="start" href="springsecurity.html" title="Spring Security"><link rel="up" href="authentication.html" title="Part&nbsp;III.&nbsp;Authentication"><link rel="prev" href="anonymous.html" title="Chapter&nbsp;17.&nbsp;Anonymous Authentication"><link rel="next" href="cas.html" title="Chapter&nbsp;19.&nbsp;CAS Authentication"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div xmlns:fo="http://www.w3.org/1999/XSL/Format" style="background-color:white;border:none;height:73px;border:1px solid black;"><a style="border:none;" href="http://static.springframework.org/spring-security/site/" title="The Spring Framework - Spring Web Services"><img style="border:none;" src="images/xdev-spring_logo.jpg"></a><a style="border:none;" href="http://www.springsource.com/" title="SpringSource"><img style="border:none;position:absolute;padding-top:5px;right:42px;" src="images/s2-banner-rhs.png"></a></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h1 class="title"><a name="x509"></a>X.509 Authentication</h1></div></div></div>
+    
+    <div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="x509-overview"></a>18.1.&nbsp;Overview</h2></div></div></div>
+        
+        <p>The most common use of X.509 certificate authentication is in verifying the identity
+            of a server when using SSL, most commonly when using HTTPS from a browser. The browser
+            will automatically check that the certificate presented by a server has been issued (ie
+            digitally signed) by one of a list of trusted certificate authorities which it
+            maintains.</p>
+        <p>You can also use SSL with &#8220;<span class="quote">mutual authentication</span>&#8221;; the server will then
+            request a valid certificate from the client as part of the SSL handshake. The server
+            will authenticate the client by checking that it's certificate is signed by an
+            acceptable authority. If a valid certificate has been provided, it can be obtained
+            through the servlet API in an application. Spring Security X.509 module extracts the
+            certificate using a filter and passes it to the configured X.509 authentication provider
+            to allow any additional application-specific checks to be applied. It also maps the
+            certificate to an application user and loads that user's set of granted authorities for
+            use with the standard Spring Security infrastructure.</p>
+        <p>You should be familiar with using certificates and setting up client authentication
+            for your servlet container before attempting to use it with Spring Security. Most of the
+            work is in creating and installing suitable certificates and keys. For example, if
+            you're using Tomcat then read the instructions here <code class="uri"><a href="http://tomcat.apache.org/tomcat-6.0-doc/ssl-howto.html">http://tomcat.apache.org/tomcat-6.0-doc/ssl-howto.html</a></code>. It's important that
+            you get this working before trying it out with Spring Security</p>
+    </div>
+    <div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4e2008"></a>18.2.&nbsp;Adding X.509 Authentication to Your Web Application</h2></div></div></div>
+        
+        <p> Enabling X.509 client authentication is very straightforward. Just add the <code class="literal">&lt;x509/&gt;</code> element to your http security namespace configuration. </p><pre class="programlisting">
+&lt;http&gt;
+ ...
+    &lt;x509 subject-principal-regex="CN=(.*?)," user-service-ref="userService"/&gt;
+ ...
+&lt;/http&gt;
+            </pre><p> The element has two optional attributes: </p><div class="itemizedlist"><ul type="disc"><li>
+                    <p><code class="literal">subject-principal-regex</code>. The regular expression used to
+                        extract a username from the certificate's subject name. The default value is
+                        shown above. This is the username which will be passed to the <code class="interfacename">UserDetailsService</code> to load the authorities for the
+                    user.</p>
+                </li><li>
+                    <p><code class="literal">user-service-ref</code>. This is the bean Id of the
+                            <code class="interfacename">UserDetailsService</code> to be used with X.509.
+                        It isn't needed if there is only one defined in your application
+                    context.</p>
+                </li></ul></div><p> The <code class="literal">subject-principal-regex</code> should contain a single
+            group. For example the default expression "CN=(.*?)," matches the common name field. So
+            if the subject name in the certificate is "CN=Jimi Hendrix, OU=...", this will give a
+            user name of "Jimi Hendrix". The matches are case insensitive. So "emailAddress=(.?),"
+            will match "EMAILADDRESS=jimi@hendrix.org,CN=..." giving a user name "jimi@hendrix.org".
+            If the client presents a certificate and a valid username is successfully extracted,
+            then there should be a valid <code class="classname">Authentication</code> object in the
+            security context. If no certificate is found, or no corresponding user could be found
+            then the security context will remain empty. This means that you can easily use X.509
+            authentication with other options such as a form-based login. </p>
+    </div>
+    <div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="x509-ssl-config"></a>18.3.&nbsp;Setting up SSL in Tomcat</h2></div></div></div>
+        
+        
+        <p>There are some pre-generated certificates in the  
+            <code class="filename">samples/certificate</code> directory in the Spring Security project.  
+            You can use these to enable SSL for testing if you don't want to generate your own. The file
+                <code class="filename">server.jks</code> contains the server certificate, private key and the
+            issuing certificate authority certificate. There are also some client certificate files 
+            for the users from the sample applications. You can install these in your browser to enable 
+            SSL client authentication.
+        </p>
+        <p>
+            To run tomcat with SSL support, drop the <code class="filename">server.jks</code> file into the 
+            tomcat <code class="filename">conf</code> directory and add the following connector to the
+            <code class="filename">server.xml</code> file 
+                </p><pre class="programlisting"> 
+&lt;Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true" scheme="https" secure="true"
+            clientAuth="true" sslProtocol="TLS" 
+            keystoreFile="${catalina.home}/conf/server.jks"
+            keystoreType="JKS" keystorePass="password"
+            truststoreFile="${catalina.home}/conf/server.jks"
+            truststoreType="JKS" truststorePass="password"
+/&gt; 
+                </pre><p>
+            <em class="parameter"><code>clientAuth</code></em> can also be set to <em class="parameter"><code>want</code></em> if you still
+            want SSL connections to succeed even if the client doesn't provide a certificate.
+            Clients which don't present a certificate won't be able to access any objects secured by 
+            Spring Security unless you use a non-X.509 authentication mechanism, such as form authentication.
+        </p>
+    </div>
+</div><div xmlns:fo="http://www.w3.org/1999/XSL/Format" class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="anonymous.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="springsecurity.html">Home</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="cas.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter&nbsp;17.&nbsp;Anonymous Authentication&nbsp;</td><td width="20%" align="center"><span style="color:white;font-size:90%;"><a href="http://www.springsource.com/" title="SpringSource">Sponsored by SpringSource
+                                        </a></span></td><td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;19.&nbsp;CAS Authentication</td></tr></table></div></body></html>

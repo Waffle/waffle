@@ -1,0 +1,191 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Chapter&nbsp;16.&nbsp;Pre-Authentication Scenarios</title><link rel="stylesheet" href="css/html.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"><link rel="start" href="springsecurity.html" title="Spring Security"><link rel="up" href="authentication.html" title="Part&nbsp;III.&nbsp;Authentication"><link rel="prev" href="jaas.html" title="Chapter&nbsp;15.&nbsp;Java Authentication and Authorization Service (JAAS) Provider"><link rel="next" href="anonymous.html" title="Chapter&nbsp;17.&nbsp;Anonymous Authentication"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div xmlns:fo="http://www.w3.org/1999/XSL/Format" style="background-color:white;border:none;height:73px;border:1px solid black;"><a style="border:none;" href="http://static.springframework.org/spring-security/site/" title="The Spring Framework - Spring Web Services"><img style="border:none;" src="images/xdev-spring_logo.jpg"></a><a style="border:none;" href="http://www.springsource.com/" title="SpringSource"><img style="border:none;position:absolute;padding-top:5px;right:42px;" src="images/s2-banner-rhs.png"></a></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h1 class="title"><a name="preauth"></a>Pre-Authentication Scenarios</h1></div></div></div>
+  
+  <p> There are situations where you want to use Spring Security for authorization, but the user
+    has already been reliably authenticated by some external system prior to accessing the
+    application. We refer to these situations as &#8220;<span class="quote">pre-authenticated</span>&#8221; scenarios.
+    Examples include X.509, Siteminder and authentication by the J2EE container in which the
+    application is running. When using pre-authentication, Spring Security has to 
+    </p><div class="orderedlist"><ol type="1"><li>
+        <p>Identify the user making the request. </p>
+      </li><li>
+        <p>Obtain the authorities for the user.</p>
+      </li></ol></div><p>The details will depend on the external authentication mechanism. A user might be
+    identified by their certificate information in the case of X.509, or by an HTTP request header
+    in the case of Siteminder. If relying on container authentication, the user will be identified
+    by calling the <code class="methodname">getUserPrincipal()</code> method on the incoming HTTP request. 
+    In some cases, the external mechanism may supply role/authority information for the user but in 
+    others the authorities must be obtained from a separate source, such as a 
+    <code class="interfacename">UserDetailsService</code>.
+  </p>
+  <div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4e1864"></a>16.1.&nbsp;Pre-Authentication Framework Classes</h2></div></div></div>
+    
+    <p> Because most pre-authentication mechanisms follow the same pattern, Spring
+      Security has a set of classes which provide an internal framework for implementing
+      pre-authenticated authentication providers. This removes duplication and allows new
+      implementations to be added in a structured fashion, without having to write everything from
+      scratch. You don't need to know about these classes if you want to use something like 
+      <a href="x509.html" title="Chapter&nbsp;18.&nbsp;X.509 Authentication">X.509 authentication</a>, as it already has a namespace configuration
+      option which is simpler to use and get started with. If you need to use explicit bean confiuration or 
+      are planning on writing your own implementation then an understanding of how the
+      provided implementations work will be useful. You will find the web related classes under the 
+      <span class="package">org.springframework.security.ui.preauth</span> package and the backend classes
+      under <span class="package">org.springframework.security.providers.preauth</span>. We just provide an outline
+      here so you should consult the Javadoc and source where appropriate.
+    </p>
+
+    <div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="d4e1870"></a>16.1.1.&nbsp;AbstractPreAuthenticatedProcessingFilter</h3></div></div></div>
+      
+      <p>
+         This class will check the current contents of the security context and, if empty, it will attempt to extract 
+         user information from the HTTP request and submit it to the <code class="interfacename">AuthenticationManager</code>.
+         Subclasses override the following methods to obtain this information: 
+</p><pre class="programlisting">
+  protected abstract Object getPreAuthenticatedPrincipal(HttpServletRequest request);
+  
+  protected abstract Object getPreAuthenticatedCredentials(HttpServletRequest request);
+</pre><p>
+        After calling these, the filter will create a <code class="classname">PreAuthenticatedAuthenticationToken</code>
+        containing the returned data and submit it for authentication. By &#8220;<span class="quote">authentication</span>&#8221; here, we
+        really just mean further processing to perhaps load the user's authorities, but the standard Spring Security
+        authentication architecture is followed.
+      </p>
+    </div>
+    
+    <div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="d4e1877"></a>16.1.2.&nbsp;AbstractPreAuthenticatedAuthenticationDetailsSource</h3></div></div></div>
+      
+      <p>
+        Like other Spring Security authentication filters, the pre-authentication filter has an 
+        <code class="literal">authenticationDetailsSource</code> property which by default will create a
+        <code class="classname">WebAuthenticationDetails</code> object to store additional information such as
+        the session-identifier and originating IP address in the <code class="literal">details</code> property of
+        the <code class="interfacename">Authentication</code> object.
+        In cases where user role information can be obtained from the pre-authentication mechanism, the 
+        data is also stored in this property. Subclasses of 
+        <code class="classname">AbstractPreAuthenticatedAuthenticationDetailsSource</code> use an extended details
+        object which implements the <code class="interfacename">GrantedAuthoritiesContainer</code> interface, thus enabling the 
+        authentication provider to read the authorities which were externally allocated to the user. We'll look at a concrete
+        example next.
+      </p>
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="j2ee-preauth-details"></a>16.1.2.1.&nbsp;J2eeBasedPreAuthenticatedWebAuthenticationDetailsSource</h4></div></div></div>
+        
+        <p>
+          If the filter is configured with an <code class="literal">authenticationDetailsSource</code> which is an instance of this
+          class, the authority information is obtained by calling the <code class="methodname">isUserInRole(String role)</code> method
+          for each of a pre-determined set of &#8220;<span class="quote">mappable roles</span>&#8221;. The class gets these from a configured
+          <code class="interfacename">MappableAttributesRetriever</code>. Possible implementations include hard-coding a list in the application
+          context and reading the role information from the <code class="literal">&lt;security-role&gt;</code> information in a 
+          <code class="filename">web.xml</code> file. The pre-authentication sample application uses the latter approach.
+        </p>
+        <p>There is an additional stage where the roles (or attributes) are mapped to Spring Security
+          <code class="interfacename">GrantedAuthority</code> objects using a configured 
+          <code class="interfacename">Attributes2GrantedAuthoritiesMapper</code>. The default will just add the usual <code class="literal">ROLE_</code>
+          prefix to the names, but it gives you full control over the behaviour.
+        </p>
+      </div>
+    </div>
+    <div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="d4e1899"></a>16.1.3.&nbsp;PreAuthenticatedAuthenticationProvider</h3></div></div></div>
+      
+      <p>
+        The pre-authenticated provider has little more to do than load the <code class="interfacename">UserDetails</code>
+        object for the user. It does this by delegating to a <code class="interfacename">AuthenticationUserDetailsService</code>.
+        The latter is similar to the standard <code class="interfacename">UserDetailsService</code> but takes an 
+        <code class="interfacename">Authentication</code> object rather than just user name:
+</p><pre class="programlisting">
+  public interface AuthenticationUserDetailsService {
+    UserDetails loadUserDetails(Authentication token) throws UsernameNotFoundException;
+  }  
+</pre><p>        
+        This interface may have also other uses but with pre-authentication it allows access to the authorities which 
+        were packaged in the <code class="interfacename">Authentication</code> object, as we saw in the previous section.
+        The <code class="classname">PreAuthenticatedGrantedAuthoritiesUserDetailsService</code> class does this. 
+        Alternatively, it may delegate to a standard <code class="interfacename">UserDetailsService</code> via the
+        <code class="classname">UserDetailsByNameServiceWrapper</code> implementation. 
+      </p>
+    </div>
+    <div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="d4e1911"></a>16.1.4.&nbsp;PreAuthenticatedProcessingFilterEntryPoint</h3></div></div></div>
+      
+      <p>
+        The <code class="interfacename">AuthenticationEntryPoint</code> was discussed in the <a href="technical-overview.html#tech-auth-entry-point" title="5.3.2.&nbsp;AuthenticationEntryPoint">technical
+        overview</a> chapter. Normally it is responsible for kick-starting the authentication process for an unauthenticated user
+        (when they try to access a protected resource), but in the pre-authenticated case this doesn't apply. You would only
+        configure the <code class="classname">ExceptionTranslationFilter</code> with an instance of this class if you aren't 
+        using pre-authentication in combination with other authentication mechanisms. 
+        It will be called if the user is rejected by the <code class="classname">AbstractPreAuthenticatedProcessingFilter</code>  
+        resulting in a null authentication. It always returns a <code class="literal">403</code>-forbidden response code if called.
+      </p>
+    </div>
+  </div>
+  
+  <div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d4e1919"></a>16.2.&nbsp;Concrete Implementations</h2></div></div></div>
+    
+    <p>
+      X.509 authentication is covered in its <a href="x509.html" title="Chapter&nbsp;18.&nbsp;X.509 Authentication">own chapter</a>. Here we'll look at some classes
+      which provide support for other pre-authenticated scenarios. 
+    </p>
+    
+    <div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="d4e1923"></a>16.2.1.&nbsp;Request-Header Authentication (Siteminder)</h3></div></div></div>
+      
+      <p>
+        An external authentication system may supply information to the application by setting specific headers on the HTTP request.
+        A well known example of this is is Siteminder, which passes the username in a header called <code class="literal">SM_USER</code>.
+        This mechanism is supported by the class <code class="classname">RequestHeaderPreAuthenticatedProcessingFilter</code> which
+        simply extracts the username from the header. It defaults to using the name <code class="literal">SM_USER</code> as the
+        header name. See the Javadoc for more details. 
+      </p>
+      <div class="tip" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Tip</h3>
+        <p>Note that when using a system like this, the framework performs no authentication checks at all and 
+          it is <span class="emphasis"><em>extremely</em></span> important that the external system is configured properly and protects all
+          access to the application. If an attacker is able to forge the headers in their original request without this being
+          detected then they could potentially choose any userame they wished.
+        </p> 
+      </div>
+      <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="d4e1932"></a>16.2.1.1.&nbsp;Siteminder Example Configuration</h4></div></div></div>
+        
+        <p>
+          A typical configuration using this filter would look like this:
+</p><pre class="programlisting">
+	&lt;bean id="siteminderFilter"
+      class="org.springframework.security.ui.preauth.header.RequestHeaderPreAuthenticatedProcessingFilter"&gt;
+    &lt;security:custom-filter position="PRE_AUTH_FILTER" /&gt;
+    &lt;property name="principalRequestHeader" value="SM_USER"/&gt;
+    &lt;property name="authenticationManager" ref="authenticationManager" /&gt;
+  &lt;/bean&gt;
+
+  &lt;bean id="preauthAuthProvider"
+      class="org.springframework.security.providers.preauth.PreAuthenticatedAuthenticationProvider"&gt;
+    &lt;security:custom-authentication-provider /&gt;      
+    &lt;property name="preAuthenticatedUserDetailsService"&gt;
+      &lt;bean id="userDetailsServiceWrapper" 
+            class="org.springframework.security.userdetails.UserDetailsByNameServiceWrapper"&gt;
+        &lt;property name="userDetailsService" ref="userDetailsService"/&gt;
+      &lt;/bean&gt;    
+    &lt;/property&gt;
+	&lt;/bean&gt;
+	
+	&lt;security:authentication-manager alias="authenticationManager" /&gt;
+  
+</pre><p>          
+         We've assumed here that the security namespace is being used for configuration (hence the user of the <code class="literal">custom-filter</code>,
+          <code class="literal">authentication-manager</code> and <code class="literal">custom-authentication-provider</code> elements (you can read more about them
+          in the <a xmlns:xlink="http://www.w3.org/1999/xlink" href="ns-config" target="_top">namespace chapter</a>). You would leave these out of a traditional bean configuration.
+          It's also assumed that you have added a <code class="interfacename">UserDetailsService</code> (called &#8220;<span class="quote">userDetailsService</span>&#8221;) 
+          to your configuration to load the user's roles.
+        </p>
+      </div>
+    </div>
+    
+    <div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="d4e1942"></a>16.2.2.&nbsp;J2EE Container Authentication</h3></div></div></div>
+      
+      <p>
+        The class <code class="classname">J2eePreAuthenticatedProcessingFilter</code> will extract the username from the 
+        <code class="literal">userPrincipal</code> property of the <code class="interfacename">HttpServletRequest</code>. use of this
+        filter would usually be combined with the use of J2EE roles as described above in <a href="preauth.html#j2ee-preauth-details" title="16.1.2.1.&nbsp;J2eeBasedPreAuthenticatedWebAuthenticationDetailsSource">Section&nbsp;16.1.2.1, &#8220;J2eeBasedPreAuthenticatedWebAuthenticationDetailsSource&#8221;</a>. 
+      </p>
+      
+    </div>
+  </div>
+
+</div><div xmlns:fo="http://www.w3.org/1999/XSL/Format" class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="jaas.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="springsecurity.html">Home</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="anonymous.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter&nbsp;15.&nbsp;Java Authentication and Authorization Service (JAAS) Provider&nbsp;</td><td width="20%" align="center"><span style="color:white;font-size:90%;"><a href="http://www.springsource.com/" title="SpringSource">Sponsored by SpringSource
+                                        </a></span></td><td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;17.&nbsp;Anonymous Authentication</td></tr></table></div></body></html>
