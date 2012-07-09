@@ -1,7 +1,7 @@
 WAFFLE - Windows Authentication Framework
 =========================================
 
-![waffle](https://github.com/dblock/waffle/raw/master/waffle.jpg)
+![waffle](https://github.com/dblock/waffle/raw/combined-structure/waffle.jpg)
 
 WAFFLE - Windows Authentication Functional Framework (Light Edition) is a native C# and Java library that does everything Windows authentication (Negotiate, NTLM and Kerberos).
 
@@ -20,17 +20,17 @@ Short Story
 Most people will be interested in one of the following.
 
 * Simple native interfaces in C# and Java to do all things Windows authentication.
-* A generic Servlet Negotiate (NTLM and Kerberos) Security Filter - [Tutorial](http://code.dblock.org/ShowPost.aspx?id=106).
-* A Tomcat Negotiate (NTLM and Kerberos) Authenticator Valve - [Tutorial](http://code.dblock.org/ShowPost.aspx?id=103).
-* A Tomcat Single Sign-On + Form Authentication Mixed Valve - [Tutorial](http://code.dblock.org/ShowPost.aspx?id=107).
-* A Spring-Security Negotiate (NTLM and Kerberos) Filter - [Totorial](http://code.dblock.org/ShowPost.aspx?id=114).
-* A Spring-Security Windows Authentication Manager
-* A JAAS Login Module - [Tutorial](http://code.dblock.org/ShowPost.aspx?id=105).
+* A generic Servlet Negotiate (NTLM and Kerberos) Security Filter - [Docs](https://github.com/dblock/waffle/blob/combined-structure/Docs/ServletSingleSignOnSecurityFilter.md) and an older [Tutorial](http://code.dblock.org/ShowPost.aspx?id=106).
+* A Tomcat Negotiate (NTLM and Kerberos) Authenticator Valve - [Docs](https://github.com/dblock/waffle/blob/combined-structure/Docs/TomcatMixedSingleSignOnAndFormAuthenticatorValve.md) and an older [Tutorial](http://code.dblock.org/ShowPost.aspx?id=103).
+* A Tomcat Single Sign-On + Form Authentication Mixed Valve - [Docs](https://github.com/dblock/waffle/blob/combined-structure/Docs/TomcatMixedSingleSignOnAndFormAuthenticatorValve.md) and an older [Tutorial](http://code.dblock.org/ShowPost.aspx?id=107).
+* A Spring-Security Negotiate (NTLM and Kerberos) Filter - [Docs](https://github.com/dblock/waffle/blob/combined-structure/Docs/SpringSecuritySingleSignOnFilter.md) and an older [Totorial](http://code.dblock.org/ShowPost.aspx?id=114).
+* A Spring-Security Windows Authentication Manager - [Docs](https://github.com/dblock/waffle/blob/combined-structure/Docs/SpringSecurityAuthenticationProvider.md)
+* A JAAS Login Module - [Docs](https://github.com/dblock/waffle/blob/combined-structure/Docs/TomcatWindowsLoginJAASAuthenticator.md) and an older [Tutorial](http://code.dblock.org/ShowPost.aspx?id=105).
 * If you're using Tomcat, Jetty or Websphere with an IIS front-end to do authentication only, Waffle will allow you to get rid of IIS.
 
 Unlike many other implementations WAFFLE on Windows does not usually require any server-side Kerberos keytab setup, it's a drop-in solution. You can see it in action in [this slightly blurry video](http://www.youtube.com/watch?v=LmTwbOh0hBU) produced for [TeamShatter.com](http://www.teamshatter.com/topics/general/team-shatter-exclusive/securing-java-applications-with-smart-cards-and-single-sign-on/). 
 
-Waffle was created and is sponsored by [Application Security Inc.](http://www.appsecinc.com/) For a long story, read the [Project History](https://github.com/dblock/waffle/blob/master/HISTORY.md). Also, feel free to use [this PowerPoint presentation](http://www.slideshare.net/dblockdotorg/waffle-at-nycjavasig) from NYJavaSIG.
+Waffle was created and is sponsored by [Application Security Inc.](http://www.appsecinc.com/) For a long story, read the [Project History](https://github.com/dblock/waffle/blob/combined-structure/HISTORY.md). Also, feel free to use [this PowerPoint presentation](http://www.slideshare.net/dblockdotorg/waffle-at-nycjavasig) from NYJavaSIG.
 
 Features
 --------
@@ -61,5 +61,5 @@ License and Copyright
 
 Copyright (c) Application Security Inc. and Contributors.
 
-This project is licensed under the [Eclipse Public License](https://github.com/dblock/waffle/blob/master/LICENSE).
+This project is licensed under the [Eclipse Public License](https://github.com/dblock/waffle/blob/combined-structure/LICENSE).
 

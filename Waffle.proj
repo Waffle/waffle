@@ -26,9 +26,7 @@
     <CallTarget Targets="version" />
     <CallTarget Targets="build" />
     <CallTarget Targets="test" />
-    <CallTarget Targets="doc" />
     <CallTarget Targets="drop" />
-    <CallTarget Targets="javainterface" Condition="'%(Configuration.Identity)'=='Release'" />
     <CallTarget Targets="jar" Condition="'%(Configuration.Identity)'=='Release'" />
     <CallTarget Targets="javademo" Condition="'%(Configuration.Identity)'=='Release'" />
     <CallTarget Targets="zip" />
@@ -53,17 +51,9 @@
     <Message Text="@(UnitTestAssemblies)" />
     <NUnit Assemblies="@(UnitTestAssemblies)" ToolPath="$(NUnitBinDir)" Force32Bit="true" />
   </Target>
-  <Target Name="doc" DependsOnTargets="version;configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
-    <Error Condition="'$(DXROOT)'==''" Text="Missing Sandcastle, DXROOT environment variable not set, install from http://www.codeplex.com/Sandcastle" />
-    <Error Condition="'$(SHFBROOT)'==''" Text="Missing Sandcastle Builder, SHFBROOT environment variable not set, install from http://www.codeplex.com/SHFB" />
-    <Delete Files="Documentation\%(Configuration.Identity)\Waffle.chm" />
-    <Exec Command="$(MSBuild_4_0_ExeFilePath) Documentation\Waffle.shfbproj /p:Configuration=%(Configuration.Identity)" />
-    <Error Condition="Exists('Documentation\%(Configuration.Identity)\LastBuild.log')" Text="Documentation build failed, check Documentation\%(Configuration.Identity)\LastBuild.log" />
-  </Target>
   <Target Name="drop" DependsOnTargets="version;configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
     <Copy SourceFiles="CHANGELOG.md" DestinationFiles="$(ReleaseDir)\CHANGELOG.md" />
     <Copy SourceFiles="LICENSE" DestinationFiles="$(ReleaseDir)\LICENSE" />
-    <Copy SourceFiles="Documentation\%(Configuration.Identity)\Waffle.chm" DestinationFolder="$(ReleaseDir)" />
     <CreateItem Include="Source\**\%(Configuration.Identity)/Waffle.*.dll" Exclude="Source\**\%(Configuration.Identity)/Waffle.*UnitTests.dll">
       <Output TaskParameter="Include" ItemName="BinaryFiles" />
     </CreateItem>
@@ -85,13 +75,6 @@
   <Target Name="jar">
     <Exec WorkingDirectory="Source\JNA" Command="ant" />
     <Copy SourceFiles="@(JnaFiles)" DestinationFolder="$(ReleaseDir)\Bin" />
-  </Target>
-  <Target Name="javainterface">
-    <Exec WorkingDirectory="Source\WindowsAuthProvider\bin\Release" Command="regasm.exe /codebase /tlb:Waffle.Windows.AuthProvider.tlb Waffle.Windows.AuthProvider.dll" />
-    <Exec WorkingDirectory="Source\WindowsAuthProvider\bin\Release" Command="regasm.exe /codebase /regfile:Waffle.Windows.AuthProvider.reg Waffle.Windows.AuthProvider.dll" />
-    <Exec WorkingDirectory="Tools\JacobGen" Command="jacobgen.bat -destdir:&quot;$(MSBuildProjectDirectory)\Source\Jar&quot; -package:com.waffle.auth &quot;$(MSBuildProjectDirectory)/Source/WindowsAuthProvider/bin/Release/Waffle.Windows.AuthProvider.tlb&quot;" />
-    <Exec WorkingDirectory="Source\Jar" Command="&quot;$(JAVA_HOME)\bin\javac.exe&quot; com\waffle\auth\*.java -cp ..\..\Tools\Jacob\jacob.jar" />
-    <Exec WorkingDirectory="Source\Jar" Command="&quot;$(JAVA_HOME)\bin\jar.exe&quot; cvf &quot;$(MSBuildProjectDirectory)\$(ReleaseDir)\Bin\waffle-jacob.jar&quot; com\waffle\auth\*.class" />
   </Target>
   <ItemGroup>
     <DemoFiles Include="Source\JNA\demo\**\*.jsp" />

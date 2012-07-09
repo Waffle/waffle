@@ -4,6 +4,13 @@ Next Release
 Misc
 ----
 
+* Refactored `waffle-jna.jar` into several distinct packages - [@dblock](https://github.com/dblock).
+  * `waffle-api.jar`: API interfaces.
+  * `waffle-core.jar` : Core JNA-based implementation.
+  * `waffle-jaas.jar` : JAAS support.
+  * `waffle-servlet.jar`: Generic Servlet filters.
+  * `waffle-tomcat-6.jar` : Tomcat 6 Valves
+* Documentation has been rewritten in Markdown, R.I.P. CHM - [@dblock](https://github.com/dblock).
 * [#4](https://github.com/dblock/waffle/pull/4): Upgraded Spring/Spring Security 3.1.1 - [@hazendaz](https://github.com/hazendaz).
 * [#3](https://github.com/dblock/waffle/pull/3): Converted commons-logging to slf4j logging - [@hazendaz](https://github.com/hazendaz).
   * Added slf4j with additional jars for jcl, jdk, log4j, nop, simple logging solutions.
@@ -14,6 +21,7 @@ Misc
 * [#2](https://github.com/dblock/waffle/pull/2): Upgraded thirdparty Guava to 12.0 - [@hazendaz](https://github.com/hazendaz).
 * [#2](https://github.com/dblock/waffle/pull/2): Upgraded thirdparty JUnit to 4.10 - [@hazendaz](https://github.com/hazendaz).
 * [#1](https://github.com/dblock/waffle/pull/1): Adjusted logging from info to debug to reduce noise level - [@mcfly83](https://github.com/mcfly83).
+* Previously deprecated Jacob-based COM interfaces and implementation have been removed - [@dblock](https://github.com/dblock).
 
 1.4 (6/21/2011) 
 ===============
