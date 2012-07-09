@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="waffle-build" default="build" basedir=".">
   <property file="${basedir}/../../Version/Version.properties" />
+  <import file="common.xml" />
 	<fail message="Missing project.jar definition" unless="project.jar" />
   <fail message="Missing project.version" unless="product.version" />
 	<property name="waffle.version" value="${product.version}" />
@@ -146,7 +147,7 @@
 	<target name="jar">
 		<delete dir="${waffle.build}" />
 		<mkdir dir="${waffle.build}" />
-		<jar jarfile="${waffle.build}/${project.jar}.jar">
+		<jar jarfile="${common.build}/${project.jar}.jar">
 			<fileset dir="${waffle.lib}">
 				<include name="waffle/**/*.class" />
 			</fileset>
@@ -155,7 +156,7 @@
 				<attribute name="Created-By" value="${waffle.copyright}" />
 			</manifest>		
 		</jar>
-		<jar jarfile="${waffle.build}/${project.jar}-src.zip">
+		<jar jarfile="${common.build}/${project.jar}-src.zip">
 			<fileset dir="${waffle.src}">
 				<include name="waffle/**/*.java" />
 			</fileset>

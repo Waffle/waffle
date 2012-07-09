@@ -76,14 +76,15 @@
     </CreateItem>
     <Copy SourceFiles="@(SampleFiles)" DestinationFolder="$(ReleaseDir)\Samples" />
   </Target>
+  <ItemGroup>
+    <JnaFiles Include="Source\JNA\bin\*.jar" Exclude="Source\JNA\bin\waffle-mock.jar" />
+    <JnaFiles Include="Source\ThirdParty\jna\*.jar" />
+    <JnaFiles Include="Source\ThirdParty\guava\guava-12.0.jar" />
+    <JnaFiles Include="Source\ThirdParty\slf4j\slf4j-*.jar" Exclude="Source\ThirdParty\slf4j\*-sources.jar" />
+  </ItemGroup>
   <Target Name="jar">
-    <Exec WorkingDirectory="Source\JNAWindowsAuthProvider" Command="ant" />
-    <Copy SourceFiles="Source\JNAWindowsAuthProvider\build\waffle-jna.jar" DestinationFolder="$(ReleaseDir)\Bin" />
-    <Copy SourceFiles="Source\JNAWindowsAuthProvider\build\waffle-src.zip" DestinationFolder="$(ReleaseDir)\Bin" />
-    <Copy SourceFiles="Source\ThirdParty\commons-logging\commons-logging-1.1.1.jar" DestinationFolder="$(ReleaseDir)\Bin" />
-    <Copy SourceFiles="Source\ThirdParty\jna\jna.jar" DestinationFolder="$(ReleaseDir)\Bin" />
-    <Copy SourceFiles="Source\ThirdParty\jna\platform.jar" DestinationFolder="$(ReleaseDir)\Bin" />
-    <Copy SourceFiles="Source\ThirdParty\guava\guava-r07.jar" DestinationFolder="$(ReleaseDir)\Bin" />
+    <Exec WorkingDirectory="Source\JNA" Command="ant" />
+    <Copy SourceFiles="@(JnaFiles)" DestinationFolder="$(ReleaseDir)\Bin" />
   </Target>
   <Target Name="javainterface">
     <Exec WorkingDirectory="Source\WindowsAuthProvider\bin\Release" Command="regasm.exe /codebase /tlb:Waffle.Windows.AuthProvider.tlb Waffle.Windows.AuthProvider.dll" />
@@ -93,12 +94,12 @@
     <Exec WorkingDirectory="Source\Jar" Command="&quot;$(JAVA_HOME)\bin\jar.exe&quot; cvf &quot;$(MSBuildProjectDirectory)\$(ReleaseDir)\Bin\waffle-jacob.jar&quot; com\waffle\auth\*.class" />
   </Target>
   <ItemGroup>
-    <DemoFiles Include="Source\JNAWindowsAuthProvider\demo\**\*.jsp" />
-    <DemoFiles Include="Source\JNAWindowsAuthProvider\demo\**\*.xml" />
-    <DemoFiles Include="Source\JNAWindowsAuthProvider\demo\**\*.html" />
-    <DemoFiles Include="Source\JNAWindowsAuthProvider\demo\**\*.properties" />
-    <DemoFiles Include="Source\JNAWindowsAuthProvider\demo\**\*.policy" />
-    <DemoFiles Include="Source\JNAWindowsAuthProvider\demo\**\*.conf" />
+    <DemoFiles Include="Source\JNA\demo\**\*.jsp" />
+    <DemoFiles Include="Source\JNA\demo\**\*.xml" />
+    <DemoFiles Include="Source\JNA\demo\**\*.html" />
+    <DemoFiles Include="Source\JNA\demo\**\*.properties" />
+    <DemoFiles Include="Source\JNA\demo\**\*.policy" />
+    <DemoFiles Include="Source\JNA\demo\**\*.conf" />
   </ItemGroup>
   <Target Name="javademo">
     <Copy SourceFiles="@(DemoFiles)" DestinationFolder="$(ReleaseDir)\Samples\%(RecursiveDir)" />

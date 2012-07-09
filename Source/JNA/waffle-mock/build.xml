@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="waffle-mock" default="build" basedir=".">
+  <import file="${basedir}/../build/common.xml" />
 	<property name="project.jar" value="waffle-mock" />
 	<import file="${basedir}/../build/build.xml" />
-	<path id="waffle-api.classpath">
-		<fileset dir="${basedir}/../waffle-api/build">
-			<include name="waffle-api.jar" />
-		</fileset>
-	</path>
+	<path id="waffle-api.classpath" location="${common.build}/waffle-api.jar" />
 	<path id="project.classpath">
 		<path refid="waffle-api.classpath" />
 	</path>

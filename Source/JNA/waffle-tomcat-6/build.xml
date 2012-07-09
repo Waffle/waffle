@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="waffle-tomcat-6" default="build" basedir=".">
+  <import file="${basedir}/../build/common.xml" />
 	<property name="project.jar" value="waffle-tomcat-6" />
-	<path id="waffle-api.classpath" location="${basedir}/../waffle-api/build/waffle-api.jar" />
-	<path id="waffle-core.classpath" location="${basedir}/../waffle-core/build/waffle-core.jar" />
-	<path id="waffle-mock.classpath" location="${basedir}/../waffle-mock/build/waffle-mock.jar" />
-	<path id="waffle-servlet.classpath" location="${basedir}/../waffle-servlet/build/waffle-servlet.jar" />
+	<path id="waffle-api.classpath" location="${common.build}/waffle-api.jar" />
+	<path id="waffle-core.classpath" location="${common.build}/waffle-core.jar" />
+	<path id="waffle-mock.classpath" location="${common.build}/waffle-mock.jar" />
+	<path id="waffle-servlet.classpath" location="${common.build}/waffle-servlet.jar" />
 	<import file="${basedir}/../build/build.xml" />
 	<path id="tomcat.classpath">
 		<fileset dir="${thirdparty.dir}/tomcat/lib">
