@@ -3,7 +3,7 @@ WAFFLE - Windows Authentication Framework
 
 ![waffle](https://github.com/dblock/waffle/raw/combined-structure/waffle.jpg)
 
-WAFFLE - Windows Authentication Functional Framework (Light Edition) is a native C# and Java library that does everything Windows authentication (Negotiate, NTLM and Kerberos).
+WAFFLE - Windows Authentication Functional Framework (Light Edition) is a native C# and Java library that does everything Windows authentication (Negotiate, NTLM and Kerberos). It contains packages for .NET and Java and support for most popular web servers. The most popular use case is for those using Tomcat, Jetty or Websphere with an IIS front-end to do Windows authentication - Waffle allows you to completely get rid of IIS.
 
 Essentials
 ----------
@@ -14,19 +14,18 @@ Essentials
 * [Troubleshooting Negotiate](https://github.com/dblock/waffle/wiki/Troubleshooting-Negotiate)
 * [Older Versions on CodePlex](http://waffle.codeplex.com/).
 
-Short Story
------------
+Documentation
+-------------
 
-Most people will be interested in one of the following.
+There're many semi-independent parts to Waffle. Choose the appropriate documentation.
 
-* Simple native interfaces in C# and Java to do all things Windows authentication.
-* A generic Servlet Negotiate (NTLM and Kerberos) Security Filter - [Docs](https://github.com/dblock/waffle/blob/combined-structure/Docs/ServletSingleSignOnSecurityFilter.md) and an older [Tutorial](http://code.dblock.org/ShowPost.aspx?id=106).
-* A Tomcat Negotiate (NTLM and Kerberos) Authenticator Valve - [Docs](https://github.com/dblock/waffle/blob/combined-structure/Docs/TomcatMixedSingleSignOnAndFormAuthenticatorValve.md) and an older [Tutorial](http://code.dblock.org/ShowPost.aspx?id=103).
-* A Tomcat Single Sign-On + Form Authentication Mixed Valve - [Docs](https://github.com/dblock/waffle/blob/combined-structure/Docs/TomcatMixedSingleSignOnAndFormAuthenticatorValve.md) and an older [Tutorial](http://code.dblock.org/ShowPost.aspx?id=107).
-* A Spring-Security Negotiate (NTLM and Kerberos) Filter - [Docs](https://github.com/dblock/waffle/blob/combined-structure/Docs/SpringSecuritySingleSignOnFilter.md) and an older [Totorial](http://code.dblock.org/ShowPost.aspx?id=114).
-* A Spring-Security Windows Authentication Manager - [Docs](https://github.com/dblock/waffle/blob/combined-structure/Docs/SpringSecurityAuthenticationProvider.md)
-* A JAAS Login Module - [Docs](https://github.com/dblock/waffle/blob/combined-structure/Docs/TomcatWindowsLoginJAASAuthenticator.md) and an older [Tutorial](http://code.dblock.org/ShowPost.aspx?id=105).
-* If you're using Tomcat, Jetty or Websphere with an IIS front-end to do authentication only, Waffle will allow you to get rid of IIS.
+* Simple native interfaces in C# and Java to do all things Windows authentication. Useful if you're building a custom client that requires Windows authentication. See [Getting Started with WAFFLE API](https://github.com/dblock/waffle/blob/combined-structure/Docs/GettingStartedWithWaffleAPI.md)
+* A generic Servlet Negotiate (NTLM and Kerberos) Security Filter that can be used with many web servers, including Tomcat, Jetty and WebSphere. See [documentation](https://github.com/dblock/waffle/blob/combined-structure/Docs/ServletSingleSignOnSecurityFilter.md).
+* A Tomcat Negotiate (NTLM and Kerberos) Authenticator Valve, built for the Tomcat Web Container. See [documentation](https://github.com/dblock/waffle/blob/combined-structure/Docs/TomcatMixedSingleSignOnAndFormAuthenticatorValve.md).
+* A Tomcat Single Sign-On + Form Authentication Mixed Valve, built for the Tomcat Web Container and allowing users to choose whether to do forms authentication or Windows SSO. See [Documentation](https://github.com/dblock/waffle/blob/combined-structure/Docs/TomcatMixedSingleSignOnAndFormAuthenticatorValve.md).
+* A Spring-Security Negotiate (NTLM and Kerberos) Filter. See [Documentation](https://github.com/dblock/waffle/blob/combined-structure/Docs/SpringSecuritySingleSignOnFilter.md).
+* A Spring-Security Windows Authentication Manager. See [Documentation](https://github.com/dblock/waffle/blob/combined-structure/Docs/SpringSecurityAuthenticationProvider.md).
+* A JAAS Login Module, useful when extending a custom Java client that already implements JAAS to support Windows SSO. See  [Documentation](https://github.com/dblock/waffle/blob/combined-structure/Docs/TomcatWindowsLoginJAASAuthenticator.md).
 
 Unlike many other implementations WAFFLE on Windows does not usually require any server-side Kerberos keytab setup, it's a drop-in solution. You can see it in action in [this slightly blurry video](http://www.youtube.com/watch?v=LmTwbOh0hBU) produced for [TeamShatter.com](http://www.teamshatter.com/topics/general/team-shatter-exclusive/securing-java-applications-with-smart-cards-and-single-sign-on/). 
 
@@ -43,11 +42,6 @@ Features
 * Supports Windows Identity impersonation.
 * Includes a Windows Installer Merge Module for distribution of C# binaries.
 
-Branches
---------
-
-Waffle includes a servlet filter that works with any servlet container, including Tomcat, Jetty and Websphere. It also contains a native package for Tomcat 6 and Spring Security 3. There're branches for [Tomcat 5](https://github.com/dblock/waffle/tree/tomcat5), [Tomcat 7](https://github.com/dblock/waffle/tree/tomcat7) as well as [Spring Security 2](https://github.com/dblock/waffle/tree/spring-security-2) support.
-
 Related and Simiar Products
 ---------------------------
 
@@ -62,4 +56,3 @@ License and Copyright
 Copyright (c) Application Security Inc. and Contributors.
 
 This project is licensed under the [Eclipse Public License](https://github.com/dblock/waffle/blob/combined-structure/LICENSE).
-
