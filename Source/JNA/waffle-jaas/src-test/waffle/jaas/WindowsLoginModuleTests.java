@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Waffle (http://waffle.codeplex.com)
+* Waffle (https://github.com/dblock/waffle)
 * 
 * Copyright (c) 2010 Application Security, Inc.
 * 
