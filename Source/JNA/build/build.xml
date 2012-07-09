@@ -192,5 +192,9 @@
 		<antcall target="test" />
 		<antcall target="doc" />
 	</target>
+	<target name="lib">
+		<compile debug="no" optimize="yes" />
+		<antcall target="jar" />
+	</target>
 	<target name="clean-build" depends="clean,build" />
 </project>

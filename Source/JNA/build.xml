@@ -17,7 +17,13 @@
 			<param name="ant.target" value="build" />
 		</antcall>
 	</target>
+	<target name="lib">
+		<antcall target="recurse">
+			<param name="ant.target" value="lib" />
+		</antcall>
+	</target>
 	<target name="clean">
+		<delete dir="${basedir}/bin" />
 		<antcall target="recurse">
 			<param name="ant.target" value="clean" />
 		</antcall>
