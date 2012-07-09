@@ -1,0 +1,102 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>The Apache Tomcat 5.5 Servlet/JSP Container - Project Status</title><meta content="Remy Maucherat" name="author"><meta content="Yoav Shapira" name="author"><style media="print" type="text/css">
+			.noPrint {display: none;}
+			td#mainBody {width: 100%;}
+		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
+      The Apache Tomcat Servlet/JSP Container
+    " align="right" src="./images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">The Apache Tomcat 5.5 Servlet/JSP Container</font></h1></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="./images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade="noshade"></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap="true" valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="index.html">Docs Home</a></li><li><a href="http://tomcat.apache.org/faq">FAQ</a></li></ul><p><strong>User Guide</strong></p><ul><li><a href="introduction.html">1) Introduction</a></li><li><a href="setup.html">2) Setup</a></li><li><a href="appdev/index.html">3) First webapp</a></li><li><a href="deployer-howto.html">4) Deployer</a></li><li><a href="manager-howto.html">5) Manager</a></li><li><a href="realm-howto.html">6) Realms and AAA</a></li><li><a href="security-manager-howto.html">7) Security Manager</a></li><li><a href="jndi-resources-howto.html">8) JNDI Resources</a></li><li><a href="jndi-datasource-examples-howto.html">9) JDBC DataSources</a></li><li><a href="class-loader-howto.html">10) Classloading</a></li><li><a href="jasper-howto.html">11) JSPs</a></li><li><a href="ssl-howto.html">12) SSL</a></li><li><a href="ssi-howto.html">13) SSI</a></li><li><a href="cgi-howto.html">14) CGI</a></li><li><a href="proxy-howto.html">15) Proxy Support</a></li><li><a href="mbeans-descriptor-howto.html">16) MBean Descriptor</a></li><li><a href="default-servlet.html">17) Default Servlet</a></li><li><a href="cluster-howto.html">18) Clustering</a></li><li><a href="balancer-howto.html">19) Load Balancer</a></li><li><a href="connectors.html">20) Connectors</a></li><li><a href="monitoring.html">21) Monitoring and Management</a></li><li><a href="logging.html">22) Logging</a></li><li><a href="apr.html">23) APR</a></li><li><a href="virtual-hosting-howto.html">24) Virtual Hosting</a></li></ul><p><strong>Reference</strong></p><ul><li><a href="RELEASE-NOTES.txt">Release Notes</a></li><li><a href="config/index.html">Apache Tomcat Configuration</a></li><li><a href="http://tomcat.apache.org/connectors-doc/">JK 1.2 Documentation</a></li><li><a href="servletapi/index.html">Servlet API Javadocs</a></li><li><a href="jspapi/index.html">JSP API Javadocs</a></li></ul><p><strong>Apache Tomcat Development</strong></p><ul><li><a href="building.html">Building</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="status.html">Status</a></li><li><a href="developers.html">Developers</a></li><li><a href="catalina/funcspecs/index.html">Functional Specs.</a></li><li><a href="catalina/docs/api/index.html">Apache Tomcat Javadocs</a></li><li><a href="jasper/docs/api/index.html">Apache Jasper Javadocs</a></li><li><a href="architecture/index.html">Architecture</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>The Apache Tomcat 5.5 Servlet/JSP Container</h1><h2>Project Status</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
+<ul><li><a href="#Preface">Preface</a></li><li><a href="#Current_Status_Summary">Current Status Summary</a></li><li><a href="#How_to_read_the_report">How to read the report</a></li><li><a href="#TODO_List">TODO List</a></li><li><a href="#Open_bugs">Open bugs</a></li></ul>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Preface"><strong>Preface</strong></a></font></td></tr><tr><td><blockquote>
+    <p>
+      This document attempts to convey the current status of Tomcat development
+      in "big picture" terms.  This is not the place to check if an individual
+      bug report has been addressed or when an individual feature will be available.
+    </p>
+    <p>
+      This page is updated roughly once per every couple of Tomcat minor releases,
+      so for day-to-day status you should check the tomcat-user and tomcat-dev mailing
+      lists.  You can always inquire there as to the availability or status of a
+      specific feature or component.
+    </p>
+  </blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Current Status Summary"><!--()--></a><a name="Current_Status_Summary"><strong>Current Status Summary</strong></a></font></td></tr><tr><td><blockquote>
+    <p>
+      <b>Tomcat 5.0.27</b> was released on June 17th, 2004.  At that time, the TOMCAT_5_0
+      branch was tagged in CVS, and work on Tomcat 5.5 began.  We have now had several
+      Tomcat 5.5 releases, including a couple of stable ones.  Accordingly, Tomcat 5.5
+      is now the focus on work.  Tomcat 5.0 is in maintenance mode and its releases
+      will become less and less frequent.
+    </p>
+    <p>
+      <b>Tomcat 5.5</b> has several major goals.  They are discussed in the tomcat-dev
+      mailing list's "5.next" thread: 
+      <a href="http://marc.theaimsgroup.com/?l=tomcat-dev&w=2&r=1&s=5.next&q=b">MARC</a>.
+      The status of some of these items is detailed below.  Once 5.5 releases are
+      available, please refer to the Changelog accompanying each release for detailed
+      changes, enhancements, and fixes.
+    </p>
+    <p>
+      <b>Tomcat 4.1.x</b> is no longer actively developed.  It is maintained to address
+      only showstopper, security, and Servlet Specification compliance issues.  Maintenance
+      for Tomcat 4.1.x will likely cease once a stable release or two of Tomcat 5.5 are out.
+      Users of Tomcat 4.1.x are strongly encouraged to upgrade to the latest stable Tomcat
+      5.0 release.
+    </p>
+    <p>
+      <b>Tomcat 4.0.x</b> is relatively old, and not actively maintained or supported.
+      It is strongly recommended that users of these releases upgrade to the latest
+      stable Tomcat 5.0 release or at least the latest stable Tomcat 4.1 release.
+    </p>
+    <p>
+      <b>Tomcat 3.3.x</b> is in roughly the same maintenance mode as Tomcat 4.1.x.
+    </p>
+    <p>
+      <b>Tomcat 3.2</b> and earlier are in roughly the same support state as Tomcat 4.0.x.
+      Users should upgrade to Tomcat 3.3.x or the latest stable Tomcat 5.0.x.
+    </p>
+  </blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="How to read the report"><!--()--></a><a name="How_to_read_the_report"><strong>How to read the report</strong></a></font></td></tr><tr><td><blockquote>
+    
+    <p>
+      The columns in this report contain the following information:
+    <ul>
+      <li><b>Priority</b> - A sense of how important it is to address this 
+        issue in the short term.</li>
+      <li><b>Action Item</b> - Concise description of the action item
+        to be completed.  Where relevant, Java package names of the
+        primary classes involved are listed in [square brackets]</li>
+      <li><b>Volunteers</b> - Login of those developers who
+        have volunteered to assist in the design, implementation, testing, and
+        documentation of this action item's changes to Tomcat.</li>
+    </ul>
+      Developers can nominate
+      themselves to work on particular action items by asking a Committer to 
+      add their name address to those items.  The developers 
+      working on each item should discuss and agree upon the approach to be 
+      used for implementing the item's changes to the project source code 
+      and documentation, prior to completing those changes.  Such discussions 
+      should take place on the tomcat-dev mailing list so that everyone can 
+      stay apprised of what is going on, or chime in if they want to 
+      contribute ideas and suggestions.
+    </p>
+    
+  </blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="TODO List"><!--()--></a><a name="TODO_List"><strong>TODO List</strong></a></font></td></tr><tr><td><blockquote>
+
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Priority</font></th><th bgcolor="#023264" width="50%"><font color="#ffffff">Action Item</font></th><th bgcolor="#023264" width="25%"><font color="#ffffff">Volunteers</font></th><tr><td valign="center" align="left">High</td><td valign="center" align="left">
+        Refactor ClassLoaders for Tomcat 5.5 to allow container plugins.
+      </td><td valign="center" align="left">costin</td></tr><tr><td valign="center" align="left">Medium</td><td valign="center" align="left">
+        Enhance Cluster functionality for Tomcat 5.5.
+      </td><td valign="center" align="left">fhanik</td></tr><tr><td valign="center" align="left">Medium</td><td valign="center" align="left">
+        Continue fixing bugs and updating docs.
+      </td><td valign="center" align="left">everyone</td></tr></tr></table>
+
+  </blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Open bugs"><!--()--></a><a name="Open_bugs"><strong>Open bugs</strong></a></font></td></tr><tr><td><blockquote>
+    
+    <p>
+      The list of the bugs which are in an unresolved state for Tomcat 5 can be
+      seen 
+      <a href="http://issues.apache.org/bugzilla/buglist.cgi?bug_status=UNCONFIRMED&bug_status=NEW&bug_status=ASSIGNED&bug_status=REOPENED&bug_status=RESOLVED&resolution=LATER&resolution=REMIND&resolution=---&bugidtype=include&product=Tomcat+5&cmdtype=doit&order=Importance">here</a>.
+      Aspiring volunteers and others are strongly encouraged to attempt 
+      to comment and help resolve these issues.
+    </p>
+    
+  </blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade="noshade"></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
+        Copyright &copy; 1999-2010, Apache Software Foundation
+        </em></font></div></td></tr></table></body></html>

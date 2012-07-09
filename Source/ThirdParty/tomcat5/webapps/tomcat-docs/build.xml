@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!-- This file is the Tomcat 5.x net build file.  It's what users run to build Tomcat -->
+<!-- from scratch.  See BUILDING.txt for the full instructions.                       -->
+<project name="Tomcat 5 Netbuild" default="build" basedir=".">
+
+  <!-- ===================== Initialize Property Values =================== -->
+
+  <!-- We read customizable properties from the file "build.properties.default" -->
+  <!-- and also from "build.properties" if it exists.                           -->
+  <!-- The values in "build.properties" have stronger preference.               -->
+  <!-- If you want to customize your build, you can either change the values    -->
+  <!-- directly in the default file, or create a new build.properties and set   -->
+  <!-- the values there. This way you don't have to change a file which is part -->
+  <!-- of the original project source code.                                     -->
+  <!-- See "build.properties.default" in the build directory for some           -->
+  <!-- property values you may customize.                                       -->
+  <property file="${user.home}/build.properties"/>
+  <property file="build.properties"/>
+  <property file="build.properties.default"/>
+
+  <!-- Project Properties -->
+  <property name="name"                  value="Apache Tomcat" />
+  <property name="year"                  value="2010" />
+  <property name="version"               value="5.5" />
+  <property name="project"               value="apache-tomcat" />
+  <property name="final.name"            value="${project}-${version}" />
+  <property name="final-src.name"        value="${project}-${version}-src" />
+
+  <!-- SVNROOT -->
+  <property name="svnroot" 
+           value="http://svn.apache.org/repos/asf/" />
+
+  <!-- Subprojects -->
+  <property name="api.project"           value="servletapi" />
+  <property name="tomcat.project"        value="build" />
+  <property name="catalina.project"      value="container" />
+  <property name="jtc.project"           value="connectors" />
+  <property name="jasper.project"        value="jasper" />
+
+  <property name="trunk.loc"           value="tomcat/tc5.5.x/trunk" />
+
+  <!-- Source dependencies -->
+  <property name="api.home"
+           value="${basedir}/${api.project}"/>
+  <property name="catalina.home" 
+           value="${basedir}/${catalina.project}"/>
+  <property name="jasper.home"
+           value="${basedir}/${jasper.project}"/>
+  <property name="jtc.home"
+           value="${basedir}/${jtc.project}"/>
+  <property name="tomcat.home"
+           value="${basedir}/${tomcat.project}"/>
+
+  <target name="build" depends="check.source,get.source"
+   description="Builds all components">
+
+    <ant dir="${tomcat.home}" target="download" />
+    <ant dir="${tomcat.home}" target="deploy" />
+
+  </target>
+
+  <!-- Top-level clean target added per Bugzilla 33325 -->
+  <target name="clean"
+          description="Clean (delete) all project files">
+    <echo message="Deleting all project files" />
+    <delete dir="${api.home}" />
+    <delete dir="${catalina.home}" />
+    <delete dir="${jasper.home}" />
+    <delete dir="${jtc.home}" />
+    <delete dir="${tomcat.home}" />
+  </target>
+
+  <target name="checkout"
+          description="Update or checkout required sources from SVN">
+
+    <echo level="info"
+          message="If the checkout fails, see http://tomcat.apache.org/svn.html and http://subversion.tigris.org/faq.html#proxy" />
+
+    <!-- Bugzilla 37977: http://issues.apache.org/bugzilla/show_bug.cgi?id=37977 -->
+    <!--  hackish: inputstring="t${line.separator}" is t+<enter> for svn         -->
+    <!--  to temporarily accept the certificate of svn.apache.org.               -->
+    <exec dir="${basedir}"
+          executable="svn"
+          inputstring="t${line.separator}"
+          failonerror="true">
+      <arg value="checkout" />
+      <arg value="${svnroot}/${trunk.loc}" />
+      <arg value="${basedir}" />
+    </exec>
+
+  </target>
+
+  <!-- *************** UTILITY TARGETS *************** -->
+
+  <target name="check.source">
+
+    <available property="source.exists"
+                   file="${basedir}/${tomcat.project}" type="dir" />
+
+  </target>
+
+  <target name="get.source" unless="source.exists">
+
+    <antcall target="checkout" />
+
+  </target>
+
+</project>

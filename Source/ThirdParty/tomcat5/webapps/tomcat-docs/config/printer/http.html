@@ -1,0 +1,387 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat Configuration Reference - The HTTP Connector</title><meta content="Craig R. McClanahan" name="author"><meta content="Yoav Shapira" name="author"><style media="print" type="text/css">
+			.noPrint {display: none;}
+			td#mainBody {width: 100%;}
+		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
+    The Apache Tomcat Servlet/JSP Container
+  " align="right" src="../../images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">The Apache Tomcat 5.5 Servlet/JSP Container</font></h1></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade="noshade"></td></tr><tr><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat Configuration Reference</h1><h2>The HTTP Connector</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
+<ul><li><a href="#Introduction">Introduction</a></li><li><a href="#Attributes">Attributes</a><ol><li><a href="#Common_Attributes">Common Attributes</a></li><li><a href="#Standard_Implementation">Standard Implementation</a></li></ol></li><li><a href="#Nested_Components">Nested Components</a></li><li><a href="#Special_Features">Special Features</a><ol><li><a href="#HTTP/1.1_and_HTTP/1.0_Support">HTTP/1.1 and HTTP/1.0 Support</a></li><li><a href="#Proxy_Support">Proxy Support</a></li><li><a href="#SSL_Support">SSL Support</a></li></ol></li></ul>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>The <strong>HTTP Connector</strong> element represents a
+  <strong>Connector</strong> component that supports the HTTP/1.1 protocol.
+  It enables Catalina to function as a stand-alone web server, in addition
+  to its ability to execute servlets and JSP pages.  A particular instance
+  of this component listens for connections on a specific TCP port number
+  on the server.  One or more such <strong>Connectors</strong> can be
+  configured as part of a single <a href="service.html">Service</a>, each
+  forwarding to the associated <a href="engine.html">Engine</a> to perform
+  request processing and create the response.</p>
+
+  <p>If you wish to configure the <strong>Connector</strong> that is used
+  for connections to web servers using the AJP protocol (such as the
+  <code>mod_jk 1.2.x</code> connector for Apache 1.3), see
+  <a href="ajp.html">here</a> instead.</p>
+
+  <p>At server startup time, this <strong>Connector</strong> will create a
+  number of request processing threads (based on the value configured for
+  the <code>minSpareThreads</code> attribute).  Each incoming request requires
+  a thread for the duration of that request.  If more simultaneous requests
+  are received than can be handled by the currently available request
+  processing threads, additional threads will be created up to the
+  configured maximum (the value of the <code>maxThreads</code> attribute).
+  If still more simultaneous requests are received, they are stacked up
+  inside the server socket created by the <strong>Connector</strong>, up to
+  the configured maximum (the value of the <code>acceptCount</code>
+  attribute.  Any further simultaneous requests will receive "connection
+  refused" errors, until resources are available to process them.</p>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Attributes"><strong>Attributes</strong></a></font></td></tr><tr><td><blockquote>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Common Attributes"><!--()--></a><a name="Common_Attributes"><strong>Common Attributes</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>All implementations of <strong>Connector</strong>
+  support the following attributes:</p>
+
+  <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>allowTrace</code></td><td valign="center" align="left">
+      <p>A boolean value which can be used to enable or disable the TRACE
+      HTTP method. If not specified, this attribute is set to false.</p>
+    </td></tr><tr><td valign="center" align="left"><code>emptySessionPath</code></td><td valign="center" align="left">
+      <p>If set to <code>true</code>, all paths for session cookies will be set
+      to <code>/</code>. This can be useful for portlet specification implementations,
+      but will greatly affect performance if many applications are accessed on a given
+      server by the client.
+      If not specified, this attribute is set to <code>false</code>.</p>
+    </td></tr><tr><td valign="center" align="left"><code>enableLookups</code></td><td valign="center" align="left">
+      <p>Set to <code>true</code> if you want calls to
+      <code>request.getRemoteHost()</code> to perform DNS lookups in
+      order to return the actual host name of the remote client.  Set
+      to <code>false</code> to skip the DNS lookup and return the IP
+      address in String form instead (thereby improving performance).
+      By default, DNS lookups are enabled.</p>
+    </td></tr><tr><td valign="center" align="left"><code>maxPostSize</code></td><td valign="center" align="left">
+      <p>The maximum size in bytes of the POST which will be handled by
+      the container FORM URL parameter parsing. The limit can be disabled by
+      setting this attribute to a value less than or equal to 0.
+      If not specified, this attribute is set to 2097152 (2 megabytes).</p>
+    </td></tr><tr><td valign="center" align="left"><code>maxSavePostSize</code></td><td valign="center" align="left">
+      <p>The maximum size in bytes of the POST which will be saved/buffered by
+      the container during FORM or CLIENT-CERT authentication. For both types
+      of authentication, the POST will be saved/buffered before the user is
+      authenticated. For CLIENT-CERT authentication, the POST is buffered for
+      the duration of
+ the SSL handshake and the buffer emptied when the request
+      is processed. For FORM authentication the POST is
+ saved whilst the user
+      is re-directed to the login form and is retained until the user
+      successfully authenticates or the session associated with the
+      authentication request expires. The limit can be disabled by setting this
+      attribute to -1. Setting the attribute to
+ zero will disable the saving of
+      POST data during authentication
+. If not
+ specified, this attribute is set
+      to
+ 4096 (4 kilobytes).</p>
+    </td></tr><tr><td valign="center" align="left"><code>protocol</code></td><td valign="center" align="left">
+      <p>This attribute value must be <code>HTTP/1.1</code> to use the HTTP
+      handler, which is the default.</p>
+    </td></tr><tr><td valign="center" align="left"><code>proxyName</code></td><td valign="center" align="left">
+      <p>If this <strong>Connector</strong> is being used in a proxy
+      configuration, configure this attribute to specify the server name
+      to be returned for calls to <code>request.getServerName()</code>.
+      See <a href="#Proxy Support">Proxy Support</a> for more
+      information.</p>
+    </td></tr><tr><td valign="center" align="left"><code>proxyPort</code></td><td valign="center" align="left">
+      <p>If this <strong>Connector</strong> is being used in a proxy
+      configuration, configure this attribute to specify the server port
+      to be returned for calls to <code>request.getServerPort()</code>.
+      See <a href="#Proxy Support">Proxy Support</a> for more
+      information.</p>
+    </td></tr><tr><td valign="center" align="left"><code>redirectPort</code></td><td valign="center" align="left">
+      <p>If this <strong>Connector</strong> is supporting non-SSL
+      requests, and a request is received for which a matching
+      <code>&lt;security-constraint&gt;</code> requires SSL transport,
+      Catalina will automatically redirect the request to the port
+      number specified here.</p>
+    </td></tr><tr><td valign="center" align="left"><code>scheme</code></td><td valign="center" align="left">
+      <p>Set this attribute to the name of the protocol you wish to have
+      returned by calls to <code>request.getScheme()</code>.  For
+      example, you would set this attribute to "<code>https</code>"
+      for an SSL Connector.  The default value is "<code>http</code>".
+      See <a href="#SSL Support">SSL Support</a> for more information.</p>
+    </td></tr><tr><td valign="center" align="left"><code>secure</code></td><td valign="center" align="left">
+      <p>Set this attribute to <code>true</code> if you wish to have
+      calls to <code>request.isSecure()</code> to return <code>true</code>
+      for requests received by this Connector (you would want this on an
+      SSL Connector).  The default value is <code>false</code>.</p>
+    </td></tr><tr><td valign="center" align="left"><code>URIEncoding</code></td><td valign="center" align="left">
+      <p>This specifies the character encoding used to decode the URI bytes,
+      after %xx decoding the URL. If not specified, ISO-8859-1 will be used.
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>useBodyEncodingForURI</code></td><td valign="center" align="left">
+      <p>This specifies if the encoding specified in contentType should be used
+      for URI query parameters, instead of using the URIEncoding. This
+      setting is present for compatibility with Tomcat 4.1.x, where the
+      encoding specified in the contentType, or explicitly set using
+      Request.setCharacterEncoding method was also used for the parameters from
+      the URL. The default value is <code>false</code>.
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>useIPVHosts</code></td><td valign="center" align="left">
+      <p>Set this attribute to <code>true</code> to cause Tomcat to use
+      the IP address that the request was received on to determine the Host
+      to send the request to.  The default value is <code>false</code>.</p>
+    </td></tr><tr><td valign="center" align="left"><code>xpoweredBy</code></td><td valign="center" align="left">
+      <p>Set this attribute to <code>true</code> to cause Tomcat to advertise
+      support for the Servlet specification using the header recommended in the
+      specification.  The default value is <code>false</code>.</p>
+    </td></tr></table>
+
+  </blockquote></td></tr></table>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Standard Implementation"><!--()--></a><a name="Standard_Implementation"><strong>Standard Implementation</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>
+  HTTP supports the following additional attributes (in addition to the
+  common attributes listed above):</p>
+
+  <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>acceptCount</code></td><td valign="center" align="left">
+      <p>The maximum queue length for incoming connection requests when
+      all possible request processing threads are in use.  Any requests
+      received when the queue is full will be refused.  The default
+      value is 100.</p>
+    </td></tr><tr><td valign="center" align="left"><code>address</code></td><td valign="center" align="left">
+      <p>For servers with more than one IP address, this attribute
+      specifies which address will be used for listening on the specified
+      port.  By default, this port will be used on all IP addresses
+      associated with the server.</p>
+    </td></tr><tr><td valign="center" align="left"><code>bufferSize</code></td><td valign="center" align="left">
+      <p>The size (in bytes) of the buffer to be provided for input
+      streams created by this connector.  By default, buffers of
+      2048 bytes will be provided.</p>
+    </td></tr><tr><td valign="center" align="left"><code>compressableMimeType</code></td><td valign="center" align="left">
+      <p>The value is a comma separated list of MIME types for which HTTP
+      compression may be used.
+      The default value is <code>text/html,text/xml,text/plain</code>.</p>
+    </td></tr><tr><td valign="center" align="left"><code>compression</code></td><td valign="center" align="left">
+      <p>The <strong>Connector</strong> may use HTTP/1.1 GZIP compression in
+      an attempt to save server bandwidth. The acceptable values for the
+      parameter is "off" (disable compression), "on" (allow compression, which
+      causes text data to be compressed), "force" (forces compression in all
+      cases), or a numerical integer value (which is equivalent to "on", but
+      specifies the minimum amount of data before the output is compressed). If
+      the content-length is not known and compression is set to "on" or more
+      aggressive, the output will also be compressed. If not specified, this
+      attribute is set to "off".</p>
+    </td></tr><tr><td valign="center" align="left"><code>connectionLinger</code></td><td valign="center" align="left">
+      <p>The number of milliseconds during which the sockets used by this
+      <strong>Connector</strong> will linger when they are closed.
+      The default value is -1 (socket linger is disabled).</p>
+    </td></tr><tr><td valign="center" align="left"><code>connectionTimeout</code></td><td valign="center" align="left">
+      <p>The number of milliseconds this <strong>Connector</strong> will wait,
+      after accepting a connection, for the request URI line to be
+      presented.  The default value is 60000 (i.e. 60 seconds).</p>
+    </td></tr><tr><td valign="center" align="left"><code>disableUploadTimeout</code></td><td valign="center" align="left">
+      <p>This flag allows the servlet container to use a different, longer
+      connection timeout while a servlet is being executed, which in the end
+      allows either the servlet a longer amount of time to complete its
+      execution, or a longer timeout during data upload. If not specified,
+      this attribute is set to "true".</p>
+    </td></tr><tr><td valign="center" align="left"><code>maxHttpHeaderSize</code></td><td valign="center" align="left">
+      <p>The maximum size of the request and response HTTP header, specified
+      in bytes.
+      If not specified, this attribute is set to 4096 (4 KB).</p>
+    </td></tr><tr><td valign="center" align="left"><code>maxKeepAliveRequests</code></td><td valign="center" align="left">
+      <p>The maximum number of HTTP requests which can be pipelined until
+      the connection is closed by the server. Setting this attribute to 1 will
+      disable HTTP/1.0 keep-alive, as well as HTTP/1.1 keep-alive and
+      pipelining. Setting this to -1 will allow an unlimited amount of
+      pipelined or keep-alive HTTP requests.
+      If not specified, this attribute is set to 100.</p>
+    </td></tr><tr><td valign="center" align="left"><code>maxSpareThreads</code></td><td valign="center" align="left">
+      <p>The maximum number of unused request processing threads that
+      will be allowed to exist until the thread pool starts stopping the
+      unnecessary threads.  The default value is 50.</p>
+    </td></tr><tr><td valign="center" align="left"><code>maxThreads</code></td><td valign="center" align="left">
+      <p>The maximum number of request processing threads to be created
+      by this <strong>Connector</strong>, which therefore determines the
+      maximum number of simultaneous requests that can be handled.  If
+      not specified, this attribute is set to 200.</p>
+    </td></tr><tr><td valign="center" align="left"><code>minSpareThreads</code></td><td valign="center" align="left">
+      <p>The number of request processing threads that will be created
+      when this <strong>Connector</strong> is first started.  The connector
+      will also make sure it has the specified number of idle processing
+      threads available. This attribute should be set to a value smaller
+      than that set for <code>maxThreads</code>.  The default value is 4.</p>
+    </td></tr><tr><td valign="center" align="left"><code>noCompressionUserAgents</code></td><td valign="center" align="left">
+      <p>The value is a comma separated list of regular expressions matching
+      user-agents of HTTP clients for which compression should not be used,
+      because these clients, although they do advertise support for the
+      feature, have a broken implementation.
+      The default value is an empty String (regexp matching disabled).</p>
+    </td></tr><tr><td valign="center" align="left"><strong><code>port</code></strong></td><td valign="center" align="left">
+      <p>The TCP port number on which this <strong>Connector</strong>
+      will create a server socket and await incoming connections.  Your
+      operating system will allow only one server application to listen
+      to a particular port number on a particular IP address.</p>
+    </td></tr><tr><td valign="center" align="left"><code>restrictedUserAgents</code></td><td valign="center" align="left">
+      <p>The value is a comma separated list of regular expressions matching
+      user-agents of HTTP clients for which HTTP/1.1 or HTTP/1.0 keep alive
+      should not be used, even if the clients advertise support for these
+      features.
+      The default value is an empty String (regexp matching disabled).</p>
+    </td></tr><tr><td valign="center" align="left"><code>server</code></td><td valign="center" align="left">
+      <p>Overrides the Server header for the http response. If set, the value
+      for this attribute overrides the Tomcat default and any Server header set
+      by a web application. If not set, any value specified by the application
+      is used. If the application does not specify a value then
+      <code>Apache-Coyote/1.1</code> is used. Unless you are paranoid, you won't
+      need this feature.
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>socketBuffer</code></td><td valign="center" align="left">
+      <p>The size (in bytes) of the buffer to be provided for socket
+      output buffering. -1 can be specified to disable the use of a buffer.
+      By default, a buffers of 9000 bytes will be used.</p>
+    </td></tr><tr><td valign="center" align="left"><code>strategy</code></td><td valign="center" align="left">
+      <p>The thread pooling strategy which will be used. The default strategy does 
+      not use a master thread, but a more conventional strategy using a 
+      master listener thread can be used by setting "ms" as this attribute's value. 
+      The master strategy will work significantly better using the threadPriority 
+      attribute, which will apply only to the thread which listens on the server socket.
+      This is set to <code>lf</code> by default.
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>tcpNoDelay</code></td><td valign="center" align="left">
+      <p>If set to <code>true</code>, the TCP_NO_DELAY option will be
+      set on the server socket, which improves performance under most
+      circumstances.  This is set to <code>true</code> by default.</p>
+    </td></tr><tr><td valign="center" align="left"><code>threadPriority</code></td><td valign="center" align="left">
+      <p>The priority of the request processing threads within the JVM.
+      The default value is <code>java.lang.Thread#NORM_PRIORITY</code>.
+      See the JavaDoc for the java.lang.Thread class for more details on
+      what this priority means.
+      </p>
+    </td></tr></table>
+
+  </blockquote></td></tr></table>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Nested Components"><!--()--></a><a name="Nested_Components"><strong>Nested Components</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>None at this time.</p>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Special Features"><!--()--></a><a name="Special_Features"><strong>Special Features</strong></a></font></td></tr><tr><td><blockquote>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="HTTP/1.1 and HTTP/1.0 Support"><!--()--></a><a name="HTTP/1.1_and_HTTP/1.0_Support"><strong>HTTP/1.1 and HTTP/1.0 Support</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>This <strong>Connector</strong> supports all of the required features
+  of the HTTP/1.1 protocol, as described in RFC 2616, including persistent
+  connections, pipelining, expectations and chunked encoding.  If the client
+  (typically a browser) supports only HTTP/1.0, the
+  <strong>Connector</strong> will gracefully fall back to supporting this
+  protocol as well.  No special configuration is required to enable this
+  support. The <strong>Connector</strong> also supports HTTP/1.0
+  keep-alive.</p>
+
+  <p>RFC 2616 requires that HTTP servers always begin their responses with
+  the highest HTTP version that they claim to support.  Therefore, this
+  <strong>Connector</strong> will always return <code>HTTP/1.1</code> at
+  the beginning of its responses.</p>
+
+  </blockquote></td></tr></table>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Proxy Support"><!--()--></a><a name="Proxy_Support"><strong>Proxy Support</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>The <code>proxyName</code> and <code>proxyPort</code> attributes can
+  be used when Tomcat is run behind a proxy server.  These attributes
+  modify the values returned to web applications that call the
+  <code>request.getServerName()</code> and <code>request.getServerPort()</code>
+  methods, which are often used to construct absolute URLs for redirects.
+  Without configuring these attributes, the values returned would reflect
+  the server name and port on which the connection from the proxy server
+  was received, rather than the server name and port to whom the client
+  directed the original request.</p>
+
+  <p>For more information, see the
+  <a href="../../proxy-howto.html">Proxy Support HOW-TO</a>.</p>
+
+  </blockquote></td></tr></table>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="SSL Support"><!--()--></a><a name="SSL_Support"><strong>SSL Support</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>You can enable SSL support for a particular instance of this
+  <strong>Connector</strong> by setting the <code>secure</code> attribute to
+  <code>true</code>.  In addition, you may need to configure the following
+  attributes:</p>
+
+  <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>algorithm</code></td><td valign="center" align="left">
+      <p>The certificate encoding algorithm to be used. This defaults to the Sun
+      implementation (<code>SunX509</code>). For IBM JVMs you should use the
+      value <code>IbmX509</code>. For other vendors, consult the JVM
+      documentation for the correct value.</p>
+    </td></tr><tr><td valign="center" align="left"><code>clientAuth</code></td><td valign="center" align="left">
+      <p>Set to <code>true</code> if you want the SSL stack to require a
+      valid certificate chain from the client before accepting a connection.
+      Set to <code>want</code> if you want the SSL stack to request a client
+      Certificate, but not fail if one isn't presented. A <code>false</code>
+      value (which is the default) will not require a certificate chain
+      unless the client requests a resource protected by a security
+      constraint that uses <code>CLIENT-CERT</code> authentication. See the
+      <a href="../../ssl-howto.html">SSL HowTo</a> for an example.  That SSL HowTo
+      also contains tips on using per-user or per-session certificate-based clientAuth.</p>
+    </td></tr><tr><td valign="center" align="left"><code>keystoreFile</code></td><td valign="center" align="left">
+      <p>The pathname of the keystore file where you have stored the
+      server certificate to be loaded.  By default, the pathname is
+      the file "<code>.keystore</code>" in the operating system home
+      directory of the user that is running Tomcat.</p>
+    </td></tr><tr><td valign="center" align="left"><code>keystorePass</code></td><td valign="center" align="left">
+      <p>The password used to access the server certificate from the
+      specified keystore file.  The default value is "<code>changeit</code>".
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>keystoreType</code></td><td valign="center" align="left">
+      <p>The type of keystore file to be used for the server certificate.
+      If not specified, the default value is "<code>JKS</code>".</p>
+    </td></tr><tr><td valign="center" align="left"><code>sslProtocol</code></td><td valign="center" align="left">
+      <p>The version of the SSL protocol to use.  If not specified,
+      the default is "<code>TLS</code>".</p>
+    </td></tr><tr><td valign="center" align="left"><code>ciphers</code></td><td valign="center" align="left">
+      <p>The comma separated list of encryption ciphers that this socket is 
+      allowed to use. By default, the default ciphers for the JVM will be used.
+      Note that this usually means that the weak export grade ciphers will be
+      included in the list of available ciphers. The ciphers are specified using
+      the JSSE cipher naming convention.</p>
+    </td></tr><tr><td valign="center" align="left"><code>keyAlias</code></td><td valign="center" align="left">
+      <p>The alias used to for the server certificate in the keystore. If not
+      specified the first key read in the keystore will be used.</p>
+    </td></tr><tr><td valign="center" align="left"><code>truststoreFile</code></td><td valign="center" align="left">
+      <p>The trust store file to use to validate client certificates. The
+      default is the value of the <code>javax.net.ssl.trustStore</code> system
+      property. If neither this attribute nor the default system property is
+      set, no trust store will be configured.</p>
+    </td></tr><tr><td valign="center" align="left"><code>truststorePass</code></td><td valign="center" align="left">
+      <p>The password to access the trust store. The default is the value of the
+      <code>javax.net.ssl.trustStorePassword</code> system property. If that
+      property is null, the value of <code>keystorePass</code> is used as the
+      default. If neither this attribute, the default system property nor
+      <code>keystorePass</code>is set, no trust store will be configured.</p>
+    </td></tr><tr><td valign="center" align="left"><code>truststoreType</code></td><td valign="center" align="left">
+      <p>The type of key store used for the trust store. The default is the
+      value of the <code>javax.net.ssl.trustStoreType</code> system property. If
+      that property is null, the value of <code>keystoreType</code> is used as
+      the default.</p>
+     </td></tr><tr><td valign="center" align="left"><code>allowUnsafeLegacyRenegotiation</code></td><td valign="center" align="left">
+      <p>Is unsafe legacy TLS renegotiation allowed which is likely to expose
+      users to CVE-2009-3555, a man-in-the-middle vulnerability in the TLS
+      protocol that allows an attacker to inject arbitrary data into the user's
+      request. If not specified, a default of <code>false</code> is used.</p>
+    </td></tr></table>
+
+  <p>For more information, see the
+  <a href="../../ssl-howto.html">SSL Configuration HOW-TO</a>.</p>
+
+  </blockquote></td></tr></table>
+
+
+</blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade="noshade"></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
+        Copyright &copy; 1999-2010, Apache Software Foundation
+        </em></font></div></td></tr></table></body></html>

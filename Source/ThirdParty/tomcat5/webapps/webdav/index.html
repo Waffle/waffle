@@ -1,0 +1,92 @@
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Mozilla/4.72 [en] (WinNT; U) [Netscape]">
+<meta name="Author" content="Anil K. Vijendran">
+<title>Tomcat WebDAV support</title>
+</head>
+<body bgcolor="#FFFFFF">
+<img SRC="tomcat.gif" height=92 width=130 align=LEFT><b><font face="Arial, Helvetica, sans-serif"><font size=+3>Tomcat</font></font></b> 
+<br>
+<b><font face="Arial, Helvetica, sans-serif"><font size=-1>WebDAV support</font></font></b>
+<p>This is the home page for the webdav context. This page is located at:
+<ul>
+<li>
+<font face="Courier New, Courier,mono">$TOMCAT_HOME/webapps/webdav/index.html</font></li>
+</ul>
+
+<p>Tomcat includes built-in support for WebDAV level 2, which enables 
+remote authoring of the website. You can test these capabilities using a WebDAV
+client like MS WebFolders (included with IE 4.0 and up), MS Office 2000, DAV
+Explorer (others are listed on the webpages linked below), and point to the
+<b>/webdav</b> path of the server.
+
+<p>This test context is DAV enabled, but has been set up in read-only mode for
+safety reasons. It can be put in read-write mode by editing the web 
+application descriptor file (WEB-INF/web.xml).
+
+<p>To add remote authoring to your web application, you need to make the following
+changes:
+<ul>
+<li>Add the webDAV servlet to your web application. See the web application
+deployment descriptor for an example. Don't forget to make it read/write.
+<li>Add a servlet mapping for the webDAV servlet with a url pattern of "/webdav/*"
+to your web.xml.
+<li>Add an appropriate security constraint to prevent unauthorised changes to your
+web application.
+<li>You can then edit your web application using a webDAV client using a url
+like <font face="Courier New, Courier,mono">http://host:port/webapp/webdav</font></li>
+</ul>
+
+<p>Working WebDAV clients include :
+<ul>
+<li>Adobe GoLive 5.0 (and other WebDAV-enabled Adobe products, like
+  Photoshop)</li>
+<li>Cadaver 0.15</li>
+<li>DAV Explorer 0.60 and 0.70</li>
+<li>Internet Explorer 5 (Windows 2000)</li>
+<li>Internet Explorer 5.5 (Windows 2000)</li>
+<li>Jakarta Slide 1.0 WebDAV client library</li>
+<li>Office 2000 (Windows 2000)</li>
+<li>SkunkDAV 1.0</li>
+<li>Xythos Drive</li>
+</ul>
+
+<p>WebDAV links:</p>
+<ul>
+<li><b><a href="http://www.webdav.org">General info on WebDAV</a></b></li>
+<li><b><a href="http://www.ics.uci.edu/pub/ietf/webdav/">WebDAV working 
+group</a></b></li>
+<li><b><a href="http://www.webdav.org/projects/">WebDAV clients</a></b></li>
+<li><b>
+<a href="http://jakarta.apache.org/slide/">The Jakarta Slide Project</a>
+</b></li>
+</ul>
+
+
+<hr>
+<p align="right"><font size=-1><img src="tomcat-power.gif" width="77" height="80"></font><br>
+&nbsp;
+<font size=-1>Copyright &copy; 1999-2010 Apache Software Foundation</font><br>
+<font size=-1>All Rights Reserved</font> <br>
+&nbsp;</p>
+<p align="right">&nbsp;</p>
+</body>
+</html>

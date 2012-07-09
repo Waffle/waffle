@@ -6,7 +6,8 @@
 		<ant dir="waffle-core" target="${ant.target}" />
 		<ant dir="waffle-jaas" target="${ant.target}" />
 		<ant dir="waffle-servlet" target="${ant.target}" />
-		<ant dir="waffle-tomcat-6" target="${ant.target}" />
+    <ant dir="waffle-tomcat5" target="${ant.target}" />
+		<ant dir="waffle-tomcat6" target="${ant.target}" />
 		<ant dir="waffle-spring-security-3" target="${ant.target}" />
 	</target>
 	<target name="build">
