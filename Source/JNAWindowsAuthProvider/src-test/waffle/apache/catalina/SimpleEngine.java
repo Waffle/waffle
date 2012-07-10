@@ -292,4 +292,14 @@ public class SimpleEngine implements org.apache.catalina.Engine {
 
 	}
 
+	@Override
+	public int getStartStopThreads() {
+		return 0;
+	}
+
+	@Override
+	public void setStartStopThreads(int arg0) {
+		
+	}
+
 }

@@ -1,4 +1,4 @@
-<!--
+<%--
  Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
   this work for additional information regarding copyright ownership.
@@ -13,7 +13,7 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
--->
+--%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <html>
   <head>
@@ -22,8 +22,8 @@
   <body>
     <h1>JSP 2.0 Examples - Panels using Tag Files</h1>
     <hr>
-    <p>This JSP page invokes a custom tag that draws a 
-    panel around the contents of the tag body.  Normally, such a tag 
+    <p>This JSP page invokes a custom tag that draws a
+    panel around the contents of the tag body.  Normally, such a tag
     implementation would require a Java class with many println() statements,
     outputting HTML.  Instead, we can use a .tag file as a template,
     and we don't need to write a single line of Java or even a TLD!</p>

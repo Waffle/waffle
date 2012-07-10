@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.connector.Request;
 import org.apache.catalina.deploy.LoginConfig;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.LoggerFactory;
 
 import waffle.util.AuthorizationHeader;
 import waffle.util.Base64;
@@ -37,19 +37,19 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 
     public NegotiateAuthenticator() {
     	super();
-    	_log = LogFactory.getLog(NegotiateAuthenticator.class);
+    	_log = LoggerFactory.getLogger(NegotiateAuthenticator.class);
     	_info = "waffle.apache.NegotiateAuthenticator/1.0";
     	_log.debug("[waffle.apache.NegotiateAuthenticator] loaded");
     }
 	
 	@Override
-	public void startInternal() throws LifecycleException {
+	public synchronized void startInternal() throws LifecycleException {
 		_log.info("[waffle.apache.NegotiateAuthenticator] started");
 		super.startInternal();
 	}
 	
 	@Override
-	public void stopInternal() throws LifecycleException {
+	public synchronized void stopInternal() throws LifecycleException {
 		super.stopInternal();
 		_log.info("[waffle.apache.NegotiateAuthenticator] stopped");
 	}
@@ -73,7 +73,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 		// authenticate user
 		if (! authorizationHeader.isNull()) {
 			
-			String securityPackage = authorizationHeader.getSecurityPackage();			
+			String securityPackage = authorizationHeader.getSecurityPackage();
 			// maintain a connection-based session for NTLM tokens
 			String connectionId = NtlmServletRequest.getConnectionId(request);
 			
@@ -127,7 +127,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 			if (! _allowGuestLogin && windowsIdentity.isGuest()) {
 				_log.warn("guest login disabled: " + windowsIdentity.getFqn());
 				sendUnauthorized(response);
-				return false;			
+				return false;
 			}
 			
 			try {

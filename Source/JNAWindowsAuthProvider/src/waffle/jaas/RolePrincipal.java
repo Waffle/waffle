@@ -37,6 +37,7 @@ public class RolePrincipal implements Principal, Serializable {
 	/**
 	 * Role name (Windows Group).
 	 */
+	@Override
 	public String getName() {
 		return _fqn;
 	}
@@ -49,7 +50,7 @@ public class RolePrincipal implements Principal, Serializable {
 		}
 		
 		if (o instanceof String) {
-        	return getName().equals((String) o);
+        	return getName().equals(o);
 		}
 		
 		if (o instanceof RolePrincipal) {

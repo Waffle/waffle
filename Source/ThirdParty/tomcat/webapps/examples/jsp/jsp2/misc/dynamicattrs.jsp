@@ -1,4 +1,4 @@
-<!--
+<%--
  Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
   this work for additional information regarding copyright ownership.
@@ -13,7 +13,7 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
--->
+--%>
 <%@ taglib prefix="my" uri="http://tomcat.apache.org/jsp2-example-taglib"%>
 <html>
   <head>
@@ -22,7 +22,7 @@
   <body>
     <h1>JSP 2.0 Examples - Dynamic Attributes</h1>
     <hr>
-    <p>This JSP page invokes a custom tag that accepts a dynamic set 
+    <p>This JSP page invokes a custom tag that accepts a dynamic set
     of attributes.  The tag echoes the name and value of all attributes
     passed to it.</p>
     <hr>
@@ -36,8 +36,8 @@
     </ul>
     <h2>Invocation 3 (three attributes)</h2>
     <ul>
-      <my:echoAttributes dogName="Scruffy" 
-                         catName="Fluffy" 
+      <my:echoAttributes dogName="Scruffy"
+                         catName="Fluffy"
                          blowfishName="Puffy"/>
     </ul>
   </body>

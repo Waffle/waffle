@@ -1,10 +1,12 @@
-<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Application Developer's Guide (7.0.4) - Development Processes</title><meta name="author" content="Craig R. McClanahan"><style type="text/css" media="print">
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Application Developer's Guide (7.0.29) - Development Processes</title><meta name="author" content="Craig R. McClanahan"><style type="text/css" media="print">
             .noPrint {display: none;}
             td#mainBody {width: 100%;}
+        </style><style type="text/css">
+            code {background-color:rgb(224,255,255);padding:0 0.1em;}
+            code.attributeName, code.propertyName {background-color:transparent;}
         </style></head><body bgcolor="#ffffff" text="#000000" link="#525D76" alink="#525D76" vlink="#525D76"><table border="0" width="100%" cellspacing="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img src="../images/tomcat.gif" align="right" alt="
       The Apache Tomcat Servlet/JSP Container
-    " border="0"></a></td><td><font face="arial,helvetica,sanserif"><h1>Apache Tomcat 7</h1>
-            Version 7.0.4, Oct 14 2010</font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img src="../images/asf-logo.gif" align="right" alt="Apache Logo" border="0"></a></td></tr></table><table border="0" width="100%" cellspacing="4"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr noshade size="1"></td></tr><tr><!--LEFT SIDE NAVIGATION--><td width="20%" valign="top" nowrap class="noPrint"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li></ul><p><strong>Contents</strong></p><ul><li><a href="index.html">Contents</a></li><li><a href="introduction.html">Introduction</a></li><li><a href="installation.html">Installation</a></li><li><a href="deployment.html">Deployment</a></li><li><a href="source.html">Source Code</a></li><li><a href="processes.html">Processes</a></li><li><a href="sample/">Example App</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td width="80%" valign="top" align="left" id="mainBody"><h1>Development Processes</h1><table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#525D76"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
+    " border="0"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 7</font></h1><font face="arial,helvetica,sanserif">Version 7.0.29, Jul 3 2012</font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img src="../images/asf-logo.gif" align="right" alt="Apache Logo" border="0"></a></td></tr></table><table border="0" width="100%" cellspacing="4"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr noshade size="1"></td></tr><tr><!--LEFT SIDE NAVIGATION--><td width="20%" valign="top" nowrap class="noPrint"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li></ul><p><strong>Contents</strong></p><ul><li><a href="index.html">Contents</a></li><li><a href="introduction.html">Introduction</a></li><li><a href="installation.html">Installation</a></li><li><a href="deployment.html">Deployment</a></li><li><a href="source.html">Source Code</a></li><li><a href="processes.html">Processes</a></li><li><a href="sample/">Example App</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td width="80%" valign="top" align="left" id="mainBody"><h1>Development Processes</h1><table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#525D76"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
 <ul><li><a href="#Development_Processes">Development Processes</a><ol><li><a href="#One-Time_Setup_of_Ant_and_Tomcat_for_Development">One-Time Setup of Ant and Tomcat for Development</a></li><li><a href="#Create_Project_Source_Code_Directory">Create Project Source Code Directory</a></li><li><a href="#Edit_Source_Code_and_Pages">Edit Source Code and Pages</a></li><li><a href="#Build_the_Web_Application">Build the Web Application</a></li><li><a href="#Test_Your_Web_Application">Test Your Web Application</a></li><li><a href="#Creating_a_Release">Creating a Release</a></li></ol></li></ul>
 </blockquote></td></tr></table><table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#525D76"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Development Processes"><!--()--></a><a name="Development_Processes"><strong>Development Processes</strong></a></font></td></tr><tr><td><blockquote>
 
@@ -36,12 +38,12 @@ once (no matter how many web applications you plan to develop).</p>
     <br><br></li>
 <li><em>Define one or more Tomcat users</em>.  The <em>Manager</em> web
     application runs under a security constraint that requires a user to be
-    logged in, and have the security role <code>manager</code> assigned to
-    him or her.  How such users are defined depends on which Realm you have
+    logged in, and have the security role <code>manager-script</code> assigned
+    to him or her.  How such users are defined depends on which Realm you have
     configured in Tomcat's <code>conf/server.xml</code> file -- see the
     <a href="../realm-howto.html">Realm Configuration HOW-TO</a> for more
     information.  You may define any number of users (with any username
-    and password that you like) with the <code>manager</code> role.
+    and password that you like) with the <code>manager-script</code> role.
     <br><br></li>
 </ul>
 
@@ -134,7 +136,7 @@ cvs commit
 
 Note that this is only an example web.xml file.  The full definition
 of the deployment descriptor file is in the
-<a href="http://java.sun.com/products/servlet">Servlet Specification.</a>
+<a href="http://wiki.apache.org/tomcat/Specifications">Servlet Specification.</a>
 
 </blockquote></td></tr></table>
 
@@ -286,5 +288,5 @@ following general steps are required:</p>
 
 
 </blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr noshade size="1"></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font color="#525D76" size="-1"><em>
-        Copyright &copy; 1999-2010, Apache Software Foundation
+        Copyright &copy; 1999-2012, Apache Software Foundation
         </em></font></div></td></tr></table></body></html>

@@ -22,8 +22,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import waffle.util.AuthorizationHeader;
 import waffle.util.Base64;
@@ -38,7 +38,7 @@ import waffle.windows.auth.IWindowsSecurityContext;
  */
 public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
-    private Log _log = LogFactory.getLog(NegotiateSecurityFilterProvider.class);
+    private Logger _log = LoggerFactory.getLogger(NegotiateSecurityFilterProvider.class);
 	private List<String> _protocols = new ArrayList<String>();
 	private IWindowsAuthProvider _auth = null;
 
@@ -56,6 +56,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 		_protocols = protocols;
 	}
 	
+	@Override
 	public void sendUnauthorized(HttpServletResponse response) {
 		Iterator<String> protocolsIterator = _protocols.iterator();
 		while(protocolsIterator.hasNext()) {
@@ -63,13 +64,15 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 		}
 	}
 
+	@Override
 	public boolean isPrincipalException(HttpServletRequest request) {
 		AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
 		boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
-		_log.info("authorization: " + authorizationHeader.toString() + ", ntlm post: " + ntlmPost);
+		_log.debug("authorization: " + authorizationHeader.toString() + ", ntlm post: " + ntlmPost);
 		return ntlmPost;
 	}
 
+	@Override
 	public IWindowsIdentity doFilter(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 
@@ -79,7 +82,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 		// maintain a connection-based session for NTLM tokns
 		String connectionId = NtlmServletRequest.getConnectionId(request);
 		String securityPackage = authorizationHeader.getSecurityPackage();
-		_log.info("security package: " + securityPackage + ", connection id: " + connectionId);
+		_log.debug("security package: " + securityPackage + ", connection id: " + connectionId);
 		
 		if (ntlmPost) {
 			// type 2 NTLM authentication message received
@@ -87,17 +90,17 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 		}
 		
 		byte[] tokenBuffer = authorizationHeader.getTokenBytes();
-		_log.info("token buffer: " + tokenBuffer.length + " byte(s)");
+		_log.debug("token buffer: " + tokenBuffer.length + " byte(s)");
 		IWindowsSecurityContext securityContext = _auth.acceptSecurityToken(connectionId, tokenBuffer, securityPackage);
 			
 		byte[] continueTokenBytes = securityContext.getToken();
 		if (continueTokenBytes != null) {
 			String continueToken = new String(Base64.encode(continueTokenBytes));
-			_log.info("continue token: " + continueToken);
+			_log.debug("continue token: " + continueToken);
 			response.addHeader("WWW-Authenticate", securityPackage + " " + continueToken);
 		}
 			
-		_log.info("continue required: " + securityContext.getContinue());
+		_log.debug("continue required: " + securityContext.getContinue());
 		if (securityContext.getContinue() || ntlmPost) {
 			response.setHeader("Connection", "keep-alive");
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -110,6 +113,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
         return identity;
 	}
 
+	@Override
 	public boolean isSecurityPackageSupported(String securityPackage) {
 		for(String protocol : _protocols) {
 			if (protocol.equalsIgnoreCase(securityPackage))
@@ -118,6 +122,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 		return false;
 	}
 
+	@Override
 	public void initParameter(String parameterName, String parameterValue) {
 		if (parameterName.equals("protocols")) {
 			_protocols = new ArrayList<String>();

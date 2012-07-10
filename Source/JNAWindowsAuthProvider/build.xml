@@ -26,9 +26,10 @@
 			<include name="**/*.jar" />
 		</fileset>
 	</path>
-	<path id="commons-logging.classpath">
-		<fileset dir="${thirdparty.dir}/commons-logging">
-			<include name="**/*.jar" />
+	<path id="slf4j.classpath">
+		<fileset dir="${thirdparty.dir}/slf4j">
+			<include name="**/*jcl-over-slf4j*.jar" />
+			<include name="**/*slf4j-api*.jar" />
 		</fileset>
 	</path>
 	<path id="spring.classpath">
@@ -47,7 +48,7 @@
 	<path id="waffle.classpath">
 		<path refid="jna.classpath" />
 		<path refid="tomcat.classpath" />
-		<path refid="commons-logging.classpath" />
+		<path refid="slf4j.classpath" />
 		<path refid="spring.classpath" />
 		<path refid="guava.classpath" />
 	</path>

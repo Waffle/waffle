@@ -1,13 +1,5 @@
 <html><body><pre>
-&lt;%@page contentType="text/html; charset=UTF-8" %>
-&lt;% if (session.getAttribute("nickname") == null) {
-    response.sendRedirect("login.jsp");
-    return;
-}
-%>
-&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
-&lt;html>
-&lt;!--
+&lt;%--
  Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
   this work for additional information regarding copyright ownership.
@@ -22,7 +14,15 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
--->
+--%>
+&lt;%@page contentType="text/html; charset=UTF-8" %>
+&lt;% if (session.getAttribute("nickname") == null) {
+    response.sendRedirect("login.jsp");
+    return;
+}
+%>
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+&lt;html>
 &lt;head>
    &lt;title>JSP Chat&lt;/title>
 &lt;/head>

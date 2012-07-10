@@ -1,4 +1,4 @@
-<!--
+<%--
  Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
   this work for additional information regarding copyright ownership.
@@ -13,7 +13,7 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
--->
+--%>
 <%@ taglib prefix="my" uri="http://tomcat.apache.org/jsp2-example-taglib"%>
 
 <html>
@@ -25,10 +25,10 @@
     <hr>
     <p>Try reloading the page a few times.  Both the rows and the columns
     are shuffled and appear different each time.</p>
-    <p>Here's how the code works.  The SimpleTag handler called 
-    &lt;my:shuffle&gt; accepts three attributes.  Each attribute is a 
+    <p>Here's how the code works.  The SimpleTag handler called
+    &lt;my:shuffle&gt; accepts three attributes.  Each attribute is a
     JSP Fragment, meaning it is a fragment of JSP code that can be
-    dynamically executed by the shuffle tag handler on demand.  The 
+    dynamically executed by the shuffle tag handler on demand.  The
     shuffle tag handler executes the three fragments in a random order.
     To shuffle both the rows and the columns, the shuffle tag is used
     with itself as a parameter.</p>

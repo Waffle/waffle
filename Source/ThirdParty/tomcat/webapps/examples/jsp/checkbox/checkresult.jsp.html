@@ -1,6 +1,5 @@
 <html><body><pre>
-&lt;html>
-&lt;!--
+&lt;%--
  Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
   this work for additional information regarding copyright ownership.
@@ -15,8 +14,8 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
--->
-
+--%>
+&lt;html>
 &lt;body bgcolor="white">
 &lt;font size=5 color="red">
 &lt;%! String[] fruits; %>
@@ -25,7 +24,7 @@
 &lt;jsp:setProperty name="foo" property="fruit" param="fruit" />
 &lt;hr>
 The checked fruits (got using request) are: &lt;br>
-&lt;% 
+&lt;%
     fruits = request.getParameterValues("fruit");
 %>
 &lt;ul>
@@ -45,7 +44,7 @@ The checked fruits (got using request) are: &lt;br>
 
 The checked fruits (got using beans) are &lt;br>
 
-&lt;% 
+&lt;%
         fruits = foo.getFruit();
 %>
 &lt;ul>

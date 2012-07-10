@@ -1,4 +1,4 @@
-<!--
+<%--
  Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
   this work for additional information regarding copyright ownership.
@@ -13,7 +13,7 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
--->
+--%>
 <html>
   <head>
     <title>Tag Examples - choose</title>
@@ -21,38 +21,34 @@
   <body>
     <h1>Tag Plugin Examples - &lt;c:choose></h1>
 
-    <hr>
-    </br>
-    <a href="notes.html">Plugin Introductory Notes<font <font color="#0000FF"></
-a>
+    <hr/>
     <br/>
-    <a href="howto.html">Brief Instructions for Writing Plugins<font color="#000
-0
-FF"></a>
+    <a href="notes.html">Plugin Introductory Notes</a>
+    <br/>
+    <a href="howto.html">Brief Instructions for Writing Plugins</a>
     <br/> <br/>
-    <hr>
+    <hr/>
 
-    <font color="#000000"/>
-    </br>
+    <br/>
 
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
     <c:forEach var="index" begin="0" end="4">
-      # ${index}: 
+      # ${index}:
       <c:choose>
         <c:when test="${index == 1}">
-          One!</br>
+          One!<br/>
         </c:when>
         <c:when test="${index == 4}">
-          Four!</br>
+          Four!<br/>
         </c:when>
         <c:when test="${index == 3}">
-          Three!</br>
+          Three!<br/>
         </c:when>
         <c:otherwise>
-          Huh?</br>
+          Huh?<br/>
         </c:otherwise>
       </c:choose>
     </c:forEach>
   </body>
-</html> 
+</html>

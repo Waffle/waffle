@@ -54,7 +54,7 @@ public class MixedAuthenticatorTests extends TestCase {
 		SimplePipeline pipeline = new SimplePipeline();
 		engine.setPipeline(pipeline);
 		ctx.setPipeline(pipeline);
-		_authenticator.setContainer(ctx);		
+		_authenticator.setContainer(ctx);
 		_authenticator.start();
 	}
 
@@ -147,7 +147,7 @@ public class MixedAuthenticatorTests extends TestCase {
 	    		authenticated = _authenticator.authenticate(request, response, null);
 	
 	    		if (authenticated) {
-            assertTrue(response.getHeaderNames().size() >= 0);
+	    			assertTrue(response.getHeaderNames().size() >= 0);
 	    			break;
 	    		}
 	    		

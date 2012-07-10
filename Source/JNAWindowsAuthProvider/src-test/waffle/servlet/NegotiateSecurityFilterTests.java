@@ -36,6 +36,7 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 import waffle.windows.auth.impl.WindowsCredentialsHandleImpl;
 import waffle.windows.auth.impl.WindowsSecurityContextImpl;
 
+import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.Secur32.EXTENDED_NAME_FORMAT;
 import com.sun.jna.platform.win32.Secur32Util;
 import com.sun.jna.platform.win32.Sspi;
@@ -150,7 +151,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 	    		authenticated = (subject != null && subject.getPrincipals().size() > 0);
 	
 	    		if (authenticated) {
-	        	assertTrue(response.getHeaderNames().size() >= 0);
+	        		assertTrue(response.getHeaderNames().size() >= 0);
 	    			break;
 	    		}
 	    		
@@ -171,8 +172,9 @@ public class NegotiateSecurityFilterTests extends TestCase {
 	        assertEquals("NEGOTIATE", wrappedRequest.getAuthType());
 	        assertEquals(Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible), 
 	        		wrappedRequest.getRemoteUser());
-	        assertTrue(wrappedRequest.getUserPrincipal() instanceof WindowsPrincipal);
-	        assertTrue(wrappedRequest.isUserInRole("Everyone"));
+	        assertTrue(wrappedRequest.getUserPrincipal() instanceof WindowsPrincipal);	        
+	        String everyoneGroupName = Advapi32Util.getAccountBySid("S-1-1-0").name;
+	        assertTrue(wrappedRequest.isUserInRole(everyoneGroupName));
 	        assertTrue(wrappedRequest.isUserInRole("S-1-1-0"));
 		} finally {
 			if (clientContext != null) {
@@ -287,7 +289,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		assertEquals(1, _filter.getProviders().size());
 	}
 
-	public void testInitNegotiateSecurityFilterProviderInvalidProtocol() throws ServletException {
+	public void testInitNegotiateSecurityFilterProviderInvalidProtocol() {
 		SimpleFilterConfig filterConfig = new SimpleFilterConfig();
 		filterConfig.setParameter("securityFilterProviders", "waffle.servlet.spi.NegotiateSecurityFilterProvider\n");
 		filterConfig.setParameter("waffle.servlet.spi.NegotiateSecurityFilterProvider/protocols", "INVALID");		

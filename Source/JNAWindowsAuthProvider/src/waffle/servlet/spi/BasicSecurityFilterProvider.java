@@ -19,8 +19,8 @@ import java.security.InvalidParameterException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import waffle.util.AuthorizationHeader;
 import waffle.windows.auth.IWindowsAuthProvider;
@@ -33,7 +33,7 @@ import waffle.windows.auth.IWindowsIdentity;
  */
 public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 
-    private Log _log = LogFactory.getLog(BasicSecurityFilterProvider.class);
+    private Logger _log = LoggerFactory.getLogger(BasicSecurityFilterProvider.class);
 	private String _realm = "BasicSecurityFilterProvider";
 	private IWindowsAuthProvider _auth = null;
 
@@ -41,6 +41,7 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 		_auth = auth;		
 	}
 	
+	@Override
 	public IWindowsIdentity doFilter(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		
@@ -54,14 +55,17 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 		return _auth.logonUser(usernamePasswordArray[0], usernamePasswordArray[1]);        
 	}
 
+	@Override
 	public boolean isPrincipalException(HttpServletRequest request) {
 		return false;
 	}
 
+	@Override
 	public boolean isSecurityPackageSupported(String securityPackage) {
 		return securityPackage.equalsIgnoreCase("Basic");
 	}
 
+	@Override
 	public void sendUnauthorized(HttpServletResponse response) {
 		response.addHeader("WWW-Authenticate", "Basic realm=\"" + _realm + "\"");
 	}
@@ -87,6 +91,7 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 	/**
 	 * Init configuration parameters.
 	 */
+	@Override
 	public void initParameter(String parameterName, String parameterValue) {
 		if (parameterName.equals("realm")) {
 			setRealm(parameterValue);

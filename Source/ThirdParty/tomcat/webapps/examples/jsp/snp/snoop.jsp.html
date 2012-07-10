@@ -1,6 +1,5 @@
 <html><body><pre>
-&lt;html>
-&lt;!--
+&lt;%--
  Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
   this work for additional information regarding copyright ownership.
@@ -15,8 +14,8 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
--->
-
+--%>
+&lt;html>
 &lt;body bgcolor="white">
 &lt;h1> Request Information &lt;/h1>
 &lt;font size="4">
@@ -46,7 +45,7 @@ Remote address: &lt;%= util.HTMLFilter.filter(request.getRemoteAddr()) %>
 &lt;br>
 Remote host: &lt;%= util.HTMLFilter.filter(request.getRemoteHost()) %>
 &lt;br>
-Authorization scheme: &lt;%= util.HTMLFilter.filter(request.getAuthType()) %> 
+Authorization scheme: &lt;%= util.HTMLFilter.filter(request.getAuthType()) %>
 &lt;br>
 Locale: &lt;%= request.getLocale() %>
 &lt;hr>

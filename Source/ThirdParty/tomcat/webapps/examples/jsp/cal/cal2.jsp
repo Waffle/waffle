@@ -1,5 +1,4 @@
-<HTML>
-<!--
+<%--
  Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
   this work for additional information regarding copyright ownership.
@@ -14,9 +13,9 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
--->
-
-<HEAD><TITLE> 
+--%>
+<HTML>
+<HEAD><TITLE>
     Calendar: A JSP APPLICATION
 </TITLE></HEAD>
 
@@ -24,7 +23,7 @@
 <BODY BGCOLOR="white">
 <jsp:useBean id="table" scope="session" class="cal.TableBean" />
 
-<% 
+<%
     String time = request.getParameter ("time");
 %>
 
@@ -33,7 +32,7 @@
 <BR> Time <%= util.HTMLFilter.filter(time) %> </h3>
 </FONT>
 <FORM METHOD=POST ACTION=cal1.jsp>
-<BR> 
+<BR>
 <BR> <INPUT NAME="date" TYPE=HIDDEN VALUE="current">
 <BR> <INPUT NAME="time" TYPE=HIDDEN VALUE="<%= util.HTMLFilter.filter(time) %>">
 <BR> <h2> Description of the event <INPUT NAME="description" TYPE=TEXT SIZE=20> </h2>
