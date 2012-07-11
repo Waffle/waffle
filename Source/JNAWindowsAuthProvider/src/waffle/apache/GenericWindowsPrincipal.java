@@ -44,7 +44,7 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
 	 * @param roleFormat
 	 *  Role format.
 	 */
-	public GenericWindowsPrincipal(IWindowsIdentity windowsIdentity,  
+	public GenericWindowsPrincipal(IWindowsIdentity windowsIdentity,
 			PrincipalFormat principalFormat, PrincipalFormat roleFormat) {
 		super(windowsIdentity.getFqn(), "", getRoles(windowsIdentity, principalFormat, roleFormat));	
 		_sid = windowsIdentity.getSid();

@@ -33,16 +33,16 @@ public class TileSimpleTag extends SimpleTagSupport {
 
     @Override
     public void doTag() throws JspException, IOException {
-        getJspContext().getOut().write( 
-                "&lt;td width=\"32\" height=\"32\" bgcolor=\"" + this.color + 
-                "\">&lt;font color=\"#ffffff\">&lt;center>" + this.label + 
+        getJspContext().getOut().write(
+                "&lt;td width=\"32\" height=\"32\" bgcolor=\"" + this.color +
+                "\">&lt;font color=\"#ffffff\">&lt;center>" + this.label +
                 "&lt;/center>&lt;/font>&lt;/td>" );
     }
 
     public void setColor( String color ) {
         this.color = color;
     }
-    
+
     public void setLabel( String label ) {
         this.label = label;
     }

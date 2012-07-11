@@ -14,7 +14,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-/* $Id: CookieExample.java 982412 2010-08-04 21:55:19Z markt $
+/* $Id: CookieExample.java 1337730 2012-05-12 23:17:21Z kkolinko $
  *
  */
 
@@ -41,29 +41,37 @@ public class CookieExample extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private static final ResourceBundle RB = ResourceBundle.getBundle("LocalStrings");
-    
+
     @Override
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response)
         throws IOException, ServletException
     {
+
+        String cookieName = request.getParameter("cookiename");
+        String cookieValue = request.getParameter("cookievalue");
+        Cookie aCookie = null;
+        if (cookieName != null && cookieValue != null) {
+            aCookie = new Cookie(cookieName, cookieValue);
+            response.addCookie(aCookie);
+        }
+
         response.setContentType("text/html");
 
         PrintWriter out = response.getWriter();
         out.println("<html>");
-        out.println("<body bgcolor=\"white\">");
         out.println("<head>");
 
         String title = RB.getString("cookies.title");
         out.println("<title>" + title + "</title>");
         out.println("</head>");
-        out.println("<body>");
+        out.println("<body bgcolor=\"white\">");
 
         // relative links
 
         // XXX
         // making these absolute till we work out the
-        // addition of a PathInfo issue 
+        // addition of a PathInfo issue
 
         out.println("<a href=\"../cookies.html\">");
         out.println("<img src=\"../images/code.gif\" height=24 " +
@@ -81,7 +89,7 @@ public class CookieExample extends HttpServlet {
                 Cookie cookie = cookies[i];
                 out.print("Cookie Name: " + HTMLFilter.filter(cookie.getName())
                           + "<br>");
-                out.println("  Cookie Value: " 
+                out.println("  Cookie Value: "
                             + HTMLFilter.filter(cookie.getValue())
                             + "<br><br>");
             }
@@ -89,19 +97,15 @@ public class CookieExample extends HttpServlet {
             out.println(RB.getString("cookies.no-cookies"));
         }
 
-        String cookieName = request.getParameter("cookiename");
-        String cookieValue = request.getParameter("cookievalue");
-        if (cookieName != null && cookieValue != null) {
-            Cookie cookie = new Cookie(cookieName, cookieValue);
-            response.addCookie(cookie);
+        if (aCookie != null) {
             out.println("<P>");
             out.println(RB.getString("cookies.set") + "<br>");
-            out.print(RB.getString("cookies.name") + "  " 
+            out.print(RB.getString("cookies.name") + "  "
                       + HTMLFilter.filter(cookieName) + "<br>");
-            out.print(RB.getString("cookies.value") + "  " 
+            out.print(RB.getString("cookies.value") + "  "
                       + HTMLFilter.filter(cookieValue));
         }
-        
+
         out.println("<P>");
         out.println(RB.getString("cookies.make-cookie") + "<br>");
         out.print("<form action=\"");
@@ -111,8 +115,8 @@ public class CookieExample extends HttpServlet {
         out.print(RB.getString("cookies.value") + "  ");
         out.println("<input type=text length=20 name=cookievalue><br>");
         out.println("<input type=submit></form>");
-            
-            
+
+
         out.println("</body>");
         out.println("</html>");
     }

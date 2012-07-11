@@ -3,26 +3,29 @@
 	<classpathentry excluding="**/.svn|**/.svn/*" kind="src" path="src"/>
 	<classpathentry excluding="**/.svn|**/.svn/*" kind="src" path="src-test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
+	<classpathentry kind="lib" path="/ThirdParty/junit/junit-4.10.jar" sourcepath="/ThirdParty/junit/junit-4.10-src.jar"/>
 	<classpathentry kind="lib" path="/ThirdParty/jna/jna.jar"/>
 	<classpathentry kind="lib" path="/ThirdParty/jna/platform.jar"/>
 	<classpathentry kind="lib" path="/ThirdParty/tomcat/lib/catalina.jar" sourcepath="C:/Users/dblock/Source/Misc/tomcat/tc7/java"/>
 	<classpathentry kind="lib" path="/ThirdParty/tomcat/lib/servlet-api.jar"/>
 	<classpathentry kind="lib" path="/ThirdParty/tomcat/lib/tomcat-coyote.jar"/>
 	<classpathentry kind="lib" path="/ThirdParty/tomcat/bin/tomcat-juli.jar"/>
-	<classpathentry kind="lib" path="/ThirdParty/commons-logging/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/slf4j/slf4j-api-1.6.6.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/slf4j/jcl-over-slf4j-1.6.6.jar"/>
 	<classpathentry kind="lib" path="/ThirdParty/groboutils/lib/GroboUtils-5-core.jar"/>
-	<classpathentry kind="lib" path="/ThirdParty/spring-security/dist/spring-security-core-3.0.3.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/ThirdParty/spring-security/dist/spring-security-web-3.0.3.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/ThirdParty/spring/dist/org.springframework.web-3.0.3.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/ThirdParty/spring/dist/org.springframework.beans-3.0.3.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/ThirdParty/spring/dist/org.springframework.context-3.0.3.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/ThirdParty/spring/dist/org.springframework.core-3.0.3.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/ThirdParty/spring/dist/org.springframework.asm-3.0.3.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/ThirdParty/spring-security/dist/spring-security-config-3.0.3.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/ThirdParty/spring/dist/org.springframework.aop-3.0.3.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/ThirdParty/spring/dist/org.springframework.expression-3.0.3.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/ThirdParty/guava/guava-r07.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/spring-security/dist/spring-security-core-3.1.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/spring-security/dist/spring-security-web-3.1.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/spring/dist/org.springframework.web-3.1.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/spring/dist/org.springframework.beans-3.1.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/spring/dist/org.springframework.context-3.1.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/spring/dist/org.springframework.core-3.1.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/spring/dist/org.springframework.asm-3.1.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/spring-security/dist/spring-security-config-3.1.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/spring/dist/org.springframework.aop-3.1.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/spring/dist/org.springframework.expression-3.1.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/guava/guava-12.0.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/logback/logback-classic-1.0.6.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/logback/logback-core-1.0.6.jar"/>
 	<classpathentry kind="lib" path="/ThirdParty/tomcat/lib/tomcat-api.jar"/>
 	<classpathentry kind="lib" path="/ThirdParty/tomcat/lib/tomcat-util.jar"/>
 	<classpathentry kind="output" path="bin"/>

@@ -43,6 +43,7 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 	private CredHandle _credentials;
 	private boolean _continue;
 	
+	@Override
 	public IWindowsIdentity getIdentity() {
     	HANDLEByReference phContextToken = new HANDLEByReference();
     	int rc = Secur32.INSTANCE.QuerySecurityContextToken(_ctx, phContextToken);
@@ -52,10 +53,12 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
     	return new WindowsIdentityImpl(phContextToken.getValue());
 	}
 
+	@Override
 	public String getSecurityPackage() {
 		return _securityPackage;
 	}
 
+	@Override
 	public byte[] getToken() {
 		return _token == null ? null : _token.getBytes();
 	}
@@ -87,6 +90,7 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 		
 	}
 	
+	@Override
 	public void initialize(CtxtHandle continueCtx, SecBufferDesc continueToken, String targetName) {
 		_attr = new NativeLongByReference();
 		_token = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, Sspi.MAX_TOKEN_SIZE);
@@ -107,6 +111,7 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
     	}
 	}
 	
+	@Override
 	public void dispose() {
 		dispose(_ctx);
 	}
@@ -125,11 +130,11 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 				throw new Win32Exception(rc);
 			}
 			return true;
-		} else {
-			return false;
 		}
+		return false;
 	}
 
+	@Override
 	public String getPrincipalName() {
 		return _principalName;
 	}
@@ -138,6 +143,7 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 		_principalName = principalName;		
 	}
 		
+	@Override
 	public CtxtHandle getHandle() {
 		return _ctx;
 	}
@@ -158,6 +164,7 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 		_ctx = phNewServerContext;
 	}
 
+	@Override
 	public boolean getContinue() {
 		return _continue;
 	}
@@ -166,6 +173,7 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 		_continue = b;
 	}
 
+	@Override
 	public IWindowsImpersonationContext impersonate() {
 		return new WindowsSecurityContextImpersonationContextImpl(_ctx);
 	}

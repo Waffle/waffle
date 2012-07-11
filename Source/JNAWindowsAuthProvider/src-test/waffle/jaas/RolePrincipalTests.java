@@ -29,6 +29,7 @@ public class RolePrincipalTests extends TestCase {
 	
 	private RolePrincipal _rolePrincipal = null;
 	
+	@Override
 	public void setUp() {
 		_rolePrincipal = new RolePrincipal("localhost\\Administrator");
 	}

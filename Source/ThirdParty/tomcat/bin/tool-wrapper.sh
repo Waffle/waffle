@@ -18,29 +18,38 @@
 # -----------------------------------------------------------------------------
 # Wrapper script for command line tools
 #
-# Environment Variable Prequisites
+# Environment Variable Prerequisites
 #
-#   CATALINA_HOME May point at your Catalina "build" directory.
+#   CATALINA_HOME   May point at your Catalina "build" directory.
 #
-#   TOOL_OPTS     (Optional) Java runtime options used when the "start",
-#                 "stop", or "run" command is executed.
+#   TOOL_OPTS       (Optional) Java runtime options.
 #
-#   JAVA_HOME     Must point at your Java Development Kit installation.
+#   JAVA_HOME       Must point at your Java Development Kit installation.
+#                   Using JRE_HOME instead works as well.
 #
-#   JAVA_OPTS     (Optional) Java runtime options used when the "start",
-#                 "stop", or "run" command is executed.
+#   JRE_HOME        Must point at your Java Runtime installation.
+#                   Defaults to JAVA_HOME if empty. If JRE_HOME and JAVA_HOME
+#                   are both set, JRE_HOME is used.
 #
-# $Id: tool-wrapper.sh 952945 2010-06-09 10:29:00Z rjung $
+#   JAVA_OPTS       (Optional) Java runtime options.
+#
+#   JAVA_ENDORSED_DIRS (Optional) Lists of of colon separated directories
+#                   containing some jars in order to allow replacement of APIs
+#                   created outside of the JCP (i.e. DOM and SAX from W3C).
+#                   It can also be used to update the XML parser implementation.
+#                   Defaults to $CATALINA_HOME/endorsed.
+#
+# $Id: tool-wrapper.sh 1138835 2011-06-23 11:27:57Z rjung $
 # -----------------------------------------------------------------------------
 
 # OS specific support.  $var _must_ be set to either true or false.
 cygwin=false
-os400=false
 darwin=false
+os400=false
 case "`uname`" in
 CYGWIN*) cygwin=true;;
-OS400*) os400=true;;
 Darwin*) darwin=true;;
+OS400*) os400=true;;
 esac
 
 # resolve links - $0 may be a softlink
@@ -96,11 +105,9 @@ if $os400; then
   # 1. owned by the user
   # 2. owned by the PRIMARY group of the user
   # this will not work if the user belongs in secondary groups
-  BASEDIR="$CATALINA_HOME"
-  . "$CATALINA_HOME"/bin/setclasspath.sh 
+  . "$CATALINA_HOME"/bin/setclasspath.sh
 else
   if [ -r "$CATALINA_HOME"/bin/setclasspath.sh ]; then
-    BASEDIR="$CATALINA_HOME"
     . "$CATALINA_HOME"/bin/setclasspath.sh
   else
     echo "Cannot find $CATALINA_HOME/bin/setclasspath.sh"

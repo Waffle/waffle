@@ -29,6 +29,7 @@ public class UserPrincipalTests extends TestCase {
 	
 	private UserPrincipal _userPrincipal = null;
 	
+	@Override
 	public void setUp() {
 		_userPrincipal = new UserPrincipal("localhost\\Administrator");
 	}

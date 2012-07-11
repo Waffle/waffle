@@ -1,5 +1,4 @@
-<html>
-<!--
+<%--
  Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
   this work for additional information regarding copyright ownership.
@@ -14,12 +13,13 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
--->
+--%>
+<html>
 <body bgcolor="lightblue">
 
     <%@ page errorPage="errorpge.jsp" %>
     <jsp:useBean id="foo" scope="request" class="error.Smart" />
-    <% 
+    <%
         String name = null;
 
         if (request.getParameter("name") == null) {
@@ -35,7 +35,7 @@
 
     <H1> Yes!!! <a href="http://www.acura.com">Acura</a> is my favorite car.
 
-    <% 
+    <%
           }
         }
     %>

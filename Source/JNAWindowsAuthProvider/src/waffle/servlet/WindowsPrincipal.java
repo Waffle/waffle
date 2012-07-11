@@ -204,6 +204,7 @@ public class WindowsPrincipal implements Principal, Serializable {
 	/**
 	 * Fully qualified name.
 	 */
+	@Override
 	public String getName() {
 		return _fqn;
 	}

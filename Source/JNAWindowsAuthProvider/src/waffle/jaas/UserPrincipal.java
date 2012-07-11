@@ -37,6 +37,7 @@ public class UserPrincipal implements Principal, Serializable {
 	/**
 	 * Fully qualified username.
 	 */
+	@Override
 	public String getName() {
 		return _fqn;
 	}
@@ -49,7 +50,7 @@ public class UserPrincipal implements Principal, Serializable {
 		}
 		
 		if (o instanceof String) {
-        	return getName().equals((String) o);
+        	return getName().equals(o);
 		}
 		
 		if (o instanceof UserPrincipal) {

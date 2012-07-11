@@ -35,7 +35,7 @@
                              image files), including the WEB-INF subdirectory
                              and its configuration file contents.
 
-     $Id: build.xml.txt 785688 2009-06-17 15:51:55Z kkolinko $
+     $Id: build.xml.txt 1200125 2011-11-10 04:05:48Z kkolinko $
 -->
 
 
@@ -113,7 +113,7 @@
                        Defaults to "dist".
 
   manager.password     The login password of a user that is assigned the
-                       "manager" role (so that he or she can execute
+                       "manager-script" role (so that he or she can execute
                        commands via the "/manager" web application)
 
   manager.url          The URL of the "/manager" web application on the
@@ -121,7 +121,7 @@
                        applications and web services.
 
   manager.username     The login username of a user that is assigned the
-                       "manager" role (so that he or she can execute
+                       "manager-script" role (so that he or she can execute
                        commands via the "/manager" web application)
 
 -->
@@ -133,7 +133,7 @@
   <property name="catalina.home" value="../../../.."/> <!-- UPDATE THIS! -->
   <property name="dist.home"     value="${basedir}/dist"/>
   <property name="docs.home"     value="${basedir}/docs"/>
-  <property name="manager.url"   value="http://localhost:8080/manager"/>
+  <property name="manager.url"   value="http://localhost:8080/manager/text"/>
   <property name="src.home"      value="${basedir}/src"/>
   <property name="web.home"      value="${basedir}/web"/>
 
@@ -474,7 +474,7 @@
 
   NOTE: The /WEB-INF/web.xml web application configuration file is not reread
   on a reload. If you have made changes to your web.xml file you must stop
-  then start the web application. 
+  then start the web application.
 
 -->
 
