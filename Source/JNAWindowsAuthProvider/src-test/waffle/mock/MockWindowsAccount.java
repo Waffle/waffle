@@ -26,31 +26,41 @@ public class MockWindowsAccount implements IWindowsAccount {
 	private String _fqn;
 	private String _name;
 	private String _domain;
+	private String _sid;
 	
 	public MockWindowsAccount(String fqn) {
+		this(fqn, "S-" + fqn.hashCode());
+	}
+	
+	public MockWindowsAccount(String fqn, String sid) {
 		_fqn = fqn;
+		_sid = sid;
         String[] userNameDomain = fqn.split("\\\\", 2);
         if (userNameDomain.length == 2) {
             _name = userNameDomain[1];
             _domain = userNameDomain[0];
         } else {
-        	_name = fqn;        	
+        	_name = fqn;
         }
 	}
 	
+	@Override
 	public String getDomain() {
 		return _domain;
 	}
 
+	@Override
 	public String getFqn() {
 		return _fqn;
 	}
 
+	@Override
 	public String getName() {
 		return _name;
 	}
 
+	@Override
 	public String getSidString() {
-		return "S-" + _fqn.hashCode();
+		return _sid;
 	}
 }

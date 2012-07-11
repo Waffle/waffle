@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.connector.Request;
 import org.apache.catalina.deploy.LoginConfig;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.LoggerFactory;
 
 import waffle.util.AuthorizationHeader;
 import waffle.util.Base64;
@@ -41,21 +41,21 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 
 	public MixedAuthenticator() {
 		super();
-		_log = LogFactory.getLog(MixedAuthenticator.class);
+		_log = LoggerFactory.getLogger(MixedAuthenticator.class);
     	_info = "waffle.apache.MixedAuthenticator/1.0";
     	_log.debug("[waffle.apache.MixedAuthenticator] loaded");
 	}
 
 	@Override
-	public void startInternal() throws LifecycleException {
-		_log.info("[waffle.apache.MixedAuthenticator] started");		
+	public synchronized void startInternal() throws LifecycleException {
+		_log.info("[waffle.apache.MixedAuthenticator] started");
 		super.startInternal();
 	}
 	
 	@Override
-	public void stopInternal() throws LifecycleException {
+	public synchronized void stopInternal() throws LifecycleException {
 		super.stopInternal();
-		_log.info("[waffle.apache.MixedAuthenticator] stopped");		
+		_log.info("[waffle.apache.MixedAuthenticator] stopped");
 	}
 
 	@Override
@@ -77,7 +77,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 
 		Principal principal = request.getUserPrincipal();
 		
-		AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);		
+		AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
 		boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
 		_log.debug("authorization: " + authorizationHeader.toString() + ", ntlm post: " + ntlmPost);
 	
@@ -87,11 +87,10 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 		} else if (negotiateCheck) {
 			if (! authorizationHeader.isNull()) {
 				return negotiate(request, response, authorizationHeader);
-			} else {
-				_log.debug("authorization required");
-				sendUnauthorized(response);
-				return false;
 			}
+			_log.debug("authorization required");
+			sendUnauthorized(response);
+			return false;
 		} else if (securityCheck) {
 			boolean postResult = post(request, response, loginConfig);
 			if (postResult) {
@@ -108,7 +107,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 	
 	private boolean negotiate(Request request, HttpServletResponse response, AuthorizationHeader authorizationHeader) {
 
-		String securityPackage = authorizationHeader.getSecurityPackage();			
+		String securityPackage = authorizationHeader.getSecurityPackage();
 		// maintain a connection-based session for NTLM tokens
 		String connectionId = NtlmServletRequest.getConnectionId(request);
 		
@@ -157,7 +156,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 		if (! _allowGuestLogin && windowsIdentity.isGuest()) {
 			_log.warn("guest login disabled: " + windowsIdentity.getFqn());
 			sendUnauthorized(response);
-			return false;			
+			return false;
 		}
 		
 		try {
@@ -206,7 +205,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 		}
         
         try {
-	        _log.debug("successfully logged in " + username + " (" + windowsIdentity.getSidString() + ")");       
+	        _log.debug("successfully logged in " + username + " (" + windowsIdentity.getSidString() + ")");
 	        
 			GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(
 					windowsIdentity, _principalFormat, _roleFormat);
@@ -238,7 +237,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 		} catch (ServletException e) {
 			_log.error(e.getMessage());
 			throw new RuntimeException(e);
-		}		
+		}
 	}
 }
 

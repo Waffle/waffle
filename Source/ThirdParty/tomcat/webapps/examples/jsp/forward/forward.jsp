@@ -1,5 +1,4 @@
-<html>
-<!--
+<%--
  Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
   this work for additional information regarding copyright ownership.
@@ -14,13 +13,13 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
--->
-
-<% 
+--%>
+<html>
+<%
    double freeMem = Runtime.getRuntime().freeMemory();
    double totlMem = Runtime.getRuntime().totalMemory();
    double percent = freeMem/totlMem;
-   if (percent < 0.5) { 
+   if (percent < 0.5) {
 %>
 
 <jsp:forward page="one.jsp"/>

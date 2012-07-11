@@ -1,4 +1,4 @@
-<!--
+<%--
  Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
   this work for additional information regarding copyright ownership.
@@ -13,7 +13,7 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
--->
+--%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <html>
   <head>
@@ -22,7 +22,7 @@
   <body>
     <h1>JSP 2.0 Examples - Display Products Tag File</h1>
     <hr>
-    <p>This JSP page invokes a tag file that displays a listing of 
+    <p>This JSP page invokes a tag file that displays a listing of
     products.  The custom tag accepts two fragments that enable
     customization of appearance.  One for when the product is on sale
     and one for normal price.</p>

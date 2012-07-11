@@ -1,5 +1,5 @@
 <html><body><pre>
-&lt;!--
+&lt;%--
  Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
   this work for additional information regarding copyright ownership.
@@ -14,7 +14,7 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
--->
+--%>
 &lt;%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 &lt;html>
@@ -24,28 +24,28 @@
   &lt;body>
     &lt;h1>JSP 2.0 Expression Language - Implicit Objects&lt;/h1>
     &lt;hr>
-    This example illustrates some of the implicit objects available 
-    in the Expression Lanaguage.  The following implicit objects are 
+    This example illustrates some of the implicit objects available
+    in the Expression Language.  The following implicit objects are
     available (not all illustrated here):
     &lt;ul>
       &lt;li>pageContext - the PageContext object&lt;/li>
-      &lt;li>pageScope - a Map that maps page-scoped attribute names to 
+      &lt;li>pageScope - a Map that maps page-scoped attribute names to
           their values&lt;/li>
-      &lt;li>requestScope - a Map that maps request-scoped attribute names 
+      &lt;li>requestScope - a Map that maps request-scoped attribute names
           to their values&lt;/li>
-      &lt;li>sessionScope - a Map that maps session-scoped attribute names 
+      &lt;li>sessionScope - a Map that maps session-scoped attribute names
           to their values&lt;/li>
-      &lt;li>applicationScope - a Map that maps application-scoped attribute 
+      &lt;li>applicationScope - a Map that maps application-scoped attribute
           names to their values&lt;/li>
-      &lt;li>param - a Map that maps parameter names to a single String 
+      &lt;li>param - a Map that maps parameter names to a single String
           parameter value&lt;/li>
-      &lt;li>paramValues - a Map that maps parameter names to a String[] of 
+      &lt;li>paramValues - a Map that maps parameter names to a String[] of
           all values for that parameter&lt;/li>
-      &lt;li>header - a Map that maps header names to a single String 
+      &lt;li>header - a Map that maps header names to a single String
           header value&lt;/li>
-      &lt;li>headerValues - a Map that maps header names to a String[] of 
+      &lt;li>headerValues - a Map that maps header names to a String[] of
           all values for that header&lt;/li>
-      &lt;li>initParam - a Map that maps context initialization parameter 
+      &lt;li>initParam - a Map that maps context initialization parameter
           names to their String parameter value&lt;/li>
       &lt;li>cookie - a Map that maps cookie names to a single Cookie object.&lt;/li>
     &lt;/ul>

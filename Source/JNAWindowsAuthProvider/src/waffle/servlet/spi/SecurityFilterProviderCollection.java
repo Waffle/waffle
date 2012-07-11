@@ -21,8 +21,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import waffle.util.AuthorizationHeader;
 import waffle.windows.auth.IWindowsAuthProvider;
@@ -34,7 +34,7 @@ import waffle.windows.auth.IWindowsIdentity;
  */
 public class SecurityFilterProviderCollection {
 
-    private Log _log = LogFactory.getLog(SecurityFilterProviderCollection.class);
+    private Logger _log = LoggerFactory.getLogger(SecurityFilterProviderCollection.class);
 	private List<SecurityFilterProvider> _providers = new ArrayList<SecurityFilterProvider>();
 
 	public SecurityFilterProviderCollection(SecurityFilterProvider[] providers) {
@@ -44,14 +44,15 @@ public class SecurityFilterProviderCollection {
 		}		
 	}
 	
+	@SuppressWarnings("unchecked")
 	public SecurityFilterProviderCollection(String[] providerNames, IWindowsAuthProvider auth) {
 		for(String providerName : providerNames) {
 			providerName = providerName.trim();
 			_log.info("loading '" + providerName + "'");
 			try {
-				Class<?> providerClass = Class.forName(providerName);
-				Constructor<?> c = providerClass.getConstructor(IWindowsAuthProvider.class);
-				SecurityFilterProvider provider = (SecurityFilterProvider) c.newInstance(auth); 
+				Class<SecurityFilterProvider> providerClass = (Class<SecurityFilterProvider>) Class.forName(providerName);
+				Constructor<SecurityFilterProvider> c = providerClass.getConstructor(IWindowsAuthProvider.class);
+				SecurityFilterProvider provider = c.newInstance(auth);
 				_providers.add(provider);
 			} catch (Exception e) {
 				_log.error("error loading '" + providerName + "': " + e.getMessage());				

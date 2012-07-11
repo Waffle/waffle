@@ -19,8 +19,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
@@ -32,14 +32,15 @@ import waffle.servlet.spi.SecurityFilterProviderCollection;
  */
 public class NegotiateSecurityFilterEntryPoint implements AuthenticationEntryPoint {
 
-    private Log _log = LogFactory.getLog(NegotiateSecurityFilterEntryPoint.class);
+    private Logger _log = LoggerFactory.getLogger(NegotiateSecurityFilterEntryPoint.class);
     private SecurityFilterProviderCollection _provider = null;
 
 	public NegotiateSecurityFilterEntryPoint() {
 		_log.debug("[waffle.spring.NegotiateEntryPoint] loaded");
 	}
 	
-    public void commence(HttpServletRequest request, HttpServletResponse response,
+    @Override
+	public void commence(HttpServletRequest request, HttpServletResponse response,
             AuthenticationException ex) throws IOException, ServletException {
     	
     	_log.debug("[waffle.spring.NegotiateEntryPoint] commence");

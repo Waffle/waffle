@@ -86,14 +86,13 @@ public class SimpleHttpResponse extends Response {
 		List<String> headerValues = _headers.get(headerName);
 		if (headerValues == null) {
 			return null;
-		} else {
-			StringBuilder sb = new StringBuilder();
-			for(String headerValue : headerValues) {
-				if (sb.length() > 0) sb.append(", ");
-				sb.append(headerValue);
-			}
-			return sb.toString();
 		}
+		StringBuilder sb = new StringBuilder();
+		for(String headerValue : headerValues) {
+			if (sb.length() > 0) sb.append(", ");
+			sb.append(headerValue);
+		}
+		return sb.toString();
 	}
 	
 	@Override

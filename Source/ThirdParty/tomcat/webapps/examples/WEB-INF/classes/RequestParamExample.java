@@ -14,7 +14,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-/* $Id: RequestParamExample.java 982412 2010-08-04 21:55:19Z markt $
+/* $Id: RequestParamExample.java 1337730 2012-05-12 23:17:21Z kkolinko $
  *
  */
 
@@ -40,7 +40,7 @@ public class RequestParamExample extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private static final ResourceBundle RB = ResourceBundle.getBundle("LocalStrings");
-    
+
     @Override
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response)
@@ -50,7 +50,6 @@ public class RequestParamExample extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         out.println("<html>");
-        out.println("<body>");
         out.println("<head>");
 
         String title = RB.getString("requestparams.title");
@@ -64,7 +63,7 @@ public class RequestParamExample extends HttpServlet {
 
         // XXX
         // making these absolute till we work out the
-        // addition of a PathInfo issue 
+        // addition of a PathInfo issue
 
         out.println("<a href=\"../reqparams.html\">");
         out.println("<img src=\"../images/code.gif\" height=24 " +

@@ -31,8 +31,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import waffle.servlet.spi.SecurityFilterProvider;
 import waffle.servlet.spi.SecurityFilterProviderCollection;
@@ -49,7 +49,7 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  */
 public class NegotiateSecurityFilter implements Filter {
 
-    private Log _log = LogFactory.getLog(NegotiateSecurityFilter.class);
+    private Logger _log = LoggerFactory.getLogger(NegotiateSecurityFilter.class);
     private PrincipalFormat _principalFormat = PrincipalFormat.fqn;
     private PrincipalFormat _roleFormat = PrincipalFormat.fqn;
     private SecurityFilterProviderCollection _providers = null;
@@ -62,17 +62,19 @@ public class NegotiateSecurityFilter implements Filter {
 		_log.debug("[waffle.servlet.NegotiateSecurityFilter] loaded");
 	}
     
+	@Override
 	public void destroy() {
 		_log.info("[waffle.servlet.NegotiateSecurityFilter] stopped");
 	}
 	
+	@Override
 	public void doFilter(ServletRequest sreq, ServletResponse sres,
 			FilterChain chain) throws IOException, ServletException {
 		
 		HttpServletRequest request = (HttpServletRequest) sreq;
 		HttpServletResponse response = (HttpServletResponse) sres;
 
-		_log.info(request.getMethod() + " " + request.getRequestURI() + ", contentlength: " + request.getContentLength());
+		_log.debug(request.getMethod() + " " + request.getRequestURI() + ", contentlength: " + request.getContentLength());
 
 		if (doFilterPrincipal(request, response, chain)) {
 			// previously authenticated user
@@ -158,7 +160,7 @@ public class NegotiateSecurityFilter implements Filter {
 			return;
 		}
 		
-		_log.info("authorization required");
+		_log.debug("authorization required");
 		sendUnauthorized(response, false);
 	}
 
@@ -197,7 +199,7 @@ public class NegotiateSecurityFilter implements Filter {
 		// user already authenticated
 		
 		if (principal instanceof WindowsPrincipal) {
-			_log.info("previously authenticated Windows user: " + principal.getName());
+			_log.debug("previously authenticated Windows user: " + principal.getName());
 			WindowsPrincipal windowsPrincipal = (WindowsPrincipal) principal;
 			
 			if (_impersonate && windowsPrincipal.getIdentity() == null) {
@@ -224,12 +226,13 @@ public class NegotiateSecurityFilter implements Filter {
 				}
 			}
 		} else {
-			_log.info("previously authenticated user: " + principal.getName());
+			_log.debug("previously authenticated user: " + principal.getName());
 			chain.doFilter(request, response);
 		}
 		return true;
 	}
 	
+	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		Map<String, String> implParameters = new HashMap<String, String>();
 
@@ -238,7 +241,7 @@ public class NegotiateSecurityFilter implements Filter {
 		if (filterConfig != null) {
 			Enumeration<String> parameterNames = filterConfig.getInitParameterNames();
 			while(parameterNames.hasMoreElements()) {
-				String parameterName = (String) parameterNames.nextElement();
+				String parameterName = parameterNames.nextElement();
 				String parameterValue = filterConfig.getInitParameter(parameterName);
 				_log.debug(parameterName + "=" + parameterValue);
 				if (parameterName.equals("principalFormat")) {

@@ -1,5 +1,4 @@
-<HTML>
-<!--
+<%--
  Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
   this work for additional information regarding copyright ownership.
@@ -14,8 +13,9 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
--->
-<HEAD><TITLE> 
+--%>
+<HTML>
+<HEAD><TITLE>
     Calendar: A JSP APPLICATION
 </TITLE></HEAD>
 
@@ -52,13 +52,13 @@
        cal.Entry entr = table.getEntries().getEntry(i);
 %>
     <TR>
-    <TD> 
+    <TD>
     <A HREF=cal2.jsp?time=<%= entr.getHour() %>>
         <%= entr.getHour() %> </A>
     </TD>
     <TD BGCOLOR=<%= entr.getColor() %>>
     <% out.print(util.HTMLFilter.filter(entr.getDescription())); %>
-    </TD> 
+    </TD>
     </TR>
 <%
     }
@@ -70,7 +70,7 @@
 <!-- footer -->
 <TABLE WIDTH=60% BGCOLOR=yellow CELLPADDING=15>
 <TR>
-<TD ALIGN=CENTER>  <% out.print(util.HTMLFilter.filter(table.getName())); %> : 
+<TD ALIGN=CENTER>  <% out.print(util.HTMLFilter.filter(table.getName())); %> :
              <% out.print(util.HTMLFilter.filter(table.getEmail())); %> </TD>
 </TR>
 </TABLE>

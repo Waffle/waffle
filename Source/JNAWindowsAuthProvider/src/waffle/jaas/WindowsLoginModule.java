@@ -53,6 +53,7 @@ public class WindowsLoginModule implements LoginModule {
     private PrincipalFormat _roleFormat = PrincipalFormat.fqn;
     private boolean _allowGuestLogin = true;
 
+	@Override
 	public void initialize(Subject subject, CallbackHandler callbackHandler,
 			Map<String, ?> sharedState, Map<String, ?> options) {
 		
@@ -73,6 +74,7 @@ public class WindowsLoginModule implements LoginModule {
 	/**
 	 * Use Windows SSPI to authenticate a username with a password.
 	 */
+	@Override
 	public boolean login() throws LoginException {
         if (_callbackHandler == null) {
             throw new LoginException("Missing callback to gather information from the user.");
@@ -135,6 +137,7 @@ public class WindowsLoginModule implements LoginModule {
 	/**
 	 * Abort a login process.
 	 */
+	@Override
 	public boolean abort() throws LoginException {
 		return logout();
 	}
@@ -142,6 +145,7 @@ public class WindowsLoginModule implements LoginModule {
 	/**
 	 * Commit principals to the subject.
 	 */
+	@Override
 	public boolean commit() throws LoginException {
 		if (_principals == null) {
 			return false;
@@ -164,6 +168,7 @@ public class WindowsLoginModule implements LoginModule {
 		return true;
 	}
 
+	@Override
 	public boolean logout() throws LoginException {
         if (_subject.isReadOnly()) {
             throw new LoginException("Subject cannot be read-only.");

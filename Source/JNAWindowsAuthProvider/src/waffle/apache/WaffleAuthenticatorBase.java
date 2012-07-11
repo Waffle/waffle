@@ -18,7 +18,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.catalina.authenticator.AuthenticatorBase;
-import org.apache.commons.logging.Log;
+import org.slf4j.Logger;
 
 import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.PrincipalFormat;
@@ -29,7 +29,7 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  */
 abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
     protected String _info = null;
-    protected Log _log = null;
+    protected Logger _log = null;
     protected PrincipalFormat _principalFormat = PrincipalFormat.fqn;
     protected PrincipalFormat _roleFormat = PrincipalFormat.fqn;
 	protected boolean _allowGuestLogin = true;
@@ -150,7 +150,6 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 			throw new RuntimeException(e);
 		}		
 	}
-	
 
 	@Override
 	protected String getAuthMethod() {

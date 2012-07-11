@@ -18,19 +18,28 @@ if "%OS%" == "Windows_NT" setlocal
 rem ---------------------------------------------------------------------------
 rem Wrapper script for command line tools
 rem
-rem Environment Variable Prequisites
+rem Environment Variable Prerequisites
 rem
-rem   CATALINA_HOME May point at your Catalina "build" directory.
+rem   CATALINA_HOME   May point at your Catalina "build" directory.
 rem
-rem   TOOL_OPTS     (Optional) Java runtime options used when the "start",
-rem                 "stop", or "run" command is executed.
+rem   TOOL_OPTS       (Optional) Java runtime options.
 rem
-rem   JAVA_HOME     Must point at your Java Development Kit installation.
+rem   JAVA_HOME       Must point at your Java Development Kit installation.
+rem                   Using JRE_HOME instead works as well.
 rem
-rem   JAVA_OPTS     (Optional) Java runtime options used when the "start",
-rem                 "stop", or "run" command is executed.
+rem   JRE_HOME        Must point at your Java Runtime installation.
+rem                   Defaults to JAVA_HOME if empty. If JRE_HOME and JAVA_HOME
+rem                   are both set, JRE_HOME is used.
 rem
-rem $Id: tool-wrapper.bat 952945 2010-06-09 10:29:00Z rjung $
+rem   JAVA_OPTS       (Optional) Java runtime options.
+rem
+rem   JAVA_ENDORSED_DIRS (Optional) Lists of of semi-colon separated directories
+rem                   containing some jars in order to allow replacement of APIs
+rem                   created outside of the JCP (i.e. DOM and SAX from W3C).
+rem                   It can also be used to update the XML parser implementation.
+rem                   Defaults to $CATALINA_HOME/endorsed.
+rem
+rem $Id: tool-wrapper.bat 1138835 2011-06-23 11:27:57Z rjung $
 rem ---------------------------------------------------------------------------
 
 rem Guess CATALINA_HOME if not defined
@@ -61,7 +70,6 @@ echo Cannot find "%CATALINA_HOME%\bin\setclasspath.bat"
 echo This file is needed to run this program
 goto end
 :okSetclasspath
-set "BASEDIR=%CATALINA_HOME%"
 call "%CATALINA_HOME%\bin\setclasspath.bat" %1
 if errorlevel 1 goto end
 

@@ -28,10 +28,12 @@ public class WindowsAccountImpl implements IWindowsAccount {
 
 	private Account _account;
 	
+	@Override
 	public String getFqn() {
 		return _account.fqn;
 	}
 
+	@Override
 	public String getSidString() {
 		return _account.sidString;
 	}
@@ -39,6 +41,7 @@ public class WindowsAccountImpl implements IWindowsAccount {
 	/**
 	 * Account name.
 	 */
+	@Override
 	public String getName() {
 		return _account.name;
 	}
@@ -46,6 +49,7 @@ public class WindowsAccountImpl implements IWindowsAccount {
 	/**
 	 * Account domain.
 	 */
+	@Override
 	public String getDomain() {
 		return _account.domain;
 	}

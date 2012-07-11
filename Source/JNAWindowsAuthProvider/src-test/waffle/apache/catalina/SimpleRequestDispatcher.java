@@ -32,6 +32,7 @@ public class SimpleRequestDispatcher implements RequestDispatcher {
 		_url = url;
 	}
 	
+	@Override
 	public void forward(ServletRequest request, ServletResponse response)
 			throws ServletException, IOException {
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
@@ -39,6 +40,7 @@ public class SimpleRequestDispatcher implements RequestDispatcher {
 		httpResponse.addHeader("Location", _url);
 	}
 
+	@Override
 	public void include(ServletRequest request, ServletResponse response)
 			throws ServletException, IOException {
 	}

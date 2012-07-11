@@ -21,6 +21,6 @@ public enum PrincipalFormat {
 	sid,
 	both,
 	none;
-};
+}
 
 

@@ -40,25 +40,30 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
 		_groups.add(name);
 	}
 	
+	@Override
 	public IWindowsSecurityContext acceptSecurityToken(String connectionId,
 			byte[] token, String securityPackage) {
 		
 		return new MockWindowsSecurityContext(new String(token));
 	}
 
+	@Override
 	public IWindowsComputer getCurrentComputer() {
 		return null;
 	}
 
+	@Override
 	public IWindowsDomain[] getDomains() {
 		return null;
 	}
 
+	@Override
 	public IWindowsIdentity logonDomainUser(String username, String domain,
 			String password) {
 		return null;
 	}
 
+	@Override
 	public IWindowsIdentity logonDomainUserEx(String username, String domain,
 			String password, int logonType, int logonProvider) {
 		return null;
@@ -68,6 +73,7 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
 	 * Will login the current user with any password.
 	 * Will logon a "Guest" user as guest.
 	 */
+	@Override
 	public IWindowsIdentity logonUser(String username, String password) {
 		String currentUsername = WindowsAccountImpl.getCurrentUsername(); 
 		if (username.equals(currentUsername)) {
@@ -80,10 +86,12 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
 		}
 	}
 
+	@Override
 	public IWindowsAccount lookupAccount(String username) {
 		return null;
 	}
 
+	@Override
 	public void resetSecurityToken(String connectionId) {		
 		
 	}
