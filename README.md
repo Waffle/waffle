@@ -48,8 +48,8 @@ Branches
 
 Waffle includes a servlet filter that works with any servlet container, including Tomcat, Jetty and Websphere. It also contains a native package for Tomcat 6 and Spring Security 3. There're branches for [Tomcat 5](https://github.com/dblock/waffle/tree/tomcat5), [Tomcat 7](https://github.com/dblock/waffle/tree/tomcat7) as well as [Spring Security 2](https://github.com/dblock/waffle/tree/spring-security-2) support.
 
-Related and Simiar Products
----------------------------
+Related and Similar Products
+----------------------------
 
 * [Quest Vintella Single-Sign-On](http://www.quest.com/single-sign-on-for-java/) (Commercial)
 * [IOPlex Jespa](http://www.ioplex.com/) (Commercial)
