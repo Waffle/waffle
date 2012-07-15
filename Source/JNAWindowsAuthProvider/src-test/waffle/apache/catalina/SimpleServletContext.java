@@ -1,16 +1,16 @@
 /*******************************************************************************
-* Waffle (http://waffle.codeplex.com)
-* 
-* Copyright (c) 2010 Application Security, Inc.
-* 
-* All rights reserved. This program and the accompanying materials
-* are made available under the terms of the Eclipse Public License v1.0
-* which accompanies this distribution, and is available at
-* http://www.eclipse.org/legal/epl-v10.html
-*
-* Contributors:
-*     Application Security, Inc.
-*******************************************************************************/
+ * Waffle (http://waffle.codeplex.com)
+ * 
+ * Copyright (c) 2010 Application Security, Inc.
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Application Security, Inc.
+ *******************************************************************************/
 package waffle.apache.catalina;
 
 import java.io.InputStream;
@@ -39,7 +39,7 @@ import javax.servlet.descriptor.JspConfigDescriptor;
 public class SimpleServletContext implements ServletContext {
 
 	@Override
-	public Object getAttribute(String arg0) {		
+	public Object getAttribute(String arg0) {
 		return null;
 	}
 
@@ -49,17 +49,17 @@ public class SimpleServletContext implements ServletContext {
 	}
 
 	@Override
-	public ServletContext getContext(String arg0) {		
+	public ServletContext getContext(String arg0) {
 		return null;
 	}
 
 	@Override
-	public String getContextPath() {		
+	public String getContextPath() {
 		return null;
 	}
 
 	@Override
-	public String getInitParameter(String arg0) {		
+	public String getInitParameter(String arg0) {
 		return null;
 	}
 
@@ -69,17 +69,17 @@ public class SimpleServletContext implements ServletContext {
 	}
 
 	@Override
-	public int getMajorVersion() {		
+	public int getMajorVersion() {
 		return 0;
 	}
 
 	@Override
-	public String getMimeType(String arg0) {		
+	public String getMimeType(String arg0) {
 		return null;
 	}
 
 	@Override
-	public int getMinorVersion() {		
+	public int getMinorVersion() {
 		return 0;
 	}
 
@@ -89,22 +89,22 @@ public class SimpleServletContext implements ServletContext {
 	}
 
 	@Override
-	public String getRealPath(String arg0) {		
+	public String getRealPath(String arg0) {
 		return null;
 	}
 
 	@Override
-	public RequestDispatcher getRequestDispatcher(String url) {		
+	public RequestDispatcher getRequestDispatcher(String url) {
 		return new SimpleRequestDispatcher(url);
 	}
 
 	@Override
-	public URL getResource(String arg0) throws MalformedURLException {	
+	public URL getResource(String arg0) throws MalformedURLException {
 		return null;
 	}
 
 	@Override
-	public InputStream getResourceAsStream(String arg0) {		
+	public InputStream getResourceAsStream(String arg0) {
 		return null;
 	}
 
@@ -114,17 +114,17 @@ public class SimpleServletContext implements ServletContext {
 	}
 
 	@Override
-	public String getServerInfo() {		
+	public String getServerInfo() {
 		return null;
 	}
 
 	@Override
-	public Servlet getServlet(String arg0) throws ServletException {		
+	public Servlet getServlet(String arg0) throws ServletException {
 		return null;
 	}
 
 	@Override
-	public String getServletContextName() {		
+	public String getServletContextName() {
 		return null;
 	}
 
@@ -139,28 +139,28 @@ public class SimpleServletContext implements ServletContext {
 	}
 
 	@Override
-	public void log(String arg0) {		
-		
+	public void log(String arg0) {
+
 	}
 
 	@Override
 	public void log(Exception arg0, String arg1) {
-		
+
 	}
 
 	@Override
 	public void log(String arg0, Throwable arg1) {
-				
+
 	}
 
 	@Override
 	public void removeAttribute(String arg0) {
-				
+
 	}
-	
+
 	@Override
 	public void setAttribute(String arg0, Object arg1) {
-				
+
 	}
 
 	@Override
@@ -184,19 +184,16 @@ public class SimpleServletContext implements ServletContext {
 	@Override
 	public void addListener(Class<? extends EventListener> arg0) {
 
-		
 	}
 
 	@Override
 	public void addListener(String arg0) {
 
-		
 	}
 
 	@Override
 	public <T extends EventListener> void addListener(T arg0) {
 
-		
 	}
 
 	@Override
@@ -244,7 +241,6 @@ public class SimpleServletContext implements ServletContext {
 	@Override
 	public void declareRoles(String... arg0) {
 
-		
 	}
 
 	@Override
@@ -313,6 +309,6 @@ public class SimpleServletContext implements ServletContext {
 	@Override
 	public void setSessionTrackingModes(Set<SessionTrackingMode> arg0)
 			throws IllegalStateException, IllegalArgumentException {
-		
+
 	}
 }

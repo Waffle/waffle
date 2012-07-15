@@ -27,19 +27,20 @@ import waffle.util.AllUtilTests;
 import waffle.windows.auth.AllWindowsAuthTests;
 
 @RunWith(Suite.class)
-@SuiteClasses({ AllApacheTests.class, AllJaasTests.class, AllServletTests.class,
-        AllSpringTests.class, AllUtilTests.class, AllWindowsAuthTests.class })
+@SuiteClasses({ AllApacheTests.class, AllJaasTests.class,
+		AllServletTests.class, AllSpringTests.class, AllUtilTests.class,
+		AllWindowsAuthTests.class })
 public class AllTestSuites {
 
-    @BeforeClass
-    public static void setUpClass() {
-        System.out.println("Master setup");
+	@BeforeClass
+	public static void setUpClass() {
+		System.out.println("Master setup");
 
-    }
+	}
 
-    @AfterClass
-    public static void tearDownClass() {
-        System.out.println("Master tearDown");
-    }
+	@AfterClass
+	public static void tearDownClass() {
+		System.out.println("Master tearDown");
+	}
 
 }

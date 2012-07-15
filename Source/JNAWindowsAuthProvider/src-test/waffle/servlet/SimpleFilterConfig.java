@@ -1,16 +1,16 @@
 /*******************************************************************************
-* Waffle (http://waffle.codeplex.com)
-* 
-* Copyright (c) 2010 Application Security, Inc.
-* 
-* All rights reserved. This program and the accompanying materials
-* are made available under the terms of the Eclipse Public License v1.0
-* which accompanies this distribution, and is available at
-* http://www.eclipse.org/legal/epl-v10.html
-*
-* Contributors:
-*     Application Security, Inc.
-*******************************************************************************/
+ * Waffle (http://waffle.codeplex.com)
+ * 
+ * Copyright (c) 2010 Application Security, Inc.
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Application Security, Inc.
+ *******************************************************************************/
 package waffle.servlet;
 
 import java.util.Enumeration;
@@ -25,7 +25,7 @@ import javax.servlet.ServletContext;
  * @author dblock[at]dblock[dot]org
  */
 public class SimpleFilterConfig implements FilterConfig {
-	
+
 	private String _filterName = "Simple Filter";
 	private Map<String, String> _parameters = new TreeMap<String, String>();
 
@@ -33,7 +33,7 @@ public class SimpleFilterConfig implements FilterConfig {
 	public String getFilterName() {
 		return _filterName;
 	}
-	
+
 	public void setFilterName(String filterName) {
 		_filterName = filterName;
 	}
@@ -46,7 +46,7 @@ public class SimpleFilterConfig implements FilterConfig {
 	@Override
 	public Enumeration<String> getInitParameterNames() {
 		Vector<String> keys = new Vector<String>();
-		keys.addAll(_parameters.keySet());		
+		keys.addAll(_parameters.keySet());
 		return keys.elements();
 	}
 
@@ -54,7 +54,7 @@ public class SimpleFilterConfig implements FilterConfig {
 	public ServletContext getServletContext() {
 		return null;
 	}
-	
+
 	public void setParameter(String parameterName, String parameterValue) {
 		_parameters.put(parameterName, parameterValue);
 	}

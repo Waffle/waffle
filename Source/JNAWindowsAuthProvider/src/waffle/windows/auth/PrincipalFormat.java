@@ -22,5 +22,3 @@ public enum PrincipalFormat {
 	both,
 	none;
 }
-
-
