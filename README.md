@@ -10,7 +10,7 @@ Unlike many other implementations Waffle on Windows does not require any server-
 Essentials
 ----------
 
-* [Download Version 1.5](https://github.com/downloads/dblock/waffle/Waffle.1.5.zip)
+* [Download Version 1.5](https://github.com/downloads/dblock/waffle/Waffle.1.5.715.alpha.zip)
 * [Need Help? Google Group](http://groups.google.com/group/waffle-users)
 * [Frequently Asked Questions](https://github.com/dblock/waffle/wiki/Frequently-Asked-Questions)
 * [Troubleshooting Negotiate](https://github.com/dblock/waffle/wiki/Troubleshooting-Negotiate)
