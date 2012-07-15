@@ -26,7 +26,7 @@ import org.apache.juli.logging.Log;
 public class SimpleEngine implements org.apache.catalina.Engine {
 
 	private Pipeline _pipeline;
-	
+
 	@Override
 	public String getInfo() {
 		return null;
@@ -71,7 +71,7 @@ public class SimpleEngine implements org.apache.catalina.Engine {
 	public Pipeline getPipeline() {
 		return _pipeline;
 	}
-	
+
 	public void setPipeline(Pipeline pipeline) {
 		_pipeline = pipeline;
 	}
@@ -146,104 +146,104 @@ public class SimpleEngine implements org.apache.catalina.Engine {
 	}
 
 	@Override
-	public void backgroundProcess() {		
+	public void backgroundProcess() {
 
 	}
 
 	@Override
-	public void addChild(Container child) {		
+	public void addChild(Container child) {
 
 	}
 
 	@Override
-	public void addContainerListener(ContainerListener listener) {		
+	public void addContainerListener(ContainerListener listener) {
 
 	}
 
 	@Override
-	public void addPropertyChangeListener(PropertyChangeListener listener) {		
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
 
 	}
 
 	@Override
-	public Container findChild(String name) {		
+	public Container findChild(String name) {
 		return null;
 	}
 
 	@Override
-	public Container[] findChildren() {		
+	public Container[] findChildren() {
 		return null;
 	}
 
 	@Override
-	public ContainerListener[] findContainerListeners() {		
+	public ContainerListener[] findContainerListeners() {
 		return null;
 	}
 
 	@Override
 	public void invoke(Request request, Response response) throws IOException,
-			ServletException {		
+			ServletException {
 
 	}
 
 	@Override
-	public void removeChild(Container child) {		
+	public void removeChild(Container child) {
 
 	}
 
 	@Override
-	public void removeContainerListener(ContainerListener listener) {		
+	public void removeContainerListener(ContainerListener listener) {
 
 	}
 
 	@Override
-	public void removePropertyChangeListener(PropertyChangeListener listener) {		
+	public void removePropertyChangeListener(PropertyChangeListener listener) {
 
 	}
 
 	@Override
-	public void fireContainerEvent(String type, Object data) {		
+	public void fireContainerEvent(String type, Object data) {
 
 	}
 
 	@Override
 	public void logAccess(Request request, Response response, long time,
-			boolean useDefault) {		
+			boolean useDefault) {
 
 	}
 
 	@Override
-	public AccessLog getAccessLog() {		
+	public AccessLog getAccessLog() {
 		return null;
 	}
 
 	@Override
-	public void addLifecycleListener(LifecycleListener listener) {		
+	public void addLifecycleListener(LifecycleListener listener) {
 
 	}
 
 	@Override
-	public LifecycleListener[] findLifecycleListeners() {		
+	public LifecycleListener[] findLifecycleListeners() {
 		return null;
 	}
 
 	@Override
-	public void removeLifecycleListener(LifecycleListener listener) {		
+	public void removeLifecycleListener(LifecycleListener listener) {
 
 	}
 
 	@Override
-	public void init() throws LifecycleException {		
+	public void init() throws LifecycleException {
 
 	}
 
 	@Override
-	public void start() throws LifecycleException {		
+	public void start() throws LifecycleException {
 
 	}
 
 	@Override
-	public void stop() throws LifecycleException {		
+	public void stop() throws LifecycleException {
 
 	}
 
@@ -253,22 +253,22 @@ public class SimpleEngine implements org.apache.catalina.Engine {
 	}
 
 	@Override
-	public LifecycleState getState() {		
+	public LifecycleState getState() {
 		return null;
 	}
 
 	@Override
-	public String getStateName() {		
+	public String getStateName() {
 		return null;
 	}
 
 	@Override
-	public String getDefaultHost() {		
+	public String getDefaultHost() {
 		return null;
 	}
 
 	@Override
-	public void setDefaultHost(String defaultHost) {		
+	public void setDefaultHost(String defaultHost) {
 
 	}
 
@@ -279,16 +279,16 @@ public class SimpleEngine implements org.apache.catalina.Engine {
 
 	@Override
 	public void setJvmRoute(String jvmRouteId) {
-		
+
 	}
 
 	@Override
-	public Service getService() {		
+	public Service getService() {
 		return null;
 	}
 
 	@Override
-	public void setService(Service service) {		
+	public void setService(Service service) {
 
 	}
 
@@ -299,7 +299,7 @@ public class SimpleEngine implements org.apache.catalina.Engine {
 
 	@Override
 	public void setStartStopThreads(int arg0) {
-		
+
 	}
 
 }

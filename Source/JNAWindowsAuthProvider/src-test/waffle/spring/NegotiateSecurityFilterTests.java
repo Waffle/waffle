@@ -1,16 +1,16 @@
 /*******************************************************************************
-* Waffle (http://waffle.codeplex.com)
-* 
-* Copyright (c) 2010 Application Security, Inc.
-* 
-* All rights reserved. This program and the accompanying materials
-* are made available under the terms of the Eclipse Public License v1.0
-* which accompanies this distribution, and is available at
-* http://www.eclipse.org/legal/epl-v10.html
-*
-* Contributors:
-*     Application Security, Inc.
-*******************************************************************************/
+ * Waffle (http://waffle.codeplex.com)
+ * 
+ * Copyright (c) 2010 Application Security, Inc.
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Application Security, Inc.
+ *******************************************************************************/
 package waffle.spring;
 
 import java.io.IOException;
@@ -43,20 +43,21 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
 public class NegotiateSecurityFilterTests extends TestCase {
 
 	private NegotiateSecurityFilter _filter = null;
-	
+
 	@Override
 	public void setUp() {
 		String[] configFiles = new String[] { "springTestFilterBeans.xml" };
-		ApplicationContext ctx = new ClassPathXmlApplicationContext(configFiles);	
+		ApplicationContext ctx = new ClassPathXmlApplicationContext(configFiles);
 		SecurityContextHolder.getContext().setAuthentication(null);
-		_filter = (NegotiateSecurityFilter) ctx.getBean("waffleNegotiateSecurityFilter");
+		_filter = (NegotiateSecurityFilter) ctx
+				.getBean("waffleNegotiateSecurityFilter");
 	}
 
 	@Override
 	public void tearDown() {
 		_filter = null;
 	}
-	
+
 	public void testFilter() {
 		assertFalse(_filter.getAllowGuestLogin());
 		assertEquals(PrincipalFormat.fqn, _filter.getPrincipalFormat());
@@ -64,14 +65,16 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		assertNull(_filter.getFilterConfig());
 		assertTrue(_filter.getProvider() instanceof SecurityFilterProviderCollection);
 	}
-	
+
 	public void testProvider() throws ClassNotFoundException {
 		SecurityFilterProviderCollection provider = _filter.getProvider();
 		assertEquals(2, provider.size());
-		assertTrue(provider.getByClassName("waffle.servlet.spi.BasicSecurityFilterProvider") instanceof BasicSecurityFilterProvider);
-		assertTrue(provider.getByClassName("waffle.servlet.spi.NegotiateSecurityFilterProvider") instanceof NegotiateSecurityFilterProvider);
+		assertTrue(provider
+				.getByClassName("waffle.servlet.spi.BasicSecurityFilterProvider") instanceof BasicSecurityFilterProvider);
+		assertTrue(provider
+				.getByClassName("waffle.servlet.spi.NegotiateSecurityFilterProvider") instanceof NegotiateSecurityFilterProvider);
 	}
-	
+
 	public void testNoChallengeGET() throws IOException, ServletException {
 		SimpleHttpRequest request = new SimpleHttpRequest();
 		request.setMethod("GET");
@@ -81,56 +84,60 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		// unlike servlet filters, it's a passthrough
 		assertEquals(500, response.getStatus());
 	}
-	
+
 	public void testNegotiate() throws IOException, ServletException {
 		String securityPackage = "Negotiate";
 		SimpleFilterChain filterChain = new SimpleFilterChain();
 		SimpleHttpRequest request = new SimpleHttpRequest();
-		
-		String clientToken = Base64.encode(WindowsAccountImpl.getCurrentUsername().getBytes());
+
+		String clientToken = Base64.encode(WindowsAccountImpl
+				.getCurrentUsername().getBytes());
 		request.addHeader("Authorization", securityPackage + " " + clientToken);
-		
+
 		SimpleHttpResponse response = new SimpleHttpResponse();
 		_filter.doFilter(request, response, filterChain);
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        assertNotNull(auth);
-        Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) auth.getAuthorities();
-        assertNotNull(authorities);
-        assertEquals(3, authorities.size());
-        Iterator<GrantedAuthority> authoritiesIterator = authorities.iterator();
-        assertEquals("ROLE_USER", authoritiesIterator.next().getAuthority());
-        assertEquals("ROLE_USERS", authoritiesIterator.next().getAuthority());
-        assertEquals("ROLE_EVERYONE", authoritiesIterator.next().getAuthority());
-    	assertEquals(0, response.getHeaderNames().size());
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		assertNotNull(auth);
+		Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) auth
+				.getAuthorities();
+		assertNotNull(authorities);
+		assertEquals(3, authorities.size());
+		Iterator<GrantedAuthority> authoritiesIterator = authorities.iterator();
+		assertEquals("ROLE_USER", authoritiesIterator.next().getAuthority());
+		assertEquals("ROLE_USERS", authoritiesIterator.next().getAuthority());
+		assertEquals("ROLE_EVERYONE", authoritiesIterator.next().getAuthority());
+		assertEquals(0, response.getHeaderNames().size());
 	}
-	
-	public void testUnsupportedSecurityPackagePassthrough() throws IOException, ServletException {
+
+	public void testUnsupportedSecurityPackagePassthrough() throws IOException,
+			ServletException {
 		SimpleFilterChain filterChain = new SimpleFilterChain();
-		SimpleHttpRequest request = new SimpleHttpRequest();		
-		request.addHeader("Authorization", "Unsupported challenge");		
+		SimpleHttpRequest request = new SimpleHttpRequest();
+		request.addHeader("Authorization", "Unsupported challenge");
 		SimpleHttpResponse response = new SimpleHttpResponse();
-		_filter.doFilter(request, response, filterChain);		
-		// the filter should ignore authorization for an unsupported security package, ie. not return a 401
+		_filter.doFilter(request, response, filterChain);
+		// the filter should ignore authorization for an unsupported security
+		// package, ie. not return a 401
 		assertEquals(500, response.getStatus());
 	}
-	
+
 	public void testGuestIsDisabled() throws IOException, ServletException {
 		String securityPackage = "Negotiate";
 		SimpleFilterChain filterChain = new SimpleFilterChain();
 		SimpleHttpRequest request = new SimpleHttpRequest();
-		
+
 		String clientToken = Base64.encode("Guest".getBytes());
 		request.addHeader("Authorization", securityPackage + " " + clientToken);
-		
+
 		SimpleHttpResponse response = new SimpleHttpResponse();
 		_filter.doFilter(request, response, filterChain);
-		
+
 		assertEquals(401, response.getStatus());
-        assertNull(SecurityContextHolder.getContext().getAuthentication());
+		assertNull(SecurityContextHolder.getContext().getAuthentication());
 	}
-	
-	
+
 	public void testAfterPropertiesSet() {
 		_filter.setProvider(null);
 		try {

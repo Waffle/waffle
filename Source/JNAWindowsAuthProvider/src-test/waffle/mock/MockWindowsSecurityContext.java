@@ -1,16 +1,16 @@
 /*******************************************************************************
-* Waffle (http://waffle.codeplex.com)
-* 
-* Copyright (c) 2010 Application Security, Inc.
-* 
-* All rights reserved. This program and the accompanying materials
-* are made available under the terms of the Eclipse Public License v1.0
-* which accompanies this distribution, and is available at
-* http://www.eclipse.org/legal/epl-v10.html
-*
-* Contributors:
-*     Application Security, Inc.
-*******************************************************************************/
+ * Waffle (http://waffle.codeplex.com)
+ * 
+ * Copyright (c) 2010 Application Security, Inc.
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Application Security, Inc.
+ *******************************************************************************/
 package waffle.mock;
 
 import java.util.ArrayList;
@@ -29,17 +29,17 @@ import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 public class MockWindowsSecurityContext implements IWindowsSecurityContext {
 
 	private IWindowsIdentity _identity = null;
-	
+
 	public MockWindowsSecurityContext(String username) {
 		List<String> groups = new ArrayList<String>();
 		groups.add("Users");
 		groups.add("Everyone");
-		_identity = new MockWindowsIdentity(username, groups);		
+		_identity = new MockWindowsIdentity(username, groups);
 	}
-	
+
 	@Override
 	public void dispose() {
-		
+
 	}
 
 	@Override
@@ -78,11 +78,12 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
 	}
 
 	public void initialize() {
-		
+
 	}
 
 	@Override
-	public void initialize(CtxtHandle continueCtx, SecBufferDesc continueToken, String targetPrincipalName) {
-		
+	public void initialize(CtxtHandle continueCtx, SecBufferDesc continueToken,
+			String targetPrincipalName) {
+
 	}
 }

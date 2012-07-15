@@ -1,16 +1,16 @@
 /*******************************************************************************
-* Waffle (http://waffle.codeplex.com)
-* 
-* Copyright (c) 2010 Application Security, Inc.
-* 
-* All rights reserved. This program and the accompanying materials
-* are made available under the terms of the Eclipse Public License v1.0
-* which accompanies this distribution, and is available at
-* http://www.eclipse.org/legal/epl-v10.html
-*
-* Contributors:
-*     Application Security, Inc.
-*******************************************************************************/
+ * Waffle (http://waffle.codeplex.com)
+ * 
+ * Copyright (c) 2010 Application Security, Inc.
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Application Security, Inc.
+ *******************************************************************************/
 package waffle.mock;
 
 import java.util.ArrayList;
@@ -22,6 +22,7 @@ import waffle.windows.auth.IWindowsImpersonationContext;
 
 /**
  * A Mock windows identity.
+ * 
  * @author dblock[at]dblock[dot]org
  */
 public class MockWindowsIdentity implements IWindowsIdentity {
@@ -33,7 +34,7 @@ public class MockWindowsIdentity implements IWindowsIdentity {
 		_fqn = fqn;
 		_groups = groups;
 	}
-	
+
 	@Override
 	public String getFqn() {
 		return _fqn;
@@ -42,7 +43,7 @@ public class MockWindowsIdentity implements IWindowsIdentity {
 	@Override
 	public IWindowsAccount[] getGroups() {
 		List<MockWindowsAccount> groups = new ArrayList<MockWindowsAccount>();
-		for(String group : _groups) {
+		for (String group : _groups) {
 			groups.add(new MockWindowsAccount(group));
 		}
 		return groups.toArray(new IWindowsAccount[0]);
@@ -57,17 +58,17 @@ public class MockWindowsIdentity implements IWindowsIdentity {
 	public String getSidString() {
 		return "S-" + _fqn.hashCode();
 	}
-	
+
 	@Override
 	public void dispose() {
-		
+
 	}
-	
+
 	@Override
 	public boolean isGuest() {
 		return _fqn.equals("Guest");
 	}
-	
+
 	@Override
 	public IWindowsImpersonationContext impersonate() {
 		return new MockWindowsImpersonationContext();
