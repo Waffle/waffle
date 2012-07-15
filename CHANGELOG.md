@@ -4,6 +4,7 @@ Next Release
 Misc
 ----
 
+* Using JNA 3.4.2 (currently private build) - [@dblock](https://github.com/dblock).
 * Refactored `waffle-jna.jar` into several distinct packages - [@dblock](https://github.com/dblock).
   * `waffle-api.jar`: API interfaces.
   * `waffle-core.jar` : Core JNA-based implementation.

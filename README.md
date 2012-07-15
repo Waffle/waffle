@@ -42,8 +42,8 @@ Features
 * Supports Windows Identity impersonation.
 * Includes a Windows Installer Merge Module for distribution of C# binaries.
 
-Related and Simiar Products
----------------------------
+Related and Similar Products
+----------------------------
 
 * [Quest Vintella Single-Sign-On](http://www.quest.com/single-sign-on-for-java/) (Commercial)
 * [IOPlex Jespa](http://www.ioplex.com/) (Commercial)

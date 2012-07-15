@@ -15,13 +15,12 @@ package waffle.windows.auth.impl;
 
 import waffle.windows.auth.IWindowsCredentialsHandle;
 
-import com.sun.jna.NativeLong;
 import com.sun.jna.platform.win32.Secur32;
 import com.sun.jna.platform.win32.Sspi;
-import com.sun.jna.platform.win32.W32Errors;
-import com.sun.jna.platform.win32.Win32Exception;
 import com.sun.jna.platform.win32.Sspi.CredHandle;
 import com.sun.jna.platform.win32.Sspi.TimeStamp;
+import com.sun.jna.platform.win32.W32Errors;
+import com.sun.jna.platform.win32.Win32Exception;
 
 /**
  * Pre-existing credentials of a security principal. This is a handle to a previously 
@@ -32,7 +31,7 @@ import com.sun.jna.platform.win32.Sspi.TimeStamp;
 public class WindowsCredentialsHandleImpl implements IWindowsCredentialsHandle {
 	
 	private String _principalName = null;
-	private NativeLong _credentialsType = null;  
+	private int _credentialsType = 0;  
 	private String _securityPackage = null;
 	private CredHandle _handle = null;
 	private TimeStamp _clientLifetime = null;
@@ -64,7 +63,7 @@ public class WindowsCredentialsHandleImpl implements IWindowsCredentialsHandle {
 	public WindowsCredentialsHandleImpl(String principalName, int credentialsType, 
 			String securityPackage) {
 		_principalName = principalName;
-		_credentialsType = new NativeLong(credentialsType);
+		_credentialsType = credentialsType;
 		_securityPackage = securityPackage;
 	}
 
