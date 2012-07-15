@@ -9,6 +9,7 @@ Essentials
 ----------
 
 * [Download Version 1.4](https://github.com/downloads/dblock/waffle/Waffle.1.4.zip)
+* [Next Release 1.5 (Alpha)](https://github.com/dblock/waffle/blob/1.5/README.md)
 * [Need Help? Google Group](http://groups.google.com/group/waffle-users)
 * [Frequently Asked Questions](https://github.com/dblock/waffle/wiki/Frequently-Asked-Questions)
 * [Troubleshooting Negotiate](https://github.com/dblock/waffle/wiki/Troubleshooting-Negotiate)
