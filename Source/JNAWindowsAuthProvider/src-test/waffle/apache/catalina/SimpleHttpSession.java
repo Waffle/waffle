@@ -1,16 +1,16 @@
 /*******************************************************************************
-* Waffle (http://waffle.codeplex.com)
-* 
-* Copyright (c) 2010 Application Security, Inc.
-* 
-* All rights reserved. This program and the accompanying materials
-* are made available under the terms of the Eclipse Public License v1.0
-* which accompanies this distribution, and is available at
-* http://www.eclipse.org/legal/epl-v10.html
-*
-* Contributors:
-*     Application Security, Inc.
-*******************************************************************************/
+ * Waffle (http://waffle.codeplex.com)
+ * 
+ * Copyright (c) 2010 Application Security, Inc.
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Application Security, Inc.
+ *******************************************************************************/
 package waffle.apache.catalina;
 
 import java.util.Enumeration;
@@ -23,13 +23,14 @@ import javax.servlet.http.HttpSessionContext;
 
 /**
  * Simple Http Session
+ * 
  * @author dblock[at]dblock[dot]org
  */
 @SuppressWarnings("deprecation")
 public class SimpleHttpSession implements HttpSession {
 
 	private Map<String, Object> _attributes = new HashMap<String, Object>();
-	
+
 	@Override
 	public Object getAttribute(String attributeName) {
 		return _attributes.get(attributeName);
@@ -82,7 +83,7 @@ public class SimpleHttpSession implements HttpSession {
 
 	@Override
 	public void invalidate() {
-		
+
 	}
 
 	@Override
@@ -101,7 +102,7 @@ public class SimpleHttpSession implements HttpSession {
 
 	@Override
 	public void removeValue(String arg0) {
-		
+
 	}
 
 	@Override
@@ -111,6 +112,6 @@ public class SimpleHttpSession implements HttpSession {
 
 	@Override
 	public void setMaxInactiveInterval(int arg0) {
-		
+
 	}
 }
