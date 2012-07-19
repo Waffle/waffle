@@ -15,6 +15,7 @@ Essentials
 * [Frequently Asked Questions](https://github.com/dblock/waffle/wiki/Frequently-Asked-Questions)
 * [Troubleshooting Negotiate](https://github.com/dblock/waffle/wiki/Troubleshooting-Negotiate)
 * [Older Versions on CodePlex](http://waffle.codeplex.com/).
+* [PlatformSDK Security Group](https://groups.google.com/group/microsoft.public.platformsdk.security)
 
 Documentation
 -------------
