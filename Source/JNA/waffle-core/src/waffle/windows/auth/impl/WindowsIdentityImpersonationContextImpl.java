@@ -1,16 +1,16 @@
 /*******************************************************************************
-* Waffle (https://github.com/dblock/waffle)
-* 
-* Copyright (c) 2010 Application Security, Inc.
-* 
-* All rights reserved. This program and the accompanying materials
-* are made available under the terms of the Eclipse Public License v1.0
-* which accompanies this distribution, and is available at
-* http://www.eclipse.org/legal/epl-v10.html
-*
-* Contributors:
-*     Application Security, Inc.
-*******************************************************************************/
+ * Waffle (https://github.com/dblock/waffle)
+ * 
+ * Copyright (c) 2010 Application Security, Inc.
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Application Security, Inc.
+ *******************************************************************************/
 package waffle.windows.auth.impl;
 
 import com.sun.jna.platform.win32.Advapi32;
@@ -23,21 +23,23 @@ import waffle.windows.auth.IWindowsImpersonationContext;
 /**
  * @author dblock[at]dblock[dot]org
  */
-public class WindowsIdentityImpersonationContextImpl implements IWindowsImpersonationContext {
+public class WindowsIdentityImpersonationContextImpl implements
+		IWindowsImpersonationContext {
 
 	/**
 	 * Impersonate a logged on user.
+	 * 
 	 * @param windowsIdentity
-	 *  Windows identity obtained via LogonUser.
+	 *            Windows identity obtained via LogonUser.
 	 */
 	public WindowsIdentityImpersonationContextImpl(HANDLE windowsIdentity) {
-		if (! Advapi32.INSTANCE.ImpersonateLoggedOnUser(windowsIdentity)) {
+		if (!Advapi32.INSTANCE.ImpersonateLoggedOnUser(windowsIdentity)) {
 			throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
 		}
 	}
-	
+
 	@Override
 	public void RevertToSelf() {
 		Advapi32.INSTANCE.RevertToSelf();
-	}	
+	}
 }

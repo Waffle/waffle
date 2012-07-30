@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="waffle-spring-security2" default="build" basedir=".">
-  <import file="${basedir}/../build/common.xml" />
+	<import file="${basedir}/../build/common.xml" />
 	<property name="project.jar" value="waffle-spring-security2" />
 	<path id="waffle-api.classpath" location="${common.build}/waffle-api.jar" />
 	<path id="waffle-core.classpath" location="${common.build}/waffle-core.jar" />
@@ -28,9 +28,9 @@
 		<path refid="waffle-servlet.classpath" />
 		<path refid="javax.classpath" />
 		<path refid="spring.classpath" />
-    <path refid="spring-security.classpath" />
+		<path refid="spring-security.classpath" />
 	</path>
-  <path id="project.test.classpath">
+	<path id="project.test.classpath">
 		<path refid="waffle-mock.classpath" />
-  </path>
+	</path>
 </project>

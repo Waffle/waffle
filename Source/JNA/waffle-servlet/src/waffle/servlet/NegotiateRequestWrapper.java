@@ -1,16 +1,16 @@
 /*******************************************************************************
-* Waffle (https://github.com/dblock/waffle)
-* 
-* Copyright (c) 2010 Application Security, Inc.
-* 
-* All rights reserved. This program and the accompanying materials
-* are made available under the terms of the Eclipse Public License v1.0
-* which accompanies this distribution, and is available at
-* http://www.eclipse.org/legal/epl-v10.html
-*
-* Contributors:
-*     Application Security, Inc.
-*******************************************************************************/
+ * Waffle (https://github.com/dblock/waffle)
+ * 
+ * Copyright (c) 2010 Application Security, Inc.
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Application Security, Inc.
+ *******************************************************************************/
 package waffle.servlet;
 
 import java.security.Principal;
@@ -20,13 +20,15 @@ import javax.servlet.http.HttpServletRequestWrapper;
 
 /**
  * Negotiate Request wrapper.
+ * 
  * @author dblock[at]dblock[dot]org
  */
 public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
 
 	private WindowsPrincipal _principal;
-	
-	public NegotiateRequestWrapper(HttpServletRequest request, WindowsPrincipal principal) {
+
+	public NegotiateRequestWrapper(HttpServletRequest request,
+			WindowsPrincipal principal) {
 		super(request);
 		_principal = principal;
 	}
@@ -38,7 +40,7 @@ public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
 	public Principal getUserPrincipal() {
 		return _principal;
 	}
-	
+
 	/**
 	 * Authentication type.
 	 */
@@ -46,7 +48,7 @@ public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
 	public String getAuthType() {
 		return "NEGOTIATE";
 	}
-	
+
 	/**
 	 * Remote username.
 	 */
@@ -54,7 +56,7 @@ public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
 	public String getRemoteUser() {
 		return _principal.getName();
 	}
-	
+
 	/**
 	 * Returns true if the user is in a given role.
 	 */

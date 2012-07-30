@@ -1,16 +1,16 @@
 /*******************************************************************************
-* Waffle (https://github.com/dblock/waffle)
-* 
-* Copyright (c) 2010 Application Security, Inc.
-* 
-* All rights reserved. This program and the accompanying materials
-* are made available under the terms of the Eclipse Public License v1.0
-* which accompanies this distribution, and is available at
-* http://www.eclipse.org/legal/epl-v10.html
-*
-* Contributors:
-*     Application Security, Inc.
-*******************************************************************************/
+ * Waffle (https://github.com/dblock/waffle)
+ * 
+ * Copyright (c) 2010 Application Security, Inc.
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Application Security, Inc.
+ *******************************************************************************/
 package waffle.windows.auth.impl;
 
 import waffle.windows.auth.IWindowsDomain;
@@ -19,30 +19,23 @@ import com.sun.jna.platform.win32.Netapi32Util.DomainTrust;
 
 /**
  * Windows Domain
+ * 
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsDomainImpl implements IWindowsDomain {
 
 	private enum TrustDirection {
-		Inbound,
-		Outbound,
-		Bidirectional
+		Inbound, Outbound, Bidirectional
 	}
 
 	private enum TrustType {
-		TreeRoot,
-		ParentChild,
-		CrossLink,
-		External, 
-		Forest,
-		Kerberos,
-		Unknown
+		TreeRoot, ParentChild, CrossLink, External, Forest, Kerberos, Unknown
 	}
 
 	private String _fqn;
 	private TrustDirection _trustDirection = TrustDirection.Bidirectional;
 	private TrustType _trustType = TrustType.Unknown;
-	
+
 	@Override
 	public String getFqn() {
 		return _fqn;
@@ -57,7 +50,7 @@ public class WindowsDomainImpl implements IWindowsDomain {
 	public String getTrustTypeString() {
 		return _trustType.toString();
 	}
-	
+
 	public WindowsDomainImpl(String fqn) {
 		_fqn = fqn;
 	}

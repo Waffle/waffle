@@ -1,16 +1,16 @@
 /*******************************************************************************
-* Waffle (https://github.com/dblock/waffle)
-* 
-* Copyright (c) 2010 Application Security, Inc.
-* 
-* All rights reserved. This program and the accompanying materials
-* are made available under the terms of the Eclipse Public License v1.0
-* which accompanies this distribution, and is available at
-* http://www.eclipse.org/legal/epl-v10.html
-*
-* Contributors:
-*     Application Security, Inc.
-*******************************************************************************/
+ * Waffle (https://github.com/dblock/waffle)
+ * 
+ * Copyright (c) 2010 Application Security, Inc.
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Application Security, Inc.
+ *******************************************************************************/
 package waffle.servlet.http;
 
 import java.io.IOException;
@@ -35,11 +35,12 @@ public class SimpleHttpResponse implements HttpServletResponse {
 	public int getStatus() {
 		return _status;
 	}
-	
+
 	@Override
 	public void addHeader(String headerName, String headerValue) {
 		List<String> current = _headers.get(headerName);
-		if (current == null) current = new ArrayList<String>();
+		if (current == null)
+			current = new ArrayList<String>();
 		current.add(headerValue);
 		_headers.put(headerName, current);
 	}
@@ -60,55 +61,58 @@ public class SimpleHttpResponse implements HttpServletResponse {
 	public void setStatus(int value) {
 		_status = value;
 	}
-	
+
 	public String getStatusString() {
-		switch(_status) {
+		switch (_status) {
 		case 401:
 			return "Unauthorized";
 		default:
 			return "Unknown";
 		}
 	}
+
 	@Override
 	public void flushBuffer() {
 		System.out.println(_status + " " + getStatusString());
-		for(String header : _headers.keySet()) {
-			for(String headerValue : _headers.get(header)) {
-				System.out.println(header + ": " + headerValue);				
+		for (String header : _headers.keySet()) {
+			for (String headerValue : _headers.get(header)) {
+				System.out.println(header + ": " + headerValue);
 			}
 		}
 	}
-	
+
 	public String[] getHeaderValues(String headerName) {
 		List<String> headerValues = _headers.get(headerName);
-		return headerValues == null ? null : headerValues.toArray(new String[0]);
+		return headerValues == null ? null : headerValues
+				.toArray(new String[0]);
 	}
-	
+
 	public String getHeader(String headerName) {
 		List<String> headerValues = _headers.get(headerName);
 		if (headerValues == null) {
 			return null;
 		}
 		StringBuilder sb = new StringBuilder();
-		for(String headerValue : headerValues) {
-			if (sb.length() > 0) sb.append(", ");
+		for (String headerValue : headerValues) {
+			if (sb.length() > 0)
+				sb.append(", ");
 			sb.append(headerValue);
 		}
 		return sb.toString();
 	}
-	
+
 	public String[] getHeaderNames() {
 		return _headers.keySet().toArray(new String[0]);
 	}
-	
+
 	@Override
 	public void sendError(int rc, String message) {
-		_status = rc;		
+		_status = rc;
 	}
-	
+
 	@Override
 	public void sendError(int rc) {
-		_status = rc;		
+		_status = rc;
 	}
 
 	@Override
@@ -148,52 +152,52 @@ public class SimpleHttpResponse implements HttpServletResponse {
 
 	@Override
 	public void reset() {
-		
+
 	}
 
 	@Override
 	public void resetBuffer() {
-		
+
 	}
 
 	@Override
 	public void setBufferSize(int arg0) {
-		
+
 	}
 
 	@Override
 	public void setCharacterEncoding(String arg0) {
-		
+
 	}
 
 	@Override
 	public void setContentLength(int arg0) {
-		
+
 	}
 
 	@Override
 	public void setContentType(String arg0) {
-		
+
 	}
 
 	@Override
 	public void setLocale(Locale arg0) {
-		
+
 	}
 
 	@Override
 	public void addCookie(Cookie arg0) {
-		
+
 	}
 
 	@Override
 	public void addDateHeader(String arg0, long arg1) {
-		
+
 	}
 
 	@Override
 	public void addIntHeader(String arg0, int arg1) {
-		
+
 	}
 
 	@Override
@@ -206,6 +210,7 @@ public class SimpleHttpResponse implements HttpServletResponse {
 		return null;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public String encodeRedirectUrl(String arg0) {
 		return null;
@@ -216,6 +221,7 @@ public class SimpleHttpResponse implements HttpServletResponse {
 		return null;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public String encodeUrl(String arg0) {
 		return null;
@@ -228,16 +234,17 @@ public class SimpleHttpResponse implements HttpServletResponse {
 
 	@Override
 	public void setDateHeader(String arg0, long arg1) {
-		
+
 	}
 
 	@Override
 	public void setIntHeader(String arg0, int arg1) {
-		
+
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void setStatus(int arg0, String arg1) {
-		
+
 	}
 }

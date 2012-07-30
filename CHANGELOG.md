@@ -4,6 +4,19 @@ Next Release
 Misc
 ----
 
+* Updated all included - [@hazendaz](https://github.com/hazendaz).
+  * Upgraded thirdparty tomcat 5.5.31 to 5.5.35
+  * Upgraded thirdparty tomcat 7.0.4 to 7.0.29
+  * Upgraded thirdparty guava 12.0 to 12.0.1
+  * Upgraded thirdparty spring 3.1.1 to 3.1.2
+  * Upgraded thirdparty spring-security 2.0.5 to 2.0.7
+  * Upgraded thirdparty spring 2.5.6.SEC02 to 2.5.6.SEC03
+  * Added thirdparty servlet-api 3.0
+  * Added additoinal code changes to support above updates
+  * Added some additional master test suites
+  * Formatted code to get everything aligned properly
+  * Updated older license information to latest
+  * Updated remaining items from commons logging to slf4j
 * Using JNA 3.4.2 (currently private build) - [@dblock](https://github.com/dblock).
 * Refactored `waffle-jna.jar` into several distinct packages - [@dblock](https://github.com/dblock).
   * `waffle-api.jar`: API interfaces.

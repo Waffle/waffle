@@ -1,16 +1,16 @@
 /*******************************************************************************
-* Waffle (https://github.com/dblock/waffle)
-* 
-* Copyright (c) 2010 Application Security, Inc.
-* 
-* All rights reserved. This program and the accompanying materials
-* are made available under the terms of the Eclipse Public License v1.0
-* which accompanies this distribution, and is available at
-* http://www.eclipse.org/legal/epl-v10.html
-*
-* Contributors:
-*     Application Security, Inc.
-*******************************************************************************/
+ * Waffle (https://github.com/dblock/waffle)
+ * 
+ * Copyright (c) 2010 Application Security, Inc.
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Application Security, Inc.
+ *******************************************************************************/
 package waffle.mock;
 
 import java.util.ArrayList;
@@ -32,20 +32,20 @@ import waffle.windows.auth.IWindowsSecurityContext;
 public class MockWindowsAuthProvider implements IWindowsAuthProvider {
 
 	private List<String> _groups = new ArrayList<String>();
-	
+
 	public MockWindowsAuthProvider() {
 		_groups.add("Users");
-		_groups.add("Everyone");		
+		_groups.add("Everyone");
 	}
-	
+
 	public void addGroup(String name) {
 		_groups.add(name);
 	}
-	
+
 	@Override
 	public IWindowsSecurityContext acceptSecurityToken(String connectionId,
 			byte[] token, String securityPackage) {
-		
+
 		return new MockWindowsSecurityContext(new String(token));
 	}
 
@@ -72,16 +72,17 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
 	}
 
 	/**
-	 * Will login the current user with any password.
-	 * Will logon a "Guest" user as guest.
+	 * Will login the current user with any password. Will logon a "Guest" user as guest.
 	 */
 	@Override
 	public IWindowsIdentity logonUser(String username, String password) {
-		String currentUsername = Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible); 
+		String currentUsername = Secur32Util
+				.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);
 		if (username.equals(currentUsername)) {
 			return new MockWindowsIdentity(currentUsername, _groups);
 		} else if (username.equals("Guest")) {
-			MockWindowsIdentity identity = new MockWindowsIdentity("Guest", _groups);
+			MockWindowsIdentity identity = new MockWindowsIdentity("Guest",
+					_groups);
 			return identity;
 		} else {
 			throw new RuntimeException("Mock error: " + username);
@@ -94,7 +95,7 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
 	}
 
 	@Override
-	public void resetSecurityToken(String connectionId) {		
-		
+	public void resetSecurityToken(String connectionId) {
+
 	}
 }

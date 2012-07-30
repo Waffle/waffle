@@ -1,16 +1,22 @@
-/*
- * Copyright (c) Application Security Inc., 2010
- * All Rights Reserved
- * Eclipse Public License (EPLv1)
- * https://github.com/dblock/waffle/license
- */
+/*******************************************************************************
+ * Waffle (https://github.com/dblock/waffle)
+ * 
+ * Copyright (c) 2010 Application Security, Inc.
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Application Security, Inc.
+ *******************************************************************************/
 package waffle.apache.catalina;
 
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.catalina.connector.Request;
@@ -18,10 +24,10 @@ import org.apache.catalina.connector.Request;
 /**
  * @author dblock[at]dblock[dot]org
  */
-public class SimpleHttpRequest extends Request implements HttpServletRequest {
-	
+public class SimpleHttpRequest extends Request {
+
 	private static int _remotePort_s = 0;
-	
+
 	private String _requestURI = null;
 	private String _queryString = null;
 	private String _remoteUser = null;
@@ -34,72 +40,73 @@ public class SimpleHttpRequest extends Request implements HttpServletRequest {
 	private byte[] _content = null;
 	private HttpSession _session = new SimpleHttpSession();
 	private Principal _principal = null;
-	
+
 	public SimpleHttpRequest() {
-		_remotePort = ++ _remotePort_s;
+		_remotePort = ++_remotePort_s;
 	}
-	
+
 	@Override
 	public void addHeader(String headerName, String headerValue) {
 		_headers.put(headerName, headerValue);
 	}
-	
+
 	@Override
 	public String getHeader(String headerName) {
 		return _headers.get(headerName);
 	}
-	
+
 	@Override
 	public String getMethod() {
 		return _method;
 	}
-	
+
 	@Override
 	public int getContentLength() {
 		return _content == null ? -1 : _content.length;
 	}
-	
+
 	@Override
 	public int getRemotePort() {
 		return _remotePort;
 	}
-	
+
 	@Override
 	public void setMethod(String methodName) {
 		_method = methodName;
 	}
-	
+
 	@Override
 	public void setContentLength(int length) {
 		_content = new byte[length];
 	}
-	
+
 	public void setRemoteUser(String username) {
 		_remoteUser = username;
 	}
-	
-	@Override 
+
+	@Override
 	public String getRemoteUser() {
 		return _remoteUser;
 	}
-	
-	@Override 
+
+	@Override
 	public HttpSession getSession() {
 		return _session;
 	}
-	
+
+	@Override
 	public HttpSession getSession(boolean create) {
 		if (_session == null && create) {
 			_session = new SimpleHttpSession();
 		}
 		return _session;
 	}
-	
+
 	@Override
 	public String getQueryString() {
 		return _queryString;
 	}
-	
+
 	@Override
 	public void setQueryString(String queryString) {
 		_queryString = queryString;
@@ -111,26 +118,26 @@ public class SimpleHttpRequest extends Request implements HttpServletRequest {
 			}
 		}
 	}
-	
+
 	@Override
 	public void setRequestURI(String uri) {
 		_requestURI = uri;
 	}
-	
+
 	@Override
 	public String getRequestURI() {
 		return _requestURI;
 	}
-	
+
 	@Override
 	public String getParameter(String parameterName) {
 		return _parameters.get(parameterName);
 	}
-	
-	public void addParameter(String parameterName, String parameterValue) {		
+
+	public void addParameter(String parameterName, String parameterValue) {
 		_parameters.put(parameterName, parameterValue);
 	}
-	
+
 	@Override
 	public String getRemoteHost() {
 		return _remoteHost;
@@ -140,7 +147,7 @@ public class SimpleHttpRequest extends Request implements HttpServletRequest {
 	public void setRemoteHost(String remoteHost) {
 		_remoteHost = remoteHost;
 	}
-	
+
 	@Override
 	public String getRemoteAddr() {
 		return _remoteAddr;
@@ -150,12 +157,12 @@ public class SimpleHttpRequest extends Request implements HttpServletRequest {
 	public void setRemoteAddr(String remoteAddr) {
 		_remoteAddr = remoteAddr;
 	}
-	
-	@Override 
+
+	@Override
 	public Principal getUserPrincipal() {
 		return _principal;
 	}
-	
+
 	@Override
 	public void setUserPrincipal(Principal principal) {
 		_principal = principal;
