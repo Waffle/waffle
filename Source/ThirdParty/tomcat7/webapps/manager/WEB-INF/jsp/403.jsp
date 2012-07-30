@@ -14,13 +14,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 --%>
-<%
-  response.setHeader("WWW-Authenticate", "Basic realm=\"Tomcat Manager Application\"");
-%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
  <head>
-  <title>401 Unauthorized</title>
+  <title>403 Access Denied</title>
   <style type="text/css">
     <!--
     BODY {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;font-size:12px;}
@@ -31,9 +28,24 @@
   </style>
  </head>
  <body>
-   <h1>401 Unauthorized</h1>
+   <h1>403 Access Denied</h1>
    <p>
-    You are not authorized to view this page. If you have not changed
+    You are not authorized to view this page.
+   </p>
+   <p>
+    If you have already configured the Manager application to allow access and
+    you have used your browsers back button, used a saved book-mark or similar
+    then you may have triggered the cross-site request forgery (CSRF) protection
+    that has been enabled for the HTML interface of the Manager application. You
+    will need to reset this protection by returning to the
+    <a href="<%=request.getContextPath()%>/html">main Manager page</a>. Once you
+    return to this page, you will be able to continue using the Manager
+    appliction's HTML interface normally. If you continue to see this access
+    denied message, check that you have the necessary permissions to access this
+    application.
+   </p>
+   <p>
+    If you have not changed
     any configuration files, please examine the file
     <tt>conf/tomcat-users.xml</tt> in your installation. That
     file must contain the credentials to let you use this webapp.
@@ -67,11 +79,11 @@
     are not. To maintain the CSRF protection:
    </p>
    <ul>
-    <li>users with the <tt>manager-gui</tt> role should not be granted either
+    <li>Users with the <tt>manager-gui</tt> role should not be granted either
         the <tt>manager-script</tt> or <tt>manager-jmx</tt> roles.</li>
-    <li>if the text or jmx interfaces are accessed through a browser (e.g. for
-         testing since these interfaces are intended for tools not humans) then
-         the browser must be closed afterwards to terminate the session.</li>
+    <li>If the text or jmx interfaces are accessed through a browser (e.g. for
+        testing since these interfaces are intended for tools not humans) then
+        the browser must be closed afterwards to terminate the session.</li>
    </ul>
    <p>
     For more information - please see the

@@ -29,9 +29,9 @@ import javax.servlet.http.HttpSessionListener;
  * introduced in the 2.3 version of the Servlet API. This listener merely
  * documents the occurrence of such events in the application log associated
  * with our servlet context.
- * 
+ *
  * @author Craig R. McClanahan
- * @version $Id: SessionListener.java 982399 2010-08-04 20:52:23Z markt $
+ * @version $Id: SessionListener.java 1200123 2011-11-10 04:03:27Z kkolinko $
  */
 
 public final class SessionListener implements ServletContextListener,
@@ -48,7 +48,7 @@ public final class SessionListener implements ServletContextListener,
 
     /**
      * Record the fact that a servlet context attribute was added.
-     * 
+     *
      * @param event
      *            The session attribute event
      */
@@ -62,7 +62,7 @@ public final class SessionListener implements ServletContextListener,
 
     /**
      * Record the fact that a servlet context attribute was removed.
-     * 
+     *
      * @param event
      *            The session attribute event
      */
@@ -76,7 +76,7 @@ public final class SessionListener implements ServletContextListener,
 
     /**
      * Record the fact that a servlet context attribute was replaced.
-     * 
+     *
      * @param event
      *            The session attribute event
      */
@@ -90,7 +90,7 @@ public final class SessionListener implements ServletContextListener,
 
     /**
      * Record the fact that this web application has been destroyed.
-     * 
+     *
      * @param event
      *            The servlet context event
      */
@@ -104,7 +104,7 @@ public final class SessionListener implements ServletContextListener,
 
     /**
      * Record the fact that this web application has been initialized.
-     * 
+     *
      * @param event
      *            The servlet context event
      */
@@ -118,7 +118,7 @@ public final class SessionListener implements ServletContextListener,
 
     /**
      * Record the fact that a session has been created.
-     * 
+     *
      * @param event
      *            The session event
      */
@@ -131,7 +131,7 @@ public final class SessionListener implements ServletContextListener,
 
     /**
      * Record the fact that a session has been destroyed.
-     * 
+     *
      * @param event
      *            The session event
      */
@@ -146,7 +146,7 @@ public final class SessionListener implements ServletContextListener,
 
     /**
      * Log a message to the servlet context application log.
-     * 
+     *
      * @param message
      *            Message to be logged
      */

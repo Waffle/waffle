@@ -1,11 +1,13 @@
-<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat 7 (7.0.4) - Manager App HOW-TO</title><meta name="author" content="Craig R. McClanahan"><style type="text/css" media="print">
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat 7 (7.0.29) - Manager App HOW-TO</title><meta name="author" content="Craig R. McClanahan"><style type="text/css" media="print">
             .noPrint {display: none;}
             td#mainBody {width: 100%;}
+        </style><style type="text/css">
+            code {background-color:rgb(224,255,255);padding:0 0.1em;}
+            code.attributeName, code.propertyName {background-color:transparent;}
         </style></head><body bgcolor="#ffffff" text="#000000" link="#525D76" alink="#525D76" vlink="#525D76"><table border="0" width="100%" cellspacing="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img src="./images/tomcat.gif" align="right" alt="
       The Apache Tomcat Servlet/JSP Container
-    " border="0"></a></td><td><font face="arial,helvetica,sanserif"><h1>Apache Tomcat 7</h1>
-            Version 7.0.4, Oct 14 2010</font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img src="./images/asf-logo.gif" align="right" alt="Apache Logo" border="0"></a></td></tr></table><table border="0" width="100%" cellspacing="4"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr noshade size="1"></td></tr><tr><!--LEFT SIDE NAVIGATION--><td width="20%" valign="top" nowrap class="noPrint"><p><strong>Links</strong></p><ul><li><a href="index.html">Docs Home</a></li><li><a href="http://wiki.apache.org/tomcat/FAQ">FAQ</a></li></ul><p><strong>User Guide</strong></p><ul><li><a href="introduction.html">1) Introduction</a></li><li><a href="setup.html">2) Setup</a></li><li><a href="appdev/index.html">3) First webapp</a></li><li><a href="deployer-howto.html">4) Deployer</a></li><li><a href="manager-howto.html">5) Manager</a></li><li><a href="realm-howto.html">6) Realms and AAA</a></li><li><a href="security-manager-howto.html">7) Security Manager</a></li><li><a href="jndi-resources-howto.html">8) JNDI Resources</a></li><li><a href="jndi-datasource-examples-howto.html">9) JDBC DataSources</a></li><li><a href="class-loader-howto.html">10) Classloading</a></li><li><a href="jasper-howto.html">11) JSPs</a></li><li><a href="ssl-howto.html">12) SSL</a></li><li><a href="ssi-howto.html">13) SSI</a></li><li><a href="cgi-howto.html">14) CGI</a></li><li><a href="proxy-howto.html">15) Proxy Support</a></li><li><a href="mbeans-descriptor-howto.html">16) MBean Descriptor</a></li><li><a href="default-servlet.html">17) Default Servlet</a></li><li><a href="cluster-howto.html">18) Clustering</a></li><li><a href="balancer-howto.html">19) Load Balancer</a></li><li><a href="connectors.html">20) Connectors</a></li><li><a href="monitoring.html">21) Monitoring and Management</a></li><li><a href="logging.html">22) Logging</a></li><li><a href="apr.html">23) APR/Native</a></li><li><a href="virtual-hosting-howto.html">24) Virtual Hosting</a></li><li><a href="aio.html">25) Advanced IO</a></li><li><a href="extras.html">26) Additional Components</a></li><li><a href="maven-jars.html">27) Mavenized</a></li><li><a href="security-howto.html">28) Security Considerations</a></li></ul><p><strong>Reference</strong></p><ul><li><a href="RELEASE-NOTES.txt">Release Notes</a></li><li><a href="config/index.html">Configuration</a></li><li><a href="api/index.html">Tomcat Javadocs</a></li><li><a href="servletapi/index.html">Servlet Javadocs</a></li><li><a href="jspapi/index.html">JSP 2.2 Javadocs</a></li><li><a href="elapi/index.html">EL 2.2 Javadocs</a></li><li><a href="http://tomcat.apache.org/connectors-doc/">JK 1.2 Documentation</a></li></ul><p><strong>Apache Tomcat Development</strong></p><ul><li><a href="building.html">Building</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="http://wiki.apache.org/tomcat/TomcatVersions">Status</a></li><li><a href="developers.html">Developers</a></li><li><a href="architecture/index.html">Architecture</a></li><li><a href="funcspecs/index.html">Functional Specs.</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td width="80%" valign="top" align="left" id="mainBody"><h1>Manager App HOW-TO</h1><table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#525D76"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
-<ul><li><a href="#Introduction">Introduction</a></li><li><a href="#Configuring_Manager_Application_Access">Configuring Manager Application Access</a></li><li><a href="#Supported_Manager_Commands">Supported Manager Commands</a><ol><li><a href="#Deploy_A_New_Application_Remotely">Deploy A New Application Remotely</a></li><li><a href="#Deploy_A_New_Application_from_a_Local_Path">Deploy A New Application from a Local Path</a></li><li><a href="#List_Currently_Deployed_Applications">List Currently Deployed Applications</a></li><li><a href="#Reload_An_Existing_Application">Reload An Existing Application</a></li><li><a href="#List_OS_and_JVM_Properties">List OS and JVM Properties</a></li><li><a href="#List_Available_Global_JNDI_Resources">List Available Global JNDI Resources</a></li><li><a href="#List_Available_Security_Roles">List Available Security Roles</a></li><li><a href="#Session_Statistics">Session Statistics</a></li><li><a href="#Start_an_Existing_Application">Start an Existing Application</a></li><li><a href="#Stop_an_Existing_Application">Stop an Existing Application</a></li><li><a href="#Undeploy_an_Existing_Application">Undeploy an Existing Application</a></li><li><a href="#Finding_memory_leaks">Finding memory leaks</a></li><li><a href="#Server_Status">Server Status</a></li></ol></li><li><a href="#Executing_Manager_Commands_With_Ant">Executing Manager Commands With Ant</a><ol><li><a href="#Tasks_output_capture">Tasks output capture</a></li></ol></li><li><a href="#Using_the_JMX_Proxy_Servlet">Using the JMX Proxy Servlet</a><ol><li><a href="#What_is_JMX_Proxy_Servlet">What is JMX Proxy Servlet</a></li><li><a href="#JMX_Query_command">JMX Query command</a></li><li><a href="#JMX_Set_command">JMX Set command</a></li></ol></li></ul>
+    " border="0"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 7</font></h1><font face="arial,helvetica,sanserif">Version 7.0.29, Jul 3 2012</font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img src="./images/asf-logo.gif" align="right" alt="Apache Logo" border="0"></a></td></tr></table><table border="0" width="100%" cellspacing="4"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr noshade size="1"></td></tr><tr><!--LEFT SIDE NAVIGATION--><td width="20%" valign="top" nowrap class="noPrint"><p><strong>Links</strong></p><ul><li><a href="index.html">Docs Home</a></li><li><a href="http://wiki.apache.org/tomcat/FAQ">FAQ</a></li></ul><p><strong>User Guide</strong></p><ul><li><a href="introduction.html">1) Introduction</a></li><li><a href="setup.html">2) Setup</a></li><li><a href="appdev/index.html">3) First webapp</a></li><li><a href="deployer-howto.html">4) Deployer</a></li><li><a href="manager-howto.html">5) Manager</a></li><li><a href="realm-howto.html">6) Realms and AAA</a></li><li><a href="security-manager-howto.html">7) Security Manager</a></li><li><a href="jndi-resources-howto.html">8) JNDI Resources</a></li><li><a href="jndi-datasource-examples-howto.html">9) JDBC DataSources</a></li><li><a href="class-loader-howto.html">10) Classloading</a></li><li><a href="jasper-howto.html">11) JSPs</a></li><li><a href="ssl-howto.html">12) SSL</a></li><li><a href="ssi-howto.html">13) SSI</a></li><li><a href="cgi-howto.html">14) CGI</a></li><li><a href="proxy-howto.html">15) Proxy Support</a></li><li><a href="mbeans-descriptor-howto.html">16) MBean Descriptor</a></li><li><a href="default-servlet.html">17) Default Servlet</a></li><li><a href="cluster-howto.html">18) Clustering</a></li><li><a href="balancer-howto.html">19) Load Balancer</a></li><li><a href="connectors.html">20) Connectors</a></li><li><a href="monitoring.html">21) Monitoring and Management</a></li><li><a href="logging.html">22) Logging</a></li><li><a href="apr.html">23) APR/Native</a></li><li><a href="virtual-hosting-howto.html">24) Virtual Hosting</a></li><li><a href="aio.html">25) Advanced IO</a></li><li><a href="extras.html">26) Additional Components</a></li><li><a href="maven-jars.html">27) Mavenized</a></li><li><a href="security-howto.html">28) Security Considerations</a></li><li><a href="windows-service-howto.html">29) Windows Service</a></li><li><a href="windows-auth-howto.html">30) Windows Authentication</a></li><li><a href="jdbc-pool.html">31) Tomcat's JDBC Pool</a></li><li><a href="web-socket-howto.html">32) WebSocket</a></li></ul><p><strong>Reference</strong></p><ul><li><a href="RELEASE-NOTES.txt">Release Notes</a></li><li><a href="config/index.html">Configuration</a></li><li><a href="api/index.html">Tomcat Javadocs</a></li><li><a href="servletapi/index.html">Servlet Javadocs</a></li><li><a href="jspapi/index.html">JSP 2.2 Javadocs</a></li><li><a href="elapi/index.html">EL 2.2 Javadocs</a></li><li><a href="http://tomcat.apache.org/connectors-doc/">JK 1.2 Documentation</a></li></ul><p><strong>Apache Tomcat Development</strong></p><ul><li><a href="building.html">Building</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="http://wiki.apache.org/tomcat/TomcatVersions">Status</a></li><li><a href="developers.html">Developers</a></li><li><a href="architecture/index.html">Architecture</a></li><li><a href="funcspecs/index.html">Functional Specs.</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td width="80%" valign="top" align="left" id="mainBody"><h1>Manager App HOW-TO</h1><table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#525D76"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
+<ul><li><a href="#Introduction">Introduction</a></li><li><a href="#Configuring_Manager_Application_Access">Configuring Manager Application Access</a></li><li><a href="#Supported_Manager_Commands">Supported Manager Commands</a><ol><li><a href="#Deploy_A_New_Application_Remotely">Deploy A New Application Remotely</a></li><li><a href="#Deploy_A_New_Application_from_a_Local_Path">Deploy A New Application from a Local Path</a></li><li><a href="#List_Currently_Deployed_Applications">List Currently Deployed Applications</a></li><li><a href="#Reload_An_Existing_Application">Reload An Existing Application</a></li><li><a href="#List_OS_and_JVM_Properties">List OS and JVM Properties</a></li><li><a href="#List_Available_Global_JNDI_Resources">List Available Global JNDI Resources</a></li><li><a href="#Session_Statistics">Session Statistics</a></li><li><a href="#Start_an_Existing_Application">Start an Existing Application</a></li><li><a href="#Stop_an_Existing_Application">Stop an Existing Application</a></li><li><a href="#Undeploy_an_Existing_Application">Undeploy an Existing Application</a></li><li><a href="#Finding_memory_leaks">Finding memory leaks</a></li><li><a href="#Server_Status">Server Status</a></li></ol></li><li><a href="#Executing_Manager_Commands_With_Ant">Executing Manager Commands With Ant</a><ol><li><a href="#Tasks_output_capture">Tasks output capture</a></li></ol></li><li><a href="#Using_the_JMX_Proxy_Servlet">Using the JMX Proxy Servlet</a><ol><li><a href="#What_is_JMX_Proxy_Servlet">What is JMX Proxy Servlet</a></li><li><a href="#JMX_Query_command">JMX Query command</a></li><li><a href="#JMX_Get_command">JMX Get command</a></li><li><a href="#JMX_Set_command">JMX Set command</a></li><li><a href="#JMX_Invoke_command">JMX Invoke command</a></li></ol></li></ul>
 </blockquote></td></tr></table><table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#525D76"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
 
 <p>In many production environments, it is very useful to have the capability
@@ -31,7 +33,6 @@ the following functions:</p>
 <li>List the available global JNDI resources, for use in deployment
     tools that are preparing <code>&lt;ResourceLink&gt;</code> elements
     nested in a <code>&lt;Context&gt;</code> deployment description.</li>
-<li>List the available security roles defined in the user database.</li>
 <li>Start a stopped application (thus making it available again).</li>
 <li>Stop an existing application (so that it becomes unavailable), but
     do not undeploy it.</li>
@@ -45,15 +46,15 @@ Manager web application <code>Context</code> to a new host install the
 <code>$CATALINA_BASE/conf/[enginename]/[hostname]</code> folder. Here is an
 example:</p>
 <pre>
-&lt;Context path="/manager" debug="0" privileged="true"
-         docBase="/usr/local/kinetic/tomcat6/server/webapps/manager"&gt;
+&lt;Context privileged="true"
+         docBase="/usr/local/kinetic/tomcat7/server/webapps/manager"&gt;
 &lt;/Context&gt;
 </pre>
 
 <p>If you have Tomcat configured to support multiple virtual hosts
 (websites) you would need to configure a Manager for each.</p>
 
-<p>There are three ways to use the <code>Manager</code> web application.</p>
+<p>There are three ways to use the <strong>Manager</strong> web application.</p>
 <ul>
 <li>As an application with a user interface you use in your browser.
 Here is an example URL where you can replace <code>localhost</code> with
@@ -83,22 +84,64 @@ With Ant</a> for more information.</li>
 anyone on the Internet to execute the Manager application on your server.
 Therefore, the Manager application is shipped with the requirement that anyone
 who attempts to use it must authenticate themselves, using a username and
-password that have the role <strong>manager-script</strong> associated with
-them. Further, there is no username in the default users file
-(<code>$CATALINA_BASE/conf/tomcat-users.xml</code>) that is assigned this
-role.  Therefore, access to the Manager application is completely disabled
+password that have one of <strong>manager-**</strong> roles associated with
+them (the role name depends on what functionality is required).
+Further, there is no username in the default users file
+(<code>$CATALINA_BASE/conf/tomcat-users.xml</code>) that is assigned to those
+roles.  Therefore, access to the Manager application is completely disabled
 by default.</p>
 
-<p>To enable access to the Manager web application, you must either create
-a new username/password combination and associate the role name
-<strong>manager-script</strong> with it, or add the
-<strong>manager-script</strong> role
-to some existing username/password combination.  Exactly where this is done
-depends on which <code>Realm</code> implementation you are using:</p>
+<p>You can find the role names in the <code>web.xml</code> file of the Manager
+web application. The available roles are:</p>
+
 <ul>
-<li><em>MemoryRealm</em> - If you have not customized your
-    <code>$CATALINA_BASE/conf/server.xml</code> to select a different one,
-    Tomcat defaults to an XML-format file stored at
+  <li><strong>manager-gui</strong> &mdash; Access to the HTML interface.</li>
+  <li><strong>manager-status</strong> &mdash; Access to the "Server Status"
+    page only.</li>
+  <li><strong>manager-script</strong> &mdash; Access to the tools-friendly
+    plain text interface that is described in this document,
+    and to the "Server Status" page.</li>
+  <li><strong>manager-jmx</strong> &mdash; Access to JMX proxy interface
+    and to the "Server Status" page.</li>
+</ul>
+
+<p>The HTML interface is protected against CSRF (Cross-Site Request Forgery)
+attacks, but the text and JMX interfaces cannot be protected. To maintain
+the CSRF protection:</p>
+
+<ul>
+  <li>Users with the <strong>manager-gui</strong> role should not be granted
+      the <strong>manager-script</strong> or <strong>manager-jmx</strong>
+      roles.</li>
+  <li>If you use web browser to access the Manager application using
+      a user that has either <strong>manager-script</strong> or
+      <strong>manager-jmx</strong> roles (for example for testing
+      the plain text or JMX interfaces),
+      then all windows of the browser MUST be closed afterwards to terminate
+      the session.</li>
+</ul>
+
+<p>Note that JMX proxy interface is effectively low-level root-like
+administrative interface of Tomcat. One can do a lot, if he knows
+what commands to call. You should be cautious when enabling the
+<strong>manager-jmx</strong> role.</p>
+
+<p>To enable access to the Manager web application, you must either create
+a new username/password combination and associate one of the
+<strong>manager-**</strong> roles with it, or add a
+<strong>manager-**</strong> role
+to some existing username/password combination.
+As the majority of this document describes the commands of plain textual
+interface, let the role name for further example to be
+<strong>manager-script</strong>.
+Exactly how the usernames/passwords are configured depends on which
+<code>Realm</code> implementation you are using:</p>
+<ul>
+<li><em>MemoryRealm</em> &mdash; This one is configured in the default
+    <code>$CATALINA_BASE/conf/server.xml</code>.
+    If you have not configured it differently, or replaced it with
+    a different <code>Realm</code> implementation, this realm
+    reads an XML-format file stored at
     <code>$CATALINA_BASE/conf/tomcat-users.xml</code>, which can be
     edited with any text editor.  This file contains an XML
     <code>&lt;user&gt;</code> for each individual user, which might
@@ -111,12 +154,12 @@ depends on which <code>Realm</code> implementation you are using:</p>
     add the <strong>manager-script</strong> role to the comma-delimited
     <code>roles</code> attribute for one or more existing users, and/or
     create new users with that assigned role.</li>
-<li><em>JDBCRealm</em> - Your user and role information is stored in
+<li><em>JDBCRealm</em> &mdash; Your user and role information is stored in
     a database accessed via JDBC.  Add the <strong>manager-script</strong> role
     to one or more existing users, and/or create one or more new users
     with this role assigned, following the standard procedures for your
     environment.</li>
-<li><em>JNDIRealm</em> - Your user and role information is stored in
+<li><em>JNDIRealm</em> &mdash; Your user and role information is stored in
     a directory server accessed via LDAP.  Add the
     <strong>manager-script</strong> role to one or more existing users,
     and/or create one or more new users with this role assigned, following
@@ -130,27 +173,17 @@ as long as they identify a valid user in the users database who possesses
 the role <strong>manager-script</strong>.</p>
 
 <p>In addition to the password restrictions the Manager web application
-could be restricted by the remote IP address or host by adding a
-<code>RemoteAddrValve</code> or <code>RemoteHostValve</code>.  Here is
+could be restricted by the <strong>remote IP address</strong> or host by adding
+a <code>RemoteAddrValve</code> or <code>RemoteHostValve</code>.
+See <a href="config/valve.html#Remote_Address_Filter">valves documentation</a>
+for details. Here is
 an example of restricting access to the localhost by IP address:</p>
 <pre>
-&lt;Context path="/manager" privileged="true"
-         docBase="/usr/local/kinetic/tomcat6/server/webapps/manager"&gt;
+&lt;Context privileged="true"&gt;
          &lt;Valve className="org.apache.catalina.valves.RemoteAddrValve"
                 allow="127\.0\.0\.1"/&gt;
 &lt;/Context&gt;
 </pre>
-
-<p>The HTML interface is protected against CSRF but the text and JMX interfaces
-are not. To maintain the CSRF protection:</p>
-    
-<ul>
-  <li>users with the <tt>manager-gui</tt> role should not be granted either the
-      <tt>manager-script</tt> or <tt>manager-jmx</tt> roles.</li>
-  <li>if the text or jmx interfaces are accessed through a browser (e.g. for
-      testing since these interfaces are intended for tools not humans) then the
-      browser must be closed afterwards to terminate the session.</li>
-</ul>
 
 </blockquote></td></tr></table><table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#525D76"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Supported Manager Commands"><!--()--></a><a name="Supported_Manager_Commands"><strong>Supported Manager Commands</strong></a></font></td></tr><tr><td><blockquote>
 
@@ -226,8 +259,8 @@ name or the war file name without the .war extension as the path.  The
 application can later be undeployed (and the corresponding application directory
 removed) by use of the <code>/undeploy</code> command.</p>
 
-<p>The .WAR file may include Tomcat specific deployment configuration, by 
-including a Context configuration XML file in 
+<p>The .WAR file may include Tomcat specific deployment configuration, by
+including a Context configuration XML file in
 <code>/META-INF/context.xml</code>.</p>
 
 <p>URL parameters include:</p>
@@ -357,13 +390,7 @@ web application Context just as if it were configured in your
 Tomcat <code>server.xml</code> configuration file. Here is an
 example:</p>
 <div align="left"><table cellspacing="4" cellpadding="0" border="0"><tr><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#ffffff" height="1"><pre>
-&lt;Context path="/foobar" docBase="/path/to/application/foobar"
-         debug="0"&gt;
-
-  &lt;!-- Link to the user database we will get roles from --&gt;
-  &lt;ResourceLink name="users" global="UserDatabase"
-                type="org.apache.catalina.UserDatabase"/&gt;
-
+&lt;Context path="/foobar" docBase="/path/to/application/foobar"&gt;
 &lt;/Context&gt;
 </pre></td><td bgcolor="#023264" width="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr></table></div>
 
@@ -394,9 +421,9 @@ file, the war will be unpacked into a directory in your Host appBase
 directory.</p>
 
 <p>If the application war or directory is installed in your Host appBase
-directory and either the Host is configured with autoDeploy=true or
-liveDeploy=true, the Context path must match the directory name or
-war file name without the ".war" extension.</p>
+directory and either the Host is configured with autoDeploy=true or the
+Context path must match the directory name or war file name without the
+".war" extension.</p>
 
 <p>For security when untrusted users can manage web applications, the
 Host deployXML flag can be set to false.  This prevents untrusted users
@@ -456,9 +483,9 @@ error message.  Possible causes for problems include:</p>
 <li><em>Context path must match the directory or WAR file name:</em>
     <blockquote>
     If the application war or directory is installed in your Host appBase
-    directory and either the Host is configured with autoDeploy=true or
-    liveDeploy=true, the Context path must match the directory name or
-    war file name without the ".war" extension.
+    directory and either the Host is configured with autoDeploy=true the
+    Context path must match the directory name or war file name without
+    the ".war" extension.
     </blockquote></li>
 <li><em>Only web applications in the Host web application directory can
      be installed</em>
@@ -621,60 +648,6 @@ include an error message.  Possible causes for problems include:</p>
 
 </blockquote></td></tr></table>
 
-
-<table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#828DA6"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="List Available Security Roles"><!--()--></a><a name="List_Available_Security_Roles"><strong>List Available Security Roles</strong></a></font></td></tr><tr><td><blockquote>
-
-<div align="left"><table cellspacing="4" cellpadding="0" border="0"><tr><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#ffffff" height="1"><pre>
-http://localhost:8080/manager/text/roles
-</pre></td><td bgcolor="#023264" width="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr></table></div>
-
-<p>List the security role names (and corresponding descriptions) that are
-available in the <code>org.apache.catalina.UserDatabase</code> resource that
-is linked to the <code>users</code> resource reference in the web.xml file
-for the Manager web application.  This would typically be used, for example,
-by a deployment tool that wanted to create
-<code>&lt;security-role-ref&gt;</code> elements to map security role names
-used in a web application to the role names actually defined within the
-container.</p>
-
-<p>By default, the <code>users</code> resource reference is pointed at the
-global <code>UserDatabase</code> resource.  If you choose to utilize a
-different user database per virtual host, you should modify the
-<code>&lt;ResourceLink&gt;</code> element in the default
-<code>manager.xml</code> context configuration file to point at the global
-user database resource for this virtual host.</p>
-
-<p>When this command is executed, the first line of the response will be:</p>
-<pre>
-  OK - Listed security roles
-</pre>
-<p>followed by one line for each security role.  Each line is composed of
-fields delimited by colon characters (":") as follows:</p>
-<ul>
-<li><em>Security Role Name</em> - A security role name that is known to Tomcat
-    in the user database.</li>
-<li><em>Description</em> - Description of this security role (useful in
-    creating user interfaces for selecting roles.</li>
-</ul>
-
-<p>If an error occurs, the response will start with <code>FAIL</code> and
-include an error message.  Possible causes for problems include:</p>
-<ul>
-<li><em>Cannot resolve user database reference</em> - A JNDI error prevented
-    the successful lookup of the <code>org.apache.catalina.UserDatabase</code>
-    resource.  Check the Tomcat log files for a stack trace associated with
-    this error.</li>
-<li><em>No user database is available</em> - You have not configured a resource
-    reference for the <code>users</code> resource that points at an
-    appropriate user database instance.  Check your <code>manager.xml</code>
-    file and ensure that you have created an appropriate
-    <code>&lt;ResourceLink&gt;</code> or
-    <code>&lt;ResourceParams&gt;</code> element for this resource.</li>
-</ul>
-
-</blockquote></td></tr></table>
-
-
 <table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#828DA6"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Session Statistics"><!--()--></a><a name="Session_Statistics"><strong>Session Statistics</strong></a></font></td></tr><tr><td><blockquote>
 
 <div align="left"><table cellspacing="4" cellpadding="0" border="0"><tr><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#ffffff" height="1"><pre>
@@ -787,13 +760,13 @@ error message.  Possible causes for problems include:</p>
 http://localhost:8080/manager/text/undeploy?path=/examples
 </pre></td><td bgcolor="#023264" width="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr></table></div>
 
-<p><strong><font color="red">WARNING</font> - This command will delete any web 
-application artifacts that exist within <code>appBase</code> directory 
+<p><strong><font color="red">WARNING</font> - This command will delete any web
+application artifacts that exist within <code>appBase</code> directory
 (typically "webapps") for this virtual host</strong>.
-This will delete the the application .WAR, if present, 
-the application directory resulting either from a deploy in unpacked form 
+This will delete the the application .WAR, if present,
+the application directory resulting either from a deploy in unpacked form
 or from .WAR expansion as well as the XML Context definition from
-<code>$CATALINA_BASE/conf/[enginename]/[hostname]/</code> directory. 
+<code>$CATALINA_BASE/conf/[enginename]/[hostname]/</code> directory.
 If you simply want to take an application
 out of service, you should use the <code>/stop</code> command instead.</p>
 
@@ -838,7 +811,7 @@ error message.  Possible causes for problems include:</p>
 <table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#828DA6"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Finding memory leaks"><!--()--></a><a name="Finding_memory_leaks"><strong>Finding memory leaks</strong></a></font></td></tr><tr><td><blockquote>
 
 <div align="left"><table cellspacing="4" cellpadding="0" border="0"><tr><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#ffffff" height="1"><pre>
-http://localhost:8080/manager/text/findleaks
+http://localhost:8080/manager/text/findleaks[?statusLine=[true|false]]
 </pre></td><td bgcolor="#023264" width="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr></table></div>
 
 <p><strong>The find leaks diagnostic triggers a full garbage collection. It
@@ -854,13 +827,17 @@ does not extend StandardHost.</p>
 <p>Explicitly triggering a full garbage collection from Java code is documented
 to be unreliable. Furthermore, depending on the JVM used, there are options to
 disable explicit GC triggering, like <code>-XX:+DisableExplicitGC</code>.
-If you want to make sure, that the diagnostics were successfully running a full GC,
-you will need to check using tools like GC logging, JConsole or similar.</p>
+If you want to make sure, that the diagnostics were successfully running a full
+GC, you will need to check using tools like GC logging, JConsole or similar.</p>
 
 <p>If this command succeeds, you will see a response like this:</p>
 <div align="left"><table cellspacing="4" cellpadding="0" border="0"><tr><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#ffffff" height="1"><pre>
 /leaking-webapp
 </pre></td><td bgcolor="#023264" width="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr></table></div>
+
+<p>If you wish to see a status line included in the response then include the
+<code>statusLine</code> query parameter in the request with a value of
+<code>true</code>.</p>
 
 <p>Each context path for a web application that was stopped, reloaded or
 undeployed, but which classes from the previous runs are still loaded in memory,
@@ -869,29 +846,29 @@ has been reloaded several times, it may be listed several times.</p>
 
 <p>If the command does not succeed, the response will start with
 <code>FAIL</code> and include an error message.</p>
- 
+
 </blockquote></td></tr></table>
 
 <table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#828DA6"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Server Status"><!--()--></a><a name="Server_Status"><strong>Server Status</strong></a></font></td></tr><tr><td><blockquote>
 
 <p>From this link , you can view information about the server.</p>
 
-<p>First, you have the server and JVM version number, JVM provider, OS name 
+<p>First, you have the server and JVM version number, JVM provider, OS name
 and number followed by the architecture type.</p>
 
-<p>Second, there is several information about the memory usage of the JVM 
+<p>Second, there is several information about the memory usage of the JVM
 (available, total and max memory).</p>
 
-<p>Then, there is information about the Tomcat AJP and HTTP connectors. 
+<p>Then, there is information about the Tomcat AJP and HTTP connectors.
 The same information is available for both of them :
 </p>
 <ul>
-    <li><p>Threads information : Max threads, min and max spare threads, 
+    <li><p>Threads information : Max threads, min and max spare threads,
     current thread count and current thread busy.</p></li>
-    <li><p>Request information : Max processing time and processing time, 
+    <li><p>Request information : Max processing time and processing time,
     request and error count, bytes received and sent.</p></li>
-    <li><p>A table showing Stage, Time, Bytes Sent, Bytes Receive, Client, 
-    VHost and Request. All existing threads are listed in the table. 
+    <li><p>A table showing Stage, Time, Bytes Sent, Bytes Receive, Client,
+    VHost and Request. All existing threads are listed in the table.
     Here is the list of the possible thread stages :</p>
     <ul>
         <li><p><em>"Parse and Prepare Request"</em> : The request headers are
@@ -908,7 +885,7 @@ The same information is available for both of them :
         appropriate.</p></li>
         <li><p><em>"Keep-Alive"</em> : The thread keeps the connection open to
         the client in case the client sends another request. If another request
-        is recieved, the next stage will br "Parse and Prepare Requst". If no
+        is received, the next stage will br "Parse and Prepare Requst". If no
         request is received before the keep alive times out, the connection will
         be closed and the next stage will be "Ready".</p></li>
         <li><p><em>"Ready"</em> : The thread is at rest and ready to be
@@ -962,8 +939,8 @@ file might look something like this:</p>
   &lt;taskdef name="deploy"    classname="org.apache.catalina.ant.DeployTask"/&gt;
   &lt;taskdef name="list"      classname="org.apache.catalina.ant.ListTask"/&gt;
   &lt;taskdef name="reload"    classname="org.apache.catalina.ant.ReloadTask"/&gt;
+  &lt;taskdef name="findleaks" classname="org.apache.catalina.ant.FindLeaksTask"/&gt;
   &lt;taskdef name="resources" classname="org.apache.catalina.ant.ResourcesTask"/&gt;
-  &lt;taskdef name="roles"     classname="org.apache.catalina.ant.RolesTask"/&gt;
   &lt;taskdef name="start"     classname="org.apache.catalina.ant.StartTask"/&gt;
   &lt;taskdef name="stop"      classname="org.apache.catalina.ant.StopTask"/&gt;
   &lt;taskdef name="undeploy"  classname="org.apache.catalina.ant.UndeployTask"/&gt;
@@ -1015,8 +992,8 @@ property, and specify it from the command line:</p>
 <table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#828DA6"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Tasks output capture"><!--()--></a><a name="Tasks_output_capture"><strong>Tasks output capture</strong></a></font></td></tr><tr><td><blockquote>
 
 <p>Using <em>Ant</em> version <strong>1.6.2</strong> or later,
-the Catalina tasks offer the option to capture their output in 
-properties or external files. They support directly the following subset of the 
+the Catalina tasks offer the option to capture their output in
+properties or external files. They support directly the following subset of the
 <code>&lt;redirector&gt;</code> type attributes:
 </p>
 
@@ -1113,10 +1090,10 @@ any wrong or missing command attribute will still cause Ant execution terminatio
 
 <p>They also support the embedded <code>&lt;redirector&gt;</code> element
 in which you can specify
-its full set of attributes, but <code>input</code>, <code>inputstring</code> and 
+its full set of attributes, but <code>input</code>, <code>inputstring</code> and
 <code>inputencoding</code> that, even if accepted, are not used because they have
 no meaning in this context.
-Refer to <a href="http://ant.apache.org">ant manual</a> for details on 
+Refer to <a href="http://ant.apache.org">ant manual</a> for details on
 <code>&lt;redirector&gt;</code> element attributes.
 </p>
 
@@ -1147,17 +1124,17 @@ can be used:
             path="${mgr.context.path}"
             war="${mgr.war.file}"/&gt;
     &lt;/target&gt;
-    
+
     &lt;target name="context.status"&gt;
         &lt;property name="running" value="${mgr.context.path}:running"/&gt;
         &lt;property name="stopped" value="${mgr.context.path}:stopped"/&gt;
-    
+
         &lt;list url="${mgr.url}"
             outputproperty="ctx.status"
             username="${mgr.username}"
             password="${mgr.password}"&gt;
         &lt;/list&gt;
-        
+
         &lt;condition property="context.running"&gt;
             &lt;contains string="${ctx.status}" substring="${running}"/&gt;
         &lt;/condition&gt;
@@ -1254,6 +1231,37 @@ http://webserver/manager/jmxproxy/?qry=STUFF
     you may run.
   </blockquote></td></tr></table>
 
+  <table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#828DA6"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="JMX Get command"><!--()--></a><a name="JMX_Get_command"><strong>JMX Get command</strong></a></font></td></tr><tr><td><blockquote>
+    The JXMProxyServlet also supports a "get" command that you can use to
+    fetch the value of a specific MBean's attribute. The general form of
+    the <code>get</code> command is:
+
+    <div align="left"><table cellspacing="4" cellpadding="0" border="0"><tr><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#ffffff" height="1"><pre>
+      http://webserver/manager/jmxproxy/?get=BEANNAME&amp;att=MYATTRIBUTE&amp;key=MYKEY
+    </pre></td><td bgcolor="#023264" width="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr></table></div>
+
+    You must provide the following parameters:
+    <ol>
+      <li><code>get</code>: The full bean name</li>
+      <li><code>att</code>: The attribute you wish to fetch</li>
+      <li><code>key</code>: (optional) The key into a CompositeData MBean attribute</li>
+    </ol>
+
+    If all goes well, then it will say OK, otherwise an error message will
+    be shown. For example, let's say we wish to fetch the current heap memory
+    data:
+
+    <div align="left"><table cellspacing="4" cellpadding="0" border="0"><tr><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#ffffff" height="1"><pre>
+      http://webserver/manager/jmxproxy/?get=java.lang:type=Memory&amp;att=HeapMemoryUsage
+    </pre></td><td bgcolor="#023264" width="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr></table></div>
+
+    Or, if you only want the "used" key:
+
+    <div align="left"><table cellspacing="4" cellpadding="0" border="0"><tr><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#ffffff" height="1"><pre>
+      http://webserver/manager/jmxproxy/?get=java.lang:type=Memory&amp;att=HeapMemoryUsage&amp;key=used
+    </pre></td><td bgcolor="#023264" width="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr></table></div>
+  </blockquote></td></tr></table>
+
   <table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#828DA6"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="JMX Set command"><!--()--></a><a name="JMX_Set_command"><strong>JMX Set command</strong></a></font></td></tr><tr><td><blockquote>
     Now that you can query an MBean, its time to muck with Tomcat's internals!
     The general form of the set command is :
@@ -1290,7 +1298,19 @@ Error: java.lang.NumberFormatException: For input string: "cowbell"
 </pre></td><td bgcolor="#023264" width="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr></table></div>
   </blockquote></td></tr></table>
 
+  <table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#828DA6"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="JMX Invoke command"><!--()--></a><a name="JMX_Invoke_command"><strong>JMX Invoke command</strong></a></font></td></tr><tr><td><blockquote>
+    <p>The <code>invoke</code> command enables methods to be called on MBeans. The
+    general form of the command is:</p>
+<div align="left"><table cellspacing="4" cellpadding="0" border="0"><tr><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#ffffff" height="1"><pre>
+http://webserver/manager/jmxproxy/?invoke=BEANNAME&amp;op=METHODNAME&amp;ps=COMMASEPARATEDPARAMETERS
+</pre></td><td bgcolor="#023264" width="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr></table></div>
+    <p>For example, to call the <code>findConnectors()</code> method of the
+    <strong>Service</strong> use:</p>
+<div align="left"><table cellspacing="4" cellpadding="0" border="0"><tr><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#ffffff" height="1"><pre>
+http://localhost:8080/manager/jmxproxy/?invoke=Catalina%3Atype%3DService&amp;op=findConnectors&amp;ps=
+</pre></td><td bgcolor="#023264" width="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr></table></div>
+  </blockquote></td></tr></table>
 
 </blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr noshade size="1"></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font color="#525D76" size="-1"><em>
-        Copyright &copy; 1999-2010, Apache Software Foundation
+        Copyright &copy; 1999-2012, Apache Software Foundation
         </em></font></div></td></tr></table></body></html>

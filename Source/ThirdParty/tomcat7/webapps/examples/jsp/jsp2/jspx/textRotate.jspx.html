@@ -15,9 +15,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-&lt;!-- 
+&lt;!--
   - This example is based off the textRotate.svg example that comes
-  - with Batik.  The original example was written by Bill Haneman.
+  - with Apache Batik.  The original example was written by Bill Haneman.
   - This version by Mark Roth.
   -->
 &lt;svg xmlns="http://www.w3.org/2000/svg"
@@ -39,14 +39,14 @@
         &lt;jsp:text>
           &lt;![CDATA[&lt;g opacity="0.95" transform="scale(1.05) rotate(15)">]]>
         &lt;/jsp:text>
-        &lt;text x="0" y="0" transform="scale(1.6, 1.6)" fill="DarkSlateBlue" 
-              text-anchor="middle" font-size="40" font-family="Serif" 
+        &lt;text x="0" y="0" transform="scale(1.6, 1.6)" fill="DarkSlateBlue"
+              text-anchor="middle" font-size="40" font-family="Serif"
               id="words">${name}&lt;/text>
       &lt;/c:forEach>
       &lt;c:forEach var="i" begin="1" end="24">
         &lt;jsp:text>&lt;![CDATA[&lt;/g>]]>&lt;/jsp:text>
       &lt;/c:forEach>
-      &lt;text style="font-size:75;font-family:Serif;fill:white" 
+      &lt;text style="font-size:75;font-family:Serif;fill:white"
             text-anchor="middle">${name}&lt;/text>
     &lt;/g>
   &lt;/g>

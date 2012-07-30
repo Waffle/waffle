@@ -1,5 +1,4 @@
-<html>
-<!--
+<%--
  Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
   this work for additional information regarding copyright ownership.
@@ -14,8 +13,8 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
--->
-
+--%>
+<html>
 <jsp:useBean id="cart" scope="session" class="sessions.DummyCart" />
 
 <jsp:setProperty name="cart" property="*" />
@@ -27,11 +26,11 @@
 <FONT size = 5 COLOR="#CC0000">
 <br> You have the following items in your cart:
 <ol>
-<% 
+<%
     String[] items = cart.getItems();
     for (int i=0; i<items.length; i++) {
 %>
-<li> <% out.print(util.HTMLFilter.filter(items[i])); %> 
+<li> <% out.print(util.HTMLFilter.filter(items[i])); %>
 <%
     }
 %>

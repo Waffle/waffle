@@ -14,9 +14,6 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 --%>
-<%
-  response.setHeader("WWW-Authenticate", "Basic realm=\"Tomcat Host Manager Application\"");
-%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
  <head>
@@ -40,7 +37,7 @@
     and you have used your browsers back button, used a saved book-mark or
     similar then you may have triggered the cross-site request forgery (CSRF)
     protection that has been enabled for the HTML interface of the Host Manager
-    application. You will need to reset this protection by returning to the 
+    application. You will need to reset this protection by returning to the
     <a href="<%=request.getContextPath()%>/html">main Host Manager page</a>.
     Once you return to this page, you will be able to continue using the Host
     Manager appliction's HTML interface normally. If you continue to see this
@@ -76,10 +73,10 @@
     To maintain the CSRF protection:
    </p>
    <ul>
-    <li>users with the <tt>admin-gui</tt> role should not be granted the
-       <tt>manager-script</tt> role.</li>
-    <li>if the text interface is accessed through a browser (e.g. for testing
-        since this interfaces is intended for tools not humans) then the browser
+    <li>Users with the <tt>admin-gui</tt> role should not be granted the
+       <tt>admin-script</tt> role.</li>
+    <li>If the text interface is accessed through a browser (e.g. for testing
+        since this interface is intended for tools not humans) then the browser
         must be closed afterwards to terminate the session.</li>
    </ul>
  </body>
