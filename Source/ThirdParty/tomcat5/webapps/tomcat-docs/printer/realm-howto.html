@@ -322,7 +322,7 @@ default <code>$CATALINA_HOME/conf/server.xml</code> file.  Here's an example
 for using a MySQL database called "authority", configured with the tables
 described above, and accessed with username "dbuser" and password "dbpass":</p>
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
-&lt;Realm className="org.apache.catalina.realm.JDBCRealm" debug="99"
+&lt;Realm className="org.apache.catalina.realm.JDBCRealm"
       driverName="org.gjt.mm.mysql.Driver"
    connectionURL="jdbc:mysql://localhost/authority?user=dbuser&amp;amp;password=dbpass"
        userTable="users" userNameCol="user_name" userCredCol="user_pass"
@@ -434,7 +434,7 @@ create table user_roles (
 with the tables described above, and accessed with the JNDI JDBC DataSource with
 name "java:/comp/env/jdbc/authority".</p>
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
-&lt;Realm className="org.apache.catalina.realm.DataSourceRealm" debug="99"
+&lt;Realm className="org.apache.catalina.realm.DataSourceRealm"
    dataSourceName="jdbc/authority"
    userTable="users" userNameCol="user_name" userCredCol="user_pass"
    userRoleTable="user_roles" roleNameCol="role_name"/&gt;
@@ -745,7 +745,7 @@ application and that an anonymous connection is sufficient to search
 the directory and retrieve role information:</p>
 
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
-&lt;Realm   className="org.apache.catalina.realm.JNDIRealm" debug="99"
+&lt;Realm   className="org.apache.catalina.realm.JNDIRealm"
      connectionURL="ldap://localhost:389"
        userPattern="uid={0},ou=people,dc=mycompany,dc=com"
           roleBase="ou=groups,dc=mycompany,dc=com"
@@ -785,7 +785,7 @@ userPassword: janet
 <p> This realm configuration would satisfy the new requirements:</p>
 
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
-&lt;Realm   className="org.apache.catalina.realm.JNDIRealm" debug="99"
+&lt;Realm   className="org.apache.catalina.realm.JNDIRealm"
      connectionURL="ldap://localhost:389"
           userBase="ou=people,dc=mycompany,dc=com"
         userSearch="(mail={0})"
@@ -810,7 +810,7 @@ the password from the directory and making a local comparison in the
 realm, you might use a realm configuration like this:</p>
 
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
-&lt;Realm   className="org.apache.catalina.realm.JNDIRealm" debug="99"
+&lt;Realm   className="org.apache.catalina.realm.JNDIRealm"
     connectionName="cn=Manager,dc=mycompany,dc=com"
 connectionPassword="secret"
      connectionURL="ldap://localhost:389"
@@ -1072,11 +1072,10 @@ documentation</a>.</p>
 <p>Here is an example of how your server.xml snippet should look.</p>
 
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
-&lt;Realm className="org.apache.catalina.realm.JAASRealm"                 
-                appName="MyFooRealm"       
-    userClassNames="org.foobar.realm.FooUser"       
-     roleClassNames="org.foobar.realm.FooRole" 
-                      debug="99"/&gt;
+&lt;Realm className="org.apache.catalina.realm.JAASRealm"
+                appName="MyFooRealm"
+    userClassNames="org.foobar.realm.FooUser"
+    roleClassNames="org.foobar.realm.FooRole"/&gt;
 </pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td></tr></table></div>
 
 <p>It is the responsibility of your login module to create and save User and 
@@ -1119,5 +1118,5 @@ and restarting the server, without any code changes to your application.</li>
 
 
 </blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade="noshade"></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
-        Copyright &copy; 1999-2010, Apache Software Foundation
+        Copyright &copy; 1999-2012, Apache Software Foundation
         </em></font></div></td></tr></table></body></html>

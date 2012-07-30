@@ -23,7 +23,8 @@
 <p>To install and configure SSL support on Tomcat 5, you need to follow
 these simple steps.  For more information, read the rest of this HOW-TO.</p>
 <ol>
-<li>Create a certificate keystore by executing the following command:
+<li>Create a keystore file to store the server's private key and
+self-signed certificate by executing the following command:
 <p>Windows:</p>
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 %JAVA_HOME%\bin\keytool -genkey -alias tomcat -keyalg RSA
@@ -332,13 +333,17 @@ file installed with Tomcat.  For JSSE, it should look something like this:</p>
 </pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td></tr></table></div>
 </p>
 
-<p>You will note that the Connector element itself is commented out by default,
-so you will need to remove the comment tags around it.  Then, you can
-customize the specified attributes as necessary.  For detailed information
-about the various options, consult the
-<a href="../config/index.html">Server Configuration Reference</a>.  The
-following discussion covers only those attributes of most interest when
-setting up SSL communication.</p>
+<p>You will note that the example SSL connector elements are commented out by
+default. You can either remove the comment tags from around the the example SSL
+connector you wish to use or add a new Connector element of your own. In either
+case, you will need to configure the SSL Connector for your requirements
+and environment. The configuration options and information on which attributes
+are mandatory for the JSSE based connector (BIO) are documented in the
+SSL Support section of the <a href="../config/http.html#SSL Support">HTTP
+connector</a> configuration reference. The configuration options and information
+on which attributes are mandatory for the APR connector are documented in the
+HTTPS section of the <a href="apr.html#HTTPS">APR How-To</a>.</p>
+
 
 <p>The <code>port</code> attribute (default value is 8443) is the TCP/IP
 port number on which Tomcat will listen for secure connections.  You can
@@ -354,15 +359,6 @@ numbers lower than 1024 on many operating systems.</p>
   users who attempt to access a page with a security constraint specifying
   that SSL is required, as required by the Servlet Specification.</p>
   </em></blockquote>
-
-<p>There are additional options used to configure the SSL protocol. You may
-need to add or change some attributes, depending on how you configured your
-keystore earlier. If you are using a Java JSSE based SSL connector then
-configuration options are documented in the
-<a href="../config/http.html">Java HTTP connector</a> configuration
-reference. If you are using the APR/native connector then refer to the
-<a href="apr.html">APR connector</a> configuration guide for details of the
-available configuration options.</p>
 
 <p>After completing these configuration changes, you must restart Tomcat as
 you normally do, and you should be in business.  You should be able to access
@@ -476,7 +472,7 @@ SSL communications, and what to do about them.</p>
     enabled."
     <blockquote>
     <p>A likely explanation is that Tomcat cannot find the alias for the server
-    key withinthe specified keystore. Check that the correct
+    key within the specified keystore. Check that the correct
     <code>keystoreFile</code> and <code>keyAlias</code> are specified in the
     <code>&lt;Connector&gt;</code> element in the
     <a href="#Edit the Tomcat Configuration File">Tomcat configuration file</a>.
@@ -510,5 +506,5 @@ discussion in
 </p>
 
 </blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade="noshade"></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
-        Copyright &copy; 1999-2010, Apache Software Foundation
+        Copyright &copy; 1999-2012, Apache Software Foundation
         </em></font></div></td></tr></table></body></html>

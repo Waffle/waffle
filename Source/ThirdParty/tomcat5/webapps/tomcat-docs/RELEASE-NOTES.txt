@@ -16,11 +16,11 @@
 ================================================================================
 
 
-                     Apache Tomcat Version 5.5.31
+                     Apache Tomcat Version 5.5.35
                             Release Notes
 
 
-$Id: RELEASE-NOTES 786654 2009-06-19 20:25:01Z markt $
+$Id: RELEASE-NOTES 1199157 2011-11-08 08:38:55Z kkolinko $
 
 
 =============================
@@ -85,8 +85,8 @@ A standard installation of Tomcat 5.5 makes all of the following APIs available
 for use by web applications (by placing them in "common/lib" or "shared/lib"):
 * commons-el.jar (Commons Expression Language 1.0)
 * commons-logging-api.jar (Commons Logging API 1.0.x)
+* ecj-x.y.z.jar (Eclipse JDT Java compiler)
 * jasper-compiler.jar (Jasper 2 Compiler)
-* jasper-compiler-jdt.jar (Eclipse JDT Java compiler)
 * jasper-runtime.jar (Jasper 2 Runtime)
 * jsp-api.jar (JSP 2.0 API)
 * naming-common.jar (JNDI Context implementation)
@@ -136,7 +136,7 @@ export LD_ASSUME_KERNEL=2.4.1
 Please note, that these are only recommendations and may not apply in some cases.
 Before you change this variable, make sure you understand its impact, and what it does.
 A brief explanation can be found in the mailing archives at 
-http://marc.theaimsgroup.com/?l=tomcat-dev&m=115689139313901&w=2
+http://marc.info/?l=tomcat-dev&m=115689139313901&w=2
 For further assistance, please consult your JVM vendor.
 
 

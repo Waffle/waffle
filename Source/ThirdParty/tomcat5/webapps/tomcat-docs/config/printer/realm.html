@@ -82,7 +82,18 @@
     connection to the underlying database, as well as the table and
     column names used to retrieve the required information:</p>
 
-    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>connectionName</code></strong></td><td valign="center" align="left">
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>allRolesMode</code></td><td valign="center" align="left">
+        <p>This attribute controls how the special role name <code>*</code> is
+        handled when processing authorization constraints in web.xml. By
+        default, the specification compliant value of <code>strict</code> is
+        used which means that the user must be assigned one of the roles defined
+        in web.xml. The alternative values are <code>authOnly</code> which means
+        that the user must be authenticated but no check is made for assigned
+        roles and <code>strictAuthOnly</code> which means that the user must be
+        authenticated and no check will be made for assigned roles unless roles
+        are defined in web.xml in which case the user must be assigned at least
+        one of those roles.</p>
+      </td></tr><tr><td valign="center" align="left"><strong><code>connectionName</code></strong></td><td valign="center" align="left">
         <p>The database username to use when establishing the JDBC
         connection.</p>
       </td></tr><tr><td valign="center" align="left"><strong><code>connectionPassword</code></strong></td><td valign="center" align="left">
@@ -148,7 +159,18 @@
     of the JNDI JDBC DataSource, as well as the table and
     column names used to retrieve the required information:</p>
 
-    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>dataSourceName</code></strong></td><td valign="center" align="left">
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>allRolesMode</code></td><td valign="center" align="left">
+        <p>This attribute controls how the special role name <code>*</code> is
+        handled when processing authorization constraints in web.xml. By
+        default, the specification compliant value of <code>strict</code> is
+        used which means that the user must be assigned one of the roles defined
+        in web.xml. The alternative values are <code>authOnly</code> which means
+        that the user must be authenticated but no check is made for assigned
+        roles and <code>strictAuthOnly</code> which means that the user must be
+        authenticated and no check will be made for assigned roles unless roles
+        are defined in web.xml in which case the user must be assigned at least
+        one of those roles.</p>
+      </td></tr><tr><td valign="center" align="left"><strong><code>dataSourceName</code></strong></td><td valign="center" align="left">
         <p>The JNDI named JDBC DataSource for your database. If the DataSource
         is local to the context, the name is relative to
         <code>java:/comp/env</code>, and otherwise the name should match the
@@ -229,7 +251,18 @@
     directory and the element and attribute names used to retrieve
     information from the directory:</p>
 
-    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>alternateURL</code></td><td valign="center" align="left">
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>allRolesMode</code></td><td valign="center" align="left">
+        <p>This attribute controls how the special role name <code>*</code> is
+        handled when processing authorization constraints in web.xml. By
+        default, the specification compliant value of <code>strict</code> is
+        used which means that the user must be assigned one of the roles defined
+        in web.xml. The alternative values are <code>authOnly</code> which means
+        that the user must be authenticated but no check is made for assigned
+        roles and <code>strictAuthOnly</code> which means that the user must be
+        authenticated and no check will be made for assigned roles unless roles
+        are defined in web.xml in which case the user must be assigned at least
+        one of those roles.</p>
+      </td></tr><tr><td valign="center" align="left"><code>alternateURL</code></td><td valign="center" align="left">
          <p>If a socket connection can not be made to the provider at
          the <code>connectionURL</code> an attempt will be made to use the
          <code>alternateURL</code>.</p>
@@ -357,7 +390,18 @@
     <p>The Memory Based Realm implementation supports the following
     additional attributes:</p>
 
-    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>resourceName</code></strong></td><td valign="center" align="left">
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>allRolesMode</code></td><td valign="center" align="left">
+        <p>This attribute controls how the special role name <code>*</code> is
+        handled when processing authorization constraints in web.xml. By
+        default, the specification compliant value of <code>strict</code> is
+        used which means that the user must be assigned one of the roles defined
+        in web.xml. The alternative values are <code>authOnly</code> which means
+        that the user must be authenticated but no check is made for assigned
+        roles and <code>strictAuthOnly</code> which means that the user must be
+        authenticated and no check will be made for assigned roles unless roles
+        are defined in web.xml in which case the user must be assigned at least
+        one of those roles.</p>
+      </td></tr><tr><td valign="center" align="left"><strong><code>resourceName</code></strong></td><td valign="center" align="left">
         <p>The name of the resource that this realm will use for user, password
         and role information.</p>
       </td></tr></table>
@@ -382,7 +426,18 @@
     <p>The Memory Based Realm implementation supports the following
     additional attributes:</p>
 
-    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>pathname</code></td><td valign="center" align="left">
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>allRolesMode</code></td><td valign="center" align="left">
+        <p>This attribute controls how the special role name <code>*</code> is
+        handled when processing authorization constraints in web.xml. By
+        default, the specification compliant value of <code>strict</code> is
+        used which means that the user must be assigned one of the roles defined
+        in web.xml. The alternative values are <code>authOnly</code> which means
+        that the user must be authenticated but no check is made for assigned
+        roles and <code>strictAuthOnly</code> which means that the user must be
+        authenticated and no check will be made for assigned roles unless roles
+        are defined in web.xml in which case the user must be assigned at least
+        one of those roles.</p>
+      </td></tr><tr><td valign="center" align="left"><code>pathname</code></td><td valign="center" align="left">
         <p>Absolute or relative (to $CATALINA_HOME) pathname to the XML file
         containing our user information.  See below for details on the
         XML element format required.  If no pathname is specified, the
@@ -437,7 +492,18 @@
     <p>The JAAS Realm implementation supports the following additional
     attributes:</p>
 
-    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>appName</code></strong></td><td valign="center" align="left">
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>allRolesMode</code></td><td valign="center" align="left">
+        <p>This attribute controls how the special role name <code>*</code> is
+        handled when processing authorization constraints in web.xml. By
+        default, the specification compliant value of <code>strict</code> is
+        used which means that the user must be assigned one of the roles defined
+        in web.xml. The alternative values are <code>authOnly</code> which means
+        that the user must be authenticated but no check is made for assigned
+        roles and <code>strictAuthOnly</code> which means that the user must be
+        authenticated and no check will be made for assigned roles unless roles
+        are defined in web.xml in which case the user must be assigned at least
+        one of those roles.</p>
+      </td></tr><tr><td valign="center" align="left"><strong><code>appName</code></strong></td><td valign="center" align="left">
         <p>The name of the application as configured in your login configuration
         file (<a href="http://java.sun.com/j2se/1.4.1/docs/guide/security/jaas/tutorials/LoginConfigFile.html">
         JAAS LoginConfig</a>).</p>
@@ -472,5 +538,5 @@
   configuring Single Sign On support for a virtual host.</p>
 
 </blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade="noshade"></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
-        Copyright &copy; 1999-2010, Apache Software Foundation
+        Copyright &copy; 1999-2012, Apache Software Foundation
         </em></font></div></td></tr></table></body></html>

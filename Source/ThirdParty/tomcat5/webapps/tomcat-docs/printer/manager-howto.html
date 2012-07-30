@@ -44,7 +44,7 @@ Manager web application <code>Context</code> to a new host install the
 <code>$CATALINA_HOME/conf/[enginename]/[hostname]</code> folder. Here is an
 example:
 <pre>
-&lt;Context path="/manager" debug="0" privileged="true"
+&lt;Context privileged="true"
          docBase="/usr/local/kinetic/tomcat5/server/webapps/manager"&gt;
 &lt;/Context&gt;
 </pre>
@@ -53,7 +53,7 @@ example:
 <p>If you have Tomcat configured to support multiple virtual hosts
 (websites) you would need to configure a Manager for each.</p>
 
-<p>There are three ways to use the <code>Manager</code> web application.
+<p>There are three ways to use the <strong>Manager</strong> web application.
 <ul>
 <li>As an application with a user interface you use in your browser.
 Here is an example URL where you can replace <code>localhost</code> with
@@ -136,8 +136,7 @@ could be restricted by the remote IP address or host by adding a
 <code>RemoteAddrValve</code> or <code>RemoteHostValve</code>.  Here is
 an example of restricting access to the localhost by IP address:
 <pre>
-&lt;Context path="/manager" debug="0" privileged="true"
-         docBase="/usr/local/kinetic/tomcat5/server/webapps/manager"&gt;
+&lt;Context privileged="true"&gt;
          &lt;Valve className="org.apache.catalina.valves.RemoteAddrValve"
                 allow="127\.0\.0\.1"/&gt;
 &lt;/Context&gt;
@@ -357,8 +356,7 @@ web application Context just as if it were configured in your
 Tomcat <code>server.xml</code> configuration file. Here is an
 example:
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
-&lt;Context path="/foobar" docBase="/path/to/application/foobar"
-         debug="0"&gt;
+&lt;Context path="/foobar" docBase="/path/to/application/foobar"&gt;
 
   &lt;!-- Link to the user database we will get roles from --&gt;
   &lt;ResourceLink name="users" global="UserDatabase"
@@ -1251,5 +1249,5 @@ Error: java.lang.NumberFormatException: For input string: "cowbell"
 
 
 </blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade="noshade"></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
-        Copyright &copy; 1999-2010, Apache Software Foundation
+        Copyright &copy; 1999-2012, Apache Software Foundation
         </em></font></div></td></tr></table></body></html>
