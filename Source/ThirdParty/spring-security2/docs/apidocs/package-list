@@ -1,4 +1,3 @@
-
 org.springframework.security
 org.springframework.security.acl
 org.springframework.security.acl.basic
@@ -20,6 +19,7 @@ org.springframework.security.context.httpinvoker
 org.springframework.security.context.rmi
 org.springframework.security.event.authentication
 org.springframework.security.event.authorization
+org.springframework.security.firewall
 org.springframework.security.intercept
 org.springframework.security.intercept.method
 org.springframework.security.intercept.method.aopalliance
@@ -82,4 +82,3 @@ org.springframework.security.userdetails.memory
 org.springframework.security.util
 org.springframework.security.vote
 org.springframework.security.wrapper
-org.springframework.web.portlet.sample
