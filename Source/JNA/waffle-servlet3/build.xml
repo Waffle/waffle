@@ -8,7 +8,7 @@
 	<import file="${basedir}/../build/build.xml" />
 	<path id="javax.classpath">
 		<fileset dir="${thirdparty.dir}/javax">
-			<include name="*.jar" />
+			<include name="javax.servlet-api.jar" />
 		</fileset>
 	</path>
 	<path id="project.classpath">
