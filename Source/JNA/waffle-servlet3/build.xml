@@ -7,8 +7,8 @@
 	<path id="waffle-mock.classpath" location="${common.build}/waffle-mock.jar" />
 	<import file="${basedir}/../build/build.xml" />
 	<path id="javax.classpath">
-		<fileset dir="${thirdparty.dir}/javax">
-			<include name="javax.servlet-api.jar" />
+		<fileset dir="${thirdparty.dir}/javax/servlet3">
+			<include name="*.jar" />
 		</fileset>
 	</path>
 	<path id="project.classpath">
