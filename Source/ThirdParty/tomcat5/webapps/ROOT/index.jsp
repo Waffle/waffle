@@ -148,7 +148,6 @@
                     <a href="http://tomcat.apache.org/">Home&nbsp;Page</a><br/>
 		    <a href="http://tomcat.apache.org/faq/">FAQ</a><br/>
                     <a href="http://tomcat.apache.org/bugreport.html">Bug&nbsp;Database</a><br/>
-                    <a href="http://issues.apache.org/bugzilla/buglist.cgi?bug_status=UNCONFIRMED&amp;bug_status=NEW&amp;bug_status=ASSIGNED&amp;bug_status=REOPENED&amp;bug_status=RESOLVED&amp;resolution=LATER&amp;resolution=REMIND&amp;resolution=---&amp;bugidtype=include&amp;product=Tomcat+5&amp;cmdtype=doit&amp;order=Importance">Open Bugs</a><br/>
                     <a href="http://mail-archives.apache.org/mod_mbox/tomcat-users/">Users&nbsp;Mailing&nbsp;List</a><br/>
                     <a href="http://mail-archives.apache.org/mod_mbox/tomcat-dev/">Developers&nbsp;Mailing&nbsp;List</a><br/>
                     <a href="irc://irc.freenode.net/#tomcat">IRC</a><br/>
@@ -222,7 +221,7 @@
             <p id="footer"><img src="tomcat-power.gif" width="77" height="80" alt="Powered by Tomcat"/><br/>
 	    &nbsp;
 
-	    Copyright &copy; 1999-2010 Apache Software Foundation<br/>
+	    Copyright &copy; 1999-2012 Apache Software Foundation<br/>
             All Rights Reserved
             </p>
         </td>

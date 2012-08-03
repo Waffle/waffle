@@ -25,25 +25,28 @@
     <p>
       <ul>
         <li><strong>Installation as a service</strong>: Tomcat will be 
-            installed as a Windows
-            NT/2k/XP service no matter what setting is selected. Using the
-            checkbox on the component page sets the service as "auto"
+            installed as a Windows service no matter what setting is selected.
+            Using the checkbox on the component page sets the service as "auto"
             startup, so that Tomcat is automatically started when Windows
             starts. For optimal security, the service should be run as a
             separate user, with reduced permissions (see the Windows Services
             administration tool and its documentation).</li>
-        <li><strong>Java location</strong>: The installer will use the registry
-            or the JAVA_HOME environment variable to determine the base path
-            of a J2SE 5 JRE.
-            </li>
+        <li><strong>Java location</strong>: The installer will provide a default
+            JRE to use to run the service. The installer uses the registry to
+            determine the base path of a JRE, including the JRE
+            installed as part of the full JDK. When running on a 64-bit
+            operating system, the installer will first look for a 64-bit JRE and
+            only look for a 32-bit JRE if a 64-bit JRE is not found. It is not
+            mandatory to use the default JRE detected by the installer. You
+            may select any installed 32-bit or 64-bit Java 5 or later JRE.</li>
         <li><strong>Tray icon</strong>: When Tomcat is run as a service, there
             will be a tray icon visible.  Note that
             when choosing to run Tomcat at the end of installation, the tray
             icon will be loaded at the same time.</li>
         <li>Refer to the
             <a href="windows-service-howto.html">Windows Service HOW-TO</a>
-            for information on how to manage Tomcat as Windows NT service.
-            </li>            
+            for information on how to manage Tomcat as Windows service.
+            </li>
       </ul>
     </p>
 
@@ -51,9 +54,12 @@
        Tomcat. It is important to note that the Tomcat administration web 
        application can only be used when Tomcat is running.</p>
 
-    <p>If using a J2SE 1.4 JRE, the compatibility package must be downloaded and
-       expanded inside the folder where Tomcat was installed.</p>
-
+    <p>Note that while Tomcat 5.5 supports running with Java 1.4, the
+       compatibility package required for that is not included in the
+       installer to minimize download size. If you need it, you have to
+       download it and expand into the folder where Tomcat is installed.
+       See <code>RUNNING.txt</code> for details.
+    </p>
   </blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Unix daemon"><!--()--></a><a name="Unix_daemon"><strong>Unix daemon</strong></a></font></td></tr><tr><td><blockquote>
 
     <p>Tomcat can be run as a daemon using the jsvc tool from the 
@@ -79,7 +85,7 @@
 
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
     cd $CATALINA_HOME/bin
-    tar xvfz commons-deamon-native.tar.gz
+    tar xvfz commons-daemon-native.tar.gz
     cd commons-daemon-1.0.x-native-src/unix
     ./configure
     make
@@ -117,5 +123,5 @@
        jsvc.</p> 
 
   </blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade="noshade"></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
-        Copyright &copy; 1999-2010, Apache Software Foundation
+        Copyright &copy; 1999-2012, Apache Software Foundation
         </em></font></div></td></tr></table></body></html>

@@ -1,16 +1,16 @@
 /*******************************************************************************
-* Waffle (https://github.com/dblock/waffle)
-* 
-* Copyright (c) 2010 Application Security, Inc.
-* 
-* All rights reserved. This program and the accompanying materials
-* are made available under the terms of the Eclipse Public License v1.0
-* which accompanies this distribution, and is available at
-* http://www.eclipse.org/legal/epl-v10.html
-*
-* Contributors:
-*     Application Security, Inc.
-*******************************************************************************/
+ * Waffle (https://github.com/dblock/waffle)
+ * 
+ * Copyright (c) 2010 Application Security, Inc.
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Application Security, Inc.
+ *******************************************************************************/
 package waffle.apache.catalina;
 
 import java.beans.PropertyChangeListener;
@@ -50,7 +50,7 @@ public class SimpleContext implements Context {
 
 	private Realm _realm = null;
 	private ServletContext _servletContext = new SimpleServletContext();
-	
+
 	@Override
 	public void addApplicationListener(String arg0) {
 
@@ -161,21 +161,18 @@ public class SimpleContext implements Context {
 		return null;
 	}
 
-	
 	@Override
 	public SecurityConstraint[] findConstraints() {
 
 		return null;
 	}
 
-	
 	@Override
 	public ErrorPage findErrorPage(int arg0) {
 
 		return null;
 	}
 
-	
 	@Override
 	public ErrorPage findErrorPage(String arg0) {
 
@@ -191,18 +188,17 @@ public class SimpleContext implements Context {
 	public FilterDef findFilterDef(String arg0) {
 		return null;
 	}
-	
+
 	@Override
 	public FilterDef[] findFilterDefs() {
 		return null;
 	}
-	
+
 	@Override
 	public FilterMap[] findFilterMaps() {
 		return null;
 	}
 
-	
 	@Override
 	public String[] findInstanceListeners() {
 		return null;
@@ -212,17 +208,17 @@ public class SimpleContext implements Context {
 	public String findMimeMapping(String arg0) {
 		return null;
 	}
-	
+
 	@Override
 	public String[] findMimeMappings() {
 		return null;
 	}
-	
+
 	@Override
 	public String findParameter(String arg0) {
 		return null;
 	}
-	
+
 	@Override
 	public String[] findParameters() {
 		return null;
@@ -237,7 +233,7 @@ public class SimpleContext implements Context {
 	public boolean findSecurityRole(String arg0) {
 		return false;
 	}
-	
+
 	@Override
 	public String[] findSecurityRoles() {
 		return null;
@@ -247,118 +243,117 @@ public class SimpleContext implements Context {
 	public String findServletMapping(String arg0) {
 		return null;
 	}
-	
+
 	@Override
 	public String[] findServletMappings() {
 		return null;
 	}
-	
+
 	@Override
 	public String findStatusPage(int arg0) {
 		return null;
 	}
-	
+
 	@Override
 	public int[] findStatusPages() {
 		return null;
 	}
-	
+
 	@Override
 	public String findTaglib(String arg0) {
 		return null;
 	}
-	
+
 	@Override
 	public String[] findTaglibs() {
 		return null;
 	}
-	
+
 	@Override
 	public String[] findWatchedResources() {
 		return null;
 	}
-	
+
 	@Override
 	public boolean findWelcomeFile(String arg0) {
 		return false;
 	}
-	
+
 	@Override
 	public String[] findWelcomeFiles() {
 		return null;
 	}
-	
+
 	@Override
 	public String[] findWrapperLifecycles() {
 		return null;
 	}
-	
+
 	@Override
 	public String[] findWrapperListeners() {
 		return null;
 	}
-	
+
 	@Override
 	public String getAltDDName() {
 		return null;
 	}
-	
+
 	@Override
 	public Object[] getApplicationEventListeners() {
 		return null;
 	}
-	
+
 	@Override
 	public Object[] getApplicationLifecycleListeners() {
 		return null;
 	}
-	
+
 	@Override
 	public boolean getAvailable() {
 		return false;
 	}
-	
+
 	@Override
 	public CharsetMapper getCharsetMapper() {
 		return null;
 	}
 
-	
 	@Override
 	public String getConfigFile() {
 		return null;
 	}
-	
+
 	@Override
 	public boolean getConfigured() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean getCookies() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean getCrossContext() {
 		return false;
 	}
-	
+
 	@Override
 	public String getDisplayName() {
 		return null;
 	}
-	
+
 	@Override
 	public boolean getDistributable() {
 		return false;
 	}
-	
+
 	@Override
 	public String getDocBase() {
 		return null;
 	}
-	
+
 	@Override
 	public String getEncodedPath() {
 		return null;
@@ -368,17 +363,17 @@ public class SimpleContext implements Context {
 	public boolean getIgnoreAnnotations() {
 		return false;
 	}
-	
+
 	@Override
 	public LoginConfig getLoginConfig() {
 		return null;
 	}
-	
+
 	@Override
 	public Mapper getMapper() {
 		return null;
 	}
-	
+
 	@Override
 	public NamingResources getNamingResources() {
 		return null;
@@ -388,117 +383,117 @@ public class SimpleContext implements Context {
 	public boolean getOverride() {
 		return false;
 	}
-	
+
 	@Override
 	public String getPath() {
 		return null;
 	}
-	
+
 	@Override
 	public boolean getPrivileged() {
 		return false;
 	}
-	
+
 	@Override
 	public String getPublicId() {
 		return null;
 	}
-	
+
 	@Override
 	public boolean getReloadable() {
 		return false;
 	}
-	
+
 	@Override
 	public ServletContext getServletContext() {
 		return _servletContext;
 	}
-	
+
 	@Override
 	public int getSessionTimeout() {
 		return 0;
 	}
-	
+
 	@Override
 	public boolean getSwallowOutput() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean getTldNamespaceAware() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean getTldValidation() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean getUseHttpOnly() {
 		return false;
 	}
-	
+
 	@Override
 	public String getWrapperClass() {
 		return null;
 	}
-	
+
 	@Override
 	public boolean getXmlNamespaceAware() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean getXmlValidation() {
 		return false;
 	}
-	
+
 	@Override
 	public void reload() {
 
 	}
-	
+
 	@Override
 	public void removeApplicationListener(String arg0) {
 
 	}
-	
+
 	@Override
 	public void removeApplicationParameter(String arg0) {
 
 	}
-	
+
 	@Override
 	public void removeConstraint(SecurityConstraint arg0) {
 
 	}
-	
+
 	@Override
 	public void removeErrorPage(ErrorPage arg0) {
 
 	}
-	
+
 	@Override
 	public void removeFilterDef(FilterDef arg0) {
 
 	}
-	
+
 	@Override
 	public void removeFilterMap(FilterMap arg0) {
 
 	}
-	
+
 	@Override
 	public void removeInstanceListener(String arg0) {
 
 	}
-	
+
 	@Override
 	public void removeMimeMapping(String arg0) {
 
 	}
-	
+
 	@Override
 	public void removeParameter(String arg0) {
 
@@ -508,32 +503,32 @@ public class SimpleContext implements Context {
 	public void removeRoleMapping(String arg0) {
 
 	}
-	
+
 	@Override
 	public void removeSecurityRole(String arg0) {
 
 	}
-	
+
 	@Override
 	public void removeServletMapping(String arg0) {
 
 	}
-	
+
 	@Override
 	public void removeTaglib(String arg0) {
 
 	}
-	
+
 	@Override
 	public void removeWatchedResource(String arg0) {
 
 	}
-	
+
 	@Override
 	public void removeWelcomeFile(String arg0) {
 
 	}
-	
+
 	@Override
 	public void removeWrapperLifecycle(String arg0) {
 
@@ -553,22 +548,22 @@ public class SimpleContext implements Context {
 	public void setApplicationEventListeners(Object[] arg0) {
 
 	}
-	
+
 	@Override
 	public void setApplicationLifecycleListeners(Object[] arg0) {
 
 	}
-	
+
 	@Override
 	public void setAvailable(boolean arg0) {
 
 	}
-	
+
 	@Override
 	public void setCharsetMapper(CharsetMapper arg0) {
 
 	}
-	
+
 	@Override
 	public void setConfigFile(String arg0) {
 
@@ -578,17 +573,17 @@ public class SimpleContext implements Context {
 	public void setConfigured(boolean arg0) {
 
 	}
-	
+
 	@Override
 	public void setCookies(boolean arg0) {
 
 	}
-	
+
 	@Override
 	public void setCrossContext(boolean arg0) {
 
 	}
-	
+
 	@Override
 	public void setDisplayName(String arg0) {
 
@@ -598,32 +593,32 @@ public class SimpleContext implements Context {
 	public void setDistributable(boolean arg0) {
 
 	}
-	
+
 	@Override
 	public void setDocBase(String arg0) {
 
 	}
-	
+
 	@Override
 	public void setIgnoreAnnotations(boolean arg0) {
 
 	}
-	
+
 	@Override
 	public void setLoginConfig(LoginConfig arg0) {
 
 	}
-	
+
 	@Override
 	public void setNamingResources(NamingResources arg0) {
 
 	}
-	
+
 	@Override
 	public void setOverride(boolean arg0) {
 
 	}
-	
+
 	@Override
 	public void setPath(String arg0) {
 
@@ -633,12 +628,12 @@ public class SimpleContext implements Context {
 	public void setPrivileged(boolean arg0) {
 
 	}
-	
+
 	@Override
 	public void setPublicId(String arg0) {
 
 	}
-	
+
 	@Override
 	public void setReloadable(boolean arg0) {
 
@@ -648,7 +643,7 @@ public class SimpleContext implements Context {
 	public void setSessionTimeout(int arg0) {
 
 	}
-	
+
 	@Override
 	public void setSwallowOutput(boolean arg0) {
 
@@ -663,17 +658,17 @@ public class SimpleContext implements Context {
 	public void setTldValidation(boolean arg0) {
 
 	}
-	
+
 	@Override
 	public void setUseHttpOnly(boolean arg0) {
 
 	}
-	
+
 	@Override
 	public void setWrapperClass(String arg0) {
 
 	}
-	
+
 	@Override
 	public void setXmlNamespaceAware(boolean arg0) {
 
@@ -693,12 +688,12 @@ public class SimpleContext implements Context {
 	public void addContainerListener(ContainerListener arg0) {
 
 	}
-	
+
 	@Override
 	public void addPropertyChangeListener(PropertyChangeListener arg0) {
 
 	}
-	
+
 	@Override
 	public void backgroundProcess() {
 
@@ -713,17 +708,17 @@ public class SimpleContext implements Context {
 	public Container[] findChildren() {
 		return null;
 	}
-	
+
 	@Override
 	public ContainerListener[] findContainerListeners() {
 		return null;
 	}
-	
+
 	@Override
 	public int getBackgroundProcessorDelay() {
 		return 0;
 	}
-	
+
 	@Override
 	public Cluster getCluster() {
 		return null;
@@ -733,52 +728,52 @@ public class SimpleContext implements Context {
 	public String getInfo() {
 		return null;
 	}
-	
+
 	@Override
 	public Loader getLoader() {
 		return null;
 	}
-	
+
 	@Override
 	public Log getLogger() {
 		return null;
 	}
-	
+
 	@Override
 	public Manager getManager() {
 		return null;
 	}
-	
+
 	@Override
 	public Object getMappingObject() {
 		return null;
 	}
-	
+
 	@Override
 	public String getName() {
 		return null;
 	}
-	
+
 	@Override
 	public String getObjectName() {
 		return null;
 	}
-	
+
 	@Override
 	public Container getParent() {
 		return null;
 	}
-	
+
 	@Override
 	public ClassLoader getParentClassLoader() {
 		return null;
 	}
-	
+
 	@Override
 	public Pipeline getPipeline() {
 		return null;
 	}
-	
+
 	@Override
 	public Realm getRealm() {
 		return _realm;
@@ -788,23 +783,23 @@ public class SimpleContext implements Context {
 	public DirContext getResources() {
 		return null;
 	}
-	
+
 	@Override
 	public void invoke(Request arg0, Response arg1) throws IOException,
 			ServletException {
 
 	}
-	
+
 	@Override
 	public void removeChild(Container arg0) {
 
 	}
-	
+
 	@Override
 	public void removeContainerListener(ContainerListener arg0) {
 
 	}
-	
+
 	@Override
 	public void removePropertyChangeListener(PropertyChangeListener arg0) {
 
@@ -814,17 +809,17 @@ public class SimpleContext implements Context {
 	public void setBackgroundProcessorDelay(int arg0) {
 
 	}
-	
+
 	@Override
 	public void setCluster(Cluster arg0) {
 
 	}
-	
+
 	@Override
 	public void setLoader(Loader arg0) {
 
 	}
-	
+
 	@Override
 	public void setManager(Manager arg0) {
 
@@ -834,22 +829,22 @@ public class SimpleContext implements Context {
 	public void setName(String arg0) {
 
 	}
-	
+
 	@Override
 	public void setParent(Container arg0) {
 
 	}
-	
+
 	@Override
 	public void setParentClassLoader(ClassLoader arg0) {
 
 	}
-	
+
 	@Override
 	public void setRealm(Realm realm) {
 		_realm = realm;
 	}
-	
+
 	@Override
 	public void setResources(DirContext arg0) {
 
@@ -872,17 +867,17 @@ public class SimpleContext implements Context {
 
 	@Override
 	public void setSessionCookieDomain(String arg0) {
-		
+
 	}
 
 	@Override
 	public void setSessionCookieName(String arg0) {
-		
+
 	}
 
 	@Override
 	public void setSessionCookiePath(String arg0) {
-		
+
 	}
 
 	@Override
@@ -892,7 +887,7 @@ public class SimpleContext implements Context {
 
 	@Override
 	public void logAccess(Request arg0, Response arg1, long arg2, boolean arg3) {
-		
+
 	}
 
 	@Override
@@ -902,6 +897,6 @@ public class SimpleContext implements Context {
 
 	@Override
 	public void setDisableURLRewriting(boolean arg0) {
-		
+
 	}
 }

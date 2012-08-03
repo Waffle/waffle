@@ -28,10 +28,13 @@
       <p>The TCP/IP port number on which this server waits for a shutdown
       command.  This connection must be initiated from the same server
       computer that is running this instance of Tomcat. Set to <code>-1</code>
-      to disable the shutdown port. Note: Disabling the shutdown port will
-      prevent shutdown.bat and catalina.bat from stopping the Tomcat process
-      on Windows operating systems. Operating systems that use the *.sh scripts
-      will not be affected by disabling the shutdown port.</p>
+      to disable the shutdown port.</p>
+      <p>Note: Disabling the shutdown port works well when Tomcat is started
+      using <a href="http://commons.apache.org/daemon/">Apache Commons Daemon</a>
+      (running as a service on Windows or with jsvc on un*xes). It cannot be
+      used when running Tomcat with the standard shell scripts though, as it
+      will prevent shutdown.bat|.sh and catalina.bat|.sh from stopping it
+      gracefully.</p>
     </td></tr><tr><td valign="center" align="left"><strong><code>shutdown</code></strong></td><td valign="center" align="left">
       <p>The command string that must be received via a TCP/IP connection
       to the specified port number, in order to shut down Tomcat.</p>
@@ -67,5 +70,5 @@
   </p>
 
 </blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade="noshade"></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
-        Copyright &copy; 1999-2010, Apache Software Foundation
+        Copyright &copy; 1999-2012, Apache Software Foundation
         </em></font></div></td></tr></table></body></html>

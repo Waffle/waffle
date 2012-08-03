@@ -213,9 +213,14 @@
       </td></tr><tr><td valign="center" align="left"><code>antiJARLocking</code></td><td valign="center" align="left">
         <p>If true, the Tomcat classloader will take extra measures to avoid
         JAR file locking when resources are accessed inside JARs through URLs.
-        This will impact startup time of applications, but could prove to be useful
-        on platforms or configurations where file locking can occur.
+        This will impact startup time of applications, but could prove to be
+        useful on platforms or configurations where file locking can occur.
         If not specified, the default value is <code>false</code>.</p>
+
+        <p><code>antiJARLocking</code> is a subset of
+        <code>antiResourceLocking</code> and therefore, to prevent duplicate
+        work and possible issues, only one of these attributes should be set
+        to <code>true</code> at any one time.</p>
       </td></tr><tr><td valign="center" align="left"><code>antiResourceLocking</code></td><td valign="center" align="left">
         <p>If true, Tomcat will prevent any file locking.
         This will significantly impact startup time of applications, 
@@ -223,18 +228,22 @@
         or configurations where file locking can occur.
         If not specified, the default value is <code>false</code>.</p>
    
-        <p>Please note that setting this to <code>true</code> has some side effects,
-        including the disabling of JSP reloading in a running server: see
-        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=37668">Bugzilla 37668</a>.
-        </p>
-        <p>
-        Please note that setting this flag to true in applications that are
+        <p><code>antiJARLocking</code> is a subset of
+        <code>antiResourceLocking</code> and therefore, to prevent duplicate
+        work and possible issues, only one of these attributes should be set
+        to <code>true</code> at any one time.</p>
+
+        <p>Please note that setting this to <code>true</code> has some side
+        effects, including the disabling of JSP reloading in a running server:
+        see <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=37668">
+        Bugzilla 37668</a>.</p>
+
+        <p>Please note that setting this flag to true in applications that are
         outside the appBase for the Host (the <code>webapps</code> directory
-        by default) will cause the application to be
-        <strong>deleted</strong> on Tomcat shutdown.  You probably don't want to
-        do this, so think twice before setting antiResourceLocking=true on a webapp
-        that's outside the appBase for its Host.
-        </p>
+        by default) will cause the application to be <strong>deleted</strong> on
+        Tomcat shutdown.  You probably don't want to do this, so think twice
+        before setting antiResourceLocking=true on a webapp that's outside the
+        appBase for its Host.</p>
       </td></tr><tr><td valign="center" align="left"><code>cacheMaxSize</code></td><td valign="center" align="left">
         <p>Maximum size of the static resource cache in kilobytes. 
         If not specified, the default value is <code>10240</code>
@@ -360,7 +369,7 @@
     by nesting a <a href="valve.html">Valve</a> element like this:</p>
 
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
-&lt;Context path="/examples" ...&gt;
+&lt;Context&gt;
   ...
   &lt;Valve className="org.apache.catalina.valves.AccessLogValve"
          prefix="localhost_access_log." suffix=".txt"
@@ -476,7 +485,7 @@
     </p>
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
 &lt;env-entry&gt;
-  &lt;env-entry-name&gt;maxExemptions&lt;/param-name&gt;
+  &lt;env-entry-name&gt;maxExemptions&lt;/env-entry-name&gt;
   &lt;env-entry-value&gt;10&lt;/env-entry-value&gt;
   &lt;env-entry-type&gt;java.lang.Integer&lt;/env-entry-type&gt;
 &lt;/env-entry&gt;
@@ -526,7 +535,7 @@
     lifecycle events.  Configuration of such a listener looks like this:</p>
 
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
-&lt;Context path="/examples" ...&gt;
+&lt;Context&gt;
   ...
   &lt;Listener className="com.mycompany.mypackage.MyListener" ... &gt;
   ...
@@ -548,19 +557,18 @@
     <a href="engine.html">Engine</a>, <a href="host.html">Host</a>, or
     <a href="context.html">Context</a> element.  The remote address or name
     will be checked against a configured list of "accept" and/or "deny"
-    filters, which are defined using the Regular Expression syntax supported
-    by the <a href="http://jakarta.apache.org/regexp/">Jakarta Regexp</a>
-    regular expression library.  Requests that come from locations that are
+    filters, which are defined using <code>java.util.regex</code> Regular
+    Expression syntax.  Requests that come from locations that are
     not accepted will be rejected with an HTTP "Forbidden" error.
     Example filter declarations:</p>
 
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
-&lt;Context path="/examples" ...&gt;
+&lt;Context&gt;
   ...
   &lt;Valve className="org.apache.catalina.valves.RemoteHostValve"
-         allow="*.mycompany.com,www.yourcompany.com"/&gt;
+         allow=".*\.mycompany\.com|www\.yourcompany\.com"/&gt;
   &lt;Valve className="org.apache.catalina.valves.RemoteAddrValve"
-         deny="192.168.1.*"/&gt;
+         deny="192\.168\.1\.\d+"/&gt;
   ...
 &lt;/Context&gt;
 </pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../../images/void.gif"></td></tr></table></div>
@@ -691,5 +699,5 @@
   </blockquote></td></tr></table>
 
 </blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade="noshade"></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
-        Copyright &copy; 1999-2010, Apache Software Foundation
+        Copyright &copy; 1999-2012, Apache Software Foundation
         </em></font></div></td></tr></table></body></html>

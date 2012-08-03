@@ -174,9 +174,8 @@
     <a href="engine.html">Engine</a>, <a href="host.html">Host</a>, or
     <a href="context.html">Context</a> element.  The remote address or name
     will be checked against a configured list of "accept" and/or "deny"
-    filters, which are defined using the Regular Expression syntax supported
-    by the <a href="http://jakarta.apache.org/regexp/">Jakarta Regexp</a>
-    regular expression library.  Requests that come from locations that are
+    filters, which are defined using <code>java.util.regex</code> Regular
+    Expression syntax.  Requests that come from locations that are
     not accepted will be rejected with an HTTP "Forbidden" error.
     Example filter declarations:</p>
 
@@ -184,9 +183,9 @@
 &lt;Engine name="Standalone" ...&gt;
   ...
   &lt;Valve className="org.apache.catalina.valves.RemoteHostValve"
-         allow="*.mycompany.com,www.yourcompany.com"/&gt;
+         allow=".*\.mycompany\.com|www\.yourcompany\.com"/&gt;
   &lt;Valve className="org.apache.catalina.valves.RemoteAddrValve"
-         deny="192.168.1.*"/&gt;
+         deny="192\.168\.1\.\d+"/&gt;
   ...
 &lt;/Engine&gt;
 </pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../../images/void.gif"></td></tr></table></div>
@@ -199,5 +198,5 @@
 
 
 </blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade="noshade"></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
-        Copyright &copy; 1999-2010, Apache Software Foundation
+        Copyright &copy; 1999-2012, Apache Software Foundation
         </em></font></div></td></tr></table></body></html>

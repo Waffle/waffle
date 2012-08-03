@@ -21,7 +21,7 @@
   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
                       http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
   version="3.0"
-  metadata-complete="true">  
+  metadata-complete="true">
 
   <display-name>Tomcat Manager Application</display-name>
   <description>
@@ -91,6 +91,20 @@
   </servlet-mapping>
 
   <filter>
+    <filter-name>SetCharacterEncoding</filter-name>
+    <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>SetCharacterEncoding</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <filter>
     <filter-name>CSRF</filter-name>
     <filter-class>org.apache.catalina.filters.CsrfPreventionFilter</filter-class>
     <init-param>
@@ -98,26 +112,12 @@
       <param-value>/html,/html/,/html/list,/index.jsp</param-value>
     </init-param>
   </filter>
-  
+
   <filter-mapping>
     <filter-name>CSRF</filter-name>
     <servlet-name>HTMLManager</servlet-name>
     <servlet-name>jsp</servlet-name>
   </filter-mapping>
-  
-  <!-- Define reference to the user database for looking up roles -->
-  <resource-env-ref>
-    <description>
-      Link to the UserDatabase instance from which we request lists of
-      defined role names.  Typically, this will be connected to the global
-      user database with a ResourceLink element in server.xml or the context
-      configuration file for the Manager web application.
-    </description>
-    <resource-env-ref-name>users</resource-env-ref-name>
-    <resource-env-ref-type>
-      org.apache.catalina.UserDatabase
-    </resource-env-ref-type>
-  </resource-env-ref>
 
   <!-- Define a Security Constraint on this Application -->
   <!-- NOTE:  None of these roles are present in the default users file -->
@@ -188,22 +188,22 @@
   </security-role>
   <security-role>
     <description>
-      The role that is required to access to the Manager Status pages 
+      The role that is required to access to the Manager Status pages
     </description>
     <role-name>manager-status</role-name>
   </security-role>
 
   <error-page>
     <error-code>401</error-code>
-    <location>/401.jsp</location>
+    <location>/WEB-INF/jsp/401.jsp</location>
   </error-page>
   <error-page>
     <error-code>403</error-code>
-    <location>/403.jsp</location>
+    <location>/WEB-INF/jsp/403.jsp</location>
   </error-page>
   <error-page>
     <error-code>404</error-code>
-    <location>/404.jsp</location>
+    <location>/WEB-INF/jsp/404.jsp</location>
   </error-page>
 
 </web-app>

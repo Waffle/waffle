@@ -1,16 +1,16 @@
 /*******************************************************************************
-* Waffle (https://github.com/dblock/waffle)
-* 
-* Copyright (c) 2010 Application Security, Inc.
-* 
-* All rights reserved. This program and the accompanying materials
-* are made available under the terms of the Eclipse Public License v1.0
-* which accompanies this distribution, and is available at
-* http://www.eclipse.org/legal/epl-v10.html
-*
-* Contributors:
-*     Application Security, Inc.
-*******************************************************************************/
+ * Waffle (https://github.com/dblock/waffle)
+ * 
+ * Copyright (c) 2010 Application Security, Inc.
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Application Security, Inc.
+ *******************************************************************************/
 package waffle.jaas;
 
 import java.security.Principal;
@@ -31,7 +31,7 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
 public class WindowsLoginModuleTests extends TestCase {
 	WindowsLoginModule _loginModule = null;
 	MockWindowsAuthProvider _provider = null;
-	
+
 	@Override
 	public void setUp() {
 		_provider = new MockWindowsAuthProvider();
@@ -46,13 +46,14 @@ public class WindowsLoginModuleTests extends TestCase {
 
 	public void testInitialize() {
 		Subject subject = new Subject();
-		UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler("", "");
+		UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
+				"", "");
 		Map<String, String> options = new HashMap<String, String>();
 		options.put("debug", "true");
 		_loginModule.initialize(subject, callbackHandler, null, options);
 		assertTrue(_loginModule.getDebug());
 	}
-	
+
 	public void testGetSetAuth() {
 		assertNotNull(_loginModule.getAuth());
 		_loginModule.setAuth(null);
@@ -72,11 +73,12 @@ public class WindowsLoginModuleTests extends TestCase {
 		assertEquals(3, subject.getPrincipals().size());
 		assertTrue(subject.getPrincipals().contains("Everyone"));
 		assertTrue(subject.getPrincipals().contains("Users"));
-		assertTrue(subject.getPrincipals().contains(WindowsAccountImpl.getCurrentUsername()));
+		assertTrue(subject.getPrincipals().contains(
+				WindowsAccountImpl.getCurrentUsername()));
 		assertTrue(_loginModule.logout());
 		assertTrue(subject.getPrincipals().size() == 0);
 	}
-	
+
 	public void testNoCallbackHandler() {
 		Subject subject = new Subject();
 		Map<String, String> options = new HashMap<String, String>();
@@ -87,21 +89,22 @@ public class WindowsLoginModuleTests extends TestCase {
 			assertTrue(e instanceof LoginException);
 		}
 	}
-	
+
 	public void testLoginNoUsername() {
 		Subject subject = new Subject();
-		UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler("", "");
+		UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
+				"", "");
 		Map<String, String> options = new HashMap<String, String>();
 		options.put("debug", "true");
 		_loginModule.initialize(subject, callbackHandler, null, options);
 		try {
 			assertFalse(_loginModule.login());
 			fail("Expected LoginException");
-		} catch(LoginException e) {
+		} catch (LoginException e) {
 			assertTrue(e.getMessage().startsWith("Mock error: "));
 		}
 	}
-	
+
 	public void testRoleFormatNone() throws LoginException {
 		Subject subject = new Subject();
 		UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
@@ -114,7 +117,7 @@ public class WindowsLoginModuleTests extends TestCase {
 		assertTrue(_loginModule.commit());
 		assertEquals(1, subject.getPrincipals().size());
 	}
-	
+
 	public void testRoleFormatBoth() throws LoginException {
 		Subject subject = new Subject();
 		UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
@@ -127,7 +130,7 @@ public class WindowsLoginModuleTests extends TestCase {
 		assertTrue(_loginModule.commit());
 		assertEquals(5, subject.getPrincipals().size());
 	}
-	
+
 	public void testPrincipalFormatBoth() throws LoginException {
 		Subject subject = new Subject();
 		UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
@@ -154,11 +157,12 @@ public class WindowsLoginModuleTests extends TestCase {
 		assertTrue(_loginModule.commit());
 		assertEquals(3, subject.getPrincipals().size());
 		Iterator<Principal> principals = subject.getPrincipals().iterator();
-		assertTrue(principals.next().getName().equals(WindowsAccountImpl.getCurrentUsername()));
+		assertTrue(principals.next().getName()
+				.equals(WindowsAccountImpl.getCurrentUsername()));
 		assertTrue(principals.next().getName().startsWith("S-"));
 		assertTrue(principals.next().getName().startsWith("S-"));
 	}
-	
+
 	public void testRoleUnique() throws LoginException {
 		Subject subject = new Subject();
 		// the mock has an "Everyone" group
@@ -173,10 +177,11 @@ public class WindowsLoginModuleTests extends TestCase {
 		assertTrue(_loginModule.commit());
 		assertEquals(4, subject.getPrincipals().size());
 	}
-	
+
 	public void testGuestLogin() throws LoginException {
 		Subject subject = new Subject();
-		UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler("Guest", "password");
+		UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
+				"Guest", "password");
 		Map<String, String> options = new HashMap<String, String>();
 		options.put("debug", "true");
 		_loginModule.initialize(subject, callbackHandler, null, options);
@@ -193,12 +198,13 @@ public class WindowsLoginModuleTests extends TestCase {
 			fail("expected LoginException");
 		} catch (Exception e) {
 			assertTrue(e instanceof LoginException);
-		}		
+		}
 	}
-	
+
 	public void testAbort() throws LoginException {
 		Subject subject = new Subject();
-		UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler("Guest", "password");
+		UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
+				"Guest", "password");
 		Map<String, String> options = new HashMap<String, String>();
 		options.put("debug", "true");
 		_loginModule.initialize(subject, callbackHandler, null, options);

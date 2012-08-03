@@ -1,9 +1,16 @@
-/*
- * Copyright (c) Application Security Inc., 2010
- * All Rights Reserved
- * Eclipse Public License (EPLv1)
- * https://github.com/dblock/waffle/license
- */
+/*******************************************************************************
+ * Waffle (https://github.com/dblock/waffle)
+ * 
+ * Copyright (c) 2010 Application Security, Inc.
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Application Security, Inc.
+ *******************************************************************************/
 package waffle.apache.catalina;
 
 import java.io.InputStream;
@@ -20,106 +27,133 @@ import javax.servlet.ServletException;
 /**
  * @author dblock[at]dblock[dot]org
  */
-@SuppressWarnings("rawtypes")
 public class SimpleServletContext implements ServletContext {
 
-	public Object getAttribute(String arg0) {		
+	@Override
+	public Object getAttribute(String arg0) {
 		return null;
 	}
 
-	public Enumeration getAttributeNames() {		
+	@Override
+	public Enumeration<?> getAttributeNames() {
 		return null;
 	}
 
-	public ServletContext getContext(String arg0) {		
+	@Override
+	public ServletContext getContext(String arg0) {
 		return null;
 	}
 
-	public String getContextPath() {		
+	public String getContextPath() {
 		return null;
 	}
 
-	public String getInitParameter(String arg0) {		
+	@Override
+	public String getInitParameter(String arg0) {
 		return null;
 	}
 
-	public Enumeration getInitParameterNames() {		
+	@Override
+	public Enumeration<?> getInitParameterNames() {
 		return null;
 	}
 
-	public int getMajorVersion() {		
+	@Override
+	public int getMajorVersion() {
 		return 0;
 	}
 
-	public String getMimeType(String arg0) {		
+	@Override
+	public String getMimeType(String arg0) {
 		return null;
 	}
 
-	public int getMinorVersion() {		
+	@Override
+	public int getMinorVersion() {
 		return 0;
 	}
 
+	@Override
 	public RequestDispatcher getNamedDispatcher(String name) {
 		return null;
 	}
 
-	public String getRealPath(String arg0) {		
+	@Override
+	public String getRealPath(String arg0) {
 		return null;
 	}
 
-	public RequestDispatcher getRequestDispatcher(String url) {		
+	@Override
+	public RequestDispatcher getRequestDispatcher(String url) {
 		return new SimpleRequestDispatcher(url);
 	}
 
-	public URL getResource(String arg0) throws MalformedURLException {	
+	@Override
+	public URL getResource(String arg0) throws MalformedURLException {
 		return null;
 	}
 
-	public InputStream getResourceAsStream(String arg0) {		
+	@Override
+	public InputStream getResourceAsStream(String arg0) {
 		return null;
 	}
 
-	public Set getResourcePaths(String arg0) {		
+	@Override
+	public Set<?> getResourcePaths(String arg0) {
 		return null;
 	}
 
-	public String getServerInfo() {		
+	@Override
+	public String getServerInfo() {
 		return null;
 	}
 
-	public Servlet getServlet(String arg0) throws ServletException {		
+	@Override
+	@SuppressWarnings("deprecation")
+	public Servlet getServlet(String arg0) throws ServletException {
 		return null;
 	}
 
-	public String getServletContextName() {		
+	@Override
+	public String getServletContextName() {
 		return null;
 	}
 
-	public Enumeration getServletNames() {		
+	@Override
+	@SuppressWarnings("deprecation")
+	public Enumeration<?> getServletNames() {
 		return null;
 	}
 
-	public Enumeration getServlets() {
+	@Override
+	@SuppressWarnings("deprecation")
+	public Enumeration<?> getServlets() {
 		return null;
 	}
 
-	public void log(String arg0) {		
-		
+	@Override
+	public void log(String arg0) {
+
 	}
 
+	@Override
+	@SuppressWarnings("deprecation")
 	public void log(Exception arg0, String arg1) {
-		
+
 	}
 
+	@Override
 	public void log(String arg0, Throwable arg1) {
-				
+
 	}
 
+	@Override
 	public void removeAttribute(String arg0) {
-				
+
 	}
-	
+
+	@Override
 	public void setAttribute(String arg0, Object arg1) {
-				
+
 	}
 }

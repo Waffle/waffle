@@ -14,7 +14,7 @@
 // limitations under the License.
 
 // ============================================================================
-// catalina.corepolicy - Security Policy Permissions for Tomcat 5
+// catalina.policy - Security Policy Permissions for Tomcat 5
 //
 // This file contains a default set of security policies to be enforced (by the
 // JVM) when Catalina is executed with the "-security" option.  In addition
@@ -23,7 +23,7 @@
 //
 // * Read access to the document root directory
 //
-// $Id: catalina.policy 821351 2009-10-03 16:17:53Z markt $
+// $Id: catalina.policy 1087959 2011-04-02 02:03:35Z kkolinko $
 // ============================================================================
 
 
@@ -93,10 +93,14 @@ grant codeBase "file:${catalina.home}/bin/tomcat-juli.jar" {
         permission java.io.FilePermission "${catalina.base}${file.separator}logs${file.separator}*", "read, write";
         permission java.lang.RuntimePermission "getClassLoader";
         permission java.lang.RuntimePermission "setContextClassLoader";
-        // To enable per context logging configuration, permit read access to the appropriate file.
-        // Be sure that the logging configuration is secure before enabling such access
-        // eg for the examples web application:
-        // permission java.io.FilePermission "${catalina.base}${file.separator}webapps${file.separator}examples${file.separator}WEB-INF${file.separator}classes${file.separator}logging.properties", "read";
+        // Note: To enable per context logging configuration, permit read access to
+        // the appropriate file. Be sure that the logging configuration is
+        // secure before enabling such access.
+        // E.g. for the examples web application (uncomment and unwrap
+        // the following to be on a single line):
+        // permission java.io.FilePermission "${catalina.base}${file.separator}
+        //  webapps${file.separator}examples${file.separator}WEB-INF
+        //  ${file.separator}classes${file.separator}logging.properties", "read";
 };
 
 // These permissions apply to the servlet API classes

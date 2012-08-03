@@ -26,15 +26,15 @@ import waffle.windows.auth.AllWindowsAuthTests;
 @SuiteClasses({ AllUtilTests.class, AllWindowsAuthTests.class })
 public class AllTestSuites {
 
-    @BeforeClass
-    public static void setUpClass() {
-        System.out.println("Master setup");
+	@BeforeClass
+	public static void setUpClass() {
+		System.out.println("Master setup");
 
-    }
+	}
 
-    @AfterClass
-    public static void tearDownClass() {
-        System.out.println("Master tearDown");
-    }
+	@AfterClass
+	public static void tearDownClass() {
+		System.out.println("Master tearDown");
+	}
 
 }

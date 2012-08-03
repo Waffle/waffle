@@ -1,0 +1,109 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat Configuration Reference - Container Provided Filters</title><style media="print" type="text/css">
+			.noPrint {display: none;}
+			td#mainBody {width: 100%;}
+		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
+    The Apache Tomcat Servlet/JSP Container
+  " align="right" src="../../images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">The Apache Tomcat 5.5 Servlet/JSP Container</font></h1></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade="noshade"></td></tr><tr><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat Configuration Reference</h1><h2>Container Provided Filters</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
+<ul><li><a href="#Introduction">Introduction</a></li><li><a href="#Set_Character_Encoding_Filter">Set Character Encoding Filter</a><ol><li><a href="#Set_Character_Encoding_Filter/Introduction">Introduction</a></li><li><a href="#Set_Character_Encoding_Filter/Filter_Class_Name">Filter Class Name</a></li><li><a href="#Set_Character_Encoding_Filter/Initialisation_parameters">Initialisation parameters</a></li></ol></li><li><a href="#Failed_Request_Filter">Failed Request Filter</a><ol><li><a href="#Failed_Request_Filter/Introduction">Introduction</a></li><li><a href="#Failed_Request_Filter/Filter_Class_Name">Filter Class Name</a></li><li><a href="#Failed_Request_Filter/Initialisation_parameters">Initialisation parameters</a></li></ol></li></ul>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>Tomcat provides a number of <strong>Filters</strong> which may be
+  configured for use with all web applications using
+  <code>$CATALINA_BASE/conf/web.xml</code> or may be configured for individual
+  web applications by configuring them in the application's
+  <code>WEB-INF/web.xml</code>. Each filter is described below.</p>
+
+    <blockquote><em>
+    <p>This description uses the variable name $CATALINA_BASE to refer the
+    base directory against which most relative paths are resolved. If you have
+    not configured Tomcat for multiple instances by setting a CATALINA_BASE
+    directory, then $CATALINA_BASE will be set to the value of $CATALINA_HOME,
+    the directory into which you have installed Tomcat.</p>
+    </em></blockquote>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Set Character Encoding Filter"><!--()--></a><a name="Set_Character_Encoding_Filter"><strong>Set Character Encoding Filter</strong></a></font></td></tr><tr><td><blockquote>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Set Character Encoding Filter/Introduction"><!--()--></a><a name="Set_Character_Encoding_Filter/Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>User agents don't always include character encoding information in
+    requests. Depending on the how the request is processed, usually the
+    default encoding of ISO-8859-1 is used. This is not always
+    desirable. This filter provides options for setting that encoding or
+    forcing it to a particular value. Essentially this filter calls
+    <code>ServletRequest.setCharacterEncoding()</code> method.</p>
+
+    <p>Effectively the value set by this filter is used when parsing parameters
+    in a POST request, if parameter parsing occurs later than this filter. Thus
+    the order of filter mappings is important. Note that the encoding for GET
+    requests is not set here, but on a <strong>Connector</strong>. See
+    CharacterEncoding page in the FAQ for details.</p>
+
+  </blockquote></td></tr></table>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Set Character Encoding Filter/Filter Class Name"><!--()--></a><a name="Set_Character_Encoding_Filter/Filter_Class_Name"><strong>Filter Class Name</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The filter class name for the Set Character Encoding Filter is
+    <strong><code>org.apache.catalina.filters.SetCharacterEncodingFilter</code></strong>.</p>
+
+  </blockquote></td></tr></table>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Set Character Encoding Filter/Initialisation parameters"><!--()--></a><a name="Set_Character_Encoding_Filter/Initialisation_parameters"><strong>Initialisation parameters</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The Set Character Encoding Filter supports the following initialization
+    parameters:</p>
+
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>encoding</code></strong></td><td valign="center" align="left">
+        <p>Name of the character encoding which should be set.</p>
+      </td></tr><tr><td valign="center" align="left"><code>ignore</code></td><td valign="center" align="left">
+        <p>Determines if any character encoding specified by the user agent is
+        ignored. If this attribute is <code>true</code>, any value provided by
+        the user agent is ignored. If <code>false</code>, the encoding is only
+        set if the user agent did not specify an encoding. The default value
+        is <code>false</code>.</p>
+      </td></tr></table>
+
+  </blockquote></td></tr></table>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Failed Request Filter"><!--()--></a><a name="Failed_Request_Filter"><strong>Failed Request Filter</strong></a></font></td></tr><tr><td><blockquote>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Failed Request Filter/Introduction"><!--()--></a><a name="Failed_Request_Filter/Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>This filter triggers parameters parsing in a request and rejects the
+    request if some parameters were skipped during parameter parsing because
+    of parsing errors or request size limitations (such as
+    <code>maxParameterCount</code> attribute in a
+    <a href="http.html">Connector</a>).
+    This filter can be used to ensure that none parameter values submitted by
+    client are lost.</p>
+
+    <p>Note that parameter parsing may consume the body of an HTTP request, so
+    caution is needed if the servlet protected by this filter uses
+    <code>request.getInputStream()</code> or <code>request.getReader()</code>
+    calls. In general the risk of breaking a web application by adding this
+    filter is not so high, because parameter parsing does check content type
+    of the request before consuming the request body.</p>
+
+    <p>Note, that for the POST requests to be parsed correctly, a
+    <code>SetCharacterEncodingFilter</code> filter must be configured above
+    this one. See CharacterEncoding page in the FAQ for details.</p>
+
+    <p>The request is rejected with HTTP status code 400 (Bad Request).</p>
+
+  </blockquote></td></tr></table>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Failed Request Filter/Filter Class Name"><!--()--></a><a name="Failed_Request_Filter/Filter_Class_Name"><strong>Filter Class Name</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The filter class name for the Failed Request Filter is
+    <strong><code>org.apache.catalina.filters.FailedRequestFilter</code></strong>.</p>
+
+  </blockquote></td></tr></table>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Failed Request Filter/Initialisation parameters"><!--()--></a><a name="Failed_Request_Filter/Initialisation_parameters"><strong>Initialisation parameters</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The Failed Request Filter does not support any initialization parameters.</p>
+
+  </blockquote></td></tr></table>
+
+</blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade="noshade"></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
+        Copyright &copy; 1999-2012, Apache Software Foundation
+        </em></font></div></td></tr></table></body></html>

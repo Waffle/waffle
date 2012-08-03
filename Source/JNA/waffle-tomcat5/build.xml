@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="waffle-tomcat5" default="build" basedir=".">
-  <import file="${basedir}/../build/common.xml" />
+	<import file="${basedir}/../build/common.xml" />
 	<property name="project.jar" value="waffle-tomcat5" />
 	<path id="waffle-api.classpath" location="${common.build}/waffle-api.jar" />
 	<path id="waffle-core.classpath" location="${common.build}/waffle-core.jar" />
@@ -8,9 +8,9 @@
 	<path id="waffle-servlet.classpath" location="${common.build}/waffle-servlet.jar" />
 	<import file="${basedir}/../build/build.xml" />
 	<path id="tomcat.classpath">
-    <path location="${thirdparty.dir}/tomcat5/server/lib/catalina.jar" />
-    <path location="${thirdparty.dir}/tomcat5/common/lib/servlet-api.jar" />
-    <path location="${thirdparty.dir}/tomcat5/server/lib/tomcat-util.jar" />
+		<path location="${thirdparty.dir}/tomcat5/server/lib/catalina.jar" />
+		<path location="${thirdparty.dir}/tomcat5/common/lib/servlet-api.jar" />
+		<path location="${thirdparty.dir}/tomcat5/server/lib/tomcat-util.jar" />
 	</path>
 	<path id="project.classpath">
 		<path refid="waffle-api.classpath" />
@@ -18,7 +18,7 @@
 		<path refid="waffle-servlet.classpath" />
 		<path refid="tomcat.classpath" />
 	</path>
-  <path id="project.test.classpath">
+	<path id="project.test.classpath">
 		<path refid="waffle-mock.classpath" />
-  </path>
+	</path>
 </project>

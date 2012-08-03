@@ -6,9 +6,10 @@
 		<ant dir="waffle-core" target="${ant.target}" />
 		<ant dir="waffle-jaas" target="${ant.target}" />
 		<ant dir="waffle-servlet" target="${ant.target}" />
-    <ant dir="waffle-tomcat5" target="${ant.target}" />
+		<ant dir="waffle-servlet3" target="${ant.target}" />
+		<ant dir="waffle-tomcat5" target="${ant.target}" />
 		<ant dir="waffle-tomcat6" target="${ant.target}" />
-    <ant dir="waffle-tomcat7" target="${ant.target}" />
+		<ant dir="waffle-tomcat7" target="${ant.target}" />
 		<ant dir="waffle-spring-security2" target="${ant.target}" />
 		<ant dir="waffle-spring-security3" target="${ant.target}" />
 	</target>

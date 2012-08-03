@@ -1,16 +1,16 @@
 /*******************************************************************************
-* Waffle (https://github.com/dblock/waffle)
-* 
-* Copyright (c) 2010 Application Security, Inc.
-* 
-* All rights reserved. This program and the accompanying materials
-* are made available under the terms of the Eclipse Public License v1.0
-* which accompanies this distribution, and is available at
-* http://www.eclipse.org/legal/epl-v10.html
-*
-* Contributors:
-*     Application Security, Inc.
-*******************************************************************************/
+ * Waffle (https://github.com/dblock/waffle)
+ * 
+ * Copyright (c) 2010 Application Security, Inc.
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Application Security, Inc.
+ *******************************************************************************/
 package waffle.apache;
 
 import junit.framework.TestCase;
@@ -34,12 +34,13 @@ import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 
 /**
  * Waffle Tomcat Mixed Authenticator Tests
+ * 
  * @author dblock[at]dblock[dot]org
  */
 public class MixedAuthenticatorTests extends TestCase {
 
 	MixedAuthenticator _authenticator = null;
-	
+
 	@Override
 	public void setUp() {
 		_authenticator = new MixedAuthenticator();
@@ -55,9 +56,9 @@ public class MixedAuthenticatorTests extends TestCase {
 		_authenticator.stop();
 		_authenticator = null;
 	}
-	
+
 	public void testGetInfo() {
-		assertTrue(_authenticator.getInfo().length() > 0);		
+		assertTrue(_authenticator.getInfo().length() > 0);
 	}
 
 	public void testChallengeGET() {
@@ -66,7 +67,8 @@ public class MixedAuthenticatorTests extends TestCase {
 		request.setQueryString("j_negotiate_check");
 		SimpleHttpResponse response = new SimpleHttpResponse();
 		_authenticator.authenticate(request, response, null);
-		String[] wwwAuthenticates = response.getHeaderValues("WWW-Authenticate");
+		String[] wwwAuthenticates = response
+				.getHeaderValues("WWW-Authenticate");
 		assertEquals(2, wwwAuthenticates.length);
 		assertEquals("Negotiate", wwwAuthenticates[0]);
 		assertEquals("NTLM", wwwAuthenticates[1]);
@@ -74,30 +76,35 @@ public class MixedAuthenticatorTests extends TestCase {
 		assertEquals(2, response.getHeaderNames().length);
 		assertEquals(401, response.getStatus());
 	}
-	
+
 	public void testChallengePOST() {
 		String securityPackage = "Negotiate";
 		IWindowsCredentialsHandle clientCredentials = null;
 		WindowsSecurityContextImpl clientContext = null;
 		try {
 			// client credentials handle
-			clientCredentials = WindowsCredentialsHandleImpl.getCurrent(securityPackage);
+			clientCredentials = WindowsCredentialsHandleImpl
+					.getCurrent(securityPackage);
 			clientCredentials.initialize();
 			// initial client security context
 			clientContext = new WindowsSecurityContextImpl();
-			clientContext.setPrincipalName(WindowsAccountImpl.getCurrentUsername());
+			clientContext.setPrincipalName(WindowsAccountImpl
+					.getCurrentUsername());
 			clientContext.setCredentialsHandle(clientCredentials.getHandle());
 			clientContext.setSecurityPackage(securityPackage);
-			clientContext.initialize(null, null, WindowsAccountImpl.getCurrentUsername());
+			clientContext.initialize(null, null,
+					WindowsAccountImpl.getCurrentUsername());
 			SimpleHttpRequest request = new SimpleHttpRequest();
 			request.setQueryString("j_negotiate_check");
 			request.setMethod("POST");
 			request.setContentLength(0);
 			String clientToken = Base64.encode(clientContext.getToken());
-			request.addHeader("Authorization", securityPackage + " " + clientToken);
+			request.addHeader("Authorization", securityPackage + " "
+					+ clientToken);
 			SimpleHttpResponse response = new SimpleHttpResponse();
 			_authenticator.authenticate(request, response, null);
-			assertTrue(response.getHeader("WWW-Authenticate").startsWith(securityPackage + " "));
+			assertTrue(response.getHeader("WWW-Authenticate").startsWith(
+					securityPackage + " "));
 			assertEquals("keep-alive", response.getHeader("Connection"));
 			assertEquals(2, response.getHeaderNames().length);
 			assertEquals(401, response.getStatus());
@@ -107,10 +114,10 @@ public class MixedAuthenticatorTests extends TestCase {
 			}
 			if (clientCredentials != null) {
 				clientCredentials.dispose();
-			}			
+			}
 		}
 	}
-	
+
 	public void testNegotiate() {
 		String securityPackage = "Negotiate";
 		// client credentials handle
@@ -118,49 +125,58 @@ public class MixedAuthenticatorTests extends TestCase {
 		WindowsSecurityContextImpl clientContext = null;
 		try {
 			// client credentials handle
-			clientCredentials = WindowsCredentialsHandleImpl.getCurrent(securityPackage);
+			clientCredentials = WindowsCredentialsHandleImpl
+					.getCurrent(securityPackage);
 			clientCredentials.initialize();
 			// initial client security context
 			clientContext = new WindowsSecurityContextImpl();
-			clientContext.setPrincipalName(WindowsAccountImpl.getCurrentUsername());
+			clientContext.setPrincipalName(WindowsAccountImpl
+					.getCurrentUsername());
 			clientContext.setCredentialsHandle(clientCredentials.getHandle());
 			clientContext.setSecurityPackage(securityPackage);
-			clientContext.initialize(null, null, WindowsAccountImpl.getCurrentUsername());
+			clientContext.initialize(null, null,
+					WindowsAccountImpl.getCurrentUsername());
 			// negotiate
 			boolean authenticated = false;
 			SimpleHttpRequest request = new SimpleHttpRequest();
 			request.setQueryString("j_negotiate_check");
-	        while(true)
-	        {
-	    		String clientToken = Base64.encode(clientContext.getToken());
-	    		request.addHeader("Authorization", securityPackage + " " + clientToken);
-	    		
-	    		SimpleHttpResponse response = new SimpleHttpResponse();
-	    		authenticated = _authenticator.authenticate(request, response, null);
-	
-	    		if (authenticated) {
-	        		assertTrue(response.getHeaderNames().length >= 0);
-	    			break;
-	    		}
-	    		
-	    		assertTrue(response.getHeader("WWW-Authenticate").startsWith(securityPackage + " "));
-	    		assertEquals("keep-alive", response.getHeader("Connection"));
-	    		assertEquals(2, response.getHeaderNames().length);
-	    		assertEquals(401, response.getStatus());
-	    		String continueToken = response.getHeader("WWW-Authenticate").substring(securityPackage.length() + 1);
-	    		byte[] continueTokenBytes = Base64.decode(continueToken);
-	    		assertTrue(continueTokenBytes.length > 0);
-	            SecBufferDesc continueTokenBuffer = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, continueTokenBytes);
-	            clientContext.initialize(clientContext.getHandle(), continueTokenBuffer, WindowsAccountImpl.getCurrentUsername());
-	        }        
-	        assertTrue(authenticated);
+			while (true) {
+				String clientToken = Base64.encode(clientContext.getToken());
+				request.addHeader("Authorization", securityPackage + " "
+						+ clientToken);
+
+				SimpleHttpResponse response = new SimpleHttpResponse();
+				authenticated = _authenticator.authenticate(request, response,
+						null);
+
+				if (authenticated) {
+					assertTrue(response.getHeaderNames().length >= 0);
+					break;
+				}
+
+				assertTrue(response.getHeader("WWW-Authenticate").startsWith(
+						securityPackage + " "));
+				assertEquals("keep-alive", response.getHeader("Connection"));
+				assertEquals(2, response.getHeaderNames().length);
+				assertEquals(401, response.getStatus());
+				String continueToken = response.getHeader("WWW-Authenticate")
+						.substring(securityPackage.length() + 1);
+				byte[] continueTokenBytes = Base64.decode(continueToken);
+				assertTrue(continueTokenBytes.length > 0);
+				SecBufferDesc continueTokenBuffer = new SecBufferDesc(
+						Sspi.SECBUFFER_TOKEN, continueTokenBytes);
+				clientContext.initialize(clientContext.getHandle(),
+						continueTokenBuffer,
+						WindowsAccountImpl.getCurrentUsername());
+			}
+			assertTrue(authenticated);
 		} finally {
 			if (clientContext != null) {
 				clientContext.dispose();
 			}
 			if (clientCredentials != null) {
 				clientCredentials.dispose();
-			}			
+			}
 		}
 	}
 
@@ -198,12 +214,13 @@ public class MixedAuthenticatorTests extends TestCase {
 		loginConfig.setLoginPage("login.html");
 		SimpleHttpRequest request = new SimpleHttpRequest();
 		request.setQueryString("j_security_check");
-		request.addParameter("j_username", WindowsAccountImpl.getCurrentUsername());
+		request.addParameter("j_username",
+				WindowsAccountImpl.getCurrentUsername());
 		request.addParameter("j_password", "");
 		SimpleHttpResponse response = new SimpleHttpResponse();
 		assertTrue(_authenticator.authenticate(request, response, loginConfig));
 	}
-	
+
 	public void testSecurityCheckParameters() {
 		_authenticator.setAuth(new MockWindowsAuthProvider());
 		LoginConfig loginConfig = new LoginConfig();
@@ -211,7 +228,8 @@ public class MixedAuthenticatorTests extends TestCase {
 		loginConfig.setLoginPage("login.html");
 		SimpleHttpRequest request = new SimpleHttpRequest();
 		request.addParameter("j_security_check", "");
-		request.addParameter("j_username", WindowsAccountImpl.getCurrentUsername());
+		request.addParameter("j_username",
+				WindowsAccountImpl.getCurrentUsername());
 		request.addParameter("j_password", "");
 		SimpleHttpResponse response = new SimpleHttpResponse();
 		assertTrue(_authenticator.authenticate(request, response, loginConfig));

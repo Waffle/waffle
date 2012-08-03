@@ -11,21 +11,21 @@
 	<classpathentry kind="lib" path="/thirdparty/groboutils/lib/GroboUtils-5-core.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/spring-security3/dist/spring-security-core-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/spring-security3/dist/spring-security-web-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/spring3/dist/org.springframework.web-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/spring3/dist/org.springframework.beans-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/spring3/dist/org.springframework.context-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/spring3/dist/org.springframework.core-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/spring3/dist/org.springframework.asm-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/spring-security3/dist/spring-security-config-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/spring3/dist/org.springframework.aop-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/spring3/dist/org.springframework.expression-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/guava/guava-12.0.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/logback/logback-classic-1.0.6.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/logback/logback-core-1.0.6.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/javax/servlet-api-2.5.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/waffle-core"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/waffle-servlet"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/waffle-api"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/waffle-mock"/>
+	<classpathentry kind="lib" path="/thirdparty/spring3/dist/org.springframework.aop-3.1.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/spring3/dist/org.springframework.asm-3.1.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/spring3/dist/org.springframework.beans-3.1.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/spring3/dist/org.springframework.context-3.1.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/spring3/dist/org.springframework.core-3.1.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/spring3/dist/org.springframework.expression-3.1.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/spring3/dist/org.springframework.web-3.1.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/javax/servlet2.5/servlet-api-2.5.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/guava/guava-12.0.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

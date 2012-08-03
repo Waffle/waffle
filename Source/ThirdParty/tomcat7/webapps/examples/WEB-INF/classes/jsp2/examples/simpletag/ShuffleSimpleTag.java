@@ -19,6 +19,7 @@
 package jsp2.examples.simpletag;
 
 import java.io.IOException;
+import java.util.Random;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.JspFragment;
@@ -29,13 +30,16 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
  * JspFragment and invokes then in a random order.
  */
 public class ShuffleSimpleTag extends SimpleTagSupport {
+    // No need for this to use SecureRandom
+    private static Random random = new Random();
+
     private JspFragment fragment1;
     private JspFragment fragment2;
     private JspFragment fragment3;
 
     @Override
     public void doTag() throws JspException, IOException {
-        switch( (int)(Math.random() * 6) ) {
+        switch(random.nextInt(6)) {
             case 0:
                 fragment1.invoke( null );
                 fragment2.invoke( null );
@@ -72,11 +76,11 @@ public class ShuffleSimpleTag extends SimpleTagSupport {
     public void setFragment1( JspFragment fragment1 ) {
         this.fragment1 = fragment1;
     }
-    
+
     public void setFragment2( JspFragment fragment2 ) {
         this.fragment2 = fragment2;
     }
-    
+
     public void setFragment3( JspFragment fragment3 ) {
         this.fragment3 = fragment3;
     }

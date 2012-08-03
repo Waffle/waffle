@@ -17,7 +17,6 @@
 package examples;
 
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 import javax.servlet.jsp.tagext.Tag;
@@ -37,15 +36,10 @@ public abstract class ExampleTagBase extends BodyTagSupport {
     }
 
     @Override
-    public void setPageContext(PageContext pageContext) {
-        this.pageContext = pageContext;
-    }
-
-    @Override
     public Tag getParent() {
         return this.parent;
     }
-    
+
     @Override
     public int doStartTag() throws JspException {
         return SKIP_BODY;
@@ -55,7 +49,7 @@ public abstract class ExampleTagBase extends BodyTagSupport {
     public int doEndTag() throws JspException {
         return EVAL_PAGE;
     }
-    
+
 
     @Override
     public void doInitBody() throws JspException {
@@ -74,8 +68,7 @@ public abstract class ExampleTagBase extends BodyTagSupport {
         pageContext = null;
         parent = null;
     }
-    
+
     protected BodyContent bodyOut;
-    protected PageContext pageContext;
     protected Tag parent;
 }

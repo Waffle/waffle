@@ -14,7 +14,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-/* $Id: SessionExample.java 982412 2010-08-04 21:55:19Z markt $
+/* $Id: SessionExample.java 1337746 2012-05-13 00:17:51Z kkolinko $
  *
  */
 
@@ -43,7 +43,7 @@ public class SessionExample extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private static final ResourceBundle RB = ResourceBundle.getBundle("LocalStrings");
-    
+
     @Override
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response)
@@ -53,21 +53,20 @@ public class SessionExample extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         out.println("<html>");
-        out.println("<body bgcolor=\"white\">");
         out.println("<head>");
 
         String title = RB.getString("sessions.title");
         out.println("<title>" + title + "</title>");
         out.println("</head>");
-        out.println("<body>");
+        out.println("<body bgcolor=\"white\">");
 
         // img stuff not req'd for source code html showing
         // relative links everywhere!
 
         // XXX
         // making these absolute till we work out the
-        // addition of a PathInfo issue 
-        
+        // addition of a PathInfo issue
+
         out.println("<a href=\"../sessions.html\">");
         out.println("<img src=\"../images/code.gif\" height=24 " +
                     "width=24 align=right border=0 alt=\"view code\"></a>");
@@ -95,9 +94,9 @@ public class SessionExample extends HttpServlet {
         out.println(RB.getString("sessions.data") + "<br>");
         Enumeration<String> names = session.getAttributeNames();
         while (names.hasMoreElements()) {
-            String name = names.nextElement(); 
+            String name = names.nextElement();
             String value = session.getAttribute(name).toString();
-            out.println(HTMLFilter.filter(name) + " = " 
+            out.println(HTMLFilter.filter(name) + " = "
                         + HTMLFilter.filter(value) + "<br>");
         }
 
@@ -130,12 +129,9 @@ public class SessionExample extends HttpServlet {
         out.println("</form>");
 
         out.print("<p><a href=\"");
-        out.print(response.encodeURL("SessionExample?dataname=foo&datavalue=bar"));
+        out.print(HTMLFilter.filter(response.encodeURL("SessionExample?dataname=foo&datavalue=bar")));
         out.println("\" >URL encoded </a>");
-        
-        out.println("</body>");
-        out.println("</html>");
-        
+
         out.println("</body>");
         out.println("</html>");
     }

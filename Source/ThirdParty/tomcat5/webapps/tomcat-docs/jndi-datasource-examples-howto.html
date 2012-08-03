@@ -174,8 +174,7 @@ resource to your <a href="config/context.html">Context</a>.</p>
 <p>For example:
 
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
-&lt;Context path="/DBTest" docBase="DBTest"
-        debug="5" reloadable="true" crossContext="true"&gt;
+&lt;Context&gt;
 
     &lt;!-- maxActive: Maximum number of dB connections in pool. Make sure you
          configure your mysqld max_connections large enough to handle
@@ -379,8 +378,7 @@ The Context element should look something like the following.
 </p>
 
 <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
-&lt;Context path="/someApp" docBase="someApp"
-   crossContext="true" reloadable="true" debug="1"&gt;
+&lt;Context&gt;
 
 &lt;Resource name="jdbc/postgres" auth="Container"
           type="javax.sql.DataSource" driverClassName="org.postgresql.Driver"
@@ -607,5 +605,5 @@ obtained from a connection pool:
 </blockquote></td></tr></table> 
 
 </blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade="noshade"></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
-        Copyright &copy; 1999-2010, Apache Software Foundation
+        Copyright &copy; 1999-2012, Apache Software Foundation
         </em></font></div></td></tr></table></body></html>

@@ -1,16 +1,16 @@
 /*******************************************************************************
-* Waffle (https://github.com/dblock/waffle)
-* 
-* Copyright (c) 2010 Application Security, Inc.
-* 
-* All rights reserved. This program and the accompanying materials
-* are made available under the terms of the Eclipse Public License v1.0
-* which accompanies this distribution, and is available at
-* http://www.eclipse.org/legal/epl-v10.html
-*
-* Contributors:
-*     Application Security, Inc.
-*******************************************************************************/
+ * Waffle (https://github.com/dblock/waffle)
+ * 
+ * Copyright (c) 2010 Application Security, Inc.
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Application Security, Inc.
+ *******************************************************************************/
 package waffle.jaas;
 
 import java.io.IOException;
@@ -34,7 +34,8 @@ public class UsernamePasswordCallbackHandler implements CallbackHandler {
 	}
 
 	@Override
-	public void handle(Callback[] cb) throws IOException, UnsupportedCallbackException {
+	public void handle(Callback[] cb) throws IOException,
+			UnsupportedCallbackException {
 		for (int i = 0; i < cb.length; i++) {
 			if (cb[i] instanceof NameCallback) {
 				NameCallback nc = (NameCallback) cb[i];
@@ -43,7 +44,7 @@ public class UsernamePasswordCallbackHandler implements CallbackHandler {
 				PasswordCallback pc = (PasswordCallback) cb[i];
 				pc.setPassword(_password.toCharArray());
 			} else {
-				throw new UnsupportedCallbackException(cb[i], 
+				throw new UnsupportedCallbackException(cb[i],
 						"UsernamePasswordCallbackHandler");
 			}
 		}

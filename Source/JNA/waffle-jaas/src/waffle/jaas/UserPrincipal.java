@@ -1,16 +1,16 @@
 /*******************************************************************************
-* Waffle (https://github.com/dblock/waffle)
-* 
-* Copyright (c) 2010 Application Security, Inc.
-* 
-* All rights reserved. This program and the accompanying materials
-* are made available under the terms of the Eclipse Public License v1.0
-* which accompanies this distribution, and is available at
-* http://www.eclipse.org/legal/epl-v10.html
-*
-* Contributors:
-*     Application Security, Inc.
-*******************************************************************************/
+ * Waffle (https://github.com/dblock/waffle)
+ * 
+ * Copyright (c) 2010 Application Security, Inc.
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Application Security, Inc.
+ *******************************************************************************/
 package waffle.jaas;
 
 import java.io.Serializable;
@@ -18,6 +18,7 @@ import java.security.Principal;
 
 /**
  * User Principal.
+ * 
  * @author dblock[at]dblock[dot]org
  */
 public class UserPrincipal implements Principal, Serializable {
@@ -27,8 +28,9 @@ public class UserPrincipal implements Principal, Serializable {
 
 	/**
 	 * A user principal.
+	 * 
 	 * @param fqn
-	 *  Fully qualified username.
+	 *            Fully qualified username.
 	 */
 	public UserPrincipal(String fqn) {
 		_fqn = fqn;
@@ -41,27 +43,27 @@ public class UserPrincipal implements Principal, Serializable {
 	public String getName() {
 		return _fqn;
 	}
-	
+
 	@Override
-    public boolean equals(Object o) {
+	public boolean equals(Object o) {
 
 		if (this == o) {
-			return true;			
+			return true;
 		}
-		
+
 		if (o instanceof String) {
-        	return getName().equals(o);
+			return getName().equals(o);
 		}
-		
+
 		if (o instanceof UserPrincipal) {
-        	return getName().equals(((UserPrincipal) o).getName());
+			return getName().equals(((UserPrincipal) o).getName());
 		}
-		
+
 		return false;
-    }
-	
+	}
+
 	@Override
-	public int hashCode() { 
+	public int hashCode() {
 		return getName().hashCode();
 	}
 }

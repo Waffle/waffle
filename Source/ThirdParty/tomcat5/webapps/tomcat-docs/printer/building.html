@@ -4,7 +4,7 @@
 		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
       The Apache Tomcat Servlet/JSP Container
     " align="right" src="./../images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">The Apache Tomcat 5.5 Servlet/JSP Container</font></h1></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="./../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade="noshade"></td></tr><tr><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>The Apache Tomcat 5.5 Servlet/JSP Container</h1><h2>Building Tomcat</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
-<ul><li><a href="#README">README</a></li><li><a href="#Introduction">Introduction</a></li><li><a href="#Download_and_install_a_Java_Development_Kit_1.4.x_or_later">Download and install a Java Development Kit 1.4.x or later</a></li><li><a href="#Install_Apache_Ant_1.6.2_or_later">Install Apache Ant 1.6.2 or later</a></li><li><a href="#Building_Tomcat">Building Tomcat</a></li><li><a href="#Updating_and_rebuilding_Tomcat_sources">Updating and rebuilding Tomcat sources</a></li><li><a href="#Building_with_Eclipse">Building with Eclipse</a></li><li><a href="#Building_with_other_IDEs">Building with other IDEs</a></li></ul>
+<ul><li><a href="#README">README</a></li><li><a href="#Introduction">Introduction</a></li><li><a href="#Download_and_install_a_Java_Development_Kit_1.4.x_or_later">Download and install a Java Development Kit 1.4.x or later</a></li><li><a href="#Install_Apache_Ant_1.6.2_or_later">Install Apache Ant 1.6.2 or later</a></li><li><a href="#Checkout_or_obtain_the_source_code_for_Tomcat_5.5">Checkout or obtain the source code for Tomcat 5.5</a></li><li><a href="#Building_Tomcat">Building Tomcat</a></li><li><a href="#Updating_and_rebuilding_Tomcat_sources">Updating and rebuilding Tomcat sources</a></li><li><a href="#Building_with_Eclipse">Building with Eclipse</a></li><li><a href="#Building_with_other_IDEs">Building with other IDEs</a></li></ul>
 </blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="README"><strong>README</strong></a></font></td></tr><tr><td><blockquote>
 <p>
 This document duplicates some of the information from the BUILDING.txt file
@@ -57,38 +57,50 @@ and modify the PATH environment variable to include directory
 available, which will be used to actually perform the build.
 </p>
 
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Checkout or obtain the source code for Tomcat 5.5"><!--()--></a><a name="Checkout_or_obtain_the_source_code_for_Tomcat_5.5"><strong>Checkout or obtain the source code for Tomcat 5.5</strong></a></font></td></tr><tr><td><blockquote>
+
+<p>
+Tomcat 5.5 SVN repository URL:
+<a href="http://svn.apache.org/repos/asf/tomcat/tc5.5.x/trunk/">http://svn.apache.org/repos/asf/tomcat/tc5.5.x/trunk/</a>
+</p>
+<p>
+Tomcat 5.5 source packages:
+<a href="http://tomcat.apache.org/download-55.cgi">http://tomcat.apache.org/download-55.cgi</a>.
+</p>
+
+<p>
+Checkout the source using SVN, selecting a tag for released version or
+trunk for the current development code, or download and unpack a
+source package. For the remainder of this guide, the symbolic name
+<code>${tomcat.source}</code> is used to refer to the
+location where the source has been placed.
+</p>
+
 </blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Building Tomcat"><!--()--></a><a name="Building_Tomcat"><strong>Building Tomcat</strong></a></font></td></tr><tr><td><blockquote>
 
 <p>
-Download the main build.xml script from <a href="build.xml">here</a>.
-</p>
-
-<p>
-Create a new directory, and copy the newly download build.xml to it. This
-  directory will be referred to as the ${tomcat.source} directory in the rest
-  of this document.
-</p>
-
-<p>
-Go to that directory, and do:
+Use the following commands:
 <code><br>
-    cd ${tomcat.source}<br>
+    cd ${tomcat.source}/build<br>
+    ant download<br>
     ant<br>
 </code>
 </p>
 
 <p>
-NOTE: Users accessing the Internet through a proxy must use a properties
-  file to indicate to Ant the proxy configuration. Read below.
+<b>WARNING:</b> Running "ant download" command will download libraries required
+  to build Tomcat to the <code>/usr/share/java</code> directory by default.
+  On a typical Linux or MacOX system, an ordinary user
+  will not have access to write to this directory, and, even if you do,
+  it may not be appropriate for you to write there. On Windows
+  this usually corresponds to the <code>C:\usr\share\java</code> directory,
+  unless Cygwin is used. Read below to learn how to customize the directory
+  used to download the binaries.
 </p>
 
 <p>
-WARNING: Running this command will checkout the Tomcat 5 sources from SVN, as
-  well as download binaries to the <code>/usr/share/java</code> directory. 
-  Make sure this is appropriate to do so on your computer. On Windows, 
-  this usually corresponds to the <code>C:\usr\share\java</code> directory, 
-  unless Cygwin is used. Read below to customize the directory used 
-  to download the binaries.
+<b>NOTE:</b> Users accessing the Internet through a proxy must use a properties
+  file to indicate to Ant the proxy configuration. Read below.
 </p>
 
 <p>
@@ -104,27 +116,31 @@ The build can be controlled by creating a ${tomcat.source}/build.properties
     # ----- Default Base Path for Dependent Packages -----<br>
     # Replace this path with the directory path where<br>
     # dependencies binaries should be downloaded.<br>
-    base.path=/usr/share/java<br>
+    base.path=/home/me/some-place-to-download-to<br>
 </code>
 </p>
+
+<p>
+Once the build has completed successfully, a usable Tomcat installation will have been
+produced in the <code>${tomcat.source}/output/build</code> directory, and can be started
+and stopped with the usual scripts.
+</p>
+
+<p>See <code>BUILDING.txt</code> file in Tomcat source code for additional
+build options.</p>
 
 </blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Updating and rebuilding Tomcat sources"><!--()--></a><a name="Updating_and_rebuilding_Tomcat_sources"><strong>Updating and rebuilding Tomcat sources</strong></a></font></td></tr><tr><td><blockquote>
 
 <p>
-It is recommended to regularly update the downloaded Tomcat 5 sources. 
-To do this, execute the following commands:
-
-<code><br>
-    cd ${tomcat.source}<br>
-    ant checkout<br>
-</code>
+It is recommended to regularly update the downloaded Tomcat 5.5 sources. 
+To do this, execute <code>svn update</code> command with your Subversion client.
 </p>
 
 <p>
 For a quick rebuild of only modified code you can use:
 <code><br>
-    cd ${tomcat.source}<br>
-    ant build<br>
+    cd ${tomcat.source}/build<br>
+    ant<br>
 </code>
 
 </p>
@@ -143,19 +159,15 @@ and the following steps have been used by some developers.
 
 <p>
 Note that you <b>must</b> complete all the above steps to fetch
-the repositories and build some JAR files the first time.
-After you have completed the above steps, you can set up a
-series of Eclipse 4 projects.
+dependent libraries and build some JAR files the first time.
+After you have completed the above steps, you can set up an
+Eclipse project.
 <b>Note</b> that this will not let you build everything under Eclipse;
 the build process requires use of Ant for the many stages that aren't
 simple Java compilations.
 However, it will allow you to view and edit the Java code,
 get warnings, reformat code, perform refactorings, run Tomcat
 under the IDE, and so on.
-</p>
-
-<p>You will want to set up your Eclipse project for building Tomcat such that
-${tomcatSource} is the Workspace folder.
 </p>
 
 <p>
@@ -171,21 +183,21 @@ Variables to add two new Classpath variables:
 </p>
 
 <p>
-Use File-&gt;New Project to create a new Java project 
-for each of the binaries repository (e.g., /usr/share/java), 
-container, connectors, jasper, servletapi. 
-If you didn't already set up the Eclipse project such that ${tomcat.source} 
-is the Workspace folder, do so now: 
-tell Eclipse the external location using "Import/Export...",
-General-&gt;Existing Project into Workspace.
+There are two files in the root directory, <code>eclipse.classpath</code> and
+<code>eclipse.project</code>. Create their copies with new names,
+<code>.classpath</code> and <code>.project</code> respectively.
 </p>
 
 <p>
-Eclipse .project and .classpath files are provided in each of these
-directories so Eclipse should find all source trees and jars, and
+Use File-&gt;Import and chose "Existing Projects into Workspace".
+From there import the root directory where you have checked out tomcat.
+</p>
+
+<p>
+Eclipse .project and .classpath files provided in the root directory of
+tomcat repository should allow Eclipse to find all source trees and jars, and
 hopefully compile without problems. <b>Note</b> that these
-files assume you are using Eclipse with a 5.0 or later JDK; also, the
-connectors module must be built with a compiler compliance level of 5.0.
+files assume you are using Eclipse with a 5.0 or later JDK.
 </p>
 
 <p>
@@ -194,15 +206,6 @@ enter "org.apache.catalina.startup.Catalina" as the main class,
 "start" as program arguments, and
 "-Dcatalina.home=..." (with the name of your build directory) 
 as VM arguments.
-</p>
-
-<p>
-Note also that due to the way the Tomcat source is assembled
-from several SVN projects, you may not be able to use the Eclipse
-SVN client to update (nor to commit, if you are a committer).
-Use the external SVN client of your choice, then use the
-Eclipse PackageExplorer or Navigator "Refresh" context menu item
-to tell Eclipse that you've updated the files.
 </p>
 
 </blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Building with other IDEs"><!--()--></a><a name="Building_with_other_IDEs"><strong>Building with other IDEs</strong></a></font></td></tr><tr><td><blockquote>
@@ -216,5 +219,5 @@ to work in Idea, for example.
 </p>
 
 </blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade="noshade"></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
-        Copyright &copy; 1999-2010, Apache Software Foundation
+        Copyright &copy; 1999-2012, Apache Software Foundation
         </em></font></div></td></tr></table></body></html>

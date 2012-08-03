@@ -1,9 +1,445 @@
-<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>The Apache Tomcat 5.5 Servlet/JSP Container - Changelog</title><meta content="Remy Maucherat" name="author"><meta content="Yoav Shapira" name="author"><meta content="Filip Hanik" name="author"><meta content="Peter Rossbach" name="author"><meta content="Konstantin Kolinko" name="author"><meta content="Keiichi Fujino" name="author"><meta content="Jim Jagielski" name="author"><style media="print" type="text/css">
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>The Apache Tomcat 5.5 Servlet/JSP Container - Changelog</title><meta content="Remy Maucherat" name="author"><meta content="Yoav Shapira" name="author"><meta content="Filip Hanik" name="author"><meta content="Peter Rossbach" name="author"><meta content="Konstantin Kolinko" name="author"><meta content="Keiichi Fujino" name="author"><meta content="Jim Jagielski" name="author"><meta content="Mladen Turk" name="author"><style media="print" type="text/css">
 			.noPrint {display: none;}
 			td#mainBody {width: 100%;}
 		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
       The Apache Tomcat Servlet/JSP Container
-    " align="right" src="./../images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">The Apache Tomcat 5.5 Servlet/JSP Container</font></h1></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="./../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade="noshade"></td></tr><tr><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>The Apache Tomcat 5.5 Servlet/JSP Container</h1><h2>Changelog</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 5.5.31 (jim)"><!--()--></a><a name="Tomcat_5.5.31_(jim)"><strong>Tomcat 5.5.31 (jim)</strong></a></font></td></tr><tr><td><blockquote>
+    " align="right" src="./../images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">The Apache Tomcat 5.5 Servlet/JSP Container</font></h1></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="./../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade="noshade"></td></tr><tr><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>The Apache Tomcat 5.5 Servlet/JSP Container</h1><h2>Changelog</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 5.5.35 (jim)"><!--()--></a><a name="Tomcat_5.5.35_(jim)"><strong>Tomcat 5.5.35 (jim)</strong></a></font></td><td bgcolor="#525D76" align="right"><font face="arial,helvetica.sanserif" color="#ffffff"><strong></strong></font></td></tr><tr><td colspan="2"><blockquote>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 5.5.35 (jim)/Catalina"><!--()--></a><a name="Tomcat_5.5.35_(jim)/Catalina"><strong>Catalina</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./../images/add.gif" class="icon" alt="add"></td><td>
+        Make configuration issues for security related Valves and Filters result
+        in the failure of the valve or filter rather than just a warning
+        message. (markt)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        Ensure changes to the configuration of the RemoteHostValve and the
+        RemoteAddrValve via JMX are thread-safe. (markt)
+      </td></tr>
+      <tr><td><img src="./../images/update.gif" class="icon" alt="update"></td><td>
+        In <code>RequestFilterValve</code> (<code>RemoteAddrValve</code>,
+        <code>RemoteHostValve</code>): refactor value matching logic into
+        separate method and expose this new method <code>isAllowed</code>
+        through JMX. (kkolinko)
+      </td></tr>
+      <tr><td><img src="./../images/add.gif" class="icon" alt="add"></td><td>
+        Improve performance of parameter processing for GET and POST requests.
+        Also add an option to limit the maximum number of parameters processed
+        per request. This defaults to 10000. Excessive parameters are ignored.
+        Note that <code>FailedRequestFilter</code> can be used to reject the
+        request if some parameters were ignored. (markt/kkolinko)
+      </td></tr>
+      <tr><td><img src="./../images/add.gif" class="icon" alt="add"></td><td>
+        New filter <code>FailedRequestFilter</code> that will reject a request
+        if there were errors during HTTP parameter parsing. (kkolinko)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=52384">52384</a>: Do not fail with parameter parsing when debug logging
+        is enabled. (kkolinko, jim)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        Do not flag extra '&amp;' characters in parameters as parse errors.
+        (kkolinko, jim)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        Slightly improve performance of UDecoder.convert(). Align
+        <code>%2f</code> handling between implementations. (kkolinko)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=52225">52225</a>: Fix ClassCastException when adding an alias for an
+        existing host via JMX. (kkolinko)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        Do not throw an IllegalArgumentException from a
+        <code>parseParameters()</code> call when a chunked POST request is too
+        large, but treat it like an IO error. (kkolinko)
+      </td></tr>
+      <tr><td><img src="./../images/add.gif" class="icon" alt="add"></td><td>
+        Add SetCharacterEncodingFilter (similar to the one contained in the
+        examples web application)
+        to the <code>org.apache.catalina.filters</code> package so it is
+        available for all web applications. (kkolinko)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 5.5.35 (jim)/General"><!--()--></a><a name="Tomcat_5.5.35_(jim)/General"><strong>General</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./../images/update.gif" class="icon" alt="update"></td><td>
+        Update Eclipse compiler to 3.7 and switch to using ecj.jar. (markt)        
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 5.5.35 (jim)/Coyote"><!--()--></a><a name="Tomcat_5.5.35_(jim)/Coyote"><strong>Coyote</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        Improve multi-byte character handling in all connectors. (rjung)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 5.5.35 (jim)/Jasper"><!--()--></a><a name="Tomcat_5.5.35_(jim)/Jasper"><strong>Jasper</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=52335">52335</a>: Only handle <code>&lt;\%</code> and not
+        <code>\%</code> as escaped in template text. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 5.5.35 (jim)/Webapps"><!--()--></a><a name="Tomcat_5.5.35_(jim)/Webapps"><strong>Webapps</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=52049">52049</a>: Improve setup instructions for running as a Windows
+        service: correct information on how a JRE is identified and selected.
+        (kkolinko)
+      </td></tr>
+      <tr><td><img src="./../images/update.gif" class="icon" alt="update"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=52172">52172</a>: Update Tomcat build instructions. Includes changes
+        proposed by bmargulies. (kkolinko)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=52243">52243</a>: Improve windows service documentation to clarify how
+        to include <code>#</code> and/or <code>;</code> in the value of an
+        environment variable that is passed to the service. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 5.5.35 (jim)/Other"><!--()--></a><a name="Tomcat_5.5.35_(jim)/Other"><strong>Other</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=52059">52059</a>: Ensure Windows registry keys are removed when using
+        the un-install option of the Windows installer. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 5.5.34 (jim)"><!--()--></a><a name="Tomcat_5.5.34_(jim)"><strong>Tomcat 5.5.34 (jim)</strong></a></font></td><td bgcolor="#525D76" align="right"><font face="arial,helvetica.sanserif" color="#ffffff"><strong>released 2011-09-22</strong></font></td></tr><tr><td colspan="2"><blockquote>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 5.5.34 (jim)/General"><!--()--></a><a name="Tomcat_5.5.34_(jim)/General"><strong>General</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./../images/update.gif" class="icon" alt="update"></td><td>
+        Update Tomcat-Native to 1.1.22. (jim)
+      </td></tr>
+      <tr><td><img src="./../images/update.gif" class="icon" alt="update"></td><td>
+        Fix CVE-2011-2729. Update to Commons Daemon 1.0.7. (markt)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=33262">33262</a>: When using the Windows installer, the monitor is now
+        auto-started for the current user rather than all users to be consistent
+        with menu item creation. (markt)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=40510">40510</a>: Provide an option within the Windows installer to
+        create menu entries for the current user or all users. (markt)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=50949">50949</a>: Add the ability to specify the AJP port and the
+        shutdown port when using the Windows installer. (markt)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=51135">51135</a>: Fix auto-detection of JAVA_HOME for 64-bit Windows
+        platforms that only have a 32-bit JVM installed when using the Windows
+        installer. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 5.5.34 (jim)/Catalina"><!--()--></a><a name="Tomcat_5.5.34_(jim)/Catalina"><strong>Catalina</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=27988">27988</a>: Improve reporting of missing files. (markt)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=28852">28852</a>: Add URL encoding where missing to parameters in URLs
+        presented by Ant tasks to the Manager application. Based on a patch by
+        Stephane Bailliez. (mark) 
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41179">41179</a>: Return 404 rather than 400 for requests to the ROOT
+        context when no ROOT context has been deployed. (markt)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=50189">50189</a>: Once the application has finished writing to the
+        response, prevent further reads from the request since this causes
+        various problems in the connectors which do not expect this. (markt)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix CVE-2011-2204. Prevent user passwords appearing in log files if a
+        runtime exception (e.g. OOME) occurs while creating a new user for a
+        MemoryUserDatabase via JMX. (markt)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=51042">51042</a>: Don't trigger session creation listeners when a
+        session ID is changed as part of the authentication process. (markt)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=51324">51324</a>: Improve handling of exceptions when flushing the
+        response buffer to ensure that the doFlush flag does not get stuck in
+        the enabled state. Patch provided by Jeremy Norris. (kkolinko)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=51403">51403</a>: Avoid NullPointerException in JULI FileHandler if
+        formatter is misconfigured. (kkolinko)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=51473">51473</a>: Fix concatenation of values in
+        SecurityConfig.setSecurityProperty() when the value provided by JRE is
+        null. (kkolinko)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=51550">51550</a>: Internal errors in Tomcat components that process
+        requests before they are passed to a web application, such as
+        Authenticators, now return a 500 response rather than a 200 response.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./../images/add.gif" class="icon" alt="add"></td><td>
+        CVE-2011-1184: Add additional configuration options to the DIGEST
+        authenticator. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 5.5.34 (jim)/Coyote"><!--()--></a><a name="Tomcat_5.5.34_(jim)/Coyote"><strong>Coyote</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix CVE-2011-2526. Protect against crashes (HTTP APR) if sendfile is
+        configured to send more data than is available in the file. (markt) 
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=50394">50394</a>: Return -1 from read operation instead of throwing an
+        exception when encountering an EOF with the HTTP APR connector.
+        (kkolinko)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=50744">50744</a>: Skip the SSL configuration check on platforms where an
+        unbounded socket cannot be created. (kkolinko)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=51073">51073</a>: Throw an exception and do not start the APR connector
+        if it is configured for SSL and an invalid value is provided for
+        SSLProtocol. (markt)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=51698">51698</a>: Fix CVE-2011-3190. Prevent AJP message injection.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./../images/add.gif" class="icon" alt="add"></td><td>
+        Detect incomplete AJP messages and reject the associated request if one
+        is found. (markt) 
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 5.5.34 (jim)/Jasper"><!--()--></a><a name="Tomcat_5.5.34_(jim)/Jasper"><strong>Jasper</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=36362">36362</a>: Handle the case where tag file attributes (which can
+        use any valid XML name) have a name which is not a Java identifier.
+        (markt)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix possible threading issue in JSP compilation when development mode is
+        enabled. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 5.5.34 (jim)/Cluster"><!--()--></a><a name="Tomcat_5.5.34_(jim)/Cluster"><strong>Cluster</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=48717">48717</a>: Ensure session activation events are fired. (markt)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=50771">50771</a>: Ensure HttpServletRequest#getAuthType() returns the
+        name of the authentication scheme if request has already been
+        authenticated. (kfujino)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=51647">51647</a>: Fix session replication when a session attribute is a
+        Java dynamic proxy. Based on a patch by Tomasz Skutnik. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 5.5.34 (jim)/Webapps"><!--()--></a><a name="Tomcat_5.5.34_(jim)/Webapps"><strong>Webapps</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=41498">41498</a>: Add the allRolesMode attribute to the Realm
+        configuration page in the documentation web application. (markt)
+      </td></tr>
+      <tr><td><img src="./../images/update.gif" class="icon" alt="update"></td><td>
+        Configure Security Manager How-To to include a copy of the actual
+        conf/catalina.policy file when the documentation is built, rather
+        than maintaining a copy of its content. (kkolinko)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=48997">48997</a>: Fixed some typos and improve cross-referencing to the
+        HTTP Connector and APR documentation with the SSL How-To page of the
+        documentation web application. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 5.5.34 (jim)/Other"><!--()--></a><a name="Tomcat_5.5.34_(jim)/Other"><strong>Other</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        Align jpda settings in catalina.bat with catalina.sh, tc6.0.x, tc7.0.x
+        and trunk. (markt)
+      </td></tr>
+      <tr><td><img src="./../images/update.gif" class="icon" alt="update"></td><td>
+        Clarify error messages in *.sh files to mention that if a script is
+        not found it might be because execute permission is needed. (kkolinko)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 5.5.33 (jim)"><!--()--></a><a name="Tomcat_5.5.33_(jim)"><strong>Tomcat 5.5.33 (jim)</strong></a></font></td><td bgcolor="#525D76" align="right"><font face="arial,helvetica.sanserif" color="#ffffff"><strong>released 2011-02-10</strong></font></td></tr><tr><td colspan="2"><blockquote>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 5.5.33 (jim)/General"><!--()--></a><a name="Tomcat_5.5.33_(jim)/General"><strong>General</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        Fix permissions of version.sh in bin tarball. (rjung)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45332">45332</a>, <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45852">45852</a>, <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=50140">50140</a>:
+        Backport numerous improvements to the Windows installer.
+        Specify the correct encoding (the current Windows code page) rather
+        than assuming UTF-8 when creating tomcat-users.xml - <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45332">45332</a>,
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=45852">45852</a>.
+        Update install/uninstall icons. Create an installation log.
+        Allow 32-bit JVMs to be selected when installing on a 64-bit platform.
+        Do not ignore install directory if it is specified with the command
+        line switch on 64-bit platforms - <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=50140">50140</a>.
+        Add support for the <code>/?</code> command line switch.
+        Replace the .ini files with the script equivalents.
+        Provide the ability to edit the roles for the added user.
+        Clean up fully after installation.
+        Add DetailPrint statements for operations that may take time.
+        Improve the descriptions of the components.
+        (kkolinko, mturk, markt)
+      </td></tr>
+      <tr><td><img src="./../images/add.gif" class="icon" alt="add"></td><td>
+        Add roles (admin-gui, admin-script, manager-gui, manager-script,
+        manager-jmx, manager-status) to the Manager, Host Manager and Admin
+        applications to allow more fine-grained control of permissions. The old
+        roles are deprecated but will still work in the same way. (kkolinko)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 5.5.33 (jim)/Catalina"><!--()--></a><a name="Tomcat_5.5.33_(jim)/Catalina"><strong>Catalina</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        Improve HTTP specification compliance in support of
+        <code>Accept-Language</code> header. This protects from known exploit
+        of the Oracle JVM bug that triggers a DoS, CVE-2010-4476. (kkolinko)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=50620">50620</a>: Stop exceptions that occur during
+        <code>Session.endAccess()</code> from preventing the normal completion
+        of <code>Request.recycle()</code>. (markt/kkolinko)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 5.5.33 (jim)/Coyote"><!--()--></a><a name="Tomcat_5.5.33_(jim)/Coyote"><strong>Coyote</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./../images/update.gif" class="icon" alt="update"></td><td>
+        Remove <code>JSSE13Factory</code>, <code>JSSE13SocketFactory</code>
+        classes, as Tomcat 5.5 always runs on JRE 1.4 or later. (kkolinko)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=50325">50325</a>: When the JVM indicates support for RFC 5746, disable
+        Tomcat's <code>allowUnsafeLegacyRenegotiation</code> configuration
+        attribute and use the JVM configuration to control renegotiation.
+        (markt/kkolinko)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 5.5.32 (jim)"><!--()--></a><a name="Tomcat_5.5.32_(jim)"><strong>Tomcat 5.5.32 (jim)</strong></a></font></td><td bgcolor="#525D76" align="right"><font face="arial,helvetica.sanserif" color="#ffffff"><strong>released 2011-02-01</strong></font></td></tr><tr><td colspan="2"><blockquote>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 5.5.32 (jim)/General"><!--()--></a><a name="Tomcat_5.5.32_(jim)/General"><strong>General</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./../images/update.gif" class="icon" alt="update"></td><td>
+        Update to Commons Daemon 1.0.5. (mturk)
+      </td></tr>
+      <tr><td><img src="./../images/update.gif" class="icon" alt="update"></td><td>
+        Update to commons-pool 1.5.5. (markt)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        Ensure POM files have correct line endings in source distributions.
+        (rjung/markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 5.5.32 (jim)/Catalina"><!--()--></a><a name="Tomcat_5.5.32_(jim)/Catalina"><strong>Catalina</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./../images/add.gif" class="icon" alt="add"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=43960">43960</a>: Expose <code>available</code> property of
+        StandardWrapper via JMX. (markt)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=50131">50131</a>: Avoid possible NPE in debug output in PersistentValve.
+        Patch provided by sebb. (kkolinko)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=50413">50413</a>: Ensure 304s are not returned when using static files
+        as error pages. (markt/kkolinko)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        Avoid unnecessary cast in StandardContext. (markt)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=50460">50460</a>: Avoid a possible memory leak caused by using a cached
+        exception instance. (kkolinko)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=50550">50550</a>: When a new directory is created (e.g. via WebDAV)
+        ensure that a subsequent request for that directory does not result in a
+        404 response. (markt/kkolinko)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 5.5.32 (jim)/Coyote"><!--()--></a><a name="Tomcat_5.5.32_(jim)/Coyote"><strong>Coyote</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=47913">47913</a>: Return the IP address rather than null for
+        <code>getRemoteHost()</code> with the APR connector if the IP address
+        does not resolve. (markt)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=49521">49521</a>: Disable scanning for a free port in Jk AJP/1.3
+        connector by default. Do not change maxPort field value of ChannelSocket
+        in its <code>setPort()</code> and <code>init()</code> methods. Add
+        support for <code>maxPort</code> attribute on a <code>Connector</code>
+        element as a synonym for channelSocket.maxPort. (kkolinko)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 5.5.32 (jim)/Jasper"><!--()--></a><a name="Tomcat_5.5.32_(jim)/Jasper"><strong>Jasper</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=49935">49935</a>: Handle compilation of recursive tag files. (markt)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 5.5.32 (jim)/Cluster"><!--()--></a><a name="Tomcat_5.5.32_(jim)/Cluster"><strong>Cluster</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        Improve sending an access message in DeltaManager.
+        maxInactiveInterval of not Manager but the session is used. 
+        If maxInactiveInterval is negative, an access message is not sending. 
+        (kfujino)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=50547">50547</a>: Add time stamp for CHANGE_SESSION_ID message and 
+        SESSION_EXPIRED message. (kfujino)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 5.5.32 (jim)/Webapps"><!--()--></a><a name="Tomcat_5.5.32_(jim)/Webapps"><strong>Webapps</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellspacing="2" cellpadding="2" border="0">
+      <tr><td><img src="./../images/add.gif" class="icon" alt="add"></td><td>
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=50294">50294</a>: Add more information to documentation regarding format
+        of configuration files. Patch provided by Luke Meyer. (markt) 
+      </td></tr>
+      <tr><td><img src="./../images/update.gif" class="icon" alt="update"></td><td>
+        Improve documentation of database connection factory. (rjung)
+      </td></tr>
+      <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
+        Improve filtering of Manager display output. (kkolinko) 
+      </td></tr>
+      <tr><td><img src="./../images/update.gif" class="icon" alt="update"></td><td>
+        Configure the Admin, Manager and Host-Manager web applications to use
+        HttpOnly flag for their session cookies. (kkolinko)
+      </td></tr>
+    </table>
+  </blockquote></td></tr></table>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 5.5.31 (jim)"><!--()--></a><a name="Tomcat_5.5.31_(jim)"><strong>Tomcat 5.5.31 (jim)</strong></a></font></td><td bgcolor="#525D76" align="right"><font face="arial,helvetica.sanserif" color="#ffffff"><strong>released 2010-09-16</strong></font></td></tr><tr><td colspan="2"><blockquote>
   <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat 5.5.31 (jim)/General"><!--()--></a><a name="Tomcat_5.5.31_(jim)/General"><strong>General</strong></a></font></td></tr><tr><td><blockquote>
     <table cellspacing="2" cellpadding="2" border="0">
       <tr><td><img src="./../images/fix.gif" class="icon" alt="fix"></td><td>
@@ -4944,5 +5380,5 @@
     </table>
   </blockquote></td></tr></table>
 </blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade="noshade"></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
-        Copyright &copy; 1999-2010, Apache Software Foundation
+        Copyright &copy; 1999-2012, Apache Software Foundation
         </em></font></div></td></tr></table></body></html>

@@ -1,16 +1,16 @@
 /*******************************************************************************
-* Waffle (https://github.com/dblock/waffle)
-* 
-* Copyright (c) 2010 Application Security, Inc.
-* 
-* All rights reserved. This program and the accompanying materials
-* are made available under the terms of the Eclipse Public License v1.0
-* which accompanies this distribution, and is available at
-* http://www.eclipse.org/legal/epl-v10.html
-*
-* Contributors:
-*     Application Security, Inc.
-*******************************************************************************/
+ * Waffle (https://github.com/dblock/waffle)
+ * 
+ * Copyright (c) 2010 Application Security, Inc.
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Application Security, Inc.
+ *******************************************************************************/
 package waffle.servlet.http;
 
 import java.io.BufferedReader;
@@ -32,9 +32,9 @@ import javax.servlet.http.HttpSession;
  * @author dblock[at]dblock[dot]org
  */
 public class SimpleHttpRequest implements HttpServletRequest {
-	
+
 	private static int _remotePort_s = 0;
-	
+
 	private String _requestURI = null;
 	private String _queryString = null;
 	private String _remoteUser = null;
@@ -47,65 +47,65 @@ public class SimpleHttpRequest implements HttpServletRequest {
 	private byte[] _content = null;
 	private HttpSession _session = new SimpleHttpSession();
 	private Principal _principal = null;
-	
+
 	public SimpleHttpRequest() {
 		_remotePort = nextRemotePort();
 	}
-	
+
 	public synchronized static int nextRemotePort() {
-		return ++ _remotePort_s;
+		return ++_remotePort_s;
 	}
-	
+
 	public synchronized static void resetRemotePort() {
 		_remotePort_s = 0;
 	}
-	
+
 	public void addHeader(String headerName, String headerValue) {
 		_headers.put(headerName, headerValue);
 	}
-	
+
 	@Override
 	public String getHeader(String headerName) {
 		return _headers.get(headerName);
 	}
-	
+
 	@Override
 	public String getMethod() {
 		return _method;
 	}
-	
+
 	@Override
 	public int getContentLength() {
 		return _content == null ? -1 : _content.length;
 	}
-	
+
 	@Override
 	public int getRemotePort() {
 		return _remotePort;
 	}
-	
+
 	public void setMethod(String methodName) {
 		_method = methodName;
 	}
-	
+
 	public void setContentLength(int length) {
 		_content = new byte[length];
 	}
-	
+
 	public void setRemoteUser(String username) {
 		_remoteUser = username;
 	}
-	
-	@Override 
+
+	@Override
 	public String getRemoteUser() {
 		return _remoteUser;
 	}
-	
-	@Override 
+
+	@Override
 	public HttpSession getSession() {
 		return _session;
 	}
-	
+
 	@Override
 	public HttpSession getSession(boolean create) {
 		if (_session == null && create) {
@@ -113,12 +113,12 @@ public class SimpleHttpRequest implements HttpServletRequest {
 		}
 		return _session;
 	}
-	
+
 	@Override
 	public String getQueryString() {
 		return _queryString;
 	}
-	
+
 	public void setQueryString(String queryString) {
 		_queryString = queryString;
 		if (_queryString != null) {
@@ -129,25 +129,25 @@ public class SimpleHttpRequest implements HttpServletRequest {
 			}
 		}
 	}
-	
+
 	public void setRequestURI(String uri) {
 		_requestURI = uri;
 	}
-	
+
 	@Override
 	public String getRequestURI() {
 		return _requestURI;
 	}
-	
+
 	@Override
 	public String getParameter(String parameterName) {
 		return _parameters.get(parameterName);
 	}
-	
-	public void addParameter(String parameterName, String parameterValue) {		
+
+	public void addParameter(String parameterName, String parameterValue) {
 		_parameters.put(parameterName, parameterValue);
 	}
-	
+
 	@Override
 	public String getRemoteHost() {
 		return _remoteHost;
@@ -156,7 +156,7 @@ public class SimpleHttpRequest implements HttpServletRequest {
 	public void setRemoteHost(String remoteHost) {
 		_remoteHost = remoteHost;
 	}
-	
+
 	@Override
 	public String getRemoteAddr() {
 		return _remoteAddr;
@@ -165,12 +165,12 @@ public class SimpleHttpRequest implements HttpServletRequest {
 	public void setRemoteAddr(String remoteAddr) {
 		_remoteAddr = remoteAddr;
 	}
-	
-	@Override 
+
+	@Override
 	public Principal getUserPrincipal() {
 		return _principal;
 	}
-	
+
 	public void setUserPrincipal(Principal principal) {
 		_principal = principal;
 	}
@@ -181,7 +181,7 @@ public class SimpleHttpRequest implements HttpServletRequest {
 	}
 
 	@Override
-	public Enumeration getAttributeNames() {
+	public Enumeration<String> getAttributeNames() {
 		return null;
 	}
 
@@ -221,17 +221,17 @@ public class SimpleHttpRequest implements HttpServletRequest {
 	}
 
 	@Override
-	public Enumeration getLocales() {
+	public Enumeration<Locale> getLocales() {
 		return null;
 	}
 
 	@Override
-	public Map getParameterMap() {
+	public Map<String, String[]> getParameterMap() {
 		return null;
 	}
 
 	@Override
-	public Enumeration getParameterNames() {
+	public Enumeration<String> getParameterNames() {
 		return null;
 	}
 
@@ -250,6 +250,7 @@ public class SimpleHttpRequest implements HttpServletRequest {
 		return null;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public String getRealPath(String arg0) {
 		return null;
@@ -282,17 +283,17 @@ public class SimpleHttpRequest implements HttpServletRequest {
 
 	@Override
 	public void removeAttribute(String arg0) {
-		
+
 	}
 
 	@Override
 	public void setAttribute(String arg0, Object arg1) {
-		
+
 	}
 
 	@Override
-	public void setCharacterEncoding(String arg0) 
-		throws UnsupportedEncodingException {
+	public void setCharacterEncoding(String arg0)
+			throws UnsupportedEncodingException {
 	}
 
 	@Override
@@ -316,13 +317,12 @@ public class SimpleHttpRequest implements HttpServletRequest {
 	}
 
 	@Override
-	public Enumeration getHeaderNames() {
+	public Enumeration<String> getHeaderNames() {
 		return null;
 	}
 
 	@Override
-	public Enumeration getHeaders(String arg0) {
-		// TODO Auto-generated method stub
+	public Enumeration<String> getHeaders(String arg0) {
 		return null;
 	}
 
@@ -366,6 +366,7 @@ public class SimpleHttpRequest implements HttpServletRequest {
 		return false;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean isRequestedSessionIdFromUrl() {
 		return false;
