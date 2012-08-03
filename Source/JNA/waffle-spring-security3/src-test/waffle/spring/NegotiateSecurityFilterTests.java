@@ -27,9 +27,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import waffle.servlet.http.SimpleFilterChain;
-import waffle.servlet.http.SimpleHttpRequest;
-import waffle.servlet.http.SimpleHttpResponse;
+import waffle.http.SimpleFilterChain;
+import waffle.http.SimpleHttpRequest;
+import waffle.http.SimpleHttpResponse;
 import waffle.servlet.spi.BasicSecurityFilterProvider;
 import waffle.servlet.spi.NegotiateSecurityFilterProvider;
 import waffle.servlet.spi.SecurityFilterProviderCollection;

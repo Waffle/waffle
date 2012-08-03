@@ -11,7 +11,7 @@
  * Contributors:
  *     Application Security, Inc.
  *******************************************************************************/
-package waffle.servlet.http;
+package waffle.http;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -250,7 +250,6 @@ public class SimpleHttpRequest implements HttpServletRequest {
 		return null;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public String getRealPath(String arg0) {
 		return null;
@@ -366,7 +365,6 @@ public class SimpleHttpRequest implements HttpServletRequest {
 		return false;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean isRequestedSessionIdFromUrl() {
 		return false;

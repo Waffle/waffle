@@ -11,7 +11,7 @@
  * Contributors:
  *     Application Security, Inc.
  *******************************************************************************/
-package waffle.servlet.http;
+package waffle.http;
 
 import java.io.IOException;
 

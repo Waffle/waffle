@@ -22,8 +22,8 @@ import junit.framework.TestCase;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import waffle.servlet.http.SimpleHttpRequest;
-import waffle.servlet.http.SimpleHttpResponse;
+import waffle.http.SimpleHttpRequest;
+import waffle.http.SimpleHttpResponse;
 
 /**
  * @author dblock[at]dblock[dot]org

@@ -109,7 +109,6 @@ public class SimpleServletContext implements ServletContext {
 	}
 
 	@Override
-	@SuppressWarnings("deprecation")
 	public Servlet getServlet(String arg0) throws ServletException {
 		return null;
 	}
@@ -120,13 +119,11 @@ public class SimpleServletContext implements ServletContext {
 	}
 
 	@Override
-	@SuppressWarnings("deprecation")
 	public Enumeration<?> getServletNames() {
 		return null;
 	}
 
 	@Override
-	@SuppressWarnings("deprecation")
 	public Enumeration<?> getServlets() {
 		return null;
 	}
@@ -137,7 +134,6 @@ public class SimpleServletContext implements ServletContext {
 	}
 
 	@Override
-	@SuppressWarnings("deprecation")
 	public void log(Exception arg0, String arg1) {
 
 	}

@@ -309,7 +309,6 @@ public class SimpleContext implements Context {
 		return false;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public CharsetMapper getCharsetMapper() {
 		return null;
@@ -545,7 +544,6 @@ public class SimpleContext implements Context {
 
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void setCharsetMapper(CharsetMapper arg0) {
 
@@ -726,7 +724,6 @@ public class SimpleContext implements Context {
 		return null;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public Object getMappingObject() {
 		return null;
@@ -771,7 +768,6 @@ public class SimpleContext implements Context {
 		return null;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void invoke(Request arg0, Response arg1) throws IOException,
 			ServletException {

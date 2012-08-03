@@ -3,6 +3,7 @@
 	<target name="recurse">
 		<ant dir="waffle-api" target="${ant.target}" />
 		<ant dir="waffle-mock" target="${ant.target}" />
+		<ant dir="waffle-http" target="${ant.target}" />
 		<ant dir="waffle-core" target="${ant.target}" />
 		<ant dir="waffle-jaas" target="${ant.target}" />
 		<ant dir="waffle-servlet" target="${ant.target}" />

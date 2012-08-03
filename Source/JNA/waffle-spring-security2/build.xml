@@ -5,6 +5,7 @@
 	<path id="waffle-api.classpath" location="${common.build}/waffle-api.jar" />
 	<path id="waffle-core.classpath" location="${common.build}/waffle-core.jar" />
 	<path id="waffle-mock.classpath" location="${common.build}/waffle-mock.jar" />
+    <path id="waffle-http.classpath" location="${common.build}/waffle-http.jar" />
 	<path id="waffle-servlet.classpath" location="${common.build}/waffle-servlet.jar" />
 	<import file="${basedir}/../build/build.xml" />
 	<path id="javax.classpath">
@@ -32,5 +33,6 @@
 	</path>
 	<path id="project.test.classpath">
 		<path refid="waffle-mock.classpath" />
+        <path refid="waffle-http.classpath" />
 	</path>
 </project>
