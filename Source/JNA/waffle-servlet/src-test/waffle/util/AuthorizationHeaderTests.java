@@ -14,7 +14,7 @@
 package waffle.util;
 
 import junit.framework.TestCase;
-import waffle.servlet.http.SimpleHttpRequest;
+import waffle.http.SimpleHttpRequest;
 
 /**
  * @author dblock[at]dblock[dot]org

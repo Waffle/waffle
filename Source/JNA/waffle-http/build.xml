@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="waffle-http" default="build" basedir=".">
+	<import file="${basedir}/../build/common.xml" />
+	<property name="project.jar" value="waffle-http" />
+	<import file="${basedir}/../build/build.xml" />
+    <path id="javax.classpath">
+        <fileset dir="${thirdparty.dir}/javax/servlet2.5">
+            <include name="*.jar" />
+        </fileset>
+    </path>
+	<path id="project.classpath">
+        <path refid="javax.classpath" />
+	</path>
+	<path id="project.test.classpath" />
+</project>

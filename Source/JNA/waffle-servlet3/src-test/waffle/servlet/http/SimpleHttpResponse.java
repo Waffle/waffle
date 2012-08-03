@@ -214,7 +214,6 @@ public class SimpleHttpResponse implements HttpServletResponse {
 		return null;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public String encodeRedirectUrl(String arg0) {
 		return null;
@@ -225,7 +224,6 @@ public class SimpleHttpResponse implements HttpServletResponse {
 		return null;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public String encodeUrl(String arg0) {
 		return null;
@@ -246,7 +244,6 @@ public class SimpleHttpResponse implements HttpServletResponse {
 
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void setStatus(int arg0, String arg1) {
 

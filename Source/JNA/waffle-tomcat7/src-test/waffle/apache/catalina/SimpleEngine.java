@@ -70,7 +70,6 @@ public class SimpleEngine implements org.apache.catalina.Engine {
 
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public Object getMappingObject() {
 		return null;
@@ -194,7 +193,6 @@ public class SimpleEngine implements org.apache.catalina.Engine {
 		return null;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void invoke(Request request, Response response) throws IOException,
 			ServletException {
