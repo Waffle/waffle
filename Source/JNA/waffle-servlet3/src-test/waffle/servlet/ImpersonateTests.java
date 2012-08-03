@@ -10,9 +10,9 @@ import javax.servlet.ServletResponse;
 
 import junit.framework.TestCase;
 import waffle.mock.MockWindowsAccount;
-import waffle.servlet.http.SimpleFilterChain;
-import waffle.servlet.http.SimpleHttpRequest;
-import waffle.servlet.http.SimpleHttpResponse;
+import waffle.http.SimpleFilterChain;
+import waffle.http.SimpleHttpRequest;
+import waffle.http.SimpleHttpResponse;
 import waffle.util.Base64;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
