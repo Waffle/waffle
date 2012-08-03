@@ -4,38 +4,36 @@ Next Release
 Misc
 ----
 
-* Updated all included - [@hazendaz](https://github.com/hazendaz).
-  * Upgraded thirdparty tomcat 5.5.31 to 5.5.35
-  * Upgraded thirdparty tomcat 7.0.4 to 7.0.29
-  * Upgraded thirdparty guava 12.0 to 12.0.1
-  * Upgraded thirdparty spring 3.1.1 to 3.1.2
-  * Upgraded thirdparty spring-security 2.0.5 to 2.0.7
-  * Upgraded thirdparty spring 2.5.6.SEC02 to 2.5.6.SEC03
-  * Added thirdparty servlet-api 3.0
-  * Added additoinal code changes to support above updates
-  * Added some additional master test suites
-  * Formatted code to get everything aligned properly
-  * Updated older license information to latest
-  * Updated remaining items from commons logging to slf4j
+* Waffle now requires Java 1.6 or newer - [@hazendaz](https://github.com/hazendaz).
 * Using JNA 3.4.2 (currently private build) - [@dblock](https://github.com/dblock).
 * Refactored `waffle-jna.jar` into several distinct packages - [@dblock](https://github.com/dblock).
   * `waffle-api.jar`: API interfaces.
   * `waffle-core.jar` : Core JNA-based implementation.
   * `waffle-jaas.jar` : JAAS support.
   * `waffle-servlet.jar`: Generic Servlet filters.
+  * `waffle-servlet3.jar`: Generic Servlet3 filters.
+  * `waffle-spring-security2.jar`: Spring-security 2.
+  * `waffle-spring-security3.jar`: Spring-security 3.
+  * `waffle-tomcat-5.jar` : Tomcat 5 Valves
   * `waffle-tomcat-6.jar` : Tomcat 6 Valves
+  * `waffle-tomcat-7.jar` : Tomcat 7 Valves
+* Upgraded thirdparty dependencies - [@hazendaz](https://github.com/hazendaz).
+  * tomcat 5.5.35
+  * tomcat 6.0.35
+  * tomcat 7.0.29
+  * guava 12.0.1
+  * spring 3.1.2
+  * spring 2.5.6.SEC03
+  * spring-security 2.0.7
+  * junit 4.10
 * Documentation has been rewritten in Markdown, R.I.P. CHM - [@dblock](https://github.com/dblock).
-* [#4](https://github.com/dblock/waffle/pull/4): Upgraded Spring/Spring Security 3.1.1 - [@hazendaz](https://github.com/hazendaz).
 * [#3](https://github.com/dblock/waffle/pull/3): Converted commons-logging to slf4j logging - [@hazendaz](https://github.com/hazendaz).
   * Added slf4j with additional jars for jcl, jdk, log4j, nop, simple logging solutions.
   * Added jcl over slf4j jar for spring as it still uses commons-logging.
   * Added logback for native slf4j solution.
   * Added sample xml files for logback solution to all demos.
-* [#3](https://github.com/dblock/waffle/pull/3): Upgraded thirdparty tomcat to 6.0.35 - [@hazendaz](https://github.com/hazendaz).
-* [#2](https://github.com/dblock/waffle/pull/2): Upgraded thirdparty Guava to 12.0 - [@hazendaz](https://github.com/hazendaz).
-* [#2](https://github.com/dblock/waffle/pull/2): Upgraded thirdparty JUnit to 4.10 - [@hazendaz](https://github.com/hazendaz).
 * [#1](https://github.com/dblock/waffle/pull/1): Adjusted logging from info to debug to reduce noise level - [@mcfly83](https://github.com/mcfly83).
-* Previously deprecated Jacob-based COM interfaces and implementation have been removed - [@dblock](https://github.com/dblock).
+* Removed previously deprecated Jacob-based COM interfaces and implementation - [@dblock](https://github.com/dblock).
 
 1.4 (6/21/2011) 
 ===============
