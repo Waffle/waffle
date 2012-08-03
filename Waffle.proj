@@ -67,9 +67,9 @@
     <Copy SourceFiles="@(SampleFiles)" DestinationFolder="$(ReleaseDir)\Samples" />
   </Target>
   <ItemGroup>
-    <JnaFiles Include="Source\JNA\bin\*.jar" Exclude="Source\JNA\bin\waffle-mock.jar" />
+    <JnaFiles Include="Source\JNA\bin\*.jar" Exclude="Source\JNA\bin\waffle-mock.jar;Source\JNA\bin\waffle-http.jar" />
     <JnaFiles Include="Source\ThirdParty\jna\*.jar" />
-    <JnaFiles Include="Source\ThirdParty\guava\guava-12.0.jar" /> 
+    <JnaFiles Include="Source\ThirdParty\guava\guava-12.0.1.jar" /> 
     <JnaFiles Include="Source\ThirdParty\slf4j\*.jar" Exclude="Source\ThirdParty\slf4j\*-sources.jar" />
     <JnaFiles Include="Source\ThirdParty\logback\*.jar" Exclude="Source\ThirdParty\logback\*-sources.jar" />
   </ItemGroup>
