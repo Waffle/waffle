@@ -4,6 +4,7 @@ Next Release
 Misc
 ----
 
+* Some generics cleanup - [@hazendaz](https://github.com/hazendaz).
 * Bug #9 Java test suites run twice with ant - [@hazendaz](https://github.com/hazendaz).
   * Added exclusion to "All*Test.class" during ANT build to skip the master test suites
   * which were resulting in duplicate runs of tests.

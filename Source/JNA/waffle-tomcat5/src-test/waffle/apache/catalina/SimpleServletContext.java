@@ -35,7 +35,7 @@ public class SimpleServletContext implements ServletContext {
 	}
 
 	@Override
-	public Enumeration<?> getAttributeNames() {
+	public Enumeration<String> getAttributeNames() {
 		return null;
 	}
 
@@ -54,7 +54,7 @@ public class SimpleServletContext implements ServletContext {
 	}
 
 	@Override
-	public Enumeration<?> getInitParameterNames() {
+	public Enumeration<String> getInitParameterNames() {
 		return null;
 	}
 
@@ -99,7 +99,7 @@ public class SimpleServletContext implements ServletContext {
 	}
 
 	@Override
-	public Set<?> getResourcePaths(String arg0) {
+	public Set<String> getResourcePaths(String arg0) {
 		return null;
 	}
 
@@ -119,12 +119,12 @@ public class SimpleServletContext implements ServletContext {
 	}
 
 	@Override
-	public Enumeration<?> getServletNames() {
+	public Enumeration<String> getServletNames() {
 		return null;
 	}
 
 	@Override
-	public Enumeration<?> getServlets() {
+	public Enumeration<Servlet> getServlets() {
 		return null;
 	}
 
