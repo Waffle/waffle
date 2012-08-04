@@ -95,8 +95,11 @@
 		<junit fork="true" newenvironment="true" failureproperty="tests.failed"
 			haltonfailure="no" haltonerror="no" printsummary="on" errorproperty="tests.failed">
 			<batchtest todir="${waffle.test}">
-				<fileset dir="${waffle.test.lib}" includes="**/*Tests.class"
-					excludes="**/*LoadTests.class" />
+				<fileset dir="${waffle.test.lib}">
+					<include name="**/*Tests.class" />
+					<exclude name="**/*LoadTests.class" />
+				    <exclude name="**/*All*Tests.class" />
+				</fileset>
 			</batchtest>
 			<formatter type="xml" />
 			<classpath refid="waffle.test.classpath" />
