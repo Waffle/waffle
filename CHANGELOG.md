@@ -4,6 +4,9 @@ Next Release
 Misc
 ----
 
+* Bug #9 Java test suites run twice with ant - [@hazendaz](https://github.com/hazendaz).
+  * Added exclusion to "All*Test.class" during ANT build to skip the master test suites
+  * which were resulting in duplicate runs of tests.
 * Waffle now requires Java 1.6 or newer - [@hazendaz](https://github.com/hazendaz).
 * Using JNA 3.4.2 (currently private build) - [@dblock](https://github.com/dblock).
 * Refactored `waffle-jna.jar` into several distinct packages - [@dblock](https://github.com/dblock).
