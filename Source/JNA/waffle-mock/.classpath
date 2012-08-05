@@ -12,6 +12,6 @@
 	<classpathentry kind="lib" path="/thirdparty/logback/logback-classic-1.0.6.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/logback/logback-core-1.0.6.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/waffle-api"/>
-	<classpathentry kind="lib" path="/thirdparty/guava/guava-12.0.1.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/guava/guava-13.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

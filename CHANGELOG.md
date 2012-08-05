@@ -25,10 +25,11 @@ Misc
   * tomcat 5.5.35
   * tomcat 6.0.35
   * tomcat 7.0.29
-  * guava 12.0.1
+  * guava 13.0
   * spring 3.1.2
   * spring 2.5.6.SEC03
   * spring-security 2.0.7
+  * spring-security 3.1.1
   * junit 4.10
 * Documentation has been rewritten in Markdown, R.I.P. CHM - [@dblock](https://github.com/dblock).
 * [#3](https://github.com/dblock/waffle/pull/3): Converted commons-logging to slf4j logging - [@hazendaz](https://github.com/hazendaz).

@@ -15,10 +15,10 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/waffle-core"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/waffle-api"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/waffle-mock"/>
-	<classpathentry kind="lib" path="/thirdparty/guava/guava-12.0.1.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/javax/servlet2.5/servlet-api-2.5.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/spring-security2/dist/spring-security-core-2.0.7.RELEASE.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/waffle-http"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/waffle-servlet"/>
+	<classpathentry kind="lib" path="/thirdparty/guava/guava-13.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

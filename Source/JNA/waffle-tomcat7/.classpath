@@ -21,6 +21,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/waffle-servlet"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/waffle-api"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/waffle-mock"/>
-	<classpathentry kind="lib" path="/thirdparty/guava/guava-12.0.1.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/guava/guava-13.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
