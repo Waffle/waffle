@@ -46,8 +46,13 @@
 		<sequential>
 			<delete dir="${waffle.lib}" />
 			<mkdir dir="${waffle.lib}" />
-			<javac target="${waffle.java.version}" srcdir="${waffle.src}"
-				destdir="${waffle.lib}" optimize="@{optimize}" debug="@{debug}" 
+			<javac 
+				source="${waffle.java.version}" 
+				target="${waffle.java.version}" 
+				srcdir="${waffle.src}"
+				destdir="${waffle.lib}" 
+				optimize="@{optimize}" 
+				debug="@{debug}" 
 				includeantruntime="false">
 				<classpath refid="thirdparty.classpath" />
 				<classpath refid="project.classpath" />
