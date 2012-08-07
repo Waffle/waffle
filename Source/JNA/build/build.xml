@@ -105,8 +105,7 @@
 			<jvmarg value="-Demma.coverage.out.file=${waffle.cover}/coverage.emma" />
 		</junit>
 		<antcall target="test-report" />
-		<!-- Don't fail, not all tests work on my machine -->
-		<!-- <fail message="Unit Tests failed" if="tests.failed" /> -->
+		<fail message="Unit Tests failed" if="tests.failed" />
 	</target>
 	<!-- cover -->
 	<property name="emma.dir" value="${thirdparty.dir}/_lib/jar/emma/2.1.5320" />
