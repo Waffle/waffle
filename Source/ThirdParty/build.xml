@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="waffle" basedir="." default="dist" xmlns:ivy="antlib:org.apache.ivy.ant">
+
+	<target name="info">
+		<echo>Waffle Third Party Dependencies</echo>
+	</target>
+
+	<target name="dist" depends="clean, dependencies, report">
+
+	</target>
+
+	<target name="dependencies">
+		<ivy:settings file="${basedir}/ivysettings.xml" />
+		<ivy:resolve file="${basedir}/ivy.xml"/>
+		<ivy:retrieve pattern="_lib/[type]/[organisation]/[revision]/[artifact]-[revision].[ext]" sync="true" />
+		
+		<!-- Due to eviction, spring security 2 is prevented thus this step will get it -->
+		<ivy:resolve file="${basedir}/ivy2.xml"/>
+		<ivy:retrieve pattern="${basedir}/_lib/[type]/[organisation]/[revision]/[artifact]-[revision].[ext]" sync="false" />
+	</target>
+
+	<target name="report">
+		<mkdir dir="${basedir}/_report" />
+		<ivy:resolve type="${ivy.resolve.types}"/>
+		<ivy:report todir="${basedir}/_report" />
+	</target>
+
+	<target name="clean">
+		<delete dir="${basedir}/_lib" />
+	</target>
+
+	<target name="cleanCache">
+		<delete dir="${ivy.cache.dir}" />
+	</target>
+
+</project>

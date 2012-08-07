@@ -8,7 +8,7 @@
     <path id="waffle-http.classpath" location="${common.build}/waffle-http.jar" />
 	<import file="${basedir}/../build/build.xml" />
 	<path id="javax.classpath">
-		<fileset dir="${thirdparty.dir}/javax/servlet2.5">
+		<fileset dir="${thirdparty.dir}/_lib/jar/javax.servlet/2.5">
 			<include name="*.jar" />
 		</fileset>
 	</path>

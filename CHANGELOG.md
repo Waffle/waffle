@@ -4,7 +4,11 @@ Next Release
 Misc
 ----
 
-* Some generics cleanup - [@hazendaz](https://github.com/hazendaz).
+* Reworked development version to support ivy - [@hazendaz](https://github.com/hazendaz).
+  * Removed all third party included jars.
+  * Retained tomcat 5.5.35 due to ivy/maven only having 5.5.23 available.
+  * Retained JNA due to private build.
+* Use generics rather than casting where possible - [@hazendaz](https://github.com/hazendaz).
 * Bug #9 Java test suites run twice with ant - [@hazendaz](https://github.com/hazendaz).
   * Added exclusion to "All*Test.class" during ANT build to skip the master test suites
   * which were resulting in duplicate runs of tests.
@@ -13,6 +17,8 @@ Misc
 * Refactored `waffle-jna.jar` into several distinct packages - [@dblock](https://github.com/dblock).
   * `waffle-api.jar`: API interfaces.
   * `waffle-core.jar` : Core JNA-based implementation.
+  * 'waffle-http.jar' : Generic http.
+  * 'waffle-http3.jar' : Generic http3.
   * `waffle-jaas.jar` : JAAS support.
   * `waffle-servlet.jar`: Generic Servlet filters.
   * `waffle-servlet3.jar`: Generic Servlet3 filters.
@@ -31,9 +37,10 @@ Misc
   * spring-security 2.0.7
   * spring-security 3.1.1
   * junit 4.10
+  * emma 2.1.5320
 * Documentation has been rewritten in Markdown, R.I.P. CHM - [@dblock](https://github.com/dblock).
 * [#3](https://github.com/dblock/waffle/pull/3): Converted commons-logging to slf4j logging - [@hazendaz](https://github.com/hazendaz).
-  * Added slf4j with additional jars for jcl, jdk, log4j, nop, simple logging solutions.
+  * Added slf4j.
   * Added jcl over slf4j jar for spring as it still uses commons-logging.
   * Added logback for native slf4j solution.
   * Added sample xml files for logback solution to all demos.

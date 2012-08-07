@@ -17,21 +17,20 @@
 	<property name="waffle.test.lib" value="${waffle.root}/lib-test" />
 	<property name="waffle.test" value="${waffle.root}/test" />
 	<property name="thirdparty.dir" location="${basedir}/../../ThirdParty" />
+
 	<!-- compile -->
 	<path id="jna.classpath">
 		<fileset dir="${thirdparty.dir}/jna">
-			<include name="jna.jar" />
-			<include name="platform.jar" />
+			<include name="*.jar" />
 		</fileset>
 	</path>
 	<path id="slf4j.classpath">
-		<fileset dir="${thirdparty.dir}/slf4j">
-			<include name="**/*jcl-over-slf4j*.jar" />
-			<include name="**/*slf4j-api*.jar" />
+		<fileset dir="${thirdparty.dir}/_lib/jar/org.slf4j/1.6.6">
+			<include name="*.jar" />
 		</fileset>
 	</path>
 	<path id="guava.classpath">
-		<fileset dir="${thirdparty.dir}/guava">
+		<fileset dir="${thirdparty.dir}/_lib/jar/com.google.guava/13.0">
 			<include name="**/*.jar" />
 		</fileset>
 	</path>
@@ -57,8 +56,8 @@
 	</macrodef>
 	<!-- test -->
 	<path id="groboutils.classpath">
-		<fileset dir="${thirdparty.dir}/groboutils/lib">
-			<include name="GroboUtils-5-core.jar" />
+		<fileset dir="${thirdparty.dir}/_lib/jar/net.sourceforge.groboutils/5">
+			<include name="*.jar" />
 		</fileset>
 	</path>
 	<path id="waffle.test.classpath">
@@ -66,7 +65,7 @@
     <path refid="thirdparty.classpath" />
     <path refid="project.classpath" />
 		<path refid="project.test.classpath" />
-		<fileset dir="${thirdparty.dir}/junit">
+		<fileset dir="${thirdparty.dir}/_lib/jar/junit/4.10">
 			<include name="*.jar" />
 		</fileset>
 		<pathelement location="${waffle.test.src}" />
@@ -109,11 +108,10 @@
 		<fail message="Unit Tests failed" if="tests.failed" />
 	</target>
 	<!-- cover -->
-	<property name="emma.dir" value="${thirdparty.dir}/emma/lib" />
+	<property name="emma.dir" value="${thirdparty.dir}/_lib/jar/emma/2.1.5320" />
 	<path id="emma.classpath">
-		<fileset dir="${thirdparty.dir}/emma/lib">
-			<include name="emma.jar" />
-			<include name="emma_ant.jar" />
+		<fileset dir="${thirdparty.dir}/_lib/jar/emma/2.1.5320">
+			<include name="*.jar" />
 		</fileset>
 	</path>
 	<taskdef resource="emma_ant.properties" classpathref="emma.classpath" />
@@ -136,7 +134,7 @@
 				<fileset dir="${waffle.cover}">
 					<include name="*.emma" />
 				</fileset>
-				<html outfile="${waffle.cover}/coverage.html" />			
+				<html outfile="${waffle.cover}/coverage.html" />
 			</report>
 		</emma>
 	</target>

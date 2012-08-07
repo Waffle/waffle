@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ivy-module version="2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="dblock" module="waffle" />
+
+	<dependencies>
+		<!-- testing -->
+		<dependency org="emma" name="emma" rev="2.1.5320" transitive="false"/>
+		<dependency org="emma" name="emma_ant" rev="2.1.5320" transitive="false"/>
+
+		<dependency org="net.sourceforge.groboutils" name="groboutils-core" rev="5" transitive="false"/>
+
+		<dependency org="junit" name="junit" rev="4.10" transitive="false"/>
+
+		<!-- common -->
+		<dependency org="com.google.guava" name="guava" rev="13.0" transitive="false"/>
+
+		<!-- servlet -->
+		<dependency org="javax.servlet" name="servlet-api" rev="2.5" transitive="false"/>
+		<dependency org="javax.servlet" name="javax.servlet-api" rev="3.0.1" transitive="false"/>
+
+		<!-- spring -->
+		<dependency org="org.springframework" name="spring" rev="2.5.6.SEC03" transitive="false"/>
+
+		<dependency org="org.springframework" name="spring-asm" rev="3.1.2.RELEASE" transitive="false"/>
+		<dependency org="org.springframework" name="spring-beans" rev="3.1.2.RELEASE" transitive="false"/>
+		<dependency org="org.springframework" name="spring-context" rev="3.1.2.RELEASE" transitive="false"/>
+		<dependency org="org.springframework" name="spring-core" rev="3.1.2.RELEASE" transitive="false"/>
+		<dependency org="org.springframework" name="spring-expression" rev="3.1.2.RELEASE" transitive="false"/>
+		<dependency org="org.springframework" name="spring-web" rev="3.1.2.RELEASE" transitive="false"/>
+
+		<!-- I'm going to get evicted...see ivy2.xml -->
+		<dependency org="org.springframework.security" name="spring-security-core" rev="2.0.7.RELEASE" transitive="false"/>
+
+		<dependency org="org.springframework.security" name="spring-security-core" rev="3.1.1.RELEASE" transitive="false"/>
+		<dependency org="org.springframework.security" name="spring-security-web" rev="3.1.1.RELEASE" transitive="false"/>
+
+		<!-- tomcat -->
+		<dependency org="tomcat" name="catalina" rev="5.5.23" transitive="false"/>
+		<dependency org="tomcat" name="servlet-api" rev="5.5.23" transitive="false"/>
+		<dependency org="tomcat" name="tomcat-util" rev="5.5.23" transitive="false"/>
+
+		<dependency org="org.apache.tomcat" name="catalina" rev="6.0.35" transitive="false"/>
+		<dependency org="org.apache.tomcat" name="coyote" rev="6.0.35" transitive="false"/>
+		<dependency org="org.apache.tomcat" name="juli" rev="6.0.35" transitive="false"/>
+		<dependency org="org.apache.tomcat" name="servlet-api" rev="6.0.35" transitive="false"/>
+
+		<dependency org="org.apache.tomcat" name="tomcat-api" rev="7.0.29" transitive="false"/>
+		<dependency org="org.apache.tomcat" name="tomcat-catalina" rev="7.0.29" transitive="false"/>
+		<dependency org="org.apache.tomcat" name="tomcat-coyote" rev="7.0.29" transitive="false"/>
+		<dependency org="org.apache.tomcat" name="tomcat-juli" rev="7.0.29" transitive="false"/>
+		<dependency org="org.apache.tomcat" name="tomcat-servlet-api" rev="7.0.29" transitive="false"/>
+		<dependency org="org.apache.tomcat" name="tomcat-util" rev="7.0.29" transitive="false"/>
+
+		<!-- logging -->
+		<dependency org="org.slf4j" name="jcl-over-slf4j" rev="1.6.6" transitive="false"/>
+		<dependency org="org.slf4j" name="slf4j-api" rev="1.6.6" transitive="false"/>
+		<dependency org="ch.qos.logback" name="logback-classic" rev="1.0.6" transitive="false"/>
+		<dependency org="ch.qos.logback" name="logback-core" rev="1.0.6" transitive="false"/>
+	</dependencies>
+
+</ivy-module>

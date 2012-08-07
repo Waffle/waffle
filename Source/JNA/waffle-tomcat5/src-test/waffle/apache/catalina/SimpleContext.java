@@ -162,19 +162,16 @@ public class SimpleContext implements Context {
 
 	@Override
 	public SecurityConstraint[] findConstraints() {
-
 		return null;
 	}
 
 	@Override
 	public ErrorPage findErrorPage(int arg0) {
-
 		return null;
 	}
 
 	@Override
 	public ErrorPage findErrorPage(String arg0) {
-
 		return null;
 	}
 
@@ -847,27 +844,4 @@ public class SimpleContext implements Context {
 
 	}
 
-	public String getSessionCookieDomain() {
-		return null;
-	}
-
-	public String getSessionCookieName() {
-		return null;
-	}
-
-	public String getSessionCookiePath() {
-		return null;
-	}
-
-	public void setSessionCookieDomain(String arg0) {
-
-	}
-
-	public void setSessionCookieName(String arg0) {
-
-	}
-
-	public void setSessionCookiePath(String arg0) {
-
-	}
 }
