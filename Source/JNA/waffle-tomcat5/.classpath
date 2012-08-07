@@ -11,11 +11,11 @@
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.slf4j/1.6.6/slf4j-api-1.6.6.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.slf4j/1.6.6/jcl-over-slf4j-1.6.6.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/junit/4.10/junit-4.10.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/jna/jna.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/jna/platform.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/waffle-servlet"/>
 	<classpathentry kind="lib" path="/thirdparty/tomcat/5.5.35/catalina-5.5.35.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/tomcat/5.5.35/servlet-api-5.5.35.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/tomcat/5.5.35/tomcat-util-5.5.35.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/net.java.dev.jna/3.4.2/jna.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/net.java.dev.jna/3.4.2/platform.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
