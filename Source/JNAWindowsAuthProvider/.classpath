@@ -5,7 +5,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/ThirdParty/junit/junit-4.10.jar" sourcepath="/ThirdParty/junit/junit-4.10-src.jar"/>
 	<classpathentry kind="lib" path="/ThirdParty/jna/jna.jar"/>
-	<classpathentry kind="lib" path="/ThirdParty/jna/platform.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/jna/platform.jar" sourcepath="Z:/workspace/m2-repository/net/java/dev/jna/jna/3.3.0/jna-3.3.0-sources.jar"/>
 	<classpathentry kind="lib" path="/ThirdParty/tomcat/lib/catalina.jar"/>
 	<classpathentry kind="lib" path="/ThirdParty/tomcat/lib/servlet-api.jar"/>
 	<classpathentry kind="lib" path="/ThirdParty/tomcat/lib/tomcat-coyote.jar"/>
@@ -26,5 +26,14 @@
 	<classpathentry kind="lib" path="/ThirdParty/guava/guava-12.0.jar"/>
 	<classpathentry kind="lib" path="/ThirdParty/logback/logback-classic-1.0.6.jar"/>
 	<classpathentry kind="lib" path="/ThirdParty/logback/logback-core-1.0.6.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/jetty/jetty-http-7.6.5.v20120716.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/jetty/jetty-io-7.6.5.v20120716.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/jetty/jetty-server-7.6.5.v20120716.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/jetty/jetty-servlet-7.6.5.v20120716.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/jetty/jetty-util-7.6.5.v20120716.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/jetty/jetty-webapp-7.6.5.v20120716.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/jetty/jetty-security-7.6.5.v20120716.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/jetty/jetty-xml-7.6.5.v20120716.jar"/>
+	<classpathentry kind="lib" path="/ThirdParty/jetty/jetty-continuation-7.6.5.v20120716.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

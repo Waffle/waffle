@@ -45,12 +45,18 @@
 			<include name="**/*.jar" />
 		</fileset>
 	</path>
+	<path id="jetty.classpath">
+		<fileset dir="${thirdparty.dir}/jetty">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
 	<path id="waffle.classpath">
 		<path refid="jna.classpath" />
 		<path refid="tomcat.classpath" />
 		<path refid="slf4j.classpath" />
 		<path refid="spring.classpath" />
 		<path refid="guava.classpath" />
+		<path refid="jetty.classpath" />
 	</path>
 	<macrodef name="compile">
 		<attribute name="optimize" />
@@ -58,7 +64,10 @@
 		<sequential>
 			<delete dir="${waffle.lib}" />
 			<mkdir dir="${waffle.lib}" />
-			<javac target="${waffle.java.version}" srcdir="${waffle.src}"
+			<javac 
+				target="${waffle.java.version}" 
+				source="${waffle.java.version}" 
+				srcdir="${waffle.src}"
 				destdir="${waffle.lib}" optimize="@{optimize}" debug="@{debug}" 
 				includeantruntime="false">
 				<classpath refid="waffle.classpath" />
@@ -161,8 +170,9 @@
 				<include name="waffle/**/*.class" />
 			</fileset>
 			<manifest>
-				<attribute name="Version" value="${waffle.version}" />
-				<attribute name="Created-By" value="${waffle.copyright}" />
+				<attribute name="Implementation-Title" value="WAFFLE - Windows Authentication Functional Framework (Light Edition)" />
+				<attribute name="Implementation-Version" value="${waffle.version}" />
+				<attribute name="Implementation-Vendor" value="${waffle.copyright}" />
 			</manifest>		
 		</jar>
 		<jar jarfile="${waffle.build}/waffle-src.zip">
