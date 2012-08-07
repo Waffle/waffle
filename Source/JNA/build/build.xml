@@ -157,7 +157,9 @@
 				<include name="waffle/**/*.class" />
 			</fileset>
 			<manifest>
-				<attribute name="Version" value="${waffle.version}" />
+				<attribute name="Implementation-Title" value="WAFFLE - ${project.jar}" />
+				<attribute name="Implementation-Version" value="${waffle.version}" />
+				<attribute name="Implementation-Vendor" value="${company.name}" />
 				<attribute name="Created-By" value="${waffle.copyright}" />
 			</manifest>		
 		</jar>
