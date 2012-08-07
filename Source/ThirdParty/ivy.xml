@@ -18,6 +18,10 @@
 		<!-- common -->
 		<dependency org="com.google.guava" name="guava" rev="13.0" transitive="false"/>
 
+		<!-- jna -->
+		<dependency org="net.java.dev.jna" name="jna" rev="3.4.0" transitive="false"/>
+		<dependency org="net.java.dev.jna" name="platform" rev="3.4.0" transitive="false"/>
+
 		<!-- servlet -->
 		<dependency org="javax.servlet" name="servlet-api" rev="2.5" transitive="false"/>
 		<dependency org="javax.servlet" name="javax.servlet-api" rev="3.0.1" transitive="false"/>
