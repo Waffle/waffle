@@ -45,12 +45,18 @@
 			<include name="**/*.jar" />
 		</fileset>
 	</path>
+	<path id="jetty.classpath">
+		<fileset dir="${thirdparty.dir}/jetty">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
 	<path id="waffle.classpath">
 		<path refid="jna.classpath" />
 		<path refid="tomcat.classpath" />
 		<path refid="slf4j.classpath" />
 		<path refid="spring.classpath" />
 		<path refid="guava.classpath" />
+		<path refid="jetty.classpath" />
 	</path>
 	<macrodef name="compile">
 		<attribute name="optimize" />
