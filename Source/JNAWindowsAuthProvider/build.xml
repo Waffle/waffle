@@ -161,8 +161,9 @@
 				<include name="waffle/**/*.class" />
 			</fileset>
 			<manifest>
-				<attribute name="Version" value="${waffle.version}" />
-				<attribute name="Created-By" value="${waffle.copyright}" />
+				<attribute name="Implementation-Title" value="WAFFLE - Windows Authentication Functional Framework (Light Edition)" />
+				<attribute name="Implementation-Version" value="${waffle.version}" />
+				<attribute name="Implementation-Vendor" value="${waffle.copyright}" />
 			</manifest>		
 		</jar>
 		<jar jarfile="${waffle.build}/waffle-src.zip">
