@@ -25,19 +25,19 @@ public interface IWindowsDomain {
 	 * 
 	 * @return String.
 	 */
-	public String getFqn();
+	String getFqn();
 
 	/**
 	 * Trust direction.
 	 * 
 	 * @return String.
 	 */
-	public String getTrustDirectionString();
+	String getTrustDirectionString();
 
 	/**
 	 * Trust type.
 	 * 
 	 * @return String.
 	 */
-	public String getTrustTypeString();
+	String getTrustTypeString();
 }

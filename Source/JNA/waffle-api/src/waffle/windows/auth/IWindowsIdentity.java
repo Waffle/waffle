@@ -25,45 +25,45 @@ public interface IWindowsIdentity {
 	 * 
 	 * @return String.
 	 */
-	public String getSidString();
+	String getSidString();
 
 	/**
 	 * Sid.
 	 * 
 	 * @return Array of bytes.
 	 */
-	public byte[] getSid();
+	byte[] getSid();
 
 	/**
 	 * Fully qualified name.
 	 * 
 	 * @return String.
 	 */
-	public String getFqn();
+	String getFqn();
 
 	/**
 	 * Group memberships.
 	 * 
 	 * @return Array of accounts.
 	 */
-	public IWindowsAccount[] getGroups();
+	IWindowsAccount[] getGroups();
 
 	/**
 	 * Impersonate a logged on user.
 	 * 
 	 * @return An impersonation context.
 	 */
-	public IWindowsImpersonationContext impersonate();
+	IWindowsImpersonationContext impersonate();
 
 	/**
 	 * Dispose of the Windows identity.
 	 */
-	public void dispose();
+	void dispose();
 
 	/**
 	 * Returns true if the identity represents a Guest account.
 	 * 
 	 * @return True if the identity represents a Guest account, false otherwise.
 	 */
-	public boolean isGuest();
+	boolean isGuest();
 }

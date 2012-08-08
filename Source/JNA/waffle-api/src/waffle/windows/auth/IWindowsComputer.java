@@ -25,26 +25,26 @@ public interface IWindowsComputer {
 	 * 
 	 * @return String.
 	 */
-	public String getComputerName();
+	String getComputerName();
 
 	/**
 	 * Member of (domain).
 	 * 
 	 * @return String.
 	 */
-	public String getMemberOf();
+	String getMemberOf();
 
 	/**
 	 * Join status.
 	 * 
 	 * @return String.
 	 */
-	public String getJoinStatus();
+	String getJoinStatus();
 
 	/**
 	 * Groups.
 	 * 
 	 * @return Array of group names.
 	 */
-	public String[] getGroups();
+	String[] getGroups();
 }
