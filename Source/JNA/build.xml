@@ -11,6 +11,7 @@
 		<ant dir="waffle-tomcat5" target="${ant.target}" />
 		<ant dir="waffle-tomcat6" target="${ant.target}" />
 		<ant dir="waffle-tomcat7" target="${ant.target}" />
+		<ant dir="waffle-jetty" target="${ant.target}" />
 		<ant dir="waffle-spring-security2" target="${ant.target}" />
 		<ant dir="waffle-spring-security3" target="${ant.target}" />
 	</target>
