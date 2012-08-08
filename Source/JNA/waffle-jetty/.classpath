@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="**/.svn|**/.svn/*" kind="src" path="src"/>
+	<classpathentry excluding="**/.svn|**/.svn/*" kind="src" path="src-test"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/waffle-core"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/waffle-servlet"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/waffle-api"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/waffle-mock"/>
+	<classpathentry kind="lib" path="/thirdparty/jetty/jetty-continuation-7.6.5.v20120716.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/jetty/jetty-http-7.6.5.v20120716.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/jetty/jetty-io-7.6.5.v20120716.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/jetty/jetty-security-7.6.5.v20120716.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/jetty/jetty-server-7.6.5.v20120716.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/jetty/jetty-servlet-7.6.5.v20120716.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/jetty/jetty-util-7.6.5.v20120716.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/jetty/jetty-webapp-7.6.5.v20120716.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/jetty/jetty-xml-7.6.5.v20120716.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/jetty/jsp/com.sun.el-1.0.0.v201105211818.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/jetty/jsp/javax.el-2.1.0.v201105211819.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/jetty/jsp/javax.servlet.jsp-2.1.0.v201105211820.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/jetty/jsp/javax.servlet.jsp.jstl-1.2.0.v201105211821.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/jetty/jsp/org.apache.jasper.glassfish-2.1.0.v201110031002.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/jetty/jsp/org.apache.taglibs.standard.glassfish-1.2.0.v201112081803.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/jetty/jsp/org.eclipse.jdt.core-3.7.1.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/slf4j/slf4j-api-1.6.6.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/slf4j/slf4j-simple-1.6.6.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/javax/servlet2.5/servlet-api-2.5.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
