@@ -71,10 +71,10 @@ public class WindowsLoginModuleTests extends TestCase {
 		assertEquals(0, subject.getPrincipals().size());
 		assertTrue(_loginModule.commit());
 		assertEquals(3, subject.getPrincipals().size());
-		assertTrue(subject.getPrincipals().contains("Everyone"));
-		assertTrue(subject.getPrincipals().contains("Users"));
-		assertTrue(subject.getPrincipals().contains(
-				WindowsAccountImpl.getCurrentUsername()));
+		assertTrue(subject.getPrincipals().contains(new RolePrincipal("Everyone")));
+		assertTrue(subject.getPrincipals().contains(new RolePrincipal("Users")));
+		assertTrue(subject.getPrincipals().contains(new UserPrincipal(
+				WindowsAccountImpl.getCurrentUsername())));
 		assertTrue(_loginModule.logout());
 		assertTrue(subject.getPrincipals().size() == 0);
 	}
@@ -190,8 +190,8 @@ public class WindowsLoginModuleTests extends TestCase {
 		assertEquals(0, subject.getPrincipals().size());
 		assertTrue(_loginModule.commit());
 		assertEquals(3, subject.getPrincipals().size());
-		assertTrue(subject.getPrincipals().contains("Everyone"));
-		assertTrue(subject.getPrincipals().contains("Users"));
+		assertTrue(subject.getPrincipals().contains(new RolePrincipal("Everyone")));
+		assertTrue(subject.getPrincipals().contains(new RolePrincipal("Users")));
 		_loginModule.setAllowGuestLogin(false);
 		try {
 			assertTrue(_loginModule.login());

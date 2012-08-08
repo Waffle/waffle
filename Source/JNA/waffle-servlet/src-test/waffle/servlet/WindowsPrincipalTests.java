@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Arrays;
 
 import junit.framework.TestCase;
 import waffle.mock.MockWindowsSecurityContext;
@@ -53,7 +54,7 @@ public class WindowsPrincipalTests extends TestCase {
 		assertEquals(_windowsPrincipal.getName(), copy.getName());
 		assertEquals(_windowsPrincipal.getRolesString(), copy.getRolesString());
 		assertEquals(_windowsPrincipal.getSidString(), copy.getSidString());
-		assertEquals(_windowsPrincipal.getSid(), copy.getSid());
+		assertEquals(Arrays.equals(_windowsPrincipal.getSid(), copy.getSid()), true);
 	}
 
 	public void testHasRole() {
