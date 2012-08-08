@@ -17,6 +17,10 @@
 	<property name="waffle.test.lib" value="${waffle.root}/lib-test" />
 	<property name="waffle.test" value="${waffle.root}/test" />
 	<property name="thirdparty.dir" location="${basedir}/../../ThirdParty" />
+  <tstamp>
+    <format property="DSTAMP" pattern="yyyy-MM-dd"/>
+    <format property="TSTAMP" pattern="HH:mm:ss"/>
+  </tstamp>
 	<!-- compile -->
 	<path id="jna.classpath">
 		<fileset dir="${thirdparty.dir}/jna">
@@ -46,8 +50,13 @@
 		<sequential>
 			<delete dir="${waffle.lib}" />
 			<mkdir dir="${waffle.lib}" />
-			<javac target="${waffle.java.version}" srcdir="${waffle.src}"
-				destdir="${waffle.lib}" optimize="@{optimize}" debug="@{debug}" 
+			<javac 
+				source="${waffle.java.version}" 
+				target="${waffle.java.version}" 
+				srcdir="${waffle.src}"
+				destdir="${waffle.lib}" 
+				optimize="@{optimize}" 
+				debug="@{debug}" 
 				includeantruntime="false">
 				<classpath refid="thirdparty.classpath" />
 				<classpath refid="project.classpath" />
@@ -143,8 +152,16 @@
 		<antcall target="test" />
 		<antcall target="cover-report" />
 	</target>
+
+  <target name="getgitdetails" >
+    <exec executable="git" outputproperty="git.revision">
+      <arg value="rev-parse"/>
+      <arg value="HEAD"/>
+    </exec>
+  </target>
+
 	<!-- package -->
-	<target name="jar">
+	<target name="jar" depends="getgitdetails">
 		<delete dir="${waffle.build}" />
 		<mkdir dir="${waffle.build}" />
 		<jar jarfile="${common.build}/${project.jar}.jar">
@@ -152,7 +169,13 @@
 				<include name="waffle/**/*.class" />
 			</fileset>
 			<manifest>
-				<attribute name="Version" value="${waffle.version}" />
+				<attribute name="Specification-Title" value="WAFFLE - ${project.jar}" />
+				<attribute name="Specification-Version" value="${waffle.version}" />
+				<attribute name="Specification-Vendor" value="${company.name}" />
+				<attribute name="Implementation-Title" value="WAFFLE - ${project.jar}" />
+				<attribute name="Implementation-Version" value="${waffle.version} - ${user.name} - ${DSTAMP} ${TSTAMP} - ${git.revision}" />
+				<attribute name="Implementation-Vendor" value="${company.name}" />
+				<attribute name="Git-Revision" value="${git.revision}" />
 				<attribute name="Created-By" value="${waffle.copyright}" />
 			</manifest>		
 		</jar>
@@ -161,7 +184,13 @@
 				<include name="waffle/**/*.java" />
 			</fileset>
 			<manifest>
-				<attribute name="Version" value="${waffle.version}" />
+				<attribute name="Specification-Title" value="WAFFLE - ${project.jar}" />
+				<attribute name="Specification-Version" value="${waffle.version}" />
+				<attribute name="Specification-Vendor" value="${company.name}" />
+				<attribute name="Implementation-Title" value="WAFFLE - ${project.jar}" />
+				<attribute name="Implementation-Version" value="${waffle.version} - ${user.name} - ${DSTAMP} ${TSTAMP} - ${git.revision}" />
+				<attribute name="Implementation-Vendor" value="${company.name}" />
+				<attribute name="Git-Revision" value="${git.revision}" />
 				<attribute name="Created-By" value="${waffle.copyright}" />
 			</manifest>
 		</jar>
