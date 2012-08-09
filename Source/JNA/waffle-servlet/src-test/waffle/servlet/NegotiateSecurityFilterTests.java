@@ -13,13 +13,20 @@
  *******************************************************************************/
 package waffle.servlet;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.security.auth.Subject;
 import javax.servlet.ServletException;
 
-import junit.framework.TestCase;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 import waffle.mock.MockWindowsAuthProvider;
 import waffle.mock.MockWindowsIdentity;
 import waffle.http.SimpleFilterChain;
@@ -44,11 +51,11 @@ import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
  * 
  * @author dblock[at]dblock[dot]org
  */
-public class NegotiateSecurityFilterTests extends TestCase {
+public class NegotiateSecurityFilterTests {
 
 	NegotiateSecurityFilter _filter = null;
 
-	@Override
+	@Before
 	public void setUp() {
 		_filter = new NegotiateSecurityFilter();
 		_filter.setAuth(new WindowsAuthProviderImpl());
@@ -59,12 +66,12 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		}
 	}
 
-	@Override
+	@After
 	public void tearDown() {
 		_filter.destroy();
-		_filter = null;
 	}
 
+	@Test
 	public void testChallengeGET() throws IOException, ServletException {
 		SimpleHttpRequest request = new SimpleHttpRequest();
 		request.setMethod("GET");
@@ -81,6 +88,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		assertEquals(401, response.getStatus());
 	}
 
+	@Test
 	public void testChallengePOST() throws IOException, ServletException {
 		String securityPackage = "Negotiate";
 		IWindowsCredentialsHandle clientCredentials = null;
@@ -121,6 +129,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		}
 	}
 
+	@Test
 	public void testNegotiate() throws IOException, ServletException {
 		String securityPackage = "Negotiate";
 		// client credentials handle
@@ -202,6 +211,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		}
 	}
 
+	@Test
 	public void testNegotiatePreviousAuthWithWindowsPrincipal()
 			throws IOException, ServletException {
 		MockWindowsIdentity mockWindowsIdentity = new MockWindowsIdentity(
@@ -220,6 +230,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		assertEquals(windowsPrincipal, wrappedRequest.getUserPrincipal());
 	}
 
+	@Test
 	public void testChallengeNTLMPOST() throws IOException, ServletException {
 		MockWindowsIdentity mockWindowsIdentity = new MockWindowsIdentity(
 				"user", new ArrayList<String>());
@@ -244,6 +255,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		assertEquals(401, response.getStatus());
 	}
 
+	@Test
 	public void testChallengeNTLMPUT() throws IOException, ServletException {
 		MockWindowsIdentity mockWindowsIdentity = new MockWindowsIdentity(
 				"user", new ArrayList<String>());
@@ -268,6 +280,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		assertEquals(401, response.getStatus());
 	}
 
+	@Test
 	public void testInitBasicSecurityFilterProvider() throws ServletException {
 		SimpleFilterConfig filterConfig = new SimpleFilterConfig();
 		filterConfig.setParameter("principalFormat", "sid");
@@ -283,11 +296,12 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		_filter.init(filterConfig);
 		assertEquals(_filter.getPrincipalFormat(), PrincipalFormat.sid);
 		assertEquals(_filter.getRoleFormat(), PrincipalFormat.none);
-		assertTrue(_filter.getAllowGuestLogin());
+		assertTrue(_filter.isAllowGuestLogin());
 		assertEquals(1, _filter.getProviders().size());
 		assertTrue(_filter.getAuth() instanceof MockWindowsAuthProvider);
 	}
 
+	@Test
 	public void testInitTwoSecurityFilterProviders() throws ServletException {
 		// make sure that providers can be specified separated by any kind of space
 		SimpleFilterConfig filterConfig = new SimpleFilterConfig();
@@ -300,6 +314,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		assertEquals(3, _filter.getProviders().size());
 	}
 
+	@Test
 	public void testInitNegotiateSecurityFilterProvider()
 			throws ServletException {
 		SimpleFilterConfig filterConfig = new SimpleFilterConfig();
@@ -311,10 +326,11 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		_filter.init(filterConfig);
 		assertEquals(_filter.getPrincipalFormat(), PrincipalFormat.fqn);
 		assertEquals(_filter.getRoleFormat(), PrincipalFormat.fqn);
-		assertTrue(_filter.getAllowGuestLogin());
+		assertTrue(_filter.isAllowGuestLogin());
 		assertEquals(1, _filter.getProviders().size());
 	}
 
+	@Test
 	public void testInitNegotiateSecurityFilterProviderInvalidProtocol() {
 		SimpleFilterConfig filterConfig = new SimpleFilterConfig();
 		filterConfig.setParameter("securityFilterProviders",
@@ -332,6 +348,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		}
 	}
 
+	@Test
 	public void testInitInvalidParameter() {
 		try {
 			SimpleFilterConfig filterConfig = new SimpleFilterConfig();
@@ -343,6 +360,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		}
 	}
 
+	@Test
 	public void testInitInvalidClassInParameter() {
 		try {
 			SimpleFilterConfig filterConfig = new SimpleFilterConfig();

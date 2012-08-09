@@ -13,13 +13,20 @@
  *******************************************************************************/
 package waffle.util;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
 import waffle.http.SimpleHttpRequest;
 
 /**
  * @author dblock[at]dblock[dot]org
  */
-public class AuthorizationHeaderTests extends TestCase {
+public class AuthorizationHeaderTests {
+
+	@Test
 	public void testIsNull() {
 		SimpleHttpRequest request = new SimpleHttpRequest();
 		AuthorizationHeader header = new AuthorizationHeader(request);
@@ -27,9 +34,10 @@ public class AuthorizationHeaderTests extends TestCase {
 		request.addHeader("Authorization", "");
 		assertTrue(header.isNull());
 		request.addHeader("Authorization", "12344234");
-		assertTrue(!header.isNull());
+		assertFalse(header.isNull());
 	}
 
+	@Test	
 	public void testGetSecurityPackage() {
 		SimpleHttpRequest request = new SimpleHttpRequest();
 		AuthorizationHeader header = new AuthorizationHeader(request);
@@ -42,6 +50,7 @@ public class AuthorizationHeaderTests extends TestCase {
 		assertEquals("Negotiate", header.getSecurityPackage());
 	}
 
+	@Test
 	public void testIsNtlmType1Message() {
 		SimpleHttpRequest request = new SimpleHttpRequest();
 		AuthorizationHeader header = new AuthorizationHeader(request);
@@ -53,6 +62,7 @@ public class AuthorizationHeaderTests extends TestCase {
 		assertTrue(header.isNtlmType1Message());
 	}
 
+	@Test
 	public void testIsNtlmType1PostAuthorizationHeader() {
 		SimpleHttpRequest request = new SimpleHttpRequest();
 		request.setContentLength(0);
@@ -67,9 +77,6 @@ public class AuthorizationHeaderTests extends TestCase {
 		assertTrue(header.isNtlmType1PostAuthorizationHeader());
 		// PUT
 		request.setMethod("PUT");
-		assertTrue(header.isNtlmType1PostAuthorizationHeader());
-		// String(POST)
-		request.setMethod(new String("POST"));
 		assertTrue(header.isNtlmType1PostAuthorizationHeader());
 	}
 }

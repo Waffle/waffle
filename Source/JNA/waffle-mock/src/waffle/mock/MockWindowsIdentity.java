@@ -51,7 +51,7 @@ public class MockWindowsIdentity implements IWindowsIdentity {
 
 	@Override
 	public byte[] getSid() {
-		return null;
+		return new byte[0];
 	}
 
 	@Override

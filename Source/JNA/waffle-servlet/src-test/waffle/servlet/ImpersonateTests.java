@@ -1,5 +1,10 @@
 package waffle.servlet;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.IOException;
 import java.security.Principal;
 
@@ -8,7 +13,10 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-import junit.framework.TestCase;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 import waffle.mock.MockWindowsAccount;
 import waffle.http.SimpleFilterChain;
 import waffle.http.SimpleHttpRequest;
@@ -22,12 +30,12 @@ import com.sun.jna.platform.win32.LMAccess;
 import com.sun.jna.platform.win32.LMErr;
 import com.sun.jna.platform.win32.Netapi32;
 
-public class ImpersonateTests extends TestCase {
+public class ImpersonateTests {
 
-	NegotiateSecurityFilter _filter = null;
-	LMAccess.USER_INFO_1 _userInfo;
+	private NegotiateSecurityFilter _filter = null;
+	private LMAccess.USER_INFO_1 _userInfo;
 
-	@Override
+	@Before
 	public void setUp() {
 		_filter = new NegotiateSecurityFilter();
 		_filter.setAuth(new WindowsAuthProviderImpl());
@@ -45,10 +53,9 @@ public class ImpersonateTests extends TestCase {
 				Netapi32.INSTANCE.NetUserAdd(null, 1, _userInfo, null));
 	}
 
-	@Override
+	@After
 	public void tearDown() {
 		_filter.destroy();
-		_filter = null;
 
 		assertEquals(
 				LMErr.NERR_Success,
@@ -56,6 +63,7 @@ public class ImpersonateTests extends TestCase {
 						_userInfo.usri1_name.toString()));
 	}
 
+	@Test
 	public void testImpersonateEnabled() throws IOException, ServletException {
 
 		assertFalse(
@@ -101,6 +109,7 @@ public class ImpersonateTests extends TestCase {
 		}
 	}
 
+	@Test
 	public void testImpersonateDisabled() throws IOException, ServletException {
 
 		assertFalse(

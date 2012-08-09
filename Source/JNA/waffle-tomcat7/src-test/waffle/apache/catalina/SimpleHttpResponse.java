@@ -36,8 +36,9 @@ public class SimpleHttpResponse extends Response {
 	@Override
 	public void addHeader(String headerName, String headerValue) {
 		List<String> current = _headers.get(headerName);
-		if (current == null)
+		if (current == null) {
 			current = new ArrayList<String>();
+		}
 		current.add(headerValue);
 		_headers.put(headerName, current);
 	}
@@ -60,12 +61,10 @@ public class SimpleHttpResponse extends Response {
 	}
 
 	public String getStatusString() {
-		switch (_status) {
-		case 401:
+		if (_status == 401) {
 			return "Unauthorized";
-		default:
-			return "Unknown";
 		}
+		return "Unknown";
 	}
 
 	@Override
@@ -92,8 +91,9 @@ public class SimpleHttpResponse extends Response {
 		}
 		StringBuilder sb = new StringBuilder();
 		for (String headerValue : headerValues) {
-			if (sb.length() > 0)
+			if (sb.length() > 0) {
 				sb.append(", ");
+			}
 			sb.append(headerValue);
 		}
 		return sb.toString();

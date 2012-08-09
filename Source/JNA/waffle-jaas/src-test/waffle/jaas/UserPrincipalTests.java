@@ -13,6 +13,9 @@
  *******************************************************************************/
 package waffle.jaas;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -20,20 +23,22 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author dblock[at]dblock[dot]org
  */
-public class UserPrincipalTests extends TestCase {
+public class UserPrincipalTests {
 
 	private UserPrincipal _userPrincipal = null;
 
-	@Override
+	@Before
 	public void setUp() {
 		_userPrincipal = new UserPrincipal("localhost\\Administrator");
 	}
 
+	@Test
 	public void testIsSerializable() throws IOException, ClassNotFoundException {
 		// serialize
 		ByteArrayOutputStream out = new ByteArrayOutputStream();

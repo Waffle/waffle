@@ -39,7 +39,7 @@ public class WindowsIdentityImpersonationContextImpl implements
 	}
 
 	@Override
-	public void RevertToSelf() {
+	public void revertToSelf() {
 		Advapi32.INSTANCE.RevertToSelf();
 	}
 }

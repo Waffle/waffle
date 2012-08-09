@@ -185,12 +185,12 @@ public class SimpleEngine implements org.apache.catalina.Engine {
 
 	@Override
 	public Container[] findChildren() {
-		return null;
+		return new Container[0];
 	}
 
 	@Override
 	public ContainerListener[] findContainerListeners() {
-		return null;
+		return new ContainerListener[0];
 	}
 
 	@Override
@@ -237,7 +237,7 @@ public class SimpleEngine implements org.apache.catalina.Engine {
 
 	@Override
 	public LifecycleListener[] findLifecycleListeners() {
-		return null;
+		return new LifecycleListener[0];
 	}
 
 	@Override

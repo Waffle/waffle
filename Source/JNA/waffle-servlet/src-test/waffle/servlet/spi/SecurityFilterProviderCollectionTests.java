@@ -13,14 +13,21 @@
  *******************************************************************************/
 package waffle.servlet.spi;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
-import junit.framework.TestCase;
 
 /**
  * @author dblock[at]dblock[dot]org
  */
-public class SecurityFilterProviderCollectionTests extends TestCase {
+public class SecurityFilterProviderCollectionTests {
 
+	@Test
 	public void testDefaultCollection() throws ClassNotFoundException {
 		SecurityFilterProviderCollection coll = new SecurityFilterProviderCollection(
 				new WindowsAuthProviderImpl());
@@ -31,17 +38,14 @@ public class SecurityFilterProviderCollectionTests extends TestCase {
 				.getName()));
 	}
 
-	public void testGetByClassNameInvalid() {
-		try {
-			SecurityFilterProviderCollection coll = new SecurityFilterProviderCollection(
-					new WindowsAuthProviderImpl());
-			coll.getByClassName("classDoesNotExist");
-			fail("expected ClassNotFoundException");
-		} catch (ClassNotFoundException e) {
-			// expected
-		}
+	@Test(expected = ClassNotFoundException.class)
+	public void testGetByClassNameInvalid() throws ClassNotFoundException {
+		SecurityFilterProviderCollection coll = new SecurityFilterProviderCollection(
+				new WindowsAuthProviderImpl());
+		coll.getByClassName("classDoesNotExist");
 	}
 
+	@Test
 	public void testIsSecurityPackageSupported() {
 		SecurityFilterProviderCollection coll = new SecurityFilterProviderCollection(
 				new WindowsAuthProviderImpl());

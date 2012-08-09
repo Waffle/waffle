@@ -43,7 +43,7 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
 	}
 
 	@Override
-	public boolean getContinue() {
+	public boolean isContinue() {
 		return false;
 	}
 
@@ -69,7 +69,7 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
 
 	@Override
 	public byte[] getToken() {
-		return null;
+		return new byte[0];
 	}
 
 	@Override

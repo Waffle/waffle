@@ -13,13 +13,16 @@
  *******************************************************************************/
 package waffle.util;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
 
 /**
  * @author dblock[at]dblock[dot]org
  */
-public class Base64Tests extends TestCase {
+public class Base64Tests {
 
+	@Test
 	public void testBase64EncodeDecode() {
 		for (int i = 0; i < 100; i++) {
 			byte[] data = new byte[i];
@@ -38,6 +41,7 @@ public class Base64Tests extends TestCase {
 		}
 	}
 
+	@Test
 	public void testBase64DecodeEncode() {
 		String base64String = "YH8GBisGAQUFAqB1MHOgMDAuBgorBgEEAYI3AgIKBgkqhkiC9xIBAgIGCSqGSIb3EgECAgYKKwYBBAGCNwICHqI/BD1OVExNU1NQAAEAAACXsgjiCQAJADQAAAAMAAwAKAAAAAYBsB0AAAAPREJMT0NLLUdSRUVOV09SS0dST1VQ";
 		byte[] data = Base64.decode(base64String);
@@ -45,6 +49,7 @@ public class Base64Tests extends TestCase {
 		assertEquals(encodedBase64String, base64String);
 	}
 
+	@Test
 	public void testBase64DecodeEncode2() {
 		String base64String = "oXcwdaADCgEBoloEWE5UTE1TU1AAAwAAAAAAAABYAAAAAAAAAFgAAAAAAAAAWAAAAAAAAABYAAAAAAAAAFgAAAAAAAAAWAAAABXCiOIGAbAdAAAAD0K5dZi6NldppxCrei9fHUGjEgQQAQAAAPUXp1AtIpqEAAAAAA==";
 		byte[] data = Base64.decode(base64String);

@@ -42,8 +42,7 @@ import waffle.windows.auth.PrincipalFormat;
  */
 public class NegotiateSecurityFilter extends GenericFilterBean {
 
-	private Logger _log = LoggerFactory
-			.getLogger(NegotiateSecurityFilter.class);
+	private Logger _log = LoggerFactory.getLogger(NegotiateSecurityFilter.class);
 	private SecurityFilterProviderCollection _provider = null;
 	private PrincipalFormat _principalFormat = PrincipalFormat.fqn;
 	private PrincipalFormat _roleFormat = PrincipalFormat.fqn;
@@ -53,6 +52,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
 	private GrantedAuthority _defaultGrantedAuthority = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY;
 
 	public NegotiateSecurityFilter() {
+		super();
 		_log.debug("[waffle.spring.NegotiateSecurityFilter] loaded");
 	}
 
@@ -172,7 +172,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
 		_roleFormat = principalFormat;
 	}
 
-	public boolean getAllowGuestLogin() {
+	public boolean isAllowGuestLogin() {
 		return _allowGuestLogin;
 	}
 

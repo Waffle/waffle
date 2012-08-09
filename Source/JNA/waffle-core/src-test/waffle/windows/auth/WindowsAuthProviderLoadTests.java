@@ -13,14 +13,15 @@
  *******************************************************************************/
 package waffle.windows.auth;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+
 import net.sourceforge.groboutils.junit.v1.MultiThreadedTestRunner;
 import net.sourceforge.groboutils.junit.v1.TestRunnable;
 
 /**
  * @author dblock[at]dblock[dot]org
  */
-public class WindowsAuthProviderLoadTests extends TestCase {
+public class WindowsAuthProviderLoadTests {
 
 	private class WindowsAuthProviderLoadTest extends TestRunnable {
 		WindowsAuthProviderTests _tests = new WindowsAuthProviderTests();
@@ -31,6 +32,7 @@ public class WindowsAuthProviderLoadTests extends TestCase {
 		}
 	}
 
+	@Test
 	public void testLoad() throws Throwable {
 		int load = 10;
 		TestRunnable[] runs = new TestRunnable[load];

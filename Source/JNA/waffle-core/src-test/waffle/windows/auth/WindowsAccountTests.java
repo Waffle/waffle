@@ -13,21 +13,27 @@
  *******************************************************************************/
 package waffle.windows.auth;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
 import waffle.windows.auth.impl.WindowsAccountImpl;
 
 /**
  * @author dblock[at]dblock[dot]org
  */
-public class WindowsAccountTests extends TestCase {
+public class WindowsAccountTests {
 
+	@Test
 	public void testGetCurrentUsername() {
 		String currentUsername = WindowsAccountImpl.getCurrentUsername();
 		System.out.println("Current username: " + currentUsername);
 		assertTrue(currentUsername.length() > 0);
 	}
 
-	public void testGetCurrentAccount() throws Exception {
+	@Test
+	public void testGetCurrentAccount() {
 		String currentUsername = WindowsAccountImpl.getCurrentUsername();
 		IWindowsAccount account = new WindowsAccountImpl(currentUsername);
 		assertTrue(account.getName().length() > 0);

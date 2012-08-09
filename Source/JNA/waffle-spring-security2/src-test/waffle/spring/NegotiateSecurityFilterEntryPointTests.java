@@ -13,12 +13,17 @@
  *******************************************************************************/
 package waffle.spring;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.IOException;
 
 import javax.servlet.ServletException;
 
-import junit.framework.TestCase;
-
+import org.junit.Before;
+import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -28,11 +33,11 @@ import waffle.http.SimpleHttpResponse;
 /**
  * @author dblock[at]dblock[dot]org
  */
-public class NegotiateSecurityFilterEntryPointTests extends TestCase {
+public class NegotiateSecurityFilterEntryPointTests {
 
 	private NegotiateSecurityFilterEntryPoint _entryPoint = null;
 
-	@Override
+	@Before
 	public void setUp() {
 		String[] configFiles = new String[] { "springTestFilterBeans.xml" };
 		ApplicationContext ctx = new ClassPathXmlApplicationContext(configFiles);
@@ -40,11 +45,7 @@ public class NegotiateSecurityFilterEntryPointTests extends TestCase {
 				.getBean("negotiateSecurityFilterEntryPoint");
 	}
 
-	@Override
-	public void tearDown() {
-		_entryPoint = null;
-	}
-
+	@Test
 	public void testChallengeGET() throws IOException, ServletException {
 		SimpleHttpRequest request = new SimpleHttpRequest();
 		request.setMethod("GET");
@@ -61,6 +62,7 @@ public class NegotiateSecurityFilterEntryPointTests extends TestCase {
 		assertEquals(401, response.getStatus());
 	}
 
+	@Test
 	public void testGetSetProvider() {
 		try {
 			assertNotNull(_entryPoint.getProvider());

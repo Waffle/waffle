@@ -42,6 +42,7 @@ public class SimpleHttpRequest extends Request {
 	private Principal _principal = null;
 
 	public SimpleHttpRequest() {
+		super();
 		_remotePort = nextRemotePort();
 	}
 

@@ -50,7 +50,7 @@ public interface IWindowsSecurityContext {
 	 * 
 	 * @return True or false.
 	 */
-	boolean getContinue();
+	boolean isContinue();
 
 	/**
 	 * Windows Identity.

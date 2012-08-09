@@ -103,15 +103,15 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 				connectionId, tokenBuffer, securityPackage);
 
 		byte[] continueTokenBytes = securityContext.getToken();
-		if (continueTokenBytes != null) {
+		if (continueTokenBytes != null && continueTokenBytes.length > 0) {
 			String continueToken = new String(Base64.encode(continueTokenBytes));
 			_log.debug("continue token: " + continueToken);
 			response.addHeader("WWW-Authenticate", securityPackage + " "
 					+ continueToken);
 		}
 
-		_log.debug("continue required: " + securityContext.getContinue());
-		if (securityContext.getContinue() || ntlmPost) {
+		_log.debug("continue required: " + securityContext.isContinue());
+		if (securityContext.isContinue() || ntlmPost) {
 			response.setHeader("Connection", "keep-alive");
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			response.flushBuffer();
@@ -126,8 +126,9 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 	@Override
 	public boolean isSecurityPackageSupported(String securityPackage) {
 		for (String protocol : _protocols) {
-			if (protocol.equalsIgnoreCase(securityPackage))
+			if (protocol.equalsIgnoreCase(securityPackage)) {
 				return true;
+			}
 		}
 		return false;
 	}

@@ -13,13 +13,16 @@
  *******************************************************************************/
 package waffle.windows.auth;
 
-import junit.framework.TestCase;
-import waffle.windows.auth.PrincipalFormat;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
 
 /**
  * @author dblock[at]dblock[dot]org
  */
-public class PrincipalFormatTests extends TestCase {
+public class PrincipalFormatTests {
+
+	@Test
 	public void testKnown() {
 		assertEquals(PrincipalFormat.fqn, PrincipalFormat.valueOf("fqn"));
 		assertEquals(PrincipalFormat.sid, PrincipalFormat.valueOf("sid"));
@@ -28,12 +31,8 @@ public class PrincipalFormatTests extends TestCase {
 		assertEquals(4, PrincipalFormat.values().length);
 	}
 
+	@Test(expected = RuntimeException.class)
 	public void testUnknown() {
-		try {
-			PrincipalFormat.valueOf("garbage");
-			fail("expected RuntimeException");
-		} catch (RuntimeException e) {
-			// no enum const class
-		}
+		PrincipalFormat.valueOf("garbage");
 	}
 }

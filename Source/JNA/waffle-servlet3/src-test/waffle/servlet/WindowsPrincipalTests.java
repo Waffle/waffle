@@ -13,6 +13,10 @@
  *******************************************************************************/
 package waffle.servlet;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -21,23 +25,26 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Arrays;
 
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
+
 import waffle.mock.MockWindowsSecurityContext;
 
 /**
  * @author dblock[at]dblock[dot]org
  */
-public class WindowsPrincipalTests extends TestCase {
+public class WindowsPrincipalTests {
 
 	private WindowsPrincipal _windowsPrincipal = null;
 
-	@Override
+	@Before
 	public void setUp() {
 		MockWindowsSecurityContext ctx = new MockWindowsSecurityContext(
 				"Administrator");
 		_windowsPrincipal = new WindowsPrincipal(ctx.getIdentity());
 	}
 
+	@Test
 	public void testIsSerializable() throws IOException, ClassNotFoundException {
 		// serialize
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -54,9 +61,11 @@ public class WindowsPrincipalTests extends TestCase {
 		assertEquals(_windowsPrincipal.getName(), copy.getName());
 		assertEquals(_windowsPrincipal.getRolesString(), copy.getRolesString());
 		assertEquals(_windowsPrincipal.getSidString(), copy.getSidString());
-		assertEquals(Arrays.equals(_windowsPrincipal.getSid(), copy.getSid()), true);
+		assertEquals(Boolean.valueOf(Arrays.equals(_windowsPrincipal.getSid(), copy.getSid())),
+				Boolean.TRUE);
 	}
 
+	@Test
 	public void testHasRole() {
 		assertTrue(_windowsPrincipal.hasRole("Administrator"));
 		assertTrue(_windowsPrincipal.hasRole("Users"));

@@ -13,23 +13,26 @@
  *******************************************************************************/
 package waffle.servlet;
 
-import junit.framework.TestCase;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 import net.sourceforge.groboutils.junit.v1.MultiThreadedTestRunner;
 import net.sourceforge.groboutils.junit.v1.TestRunnable;
 
 /**
  * @author dblock[at]dblock[dot]org
  */
-public class NegotiateSecurityFilterLoadTests extends TestCase {
+public class NegotiateSecurityFilterLoadTests {
 
 	private NegotiateSecurityFilterTests _tests = new NegotiateSecurityFilterTests();
 
-	@Override
+	@Before
 	public void setUp() {
 		_tests.setUp();
 	}
 
-	@Override
+	@After
 	public void tearDown() {
 		_tests.tearDown();
 	}
@@ -41,6 +44,7 @@ public class NegotiateSecurityFilterLoadTests extends TestCase {
 		}
 	}
 
+	@Test
 	public void testLoad() throws Throwable {
 		int load = 10;
 		TestRunnable[] runs = new TestRunnable[load];
