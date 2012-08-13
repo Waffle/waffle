@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="waffle-build" default="build" basedir=".">
-  <property file="${basedir}/../../Version/Version.properties" />
-  <import file="common.xml" />
+	<property file="${basedir}/../../Version/Version.properties" />
+	<import file="common.xml" />
 	<fail message="Missing project.jar definition" unless="project.jar" />
-  <fail message="Missing project.version" unless="product.version" />
+	<fail message="Missing project.version" unless="product.version" />
 	<property name="waffle.version" value="${product.version}" />
 	<property name="waffle.java.version" value="1.6" />
 	<property name="waffle.copyright" value="${copyright.text}" />
@@ -17,6 +17,10 @@
 	<property name="waffle.test.lib" value="${waffle.root}/lib-test" />
 	<property name="waffle.test" value="${waffle.root}/test" />
 	<property name="thirdparty.dir" location="${basedir}/../../ThirdParty" />
+	<tstamp>
+		<format property="DSTAMP" pattern="yyyy-MM-dd"/>
+		<format property="TSTAMP" pattern="HH:mm:ss"/>
+	</tstamp>
 	<!-- compile -->
 	<path id="jna.classpath">
 		<fileset dir="${thirdparty.dir}/jna">
@@ -46,9 +50,14 @@
 		<sequential>
 			<delete dir="${waffle.lib}" />
 			<mkdir dir="${waffle.lib}" />
-			<javac target="${waffle.java.version}" srcdir="${waffle.src}"
-				destdir="${waffle.lib}" optimize="@{optimize}" debug="@{debug}" 
-				includeantruntime="false">
+			<javac 
+                source="${waffle.java.version}" 
+                target="${waffle.java.version}" 
+                srcdir="${waffle.src}"
+                destdir="${waffle.lib}" 
+                optimize="@{optimize}" 
+                debug="@{debug}" 
+                includeantruntime="false">
 				<classpath refid="thirdparty.classpath" />
 				<classpath refid="project.classpath" />
 				<include name="**/*.java" />
@@ -63,8 +72,8 @@
 	</path>
 	<path id="waffle.test.classpath">
 		<pathelement location="${waffle.lib}" />
-    <path refid="thirdparty.classpath" />
-    <path refid="project.classpath" />
+		<path refid="thirdparty.classpath" />
+		<path refid="project.classpath" />
 		<path refid="project.test.classpath" />
 		<fileset dir="${thirdparty.dir}/junit">
 			<include name="*.jar" />
@@ -77,7 +86,7 @@
 	<target name="compile-tests">
 		<mkdir dir="${waffle.test.lib}" />
 		<javac target="${waffle.java.version}" srcdir="${waffle.test.src}"
-			destdir="${waffle.test.lib}" optimize="no" debug="yes" includeantruntime="false">
+            destdir="${waffle.test.lib}" optimize="no" debug="yes" includeantruntime="false">
 			<classpath refid="waffle.test.classpath" />
 			<include name="**/*.java" />
 		</javac>
@@ -93,10 +102,10 @@
 	<target name="test" depends="compile-tests">
 		<mkdir dir="${waffle.test}" />
 		<junit fork="true" newenvironment="true" failureproperty="tests.failed"
-			haltonfailure="no" haltonerror="no" printsummary="on" errorproperty="tests.failed">
+            haltonfailure="no" haltonerror="no" printsummary="on" errorproperty="tests.failed">
 			<batchtest todir="${waffle.test}">
 				<fileset dir="${waffle.test.lib}" includes="**/*Tests.class"
-					excludes="**/*LoadTests.class" />
+                    excludes="**/*LoadTests.class" />
 			</batchtest>
 			<formatter type="xml" />
 			<classpath refid="waffle.test.classpath" />
@@ -121,7 +130,7 @@
 		</path>
 		<emma>
 			<instr instrpathref="build.classpath" destdir="${waffle.cover}/lib"
-				metadatafile="${waffle.cover}/metadata.emma" merge="true" />
+                metadatafile="${waffle.cover}/metadata.emma" merge="true" />
 		</emma>
 		<copy todir="${waffle.lib}">
 			<fileset dir="${waffle.cover}/lib" includes="**/*" />
@@ -133,7 +142,7 @@
 				<fileset dir="${waffle.cover}">
 					<include name="*.emma" />
 				</fileset>
-				<html outfile="${waffle.cover}/coverage.html" />			
+				<html outfile="${waffle.cover}/coverage.html" />
 			</report>
 		</emma>
 	</target>
@@ -143,8 +152,16 @@
 		<antcall target="test" />
 		<antcall target="cover-report" />
 	</target>
+
+	<target name="getgitdetails" >
+		<exec executable="git" outputproperty="git.revision">
+			<arg value="rev-parse"/>
+			<arg value="HEAD"/>
+		</exec>
+	</target>
+
 	<!-- package -->
-	<target name="jar">
+	<target name="jar" depends="getgitdetails">
 		<delete dir="${waffle.build}" />
 		<mkdir dir="${waffle.build}" />
 		<jar jarfile="${common.build}/${project.jar}.jar">
@@ -152,25 +169,37 @@
 				<include name="waffle/**/*.class" />
 			</fileset>
 			<manifest>
-				<attribute name="Version" value="${waffle.version}" />
+				<attribute name="Specification-Title" value="WAFFLE - ${project.jar}" />
+				<attribute name="Specification-Version" value="${waffle.version}" />
+				<attribute name="Specification-Vendor" value="${company.name}" />
+				<attribute name="Implementation-Title" value="WAFFLE - ${project.jar}" />
+				<attribute name="Implementation-Version" value="${waffle.version} - ${user.name} - ${DSTAMP} ${TSTAMP} - ${git.revision}" />
+				<attribute name="Implementation-Vendor" value="${company.name}" />
+				<attribute name="Git-Revision" value="${git.revision}" />
 				<attribute name="Created-By" value="${waffle.copyright}" />
-			</manifest>		
+			</manifest>
 		</jar>
 		<jar jarfile="${common.build}/${project.jar}-src.zip">
 			<fileset dir="${waffle.src}">
 				<include name="waffle/**/*.java" />
 			</fileset>
 			<manifest>
-				<attribute name="Version" value="${waffle.version}" />
+				<attribute name="Specification-Title" value="WAFFLE - ${project.jar}" />
+				<attribute name="Specification-Version" value="${waffle.version}" />
+				<attribute name="Specification-Vendor" value="${company.name}" />
+				<attribute name="Implementation-Title" value="WAFFLE - ${project.jar}" />
+				<attribute name="Implementation-Version" value="${waffle.version} - ${user.name} - ${DSTAMP} ${TSTAMP} - ${git.revision}" />
+				<attribute name="Implementation-Vendor" value="${company.name}" />
+				<attribute name="Git-Revision" value="${git.revision}" />
 				<attribute name="Created-By" value="${waffle.copyright}" />
 			</manifest>
 		</jar>
 	</target>
 	<target name="doc">
 		<javadoc destdir="${waffle.doc}" sourcepath="${waffle.src}">
-      <classpath refid="thirdparty.classpath" />
+			<classpath refid="thirdparty.classpath" />
 			<classpath refid="project.classpath" />
-    </javadoc>
+		</javadoc>
 	</target>
 	<target name="clean">
 		<delete dir="${waffle.build}" />

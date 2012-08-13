@@ -34,6 +34,7 @@ Misc
   * Added sample xml files for logback solution to all demos.
 * [#1](https://github.com/dblock/waffle/pull/1): Adjusted logging from info to debug to reduce noise level - [@mcfly83](https://github.com/mcfly83).
 * Removed previously deprecated Jacob-based COM interfaces and implementation - [@dblock](https://github.com/dblock).
+* [#17](https://github.com/dblock/waffle/pull/17): JAR manifest information includes specification and implementation details, such as GIT revision - [@ryantxu](https://github.com/ryantxu).
 
 1.4 (6/21/2011) 
 ===============
