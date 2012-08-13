@@ -64,7 +64,6 @@ public class WindowsAuthenticationProviderTests extends TestCase {
 				.supports(UsernamePasswordAuthenticationToken.class));
 	}
 
-	@SuppressWarnings("unchecked")
 	public void testAuthenticate() {
 		MockWindowsIdentity mockIdentity = new MockWindowsIdentity(
 				WindowsAccountImpl.getCurrentUsername(),
@@ -75,9 +74,9 @@ public class WindowsAuthenticationProviderTests extends TestCase {
 		Authentication authenticated = _provider.authenticate(authentication);
 		assertNotNull(authenticated);
 		assertTrue(authenticated.isAuthenticated());
-		Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) authenticated
+		Collection<? extends GrantedAuthority> authorities = authenticated
 				.getAuthorities();
-		Iterator<GrantedAuthority> authoritiesIterator = authorities.iterator();
+		Iterator<? extends GrantedAuthority> authoritiesIterator = authorities.iterator();
 		assertEquals(3, authorities.size());
 		assertEquals("ROLE_USER", authoritiesIterator.next().getAuthority());
 		assertEquals("ROLE_USERS", authoritiesIterator.next().getAuthority());
@@ -85,7 +84,6 @@ public class WindowsAuthenticationProviderTests extends TestCase {
 		assertTrue(authenticated.getPrincipal() instanceof WindowsPrincipal);
 	}
 
-	@SuppressWarnings("unchecked")
 	public void testAuthenticateWithCustomGrantedAuthorityFactory() {
 		_provider.setDefaultGrantedAuthority(null);
 		_provider.setGrantedAuthorityFactory(new FqnGrantedAuthorityFactory(
@@ -101,9 +99,9 @@ public class WindowsAuthenticationProviderTests extends TestCase {
 		Authentication authenticated = _provider.authenticate(authentication);
 		assertNotNull(authenticated);
 		assertTrue(authenticated.isAuthenticated());
-		Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) authenticated
+		Collection<? extends GrantedAuthority> authorities = authenticated
 				.getAuthorities();
-		Iterator<GrantedAuthority> authoritiesIterator = authorities.iterator();
+		Iterator<? extends GrantedAuthority> authoritiesIterator = authorities.iterator();
 		assertEquals(2, authorities.size());
 		assertEquals("Users", authoritiesIterator.next().getAuthority());
 		assertEquals("Everyone", authoritiesIterator.next().getAuthority());

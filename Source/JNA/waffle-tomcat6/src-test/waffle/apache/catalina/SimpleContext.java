@@ -163,19 +163,16 @@ public class SimpleContext implements Context {
 
 	@Override
 	public SecurityConstraint[] findConstraints() {
-
 		return null;
 	}
 
 	@Override
 	public ErrorPage findErrorPage(int arg0) {
-
 		return null;
 	}
 
 	@Override
 	public ErrorPage findErrorPage(String arg0) {
-
 		return null;
 	}
 

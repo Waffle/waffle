@@ -3,15 +3,8 @@
 	<classpathentry excluding="**/.svn|**/.svn/*" kind="src" path="src"/>
 	<classpathentry excluding="**/.svn|**/.svn/*" kind="src" path="src-test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/thirdparty/junit/junit-4.10.jar" sourcepath="/thirdparty/junit/junit-4.10-src.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/jna/jna.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/jna/platform.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/slf4j/slf4j-api-1.6.6.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/slf4j/jcl-over-slf4j-1.6.6.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/groboutils/lib/GroboUtils-5-core.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/logback/logback-classic-1.0.6.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/logback/logback-core-1.0.6.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/waffle-api"/>
-	<classpathentry kind="lib" path="/thirdparty/guava/guava-12.0.1.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/net.java.dev.jna/3.4.2/jna.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/net.java.dev.jna/3.4.2/platform.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

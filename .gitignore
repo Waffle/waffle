@@ -6,7 +6,6 @@ obj
 Debug
 Release
 TestResult.xml
-Source/JNA/build
 Source/JNA/lib-test
 Source/JNA/lib
 Source/JNA/test
@@ -15,4 +14,6 @@ Source/JNA/*/lib-test/
 Source/JNA/*/lib/
 Source/JNA/*/doc/
 Source/JNA/*/test/
+Source/ThirdParty/_lib/
+Source/ThirdParty/_report/
 

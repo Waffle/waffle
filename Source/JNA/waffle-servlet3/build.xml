@@ -5,10 +5,10 @@
 	<path id="waffle-api.classpath" location="${common.build}/waffle-api.jar" />
 	<path id="waffle-core.classpath" location="${common.build}/waffle-core.jar" />
 	<path id="waffle-mock.classpath" location="${common.build}/waffle-mock.jar" />
-    <path id="waffle-http.classpath" location="${common.build}/waffle-http.jar" />
+	<path id="waffle-http3.classpath" location="${common.build}/waffle-http3.jar" />
 	<import file="${basedir}/../build/build.xml" />
 	<path id="javax.classpath">
-		<fileset dir="${thirdparty.dir}/javax/servlet3">
+		<fileset dir="${thirdparty.dir}/_lib/jar/javax.servlet/3.0.1">
 			<include name="*.jar" />
 		</fileset>
 	</path>
@@ -19,6 +19,6 @@
 	</path>
 	<path id="project.test.classpath">
 		<path refid="waffle-mock.classpath" />
-        <path refid="waffle-http.classpath" />
+		<path refid="waffle-http3.classpath" />
 	</path>
 </project>

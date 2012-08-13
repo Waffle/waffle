@@ -11,7 +11,7 @@
  * Contributors:
  *     Application Security, Inc.
  *******************************************************************************/
-package waffle.apache.catalina;
+package waffle.http;
 
 import java.util.Enumeration;
 import java.util.HashMap;

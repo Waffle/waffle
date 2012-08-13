@@ -23,19 +23,17 @@
 	</tstamp>
 	<!-- compile -->
 	<path id="jna.classpath">
-		<fileset dir="${thirdparty.dir}/jna">
-			<include name="jna.jar" />
-			<include name="platform.jar" />
+		<fileset dir="${thirdparty.dir}/net.java.dev.jna/3.4.2">
+			<include name="*.jar" />
 		</fileset>
 	</path>
 	<path id="slf4j.classpath">
-		<fileset dir="${thirdparty.dir}/slf4j">
-			<include name="**/*jcl-over-slf4j*.jar" />
-			<include name="**/*slf4j-api*.jar" />
+		<fileset dir="${thirdparty.dir}/_lib/jar/org.slf4j/1.6.6">
+			<include name="*.jar" />
 		</fileset>
 	</path>
 	<path id="guava.classpath">
-		<fileset dir="${thirdparty.dir}/guava">
+		<fileset dir="${thirdparty.dir}/_lib/jar/com.google.guava/13.0">
 			<include name="**/*.jar" />
 		</fileset>
 	</path>
@@ -66,8 +64,8 @@
 	</macrodef>
 	<!-- test -->
 	<path id="groboutils.classpath">
-		<fileset dir="${thirdparty.dir}/groboutils/lib">
-			<include name="GroboUtils-5-core.jar" />
+		<fileset dir="${thirdparty.dir}/_lib/jar/net.sourceforge.groboutils/5">
+			<include name="*.jar" />
 		</fileset>
 	</path>
 	<path id="waffle.test.classpath">
@@ -75,7 +73,7 @@
 		<path refid="thirdparty.classpath" />
 		<path refid="project.classpath" />
 		<path refid="project.test.classpath" />
-		<fileset dir="${thirdparty.dir}/junit">
+		<fileset dir="${thirdparty.dir}/_lib/jar/junit/4.10">
 			<include name="*.jar" />
 		</fileset>
 		<pathelement location="${waffle.test.src}" />
@@ -104,8 +102,11 @@
 		<junit fork="true" newenvironment="true" failureproperty="tests.failed"
             haltonfailure="no" haltonerror="no" printsummary="on" errorproperty="tests.failed">
 			<batchtest todir="${waffle.test}">
-				<fileset dir="${waffle.test.lib}" includes="**/*Tests.class"
-                    excludes="**/*LoadTests.class" />
+				<fileset dir="${waffle.test.lib}">
+					<include name="**/*Tests.class" />
+					<exclude name="**/*LoadTests.class" />
+					<exclude name="**/*All*Tests.class" />
+				</fileset>
 			</batchtest>
 			<formatter type="xml" />
 			<classpath refid="waffle.test.classpath" />
@@ -115,11 +116,10 @@
 		<fail message="Unit Tests failed" if="tests.failed" />
 	</target>
 	<!-- cover -->
-	<property name="emma.dir" value="${thirdparty.dir}/emma/lib" />
+	<property name="emma.dir" value="${thirdparty.dir}/_lib/jar/emma/2.1.5320" />
 	<path id="emma.classpath">
-		<fileset dir="${thirdparty.dir}/emma/lib">
-			<include name="emma.jar" />
-			<include name="emma_ant.jar" />
+		<fileset dir="${thirdparty.dir}/_lib/jar/emma/2.1.5320">
+			<include name="*.jar" />
 		</fileset>
 	</path>
 	<taskdef resource="emma_ant.properties" classpathref="emma.classpath" />

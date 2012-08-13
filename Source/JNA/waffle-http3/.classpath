@@ -3,9 +3,6 @@
 	<classpathentry excluding="**/.svn|**/.svn/*" kind="src" path="src"/>
 	<classpathentry excluding="**/.svn|**/.svn/*" kind="src" path="src-test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/waffle-mock"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/waffle-api"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/waffle-core"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/junit/4.10/junit-4.10.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/javax.servlet/3.0.1/javax.servlet-api-3.0.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -8,10 +8,7 @@
 	<path id="waffle-servlet.classpath" location="${common.build}/waffle-servlet.jar" />
 	<import file="${basedir}/../build/build.xml" />
 	<path id="tomcat.classpath">
-		<fileset dir="${thirdparty.dir}/tomcat7/lib">
-			<include name="*.jar" />
-		</fileset>
-		<fileset dir="${thirdparty.dir}/tomcat7/bin">
+		<fileset dir="${thirdparty.dir}/_lib/jar/org.apache.tomcat/7.0.29">
 			<include name="*.jar" />
 		</fileset>
 	</path>

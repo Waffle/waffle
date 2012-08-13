@@ -85,7 +85,6 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		assertEquals(500, response.getStatus());
 	}
 
-	@SuppressWarnings("unchecked")
 	public void testNegotiate() throws IOException, ServletException {
 		String securityPackage = "Negotiate";
 		SimpleFilterChain filterChain = new SimpleFilterChain();
@@ -101,15 +100,14 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		Authentication auth = SecurityContextHolder.getContext()
 				.getAuthentication();
 		assertNotNull(auth);
-		Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) auth
-				.getAuthorities();
+		Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
 		assertNotNull(authorities);
 		assertEquals(3, authorities.size());
-		Iterator<GrantedAuthority> authoritiesIterator = authorities.iterator();
+		Iterator<? extends GrantedAuthority> authoritiesIterator = authorities.iterator();
 		assertEquals("ROLE_USER", authoritiesIterator.next().getAuthority());
 		assertEquals("ROLE_USERS", authoritiesIterator.next().getAuthority());
 		assertEquals("ROLE_EVERYONE", authoritiesIterator.next().getAuthority());
-		assertEquals(0, response.getHeaderNames().length);
+		assertEquals(0, response.getHeaderNames().size());
 	}
 
 	public void testUnsupportedSecurityPackagePassthrough() throws IOException,

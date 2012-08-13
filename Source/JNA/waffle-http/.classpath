@@ -12,5 +12,6 @@
 	<classpathentry kind="lib" path="/thirdparty/logback/logback-core-1.0.6.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/guava/guava-12.0.1.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/javax/servlet2.5/servlet-api-2.5.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/javax.servlet/2.5/servlet-api-2.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

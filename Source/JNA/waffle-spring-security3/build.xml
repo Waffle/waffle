@@ -5,34 +5,34 @@
 	<path id="waffle-api.classpath" location="${common.build}/waffle-api.jar" />
 	<path id="waffle-core.classpath" location="${common.build}/waffle-core.jar" />
 	<path id="waffle-mock.classpath" location="${common.build}/waffle-mock.jar" />
-    <path id="waffle-http.classpath" location="${common.build}/waffle-http.jar" />
-	<path id="waffle-servlet.classpath" location="${common.build}/waffle-servlet.jar" />
+  <path id="waffle-http3.classpath" location="${common.build}/waffle-http3.jar" />
+	<path id="waffle-servlet3.classpath" location="${common.build}/waffle-servlet3.jar" />
 	<import file="${basedir}/../build/build.xml" />
 	<path id="javax.classpath">
-		<fileset dir="${thirdparty.dir}/javax/servlet2.5">
+		<fileset dir="${thirdparty.dir}/_lib/jar/javax.servlet/3.0.1">
 			<include name="*.jar" />
 		</fileset>
 	</path>
 	<path id="spring.classpath">
-		<fileset dir="${thirdparty.dir}/spring3/dist">
+		<fileset dir="${thirdparty.dir}/_lib/jar/org.springframework/3.1.2.RELEASE">
 			<include name="*.jar" />
 		</fileset>
 	</path>
 	<path id="spring-security.classpath">
-		<fileset dir="${thirdparty.dir}/spring-security3/dist">
+		<fileset dir="${thirdparty.dir}/_lib/jar/org.springframework.security/3.1.1.RELEASE">
 			<include name="*.jar" />
 		</fileset>
 	</path>
 	<path id="project.classpath">
 		<path refid="waffle-api.classpath" />
 		<path refid="waffle-core.classpath" />
-		<path refid="waffle-servlet.classpath" />
+		<path refid="waffle-servlet3.classpath" />
 		<path refid="javax.classpath" />
 		<path refid="spring.classpath" />
 		<path refid="spring-security.classpath" />
 	</path>
 	<path id="project.test.classpath">
 		<path refid="waffle-mock.classpath" />
-        <path refid="waffle-http.classpath" />
+    <path refid="waffle-http3.classpath" />
 	</path>
 </project>
