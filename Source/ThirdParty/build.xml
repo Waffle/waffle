@@ -6,31 +6,54 @@
 		<echo>Waffle Third Party Dependencies</echo>
 	</target>
 
-	<target name="dist" depends="clean, dependencies, report">
+	<target name="dist" depends="clean, install-ivy, dependencies, report">
 
+	</target>
+
+	<property name="ivy.install.version" value="2.3.0-rc1" />
+	<property name="ivy.jar.dir" value="${basedir}/org.apache.ivy/${ivy.install.version}" />
+	<property name="ivy.jar.file" value="${ivy.jar.dir}/ivy-${ivy.install.version}.jar" />
+	<target name="download-ivy" unless="skip.download">
+		<mkdir dir="${ivy.jar.dir}" />
+		<!-- download Ivy from web site so that it can be used even without any special installation -->
+		<echo message="installing ivy..." />
+		<get src="http://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar" dest="${ivy.jar.file}" usetimestamp="true" />
+	</target>
+
+	<target name="install-ivy" depends="download-ivy" description="--> install ivy">
+		<!-- try to load ivy here from local ivy dir, in case the user has not already dropped
+	    	      it into ant's lib dir (note that the latter copy will always take precedence).
+	    	      We will not fail as long as local lib dir exists (it may be empty) and
+	    	      ivy is in at least one of ant's lib dir or the local lib dir. -->
+		<path id="ivy.lib.path">
+			<fileset dir="${ivy.jar.dir}" includes="*.jar" />
+		</path>
+		<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path" />
 	</target>
 
 	<target name="dependencies">
 		<ivy:settings file="${basedir}/ivysettings.xml" />
-		<ivy:resolve file="${basedir}/ivy.xml"/>
+		<ivy:resolve file="${basedir}/ivy.xml" />
 		<ivy:retrieve pattern="_lib/[type]/[organisation]/[revision]/[artifact]-[revision].[ext]" sync="true" />
-		
+
 		<!-- Due to eviction, spring security 2 is prevented thus this step will get it -->
-		<ivy:resolve file="${basedir}/ivy2.xml"/>
-		<ivy:retrieve pattern="${basedir}/_lib/[type]/[organisation]/[revision]/[artifact]-[revision].[ext]" sync="false" />
+		<ivy:resolve file="${basedir}/ivy2.xml" />
+		<ivy:retrieve pattern="_lib/[type]/[organisation]/[revision]/[artifact]-[revision].[ext]" sync="false" />
 	</target>
 
 	<target name="report">
 		<mkdir dir="${basedir}/_report" />
-		<ivy:resolve type="${ivy.resolve.types}"/>
+		<ivy:resolve type="${ivy.resolve.types}" />
 		<ivy:report todir="${basedir}/_report" />
 	</target>
 
 	<target name="clean">
+		<echo message="deleting _lib directory..." />
 		<delete dir="${basedir}/_lib" />
 	</target>
 
 	<target name="cleanCache">
+		<echo message="deleting ivy cache directory..." />
 		<delete dir="${ivy.cache.dir}" />
 	</target>
 
