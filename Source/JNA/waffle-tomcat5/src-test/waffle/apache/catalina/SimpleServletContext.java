@@ -119,20 +119,12 @@ public class SimpleServletContext implements ServletContext {
 	}
 
 	@Override
-<<<<<<< HEAD
-	public Enumeration<?> getServletNames() {
-=======
 	public Enumeration<String> getServletNames() {
->>>>>>> c19bf1ac239c28d737626f054a2b0f6272a28965
 		return null;
 	}
 
 	@Override
-<<<<<<< HEAD
-	public Enumeration<?> getServlets() {
-=======
 	public Enumeration<Servlet> getServlets() {
->>>>>>> c19bf1ac239c28d737626f054a2b0f6272a28965
 		return null;
 	}
 
