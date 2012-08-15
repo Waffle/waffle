@@ -68,10 +68,10 @@
   </Target>
   <ItemGroup>
     <JnaFiles Include="Source\JNA\bin\*.jar" Exclude="Source\JNA\bin\waffle-mock.jar;Source\JNA\bin\waffle-http.jar" />
-    <JnaFiles Include="Source\ThirdParty\jna\*.jar" />
-    <JnaFiles Include="Source\ThirdParty\guava\guava-12.0.1.jar" /> 
-    <JnaFiles Include="Source\ThirdParty\slf4j\*.jar" Exclude="Source\ThirdParty\slf4j\*-sources.jar" />
-    <JnaFiles Include="Source\ThirdParty\logback\*.jar" Exclude="Source\ThirdParty\logback\*-sources.jar" />
+    <JnaFiles Include="Source\ThirdParty\net.java.dev.jna\**\*.jar" />
+    <JnaFiles Include="Source\ThirdParty\_lib\jar\com.google.guava\**\guava-*.jar" /> 
+    <JnaFiles Include="Source\ThirdParty\_lib\jar\org.slf4j\**\*.jar" Exclude="Source\ThirdParty\jar\org.slf4j\**\*-sources.jar" />
+    <JnaFiles Include="Source\ThirdParty\_lib\jar\ch.qos.logback\**\*.jar" Exclude="Source\ThirdParty\_lib\jar\ch.qos.logback\**\*-sources.jar" />
   </ItemGroup>
   <Target Name="jar">
     <Exec WorkingDirectory="Source\JNA" Command="ant" />
