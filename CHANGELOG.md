@@ -9,17 +9,17 @@ Misc
 * Refactored `waffle-jna.jar` into several distinct packages - [@dblock](https://github.com/dblock).
   * `waffle-api.jar`: API interfaces.
   * `waffle-core.jar` : Core JNA-based implementation.
-  * 'waffle-http.jar' : Generic http.
-  * 'waffle-http3.jar' : Generic http3.
+  * `waffle-http.jar` : Minimal HTTP Servlet mocks, used in tests.
+  * `waffle-http3.jar` : Minimal HTTP Servlet3 mocks, used in tests.
   * `waffle-jaas.jar` : JAAS support.
   * `waffle-servlet.jar`: Generic Servlet filters.
   * `waffle-servlet3.jar`: Generic Servlet3 filters.
   * `waffle-spring-security2.jar`: Spring-security 2.
   * `waffle-spring-security3.jar`: Spring-security 3.
-  * `waffle-tomcat-5.jar` : Tomcat 5 Valves
-  * `waffle-tomcat-6.jar` : Tomcat 6 Valves
-  * `waffle-tomcat-7.jar` : Tomcat 7 Valves
-* Upgraded thirdparty dependencies - [@hazendaz](https://github.com/hazendaz).
+  * `waffle-tomcat-5.jar` : Tomcat 5 valves.
+  * `waffle-tomcat-6.jar` : Tomcat 6 valves.
+  * `waffle-tomcat-7.jar` : Tomcat 7 valves.
+* Upgraded thirdparty dependencies, using Ivy - [@hazendaz](https://github.com/hazendaz).
   * tomcat 5.5.35
   * tomcat 6.0.35
   * tomcat 7.0.29
