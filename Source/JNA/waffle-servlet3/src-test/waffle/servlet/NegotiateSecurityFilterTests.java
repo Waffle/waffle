@@ -76,7 +76,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		assertEquals("Negotiate", wwwAuthenticates[0]);
 		assertEquals("NTLM", wwwAuthenticates[1]);
 		assertTrue(wwwAuthenticates[2].startsWith("Basic realm=\""));
-		assertEquals(2, response.getHeaderNames().length);
+		assertEquals(2, response.getHeaderNames().size());
 		assertEquals("keep-alive", response.getHeader("Connection"));
 		assertEquals(401, response.getStatus());
 	}
@@ -109,7 +109,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 			assertTrue(response.getHeader("WWW-Authenticate").startsWith(
 					securityPackage + " "));
 			assertEquals("keep-alive", response.getHeader("Connection"));
-			assertEquals(2, response.getHeaderNames().length);
+			assertEquals(2, response.getHeaderNames().size());
 			assertEquals(401, response.getStatus());
 		} finally {
 			if (clientContext != null) {
@@ -160,14 +160,14 @@ public class NegotiateSecurityFilterTests extends TestCase {
 						.size() > 0);
 
 				if (authenticated) {
-					assertTrue(response.getHeaderNames().length >= 0);
+					assertTrue(response.getHeaderNames().size() >= 0);
 					break;
 				}
 
 				assertTrue(response.getHeader("WWW-Authenticate").startsWith(
 						securityPackage + " "));
 				assertEquals("keep-alive", response.getHeader("Connection"));
-				assertEquals(2, response.getHeaderNames().length);
+				assertEquals(2, response.getHeaderNames().size());
 				assertEquals(401, response.getStatus());
 				String continueToken = response.getHeader("WWW-Authenticate")
 						.substring(securityPackage.length() + 1);
@@ -239,7 +239,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 				.getHeaderValues("WWW-Authenticate");
 		assertEquals(1, wwwAuthenticates.length);
 		assertTrue(wwwAuthenticates[0].startsWith("NTLM "));
-		assertEquals(2, response.getHeaderNames().length);
+		assertEquals(2, response.getHeaderNames().size());
 		assertEquals("keep-alive", response.getHeader("Connection"));
 		assertEquals(401, response.getStatus());
 	}
@@ -263,7 +263,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 				.getHeaderValues("WWW-Authenticate");
 		assertEquals(1, wwwAuthenticates.length);
 		assertTrue(wwwAuthenticates[0].startsWith("NTLM "));
-		assertEquals(2, response.getHeaderNames().length);
+		assertEquals(2, response.getHeaderNames().size());
 		assertEquals("keep-alive", response.getHeader("Connection"));
 		assertEquals(401, response.getStatus());
 	}
