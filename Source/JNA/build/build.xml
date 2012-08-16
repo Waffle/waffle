@@ -122,8 +122,10 @@
 			<include name="*.jar" />
 		</fileset>
 	</path>
-	<taskdef resource="emma_ant.properties" classpathref="emma.classpath" />
-	<target name="instrument">
+	<target name="emma-ant">
+		<taskdef resource="emma_ant.properties" classpathref="emma.classpath" />
+	</target>
+	<target name="instrument" depends="emma-ant">
 		<echo message="Instrumenting ${waffle.lib}" />
 		<path id="build.classpath">
 			<pathelement path="${waffle.lib}" />
@@ -136,7 +138,7 @@
 			<fileset dir="${waffle.cover}/lib" includes="**/*" />
 		</copy>
 	</target>
-	<target name="cover-report">
+	<target name="cover-report" depends="emma-ant">
 		<emma>
 			<report sourcepath="${waffle.src}">
 				<fileset dir="${waffle.cover}">
