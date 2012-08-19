@@ -1,8 +1,7 @@
-Next Release
-============
+1.5 (Next Release)
+==================
 
-Misc
-----
+This release unifies support for various Java platforms in a single released package and significantly improves development infrastructure.
 
 * Waffle now requires Java 1.6 or newer, uses generics where possible - [@hazendaz](https://github.com/hazendaz).
 * Using JNA 3.4.2 (currently private build) - [@dblock](https://github.com/dblock).
