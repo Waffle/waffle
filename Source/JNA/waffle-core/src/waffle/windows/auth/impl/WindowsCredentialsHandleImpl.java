@@ -92,7 +92,6 @@ public class WindowsCredentialsHandleImpl implements IWindowsCredentialsHandle {
 			if (WinError.SEC_E_OK != rc) {
 				throw new Win32Exception(rc);
 			}
-			_handle = null;
 		}
 	}
 

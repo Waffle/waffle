@@ -135,10 +135,10 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 			_log.debug("token buffer: " + tokenBuffer.length + " byte(s)");
 			securityContext = _auth.acceptSecurityToken(connectionId,
 					tokenBuffer, securityPackage);
-			_log.debug("continue required: " + securityContext.getContinue());
+			_log.debug("continue required: " + securityContext.isContinue());
 
 			byte[] continueTokenBytes = securityContext.getToken();
-			if (continueTokenBytes != null) {
+			if (continueTokenBytes != null && continueTokenBytes.length > 0) {
 				String continueToken = new String(
 						Base64.encode(continueTokenBytes));
 				_log.debug("continue token: " + continueToken);
@@ -146,7 +146,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 						+ continueToken);
 			}
 
-			if (securityContext.getContinue() || ntlmPost) {
+			if (securityContext.isContinue() || ntlmPost) {
 				response.setHeader("Connection", "keep-alive");
 				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 				response.flushBuffer();

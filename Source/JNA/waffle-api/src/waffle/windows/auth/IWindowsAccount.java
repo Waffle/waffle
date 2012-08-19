@@ -25,26 +25,26 @@ public interface IWindowsAccount {
 	 * 
 	 * @return String in the S- format.
 	 */
-	public String getSidString();
+	String getSidString();
 
 	/**
 	 * Fully qualified username.
 	 * 
 	 * @return String.
 	 */
-	public String getFqn();
+	String getFqn();
 
 	/**
 	 * User name.
 	 * 
 	 * @return String.
 	 */
-	public String getName();
+	String getName();
 
 	/**
 	 * Domain name.
 	 * 
 	 * @return String.
 	 */
-	public String getDomain();
+	String getDomain();
 }

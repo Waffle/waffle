@@ -13,14 +13,18 @@
  *******************************************************************************/
 package waffle.util;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 import waffle.http.SimpleHttpRequest;
 
 /**
  * @author dblock[at]dblock[dot]org
  */
-public class NtlmServletRequestTests extends TestCase {
+public class NtlmServletRequestTests {
 
+	@Test
 	public void testGetConnectionId() {
 		SimpleHttpRequest.resetRemotePort();
 		SimpleHttpRequest request1 = new SimpleHttpRequest();

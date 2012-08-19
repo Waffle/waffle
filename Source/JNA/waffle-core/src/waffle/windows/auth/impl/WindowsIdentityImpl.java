@@ -14,6 +14,7 @@
 package waffle.windows.auth.impl;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import waffle.windows.auth.IWindowsAccount;
 import waffle.windows.auth.IWindowsIdentity;
@@ -47,7 +48,7 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
 		if (_userGroups == null) {
 			_userGroups = Advapi32Util.getTokenGroups(_windowsIdentity);
 		}
-		return _userGroups;
+		return _userGroups.clone();
 	}
 
 	@Override
@@ -60,7 +61,7 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
 
 		Account[] userGroups = getUserGroups();
 
-		ArrayList<IWindowsAccount> result = new ArrayList<IWindowsAccount>(
+		List<IWindowsAccount> result = new ArrayList<IWindowsAccount>(
 				userGroups.length);
 		for (Account userGroup : userGroups) {
 			WindowsAccountImpl account = new WindowsAccountImpl(userGroup);
@@ -84,7 +85,6 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
 	public void dispose() {
 		if (_windowsIdentity != null) {
 			Kernel32.INSTANCE.CloseHandle(_windowsIdentity);
-			_windowsIdentity = null;
 		}
 	}
 
@@ -101,19 +101,23 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
 	public boolean isGuest() {
 		for (Account userGroup : getUserGroups()) {
 			if (Advapi32Util.isWellKnownSid(userGroup.sid,
-					WELL_KNOWN_SID_TYPE.WinBuiltinGuestsSid))
+					WELL_KNOWN_SID_TYPE.WinBuiltinGuestsSid)) {
 				return true;
+			}
 			if (Advapi32Util.isWellKnownSid(userGroup.sid,
-					WELL_KNOWN_SID_TYPE.WinAccountDomainGuestsSid))
+					WELL_KNOWN_SID_TYPE.WinAccountDomainGuestsSid)) {
 				return true;
+			}
 			if (Advapi32Util.isWellKnownSid(userGroup.sid,
-					WELL_KNOWN_SID_TYPE.WinAccountGuestSid))
+					WELL_KNOWN_SID_TYPE.WinAccountGuestSid)) {
 				return true;
+			}
 		}
 
 		if (Advapi32Util.isWellKnownSid(getSid(),
-				WELL_KNOWN_SID_TYPE.WinAnonymousSid))
+				WELL_KNOWN_SID_TYPE.WinAnonymousSid)) {
 			return true;
+		}
 
 		return false;
 	}

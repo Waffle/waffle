@@ -22,7 +22,7 @@ public class MockWindowsImpersonationContext implements
 		IWindowsImpersonationContext {
 
 	@Override
-	public void RevertToSelf() {
+	public void revertToSelf() {
 
 	}
 }

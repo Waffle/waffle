@@ -50,7 +50,7 @@ import com.sun.jna.ptr.IntByReference;
  */
 public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
 
-	Cache<String, CtxtHandle> _continueContexts = null;
+	private Cache<String, CtxtHandle> _continueContexts = null;
 
 	public WindowsAuthProviderImpl() {
 		this(30);
@@ -171,13 +171,11 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
 	public IWindowsIdentity logonUser(String username, String password) {
 		// username@domain UPN format is natively supported by the
 		// Windows LogonUser API process domain\\username format
-		String domain = null;
 		String[] userNameDomain = username.split("\\\\", 2);
 		if (userNameDomain.length == 2) {
-			username = userNameDomain[1];
-			domain = userNameDomain[0];
+			return logonDomainUser(userNameDomain[1], userNameDomain[0], password);
 		}
-		return logonDomainUser(username, domain, password);
+		return logonDomainUser(username, null, password);
 	}
 
 	@Override

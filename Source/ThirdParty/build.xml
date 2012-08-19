@@ -22,9 +22,9 @@
 
 	<target name="install-ivy" depends="download-ivy" description="--> install ivy">
 		<!-- try to load ivy here from local ivy dir, in case the user has not already dropped
-	    	      it into ant's lib dir (note that the latter copy will always take precedence).
-	    	      We will not fail as long as local lib dir exists (it may be empty) and
-	    	      ivy is in at least one of ant's lib dir or the local lib dir. -->
+			it into ant's lib dir (note that the latter copy will always take precedence).
+			We will not fail as long as local lib dir exists (it may be empty) and
+			ivy is in at least one of ant's lib dir or the local lib dir. -->
 		<path id="ivy.lib.path">
 			<fileset dir="${ivy.jar.dir}" includes="*.jar" />
 		</path>

@@ -13,9 +13,15 @@
  *******************************************************************************/
 package waffle.apache;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.apache.catalina.Realm;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import waffle.apache.catalina.SimpleContext;
 import waffle.apache.catalina.SimpleHttpRequest;
@@ -39,11 +45,11 @@ import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
  * 
  * @author dblock[at]dblock[dot]org
  */
-public class NegotiateAuthenticatorTests extends TestCase {
+public class NegotiateAuthenticatorTests {
 
 	NegotiateAuthenticator _authenticator = null;
 
-	@Override
+	@Before
 	public void setUp() {
 		_authenticator = new NegotiateAuthenticator();
 		SimpleContext ctx = new SimpleContext();
@@ -53,35 +59,39 @@ public class NegotiateAuthenticatorTests extends TestCase {
 		_authenticator.start();
 	}
 
-	@Override
+	@After
 	public void tearDown() {
 		_authenticator.stop();
-		_authenticator = null;
 	}
 
+	@Test
 	public void testGetInfo() {
 		assertTrue(_authenticator.getInfo().length() > 0);
 		assertTrue(_authenticator.getAuth() instanceof WindowsAuthProviderImpl);
 	}
 
+	@Test
 	public void testAllowGuestLogin() {
-		assertTrue(_authenticator.getAllowGuestLogin());
+		assertTrue(_authenticator.isAllowGuestLogin());
 		_authenticator.setAllowGuestLogin(false);
-		assertFalse(_authenticator.getAllowGuestLogin());
+		assertFalse(_authenticator.isAllowGuestLogin());
 	}
 
+	@Test
 	public void testPrincipalFormat() {
 		assertEquals(PrincipalFormat.fqn, _authenticator.getPrincipalFormat());
 		_authenticator.setPrincipalFormat("both");
 		assertEquals(PrincipalFormat.both, _authenticator.getPrincipalFormat());
 	}
 
+	@Test
 	public void testRoleFormat() {
 		assertEquals(PrincipalFormat.fqn, _authenticator.getRoleFormat());
 		_authenticator.setRoleFormat("both");
 		assertEquals(PrincipalFormat.both, _authenticator.getRoleFormat());
 	}
 
+	@Test
 	public void testChallengeGET() {
 		SimpleHttpRequest request = new SimpleHttpRequest();
 		request.setMethod("GET");
@@ -97,6 +107,7 @@ public class NegotiateAuthenticatorTests extends TestCase {
 		assertEquals(401, response.getStatus());
 	}
 
+	@Test
 	public void testChallengePOST() {
 		String securityPackage = "Negotiate";
 		IWindowsCredentialsHandle clientCredentials = null;
@@ -136,6 +147,7 @@ public class NegotiateAuthenticatorTests extends TestCase {
 		}
 	}
 
+	@Test
 	public void testPOSTEmpty() {
 		String securityPackage = "Negotiate";
 		IWindowsCredentialsHandle clientCredentials = null;
@@ -198,6 +210,7 @@ public class NegotiateAuthenticatorTests extends TestCase {
 		}
 	}
 
+	@Test
 	public void testNegotiate() {
 		String securityPackage = "Negotiate";
 		IWindowsCredentialsHandle clientCredentials = null;

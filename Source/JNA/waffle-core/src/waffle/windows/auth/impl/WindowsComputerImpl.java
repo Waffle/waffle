@@ -14,6 +14,7 @@
 package waffle.windows.auth.impl;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import waffle.windows.auth.IWindowsComputer;
 
@@ -38,7 +39,7 @@ public class WindowsComputerImpl implements IWindowsComputer {
 
 	@Override
 	public String[] getGroups() {
-		ArrayList<String> groupNames = new ArrayList<String>();
+		List<String> groupNames = new ArrayList<String>();
 		LocalGroup[] groups = Netapi32Util.getLocalGroups(computerName);
 		for (LocalGroup group : groups) {
 			groupNames.add(group.name);

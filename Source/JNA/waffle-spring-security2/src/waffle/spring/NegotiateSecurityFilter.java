@@ -53,6 +53,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
 	private GrantedAuthority _defaultGrantedAuthority = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY;
 
 	public NegotiateSecurityFilter() {
+		super();
 		_log.debug("[waffle.spring.NegotiateSecurityFilter] loaded");
 	}
 
@@ -170,7 +171,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
 		_roleFormat = principalFormat;
 	}
 
-	public boolean getAllowGuestLogin() {
+	public boolean isAllowGuestLogin() {
 		return _allowGuestLogin;
 	}
 

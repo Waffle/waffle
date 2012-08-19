@@ -38,7 +38,7 @@ public class WindowsSecurityContextImpersonationContextImpl implements
 	}
 
 	@Override
-	public void RevertToSelf() {
+	public void revertToSelf() {
 		int rc = Secur32.INSTANCE.RevertSecurityContext(_ctx);
 		if (rc != WinError.SEC_E_OK) {
 			throw new Win32Exception(rc);

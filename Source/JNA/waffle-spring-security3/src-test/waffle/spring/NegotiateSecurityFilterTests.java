@@ -13,14 +13,20 @@
  *******************************************************************************/
 package waffle.spring;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
 
 import javax.servlet.ServletException;
 
-import junit.framework.TestCase;
-
+import org.junit.Before;
+import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.security.core.Authentication;
@@ -40,11 +46,11 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
 /**
  * @author dblock[at]dblock[dot]org
  */
-public class NegotiateSecurityFilterTests extends TestCase {
+public class NegotiateSecurityFilterTests {
 
 	private NegotiateSecurityFilter _filter = null;
 
-	@Override
+	@Before
 	public void setUp() {
 		String[] configFiles = new String[] { "springTestFilterBeans.xml" };
 		ApplicationContext ctx = new ClassPathXmlApplicationContext(configFiles);
@@ -53,19 +59,16 @@ public class NegotiateSecurityFilterTests extends TestCase {
 				.getBean("waffleNegotiateSecurityFilter");
 	}
 
-	@Override
-	public void tearDown() {
-		_filter = null;
-	}
-
+	@Test
 	public void testFilter() {
-		assertFalse(_filter.getAllowGuestLogin());
+		assertFalse(_filter.isAllowGuestLogin());
 		assertEquals(PrincipalFormat.fqn, _filter.getPrincipalFormat());
 		assertEquals(PrincipalFormat.both, _filter.getRoleFormat());
 		assertNull(_filter.getFilterConfig());
-		assertTrue(_filter.getProvider() != null);
+		assertNotNull(_filter.getProvider());
 	}
 
+	@Test
 	public void testProvider() throws ClassNotFoundException {
 		SecurityFilterProviderCollection provider = _filter.getProvider();
 		assertEquals(2, provider.size());
@@ -75,6 +78,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 				.getByClassName("waffle.servlet.spi.NegotiateSecurityFilterProvider") instanceof NegotiateSecurityFilterProvider);
 	}
 
+	@Test
 	public void testNoChallengeGET() throws IOException, ServletException {
 		SimpleHttpRequest request = new SimpleHttpRequest();
 		request.setMethod("GET");
@@ -85,6 +89,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		assertEquals(500, response.getStatus());
 	}
 
+	@Test
 	public void testNegotiate() throws IOException, ServletException {
 		String securityPackage = "Negotiate";
 		SimpleFilterChain filterChain = new SimpleFilterChain();
@@ -110,6 +115,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		assertEquals(0, response.getHeaderNames().size());
 	}
 
+	@Test
 	public void testUnsupportedSecurityPackagePassthrough() throws IOException,
 			ServletException {
 		SimpleFilterChain filterChain = new SimpleFilterChain();
@@ -121,6 +127,7 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		assertEquals(500, response.getStatus());
 	}
 
+	@Test
 	public void testGuestIsDisabled() throws IOException, ServletException {
 		String securityPackage = "Negotiate";
 		SimpleFilterChain filterChain = new SimpleFilterChain();
@@ -136,13 +143,9 @@ public class NegotiateSecurityFilterTests extends TestCase {
 		assertNull(SecurityContextHolder.getContext().getAuthentication());
 	}
 
-	public void testAfterPropertiesSet() {
+	@Test(expected = ServletException.class)
+	public void testAfterPropertiesSet() throws ServletException {
 		_filter.setProvider(null);
-		try {
-			_filter.afterPropertiesSet();
-			fail("expected ServletException");
-		} catch (Exception e) {
-			assertTrue(e instanceof ServletException);
-		}
+		_filter.afterPropertiesSet();
 	}
 }

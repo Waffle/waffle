@@ -13,22 +13,26 @@
  *******************************************************************************/
 package waffle.windows.auth;
 
-import junit.framework.TestCase;
-import waffle.windows.auth.IWindowsSecurityContext;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
 import waffle.windows.auth.impl.WindowsAccountImpl;
 import waffle.windows.auth.impl.WindowsSecurityContextImpl;
 
 /**
  * @author dblock[at]dblock[dot]org
  */
-public class WindowsSecurityContextTests extends TestCase {
+public class WindowsSecurityContextTests {
 
+	@Test
 	public void testNegotiate() {
 		String securityPackage = "Negotiate";
 		// security context
 		IWindowsSecurityContext ctx = WindowsSecurityContextImpl.getCurrent(
 				securityPackage, WindowsAccountImpl.getCurrentUsername());
-		assertTrue(ctx.getContinue());
+		assertTrue(ctx.isContinue());
 		assertEquals(securityPackage, ctx.getSecurityPackage());
 		assertTrue(ctx.getToken().length > 0);
 		ctx.dispose();

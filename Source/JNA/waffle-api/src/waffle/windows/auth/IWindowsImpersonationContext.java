@@ -23,5 +23,5 @@ public interface IWindowsImpersonationContext {
 	/**
 	 * Terminate the impersonation of a client application.
 	 */
-	void RevertToSelf();
+	void revertToSelf();
 }

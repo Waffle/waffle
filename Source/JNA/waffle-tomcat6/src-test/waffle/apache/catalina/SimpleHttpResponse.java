@@ -59,12 +59,10 @@ public class SimpleHttpResponse extends Response {
 	}
 
 	public String getStatusString() {
-		switch (_status) {
-		case 401:
+		if (_status == 401) {
 			return "Unauthorized";
-		default:
-			return "Unknown";
 		}
+		return "Unknown";
 	}
 
 	@Override
@@ -92,8 +90,9 @@ public class SimpleHttpResponse extends Response {
 		}
 		StringBuilder sb = new StringBuilder();
 		for (String headerValue : headerValues) {
-			if (sb.length() > 0)
+			if (sb.length() > 0) {
 				sb.append(", ");
+			}
 			sb.append(headerValue);
 		}
 		return sb.toString();

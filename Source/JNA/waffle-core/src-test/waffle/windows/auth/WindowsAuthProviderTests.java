@@ -13,7 +13,13 @@
  *******************************************************************************/
 package waffle.windows.auth;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
 import waffle.mock.MockWindowsAccount;
 import waffle.util.Base64;
 import waffle.windows.auth.impl.WindowsAccountImpl;
@@ -34,19 +40,24 @@ import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 /**
  * @author dblock[at]dblock[dot]org
  */
-public class WindowsAuthProviderTests extends TestCase {
+public class WindowsAuthProviderTests {
 
 	private void debug(String s) {
 		// System.out.println(s);
 	}
 
-	/*
-	 * public void testLogonGuestUser() { IWindowsAuthProvider prov = new WindowsAuthProviderImpl(); IWindowsIdentity
-	 * identity = prov.logonUser("garbage", "garbage"); debug("Fqn: " + identity.getFqn()); debug("Guest: " +
-	 * identity.isGuest()); assertTrue(identity.getFqn().endsWith("\\Guest")); assertTrue(identity.isGuest());
-	 * identity.dispose(); }
-	 */
+	// @Test
+	// public void testLogonGuestUser() {
+	// IWindowsAuthProvider prov = new WindowsAuthProviderImpl();
+	// IWindowsIdentity identity = prov.logonUser("garbage", "garbage");
+	// debug("Fqn: " + identity.getFqn());
+	// debug("Guest: " + identity.isGuest());
+	// assertTrue(identity.getFqn().endsWith("\\Guest"));
+	// assertTrue(identity.isGuest());
+	// identity.dispose();
+	// }
 
+	@Test
 	public void testLogonUser() {
 		LMAccess.USER_INFO_1 userInfo = new LMAccess.USER_INFO_1();
 		userInfo.usri1_name = new WString("WaffleTestUser");
@@ -71,6 +82,7 @@ public class WindowsAuthProviderTests extends TestCase {
 		}
 	}
 
+	@Test
 	public void testImpersonateLoggedOnUser() {
 		LMAccess.USER_INFO_1 userInfo = new LMAccess.USER_INFO_1();
 		userInfo.usri1_name = new WString(MockWindowsAccount.TEST_USER_NAME);
@@ -86,7 +98,7 @@ public class WindowsAuthProviderTests extends TestCase {
 			IWindowsImpersonationContext ctx = identity.impersonate();
 			assertTrue(userInfo.usri1_name.toString().equals(
 					Advapi32Util.getUserName()));
-			ctx.RevertToSelf();
+			ctx.revertToSelf();
 			assertFalse(userInfo.usri1_name.toString().equals(
 					Advapi32Util.getUserName()));
 			identity.dispose();
@@ -98,6 +110,7 @@ public class WindowsAuthProviderTests extends TestCase {
 		}
 	}
 
+	@Test
 	public void testGetCurrentComputer() {
 		IWindowsAuthProvider prov = new WindowsAuthProviderImpl();
 		IWindowsComputer computer = prov.getCurrentComputer();
@@ -113,9 +126,11 @@ public class WindowsAuthProviderTests extends TestCase {
 		}
 	}
 
+	@Test
 	public void testGetDomains() {
-		if (Netapi32Util.getJoinStatus() != LMJoin.NETSETUP_JOIN_STATUS.NetSetupDomainName)
+		if (Netapi32Util.getJoinStatus() != LMJoin.NETSETUP_JOIN_STATUS.NetSetupDomainName) {
 			return;
+		}
 
 		IWindowsAuthProvider prov = new WindowsAuthProviderImpl();
 		IWindowsDomain[] domains = prov.getDomains();
@@ -125,6 +140,7 @@ public class WindowsAuthProviderTests extends TestCase {
 		}
 	}
 
+	@Test
 	public void testAcceptSecurityToken() {
 		String securityPackage = "Negotiate";
 		String targetName = "localhost";
@@ -152,7 +168,7 @@ public class WindowsAuthProviderTests extends TestCase {
 				serverContext = provider.acceptSecurityToken(connectionId,
 						clientContext.getToken(), securityPackage);
 
-				if (serverContext != null && serverContext.getContinue()) {
+				if (serverContext != null && serverContext.isContinue()) {
 					// initialize on the client
 					SecBufferDesc continueToken = new SecBufferDesc(
 							Sspi.SECBUFFER_TOKEN, serverContext.getToken());
@@ -161,7 +177,7 @@ public class WindowsAuthProviderTests extends TestCase {
 					debug("Token: " + Base64.encode(serverContext.getToken()));
 				}
 
-			} while (clientContext.getContinue() || serverContext.getContinue());
+			} while (clientContext.isContinue() || serverContext.isContinue());
 
 			assertTrue(serverContext.getIdentity().getFqn().length() > 0);
 
@@ -183,6 +199,7 @@ public class WindowsAuthProviderTests extends TestCase {
 		}
 	}
 
+	@Test
 	public void testSecurityContextsExpire() throws InterruptedException {
 		String securityPackage = "Negotiate";
 		IWindowsCredentialsHandle clientCredentials = null;
@@ -227,6 +244,7 @@ public class WindowsAuthProviderTests extends TestCase {
 		}
 	}
 
+	@Test
 	public void testAcceptAndImpersonateSecurityToken() {
 		String securityPackage = "Negotiate";
 		String targetName = "localhost";
@@ -253,7 +271,7 @@ public class WindowsAuthProviderTests extends TestCase {
 				serverContext = provider.acceptSecurityToken(connectionId,
 						clientContext.getToken(), securityPackage);
 
-				if (serverContext != null && serverContext.getContinue()) {
+				if (serverContext != null && serverContext.isContinue()) {
 					// initialize on the client
 					SecBufferDesc continueToken = new SecBufferDesc(
 							Sspi.SECBUFFER_TOKEN, serverContext.getToken());
@@ -261,13 +279,13 @@ public class WindowsAuthProviderTests extends TestCase {
 							continueToken, targetName);
 				}
 
-			} while (clientContext.getContinue() || serverContext.getContinue());
+			} while (clientContext.isContinue() || serverContext.isContinue());
 
 			assertTrue(serverContext.getIdentity().getFqn().length() > 0);
 
 			IWindowsImpersonationContext impersonationCtx = serverContext
 					.impersonate();
-			impersonationCtx.RevertToSelf();
+			impersonationCtx.revertToSelf();
 
 			debug(serverContext.getIdentity().getFqn());
 			for (IWindowsAccount group : serverContext.getIdentity()

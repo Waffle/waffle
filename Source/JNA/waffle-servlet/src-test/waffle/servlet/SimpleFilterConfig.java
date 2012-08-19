@@ -13,10 +13,12 @@
  *******************************************************************************/
 package waffle.servlet;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.Vector;
 
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletContext;
@@ -45,9 +47,9 @@ public class SimpleFilterConfig implements FilterConfig {
 
 	@Override
 	public Enumeration<String> getInitParameterNames() {
-		Vector<String> keys = new Vector<String>();
+		List<String> keys = new ArrayList<String>();
 		keys.addAll(_parameters.keySet());
-		return keys.elements();
+		return Collections.enumeration(keys);
 	}
 
 	@Override

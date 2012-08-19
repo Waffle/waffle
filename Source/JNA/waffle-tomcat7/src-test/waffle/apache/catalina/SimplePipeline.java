@@ -30,7 +30,7 @@ public class SimplePipeline implements Pipeline {
 
 	@Override
 	public Valve[] getValves() {
-		return _valves;
+		return _valves.clone();
 	}
 
 	@Override

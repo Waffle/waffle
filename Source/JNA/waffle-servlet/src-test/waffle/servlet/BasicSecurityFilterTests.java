@@ -13,13 +13,19 @@
  *******************************************************************************/
 package waffle.servlet;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.IOException;
 
 import javax.security.auth.Subject;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 
-import junit.framework.TestCase;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 import waffle.mock.MockWindowsAuthProvider;
 import waffle.http.SimpleFilterChain;
 import waffle.http.SimpleHttpRequest;
@@ -32,12 +38,12 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
  * 
  * @author dblock[at]dblock[dot]org
  */
-public class BasicSecurityFilterTests extends TestCase {
+public class BasicSecurityFilterTests {
 
 	NegotiateSecurityFilter _filter = null;
 	MockWindowsAuthProvider _provider = null;
 
-	@Override
+	@Before
 	public void setUp() {
 		_filter = new NegotiateSecurityFilter();
 		_filter.setAuth(new MockWindowsAuthProvider());
@@ -48,12 +54,12 @@ public class BasicSecurityFilterTests extends TestCase {
 		}
 	}
 
-	@Override
+	@After
 	public void tearDown() {
 		_filter.destroy();
-		_filter = null;
 	}
 
+	@Test
 	public void testBasicAuth() throws IOException, ServletException {
 		SimpleHttpRequest request = new SimpleHttpRequest();
 		request.setMethod("GET");

@@ -29,42 +29,42 @@ public interface IWindowsSecurityContext {
 	 * 
 	 * @return String.
 	 */
-	public String getSecurityPackage();
+	String getSecurityPackage();
 
 	/**
 	 * Principal name.
 	 * 
 	 * @return String.
 	 */
-	public String getPrincipalName();
+	String getPrincipalName();
 
 	/**
 	 * Token.
 	 * 
 	 * @return Array of bytes.
 	 */
-	public byte[] getToken();
+	byte[] getToken();
 
 	/**
 	 * True if protocol requires continuation.
 	 * 
 	 * @return True or false.
 	 */
-	public boolean getContinue();
+	boolean isContinue();
 
 	/**
 	 * Windows Identity.
 	 * 
 	 * @return Windows Identity.
 	 */
-	public IWindowsIdentity getIdentity();
+	IWindowsIdentity getIdentity();
 
 	/**
 	 * Context handle.
 	 * 
 	 * @return Handle.
 	 */
-	public Sspi.CtxtHandle getHandle();
+	Sspi.CtxtHandle getHandle();
 
 	/**
 	 * Initialize the security context, continuing from a previous one.
@@ -76,7 +76,7 @@ public interface IWindowsSecurityContext {
 	 * @param targetName
 	 *            The target of the context. The string contents are security-package specific.
 	 */
-	public void initialize(CtxtHandle continueCtx, SecBufferDesc continueToken,
+	void initialize(CtxtHandle continueCtx, SecBufferDesc continueToken,
 			String targetName);
 
 	/**
@@ -84,10 +84,10 @@ public interface IWindowsSecurityContext {
 	 * 
 	 * @return A Windows Impersonation Context.
 	 */
-	public IWindowsImpersonationContext impersonate();
+	IWindowsImpersonationContext impersonate();
 
 	/**
 	 * Disposes of the context.
 	 */
-	public void dispose();
+	void dispose();
 }

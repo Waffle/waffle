@@ -180,17 +180,17 @@ public class SimpleServletContext implements ServletContext {
 
 	@Override
 	public void addListener(String arg0) {
-		
+
 	}
 
 	@Override
 	public <T extends EventListener> void addListener(T arg0) {
-		
+
 	}
 
 	@Override
 	public void addListener(Class<? extends EventListener> arg0) {
-		
+
 	}
 
 	@Override
@@ -231,7 +231,7 @@ public class SimpleServletContext implements ServletContext {
 
 	@Override
 	public void declareRoles(String... arg0) {
-		
+
 	}
 
 	@Override
@@ -296,6 +296,6 @@ public class SimpleServletContext implements ServletContext {
 
 	@Override
 	public void setSessionTrackingModes(Set<SessionTrackingMode> arg0) {
-		
+
 	}
 }

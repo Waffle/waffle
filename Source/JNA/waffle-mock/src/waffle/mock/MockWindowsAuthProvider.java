@@ -56,7 +56,7 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
 
 	@Override
 	public IWindowsDomain[] getDomains() {
-		return null;
+		return new IWindowsDomain[0];
 	}
 
 	@Override

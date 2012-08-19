@@ -2,4 +2,4 @@ product.name=${ProductName}
 product.version=${Major}.${Minor}.${Build}.${Revision}
 company.name=${CompanyName}
 copyright.text=${Copyright}
-tademark.text=${Trademark}
+trademark.text=${Trademark}
