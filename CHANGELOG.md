@@ -4,13 +4,6 @@ Next Release
 Misc
 ----
 
-* Waffle boolean getters now use proper is* java standard - [@hazendaz](https://github.com/hazendaz).
-  * getContinue now isContinue
-  * getDebug now isDebug
-  * getAllowGuestLogin now isAllowGuestLogin
-  * getImpersonate now isImpersonate
-* RevertToSelf case fix now as revertToSelf - [@hazendaz](https://github.com/hazendaz).
-* All array getters now return empty arrays rather than null - [@hazendaz](https://github.com/hazendaz).
 * Waffle now requires Java 1.6 or newer, uses generics where possible - [@hazendaz](https://github.com/hazendaz).
 * Using JNA 3.4.2 (currently private build) - [@dblock](https://github.com/dblock).
 * Refactored `waffle-jna.jar` into several distinct packages - [@dblock](https://github.com/dblock).
@@ -35,7 +28,7 @@ Misc
   * spring 2.5.6.SEC03
   * spring-security 2.0.7
   * spring-security 3.1.1
-  * junit 4.10 - All tests now use junit 4 style rather than junit 3 style
+  * junit 4.10 - all tests now use junit 4 style rather than junit 3 style
   * emma 2.1.5320
 * Documentation has been rewritten in Markdown, R.I.P. CHM - [@dblock](https://github.com/dblock).
 * [#3](https://github.com/dblock/waffle/pull/3): Converted commons-logging to slf4j logging - [@hazendaz](https://github.com/hazendaz).
@@ -50,6 +43,13 @@ Misc
   * Removed all third party included jars.
   * Retained tomcat 5.5.35 due to ivy/maven only having 5.5.23 available.
   * Retained JNA due to private build.
+* Waffle `boolean` getters now use `is*` java standard - [@hazendaz](https://github.com/hazendaz).
+  * `getContinue` is now `isContinue`
+  * `getDebug` is now `isDebug`
+  * `getAllowGuestLogin` is now `isAllowGuestLogin`
+  * `getImpersonate` is now `isImpersonate`
+* `RevertToSelf` case fix, is now `revertToSelf` - [@hazendaz](https://github.com/hazendaz).
+* All array getters now return empty arrays rather than `null` - [@hazendaz](https://github.com/hazendaz).
 
 1.4 (6/21/2011) 
 ===============
