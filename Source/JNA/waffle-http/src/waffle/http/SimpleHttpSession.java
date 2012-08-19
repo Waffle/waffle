@@ -37,7 +37,7 @@ public class SimpleHttpSession implements HttpSession {
 	}
 
 	@Override
-	public Enumeration<?> getAttributeNames() {
+	public Enumeration<String> getAttributeNames() {
 		return null;
 	}
 
@@ -78,7 +78,7 @@ public class SimpleHttpSession implements HttpSession {
 
 	@Override
 	public String[] getValueNames() {
-		return null;
+		return new String[0];
 	}
 
 	@Override

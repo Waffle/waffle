@@ -34,8 +34,7 @@ import waffle.windows.auth.PrincipalFormat;
  */
 public class WindowsAuthenticationProvider implements AuthenticationProvider {
 
-	private Logger _log = LoggerFactory
-			.getLogger(WindowsAuthenticationProvider.class);
+	private Logger _log = LoggerFactory.getLogger(WindowsAuthenticationProvider.class);
 	private PrincipalFormat _principalFormat = PrincipalFormat.fqn;
 	private PrincipalFormat _roleFormat = PrincipalFormat.fqn;
 	private boolean _allowGuestLogin = true;
@@ -81,8 +80,8 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
 
 	@Override
 	public boolean supports(Class<? extends Object> authentication) {
-		return (UsernamePasswordAuthenticationToken.class
-				.isAssignableFrom(authentication));
+		return UsernamePasswordAuthenticationToken.class
+				.isAssignableFrom(authentication);
 	}
 
 	public PrincipalFormat getPrincipalFormat() {
@@ -101,7 +100,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
 		_roleFormat = principalFormat;
 	}
 
-	public boolean getAllowGuestLogin() {
+	public boolean isAllowGuestLogin() {
 		return _allowGuestLogin;
 	}
 

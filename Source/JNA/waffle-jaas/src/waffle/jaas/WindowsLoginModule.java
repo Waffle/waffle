@@ -13,6 +13,7 @@
  *******************************************************************************/
 package waffle.jaas;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -101,7 +102,7 @@ public class WindowsLoginModule implements LoginModule {
 			password = passwordCallback.getPassword() == null ? ""
 					: new String(passwordCallback.getPassword());
 			passwordCallback.clearPassword();
-		} catch (java.io.IOException e) {
+		} catch (IOException e) {
 			throw new LoginException(e.toString());
 		} catch (UnsupportedCallbackException e) {
 			throw new LoginException(
@@ -184,11 +185,9 @@ public class WindowsLoginModule implements LoginModule {
 		}
 
 		_subject.getPrincipals().clear();
-		_principals = null;
 
 		if (_username != null) {
 			debug("logging out " + _username);
-			_username = null;
 		}
 
 		return true;
@@ -205,7 +204,7 @@ public class WindowsLoginModule implements LoginModule {
 	 * 
 	 * @return True or false.
 	 */
-	public boolean getDebug() {
+	public boolean isDebug() {
 		return _debug;
 	}
 
@@ -295,7 +294,7 @@ public class WindowsLoginModule implements LoginModule {
 	 * 
 	 * @return True if Guest login permitted, false otherwise.
 	 */
-	public boolean getAllowGuestLogin() {
+	public boolean isAllowGuestLogin() {
 		return _allowGuestLogin;
 	}
 

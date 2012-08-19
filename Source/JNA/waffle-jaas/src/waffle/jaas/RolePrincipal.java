@@ -51,10 +51,6 @@ public class RolePrincipal implements Principal, Serializable {
 			return true;
 		}
 
-		if (o instanceof String) {
-			return getName().equals(o);
-		}
-
 		if (o instanceof RolePrincipal) {
 			return getName().equals(((RolePrincipal) o).getName());
 		}

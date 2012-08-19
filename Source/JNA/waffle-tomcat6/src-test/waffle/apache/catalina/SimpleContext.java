@@ -153,17 +153,17 @@ public class SimpleContext implements Context {
 
 	@Override
 	public String[] findApplicationListeners() {
-		return null;
+		return new String[0];
 	}
 
 	@Override
 	public ApplicationParameter[] findApplicationParameters() {
-		return null;
+		return new ApplicationParameter[0];
 	}
 
 	@Override
 	public SecurityConstraint[] findConstraints() {
-		return null;
+		return new SecurityConstraint[0];
 	}
 
 	@Override
@@ -178,7 +178,7 @@ public class SimpleContext implements Context {
 
 	@Override
 	public ErrorPage[] findErrorPages() {
-		return null;
+		return new ErrorPage[0];
 	}
 
 	@Override
@@ -188,17 +188,17 @@ public class SimpleContext implements Context {
 
 	@Override
 	public FilterDef[] findFilterDefs() {
-		return null;
+		return new FilterDef[0];
 	}
 
 	@Override
 	public FilterMap[] findFilterMaps() {
-		return null;
+		return new FilterMap[0];
 	}
 
 	@Override
 	public String[] findInstanceListeners() {
-		return null;
+		return new String[0];
 	}
 
 	@Override
@@ -208,7 +208,7 @@ public class SimpleContext implements Context {
 
 	@Override
 	public String[] findMimeMappings() {
-		return null;
+		return new String[0];
 	}
 
 	@Override
@@ -218,7 +218,7 @@ public class SimpleContext implements Context {
 
 	@Override
 	public String[] findParameters() {
-		return null;
+		return new String[0];
 	}
 
 	@Override
@@ -233,7 +233,7 @@ public class SimpleContext implements Context {
 
 	@Override
 	public String[] findSecurityRoles() {
-		return null;
+		return new String[0];
 	}
 
 	@Override
@@ -243,7 +243,7 @@ public class SimpleContext implements Context {
 
 	@Override
 	public String[] findServletMappings() {
-		return null;
+		return new String[0];
 	}
 
 	@Override
@@ -253,7 +253,7 @@ public class SimpleContext implements Context {
 
 	@Override
 	public int[] findStatusPages() {
-		return null;
+		return new int[0];
 	}
 
 	@Override
@@ -263,12 +263,12 @@ public class SimpleContext implements Context {
 
 	@Override
 	public String[] findTaglibs() {
-		return null;
+		return new String[0];
 	}
 
 	@Override
 	public String[] findWatchedResources() {
-		return null;
+		return new String[0];
 	}
 
 	@Override
@@ -278,17 +278,17 @@ public class SimpleContext implements Context {
 
 	@Override
 	public String[] findWelcomeFiles() {
-		return null;
+		return new String[0];
 	}
 
 	@Override
 	public String[] findWrapperLifecycles() {
-		return null;
+		return new String[0];
 	}
 
 	@Override
 	public String[] findWrapperListeners() {
-		return null;
+		return new String[0];
 	}
 
 	@Override
@@ -298,12 +298,12 @@ public class SimpleContext implements Context {
 
 	@Override
 	public Object[] getApplicationEventListeners() {
-		return null;
+		return new Object[0];
 	}
 
 	@Override
 	public Object[] getApplicationLifecycleListeners() {
-		return null;
+		return new Object[0];
 	}
 
 	@Override
@@ -703,12 +703,12 @@ public class SimpleContext implements Context {
 
 	@Override
 	public Container[] findChildren() {
-		return null;
+		return new Container[0];
 	}
 
 	@Override
 	public ContainerListener[] findContainerListeners() {
-		return null;
+		return new ContainerListener[0];
 	}
 
 	@Override

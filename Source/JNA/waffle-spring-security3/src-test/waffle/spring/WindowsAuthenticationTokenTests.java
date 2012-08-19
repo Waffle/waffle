@@ -13,26 +13,31 @@
  *******************************************************************************/
 package waffle.spring;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import org.junit.Before;
+import org.junit.Test;
 import org.springframework.security.core.GrantedAuthority;
 
 import waffle.mock.MockWindowsIdentity;
 import waffle.servlet.WindowsPrincipal;
-import junit.framework.TestCase;
 
 /**
  * @author dblock[at]dblock[dot]org
  */
-public class WindowsAuthenticationTokenTests extends TestCase {
+public class WindowsAuthenticationTokenTests {
 
 	private WindowsPrincipal _principal = null;
 	private WindowsAuthenticationToken _token = null;
 
-	@Override
+	@Before
 	public void setUp() {
 		List<String> mockGroups = new ArrayList<String>();
 		mockGroups.add("group1");
@@ -43,6 +48,7 @@ public class WindowsAuthenticationTokenTests extends TestCase {
 		_token = new WindowsAuthenticationToken(_principal);
 	}
 
+	@Test
 	public void testWindowsAuthenticationToken() {
 		assertNull(_token.getCredentials());
 		assertNull(_token.getDetails());
@@ -57,6 +63,7 @@ public class WindowsAuthenticationTokenTests extends TestCase {
 		assertEquals(_principal, _token.getPrincipal());
 	}
 
+	@Test
 	public void testCustomGrantedAuthorityFactory() {
 
 		WindowsAuthenticationToken token = new WindowsAuthenticationToken(
@@ -74,13 +81,9 @@ public class WindowsAuthenticationTokenTests extends TestCase {
 		assertEquals(_principal, token.getPrincipal());
 	}
 
+	@Test(expected = IllegalArgumentException.class)
 	public void testAuthenticated() {
 		assertTrue(_token.isAuthenticated());
-		try {
-			_token.setAuthenticated(true);
-			fail("expected IllegalArgumentException");
-		} catch (IllegalArgumentException e) {
-			// expected
-		}
+		_token.setAuthenticated(true);
 	}
 }

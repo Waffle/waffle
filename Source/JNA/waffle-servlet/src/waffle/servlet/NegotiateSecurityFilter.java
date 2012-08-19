@@ -161,7 +161,7 @@ public class NegotiateSecurityFilter implements Filter {
 			} finally {
 				if (_impersonate && ctx != null) {
 					_log.debug("terminating impersonation");
-					ctx.RevertToSelf();
+					ctx.revertToSelf();
 				} else {
 					windowsIdentity.dispose();
 				}
@@ -236,7 +236,7 @@ public class NegotiateSecurityFilter implements Filter {
 			} finally {
 				if (_impersonate && ctx != null) {
 					_log.debug("terminating impersonation");
-					ctx.RevertToSelf();
+					ctx.revertToSelf();
 				}
 			}
 		} else {
@@ -426,7 +426,7 @@ public class NegotiateSecurityFilter implements Filter {
 	 * 
 	 * @return True if guest login is allowed, false otherwise.
 	 */
-	public boolean getAllowGuestLogin() {
+	public boolean isAllowGuestLogin() {
 		return _allowGuestLogin;
 	}
 
@@ -443,7 +443,7 @@ public class NegotiateSecurityFilter implements Filter {
 	/**
 	 * @return true if impersonation is enabled, false otherwise
 	 */
-	public boolean getImpersonate() {
+	public boolean isImpersonate() {
 		return _impersonate;
 	}
 

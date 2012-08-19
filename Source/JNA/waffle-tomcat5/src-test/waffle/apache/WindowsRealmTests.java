@@ -13,13 +13,17 @@
  *******************************************************************************/
 package waffle.apache;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
+import org.junit.Test;
 
 /**
  * @author dblock[at]dblock[dot]org
  */
-public class WindowsRealmTests extends TestCase {
+public class WindowsRealmTests {
 
+	@Test
 	public void testProperties() {
 		WindowsRealm realm = new WindowsRealm();
 		assertNull(realm.getPassword(null));

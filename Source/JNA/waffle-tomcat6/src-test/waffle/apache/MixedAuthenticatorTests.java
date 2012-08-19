@@ -13,10 +13,15 @@
  *******************************************************************************/
 package waffle.apache;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.apache.catalina.Realm;
 import org.apache.catalina.deploy.LoginConfig;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import waffle.apache.catalina.SimpleContext;
 import waffle.apache.catalina.SimpleHttpRequest;
@@ -37,11 +42,11 @@ import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
  * 
  * @author dblock[at]dblock[dot]org
  */
-public class MixedAuthenticatorTests extends TestCase {
+public class MixedAuthenticatorTests {
 
 	MixedAuthenticator _authenticator = null;
 
-	@Override
+	@Before
 	public void setUp() {
 		_authenticator = new MixedAuthenticator();
 		SimpleContext ctx = new SimpleContext();
@@ -51,16 +56,17 @@ public class MixedAuthenticatorTests extends TestCase {
 		_authenticator.start();
 	}
 
-	@Override
+	@After
 	public void tearDown() {
 		_authenticator.stop();
-		_authenticator = null;
 	}
 
+	@Test
 	public void testGetInfo() {
 		assertTrue(_authenticator.getInfo().length() > 0);
 	}
 
+	@Test
 	public void testChallengeGET() {
 		SimpleHttpRequest request = new SimpleHttpRequest();
 		request.setMethod("GET");
@@ -77,6 +83,7 @@ public class MixedAuthenticatorTests extends TestCase {
 		assertEquals(401, response.getStatus());
 	}
 
+	@Test
 	public void testChallengePOST() {
 		String securityPackage = "Negotiate";
 		IWindowsCredentialsHandle clientCredentials = null;
@@ -118,6 +125,7 @@ public class MixedAuthenticatorTests extends TestCase {
 		}
 	}
 
+	@Test
 	public void testNegotiate() {
 		String securityPackage = "Negotiate";
 		// client credentials handle
@@ -180,6 +188,7 @@ public class MixedAuthenticatorTests extends TestCase {
 		}
 	}
 
+	@Test
 	public void testGet() {
 		LoginConfig loginConfig = new LoginConfig();
 		loginConfig.setErrorPage("error.html");
@@ -192,6 +201,7 @@ public class MixedAuthenticatorTests extends TestCase {
 		assertEquals(1, response.getHeaderNames().length);
 	}
 
+	@Test
 	public void testPostSecurityCheck() {
 		LoginConfig loginConfig = new LoginConfig();
 		loginConfig.setErrorPage("error.html");
@@ -207,6 +217,7 @@ public class MixedAuthenticatorTests extends TestCase {
 		assertEquals(1, response.getHeaderNames().length);
 	}
 
+	@Test
 	public void testSecurityCheckQueryString() {
 		_authenticator.setAuth(new MockWindowsAuthProvider());
 		LoginConfig loginConfig = new LoginConfig();
@@ -221,6 +232,7 @@ public class MixedAuthenticatorTests extends TestCase {
 		assertTrue(_authenticator.authenticate(request, response, loginConfig));
 	}
 
+	@Test
 	public void testSecurityCheckParameters() {
 		_authenticator.setAuth(new MockWindowsAuthProvider());
 		LoginConfig loginConfig = new LoginConfig();

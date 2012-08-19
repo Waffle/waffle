@@ -21,16 +21,18 @@ package waffle.util;
 public abstract class NtlmMessage {
 
 	// NTLM messages start with 0x4e544c4d53535000, NTLMSSP signature
-	static final byte[] ntlmsspSignature = { 0x4e, 0x54, 0x4c, 0x4d, 0x53,
+	private static final byte[] ntlmsspSignature = { 0x4e, 0x54, 0x4c, 0x4d, 0x53,
 			0x53, 0x50, 0x00 };
 
 	public static boolean isNtlmMessage(byte[] message) {
-		if (message == null || message.length < ntlmsspSignature.length)
+		if (message == null || message.length < ntlmsspSignature.length) {
 			return false;
+		}
 
 		for (int i = 0; i < ntlmsspSignature.length; i++) {
-			if (ntlmsspSignature[i] != message[i])
+			if (ntlmsspSignature[i] != message[i]) {
 				return false;
+			}
 		}
 
 		return true;

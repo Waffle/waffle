@@ -13,15 +13,18 @@
  *******************************************************************************/
 package waffle.windows.auth;
 
-import junit.framework.TestCase;
-import waffle.windows.auth.IWindowsCredentialsHandle;
+import static org.junit.Assert.assertNotNull;
+
+import org.junit.Test;
+
 import waffle.windows.auth.impl.WindowsCredentialsHandleImpl;
 
 /**
  * @author dblock[at]dblock[dot]org
  */
-public class WindowsCredentialsHandleTests extends TestCase {
+public class WindowsCredentialsHandleTests {
 
+	@Test
 	public void testGetCurrent() {
 		IWindowsCredentialsHandle handle = WindowsCredentialsHandleImpl
 				.getCurrent("Negotiate");

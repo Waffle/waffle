@@ -82,9 +82,10 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
 
 	@Override
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public boolean supports(Class c) {
-		Class<Object> obj = c;
-		return (UsernamePasswordAuthenticationToken.class.isAssignableFrom(obj));
+	public boolean supports(Class clazz) {
+		Class<? extends Object> authentication = clazz;
+		return UsernamePasswordAuthenticationToken.class
+				.isAssignableFrom(authentication);
 	}
 
 	public PrincipalFormat getPrincipalFormat() {
@@ -103,7 +104,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
 		_roleFormat = principalFormat;
 	}
 
-	public boolean getAllowGuestLogin() {
+	public boolean isAllowGuestLogin() {
 		return _allowGuestLogin;
 	}
 

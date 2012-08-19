@@ -71,12 +71,14 @@ public class AuthorizationHeader {
 	}
 
 	public boolean isNtlmType1Message() {
-		if (isNull())
+		if (isNull()) {
 			return false;
+		}
 
 		byte[] tokenBytes = getTokenBytes();
-		if (!NtlmMessage.isNtlmMessage(tokenBytes))
+		if (!NtlmMessage.isNtlmMessage(tokenBytes)) {
 			return false;
+		}
 
 		return (1 == NtlmMessage.getMessageType(tokenBytes));
 	}
@@ -91,11 +93,13 @@ public class AuthorizationHeader {
 	 */
 	public boolean isNtlmType1PostAuthorizationHeader() {
 		if (!_request.getMethod().equals("POST")
-				&& !_request.getMethod().equals("PUT"))
+				&& !_request.getMethod().equals("PUT")) {
 			return false;
+		}
 
-		if (_request.getContentLength() != 0)
+		if (_request.getContentLength() != 0) {
 			return false;
+		}
 
 		return isNtlmType1Message();
 	}

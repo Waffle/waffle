@@ -237,7 +237,7 @@ public class SimpleHttpRequest implements HttpServletRequest {
 
 	@Override
 	public String[] getParameterValues(String arg0) {
-		return null;
+		return new String[0];
 	}
 
 	@Override
@@ -307,7 +307,7 @@ public class SimpleHttpRequest implements HttpServletRequest {
 
 	@Override
 	public Cookie[] getCookies() {
-		return null;
+		return new Cookie[0];
 	}
 
 	@Override

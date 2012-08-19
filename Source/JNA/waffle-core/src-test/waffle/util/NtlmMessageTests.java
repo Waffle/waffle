@@ -13,12 +13,19 @@
  *******************************************************************************/
 package waffle.util;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
 
 /**
  * @author dblock[at]dblock[dot]org
  */
-public class NtlmMessageTests extends TestCase {
+public class NtlmMessageTests {
+
+	@Test
 	public void testIsNtlmMessage() {
 		assertFalse(NtlmMessage.isNtlmMessage(null));
 		byte[] ntlmSignature = { 0x4e, 0x54, 0x4c, 0x4d, 0x53, 0x53, 0x50, 0x00 };
@@ -33,6 +40,7 @@ public class NtlmMessageTests extends TestCase {
 		assertFalse(NtlmMessage.isNtlmMessage(badMessage));
 	}
 
+	@Test
 	public void testGetNtlmMessageType() {
 		byte[] ntlmMessageType1 = { 0x4e, 0x54, 0x4c, 0x4d, 0x53, 0x53, 0x50,
 				0x00, 0x01, 0x00, 0x00, 0x00, 0x02, 0x02, 0x00, 0x00 };

@@ -95,7 +95,7 @@ public class WindowsPrincipal implements Principal, Serializable {
 	 * @return Array of bytes.
 	 */
 	public byte[] getSid() {
-		return _sid;
+		return _sid.clone();
 	}
 
 	/**

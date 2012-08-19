@@ -61,7 +61,7 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 
 	@Override
 	public byte[] getToken() {
-		return _token == null ? null : _token.getBytes();
+		return _token == null ? null : _token.getBytes().clone();
 	}
 
 	/**
@@ -86,10 +86,6 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 		} finally {
 			credentialsHandle.dispose();
 		}
-	}
-
-	public WindowsSecurityContextImpl() {
-
 	}
 
 	@Override
@@ -168,7 +164,7 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 	}
 
 	@Override
-	public boolean getContinue() {
+	public boolean isContinue() {
 		return _continue;
 	}
 

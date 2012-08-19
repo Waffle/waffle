@@ -51,10 +51,6 @@ public class UserPrincipal implements Principal, Serializable {
 			return true;
 		}
 
-		if (o instanceof String) {
-			return getName().equals(o);
-		}
-
 		if (o instanceof UserPrincipal) {
 			return getName().equals(((UserPrincipal) o).getName());
 		}

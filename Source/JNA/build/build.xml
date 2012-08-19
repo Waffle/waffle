@@ -48,14 +48,14 @@
 		<sequential>
 			<delete dir="${waffle.lib}" />
 			<mkdir dir="${waffle.lib}" />
-			<javac 
-                source="${waffle.java.version}" 
-                target="${waffle.java.version}" 
-                srcdir="${waffle.src}"
-                destdir="${waffle.lib}" 
-                optimize="@{optimize}" 
-                debug="@{debug}" 
-                includeantruntime="false">
+			<javac
+				source="${waffle.java.version}"
+				target="${waffle.java.version}"
+				srcdir="${waffle.src}"
+				destdir="${waffle.lib}"
+				optimize="@{optimize}"
+				debug="@{debug}" 
+				includeantruntime="false">
 				<classpath refid="thirdparty.classpath" />
 				<classpath refid="project.classpath" />
 				<include name="**/*.java" />
@@ -83,8 +83,14 @@
 	</path>
 	<target name="compile-tests">
 		<mkdir dir="${waffle.test.lib}" />
-		<javac target="${waffle.java.version}" srcdir="${waffle.test.src}"
-            destdir="${waffle.test.lib}" optimize="no" debug="yes" includeantruntime="false">
+		<javac
+			source="${waffle.java.version}"
+			target="${waffle.java.version}"
+			srcdir="${waffle.test.src}"
+			destdir="${waffle.test.lib}"
+			optimize="no"
+			debug="yes"
+			includeantruntime="false">
 			<classpath refid="waffle.test.classpath" />
 			<include name="**/*.java" />
 		</javac>
@@ -100,7 +106,7 @@
 	<target name="test" depends="compile-tests">
 		<mkdir dir="${waffle.test}" />
 		<junit fork="true" newenvironment="true" failureproperty="tests.failed"
-            haltonfailure="no" haltonerror="no" printsummary="on" errorproperty="tests.failed">
+			haltonfailure="no" haltonerror="no" printsummary="on" errorproperty="tests.failed">
 			<batchtest todir="${waffle.test}">
 				<fileset dir="${waffle.test.lib}">
 					<include name="**/*Tests.class" />
@@ -132,7 +138,7 @@
 		</path>
 		<emma>
 			<instr instrpathref="build.classpath" destdir="${waffle.cover}/lib"
-                metadatafile="${waffle.cover}/metadata.emma" merge="true" />
+				metadatafile="${waffle.cover}/metadata.emma" merge="true" />
 		</emma>
 		<copy todir="${waffle.lib}">
 			<fileset dir="${waffle.cover}/lib" includes="**/*" />
@@ -154,14 +160,12 @@
 		<antcall target="test" />
 		<antcall target="cover-report" />
 	</target>
-
 	<target name="getgitdetails" >
 		<exec executable="git" outputproperty="git.revision">
 			<arg value="rev-parse"/>
 			<arg value="HEAD"/>
 		</exec>
 	</target>
-
 	<!-- package -->
 	<target name="jar" depends="getgitdetails">
 		<delete dir="${waffle.build}" />

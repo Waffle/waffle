@@ -29,10 +29,12 @@ public abstract class NtlmServletRequest {
 	 */
 	public static String getConnectionId(HttpServletRequest request) {
 		String remoteHost = request.getRemoteHost();
-		if (remoteHost == null)
+		if (remoteHost == null) {
 			remoteHost = request.getRemoteAddr();
-		if (remoteHost == null)
+		}
+		if (remoteHost == null) {
 			remoteHost = "";
+		}
 		String remotePort = Integer.toString(request.getRemotePort());
 		return remoteHost + ":" + remotePort;
 	}

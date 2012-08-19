@@ -80,7 +80,7 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
 	 * @return Array of bytes.
 	 */
 	public byte[] getSid() {
-		return _sid;
+		return _sid.clone();
 	}
 
 	/**
