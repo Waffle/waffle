@@ -112,7 +112,7 @@ public class NegotiateSecurityFilterTests {
 		assertEquals("ROLE_USER", authoritiesIterator.next().getAuthority());
 		assertEquals("ROLE_USERS", authoritiesIterator.next().getAuthority());
 		assertEquals("ROLE_EVERYONE", authoritiesIterator.next().getAuthority());
-		assertEquals(0, response.getHeaderNames().size());
+		assertEquals(0, response.getHeaderNames().length);
 	}
 
 	@Test

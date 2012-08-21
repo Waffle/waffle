@@ -57,7 +57,8 @@ public class NegotiateSecurityFilterEntryPointTests {
 		assertEquals("NTLM", wwwAuthenticates[0]);
 		assertEquals("Negotiate", wwwAuthenticates[1]);
 		assertTrue(wwwAuthenticates[2].equals("Basic realm=\"TestRealm\""));
-		assertEquals(2, response.getHeaderNames().size());
+		
+		assertEquals(2, response.getHeaderNames().length); // ?? .size()
 		assertEquals("keep-alive", response.getHeader("Connection"));
 		assertEquals(401, response.getStatus());
 	}
