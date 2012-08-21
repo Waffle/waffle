@@ -38,6 +38,8 @@ import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 import com.sun.jna.Platform;
 import com.sun.jna.platform.WindowUtils;
+import com.sun.jna.platform.win32.LMJoin;
+import com.sun.jna.platform.win32.Netapi32Util;
 import com.sun.jna.platform.win32.Win32Exception;
 
 import waffle.windows.auth.IWindowsAccount;
@@ -153,30 +155,32 @@ public class WaffleInfo {
       wrap.appendChild(getException(doc, ex));
     }
     
-    // Listing domains currently fails for computers on a WORKGROUP
-    try {
-      Element child = wrap = doc.createElement("domains");
-      node.appendChild(child);
-      
-      for (IWindowsDomain domain : auth.getDomains()) {
-        Element d = doc.createElement("domain");
-        node.appendChild(d);
+    // Only Show Domains if we are in a Domain
+    if (Netapi32Util.getJoinStatus() == LMJoin.NETSETUP_JOIN_STATUS.NetSetupDomainName ) {
+      try {
+        Element child = wrap = doc.createElement("domains");
+        node.appendChild(child);
         
-        Element value = doc.createElement("FQN");
-        value.setTextContent(domain.getFqn());
-        child.appendChild(value);
-
-        value = doc.createElement("TrustTypeString");
-        value.setTextContent(domain.getTrustTypeString());
-        child.appendChild(value);
-
-        value = doc.createElement("TrustDirectionString");
-        value.setTextContent(domain.getTrustDirectionString());
-        child.appendChild(value);
+        for (IWindowsDomain domain : auth.getDomains()) {
+          Element d = doc.createElement("domain");
+          node.appendChild(d);
+          
+          Element value = doc.createElement("FQN");
+          value.setTextContent(domain.getFqn());
+          child.appendChild(value);
+  
+          value = doc.createElement("TrustTypeString");
+          value.setTextContent(domain.getTrustTypeString());
+          child.appendChild(value);
+  
+          value = doc.createElement("TrustDirectionString");
+          value.setTextContent(domain.getTrustDirectionString());
+          child.appendChild(value);
+        }
       }
-    }
-    catch(Win32Exception ex) {      
-      wrap.appendChild(getException(doc, ex));
+      catch(Win32Exception ex) {      
+        wrap.appendChild(getException(doc, ex));
+      }
     }
     return node;
   }
