@@ -86,15 +86,15 @@ public class WaffleInfo {
     
     // Add Version Information as attributes
     String version = WaffleInfo.class.getPackage().getImplementationVersion();
-    if(version!=null) {
+    if (version!=null) {
       root.setAttribute("version", version);
     }
     version = Platform.class.getPackage().getImplementationVersion();
-    if(version!=null) {
+    if (version!=null) {
       root.setAttribute("jna", version);
     }
     version = WindowUtils.class.getPackage().getImplementationVersion();
-    if(version!=null) {
+    if (version!=null) {
       root.setAttribute("jna-platform", version);
     }
     
@@ -142,7 +142,7 @@ public class WaffleInfo {
       child.appendChild(value);
 
       value = doc.createElement("groups");
-      for(String s : c.getGroups()) {
+      for (String s : c.getGroups()) {
         Element g = doc.createElement("group");
         g.setTextContent(s);
         value.appendChild(g);
@@ -158,7 +158,7 @@ public class WaffleInfo {
       Element child = wrap = doc.createElement("domains");
       node.appendChild(child);
       
-      for(IWindowsDomain domain : auth.getDomains()) {
+      for (IWindowsDomain domain : auth.getDomains()) {
         Element d = doc.createElement("domain");
         node.appendChild(d);
         
@@ -217,7 +217,7 @@ public class WaffleInfo {
     node.setAttribute("class", t.getClass().getName() );
     
     Element value = doc.createElement("message");
-    if(t.getMessage()!=null) {
+    if (t.getMessage()!=null) {
       value.setTextContent(t.getMessage());
       node.appendChild(value);
     }
@@ -252,13 +252,13 @@ public class WaffleInfo {
   public static void main(String[] args) {
     boolean show = false;
     List<String> lookup = new ArrayList<String>();
-    if(args!=null) {
-      for(int i=0; i<args.length; i++) {
+    if (args!=null) {
+      for (int i=0; i<args.length; i++) {
         String arg = args[i];
-        if("-show".equals(arg)) {
+        if ("-show".equals(arg)) {
           show = true;
         }
-        else if(arg.equals("-lookup")) {
+        else if (arg.equals("-lookup")) {
           lookup.add( args[++i] );
         }
         else {
@@ -271,12 +271,12 @@ public class WaffleInfo {
     WaffleInfo helper = new WaffleInfo();
     try {
       Document info = helper.getWaffleInfo();
-      for(String name : lookup) {
+      for (String name : lookup) {
         info.getDocumentElement().appendChild(helper.getLookupInfo(info, name));
       }
       
       String xml = toPrettyXML(info);
-      if(show) {
+      if (show) {
 	      File f = File.createTempFile("waffle-info-", ".xml");
 	      Files.write(xml, f, Charsets.UTF_8);
 	      Desktop.getDesktop().open(f);
