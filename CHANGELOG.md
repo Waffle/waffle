@@ -49,6 +49,8 @@ This release unifies support for various Java platforms in a single released pac
   * `getImpersonate` is now `isImpersonate`
 * `RevertToSelf` case fix, is now `revertToSelf` - [@hazendaz](https://github.com/hazendaz).
 * All array getters now return empty arrays rather than `null` - [@hazendaz](https://github.com/hazendaz).
+* [#23] Adding WaffleInfo utility class - [@ryantxu](https://github.com/ryantxu)
+  * This collects system information useful for debugging
 
 1.4 (6/21/2011) 
 ===============
