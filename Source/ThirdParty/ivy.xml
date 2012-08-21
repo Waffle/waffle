@@ -62,6 +62,19 @@
 		<dependency org="org.apache.tomcat" name="tomcat-servlet-api" rev="7.0.29" transitive="false"/>
 		<dependency org="org.apache.tomcat" name="tomcat-util" rev="7.0.29" transitive="false"/>
 
+		<!-- jetty -->
+		<dependency org="org.eclipse.jetty" name="jetty-servlet" rev="8.1.5.v20120716" transitive="false"/>
+		<dependency org="org.eclipse.jetty" name="jetty-server" rev="8.1.5.v20120716" transitive="false"/>
+		<dependency org="org.eclipse.jetty" name="jetty-webapp" rev="8.1.5.v20120716" transitive="false"/>
+		<dependency org="org.eclipse.jetty" name="jetty-continuation" rev="8.1.5.v20120716" transitive="false"/>
+		<dependency org="org.eclipse.jetty" name="jetty-http" rev="8.1.5.v20120716" transitive="false"/>
+		<dependency org="org.eclipse.jetty" name="jetty-security" rev="8.1.5.v20120716" transitive="false"/>
+		<dependency org="org.eclipse.jetty" name="jetty-xml" rev="8.1.5.v20120716" transitive="false"/>
+		<dependency org="org.eclipse.jetty" name="jetty-io" rev="8.1.5.v20120716" transitive="false"/>
+		<dependency org="org.eclipse.jetty" name="jetty-util" rev="8.1.5.v20120716" transitive="false"/>
+		
+		
+		
 		<!-- logging -->
 		<dependency org="org.slf4j" name="jcl-over-slf4j" rev="1.6.6" transitive="false"/>
 		<dependency org="org.slf4j" name="slf4j-api" rev="1.6.6" transitive="false"/>
