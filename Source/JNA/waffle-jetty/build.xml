@@ -9,7 +9,7 @@
 	<path id="waffle-servlet3.classpath" location="${common.build}/waffle-servlet3.jar" />
 	<import file="${basedir}/../build/build.xml" />
 	<path id="jetty.classpath">
-		<fileset dir="${thirdparty.dir}/_lib/jar/org.eclipse.jetty/8.1.5.v20120716">
+		<fileset dir="${thirdparty.dir}/_lib/jar/org.eclipse.jetty.aggregate/8.1.5.v20120716">
 			<include name="*.jar" />
 		</fileset>
 	</path>

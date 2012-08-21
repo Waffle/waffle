@@ -62,18 +62,24 @@
 		<dependency org="org.apache.tomcat" name="tomcat-servlet-api" rev="7.0.29" transitive="false"/>
 		<dependency org="org.apache.tomcat" name="tomcat-util" rev="7.0.29" transitive="false"/>
 
-		<!-- jetty -->
-		<dependency org="org.eclipse.jetty" name="jetty-servlet" rev="8.1.5.v20120716" transitive="false"/>
-		<dependency org="org.eclipse.jetty" name="jetty-server" rev="8.1.5.v20120716" transitive="false"/>
-		<dependency org="org.eclipse.jetty" name="jetty-webapp" rev="8.1.5.v20120716" transitive="false"/>
-		<dependency org="org.eclipse.jetty" name="jetty-continuation" rev="8.1.5.v20120716" transitive="false"/>
-		<dependency org="org.eclipse.jetty" name="jetty-http" rev="8.1.5.v20120716" transitive="false"/>
-		<dependency org="org.eclipse.jetty" name="jetty-security" rev="8.1.5.v20120716" transitive="false"/>
-		<dependency org="org.eclipse.jetty" name="jetty-xml" rev="8.1.5.v20120716" transitive="false"/>
-		<dependency org="org.eclipse.jetty" name="jetty-io" rev="8.1.5.v20120716" transitive="false"/>
-		<dependency org="org.eclipse.jetty" name="jetty-util" rev="8.1.5.v20120716" transitive="false"/>
+		<!-- Jetty -->
+		<dependency org="org.eclipse.jetty.aggregate" name="jetty-all" rev="8.1.5.v20120716" transitive="false"/>
 		
-		
+<!--
+Trying to add the 'orbit' files fails because ivy does not (yet) map "orbit" -> "jar"
+Looks like it is fixed in https://issues.apache.org/jira/browse/IVY-899
+
+I have been unable to get the suggested workarounds to work :(
+
+<dependency org="org.eclipse.jetty.orbit" name="javax.servlet.jsp" rev="2.2.0.v201112011158" transitive="false"/>
+<dependency org="org.eclipse.jetty.orbit" name="javax.servlet" rev="3.0.0.v201112011016" transitive="false"/>
+<dependency org="org.eclipse.jetty.orbit" name="org.apache.jasper.glassfish" rev="2.2.2.v201112011158" transitive="false"/>
+<dependency org="org.eclipse.jetty.orbit" name="javax.servlet.jsp.jstl" rev="1.2.0.v201105211821" transitive="false"/>
+<dependency org="org.eclipse.jetty.orbit" name="org.apache.taglibs.standard.glassfish" rev="1.2.0.v201112081803" transitive="false"/>
+<dependency org="org.eclipse.jetty.orbit" name="javax.el" rev="2.2.0.v201108011116" transitive="false"/>
+<dependency org="org.eclipse.jetty.orbit" name="com.sun.el" rev="2.2.0.v201108011116" transitive="false"/>
+<dependency org="org.eclipse.jetty.orbit" name="org.eclipse.jdt.core" rev="3.7.1" transitive="false"/>
+-->
 		
 		<!-- logging -->
 		<dependency org="org.slf4j" name="jcl-over-slf4j" rev="1.6.6" transitive="false"/>

@@ -14,14 +14,6 @@
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/junit/4.10/junit-4.10.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/net.java.dev.jna/3.4.2/jna.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/net.java.dev.jna/3.4.2/platform.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.eclipse.jetty/8.1.5.v20120716/jetty-continuation-8.1.5.v20120716.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.eclipse.jetty/8.1.5.v20120716/jetty-http-8.1.5.v20120716.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.eclipse.jetty/8.1.5.v20120716/jetty-io-8.1.5.v20120716.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.eclipse.jetty/8.1.5.v20120716/jetty-server-8.1.5.v20120716.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.eclipse.jetty/8.1.5.v20120716/jetty-servlet-8.1.5.v20120716.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.eclipse.jetty/8.1.5.v20120716/jetty-util-8.1.5.v20120716.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.eclipse.jetty/8.1.5.v20120716/jetty-webapp-8.1.5.v20120716.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.eclipse.jetty/8.1.5.v20120716/jetty-security-8.1.5.v20120716.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.eclipse.jetty/8.1.5.v20120716/jetty-xml-8.1.5.v20120716.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.eclipse.jetty.aggregate/8.1.5.v20120716/jetty-all-8.1.5.v20120716.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
