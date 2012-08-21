@@ -6,7 +6,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/waffle-core"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/waffle-api"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/waffle-mock"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/waffle-http"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/waffle-servlet"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.springframework.security/2.0.7.RELEASE/spring-security-core-2.0.7.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/javax.servlet/2.5/servlet-api-2.5.jar"/>

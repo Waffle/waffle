@@ -17,6 +17,7 @@
 		<dependency org="net.sourceforge.groboutils" name="groboutils-core" rev="5" transitive="false"/>
 
 		<dependency org="junit" name="junit" rev="4.10" transitive="false"/>
+		<dependency org="org.mockito" name="mockito-all" rev="1.9.5-rc1" transitive="false"/>
 
 		<!-- common -->
 		<dependency org="com.google.guava" name="guava" rev="13.0" transitive="false"/>

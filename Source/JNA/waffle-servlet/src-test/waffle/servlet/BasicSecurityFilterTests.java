@@ -21,15 +21,19 @@ import java.io.IOException;
 import javax.security.auth.Subject;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+
+
+import waffle.mock.http.*;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import org.mockito.*;
+import static org.mockito.Mockito.*;
+
 import waffle.mock.MockWindowsAuthProvider;
-import waffle.http.SimpleFilterChain;
-import waffle.http.SimpleHttpRequest;
-import waffle.http.SimpleHttpResponse;
 import waffle.util.Base64;
 import waffle.windows.auth.impl.WindowsAccountImpl;
 
@@ -61,13 +65,15 @@ public class BasicSecurityFilterTests {
 
 	@Test
 	public void testBasicAuth() throws IOException, ServletException {
-		SimpleHttpRequest request = new SimpleHttpRequest();
-		request.setMethod("GET");
+	  SimpleHttpRequest request = new SimpleHttpRequest();
+	  request.setMethod("GET");
+	  
 		String userHeaderValue = WindowsAccountImpl.getCurrentUsername()
 				+ ":password";
 		String basicAuthHeader = "Basic "
 				+ Base64.encode(userHeaderValue.getBytes());
 		request.addHeader("Authorization", basicAuthHeader);
+		
 		SimpleHttpResponse response = new SimpleHttpResponse();
 		FilterChain filterChain = new SimpleFilterChain();
 		_filter.doFilter(request, response, filterChain);

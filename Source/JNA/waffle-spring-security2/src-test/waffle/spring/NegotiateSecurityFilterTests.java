@@ -31,9 +31,9 @@ import org.springframework.security.Authentication;
 import org.springframework.security.GrantedAuthority;
 import org.springframework.security.context.SecurityContextHolder;
 
-import waffle.http.SimpleFilterChain;
-import waffle.http.SimpleHttpRequest;
-import waffle.http.SimpleHttpResponse;
+import waffle.mock.http.SimpleFilterChain;
+import waffle.mock.http.SimpleHttpRequest;
+import waffle.mock.http.SimpleHttpResponse;
 import waffle.servlet.spi.BasicSecurityFilterProvider;
 import waffle.servlet.spi.NegotiateSecurityFilterProvider;
 import waffle.servlet.spi.SecurityFilterProviderCollection;
@@ -109,7 +109,7 @@ public class NegotiateSecurityFilterTests {
 		assertEquals("ROLE_USER", authorities[0].getAuthority());
 		assertEquals("ROLE_USERS", authorities[1].getAuthority());
 		assertEquals("ROLE_EVERYONE", authorities[2].getAuthority());
-		assertEquals(0, response.getHeaderNames().length);
+		assertEquals(0, response.getHeaderNamesSize());
 	}
 
 	@Test
