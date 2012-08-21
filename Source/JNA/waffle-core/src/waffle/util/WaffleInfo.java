@@ -111,75 +111,60 @@ public class WaffleInfo {
     
     Element node = doc.createElement("auth");
     node.setAttribute("class", auth.getClass().getName() );
-    Element wrap = node;
 
     // Current User
-    try {
-      Element child = wrap = doc.createElement("currentUser");
-      node.appendChild(child);
+    Element child = doc.createElement("currentUser");
+    node.appendChild(child);
 
-      String currentUsername = WindowsAccountImpl.getCurrentUsername();
-      addAccountInfo(doc,child,new WindowsAccountImpl(currentUsername));
-    }
-    catch(Win32Exception ex) {      
-      wrap.appendChild(getException(doc, ex));
-    }
-    
+    String currentUsername = WindowsAccountImpl.getCurrentUsername();
+    addAccountInfo(doc,child,new WindowsAccountImpl(currentUsername));
+      
     // Computer
-    try {
-      Element child = wrap = doc.createElement("computer");
-      node.appendChild(child);
-      
-      IWindowsComputer c = auth.getCurrentComputer();
-      Element value = doc.createElement("computerName");
-      value.setTextContent(c.getComputerName());
-      child.appendChild(value);
-      
-      value = doc.createElement("memberOf");
-      value.setTextContent(c.getMemberOf());
-      child.appendChild(value);
+    child = doc.createElement("computer");
+    node.appendChild(child);
+    
+    IWindowsComputer c = auth.getCurrentComputer();
+    Element value = doc.createElement("computerName");
+    value.setTextContent(c.getComputerName());
+    child.appendChild(value);
+    
+    value = doc.createElement("memberOf");
+    value.setTextContent(c.getMemberOf());
+    child.appendChild(value);
 
-      value = doc.createElement("joinStatus");
-      value.setTextContent(c.getJoinStatus());
-      child.appendChild(value);
+    value = doc.createElement("joinStatus");
+    value.setTextContent(c.getJoinStatus());
+    child.appendChild(value);
 
-      value = doc.createElement("groups");
-      for (String s : c.getGroups()) {
-        Element g = doc.createElement("group");
-        g.setTextContent(s);
-        value.appendChild(g);
-      }
-      child.appendChild(value);
+    value = doc.createElement("groups");
+    for (String s : c.getGroups()) {
+      Element g = doc.createElement("group");
+      g.setTextContent(s);
+      value.appendChild(g);
     }
-    catch(Win32Exception ex) {
-      wrap.appendChild(getException(doc, ex));
-    }
+    child.appendChild(value);
+      
     
     // Only Show Domains if we are in a Domain
     if (Netapi32Util.getJoinStatus() == LMJoin.NETSETUP_JOIN_STATUS.NetSetupDomainName ) {
-      try {
-        Element child = wrap = doc.createElement("domains");
-        node.appendChild(child);
+      child = doc.createElement("domains");
+      node.appendChild(child);
+      
+      for (IWindowsDomain domain : auth.getDomains()) {
+        Element d = doc.createElement("domain");
+        node.appendChild(d);
         
-        for (IWindowsDomain domain : auth.getDomains()) {
-          Element d = doc.createElement("domain");
-          node.appendChild(d);
-          
-          Element value = doc.createElement("FQN");
-          value.setTextContent(domain.getFqn());
-          child.appendChild(value);
-  
-          value = doc.createElement("TrustTypeString");
-          value.setTextContent(domain.getTrustTypeString());
-          child.appendChild(value);
-  
-          value = doc.createElement("TrustDirectionString");
-          value.setTextContent(domain.getTrustDirectionString());
-          child.appendChild(value);
-        }
-      }
-      catch(Win32Exception ex) {      
-        wrap.appendChild(getException(doc, ex));
+        value = doc.createElement("FQN");
+        value.setTextContent(domain.getFqn());
+        child.appendChild(value);
+
+        value = doc.createElement("TrustTypeString");
+        value.setTextContent(domain.getTrustTypeString());
+        child.appendChild(value);
+
+        value = doc.createElement("TrustDirectionString");
+        value.setTextContent(domain.getTrustDirectionString());
+        child.appendChild(value);
       }
     }
     return node;
