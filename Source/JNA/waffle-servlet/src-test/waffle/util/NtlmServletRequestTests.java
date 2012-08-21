@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import waffle.http.SimpleHttpRequest;
+import waffle.mock.http.SimpleHttpRequest;
 
 /**
  * @author dblock[at]dblock[dot]org

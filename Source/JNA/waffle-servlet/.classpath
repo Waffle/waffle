@@ -6,8 +6,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/waffle-core"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/waffle-api"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/waffle-mock"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/waffle-http"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/javax.servlet/2.5/servlet-api-2.5.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.slf4j/1.6.6/slf4j-api-1.6.6.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/ch.qos.logback/1.0.6/logback-classic-1.0.6.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/ch.qos.logback/1.0.6/logback-core-1.0.6.jar"/>
@@ -15,5 +13,7 @@
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/net.sourceforge.groboutils/5/groboutils-core-5.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/net.java.dev.jna/3.4.2/jna.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/net.java.dev.jna/3.4.2/platform.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.mockito/1.9.5-rc1/mockito-all-1.9.5-rc1.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/javax.servlet/2.5/servlet-api-2.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

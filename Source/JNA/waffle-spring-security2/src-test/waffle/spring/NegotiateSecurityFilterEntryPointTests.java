@@ -27,8 +27,8 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import waffle.http.SimpleHttpRequest;
-import waffle.http.SimpleHttpResponse;
+import waffle.mock.http.SimpleHttpRequest;
+import waffle.mock.http.SimpleHttpResponse;
 
 /**
  * @author dblock[at]dblock[dot]org
@@ -57,7 +57,7 @@ public class NegotiateSecurityFilterEntryPointTests {
 		assertEquals("NTLM", wwwAuthenticates[0]);
 		assertEquals("Negotiate", wwwAuthenticates[1]);
 		assertTrue(wwwAuthenticates[2].equals("Basic realm=\"TestRealm\""));
-		assertEquals(2, response.getHeaderNames().length);
+		assertEquals(2, response.getHeaderNamesSize());
 		assertEquals("keep-alive", response.getHeader("Connection"));
 		assertEquals(401, response.getStatus());
 	}

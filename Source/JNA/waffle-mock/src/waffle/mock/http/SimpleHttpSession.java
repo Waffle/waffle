@@ -11,7 +11,7 @@
  * Contributors:
  *     Application Security, Inc.
  *******************************************************************************/
-package waffle.http;
+package waffle.mock.http;
 
 import java.util.Enumeration;
 import java.util.HashMap;

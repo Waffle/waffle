@@ -37,6 +37,11 @@
 			<include name="**/*.jar" />
 		</fileset>
 	</path>
+	<path id="mockito.classpath">
+		<fileset dir="${thirdparty.dir}/_lib/jar/org.mockito">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
 	<path id="thirdparty.classpath">
 		<path refid="jna.classpath" />
 		<path refid="slf4j.classpath" />
@@ -73,6 +78,7 @@
 		<path refid="thirdparty.classpath" />
 		<path refid="project.classpath" />
 		<path refid="project.test.classpath" />
+		<path refid="mockito.classpath" />
 		<fileset dir="${thirdparty.dir}/_lib/jar/junit/4.10">
 			<include name="*.jar" />
 		</fileset>

@@ -11,28 +11,41 @@
  * Contributors:
  *     Application Security, Inc.
  *******************************************************************************/
-package waffle.http;
+package waffle.mock.http;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
+
+import org.mockito.Mockito;
 
 /**
  * @author dblock[at]dblock[dot]org
  */
-public class SimpleHttpResponse implements HttpServletResponse {
+public class SimpleHttpResponse extends HttpServletResponseWrapper {
 	private int _status = 500;
 	private Map<String, List<String>> _headers = new HashMap<String, List<String>>();
 
-	public int getStatus() {
+	public SimpleHttpResponse() {
+    super(Mockito.mock(HttpServletResponse.class));
+    
+    //_headers.keySet().toArray(new String[0]);
+    try {
+      Mockito.when(this.getHeaderNames())
+        .thenThrow(new UnsupportedOperationException(
+          "Get Header Names changed between 2.5 and 3.0 so lets not use it"));
+    }
+    catch(NoSuchMethodError err) {
+      // This is OK.  Running on 2.5 not 3.0
+    }
+	}
+	
+	@Override
+  public int getStatus() {
 		return _status;
 	}
 
@@ -79,6 +92,13 @@ public class SimpleHttpResponse implements HttpServletResponse {
 			}
 		}
 	}
+	
+	/**
+	 * Use this for testing the number of headers
+	 */
+	public int getHeaderNamesSize() {
+	  return _headers.size();
+	}
 
 	public String[] getHeaderValues(String headerName) {
 		List<String> headerValues = _headers.get(headerName);
@@ -86,6 +106,7 @@ public class SimpleHttpResponse implements HttpServletResponse {
 				.toArray(new String[0]);
 	}
 
+	@Override
 	public String getHeader(String headerName) {
 		List<String> headerValues = _headers.get(headerName);
 		if (headerValues == null) {
@@ -101,10 +122,6 @@ public class SimpleHttpResponse implements HttpServletResponse {
 		return sb.toString();
 	}
 
-	public String[] getHeaderNames() {
-		return _headers.keySet().toArray(new String[0]);
-	}
-
 	@Override
 	public void sendError(int rc, String message) {
 		_status = rc;
@@ -113,135 +130,5 @@ public class SimpleHttpResponse implements HttpServletResponse {
 	@Override
 	public void sendError(int rc) {
 		_status = rc;
-	}
-
-	@Override
-	public int getBufferSize() {
-		return 0;
-	}
-
-	@Override
-	public String getCharacterEncoding() {
-		return null;
-	}
-
-	@Override
-	public String getContentType() {
-		return null;
-	}
-
-	@Override
-	public Locale getLocale() {
-		return null;
-	}
-
-	@Override
-	public ServletOutputStream getOutputStream() throws IOException {
-		return null;
-	}
-
-	@Override
-	public PrintWriter getWriter() throws IOException {
-		return null;
-	}
-
-	@Override
-	public boolean isCommitted() {
-		return false;
-	}
-
-	@Override
-	public void reset() {
-
-	}
-
-	@Override
-	public void resetBuffer() {
-
-	}
-
-	@Override
-	public void setBufferSize(int arg0) {
-
-	}
-
-	@Override
-	public void setCharacterEncoding(String arg0) {
-
-	}
-
-	@Override
-	public void setContentLength(int arg0) {
-
-	}
-
-	@Override
-	public void setContentType(String arg0) {
-
-	}
-
-	@Override
-	public void setLocale(Locale arg0) {
-
-	}
-
-	@Override
-	public void addCookie(Cookie arg0) {
-
-	}
-
-	@Override
-	public void addDateHeader(String arg0, long arg1) {
-
-	}
-
-	@Override
-	public void addIntHeader(String arg0, int arg1) {
-
-	}
-
-	@Override
-	public boolean containsHeader(String arg0) {
-		return false;
-	}
-
-	@Override
-	public String encodeRedirectURL(String arg0) {
-		return null;
-	}
-
-	@Override
-	public String encodeRedirectUrl(String arg0) {
-		return null;
-	}
-
-	@Override
-	public String encodeURL(String arg0) {
-		return null;
-	}
-
-	@Override
-	public String encodeUrl(String arg0) {
-		return null;
-	}
-
-	@Override
-	public void sendRedirect(String arg0) throws IOException {
-
-	}
-
-	@Override
-	public void setDateHeader(String arg0, long arg1) {
-
-	}
-
-	@Override
-	public void setIntHeader(String arg0, int arg1) {
-
-	}
-
-	@Override
-	public void setStatus(int arg0, String arg1) {
-
 	}
 }

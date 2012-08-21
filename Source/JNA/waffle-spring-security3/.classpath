@@ -20,7 +20,6 @@
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.slf4j/1.6.6/jcl-over-slf4j-1.6.6.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.springframework/3.1.2.RELEASE/spring-asm-3.1.2.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.springframework/3.1.2.RELEASE/spring-expression-3.1.2.RELEASE.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/waffle-servlet3"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/waffle-http3"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/waffle-servlet"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
