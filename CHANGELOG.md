@@ -8,8 +8,7 @@ This release unifies support for various Java platforms in a single released pac
 * Refactored `waffle-jna.jar` into several distinct packages - [@dblock](https://github.com/dblock).
   * `waffle-api.jar`: API interfaces.
   * `waffle-core.jar` : Core JNA-based implementation.
-  * `waffle-http.jar` : Minimal HTTP Servlet mocks, used in tests.
-  * `waffle-http3.jar` : Minimal HTTP Servlet3 mocks, used in tests.
+  * `waffle-mock.jar` : Minimal HTTP Servlet mocks, used in tests.
   * `waffle-jaas.jar` : JAAS support.
   * `waffle-servlet.jar`: Generic Servlet filters.
   * `waffle-servlet3.jar`: Generic Servlet3 filters.
@@ -41,7 +40,6 @@ This release unifies support for various Java platforms in a single released pac
 * Reworked development version to use ivy - [@hazendaz](https://github.com/hazendaz).
   * Removed all third party included jars.
   * Retained tomcat 5.5.35 due to ivy/maven only having 5.5.23 available.
-  * Retained JNA due to private build.
 * Waffle `boolean` getters now use `is*` java standard - [@hazendaz](https://github.com/hazendaz).
   * `getContinue` is now `isContinue`
   * `getDebug` is now `isDebug`
@@ -49,6 +47,7 @@ This release unifies support for various Java platforms in a single released pac
   * `getImpersonate` is now `isImpersonate`
 * `RevertToSelf` case fix, is now `revertToSelf` - [@hazendaz](https://github.com/hazendaz).
 * All array getters now return empty arrays rather than `null` - [@hazendaz](https://github.com/hazendaz).
+* [#24](https://github.com/dblock/waffle/pull/24): Using mockito for waffle-mock - [@ryantxu](https://github.com/ryantxu).
 
 1.4 (6/21/2011) 
 ===============
