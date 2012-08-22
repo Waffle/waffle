@@ -44,4 +44,14 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>    
   
+  <!-- System Information Helpful for debugging -->
+  <servlet>
+    <servlet-name>WaffleInfo</servlet-name>
+    <servlet-class>waffle.servlet.WaffleInfoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>WaffleInfo</servlet-name>
+    <url-pattern>/waffle</url-pattern>
+  </servlet-mapping> 
+  
 </web-app>

@@ -30,6 +30,7 @@ import org.junit.Test;
 import waffle.mock.MockWindowsAuthProvider;
 import waffle.mock.MockWindowsIdentity;
 import waffle.mock.http.SimpleFilterChain;
+import waffle.mock.http.SimpleFilterConfig;
 import waffle.mock.http.SimpleHttpRequest;
 import waffle.mock.http.SimpleHttpResponse;
 import waffle.util.Base64;

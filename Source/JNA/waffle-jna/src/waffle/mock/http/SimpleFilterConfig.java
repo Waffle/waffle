@@ -11,7 +11,7 @@
  * Contributors:
  *     Application Security, Inc.
  *******************************************************************************/
-package waffle.servlet;
+package waffle.mock.http;
 
 import java.util.ArrayList;
 import java.util.Collections;

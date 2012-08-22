@@ -13,11 +13,15 @@
  *******************************************************************************/
 package waffle.mock.http;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
@@ -29,7 +33,16 @@ import org.mockito.Mockito;
 public class SimpleHttpResponse extends HttpServletResponseWrapper {
 	private int _status = 500;
 	private Map<String, List<String>> _headers = new HashMap<String, List<String>>();
-
+	
+	private final ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+	private final ServletOutputStream out = new ServletOutputStream() {
+    @Override
+    public void write(int b) throws IOException {
+      bytes.write(b);
+    }
+  };
+  private final PrintWriter writer = new PrintWriter(bytes);
+	
 	public SimpleHttpResponse() {
     super(Mockito.mock(HttpServletResponse.class));
 	}
@@ -119,4 +132,19 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
 	public void sendError(int rc) {
 		_status = rc;
 	}
+	
+	@Override
+	public PrintWriter getWriter() {
+	  return writer;
+	}
+
+  @Override
+  public ServletOutputStream getOutputStream() throws IOException {
+    return out;
+  }
+	
+  public String getOutputText() {
+    writer.flush();
+    return bytes.toString();
+  }
 }
