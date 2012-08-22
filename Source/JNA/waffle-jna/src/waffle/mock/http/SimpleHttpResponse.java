@@ -32,18 +32,8 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
 
 	public SimpleHttpResponse() {
     super(Mockito.mock(HttpServletResponse.class));
-    
-    try {
-      Mockito.when(this.getHeaderNames())
-        .thenThrow(new UnsupportedOperationException(
-          "Get Header Names changed between 2.5 and 3.0 so lets not use it"));
-    }
-    catch(NoSuchMethodError err) {
-      // This is OK.  Running on 2.5 not 3.0
-    }
 	}
 	
-	@Override
   public int getStatus() {
 		return _status;
 	}
@@ -105,7 +95,6 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
 				.toArray(new String[0]);
 	}
 
-	@Override
 	public String getHeader(String headerName) {
 		List<String> headerValues = _headers.get(headerName);
 		if (headerValues == null) {
