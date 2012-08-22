@@ -34,8 +34,9 @@
   <Target Name="clean" DependsOnTargets="configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
     <Message Importance="high" Text="Cleaning project, %(Configuration.Identity) ..." />
     <DeleteTree Directories="target" Recursive="true" />
-    <DeleteTree Directories="Source\**\obj;Source\Jar" Recursive="true" />
+    <DeleteTree Directories="Source\**\obj" Recursive="true" />
     <MSBuild Projects="Waffle.sln" Targets="Clean" Properties="Configuration=%(Configuration.Identity)" />
+    <Exec WorkingDirectory="Source\JNA" Command="ant clean" />
     <Delete Files="Source\Version\GlobalAssemblyInfo.cs" />
     <Delete Files="Waffle.$(Major).$(Minor).zip" />
   </Target>
@@ -66,15 +67,23 @@
     </CreateItem>
     <Copy SourceFiles="@(SampleFiles)" DestinationFolder="$(ReleaseDir)\Samples" />
   </Target>
-  <ItemGroup>
-    <JnaFiles Include="Source\JNA\bin\*.jar" Exclude="Source\JNA\bin\waffle-mock.jar" />
-    <JnaFiles Include="Source\ThirdParty\net.java.dev.jna\**\*.jar" />
-    <JnaFiles Include="Source\ThirdParty\_lib\jar\com.google.guava\**\guava-*.jar" /> 
-    <JnaFiles Include="Source\ThirdParty\_lib\jar\org.slf4j\**\*.jar" Exclude="Source\ThirdParty\jar\org.slf4j\**\*-sources.jar" />
-    <JnaFiles Include="Source\ThirdParty\_lib\jar\ch.qos.logback\**\*.jar" Exclude="Source\ThirdParty\_lib\jar\ch.qos.logback\**\*-sources.jar" />
-  </ItemGroup>
   <Target Name="jar">
     <Exec WorkingDirectory="Source\JNA" Command="ant" />
+    <CreateItem Include="Source\JNA\bin\*.jar">
+      <Output TaskParameter="Include" ItemName="JnaFiles"/>
+    </CreateItem>
+    <CreateItem Include="Source\ThirdParty\net.java.dev.jna\**\*.jar">
+      <Output TaskParameter="Include" ItemName="JnaFiles"/>
+    </CreateItem>
+    <CreateItem Include="Source\ThirdParty\_lib\jar\com.google.guava\**\guava-*.jar">
+      <Output TaskParameter="Include" ItemName="JnaFiles"/>
+    </CreateItem>
+    <CreateItem Include="Source\ThirdParty\_lib\jar\org.slf4j\**\*.jar" Exclude="Source\ThirdParty\jar\org.slf4j\**\*-sources.jar">
+      <Output TaskParameter="Include" ItemName="JnaFiles"/>
+    </CreateItem>
+    <CreateItem Include="Source\ThirdParty\_lib\jar\ch.qos.logback\**\*.jar" Exclude="Source\ThirdParty\_lib\jar\ch.qos.logback\**\*-sources.jar">
+      <Output TaskParameter="Include" ItemName="JnaFiles"/>
+    </CreateItem>
     <Copy SourceFiles="@(JnaFiles)" DestinationFolder="$(ReleaseDir)\Bin" />
   </Target>
   <ItemGroup>
