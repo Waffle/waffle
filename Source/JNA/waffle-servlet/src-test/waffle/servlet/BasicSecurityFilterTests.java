@@ -21,7 +21,6 @@ import java.io.IOException;
 import javax.security.auth.Subject;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 
 
 import waffle.mock.http.*;
@@ -29,9 +28,6 @@ import waffle.mock.http.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import org.mockito.*;
-import static org.mockito.Mockito.*;
 
 import waffle.mock.MockWindowsAuthProvider;
 import waffle.util.Base64;

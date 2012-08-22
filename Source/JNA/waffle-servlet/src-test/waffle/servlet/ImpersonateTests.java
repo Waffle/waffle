@@ -68,9 +68,8 @@ public class ImpersonateTests {
 				"Current user shouldn't be the test user prior to the test",
 				Advapi32Util.getUserName().equals(
 						MockWindowsAccount.TEST_USER_NAME));
+
 		SimpleHttpRequest request = new SimpleHttpRequest();
-		
-		//SimpleHttpRequest request = new SimpleHttpRequest();
 		request.setMethod("GET");
 		String userHeaderValue = MockWindowsAccount.TEST_USER_NAME + ":"
 				+ MockWindowsAccount.TEST_PASSWORD;

@@ -33,7 +33,6 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
 	public SimpleHttpResponse() {
     super(Mockito.mock(HttpServletResponse.class));
     
-    //_headers.keySet().toArray(new String[0]);
     try {
       Mockito.when(this.getHeaderNames())
         .thenThrow(new UnsupportedOperationException(
