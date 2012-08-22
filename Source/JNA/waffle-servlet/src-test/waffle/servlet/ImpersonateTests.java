@@ -18,9 +18,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import waffle.mock.MockWindowsAccount;
-import waffle.http.SimpleFilterChain;
-import waffle.http.SimpleHttpRequest;
-import waffle.http.SimpleHttpResponse;
+import waffle.mock.http.*;
 import waffle.util.Base64;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
@@ -71,12 +69,15 @@ public class ImpersonateTests {
 				Advapi32Util.getUserName().equals(
 						MockWindowsAccount.TEST_USER_NAME));
 		SimpleHttpRequest request = new SimpleHttpRequest();
+		
+		//SimpleHttpRequest request = new SimpleHttpRequest();
 		request.setMethod("GET");
 		String userHeaderValue = MockWindowsAccount.TEST_USER_NAME + ":"
 				+ MockWindowsAccount.TEST_PASSWORD;
 		String basicAuthHeader = "Basic "
 				+ Base64.encode(userHeaderValue.getBytes());
 		request.addHeader("Authorization", basicAuthHeader);
+		
 		SimpleHttpResponse response = new SimpleHttpResponse();
 		RecordUserNameFilterChain filterChain = new RecordUserNameFilterChain();
 

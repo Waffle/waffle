@@ -11,37 +11,38 @@
  * Contributors:
  *     Application Security, Inc.
  *******************************************************************************/
-package waffle.http;
+package waffle.mock.http;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
+import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletResponse;
 
 /**
+ * Simple filter chain.
+ * 
  * @author dblock[at]dblock[dot]org
  */
-public class SimpleRequestDispatcher implements RequestDispatcher {
+public class SimpleFilterChain implements FilterChain {
 
-	private String _url;
+	private ServletRequest _request;
+	private ServletResponse _response;
 
-	public SimpleRequestDispatcher(String url) {
-		_url = url;
+	public ServletRequest getRequest() {
+		return _request;
+	}
+
+	public ServletResponse getResponse() {
+		return _response;
 	}
 
 	@Override
-	public void forward(ServletRequest request, ServletResponse response)
-			throws ServletException, IOException {
-		HttpServletResponse httpResponse = (HttpServletResponse) response;
-		httpResponse.setStatus(304);
-		httpResponse.addHeader("Location", _url);
-	}
+	public void doFilter(ServletRequest sreq, ServletResponse srep)
+			throws IOException, ServletException {
 
-	@Override
-	public void include(ServletRequest request, ServletResponse response)
-			throws ServletException, IOException {
+		_request = sreq;
+		_response = srep;
 	}
 }

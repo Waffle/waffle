@@ -29,9 +29,9 @@ import org.junit.Test;
 
 import waffle.mock.MockWindowsAuthProvider;
 import waffle.mock.MockWindowsIdentity;
-import waffle.http.SimpleFilterChain;
-import waffle.http.SimpleHttpRequest;
-import waffle.http.SimpleHttpResponse;
+import waffle.mock.http.SimpleFilterChain;
+import waffle.mock.http.SimpleHttpRequest;
+import waffle.mock.http.SimpleHttpResponse;
 import waffle.util.Base64;
 import waffle.windows.auth.IWindowsCredentialsHandle;
 import waffle.windows.auth.PrincipalFormat;
@@ -83,7 +83,7 @@ public class NegotiateSecurityFilterTests {
 		assertEquals("Negotiate", wwwAuthenticates[0]);
 		assertEquals("NTLM", wwwAuthenticates[1]);
 		assertTrue(wwwAuthenticates[2].startsWith("Basic realm=\""));
-		assertEquals(2, response.getHeaderNames().length);
+		assertEquals(2, response.getHeaderNamesSize());
 		assertEquals("keep-alive", response.getHeader("Connection"));
 		assertEquals(401, response.getStatus());
 	}
@@ -117,7 +117,7 @@ public class NegotiateSecurityFilterTests {
 			assertTrue(response.getHeader("WWW-Authenticate").startsWith(
 					securityPackage + " "));
 			assertEquals("keep-alive", response.getHeader("Connection"));
-			assertEquals(2, response.getHeaderNames().length);
+			assertEquals(2, response.getHeaderNamesSize());
 			assertEquals(401, response.getStatus());
 		} finally {
 			if (clientContext != null) {
@@ -169,14 +169,14 @@ public class NegotiateSecurityFilterTests {
 						.size() > 0);
 
 				if (authenticated) {
-					assertTrue(response.getHeaderNames().length >= 0);
+					assertTrue(response.getHeaderNamesSize() >= 0);
 					break;
 				}
 
 				assertTrue(response.getHeader("WWW-Authenticate").startsWith(
 						securityPackage + " "));
 				assertEquals("keep-alive", response.getHeader("Connection"));
-				assertEquals(2, response.getHeaderNames().length);
+				assertEquals(2, response.getHeaderNamesSize());
 				assertEquals(401, response.getStatus());
 				String continueToken = response.getHeader("WWW-Authenticate")
 						.substring(securityPackage.length() + 1);
@@ -250,7 +250,7 @@ public class NegotiateSecurityFilterTests {
 				.getHeaderValues("WWW-Authenticate");
 		assertEquals(1, wwwAuthenticates.length);
 		assertTrue(wwwAuthenticates[0].startsWith("NTLM "));
-		assertEquals(2, response.getHeaderNames().length);
+		assertEquals(2, response.getHeaderNamesSize());
 		assertEquals("keep-alive", response.getHeader("Connection"));
 		assertEquals(401, response.getStatus());
 	}
@@ -275,7 +275,7 @@ public class NegotiateSecurityFilterTests {
 				.getHeaderValues("WWW-Authenticate");
 		assertEquals(1, wwwAuthenticates.length);
 		assertTrue(wwwAuthenticates[0].startsWith("NTLM "));
-		assertEquals(2, response.getHeaderNames().length);
+		assertEquals(2, response.getHeaderNamesSize());
 		assertEquals("keep-alive", response.getHeader("Connection"));
 		assertEquals(401, response.getStatus());
 	}
