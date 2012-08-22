@@ -46,6 +46,7 @@
 		<path refid="jna.classpath" />
 		<path refid="slf4j.classpath" />
 		<path refid="guava.classpath" />
+		<path refid="mockito.classpath" />
 	</path>
 	<macrodef name="compile">
 		<attribute name="optimize" />
