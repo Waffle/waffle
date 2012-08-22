@@ -45,9 +45,10 @@ This release unifies support for various Java platforms in a single released pac
   * `getDebug` is now `isDebug`
   * `getAllowGuestLogin` is now `isAllowGuestLogin`
   * `getImpersonate` is now `isImpersonate`
-* `RevertToSelf` case fix, is now `revertToSelf` - [@hazendaz](https://github.com/hazendaz).
+* Fixed case of `RevertToSelf`, now `revertToSelf` - [@hazendaz](https://github.com/hazendaz).
 * All array getters now return empty arrays rather than `null` - [@hazendaz](https://github.com/hazendaz).
-* [#24](https://github.com/dblock/waffle/pull/24): Using mockito for waffle-mock - [@ryantxu](https://github.com/ryantxu).
+* [#24](https://github.com/dblock/waffle/pull/24): Use mockito for waffle-mock - [@ryantxu](https://github.com/ryantxu).
+* [#23] Added `waffle.util.WaffleInfo` which collects system information useful for debugging - [@ryantxu](https://github.com/ryantxu).
 
 1.4 (6/21/2011) 
 ===============

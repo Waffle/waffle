@@ -20,7 +20,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ Base64Tests.class, NtlmMessageTests.class })
+@SuiteClasses({ Base64Tests.class, NtlmMessageTests.class, WaffleInfoTests.class })
 public class AllUtilTests {
 
 	@BeforeClass
