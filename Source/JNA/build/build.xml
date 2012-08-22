@@ -118,7 +118,6 @@
 				<fileset dir="${waffle.test.lib}">
 					<include name="**/*Tests.class" />
 					<exclude name="**/*LoadTests.class" />
-					<exclude name="**/*All*Tests.class" />
 				</fileset>
 			</batchtest>
 			<formatter type="xml" />
