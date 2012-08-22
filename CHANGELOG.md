@@ -8,12 +8,7 @@ Features
 
 * Waffle now requires Java 1.6 or newer, uses generics where possible - [@hazendaz](https://github.com/hazendaz).
 * Waffle now requires JNA 3.4.2 (currently private build) - [@dblock](https://github.com/dblock).
-* The `waffle-jna.jar` has been split into separate packages - [@dblock](https://github.com/dblock).
-  * `waffle-api.jar`: API interfaces.
-  * `waffle-core.jar` : Core JNA-based implementation.
-  * `waffle-mock.jar` : Minimal HTTP Servlet mocks, used in tests.
-  * `waffle-jaas.jar` : JAAS support.
-  * `waffle-servlet.jar`: Generic Servlet filters.
+* Native Tomcat and Spring support has been split out of the `waffle-jna.jar` - [@dblock](https://github.com/dblock).
   * `waffle-spring-security2.jar`: Spring-security 2.
   * `waffle-spring-security3.jar`: Spring-security 3.
   * `waffle-tomcat-5.jar` : Tomcat 5 valves.
