@@ -188,7 +188,7 @@ public class WaffleInfo {
     node.appendChild(value);
   }
   
-  protected Element getLookupInfo(Document doc, String lookup) {
+  public Element getLookupInfo(Document doc, String lookup) {
     IWindowsAuthProvider auth = new WindowsAuthProviderImpl();
     Element node = doc.createElement("lookup");
     node.setAttribute("name", lookup );

@@ -14,8 +14,10 @@
 package waffle.mock.http;
 
 import java.security.Principal;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
@@ -64,6 +66,12 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
 	public String getHeader(String headerName) {
 		return _headers.get(headerName);
 	}
+
+  @Override
+  public Enumeration<String> getHeaderNames() {
+    Vector<String> v = new Vector<String>(_headers.keySet());
+    return v.elements();
+  }
 
 	@Override
 	public String getMethod() {
