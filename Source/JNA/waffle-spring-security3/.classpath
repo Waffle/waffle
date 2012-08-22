@@ -3,9 +3,7 @@
 	<classpathentry excluding="**/.svn|**/.svn/*" kind="src" path="src"/>
 	<classpathentry excluding="**/.svn|**/.svn/*" kind="src" path="src-test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/waffle-core"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/waffle-api"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/waffle-mock"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/waffle-jna"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.springframework.security/3.1.1.RELEASE/spring-security-core-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.springframework.security/3.1.1.RELEASE/spring-security-web-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/ch.qos.logback/1.0.6/logback-classic-1.0.6.jar"/>
@@ -20,6 +18,5 @@
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.slf4j/1.6.6/jcl-over-slf4j-1.6.6.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.springframework/3.1.2.RELEASE/spring-asm-3.1.2.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.springframework/3.1.2.RELEASE/spring-expression-3.1.2.RELEASE.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/waffle-servlet"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

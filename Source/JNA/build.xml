@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <project name="waffle-jna" basedir="." default="build">
 	<target name="recurse">
-		<ant dir="waffle-api" target="${ant.target}" />
-		<ant dir="waffle-mock" target="${ant.target}" />
-		<ant dir="waffle-core" target="${ant.target}" />
-		<ant dir="waffle-jaas" target="${ant.target}" />
-		<ant dir="waffle-servlet" target="${ant.target}" />
+		<ant dir="waffle-jna" target="${ant.target}" />
 		<ant dir="waffle-tomcat5" target="${ant.target}" />
 		<ant dir="waffle-tomcat6" target="${ant.target}" />
 		<ant dir="waffle-tomcat7" target="${ant.target}" />
