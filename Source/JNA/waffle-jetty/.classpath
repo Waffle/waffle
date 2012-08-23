@@ -3,11 +3,6 @@
 	<classpathentry excluding="**/.svn|**/.svn/*" kind="src" path="src"/>
 	<classpathentry excluding="**/.svn|**/.svn/*" kind="src" path="src-test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/waffle-core"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/waffle-http3"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/waffle-servlet3"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/waffle-api"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/waffle-mock"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/ch.qos.logback/1.0.6/logback-classic-1.0.6.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/ch.qos.logback/1.0.6/logback-core-1.0.6.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.slf4j/1.6.6/slf4j-api-1.6.6.jar"/>
@@ -15,5 +10,7 @@
 	<classpathentry kind="lib" path="/thirdparty/net.java.dev.jna/3.4.2/jna.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/net.java.dev.jna/3.4.2/platform.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.eclipse.jetty.aggregate/8.1.5.v20120716/jetty-all-8.1.5.v20120716.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/waffle-jna"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/javax.servlet/3.0.1/javax.servlet-api-3.0.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
