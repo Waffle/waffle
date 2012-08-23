@@ -28,6 +28,20 @@ c:\source\Waffle\trunk> build all
 
 Output is placed in the `target\Debug|Release` directories. 
 
+
+Running the demos within Eclipse
+--------------------------------
+
+To run the demos within the IDE, you can simply: Right Click on "StartEmbeddedJetty" > Run As (or Debug As) > Java Appliction
+
+![waffle](imgs/eclipse-start-jetty.png)
+
+To change which demo you are running, change:
+```
+String path = "../demo/waffle-filter";
+```
+
+
 Contributing
 ------------
 
