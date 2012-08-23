@@ -3,9 +3,7 @@
 	<classpathentry excluding="**/.svn|**/.svn/*" kind="src" path="src"/>
 	<classpathentry excluding="**/.svn|**/.svn/*" kind="src" path="src-test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/waffle-core"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/waffle-api"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/waffle-mock"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/waffle-jna"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/ch.qos.logback/1.0.6/logback-classic-1.0.6.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/ch.qos.logback/1.0.6/logback-core-1.0.6.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/junit/4.10/junit-4.10.jar"/>
@@ -16,7 +14,6 @@
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.apache.tomcat/7.0.29/tomcat-util-7.0.29.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.apache.tomcat/7.0.29/tomcat-api-7.0.29.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.apache.tomcat/7.0.29/tomcat-coyote-7.0.29.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/waffle-servlet3"/>
 	<classpathentry kind="lib" path="/thirdparty/net.java.dev.jna/3.4.2/jna.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/net.java.dev.jna/3.4.2/platform.jar"/>
 	<classpathentry kind="output" path="bin"/>
