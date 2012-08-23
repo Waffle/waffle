@@ -34,7 +34,7 @@ Running the demos within Eclipse
 
 To run the demos within the IDE, you can simply: Right Click on "StartEmbeddedJetty" > Run As (or Debug As) > Java Appliction
 
-![waffle](imgs/eclipse-start-jetty.png)
+![start-jetty-in-eclipse](https://raw.github.com/ryantxu/waffle/8643a0de5b5ef4bf5de645a866bb1ae3c8b833f8/Docs/imgs/eclipse-start-jetty.png)
 
 To change which demo you are running, change:
 ```
