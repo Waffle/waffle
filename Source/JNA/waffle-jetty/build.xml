@@ -4,14 +4,24 @@
 	<property name="project.jar" value="waffle-jetty" />
 	<path id="waffle-jna.classpath" location="${common.build}/waffle-jna.jar" />
 	<import file="${basedir}/../build/build.xml" />
+	<path id="javax.classpath">
+		<fileset dir="${thirdparty.dir}/_lib/jar/javax.servlet/2.5">
+			<include name="*.jar" />
+		</fileset>
+	</path>
 	<path id="jetty.classpath">
-		<fileset dir="${thirdparty.dir}/_lib/jar/org.eclipse.jetty.aggregate/8.1.5.v20120716">
+		<fileset dir="${thirdparty.dir}/_lib/jar/org.eclipse.jetty.aggregate/7.6.5.v20120716">
+			<include name="*.jar" />
+		</fileset>
+		<!-- For JSP Support -->
+		<fileset dir="${thirdparty.dir}/_lib/jar/org.eclipse.jetty.orbit">
 			<include name="*.jar" />
 		</fileset>
 	</path>
 	<path id="project.classpath">
 		<path refid="waffle-jna.classpath" />
 		<path refid="jetty.classpath" />
+		<path refid="javax.classpath" />
 	</path>
 	<path id="project.test.classpath">
 	</path>

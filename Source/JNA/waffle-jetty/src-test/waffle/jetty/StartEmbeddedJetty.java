@@ -16,9 +16,11 @@ package waffle.jetty;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import org.apache.jasper.servlet.JspServlet;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.bio.SocketConnector;
+import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.webapp.WebAppContext;
 
 
@@ -51,14 +53,14 @@ public class StartEmbeddedJetty
     context.setContextPath("/");
     context.setWar(path);
     
-//    // Try adding JSP
-//    try {
-//      ServletHolder jsp = context.addServlet(JspServlet.class, "*.jsp");
-//      jsp.setInitParameter("classpath", context.getClassPath());
-//    }
-//    catch( Exception ex) {
-//      System.err.println("Error adding JSP Support: "+ex.toString());
-//    }
+    // Try adding JSP
+    try {
+      ServletHolder jsp = context.addServlet(JspServlet.class, "*.jsp");
+      jsp.setInitParameter("classpath", context.getClassPath());
+    }
+    catch( Exception ex) {
+      System.err.println("Error adding JSP Support: "+ex.toString());
+    }
 
     server.setHandler(context);
 
