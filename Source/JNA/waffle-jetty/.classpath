@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="**/.svn|**/.svn/*" kind="src" path="src"/>
+	<classpathentry excluding="**/.svn|**/.svn/*" kind="src" path="src-test"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/ch.qos.logback/1.0.6/logback-classic-1.0.6.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/ch.qos.logback/1.0.6/logback-core-1.0.6.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.slf4j/1.6.6/slf4j-api-1.6.6.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/junit/4.10/junit-4.10.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/net.java.dev.jna/3.4.2/jna.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/net.java.dev.jna/3.4.2/platform.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/waffle-jna"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.eclipse.jetty.aggregate/7.6.5.v20120716/jetty-all-7.6.5.v20120716.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/javax.servlet/2.5/servlet-api-2.5.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.eclipse.jetty.orbit/com.sun.el-1.0.0.v201105211818.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.eclipse.jetty.orbit/javax.el-2.1.0.v201105211819.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.eclipse.jetty.orbit/javax.servlet.jsp-2.1.0.v201105211820.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.eclipse.jetty.orbit/javax.servlet.jsp.jstl-1.2.0.v201105211821.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.eclipse.jetty.orbit/org.apache.jasper.glassfish-2.1.0.v201110031002.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.eclipse.jetty.orbit/org.apache.taglibs.standard.glassfish-1.2.0.v201112081803.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.eclipse.jetty.orbit/org.eclipse.jdt.core-3.7.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
