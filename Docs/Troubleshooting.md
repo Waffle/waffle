@@ -45,7 +45,7 @@ Troubleshooting NTLM
 Troubleshooting WAFFLE
 ----------------------
 
-* See [Frequently Asked Questions](faq/FAQ.md).
+* See [Frequently Asked Questions](FAQ.md).
 
 
 Still Need Help?
