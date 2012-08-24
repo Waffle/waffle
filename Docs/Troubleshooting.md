@@ -1,3 +1,6 @@
+Troubleshooting
+===============
+
 This is a step-by-step guide an Q&A on troubleshooting Negotiate authentication.
 
 Browser Configuration
