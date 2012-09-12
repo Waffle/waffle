@@ -16,6 +16,8 @@ Features
   * `waffle-tomcat-7.jar` : Tomcat 7 valves.
 * Rewritten documentation in Markdown, the CHM documentation has been removed - [@dblock](https://github.com/dblock).
 * [#3](https://github.com/dblock/waffle/pull/3): Replaced `commons-logging` with `slf4j` and `logback` - [@hazendaz](https://github.com/hazendaz).
+  * slf4j 1.7.0
+  * logback 1.0.7
   * Use jcl over slf4j for Spring, as it uses `commons-logging`.
 * Jacob-based COM interfaces and implementation have been removed - [@dblock](https://github.com/dblock).
 * [#1](https://github.com/dblock/waffle/pull/1): Adjusted logging from info to debug to reduce noise level - [@mcfly83](https://github.com/mcfly83).
@@ -41,12 +43,12 @@ Development
 * Upgraded thirdparty dependencies, using Ivy - [@hazendaz](https://github.com/hazendaz).
   * tomcat 5.5.35
   * tomcat 6.0.35
-  * tomcat 7.0.29
-  * guava 13.0
+  * tomcat 7.0.30
+  * guava 13.0.1
   * spring 3.1.2
   * spring 2.5.6.SEC03
   * spring-security 2.0.7
-  * spring-security 3.1.1
+  * spring-security 3.1.2
   * junit 4.10
   * emma 2.1.5320
 * Reworked development version to use ivy - [@hazendaz](https://github.com/hazendaz).

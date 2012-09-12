@@ -15,7 +15,7 @@
 		</fileset>
 	</path>
 	<path id="spring-security.classpath">
-		<fileset dir="${thirdparty.dir}/_lib/jar/org.springframework.security/3.1.1.RELEASE">
+		<fileset dir="${thirdparty.dir}/_lib/jar/org.springframework.security/3.1.2.RELEASE">
 			<include name="*.jar" />
 		</fileset>
 	</path>
