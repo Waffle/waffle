@@ -28,12 +28,12 @@
 		</fileset>
 	</path>
 	<path id="slf4j.classpath">
-		<fileset dir="${thirdparty.dir}/_lib/jar/org.slf4j/1.6.6">
+		<fileset dir="${thirdparty.dir}/_lib/jar/org.slf4j/1.7.0">
 			<include name="*.jar" />
 		</fileset>
 	</path>
 	<path id="guava.classpath">
-		<fileset dir="${thirdparty.dir}/_lib/jar/com.google.guava/13.0">
+		<fileset dir="${thirdparty.dir}/_lib/jar/com.google.guava/13.0.1">
 			<include name="**/*.jar" />
 		</fileset>
 	</path>
@@ -108,7 +108,7 @@
 			<fileset dir="${waffle.test}" includes="TEST-*.xml" />
 			<report todir="${waffle.test}/report" />
 		</junitreport>
-		<echo message="See ${waffle.test}\report\index.html" />
+		<echo message="See ${waffle.test}/report/index.html" />
 	</target>
 	<target name="test" depends="compile-tests">
 		<mkdir dir="${waffle.test}" />

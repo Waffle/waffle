@@ -4,10 +4,10 @@
 	<classpathentry excluding="**/.svn|**/.svn/*" kind="src" path="src-test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/waffle-jna"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/ch.qos.logback/1.0.6/logback-classic-1.0.6.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/ch.qos.logback/1.0.6/logback-core-1.0.6.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.slf4j/1.6.6/slf4j-api-1.6.6.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.slf4j/1.6.6/jcl-over-slf4j-1.6.6.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/ch.qos.logback/1.0.7/logback-classic-1.0.7.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/ch.qos.logback/1.0.7/logback-core-1.0.7.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.slf4j/1.7.0/slf4j-api-1.7.0.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.slf4j/1.7.0/jcl-over-slf4j-1.7.0.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/junit/4.10/junit-4.10.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/tomcat/5.5.35/catalina-5.5.35.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/tomcat/5.5.35/servlet-api-5.5.35.jar"/>

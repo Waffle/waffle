@@ -10,12 +10,12 @@
 		</fileset>
 	</path>
 	<path id="jetty.classpath">
-		<fileset dir="${thirdparty.dir}/_lib/jar/org.eclipse.jetty.aggregate/7.6.5.v20120716">
+		<fileset dir="${thirdparty.dir}/_lib/jar/org.eclipse.jetty.aggregate/7.6.7.v20120910">
 			<include name="*.jar" />
 		</fileset>
 		<!-- For JSP Support -->
-		<fileset dir="${thirdparty.dir}/_lib/jar/org.eclipse.jetty.orbit">
-			<include name="*.jar" />
+		<fileset dir="${thirdparty.dir}/_lib/orbit/org.eclipse.jetty.orbit">
+			<include name="**/*.jar" />
 		</fileset>
 	</path>
 	<path id="project.classpath">

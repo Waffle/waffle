@@ -6,7 +6,7 @@
 		<echo>Waffle Third Party Dependencies</echo>
 	</target>
 
-	<target name="dist" depends="clean, install-ivy, dependencies, getjsp, report">
+	<target name="dist" depends="clean, install-ivy, dependencies, report">
 
 	</target>
 
@@ -35,23 +35,6 @@
 		<ivy:settings file="${basedir}/ivysettings.xml" />
 		<ivy:resolve file="${basedir}/ivy.xml" />
 		<ivy:retrieve pattern="_lib/[type]/[organisation]/[revision]/[artifact]-[revision].[ext]" sync="true" />
-
-		<!-- Due to eviction, spring security 2 is prevented thus this step will get it -->
-		<ivy:resolve file="${basedir}/ivy2.xml" />
-		<ivy:retrieve pattern="_lib/[type]/[organisation]/[revision]/[artifact]-[revision].[ext]" sync="false" />
-	</target>
-	
-	<!-- TODO, this should be done with ivy, but ivy does not work with the jetty 'orbit' configs.  Fixed in IVY-899 -->
-	<target name="getjsp">
-	  <property name="jetty.jsp.dir" value="${basedir}/_lib/jar/org.eclipse.jetty.orbit" />
-		<mkdir dir="${jetty.jsp.dir}" />
-		<get dest="${jetty.jsp.dir}" src="http://central.maven.org/maven2/org/eclipse/jetty/orbit/com.sun.el/1.0.0.v201105211818/com.sun.el-1.0.0.v201105211818.jar"/>
-		<get dest="${jetty.jsp.dir}" src="http://central.maven.org/maven2/org/eclipse/jetty/orbit/javax.el/2.1.0.v201105211819/javax.el-2.1.0.v201105211819.jar"/>
-		<get dest="${jetty.jsp.dir}" src="http://central.maven.org/maven2/org/eclipse/jetty/orbit/javax.servlet.jsp.jstl/1.2.0.v201105211821/javax.servlet.jsp.jstl-1.2.0.v201105211821.jar" />
-		<get dest="${jetty.jsp.dir}" src="http://central.maven.org/maven2/org/eclipse/jetty/orbit/javax.servlet.jsp/2.1.0.v201105211820/javax.servlet.jsp-2.1.0.v201105211820.jar"/>
-		<get dest="${jetty.jsp.dir}" src="http://central.maven.org/maven2/org/eclipse/jetty/orbit/org.apache.jasper.glassfish/2.1.0.v201110031002/org.apache.jasper.glassfish-2.1.0.v201110031002.jar"/>
-		<get dest="${jetty.jsp.dir}" src="http://central.maven.org/maven2/org/eclipse/jetty/orbit/org.apache.taglibs.standard.glassfish/1.2.0.v201112081803/org.apache.taglibs.standard.glassfish-1.2.0.v201112081803.jar" />
-		<get dest="${jetty.jsp.dir}" src="http://central.maven.org/maven2/org/eclipse/jetty/orbit/org.eclipse.jdt.core/3.7.1/org.eclipse.jdt.core-3.7.1.jar" />
 	</target>
 
 	<target name="report">
@@ -63,6 +46,7 @@
 	<target name="clean">
 		<echo message="deleting _lib directory..." />
 		<delete dir="${basedir}/_lib" />
+		<delete dir="${basedir}/_report" />
 	</target>
 
 	<target name="cleanCache">
