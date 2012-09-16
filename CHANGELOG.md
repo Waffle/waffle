@@ -7,7 +7,7 @@ Features
 --------
 
 * Waffle now requires Java 1.6 or newer, uses generics where possible - [@hazendaz](https://github.com/hazendaz).
-* Waffle now requires JNA 3.4.2 (currently private build) - [@dblock](https://github.com/dblock).
+* Waffle now requires JNA 3.5.0 (currently private build) - [@dblock](https://github.com/dblock).
 * Native Tomcat and Spring support has been split out of the `waffle-jna.jar` - [@dblock](https://github.com/dblock).
   * `waffle-spring-security2.jar`: Spring-security 2.
   * `waffle-spring-security3.jar`: Spring-security 3.

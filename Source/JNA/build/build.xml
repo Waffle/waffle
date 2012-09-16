@@ -23,7 +23,7 @@
 	</tstamp>
 	<!-- compile -->
 	<path id="jna.classpath">
-		<fileset dir="${thirdparty.dir}/net.java.dev.jna/3.4.2">
+		<fileset dir="${thirdparty.dir}/net.java.dev.jna/3.5.0">
 			<include name="*.jar" />
 		</fileset>
 	</path>
