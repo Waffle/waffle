@@ -13,8 +13,11 @@
  *******************************************************************************/
 package waffle.apache;
 
+import javax.servlet.ServletException;
+
 import junit.framework.TestCase;
 
+import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.Realm;
 import org.apache.catalina.deploy.LoginConfig;
@@ -55,6 +58,7 @@ public class MixedAuthenticatorTests extends TestCase {
 		SimplePipeline pipeline = new SimplePipeline();
 		engine.setPipeline(pipeline);
 		ctx.setPipeline(pipeline);
+		ctx.setAuthenticator( _authenticator );
 		_authenticator.setContainer(ctx);
 		_authenticator.start();
 	}
@@ -241,4 +245,18 @@ public class MixedAuthenticatorTests extends TestCase {
 		SimpleHttpResponse response = new SimpleHttpResponse();
 		assertTrue(_authenticator.authenticate(request, response, loginConfig));
 	}
+	
+  public void testProgrammaticSecurity() throws ServletException {
+	  	_authenticator.setAuth(new MockWindowsAuthProvider());
+        SimpleHttpRequest request = new SimpleHttpRequest();
+        request.setContext( ( Context )_authenticator.getContainer() );
+        
+        request.login( WindowsAccountImpl.getCurrentUsername(), "" );
+        
+        assertNotNull(request.getUserPrincipal());
+        assertTrue(request.getUserPrincipal() instanceof GenericWindowsPrincipal);
+        GenericWindowsPrincipal windowsPrincipal = (GenericWindowsPrincipal) request
+                .getUserPrincipal();
+        assertTrue(windowsPrincipal.getSidString().startsWith("S-"));
+  }
 }

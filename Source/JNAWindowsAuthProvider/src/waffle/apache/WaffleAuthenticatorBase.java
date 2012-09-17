@@ -14,13 +14,17 @@
 package waffle.apache;
 
 import java.io.IOException;
+import java.security.Principal;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.catalina.authenticator.AuthenticatorBase;
+import org.apache.catalina.connector.Request;
 import org.slf4j.Logger;
 
 import waffle.windows.auth.IWindowsAuthProvider;
+import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.PrincipalFormat;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
@@ -155,4 +159,37 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 	protected String getAuthMethod() {
 		return null;
 	}
+	
+  @Override
+  protected Principal doLogin( Request request, String username, String password )
+    throws ServletException
+  {
+    _log.debug( "logging in: " + username );
+    IWindowsIdentity windowsIdentity = null;
+    try {
+      windowsIdentity = _auth.logonUser( username, password );
+    } catch( Exception e ) {
+      _log.error( e.getMessage() );
+      return super.doLogin( request, username, password );
+    }
+    // disable guest login
+    if( !_allowGuestLogin && windowsIdentity.isGuest() ) {
+      _log.warn( "guest login disabled: " + windowsIdentity.getFqn() );
+      return super.doLogin( request, username, password );
+    }
+    try {
+      _log.debug( "successfully logged in "
+                  + username
+                  + " ("
+                  + windowsIdentity.getSidString()
+                  + ")" );
+      GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal( windowsIdentity,
+                                                                              _principalFormat,
+                                                                              _roleFormat );
+      _log.debug( "roles: " + windowsPrincipal.getRolesString() );
+      return windowsPrincipal;
+    } finally {
+      windowsIdentity.dispose();
+    }
+  }
 }
