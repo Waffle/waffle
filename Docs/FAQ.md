@@ -35,7 +35,7 @@ Troubleshooting Stories
 * [java.lang.IllegalStateException](http://waffle.codeplex.com/discussions/288877): Cannot create a session after the response has been committed error with Spring Security: resolved by disabling `SessionFixationProtectionFilter`.
 * [Waffle returns service user as remote user](http://waffle.codeplex.com/discussions/346411): fixed by un-saving a user name and password on a local computer.
 * [Issues with servlet filter on multiple Tomcat 7 Instances Sharing WAFFLE binaries](https://groups.google.com/forum/?fromgroups#!topic/waffle-users/4_K_O7BCn-c): solved by putting filter-mapping in the application's web.xml, also answered by [Tomcat bug 51754](https://issues.apache.org/bugzilla/show_bug.cgi?id=51754#c1).
-
+* [Waffle returns outdated nonexistent user name after the user name was changed on domain] (https://groups.google.com/forum/#!topic/waffle-users/OzbVMNWcrcQ): solved by clearing the server LSA cache through the Windows registry according to MS Kbase article
 
 
 Troubleshooting Help
