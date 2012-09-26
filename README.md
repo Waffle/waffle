@@ -12,8 +12,8 @@ Essentials
 
 * [Download Version 1.5](https://github.com/downloads/dblock/waffle/Waffle.1.5.715.alpha.zip)
 * [Need Help? Google Group](http://groups.google.com/group/waffle-users)
-* [Frequently Asked Questions](https://github.com/dblock/waffle/wiki/Frequently-Asked-Questions)
-* [Troubleshooting Negotiate](https://github.com/dblock/waffle/wiki/Troubleshooting-Negotiate)
+* [Troubleshooting](https://github.com/dblock/waffle/blob/1.5/Docs/Troubleshooting.md)
+* [Frequently Asked Questions](https://github.com/dblock/waffle/blob/1.5/Docs/FAQ.md)
 * [Older Versions on CodePlex](http://waffle.codeplex.com/).
 * [PlatformSDK Security Group](https://groups.google.com/group/microsoft.public.platformsdk.security)
 
