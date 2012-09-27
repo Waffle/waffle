@@ -13,9 +13,13 @@ Workaround
 ----------
 The cache can be disabled (temporarily) through the windows registry.
 Locate the following subkey:
+```
 HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa 
+```
 Add new DWORD value:
+```
 LsaLookupCacheMaxSize = 0
+```
 
 That's all. Don't restart the server just ask the user to visit secured web page one more time.
 When the user is authenticated on the server and the Waffle reports new user name we can roll back registry changes.
