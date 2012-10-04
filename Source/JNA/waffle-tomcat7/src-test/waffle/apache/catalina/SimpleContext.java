@@ -68,6 +68,7 @@ public class SimpleContext implements Context {
 	private Container _parent = null;
 	private ServletContext _servletContext = new SimpleServletContext();
 	private Pipeline _pipeline = null;
+	private Authenticator _authenticator = null;
 
 	@Override
 	public void addApplicationListener(String arg0) {
@@ -953,7 +954,11 @@ public class SimpleContext implements Context {
 
 	@Override
 	public Authenticator getAuthenticator() {
-		return null;
+		return _authenticator;
+	}
+	
+	public void setAuthenticator(Authenticator authenticator){
+	  _authenticator = authenticator;
 	}
 
 	@Override
