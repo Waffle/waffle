@@ -8,7 +8,7 @@ Moreover, this filter supports impersonating the remote client, enabling to perf
 Configuring Web Servers
 -----------------------
 
-The following steps are required to configure a web server with the Waffle Servlet Security Filter. 
+The following steps are required to configure a web server with the Waffle Servlet Security Filter. These instructions work for Tomcat, Jetty, WebSphere and possibly others.
 
 Package Waffle JARs, including `waffle-jna.jar`, `guava-13.0.1.jar`, `jna.jar`, `platform.jar`, `slf4j*.jar` and `waffle-servlet.jar` in the application's `lib` directory or copy them to your web server's lib. 
 
