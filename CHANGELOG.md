@@ -22,8 +22,8 @@ Features
 * Jacob-based COM interfaces and implementation have been removed - [@dblock](https://github.com/dblock).
 * [#1](https://github.com/dblock/waffle/pull/1): Adjusted logging from info to debug to reduce noise level - [@mcfly83](https://github.com/mcfly83).
 * [#17](https://github.com/dblock/waffle/pull/17): JAR manifest information includes specification and implementation details, such as GIT revision - [@ryantxu](https://github.com/ryantxu).
-* [#23] Added `waffle.util.WaffleInfo` which collects system information useful for debugging - [@ryantxu](https://github.com/ryantxu).
-* [#28] Added `waffle-jetty` project.  This lets developers run Waffle directly within the IDE - [@ryantxu](https://github.com/ryantxu).
+* [#23](https://github.com/dblock/waffle/pull/23) Added `waffle.util.WaffleInfo` which collects system information useful for debugging - [@ryantxu](https://github.com/ryantxu).
+* [#28](https://github.com/dblock/waffle/pull/28) Added `waffle-jetty` project.  This lets developers run Waffle directly within the IDE - [@ryantxu](https://github.com/ryantxu).
 * [#33](https://github.com/dblock/waffle/pull/33): Added support for servlet3 programmatic login - [@amergey](https://github.com/amergey).
 
 
