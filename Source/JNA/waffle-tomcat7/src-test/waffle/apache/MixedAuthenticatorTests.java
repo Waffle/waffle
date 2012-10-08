@@ -17,6 +17,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import javax.servlet.ServletException;
+
+import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.Realm;
 import org.apache.catalina.deploy.LoginConfig;
@@ -60,6 +63,7 @@ public class MixedAuthenticatorTests {
 		SimplePipeline pipeline = new SimplePipeline();
 		engine.setPipeline(pipeline);
 		ctx.setPipeline(pipeline);
+		ctx.setAuthenticator( _authenticator );
 		_authenticator.setContainer(ctx);
 		_authenticator.start();
 	}
@@ -254,4 +258,18 @@ public class MixedAuthenticatorTests {
 		SimpleHttpResponse response = new SimpleHttpResponse();
 		assertTrue(_authenticator.authenticate(request, response, loginConfig));
 	}
+	
+  public void testProgrammaticSecurity() throws ServletException {
+	  	_authenticator.setAuth(new MockWindowsAuthProvider());
+        SimpleHttpRequest request = new SimpleHttpRequest();
+        request.setContext( ( Context )_authenticator.getContainer() );
+        
+        request.login( WindowsAccountImpl.getCurrentUsername(), "" );
+        
+        assertEquals(WindowsAccountImpl.getCurrentUsername(),request.getRemoteUser());
+        assertTrue(request.getUserPrincipal() instanceof GenericWindowsPrincipal);
+        GenericWindowsPrincipal windowsPrincipal = (GenericWindowsPrincipal) request
+                .getUserPrincipal();
+        assertTrue(windowsPrincipal.getSidString().startsWith("S-"));
+  }
 }

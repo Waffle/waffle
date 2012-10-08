@@ -11,24 +11,25 @@ Essentials
 ----------
 
 * [Download Version 1.5](https://github.com/downloads/dblock/waffle/Waffle.1.5.715.alpha.zip)
+* [Get Waffle To Work in Tomcat, Jetty, WebSphere, etc.](https://github.com/dblock/waffle/blob/1.5/Docs/ServletSingleSignOnSecurityFilter.md)
 * [Need Help? Google Group](http://groups.google.com/group/waffle-users)
-* [Frequently Asked Questions](https://github.com/dblock/waffle/wiki/Frequently-Asked-Questions)
-* [Troubleshooting Negotiate](https://github.com/dblock/waffle/wiki/Troubleshooting-Negotiate)
+* [Troubleshooting](https://github.com/dblock/waffle/blob/1.5/Docs/Troubleshooting.md)
+* [Frequently Asked Questions](https://github.com/dblock/waffle/blob/1.5/Docs/FAQ.md)
 * [Older Versions on CodePlex](http://waffle.codeplex.com/).
 * [PlatformSDK Security Group](https://groups.google.com/group/microsoft.public.platformsdk.security)
 
 Documentation
 -------------
 
-There're several semi-independent parts to Waffle. Choose the appropriate documentation.
+There're several semi-independent parts to Waffle. Choose the appropriate HowTo.
 
 * Simple native interfaces in C# and Java to do all things Windows authentication. Useful if you're building a custom client that requires Windows authentication. See [Getting Started with WAFFLE API](https://github.com/dblock/waffle/blob/1.5/Docs/GettingStartedWithWaffleAPI.md)
-* A generic Servlet Negotiate (NTLM and Kerberos) Security Filter that can be used with many web servers, including Tomcat, Jetty and WebSphere. See [documentation](https://github.com/dblock/waffle/blob/1.5/Docs/ServletSingleSignOnSecurityFilter.md).
-* A Tomcat Negotiate (NTLM and Kerberos) Authenticator Valve, built for the Tomcat Web Container. See [documentation](https://github.com/dblock/waffle/blob/1.5/Docs/TomcatMixedSingleSignOnAndFormAuthenticatorValve.md).
-* A Tomcat Single Sign-On + Form Authentication Mixed Valve, built for the Tomcat Web Container and allowing users to choose whether to do form authentication (a username and password sent to the server from a form) or Windows SSO (NTLM or Kerberos). See [documentation](https://github.com/dblock/waffle/blob/1.5/Docs/TomcatMixedSingleSignOnAndFormAuthenticatorValve.md).
-* A Spring-Security Negotiate (NTLM and Kerberos) Filter. See [documentation](https://github.com/dblock/waffle/blob/1.5/Docs/SpringSecuritySingleSignOnFilter.md).
-* A Spring-Security Windows Authentication Manager. See [documentation](https://github.com/dblock/waffle/blob/1.5/Docs/SpringSecurityAuthenticationProvider.md).
-* A JAAS Login Module, useful when extending a custom Java client that already implements JAAS to support Windows SSO. See  [documentation](https://github.com/dblock/waffle/blob/1.5/Docs/TomcatWindowsLoginJAASAuthenticator.md).
+* A generic Servlet Negotiate (NTLM and Kerberos) Security Filter that can be used with many web servers, including Tomcat, Jetty and WebSphere. See [HowTo](https://github.com/dblock/waffle/blob/1.5/Docs/ServletSingleSignOnSecurityFilter.md).
+* A Tomcat Negotiate (NTLM and Kerberos) Authenticator Valve, built for the Tomcat Web Container. See [HowTo](https://github.com/dblock/waffle/blob/1.5/Docs/tomcat/TomcatSingleSignOnValve.md).
+* A Tomcat Single Sign-On + Form Authentication Mixed Valve, built for the Tomcat Web Container and allowing users to choose whether to do form authentication (a username and password sent to the server from a form) or Windows SSO (NTLM or Kerberos). See [HowTo](https://github.com/dblock/waffle/blob/1.5/Docs/tomcat/TomcatMixedSingleSignOnAndFormAuthenticatorValve.md).
+* A Spring-Security Negotiate (NTLM and Kerberos) Filter. See [HowTo](https://github.com/dblock/waffle/blob/1.5/Docs/spring/SpringSecuritySingleSignOnFilter.md).
+* A Spring-Security Windows Authentication Manager. See [HowTo](https://github.com/dblock/waffle/blob/1.5/Docs/spring/SpringSecurityAuthenticationProvider.md).
+* A JAAS Login Module, useful when extending a custom Java client that already implements JAAS to support Windows SSO. See [HowTo](https://github.com/dblock/waffle/blob/1.5/Docs/tomcat/TomcatWindowsLoginJAASAuthenticator.md).
 
 Waffle was created and is sponsored by [Application Security Inc.](http://www.appsecinc.com/). For a long story, read the [Project History](https://github.com/dblock/waffle/blob/1.5/HISTORY.md). Also, feel free to use [this PowerPoint presentation](http://www.slideshare.net/dblockdotorg/waffle-at-nycjavasig) from NYJavaSIG to talk about Waffle.
 
