@@ -28,7 +28,7 @@ We'll assume that Spring-Security is configured via `web.xml` with a filter chai
 </listener>
 ```
 
-Copy Waffle JARs, including `waffle-core.jar`, `waffle-api.jar`, `guava-r12.jar`, `jna.jar`, `platform.jar`, `slf4j*.jar` and `waffle-spring-security-3.jar` in the application's `lib` directory along with Spring and Spring-Security JARs.
+Copy Waffle JARs, including `waffle-jna.jar`, `guava-13.0.1.jar`, `jna.jar`, `platform.jar`, `slf4j*.jar` and `waffle-spring-security-3.jar` in the application's `lib` directory along with Spring and Spring-Security JARs.
 
 Declare a Windows Authentication provider. This is the link between Waffle and the operating system. 
 
