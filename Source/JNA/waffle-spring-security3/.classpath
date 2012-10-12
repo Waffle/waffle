@@ -8,15 +8,15 @@
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.springframework.security/3.1.2.RELEASE/spring-security-web-3.1.2.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/ch.qos.logback/1.0.7/logback-classic-1.0.7.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/ch.qos.logback/1.0.7/logback-core-1.0.7.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.slf4j/1.7.0/slf4j-api-1.7.0.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/javax.servlet/3.0.1/javax.servlet-api-3.0.1.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.springframework/3.1.2.RELEASE/spring-web-3.1.2.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.springframework/3.1.2.RELEASE/spring-beans-3.1.2.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.springframework/3.1.2.RELEASE/spring-context-3.1.2.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.springframework/3.1.2.RELEASE/spring-core-3.1.2.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/junit/4.10/junit-4.10.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.slf4j/1.7.0/jcl-over-slf4j-1.7.0.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.springframework/3.1.2.RELEASE/spring-asm-3.1.2.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.springframework/3.1.2.RELEASE/spring-expression-3.1.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.slf4j/1.7.1/jcl-over-slf4j-1.7.1.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.slf4j/1.7.1/slf4j-api-1.7.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

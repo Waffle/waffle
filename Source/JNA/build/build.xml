@@ -28,7 +28,7 @@
 		</fileset>
 	</path>
 	<path id="slf4j.classpath">
-		<fileset dir="${thirdparty.dir}/_lib/jar/org.slf4j/1.7.0">
+		<fileset dir="${thirdparty.dir}/_lib/jar/org.slf4j/1.7.1">
 			<include name="*.jar" />
 		</fileset>
 	</path>

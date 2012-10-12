@@ -8,9 +8,9 @@
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/javax.servlet/2.5/servlet-api-2.5.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/ch.qos.logback/1.0.7/logback-classic-1.0.7.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/ch.qos.logback/1.0.7/logback-core-1.0.7.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.slf4j/1.7.0/jcl-over-slf4j-1.7.0.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.slf4j/1.7.0/slf4j-api-1.7.0.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.springframework/2.5.6.SEC03/spring-2.5.6.SEC03.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/junit/4.10/junit-4.10.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.slf4j/1.7.1/jcl-over-slf4j-1.7.1.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.slf4j/1.7.1/slf4j-api-1.7.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
