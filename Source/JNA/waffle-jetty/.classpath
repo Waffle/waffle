@@ -5,10 +5,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/ch.qos.logback/1.0.7/logback-classic-1.0.7.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/ch.qos.logback/1.0.7/logback-core-1.0.7.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.slf4j/1.7.0/slf4j-api-1.7.0.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/junit/4.10/junit-4.10.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/net.java.dev.jna/3.4.2/jna.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/net.java.dev.jna/3.4.2/platform.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/waffle-jna"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/javax.servlet/2.5/servlet-api-2.5.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.eclipse.jetty.aggregate/7.6.7.v20120910/jetty-all-7.6.7.v20120910.jar"/>
@@ -19,5 +16,8 @@
 	<classpathentry kind="lib" path="/thirdparty/_lib/orbit/org.eclipse.jetty.orbit/2.2.0.v201112011158/javax.servlet.jsp-2.2.0.v201112011158.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/orbit/org.eclipse.jetty.orbit/2.2.2.v201112011158/org.apache.jasper.glassfish-2.2.2.v201112011158.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/orbit/org.eclipse.jetty.orbit/3.7.1/org.eclipse.jdt.core-3.7.1.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/net.java.dev.jna/3.5.0/jna.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/net.java.dev.jna/3.5.0/platform.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.slf4j/1.7.2/slf4j-api-1.7.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -7,14 +7,14 @@
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/ch.qos.logback/1.0.7/logback-classic-1.0.7.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/ch.qos.logback/1.0.7/logback-core-1.0.7.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/junit/4.10/junit-4.10.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.apache.tomcat/7.0.30/tomcat-catalina-7.0.30.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.apache.tomcat/7.0.30/tomcat-servlet-api-7.0.30.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.slf4j/1.7.0/slf4j-api-1.7.0.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.apache.tomcat/7.0.30/tomcat-juli-7.0.30.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.apache.tomcat/7.0.30/tomcat-util-7.0.30.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.apache.tomcat/7.0.30/tomcat-api-7.0.30.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.apache.tomcat/7.0.30/tomcat-coyote-7.0.30.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/net.java.dev.jna/3.4.2/jna.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/net.java.dev.jna/3.4.2/platform.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/net.java.dev.jna/3.5.0/jna.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/net.java.dev.jna/3.5.0/platform.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.apache.tomcat/7.0.32/tomcat-api-7.0.32.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.apache.tomcat/7.0.32/tomcat-catalina-7.0.32.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.apache.tomcat/7.0.32/tomcat-coyote-7.0.32.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.apache.tomcat/7.0.32/tomcat-juli-7.0.32.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.apache.tomcat/7.0.32/tomcat-servlet-api-7.0.32.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.apache.tomcat/7.0.32/tomcat-util-7.0.32.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.slf4j/1.7.2/slf4j-api-1.7.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
