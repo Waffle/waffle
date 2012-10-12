@@ -87,8 +87,8 @@
  		</dependency>
 
 		<!-- logging -->
-		<dependency org="org.slf4j" name="jcl-over-slf4j" rev="1.7.1" transitive="false"/>
-		<dependency org="org.slf4j" name="slf4j-api" rev="1.7.1" transitive="false"/>
+		<dependency org="org.slf4j" name="jcl-over-slf4j" rev="1.7.2" transitive="false"/>
+		<dependency org="org.slf4j" name="slf4j-api" rev="1.7.2" transitive="false"/>
 		<dependency org="ch.qos.logback" name="logback-classic" rev="1.0.7" transitive="false"/>
 		<dependency org="ch.qos.logback" name="logback-core" rev="1.0.7" transitive="false"/>
 

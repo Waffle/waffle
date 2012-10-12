@@ -16,7 +16,7 @@ Features
   * `waffle-tomcat-7.jar` : Tomcat 7 valves.
 * Rewritten documentation in Markdown, the CHM documentation has been removed - [@dblock](https://github.com/dblock).
 * [#3](https://github.com/dblock/waffle/pull/3): Replaced `commons-logging` with `slf4j` and `logback` - [@hazendaz](https://github.com/hazendaz).
-  * slf4j 1.7.1
+  * slf4j 1.7.2
   * logback 1.0.7
   * Use jcl over slf4j for Spring, as it uses `commons-logging`.
 * Jacob-based COM interfaces and implementation have been removed - [@dblock](https://github.com/dblock).
