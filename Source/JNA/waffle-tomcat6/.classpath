@@ -11,8 +11,8 @@
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.apache.tomcat/6.0.35/coyote-6.0.35.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.apache.tomcat/6.0.35/juli-6.0.35.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/junit/4.10/junit-4.10.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.slf4j/1.7.1/slf4j-api-1.7.1.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/net.java.dev.jna/3.5.0/jna.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/net.java.dev.jna/3.5.0/platform.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.slf4j/1.7.2/slf4j-api-1.7.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
