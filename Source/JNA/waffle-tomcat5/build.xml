@@ -5,9 +5,9 @@
 	<path id="waffle-jna.classpath" location="${common.build}/waffle-jna.jar" />
 	<import file="${basedir}/../build/build.xml" />
 	<path id="tomcat.classpath">
-		<path location="${thirdparty.dir}/tomcat/5.5.35/catalina-5.5.35.jar" />
-		<path location="${thirdparty.dir}/tomcat/5.5.35/servlet-api-5.5.35.jar" />
-		<path location="${thirdparty.dir}/tomcat/5.5.35/tomcat-util-5.5.35.jar" />
+		<path location="${thirdparty.dir}/tomcat/5.5.36/catalina-5.5.36.jar" />
+		<path location="${thirdparty.dir}/tomcat/5.5.36/servlet-api-5.5.36.jar" />
+		<path location="${thirdparty.dir}/tomcat/5.5.36/tomcat-util-5.5.36.jar" />
 	</path>
 	<path id="project.classpath">
 		<path refid="waffle-jna.classpath" />

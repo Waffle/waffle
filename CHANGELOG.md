@@ -42,7 +42,7 @@ Development
 -----------
   
 * Upgraded thirdparty dependencies, using Ivy - [@hazendaz](https://github.com/hazendaz).
-  * tomcat 5.5.35
+  * tomcat 5.5.36
   * tomcat 6.0.35
   * tomcat 7.0.32
   * guava 13.0.1
@@ -54,7 +54,7 @@ Development
   * emma 2.1.5320
 * Reworked development version to use ivy - [@hazendaz](https://github.com/hazendaz).
   * Removed all third party included jars.
-  * Retained tomcat 5.5.35 due to ivy/maven only having 5.5.23 available.
+  * Retained tomcat 5.5.36 due to ivy/maven only having 5.5.23 available.
 * [#24](https://github.com/dblock/waffle/pull/24): Use mockito for waffle-mock - [@ryantxu](https://github.com/ryantxu).
 
 1.4 (6/21/2011) 
