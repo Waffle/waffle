@@ -5,7 +5,7 @@
 	<path id="waffle-jna.classpath" location="${common.build}/waffle-jna.jar" />
 	<import file="${basedir}/../build/build.xml" />
 	<path id="tomcat.classpath">
-		<fileset dir="${thirdparty.dir}/_lib/jar/org.apache.tomcat/7.0.30">
+		<fileset dir="${thirdparty.dir}/_lib/jar/org.apache.tomcat/7.0.32">
 			<include name="*.jar" />
 		</fileset>
 	</path>
