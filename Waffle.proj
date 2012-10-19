@@ -53,6 +53,7 @@
     <NUnit Assemblies="@(UnitTestAssemblies)" ToolPath="$(NUnitBinDir)" Force32Bit="true" />
   </Target>
   <Target Name="drop" DependsOnTargets="version;configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
+    <Copy SourceFiles="README.md" DestinationFiles="$(ReleaseDir)\README.md" />    
     <Copy SourceFiles="CHANGELOG.md" DestinationFiles="$(ReleaseDir)\CHANGELOG.md" />
     <Copy SourceFiles="LICENSE" DestinationFiles="$(ReleaseDir)\LICENSE" />
     <CreateItem Include="Source\**\%(Configuration.Identity)/Waffle.*.dll" Exclude="Source\**\%(Configuration.Identity)/Waffle.*UnitTests.dll">
@@ -72,7 +73,7 @@
     <CreateItem Include="Source\JNA\bin\*.jar">
       <Output TaskParameter="Include" ItemName="JnaFiles"/>
     </CreateItem>
-    <CreateItem Include="Source\ThirdParty\net.java.dev.jna\**\*.jar">
+    <CreateItem Include="Source\ThirdParty\_lib\jar\net.java.dev.jna\**\*.jar">
       <Output TaskParameter="Include" ItemName="JnaFiles"/>
     </CreateItem>
     <CreateItem Include="Source\ThirdParty\_lib\jar\com.google.guava\**\guava-*.jar">

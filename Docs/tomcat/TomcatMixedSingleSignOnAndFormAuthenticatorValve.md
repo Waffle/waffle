@@ -8,7 +8,7 @@ Configuring Tomcat
 
 The following steps are required to configure Tomcat with Waffle Mixed Authenticator. 
 
-Package Waffle JARs, including `waffle-jna.jar`, `guava-13.0.1.jar`, `jna.jar`, `platform.jar`, `slf4j*.jar` and `waffle-tomcat.jar` in the application's `lib` directory or copy them to your web server's lib. 
+Package Waffle JARs, including `waffle-jna.jar`, `guava-13.0.1.jar`, `jna-3.5.0.jar`, `platform-3.5.0.jar`, `slf4j*.jar` and `waffle-tomcat.jar` in the application's `lib` directory or copy them to your web server's lib. 
 
 Add a valve and a realm to the application context. For an application, modify `META-INF\context.xml`. 
 
