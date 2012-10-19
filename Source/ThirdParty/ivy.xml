@@ -23,8 +23,8 @@
 		<dependency org="com.google.guava" name="guava" rev="13.0.1" transitive="false"/>
 
 		<!-- jna -->
-		<dependency org="net.java.dev.jna" name="jna" rev="3.5.0-rc" transitive="false"/>
-		<dependency org="net.java.dev.jna" name="platform" rev="3.5.0-rc" transitive="false"/>
+		<dependency org="net.java.dev.jna" name="jna" rev="3.5.0" transitive="false"/>
+		<dependency org="net.java.dev.jna" name="platform" rev="3.5.0" transitive="false"/>
 
 		<!-- servlet -->
 		<dependency org="javax.servlet" name="servlet-api" rev="2.5" transitive="false"/>
