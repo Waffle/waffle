@@ -41,4 +41,4 @@ Troubleshooting Stories
 Troubleshooting Help
 ----------------------
 
-* See [Troubelshooting](https://github.com/dblock/waffle/blob/1.5/Docs/Troubleshooting.md)
+* See [Troubelshooting](https://github.com/dblock/waffle/blob/master/Docs/Troubleshooting.md)
