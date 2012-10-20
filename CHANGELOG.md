@@ -1,19 +1,61 @@
-Next Release
-============
+1.5 (Next Release)
+==================
 
-Misc
-----
+This release unifies support for various Java platforms within a single package and significantly improves development infrastructure.
 
-* [#4](https://github.com/dblock/waffle/pull/4): Upgraded Spring/Spring Security 3.1.1 - [@hazendaz](https://github.com/hazendaz).
-* [#3](https://github.com/dblock/waffle/pull/3): Converted commons-logging to slf4j logging - [@hazendaz](https://github.com/hazendaz).
-  * Added slf4j with additional jars for jcl, jdk, log4j, nop, simple logging solutions.
-  * Added jcl over slf4j jar for spring as it still uses commons-logging.
-  * Added logback for native slf4j solution.
-  * Added sample xml files for logback solution to all demos.
-* [#3](https://github.com/dblock/waffle/pull/3): Upgraded thirdparty tomcat to 6.0.35 - [@hazendaz](https://github.com/hazendaz).
-* [#2](https://github.com/dblock/waffle/pull/2): Upgraded thirdparty Guava to 12.0 - [@hazendaz](https://github.com/hazendaz).
-* [#2](https://github.com/dblock/waffle/pull/2): Upgraded thirdparty JUnit to 4.10 - [@hazendaz](https://github.com/hazendaz).
+Features
+--------
+
+* Waffle now requires Java 1.6 or newer, uses generics where possible - [@hazendaz](https://github.com/hazendaz).
+* Waffle now requires JNA 3.5.0 (currently private build) - [@dblock](https://github.com/dblock).
+* Native Tomcat and Spring support has been split out of the `waffle-jna.jar` - [@dblock](https://github.com/dblock).
+  * `waffle-spring-security2.jar`: Spring-security 2.
+  * `waffle-spring-security3.jar`: Spring-security 3.
+  * `waffle-tomcat-5.jar` : Tomcat 5 valves.
+  * `waffle-tomcat-6.jar` : Tomcat 6 valves.
+  * `waffle-tomcat-7.jar` : Tomcat 7 valves.
+* Rewritten documentation in Markdown, the CHM documentation has been removed - [@dblock](https://github.com/dblock).
+* [#3](https://github.com/dblock/waffle/pull/3): Replaced `commons-logging` with `slf4j` and `logback` - [@hazendaz](https://github.com/hazendaz).
+  * slf4j 1.7.2
+  * logback 1.0.7
+  * Use jcl over slf4j for Spring, as it uses `commons-logging`.
+* Jacob-based COM interfaces and implementation have been removed - [@dblock](https://github.com/dblock).
 * [#1](https://github.com/dblock/waffle/pull/1): Adjusted logging from info to debug to reduce noise level - [@mcfly83](https://github.com/mcfly83).
+* [#17](https://github.com/dblock/waffle/pull/17): JAR manifest information includes specification and implementation details, such as GIT revision - [@ryantxu](https://github.com/ryantxu).
+* [#23](https://github.com/dblock/waffle/pull/23) Added `waffle.util.WaffleInfo` which collects system information useful for debugging - [@ryantxu](https://github.com/ryantxu).
+* [#28](https://github.com/dblock/waffle/pull/28) Added `waffle-jetty` project.  This lets developers run Waffle directly within the IDE - [@ryantxu](https://github.com/ryantxu).
+* [#33](https://github.com/dblock/waffle/pull/33): Added support for servlet3 programmatic login - [@amergey](https://github.com/amergey).
+
+
+Interface Changes
+-----------------
+
+* Waffle `boolean` getters now use `is*` java standard - [@hazendaz](https://github.com/hazendaz).
+  * `getContinue` is now `isContinue`
+  * `getDebug` is now `isDebug`
+  * `getAllowGuestLogin` is now `isAllowGuestLogin`
+  * `getImpersonate` is now `isImpersonate`
+* Fixed case of `RevertToSelf`, now `revertToSelf` - [@hazendaz](https://github.com/hazendaz).
+* All array getters now return empty arrays rather than `null` - [@hazendaz](https://github.com/hazendaz).
+
+Development
+-----------
+  
+* Upgraded thirdparty dependencies, using Ivy - [@hazendaz](https://github.com/hazendaz).
+  * tomcat 5.5.36
+  * tomcat 6.0.35
+  * tomcat 7.0.32
+  * guava 13.0.1
+  * spring 3.1.2
+  * spring 2.5.6.SEC03
+  * spring-security 2.0.7
+  * spring-security 3.1.2
+  * junit 4.10
+  * emma 2.1.5320
+* Reworked development version to use ivy - [@hazendaz](https://github.com/hazendaz).
+  * Removed all third party included jars.
+  * Retained tomcat 5.5.36 due to ivy/maven only having 5.5.23 available.
+* [#24](https://github.com/dblock/waffle/pull/24): Use mockito for waffle-mock - [@ryantxu](https://github.com/ryantxu).
 
 1.4 (6/21/2011) 
 ===============

@@ -26,9 +26,7 @@
     <CallTarget Targets="version" />
     <CallTarget Targets="build" />
     <CallTarget Targets="test" />
-    <CallTarget Targets="doc" />
     <CallTarget Targets="drop" />
-    <CallTarget Targets="javainterface" Condition="'%(Configuration.Identity)'=='Release'" />
     <CallTarget Targets="jar" Condition="'%(Configuration.Identity)'=='Release'" />
     <CallTarget Targets="javademo" Condition="'%(Configuration.Identity)'=='Release'" />
     <CallTarget Targets="zip" />
@@ -36,8 +34,9 @@
   <Target Name="clean" DependsOnTargets="configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
     <Message Importance="high" Text="Cleaning project, %(Configuration.Identity) ..." />
     <DeleteTree Directories="target" Recursive="true" />
-    <DeleteTree Directories="Source\**\obj;Source\Jar" Recursive="true" />
+    <DeleteTree Directories="Source\**\obj" Recursive="true" />
     <MSBuild Projects="Waffle.sln" Targets="Clean" Properties="Configuration=%(Configuration.Identity)" />
+    <Exec WorkingDirectory="Source\JNA" Command="ant clean" />
     <Delete Files="Source\Version\GlobalAssemblyInfo.cs" />
     <Delete Files="Waffle.$(Major).$(Minor).zip" />
   </Target>
@@ -53,17 +52,10 @@
     <Message Text="@(UnitTestAssemblies)" />
     <NUnit Assemblies="@(UnitTestAssemblies)" ToolPath="$(NUnitBinDir)" Force32Bit="true" />
   </Target>
-  <Target Name="doc" DependsOnTargets="version;configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
-    <Error Condition="'$(DXROOT)'==''" Text="Missing Sandcastle, DXROOT environment variable not set, install from http://www.codeplex.com/Sandcastle" />
-    <Error Condition="'$(SHFBROOT)'==''" Text="Missing Sandcastle Builder, SHFBROOT environment variable not set, install from http://www.codeplex.com/SHFB" />
-    <Delete Files="Documentation\%(Configuration.Identity)\Waffle.chm" />
-    <Exec Command="$(MSBuild_4_0_ExeFilePath) Documentation\Waffle.shfbproj /p:Configuration=%(Configuration.Identity)" />
-    <Error Condition="Exists('Documentation\%(Configuration.Identity)\LastBuild.log')" Text="Documentation build failed, check Documentation\%(Configuration.Identity)\LastBuild.log" />
-  </Target>
   <Target Name="drop" DependsOnTargets="version;configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
+    <Copy SourceFiles="README.md" DestinationFiles="$(ReleaseDir)\README.md" />    
     <Copy SourceFiles="CHANGELOG.md" DestinationFiles="$(ReleaseDir)\CHANGELOG.md" />
     <Copy SourceFiles="LICENSE" DestinationFiles="$(ReleaseDir)\LICENSE" />
-    <Copy SourceFiles="Documentation\%(Configuration.Identity)\Waffle.chm" DestinationFolder="$(ReleaseDir)" />
     <CreateItem Include="Source\**\%(Configuration.Identity)/Waffle.*.dll" Exclude="Source\**\%(Configuration.Identity)/Waffle.*UnitTests.dll">
       <Output TaskParameter="Include" ItemName="BinaryFiles" />
     </CreateItem>
@@ -77,28 +69,31 @@
     <Copy SourceFiles="@(SampleFiles)" DestinationFolder="$(ReleaseDir)\Samples" />
   </Target>
   <Target Name="jar">
-    <Exec WorkingDirectory="Source\JNAWindowsAuthProvider" Command="ant" />
-    <Copy SourceFiles="Source\JNAWindowsAuthProvider\build\waffle-jna.jar" DestinationFolder="$(ReleaseDir)\Bin" />
-    <Copy SourceFiles="Source\JNAWindowsAuthProvider\build\waffle-src.zip" DestinationFolder="$(ReleaseDir)\Bin" />
-    <Copy SourceFiles="Source\ThirdParty\commons-logging\commons-logging-1.1.1.jar" DestinationFolder="$(ReleaseDir)\Bin" />
-    <Copy SourceFiles="Source\ThirdParty\jna\jna.jar" DestinationFolder="$(ReleaseDir)\Bin" />
-    <Copy SourceFiles="Source\ThirdParty\jna\platform.jar" DestinationFolder="$(ReleaseDir)\Bin" />
-    <Copy SourceFiles="Source\ThirdParty\guava\guava-r07.jar" DestinationFolder="$(ReleaseDir)\Bin" />
-  </Target>
-  <Target Name="javainterface">
-    <Exec WorkingDirectory="Source\WindowsAuthProvider\bin\Release" Command="regasm.exe /codebase /tlb:Waffle.Windows.AuthProvider.tlb Waffle.Windows.AuthProvider.dll" />
-    <Exec WorkingDirectory="Source\WindowsAuthProvider\bin\Release" Command="regasm.exe /codebase /regfile:Waffle.Windows.AuthProvider.reg Waffle.Windows.AuthProvider.dll" />
-    <Exec WorkingDirectory="Tools\JacobGen" Command="jacobgen.bat -destdir:&quot;$(MSBuildProjectDirectory)\Source\Jar&quot; -package:com.waffle.auth &quot;$(MSBuildProjectDirectory)/Source/WindowsAuthProvider/bin/Release/Waffle.Windows.AuthProvider.tlb&quot;" />
-    <Exec WorkingDirectory="Source\Jar" Command="&quot;$(JAVA_HOME)\bin\javac.exe&quot; com\waffle\auth\*.java -cp ..\..\Tools\Jacob\jacob.jar" />
-    <Exec WorkingDirectory="Source\Jar" Command="&quot;$(JAVA_HOME)\bin\jar.exe&quot; cvf &quot;$(MSBuildProjectDirectory)\$(ReleaseDir)\Bin\waffle-jacob.jar&quot; com\waffle\auth\*.class" />
+    <Exec WorkingDirectory="Source\JNA" Command="ant" />
+    <CreateItem Include="Source\JNA\bin\*.jar">
+      <Output TaskParameter="Include" ItemName="JnaFiles"/>
+    </CreateItem>
+    <CreateItem Include="Source\ThirdParty\_lib\jar\net.java.dev.jna\**\*.jar">
+      <Output TaskParameter="Include" ItemName="JnaFiles"/>
+    </CreateItem>
+    <CreateItem Include="Source\ThirdParty\_lib\jar\com.google.guava\**\guava-*.jar">
+      <Output TaskParameter="Include" ItemName="JnaFiles"/>
+    </CreateItem>
+    <CreateItem Include="Source\ThirdParty\_lib\jar\org.slf4j\**\*.jar" Exclude="Source\ThirdParty\jar\org.slf4j\**\*-sources.jar">
+      <Output TaskParameter="Include" ItemName="JnaFiles"/>
+    </CreateItem>
+    <CreateItem Include="Source\ThirdParty\_lib\jar\ch.qos.logback\**\*.jar" Exclude="Source\ThirdParty\_lib\jar\ch.qos.logback\**\*-sources.jar">
+      <Output TaskParameter="Include" ItemName="JnaFiles"/>
+    </CreateItem>
+    <Copy SourceFiles="@(JnaFiles)" DestinationFolder="$(ReleaseDir)\Bin" />
   </Target>
   <ItemGroup>
-    <DemoFiles Include="Source\JNAWindowsAuthProvider\demo\**\*.jsp" />
-    <DemoFiles Include="Source\JNAWindowsAuthProvider\demo\**\*.xml" />
-    <DemoFiles Include="Source\JNAWindowsAuthProvider\demo\**\*.html" />
-    <DemoFiles Include="Source\JNAWindowsAuthProvider\demo\**\*.properties" />
-    <DemoFiles Include="Source\JNAWindowsAuthProvider\demo\**\*.policy" />
-    <DemoFiles Include="Source\JNAWindowsAuthProvider\demo\**\*.conf" />
+    <DemoFiles Include="Source\JNA\demo\**\*.jsp" />
+    <DemoFiles Include="Source\JNA\demo\**\*.xml" />
+    <DemoFiles Include="Source\JNA\demo\**\*.html" />
+    <DemoFiles Include="Source\JNA\demo\**\*.properties" />
+    <DemoFiles Include="Source\JNA\demo\**\*.policy" />
+    <DemoFiles Include="Source\JNA\demo\**\*.conf" />
   </ItemGroup>
   <Target Name="javademo">
     <Copy SourceFiles="@(DemoFiles)" DestinationFolder="$(ReleaseDir)\Samples\%(RecursiveDir)" />
