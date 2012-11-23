@@ -21,7 +21,7 @@ import org.junit.Test;
 
 
 /**
- * @author dblock[at]dblock[dot]org
+ * @author ari.suutari[at]syncrontech[dot]com
  */
 public class SPNegoMessageTests {
 
