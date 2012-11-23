@@ -7,8 +7,8 @@
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/ch.qos.logback/1.0.7/logback-classic-1.0.7.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/ch.qos.logback/1.0.7/logback-core-1.0.7.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/junit/4.10/junit-4.10.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/net.java.dev.jna/3.5.0-rc/jna-3.5.0-rc.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/net.java.dev.jna/3.5.0-rc/platform-3.5.0-rc.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/net.java.dev.jna/3.5.0/jna-3.5.0.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/net.java.dev.jna/3.5.0/platform-3.5.0.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.apache.tomcat/7.0.32/tomcat-api-7.0.32.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.apache.tomcat/7.0.32/tomcat-catalina-7.0.32.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.apache.tomcat/7.0.32/tomcat-coyote-7.0.32.jar"/>
