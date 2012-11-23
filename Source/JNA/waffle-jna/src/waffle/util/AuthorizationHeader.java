@@ -83,6 +83,20 @@ public class AuthorizationHeader {
 		return (1 == NtlmMessage.getMessageType(tokenBytes));
 	}
 
+	public boolean isSPNegoMessage() {
+
+		if (isNull()) {
+			return false;
+		}
+
+		byte[] tokenBytes = getTokenBytes();
+		if (!SPNegoMessage.isSPNegoMessage(tokenBytes)) {
+			return false;
+		}
+
+		return true;
+	}
+
 	/**
 	 * When using NTLM authentication and the browser is making a POST request, it preemptively sends a Type 2
 	 * authentication message (without the POSTed data). The server responds with a 401, and the browser sends a Type 3
@@ -101,6 +115,6 @@ public class AuthorizationHeader {
 			return false;
 		}
 
-		return isNtlmType1Message();
+		return isNtlmType1Message() || isSPNegoMessage();
 	}
 }
