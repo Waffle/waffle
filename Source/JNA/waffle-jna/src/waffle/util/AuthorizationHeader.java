@@ -22,17 +22,20 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class AuthorizationHeader {
 
-	private HttpServletRequest _request;
+	private HttpServletRequest	_request;
 
-	public AuthorizationHeader(HttpServletRequest request) {
+	public AuthorizationHeader(HttpServletRequest request)
+	{
 		_request = request;
 	}
 
-	public String getHeader() {
+	public String getHeader()
+	{
 		return _request.getHeader("Authorization");
 	}
 
-	public boolean isNull() {
+	public boolean isNull()
+	{
 		String header = getHeader();
 		return header == null || header.length() == 0;
 	}
@@ -42,7 +45,8 @@ public class AuthorizationHeader {
 	 * 
 	 * @return Negotiate or NTLM.
 	 */
-	public String getSecurityPackage() {
+	public String getSecurityPackage()
+	{
 		String header = getHeader();
 
 		if (header == null) {
@@ -58,19 +62,23 @@ public class AuthorizationHeader {
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return isNull() ? "<none>" : getHeader();
 	}
 
-	public String getToken() {
+	public String getToken()
+	{
 		return getHeader().substring(getSecurityPackage().length() + 1);
 	}
 
-	public byte[] getTokenBytes() {
+	public byte[] getTokenBytes()
+	{
 		return Base64.decode(getToken());
 	}
 
-	public boolean isNtlmType1Message() {
+	public boolean isNtlmType1Message()
+	{
 		if (isNull()) {
 			return false;
 		}
@@ -83,6 +91,21 @@ public class AuthorizationHeader {
 		return (1 == NtlmMessage.getMessageType(tokenBytes));
 	}
 
+	public boolean isSPNegoMessage()
+	{
+
+		if (isNull()) {
+			return false;
+		}
+
+		byte[] tokenBytes = getTokenBytes();
+		if (!SPNegoMessage.isSPNegoMessage(tokenBytes)) {
+			return false;
+		}
+
+		return true;
+	}
+
 	/**
 	 * When using NTLM authentication and the browser is making a POST request, it preemptively sends a Type 2
 	 * authentication message (without the POSTed data). The server responds with a 401, and the browser sends a Type 3
@@ -91,9 +114,9 @@ public class AuthorizationHeader {
 	 * 
 	 * @return True if request is an NTLM POST or PUT with an Authorization header and no data.
 	 */
-	public boolean isNtlmType1PostAuthorizationHeader() {
-		if (!_request.getMethod().equals("POST")
-				&& !_request.getMethod().equals("PUT")) {
+	public boolean isNtlmType1PostAuthorizationHeader()
+	{
+		if (!_request.getMethod().equals("POST") && !_request.getMethod().equals("PUT")) {
 			return false;
 		}
 
@@ -101,6 +124,6 @@ public class AuthorizationHeader {
 			return false;
 		}
 
-		return isNtlmType1Message();
+		return isNtlmType1Message() || isSPNegoMessage();
 	}
 }
