@@ -40,6 +40,10 @@ public abstract class SPNegoMessage {
 			lenBytes = 1 + (message[1] & 0x7f);
 		}
 
+		if (message.length < spnegoOid.length + 1 + lenBytes) {
+			return false;
+		}
+		
 		// Now check for SPNEGO OID, which should start just after length data.
 		for (int i = 0; i < spnegoOid.length; i++) {
 			if (spnegoOid[i] != message[i + 1 + lenBytes]) {
