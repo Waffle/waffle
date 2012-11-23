@@ -8,8 +8,8 @@ Features
   This allows Waffle to perform correct negotiation also in this case. Message structure is documented in
   [MSDN](http://msdn.microsoft.com/en-us/library/ms995330.aspx) - [@AriZuu](https://github.com/AriZuu).
 
-1.5
-==================
+1.5 (10/19/2012)
+================
 
 This release unifies support for various Java platforms within a single package and significantly improves development infrastructure.
 
