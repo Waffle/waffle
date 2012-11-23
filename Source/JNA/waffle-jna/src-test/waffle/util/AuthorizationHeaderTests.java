@@ -79,4 +79,34 @@ public class AuthorizationHeaderTests {
 		request.setMethod("PUT");
 		assertTrue(header.isNtlmType1PostAuthorizationHeader());
 	}
+
+	@Test
+	public void testIsSPNegoMessage() {
+		SimpleHttpRequest request = new SimpleHttpRequest();
+		AuthorizationHeader header = new AuthorizationHeader(request);
+		assertFalse(header.isSPNegoMessage());
+		request.addHeader("Authorization", "");
+		assertFalse(header.isSPNegoMessage());
+		request.addHeader("Authorization",
+				"Negotiate YHYGBisGAQUFAqBsMGqgMDAuBgorBgEEAYI3AgIKBgkqhkiC9xIBAgIGCSqGSIb3EgECAgYKKwYBBAGCNwICHqI2BDROVExNU1NQAAEAAACXsgjiAwADADEAAAAJAAkAKAAAAAYBsR0AAAAPR0xZQ0VSSU5FU0FE");
+		assertTrue(header.isSPNegoMessage());
+	}
+
+	@Test
+	public void testIsSPNegoPostAuthorizationHeader() {
+		SimpleHttpRequest request = new SimpleHttpRequest();
+		request.setContentLength(0);
+		request.addHeader("Authorization",
+				"Negotiate YHYGBisGAQUFAqBsMGqgMDAuBgorBgEEAYI3AgIKBgkqhkiC9xIBAgIGCSqGSIb3EgECAgYKKwYBBAGCNwICHqI2BDROVExNU1NQAAEAAACXsgjiAwADADEAAAAJAAkAKAAAAAYBsR0AAAAPR0xZQ0VSSU5FU0FE");
+		// GET
+		request.setMethod("GET");
+		AuthorizationHeader header = new AuthorizationHeader(request);
+		assertFalse(header.isNtlmType1PostAuthorizationHeader());
+		// POST
+		request.setMethod("POST");
+		assertTrue(header.isNtlmType1PostAuthorizationHeader());
+		// PUT
+		request.setMethod("PUT");
+		assertTrue(header.isNtlmType1PostAuthorizationHeader());
+	}
 }
