@@ -23,8 +23,7 @@ public abstract class SPNegoMessage {
 	// SPNEGO OID, for details see http://msdn.microsoft.com/en-us/library/ms995330.aspx
 	private static final byte[]	spnegoOid	= {0x06, 0x06, 0x2b, 0x06, 0x01, 0x05, 0x05, 0x02};
 
-	public static boolean isSPNegoMessage(byte[] message)
-	{
+	public static boolean isSPNegoMessage(byte[] message) {
 		if (message == null || message.length < 2) {
 			return false;
 		}
