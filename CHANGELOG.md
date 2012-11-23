@@ -1,14 +1,4 @@
-1.6 (Next Release)
-==================
-
-Features
---------
-
-* [#39] Fix problem with missing (zero-length) post data by adding support for detecting SPNEGO negatiation packets.
-  This allows Waffle to perform correct negatiation also in this case. Message structure is documented in
-  http://msdn.microsoft.com/en-us/library/ms995330.aspx
-
-1.5
+1.5 (Next Release)
 ==================
 
 This release unifies support for various Java platforms within a single package and significantly improves development infrastructure.
