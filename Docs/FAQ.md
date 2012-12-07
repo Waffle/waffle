@@ -7,7 +7,7 @@ General FAQ
 
 * [Can Waffle be used on the client side?](http://waffle.codeplex.com/discussions/226268)
 * [How can I retrieve additional information, such as user's position in the company, from Active Directory?](faq/AdditionalActiveDirectoryInfo.md)
-
+* [Can Waffle be used with Atlassian JIRA?](faq/atlassian/AtlassianJIRA.md)
 
 Troubleshooting Stories
 -----------------------
