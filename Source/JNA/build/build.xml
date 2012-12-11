@@ -68,8 +68,8 @@
 		</sequential>
 	</macrodef>
 	<!-- test -->
-	<path id="groboutils.classpath">
-		<fileset dir="${thirdparty.dir}/_lib/jar/net.sourceforge.groboutils/5">
+	<path id="contiperf.classpath">
+		<fileset dir="${thirdparty.dir}/_lib/jar/org.databene/2.2.0">
 			<include name="*.jar" />
 		</fileset>
 	</path>
@@ -84,7 +84,7 @@
 		</fileset>
 		<pathelement location="${waffle.test.src}" />
 		<pathelement location="${waffle.test.lib}" />
-		<path refid="groboutils.classpath" />
+		<path refid="contiperf.classpath" />
 		<path refid="emma.classpath" />
 	</path>
 	<target name="compile-tests">

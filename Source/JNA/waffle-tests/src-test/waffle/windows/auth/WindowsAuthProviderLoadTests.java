@@ -13,33 +13,25 @@
  *******************************************************************************/
 package waffle.windows.auth;
 
-import org.junit.Test;
+import org.databene.contiperf.PerfTest;
+import org.databene.contiperf.junit.ContiPerfRule;
 
-import net.sourceforge.groboutils.junit.v1.MultiThreadedTestRunner;
-import net.sourceforge.groboutils.junit.v1.TestRunnable;
+import org.junit.Rule;
+import org.junit.Test;
 
 /**
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsAuthProviderLoadTests {
 
-	private class WindowsAuthProviderLoadTest extends TestRunnable {
-		WindowsAuthProviderTests _tests = new WindowsAuthProviderTests();
+    @Rule
+    public ContiPerfRule contiPerfRule = new ContiPerfRule();
 
-		@Override
-		public void runTest() throws Throwable {
-			_tests.testAcceptSecurityToken();
-		}
-	}
+    private WindowsAuthProviderTests _tests = new WindowsAuthProviderTests();
 
 	@Test
+	@PerfTest(invocations = 10, threads = 10)
 	public void testLoad() throws Throwable {
-		int load = 10;
-		TestRunnable[] runs = new TestRunnable[load];
-		for (int i = 0; i < load; i++) {
-			runs[i] = new WindowsAuthProviderLoadTest();
-		}
-		MultiThreadedTestRunner mttr = new MultiThreadedTestRunner(runs);
-		mttr.runTestRunnables();
+		_tests.testAcceptSecurityToken();
 	}
 }

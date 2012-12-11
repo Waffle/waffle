@@ -14,7 +14,7 @@
 		<dependency org="emma" name="emma" rev="2.1.5320" transitive="false"/>
 		<dependency org="emma" name="emma_ant" rev="2.1.5320" transitive="false"/>
 
-		<dependency org="net.sourceforge.groboutils" name="groboutils-core" rev="5" transitive="false"/>
+		<dependency org="org.databene" name="contiperf" rev="2.2.0" transitive="false"/>
 
 		<dependency org="junit" name="junit" rev="4.10" transitive="false"/>
 		<dependency org="org.mockito" name="mockito-all" rev="1.9.5-rc1" transitive="false"/>
