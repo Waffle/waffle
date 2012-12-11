@@ -16,5 +16,6 @@
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.apache.tomcat/7.0.32/tomcat-servlet-api-7.0.32.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.apache.tomcat/7.0.32/tomcat-util-7.0.32.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.slf4j/1.7.2/slf4j-api-1.7.2.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/waffle-tests"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
