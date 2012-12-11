@@ -3,7 +3,7 @@
 	<property file="${basedir}/../../Version/Version.properties" />
 	<import file="common.xml" />
 	<fail message="Missing project.jar definition" unless="project.jar" />
-	<fail message="Missing project.version" unless="product.version" />
+	<fail message="Missing product.version" unless="product.version" />
 	<property name="waffle.version" value="${product.version}" />
 	<property name="waffle.java.version" value="1.6" />
 	<property name="waffle.copyright" value="${copyright.text}" />
