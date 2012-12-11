@@ -18,12 +18,12 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.github.dblock.waffle</groupId>
+      <groupId>${project.groupId}</groupId>
       <artifactId>waffle-jna</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>com.github.dblock.waffle</groupId>
+      <groupId>${project.groupId}</groupId>
       <artifactId>waffle-tests</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
