@@ -22,5 +22,6 @@
     <!-- Not yet working, since it doesn't compile against the versions of Tomcat available in Maven repositories -->
     <!--<module>waffle-tomcat5</module>-->
     <module>waffle-tomcat6</module>
+    <module>waffle-tomcat7</module>
   </modules>
 </project>
