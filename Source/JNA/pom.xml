@@ -15,6 +15,7 @@
 
   <modules>
     <module>build</module>
+    <module>waffle-jetty</module>
     <module>waffle-jna</module>
   </modules>
 </project>
