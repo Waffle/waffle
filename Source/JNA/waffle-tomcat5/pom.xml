@@ -1,0 +1,35 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.github.dblock.waffle</groupId>
+    <artifactId>waffle-parent</artifactId>
+    <version>1.5</version>
+    <relativePath>../build</relativePath>
+  </parent>
+  <artifactId>waffle-tomcat5</artifactId>
+  <packaging>jar</packaging>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.github.dblock.waffle</groupId>
+      <artifactId>waffle-jna</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>tomcat</groupId>
+      <artifactId>catalina</artifactId>
+      <!-- TODO: should be 5.5.36, but wasn't able to locate a repo that contains that version -->
+      <version>5.5.28</version>
+    </dependency>
+    <dependency>
+      <groupId>tomcat</groupId>
+      <artifactId>tomcat-util</artifactId>
+      <!-- TODO: should be 5.5.36, but wasn't able to locate a repo that contains that version -->
+      <version>5.5.28</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>

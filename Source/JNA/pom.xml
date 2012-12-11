@@ -19,5 +19,7 @@
     <module>waffle-jna</module>
     <module>waffle-spring-security2</module>
     <module>waffle-spring-security3</module>
+    <!-- Not yet working, since it doesn't compile against the versions of Tomcat available in Maven repositories -->
+    <!--<module>waffle-tomcat5</module>-->
   </modules>
 </project>
