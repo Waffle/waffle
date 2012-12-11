@@ -64,6 +64,22 @@
   <build>
     <sourceDirectory>${basedir}/src</sourceDirectory>
     <testSourceDirectory>${basedir}/src-test</testSourceDirectory>
+    <resources>
+      <resource>
+        <directory>${basedir}/src</directory>
+        <includes>
+          <include>**/*.xml</include>
+        </includes>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <directory>${basedir}/src-test</directory>
+        <includes>
+          <include>**/*.xml</include>
+        </includes>
+      </testResource>
+    </testResources>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
