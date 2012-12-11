@@ -3,12 +3,18 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
   <parent>
     <groupId>com.github.dblock.waffle</groupId>
     <artifactId>waffle-parent</artifactId>
     <version>1.5</version>
-    <relativePath>../build</relativePath>
+    <relativePath>build</relativePath>
   </parent>
-  <artifactId>waffle-jna</artifactId>
-  <packaging>jar</packaging>
+  <artifactId>waffle</artifactId>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>build</module>
+    <module>waffle-jna</module>
+  </modules>
 </project>
