@@ -70,6 +70,9 @@
           <includes>
             <include>**/*Tests.java</include>
           </includes>
+          <excludes>
+            <exclude>**/*LoadTests.java</exclude>
+          </excludes>
         </configuration>
       </plugin>
     </plugins>
