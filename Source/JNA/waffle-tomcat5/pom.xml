@@ -12,6 +12,10 @@
   <artifactId>waffle-tomcat5</artifactId>
   <packaging>jar</packaging>
 
+  <properties>
+    <thirdparty.dir>${basedir}/../../ThirdParty</thirdparty.dir>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>com.github.dblock.waffle</groupId>
@@ -21,14 +25,28 @@
     <dependency>
       <groupId>tomcat</groupId>
       <artifactId>catalina</artifactId>
-      <!-- TODO: should be 5.5.36, but wasn't able to locate a repo that contains that version -->
-      <version>5.5.28</version>
+      <version>5.5.36</version>
+      <systemPath>${thirdparty.dir}/tomcat/5.5.36/catalina-5.5.36.jar</systemPath>
+      <scope>system</scope>
+    </dependency>
+    <dependency>
+      <groupId>tomcat</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>5.5.36</version>
+      <systemPath>${thirdparty.dir}/tomcat/5.5.36/servlet-api-5.5.36.jar</systemPath>
+      <scope>system</scope>
     </dependency>
     <dependency>
       <groupId>tomcat</groupId>
       <artifactId>tomcat-util</artifactId>
-      <!-- TODO: should be 5.5.36, but wasn't able to locate a repo that contains that version -->
-      <version>5.5.28</version>
+      <version>5.5.36</version>
+      <systemPath>${thirdparty.dir}/tomcat/5.5.36/tomcat-util-5.5.36.jar</systemPath>
+      <scope>system</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>1.7.2</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
