@@ -23,6 +23,12 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
+      <groupId>com.github.dblock.waffle</groupId>
+      <artifactId>waffle-tests</artifactId>
+      <version>${project.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>tomcat</groupId>
       <artifactId>catalina</artifactId>
       <version>5.5.36</version>

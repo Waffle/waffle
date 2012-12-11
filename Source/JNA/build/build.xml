@@ -46,7 +46,6 @@
 		<path refid="jna.classpath" />
 		<path refid="slf4j.classpath" />
 		<path refid="guava.classpath" />
-		<path refid="mockito.classpath" />
 	</path>
 	<macrodef name="compile">
 		<attribute name="optimize" />
@@ -110,7 +109,7 @@
 		</junitreport>
 		<echo message="See ${waffle.test}/report/index.html" />
 	</target>
-	<target name="test" depends="compile-tests">
+	<target name="test" depends="compile-tests" unless="skipTests">
 		<mkdir dir="${waffle.test}" />
 		<junit fork="true" newenvironment="true" failureproperty="tests.failed"
 			haltonfailure="no" haltonerror="no" printsummary="on" errorproperty="tests.failed">

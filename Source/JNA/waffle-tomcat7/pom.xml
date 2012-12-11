@@ -19,6 +19,12 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
+      <groupId>com.github.dblock.waffle</groupId>
+      <artifactId>waffle-tests</artifactId>
+      <version>${project.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.apache.tomcat</groupId>
       <artifactId>tomcat-api</artifactId>
       <version>7.0.32</version>

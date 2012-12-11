@@ -19,6 +19,7 @@
     <module>waffle-jna</module>
     <module>waffle-spring-security2</module>
     <module>waffle-spring-security3</module>
+    <module>waffle-tests</module>
     <module>waffle-tomcat5</module>
     <module>waffle-tomcat6</module>
     <module>waffle-tomcat7</module>
