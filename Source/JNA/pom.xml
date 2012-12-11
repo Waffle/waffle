@@ -21,5 +21,6 @@
     <module>waffle-spring-security3</module>
     <!-- Not yet working, since it doesn't compile against the versions of Tomcat available in Maven repositories -->
     <!--<module>waffle-tomcat5</module>-->
+    <module>waffle-tomcat6</module>
   </modules>
 </project>
