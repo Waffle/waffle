@@ -17,5 +17,6 @@
     <module>build</module>
     <module>waffle-jetty</module>
     <module>waffle-jna</module>
+    <module>waffle-spring-security2</module>
   </modules>
 </project>
