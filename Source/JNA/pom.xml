@@ -10,7 +10,7 @@
     <version>1.5</version>
     <relativePath>build</relativePath>
   </parent>
-  <artifactId>waffle</artifactId>
+  <artifactId>waffle-pom</artifactId>
   <packaging>pom</packaging>
 
   <modules>
