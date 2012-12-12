@@ -13,6 +13,9 @@
   <artifactId>waffle-pom</artifactId>
   <packaging>pom</packaging>
 
+  <name>waffle-pom</name>
+  <description>Aggregate POM for WAFFLE</description>
+
   <modules>
     <module>build</module>
     <module>waffle-jetty</module>
@@ -20,7 +23,9 @@
     <module>waffle-spring-security2</module>
     <module>waffle-spring-security3</module>
     <module>waffle-tests</module>
+    <!-- Excluded due to using system-scope dependencies
     <module>waffle-tomcat5</module>
+    -->
     <module>waffle-tomcat6</module>
     <module>waffle-tomcat7</module>
   </modules>

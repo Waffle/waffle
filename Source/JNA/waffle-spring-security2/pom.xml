@@ -12,6 +12,9 @@
   <artifactId>waffle-spring-security2</artifactId>
   <packaging>jar</packaging>
 
+  <name>waffle-spring-security2</name>
+  <description>Spring Security 2 integration for WAFFLE</description>
+
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>

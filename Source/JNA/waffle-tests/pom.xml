@@ -12,6 +12,9 @@
   <artifactId>waffle-tests</artifactId>
   <packaging>jar</packaging>
 
+  <name>waffle-tests</name>
+  <description>Tests for WAFFLE</description>
+
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>

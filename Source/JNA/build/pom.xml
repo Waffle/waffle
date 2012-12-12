@@ -19,6 +19,10 @@
   <version>1.5</version>
   <packaging>pom</packaging>
 
+  <name>waffle-parent</name>
+  <description>Parent POM for WAFFLE</description>
+  <url>http://dblock.github.com/waffle/</url>
+
   <properties>
     <maven.min-version>3.0</maven.min-version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -257,4 +261,15 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+  <scm>
+    <url>https://github.com/dblock/waffle</url>
+    <connection>scm:git:https://github.com/dblock/waffle.git</connection>
+    <developerConnection>scm:git:https://github.com/dblock/waffle.git</developerConnection>
+  </scm>
+  <developers>
+    <developer>
+      <id>dblock</id>
+      <name>Daniel Doubrovkine</name>
+    </developer>
+  </developers>
 </project>

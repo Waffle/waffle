@@ -12,6 +12,9 @@
   <artifactId>waffle-tomcat7</artifactId>
   <packaging>jar</packaging>
 
+  <name>waffle-tomcat7</name>
+  <description>Tomcat 7 integration for WAFFLE</description>
+
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>

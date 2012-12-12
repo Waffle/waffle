@@ -12,6 +12,9 @@
   <artifactId>waffle-tomcat5</artifactId>
   <packaging>jar</packaging>
 
+  <name>waffle-tomcat5</name>
+  <description>Tomcat 5 integration for WAFFLE</description>
+
   <properties>
     <thirdparty.dir>${basedir}/../../ThirdParty</thirdparty.dir>
   </properties>

@@ -12,6 +12,9 @@
   <artifactId>waffle-jetty</artifactId>
   <packaging>jar</packaging>
 
+  <name>waffle-jetty</name>
+  <description>Jetty integration for WAFFLE</description>
+
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
