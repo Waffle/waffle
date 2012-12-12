@@ -18,7 +18,9 @@
 
   <modules>
     <module>build</module>
+    <!-- Excluded due to lack of any public or protected classes
     <module>waffle-jetty</module>
+    -->
     <module>waffle-jna</module>
     <module>waffle-spring-security2</module>
     <module>waffle-spring-security3</module>
