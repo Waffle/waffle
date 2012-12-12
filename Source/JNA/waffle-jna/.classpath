@@ -6,7 +6,6 @@
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/javax.servlet/2.5/servlet-api-2.5.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/com.google.guava/13.0.1/guava-13.0.1.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/junit/4.10/junit-4.10.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/net.sourceforge.groboutils/5/groboutils-core-5.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.mockito/1.9.5-rc1/mockito-all-1.9.5-rc1.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/ch.qos.logback/1.0.7/logback-classic-1.0.7.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/ch.qos.logback/1.0.7/logback-core-1.0.7.jar"/>

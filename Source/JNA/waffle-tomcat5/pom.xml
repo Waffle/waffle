@@ -1,0 +1,62 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.github.dblock.waffle</groupId>
+    <artifactId>waffle-parent</artifactId>
+    <version>1.5</version>
+    <relativePath>../build</relativePath>
+  </parent>
+  <artifactId>waffle-tomcat5</artifactId>
+  <packaging>jar</packaging>
+
+  <name>waffle-tomcat5</name>
+  <description>Tomcat 5 integration for WAFFLE</description>
+
+  <properties>
+    <thirdparty.dir>${basedir}/../../ThirdParty</thirdparty.dir>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>waffle-jna</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>waffle-tests</artifactId>
+      <version>${project.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>tomcat</groupId>
+      <artifactId>catalina</artifactId>
+      <version>5.5.36</version>
+      <systemPath>${thirdparty.dir}/tomcat/5.5.36/catalina-5.5.36.jar</systemPath>
+      <scope>system</scope>
+    </dependency>
+    <dependency>
+      <groupId>tomcat</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>5.5.36</version>
+      <systemPath>${thirdparty.dir}/tomcat/5.5.36/servlet-api-5.5.36.jar</systemPath>
+      <scope>system</scope>
+    </dependency>
+    <dependency>
+      <groupId>tomcat</groupId>
+      <artifactId>tomcat-util</artifactId>
+      <version>5.5.36</version>
+      <systemPath>${thirdparty.dir}/tomcat/5.5.36/tomcat-util-5.5.36.jar</systemPath>
+      <scope>system</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>1.7.2</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>

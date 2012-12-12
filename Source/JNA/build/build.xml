@@ -3,7 +3,7 @@
 	<property file="${basedir}/../../Version/Version.properties" />
 	<import file="common.xml" />
 	<fail message="Missing project.jar definition" unless="project.jar" />
-	<fail message="Missing project.version" unless="product.version" />
+	<fail message="Missing product.version" unless="product.version" />
 	<property name="waffle.version" value="${product.version}" />
 	<property name="waffle.java.version" value="1.6" />
 	<property name="waffle.copyright" value="${copyright.text}" />
@@ -46,7 +46,6 @@
 		<path refid="jna.classpath" />
 		<path refid="slf4j.classpath" />
 		<path refid="guava.classpath" />
-		<path refid="mockito.classpath" />
 	</path>
 	<macrodef name="compile">
 		<attribute name="optimize" />
@@ -69,8 +68,8 @@
 		</sequential>
 	</macrodef>
 	<!-- test -->
-	<path id="groboutils.classpath">
-		<fileset dir="${thirdparty.dir}/_lib/jar/net.sourceforge.groboutils/5">
+	<path id="contiperf.classpath">
+		<fileset dir="${thirdparty.dir}/_lib/jar/org.databene/2.2.0">
 			<include name="*.jar" />
 		</fileset>
 	</path>
@@ -85,7 +84,7 @@
 		</fileset>
 		<pathelement location="${waffle.test.src}" />
 		<pathelement location="${waffle.test.lib}" />
-		<path refid="groboutils.classpath" />
+		<path refid="contiperf.classpath" />
 		<path refid="emma.classpath" />
 	</path>
 	<target name="compile-tests">
@@ -110,7 +109,7 @@
 		</junitreport>
 		<echo message="See ${waffle.test}/report/index.html" />
 	</target>
-	<target name="test" depends="compile-tests">
+	<target name="test" depends="compile-tests" unless="skipTests">
 		<mkdir dir="${waffle.test}" />
 		<junit fork="true" newenvironment="true" failureproperty="tests.failed"
 			haltonfailure="no" haltonerror="no" printsummary="on" errorproperty="tests.failed">
