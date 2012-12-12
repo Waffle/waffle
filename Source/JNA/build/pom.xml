@@ -262,9 +262,9 @@
     </license>
   </licenses>
   <scm>
-    <url>https://github.com/dblock/waffle</url>
-    <connection>scm:git:https://github.com/dblock/waffle.git</connection>
-    <developerConnection>scm:git:https://github.com/dblock/waffle.git</developerConnection>
+    <connection>scm:git:git@github.com:dblock/waffle.git</connection>
+    <developerConnection>scm:git:git@github.com:dblock/waffle.git</developerConnection>
+    <url>git@github.com:dblock/waffle.git</url>
   </scm>
   <developers>
     <developer>
