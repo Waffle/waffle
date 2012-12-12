@@ -13,17 +13,21 @@
  *******************************************************************************/
 package waffle.servlet;
 
+import org.databene.contiperf.PerfTest;
+import org.databene.contiperf.junit.ContiPerfRule;
+
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
-
-import net.sourceforge.groboutils.junit.v1.MultiThreadedTestRunner;
-import net.sourceforge.groboutils.junit.v1.TestRunnable;
 
 /**
  * @author dblock[at]dblock[dot]org
  */
 public class NegotiateSecurityFilterLoadTests {
+
+    @Rule
+    public ContiPerfRule contiPerfRule = new ContiPerfRule();
 
 	private NegotiateSecurityFilterTests _tests = new NegotiateSecurityFilterTests();
 
@@ -37,21 +41,9 @@ public class NegotiateSecurityFilterLoadTests {
 		_tests.tearDown();
 	}
 
-	private class NegotiateSecurityFilterLoadTest extends TestRunnable {
-		@Override
-		public void runTest() throws Throwable {
-			_tests.testNegotiate();
-		}
-	}
-
 	@Test
+	@PerfTest(invocations = 10, threads = 10)
 	public void testLoad() throws Throwable {
-		int load = 10;
-		TestRunnable[] runs = new TestRunnable[load];
-		for (int i = 0; i < load; i++) {
-			runs[i] = new NegotiateSecurityFilterLoadTest();
-		}
-		MultiThreadedTestRunner mttr = new MultiThreadedTestRunner(runs);
-		mttr.runTestRunnables();
+		_tests.testNegotiate();
 	}
 }

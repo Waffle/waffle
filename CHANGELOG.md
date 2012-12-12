@@ -8,6 +8,15 @@ Features
   This allows Waffle to perform correct negotiation also in this case. Message structure is documented in
   [MSDN](http://msdn.microsoft.com/en-us/library/ms995330.aspx) - [@AriZuu](https://github.com/AriZuu).
 
+Development
+-----------
+
+* [#42](https://github.com/dblock/waffle/pull/42): Replaced [GroboUtils](http://groboutils.sourceforge.net/) with [ContiPerf](http://databene.org/contiperf.html) in the Java load tests to remove use of the "Opensymphony Release" repository - [@davidmc24](https://github.com/davidmc24)
+* [#42](https://github.com/dblock/waffle/pull/42): Enhanced the Ant build to allow specifying `-DskipTests=true` to skip running the tests to allow compilation on non-Windows platforms - [@davidmc24](https://github.com/davidmc24)
+* [#42](https://github.com/dblock/waffle/pull/42): Extracted a new "waffle-tests" component out of the existing "waffle-jna" component to remove compile-scope dependency on [mockito](http://code.google.com/p/mockito/) - [@davidmc24](https://github.com/davidmc24)
+* [#42](https://github.com/dblock/waffle/pull/42): Added [Maven](http://maven.apache.org/) POMs for the Java components - [@davidmc24](https://github.com/davidmc24)
+* ContiPerf 2.2.0
+
 1.5 (10/19/2012)
 ================
 

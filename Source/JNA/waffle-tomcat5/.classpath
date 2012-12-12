@@ -14,5 +14,6 @@
 	<classpathentry kind="lib" path="/thirdparty/tomcat/5.5.36/catalina-5.5.36.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/tomcat/5.5.36/servlet-api-5.5.36.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/tomcat/5.5.36/tomcat-util-5.5.36.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/waffle-tests"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

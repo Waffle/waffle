@@ -14,5 +14,6 @@
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/net.java.dev.jna/3.5.0/jna-3.5.0.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/net.java.dev.jna/3.5.0/platform-3.5.0.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.slf4j/1.7.2/slf4j-api-1.7.2.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/waffle-tests"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

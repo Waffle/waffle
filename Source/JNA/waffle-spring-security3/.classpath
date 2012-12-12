@@ -18,5 +18,6 @@
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.springframework/3.1.2.RELEASE/spring-expression-3.1.2.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.slf4j/1.7.2/jcl-over-slf4j-1.7.2.jar"/>
 	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.slf4j/1.7.2/slf4j-api-1.7.2.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/waffle-tests"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
