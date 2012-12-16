@@ -10,7 +10,7 @@ Unlike many other implementations Waffle on Windows does not require any server-
 Essentials
 ----------
 
-* [Download Version 1.5](https://github.com/downloads/dblock/waffle/Waffle.1.5.zip)
+* [Download Version 1.5](http://code.dblock.org/downloads/waffle/Waffle.1.5.zip)
 * [Get Waffle To Work in Tomcat, Jetty, WebSphere, etc.](https://github.com/dblock/waffle/blob/master/Docs/ServletSingleSignOnSecurityFilter.md)
 * [Need Help? Google Group](http://groups.google.com/group/waffle-users)
 * [Troubleshooting](https://github.com/dblock/waffle/blob/master/Docs/Troubleshooting.md)
