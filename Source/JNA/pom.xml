@@ -30,5 +30,7 @@
     -->
     <module>waffle-tomcat6</module>
     <module>waffle-tomcat7</module>
+
+    <module>demo</module>
   </modules>
 </project>

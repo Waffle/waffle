@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.github.dblock.waffle</groupId>
+        <artifactId>waffle-demo-parent</artifactId>
+        <version>1.5</version>
+    </parent>
+
+    <artifactId>waffle-filter-demo</artifactId>
+
+    <packaging>war</packaging>
+
+    <name>waffle-filter-demo</name>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>com.github.dblock.waffle</groupId>
+            <artifactId>waffle-tomcat6</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+
+    <build>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat6-maven-plugin</artifactId>
+                <configuration>
+                    <!-- requires matching block in .m2/settings.xml:
+            <servers>
+            ...
+                <server>
+                    <id>mylocalserver</id>
+                    <username>tomcat</username>
+                    <password>tomcat</password>
+                </server>
+
+                    Also requires user/perms in tomcat/conf/tomcat-users.xml:
+
+                      <role rolename="tomcat"/>
+                      <user username="tomcat" password="tomcat" roles="tomcat,manager-gui,manager-script,manager-jmx,manager-status"/>
+
+                    Note: To remote debug tomcat on port 8000, use: bin/catalina.sh jpda start
+                    -->
+                    <server>mylocalserver</server>
+                </configuration>
+            </plugin>
+
+
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <!-- could remove these if we used the maven convention for webapp dir layout. -->
+                    <warSourceDirectory>.</warSourceDirectory>
+                    <warSourceExcludes>pom.xml,target</warSourceExcludes>
+
+                    <webXml>WEB-INF/web.xml</webXml>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+<!--
+Setup
+
+* To deploy to a local running tomcat 6 instance, make the following changes:
+
+ 1. Add a server block to .m2/settings.xml:
+
+            <servers>
+            ...
+                <server>
+                    <id>mylocalserver</id>
+                    <username>tomcat</username>
+                    <password>tomcat</password>
+                </server>
+
+ 2. Add user/perms in tomcat/conf/tomcat-users.xml:
+
+                      <role rolename="tomcat"/>
+                      <user username="tomcat" password="tomcat" roles="tomcat,manager-gui,manager-script,manager-jmx,manager-status"/>
+
+ 3. Deploy to the local tomcat 6 instance using:
+
+        mvn clean package tomcat6:redeploy
+
+   The app will be available at:
+
+        http://localhost:8080/waffle-filter-demo/
+
+ 4. You can launch a locally installed tomcat with remote debugging enabled on port 8000 using:
+
+        apache-tomcat-6.0.35$ bin/catalina.sh jpda start
+
+-->
+</project>
