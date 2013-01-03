@@ -115,7 +115,7 @@ You can use maven to build and deploy this demo application by following the ste
     apache-tomcat-6.0.35$ bin/catalina.sh jpda start
 ```
 
-* Build and Deploy the demo application to the local tomcat 6 instance using:
+* Build and Deploy the demo application to the local tomcat 6 instance. In the waffle source tree, move to the directory: <waffle-dir>/Source/JNA/demo/waffle-filter, and execute the following:
 
 ```
    mvn clean package tomcat6:redeploy
