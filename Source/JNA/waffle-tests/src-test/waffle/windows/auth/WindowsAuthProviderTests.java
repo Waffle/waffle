@@ -17,6 +17,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeTrue;
 
 import org.junit.Test;
 
@@ -63,7 +64,8 @@ public class WindowsAuthProviderTests {
 		userInfo.usri1_name = new WString("WaffleTestUser");
 		userInfo.usri1_password = new WString("!WAFFLEP$$Wrd0");
 		userInfo.usri1_priv = LMAccess.USER_PRIV_USER;
-		assertEquals(LMErr.NERR_Success,
+        // ignore test if not able to add user (need to be administrator to do this).
+		assumeTrue(LMErr.NERR_Success ==
 				Netapi32.INSTANCE.NetUserAdd(null, 1, userInfo, null));
 		try {
 			IWindowsAuthProvider prov = new WindowsAuthProviderImpl();
@@ -88,7 +90,8 @@ public class WindowsAuthProviderTests {
 		userInfo.usri1_name = new WString(MockWindowsAccount.TEST_USER_NAME);
 		userInfo.usri1_password = new WString(MockWindowsAccount.TEST_PASSWORD);
 		userInfo.usri1_priv = LMAccess.USER_PRIV_USER;
-		assertEquals(LMErr.NERR_Success,
+		// ignore test if not able to add user (need to be administrator to do this).
+        assumeTrue(LMErr.NERR_Success ==
 				Netapi32.INSTANCE.NetUserAdd(null, 1, userInfo, null));
 		try {
 			IWindowsAuthProvider prov = new WindowsAuthProviderImpl();

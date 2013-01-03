@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeTrue;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -32,6 +33,7 @@ public class ImpersonateTests {
 
 	private NegotiateSecurityFilter _filter = null;
 	private LMAccess.USER_INFO_1 _userInfo;
+    private int resultOfNetAddUser;
 
 	@Before
 	public void setUp() {
@@ -47,18 +49,23 @@ public class ImpersonateTests {
 		_userInfo.usri1_name = new WString(MockWindowsAccount.TEST_USER_NAME);
 		_userInfo.usri1_password = new WString(MockWindowsAccount.TEST_PASSWORD);
 		_userInfo.usri1_priv = LMAccess.USER_PRIV_USER;
-		assertEquals(LMErr.NERR_Success,
-				Netapi32.INSTANCE.NetUserAdd(null, 1, _userInfo, null));
+
+        resultOfNetAddUser = Netapi32.INSTANCE.NetUserAdd(null, 1, _userInfo, null);
+        // ignore test if not able to add user (need to be administrator to do this).
+        assumeTrue(LMErr.NERR_Success == resultOfNetAddUser);
 	}
 
 	@After
 	public void tearDown() {
 		_filter.destroy();
 
-		assertEquals(
-				LMErr.NERR_Success,
-				Netapi32.INSTANCE.NetUserDel(null,
-						_userInfo.usri1_name.toString()));
+        if (LMErr.NERR_Success ==
+                resultOfNetAddUser) {
+            assertEquals(
+                    LMErr.NERR_Success,
+                    Netapi32.INSTANCE.NetUserDel(null,
+                            _userInfo.usri1_name.toString()));
+        }
 	}
 
 	@Test
