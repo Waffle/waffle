@@ -86,7 +86,45 @@ Filter Configuration Example
 Waffle Security Filter Demo
 ---------------------------
 
-A demo application can be found in the Waffle distribution in the `Samples\waffle-filter` directory. Copy the entire directory into Tomcat's or Jetty's webapps directory and navigate to http://localhost:8080/waffle-filter/. 
+A demo application can be found in the Waffle distribution in the `Samples\waffle-filter` directory. Copy the entire directory into Tomcat's or Jetty's webapps directory and navigate to http://localhost:8080/waffle-filter/.
+
+You can use maven to build and deploy this demo application by following the steps below. These assume you have checked out the waffle source tree.
+
+* Update your tomcat server configuration (tomcat/conf/tomcat-users.xml) to grant the roles required for a user to deploy an application into tomcat.
+
+```
+    <role rolename="tomcat"/>
+    <user username="tomcat" password="tomcat" roles="tomcat,manager-gui,manager-script,manager-jmx,manager-status"/>
+```
+
+* Update your maven settings.xml file (.m2/settings.xml) to include a definition of your local tomcat server and the user/pwd used to deploy to that server.
+
+```
+    <servers>
+    ...
+        <server>
+            <id>mylocalserver</id>
+            <username>tomcat</username>
+            <password>tomcat</password>
+        </server>
+```
+
+* Start your tomcat server. You can launch a locally installed tomcat with remote debugging enabled on port 8000 using:
+
+```
+    apache-tomcat-6.0.35$ bin/catalina.sh jpda start
+```
+
+* Build and Deploy the demo application to the local tomcat 6 instance using:
+
+```
+   mvn clean package tomcat6:redeploy
+```
+
+   The app will be available at:
+
+        http://localhost:8080/waffle-filter-demo/
+
 
 Troubleshooting (Tomcat)
 ------------------------
