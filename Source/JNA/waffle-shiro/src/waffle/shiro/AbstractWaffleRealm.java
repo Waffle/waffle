@@ -21,8 +21,6 @@ import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
-import com.sun.jna.platform.win32.Win32Exception;
-
 /**
  * A {@link org.apache.shiro.realm.Realm} that authenticates with Active
  * Directory using WAFFLE. Authorization is left for subclasses to define by
@@ -32,7 +30,7 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
     private static final Logger log = LoggerFactory.getLogger(AbstractWaffleRealm.class);
     private static final String realmName = "WAFFLE";
 
-    private final IWindowsAuthProvider provider = new WindowsAuthProviderImpl();
+    private IWindowsAuthProvider provider = new WindowsAuthProviderImpl();
 
     @Override
     protected final AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authToken)
@@ -53,7 +51,7 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
                     authenticationInfo = buildAuthenticationInfo(token, principal);
                     log.debug("Successful login for user {}", username);
                 }
-            } catch (Win32Exception ex) {
+            } catch (RuntimeException ex) {
                 log.debug("Failed login for user {}", username, ex);
                 throw new AuthenticationException("Login failed", ex);
             } finally {
@@ -99,6 +97,14 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
      */
     protected abstract AuthorizationInfo buildAuthorizationInfo(WaffleFqnPrincipal principal);
 
+    /**
+     * Allow overriding the default implementation of {@link IWindowsAuthProvider}
+     * This is only needed for testing, since for normal usage the default is what you want.
+     */
+	void setProvider(IWindowsAuthProvider provider) {
+		this.provider = provider;
+	}
+    
     private HashingPasswordService getHashService() {
         CredentialsMatcher matcher = getCredentialsMatcher();
         if (matcher instanceof PasswordMatcher) {
