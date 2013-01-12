@@ -7,6 +7,7 @@ Features
 * [#40](https://github.com/dblock/waffle/pull/40): Fixed problem with missing (zero-length) POST data by adding support for detecting SPNEGO negatiation packets.
   This allows Waffle to perform correct negotiation also in this case. Message structure is documented in
   [MSDN](http://msdn.microsoft.com/en-us/library/ms995330.aspx) - [@AriZuu](https://github.com/AriZuu).
+* [#48](https://github.com/dblock/waffle/pull/48): Add integration with [Apache Shiro](http://shiro.apache.org/)
 
 Development
 -----------
