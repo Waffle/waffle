@@ -30,6 +30,10 @@
 		<dependency org="javax.servlet" name="servlet-api" rev="2.5" transitive="false"/>
 		<dependency org="javax.servlet" name="javax.servlet-api" rev="3.0.1" transitive="false"/>
 
+		<!-- shiro -->
+		<dependency org="org.apache.shiro" name="shiro-web" rev="1.2.1" transitive="false"/>
+		<dependency org="org.apache.shiro" name="shiro-core" rev="1.2.1" transitive="false"/>
+
 		<!-- spring -->
 		<dependency org="org.springframework" name="spring" rev="2.5.6.SEC03" transitive="false"/>
 
