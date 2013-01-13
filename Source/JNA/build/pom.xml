@@ -16,7 +16,7 @@
   
   <groupId>com.github.dblock.waffle</groupId>
   <artifactId>waffle-parent</artifactId>
-  <version>1.5</version>
+  <version>1.6-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>waffle-parent</name>
