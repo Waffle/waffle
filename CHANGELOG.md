@@ -4,20 +4,18 @@
 Features
 --------
 
-* [#40](https://github.com/dblock/waffle/pull/40): Fixed problem with missing (zero-length) POST data by adding support for detecting SPNEGO negatiation packets.
-  This allows Waffle to perform correct negotiation also in this case. Message structure is documented in
-  [MSDN](http://msdn.microsoft.com/en-us/library/ms995330.aspx) - [@AriZuu](https://github.com/AriZuu).
-* [#48](https://github.com/dblock/waffle/pull/48): Add integration with [Apache Shiro](http://shiro.apache.org/)
+* [#40](https://github.com/dblock/waffle/pull/40): Added [SPNEGO negotiation](http://msdn.microsoft.com/en-us/library/ms995330.aspx) support - [@AriZuu](https://github.com/AriZuu).
+* [#48](https://github.com/dblock/waffle/pull/48): Added username/password authentication support for [Apache Shiro](http://shiro.apache.org/) - [@davidmc24](https://github.com/davidmc24).
 
 Development
 -----------
 
-* [#42](https://github.com/dblock/waffle/pull/42): Replaced [GroboUtils](http://groboutils.sourceforge.net/) with [ContiPerf](http://databene.org/contiperf.html) in the Java load tests to remove use of the "Opensymphony Release" repository - [@davidmc24](https://github.com/davidmc24)
-* [#42](https://github.com/dblock/waffle/pull/42): Enhanced the Ant build to allow specifying `-DskipTests=true` to skip running the tests to allow compilation on non-Windows platforms - [@davidmc24](https://github.com/davidmc24)
-* [#42](https://github.com/dblock/waffle/pull/42): Extracted a new "waffle-tests" component out of the existing "waffle-jna" component to remove compile-scope dependency on [mockito](http://code.google.com/p/mockito/) - [@davidmc24](https://github.com/davidmc24)
-* [#42](https://github.com/dblock/waffle/pull/42): Added [Maven](http://maven.apache.org/) POMs for the Java components - [@davidmc24](https://github.com/davidmc24)
-* ContiPerf 2.2.0
-* [#44](https://github.com/dblock/waffle/pull/44): Add pom.xml files to create a .war and deploy demo filter web app to local tomcat - [@bhamail](https://github.com/bhamail)
+* [#42](https://github.com/dblock/waffle/pull/42): Replaced [GroboUtils](http://groboutils.sourceforge.net/) with [ContiPerf](http://databene.org/contiperf.html) in the Java load tests to remove use of the "Opensymphony Release" repository - [@davidmc24](https://github.com/davidmc24).
+* [#42](https://github.com/dblock/waffle/pull/42): Enhanced the Ant build to allow specifying `-DskipTests=true` to skip running the tests to allow compilation on non-Windows platforms - [@davidmc24](https://github.com/davidmc24).
+* [#42](https://github.com/dblock/waffle/pull/42): Extracted a new "waffle-tests" component out of the existing "waffle-jna" component to remove compile-scope dependency on [mockito](http://code.google.com/p/mockito/) - [@davidmc24](https://github.com/davidmc24).
+* [#42](https://github.com/dblock/waffle/pull/42): Added [Maven](http://maven.apache.org/) POMs for the Java components - [@davidmc24](https://github.com/davidmc24).
+* Added ContiPerf 2.2.0.
+* [#44](https://github.com/dblock/waffle/pull/44): Add pom.xml files to create a .war and deploy demo filter web app to a local Tomcat server - [@bhamail](https://github.com/bhamail).
 
 1.5 (10/19/2012)
 ================
