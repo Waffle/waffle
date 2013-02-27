@@ -28,6 +28,13 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <!-- prevent warning: SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder". -->
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.0.9</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.apache.shiro</groupId>
       <artifactId>shiro-web</artifactId>
       <version>1.2.1</version>

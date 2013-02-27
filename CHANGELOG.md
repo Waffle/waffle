@@ -6,6 +6,7 @@ Features
 
 * [#40](https://github.com/dblock/waffle/pull/40): Added [SPNEGO negotiation](http://msdn.microsoft.com/en-us/library/ms995330.aspx) support - [@AriZuu](https://github.com/AriZuu).
 * [#48](https://github.com/dblock/waffle/pull/48): Added username/password authentication support for [Apache Shiro](http://shiro.apache.org/) - [@davidmc24](https://github.com/davidmc24).
+* [#50](https://github.com/dblock/waffle/pull/50): Added negotiate authentication support for [Apache Shiro](http://shiro.apache.org/) - [@bhamail](https://github.com/bhamail).
 
 Development
 -----------
