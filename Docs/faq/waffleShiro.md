@@ -8,5 +8,5 @@ The `waffle.shiro.GroupMappingWaffleRealm` provides a User/Password Realm that u
 The `waffle.shiro.negotiate.NegotiateAuthenticationFilter` and `waffle.shiro.negotiate.NegotiateAuthenticationRealm`
 provide SingleSignOn (see shiro.ini notes in `DynamicAuthenticationFilter` javadocs regarding SSOCookie config).
 
-The `waffle.shiro.dynamic.DynamicAuthenticationFilter` and `waffle.shiro.dynamic.DynamicAuthenticationStrategy' provide
-a way for a use to select which authentication type is used at runtime.
+The `waffle.shiro.dynamic.DynamicAuthenticationFilter` and `waffle.shiro.dynamic.DynamicAuthenticationStrategy` provide
+a way for a client to select which authentication type is used at runtime.
