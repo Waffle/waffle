@@ -39,7 +39,7 @@ import javax.servlet.ServletResponse;
  [main]
 
  # Setup custom AuthenticationRealm
- waffleRealmSSO = com.danrollo.negotiate.waffle.NegotiateAuthenticationRealm
+ waffleRealmSSO = waffle.shiro.negotiate.NegotiateAuthenticationRealm
  waffleUserPass = waffle.shiro.GroupMappingWaffleRealm
  securityManager.realms = $waffleRealmSSO, $waffleUserPass
 
