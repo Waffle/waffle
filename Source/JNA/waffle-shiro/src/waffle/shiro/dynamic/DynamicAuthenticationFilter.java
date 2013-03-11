@@ -1,13 +1,3 @@
-/*******************************************************************************
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Dan Rollo
- *******************************************************************************/
-
 package waffle.shiro.dynamic;
 
 import waffle.shiro.negotiate.NegotiateAuthenticationFilter;
@@ -25,6 +15,9 @@ import javax.servlet.ServletResponse;
  * which authentication filter is used at runtime. This filter assumes the shiro.ini is configured with both the
  * {@link waffle.shiro.negotiate.NegotiateAuthenticationRealm} and some User/Password Realm like:
  * {@link waffle.shiro.GroupMappingWaffleRealm}.
+ *
+ * Requires use of {@link DynamicAuthenticationStrategy} when
+ * more than one realm is configured in shiro.ini (which should be the case for multiple authentication type options).
  *
  * To use {@link waffle.shiro.negotiate.NegotiateAuthenticationRealm}, the client must pass the
  * parameter {@link #PARAM_NAME_AUTHTYPE} with a value of {@link #PARAM_VAL_AUTHTYPE_NEGOTIATE}.
@@ -92,6 +85,9 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
     public static final String PARAM_NAME_AUTHTYPE = "authType";
     public static final String PARAM_VAL_AUTHTYPE_NEGOTIATE = "j_negotiate";
 
+    /**
+     * Wrapper to make protected methods in different package callable from here.
+     */
     private static final class WrapNegotiateAuthenticationFilter extends NegotiateAuthenticationFilter {
 
         private final DynamicAuthenticationFilter parent;
@@ -117,6 +113,9 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
 
 
 
+    /**
+     * Wrapper to make protected methods in different package callable from here.
+     */
     private static final class WrapFormAuthenticationFilter extends FormAuthenticationFilter {
 
         private final DynamicAuthenticationFilter parent;
@@ -139,7 +138,12 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
     private final WrapFormAuthenticationFilter filterFormAuthc = new WrapFormAuthenticationFilter(this);
 
 
-
+    /**
+     * Call {@link org.apache.shiro.web.filter.AccessControlFilter#onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse)}
+     * for the user selected authentication type, which performs login logic.
+     *
+     * {@inheritDoc}
+     */
     @Override
     protected boolean executeLogin(final ServletRequest request, final ServletResponse response) throws Exception {
         if (isAuthTypeNegotiate(request)) {
