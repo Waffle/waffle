@@ -3,6 +3,11 @@ Setting Up a Development Environment
 
 You're encouraged to contribute to WAFFLE. The latest information about this project and source code can be found at [https://github.com/dblock/waffle](https://github.com/dblock/waffle)
 
+Contributing
+------------
+
+Fork the project. Make pull requests. Bonus points for topic branches.
+
 Source Code
 -----------
 
@@ -40,9 +45,3 @@ To change which demo you are running, change:
 ```
 String path = "../demo/waffle-filter";
 ```
-
-
-Contributing
-------------
-
-Fork the project. Make pull requests. Bonus points for topic branches.
