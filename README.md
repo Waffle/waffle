@@ -11,10 +11,10 @@ Essentials
 ----------
 
 * [Download Version 1.5](http://code.dblock.org/downloads/waffle/Waffle.1.5.zip)
-* [Get Waffle To Work in Tomcat, Jetty, WebSphere, etc.](https://github.com/dblock/waffle/blob/master/Docs/ServletSingleSignOnSecurityFilter.md)
+* [Get Waffle To Work in Tomcat, Jetty, WebSphere, etc.](Docs/ServletSingleSignOnSecurityFilter.md)
 * [Need Help? Google Group](http://groups.google.com/group/waffle-users)
-* [Troubleshooting](https://github.com/dblock/waffle/blob/master/Docs/Troubleshooting.md)
-* [Frequently Asked Questions](https://github.com/dblock/waffle/blob/master/Docs/FAQ.md)
+* [Troubleshooting](Docs/Troubleshooting.md)
+* [Frequently Asked Questions](Docs/FAQ.md)
 * [Older Versions on CodePlex](http://waffle.codeplex.com/).
 * [PlatformSDK Security Group](https://groups.google.com/group/microsoft.public.platformsdk.security)
 
@@ -52,6 +52,15 @@ Related and Similar Products
 * [Quest Vintella Single-Sign-On](http://www.quest.com/single-sign-on-for-java/) (Commercial)
 * [IOPlex Jespa](http://www.ioplex.com/) (Commercial)
 * [Josso](http://www.josso.org/confluence/display/JOSSO1/JOSSO+-+Java+Open+Single+Sign-On+Project+Home)
+
+Contributing
+------------
+
+* Fork the project.
+* [Set Up a Development Environment](Docs/SettingUpDevelopmentEnvironment.md).
+* Make your code changes. Don't forget tests.
+* Update [CHANGELOG](CHANGELOG.md).
+* Make pull requests. Bonus points for topic branches. 
 
 License and Copyright
 ---------------------
