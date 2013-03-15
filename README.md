@@ -11,6 +11,7 @@ Essentials
 ----------
 
 * [Download Version 1.5](http://code.dblock.org/downloads/waffle/Waffle.1.5.zip)
+* [Waffle in Sonatype Maven](https://oss.sonatype.org/content/repositories/releases/com/github/dblock/waffle/)
 * [Get Waffle To Work in Tomcat, Jetty, WebSphere, etc.](Docs/ServletSingleSignOnSecurityFilter.md)
 * [Need Help? Google Group](http://groups.google.com/group/waffle-users)
 * [Troubleshooting](Docs/Troubleshooting.md)
