@@ -21,12 +21,12 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 /**
- * When combined with the {@link DynamicAuthenticationStrategy}, this filter can be used to allow a client to choose
+ * When combined with the {@link waffle.shiro.negotiate.NegotiateAuthenticationStrategy}, this filter can be used to allow a client to choose
  * which authentication filter is used at runtime. This filter assumes the shiro.ini is configured with both the
  * {@link waffle.shiro.negotiate.NegotiateAuthenticationRealm} and some User/Password Realm like:
  * {@link waffle.shiro.GroupMappingWaffleRealm}.
  *
- * Requires use of {@link DynamicAuthenticationStrategy} when
+ * Requires use of {@link waffle.shiro.negotiate.NegotiateAuthenticationStrategy} when
  * more than one realm is configured in shiro.ini (which should be the case for multiple authentication type options).
  *
  * To use {@link waffle.shiro.negotiate.NegotiateAuthenticationRealm}, the client must pass the
@@ -63,7 +63,7 @@ import javax.servlet.ServletResponse;
  securityManager.sessionManager.sessionIdCookie = $cookie
 
 
- authcStrategy = waffle.shiro.dynamic.DynamicAuthenticationStrategy
+ authcStrategy = waffle.shiro.negotiate.NegotiateAuthenticationStrategy
  securityManager.authenticator.authenticationStrategy = $authcStrategy
 
  # Waffle filter
