@@ -99,6 +99,13 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
     			targetName, new NativeLong(Sspi.ISC_REQ_CONNECTION), new NativeLong(0), 
     			new NativeLong(Sspi.SECURITY_NATIVE_DREP), continueToken, new NativeLong(0), _ctx, _token, 
     			_attr, null);
+        if (continueToken != null && continueToken.pBuffers != null) {
+        	for (SecBuffer buffer : continueToken.pBuffers) {
+        		if (buffer.pvBuffer != null) {
+        			Secur32.INSTANCE.FreeContextBuffer(buffer.pvBuffer);
+        		}
+        	}
+        }
     	switch(rc) {
     	case W32Errors.SEC_I_CONTINUE_NEEDED:
     		_continue = true;
