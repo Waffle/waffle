@@ -68,7 +68,7 @@ For Java, use Eclipse and import the projects under `Source`. Make sure to also 
 
 To run the demos within the IDE, you can right click *StartEmbeddedJetty* > *Run As* (or *Debug As*) > *Java Appliction*. The server will start on localhost:8080.
 
-![start-jetty-in-eclipse](Docs/imgs/eclipse-start-jetty.png)
+![start-jetty-in-eclipse](imgs/eclipse-start-jetty.png)
 
 To change which demo you are running, edit the code:
 
