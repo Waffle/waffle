@@ -9,6 +9,7 @@ General FAQ
 * [How can I retrieve additional information, such as user's position in the company, from Active Directory?](faq/AdditionalActiveDirectoryInfo.md)
 * [Can Waffle be used with Atlassian JIRA?](faq/AtlassianJIRA.md)
 * [Can Waffle be used with Apache Shiro?](faq/waffleShiro.md)
+* [How can I prevent the browser from showing a login popup on failed authentication?](faq/ClientSideFailures.md)
 
 Troubleshooting Stories
 -----------------------
