@@ -5,4 +5,4 @@ There's no way to do this, because in many cases the client shows the login dial
 
 Negotiate is a multi-step protocol, in which the client and the server exchange messages many times. SSO fails, and the client eventually decides to give up an pops up the message. If this is unexpected, go through the [troubleshooting steps](../Troubleshooting.md).
 
-For legitimate scenarios where SSO is not possible, let users decide whether they want to do SSO or login with a form using a [mixed authenticator](../Docs/tomcat/TomcatMixedSingleSignOnAndFormAuthenticatorValve.md).
+For legitimate scenarios where SSO is not possible, let users decide whether they want to do SSO or login with a form using a [mixed authenticator](../tomcat/TomcatMixedSingleSignOnAndFormAuthenticatorValve.md).
