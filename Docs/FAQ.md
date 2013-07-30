@@ -5,7 +5,7 @@ Frequently Asked Questions (FAQ)
 General FAQ
 -----------
 
-* [Can Waffle be used on the client side?](http://waffle.codeplex.com/discussions/226268)
+* [Can Waffle be used on the client side?](faq/ClientSide.md)
 * [Does Waffle work on *nix, including Linux?](faq/DoesWaffleWorkOnLinux.md)
 * [How can I retrieve additional information, such as user's position in the company, from Active Directory?](faq/AdditionalActiveDirectoryInfo.md)
 * [Can Waffle be used with Atlassian JIRA?](faq/AtlassianJIRA.md)
