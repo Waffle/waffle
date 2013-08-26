@@ -12,9 +12,9 @@ package waffle.shiro;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.junit.matchers.JUnitMatchers.hasItems;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Collections;
 
@@ -23,6 +23,7 @@ import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -50,16 +51,16 @@ public class GroupMappingWaffleRealmTests {
 				getCurrentUserName(), "somePassword");
 		AuthenticationInfo authcInfo = realm.getAuthenticationInfo(token);
 		PrincipalCollection principals = authcInfo.getPrincipals();
-		assertThat(principals.isEmpty(), is(false));
+		assertFalse(principals.isEmpty());
 		Object primaryPrincipal = principals.getPrimaryPrincipal();
 		assertThat(primaryPrincipal, instanceOf(WaffleFqnPrincipal.class));
 		WaffleFqnPrincipal fqnPrincipal = (WaffleFqnPrincipal) primaryPrincipal;
 		assertThat(fqnPrincipal.getFqn(), equalTo(getCurrentUserName()));
-		assertThat(fqnPrincipal.getGroupFqns(), hasItems("Users", "Everyone"));
+		assertThat(fqnPrincipal.getGroupFqns(), CoreMatchers.hasItems("Users", "Everyone"));
 		Object credentials = authcInfo.getCredentials();
 		assertThat(credentials, instanceOf(char[].class));
 		assertThat((char[]) credentials, equalTo("somePassword".toCharArray()));
-		assertThat(realm.hasRole(principals, ROLE_NAME), is(true));
+		assertTrue(realm.hasRole(principals, ROLE_NAME));
 	}
 
 	@Test(expected = AuthenticationException.class)
