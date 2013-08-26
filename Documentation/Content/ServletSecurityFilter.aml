@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="5B8B568A-AE04-444a-80AF-394A5EE7ACCA" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para>
+        The Waffle Servlet Security Filter implements the Negotiate and Basic protocols with Kerberos and NTLM single
+        sign-on support. This allows users to browse to a Windows intranet site without having to re-enter credentials for
+        browsers that support Kerberos or NTLM and to fall back to Basic authentication for those that do not. While it
+        still enables you to protect different resources based on different user roles (user groups), the filter is a
+        catch-all solution to  enable Windows single-sign-on for a web server that implements servlets (Tomcat, Jetty, etc.).
+      </para>
+      <para>
+        Moreover, this filter supports impersonating the remote client, enabling to perform actions as the remote user using 
+        native Windows APIs.
+      </para>
+    </introduction>
+    <section address="configuration">
+      <title>Configuring Web Servers</title>
+      <content>
+        <para>
+          The following steps are required to configure a web server with the Waffle Servlet Security Filter.
+          <list class="ordered">
+            <listItem>
+              Package <localUri>waffle-jna.jar</localUri>, <localUri>commons-logging-1.1.1.jar</localUri>,
+              <localUri>guava-r07.jar</localUri>, <localUri>jna.jar</localUri> and <localUri>platform.jar</localUri> 
+              in the application's <localUri>lib</localUri> directory or copy them to your web server's <localUri>lib</localUri>.
+            </listItem>
+            <listItem>
+              Add a security filter to <localUri>WEB-INF\web.xml</localUri> of your application.
+              <code lang="xml">
+                <![CDATA[
+<filter>
+  <filter-name>SecurityFilter</filter-name>
+  <filter-class>waffle.servlet.NegotiateSecurityFilter</filter-class>
+</filter>
+<filter-mapping>
+  <filter-name>SecurityFilter</filter-name>
+  <url-pattern>/*</url-pattern>
+</filter-mapping>]]>
+              </code>
+            </listItem>
+          </list>
+        </para>
+      </content>
+    </section>
+    <section address="filteroptions">
+      <title>Filter Options</title>
+      <content>
+        <para>
+          The filter can be configured with the following <literal>init-param</literal> options.
+          <tableDefinition>
+            <definedTerm>principalFormat</definedTerm>
+            <definition>Specifies the name format for the principal.</definition>
+            <definedTerm>roleFormat</definedTerm>
+            <definition>Specifies the name format for the role.</definition>
+            <definedTerm>allowGuestLogin</definedTerm>
+            <definition>
+              Allow guest login. When <literal>true</literal> and the system's Guest account is enabled,
+              any invalid login succeeds as Guest.
+              <alert class="note">
+                <para>
+                  While the default value of <literal>allowGuestLogin</literal> is true, it is recommended
+                  that you disable the system's Guest account to disallow Guest login. This option is provided
+                  for systems where you don't have administrative privileges.
+                </para>
+              </alert>
+            </definition>
+            <definedTerm>authProvider</definedTerm>
+            <definition>
+              A class that implements <literal>IWindowsAuthProvider</literal> and has a parameterless
+              constructor.
+            </definition>
+            <definedTerm>securityFilterProviders</definedTerm>
+            <definition>
+              A list of security filter providers. By default, both <literal>BasicSecurityFilterProvider</literal>
+              and <literal>NegotiateSecurityFilterProvider</literal> will be loaded.
+            </definition>
+            <definedTerm>waffle.servlet.spi.NegotiateSecurityFilterProvider/protocols</definedTerm>
+            <definition>
+              A list of security protocols supported by the NegotiateSecurityFilterProvider. 
+              Can be one of or a combination of <literal>Negotiate</literal> and <literal>NTLM</literal>.              
+            </definition>
+            <definedTerm>waffle.servlet.spi.BasicSecurityFilterProvider/realm</definedTerm>
+            <definition>
+              The name of the Realm for BASIC authentication.
+            </definition>
+            <definedTerm>impersonate</definedTerm>
+            <definition>
+              Allow impersonation. When <literal>true</literal> the remote user will be impersonated.
+              <alert class="note">
+                <para>
+                  There is no mapping between the Windows native threads, under which the impersonation takes place,
+                  and the Java threads. Thus you'll need to use Windows native APIs to perform impersonated actions.
+                  Any action done in Java will still be performed with the user account running the servlet container.
+                </para>
+              </alert>
+            </definition>
+          </tableDefinition>
+        </para>
+      </content>
+    </section>
+    <section address="filterconfigurationexample">
+      <title>Filter Configuration Example</title>
+      <content>
+        <para>
+          <code lang="xml">
+            <![CDATA[
+<filter>
+  <filter-name>SecurityFilter</filter-name>
+  <filter-class>waffle.servlet.NegotiateSecurityFilter</filter-class>   
+  <init-param>
+  	<param-name>principalFormat</param-name>
+  	<param-value>fqn</param-value>
+  </init-param>
+  <init-param>
+  	<param-name>roleFormat</param-name>
+  	<param-value>both</param-value>
+  </init-param>
+  <init-param>
+  	<param-name>allowGuestLogin</param-name>
+  	<param-value>true</param-value>
+  </init-param>
+  <init-param>
+  	<param-name>impersonate</param-name>
+  	<param-value>true</param-value>
+  </init-param>
+  <init-param>
+  	<param-name>securityFilterProviders</param-name>
+  	<param-value>
+  		waffle.servlet.spi.BasicSecurityFilterProvider
+  		waffle.servlet.spi.NegotiateSecurityFilterProvider
+  	</param-value>
+  </init-param>
+  <init-param>
+	  <param-name>waffle.servlet.spi.NegotiateSecurityFilterProvider/protocols</param-name>
+	  <param-value>
+		  Negotiate
+		  NTLM
+	  </param-value>
+  </init-param>
+  <init-param>    
+	  <param-name>waffle.servlet.spi.BasicSecurityFilterProvider/realm</param-name>
+	  <param-value>WaffleFilterDemo</param-value>
+  </init-param>
+</filter>]]>
+          </code>
+        </para>
+      </content>
+    </section>
+    <section address="demoapplication">
+      <title>Waffle Security Filter Demo</title>
+      <content>
+        <para>
+          A demo application can be found in the Waffle distribution in the <localUri>Samples\waffle-filter</localUri>
+          directory. Copy the entire directory into Tomcat's or Jetty's <localUri>webapps</localUri> directory and navigate to
+          <ficticiousUri>http://localhost:8080/waffle-filter/</ficticiousUri>.
+        </para>
+      </content>
+    </section>
+    <section address="troubleshootingtomcat">
+      <title>Troubleshooting (Tomcat)</title>
+      <content>
+        <para>
+          <list class="bullet">
+            <listItem>
+              Enable waffle logging. Add the following to <localUri>conf\logging.properties</localUri> in your
+              Tomcat installation.
+              <code lang="properties">
+                <![CDATA[
+waffle.servlet.NegotiateSecurityFilter.level = FINE
+waffle.servlet.spi.SecurityFilterProviderCollection.level = FINE
+waffle.servlet.spi.NegotiateSecurityFilterProvider.level = FINE
+waffle.servlet.spi.BasicSecurityFilterProvider.level = FINE
+                ]]>
+              </code>
+            </listItem>
+            <listItem>
+              Restart Tomcat and review <localUri>logs\Catalina*.log</localUri>.
+            </listItem>
+          </list>
+        </para>
+      </content>
+    </section>
+    <relatedTopics>
+      <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="D665805A-215E-44e6-8CC5-4519B8844455" />
+      <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="ABA7606B-08F8-49e2-A973-8FBE62649118" />
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>

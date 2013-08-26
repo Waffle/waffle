@@ -1,0 +1,113 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat Configuration Reference (6.0.35) - The Loader Component</title><meta content="Craig R. McClanahan" name="author"><style media="print" type="text/css">
+			.noPrint {display: none;}
+			td#mainBody {width: 100%;}
+		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
+    The Apache Tomcat Servlet/JSP Container
+  " align="right" src="../images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1><font face="arial,helvetica,sanserif">Version 6.0.35, Nov 28 2011</font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li><li><a href="index.html">Config Ref. Home</a></li></ul><p><strong>Top Level Elements</strong></p><ul><li><a href="server.html">Server</a></li><li><a href="service.html">Service</a></li></ul><p><strong>Executors</strong></p><ul><li><a href="executor.html">Executor</a></li></ul><p><strong>Connectors</strong></p><ul><li><a href="http.html">HTTP</a></li><li><a href="ajp.html">AJP</a></li></ul><p><strong>Containers</strong></p><ul><li><a href="context.html">Context</a></li><li><a href="engine.html">Engine</a></li><li><a href="host.html">Host</a></li><li><a href="cluster.html">Cluster</a></li></ul><p><strong>Nested Components</strong></p><ul><li><a href="filter.html">Filter</a></li><li><a href="globalresources.html">Global Resources</a></li><li><a href="listeners.html">Listeners</a></li><li><a href="loader.html">Loader</a></li><li><a href="manager.html">Manager</a></li><li><a href="realm.html">Realm</a></li><li><a href="resources.html">Resources</a></li><li><a href="valve.html">Valve</a></li></ul><p><strong>Cluster Elements</strong></p><ul><li><a href="cluster.html">Cluster</a></li><li><a href="cluster-manager.html">Manager</a></li><li><a href="cluster-channel.html">Channel</a></li><li><a href="cluster-membership.html">Channel/Membership</a></li><li><a href="cluster-sender.html">Channel/Sender</a></li><li><a href="cluster-receiver.html">Channel/Receiver</a></li><li><a href="cluster-interceptor.html">Channel/Interceptor</a></li><li><a href="cluster-valve.html">Valve</a></li><li><a href="cluster-deployer.html">Deployer</a></li><li><a href="cluster-listener.html">ClusterListener</a></li></ul><p><strong>Global Settings</strong></p><ul><li><a href="systemprops.html">System properties</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat Configuration Reference</h1><h2>The Loader Component</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
+<ul><li><a href="#Introduction">Introduction</a></li><li><a href="#Attributes">Attributes</a><ol><li><a href="#Common_Attributes">Common Attributes</a></li><li><a href="#Standard_Implementation">Standard Implementation</a></li></ol></li><li><a href="#Nested_Components">Nested Components</a></li><li><a href="#Special_Features">Special Features</a><ol><li><a href="#Logging">Logging</a></li></ol></li></ul>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>The <strong>Loader</strong> element represents the <em>web
+  application class loader</em> that will be used to load Java
+  classes and resources for your web application.  Such
+  a class loader must follow the requirements of the Servlet
+  Specification, and load classes from the following locations:</p>
+  <ul>
+  <li>From the <code>/WEB-INF/classes</code> directory inside your
+      web application.</li>
+  <li>From JAR files in the <code>/WEB-INF/lib</code> directory
+      inside your web application.</li>
+  <li>From resources made available by Catalina to all web
+      applications globally.</li>
+  </ul>
+
+  <p>A Loader element MAY be nested inside a <a href="context.html">Context</a>
+  component.  If it is not included, a default Loader configuration will be
+  created automatically, which is sufficient for most requirements.</p>
+
+  <p>For a more in-depth description of the class loader hierarchy
+  that is implemented by Catalina, see <a href="../class-loader-howto.html">the ClassLoader HowTo</a>.</p>
+
+    <blockquote><em>
+    <p>The description below uses the variable name $CATALINA_BASE to refer the
+    base directory against which most relative paths are resolved. If you have
+    not configured Tomcat 6 for multiple instances by setting a CATALINA_BASE
+    directory, then $CATALINA_BASE will be set to the value of $CATALINA_HOME,
+    the directory into which you have installed Tomcat 6.</p>
+    </em></blockquote>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Attributes"><strong>Attributes</strong></a></font></td></tr><tr><td><blockquote>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Common Attributes"><!--()--></a><a name="Common_Attributes"><strong>Common Attributes</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>All implementations of <strong>Loader</strong>
+    support the following attributes:</p>
+
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>className</code></td><td valign="center" align="left">
+        <p>Java class name of the implementation to use.  This class must
+        implement the <code>org.apache.catalina.Loader</code> interface.
+        If not specified, the standard value (defined below) will be used.</p>
+      </td></tr><tr><td valign="center" align="left"><code>delegate</code></td><td valign="center" align="left">
+        <p>Set to <code>true</code> if you want the class loader to follow
+        the standard Java2 delegation model, and attempt to load classes from
+        parent class loaders <strong>before</strong> looking inside the web
+        application.  Set to <code>false</code> (the default) to have the
+        class loader look inside the web application first, before asking
+        parent class loaders to find requested classes or resources.</p>
+      </td></tr><tr><td valign="center" align="left"><code>reloadable</code></td><td valign="center" align="left">
+        <p>Set to <code>true</code> if you want Catalina to monitor classes in
+        <code>/WEB-INF/classes/</code> and <code>/WEB-INF/lib</code> for
+        changes, and automatically reload the web application if a change
+        is detected.  This feature is very useful during application
+        development, but it requires significant runtime overhead and is
+        not recommended for use on deployed production applications.  You
+        can use the <a href="../manager-howto.html">Manager</a> web
+        application, however, to trigger reloads of deployed applications
+        on demand.</p>
+
+        <p><strong>NOTE</strong> - The value for this property will be
+        inherited from the <code>reloadable</code> attribute you set on
+        the surrounding <a href="context.html">Context</a> component,
+        and any value you explicitly set here will be replaced.</p>
+      </td></tr></table>
+
+  </blockquote></td></tr></table>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Standard Implementation"><!--()--></a><a name="Standard_Implementation"><strong>Standard Implementation</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The standard implementation of <strong>Loader</strong> is
+    <strong>org.apache.catalina.loader.WebappLoader</strong>.
+    It supports the following additional attributes (in addition to the
+    common attributes listed above):</p>
+
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>loaderClass</code></td><td valign="center" align="left">
+        <p>Java class name of the <code>java.lang.ClassLoader</code>
+        implementation class to use.  If not specified, the default value is
+        <code>org.apache.catalina.loader.WebappClassLoader</code>. Custom
+        <strong>loaderClass</strong> implementations must extend
+        <code>org.apache.catalina.loader.WebappClassLoader</code>.</p>
+      </td></tr><tr><td valign="center" align="left"><code>searchExternalFirst</code></td><td valign="center" align="left">
+        <p>Set to <code>true</code> if you want repositories outside
+        of <code>WEB-INF/classes</code> and <code>WEB-INF/lib</code> to
+        be searched first. Default value is <code>false</code>.</p>
+      </td></tr></table>
+
+  </blockquote></td></tr></table>
+
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Nested Components"><!--()--></a><a name="Nested_Components"><strong>Nested Components</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>No components may be nested inside a <strong>Loader</strong> element.</p>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Special Features"><!--()--></a><a name="Special_Features"><strong>Special Features</strong></a></font></td></tr><tr><td><blockquote>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Logging"><strong>Logging</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>A loader is associated with the log category based on its classname.</p>
+
+  </blockquote></td></tr></table>
+
+</blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
+        Copyright &copy; 1999-2011, Apache Software Foundation
+        </em></font></div></td></tr></table></body></html>

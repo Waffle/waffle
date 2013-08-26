@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="1489d227-4898-4952-9941-aaad7a4a67f2" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para>
+        This library publishes several Windows authentication, authorization and membership interfaces.
+        It exposes a COM interface that requires registration.
+      </para>
+    </introduction>
+    <section address="csharp">
+      <title>Getting Started in C#</title>
+      <content>
+        <para>
+          Reference <localUri>Waffle.Windows.AuthProvider.dll</localUri>.
+          Create a new instance of 
+          <codeEntityReference qualifyHint="true">T:Waffle.Windows.AuthProvider.WindowsAuthProviderImpl</codeEntityReference>.
+          <code language="cs">
+<![CDATA[
+WindowsAuthProviderImpl waffle = new WindowsAuthProviderImpl();
+IWindowsAccount admin = waffle.LookupAccount("Administrator");
+Console.WriteLine(admin.SidString);
+Console.WriteLine(admin.Fqn);
+]]>
+          </code>
+      </para>
+      </content>
+    </section>
+    <section address="gettingstartedcom">
+      <title>Getting Started with COM (Script)</title>
+      <content>
+        <para>
+          Register the authentication provider DLL as follows.
+          <code language="cmd">
+            <![CDATA[regasm.exe /codebase /tlb:Waffle.Windows.AuthProvider.tlb Waffle.Windows.AuthProvider.dll]]>
+          </code>
+          Create a new instance of <codeEntityReference qualifyHint="true">T:Waffle.Windows.AuthProvider.WindowsAuthProviderImpl</codeEntityReference>.
+          <code language="vbscript">
+            <![CDATA[set windowsAuthProviderImpl = CreateObject("Waffle.Windows.AuthProvider")]]>            
+          </code>
+        </para>
+      </content>
+    </section>
+    <section address="javanative">
+      <title>Getting Started in Java (Native)</title>
+      <content>
+        <para>
+          Add <localUri>waffle-jna.jar</localUri>, <localUri>commons-logging-1.1.1.jar</localUri>, 
+          <localUri>guava-r07.jar</localUri>, <localUri>jna.jar</localUri> and <localUri>platform.jar</localUri>
+          to your CLASSPATH. Create a new instance of <newTerm>waffle.windows.auth.impl.WindowsAuthProviderImpl</newTerm>.
+        </para>
+      </content>
+    </section>
+    <section address="javacom">
+      <title>Getting Started in Java (COM)</title>
+      <content>
+        <alert class="note">
+          <para>
+            The Java COM bridge is deprecated. Use the native JNA implementation instead.
+          </para>
+        </alert>
+        Register the authentication provider DLL as follows.
+        <code language="cmd">
+          <![CDATA[regasm.exe /codebase /tlb:Waffle.Windows.AuthProvider.tlb Waffle.Windows.AuthProvider.dll]]>
+        </code>
+        <para>
+          Add <localUri>waffle-jacob.jar</localUri> to your CLASSPATH.
+          Create a new instance of <newTerm>com.waffle.auth.WindowsAuthProviderImpl</newTerm>.
+        </para>
+      </content>
+    </section>
+  </developerConceptualDocument>
+</topic>

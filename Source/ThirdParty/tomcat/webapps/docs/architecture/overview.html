@@ -1,0 +1,106 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat Architecture (6.0.35) - Architecture Overview</title><meta content="Yoav Shapira" name="author"><style media="print" type="text/css">
+			.noPrint {display: none;}
+			td#mainBody {width: 100%;}
+		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
+      The Apache Tomcat Servlet/JSP Container
+    " align="right" src="../images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1><font face="arial,helvetica,sanserif">Version 6.0.35, Nov 28 2011</font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li></ul><p><strong>Contents</strong></p><ul><li><a href="index.html">Contents</a></li><li><a href="overview.html">Overview</a></li><li><a href="startup.html">Server Startup</a></li><li><a href="requestProcess.html">Request Process</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat Architecture</h1><h2>Architecture Overview</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Overview"><strong>Overview</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+This page provides an overview of the Tomcat server architecture.
+</p>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Terms"><strong>Terms</strong></a></font></td></tr><tr><td><blockquote>
+
+<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Server"><strong>Server</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+In the Tomcat world, a
+<a href="../config/server.html">Server</a> represents the whole container.
+Tomcat provides a default implementation of the 
+<a href="../api/org/apache/catalina/Server.html">Server interface</a>
+which is rarely customized by users.
+</p>
+</blockquote></td></tr></table>
+
+<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Service"><strong>Service</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+A <a href="../config/service.html">Service</a> is an intermediate component
+which lives inside a Server and ties one or more Connectors to exactly one
+Engine.  The Service element is rarely customized by users, as the default
+implementation is simple and sufficient:
+<a href="../api/org/apache/catalina/Service.html">Service interface</a>.
+</p>
+</blockquote></td></tr></table>
+
+<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Engine"><strong>Engine</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+An
+<a href="../config/engine.html">Engine</a> represents request processing
+pipeline for a specific Service.  As a Service may have multiple Connectors,
+the Engine received and processes all requests from these connectors, handing
+the response back to the appropriate connector for transmission to the client.
+The <a href="../api/org/apache/catalina/Engine.html">Engine interface</a>
+may be implemented to supply custom Engines, though this is uncommon.
+</p>
+<p>
+Note that the Engine may be used for Tomcat server clustering via the
+jvmRoute parameter.  Read the Clustering documentation for more information.
+</p>
+</blockquote></td></tr></table>
+
+<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Host"><strong>Host</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+A <a href="../config/host.html">Host</a> is an association of a network name,
+e.g. www.yourcompany.com, to the Tomcat server.  An Engine may contain
+multiple hosts, and the Host element also supports network aliases such as
+yourcompany.com and abc.yourcompany.com.  Users rarely create custom
+<a href="../api/org/apache/catalina/Host.html">Hosts</a>
+because the 
+<a href="../api/org/apache/catalina/core/StandardHost.html">StandardHost
+implementation</a> provides significant additional functionality.
+</p>
+</blockquote></td></tr></table>
+
+<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Connector"><strong>Connector</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+A Connector handles communications with the client.  There are multiple
+connectors available with Tomcat. These include the
+<a href="../config/http.html">HTTP connector</a> which is used for
+most HTTP traffic, especially when running Tomcat as a standalone server, 
+and the <a href="../config/ajp.html">AJP connector</a> which implements
+the AJP procotol used when connecting Tomcat to a web server such as
+Apache HTTPD server. Creating a customized connector is a significant
+effort.
+</p>
+</blockquote></td></tr></table>
+
+<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Context"><strong>Context</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+A
+<a href="../config/context.html">Context</a>
+represents a web application.  A Host may contain multiple
+contexts, each with a unique path.  The
+<a href="../api/org/apache/catalina/Context.html">Context
+interface</a> may be implemented to create custom Contexts, but
+this is rarely the case because the
+<a href="../api/org/apache/catalina/core/StandardContext.html">
+StandardContext</a> provides significant additional functionality.
+</p>
+</blockquote></td></tr></table>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Comments"><strong>Comments</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+Tomcat is designed to be a fast and efficient implementation of the
+Servlet Specification.  Tomcat came about as the reference implementation
+of this specification, and has remained rigorous in adhering to the
+specification.  At the same time, significant attention has been paid
+to Tomcat's performance and it is now on par with other servlet containers,
+including commercial ones.
+</p>
+<p>
+In recent releases of Tomcat, mostly starting with Tomcat 5,
+we have begun efforts to make more aspects of Tomcat manageable via
+JMX.  In addition, the Manager and Admin webapps have been greatly
+enhanced and improved.  Manageability is a primary area of concern
+for us as the product matures and the specification becomes more
+stable.
+</p>
+</blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
+        Copyright &copy; 1999-2011, Apache Software Foundation
+        </em></font></div></td></tr></table></body></html>

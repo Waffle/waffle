@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Topics defaultTopic="BF441469-57AD-438f-9DAC-B06F90418483">
+  <Topic id="BF441469-57AD-438f-9DAC-B06F90418483" visible="True" title="WAFFLE">
+    <Topic id="1489d227-4898-4952-9941-aaad7a4a67f2" visible="True" title="Getting Started with Waffle API" />
+    <Topic id="610B3ED3-3F1B-4759-8F97-80C3C88C89EB" visible="True" title="Tomcat Single-SignOn Authenticator Valve" />
+    <Topic id="26BED49A-C11C-4e40-9D0F-1B5ACECFCEF4" visible="True" title="Tomcat Windows Login JAAS Authenticator" />
+    <Topic id="DE48FFDF-69F6-4a8f-A24A-4D27F5A53C82" visible="True" title="Tomcat Mixed Single-SignOn and Form Authenticator Valve" />
+    <Topic id="5B8B568A-AE04-444a-80AF-394A5EE7ACCA" visible="True" title="Servlet Single-SignOn Security Filter" />
+    <Topic id="9E607F50-A40B-4872-8B5E-584D98E76DE2" visible="True" title="Spring Security Single-SignOn Filter" />
+    <Topic id="4E49F59D-374F-400b-9C28-CA231FF2B29F" visible="True" title="Spring Security Authentication Provider" />
+    <Topic id="ABA7606B-08F8-49e2-A973-8FBE62649118" visible="True" title="Tomcat JSP Demo" />
+    <Topic id="D665805A-215E-44e6-8CC5-4519B8844455" visible="True" title="Configuring Browsers for Single-SignOn" />
+    <Topic id="1e7a6c2f-1a9c-4b33-adc7-ee82ac339857" visible="True" title="Contributing &amp; Help" />
+    <Topic id="bfd78578-6e10-47e5-8b41-44426e0a1ac1" visible="True" title="License" />
+  </Topic>
+</Topics>

@@ -1,0 +1,75 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Application Developer's Guide (6.0.35) - Installation</title><meta content="Craig R. McClanahan" name="author"><meta content="Yoav Shapira" name="author"><style media="print" type="text/css">
+			.noPrint {display: none;}
+			td#mainBody {width: 100%;}
+		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
+      The Apache Tomcat Servlet/JSP Container
+    " align="right" src="../images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1><font face="arial,helvetica,sanserif">Version 6.0.35, Nov 28 2011</font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li></ul><p><strong>Contents</strong></p><ul><li><a href="index.html">Contents</a></li><li><a href="introduction.html">Introduction</a></li><li><a href="installation.html">Installation</a></li><li><a href="deployment.html">Deployment</a></li><li><a href="source.html">Source Code</a></li><li><a href="processes.html">Processes</a></li><li><a href="sample/">Example App</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Application Developer's Guide</h1><h2>Installation</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Installation"><strong>Installation</strong></a></font></td></tr><tr><td><blockquote>
+
+<p>In order to use Tomcat 6 for developing web applications, you must first
+install it (and the software it depends on).  The required steps are outlined
+in the following subsections.</p>
+
+<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="JDK"><strong>JDK</strong></a></font></td></tr><tr><td><blockquote>
+
+<p>Tomcat 6.0 was designed to run on J2SE 5.0.
+</p>
+
+<p>Compatible JDKs for many platforms (or links to where they can be found)
+are available at
+<a href="http://java.sun.com/j2se/">http://java.sun.com/j2se/</a>.</p>
+
+</blockquote></td></tr></table>
+
+<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat"><strong>Tomcat</strong></a></font></td></tr><tr><td><blockquote>
+
+<p>Binary downloads of the <strong>Tomcat</strong> server are available from
+<a href="http://tomcat.apache.org/download-60.cgi">http://tomcat.apache.org/download-60.cgi</a>.
+This manual assumes you are using the most recent release
+of Tomcat 6.  Detailed instructions for downloading and installing
+Tomcat 6 are available <a href="../setup.html">here</a>.</p>
+
+<p>In the remainder of this manual, example shell scripts assume that you have
+set an environment variable <code>CATALINA_HOME</code> that contains the
+pathname to the directory in which Tomcat 6 has been installed. Optionally, if
+Tomcat has been configured for multiple instances, each instance will have its
+own <code>CATALINA_BASE</code> configured.</p>
+
+</blockquote></td></tr></table>
+
+
+<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Ant"><strong>Ant</strong></a></font></td></tr><tr><td><blockquote>
+
+<p>Binary downloads of the <strong>Ant</strong> build tool are available from
+<a href="http://ant.apache.org/bindownload.cgi">http://ant.apache.org/bindownload.cgi</a>.
+This manual assumes you are using Ant 1.4 or later.  The instructions should
+also be compatible with later versions, but this has not been tested.</p>
+
+<p>Download and install Ant from the distribution directory mentioned above.
+Then, add the <code>bin</code> directory of the Ant distribution to your
+<code>PATH</code> environment variable, following the standard practices for
+your operating system platform.  Once you have done this, you will be able to
+execute the <code>ant</code> shell command directly.</p>
+
+</blockquote></td></tr></table>
+
+
+<table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="CVS"><strong>CVS</strong></a></font></td></tr><tr><td><blockquote>
+
+<p>Besides the required tools described above, you are strongly encouraged
+to download and install a <em>source code control</em> system, such as the
+<strong>Concurrent Version System</strong> (CVS), to maintain historical
+versions of the source files that make up your web application.  Besides
+the server, you will also need appropriate client
+tools to check out source code files, and check in modified versions.</p>
+
+<p>Detailed instructions for installing and using source code control
+applications is beyond the scope of this manual.  However, CVS server and
+client tools for many platforms (along with documentation) can be downloaded
+from <a href="http://www.cvshome.org">http://www.cvshome.org</a>.</p>
+
+</blockquote></td></tr></table>
+
+
+</blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
+        Copyright &copy; 1999-2011, Apache Software Foundation
+        </em></font></div></td></tr></table></body></html>

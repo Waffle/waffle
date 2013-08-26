@@ -1,0 +1,294 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat Configuration Reference (6.0.35) - The LifeCycle Listener Component</title><style media="print" type="text/css">
+			.noPrint {display: none;}
+			td#mainBody {width: 100%;}
+		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
+    The Apache Tomcat Servlet/JSP Container
+  " align="right" src="../images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1><font face="arial,helvetica,sanserif">Version 6.0.35, Nov 28 2011</font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li><li><a href="index.html">Config Ref. Home</a></li></ul><p><strong>Top Level Elements</strong></p><ul><li><a href="server.html">Server</a></li><li><a href="service.html">Service</a></li></ul><p><strong>Executors</strong></p><ul><li><a href="executor.html">Executor</a></li></ul><p><strong>Connectors</strong></p><ul><li><a href="http.html">HTTP</a></li><li><a href="ajp.html">AJP</a></li></ul><p><strong>Containers</strong></p><ul><li><a href="context.html">Context</a></li><li><a href="engine.html">Engine</a></li><li><a href="host.html">Host</a></li><li><a href="cluster.html">Cluster</a></li></ul><p><strong>Nested Components</strong></p><ul><li><a href="filter.html">Filter</a></li><li><a href="globalresources.html">Global Resources</a></li><li><a href="listeners.html">Listeners</a></li><li><a href="loader.html">Loader</a></li><li><a href="manager.html">Manager</a></li><li><a href="realm.html">Realm</a></li><li><a href="resources.html">Resources</a></li><li><a href="valve.html">Valve</a></li></ul><p><strong>Cluster Elements</strong></p><ul><li><a href="cluster.html">Cluster</a></li><li><a href="cluster-manager.html">Manager</a></li><li><a href="cluster-channel.html">Channel</a></li><li><a href="cluster-membership.html">Channel/Membership</a></li><li><a href="cluster-sender.html">Channel/Sender</a></li><li><a href="cluster-receiver.html">Channel/Receiver</a></li><li><a href="cluster-interceptor.html">Channel/Interceptor</a></li><li><a href="cluster-valve.html">Valve</a></li><li><a href="cluster-deployer.html">Deployer</a></li><li><a href="cluster-listener.html">ClusterListener</a></li></ul><p><strong>Global Settings</strong></p><ul><li><a href="systemprops.html">System properties</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat Configuration Reference</h1><h2>The LifeCycle Listener Component</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
+<ul><li><a href="#Introduction">Introduction</a></li><li><a href="#Attributes">Attributes</a><ol><li><a href="#Common_Attributes">Common Attributes</a></li></ol></li><li><a href="#Nested_Components">Nested Components</a></li><li><a href="#Standard_Implementation">Standard Implementation</a><ol><li><a href="#APR_Lifecycle_Listener_-_org.apache.catalina.core.AprLifecycleListener">APR Lifecycle Listener - org.apache.catalina.core.AprLifecycleListener</a></li><li><a href="#Jasper_Listener_-_org.apache.catalina.core.JasperListener">Jasper Listener - org.apache.catalina.core.JasperListener</a></li><li><a href="#Server_Lifecycle_Listener_-_org.apache.catalina.mbeans.ServerLifecycleListener">Server Lifecycle Listener - org.apache.catalina.mbeans.ServerLifecycleListener</a></li><li><a href="#Global_Resources_Lifecycle_Listener_-_org.apache.catalina.mbeans.GlobalResourcesLifecycleListener">Global Resources Lifecycle Listener - org.apache.catalina.mbeans.GlobalResourcesLifecycleListener</a></li><li><a href="#JMX_Remote_Lifecycle_Listener_-_org.apache.catalina.mbeans.JmxRemoteLifecycleListener">JMX Remote Lifecycle Listener - org.apache.catalina.mbeans.JmxRemoteLifecycleListener</a></li><li><a href="#JRE_Memory_Leak_Prevention_Listener_-_org.apache.catalina.core.JreMemoryLeakPreventionListener">JRE Memory Leak Prevention Listener - org.apache.catalina.core.JreMemoryLeakPreventionListener</a></li></ol></li></ul>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>A <strong>Listener</strong> element defines a component that performs
+  actions when specific events occur, usually Tomcat starting or Tomcat
+  stopping.</p>
+
+  <p>Listeners may be nested inside a <a href="server.html">Server</a>, 
+  <a href="engine.html">Engine</a>, <a href="host.html">Host</a> or
+  <a href="context.html">Context</a>. Some Listeners are only intended to be
+  nested inside specific elements. These constraints are noted in the
+  documentation below.</p>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Attributes"><strong>Attributes</strong></a></font></td></tr><tr><td><blockquote>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Common Attributes"><!--()--></a><a name="Common_Attributes"><strong>Common Attributes</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>All implementations of <strong>Listener</strong>
+    support the following attributes:</p>
+
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>className</code></strong></td><td valign="center" align="left">
+        <p>Java class name of the implementation to use. This class must
+        implement the <code>org.apache.catalina.LifecycleListener</code>
+        interface.</p>
+      </td></tr></table>
+
+  </blockquote></td></tr></table>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Nested Components"><!--()--></a><a name="Nested_Components"><strong>Nested Components</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>No element may be nested inside a <strong>Listener</strong>.</p>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Standard Implementation"><!--()--></a><a name="Standard_Implementation"><strong>Standard Implementation</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>Unlike most Catalina components, there are several standard
+    <strong>Listener</strong> implementations available.  As a result,
+    the <code>className</code> attribute MUST be used to select the
+    implementation you wish to use.</p>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="APR Lifecycle Listener - org.apache.catalina.core.AprLifecycleListener"><!--()--></a><a name="APR_Lifecycle_Listener_-_org.apache.catalina.core.AprLifecycleListener"><strong>APR Lifecycle Listener - org.apache.catalina.core.AprLifecycleListener</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The <strong>APR Lifecycle Listener</strong> checks for the presence of
+    the APR/native library and loads the library if it is present. For more
+    information see the <a href="../apr.html">APR/native guide</a>.</p>
+
+    <p>This listener must only be nested within <a href="server.html">Server</a>
+    elements.</p>
+
+    <p>The following additional attributes are supported by the <strong>APR
+    Lifecycle Listener</strong>:</p>
+
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>SSLEngine</code></td><td valign="center" align="left">
+        <p>Name of the SSLEngine to use. <code>off</code>: do not use SSL,
+        <code>on</code>: use SSL but no specific ENGINE.</p>
+        <p>The default value is <b>on</b>. This initializes the
+        native SSL engine, which must be enabled in the APR/native connector by
+        the use of the <code>SSLEnabled</code> attribute.</p>
+        <p>See the <a href="http://www.openssl.org/">Official OpenSSL website</a>
+        for more details on supported SSL hardware engines and manufacturers.
+        </p>
+      </td></tr><tr><td valign="center" align="left"><code>SSLRandomSeed</code></td><td valign="center" align="left">
+        <p>Entropy source used to seed the SSLEngine's PRNG. The default value
+        is <code>builtin</code>. On development systems, you may want to set
+        this to <code>/dev/urandom</code> to allow quicker start times.</p>
+      </td></tr></table>
+
+  </blockquote></td></tr></table>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Jasper Listener - org.apache.catalina.core.JasperListener"><!--()--></a><a name="Jasper_Listener_-_org.apache.catalina.core.JasperListener"><strong>Jasper Listener - org.apache.catalina.core.JasperListener</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The <strong>Jasper Listener</strong> initializes the Jasper 2 JSP engine
+    before any web applications that may use it are loaded. For more
+    information on the Jasper 2 JSP engine see the
+    <a href="../jasper-howto.html">Jasper How To</a>.</p>
+
+    <p>This listener must only be nested within <a href="server.html">Server</a>
+    elements.</p>
+
+    <p>No additional attributes are supported by the <strong>Jasper Listener
+    </strong>.</p>
+
+  </blockquote></td></tr></table>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Server Lifecycle Listener - org.apache.catalina.mbeans.ServerLifecycleListener"><!--()--></a><a name="Server_Lifecycle_Listener_-_org.apache.catalina.mbeans.ServerLifecycleListener"><strong>Server Lifecycle Listener - org.apache.catalina.mbeans.ServerLifecycleListener</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The <strong>Server Lifecycle Listener</strong> initializes the
+    MBeanServer for the MBeans that may be used to manage Tomcat via JMX.
+    Without this listener, none of the Tomcat MBeans will be available.</p>
+
+    <p>This listener must only be nested within <a href="server.html">Server</a>
+    elements.</p>
+
+    <p>No additional attributes are supported by the <strong>Server Lifecycle
+    Listener</strong>.</p>
+
+  </blockquote></td></tr></table>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Global Resources Lifecycle Listener - org.apache.catalina.mbeans.GlobalResourcesLifecycleListener"><!--()--></a><a name="Global_Resources_Lifecycle_Listener_-_org.apache.catalina.mbeans.GlobalResourcesLifecycleListener"><strong>Global Resources Lifecycle Listener - org.apache.catalina.mbeans.GlobalResourcesLifecycleListener</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The <strong>Global Resources Lifecycle Listener</strong> initializes the
+    Global JNDI resources defined in server.xml as part of the <a href="globalresources.html">Global Resources</a> element. Without this
+    listener, none of the Global Resources will be available.</p>
+
+    <p>This listener must only be nested within <a href="server.html">Server</a>
+    elements.</p>
+
+    <p>No additional attributes are supported by the <strong>Global Resources
+    Lifecycle Listener</strong>.</p>
+
+  </blockquote></td></tr></table>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="JMX Remote Lifecycle Listener - org.apache.catalina.mbeans.JmxRemoteLifecycleListener"><!--()--></a><a name="JMX_Remote_Lifecycle_Listener_-_org.apache.catalina.mbeans.JmxRemoteLifecycleListener"><strong>JMX Remote Lifecycle Listener - org.apache.catalina.mbeans.JmxRemoteLifecycleListener</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>This listener requires <code>catalina-jmx-remote.jar</code> to be placed
+    in <code>$CATALINA_HOME/lib</code>. This jar may be found in the extras
+    directory of the binary download area.</p>
+
+    <p>The <strong>JMX Remote Lifecycle Listener</strong> fixes the ports used by
+    the JMX/RMI Server making things much simpler if you need to connect
+    jconsole or a similar tool to a remote Tomcat instance that is running
+    behind a firewall. Only these ports are configured via the listener. The
+    remainder of the configuration is via the standard system properties for
+    configuring JMX. For further information on configuring JMX see
+    <a href="http://java.sun.com/javase/6/docs/technotes/guides/management/agent.html">
+    Monitoring and Management Using JMX</a> included with the Java SDK
+    documentation.</p>
+
+    <p>If this listener was configured in server.xml as:
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+&lt;Listener className="org.apache.catalina.mbeans.JmxRemoteLifecycleListener"
+          rmiRegistryPortPlatform="10001" rmiServerPortPlatform="10002" /&gt;
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr></table></div>
+    with the following system properties set (e.g. in setenv.sh):
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+-Dcom.sun.management.jmxremote.password.file=$CATALINA_BASE/conf/jmxremote.password
+-Dcom.sun.management.jmxremote.access.file=$CATALINA_BASE/conf/jmxremote.access
+-Dcom.sun.management.jmxremote.ssl=false
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr></table></div>
+    $CATALINA_BASE/conf/jmxremote.password containing:
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+admin letmein
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr></table></div>
+    $CATALINA_BASE/conf/jmxremote.access containing:
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+admin readwrite
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr></table></div>
+    then opening ports 10001 (RMI Registry) and 10002 (JMX/RMI Server) in your
+    firewall would enable jconsole to connect to a Tomcat instance running
+    behind a firewall using a connection string of the form:
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+service:jmx:rmi://&lt;hostname&gt;:10002/jndi/rmi://&lt;hostname&gt;:10001/jmxrmi
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="../images/void.gif"></td></tr></table></div>
+    with a user name of <code>admin</code> and a password of
+    <code>letmein</code>.
+    </p>
+    
+    <p><strong>Note that the example above does not use SSL. JMX access should
+    be considered equivalent to administrative access and secured accordingly.
+    </strong></p>
+
+    <p>This listener must only be nested within a <a href="server.html">Server</a>
+    element.</p>
+
+    <p>The following additional attributes are supported by the <strong>JMX Remote
+    Lifecycle Listener</strong>:</p>
+
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>rmiRegistryPortPlatform</code></strong></td><td valign="center" align="left">
+        <p>The port to be used by the JMX/RMI registry for the Platform MBeans.
+        The replaces the use of the
+        <code>com.sun.management.jmxremote.port</code> system property that
+        should not be set when using this valve.</p>
+      </td></tr><tr><td valign="center" align="left"><strong><code>rmiServerPortPlatform</code></strong></td><td valign="center" align="left">
+        <p>The port to be used by the Platform JMX/RMI server.</p>
+      </td></tr><tr><td valign="center" align="left"><code>useLocalPorts</code></td><td valign="center" align="left">
+        <p>Should any clients using these ports be forced to use local ports to
+        connect to the the JMX/RMI server. This is useful when tunnelling
+        connections over SSH or similar. Defaults to <code>false</code>.</p>
+      </td></tr></table>
+
+  </blockquote></td></tr></table>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="JRE Memory Leak Prevention Listener - org.apache.catalina.core.JreMemoryLeakPreventionListener"><!--()--></a><a name="JRE_Memory_Leak_Prevention_Listener_-_org.apache.catalina.core.JreMemoryLeakPreventionListener"><strong>JRE Memory Leak Prevention Listener - org.apache.catalina.core.JreMemoryLeakPreventionListener</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The <strong>JRE Memory Leak Prevention Listener</strong> provides
+    work-arounds for known places where the Java Runtime environment uses
+    the context class loader to load a singleton as this will cause a memory
+    leak if a web application class loader happens to be the context class
+    loader at the time. The work-around is to initialise these singletons when
+    this listener starts as Tomcat's common class loader is the context class
+    loader at that time. It also provides work-arounds for known issues that
+    can result in locked JAR files.</p>
+    
+    <p>This listener must only be nested within <a href="server.html">Server</a>
+    elements.</p>
+
+    <p>The following additional attributes are supported by the <strong>JRE
+    Memory Leak Prevention Listener</strong>:</p>
+
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><code>appContextProtection</code></td><td valign="center" align="left">
+        <p>Enables protection so that calls to
+        <code>sun.awt.AppContext.getAppContext()</code> triggered by a web
+        application do not result in a memory leak. Note that a call to this
+        method will be triggered as part of the web application stop process so
+        it is strongly recommended that this protection is enabled. The default
+        is <code>true</code>.</p>
+      </td></tr><tr><td valign="center" align="left"><code>AWTThreadProtection</code></td><td valign="center" align="left">
+        <p>Enables protection so that calls to
+        <code>java.awt.Toolkit.getDefaultToolkit()</code> triggered by a web
+        application do not result in a memory leak.
+        Defaults to <code>false</code> because an AWT thread is launched.</p>
+      </td></tr><tr><td valign="center" align="left"><code>classesToInitialize</code></td><td valign="center" align="left">
+        <p>List of comma-separated fully qualified class names to load and initialize 
+        during the startup of this Listener. This allows to pre-load classes that are 
+        known to provoke classloader leaks if they are loaded during a request 
+        processing. Non-JRE classes may be referenced, like 
+        <code>oracle.jdbc.driver.OracleTimeoutThreadPerVM</code>.
+        The default value is empty, but specific JRE classes are loaded by other leak 
+        protection features managed by other attributes of this Listener.</p>
+      </td></tr><tr><td valign="center" align="left"><code>driverManagerProtection</code></td><td valign="center" align="left">
+        <p>The first use of <code>java.sql.DriverManager</code> will trigger the
+        loading of JDBC Driver in the the current class loader. The web
+        application level memory leak protection can take care of this in most
+        cases but triggering the loading here has fewer side-effects. The
+        default is <code>true</code>.</p>
+      </td></tr><tr><td valign="center" align="left"><code>gcDaemonProtection</code></td><td valign="center" align="left">
+        <p>Enables protection so that calls to
+        <code>sun.misc.GC.requestLatency(long)</code> triggered by a web
+        application do not result in a memory leak. Use of RMI is likely to
+        trigger a call to this method. A side effect of enabling this protection
+        is the creation of a thread named "GC Daemon". The protection uses
+        reflection to access internal Sun classes and may generate errors on
+        startup on non-Sun JVMs. The default is <code>true</code>.</p>
+      </td></tr><tr><td valign="center" align="left"><code>ldapPoolProtection</code></td><td valign="center" align="left">
+        <p>Enables protection so that the PoolCleaner thread started by
+        <code>com.sun.jndi.ldap.LdapPoolManager</code> does not result in a 
+        memory leak. The thread is started the first time the 
+        <code>LdapPoolManager</code> class is used if the system property 
+        <code>com.sun.jndi.ldap.connect.pool.timeout</code> is set to a value
+        greater than 0. Without this protection, if a web application uses this 
+        class the PoolCleaner thread will be configured with the thread's 
+        context class loader set to the web application class loader which in 
+        turn will trigger a memory leak on reload. Defaults to 
+        <code>true</code>.</p>
+      </td></tr><tr><td valign="center" align="left"><code>securityLoginConfigurationProtection</code></td><td valign="center" align="left">
+        <p>Enables protection so that usage of the
+        <code>javax.security.auth.login.Configuration</code> class by a web 
+        application does not provoke a memory leak. The first access of this 
+        class will trigger the initializer that will retain a static reference 
+        to the context class loader. The protection loads the class with the 
+        system class loader to ensure that the static initializer is not 
+        triggered by a web application. Defaults to <code>true</code>.</p>
+      </td></tr><tr><td valign="center" align="left"><code>securityPolicyProtection</code></td><td valign="center" align="left">
+        <p>Enables protection so that usage of the deprecated
+        <code>javax.security.auth.Policy</code> class by a web application does not
+        result in a memory leak. The first access of this class will trigger the
+        static initializer that will retain a static reference to the context
+        class loader. The protection calls the <code>getPolicy()</code> method
+        of this class to ensure that the static initializer is not triggered by
+        a web application. Defaults to <code>true</code>.</p>
+      </td></tr><tr><td valign="center" align="left"><code>tokenPollerProtection</code></td><td valign="center" align="left">
+        <p>Enables protection so that any token poller thread initialized by
+        <code>sun.security.pkcs11.SunPKCS11.initToken()</code> does not
+        result in a memory leak. The thread is started depending on various
+        conditions as part of the initialization of the Java Cryptography
+        Architecture. Without the protection this can happen during Webapp
+        deployment when the MessageDigest for generating session IDs is
+        initialized. As a result the thread has the Webapp class loader as its
+        thread context class loader. Enabling the protection initializes JCA
+        early during Tomcat startup. Defaults to <code>true</code>.</p>
+      </td></tr><tr><td valign="center" align="left"><code>urlCacheProtection</code></td><td valign="center" align="left">
+        <p>Enables protection so that reading resources from JAR files using
+        <code>java.net.URLConnection</code>s does not result in the JAR file
+        being locked. Note that enabling this protection disables caching by
+        default for all resources obtained via
+        <code>java.net.URLConnection</code>s. Caching may be re-enabled on a
+        case by case basis as required. Defaults to <code>true</code>.</p>
+      </td></tr><tr><td valign="center" align="left"><code>xmlParsingProtection</code></td><td valign="center" align="left">
+        <p>Enables protection so that parsing XML files within a web application
+        does not result in a memory leak. Note that memory profilers may not
+        display the GC root associated with this leak making it particularly
+        hard to diagnose. Defaults to <code>true</code>.</p>
+      </td></tr></table>
+
+  </blockquote></td></tr></table>
+
+</blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
+        Copyright &copy; 1999-2011, Apache Software Foundation
+        </em></font></div></td></tr></table></body></html>

@@ -1,0 +1,61 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat Configuration Reference (6.0.35) - The Cluster Valve object</title><meta content="Filip Hanik" name="author"><style media="print" type="text/css">
+			.noPrint {display: none;}
+			td#mainBody {width: 100%;}
+		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
+    The Apache Tomcat Servlet/JSP Container
+  " align="right" src="../images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1><font face="arial,helvetica,sanserif">Version 6.0.35, Nov 28 2011</font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li><li><a href="index.html">Config Ref. Home</a></li></ul><p><strong>Top Level Elements</strong></p><ul><li><a href="server.html">Server</a></li><li><a href="service.html">Service</a></li></ul><p><strong>Executors</strong></p><ul><li><a href="executor.html">Executor</a></li></ul><p><strong>Connectors</strong></p><ul><li><a href="http.html">HTTP</a></li><li><a href="ajp.html">AJP</a></li></ul><p><strong>Containers</strong></p><ul><li><a href="context.html">Context</a></li><li><a href="engine.html">Engine</a></li><li><a href="host.html">Host</a></li><li><a href="cluster.html">Cluster</a></li></ul><p><strong>Nested Components</strong></p><ul><li><a href="filter.html">Filter</a></li><li><a href="globalresources.html">Global Resources</a></li><li><a href="listeners.html">Listeners</a></li><li><a href="loader.html">Loader</a></li><li><a href="manager.html">Manager</a></li><li><a href="realm.html">Realm</a></li><li><a href="resources.html">Resources</a></li><li><a href="valve.html">Valve</a></li></ul><p><strong>Cluster Elements</strong></p><ul><li><a href="cluster.html">Cluster</a></li><li><a href="cluster-manager.html">Manager</a></li><li><a href="cluster-channel.html">Channel</a></li><li><a href="cluster-membership.html">Channel/Membership</a></li><li><a href="cluster-sender.html">Channel/Sender</a></li><li><a href="cluster-receiver.html">Channel/Receiver</a></li><li><a href="cluster-interceptor.html">Channel/Interceptor</a></li><li><a href="cluster-valve.html">Valve</a></li><li><a href="cluster-deployer.html">Deployer</a></li><li><a href="cluster-listener.html">ClusterListener</a></li></ul><p><strong>Global Settings</strong></p><ul><li><a href="systemprops.html">System properties</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat Configuration Reference</h1><h2>The Cluster Valve object</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
+<ul><li><a href="#Introduction">Introduction</a></li><li><a href="#org.apache.catalina.ha.tcp.ReplicationValve">org.apache.catalina.ha.tcp.ReplicationValve</a><ol><li><a href="#org.apache.catalina.ha.tcp.ReplicationValve/Attributes">Attributes</a></li></ol></li><li><a href="#org.apache.catalina.ha.session.JvmRouteBinderValve">org.apache.catalina.ha.session.JvmRouteBinderValve</a><ol><li><a href="#org.apache.catalina.ha.session.JvmRouteBinderValve/Attributes">Attributes</a></li></ol></li></ul>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+  <p>
+  A cluster valve is no different from any other <a href="valve.html">Tomcat <code>Valve</code></a>.
+  The cluster valves are interceptors in the invocation chain for HTTP requests, and the clustering implementation
+  uses these valves to make intelligent decision around data and when data should be replicated.
+  </p>
+  <p>
+  A cluster valve must implement the <code>org.apache.catalina.ha.ClusterValve</code> interface.
+  This is a simple interface that extends the <code>org.apache.catalina.Valve</code> interface.
+  </p>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="org.apache.catalina.ha.tcp.ReplicationValve"><strong>org.apache.catalina.ha.tcp.ReplicationValve</strong></a></font></td></tr><tr><td><blockquote>
+  The <code>ReplicationValve</code> will notify the cluster at the end of a HTTP request
+  so that the cluster can make a decision whether there is data to be replicated or not.
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="org.apache.catalina.ha.tcp.ReplicationValve/Attributes"><strong>Attributes</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>className</code></strong></td><td valign="center" align="left">
+        Set value to <code>org.apache.catalina.ha.tcp.ReplicationValve</code>
+      </td></tr><tr><td valign="center" align="left"><code>filter</code></td><td valign="center" align="left">
+        For known file extensions or urls, you can use a filter to 
+        notify the cluster that the session has not been modified during this 
+        request and the cluster doesn't have to probe the session managers for changes.
+        If there is a filter match, the cluster assumes there has been no session change.
+        An example filter would look like <code>filter=".*\.gif;.*\.js;.*\.jpg;.*\.png;.*\.htm;.*\.html;.*\.css;.*\.txt;"</code>
+        The filter uses regular expressions and each filter is delimited by a semi colon.
+        <code>Pattern#compile(java.lang.String)</code>
+      </td></tr><tr><td valign="center" align="left"><code>primaryIndicator</code></td><td valign="center" align="left">
+        Boolean value, so to true, and the replication valve will insert a request attribute with the name
+        defined by the <code>primaryIndicatorName</code> attribute.
+        The value inserted into the request attribute is either <code>Boolean.TRUE</code> or 
+        <code>Boolean.FALSE</code>
+      </td></tr><tr><td valign="center" align="left"><code>primaryIndicatorName</code></td><td valign="center" align="left">
+        Default value is <code>org.apache.catalina.ha.tcp.isPrimarySession</code>
+        The value defined here is the name of the request attribute that contains the boolean value
+        if the session is primary on this server or not.
+      </td></tr><tr><td valign="center" align="left"><code>statistics</code></td><td valign="center" align="left">
+        Boolean value. Set to <code>true</code> if you want the valve to collect request statistics.
+        Default value is <code>false</code>
+      </td></tr></table>
+  </blockquote></td></tr></table>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="org.apache.catalina.ha.session.JvmRouteBinderValve"><strong>org.apache.catalina.ha.session.JvmRouteBinderValve</strong></a></font></td></tr><tr><td><blockquote>
+  In case of a mod_jk failover, the <code>JvmRouteBinderValve</code> will replace the 
+  <code>jvmWorker</code> attribute in the session Id, to make future requests stick to this
+  node. If you want failback capability, don't enable this valve, but if you want your failover to stick,
+  and for mod_jk not to have to keep probing the node that went down, you use this valve.
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="org.apache.catalina.ha.session.JvmRouteBinderValve/Attributes"><strong>Attributes</strong></a></font></td></tr><tr><td><blockquote>
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>className</code></strong></td><td valign="center" align="left">
+        <code>org.apache.catalina.ha.session.JvmRouteBinderValve</code>
+      </td></tr><tr><td valign="center" align="left"><code>enabled</code></td><td valign="center" align="left">
+        Default value is <code>true</code>
+        Runtime attribute to turn on and off turn over of the session's jvmRoute value.
+      </td></tr></table>
+  </blockquote></td></tr></table>
+</blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
+        Copyright &copy; 1999-2011, Apache Software Foundation
+        </em></font></div></td></tr></table></body></html>

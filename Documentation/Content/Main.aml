@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="BF441469-57AD-438f-9DAC-B06F90418483" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <summary>
+      <para>
+        <newTerm>WAFFLE</newTerm> is short for Windows Authentication Functional Framework (Light Edition).
+        WAFFLE uses the Win32 API, runs only on Windows and includes the following.
+        <list class="bullet">
+          <listItem>
+            A .NET and a native Java (JNA) library that expose a C#, COM and a native Java interface respectively to
+            perform typical Windows authentication tasks, such as logging in a user with a username and password or
+            accepting NTLM and Kerberos security tokens.
+          </listItem>
+          <listItem>
+            An Apache Tomcat Authenticator that uses the native Java library that implements Single Sign-On Negotiate 
+            protocol with NTLM and Kerberos support.
+          </listItem>
+          <listItem>
+            An Apache Tomcat Authenticator that enables mixed-mode Single Sign-On and Form-based authentication.
+          </listItem>
+          <listItem>
+            A JAAS Windows Login Module enables you to add Basic, Digest or Forms authentication to your web application.
+          </listItem>
+          <listItem>
+            A standard Servlet and Spring-Security Security Filter that uses the native Java library that implements 
+            Negotiate and Basic protocols.
+          </listItem>
+          <listItem>
+            A Spring-Security Authentication Manager that enables Form-based scenarios with Spring-enabled applications.
+          </listItem>
+        </list>
+      </para>
+      <para>
+        Please choose one of the following topics.
+      </para>
+      <para>
+        <list class="bullet">
+          <listItem>
+            <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="1489d227-4898-4952-9941-aaad7a4a67f2" />
+          </listItem>
+          <listItem>
+            <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="610B3ED3-3F1B-4759-8F97-80C3C88C89EB" />
+          </listItem>
+          <listItem>
+            <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="5B8B568A-AE04-444a-80AF-394A5EE7ACCA" />
+          </listItem>
+          <listItem>
+            <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="9E607F50-A40B-4872-8B5E-584D98E76DE2" />
+          </listItem>
+          <listeItem>
+            <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="4E49F59D-374F-400b-9C28-CA231FF2B29F" />
+          </listeItem>
+          <listItem>
+            <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="26BED49A-C11C-4e40-9D0F-1B5ACECFCEF4" />
+          </listItem>
+          <listItem>
+            <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="DE48FFDF-69F6-4a8f-A24A-4D27F5A53C82" />
+          </listItem>
+          <listItem>
+            <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="D665805A-215E-44e6-8CC5-4519B8844455" />
+          </listItem>
+          <listItem>
+            <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="ABA7606B-08F8-49e2-A973-8FBE62649118" />
+          </listItem>
+          <listItem>
+            <codeEntityReference qualifyHint="true">N:Waffle.Windows.AuthProvider</codeEntityReference>
+          </listItem>
+        </list>
+      </para>
+    </summary>
+  </developerConceptualDocument>
+</topic>

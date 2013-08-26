@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="610B3ED3-3F1B-4759-8F97-80C3C88C89EB" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para>
+        The Waffle Tomcat Negotiate Authenticator implements the Negotiate protocol with Kerberos and NTLM single sign-on
+        support. This allows users to browse to a Windows intranet site without having to re-enter credentials.
+        The authenticator integrates with Tomcat Realms and therefore allows you to protect select areas of the website.
+      </para>
+    </introduction>
+    <section address="configuration">
+      <title>Configuring Tomcat</title>
+      <content>
+        <para>
+          The following steps are required to configure Tomcat with Waffle authenticator.
+          <list class="ordered">
+            <listItem>
+              Package <localUri>waffle-jna.jar</localUri>, <localUri>commons-logging-1.1.1.jar</localUri>,
+              <localUri>guava-r07.jar</localUri>, <localUri>jna.jar</localUri> and <localUri>platform.jar</localUri> 
+              in the application's <localUri>lib</localUri> directory or copy them to Tomcat's <localUri>lib</localUri>.
+            </listItem>
+            <listItem>
+              Add a valve and a realm to the application context. For an application, modify <localUri>META-INF\context.xml</localUri>.
+              <code lang="xml">
+                <![CDATA[
+<?xml version='1.0' encoding='utf-8'?>
+<Context>
+  <Valve className="waffle.apache.NegotiateAuthenticator" />
+  <Realm className="waffle.apache.WindowsRealm" />
+</Context>]]>
+              </code>
+            </listItem>
+            <listItem>
+              Configure security roles in <localUri>WEB-INF\web.xml</localUri>. The Waffle authenticator adds all
+              user's security groups (including nested and domain groups) as roles during authentication.
+              <code lang="xml">
+                <![CDATA[
+<security-role>
+  <role-name>BUILTIN\Users</role-name>
+</security-role>]]>
+              </code>
+            </listItem>
+            <listItem>
+              Restrict access to website resources. For example, to restrict the entire website to locally authenticated
+              users add the following in <localUri>WEB-INF\web.xml</localUri>.
+              <code lang="xml">
+                <![CDATA[
+<security-constraint>
+  <web-resource-collection>
+    <web-resource-name>
+      Demo Application
+    </web-resource-name>
+    <url-pattern>/*</url-pattern>
+    <http-method>GET</http-method>
+    <http-method>POST</http-method>
+  </web-resource-collection>
+  <auth-constraint>
+    <role-name>BUILTIN\Users</role-name>
+  </auth-constraint>
+</security-constraint>]]>
+              </code>
+            </listItem>
+          </list>
+        </para>
+      </content>
+    </section>
+    <section address="troubleshooting">
+      <title>Troubleshooting</title>
+      <content>
+        <para>
+          <list class="bullet">
+            <listItem>
+              Enable waffle logging. Add the following to <localUri>conf\logging.properties</localUri> in your
+              Tomcat installation.
+              <code lang="properties">
+                <![CDATA[
+waffle.apache.NegotiateAuthenticator.level = FINE
+                ]]>
+              </code>
+            </listItem>
+            <listItem>
+              Restart Tomcat and review <localUri>logs\Catalina*.log</localUri>.
+            </listItem>
+          </list>
+        </para>
+      </content>
+    </section>
+    <section address="demoapplication">
+      <title>Waffle Authenticator Demo</title>
+      <content>
+        <para>
+          A demo application can be found in the Waffle distribution in the <localUri>Samples\waffle-negotiate</localUri>
+          directory. Copy the entire directory into Tomcat's <localUri>webapps</localUri> directory and navigate to
+          <ficticiousUri>http://localhost:8080/waffle-negotiate/</ficticiousUri>.
+        </para>
+      </content>
+    </section>
+    <section address="valveoptions">
+      <title>Valve Options</title>
+      <content>
+        <para>
+          The following options are supported by the Valve.
+          <code lang="xml">
+            <![CDATA[
+<?xml version='1.0' encoding='utf-8'?>
+<Context>
+  <Valve className="waffle.apache.NegotiateAuthenticator" principalFormat="fqn" roleFormat="both" />
+</Context>]]>
+          </code>
+          <tableDefinition>
+            <definedTerm>principalFormat</definedTerm>
+            <definition>Specifies the name format for the principal.</definition>
+            <definedTerm>roleFormat</definedTerm>
+            <definition>Specifies the name format for the role.</definition>
+            <definedTerm>allowGuestLogin</definedTerm>
+            <definition>
+              Allow guest login. When <literal>true</literal> and the system's Guest account is enabled,
+              any invalid login succeeds as Guest.
+              <alert class="note">
+                <para>
+                  While the default value of <literal>allowGuestLogin</literal> is true, it is recommended
+                  that you disable the system's Guest account to disallow Guest login. This option is provided
+                  for systems where you don't have administrative privileges.
+                </para>
+              </alert>
+            </definition>
+          </tableDefinition>
+        </para>
+        <para>
+          The following principal/group formats are supported.
+          <tableDefinition>
+            <definedTerm>fqn</definedTerm>
+            <definition>
+              Fully qualified names, such as domain\username. When unavailable, a SID is used.
+              This is the default.
+            </definition>
+            <definedTerm>sid</definedTerm>
+            <definition>
+              SID in the S- format.
+            </definition>
+            <definedTerm>both</definedTerm>
+            <definition>
+              Both a fully qualified name and a SID in the S- format. The fully qualified name is placed in the
+              list first. Tomcat assumes that the first entry of this list is a username.
+            </definition>
+            <definedTerm>none</definedTerm>
+            <definition>
+              Do not include a principal name. Permitted only for <literal>roleFormat</literal>.
+            </definition>
+          </tableDefinition>
+        </para>
+      </content>
+    </section>
+    <relatedTopics>
+      <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="DE48FFDF-69F6-4a8f-A24A-4D27F5A53C82" />
+      <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="D665805A-215E-44e6-8CC5-4519B8844455" />
+      <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="ABA7606B-08F8-49e2-A973-8FBE62649118" />
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>

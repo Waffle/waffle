@@ -1,0 +1,663 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat Configuration Reference (6.0.35) - The Valve Component</title><meta content="Craig R. McClanahan" name="author"><style media="print" type="text/css">
+			.noPrint {display: none;}
+			td#mainBody {width: 100%;}
+		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
+    The Apache Tomcat Servlet/JSP Container
+  " align="right" src="../images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1><font face="arial,helvetica,sanserif">Version 6.0.35, Nov 28 2011</font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li><li><a href="index.html">Config Ref. Home</a></li></ul><p><strong>Top Level Elements</strong></p><ul><li><a href="server.html">Server</a></li><li><a href="service.html">Service</a></li></ul><p><strong>Executors</strong></p><ul><li><a href="executor.html">Executor</a></li></ul><p><strong>Connectors</strong></p><ul><li><a href="http.html">HTTP</a></li><li><a href="ajp.html">AJP</a></li></ul><p><strong>Containers</strong></p><ul><li><a href="context.html">Context</a></li><li><a href="engine.html">Engine</a></li><li><a href="host.html">Host</a></li><li><a href="cluster.html">Cluster</a></li></ul><p><strong>Nested Components</strong></p><ul><li><a href="filter.html">Filter</a></li><li><a href="globalresources.html">Global Resources</a></li><li><a href="listeners.html">Listeners</a></li><li><a href="loader.html">Loader</a></li><li><a href="manager.html">Manager</a></li><li><a href="realm.html">Realm</a></li><li><a href="resources.html">Resources</a></li><li><a href="valve.html">Valve</a></li></ul><p><strong>Cluster Elements</strong></p><ul><li><a href="cluster.html">Cluster</a></li><li><a href="cluster-manager.html">Manager</a></li><li><a href="cluster-channel.html">Channel</a></li><li><a href="cluster-membership.html">Channel/Membership</a></li><li><a href="cluster-sender.html">Channel/Sender</a></li><li><a href="cluster-receiver.html">Channel/Receiver</a></li><li><a href="cluster-interceptor.html">Channel/Interceptor</a></li><li><a href="cluster-valve.html">Valve</a></li><li><a href="cluster-deployer.html">Deployer</a></li><li><a href="cluster-listener.html">ClusterListener</a></li></ul><p><strong>Global Settings</strong></p><ul><li><a href="systemprops.html">System properties</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat Configuration Reference</h1><h2>The Valve Component</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
+<ul><li><a href="#Introduction">Introduction</a></li><li><a href="#Access_Log_Valve">Access Log Valve</a><ol><li><a href="#Access_Log_Valve/Introduction">Introduction</a></li><li><a href="#Access_Log_Valve/Attributes">Attributes</a></li></ol></li><li><a href="#Remote_Address_Filter">Remote Address Filter</a><ol><li><a href="#Remote_Address_Filter/Introduction">Introduction</a></li><li><a href="#Remote_Address_Filter/Attributes">Attributes</a></li></ol></li><li><a href="#Remote_Host_Filter">Remote Host Filter</a><ol><li><a href="#Remote_Host_Filter/Introduction">Introduction</a></li><li><a href="#Remote_Host_Filter/Attributes">Attributes</a></li></ol></li><li><a href="#Request_Dumper_Valve">Request Dumper Valve</a><ol><li><a href="#Request_Dumper_Valve/Introduction">Introduction</a></li><li><a href="#Request_Dumper_Valve/Attributes">Attributes</a></li></ol></li><li><a href="#Single_Sign_On_Valve">Single Sign On Valve</a><ol><li><a href="#Single_Sign_On_Valve/Introduction">Introduction</a></li><li><a href="#Single_Sign_On_Valve/Attributes">Attributes</a></li></ol></li><li><a href="#Basic_Authenticator_Valve">Basic Authenticator Valve</a><ol><li><a href="#Basic_Authenticator_Valve/Introduction">Introduction</a></li><li><a href="#Basic_Authenticator_Valve/Attributes">Attributes</a></li></ol></li><li><a href="#Digest_Authenticator_Valve">Digest Authenticator Valve</a><ol><li><a href="#Digest_Authenticator_Valve/Introduction">Introduction</a></li><li><a href="#Digest_Authenticator_Valve/Attributes">Attributes</a></li></ol></li><li><a href="#Form_Authenticator_Valve">Form Authenticator Valve</a><ol><li><a href="#Form_Authenticator_Valve/Introduction">Introduction</a></li><li><a href="#Form_Authenticator_Valve/Attributes">Attributes</a></li></ol></li><li><a href="#SSL_Authenticator_Valve">SSL Authenticator Valve</a><ol><li><a href="#SSL_Authenticator_Valve/Introduction">Introduction</a></li><li><a href="#SSL_Authenticator_Valve/Attributes">Attributes</a></li></ol></li><li><a href="#WebDAV_Fix_Valve">WebDAV Fix Valve</a><ol><li><a href="#WebDAV_Fix_Valve/Introduction">Introduction</a></li><li><a href="#WebDAV_Fix_Valve/Attributes">Attributes</a></li></ol></li><li><a href="#Remote_IP_Valve">Remote IP Valve</a><ol><li><a href="#Remote_IP_Valve/Introduction">Introduction</a></li><li><a href="#Remote_IP_Valve/Attributes">Attributes</a></li></ol></li></ul>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>A <strong>Valve</strong> element represents a component that will be
+  inserted into the request processing pipeline for the associated
+  Catalina container (<a href="engine.html">Engine</a>,
+  <a href="host.html">Host</a>, or <a href="context.html">Context</a>).
+  Individual Valves have distinct processing capabilities, and are
+  described individually below.</p>
+
+    <blockquote><em>
+    <p>The description below uses the variable name $CATALINA_BASE to refer the
+    base directory against which most relative paths are resolved. If you have
+    not configured Tomcat 6 for multiple instances by setting a CATALINA_BASE
+    directory, then $CATALINA_BASE will be set to the value of $CATALINA_HOME,
+    the directory into which you have installed Tomcat 6.</p>
+    </em></blockquote>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Access Log Valve"><!--()--></a><a name="Access_Log_Valve"><strong>Access Log Valve</strong></a></font></td></tr><tr><td><blockquote>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Access Log Valve/Introduction"><!--()--></a><a name="Access_Log_Valve/Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The <strong>Access Log Valve</strong> creates log files in the same
+    format as those created by standard web servers.  These logs can later
+    be analyzed by standard log analysis tools to track page hit counts,
+    user session activity, and so on.  The files produces by this <code>Valve</code>
+    are rolled over nightly at midnight.  This <code>Valve</code>
+    may be associated with any Catalina container (<code>Context</code>,
+    <code>Host</code>, or <code>Engine</code>), and
+    will record ALL requests processed by that container.</p>
+
+    <p>Some requests may be handled by Tomcat before they are passed to a
+    container. These include redirects from /foo to /foo/ and the rejection of
+    invalid requests. Where Tomcat can identify the <code>Context</code> that
+    would have handled the request, the request/response will be logged in the 
+    <code>AccessLog</code>(s) associated <code>Context</code>, <code>Host</code>
+    and <code>Engine</code>. Where Tomcat cannot identify the
+    <code>Context</code> that would have handled the request, e.g. in cases
+    where the URL is invalid, Tomcat will look first in the <code>Engine</code>,
+    then the default <code>Host</code> for the <code>Engine</code> and finally
+    the ROOT (or default) <code>Context</code> for the default <code>Host</code>
+    for an <code>AccessLog</code> implementation. Tomcat will use the first
+    <code>AccessLog</code> implementation found to log those requests that are
+    rejected before they are passed to a container.</p>
+
+  </blockquote></td></tr></table>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Access Log Valve/Attributes"><!--()--></a><a name="Access_Log_Valve/Attributes"><strong>Attributes</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The <strong>Access Log Valve</strong> supports the following
+    configuration attributes:</p>
+
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>className</code></strong></td><td valign="center" align="left">
+        <p>Java class name of the implementation to use.  This MUST be set to
+        <strong>org.apache.catalina.valves.AccessLogValve</strong> to use the
+        default access log valve.</p>
+      </td></tr><tr><td valign="center" align="left"><code>directory</code></td><td valign="center" align="left">
+        <p>Absolute or relative pathname of a directory in which log files
+        created by this valve will be placed.  If a relative path is
+        specified, it is interpreted as relative to $CATALINA_BASE.  If
+        no directory attribute is specified, the default value is "logs"
+        (relative to $CATALINA_BASE).</p>
+      </td></tr><tr><td valign="center" align="left"><code>encoding</code></td><td valign="center" align="left">
+        <p>Character set used to write the log file. An empty string means
+        to use the system default character set. Default value: use the
+        system default character set.
+        </p>
+      </td></tr><tr><td valign="center" align="left"><code>pattern</code></td><td valign="center" align="left">
+        <p>A formatting layout identifying the various information fields
+        from the request and response to be logged, or the word
+        <code>common</code> or <code>combined</code> to select a
+        standard format.  See below for more information on configuring
+        this attribute. Note that the optimized access does only support
+        <code>common</code> and <code>combined</code> as the value for this
+        attribute.</p>
+      </td></tr><tr><td valign="center" align="left"><code>prefix</code></td><td valign="center" align="left">
+        <p>The prefix added to the start of each log file's name.  If not
+        specified, the default value is "access_log.".  To specify no prefix,
+        use a zero-length string.</p>
+      </td></tr><tr><td valign="center" align="left"><code>resolveHosts</code></td><td valign="center" align="left">
+        <p>Set to <code>true</code> to convert the IP address of the remote
+        host into the corresponding host name via a DNS lookup.  Set to
+        <code>false</code> to skip this lookup, and report the remote IP
+        address instead.</p>
+      </td></tr><tr><td valign="center" align="left"><code>suffix</code></td><td valign="center" align="left">
+        <p>The suffix added to the end of each log file's name.  If not
+        specified, the default value is "".  To specify no suffix,
+        use a zero-length string.</p>
+      </td></tr><tr><td valign="center" align="left"><code>rotatable</code></td><td valign="center" align="left">
+        <p>Flag to determine if log rotation should occur.
+           If set to <tt>false</tt>, then this file is never rotated and
+           <tt>fileDateFormat</tt> is ignored. Use with caution!
+           Default value: <tt>true</tt>
+        </p>
+      </td></tr><tr><td valign="center" align="left"><code>condition</code></td><td valign="center" align="left">
+        <p>Turns on conditional logging. If set, requests will be
+           logged only if <tt>ServletRequest.getAttribute()</tt> is
+           null. For example, if this value is set to
+           <tt>junk</tt>, then a particular request will only be logged
+           if <tt>ServletRequest.getAttribute("junk") == null</tt>.
+           The use of Filters is an easy way to set/unset the attribute
+           in the ServletRequest on many different requests.
+        </p>
+      </td></tr><tr><td valign="center" align="left"><code>fileDateFormat</code></td><td valign="center" align="left">
+        <p>Allows a customized date format in the access log file name.
+           The date format also decides how often the file is rotated.
+           If you wish to rotate every hour, then set this value
+           to: <tt>yyyy-MM-dd.HH</tt>
+        </p>
+      </td></tr><tr><td valign="center" align="left"><code>buffered</code></td><td valign="center" align="left">
+        <p>Flag to determine if logging will be buffered.
+           If set to <tt>false</tt>, then access logging will be written after each 
+           request. Default value: <tt>true</tt>
+        </p>
+      </td></tr></table>
+
+    <p>Values for the <code>pattern</code> attribute are made up of literal
+    text strings, combined with pattern identifiers prefixed by the "%"
+    character to cause replacement by the corresponding variable value from
+    the current request and response.  The following pattern codes are
+    supported:</p>
+    <ul>
+    <li><b>%a</b> - Remote IP address</li>
+    <li><b>%A</b> - Local IP address</li>
+    <li><b>%b</b> - Bytes sent, excluding HTTP headers, or '-' if zero</li>
+    <li><b>%B</b> - Bytes sent, excluding HTTP headers</li>
+    <li><b>%h</b> - Remote host name (or IP address if
+        <code>resolveHosts</code> is false)</li>
+    <li><b>%H</b> - Request protocol</li>
+    <li><b>%l</b> - Remote logical username from identd (always returns
+        '-')</li>
+    <li><b>%m</b> - Request method (GET, POST, etc.)</li>
+    <li><b>%p</b> - Local port on which this request was received</li>
+    <li><b>%q</b> - Query string (prepended with a '?' if it exists)</li>
+    <li><b>%r</b> - First line of the request (method and request URI)</li>
+    <li><b>%s</b> - HTTP status code of the response</li>
+    <li><b>%S</b> - User session ID</li>
+    <li><b>%t</b> - Date and time, in Common Log Format</li>
+    <li><b>%u</b> - Remote user that was authenticated (if any), else '-'</li>
+    <li><b>%U</b> - Requested URL path</li>
+    <li><b>%v</b> - Local server name</li>
+    <li><b>%D</b> - Time taken to process the request, in millis</li>
+    <li><b>%T</b> - Time taken to process the request, in seconds</li>
+    <li><b>%I</b> - current request thread name (can compare later with stacktraces)</li>
+    </ul>
+
+    <p>
+    There is also support to write information from the cookie, incoming
+    header, the Session or something else in the ServletRequest.
+    It is modeled after the
+    <a href="http://httpd.apache.org/">Apache HTTP Server</a> log configuration
+    syntax:</p>
+    <ul>
+    <li><b><code>%{xxx}i</code></b> for incoming headers</li>
+    <li><b><code>%{xxx}o</code></b> for outgoing response headers</li>
+    <li><b><code>%{xxx}c</code></b> for a specific cookie</li>
+    <li><b><code>%{xxx}r</code></b> xxx is an attribute in the ServletRequest</li>
+    <li><b><code>%{xxx}s</code></b> xxx is an attribute in the HttpSession</li>
+    </ul>
+
+
+    <p>The shorthand pattern name <code>common</code> (which is also the
+    default) corresponds to <strong>'%h %l %u %t "%r" %s %b'</strong>.</p>
+
+    <p>The shorthand pattern name <code>combined</code> appends the
+    values of the <code>Referer</code> and <code>User-Agent</code> headers,
+    each in double quotes, to the <code>common</code> pattern
+    described in the previous paragraph.</p>
+
+  </blockquote></td></tr></table>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Remote Address Filter"><!--()--></a><a name="Remote_Address_Filter"><strong>Remote Address Filter</strong></a></font></td></tr><tr><td><blockquote>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Remote Address Filter/Introduction"><!--()--></a><a name="Remote_Address_Filter/Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The <strong>Remote Address Filter</strong> allows you to compare the
+    IP address of the client that submitted this request against one or more
+    <em>regular expressions</em>, and either allow the request to continue
+    or refuse to process the request from this client.  A Remote Address
+    Filter can be associated with any Catalina container
+    (<a href="engine.html">Engine</a>, <a href="host.html">Host</a>, or
+    <a href="context.html">Context</a>), and must accept any request
+    presented to this container for processing before it will be passed on.</p>
+
+    <p>The syntax for <em>regular expressions</em> is different than that for
+    'standard' wildcard matching. Tomcat uses the <code>java.util.regex</code>
+    package. Please consult the Java documentation for details of the
+    expressions supported.</p>
+
+  </blockquote></td></tr></table>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Remote Address Filter/Attributes"><!--()--></a><a name="Remote_Address_Filter/Attributes"><strong>Attributes</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The <strong>Remote Address Filter</strong> supports the following
+    configuration attributes:</p>
+
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>className</code></strong></td><td valign="center" align="left">
+        <p>Java class name of the implementation to use.  This MUST be set to
+        <strong>org.apache.catalina.valves.RemoteAddrValve</strong>.</p>
+      </td></tr><tr><td valign="center" align="left"><code>allow</code></td><td valign="center" align="left">
+        <p>A comma-separated list of <em>regular expression</em> patterns
+        that the remote client's IP address is compared to.  If this attribute
+        is specified, the remote address MUST match for this request to be
+        accepted.  If this attribute is not specified, all requests will be
+        accepted UNLESS the remote address matches a <code>deny</code>
+        pattern.</p>
+      </td></tr><tr><td valign="center" align="left"><code>deny</code></td><td valign="center" align="left">
+        <p>A comma-separated list of <em>regular expression</em> patterns
+        that the remote client's IP address is compared to.  If this attribute
+        is specified, the remote address MUST NOT match for this request to be
+        accepted.  If this attribute is not specified, request acceptance is
+        governed solely by the <code>accept</code> attribute.</p>
+      </td></tr></table>
+
+  </blockquote></td></tr></table>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Remote Host Filter"><!--()--></a><a name="Remote_Host_Filter"><strong>Remote Host Filter</strong></a></font></td></tr><tr><td><blockquote>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Remote Host Filter/Introduction"><!--()--></a><a name="Remote_Host_Filter/Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The <strong>Remote Host Filter</strong> allows you to compare the
+    hostname of the client that submitted this request against one or more
+    <em>regular expressions</em>, and either allow the request to continue
+    or refuse to process the request from this client.  A Remote Host
+    Filter can be associated with any Catalina container
+    (<a href="engine.html">Engine</a>, <a href="host.html">Host</a>, or
+    <a href="context.html">Context</a>), and must accept any request
+    presented to this container for processing before it will be passed on.</p>
+
+    <p>The syntax for <em>regular expressions</em> is different than that for
+    'standard' wildcard matching. Tomcat uses the <code>java.util.regex</code>
+    package. Please consult the Java documentation for details of the
+    expressions supported.</p>
+
+  </blockquote></td></tr></table>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Remote Host Filter/Attributes"><!--()--></a><a name="Remote_Host_Filter/Attributes"><strong>Attributes</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The <strong>Remote Host Filter</strong> supports the following
+    configuration attributes:</p>
+
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>className</code></strong></td><td valign="center" align="left">
+        <p>Java class name of the implementation to use.  This MUST be set to
+        <strong>org.apache.catalina.valves.RemoteHostValve</strong>.</p>
+      </td></tr><tr><td valign="center" align="left"><code>allow</code></td><td valign="center" align="left">
+        <p>A comma-separated list of <em>regular expression</em> patterns
+        that the remote client's hostname is compared to.  If this attribute
+        is specified, the remote hostname MUST match for this request to be
+        accepted.  If this attribute is not specified, all requests will be
+        accepted UNLESS the remote hostname matches a <code>deny</code>
+        pattern.</p>
+      </td></tr><tr><td valign="center" align="left"><code>deny</code></td><td valign="center" align="left">
+        <p>A comma-separated list of <em>regular expression</em> patterns
+        that the remote client's hostname is compared to.  If this attribute
+        is specified, the remote hostname MUST NOT match for this request to be
+        accepted.  If this attribute is not specified, request acceptance is
+        governed solely by the <code>accept</code> attribute.</p>
+      </td></tr></table>
+
+  </blockquote></td></tr></table>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Request Dumper Valve"><!--()--></a><a name="Request_Dumper_Valve"><strong>Request Dumper Valve</strong></a></font></td></tr><tr><td><blockquote>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Request Dumper Valve/Introduction"><!--()--></a><a name="Request_Dumper_Valve/Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The <em>Request Dumper Valve</em> is a useful tool in debugging
+    interactions with a client application (or browser) that is sending
+    HTTP requests to your Tomcat-based server.  When configured, it causes
+    details about each request processed by its associated <code>Engine</code>, 
+    <code>Host</code>, or <code>Context</code> to be logged according to 
+    the logging configuration for that container.</p>
+
+    <p><strong>WARNING: Using this valve has side-effects.</strong>  The
+    output from this valve includes any parameters included with the request.
+    The parameters will be decoded using the default platform encoding. Any
+    subsequent calls to <code>request.setCharacterEncoding()</code> within
+    the web application will have no effect. NOTE: Since all parameters are
+    included in the output, the InputStream is consumed for requests made with
+    the method POST and content-type application/x-www-form-urlencoded.</p>
+
+  </blockquote></td></tr></table>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Request Dumper Valve/Attributes"><!--()--></a><a name="Request_Dumper_Valve/Attributes"><strong>Attributes</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The <strong>Request Dumper Valve</strong> supports the following
+    configuration attributes:</p>
+
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>className</code></strong></td><td valign="center" align="left">
+        <p>Java class name of the implementation to use.  This MUST be set to
+        <strong>org.apache.catalina.valves.RequestDumperValve</strong>.</p>
+      </td></tr></table>
+
+  </blockquote></td></tr></table>
+
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Single Sign On Valve"><!--()--></a><a name="Single_Sign_On_Valve"><strong>Single Sign On Valve</strong></a></font></td></tr><tr><td><blockquote>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Single Sign On Valve/Introduction"><!--()--></a><a name="Single_Sign_On_Valve/Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The <em>Single Sign On Vale</em> is utilized when you wish to give users
+    the ability to sign on to any one of the web applications associated with
+    your virtual host, and then have their identity recognized by all other
+    web applications on the same virtual host.</p>
+
+    <p>See the <a href="host.html#Single Sign On">Single Sign On</a> special
+    feature on the <strong>Host</strong> element for more information.</p>
+
+  </blockquote></td></tr></table>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Single Sign On Valve/Attributes"><!--()--></a><a name="Single_Sign_On_Valve/Attributes"><strong>Attributes</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The <strong>Single Sign On</strong> Valve supports the following
+    configuration attributes:</p>
+
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>className</code></strong></td><td valign="center" align="left">
+        <p>Java class name of the implementation to use.  This MUST be set to
+        <strong>org.apache.catalina.authenticator.SingleSignOn</strong>.</p>
+      </td></tr><tr><td valign="center" align="left"><code>requireReauthentication</code></td><td valign="center" align="left">
+        <p>Default false. Flag to determine whether each request needs to be 
+        reauthenticated to the security <strong>Realm</strong>. If "true", this
+        Valve uses cached security credentials (username and password) to
+        reauthenticate to the <strong>Realm</strong> each request associated 
+        with an SSO session.  If "false", the Valve can itself authenticate 
+        requests based on the presence of a valid SSO cookie, without 
+        rechecking with the <strong>Realm</strong>.</p>
+      </td></tr><tr><td valign="center" align="left"><code>cookieDomain</code></td><td valign="center" align="left">
+        <p>Sets the host domain to be used for sso cookies.</p>
+      </td></tr></table>
+
+  </blockquote></td></tr></table>
+
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Basic Authenticator Valve"><!--()--></a><a name="Basic_Authenticator_Valve"><strong>Basic Authenticator Valve</strong></a></font></td></tr><tr><td><blockquote>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Basic Authenticator Valve/Introduction"><!--()--></a><a name="Basic_Authenticator_Valve/Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The <strong>Basic Authenticator Valve</strong> is automatically added to
+    any <a href="context.html">Context</a> that is configured to use BASIC
+    authentication.</p>
+
+    <p>If any non-default settings are required, the valve may be configured
+    within <a href="context.html">Context</a> element with the required
+    values.</p>
+
+  </blockquote></td></tr></table>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Basic Authenticator Valve/Attributes"><!--()--></a><a name="Basic_Authenticator_Valve/Attributes"><strong>Attributes</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The <strong>Basic Authenticator Valve</strong> supports the following
+    configuration attributes:</p>
+
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>className</code></strong></td><td valign="center" align="left">
+        <p>Java class name of the implementation to use.  This MUST be set to
+        <strong>org.apache.catalina.authenticator.BasicAuthenticator</strong>.</p>
+      </td></tr><tr><td valign="center" align="left"><code>changeSessionIdOnAuthentication</code></td><td valign="center" align="left">
+        <p>Controls if the session ID is changed if a session exists at the
+        point where users are authenticated. This is to prevent session fixation
+        attacks. If not set, the default value of <code>true</code> will be
+        used.</p>
+      </td></tr><tr><td valign="center" align="left"><code>cnonceCacheSize</code></td><td valign="center" align="left">
+        <p>To protect against replay attacks, the DIGEST authenticator tracks
+        client nonce and nonce count values. This attribute controls the size
+        of that cache. If not specified, the default value of 1000 is used.</p>
+      </td></tr><tr><td valign="center" align="left"><code>disableProxyCaching</code></td><td valign="center" align="left">
+        <p>Controls the caching of pages that are protected by security
+        constraints. Setting this to <code>false</code> may help work around
+        caching issues in some browsers but will also cause secured pages to be
+        cached by proxies which will almost certainly be a security issue.
+        <code>securePagesWithPragma</code> offers an alternative, secure,
+        workaround for browser caching issues. If not set, the default value of
+        <code>true</code> will be used.</p>
+      </td></tr><tr><td valign="center" align="left"><code>key</code></td><td valign="center" align="left">
+        <p>The secret key used by digest authentication. If not set, a secure
+        random value is generated. This should normally only be set when it is
+        necessary to keep key values constant either across server restarts
+        and/or across a cluster.</p>
+      </td></tr><tr><td valign="center" align="left"><code>nonceValidity</code></td><td valign="center" align="left">
+        <p>The time, in milliseconds, that a server generated nonce will be
+        considered valid for use in authentication. If not specified, the
+        default value of 300000 (5 minutes) will be used.</p>
+      </td></tr><tr><td valign="center" align="left"><code>opaque</code></td><td valign="center" align="left">
+        <p>The opaque server string used by digest authentication. If not set, a
+        random value is generated. This should normally only be set when it is
+        necessary to keep opaque values constant either across server restarts
+        and/or across a cluster.</p>
+      </td></tr><tr><td valign="center" align="left"><code>securePagesWithPragma</code></td><td valign="center" align="left">
+        <p>Controls the caching of pages that are protected by security
+        constraints. Setting this to <code>false</code> may help work around
+        caching issues in some browsers by using
+        <code>Cache-Control: private</code> rather than the default of
+        <code>Pragma: No-cache</code> and <code>Cache-control: No-cache</code>.
+        If not set, the default value of <code>true</code> will be used.</p>
+      </td></tr><tr><td valign="center" align="left"><code>validateUri</code></td><td valign="center" align="left">
+        <p>Should the URI be validated as required by RFC2617? If not specified,
+        the default value of <code>true</code> will be used. This should
+        normally only be set when Tomcat is located behind a reverse proxy and
+        the proxy is modifying the URI passed to Tomcat such that DIGEST
+        authentication always fails.</p>
+      </td></tr></table>
+
+  </blockquote></td></tr></table>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Digest Authenticator Valve"><!--()--></a><a name="Digest_Authenticator_Valve"><strong>Digest Authenticator Valve</strong></a></font></td></tr><tr><td><blockquote>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Digest Authenticator Valve/Introduction"><!--()--></a><a name="Digest_Authenticator_Valve/Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The <strong>Digest Authenticator Valve</strong> is automatically added to
+    any <a href="context.html">Context</a> that is configured to use DIGEST
+    authentication.</p>
+
+    <p>If any non-default settings are required, the valve may be configured
+    within <a href="context.html">Context</a> element with the required
+    values.</p>
+
+  </blockquote></td></tr></table>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Digest Authenticator Valve/Attributes"><!--()--></a><a name="Digest_Authenticator_Valve/Attributes"><strong>Attributes</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The <strong>Digest Authenticator Valve</strong> supports the following
+    configuration attributes:</p>
+
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>className</code></strong></td><td valign="center" align="left">
+        <p>Java class name of the implementation to use.  This MUST be set to
+        <strong>org.apache.catalina.authenticator.DigestAuthenticator</strong>.</p>
+      </td></tr><tr><td valign="center" align="left"><code>changeSessionIdOnAuthentication</code></td><td valign="center" align="left">
+        <p>Controls if the session ID is changed if a session exists at the
+        point where users are authenticated. This is to prevent session fixation
+        attacks. If not set, the default value of <code>true</code> will be
+        used.</p>
+      </td></tr><tr><td valign="center" align="left"><code>disableProxyCaching</code></td><td valign="center" align="left">
+        <p>Controls the caching of pages that are protected by security
+        constraints. Setting this to <code>false</code> may help work around
+        caching issues in some browsers but will also cause secured pages to be
+        cached by proxies which will almost certainly be a security issue.
+        <code>securePagesWithPragma</code> offers an alternative, secure,
+        workaround for browser caching issues. If not set, the default value of
+        <code>true</code> will be used.</p>
+      </td></tr><tr><td valign="center" align="left"><code>securePagesWithPragma</code></td><td valign="center" align="left">
+        <p>Controls the caching of pages that are protected by security
+        constraints. Setting this to <code>false</code> may help work around
+        caching issues in some browsers by using
+        <code>Cache-Control: private</code> rather than the default of
+        <code>Pragma: No-cache</code> and <code>Cache-control: No-cache</code>.
+        If not set, the default value of <code>true</code> will be used.</p>
+      </td></tr></table>
+
+  </blockquote></td></tr></table>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Form Authenticator Valve"><!--()--></a><a name="Form_Authenticator_Valve"><strong>Form Authenticator Valve</strong></a></font></td></tr><tr><td><blockquote>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Form Authenticator Valve/Introduction"><!--()--></a><a name="Form_Authenticator_Valve/Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The <strong>Form Authenticator Valve</strong> is automatically added to
+    any <a href="context.html">Context</a> that is configured to use FORM
+    authentication.</p>
+
+    <p>If any non-default settings are required, the valve may be configured
+    within <a href="context.html">Context</a> element with the required
+    values.</p>
+
+  </blockquote></td></tr></table>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Form Authenticator Valve/Attributes"><!--()--></a><a name="Form_Authenticator_Valve/Attributes"><strong>Attributes</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The <strong>Form Authenticator Valve</strong> supports the following
+    configuration attributes:</p>
+
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>className</code></strong></td><td valign="center" align="left">
+        <p>Java class name of the implementation to use.  This MUST be set to
+        <strong>org.apache.catalina.authenticator.FormAuthenticator</strong>.</p>
+      </td></tr><tr><td valign="center" align="left"><code>changeSessionIdOnAuthentication</code></td><td valign="center" align="left">
+        <p>Controls if the session ID is changed if a session exists at the
+        point where users are authenticated. This is to prevent session fixation
+        attacks. If not set, the default value of <code>true</code> will be
+        used.</p>
+      </td></tr><tr><td valign="center" align="left"><code>characterEncoding</code></td><td valign="center" align="left">
+        <p>Character encoding to use to read the username and password parameters
+        from the request. If not set, the encoding of the request body will be
+        used.</p>
+      </td></tr><tr><td valign="center" align="left"><code>disableProxyCaching</code></td><td valign="center" align="left">
+        <p>Controls the caching of pages that are protected by security
+        constraints. Setting this to <code>false</code> may help work around
+        caching issues in some browsers but will also cause secured pages to be
+        cached by proxies which will almost certainly be a security issue.
+        <code>securePagesWithPragma</code> offers an alternative, secure,
+        workaround for browser caching issues. If not set, the default value of
+        <code>true</code> will be used.</p>
+      </td></tr><tr><td valign="center" align="left"><code>securePagesWithPragma</code></td><td valign="center" align="left">
+        <p>Controls the caching of pages that are protected by security
+        constraints. Setting this to <code>false</code> may help work around
+        caching issues in some browsers by using
+        <code>Cache-Control: private</code> rather than the default of
+        <code>Pragma: No-cache</code> and <code>Cache-control: No-cache</code>.
+        If not set, the default value of <code>true</code> will be used.</p>
+      </td></tr></table>
+
+  </blockquote></td></tr></table>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="SSL Authenticator Valve"><!--()--></a><a name="SSL_Authenticator_Valve"><strong>SSL Authenticator Valve</strong></a></font></td></tr><tr><td><blockquote>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="SSL Authenticator Valve/Introduction"><!--()--></a><a name="SSL_Authenticator_Valve/Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The <strong>SSL Authenticator Valve</strong> is automatically added to
+    any <a href="context.html">Context</a> that is configured to use SSL
+    authentication.</p>
+
+    <p>If any non-default settings are required, the valve may be configured
+    within <a href="context.html">Context</a> element with the required
+    values.</p>
+
+  </blockquote></td></tr></table>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="SSL Authenticator Valve/Attributes"><!--()--></a><a name="SSL_Authenticator_Valve/Attributes"><strong>Attributes</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The <strong>SSL Authenticator Valve</strong> supports the following
+    configuration attributes:</p>
+
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>className</code></strong></td><td valign="center" align="left">
+        <p>Java class name of the implementation to use.  This MUST be set to
+        <strong>org.apache.catalina.authenticator.SSLAuthenticator</strong>.</p>
+      </td></tr><tr><td valign="center" align="left"><code>changeSessionIdOnAuthentication</code></td><td valign="center" align="left">
+        <p>Controls if the session ID is changed if a session exists at the
+        point where users are authenticated. This is to prevent session fixation
+        attacks. If not set, the default value of <code>true</code> will be
+        used.</p>
+      </td></tr><tr><td valign="center" align="left"><code>disableProxyCaching</code></td><td valign="center" align="left">
+        <p>Controls the caching of pages that are protected by security
+        constraints. Setting this to <code>false</code> may help work around
+        caching issues in some browsers but will also cause secured pages to be
+        cached by proxies which will almost certainly be a security issue.
+        <code>securePagesWithPragma</code> offers an alternative, secure,
+        workaround for browser caching issues. If not set, the default value of
+        <code>true</code> will be used.</p>
+      </td></tr><tr><td valign="center" align="left"><code>securePagesWithPragma</code></td><td valign="center" align="left">
+        <p>Controls the caching of pages that are protected by security
+        constraints. Setting this to <code>false</code> may help work around
+        caching issues in some browsers by using
+        <code>Cache-Control: private</code> rather than the default of
+        <code>Pragma: No-cache</code> and <code>Cache-control: No-cache</code>.
+        If not set, the default value of <code>true</code> will be used.</p>
+      </td></tr></table>
+
+  </blockquote></td></tr></table>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="WebDAV Fix Valve"><!--()--></a><a name="WebDAV_Fix_Valve"><strong>WebDAV Fix Valve</strong></a></font></td></tr><tr><td><blockquote>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="WebDAV Fix Valve/Introduction"><!--()--></a><a name="WebDAV_Fix_Valve/Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>Microsoft operating systems have two WebDAV clients. One is used with
+    port 80, the other is used for all other ports. The implementation used with
+    port 80 does not adhere to the WebDAV specification and fails when trying to
+    communicate with the Tomcat WebDAV Servlet. This valve provides a fix for
+    this by forcing the use of the WebDAV implementation that works, even when
+    connecting via port 80.</p>
+    
+    <p>This Valve may be used at the <code>Engine</code>, <code>Host</code> or
+    <code>Context</code> level as required. Normally, this Valve would be used
+    at the <code>Context</code> level.</p>
+
+  </blockquote></td></tr></table>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="WebDAV Fix Valve/Attributes"><!--()--></a><a name="WebDAV_Fix_Valve/Attributes"><strong>Attributes</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The <strong>WebDAV Fix Valve</strong> supports the following
+    configuration attributes:</p>
+
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>className</code></strong></td><td valign="center" align="left">
+        <p>Java class name of the implementation to use.  This MUST be set to
+        <strong>org.apache.catalina.valves.WebdavFixValve</strong>.</p>
+      </td></tr></table>
+
+  </blockquote></td></tr></table>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Remote IP Valve"><!--()--></a><a name="Remote_IP_Valve"><strong>Remote IP Valve</strong></a></font></td></tr><tr><td><blockquote>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Remote IP Valve/Introduction"><!--()--></a><a name="Remote_IP_Valve/Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+  
+    <p>Tomcat port of
+    <a href="http://httpd.apache.org/docs/trunk/mod/mod_remoteip.html">mod_remoteip</a>,
+    this valve replaces the apparent client remote IP address and hostname for
+    the request with the IP address list presented by a proxy or a load balancer
+    via a request headers (e.g. "X-Forwarded-For").</p>
+
+    <p>Another feature of this valve is to replace the apparent scheme
+    (http/https), server port and <code>request.secure</code> with the scheme presented 
+    by a proxy or a load balancer via a request header 
+    (e.g. "X-Forwarded-Proto").</p>
+    
+    <p>This Valve may be used at the <code>Engine</code>, <code>Host</code> or
+    <code>Context</code> level as required. Normally, this Valve would be used
+    at the <code>Engine</code> level.</p>
+    
+    <p>If used in conjunction with Remote Address/Host valves then this valve
+    should be defined first to ensure that the correct client IP address is
+    presented to the Remote Address/Host valves.</p>
+
+  </blockquote></td></tr></table>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Remote IP Valve/Attributes"><!--()--></a><a name="Remote_IP_Valve/Attributes"><strong>Attributes</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The <strong>Remote IP Valve</strong> supports the
+    following configuration attributes:</p>
+
+    <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>className</code></strong></td><td valign="center" align="left">
+        <p>Java class name of the implementation to use.  This MUST be set to
+        <strong>org.apache.catalina.valves.RemoteIpValve</strong>.</p>
+      </td></tr><tr><td valign="center" align="left"><code>remoteIpHeader</code></td><td valign="center" align="left">
+        <p>Name of the HTTP Header read by this valve that holds the list of
+        traversed IP addresses starting from the requesting client. If not
+        specified, the default of <code>x-forwarded-for</code> is used.</p>
+      </td></tr><tr><td valign="center" align="left"><code>internalProxies</code></td><td valign="center" align="left">
+        <p>List of internal proxies' IP addresses as comma separated regular
+        expressions. If they appear in the <strong>remoteIpHeader</strong>
+        value, they will be trusted and will not appear in the
+        <strong>proxiesHeader</strong> value. If not specified the default value
+        of <code>10\.\d{1,3}\.\d{1,3}\.\d{1,3}, 192\.168\.\d{1,3}\.\d{1,3},
+        169\.254\.\d{1,3}\.\d{1,3}, 127\.\d{1,3}\.\d{1,3}\.\d{1,3}</code> will
+        be used.</p>
+      </td></tr><tr><td valign="center" align="left"><code>proxiesHeader</code></td><td valign="center" align="left">
+        <p>Name of the HTTP header created by this valve to hold the list of
+        proxies that have been processed in the incoming
+        <strong>remoteIpHeader</strong>. If not specified, the default of
+        <code>x-forwarded-by</code> is used.</p>
+      </td></tr><tr><td valign="center" align="left"><code>trustedProxies</code></td><td valign="center" align="left">
+        <p>List of trusted proxies' IP addresses as comma separated regular
+        expressions. If they appear in the <strong>remoteIpHeader</strong>
+        value, they will be trusted and will appear in the
+        <strong>proxiesHeader</strong> value. If not specified, no proxies will
+        be trusted.</p>
+      </td></tr><tr><td valign="center" align="left"><code>protocolHeader</code></td><td valign="center" align="left">
+        <p>Name of the HTTP Header read by this valve that holds the protocol
+        used by the client to connect to the proxy. If not specified, the
+        default of <code>null</code> is used.</p>
+      </td></tr><tr><td valign="center" align="left"><code>protocolHeaderHttpsValue</code></td><td valign="center" align="left">
+        <p>Value of the <strong>protocolHeader</strong> to indicate that it is
+        an HTTPS request. If not specified, the default of <code>https</code> is
+        used.</p>
+      </td></tr><tr><td valign="center" align="left"><code>httpServerPort</code></td><td valign="center" align="left">
+         <p>Value returned by <code>ServletRequest.getServerPort()</code> 
+         when the <strong>protocolHeader</strong> indicates <code>http</code> 
+         protocol. If not specified, the default of <code>80</code> is
+        used.</p>
+      </td></tr><tr><td valign="center" align="left"><code>httpsServerPort</code></td><td valign="center" align="left">
+         <p>Value returned by <code>ServletRequest.getServerPort()</code> 
+         when the <strong>protocolHeader</strong> indicates <code>https</code> 
+         protocol. If not specified, the default of <code>443</code> is
+        used.</p>
+      </td></tr></table>
+
+  </blockquote></td></tr></table>
+
+</blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
+        Copyright &copy; 1999-2011, Apache Software Foundation
+        </em></font></div></td></tr></table></body></html>

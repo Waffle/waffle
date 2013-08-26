@@ -1,0 +1,113 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat Configuration Reference (6.0.35) - The Cluster Membership object</title><meta content="Filip Hanik" name="author"><style media="print" type="text/css">
+			.noPrint {display: none;}
+			td#mainBody {width: 100%;}
+		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
+    The Apache Tomcat Servlet/JSP Container
+  " align="right" src="../images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1><font face="arial,helvetica,sanserif">Version 6.0.35, Nov 28 2011</font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li><li><a href="index.html">Config Ref. Home</a></li></ul><p><strong>Top Level Elements</strong></p><ul><li><a href="server.html">Server</a></li><li><a href="service.html">Service</a></li></ul><p><strong>Executors</strong></p><ul><li><a href="executor.html">Executor</a></li></ul><p><strong>Connectors</strong></p><ul><li><a href="http.html">HTTP</a></li><li><a href="ajp.html">AJP</a></li></ul><p><strong>Containers</strong></p><ul><li><a href="context.html">Context</a></li><li><a href="engine.html">Engine</a></li><li><a href="host.html">Host</a></li><li><a href="cluster.html">Cluster</a></li></ul><p><strong>Nested Components</strong></p><ul><li><a href="filter.html">Filter</a></li><li><a href="globalresources.html">Global Resources</a></li><li><a href="listeners.html">Listeners</a></li><li><a href="loader.html">Loader</a></li><li><a href="manager.html">Manager</a></li><li><a href="realm.html">Realm</a></li><li><a href="resources.html">Resources</a></li><li><a href="valve.html">Valve</a></li></ul><p><strong>Cluster Elements</strong></p><ul><li><a href="cluster.html">Cluster</a></li><li><a href="cluster-manager.html">Manager</a></li><li><a href="cluster-channel.html">Channel</a></li><li><a href="cluster-membership.html">Channel/Membership</a></li><li><a href="cluster-sender.html">Channel/Sender</a></li><li><a href="cluster-receiver.html">Channel/Receiver</a></li><li><a href="cluster-interceptor.html">Channel/Interceptor</a></li><li><a href="cluster-valve.html">Valve</a></li><li><a href="cluster-deployer.html">Deployer</a></li><li><a href="cluster-listener.html">ClusterListener</a></li></ul><p><strong>Global Settings</strong></p><ul><li><a href="systemprops.html">System properties</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat Configuration Reference</h1><h2>The Cluster Membership object</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
+<ul><li><a href="#Introduction">Introduction</a></li><li><a href="#Default_Implementation">Default Implementation</a></li><li><a href="#Attributes">Attributes</a><ol><li><a href="#Multicast_Attributes">Multicast Attributes</a></li></ol></li></ul>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+  <p>
+    The membership component in the Apache Tribes <a href="cluster-channel.html">Channel</a> is responsible
+    for dynamic discovery of other members(nodes) in the cluster.
+  </p>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Default Implementation"><!--()--></a><a name="Default_Implementation"><strong>Default Implementation</strong></a></font></td></tr><tr><td><blockquote>
+  <p>
+    The default implementation of the cluster group notification is built on top of multicast heartbeats
+    sent using UDP packets to a multicast IP address.
+    Cluster members are grouped together by using the same multicast address/port combination.
+    Each member sends out a heartbeat with a given interval (<code>frequency</code>), and this
+    heartbeat is used for dynamic discovery.
+    In a similar fashion, if a heartbeat has not been received in a timeframe specified by <code>dropTime</code>
+    ms. a member is considered suspect and the channel and any membership listener will be notified.
+  </p>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Attributes"><strong>Attributes</strong></a></font></td></tr><tr><td><blockquote>
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Multicast Attributes"><!--()--></a><a name="Multicast_Attributes"><strong>Multicast Attributes</strong></a></font></td></tr><tr><td><blockquote>
+
+  <table cellpadding="5" border="1"><tr><th bgcolor="#023264" width="15%"><font color="#ffffff">Attribute</font></th><th bgcolor="#023264" width="85%"><font color="#ffffff">Description</font></th></tr><tr><td valign="center" align="left"><strong><code>className</code></strong></td><td valign="center" align="left">
+      <p>
+      The default value is <code>org.apache.catalina.tribes.membership.McastService</code>
+      and is currently the only implementation.
+      This implementation uses multicast heartbeats for member discovery.
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>address</code></td><td valign="center" align="left">
+      <p>
+      The multicast address that the membership will broadcast its presence and listen
+      for other heartbeats on. The default value is <code>228.0.0.4</code>
+      Make sure your network is enabled for multicast traffic.<br>
+      The multicast address, in conjunction with the <code>port</code> is what 
+      creates a cluster group. To divide up your farm into several different group, or to 
+      split up QA from production, change the <code>port</code> or the <code>address</code>
+      <br>Previously known as mcastAddr.
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>port</code></td><td valign="center" align="left">
+      <p>
+      The multicast port, the default value is <code>45564</code><br>
+      The multicast port, in conjunction with the <code>address</code> is what 
+      creates a cluster group. To divide up your farm into several different group, or to 
+      split up QA from production, change the <code>port</code> or the <code>address</code>
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>frequency</code></td><td valign="center" align="left">
+      <p>
+      The frequency in milliseconds in which heartbeats are sent out. The default value is <code>500</code> ms.<br>
+      In most cases the default value is sufficient. Changing this value, simply changes the interval in between heartbeats.
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>dropTime</code></td><td valign="center" align="left">
+      <p>
+      The membership component will time out members and notify the Channel if a member fails to send a heartbeat within 
+      a give time. The default value is <code>3000</code> ms. This means, that if a heartbeat is not received from a 
+      member in that timeframe, the membership component will notify the cluster of this.<br>
+      On a high latency network you may wish to increase this value, to protect against false positives.<br>
+      Apache Tribes also provides a <a href="cluster-interceptor.html#tcpfailuredetector"><code>TcpFailureDetector</code></a> that will
+      verify a timeout using a TCP connection when a heartbeat timeout has occurred. This protects against false positives.
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>bind</code></td><td valign="center" align="left">
+      <p>
+      Use this attribute if you wish to bind your multicast traffic to a specific network interface.
+      By default, or when this attribute is unset, it tries to bind to <code>0.0.0.0</code> and sometimes on multihomed hosts
+      this becomes a problem.
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>ttl</code></td><td valign="center" align="left">
+      <p>
+      The time-to-live setting for the multicast heartbeats.
+      This setting should be a value between 0 and 255. The default value is VM implementation specific.
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>domain</code></td><td valign="center" align="left">
+      <p>
+      Apache Tribes has the ability to logically group members into domains, by using this domain attribute.
+      The <code>org.apache.catalina.tribes.Member.getDomain()</code> method returns the value specified here.
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>soTimeout</code></td><td valign="center" align="left">
+      <p>
+      The sending and receiving of heartbeats is done on a single thread, hence to avoid blocking this thread forever,
+      you can control the <code>SO_TIMEOUT</code> value on this socket.<br>
+      If a value smaller or equal to 0 is presented, the code will default this value to frequency
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>recoveryEnabled</code></td><td valign="center" align="left">
+      <p>
+      In case of a network failure, Java multicast socket don't transparently fail over, instead the socket will continuously
+      throw IOException upon each receive request. When recoveryEnabled is set to true, this will close the multicast socket
+      and open a new socket with the same properties as defined above.<br>
+      The default is <code>true</code>. <br>
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>recoveryCounter</code></td><td valign="center" align="left">
+      <p>
+      When <code>recoveryEnabled==true</code> this value indicates how many times we will try recovery.
+      The default is <code>10</code>. <br>
+      </p>
+    </td></tr><tr><td valign="center" align="left"><code>recoverySleepTime</code></td><td valign="center" align="left">
+      <p>
+      When <code>recoveryEnabled==true</code> this value indicates how long time (in milliseconds)
+      the system will sleep in between recovery attempts, until we either recovered successfully or we have reached the
+      recoveryCounter limit.
+      The default is <code>5000</code> (5 seconds). <br>
+      </p>
+    </td></tr></table>
+
+
+  </blockquote></td></tr></table>
+
+
+</blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
+        Copyright &copy; 1999-2011, Apache Software Foundation
+        </em></font></div></td></tr></table></body></html>

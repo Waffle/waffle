@@ -1,0 +1,225 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Catalina Functional Specifications (6.0.35) - Invoker Servlet</title><meta content="Craig McClanahan" name="author"><style media="print" type="text/css">
+			.noPrint {display: none;}
+			td#mainBody {width: 100%;}
+		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
+      Catalina Functional Specifications
+    " align="right" src="../images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1><font face="arial,helvetica,sanserif">Version 6.0.35, Nov 28 2011</font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li><li><a href="index.html">Functional Specs</a></li></ul><p><strong>Administrative Apps</strong></p><ul><li><a href="fs-admin-apps.html">Overall Requirements</a></li><li><a href="mbean-names.html">Tomcat MBean Names</a></li><li><a href="fs-admin-objects.html">Administered Objects</a></li><li><a href="fs-admin-opers.html">Supported Operations</a></li></ul><p><strong>Internal Servlets</strong></p><ul><li><a href="fs-default.html">Default Servlet</a></li><li><a href="fs-invoker.html">Invoker Servlet</a></li></ul><p><strong>Realm Implementations</strong></p><ul><li><a href="fs-jdbc-realm.html">JDBC Realm</a></li><li><a href="fs-jndi-realm.html">JNDI Realm</a></li><li><a href="fs-memory-realm.html">Memory Realm</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Catalina Functional Specifications</h1><h2>Invoker Servlet</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
+<ul><li><a href="#Overview">Overview</a><ol><li><a href="#Introduction">Introduction</a></li><li><a href="#External_Specifications">External Specifications</a></li><li><a href="#Implementation_Requirements">Implementation Requirements</a></li></ol></li><li><a href="#Dependencies">Dependencies</a><ol><li><a href="#Environmental_Dependencies">Environmental Dependencies</a></li><li><a href="#Container_Dependencies">Container Dependencies</a></li></ol></li><li><a href="#Functionality">Functionality</a><ol><li><a href="#Initialization_Functionality">Initialization Functionality</a></li><li><a href="#Per-Request_Functionality">Per-Request Functionality</a></li><li><a href="#Finalization_Functionality">Finalization Functionality</a></li></ol></li><li><a href="#Testable_Assertions">Testable Assertions</a></li></ul>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Overview"><strong>Overview</strong></a></font></td></tr><tr><td><blockquote>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The purpose of the <strong>Invoker Servlet</strong> is to allow a
+    web application to dynamically register new <em>servlet definitions</em>
+    that correspond with a <code>&lt;servlet&gt;</code> element in the
+    <code>/WEB-INF/web.xml</code> deployment descriptor, and execute
+    requests utilizing the new servlet definitions.  From the perspective
+    of the newly registered servlets, all servlet lifecycle requirements
+    of the Servlet Specification (such as calling <code>init()</code> and
+    <code>destroy()</code> at the correct times) will be respected.</p>
+
+  </blockquote></td></tr></table>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="External Specifications"><!--()--></a><a name="External_Specifications"><strong>External Specifications</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>I do not know of any formal specification of the behavior of an
+    invoker servlet that is publicly available.  Anyone know of one?</p>
+
+  </blockquote></td></tr></table>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Implementation Requirements"><!--()--></a><a name="Implementation_Requirements"><strong>Implementation Requirements</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The implementation of this functionality shall conform to the
+    following requirements:</p>
+    <ul>
+    <li>Implemented as a servlet.</li>
+    <li>Exist in the <code>org.apache.catalina.servlets</code> package
+        so that it can be loaded by the Catalina class loader.</li>
+    <li>Implement the <code>org.apache.catalina.ContainerServlet</code>
+        interface, so that it gains knowledge of the <code>Wrapper</code>
+        that is responsible for itself and, therefore, access to other
+        internal Catalina components.</li>
+    <li>Support a configurable debugging detail level.</li>
+    <li>Log debugging and operational messages (suitably internationalized)
+        via the <code>getServletContext().log()</code> method.</li>
+    </ul>
+
+  </blockquote></td></tr></table>
+
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Dependencies"><strong>Dependencies</strong></a></font></td></tr><tr><td><blockquote>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Environmental Dependencies"><!--()--></a><a name="Environmental_Dependencies"><strong>Environmental Dependencies</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The following environmental dependencies must be met in order for
+    the Invoker servlet to operate correctly:</p>
+    <ul>
+    <li>The invoker servlet must be registered in the application deployment
+        descriptor (or the default deployment descriptor in file
+        <code>$CATALINA_BASE/conf/web.xml</code>) using a "path mapped"
+        servlet mapping.  The historical default mapping is to URL pattern
+        "<code>/servlet/*</code>", although the invoker servlet must operate
+        correctly with an arbitrary mapping.</li>
+    </ul>
+
+  </blockquote></td></tr></table>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Container Dependencies"><!--()--></a><a name="Container_Dependencies"><strong>Container Dependencies</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>Correct operation of the invoker servlet depends on the following
+    specific features of the surrounding container:</p>
+    <ul>
+    <li>Correct support for the <code>ContainerServlet</code> interface,
+        including calling <code>setWrapper()</code> <strong>before</strong>
+        the <code>init()</code> method of the invoker servlet is called.</li>
+    <li>The web application class loader must be stored as the context
+        class loader of the request processing thread.</li>
+    </ul>
+
+  </blockquote></td></tr></table>
+
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Functionality"><strong>Functionality</strong></a></font></td></tr><tr><td><blockquote>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Initialization Functionality"><!--()--></a><a name="Initialization_Functionality"><strong>Initialization Functionality</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The following processing must be performed when the <code>init()</code>
+    method of the invoker servlet is called:</p>
+    <ul>
+    <li>Ensure that the container has called <code>setWrapper()</code>.  If
+        not, throw a permanent <code>UnavailableException</code>.</li>
+    <li>Look up and cache the <code>Context</code> that corresponds to our
+        <code>Wrapper</code>.  This is the component with which new servlet
+        definitions and mappings will be registered.</li>
+    </ul>
+
+  </blockquote></td></tr></table>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Per-Request Functionality"><!--()--></a><a name="Per-Request_Functionality"><strong>Per-Request Functionality</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>On each request, the following processing shall be performed:</p>
+    <ol>
+    <li>Calculate the <code>{ServletPath}</code> for this request, either from
+        request attribute <code>javax.servlet.include.servlet_path</code> or
+        by calling <code>request.getServletPath()</code>.</li>
+    <li>Calculate the <code>{PathInfo}</code> for this request, either from
+        request attribute <code>javax.servlet.include.path_info</code> or
+        by calling <code>request.getPathInfo()</code>.  If the calculated
+        <code>{PathInfo}</code> is null, return HTTP status 400
+        (bad request).</li>
+    <li>Parse the calculated <code>{PathInfo}</code> value as follows:
+        <ol>
+        <li>Ignore the leading slash character.</li>
+        <li>Accumulate characters up to the next '/' (if any) as the
+            <code>{ServletSelector}</code>.</li>
+        <li>If a '/' was encountered, accumulate all characters from that
+            slash (inclusive) to the end of the string as
+            <code>{PathRemainder}</code>.  If no slash was encountered,
+            set <code>{PathRemainder}</code> to a zero-length string.</li>
+        </ol></li>
+    <li>Determine whether <code>{ServletSelector}</code> is the name of an
+        existing servlet definition, and process it as follows:
+        <ol>
+        <li>Ask our associated <code>Context</code> to find and return a
+            child <code>Wrapper</code> named <code>{ServletSelector}</code>.
+            </li>
+        <li>If there is no such child, skip to the next major step.</li>
+        <li>Register a new servlet mapping for this <code>Wrapper</code>,
+            using a URL pattern calculated as follows:
+            <code>{ServletPath}</code> + "/" + <code>{ServletSelector}</code>
+            + "/*"</li>
+        <li>Create a request dispatcher using a path calculated as follows:
+            <code>{ServletPath}</code> + "/" + <code>{ServletSelector}</code>
+            + <code>{PathRemainder}</code></li>
+        <li>Forward this request to the created request dispatcher, and
+            exit from this request.</li>
+        </ol></li>
+    <li>Assume that <code>{ServletSelector}</code> is the fully qualified
+        name of a Java class that implements <code>javax.servlet.Servlet</code>
+        and process it as follows:
+        <ol>
+        <li>Synthesize a new <code>{ServletName}</code> for the servlet
+            definition that will be created.</li>
+        <li>If there is already a child <code>Wrapper</code> associated with
+            this name, return HTTP status 500 (internal server error), because
+            a mapping should have already been created for this servlet.</li>
+        <li>Attempt to load a class named <code>{ServletSelector}</code> from
+            the web application class loader (i.e. the context class loader
+            for our current thread).  If this fails, return HTTP status 404
+            (not found).</li>
+        <li>Instantiate an instance of this class.  If an error occurs,
+            return HTTP status 404 (not found).</li>
+        <li>If this class does not implement the
+            <code>javax.servlet.Servlet</code> interface, return HTTP status
+            404 (not found).</li>
+        <li>Create and register a new <code>Wrapper</code> child with our
+            <code>Context</code>, under name <code>{ServletName}</code>.</li>
+        <li>Register a new servlet mapping for this <code>Wrapper</code>,
+            using a URL pattern calculated as follows:
+            <code>{ServletPath}</code> + "/" + <code>{ServletSelector}</code>
+            + "/*"</li>
+        <li>Create a request dispatcher using a path calculated as follows:
+            <code>{ServletPath}</code> + "/" + <code>{ServletSelector}</code>
+            + <code>{PathRemainder}</code></li>
+        <li>Forward this request to the created request dispatcher, and
+            exit from this request.</li>
+        </ol></li>
+    </ol>
+
+  </blockquote></td></tr></table>
+
+
+  <table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Finalization Functionality"><!--()--></a><a name="Finalization_Functionality"><strong>Finalization Functionality</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>No specific processing is required when the <code>destroy()</code>
+    method is called:</p>
+
+  </blockquote></td></tr></table>
+
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Testable Assertions"><!--()--></a><a name="Testable_Assertions"><strong>Testable Assertions</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>In addition the the assertions implied by the functionality requirements
+  listed above, the following additional assertions shall be tested to
+  validate the behavior of the invoker servlet:</p>
+  <ul>
+  <li>It is possible to access an existing servlet definition by name
+      through the invoker.  The existing servlet definition can include
+      either a <code>&lt;servlet-class&gt;</code> or
+      <code>&lt;jsp-file&gt;</code> subelement.</li>
+  <li>When an existing servlet definition is accessed by name, the request
+      will be ultimately processed by the same servlet instance that would
+      have processed it had a mapping to that servlet definition been used
+      on the request directly.</li>
+  <li>It is possible to access an anonymous servlet by class name
+      through the invoker.</li>
+  <li>When an anonymous servlet is accessed, the servlet instance is processed
+      according to the lifecycle requirements of the Servlet Specification.
+      </li>
+  <li>When an anonymous servlet is accessed, the servlet instance receives
+      a <code>ServletConfig</code> instance with no servlet initialization
+      parameters.</li>
+  <li>It is possible to utilize the invoker servlet via a direct request.</li>
+  <li>It is possible to utilize the invoker servlet via a call to
+      <code>RequestDispatcher.forward()</code>, or the corresponding
+      <code>&lt;jsp:forward&gt;</code> tag in a JSP page.</li>
+  <li>It is possible to utilize the invoker servlet via a call to
+      <code>RequestDispatcher.include()</code>, or the corresponding
+      <code>&lt;jsp:include&gt;</code> tag in a JSP page.</li>
+  <li>It is possible to use any HTTP method (including GET and POST) that
+      is supported by the Servlet class that is ultimately executed.</li>
+  <li>The invoker servlet should never be asked to process a second or
+      subsequent request for the same <code>{ServletSelector}</code> (because
+      it will have registered an appropriate servlet mapping.</li>
+  </ul>
+
+</blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
+        Copyright &copy; 1999-2011, Apache Software Foundation
+        </em></font></div></td></tr></table></body></html>

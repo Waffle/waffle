@@ -1,0 +1,344 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat 6.0 (6.0.35) - Windows service HOW-TO</title><meta content="Mladen Turk" name="author"><style media="print" type="text/css">
+			.noPrint {display: none;}
+			td#mainBody {width: 100%;}
+		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
+      The Apache Tomcat Servlet/JSP Container
+    " align="right" src="./images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1><font face="arial,helvetica,sanserif">Version 6.0.35, Nov 28 2011</font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="./images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="index.html">Docs Home</a></li><li><a href="http://wiki.apache.org/tomcat/FAQ">FAQ</a></li></ul><p><strong>User Guide</strong></p><ul><li><a href="introduction.html">1) Introduction</a></li><li><a href="setup.html">2) Setup</a></li><li><a href="appdev/index.html">3) First webapp</a></li><li><a href="deployer-howto.html">4) Deployer</a></li><li><a href="manager-howto.html">5) Manager</a></li><li><a href="realm-howto.html">6) Realms and AAA</a></li><li><a href="security-manager-howto.html">7) Security Manager</a></li><li><a href="jndi-resources-howto.html">8) JNDI Resources</a></li><li><a href="jndi-datasource-examples-howto.html">9) JDBC DataSources</a></li><li><a href="class-loader-howto.html">10) Classloading</a></li><li><a href="jasper-howto.html">11) JSPs</a></li><li><a href="ssl-howto.html">12) SSL</a></li><li><a href="ssi-howto.html">13) SSI</a></li><li><a href="cgi-howto.html">14) CGI</a></li><li><a href="proxy-howto.html">15) Proxy Support</a></li><li><a href="mbeans-descriptor-howto.html">16) MBean Descriptor</a></li><li><a href="default-servlet.html">17) Default Servlet</a></li><li><a href="cluster-howto.html">18) Clustering</a></li><li><a href="balancer-howto.html">19) Load Balancer</a></li><li><a href="connectors.html">20) Connectors</a></li><li><a href="monitoring.html">21) Monitoring and Management</a></li><li><a href="logging.html">22) Logging</a></li><li><a href="apr.html">23) APR/Native</a></li><li><a href="virtual-hosting-howto.html">24) Virtual Hosting</a></li><li><a href="aio.html">25) Advanced IO</a></li><li><a href="extras.html">26) Additional Components</a></li><li><a href="maven-jars.html">27) Mavenized</a></li></ul><p><strong>Reference</strong></p><ul><li><a href="RELEASE-NOTES.txt">Release Notes</a></li><li><a href="config/index.html">Configuration</a></li><li><a href="api/index.html">Javadocs</a></li><li><a href="http://tomcat.apache.org/connectors-doc/">JK 1.2 Documentation</a></li></ul><p><strong>Apache Tomcat Development</strong></p><ul><li><a href="building.html">Building</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="http://wiki.apache.org/tomcat/TomcatVersions">Status</a></li><li><a href="developers.html">Developers</a></li><li><a href="architecture/index.html">Architecture</a></li><li><a href="funcspecs/index.html">Functional Specs.</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat 6.0</h1><h2>Windows service HOW-TO</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
+<ul><li><a href="#Tomcat6_service_application">Tomcat6 service application</a></li><li><a href="#Tomcat6w_monitor_application">Tomcat6w monitor application</a></li><li><a href="#Command_line_arguments">Command line arguments</a></li><li><a href="#Command_line_parameters">Command line parameters</a></li><li><a href="#Installing_services">Installing services</a></li><li><a href="#Updating_services">Updating services</a></li><li><a href="#Removing_services">Removing services</a></li><li><a href="#Debugging_services">Debugging services</a></li></ul>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat6 service application"><!--()--></a><a name="Tomcat6_service_application"><strong>Tomcat6 service application</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+    <b>Tomcat6</b> is a service application for running Tomcat6 as NT service.
+</p>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Tomcat6w monitor application"><!--()--></a><a name="Tomcat6w_monitor_application"><strong>Tomcat6w monitor application</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+    <b>Tomcat6w</b> is a GUI application for monitoring and configuring Tomcat
+    services.
+</p>    
+    <p>The available command line options are:</p>
+<p> 
+    <table>
+    <tr><th>//ES//</th>
+        <td>Edit service configuration</td>
+        <td>This is the default operation. It is called if the no option is
+            provided but the executable is renamed to <b>servicenameW.exe</b></td>
+    </tr>
+    <tr><th>//MS//</th>
+        <td>Monitor service</td>
+        <td>Put the icon in the system try</td>
+    </tr>
+    </table>
+</p>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Command line arguments"><!--()--></a><a name="Command_line_arguments"><strong>Command line arguments</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+    Each command line directive is in the form of <b>//XX//ServiceName</b>
+</p>
+    <p>The available command line options are:</p>
+<p> 
+    <table>
+    <tr><th>//TS//</th>
+        <td>Run the service as console application</td>
+        <td>This is the default operation. It is called if the no option is
+            provided. The ServiceName is the name of the executable without
+            exe suffix, meaning Tomcat6</td>
+    </tr>
+    <tr><th>//RS//</th>
+        <td>Run the service</td>
+        <td>Called only from ServiceManager</td>
+    </tr>
+    <tr><th>//SS//</th>
+        <td>Stop the service</td>
+        <td></td>
+    </tr>
+    <tr><th>//US//</th>
+        <td>Update service parameters</td>
+        <td></td>
+    </tr>
+    <tr><th>//IS//</th>
+        <td>Install service</td>
+        <td></td>
+    </tr>
+    <tr><th>//DS//</th>
+        <td>Delete service</td>
+        <td>Stops the service if running</td>
+    </tr>        
+    </table>
+</p> 
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Command line parameters"><!--()--></a><a name="Command_line_parameters"><strong>Command line parameters</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+    Each command parameter is prefixed with <b>--</b>.
+    If the command line is prefixed with <b>++</b> then it's value will
+    be appended to the existing option.
+    If the environment variable with the same name as command line parameter but
+    prefixed with <code>PR_</code> exists it will take precedence.
+    For example:
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>set PR_CLASSPATH=xx.jar</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+</p>    
+<p>is equivalent to providing
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>--Classpath=xx.jar</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+</p>
+<p> as command line parameter.</p>
+    <p><strong>Note:</strong> PR_DEPENDSON, PR_ENVIRONMENT, PR_JVMOPTIONS,
+    PR_JVMMS, PR_JVMMX, PR_JVMSS, PR_STARTPARAMS, PR_STOPPARAMS and
+    PR_STOPTIMEOUT will not work until this bug is fixed:
+    <a href="http://issues.apache.org/jira/browse/DAEMON-49">DAEMON-49</a></p>
+<p> 
+    <table>
+    <tr>
+    <th>ParameterName</th>
+	<th>Default</th>
+	<th>Description</th>
+	</tr> 
+    <tr>
+    <td>--Description</td>
+    <td></td>
+    <td>Service name description (maximum 1024 characters)</td>
+    </tr>
+    <tr>
+    <td>--DisplayName</td>
+    <td>ServiceName</td>
+    <td>Service display name</td>
+    </tr>
+    <tr>
+    <td>--Install</td>
+    <td>procrun.exe //RS//ServiceName</td>
+    <td>Install image</td>
+    </tr>
+    <tr>
+    <td>--Startup</td>
+    <td>manual</td>
+    <td>Service startup mode can be either <b>auto</b> or <b>manual</b></td>
+    </tr>
+    <tr>
+    <td>--DependsOn</td>
+    <td></td>
+    <td>List of services that this service depend on. Dependent services
+        are separated using either <b>#</b> or <b>;</b> characters</td>
+    </tr>
+    <tr>
+    <td>--Environment</td>
+    <td></td>
+    <td>List of environment variables that will be provided to the service
+        in the form <b>key=value</b>. They are separated using either
+        <b>#</b> or <b>;</b> characters</td>
+    </tr>
+    <tr>
+    <td>--User</td>
+    <td></td>
+    <td>User account used for running executable. It is used only for
+    	StartMode <b>java</b> or <b>exe</b> and enables running applications
+    	as service under account without LogonAsService privilege.</td>
+    </tr>
+    <tr>
+    <td>--Password</td>
+    <td></td>
+    <td>Password for user account set by --User parameter</td>
+    </tr>
+    <tr>
+    <td>--JavaHome</td>
+    <td>JAVA_HOME</td>
+    <td>Set a different JAVA_HOME than defined by JAVA_HOME environment
+        variable</td>
+    </tr>
+    <tr>
+    <td>--Jvm</td>
+    <td>auto</td>
+    <td>Use either <b>auto</b> or specify the full path to the <b>jvm.dll</b>.
+        You can use the environment variable expansion here.</td>
+    </tr>
+    <tr>
+    <td>--JvmOptions</td>
+    <td>-Xrs</td>
+    <td>List of options in the form of <b>-D</b> or <b>-X</b> that will be
+        passed to the JVM. The options are separated using either
+        <b>#</b> or <b>;</b> characters.</td>
+    </tr>
+    <tr>
+    <td>--Classpath</td>
+    <td></td>
+    <td>Set the Java classpath</td>
+    </tr>
+    <tr>
+    <td>--JvmMs</td>
+    <td></td>
+    <td>Initial memory pool size in MB</td>
+    </tr>
+    <tr>
+    <td>--JvmMx</td>
+    <td></td>
+    <td>Maximum memory pool size in MB</td>
+    </tr>
+    <tr>
+    <td>--JvmSs</td>
+    <td></td>
+    <td>Thread stack size in KB</td>
+    </tr>
+    <tr>
+    <tr>
+    <td>--StartImage</td>
+    <td></td>
+    <td>Executable that will be run.</td>
+    </tr>
+    <tr>
+    <td>--StartPath</td>
+    <td></td>
+    <td>Working path for the start image executable.</td>
+    </tr>
+    <tr>
+    <td>--StartClass</td>
+    <td></td>
+    <td>Class that will be used for startup.</td>
+    </tr>
+    <tr>
+    <td>--StartParams</td>
+    <td></td>
+    <td>List of parameters that will be passed to either StartImage or
+        StartClass. Parameters are separated using either <b>#</b> or
+        <b>;</b> character.</td>
+    </tr>
+    <tr>
+    <td>--StartMethod</td>
+    <td>Main</td>
+    <td>Method name if differs then main</td>
+    </tr>
+    <tr>
+    <td>--StartMode</td>
+    <td>executable</td>
+    <td>Can one of <b>jvm</b> <b>java</b> or <b>exe</b></td>
+    </tr>
+    <td>--StopImage</td>
+    <td></td>
+    <td>Executable that will be run on Stop service signal.</td>
+    </tr>
+    <tr>
+    <td>--StopPath</td>
+    <td></td>
+    <td>Working path for the stop image executable.</td>
+    </tr>
+    <tr>
+    <td>--StopClass</td>
+    <td></td>
+    <td>Class that will be used on Stop service signal.</td>
+    </tr>
+    <tr>
+    <td>--StopParams</td>
+    <td></td>
+    <td>List of parameters that will be passed to either StopImage or
+        StopClass. Parameters are separated using either <b>#</b> or
+        <b>;</b> character.</td>
+    </tr>
+    <tr>
+    <td>--StopMethod</td>
+    <td>Main</td>
+    <td>Method name if differs then main</td>
+    </tr>
+    <tr>
+    <td>--StopMode</td>
+    <td>executable</td>
+    <td>Can one of <b>jvm</b> <b>java</b> or <b>exe</b></td>
+    </tr>
+    <tr>
+    <td>--StopTimeout</td>
+    <td>No Timeout</td>
+    <td>Defines the timeout in seconds that procrun waits for service to
+        exit gracefully.</td>
+    </tr>
+    <tr>
+    <td>--LogPath</td>
+    <td>working path</td>
+    <td>Defines the path for logging</td>
+    </tr>
+    <tr>
+    <td>--LogPrefix</td>
+    <td>jakarta_service</td>
+    <td>Defines the service log filename</td>
+    </tr>
+    <tr>
+    <td>--LogLevel</td>
+    <td>INFO</td>
+    <td>Defines the logging level and can be either <b>error</b>,
+        <b>info</b>, <b>warn</b> or <b>debug</b></td>
+    </tr>
+    <tr>
+    <td>--StdOutput</td>
+    <td></td>
+    <td>Redirected stdout filename</td>
+    </tr>
+    <tr>
+    <td>--StdError</td>
+    <td></td>
+    <td>Redirected stderr filename</td>
+    </tr>    
+    </table>
+</p> 
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Installing services"><!--()--></a><a name="Installing_services"><strong>Installing services</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+The safest way to manually install the service is to use the provided
+<b>service.bat</b> script. Administrator privileges are required to run this
+script.
+</p>
+<p>
+<strong>NOTE:</strong> On Windows Vista or any other operating system with User
+Account Control (UAC) you must either disable UAC or right-click on cmd.exe and
+select "Run as administrator" in order to run this script. If UAC is enabled
+being logged on with an Administrator account is not sufficient.  
+</p>
+<p>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+Install the service named 'Tomcat6'
+C:\&gt; service.bat install
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+</p>
+<p>
+If using tomcat6.exe, you need to use the <b>//IS//</b> parameter.
+</p>
+<p>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+Install the service named 'Tomcat6'
+C:\&gt; tomcat6 //IS//Tomcat6 --DisplayName="Apache Tomcat 6" \
+C:\&gt; --Install="C:\Program Files\Tomcat\bin\tomcat6.exe" --Jvm=auto \
+C:\&gt; --StartMode=jvm --StopMode=jvm \
+C:\&gt; --StartClass=org.apache.catalina.startup.Bootstrap --StartParams=start \
+C:\&gt; --StopClass=org.apache.catalina.startup.Bootstrap --StopParams=stop
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+</p>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Updating services"><!--()--></a><a name="Updating_services"><strong>Updating services</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+To update the service parameters, you need to use the <b>//US//</b> parameter.
+</p>
+<p>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+Update the service named 'Tomcat6
+C:\&gt; tomcat6 //US//Tomcat6 --Description="Apache Tomcat Server - http://tomcat.apache.org/ " \
+C:\&gt; --Startup=auto --Classpath=%JAVA_HOME%\lib\tools.jar;%CATALINA_HOME%\bin\bootstrap.jar
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+</p>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Removing services"><!--()--></a><a name="Removing_services"><strong>Removing services</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+To remove the service, you need to use the <b>//DS//</b> parameter.<br>
+If the service is running it will be stopped and then deleted.
+</p>
+<p>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+Remove the service named 'Tomcat6'
+C:\&gt; tomcat6 //DS//Tomcat6
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+</p>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Debugging services"><!--()--></a><a name="Debugging_services"><strong>Debugging services</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+To run the service in console mode, you need to use the <b>//TS//</b> parameter.
+The service shutdown can be initiated by pressing <b>CTRL+C</b> or
+<b>CTRL+BREAK</b>.
+If you rename the tomcat6.exe to testservice.exe then you can just execute the
+testservice.exe and this command mode will be executed by default.
+</p>
+<p>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+Run the service named 'Tomcat6' in console mode
+C:\&gt; tomcat6 //TS//Tomcat6 [additional arguments]
+Or simply execute:
+C:\&gt; tomcat6
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+</p>
+</blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
+        Copyright &copy; 1999-2011, Apache Software Foundation
+        </em></font></div></td></tr></table></body></html>

@@ -1,0 +1,1051 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat 6.0 (6.0.35) - Monitoring and Managing Tomcat</title><meta content="Peter Rossbach" name="author"><meta content="Remy Maucherat" name="author"><style media="print" type="text/css">
+			.noPrint {display: none;}
+			td#mainBody {width: 100%;}
+		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
+      The Apache Tomcat Servlet/JSP Container
+    " align="right" src="./images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1><font face="arial,helvetica,sanserif">Version 6.0.35, Nov 28 2011</font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="./images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="index.html">Docs Home</a></li><li><a href="http://wiki.apache.org/tomcat/FAQ">FAQ</a></li></ul><p><strong>User Guide</strong></p><ul><li><a href="introduction.html">1) Introduction</a></li><li><a href="setup.html">2) Setup</a></li><li><a href="appdev/index.html">3) First webapp</a></li><li><a href="deployer-howto.html">4) Deployer</a></li><li><a href="manager-howto.html">5) Manager</a></li><li><a href="realm-howto.html">6) Realms and AAA</a></li><li><a href="security-manager-howto.html">7) Security Manager</a></li><li><a href="jndi-resources-howto.html">8) JNDI Resources</a></li><li><a href="jndi-datasource-examples-howto.html">9) JDBC DataSources</a></li><li><a href="class-loader-howto.html">10) Classloading</a></li><li><a href="jasper-howto.html">11) JSPs</a></li><li><a href="ssl-howto.html">12) SSL</a></li><li><a href="ssi-howto.html">13) SSI</a></li><li><a href="cgi-howto.html">14) CGI</a></li><li><a href="proxy-howto.html">15) Proxy Support</a></li><li><a href="mbeans-descriptor-howto.html">16) MBean Descriptor</a></li><li><a href="default-servlet.html">17) Default Servlet</a></li><li><a href="cluster-howto.html">18) Clustering</a></li><li><a href="balancer-howto.html">19) Load Balancer</a></li><li><a href="connectors.html">20) Connectors</a></li><li><a href="monitoring.html">21) Monitoring and Management</a></li><li><a href="logging.html">22) Logging</a></li><li><a href="apr.html">23) APR/Native</a></li><li><a href="virtual-hosting-howto.html">24) Virtual Hosting</a></li><li><a href="aio.html">25) Advanced IO</a></li><li><a href="extras.html">26) Additional Components</a></li><li><a href="maven-jars.html">27) Mavenized</a></li></ul><p><strong>Reference</strong></p><ul><li><a href="RELEASE-NOTES.txt">Release Notes</a></li><li><a href="config/index.html">Configuration</a></li><li><a href="api/index.html">Javadocs</a></li><li><a href="http://tomcat.apache.org/connectors-doc/">JK 1.2 Documentation</a></li></ul><p><strong>Apache Tomcat Development</strong></p><ul><li><a href="building.html">Building</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="http://wiki.apache.org/tomcat/TomcatVersions">Status</a></li><li><a href="developers.html">Developers</a></li><li><a href="architecture/index.html">Architecture</a></li><li><a href="funcspecs/index.html">Functional Specs.</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Apache Tomcat 6.0</h1><h2>Monitoring and Managing Tomcat</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
+<ul><li><a href="#Introduction">Introduction</a></li><li><a href="#Enabling_JMX_Remote">Enabling JMX Remote</a></li><li><a href="#Manage_Tomcat_with_JMX_remote_Ant_Tasks">Manage Tomcat with JMX remote Ant Tasks</a></li><li><a href="#JMXAccessorOpenTask_-_JMX_open_connection_task">JMXAccessorOpenTask - JMX open connection task</a></li><li><a href="#JMXAccessorGetTask:__get_attribute_value_Ant_task">JMXAccessorGetTask:  get attribute value Ant task</a></li><li><a href="#JMXAccessorSetTask:__set_attribute_value_Ant_task">JMXAccessorSetTask:  set attribute value Ant task</a></li><li><a href="#JMXAccessorInvokeTask:__invoke_MBean_operation_Ant_task">JMXAccessorInvokeTask:  invoke MBean operation Ant task</a></li><li><a href="#JMXAccessorQueryTask:__query_MBean_Ant_task">JMXAccessorQueryTask:  query MBean Ant task</a></li><li><a href="#JMXAccessorCreateTask:__remote_create_MBean_Ant_task">JMXAccessorCreateTask:  remote create MBean Ant task</a></li><li><a href="#JMXAccessorUnregisterTask:__remote_unregister_MBean_Ant_task">JMXAccessorUnregisterTask:  remote unregister MBean Ant task</a></li><li><a href="#JMXAccessorCondition:__express_condition">JMXAccessorCondition:  express condition</a></li><li><a href="#JMXAccessorEqualsCondition:__equals_MBean_Ant_condition">JMXAccessorEqualsCondition:  equals MBean Ant condition</a></li></ul>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>Monitoring is a key aspect of system administration. Looking inside a
+     running server, obtaining some statistics or reconfiguring some aspects of
+     an application are all daily administration tasks.</p>  
+  
+  </blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Enabling JMX Remote"><!--()--></a><a name="Enabling_JMX_Remote"><strong>Enabling JMX Remote</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>The Sun website includes the list of options and how to configure JMX Remote on Java 5:
+        <a href="http://java.sun.com/j2se/1.5.0/docs/guide/management/agent.html">
+        http://java.sun.com/j2se/1.5.0/docs/guide/management/agent.html</a>.
+    </p>
+    <p>The following is a quick configuration guide for Java 5:</p>
+    <p>Add the following parameters to your Tomcat startup script:
+    <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+    set CATALINA_OPTS=-Dcom.sun.management.jmxremote \
+    -Dcom.sun.management.jmxremote.port=%my.jmx.port% \
+    -Dcom.sun.management.jmxremote.ssl=false \
+    -Dcom.sun.management.jmxremote.authenticate=false
+    </pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+    </p>
+    <p>
+    <ol>
+    <li>If you require authorization, add and change this :
+    <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+    -Dcom.sun.management.jmxremote.authenticate=true \
+    -Dcom.sun.management.jmxremote.password.file=../conf/jmxremote.password \
+    -Dcom.sun.management.jmxremote.access.file=../conf/jmxremote.access \
+    </pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+    </li>
+    <li>edit the access authorization file <em>$CATALINA_BASE/conf/jmxremote.access</em> :
+    <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+monitorRole readonly
+controlRole readwrite
+    </pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+    </li>
+    <li>edit the password file <em>$CATALINA_BASE/conf/jmxremote.password</em> :
+    <div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+monitorRole tomcat
+controlRole tomcat
+    </pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+    <b>Tip</b>: The password file should be read-only and only accessible by the
+    operating system user Tomcat is running as.
+    </li>
+    </ol>
+    <b>Note:</b>The JSR 160 JMX-Adaptor opens a second data channel on a random
+    port. That is a problem when you have a local firewall installed.<br>
+    </p>
+
+  </blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Manage Tomcat with JMX remote Ant Tasks"><!--()--></a><a name="Manage_Tomcat_with_JMX_remote_Ant_Tasks"><strong>Manage Tomcat with JMX remote Ant Tasks</strong></a></font></td></tr><tr><td><blockquote>
+   <p>To simplify JMX usage with Ant 1.6.x, a set of tasks is provided that may
+   be used with antlib.</p>   
+   <p><b>antlib</b>Copy your catalina-ant.jar from $CATALINA_HOME/lib to $ANT_HOME/lib.</p>
+   <p>The following example shows the JMX Accessor usage:</p>
+   <table border="1">
+   <tr><td><p><pre>
+&lt;project name="Catalina Ant JMX" 
+        xmlns:jmx="antlib:org.apache.catalina.ant.jmx" 
+        default="state"
+        basedir="."&gt;
+    &lt;property name="jmx.server.name" value="localhost" /&gt;
+    &lt;property name="jmx.server.port" value="9012" /&gt;
+    &lt;property name="cluster.server.address" value="192.168.1.75" /&gt;
+    &lt;property name="cluster.server.port" value="9025" /&gt;
+ 
+    &lt;target name="state" description="Show JMX Cluster state"&gt;
+        &lt;jmx:open
+            host="${jmx.server.name}"
+            port="${jmx.server.port}"
+            username="controlRole"
+            password="tomcat"/&gt;
+        &lt;jmx:get
+            name="Catalina:type=IDataSender,host=localhost,senderAddress=${cluster.server.address},senderPort=${cluster.server.port}" 
+            attribute="connected"
+            resultproperty="IDataSender.backup.connected"
+            echo="false"
+        /&gt;
+       &lt;jmx:get
+            name="Catalina:type=ClusterSender,host=localhost" 
+            attribute="senderObjectNames"
+            resultproperty="senderObjectNames"
+            echo="false"
+        /&gt;
+        &lt;!-- get current maxActiveSession from ClusterTest application
+             echo it to Ant output and store at 
+             property &lt;em&gt;clustertest.maxActiveSessions.orginal&lt;/em&gt;
+        --&gt;
+       &lt;jmx:get
+            name="Catalina:type=Manager,path=/ClusterTest,host=localhost" 
+            attribute="maxActiveSessions"
+            resultproperty="clustertest.maxActiveSessions.orginal"
+            echo="true"
+        /&gt;
+        &lt;!-- set maxActiveSession to 100
+        --&gt;
+        &lt;jmx:set
+            name="Catalina:type=Manager,path=/ClusterTest,host=localhost" 
+            attribute="maxActiveSessions"
+            value="100"
+            type="int"
+        /&gt;
+        &lt;!-- get all sessions and split result as delimiter &lt;em&gt;SPACE&lt;/em&gt; for easy
+             access all session ids directly with Ant property sessions.[0..n].
+        --&gt;
+        &lt;jmx:invoke
+            name="Catalina:type=Manager,path=/ClusterTest,host=localhost" 
+            operation="listSessionIds"
+            resultproperty="sessions"
+            echo="false"
+            delimiter=" "
+        /&gt;
+        &lt;!-- Access session attribute &lt;em&gt;Hello&lt;/em&gt; from first session.
+        --&gt;
+        &lt;jmx:invoke
+            name="Catalina:type=Manager,path=/ClusterTest,host=localhost" 
+            operation="getSessionAttribute"
+            resultproperty="Hello"
+            echo="false"
+        &gt;
+          &lt;arg value="${sessions.0}"/&gt;
+          &lt;arg value="Hello"/&gt;
+        &lt;/jmx:invoke&gt; 
+        &lt;!-- Query for all application manager.of the server from all hosts
+             and bind all attributes from all found manager MBeans.
+        --&gt;
+        &lt;jmx:query
+            name="Catalina:type=Manager,*" 
+            resultproperty="manager"
+            echo="true"
+            attributebinding="true"
+        /&gt;
+        &lt;!-- echo the create properties --&gt;
+        &lt;echo&gt;
+           senderObjectNames: ${senderObjectNames.0}
+           IDataSender.backup.connected: ${IDataSender.backup.connected}
+           session: ${sessions.0}
+           manager.length: ${manager.length}
+           manager.0.name: ${manager.0.name}
+           manager.1.name: ${manager.1.name}
+           hello: ${Hello}
+           manager.ClusterTest.0.name: ${manager.ClusterTest.0.name}
+           manager.ClusterTest.0.activeSessions: ${manager.ClusterTest.0.activeSessions}
+           manager.ClusterTest.0.counterSend_EVT_SESSION_EXPIRED: ${manager.ClusterTest.0.counterSend_EVT_SESSION_EXPIRED}
+           manager.ClusterTest.0.counterSend_EVT_GET_ALL_SESSIONS: ${manager.ClusterTest.0.counterSend_EVT_GET_ALL_SESSIONS}
+        &lt;/echo&gt;   
+
+    &lt;/target&gt;
+ 
+&lt;/project&gt;
+   </pre></p>
+   </td></tr>
+</table>
+   <p><b>import:</b> Import the JMX Accessor Project with 
+   <em>&lt;import file="${CATALINA.HOME}/bin/catalina-tasks.xml" /&gt;</em> and
+   reference the tasks with <em>jmxOpen</em>, <em>jmxSet</em>, <em>jmxGet</em>,
+    <em>jmxQuery</em>, <em>jmxInvoke</em>,<em>jmxEquals</em> and <em>jmxCondition</em>. </p>
+
+  </blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="JMXAccessorOpenTask - JMX open connection task"><!--()--></a><a name="JMXAccessorOpenTask_-_JMX_open_connection_task"><strong>JMXAccessorOpenTask - JMX open connection task</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+List of Attributes<br>
+<table border="1" cellpadding="5">
+
+  <tr>
+    <th align="center" bgcolor="aqua">Attribute</th>
+    <th align="center" bgcolor="aqua">Description</th>
+    <th align="center" bgcolor="aqua">Default value</th>
+  </tr>
+
+  <tr>
+    <td>url</td>
+    <td>Set JMX connection URL - <em>service:jmx:rmi:///jndi/rmi://localhost:8050/jmxrmi</em>
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>host</td>
+    <td>Set the host, shortcut the very long URL syntax.
+    </td>
+    <td><code>localhost</code></td>
+  </tr>
+
+  <tr>
+    <td>port</td>
+    <td>Set the remote connection port 
+    </td>
+    <td><code>8050</code></td>
+  </tr>
+
+  <tr>
+    <td>username</td>
+    <td>remote JMX connection user name.
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>password</td>
+    <td>remote JMX connection password.
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>ref</td>
+    <td>Name of the internal connection reference. With this attribute you can
+        configure more the one connection inside the same Ant project.
+    </td>
+    <td><code>jmx.server</code></td>
+  </tr>
+
+  <tr>
+    <td>echo</td>
+    <td>Echo the command usage (for access analysis or debugging)
+    </td>
+    <td><code>false</code></td>
+  </tr>
+  
+  <tr>
+    <td>if</td>
+    <td>Only execute if a property of the given name <b>exists</b> in the current project.
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>unless</td>
+    <td>Only execute if a property of the given name <b>not exists</b> in the current project.
+    </td>
+    <td></td>
+  </tr>
+
+</table>
+</p>
+<p>
+Example to open a new JMX connection<br>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+    &lt;jmx:open
+            host="${jmx.server.name}"
+            port="${jmx.server.port}"
+    /&gt;
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+</p>  
+<p>
+Example to open a JMX connection from URL, with authorization and 
+store at other reference <br>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+    &lt;jmx:open
+            url="service:jmx:rmi:///jndi/rmi://localhost:9024/jmxrmi"
+            ref="jmx.server.9024"
+            username="controlRole"
+            password="tomcat"    
+    /&gt;
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+</p>  
+
+<p>
+Example to open a JMX connection from URL, with authorization and 
+store at other reference, but only when property <em>jmx.if</em> exists and 
+<em>jmx.unless</em> not exists<br>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+    &lt;jmx:open
+            url="service:jmx:rmi:///jndi/rmi://localhost:9024/jmxrmi"
+            ref="jmx.server.9024"
+            username="controlRole"
+            password="tomcat"    
+            if="jmx.if"    
+            unless="jmx.unless"    
+    /&gt;
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+</p> 
+<p><b>Note</b>: All properties from <em>jmxOpen</em> task also exists at all 
+other tasks and conditions. 
+</p>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="JMXAccessorGetTask:  get attribute value Ant task"><!--()--></a><a name="JMXAccessorGetTask:__get_attribute_value_Ant_task"><strong>JMXAccessorGetTask:  get attribute value Ant task</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+List of Attributes<br>
+<table border="1" cellpadding="5">
+
+  <tr>
+    <th align="center" bgcolor="aqua">Attribute</th>
+    <th align="center" bgcolor="aqua">Description</th>
+    <th align="center" bgcolor="aqua">Default value</th>
+  </tr>
+
+  <tr>
+    <td>name</td>
+    <td>Full qualified JMX ObjectName -- <em>Catalina:type=Server</em>
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>attribute</td>
+    <td>Existing MBean attribute (see Tomcat MBean description above)
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>ref</td>
+    <td>JMX Connection reference
+    </td>
+    <td><code>jmx.server</code></td>
+  </tr>
+
+  <tr>
+    <td>echo</td>
+    <td>Echo command usage (access and result)
+    </td>
+    <td><code>false</code></td>
+  </tr>
+
+  <tr>
+    <td>resultproperty</td>
+    <td>Save result at this project property
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>delimiter</td>
+    <td>Split result with delimiter (java.util.StringTokenizier) 
+        and use resultproperty as prefix to store tokens.
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>separatearrayresults</td>
+    <td>When return value is an array, save result as property list 
+    (<em>$resultproperty.[0..N]</em> and <em>$resultproperty.length</em>) 
+    </td>
+    <td><code>true</code></td>
+  </tr>
+
+</table>
+</p>
+<p>
+Example to get remote MBean attribute from default JMX connection <br>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+    &lt;jmx:get
+        name="Catalina:type=Manager,path=/servlets-examples,host=localhost" 
+        attribute="maxActiveSessions"
+        resultproperty="servlets-examples.maxActiveSessions"
+    /&gt;
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+</p>  
+<p>
+Example to get and result array and split it at separate properties<br>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+    &lt;jmx:get
+        name="Catalina:type=ClusterSender,host=localhost" 
+        attribute="senderObjectNames"
+        resultproperty="senderObjectNames"
+    /&gt;
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+Access the senderObjectNames properties with:
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+    ${senderObjectNames.length} give the number of returned sender list.
+    ${senderObjectNames.[0..N]} found all sender object names
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+</p>  
+
+<p>
+Example to get IDataSender attribute connected only when cluster is configured.
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+&lt;jmx:query
+    failonerror="false"
+    name="Catalina:type=Cluster,host=${tomcat.application.host}"
+    resultproperty="cluster"
+/&gt;
+&lt;jmx:get
+    name="Catalina:type=IDataSender,host=${tomcat.application.host},senderAddress=${cluster.backup.address},senderPort=${cluster.backup.port}" 
+    attribute="connected"
+    resultproperty="datasender.connected"
+    if="cluster.0.name" /&gt;
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+</p>  
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="JMXAccessorSetTask:  set attribute value Ant task"><!--()--></a><a name="JMXAccessorSetTask:__set_attribute_value_Ant_task"><strong>JMXAccessorSetTask:  set attribute value Ant task</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+List of Attributes<br>
+<table border="1" cellpadding="5">
+
+  <tr>
+    <th align="center" bgcolor="aqua">Attribute</th>
+    <th align="center" bgcolor="aqua">Description</th>
+    <th align="center" bgcolor="aqua">Default value</th>
+  </tr>
+
+  <tr>
+    <td>name</td>
+    <td>Full qualified JMX ObjectName -- <em>Catalina:type=Server</em>
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>attribute</td>
+    <td>Existing MBean attribute (see Tomcat MBean description above)
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>value</td>
+    <td>value that set to attribute 
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>type</td>
+    <td>type of the attribute.
+    </td>
+    <td>java.lang.String</td>
+  </tr>
+
+  <tr>
+    <td>ref</td>
+    <td>JMX Connection reference
+    </td>
+    <td><code>jmx.server</code></td>
+  </tr>
+
+  <tr>
+    <td>echo</td>
+    <td>Echo command usage (access and result)
+    </td>
+    <td><code>false</code></td>
+  </tr>
+
+</table>
+</p>
+<p>
+Example to set remote MBean attribute value<br>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+    &lt;jmx:set
+        name="Catalina:type=Manager,path=/servlets-examples,host=localhost" 
+        attribute="maxActiveSessions"
+        value="500"
+        type="int"
+    /&gt;
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+</p>  
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="JMXAccessorInvokeTask:  invoke MBean operation Ant task"><!--()--></a><a name="JMXAccessorInvokeTask:__invoke_MBean_operation_Ant_task"><strong>JMXAccessorInvokeTask:  invoke MBean operation Ant task</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+List of Attributes<br>
+<table border="1" cellpadding="5">
+
+  <tr>
+    <th align="center" bgcolor="aqua">Attribute</th>
+    <th align="center" bgcolor="aqua">Description</th>
+    <th align="center" bgcolor="aqua">Default value</th>
+  </tr>
+
+  <tr>
+    <td>name</td>
+    <td>Full qualified JMX ObjectName -- <em>Catalina:type=Server</em>
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>operation</td>
+    <td>Existing MBean operation (see Tomcat 
+        <a href="funcspecs/fs-admin-opers.html">funcspecs/fs-admin-opers.html</a>).
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>ref</td>
+    <td>JMX Connection reference
+    </td>
+    <td><code>jmx.server</code></td>
+  </tr>
+
+  <tr>
+    <td>echo</td>
+    <td>Echo command usage (access and result)
+    </td>
+    <td><code>false</code></td>
+  </tr>
+
+  <tr>
+    <td>resultproperty</td>
+    <td>Save result at this project property
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>delimiter</td>
+    <td>Split result with delimiter (java.util.StringTokenizier) 
+        and use resultproperty as prefix to store tokens.
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>separatearrayresults</td>
+    <td>When return value is an array, save result as property list 
+    (<em>$resultproperty.[0..N]</em> and <em>$resultproperty.length</em>) 
+    </td>
+    <td><code>true</code></td>
+  </tr>
+
+</table>
+</p>
+<p>
+stop an application <br>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+    &lt;jmx:invoke
+        name="Catalina:type=Manager,path=/servlets-examples,host=localhost" 
+        operation="stop"/&gt;
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+Now you can find the sessionid at <em>${sessions.[0..N}</em> properties and access the count
+with ${sessions.length} property.
+</p>  
+<p>
+Example to get all sessionids <br>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+    &lt;jmx:invoke
+        name="Catalina:type=Manager,path=/servlets-examples,host=localhost" 
+        operation="listSessionIds"
+        resultproperty="sessions"
+        delimiter=" "        
+    /&gt;
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+Now you can find the sessionid at <em>${sessions.[0..N}</em> properties and access the count
+with ${sessions.length} property.
+</p>  
+<p>
+Example to get remote MBean session attribute from session ${sessionid.0}<br>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+    &lt;jmx:invoke
+        name="Catalina:type=Manager,path=/ClusterTest,host=localhost" 
+        operation="getSessionAttribute"
+        resultproperty="hello"&gt;
+         &lt;arg value="${sessionid.0}"/&gt;
+         &lt;arg value="Hello" /&gt;
+ &lt;/jmx:invoke&gt;
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+</p>
+<p>
+Example to create a new access logger valve at vhost <em>localhost</em>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+ &lt;jmx:invoke
+         name="Catalina:type=MBeanFactory" 
+         operation="createAccessLoggerValve"
+         resultproperty="accessLoggerObjectName"
+ &gt;
+     &lt;arg value="Catalina:type=Host,host=localhost"/&gt;
+ &lt;/jmx:invoke&gt;
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+Now you can find new MBean with name stored at <em>${accessLoggerObjectName}</em>
+property.
+</p>  
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="JMXAccessorQueryTask:  query MBean Ant task"><!--()--></a><a name="JMXAccessorQueryTask:__query_MBean_Ant_task"><strong>JMXAccessorQueryTask:  query MBean Ant task</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+List of Attributes<br>
+<table border="1" cellpadding="5">
+
+  <tr>
+    <th align="center" bgcolor="aqua">Attribute</th>
+    <th align="center" bgcolor="aqua">Description</th>
+    <th align="center" bgcolor="aqua">Default value</th>
+  </tr>
+
+  <tr>
+    <td>name</td>
+    <td>JMX  ObjectName query string -- <em>Catalina:type=Manager,*</em>
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>ref</td>
+    <td>JMX Connection reference
+    </td>
+    <td><code>jmx.server</code></td>
+  </tr>
+
+  <tr>
+    <td>echo</td>
+    <td>Echo command usage (access and result)
+    </td>
+    <td><code>false</code></td>
+  </tr>
+
+  <tr>
+    <td>resultproperty</td>
+    <td>Prefix project property name to all founded MBeans (<em>mbeans.[0..N].objectname</em>)
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>attributebinduing</td>
+    <td>bind ALL MBean attributes in addition to <em>name</em>
+    </td>
+    <td><code>false</code></td>
+  </tr>
+
+  <tr>
+    <td>delimiter</td>
+    <td>Split result with delimiter (java.util.StringTokenizier) 
+        and use resultproperty as prefix to store tokens.
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>separatearrayresults</td>
+    <td>When return value is an array, save result as property list 
+    (<em>$resultproperty.[0..N]</em> and <em>$resultproperty.length</em>) 
+    </td>
+    <td><code>true</code></td>
+  </tr>
+
+</table>
+</p>
+<p>
+Get all Manager ObjectNames from all services and Hosts <br>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+  &lt;jmx:query
+           name="Catalina:type=Manager,* 
+           resultproperty="manager" /&gt;
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+Now you can find the Session Manager at <em>${manager.[0..N].name}</em> 
+properties and access the result object counter with ${manager.length} property.
+</p>  
+<p>
+Example to get the Manager from <em>servlet-examples</em> application an bind all MBean properties<br>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+  &lt;jmx:query
+           name="Catalina:type=Manager,path=/servlet-examples,host=localhost*" 
+           attributebinding="true"
+           resultproperty="manager.servletExamples" /&gt;
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+Now you can find the manager at <em>${manager.servletExamples.0.name}</em> property
+and can access all properties from this manager with <em>${manager.servletExamples.0.[manager attribute names]</em>}.
+The result object counter from MBeans is stored ad ${manager.length} property.
+</p>  
+
+<p>
+Example to get all MBeans from a server and store inside an external XML property file<br>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+&lt;project name="jmx.query"         
+            xmlns:jmx="antlib:org.apache.catalina.ant.jmx"
+            default="query-all" basedir="."&gt;
+&lt;property name="jmx.host" value="localhost"/&gt;
+&lt;property name="jmx.port" value="8050"/&gt;
+&lt;property name="jmx.username" value="controlRole"/&gt;
+&lt;property name="jmx.password" value="tomcat"/&gt;
+
+&lt;target name="query-all" description="Query all MBeans of a server"&gt;
+&lt;!-- Configure connection --&gt;
+&lt;jmx:open 
+    host="${jmx.host}"
+    port="${jmx.port}"
+    ref="jmx.server"
+    username="${jmx.username}"
+    password="${jmx.password}"/&gt;
+&lt;!-- Query MBean list --&gt;
+&lt;jmx:query 
+    name="*:*"
+    resultproperty="mbeans"
+    attributebinding="false"/&gt;
+    
+&lt;echoproperties
+    destfile="mbeans.properties"
+    prefix="mbeans."
+    format="xml"/&gt;
+    
+&lt;!-- Print results --&gt;
+&lt;echo
+    message="Number of MBeans in server ${jmx.host}:${jmx.port} is ${mbeans.length}"/&gt;
+&lt;/target&gt;
+&lt;/project&gt;
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+Now you can find all MBeans inside the file <em>mbeans.properties</em>.
+</p>  
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="JMXAccessorCreateTask:  remote create MBean Ant task"><!--()--></a><a name="JMXAccessorCreateTask:__remote_create_MBean_Ant_task"><strong>JMXAccessorCreateTask:  remote create MBean Ant task</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+List of Attributes<br>
+<table border="1" cellpadding="5">
+
+  <tr>
+    <th align="center" bgcolor="aqua">Attribute</th>
+    <th align="center" bgcolor="aqua">Description</th>
+    <th align="center" bgcolor="aqua">Default value</th>
+  </tr>
+
+  <tr>
+    <td>name</td>
+    <td>Full qualified JMX ObjectName -- <em>Catalina:type=MBeanFactory</em>
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>className</td>
+    <td>Existing MBean full qualified class name (see Tomcat MBean description above)
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>classLoader</td>
+    <td>ObjectName of server or web application classloader <br>
+    ( <em>Catalina:type=ServerClassLoader,name=[server,common,shared]</em> or<br>
+     <em>Catalina:type=WebappClassLoader,path=/myapps,host=localhost</em>) 
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>ref</td>
+    <td>JMX Connection reference
+    </td>
+    <td><code>jmx.server</code></td>
+  </tr>
+
+  <tr>
+    <td>echo</td>
+    <td>Echo command usage (access and result)
+    </td>
+    <td><code>false</code></td>
+  </tr>
+
+</table>
+</p>
+<p>
+Example to create remote MBean<br>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+    &lt;jmx:create
+             ref="${jmx.reference}"
+             name="Catalina:type=MBeanFactory"
+             className="org.apache.commons.modeler.BaseModelMBean"
+             classLoader="Catalina:type=ServerClassLoader,name=server"&gt;             
+             &lt;Arg value="org.apache.catalina.mbeans.MBeanFactory" /&gt;
+    &lt;/jmx:create&gt; 
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+</p>  
+<p>
+    <b>Warning</b>: Many Tomcat MBeans can't be linked to their parent once<br>
+    created. The Valve, Cluster and Realm MBeans are not automatically<br>
+    connected with their parent. Use the <em>MBeanFacrory</em> create<br>
+    operation instead.
+</p>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="JMXAccessorUnregisterTask:  remote unregister MBean Ant task"><!--()--></a><a name="JMXAccessorUnregisterTask:__remote_unregister_MBean_Ant_task"><strong>JMXAccessorUnregisterTask:  remote unregister MBean Ant task</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+List of Attributes<br>
+<table border="1" cellpadding="5">
+
+  <tr>
+    <th align="center" bgcolor="aqua">Attribute</th>
+    <th align="center" bgcolor="aqua">Description</th>
+    <th align="center" bgcolor="aqua">Default value</th>
+  </tr>
+
+  <tr>
+    <td>name</td>
+    <td>Full qualified JMX ObjectName -- <em>Catalina:type=MBeanFactory</em>
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>ref</td>
+    <td>JMX Connection reference
+    </td>
+    <td><code>jmx.server</code></td>
+  </tr>
+
+  <tr>
+    <td>echo</td>
+    <td>Echo command usage (access and result)
+    </td>
+    <td><code>false</code></td>
+  </tr>
+
+</table>
+</p>
+<p>
+Example to unregister remote MBean<br>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+    &lt;jmx:unregister
+        name="Catalina:type=MBeanFactory" 
+    /&gt;
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+</p>  
+<p>
+    <b>Warning</b>: A lot of Tomcat MBeans can't be unregister.<br>
+    The MBeans are not unlinked from their parent. Use <em>MBeanFacrory</em><br>
+    remove operation instead.
+</p>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="JMXAccessorCondition:  express condition"><!--()--></a><a name="JMXAccessorCondition:__express_condition"><strong>JMXAccessorCondition:  express condition</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+List of Attributes<br>
+<table border="1" cellpadding="5">
+
+  <tr>
+    <th align="center" bgcolor="aqua">Attribute</th>
+    <th align="center" bgcolor="aqua">Description</th>
+    <th align="center" bgcolor="aqua">Default value</th>
+  </tr>
+
+ <tr>
+    <td>url</td>
+    <td>Set JMX connection URL - <em>service:jmx:rmi:///jndi/rmi://localhost:8050/jmxrmi</em>
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>host</td>
+    <td>Set the host, shortcut the very long URL syntax.
+    </td>
+    <td><code>localhost</code></td>
+  </tr>
+
+  <tr>
+    <td>port</td>
+    <td>Set the remote connection port 
+    </td>
+    <td><code>8050</code></td>
+  </tr>
+
+  <tr>
+    <td>username</td>
+    <td>remote JMX connection user name.
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>password</td>
+    <td>remote JMX connection password.
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>ref</td>
+    <td>Name of the internal connection reference. With this attribute you can
+        configure more the one connection inside the same Ant project.
+    </td>
+    <td><code>jmx.server</code></td>
+  </tr>
+
+  <tr>
+    <td>name</td>
+    <td>Full qualified JMX ObjectName -- <em>Catalina:type=Server</em>
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>echo</td>
+    <td>Echo condition usage (access and result)
+    </td>
+    <td><code>false</code></td>
+  </tr>
+
+  <tr>
+    <td>if</td>
+    <td>Only execute if a property of the given name <b>exists</b> in the current project.
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>unless</td>
+    <td>Only execute if a property of the given name <b>not exists</b> in the current project.
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>value (requiered)</td>
+    <td>Second arg for operation
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>type</td>
+    <td>Value type to express operation (support <em>long</em> and <em>double</em>)
+    </td>
+    <td><code>long</code></td>
+  </tr>
+
+  <tr>
+    <td>operation</td>
+    <td> express one 
+    <ul>
+    <li>==  equals</li>
+    <li>!=  not equals</li>
+    <li>&gt; greater than (&amp;gt;)</li>
+    <li>&gt;= greater than or equals (&amp;gt;=)</li>
+    <li>&lt; lesser than (&amp;lt;)</li>
+    <li>&lt;= lesser than or equals (&amp;lt;=)</li>
+    </ul>         
+    </td>
+    <td><code>==</code></td>
+  </tr>
+
+</table>
+</p>
+<p>
+Wait for server connection and that cluster backup node is accessable<br>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+      &lt;target name="wait"&gt;
+         &lt;waitfor maxwait="${maxwait}" maxwaitunit="second" timeoutproperty="server.timeout" &gt;
+            &lt;and&gt;
+                &lt;socket server="${server.name}" port="${server.port}"/&gt;
+                &lt;http url="${url}"/&gt;
+                &lt;jmx:condition
+                    operation="==" 
+                    host="localhost" 
+                    port="9014"
+                    username="controlRole"
+                    password="tomcat"
+                    name="Catalina:type=IDataSender,host=localhost,senderAddress=192.168.111.1,senderPort=9025"
+                    attribute="connected"
+                    value="true"
+                /&gt;
+            &lt;/and&gt;
+        &lt;/waitfor&gt;
+        &lt;fail if="server.timeout" message="Server ${url} don't answer inside ${maxwait} sec" /&gt;
+        &lt;echo message="Server ${url} alive" /&gt;
+    &lt;/target&gt;
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+</p>  
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="JMXAccessorEqualsCondition:  equals MBean Ant condition"><!--()--></a><a name="JMXAccessorEqualsCondition:__equals_MBean_Ant_condition"><strong>JMXAccessorEqualsCondition:  equals MBean Ant condition</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+List of Attributes<br>
+<table border="1" cellpadding="5">
+
+  <tr>
+    <th align="center" bgcolor="aqua">Attribute</th>
+    <th align="center" bgcolor="aqua">Description</th>
+    <th align="center" bgcolor="aqua">Default value</th>
+  </tr>
+
+ <tr>
+    <td>url</td>
+    <td>Set JMX connection URL - <em>service:jmx:rmi:///jndi/rmi://localhost:8050/jmxrmi</em>
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>host</td>
+    <td>Set the host, shortcut the very long URL syntax.
+    </td>
+    <td><code>localhost</code></td>
+  </tr>
+
+  <tr>
+    <td>port</td>
+    <td>Set the remote connection port 
+    </td>
+    <td><code>8050</code></td>
+  </tr>
+
+  <tr>
+    <td>username</td>
+    <td>remote JMX connection user name.
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>password</td>
+    <td>remote JMX connection password.
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>ref</td>
+    <td>Name of the internal connection reference. With this attribute you can
+        configure more the one connection inside the same Ant project.
+    </td>
+    <td><code>jmx.server</code></td>
+  </tr>
+
+  <tr>
+    <td>name</td>
+    <td>Full qualified JMX ObjectName -- <em>Catalina:type=Server</em>
+    </td>
+    <td></td>
+  </tr>
+
+
+  <tr>
+    <td>echo</td>
+    <td>Echo condition usage (access and result)
+    </td>
+    <td><code>false</code></td>
+  </tr>
+
+</table>
+</p>
+<p>
+Wait for server connection and that cluster backup node is accessible<br>
+<div align="left"><table border="0" cellpadding="0" cellspacing="4"><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#ffffff"><pre>
+      &lt;target name="wait"&gt;
+         &lt;waitfor maxwait="${maxwait}" maxwaitunit="second" timeoutproperty="server.timeout" &gt;
+            &lt;and&gt;
+                &lt;socket server="${server.name}" port="${server.port}"/&gt;
+                &lt;http url="${url}"/&gt;
+                &lt;jmx:equals 
+                    host="localhost" 
+                    port="9014"
+                    username="controlRole"
+                    password="tomcat"
+                    name="Catalina:type=IDataSender,host=localhost,senderAddress=192.168.111.1,senderPort=9025"
+                    attribute="connected"
+                    value="true"
+                /&gt;
+            &lt;/and&gt;
+        &lt;/waitfor&gt;
+        &lt;fail if="server.timeout" message="Server ${url} don't answer inside ${maxwait} sec" /&gt;
+        &lt;echo message="Server ${url} alive" /&gt;
+    &lt;/target&gt;
+</pre></td><td width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr><tr><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td><td height="1" width="1" bgcolor="#023264"><img border="0" hspace="0" vspace="0" height="1" width="1" alt="" src="./images/void.gif"></td></tr></table></div>
+</p>  
+
+</blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
+        Copyright &copy; 1999-2011, Apache Software Foundation
+        </em></font></div></td></tr></table></body></html>

@@ -1,0 +1,269 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Catalina Functional Specifications (6.0.35) - Administrative Apps - Supported Operations</title><meta content="Craig McClanahan" name="author"><style media="print" type="text/css">
+			.noPrint {display: none;}
+			td#mainBody {width: 100%;}
+		</style></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="0" width="100%" border="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="
+      Catalina Functional Specifications
+    " align="right" src="../images/tomcat.gif"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 6.0</font></h1><font face="arial,helvetica,sanserif">Version 6.0.35, Nov 28 2011</font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="../images/asf-logo.gif"></a></td></tr></table><table cellspacing="4" width="100%" border="0"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td class="noPrint" nowrap valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="../index.html">Docs Home</a></li><li><a href="index.html">Functional Specs</a></li></ul><p><strong>Administrative Apps</strong></p><ul><li><a href="fs-admin-apps.html">Overall Requirements</a></li><li><a href="mbean-names.html">Tomcat MBean Names</a></li><li><a href="fs-admin-objects.html">Administered Objects</a></li><li><a href="fs-admin-opers.html">Supported Operations</a></li></ul><p><strong>Internal Servlets</strong></p><ul><li><a href="fs-default.html">Default Servlet</a></li><li><a href="fs-invoker.html">Invoker Servlet</a></li></ul><p><strong>Realm Implementations</strong></p><ul><li><a href="fs-jdbc-realm.html">JDBC Realm</a></li><li><a href="fs-jndi-realm.html">JNDI Realm</a></li><li><a href="fs-memory-realm.html">Memory Realm</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td id="mainBody" align="left" valign="top" width="80%"><h1>Catalina Functional Specifications</h1><h2>Administrative Apps - Supported Operations</h2><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
+<ul><li><a href="#Supported_Operations_Overview">Supported Operations Overview</a></li><li><a href="#Access_Logger">Access Logger</a></li><li><a href="#Connector">Connector</a></li><li><a href="#Context">Context</a></li><li><a href="#Default_Context">Default Context</a></li><li><a href="#Engine">Engine</a></li><li><a href="#Environment_Entry">Environment Entry</a></li><li><a href="#Host">Host</a></li><li><a href="#JDBC_Resource">JDBC Resource</a></li><li><a href="#Loader">Loader</a></li><li><a href="#Manager">Manager</a></li><li><a href="#Realm">Realm</a></li><li><a href="#Request_Filter">Request Filter</a></li><li><a href="#Server">Server</a></li><li><a href="#Service">Service</a></li></ul>
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Supported Operations Overview"><!--()--></a><a name="Supported_Operations_Overview"><strong>Supported Operations Overview</strong></a></font></td></tr><tr><td><blockquote>
+
+<p>This document defines the <em>Supported Operations</em> that may
+be performed against the <a href="fs-admin-objects.html">Administered
+Objects</a> that are supported by Tomcat 6 administrative applications.
+Not all operations are required to be available through every administrative
+application that is implemented.  However, if a given operation is available,
+it should operate consistently with the descriptions found here.</p>
+
+<p>Supported Operations are described for the following Administered
+Objects:</p>
+<ul>
+<li><a href="#Access Logger">Access Logger</a></li>
+<li><a href="#Connector">Connector</a></li>
+<li><a href="#Context">Context</a></li>
+<li><a href="#Default Context">Default Context</a></li>
+<li><a href="#Engine">Engine</a></li>
+<li><a href="#Environment Entry">Environment Entry</a></li>
+<li><a href="#Host">Host</a></li>
+<li><a href="#JDBC Resource">JDBC Resource</a></li>
+<li><a href="#Loader">Loader</a></li>
+<li><a href="#Manager">Manager</a></li>
+<li><a href="#Realm">Realm</a></li>
+<li><a href="#Request Filter">Request Filter</a></li>
+<li><a href="#Server">Server</a></li>
+<li><a href="#Service">Service</a></li>
+</ul>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Access Logger"><!--()--></a><a name="Access_Logger"><strong>Access Logger</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>From the perspective of a particular <em>Access Logger</em>, it shall
+  be possible to perform the following administrative operations:</p>
+  <ul>
+  <li>Navigate to the owning <em>Engine</em>, <em>Host</em>, or
+      <em>Context</em>.</li>
+  <li>Edit the configurable properties of this object.</li>
+  </ul>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Connector"><strong>Connector</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>From the perspective of a particular <em>Connector</em>, it shall be
+  possible to perform the following administrative operations:</p>
+  <ul>
+  <li>Navigate to the owning <em>Service</em>.</li>
+  <li>Edit the configurable properties of this object.</li>
+  </ul>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Context"><strong>Context</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>From the perspective of a particular <em>Context</em>, it shall be
+  possible to perform the following administrative operations:</p>
+  <ul>
+  <li>Navigate to the owning <em>Host</em>.</li>
+  <li>Edit the configurable properties of this object.</li>
+  <li>Create and configure a new <em>Access Logger</em> associated
+      with this object.</li>
+  <li>Edit the configurable properties of the associated <em>Access
+      Logger</em>.</li>
+  <li>Remove the associated <em>Access Logger</em>.</li>
+  <li>Create and configure a new <em>Environment Entry</em> associated
+      with this object.</li>
+  <li>Select and edit the configurable properties of an associated
+      <em>Environment Entry</em>.</li>
+  <li>Remove an associated <em>Environment Entry</em>.</li>
+  <li>Create and configure a new <em>JDBC Resource</em> associated
+      with this object.</li>
+  <li>Select and edit the configurable properties of an associated
+      <em>JDBC Resource</em>.</li>
+  <li>Remove an associated <em>JDBC Resource</em>.</li>
+  <li>Create and configure a new <em>Loader</em> associated with
+      this object.</li>
+  <li>Edit the configurable properties of the associated <em>Loader</em>.</li>
+  <li>Remove the associated <em>Loader</em>.</li>
+  <li>Create and configure a new <em>Manager</em> associated with
+      this object.</li>
+  <li>Edit the configurable properties of the associated <em>Manager</em>.</li>
+  <li>Remove the associated <em>Manager</em>.</li>
+  <li>Create and configure a new <em>Realm</em> associated with
+      this object.</li>
+  <li>Edit the configurable properties of the associated <em>Realm</em>.</li>
+  <li>Remove the associated <em>Realm</em>.</li>
+  <li>Create and configure a new <em>Request Filter</em> associated with
+      this object.</li>
+  <li>Select and edit the configurable properties of an
+      associated <em>Request Filter</em></li>
+  <li>Remove an associated <em>Request Filter</em>.</li>
+  </ul>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Default Context"><!--()--></a><a name="Default_Context"><strong>Default Context</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>From the perspective of a particular <em>Default Context</em>, it shall
+  be possible to perform the following administrative operations:</p>
+  <ul>
+  <li>Navigate to the owning <em>Engine</em> or <em>Host</em>.</li>
+  <li>Edit the configurable properties of this object.</li>
+  <li>Create and configure a new <em>Environment Entry</em> associated
+      with this object.</li>
+  <li>Select and edit the configurable properties of an associated
+      <em>Environment Entry</em>.</li>
+  <li>Remove an associated <em>Environment Entry</em>.</li>
+  <li>Create and configure a new <em>JDBC Resource</em> associated
+      with this object.</li>
+  <li>Select and edit the configurable properties of an associated
+      <em>JDBC Resource</em>.</li>
+  <li>Remove an associated <em>JDBC Resource</em>.</li>
+  </ul>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Engine"><strong>Engine</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>From the perspective of a particular <em>Engine</em>, it shall be
+  possible to perform the following administrative operations:</p>
+  <ul>
+  <li>Navigate to the owning <em>Service</em>.</li>
+  <li>Edit the configurable properties of this object.</li>
+  <li>Create and configure a new <em>Access Logger</em> associated
+      with this object.</li>
+  <li>Edit the configurable properties of the associated <em>Access
+      Logger</em>.</li>
+  <li>Remove the associated <em>Access Logger</em>.</li>
+  <li>Create and configure a new <em>Default Context</em> associated
+      with this object.</li>
+  <li>Edit the configurable properties of the associated <em>Default
+      Context</em>.</li>
+  <li>Remove the associated <em>Default Context</em>.</li>
+  <li>Create and configure a new <em>Host</em> associated with
+      this object.</li>
+  <li>Select and edit the configurable properties of an
+      associated <em>Host</em>.</li>
+  <li>Remove an associated <em>Host</em>.</li>
+  <li>Create and configure a new <em>Realm</em> associated with
+      this object.</li>
+  <li>Edit the configurable properties of the associated <em>Realm</em>.</li>
+  <li>Remove the associated <em>Realm</em>.</li>
+  <li>Create and configure a new <em>Request Filter</em> associated with
+      this object.</li>
+  <li>Select and edit the configurable properties of an
+      associated <em>Request Filter</em></li>
+  <li>Remove an associated <em>Request Filter</em>.</li>
+  </ul>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Environment Entry"><!--()--></a><a name="Environment_Entry"><strong>Environment Entry</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>From the perspective of a particular <em>Environment Entry</em>, it shall
+  be possible to perform the following administrative operations:</p>
+  <ul>
+  <li>Navigate to the owning <em>Context</em> or <em>Default Context</em>.</li>
+  <li>Edit the configurable properties of this object.</li>
+  </ul>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Host"><strong>Host</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>From the perspective of a particular <em>Host</em>, it shall be
+  possible to perform the following administrative operations:</p>
+  <ul>
+  <li>Navigate to the owning <em>Engine</em>.</li>
+  <li>Edit the configurable properties of this object.</li>
+  <li>Create and configure a new <em>Access Logger</em> associated
+      with this object.</li>
+  <li>Edit the configurable properties of the associated <em>Access
+      Logger</em>.</li>
+  <li>Remove the associated <em>Access Logger</em>.</li>
+  <li>Create and configure a new <em>Context</em> associated with
+      this object.</li>
+  <li>Select and edit the configurable properties of an associated
+      <em>Context</em>.</li>
+  <li>Remove an associated <em>Context</em>.</li>
+  <li>Create and configure a new <em>Default Context</em> associated
+      with this object.</li>
+  <li>Edit the configurable properties of the associated <em>Default
+      Context</em>.</li>
+  <li>Remove the associated <em>Default Context</em>.</li>
+  <li>Create and configure a new <em>Realm</em> associated with
+      this object.</li>
+  <li>Edit the configurable properties of the associated <em>Realm</em>.</li>
+  <li>Remove the associated <em>Realm</em>.</li>
+  <li>Create and configure a new <em>Request Filter</em> associated with
+      this object.</li>
+  <li>Select and edit the configurable properties of an
+      associated <em>Request Filter</em></li>
+  <li>Remove an associated <em>Request Filter</em>.</li>
+  </ul>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="JDBC Resource"><!--()--></a><a name="JDBC_Resource"><strong>JDBC Resource</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>From the perspective of a particular <em>JDBC Resource</em>, it shall
+  be possible to perform the following administrative operations:</p>
+  <ul>
+  <li>Navigate to the owning <em>Context</em> or <em>Default Context</em>.</li>
+  <li>Edit the configurable properties of this object.</li>
+  </ul>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Loader"><strong>Loader</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>From the perspective of a particular <em>Loader</em>, it shall
+  be possible to perform the following administrative operations:</p>
+  <ul>
+  <li>Navigate to the owning <em>Context</em>.</li>
+  <li>Edit the configurable properties of this object.</li>
+  </ul>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Manager"><strong>Manager</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>From the perspective of a particular <em>Manager</em>, it shall
+  be possible to perform the following administrative operations:</p>
+  <ul>
+  <li>Navigate to the owning <em>Context</em>.</li>
+  <li>Edit the configurable properties of this object.</li>
+  </ul>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Realm"><strong>Realm</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>From the perspective of a particular <em>Realm</em>, it shall
+  be possible to perform the following administrative operations:</p>
+  <ul>
+  <li>Navigate to the owning <em>Engine</em>, <em>Host</em>, or
+      <em>Context</em>.</li>
+  <li>Edit the configurable properties of this object.</li>
+  </ul>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Request Filter"><!--()--></a><a name="Request_Filter"><strong>Request Filter</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>From the perspective of a particular <em>Request Filter</em>, it shall
+  be possible to perform the following administrative operations:</p>
+  <ul>
+  <li>Navigate to the owning <em>Engine</em>, <em>Host</em>, or
+      <em>Context</em>.</li>
+  <li>Edit the configurable properties of this object.</li>
+  </ul>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Server"><strong>Server</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>From the perspective of the overall <em>Server</em>, it shall be
+  possible to perform the following administrative operations:</p>
+  <ul>
+  <li>Edit the configurable properties of this object.</li>
+  <li>Create and configure a new <em>Service</em> associated with
+      this object.</li>
+  <li>Select and edit the configurable properties of an associated
+      <em>Service</em>.</li>
+  </ul>
+
+</blockquote></td></tr></table><table cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Service"><strong>Service</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>From the perspective of a particular <em>Service</em>, it shall be
+  possible to perform the following administrative operations:</p>
+  <ul>
+  <li>Navigate to the owning <em>Server</em>.</li>
+  <li>Edit the configurable properties of this object.</li>
+  <li>Create and configure a new <em>Connector</em> associated with
+      this object.</li>
+  <li>Select and edit the configurable properties of an associated
+      <em>Connector</em>.</li>
+  <li>Remove an associated <em>Connector</em>.</li>
+  <li>Create and configure a new <em>Engine</em> associated with
+      this object.</li>
+  <li>Edit the configurable properties of the associated <em>Engine</em>.</li>
+  <li>Remove the associated <em>Engine</em>.</li>
+  </ul>
+
+</blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
+        Copyright &copy; 1999-2011, Apache Software Foundation
+        </em></font></div></td></tr></table></body></html>
