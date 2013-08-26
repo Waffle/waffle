@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<Context>
-  <Realm className="org.apache.catalina.realm.JAASRealm"
-         appName="Jaas"
-         userClassNames="waffle.jaas.UserPrincipal"
-         roleClassNames="waffle.jaas.RolePrincipal"
-         useContextClassLoader="false"
-         debug="true" />
-</Context>

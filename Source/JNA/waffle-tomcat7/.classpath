@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="**/.svn|**/.svn/*" kind="src" path="src"/>
+	<classpathentry excluding="**/.svn|**/.svn/*" kind="src" path="src-test"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/waffle-jna"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/ch.qos.logback/1.0.7/logback-classic-1.0.7.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/ch.qos.logback/1.0.7/logback-core-1.0.7.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/junit/4.10/junit-4.10.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/net.java.dev.jna/3.5.0/jna-3.5.0.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/net.java.dev.jna/3.5.0/platform-3.5.0.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.apache.tomcat/7.0.32/tomcat-api-7.0.32.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.apache.tomcat/7.0.32/tomcat-catalina-7.0.32.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.apache.tomcat/7.0.32/tomcat-coyote-7.0.32.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.apache.tomcat/7.0.32/tomcat-juli-7.0.32.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.apache.tomcat/7.0.32/tomcat-servlet-api-7.0.32.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.apache.tomcat/7.0.32/tomcat-util-7.0.32.jar"/>
+	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.slf4j/1.7.2/slf4j-api-1.7.2.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/waffle-tests"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
