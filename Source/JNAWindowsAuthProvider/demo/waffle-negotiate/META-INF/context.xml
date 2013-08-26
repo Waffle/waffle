@@ -1,5 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<Context>
-  <Valve className="waffle.apache.NegotiateAuthenticator" principalFormat="fqn" roleFormat="both" />
-  <Realm className="waffle.apache.WindowsRealm" />
-</Context>
