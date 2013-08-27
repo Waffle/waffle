@@ -92,22 +92,29 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 	public void initialize(CtxtHandle continueCtx, SecBufferDesc continueToken,
 			String targetName) {
 		_attr = new IntByReference();
-		_token = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, Sspi.MAX_TOKEN_SIZE);
 		_ctx = new CtxtHandle();
-		int rc = Secur32.INSTANCE.InitializeSecurityContext(_credentials,
-				continueCtx, targetName, Sspi.ISC_REQ_CONNECTION, 0,
-				Sspi.SECURITY_NATIVE_DREP, continueToken, 0, _ctx, _token,
-				_attr, null);
-		switch (rc) {
-		case WinError.SEC_I_CONTINUE_NEEDED:
-			_continue = true;
-			break;
-		case WinError.SEC_E_OK:
-			_continue = false;
-			break;
-		default:
-			throw new Win32Exception(rc);
-		}
+		int tokenSize = Sspi.MAX_TOKEN_SIZE;
+		int rc = 0;
+		do {
+			_token = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, tokenSize);
+			rc = Secur32.INSTANCE.InitializeSecurityContext(_credentials,
+					continueCtx, targetName, Sspi.ISC_REQ_CONNECTION, 0,
+					Sspi.SECURITY_NATIVE_DREP, continueToken, 0, _ctx, _token,
+					_attr, null);
+			switch (rc) {
+			case WinError.SEC_E_INSUFFICIENT_MEMORY:
+				tokenSize += Sspi.MAX_TOKEN_SIZE;
+				break;
+			case WinError.SEC_I_CONTINUE_NEEDED:
+				_continue = true;
+				break;
+			case WinError.SEC_E_OK:
+				_continue = false;
+				break;
+			default:
+				throw new Win32Exception(rc);
+			}
+		} while (rc == WinError.SEC_E_INSUFFICIENT_MEMORY);
 	}
 
 	@Override
