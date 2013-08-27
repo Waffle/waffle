@@ -23,8 +23,8 @@
 	</tstamp>
 	<!-- compile -->
 	<path id="jna.classpath">
-		<fileset dir="${thirdparty.dir}/_lib/jar/net.java.dev.jna/3.5.0">
-			<include name="*.jar" />
+		<fileset dir="${thirdparty.dir}/_lib/jar/net.java.dev.jna/">
+			<include name="**/*.jar" />
 		</fileset>
 	</path>
 	<path id="slf4j.classpath">
@@ -33,7 +33,7 @@
 		</fileset>
 	</path>
 	<path id="guava.classpath">
-		<fileset dir="${thirdparty.dir}/_lib/jar/com.google.guava/13.0.1">
+		<fileset dir="${thirdparty.dir}/_lib/bundle/com.google.guava">
 			<include name="**/*.jar" />
 		</fileset>
 	</path>
@@ -74,12 +74,15 @@
 		</fileset>
 	</path>
 	<path id="waffle.test.classpath">
+    <fileset dir="${thirdparty.dir}/_lib/jar/org.hamcrest/1.3">
+      <include name="*.jar" />
+    </fileset>
 		<pathelement location="${waffle.lib}" />
 		<path refid="thirdparty.classpath" />
 		<path refid="project.classpath" />
 		<path refid="project.test.classpath" />
 		<path refid="mockito.classpath" />
-		<fileset dir="${thirdparty.dir}/_lib/jar/junit/4.10">
+		<fileset dir="${thirdparty.dir}/_lib/jar/junit/4.11">
 			<include name="*.jar" />
 		</fileset>
 		<pathelement location="${waffle.test.src}" />

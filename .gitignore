@@ -5,6 +5,7 @@ bin
 obj
 Debug
 Release
+target
 TestResult.xml
 Source/JNA/lib-test
 Source/JNA/lib
