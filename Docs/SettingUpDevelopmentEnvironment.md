@@ -37,9 +37,9 @@ Download NUnit from [here](http://nunit.org).
 
 Download and install MSBuild Community Tasks from [here](https://code.google.com/p/msbuildtasks/downloads/list).
 
-### Wix Toolset 3.5
+### Wix Toolset 3.7
 
-Download and install the Wix toolset, specifically version 3.5 from [here](https://wix.codeplex.com/releases/view/60102).
+Download and install the Wix toolset, specifically version 3.7 from [here](https://wix.codeplex.com/releases/view/99514).
 
 ### Eclipse
 

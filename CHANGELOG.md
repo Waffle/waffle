@@ -9,6 +9,11 @@ Features
 * [#48](https://github.com/dblock/waffle/pull/48): Added username/password authentication support for [Apache Shiro](http://shiro.apache.org/) - [@davidmc24](https://github.com/davidmc24).
 * [#51](https://github.com/dblock/waffle/pull/51): Added negotiate authentication support for [Apache Shiro](http://shiro.apache.org/) - [@bhamail](https://github.com/bhamail).
 
+Bugs
+----
+
+* [#58](https://github.com/dblock/waffle/pull/58): Fix: error in `InitializeSecurityContext: The buffers supplied to a function was too small.` when a user belongs to many groups - [@dblock](https://github.com/dblock).
+
 Development
 -----------
 
@@ -46,7 +51,7 @@ Features
 * [#23](https://github.com/dblock/waffle/pull/23) Added `waffle.util.WaffleInfo` which collects system information useful for debugging - [@ryantxu](https://github.com/ryantxu).
 * [#28](https://github.com/dblock/waffle/pull/28) Added `waffle-jetty` project.  This lets developers run Waffle directly within the IDE - [@ryantxu](https://github.com/ryantxu).
 * [#33](https://github.com/dblock/waffle/pull/33): Added support for servlet3 programmatic login - [@amergey](https://github.com/amergey).
-
+* Upgraded Wix to version 3.7 - [@dblock](https://github.com/dblock).
 
 Interface Changes
 -----------------
