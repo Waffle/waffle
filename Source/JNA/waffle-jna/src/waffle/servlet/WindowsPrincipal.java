@@ -34,6 +34,7 @@ public class WindowsPrincipal implements Principal, Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String _fqn;
+	private String _remoteUser;
 	private byte[] _sid;
 	private String _sidString;
 	private List<String> _roles;
@@ -47,7 +48,7 @@ public class WindowsPrincipal implements Principal, Serializable {
 	 *            Windows identity.
 	 */
 	public WindowsPrincipal(IWindowsIdentity windowsIdentity) {
-		this(windowsIdentity, PrincipalFormat.fqn, PrincipalFormat.fqn);
+		this(windowsIdentity, PrincipalFormat.fqn, PrincipalFormat.fqn, "", "");
 	}
 
 	/**
@@ -62,9 +63,36 @@ public class WindowsPrincipal implements Principal, Serializable {
 	 */
 	public WindowsPrincipal(IWindowsIdentity windowsIdentity,
 			PrincipalFormat principalFormat, PrincipalFormat roleFormat) {
+		this(windowsIdentity, PrincipalFormat.fqn, PrincipalFormat.fqn, "", "");
+	}
+
+	/**
+	 * A windows principal.
+	 *
+	 * @param windowsIdentity
+	 *            Windows identity.
+	 * @param principalFormat
+	 *            Principal format.
+	 * @param roleFormat
+	 *            Role format.
+	 * @param remoteUserRegEx
+	 *            String containing regular expression pattern to match against Remote User.
+	 * @param remoteUserReplacement
+	 *            String that will replace matching patterns in Remote User.
+	 */
+	public WindowsPrincipal(IWindowsIdentity windowsIdentity,
+			PrincipalFormat principalFormat, PrincipalFormat roleFormat, String remoteUserRegEx, String remoteUserReplacement) {
 		_identity = windowsIdentity;
 		_fqn = windowsIdentity.getFqn();
 		_sid = windowsIdentity.getSid();
+		if (remoteUserRegEx.equals("")||remoteUserReplacement.equals(""))
+		{
+			_remoteUser = _fqn;
+		}
+		else
+		{
+			_remoteUser = _fqn.replaceAll(remoteUserRegEx, remoteUserReplacement);
+		}
 		_sidString = windowsIdentity.getSidString();
 		_groups = getGroups(windowsIdentity.getGroups());
 		_roles = getRoles(windowsIdentity, principalFormat, roleFormat);
@@ -211,6 +239,10 @@ public class WindowsPrincipal implements Principal, Serializable {
 	@Override
 	public String getName() {
 		return _fqn;
+	}
+
+	public String getRemoteUser() {
+		return _remoteUser;
 	}
 
 	/** Underlying identity */

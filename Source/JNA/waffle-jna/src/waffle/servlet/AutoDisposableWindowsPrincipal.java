@@ -33,6 +33,13 @@ public class AutoDisposableWindowsPrincipal extends WindowsPrincipal implements
 		super(windowsIdentity, principalFormat, roleFormat);
 	}
 
+	public AutoDisposableWindowsPrincipal(IWindowsIdentity windowsIdentity,
+			PrincipalFormat principalFormat, PrincipalFormat roleFormat,
+			String remoteUserRegEx, String remoteUserReplacement) {
+		super(windowsIdentity, principalFormat, roleFormat, remoteUserRegEx,
+				remoteUserReplacement);
+	}
+
 	@Override
 	public void valueBound(HttpSessionBindingEvent evt) {
 	}

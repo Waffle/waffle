@@ -38,6 +38,28 @@ The filter can be configured with the following `init-param` options.
 * waffle.servlet.spi.NegotiateSecurityFilterProvider/protocols: A list of security protocols supported by the `NegotiateSecurityFilterProvider`. Can be one of or a combination of Negotiate and NTLM. 
 * waffle.servlet.spi.BasicSecurityFilterProvider/realm: The name of the Realm for BASIC authentication. 
 * impersonate: Allow impersonation. When true the remote user will be impersonated. Note that there is no mapping between the Windows native threads, under which the impersonation takes place, and the Java threads. Thus you'll need to use Windows native APIs to perform impersonated actions. Any action done in Java will still be performed with the user account running the servlet container. 
+* remoteUserRegEx [Optional]: A string containing a regular expression pattern.
+* remoteUserReplacement [Optional]: A string used to replace strings matching the pattern.
+
+remoteUserRegEx and remoteUserReplacement are used in combination to manipulate the principal name returned in the REMOTE_USER http header.  When Waffle is being used to replace an existing authentication mechanism these two parameters can be used to manipulate the returned REMOTE_USER format to match the outgoing mechanism to avoid additional downstream code changes.
+
+Remote User Manipulation Example
+--------------------------------
+``` xml
+<filter>
+...
+  <init-param>
+    <param-name>remoteUserRegEx</param-name>
+    <param-value>$.*\\(.*)^</param-value>
+  </init-param>
+  <init-param>
+    <param-name>remoteUserReplacement</param-name>
+    <param-value>prefix$1suffix</param-value>
+  </init-param>
+...
+</filter>
+```
+For a principal name of `DOMAIN\USER` this configuration would make Waffle to return `prefixUSERsuffix` in REMOTE_USER.
 
 Filter Configuration Example
 ----------------------------

@@ -54,7 +54,7 @@ public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
 	 */
 	@Override
 	public String getRemoteUser() {
-		return _principal.getName();
+		return _principal.getRemoteUser();
 	}
 
 	/**
