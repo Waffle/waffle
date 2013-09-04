@@ -58,6 +58,8 @@ public class NegotiateSecurityFilter implements Filter {
 	private IWindowsAuthProvider _auth;
 	private boolean _allowGuestLogin = true;
 	private boolean _impersonate = false;
+	private String _remoteUserRegEx="";
+	private String _remoteUserReplacement="";
 	private static final String PRINCIPAL_SESSION_KEY = NegotiateSecurityFilter.class
 			.getName() + ".PRINCIPAL";
 
@@ -133,10 +135,11 @@ public class NegotiateSecurityFilter implements Filter {
 				WindowsPrincipal windowsPrincipal = null;
 				if (_impersonate) {
 					windowsPrincipal = new AutoDisposableWindowsPrincipal(
-							windowsIdentity, _principalFormat, _roleFormat);
+							windowsIdentity, _principalFormat, _roleFormat, _remoteUserRegEx,
+							_remoteUserReplacement);
 				} else {
 					windowsPrincipal = new WindowsPrincipal(windowsIdentity,
-							_principalFormat, _roleFormat);
+							_principalFormat, _roleFormat, _remoteUserRegEx, _remoteUserReplacement);
 				}
 
 				_log.debug("roles: " + windowsPrincipal.getRolesString());
@@ -273,6 +276,10 @@ public class NegotiateSecurityFilter implements Filter {
 					providerNames = parameterValue.split("\\s+");
 				} else if (parameterName.equals("authProvider")) {
 					authProvider = parameterValue;
+				} else if (parameterName.equals("remoteUserRegEx")) {
+					_remoteUserRegEx = parameterValue;
+				} else if (parameterName.equals("remoteUserReplacement")) {
+					_remoteUserReplacement = parameterValue;
 				} else {
 					implParameters.put(parameterName, parameterValue);
 				}
