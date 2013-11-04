@@ -32,21 +32,21 @@ namespace Waffle.Windows.AuthProvider.UnitTests
             Netapi32.NetApiBufferFree(pDomain);
         }
 
-        [Test, ExpectedException(typeof(Win32Exception), ExpectedMessage = "Logon failure: unknown user name or bad password")]
+        [Test, ExpectedException(typeof(Win32Exception), ExpectedMessage = "(Logon failure: unknown user name or bad password|The username or password is incorrect)", MatchType = MessageMatch.Regex)]
         public void TestLogonUser()
         {
             WindowsAuthProviderImpl windowsAuthProviderImpl = new WindowsAuthProviderImpl();
             windowsAuthProviderImpl.LogonUser("Administrator", "invalid password");
         }
 
-        [Test, ExpectedException(typeof(Win32Exception), ExpectedMessage = "Logon failure: unknown user name or bad password")]
+        [Test, ExpectedException(typeof(Win32Exception), ExpectedMessage = "(Logon failure: unknown user name or bad password|The username or password is incorrect)", MatchType = MessageMatch.Regex)]
         public void TestLogonUserWithDomain()
         {
             WindowsAuthProviderImpl windowsAuthProviderImpl = new WindowsAuthProviderImpl();
             windowsAuthProviderImpl.LogonDomainUser("Administrator", "domain", "invalid password");
         }
 
-        [Test, ExpectedException(typeof(Win32Exception), ExpectedMessage = "Logon failure: unknown user name or bad password")]
+        [Test, ExpectedException(typeof(Win32Exception), ExpectedMessage = "(Logon failure: unknown user name or bad password|The username or password is incorrect)", MatchType = MessageMatch.Regex)]
         public void TestLogonUserWithAllOptions()
         {
             WindowsAuthProviderImpl windowsAuthProviderImpl = new WindowsAuthProviderImpl();
@@ -82,7 +82,7 @@ namespace Waffle.Windows.AuthProvider.UnitTests
             Console.WriteLine("Groups: {0}", computer.Groups.Length);
         }
 
-        [Test, ExpectedException(typeof(Win32Exception), ExpectedMessage = "The logon attempt failed")]
+        [Test, ExpectedException(typeof(Win32Exception), ExpectedMessage = "(The logon attempt failed|The log-on attempt failed)", MatchType = MessageMatch.Regex)]
         public void TestSecur32ExceptionsAreWin32Exceptions()
         {
             throw new Win32Exception(Secur32.SEC_E_LOGON_DENIED);
