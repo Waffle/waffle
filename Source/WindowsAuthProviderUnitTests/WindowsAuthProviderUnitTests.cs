@@ -1,21 +1,17 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using NUnit.Framework;
-using Waffle.Windows.AuthProvider;
 using System.ComponentModel;
-using System.DirectoryServices;
 using System.DirectoryServices.ActiveDirectory;
-using System.Threading;
 using System.Security.Principal;
 using System.Runtime.InteropServices;
-using System.Configuration;
 
 namespace Waffle.Windows.AuthProvider.UnitTests
 {
     [TestFixture]
     public class WindowsAuthProviderImplUnitTests
     {
+        const int WIN32_ERROR_LOGON_FAILURE = 1326;
+
         private Netapi32.NetJoinStatus _joinStatus = Netapi32.NetJoinStatus.NetSetupUnknownStatus;
         private String _memberOf;
         private String _computerName;
@@ -32,26 +28,35 @@ namespace Waffle.Windows.AuthProvider.UnitTests
             Netapi32.NetApiBufferFree(pDomain);
         }
 
-        [Test, ExpectedException(typeof(Win32Exception), ExpectedMessage = "Logon failure: unknown user name or bad password")]
+        [Test]
         public void TestLogonUser()
         {
-            WindowsAuthProviderImpl windowsAuthProviderImpl = new WindowsAuthProviderImpl();
-            windowsAuthProviderImpl.LogonUser("Administrator", "invalid password");
+            Assert.That(() =>
+            {
+                WindowsAuthProviderImpl windowsAuthProviderImpl = new WindowsAuthProviderImpl();
+                windowsAuthProviderImpl.LogonUser("Administrator", "invalid password");
+            }, Throws.TypeOf<Win32Exception>().With.Property("NativeErrorCode").EqualTo(WIN32_ERROR_LOGON_FAILURE));
         }
 
-        [Test, ExpectedException(typeof(Win32Exception), ExpectedMessage = "Logon failure: unknown user name or bad password")]
+        [Test]
         public void TestLogonUserWithDomain()
         {
-            WindowsAuthProviderImpl windowsAuthProviderImpl = new WindowsAuthProviderImpl();
-            windowsAuthProviderImpl.LogonDomainUser("Administrator", "domain", "invalid password");
+            Assert.That(() =>
+            {
+                WindowsAuthProviderImpl windowsAuthProviderImpl = new WindowsAuthProviderImpl();
+                windowsAuthProviderImpl.LogonDomainUser("Administrator", "domain", "invalid password");
+            }, Throws.TypeOf<Win32Exception>().With.Property("NativeErrorCode").EqualTo(WIN32_ERROR_LOGON_FAILURE));
         }
 
-        [Test, ExpectedException(typeof(Win32Exception), ExpectedMessage = "Logon failure: unknown user name or bad password")]
+        [Test]
         public void TestLogonUserWithAllOptions()
         {
-            WindowsAuthProviderImpl windowsAuthProviderImpl = new WindowsAuthProviderImpl();
-            windowsAuthProviderImpl.LogonDomainUserEx("Administrator", "domain", "invalid password",
-                Advapi32.LogonType.LOGON32_LOGON_NETWORK, Advapi32.LogonProvider.LOGON32_PROVIDER_DEFAULT);
+            Assert.That(() =>
+            {
+                WindowsAuthProviderImpl windowsAuthProviderImpl = new WindowsAuthProviderImpl();
+                windowsAuthProviderImpl.LogonDomainUserEx("Administrator", "domain", "invalid password",
+                    Advapi32.LogonType.LOGON32_LOGON_NETWORK, Advapi32.LogonProvider.LOGON32_PROVIDER_DEFAULT);
+            }, Throws.TypeOf<Win32Exception>().With.Property("NativeErrorCode").EqualTo(WIN32_ERROR_LOGON_FAILURE));
         }
 
         [Test]
@@ -82,19 +87,25 @@ namespace Waffle.Windows.AuthProvider.UnitTests
             Console.WriteLine("Groups: {0}", computer.Groups.Length);
         }
 
-        [Test, ExpectedException(typeof(Win32Exception), ExpectedMessage = "The logon attempt failed")]
+        [Test]
         public void TestSecur32ExceptionsAreWin32Exceptions()
         {
-            throw new Win32Exception(Secur32.SEC_E_LOGON_DENIED);
+            Assert.That(() =>
+            {
+                throw new Win32Exception(Secur32.SEC_E_LOGON_DENIED);
+            }, Throws.TypeOf<Win32Exception>().With.Property("NativeErrorCode").EqualTo(Secur32.SEC_E_LOGON_DENIED));
         }
 
-        [Test, ExpectedException(typeof(Win32Exception), ExpectedMessage = "The token supplied to the function is invalid")]
+        [Test]
         public void TestAcceptBadSecurityToken()
         {
             WindowsAuthProviderImpl provider = new WindowsAuthProviderImpl();
             byte[] clientToken = new byte[] { 1, 2, 3 };
-            IWindowsSecurityContext ctx = provider.AcceptSecurityToken(Guid.NewGuid().ToString(), clientToken, "Negotiate",
-                Secur32.ISC_REQ_CONNECTION, Secur32.SECURITY_NATIVE_DREP);
+            Assert.That(() =>
+            {
+            	IWindowsSecurityContext ctx = provider.AcceptSecurityToken(Guid.NewGuid().ToString(), clientToken, "Negotiate",
+                	Secur32.ISC_REQ_CONNECTION, Secur32.SECURITY_NATIVE_DREP);	
+            }, Throws.TypeOf<Win32Exception>().With.Property("NativeErrorCode").EqualTo(Secur32.SEC_E_INVALID_TOKEN));
         }
 
         [Test]
