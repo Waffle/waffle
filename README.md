@@ -66,7 +66,7 @@ Contributing
 License and Copyright
 ---------------------
 
-Copyright (c) [Application Security Inc.](http://www.appsecinc.com), 2010-2012 and Contributors. 
+Copyright (c) [Application Security Inc.](http://www.appsecinc.com), 2010-2013 and Contributors. 
 
 This project is licensed under the [Eclipse Public License](https://github.com/dblock/waffle/blob/master/LICENSE).
 
