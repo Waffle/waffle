@@ -60,17 +60,17 @@ To build the artifacts and upload them to a new staging repository, run the foll
 
 Once you've succeeded in finishing those steps, log in to [Sonatype OS](https://oss.sonatype.org/), and perform the following steps.
 
-*   Go to the Staging Repositories page
-*   Select the staging repository
-*   Click the Close button
-*   If there are any problems reported, fix them
-*   Click on the closed staging repository
-*   Right click on artifacts to download them
-*   Test the downloaded artifacts to make sure that the contents of the staging repository are what you want to release
-*   Click the Release button
-*   If there are any problems reported, fix them
-*   The release should now be in the "Releases" repository.
-*   For projects that have Maven Central synchonization enabled, their artifacts in the "Releases" repository are synched to Maven Central every two hours.  The *very first time* the WAFFLE project publishes requires a comment on the setup JIRA ticket to get synch enabled.
+*   Go to [Staging Repositories](https://oss.sonatype.org/index.html#stagingRepositories).
+*   Select the staging repository at the bottom that was created by the release process, it should have a `com.github.dblock` profile.
+*   Click the *Close* button in the toolbar. This should take a bit of time to complete, you may need to *Refresh*.
+*   If there are any problems reported, fix them.
+*   Click on the closed staging repository.
+*   Examine the *Content* tab. Right click on artifacts to download them.
+*   Test the downloaded artifacts to make sure that the contents of the staging repository are what you want to release.
+*   Click the *Release* button in the toolbar.
+*   If there are any problems reported, fix them.
+*   The release should now be in the *Releases* repository.
+*   For projects that have Maven Central synchonization enabled, their artifacts in the *Releases* repository are synched to Maven Central every two hours. The *very first time* the WAFFLE project published required a comment on the setup JIRA ticket to get synch enabled.
 
 [OSSGuide]: https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide
 [Maven]: http://maven.apache.org/
