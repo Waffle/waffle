@@ -23,38 +23,16 @@ public abstract class SPNegoMessage {
 	// SPNEGO OID, for details see http://msdn.microsoft.com/en-us/library/ms995330.aspx
 	private static final byte[]	spnegoOid	= {0x06, 0x06, 0x2b, 0x06, 0x01, 0x05, 0x05, 0x02};
 
-	public static boolean isSPNegoMessage(byte[] message)
-	{
+	public static boolean isSPNegoMessage(byte[] message) {
 		if (message == null || message.length < 2) {
 			return false;
 		}
 
-		int lenBytes;
+		return isNegTokenInit(message) || isNegTokenArg(message);
+	}
 
-		// Check if this is NegTokenArg packet, it's id is 0xa1
-		if ((message[0] & 0xff) == 0xa1) {
-
-			int len;
-
-			// Get lenght of message for additional check.
-			if ((message[1] & 0x80) == 0)
-				len = message[1];
-			else {
-
-				lenBytes = message[1] & 0x7f;
-				len = 0;
-				int i = 2;
-				while (lenBytes > 0) {
-
-					len = len << 8;
-					len |= (message[i] & 0xff);
-					--lenBytes;
-				}
-			}
-
-			return (len + 2 == message.length);
-		}
-
+	public static boolean isNegTokenInit(byte[] message)
+	{
 		// First byte should always be 0x60 (Application Constructed Object)
 		if (message[0] != 0x60) {
 			return false;
@@ -62,7 +40,7 @@ public abstract class SPNegoMessage {
 
 		// Next byte(s) contain token length, figure out
 		// how many bytes are used for length data
-		lenBytes = 1;
+		int lenBytes = 1;
 		if ((message[1] & 0x80) != 0) {
 			lenBytes = 1 + (message[1] & 0x7f);
 		}
@@ -79,5 +57,33 @@ public abstract class SPNegoMessage {
 		}
 
 		return true;
+	}
+
+	public static boolean isNegTokenArg(byte[] message)
+	{
+		// Check if this is NegTokenArg packet, it's id is 0xa1
+		if ((message[0] & 0xff) != 0xa1)
+			return false;
+
+		int lenBytes;
+		int len;
+
+		// Get lenght of message for additional check.
+		if ((message[1] & 0x80) == 0)
+			len = message[1];
+		else {
+
+			lenBytes = message[1] & 0x7f;
+			len = 0;
+			int i = 2;
+			while (lenBytes > 0) {
+
+				len = len << 8;
+				len |= (message[i] & 0xff);
+				--lenBytes;
+			}
+		}
+
+		return (len + 2 == message.length);
 	}
 }
