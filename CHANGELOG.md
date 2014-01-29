@@ -1,10 +1,10 @@
 1.7 (TBA)
 ================
 
-Bugs
-----
+Features
+--------
 
-* [#76](https://github.com/dblock/waffle/pull/76): Add missing [SPNEGO NegTokenArg](http://msdn.microsoft.com/en-us/library/ms995330.aspx) support - [@AriSuutariST](https://github.com/AriSuutariST).
+* [#76](https://github.com/dblock/waffle/pull/76): Add [SPNEGO NegTokenArg](http://msdn.microsoft.com/en-us/library/ms995330.aspx) support - [@AriSuutariST](https://github.com/AriSuutariST).
 
 1.6 (12/24/2013)
 ================
