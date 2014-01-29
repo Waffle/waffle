@@ -24,15 +24,25 @@ import org.junit.Test;
  */
 public class SPNegoMessageTests {
 
+	// Different SPNEGO messages. For details and specification,
+	// see http://msdn.microsoft.com/en-us/library/ms995330.aspx
+	
+	private static final byte[] negTokenInitOk = { 0x60, 0x76, 0x06, 0x06, 0x2B, 0x06, 0x01, 0x05, 0x05, 0x02  };
+	private static final byte[] negTokenInitTooShort = { 0x60, 0x76, 0x06, 0x06, 0x2B, 0x06, 0x01, 0x05, 0x05 };
+	private static final byte[] badMessage = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+	
 	@Test
 	public void testIsSPNegoMessage() {
 		assertFalse(SPNegoMessage.isSPNegoMessage(null));
-		byte[] msg = { 0x60, 0x76, 0x06, 0x06, 0x2B, 0x06, 0x01, 0x05, 0x05, 0x02  };
-		assertTrue(SPNegoMessage.isSPNegoMessage(msg));
-		byte[] shortMessage = { 0x60, 0x76, 0x06, 0x06, 0x2B, 0x06, 0x01, 0x05, 0x05 };
-		assertFalse(SPNegoMessage.isSPNegoMessage(shortMessage));
-		byte[] badMessage = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-				0x00 };
+		assertTrue(SPNegoMessage.isSPNegoMessage(negTokenInitOk));
+		assertFalse(SPNegoMessage.isSPNegoMessage(negTokenInitTooShort));
 		assertFalse(SPNegoMessage.isSPNegoMessage(badMessage));
+	}
+
+	@Test
+	public void testIsNegTokenInit() {
+		assertTrue(SPNegoMessage.isNegTokenInit(negTokenInitOk));
+		assertFalse(SPNegoMessage.isNegTokenInit(negTokenInitTooShort));
+		assertFalse(SPNegoMessage.isNegTokenInit(badMessage));
 	}
 }
