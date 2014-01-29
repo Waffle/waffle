@@ -1,3 +1,11 @@
+1.7 (TBA)
+================
+
+Bugs
+----
+
+* [#76](https://github.com/dblock/waffle/pull/76): Add missing [SPNEGO NegTokenArg](http://msdn.microsoft.com/en-us/library/ms995330.aspx) support - [@AriSuutariST](https://github.com/AriSuutariST).
+
 1.6 (12/24/2013)
 ================
 
@@ -5,7 +13,7 @@ Features
 --------
 
 * [#64](https://github.com/dblock/waffle/pull/64): Upgraded to JNA 4.0 - [@ryantxu](https://github.com/ryantxu).
-* [#40](https://github.com/dblock/waffle/pull/40): Added [SPNEGO negotiation](http://msdn.microsoft.com/en-us/library/ms995330.aspx) support - [@AriZuu](https://github.com/AriZuu).
+* [#40](https://github.com/dblock/waffle/pull/40): Added [SPNEGO negotiation](http://msdn.microsoft.com/en-us/library/ms995330.aspx) support - [@AriSuutariST](https://github.com/AriSuutariST).
 * [#48](https://github.com/dblock/waffle/pull/48): Added username/password authentication support for [Apache Shiro](http://shiro.apache.org/) - [@davidmc24](https://github.com/davidmc24).
 * [#51](https://github.com/dblock/waffle/pull/51): Added negotiate authentication support for [Apache Shiro](http://shiro.apache.org/) - [@bhamail](https://github.com/bhamail).
 
