@@ -53,5 +53,10 @@
 		<echo message="deleting ivy cache directory..." />
 		<delete dir="${ivy.cache.dir}" />
 	</target>
+	
+	<target name="bootstrap" description="Used to install the ivy task jar">
+	    <mkdir dir="${user.home}/.ant/lib"/>
+	    <get dest="${user.home}/.ant/lib/ivy.jar" src="http://search.maven.org/remotecontent?filepath=org/apache/ivy/ivy/2.2.0/ivy-2.2.0.jar"/>
+	</target>
 
 </project>
