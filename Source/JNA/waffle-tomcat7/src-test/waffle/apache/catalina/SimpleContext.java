@@ -17,6 +17,7 @@ import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 
 import javax.management.ObjectName;
@@ -45,6 +46,7 @@ import org.apache.catalina.Wrapper;
 import org.apache.catalina.connector.Request;
 import org.apache.catalina.connector.Response;
 import org.apache.catalina.core.ApplicationServletRegistration;
+import org.apache.catalina.deploy.ApplicationListener;
 import org.apache.catalina.deploy.ApplicationParameter;
 import org.apache.catalina.deploy.ErrorPage;
 import org.apache.catalina.deploy.FilterDef;
@@ -54,6 +56,7 @@ import org.apache.catalina.deploy.NamingResources;
 import org.apache.catalina.deploy.SecurityConstraint;
 import org.apache.catalina.util.CharsetMapper;
 import org.apache.juli.logging.Log;
+import org.apache.tomcat.InstanceManager;
 import org.apache.tomcat.JarScanner;
 import org.apache.tomcat.util.http.mapper.Mapper;
 
@@ -1140,4 +1143,78 @@ public class SimpleContext implements Context {
 	public void setJarScanner(JarScanner arg0) {
 
 	}
+
+    @Override
+    public void addPostConstructMethod(String arg0, String arg1) {
+
+    }
+
+    @Override
+    public void addPreDestroyMethod(String arg0, String arg1) {
+
+    }
+
+    @Override
+    public String findPostConstructMethod(String arg0) {
+        return null;
+    }
+
+    @Override
+    public Map<String, String> findPostConstructMethods() {
+        return null;
+    }
+
+    @Override
+    public String findPreDestroyMethod(String arg0) {
+        return null;
+    }
+
+    @Override
+    public Map<String, String> findPreDestroyMethods() {
+        return null;
+    }
+
+    @Override
+    public void removePostConstructMethod(String arg0) {
+
+    }
+
+    @Override
+    public void removePreDestroyMethod(String arg0) {
+
+    }
+
+    @Override
+    public void addApplicationListener(ApplicationListener arg0) {
+
+    }
+
+    @Override
+    public String getContainerSciFilter() {
+        return null;
+    }
+
+    @Override
+    public InstanceManager getInstanceManager() {
+        return null;
+    }
+
+    @Override
+    public boolean getXmlBlockExternal() {
+        return false;
+    }
+
+    @Override
+    public void setContainerSciFilter(String arg0) {
+    }
+
+    @Override
+    public void setInstanceManager(InstanceManager arg0) {
+
+    }
+
+    @Override
+    public void setXmlBlockExternal(boolean arg0) {
+
+    }
 }

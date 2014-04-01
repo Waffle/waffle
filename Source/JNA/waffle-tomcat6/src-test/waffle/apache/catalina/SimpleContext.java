@@ -896,4 +896,14 @@ public class SimpleContext implements Context {
 	public void setDisableURLRewriting(boolean arg0) {
 
 	}
+
+    @Override
+    public boolean getXmlBlockExternal() {
+        return false;
+    }
+
+    @Override
+    public void setXmlBlockExternal(boolean arg0) {
+
+    }
 }

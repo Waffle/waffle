@@ -4,6 +4,9 @@
 Features
 --------
 
+* [#78}(https://github.com/dblock/waffle/pull/78): POM Updates - [@hazendaz](https://github.com/hazendaz).
+  * Now supporting tomcat 6.0.39 / 7.0.52
+  * Updated versions throughout
 * [#76](https://github.com/dblock/waffle/pull/76): Add [SPNEGO NegTokenArg](http://msdn.microsoft.com/en-us/library/ms995330.aspx) support - [@AriSuutariST](https://github.com/AriSuutariST).
 
 1.6 (12/24/2013)
