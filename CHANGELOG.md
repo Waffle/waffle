@@ -3,10 +3,12 @@
 
 Features
 --------
-
-* [#80}(https://github.com/dblock/waffle/pull/80): Tomcat 8 Support (BETA) - [@hazendaz](https://github.com/hazendaz).
+* [#84](https://github.com/dblock/waffle/pull/84): Added a better embedded Jetty example - [@juliangamble](https://github.com/juliangamble).
+  * See 'Adding a better embedded Jetty example PR #81' for more details
+* [#83](https://github.com/dblock/waffle/pull/83): Added fluido skin - [@hazendaz](https://github.com/hazendaz).
+* [#82](https://github.com/dblock/waffle/pull/82): Tomcat 8 Support (BETA) - [@hazendaz](https://github.com/hazendaz).
   * BETA Tomcat 8 support
-* [#78}(https://github.com/dblock/waffle/pull/78): POM Updates - [@hazendaz](https://github.com/hazendaz).
+* [#78](https://github.com/dblock/waffle/pull/78): POM Updates - [@hazendaz](https://github.com/hazendaz).
   * Now supporting tomcat 6.0.39 / 7.0.52
   * Updated versions throughout
 * [#76](https://github.com/dblock/waffle/pull/76): Add [SPNEGO NegTokenArg](http://msdn.microsoft.com/en-us/library/ms995330.aspx) support - [@AriSuutariST](https://github.com/AriSuutariST).
