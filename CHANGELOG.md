@@ -4,6 +4,8 @@
 Features
 --------
 
+* [#80}(https://github.com/dblock/waffle/pull/80): Tomcat 8 Support (BETA) - [@hazendaz](https://github.com/hazendaz).
+  * BETA Tomcat 8 support
 * [#78}(https://github.com/dblock/waffle/pull/78): POM Updates - [@hazendaz](https://github.com/hazendaz).
   * Now supporting tomcat 6.0.39 / 7.0.52
   * Updated versions throughout
