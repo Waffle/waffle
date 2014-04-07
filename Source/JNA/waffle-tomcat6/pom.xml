@@ -8,10 +8,11 @@
   </parent>
   <artifactId>waffle-tomcat6</artifactId>
   <packaging>jar</packaging>
-
   <name>waffle-tomcat6</name>
   <description>Tomcat 6 integration for WAFFLE</description>
-
+  <properties>
+    <tomcat.version>6.0.39</tomcat.version>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
@@ -27,25 +28,25 @@
     <dependency>
       <groupId>org.apache.tomcat</groupId>
       <artifactId>catalina</artifactId>
-      <version>6.0.39</version>
+      <version>${tomcat.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.tomcat</groupId>
       <artifactId>coyote</artifactId>
-      <version>6.0.39</version>
+      <version>${tomcat.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.tomcat</groupId>
       <artifactId>juli</artifactId>
-      <version>6.0.39</version>
+      <version>${tomcat.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.tomcat</groupId>
       <artifactId>servlet-api</artifactId>
-      <version>6.0.39</version>
+      <version>${tomcat.version}</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>

@@ -15,9 +15,6 @@ Source/JNA/*/lib-test/
 Source/JNA/*/lib/
 Source/JNA/*/doc/
 Source/JNA/*/test/
-Source/ThirdParty/_lib/
-Source/ThirdParty/_report/
-Source/ThirdParty/org.apache.ivy/
 Source/JNA/waffle-tests/contiperf-report/
 Waffle.sln.cache
 Waffle.suo

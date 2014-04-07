@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>com.github.dblock.waffle</groupId>
         <artifactId>waffle-demo-parent</artifactId>
@@ -10,11 +8,8 @@
     </parent>
 
     <artifactId>waffle-filter-demo</artifactId>
-
     <packaging>war</packaging>
-
     <name>waffle-filter-demo</name>
-
 
     <dependencies>
         <dependency>
@@ -24,9 +19,7 @@
         </dependency>
     </dependencies>
 
-
     <build>
-
         <plugins>
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
@@ -60,7 +53,7 @@
                     <warSourceDirectory>.</warSourceDirectory>
                     <warSourceExcludes>pom.xml,target</warSourceExcludes>
 
-                    <webXml>WEB-INF/web.xml</webXml>
+                    <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
                 </configuration>
             </plugin>
         </plugins>

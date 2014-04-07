@@ -8,10 +8,13 @@
   </parent>
   <artifactId>waffle-spring-security2</artifactId>
   <packaging>jar</packaging>
-
   <name>waffle-spring-security2</name>
   <description>Spring Security 2 integration for WAFFLE</description>
-
+  <properties>
+    <servlet.version>2.5</servlet.version>
+    <spring.version>2.5.6.SEC03</spring.version>
+    <spring.security.version>2.0.8.RELEASE</spring.security.version>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
@@ -27,19 +30,19 @@
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
-      <version>2.5</version>
+      <version>${servlet.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring</artifactId>
-      <version>2.5.6.SEC03</version>
+      <version>${spring.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-core</artifactId>
-      <version>2.0.8.RELEASE</version>
+      <version>${spring.security.version}</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>

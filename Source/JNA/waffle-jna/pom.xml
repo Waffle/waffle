@@ -8,36 +8,40 @@
   </parent>
   <artifactId>waffle-jna</artifactId>
   <packaging>jar</packaging>
-
   <name>waffle-jna</name>
   <description>WAFFLE JNA implementation</description>
-
+  <properties>
+    <guava.version>16.0.1</guava.version>
+    <jna.version>4.1.0</jna.version>
+    <servlet.version>2.5</servlet.version>
+    <slf4j.version>1.7.7</slf4j.version>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>net.java.dev.jna</groupId>
       <artifactId>jna</artifactId>
-      <version>4.1.0</version>
+      <version>${jna.version}</version>
     </dependency>
     <dependency>
       <groupId>net.java.dev.jna</groupId>
       <artifactId>jna-platform</artifactId>
-      <version>4.1.0</version>
+      <version>${jna.version}</version>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
-      <version>2.5</version>
+      <version>${servlet.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>1.7.6</version>
+      <version>${slf4j.version}</version>
     </dependency>
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>16.0.1</version>
+      <version>${guava.version}</version>
     </dependency>
   </dependencies>
 </project>

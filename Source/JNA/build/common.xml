@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project name="waffle-common" default="build" basedir=".">
-	<property name="common.root" value="${basedir}/.." />
-	<property name="common.build" value="${common.root}/bin" />
-</project>
