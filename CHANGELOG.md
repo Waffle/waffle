@@ -3,6 +3,15 @@
 
 Features
 --------
+* [#86](https://github.com/dblock/waffle/pull/86): Full Mavenization - Part 1 - [@hazendaz](https://github.com/hazendaz).
+  * Building on maven beginnings of project for making this a maven only build
+  * Removed ant/ivy configuration
+  * Known issue in built files due to not using standard maven layout, expect to fix later
+  * Cleanup git ignores for removed ivy items
+  * Corrected issue with mockito pulling in old hamcrest
+  * Reworked demo to be more maven like in layout
+  * Added more settings for tomcat8
+  * Jetty skips javadocs due to no public classes
 * [#84](https://github.com/dblock/waffle/pull/84): Added a better embedded Jetty example - [@juliangamble](https://github.com/juliangamble).
   * See 'Adding a better embedded Jetty example PR #81' for more details
 * [#83](https://github.com/dblock/waffle/pull/83): Added fluido skin - [@hazendaz](https://github.com/hazendaz).

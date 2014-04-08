@@ -32,6 +32,7 @@ public final class NegotiateAuthenticationFilterTest extends TestCase {
     private MockServletResponse response;
     private byte[] out;
 
+    @Override
     protected void setUp() {
         negAuthFilter = new NegotiateAuthenticationFilter();
 
