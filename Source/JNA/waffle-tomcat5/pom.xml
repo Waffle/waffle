@@ -11,14 +11,13 @@
   </parent>
   <artifactId>waffle-tomcat5</artifactId>
   <packaging>jar</packaging>
-
   <name>waffle-tomcat5</name>
   <description>Tomcat 5 integration for WAFFLE</description>
-
   <properties>
     <thirdparty.dir>${basedir}/../../ThirdParty</thirdparty.dir>
+    <slf4j.version>1.7.7</slf4j.version>
+    <tomcat.version>5.5.36</tomcat.version>
   </properties>
-
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
@@ -34,28 +33,28 @@
     <dependency>
       <groupId>tomcat</groupId>
       <artifactId>catalina</artifactId>
-      <version>5.5.36</version>
+      <version>${tomcat.version}</version>
       <systemPath>${thirdparty.dir}/tomcat/5.5.36/catalina-5.5.36.jar</systemPath>
       <scope>system</scope>
     </dependency>
     <dependency>
       <groupId>tomcat</groupId>
       <artifactId>servlet-api</artifactId>
-      <version>5.5.36</version>
+      <version>${tomcat.version}</version>
       <systemPath>${thirdparty.dir}/tomcat/5.5.36/servlet-api-5.5.36.jar</systemPath>
       <scope>system</scope>
     </dependency>
     <dependency>
       <groupId>tomcat</groupId>
       <artifactId>tomcat-util</artifactId>
-      <version>5.5.36</version>
+      <version>${tomcat.version}</version>
       <systemPath>${thirdparty.dir}/tomcat/5.5.36/tomcat-util-5.5.36.jar</systemPath>
       <scope>system</scope>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>jcl-over-slf4j</artifactId>
-      <version>1.7.6</version>
+      <version>${slf4j.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

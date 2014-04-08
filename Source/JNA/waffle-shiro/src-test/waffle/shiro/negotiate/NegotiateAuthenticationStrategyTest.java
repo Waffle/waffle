@@ -14,6 +14,7 @@ public class NegotiateAuthenticationStrategyTest extends TestCase {
     private NegotiateAuthenticationStrategy authStrategy;
 
 
+    @Override
     protected void setUp() {
         authStrategy = new NegotiateAuthenticationStrategy();
     }

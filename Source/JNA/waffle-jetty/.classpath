@@ -12,21 +12,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/ch.qos.logback/1.0.7/logback-classic-1.0.7.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/ch.qos.logback/1.0.7/logback-core-1.0.7.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/junit/4.11/junit-4.11.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/waffle-jna"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/javax.servlet/2.5/servlet-api-2.5.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/orbit/org.eclipse.jetty.orbit/1.2.0.v201105211821/javax.servlet.jsp.jstl-1.2.0.v201105211821.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/orbit/org.eclipse.jetty.orbit/1.2.0.v201112081803/org.apache.taglibs.standard.glassfish-1.2.0.v201112081803.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/orbit/org.eclipse.jetty.orbit/2.2.0.v201108011116/com.sun.el-2.2.0.v201108011116.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/orbit/org.eclipse.jetty.orbit/2.2.0.v201108011116/javax.el-2.2.0.v201108011116.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/orbit/org.eclipse.jetty.orbit/2.2.0.v201112011158/javax.servlet.jsp-2.2.0.v201112011158.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/orbit/org.eclipse.jetty.orbit/2.2.2.v201112011158/org.apache.jasper.glassfish-2.2.2.v201112011158.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/orbit/org.eclipse.jetty.orbit/3.7.1/org.eclipse.jdt.core-3.7.1.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/net.java.dev.jna/4.0.0/jna-4.0.0.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/net.java.dev.jna/4.0.0/jna-platform-4.0.0.jar"/>
-	<classpathentry kind="lib" path="/thirdparty/_lib/jar/org.slf4j/1.7.2/slf4j-api-1.7.2.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/waffle-tests"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6">
 		<attributes>

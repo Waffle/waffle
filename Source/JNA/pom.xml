@@ -15,19 +15,16 @@
 
   <modules>
     <module>build</module>
-    <!-- Excluded due to lack of any public or protected classes
     <module>waffle-jetty</module>
-    -->
     <module>waffle-jna</module>
     <module>waffle-shiro</module>
     <module>waffle-spring-security2</module>
     <module>waffle-spring-security3</module>
     <module>waffle-tests</module>
-    <!-- Excluded due to using system-scope dependencies
     <module>waffle-tomcat5</module>
-    -->
     <module>waffle-tomcat6</module>
     <module>waffle-tomcat7</module>
+    <module>waffle-tomcat8</module>
 
     <module>demo</module>
   </modules>

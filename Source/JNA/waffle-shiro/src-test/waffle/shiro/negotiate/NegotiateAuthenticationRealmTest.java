@@ -22,6 +22,7 @@ public final class NegotiateAuthenticationRealmTest extends TestCase {
 
     private NegotiateAuthenticationRealm negAuthRealm;
 
+    @Override
     protected void setUp() throws Exception {
         negAuthRealm = new NegotiateAuthenticationRealm();
     }

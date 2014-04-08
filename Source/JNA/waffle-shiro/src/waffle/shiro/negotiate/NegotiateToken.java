@@ -78,10 +78,12 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
     public String getSecurityPackage() { return securityPackage; }
     public boolean isNtlmPost() { return ntlmPost; }
 
+    @Override
     public Object getCredentials() {
         return subject;
     }
 
+    @Override
     public Object getPrincipal() {
         return principal;
     }
@@ -125,6 +127,7 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
      *         across sessions, <tt>false</tt> otherwise (<tt>false</tt> by default).
      * @since 0.9
      */
+    @Override
     public boolean isRememberMe() {
         return rememberMe;
     }
@@ -140,6 +143,7 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
      *         explicitly omitted.
      * @since 1.0
      */
+    @Override
     public String getHost() {
         return host;
     }

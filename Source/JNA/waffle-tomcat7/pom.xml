@@ -8,14 +8,11 @@
   </parent>
   <artifactId>waffle-tomcat7</artifactId>
   <packaging>jar</packaging>
-
   <name>waffle-tomcat7</name>
   <description>Tomcat 7 integration for WAFFLE</description>
-
   <properties>
-    <tomcatVersion>7.0.52</tomcatVersion>
+    <tomcat.version>7.0.53</tomcat.version>
   </properties>
-
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
@@ -31,37 +28,37 @@
     <dependency>
       <groupId>org.apache.tomcat</groupId>
       <artifactId>tomcat-api</artifactId>
-      <version>${tomcatVersion}</version>
+      <version>${tomcat.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.tomcat</groupId>
       <artifactId>tomcat-catalina</artifactId>
-      <version>${tomcatVersion}</version>
+      <version>${tomcat.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.tomcat</groupId>
       <artifactId>tomcat-coyote</artifactId>
-      <version>${tomcatVersion}</version>
+      <version>${tomcat.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.tomcat</groupId>
       <artifactId>tomcat-juli</artifactId>
-      <version>${tomcatVersion}</version>
+      <version>${tomcat.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.tomcat</groupId>
       <artifactId>tomcat-servlet-api</artifactId>
-      <version>${tomcatVersion}</version>
+      <version>${tomcat.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.tomcat</groupId>
       <artifactId>tomcat-util</artifactId>
-      <version>${tomcatVersion}</version>
+      <version>${tomcat.version}</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
