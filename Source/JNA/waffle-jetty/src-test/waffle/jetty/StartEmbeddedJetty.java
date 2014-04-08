@@ -31,7 +31,7 @@ public class StartEmbeddedJetty
 {
   public static void main(String[] args) throws Exception
   {
-    String path = "../demo/waffle-filter";
+    String path = "../waffle-demo-parent/waffle-filter";
     
     File dir = new File( path );
     if(!dir.exists()) {

@@ -7,7 +7,7 @@
     <groupId>com.github.dblock.waffle</groupId>
     <artifactId>waffle-parent</artifactId>
     <version>1.7-SNAPSHOT</version>
-    <relativePath>../build</relativePath>
+    <relativePath>../waffle-parent</relativePath>
   </parent>
   <artifactId>waffle-tomcat5</artifactId>
   <packaging>jar</packaging>
