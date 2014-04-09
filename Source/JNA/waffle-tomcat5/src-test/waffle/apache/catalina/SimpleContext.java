@@ -594,10 +594,6 @@ public class SimpleContext implements Context {
 
 	}
 
-	public void setIgnoreAnnotations(boolean arg0) {
-
-	}
-
 	@Override
 	public void setLoginConfig(LoginConfig arg0) {
 
