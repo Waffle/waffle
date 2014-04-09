@@ -3,6 +3,10 @@
 
 Features
 --------
+* [#88](https://github.com/dblock/waffle/pull/88): Full Mavenization - Part 2 - [@hazendaz](https://github.com/hazendaz).
+  * Using standard maven layout now.
+  * Fixed one test case that was case sensitive
+  * Added default to case statements with break.
 * [#86](https://github.com/dblock/waffle/pull/86): Full Mavenization - Part 1 - [@hazendaz](https://github.com/hazendaz).
   * Building on maven beginnings of project for making this a maven only build
   * Removed ant/ivy configuration
