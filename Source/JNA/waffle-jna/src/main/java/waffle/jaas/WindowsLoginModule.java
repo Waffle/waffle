@@ -254,7 +254,7 @@ public class WindowsLoginModule implements LoginModule {
 		case none:
 			break;
 		default:
-		    break;
+			break;
 		}
 
 		return principals;
@@ -287,7 +287,7 @@ public class WindowsLoginModule implements LoginModule {
 		case none:
 			break;
 		default:
-		    break;
+			break;
 		}
 
 		return principals;

@@ -162,6 +162,8 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
 			break;
 		case none:
 			break;
+		default:
+			break;
 		}
 
 		return principals;

@@ -60,7 +60,7 @@ public class WindowsComputerImpl implements IWindowsComputer {
 		case LMJoin.NETSETUP_JOIN_STATUS.NetSetupUnknownStatus:
 			return "NetSetupUnknownStatus";
 		default:
-		    throw new RuntimeException("Unsupported join status: " + joinStatus);
+			throw new RuntimeException("Unsupported join status: " + joinStatus);
 		}
 	}
 
