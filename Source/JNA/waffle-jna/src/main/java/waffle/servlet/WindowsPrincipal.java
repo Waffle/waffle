@@ -142,6 +142,8 @@ public class WindowsPrincipal implements Principal, Serializable {
 			break;
 		case none:
 			break;
+		default:
+		    break;
 		}
 
 		return principals;
@@ -173,6 +175,8 @@ public class WindowsPrincipal implements Principal, Serializable {
 			break;
 		case none:
 			break;
+	    default:
+	        break;
 		}
 
 		return principals;

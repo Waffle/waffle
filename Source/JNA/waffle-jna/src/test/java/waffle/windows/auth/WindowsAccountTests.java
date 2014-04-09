@@ -13,7 +13,6 @@
  *******************************************************************************/
 package waffle.windows.auth;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -44,8 +43,10 @@ public class WindowsAccountTests {
 		System.out.println("Fqn: " + account.getFqn());
 		assertTrue(account.getSidString().length() > 0);
 		System.out.println("Sid: " + account.getSidString());
-		assertEquals(currentUsername, account.getFqn());
+		// To avoid errors with machine naming being all upper-case, use test in this manner
+		assertTrue(currentUsername.equalsIgnoreCase(account.getFqn()));
 		assertTrue(currentUsername.endsWith("\\" + account.getName()));
-		assertTrue(currentUsername.startsWith(account.getDomain() + "\\"));
+		// To avoid errors with machine naming being all upper-case, use test in this manner
+		assertTrue(currentUsername.toLowerCase().startsWith(account.getDomain().toLowerCase() + "\\"));
 	}
 }
