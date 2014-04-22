@@ -116,6 +116,12 @@
             <artifactId>mockito-core</artifactId>
             <version>${mockito.version}</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>objenesis</artifactId>
+                    <groupId>org.objenesis</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.powermock</groupId>
@@ -136,7 +142,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
     <build>
         <pluginManagement>
             <plugins>
@@ -157,10 +162,12 @@
                     <version>2.8.1</version>
                 </plugin>
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
                     <version>1.3.1</version>
                 </plugin>
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-gpg-plugin</artifactId>
                     <version>1.5</version>
                     <configuration>
@@ -240,36 +247,9 @@
                 </plugin>
                 <!-- Build Plugins -->
                 <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>buildnumber-maven-plugin</artifactId>
-                    <version>1.2</version>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.tmatesoft.svnkit</groupId>
-                            <artifactId>svnkit</artifactId>
-                            <version>1.8.5</version>
-                            <exclusions>
-                                <exclusion>
-                                    <artifactId>jna</artifactId>
-                                    <groupId>net.java.dev.jna</groupId>
-                                </exclusion>
-                                <exclusion>
-                                    <artifactId>platform</artifactId>
-                                    <groupId>net.java.dev.jna</groupId>
-                                </exclusion>
-                            </exclusions>
-                        </dependency>
-                        <dependency>
-                            <groupId>net.java.dev.jna</groupId>
-                            <artifactId>jna-platform</artifactId>
-                            <version>4.1.0</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.antlr</groupId>
-                            <artifactId>antlr-runtime</artifactId>
-                            <version>3.5.2</version>
-                        </dependency>
-                    </dependencies>
+                    <groupId>pl.project13.maven</groupId>
+                    <artifactId>git-commit-id-plugin</artifactId>
+                    <version>2.1.9</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -286,7 +266,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>2.12</version>
+                    <version>2.12.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -317,7 +297,7 @@
                         <dependency>
                             <groupId>commons-io</groupId>
                             <artifactId>commons-io</artifactId>
-                            <version>2.5-SNAPSHOT</version>
+                            <version>2.4</version>
                         </dependency>
                         <dependency>
                             <groupId>jaxen</groupId>
@@ -467,53 +447,6 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-changelog-plugin</artifactId>
-                    <version>2.3-SNAPSHOT</version>
-                    <dependencies>
-                        <dependency>
-                            <groupId>com.google.code.maven-scm-provider-svnjava</groupId>
-                            <artifactId>maven-scm-provider-svnjava</artifactId>
-                            <version>2.1.1</version>
-                            <exclusions>
-                                <exclusion>
-                                    <artifactId>jna</artifactId>
-                                    <groupId>net.java.dev.jna</groupId>
-                                </exclusion>
-                                <exclusion>
-                                    <artifactId>platform</artifactId>
-                                    <groupId>net.java.dev.jna</groupId>
-                                </exclusion>
-                            </exclusions>
-                        </dependency>
-                        <dependency>
-                            <groupId>commons-io</groupId>
-                            <artifactId>commons-io</artifactId>
-                            <version>2.5-SNAPSHOT</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>net.java.dev.jna</groupId>
-                            <artifactId>jna-platform</artifactId>
-                            <version>4.1.0</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.antlr</groupId>
-                            <artifactId>antlr-runtime</artifactId>
-                            <version>3.5.2</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.apache.maven.scm</groupId>
-                            <artifactId>maven-scm-provider-svn-commons</artifactId>
-                            <version>1.10-SNAPSHOT</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.codehaus.plexus</groupId>
-                            <artifactId>plexus-utils</artifactId>
-                            <version>3.0.17</version>
-                        </dependency>
-                    </dependencies>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jxr-plugin</artifactId>
                     <version>2.4</version>
                 </plugin>
@@ -541,42 +474,27 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-scm-plugin</artifactId>
-                    <version>1.10-SNAPSHOT</version>
+                    <version>1.9</version>
                     <dependencies>
                         <dependency>
-                            <groupId>com.google.code.maven-scm-provider-svnjava</groupId>
-                            <artifactId>maven-scm-provider-svnjava</artifactId>
-                            <version>2.1.1</version>
-                            <exclusions>
-                                <exclusion>
-                                    <artifactId>jna</artifactId>
-                                    <groupId>net.java.dev.jna</groupId>
-                                </exclusion>
-                                <exclusion>
-                                    <artifactId>platform</artifactId>
-                                    <groupId>net.java.dev.jna</groupId>
-                                </exclusion>
-                            </exclusions>
-                        </dependency>
-                        <dependency>
-                            <groupId>commons-io</groupId>
-                            <artifactId>commons-io</artifactId>
-                            <version>2.5-SNAPSHOT</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>net.java.dev.jna</groupId>
-                            <artifactId>jna-platform</artifactId>
-                            <version>4.1.0</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.antlr</groupId>
-                            <artifactId>antlr-runtime</artifactId>
-                            <version>3.5.2</version>
-                        </dependency>
-                        <dependency>
                             <groupId>org.apache.maven.scm</groupId>
-                            <artifactId>maven-scm-provider-svn-commons</artifactId>
-                            <version>1.10-SNAPSHOT</version>
+                            <artifactId>maven-scm-provider-jgit</artifactId>
+                            <version>1.9</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>com.googlecode.javaewah</groupId>
+                            <artifactId>JavaEWAH</artifactId>
+                            <version>0.8.5</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>com.jcraft</groupId>
+                            <artifactId>jsch</artifactId>
+                            <version>0.1.51</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.eclipse.jgit</groupId>
+                            <artifactId>org.eclipse.jgit</artifactId>
+                            <version>3.2.0.201312181205-r</version>
                         </dependency>
                         <dependency>
                             <groupId>org.codehaus.plexus</groupId>
@@ -631,36 +549,21 @@
             </plugin>
             <!-- Build Plugins -->
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>buildnumber-maven-plugin</artifactId>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <configuration>
+                    <dotGitDirectory>../../../.git</dotGitDirectory>
+                </configuration>
                 <executions>
                     <execution>
-                        <phase>validate</phase>
+                        <id>git-commit-id</id>
                         <goals>
-                            <goal>create</goal>
+                            <goal>revision</goal>
                         </goals>
+                        <phase>validate</phase>
                     </execution>
                 </executions>
-                <configuration>
-                    <doCheck>false</doCheck>
-                    <doUpdate>false</doUpdate>
-                    <getRivisionOnlyOnce>true</getRivisionOnlyOnce>
-                    <providerImplementations>
-                        <svn>javasvn</svn>
-                    </providerImplementations>
-                    <revisionOnScmFailure>Final</revisionOnScmFailure>
-                </configuration>
             </plugin>
-
-            <!-- git.revision (figure this out)
-            <target name="getgitdetails" >
-                <exec executable="git" outputproperty="git.revision">
-                    <arg value="rev-parse"/>
-                    <arg value="HEAD"/>
-                </exec>
-            </target>
-            -->
-
             <!-- Packaging types / Tools -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -669,16 +572,15 @@
                     <archive>
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                         </manifest>
                         <manifestEntries>
-                            <Specification-Title>${project.name}</Specification-Title>
-                            <Specification-Version>${waffle.version}-b${buildNumber} ${maven.build.timestamp}</Specification-Version>
-                            <Specification-Vendor>${project.groupId}</Specification-Vendor>
-                            <Implementation-Title>${project.name}</Implementation-Title>
-                            <Implementation-Version>${project.version}-b${buildNumber} ${maven.build.timestamp}</Implementation-Version>
-                            <Implementation-Vendor-Id>${project.groupId}</Implementation-Vendor-Id>
-                            <Git-Revision>${git.revision}</Git-Revision>
+                            <Build-Time>${maven.build.timestamp}</Build-Time>
                             <Copywrite>${copywrite}</Copywrite>
+                            <Git-Revision>${git.commit.id}</Git-Revision>
+                            <Os-Name>${os.name}</Os-Name>
+                            <Os-Arch>${os.arch}</Os-Arch>
+                            <Os-Version>${os.version}</Os-Version>
                         </manifestEntries>
                     </archive>
                 </configuration>
@@ -691,16 +593,15 @@
                     <archive>
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                         </manifest>
                         <manifestEntries>
-                            <Specification-Title>${project.name}</Specification-Title>
-                            <Specification-Version>${waffle.version}-b${buildNumber} ${maven.build.timestamp}</Specification-Version>
-                            <Specification-Vendor>${project.groupId}</Specification-Vendor>
-                            <Implementation-Title>${project.name}</Implementation-Title>
-                            <Implementation-Version>${project.version}-b${buildNumber} ${maven.build.timestamp}</Implementation-Version>
-                            <Implementation-Vendor-Id>${project.groupId}</Implementation-Vendor-Id>
-                            <Git-Revision>${git.revision}</Git-Revision>
+                            <Build-Time>${maven.build.timestamp}</Build-Time>
                             <Copywrite>${copywrite}</Copywrite>
+                            <Git-Revision>${git.commit.id}</Git-Revision>
+                            <Os-Name>${os.name}</Os-Name>
+                            <Os-Arch>${os.arch}</Os-Arch>
+                            <Os-Version>${os.version}</Os-Version>
                         </manifestEntries>
                     </archive>
                 </configuration>
@@ -709,6 +610,12 @@
                         <id>attach-javadocs</id>
                         <goals>
                             <goal>jar</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>attach-test-javadocs</id>
+                        <goals>
+                            <goal>test-jar</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -723,14 +630,12 @@
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                         </manifest>
                         <manifestEntries>
-                            <Specification-Title>${project.name}</Specification-Title>
-                            <Specification-Version>${waffle.version}-b${buildNumber} ${maven.build.timestamp}</Specification-Version>
-                            <Specification-Vendor>${project.groupId}</Specification-Vendor>
-                            <Implementation-Title>${project.name}</Implementation-Title>
-                            <Implementation-Version>${project.version}-b${buildNumber} ${maven.build.timestamp}</Implementation-Version>
-                            <Implementation-Vendor-Id>${project.groupId}</Implementation-Vendor-Id>
-                            <Git-Revision>${git.revision}</Git-Revision>
+                            <Build-Time>${maven.build.timestamp}</Build-Time>
                             <Copywrite>${copywrite}</Copywrite>
+                            <Git-Revision>${git.commit.id}</Git-Revision>
+                            <Os-Name>${os.name}</Os-Name>
+                            <Os-Arch>${os.arch}</Os-Arch>
+                            <Os-Version>${os.version}</Os-Version>
                         </manifestEntries>
                     </archive>
                 </configuration>
@@ -741,9 +646,16 @@
                             <goal>jar</goal>
                         </goals>
                     </execution>
+                    <execution>
+                        <id>attach-test-sources</id>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <executions>
                     <execution>
@@ -810,9 +722,6 @@
                     <!-- Maven 3.x Reporting (Hidden configuration due to http://jira.codehaus.org/browse/MSITE-484 issue) -->
                     <!-- Using reporting this way will result in old reporting section to be skipped -->
                     <reportPlugins>
-                        <!-- Doesn't work with pure java svn due to outstanding bug in plugin <plugin> <groupId>org.apache.maven.plugins</groupId> 
-                            <artifactId>maven-changelog-plugin</artifactId> <configuration> <providerImplementations> <svn>javasvn</svn> </providerImplementations> 
-                            </configuration> </plugin> -->
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-checkstyle-plugin</artifactId>
@@ -868,8 +777,6 @@
             </plugin>
         </plugins>
         <extensions>
-            <!-- Might possibly need for changelog plugin but still doesn't solve issue <extension> <groupId>com.google.code.maven-scm-provider-svnjava</groupId> 
-                <artifactId>maven-scm-provider-svnjava</artifactId> <version>2.1.0</version> </extension> -->
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
                 <artifactId>wagon-ssh</artifactId>
@@ -877,18 +784,6 @@
             </extension>
         </extensions>
     </build>
-    <!-- Maven 2.x Reporting (Disable when using new reporting) <reporting> <plugins> <plugin> <groupId>org.apache.maven.plugins</groupId> 
-        <artifactId>maven-changelog-plugin</artifactId> <configuration> <providerImplementations> <svn>javasvn</svn> </providerImplementations> 
-        </configuration> </plugin> <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-checkstyle-plugin</artifactId> 
-        </plugin> <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-javadoc-plugin</artifactId> </plugin> <plugin> 
-        <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-jxr-plugin</artifactId> </plugin> <plugin> <groupId>org.apache.maven.plugins</groupId> 
-        <artifactId>maven-pmd-plugin</artifactId> </plugin> <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-project-info-reports-plugin</artifactId> 
-        </plugin> <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-surefire-report-plugin</artifactId> </plugin> 
-        <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>findbugs-maven-plugin</artifactId> </plugin> <plugin> <groupId>org.jacoco</groupId> 
-        <artifactId>jacoco-maven-plugin</artifactId> </plugin> <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>versions-maven-plugin</artifactId> 
-        <configuration> <allowSnapshots>true</allowSnapshots> </configuration> </plugin> <plugin> <groupId>org.codehaus.mojo</groupId> 
-        <artifactId>taglist-maven-plugin</artifactId> </plugin> <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>jdepend-maven-plugin</artifactId> 
-        </plugin> </plugins> </reporting> -->
     <profiles>
         <profile>
             <id>checks</id>
@@ -1094,6 +989,7 @@
             <build>
                 <plugins>
                     <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
                         <executions>
                             <execution>
@@ -1106,6 +1002,7 @@
                         </executions>
                     </plugin>
                     <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
                         <executions>
                             <execution>
@@ -1117,6 +1014,7 @@
                         </executions>
                     </plugin>
                     <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
                         <executions>
                             <execution>
