@@ -21,9 +21,9 @@ Download Git from [here](http://git-scm.com/downloads). During the installation,
 
 Download and install the JDK from [here](http://www.oracle.com/technetwork/java/javase/downloads/index.html). Set `JAVA_HOME` to the location of the JDK in your computer's environment settings.
 
-### Maven
+### Ant
 
-Download Maven from [here](http://maven.apache.org/download.cgi) and unzip it to a directory of your choosing, eg. `c:\maven`. Add the `bin` directory to `PATH`, eg. `c:\maven\bin`. You should be able to type `mvn` on the command prompt.
+Download Ant from [here](https://ant.apache.org/bindownload.cgi) and unzip it to a directory of your choosing, eg. `c:\ant`. Add the `bin` directory to `PATH`, eg. `c:\ant\bin`. You should be able to type `ant` on the command prompt.
 
 ### Windows SDK or Microsoft Visual Studio 2008
 
@@ -41,6 +41,9 @@ Download and install MSBuild Community Tasks from [here](https://code.google.com
 
 Download and install the Wix toolset, specifically version 3.7 from [here](https://wix.codeplex.com/releases/view/99514).
 
+### Eclipse
+
+Eclipse is not required, but useful when editing Java code.
 
 Building the Project the First Time
 -----------------------------------
@@ -61,18 +64,7 @@ The C# implementation is in a Visual Studio solution file, `Waffle.sln`.
 Using Eclipse
 -------------
 
-Eclipse is not required, but useful when editing Java code.  To generate the eclipse project, open an command line to the `Source/JNA/` folder and run `mvn eclipse:eclipse`
-
-```
-$ cd Source/JNA/
-$ mvn eclipse:eclipse
-[INFO] Scanning for projects...
-[INFO] ------------------------------------------------------------------------
-[INFO] Reactor Build Order:
-...
-```
-
-Then import the projects under `Source/JNA`. 
+For Java, use Eclipse and import the projects under `Source`. Make sure to also import the `Thirdparty` project.
 
 To run the demos within the IDE, you can right click *StartEmbeddedJetty* > *Run As* (or *Debug As*) > *Java Appliction*. The server will start on localhost:8080.
 
