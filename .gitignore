@@ -7,14 +7,8 @@ Debug
 Release
 target
 TestResult.xml
-Source/JNA/lib-test
-Source/JNA/lib
-Source/JNA/test
-Source/JNA/doc
-Source/JNA/*/lib-test/
-Source/JNA/*/lib/
-Source/JNA/*/doc/
-Source/JNA/*/test/
-Source/JNA/waffle-tests/contiperf-report/
+Source/JNA/**/.classpath
+Source/JNA/**/.settings
+Source/JNA/**/.project
 Waffle.sln.cache
 Waffle.suo
