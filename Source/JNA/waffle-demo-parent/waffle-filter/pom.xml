@@ -5,6 +5,7 @@
         <groupId>com.github.dblock.waffle</groupId>
         <artifactId>waffle-demo-parent</artifactId>
         <version>1.7-SNAPSHOT</version>
+        <relativePath>../waffle-demo-parent</relativePath>
     </parent>
     <artifactId>waffle-filter-demo</artifactId>
     <packaging>war</packaging>
@@ -16,6 +17,7 @@
         </dependency>
     </dependencies>
     <build>
+        <finalName>${project.name}</finalName>
         <plugins>
             <plugin>
                 <groupId>pl.project13.maven</groupId>
@@ -47,18 +49,6 @@
                     <server>mylocalserver</server>
                 </configuration>
             </plugin>
-
-
-            <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <configuration>
-                    <!-- could remove these if we used the maven convention for webapp dir layout. -->
-                    <warSourceDirectory>.</warSourceDirectory>
-                    <warSourceExcludes>pom.xml,target</warSourceExcludes>
-
-                    <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 
@@ -84,7 +74,7 @@ Setup
 
  3. Start your tomcat server. You can launch a locally installed tomcat with remote debugging enabled on port 8000 using:
 
-        apache-tomcat-6.0.35$ bin/catalina.sh jpda start
+        apache-tomcat-6.0.39$ bin/catalina.sh jpda start
 
  4. Build and Deploy the demo application to the local tomcat 6 instance using:
 
