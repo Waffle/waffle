@@ -10,5 +10,6 @@ TestResult.xml
 Source/JNA/**/.classpath
 Source/JNA/**/.settings
 Source/JNA/**/.project
+Thumbs.db
 Waffle.sln.cache
 Waffle.suo
