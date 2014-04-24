@@ -3,14 +3,14 @@
 
 Features
 --------
-* [#93}(https://github.com/dblock/waffle/pull/93): Updated Documentation - [@hazendaz](https://github.com/hazendaz).
+* [#93](https://github.com/dblock/waffle/pull/93): Updated Documentation - [@hazendaz](https://github.com/hazendaz).
   * First cut at updating documentation to reflect maven.
-* [#92}(https://github.com/dblock/waffle/pull/92): Pom Corrections - [@hazendaz](https://github.com/hazendaz).
+* [#92](https://github.com/dblock/waffle/pull/92): Pom Corrections - [@hazendaz](https://github.com/hazendaz).
   * Oops! #91 attempted to remove .settings but actually added them back, removing again.
 * [#91](https://github.com/dblock/waffle/pull/91): Drop eclipse settings - [@ryantxu](https://github.com/ryantxu).
   * More maven cleanup work, removed .settings, .classpath, and .project files from build as maven creates these.
   * Additional benefit here is that this is easily built using many various IDE's tanks to maven.
-* [#90}(https://github.com/dblock/waffle/pull/90): Pom Corrections - [@hazendaz](https://github.com/hazendaz).
+* [#90](https://github.com/dblock/waffle/pull/90): Pom Corrections - [@hazendaz](https://github.com/hazendaz).
   * Corrected missed change #87 on rename of build in multi module pom
   * Fixed issue with incorrect objenesis version being picked up by maven resolution
   * Reworked parent POM for use with users without their own nexus repo
