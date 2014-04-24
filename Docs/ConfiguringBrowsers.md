@@ -31,3 +31,8 @@ Firefox
 2. Type `network.negotiate-auth.trusted-uris` in the `Filter` box. 
 3. Put your server name as the value. If you have more than one server, you can enter them all as a comma separated list.
 4. Close the tab.
+
+[Optional Firefox Plugin]
+
+1. Install integrated auth for firefox from [here](https://addons.mozilla.org/en-US/firefox/addon/integrated-auth-for-firefox/).
+2. Following instructions.
