@@ -51,7 +51,7 @@ If you are running on Windows Vista or later, you'll want to run the command pro
 c:\source\Waffle\master> build all
 ```
 
-This downloads thirdparty libraries using Ivy, builds both Debug and Release .NET binaries, all Java code, runs tests and packages a release .zip in the `target` directory.
+This downloads thirdparty libraries using Maven, builds both Debug and Release .NET binaries, all Java code, runs tests and packages a release .zip in the `target` directory.
 
 Using Visual Studio
 -------------------
@@ -61,7 +61,10 @@ The C# implementation is in a Visual Studio solution file, `Waffle.sln`.
 Using Eclipse
 -------------
 
-Eclipse is not required, but useful when editing Java code.  To generate the eclipse project, open an command line to the `Source/JNA/` folder and run `mvn eclipse:eclipse`
+Eclipse is not required, but useful when editing Java code.  
+
+[Optional] To generate the eclipse project and settings, open an command line to the `Source/JNA/` folder and run `mvn eclipse:eclipse`.  Generally this will occur 
+automatically by importing maven project into eclipse.
 
 ```
 $ cd Source/JNA/
@@ -73,6 +76,18 @@ $ mvn eclipse:eclipse
 ```
 
 Then import the projects under `Source/JNA`. 
+
+![maven-import](imgs/maven-import.png)
+![maven-import-jna](imgs/maven-import-jna.png)
+
+You may see need to migrate projects for the spring packages.  Try to do so, but if it fails, just cancel.  This is ok.
+
+![maven-project-migration](imgs/maven-project-migration.png)
+
+Projects will show as imported as follows.
+
+![imported-projects](imgs/imported-projects.png)
+
 
 To run the demos within the IDE, you can right click *StartEmbeddedJetty* > *Run As* (or *Debug As*) > *Java Appliction*. The server will start on localhost:8080.
 
@@ -98,7 +113,9 @@ Git is missing.
 ### MSBuild Community Tasks
 
 ```
-E:\Waffle.proj(2,11): error MSB4019: The imported project "C:\Program Files\MSBuild\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" was not found. Confirm that the path in the <Import> declaration is correct, and that the file exists on disk.
+E:\Waffle.proj(2,11): error MSB4019: The imported project
+"C:\Program Files\MSBuild\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" was not found.
+Confirm that the path in the <Import> declaration is correct, and that the file exists on disk.
 ```
 
 MSBuild Community Tasks are missing.
@@ -108,7 +125,9 @@ MSBuild Community Tasks are missing.
 ```
 "E:\waffle\Waffle.proj" (all target) (1) ->
 "E:\waffle\Waffle.sln" (Clean target) (2) ->
-(Clean target) ->  E:\waffle\Source\WindowsAuthProviderMergeModule\WindowsAuthProviderMergeModule.wixproj(107,11): error MSB4019: The imported project "C:\Program Files\MSBuild\Microsoft\WiX\v3.x\Wix.targets" was not found. Confirm that the path in the <Import> declaration is correct, and that the file exists on disk.
+(Clean target) ->  E:\waffle\Source\WindowsAuthProviderMergeModule\WindowsAuthProviderMergeModule.wixproj(107,11):
+error MSB4019: The imported project "C:\Program Files\MSBuild\Microsoft\WiX\v3.x\Wix.targets" was not found.
+Confirm that the path in the <Import> declaration is correct, and that the file exists on disk.
 ```
 
 Wix is missing.
@@ -139,4 +158,4 @@ The java components will only generate output if all tests pass. They do when ru
 
 ### Missing Dependencies in Eclipse 
 
-Many thirdparty dependencies in Waffle are downloaded using Ivy when you use `build all` or `ant` under `Source\JNA`. Eclipse will not automatically refresh these dependencies. Click on the project named `thirdparty` and hit F5. 
+Many thirdparty dependencies in Waffle are downloaded using Maven when you use `mvn clean install` or under manually located at `Source\ThirdParty\`. Eclipse will automatically refresh these dependencies.

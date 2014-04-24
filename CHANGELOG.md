@@ -3,10 +3,24 @@
 
 Features
 --------
+* [#93}(https://github.com/dblock/waffle/pull/93): Updated Documentation - [@hazendaz](https://github.com/hazendaz).
+  * First cut at updating documentation to reflect maven.
+* [#92}(https://github.com/dblock/waffle/pull/92): Pom Corrections - [@hazendaz](https://github.com/hazendaz).
+  * Oops! #91 attempted to remove .settings but actually added them back, removing again.
+* [#91](https://github.com/dblock/waffle/pull/91): Drop eclipse settings - [@ryantxu](https://github.com/ryantxu).
+  * More maven cleanup work, removed .settings, .classpath, and .project files from build as maven creates these.
+  * Additional benefit here is that this is easily built using many various IDE's tanks to maven.
+* [#90}(https://github.com/dblock/waffle/pull/90): Pom Corrections - [@hazendaz](https://github.com/hazendaz).
+  * Corrected missed change #87 on rename of build in multi module pom
+  * Fixed issue with incorrect objenesis version being picked up by maven resolution
+  * Reworked parent POM for use with users without their own nexus repo
+  * Fixed to work properly with GIT so jars show all necessary manifest information
 * [#88](https://github.com/dblock/waffle/pull/88): Full Mavenization - Part 2 - [@hazendaz](https://github.com/hazendaz).
   * Using standard maven layout now.
   * Fixed one test case that was case sensitive
   * Added default to case statements with break.
+* [#87](https://github.com/dblock/waffle/pull/87): Renamed 'demo' & 'build' - [@hazendaz](https://github.com/hazendaz).
+  * Renamed these modules to reflect their true nature
 * [#86](https://github.com/dblock/waffle/pull/86): Full Mavenization - Part 1 - [@hazendaz](https://github.com/hazendaz).
   * Building on maven beginnings of project for making this a maven only build
   * Removed ant/ivy configuration
@@ -19,6 +33,7 @@ Features
 * [#84](https://github.com/dblock/waffle/pull/84): Added a better embedded Jetty example - [@juliangamble](https://github.com/juliangamble).
   * See 'Adding a better embedded Jetty example PR #81' for more details
 * [#83](https://github.com/dblock/waffle/pull/83): Added fluido skin - [@hazendaz](https://github.com/hazendaz).
+  * Provides maven site generation using twitter bootstrap for nice look and feel
 * [#82](https://github.com/dblock/waffle/pull/82): Tomcat 8 Support (BETA) - [@hazendaz](https://github.com/hazendaz).
   * BETA Tomcat 8 support
 * [#78](https://github.com/dblock/waffle/pull/78): POM Updates - [@hazendaz](https://github.com/hazendaz).

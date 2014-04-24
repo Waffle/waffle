@@ -10,7 +10,7 @@ Configuring Web Servers
 
 The following steps are required to configure a web server with the Waffle Servlet Security Filter. These instructions work for Tomcat, Jetty, WebSphere and possibly others.
 
-Package Waffle JARs, including `waffle-jna.jar`, `guava-13.0.1.jar`, `jna-3.5.0.jar`, `platform-3.5.0.jar` and `slf4j*.jar` in the application's `lib` directory or copy them to your web server's lib. 
+Package Waffle JARs, including `waffle-jna.jar`, `guava-16.0.1.jar`, `jna-4.1.0.jar`, `jna-platform-4.1.0.jar` and `slf4j*.jar` in the application's `lib` directory or copy them to your web server's lib. 
 
 Add a security filter to `WEB-INF\web.xml` of your application. 
 
@@ -112,10 +112,10 @@ You can use maven to build and deploy this demo application by following the ste
 * Start your tomcat server. You can launch a locally installed tomcat with remote debugging enabled on port 8000 using:
 
 ```
-    apache-tomcat-6.0.35$ bin/catalina.sh jpda start
+    apache-tomcat-6.0.39$ bin/catalina.sh jpda start
 ```
 
-* Build and Deploy the demo application to the local tomcat 6 instance. In the waffle source tree, move to the directory: waffle/Source/JNA/demo/waffle-filter, and execute the following:
+* Build and Deploy the demo application to the local tomcat 6 instance. In the waffle source tree, move to the directory: waffle/Source/JNA/waffle-demo-parent/waffle-filter, and execute the following:
 
 ```
    mvn clean package tomcat6:redeploy
