@@ -7,7 +7,7 @@ You can use WAFFLE to implement HTTP client-side to perform authentication again
 
 You don't actually need Waffle for client-side, just [JNA](https://github.com/twall/jna). Your code needs to invoke the Windows SSPI to obtain a value for the *WWW-Authenticate* header to be injected into the HTTP request, read the *Authorization* header from the HTTP response and possibly repeat that process several times.
 
-In Java, a good place to start is [NegotiateSecurityFilterTests.testNegotiate](https://github.com/dblock/waffle/blob/master/Source/JNA/waffle-tests/src-test/waffle/servlet/NegotiateSecurityFilterTests.java#L133), that implements both the client and the server side.
+In Java, a good place to start is [NegotiateSecurityFilterTests.testNegotiate](https://github.com/dblock/waffle/blob/master/Source/JNA/waffle-tests/src/test/java/waffle/servlet/NegotiateSecurityFilterTests.java#L133), that implements both the client and the server side.
 
 In C#, a good place to start is the [WindowsAuthProviderUnitTests.testNegotiate](https://github.com/dblock/waffle/blob/master/Source/WindowsAuthProviderUnitTests/WindowsAuthProviderUnitTests.cs#L157).
 
