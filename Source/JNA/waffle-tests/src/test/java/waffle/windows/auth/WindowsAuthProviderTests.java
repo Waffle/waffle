@@ -64,7 +64,7 @@ public class WindowsAuthProviderTests {
 		userInfo.usri1_name = new WString("WaffleTestUser");
 		userInfo.usri1_password = new WString("!WAFFLEP$$Wrd0");
 		userInfo.usri1_priv = LMAccess.USER_PRIV_USER;
-        // ignore test if not able to add user (need to be administrator to do this).
+		// ignore test if not able to add user (need to be administrator to do this).
 		assumeTrue(LMErr.NERR_Success ==
 				Netapi32.INSTANCE.NetUserAdd(null, 1, userInfo, null));
 		try {
@@ -91,7 +91,7 @@ public class WindowsAuthProviderTests {
 		userInfo.usri1_password = new WString(MockWindowsAccount.TEST_PASSWORD);
 		userInfo.usri1_priv = LMAccess.USER_PRIV_USER;
 		// ignore test if not able to add user (need to be administrator to do this).
-        assumeTrue(LMErr.NERR_Success ==
+		assumeTrue(LMErr.NERR_Success ==
 				Netapi32.INSTANCE.NetUserAdd(null, 1, userInfo, null));
 		try {
 			IWindowsAuthProvider prov = new WindowsAuthProviderImpl();

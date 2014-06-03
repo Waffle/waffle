@@ -64,7 +64,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 		// realm: fail if no realm is configured
 		if (context == null || context.getRealm() == null) {
 			_log.warn("missing context/realm");
-			response.setStatus(HttpServletResponse.SC_SERVICE_UNAVAILABLE);
+			sendError(response, HttpServletResponse.SC_SERVICE_UNAVAILABLE);
 			return false;
 		}
 
@@ -148,7 +148,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 
 			if (securityContext.isContinue() || ntlmPost) {
 				response.setHeader("Connection", "keep-alive");
-				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+				response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
 				response.flushBuffer();
 				return false;
 			}

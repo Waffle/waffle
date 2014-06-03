@@ -90,7 +90,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 			}
 
 			// log the user in using the token
-			IWindowsSecurityContext securityContext = null;
+			IWindowsSecurityContext securityContext;
 
 			try {
 				byte[] tokenBuffer = authorizationHeader.getTokenBytes();

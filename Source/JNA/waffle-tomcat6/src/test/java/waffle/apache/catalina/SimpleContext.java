@@ -897,13 +897,13 @@ public class SimpleContext implements Context {
 
 	}
 
-    @Override
-    public boolean getXmlBlockExternal() {
-        return false;
-    }
+	@Override
+	public boolean getXmlBlockExternal() {
+		return false;
+	}
 
-    @Override
-    public void setXmlBlockExternal(boolean arg0) {
+	@Override
+	public void setXmlBlockExternal(boolean arg0) {
 
-    }
+	}
 }

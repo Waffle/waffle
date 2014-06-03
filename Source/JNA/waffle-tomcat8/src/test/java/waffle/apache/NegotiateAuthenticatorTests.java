@@ -18,13 +18,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.io.IOException;
-
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.Realm;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import waffle.apache.catalina.SimpleContext;
@@ -101,7 +98,7 @@ public class NegotiateAuthenticatorTests {
 	}
 
 	@Test
-	public void testChallengeGET() throws IOException {
+	public void testChallengeGET() {
 		SimpleHttpRequest request = new SimpleHttpRequest();
 		request.setMethod("GET");
 		SimpleHttpResponse response = new SimpleHttpResponse();
@@ -117,7 +114,7 @@ public class NegotiateAuthenticatorTests {
 	}
 
 	@Test
-	public void testChallengePOST() throws IOException {
+	public void testChallengePOST() {
 		String securityPackage = "Negotiate";
 		IWindowsCredentialsHandle clientCredentials = null;
 		WindowsSecurityContextImpl clientContext = null;
@@ -156,10 +153,8 @@ public class NegotiateAuthenticatorTests {
 		}
 	}
 
-	// TODO Test doesn't seem to work - review 3/30/14 
-	@Ignore
 	@Test
-	public void testPOSTEmpty() throws IOException {
+	public void testPOSTEmpty() {
 		String securityPackage = "Negotiate";
 		IWindowsCredentialsHandle clientCredentials = null;
 		WindowsSecurityContextImpl clientContext = null;
@@ -221,7 +216,7 @@ public class NegotiateAuthenticatorTests {
 	}
 
 	@Test
-	public void testNegotiate() throws IOException {
+	public void testNegotiate() {
 		String securityPackage = "Negotiate";
 		IWindowsCredentialsHandle clientCredentials = null;
 		WindowsSecurityContextImpl clientContext = null;

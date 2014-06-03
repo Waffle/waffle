@@ -14,7 +14,7 @@
   <name>waffle-tomcat5</name>
   <description>Tomcat 5 integration for WAFFLE</description>
   <properties>
-    <thirdparty.dir>${basedir}/../../ThirdParty</thirdparty.dir>
+    <thirdparty.dir>${project.basedir}/../../ThirdParty</thirdparty.dir>
     <slf4j.version>1.7.7</slf4j.version>
     <tomcat.version>5.5.36</tomcat.version>
   </properties>

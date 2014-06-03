@@ -17,8 +17,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.io.IOException;
-
 import javax.servlet.ServletException;
 
 import org.apache.catalina.Context;
@@ -80,7 +78,7 @@ public class MixedAuthenticatorTests {
 	}
 
 	@Test
-	public void testChallengeGET() throws IOException {
+	public void testChallengeGET() {
 		SimpleHttpRequest request = new SimpleHttpRequest();
 		request.setMethod("GET");
 		request.setQueryString("j_negotiate_check");
@@ -97,7 +95,7 @@ public class MixedAuthenticatorTests {
 	}
 
 	@Test
-	public void testChallengePOST() throws IOException {
+	public void testChallengePOST() {
 		String securityPackage = "Negotiate";
 		IWindowsCredentialsHandle clientCredentials = null;
 		WindowsSecurityContextImpl clientContext = null;
@@ -139,7 +137,7 @@ public class MixedAuthenticatorTests {
 	}
 
 	@Test
-	public void testNegotiate() throws IOException {
+	public void testNegotiate() {
 		String securityPackage = "Negotiate";
 		// client credentials handle
 		IWindowsCredentialsHandle clientCredentials = null;
@@ -246,18 +244,18 @@ public class MixedAuthenticatorTests {
 		SimpleHttpResponse response = new SimpleHttpResponse();
 		assertTrue(_authenticator.authenticate(request, response));
 	}
-	
-  public void testProgrammaticSecurity() throws ServletException {
-	  	_authenticator.setAuth(new MockWindowsAuthProvider());
-        SimpleHttpRequest request = new SimpleHttpRequest();
-        request.setContext( ( Context )_authenticator.getContainer() );
-        
-        request.login( WindowsAccountImpl.getCurrentUsername(), "" );
-        
-        assertEquals(WindowsAccountImpl.getCurrentUsername(),request.getRemoteUser());
-        assertTrue(request.getUserPrincipal() instanceof GenericWindowsPrincipal);
-        GenericWindowsPrincipal windowsPrincipal = (GenericWindowsPrincipal) request
-                .getUserPrincipal();
-        assertTrue(windowsPrincipal.getSidString().startsWith("S-"));
-  }
+
+	public void testProgrammaticSecurity() throws ServletException {
+		_authenticator.setAuth(new MockWindowsAuthProvider());
+		SimpleHttpRequest request = new SimpleHttpRequest();
+		request.setContext( ( Context )_authenticator.getContainer() );
+
+		request.login( WindowsAccountImpl.getCurrentUsername(), "" );
+
+		assertEquals(WindowsAccountImpl.getCurrentUsername(),request.getRemoteUser());
+		assertTrue(request.getUserPrincipal() instanceof GenericWindowsPrincipal);
+		GenericWindowsPrincipal windowsPrincipal = (GenericWindowsPrincipal) request
+				.getUserPrincipal();
+		assertTrue(windowsPrincipal.getSidString().startsWith("S-"));
+	}
 }

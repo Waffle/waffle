@@ -35,9 +35,9 @@ import waffle.windows.auth.WindowsAccount;
  */
 public class WindowsAccountTests {
 
-	MockWindowsAccount _mockWindowsAccount = new MockWindowsAccount(
+	private MockWindowsAccount _mockWindowsAccount = new MockWindowsAccount(
 			"localhost\\Administrator");
-	WindowsAccount _windowsAccount = null;
+	private WindowsAccount _windowsAccount;
 
 	@Before
 	public void setUp() {

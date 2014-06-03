@@ -1070,158 +1070,163 @@ public class SimpleContext implements Context {
 
 	}
 
-    @Override
-    public String getDomain() {
-        return null;
-    }
+	@Override
+	public String getDomain() {
+		return null;
+	}
 
-    @Override
-    public String getMBeanKeyProperties() {
-        return null;
-    }
+	@Override
+	public String getMBeanKeyProperties() {
+		return null;
+	}
 
-    @Override
-    public File getCatalinaBase() {
-        return null;
-    }
+	@Override
+	public File getCatalinaBase() {
+		return null;
+	}
 
-    @Override
-    public File getCatalinaHome() {
-        return null;
-    }
+	@Override
+	public File getCatalinaHome() {
+		return null;
+	}
 
-    @Override
-    public boolean getDenyUncoveredHttpMethods() {
-        return false;
-    }
+	@Override
+	public boolean getDenyUncoveredHttpMethods() {
+		return false;
+	}
 
-    @Override
-    public void setDenyUncoveredHttpMethods(boolean denyUncoveredHttpMethods) {
+	@Override
+	public void setDenyUncoveredHttpMethods(boolean denyUncoveredHttpMethods) {
 
-    }
+	}
 
-    @Override
-    public void setNamingResources(NamingResourcesImpl namingResources) {
+	@Override
+	public void setNamingResources(NamingResourcesImpl namingResources) {
 
-    }
+	}
 
-    @Override
-    public boolean getXmlBlockExternal() {
-        return false;
-    }
+	@Override
+	public boolean getXmlBlockExternal() {
+		return false;
+	}
 
-    @Override
-    public void setXmlBlockExternal(boolean xmlBlockExternal) {
+	@Override
+	public void setXmlBlockExternal(boolean xmlBlockExternal) {
 
-    }
+	}
 
-    @Override
-    public InstanceManager getInstanceManager() {
-        return null;
-    }
+	@Override
+	public InstanceManager getInstanceManager() {
+		return null;
+	}
 
-    @Override
-    public void setInstanceManager(InstanceManager instanceManager) {
+	@Override
+	public void setInstanceManager(InstanceManager instanceManager) {
 
-    }
+	}
 
-    @Override
-    public void setContainerSciFilter(String containerSciFilter) {
+	@Override
+	public void setContainerSciFilter(String containerSciFilter) {
 
-    }
+	}
 
-    @Override
-    public String getContainerSciFilter() {
-        return null;
-    }
+	@Override
+	public String getContainerSciFilter() {
+		return null;
+	}
 
-    @Override
-    public void addApplicationListener(ApplicationListener listener) {
+	@Override
+	public void addApplicationListener(ApplicationListener listener) {
 
-    }
+	}
 
-    @Override
-    public ThreadBindingListener getThreadBindingListener() {
-        return null;
-    }
+	@Override
+	public ThreadBindingListener getThreadBindingListener() {
+		return null;
+	}
 
-    @Override
-    public void setThreadBindingListener(ThreadBindingListener threadBindingListener) {
+	@Override
+	public void setThreadBindingListener(ThreadBindingListener threadBindingListener) {
 
-    }
+	}
 
-    @Override
-    public void setJspConfigDescriptor(JspConfigDescriptor descriptor) {
+	@Override
+	public void setJspConfigDescriptor(JspConfigDescriptor descriptor) {
 
-    }
+	}
 
-    @Override
-    public Set<String> addServletSecurity(Dynamic registration, ServletSecurityElement servletSecurityElement) {
-        return null;
-    }
+	@Override
+	public Set<String> addServletSecurity(Dynamic registration, ServletSecurityElement servletSecurityElement) {
+		return null;
+	}
 
-    @Override
-    public void setResources(WebResourceRoot resources) {
+	@Override
+	public void setResources(WebResourceRoot resources) {
 
-    }
+	}
 
-    @Override
-    public void setAddWebinfClassesResources(boolean addWebinfClassesResources) {
+	@Override
+	public void setAddWebinfClassesResources(boolean addWebinfClassesResources) {
 
-    }
+	}
 
-    @Override
-    public boolean getAddWebinfClassesResources() {
-        return false;
-    }
+	@Override
+	public boolean getAddWebinfClassesResources() {
+		return false;
+	}
 
-    @Override
-    public void addPostConstructMethod(String clazz, String method) {
+	@Override
+	public void addPostConstructMethod(String clazz, String method) {
 
-    }
+	}
 
-    @Override
-    public void addPreDestroyMethod(String clazz, String method) {
+	@Override
+	public void addPreDestroyMethod(String clazz, String method) {
 
-    }
+	}
 
-    @Override
-    public void removePostConstructMethod(String clazz) {
+	@Override
+	public void removePostConstructMethod(String clazz) {
 
-    }
+	}
 
-    @Override
-    public void removePreDestroyMethod(String clazz) {
+	@Override
+	public void removePreDestroyMethod(String clazz) {
 
-    }
+	}
 
-    @Override
-    public String findPostConstructMethod(String clazz) {
-        return null;
-    }
+	@Override
+	public String findPostConstructMethod(String clazz) {
+		return null;
+	}
 
-    @Override
-    public String findPreDestroyMethod(String clazz) {
-        return null;
-    }
+	@Override
+	public String findPreDestroyMethod(String clazz) {
+		return null;
+	}
 
-    @Override
-    public Map<String, String> findPostConstructMethods() {
-        return null;
-    }
+	@Override
+	public Map<String, String> findPostConstructMethods() {
+		return null;
+	}
 
-    @Override
-    public Map<String, String> findPreDestroyMethods() {
-        return null;
-    }
+	@Override
+	public Map<String, String> findPreDestroyMethods() {
+		return null;
+	}
 
-    @Override
-    public ClassLoader bind(boolean usePrivilegedAction, ClassLoader originalClassLoader) {
-        return null;
-    }
+	@Override
+	public ClassLoader bind(boolean usePrivilegedAction, ClassLoader originalClassLoader) {
+		return null;
+	}
 
-    @Override
-    public void unbind(boolean usePrivilegedAction, ClassLoader originalClassLoader) {
+	@Override
+	public void unbind(boolean usePrivilegedAction, ClassLoader originalClassLoader) {
 
-    }
+	}
+
+	@Override
+	public Object getNamingToken() {
+		return null;
+	}
 }

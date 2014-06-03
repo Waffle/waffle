@@ -11,7 +11,7 @@
   <name>waffle-tomcat6</name>
   <description>Tomcat 6 integration for WAFFLE</description>
   <properties>
-    <tomcat.version>6.0.39</tomcat.version>
+    <tomcat.version>6.0.41</tomcat.version>
   </properties>
   <dependencies>
     <dependency>
