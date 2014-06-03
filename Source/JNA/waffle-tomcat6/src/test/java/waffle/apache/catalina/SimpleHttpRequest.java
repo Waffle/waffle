@@ -43,15 +43,7 @@ public class SimpleHttpRequest extends Request {
 
 	public SimpleHttpRequest() {
 		super();
-		_remotePort = nextRemotePort();
-	}
-
-	public synchronized static int nextRemotePort() {
-		return ++_remotePort_s;
-	}
-
-	public synchronized static void resetRemotePort() {
-		_remotePort_s = 0;
+		_remotePort = ++_remotePort_s;
 	}
 
 	@Override

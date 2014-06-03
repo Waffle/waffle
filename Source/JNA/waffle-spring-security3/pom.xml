@@ -11,8 +11,8 @@
   <name>waffle-spring-security3</name>
   <description>Spring Security 3 integration for WAFFLE</description>
   <properties>
-    <spring.version>3.2.8.RELEASE</spring.version>
-    <spring.security.version>3.2.3.RELEASE</spring.security.version>
+    <spring.version>3.2.9.RELEASE</spring.version>
+    <spring.security.version>3.2.4.RELEASE</spring.security.version>
   </properties>
   <dependencies>
     <dependency>

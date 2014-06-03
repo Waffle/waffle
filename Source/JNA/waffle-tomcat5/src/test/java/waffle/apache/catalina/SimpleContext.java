@@ -39,6 +39,7 @@ import org.apache.catalina.deploy.LoginConfig;
 import org.apache.catalina.deploy.NamingResources;
 import org.apache.catalina.deploy.SecurityConstraint;
 import org.apache.catalina.util.CharsetMapper;
+import org.apache.catalina.valves.Constants.AccessLog;
 import org.apache.commons.logging.Log;
 import org.apache.tomcat.util.http.mapper.Mapper;
 
@@ -594,6 +595,10 @@ public class SimpleContext implements Context {
 
 	}
 
+	public void setIgnoreAnnotations(boolean arg0) {
+
+	}
+
 	@Override
 	public void setLoginConfig(LoginConfig arg0) {
 
@@ -840,4 +845,52 @@ public class SimpleContext implements Context {
 
 	}
 
+	public String getSessionCookieDomain() {
+		return null;
+	}
+
+	public String getSessionCookieName() {
+		return null;
+	}
+
+	public String getSessionCookiePath() {
+		return null;
+	}
+
+	public void setSessionCookieDomain(String arg0) {
+
+	}
+
+	public void setSessionCookieName(String arg0) {
+
+	}
+
+	public void setSessionCookiePath(String arg0) {
+
+	}
+
+	public AccessLog getAccessLog() {
+		return null;
+	}
+
+	public void logAccess(Request arg0, Response arg1, long arg2, boolean arg3) {
+
+	}
+
+	public boolean isDisableURLRewriting() {
+		return false;
+	}
+
+	public void setDisableURLRewriting(boolean arg0) {
+
+	}
+
+	public boolean getXmlBlockExternal() {
+		return false;
+	}
+
+
+	public void setXmlBlockExternal(boolean arg0) {
+
+	}
 }

@@ -93,7 +93,7 @@
         <junit.version>4.11</junit.version>
         <logback.version>1.1.2</logback.version>
         <mockito.version>1.9.5</mockito.version>
-        <powermock.version>1.5.4</powermock.version>
+        <powermock.version>1.5.5</powermock.version>
         <signature.version>java16</signature.version>
     </properties>
     <dependencies>
@@ -249,7 +249,7 @@
                 <plugin>
                     <groupId>pl.project13.maven</groupId>
                     <artifactId>git-commit-id-plugin</artifactId>
-                    <version>2.1.9</version>
+                    <version>2.1.10</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -286,7 +286,7 @@
                         <dependency>
                             <groupId>net.sourceforge.pmd</groupId>
                             <artifactId>pmd</artifactId>
-                            <version>5.1.0</version>
+                            <version>5.1.1</version>
                             <exclusions>
                                 <exclusion>
                                     <artifactId>ant</artifactId>
@@ -317,7 +317,7 @@
                         <dependency>
                             <groupId>org.apache.ant</groupId>
                             <artifactId>ant-testutil</artifactId>
-                            <version>1.9.3</version>
+                            <version>1.9.4</version>
                         </dependency>
                         <dependency>
                             <groupId>org.mozilla</groupId>
@@ -361,44 +361,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>findbugs-maven-plugin</artifactId>
-                    <version>2.5.3</version>
-                    <dependencies>
-                        <dependency>
-                            <groupId>com.google.code.findbugs</groupId>
-                            <artifactId>findbugs</artifactId>
-                            <version>2.0.3</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>com.google.code.findbugs</groupId>
-                            <artifactId>bcel</artifactId>
-                            <version>2.0.2</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>com.google.code.findbugs</groupId>
-                            <artifactId>jFormatString</artifactId>
-                            <version>2.0.2</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>com.google.code.findbugs</groupId>
-                            <artifactId>jsr305</artifactId>
-                            <version>2.0.3</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>asm</groupId>
-                            <artifactId>asm</artifactId>
-                            <version>3.3.1</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>asm</groupId>
-                            <artifactId>asm-commons</artifactId>
-                            <version>3.3.1</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>xml-apis</groupId>
-                            <artifactId>xml-apis</artifactId>
-                            <version>1.4.01</version>
-                        </dependency>
-                    </dependencies>
+                    <version>2.5.4</version>
                 </plugin>
                 <plugin>
                     <groupId>com.tunyk.mvn.plugins.htmlcompressor</groupId>
@@ -420,7 +383,7 @@
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.7.0.201403182114</version>
+                    <version>0.7.1.201405082137</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -448,7 +411,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>jdepend-maven-plugin</artifactId>
-                    <version>2.0-beta-2</version>
+                    <version>2.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -489,7 +452,7 @@
                         <dependency>
                             <groupId>com.googlecode.javaewah</groupId>
                             <artifactId>JavaEWAH</artifactId>
-                            <version>0.8.5</version>
+                            <version>0.8.6</version>
                         </dependency>
                         <dependency>
                             <groupId>com.jcraft</groupId>
@@ -499,7 +462,7 @@
                         <dependency>
                             <groupId>org.eclipse.jgit</groupId>
                             <artifactId>org.eclipse.jgit</artifactId>
-                            <version>3.2.0.201312181205-r</version>
+                            <version>3.3.2.201404171909-r</version>
                         </dependency>
                         <dependency>
                             <groupId>org.codehaus.plexus</groupId>
@@ -512,7 +475,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>sonar-maven-plugin</artifactId>
-                    <version>2.2</version>
+                    <version>2.3</version>
                 </plugin>
                 <!-- Wagon -->
                 <plugin>
@@ -604,6 +567,8 @@
                         <manifestEntries>
                             <Build-Number>${buildNumber}</Build-Number>
                             <Build-Time>${maven.build.timestamp}</Build-Time>
+                            <Copywrite>${copywrite}</Copywrite>
+                            <Git-Revision>${git.commit.id}</Git-Revision>
                             <Os-Name>${os.name}</Os-Name>
                             <Os-Arch>${os.arch}</Os-Arch>
                             <Os-Version>${os.version}</Os-Version>
@@ -658,6 +623,7 @@
                     <archive>
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                         </manifest>
                         <manifestEntries>
                             <Build-Time>${maven.build.timestamp}</Build-Time>
@@ -938,8 +904,8 @@
                             <javascriptHtmlSprite>false</javascriptHtmlSprite>
                             <yuiJsNoMunge>true</yuiJsNoMunge>
                             <removeIntertagSpaces>true</removeIntertagSpaces>
-                            <srcFolder>${basedir}/src/main/resources</srcFolder>
-                            <targetFolder>${basedir}/target/classes</targetFolder>
+                            <srcFolder>${project.basedir}/src/main/resources</srcFolder>
+                            <targetFolder>${project.basedir}/target/classes</targetFolder>
                             <fileExt>
                                 <fileExt>html</fileExt>
                                 <fileExt>xhtml</fileExt>

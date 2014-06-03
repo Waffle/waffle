@@ -132,11 +132,28 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 			response.addHeader("WWW-Authenticate", "Negotiate");
 			response.addHeader("WWW-Authenticate", "NTLM");
 			response.setHeader("Connection", "close");
-			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
 			response.flushBuffer();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 
+	}
+
+	/**
+	 * Send an error code.
+	 * 
+	 * @param response
+	 *            HTTP Response
+	 * @param code
+	 *            Error Code
+	 */
+	protected void sendError(Response response, int code) {
+		try {
+			response.sendError(code);
+		} catch (IOException e) {
+			_log.error(e.getMessage());
+			throw new RuntimeException(e);
+		}
 	}
 }

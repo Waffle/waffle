@@ -35,8 +35,9 @@ public class SimpleHttpResponse extends Response {
 	@Override
 	public void addHeader(String headerName, String headerValue) {
 		List<String> current = _headers.get(headerName);
-		if (current == null)
+		if (current == null) {
 			current = new ArrayList<String>();
+		}
 		current.add(headerValue);
 		_headers.put(headerName, current);
 	}
