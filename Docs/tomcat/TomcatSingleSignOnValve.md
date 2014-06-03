@@ -75,6 +75,7 @@ The following options are supported by the Valve.
 * principalFormat: Specifies the name format for the principal.
 * roleFormat: Specifies the name format for the role.
 * allowGuestLogin Allow guest login. When true and the system's Guest account is enabled, any invalid login succeeds as Guest. 
+* protocols: authentication protocol(s), comma separated, default is "Negotiate,NTLM"
 
 Note: While the default value of `allowGuestLogin` is true, it is recommended that you disable the system's "Guest" account to disallow Guest login. This option is provided for systems where you don't have administrative privileges. 
 

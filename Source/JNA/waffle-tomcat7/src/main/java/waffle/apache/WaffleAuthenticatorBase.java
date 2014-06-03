@@ -15,6 +15,7 @@ package waffle.apache;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
@@ -28,19 +29,24 @@ import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.PrincipalFormat;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
+import static java.util.Arrays.asList;
+
 /**
  * @author dblock[at]dblock[dot]org
  */
 abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
+    private static final Set<String> SUPPORTED_PROTOCOLS = new HashSet<String>(asList("Negotiate", "NTLM"));
+
 	protected String _info = null;
 	protected Logger _log = null;
 	protected PrincipalFormat _principalFormat = PrincipalFormat.fqn;
 	protected PrincipalFormat _roleFormat = PrincipalFormat.fqn;
 	protected boolean _allowGuestLogin = true;
+    protected Set<String> _protocols = SUPPORTED_PROTOCOLS;
 
 	protected IWindowsAuthProvider _auth = new WindowsAuthProviderImpl();
 
-	/**
+    /**
 	 * Windows authentication provider.
 	 * 
 	 * @return IWindowsAuthProvider.
@@ -124,23 +130,47 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 		_allowGuestLogin = value;
 	}
 
+    /**
+     * Set the authentication protocols. Default is "Negotiate, NTLM".
+     *
+     * @param protocols
+     *            Authentication protocols
+     */
+    public void setProtocols(String protocols) {
+        _protocols = new HashSet<String>();
+        String[] protocolNames = protocols.split(",");
+        for (String protocolName : protocolNames) {
+            protocolName = protocolName.trim();
+            if (!protocolName.isEmpty()) {
+                _log.debug("init protocol: " + protocolName);
+                if (SUPPORTED_PROTOCOLS.contains(protocolName)) {
+                    _protocols.add(protocolName);
+                } else {
+                    _log.error("unsupported protocol: " + protocolName);
+                    throw new RuntimeException("Unsupported protocol: "
+                            + protocolName);
+                }
+            }
+        }
+    }
+
 	/**
 	 * Send a 401 Unauthorized along with protocol authentication headers.
-	 * 
+	 *
 	 * @param response
 	 *            HTTP Response
 	 */
 	protected void sendUnauthorized(HttpServletResponse response) {
 		try {
-			response.addHeader("WWW-Authenticate", "Negotiate");
-			response.addHeader("WWW-Authenticate", "NTLM");
+            for (String protocol : _protocols) {
+                response.addHeader("WWW-Authenticate", protocol);
+            }
 			response.setHeader("Connection", "close");
 			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
 			response.flushBuffer();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-
 	}
 
 	/**
@@ -192,4 +222,5 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 			windowsIdentity.dispose();
 		}
 	}
+
 }

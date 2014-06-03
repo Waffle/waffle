@@ -5,7 +5,7 @@
         <groupId>com.github.dblock.waffle</groupId>
         <artifactId>waffle-demo-parent</artifactId>
         <version>1.7-SNAPSHOT</version>
-        <relativePath>../waffle-demo-parent</relativePath>
+        <relativePath>..</relativePath>
     </parent>
     <artifactId>waffle-filter-demo</artifactId>
     <packaging>war</packaging>
