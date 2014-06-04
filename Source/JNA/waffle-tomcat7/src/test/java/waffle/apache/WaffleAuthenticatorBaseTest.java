@@ -38,7 +38,7 @@ public class WaffleAuthenticatorBaseTest {
     }
 
     @Test
-    public void should_accept_Negociate_protocol() throws Exception {
+    public void should_accept_Negotiate_protocol() throws Exception {
         waffleAuthenticatorBase.setProtocols(" Negotiate  ");
 
         assertEquals("One protocol added", 1, waffleAuthenticatorBase._protocols.size());
