@@ -3,6 +3,8 @@
 
 Features
 --------
+* [#97](https://github.com/dblock/waffle/pull/96): Added protocols parameter on Tomcat valves - [@hasalex](https://github.com/hasalex).
+  * Attribut protocols on the valve in order to limit the authentication to one or some protocols
 * [#93](https://github.com/dblock/waffle/pull/93): Updated Documentation - [@hazendaz](https://github.com/hazendaz).
   * First cut at updating documentation to reflect maven.
 * [#92](https://github.com/dblock/waffle/pull/92): Pom Corrections - [@hazendaz](https://github.com/hazendaz).
