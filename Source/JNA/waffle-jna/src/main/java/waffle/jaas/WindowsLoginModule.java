@@ -31,6 +31,9 @@ import javax.security.auth.callback.UnsupportedCallbackException;
 import javax.security.auth.login.LoginException;
 import javax.security.auth.spi.LoginModule;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import waffle.windows.auth.IWindowsAccount;
 import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.IWindowsIdentity;
@@ -44,6 +47,8 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  * @see javax.security.auth.spi.LoginModule
  */
 public class WindowsLoginModule implements LoginModule {
+
+	private Logger _log = LoggerFactory.getLogger(WindowsLoginModule.class);
 
 	private String _username = null;
 	private boolean _debug = false;
@@ -93,8 +98,8 @@ public class WindowsLoginModule implements LoginModule {
 		callbacks[0] = usernameCallback;
 		callbacks[1] = passwordCallback;
 
-		String username = null;
-		String password = null;
+		String username;
+		String password;
 
 		try {
 			_callbackHandler.handle(callbacks);
@@ -121,7 +126,7 @@ public class WindowsLoginModule implements LoginModule {
 		try {
 			// disable guest login
 			if (!_allowGuestLogin && windowsIdentity.isGuest()) {
-				debug("guest login disabled: " + windowsIdentity.getFqn());
+				_log.debug("guest login disabled: {}", windowsIdentity.getFqn());
 				throw new LoginException("Guest login disabled");
 			}
 
@@ -135,8 +140,8 @@ public class WindowsLoginModule implements LoginModule {
 			}
 
 			_username = windowsIdentity.getFqn();
-			debug("successfully logged in " + _username + " ("
-					+ windowsIdentity.getSidString() + ")");
+			_log.debug("successfully logged in {} ({})", _username,
+					windowsIdentity.getSidString());
 		} finally {
 			windowsIdentity.dispose();
 		}
@@ -168,10 +173,10 @@ public class WindowsLoginModule implements LoginModule {
 		Set<Principal> principals = _subject.getPrincipals();
 		principals.addAll(_principals);
 
-		debug("committing " + _subject.getPrincipals().size() + " principals");
+		_log.debug("committing {} principals", Integer.valueOf(_subject.getPrincipals().size()));
 		if (_debug) {
 			for (Principal principal : principals) {
-				debug(" principal: " + principal.getName());
+				_log.debug(" principal: {}", principal.getName());
 			}
 		}
 
@@ -187,16 +192,10 @@ public class WindowsLoginModule implements LoginModule {
 		_subject.getPrincipals().clear();
 
 		if (_username != null) {
-			debug("logging out " + _username);
+			_log.debug("logging out {}", _username);
 		}
 
 		return true;
-	}
-
-	private void debug(String message) {
-		if (_debug) {
-			System.out.println("[waffle.jaas.WindowsLoginModule] " + message);
-		}
 	}
 
 	/**

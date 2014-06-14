@@ -119,9 +119,8 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
             return parent.onLoginSuccess(token, subject, request, response);
         }
     }
+
     private final WrapNegotiateAuthenticationFilter filterNegotiate = new WrapNegotiateAuthenticationFilter(this);
-
-
 
     /**
      * Wrapper to make protected methods in different package callable from here.
@@ -145,6 +144,7 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
             return parent.onLoginSuccess(token, subject, request, response);
         }
     }
+
     private final WrapFormAuthenticationFilter filterFormAuthc = new WrapFormAuthenticationFilter(this);
 
 

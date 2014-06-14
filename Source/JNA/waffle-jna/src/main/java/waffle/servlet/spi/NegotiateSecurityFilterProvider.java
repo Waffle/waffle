@@ -72,8 +72,8 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 				request);
 		boolean ntlmPost = authorizationHeader
 				.isNtlmType1PostAuthorizationHeader();
-		_log.debug("authorization: " + authorizationHeader.toString()
-				+ ", ntlm post: " + ntlmPost);
+		_log.debug("authorization: {}, ntlm post: {}", authorizationHeader,
+				Boolean.valueOf(ntlmPost));
 		return ntlmPost;
 	}
 
@@ -89,8 +89,8 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 		// maintain a connection-based session for NTLM tokns
 		String connectionId = NtlmServletRequest.getConnectionId(request);
 		String securityPackage = authorizationHeader.getSecurityPackage();
-		_log.debug("security package: " + securityPackage + ", connection id: "
-				+ connectionId);
+		_log.debug("security package: {}, connection id: {}", securityPackage,
+				connectionId);
 
 		if (ntlmPost) {
 			// type 2 NTLM authentication message received
@@ -98,14 +98,14 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 		}
 
 		byte[] tokenBuffer = authorizationHeader.getTokenBytes();
-		_log.debug("token buffer: " + tokenBuffer.length + " byte(s)");
+		_log.debug("token buffer: {} byte(s)", Integer.valueOf(tokenBuffer.length));
 		IWindowsSecurityContext securityContext = _auth.acceptSecurityToken(
 				connectionId, tokenBuffer, securityPackage);
 
 		byte[] continueTokenBytes = securityContext.getToken();
 		if (continueTokenBytes != null && continueTokenBytes.length > 0) {
-			String continueToken = new String(Base64.encode(continueTokenBytes));
-			_log.debug("continue token: " + continueToken);
+			String continueToken = Base64.encode(continueTokenBytes);
+			_log.debug("continue token: {}", continueToken);
 			response.addHeader("WWW-Authenticate", securityPackage + " "
 					+ continueToken);
 		}
@@ -141,7 +141,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 			for (String protocolName : protocolNames) {
 				protocolName = protocolName.trim();
 				if (protocolName.length() > 0) {
-					_log.debug("init protocol: " + protocolName);
+					_log.debug("init protocol: {}", protocolName);
 					if (protocolName.equals("Negotiate")
 							|| protocolName.equals("NTLM")) {
 						_protocols.add(protocolName);

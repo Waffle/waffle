@@ -26,28 +26,35 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
 import org.mockito.Mockito;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author dblock[at]dblock[dot]org
  */
 public class SimpleHttpResponse extends HttpServletResponseWrapper {
+
+	private Logger _log = LoggerFactory.getLogger(SimpleHttpResponse.class);
+
 	private int _status = 500;
 	private Map<String, List<String>> _headers = new HashMap<String, List<String>>();
-	
+
 	private final ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+
 	private final ServletOutputStream out = new ServletOutputStream() {
-    @Override
-    public void write(int b) throws IOException {
-      bytes.write(b);
-    }
-  };
-  private final PrintWriter writer = new PrintWriter(bytes);
-	
+		@Override
+		public void write(int b) throws IOException {
+			bytes.write(b);
+		}
+	};
+
+	private final PrintWriter writer = new PrintWriter(bytes);
+
 	public SimpleHttpResponse() {
-    super(Mockito.mock(HttpServletResponse.class));
+		super(Mockito.mock(HttpServletResponse.class));
 	}
-	
-  public int getStatus() {
+
+	public int getStatus() {
 		return _status;
 	}
 
@@ -87,19 +94,19 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
 
 	@Override
 	public void flushBuffer() {
-		System.out.println(_status + " " + getStatusString());
+		_log.info("{}: {}", Integer.valueOf(_status), getStatusString());
 		for (String header : _headers.keySet()) {
 			for (String headerValue : _headers.get(header)) {
-				System.out.println(header + ": " + headerValue);
+				_log.info("{}: {}", header, headerValue);
 			}
 		}
 	}
-	
+
 	/**
 	 * Use this for testing the number of headers
 	 */
 	public int getHeaderNamesSize() {
-	  return _headers.size();
+		return _headers.size();
 	}
 
 	public String[] getHeaderValues(String headerName) {
@@ -132,19 +139,19 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
 	public void sendError(int rc) {
 		_status = rc;
 	}
-	
+
 	@Override
 	public PrintWriter getWriter() {
-	  return writer;
+		return writer;
 	}
 
-  @Override
-  public ServletOutputStream getOutputStream() throws IOException {
-    return out;
-  }
-	
-  public String getOutputText() {
-    writer.flush();
-    return bytes.toString();
-  }
+	@Override
+	public ServletOutputStream getOutputStream() throws IOException {
+		return out;
+	}
+
+	public String getOutputText() {
+		writer.flush();
+		return bytes.toString();
+	}
 }

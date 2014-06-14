@@ -1144,77 +1144,77 @@ public class SimpleContext implements Context {
 
 	}
 
-    @Override
-    public void addPostConstructMethod(String arg0, String arg1) {
+	@Override
+	public void addPostConstructMethod(String arg0, String arg1) {
 
-    }
+	}
 
-    @Override
-    public void addPreDestroyMethod(String arg0, String arg1) {
+	@Override
+	public void addPreDestroyMethod(String arg0, String arg1) {
 
-    }
+	}
 
-    @Override
-    public String findPostConstructMethod(String arg0) {
-        return null;
-    }
+	@Override
+	public String findPostConstructMethod(String arg0) {
+		return null;
+	}
 
-    @Override
-    public Map<String, String> findPostConstructMethods() {
-        return null;
-    }
+	@Override
+	public Map<String, String> findPostConstructMethods() {
+		return null;
+	}
 
-    @Override
-    public String findPreDestroyMethod(String arg0) {
-        return null;
-    }
+	@Override
+	public String findPreDestroyMethod(String arg0) {
+		return null;
+	}
 
-    @Override
-    public Map<String, String> findPreDestroyMethods() {
-        return null;
-    }
+	@Override
+	public Map<String, String> findPreDestroyMethods() {
+		return null;
+	}
 
-    @Override
-    public void removePostConstructMethod(String arg0) {
+	@Override
+	public void removePostConstructMethod(String arg0) {
 
-    }
+	}
 
-    @Override
-    public void removePreDestroyMethod(String arg0) {
+	@Override
+	public void removePreDestroyMethod(String arg0) {
 
-    }
+	}
 
-    @Override
-    public void addApplicationListener(ApplicationListener arg0) {
+	@Override
+	public void addApplicationListener(ApplicationListener arg0) {
 
-    }
+	}
 
-    @Override
-    public String getContainerSciFilter() {
-        return null;
-    }
+	@Override
+	public String getContainerSciFilter() {
+		return null;
+	}
 
-    @Override
-    public InstanceManager getInstanceManager() {
-        return null;
-    }
+	@Override
+	public InstanceManager getInstanceManager() {
+		return null;
+	}
 
-    @Override
-    public boolean getXmlBlockExternal() {
-        return false;
-    }
+	@Override
+	public boolean getXmlBlockExternal() {
+		return false;
+	}
 
-    @Override
-    public void setContainerSciFilter(String arg0) {
-    }
+	@Override
+	public void setContainerSciFilter(String arg0) {
+	}
 
-    @Override
-    public void setInstanceManager(InstanceManager arg0) {
+	@Override
+	public void setInstanceManager(InstanceManager arg0) {
 
-    }
+	}
 
-    @Override
-    public void setXmlBlockExternal(boolean arg0) {
+	@Override
+	public void setXmlBlockExternal(boolean arg0) {
 
-    }
+	}
 }

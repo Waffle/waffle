@@ -55,7 +55,7 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 			throw new RuntimeException(
 					"Invalid username:password in Authorization header.");
 		}
-		_log.debug("logging in user: " + usernamePasswordArray[0]);
+		_log.debug("logging in user: {}", usernamePasswordArray[0]);
 		return _auth.logonUser(usernamePasswordArray[0],
 				usernamePasswordArray[1]);
 	}

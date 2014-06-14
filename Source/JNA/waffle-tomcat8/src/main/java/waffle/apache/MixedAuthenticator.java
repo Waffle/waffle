@@ -69,13 +69,13 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 			return false;
 		}
 
-		_log.debug(request.getMethod() + " " + request.getRequestURI()
-				+ ", contentlength: " + request.getContentLength());
+		_log.debug("{} {}, contentlength: {}", request.getMethod(), request.getRequestURI(),
+				Integer.valueOf(request.getContentLength()));
 
 		boolean negotiateCheck = request.getParameter("j_negotiate_check") != null;
-		_log.debug("negotiateCheck: " + negotiateCheck);
+		_log.debug("negotiateCheck: {}", Boolean.valueOf(negotiateCheck));
 		boolean securityCheck = request.getParameter("j_security_check") != null;
-		_log.debug("securityCheck: " + securityCheck);
+		_log.debug("securityCheck: {}", Boolean.valueOf(securityCheck));
 
 		Principal principal = request.getUserPrincipal();
 
@@ -83,15 +83,15 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 				request);
 		boolean ntlmPost = authorizationHeader
 				.isNtlmType1PostAuthorizationHeader();
-		_log.debug("authorization: " + authorizationHeader.toString()
-				+ ", ntlm post: " + ntlmPost);
+		_log.debug("authorization: {}, ntlm post: {}", authorizationHeader,
+				Boolean.valueOf(ntlmPost));
 
 		LoginConfig loginConfig = new LoginConfig();
 		loginConfig.setErrorPage("error.html");
 		loginConfig.setLoginPage("login.html");
 
 		if (principal != null && !ntlmPost) {
-			_log.debug("previously authenticated user: " + principal.getName());
+			_log.debug("previously authenticated user: {}", principal.getName());
 			return true;
 		} else if (negotiateCheck) {
 			if (!authorizationHeader.isNull()) {
@@ -121,8 +121,8 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 		// maintain a connection-based session for NTLM tokens
 		String connectionId = NtlmServletRequest.getConnectionId(request);
 
-		_log.debug("security package: " + securityPackage + ", connection id: "
-				+ connectionId);
+		_log.debug("security package: {}, connection id: {}", securityPackage,
+				connectionId);
 
 		boolean ntlmPost = authorizationHeader
 				.isNtlmType1PostAuthorizationHeader();
@@ -137,16 +137,15 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 
 		try {
 			byte[] tokenBuffer = authorizationHeader.getTokenBytes();
-			_log.debug("token buffer: " + tokenBuffer.length + " byte(s)");
+			_log.debug("token buffer: {} byte(s)", Integer.valueOf(tokenBuffer.length));
 			securityContext = _auth.acceptSecurityToken(connectionId,
 					tokenBuffer, securityPackage);
-			_log.debug("continue required: " + securityContext.isContinue());
+			_log.debug("continue required: {}", Boolean.valueOf(securityContext.isContinue()));
 
 			byte[] continueTokenBytes = securityContext.getToken();
 			if (continueTokenBytes != null && continueTokenBytes.length > 0) {
-				String continueToken = new String(
-						Base64.encode(continueTokenBytes));
-				_log.debug("continue token: " + continueToken);
+				String continueToken = Base64.encode(continueTokenBytes);
+				_log.debug("continue token: {}", continueToken);
 				response.addHeader("WWW-Authenticate", securityPackage + " "
 						+ continueToken);
 			}
@@ -159,7 +158,8 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 			}
 
 		} catch (Exception e) {
-			_log.warn("error logging in user: " + e.getMessage());
+			_log.warn("error logging in user: {}", e.getMessage());
+			_log.trace("{}", e);
 			sendUnauthorized(response);
 			return false;
 		}
@@ -169,29 +169,29 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 
 		// disable guest login
 		if (!_allowGuestLogin && windowsIdentity.isGuest()) {
-			_log.warn("guest login disabled: " + windowsIdentity.getFqn());
+			_log.warn("guest login disabled: {}", windowsIdentity.getFqn());
 			sendUnauthorized(response);
 			return false;
 		}
 
 		try {
 
-			_log.debug("logged in user: " + windowsIdentity.getFqn() + " ("
-					+ windowsIdentity.getSidString() + ")");
+			_log.debug("logged in user: {} ({})", windowsIdentity.getFqn(),
+					windowsIdentity.getSidString());
 
 			GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(
 					windowsIdentity, _principalFormat, _roleFormat);
 
-			_log.debug("roles: " + windowsPrincipal.getRolesString());
+			_log.debug("roles: {}", windowsPrincipal.getRolesString());
 
 			// create a session associated with this request if there's none
 			HttpSession session = request.getSession(true);
-			_log.debug("session id:" + session.getId());
+			_log.debug("session id: {}", session.getId());
 
 			register(request, response, windowsPrincipal, securityPackage,
 					windowsPrincipal.getName(), null);
-			_log.info("successfully logged in user: "
-					+ windowsPrincipal.getName());
+			_log.info("successfully logged in user: {}",
+					windowsPrincipal.getName());
 
 		} finally {
 			windowsIdentity.dispose();
@@ -205,39 +205,40 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 		String username = request.getParameter("j_username");
 		String password = request.getParameter("j_password");
 
-		_log.debug("logging in: " + username);
+		_log.debug("logging in: {}", username);
 
 		IWindowsIdentity windowsIdentity = null;
 		try {
 			windowsIdentity = _auth.logonUser(username, password);
 		} catch (Exception e) {
 			_log.error(e.getMessage());
+			_log.trace("{}", e);
 			return false;
 		}
 
 		// disable guest login
 		if (!_allowGuestLogin && windowsIdentity.isGuest()) {
-			_log.warn("guest login disabled: " + windowsIdentity.getFqn());
+			_log.warn("guest login disabled: {}", windowsIdentity.getFqn());
 			return false;
 		}
 
 		try {
-			_log.debug("successfully logged in " + username + " ("
-					+ windowsIdentity.getSidString() + ")");
+			_log.debug("successfully logged in {} ({})", username,
+					windowsIdentity.getSidString());
 
 			GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(
 					windowsIdentity, _principalFormat, _roleFormat);
 
-			_log.debug("roles: " + windowsPrincipal.getRolesString());
+			_log.debug("roles: {}", windowsPrincipal.getRolesString());
 
 			// create a session associated with this request if there's none
 			HttpSession session = request.getSession(true);
-			_log.debug("session id:" + session.getId());
+			_log.debug("session id: {}", session.getId());
 
 			register(request, response, windowsPrincipal, "FORM",
 					windowsPrincipal.getName(), null);
-			_log.info("successfully logged in user: "
-					+ windowsPrincipal.getName());
+			_log.info("successfully logged in user: {}",
+					windowsPrincipal.getName());
 		} finally {
 			windowsIdentity.dispose();
 		}
@@ -248,15 +249,17 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 	private void redirectTo(Request request, HttpServletResponse response,
 			String url) {
 		try {
-			_log.debug("redirecting to: " + url);
+			_log.debug("redirecting to: {}", url);
 			ServletContext servletContext = context.getServletContext();
 			RequestDispatcher disp = servletContext.getRequestDispatcher(url);
 			disp.forward(request.getRequest(), response);
 		} catch (IOException e) {
 			_log.error(e.getMessage());
+			_log.trace("{}", e);
 			throw new RuntimeException(e);
 		} catch (ServletException e) {
 			_log.error(e.getMessage());
+			_log.trace("{}", e);
 			throw new RuntimeException(e);
 		}
 	}

@@ -25,6 +25,7 @@ import org.apache.catalina.Realm;
 import org.apache.catalina.deploy.LoginConfig;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import waffle.apache.catalina.SimpleContext;
@@ -78,6 +79,7 @@ public class MixedAuthenticatorTests {
 		assertTrue(_authenticator.getInfo().length() > 0);
 	}
 
+	@Ignore
 	@Test
 	public void testChallengeGET() {
 		SimpleHttpRequest request = new SimpleHttpRequest();
@@ -258,18 +260,18 @@ public class MixedAuthenticatorTests {
 		SimpleHttpResponse response = new SimpleHttpResponse();
 		assertTrue(_authenticator.authenticate(request, response, loginConfig));
 	}
-	
-  public void testProgrammaticSecurity() throws ServletException {
-	  	_authenticator.setAuth(new MockWindowsAuthProvider());
-        SimpleHttpRequest request = new SimpleHttpRequest();
-        request.setContext( ( Context )_authenticator.getContainer() );
-        
-        request.login( WindowsAccountImpl.getCurrentUsername(), "" );
-        
-        assertEquals(WindowsAccountImpl.getCurrentUsername(),request.getRemoteUser());
-        assertTrue(request.getUserPrincipal() instanceof GenericWindowsPrincipal);
-        GenericWindowsPrincipal windowsPrincipal = (GenericWindowsPrincipal) request
-                .getUserPrincipal();
-        assertTrue(windowsPrincipal.getSidString().startsWith("S-"));
-  }
+
+	public void testProgrammaticSecurity() throws ServletException {
+		_authenticator.setAuth(new MockWindowsAuthProvider());
+		SimpleHttpRequest request = new SimpleHttpRequest();
+		request.setContext( ( Context )_authenticator.getContainer() );
+
+		request.login( WindowsAccountImpl.getCurrentUsername(), "" );
+
+		assertEquals(WindowsAccountImpl.getCurrentUsername(),request.getRemoteUser());
+		assertTrue(request.getUserPrincipal() instanceof GenericWindowsPrincipal);
+		GenericWindowsPrincipal windowsPrincipal = (GenericWindowsPrincipal) request
+				.getUserPrincipal();
+		assertTrue(windowsPrincipal.getSidString().startsWith("S-"));
+	}
 }

@@ -74,14 +74,14 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
             securityContext = windowsAuthProvider.acceptSecurityToken(
                     token.getConnectionId(), inToken, token.getSecurityPackage());
         } catch (Exception e) {
-            log.warn("error logging in user: " + e.getMessage());
+            log.warn("error logging in user: {}", e.getMessage());
             throw new AuthenticationException(e);
         }
 
         final byte[] continueTokenBytes = securityContext.getToken();
         token.setOut(continueTokenBytes);
         if (continueTokenBytes != null) {
-            log.debug("continue token bytes: " + continueTokenBytes.length);
+            log.debug("continue token bytes: {}", Integer.valueOf(continueTokenBytes.length));
         } else {
             log.debug("no continue token bytes");
         }
@@ -93,7 +93,7 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
         final IWindowsIdentity windowsIdentity = securityContext.getIdentity();
         securityContext.dispose();
 
-        log.debug("logged in user: " + windowsIdentity.getFqn() + " (" + windowsIdentity.getSidString() + ")");
+        log.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
 
         final Principal principal = new WindowsPrincipal(windowsIdentity);
         token.setPrincipal(principal);

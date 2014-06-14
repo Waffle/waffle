@@ -63,8 +63,8 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
 
-		_log.debug(request.getMethod() + " " + request.getRequestURI()
-				+ ", contentlength: " + request.getContentLength());
+		_log.debug("{} {}, contentlength: {}", request.getMethod(), request.getRequestURI(),
+				Integer.valueOf(request.getContentLength()));
 
 		AuthorizationHeader authorizationHeader = new AuthorizationHeader(
 				request);
@@ -85,25 +85,26 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
 				}
 
 			} catch (Exception e) {
-				_log.warn("error logging in user: " + e.getMessage());
+				_log.warn("error logging in user: {}", e.getMessage());
+				_log.trace("{}", e);
 				sendUnauthorized(response, true);
 				return;
 			}
 
 			if (!_allowGuestLogin && windowsIdentity.isGuest()) {
-				_log.warn("guest login disabled: " + windowsIdentity.getFqn());
+				_log.warn("guest login disabled: {}", windowsIdentity.getFqn());
 				sendUnauthorized(response, true);
 				return;
 			}
 
 			try {
-				_log.debug("logged in user: " + windowsIdentity.getFqn() + " ("
-						+ windowsIdentity.getSidString() + ")");
+				_log.debug("logged in user: {} ({})", windowsIdentity.getFqn(),
+						windowsIdentity.getSidString());
 
 				WindowsPrincipal principal = new WindowsPrincipal(
 						windowsIdentity, _principalFormat, _roleFormat);
 
-				_log.debug("roles: " + principal.getRolesString());
+				_log.debug("roles: {}", principal.getRolesString());
 
 				WindowsAuthenticationToken authentication = new WindowsAuthenticationToken(
 						principal, _grantedAuthorityFactory,
@@ -112,8 +113,8 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
 				SecurityContextHolder.getContext().setAuthentication(
 						authentication);
 
-				_log.info("successfully logged in user: "
-						+ windowsIdentity.getFqn());
+				_log.info("successfully logged in user: {}",
+						windowsIdentity.getFqn());
 
 			} finally {
 				windowsIdentity.dispose();
