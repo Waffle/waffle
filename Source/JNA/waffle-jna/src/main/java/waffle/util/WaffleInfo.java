@@ -15,6 +15,7 @@ package waffle.util;
 
 import java.awt.Desktop;
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -248,11 +249,9 @@ public class WaffleInfo {
 				String arg = args[i];
 				if ("-show".equals(arg)) {
 					show = true;
-				}
-				else if (arg.equals("-lookup")) {
+				} else if (arg.equals("-lookup")) {
 					lookup.add( args[++i] );
-				}
-				else {
+				} else {
 					_log.error("Unknown Argument: {}", arg);
 					System.exit(1);
 				}
@@ -274,7 +273,13 @@ public class WaffleInfo {
 			} else {
 				_log.info(xml);
 			}
-		} catch(Exception e) {
+		} catch (IOException e) {
+			_log.error(e.getMessage());
+			_log.trace("{}", e);
+		} catch (TransformerException e) {
+			_log.error(e.getMessage());
+			_log.trace("{}", e);
+		} catch (ParserConfigurationException e) {
 			_log.error(e.getMessage());
 			_log.trace("{}", e);
 		}

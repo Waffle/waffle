@@ -83,7 +83,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
 				if (windowsIdentity == null) {
 					return;
 				}
-			} catch (Exception e) {
+			} catch (IOException e) {
 				_log.warn("error logging in user: {}", e.getMessage());
 				_log.trace("{}", e);
 				sendUnauthorized(response, true);

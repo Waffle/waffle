@@ -112,12 +112,11 @@ public class WindowsAuthenticationToken implements Authentication {
 
 	@Override
 	public boolean isAuthenticated() {
-		return (_principal != null);
+		return _principal != null;
 	}
 
 	@Override
-	public void setAuthenticated(boolean authenticated)
-			throws IllegalArgumentException {
+	public void setAuthenticated(boolean authenticated) {
 		throw new IllegalArgumentException();
 	}
 

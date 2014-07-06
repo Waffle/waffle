@@ -83,7 +83,7 @@ public class SimpleHttpSession implements HttpSession {
 
 	@Override
 	public void invalidate() {
-
+		// Do Nothing
 	}
 
 	@Override
@@ -93,6 +93,7 @@ public class SimpleHttpSession implements HttpSession {
 
 	@Override
 	public void putValue(String arg0, Object arg1) {
+		// Do Nothing
 	}
 
 	@Override
@@ -102,7 +103,7 @@ public class SimpleHttpSession implements HttpSession {
 
 	@Override
 	public void removeValue(String arg0) {
-
+		// Do Nothing
 	}
 
 	@Override
@@ -112,6 +113,6 @@ public class SimpleHttpSession implements HttpSession {
 
 	@Override
 	public void setMaxInactiveInterval(int arg0) {
-
+		// Do Nothing
 	}
 }

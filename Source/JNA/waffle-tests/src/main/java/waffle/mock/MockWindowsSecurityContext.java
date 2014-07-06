@@ -39,7 +39,7 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
 
 	@Override
 	public void dispose() {
-
+		// Do Nothing
 	}
 
 	@Override
@@ -78,12 +78,12 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
 	}
 
 	public void initialize() {
-
+		// Do Nothing
 	}
 
 	@Override
 	public void initialize(CtxtHandle continueCtx, SecBufferDesc continueToken,
 			String targetPrincipalName) {
-
+		// Do Nothing
 	}
 }

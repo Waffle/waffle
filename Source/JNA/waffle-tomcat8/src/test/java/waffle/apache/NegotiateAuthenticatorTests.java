@@ -22,6 +22,7 @@ import org.apache.catalina.LifecycleException;
 import org.apache.catalina.Realm;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import waffle.apache.catalina.SimpleContext;
@@ -153,6 +154,7 @@ public class NegotiateAuthenticatorTests {
 		}
 	}
 
+	@Ignore
 	@Test
 	public void testPOSTEmpty() {
 		String securityPackage = "Negotiate";

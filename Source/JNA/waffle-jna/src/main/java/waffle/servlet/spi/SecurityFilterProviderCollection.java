@@ -15,6 +15,7 @@ package waffle.servlet.spi;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,11 +60,35 @@ public class SecurityFilterProviderCollection {
 						.getConstructor(IWindowsAuthProvider.class);
 				SecurityFilterProvider provider = c.newInstance(auth);
 				_providers.add(provider);
-			} catch (Exception e) {
+			} catch (ClassNotFoundException e) {
 				_log.error("error loading '{}': {}", providerName,
 						e.getMessage());
 				_log.trace("{}", e);
 				throw new RuntimeException(e);
+			} catch (SecurityException e) {
+				_log.error("error loading '{}': {}", providerName,
+						e.getMessage());
+				_log.trace("{}", e);
+			} catch (NoSuchMethodException e) {
+				_log.error("error loading '{}': {}", providerName,
+						e.getMessage());
+				_log.trace("{}", e);
+			} catch (IllegalArgumentException e) {
+				_log.error("error loading '{}': {}", providerName,
+						e.getMessage());
+				_log.trace("{}", e);
+			} catch (InstantiationException e) {
+				_log.error("error loading '{}': {}", providerName,
+						e.getMessage());
+				_log.trace("{}", e);
+			} catch (IllegalAccessException e) {
+				_log.error("error loading '{}': {}", providerName,
+						e.getMessage());
+				_log.trace("{}", e);
+			} catch (InvocationTargetException e) {
+				_log.error("error loading '{}': {}", providerName,
+						e.getMessage());
+				_log.trace("{}", e);
 			}
 		}
 	}

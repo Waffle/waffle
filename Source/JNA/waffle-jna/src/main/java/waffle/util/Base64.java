@@ -20,7 +20,7 @@ package waffle.util;
 /**
  * Base64 encoder/decoder. from http://jcifs.samba.org/src/src/jcifs/util/Base64.java
  */
-public abstract class Base64 {
+public final class Base64 {
 
 	private static final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
@@ -104,5 +104,9 @@ public abstract class Base64 {
 			}
 		}
 		return buffer;
+	}
+
+	private Base64() {
+		// Prevent Instantiation of object
 	}
 }

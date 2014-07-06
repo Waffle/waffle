@@ -23,6 +23,6 @@ public class MockWindowsImpersonationContext implements
 
 	@Override
 	public void revertToSelf() {
-
+		// Do Nothing
 	}
 }

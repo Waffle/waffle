@@ -15,6 +15,7 @@ package waffle.jetty;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import org.apache.jasper.servlet.JspServlet;
 import org.eclipse.jetty.server.Server;
@@ -46,22 +47,21 @@ public class StartEmbeddedJetty {
 		context.setWar(path);
 
 		// Try adding JSP
-		try {
-			ServletHolder jsp = context.addServlet(JspServlet.class, "*.jsp");
-			jsp.setInitParameter("classpath", context.getClassPath());
-		} catch( Exception e) {
-			StartEmbeddedJetty.logger.error("{}", e);
-		}
+		ServletHolder jsp = context.addServlet(JspServlet.class, "*.jsp");
+		jsp.setInitParameter("classpath", context.getClassPath());
 
 		server.setHandler(context);
 
 		try {
-		    StartEmbeddedJetty.logger.info(">>> STARTING EMBEDDED JETTY SERVER, PRESS ANY KEY TO STOP");
+			StartEmbeddedJetty.logger.info(">>> STARTING EMBEDDED JETTY SERVER, PRESS ANY KEY TO STOP");
 			server.start();
 			System.in.read();
 			StartEmbeddedJetty.logger.info(">>> STOPPING EMBEDDED JETTY SERVER");
 			server.stop();
 			server.join();
+		} catch (IOException e) {
+			StartEmbeddedJetty.logger.error("{}", e);
+			System.exit(100);
 		} catch (Exception e) {
 			StartEmbeddedJetty.logger.error("{}", e);
 			System.exit(100);

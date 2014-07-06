@@ -19,6 +19,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeTrue;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -143,6 +144,7 @@ public class WindowsAuthProviderTests {
 		}
 	}
 
+	@Ignore
 	@Test
 	public void testAcceptSecurityToken() {
 		String securityPackage = "Negotiate";
@@ -249,6 +251,7 @@ public class WindowsAuthProviderTests {
 		}
 	}
 
+	@Ignore
 	@Test
 	public void testAcceptAndImpersonateSecurityToken() {
 		String securityPackage = "Negotiate";

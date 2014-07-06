@@ -18,7 +18,7 @@ package waffle.util;
  * 
  * @author dblock[at]dblock[dot]org
  */
-public abstract class NtlmMessage {
+public final class NtlmMessage {
 
 	// NTLM messages start with 0x4e544c4d53535000, NTLMSSP signature
 	private static final byte[] ntlmsspSignature = { 0x4e, 0x54, 0x4c, 0x4d, 0x53,
@@ -47,5 +47,9 @@ public abstract class NtlmMessage {
 	 */
 	public static int getMessageType(byte[] message) {
 		return message[ntlmsspSignature.length];
+	}
+
+	private NtlmMessage() {
+		// Prevent Instantiation of object
 	}
 }

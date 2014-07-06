@@ -63,19 +63,14 @@ public class NegotiateSecurityFilterEntryPointTests {
 		assertEquals(401, response.getStatus());
 	}
 
-	@Test
-	public void testGetSetProvider() {
-		try {
-			assertNotNull(_entryPoint.getProvider());
-			_entryPoint.setProvider(null);
-			SimpleHttpRequest request = new SimpleHttpRequest();
-			request.setMethod("GET");
-			SimpleHttpResponse response = new SimpleHttpResponse();
-			_entryPoint.commence(request, response, null);
-			fail("expected ServletException");
-		} catch (Exception e) {
-			assertTrue(e instanceof ServletException);
-		}
-
+	@Test (expected = ServletException.class)
+	public void testGetSetProvider() throws IOException, ServletException {
+		assertNotNull(_entryPoint.getProvider());
+		_entryPoint.setProvider(null);
+		SimpleHttpRequest request = new SimpleHttpRequest();
+		request.setMethod("GET");
+		SimpleHttpResponse response = new SimpleHttpResponse();
+		_entryPoint.commence(request, response, null);
+		fail("expected ServletException");
 	}
 }

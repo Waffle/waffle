@@ -13,6 +13,7 @@
  *******************************************************************************/
 package waffle.apache;
 
+import java.io.IOException;
 import java.security.Principal;
 
 import javax.servlet.http.HttpServletResponse;
@@ -115,8 +116,9 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 					return false;
 				}
 
-			} catch (Exception e) {
+			} catch (IOException e) {
 				_log.warn("error logging in user: {}", e.getMessage());
+				_log.trace("{}", e);
 				sendUnauthorized(response);
 				return false;
 			}

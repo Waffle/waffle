@@ -16,10 +16,8 @@ package waffle.spring;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 
 import waffle.servlet.WindowsPrincipal;
@@ -47,35 +45,30 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
 	}
 
 	@Override
-	public Authentication authenticate(Authentication authentication)
-			throws AuthenticationException {
-		try {
-			UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;
-			IWindowsIdentity windowsIdentity = _authProvider.logonUser(
-					auth.getName(), auth.getCredentials().toString());
-			_log.debug("logged in user: {} ({})", windowsIdentity.getFqn(),
-					windowsIdentity.getSidString());
+	public Authentication authenticate(Authentication authentication) {
+		UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;
+		IWindowsIdentity windowsIdentity = _authProvider.logonUser(
+				auth.getName(), auth.getCredentials().toString());
+		_log.debug("logged in user: {} ({})", windowsIdentity.getFqn(),
+				windowsIdentity.getSidString());
 
-			if (!_allowGuestLogin && windowsIdentity.isGuest()) {
-				_log.warn("guest login disabled: {}", windowsIdentity.getFqn());
-				throw new GuestLoginDisabledAuthenticationException(
-						windowsIdentity.getFqn());
-			}
-
-			WindowsPrincipal windowsPrincipal = new WindowsPrincipal(
-					windowsIdentity, _principalFormat, _roleFormat);
-			_log.debug("roles: {}", windowsPrincipal.getRolesString());
-
-			WindowsAuthenticationToken token = new WindowsAuthenticationToken(
-					windowsPrincipal, _grantedAuthorityFactory,
-					_defaultGrantedAuthority);
-
-			_log.info("successfully logged in user: {}",
+		if (!_allowGuestLogin && windowsIdentity.isGuest()) {
+			_log.warn("guest login disabled: {}", windowsIdentity.getFqn());
+			throw new GuestLoginDisabledAuthenticationException(
 					windowsIdentity.getFqn());
-			return token;
-		} catch (Exception e) {
-			throw new AuthenticationServiceException(e.getMessage(), e);
 		}
+
+		WindowsPrincipal windowsPrincipal = new WindowsPrincipal(
+				windowsIdentity, _principalFormat, _roleFormat);
+		_log.debug("roles: {}", windowsPrincipal.getRolesString());
+
+		WindowsAuthenticationToken token = new WindowsAuthenticationToken(
+				windowsPrincipal, _grantedAuthorityFactory,
+				_defaultGrantedAuthority);
+
+		_log.info("successfully logged in user: {}",
+				windowsIdentity.getFqn());
+		return token;
 	}
 
 	@Override

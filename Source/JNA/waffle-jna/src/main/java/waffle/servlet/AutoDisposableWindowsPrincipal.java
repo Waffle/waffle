@@ -35,6 +35,7 @@ public class AutoDisposableWindowsPrincipal extends WindowsPrincipal implements
 
 	@Override
 	public void valueBound(HttpSessionBindingEvent evt) {
+		// Do nothing
 	}
 
 	@Override

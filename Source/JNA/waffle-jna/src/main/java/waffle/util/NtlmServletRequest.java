@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @author dblock[at]dblock[dot]org
  */
-public abstract class NtlmServletRequest {
+public final class NtlmServletRequest {
 
 	/**
 	 * Returns a unique connection id for a given servlet request.
@@ -37,5 +37,9 @@ public abstract class NtlmServletRequest {
 		}
 		String remotePort = Integer.toString(request.getRemotePort());
 		return remoteHost + ":" + remotePort;
+	}
+
+	private NtlmServletRequest() {
+		// Prevent Instantiation of object
 	}
 }

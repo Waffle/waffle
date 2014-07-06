@@ -80,7 +80,7 @@ public class AuthorizationHeader {
 			return false;
 		}
 
-		return (1 == NtlmMessage.getMessageType(tokenBytes));
+		return 1 == NtlmMessage.getMessageType(tokenBytes);
 	}
 
 	public boolean isSPNegoMessage() {

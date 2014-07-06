@@ -61,7 +61,7 @@ public class MockWindowsIdentity implements IWindowsIdentity {
 
 	@Override
 	public void dispose() {
-
+		// Do Nothing
 	}
 
 	@Override

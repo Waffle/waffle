@@ -18,7 +18,11 @@ package waffle.util;
  * 
  * @author ari.suutari[at]syncrontech[dot]com
  */
-public abstract class SPNegoMessage {
+public final class SPNegoMessage {
+
+	// Check for NegTokenInit. It has always a special oid ("spnegoOid"),
+	// which makes it rather easy to detect.
+	private static final byte[] spnegoOid   = {0x06, 0x06, 0x2b, 0x06, 0x01, 0x05, 0x05, 0x02};
 
 	// Check if this message is SPNEGO auhentication token. There
 	// are two token types, NegTokenInit and NegTokenArg. 
@@ -37,12 +41,7 @@ public abstract class SPNegoMessage {
 		return isNegTokenInit(message) || isNegTokenArg(message);
 	}
 
-	// Check for NegTokenInit. It has always a special oid ("spnegoOid"),
-	// which makes it rather easy to detect.
-	private static final byte[]	spnegoOid	= {0x06, 0x06, 0x2b, 0x06, 0x01, 0x05, 0x05, 0x02};
-
-	public static boolean isNegTokenInit(byte[] message)
-	{
+	public static boolean isNegTokenInit(byte[] message) {
 		// First byte should always be 0x60 (Application Constructed Object)
 		if (message[0] != 0x60) {
 			return false;
@@ -73,19 +72,19 @@ public abstract class SPNegoMessage {
 	// Instead id has one-byte id (0xa1). Obviously this is not
 	// a great way to detect the message, so we check encoded
 	// message length against number of received message bytes.
-	public static boolean isNegTokenArg(byte[] message)
-	{
+	public static boolean isNegTokenArg(byte[] message) {
 		// Check if this is NegTokenArg packet, it's id is 0xa1
-		if ((message[0] & 0xff) != 0xa1)
+		if ((message[0] & 0xff) != 0xa1) {
 			return false;
+		}
 
 		int lenBytes;
 		int len;
 
 		// Get lenght of message for additional check.
-		if ((message[1] & 0x80) == 0)
+		if ((message[1] & 0x80) == 0) {
 			len = message[1];
-		else {
+		} else {
 
 			lenBytes = message[1] & 0x7f;
 			len = 0;
@@ -98,6 +97,10 @@ public abstract class SPNegoMessage {
 			}
 		}
 
-		return (len + 2 == message.length);
+		return len + 2 == message.length;
+	}
+
+	private SPNegoMessage() {
+		// Prevent Instantiation of object
 	}
 }

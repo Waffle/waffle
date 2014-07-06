@@ -43,5 +43,6 @@ public class SimpleRequestDispatcher implements RequestDispatcher {
 	@Override
 	public void include(ServletRequest request, ServletResponse response)
 			throws ServletException, IOException {
+		// Do Nothing
 	}
 }
