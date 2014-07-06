@@ -98,6 +98,9 @@ public class ImpersonateTests {
 					.size() > 0);
 			assertTrue("Test user should be authenticated", authenticated);
 
+			if (subject == null) {
+				return;
+			}
 			Principal principal = subject.getPrincipals().iterator().next();
 			assertTrue(principal instanceof AutoDisposableWindowsPrincipal);
 			windowsPrincipal = (AutoDisposableWindowsPrincipal) principal;
@@ -144,6 +147,9 @@ public class ImpersonateTests {
 					.size() > 0);
 			assertTrue("Test user should be authenticated", authenticated);
 
+			if (subject == null) {
+				return;
+			}
 			Principal principal = subject.getPrincipals().iterator().next();
 			assertTrue(principal instanceof WindowsPrincipal);
 			windowsPrincipal = (WindowsPrincipal) principal;

@@ -67,7 +67,6 @@ public class MixedAuthenticatorTests {
 		assertTrue(_authenticator.getInfo().length() > 0);
 	}
 
-	@Ignore
 	@Test
 	public void testChallengeGET() {
 		SimpleHttpRequest request = new SimpleHttpRequest();
