@@ -58,7 +58,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter
     private final List<String> protocols = new ArrayList<String>();
     {
         protocols.add("Negotiate");
-        protocols.add("NTLM");  //@todo things (sometimes) break, depending on what user account is running tomcat:
+        protocols.add("NTLM");  // TODO things (sometimes) break, depending on what user account is running tomcat:
                                 // related to setSPN and running tomcat server as NT Service account vs. as normal user account.
                                 // http://waffle.codeplex.com/discussions/254748
                                 // setspn -A HTTP/<server-fqdn> <user_tomcat_running_under>
@@ -101,13 +101,13 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter
         final byte[] inToken = Base64.decode(elements[1]);
 
         // maintain a connection-based session for NTLM tokns
-        final String connectionId = NtlmServletRequest.getConnectionId((HttpServletRequest)request); // @todo see about changing this parameter to ServletRequest in waffle
+        final String connectionId = NtlmServletRequest.getConnectionId((HttpServletRequest) request); // TODO see about changing this parameter to ServletRequest in waffle
         final String securityPackage = elements[0];
 
-        final AuthorizationHeader authorizationHeader = new AuthorizationHeader((HttpServletRequest)request); // @todo see about changing this parameter to ServletRequest in waffle
+        final AuthorizationHeader authorizationHeader = new AuthorizationHeader((HttpServletRequest) request); // TODO see about changing this parameter to ServletRequest in waffle
         final boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
 
-        log.debug("security package: " + securityPackage + ", connection id: " + connectionId + ", ntlmPost: " + ntlmPost);
+        log.debug("security package: {}, connection id: {}, ntlmPost: {}", securityPackage, connectionId, Boolean.valueOf(ntlmPost));
 
         final boolean rememberMe = isRememberMe(request);
         final String host = getHost(request);
@@ -137,11 +137,11 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter
         if (e instanceof AuthenticationInProgressException) {
             // negotiate is processing
             final String protocol = getAuthzHeaderProtocol(request);
-            log.debug("Negotiation in progress for protocol: " + protocol);
+            log.debug("Negotiation in progress for protocol: {}", protocol);
             sendChallengeDuringNegotiate(protocol, response, t.getOut());
             return false;
         } else {
-            log.warn("login exception: " + e.getMessage());
+            log.warn("login exception: {}", e.getMessage());
 
             // do not send token.out bytes, this was a login failure.
             sendChallengeOnFailure(response);
@@ -173,7 +173,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter
         if (isLoginAttempt(request)) {
             loggedIn = executeLogin(request, response);
         } else {
-            log.debug("authorization required, supported protocols: " + protocols);
+            log.debug("authorization required, supported protocols: {}", protocols);
             sendChallengeInitiateNegotiate(response);
         }
         return loggedIn;

@@ -55,25 +55,25 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
 			UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;
 			IWindowsIdentity windowsIdentity = _authProvider.logonUser(
 					auth.getName(), auth.getCredentials().toString());
-			_log.debug("logged in user: " + windowsIdentity.getFqn() + " ("
-					+ windowsIdentity.getSidString() + ")");
+			_log.debug("logged in user: {} ({})", windowsIdentity.getFqn(),
+					windowsIdentity.getSidString());
 
 			if (!_allowGuestLogin && windowsIdentity.isGuest()) {
-				_log.warn("guest login disabled: " + windowsIdentity.getFqn());
+				_log.warn("guest login disabled: {}", windowsIdentity.getFqn());
 				throw new GuestLoginDisabledAuthenticationException(
 						windowsIdentity.getFqn());
 			}
 
 			WindowsPrincipal windowsPrincipal = new WindowsPrincipal(
 					windowsIdentity, _principalFormat, _roleFormat);
-			_log.debug("roles: " + windowsPrincipal.getRolesString());
+			_log.debug("roles: {}", windowsPrincipal.getRolesString());
 
 			WindowsAuthenticationToken token = new WindowsAuthenticationToken(
 					windowsPrincipal, _grantedAuthorityFactory,
 					_defaultGrantedAuthority);
 
-			_log.info("successfully logged in user: "
-					+ windowsIdentity.getFqn());
+			_log.info("successfully logged in user: {}",
+					windowsIdentity.getFqn());
 			return token;
 		} catch (Exception e) {
 			throw new AuthenticationServiceException(e.getMessage(), e);

@@ -41,7 +41,7 @@ public class SecurityFilterProviderCollection {
 
 	public SecurityFilterProviderCollection(SecurityFilterProvider[] providers) {
 		for (SecurityFilterProvider provider : providers) {
-			_log.info("using '" + provider.getClass().getName() + "'");
+			_log.info("using '{}'", provider.getClass().getName());
 			_providers.add(provider);
 		}
 	}
@@ -51,7 +51,7 @@ public class SecurityFilterProviderCollection {
 			IWindowsAuthProvider auth) {
 		for (String providerName : providerNames) {
 			providerName = providerName.trim();
-			_log.info("loading '" + providerName + "'");
+			_log.info("loading '{}'", providerName);
 			try {
 				Class<SecurityFilterProvider> providerClass = (Class<SecurityFilterProvider>) Class
 						.forName(providerName);
@@ -60,8 +60,9 @@ public class SecurityFilterProviderCollection {
 				SecurityFilterProvider provider = c.newInstance(auth);
 				_providers.add(provider);
 			} catch (Exception e) {
-				_log.error("error loading '" + providerName + "': "
-						+ e.getMessage());
+				_log.error("error loading '{}': {}", providerName,
+						e.getMessage());
+				_log.trace("{}", e);
 				throw new RuntimeException(e);
 			}
 		}

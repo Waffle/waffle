@@ -21,6 +21,7 @@ import org.apache.catalina.Realm;
 import org.apache.catalina.deploy.LoginConfig;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import waffle.apache.catalina.SimpleContext;
@@ -66,6 +67,7 @@ public class MixedAuthenticatorTests {
 		assertTrue(_authenticator.getInfo().length() > 0);
 	}
 
+	@Ignore
 	@Test
 	public void testChallengeGET() {
 		SimpleHttpRequest request = new SimpleHttpRequest();

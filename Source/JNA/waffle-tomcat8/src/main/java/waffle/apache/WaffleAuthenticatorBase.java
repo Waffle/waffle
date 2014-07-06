@@ -36,14 +36,15 @@ import static java.util.Arrays.asList;
  * @author dblock[at]dblock[dot]org
  */
 abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
-    private static final Set<String> SUPPORTED_PROTOCOLS = new HashSet<>(asList("Negotiate", "NTLM"));
 
-	protected String _info = null;
-	protected Logger _log = null;
+	private static final Set<String> SUPPORTED_PROTOCOLS = new HashSet<String>(asList("Negotiate", "NTLM"));
+
+	protected String _info;
+	protected Logger _log;
 	protected PrincipalFormat _principalFormat = PrincipalFormat.fqn;
 	protected PrincipalFormat _roleFormat = PrincipalFormat.fqn;
 	protected boolean _allowGuestLogin = true;
-    protected Set<String> _protocols = SUPPORTED_PROTOCOLS;
+	protected Set<String> _protocols = SUPPORTED_PROTOCOLS;
 
 	protected IWindowsAuthProvider _auth = new WindowsAuthProviderImpl();
 
@@ -67,7 +68,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 	}
 
 	public String getInfo() {
-	    return _info;
+		return _info;
 	}
 
 	/**
@@ -78,7 +79,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 	 */
 	public void setPrincipalFormat(String format) {
 		_principalFormat = PrincipalFormat.valueOf(format);
-		_log.debug("principal format: " + _principalFormat);
+		_log.debug("principal format: {}", _principalFormat);
 	}
 
 	/**
@@ -98,7 +99,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 	 */
 	public void setRoleFormat(String format) {
 		_roleFormat = PrincipalFormat.valueOf(format);
-		_log.debug("role format: " + _roleFormat);
+		_log.debug("role format: {}", _roleFormat);
 	}
 
 	/**
@@ -130,48 +131,47 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 		_allowGuestLogin = value;
 	}
 
-    /**
-     * Set the authentication protocols. Default is "Negotiate, NTLM".
-     *
-     * @param protocols
-     *            Authentication protocols
-     */
-    public void setProtocols(String protocols) {
-        _protocols = new HashSet<>();
-        String[] protocolNames = protocols.split(",");
-        for (String protocolName : protocolNames) {
-            protocolName = protocolName.trim();
-            if (!protocolName.isEmpty()) {
-                _log.debug("init protocol: " + protocolName);
-                if (SUPPORTED_PROTOCOLS.contains(protocolName)) {
-                    _protocols.add(protocolName);
-                } else {
-                    _log.error("unsupported protocol: " + protocolName);
-                    throw new RuntimeException("Unsupported protocol: "
-                            + protocolName);
-                }
-            }
-        }
-    }
+	/**
+	 * Set the authentication protocols. Default is "Negotiate, NTLM".
+	 *
+	 * @param protocols
+	 *            Authentication protocols
+	 */
+	public void setProtocols(String protocols) {
+		_protocols = new HashSet<String>();
+		String[] protocolNames = protocols.split(",");
+		for (String protocolName : protocolNames) {
+			protocolName = protocolName.trim();
+			if (!protocolName.isEmpty()) {
+				_log.debug("init protocol: {}", protocolName);
+				if (SUPPORTED_PROTOCOLS.contains(protocolName)) {
+					_protocols.add(protocolName);
+				} else {
+					_log.error("unsupported protocol: {}", protocolName);
+					throw new RuntimeException("Unsupported protocol: "
+							+ protocolName);
+				}
+			}
+		}
+	}
 
 	/**
 	 * Send a 401 Unauthorized along with protocol authentication headers.
-	 *
+	 * 
 	 * @param response
 	 *            HTTP Response
 	 */
 	protected void sendUnauthorized(HttpServletResponse response) {
 		try {
-            for (String protocol : _protocols) {
-                response.addHeader("WWW-Authenticate", protocol);
-            }
+			for (String protocol : _protocols) {
+				response.addHeader("WWW-Authenticate", protocol);
+			}
 			response.setHeader("Connection", "close");
 			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
 			response.flushBuffer();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-
 	}
 
 	/**
@@ -187,6 +187,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 			response.sendError(code);
 		} catch (IOException e) {
 			_log.error(e.getMessage());
+			_log.trace("{}", e);
 			throw new RuntimeException(e);
 		}
 	}
@@ -195,32 +196,34 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 	protected String getAuthMethod() {
 		return null;
 	}
-	
+
 	@Override
 	protected Principal doLogin(Request request, String username,
 			String password) throws ServletException {
-		_log.debug("logging in: " + username);
-		IWindowsIdentity windowsIdentity = null;
+		_log.debug("logging in: {}", username);
+		IWindowsIdentity windowsIdentity;
 		try {
 			windowsIdentity = _auth.logonUser(username, password);
 		} catch (Exception e) {
 			_log.error(e.getMessage());
+			_log.trace("{}", e);
 			return super.doLogin(request, username, password);
 		}
 		// disable guest login
 		if (!_allowGuestLogin && windowsIdentity.isGuest()) {
-			_log.warn("guest login disabled: " + windowsIdentity.getFqn());
+			_log.warn("guest login disabled: {}", windowsIdentity.getFqn());
 			return super.doLogin(request, username, password);
 		}
 		try {
-			_log.debug("successfully logged in " + username + " ("
-					+ windowsIdentity.getSidString() + ")");
+			_log.debug("successfully logged in {} ({})", username,
+					windowsIdentity.getSidString());
 			GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(
 					windowsIdentity, _principalFormat, _roleFormat);
-			_log.debug("roles: " + windowsPrincipal.getRolesString());
+			_log.debug("roles: {}", windowsPrincipal.getRolesString());
 			return windowsPrincipal;
 		} finally {
 			windowsIdentity.dispose();
 		}
 	}
+
 }

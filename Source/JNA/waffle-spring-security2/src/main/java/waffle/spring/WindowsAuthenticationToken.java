@@ -37,6 +37,7 @@ public class WindowsAuthenticationToken implements Authentication {
 	 */
 	public static final GrantedAuthorityFactory DEFAULT_GRANTED_AUTHORITY_FACTORY = new FqnGrantedAuthorityFactory(
 			"ROLE_", true);
+
 	/**
 	 * The {@link GrantedAuthority} that will be added to every WindowsAuthenticationToken, unless another (or null) is
 	 * specified.

@@ -61,9 +61,10 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
                     authenticationInfo = buildAuthenticationInfo(token, principal);
                     log.debug("Successful login for user {}", username);
                 }
-            } catch (RuntimeException ex) {
-                log.debug("Failed login for user {}", username, ex);
-                throw new AuthenticationException("Login failed", ex);
+            } catch (RuntimeException e) {
+                log.debug("Failed login for user {}: {}", username, e.getMessage());
+                log.trace("{}", e);
+                throw new AuthenticationException("Login failed", e);
             } finally {
                 if (identity != null) {
                     identity.dispose();

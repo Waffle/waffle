@@ -23,6 +23,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
@@ -38,21 +40,23 @@ import waffle.mock.http.SimpleHttpResponse;
  */
 public class WaffleInfoServletTests {
 
+  private Logger logger = LoggerFactory.getLogger(WaffleInfoServletTests.class);
+
   @Test
   public void testGetInfo() throws Exception {
     SimpleHttpRequest request = new SimpleHttpRequest();
     request.addHeader("hello", "waffle");
-    
+
     SimpleHttpResponse response = new SimpleHttpResponse();
-    
+
     WaffleInfoServlet servlet = new WaffleInfoServlet();
     servlet.doGet(request, response);
-    
+
     String xml = response.getOutputText();
     Document doc = loadXMLFromString(xml);
 
-    //System.out.println( "GOT:"+xml );
-    
+    this.logger.info("GOT: {}", xml);
+
     // Make sure JNA Version is properly noted
     assertEquals(Platform.class.getPackage().getImplementationVersion(), 
         doc.getDocumentElement().getAttribute("jna"));
@@ -61,13 +65,13 @@ public class WaffleInfoServletTests {
         .getFirstChild().getNextSibling() // request
         .getFirstChild().getNextSibling() // AuthType
         .getNextSibling().getNextSibling();
-    
+
     // Make sure the headers were added correctly
     assertEquals("headers", node.getNodeName());
     Node child = node.getFirstChild().getNextSibling();
     assertEquals("hello", child.getNodeName());
   }
-  
+
   public static Document loadXMLFromString(String xml) throws ParserConfigurationException, SAXException, IOException
   {
     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();

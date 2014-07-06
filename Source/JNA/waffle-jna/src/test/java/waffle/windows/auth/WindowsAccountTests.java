@@ -16,6 +16,8 @@ package waffle.windows.auth;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import waffle.windows.auth.impl.WindowsAccountImpl;
 
@@ -24,10 +26,12 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
  */
 public class WindowsAccountTests {
 
+	private Logger logger = LoggerFactory.getLogger(WindowsAccountTests.class);
+
 	@Test
 	public void testGetCurrentUsername() {
 		String currentUsername = WindowsAccountImpl.getCurrentUsername();
-		System.out.println("Current username: " + currentUsername);
+		this.logger.info("Current username: {}", currentUsername);
 		assertTrue(currentUsername.length() > 0);
 	}
 
@@ -36,13 +40,13 @@ public class WindowsAccountTests {
 		String currentUsername = WindowsAccountImpl.getCurrentUsername();
 		IWindowsAccount account = new WindowsAccountImpl(currentUsername);
 		assertTrue(account.getName().length() > 0);
-		System.out.println("Name: " + account.getName());
+		this.logger.info("Name: {}", account.getName());
 		assertTrue(account.getDomain().length() > 0);
-		System.out.println("Domain: " + account.getDomain());
+		this.logger.info("Domain: {}", account.getDomain());
 		assertTrue(account.getFqn().length() > 0);
-		System.out.println("Fqn: " + account.getFqn());
+		this.logger.info("Fqn: {}", account.getFqn());
 		assertTrue(account.getSidString().length() > 0);
-		System.out.println("Sid: " + account.getSidString());
+		this.logger.info("Sid: {}", account.getSidString());
 		// To avoid errors with machine naming being all upper-case, use test in this manner
 		assertTrue(currentUsername.equalsIgnoreCase(account.getFqn()));
 		assertTrue(currentUsername.endsWith("\\" + account.getName()));

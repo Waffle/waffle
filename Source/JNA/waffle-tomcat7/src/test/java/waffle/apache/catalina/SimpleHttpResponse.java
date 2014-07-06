@@ -20,11 +20,16 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.catalina.connector.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author dblock[at]dblock[dot]org
  */
 public class SimpleHttpResponse extends Response {
+
+	private Logger logger = LoggerFactory.getLogger(SimpleHttpResponse.class);
+
 	private int _status = 500;
 	private Map<String, List<String>> _headers = new HashMap<String, List<String>>();
 
@@ -69,10 +74,10 @@ public class SimpleHttpResponse extends Response {
 
 	@Override
 	public void flushBuffer() {
-		System.out.println(_status + " " + getStatusString());
+		this.logger.info("{} {}", Integer.valueOf(_status),  getStatusString());
 		for (String header : _headers.keySet()) {
 			for (String headerValue : _headers.get(header)) {
-				System.out.println(header + ": " + headerValue);
+				this.logger.info("{}: {}", header, headerValue);
 			}
 		}
 	}
