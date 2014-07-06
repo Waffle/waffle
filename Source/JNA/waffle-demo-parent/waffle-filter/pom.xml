@@ -15,6 +15,12 @@
             <groupId>com.github.dblock.waffle</groupId>
             <artifactId>waffle-tomcat6</artifactId>
         </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
     <build>
         <finalName>${project.name}</finalName>
