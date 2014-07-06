@@ -15,7 +15,7 @@ package waffle.apache;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.servlet.ServletException;
@@ -29,7 +29,6 @@ import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.PrincipalFormat;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
-
 import static java.util.Arrays.asList;
 
 /**
@@ -37,7 +36,7 @@ import static java.util.Arrays.asList;
  */
 abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
-	private static final Set<String> SUPPORTED_PROTOCOLS = new HashSet<String>(asList("Negotiate", "NTLM"));
+	private static final Set<String> SUPPORTED_PROTOCOLS = new LinkedHashSet<String>(asList("Negotiate", "NTLM"));
 
 	protected String _info;
 	protected Logger _log;
@@ -139,7 +138,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 	 *            Authentication protocols
 	 */
 	public void setProtocols(String protocols) {
-		_protocols = new HashSet<String>();
+		_protocols = new LinkedHashSet<String>();
 		String[] protocolNames = protocols.split(",");
 		for (String protocolName : protocolNames) {
 			protocolName = protocolName.trim();
