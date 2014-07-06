@@ -19,6 +19,9 @@ import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.impl.SimpleLogger;
 
 import waffle.servlet.NegotiateSecurityFilter;
 import waffle.servlet.WindowsPrincipal;
@@ -31,10 +34,11 @@ import waffle.windows.auth.WindowsAccount;
  * 
  */
 public class StartEmbeddedJettyValidateNTLMGroup {
-	
+
+	private static Logger logger = LoggerFactory.getLogger(StartEmbeddedJettyValidateNTLMGroup.class);
+
 	public static void main(String args[]) {
-		System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY,
-				"TRACE");
+		System.setProperty(SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "TRACE");
 
 		Server server = new Server(8080);
 
@@ -57,9 +61,8 @@ public class StartEmbeddedJettyValidateNTLMGroup {
 
 		try {
 			server.start();
-			// server.join();
 		} catch (Exception e) {
-			e.printStackTrace();
+			StartEmbeddedJettyValidateNTLMGroup.logger.trace("{}", e);
 		}
 	}
 
@@ -90,31 +93,28 @@ public class StartEmbeddedJettyValidateNTLMGroup {
 				"NTGroup2");
 
 		@Override
-		public void doGet(HttpServletRequest request,
-				HttpServletResponse response) throws ServletException,
+		public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,
 				IOException {
 			response.setContentType("text/html");
 			response.setStatus(HttpServletResponse.SC_OK);
-			
-			
+
 			boolean isUserAuthorised = isUserAuthorised(request, authorisedGroups);
-			
-			if (isUserAuthorised)
+			if (isUserAuthorised) {
 				response.getWriter().println("User is authorised");
-			else
+			} else {
 				response.getWriter().println("User is not authorised");
-			
+			}
 		}
 
-		private boolean isUserAuthorised(HttpServletRequest request,
-				List<String> authorisedGroups) {
+		private boolean isUserAuthorised(HttpServletRequest request, List<String> authorisedGroups) {
 			List<String> usersGroups = getUsersGroups(request);
 
 			boolean noOverlappingGroups = Collections.disjoint(authorisedGroups, usersGroups);
-			if (!noOverlappingGroups)
+			if (!noOverlappingGroups) {
 				return true;
-			else
+			} else {
 				return false;
+			}
 		}
 
 		private List<String> getUsersGroups(HttpServletRequest request) {
@@ -122,10 +122,8 @@ public class StartEmbeddedJettyValidateNTLMGroup {
 			Principal principal = request.getUserPrincipal();
 			if (principal instanceof WindowsPrincipal) {
 				WindowsPrincipal windowsPrincipal = (WindowsPrincipal) principal;
-				for (WindowsAccount account : windowsPrincipal.getGroups()
-						.values()) {
-					String groupName = getGroupName(account.getDomain(),
-							account.getFqn());
+				for (WindowsAccount account : windowsPrincipal.getGroups().values()) {
+					String groupName = getGroupName(account.getDomain(), account.getFqn());
 					result.add(groupName);
 				}
 			}
@@ -133,10 +131,12 @@ public class StartEmbeddedJettyValidateNTLMGroup {
 		}
 
 		private String getGroupName(String domain, String groupString) {
-			if (domain == null || groupString == null)
+			if (domain == null || groupString == null) {
 				return "";
+			}
 			String group = groupString.split(domain)[1];
 			return group.substring(1);
 		}
 	}
+
 }
