@@ -17,13 +17,14 @@ import java.security.Principal;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpSession;
 
 import org.mockito.Mockito;
+
+import com.google.common.collect.Iterators;
 
 /**
  * @author dblock[at]dblock[dot]org
@@ -67,11 +68,10 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
 		return _headers.get(headerName);
 	}
 
-  @Override
-  public Enumeration<String> getHeaderNames() {
-    Vector<String> v = new Vector<String>(_headers.keySet());
-    return v.elements();
-  }
+	@Override
+	public Enumeration<String> getHeaderNames() {
+		return Iterators.asEnumeration(_headers.keySet().iterator());
+	}
 
 	@Override
 	public String getMethod() {

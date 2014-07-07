@@ -74,9 +74,17 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
         this.host = host;
     }
 
-    public String getConnectionId() { return connectionId; }
-    public String getSecurityPackage() { return securityPackage; }
-    public boolean isNtlmPost() { return ntlmPost; }
+    public String getConnectionId() {
+        return connectionId;
+    }
+
+    public String getSecurityPackage() {
+        return securityPackage;
+    }
+
+    public boolean isNtlmPost() {
+        return ntlmPost;
+    }
 
     @Override
     public Object getCredentials() {
@@ -109,7 +117,6 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
     }
 
     public AuthenticationInfo createInfo() {
-        //return new NegotiateInfo(subject, "NegotiateRealm");
         return new NegotiateInfo(subject, "NegotiateWaffleRealm");
     }
 

@@ -81,9 +81,7 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
 		if (username.equals(currentUsername)) {
 			return new MockWindowsIdentity(currentUsername, _groups);
 		} else if (username.equals("Guest")) {
-			MockWindowsIdentity identity = new MockWindowsIdentity("Guest",
-					_groups);
-			return identity;
+			return new MockWindowsIdentity("Guest", _groups);
 		} else {
 			throw new RuntimeException("Mock error: " + username);
 		}
@@ -96,6 +94,6 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
 
 	@Override
 	public void resetSecurityToken(String connectionId) {
-
+		// Do Nothing
 	}
 }

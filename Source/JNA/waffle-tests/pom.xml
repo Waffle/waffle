@@ -20,6 +20,7 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>waffle-jna</artifactId>
       <version>${project.version}</version>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -32,6 +33,16 @@
       <artifactId>mockito-core</artifactId>
       <version>${mockito.version}</version>
       <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>objenesis</artifactId>
+          <groupId>org.objenesis</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>hamcrest-core</artifactId>
+          <groupId>org.hamcrest</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
   </dependencies>
 </project>

@@ -107,19 +107,15 @@ public class WindowsAuthenticationProviderTests {
 		assertTrue(authenticated.getPrincipal() instanceof WindowsPrincipal);
 	}
 
-	@Test
+	@Test (expected = GuestLoginDisabledAuthenticationException.class)
 	public void testGuestIsDisabled() {
-		try {
-			MockWindowsIdentity mockIdentity = new MockWindowsIdentity("Guest",
-					new ArrayList<String>());
-			_provider.setAllowGuestLogin(false);
-			WindowsPrincipal principal = new WindowsPrincipal(mockIdentity);
-			UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-					principal, "password");
-			_provider.authenticate(authentication);
-			fail("expected AuthenticationServiceException");
-		} catch (AuthenticationServiceException e) {
-			assertTrue(e.getCause() instanceof GuestLoginDisabledAuthenticationException);
-		}
+		MockWindowsIdentity mockIdentity = new MockWindowsIdentity("Guest",
+				new ArrayList<String>());
+		_provider.setAllowGuestLogin(false);
+		WindowsPrincipal principal = new WindowsPrincipal(mockIdentity);
+		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+				principal, "password");
+		_provider.authenticate(authentication);
+		fail("expected AuthenticationServiceException");
 	}
 }

@@ -10,12 +10,15 @@
 
 package waffle.shiro.negotiate;
 
-import junit.framework.TestCase;
 import org.apache.shiro.codec.Base64;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
@@ -25,26 +28,28 @@ import java.util.*;
  * Date: 2/14/13
  * Time: 11:11 PM
  */
-public final class NegotiateAuthenticationFilterTest extends TestCase {
+public final class NegotiateAuthenticationFilterTest {
 
     private NegotiateAuthenticationFilter negAuthFilter;
 
     private MockServletResponse response;
     private byte[] out;
 
-    @Override
-    protected void setUp() {
+    @Before
+    public void setUp() {
         negAuthFilter = new NegotiateAuthenticationFilter();
 
         response = new MockServletResponse();
     }
 
+    @Test
     public void testIsLoginAttempt()  {
-        assertFalse(negAuthFilter.isLoginAttempt(""));
-        assertTrue(negAuthFilter.isLoginAttempt("NEGOTIATe"));
-        assertTrue(negAuthFilter.isLoginAttempt("ntlm"));
+        Assert.assertFalse(negAuthFilter.isLoginAttempt(""));
+        Assert.assertTrue(negAuthFilter.isLoginAttempt("NEGOTIATe"));
+        Assert.assertTrue(negAuthFilter.isLoginAttempt("ntlm"));
     }
 
+    @Test
     public void testSendChallengeInitiateNegotiate() {
 
         out = new byte[1];
@@ -52,17 +57,18 @@ public final class NegotiateAuthenticationFilterTest extends TestCase {
 
         negAuthFilter.sendChallengeInitiateNegotiate(response);
 
-        assertEquals("Negotiate", response.headersAdded.get("WWW-Authenticate").get(0));
-        assertEquals("NTLM", response.headersAdded.get("WWW-Authenticate").get(1));
+        Assert.assertEquals("Negotiate", response.headersAdded.get("WWW-Authenticate").get(0));
+        Assert.assertEquals("NTLM", response.headersAdded.get("WWW-Authenticate").get(1));
 
-        assertEquals("keep-alive", response.headers.get("Connection"));
+        Assert.assertEquals("keep-alive", response.headers.get("Connection"));
 
-        assertEquals(HttpServletResponse.SC_UNAUTHORIZED, response.sc);
-        assertEquals(0, response.errorCode);
+        Assert.assertEquals(HttpServletResponse.SC_UNAUTHORIZED, response.sc);
+        Assert.assertEquals(0, response.errorCode);
 
-        assertFalse(response.isFlushed);
+        Assert.assertFalse(response.isFlushed);
     }
 
+    @Test
     public void testSendChallengeDuringNegotiate() {
 
         final String myProtocol = "myProtocol";
@@ -72,31 +78,31 @@ public final class NegotiateAuthenticationFilterTest extends TestCase {
 
         negAuthFilter.sendChallengeDuringNegotiate(myProtocol, response, out);
 
-        assertEquals(myProtocol + " " + Base64.encodeToString(out), response.headers.get("WWW-Authenticate"));
+        Assert.assertEquals(myProtocol + " " + Base64.encodeToString(out), response.headers.get("WWW-Authenticate"));
 
-        assertEquals("keep-alive", response.headers.get("Connection"));
+        Assert.assertEquals("keep-alive", response.headers.get("Connection"));
 
-        assertEquals(HttpServletResponse.SC_UNAUTHORIZED, response.sc);
-        assertEquals(0, response.errorCode);
+        Assert.assertEquals(HttpServletResponse.SC_UNAUTHORIZED, response.sc);
+        Assert.assertEquals(0, response.errorCode);
 
-        assertFalse(response.isFlushed);
+        Assert.assertFalse(response.isFlushed);
     }
 
+    @Test
     public void testSendChallengeOnFailure() {
 
         negAuthFilter.sendChallengeOnFailure(response);
 
-        assertEquals("Negotiate", response.headersAdded.get("WWW-Authenticate").get(0));
-        assertEquals("NTLM", response.headersAdded.get("WWW-Authenticate").get(1));
+        Assert.assertEquals("Negotiate", response.headersAdded.get("WWW-Authenticate").get(0));
+        Assert.assertEquals("NTLM", response.headersAdded.get("WWW-Authenticate").get(1));
 
-        assertEquals("close", response.headers.get("Connection"));
+        Assert.assertEquals("close", response.headers.get("Connection"));
 
-        assertEquals(0, response.sc);
-        assertEquals(HttpServletResponse.SC_UNAUTHORIZED, response.errorCode);
+        Assert.assertEquals(0, response.sc);
+        Assert.assertEquals(HttpServletResponse.SC_UNAUTHORIZED, response.errorCode);
 
-        assertTrue(response.isFlushed);
+        Assert.assertTrue(response.isFlushed);
     }
-
 
     private static class MockServletResponse implements HttpServletResponse {
         private void notImplemented() {

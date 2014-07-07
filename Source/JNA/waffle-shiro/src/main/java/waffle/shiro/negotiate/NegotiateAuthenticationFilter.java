@@ -46,22 +46,21 @@ import java.util.List;
  * @author Dan Rollo
  * @since 1.0.0
  */
-public class NegotiateAuthenticationFilter extends AuthenticatingFilter
-{
+public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
 
     /**
      * This class's private logger.
      */
     private static final Logger log = LoggerFactory.getLogger(NegotiateAuthenticationFilter.class);
 
-
+    // TODO things (sometimes) break, depending on what user account is running tomcat:
+    // related to setSPN and running tomcat server as NT Service account vs. as normal user account.
+    // http://waffle.codeplex.com/discussions/254748
+    // setspn -A HTTP/<server-fqdn> <user_tomcat_running_under>
     private final List<String> protocols = new ArrayList<String>();
     {
         protocols.add("Negotiate");
-        protocols.add("NTLM");  // TODO things (sometimes) break, depending on what user account is running tomcat:
-                                // related to setSPN and running tomcat server as NT Service account vs. as normal user account.
-                                // http://waffle.codeplex.com/discussions/254748
-                                // setspn -A HTTP/<server-fqdn> <user_tomcat_running_under>
+        protocols.add("NTLM");
     }
 
     private String failureKeyAttribute = FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME;
@@ -89,7 +88,6 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter
     @Override
     protected boolean isRememberMe(final ServletRequest request) {
         return WebUtils.isTrue(request, getRememberMeParam());
-
     }
 
 
@@ -101,17 +99,18 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter
         final byte[] inToken = Base64.decode(elements[1]);
 
         // maintain a connection-based session for NTLM tokns
-        final String connectionId = NtlmServletRequest.getConnectionId((HttpServletRequest) request); // TODO see about changing this parameter to ServletRequest in waffle
+        // TODO see about changing this parameter to ServletRequest in waffle
+        final String connectionId = NtlmServletRequest.getConnectionId((HttpServletRequest) request);
         final String securityPackage = elements[0];
 
-        final AuthorizationHeader authorizationHeader = new AuthorizationHeader((HttpServletRequest) request); // TODO see about changing this parameter to ServletRequest in waffle
+        // TODO see about changing this parameter to ServletRequest in waffle
+        final AuthorizationHeader authorizationHeader = new AuthorizationHeader((HttpServletRequest) request);
         final boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
 
         log.debug("security package: {}, connection id: {}, ntlmPost: {}", securityPackage, connectionId, Boolean.valueOf(ntlmPost));
 
         final boolean rememberMe = isRememberMe(request);
         final String host = getHost(request);
-
 
         return new NegotiateToken(inToken, new byte[0], connectionId, securityPackage, ntlmPost, rememberMe, host);
     }
@@ -164,11 +163,11 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter
         this.failureKeyAttribute = failureKeyAttribute;
     }
 
-
     @Override
     protected boolean onAccessDenied(final ServletRequest request,
                                      final ServletResponse response) throws Exception {
-        boolean loggedIn = false; // false by default or we wouldn't be in
+        // false by default or we wouldn't be in
+        boolean loggedIn = false;
         // this method
         if (isLoginAttempt(request)) {
             loggedIn = executeLogin(request, response);
@@ -197,8 +196,6 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter
         final String authzHeader = getAuthzHeader(request);
         return authzHeader != null && isLoginAttempt(authzHeader);
     }
-
-
 
     /**
      * Returns the {@link org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter#AUTHORIZATION_HEADER AUTHORIZATION_HEADER} from the
@@ -271,9 +268,9 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter
 
     void sendChallengeDuringNegotiate(final String protocol, final ServletResponse response, final byte[] out) {
 
-        final List<String> protocols = new ArrayList<String>();
-        protocols.add(protocol);
-        sendChallenge(protocols, response, out);
+        final List<String> protocolsList = new ArrayList<String>();
+        protocolsList.add(protocol);
+        sendChallenge(protocolsList, response, out);
     }
 
     void sendChallengeOnFailure(final ServletResponse response) {
@@ -288,10 +285,10 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter
         }
     }
 
-    private void sendAuthenticateHeader(final List<String> protocols, final byte[] out,
+    private void sendAuthenticateHeader(final List<String> protocolsList, final byte[] out,
                                         final HttpServletResponse httpResponse) {
 
-        sendUnauthorized(protocols, out, httpResponse);
+        sendUnauthorized(protocolsList, out, httpResponse);
 
         httpResponse.setHeader("Connection", "keep-alive");
     }

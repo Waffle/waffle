@@ -14,6 +14,7 @@
 package waffle.servlet;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.security.Principal;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -101,7 +102,7 @@ public class NegotiateSecurityFilter implements Filter {
 					return;
 				}
 
-			} catch (Exception e) {
+			} catch (IOException e) {
 				_log.warn("error logging in user: {}", e.getMessage());
 				_log.trace("{}", e);
 				sendUnauthorized(response, true);
@@ -283,7 +284,31 @@ public class NegotiateSecurityFilter implements Filter {
 			try {
 				_auth = (IWindowsAuthProvider) Class.forName(authProvider)
 						.getConstructor().newInstance();
-			} catch (Exception e) {
+			} catch (ClassNotFoundException e) {
+				_log.error("error loading '{}': {}", authProvider, e.getMessage());
+				_log.trace("{}", e);
+				throw new ServletException(e);
+			} catch (IllegalArgumentException e) {
+				_log.error("error loading '{}': {}", authProvider, e.getMessage());
+				_log.trace("{}", e);
+				throw new ServletException(e);
+			} catch (SecurityException e) {
+				_log.error("error loading '{}': {}", authProvider, e.getMessage());
+				_log.trace("{}", e);
+				throw new ServletException(e);
+			} catch (InstantiationException e) {
+				_log.error("error loading '{}': {}", authProvider, e.getMessage());
+				_log.trace("{}", e);
+				throw new ServletException(e);
+			} catch (IllegalAccessException e) {
+				_log.error("error loading '{}': {}", authProvider, e.getMessage());
+				_log.trace("{}", e);
+				throw new ServletException(e);
+			} catch (InvocationTargetException e) {
+				_log.error("error loading '{}': {}", authProvider, e.getMessage());
+				_log.trace("{}", e);
+				throw new ServletException(e);
+			} catch (NoSuchMethodException e) {
 				_log.error("error loading '{}': {}", authProvider, e.getMessage());
 				_log.trace("{}", e);
 				throw new ServletException(e);

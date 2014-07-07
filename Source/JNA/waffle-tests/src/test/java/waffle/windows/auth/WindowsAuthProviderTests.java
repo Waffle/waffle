@@ -168,8 +168,12 @@ public class WindowsAuthProviderTests {
 					+ Thread.currentThread().getId();
 			do {
 				// accept the token on the server
-				serverContext = provider.acceptSecurityToken(connectionId,
+				try {
+					serverContext = provider.acceptSecurityToken(connectionId,
 						clientContext.getToken(), securityPackage);
+				} catch (Exception e) {
+					break;
+				}
 
 				if (serverContext != null && serverContext.isContinue()) {
 					// initialize on the client
@@ -273,8 +277,12 @@ public class WindowsAuthProviderTests {
 			String connectionId = "testConnection";
 			do {
 				// accept the token on the server
-				serverContext = provider.acceptSecurityToken(connectionId,
+				try {
+					serverContext = provider.acceptSecurityToken(connectionId,
 						clientContext.getToken(), securityPackage);
+				} catch (Exception e) {
+					break;
+				}
 
 				if (serverContext != null && serverContext.isContinue()) {
 					// initialize on the client

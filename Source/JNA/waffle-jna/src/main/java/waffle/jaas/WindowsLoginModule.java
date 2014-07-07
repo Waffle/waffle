@@ -108,8 +108,10 @@ public class WindowsLoginModule implements LoginModule {
 					: new String(passwordCallback.getPassword());
 			passwordCallback.clearPassword();
 		} catch (IOException e) {
+			_log.trace("{}", e);
 			throw new LoginException(e.toString());
 		} catch (UnsupportedCallbackException e) {
+			_log.trace("{}", e);
 			throw new LoginException(
 					"Callback "
 							+ e.getCallback().getClass().getName()
@@ -120,6 +122,7 @@ public class WindowsLoginModule implements LoginModule {
 		try {
 			windowsIdentity = _auth.logonUser(username, password);
 		} catch (Exception e) {
+			_log.trace("{}", e);
 			throw new LoginException(e.getMessage());
 		}
 

@@ -88,32 +88,24 @@ public class WindowsLoginModuleTests {
 		assertSame(Integer.valueOf(subject.getPrincipals().size()), Integer.valueOf(0));
 	}
 
-	@Test
-	public void testNoCallbackHandler() {
+	@Test (expected = LoginException.class)
+	public void testNoCallbackHandler() throws LoginException {
 		Subject subject = new Subject();
 		Map<String, String> options = new HashMap<String, String>();
 		_loginModule.initialize(subject, null, null, options);
-		try {
-			_loginModule.login();
-		} catch (Exception e) {
-			assertTrue(e instanceof LoginException);
-		}
+		_loginModule.login();
 	}
 
-	@Test
-	public void testLoginNoUsername() {
+	@Test (expected = LoginException.class)
+	public void testLoginNoUsername() throws LoginException {
 		Subject subject = new Subject();
 		UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
 				"", "");
 		Map<String, String> options = new HashMap<String, String>();
 		options.put("debug", "true");
 		_loginModule.initialize(subject, callbackHandler, null, options);
-		try {
-			assertFalse(_loginModule.login());
-			fail("Expected LoginException");
-		} catch (LoginException e) {
-			assertTrue(e.getMessage().startsWith("Mock error: "));
-		}
+		assertFalse(_loginModule.login());
+		fail("Expected LoginException");
 	}
 
 	@Test
@@ -194,7 +186,7 @@ public class WindowsLoginModuleTests {
 		assertEquals(4, subject.getPrincipals().size());
 	}
 
-	@Test
+	@Test (expected = LoginException.class)
 	public void testGuestLogin() throws LoginException {
 		Subject subject = new Subject();
 		UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
@@ -211,12 +203,8 @@ public class WindowsLoginModuleTests {
 				new RolePrincipal("Everyone")));
 		assertTrue(subject.getPrincipals().contains(new RolePrincipal("Users")));
 		_loginModule.setAllowGuestLogin(false);
-		try {
-			assertTrue(_loginModule.login());
-			fail("expected LoginException");
-		} catch (Exception e) {
-			assertTrue(e instanceof LoginException);
-		}
+		assertTrue(_loginModule.login());
+		fail("expected LoginException");
 	}
 
 	@Test

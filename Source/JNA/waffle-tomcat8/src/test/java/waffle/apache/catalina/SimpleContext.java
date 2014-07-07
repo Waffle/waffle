@@ -50,7 +50,6 @@ import org.apache.catalina.deploy.NamingResourcesImpl;
 import org.apache.juli.logging.Log;
 import org.apache.tomcat.InstanceManager;
 import org.apache.tomcat.JarScanner;
-import org.apache.tomcat.util.descriptor.web.ApplicationListener;
 import org.apache.tomcat.util.descriptor.web.ApplicationParameter;
 import org.apache.tomcat.util.descriptor.web.ErrorPage;
 import org.apache.tomcat.util.descriptor.web.FilterDef;
@@ -154,11 +153,6 @@ public class SimpleContext implements Context {
 	@Override
 	public Wrapper createWrapper() {
 		return null;
-	}
-
-	@Override
-	public ApplicationListener[] findApplicationListeners() {
-		return new ApplicationListener[0];
 	}
 
 	@Override
@@ -1136,11 +1130,6 @@ public class SimpleContext implements Context {
 	}
 
 	@Override
-	public void addApplicationListener(ApplicationListener listener) {
-
-	}
-
-	@Override
 	public ThreadBindingListener getThreadBindingListener() {
 		return null;
 	}
@@ -1227,6 +1216,16 @@ public class SimpleContext implements Context {
 
 	@Override
 	public Object getNamingToken() {
+		return null;
+	}
+
+	@Override
+	public void addApplicationListener(String listener) {
+
+	}
+
+	@Override
+	public String[] findApplicationListeners() {
 		return null;
 	}
 }
