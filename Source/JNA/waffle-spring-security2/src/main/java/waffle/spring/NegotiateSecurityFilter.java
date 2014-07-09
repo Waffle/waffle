@@ -103,10 +103,12 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
 				WindowsPrincipal principal = new WindowsPrincipal(
 						windowsIdentity, _principalFormat, _roleFormat);
 
-				_log.debug("roles: " + principal.getRolesString());
+				_log.debug("roles: {}", principal.getRolesString());
 
 				Authentication authentication = new WindowsAuthenticationToken(
-						principal);
+						principal, _grantedAuthorityFactory,
+						_defaultGrantedAuthority);
+
 				SecurityContextHolder.getContext().setAuthentication(
 						authentication);
 

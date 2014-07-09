@@ -5,7 +5,7 @@
 	version="2.5">
 
 	<display-name>waffle-spring-security-sample</display-name>
-	
+
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>

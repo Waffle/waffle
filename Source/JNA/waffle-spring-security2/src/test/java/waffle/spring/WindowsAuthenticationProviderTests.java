@@ -21,12 +21,13 @@ import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.security.Authentication;
-import org.springframework.security.AuthenticationServiceException;
 import org.springframework.security.GrantedAuthority;
 import org.springframework.security.providers.UsernamePasswordAuthenticationToken;
 
@@ -40,14 +41,20 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsAuthenticationProviderTests {
-	private WindowsAuthenticationProvider _provider = null;
+	private WindowsAuthenticationProvider _provider;
+	private ApplicationContext ctx;
 
 	@Before
 	public void setUp() {
 		String[] configFiles = new String[] { "springTestAuthBeans.xml" };
-		ApplicationContext ctx = new ClassPathXmlApplicationContext(configFiles);
+		ctx = new ClassPathXmlApplicationContext(configFiles);
 		_provider = (WindowsAuthenticationProvider) ctx
 				.getBean("waffleSpringAuthenticationProvider");
+	}
+
+	@After
+	public void shutDown() {
+		((AbstractApplicationContext) ctx).close(); 
 	}
 
 	@Test

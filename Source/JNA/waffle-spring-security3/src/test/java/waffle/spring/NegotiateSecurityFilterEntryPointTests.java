@@ -22,9 +22,11 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import waffle.mock.http.SimpleHttpRequest;
@@ -35,14 +37,20 @@ import waffle.mock.http.SimpleHttpResponse;
  */
 public class NegotiateSecurityFilterEntryPointTests {
 
-	private NegotiateSecurityFilterEntryPoint _entryPoint = null;
+	private NegotiateSecurityFilterEntryPoint _entryPoint;
+	private ApplicationContext ctx;
 
 	@Before
 	public void setUp() {
 		String[] configFiles = new String[] { "springTestFilterBeans.xml" };
-		ApplicationContext ctx = new ClassPathXmlApplicationContext(configFiles);
+		ctx = new ClassPathXmlApplicationContext(configFiles);
 		_entryPoint = (NegotiateSecurityFilterEntryPoint) ctx
 				.getBean("negotiateSecurityFilterEntryPoint");
+	}
+
+	@After
+	public void shutDown() {
+		((AbstractApplicationContext) ctx).close(); 
 	}
 
 	@Test
@@ -57,8 +65,7 @@ public class NegotiateSecurityFilterEntryPointTests {
 		assertEquals("NTLM", wwwAuthenticates[0]);
 		assertEquals("Negotiate", wwwAuthenticates[1]);
 		assertTrue(wwwAuthenticates[2].equals("Basic realm=\"TestRealm\""));
-		
-		assertEquals(2, response.getHeaderNamesSize()); // ?? .size()
+		assertEquals(2, response.getHeaderNamesSize());
 		assertEquals("keep-alive", response.getHeader("Connection"));
 		assertEquals(401, response.getStatus());
 	}
