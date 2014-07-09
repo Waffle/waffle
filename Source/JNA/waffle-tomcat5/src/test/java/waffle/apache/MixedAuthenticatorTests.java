@@ -21,7 +21,6 @@ import org.apache.catalina.Realm;
 import org.apache.catalina.deploy.LoginConfig;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import waffle.apache.catalina.SimpleContext;

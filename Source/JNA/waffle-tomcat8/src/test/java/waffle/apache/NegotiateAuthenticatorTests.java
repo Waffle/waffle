@@ -23,6 +23,8 @@ import org.apache.catalina.Realm;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import waffle.apache.catalina.SimpleContext;
 import waffle.apache.catalina.SimpleEngine;
@@ -47,6 +49,8 @@ import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
  * @author dblock[at]dblock[dot]org
  */
 public class NegotiateAuthenticatorTests {
+
+	private static final Logger logger = LoggerFactory.getLogger(NegotiateAuthenticatorTests.class);
 
 	private NegotiateAuthenticator _authenticator;
 
@@ -185,6 +189,7 @@ public class NegotiateAuthenticatorTests {
 				try {
 					authenticated = _authenticator.authenticate(request, response);
 				} catch (Exception e) {
+					logger.error("{}", e);
 					return;
 				}
 

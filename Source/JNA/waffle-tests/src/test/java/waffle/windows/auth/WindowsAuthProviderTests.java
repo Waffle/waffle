@@ -19,6 +19,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeTrue;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,16 +48,18 @@ public class WindowsAuthProviderTests {
 
 	private Logger _log = LoggerFactory.getLogger(WindowsAuthProviderTests.class);
 
-	// @Test
-	// public void testLogonGuestUser() {
-	// IWindowsAuthProvider prov = new WindowsAuthProviderImpl();
-	// IWindowsIdentity identity = prov.logonUser("garbage", "garbage");
-	// _log.debug("Fqn: {}", identity.getFqn());
-	// _log.debug("Guest: {}", identity.isGuest());
-	// assertTrue(identity.getFqn().endsWith("\\Guest"));
-	// assertTrue(identity.isGuest());
-	// identity.dispose();
-	// }
+	// TODO This was commented out, uncommented and ignore until I can determine if this is valid
+	@Ignore
+	@Test
+	public void testLogonGuestUser() {
+		IWindowsAuthProvider prov = new WindowsAuthProviderImpl();
+		IWindowsIdentity identity = prov.logonUser("garbage", "garbage");
+		_log.debug("Fqn: {}", identity.getFqn());
+		_log.debug("Guest: {}", Boolean.valueOf(identity.isGuest()));
+		assertTrue(identity.getFqn().endsWith("\\Guest"));
+		assertTrue(identity.isGuest());
+		identity.dispose();
+	}
 
 	@Test
 	public void testLogonUser() {
@@ -172,6 +175,7 @@ public class WindowsAuthProviderTests {
 					serverContext = provider.acceptSecurityToken(connectionId,
 						clientContext.getToken(), securityPackage);
 				} catch (Exception e) {
+					_log.error("{}", e);
 					break;
 				}
 
@@ -281,6 +285,7 @@ public class WindowsAuthProviderTests {
 					serverContext = provider.acceptSecurityToken(connectionId,
 						clientContext.getToken(), securityPackage);
 				} catch (Exception e) {
+					_log.error("{}", e);
 					break;
 				}
 
