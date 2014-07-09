@@ -23,9 +23,11 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.security.Authentication;
 import org.springframework.security.GrantedAuthority;
@@ -46,15 +48,21 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
  */
 public class NegotiateSecurityFilterTests {
 
-	private NegotiateSecurityFilter _filter = null;
+	private NegotiateSecurityFilter _filter;
+	private ApplicationContext ctx;
 
 	@Before
 	public void setUp() {
 		String[] configFiles = new String[] { "springTestFilterBeans.xml" };
-		ApplicationContext ctx = new ClassPathXmlApplicationContext(configFiles);
+		ctx = new ClassPathXmlApplicationContext(configFiles);
 		SecurityContextHolder.getContext().setAuthentication(null);
 		_filter = (NegotiateSecurityFilter) ctx
 				.getBean("waffleNegotiateSecurityFilter");
+	}
+
+	@After
+	public void shutDown() {
+		((AbstractApplicationContext) ctx).close(); 
 	}
 
 	@Test
