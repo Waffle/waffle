@@ -151,7 +151,7 @@ public class NegotiateAuthenticatorTests {
 
 	@Test
 	public void testPOSTEmpty() {
-		String securityPackage = "Negotiate";
+		String securityPackage = "NTLM";
 		IWindowsCredentialsHandle clientCredentials = null;
 		WindowsSecurityContextImpl clientContext = null;
 		try {

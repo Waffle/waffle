@@ -148,7 +148,7 @@ public class WindowsAuthProviderTests {
 
 	@Test
 	public void testAcceptSecurityToken() {
-		String securityPackage = "Negotiate";
+		String securityPackage = "NTLM";
 		String targetName = "localhost";
 		IWindowsCredentialsHandle clientCredentials = null;
 		WindowsSecurityContextImpl clientContext = null;
@@ -259,7 +259,7 @@ public class WindowsAuthProviderTests {
 
 	@Test
 	public void testAcceptAndImpersonateSecurityToken() {
-		String securityPackage = "Negotiate";
+		String securityPackage = "NTLM";
 		String targetName = "localhost";
 		IWindowsCredentialsHandle clientCredentials = null;
 		WindowsSecurityContextImpl clientContext = null;
