@@ -76,7 +76,7 @@
         <module>../waffle-tomcat6</module>
         <module>../waffle-tomcat7</module>
         <module>../waffle-tomcat8</module>
-        <module>../waffle-demo-parent</module>
+        <module>../waffle-demo/waffle-demo-parent</module>
     </modules>
     <scm>
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
