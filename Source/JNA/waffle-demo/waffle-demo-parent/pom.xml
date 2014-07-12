@@ -5,7 +5,7 @@
         <groupId>com.github.dblock.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
         <version>1.7-SNAPSHOT</version>
-        <relativePath>../waffle-parent</relativePath>
+        <relativePath>../../waffle-parent</relativePath>
     </parent>
     <artifactId>waffle-demo-parent</artifactId>
     <packaging>pom</packaging>
