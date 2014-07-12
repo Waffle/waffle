@@ -19,7 +19,7 @@
     <Copyright>Copyright (c) Application Security Inc. &amp; Contributors</Copyright>
     <Trademark>All Rights Reserved</Trademark>
     <MajorVersion>1</MajorVersion>
-    <MinorVersion>6</MinorVersion>
+    <MinorVersion>7</MinorVersion>
   </PropertyGroup>
   <Target Name="all" DependsOnTargets="configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
     <CallTarget Targets="clean" />
@@ -28,7 +28,6 @@
     <CallTarget Targets="test" />
     <CallTarget Targets="drop" />
     <CallTarget Targets="jar" Condition="'%(Configuration.Identity)'=='Release'" />
-    <CallTarget Targets="javademo" Condition="'%(Configuration.Identity)'=='Release'" />
     <CallTarget Targets="zip" />
   </Target>
   <Target Name="clean" DependsOnTargets="configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
@@ -36,7 +35,7 @@
     <DeleteTree Directories="target" Recursive="true" />
     <DeleteTree Directories="Source\**\obj" Recursive="true" />
     <MSBuild Projects="Waffle.sln" Targets="Clean" Properties="Configuration=%(Configuration.Identity)" />
-    <Exec WorkingDirectory="Source\JNA" Command="ant clean" />
+    <Exec WorkingDirectory="Source\JNA\waffle-parent" Command="mvn clean" />
     <Delete Files="Source\Version\GlobalAssemblyInfo.cs" />
     <Delete Files="Waffle.$(Major).$(Minor).zip" />
   </Target>
@@ -53,9 +52,6 @@
     <NUnit Assemblies="@(UnitTestAssemblies)" ToolPath="$(NUnitBinDir)" Force32Bit="true" />
   </Target>
   <Target Name="drop" DependsOnTargets="version;configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
-    <Copy SourceFiles="README.md" DestinationFiles="$(ReleaseDir)\README.md" />    
-    <Copy SourceFiles="CHANGELOG.md" DestinationFiles="$(ReleaseDir)\CHANGELOG.md" />
-    <Copy SourceFiles="LICENSE" DestinationFiles="$(ReleaseDir)\LICENSE" />
     <CreateItem Include="Source\**\%(Configuration.Identity)/Waffle.*.dll" Exclude="Source\**\%(Configuration.Identity)/Waffle.*UnitTests.dll">
       <Output TaskParameter="Include" ItemName="BinaryFiles" />
     </CreateItem>
@@ -68,35 +64,12 @@
     </CreateItem>
     <Copy SourceFiles="@(SampleFiles)" DestinationFolder="$(ReleaseDir)\Samples" />
   </Target>
-  <Target Name="jar">
-    <Exec WorkingDirectory="Source\JNA" Command="ant" />
-    <CreateItem Include="Source\JNA\bin\*.jar">
+  <Target Name="jar" DependsOnTargets="version">
+    <Exec WorkingDirectory="Source\JNA\waffle-parent" Command="mvn install" />
+    <CreateItem Include="Source\JNA\waffle-distro\target\waffle-distro\**\*.*">
       <Output TaskParameter="Include" ItemName="JnaFiles"/>
     </CreateItem>
-    <CreateItem Include="Source\ThirdParty\_lib\jar\net.java.dev.jna\**\*.jar">
-      <Output TaskParameter="Include" ItemName="JnaFiles"/>
-    </CreateItem>
-    <CreateItem Include="Source\ThirdParty\_lib\jar\com.google.guava\**\guava-*.jar">
-      <Output TaskParameter="Include" ItemName="JnaFiles"/>
-    </CreateItem>
-    <CreateItem Include="Source\ThirdParty\_lib\jar\org.slf4j\**\*.jar" Exclude="Source\ThirdParty\jar\org.slf4j\**\*-sources.jar">
-      <Output TaskParameter="Include" ItemName="JnaFiles"/>
-    </CreateItem>
-    <CreateItem Include="Source\ThirdParty\_lib\jar\ch.qos.logback\**\*.jar" Exclude="Source\ThirdParty\_lib\jar\ch.qos.logback\**\*-sources.jar">
-      <Output TaskParameter="Include" ItemName="JnaFiles"/>
-    </CreateItem>
-    <Copy SourceFiles="@(JnaFiles)" DestinationFolder="$(ReleaseDir)\Bin" />
-  </Target>
-  <ItemGroup>
-    <DemoFiles Include="Source\JNA\demo\**\*.jsp" />
-    <DemoFiles Include="Source\JNA\demo\**\*.xml" />
-    <DemoFiles Include="Source\JNA\demo\**\*.html" />
-    <DemoFiles Include="Source\JNA\demo\**\*.properties" />
-    <DemoFiles Include="Source\JNA\demo\**\*.policy" />
-    <DemoFiles Include="Source\JNA\demo\**\*.conf" />
-  </ItemGroup>
-  <Target Name="javademo">
-    <Copy SourceFiles="@(DemoFiles)" DestinationFolder="$(ReleaseDir)\Samples\%(RecursiveDir)" />
+    <Copy SourceFiles="@(JnaFiles)" DestinationFolder="$(ReleaseDir)\%(RecursiveDir)" />
   </Target>
   <Target Name="zip" DependsOnTargets="version">
     <CreateItem Include="target\$(Configuration)\**\*" Exclude="target\$(Configuration)\*.zip">

@@ -65,6 +65,8 @@
         <maven>3.0.5</maven>
     </prerequisites>
     <modules>
+        <module>../waffle-demo/waffle-demo-parent</module>
+        <module>../waffle-distro</module>
         <module>../waffle-jetty</module>
         <module>../waffle-jna</module>
         <module>../waffle-shiro</module>
@@ -76,7 +78,6 @@
         <module>../waffle-tomcat6</module>
         <module>../waffle-tomcat7</module>
         <module>../waffle-tomcat8</module>
-        <module>../waffle-demo/waffle-demo-parent</module>
     </modules>
     <scm>
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
@@ -201,7 +202,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>3.3</version>
+                    <version>3.4</version>
                     <dependencies>
                         <dependency>
                             <groupId>org.apache.maven.skins</groupId>
@@ -355,6 +356,9 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
                     <version>2.4</version>
+                    <configuration>
+                        <descriptor>${project.basedir}/src/assembly/assembly.xml</descriptor>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -369,7 +373,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>2.2.1</version>
+                    <version>2.3</version>
                 </plugin>
                 <!-- External Tools -->
                 <plugin>
