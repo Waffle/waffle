@@ -5,13 +5,21 @@
         <groupId>com.github.dblock.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
         <version>1.7-SNAPSHOT</version>
-        <relativePath>../waffle-parent</relativePath>
+        <relativePath>../../waffle-parent</relativePath>
     </parent>
+    <groupId>com.github.dblock.waffle.demo</groupId>
     <artifactId>waffle-demo-parent</artifactId>
     <packaging>pom</packaging>
     <name>waffle-demo-parent</name>
     <modules>
         <module>../waffle-filter</module>
+        <module>../waffle-form</module>
+        <module>../waffle-jaas</module>
+        <module>../waffle-mixed</module>
+        <module>../waffle-mixed-post</module>
+        <module>../waffle-negotiate</module>
+        <module>../waffle-spring-filter</module>
+        <module>../waffle-spring-form</module>
     </modules>
     <dependencyManagement>
         <dependencies>

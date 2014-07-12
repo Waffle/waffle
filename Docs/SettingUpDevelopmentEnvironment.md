@@ -25,6 +25,10 @@ Download and install the JDK from [here](http://www.oracle.com/technetwork/java/
 
 Download Maven from [here](http://maven.apache.org/download.cgi) and unzip it to a directory of your choosing, eg. `c:\maven`. Add the `bin` directory to `PATH`, eg. `c:\maven\bin`. You should be able to type `mvn` on the command prompt.
 
+### Third Party (Non Maven Central Items)
+
+After maven is installed, go into `Source/ThirdParty` and run `maven-install.bat`.  This will install third party dependencies needed for building that are not available in maven central.  This is done to allow us to avoid using system scope dependencies.
+
 ### Windows SDK or Microsoft Visual Studio 2008
 
 Visual Studio is not required, but useful when editing .NET code. At the least, install the Windows SDK from [here](http://www.microsoft.com/en-us/download/details.aspx?id=8279). You should be able to run `msbuild` from the command prompt.
@@ -35,7 +39,7 @@ Download NUnit from [here](http://nunit.org).
 
 ### MSBuild Community Tasks
 
-Download and install MSBuild Community Tasks from [here](https://code.google.com/p/msbuildtasks/downloads/list).
+Download and install MSBuild Community Tasks from [here](https://github.com/loresoft/msbuildtasks/releases).
 
 ### Wix Toolset 3.7
 
@@ -63,7 +67,7 @@ Using Eclipse
 
 Eclipse is not required, but useful when editing Java code.  
 
-[Optional] To generate the eclipse project and settings, open an command line to the `Source/JNA/` folder and run `mvn eclipse:eclipse`.  Generally this will occur 
+[Optional] To generate the eclipse project and settings, open an command line to the `Source/JNA/waffle-parent` folder and run `mvn eclipse:eclipse`.  Generally this will occur 
 automatically by importing maven project into eclipse.
 
 ```
@@ -142,7 +146,7 @@ E:\waffle\Source\JNA\waffle-jna\build.xml:5: The following error occurred while 
 E:\waffle\Source\JNA\build\build.xml:6: Missing product.version
 ```
 
-A product version is generated via MSBuild and is applied to the rest of the project. The Java components built with `ant` therefore require that you run `build all` first.
+A product version is generated via MSBuild and is applied to the rest of the project. The Java components built with `maven` therefore require that you run `clean install` first.
 
 ### Unit Tests Failed
 
@@ -154,8 +158,8 @@ E:\Source\JNA\build\build.xml:232: The following error occurred while executing 
 E:\Source\JNA\build\build.xml:127: Unit Tests failed
 ```
 
-The java components will only generate output if all tests pass. They do when running on Windows 7 as Administrator. If you have a different system, you may skip tests with `ant -DskipTests=true`. Output JARs will be placed in `Source\JNA\bin`.
+The java components will only generate output if all tests pass. They do when running on Windows 7 as Administrator. If you have a different system, you may skip tests with `mvn -DskipTests=true`. Output JARs will be placed in `Source\JNA\waffle-distro\target\waffle-1.7-SNAPSHOT`.
 
 ### Missing Dependencies in Eclipse 
 
-Many thirdparty dependencies in Waffle are downloaded using Maven when you use `mvn clean install` or under manually located at `Source\ThirdParty\`. Eclipse will automatically refresh these dependencies.
+Many thirdparty dependencies in Waffle are downloaded using Maven when you use `mvn clean install` or under manually located at `Source\ThirdParty\`.  For third party, see `Third Party (Non Maven Central Items)`.

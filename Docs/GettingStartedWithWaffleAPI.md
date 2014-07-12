@@ -37,7 +37,7 @@ Add `waffle-jna.jar`, `jna-4.1.0.jar`, `jna-platform-4.1.0.jar`, `guava-16.0.1.j
 
 ``` xml
 <properties>
-    <waffle.version>1.6</waffle.version>
+    <waffle.version>1.7</waffle.version>
 </properties>
 
 <dependency>

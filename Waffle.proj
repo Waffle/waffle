@@ -36,7 +36,7 @@
     <DeleteTree Directories="target" Recursive="true" />
     <DeleteTree Directories="Source\**\obj" Recursive="true" />
     <MSBuild Projects="Waffle.sln" Targets="Clean" Properties="Configuration=%(Configuration.Identity)" />
-    <Exec WorkingDirectory="Source\JNA" Command="ant clean" />
+    <Exec WorkingDirectory="Source\JNA\waffle-parent" Command="mvn clean" />
     <Delete Files="Source\Version\GlobalAssemblyInfo.cs" />
     <Delete Files="Waffle.$(Major).$(Minor).zip" />
   </Target>
@@ -69,7 +69,7 @@
     <Copy SourceFiles="@(SampleFiles)" DestinationFolder="$(ReleaseDir)\Samples" />
   </Target>
   <Target Name="jar">
-    <Exec WorkingDirectory="Source\JNA" Command="ant" />
+    <Exec WorkingDirectory="Source\JNA\waffle-parent" Command="mvn" />
     <CreateItem Include="Source\JNA\bin\*.jar">
       <Output TaskParameter="Include" ItemName="JnaFiles"/>
     </CreateItem>
@@ -88,12 +88,12 @@
     <Copy SourceFiles="@(JnaFiles)" DestinationFolder="$(ReleaseDir)\Bin" />
   </Target>
   <ItemGroup>
-    <DemoFiles Include="Source\JNA\demo\**\*.jsp" />
-    <DemoFiles Include="Source\JNA\demo\**\*.xml" />
-    <DemoFiles Include="Source\JNA\demo\**\*.html" />
-    <DemoFiles Include="Source\JNA\demo\**\*.properties" />
-    <DemoFiles Include="Source\JNA\demo\**\*.policy" />
-    <DemoFiles Include="Source\JNA\demo\**\*.conf" />
+    <DemoFiles Include="Source\JNA\waffle-demo\**\*.jsp" />
+    <DemoFiles Include="Source\JNA\waffle-demo\**\*.xml" />
+    <DemoFiles Include="Source\JNA\waffle-demo\**\*.html" />
+    <DemoFiles Include="Source\JNA\waffle-demo\**\*.properties" />
+    <DemoFiles Include="Source\JNA\waffle-demo\**\*.policy" />
+    <DemoFiles Include="Source\JNA\waffle-demo\**\*.conf" />
   </ItemGroup>
   <Target Name="javademo">
     <Copy SourceFiles="@(DemoFiles)" DestinationFolder="$(ReleaseDir)\Samples\%(RecursiveDir)" />
