@@ -25,6 +25,10 @@ Download and install the JDK from [here](http://www.oracle.com/technetwork/java/
 
 Download Maven from [here](http://maven.apache.org/download.cgi) and unzip it to a directory of your choosing, eg. `c:\maven`. Add the `bin` directory to `PATH`, eg. `c:\maven\bin`. You should be able to type `mvn` on the command prompt.
 
+### Third Party (Non Maven Central Items)
+
+After maven is installed, go into `Source/ThirdParty` and run `maven-install.bat`.  This will install third party dependencies needed for building that are not available in maven central.  This is done to allow us to avoid using system scope dependencies.
+
 ### Windows SDK or Microsoft Visual Studio 2008
 
 Visual Studio is not required, but useful when editing .NET code. At the least, install the Windows SDK from [here](http://www.microsoft.com/en-us/download/details.aspx?id=8279). You should be able to run `msbuild` from the command prompt.
@@ -154,8 +158,8 @@ E:\Source\JNA\build\build.xml:232: The following error occurred while executing 
 E:\Source\JNA\build\build.xml:127: Unit Tests failed
 ```
 
-The java components will only generate output if all tests pass. They do when running on Windows 7 as Administrator. If you have a different system, you may skip tests with `ant -DskipTests=true`. Output JARs will be placed in `Source\JNA\bin`.
+The java components will only generate output if all tests pass. They do when running on Windows 7 as Administrator. If you have a different system, you may skip tests with `mvn -DskipTests=true`. Output JARs will be placed in `Source\JNA\waffle-distro\target\waffle-1.7-SNAPSHOT`.
 
 ### Missing Dependencies in Eclipse 
 
-Many thirdparty dependencies in Waffle are downloaded using Maven when you use `mvn clean install` or under manually located at `Source\ThirdParty\`. Eclipse will automatically refresh these dependencies.
+Many thirdparty dependencies in Waffle are downloaded using Maven when you use `mvn clean install` or under manually located at `Source\ThirdParty\`.  For third party, see `Third Party (Non Maven Central Items)`.
