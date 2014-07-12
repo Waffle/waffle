@@ -1,10 +1,24 @@
-1.7 (TBA)
+1.7 (8/xx/2014 - Coming Soon)
 ================
 
-Features
+Notable Feature Changes
 --------
-* [#97](https://github.com/dblock/waffle/pull/96): Added protocols parameter on Tomcat valves - [@hasalex](https://github.com/hasalex).
-  * Attribut protocols on the valve in order to limit the authentication to one or some protocols
+* Full Mavenized Build
+* Support for Tomcat 8
+* Support for Spring 4 & Spring-security 4
+* Enhanced logging
+* Tomcat Protocol parameter for valves to allow default Negotiate / NTLM or selective setup
+* Restructured project for full maven support and clearer intent
+
+Changes
+--------
+* [#108](https://github.com/dblock/waffle/pull/108): Spring 4 - [@hazendaz](https://github.com/hazendaz).
+  * Spring 4 / Spring Security 4 support
+  * Early release [no changes over spring 3]
+* [#101](https://github.com/dblock/waffle/pull/101): Enhance Logging - [@hazendaz](https://github.com/hazendaz).
+  * Use full feature {} of logging and stop concatenating strings.
+* [#97](https://github.com/dblock/waffle/pull/97): Added protocols parameter on Tomcat valves - [@hasalex](https://github.com/hasalex).
+  * Attribute protocols on the valve in order to limit the authentication to one or some protocols
 * [#93](https://github.com/dblock/waffle/pull/93): Updated Documentation - [@hazendaz](https://github.com/hazendaz).
   * First cut at updating documentation to reflect maven.
 * [#92](https://github.com/dblock/waffle/pull/92): Pom Corrections - [@hazendaz](https://github.com/hazendaz).

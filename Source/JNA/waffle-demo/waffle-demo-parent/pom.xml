@@ -12,6 +12,13 @@
     <name>waffle-demo-parent</name>
     <modules>
         <module>../waffle-filter</module>
+        <module>../waffle-form</module>
+        <module>../waffle-jaas</module>
+        <module>../waffle-mixed</module>
+        <module>../waffle-mixed-post</module>
+        <module>../waffle-negotiate</module>
+        <module>../waffle-spring-filter</module>
+        <module>../waffle-spring-form</module>
     </modules>
     <dependencyManagement>
         <dependencies>

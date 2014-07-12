@@ -35,7 +35,7 @@ Download NUnit from [here](http://nunit.org).
 
 ### MSBuild Community Tasks
 
-Download and install MSBuild Community Tasks from [here](https://code.google.com/p/msbuildtasks/downloads/list).
+Download and install MSBuild Community Tasks from [here](https://github.com/loresoft/msbuildtasks/releases).
 
 ### Wix Toolset 3.7
 
@@ -63,7 +63,7 @@ Using Eclipse
 
 Eclipse is not required, but useful when editing Java code.  
 
-[Optional] To generate the eclipse project and settings, open an command line to the `Source/JNA/` folder and run `mvn eclipse:eclipse`.  Generally this will occur 
+[Optional] To generate the eclipse project and settings, open an command line to the `Source/JNA/waffle-parent` folder and run `mvn eclipse:eclipse`.  Generally this will occur 
 automatically by importing maven project into eclipse.
 
 ```
@@ -142,7 +142,7 @@ E:\waffle\Source\JNA\waffle-jna\build.xml:5: The following error occurred while 
 E:\waffle\Source\JNA\build\build.xml:6: Missing product.version
 ```
 
-A product version is generated via MSBuild and is applied to the rest of the project. The Java components built with `ant` therefore require that you run `build all` first.
+A product version is generated via MSBuild and is applied to the rest of the project. The Java components built with `maven` therefore require that you run `clean install` first.
 
 ### Unit Tests Failed
 

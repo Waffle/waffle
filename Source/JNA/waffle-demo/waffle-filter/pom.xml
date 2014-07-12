@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.github.dblock.waffle</groupId>
@@ -7,13 +8,16 @@
         <version>1.7-SNAPSHOT</version>
         <relativePath>../waffle-demo-parent</relativePath>
     </parent>
-    <artifactId>waffle-filter-demo</artifactId>
+    <groupId>com.github.dblock.waffle.demo</groupId>
+    <artifactId>waffle-filter</artifactId>
     <packaging>war</packaging>
-    <name>waffle-filter-demo</name>
+    <name>waffle-filter</name>
+    <description>Filter Demo for WAFFLE</description>
     <dependencies>
         <dependency>
             <groupId>com.github.dblock.waffle</groupId>
             <artifactId>waffle-tomcat6</artifactId>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.github.dblock.waffle</groupId>
+        <artifactId>waffle-demo-parent</artifactId>
+        <version>1.7-SNAPSHOT</version>
+        <relativePath>../waffle-demo-parent</relativePath>
+    </parent>
+    <groupId>com.github.dblock.waffle.demo</groupId>
+    <artifactId>waffle-mixed</artifactId>
+    <packaging>war</packaging>
+    <name>waffle-mixed</name>
+    <description>Mixed Demo for WAFFLE</description>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <configuration>
+                    <dotGitDirectory>../../../../.git</dotGitDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
