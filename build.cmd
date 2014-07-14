@@ -24,7 +24,7 @@ if EXIST "%NUnitDir%\bin\net-2.0" set NUnitBinDir=%NUnitDir%\bin\net-2.0
 if NOT EXIST "%NUnitBinDir%" echo Missing NUnit, expected in %NUnitDir%
 if NOT EXIST "%NUnitBinDir%" exit /b -1
 
-set FrameworkVersion=v3.5
+set FrameworkVersion=v4.0.30319
 set FrameworkDir=%SystemRoot%\Microsoft.NET\Framework
 
 PATH=%FrameworkDir%\%FrameworkVersion%;%NUnitDir%;%JAVA_HOME%\bin;%PATH%
