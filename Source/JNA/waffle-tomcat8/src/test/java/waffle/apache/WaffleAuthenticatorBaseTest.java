@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 
 public class WaffleAuthenticatorBaseTest {
 
-	WaffleAuthenticatorBase waffleAuthenticatorBase;
+	private WaffleAuthenticatorBase waffleAuthenticatorBase;
 
 	@Before
 	public void init() {
@@ -56,6 +56,5 @@ public class WaffleAuthenticatorBaseTest {
 	@Test(expected = RuntimeException.class)
 	public void should_refuse_other_protocol() throws Exception {
 		waffleAuthenticatorBase.setProtocols("  NTLM , OTHER, Negotiate   ");
-
 	}
 }

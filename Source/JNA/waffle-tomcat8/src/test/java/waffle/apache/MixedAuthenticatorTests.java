@@ -49,7 +49,7 @@ import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
  */
 public class MixedAuthenticatorTests {
 
-	MixedAuthenticator _authenticator;
+	private MixedAuthenticator _authenticator;
 
 	@Before
 	public void setUp() throws LifecycleException {

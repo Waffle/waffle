@@ -48,7 +48,7 @@ import org.apache.tomcat.util.http.mapper.Mapper;
  */
 public class SimpleContext implements Context {
 
-	private Realm _realm = null;
+	private Realm _realm;
 	private ServletContext _servletContext = new SimpleServletContext();
 
 	@Override
@@ -888,7 +888,6 @@ public class SimpleContext implements Context {
 	public boolean getXmlBlockExternal() {
 		return false;
 	}
-
 
 	public void setXmlBlockExternal(boolean arg0) {
 

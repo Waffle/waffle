@@ -43,8 +43,8 @@ import waffle.windows.auth.PrincipalFormat;
  */
 public class NegotiateSecurityFilter extends GenericFilterBean {
 
-	private Logger _log = LoggerFactory.getLogger(NegotiateSecurityFilter.class);
-	private SecurityFilterProviderCollection _provider = null;
+	private static final Logger _log = LoggerFactory.getLogger(NegotiateSecurityFilter.class);
+	private SecurityFilterProviderCollection _provider;
 	private PrincipalFormat _principalFormat = PrincipalFormat.fqn;
 	private PrincipalFormat _roleFormat = PrincipalFormat.fqn;
 	private boolean _allowGuestLogin = true;

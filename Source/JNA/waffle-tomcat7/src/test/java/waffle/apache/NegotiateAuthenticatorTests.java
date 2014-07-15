@@ -252,8 +252,7 @@ public class NegotiateAuthenticatorTests {
 						+ clientToken);
 
 				SimpleHttpResponse response = new SimpleHttpResponse();
-				authenticated = _authenticator.authenticate(request, response,
-						null);
+				authenticated = _authenticator.authenticate(request, response, null);
 
 				if (authenticated) {
 					assertNotNull(request.getUserPrincipal());

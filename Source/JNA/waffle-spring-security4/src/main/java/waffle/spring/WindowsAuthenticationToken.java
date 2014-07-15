@@ -46,8 +46,8 @@ public class WindowsAuthenticationToken implements Authentication {
 			"ROLE_USER");
 
 	private static final long serialVersionUID = 1L;
-	private WindowsPrincipal _principal = null;
-	private Collection<GrantedAuthority> _authorities = null;
+	private WindowsPrincipal _principal;
+	private Collection<GrantedAuthority> _authorities;
 
 	/**
 	 * Convenience constructor that calls

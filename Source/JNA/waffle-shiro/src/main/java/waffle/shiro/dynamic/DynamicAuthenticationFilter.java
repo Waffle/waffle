@@ -91,7 +91,6 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
 
     private static final Logger log = LoggerFactory.getLogger(DynamicAuthenticationFilter.class);
 
-
     public static final String PARAM_NAME_AUTHTYPE = "authType";
     public static final String PARAM_VAL_AUTHTYPE_NEGOTIATE = "j_negotiate";
 
@@ -109,7 +108,6 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
         @Override
         public boolean onAccessDenied(final ServletRequest request,
                                       final ServletResponse response) throws Exception {
-
             return super.onAccessDenied(request, response);
         }
 

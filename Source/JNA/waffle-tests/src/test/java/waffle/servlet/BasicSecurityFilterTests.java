@@ -40,8 +40,8 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
  */
 public class BasicSecurityFilterTests {
 
-	NegotiateSecurityFilter _filter = null;
-	MockWindowsAuthProvider _provider = null;
+	private NegotiateSecurityFilter _filter;
+	private MockWindowsAuthProvider _provider;
 
 	@Before
 	public void setUp() {

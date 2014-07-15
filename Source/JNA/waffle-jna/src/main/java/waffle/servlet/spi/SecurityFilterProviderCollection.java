@@ -36,8 +36,7 @@ import waffle.windows.auth.IWindowsIdentity;
  */
 public class SecurityFilterProviderCollection {
 
-	private Logger _log = LoggerFactory
-			.getLogger(SecurityFilterProviderCollection.class);
+	private static final Logger _log = LoggerFactory.getLogger(SecurityFilterProviderCollection.class);
 	private List<SecurityFilterProvider> _providers = new ArrayList<SecurityFilterProvider>();
 
 	public SecurityFilterProviderCollection(SecurityFilterProvider[] providers) {

@@ -127,7 +127,7 @@ namespace Waffle.Windows.AuthProvider.UnitTests
             IWindowsAccount account = windowsAuthProviderImpl.LookupAccount(username);
             Console.WriteLine(account.SidString);
             Console.WriteLine(account.Fqn);
-            Assert.AreEqual(username, account.Fqn);
+            Assert.AreEqual(username.ToLower(), account.Fqn.ToLower());
         }
 
         [Test]

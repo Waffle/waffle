@@ -28,7 +28,7 @@ import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
  */
 public class MockWindowsSecurityContext implements IWindowsSecurityContext {
 
-	private IWindowsIdentity _identity = null;
+	private IWindowsIdentity _identity;
 
 	public MockWindowsSecurityContext(String username) {
 		List<String> groups = new ArrayList<String>();

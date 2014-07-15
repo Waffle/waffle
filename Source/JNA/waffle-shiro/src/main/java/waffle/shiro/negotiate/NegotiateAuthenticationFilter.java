@@ -57,7 +57,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
     // related to setSPN and running tomcat server as NT Service account vs. as normal user account.
     // http://waffle.codeplex.com/discussions/254748
     // setspn -A HTTP/<server-fqdn> <user_tomcat_running_under>
-    private final List<String> protocols = new ArrayList<String>();
+    private static final List<String> protocols = new ArrayList<String>();
     {
         protocols.add("Negotiate");
         protocols.add("NTLM");

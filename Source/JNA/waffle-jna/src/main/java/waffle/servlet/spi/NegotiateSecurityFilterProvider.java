@@ -39,10 +39,9 @@ import waffle.windows.auth.IWindowsSecurityContext;
  */
 public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
-	private Logger _log = LoggerFactory
-			.getLogger(NegotiateSecurityFilterProvider.class);
+	private static final Logger _log = LoggerFactory.getLogger(NegotiateSecurityFilterProvider.class);
 	private List<String> _protocols = new ArrayList<String>();
-	private IWindowsAuthProvider _auth = null;
+	private IWindowsAuthProvider _auth;
 
 	public NegotiateSecurityFilterProvider(IWindowsAuthProvider auth) {
 		_auth = auth;
@@ -110,7 +109,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 					+ continueToken);
 		}
 
-		_log.debug("continue required: " + securityContext.isContinue());
+		_log.debug("continue required: {}", Boolean.valueOf(securityContext.isContinue()));
 		if (securityContext.isContinue() || ntlmPost) {
 			response.setHeader("Connection", "keep-alive");
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -146,7 +145,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 							|| protocolName.equals("NTLM")) {
 						_protocols.add(protocolName);
 					} else {
-						_log.error("unsupported protocol: " + protocolName);
+						_log.error("unsupported protocol: {}", protocolName);
 						throw new RuntimeException("Unsupported protocol: "
 								+ protocolName);
 					}

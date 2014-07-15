@@ -48,7 +48,7 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  */
 public class WindowsLoginModule implements LoginModule {
 
-	private Logger _log = LoggerFactory.getLogger(WindowsLoginModule.class);
+	private static final Logger _log = LoggerFactory.getLogger(WindowsLoginModule.class);
 
 	private String _username = null;
 	private boolean _debug = false;
@@ -113,9 +113,8 @@ public class WindowsLoginModule implements LoginModule {
 		} catch (UnsupportedCallbackException e) {
 			_log.trace("{}", e);
 			throw new LoginException(
-					"Callback "
-							+ e.getCallback().getClass().getName()
-							+ " not available to gather authentication information from the user.");
+					"Callback {} not available to gather authentication information from the user.".replace("{}", 
+							e.getCallback().getClass().getName()));
 		}
 
 		IWindowsIdentity windowsIdentity = null;

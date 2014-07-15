@@ -44,7 +44,7 @@ import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
  */
 public class MixedAuthenticatorTests {
 
-	MixedAuthenticator _authenticator = null;
+	private MixedAuthenticator _authenticator;
 
 	@Before
 	public void setUp() {

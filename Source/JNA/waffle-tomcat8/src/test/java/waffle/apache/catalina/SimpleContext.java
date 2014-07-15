@@ -64,11 +64,11 @@ public class SimpleContext implements Context {
 
 	private String _path = "/";
 	private String _name = "SimpleContext";
-	private Realm _realm = null;
-	private Container _parent = null;
+	private Realm _realm;
+	private Container _parent;
 	private ServletContext _servletContext = new SimpleServletContext();
-	private Pipeline _pipeline = null;
-	private Authenticator _authenticator = null;
+	private Pipeline _pipeline;
+	private Authenticator _authenticator;
 
 	@Override
 	public void addApplicationParameter(ApplicationParameter arg0) {

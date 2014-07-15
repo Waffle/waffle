@@ -29,11 +29,9 @@ import waffle.apache.catalina.SimpleContext;
 import waffle.apache.catalina.SimpleHttpRequest;
 import waffle.apache.catalina.SimpleHttpResponse;
 import waffle.apache.catalina.SimpleRealm;
-import waffle.mock.MockWindowsAccount;
 import waffle.util.Base64;
 import waffle.windows.auth.IWindowsCredentialsHandle;
 import waffle.windows.auth.PrincipalFormat;
-import waffle.windows.auth.WindowsAccount;
 import waffle.windows.auth.impl.WindowsAccountImpl;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 import waffle.windows.auth.impl.WindowsCredentialsHandleImpl;
@@ -51,7 +49,7 @@ public class NegotiateAuthenticatorTests {
 
 	private static final Logger logger = LoggerFactory.getLogger(NegotiateAuthenticatorTests.class);
 
-	NegotiateAuthenticator _authenticator = null;
+	private NegotiateAuthenticator _authenticator;
 
 	@Before
 	public void setUp() {
@@ -256,10 +254,8 @@ public class NegotiateAuthenticatorTests {
 							.getUserPrincipal();
 					assertTrue(windowsPrincipal.getSidString().startsWith("S-"));
 					assertTrue(windowsPrincipal.getSid().length > 0);
-					WindowsAccount everyone = new WindowsAccount(
-							new MockWindowsAccount("Everyone", "S-1-1-0"));
-					assertTrue(windowsPrincipal.getGroups().containsValue(
-							everyone));
+					assertTrue(windowsPrincipal.getGroups().containsKey(
+							"Everyone"));
 					assertTrue(response.getHeaderNames().length <= 1);
 					break;
 				}

@@ -29,6 +29,7 @@ import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.PrincipalFormat;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
+
 import static java.util.Arrays.asList;
 
 /**

@@ -8,7 +8,6 @@
         <version>1.7-SNAPSHOT</version>
         <relativePath>../waffle-demo-parent</relativePath>
     </parent>
-    <groupId>com.github.dblock.waffle.demo</groupId>
     <artifactId>waffle-spring-form</artifactId>
     <packaging>war</packaging>
     <name>waffle-spring-form</name>
@@ -21,15 +20,4 @@
             <scope>compile</scope>
         </dependency>
     </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>pl.project13.maven</groupId>
-                <artifactId>git-commit-id-plugin</artifactId>
-                <configuration>
-                    <dotGitDirectory>../../../../.git</dotGitDirectory>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>

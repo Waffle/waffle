@@ -31,9 +31,9 @@ import com.sun.jna.platform.win32.Netapi32;
 
 public class ImpersonateTests {
 
-	private NegotiateSecurityFilter _filter = null;
+	private NegotiateSecurityFilter _filter;
 	private LMAccess.USER_INFO_1 _userInfo;
-    private int resultOfNetAddUser;
+	private int resultOfNetAddUser;
 
 	@Before
 	public void setUp() {
@@ -50,22 +50,22 @@ public class ImpersonateTests {
 		_userInfo.usri1_password = new WString(MockWindowsAccount.TEST_PASSWORD);
 		_userInfo.usri1_priv = LMAccess.USER_PRIV_USER;
 
-        resultOfNetAddUser = Netapi32.INSTANCE.NetUserAdd(null, 1, _userInfo, null);
-        // ignore test if not able to add user (need to be administrator to do this).
-        assumeTrue(LMErr.NERR_Success == resultOfNetAddUser);
+		resultOfNetAddUser = Netapi32.INSTANCE.NetUserAdd(null, 1, _userInfo, null);
+		// ignore test if not able to add user (need to be administrator to do this).
+		assumeTrue(LMErr.NERR_Success == resultOfNetAddUser);
 	}
 
 	@After
 	public void tearDown() {
 		_filter.destroy();
 
-        if (LMErr.NERR_Success ==
-                resultOfNetAddUser) {
-            assertEquals(
-                    LMErr.NERR_Success,
-                    Netapi32.INSTANCE.NetUserDel(null,
-                            _userInfo.usri1_name.toString()));
-        }
+		if (LMErr.NERR_Success ==
+				resultOfNetAddUser) {
+			assertEquals(
+					LMErr.NERR_Success,
+					Netapi32.INSTANCE.NetUserDel(null,
+							_userInfo.usri1_name.toString()));
+		}
 	}
 
 	@Test

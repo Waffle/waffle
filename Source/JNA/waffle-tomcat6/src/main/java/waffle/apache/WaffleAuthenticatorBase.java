@@ -33,6 +33,7 @@ import static java.util.Arrays.asList;
  * @author dblock[at]dblock[dot]org
  */
 abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
+
 	private static final Set<String> SUPPORTED_PROTOCOLS = new LinkedHashSet<String>(asList("Negotiate", "NTLM"));
 
 	protected String _info;
@@ -169,7 +170,6 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-
 	}
 
 	/**

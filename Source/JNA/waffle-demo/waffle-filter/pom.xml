@@ -8,7 +8,6 @@
         <version>1.7-SNAPSHOT</version>
         <relativePath>../waffle-demo-parent</relativePath>
     </parent>
-    <groupId>com.github.dblock.waffle.demo</groupId>
     <artifactId>waffle-filter</artifactId>
     <packaging>war</packaging>
     <name>waffle-filter</name>
@@ -29,13 +28,6 @@
     <build>
         <finalName>${project.name}</finalName>
         <plugins>
-            <plugin>
-                <groupId>pl.project13.maven</groupId>
-                <artifactId>git-commit-id-plugin</artifactId>
-                <configuration>
-                    <dotGitDirectory>../../../../.git</dotGitDirectory>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat6-maven-plugin</artifactId>

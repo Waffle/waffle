@@ -26,24 +26,32 @@ import org.apache.catalina.connector.Request;
  */
 public class SimpleHttpRequest extends Request {
 
-	private static int _remotePort_s = 0;
+	private static int _remotePort_s;
 
-	private String _requestURI = null;
-	private String _queryString = null;
-	private String _remoteUser = null;
+	private String _requestURI;
+	private String _queryString;
+	private String _remoteUser;
 	private String _method = "GET";
-	private String _remoteHost = null;
-	private String _remoteAddr = null;
+	private String _remoteHost;
+	private String _remoteAddr;
 	private int _remotePort = -1;
 	private Map<String, String> _headers = new HashMap<String, String>();
 	private Map<String, String> _parameters = new HashMap<String, String>();
-	private byte[] _content = null;
+	private byte[] _content;
 	private HttpSession _session = new SimpleHttpSession();
-	private Principal _principal = null;
+	private Principal _principal;
 
 	public SimpleHttpRequest() {
 		super();
-		_remotePort = ++_remotePort_s;
+		_remotePort = nextRemotePort();
+	}
+
+	public synchronized static int nextRemotePort() {
+		return ++_remotePort_s;
+	}
+
+	public synchronized static void resetRemotePort() {
+		_remotePort_s = 0;
 	}
 
 	@Override

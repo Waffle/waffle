@@ -8,20 +8,8 @@
         <version>1.7-SNAPSHOT</version>
         <relativePath>../waffle-demo-parent</relativePath>
     </parent>
-    <groupId>com.github.dblock.waffle.demo</groupId>
     <artifactId>waffle-form</artifactId>
     <packaging>war</packaging>
     <name>waffle-form</name>
     <description>Form Demo for WAFFLE</description>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>pl.project13.maven</groupId>
-                <artifactId>git-commit-id-plugin</artifactId>
-                <configuration>
-                    <dotGitDirectory>../../../../.git</dotGitDirectory>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>

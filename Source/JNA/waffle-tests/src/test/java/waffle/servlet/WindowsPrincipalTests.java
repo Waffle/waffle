@@ -35,7 +35,7 @@ import waffle.mock.MockWindowsSecurityContext;
  */
 public class WindowsPrincipalTests {
 
-	private WindowsPrincipal _windowsPrincipal = null;
+	private WindowsPrincipal _windowsPrincipal;
 
 	@Before
 	public void setUp() {
