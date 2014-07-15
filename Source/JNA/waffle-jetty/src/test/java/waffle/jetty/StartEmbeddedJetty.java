@@ -37,7 +37,7 @@ public class StartEmbeddedJetty {
 
 		File dir = new File( path );
 		if(!dir.exists()) {
-			throw new FileNotFoundException("Can not find webapp: "+ dir.getAbsolutePath());
+			throw new FileNotFoundException("Can not find webapp: " + dir.getAbsolutePath());
 		}
 
 		Server server = new Server(8080);

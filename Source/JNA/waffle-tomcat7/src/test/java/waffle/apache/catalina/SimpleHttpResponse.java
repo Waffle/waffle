@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
  */
 public class SimpleHttpResponse extends Response {
 
-	private Logger logger = LoggerFactory.getLogger(SimpleHttpResponse.class);
+	private static final Logger logger = LoggerFactory.getLogger(SimpleHttpResponse.class);
 
 	private int _status = 500;
 	private Map<String, List<String>> _headers = new HashMap<String, List<String>>();
@@ -74,7 +74,7 @@ public class SimpleHttpResponse extends Response {
 
 	@Override
 	public void flushBuffer() {
-		this.logger.info("{} {}", Integer.valueOf(_status),  getStatusString());
+		this.logger.info("{} {}", Integer.valueOf(_status), getStatusString());
 		for (String header : _headers.keySet()) {
 			for (String headerValue : _headers.get(header)) {
 				this.logger.info("{}: {}", header, headerValue);

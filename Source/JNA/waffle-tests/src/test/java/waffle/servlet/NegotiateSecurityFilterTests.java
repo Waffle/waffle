@@ -54,7 +54,7 @@ import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
  */
 public class NegotiateSecurityFilterTests {
 
-	NegotiateSecurityFilter _filter = null;
+	private NegotiateSecurityFilter _filter;
 
 	@Before
 	public void setUp() {

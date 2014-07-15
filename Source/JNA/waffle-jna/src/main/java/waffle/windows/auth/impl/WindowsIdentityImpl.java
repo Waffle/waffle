@@ -33,9 +33,9 @@ import com.sun.jna.platform.win32.WinNT.WELL_KNOWN_SID_TYPE;
  */
 public class WindowsIdentityImpl implements IWindowsIdentity {
 
-	private HANDLE _windowsIdentity = null;
-	private Account[] _userGroups = null;
-	private Account _windowsAccount = null;
+	private HANDLE _windowsIdentity;
+	private Account[] _userGroups;
+	private Account _windowsAccount;
 
 	private Account getWindowsAccount() {
 		if (_windowsAccount == null) {

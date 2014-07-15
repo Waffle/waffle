@@ -30,11 +30,11 @@ import com.sun.jna.platform.win32.WinError;
  */
 public class WindowsCredentialsHandleImpl implements IWindowsCredentialsHandle {
 
-	private String _principalName = null;
-	private int _credentialsType = 0;
-	private String _securityPackage = null;
-	private CredHandle _handle = null;
-	private TimeStamp _clientLifetime = null;
+	private String _principalName;
+	private int _credentialsType;
+	private String _securityPackage;
+	private CredHandle _handle;
+	private TimeStamp _clientLifetime;
 
 	/**
 	 * Returns the current credentials handle.

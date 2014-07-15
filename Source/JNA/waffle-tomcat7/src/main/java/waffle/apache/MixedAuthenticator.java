@@ -98,7 +98,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 			sendUnauthorized(response);
 			return false;
 		} else if (securityCheck) {
-			boolean postResult = post(request, response, loginConfig);
+			boolean postResult = post(request, response);
 			if (postResult) {
 				redirectTo(request, response, request.getServletPath());
 			} else {
@@ -197,8 +197,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 		return true;
 	}
 
-	private boolean post(Request request, HttpServletResponse response,
-			LoginConfig loginConfig) {
+	private boolean post(Request request, HttpServletResponse response) {
 
 		String username = request.getParameter("j_username");
 		String password = request.getParameter("j_password");

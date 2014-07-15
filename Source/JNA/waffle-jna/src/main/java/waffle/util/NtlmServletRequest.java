@@ -15,6 +15,8 @@ package waffle.util;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.google.common.base.Strings;
+
 /**
  * @author dblock[at]dblock[dot]org
  */
@@ -32,11 +34,11 @@ public final class NtlmServletRequest {
 		if (remoteHost == null) {
 			remoteHost = request.getRemoteAddr();
 		}
-		if (remoteHost == null) {
-			remoteHost = "";
-		}
-		String remotePort = Integer.toString(request.getRemotePort());
-		return remoteHost + ":" + remotePort;
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append(Strings.nullToEmpty(remoteHost));
+		stringBuilder.append(":");
+		stringBuilder.append(request.getRemotePort());
+		return stringBuilder.toString();
 	}
 
 	private NtlmServletRequest() {

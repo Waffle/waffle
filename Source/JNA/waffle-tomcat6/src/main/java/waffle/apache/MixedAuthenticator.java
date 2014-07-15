@@ -58,7 +58,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 	}
 
 	@Override
-	protected boolean authenticate(Request request, Response response,
+	public boolean authenticate(Request request, Response response,
 			LoginConfig loginConfig) {
 
 		// realm: fail if no realm is configured
@@ -72,9 +72,9 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 				Integer.valueOf(request.getContentLength()));
 
 		boolean negotiateCheck = request.getParameter("j_negotiate_check") != null;
-		_log.debug("negotiateCheck: " + negotiateCheck);
+		_log.debug("negotiateCheck: {}", Boolean.valueOf(negotiateCheck));
 		boolean securityCheck = request.getParameter("j_security_check") != null;
-		_log.debug("securityCheck: " + securityCheck);
+		_log.debug("securityCheck: {}", Boolean.valueOf(securityCheck));
 
 		Principal principal = request.getUserPrincipal();
 
@@ -96,7 +96,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 			sendUnauthorized(response);
 			return false;
 		} else if (securityCheck) {
-			boolean postResult = post(request, response, loginConfig);
+			boolean postResult = post(request, response);
 			if (postResult) {
 				redirectTo(request, response, request.getServletPath());
 			} else {
@@ -196,8 +196,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 		return true;
 	}
 
-	private boolean post(Request request, Response response,
-			LoginConfig loginConfig) {
+	private boolean post(Request request, Response response) {
 
 		String username = request.getParameter("j_username");
 		String password = request.getParameter("j_password");

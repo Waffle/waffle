@@ -50,7 +50,7 @@ import com.sun.jna.ptr.IntByReference;
  */
 public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
 
-	private Cache<String, CtxtHandle> _continueContexts = null;
+	private Cache<String, CtxtHandle> _continueContexts;
 
 	public WindowsAuthProviderImpl() {
 		this(30);
@@ -82,10 +82,10 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
 		serverCredential.initialize();
 
 		WindowsSecurityContextImpl sc = null;
-		
+
 		int rc = 0;
 		int tokenSize = Sspi.MAX_TOKEN_SIZE;
-		
+
 		do {
 			SecBufferDesc pbServerToken = new SecBufferDesc(Sspi.SECBUFFER_TOKEN,
 					tokenSize);

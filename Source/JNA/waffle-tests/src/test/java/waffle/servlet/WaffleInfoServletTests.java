@@ -40,7 +40,7 @@ import waffle.mock.http.SimpleHttpResponse;
  */
 public class WaffleInfoServletTests {
 
-  private Logger logger = LoggerFactory.getLogger(WaffleInfoServletTests.class);
+  private static final Logger logger = LoggerFactory.getLogger(WaffleInfoServletTests.class);
 
   @Test
   public void testGetInfo() throws Exception {

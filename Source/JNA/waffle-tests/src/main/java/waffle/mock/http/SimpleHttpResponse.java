@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
  */
 public class SimpleHttpResponse extends HttpServletResponseWrapper {
 
-	private Logger _log = LoggerFactory.getLogger(SimpleHttpResponse.class);
+	private static final Logger _log = LoggerFactory.getLogger(SimpleHttpResponse.class);
 
 	private int _status = 500;
 	private Map<String, List<String>> _headers = new HashMap<String, List<String>>();

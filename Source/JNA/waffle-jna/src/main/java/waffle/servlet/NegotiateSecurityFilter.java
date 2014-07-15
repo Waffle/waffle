@@ -51,14 +51,13 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  */
 public class NegotiateSecurityFilter implements Filter {
 
-	private Logger _log = LoggerFactory
-			.getLogger(NegotiateSecurityFilter.class);
+	private static final Logger _log = LoggerFactory.getLogger(NegotiateSecurityFilter.class);
 	private PrincipalFormat _principalFormat = PrincipalFormat.fqn;
 	private PrincipalFormat _roleFormat = PrincipalFormat.fqn;
-	private SecurityFilterProviderCollection _providers = null;
+	private SecurityFilterProviderCollection _providers;
 	private IWindowsAuthProvider _auth;
 	private boolean _allowGuestLogin = true;
-	private boolean _impersonate = false;
+	private boolean _impersonate;
 	private static final String PRINCIPAL_SESSION_KEY = NegotiateSecurityFilter.class
 			.getName() + ".PRINCIPAL";
 
@@ -213,8 +212,7 @@ public class NegotiateSecurityFilter implements Filter {
 		// user already authenticated
 
 		if (principal instanceof WindowsPrincipal) {
-			_log.debug("previously authenticated Windows user: "
-					+ principal.getName());
+			_log.debug("previously authenticated Windows user: {}", principal.getName());
 			WindowsPrincipal windowsPrincipal = (WindowsPrincipal) principal;
 
 			if (_impersonate && windowsPrincipal.getIdentity() == null) {
@@ -241,7 +239,7 @@ public class NegotiateSecurityFilter implements Filter {
 				}
 			}
 		} else {
-			_log.debug("previously authenticated user: " + principal.getName());
+			_log.debug("previously authenticated user: {}", principal.getName());
 			chain.doFilter(request, response);
 		}
 		return true;
@@ -261,7 +259,7 @@ public class NegotiateSecurityFilter implements Filter {
 				String parameterName = parameterNames.nextElement();
 				String parameterValue = filterConfig
 						.getInitParameter(parameterName);
-				_log.debug(parameterName + "=" + parameterValue);
+				_log.debug("{}={}", parameterName, parameterValue);
 				if (parameterName.equals("principalFormat")) {
 					_principalFormat = PrincipalFormat.valueOf(parameterValue);
 				} else if (parameterName.equals("roleFormat")) {

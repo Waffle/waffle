@@ -31,7 +31,7 @@ import org.junit.Test;
  */
 public class RolePrincipalTests {
 
-	private RolePrincipal _rolePrincipal = null;
+	private RolePrincipal _rolePrincipal;
 
 	@Before
 	public void setUp() {

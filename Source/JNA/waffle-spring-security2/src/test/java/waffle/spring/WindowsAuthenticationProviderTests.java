@@ -41,6 +41,7 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsAuthenticationProviderTests {
+
 	private WindowsAuthenticationProvider _provider;
 	private ApplicationContext ctx;
 

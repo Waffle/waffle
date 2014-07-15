@@ -37,8 +37,8 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 
 	private String _principalName;
 	private String _securityPackage;
-	private SecBufferDesc _token = null;
-	private CtxtHandle _ctx = null;
+	private SecBufferDesc _token;
+	private CtxtHandle _ctx;
 	private IntByReference _attr;
 	private CredHandle _credentials;
 	private boolean _continue;

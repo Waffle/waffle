@@ -34,11 +34,11 @@ import waffle.windows.auth.PrincipalFormat;
  */
 public class WindowsAuthenticationProvider implements AuthenticationProvider {
 
-	private Logger _log = LoggerFactory.getLogger(WindowsAuthenticationProvider.class);
+	private static final Logger _log = LoggerFactory.getLogger(WindowsAuthenticationProvider.class);
 	private PrincipalFormat _principalFormat = PrincipalFormat.fqn;
 	private PrincipalFormat _roleFormat = PrincipalFormat.fqn;
 	private boolean _allowGuestLogin = true;
-	private IWindowsAuthProvider _authProvider = null;
+	private IWindowsAuthProvider _authProvider;
 	private GrantedAuthorityFactory _grantedAuthorityFactory = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY_FACTORY;
 	private GrantedAuthority _defaultGrantedAuthority = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY;
 

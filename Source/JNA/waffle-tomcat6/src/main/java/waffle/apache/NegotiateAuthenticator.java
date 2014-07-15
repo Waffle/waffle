@@ -55,7 +55,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 	}
 
 	@Override
-	protected boolean authenticate(Request request, Response response,
+	public boolean authenticate(Request request, Response response,
 			LoginConfig loginConfig) {
 
 		Principal principal = request.getUserPrincipal();

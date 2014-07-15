@@ -24,16 +24,14 @@ import java.io.PrintWriter;
 import java.util.*;
 
 /**
- * @author Dan Rollo
- * Date: 2/14/13
- * Time: 11:11 PM
+ * @author Dan Rollo Date: 2/14/13 Time: 11:11 PM
  */
 public final class NegotiateAuthenticationFilterTest {
 
     private NegotiateAuthenticationFilter negAuthFilter;
 
-    private MockServletResponse response;
-    private byte[] out;
+    private MockServletResponse           response;
+    private byte[]                        out;
 
     @Before
     public void setUp() {
@@ -43,7 +41,7 @@ public final class NegotiateAuthenticationFilterTest {
     }
 
     @Test
-    public void testIsLoginAttempt()  {
+    public void testIsLoginAttempt() {
         Assert.assertFalse(negAuthFilter.isLoginAttempt(""));
         Assert.assertTrue(negAuthFilter.isLoginAttempt("NEGOTIATe"));
         Assert.assertTrue(negAuthFilter.isLoginAttempt("ntlm"));
@@ -110,97 +108,160 @@ public final class NegotiateAuthenticationFilterTest {
         }
 
         @Override
-        public String getCharacterEncoding() { notImplemented(); return null; }
+        public String getCharacterEncoding() {
+            notImplemented();
+            return null;
+        }
 
         @Override
-        public String getContentType() { notImplemented(); return null; }
+        public String getContentType() {
+            notImplemented();
+            return null;
+        }
 
         @Override
-        public ServletOutputStream getOutputStream() throws IOException { notImplemented(); return null; }
+        public ServletOutputStream getOutputStream() throws IOException {
+            notImplemented();
+            return null;
+        }
 
         @Override
-        public PrintWriter getWriter() throws IOException { notImplemented(); return null; }
+        public PrintWriter getWriter() throws IOException {
+            notImplemented();
+            return null;
+        }
 
         @Override
-        public void setCharacterEncoding(String charset) { notImplemented(); }
+        public void setCharacterEncoding(String charset) {
+            notImplemented();
+        }
 
         @Override
-        public void setContentLength(int len) { notImplemented(); }
+        public void setContentLength(int len) {
+            notImplemented();
+        }
 
         @Override
-        public void setContentType(String type) { notImplemented(); }
+        public void setContentType(String type) {
+            notImplemented();
+        }
 
         @Override
-        public void setBufferSize(int size) { notImplemented(); }
+        public void setBufferSize(int size) {
+            notImplemented();
+        }
 
         @Override
-        public int getBufferSize() { notImplemented(); return 0; }
+        public int getBufferSize() {
+            notImplemented();
+            return 0;
+        }
 
         boolean isFlushed;
+
         @Override
         public void flushBuffer() throws IOException {
             isFlushed = true;
         }
 
         @Override
-        public void resetBuffer() { notImplemented(); }
+        public void resetBuffer() {
+            notImplemented();
+        }
 
         @Override
-        public boolean isCommitted() { notImplemented(); return false; }
+        public boolean isCommitted() {
+            notImplemented();
+            return false;
+        }
 
         @Override
-        public void reset() { notImplemented(); }
+        public void reset() {
+            notImplemented();
+        }
 
         @Override
-        public void setLocale(Locale loc) { notImplemented(); }
+        public void setLocale(Locale loc) {
+            notImplemented();
+        }
 
         @Override
-        public Locale getLocale() { notImplemented(); return null; }
+        public Locale getLocale() {
+            notImplemented();
+            return null;
+        }
 
         @Override
-        public void addCookie(Cookie cookie) { notImplemented(); }
+        public void addCookie(Cookie cookie) {
+            notImplemented();
+        }
 
         @Override
-        public boolean containsHeader(String name) { notImplemented(); return false; }
+        public boolean containsHeader(String name) {
+            notImplemented();
+            return false;
+        }
 
         @Override
-        public String encodeURL(String url) { notImplemented(); return null; }
+        public String encodeURL(String url) {
+            notImplemented();
+            return null;
+        }
 
         @Override
-        public String encodeRedirectURL(String url) { notImplemented(); return null; }
+        public String encodeRedirectURL(String url) {
+            notImplemented();
+            return null;
+        }
 
         @Override
-        public String encodeUrl(String url) { notImplemented(); return null; }
+        public String encodeUrl(String url) {
+            notImplemented();
+            return null;
+        }
 
         @Override
-        public String encodeRedirectUrl(String url) { notImplemented(); return null; }
+        public String encodeRedirectUrl(String url) {
+            notImplemented();
+            return null;
+        }
 
         @Override
-        public void sendError(int sc, String msg) throws IOException { notImplemented(); }
+        public void sendError(int sc, String msg) throws IOException {
+            notImplemented();
+        }
 
         int errorCode;
+
         @Override
         public void sendError(int sc) throws IOException {
             errorCode = sc;
         }
 
         @Override
-        public void sendRedirect(String location) throws IOException { notImplemented(); }
+        public void sendRedirect(String location) throws IOException {
+            notImplemented();
+        }
 
         @Override
-        public void setDateHeader(String name, long date) { notImplemented(); }
+        public void setDateHeader(String name, long date) {
+            notImplemented();
+        }
 
         @Override
-        public void addDateHeader(String name, long date) { notImplemented(); }
+        public void addDateHeader(String name, long date) {
+            notImplemented();
+        }
 
         final Map<String, String> headers = new HashMap<String, String>();
+
         @Override
         public void setHeader(String name, String value) {
             headers.put(name, value);
         }
 
-
         final Map<String, List<String>> headersAdded = new HashMap<String, List<String>>();
+
         @Override
         public void addHeader(String name, String value) {
             if (headersAdded.containsKey(name)) {
@@ -214,19 +275,26 @@ public final class NegotiateAuthenticationFilterTest {
         }
 
         @Override
-        public void setIntHeader(String name, int value) { notImplemented(); }
+        public void setIntHeader(String name, int value) {
+            notImplemented();
+        }
 
         @Override
-        public void addIntHeader(String name, int value) { notImplemented(); }
+        public void addIntHeader(String name, int value) {
+            notImplemented();
+        }
 
         int sc;
+
         @Override
         public void setStatus(int sc) {
             this.sc = sc;
         }
 
         @Override
-        public void setStatus(int sc, String sm) { notImplemented(); }
+        public void setStatus(int sc, String sm) {
+            notImplemented();
+        }
     }
 
 }

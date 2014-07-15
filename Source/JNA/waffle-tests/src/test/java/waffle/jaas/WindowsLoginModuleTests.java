@@ -39,8 +39,8 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsLoginModuleTests {
-	WindowsLoginModule _loginModule = null;
-	MockWindowsAuthProvider _provider = null;
+	WindowsLoginModule _loginModule;
+	MockWindowsAuthProvider _provider;
 
 	@Before
 	public void setUp() {

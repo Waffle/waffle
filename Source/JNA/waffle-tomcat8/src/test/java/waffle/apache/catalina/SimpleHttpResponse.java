@@ -27,7 +27,8 @@ import org.slf4j.LoggerFactory;
  * @author dblock[at]dblock[dot]org
  */
 public class SimpleHttpResponse extends Response {
-	private Logger _log = LoggerFactory.getLogger(SimpleHttpResponse.class);
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(SimpleHttpResponse.class);
 
 	private int _status = 500;
 	private Map<String, List<String>> _headers = new HashMap<String, List<String>>();
@@ -73,10 +74,10 @@ public class SimpleHttpResponse extends Response {
 
 	@Override
 	public void flushBuffer() {
-		_log.info("{} {}", Integer.valueOf(_status), getStatusString());
+		SimpleHttpResponse.LOGGER.info("{} {}", Integer.valueOf(_status), getStatusString());
 		for (String header : _headers.keySet()) {
 			for (String headerValue : _headers.get(header)) {
-				_log.info("{}: {}", header, headerValue);
+				SimpleHttpResponse.LOGGER.info("{}: {}", header, headerValue);
 			}
 		}
 	}

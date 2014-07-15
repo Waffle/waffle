@@ -27,15 +27,13 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * @author Dan Rollo
- * Date: 2/26/13
- * Time: 5:47 PM
+ * @author Dan Rollo Date: 2/26/13 Time: 5:47 PM
  */
 public class DynamicAuthenticationFilterTest {
 
     private DynamicAuthenticationFilter dynamicAuthenticationFilter;
 
-    private MockServletRequest request;
+    private MockServletRequest          request;
 
     @Before
     public void setUp() {
@@ -61,95 +59,176 @@ public class DynamicAuthenticationFilterTest {
             throw new RuntimeException("not implemented");
         }
 
+        @Override
+        public Object getAttribute(String name) {
+            notImplemented();
+            return null;
+        }
 
         @Override
-        public Object getAttribute(String name) { notImplemented(); return null; }
+        public Enumeration<?> getAttributeNames() {
+            notImplemented();
+            return null;
+        }
 
         @Override
-        public Enumeration<?> getAttributeNames() { notImplemented(); return null; }
+        public String getCharacterEncoding() {
+            notImplemented();
+            return null;
+        }
 
         @Override
-        public String getCharacterEncoding() { notImplemented(); return null; }
+        public void setCharacterEncoding(String env) throws UnsupportedEncodingException {
+            notImplemented();
+        }
 
         @Override
-        public void setCharacterEncoding(String env) throws UnsupportedEncodingException { notImplemented(); }
+        public int getContentLength() {
+            notImplemented();
+            return 0;
+        }
 
         @Override
-        public int getContentLength() { notImplemented(); return 0; }
+        public String getContentType() {
+            notImplemented();
+            return null;
+        }
 
         @Override
-        public String getContentType() { notImplemented(); return null; }
-
-        @Override
-        public ServletInputStream getInputStream() throws IOException { notImplemented(); return null; }
+        public ServletInputStream getInputStream() throws IOException {
+            notImplemented();
+            return null;
+        }
 
         final Map<String, String> parameters = new HashMap<String, String>();
+
         @Override
         public String getParameter(String name) {
             return parameters.get(name);
         }
 
         @Override
-        public Enumeration<?> getParameterNames() { notImplemented(); return null; }
+        public Enumeration<?> getParameterNames() {
+            notImplemented();
+            return null;
+        }
 
         @Override
-        public String[] getParameterValues(String name) { notImplemented(); return new String[0]; }
+        public String[] getParameterValues(String name) {
+            notImplemented();
+            return new String[0];
+        }
 
         @Override
-        public Map<?, ?> getParameterMap() { notImplemented(); return null; }
+        public Map<?, ?> getParameterMap() {
+            notImplemented();
+            return null;
+        }
 
         @Override
-        public String getProtocol() { notImplemented(); return null; }
+        public String getProtocol() {
+            notImplemented();
+            return null;
+        }
 
         @Override
-        public String getScheme() { notImplemented(); return null; }
+        public String getScheme() {
+            notImplemented();
+            return null;
+        }
 
         @Override
-        public String getServerName() { notImplemented(); return null; }
+        public String getServerName() {
+            notImplemented();
+            return null;
+        }
 
         @Override
-        public int getServerPort() { notImplemented(); return 0; }
+        public int getServerPort() {
+            notImplemented();
+            return 0;
+        }
 
         @Override
-        public BufferedReader getReader() throws IOException { notImplemented(); return null; }
+        public BufferedReader getReader() throws IOException {
+            notImplemented();
+            return null;
+        }
 
         @Override
-        public String getRemoteAddr() { notImplemented(); return null; }
+        public String getRemoteAddr() {
+            notImplemented();
+            return null;
+        }
 
         @Override
-        public String getRemoteHost() { notImplemented(); return null; }
+        public String getRemoteHost() {
+            notImplemented();
+            return null;
+        }
 
         @Override
-        public void setAttribute(String name, Object o) { notImplemented(); }
+        public void setAttribute(String name, Object o) {
+            notImplemented();
+        }
 
         @Override
-        public void removeAttribute(String name) { notImplemented(); }
+        public void removeAttribute(String name) {
+            notImplemented();
+        }
 
         @Override
-        public Locale getLocale() { notImplemented(); return null; }
+        public Locale getLocale() {
+            notImplemented();
+            return null;
+        }
 
         @Override
-        public Enumeration<?> getLocales() { notImplemented(); return null; }
+        public Enumeration<?> getLocales() {
+            notImplemented();
+            return null;
+        }
 
         @Override
-        public boolean isSecure() { notImplemented(); return false; }
+        public boolean isSecure() {
+            notImplemented();
+            return false;
+        }
 
         @Override
-        public RequestDispatcher getRequestDispatcher(String path) { notImplemented(); return null; }
+        public RequestDispatcher getRequestDispatcher(String path) {
+            notImplemented();
+            return null;
+        }
 
         @Override
-        public String getRealPath(String path) { notImplemented(); return null; }
+        public String getRealPath(String path) {
+            notImplemented();
+            return null;
+        }
 
         @Override
-        public int getRemotePort() { notImplemented(); return 0; }
+        public int getRemotePort() {
+            notImplemented();
+            return 0;
+        }
 
         @Override
-        public String getLocalName() { notImplemented(); return null; }
+        public String getLocalName() {
+            notImplemented();
+            return null;
+        }
 
         @Override
-        public String getLocalAddr() { notImplemented(); return null; }
+        public String getLocalAddr() {
+            notImplemented();
+            return null;
+        }
 
         @Override
-        public int getLocalPort() { notImplemented(); return 0; }
+        public int getLocalPort() {
+            notImplemented();
+            return 0;
+        }
     }
 }

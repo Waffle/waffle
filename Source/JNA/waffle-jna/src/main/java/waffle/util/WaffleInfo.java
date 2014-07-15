@@ -75,7 +75,7 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  */
 public class WaffleInfo {
 
-	private static Logger _log = LoggerFactory.getLogger(WaffleInfo.class);
+	private static final Logger _log = LoggerFactory.getLogger(WaffleInfo.class);
 
 	/**
 	 * Get a Document with basic system information

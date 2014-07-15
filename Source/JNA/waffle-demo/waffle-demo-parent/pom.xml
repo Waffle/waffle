@@ -76,5 +76,14 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <configuration>
+                    <dotGitDirectory>../../../../.git</dotGitDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 </project>

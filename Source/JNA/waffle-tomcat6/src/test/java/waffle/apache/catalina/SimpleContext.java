@@ -48,7 +48,7 @@ import org.apache.tomcat.util.http.mapper.Mapper;
  */
 public class SimpleContext implements Context {
 
-	private Realm _realm = null;
+	private Realm _realm;
 	private ServletContext _servletContext = new SimpleServletContext();
 
 	@Override

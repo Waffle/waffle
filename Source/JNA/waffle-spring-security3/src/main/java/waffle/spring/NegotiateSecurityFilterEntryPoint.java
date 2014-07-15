@@ -34,9 +34,8 @@ import waffle.servlet.spi.SecurityFilterProviderCollection;
 public class NegotiateSecurityFilterEntryPoint implements
 		AuthenticationEntryPoint {
 
-	private Logger _log = LoggerFactory
-			.getLogger(NegotiateSecurityFilterEntryPoint.class);
-	private SecurityFilterProviderCollection _provider = null;
+	private static final Logger _log = LoggerFactory.getLogger(NegotiateSecurityFilterEntryPoint.class);
+	private SecurityFilterProviderCollection _provider;
 
 	public NegotiateSecurityFilterEntryPoint() {
 		_log.debug("[waffle.spring.NegotiateEntryPoint] loaded");

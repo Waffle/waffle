@@ -46,7 +46,7 @@ import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
  */
 public class WindowsAuthProviderTests {
 
-	private Logger _log = LoggerFactory.getLogger(WindowsAuthProviderTests.class);
+	private static final Logger _log = LoggerFactory.getLogger(WindowsAuthProviderTests.class);
 
 	// TODO This was commented out, uncommented and ignore until I can determine if this is valid
 	@Ignore
