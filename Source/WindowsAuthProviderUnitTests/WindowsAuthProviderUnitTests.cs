@@ -175,18 +175,25 @@ namespace Waffle.Windows.AuthProvider.UnitTests
             IWindowsSecurityContext continueContext = initContext;
             IWindowsSecurityContext responseContext = null;
             string connectionId = Guid.NewGuid().ToString();
-            do
+            while(true)
             {
                 responseContext = provider.AcceptSecurityToken(connectionId, continueContext.Token, package,
                     Secur32.ISC_REQ_CONNECTION, Secur32.SECURITY_NATIVE_DREP);
+
                 if (responseContext.Token != null)
                 {
                     Console.WriteLine("  Token: {0}", Convert.ToBase64String(responseContext.Token));
                     Console.WriteLine("  Continue: {0}", responseContext.Continue);
                 }
+
+                if (! responseContext.Continue)
+                {
+                    break;
+                }
+
                 continueContext = new WindowsSecurityContext(initContext, responseContext.Token,
                     Secur32.ISC_REQ_CONNECTION, Secur32.SECURITY_NATIVE_DREP);
-            } while (responseContext.Continue);
+            }
 
             Assert.IsFalse(responseContext.Continue);
             Console.WriteLine(responseContext.Identity.Fqn);
