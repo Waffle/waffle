@@ -13,3 +13,4 @@ Source/JNA/**/.project
 Thumbs.db
 Waffle.sln.cache
 Waffle.suo
+*.csproj.user

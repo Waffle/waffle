@@ -35,7 +35,7 @@
     <DeleteTree Directories="target" Recursive="true" />
     <DeleteTree Directories="Source\**\obj" Recursive="true" />
     <MSBuild Projects="Waffle.sln" Targets="Clean" Properties="Configuration=%(Configuration.Identity)" />
-    <Exec WorkingDirectory="Source\JNA\waffle-parent" Command="mvn clean" />
+    <!-- Exec WorkingDirectory="Source\JNA\waffle-parent" Command="mvn clean" / -->
     <Delete Files="Source\Version\GlobalAssemblyInfo.cs" />
     <Delete Files="Waffle.$(Major).$(Minor).zip" />
   </Target>
@@ -65,7 +65,7 @@
     <Copy SourceFiles="@(SampleFiles)" DestinationFolder="$(ReleaseDir)\Samples" />
   </Target>
   <Target Name="jar" DependsOnTargets="version">
-    <Exec WorkingDirectory="Source\JNA\waffle-parent" Command="mvn install" />
+    <Exec WorkingDirectory="Source\JNA\waffle-parent" Command="mvn clean install" />
     <CreateItem Include="Source\JNA\waffle-distro\target\waffle-distro\**\*.*">
       <Output TaskParameter="Include" ItemName="JnaFiles"/>
     </CreateItem>

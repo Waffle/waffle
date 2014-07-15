@@ -10,6 +10,7 @@ Notable Feature Changes
 * Enhanced logging
 * Tomcat Protocol parameter for valves to allow default Negotiate / NTLM or selective setup
 * Restructured project for full maven support and clearer intent
+* Upgraded .NET build to Visual Studio 10, .NET Framework 4
 
 Changes
 --------
@@ -57,6 +58,8 @@ Changes
   * Now supporting tomcat 6.0.39 / 7.0.52
   * Updated versions throughout
 * [#76](https://github.com/dblock/waffle/pull/76): Add [SPNEGO NegTokenArg](http://msdn.microsoft.com/en-us/library/ms995330.aspx) support - [@AriSuutariST](https://github.com/AriSuutariST).
+* Fixed `WindowsComputerImpl.Groups` returning an empty local groups set - [@dblock](https://github.com/dblock).
+
 
 1.6 (12/24/2013)
 ================
