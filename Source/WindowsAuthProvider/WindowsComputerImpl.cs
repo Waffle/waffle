@@ -104,9 +104,9 @@ namespace Waffle.Windows.AuthProvider
                         throw new Win32Exception(rc);
                     }
 
-                    string[] groups = new string[totalentries];
+                    string[] groups = new string[entriesread];
                     IntPtr iter = bufptr;
-                    for (int i = 0; i < totalentries; i++)
+                    for (int i = 0; i < entriesread; i++)
                     {
                         Netapi32.LOCALGROUP_USERS_INFO_0 group = new Netapi32.LOCALGROUP_USERS_INFO_0();
                         group = (Netapi32.LOCALGROUP_USERS_INFO_0)Marshal.PtrToStructure(iter, typeof(Netapi32.LOCALGROUP_USERS_INFO_0));
