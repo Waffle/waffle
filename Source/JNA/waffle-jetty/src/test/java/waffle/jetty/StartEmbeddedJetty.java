@@ -33,7 +33,7 @@ public class StartEmbeddedJetty {
 	private static Logger logger = LoggerFactory.getLogger(StartEmbeddedJetty.class);
 
 	public static void main(String[] args) throws Exception {
-		String path = "../waffle-demo-parent/waffle-filter";
+		String path = "../waffle-demo/waffle-filter";
 
 		File dir = new File( path );
 		if(!dir.exists()) {

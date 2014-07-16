@@ -33,11 +33,15 @@
   <Target Name="clean" DependsOnTargets="configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
     <Message Importance="high" Text="Cleaning project, %(Configuration.Identity) ..." />
     <DeleteTree Directories="target" Recursive="true" />
+    <DeleteTree Directories="Source\**\bin" Recursive="true" />
     <DeleteTree Directories="Source\**\obj" Recursive="true" />
+    <DeleteTree Directories="Source\**\target" Recursive="true" />
     <MSBuild Projects="Waffle.sln" Targets="Clean" Properties="Configuration=%(Configuration.Identity)" />
-    <!-- Exec WorkingDirectory="Source\JNA\waffle-parent" Command="mvn clean" / -->
-    <Delete Files="Source\Version\GlobalAssemblyInfo.cs" />
-    <Delete Files="Waffle.$(Major).$(Minor).zip" />
+    <!-- This directory is getting recreated from MSBuild above, Delete it again -->
+    <DeleteTree Directories="Source\**\obj" Recursive="true" />
+    <Delete Files="Source\Common\GlobalAssemblyInfo.cs" />
+    <Delete Files="Source\Version\Version.properties" />
+    <Delete Files="Source\Version\Version.wxi" />
   </Target>
   <Target Name="build" DependsOnTargets="version;configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
     <Message Importance="high" Text="Compiling and linking project, %(Configuration.Identity) ..." />
@@ -65,6 +69,7 @@
     <Copy SourceFiles="@(SampleFiles)" DestinationFolder="$(ReleaseDir)\Samples" />
   </Target>
   <Target Name="jar" DependsOnTargets="version">
+    <Exec WorkingDirectory="Source\ThirdParty" Command="maven-install.cmd" />
     <Exec WorkingDirectory="Source\JNA\waffle-parent" Command="mvn clean install" />
     <CreateItem Include="Source\JNA\waffle-distro\target\waffle-distro\**\*.*">
       <Output TaskParameter="Include" ItemName="JnaFiles"/>
