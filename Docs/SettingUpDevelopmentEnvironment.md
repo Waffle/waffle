@@ -29,9 +29,13 @@ Download Maven from [here](http://maven.apache.org/download.cgi) and unzip it to
 
 After maven is installed, go into `Source/ThirdParty` and run `maven-install.bat`.  This will install third party dependencies needed for building that are not available in maven central.  This is done to allow us to avoid using system scope dependencies.
 
-### Windows SDK or Microsoft Visual Studio 2008
+### Microsoft Visual Studio 2010
 
-Visual Studio is not required, but useful when editing .NET code. At the least, install the Windows SDK from [here](http://www.microsoft.com/en-us/download/details.aspx?id=8279). You should be able to run `msbuild` from the command prompt.
+Visual Studio is not required, but useful when editing .NET code. At the least, install the Windows SDK for your operating system. You should be able to run `msbuild` from the command prompt after installing sdk.
+
+### Windows SDK (Windows 7)
+
+Windows 7 SDK can be found [here](http://www.microsoft.com/en-us/download/details.aspx?id=8279)
 
 ### Windows SDK (Windows 8.1)
 
@@ -69,26 +73,14 @@ The C# implementation is in a Visual Studio solution file, `Waffle.sln`.
 Using Eclipse
 -------------
 
-Eclipse is not required, but useful when editing Java code.  
+Eclipse is not required, but useful when editing Java code.  Any other compariable IDE will work that has maven integration.
 
-[Optional] To generate the eclipse project and settings, open an command line to the `Source/JNA/waffle-parent` folder and run `mvn eclipse:eclipse`.  Generally this will occur 
-automatically by importing maven project into eclipse.
-
-```
-$ cd Source/JNA/
-$ mvn eclipse:eclipse
-[INFO] Scanning for projects...
-[INFO] ------------------------------------------------------------------------
-[INFO] Reactor Build Order:
-...
-```
-
-Then import the projects under `Source/JNA`. 
+With Eclipse shown here, import the projects under `Source/JNA`. 
 
 ![maven-import](imgs/maven-import.png)
 ![maven-import-jna](imgs/maven-import-jna.png)
 
-You may see need to migrate projects for the spring packages.  Try to do so, but if it fails, just cancel.  This is ok.
+You may see need to migrate projects for the spring packages.  Try to do so, but if it fails, just cancel.  This is ok.  It will only work if spring is installed.
 
 ![maven-project-migration](imgs/maven-project-migration.png)
 
@@ -96,15 +88,14 @@ Projects will show as imported as follows.
 
 ![imported-projects](imgs/imported-projects.png)
 
-
 To run the demos within the IDE, you can right click *StartEmbeddedJetty* > *Run As* (or *Debug As*) > *Java Appliction*. The server will start on localhost:8080.
 
 ![start-jetty-in-eclipse](imgs/eclipse-start-jetty.png)
 
-To change which demo you are running, edit the code:
+To change which demo you are running, edit the code `waffle-jetty/src/test/java/StartEmbeddedJetty.java`:
 
 ```
-String path = "../demo/waffle-filter";
+String path = "../waffle-demo/waffle-filter";
 ```
 
 Trobleshooting
@@ -142,27 +133,11 @@ Wix is missing.
 
 ### Product Version
 
-```
-BUILD FAILED
-E:\waffle\Source\JNA\build.xml:16: The following error occurred while executing this line:
-E:\waffle\Source\JNA\build.xml:4: The following error occurred while executing this line:
-E:\waffle\Source\JNA\waffle-jna\build.xml:5: The following error occurred while executing this line:
-E:\waffle\Source\JNA\build\build.xml:6: Missing product.version
-```
-
-A product version is generated via MSBuild and is applied to the rest of the project. The Java components built with `maven` therefore require that you run `clean install` first.
+A product version is generated via MSBuild and is applied to the rest of the project except java. The Java components built with `maven` and contain version information in the waffle-parent pom.
 
 ### Unit Tests Failed
 
-```
-BUILD FAILED
-E:\Source\JNA\build.xml:16: The following error occurred while executing this line:
-E:\Source\JNA\build.xml:5: The following error occurred while executing this line:
-E:\Source\JNA\build\build.xml:232: The following error occurred while executing this line:
-E:\Source\JNA\build\build.xml:127: Unit Tests failed
-```
-
-The java components will only generate output if all tests pass. They do when running on Windows 7 as Administrator. If you have a different system, you may skip tests with `mvn -DskipTests=true`. Output JARs will be placed in `Source\JNA\waffle-distro\target\waffle-distro`.
+The java components will only generate output files when all tests pass. They do when running on Windows 7 as Administrator. If you have a different system, you may skip tests with `mvn -DskipTests=true`. Output JARs will be placed in `Source\JNA\waffle-distro\target\waffle-distro`.
 
 ### Missing Dependencies in Eclipse 
 
