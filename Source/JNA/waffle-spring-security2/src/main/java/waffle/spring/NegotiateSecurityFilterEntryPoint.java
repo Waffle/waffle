@@ -32,19 +32,19 @@ import waffle.servlet.spi.SecurityFilterProviderCollection;
  * 
  * @author dblock[at]dblock[dot]org
  */
-public class NegotiateSecurityFilterEntryPoint implements
-		AuthenticationEntryPoint {
+public class NegotiateSecurityFilterEntryPoint implements AuthenticationEntryPoint {
 
-	private static final Logger _log = LoggerFactory.getLogger(NegotiateSecurityFilterEntryPoint.class);
-	private SecurityFilterProviderCollection _provider = null;
+	private static final Logger					_log		= LoggerFactory
+																	.getLogger(NegotiateSecurityFilterEntryPoint.class);
+	private SecurityFilterProviderCollection	_provider	= null;
 
 	public NegotiateSecurityFilterEntryPoint() {
 		_log.debug("[waffle.spring.NegotiateEntryPoint] loaded");
 	}
 
 	@Override
-	public void commence(ServletRequest sreq, ServletResponse srep,
-			AuthenticationException ex) throws IOException, ServletException {
+	public void commence(ServletRequest sreq, ServletResponse srep, AuthenticationException ex) throws IOException,
+			ServletException {
 
 		HttpServletResponse response = (HttpServletResponse) srep;
 

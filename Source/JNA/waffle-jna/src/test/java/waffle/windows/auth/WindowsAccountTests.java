@@ -26,7 +26,7 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
  */
 public class WindowsAccountTests {
 
-	private Logger logger = LoggerFactory.getLogger(WindowsAccountTests.class);
+	private Logger	logger	= LoggerFactory.getLogger(WindowsAccountTests.class);
 
 	@Test
 	public void testGetCurrentUsername() {

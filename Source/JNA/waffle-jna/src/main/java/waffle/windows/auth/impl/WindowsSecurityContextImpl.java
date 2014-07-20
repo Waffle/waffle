@@ -35,19 +35,18 @@ import com.sun.jna.ptr.IntByReference;
  */
 public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 
-	private String _principalName;
-	private String _securityPackage;
-	private SecBufferDesc _token;
-	private CtxtHandle _ctx;
-	private IntByReference _attr;
-	private CredHandle _credentials;
-	private boolean _continue;
+	private String			_principalName;
+	private String			_securityPackage;
+	private SecBufferDesc	_token;
+	private CtxtHandle		_ctx;
+	private IntByReference	_attr;
+	private CredHandle		_credentials;
+	private boolean			_continue;
 
 	@Override
 	public IWindowsIdentity getIdentity() {
 		HANDLEByReference phContextToken = new HANDLEByReference();
-		int rc = Secur32.INSTANCE.QuerySecurityContextToken(_ctx,
-				phContextToken);
+		int rc = Secur32.INSTANCE.QuerySecurityContextToken(_ctx, phContextToken);
 		if (WinError.SEC_E_OK != rc) {
 			throw new Win32Exception(rc);
 		}
@@ -71,10 +70,8 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 	 *            SSPI package.
 	 * @return Windows security context.
 	 */
-	public static IWindowsSecurityContext getCurrent(String securityPackage,
-			String targetName) {
-		IWindowsCredentialsHandle credentialsHandle = WindowsCredentialsHandleImpl
-				.getCurrent(securityPackage);
+	public static IWindowsSecurityContext getCurrent(String securityPackage, String targetName) {
+		IWindowsCredentialsHandle credentialsHandle = WindowsCredentialsHandleImpl.getCurrent(securityPackage);
 		credentialsHandle.initialize();
 		try {
 			WindowsSecurityContextImpl ctx = new WindowsSecurityContextImpl();
@@ -89,30 +86,27 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 	}
 
 	@Override
-	public void initialize(CtxtHandle continueCtx, SecBufferDesc continueToken,
-			String targetName) {
+	public void initialize(CtxtHandle continueCtx, SecBufferDesc continueToken, String targetName) {
 		_attr = new IntByReference();
 		_ctx = new CtxtHandle();
 		int tokenSize = Sspi.MAX_TOKEN_SIZE;
 		int rc = 0;
 		do {
 			_token = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, tokenSize);
-			rc = Secur32.INSTANCE.InitializeSecurityContext(_credentials,
-					continueCtx, targetName, Sspi.ISC_REQ_CONNECTION, 0,
-					Sspi.SECURITY_NATIVE_DREP, continueToken, 0, _ctx, _token,
-					_attr, null);
+			rc = Secur32.INSTANCE.InitializeSecurityContext(_credentials, continueCtx, targetName,
+					Sspi.ISC_REQ_CONNECTION, 0, Sspi.SECURITY_NATIVE_DREP, continueToken, 0, _ctx, _token, _attr, null);
 			switch (rc) {
-			case WinError.SEC_E_INSUFFICIENT_MEMORY:
-				tokenSize += Sspi.MAX_TOKEN_SIZE;
-				break;
-			case WinError.SEC_I_CONTINUE_NEEDED:
-				_continue = true;
-				break;
-			case WinError.SEC_E_OK:
-				_continue = false;
-				break;
-			default:
-				throw new Win32Exception(rc);
+				case WinError.SEC_E_INSUFFICIENT_MEMORY:
+					tokenSize += Sspi.MAX_TOKEN_SIZE;
+					break;
+				case WinError.SEC_I_CONTINUE_NEEDED:
+					_continue = true;
+					break;
+				case WinError.SEC_E_OK:
+					_continue = false;
+					break;
+				default:
+					throw new Win32Exception(rc);
 			}
 		} while (rc == WinError.SEC_E_INSUFFICIENT_MEMORY);
 	}

@@ -23,10 +23,9 @@ import waffle.windows.auth.IWindowsImpersonationContext;
 /**
  * @author dblock[at]dblock[dot]org
  */
-public class WindowsSecurityContextImpersonationContextImpl implements
-		IWindowsImpersonationContext {
+public class WindowsSecurityContextImpersonationContextImpl implements IWindowsImpersonationContext {
 
-	private CtxtHandle _ctx;
+	private CtxtHandle	_ctx;
 
 	public WindowsSecurityContextImpersonationContextImpl(CtxtHandle ctx) {
 		int rc = Secur32.INSTANCE.ImpersonateSecurityContext(ctx);

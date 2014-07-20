@@ -28,10 +28,10 @@ import org.slf4j.LoggerFactory;
  */
 public class SimpleHttpResponse extends Response {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(SimpleHttpResponse.class);
+	private static final Logger			LOGGER		= LoggerFactory.getLogger(SimpleHttpResponse.class);
 
-	private int _status = 500;
-	private Map<String, List<String>> _headers = new HashMap<String, List<String>>();
+	private int							_status		= 500;
+	private Map<String, List<String>>	_headers	= new HashMap<String, List<String>>();
 
 	@Override
 	public int getStatus() {
@@ -84,8 +84,7 @@ public class SimpleHttpResponse extends Response {
 
 	public String[] getHeaderValues(String headerName) {
 		List<String> headerValues = _headers.get(headerName);
-		return headerValues == null ? null : headerValues
-				.toArray(new String[0]);
+		return headerValues == null ? null : headerValues.toArray(new String[0]);
 	}
 
 	@Override

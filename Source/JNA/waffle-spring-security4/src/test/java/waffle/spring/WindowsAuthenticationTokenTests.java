@@ -34,16 +34,15 @@ import waffle.servlet.WindowsPrincipal;
  */
 public class WindowsAuthenticationTokenTests {
 
-	private WindowsPrincipal _principal;
-	private WindowsAuthenticationToken _token;
+	private WindowsPrincipal			_principal;
+	private WindowsAuthenticationToken	_token;
 
 	@Before
 	public void setUp() {
 		List<String> mockGroups = new ArrayList<String>();
 		mockGroups.add("group1");
 		mockGroups.add("group2");
-		MockWindowsIdentity mockIdentity = new MockWindowsIdentity(
-				"localhost\\user1", mockGroups);
+		MockWindowsIdentity mockIdentity = new MockWindowsIdentity("localhost\\user1", mockGroups);
 		_principal = new WindowsPrincipal(mockIdentity);
 		_token = new WindowsAuthenticationToken(_principal);
 	}
@@ -66,8 +65,8 @@ public class WindowsAuthenticationTokenTests {
 	@Test
 	public void testCustomGrantedAuthorityFactory() {
 
-		WindowsAuthenticationToken token = new WindowsAuthenticationToken(
-				_principal, new FqnGrantedAuthorityFactory(null, false), null);
+		WindowsAuthenticationToken token = new WindowsAuthenticationToken(_principal, new FqnGrantedAuthorityFactory(
+				null, false), null);
 
 		assertNull(token.getCredentials());
 		assertNull(token.getDetails());

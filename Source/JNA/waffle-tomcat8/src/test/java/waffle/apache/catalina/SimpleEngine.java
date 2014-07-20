@@ -32,7 +32,7 @@ import org.apache.juli.logging.Log;
 
 public class SimpleEngine implements org.apache.catalina.Engine {
 
-	private Pipeline _pipeline;
+	private Pipeline	_pipeline;
 
 	@Override
 	public Log getLogger() {
@@ -169,8 +169,7 @@ public class SimpleEngine implements org.apache.catalina.Engine {
 	}
 
 	@Override
-	public void logAccess(Request request, Response response, long time,
-			boolean useDefault) {
+	public void logAccess(Request request, Response response, long time, boolean useDefault) {
 
 	}
 

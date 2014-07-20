@@ -23,8 +23,8 @@ import java.security.Principal;
  */
 public class RolePrincipal implements Principal, Serializable {
 
-	private static final long serialVersionUID = 1L;
-	private String _fqn;
+	private static final long	serialVersionUID	= 1L;
+	private String				_fqn;
 
 	/**
 	 * A windows principal.

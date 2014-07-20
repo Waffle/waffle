@@ -37,15 +37,13 @@ public class AuthorizationHeaderTests {
 		assertFalse(header.isNull());
 	}
 
-	@Test	
+	@Test
 	public void testGetSecurityPackage() {
 		SimpleHttpRequest request = new SimpleHttpRequest();
 		AuthorizationHeader header = new AuthorizationHeader(request);
-		request.addHeader("Authorization",
-				"NTLM TlRMTVNTUAABAAAABzIAAAYABgArAAAACwALACAAAABXT1JLU1RBVElPTkRPTUFJTg==");
+		request.addHeader("Authorization", "NTLM TlRMTVNTUAABAAAABzIAAAYABgArAAAACwALACAAAABXT1JLU1RBVElPTkRPTUFJTg==");
 		assertEquals("NTLM", header.getSecurityPackage());
-		request.addHeader(
-				"Authorization",
+		request.addHeader("Authorization",
 				"Negotiate TlRMTVNTUAABAAAABzIAAAYABgArAAAACwALACAAAABXT1JLU1RBVElPTkRPTUFJTg==");
 		assertEquals("Negotiate", header.getSecurityPackage());
 	}
@@ -57,8 +55,7 @@ public class AuthorizationHeaderTests {
 		assertFalse(header.isNtlmType1Message());
 		request.addHeader("Authorization", "");
 		assertFalse(header.isNtlmType1Message());
-		request.addHeader("Authorization",
-				"NTLM TlRMTVNTUAABAAAABzIAAAYABgArAAAACwALACAAAABXT1JLU1RBVElPTkRPTUFJTg==");
+		request.addHeader("Authorization", "NTLM TlRMTVNTUAABAAAABzIAAAYABgArAAAACwALACAAAABXT1JLU1RBVElPTkRPTUFJTg==");
 		assertTrue(header.isNtlmType1Message());
 	}
 
@@ -66,8 +63,7 @@ public class AuthorizationHeaderTests {
 	public void testIsNtlmType1PostAuthorizationHeader() {
 		SimpleHttpRequest request = new SimpleHttpRequest();
 		request.setContentLength(0);
-		request.addHeader("Authorization",
-				"NTLM TlRMTVNTUAABAAAABzIAAAYABgArAAAACwALACAAAABXT1JLU1RBVElPTkRPTUFJTg==");
+		request.addHeader("Authorization", "NTLM TlRMTVNTUAABAAAABzIAAAYABgArAAAACwALACAAAABXT1JLU1RBVElPTkRPTUFJTg==");
 		// GET
 		request.setMethod("GET");
 		AuthorizationHeader header = new AuthorizationHeader(request);
@@ -87,7 +83,8 @@ public class AuthorizationHeaderTests {
 		assertFalse(header.isSPNegoMessage());
 		request.addHeader("Authorization", "");
 		assertFalse(header.isSPNegoMessage());
-		request.addHeader("Authorization",
+		request.addHeader(
+				"Authorization",
 				"Negotiate YHYGBisGAQUFAqBsMGqgMDAuBgorBgEEAYI3AgIKBgkqhkiC9xIBAgIGCSqGSIb3EgECAgYKKwYBBAGCNwICHqI2BDROVExNU1NQAAEAAACXsgjiAwADADEAAAAJAAkAKAAAAAYBsR0AAAAPR0xZQ0VSSU5FU0FE");
 		assertTrue(header.isSPNegoMessage());
 	}
@@ -96,7 +93,8 @@ public class AuthorizationHeaderTests {
 	public void testIsSPNegoPostAuthorizationHeader() {
 		SimpleHttpRequest request = new SimpleHttpRequest();
 		request.setContentLength(0);
-		request.addHeader("Authorization",
+		request.addHeader(
+				"Authorization",
 				"Negotiate YHYGBisGAQUFAqBsMGqgMDAuBgorBgEEAYI3AgIKBgkqhkiC9xIBAgIGCSqGSIb3EgECAgYKKwYBBAGCNwICHqI2BDROVExNU1NQAAEAAACXsgjiAwADADEAAAAJAAkAKAAAAAYBsR0AAAAPR0xZQ0VSSU5FU0FE");
 		// GET
 		request.setMethod("GET");

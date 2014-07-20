@@ -39,9 +39,9 @@ import waffle.windows.auth.IWindowsSecurityContext;
  */
 public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
-	private static final Logger _log = LoggerFactory.getLogger(NegotiateSecurityFilterProvider.class);
-	private List<String> _protocols = new ArrayList<String>();
-	private IWindowsAuthProvider _auth;
+	private static final Logger		_log		= LoggerFactory.getLogger(NegotiateSecurityFilterProvider.class);
+	private List<String>			_protocols	= new ArrayList<String>();
+	private IWindowsAuthProvider	_auth;
 
 	public NegotiateSecurityFilterProvider(IWindowsAuthProvider auth) {
 		_auth = auth;
@@ -67,29 +67,22 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
 	@Override
 	public boolean isPrincipalException(HttpServletRequest request) {
-		AuthorizationHeader authorizationHeader = new AuthorizationHeader(
-				request);
-		boolean ntlmPost = authorizationHeader
-				.isNtlmType1PostAuthorizationHeader();
-		_log.debug("authorization: {}, ntlm post: {}", authorizationHeader,
-				Boolean.valueOf(ntlmPost));
+		AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
+		boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
+		_log.debug("authorization: {}, ntlm post: {}", authorizationHeader, Boolean.valueOf(ntlmPost));
 		return ntlmPost;
 	}
 
 	@Override
-	public IWindowsIdentity doFilter(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
+	public IWindowsIdentity doFilter(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-		AuthorizationHeader authorizationHeader = new AuthorizationHeader(
-				request);
-		boolean ntlmPost = authorizationHeader
-				.isNtlmType1PostAuthorizationHeader();
+		AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
+		boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
 
 		// maintain a connection-based session for NTLM tokns
 		String connectionId = NtlmServletRequest.getConnectionId(request);
 		String securityPackage = authorizationHeader.getSecurityPackage();
-		_log.debug("security package: {}, connection id: {}", securityPackage,
-				connectionId);
+		_log.debug("security package: {}, connection id: {}", securityPackage, connectionId);
 
 		if (ntlmPost) {
 			// type 2 NTLM authentication message received
@@ -98,15 +91,13 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
 		byte[] tokenBuffer = authorizationHeader.getTokenBytes();
 		_log.debug("token buffer: {} byte(s)", Integer.valueOf(tokenBuffer.length));
-		IWindowsSecurityContext securityContext = _auth.acceptSecurityToken(
-				connectionId, tokenBuffer, securityPackage);
+		IWindowsSecurityContext securityContext = _auth.acceptSecurityToken(connectionId, tokenBuffer, securityPackage);
 
 		byte[] continueTokenBytes = securityContext.getToken();
 		if (continueTokenBytes != null && continueTokenBytes.length > 0) {
 			String continueToken = Base64.encode(continueTokenBytes);
 			_log.debug("continue token: {}", continueToken);
-			response.addHeader("WWW-Authenticate", securityPackage + " "
-					+ continueToken);
+			response.addHeader("WWW-Authenticate", securityPackage + " " + continueToken);
 		}
 
 		_log.debug("continue required: {}", Boolean.valueOf(securityContext.isContinue()));
@@ -141,13 +132,11 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 				protocolName = protocolName.trim();
 				if (protocolName.length() > 0) {
 					_log.debug("init protocol: {}", protocolName);
-					if (protocolName.equals("Negotiate")
-							|| protocolName.equals("NTLM")) {
+					if (protocolName.equals("Negotiate") || protocolName.equals("NTLM")) {
 						_protocols.add(protocolName);
 					} else {
 						_log.error("unsupported protocol: {}", protocolName);
-						throw new RuntimeException("Unsupported protocol: "
-								+ protocolName);
+						throw new RuntimeException("Unsupported protocol: " + protocolName);
 					}
 				}
 			}

@@ -31,7 +31,7 @@ import waffle.windows.auth.IWindowsSecurityContext;
  */
 public class MockWindowsAuthProvider implements IWindowsAuthProvider {
 
-	private List<String> _groups = new ArrayList<String>();
+	private List<String>	_groups	= new ArrayList<String>();
 
 	public MockWindowsAuthProvider() {
 		_groups.add("Users");
@@ -43,8 +43,7 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
 	}
 
 	@Override
-	public IWindowsSecurityContext acceptSecurityToken(String connectionId,
-			byte[] token, String securityPackage) {
+	public IWindowsSecurityContext acceptSecurityToken(String connectionId, byte[] token, String securityPackage) {
 
 		return new MockWindowsSecurityContext(new String(token));
 	}
@@ -60,14 +59,13 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
 	}
 
 	@Override
-	public IWindowsIdentity logonDomainUser(String username, String domain,
-			String password) {
+	public IWindowsIdentity logonDomainUser(String username, String domain, String password) {
 		return null;
 	}
 
 	@Override
-	public IWindowsIdentity logonDomainUserEx(String username, String domain,
-			String password, int logonType, int logonProvider) {
+	public IWindowsIdentity logonDomainUserEx(String username, String domain, String password, int logonType,
+			int logonProvider) {
 		return null;
 	}
 
@@ -76,8 +74,7 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
 	 */
 	@Override
 	public IWindowsIdentity logonUser(String username, String password) {
-		String currentUsername = Secur32Util
-				.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);
+		String currentUsername = Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);
 		if (username.equals(currentUsername)) {
 			return new MockWindowsIdentity(currentUsername, _groups);
 		} else if (username.equals("Guest")) {

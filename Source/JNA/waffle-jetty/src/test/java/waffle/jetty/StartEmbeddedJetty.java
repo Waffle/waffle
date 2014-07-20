@@ -24,19 +24,18 @@ import org.eclipse.jetty.webapp.WebAppContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * A simple embedded server that lets us run directly within Eclipse
  */
 public class StartEmbeddedJetty {
 
-	private static Logger logger = LoggerFactory.getLogger(StartEmbeddedJetty.class);
+	private static Logger	logger	= LoggerFactory.getLogger(StartEmbeddedJetty.class);
 
 	public static void main(String[] args) throws Exception {
 		String path = "../waffle-demo/waffle-filter";
 
-		File dir = new File( path );
-		if(!dir.exists()) {
+		File dir = new File(path);
+		if (!dir.exists()) {
 			throw new FileNotFoundException("Can not find webapp: " + dir.getAbsolutePath());
 		}
 

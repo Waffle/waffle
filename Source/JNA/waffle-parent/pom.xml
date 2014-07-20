@@ -389,12 +389,12 @@
                         <dependency>
                             <groupId>com.googlecode.htmlcompressor</groupId>
                             <artifactId>htmlcompressor</artifactId>
-                            <version>1.5.3</version>
+                            <version>1.5.2</version>
                         </dependency>
                         <dependency>
                             <groupId>com.yahoo.platform.yui</groupId>
                             <artifactId>yuicompressor</artifactId>
-                            <version>2.4.8</version>
+                            <version>2.4.7</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -416,7 +416,7 @@
                         <dependency>
                             <groupId>com.yahoo.platform.yui</groupId>
                             <artifactId>yuicompressor</artifactId>
-                            <version>2.4.8</version>
+                            <version>2.4.7</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -470,7 +470,7 @@
                         <dependency>
                             <groupId>com.googlecode.javaewah</groupId>
                             <artifactId>JavaEWAH</artifactId>
-                            <version>0.8.6</version>
+                            <version>0.8.7</version>
                         </dependency>
                         <dependency>
                             <groupId>com.jcraft</groupId>
@@ -493,7 +493,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>sonar-maven-plugin</artifactId>
-                    <version>2.3.1</version>
+                    <version>2.4</version>
                 </plugin>
                 <!-- Wagon -->
                 <plugin>
@@ -509,7 +509,7 @@
                         <signature>
                             <groupId>org.codehaus.mojo.signature</groupId>
                             <artifactId>${signature.version}</artifactId>
-                            <version>1.0</version>
+                            <version>1.1</version>
                         </signature>
                     </configuration>
                 </plugin>
@@ -959,7 +959,7 @@
             <id>format</id>
             <activation>
                 <file>
-                    <exists>format.xml</exists>
+                    <exists>../waffle-parent/format.xml</exists>
                 </file>
             </activation>
             <build>
@@ -968,7 +968,7 @@
                         <groupId>com.googlecode.maven-java-formatter-plugin</groupId>
                         <artifactId>maven-java-formatter-plugin</artifactId>
                         <configuration>
-                            <configFile>eclipse-formatter-config.xml</configFile>
+                            <configFile>../waffle-parent/format.xml</configFile>
                         </configuration>
                         <executions>
                             <execution>

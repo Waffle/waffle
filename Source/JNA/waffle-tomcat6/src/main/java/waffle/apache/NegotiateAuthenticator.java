@@ -55,19 +55,15 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 	}
 
 	@Override
-	public boolean authenticate(Request request, Response response,
-			LoginConfig loginConfig) {
+	public boolean authenticate(Request request, Response response, LoginConfig loginConfig) {
 
 		Principal principal = request.getUserPrincipal();
-		AuthorizationHeader authorizationHeader = new AuthorizationHeader(
-				request);
-		boolean ntlmPost = authorizationHeader
-				.isNtlmType1PostAuthorizationHeader();
+		AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
+		boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
 
 		_log.debug("{} {}, contentlength: {}", request.getMethod(), request.getRequestURI(),
 				Integer.valueOf(request.getContentLength()));
-		_log.debug("authorization: {}, ntlm post: {}", authorizationHeader,
-				Boolean.valueOf(ntlmPost));
+		_log.debug("authorization: {}, ntlm post: {}", authorizationHeader, Boolean.valueOf(ntlmPost));
 
 		if (principal != null && !ntlmPost) {
 			// user already authenticated
@@ -82,8 +78,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 			// maintain a connection-based session for NTLM tokens
 			String connectionId = NtlmServletRequest.getConnectionId(request);
 
-			_log.debug("security package: {}, connection id: {}", securityPackage,
-					connectionId);
+			_log.debug("security package: {}, connection id: {}", securityPackage, connectionId);
 
 			if (ntlmPost) {
 				// type 1 NTLM authentication message received
@@ -96,17 +91,14 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 			try {
 				byte[] tokenBuffer = authorizationHeader.getTokenBytes();
 				_log.debug("token buffer: {} byte(s)", Integer.valueOf(tokenBuffer.length));
-				securityContext = _auth.acceptSecurityToken(connectionId,
-						tokenBuffer, securityPackage);
-				_log.debug("continue required: {}",
-						Boolean.valueOf(securityContext.isContinue()));
+				securityContext = _auth.acceptSecurityToken(connectionId, tokenBuffer, securityPackage);
+				_log.debug("continue required: {}", Boolean.valueOf(securityContext.isContinue()));
 
 				byte[] continueTokenBytes = securityContext.getToken();
 				if (continueTokenBytes != null && continueTokenBytes.length > 0) {
 					String continueToken = Base64.encode(continueTokenBytes);
 					_log.debug("continue token: {}", continueToken);
-					response.addHeader("WWW-Authenticate", securityPackage
-							+ " " + continueToken);
+					response.addHeader("WWW-Authenticate", securityPackage + " " + continueToken);
 				}
 
 				if (securityContext.isContinue() || ntlmPost) {
@@ -141,12 +133,10 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 			}
 
 			try {
-				_log.debug("logged in user: {} ({})", windowsIdentity.getFqn(),
-						windowsIdentity.getSidString());
+				_log.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
 
-				GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(
-						windowsIdentity, context.getRealm(), _principalFormat,
-						_roleFormat);
+				GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(windowsIdentity,
+						context.getRealm(), _principalFormat, _roleFormat);
 
 				_log.debug("roles: {}", windowsPrincipal.getRolesString());
 
@@ -157,8 +147,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 				_log.debug("session id: {}", session.getId());
 
 				// register the authenticated principal
-				register(request, response, principal, securityPackage,
-						principal.getName(), null);
+				register(request, response, principal, securityPackage, principal.getName(), null);
 				_log.info("successfully logged in user: {}", principal.getName());
 
 			} finally {

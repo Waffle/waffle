@@ -35,23 +35,21 @@ import waffle.windows.auth.WindowsAccount;
  */
 public class StartEmbeddedJettyValidateNTLMGroup {
 
-	private static Logger logger = LoggerFactory.getLogger(StartEmbeddedJettyValidateNTLMGroup.class);
+	private static Logger	logger	= LoggerFactory.getLogger(StartEmbeddedJettyValidateNTLMGroup.class);
 
 	public static void main(String args[]) {
 		System.setProperty(SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "TRACE");
 
 		Server server = new Server(8080);
 
-		ServletContextHandler context = new ServletContextHandler(
-				ServletContextHandler.SESSIONS);
+		ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
 		context.setContextPath("/");
 
 		ServletHandler handler = new ServletHandler();
 		ServletHolder sh = new ServletHolder(new InfoServlet());
 		context.addServlet(sh, "/*");
 
-		FilterHolder fh = handler.addFilterWithMapping(
-				NegotiateSecurityFilter.class, "/*",
+		FilterHolder fh = handler.addFilterWithMapping(NegotiateSecurityFilter.class, "/*",
 				EnumSet.of(DispatcherType.REQUEST));
 		setFilterParams(fh);
 		context.addFilter(fh, "/*", EnumSet.of(DispatcherType.REQUEST));
@@ -73,24 +71,18 @@ public class StartEmbeddedJettyValidateNTLMGroup {
 		fh.setInitParameter("allowGuestLogin", "true");
 		fh.setInitParameter("impersonate", "true");
 
-		fh.setInitParameter(
-				"securityFilterProviders",
+		fh.setInitParameter("securityFilterProviders",
 				"waffle.servlet.spi.NegotiateSecurityFilterProvider waffle.servlet.spi.BasicSecurityFilterProvider");
-		fh.setInitParameter(
-				"waffle.servlet.spi.NegotiateSecurityFilterProvider/protocols",
-				"Negotiate NTLM");
+		fh.setInitParameter("waffle.servlet.spi.NegotiateSecurityFilterProvider/protocols", "Negotiate NTLM");
 
-		fh.setInitParameter(
-				"waffle.servlet.spi.BasicSecurityFilterProvider/realm",
-				"SecureServiceRunner");
+		fh.setInitParameter("waffle.servlet.spi.BasicSecurityFilterProvider/realm", "SecureServiceRunner");
 	}
 
 	public static class InfoServlet extends HttpServlet {
 
-		private static final long serialVersionUID = 1L;
-		
-		private static List<String> authorisedGroups = Arrays.asList("NTGroup1",
-				"NTGroup2");
+		private static final long	serialVersionUID	= 1L;
+
+		private static List<String>	authorisedGroups	= Arrays.asList("NTGroup1", "NTGroup2");
 
 		@Override
 		public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,

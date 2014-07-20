@@ -22,11 +22,11 @@ import java.io.Serializable;
  */
 public class WindowsAccount implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	private String _sidString;
-	private String _fqn;
-	private String _name;
-	private String _domain;
+	private static final long	serialVersionUID	= 1L;
+	private String				_sidString;
+	private String				_fqn;
+	private String				_name;
+	private String				_domain;
 
 	public WindowsAccount(IWindowsAccount account) {
 		_sidString = account.getSidString();

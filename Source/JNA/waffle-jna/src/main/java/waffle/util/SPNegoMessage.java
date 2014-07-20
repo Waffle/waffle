@@ -22,14 +22,14 @@ public final class SPNegoMessage {
 
 	// Check for NegTokenInit. It has always a special oid ("spnegoOid"),
 	// which makes it rather easy to detect.
-	private static final byte[] spnegoOid   = {0x06, 0x06, 0x2b, 0x06, 0x01, 0x05, 0x05, 0x02};
+	private static final byte[]	spnegoOid	= { 0x06, 0x06, 0x2b, 0x06, 0x01, 0x05, 0x05, 0x02 };
 
 	// Check if this message is SPNEGO authentication token. There
-	// are two token types, NegTokenInit and NegTokenArg. 
+	// are two token types, NegTokenInit and NegTokenArg.
 	// For details and specification, see
 	// http://msdn.microsoft.com/en-us/library/ms995330.aspx
 	public static boolean isSPNegoMessage(byte[] message) {
-		
+
 		// Message should always contains at least some kind of
 		// id byte and length. If it is too short, it
 		// cannot be a SPNEGO message.

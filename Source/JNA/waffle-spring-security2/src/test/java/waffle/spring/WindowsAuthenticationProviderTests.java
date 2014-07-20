@@ -42,20 +42,19 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
  */
 public class WindowsAuthenticationProviderTests {
 
-	private WindowsAuthenticationProvider _provider;
-	private ApplicationContext ctx;
+	private WindowsAuthenticationProvider	_provider;
+	private ApplicationContext				ctx;
 
 	@Before
 	public void setUp() {
 		String[] configFiles = new String[] { "springTestAuthBeans.xml" };
 		ctx = new ClassPathXmlApplicationContext(configFiles);
-		_provider = (WindowsAuthenticationProvider) ctx
-				.getBean("waffleSpringAuthenticationProvider");
+		_provider = (WindowsAuthenticationProvider) ctx.getBean("waffleSpringAuthenticationProvider");
 	}
 
 	@After
 	public void shutDown() {
-		((AbstractApplicationContext) ctx).close(); 
+		((AbstractApplicationContext) ctx).close();
 	}
 
 	@Test
@@ -69,18 +68,16 @@ public class WindowsAuthenticationProviderTests {
 	@Test
 	public void testSupports() {
 		assertFalse(_provider.supports(this.getClass()));
-		assertTrue(_provider
-				.supports(UsernamePasswordAuthenticationToken.class));
+		assertTrue(_provider.supports(UsernamePasswordAuthenticationToken.class));
 	}
 
 	@Test
 	public void testAuthenticate() {
-		MockWindowsIdentity mockIdentity = new MockWindowsIdentity(
-				WindowsAccountImpl.getCurrentUsername(),
+		MockWindowsIdentity mockIdentity = new MockWindowsIdentity(WindowsAccountImpl.getCurrentUsername(),
 				new ArrayList<String>());
 		WindowsPrincipal principal = new WindowsPrincipal(mockIdentity);
-		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-				principal, "password");
+		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(principal,
+				"password");
 		Authentication authenticated = _provider.authenticate(authentication);
 		assertNotNull(authenticated);
 		assertTrue(authenticated.isAuthenticated());
@@ -95,15 +92,13 @@ public class WindowsAuthenticationProviderTests {
 	@Test
 	public void testAuthenticateWithCustomGrantedAuthorityFactory() {
 		_provider.setDefaultGrantedAuthority(null);
-		_provider.setGrantedAuthorityFactory(new FqnGrantedAuthorityFactory(
-				null, false));
+		_provider.setGrantedAuthorityFactory(new FqnGrantedAuthorityFactory(null, false));
 
-		MockWindowsIdentity mockIdentity = new MockWindowsIdentity(
-				WindowsAccountImpl.getCurrentUsername(),
+		MockWindowsIdentity mockIdentity = new MockWindowsIdentity(WindowsAccountImpl.getCurrentUsername(),
 				new ArrayList<String>());
 		WindowsPrincipal principal = new WindowsPrincipal(mockIdentity);
-		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-				principal, "password");
+		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(principal,
+				"password");
 
 		Authentication authenticated = _provider.authenticate(authentication);
 		assertNotNull(authenticated);
@@ -115,14 +110,13 @@ public class WindowsAuthenticationProviderTests {
 		assertTrue(authenticated.getPrincipal() instanceof WindowsPrincipal);
 	}
 
-	@Test (expected = GuestLoginDisabledAuthenticationException.class)
+	@Test(expected = GuestLoginDisabledAuthenticationException.class)
 	public void testGuestIsDisabled() {
-		MockWindowsIdentity mockIdentity = new MockWindowsIdentity("Guest",
-				new ArrayList<String>());
+		MockWindowsIdentity mockIdentity = new MockWindowsIdentity("Guest", new ArrayList<String>());
 		_provider.setAllowGuestLogin(false);
 		WindowsPrincipal principal = new WindowsPrincipal(mockIdentity);
-		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-				principal, "password");
+		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(principal,
+				"password");
 		_provider.authenticate(authentication);
 		fail("expected AuthenticationServiceException");
 	}

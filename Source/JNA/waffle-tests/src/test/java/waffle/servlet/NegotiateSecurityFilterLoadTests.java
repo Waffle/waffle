@@ -27,9 +27,9 @@ import org.junit.Test;
 public class NegotiateSecurityFilterLoadTests {
 
 	@Rule
-	public ContiPerfRule contiPerfRule = new ContiPerfRule();
+	public ContiPerfRule					contiPerfRule	= new ContiPerfRule();
 
-	private NegotiateSecurityFilterTests _tests = new NegotiateSecurityFilterTests();
+	private NegotiateSecurityFilterTests	_tests			= new NegotiateSecurityFilterTests();
 
 	@Before
 	public void setUp() {

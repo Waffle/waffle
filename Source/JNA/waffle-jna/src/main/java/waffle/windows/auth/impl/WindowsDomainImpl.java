@@ -32,9 +32,9 @@ public class WindowsDomainImpl implements IWindowsDomain {
 		TreeRoot, ParentChild, CrossLink, External, Forest, Kerberos, Unknown
 	}
 
-	private String _fqn;
-	private TrustDirection _trustDirection = TrustDirection.Bidirectional;
-	private TrustType _trustType = TrustType.Unknown;
+	private String			_fqn;
+	private TrustDirection	_trustDirection	= TrustDirection.Bidirectional;
+	private TrustType		_trustType		= TrustType.Unknown;
 
 	@Override
 	public String getFqn() {

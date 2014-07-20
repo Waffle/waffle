@@ -32,10 +32,8 @@ public class NtlmServletRequestTests {
 		SimpleHttpRequest request2 = new SimpleHttpRequest();
 		assertEquals(":2", NtlmServletRequest.getConnectionId(request2));
 		request2.setRemoteAddr("192.168.1.1");
-		assertEquals("192.168.1.1:2",
-				NtlmServletRequest.getConnectionId(request2));
+		assertEquals("192.168.1.1:2", NtlmServletRequest.getConnectionId(request2));
 		request2.setRemoteHost("codeplex.com");
-		assertEquals("codeplex.com:2",
-				NtlmServletRequest.getConnectionId(request2));
+		assertEquals("codeplex.com:2", NtlmServletRequest.getConnectionId(request2));
 	}
 }

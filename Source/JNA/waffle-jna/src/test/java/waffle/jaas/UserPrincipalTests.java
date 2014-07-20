@@ -31,7 +31,7 @@ import org.junit.Test;
  */
 public class UserPrincipalTests {
 
-	private UserPrincipal _userPrincipal;
+	private UserPrincipal	_userPrincipal;
 
 	@Before
 	public void setUp() {

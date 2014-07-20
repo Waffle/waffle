@@ -27,8 +27,8 @@ import javax.servlet.ServletResponse;
  */
 public class SimpleFilterChain implements FilterChain {
 
-	private ServletRequest _request;
-	private ServletResponse _response;
+	private ServletRequest	_request;
+	private ServletResponse	_response;
 
 	public ServletRequest getRequest() {
 		return _request;
@@ -39,8 +39,7 @@ public class SimpleFilterChain implements FilterChain {
 	}
 
 	@Override
-	public void doFilter(ServletRequest sreq, ServletResponse srep)
-			throws IOException, ServletException {
+	public void doFilter(ServletRequest sreq, ServletResponse srep) throws IOException, ServletException {
 
 		_request = sreq;
 		_response = srep;

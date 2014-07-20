@@ -189,38 +189,32 @@ public class SimpleServletContext implements ServletContext {
 	}
 
 	@Override
-	public javax.servlet.ServletRegistration.Dynamic addServlet(String arg0,
-			String arg1) {
+	public javax.servlet.ServletRegistration.Dynamic addServlet(String arg0, String arg1) {
 		return null;
 	}
 
 	@Override
-	public javax.servlet.ServletRegistration.Dynamic addServlet(String arg0,
-			Servlet arg1) {
+	public javax.servlet.ServletRegistration.Dynamic addServlet(String arg0, Servlet arg1) {
 		return null;
 	}
 
 	@Override
-	public javax.servlet.ServletRegistration.Dynamic addServlet(String arg0,
-			Class<? extends Servlet> arg1) {
+	public javax.servlet.ServletRegistration.Dynamic addServlet(String arg0, Class<? extends Servlet> arg1) {
 		return null;
 	}
 
 	@Override
-	public <T extends Filter> T createFilter(Class<T> arg0)
-			throws ServletException {
+	public <T extends Filter> T createFilter(Class<T> arg0) throws ServletException {
 		return null;
 	}
 
 	@Override
-	public <T extends EventListener> T createListener(Class<T> arg0)
-			throws ServletException {
+	public <T extends EventListener> T createListener(Class<T> arg0) throws ServletException {
 		return null;
 	}
 
 	@Override
-	public <T extends Servlet> T createServlet(Class<T> arg0)
-			throws ServletException {
+	public <T extends Servlet> T createServlet(Class<T> arg0) throws ServletException {
 		return null;
 	}
 
@@ -290,8 +284,8 @@ public class SimpleServletContext implements ServletContext {
 	}
 
 	@Override
-	public void setSessionTrackingModes(Set<SessionTrackingMode> arg0)
-			throws IllegalStateException, IllegalArgumentException {
+	public void setSessionTrackingModes(Set<SessionTrackingMode> arg0) throws IllegalStateException,
+			IllegalArgumentException {
 
 	}
 

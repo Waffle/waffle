@@ -6,7 +6,7 @@ import org.apache.catalina.Valve;
 
 public class SimplePipeline implements Pipeline {
 
-	private Valve[] _valves = new Valve[0];
+	private Valve[]	_valves	= new Valve[0];
 
 	@Override
 	public void addValve(Valve arg0) {

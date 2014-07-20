@@ -39,8 +39,8 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsLoginModuleTests {
-	WindowsLoginModule _loginModule;
-	MockWindowsAuthProvider _provider;
+	WindowsLoginModule		_loginModule;
+	MockWindowsAuthProvider	_provider;
 
 	@Before
 	public void setUp() {
@@ -52,8 +52,7 @@ public class WindowsLoginModuleTests {
 	@Test
 	public void testInitialize() {
 		Subject subject = new Subject();
-		UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
-				"", "");
+		UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler("", "");
 		Map<String, String> options = new HashMap<String, String>();
 		options.put("debug", "true");
 		_loginModule.initialize(subject, callbackHandler, null, options);
@@ -79,16 +78,14 @@ public class WindowsLoginModuleTests {
 		assertEquals(0, subject.getPrincipals().size());
 		assertTrue(_loginModule.commit());
 		assertEquals(3, subject.getPrincipals().size());
-		assertTrue(subject.getPrincipals().contains(
-				new RolePrincipal("Everyone")));
+		assertTrue(subject.getPrincipals().contains(new RolePrincipal("Everyone")));
 		assertTrue(subject.getPrincipals().contains(new RolePrincipal("Users")));
-		assertTrue(subject.getPrincipals().contains(
-				new UserPrincipal(WindowsAccountImpl.getCurrentUsername())));
+		assertTrue(subject.getPrincipals().contains(new UserPrincipal(WindowsAccountImpl.getCurrentUsername())));
 		assertTrue(_loginModule.logout());
 		assertSame(Integer.valueOf(subject.getPrincipals().size()), Integer.valueOf(0));
 	}
 
-	@Test (expected = LoginException.class)
+	@Test(expected = LoginException.class)
 	public void testNoCallbackHandler() throws LoginException {
 		Subject subject = new Subject();
 		Map<String, String> options = new HashMap<String, String>();
@@ -96,11 +93,10 @@ public class WindowsLoginModuleTests {
 		_loginModule.login();
 	}
 
-	@Test (expected = LoginException.class)
+	@Test(expected = LoginException.class)
 	public void testLoginNoUsername() throws LoginException {
 		Subject subject = new Subject();
-		UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
-				"", "");
+		UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler("", "");
 		Map<String, String> options = new HashMap<String, String>();
 		options.put("debug", "true");
 		_loginModule.initialize(subject, callbackHandler, null, options);
@@ -164,8 +160,7 @@ public class WindowsLoginModuleTests {
 		assertTrue(_loginModule.commit());
 		assertEquals(3, subject.getPrincipals().size());
 		Iterator<Principal> principals = subject.getPrincipals().iterator();
-		assertTrue(principals.next().getName()
-				.equals(WindowsAccountImpl.getCurrentUsername()));
+		assertTrue(principals.next().getName().equals(WindowsAccountImpl.getCurrentUsername()));
 		assertTrue(principals.next().getName().startsWith("S-"));
 		assertTrue(principals.next().getName().startsWith("S-"));
 	}
@@ -186,11 +181,10 @@ public class WindowsLoginModuleTests {
 		assertEquals(4, subject.getPrincipals().size());
 	}
 
-	@Test (expected = LoginException.class)
+	@Test(expected = LoginException.class)
 	public void testGuestLogin() throws LoginException {
 		Subject subject = new Subject();
-		UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
-				"Guest", "password");
+		UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler("Guest", "password");
 		Map<String, String> options = new HashMap<String, String>();
 		options.put("debug", "true");
 		_loginModule.initialize(subject, callbackHandler, null, options);
@@ -199,8 +193,7 @@ public class WindowsLoginModuleTests {
 		assertEquals(0, subject.getPrincipals().size());
 		assertTrue(_loginModule.commit());
 		assertEquals(3, subject.getPrincipals().size());
-		assertTrue(subject.getPrincipals().contains(
-				new RolePrincipal("Everyone")));
+		assertTrue(subject.getPrincipals().contains(new RolePrincipal("Everyone")));
 		assertTrue(subject.getPrincipals().contains(new RolePrincipal("Users")));
 		_loginModule.setAllowGuestLogin(false);
 		assertTrue(_loginModule.login());
@@ -210,8 +203,7 @@ public class WindowsLoginModuleTests {
 	@Test
 	public void testAbort() throws LoginException {
 		Subject subject = new Subject();
-		UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
-				"Guest", "password");
+		UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler("Guest", "password");
 		Map<String, String> options = new HashMap<String, String>();
 		options.put("debug", "true");
 		_loginModule.initialize(subject, callbackHandler, null, options);

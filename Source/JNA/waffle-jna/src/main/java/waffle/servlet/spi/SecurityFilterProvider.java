@@ -54,8 +54,7 @@ public interface SecurityFilterProvider {
 	 * @return A Windows identity in case authentication completed or NULL if not. Thrown exceptions should be caught
 	 *         and processed as 401 Access Denied.
 	 */
-	IWindowsIdentity doFilter(HttpServletRequest request,
-			HttpServletResponse response) throws IOException;
+	IWindowsIdentity doFilter(HttpServletRequest request, HttpServletResponse response) throws IOException;
 
 	/**
 	 * Tests whether a specific security package is supported.

@@ -48,21 +48,21 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  */
 public class WindowsLoginModule implements LoginModule {
 
-	private static final Logger _log = LoggerFactory.getLogger(WindowsLoginModule.class);
+	private static final Logger		_log				= LoggerFactory.getLogger(WindowsLoginModule.class);
 
-	private String _username = null;
-	private boolean _debug = false;
-	private Subject _subject = null;
-	private CallbackHandler _callbackHandler = null;
-	private IWindowsAuthProvider _auth = new WindowsAuthProviderImpl();
-	private Set<Principal> _principals = null;
-	private PrincipalFormat _principalFormat = PrincipalFormat.fqn;
-	private PrincipalFormat _roleFormat = PrincipalFormat.fqn;
-	private boolean _allowGuestLogin = true;
+	private String					_username			= null;
+	private boolean					_debug				= false;
+	private Subject					_subject			= null;
+	private CallbackHandler			_callbackHandler	= null;
+	private IWindowsAuthProvider	_auth				= new WindowsAuthProviderImpl();
+	private Set<Principal>			_principals			= null;
+	private PrincipalFormat			_principalFormat	= PrincipalFormat.fqn;
+	private PrincipalFormat			_roleFormat			= PrincipalFormat.fqn;
+	private boolean					_allowGuestLogin	= true;
 
 	@Override
-	public void initialize(Subject subject, CallbackHandler callbackHandler,
-			Map<String, ?> sharedState, Map<String, ?> options) {
+	public void initialize(Subject subject, CallbackHandler callbackHandler, Map<String, ?> sharedState,
+			Map<String, ?> options) {
 
 		_subject = subject;
 		_callbackHandler = callbackHandler;
@@ -71,11 +71,9 @@ public class WindowsLoginModule implements LoginModule {
 			if (option.getKey().equalsIgnoreCase("debug")) {
 				_debug = Boolean.parseBoolean((String) option.getValue());
 			} else if (option.getKey().equalsIgnoreCase("principalFormat")) {
-				_principalFormat = PrincipalFormat.valueOf((String) option
-						.getValue());
+				_principalFormat = PrincipalFormat.valueOf((String) option.getValue());
 			} else if (option.getKey().equalsIgnoreCase("roleFormat")) {
-				_roleFormat = PrincipalFormat.valueOf((String) option
-						.getValue());
+				_roleFormat = PrincipalFormat.valueOf((String) option.getValue());
 			}
 		}
 	}
@@ -86,13 +84,11 @@ public class WindowsLoginModule implements LoginModule {
 	@Override
 	public boolean login() throws LoginException {
 		if (_callbackHandler == null) {
-			throw new LoginException(
-					"Missing callback to gather information from the user.");
+			throw new LoginException("Missing callback to gather information from the user.");
 		}
 
 		NameCallback usernameCallback = new NameCallback("user name: ");
-		PasswordCallback passwordCallback = new PasswordCallback("password: ",
-				false);
+		PasswordCallback passwordCallback = new PasswordCallback("password: ", false);
 
 		Callback[] callbacks = new Callback[2];
 		callbacks[0] = usernameCallback;
@@ -104,8 +100,7 @@ public class WindowsLoginModule implements LoginModule {
 		try {
 			_callbackHandler.handle(callbacks);
 			username = usernameCallback.getName();
-			password = passwordCallback.getPassword() == null ? ""
-					: new String(passwordCallback.getPassword());
+			password = passwordCallback.getPassword() == null ? "" : new String(passwordCallback.getPassword());
 			passwordCallback.clearPassword();
 		} catch (IOException e) {
 			_log.trace("{}", e);
@@ -113,8 +108,8 @@ public class WindowsLoginModule implements LoginModule {
 		} catch (UnsupportedCallbackException e) {
 			_log.trace("{}", e);
 			throw new LoginException(
-					"Callback {} not available to gather authentication information from the user.".replace("{}", 
-							e.getCallback().getClass().getName()));
+					"Callback {} not available to gather authentication information from the user.".replace("{}", e
+							.getCallback().getClass().getName()));
 		}
 
 		IWindowsIdentity windowsIdentity = null;
@@ -133,8 +128,7 @@ public class WindowsLoginModule implements LoginModule {
 			}
 
 			_principals = new LinkedHashSet<Principal>();
-			_principals.addAll(getUserPrincipals(windowsIdentity,
-					_principalFormat));
+			_principals.addAll(getUserPrincipals(windowsIdentity, _principalFormat));
 			if (_roleFormat != PrincipalFormat.none) {
 				for (IWindowsAccount group : windowsIdentity.getGroups()) {
 					_principals.addAll(getRolePrincipals(group, _roleFormat));
@@ -142,8 +136,7 @@ public class WindowsLoginModule implements LoginModule {
 			}
 
 			_username = windowsIdentity.getFqn();
-			_log.debug("successfully logged in {} ({})", _username,
-					windowsIdentity.getSidString());
+			_log.debug("successfully logged in {} ({})", _username, windowsIdentity.getSidString());
 		} finally {
 			windowsIdentity.dispose();
 		}
@@ -237,25 +230,24 @@ public class WindowsLoginModule implements LoginModule {
 	 *            Principal format.
 	 * @return A list of user principal objects.
 	 */
-	private static List<Principal> getUserPrincipals(
-			IWindowsIdentity windowsIdentity, PrincipalFormat principalFormat) {
+	private static List<Principal> getUserPrincipals(IWindowsIdentity windowsIdentity, PrincipalFormat principalFormat) {
 
 		List<Principal> principals = new ArrayList<Principal>();
 		switch (principalFormat) {
-		case fqn:
-			principals.add(new UserPrincipal(windowsIdentity.getFqn()));
-			break;
-		case sid:
-			principals.add(new UserPrincipal(windowsIdentity.getSidString()));
-			break;
-		case both:
-			principals.add(new UserPrincipal(windowsIdentity.getFqn()));
-			principals.add(new UserPrincipal(windowsIdentity.getSidString()));
-			break;
-		case none:
-			break;
-		default:
-			break;
+			case fqn:
+				principals.add(new UserPrincipal(windowsIdentity.getFqn()));
+				break;
+			case sid:
+				principals.add(new UserPrincipal(windowsIdentity.getSidString()));
+				break;
+			case both:
+				principals.add(new UserPrincipal(windowsIdentity.getFqn()));
+				principals.add(new UserPrincipal(windowsIdentity.getSidString()));
+				break;
+			case none:
+				break;
+			default:
+				break;
 		}
 
 		return principals;
@@ -270,25 +262,24 @@ public class WindowsLoginModule implements LoginModule {
 	 *            Principal format.
 	 * @return List of role principal objects.
 	 */
-	private static List<Principal> getRolePrincipals(IWindowsAccount group,
-			PrincipalFormat principalFormat) {
+	private static List<Principal> getRolePrincipals(IWindowsAccount group, PrincipalFormat principalFormat) {
 
 		List<Principal> principals = new ArrayList<Principal>();
 		switch (principalFormat) {
-		case fqn:
-			principals.add(new RolePrincipal(group.getFqn()));
-			break;
-		case sid:
-			principals.add(new RolePrincipal(group.getSidString()));
-			break;
-		case both:
-			principals.add(new RolePrincipal(group.getFqn()));
-			principals.add(new RolePrincipal(group.getSidString()));
-			break;
-		case none:
-			break;
-		default:
-			break;
+			case fqn:
+				principals.add(new RolePrincipal(group.getFqn()));
+				break;
+			case sid:
+				principals.add(new RolePrincipal(group.getSidString()));
+				break;
+			case both:
+				principals.add(new RolePrincipal(group.getFqn()));
+				principals.add(new RolePrincipal(group.getSidString()));
+				break;
+			case none:
+				break;
+			default:
+				break;
 		}
 
 		return principals;

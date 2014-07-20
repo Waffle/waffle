@@ -37,20 +37,19 @@ import waffle.mock.http.SimpleHttpResponse;
  */
 public class NegotiateSecurityFilterEntryPointTests {
 
-	private NegotiateSecurityFilterEntryPoint _entryPoint;
-	private ApplicationContext ctx;
+	private NegotiateSecurityFilterEntryPoint	_entryPoint;
+	private ApplicationContext					ctx;
 
 	@Before
 	public void setUp() {
 		String[] configFiles = new String[] { "springTestFilterBeans.xml" };
 		ctx = new ClassPathXmlApplicationContext(configFiles);
-		_entryPoint = (NegotiateSecurityFilterEntryPoint) ctx
-				.getBean("negotiateSecurityFilterEntryPoint");
+		_entryPoint = (NegotiateSecurityFilterEntryPoint) ctx.getBean("negotiateSecurityFilterEntryPoint");
 	}
 
 	@After
 	public void shutDown() {
-		((AbstractApplicationContext) ctx).close(); 
+		((AbstractApplicationContext) ctx).close();
 	}
 
 	@Test
@@ -59,8 +58,7 @@ public class NegotiateSecurityFilterEntryPointTests {
 		request.setMethod("GET");
 		SimpleHttpResponse response = new SimpleHttpResponse();
 		_entryPoint.commence(request, response, null);
-		String[] wwwAuthenticates = response
-				.getHeaderValues("WWW-Authenticate");
+		String[] wwwAuthenticates = response.getHeaderValues("WWW-Authenticate");
 		assertEquals(3, wwwAuthenticates.length);
 		assertEquals("NTLM", wwwAuthenticates[0]);
 		assertEquals("Negotiate", wwwAuthenticates[1]);
@@ -70,7 +68,7 @@ public class NegotiateSecurityFilterEntryPointTests {
 		assertEquals(401, response.getStatus());
 	}
 
-	@Test (expected = ServletException.class)
+	@Test(expected = ServletException.class)
 	public void testGetSetProvider() throws IOException, ServletException {
 		assertNotNull(_entryPoint.getProvider());
 		_entryPoint.setProvider(null);

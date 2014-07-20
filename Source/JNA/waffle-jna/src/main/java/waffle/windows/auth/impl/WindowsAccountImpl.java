@@ -27,7 +27,7 @@ import com.sun.jna.platform.win32.Secur32.EXTENDED_NAME_FORMAT;
  */
 public class WindowsAccountImpl implements IWindowsAccount {
 
-	private Account _account;
+	private Account	_account;
 
 	@Override
 	public String getFqn() {
@@ -61,8 +61,7 @@ public class WindowsAccountImpl implements IWindowsAccount {
 	 * @return String.
 	 */
 	public static String getCurrentUsername() {
-		return Secur32Util
-				.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);
+		return Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);
 	}
 
 	/**

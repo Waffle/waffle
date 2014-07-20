@@ -22,7 +22,6 @@ import javax.security.auth.Subject;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 
-
 import waffle.mock.http.*;
 
 import org.junit.After;
@@ -40,8 +39,8 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
  */
 public class BasicSecurityFilterTests {
 
-	private NegotiateSecurityFilter _filter;
-	private MockWindowsAuthProvider _provider;
+	private NegotiateSecurityFilter	_filter;
+	private MockWindowsAuthProvider	_provider;
 
 	@Before
 	public void setUp() {
@@ -61,22 +60,18 @@ public class BasicSecurityFilterTests {
 
 	@Test
 	public void testBasicAuth() throws IOException, ServletException {
-	  SimpleHttpRequest request = new SimpleHttpRequest();
-	  request.setMethod("GET");
-	  
-		String userHeaderValue = WindowsAccountImpl.getCurrentUsername()
-				+ ":password";
-		String basicAuthHeader = "Basic "
-				+ Base64.encode(userHeaderValue.getBytes());
+		SimpleHttpRequest request = new SimpleHttpRequest();
+		request.setMethod("GET");
+
+		String userHeaderValue = WindowsAccountImpl.getCurrentUsername() + ":password";
+		String basicAuthHeader = "Basic " + Base64.encode(userHeaderValue.getBytes());
 		request.addHeader("Authorization", basicAuthHeader);
-		
+
 		SimpleHttpResponse response = new SimpleHttpResponse();
 		FilterChain filterChain = new SimpleFilterChain();
 		_filter.doFilter(request, response, filterChain);
-		Subject subject = (Subject) request.getSession().getAttribute(
-				"javax.security.auth.subject");
-		boolean authenticated = (subject != null && subject.getPrincipals()
-				.size() > 0);
+		Subject subject = (Subject) request.getSession().getAttribute("javax.security.auth.subject");
+		boolean authenticated = (subject != null && subject.getPrincipals().size() > 0);
 		assertTrue(authenticated);
 	}
 }

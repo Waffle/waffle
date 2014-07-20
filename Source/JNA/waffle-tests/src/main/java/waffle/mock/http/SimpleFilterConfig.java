@@ -28,8 +28,8 @@ import javax.servlet.ServletContext;
  */
 public class SimpleFilterConfig implements FilterConfig {
 
-	private String _filterName = "Simple Filter";
-	private Map<String, String> _parameters = new TreeMap<String, String>();
+	private String				_filterName	= "Simple Filter";
+	private Map<String, String>	_parameters	= new TreeMap<String, String>();
 
 	@Override
 	public String getFilterName() {

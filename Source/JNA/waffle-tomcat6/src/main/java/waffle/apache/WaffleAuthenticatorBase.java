@@ -34,16 +34,16 @@ import static java.util.Arrays.asList;
  */
 abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
-	private static final Set<String> SUPPORTED_PROTOCOLS = new LinkedHashSet<String>(asList("Negotiate", "NTLM"));
+	private static final Set<String>	SUPPORTED_PROTOCOLS	= new LinkedHashSet<String>(asList("Negotiate", "NTLM"));
 
-	protected String _info;
-	protected Logger _log;
-	protected PrincipalFormat _principalFormat = PrincipalFormat.fqn;
-	protected PrincipalFormat _roleFormat = PrincipalFormat.fqn;
-	protected boolean _allowGuestLogin = true;
-	protected Set<String> _protocols = SUPPORTED_PROTOCOLS;
+	protected String					_info;
+	protected Logger					_log;
+	protected PrincipalFormat			_principalFormat	= PrincipalFormat.fqn;
+	protected PrincipalFormat			_roleFormat			= PrincipalFormat.fqn;
+	protected boolean					_allowGuestLogin	= true;
+	protected Set<String>				_protocols			= SUPPORTED_PROTOCOLS;
 
-	protected IWindowsAuthProvider _auth = new WindowsAuthProviderImpl();
+	protected IWindowsAuthProvider		_auth				= new WindowsAuthProviderImpl();
 
 	/**
 	 * Windows authentication provider.
@@ -131,7 +131,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
 	/**
 	 * Set the authentication protocols. Default is "Negotiate, NTLM".
-	 *
+	 * 
 	 * @param protocols
 	 *            Authentication protocols
 	 */
@@ -146,8 +146,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 					_protocols.add(protocolName);
 				} else {
 					_log.error("unsupported protocol: {}", protocolName);
-					throw new RuntimeException("Unsupported protocol: "
-							+ protocolName);
+					throw new RuntimeException("Unsupported protocol: " + protocolName);
 				}
 			}
 		}

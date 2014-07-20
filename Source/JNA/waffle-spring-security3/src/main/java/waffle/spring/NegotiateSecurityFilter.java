@@ -43,14 +43,15 @@ import waffle.windows.auth.PrincipalFormat;
  */
 public class NegotiateSecurityFilter extends GenericFilterBean {
 
-	private static final Logger _log = LoggerFactory.getLogger(NegotiateSecurityFilter.class);
-	private SecurityFilterProviderCollection _provider;
-	private PrincipalFormat _principalFormat = PrincipalFormat.fqn;
-	private PrincipalFormat _roleFormat = PrincipalFormat.fqn;
-	private boolean _allowGuestLogin = true;
+	private static final Logger					_log						= LoggerFactory
+																					.getLogger(NegotiateSecurityFilter.class);
+	private SecurityFilterProviderCollection	_provider;
+	private PrincipalFormat						_principalFormat			= PrincipalFormat.fqn;
+	private PrincipalFormat						_roleFormat					= PrincipalFormat.fqn;
+	private boolean								_allowGuestLogin			= true;
 
-	private GrantedAuthorityFactory _grantedAuthorityFactory = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY_FACTORY;
-	private GrantedAuthority _defaultGrantedAuthority = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY;
+	private GrantedAuthorityFactory				_grantedAuthorityFactory	= WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY_FACTORY;
+	private GrantedAuthority					_defaultGrantedAuthority	= WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY;
 
 	public NegotiateSecurityFilter() {
 		super();
@@ -58,8 +59,8 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
 	}
 
 	@Override
-	public void doFilter(ServletRequest req, ServletResponse res,
-			FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException,
+			ServletException {
 
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
@@ -67,13 +68,11 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
 		_log.debug("{} {}, contentlength: {}", request.getMethod(), request.getRequestURI(),
 				Integer.valueOf(request.getContentLength()));
 
-		AuthorizationHeader authorizationHeader = new AuthorizationHeader(
-				request);
+		AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
 
 		// authenticate user
 		if (!authorizationHeader.isNull()
-				&& _provider.isSecurityPackageSupported(authorizationHeader
-						.getSecurityPackage())) {
+				&& _provider.isSecurityPackageSupported(authorizationHeader.getSecurityPackage())) {
 
 			// log the user in using the token
 			IWindowsIdentity windowsIdentity = null;
@@ -97,23 +96,18 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
 			}
 
 			try {
-				_log.debug("logged in user: {} ({})", windowsIdentity.getFqn(),
-						windowsIdentity.getSidString());
+				_log.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
 
-				WindowsPrincipal principal = new WindowsPrincipal(
-						windowsIdentity, _principalFormat, _roleFormat);
+				WindowsPrincipal principal = new WindowsPrincipal(windowsIdentity, _principalFormat, _roleFormat);
 
 				_log.debug("roles: {}", principal.getRolesString());
 
-				Authentication authentication = new WindowsAuthenticationToken(
-						principal, _grantedAuthorityFactory,
+				Authentication authentication = new WindowsAuthenticationToken(principal, _grantedAuthorityFactory,
 						_defaultGrantedAuthority);
 
-				SecurityContextHolder.getContext().setAuthentication(
-						authentication);
+				SecurityContextHolder.getContext().setAuthentication(authentication);
 
-				_log.info("successfully logged in user: {}",
-						windowsIdentity.getFqn());
+				_log.info("successfully logged in user: {}", windowsIdentity.getFqn());
 
 			} finally {
 				windowsIdentity.dispose();
@@ -128,8 +122,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
 		super.afterPropertiesSet();
 
 		if (_provider == null) {
-			throw new ServletException(
-					"Missing NegotiateSecurityFilter.Provider");
+			throw new ServletException("Missing NegotiateSecurityFilter.Provider");
 		}
 	}
 
@@ -192,8 +185,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
 		return _grantedAuthorityFactory;
 	}
 
-	public void setGrantedAuthorityFactory(
-			GrantedAuthorityFactory grantedAuthorityFactory) {
+	public void setGrantedAuthorityFactory(GrantedAuthorityFactory grantedAuthorityFactory) {
 		_grantedAuthorityFactory = grantedAuthorityFactory;
 	}
 
@@ -201,8 +193,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
 		return _defaultGrantedAuthority;
 	}
 
-	public void setDefaultGrantedAuthority(
-			GrantedAuthority defaultGrantedAuthority) {
+	public void setDefaultGrantedAuthority(GrantedAuthority defaultGrantedAuthority) {
 		_defaultGrantedAuthority = defaultGrantedAuthority;
 	}
 }

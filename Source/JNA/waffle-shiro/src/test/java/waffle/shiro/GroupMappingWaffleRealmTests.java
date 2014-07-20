@@ -33,9 +33,9 @@ import com.sun.jna.platform.win32.Secur32.EXTENDED_NAME_FORMAT;
 import com.sun.jna.platform.win32.Secur32Util;
 
 public class GroupMappingWaffleRealmTests {
-	private static final String ROLE_NAME = "ShiroUsers";
-	private MockWindowsAuthProvider windowsAuthProvider;
-	private GroupMappingWaffleRealm realm;
+	private static final String		ROLE_NAME	= "ShiroUsers";
+	private MockWindowsAuthProvider	windowsAuthProvider;
+	private GroupMappingWaffleRealm	realm;
 
 	@Before
 	public void setUp() {
@@ -47,8 +47,7 @@ public class GroupMappingWaffleRealmTests {
 
 	@Test
 	public void testValidUsernamePassword() {
-		AuthenticationToken token = new UsernamePasswordToken(
-				getCurrentUserName(), "somePassword");
+		AuthenticationToken token = new UsernamePasswordToken(getCurrentUserName(), "somePassword");
 		AuthenticationInfo authcInfo = realm.getAuthenticationInfo(token);
 		PrincipalCollection principals = authcInfo.getPrincipals();
 		assertFalse(principals.isEmpty());
@@ -65,20 +64,17 @@ public class GroupMappingWaffleRealmTests {
 
 	@Test(expected = AuthenticationException.class)
 	public void testInvalidUsernamePassword() {
-		AuthenticationToken token = new UsernamePasswordToken("InvalidUser",
-				"somePassword");
+		AuthenticationToken token = new UsernamePasswordToken("InvalidUser", "somePassword");
 		realm.getAuthenticationInfo(token);
 	}
 
 	@Test(expected = AuthenticationException.class)
 	public void testGuestUsernamePassword() {
-		AuthenticationToken token = new UsernamePasswordToken("Guest",
-				"somePassword");
+		AuthenticationToken token = new UsernamePasswordToken("Guest", "somePassword");
 		realm.getAuthenticationInfo(token);
 	}
 
 	private String getCurrentUserName() {
-		return Secur32Util
-				.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);
+		return Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);
 	}
 }

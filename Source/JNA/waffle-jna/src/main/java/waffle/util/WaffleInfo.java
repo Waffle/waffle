@@ -57,51 +57,49 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  * 
  * This utility class collects system information and returns it as an XML document.
  * 
- * From the command line, you can write the info to stdout using:
- * <code>
+ * From the command line, you can write the info to stdout using: <code>
  *   java -cp "jna.jar;waffle-core.jar;waffle-api.jar;jna-platform.jar;guava-17.0.jar" waffle.util.WaffleInfo
  * </code>
  * 
- * To show this information in a browser, run:
- * <code>
+ * To show this information in a browser, run: <code>
  *   java -cp "..." waffle.util.WaffleInfo -show
  * </code>
  * 
- * To lookup account names and return any listed info, run:
- * <code>
+ * To lookup account names and return any listed info, run: <code>
  *   java -cp "..." waffle.util.WaffleInfo -lookup AccountName
  * </code>
  * 
  */
 public class WaffleInfo {
 
-	private static final Logger _log = LoggerFactory.getLogger(WaffleInfo.class);
+	private static final Logger	_log	= LoggerFactory.getLogger(WaffleInfo.class);
 
 	/**
 	 * Get a Document with basic system information
 	 * 
 	 * This uses the builtin javax.xml package even though the API is quite verbose
-	 * @throws ParserConfigurationException 
+	 * 
+	 * @throws ParserConfigurationException
 	 */
 	public Document getWaffleInfo() throws ParserConfigurationException {
 		DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = dbfac.newDocumentBuilder();
 		Document doc = docBuilder.newDocument();
 
-		//create the root element and add it to the document
+		// create the root element and add it to the document
 		Element root = doc.createElement("waffle");
 
 		// Add Version Information as attributes
 		String version = WaffleInfo.class.getPackage().getImplementationVersion();
-		if (version!=null) {
+		if (version != null) {
 			root.setAttribute("version", version);
 		}
 		version = Platform.class.getPackage().getImplementationVersion();
-		if (version!=null) {
+		if (version != null) {
 			root.setAttribute("jna", version);
 		}
 		version = WindowUtils.class.getPackage().getImplementationVersion();
-		if (version!=null) {
+		if (version != null) {
 			root.setAttribute("jna-platform", version);
 		}
 
@@ -115,14 +113,14 @@ public class WaffleInfo {
 		IWindowsAuthProvider auth = new WindowsAuthProviderImpl();
 
 		Element node = doc.createElement("auth");
-		node.setAttribute("class", auth.getClass().getName() );
+		node.setAttribute("class", auth.getClass().getName());
 
 		// Current User
 		Element child = doc.createElement("currentUser");
 		node.appendChild(child);
 
 		String currentUsername = WindowsAccountImpl.getCurrentUsername();
-		addAccountInfo(doc,child,new WindowsAccountImpl(currentUsername));
+		addAccountInfo(doc, child, new WindowsAccountImpl(currentUsername));
 
 		// Computer
 		child = doc.createElement("computer");
@@ -150,7 +148,7 @@ public class WaffleInfo {
 		child.appendChild(value);
 
 		// Only Show Domains if we are in a Domain
-		if (Netapi32Util.getJoinStatus() == LMJoin.NETSETUP_JOIN_STATUS.NetSetupDomainName ) {
+		if (Netapi32Util.getJoinStatus() == LMJoin.NETSETUP_JOIN_STATUS.NetSetupDomainName) {
 			child = doc.createElement("domains");
 			node.appendChild(child);
 
@@ -195,10 +193,10 @@ public class WaffleInfo {
 	public Element getLookupInfo(Document doc, String lookup) {
 		IWindowsAuthProvider auth = new WindowsAuthProviderImpl();
 		Element node = doc.createElement("lookup");
-		node.setAttribute("name", lookup );
+		node.setAttribute("name", lookup);
 		try {
-			addAccountInfo(doc,node,auth.lookupAccount(lookup));
-		} catch(Win32Exception ex) {
+			addAccountInfo(doc, node, auth.lookupAccount(lookup));
+		} catch (Win32Exception ex) {
 			node.appendChild(getException(doc, ex));
 		}
 		return node;
@@ -206,10 +204,10 @@ public class WaffleInfo {
 
 	public static Element getException(Document doc, Exception t) {
 		Element node = doc.createElement("exception");
-		node.setAttribute("class", t.getClass().getName() );
+		node.setAttribute("class", t.getClass().getName());
 
 		Element value = doc.createElement("message");
-		if (t.getMessage()!=null) {
+		if (t.getMessage() != null) {
 			value.setTextContent(t.getMessage());
 			node.appendChild(value);
 		}
@@ -224,13 +222,13 @@ public class WaffleInfo {
 	}
 
 	public static String toPrettyXML(Document doc) throws TransformerException {
-		//set up a transformer
+		// set up a transformer
 		TransformerFactory transfac = TransformerFactory.newInstance();
 		Transformer trans = transfac.newTransformer();
 		trans.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
 		trans.setOutputProperty(OutputKeys.INDENT, "yes");
 
-		//create string from xml tree
+		// create string from xml tree
 		StringWriter sw = new StringWriter();
 		StreamResult result = new StreamResult(sw);
 		DOMSource source = new DOMSource(doc);
@@ -244,13 +242,13 @@ public class WaffleInfo {
 	public static void main(String[] args) {
 		boolean show = false;
 		List<String> lookup = new ArrayList<String>();
-		if (args!=null) {
-			for (int i=0; i<args.length; i++) {
+		if (args != null) {
+			for (int i = 0; i < args.length; i++) {
 				String arg = args[i];
 				if ("-show".equals(arg)) {
 					show = true;
 				} else if (arg.equals("-lookup")) {
-					lookup.add( args[++i] );
+					lookup.add(args[++i]);
 				} else {
 					_log.error("Unknown Argument: {}", arg);
 					System.exit(1);

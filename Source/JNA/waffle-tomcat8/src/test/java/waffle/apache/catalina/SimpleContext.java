@@ -62,13 +62,13 @@ import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
  */
 public class SimpleContext implements Context {
 
-	private String _path = "/";
-	private String _name = "SimpleContext";
-	private Realm _realm;
-	private Container _parent;
-	private ServletContext _servletContext = new SimpleServletContext();
-	private Pipeline _pipeline;
-	private Authenticator _authenticator;
+	private String			_path			= "/";
+	private String			_name			= "SimpleContext";
+	private Realm			_realm;
+	private Container		_parent;
+	private ServletContext	_servletContext	= new SimpleServletContext();
+	private Pipeline		_pipeline;
+	private Authenticator	_authenticator;
 
 	@Override
 	public void addApplicationParameter(ApplicationParameter arg0) {
@@ -865,8 +865,7 @@ public class SimpleContext implements Context {
 	}
 
 	@Override
-	public void addServletContainerInitializer(
-			ServletContainerInitializer arg0, Set<Class<?>> arg1) {
+	public void addServletContainerInitializer(ServletContainerInitializer arg0, Set<Class<?>> arg1) {
 
 	}
 
@@ -879,9 +878,9 @@ public class SimpleContext implements Context {
 	public Authenticator getAuthenticator() {
 		return _authenticator;
 	}
-	
-	public void setAuthenticator(Authenticator authenticator){
-	  _authenticator = authenticator;
+
+	public void setAuthenticator(Authenticator authenticator) {
+		_authenticator = authenticator;
 	}
 
 	@Override

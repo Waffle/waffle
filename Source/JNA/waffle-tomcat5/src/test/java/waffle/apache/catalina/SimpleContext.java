@@ -48,8 +48,8 @@ import org.apache.tomcat.util.http.mapper.Mapper;
  */
 public class SimpleContext implements Context {
 
-	private Realm _realm;
-	private ServletContext _servletContext = new SimpleServletContext();
+	private Realm			_realm;
+	private ServletContext	_servletContext	= new SimpleServletContext();
 
 	@Override
 	public void addApplicationListener(String arg0) {
@@ -780,8 +780,7 @@ public class SimpleContext implements Context {
 	}
 
 	@Override
-	public void invoke(Request arg0, Response arg1) throws IOException,
-			ServletException {
+	public void invoke(Request arg0, Response arg1) throws IOException, ServletException {
 
 	}
 

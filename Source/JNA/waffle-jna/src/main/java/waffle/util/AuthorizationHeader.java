@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class AuthorizationHeader {
 
-	private HttpServletRequest _request;
+	private HttpServletRequest	_request;
 
 	public AuthorizationHeader(HttpServletRequest request) {
 		_request = request;
@@ -106,8 +106,7 @@ public class AuthorizationHeader {
 	 * @return True if request is an NTLM POST or PUT with an Authorization header and no data.
 	 */
 	public boolean isNtlmType1PostAuthorizationHeader() {
-		if (!_request.getMethod().equals("POST")
-				&& !_request.getMethod().equals("PUT")) {
+		if (!_request.getMethod().equals("POST") && !_request.getMethod().equals("PUT")) {
 			return false;
 		}
 

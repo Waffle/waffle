@@ -35,19 +35,19 @@ public class WindowsAuthenticationToken implements Authentication {
 	 * {@link GrantedAuthorityFactory} is a {@link FqnGrantedAuthorityFactory} with prefix {@code "ROLE_"} and will
 	 * convert the fqn to uppercase
 	 */
-	public static final GrantedAuthorityFactory DEFAULT_GRANTED_AUTHORITY_FACTORY = new FqnGrantedAuthorityFactory(
-			"ROLE_", true);
+	public static final GrantedAuthorityFactory	DEFAULT_GRANTED_AUTHORITY_FACTORY	= new FqnGrantedAuthorityFactory(
+																							"ROLE_", true);
 
 	/**
 	 * The {@link GrantedAuthority} that will be added to every WindowsAuthenticationToken, unless another (or null) is
 	 * specified.
 	 */
-	public static final GrantedAuthority DEFAULT_GRANTED_AUTHORITY = new GrantedAuthorityImpl(
-			"ROLE_USER");
+	public static final GrantedAuthority		DEFAULT_GRANTED_AUTHORITY			= new GrantedAuthorityImpl(
+																							"ROLE_USER");
 
-	private static final long serialVersionUID = 1L;
-	private WindowsPrincipal _principal;
-	private Collection<GrantedAuthority> _authorities;
+	private static final long					serialVersionUID					= 1L;
+	private WindowsPrincipal					_principal;
+	private Collection<GrantedAuthority>		_authorities;
 
 	/**
 	 * Convenience constructor that calls
@@ -59,8 +59,7 @@ public class WindowsAuthenticationToken implements Authentication {
 	 * </ul>
 	 */
 	public WindowsAuthenticationToken(WindowsPrincipal identity) {
-		this(identity, DEFAULT_GRANTED_AUTHORITY_FACTORY,
-				DEFAULT_GRANTED_AUTHORITY);
+		this(identity, DEFAULT_GRANTED_AUTHORITY_FACTORY, DEFAULT_GRANTED_AUTHORITY);
 	}
 
 	/**
@@ -72,8 +71,7 @@ public class WindowsAuthenticationToken implements Authentication {
 	 * @param defaultGrantedAuthority
 	 *            if not null, this {@link GrantedAuthority} will always be added to the granted authorities list
 	 */
-	public WindowsAuthenticationToken(WindowsPrincipal identity,
-			GrantedAuthorityFactory grantedAuthorityFactory,
+	public WindowsAuthenticationToken(WindowsPrincipal identity, GrantedAuthorityFactory grantedAuthorityFactory,
 			GrantedAuthority defaultGrantedAuthority) {
 
 		_principal = identity;
@@ -82,15 +80,13 @@ public class WindowsAuthenticationToken implements Authentication {
 			_authorities.add(defaultGrantedAuthority);
 		}
 		for (WindowsAccount group : _principal.getGroups().values()) {
-			_authorities.add(grantedAuthorityFactory
-					.createGrantedAuthority(group));
+			_authorities.add(grantedAuthorityFactory.createGrantedAuthority(group));
 		}
 	}
 
 	@Override
 	public GrantedAuthority[] getAuthorities() {
-		GrantedAuthority[] grantedAuthorities = new GrantedAuthority[_authorities
-				.size()];
+		GrantedAuthority[] grantedAuthorities = new GrantedAuthority[_authorities.size()];
 		_authorities.toArray(grantedAuthorities);
 		return grantedAuthorities;
 	}

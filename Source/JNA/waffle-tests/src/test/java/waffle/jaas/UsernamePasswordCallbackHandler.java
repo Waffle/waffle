@@ -25,8 +25,8 @@ import javax.security.auth.callback.UnsupportedCallbackException;
  * @author dblock[at]dblock[dot]org
  */
 public class UsernamePasswordCallbackHandler implements CallbackHandler {
-	private String _username;
-	private String _password;
+	private String	_username;
+	private String	_password;
 
 	public UsernamePasswordCallbackHandler(String username, String password) {
 		_username = username;
@@ -34,8 +34,7 @@ public class UsernamePasswordCallbackHandler implements CallbackHandler {
 	}
 
 	@Override
-	public void handle(Callback[] cb) throws IOException,
-			UnsupportedCallbackException {
+	public void handle(Callback[] cb) throws IOException, UnsupportedCallbackException {
 		for (int i = 0; i < cb.length; i++) {
 			if (cb[i] instanceof NameCallback) {
 				NameCallback nc = (NameCallback) cb[i];
@@ -44,8 +43,7 @@ public class UsernamePasswordCallbackHandler implements CallbackHandler {
 				PasswordCallback pc = (PasswordCallback) cb[i];
 				pc.setPassword(_password.toCharArray());
 			} else {
-				throw new UnsupportedCallbackException(cb[i],
-						"UsernamePasswordCallbackHandler");
+				throw new UnsupportedCallbackException(cb[i], "UsernamePasswordCallbackHandler");
 			}
 		}
 	}

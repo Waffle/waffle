@@ -34,21 +34,21 @@ import org.slf4j.LoggerFactory;
  */
 public class SimpleHttpResponse extends HttpServletResponseWrapper {
 
-	private static final Logger _log = LoggerFactory.getLogger(SimpleHttpResponse.class);
+	private static final Logger			_log		= LoggerFactory.getLogger(SimpleHttpResponse.class);
 
-	private int _status = 500;
-	private Map<String, List<String>> _headers = new HashMap<String, List<String>>();
+	private int							_status		= 500;
+	private Map<String, List<String>>	_headers	= new HashMap<String, List<String>>();
 
-	private final ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+	private final ByteArrayOutputStream	bytes		= new ByteArrayOutputStream();
 
-	private final ServletOutputStream out = new ServletOutputStream() {
-		@Override
-		public void write(int b) throws IOException {
-			bytes.write(b);
-		}
-	};
+	private final ServletOutputStream	out			= new ServletOutputStream() {
+														@Override
+														public void write(int b) throws IOException {
+															bytes.write(b);
+														}
+													};
 
-	private final PrintWriter writer = new PrintWriter(bytes);
+	private final PrintWriter			writer		= new PrintWriter(bytes);
 
 	public SimpleHttpResponse() {
 		super(Mockito.mock(HttpServletResponse.class));
@@ -111,8 +111,7 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
 
 	public String[] getHeaderValues(String headerName) {
 		List<String> headerValues = _headers.get(headerName);
-		return headerValues == null ? null : headerValues
-				.toArray(new String[0]);
+		return headerValues == null ? null : headerValues.toArray(new String[0]);
 	}
 
 	public String getHeader(String headerName) {

@@ -29,8 +29,8 @@ import com.sun.jna.platform.win32.Netapi32Util.LocalGroup;
  */
 public class WindowsComputerImpl implements IWindowsComputer {
 
-	private String computerName;
-	private String domainName;
+	private String	computerName;
+	private String	domainName;
 
 	@Override
 	public String getComputerName() {
@@ -51,16 +51,16 @@ public class WindowsComputerImpl implements IWindowsComputer {
 	public String getJoinStatus() {
 		int joinStatus = Netapi32Util.getJoinStatus(computerName);
 		switch (joinStatus) {
-		case LMJoin.NETSETUP_JOIN_STATUS.NetSetupDomainName:
-			return "NetSetupDomainName";
-		case LMJoin.NETSETUP_JOIN_STATUS.NetSetupUnjoined:
-			return "NetSetupUnjoined";
-		case LMJoin.NETSETUP_JOIN_STATUS.NetSetupWorkgroupName:
-			return "NetSetupWorkgroupName";
-		case LMJoin.NETSETUP_JOIN_STATUS.NetSetupUnknownStatus:
-			return "NetSetupUnknownStatus";
-		default:
-			throw new RuntimeException("Unsupported join status: " + joinStatus);
+			case LMJoin.NETSETUP_JOIN_STATUS.NetSetupDomainName:
+				return "NetSetupDomainName";
+			case LMJoin.NETSETUP_JOIN_STATUS.NetSetupUnjoined:
+				return "NetSetupUnjoined";
+			case LMJoin.NETSETUP_JOIN_STATUS.NetSetupWorkgroupName:
+				return "NetSetupWorkgroupName";
+			case LMJoin.NETSETUP_JOIN_STATUS.NetSetupUnknownStatus:
+				return "NetSetupUnknownStatus";
+			default:
+				throw new RuntimeException("Unsupported join status: " + joinStatus);
 		}
 	}
 

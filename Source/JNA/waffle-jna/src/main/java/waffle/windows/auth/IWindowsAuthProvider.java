@@ -47,8 +47,7 @@ public interface IWindowsAuthProvider {
 	 *            A string that specifies the plaintext password for the user account specified by username.
 	 * @return Windows identity.
 	 */
-	IWindowsIdentity logonDomainUser(String username, String domain,
-			String password);
+	IWindowsIdentity logonDomainUser(String username, String domain, String password);
 
 	/**
 	 * The LogonDomainUserEx function attempts to log a user on to the local computer. The local computer is the
@@ -70,8 +69,7 @@ public interface IWindowsAuthProvider {
 	 *            Specifies the logon provider.
 	 * @return Windows identity.
 	 */
-	IWindowsIdentity logonDomainUserEx(String username, String domain,
-			String password, int logonType, int logonProvider);
+	IWindowsIdentity logonDomainUserEx(String username, String domain, String password, int logonType, int logonProvider);
 
 	/**
 	 * Retrieve a security identifier (SID) for the account and the name of the domain or local computer on which the
@@ -112,8 +110,7 @@ public interface IWindowsAuthProvider {
 	 *            package to use. Other common values are "Kerberos" and "NTLM".
 	 * @return Windows account.
 	 */
-	IWindowsSecurityContext acceptSecurityToken(String connectionId,
-			byte[] token, String securityPackage);
+	IWindowsSecurityContext acceptSecurityToken(String connectionId, byte[] token, String securityPackage);
 
 	/**
 	 * Reset a previously saved continuation security token for a given connection id.

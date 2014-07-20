@@ -33,9 +33,9 @@ import com.sun.jna.platform.win32.WinNT.WELL_KNOWN_SID_TYPE;
  */
 public class WindowsIdentityImpl implements IWindowsIdentity {
 
-	private HANDLE _windowsIdentity;
-	private Account[] _userGroups;
-	private Account _windowsAccount;
+	private HANDLE		_windowsIdentity;
+	private Account[]	_userGroups;
+	private Account		_windowsAccount;
 
 	private Account getWindowsAccount() {
 		if (_windowsAccount == null) {
@@ -61,8 +61,7 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
 
 		Account[] userGroups = getUserGroups();
 
-		List<IWindowsAccount> result = new ArrayList<IWindowsAccount>(
-				userGroups.length);
+		List<IWindowsAccount> result = new ArrayList<IWindowsAccount>(userGroups.length);
 		for (Account userGroup : userGroups) {
 			WindowsAccountImpl account = new WindowsAccountImpl(userGroup);
 			result.add(account);
@@ -100,22 +99,18 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
 	@Override
 	public boolean isGuest() {
 		for (Account userGroup : getUserGroups()) {
-			if (Advapi32Util.isWellKnownSid(userGroup.sid,
-					WELL_KNOWN_SID_TYPE.WinBuiltinGuestsSid)) {
+			if (Advapi32Util.isWellKnownSid(userGroup.sid, WELL_KNOWN_SID_TYPE.WinBuiltinGuestsSid)) {
 				return true;
 			}
-			if (Advapi32Util.isWellKnownSid(userGroup.sid,
-					WELL_KNOWN_SID_TYPE.WinAccountDomainGuestsSid)) {
+			if (Advapi32Util.isWellKnownSid(userGroup.sid, WELL_KNOWN_SID_TYPE.WinAccountDomainGuestsSid)) {
 				return true;
 			}
-			if (Advapi32Util.isWellKnownSid(userGroup.sid,
-					WELL_KNOWN_SID_TYPE.WinAccountGuestSid)) {
+			if (Advapi32Util.isWellKnownSid(userGroup.sid, WELL_KNOWN_SID_TYPE.WinAccountGuestSid)) {
 				return true;
 			}
 		}
 
-		if (Advapi32Util.isWellKnownSid(getSid(),
-				WELL_KNOWN_SID_TYPE.WinAnonymousSid)) {
+		if (Advapi32Util.isWellKnownSid(getSid(), WELL_KNOWN_SID_TYPE.WinAnonymousSid)) {
 			return true;
 		}
 

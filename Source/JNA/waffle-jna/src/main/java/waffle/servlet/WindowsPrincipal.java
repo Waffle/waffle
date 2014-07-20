@@ -32,13 +32,13 @@ import waffle.windows.auth.WindowsAccount;
  */
 public class WindowsPrincipal implements Principal, Serializable {
 
-	private static final long serialVersionUID = 1L;
-	private String _fqn;
-	private byte[] _sid;
-	private String _sidString;
-	private List<String> _roles;
-	private transient IWindowsIdentity _identity;
-	private Map<String, WindowsAccount> _groups;
+	private static final long			serialVersionUID	= 1L;
+	private String						_fqn;
+	private byte[]						_sid;
+	private String						_sidString;
+	private List<String>				_roles;
+	private transient IWindowsIdentity	_identity;
+	private Map<String, WindowsAccount>	_groups;
 
 	/**
 	 * A windows principal.
@@ -60,8 +60,8 @@ public class WindowsPrincipal implements Principal, Serializable {
 	 * @param roleFormat
 	 *            Role format.
 	 */
-	public WindowsPrincipal(IWindowsIdentity windowsIdentity,
-			PrincipalFormat principalFormat, PrincipalFormat roleFormat) {
+	public WindowsPrincipal(IWindowsIdentity windowsIdentity, PrincipalFormat principalFormat,
+			PrincipalFormat roleFormat) {
 		_identity = windowsIdentity;
 		_fqn = windowsIdentity.getFqn();
 		_sid = windowsIdentity.getSid();
@@ -70,8 +70,8 @@ public class WindowsPrincipal implements Principal, Serializable {
 		_roles = getRoles(windowsIdentity, principalFormat, roleFormat);
 	}
 
-	private static List<String> getRoles(IWindowsIdentity windowsIdentity,
-			PrincipalFormat principalFormat, PrincipalFormat roleFormat) {
+	private static List<String> getRoles(IWindowsIdentity windowsIdentity, PrincipalFormat principalFormat,
+			PrincipalFormat roleFormat) {
 		List<String> roles = new ArrayList<String>();
 		roles.addAll(getPrincipalNames(windowsIdentity, principalFormat));
 		for (IWindowsAccount group : windowsIdentity.getGroups()) {
@@ -80,8 +80,7 @@ public class WindowsPrincipal implements Principal, Serializable {
 		return roles;
 	}
 
-	private static Map<String, WindowsAccount> getGroups(
-			IWindowsAccount[] groups) {
+	private static Map<String, WindowsAccount> getGroups(IWindowsAccount[] groups) {
 		Map<String, WindowsAccount> groupMap = new HashMap<String, WindowsAccount>();
 		for (IWindowsAccount group : groups) {
 			groupMap.put(group.getFqn(), new WindowsAccount(group));
@@ -125,25 +124,24 @@ public class WindowsPrincipal implements Principal, Serializable {
 	 *            Principal format.
 	 * @return List of role principal objects.
 	 */
-	private static List<String> getRoleNames(IWindowsAccount group,
-			PrincipalFormat principalFormat) {
+	private static List<String> getRoleNames(IWindowsAccount group, PrincipalFormat principalFormat) {
 
 		List<String> principals = new ArrayList<String>();
 		switch (principalFormat) {
-		case fqn:
-			principals.add(group.getFqn());
-			break;
-		case sid:
-			principals.add(group.getSidString());
-			break;
-		case both:
-			principals.add(group.getFqn());
-			principals.add(group.getSidString());
-			break;
-		case none:
-			break;
-		default:
-			break;
+			case fqn:
+				principals.add(group.getFqn());
+				break;
+			case sid:
+				principals.add(group.getSidString());
+				break;
+			case both:
+				principals.add(group.getFqn());
+				principals.add(group.getSidString());
+				break;
+			case none:
+				break;
+			default:
+				break;
 		}
 
 		return principals;
@@ -158,25 +156,24 @@ public class WindowsPrincipal implements Principal, Serializable {
 	 *            Principal format.
 	 * @return A list of user principal objects.
 	 */
-	private static List<String> getPrincipalNames(
-			IWindowsIdentity windowsIdentity, PrincipalFormat principalFormat) {
+	private static List<String> getPrincipalNames(IWindowsIdentity windowsIdentity, PrincipalFormat principalFormat) {
 
 		List<String> principals = new ArrayList<String>();
 		switch (principalFormat) {
-		case fqn:
-			principals.add(windowsIdentity.getFqn());
-			break;
-		case sid:
-			principals.add(windowsIdentity.getSidString());
-			break;
-		case both:
-			principals.add(windowsIdentity.getFqn());
-			principals.add(windowsIdentity.getSidString());
-			break;
-		case none:
-			break;
-		default:
-			break;
+			case fqn:
+				principals.add(windowsIdentity.getFqn());
+				break;
+			case sid:
+				principals.add(windowsIdentity.getSidString());
+				break;
+			case both:
+				principals.add(windowsIdentity.getFqn());
+				principals.add(windowsIdentity.getSidString());
+				break;
+			case none:
+				break;
+			default:
+				break;
 		}
 
 		return principals;

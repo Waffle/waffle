@@ -35,9 +35,8 @@ import waffle.windows.auth.WindowsAccount;
  */
 public class WindowsAccountTests {
 
-	private MockWindowsAccount _mockWindowsAccount = new MockWindowsAccount(
-			"localhost\\Administrator");
-	private WindowsAccount _windowsAccount;
+	private MockWindowsAccount	_mockWindowsAccount	= new MockWindowsAccount("localhost\\Administrator");
+	private WindowsAccount		_windowsAccount;
 
 	@Before
 	public void setUp() {
@@ -54,12 +53,9 @@ public class WindowsAccountTests {
 
 	@Test
 	public void testEquals() {
-		assertEquals(_windowsAccount, new WindowsAccount(
-				_mockWindowsAccount));
-		MockWindowsAccount mockWindowsAccount2 = new MockWindowsAccount(
-				"localhost\\Administrator2");
-		assertFalse(_windowsAccount.equals(new WindowsAccount(
-				mockWindowsAccount2)));
+		assertEquals(_windowsAccount, new WindowsAccount(_mockWindowsAccount));
+		MockWindowsAccount mockWindowsAccount2 = new MockWindowsAccount("localhost\\Administrator2");
+		assertFalse(_windowsAccount.equals(new WindowsAccount(mockWindowsAccount2)));
 	}
 
 	@Test

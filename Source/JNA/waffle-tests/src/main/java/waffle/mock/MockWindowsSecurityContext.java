@@ -28,7 +28,7 @@ import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
  */
 public class MockWindowsSecurityContext implements IWindowsSecurityContext {
 
-	private IWindowsIdentity _identity;
+	private IWindowsIdentity	_identity;
 
 	public MockWindowsSecurityContext(String username) {
 		List<String> groups = new ArrayList<String>();
@@ -82,8 +82,7 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
 	}
 
 	@Override
-	public void initialize(CtxtHandle continueCtx, SecBufferDesc continueToken,
-			String targetPrincipalName) {
+	public void initialize(CtxtHandle continueCtx, SecBufferDesc continueToken, String targetPrincipalName) {
 		// Do Nothing
 	}
 }

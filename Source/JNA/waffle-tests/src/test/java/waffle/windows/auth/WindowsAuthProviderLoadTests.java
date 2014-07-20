@@ -24,10 +24,10 @@ import org.junit.Test;
  */
 public class WindowsAuthProviderLoadTests {
 
-    @Rule
-    public ContiPerfRule contiPerfRule = new ContiPerfRule();
+	@Rule
+	public ContiPerfRule				contiPerfRule	= new ContiPerfRule();
 
-    private WindowsAuthProviderTests _tests = new WindowsAuthProviderTests();
+	private WindowsAuthProviderTests	_tests			= new WindowsAuthProviderTests();
 
 	@Test
 	@PerfTest(invocations = 10, threads = 10)

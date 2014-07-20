@@ -29,7 +29,7 @@ import javax.servlet.http.HttpSessionContext;
 @SuppressWarnings("deprecation")
 public class SimpleHttpSession implements HttpSession {
 
-	private Map<String, Object> _attributes = new HashMap<String, Object>();
+	private Map<String, Object>	_attributes	= new HashMap<String, Object>();
 
 	@Override
 	public Object getAttribute(String attributeName) {

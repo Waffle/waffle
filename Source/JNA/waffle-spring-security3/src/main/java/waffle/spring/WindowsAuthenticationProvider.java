@@ -32,13 +32,14 @@ import waffle.windows.auth.PrincipalFormat;
  */
 public class WindowsAuthenticationProvider implements AuthenticationProvider {
 
-	private static final Logger _log = LoggerFactory.getLogger(WindowsAuthenticationProvider.class);
-	private PrincipalFormat _principalFormat = PrincipalFormat.fqn;
-	private PrincipalFormat _roleFormat = PrincipalFormat.fqn;
-	private boolean _allowGuestLogin = true;
-	private IWindowsAuthProvider _authProvider;
-	private GrantedAuthorityFactory _grantedAuthorityFactory = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY_FACTORY;
-	private GrantedAuthority _defaultGrantedAuthority = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY;
+	private static final Logger		_log						= LoggerFactory
+																		.getLogger(WindowsAuthenticationProvider.class);
+	private PrincipalFormat			_principalFormat			= PrincipalFormat.fqn;
+	private PrincipalFormat			_roleFormat					= PrincipalFormat.fqn;
+	private boolean					_allowGuestLogin			= true;
+	private IWindowsAuthProvider	_authProvider;
+	private GrantedAuthorityFactory	_grantedAuthorityFactory	= WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY_FACTORY;
+	private GrantedAuthority		_defaultGrantedAuthority	= WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY;
 
 	public WindowsAuthenticationProvider() {
 		_log.debug("[waffle.spring.WindowsAuthenticationProvider] loaded");
@@ -47,34 +48,27 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
 	@Override
 	public Authentication authenticate(Authentication authentication) {
 		UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;
-		IWindowsIdentity windowsIdentity = _authProvider.logonUser(
-				auth.getName(), auth.getCredentials().toString());
-		_log.debug("logged in user: {} ({})", windowsIdentity.getFqn(),
-				windowsIdentity.getSidString());
+		IWindowsIdentity windowsIdentity = _authProvider.logonUser(auth.getName(), auth.getCredentials().toString());
+		_log.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
 
 		if (!_allowGuestLogin && windowsIdentity.isGuest()) {
 			_log.warn("guest login disabled: {}", windowsIdentity.getFqn());
-			throw new GuestLoginDisabledAuthenticationException(
-					windowsIdentity.getFqn());
+			throw new GuestLoginDisabledAuthenticationException(windowsIdentity.getFqn());
 		}
 
-		WindowsPrincipal windowsPrincipal = new WindowsPrincipal(
-				windowsIdentity, _principalFormat, _roleFormat);
+		WindowsPrincipal windowsPrincipal = new WindowsPrincipal(windowsIdentity, _principalFormat, _roleFormat);
 		_log.debug("roles: {}", windowsPrincipal.getRolesString());
 
-		WindowsAuthenticationToken token = new WindowsAuthenticationToken(
-				windowsPrincipal, _grantedAuthorityFactory,
+		WindowsAuthenticationToken token = new WindowsAuthenticationToken(windowsPrincipal, _grantedAuthorityFactory,
 				_defaultGrantedAuthority);
 
-		_log.info("successfully logged in user: {}",
-				windowsIdentity.getFqn());
+		_log.info("successfully logged in user: {}", windowsIdentity.getFqn());
 		return token;
 	}
 
 	@Override
 	public boolean supports(Class<? extends Object> authentication) {
-		return UsernamePasswordAuthenticationToken.class
-				.isAssignableFrom(authentication);
+		return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
 	}
 
 	public PrincipalFormat getPrincipalFormat() {
@@ -113,8 +107,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
 		return _grantedAuthorityFactory;
 	}
 
-	public void setGrantedAuthorityFactory(
-			GrantedAuthorityFactory grantedAuthorityFactory) {
+	public void setGrantedAuthorityFactory(GrantedAuthorityFactory grantedAuthorityFactory) {
 		_grantedAuthorityFactory = grantedAuthorityFactory;
 	}
 
@@ -122,8 +115,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
 		return _defaultGrantedAuthority;
 	}
 
-	public void setDefaultGrantedAuthority(
-			GrantedAuthority defaultGrantedAuthority) {
+	public void setDefaultGrantedAuthority(GrantedAuthority defaultGrantedAuthority) {
 		_defaultGrantedAuthority = defaultGrantedAuthority;
 	}
 }

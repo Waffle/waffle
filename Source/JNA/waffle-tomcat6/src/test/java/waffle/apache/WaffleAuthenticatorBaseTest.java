@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
 
 public class WaffleAuthenticatorBaseTest {
 
-	private WaffleAuthenticatorBase waffleAuthenticatorBase;
+	private WaffleAuthenticatorBase	waffleAuthenticatorBase;
 
 	@Before
 	public void init() {
@@ -22,6 +22,7 @@ public class WaffleAuthenticatorBaseTest {
 			{
 				_log = LoggerFactory.getLogger(WaffleAuthenticatorBaseTest.class);
 			}
+
 			@Override
 			public boolean authenticate(Request request, Response response, LoginConfig loginConfig) throws IOException {
 				return false;

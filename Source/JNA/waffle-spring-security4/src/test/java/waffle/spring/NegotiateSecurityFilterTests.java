@@ -50,21 +50,20 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
  */
 public class NegotiateSecurityFilterTests {
 
-	private NegotiateSecurityFilter _filter;
-	private ApplicationContext ctx;
+	private NegotiateSecurityFilter	_filter;
+	private ApplicationContext		ctx;
 
 	@Before
 	public void setUp() {
 		String[] configFiles = new String[] { "springTestFilterBeans.xml" };
 		ctx = new ClassPathXmlApplicationContext(configFiles);
 		SecurityContextHolder.getContext().setAuthentication(null);
-		_filter = (NegotiateSecurityFilter) ctx
-				.getBean("waffleNegotiateSecurityFilter");
+		_filter = (NegotiateSecurityFilter) ctx.getBean("waffleNegotiateSecurityFilter");
 	}
 
 	@After
 	public void shutDown() {
-		((AbstractApplicationContext) ctx).close(); 
+		((AbstractApplicationContext) ctx).close();
 	}
 
 	@Test
@@ -80,10 +79,8 @@ public class NegotiateSecurityFilterTests {
 	public void testProvider() throws ClassNotFoundException {
 		SecurityFilterProviderCollection provider = _filter.getProvider();
 		assertEquals(2, provider.size());
-		assertTrue(provider
-				.getByClassName("waffle.servlet.spi.BasicSecurityFilterProvider") instanceof BasicSecurityFilterProvider);
-		assertTrue(provider
-				.getByClassName("waffle.servlet.spi.NegotiateSecurityFilterProvider") instanceof NegotiateSecurityFilterProvider);
+		assertTrue(provider.getByClassName("waffle.servlet.spi.BasicSecurityFilterProvider") instanceof BasicSecurityFilterProvider);
+		assertTrue(provider.getByClassName("waffle.servlet.spi.NegotiateSecurityFilterProvider") instanceof NegotiateSecurityFilterProvider);
 	}
 
 	@Test
@@ -103,15 +100,13 @@ public class NegotiateSecurityFilterTests {
 		SimpleFilterChain filterChain = new SimpleFilterChain();
 		SimpleHttpRequest request = new SimpleHttpRequest();
 
-		String clientToken = Base64.encode(WindowsAccountImpl
-				.getCurrentUsername().getBytes());
+		String clientToken = Base64.encode(WindowsAccountImpl.getCurrentUsername().getBytes());
 		request.addHeader("Authorization", securityPackage + " " + clientToken);
 
 		SimpleHttpResponse response = new SimpleHttpResponse();
 		_filter.doFilter(request, response, filterChain);
 
-		Authentication auth = SecurityContextHolder.getContext()
-				.getAuthentication();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		assertNotNull(auth);
 		Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
 		assertNotNull(authorities);
@@ -124,8 +119,7 @@ public class NegotiateSecurityFilterTests {
 	}
 
 	@Test
-	public void testUnsupportedSecurityPackagePassthrough() throws IOException,
-			ServletException {
+	public void testUnsupportedSecurityPackagePassthrough() throws IOException, ServletException {
 		SimpleFilterChain filterChain = new SimpleFilterChain();
 		SimpleHttpRequest request = new SimpleHttpRequest();
 		request.addHeader("Authorization", "Unsupported challenge");

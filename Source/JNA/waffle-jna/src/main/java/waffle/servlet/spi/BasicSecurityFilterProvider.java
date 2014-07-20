@@ -33,30 +33,25 @@ import waffle.windows.auth.IWindowsIdentity;
  */
 public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 
-	private static final Logger _log = LoggerFactory.getLogger(BasicSecurityFilterProvider.class);
-	private String _realm = "BasicSecurityFilterProvider";
-	private IWindowsAuthProvider _auth;
+	private static final Logger		_log	= LoggerFactory.getLogger(BasicSecurityFilterProvider.class);
+	private String					_realm	= "BasicSecurityFilterProvider";
+	private IWindowsAuthProvider	_auth;
 
 	public BasicSecurityFilterProvider(IWindowsAuthProvider auth) {
 		_auth = auth;
 	}
 
 	@Override
-	public IWindowsIdentity doFilter(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
+	public IWindowsIdentity doFilter(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-		AuthorizationHeader authorizationHeader = new AuthorizationHeader(
-				request);
-		String usernamePassword = new String(
-				authorizationHeader.getTokenBytes());
+		AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
+		String usernamePassword = new String(authorizationHeader.getTokenBytes());
 		String[] usernamePasswordArray = usernamePassword.split(":", 2);
 		if (usernamePasswordArray.length != 2) {
-			throw new RuntimeException(
-					"Invalid username:password in Authorization header.");
+			throw new RuntimeException("Invalid username:password in Authorization header.");
 		}
 		_log.debug("logging in user: {}", usernamePasswordArray[0]);
-		return _auth.logonUser(usernamePasswordArray[0],
-				usernamePasswordArray[1]);
+		return _auth.logonUser(usernamePasswordArray[0], usernamePasswordArray[1]);
 	}
 
 	@Override

@@ -65,13 +65,13 @@ import org.apache.tomcat.util.http.mapper.Mapper;
  */
 public class SimpleContext implements Context {
 
-	private String _path = "/";
-	private String _name = "SimpleContext";
-	private Realm _realm;
-	private Container _parent;
-	private ServletContext _servletContext = new SimpleServletContext();
-	private Pipeline _pipeline;
-	private Authenticator _authenticator;
+	private String			_path			= "/";
+	private String			_name			= "SimpleContext";
+	private Realm			_realm;
+	private Container		_parent;
+	private ServletContext	_servletContext	= new SimpleServletContext();
+	private Pipeline		_pipeline;
+	private Authenticator	_authenticator;
 
 	@Override
 	public void addApplicationListener(String arg0) {
@@ -773,8 +773,7 @@ public class SimpleContext implements Context {
 	}
 
 	@Override
-	public void invoke(Request arg0, Response arg1) throws IOException,
-			ServletException {
+	public void invoke(Request arg0, Response arg1) throws IOException, ServletException {
 
 	}
 
@@ -939,8 +938,7 @@ public class SimpleContext implements Context {
 	}
 
 	@Override
-	public void addServletContainerInitializer(
-			ServletContainerInitializer arg0, Set<Class<?>> arg1) {
+	public void addServletContainerInitializer(ServletContainerInitializer arg0, Set<Class<?>> arg1) {
 
 	}
 
@@ -950,8 +948,7 @@ public class SimpleContext implements Context {
 	}
 
 	@Override
-	public Set<String> addServletSecurity(ApplicationServletRegistration arg0,
-			ServletSecurityElement arg1) {
+	public Set<String> addServletSecurity(ApplicationServletRegistration arg0, ServletSecurityElement arg1) {
 		return null;
 	}
 
@@ -959,9 +956,9 @@ public class SimpleContext implements Context {
 	public Authenticator getAuthenticator() {
 		return _authenticator;
 	}
-	
-	public void setAuthenticator(Authenticator authenticator){
-	  _authenticator = authenticator;
+
+	public void setAuthenticator(Authenticator authenticator) {
+		_authenticator = authenticator;
 	}
 
 	@Override

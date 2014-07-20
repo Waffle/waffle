@@ -35,12 +35,11 @@ import waffle.mock.MockWindowsSecurityContext;
  */
 public class WindowsPrincipalTests {
 
-	private WindowsPrincipal _windowsPrincipal;
+	private WindowsPrincipal	_windowsPrincipal;
 
 	@Before
 	public void setUp() {
-		MockWindowsSecurityContext ctx = new MockWindowsSecurityContext(
-				"Administrator");
+		MockWindowsSecurityContext ctx = new MockWindowsSecurityContext("Administrator");
 		_windowsPrincipal = new WindowsPrincipal(ctx.getIdentity());
 	}
 
@@ -61,8 +60,7 @@ public class WindowsPrincipalTests {
 		assertEquals(_windowsPrincipal.getName(), copy.getName());
 		assertEquals(_windowsPrincipal.getRolesString(), copy.getRolesString());
 		assertEquals(_windowsPrincipal.getSidString(), copy.getSidString());
-		assertEquals(Boolean.valueOf(Arrays.equals(_windowsPrincipal.getSid(), copy.getSid())),
-				Boolean.TRUE);
+		assertEquals(Boolean.valueOf(Arrays.equals(_windowsPrincipal.getSid(), copy.getSid())), Boolean.TRUE);
 	}
 
 	@Test

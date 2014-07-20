@@ -19,17 +19,16 @@ import javax.servlet.http.HttpSessionBindingListener;
 import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.PrincipalFormat;
 
-public class AutoDisposableWindowsPrincipal extends WindowsPrincipal implements
-		HttpSessionBindingListener {
+public class AutoDisposableWindowsPrincipal extends WindowsPrincipal implements HttpSessionBindingListener {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	public AutoDisposableWindowsPrincipal(IWindowsIdentity windowsIdentity) {
 		super(windowsIdentity);
 	}
 
-	public AutoDisposableWindowsPrincipal(IWindowsIdentity windowsIdentity,
-			PrincipalFormat principalFormat, PrincipalFormat roleFormat) {
+	public AutoDisposableWindowsPrincipal(IWindowsIdentity windowsIdentity, PrincipalFormat principalFormat,
+			PrincipalFormat roleFormat) {
 		super(windowsIdentity, principalFormat, roleFormat);
 	}
 

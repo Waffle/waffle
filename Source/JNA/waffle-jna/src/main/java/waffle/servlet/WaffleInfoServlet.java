@@ -40,11 +40,10 @@ import waffle.util.WaffleInfo;
  */
 public class WaffleInfoServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	@Override
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		WaffleInfo info = new WaffleInfo();
 		try {
 			Document doc = info.getWaffleInfo();
@@ -84,8 +83,7 @@ public class WaffleInfoServlet extends HttpServlet {
 	 * Delegate POST to GET
 	 */
 	@Override
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 

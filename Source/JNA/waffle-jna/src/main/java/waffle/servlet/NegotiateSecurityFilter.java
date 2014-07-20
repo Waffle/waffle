@@ -51,15 +51,16 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  */
 public class NegotiateSecurityFilter implements Filter {
 
-	private static final Logger _log = LoggerFactory.getLogger(NegotiateSecurityFilter.class);
-	private PrincipalFormat _principalFormat = PrincipalFormat.fqn;
-	private PrincipalFormat _roleFormat = PrincipalFormat.fqn;
-	private SecurityFilterProviderCollection _providers;
-	private IWindowsAuthProvider _auth;
-	private boolean _allowGuestLogin = true;
-	private boolean _impersonate;
-	private static final String PRINCIPAL_SESSION_KEY = NegotiateSecurityFilter.class
-			.getName() + ".PRINCIPAL";
+	private static final Logger					_log					= LoggerFactory
+																				.getLogger(NegotiateSecurityFilter.class);
+	private PrincipalFormat						_principalFormat		= PrincipalFormat.fqn;
+	private PrincipalFormat						_roleFormat				= PrincipalFormat.fqn;
+	private SecurityFilterProviderCollection	_providers;
+	private IWindowsAuthProvider				_auth;
+	private boolean								_allowGuestLogin		= true;
+	private boolean								_impersonate;
+	private static final String					PRINCIPAL_SESSION_KEY	= NegotiateSecurityFilter.class.getName()
+																				+ ".PRINCIPAL";
 
 	public NegotiateSecurityFilter() {
 		_log.debug("[waffle.servlet.NegotiateSecurityFilter] loaded");
@@ -71,8 +72,8 @@ public class NegotiateSecurityFilter implements Filter {
 	}
 
 	@Override
-	public void doFilter(ServletRequest sreq, ServletResponse sres,
-			FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest sreq, ServletResponse sres, FilterChain chain) throws IOException,
+			ServletException {
 
 		HttpServletRequest request = (HttpServletRequest) sreq;
 		HttpServletResponse response = (HttpServletResponse) sres;
@@ -85,8 +86,7 @@ public class NegotiateSecurityFilter implements Filter {
 			return;
 		}
 
-		AuthorizationHeader authorizationHeader = new AuthorizationHeader(
-				request);
+		AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
 
 		// authenticate user
 		if (!authorizationHeader.isNull()) {
@@ -116,41 +116,35 @@ public class NegotiateSecurityFilter implements Filter {
 					return;
 				}
 
-				_log.debug("logged in user: {} ({})", windowsIdentity.getFqn(),
-						windowsIdentity.getSidString());
+				_log.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
 
 				HttpSession session = request.getSession(true);
 				if (session == null) {
 					throw new ServletException("Expected HttpSession");
 				}
 
-				Subject subject = (Subject) session
-						.getAttribute("javax.security.auth.subject");
+				Subject subject = (Subject) session.getAttribute("javax.security.auth.subject");
 				if (subject == null) {
 					subject = new Subject();
 				}
 
 				WindowsPrincipal windowsPrincipal = null;
 				if (_impersonate) {
-					windowsPrincipal = new AutoDisposableWindowsPrincipal(
-							windowsIdentity, _principalFormat, _roleFormat);
+					windowsPrincipal = new AutoDisposableWindowsPrincipal(windowsIdentity, _principalFormat,
+							_roleFormat);
 				} else {
-					windowsPrincipal = new WindowsPrincipal(windowsIdentity,
-							_principalFormat, _roleFormat);
+					windowsPrincipal = new WindowsPrincipal(windowsIdentity, _principalFormat, _roleFormat);
 				}
 
 				_log.debug("roles: {}", windowsPrincipal.getRolesString());
 				subject.getPrincipals().add(windowsPrincipal);
 				session.setAttribute("javax.security.auth.subject", subject);
 
-				_log.info("successfully logged in user: {}",
-						windowsIdentity.getFqn());
+				_log.info("successfully logged in user: {}", windowsIdentity.getFqn());
 
-				request.getSession().setAttribute(PRINCIPAL_SESSION_KEY,
-						windowsPrincipal);
+				request.getSession().setAttribute(PRINCIPAL_SESSION_KEY, windowsPrincipal);
 
-				NegotiateRequestWrapper requestWrapper = new NegotiateRequestWrapper(
-						request, windowsPrincipal);
+				NegotiateRequestWrapper requestWrapper = new NegotiateRequestWrapper(request, windowsPrincipal);
 
 				if (_impersonate) {
 					_log.debug("impersonating user");
@@ -187,15 +181,13 @@ public class NegotiateSecurityFilter implements Filter {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	private boolean doFilterPrincipal(HttpServletRequest request,
-			HttpServletResponse response, FilterChain chain)
+	private boolean doFilterPrincipal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		Principal principal = request.getUserPrincipal();
 		if (principal == null) {
 			HttpSession session = request.getSession(false);
 			if (session != null) {
-				principal = (Principal) session
-						.getAttribute(PRINCIPAL_SESSION_KEY);
+				principal = (Principal) session.getAttribute(PRINCIPAL_SESSION_KEY);
 			}
 		}
 
@@ -222,8 +214,7 @@ public class NegotiateSecurityFilter implements Filter {
 				return false;
 			}
 
-			NegotiateRequestWrapper requestWrapper = new NegotiateRequestWrapper(
-					request, windowsPrincipal);
+			NegotiateRequestWrapper requestWrapper = new NegotiateRequestWrapper(request, windowsPrincipal);
 
 			IWindowsImpersonationContext ctx = null;
 			if (_impersonate) {
@@ -253,12 +244,10 @@ public class NegotiateSecurityFilter implements Filter {
 		String authProvider = null;
 		String[] providerNames = null;
 		if (filterConfig != null) {
-			Enumeration<String> parameterNames = filterConfig
-					.getInitParameterNames();
+			Enumeration<String> parameterNames = filterConfig.getInitParameterNames();
 			while (parameterNames.hasMoreElements()) {
 				String parameterName = parameterNames.nextElement();
-				String parameterValue = filterConfig
-						.getInitParameter(parameterName);
+				String parameterValue = filterConfig.getInitParameter(parameterName);
 				_log.debug("{}={}", parameterName, parameterValue);
 				if (parameterName.equals("principalFormat")) {
 					_principalFormat = PrincipalFormat.valueOf(parameterValue);
@@ -280,8 +269,7 @@ public class NegotiateSecurityFilter implements Filter {
 
 		if (authProvider != null) {
 			try {
-				_auth = (IWindowsAuthProvider) Class.forName(authProvider)
-						.getConstructor().newInstance();
+				_auth = (IWindowsAuthProvider) Class.forName(authProvider).getConstructor().newInstance();
 			} catch (ClassNotFoundException e) {
 				_log.error("error loading '{}': {}", authProvider, e.getMessage());
 				_log.trace("{}", e);
@@ -318,8 +306,7 @@ public class NegotiateSecurityFilter implements Filter {
 		}
 
 		if (providerNames != null) {
-			_providers = new SecurityFilterProviderCollection(providerNames,
-					_auth);
+			_providers = new SecurityFilterProviderCollection(providerNames, _auth);
 		}
 
 		// create default providers if none specified
@@ -334,28 +321,23 @@ public class NegotiateSecurityFilter implements Filter {
 			if (classAndParameter.length == 2) {
 				try {
 
-					_log.debug("setting {}, {}={}", classAndParameter[0],
-							classAndParameter[1], implParameter.getValue());
-
-					SecurityFilterProvider provider = _providers
-							.getByClassName(classAndParameter[0]);
-					provider.initParameter(classAndParameter[1],
+					_log.debug("setting {}, {}={}", classAndParameter[0], classAndParameter[1],
 							implParameter.getValue());
 
+					SecurityFilterProvider provider = _providers.getByClassName(classAndParameter[0]);
+					provider.initParameter(classAndParameter[1], implParameter.getValue());
+
 				} catch (ClassNotFoundException e) {
-					_log.error("invalid class: {} in {}", classAndParameter[0],
-							implParameter.getKey());
+					_log.error("invalid class: {} in {}", classAndParameter[0], implParameter.getKey());
 					throw new ServletException(e);
 				} catch (Exception e) {
-					_log.error("{}: error setting '{}': {}", classAndParameter[0],
-							classAndParameter[1], e.getMessage());
+					_log.error("{}: error setting '{}': {}", classAndParameter[0], classAndParameter[1], e.getMessage());
 					_log.trace("{}", e);
 					throw new ServletException(e);
 				}
 			} else {
 				_log.error("Invalid parameter: {}", implParameter.getKey());
-				throw new ServletException("Invalid parameter: "
-						+ implParameter.getKey());
+				throw new ServletException("Invalid parameter: " + implParameter.getKey());
 			}
 		}
 

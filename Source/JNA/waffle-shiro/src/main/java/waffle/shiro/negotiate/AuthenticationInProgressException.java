@@ -20,12 +20,11 @@ package waffle.shiro.negotiate;
 import org.apache.shiro.authc.AuthenticationException;
 
 /**
- * Thrown when the negotiate authentication is being established and requires an extra
- * roundtrip to the client.
- *
+ * Thrown when the negotiate authentication is being established and requires an extra roundtrip to the client.
+ * 
  * @author Dan Rollo
  * @since 1.0.0
  */
 public class AuthenticationInProgressException extends AuthenticationException {
-    private static final long serialVersionUID = 2684886728102100988L;
+	private static final long	serialVersionUID	= 2684886728102100988L;
 }
