@@ -20,17 +20,16 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 
 /**
- * A {@link org.apache.shiro.realm.Realm} that authenticates with Active
- * Directory using WAFFLE and assigns roles to users based on a mapping from
- * their groups.  To define permissions based on these roles, set a
+ * A {@link org.apache.shiro.realm.Realm} that authenticates with Active Directory using WAFFLE and assigns roles to
+ * users based on a mapping from their groups. To define permissions based on these roles, set a
  * {@link org.apache.shiro.authz.permission.RolePermissionResolver}.
  */
 public class GroupMappingWaffleRealm extends AbstractWaffleRealm {
     private final Map<String, String> groupRolesMap = new HashMap<String, String>();
 
     /**
-     * Sets the translation from group names to role names. If not set, the map
-     * is empty, resulting in no users getting roles.
+     * Sets the translation from group names to role names. If not set, the map is empty, resulting in no users getting
+     * roles.
      */
     public void setGroupRolesMap(Map<String, String> groupRolesMap) {
         this.groupRolesMap.clear();
@@ -40,10 +39,11 @@ public class GroupMappingWaffleRealm extends AbstractWaffleRealm {
     }
 
     /**
-     * This method is called by to translate group names to role names. This
-     * implementation uses the groupRolesMap to map group names to role names.
-     *
-     * @param groupNames the group names that apply to the current user
+     * This method is called by to translate group names to role names. This implementation uses the groupRolesMap to
+     * map group names to role names.
+     * 
+     * @param groupNames
+     *            the group names that apply to the current user
      * @return a collection of roles that are implied by the given role names
      * @see #setGroupRolesMap
      */
@@ -59,13 +59,13 @@ public class GroupMappingWaffleRealm extends AbstractWaffleRealm {
     }
 
     /**
-     * Builds an {@link AuthorizationInfo} object based on the user's groups.
-     * The groups are translated to roles names by using the configured
-     * groupRolesMap.
-     *
-     * @param principal the principal of Subject that is being authorized
+     * Builds an {@link AuthorizationInfo} object based on the user's groups. The groups are translated to roles names
+     * by using the configured groupRolesMap.
+     * 
+     * @param principal
+     *            the principal of Subject that is being authorized
      * @return the AuthorizationInfo for the given Subject principal
-     *
+     * 
      * @see #setGroupRolesMap
      * @see #getRoleNamesForGroups
      */

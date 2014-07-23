@@ -20,24 +20,24 @@ package waffle.windows.auth;
  */
 public interface IWindowsDomain {
 
-	/**
-	 * Fully qualified domain name.
-	 * 
-	 * @return String.
-	 */
-	String getFqn();
+    /**
+     * Fully qualified domain name.
+     * 
+     * @return String.
+     */
+    String getFqn();
 
-	/**
-	 * Trust direction.
-	 * 
-	 * @return String.
-	 */
-	String getTrustDirectionString();
+    /**
+     * Trust direction.
+     * 
+     * @return String.
+     */
+    String getTrustDirectionString();
 
-	/**
-	 * Trust type.
-	 * 
-	 * @return String.
-	 */
-	String getTrustTypeString();
+    /**
+     * Trust type.
+     * 
+     * @return String.
+     */
+    String getTrustTypeString();
 }

@@ -22,51 +22,51 @@ import java.io.Serializable;
  */
 public class WindowsAccount implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	private String _sidString;
-	private String _fqn;
-	private String _name;
-	private String _domain;
+    private static final long serialVersionUID = 1L;
+    private String            _sidString;
+    private String            _fqn;
+    private String            _name;
+    private String            _domain;
 
-	public WindowsAccount(IWindowsAccount account) {
-		_sidString = account.getSidString();
-		_fqn = account.getFqn();
-		_name = account.getName();
-		_domain = account.getDomain();
-	}
+    public WindowsAccount(IWindowsAccount account) {
+        _sidString = account.getSidString();
+        _fqn = account.getFqn();
+        _name = account.getName();
+        _domain = account.getDomain();
+    }
 
-	public String getSidString() {
-		return _sidString;
-	}
+    public String getSidString() {
+        return _sidString;
+    }
 
-	public String getFqn() {
-		return _fqn;
-	}
+    public String getFqn() {
+        return _fqn;
+    }
 
-	public String getName() {
-		return _name;
-	}
+    public String getName() {
+        return _name;
+    }
 
-	public String getDomain() {
-		return _domain;
-	}
+    public String getDomain() {
+        return _domain;
+    }
 
-	@Override
-	public boolean equals(Object o) {
+    @Override
+    public boolean equals(Object o) {
 
-		if (this == o) {
-			return true;
-		}
+        if (this == o) {
+            return true;
+        }
 
-		if (!(o instanceof WindowsAccount)) {
-			return false;
-		}
+        if (!(o instanceof WindowsAccount)) {
+            return false;
+        }
 
-		return ((WindowsAccount) o).getSidString().equals(getSidString());
-	}
+        return ((WindowsAccount) o).getSidString().equals(getSidString());
+    }
 
-	@Override
-	public int hashCode() {
-		return getSidString().hashCode();
-	}
+    @Override
+    public int hashCode() {
+        return getSidString().hashCode();
+    }
 }

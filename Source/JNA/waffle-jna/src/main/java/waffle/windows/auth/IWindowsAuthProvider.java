@@ -20,106 +20,103 @@ package waffle.windows.auth;
  */
 public interface IWindowsAuthProvider {
 
-	/**
-	 * The LogonUser function attempts to log a user on to the local computer using a network logon type and the default
-	 * authentication provider.
-	 * 
-	 * @param username
-	 *            A string that specifies the name of the user in the UPN format.
-	 * @param password
-	 *            A string that specifies the plaintext password for the user account specified by username.
-	 * @return Windows identity.
-	 */
-	IWindowsIdentity logonUser(String username, String password);
+    /**
+     * The LogonUser function attempts to log a user on to the local computer using a network logon type and the default
+     * authentication provider.
+     * 
+     * @param username
+     *            A string that specifies the name of the user in the UPN format.
+     * @param password
+     *            A string that specifies the plaintext password for the user account specified by username.
+     * @return Windows identity.
+     */
+    IWindowsIdentity logonUser(String username, String password);
 
-	/**
-	 * The LogonDomainUser function attempts to log a user on to the local computer using a network logon type and the
-	 * default authentication provider.
-	 * 
-	 * @param username
-	 *            A string that specifies the name of the user. This is the name of the user account to log on to. If
-	 *            you use the user principal name (UPN) format, user@DNS_domain_name, the domain parameter must be NULL.
-	 * @param domain
-	 *            A string that specifies the name of the domain or server whose account database contains the username
-	 *            account. If this parameter is NULL, the user name must be specified in UPN format. If this parameter
-	 *            is ".", the function validates the account by using only the local account database.
-	 * @param password
-	 *            A string that specifies the plaintext password for the user account specified by username.
-	 * @return Windows identity.
-	 */
-	IWindowsIdentity logonDomainUser(String username, String domain,
-			String password);
+    /**
+     * The LogonDomainUser function attempts to log a user on to the local computer using a network logon type and the
+     * default authentication provider.
+     * 
+     * @param username
+     *            A string that specifies the name of the user. This is the name of the user account to log on to. If
+     *            you use the user principal name (UPN) format, user@DNS_domain_name, the domain parameter must be NULL.
+     * @param domain
+     *            A string that specifies the name of the domain or server whose account database contains the username
+     *            account. If this parameter is NULL, the user name must be specified in UPN format. If this parameter
+     *            is ".", the function validates the account by using only the local account database.
+     * @param password
+     *            A string that specifies the plaintext password for the user account specified by username.
+     * @return Windows identity.
+     */
+    IWindowsIdentity logonDomainUser(String username, String domain, String password);
 
-	/**
-	 * The LogonDomainUserEx function attempts to log a user on to the local computer. The local computer is the
-	 * computer from which LogonUser was called. You cannot use LogonUser to log on to a remote computer. You specify
-	 * the user with a user name and domain and authenticate the user with a plaintext password.
-	 * 
-	 * @param username
-	 *            A string that specifies the name of the user. This is the name of the user account to log on to. If
-	 *            you use the user principal name (UPN) format, user@DNS_domain_name, the domain parameter must be NULL.
-	 * @param domain
-	 *            A string that specifies the name of the domain or server whose account database contains the username
-	 *            account. If this parameter is NULL, the user name must be specified in UPN format. If this parameter
-	 *            is ".", the function validates the account by using only the local account database.
-	 * @param password
-	 *            A string that specifies the plaintext password for the user account specified by username.
-	 * @param logonType
-	 *            The type of logon operation to perform.
-	 * @param logonProvider
-	 *            Specifies the logon provider.
-	 * @return Windows identity.
-	 */
-	IWindowsIdentity logonDomainUserEx(String username, String domain,
-			String password, int logonType, int logonProvider);
+    /**
+     * The LogonDomainUserEx function attempts to log a user on to the local computer. The local computer is the
+     * computer from which LogonUser was called. You cannot use LogonUser to log on to a remote computer. You specify
+     * the user with a user name and domain and authenticate the user with a plaintext password.
+     * 
+     * @param username
+     *            A string that specifies the name of the user. This is the name of the user account to log on to. If
+     *            you use the user principal name (UPN) format, user@DNS_domain_name, the domain parameter must be NULL.
+     * @param domain
+     *            A string that specifies the name of the domain or server whose account database contains the username
+     *            account. If this parameter is NULL, the user name must be specified in UPN format. If this parameter
+     *            is ".", the function validates the account by using only the local account database.
+     * @param password
+     *            A string that specifies the plaintext password for the user account specified by username.
+     * @param logonType
+     *            The type of logon operation to perform.
+     * @param logonProvider
+     *            Specifies the logon provider.
+     * @return Windows identity.
+     */
+    IWindowsIdentity logonDomainUserEx(String username, String domain, String password, int logonType, int logonProvider);
 
-	/**
-	 * Retrieve a security identifier (SID) for the account and the name of the domain or local computer on which the
-	 * account was found.
-	 * 
-	 * @param username
-	 *            Fully qualified or partial username.
-	 * @return Windows account.
-	 */
-	IWindowsAccount lookupAccount(String username);
+    /**
+     * Retrieve a security identifier (SID) for the account and the name of the domain or local computer on which the
+     * account was found.
+     * 
+     * @param username
+     *            Fully qualified or partial username.
+     * @return Windows account.
+     */
+    IWindowsAccount lookupAccount(String username);
 
-	/**
-	 * Retrieve the current computer information.
-	 * 
-	 * @return Current computer information.
-	 */
-	IWindowsComputer getCurrentComputer();
+    /**
+     * Retrieve the current computer information.
+     * 
+     * @return Current computer information.
+     */
+    IWindowsComputer getCurrentComputer();
 
-	/**
-	 * Retrieve a list of domains (Active Directory) on the local server.
-	 * 
-	 * @return A list of domains.
-	 */
-	IWindowsDomain[] getDomains();
+    /**
+     * Retrieve a list of domains (Active Directory) on the local server.
+     * 
+     * @return A list of domains.
+     */
+    IWindowsDomain[] getDomains();
 
-	/**
-	 * Attempts to validate the user using an SSPI token. This token is generated by the client via the
-	 * InitializeSecurityContext(package) method described in
-	 * http://msdn.microsoft.com/en-us/library/aa375509(VS.85).aspx
-	 * 
-	 * @param connectionId
-	 *            A unique connection id.
-	 * @param token
-	 *            The security token generated by the client wishing to logon.
-	 * @param securityPackage
-	 *            The name of the security package to use. Can be any security package supported by both the client and
-	 *            the server. This is usually set to "Negotiate" which will use SPNEGO to determine which security
-	 *            package to use. Other common values are "Kerberos" and "NTLM".
-	 * @return Windows account.
-	 */
-	IWindowsSecurityContext acceptSecurityToken(String connectionId,
-			byte[] token, String securityPackage);
+    /**
+     * Attempts to validate the user using an SSPI token. This token is generated by the client via the
+     * InitializeSecurityContext(package) method described in
+     * http://msdn.microsoft.com/en-us/library/aa375509(VS.85).aspx
+     * 
+     * @param connectionId
+     *            A unique connection id.
+     * @param token
+     *            The security token generated by the client wishing to logon.
+     * @param securityPackage
+     *            The name of the security package to use. Can be any security package supported by both the client and
+     *            the server. This is usually set to "Negotiate" which will use SPNEGO to determine which security
+     *            package to use. Other common values are "Kerberos" and "NTLM".
+     * @return Windows account.
+     */
+    IWindowsSecurityContext acceptSecurityToken(String connectionId, byte[] token, String securityPackage);
 
-	/**
-	 * Reset a previously saved continuation security token for a given connection id.
-	 * 
-	 * @param connectionId
-	 *            Connection id.
-	 */
-	void resetSecurityToken(String connectionId);
+    /**
+     * Reset a previously saved continuation security token for a given connection id.
+     * 
+     * @param connectionId
+     *            Connection id.
+     */
+    void resetSecurityToken(String connectionId);
 }

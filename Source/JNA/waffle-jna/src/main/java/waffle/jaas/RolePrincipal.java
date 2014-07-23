@@ -23,43 +23,43 @@ import java.security.Principal;
  */
 public class RolePrincipal implements Principal, Serializable {
 
-	private static final long serialVersionUID = 1L;
-	private String _fqn;
+    private static final long serialVersionUID = 1L;
+    private String            _fqn;
 
-	/**
-	 * A windows principal.
-	 * 
-	 * @param fqn
-	 *            Fully qualified name.
-	 */
-	public RolePrincipal(String fqn) {
-		_fqn = fqn;
-	}
+    /**
+     * A windows principal.
+     * 
+     * @param fqn
+     *            Fully qualified name.
+     */
+    public RolePrincipal(String fqn) {
+        _fqn = fqn;
+    }
 
-	/**
-	 * Role name (Windows Group).
-	 */
-	@Override
-	public String getName() {
-		return _fqn;
-	}
+    /**
+     * Role name (Windows Group).
+     */
+    @Override
+    public String getName() {
+        return _fqn;
+    }
 
-	@Override
-	public boolean equals(Object o) {
+    @Override
+    public boolean equals(Object o) {
 
-		if (this == o) {
-			return true;
-		}
+        if (this == o) {
+            return true;
+        }
 
-		if (o instanceof RolePrincipal) {
-			return getName().equals(((RolePrincipal) o).getName());
-		}
+        if (o instanceof RolePrincipal) {
+            return getName().equals(((RolePrincipal) o).getName());
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	@Override
-	public int hashCode() {
-		return getName().hashCode();
-	}
+    @Override
+    public int hashCode() {
+        return getName().hashCode();
+    }
 }

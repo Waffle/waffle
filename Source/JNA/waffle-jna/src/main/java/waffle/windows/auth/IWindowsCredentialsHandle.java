@@ -21,18 +21,18 @@ import com.sun.jna.platform.win32.Sspi.CredHandle;
  * @author dblock[at]dblock[dot]org
  */
 public interface IWindowsCredentialsHandle {
-	/**
-	 * Initialize.
-	 */
-	void initialize();
+    /**
+     * Initialize.
+     */
+    void initialize();
 
-	/**
-	 * Dispose.
-	 */
-	void dispose();
+    /**
+     * Dispose.
+     */
+    void dispose();
 
-	/**
-	 * Return a security handle.
-	 */
-	CredHandle getHandle();
+    /**
+     * Return a security handle.
+     */
+    CredHandle getHandle();
 }

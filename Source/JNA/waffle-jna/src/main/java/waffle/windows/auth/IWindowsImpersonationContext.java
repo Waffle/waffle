@@ -20,8 +20,8 @@ package waffle.windows.auth;
  */
 public interface IWindowsImpersonationContext {
 
-	/**
-	 * Terminate the impersonation of a client application.
-	 */
-	void revertToSelf();
+    /**
+     * Terminate the impersonation of a client application.
+     */
+    void revertToSelf();
 }

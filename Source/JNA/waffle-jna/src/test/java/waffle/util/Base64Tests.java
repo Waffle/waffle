@@ -22,38 +22,38 @@ import org.junit.Test;
  */
 public class Base64Tests {
 
-	@Test
-	public void testBase64EncodeDecode() {
-		for (int i = 0; i < 100; i++) {
-			byte[] data = new byte[i];
-			for (byte j = 0; j < i; j++) {
-				data[j] = j;
-			}
+    @Test
+    public void testBase64EncodeDecode() {
+        for (int i = 0; i < 100; i++) {
+            byte[] data = new byte[i];
+            for (byte j = 0; j < i; j++) {
+                data[j] = j;
+            }
 
-			String base64data = Base64.encode(data);
-			byte[] decodedData = Base64.decode(base64data);
+            String base64data = Base64.encode(data);
+            byte[] decodedData = Base64.decode(base64data);
 
-			assertEquals(decodedData.length, data.length);
+            assertEquals(decodedData.length, data.length);
 
-			for (byte j = 0; j < i; j++) {
-				assertEquals(decodedData[j], data[j]);
-			}
-		}
-	}
+            for (byte j = 0; j < i; j++) {
+                assertEquals(decodedData[j], data[j]);
+            }
+        }
+    }
 
-	@Test
-	public void testBase64DecodeEncode() {
-		String base64String = "YH8GBisGAQUFAqB1MHOgMDAuBgorBgEEAYI3AgIKBgkqhkiC9xIBAgIGCSqGSIb3EgECAgYKKwYBBAGCNwICHqI/BD1OVExNU1NQAAEAAACXsgjiCQAJADQAAAAMAAwAKAAAAAYBsB0AAAAPREJMT0NLLUdSRUVOV09SS0dST1VQ";
-		byte[] data = Base64.decode(base64String);
-		String encodedBase64String = Base64.encode(data);
-		assertEquals(encodedBase64String, base64String);
-	}
+    @Test
+    public void testBase64DecodeEncode() {
+        String base64String = "YH8GBisGAQUFAqB1MHOgMDAuBgorBgEEAYI3AgIKBgkqhkiC9xIBAgIGCSqGSIb3EgECAgYKKwYBBAGCNwICHqI/BD1OVExNU1NQAAEAAACXsgjiCQAJADQAAAAMAAwAKAAAAAYBsB0AAAAPREJMT0NLLUdSRUVOV09SS0dST1VQ";
+        byte[] data = Base64.decode(base64String);
+        String encodedBase64String = Base64.encode(data);
+        assertEquals(encodedBase64String, base64String);
+    }
 
-	@Test
-	public void testBase64DecodeEncode2() {
-		String base64String = "oXcwdaADCgEBoloEWE5UTE1TU1AAAwAAAAAAAABYAAAAAAAAAFgAAAAAAAAAWAAAAAAAAABYAAAAAAAAAFgAAAAAAAAAWAAAABXCiOIGAbAdAAAAD0K5dZi6NldppxCrei9fHUGjEgQQAQAAAPUXp1AtIpqEAAAAAA==";
-		byte[] data = Base64.decode(base64String);
-		String encodedBase64String = Base64.encode(data);
-		assertEquals(encodedBase64String, base64String);
-	}
+    @Test
+    public void testBase64DecodeEncode2() {
+        String base64String = "oXcwdaADCgEBoloEWE5UTE1TU1AAAwAAAAAAAABYAAAAAAAAAFgAAAAAAAAAWAAAAAAAAABYAAAAAAAAAFgAAAAAAAAAWAAAABXCiOIGAbAdAAAAD0K5dZi6NldppxCrei9fHUGjEgQQAQAAAPUXp1AtIpqEAAAAAA==";
+        byte[] data = Base64.decode(base64String);
+        String encodedBase64String = Base64.encode(data);
+        assertEquals(encodedBase64String, base64String);
+    }
 }

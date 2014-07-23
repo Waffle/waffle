@@ -40,9 +40,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A authentication filter that implements the HTTP Negotiate mechanism. The
- * current user is authenticated, providing single-sign-on
- *
+ * A authentication filter that implements the HTTP Negotiate mechanism. The current user is authenticated, providing
+ * single-sign-on
+ * 
  * @author Dan Rollo
  * @since 1.0.0
  */
@@ -51,35 +51,37 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
     /**
      * This class's private logger.
      */
-    private static final Logger log = LoggerFactory.getLogger(NegotiateAuthenticationFilter.class);
+    private static final Logger       log                 = LoggerFactory
+                                                                  .getLogger(NegotiateAuthenticationFilter.class);
 
     // TODO things (sometimes) break, depending on what user account is running tomcat:
     // related to setSPN and running tomcat server as NT Service account vs. as normal user account.
     // http://waffle.codeplex.com/discussions/254748
     // setspn -A HTTP/<server-fqdn> <user_tomcat_running_under>
-    private static final List<String> protocols = new ArrayList<String>();
+    private static final List<String> protocols           = new ArrayList<String>();
     {
         protocols.add("Negotiate");
         protocols.add("NTLM");
     }
 
-    private String failureKeyAttribute = FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME;
+    private String                    failureKeyAttribute = FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME;
 
-    private String rememberMeParam = FormAuthenticationFilter.DEFAULT_REMEMBER_ME_PARAM;
+    private String                    rememberMeParam     = FormAuthenticationFilter.DEFAULT_REMEMBER_ME_PARAM;
 
     public String getRememberMeParam() {
         return rememberMeParam;
     }
 
     /**
-     * Sets the request parameter name to look for when acquiring the rememberMe boolean value.  Unless overridden
-     * by calling this method, the default is <code>rememberMe</code>.
+     * Sets the request parameter name to look for when acquiring the rememberMe boolean value. Unless overridden by
+     * calling this method, the default is <code>rememberMe</code>.
      * <p/>
      * RememberMe will be <code>true</code> if the parameter value equals any of those supported by
-     * {@link org.apache.shiro.web.util.WebUtils#isTrue(javax.servlet.ServletRequest, String) WebUtils.isTrue(request,value)}, <code>false</code>
-     * otherwise.
-     *
-     * @param rememberMeParam the name of the request param to check for acquiring the rememberMe boolean value.
+     * {@link org.apache.shiro.web.util.WebUtils#isTrue(javax.servlet.ServletRequest, String)
+     * WebUtils.isTrue(request,value)}, <code>false</code> otherwise.
+     * 
+     * @param rememberMeParam
+     *            the name of the request param to check for acquiring the rememberMe boolean value.
      */
     public void setRememberMeParam(final String rememberMeParam) {
         this.rememberMeParam = rememberMeParam;
@@ -90,10 +92,8 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         return WebUtils.isTrue(request, getRememberMeParam());
     }
 
-
     @Override
-    protected AuthenticationToken createToken(final ServletRequest request,
-                                              final ServletResponse response)  {
+    protected AuthenticationToken createToken(final ServletRequest request, final ServletResponse response) {
         final String authorization = getAuthzHeader(request);
         final String[] elements = authorization.split(" ");
         final byte[] inToken = Base64.decode(elements[1]);
@@ -107,7 +107,8 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         final AuthorizationHeader authorizationHeader = new AuthorizationHeader((HttpServletRequest) request);
         final boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
 
-        log.debug("security package: {}, connection id: {}, ntlmPost: {}", securityPackage, connectionId, Boolean.valueOf(ntlmPost));
+        log.debug("security package: {}, connection id: {}, ntlmPost: {}", securityPackage, connectionId,
+                Boolean.valueOf(ntlmPost));
 
         final boolean rememberMe = isRememberMe(request);
         final String host = getHost(request);
@@ -115,11 +116,9 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         return new NegotiateToken(inToken, new byte[0], connectionId, securityPackage, ntlmPost, rememberMe, host);
     }
 
-
     @Override
-    protected boolean onLoginSuccess(final AuthenticationToken token,
-                                     final Subject subject, final ServletRequest request, final ServletResponse response)
-            throws Exception {
+    protected boolean onLoginSuccess(final AuthenticationToken token, final Subject subject,
+            final ServletRequest request, final ServletResponse response) throws Exception {
 
         final NegotiateToken t = (NegotiateToken) token;
 
@@ -128,9 +127,8 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
     }
 
     @Override
-    protected boolean onLoginFailure(final AuthenticationToken token,
-                                     final AuthenticationException e, final ServletRequest request,
-                                     final ServletResponse response) {
+    protected boolean onLoginFailure(final AuthenticationToken token, final AuthenticationException e,
+            final ServletRequest request, final ServletResponse response) {
         final NegotiateToken t = (NegotiateToken) token;
 
         if (e instanceof AuthenticationInProgressException) {
@@ -164,8 +162,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
     }
 
     @Override
-    protected boolean onAccessDenied(final ServletRequest request,
-                                     final ServletResponse response) throws Exception {
+    protected boolean onAccessDenied(final ServletRequest request, final ServletResponse response) throws Exception {
         // false by default or we wouldn't be in
         boolean loggedIn = false;
         // this method
@@ -182,15 +179,14 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      * Determines whether the incoming request is an attempt to log in.
      * <p/>
      * The default implementation obtains the value of the request's
-     * {@link org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter#AUTHORIZATION_HEADER AUTHORIZATION_HEADER}, and if it is not
-     * <code>null</code>, delegates to {@link org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter#isLoginAttempt(String)
-     * isLoginAttempt(authzHeaderValue)}. If the header is <code>null</code>,
-     * <code>false</code> is returned.
-     *
+     * {@link org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter#AUTHORIZATION_HEADER AUTHORIZATION_HEADER}
+     * , and if it is not <code>null</code>, delegates to
+     * {@link org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter#isLoginAttempt(String)
+     * isLoginAttempt(authzHeaderValue)}. If the header is <code>null</code>, <code>false</code> is returned.
+     * 
      * @param request
      *            incoming ServletRequest
-     * @return true if the incoming request is an attempt to log in based, false
-     *         otherwise
+     * @return true if the incoming request is an attempt to log in based, false otherwise
      */
     boolean isLoginAttempt(final ServletRequest request) {
         final String authzHeader = getAuthzHeader(request);
@@ -198,15 +194,14 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
     }
 
     /**
-     * Returns the {@link org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter#AUTHORIZATION_HEADER AUTHORIZATION_HEADER} from the
-     * specified ServletRequest.
+     * Returns the {@link org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter#AUTHORIZATION_HEADER
+     * AUTHORIZATION_HEADER} from the specified ServletRequest.
      * <p/>
-     * This implementation merely casts the request to an
-     * <code>HttpServletRequest</code> and returns the header:
+     * This implementation merely casts the request to an <code>HttpServletRequest</code> and returns the header:
      * <p/>
      * <code>HttpServletRequest httpRequest = {@link WebUtils#toHttp(javax.servlet.ServletRequest) toHttp(reaquest)};<br/>
      * return httpRequest.getHeader({@link org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter#AUTHORIZATION_HEADER AUTHORIZATION_HEADER});</code>
-     *
+     * 
      * @param request
      *            the incoming <code>ServletRequest</code>
      * @return the <code>Authorization</code> header's value.
@@ -222,16 +217,13 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
     }
 
     /**
-     * Default implementation that returns <code>true</code> if the specified
-     * <code>authzHeader</code> starts with the same (case-insensitive)
-     * characters specified by any of the configured protocols (Negotiate or NTLM),
+     * Default implementation that returns <code>true</code> if the specified <code>authzHeader</code> starts with the
+     * same (case-insensitive) characters specified by any of the configured protocols (Negotiate or NTLM),
      * <code>false</code> otherwise.
-     *
+     * 
      * @param authzHeader
-     *            the 'Authorization' header value (guaranteed to be non-null if
-     *            the
-     *            {@link #isLoginAttempt(javax.servlet.ServletRequest)}
-     *            method is not overriden).
+     *            the 'Authorization' header value (guaranteed to be non-null if the
+     *            {@link #isLoginAttempt(javax.servlet.ServletRequest)} method is not overriden).
      * @return <code>true</code> if the authzHeader value matches any of the configured protocols (Negotiate or NTLM).
      */
     boolean isLoginAttempt(final String authzHeader) {
@@ -244,13 +236,14 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
     }
 
     /**
-     * Builds the challenge for authorization by setting a HTTP <code>401</code>
-     * (Unauthorized) status as well as the response's
-     * {@link org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter#AUTHENTICATE_HEADER AUTHENTICATE_HEADER}.
-     *
-     * @param protocols protocols for which to send a challenge. In initial cases, will be all supported protocols.
-     *                  In the midst of negotiation, will be only the protocol being negotiated.
-     *
+     * Builds the challenge for authorization by setting a HTTP <code>401</code> (Unauthorized) status as well as the
+     * response's {@link org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter#AUTHENTICATE_HEADER
+     * AUTHENTICATE_HEADER}.
+     * 
+     * @param protocols
+     *            protocols for which to send a challenge. In initial cases, will be all supported protocols. In the
+     *            midst of negotiation, will be only the protocol being negotiated.
+     * 
      * @param response
      *            outgoing ServletResponse
      * @param out
@@ -286,7 +279,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
     }
 
     private void sendAuthenticateHeader(final List<String> protocolsList, final byte[] out,
-                                        final HttpServletResponse httpResponse) {
+            final HttpServletResponse httpResponse) {
 
         sendUnauthorized(protocolsList, out, httpResponse);
 

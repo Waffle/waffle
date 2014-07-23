@@ -25,13 +25,13 @@ import org.junit.Test;
 public class WindowsAuthProviderLoadTests {
 
     @Rule
-    public ContiPerfRule contiPerfRule = new ContiPerfRule();
+    public ContiPerfRule             contiPerfRule = new ContiPerfRule();
 
-    private WindowsAuthProviderTests _tests = new WindowsAuthProviderTests();
+    private WindowsAuthProviderTests _tests        = new WindowsAuthProviderTests();
 
-	@Test
-	@PerfTest(invocations = 10, threads = 10)
-	public void testLoad() throws Throwable {
-		_tests.testAcceptSecurityToken();
-	}
+    @Test
+    @PerfTest(invocations = 10, threads = 10)
+    public void testLoad() throws Throwable {
+        _tests.testAcceptSecurityToken();
+    }
 }

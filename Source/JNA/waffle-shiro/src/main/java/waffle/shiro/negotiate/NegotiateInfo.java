@@ -25,23 +25,22 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 
 /**
- * Information about a user authenticated via the HTTP Negotiate authentication
- * mechanism.
-
- *
+ * Information about a user authenticated via the HTTP Negotiate authentication mechanism.
+ * 
+ * 
  * @author Dan Rollo
  * @since 1.0.0
  */
-public class NegotiateInfo implements AuthenticationInfo{
+public class NegotiateInfo implements AuthenticationInfo {
     private static final long serialVersionUID = -1537448549089922914L;
 
-    private final Subject subject;
+    private final Subject     subject;
 
-    private final String realmName;
+    private final String      realmName;
 
     /**
      * Creates a new info object.
-     *
+     * 
      * @param subject
      *            a subject containing the authenticated users {@link waffle.servlet.WindowsPrincipal}.
      * @param realmName
@@ -54,7 +53,7 @@ public class NegotiateInfo implements AuthenticationInfo{
 
     /**
      * Creates a new principal collection using the subject as the principal.
-     *
+     * 
      * @return a new principal collection using the subject as the principal
      */
     @Override
@@ -64,7 +63,7 @@ public class NegotiateInfo implements AuthenticationInfo{
 
     /**
      * Returns the subject.
-     *
+     * 
      * @return the subject
      */
     @Override

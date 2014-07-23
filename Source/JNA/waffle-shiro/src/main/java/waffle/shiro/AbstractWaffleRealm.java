@@ -32,15 +32,14 @@ import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
 /**
- * A {@link org.apache.shiro.realm.Realm} that authenticates with Active
- * Directory using WAFFLE. Authorization is left for subclasses to define by
- * implementing the {@link #buildAuthorizationInfo} method.
+ * A {@link org.apache.shiro.realm.Realm} that authenticates with Active Directory using WAFFLE. Authorization is left
+ * for subclasses to define by implementing the {@link #buildAuthorizationInfo} method.
  */
 public abstract class AbstractWaffleRealm extends AuthorizingRealm {
-    private static final Logger log = LoggerFactory.getLogger(AbstractWaffleRealm.class);
-    private static final String realmName = "WAFFLE";
+    private static final Logger  log       = LoggerFactory.getLogger(AbstractWaffleRealm.class);
+    private static final String  realmName = "WAFFLE";
 
-    private IWindowsAuthProvider provider = new WindowsAuthProviderImpl();
+    private IWindowsAuthProvider provider  = new WindowsAuthProviderImpl();
 
     @Override
     protected final AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authToken)
@@ -99,23 +98,22 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
     }
 
     /**
-     * Assembles the appropriate authorization information for the specified
-     * principal.
-     *
-     * @param principal the principal for which to assemble authorization
-     *                  information
+     * Assembles the appropriate authorization information for the specified principal.
+     * 
+     * @param principal
+     *            the principal for which to assemble authorization information
      * @return the authorization information for the specified principal
      */
     protected abstract AuthorizationInfo buildAuthorizationInfo(WaffleFqnPrincipal principal);
 
     /**
-     * Allow overriding the default implementation of {@link IWindowsAuthProvider}
-     * This is only needed for testing, since for normal usage the default is what you want.
+     * Allow overriding the default implementation of {@link IWindowsAuthProvider} This is only needed for testing,
+     * since for normal usage the default is what you want.
      */
-	void setProvider(IWindowsAuthProvider provider) {
-		this.provider = provider;
-	}
-    
+    void setProvider(IWindowsAuthProvider provider) {
+        this.provider = provider;
+    }
+
     private HashingPasswordService getHashService() {
         CredentialsMatcher matcher = getCredentialsMatcher();
         if (matcher instanceof PasswordMatcher) {

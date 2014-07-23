@@ -23,9 +23,9 @@ import waffle.windows.auth.WindowsAccount;
  */
 public interface GrantedAuthorityFactory {
 
-	/**
-	 * Creates a {@link GrantedAuthority} from the given {@link WindowsAccount}.
-	 */
-	GrantedAuthority createGrantedAuthority(WindowsAccount windowsAccount);
+    /**
+     * Creates a {@link GrantedAuthority} from the given {@link WindowsAccount}.
+     */
+    GrantedAuthority createGrantedAuthority(WindowsAccount windowsAccount);
 
 }

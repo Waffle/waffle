@@ -27,73 +27,72 @@ import com.sun.jna.platform.win32.Secur32.EXTENDED_NAME_FORMAT;
  */
 public class WindowsAccountImpl implements IWindowsAccount {
 
-	private Account _account;
+    private Account _account;
 
-	@Override
-	public String getFqn() {
-		return _account.fqn;
-	}
+    @Override
+    public String getFqn() {
+        return _account.fqn;
+    }
 
-	@Override
-	public String getSidString() {
-		return _account.sidString;
-	}
+    @Override
+    public String getSidString() {
+        return _account.sidString;
+    }
 
-	/**
-	 * Account name.
-	 */
-	@Override
-	public String getName() {
-		return _account.name;
-	}
+    /**
+     * Account name.
+     */
+    @Override
+    public String getName() {
+        return _account.name;
+    }
 
-	/**
-	 * Account domain.
-	 */
-	@Override
-	public String getDomain() {
-		return _account.domain;
-	}
+    /**
+     * Account domain.
+     */
+    @Override
+    public String getDomain() {
+        return _account.domain;
+    }
 
-	/**
-	 * Get the SAM-compatible username of the currently logged-on user.
-	 * 
-	 * @return String.
-	 */
-	public static String getCurrentUsername() {
-		return Secur32Util
-				.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);
-	}
+    /**
+     * Get the SAM-compatible username of the currently logged-on user.
+     * 
+     * @return String.
+     */
+    public static String getCurrentUsername() {
+        return Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);
+    }
 
-	/**
-	 * Windows Account.
-	 * 
-	 * @param userName
-	 *            Fully qualified username.
-	 */
-	public WindowsAccountImpl(String userName) {
-		this(userName, null);
-	}
+    /**
+     * Windows Account.
+     * 
+     * @param userName
+     *            Fully qualified username.
+     */
+    public WindowsAccountImpl(String userName) {
+        this(userName, null);
+    }
 
-	/**
-	 * Windows Account
-	 * 
-	 * @param accountName
-	 *            Username, without a domain or machine.
-	 * @param systemName
-	 *            Machine name.
-	 */
-	public WindowsAccountImpl(String accountName, String systemName) {
-		this(Advapi32Util.getAccountByName(systemName, accountName));
-	}
+    /**
+     * Windows Account
+     * 
+     * @param accountName
+     *            Username, without a domain or machine.
+     * @param systemName
+     *            Machine name.
+     */
+    public WindowsAccountImpl(String accountName, String systemName) {
+        this(Advapi32Util.getAccountByName(systemName, accountName));
+    }
 
-	/**
-	 * Windows Account.
-	 * 
-	 * @param account
-	 *            Account.
-	 */
-	public WindowsAccountImpl(Account account) {
-		_account = account;
-	}
+    /**
+     * Windows Account.
+     * 
+     * @param account
+     *            Account.
+     */
+    public WindowsAccountImpl(Account account) {
+        _account = account;
+    }
 }

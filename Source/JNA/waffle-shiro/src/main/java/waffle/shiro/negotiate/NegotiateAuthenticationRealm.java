@@ -41,16 +41,13 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
     /**
      * This class's private logger.
      */
-    private static final Logger log = LoggerFactory.getLogger(NegotiateAuthenticationRealm.class);
-
+    private static final Logger        log = LoggerFactory.getLogger(NegotiateAuthenticationRealm.class);
 
     private final IWindowsAuthProvider windowsAuthProvider;
-
 
     public NegotiateAuthenticationRealm() {
         windowsAuthProvider = new WindowsAuthProviderImpl();
     }
-
 
     @Override
     public boolean supports(final AuthenticationToken token) {
@@ -58,8 +55,7 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
     }
 
     @Override
-    protected AuthenticationInfo doGetAuthenticationInfo(
-            final AuthenticationToken t) throws AuthenticationException {
+    protected AuthenticationInfo doGetAuthenticationInfo(final AuthenticationToken t) throws AuthenticationException {
 
         final NegotiateToken token = (NegotiateToken) t;
         final byte[] inToken = token.getIn();
@@ -71,8 +67,8 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
 
         final IWindowsSecurityContext securityContext;
         try {
-            securityContext = windowsAuthProvider.acceptSecurityToken(
-                    token.getConnectionId(), inToken, token.getSecurityPackage());
+            securityContext = windowsAuthProvider.acceptSecurityToken(token.getConnectionId(), inToken,
+                    token.getSecurityPackage());
         } catch (Exception e) {
             log.warn("error logging in user: {}", e.getMessage());
             throw new AuthenticationException(e);

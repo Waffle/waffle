@@ -40,90 +40,88 @@ import waffle.util.WaffleInfo;
  */
 public class WaffleInfoServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Override
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		WaffleInfo info = new WaffleInfo();
-		try {
-			Document doc = info.getWaffleInfo();
-			Element root = doc.getDocumentElement();
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        WaffleInfo info = new WaffleInfo();
+        try {
+            Document doc = info.getWaffleInfo();
+            Element root = doc.getDocumentElement();
 
-			// Add the Request Information Here
-			Element http = getRequestInfo(doc, request);
-			root.insertBefore(http, root.getFirstChild());
+            // Add the Request Information Here
+            Element http = getRequestInfo(doc, request);
+            root.insertBefore(http, root.getFirstChild());
 
-			// Lookup Accounts By Name
-			String[] lookup = request.getParameterValues("lookup");
-			if (lookup != null) {
-				for (String name : lookup) {
-					root.appendChild(info.getLookupInfo(doc, name));
-				}
-			}
+            // Lookup Accounts By Name
+            String[] lookup = request.getParameterValues("lookup");
+            if (lookup != null) {
+                for (String name : lookup) {
+                    root.appendChild(info.getLookupInfo(doc, name));
+                }
+            }
 
-			// Write the XML Response
-			TransformerFactory transfac = TransformerFactory.newInstance();
-			Transformer trans = transfac.newTransformer();
-			trans.setOutputProperty(OutputKeys.INDENT, "yes");
+            // Write the XML Response
+            TransformerFactory transfac = TransformerFactory.newInstance();
+            Transformer trans = transfac.newTransformer();
+            trans.setOutputProperty(OutputKeys.INDENT, "yes");
 
-			StreamResult result = new StreamResult(response.getWriter());
-			DOMSource source = new DOMSource(doc);
-			trans.transform(source, result);
-			response.setContentType("application/xml");
-		} catch (ParserConfigurationException e) {
-			throw new ServletException(e);
-		} catch (TransformerConfigurationException e) {
-			throw new ServletException(e);
-		} catch (TransformerException e) {
-			throw new ServletException(e);
-		}
-	}
+            StreamResult result = new StreamResult(response.getWriter());
+            DOMSource source = new DOMSource(doc);
+            trans.transform(source, result);
+            response.setContentType("application/xml");
+        } catch (ParserConfigurationException e) {
+            throw new ServletException(e);
+        } catch (TransformerConfigurationException e) {
+            throw new ServletException(e);
+        } catch (TransformerException e) {
+            throw new ServletException(e);
+        }
+    }
 
-	/**
-	 * Delegate POST to GET
-	 */
-	@Override
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doGet(request, response);
-	}
+    /**
+     * Delegate POST to GET
+     */
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
+    }
 
-	public Element getRequestInfo(Document doc, HttpServletRequest request) {
-		Element node = doc.createElement("request");
+    public Element getRequestInfo(Document doc, HttpServletRequest request) {
+        Element node = doc.createElement("request");
 
-		Element value = doc.createElement("AuthType");
-		value.setTextContent(request.getAuthType());
-		node.appendChild(value);
+        Element value = doc.createElement("AuthType");
+        value.setTextContent(request.getAuthType());
+        node.appendChild(value);
 
-		Principal p = request.getUserPrincipal();
-		if (p != null) {
-			Element child = doc.createElement("principal");
-			child.setAttribute("class", p.getClass().getName());
+        Principal p = request.getUserPrincipal();
+        if (p != null) {
+            Element child = doc.createElement("principal");
+            child.setAttribute("class", p.getClass().getName());
 
-			value = doc.createElement("name");
-			value.setTextContent(p.getName());
-			child.appendChild(value);
+            value = doc.createElement("name");
+            value.setTextContent(p.getName());
+            child.appendChild(value);
 
-			value = doc.createElement("string");
-			value.setTextContent(p.toString());
-			child.appendChild(value);
+            value = doc.createElement("string");
+            value.setTextContent(p.toString());
+            child.appendChild(value);
 
-			node.appendChild(child);
-		}
+            node.appendChild(child);
+        }
 
-		Enumeration<?> headers = request.getHeaderNames();
-		if (headers.hasMoreElements()) {
-			Element child = doc.createElement("headers");
-			while (headers.hasMoreElements()) {
-				String name = (String) headers.nextElement();
+        Enumeration<?> headers = request.getHeaderNames();
+        if (headers.hasMoreElements()) {
+            Element child = doc.createElement("headers");
+            while (headers.hasMoreElements()) {
+                String name = (String) headers.nextElement();
 
-				value = doc.createElement(name);
-				value.setTextContent(request.getHeader(name));
-				child.appendChild(value);
-			}
-			node.appendChild(child);
-		}
-		return node;
-	}
+                value = doc.createElement(name);
+                value.setTextContent(request.getHeader(name));
+                child.appendChild(value);
+            }
+            node.appendChild(child);
+        }
+        return node;
+    }
 }

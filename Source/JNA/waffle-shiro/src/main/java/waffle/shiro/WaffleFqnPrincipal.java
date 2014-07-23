@@ -20,8 +20,8 @@ import waffle.windows.auth.IWindowsIdentity;
 
 public class WaffleFqnPrincipal implements Serializable {
     private static final long serialVersionUID = 1;
-    private final String fqn;
-    private final Set<String> groupFqns = new HashSet<String>();
+    private final String      fqn;
+    private final Set<String> groupFqns        = new HashSet<String>();
 
     WaffleFqnPrincipal(IWindowsIdentity identity) {
         fqn = identity.getFqn();

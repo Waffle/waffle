@@ -27,52 +27,51 @@ import waffle.windows.auth.IWindowsIdentity;
  */
 public interface SecurityFilterProvider {
 
-	/**
-	 * Add authentication method headers.
-	 * 
-	 * @param response
-	 *            Http Response
-	 */
-	void sendUnauthorized(HttpServletResponse response);
+    /**
+     * Add authentication method headers.
+     * 
+     * @param response
+     *            Http Response
+     */
+    void sendUnauthorized(HttpServletResponse response);
 
-	/**
-	 * Returns true if despite having a principal authentication needs to happen.
-	 * 
-	 * @param request
-	 *            Http Request
-	 * @return True if authentication is required.
-	 */
-	boolean isPrincipalException(HttpServletRequest request);
+    /**
+     * Returns true if despite having a principal authentication needs to happen.
+     * 
+     * @param request
+     *            Http Request
+     * @return True if authentication is required.
+     */
+    boolean isPrincipalException(HttpServletRequest request);
 
-	/**
-	 * Execute filter.
-	 * 
-	 * @param request
-	 *            Http Request
-	 * @param response
-	 *            Http Response
-	 * @return A Windows identity in case authentication completed or NULL if not. Thrown exceptions should be caught
-	 *         and processed as 401 Access Denied.
-	 */
-	IWindowsIdentity doFilter(HttpServletRequest request,
-			HttpServletResponse response) throws IOException;
+    /**
+     * Execute filter.
+     * 
+     * @param request
+     *            Http Request
+     * @param response
+     *            Http Response
+     * @return A Windows identity in case authentication completed or NULL if not. Thrown exceptions should be caught
+     *         and processed as 401 Access Denied.
+     */
+    IWindowsIdentity doFilter(HttpServletRequest request, HttpServletResponse response) throws IOException;
 
-	/**
-	 * Tests whether a specific security package is supported.
-	 * 
-	 * @param securityPackage
-	 *            Security package.
-	 * @return True if the security package is supported, false otherwise.
-	 */
-	boolean isSecurityPackageSupported(String securityPackage);
+    /**
+     * Tests whether a specific security package is supported.
+     * 
+     * @param securityPackage
+     *            Security package.
+     * @return True if the security package is supported, false otherwise.
+     */
+    boolean isSecurityPackageSupported(String securityPackage);
 
-	/**
-	 * Init a parameter.
-	 * 
-	 * @param parameterName
-	 *            Parameter name.
-	 * @param parameterValue
-	 *            Parameter value.
-	 */
-	void initParameter(String parameterName, String parameterValue);
+    /**
+     * Init a parameter.
+     * 
+     * @param parameterName
+     *            Parameter name.
+     * @param parameterValue
+     *            Parameter value.
+     */
+    void initParameter(String parameterName, String parameterValue);
 }

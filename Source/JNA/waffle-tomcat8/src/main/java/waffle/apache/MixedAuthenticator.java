@@ -40,227 +40,212 @@ import waffle.windows.auth.IWindowsSecurityContext;
  */
 public class MixedAuthenticator extends WaffleAuthenticatorBase {
 
-	public MixedAuthenticator() {
-		super();
-		_log = LoggerFactory.getLogger(MixedAuthenticator.class);
-		_info = "waffle.apache.MixedAuthenticator/1.0";
-		_log.debug("[waffle.apache.MixedAuthenticator] loaded");
-	}
+    public MixedAuthenticator() {
+        super();
+        _log = LoggerFactory.getLogger(MixedAuthenticator.class);
+        _info = "waffle.apache.MixedAuthenticator/1.0";
+        _log.debug("[waffle.apache.MixedAuthenticator] loaded");
+    }
 
-	@Override
-	public synchronized void startInternal() throws LifecycleException {
-		_log.info("[waffle.apache.MixedAuthenticator] started");
-		super.startInternal();
-	}
+    @Override
+    public synchronized void startInternal() throws LifecycleException {
+        _log.info("[waffle.apache.MixedAuthenticator] started");
+        super.startInternal();
+    }
 
-	@Override
-	public synchronized void stopInternal() throws LifecycleException {
-		super.stopInternal();
-		_log.info("[waffle.apache.MixedAuthenticator] stopped");
-	}
+    @Override
+    public synchronized void stopInternal() throws LifecycleException {
+        super.stopInternal();
+        _log.info("[waffle.apache.MixedAuthenticator] stopped");
+    }
 
-	@Override
-	public boolean authenticate(Request request, HttpServletResponse response) {
+    @Override
+    public boolean authenticate(Request request, HttpServletResponse response) {
 
-		// realm: fail if no realm is configured
-		if (context == null || context.getRealm() == null) {
-			_log.warn("missing context/realm");
-			sendError(response, HttpServletResponse.SC_SERVICE_UNAVAILABLE);
-			return false;
-		}
+        // realm: fail if no realm is configured
+        if (context == null || context.getRealm() == null) {
+            _log.warn("missing context/realm");
+            sendError(response, HttpServletResponse.SC_SERVICE_UNAVAILABLE);
+            return false;
+        }
 
-		_log.debug("{} {}, contentlength: {}", request.getMethod(), request.getRequestURI(),
-				Integer.valueOf(request.getContentLength()));
+        _log.debug("{} {}, contentlength: {}", request.getMethod(), request.getRequestURI(),
+                Integer.valueOf(request.getContentLength()));
 
-		boolean negotiateCheck = request.getParameter("j_negotiate_check") != null;
-		_log.debug("negotiateCheck: {}", Boolean.valueOf(negotiateCheck));
-		boolean securityCheck = request.getParameter("j_security_check") != null;
-		_log.debug("securityCheck: {}", Boolean.valueOf(securityCheck));
+        boolean negotiateCheck = request.getParameter("j_negotiate_check") != null;
+        _log.debug("negotiateCheck: {}", Boolean.valueOf(negotiateCheck));
+        boolean securityCheck = request.getParameter("j_security_check") != null;
+        _log.debug("securityCheck: {}", Boolean.valueOf(securityCheck));
 
-		Principal principal = request.getUserPrincipal();
+        Principal principal = request.getUserPrincipal();
 
-		AuthorizationHeader authorizationHeader = new AuthorizationHeader(
-				request);
-		boolean ntlmPost = authorizationHeader
-				.isNtlmType1PostAuthorizationHeader();
-		_log.debug("authorization: {}, ntlm post: {}", authorizationHeader,
-				Boolean.valueOf(ntlmPost));
+        AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
+        boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
+        _log.debug("authorization: {}, ntlm post: {}", authorizationHeader, Boolean.valueOf(ntlmPost));
 
-		LoginConfig loginConfig = new LoginConfig();
-		loginConfig.setErrorPage("error.html");
-		loginConfig.setLoginPage("login.html");
+        LoginConfig loginConfig = new LoginConfig();
+        loginConfig.setErrorPage("error.html");
+        loginConfig.setLoginPage("login.html");
 
-		if (principal != null && !ntlmPost) {
-			_log.debug("previously authenticated user: {}", principal.getName());
-			return true;
-		} else if (negotiateCheck) {
-			if (!authorizationHeader.isNull()) {
-				return negotiate(request, response, authorizationHeader);
-			}
-			_log.debug("authorization required");
-			sendUnauthorized(response);
-			return false;
-		} else if (securityCheck) {
-			boolean postResult = post(request, response);
-			if (postResult) {
-				redirectTo(request, response, request.getServletPath());
-			} else {
-				redirectTo(request, response, loginConfig.getErrorPage());
-			}
-			return postResult;
-		} else {
-			redirectTo(request, response, loginConfig.getLoginPage());
-			return false;
-		}
-	}
+        if (principal != null && !ntlmPost) {
+            _log.debug("previously authenticated user: {}", principal.getName());
+            return true;
+        } else if (negotiateCheck) {
+            if (!authorizationHeader.isNull()) {
+                return negotiate(request, response, authorizationHeader);
+            }
+            _log.debug("authorization required");
+            sendUnauthorized(response);
+            return false;
+        } else if (securityCheck) {
+            boolean postResult = post(request, response);
+            if (postResult) {
+                redirectTo(request, response, request.getServletPath());
+            } else {
+                redirectTo(request, response, loginConfig.getErrorPage());
+            }
+            return postResult;
+        } else {
+            redirectTo(request, response, loginConfig.getLoginPage());
+            return false;
+        }
+    }
 
-	private boolean negotiate(Request request, HttpServletResponse response,
-			AuthorizationHeader authorizationHeader) {
+    private boolean negotiate(Request request, HttpServletResponse response, AuthorizationHeader authorizationHeader) {
 
-		String securityPackage = authorizationHeader.getSecurityPackage();
-		// maintain a connection-based session for NTLM tokens
-		String connectionId = NtlmServletRequest.getConnectionId(request);
+        String securityPackage = authorizationHeader.getSecurityPackage();
+        // maintain a connection-based session for NTLM tokens
+        String connectionId = NtlmServletRequest.getConnectionId(request);
 
-		_log.debug("security package: {}, connection id: {}", securityPackage,
-				connectionId);
+        _log.debug("security package: {}, connection id: {}", securityPackage, connectionId);
 
-		boolean ntlmPost = authorizationHeader
-				.isNtlmType1PostAuthorizationHeader();
+        boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
 
-		if (ntlmPost) {
-			// type 1 NTLM authentication message received
-			_auth.resetSecurityToken(connectionId);
-		}
+        if (ntlmPost) {
+            // type 1 NTLM authentication message received
+            _auth.resetSecurityToken(connectionId);
+        }
 
-		// log the user in using the token
-		IWindowsSecurityContext securityContext = null;
+        // log the user in using the token
+        IWindowsSecurityContext securityContext = null;
 
-		try {
-			byte[] tokenBuffer = authorizationHeader.getTokenBytes();
-			_log.debug("token buffer: {} byte(s)", Integer.valueOf(tokenBuffer.length));
-			securityContext = _auth.acceptSecurityToken(connectionId,
-					tokenBuffer, securityPackage);
-			_log.debug("continue required: {}", Boolean.valueOf(securityContext.isContinue()));
+        try {
+            byte[] tokenBuffer = authorizationHeader.getTokenBytes();
+            _log.debug("token buffer: {} byte(s)", Integer.valueOf(tokenBuffer.length));
+            securityContext = _auth.acceptSecurityToken(connectionId, tokenBuffer, securityPackage);
+            _log.debug("continue required: {}", Boolean.valueOf(securityContext.isContinue()));
 
-			byte[] continueTokenBytes = securityContext.getToken();
-			if (continueTokenBytes != null && continueTokenBytes.length > 0) {
-				String continueToken = Base64.encode(continueTokenBytes);
-				_log.debug("continue token: {}", continueToken);
-				response.addHeader("WWW-Authenticate", securityPackage + " "
-						+ continueToken);
-			}
+            byte[] continueTokenBytes = securityContext.getToken();
+            if (continueTokenBytes != null && continueTokenBytes.length > 0) {
+                String continueToken = Base64.encode(continueTokenBytes);
+                _log.debug("continue token: {}", continueToken);
+                response.addHeader("WWW-Authenticate", securityPackage + " " + continueToken);
+            }
 
-			if (securityContext.isContinue() || ntlmPost) {
-				response.setHeader("Connection", "keep-alive");
-				response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-				response.flushBuffer();
-				return false;
-			}
+            if (securityContext.isContinue() || ntlmPost) {
+                response.setHeader("Connection", "keep-alive");
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+                response.flushBuffer();
+                return false;
+            }
 
-		} catch (IOException e) {
-			_log.warn("error logging in user: {}", e.getMessage());
-			_log.trace("{}", e);
-			sendUnauthorized(response);
-			return false;
-		}
+        } catch (IOException e) {
+            _log.warn("error logging in user: {}", e.getMessage());
+            _log.trace("{}", e);
+            sendUnauthorized(response);
+            return false;
+        }
 
-		// create and register the user principal with the session
-		IWindowsIdentity windowsIdentity = securityContext.getIdentity();
+        // create and register the user principal with the session
+        IWindowsIdentity windowsIdentity = securityContext.getIdentity();
 
-		// disable guest login
-		if (!_allowGuestLogin && windowsIdentity.isGuest()) {
-			_log.warn("guest login disabled: {}", windowsIdentity.getFqn());
-			sendUnauthorized(response);
-			return false;
-		}
+        // disable guest login
+        if (!_allowGuestLogin && windowsIdentity.isGuest()) {
+            _log.warn("guest login disabled: {}", windowsIdentity.getFqn());
+            sendUnauthorized(response);
+            return false;
+        }
 
-		try {
+        try {
 
-			_log.debug("logged in user: {} ({})", windowsIdentity.getFqn(),
-					windowsIdentity.getSidString());
+            _log.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
 
-			GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(
-					windowsIdentity, _principalFormat, _roleFormat);
+            GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(windowsIdentity, _principalFormat,
+                    _roleFormat);
 
-			_log.debug("roles: {}", windowsPrincipal.getRolesString());
+            _log.debug("roles: {}", windowsPrincipal.getRolesString());
 
-			// create a session associated with this request if there's none
-			HttpSession session = request.getSession(true);
-			_log.debug("session id: {}", session.getId());
+            // create a session associated with this request if there's none
+            HttpSession session = request.getSession(true);
+            _log.debug("session id: {}", session.getId());
 
-			register(request, response, windowsPrincipal, securityPackage,
-					windowsPrincipal.getName(), null);
-			_log.info("successfully logged in user: {}",
-					windowsPrincipal.getName());
+            register(request, response, windowsPrincipal, securityPackage, windowsPrincipal.getName(), null);
+            _log.info("successfully logged in user: {}", windowsPrincipal.getName());
 
-		} finally {
-			windowsIdentity.dispose();
-		}
+        } finally {
+            windowsIdentity.dispose();
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	private boolean post(Request request, HttpServletResponse response) {
+    private boolean post(Request request, HttpServletResponse response) {
 
-		String username = request.getParameter("j_username");
-		String password = request.getParameter("j_password");
+        String username = request.getParameter("j_username");
+        String password = request.getParameter("j_password");
 
-		_log.debug("logging in: {}", username);
+        _log.debug("logging in: {}", username);
 
-		IWindowsIdentity windowsIdentity = null;
-		try {
-			windowsIdentity = _auth.logonUser(username, password);
-		} catch (Exception e) {
-			_log.error(e.getMessage());
-			_log.trace("{}", e);
-			return false;
-		}
+        IWindowsIdentity windowsIdentity = null;
+        try {
+            windowsIdentity = _auth.logonUser(username, password);
+        } catch (Exception e) {
+            _log.error(e.getMessage());
+            _log.trace("{}", e);
+            return false;
+        }
 
-		// disable guest login
-		if (!_allowGuestLogin && windowsIdentity.isGuest()) {
-			_log.warn("guest login disabled: {}", windowsIdentity.getFqn());
-			return false;
-		}
+        // disable guest login
+        if (!_allowGuestLogin && windowsIdentity.isGuest()) {
+            _log.warn("guest login disabled: {}", windowsIdentity.getFqn());
+            return false;
+        }
 
-		try {
-			_log.debug("successfully logged in {} ({})", username,
-					windowsIdentity.getSidString());
+        try {
+            _log.debug("successfully logged in {} ({})", username, windowsIdentity.getSidString());
 
-			GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(
-					windowsIdentity, _principalFormat, _roleFormat);
+            GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(windowsIdentity, _principalFormat,
+                    _roleFormat);
 
-			_log.debug("roles: {}", windowsPrincipal.getRolesString());
+            _log.debug("roles: {}", windowsPrincipal.getRolesString());
 
-			// create a session associated with this request if there's none
-			HttpSession session = request.getSession(true);
-			_log.debug("session id: {}", session.getId());
+            // create a session associated with this request if there's none
+            HttpSession session = request.getSession(true);
+            _log.debug("session id: {}", session.getId());
 
-			register(request, response, windowsPrincipal, "FORM",
-					windowsPrincipal.getName(), null);
-			_log.info("successfully logged in user: {}",
-					windowsPrincipal.getName());
-		} finally {
-			windowsIdentity.dispose();
-		}
+            register(request, response, windowsPrincipal, "FORM", windowsPrincipal.getName(), null);
+            _log.info("successfully logged in user: {}", windowsPrincipal.getName());
+        } finally {
+            windowsIdentity.dispose();
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	private void redirectTo(Request request, HttpServletResponse response,
-			String url) {
-		try {
-			_log.debug("redirecting to: {}", url);
-			ServletContext servletContext = context.getServletContext();
-			RequestDispatcher disp = servletContext.getRequestDispatcher(url);
-			disp.forward(request.getRequest(), response);
-		} catch (IOException e) {
-			_log.error(e.getMessage());
-			_log.trace("{}", e);
-			throw new RuntimeException(e);
-		} catch (ServletException e) {
-			_log.error(e.getMessage());
-			_log.trace("{}", e);
-			throw new RuntimeException(e);
-		}
-	}
+    private void redirectTo(Request request, HttpServletResponse response, String url) {
+        try {
+            _log.debug("redirecting to: {}", url);
+            ServletContext servletContext = context.getServletContext();
+            RequestDispatcher disp = servletContext.getRequestDispatcher(url);
+            disp.forward(request.getRequest(), response);
+        } catch (IOException e) {
+            _log.error(e.getMessage());
+            _log.trace("{}", e);
+            throw new RuntimeException(e);
+        } catch (ServletException e) {
+            _log.error(e.getMessage());
+            _log.trace("{}", e);
+            throw new RuntimeException(e);
+        }
+    }
 }

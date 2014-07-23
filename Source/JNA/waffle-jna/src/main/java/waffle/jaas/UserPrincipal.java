@@ -23,43 +23,43 @@ import java.security.Principal;
  */
 public class UserPrincipal implements Principal, Serializable {
 
-	private static final long serialVersionUID = 1L;
-	private String _fqn;
+    private static final long serialVersionUID = 1L;
+    private String            _fqn;
 
-	/**
-	 * A user principal.
-	 * 
-	 * @param fqn
-	 *            Fully qualified username.
-	 */
-	public UserPrincipal(String fqn) {
-		_fqn = fqn;
-	}
+    /**
+     * A user principal.
+     * 
+     * @param fqn
+     *            Fully qualified username.
+     */
+    public UserPrincipal(String fqn) {
+        _fqn = fqn;
+    }
 
-	/**
-	 * Fully qualified username.
-	 */
-	@Override
-	public String getName() {
-		return _fqn;
-	}
+    /**
+     * Fully qualified username.
+     */
+    @Override
+    public String getName() {
+        return _fqn;
+    }
 
-	@Override
-	public boolean equals(Object o) {
+    @Override
+    public boolean equals(Object o) {
 
-		if (this == o) {
-			return true;
-		}
+        if (this == o) {
+            return true;
+        }
 
-		if (o instanceof UserPrincipal) {
-			return getName().equals(((UserPrincipal) o).getName());
-		}
+        if (o instanceof UserPrincipal) {
+            return getName().equals(((UserPrincipal) o).getName());
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	@Override
-	public int hashCode() {
-		return getName().hashCode();
-	}
+    @Override
+    public int hashCode() {
+        return getName().hashCode();
+    }
 }

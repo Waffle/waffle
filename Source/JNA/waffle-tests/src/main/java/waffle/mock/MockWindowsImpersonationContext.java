@@ -18,11 +18,10 @@ import waffle.windows.auth.IWindowsImpersonationContext;
 /**
  * @author dblock[at]dblock[dot]org
  */
-public class MockWindowsImpersonationContext implements
-		IWindowsImpersonationContext {
+public class MockWindowsImpersonationContext implements IWindowsImpersonationContext {
 
-	@Override
-	public void revertToSelf() {
-		// Do Nothing
-	}
+    @Override
+    public void revertToSelf() {
+        // Do Nothing
+    }
 }

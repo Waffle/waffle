@@ -20,12 +20,11 @@ import org.springframework.security.core.AuthenticationException;
  * 
  * @author dblock[at]dblock[dot]org
  */
-public class GuestLoginDisabledAuthenticationException extends
-		AuthenticationException {
+public class GuestLoginDisabledAuthenticationException extends AuthenticationException {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public GuestLoginDisabledAuthenticationException(String msg) {
-		super(msg);
-	}
+    public GuestLoginDisabledAuthenticationException(String msg) {
+        super(msg);
+    }
 }

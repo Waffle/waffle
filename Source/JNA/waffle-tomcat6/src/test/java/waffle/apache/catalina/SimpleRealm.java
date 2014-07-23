@@ -22,18 +22,18 @@ import org.apache.catalina.realm.RealmBase;
  */
 public class SimpleRealm extends RealmBase {
 
-	@Override
-	protected String getName() {
-		return "simpleRealm";
-	}
+    @Override
+    protected String getName() {
+        return "simpleRealm";
+    }
 
-	@Override
-	protected String getPassword(String arg0) {
-		return null;
-	}
+    @Override
+    protected String getPassword(String arg0) {
+        return null;
+    }
 
-	@Override
-	protected Principal getPrincipal(String arg0) {
-		return null;
-	}
+    @Override
+    protected Principal getPrincipal(String arg0) {
+        return null;
+    }
 }

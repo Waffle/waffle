@@ -26,31 +26,31 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
  */
 public class WindowsAccountTests {
 
-	private Logger logger = LoggerFactory.getLogger(WindowsAccountTests.class);
+    private Logger logger = LoggerFactory.getLogger(WindowsAccountTests.class);
 
-	@Test
-	public void testGetCurrentUsername() {
-		String currentUsername = WindowsAccountImpl.getCurrentUsername();
-		this.logger.info("Current username: {}", currentUsername);
-		assertTrue(currentUsername.length() > 0);
-	}
+    @Test
+    public void testGetCurrentUsername() {
+        String currentUsername = WindowsAccountImpl.getCurrentUsername();
+        this.logger.info("Current username: {}", currentUsername);
+        assertTrue(currentUsername.length() > 0);
+    }
 
-	@Test
-	public void testGetCurrentAccount() {
-		String currentUsername = WindowsAccountImpl.getCurrentUsername();
-		IWindowsAccount account = new WindowsAccountImpl(currentUsername);
-		assertTrue(account.getName().length() > 0);
-		this.logger.info("Name: {}", account.getName());
-		assertTrue(account.getDomain().length() > 0);
-		this.logger.info("Domain: {}", account.getDomain());
-		assertTrue(account.getFqn().length() > 0);
-		this.logger.info("Fqn: {}", account.getFqn());
-		assertTrue(account.getSidString().length() > 0);
-		this.logger.info("Sid: {}", account.getSidString());
-		// To avoid errors with machine naming being all upper-case, use test in this manner
-		assertTrue(currentUsername.equalsIgnoreCase(account.getFqn()));
-		assertTrue(currentUsername.endsWith("\\" + account.getName()));
-		// To avoid errors with machine naming being all upper-case, use test in this manner
-		assertTrue(currentUsername.toLowerCase().startsWith(account.getDomain().toLowerCase() + "\\"));
-	}
+    @Test
+    public void testGetCurrentAccount() {
+        String currentUsername = WindowsAccountImpl.getCurrentUsername();
+        IWindowsAccount account = new WindowsAccountImpl(currentUsername);
+        assertTrue(account.getName().length() > 0);
+        this.logger.info("Name: {}", account.getName());
+        assertTrue(account.getDomain().length() > 0);
+        this.logger.info("Domain: {}", account.getDomain());
+        assertTrue(account.getFqn().length() > 0);
+        this.logger.info("Fqn: {}", account.getFqn());
+        assertTrue(account.getSidString().length() > 0);
+        this.logger.info("Sid: {}", account.getSidString());
+        // To avoid errors with machine naming being all upper-case, use test in this manner
+        assertTrue(currentUsername.equalsIgnoreCase(account.getFqn()));
+        assertTrue(currentUsername.endsWith("\\" + account.getName()));
+        // To avoid errors with machine naming being all upper-case, use test in this manner
+        assertTrue(currentUsername.toLowerCase().startsWith(account.getDomain().toLowerCase() + "\\"));
+    }
 }

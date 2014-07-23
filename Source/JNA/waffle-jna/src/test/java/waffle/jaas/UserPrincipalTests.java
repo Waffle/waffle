@@ -31,28 +31,28 @@ import org.junit.Test;
  */
 public class UserPrincipalTests {
 
-	private UserPrincipal _userPrincipal;
+    private UserPrincipal _userPrincipal;
 
-	@Before
-	public void setUp() {
-		_userPrincipal = new UserPrincipal("localhost\\Administrator");
-	}
+    @Before
+    public void setUp() {
+        _userPrincipal = new UserPrincipal("localhost\\Administrator");
+    }
 
-	@Test
-	public void testIsSerializable() throws IOException, ClassNotFoundException {
-		// serialize
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		ObjectOutputStream oos = new ObjectOutputStream(out);
-		oos.writeObject(_userPrincipal);
-		oos.close();
-		assertTrue(out.toByteArray().length > 0);
-		// deserialize
-		InputStream in = new ByteArrayInputStream(out.toByteArray());
-		ObjectInputStream ois = new ObjectInputStream(in);
-		Object o = ois.readObject();
-		UserPrincipal copy = (UserPrincipal) o;
-		// test
-		assertEquals(_userPrincipal, copy);
-		assertEquals(_userPrincipal.getName(), copy.getName());
-	}
+    @Test
+    public void testIsSerializable() throws IOException, ClassNotFoundException {
+        // serialize
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(out);
+        oos.writeObject(_userPrincipal);
+        oos.close();
+        assertTrue(out.toByteArray().length > 0);
+        // deserialize
+        InputStream in = new ByteArrayInputStream(out.toByteArray());
+        ObjectInputStream ois = new ObjectInputStream(in);
+        Object o = ois.readObject();
+        UserPrincipal copy = (UserPrincipal) o;
+        // test
+        assertEquals(_userPrincipal, copy);
+        assertEquals(_userPrincipal.getName(), copy.getName());
+    }
 }

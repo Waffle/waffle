@@ -22,17 +22,17 @@ import org.junit.Test;
  */
 public class PrincipalFormatTests {
 
-	@Test
-	public void testKnown() {
-		assertEquals(PrincipalFormat.fqn, PrincipalFormat.valueOf("fqn"));
-		assertEquals(PrincipalFormat.sid, PrincipalFormat.valueOf("sid"));
-		assertEquals(PrincipalFormat.both, PrincipalFormat.valueOf("both"));
-		assertEquals(PrincipalFormat.none, PrincipalFormat.valueOf("none"));
-		assertEquals(4, PrincipalFormat.values().length);
-	}
+    @Test
+    public void testKnown() {
+        assertEquals(PrincipalFormat.fqn, PrincipalFormat.valueOf("fqn"));
+        assertEquals(PrincipalFormat.sid, PrincipalFormat.valueOf("sid"));
+        assertEquals(PrincipalFormat.both, PrincipalFormat.valueOf("both"));
+        assertEquals(PrincipalFormat.none, PrincipalFormat.valueOf("none"));
+        assertEquals(4, PrincipalFormat.values().length);
+    }
 
-	@Test(expected = RuntimeException.class)
-	public void testUnknown() {
-		PrincipalFormat.valueOf("garbage");
-	}
+    @Test(expected = RuntimeException.class)
+    public void testUnknown() {
+        PrincipalFormat.valueOf("garbage");
+    }
 }

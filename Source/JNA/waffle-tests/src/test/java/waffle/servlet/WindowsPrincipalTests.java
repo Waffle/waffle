@@ -35,41 +35,39 @@ import waffle.mock.MockWindowsSecurityContext;
  */
 public class WindowsPrincipalTests {
 
-	private WindowsPrincipal _windowsPrincipal;
+    private WindowsPrincipal _windowsPrincipal;
 
-	@Before
-	public void setUp() {
-		MockWindowsSecurityContext ctx = new MockWindowsSecurityContext(
-				"Administrator");
-		_windowsPrincipal = new WindowsPrincipal(ctx.getIdentity());
-	}
+    @Before
+    public void setUp() {
+        MockWindowsSecurityContext ctx = new MockWindowsSecurityContext("Administrator");
+        _windowsPrincipal = new WindowsPrincipal(ctx.getIdentity());
+    }
 
-	@Test
-	public void testIsSerializable() throws IOException, ClassNotFoundException {
-		// serialize
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		ObjectOutputStream oos = new ObjectOutputStream(out);
-		oos.writeObject(_windowsPrincipal);
-		oos.close();
-		assertTrue(out.toByteArray().length > 0);
-		// deserialize
-		InputStream in = new ByteArrayInputStream(out.toByteArray());
-		ObjectInputStream ois = new ObjectInputStream(in);
-		Object o = ois.readObject();
-		WindowsPrincipal copy = (WindowsPrincipal) o;
-		// test
-		assertEquals(_windowsPrincipal.getName(), copy.getName());
-		assertEquals(_windowsPrincipal.getRolesString(), copy.getRolesString());
-		assertEquals(_windowsPrincipal.getSidString(), copy.getSidString());
-		assertEquals(Boolean.valueOf(Arrays.equals(_windowsPrincipal.getSid(), copy.getSid())),
-				Boolean.TRUE);
-	}
+    @Test
+    public void testIsSerializable() throws IOException, ClassNotFoundException {
+        // serialize
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(out);
+        oos.writeObject(_windowsPrincipal);
+        oos.close();
+        assertTrue(out.toByteArray().length > 0);
+        // deserialize
+        InputStream in = new ByteArrayInputStream(out.toByteArray());
+        ObjectInputStream ois = new ObjectInputStream(in);
+        Object o = ois.readObject();
+        WindowsPrincipal copy = (WindowsPrincipal) o;
+        // test
+        assertEquals(_windowsPrincipal.getName(), copy.getName());
+        assertEquals(_windowsPrincipal.getRolesString(), copy.getRolesString());
+        assertEquals(_windowsPrincipal.getSidString(), copy.getSidString());
+        assertEquals(Boolean.valueOf(Arrays.equals(_windowsPrincipal.getSid(), copy.getSid())), Boolean.TRUE);
+    }
 
-	@Test
-	public void testHasRole() {
-		assertTrue(_windowsPrincipal.hasRole("Administrator"));
-		assertTrue(_windowsPrincipal.hasRole("Users"));
-		assertTrue(_windowsPrincipal.hasRole("Everyone"));
-		assertFalse(_windowsPrincipal.hasRole("RoleDoesNotExist"));
-	}
+    @Test
+    public void testHasRole() {
+        assertTrue(_windowsPrincipal.hasRole("Administrator"));
+        assertTrue(_windowsPrincipal.hasRole("Users"));
+        assertTrue(_windowsPrincipal.hasRole("Everyone"));
+        assertFalse(_windowsPrincipal.hasRole("RoleDoesNotExist"));
+    }
 }

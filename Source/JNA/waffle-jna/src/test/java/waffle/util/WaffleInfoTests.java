@@ -36,41 +36,41 @@ import com.sun.jna.Platform;
  */
 public class WaffleInfoTests {
 
-  @Test
-  public void testWaffleInfo() throws ParserConfigurationException {
-    WaffleInfo helper = new WaffleInfo();
-    Document info = helper.getWaffleInfo();
-   
-    // Make sure JNA Version is properly noted
-    assertEquals(Platform.class.getPackage().getImplementationVersion(), 
-        info.getDocumentElement().getAttribute("jna"));
-   
-    Node node = info.getDocumentElement() // waffle
-        .getFirstChild()   // auth
-        .getFirstChild()   // currentUser
-        .getNextSibling(); // computer
-    
-    assertEquals("computer", node.getNodeName());
-    
-    IWindowsAuthProvider auth = new WindowsAuthProviderImpl();
-    IWindowsComputer computer = auth.getCurrentComputer();
-    
-    NodeList nodes = node.getChildNodes();
-    assertEquals(computer.getComputerName(), nodes.item(0).getTextContent());
-    assertEquals(computer.getMemberOf(), nodes.item(1).getTextContent());
-    assertEquals(computer.getJoinStatus(), nodes.item(2).getTextContent());  
+    @Test
+    public void testWaffleInfo() throws ParserConfigurationException {
+        WaffleInfo helper = new WaffleInfo();
+        Document info = helper.getWaffleInfo();
 
-    // Add Lookup Info for Various accounts
-    String lookup = WindowsAccountImpl.getCurrentUsername();
-    IWindowsAccount account = new WindowsAccountImpl(lookup);
-    Element elem = helper.getLookupInfo(info, lookup);
-    assertEquals(lookup, elem.getAttribute("name"));
-    assertEquals(account.getName(), elem.getFirstChild().getTextContent());
-    
-    // Report an error when unknown name
-    lookup = "__UNKNOWN_ACCOUNT_NAME___";
-    elem = helper.getLookupInfo(info, lookup);
-    assertEquals(lookup, elem.getAttribute("name"));
-    assertEquals("exception", elem.getFirstChild().getNodeName());
-  }
+        // Make sure JNA Version is properly noted
+        assertEquals(Platform.class.getPackage().getImplementationVersion(),
+                info.getDocumentElement().getAttribute("jna"));
+
+        Node node = info.getDocumentElement() // waffle
+                .getFirstChild() // auth
+                .getFirstChild() // currentUser
+                .getNextSibling(); // computer
+
+        assertEquals("computer", node.getNodeName());
+
+        IWindowsAuthProvider auth = new WindowsAuthProviderImpl();
+        IWindowsComputer computer = auth.getCurrentComputer();
+
+        NodeList nodes = node.getChildNodes();
+        assertEquals(computer.getComputerName(), nodes.item(0).getTextContent());
+        assertEquals(computer.getMemberOf(), nodes.item(1).getTextContent());
+        assertEquals(computer.getJoinStatus(), nodes.item(2).getTextContent());
+
+        // Add Lookup Info for Various accounts
+        String lookup = WindowsAccountImpl.getCurrentUsername();
+        IWindowsAccount account = new WindowsAccountImpl(lookup);
+        Element elem = helper.getLookupInfo(info, lookup);
+        assertEquals(lookup, elem.getAttribute("name"));
+        assertEquals(account.getName(), elem.getFirstChild().getTextContent());
+
+        // Report an error when unknown name
+        lookup = "__UNKNOWN_ACCOUNT_NAME___";
+        elem = helper.getLookupInfo(info, lookup);
+        assertEquals(lookup, elem.getAttribute("name"));
+        assertEquals("exception", elem.getFirstChild().getNodeName());
+    }
 }
