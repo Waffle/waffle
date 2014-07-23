@@ -32,42 +32,42 @@ import org.apache.shiro.subject.SimplePrincipalCollection;
  * @since 1.0.0
  */
 public class NegotiateInfo implements AuthenticationInfo {
-	private static final long	serialVersionUID	= -1537448549089922914L;
+    private static final long serialVersionUID = -1537448549089922914L;
 
-	private final Subject		subject;
+    private final Subject     subject;
 
-	private final String		realmName;
+    private final String      realmName;
 
-	/**
-	 * Creates a new info object.
-	 * 
-	 * @param subject
-	 *            a subject containing the authenticated users {@link waffle.servlet.WindowsPrincipal}.
-	 * @param realmName
-	 *            a <code>String</code> containing the name of the authentication realm
-	 */
-	public NegotiateInfo(final Subject subject, final String realmName) {
-		this.subject = subject;
-		this.realmName = realmName;
-	}
+    /**
+     * Creates a new info object.
+     * 
+     * @param subject
+     *            a subject containing the authenticated users {@link waffle.servlet.WindowsPrincipal}.
+     * @param realmName
+     *            a <code>String</code> containing the name of the authentication realm
+     */
+    public NegotiateInfo(final Subject subject, final String realmName) {
+        this.subject = subject;
+        this.realmName = realmName;
+    }
 
-	/**
-	 * Creates a new principal collection using the subject as the principal.
-	 * 
-	 * @return a new principal collection using the subject as the principal
-	 */
-	@Override
-	public PrincipalCollection getPrincipals() {
-		return new SimplePrincipalCollection(subject.getPrincipals(), realmName);
-	}
+    /**
+     * Creates a new principal collection using the subject as the principal.
+     * 
+     * @return a new principal collection using the subject as the principal
+     */
+    @Override
+    public PrincipalCollection getPrincipals() {
+        return new SimplePrincipalCollection(subject.getPrincipals(), realmName);
+    }
 
-	/**
-	 * Returns the subject.
-	 * 
-	 * @return the subject
-	 */
-	@Override
-	public Object getCredentials() {
-		return subject;
-	}
+    /**
+     * Returns the subject.
+     * 
+     * @return the subject
+     */
+    @Override
+    public Object getCredentials() {
+        return subject;
+    }
 }

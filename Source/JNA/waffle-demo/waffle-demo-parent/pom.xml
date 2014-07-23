@@ -21,6 +21,10 @@
         <module>../waffle-spring-filter</module>
         <module>../waffle-spring-form</module>
     </modules>
+    <properties>
+        <format.relative.loc>../..</format.relative.loc>
+        <git.relative.loc>../../../..</git.relative.loc>
+    </properties>
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -76,14 +80,5 @@
                 </plugin>
             </plugins>
         </pluginManagement>
-        <plugins>
-            <plugin>
-                <groupId>pl.project13.maven</groupId>
-                <artifactId>git-commit-id-plugin</artifactId>
-                <configuration>
-                    <dotGitDirectory>../../../../.git</dotGitDirectory>
-                </configuration>
-            </plugin>
-        </plugins>
     </build>
 </project>

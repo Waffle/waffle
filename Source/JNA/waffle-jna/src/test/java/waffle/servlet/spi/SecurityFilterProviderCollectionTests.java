@@ -27,27 +27,27 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  */
 public class SecurityFilterProviderCollectionTests {
 
-	@Test
-	public void testDefaultCollection() throws ClassNotFoundException {
-		SecurityFilterProviderCollection coll = new SecurityFilterProviderCollection(new WindowsAuthProviderImpl());
-		assertEquals(2, coll.size());
-		assertNotNull(coll.getByClassName(NegotiateSecurityFilterProvider.class.getName()));
-		assertNotNull(coll.getByClassName(BasicSecurityFilterProvider.class.getName()));
-	}
+    @Test
+    public void testDefaultCollection() throws ClassNotFoundException {
+        SecurityFilterProviderCollection coll = new SecurityFilterProviderCollection(new WindowsAuthProviderImpl());
+        assertEquals(2, coll.size());
+        assertNotNull(coll.getByClassName(NegotiateSecurityFilterProvider.class.getName()));
+        assertNotNull(coll.getByClassName(BasicSecurityFilterProvider.class.getName()));
+    }
 
-	@Test(expected = ClassNotFoundException.class)
-	public void testGetByClassNameInvalid() throws ClassNotFoundException {
-		SecurityFilterProviderCollection coll = new SecurityFilterProviderCollection(new WindowsAuthProviderImpl());
-		coll.getByClassName("classDoesNotExist");
-	}
+    @Test(expected = ClassNotFoundException.class)
+    public void testGetByClassNameInvalid() throws ClassNotFoundException {
+        SecurityFilterProviderCollection coll = new SecurityFilterProviderCollection(new WindowsAuthProviderImpl());
+        coll.getByClassName("classDoesNotExist");
+    }
 
-	@Test
-	public void testIsSecurityPackageSupported() {
-		SecurityFilterProviderCollection coll = new SecurityFilterProviderCollection(new WindowsAuthProviderImpl());
-		assertTrue(coll.isSecurityPackageSupported("NTLM"));
-		assertTrue(coll.isSecurityPackageSupported("Negotiate"));
-		assertTrue(coll.isSecurityPackageSupported("Basic"));
-		assertFalse(coll.isSecurityPackageSupported(""));
-		assertFalse(coll.isSecurityPackageSupported("Invalid"));
-	}
+    @Test
+    public void testIsSecurityPackageSupported() {
+        SecurityFilterProviderCollection coll = new SecurityFilterProviderCollection(new WindowsAuthProviderImpl());
+        assertTrue(coll.isSecurityPackageSupported("NTLM"));
+        assertTrue(coll.isSecurityPackageSupported("Negotiate"));
+        assertTrue(coll.isSecurityPackageSupported("Basic"));
+        assertFalse(coll.isSecurityPackageSupported(""));
+        assertFalse(coll.isSecurityPackageSupported("Invalid"));
+    }
 }

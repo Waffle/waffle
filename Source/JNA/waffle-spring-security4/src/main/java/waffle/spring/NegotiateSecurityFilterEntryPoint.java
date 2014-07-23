@@ -33,35 +33,34 @@ import waffle.servlet.spi.SecurityFilterProviderCollection;
  */
 public class NegotiateSecurityFilterEntryPoint implements AuthenticationEntryPoint {
 
-	private static final Logger					_log	= LoggerFactory
-																.getLogger(NegotiateSecurityFilterEntryPoint.class);
-	private SecurityFilterProviderCollection	_provider;
+    private static final Logger              _log = LoggerFactory.getLogger(NegotiateSecurityFilterEntryPoint.class);
+    private SecurityFilterProviderCollection _provider;
 
-	public NegotiateSecurityFilterEntryPoint() {
-		_log.debug("[waffle.spring.NegotiateEntryPoint] loaded");
-	}
+    public NegotiateSecurityFilterEntryPoint() {
+        _log.debug("[waffle.spring.NegotiateEntryPoint] loaded");
+    }
 
-	@Override
-	public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException ex)
-			throws IOException, ServletException {
+    @Override
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException ex)
+            throws IOException, ServletException {
 
-		_log.debug("[waffle.spring.NegotiateEntryPoint] commence");
+        _log.debug("[waffle.spring.NegotiateEntryPoint] commence");
 
-		if (_provider == null) {
-			throw new ServletException("Missing NegotiateEntryPoint.Provider");
-		}
+        if (_provider == null) {
+            throw new ServletException("Missing NegotiateEntryPoint.Provider");
+        }
 
-		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-		response.setHeader("Connection", "keep-alive");
-		_provider.sendUnauthorized(response);
-		response.flushBuffer();
-	}
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setHeader("Connection", "keep-alive");
+        _provider.sendUnauthorized(response);
+        response.flushBuffer();
+    }
 
-	public SecurityFilterProviderCollection getProvider() {
-		return _provider;
-	}
+    public SecurityFilterProviderCollection getProvider() {
+        return _provider;
+    }
 
-	public void setProvider(SecurityFilterProviderCollection provider) {
-		_provider = provider;
-	}
+    public void setProvider(SecurityFilterProviderCollection provider) {
+        _provider = provider;
+    }
 }

@@ -25,22 +25,22 @@ import waffle.windows.auth.IWindowsImpersonationContext;
  */
 public class WindowsSecurityContextImpersonationContextImpl implements IWindowsImpersonationContext {
 
-	private CtxtHandle	_ctx;
+    private CtxtHandle _ctx;
 
-	public WindowsSecurityContextImpersonationContextImpl(CtxtHandle ctx) {
-		int rc = Secur32.INSTANCE.ImpersonateSecurityContext(ctx);
-		if (rc != WinError.SEC_E_OK) {
-			throw new Win32Exception(rc);
-		}
+    public WindowsSecurityContextImpersonationContextImpl(CtxtHandle ctx) {
+        int rc = Secur32.INSTANCE.ImpersonateSecurityContext(ctx);
+        if (rc != WinError.SEC_E_OK) {
+            throw new Win32Exception(rc);
+        }
 
-		_ctx = ctx;
-	}
+        _ctx = ctx;
+    }
 
-	@Override
-	public void revertToSelf() {
-		int rc = Secur32.INSTANCE.RevertSecurityContext(_ctx);
-		if (rc != WinError.SEC_E_OK) {
-			throw new Win32Exception(rc);
-		}
-	}
+    @Override
+    public void revertToSelf() {
+        int rc = Secur32.INSTANCE.RevertSecurityContext(_ctx);
+        if (rc != WinError.SEC_E_OK) {
+            throw new Win32Exception(rc);
+        }
+    }
 }

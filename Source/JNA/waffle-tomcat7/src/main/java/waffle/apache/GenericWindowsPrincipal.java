@@ -32,150 +32,150 @@ import waffle.windows.auth.WindowsAccount;
  */
 public class GenericWindowsPrincipal extends GenericPrincipal {
 
-	private byte[]						_sid;
-	private String						_sidString;
-	private Map<String, WindowsAccount>	_groups;
+    private byte[]                      _sid;
+    private String                      _sidString;
+    private Map<String, WindowsAccount> _groups;
 
-	/**
-	 * A windows principal.
-	 * 
-	 * @param windowsIdentity
-	 *            Windows identity.
-	 * @param principalFormat
-	 *            Principal format.
-	 * @param roleFormat
-	 *            Role format.
-	 */
-	public GenericWindowsPrincipal(IWindowsIdentity windowsIdentity, PrincipalFormat principalFormat,
-			PrincipalFormat roleFormat) {
-		super(windowsIdentity.getFqn(), "", getRoles(windowsIdentity, principalFormat, roleFormat));
-		_sid = windowsIdentity.getSid();
-		_sidString = windowsIdentity.getSidString();
-		_groups = getGroups(windowsIdentity.getGroups());
-	}
+    /**
+     * A windows principal.
+     * 
+     * @param windowsIdentity
+     *            Windows identity.
+     * @param principalFormat
+     *            Principal format.
+     * @param roleFormat
+     *            Role format.
+     */
+    public GenericWindowsPrincipal(IWindowsIdentity windowsIdentity, PrincipalFormat principalFormat,
+            PrincipalFormat roleFormat) {
+        super(windowsIdentity.getFqn(), "", getRoles(windowsIdentity, principalFormat, roleFormat));
+        _sid = windowsIdentity.getSid();
+        _sidString = windowsIdentity.getSidString();
+        _groups = getGroups(windowsIdentity.getGroups());
+    }
 
-	private static List<String> getRoles(IWindowsIdentity windowsIdentity, PrincipalFormat principalFormat,
-			PrincipalFormat roleFormat) {
-		List<String> roles = new ArrayList<String>();
-		roles.addAll(getPrincipalNames(windowsIdentity, principalFormat));
-		for (IWindowsAccount group : windowsIdentity.getGroups()) {
-			roles.addAll(getRoleNames(group, roleFormat));
-		}
-		return roles;
-	}
+    private static List<String> getRoles(IWindowsIdentity windowsIdentity, PrincipalFormat principalFormat,
+            PrincipalFormat roleFormat) {
+        List<String> roles = new ArrayList<String>();
+        roles.addAll(getPrincipalNames(windowsIdentity, principalFormat));
+        for (IWindowsAccount group : windowsIdentity.getGroups()) {
+            roles.addAll(getRoleNames(group, roleFormat));
+        }
+        return roles;
+    }
 
-	private static Map<String, WindowsAccount> getGroups(IWindowsAccount[] groups) {
-		Map<String, WindowsAccount> groupMap = new HashMap<String, WindowsAccount>();
-		for (IWindowsAccount group : groups) {
-			groupMap.put(group.getFqn(), new WindowsAccount(group));
-		}
-		return groupMap;
-	}
+    private static Map<String, WindowsAccount> getGroups(IWindowsAccount[] groups) {
+        Map<String, WindowsAccount> groupMap = new HashMap<String, WindowsAccount>();
+        for (IWindowsAccount group : groups) {
+            groupMap.put(group.getFqn(), new WindowsAccount(group));
+        }
+        return groupMap;
+    }
 
-	/**
-	 * Byte representation of the SID.
-	 * 
-	 * @return Array of bytes.
-	 */
-	public byte[] getSid() {
-		return _sid.clone();
-	}
+    /**
+     * Byte representation of the SID.
+     * 
+     * @return Array of bytes.
+     */
+    public byte[] getSid() {
+        return _sid.clone();
+    }
 
-	/**
-	 * String representation of the SID.
-	 * 
-	 * @return String.
-	 */
-	public String getSidString() {
-		return _sidString;
-	}
+    /**
+     * String representation of the SID.
+     * 
+     * @return String.
+     */
+    public String getSidString() {
+        return _sidString;
+    }
 
-	/**
-	 * Windows groups that the user is a member of.
-	 * 
-	 * @return A map of group names to groups.
-	 */
-	public Map<String, WindowsAccount> getGroups() {
-		return _groups;
-	}
+    /**
+     * Windows groups that the user is a member of.
+     * 
+     * @return A map of group names to groups.
+     */
+    public Map<String, WindowsAccount> getGroups() {
+        return _groups;
+    }
 
-	/**
-	 * Returns a list of role principal objects.
-	 * 
-	 * @param group
-	 *            Windows group.
-	 * @param principalFormat
-	 *            Principal format.
-	 * @return List of role principal objects.
-	 */
-	private static List<String> getRoleNames(IWindowsAccount group, PrincipalFormat principalFormat) {
+    /**
+     * Returns a list of role principal objects.
+     * 
+     * @param group
+     *            Windows group.
+     * @param principalFormat
+     *            Principal format.
+     * @return List of role principal objects.
+     */
+    private static List<String> getRoleNames(IWindowsAccount group, PrincipalFormat principalFormat) {
 
-		List<String> principals = new ArrayList<String>();
-		switch (principalFormat) {
-			case fqn:
-				principals.add(group.getFqn());
-				break;
-			case sid:
-				principals.add(group.getSidString());
-				break;
-			case both:
-				principals.add(group.getFqn());
-				principals.add(group.getSidString());
-				break;
-			case none:
-				break;
-			default:
-				break;
-		}
+        List<String> principals = new ArrayList<String>();
+        switch (principalFormat) {
+            case fqn:
+                principals.add(group.getFqn());
+                break;
+            case sid:
+                principals.add(group.getSidString());
+                break;
+            case both:
+                principals.add(group.getFqn());
+                principals.add(group.getSidString());
+                break;
+            case none:
+                break;
+            default:
+                break;
+        }
 
-		return principals;
-	}
+        return principals;
+    }
 
-	/**
-	 * Returns a list of user principal objects.
-	 * 
-	 * @param windowsIdentity
-	 *            Windows identity.
-	 * @param principalFormat
-	 *            Principal format.
-	 * @return A list of user principal objects.
-	 */
-	private static List<String> getPrincipalNames(IWindowsIdentity windowsIdentity, PrincipalFormat principalFormat) {
+    /**
+     * Returns a list of user principal objects.
+     * 
+     * @param windowsIdentity
+     *            Windows identity.
+     * @param principalFormat
+     *            Principal format.
+     * @return A list of user principal objects.
+     */
+    private static List<String> getPrincipalNames(IWindowsIdentity windowsIdentity, PrincipalFormat principalFormat) {
 
-		List<String> principals = new ArrayList<String>();
-		switch (principalFormat) {
-			case fqn:
-				principals.add(windowsIdentity.getFqn());
-				break;
-			case sid:
-				principals.add(windowsIdentity.getSidString());
-				break;
-			case both:
-				principals.add(windowsIdentity.getFqn());
-				principals.add(windowsIdentity.getSidString());
-				break;
-			case none:
-				break;
-			default:
-				break;
-		}
+        List<String> principals = new ArrayList<String>();
+        switch (principalFormat) {
+            case fqn:
+                principals.add(windowsIdentity.getFqn());
+                break;
+            case sid:
+                principals.add(windowsIdentity.getSidString());
+                break;
+            case both:
+                principals.add(windowsIdentity.getFqn());
+                principals.add(windowsIdentity.getSidString());
+                break;
+            case none:
+                break;
+            default:
+                break;
+        }
 
-		return principals;
-	}
+        return principals;
+    }
 
-	/**
-	 * Get an array of roles as a string.
-	 * 
-	 * @return Role1, Role2, ...
-	 */
-	public String getRolesString() {
-		StringBuilder sb = new StringBuilder();
-		for (String role : getRoles()) {
-			if (sb.length() > 0) {
-				sb.append(", ");
-			}
-			sb.append(role);
-		}
-		return sb.toString();
-	}
+    /**
+     * Get an array of roles as a string.
+     * 
+     * @return Role1, Role2, ...
+     */
+    public String getRolesString() {
+        StringBuilder sb = new StringBuilder();
+        for (String role : getRoles()) {
+            if (sb.length() > 0) {
+                sb.append(", ");
+            }
+            sb.append(role);
+        }
+        return sb.toString();
+    }
 }

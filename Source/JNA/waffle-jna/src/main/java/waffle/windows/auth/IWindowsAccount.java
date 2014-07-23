@@ -20,31 +20,31 @@ package waffle.windows.auth;
  */
 public interface IWindowsAccount {
 
-	/**
-	 * Security identifier.
-	 * 
-	 * @return String in the S- format.
-	 */
-	String getSidString();
+    /**
+     * Security identifier.
+     * 
+     * @return String in the S- format.
+     */
+    String getSidString();
 
-	/**
-	 * Fully qualified username.
-	 * 
-	 * @return String.
-	 */
-	String getFqn();
+    /**
+     * Fully qualified username.
+     * 
+     * @return String.
+     */
+    String getFqn();
 
-	/**
-	 * User name.
-	 * 
-	 * @return String.
-	 */
-	String getName();
+    /**
+     * User name.
+     * 
+     * @return String.
+     */
+    String getName();
 
-	/**
-	 * Domain name.
-	 * 
-	 * @return String.
-	 */
-	String getDomain();
+    /**
+     * Domain name.
+     * 
+     * @return String.
+     */
+    String getDomain();
 }

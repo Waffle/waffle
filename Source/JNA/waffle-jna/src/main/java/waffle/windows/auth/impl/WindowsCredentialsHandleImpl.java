@@ -30,74 +30,74 @@ import com.sun.jna.platform.win32.WinError;
  */
 public class WindowsCredentialsHandleImpl implements IWindowsCredentialsHandle {
 
-	private String		_principalName;
-	private int			_credentialsType;
-	private String		_securityPackage;
-	private CredHandle	_handle;
-	private TimeStamp	_clientLifetime;
+    private String     _principalName;
+    private int        _credentialsType;
+    private String     _securityPackage;
+    private CredHandle _handle;
+    private TimeStamp  _clientLifetime;
 
-	/**
-	 * Returns the current credentials handle.
+    /**
+     * Returns the current credentials handle.
+     * 
+     * @param securityPackage
+     *            Security package, eg. "Negotiate".
+     * @return A windows credentials handle
+     */
+    public static IWindowsCredentialsHandle getCurrent(String securityPackage) {
+        IWindowsCredentialsHandle handle = new WindowsCredentialsHandleImpl(null, Sspi.SECPKG_CRED_OUTBOUND,
+                securityPackage);
+        handle.initialize();
+        return handle;
+    }
+
+    /**
+     * A new Windows credentials handle.
+     * 
+     * @param principalName
+     *            Principal name.
+     * @param credentialsType
+     *            Credentials type.
+     * @param securityPackage
+     *            Security package.
+     */
+    public WindowsCredentialsHandleImpl(String principalName, int credentialsType, String securityPackage) {
+        _principalName = principalName;
+        _credentialsType = credentialsType;
+        _securityPackage = securityPackage;
+    }
+
+    /**
+     * Initialize a new credentials handle.
+     */
+    @Override
+    public void initialize() {
+        _handle = new CredHandle();
+        _clientLifetime = new TimeStamp();
+        int rc = Secur32.INSTANCE.AcquireCredentialsHandle(_principalName, _securityPackage, _credentialsType, null,
+                null, null, null, _handle, _clientLifetime);
+        if (WinError.SEC_E_OK != rc) {
+            throw new Win32Exception(rc);
+        }
+    }
+
+    /**
+     * Dispose of the credentials handle.
+     */
+    @Override
+    public void dispose() {
+        if (_handle != null && !_handle.isNull()) {
+            int rc = Secur32.INSTANCE.FreeCredentialsHandle(_handle);
+            if (WinError.SEC_E_OK != rc) {
+                throw new Win32Exception(rc);
+            }
+        }
+    }
+
+    /**
 	 * 
-	 * @param securityPackage
-	 *            Security package, eg. "Negotiate".
-	 * @return A windows credentials handle
 	 */
-	public static IWindowsCredentialsHandle getCurrent(String securityPackage) {
-		IWindowsCredentialsHandle handle = new WindowsCredentialsHandleImpl(null, Sspi.SECPKG_CRED_OUTBOUND,
-				securityPackage);
-		handle.initialize();
-		return handle;
-	}
-
-	/**
-	 * A new Windows credentials handle.
-	 * 
-	 * @param principalName
-	 *            Principal name.
-	 * @param credentialsType
-	 *            Credentials type.
-	 * @param securityPackage
-	 *            Security package.
-	 */
-	public WindowsCredentialsHandleImpl(String principalName, int credentialsType, String securityPackage) {
-		_principalName = principalName;
-		_credentialsType = credentialsType;
-		_securityPackage = securityPackage;
-	}
-
-	/**
-	 * Initialize a new credentials handle.
-	 */
-	@Override
-	public void initialize() {
-		_handle = new CredHandle();
-		_clientLifetime = new TimeStamp();
-		int rc = Secur32.INSTANCE.AcquireCredentialsHandle(_principalName, _securityPackage, _credentialsType, null,
-				null, null, null, _handle, _clientLifetime);
-		if (WinError.SEC_E_OK != rc) {
-			throw new Win32Exception(rc);
-		}
-	}
-
-	/**
-	 * Dispose of the credentials handle.
-	 */
-	@Override
-	public void dispose() {
-		if (_handle != null && !_handle.isNull()) {
-			int rc = Secur32.INSTANCE.FreeCredentialsHandle(_handle);
-			if (WinError.SEC_E_OK != rc) {
-				throw new Win32Exception(rc);
-			}
-		}
-	}
-
-	/**
-	 * 
-	 */
-	@Override
-	public CredHandle getHandle() {
-		return _handle;
-	}
+    @Override
+    public CredHandle getHandle() {
+        return _handle;
+    }
 }

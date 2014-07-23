@@ -104,6 +104,9 @@
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+        <format.relative.loc>..</format.relative.loc>
+        <git.relative.loc>../../..</git.relative.loc>
+
         <contiperf.version>2.2.0</contiperf.version>
         <junit.version>4.11</junit.version>
         <mockito.version>1.9.5</mockito.version>
@@ -538,7 +541,7 @@
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
                 <configuration>
-                    <dotGitDirectory>../../../.git</dotGitDirectory>
+                    <dotGitDirectory>${git.relative.loc}/.git</dotGitDirectory>
                 </configuration>
                 <executions>
                     <execution>
@@ -959,7 +962,7 @@
             <id>format</id>
             <activation>
                 <file>
-                    <exists>../waffle-parent/format.xml</exists>
+                    <exists>${format.relative.loc}/waffle-parent/format.xml</exists>
                 </file>
             </activation>
             <build>
@@ -968,7 +971,7 @@
                         <groupId>com.googlecode.maven-java-formatter-plugin</groupId>
                         <artifactId>maven-java-formatter-plugin</artifactId>
                         <configuration>
-                            <configFile>../waffle-parent/format.xml</configFile>
+                            <configFile>${format.relative.loc}/waffle-parent/format.xml</configFile>
                         </configuration>
                         <executions>
                             <execution>

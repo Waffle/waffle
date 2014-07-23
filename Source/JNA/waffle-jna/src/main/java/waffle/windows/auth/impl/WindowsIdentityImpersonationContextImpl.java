@@ -25,20 +25,20 @@ import waffle.windows.auth.IWindowsImpersonationContext;
  */
 public class WindowsIdentityImpersonationContextImpl implements IWindowsImpersonationContext {
 
-	/**
-	 * Impersonate a logged on user.
-	 * 
-	 * @param windowsIdentity
-	 *            Windows identity obtained via LogonUser.
-	 */
-	public WindowsIdentityImpersonationContextImpl(HANDLE windowsIdentity) {
-		if (!Advapi32.INSTANCE.ImpersonateLoggedOnUser(windowsIdentity)) {
-			throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
-		}
-	}
+    /**
+     * Impersonate a logged on user.
+     * 
+     * @param windowsIdentity
+     *            Windows identity obtained via LogonUser.
+     */
+    public WindowsIdentityImpersonationContextImpl(HANDLE windowsIdentity) {
+        if (!Advapi32.INSTANCE.ImpersonateLoggedOnUser(windowsIdentity)) {
+            throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+        }
+    }
 
-	@Override
-	public void revertToSelf() {
-		Advapi32.INSTANCE.RevertToSelf();
-	}
+    @Override
+    public void revertToSelf() {
+        Advapi32.INSTANCE.RevertToSelf();
+    }
 }

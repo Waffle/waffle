@@ -34,55 +34,55 @@ import waffle.servlet.WindowsPrincipal;
  */
 public class WindowsAuthenticationTokenTests {
 
-	private WindowsPrincipal			_principal;
-	private WindowsAuthenticationToken	_token;
+    private WindowsPrincipal           _principal;
+    private WindowsAuthenticationToken _token;
 
-	@Before
-	public void setUp() {
-		List<String> mockGroups = new ArrayList<String>();
-		mockGroups.add("group1");
-		mockGroups.add("group2");
-		MockWindowsIdentity mockIdentity = new MockWindowsIdentity("localhost\\user1", mockGroups);
-		_principal = new WindowsPrincipal(mockIdentity);
-		_token = new WindowsAuthenticationToken(_principal);
-	}
+    @Before
+    public void setUp() {
+        List<String> mockGroups = new ArrayList<String>();
+        mockGroups.add("group1");
+        mockGroups.add("group2");
+        MockWindowsIdentity mockIdentity = new MockWindowsIdentity("localhost\\user1", mockGroups);
+        _principal = new WindowsPrincipal(mockIdentity);
+        _token = new WindowsAuthenticationToken(_principal);
+    }
 
-	@Test
-	public void testWindowsAuthenticationToken() {
-		assertNull(_token.getCredentials());
-		assertNull(_token.getDetails());
-		assertTrue(_token.isAuthenticated());
-		assertEquals("localhost\\user1", _token.getName());
-		Collection<GrantedAuthority> authorities = _token.getAuthorities();
-		Iterator<GrantedAuthority> authoritiesIterator = authorities.iterator();
-		assertEquals(3, authorities.size());
-		assertEquals("ROLE_USER", authoritiesIterator.next().getAuthority());
-		assertEquals("ROLE_GROUP1", authoritiesIterator.next().getAuthority());
-		assertEquals("ROLE_GROUP2", authoritiesIterator.next().getAuthority());
-		assertEquals(_principal, _token.getPrincipal());
-	}
+    @Test
+    public void testWindowsAuthenticationToken() {
+        assertNull(_token.getCredentials());
+        assertNull(_token.getDetails());
+        assertTrue(_token.isAuthenticated());
+        assertEquals("localhost\\user1", _token.getName());
+        Collection<GrantedAuthority> authorities = _token.getAuthorities();
+        Iterator<GrantedAuthority> authoritiesIterator = authorities.iterator();
+        assertEquals(3, authorities.size());
+        assertEquals("ROLE_USER", authoritiesIterator.next().getAuthority());
+        assertEquals("ROLE_GROUP1", authoritiesIterator.next().getAuthority());
+        assertEquals("ROLE_GROUP2", authoritiesIterator.next().getAuthority());
+        assertEquals(_principal, _token.getPrincipal());
+    }
 
-	@Test
-	public void testCustomGrantedAuthorityFactory() {
+    @Test
+    public void testCustomGrantedAuthorityFactory() {
 
-		WindowsAuthenticationToken token = new WindowsAuthenticationToken(_principal, new FqnGrantedAuthorityFactory(
-				null, false), null);
+        WindowsAuthenticationToken token = new WindowsAuthenticationToken(_principal, new FqnGrantedAuthorityFactory(
+                null, false), null);
 
-		assertNull(token.getCredentials());
-		assertNull(token.getDetails());
-		assertTrue(token.isAuthenticated());
-		assertEquals("localhost\\user1", token.getName());
-		Collection<GrantedAuthority> authorities = token.getAuthorities();
-		Iterator<GrantedAuthority> authoritiesIterator = authorities.iterator();
-		assertEquals(2, authorities.size());
-		assertEquals("group1", authoritiesIterator.next().getAuthority());
-		assertEquals("group2", authoritiesIterator.next().getAuthority());
-		assertEquals(_principal, token.getPrincipal());
-	}
+        assertNull(token.getCredentials());
+        assertNull(token.getDetails());
+        assertTrue(token.isAuthenticated());
+        assertEquals("localhost\\user1", token.getName());
+        Collection<GrantedAuthority> authorities = token.getAuthorities();
+        Iterator<GrantedAuthority> authoritiesIterator = authorities.iterator();
+        assertEquals(2, authorities.size());
+        assertEquals("group1", authoritiesIterator.next().getAuthority());
+        assertEquals("group2", authoritiesIterator.next().getAuthority());
+        assertEquals(_principal, token.getPrincipal());
+    }
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testAuthenticated() {
-		assertTrue(_token.isAuthenticated());
-		_token.setAuthenticated(true);
-	}
+    @Test(expected = IllegalArgumentException.class)
+    public void testAuthenticated() {
+        assertTrue(_token.isAuthenticated());
+        _token.setAuthenticated(true);
+    }
 }

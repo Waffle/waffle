@@ -28,61 +28,61 @@ import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
  */
 public class MockWindowsSecurityContext implements IWindowsSecurityContext {
 
-	private IWindowsIdentity	_identity;
+    private IWindowsIdentity _identity;
 
-	public MockWindowsSecurityContext(String username) {
-		List<String> groups = new ArrayList<String>();
-		groups.add("Users");
-		groups.add("Everyone");
-		_identity = new MockWindowsIdentity(username, groups);
-	}
+    public MockWindowsSecurityContext(String username) {
+        List<String> groups = new ArrayList<String>();
+        groups.add("Users");
+        groups.add("Everyone");
+        _identity = new MockWindowsIdentity(username, groups);
+    }
 
-	@Override
-	public void dispose() {
-		// Do Nothing
-	}
+    @Override
+    public void dispose() {
+        // Do Nothing
+    }
 
-	@Override
-	public boolean isContinue() {
-		return false;
-	}
+    @Override
+    public boolean isContinue() {
+        return false;
+    }
 
-	@Override
-	public CtxtHandle getHandle() {
-		return new CtxtHandle();
-	}
+    @Override
+    public CtxtHandle getHandle() {
+        return new CtxtHandle();
+    }
 
-	@Override
-	public IWindowsIdentity getIdentity() {
-		return _identity;
-	}
+    @Override
+    public IWindowsIdentity getIdentity() {
+        return _identity;
+    }
 
-	@Override
-	public String getPrincipalName() {
-		return _identity.getFqn();
-	}
+    @Override
+    public String getPrincipalName() {
+        return _identity.getFqn();
+    }
 
-	@Override
-	public String getSecurityPackage() {
-		return "Mock";
-	}
+    @Override
+    public String getSecurityPackage() {
+        return "Mock";
+    }
 
-	@Override
-	public byte[] getToken() {
-		return new byte[0];
-	}
+    @Override
+    public byte[] getToken() {
+        return new byte[0];
+    }
 
-	@Override
-	public IWindowsImpersonationContext impersonate() {
-		return new MockWindowsImpersonationContext();
-	}
+    @Override
+    public IWindowsImpersonationContext impersonate() {
+        return new MockWindowsImpersonationContext();
+    }
 
-	public void initialize() {
-		// Do Nothing
-	}
+    public void initialize() {
+        // Do Nothing
+    }
 
-	@Override
-	public void initialize(CtxtHandle continueCtx, SecBufferDesc continueToken, String targetPrincipalName) {
-		// Do Nothing
-	}
+    @Override
+    public void initialize(CtxtHandle continueCtx, SecBufferDesc continueToken, String targetPrincipalName) {
+        // Do Nothing
+    }
 }

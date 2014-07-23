@@ -43,157 +43,157 @@ import waffle.windows.auth.PrincipalFormat;
  */
 public class NegotiateSecurityFilter extends GenericFilterBean {
 
-	private static final Logger					_log						= LoggerFactory
-																					.getLogger(NegotiateSecurityFilter.class);
-	private SecurityFilterProviderCollection	_provider;
-	private PrincipalFormat						_principalFormat			= PrincipalFormat.fqn;
-	private PrincipalFormat						_roleFormat					= PrincipalFormat.fqn;
-	private boolean								_allowGuestLogin			= true;
+    private static final Logger              _log                     = LoggerFactory
+                                                                              .getLogger(NegotiateSecurityFilter.class);
+    private SecurityFilterProviderCollection _provider;
+    private PrincipalFormat                  _principalFormat         = PrincipalFormat.fqn;
+    private PrincipalFormat                  _roleFormat              = PrincipalFormat.fqn;
+    private boolean                          _allowGuestLogin         = true;
 
-	private GrantedAuthorityFactory				_grantedAuthorityFactory	= WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY_FACTORY;
-	private GrantedAuthority					_defaultGrantedAuthority	= WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY;
+    private GrantedAuthorityFactory          _grantedAuthorityFactory = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY_FACTORY;
+    private GrantedAuthority                 _defaultGrantedAuthority = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY;
 
-	public NegotiateSecurityFilter() {
-		super();
-		_log.debug("[waffle.spring.NegotiateSecurityFilter] loaded");
-	}
+    public NegotiateSecurityFilter() {
+        super();
+        _log.debug("[waffle.spring.NegotiateSecurityFilter] loaded");
+    }
 
-	@Override
-	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException,
-			ServletException {
+    @Override
+    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException,
+            ServletException {
 
-		HttpServletRequest request = (HttpServletRequest) req;
-		HttpServletResponse response = (HttpServletResponse) res;
+        HttpServletRequest request = (HttpServletRequest) req;
+        HttpServletResponse response = (HttpServletResponse) res;
 
-		_log.debug("{} {}, contentlength: {}", request.getMethod(), request.getRequestURI(),
-				Integer.valueOf(request.getContentLength()));
+        _log.debug("{} {}, contentlength: {}", request.getMethod(), request.getRequestURI(),
+                Integer.valueOf(request.getContentLength()));
 
-		AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
+        AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
 
-		// authenticate user
-		if (!authorizationHeader.isNull()
-				&& _provider.isSecurityPackageSupported(authorizationHeader.getSecurityPackage())) {
+        // authenticate user
+        if (!authorizationHeader.isNull()
+                && _provider.isSecurityPackageSupported(authorizationHeader.getSecurityPackage())) {
 
-			// log the user in using the token
-			IWindowsIdentity windowsIdentity = null;
+            // log the user in using the token
+            IWindowsIdentity windowsIdentity = null;
 
-			try {
-				windowsIdentity = _provider.doFilter(request, response);
-				if (windowsIdentity == null) {
-					return;
-				}
-			} catch (IOException e) {
-				_log.warn("error logging in user: {}", e.getMessage());
-				_log.trace("{}", e);
-				sendUnauthorized(response, true);
-				return;
-			}
+            try {
+                windowsIdentity = _provider.doFilter(request, response);
+                if (windowsIdentity == null) {
+                    return;
+                }
+            } catch (IOException e) {
+                _log.warn("error logging in user: {}", e.getMessage());
+                _log.trace("{}", e);
+                sendUnauthorized(response, true);
+                return;
+            }
 
-			if (!_allowGuestLogin && windowsIdentity.isGuest()) {
-				_log.warn("guest login disabled: {}", windowsIdentity.getFqn());
-				sendUnauthorized(response, true);
-				return;
-			}
+            if (!_allowGuestLogin && windowsIdentity.isGuest()) {
+                _log.warn("guest login disabled: {}", windowsIdentity.getFqn());
+                sendUnauthorized(response, true);
+                return;
+            }
 
-			try {
-				_log.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
+            try {
+                _log.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
 
-				WindowsPrincipal principal = new WindowsPrincipal(windowsIdentity, _principalFormat, _roleFormat);
+                WindowsPrincipal principal = new WindowsPrincipal(windowsIdentity, _principalFormat, _roleFormat);
 
-				_log.debug("roles: {}", principal.getRolesString());
+                _log.debug("roles: {}", principal.getRolesString());
 
-				Authentication authentication = new WindowsAuthenticationToken(principal, _grantedAuthorityFactory,
-						_defaultGrantedAuthority);
+                Authentication authentication = new WindowsAuthenticationToken(principal, _grantedAuthorityFactory,
+                        _defaultGrantedAuthority);
 
-				SecurityContextHolder.getContext().setAuthentication(authentication);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
 
-				_log.info("successfully logged in user: {}", windowsIdentity.getFqn());
+                _log.info("successfully logged in user: {}", windowsIdentity.getFqn());
 
-			} finally {
-				windowsIdentity.dispose();
-			}
-		}
+            } finally {
+                windowsIdentity.dispose();
+            }
+        }
 
-		chain.doFilter(request, response);
-	}
+        chain.doFilter(request, response);
+    }
 
-	@Override
-	public void afterPropertiesSet() throws ServletException {
-		super.afterPropertiesSet();
+    @Override
+    public void afterPropertiesSet() throws ServletException {
+        super.afterPropertiesSet();
 
-		if (_provider == null) {
-			throw new ServletException("Missing NegotiateSecurityFilter.Provider");
-		}
-	}
+        if (_provider == null) {
+            throw new ServletException("Missing NegotiateSecurityFilter.Provider");
+        }
+    }
 
-	/**
-	 * Send a 401 Unauthorized along with protocol authentication headers.
-	 * 
-	 * @param response
-	 *            HTTP Response
-	 * @param close
-	 *            Close connection.
-	 */
-	private void sendUnauthorized(HttpServletResponse response, boolean close) {
-		try {
-			_provider.sendUnauthorized(response);
-			if (close) {
-				response.setHeader("Connection", "close");
-			} else {
-				response.setHeader("Connection", "keep-alive");
-			}
-			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-			response.flushBuffer();
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
+    /**
+     * Send a 401 Unauthorized along with protocol authentication headers.
+     * 
+     * @param response
+     *            HTTP Response
+     * @param close
+     *            Close connection.
+     */
+    private void sendUnauthorized(HttpServletResponse response, boolean close) {
+        try {
+            _provider.sendUnauthorized(response);
+            if (close) {
+                response.setHeader("Connection", "close");
+            } else {
+                response.setHeader("Connection", "keep-alive");
+            }
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            response.flushBuffer();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-	public PrincipalFormat getPrincipalFormat() {
-		return _principalFormat;
-	}
+    public PrincipalFormat getPrincipalFormat() {
+        return _principalFormat;
+    }
 
-	public void setPrincipalFormat(PrincipalFormat principalFormat) {
-		_principalFormat = principalFormat;
-	}
+    public void setPrincipalFormat(PrincipalFormat principalFormat) {
+        _principalFormat = principalFormat;
+    }
 
-	public PrincipalFormat getRoleFormat() {
-		return _roleFormat;
-	}
+    public PrincipalFormat getRoleFormat() {
+        return _roleFormat;
+    }
 
-	public void setRoleFormat(PrincipalFormat principalFormat) {
-		_roleFormat = principalFormat;
-	}
+    public void setRoleFormat(PrincipalFormat principalFormat) {
+        _roleFormat = principalFormat;
+    }
 
-	public boolean isAllowGuestLogin() {
-		return _allowGuestLogin;
-	}
+    public boolean isAllowGuestLogin() {
+        return _allowGuestLogin;
+    }
 
-	public void setAllowGuestLogin(boolean allowGuestLogin) {
-		_allowGuestLogin = allowGuestLogin;
-	}
+    public void setAllowGuestLogin(boolean allowGuestLogin) {
+        _allowGuestLogin = allowGuestLogin;
+    }
 
-	public SecurityFilterProviderCollection getProvider() {
-		return _provider;
-	}
+    public SecurityFilterProviderCollection getProvider() {
+        return _provider;
+    }
 
-	public void setProvider(SecurityFilterProviderCollection provider) {
-		_provider = provider;
-	}
+    public void setProvider(SecurityFilterProviderCollection provider) {
+        _provider = provider;
+    }
 
-	public GrantedAuthorityFactory getGrantedAuthorityFactory() {
-		return _grantedAuthorityFactory;
-	}
+    public GrantedAuthorityFactory getGrantedAuthorityFactory() {
+        return _grantedAuthorityFactory;
+    }
 
-	public void setGrantedAuthorityFactory(GrantedAuthorityFactory grantedAuthorityFactory) {
-		_grantedAuthorityFactory = grantedAuthorityFactory;
-	}
+    public void setGrantedAuthorityFactory(GrantedAuthorityFactory grantedAuthorityFactory) {
+        _grantedAuthorityFactory = grantedAuthorityFactory;
+    }
 
-	public GrantedAuthority getDefaultGrantedAuthority() {
-		return _defaultGrantedAuthority;
-	}
+    public GrantedAuthority getDefaultGrantedAuthority() {
+        return _defaultGrantedAuthority;
+    }
 
-	public void setDefaultGrantedAuthority(GrantedAuthority defaultGrantedAuthority) {
-		_defaultGrantedAuthority = defaultGrantedAuthority;
-	}
+    public void setDefaultGrantedAuthority(GrantedAuthority defaultGrantedAuthority) {
+        _defaultGrantedAuthority = defaultGrantedAuthority;
+    }
 }

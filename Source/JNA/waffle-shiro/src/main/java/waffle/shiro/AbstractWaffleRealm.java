@@ -36,93 +36,93 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  * for subclasses to define by implementing the {@link #buildAuthorizationInfo} method.
  */
 public abstract class AbstractWaffleRealm extends AuthorizingRealm {
-	private static final Logger		log			= LoggerFactory.getLogger(AbstractWaffleRealm.class);
-	private static final String		realmName	= "WAFFLE";
+    private static final Logger  log       = LoggerFactory.getLogger(AbstractWaffleRealm.class);
+    private static final String  realmName = "WAFFLE";
 
-	private IWindowsAuthProvider	provider	= new WindowsAuthProviderImpl();
+    private IWindowsAuthProvider provider  = new WindowsAuthProviderImpl();
 
-	@Override
-	protected final AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authToken)
-			throws AuthenticationException {
-		AuthenticationInfo authenticationInfo = null;
-		if (authToken instanceof UsernamePasswordToken) {
-			UsernamePasswordToken token = (UsernamePasswordToken) authToken;
-			String username = token.getUsername();
-			IWindowsIdentity identity = null;
-			try {
-				log.debug("Attempting login for user {}", username);
-				identity = provider.logonUser(username, new String(token.getPassword()));
-				if (identity.isGuest()) {
-					log.debug("Guest identity for user {}; denying access", username);
-					throw new AuthenticationException("Guest identities are not allowed access");
-				} else {
-					Object principal = new WaffleFqnPrincipal(identity);
-					authenticationInfo = buildAuthenticationInfo(token, principal);
-					log.debug("Successful login for user {}", username);
-				}
-			} catch (RuntimeException e) {
-				log.debug("Failed login for user {}: {}", username, e.getMessage());
-				log.trace("{}", e);
-				throw new AuthenticationException("Login failed", e);
-			} finally {
-				if (identity != null) {
-					identity.dispose();
-				}
-			}
-		}
-		return authenticationInfo;
-	}
+    @Override
+    protected final AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authToken)
+            throws AuthenticationException {
+        AuthenticationInfo authenticationInfo = null;
+        if (authToken instanceof UsernamePasswordToken) {
+            UsernamePasswordToken token = (UsernamePasswordToken) authToken;
+            String username = token.getUsername();
+            IWindowsIdentity identity = null;
+            try {
+                log.debug("Attempting login for user {}", username);
+                identity = provider.logonUser(username, new String(token.getPassword()));
+                if (identity.isGuest()) {
+                    log.debug("Guest identity for user {}; denying access", username);
+                    throw new AuthenticationException("Guest identities are not allowed access");
+                } else {
+                    Object principal = new WaffleFqnPrincipal(identity);
+                    authenticationInfo = buildAuthenticationInfo(token, principal);
+                    log.debug("Successful login for user {}", username);
+                }
+            } catch (RuntimeException e) {
+                log.debug("Failed login for user {}: {}", username, e.getMessage());
+                log.trace("{}", e);
+                throw new AuthenticationException("Login failed", e);
+            } finally {
+                if (identity != null) {
+                    identity.dispose();
+                }
+            }
+        }
+        return authenticationInfo;
+    }
 
-	private AuthenticationInfo buildAuthenticationInfo(UsernamePasswordToken token, Object principal) {
-		AuthenticationInfo authenticationInfo;
-		HashingPasswordService hashService = getHashService();
-		if (hashService != null) {
-			Hash hash = hashService.hashPassword(token.getPassword());
-			ByteSource salt = hash.getSalt();
-			authenticationInfo = new SimpleAuthenticationInfo(principal, hash, salt, realmName);
-		} else {
-			Object creds = token.getCredentials();
-			authenticationInfo = new SimpleAuthenticationInfo(principal, creds, realmName);
-		}
-		return authenticationInfo;
-	}
+    private AuthenticationInfo buildAuthenticationInfo(UsernamePasswordToken token, Object principal) {
+        AuthenticationInfo authenticationInfo;
+        HashingPasswordService hashService = getHashService();
+        if (hashService != null) {
+            Hash hash = hashService.hashPassword(token.getPassword());
+            ByteSource salt = hash.getSalt();
+            authenticationInfo = new SimpleAuthenticationInfo(principal, hash, salt, realmName);
+        } else {
+            Object creds = token.getCredentials();
+            authenticationInfo = new SimpleAuthenticationInfo(principal, creds, realmName);
+        }
+        return authenticationInfo;
+    }
 
-	@Override
-	protected final AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		WaffleFqnPrincipal principal = principals.oneByType(WaffleFqnPrincipal.class);
-		if (principal != null) {
-			return buildAuthorizationInfo(principal);
-		} else {
-			return null;
-		}
-	}
+    @Override
+    protected final AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+        WaffleFqnPrincipal principal = principals.oneByType(WaffleFqnPrincipal.class);
+        if (principal != null) {
+            return buildAuthorizationInfo(principal);
+        } else {
+            return null;
+        }
+    }
 
-	/**
-	 * Assembles the appropriate authorization information for the specified principal.
-	 * 
-	 * @param principal
-	 *            the principal for which to assemble authorization information
-	 * @return the authorization information for the specified principal
-	 */
-	protected abstract AuthorizationInfo buildAuthorizationInfo(WaffleFqnPrincipal principal);
+    /**
+     * Assembles the appropriate authorization information for the specified principal.
+     * 
+     * @param principal
+     *            the principal for which to assemble authorization information
+     * @return the authorization information for the specified principal
+     */
+    protected abstract AuthorizationInfo buildAuthorizationInfo(WaffleFqnPrincipal principal);
 
-	/**
-	 * Allow overriding the default implementation of {@link IWindowsAuthProvider} This is only needed for testing,
-	 * since for normal usage the default is what you want.
-	 */
-	void setProvider(IWindowsAuthProvider provider) {
-		this.provider = provider;
-	}
+    /**
+     * Allow overriding the default implementation of {@link IWindowsAuthProvider} This is only needed for testing,
+     * since for normal usage the default is what you want.
+     */
+    void setProvider(IWindowsAuthProvider provider) {
+        this.provider = provider;
+    }
 
-	private HashingPasswordService getHashService() {
-		CredentialsMatcher matcher = getCredentialsMatcher();
-		if (matcher instanceof PasswordMatcher) {
-			PasswordMatcher passwordMatcher = (PasswordMatcher) matcher;
-			PasswordService passwordService = passwordMatcher.getPasswordService();
-			if (passwordService instanceof HashingPasswordService) {
-				return (HashingPasswordService) passwordService;
-			}
-		}
-		return null;
-	}
+    private HashingPasswordService getHashService() {
+        CredentialsMatcher matcher = getCredentialsMatcher();
+        if (matcher instanceof PasswordMatcher) {
+            PasswordMatcher passwordMatcher = (PasswordMatcher) matcher;
+            PasswordService passwordService = passwordMatcher.getPasswordService();
+            if (passwordService instanceof HashingPasswordService) {
+                return (HashingPasswordService) passwordService;
+            }
+        }
+        return null;
+    }
 }

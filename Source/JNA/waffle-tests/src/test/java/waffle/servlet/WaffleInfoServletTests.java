@@ -40,41 +40,41 @@ import waffle.mock.http.SimpleHttpResponse;
  */
 public class WaffleInfoServletTests {
 
-	private static final Logger	logger	= LoggerFactory.getLogger(WaffleInfoServletTests.class);
+    private static final Logger logger = LoggerFactory.getLogger(WaffleInfoServletTests.class);
 
-	@Test
-	public void testGetInfo() throws Exception {
-		SimpleHttpRequest request = new SimpleHttpRequest();
-		request.addHeader("hello", "waffle");
+    @Test
+    public void testGetInfo() throws Exception {
+        SimpleHttpRequest request = new SimpleHttpRequest();
+        request.addHeader("hello", "waffle");
 
-		SimpleHttpResponse response = new SimpleHttpResponse();
+        SimpleHttpResponse response = new SimpleHttpResponse();
 
-		WaffleInfoServlet servlet = new WaffleInfoServlet();
-		servlet.doGet(request, response);
+        WaffleInfoServlet servlet = new WaffleInfoServlet();
+        servlet.doGet(request, response);
 
-		String xml = response.getOutputText();
-		Document doc = loadXMLFromString(xml);
+        String xml = response.getOutputText();
+        Document doc = loadXMLFromString(xml);
 
-		this.logger.info("GOT: {}", xml);
+        this.logger.info("GOT: {}", xml);
 
-		// Make sure JNA Version is properly noted
-		assertEquals(Platform.class.getPackage().getImplementationVersion(),
-				doc.getDocumentElement().getAttribute("jna"));
+        // Make sure JNA Version is properly noted
+        assertEquals(Platform.class.getPackage().getImplementationVersion(),
+                doc.getDocumentElement().getAttribute("jna"));
 
-		Node node = doc.getDocumentElement().getFirstChild().getNextSibling() // request
-				.getFirstChild().getNextSibling() // AuthType
-				.getNextSibling().getNextSibling();
+        Node node = doc.getDocumentElement().getFirstChild().getNextSibling() // request
+                .getFirstChild().getNextSibling() // AuthType
+                .getNextSibling().getNextSibling();
 
-		// Make sure the headers were added correctly
-		assertEquals("headers", node.getNodeName());
-		Node child = node.getFirstChild().getNextSibling();
-		assertEquals("hello", child.getNodeName());
-	}
+        // Make sure the headers were added correctly
+        assertEquals("headers", node.getNodeName());
+        Node child = node.getFirstChild().getNextSibling();
+        assertEquals("hello", child.getNodeName());
+    }
 
-	public static Document loadXMLFromString(String xml) throws ParserConfigurationException, SAXException, IOException {
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder = factory.newDocumentBuilder();
-		InputSource is = new InputSource(new StringReader(xml));
-		return builder.parse(is);
-	}
+    public static Document loadXMLFromString(String xml) throws ParserConfigurationException, SAXException, IOException {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        InputSource is = new InputSource(new StringReader(xml));
+        return builder.parse(is);
+    }
 }

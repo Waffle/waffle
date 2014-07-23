@@ -20,35 +20,35 @@ package waffle.util;
  */
 public final class NtlmMessage {
 
-	// NTLM messages start with 0x4e544c4d53535000, NTLMSSP signature
-	private static final byte[]	ntlmsspSignature	= { 0x4e, 0x54, 0x4c, 0x4d, 0x53, 0x53, 0x50, 0x00 };
+    // NTLM messages start with 0x4e544c4d53535000, NTLMSSP signature
+    private static final byte[] ntlmsspSignature = { 0x4e, 0x54, 0x4c, 0x4d, 0x53, 0x53, 0x50, 0x00 };
 
-	public static boolean isNtlmMessage(byte[] message) {
-		if (message == null || message.length < ntlmsspSignature.length) {
-			return false;
-		}
+    public static boolean isNtlmMessage(byte[] message) {
+        if (message == null || message.length < ntlmsspSignature.length) {
+            return false;
+        }
 
-		for (int i = 0; i < ntlmsspSignature.length; i++) {
-			if (ntlmsspSignature[i] != message[i]) {
-				return false;
-			}
-		}
+        for (int i = 0; i < ntlmsspSignature.length; i++) {
+            if (ntlmsspSignature[i] != message[i]) {
+                return false;
+            }
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * Get NTLM message type.
-	 * 
-	 * @param message
-	 *            Assuming a valid NTLM message.
-	 * @return Message type.
-	 */
-	public static int getMessageType(byte[] message) {
-		return message[ntlmsspSignature.length];
-	}
+    /**
+     * Get NTLM message type.
+     * 
+     * @param message
+     *            Assuming a valid NTLM message.
+     * @return Message type.
+     */
+    public static int getMessageType(byte[] message) {
+        return message[ntlmsspSignature.length];
+    }
 
-	private NtlmMessage() {
-		// Prevent Instantiation of object
-	}
+    private NtlmMessage() {
+        // Prevent Instantiation of object
+    }
 }

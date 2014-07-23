@@ -38,66 +38,66 @@ import java.security.Principal;
 
 public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
 
-	/**
-	 * This class's private logger.
-	 */
-	private static final Logger			log	= LoggerFactory.getLogger(NegotiateAuthenticationRealm.class);
+    /**
+     * This class's private logger.
+     */
+    private static final Logger        log = LoggerFactory.getLogger(NegotiateAuthenticationRealm.class);
 
-	private final IWindowsAuthProvider	windowsAuthProvider;
+    private final IWindowsAuthProvider windowsAuthProvider;
 
-	public NegotiateAuthenticationRealm() {
-		windowsAuthProvider = new WindowsAuthProviderImpl();
-	}
+    public NegotiateAuthenticationRealm() {
+        windowsAuthProvider = new WindowsAuthProviderImpl();
+    }
 
-	@Override
-	public boolean supports(final AuthenticationToken token) {
-		return token instanceof NegotiateToken;
-	}
+    @Override
+    public boolean supports(final AuthenticationToken token) {
+        return token instanceof NegotiateToken;
+    }
 
-	@Override
-	protected AuthenticationInfo doGetAuthenticationInfo(final AuthenticationToken t) throws AuthenticationException {
+    @Override
+    protected AuthenticationInfo doGetAuthenticationInfo(final AuthenticationToken t) throws AuthenticationException {
 
-		final NegotiateToken token = (NegotiateToken) t;
-		final byte[] inToken = token.getIn();
+        final NegotiateToken token = (NegotiateToken) t;
+        final byte[] inToken = token.getIn();
 
-		if (token.isNtlmPost()) {
-			// type 2 NTLM authentication message received
-			windowsAuthProvider.resetSecurityToken(token.getConnectionId());
-		}
+        if (token.isNtlmPost()) {
+            // type 2 NTLM authentication message received
+            windowsAuthProvider.resetSecurityToken(token.getConnectionId());
+        }
 
-		final IWindowsSecurityContext securityContext;
-		try {
-			securityContext = windowsAuthProvider.acceptSecurityToken(token.getConnectionId(), inToken,
-					token.getSecurityPackage());
-		} catch (Exception e) {
-			log.warn("error logging in user: {}", e.getMessage());
-			throw new AuthenticationException(e);
-		}
+        final IWindowsSecurityContext securityContext;
+        try {
+            securityContext = windowsAuthProvider.acceptSecurityToken(token.getConnectionId(), inToken,
+                    token.getSecurityPackage());
+        } catch (Exception e) {
+            log.warn("error logging in user: {}", e.getMessage());
+            throw new AuthenticationException(e);
+        }
 
-		final byte[] continueTokenBytes = securityContext.getToken();
-		token.setOut(continueTokenBytes);
-		if (continueTokenBytes != null) {
-			log.debug("continue token bytes: {}", Integer.valueOf(continueTokenBytes.length));
-		} else {
-			log.debug("no continue token bytes");
-		}
+        final byte[] continueTokenBytes = securityContext.getToken();
+        token.setOut(continueTokenBytes);
+        if (continueTokenBytes != null) {
+            log.debug("continue token bytes: {}", Integer.valueOf(continueTokenBytes.length));
+        } else {
+            log.debug("no continue token bytes");
+        }
 
-		if (securityContext.isContinue() || token.isNtlmPost()) {
-			throw new AuthenticationInProgressException();
-		}
+        if (securityContext.isContinue() || token.isNtlmPost()) {
+            throw new AuthenticationInProgressException();
+        }
 
-		final IWindowsIdentity windowsIdentity = securityContext.getIdentity();
-		securityContext.dispose();
+        final IWindowsIdentity windowsIdentity = securityContext.getIdentity();
+        securityContext.dispose();
 
-		log.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
+        log.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
 
-		final Principal principal = new WindowsPrincipal(windowsIdentity);
-		token.setPrincipal(principal);
+        final Principal principal = new WindowsPrincipal(windowsIdentity);
+        token.setPrincipal(principal);
 
-		final Subject subject = new Subject();
-		subject.getPrincipals().add(principal);
-		token.setSubject(subject);
+        final Subject subject = new Subject();
+        subject.getPrincipals().add(principal);
+        token.setSubject(subject);
 
-		return token.createInfo();
-	}
+        return token.createInfo();
+    }
 }

@@ -27,50 +27,50 @@ import waffle.windows.auth.IWindowsImpersonationContext;
  */
 public class MockWindowsIdentity implements IWindowsIdentity {
 
-	private String			_fqn;
-	private List<String>	_groups;
+    private String       _fqn;
+    private List<String> _groups;
 
-	public MockWindowsIdentity(String fqn, List<String> groups) {
-		_fqn = fqn;
-		_groups = groups;
-	}
+    public MockWindowsIdentity(String fqn, List<String> groups) {
+        _fqn = fqn;
+        _groups = groups;
+    }
 
-	@Override
-	public String getFqn() {
-		return _fqn;
-	}
+    @Override
+    public String getFqn() {
+        return _fqn;
+    }
 
-	@Override
-	public IWindowsAccount[] getGroups() {
-		List<MockWindowsAccount> groups = new ArrayList<MockWindowsAccount>();
-		for (String group : _groups) {
-			groups.add(new MockWindowsAccount(group));
-		}
-		return groups.toArray(new IWindowsAccount[0]);
-	}
+    @Override
+    public IWindowsAccount[] getGroups() {
+        List<MockWindowsAccount> groups = new ArrayList<MockWindowsAccount>();
+        for (String group : _groups) {
+            groups.add(new MockWindowsAccount(group));
+        }
+        return groups.toArray(new IWindowsAccount[0]);
+    }
 
-	@Override
-	public byte[] getSid() {
-		return new byte[0];
-	}
+    @Override
+    public byte[] getSid() {
+        return new byte[0];
+    }
 
-	@Override
-	public String getSidString() {
-		return "S-" + _fqn.hashCode();
-	}
+    @Override
+    public String getSidString() {
+        return "S-" + _fqn.hashCode();
+    }
 
-	@Override
-	public void dispose() {
-		// Do Nothing
-	}
+    @Override
+    public void dispose() {
+        // Do Nothing
+    }
 
-	@Override
-	public boolean isGuest() {
-		return _fqn.equals("Guest");
-	}
+    @Override
+    public boolean isGuest() {
+        return _fqn.equals("Guest");
+    }
 
-	@Override
-	public IWindowsImpersonationContext impersonate() {
-		return new MockWindowsImpersonationContext();
-	}
+    @Override
+    public IWindowsImpersonationContext impersonate() {
+        return new MockWindowsImpersonationContext();
+    }
 }

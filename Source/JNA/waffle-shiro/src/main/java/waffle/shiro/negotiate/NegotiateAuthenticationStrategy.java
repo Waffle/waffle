@@ -30,25 +30,25 @@ import org.apache.shiro.realm.Realm;
  */
 public class NegotiateAuthenticationStrategy extends AbstractAuthenticationStrategy {
 
-	/**
-	 * When the negotiate logic is executing, one of more round trips with the client occur. When the
-	 * {@link NegotiateAuthenticationRealm negotiate realm} determines another handshake is needed, it throws the
-	 * exception: {@link AuthenticationInProgressException}. This custom strategy detects this exception, and
-	 * immediately re-throws it so classes higher up in the call stack will allow the handshake to proceed. Without this
-	 * added logic, the handshake would be halted after the first connection by the existing error handling.
-	 * 
-	 * {@inheritDoc}
-	 */
-	@Override
-	public AuthenticationInfo afterAttempt(final Realm realm, final AuthenticationToken token,
-			final AuthenticationInfo singleRealmInfo, final AuthenticationInfo aggregateInfo, final Throwable t)
-			throws AuthenticationException {
+    /**
+     * When the negotiate logic is executing, one of more round trips with the client occur. When the
+     * {@link NegotiateAuthenticationRealm negotiate realm} determines another handshake is needed, it throws the
+     * exception: {@link AuthenticationInProgressException}. This custom strategy detects this exception, and
+     * immediately re-throws it so classes higher up in the call stack will allow the handshake to proceed. Without this
+     * added logic, the handshake would be halted after the first connection by the existing error handling.
+     * 
+     * {@inheritDoc}
+     */
+    @Override
+    public AuthenticationInfo afterAttempt(final Realm realm, final AuthenticationToken token,
+            final AuthenticationInfo singleRealmInfo, final AuthenticationInfo aggregateInfo, final Throwable t)
+            throws AuthenticationException {
 
-		if (realm instanceof NegotiateAuthenticationRealm && t instanceof AuthenticationInProgressException) {
-			// propagate exception upward as is, to signal continue is needed
-			throw (AuthenticationInProgressException) t;
-		}
+        if (realm instanceof NegotiateAuthenticationRealm && t instanceof AuthenticationInProgressException) {
+            // propagate exception upward as is, to signal continue is needed
+            throw (AuthenticationInProgressException) t;
+        }
 
-		return super.afterAttempt(realm, token, singleRealmInfo, aggregateInfo, t);
-	}
+        return super.afterAttempt(realm, token, singleRealmInfo, aggregateInfo, t);
+    }
 }

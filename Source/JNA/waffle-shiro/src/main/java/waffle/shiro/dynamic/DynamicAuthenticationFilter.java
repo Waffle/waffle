@@ -87,83 +87,83 @@ import javax.servlet.ServletResponse;
  */
 public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
 
-	private static final Logger	log								= LoggerFactory
-																		.getLogger(DynamicAuthenticationFilter.class);
+    private static final Logger log                          = LoggerFactory
+                                                                     .getLogger(DynamicAuthenticationFilter.class);
 
-	public static final String	PARAM_NAME_AUTHTYPE				= "authType";
-	public static final String	PARAM_VAL_AUTHTYPE_NEGOTIATE	= "j_negotiate";
+    public static final String  PARAM_NAME_AUTHTYPE          = "authType";
+    public static final String  PARAM_VAL_AUTHTYPE_NEGOTIATE = "j_negotiate";
 
-	/**
-	 * Wrapper to make protected methods in different package callable from here.
-	 */
-	private static final class WrapNegotiateAuthenticationFilter extends NegotiateAuthenticationFilter {
+    /**
+     * Wrapper to make protected methods in different package callable from here.
+     */
+    private static final class WrapNegotiateAuthenticationFilter extends NegotiateAuthenticationFilter {
 
-		private final DynamicAuthenticationFilter	parent;
+        private final DynamicAuthenticationFilter parent;
 
-		private WrapNegotiateAuthenticationFilter(final DynamicAuthenticationFilter parent) {
-			this.parent = parent;
-		}
+        private WrapNegotiateAuthenticationFilter(final DynamicAuthenticationFilter parent) {
+            this.parent = parent;
+        }
 
-		@Override
-		public boolean onAccessDenied(final ServletRequest request, final ServletResponse response) throws Exception {
-			return super.onAccessDenied(request, response);
-		}
+        @Override
+        public boolean onAccessDenied(final ServletRequest request, final ServletResponse response) throws Exception {
+            return super.onAccessDenied(request, response);
+        }
 
-		@Override
-		protected boolean onLoginSuccess(final AuthenticationToken token, final Subject subject,
-				final ServletRequest request, final ServletResponse response) throws Exception {
-			return parent.onLoginSuccess(token, subject, request, response);
-		}
-	}
+        @Override
+        protected boolean onLoginSuccess(final AuthenticationToken token, final Subject subject,
+                final ServletRequest request, final ServletResponse response) throws Exception {
+            return parent.onLoginSuccess(token, subject, request, response);
+        }
+    }
 
-	private final WrapNegotiateAuthenticationFilter	filterNegotiate	= new WrapNegotiateAuthenticationFilter(this);
+    private final WrapNegotiateAuthenticationFilter filterNegotiate = new WrapNegotiateAuthenticationFilter(this);
 
-	/**
-	 * Wrapper to make protected methods in different package callable from here.
-	 */
-	private static final class WrapFormAuthenticationFilter extends FormAuthenticationFilter {
+    /**
+     * Wrapper to make protected methods in different package callable from here.
+     */
+    private static final class WrapFormAuthenticationFilter extends FormAuthenticationFilter {
 
-		private final DynamicAuthenticationFilter	parent;
+        private final DynamicAuthenticationFilter parent;
 
-		private WrapFormAuthenticationFilter(final DynamicAuthenticationFilter parent) {
-			this.parent = parent;
-		}
+        private WrapFormAuthenticationFilter(final DynamicAuthenticationFilter parent) {
+            this.parent = parent;
+        }
 
-		@Override
-		public boolean onAccessDenied(final ServletRequest request, final ServletResponse response) throws Exception {
-			return super.onAccessDenied(request, response);
-		}
+        @Override
+        public boolean onAccessDenied(final ServletRequest request, final ServletResponse response) throws Exception {
+            return super.onAccessDenied(request, response);
+        }
 
-		@Override
-		protected boolean onLoginSuccess(final AuthenticationToken token, final Subject subject,
-				final ServletRequest request, final ServletResponse response) throws Exception {
-			return parent.onLoginSuccess(token, subject, request, response);
-		}
-	}
+        @Override
+        protected boolean onLoginSuccess(final AuthenticationToken token, final Subject subject,
+                final ServletRequest request, final ServletResponse response) throws Exception {
+            return parent.onLoginSuccess(token, subject, request, response);
+        }
+    }
 
-	private final WrapFormAuthenticationFilter	filterFormAuthc	= new WrapFormAuthenticationFilter(this);
+    private final WrapFormAuthenticationFilter filterFormAuthc = new WrapFormAuthenticationFilter(this);
 
-	/**
-	 * Call
-	 * {@link org.apache.shiro.web.filter.AccessControlFilter#onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse)}
-	 * for the user selected authentication type, which performs login logic.
-	 * 
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected boolean executeLogin(final ServletRequest request, final ServletResponse response) throws Exception {
-		if (isAuthTypeNegotiate(request)) {
-			log.debug("using filterNegotiate");
-			return filterNegotiate.onAccessDenied(request, response);
-		} else {
-			log.debug("using filterFormAuthc");
-			return filterFormAuthc.onAccessDenied(request, response);
-		}
-	}
+    /**
+     * Call
+     * {@link org.apache.shiro.web.filter.AccessControlFilter#onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse)}
+     * for the user selected authentication type, which performs login logic.
+     * 
+     * {@inheritDoc}
+     */
+    @Override
+    protected boolean executeLogin(final ServletRequest request, final ServletResponse response) throws Exception {
+        if (isAuthTypeNegotiate(request)) {
+            log.debug("using filterNegotiate");
+            return filterNegotiate.onAccessDenied(request, response);
+        } else {
+            log.debug("using filterFormAuthc");
+            return filterFormAuthc.onAccessDenied(request, response);
+        }
+    }
 
-	boolean isAuthTypeNegotiate(final ServletRequest request) {
-		final String authType = request.getParameter(PARAM_NAME_AUTHTYPE);
-		return authType != null && PARAM_VAL_AUTHTYPE_NEGOTIATE.equalsIgnoreCase(authType);
-	}
+    boolean isAuthTypeNegotiate(final ServletRequest request) {
+        final String authType = request.getParameter(PARAM_NAME_AUTHTYPE);
+        return authType != null && PARAM_VAL_AUTHTYPE_NEGOTIATE.equalsIgnoreCase(authType);
+    }
 
 }

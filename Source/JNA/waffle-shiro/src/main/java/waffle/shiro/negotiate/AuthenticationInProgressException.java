@@ -26,5 +26,5 @@ import org.apache.shiro.authc.AuthenticationException;
  * @since 1.0.0
  */
 public class AuthenticationInProgressException extends AuthenticationException {
-	private static final long	serialVersionUID	= 2684886728102100988L;
+    private static final long serialVersionUID = 2684886728102100988L;
 }

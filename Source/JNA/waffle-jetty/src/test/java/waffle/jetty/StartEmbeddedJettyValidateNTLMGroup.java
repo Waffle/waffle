@@ -35,100 +35,100 @@ import waffle.windows.auth.WindowsAccount;
  */
 public class StartEmbeddedJettyValidateNTLMGroup {
 
-	private static Logger	logger	= LoggerFactory.getLogger(StartEmbeddedJettyValidateNTLMGroup.class);
+    private static Logger logger = LoggerFactory.getLogger(StartEmbeddedJettyValidateNTLMGroup.class);
 
-	public static void main(String args[]) {
-		System.setProperty(SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "TRACE");
+    public static void main(String args[]) {
+        System.setProperty(SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "TRACE");
 
-		Server server = new Server(8080);
+        Server server = new Server(8080);
 
-		ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-		context.setContextPath("/");
+        ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
+        context.setContextPath("/");
 
-		ServletHandler handler = new ServletHandler();
-		ServletHolder sh = new ServletHolder(new InfoServlet());
-		context.addServlet(sh, "/*");
+        ServletHandler handler = new ServletHandler();
+        ServletHolder sh = new ServletHolder(new InfoServlet());
+        context.addServlet(sh, "/*");
 
-		FilterHolder fh = handler.addFilterWithMapping(NegotiateSecurityFilter.class, "/*",
-				EnumSet.of(DispatcherType.REQUEST));
-		setFilterParams(fh);
-		context.addFilter(fh, "/*", EnumSet.of(DispatcherType.REQUEST));
+        FilterHolder fh = handler.addFilterWithMapping(NegotiateSecurityFilter.class, "/*",
+                EnumSet.of(DispatcherType.REQUEST));
+        setFilterParams(fh);
+        context.addFilter(fh, "/*", EnumSet.of(DispatcherType.REQUEST));
 
-		context.setHandler(handler);
-		server.setHandler(context);
+        context.setHandler(handler);
+        server.setHandler(context);
 
-		try {
-			server.start();
-		} catch (Exception e) {
-			StartEmbeddedJettyValidateNTLMGroup.logger.trace("{}", e);
-		}
-	}
+        try {
+            server.start();
+        } catch (Exception e) {
+            StartEmbeddedJettyValidateNTLMGroup.logger.trace("{}", e);
+        }
+    }
 
-	private static void setFilterParams(FilterHolder fh) {
-		fh.setInitParameter("principalFormat", "fqn");
-		fh.setInitParameter("roleFormat", "both");
+    private static void setFilterParams(FilterHolder fh) {
+        fh.setInitParameter("principalFormat", "fqn");
+        fh.setInitParameter("roleFormat", "both");
 
-		fh.setInitParameter("allowGuestLogin", "true");
-		fh.setInitParameter("impersonate", "true");
+        fh.setInitParameter("allowGuestLogin", "true");
+        fh.setInitParameter("impersonate", "true");
 
-		fh.setInitParameter("securityFilterProviders",
-				"waffle.servlet.spi.NegotiateSecurityFilterProvider waffle.servlet.spi.BasicSecurityFilterProvider");
-		fh.setInitParameter("waffle.servlet.spi.NegotiateSecurityFilterProvider/protocols", "Negotiate NTLM");
+        fh.setInitParameter("securityFilterProviders",
+                "waffle.servlet.spi.NegotiateSecurityFilterProvider waffle.servlet.spi.BasicSecurityFilterProvider");
+        fh.setInitParameter("waffle.servlet.spi.NegotiateSecurityFilterProvider/protocols", "Negotiate NTLM");
 
-		fh.setInitParameter("waffle.servlet.spi.BasicSecurityFilterProvider/realm", "SecureServiceRunner");
-	}
+        fh.setInitParameter("waffle.servlet.spi.BasicSecurityFilterProvider/realm", "SecureServiceRunner");
+    }
 
-	public static class InfoServlet extends HttpServlet {
+    public static class InfoServlet extends HttpServlet {
 
-		private static final long	serialVersionUID	= 1L;
+        private static final long   serialVersionUID = 1L;
 
-		private static List<String>	authorisedGroups	= Arrays.asList("NTGroup1", "NTGroup2");
+        private static List<String> authorisedGroups = Arrays.asList("NTGroup1", "NTGroup2");
 
-		@Override
-		public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-				IOException {
-			response.setContentType("text/html");
-			response.setStatus(HttpServletResponse.SC_OK);
+        @Override
+        public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+                IOException {
+            response.setContentType("text/html");
+            response.setStatus(HttpServletResponse.SC_OK);
 
-			boolean isUserAuthorised = isUserAuthorised(request, authorisedGroups);
-			if (isUserAuthorised) {
-				response.getWriter().println("User is authorised");
-			} else {
-				response.getWriter().println("User is not authorised");
-			}
-		}
+            boolean isUserAuthorised = isUserAuthorised(request, authorisedGroups);
+            if (isUserAuthorised) {
+                response.getWriter().println("User is authorised");
+            } else {
+                response.getWriter().println("User is not authorised");
+            }
+        }
 
-		private boolean isUserAuthorised(HttpServletRequest request, List<String> authorisedGroups) {
-			List<String> usersGroups = getUsersGroups(request);
+        private boolean isUserAuthorised(HttpServletRequest request, List<String> authorisedGroups) {
+            List<String> usersGroups = getUsersGroups(request);
 
-			boolean noOverlappingGroups = Collections.disjoint(authorisedGroups, usersGroups);
-			if (!noOverlappingGroups) {
-				return true;
-			} else {
-				return false;
-			}
-		}
+            boolean noOverlappingGroups = Collections.disjoint(authorisedGroups, usersGroups);
+            if (!noOverlappingGroups) {
+                return true;
+            } else {
+                return false;
+            }
+        }
 
-		private List<String> getUsersGroups(HttpServletRequest request) {
-			List<String> result = new ArrayList<String>();
-			Principal principal = request.getUserPrincipal();
-			if (principal instanceof WindowsPrincipal) {
-				WindowsPrincipal windowsPrincipal = (WindowsPrincipal) principal;
-				for (WindowsAccount account : windowsPrincipal.getGroups().values()) {
-					String groupName = getGroupName(account.getDomain(), account.getFqn());
-					result.add(groupName);
-				}
-			}
-			return result;
-		}
+        private List<String> getUsersGroups(HttpServletRequest request) {
+            List<String> result = new ArrayList<String>();
+            Principal principal = request.getUserPrincipal();
+            if (principal instanceof WindowsPrincipal) {
+                WindowsPrincipal windowsPrincipal = (WindowsPrincipal) principal;
+                for (WindowsAccount account : windowsPrincipal.getGroups().values()) {
+                    String groupName = getGroupName(account.getDomain(), account.getFqn());
+                    result.add(groupName);
+                }
+            }
+            return result;
+        }
 
-		private String getGroupName(String domain, String groupString) {
-			if (domain == null || groupString == null) {
-				return "";
-			}
-			String group = groupString.split(domain)[1];
-			return group.substring(1);
-		}
-	}
+        private String getGroupName(String domain, String groupString) {
+            if (domain == null || groupString == null) {
+                return "";
+            }
+            String group = groupString.split(domain)[1];
+            return group.substring(1);
+        }
+    }
 
 }

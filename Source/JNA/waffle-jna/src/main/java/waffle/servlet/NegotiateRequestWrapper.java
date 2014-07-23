@@ -25,42 +25,42 @@ import javax.servlet.http.HttpServletRequestWrapper;
  */
 public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
 
-	private WindowsPrincipal	_principal;
+    private WindowsPrincipal _principal;
 
-	public NegotiateRequestWrapper(HttpServletRequest request, WindowsPrincipal principal) {
-		super(request);
-		_principal = principal;
-	}
+    public NegotiateRequestWrapper(HttpServletRequest request, WindowsPrincipal principal) {
+        super(request);
+        _principal = principal;
+    }
 
-	/**
-	 * User principal.
-	 */
-	@Override
-	public Principal getUserPrincipal() {
-		return _principal;
-	}
+    /**
+     * User principal.
+     */
+    @Override
+    public Principal getUserPrincipal() {
+        return _principal;
+    }
 
-	/**
-	 * Authentication type.
-	 */
-	@Override
-	public String getAuthType() {
-		return "NEGOTIATE";
-	}
+    /**
+     * Authentication type.
+     */
+    @Override
+    public String getAuthType() {
+        return "NEGOTIATE";
+    }
 
-	/**
-	 * Remote username.
-	 */
-	@Override
-	public String getRemoteUser() {
-		return _principal.getName();
-	}
+    /**
+     * Remote username.
+     */
+    @Override
+    public String getRemoteUser() {
+        return _principal.getName();
+    }
 
-	/**
-	 * Returns true if the user is in a given role.
-	 */
-	@Override
-	public boolean isUserInRole(String role) {
-		return _principal.hasRole(role);
-	}
+    /**
+     * Returns true if the user is in a given role.
+     */
+    @Override
+    public boolean isUserInRole(String role) {
+        return _principal.hasRole(role);
+    }
 }

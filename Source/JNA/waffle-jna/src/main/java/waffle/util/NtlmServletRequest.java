@@ -22,26 +22,26 @@ import com.google.common.base.Strings;
  */
 public final class NtlmServletRequest {
 
-	/**
-	 * Returns a unique connection id for a given servlet request.
-	 * 
-	 * @param request
-	 *            Servlet request.
-	 * @return String.
-	 */
-	public static String getConnectionId(HttpServletRequest request) {
-		String remoteHost = request.getRemoteHost();
-		if (remoteHost == null) {
-			remoteHost = request.getRemoteAddr();
-		}
-		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append(Strings.nullToEmpty(remoteHost));
-		stringBuilder.append(":");
-		stringBuilder.append(request.getRemotePort());
-		return stringBuilder.toString();
-	}
+    /**
+     * Returns a unique connection id for a given servlet request.
+     * 
+     * @param request
+     *            Servlet request.
+     * @return String.
+     */
+    public static String getConnectionId(HttpServletRequest request) {
+        String remoteHost = request.getRemoteHost();
+        if (remoteHost == null) {
+            remoteHost = request.getRemoteAddr();
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(Strings.nullToEmpty(remoteHost));
+        stringBuilder.append(":");
+        stringBuilder.append(request.getRemotePort());
+        return stringBuilder.toString();
+    }
 
-	private NtlmServletRequest() {
-		// Prevent Instantiation of object
-	}
+    private NtlmServletRequest() {
+        // Prevent Instantiation of object
+    }
 }

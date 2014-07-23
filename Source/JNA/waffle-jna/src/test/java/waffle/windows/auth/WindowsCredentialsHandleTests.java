@@ -24,11 +24,11 @@ import waffle.windows.auth.impl.WindowsCredentialsHandleImpl;
  */
 public class WindowsCredentialsHandleTests {
 
-	@Test
-	public void testGetCurrent() {
-		IWindowsCredentialsHandle handle = WindowsCredentialsHandleImpl.getCurrent("Negotiate");
-		assertNotNull(handle);
-		handle.initialize();
-		handle.dispose();
-	}
+    @Test
+    public void testGetCurrent() {
+        IWindowsCredentialsHandle handle = WindowsCredentialsHandleImpl.getCurrent("Negotiate");
+        assertNotNull(handle);
+        handle.initialize();
+        handle.dispose();
+    }
 }

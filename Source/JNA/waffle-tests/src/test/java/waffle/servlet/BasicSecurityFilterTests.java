@@ -39,39 +39,39 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
  */
 public class BasicSecurityFilterTests {
 
-	private NegotiateSecurityFilter	_filter;
-	private MockWindowsAuthProvider	_provider;
+    private NegotiateSecurityFilter _filter;
+    private MockWindowsAuthProvider _provider;
 
-	@Before
-	public void setUp() {
-		_filter = new NegotiateSecurityFilter();
-		_filter.setAuth(new MockWindowsAuthProvider());
-		try {
-			_filter.init(null);
-		} catch (ServletException e) {
-			fail(e.getMessage());
-		}
-	}
+    @Before
+    public void setUp() {
+        _filter = new NegotiateSecurityFilter();
+        _filter.setAuth(new MockWindowsAuthProvider());
+        try {
+            _filter.init(null);
+        } catch (ServletException e) {
+            fail(e.getMessage());
+        }
+    }
 
-	@After
-	public void tearDown() {
-		_filter.destroy();
-	}
+    @After
+    public void tearDown() {
+        _filter.destroy();
+    }
 
-	@Test
-	public void testBasicAuth() throws IOException, ServletException {
-		SimpleHttpRequest request = new SimpleHttpRequest();
-		request.setMethod("GET");
+    @Test
+    public void testBasicAuth() throws IOException, ServletException {
+        SimpleHttpRequest request = new SimpleHttpRequest();
+        request.setMethod("GET");
 
-		String userHeaderValue = WindowsAccountImpl.getCurrentUsername() + ":password";
-		String basicAuthHeader = "Basic " + Base64.encode(userHeaderValue.getBytes());
-		request.addHeader("Authorization", basicAuthHeader);
+        String userHeaderValue = WindowsAccountImpl.getCurrentUsername() + ":password";
+        String basicAuthHeader = "Basic " + Base64.encode(userHeaderValue.getBytes());
+        request.addHeader("Authorization", basicAuthHeader);
 
-		SimpleHttpResponse response = new SimpleHttpResponse();
-		FilterChain filterChain = new SimpleFilterChain();
-		_filter.doFilter(request, response, filterChain);
-		Subject subject = (Subject) request.getSession().getAttribute("javax.security.auth.subject");
-		boolean authenticated = (subject != null && subject.getPrincipals().size() > 0);
-		assertTrue(authenticated);
-	}
+        SimpleHttpResponse response = new SimpleHttpResponse();
+        FilterChain filterChain = new SimpleFilterChain();
+        _filter.doFilter(request, response, filterChain);
+        Subject subject = (Subject) request.getSession().getAttribute("javax.security.auth.subject");
+        boolean authenticated = (subject != null && subject.getPrincipals().size() > 0);
+        assertTrue(authenticated);
+    }
 }

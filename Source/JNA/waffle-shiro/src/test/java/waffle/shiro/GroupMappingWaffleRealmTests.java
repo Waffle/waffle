@@ -33,48 +33,48 @@ import com.sun.jna.platform.win32.Secur32.EXTENDED_NAME_FORMAT;
 import com.sun.jna.platform.win32.Secur32Util;
 
 public class GroupMappingWaffleRealmTests {
-	private static final String		ROLE_NAME	= "ShiroUsers";
-	private MockWindowsAuthProvider	windowsAuthProvider;
-	private GroupMappingWaffleRealm	realm;
+    private static final String     ROLE_NAME = "ShiroUsers";
+    private MockWindowsAuthProvider windowsAuthProvider;
+    private GroupMappingWaffleRealm realm;
 
-	@Before
-	public void setUp() {
-		windowsAuthProvider = new MockWindowsAuthProvider();
-		realm = new GroupMappingWaffleRealm();
-		realm.setProvider(windowsAuthProvider);
-		realm.setGroupRolesMap(Collections.singletonMap("Users", ROLE_NAME));
-	}
+    @Before
+    public void setUp() {
+        windowsAuthProvider = new MockWindowsAuthProvider();
+        realm = new GroupMappingWaffleRealm();
+        realm.setProvider(windowsAuthProvider);
+        realm.setGroupRolesMap(Collections.singletonMap("Users", ROLE_NAME));
+    }
 
-	@Test
-	public void testValidUsernamePassword() {
-		AuthenticationToken token = new UsernamePasswordToken(getCurrentUserName(), "somePassword");
-		AuthenticationInfo authcInfo = realm.getAuthenticationInfo(token);
-		PrincipalCollection principals = authcInfo.getPrincipals();
-		assertFalse(principals.isEmpty());
-		Object primaryPrincipal = principals.getPrimaryPrincipal();
-		assertThat(primaryPrincipal, instanceOf(WaffleFqnPrincipal.class));
-		WaffleFqnPrincipal fqnPrincipal = (WaffleFqnPrincipal) primaryPrincipal;
-		assertThat(fqnPrincipal.getFqn(), equalTo(getCurrentUserName()));
-		assertThat(fqnPrincipal.getGroupFqns(), CoreMatchers.hasItems("Users", "Everyone"));
-		Object credentials = authcInfo.getCredentials();
-		assertThat(credentials, instanceOf(char[].class));
-		assertThat((char[]) credentials, equalTo("somePassword".toCharArray()));
-		assertTrue(realm.hasRole(principals, ROLE_NAME));
-	}
+    @Test
+    public void testValidUsernamePassword() {
+        AuthenticationToken token = new UsernamePasswordToken(getCurrentUserName(), "somePassword");
+        AuthenticationInfo authcInfo = realm.getAuthenticationInfo(token);
+        PrincipalCollection principals = authcInfo.getPrincipals();
+        assertFalse(principals.isEmpty());
+        Object primaryPrincipal = principals.getPrimaryPrincipal();
+        assertThat(primaryPrincipal, instanceOf(WaffleFqnPrincipal.class));
+        WaffleFqnPrincipal fqnPrincipal = (WaffleFqnPrincipal) primaryPrincipal;
+        assertThat(fqnPrincipal.getFqn(), equalTo(getCurrentUserName()));
+        assertThat(fqnPrincipal.getGroupFqns(), CoreMatchers.hasItems("Users", "Everyone"));
+        Object credentials = authcInfo.getCredentials();
+        assertThat(credentials, instanceOf(char[].class));
+        assertThat((char[]) credentials, equalTo("somePassword".toCharArray()));
+        assertTrue(realm.hasRole(principals, ROLE_NAME));
+    }
 
-	@Test(expected = AuthenticationException.class)
-	public void testInvalidUsernamePassword() {
-		AuthenticationToken token = new UsernamePasswordToken("InvalidUser", "somePassword");
-		realm.getAuthenticationInfo(token);
-	}
+    @Test(expected = AuthenticationException.class)
+    public void testInvalidUsernamePassword() {
+        AuthenticationToken token = new UsernamePasswordToken("InvalidUser", "somePassword");
+        realm.getAuthenticationInfo(token);
+    }
 
-	@Test(expected = AuthenticationException.class)
-	public void testGuestUsernamePassword() {
-		AuthenticationToken token = new UsernamePasswordToken("Guest", "somePassword");
-		realm.getAuthenticationInfo(token);
-	}
+    @Test(expected = AuthenticationException.class)
+    public void testGuestUsernamePassword() {
+        AuthenticationToken token = new UsernamePasswordToken("Guest", "somePassword");
+        realm.getAuthenticationInfo(token);
+    }
 
-	private String getCurrentUserName() {
-		return Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);
-	}
+    private String getCurrentUserName() {
+        return Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);
+    }
 }

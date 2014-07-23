@@ -29,89 +29,89 @@ import javax.servlet.http.HttpSessionContext;
 @SuppressWarnings("deprecation")
 public class SimpleHttpSession implements HttpSession {
 
-	private Map<String, Object>	_attributes	= new HashMap<String, Object>();
+    private Map<String, Object> _attributes = new HashMap<String, Object>();
 
-	@Override
-	public Object getAttribute(String attributeName) {
-		return _attributes.get(attributeName);
-	}
+    @Override
+    public Object getAttribute(String attributeName) {
+        return _attributes.get(attributeName);
+    }
 
-	@Override
-	public Enumeration<String> getAttributeNames() {
-		return null;
-	}
+    @Override
+    public Enumeration<String> getAttributeNames() {
+        return null;
+    }
 
-	@Override
-	public long getCreationTime() {
-		return 0;
-	}
+    @Override
+    public long getCreationTime() {
+        return 0;
+    }
 
-	@Override
-	public String getId() {
-		return null;
-	}
+    @Override
+    public String getId() {
+        return null;
+    }
 
-	@Override
-	public long getLastAccessedTime() {
-		return 0;
-	}
+    @Override
+    public long getLastAccessedTime() {
+        return 0;
+    }
 
-	@Override
-	public int getMaxInactiveInterval() {
-		return 0;
-	}
+    @Override
+    public int getMaxInactiveInterval() {
+        return 0;
+    }
 
-	@Override
-	public ServletContext getServletContext() {
-		return null;
-	}
+    @Override
+    public ServletContext getServletContext() {
+        return null;
+    }
 
-	@Override
-	public HttpSessionContext getSessionContext() {
-		return null;
-	}
+    @Override
+    public HttpSessionContext getSessionContext() {
+        return null;
+    }
 
-	@Override
-	public Object getValue(String arg0) {
-		return null;
-	}
+    @Override
+    public Object getValue(String arg0) {
+        return null;
+    }
 
-	@Override
-	public String[] getValueNames() {
-		return new String[0];
-	}
+    @Override
+    public String[] getValueNames() {
+        return new String[0];
+    }
 
-	@Override
-	public void invalidate() {
+    @Override
+    public void invalidate() {
 
-	}
+    }
 
-	@Override
-	public boolean isNew() {
-		return false;
-	}
+    @Override
+    public boolean isNew() {
+        return false;
+    }
 
-	@Override
-	public void putValue(String arg0, Object arg1) {
-	}
+    @Override
+    public void putValue(String arg0, Object arg1) {
+    }
 
-	@Override
-	public void removeAttribute(String attributeName) {
-		_attributes.remove(attributeName);
-	}
+    @Override
+    public void removeAttribute(String attributeName) {
+        _attributes.remove(attributeName);
+    }
 
-	@Override
-	public void removeValue(String arg0) {
+    @Override
+    public void removeValue(String arg0) {
 
-	}
+    }
 
-	@Override
-	public void setAttribute(String attributeName, Object attributeValue) {
-		_attributes.put(attributeName, attributeValue);
-	}
+    @Override
+    public void setAttribute(String attributeName, Object attributeValue) {
+        _attributes.put(attributeName, attributeValue);
+    }
 
-	@Override
-	public void setMaxInactiveInterval(int arg0) {
+    @Override
+    public void setMaxInactiveInterval(int arg0) {
 
-	}
+    }
 }

@@ -23,11 +23,11 @@ import org.junit.Test;
  */
 public class WindowsRealmTests {
 
-	@Test
-	public void testProperties() {
-		WindowsRealm realm = new WindowsRealm();
-		assertNull(realm.getPassword(null));
-		assertNull(realm.getPrincipal(null));
-		assertEquals("waffle.apache.WindowsRealm/1.0", realm.getName());
-	}
+    @Test
+    public void testProperties() {
+        WindowsRealm realm = new WindowsRealm();
+        assertNull(realm.getPassword(null));
+        assertNull(realm.getPrincipal(null));
+        assertEquals("waffle.apache.WindowsRealm/1.0", realm.getName());
+    }
 }

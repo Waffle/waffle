@@ -37,45 +37,45 @@ import waffle.mock.http.SimpleHttpResponse;
  */
 public class NegotiateSecurityFilterEntryPointTests {
 
-	private NegotiateSecurityFilterEntryPoint	_entryPoint;
-	private ApplicationContext					ctx;
+    private NegotiateSecurityFilterEntryPoint _entryPoint;
+    private ApplicationContext                ctx;
 
-	@Before
-	public void setUp() {
-		String[] configFiles = new String[] { "springTestFilterBeans.xml" };
-		ctx = new ClassPathXmlApplicationContext(configFiles);
-		_entryPoint = (NegotiateSecurityFilterEntryPoint) ctx.getBean("negotiateSecurityFilterEntryPoint");
-	}
+    @Before
+    public void setUp() {
+        String[] configFiles = new String[] { "springTestFilterBeans.xml" };
+        ctx = new ClassPathXmlApplicationContext(configFiles);
+        _entryPoint = (NegotiateSecurityFilterEntryPoint) ctx.getBean("negotiateSecurityFilterEntryPoint");
+    }
 
-	@After
-	public void shutDown() {
-		((AbstractApplicationContext) ctx).close();
-	}
+    @After
+    public void shutDown() {
+        ((AbstractApplicationContext) ctx).close();
+    }
 
-	@Test
-	public void testChallengeGET() throws IOException, ServletException {
-		SimpleHttpRequest request = new SimpleHttpRequest();
-		request.setMethod("GET");
-		SimpleHttpResponse response = new SimpleHttpResponse();
-		_entryPoint.commence(request, response, null);
-		String[] wwwAuthenticates = response.getHeaderValues("WWW-Authenticate");
-		assertEquals(3, wwwAuthenticates.length);
-		assertEquals("NTLM", wwwAuthenticates[0]);
-		assertEquals("Negotiate", wwwAuthenticates[1]);
-		assertTrue(wwwAuthenticates[2].equals("Basic realm=\"TestRealm\""));
-		assertEquals(2, response.getHeaderNamesSize());
-		assertEquals("keep-alive", response.getHeader("Connection"));
-		assertEquals(401, response.getStatus());
-	}
+    @Test
+    public void testChallengeGET() throws IOException, ServletException {
+        SimpleHttpRequest request = new SimpleHttpRequest();
+        request.setMethod("GET");
+        SimpleHttpResponse response = new SimpleHttpResponse();
+        _entryPoint.commence(request, response, null);
+        String[] wwwAuthenticates = response.getHeaderValues("WWW-Authenticate");
+        assertEquals(3, wwwAuthenticates.length);
+        assertEquals("NTLM", wwwAuthenticates[0]);
+        assertEquals("Negotiate", wwwAuthenticates[1]);
+        assertTrue(wwwAuthenticates[2].equals("Basic realm=\"TestRealm\""));
+        assertEquals(2, response.getHeaderNamesSize());
+        assertEquals("keep-alive", response.getHeader("Connection"));
+        assertEquals(401, response.getStatus());
+    }
 
-	@Test(expected = ServletException.class)
-	public void testGetSetProvider() throws IOException, ServletException {
-		assertNotNull(_entryPoint.getProvider());
-		_entryPoint.setProvider(null);
-		SimpleHttpRequest request = new SimpleHttpRequest();
-		request.setMethod("GET");
-		SimpleHttpResponse response = new SimpleHttpResponse();
-		_entryPoint.commence(request, response, null);
-		fail("expected ServletException");
-	}
+    @Test(expected = ServletException.class)
+    public void testGetSetProvider() throws IOException, ServletException {
+        assertNotNull(_entryPoint.getProvider());
+        _entryPoint.setProvider(null);
+        SimpleHttpRequest request = new SimpleHttpRequest();
+        request.setMethod("GET");
+        SimpleHttpResponse response = new SimpleHttpResponse();
+        _entryPoint.commence(request, response, null);
+        fail("expected ServletException");
+    }
 }

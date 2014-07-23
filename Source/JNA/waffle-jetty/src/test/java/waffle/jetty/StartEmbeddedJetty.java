@@ -29,42 +29,42 @@ import org.slf4j.LoggerFactory;
  */
 public class StartEmbeddedJetty {
 
-	private static Logger	logger	= LoggerFactory.getLogger(StartEmbeddedJetty.class);
+    private static Logger logger = LoggerFactory.getLogger(StartEmbeddedJetty.class);
 
-	public static void main(String[] args) throws Exception {
-		String path = "../waffle-demo/waffle-filter";
+    public static void main(String[] args) throws Exception {
+        String path = "../waffle-demo/waffle-filter";
 
-		File dir = new File(path);
-		if (!dir.exists()) {
-			throw new FileNotFoundException("Can not find webapp: " + dir.getAbsolutePath());
-		}
+        File dir = new File(path);
+        if (!dir.exists()) {
+            throw new FileNotFoundException("Can not find webapp: " + dir.getAbsolutePath());
+        }
 
-		Server server = new Server(8080);
-		WebAppContext context = new WebAppContext();
-		context.setServer(server);
-		context.setContextPath("/");
-		context.setWar(path);
+        Server server = new Server(8080);
+        WebAppContext context = new WebAppContext();
+        context.setServer(server);
+        context.setContextPath("/");
+        context.setWar(path);
 
-		// Try adding JSP
-		ServletHolder jsp = context.addServlet(JspServlet.class, "*.jsp");
-		jsp.setInitParameter("classpath", context.getClassPath());
+        // Try adding JSP
+        ServletHolder jsp = context.addServlet(JspServlet.class, "*.jsp");
+        jsp.setInitParameter("classpath", context.getClassPath());
 
-		server.setHandler(context);
+        server.setHandler(context);
 
-		try {
-			StartEmbeddedJetty.logger.info(">>> STARTING EMBEDDED JETTY SERVER, PRESS ANY KEY TO STOP");
-			server.start();
-			System.in.read();
-			StartEmbeddedJetty.logger.info(">>> STOPPING EMBEDDED JETTY SERVER");
-			server.stop();
-			server.join();
-		} catch (IOException e) {
-			StartEmbeddedJetty.logger.error("{}", e);
-			System.exit(100);
-		} catch (Exception e) {
-			StartEmbeddedJetty.logger.error("{}", e);
-			System.exit(100);
-		}
-	}
+        try {
+            StartEmbeddedJetty.logger.info(">>> STARTING EMBEDDED JETTY SERVER, PRESS ANY KEY TO STOP");
+            server.start();
+            System.in.read();
+            StartEmbeddedJetty.logger.info(">>> STOPPING EMBEDDED JETTY SERVER");
+            server.stop();
+            server.join();
+        } catch (IOException e) {
+            StartEmbeddedJetty.logger.error("{}", e);
+            System.exit(100);
+        } catch (Exception e) {
+            StartEmbeddedJetty.logger.error("{}", e);
+            System.exit(100);
+        }
+    }
 
 }

@@ -28,27 +28,27 @@ import waffle.windows.auth.WindowsAccount;
  */
 public class FqnGrantedAuthorityFactory implements GrantedAuthorityFactory {
 
-	private final String	_prefix;
-	private final boolean	_convertToUpperCase;
+    private final String  _prefix;
+    private final boolean _convertToUpperCase;
 
-	public FqnGrantedAuthorityFactory(String prefix, boolean convertToUpperCase) {
-		_prefix = prefix;
-		_convertToUpperCase = convertToUpperCase;
-	}
+    public FqnGrantedAuthorityFactory(String prefix, boolean convertToUpperCase) {
+        _prefix = prefix;
+        _convertToUpperCase = convertToUpperCase;
+    }
 
-	@Override
-	public GrantedAuthority createGrantedAuthority(WindowsAccount windowsAccount) {
+    @Override
+    public GrantedAuthority createGrantedAuthority(WindowsAccount windowsAccount) {
 
-		String grantedAuthorityString = windowsAccount.getFqn();
+        String grantedAuthorityString = windowsAccount.getFqn();
 
-		if (_prefix != null) {
-			grantedAuthorityString = _prefix + grantedAuthorityString;
-		}
+        if (_prefix != null) {
+            grantedAuthorityString = _prefix + grantedAuthorityString;
+        }
 
-		if (_convertToUpperCase) {
-			grantedAuthorityString = grantedAuthorityString.toUpperCase();
-		}
+        if (_convertToUpperCase) {
+            grantedAuthorityString = grantedAuthorityString.toUpperCase();
+        }
 
-		return new SimpleGrantedAuthority(grantedAuthorityString);
-	}
+        return new SimpleGrantedAuthority(grantedAuthorityString);
+    }
 }

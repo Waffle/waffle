@@ -20,31 +20,31 @@ package waffle.windows.auth;
  */
 public interface IWindowsComputer {
 
-	/**
-	 * Computer name.
-	 * 
-	 * @return String.
-	 */
-	String getComputerName();
+    /**
+     * Computer name.
+     * 
+     * @return String.
+     */
+    String getComputerName();
 
-	/**
-	 * Member of (domain).
-	 * 
-	 * @return String.
-	 */
-	String getMemberOf();
+    /**
+     * Member of (domain).
+     * 
+     * @return String.
+     */
+    String getMemberOf();
 
-	/**
-	 * Join status.
-	 * 
-	 * @return String.
-	 */
-	String getJoinStatus();
+    /**
+     * Join status.
+     * 
+     * @return String.
+     */
+    String getJoinStatus();
 
-	/**
-	 * Groups.
-	 * 
-	 * @return Array of group names.
-	 */
-	String[] getGroups();
+    /**
+     * Groups.
+     * 
+     * @return Array of group names.
+     */
+    String[] getGroups();
 }
