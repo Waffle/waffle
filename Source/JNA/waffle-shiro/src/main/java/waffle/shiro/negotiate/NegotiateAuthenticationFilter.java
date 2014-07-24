@@ -1,13 +1,16 @@
-/*******************************************************************************
+/**
+ * Waffle (https://github.com/dblock/waffle)
+ *
+ * Copyright (c) 2010 - 2014 Application Security, Inc.
+ *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     Dan Rollo
- *******************************************************************************/
-
+ *     Application Security, Inc.
+ */
 package waffle.shiro.negotiate;
 
 /**
@@ -59,14 +62,15 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
     // http://waffle.codeplex.com/discussions/254748
     // setspn -A HTTP/<server-fqdn> <user_tomcat_running_under>
     private static final List<String> protocols           = new ArrayList<String>();
-    {
-        protocols.add("Negotiate");
-        protocols.add("NTLM");
-    }
 
     private String                    failureKeyAttribute = FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME;
 
     private String                    rememberMeParam     = FormAuthenticationFilter.DEFAULT_REMEMBER_ME_PARAM;
+
+    public NegotiateAuthenticationFilter() {
+        NegotiateAuthenticationFilter.protocols.add("Negotiate");
+        NegotiateAuthenticationFilter.protocols.add("NTLM");
+    }
 
     public String getRememberMeParam() {
         return rememberMeParam;
