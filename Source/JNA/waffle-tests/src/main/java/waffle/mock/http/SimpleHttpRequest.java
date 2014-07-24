@@ -1,8 +1,8 @@
-/*******************************************************************************
+/**
  * Waffle (https://github.com/dblock/waffle)
- * 
- * Copyright (c) 2010 Application Security, Inc.
- * 
+ *
+ * Copyright (c) 2010 - 2014 Application Security, Inc.
+ *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,7 +10,7 @@
  *
  * Contributors:
  *     Application Security, Inc.
- *******************************************************************************/
+ */
 package waffle.mock.http;
 
 import java.security.Principal;
@@ -51,11 +51,11 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         _remotePort = nextRemotePort();
     }
 
-    public synchronized static int nextRemotePort() {
+    public static synchronized int nextRemotePort() {
         return ++_remotePort_s;
     }
 
-    public synchronized static void resetRemotePort() {
+    public static synchronized void resetRemotePort() {
         _remotePort_s = 0;
     }
 
