@@ -24,8 +24,9 @@ import org.apache.catalina.connector.Request;
 import org.apache.catalina.deploy.LoginConfig;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.io.BaseEncoding;
+
 import waffle.util.AuthorizationHeader;
-import waffle.util.Base64;
 import waffle.util.NtlmServletRequest;
 import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.IWindowsSecurityContext;
@@ -98,7 +99,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 
                 byte[] continueTokenBytes = securityContext.getToken();
                 if (continueTokenBytes != null && continueTokenBytes.length > 0) {
-                    String continueToken = Base64.encode(continueTokenBytes);
+                    String continueToken = BaseEncoding.base64().encode(continueTokenBytes);
                     _log.debug("continue token: {}", continueToken);
                     response.addHeader("WWW-Authenticate", securityPackage + " " + continueToken);
                 }

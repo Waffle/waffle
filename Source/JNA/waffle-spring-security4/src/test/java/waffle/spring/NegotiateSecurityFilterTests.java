@@ -35,13 +35,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.google.common.io.BaseEncoding;
+
 import waffle.mock.http.SimpleFilterChain;
 import waffle.mock.http.SimpleHttpRequest;
 import waffle.mock.http.SimpleHttpResponse;
 import waffle.servlet.spi.BasicSecurityFilterProvider;
 import waffle.servlet.spi.NegotiateSecurityFilterProvider;
 import waffle.servlet.spi.SecurityFilterProviderCollection;
-import waffle.util.Base64;
 import waffle.windows.auth.PrincipalFormat;
 import waffle.windows.auth.impl.WindowsAccountImpl;
 
@@ -100,7 +101,7 @@ public class NegotiateSecurityFilterTests {
         SimpleFilterChain filterChain = new SimpleFilterChain();
         SimpleHttpRequest request = new SimpleHttpRequest();
 
-        String clientToken = Base64.encode(WindowsAccountImpl.getCurrentUsername().getBytes());
+        String clientToken = BaseEncoding.base64().encode(WindowsAccountImpl.getCurrentUsername().getBytes());
         request.addHeader("Authorization", securityPackage + " " + clientToken);
 
         SimpleHttpResponse response = new SimpleHttpResponse();
@@ -135,7 +136,7 @@ public class NegotiateSecurityFilterTests {
         SimpleFilterChain filterChain = new SimpleFilterChain();
         SimpleHttpRequest request = new SimpleHttpRequest();
 
-        String clientToken = Base64.encode("Guest".getBytes());
+        String clientToken = BaseEncoding.base64().encode("Guest".getBytes());
         request.addHeader("Authorization", securityPackage + " " + clientToken);
 
         SimpleHttpResponse response = new SimpleHttpResponse();

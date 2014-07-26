@@ -24,7 +24,7 @@ import java.security.Principal;
 public class RolePrincipal implements Principal, Serializable {
 
     private static final long serialVersionUID = 1L;
-    private String            _fqn;
+    private String            fqn;
 
     /**
      * A windows principal.
@@ -33,7 +33,7 @@ public class RolePrincipal implements Principal, Serializable {
      *            Fully qualified name.
      */
     public RolePrincipal(String fqn) {
-        _fqn = fqn;
+        this.fqn = fqn;
     }
 
     /**
@@ -41,9 +41,15 @@ public class RolePrincipal implements Principal, Serializable {
      */
     @Override
     public String getName() {
-        return _fqn;
+        return fqn;
     }
 
+    /**
+     * Role Principal Equals for FQN.
+     * 
+     * @param o
+     *            Object used for Equality Check.
+     */
     @Override
     public boolean equals(Object o) {
 
@@ -58,8 +64,12 @@ public class RolePrincipal implements Principal, Serializable {
         return false;
     }
 
+    /**
+     * Role Principal HashCode for FQN.
+     */
     @Override
     public int hashCode() {
         return getName().hashCode();
     }
+
 }

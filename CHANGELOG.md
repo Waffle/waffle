@@ -11,9 +11,19 @@ Notable Feature Changes
 * Tomcat Protocol parameter for valves to allow default Negotiate / NTLM or selective setup
 * Restructured project for full maven support and clearer intent
 * Upgraded .NET build to Visual Studio 10, .NET Framework 4
+* Enforce Java code formatting (space based) through maven plugin
+* Enforce License information in Java code through maven plugin
+* Deprecated Base64 internal usage in favor of using Guava BaseEncoding Base64.
 
 Changes
 --------
+* [#120](https://github.com/dblock/waffle/pull/120): Application Security License - [@hazendaz](https://github.com/hazendaz).
+  * Using License Maven Plugin to ensure license is up to date on java files
+  * All donated code to library now has proper license
+  * License controlled through license.txt under waffle-parent
+* [#119](https://github.com/dblock/waffle/pull/119): Format Enahancement - [@hazendaz](https://github.com/hazendaz).
+  * Using Java Format Maven Plugin to ensure formatting of code consistent
+  * Now using spaces rather than tabs.
 * [#108](https://github.com/dblock/waffle/pull/108): Spring 4 - [@hazendaz](https://github.com/hazendaz).
   * Spring 4 / Spring Security 4 support
   * Early release [no changes over spring 3]

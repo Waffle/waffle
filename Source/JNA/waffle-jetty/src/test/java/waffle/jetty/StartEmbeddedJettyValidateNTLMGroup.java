@@ -48,7 +48,7 @@ import waffle.windows.auth.WindowsAccount;
  */
 public class StartEmbeddedJettyValidateNTLMGroup {
 
-    private static Logger logger = LoggerFactory.getLogger(StartEmbeddedJettyValidateNTLMGroup.class);
+    private static Logger LOGGER = LoggerFactory.getLogger(StartEmbeddedJettyValidateNTLMGroup.class);
 
     public static void main(String args[]) {
         System.setProperty(SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "TRACE");
@@ -73,7 +73,7 @@ public class StartEmbeddedJettyValidateNTLMGroup {
         try {
             server.start();
         } catch (Exception e) {
-            StartEmbeddedJettyValidateNTLMGroup.logger.trace("{}", e);
+            StartEmbeddedJettyValidateNTLMGroup.LOGGER.trace("{}", e);
         }
     }
 

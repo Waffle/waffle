@@ -13,10 +13,11 @@
  */
 package waffle.shiro.negotiate;
 
-import org.apache.shiro.codec.Base64;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.google.common.io.BaseEncoding;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
@@ -24,7 +25,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * @author Dan Rollo Date: 2/14/13 Time: 11:11 PM
@@ -79,7 +84,8 @@ public final class NegotiateAuthenticationFilterTest {
 
         negAuthFilter.sendChallengeDuringNegotiate(myProtocol, response, out);
 
-        Assert.assertEquals(myProtocol + " " + Base64.encodeToString(out), response.headers.get("WWW-Authenticate"));
+        Assert.assertEquals(myProtocol + " " + BaseEncoding.base64().encode(out),
+                response.headers.get("WWW-Authenticate"));
 
         Assert.assertEquals("keep-alive", response.headers.get("Connection"));
 
