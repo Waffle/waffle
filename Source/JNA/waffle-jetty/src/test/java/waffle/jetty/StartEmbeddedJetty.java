@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
  */
 public class StartEmbeddedJetty {
 
-    private static Logger logger = LoggerFactory.getLogger(StartEmbeddedJetty.class);
+    private static Logger LOGGER = LoggerFactory.getLogger(StartEmbeddedJetty.class);
 
     public static void main(String[] args) throws Exception {
         String path = "../waffle-demo/waffle-filter";
@@ -52,17 +52,17 @@ public class StartEmbeddedJetty {
         server.setHandler(context);
 
         try {
-            StartEmbeddedJetty.logger.info(">>> STARTING EMBEDDED JETTY SERVER, PRESS ANY KEY TO STOP");
+            StartEmbeddedJetty.LOGGER.info(">>> STARTING EMBEDDED JETTY SERVER, PRESS ANY KEY TO STOP");
             server.start();
             System.in.read();
-            StartEmbeddedJetty.logger.info(">>> STOPPING EMBEDDED JETTY SERVER");
+            StartEmbeddedJetty.LOGGER.info(">>> STOPPING EMBEDDED JETTY SERVER");
             server.stop();
             server.join();
         } catch (IOException e) {
-            StartEmbeddedJetty.logger.error("{}", e);
+            StartEmbeddedJetty.LOGGER.error("{}", e);
             System.exit(100);
         } catch (Exception e) {
-            StartEmbeddedJetty.logger.error("{}", e);
+            StartEmbeddedJetty.LOGGER.error("{}", e);
             System.exit(100);
         }
     }

@@ -32,10 +32,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import waffle.mock.MockWindowsAccount;
-import waffle.mock.http.*;
-import waffle.util.Base64;
+import waffle.mock.http.SimpleFilterChain;
+import waffle.mock.http.SimpleHttpRequest;
+import waffle.mock.http.SimpleHttpResponse;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
+import com.google.common.io.BaseEncoding;
 import com.sun.jna.WString;
 import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.LMAccess;
@@ -86,7 +88,7 @@ public class ImpersonateTests {
         SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
         String userHeaderValue = MockWindowsAccount.TEST_USER_NAME + ":" + MockWindowsAccount.TEST_PASSWORD;
-        String basicAuthHeader = "Basic " + Base64.encode(userHeaderValue.getBytes());
+        String basicAuthHeader = "Basic " + BaseEncoding.base64().encode(userHeaderValue.getBytes());
         request.addHeader("Authorization", basicAuthHeader);
 
         SimpleHttpResponse response = new SimpleHttpResponse();
@@ -127,7 +129,7 @@ public class ImpersonateTests {
         SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
         String userHeaderValue = MockWindowsAccount.TEST_USER_NAME + ":" + MockWindowsAccount.TEST_PASSWORD;
-        String basicAuthHeader = "Basic " + Base64.encode(userHeaderValue.getBytes());
+        String basicAuthHeader = "Basic " + BaseEncoding.base64().encode(userHeaderValue.getBytes());
         request.addHeader("Authorization", basicAuthHeader);
         SimpleHttpResponse response = new SimpleHttpResponse();
         RecordUserNameFilterChain filterChain = new RecordUserNameFilterChain();

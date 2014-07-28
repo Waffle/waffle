@@ -28,13 +28,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.codec.Base64;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.AuthenticatingFilter;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.io.BaseEncoding;
+
 import waffle.util.AuthorizationHeader;
 import waffle.util.NtlmServletRequest;
 
@@ -100,7 +102,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
     protected AuthenticationToken createToken(final ServletRequest request, final ServletResponse response) {
         final String authorization = getAuthzHeader(request);
         final String[] elements = authorization.split(" ");
-        final byte[] inToken = Base64.decode(elements[1]);
+        final byte[] inToken = BaseEncoding.base64().decode(elements[1]);
 
         // maintain a connection-based session for NTLM tokns
         // TODO see about changing this parameter to ServletRequest in waffle
@@ -295,7 +297,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
             if (out == null || out.length == 0) {
                 response.addHeader("WWW-Authenticate", protocol);
             } else {
-                response.setHeader("WWW-Authenticate", protocol + " " + Base64.encodeToString(out));
+                response.setHeader("WWW-Authenticate", protocol + " " + BaseEncoding.base64().encode(out));
             }
         }
     }

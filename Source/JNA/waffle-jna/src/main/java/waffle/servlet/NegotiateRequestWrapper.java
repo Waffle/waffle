@@ -25,11 +25,11 @@ import javax.servlet.http.HttpServletRequestWrapper;
  */
 public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
 
-    private WindowsPrincipal _principal;
+    private WindowsPrincipal principal;
 
     public NegotiateRequestWrapper(HttpServletRequest request, WindowsPrincipal principal) {
         super(request);
-        _principal = principal;
+        this.principal = principal;
     }
 
     /**
@@ -37,7 +37,7 @@ public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
      */
     @Override
     public Principal getUserPrincipal() {
-        return _principal;
+        return principal;
     }
 
     /**
@@ -53,7 +53,7 @@ public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
      */
     @Override
     public String getRemoteUser() {
-        return _principal.getName();
+        return principal.getName();
     }
 
     /**
@@ -61,6 +61,6 @@ public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
      */
     @Override
     public boolean isUserInRole(String role) {
-        return _principal.hasRole(role);
+        return principal.hasRole(role);
     }
 }

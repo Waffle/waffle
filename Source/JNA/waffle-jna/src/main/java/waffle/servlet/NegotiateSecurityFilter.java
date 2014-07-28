@@ -51,24 +51,24 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  */
 public class NegotiateSecurityFilter implements Filter {
 
-    private static final Logger              _log                  = LoggerFactory
-                                                                           .getLogger(NegotiateSecurityFilter.class);
-    private PrincipalFormat                  _principalFormat      = PrincipalFormat.fqn;
-    private PrincipalFormat                  _roleFormat           = PrincipalFormat.fqn;
-    private SecurityFilterProviderCollection _providers;
-    private IWindowsAuthProvider             _auth;
-    private boolean                          _allowGuestLogin      = true;
-    private boolean                          _impersonate;
-    private static final String              PRINCIPAL_SESSION_KEY = NegotiateSecurityFilter.class.getName()
-                                                                           + ".PRINCIPAL";
+    private static final Logger              LOGGER              = LoggerFactory
+                                                                         .getLogger(NegotiateSecurityFilter.class);
+    private PrincipalFormat                  principalFormat     = PrincipalFormat.fqn;
+    private PrincipalFormat                  roleFormat          = PrincipalFormat.fqn;
+    private SecurityFilterProviderCollection providers;
+    private IWindowsAuthProvider             auth;
+    private boolean                          allowGuestLogin     = true;
+    private boolean                          impersonate;
+    private static final String              PRINCIPALSESSIONKEY = NegotiateSecurityFilter.class.getName()
+                                                                         + ".PRINCIPAL";
 
     public NegotiateSecurityFilter() {
-        _log.debug("[waffle.servlet.NegotiateSecurityFilter] loaded");
+        LOGGER.debug("[waffle.servlet.NegotiateSecurityFilter] loaded");
     }
 
     @Override
     public void destroy() {
-        _log.info("[waffle.servlet.NegotiateSecurityFilter] stopped");
+        LOGGER.info("[waffle.servlet.NegotiateSecurityFilter] stopped");
     }
 
     @Override
@@ -78,7 +78,7 @@ public class NegotiateSecurityFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) sreq;
         HttpServletResponse response = (HttpServletResponse) sres;
 
-        _log.debug("{} {}, contentlength: {}", request.getMethod(), request.getRequestURI(),
+        LOGGER.debug("{} {}, contentlength: {}", request.getMethod(), request.getRequestURI(),
                 Integer.valueOf(request.getContentLength()));
 
         if (doFilterPrincipal(request, response, chain)) {
@@ -96,27 +96,27 @@ public class NegotiateSecurityFilter implements Filter {
 
             try {
 
-                windowsIdentity = _providers.doFilter(request, response);
+                windowsIdentity = providers.doFilter(request, response);
                 if (windowsIdentity == null) {
                     return;
                 }
 
             } catch (IOException e) {
-                _log.warn("error logging in user: {}", e.getMessage());
-                _log.trace("{}", e);
+                LOGGER.warn("error logging in user: {}", e.getMessage());
+                LOGGER.trace("{}", e);
                 sendUnauthorized(response, true);
                 return;
             }
 
             IWindowsImpersonationContext ctx = null;
             try {
-                if (!_allowGuestLogin && windowsIdentity.isGuest()) {
-                    _log.warn("guest login disabled: {}", windowsIdentity.getFqn());
+                if (!allowGuestLogin && windowsIdentity.isGuest()) {
+                    LOGGER.warn("guest login disabled: {}", windowsIdentity.getFqn());
                     sendUnauthorized(response, true);
                     return;
                 }
 
-                _log.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
+                LOGGER.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
 
                 HttpSession session = request.getSession(true);
                 if (session == null) {
@@ -129,32 +129,31 @@ public class NegotiateSecurityFilter implements Filter {
                 }
 
                 WindowsPrincipal windowsPrincipal = null;
-                if (_impersonate) {
-                    windowsPrincipal = new AutoDisposableWindowsPrincipal(windowsIdentity, _principalFormat,
-                            _roleFormat);
+                if (impersonate) {
+                    windowsPrincipal = new AutoDisposableWindowsPrincipal(windowsIdentity, principalFormat, roleFormat);
                 } else {
-                    windowsPrincipal = new WindowsPrincipal(windowsIdentity, _principalFormat, _roleFormat);
+                    windowsPrincipal = new WindowsPrincipal(windowsIdentity, principalFormat, roleFormat);
                 }
 
-                _log.debug("roles: {}", windowsPrincipal.getRolesString());
+                LOGGER.debug("roles: {}", windowsPrincipal.getRolesString());
                 subject.getPrincipals().add(windowsPrincipal);
                 session.setAttribute("javax.security.auth.subject", subject);
 
-                _log.info("successfully logged in user: {}", windowsIdentity.getFqn());
+                LOGGER.info("successfully logged in user: {}", windowsIdentity.getFqn());
 
-                request.getSession().setAttribute(PRINCIPAL_SESSION_KEY, windowsPrincipal);
+                request.getSession().setAttribute(PRINCIPALSESSIONKEY, windowsPrincipal);
 
                 NegotiateRequestWrapper requestWrapper = new NegotiateRequestWrapper(request, windowsPrincipal);
 
-                if (_impersonate) {
-                    _log.debug("impersonating user");
+                if (impersonate) {
+                    LOGGER.debug("impersonating user");
                     ctx = windowsIdentity.impersonate();
                 }
 
                 chain.doFilter(requestWrapper, response);
             } finally {
-                if (_impersonate && ctx != null) {
-                    _log.debug("terminating impersonation");
+                if (impersonate && ctx != null) {
+                    LOGGER.debug("terminating impersonation");
                     ctx.revertToSelf();
                 } else {
                     windowsIdentity.dispose();
@@ -164,7 +163,7 @@ public class NegotiateSecurityFilter implements Filter {
             return;
         }
 
-        _log.debug("authorization required");
+        LOGGER.debug("authorization required");
         sendUnauthorized(response, false);
     }
 
@@ -187,7 +186,7 @@ public class NegotiateSecurityFilter implements Filter {
         if (principal == null) {
             HttpSession session = request.getSession(false);
             if (session != null) {
-                principal = (Principal) session.getAttribute(PRINCIPAL_SESSION_KEY);
+                principal = (Principal) session.getAttribute(PRINCIPALSESSIONKEY);
             }
         }
 
@@ -196,7 +195,7 @@ public class NegotiateSecurityFilter implements Filter {
             return false;
         }
 
-        if (_providers.isPrincipalException(request)) {
+        if (providers.isPrincipalException(request)) {
             // the providers signal to authenticate despite an existing principal, eg. NTLM post
             return false;
         }
@@ -204,10 +203,10 @@ public class NegotiateSecurityFilter implements Filter {
         // user already authenticated
 
         if (principal instanceof WindowsPrincipal) {
-            _log.debug("previously authenticated Windows user: {}", principal.getName());
+            LOGGER.debug("previously authenticated Windows user: {}", principal.getName());
             WindowsPrincipal windowsPrincipal = (WindowsPrincipal) principal;
 
-            if (_impersonate && windowsPrincipal.getIdentity() == null) {
+            if (impersonate && windowsPrincipal.getIdentity() == null) {
                 // This can happen when the session has been serialized then de-serialized
                 // and because the IWindowsIdentity field is transient. In this case re-ask an
                 // authentication to get a new identity.
@@ -217,20 +216,20 @@ public class NegotiateSecurityFilter implements Filter {
             NegotiateRequestWrapper requestWrapper = new NegotiateRequestWrapper(request, windowsPrincipal);
 
             IWindowsImpersonationContext ctx = null;
-            if (_impersonate) {
-                _log.debug("re-impersonating user");
+            if (impersonate) {
+                LOGGER.debug("re-impersonating user");
                 ctx = windowsPrincipal.getIdentity().impersonate();
             }
             try {
                 chain.doFilter(requestWrapper, response);
             } finally {
-                if (_impersonate && ctx != null) {
-                    _log.debug("terminating impersonation");
+                if (impersonate && ctx != null) {
+                    LOGGER.debug("terminating impersonation");
                     ctx.revertToSelf();
                 }
             }
         } else {
-            _log.debug("previously authenticated user: {}", principal.getName());
+            LOGGER.debug("previously authenticated user: {}", principal.getName());
             chain.doFilter(request, response);
         }
         return true;
@@ -248,15 +247,15 @@ public class NegotiateSecurityFilter implements Filter {
             while (parameterNames.hasMoreElements()) {
                 String parameterName = parameterNames.nextElement();
                 String parameterValue = filterConfig.getInitParameter(parameterName);
-                _log.debug("{}={}", parameterName, parameterValue);
+                LOGGER.debug("{}={}", parameterName, parameterValue);
                 if (parameterName.equals("principalFormat")) {
-                    _principalFormat = PrincipalFormat.valueOf(parameterValue);
+                    principalFormat = PrincipalFormat.valueOf(parameterValue);
                 } else if (parameterName.equals("roleFormat")) {
-                    _roleFormat = PrincipalFormat.valueOf(parameterValue);
+                    roleFormat = PrincipalFormat.valueOf(parameterValue);
                 } else if (parameterName.equals("allowGuestLogin")) {
-                    _allowGuestLogin = Boolean.parseBoolean(parameterValue);
+                    allowGuestLogin = Boolean.parseBoolean(parameterValue);
                 } else if (parameterName.equals("impersonate")) {
-                    _impersonate = Boolean.parseBoolean(parameterValue);
+                    impersonate = Boolean.parseBoolean(parameterValue);
                 } else if (parameterName.equals("securityFilterProviders")) {
                     providerNames = parameterValue.split("\\s+");
                 } else if (parameterName.equals("authProvider")) {
@@ -269,50 +268,50 @@ public class NegotiateSecurityFilter implements Filter {
 
         if (authProvider != null) {
             try {
-                _auth = (IWindowsAuthProvider) Class.forName(authProvider).getConstructor().newInstance();
+                auth = (IWindowsAuthProvider) Class.forName(authProvider).getConstructor().newInstance();
             } catch (ClassNotFoundException e) {
-                _log.error("error loading '{}': {}", authProvider, e.getMessage());
-                _log.trace("{}", e);
+                LOGGER.error("error loading '{}': {}", authProvider, e.getMessage());
+                LOGGER.trace("{}", e);
                 throw new ServletException(e);
             } catch (IllegalArgumentException e) {
-                _log.error("error loading '{}': {}", authProvider, e.getMessage());
-                _log.trace("{}", e);
+                LOGGER.error("error loading '{}': {}", authProvider, e.getMessage());
+                LOGGER.trace("{}", e);
                 throw new ServletException(e);
             } catch (SecurityException e) {
-                _log.error("error loading '{}': {}", authProvider, e.getMessage());
-                _log.trace("{}", e);
+                LOGGER.error("error loading '{}': {}", authProvider, e.getMessage());
+                LOGGER.trace("{}", e);
                 throw new ServletException(e);
             } catch (InstantiationException e) {
-                _log.error("error loading '{}': {}", authProvider, e.getMessage());
-                _log.trace("{}", e);
+                LOGGER.error("error loading '{}': {}", authProvider, e.getMessage());
+                LOGGER.trace("{}", e);
                 throw new ServletException(e);
             } catch (IllegalAccessException e) {
-                _log.error("error loading '{}': {}", authProvider, e.getMessage());
-                _log.trace("{}", e);
+                LOGGER.error("error loading '{}': {}", authProvider, e.getMessage());
+                LOGGER.trace("{}", e);
                 throw new ServletException(e);
             } catch (InvocationTargetException e) {
-                _log.error("error loading '{}': {}", authProvider, e.getMessage());
-                _log.trace("{}", e);
+                LOGGER.error("error loading '{}': {}", authProvider, e.getMessage());
+                LOGGER.trace("{}", e);
                 throw new ServletException(e);
             } catch (NoSuchMethodException e) {
-                _log.error("error loading '{}': {}", authProvider, e.getMessage());
-                _log.trace("{}", e);
+                LOGGER.error("error loading '{}': {}", authProvider, e.getMessage());
+                LOGGER.trace("{}", e);
                 throw new ServletException(e);
             }
         }
 
-        if (_auth == null) {
-            _auth = new WindowsAuthProviderImpl();
+        if (auth == null) {
+            auth = new WindowsAuthProviderImpl();
         }
 
         if (providerNames != null) {
-            _providers = new SecurityFilterProviderCollection(providerNames, _auth);
+            providers = new SecurityFilterProviderCollection(providerNames, auth);
         }
 
         // create default providers if none specified
-        if (_providers == null) {
-            _log.debug("initializing default security filter providers");
-            _providers = new SecurityFilterProviderCollection(_auth);
+        if (providers == null) {
+            LOGGER.debug("initializing default security filter providers");
+            providers = new SecurityFilterProviderCollection(auth);
         }
 
         // apply provider implementation parameters
@@ -321,27 +320,28 @@ public class NegotiateSecurityFilter implements Filter {
             if (classAndParameter.length == 2) {
                 try {
 
-                    _log.debug("setting {}, {}={}", classAndParameter[0], classAndParameter[1],
+                    LOGGER.debug("setting {}, {}={}", classAndParameter[0], classAndParameter[1],
                             implParameter.getValue());
 
-                    SecurityFilterProvider provider = _providers.getByClassName(classAndParameter[0]);
+                    SecurityFilterProvider provider = providers.getByClassName(classAndParameter[0]);
                     provider.initParameter(classAndParameter[1], implParameter.getValue());
 
                 } catch (ClassNotFoundException e) {
-                    _log.error("invalid class: {} in {}", classAndParameter[0], implParameter.getKey());
+                    LOGGER.error("invalid class: {} in {}", classAndParameter[0], implParameter.getKey());
                     throw new ServletException(e);
                 } catch (Exception e) {
-                    _log.error("{}: error setting '{}': {}", classAndParameter[0], classAndParameter[1], e.getMessage());
-                    _log.trace("{}", e);
+                    LOGGER.error("{}: error setting '{}': {}", classAndParameter[0], classAndParameter[1],
+                            e.getMessage());
+                    LOGGER.trace("{}", e);
                     throw new ServletException(e);
                 }
             } else {
-                _log.error("Invalid parameter: {}", implParameter.getKey());
+                LOGGER.error("Invalid parameter: {}", implParameter.getKey());
                 throw new ServletException("Invalid parameter: " + implParameter.getKey());
             }
         }
 
-        _log.info("[waffle.servlet.NegotiateSecurityFilter] started");
+        LOGGER.info("[waffle.servlet.NegotiateSecurityFilter] started");
     }
 
     /**
@@ -351,8 +351,8 @@ public class NegotiateSecurityFilter implements Filter {
      *            Principal format.
      */
     public void setPrincipalFormat(String format) {
-        _principalFormat = PrincipalFormat.valueOf(format);
-        _log.info("principal format: {}", _principalFormat);
+        principalFormat = PrincipalFormat.valueOf(format);
+        LOGGER.info("principal format: {}", principalFormat);
     }
 
     /**
@@ -361,7 +361,7 @@ public class NegotiateSecurityFilter implements Filter {
      * @return Principal format.
      */
     public PrincipalFormat getPrincipalFormat() {
-        return _principalFormat;
+        return principalFormat;
     }
 
     /**
@@ -371,8 +371,8 @@ public class NegotiateSecurityFilter implements Filter {
      *            Role format.
      */
     public void setRoleFormat(String format) {
-        _roleFormat = PrincipalFormat.valueOf(format);
-        _log.info("role format: {}", _roleFormat);
+        roleFormat = PrincipalFormat.valueOf(format);
+        LOGGER.info("role format: {}", roleFormat);
     }
 
     /**
@@ -381,7 +381,7 @@ public class NegotiateSecurityFilter implements Filter {
      * @return Role format.
      */
     public PrincipalFormat getRoleFormat() {
-        return _roleFormat;
+        return roleFormat;
     }
 
     /**
@@ -394,7 +394,7 @@ public class NegotiateSecurityFilter implements Filter {
      */
     private void sendUnauthorized(HttpServletResponse response, boolean close) {
         try {
-            _providers.sendUnauthorized(response);
+            providers.sendUnauthorized(response);
             if (close) {
                 response.setHeader("Connection", "close");
             } else {
@@ -413,7 +413,7 @@ public class NegotiateSecurityFilter implements Filter {
      * @return IWindowsAuthProvider.
      */
     public IWindowsAuthProvider getAuth() {
-        return _auth;
+        return auth;
     }
 
     /**
@@ -423,7 +423,7 @@ public class NegotiateSecurityFilter implements Filter {
      *            Class implements IWindowsAuthProvider.
      */
     public void setAuth(IWindowsAuthProvider provider) {
-        _auth = provider;
+        auth = provider;
     }
 
     /**
@@ -432,7 +432,7 @@ public class NegotiateSecurityFilter implements Filter {
      * @return True if guest login is allowed, false otherwise.
      */
     public boolean isAllowGuestLogin() {
-        return _allowGuestLogin;
+        return allowGuestLogin;
     }
 
     /**
@@ -442,14 +442,14 @@ public class NegotiateSecurityFilter implements Filter {
      *            true to enable impersonation, false otherwise
      */
     public void setImpersonate(boolean impersonate) {
-        _impersonate = impersonate;
+        this.impersonate = impersonate;
     }
 
     /**
      * @return true if impersonation is enabled, false otherwise
      */
     public boolean isImpersonate() {
-        return _impersonate;
+        return impersonate;
     }
 
     /**
@@ -458,6 +458,6 @@ public class NegotiateSecurityFilter implements Filter {
      * @return A collection of security filter providers.
      */
     public SecurityFilterProviderCollection getProviders() {
-        return _providers;
+        return providers;
     }
 }

@@ -24,7 +24,7 @@ import java.security.Principal;
 public class UserPrincipal implements Principal, Serializable {
 
     private static final long serialVersionUID = 1L;
-    private String            _fqn;
+    private String            fqn;
 
     /**
      * A user principal.
@@ -33,7 +33,7 @@ public class UserPrincipal implements Principal, Serializable {
      *            Fully qualified username.
      */
     public UserPrincipal(String fqn) {
-        _fqn = fqn;
+        this.fqn = fqn;
     }
 
     /**
@@ -41,7 +41,7 @@ public class UserPrincipal implements Principal, Serializable {
      */
     @Override
     public String getName() {
-        return _fqn;
+        return fqn;
     }
 
     @Override

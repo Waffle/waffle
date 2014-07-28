@@ -15,7 +15,7 @@ package waffle.util;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.google.common.base.Strings;
+import com.google.common.base.Joiner;
 
 /**
  * @author dblock[at]dblock[dot]org
@@ -29,19 +29,17 @@ public final class NtlmServletRequest {
      *            Servlet request.
      * @return String.
      */
-    public static String getConnectionId(HttpServletRequest request) {
-        String remoteHost = request.getRemoteHost();
-        if (remoteHost == null) {
-            remoteHost = request.getRemoteAddr();
-        }
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(Strings.nullToEmpty(remoteHost));
-        stringBuilder.append(":");
-        stringBuilder.append(request.getRemotePort());
-        return stringBuilder.toString();
+    public static String getConnectionId(final HttpServletRequest request) {
+        return Joiner.on(":").useForNull("")
+                .join(NtlmServletRequest.getRemoteHost(request), Integer.valueOf(request.getRemotePort()));
+    }
+
+    private static String getRemoteHost(final HttpServletRequest request) {
+        return request.getRemoteHost() == null ? request.getRemoteAddr() : request.getRemoteHost();
     }
 
     private NtlmServletRequest() {
         // Prevent Instantiation of object
     }
+
 }

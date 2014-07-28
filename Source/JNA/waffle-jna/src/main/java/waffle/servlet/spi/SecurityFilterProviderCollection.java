@@ -36,13 +36,13 @@ import waffle.windows.auth.IWindowsIdentity;
  */
 public class SecurityFilterProviderCollection {
 
-    private static final Logger          _log       = LoggerFactory.getLogger(SecurityFilterProviderCollection.class);
-    private List<SecurityFilterProvider> _providers = new ArrayList<SecurityFilterProvider>();
+    private static final Logger          LOGGER    = LoggerFactory.getLogger(SecurityFilterProviderCollection.class);
+    private List<SecurityFilterProvider> providers = new ArrayList<SecurityFilterProvider>();
 
     public SecurityFilterProviderCollection(SecurityFilterProvider[] providers) {
         for (SecurityFilterProvider provider : providers) {
-            _log.info("using '{}'", provider.getClass().getName());
-            _providers.add(provider);
+            LOGGER.info("using '{}'", provider.getClass().getName());
+            this.providers.add(provider);
         }
     }
 
@@ -50,42 +50,42 @@ public class SecurityFilterProviderCollection {
     public SecurityFilterProviderCollection(String[] providerNames, IWindowsAuthProvider auth) {
         for (String providerName : providerNames) {
             providerName = providerName.trim();
-            _log.info("loading '{}'", providerName);
+            LOGGER.info("loading '{}'", providerName);
             try {
                 Class<SecurityFilterProvider> providerClass = (Class<SecurityFilterProvider>) Class
                         .forName(providerName);
                 Constructor<SecurityFilterProvider> c = providerClass.getConstructor(IWindowsAuthProvider.class);
                 SecurityFilterProvider provider = c.newInstance(auth);
-                _providers.add(provider);
+                providers.add(provider);
             } catch (ClassNotFoundException e) {
-                _log.error("error loading '{}': {}", providerName, e.getMessage());
-                _log.trace("{}", e);
+                LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
+                LOGGER.trace("{}", e);
                 throw new RuntimeException(e);
             } catch (SecurityException e) {
-                _log.error("error loading '{}': {}", providerName, e.getMessage());
-                _log.trace("{}", e);
+                LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
+                LOGGER.trace("{}", e);
             } catch (NoSuchMethodException e) {
-                _log.error("error loading '{}': {}", providerName, e.getMessage());
-                _log.trace("{}", e);
+                LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
+                LOGGER.trace("{}", e);
             } catch (IllegalArgumentException e) {
-                _log.error("error loading '{}': {}", providerName, e.getMessage());
-                _log.trace("{}", e);
+                LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
+                LOGGER.trace("{}", e);
             } catch (InstantiationException e) {
-                _log.error("error loading '{}': {}", providerName, e.getMessage());
-                _log.trace("{}", e);
+                LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
+                LOGGER.trace("{}", e);
             } catch (IllegalAccessException e) {
-                _log.error("error loading '{}': {}", providerName, e.getMessage());
-                _log.trace("{}", e);
+                LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
+                LOGGER.trace("{}", e);
             } catch (InvocationTargetException e) {
-                _log.error("error loading '{}': {}", providerName, e.getMessage());
-                _log.trace("{}", e);
+                LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
+                LOGGER.trace("{}", e);
             }
         }
     }
 
     public SecurityFilterProviderCollection(IWindowsAuthProvider auth) {
-        _providers.add(new NegotiateSecurityFilterProvider(auth));
-        _providers.add(new BasicSecurityFilterProvider(auth));
+        providers.add(new NegotiateSecurityFilterProvider(auth));
+        providers.add(new BasicSecurityFilterProvider(auth));
     }
 
     /**
@@ -100,7 +100,7 @@ public class SecurityFilterProviderCollection {
     }
 
     private SecurityFilterProvider get(String securityPackage) {
-        for (SecurityFilterProvider provider : _providers) {
+        for (SecurityFilterProvider provider : providers) {
             if (provider.isSecurityPackageSupported(securityPackage)) {
                 return provider;
             }
@@ -137,7 +137,7 @@ public class SecurityFilterProviderCollection {
      */
     public boolean isPrincipalException(HttpServletRequest request) {
 
-        for (SecurityFilterProvider provider : _providers) {
+        for (SecurityFilterProvider provider : providers) {
             if (provider.isPrincipalException(request)) {
                 return true;
             }
@@ -153,7 +153,7 @@ public class SecurityFilterProviderCollection {
      *            Http Response
      */
     public void sendUnauthorized(HttpServletResponse response) {
-        for (SecurityFilterProvider provider : _providers) {
+        for (SecurityFilterProvider provider : providers) {
             provider.sendUnauthorized(response);
         }
     }
@@ -164,7 +164,7 @@ public class SecurityFilterProviderCollection {
      * @return Number of providers.
      */
     public int size() {
-        return _providers.size();
+        return providers.size();
     }
 
     /**
@@ -176,7 +176,7 @@ public class SecurityFilterProviderCollection {
      * @throws ClassNotFoundException
      */
     public SecurityFilterProvider getByClassName(String name) throws ClassNotFoundException {
-        for (SecurityFilterProvider provider : _providers) {
+        for (SecurityFilterProvider provider : providers) {
             if (provider.getClass().getName().equals(name)) {
                 return provider;
             }

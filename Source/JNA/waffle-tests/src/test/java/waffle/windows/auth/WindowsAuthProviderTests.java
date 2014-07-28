@@ -25,12 +25,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import waffle.mock.MockWindowsAccount;
-import waffle.util.Base64;
 import waffle.windows.auth.impl.WindowsAccountImpl;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 import waffle.windows.auth.impl.WindowsCredentialsHandleImpl;
 import waffle.windows.auth.impl.WindowsSecurityContextImpl;
 
+import com.google.common.io.BaseEncoding;
 import com.sun.jna.WString;
 import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.LMAccess;
@@ -167,7 +167,7 @@ public class WindowsAuthProviderTests {
                     // initialize on the client
                     SecBufferDesc continueToken = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, serverContext.getToken());
                     clientContext.initialize(clientContext.getHandle(), continueToken, targetName);
-                    _log.debug("Token: {}", Base64.encode(serverContext.getToken()));
+                    _log.debug("Token: {}", BaseEncoding.base64().encode(serverContext.getToken()));
                 }
 
             } while (clientContext.isContinue() || serverContext != null && serverContext.isContinue());
