@@ -62,12 +62,12 @@ public class WindowsPrincipal implements Principal, Serializable {
      */
     public WindowsPrincipal(IWindowsIdentity windowsIdentity, PrincipalFormat principalFormat,
             PrincipalFormat roleFormat) {
-        identity = windowsIdentity;
-        fqn = windowsIdentity.getFqn();
-        sid = windowsIdentity.getSid();
-        sidString = windowsIdentity.getSidString();
-        groups = getGroups(windowsIdentity.getGroups());
-        roles = getRoles(windowsIdentity, principalFormat, roleFormat);
+        this.identity = windowsIdentity;
+        this.fqn = windowsIdentity.getFqn();
+        this.sid = windowsIdentity.getSid();
+        this.sidString = windowsIdentity.getSidString();
+        this.groups = getGroups(windowsIdentity.getGroups());
+        this.roles = getRoles(windowsIdentity, principalFormat, roleFormat);
     }
 
     private static List<String> getRoles(IWindowsIdentity windowsIdentity, PrincipalFormat principalFormat,
@@ -94,7 +94,7 @@ public class WindowsPrincipal implements Principal, Serializable {
      * @return Array of bytes.
      */
     public byte[] getSid() {
-        return sid.clone();
+        return this.sid.clone();
     }
 
     /**
@@ -103,7 +103,7 @@ public class WindowsPrincipal implements Principal, Serializable {
      * @return String.
      */
     public String getSidString() {
-        return sidString;
+        return this.sidString;
     }
 
     /**
@@ -112,7 +112,7 @@ public class WindowsPrincipal implements Principal, Serializable {
      * @return A map of group names to groups.
      */
     public Map<String, WindowsAccount> getGroups() {
-        return groups;
+        return this.groups;
     }
 
     /**
@@ -186,7 +186,7 @@ public class WindowsPrincipal implements Principal, Serializable {
      */
     public String getRolesString() {
         StringBuilder sb = new StringBuilder();
-        for (String role : roles) {
+        for (String role : this.roles) {
             if (sb.length() > 0) {
                 sb.append(", ");
             }
@@ -203,7 +203,7 @@ public class WindowsPrincipal implements Principal, Serializable {
      * @return True if the principal has a role, false otherwise.
      */
     public boolean hasRole(String role) {
-        return roles.contains(role);
+        return this.roles.contains(role);
     }
 
     /**
@@ -211,11 +211,11 @@ public class WindowsPrincipal implements Principal, Serializable {
      */
     @Override
     public String getName() {
-        return fqn;
+        return this.fqn;
     }
 
     /** Underlying identity */
     public IWindowsIdentity getIdentity() {
-        return identity;
+        return this.identity;
     }
 }

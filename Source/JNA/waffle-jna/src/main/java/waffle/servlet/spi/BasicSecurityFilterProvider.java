@@ -51,7 +51,7 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
             throw new RuntimeException("Invalid username:password in Authorization header.");
         }
         LOGGER.debug("logging in user: {}", usernamePasswordArray[0]);
-        return auth.logonUser(usernamePasswordArray[0], usernamePasswordArray[1]);
+        return this.auth.logonUser(usernamePasswordArray[0], usernamePasswordArray[1]);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 
     @Override
     public void sendUnauthorized(HttpServletResponse response) {
-        response.addHeader("WWW-Authenticate", "Basic realm=\"" + realm + "\"");
+        response.addHeader("WWW-Authenticate", "Basic realm=\"" + this.realm + "\"");
     }
 
     /**
@@ -75,17 +75,17 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
      * @return Name of the protection space.
      */
     public String getRealm() {
-        return realm;
+        return this.realm;
     }
 
     /**
      * Set the protection space.
      * 
-     * @param realm
+     * @param value
      *            Protection space name.
      */
-    public void setRealm(String realm) {
-        this.realm = realm;
+    public void setRealm(String value) {
+        this.realm = value;
     }
 
     /**

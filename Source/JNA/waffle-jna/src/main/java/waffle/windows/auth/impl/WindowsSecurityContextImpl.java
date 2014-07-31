@@ -35,18 +35,18 @@ import com.sun.jna.ptr.IntByReference;
  */
 public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 
-    private String         _principalName;
-    private String         _securityPackage;
-    private SecBufferDesc  _token;
-    private CtxtHandle     _ctx;
-    private IntByReference _attr;
-    private CredHandle     _credentials;
-    private boolean        _continue;
+    private String         principalName;
+    private String         securityPackage;
+    private SecBufferDesc  token;
+    private CtxtHandle     ctx;
+    private IntByReference attr;
+    private CredHandle     credentials;
+    private boolean        continueFlag;
 
     @Override
     public IWindowsIdentity getIdentity() {
         HANDLEByReference phContextToken = new HANDLEByReference();
-        int rc = Secur32.INSTANCE.QuerySecurityContextToken(_ctx, phContextToken);
+        int rc = Secur32.INSTANCE.QuerySecurityContextToken(this.ctx, phContextToken);
         if (WinError.SEC_E_OK != rc) {
             throw new Win32Exception(rc);
         }
@@ -55,12 +55,12 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 
     @Override
     public String getSecurityPackage() {
-        return _securityPackage;
+        return this.securityPackage;
     }
 
     @Override
     public byte[] getToken() {
-        return _token == null ? null : _token.getBytes().clone();
+        return this.token == null ? null : this.token.getBytes().clone();
     }
 
     /**
@@ -87,23 +87,24 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 
     @Override
     public void initialize(CtxtHandle continueCtx, SecBufferDesc continueToken, String targetName) {
-        _attr = new IntByReference();
-        _ctx = new CtxtHandle();
+        this.attr = new IntByReference();
+        this.ctx = new CtxtHandle();
         int tokenSize = Sspi.MAX_TOKEN_SIZE;
         int rc = 0;
         do {
-            _token = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, tokenSize);
-            rc = Secur32.INSTANCE.InitializeSecurityContext(_credentials, continueCtx, targetName,
-                    Sspi.ISC_REQ_CONNECTION, 0, Sspi.SECURITY_NATIVE_DREP, continueToken, 0, _ctx, _token, _attr, null);
+            this.token = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, tokenSize);
+            rc = Secur32.INSTANCE.InitializeSecurityContext(this.credentials, continueCtx, targetName,
+                    Sspi.ISC_REQ_CONNECTION, 0, Sspi.SECURITY_NATIVE_DREP, continueToken, 0, this.ctx, this.token,
+                    this.attr, null);
             switch (rc) {
                 case WinError.SEC_E_INSUFFICIENT_MEMORY:
                     tokenSize += Sspi.MAX_TOKEN_SIZE;
                     break;
                 case WinError.SEC_I_CONTINUE_NEEDED:
-                    _continue = true;
+                    this.continueFlag = true;
                     break;
                 case WinError.SEC_E_OK:
-                    _continue = false;
+                    this.continueFlag = false;
                     break;
                 default:
                     throw new Win32Exception(rc);
@@ -113,7 +114,7 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 
     @Override
     public void dispose() {
-        dispose(_ctx);
+        dispose(this.ctx);
     }
 
     /**
@@ -136,45 +137,45 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 
     @Override
     public String getPrincipalName() {
-        return _principalName;
+        return this.principalName;
     }
 
-    public void setPrincipalName(String principalName) {
-        _principalName = principalName;
+    public void setPrincipalName(String value) {
+        this.principalName = value;
     }
 
     @Override
     public CtxtHandle getHandle() {
-        return _ctx;
+        return this.ctx;
     }
 
     public void setCredentialsHandle(CredHandle handle) {
-        _credentials = handle;
+        this.credentials = handle;
     }
 
     public void setToken(byte[] bytes) {
-        _token = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, bytes);
+        this.token = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, bytes);
     }
 
-    public void setSecurityPackage(String securityPackage) {
-        _securityPackage = securityPackage;
+    public void setSecurityPackage(String value) {
+        this.securityPackage = value;
     }
 
     public void setSecurityContext(CtxtHandle phNewServerContext) {
-        _ctx = phNewServerContext;
+        this.ctx = phNewServerContext;
     }
 
     @Override
     public boolean isContinue() {
-        return _continue;
+        return this.continueFlag;
     }
 
     public void setContinue(boolean b) {
-        _continue = b;
+        this.continueFlag = b;
     }
 
     @Override
     public IWindowsImpersonationContext impersonate() {
-        return new WindowsSecurityContextImpersonationContextImpl(_ctx);
+        return new WindowsSecurityContextImpersonationContextImpl(this.ctx);
     }
 }

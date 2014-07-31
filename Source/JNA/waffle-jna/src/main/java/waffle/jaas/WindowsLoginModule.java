@@ -94,12 +94,12 @@ public class WindowsLoginModule implements LoginModule {
         callbacks[0] = usernameCallback;
         callbacks[1] = passwordCallback;
 
-        String username;
+        String userName;
         String password;
 
         try {
             this.callbackHandler.handle(callbacks);
-            username = usernameCallback.getName();
+            userName = usernameCallback.getName();
             password = passwordCallback.getPassword() == null ? "" : new String(passwordCallback.getPassword());
             passwordCallback.clearPassword();
         } catch (IOException e) {
@@ -114,7 +114,7 @@ public class WindowsLoginModule implements LoginModule {
 
         IWindowsIdentity windowsIdentity = null;
         try {
-            windowsIdentity = this.auth.logonUser(username, password);
+            windowsIdentity = this.auth.logonUser(userName, password);
         } catch (Exception e) {
             LOGGER.trace("{}", e);
             throw new LoginException(e.getMessage());
@@ -165,12 +165,12 @@ public class WindowsLoginModule implements LoginModule {
             throw new LoginException("Subject cannot be read-only.");
         }
 
-        Set<Principal> principals = this.subject.getPrincipals();
-        principals.addAll(this.principals);
+        Set<Principal> principalsSet = this.subject.getPrincipals();
+        principalsSet.addAll(this.principals);
 
         LOGGER.debug("committing {} principals", Integer.valueOf(this.subject.getPrincipals().size()));
         if (this.debug) {
-            for (Principal principal : principals) {
+            for (Principal principal : principalsSet) {
                 LOGGER.debug(" principal: {}", principal.getName());
             }
         }
@@ -235,17 +235,17 @@ public class WindowsLoginModule implements LoginModule {
      */
     private static List<Principal> getUserPrincipals(IWindowsIdentity windowsIdentity, PrincipalFormat principalFormat) {
 
-        List<Principal> principals = new ArrayList<Principal>();
+        List<Principal> principalsList = new ArrayList<Principal>();
         switch (principalFormat) {
             case fqn:
-                principals.add(new UserPrincipal(windowsIdentity.getFqn()));
+                principalsList.add(new UserPrincipal(windowsIdentity.getFqn()));
                 break;
             case sid:
-                principals.add(new UserPrincipal(windowsIdentity.getSidString()));
+                principalsList.add(new UserPrincipal(windowsIdentity.getSidString()));
                 break;
             case both:
-                principals.add(new UserPrincipal(windowsIdentity.getFqn()));
-                principals.add(new UserPrincipal(windowsIdentity.getSidString()));
+                principalsList.add(new UserPrincipal(windowsIdentity.getFqn()));
+                principalsList.add(new UserPrincipal(windowsIdentity.getSidString()));
                 break;
             case none:
                 break;
@@ -253,7 +253,7 @@ public class WindowsLoginModule implements LoginModule {
                 break;
         }
 
-        return principals;
+        return principalsList;
     }
 
     /**
@@ -267,17 +267,17 @@ public class WindowsLoginModule implements LoginModule {
      */
     private static List<Principal> getRolePrincipals(IWindowsAccount group, PrincipalFormat principalFormat) {
 
-        List<Principal> principals = new ArrayList<Principal>();
+        List<Principal> principalsList = new ArrayList<Principal>();
         switch (principalFormat) {
             case fqn:
-                principals.add(new RolePrincipal(group.getFqn()));
+                principalsList.add(new RolePrincipal(group.getFqn()));
                 break;
             case sid:
-                principals.add(new RolePrincipal(group.getSidString()));
+                principalsList.add(new RolePrincipal(group.getSidString()));
                 break;
             case both:
-                principals.add(new RolePrincipal(group.getFqn()));
-                principals.add(new RolePrincipal(group.getSidString()));
+                principalsList.add(new RolePrincipal(group.getFqn()));
+                principalsList.add(new RolePrincipal(group.getSidString()));
                 break;
             case none:
                 break;
@@ -285,7 +285,7 @@ public class WindowsLoginModule implements LoginModule {
                 break;
         }
 
-        return principals;
+        return principalsList;
     }
 
     /**

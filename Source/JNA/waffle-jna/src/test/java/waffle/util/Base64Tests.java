@@ -17,6 +17,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import com.google.common.io.BaseEncoding;
+
 /**
  * @author dblock[at]dblock[dot]org
  */
@@ -30,8 +32,8 @@ public class Base64Tests {
                 data[j] = j;
             }
 
-            String base64data = Base64.encode(data);
-            byte[] decodedData = Base64.decode(base64data);
+            String base64data = BaseEncoding.base64().encode(data);
+            byte[] decodedData = BaseEncoding.base64().decode(base64data);
 
             assertEquals(decodedData.length, data.length);
 
@@ -44,16 +46,16 @@ public class Base64Tests {
     @Test
     public void testBase64DecodeEncode() {
         String base64String = "YH8GBisGAQUFAqB1MHOgMDAuBgorBgEEAYI3AgIKBgkqhkiC9xIBAgIGCSqGSIb3EgECAgYKKwYBBAGCNwICHqI/BD1OVExNU1NQAAEAAACXsgjiCQAJADQAAAAMAAwAKAAAAAYBsB0AAAAPREJMT0NLLUdSRUVOV09SS0dST1VQ";
-        byte[] data = Base64.decode(base64String);
-        String encodedBase64String = Base64.encode(data);
+        byte[] data = BaseEncoding.base64().decode(base64String);
+        String encodedBase64String = BaseEncoding.base64().encode(data);
         assertEquals(encodedBase64String, base64String);
     }
 
     @Test
     public void testBase64DecodeEncode2() {
         String base64String = "oXcwdaADCgEBoloEWE5UTE1TU1AAAwAAAAAAAABYAAAAAAAAAFgAAAAAAAAAWAAAAAAAAABYAAAAAAAAAFgAAAAAAAAAWAAAABXCiOIGAbAdAAAAD0K5dZi6NldppxCrei9fHUGjEgQQAQAAAPUXp1AtIpqEAAAAAA==";
-        byte[] data = Base64.decode(base64String);
-        String encodedBase64String = Base64.encode(data);
+        byte[] data = BaseEncoding.base64().decode(base64String);
+        String encodedBase64String = BaseEncoding.base64().encode(data);
         assertEquals(encodedBase64String, base64String);
     }
 }

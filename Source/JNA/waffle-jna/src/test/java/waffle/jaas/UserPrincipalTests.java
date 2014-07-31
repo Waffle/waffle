@@ -31,11 +31,11 @@ import org.junit.Test;
  */
 public class UserPrincipalTests {
 
-    private UserPrincipal _userPrincipal;
+    private UserPrincipal userPrincipal;
 
     @Before
     public void setUp() {
-        _userPrincipal = new UserPrincipal("localhost\\Administrator");
+        this.userPrincipal = new UserPrincipal("localhost\\Administrator");
     }
 
     @Test
@@ -43,7 +43,7 @@ public class UserPrincipalTests {
         // serialize
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(out);
-        oos.writeObject(_userPrincipal);
+        oos.writeObject(this.userPrincipal);
         oos.close();
         assertTrue(out.toByteArray().length > 0);
         // deserialize
@@ -52,7 +52,7 @@ public class UserPrincipalTests {
         Object o = ois.readObject();
         UserPrincipal copy = (UserPrincipal) o;
         // test
-        assertEquals(_userPrincipal, copy);
-        assertEquals(_userPrincipal.getName(), copy.getName());
+        assertEquals(this.userPrincipal, copy);
+        assertEquals(this.userPrincipal.getName(), copy.getName());
     }
 }

@@ -41,7 +41,7 @@ public class RolePrincipal implements Principal, Serializable {
      */
     @Override
     public String getName() {
-        return fqn;
+        return this.fqn;
     }
 
     /**

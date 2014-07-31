@@ -46,21 +46,21 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
     public NegotiateSecurityFilterProvider(IWindowsAuthProvider auth) {
         this.auth = auth;
-        protocols.add("Negotiate");
-        protocols.add("NTLM");
+        this.protocols.add("Negotiate");
+        this.protocols.add("NTLM");
     }
 
     public List<String> getProtocols() {
-        return protocols;
+        return this.protocols;
     }
 
-    public void setProtocols(List<String> protocols) {
-        this.protocols = protocols;
+    public void setProtocols(List<String> values) {
+        this.protocols = values;
     }
 
     @Override
     public void sendUnauthorized(HttpServletResponse response) {
-        Iterator<String> protocolsIterator = protocols.iterator();
+        Iterator<String> protocolsIterator = this.protocols.iterator();
         while (protocolsIterator.hasNext()) {
             response.addHeader("WWW-Authenticate", protocolsIterator.next());
         }
@@ -87,12 +87,13 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
         if (ntlmPost) {
             // type 2 NTLM authentication message received
-            auth.resetSecurityToken(connectionId);
+            this.auth.resetSecurityToken(connectionId);
         }
 
         byte[] tokenBuffer = authorizationHeader.getTokenBytes();
         LOGGER.debug("token buffer: {} byte(s)", Integer.valueOf(tokenBuffer.length));
-        IWindowsSecurityContext securityContext = auth.acceptSecurityToken(connectionId, tokenBuffer, securityPackage);
+        IWindowsSecurityContext securityContext = this.auth.acceptSecurityToken(connectionId, tokenBuffer,
+                securityPackage);
 
         byte[] continueTokenBytes = securityContext.getToken();
         if (continueTokenBytes != null && continueTokenBytes.length > 0) {
@@ -116,7 +117,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
     @Override
     public boolean isSecurityPackageSupported(String securityPackage) {
-        for (String protocol : protocols) {
+        for (String protocol : this.protocols) {
             if (protocol.equalsIgnoreCase(securityPackage)) {
                 return true;
             }
@@ -127,14 +128,14 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
     @Override
     public void initParameter(String parameterName, String parameterValue) {
         if (parameterName.equals("protocols")) {
-            protocols = new ArrayList<String>();
+            this.protocols = new ArrayList<String>();
             String[] protocolNames = parameterValue.split("\\s+");
             for (String protocolName : protocolNames) {
                 protocolName = protocolName.trim();
                 if (protocolName.length() > 0) {
                     LOGGER.debug("init protocol: {}", protocolName);
                     if (protocolName.equals("Negotiate") || protocolName.equals("NTLM")) {
-                        protocols.add(protocolName);
+                        this.protocols.add(protocolName);
                     } else {
                         LOGGER.error("unsupported protocol: {}", protocolName);
                         throw new RuntimeException("Unsupported protocol: " + protocolName);

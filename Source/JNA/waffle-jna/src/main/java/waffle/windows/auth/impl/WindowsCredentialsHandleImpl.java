@@ -30,11 +30,11 @@ import com.sun.jna.platform.win32.WinError;
  */
 public class WindowsCredentialsHandleImpl implements IWindowsCredentialsHandle {
 
-    private String     _principalName;
-    private int        _credentialsType;
-    private String     _securityPackage;
-    private CredHandle _handle;
-    private TimeStamp  _clientLifetime;
+    private String     principalName;
+    private int        credentialsType;
+    private String     securityPackage;
+    private CredHandle handle;
+    private TimeStamp  clientLifetime;
 
     /**
      * Returns the current credentials handle.
@@ -61,9 +61,9 @@ public class WindowsCredentialsHandleImpl implements IWindowsCredentialsHandle {
      *            Security package.
      */
     public WindowsCredentialsHandleImpl(String principalName, int credentialsType, String securityPackage) {
-        _principalName = principalName;
-        _credentialsType = credentialsType;
-        _securityPackage = securityPackage;
+        this.principalName = principalName;
+        this.credentialsType = credentialsType;
+        this.securityPackage = securityPackage;
     }
 
     /**
@@ -71,10 +71,10 @@ public class WindowsCredentialsHandleImpl implements IWindowsCredentialsHandle {
      */
     @Override
     public void initialize() {
-        _handle = new CredHandle();
-        _clientLifetime = new TimeStamp();
-        int rc = Secur32.INSTANCE.AcquireCredentialsHandle(_principalName, _securityPackage, _credentialsType, null,
-                null, null, null, _handle, _clientLifetime);
+        this.handle = new CredHandle();
+        this.clientLifetime = new TimeStamp();
+        int rc = Secur32.INSTANCE.AcquireCredentialsHandle(this.principalName, this.securityPackage,
+                this.credentialsType, null, null, null, null, this.handle, this.clientLifetime);
         if (WinError.SEC_E_OK != rc) {
             throw new Win32Exception(rc);
         }
@@ -85,8 +85,8 @@ public class WindowsCredentialsHandleImpl implements IWindowsCredentialsHandle {
      */
     @Override
     public void dispose() {
-        if (_handle != null && !_handle.isNull()) {
-            int rc = Secur32.INSTANCE.FreeCredentialsHandle(_handle);
+        if (this.handle != null && !this.handle.isNull()) {
+            int rc = Secur32.INSTANCE.FreeCredentialsHandle(this.handle);
             if (WinError.SEC_E_OK != rc) {
                 throw new Win32Exception(rc);
             }
@@ -98,6 +98,6 @@ public class WindowsCredentialsHandleImpl implements IWindowsCredentialsHandle {
      */
     @Override
     public CredHandle getHandle() {
-        return _handle;
+        return this.handle;
     }
 }

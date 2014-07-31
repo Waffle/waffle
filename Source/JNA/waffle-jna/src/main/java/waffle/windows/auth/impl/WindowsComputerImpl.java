@@ -34,13 +34,13 @@ public class WindowsComputerImpl implements IWindowsComputer {
 
     @Override
     public String getComputerName() {
-        return computerName;
+        return this.computerName;
     }
 
     @Override
     public String[] getGroups() {
         List<String> groupNames = new ArrayList<String>();
-        LocalGroup[] groups = Netapi32Util.getLocalGroups(computerName);
+        LocalGroup[] groups = Netapi32Util.getLocalGroups(this.computerName);
         for (LocalGroup group : groups) {
             groupNames.add(group.name);
         }
@@ -49,7 +49,7 @@ public class WindowsComputerImpl implements IWindowsComputer {
 
     @Override
     public String getJoinStatus() {
-        int joinStatus = Netapi32Util.getJoinStatus(computerName);
+        int joinStatus = Netapi32Util.getJoinStatus(this.computerName);
         switch (joinStatus) {
             case LMJoin.NETSETUP_JOIN_STATUS.NetSetupDomainName:
                 return "NetSetupDomainName";
@@ -66,7 +66,7 @@ public class WindowsComputerImpl implements IWindowsComputer {
 
     @Override
     public String getMemberOf() {
-        return domainName;
+        return this.domainName;
     }
 
     public WindowsComputerImpl(String computerName) {
