@@ -69,7 +69,7 @@ Changes
   * Updated versions throughout
 * [#76](https://github.com/dblock/waffle/pull/76): Add [SPNEGO NegTokenArg](http://msdn.microsoft.com/en-us/library/ms995330.aspx) support - [@AriSuutariST](https://github.com/AriSuutariST).
 * Fixed `WindowsComputerImpl.Groups` returning an empty local groups set - [@dblock](https://github.com/dblock).
-
+* [#114](https://github.com/dblock/waffle/issues/114): Fixed `Waffle.Windows.AuthProvider.WindowsSecurityContext` and `WindowsAuthProviderImpl` to loop and allocate memory on `SEC_E_INSUFFICIENT_MEMORY` beyond `Secur32.MAX_TOKEN_SIZE` in `InitializeSecurityContext` and `AcceptSecurityContext` - [@kentcb](https://github.com/kentcb).
 
 1.6 (12/24/2013)
 ================

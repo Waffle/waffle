@@ -1,13 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Runtime.InteropServices;
-using Waffle.Windows;
 using System.ComponentModel;
-using System.Security.Principal;
 using System.DirectoryServices.ActiveDirectory;
-using System.Collections.Specialized;
-using System.Threading;
+using System.Runtime.InteropServices;
+using System.Security.Principal;
 
 namespace Waffle.Windows.AuthProvider
 {
@@ -155,84 +151,95 @@ namespace Waffle.Windows.AuthProvider
             WindowsCredentialsHandle credentialsHandle = new WindowsCredentialsHandle(
                 string.Empty, Secur32.SECPKG_CRED_INBOUND, securityPackage);
 
-            // AcceptSecurityContext
-            serverToken = new Secur32.SecBufferDesc(Secur32.MAX_TOKEN_SIZE);
-            clientToken = new Secur32.SecBufferDesc(token);
-            uint serverContextAttributes = 0;
+            var tokenSize = Secur32.MAX_TOKEN_SIZE;
+            var rc = 0;
 
-            Secur32.SecHandle continueSecHandle = Secur32.SecHandle.Zero;
-            lock (_continueSecHandles)
+            do
             {
-                _continueSecHandles.TryGetValue(connectionId, out continueSecHandle);
-            }
+                serverToken = new Secur32.SecBufferDesc(tokenSize);
+                clientToken = new Secur32.SecBufferDesc(token);
+                uint serverContextAttributes = 0;
 
-            int rc = 0;
-            if (continueSecHandle == Secur32.SecHandle.Zero)
-            {
-                rc = Secur32.AcceptSecurityContext(
-                    ref credentialsHandle.Handle,
-                    IntPtr.Zero,
-                    ref clientToken,
-                    fContextReq,
-                    targetDataRep,
-                    ref newContext,
-                    ref serverToken,
-                    out serverContextAttributes,
-                    out serverLifetime);
-            }
-            else
-            {
-                rc = Secur32.AcceptSecurityContext(
-                    ref credentialsHandle.Handle,
-                    ref continueSecHandle,
-                    ref clientToken,
-                    fContextReq,
-                    targetDataRep,
-                    ref newContext,
-                    ref serverToken,
-                    out serverContextAttributes,
-                    out serverLifetime);
-            }
+                Secur32.SecHandle continueSecHandle = Secur32.SecHandle.Zero;
+                lock (_continueSecHandles)
+                {
+                    _continueSecHandles.TryGetValue(connectionId, out continueSecHandle);
+                }
 
-            switch (rc)
-            {
-                case Secur32.SEC_E_OK:
+                if (continueSecHandle == Secur32.SecHandle.Zero)
+                {
+                    rc = Secur32.AcceptSecurityContext(
+                        ref credentialsHandle.Handle,
+                        IntPtr.Zero,
+                        ref clientToken,
+                        fContextReq,
+                        targetDataRep,
+                        ref newContext,
+                        ref serverToken,
+                        out serverContextAttributes,
+                        out serverLifetime);
+                }
+                else
+                {
+                    rc = Secur32.AcceptSecurityContext(
+                        ref credentialsHandle.Handle,
+                        ref continueSecHandle,
+                        ref clientToken,
+                        fContextReq,
+                        targetDataRep,
+                        ref newContext,
+                        ref serverToken,
+                        out serverContextAttributes,
+                        out serverLifetime);
+                }
 
-                    lock (_continueSecHandles)
-                    {
-                        _continueSecHandles.Remove(connectionId);
-                    }
+                switch (rc)
+                {
+                    case Secur32.SEC_E_INSUFFICIENT_MEMORY:
+                        tokenSize += Secur32.MAX_TOKEN_SIZE;
+                        break;
+                    case Secur32.SEC_E_OK:
 
-                    return new WindowsSecurityContext(
-                        newContext,
-                        serverContextAttributes,
-                        serverLifetime,
-                        serverToken,
-                        securityPackage,
-                        false);
-                case Secur32.SEC_I_CONTINUE_NEEDED:
+                        lock (_continueSecHandles)
+                        {
+                            _continueSecHandles.Remove(connectionId);
+                        }
 
-                    lock (_continueSecHandles)
-                    {
-                        _continueSecHandles[connectionId] = newContext;
-                    }
+                        return new WindowsSecurityContext(
+                            newContext,
+                            serverContextAttributes,
+                            serverLifetime,
+                            serverToken,
+                            securityPackage,
+                            false);
 
-                    return new WindowsSecurityContext(
-                        newContext,
-                        serverContextAttributes,
-                        serverLifetime,
-                        serverToken,
-                        securityPackage,
-                        true);
-                default:
+                    case Secur32.SEC_I_CONTINUE_NEEDED:
 
-                    lock (_continueSecHandles)
-                    {
-                        _continueSecHandles.Remove(connectionId);
-                    }
+                        lock (_continueSecHandles)
+                        {
+                            _continueSecHandles[connectionId] = newContext;
+                        }
 
-                    throw new Win32Exception(rc);
-            }
+                        return new WindowsSecurityContext(
+                            newContext,
+                            serverContextAttributes,
+                            serverLifetime,
+                            serverToken,
+                            securityPackage,
+                            true);
+
+                    default:
+
+                        lock (_continueSecHandles)
+                        {
+                            _continueSecHandles.Remove(connectionId);
+                        }
+
+                        throw new Win32Exception(rc);
+                }
+            } while (rc == Secur32.SEC_E_INSUFFICIENT_MEMORY);
+
+            return null;
         }
 
         /// <summary>

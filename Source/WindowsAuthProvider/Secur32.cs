@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Runtime.InteropServices;
 
 namespace Waffle.Windows.AuthProvider
@@ -36,6 +34,11 @@ namespace Waffle.Windows.AuthProvider
         /// The function failed. There is not enough memory available to complete the requested action.
         /// </summary>
         public const int SEC_E_INSUFFICIENT_MEMORY = unchecked((int)0x80090300);
+
+        /// <summary>
+        /// The function failed. The supplied buffer is too small.
+        /// </summary>
+        public const int SEC_E_BUFFER_TOO_SMALL = unchecked((int)0x80090321);
 
         /// <summary>
         /// The function failed. An error occurred that did not map to an SSPI error code.

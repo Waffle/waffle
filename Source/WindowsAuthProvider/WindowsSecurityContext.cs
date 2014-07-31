@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.ComponentModel;
 using System.Security.Principal;
 
@@ -22,7 +20,7 @@ namespace Waffle.Windows.AuthProvider
         private uint _contextAttributes = 0;
         private Secur32.SECURITY_INTEGER _contextLifetime = Secur32.SECURITY_INTEGER.Zero;
         private bool _continue = false;
-        private string _username;
+        private string _targetName;
         private Secur32.SecHandle _credentials;
 
         /// <summary>
@@ -97,42 +95,18 @@ namespace Waffle.Windows.AuthProvider
         /// <summary>
         /// Acquire an existing Windows security context.
         /// </summary>
-        /// <param name="username">Target username for this security context.</param>
+        /// <param name="targetName">Target name for this security context.</param>
         /// <param name="credentials">Credentials handle.</param>
         /// <param name="securityPackage">Security package.</param>
         /// <param name="fContextReq">Bit flags that indicate requests for the context.</param>
         /// <param name="targetDataRep">Target data representation.</param>
-        public WindowsSecurityContext(string username, WindowsCredentialsHandle credentials, string securityPackage, 
-            int fContextReq, int targetDataRep)
+        public WindowsSecurityContext(string targetName, WindowsCredentialsHandle credentials, string securityPackage, int fContextReq, int targetDataRep)
         {
-            _username = username;
+            _targetName = targetName;
             _credentials = credentials.Handle;
             _securityPackage = securityPackage;
-            _token = new Secur32.SecBufferDesc(Secur32.MAX_TOKEN_SIZE);
-            int rc = Secur32.InitializeSecurityContext(
-                ref credentials.Handle,
-                IntPtr.Zero,
-                username, // service principal name
-                fContextReq,
-                0,
-                targetDataRep,
-                IntPtr.Zero,
-                0,
-                ref _context,
-                ref _token,
-                out _contextAttributes,
-                out _contextLifetime);
 
-            switch (rc)
-            {
-                case Secur32.SEC_E_OK:
-                    break;
-                case Secur32.SEC_I_CONTINUE_NEEDED:
-                    _continue = true;
-                    break;
-                default:
-                    throw new Win32Exception(rc);
-            }
+            Initialize(credentials.Handle, _targetName, fContextReq, targetDataRep);
         }
 
         /// <summary>
@@ -153,34 +127,79 @@ namespace Waffle.Windows.AuthProvider
         /// </param>
         public WindowsSecurityContext(WindowsSecurityContext init, byte[] continueToken, int fContextReq, int targetDataRep)
         {
+            _targetName = init._targetName;
+            _credentials = init._credentials;
             _securityPackage = init._securityPackage;
-            Secur32.SecBufferDesc continueTokenBuffer = new Secur32.SecBufferDesc(continueToken);
-            _token = new Secur32.SecBufferDesc(Secur32.MAX_TOKEN_SIZE);
 
-            int rc = Secur32.InitializeSecurityContext(
-                ref init._credentials,
-                ref init._context,
-                init._username,
-                fContextReq,
-                0,
-                targetDataRep,
-                ref continueTokenBuffer,
-                0,
-                ref _context,
-                ref _token,
-                out _contextAttributes,
-                out _contextLifetime);
-
-            switch (rc)
+            using (var continueTokenBuffer = new Secur32.SecBufferDesc(continueToken))
             {
-                case Secur32.SEC_E_OK:
-                    break;
-                case Secur32.SEC_I_CONTINUE_NEEDED:
-                    _continue = true;
-                    break;
-                default:
-                    throw new Win32Exception(rc);
+                Initialize(_credentials, _targetName, fContextReq, targetDataRep, init._context, continueTokenBuffer);
             }
+        }
+
+        private void Initialize(Secur32.SecHandle credentials, string targetName, int fContextReq, int targetDataRep)
+        {
+            this.Initialize(credentials, targetName, fContextReq, targetDataRep, Secur32.SecHandle.Zero, Secur32.SecBufferDesc.Zero);
+        }
+
+        private void Initialize(Secur32.SecHandle credentials, string targetName, int fContextReq, int targetDataRep, Secur32.SecHandle context, Secur32.SecBufferDesc continueTokenBuffer)
+        {
+            var tokenSize = Secur32.MAX_TOKEN_SIZE;
+            var rc = 0;
+            var hasContextAndContinue = context != Secur32.SecHandle.Zero && continueTokenBuffer != Secur32.SecBufferDesc.Zero;
+
+            do
+            {
+                _token.Dispose();
+                _token = new Secur32.SecBufferDesc(tokenSize);
+
+                if (hasContextAndContinue)
+                {
+                    rc = Secur32.InitializeSecurityContext(
+                        ref credentials,
+                        ref context,
+                        targetName,
+                        fContextReq,
+                        0,
+                        targetDataRep,
+                        ref continueTokenBuffer,
+                        0,
+                        ref _context,
+                        ref _token,
+                        out _contextAttributes,
+                        out _contextLifetime);
+                }
+                else
+                {
+                    rc = Secur32.InitializeSecurityContext(
+                        ref credentials,
+                        IntPtr.Zero,
+                        targetName,
+                        fContextReq,
+                        0,
+                        targetDataRep,
+                        IntPtr.Zero,
+                        0,
+                        ref _context,
+                        ref _token,
+                        out _contextAttributes,
+                        out _contextLifetime);
+                }
+
+                switch (rc)
+                {
+                    case Secur32.SEC_E_INSUFFICIENT_MEMORY:
+                        tokenSize += Secur32.MAX_TOKEN_SIZE;
+                        break;
+                    case Secur32.SEC_E_OK:
+                        break;
+                    case Secur32.SEC_I_CONTINUE_NEEDED:
+                        _continue = true;
+                        break;
+                    default:
+                        throw new Win32Exception(rc);
+                }
+            } while (rc == Secur32.SEC_E_INSUFFICIENT_MEMORY);
         }
 
         /// <summary>
