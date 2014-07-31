@@ -25,7 +25,7 @@
  <head>
   <title>Protected Page for Examples</title>
  </head>
- <body bgcolor="white">
+ <body style="background-color:white;">
   You are logged in as remote user <b><%= request.getRemoteUser() %></b> in session <b><%= session.getId() %></b>.
   <br><br>
   <%
