@@ -12,7 +12,16 @@
     <packaging>war</packaging>
     <name>waffle-spring-form</name>
     <description>Spring Form Demo for WAFFLE</description>
+    <properties>
+        <servlet.version>2.5</servlet.version>
+    </properties>
     <dependencies>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>${servlet.version}</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle</groupId>
             <artifactId>waffle-spring-security3</artifactId>
