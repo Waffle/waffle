@@ -26,12 +26,12 @@ public class AuthorizationHeader {
 
     private HttpServletRequest request;
 
-    public AuthorizationHeader(HttpServletRequest request) {
-        this.request = request;
+    public AuthorizationHeader(HttpServletRequest httpServletRequest) {
+        this.request = httpServletRequest;
     }
 
     public String getHeader() {
-        return request.getHeader("Authorization");
+        return this.request.getHeader("Authorization");
     }
 
     public boolean isNull() {
@@ -107,11 +107,11 @@ public class AuthorizationHeader {
      * @return True if request is an NTLM POST or PUT with an Authorization header and no data.
      */
     public boolean isNtlmType1PostAuthorizationHeader() {
-        if (!request.getMethod().equals("POST") && !request.getMethod().equals("PUT")) {
+        if (!this.request.getMethod().equals("POST") && !this.request.getMethod().equals("PUT")) {
             return false;
         }
 
-        if (request.getContentLength() != 0) {
+        if (this.request.getContentLength() != 0) {
             return false;
         }
 

@@ -27,16 +27,16 @@ import com.sun.jna.platform.win32.Secur32.EXTENDED_NAME_FORMAT;
  */
 public class WindowsAccountImpl implements IWindowsAccount {
 
-    private Account _account;
+    private Account account;
 
     @Override
     public String getFqn() {
-        return _account.fqn;
+        return this.account.fqn;
     }
 
     @Override
     public String getSidString() {
-        return _account.sidString;
+        return this.account.sidString;
     }
 
     /**
@@ -44,7 +44,7 @@ public class WindowsAccountImpl implements IWindowsAccount {
      */
     @Override
     public String getName() {
-        return _account.name;
+        return this.account.name;
     }
 
     /**
@@ -52,7 +52,7 @@ public class WindowsAccountImpl implements IWindowsAccount {
      */
     @Override
     public String getDomain() {
-        return _account.domain;
+        return this.account.domain;
     }
 
     /**
@@ -93,6 +93,6 @@ public class WindowsAccountImpl implements IWindowsAccount {
      *            Account.
      */
     public WindowsAccountImpl(Account account) {
-        _account = account;
+        this.account = account;
     }
 }

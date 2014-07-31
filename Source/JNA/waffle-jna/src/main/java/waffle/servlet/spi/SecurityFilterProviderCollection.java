@@ -56,7 +56,7 @@ public class SecurityFilterProviderCollection {
                         .forName(providerName);
                 Constructor<SecurityFilterProvider> c = providerClass.getConstructor(IWindowsAuthProvider.class);
                 SecurityFilterProvider provider = c.newInstance(auth);
-                providers.add(provider);
+                this.providers.add(provider);
             } catch (ClassNotFoundException e) {
                 LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
                 LOGGER.trace("{}", e);
@@ -84,8 +84,8 @@ public class SecurityFilterProviderCollection {
     }
 
     public SecurityFilterProviderCollection(IWindowsAuthProvider auth) {
-        providers.add(new NegotiateSecurityFilterProvider(auth));
-        providers.add(new BasicSecurityFilterProvider(auth));
+        this.providers.add(new NegotiateSecurityFilterProvider(auth));
+        this.providers.add(new BasicSecurityFilterProvider(auth));
     }
 
     /**
@@ -100,7 +100,7 @@ public class SecurityFilterProviderCollection {
     }
 
     private SecurityFilterProvider get(String securityPackage) {
-        for (SecurityFilterProvider provider : providers) {
+        for (SecurityFilterProvider provider : this.providers) {
             if (provider.isSecurityPackageSupported(securityPackage)) {
                 return provider;
             }
@@ -137,7 +137,7 @@ public class SecurityFilterProviderCollection {
      */
     public boolean isPrincipalException(HttpServletRequest request) {
 
-        for (SecurityFilterProvider provider : providers) {
+        for (SecurityFilterProvider provider : this.providers) {
             if (provider.isPrincipalException(request)) {
                 return true;
             }
@@ -153,7 +153,7 @@ public class SecurityFilterProviderCollection {
      *            Http Response
      */
     public void sendUnauthorized(HttpServletResponse response) {
-        for (SecurityFilterProvider provider : providers) {
+        for (SecurityFilterProvider provider : this.providers) {
             provider.sendUnauthorized(response);
         }
     }
@@ -164,7 +164,7 @@ public class SecurityFilterProviderCollection {
      * @return Number of providers.
      */
     public int size() {
-        return providers.size();
+        return this.providers.size();
     }
 
     /**
@@ -176,7 +176,7 @@ public class SecurityFilterProviderCollection {
      * @throws ClassNotFoundException
      */
     public SecurityFilterProvider getByClassName(String name) throws ClassNotFoundException {
-        for (SecurityFilterProvider provider : providers) {
+        for (SecurityFilterProvider provider : this.providers) {
             if (provider.getClass().getName().equals(name)) {
                 return provider;
             }

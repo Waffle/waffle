@@ -23,32 +23,32 @@ import java.io.Serializable;
 public class WindowsAccount implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private String            _sidString;
-    private String            _fqn;
-    private String            _name;
-    private String            _domain;
+    private String            sidString;
+    private String            fqn;
+    private String            name;
+    private String            domain;
 
     public WindowsAccount(IWindowsAccount account) {
-        _sidString = account.getSidString();
-        _fqn = account.getFqn();
-        _name = account.getName();
-        _domain = account.getDomain();
+        this.sidString = account.getSidString();
+        this.fqn = account.getFqn();
+        this.name = account.getName();
+        this.domain = account.getDomain();
     }
 
     public String getSidString() {
-        return _sidString;
+        return this.sidString;
     }
 
     public String getFqn() {
-        return _fqn;
+        return this.fqn;
     }
 
     public String getName() {
-        return _name;
+        return this.name;
     }
 
     public String getDomain() {
-        return _domain;
+        return this.domain;
     }
 
     @Override

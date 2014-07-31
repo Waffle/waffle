@@ -37,7 +37,7 @@ public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
      */
     @Override
     public Principal getUserPrincipal() {
-        return principal;
+        return this.principal;
     }
 
     /**
@@ -53,7 +53,7 @@ public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
      */
     @Override
     public String getRemoteUser() {
-        return principal.getName();
+        return this.principal.getName();
     }
 
     /**
@@ -61,6 +61,6 @@ public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
      */
     @Override
     public boolean isUserInRole(String role) {
-        return principal.hasRole(role);
+        return this.principal.hasRole(role);
     }
 }
