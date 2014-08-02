@@ -13,6 +13,8 @@
  */
 package waffle.spring;
 
+import java.util.Locale;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -77,16 +79,24 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
         return this.principalFormat;
     }
 
-    public void setPrincipalFormat(final PrincipalFormat value) {
+    public void setPrincipalFormatEnum(final PrincipalFormat value) {
         this.principalFormat = value;
+    }
+
+    public void setPrincipalFormat(final String value) {
+        this.setPrincipalFormatEnum(PrincipalFormat.valueOf(value.toUpperCase(Locale.ENGLISH)));
     }
 
     public PrincipalFormat getRoleFormat() {
         return this.roleFormat;
     }
 
-    public void setRoleFormat(final PrincipalFormat value) {
+    public void setRoleFormatEnum(final PrincipalFormat value) {
         this.roleFormat = value;
+    }
+
+    public void setRoleFormat(final String value) {
+        this.setRoleFormatEnum(PrincipalFormat.valueOf(value.toUpperCase(Locale.ENGLISH)));
     }
 
     public boolean isAllowGuestLogin() {

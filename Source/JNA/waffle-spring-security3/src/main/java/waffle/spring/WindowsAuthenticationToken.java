@@ -30,6 +30,8 @@ import waffle.windows.auth.WindowsAccount;
  */
 public class WindowsAuthenticationToken implements Authentication {
 
+    private static final long                   serialVersionUID                  = 1L;
+
     /**
      * The {@link GrantedAuthorityFactory} that is used by default if a custom one is not specified. This default
      * {@link GrantedAuthorityFactory} is a {@link FqnGrantedAuthorityFactory} with prefix {@code "ROLE_"} and will
@@ -45,9 +47,8 @@ public class WindowsAuthenticationToken implements Authentication {
     public static final GrantedAuthority        DEFAULT_GRANTED_AUTHORITY         = new SimpleGrantedAuthority(
                                                                                           "ROLE_USER");
 
-    private static final long                   serialVersionUID                  = 1L;
-    private WindowsPrincipal                    principal                         = null;
-    private Collection<GrantedAuthority>        authorities                       = null;
+    private WindowsPrincipal                    principal;
+    private Collection<GrantedAuthority>        authorities;
 
     /**
      * Convenience constructor that calls

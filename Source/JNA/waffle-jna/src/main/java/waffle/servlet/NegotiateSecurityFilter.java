@@ -18,6 +18,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.security.Principal;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -247,9 +248,9 @@ public class NegotiateSecurityFilter implements Filter {
                 String parameterValue = filterConfig.getInitParameter(parameterName);
                 LOGGER.debug("{}={}", parameterName, parameterValue);
                 if (parameterName.equals("principalFormat")) {
-                    this.principalFormat = PrincipalFormat.valueOf(parameterValue);
+                    this.principalFormat = PrincipalFormat.valueOf(parameterValue.toUpperCase(Locale.ENGLISH));
                 } else if (parameterName.equals("roleFormat")) {
-                    this.roleFormat = PrincipalFormat.valueOf(parameterValue);
+                    this.roleFormat = PrincipalFormat.valueOf(parameterValue.toUpperCase(Locale.ENGLISH));
                 } else if (parameterName.equals("allowGuestLogin")) {
                     this.allowGuestLogin = Boolean.parseBoolean(parameterValue);
                 } else if (parameterName.equals("impersonate")) {
@@ -349,7 +350,7 @@ public class NegotiateSecurityFilter implements Filter {
      *            Principal format.
      */
     public void setPrincipalFormat(String format) {
-        this.principalFormat = PrincipalFormat.valueOf(format);
+        this.principalFormat = PrincipalFormat.valueOf(format.toUpperCase(Locale.ENGLISH));
         LOGGER.info("principal format: {}", this.principalFormat);
     }
 
@@ -369,7 +370,7 @@ public class NegotiateSecurityFilter implements Filter {
      *            Role format.
      */
     public void setRoleFormat(final String format) {
-        this.roleFormat = PrincipalFormat.valueOf(format);
+        this.roleFormat = PrincipalFormat.valueOf(format.toUpperCase(Locale.ENGLISH));
         LOGGER.info("role format: {}", this.roleFormat);
     }
 

@@ -18,6 +18,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
@@ -71,9 +72,10 @@ public class WindowsLoginModule implements LoginModule {
             if (option.getKey().equalsIgnoreCase("debug")) {
                 this.debug = Boolean.parseBoolean((String) option.getValue());
             } else if (option.getKey().equalsIgnoreCase("principalFormat")) {
-                this.principalFormat = PrincipalFormat.valueOf((String) option.getValue());
+                this.principalFormat = PrincipalFormat
+                        .valueOf(((String) option.getValue()).toUpperCase(Locale.ENGLISH));
             } else if (option.getKey().equalsIgnoreCase("roleFormat")) {
-                this.roleFormat = PrincipalFormat.valueOf((String) option.getValue());
+                this.roleFormat = PrincipalFormat.valueOf(((String) option.getValue()).toUpperCase(Locale.ENGLISH));
             }
         }
     }
@@ -233,7 +235,8 @@ public class WindowsLoginModule implements LoginModule {
      *            Principal format.
      * @return A list of user principal objects.
      */
-    private static List<Principal> getUserPrincipals(final IWindowsIdentity windowsIdentity, final PrincipalFormat principalFormat) {
+    private static List<Principal> getUserPrincipals(final IWindowsIdentity windowsIdentity,
+            final PrincipalFormat principalFormat) {
 
         final List<Principal> principalsList = new ArrayList<Principal>();
         switch (principalFormat) {

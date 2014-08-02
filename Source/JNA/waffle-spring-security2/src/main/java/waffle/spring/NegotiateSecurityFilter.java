@@ -14,6 +14,7 @@
 package waffle.spring;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -149,20 +150,36 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
         }
     }
 
-    public PrincipalFormat getPrincipalFormat() {
+    public PrincipalFormat getPrincipalFormatEnum() {
         return this.principalFormat;
     }
 
-    public void setPrincipalFormat(final PrincipalFormat value) {
+    public String getPrincipalFormat() {
+        return String.valueOf(this.getPrincipalFormatEnum());
+    }
+
+    public void setPrincipalFormatEnum(final PrincipalFormat value) {
         this.principalFormat = value;
     }
 
-    public PrincipalFormat getRoleFormat() {
+    public void setPrincipalFormat(final String value) {
+        this.setPrincipalFormatEnum(PrincipalFormat.valueOf(value.toUpperCase(Locale.ENGLISH)));
+    }
+
+    public PrincipalFormat getRoleFormatEnum() {
         return this.roleFormat;
     }
 
-    public void setRoleFormat(final PrincipalFormat value) {
+    public String getRoleFormat() {
+        return String.valueOf(this.getRoleFormatEnum());
+    }
+
+    public void setRoleFormatEnum(final PrincipalFormat value) {
         this.roleFormat = value;
+    }
+
+    public void setRoleFormat(final String value) {
+        this.setRoleFormatEnum(PrincipalFormat.valueOf(value.toUpperCase(Locale.ENGLISH)));
     }
 
     public boolean isAllowGuestLogin() {

@@ -13,6 +13,8 @@
  */
 package waffle.spring;
 
+import java.util.Locale;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -77,47 +79,55 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
         return this.principalFormat;
     }
 
-    public void setPrincipalFormat(final PrincipalFormat principalFormat) {
-        this.principalFormat = principalFormat;
+    public void setPrincipalFormatEnum(final PrincipalFormat value) {
+        this.principalFormat = value;
+    }
+
+    public void setPrincipalFormat(final String value) {
+        this.setPrincipalFormatEnum(PrincipalFormat.valueOf(value.toUpperCase(Locale.ENGLISH)));
     }
 
     public PrincipalFormat getRoleFormat() {
         return this.roleFormat;
     }
 
-    public void setRoleFormat(final PrincipalFormat principalFormat) {
-        this.roleFormat = principalFormat;
+    public void setRoleFormatEnum(final PrincipalFormat value) {
+        this.roleFormat = value;
+    }
+
+    public void setRoleFormat(final String value) {
+        this.setRoleFormatEnum(PrincipalFormat.valueOf(value.toUpperCase(Locale.ENGLISH)));
     }
 
     public boolean isAllowGuestLogin() {
         return this.allowGuestLogin;
     }
 
-    public void setAllowGuestLogin(final boolean allowGuestLogin) {
-        this.allowGuestLogin = allowGuestLogin;
+    public void setAllowGuestLogin(final boolean value) {
+        this.allowGuestLogin = value;
     }
 
     public IWindowsAuthProvider getAuthProvider() {
         return this.authProvider;
     }
 
-    public void setAuthProvider(final IWindowsAuthProvider authProvider) {
-        this.authProvider = authProvider;
+    public void setAuthProvider(final IWindowsAuthProvider value) {
+        this.authProvider = value;
     }
 
     public GrantedAuthorityFactory getGrantedAuthorityFactory() {
         return this.grantedAuthorityFactory;
     }
 
-    public void setGrantedAuthorityFactory(final GrantedAuthorityFactory grantedAuthorityFactory) {
-        this.grantedAuthorityFactory = grantedAuthorityFactory;
+    public void setGrantedAuthorityFactory(final GrantedAuthorityFactory value) {
+        this.grantedAuthorityFactory = value;
     }
 
     public GrantedAuthority getDefaultGrantedAuthority() {
         return this.defaultGrantedAuthority;
     }
 
-    public void setDefaultGrantedAuthority(final GrantedAuthority defaultGrantedAuthority) {
-        this.defaultGrantedAuthority = defaultGrantedAuthority;
+    public void setDefaultGrantedAuthority(final GrantedAuthority value) {
+        this.defaultGrantedAuthority = value;
     }
 }

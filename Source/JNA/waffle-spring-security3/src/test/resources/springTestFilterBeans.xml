@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:sec="http://www.springframework.org/schema/security"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+    xmlns:sec="http://www.springframework.org/schema/security"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
-	<!-- windows authentication provider -->
-	<bean id="waffleWindowsAuthProvider" class="waffle.mock.MockWindowsAuthProvider" />
+    <!-- windows authentication provider -->
+    <bean id="waffleWindowsAuthProvider" class="waffle.mock.MockWindowsAuthProvider" />
 
-	<!-- collection of security filters -->
-	<bean id="negotiateSecurityFilterProvider" class="waffle.servlet.spi.NegotiateSecurityFilterProvider">
-		<constructor-arg ref="waffleWindowsAuthProvider" />
-		<property name="protocols">
-			<list>
-				<value>NTLM</value>
-				<value>Negotiate</value>
-			</list>
-		</property>
-	</bean>
+    <!-- collection of security filters -->
+    <bean id="negotiateSecurityFilterProvider" class="waffle.servlet.spi.NegotiateSecurityFilterProvider">
+        <constructor-arg ref="waffleWindowsAuthProvider" />
+        <property name="protocols">
+            <list>
+                <value>NTLM</value>
+                <value>Negotiate</value>
+            </list>
+        </property>
+    </bean>
 
-	<bean id="basicSecurityFilterProvider" class="waffle.servlet.spi.BasicSecurityFilterProvider">
-		<constructor-arg ref="waffleWindowsAuthProvider" />
-		<property name="realm" value="TestRealm" />
-	</bean>
+    <bean id="basicSecurityFilterProvider" class="waffle.servlet.spi.BasicSecurityFilterProvider">
+        <constructor-arg ref="waffleWindowsAuthProvider" />
+        <property name="realm" value="TestRealm" />
+    </bean>
 
-	<bean id="waffleSecurityFilterProviderCollection" class="waffle.servlet.spi.SecurityFilterProviderCollection">
-		<constructor-arg>
-			<list>
-				<ref bean="negotiateSecurityFilterProvider" />
-				<ref bean="basicSecurityFilterProvider" />
-			</list>
-		</constructor-arg>
-	</bean>
+    <bean id="waffleSecurityFilterProviderCollection" class="waffle.servlet.spi.SecurityFilterProviderCollection">
+        <constructor-arg>
+            <list>
+                <ref bean="negotiateSecurityFilterProvider" />
+                <ref bean="basicSecurityFilterProvider" />
+            </list>
+        </constructor-arg>
+    </bean>
 
-	<bean id="negotiateSecurityFilterEntryPoint" class="waffle.spring.NegotiateSecurityFilterEntryPoint">
-		<property name="provider" ref="waffleSecurityFilterProviderCollection" />
-	</bean>
+    <bean id="negotiateSecurityFilterEntryPoint" class="waffle.spring.NegotiateSecurityFilterEntryPoint">
+        <property name="provider" ref="waffleSecurityFilterProviderCollection" />
+    </bean>
 
-	<bean id="waffleNegotiateSecurityFilter" class="waffle.spring.NegotiateSecurityFilter">
-		<property name="provider" ref="waffleSecurityFilterProviderCollection" />
-		<property name="allowGuestLogin" value="false" />
-		<property name="principalFormat" value="fqn" />
-		<property name="roleFormat" value="both" />
-	</bean>
+    <bean id="waffleNegotiateSecurityFilter" class="waffle.spring.NegotiateSecurityFilter">
+        <property name="provider" ref="waffleSecurityFilterProviderCollection" />
+        <property name="allowGuestLogin" value="false" />
+        <property name="principalFormat" value="fqn" />
+        <property name="roleFormat" value="both" />
+    </bean>
 </beans>

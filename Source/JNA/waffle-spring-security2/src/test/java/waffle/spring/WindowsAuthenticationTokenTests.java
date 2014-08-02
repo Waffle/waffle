@@ -32,8 +32,8 @@ import waffle.servlet.WindowsPrincipal;
  */
 public class WindowsAuthenticationTokenTests {
 
-    private WindowsPrincipal           principal = null;
-    private WindowsAuthenticationToken token     = null;
+    private WindowsPrincipal           principal;
+    private WindowsAuthenticationToken token;
 
     @Before
     public void setUp() {

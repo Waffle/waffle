@@ -16,6 +16,7 @@ package waffle.apache;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.LinkedHashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import javax.servlet.ServletException;
@@ -29,7 +30,6 @@ import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.PrincipalFormat;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
-
 import static java.util.Arrays.asList;
 
 /**
@@ -79,7 +79,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      *            Principal format.
      */
     public void setPrincipalFormat(String format) {
-        this.principalFormat = PrincipalFormat.valueOf(format);
+        this.principalFormat = PrincipalFormat.valueOf(format.toUpperCase(Locale.ENGLISH));
         this.log.debug("principal format: {}", this.principalFormat);
     }
 
@@ -99,7 +99,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      *            Role format.
      */
     public void setRoleFormat(String format) {
-        this.roleFormat = PrincipalFormat.valueOf(format);
+        this.roleFormat = PrincipalFormat.valueOf(format.toUpperCase(Locale.ENGLISH));
         this.log.debug("role format: {}", this.roleFormat);
     }
 
