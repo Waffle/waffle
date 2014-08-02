@@ -62,1169 +62,1321 @@ import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
  */
 public class SimpleContext implements Context {
 
-    private String         _path           = "/";
-    private String         _name           = "SimpleContext";
-    private Realm          _realm;
-    private Container      _parent;
-    private ServletContext _servletContext = new SimpleServletContext();
-    private Pipeline       _pipeline;
-    private Authenticator  _authenticator;
+    private String         path           = "/";
+    private String         name           = "SimpleContext";
+    private Realm          realm;
+    private Container      parent;
+    private ServletContext servletContext = new SimpleServletContext();
+    private Pipeline       pipeline;
+    private Authenticator  authenticator;
 
     @Override
-    public void addApplicationParameter(ApplicationParameter arg0) {
-
+    public void addApplicationParameter(ApplicationParameter value) {
+        // Not Implemented
     }
 
     @Override
-    public void addConstraint(SecurityConstraint arg0) {
-
+    public void addConstraint(SecurityConstraint value) {
+        // Not Implemented
     }
 
     @Override
-    public void addErrorPage(ErrorPage arg0) {
-
+    public void addErrorPage(ErrorPage value) {
+        // Not Implemented
     }
 
     @Override
-    public void addFilterDef(FilterDef arg0) {
-
+    public void addFilterDef(FilterDef value) {
+        // Not Implemented
     }
 
     @Override
-    public void addFilterMap(FilterMap arg0) {
-
+    public void addFilterMap(FilterMap value) {
+        // Not Implemented
     }
 
     @Override
-    public void addInstanceListener(String arg0) {
-
+    public void addInstanceListener(String value) {
+        // Not Implemented
     }
 
     @Override
-    public void addLocaleEncodingMappingParameter(String arg0, String arg1) {
-
+    public void addLocaleEncodingMappingParameter(String value, String arg1) {
+        // Not Implemented
     }
 
     @Override
-    public void addMimeMapping(String arg0, String arg1) {
-
+    public void addMimeMapping(String value, String arg1) {
+        // Not Implemented
     }
 
     @Override
-    public void addParameter(String arg0, String arg1) {
-
+    public void addParameter(String value, String arg1) {
+        // Not Implemented
     }
 
     @Override
-    public void addRoleMapping(String arg0, String arg1) {
-
+    public void addRoleMapping(String value, String arg1) {
+        // Not Implemented
     }
 
     @Override
-    public void addSecurityRole(String arg0) {
-
+    public void addSecurityRole(String value) {
+        // Not Implemented
     }
 
     @Override
-    public void addServletMapping(String arg0, String arg1) {
-
+    public void addServletMapping(String value, String arg1) {
+        // Not Implemented
     }
 
     @Override
-    public void addWatchedResource(String arg0) {
-
+    public void addWatchedResource(String value) {
+        // Not Implemented
     }
 
     @Override
-    public void addWelcomeFile(String arg0) {
-
+    public void addWelcomeFile(String value) {
+        // Not Implemented
     }
 
     @Override
-    public void addWrapperLifecycle(String arg0) {
-
+    public void addWrapperLifecycle(String value) {
+        // Not Implemented
     }
 
     @Override
-    public void addWrapperListener(String arg0) {
-
+    public void addWrapperListener(String value) {
+        // Not Implemented
     }
 
     @Override
     public Wrapper createWrapper() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public ApplicationParameter[] findApplicationParameters() {
+        // Not Implemented
         return new ApplicationParameter[0];
     }
 
     @Override
     public SecurityConstraint[] findConstraints() {
+        // Not Implemented
         return new SecurityConstraint[0];
     }
 
     @Override
-    public ErrorPage findErrorPage(int arg0) {
+    public ErrorPage findErrorPage(int value) {
+        // Not Implemented
         return null;
     }
 
     @Override
-    public ErrorPage findErrorPage(String arg0) {
+    public ErrorPage findErrorPage(String value) {
+        // Not Implemented
         return null;
     }
 
     @Override
     public ErrorPage[] findErrorPages() {
+        // Not Implemented
         return new ErrorPage[0];
     }
 
     @Override
-    public FilterDef findFilterDef(String arg0) {
+    public FilterDef findFilterDef(String value) {
+        // Not Implemented
         return null;
     }
 
     @Override
     public FilterDef[] findFilterDefs() {
+        // Not Implemented
         return new FilterDef[0];
     }
 
     @Override
     public FilterMap[] findFilterMaps() {
+        // Not Implemented
         return new FilterMap[0];
     }
 
     @Override
     public String[] findInstanceListeners() {
+        // Not Implemented
         return new String[0];
     }
 
     @Override
-    public String findMimeMapping(String arg0) {
+    public String findMimeMapping(String value) {
+        // Not Implemented
         return null;
     }
 
     @Override
     public String[] findMimeMappings() {
+        // Not Implemented
         return new String[0];
     }
 
     @Override
-    public String findParameter(String arg0) {
+    public String findParameter(String value) {
+        // Not Implemented
         return null;
     }
 
     @Override
     public String[] findParameters() {
+        // Not Implemented
         return new String[0];
     }
 
     @Override
-    public String findRoleMapping(String arg0) {
+    public String findRoleMapping(String value) {
+        // Not Implemented
         return null;
     }
 
     @Override
-    public boolean findSecurityRole(String arg0) {
+    public boolean findSecurityRole(String value) {
+        // Not Implemented
         return false;
     }
 
     @Override
     public String[] findSecurityRoles() {
+        // Not Implemented
         return new String[0];
     }
 
     @Override
-    public String findServletMapping(String arg0) {
+    public String findServletMapping(String value) {
+        // Not Implemented
         return null;
     }
 
     @Override
     public String[] findServletMappings() {
+        // Not Implemented
         return new String[0];
     }
 
     @Override
-    public String findStatusPage(int arg0) {
+    public String findStatusPage(int value) {
+        // Not Implemented
         return null;
     }
 
     @Override
     public int[] findStatusPages() {
+        // Not Implemented
         return new int[0];
     }
 
     @Override
     public String[] findWatchedResources() {
+        // Not Implemented
         return new String[0];
     }
 
     @Override
-    public boolean findWelcomeFile(String arg0) {
+    public boolean findWelcomeFile(String value) {
+        // Not Implemented
         return false;
     }
 
     @Override
     public String[] findWelcomeFiles() {
+        // Not Implemented
         return new String[0];
     }
 
     @Override
     public String[] findWrapperLifecycles() {
+        // Not Implemented
         return new String[0];
     }
 
     @Override
     public String[] findWrapperListeners() {
+        // Not Implemented
         return new String[0];
     }
 
     @Override
     public String getAltDDName() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public Object[] getApplicationEventListeners() {
+        // Not Implemented
         return new Object[0];
     }
 
     @Override
     public Object[] getApplicationLifecycleListeners() {
+        // Not Implemented
         return new Object[0];
     }
 
     @Override
     public URL getConfigFile() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public boolean getConfigured() {
+        // Not Implemented
         return false;
     }
 
     @Override
     public boolean getCookies() {
+        // Not Implemented
         return false;
     }
 
     @Override
     public boolean getCrossContext() {
+        // Not Implemented
         return false;
     }
 
     @Override
     public String getDisplayName() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public boolean getDistributable() {
+        // Not Implemented
         return false;
     }
 
     @Override
     public String getDocBase() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public String getEncodedPath() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public boolean getIgnoreAnnotations() {
+        // Not Implemented
         return false;
     }
 
     @Override
     public LoginConfig getLoginConfig() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public NamingResourcesImpl getNamingResources() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public boolean getOverride() {
+        // Not Implemented
         return false;
     }
 
+    /**
+     * Get Path Used By Waffle.
+     */
     @Override
     public String getPath() {
-        return _path;
+        return this.path;
     }
 
     @Override
     public boolean getPrivileged() {
+        // Not Implemented
         return false;
     }
 
     @Override
     public String getPublicId() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public boolean getReloadable() {
+        // Not Implemented
         return false;
     }
 
+    /**
+     * Get Servlet Context Used By Waffle.
+     */
     @Override
     public ServletContext getServletContext() {
-        return _servletContext;
+        return this.servletContext;
     }
 
     @Override
     public int getSessionTimeout() {
+        // Not Implemented
         return 0;
     }
 
     @Override
     public boolean getSwallowOutput() {
+        // Not Implemented
         return false;
     }
 
     @Override
     public boolean getTldValidation() {
+        // Not Implemented
         return false;
     }
 
     @Override
     public boolean getUseHttpOnly() {
+        // Not Implemented
         return false;
     }
 
     @Override
     public String getWrapperClass() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public boolean getXmlNamespaceAware() {
+        // Not Implemented
         return false;
     }
 
     @Override
     public boolean getXmlValidation() {
+        // Not Implemented
         return false;
     }
 
     @Override
     public void reload() {
-
+        // Not Implemented
     }
 
     @Override
-    public void removeApplicationListener(String arg0) {
-
+    public void removeApplicationListener(String value) {
+        // Not Implemented
     }
 
     @Override
-    public void removeApplicationParameter(String arg0) {
-
+    public void removeApplicationParameter(String value) {
+        // Not Implemented
     }
 
     @Override
-    public void removeConstraint(SecurityConstraint arg0) {
-
+    public void removeConstraint(SecurityConstraint value) {
+        // Not Implemented
     }
 
     @Override
-    public void removeErrorPage(ErrorPage arg0) {
-
+    public void removeErrorPage(ErrorPage value) {
+        // Not Implemented
     }
 
     @Override
-    public void removeFilterDef(FilterDef arg0) {
-
+    public void removeFilterDef(FilterDef value) {
+        // Not Implemented
     }
 
     @Override
-    public void removeFilterMap(FilterMap arg0) {
-
+    public void removeFilterMap(FilterMap value) {
+        // Not Implemented
     }
 
     @Override
-    public void removeInstanceListener(String arg0) {
-
+    public void removeInstanceListener(String value) {
+        // Not Implemented
     }
 
     @Override
-    public void removeMimeMapping(String arg0) {
-
+    public void removeMimeMapping(String value) {
+        // Not Implemented
     }
 
     @Override
-    public void removeParameter(String arg0) {
-
+    public void removeParameter(String value) {
+        // Not Implemented
     }
 
     @Override
-    public void removeRoleMapping(String arg0) {
-
+    public void removeRoleMapping(String value) {
+        // Not Implemented
     }
 
     @Override
-    public void removeSecurityRole(String arg0) {
-
+    public void removeSecurityRole(String value) {
+        // Not Implemented
     }
 
     @Override
-    public void removeServletMapping(String arg0) {
-
+    public void removeServletMapping(String value) {
+        // Not Implemented
     }
 
     @Override
-    public void removeWatchedResource(String arg0) {
-
+    public void removeWatchedResource(String value) {
+        // Not Implemented
     }
 
     @Override
-    public void removeWelcomeFile(String arg0) {
-
+    public void removeWelcomeFile(String value) {
+        // Not Implemented
     }
 
     @Override
-    public void removeWrapperLifecycle(String arg0) {
-
+    public void removeWrapperLifecycle(String value) {
+        // Not Implemented
     }
 
     @Override
-    public void removeWrapperListener(String arg0) {
-
+    public void removeWrapperListener(String value) {
+        // Not Implemented
     }
 
     @Override
-    public void setAltDDName(String arg0) {
-
+    public void setAltDDName(String value) {
+        // Not Implemented
     }
 
     @Override
-    public void setApplicationEventListeners(Object[] arg0) {
-
+    public void setApplicationEventListeners(Object[] value) {
+        // Not Implemented
     }
 
     @Override
-    public void setApplicationLifecycleListeners(Object[] arg0) {
-
+    public void setApplicationLifecycleListeners(Object[] value) {
+        // Not Implemented
     }
 
     @Override
-    public void setConfigured(boolean arg0) {
-
+    public void setConfigured(boolean value) {
+        // Not Implemented
     }
 
     @Override
-    public void setCookies(boolean arg0) {
-
+    public void setCookies(boolean value) {
+        // Not Implemented
     }
 
     @Override
-    public void setCrossContext(boolean arg0) {
-
+    public void setCrossContext(boolean value) {
+        // Not Implemented
     }
 
     @Override
-    public void setDisplayName(String arg0) {
-
+    public void setDisplayName(String value) {
+        // Not Implemented
     }
 
     @Override
-    public void setDistributable(boolean arg0) {
-
+    public void setDistributable(boolean value) {
+        // Not Implemented
     }
 
     @Override
-    public void setDocBase(String arg0) {
-
+    public void setDocBase(String value) {
+        // Not Implemented
     }
 
     @Override
-    public void setIgnoreAnnotations(boolean arg0) {
-
+    public void setIgnoreAnnotations(boolean value) {
+        // Not Implemented
     }
 
     @Override
-    public void setLoginConfig(LoginConfig arg0) {
-
+    public void setLoginConfig(LoginConfig value) {
+        // Not Implemented
     }
 
     @Override
-    public void setOverride(boolean arg0) {
+    public void setOverride(boolean value) {
+        // Not Implemented
+    }
 
+    /**
+     * Set Path Used By Waffle
+     */
+    @Override
+    public void setPath(String value) {
+        this.path = value;
     }
 
     @Override
-    public void setPath(String path) {
-        _path = path;
+    public void setPrivileged(boolean value) {
+        // Not Implemented
     }
 
     @Override
-    public void setPrivileged(boolean arg0) {
-
+    public void setPublicId(String value) {
+        // Not Implemented
     }
 
     @Override
-    public void setPublicId(String arg0) {
-
+    public void setReloadable(boolean value) {
+        // Not Implemented
     }
 
     @Override
-    public void setReloadable(boolean arg0) {
-
+    public void setSessionTimeout(int value) {
+        // Not Implemented
     }
 
     @Override
-    public void setSessionTimeout(int arg0) {
-
+    public void setSwallowOutput(boolean value) {
+        // Not Implemented
     }
 
     @Override
-    public void setSwallowOutput(boolean arg0) {
-
+    public void setTldValidation(boolean value) {
+        // Not Implemented
     }
 
     @Override
-    public void setTldValidation(boolean arg0) {
-
+    public void setUseHttpOnly(boolean value) {
+        // Not Implemented
     }
 
     @Override
-    public void setUseHttpOnly(boolean arg0) {
-
+    public void setWrapperClass(String value) {
+        // Not Implemented
     }
 
     @Override
-    public void setWrapperClass(String arg0) {
-
+    public void setXmlNamespaceAware(boolean value) {
+        // Not Implemented
     }
 
     @Override
-    public void setXmlNamespaceAware(boolean arg0) {
-
+    public void setXmlValidation(boolean value) {
+        // Not Implemented
     }
 
     @Override
-    public void setXmlValidation(boolean arg0) {
-
+    public void addChild(Container value) {
+        // Not Implemented
     }
 
     @Override
-    public void addChild(Container arg0) {
-
+    public void addContainerListener(ContainerListener value) {
+        // Not Implemented
     }
 
     @Override
-    public void addContainerListener(ContainerListener arg0) {
-
-    }
-
-    @Override
-    public void addPropertyChangeListener(PropertyChangeListener arg0) {
-
+    public void addPropertyChangeListener(PropertyChangeListener value) {
+        // Not Implemented
     }
 
     @Override
     public void backgroundProcess() {
-
+        // Not Implemented
     }
 
     @Override
-    public Container findChild(String arg0) {
+    public Container findChild(String value) {
+        // Not Implemented
         return null;
     }
 
     @Override
     public Container[] findChildren() {
+        // Not Implemented
         return new Container[0];
     }
 
     @Override
     public ContainerListener[] findContainerListeners() {
+        // Not Implemented
         return new ContainerListener[0];
     }
 
     @Override
     public int getBackgroundProcessorDelay() {
+        // Not Implemented
         return 0;
     }
 
     @Override
     public Cluster getCluster() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public Loader getLoader() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public Log getLogger() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public Manager getManager() {
+        // Not Implemented
         return null;
     }
 
+    /**
+     * Get Name Used By Waffle.
+     */
     @Override
     public String getName() {
-        return _name;
+        return this.name;
     }
 
     @Override
     public ObjectName getObjectName() {
+        // Not Implemented
         return null;
     }
 
+    /**
+     * Get Parent Used By Waffle.
+     */
     @Override
     public Container getParent() {
-        return _parent;
+        return this.parent;
     }
 
     @Override
     public ClassLoader getParentClassLoader() {
+        // Not Implemented
         return null;
     }
 
+    /**
+     * Get Pipeline Used By Waffle.
+     */
     @Override
     public Pipeline getPipeline() {
-        return _pipeline;
+        return this.pipeline;
     }
 
-    public void setPipeline(Pipeline pipeline) {
-        _pipeline = pipeline;
+    /**
+     * Set Pipeline Used By Waffle.
+     * 
+     * @param value
+     */
+    public void setPipeline(Pipeline value) {
+        this.pipeline = value;
     }
 
+    /**
+     * Get Realm Used By Waffle.
+     */
     @Override
     public Realm getRealm() {
-        return _realm;
+        return this.realm;
     }
 
     @Override
     public WebResourceRoot getResources() {
+        // Not Implemented
         return null;
     }
 
     @Override
-    public void removeChild(Container arg0) {
-
+    public void removeChild(Container value) {
+        // Not Implemented
     }
 
     @Override
-    public void removeContainerListener(ContainerListener arg0) {
-
+    public void removeContainerListener(ContainerListener value) {
+        // Not Implemented
     }
 
     @Override
-    public void removePropertyChangeListener(PropertyChangeListener arg0) {
-
+    public void removePropertyChangeListener(PropertyChangeListener value) {
+        // Not Implemented
     }
 
     @Override
-    public void setBackgroundProcessorDelay(int arg0) {
-
+    public void setBackgroundProcessorDelay(int value) {
+        // Not Implemented
     }
 
     @Override
-    public void setCluster(Cluster arg0) {
-
+    public void setCluster(Cluster value) {
+        // Not Implemented
     }
 
     @Override
-    public void setLoader(Loader arg0) {
-
+    public void setLoader(Loader value) {
+        // Not Implemented
     }
 
     @Override
-    public void setManager(Manager arg0) {
-
+    public void setManager(Manager value) {
+        // Not Implemented
     }
 
+    /**
+     * Set Name Used By Waffle.
+     */
     @Override
-    public void setName(String name) {
-        _name = name;
+    public void setName(String value) {
+        this.name = value;
     }
 
+    /**
+     * Set Parent Used By Waffle.
+     */
     @Override
     public void setParent(Container container) {
-        _parent = container;
+        this.parent = container;
     }
 
     @Override
-    public void setParentClassLoader(ClassLoader arg0) {
-
+    public void setParentClassLoader(ClassLoader value) {
+        // Not Implemented
     }
 
+    /**
+     * Set Realm Used By Waffle.
+     */
     @Override
-    public void setRealm(Realm realm) {
-        _realm = realm;
+    public void setRealm(Realm value) {
+        this.realm = value;
     }
 
     @Override
     public String getSessionCookieDomain() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public String getSessionCookieName() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public String getSessionCookiePath() {
+        // Not Implemented
         return null;
     }
 
     @Override
-    public void setSessionCookieDomain(String arg0) {
-
+    public void setSessionCookieDomain(String value) {
+        // Not Implemented
     }
 
     @Override
-    public void setSessionCookieName(String arg0) {
-
+    public void setSessionCookieName(String value) {
+        // Not Implemented
     }
 
     @Override
-    public void setSessionCookiePath(String arg0) {
-
+    public void setSessionCookiePath(String value) {
+        // Not Implemented
     }
 
     @Override
     public AccessLog getAccessLog() {
+        // Not Implemented
         return null;
     }
 
     @Override
-    public void logAccess(Request arg0, Response arg1, long arg2, boolean arg3) {
-
+    public void logAccess(Request value, Response arg1, long arg2, boolean arg3) {
+        // Not Implemented
     }
 
     @Override
-    public void fireContainerEvent(String arg0, Object arg1) {
-
+    public void fireContainerEvent(String value, Object arg1) {
+        // Not Implemented
     }
 
     @Override
-    public void addLifecycleListener(LifecycleListener arg0) {
-
+    public void addLifecycleListener(LifecycleListener value) {
+        // Not Implemented
     }
 
     @Override
     public void destroy() throws LifecycleException {
-
+        // Not Implemented
     }
 
     @Override
     public LifecycleListener[] findLifecycleListeners() {
+        // Not Implemented
         return new LifecycleListener[0];
     }
 
     @Override
     public LifecycleState getState() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public String getStateName() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public void init() throws LifecycleException {
-
+        // Not Implemented
     }
 
     @Override
-    public void removeLifecycleListener(LifecycleListener arg0) {
-
+    public void removeLifecycleListener(LifecycleListener value) {
+        // Not Implemented
     }
 
     @Override
     public void start() throws LifecycleException {
-
+        // Not Implemented
     }
 
     @Override
     public void stop() throws LifecycleException {
-
+        // Not Implemented
     }
 
     @Override
-    public void addFilterMapBefore(FilterMap arg0) {
-
+    public void addFilterMapBefore(FilterMap value) {
+        // Not Implemented
     }
 
     @Override
-    public void addServletContainerInitializer(ServletContainerInitializer arg0, Set<Class<?>> arg1) {
-
+    public void addServletContainerInitializer(ServletContainerInitializer value, Set<Class<?>> arg1) {
+        // Not Implemented
     }
 
     @Override
-    public void addServletMapping(String arg0, String arg1, boolean arg2) {
-
+    public void addServletMapping(String value, String arg1, boolean arg2) {
+        // Not Implemented
     }
 
+    /**
+     * Get Authenticator Used By Waffle.
+     */
     @Override
     public Authenticator getAuthenticator() {
-        return _authenticator;
+        return this.authenticator;
     }
 
-    public void setAuthenticator(Authenticator authenticator) {
-        _authenticator = authenticator;
+    /**
+     * Set Authenticator Used By Waffle.
+     * 
+     * @param value
+     */
+    public void setAuthenticator(Authenticator value) {
+        this.authenticator = value;
     }
 
     @Override
     public int getEffectiveMajorVersion() {
+        // Not Implemented
         return 0;
     }
 
     @Override
     public int getEffectiveMinorVersion() {
+        // Not Implemented
         return 0;
     }
 
     @Override
     public JspConfigDescriptor getJspConfigDescriptor() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public boolean getLogEffectiveWebXml() {
+        // Not Implemented
         return false;
     }
 
     @Override
     public boolean getPaused() {
+        // Not Implemented
         return false;
     }
 
     @Override
-    public String getRealPath(String arg0) {
+    public String getRealPath(String value) {
+        // Not Implemented
         return null;
     }
 
     @Override
     public boolean isServlet22() {
+        // Not Implemented
         return false;
     }
 
     @Override
-    public void setConfigFile(URL arg0) {
-
+    public void setConfigFile(URL value) {
+        // Not Implemented
     }
 
     @Override
-    public void setEffectiveMajorVersion(int arg0) {
-
+    public void setEffectiveMajorVersion(int value) {
+        // Not Implemented
     }
 
     @Override
-    public void setEffectiveMinorVersion(int arg0) {
-
+    public void setEffectiveMinorVersion(int value) {
+        // Not Implemented
     }
 
     @Override
-    public void setLogEffectiveWebXml(boolean arg0) {
-
+    public void setLogEffectiveWebXml(boolean value) {
+        // Not Implemented
     }
 
     @Override
     public int getStartStopThreads() {
+        // Not Implemented
         return 0;
     }
 
     @Override
-    public void setStartStopThreads(int arg0) {
-
+    public void setStartStopThreads(int value) {
+        // Not Implemented
     }
 
     @Override
-    public boolean fireRequestDestroyEvent(ServletRequest arg0) {
+    public boolean fireRequestDestroyEvent(ServletRequest value) {
+        // Not Implemented
         return false;
     }
 
     @Override
-    public boolean fireRequestInitEvent(ServletRequest arg0) {
+    public boolean fireRequestInitEvent(ServletRequest value) {
+        // Not Implemented
         return false;
     }
 
     @Override
     public boolean getAllowCasualMultipartParsing() {
+        // Not Implemented
         return false;
     }
 
     @Override
     public String getBaseName() {
+        // Not Implemented
         return null;
     }
 
     @Override
-    public String getCharset(Locale arg0) {
+    public String getCharset(Locale value) {
+        // Not Implemented
         return null;
     }
 
     @Override
     public boolean getFireRequestListenersOnForwards() {
+        // Not Implemented
         return false;
     }
 
     @Override
     public boolean getPreemptiveAuthentication() {
+        // Not Implemented
         return false;
     }
 
     @Override
     public String getResourceOnlyServlets() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public boolean getSendRedirectBody() {
+        // Not Implemented
         return false;
     }
 
     @Override
     public boolean getSessionCookiePathUsesTrailingSlash() {
+        // Not Implemented
         return false;
     }
 
     @Override
     public boolean getSwallowAbortedUploads() {
+        // Not Implemented
         return false;
     }
 
     @Override
     public String getWebappVersion() {
+        // Not Implemented
         return null;
     }
 
     @Override
-    public boolean isResourceOnlyServlet(String arg0) {
+    public boolean isResourceOnlyServlet(String value) {
+        // Not Implemented
         return false;
     }
 
     @Override
-    public void setAllowCasualMultipartParsing(boolean arg0) {
-
+    public void setAllowCasualMultipartParsing(boolean value) {
+        // Not Implemented
     }
 
     @Override
-    public void setFireRequestListenersOnForwards(boolean arg0) {
-
+    public void setFireRequestListenersOnForwards(boolean value) {
+        // Not Implemented
     }
 
     @Override
-    public void setPreemptiveAuthentication(boolean arg0) {
-
+    public void setPreemptiveAuthentication(boolean value) {
+        // Not Implemented
     }
 
     @Override
-    public void setResourceOnlyServlets(String arg0) {
-
+    public void setResourceOnlyServlets(String value) {
+        // Not Implemented
     }
 
     @Override
-    public void setSendRedirectBody(boolean arg0) {
-
+    public void setSendRedirectBody(boolean value) {
+        // Not Implemented
     }
 
     @Override
-    public void setSessionCookiePathUsesTrailingSlash(boolean arg0) {
-
+    public void setSessionCookiePathUsesTrailingSlash(boolean value) {
+        // Not Implemented
     }
 
     @Override
-    public void setSwallowAbortedUploads(boolean arg0) {
-
+    public void setSwallowAbortedUploads(boolean value) {
+        // Not Implemented
     }
 
     @Override
-    public void setWebappVersion(String arg0) {
-
+    public void setWebappVersion(String value) {
+        // Not Implemented
     }
 
     @Override
     public JarScanner getJarScanner() {
+        // Not Implemented
         return null;
     }
 
     @Override
-    public void setJarScanner(JarScanner arg0) {
-
+    public void setJarScanner(JarScanner value) {
+        // Not Implemented
     }
 
     @Override
     public String getDomain() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public String getMBeanKeyProperties() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public File getCatalinaBase() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public File getCatalinaHome() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public boolean getDenyUncoveredHttpMethods() {
+        // Not Implemented
         return false;
     }
 
     @Override
     public void setDenyUncoveredHttpMethods(boolean denyUncoveredHttpMethods) {
-
+        // Not Implemented
     }
 
     @Override
     public void setNamingResources(NamingResourcesImpl namingResources) {
-
+        // Not Implemented
     }
 
     @Override
     public boolean getXmlBlockExternal() {
+        // Not Implemented
         return false;
     }
 
     @Override
     public void setXmlBlockExternal(boolean xmlBlockExternal) {
-
+        // Not Implemented
     }
 
     @Override
     public InstanceManager getInstanceManager() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public void setInstanceManager(InstanceManager instanceManager) {
-
+        // Not Implemented
     }
 
     @Override
     public void setContainerSciFilter(String containerSciFilter) {
-
+        // Not Implemented
     }
 
     @Override
     public String getContainerSciFilter() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public ThreadBindingListener getThreadBindingListener() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public void setThreadBindingListener(ThreadBindingListener threadBindingListener) {
-
+        // Not Implemented
     }
 
     @Override
     public void setJspConfigDescriptor(JspConfigDescriptor descriptor) {
-
+        // Not Implemented
     }
 
     @Override
     public Set<String> addServletSecurity(Dynamic registration, ServletSecurityElement servletSecurityElement) {
+        // Not Implemented
         return null;
     }
 
     @Override
     public void setResources(WebResourceRoot resources) {
-
+        // Not Implemented
     }
 
     @Override
     public void setAddWebinfClassesResources(boolean addWebinfClassesResources) {
-
+        // Not Implemented
     }
 
     @Override
     public boolean getAddWebinfClassesResources() {
+        // Not Implemented
         return false;
     }
 
     @Override
     public void addPostConstructMethod(String clazz, String method) {
-
+        // Not Implemented
     }
 
     @Override
     public void addPreDestroyMethod(String clazz, String method) {
-
+        // Not Implemented
     }
 
     @Override
     public void removePostConstructMethod(String clazz) {
-
+        // Not Implemented
     }
 
     @Override
     public void removePreDestroyMethod(String clazz) {
-
+        // Not Implemented
     }
 
     @Override
     public String findPostConstructMethod(String clazz) {
+        // Not Implemented
         return null;
     }
 
     @Override
     public String findPreDestroyMethod(String clazz) {
+        // Not Implemented
         return null;
     }
 
     @Override
     public Map<String, String> findPostConstructMethods() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public Map<String, String> findPreDestroyMethods() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public ClassLoader bind(boolean usePrivilegedAction, ClassLoader originalClassLoader) {
+        // Not Implemented
         return null;
     }
 
     @Override
     public void unbind(boolean usePrivilegedAction, ClassLoader originalClassLoader) {
-
+        // Not Implemented
     }
 
     @Override
     public Object getNamingToken() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public void addApplicationListener(String listener) {
-
+        // Not Implemented
     }
 
     @Override
     public String[] findApplicationListeners() {
+        // Not Implemented
         return null;
     }
 }

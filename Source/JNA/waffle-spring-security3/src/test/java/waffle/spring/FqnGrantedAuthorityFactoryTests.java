@@ -24,35 +24,35 @@ import waffle.windows.auth.WindowsAccount;
 
 public class FqnGrantedAuthorityFactoryTests {
 
-    private WindowsAccount _group;
+    private WindowsAccount group;
 
     @Before
     public void setUp() {
-        _group = new WindowsAccount(new MockWindowsAccount("group"));
+        this.group = new WindowsAccount(new MockWindowsAccount("group"));
     }
 
     @Test
     public void testPrefixAndUppercase() {
         FqnGrantedAuthorityFactory factory = new FqnGrantedAuthorityFactory("prefix_", true);
-        assertEquals(new SimpleGrantedAuthority("PREFIX_GROUP"), factory.createGrantedAuthority(_group));
+        assertEquals(new SimpleGrantedAuthority("PREFIX_GROUP"), factory.createGrantedAuthority(this.group));
     }
 
     @Test
     public void testPrefixAndLowercase() {
         FqnGrantedAuthorityFactory factory = new FqnGrantedAuthorityFactory("prefix_", false);
-        assertEquals(new SimpleGrantedAuthority("prefix_group"), factory.createGrantedAuthority(_group));
+        assertEquals(new SimpleGrantedAuthority("prefix_group"), factory.createGrantedAuthority(this.group));
     }
 
     @Test
     public void testNoPrefixAndUppercase() {
         FqnGrantedAuthorityFactory factory = new FqnGrantedAuthorityFactory(null, true);
-        assertEquals(new SimpleGrantedAuthority("GROUP"), factory.createGrantedAuthority(_group));
+        assertEquals(new SimpleGrantedAuthority("GROUP"), factory.createGrantedAuthority(this.group));
     }
 
     @Test
     public void testNoPrefixAndLowercase() {
         FqnGrantedAuthorityFactory factory = new FqnGrantedAuthorityFactory(null, false);
-        assertEquals(new SimpleGrantedAuthority("group"), factory.createGrantedAuthority(_group));
+        assertEquals(new SimpleGrantedAuthority("group"), factory.createGrantedAuthority(this.group));
     }
 
 }

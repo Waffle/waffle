@@ -54,14 +54,14 @@ import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
  */
 public class NegotiateSecurityFilterTests {
 
-    private NegotiateSecurityFilter _filter;
+    private NegotiateSecurityFilter filter;
 
     @Before
     public void setUp() {
-        _filter = new NegotiateSecurityFilter();
-        _filter.setAuth(new WindowsAuthProviderImpl());
+        this.filter = new NegotiateSecurityFilter();
+        this.filter.setAuth(new WindowsAuthProviderImpl());
         try {
-            _filter.init(null);
+            this.filter.init(null);
         } catch (ServletException e) {
             fail(e.getMessage());
         }
@@ -69,7 +69,7 @@ public class NegotiateSecurityFilterTests {
 
     @After
     public void tearDown() {
-        _filter.destroy();
+        this.filter.destroy();
     }
 
     @Test
@@ -77,7 +77,7 @@ public class NegotiateSecurityFilterTests {
         SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
         SimpleHttpResponse response = new SimpleHttpResponse();
-        _filter.doFilter(request, response, null);
+        this.filter.doFilter(request, response, null);
         String[] wwwAuthenticates = response.getHeaderValues("WWW-Authenticate");
         assertEquals(3, wwwAuthenticates.length);
         assertEquals("Negotiate", wwwAuthenticates[0]);
@@ -109,7 +109,7 @@ public class NegotiateSecurityFilterTests {
             String clientToken = BaseEncoding.base64().encode(clientContext.getToken());
             request.addHeader("Authorization", securityPackage + " " + clientToken);
             SimpleHttpResponse response = new SimpleHttpResponse();
-            _filter.doFilter(request, response, null);
+            this.filter.doFilter(request, response, null);
             assertTrue(response.getHeader("WWW-Authenticate").startsWith(securityPackage + " "));
             assertEquals("keep-alive", response.getHeader("Connection"));
             assertEquals(2, response.getHeaderNamesSize());
@@ -131,7 +131,7 @@ public class NegotiateSecurityFilterTests {
         IWindowsCredentialsHandle clientCredentials = null;
         WindowsSecurityContextImpl clientContext = null;
         // role will contain both Everyone and SID
-        _filter.setRoleFormat("both");
+        this.filter.setRoleFormat("both");
         try {
             // client credentials handle
             clientCredentials = WindowsCredentialsHandleImpl.getCurrent(securityPackage);
@@ -152,7 +152,7 @@ public class NegotiateSecurityFilterTests {
                 request.addHeader("Authorization", securityPackage + " " + clientToken);
 
                 SimpleHttpResponse response = new SimpleHttpResponse();
-                _filter.doFilter(request, response, filterChain);
+                this.filter.doFilter(request, response, filterChain);
 
                 Subject subject = (Subject) request.getSession().getAttribute("javax.security.auth.subject");
                 authenticated = (subject != null && subject.getPrincipals().size() > 0);
@@ -201,7 +201,7 @@ public class NegotiateSecurityFilterTests {
         request.setUserPrincipal(windowsPrincipal);
         SimpleFilterChain filterChain = new SimpleFilterChain();
         SimpleHttpResponse response = new SimpleHttpResponse();
-        _filter.doFilter(request, response, filterChain);
+        this.filter.doFilter(request, response, filterChain);
         assertTrue(filterChain.getRequest() instanceof NegotiateRequestWrapper);
         NegotiateRequestWrapper wrappedRequest = (NegotiateRequestWrapper) filterChain.getRequest();
         assertTrue(wrappedRequest.getUserPrincipal() instanceof WindowsPrincipal);
@@ -219,7 +219,7 @@ public class NegotiateSecurityFilterTests {
         request.addHeader("Authorization", "NTLM TlRMTVNTUAABAAAABzIAAAYABgArAAAACwALACAAAABXT1JLU1RBVElPTkRPTUFJTg==");
         SimpleFilterChain filterChain = new SimpleFilterChain();
         SimpleHttpResponse response = new SimpleHttpResponse();
-        _filter.doFilter(request, response, filterChain);
+        this.filter.doFilter(request, response, filterChain);
         assertEquals(401, response.getStatus());
         String[] wwwAuthenticates = response.getHeaderValues("WWW-Authenticate");
         assertEquals(1, wwwAuthenticates.length);
@@ -240,7 +240,7 @@ public class NegotiateSecurityFilterTests {
         request.addHeader("Authorization", "NTLM TlRMTVNTUAABAAAABzIAAAYABgArAAAACwALACAAAABXT1JLU1RBVElPTkRPTUFJTg==");
         SimpleFilterChain filterChain = new SimpleFilterChain();
         SimpleHttpResponse response = new SimpleHttpResponse();
-        _filter.doFilter(request, response, filterChain);
+        this.filter.doFilter(request, response, filterChain);
         assertEquals(401, response.getStatus());
         String[] wwwAuthenticates = response.getHeaderValues("WWW-Authenticate");
         assertEquals(1, wwwAuthenticates.length);
@@ -259,12 +259,12 @@ public class NegotiateSecurityFilterTests {
         filterConfig.setParameter("securityFilterProviders", "waffle.servlet.spi.BasicSecurityFilterProvider\n");
         filterConfig.setParameter("waffle.servlet.spi.BasicSecurityFilterProvider/realm", "DemoRealm");
         filterConfig.setParameter("authProvider", MockWindowsAuthProvider.class.getName());
-        _filter.init(filterConfig);
-        assertEquals(_filter.getPrincipalFormat(), PrincipalFormat.sid);
-        assertEquals(_filter.getRoleFormat(), PrincipalFormat.none);
-        assertTrue(_filter.isAllowGuestLogin());
-        assertEquals(1, _filter.getProviders().size());
-        assertTrue(_filter.getAuth() instanceof MockWindowsAuthProvider);
+        this.filter.init(filterConfig);
+        assertEquals(this.filter.getPrincipalFormat(), PrincipalFormat.sid);
+        assertEquals(this.filter.getRoleFormat(), PrincipalFormat.none);
+        assertTrue(this.filter.isAllowGuestLogin());
+        assertEquals(1, this.filter.getProviders().size());
+        assertTrue(this.filter.getAuth() instanceof MockWindowsAuthProvider);
     }
 
     @Test
@@ -273,8 +273,8 @@ public class NegotiateSecurityFilterTests {
         SimpleFilterConfig filterConfig = new SimpleFilterConfig();
         filterConfig.setParameter("securityFilterProviders", "waffle.servlet.spi.BasicSecurityFilterProvider\n"
                 + "waffle.servlet.spi.NegotiateSecurityFilterProvider waffle.servlet.spi.BasicSecurityFilterProvider");
-        _filter.init(filterConfig);
-        assertEquals(3, _filter.getProviders().size());
+        this.filter.init(filterConfig);
+        assertEquals(3, this.filter.getProviders().size());
     }
 
     @Test
@@ -283,11 +283,11 @@ public class NegotiateSecurityFilterTests {
         filterConfig.setParameter("securityFilterProviders", "waffle.servlet.spi.NegotiateSecurityFilterProvider\n");
         filterConfig.setParameter("waffle.servlet.spi.NegotiateSecurityFilterProvider/protocols",
                 "NTLM\nNegotiate NTLM");
-        _filter.init(filterConfig);
-        assertEquals(_filter.getPrincipalFormat(), PrincipalFormat.fqn);
-        assertEquals(_filter.getRoleFormat(), PrincipalFormat.fqn);
-        assertTrue(_filter.isAllowGuestLogin());
-        assertEquals(1, _filter.getProviders().size());
+        this.filter.init(filterConfig);
+        assertEquals(this.filter.getPrincipalFormat(), PrincipalFormat.fqn);
+        assertEquals(this.filter.getRoleFormat(), PrincipalFormat.fqn);
+        assertTrue(this.filter.isAllowGuestLogin());
+        assertEquals(1, this.filter.getProviders().size());
     }
 
     @Test
@@ -296,7 +296,7 @@ public class NegotiateSecurityFilterTests {
         filterConfig.setParameter("securityFilterProviders", "waffle.servlet.spi.NegotiateSecurityFilterProvider\n");
         filterConfig.setParameter("waffle.servlet.spi.NegotiateSecurityFilterProvider/protocols", "INVALID");
         try {
-            _filter.init(filterConfig);
+            this.filter.init(filterConfig);
             fail("expected ServletException");
         } catch (ServletException e) {
             assertEquals("java.lang.RuntimeException: Unsupported protocol: INVALID", e.getMessage());
@@ -308,7 +308,7 @@ public class NegotiateSecurityFilterTests {
         try {
             SimpleFilterConfig filterConfig = new SimpleFilterConfig();
             filterConfig.setParameter("invalidParameter", "random");
-            _filter.init(filterConfig);
+            this.filter.init(filterConfig);
             fail("expected ServletException");
         } catch (ServletException e) {
             assertEquals("Invalid parameter: invalidParameter", e.getMessage());
@@ -320,7 +320,7 @@ public class NegotiateSecurityFilterTests {
         try {
             SimpleFilterConfig filterConfig = new SimpleFilterConfig();
             filterConfig.setParameter("invalidClass/invalidParameter", "random");
-            _filter.init(filterConfig);
+            this.filter.init(filterConfig);
             fail("expected ServletException");
         } catch (ServletException e) {
             assertEquals("java.lang.ClassNotFoundException: invalidClass", e.getMessage());

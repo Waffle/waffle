@@ -32,37 +32,38 @@ import waffle.windows.auth.PrincipalFormat;
  */
 public class WindowsAuthenticationProvider implements AuthenticationProvider {
 
-    private static final Logger     _log                     = LoggerFactory
-                                                                     .getLogger(WindowsAuthenticationProvider.class);
-    private PrincipalFormat         _principalFormat         = PrincipalFormat.fqn;
-    private PrincipalFormat         _roleFormat              = PrincipalFormat.fqn;
-    private boolean                 _allowGuestLogin         = true;
-    private IWindowsAuthProvider    _authProvider;
-    private GrantedAuthorityFactory _grantedAuthorityFactory = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY_FACTORY;
-    private GrantedAuthority        _defaultGrantedAuthority = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY;
+    private static final Logger     LOGGER                  = LoggerFactory
+                                                                    .getLogger(WindowsAuthenticationProvider.class);
+    private PrincipalFormat         principalFormat         = PrincipalFormat.fqn;
+    private PrincipalFormat         roleFormat              = PrincipalFormat.fqn;
+    private boolean                 allowGuestLogin         = true;
+    private IWindowsAuthProvider    authProvider;
+    private GrantedAuthorityFactory grantedAuthorityFactory = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY_FACTORY;
+    private GrantedAuthority        defaultGrantedAuthority = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY;
 
     public WindowsAuthenticationProvider() {
-        _log.debug("[waffle.spring.WindowsAuthenticationProvider] loaded");
+        LOGGER.debug("[waffle.spring.WindowsAuthenticationProvider] loaded");
     }
 
     @Override
     public Authentication authenticate(Authentication authentication) {
         UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;
-        IWindowsIdentity windowsIdentity = _authProvider.logonUser(auth.getName(), auth.getCredentials().toString());
-        _log.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
+        IWindowsIdentity windowsIdentity = this.authProvider
+                .logonUser(auth.getName(), auth.getCredentials().toString());
+        LOGGER.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
 
-        if (!_allowGuestLogin && windowsIdentity.isGuest()) {
-            _log.warn("guest login disabled: {}", windowsIdentity.getFqn());
+        if (!this.allowGuestLogin && windowsIdentity.isGuest()) {
+            LOGGER.warn("guest login disabled: {}", windowsIdentity.getFqn());
             throw new GuestLoginDisabledAuthenticationException(windowsIdentity.getFqn());
         }
 
-        WindowsPrincipal windowsPrincipal = new WindowsPrincipal(windowsIdentity, _principalFormat, _roleFormat);
-        _log.debug("roles: {}", windowsPrincipal.getRolesString());
+        WindowsPrincipal windowsPrincipal = new WindowsPrincipal(windowsIdentity, this.principalFormat, this.roleFormat);
+        LOGGER.debug("roles: {}", windowsPrincipal.getRolesString());
 
-        WindowsAuthenticationToken token = new WindowsAuthenticationToken(windowsPrincipal, _grantedAuthorityFactory,
-                _defaultGrantedAuthority);
+        WindowsAuthenticationToken token = new WindowsAuthenticationToken(windowsPrincipal,
+                this.grantedAuthorityFactory, this.defaultGrantedAuthority);
 
-        _log.info("successfully logged in user: {}", windowsIdentity.getFqn());
+        LOGGER.info("successfully logged in user: {}", windowsIdentity.getFqn());
         return token;
     }
 
@@ -72,50 +73,50 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
     }
 
     public PrincipalFormat getPrincipalFormat() {
-        return _principalFormat;
+        return this.principalFormat;
     }
 
     public void setPrincipalFormat(PrincipalFormat principalFormat) {
-        _principalFormat = principalFormat;
+        this.principalFormat = principalFormat;
     }
 
     public PrincipalFormat getRoleFormat() {
-        return _roleFormat;
+        return this.roleFormat;
     }
 
     public void setRoleFormat(PrincipalFormat principalFormat) {
-        _roleFormat = principalFormat;
+        this.roleFormat = principalFormat;
     }
 
     public boolean isAllowGuestLogin() {
-        return _allowGuestLogin;
+        return this.allowGuestLogin;
     }
 
     public void setAllowGuestLogin(boolean allowGuestLogin) {
-        _allowGuestLogin = allowGuestLogin;
+        this.allowGuestLogin = allowGuestLogin;
     }
 
     public IWindowsAuthProvider getAuthProvider() {
-        return _authProvider;
+        return this.authProvider;
     }
 
     public void setAuthProvider(IWindowsAuthProvider authProvider) {
-        _authProvider = authProvider;
+        this.authProvider = authProvider;
     }
 
     public GrantedAuthorityFactory getGrantedAuthorityFactory() {
-        return _grantedAuthorityFactory;
+        return this.grantedAuthorityFactory;
     }
 
     public void setGrantedAuthorityFactory(GrantedAuthorityFactory grantedAuthorityFactory) {
-        _grantedAuthorityFactory = grantedAuthorityFactory;
+        this.grantedAuthorityFactory = grantedAuthorityFactory;
     }
 
     public GrantedAuthority getDefaultGrantedAuthority() {
-        return _defaultGrantedAuthority;
+        return this.defaultGrantedAuthority;
     }
 
     public void setDefaultGrantedAuthority(GrantedAuthority defaultGrantedAuthority) {
-        _defaultGrantedAuthority = defaultGrantedAuthority;
+        this.defaultGrantedAuthority = defaultGrantedAuthority;
     }
 }

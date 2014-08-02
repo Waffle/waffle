@@ -28,7 +28,7 @@ public class NegotiateAuthenticationStrategyTest {
 
     @Before
     public void setUp() {
-        authStrategy = new NegotiateAuthenticationStrategy();
+        this.authStrategy = new NegotiateAuthenticationStrategy();
     }
 
     @Test(expected = AuthenticationInProgressException.class)
@@ -36,13 +36,13 @@ public class NegotiateAuthenticationStrategyTest {
 
         final Realm otherRealm = new IniRealm();
 
-        authStrategy.afterAttempt(otherRealm, null, null, null, new RuntimeException());
+        this.authStrategy.afterAttempt(otherRealm, null, null, null, new RuntimeException());
 
         final AuthenticationInProgressException authInProgressException = new AuthenticationInProgressException();
 
-        authStrategy.afterAttempt(otherRealm, null, null, null, authInProgressException);
+        this.authStrategy.afterAttempt(otherRealm, null, null, null, authInProgressException);
 
-        authStrategy.afterAttempt(new NegotiateAuthenticationRealm(), null, null, null, authInProgressException);
+        this.authStrategy.afterAttempt(new NegotiateAuthenticationRealm(), null, null, null, authInProgressException);
         Assert.fail();
     }
 }

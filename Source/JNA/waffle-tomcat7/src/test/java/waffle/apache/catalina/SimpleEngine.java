@@ -38,7 +38,7 @@ import org.apache.juli.logging.Log;
 
 public class SimpleEngine implements org.apache.catalina.Engine {
 
-    private Pipeline _pipeline;
+    private Pipeline pipeline;
 
     @Override
     public String getInfo() {
@@ -82,11 +82,11 @@ public class SimpleEngine implements org.apache.catalina.Engine {
 
     @Override
     public Pipeline getPipeline() {
-        return _pipeline;
+        return this.pipeline;
     }
 
     public void setPipeline(Pipeline pipeline) {
-        _pipeline = pipeline;
+        this.pipeline = pipeline;
     }
 
     @Override

@@ -32,254 +32,285 @@ import org.apache.juli.logging.Log;
 
 public class SimpleEngine implements org.apache.catalina.Engine {
 
-    private Pipeline _pipeline;
+    private Pipeline pipeline;
 
     @Override
     public Log getLogger() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public ObjectName getObjectName() {
+        // Not Implemented
         return null;
     }
 
+    /**
+     * Get Pipeline Used By Waffle.
+     */
     @Override
     public Pipeline getPipeline() {
-        return _pipeline;
+        return this.pipeline;
     }
 
-    public void setPipeline(Pipeline pipeline) {
-        _pipeline = pipeline;
+    /**
+     * Set Pipeline Used By Waffle.
+     * 
+     * @param value
+     */
+    public void setPipeline(Pipeline value) {
+        this.pipeline = value;
     }
 
     @Override
     public Cluster getCluster() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public void setCluster(Cluster cluster) {
-
+        // Not Implemented
     }
 
     @Override
     public int getBackgroundProcessorDelay() {
+        // Not Implemented
         return 0;
     }
 
     @Override
     public void setBackgroundProcessorDelay(int delay) {
-
+        // Not Implemented
     }
 
     @Override
     public String getName() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public void setName(String name) {
-
+        // Not Implemented
     }
 
     @Override
     public Container getParent() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public void setParent(Container container) {
-
+        // Not Implemented
     }
 
     @Override
     public ClassLoader getParentClassLoader() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public void setParentClassLoader(ClassLoader parent) {
-
+        // Not Implemented
     }
 
     @Override
     public Realm getRealm() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public void setRealm(Realm realm) {
-
+        // Not Implemented
     }
 
     @Override
     public void backgroundProcess() {
-
+        // Not Implemented
     }
 
     @Override
     public void addChild(Container child) {
-
+        // Not Implemented
     }
 
     @Override
     public void addContainerListener(ContainerListener listener) {
-
+        // Not Implemented
     }
 
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
-
+        // Not Implemented
     }
 
     @Override
     public Container findChild(String name) {
+        // Not Implemented
         return null;
     }
 
     @Override
     public Container[] findChildren() {
+        // Not Implemented
         return new Container[0];
     }
 
     @Override
     public ContainerListener[] findContainerListeners() {
+        // Not Implemented
         return new ContainerListener[0];
     }
 
     @Override
     public void removeChild(Container child) {
-
+        // Not Implemented
     }
 
     @Override
     public void removeContainerListener(ContainerListener listener) {
-
+        // Not Implemented
     }
 
     @Override
     public void removePropertyChangeListener(PropertyChangeListener listener) {
-
+        // Not Implemented
     }
 
     @Override
     public void fireContainerEvent(String type, Object data) {
-
+        // Not Implemented
     }
 
     @Override
     public void logAccess(Request request, Response response, long time, boolean useDefault) {
-
+        // Not Implemented
     }
 
     @Override
     public AccessLog getAccessLog() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public void addLifecycleListener(LifecycleListener listener) {
-
+        // Not Implemented
     }
 
     @Override
     public LifecycleListener[] findLifecycleListeners() {
+        // Not Implemented
         return new LifecycleListener[0];
     }
 
     @Override
     public void removeLifecycleListener(LifecycleListener listener) {
-
+        // Not Implemented
     }
 
     @Override
     public void init() throws LifecycleException {
-
+        // Not Implemented
     }
 
     @Override
     public void start() throws LifecycleException {
-
+        // Not Implemented
     }
 
     @Override
     public void stop() throws LifecycleException {
-
+        // Not Implemented
     }
 
     @Override
     public void destroy() throws LifecycleException {
-
+        // Not Implemented
     }
 
     @Override
     public LifecycleState getState() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public String getStateName() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public String getDefaultHost() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public void setDefaultHost(String defaultHost) {
-
+        // Not Implemented
     }
 
     @Override
     public String getJvmRoute() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public void setJvmRoute(String jvmRouteId) {
-
+        // Not Implemented
     }
 
     @Override
     public Service getService() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public void setService(Service service) {
-
+        // Not Implemented
     }
 
     @Override
     public int getStartStopThreads() {
+        // Not Implemented
         return 0;
     }
 
     @Override
     public void setStartStopThreads(int arg0) {
-
+        // Not Implemented
     }
 
     @Override
     public String getDomain() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public String getMBeanKeyProperties() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public File getCatalinaBase() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public File getCatalinaHome() {
+        // Not Implemented
         return null;
     }
 

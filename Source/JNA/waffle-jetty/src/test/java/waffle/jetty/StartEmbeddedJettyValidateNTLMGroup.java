@@ -111,15 +111,14 @@ public class StartEmbeddedJettyValidateNTLMGroup {
             }
         }
 
-        private boolean isUserAuthorised(HttpServletRequest request, List<String> authorisedGroups) {
+        private boolean isUserAuthorised(HttpServletRequest request, List<String> authorizedGroups) {
             List<String> usersGroups = getUsersGroups(request);
 
-            boolean noOverlappingGroups = Collections.disjoint(authorisedGroups, usersGroups);
+            boolean noOverlappingGroups = Collections.disjoint(authorizedGroups, usersGroups);
             if (!noOverlappingGroups) {
                 return true;
-            } else {
-                return false;
             }
+            return false;
         }
 
         private List<String> getUsersGroups(HttpServletRequest request) {

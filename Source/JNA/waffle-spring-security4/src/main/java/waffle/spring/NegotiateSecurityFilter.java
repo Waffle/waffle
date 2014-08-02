@@ -42,19 +42,19 @@ import waffle.windows.auth.PrincipalFormat;
  */
 public class NegotiateSecurityFilter extends GenericFilterBean {
 
-    private static final Logger              _log                     = LoggerFactory
-                                                                              .getLogger(NegotiateSecurityFilter.class);
-    private SecurityFilterProviderCollection _provider;
-    private PrincipalFormat                  _principalFormat         = PrincipalFormat.fqn;
-    private PrincipalFormat                  _roleFormat              = PrincipalFormat.fqn;
-    private boolean                          _allowGuestLogin         = true;
+    private static final Logger              LOGGER                  = LoggerFactory
+                                                                             .getLogger(NegotiateSecurityFilter.class);
+    private SecurityFilterProviderCollection provider;
+    private PrincipalFormat                  principalFormat         = PrincipalFormat.fqn;
+    private PrincipalFormat                  roleFormat              = PrincipalFormat.fqn;
+    private boolean                          allowGuestLogin         = true;
 
-    private GrantedAuthorityFactory          _grantedAuthorityFactory = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY_FACTORY;
-    private GrantedAuthority                 _defaultGrantedAuthority = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY;
+    private GrantedAuthorityFactory          grantedAuthorityFactory = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY_FACTORY;
+    private GrantedAuthority                 defaultGrantedAuthority = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY;
 
     public NegotiateSecurityFilter() {
         super();
-        _log.debug("[waffle.spring.NegotiateSecurityFilter] loaded");
+        LOGGER.debug("[waffle.spring.NegotiateSecurityFilter] loaded");
     }
 
     @Override
@@ -64,49 +64,50 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
 
-        _log.debug("{} {}, contentlength: {}", request.getMethod(), request.getRequestURI(),
+        LOGGER.debug("{} {}, contentlength: {}", request.getMethod(), request.getRequestURI(),
                 Integer.valueOf(request.getContentLength()));
 
         AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
 
         // authenticate user
         if (!authorizationHeader.isNull()
-                && _provider.isSecurityPackageSupported(authorizationHeader.getSecurityPackage())) {
+                && this.provider.isSecurityPackageSupported(authorizationHeader.getSecurityPackage())) {
 
             // log the user in using the token
             IWindowsIdentity windowsIdentity = null;
 
             try {
-                windowsIdentity = _provider.doFilter(request, response);
+                windowsIdentity = this.provider.doFilter(request, response);
                 if (windowsIdentity == null) {
                     return;
                 }
             } catch (IOException e) {
-                _log.warn("error logging in user: {}", e.getMessage());
-                _log.trace("{}", e);
+                LOGGER.warn("error logging in user: {}", e.getMessage());
+                LOGGER.trace("{}", e);
                 sendUnauthorized(response, true);
                 return;
             }
 
-            if (!_allowGuestLogin && windowsIdentity.isGuest()) {
-                _log.warn("guest login disabled: {}", windowsIdentity.getFqn());
+            if (!this.allowGuestLogin && windowsIdentity.isGuest()) {
+                LOGGER.warn("guest login disabled: {}", windowsIdentity.getFqn());
                 sendUnauthorized(response, true);
                 return;
             }
 
             try {
-                _log.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
+                LOGGER.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
 
-                WindowsPrincipal principal = new WindowsPrincipal(windowsIdentity, _principalFormat, _roleFormat);
+                WindowsPrincipal principal = new WindowsPrincipal(windowsIdentity, this.principalFormat,
+                        this.roleFormat);
 
-                _log.debug("roles: {}", principal.getRolesString());
+                LOGGER.debug("roles: {}", principal.getRolesString());
 
-                Authentication authentication = new WindowsAuthenticationToken(principal, _grantedAuthorityFactory,
-                        _defaultGrantedAuthority);
+                Authentication authentication = new WindowsAuthenticationToken(principal, this.grantedAuthorityFactory,
+                        this.defaultGrantedAuthority);
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
 
-                _log.info("successfully logged in user: {}", windowsIdentity.getFqn());
+                LOGGER.info("successfully logged in user: {}", windowsIdentity.getFqn());
 
             } finally {
                 windowsIdentity.dispose();
@@ -120,7 +121,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
     public void afterPropertiesSet() throws ServletException {
         super.afterPropertiesSet();
 
-        if (_provider == null) {
+        if (this.provider == null) {
             throw new ServletException("Missing NegotiateSecurityFilter.Provider");
         }
     }
@@ -135,7 +136,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
      */
     private void sendUnauthorized(HttpServletResponse response, boolean close) {
         try {
-            _provider.sendUnauthorized(response);
+            this.provider.sendUnauthorized(response);
             if (close) {
                 response.setHeader("Connection", "close");
             } else {
@@ -149,50 +150,50 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
     }
 
     public PrincipalFormat getPrincipalFormat() {
-        return _principalFormat;
+        return this.principalFormat;
     }
 
-    public void setPrincipalFormat(PrincipalFormat principalFormat) {
-        _principalFormat = principalFormat;
+    public void setPrincipalFormat(PrincipalFormat value) {
+        this.principalFormat = value;
     }
 
     public PrincipalFormat getRoleFormat() {
-        return _roleFormat;
+        return this.roleFormat;
     }
 
-    public void setRoleFormat(PrincipalFormat principalFormat) {
-        _roleFormat = principalFormat;
+    public void setRoleFormat(PrincipalFormat value) {
+        this.roleFormat = value;
     }
 
     public boolean isAllowGuestLogin() {
-        return _allowGuestLogin;
+        return this.allowGuestLogin;
     }
 
-    public void setAllowGuestLogin(boolean allowGuestLogin) {
-        _allowGuestLogin = allowGuestLogin;
+    public void setAllowGuestLogin(boolean value) {
+        this.allowGuestLogin = value;
     }
 
     public SecurityFilterProviderCollection getProvider() {
-        return _provider;
+        return this.provider;
     }
 
-    public void setProvider(SecurityFilterProviderCollection provider) {
-        _provider = provider;
+    public void setProvider(SecurityFilterProviderCollection value) {
+        this.provider = value;
     }
 
     public GrantedAuthorityFactory getGrantedAuthorityFactory() {
-        return _grantedAuthorityFactory;
+        return this.grantedAuthorityFactory;
     }
 
-    public void setGrantedAuthorityFactory(GrantedAuthorityFactory grantedAuthorityFactory) {
-        _grantedAuthorityFactory = grantedAuthorityFactory;
+    public void setGrantedAuthorityFactory(GrantedAuthorityFactory value) {
+        this.grantedAuthorityFactory = value;
     }
 
     public GrantedAuthority getDefaultGrantedAuthority() {
-        return _defaultGrantedAuthority;
+        return this.defaultGrantedAuthority;
     }
 
-    public void setDefaultGrantedAuthority(GrantedAuthority defaultGrantedAuthority) {
-        _defaultGrantedAuthority = defaultGrantedAuthority;
+    public void setDefaultGrantedAuthority(GrantedAuthority value) {
+        this.defaultGrantedAuthority = value;
     }
 }

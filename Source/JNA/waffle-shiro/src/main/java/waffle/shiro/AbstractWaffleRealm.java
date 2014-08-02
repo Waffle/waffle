@@ -39,10 +39,10 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  * for subclasses to define by implementing the {@link #buildAuthorizationInfo} method.
  */
 public abstract class AbstractWaffleRealm extends AuthorizingRealm {
-    private static final Logger  log       = LoggerFactory.getLogger(AbstractWaffleRealm.class);
-    private static final String  realmName = "WAFFLE";
+    private static final Logger  LOGGER     = LoggerFactory.getLogger(AbstractWaffleRealm.class);
+    private static final String  REALM_NAME = "WAFFLE";
 
-    private IWindowsAuthProvider provider  = new WindowsAuthProviderImpl();
+    private IWindowsAuthProvider provider   = new WindowsAuthProviderImpl();
 
     @Override
     protected final AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authToken)
@@ -53,19 +53,18 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
             String username = token.getUsername();
             IWindowsIdentity identity = null;
             try {
-                log.debug("Attempting login for user {}", username);
-                identity = provider.logonUser(username, new String(token.getPassword()));
+                LOGGER.debug("Attempting login for user {}", username);
+                identity = this.provider.logonUser(username, new String(token.getPassword()));
                 if (identity.isGuest()) {
-                    log.debug("Guest identity for user {}; denying access", username);
+                    LOGGER.debug("Guest identity for user {}; denying access", username);
                     throw new AuthenticationException("Guest identities are not allowed access");
-                } else {
-                    Object principal = new WaffleFqnPrincipal(identity);
-                    authenticationInfo = buildAuthenticationInfo(token, principal);
-                    log.debug("Successful login for user {}", username);
                 }
+                Object principal = new WaffleFqnPrincipal(identity);
+                authenticationInfo = buildAuthenticationInfo(token, principal);
+                LOGGER.debug("Successful login for user {}", username);
             } catch (RuntimeException e) {
-                log.debug("Failed login for user {}: {}", username, e.getMessage());
-                log.trace("{}", e);
+                LOGGER.debug("Failed login for user {}: {}", username, e.getMessage());
+                LOGGER.trace("{}", e);
                 throw new AuthenticationException("Login failed", e);
             } finally {
                 if (identity != null) {
@@ -82,10 +81,10 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
         if (hashService != null) {
             Hash hash = hashService.hashPassword(token.getPassword());
             ByteSource salt = hash.getSalt();
-            authenticationInfo = new SimpleAuthenticationInfo(principal, hash, salt, realmName);
+            authenticationInfo = new SimpleAuthenticationInfo(principal, hash, salt, REALM_NAME);
         } else {
             Object creds = token.getCredentials();
-            authenticationInfo = new SimpleAuthenticationInfo(principal, creds, realmName);
+            authenticationInfo = new SimpleAuthenticationInfo(principal, creds, REALM_NAME);
         }
         return authenticationInfo;
     }
@@ -93,11 +92,7 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
     @Override
     protected final AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         WaffleFqnPrincipal principal = principals.oneByType(WaffleFqnPrincipal.class);
-        if (principal != null) {
-            return buildAuthorizationInfo(principal);
-        } else {
-            return null;
-        }
+        return principal == null ? null : buildAuthorizationInfo(principal);
     }
 
     /**
@@ -113,8 +108,8 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
      * Allow overriding the default implementation of {@link IWindowsAuthProvider} This is only needed for testing,
      * since for normal usage the default is what you want.
      */
-    void setProvider(IWindowsAuthProvider provider) {
-        this.provider = provider;
+    void setProvider(IWindowsAuthProvider value) {
+        this.provider = value;
     }
 
     private HashingPasswordService getHashService() {

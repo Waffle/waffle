@@ -35,27 +35,27 @@ import waffle.windows.auth.WindowsAccount;
  */
 public class WindowsAccountTests {
 
-    private MockWindowsAccount _mockWindowsAccount = new MockWindowsAccount("localhost\\Administrator");
-    private WindowsAccount     _windowsAccount;
+    private MockWindowsAccount mockWindowsAccount = new MockWindowsAccount("localhost\\Administrator");
+    private WindowsAccount     windowsAccount;
 
     @Before
     public void setUp() {
-        _windowsAccount = new WindowsAccount(_mockWindowsAccount);
+        this.windowsAccount = new WindowsAccount(this.mockWindowsAccount);
     }
 
     @Test
     public void testProperties() {
-        assertEquals("localhost", _windowsAccount.getDomain());
-        assertEquals("localhost\\Administrator", _windowsAccount.getFqn());
-        assertEquals("Administrator", _windowsAccount.getName());
-        assertTrue(_windowsAccount.getSidString().startsWith("S-"));
+        assertEquals("localhost", this.windowsAccount.getDomain());
+        assertEquals("localhost\\Administrator", this.windowsAccount.getFqn());
+        assertEquals("Administrator", this.windowsAccount.getName());
+        assertTrue(this.windowsAccount.getSidString().startsWith("S-"));
     }
 
     @Test
     public void testEquals() {
-        assertEquals(_windowsAccount, new WindowsAccount(_mockWindowsAccount));
+        assertEquals(this.windowsAccount, new WindowsAccount(this.mockWindowsAccount));
         MockWindowsAccount mockWindowsAccount2 = new MockWindowsAccount("localhost\\Administrator2");
-        assertFalse(_windowsAccount.equals(new WindowsAccount(mockWindowsAccount2)));
+        assertFalse(this.windowsAccount.equals(new WindowsAccount(mockWindowsAccount2)));
     }
 
     @Test
@@ -63,7 +63,7 @@ public class WindowsAccountTests {
         // serialize
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(out);
-        oos.writeObject(_windowsAccount);
+        oos.writeObject(this.windowsAccount);
         oos.close();
         assertTrue(out.toByteArray().length > 0);
         // deserialize
@@ -72,10 +72,10 @@ public class WindowsAccountTests {
         Object o = ois.readObject();
         WindowsAccount copy = (WindowsAccount) o;
         // test
-        assertEquals(_windowsAccount, copy);
-        assertEquals(_windowsAccount.getDomain(), copy.getDomain());
-        assertEquals(_windowsAccount.getFqn(), copy.getFqn());
-        assertEquals(_windowsAccount.getName(), copy.getName());
-        assertEquals(_windowsAccount.getSidString(), copy.getSidString());
+        assertEquals(this.windowsAccount, copy);
+        assertEquals(this.windowsAccount.getDomain(), copy.getDomain());
+        assertEquals(this.windowsAccount.getFqn(), copy.getFqn());
+        assertEquals(this.windowsAccount.getName(), copy.getName());
+        assertEquals(this.windowsAccount.getSidString(), copy.getSidString());
     }
 }

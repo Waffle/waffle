@@ -34,59 +34,59 @@ import org.slf4j.LoggerFactory;
  */
 public class SimpleHttpResponse extends HttpServletResponseWrapper {
 
-    private static final Logger         _log     = LoggerFactory.getLogger(SimpleHttpResponse.class);
+    private static final Logger       LOGGER  = LoggerFactory.getLogger(SimpleHttpResponse.class);
 
-    private int                         _status  = 500;
-    private Map<String, List<String>>   _headers = new HashMap<String, List<String>>();
+    private int                       status  = 500;
+    private Map<String, List<String>> headers = new HashMap<String, List<String>>();
 
-    private final ByteArrayOutputStream bytes    = new ByteArrayOutputStream();
+    final ByteArrayOutputStream       bytes   = new ByteArrayOutputStream();
 
-    private final ServletOutputStream   out      = new ServletOutputStream() {
-                                                     @Override
-                                                     public void write(int b) throws IOException {
-                                                         bytes.write(b);
-                                                     }
-                                                 };
+    private final ServletOutputStream out     = new ServletOutputStream() {
+                                                  @Override
+                                                  public void write(int b) throws IOException {
+                                                      SimpleHttpResponse.this.bytes.write(b);
+                                                  }
+                                              };
 
-    private final PrintWriter           writer   = new PrintWriter(bytes);
+    private final PrintWriter         writer  = new PrintWriter(this.bytes);
 
     public SimpleHttpResponse() {
         super(Mockito.mock(HttpServletResponse.class));
     }
 
     public int getStatus() {
-        return _status;
+        return this.status;
     }
 
     @Override
     public void addHeader(String headerName, String headerValue) {
-        List<String> current = _headers.get(headerName);
+        List<String> current = this.headers.get(headerName);
         if (current == null) {
             current = new ArrayList<String>();
         }
         current.add(headerValue);
-        _headers.put(headerName, current);
+        this.headers.put(headerName, current);
     }
 
     @Override
     public void setHeader(String headerName, String headerValue) {
-        List<String> current = _headers.get(headerName);
+        List<String> current = this.headers.get(headerName);
         if (current == null) {
             current = new ArrayList<String>();
         } else {
             current.clear();
         }
         current.add(headerValue);
-        _headers.put(headerName, current);
+        this.headers.put(headerName, current);
     }
 
     @Override
     public void setStatus(int value) {
-        _status = value;
+        this.status = value;
     }
 
     public String getStatusString() {
-        if (_status == 401) {
+        if (this.status == 401) {
             return "Unauthorized";
         }
         return "Unknown";
@@ -94,10 +94,10 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
 
     @Override
     public void flushBuffer() {
-        _log.info("{}: {}", Integer.valueOf(_status), getStatusString());
-        for (String header : _headers.keySet()) {
-            for (String headerValue : _headers.get(header)) {
-                _log.info("{}: {}", header, headerValue);
+        LOGGER.info("{}: {}", Integer.valueOf(this.status), getStatusString());
+        for (String header : this.headers.keySet()) {
+            for (String headerValue : this.headers.get(header)) {
+                LOGGER.info("{}: {}", header, headerValue);
             }
         }
     }
@@ -106,16 +106,16 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
      * Use this for testing the number of headers
      */
     public int getHeaderNamesSize() {
-        return _headers.size();
+        return this.headers.size();
     }
 
     public String[] getHeaderValues(String headerName) {
-        List<String> headerValues = _headers.get(headerName);
+        List<String> headerValues = this.headers.get(headerName);
         return headerValues == null ? null : headerValues.toArray(new String[0]);
     }
 
     public String getHeader(String headerName) {
-        List<String> headerValues = _headers.get(headerName);
+        List<String> headerValues = this.headers.get(headerName);
         if (headerValues == null) {
             return null;
         }
@@ -131,26 +131,26 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
 
     @Override
     public void sendError(int rc, String message) {
-        _status = rc;
+        this.status = rc;
     }
 
     @Override
     public void sendError(int rc) {
-        _status = rc;
+        this.status = rc;
     }
 
     @Override
     public PrintWriter getWriter() {
-        return writer;
+        return this.writer;
     }
 
     @Override
     public ServletOutputStream getOutputStream() throws IOException {
-        return out;
+        return this.out;
     }
 
     public String getOutputText() {
-        writer.flush();
-        return bytes.toString();
+        this.writer.flush();
+        return this.bytes.toString();
     }
 }

@@ -56,7 +56,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
     /**
      * This class's private logger.
      */
-    private static final Logger       log                 = LoggerFactory
+    private static final Logger       LOGGER              = LoggerFactory
                                                                   .getLogger(NegotiateAuthenticationFilter.class);
 
     // TODO things (sometimes) break, depending on what user account is running tomcat:
@@ -75,7 +75,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
     }
 
     public String getRememberMeParam() {
-        return rememberMeParam;
+        return this.rememberMeParam;
     }
 
     /**
@@ -104,7 +104,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         final String[] elements = authorization.split(" ");
         final byte[] inToken = BaseEncoding.base64().decode(elements[1]);
 
-        // maintain a connection-based session for NTLM tokns
+        // maintain a connection-based session for NTLM tokens
         // TODO see about changing this parameter to ServletRequest in waffle
         final String connectionId = NtlmServletRequest.getConnectionId((HttpServletRequest) request);
         final String securityPackage = elements[0];
@@ -113,7 +113,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         final AuthorizationHeader authorizationHeader = new AuthorizationHeader((HttpServletRequest) request);
         final boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
 
-        log.debug("security package: {}, connection id: {}, ntlmPost: {}", securityPackage, connectionId,
+        LOGGER.debug("security package: {}, connection id: {}, ntlmPost: {}", securityPackage, connectionId,
                 Boolean.valueOf(ntlmPost));
 
         final boolean rememberMe = isRememberMe(request);
@@ -125,33 +125,27 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
     @Override
     protected boolean onLoginSuccess(final AuthenticationToken token, final Subject subject,
             final ServletRequest request, final ServletResponse response) throws Exception {
-
-        final NegotiateToken t = (NegotiateToken) token;
-
-        request.setAttribute("MY_SUBJECT", t.getSubject());
+        request.setAttribute("MY_SUBJECT", ((NegotiateToken) token).getSubject());
         return true;
     }
 
     @Override
     protected boolean onLoginFailure(final AuthenticationToken token, final AuthenticationException e,
             final ServletRequest request, final ServletResponse response) {
-        final NegotiateToken t = (NegotiateToken) token;
-
         if (e instanceof AuthenticationInProgressException) {
             // negotiate is processing
             final String protocol = getAuthzHeaderProtocol(request);
-            log.debug("Negotiation in progress for protocol: {}", protocol);
-            sendChallengeDuringNegotiate(protocol, response, t.getOut());
+            LOGGER.debug("Negotiation in progress for protocol: {}", protocol);
+            sendChallengeDuringNegotiate(protocol, response, ((NegotiateToken) token).getOut());
             return false;
-        } else {
-            log.warn("login exception: {}", e.getMessage());
-
-            // do not send token.out bytes, this was a login failure.
-            sendChallengeOnFailure(response);
-
-            setFailureAttribute(request, e);
-            return true;
         }
+        LOGGER.warn("login exception: {}", e.getMessage());
+
+        // do not send token.out bytes, this was a login failure.
+        sendChallengeOnFailure(response);
+
+        setFailureAttribute(request, e);
+        return true;
     }
 
     protected void setFailureAttribute(final ServletRequest request, final AuthenticationException ae) {
@@ -160,7 +154,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
     }
 
     public String getFailureKeyAttribute() {
-        return failureKeyAttribute;
+        return this.failureKeyAttribute;
     }
 
     public void setFailureKeyAttribute(final String failureKeyAttribute) {
@@ -175,7 +169,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         if (isLoginAttempt(request)) {
             loggedIn = executeLogin(request, response);
         } else {
-            log.debug("authorization required, supported protocols: {}", protocols);
+            LOGGER.debug("authorization required, supported protocols: {}", protocols);
             sendChallengeInitiateNegotiate(response);
         }
         return loggedIn;

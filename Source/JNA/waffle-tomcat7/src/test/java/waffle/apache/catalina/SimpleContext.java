@@ -65,13 +65,13 @@ import org.apache.tomcat.util.http.mapper.Mapper;
  */
 public class SimpleContext implements Context {
 
-    private String         _path           = "/";
-    private String         _name           = "SimpleContext";
-    private Realm          _realm;
-    private Container      _parent;
-    private ServletContext _servletContext = new SimpleServletContext();
-    private Pipeline       _pipeline;
-    private Authenticator  _authenticator;
+    private String         path           = "/";
+    private String         name           = "SimpleContext";
+    private Realm          realm;
+    private Container      parent;
+    private ServletContext servletContext = new SimpleServletContext();
+    private Pipeline       pipeline;
+    private Authenticator  authenticator;
 
     @Override
     public void addApplicationListener(String arg0) {
@@ -385,7 +385,7 @@ public class SimpleContext implements Context {
 
     @Override
     public String getPath() {
-        return _path;
+        return this.path;
     }
 
     @Override
@@ -405,7 +405,7 @@ public class SimpleContext implements Context {
 
     @Override
     public ServletContext getServletContext() {
-        return _servletContext;
+        return this.servletContext;
     }
 
     @Override
@@ -605,7 +605,7 @@ public class SimpleContext implements Context {
 
     @Override
     public void setPath(String path) {
-        _path = path;
+        this.path = path;
     }
 
     @Override
@@ -735,7 +735,7 @@ public class SimpleContext implements Context {
 
     @Override
     public String getName() {
-        return _name;
+        return this.name;
     }
 
     @Override
@@ -745,7 +745,7 @@ public class SimpleContext implements Context {
 
     @Override
     public Container getParent() {
-        return _parent;
+        return this.parent;
     }
 
     @Override
@@ -755,16 +755,16 @@ public class SimpleContext implements Context {
 
     @Override
     public Pipeline getPipeline() {
-        return _pipeline;
+        return this.pipeline;
     }
 
     public void setPipeline(Pipeline pipeline) {
-        _pipeline = pipeline;
+        this.pipeline = pipeline;
     }
 
     @Override
     public Realm getRealm() {
-        return _realm;
+        return this.realm;
     }
 
     @Override
@@ -814,12 +814,12 @@ public class SimpleContext implements Context {
 
     @Override
     public void setName(String name) {
-        _name = name;
+        this.name = name;
     }
 
     @Override
     public void setParent(Container container) {
-        _parent = container;
+        this.parent = container;
     }
 
     @Override
@@ -829,7 +829,7 @@ public class SimpleContext implements Context {
 
     @Override
     public void setRealm(Realm realm) {
-        _realm = realm;
+        this.realm = realm;
     }
 
     @Override
@@ -954,11 +954,11 @@ public class SimpleContext implements Context {
 
     @Override
     public Authenticator getAuthenticator() {
-        return _authenticator;
+        return this.authenticator;
     }
 
     public void setAuthenticator(Authenticator authenticator) {
-        _authenticator = authenticator;
+        this.authenticator = authenticator;
     }
 
     @Override

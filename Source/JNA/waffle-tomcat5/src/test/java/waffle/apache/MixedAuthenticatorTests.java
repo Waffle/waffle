@@ -44,26 +44,26 @@ import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
  */
 public class MixedAuthenticatorTests {
 
-    private MixedAuthenticator _authenticator;
+    private MixedAuthenticator authenticator;
 
     @Before
     public void setUp() {
-        _authenticator = new MixedAuthenticator();
+        this.authenticator = new MixedAuthenticator();
         SimpleContext ctx = new SimpleContext();
         Realm realm = new SimpleRealm();
         ctx.setRealm(realm);
-        _authenticator.setContainer(ctx);
-        _authenticator.start();
+        this.authenticator.setContainer(ctx);
+        this.authenticator.start();
     }
 
     @After
     public void tearDown() {
-        _authenticator.stop();
+        this.authenticator.stop();
     }
 
     @Test
     public void testGetInfo() {
-        assertTrue(_authenticator.getInfo().length() > 0);
+        assertTrue(this.authenticator.getInfo().length() > 0);
     }
 
     @Test
@@ -72,7 +72,7 @@ public class MixedAuthenticatorTests {
         request.setMethod("GET");
         request.setQueryString("j_negotiate_check");
         SimpleHttpResponse response = new SimpleHttpResponse();
-        _authenticator.authenticate(request, response, null);
+        this.authenticator.authenticate(request, response, null);
         String[] wwwAuthenticates = response.getHeaderValues("WWW-Authenticate");
         assertEquals(2, wwwAuthenticates.length);
         assertEquals("Negotiate", wwwAuthenticates[0]);
@@ -104,7 +104,7 @@ public class MixedAuthenticatorTests {
             String clientToken = BaseEncoding.base64().encode(clientContext.getToken());
             request.addHeader("Authorization", securityPackage + " " + clientToken);
             SimpleHttpResponse response = new SimpleHttpResponse();
-            _authenticator.authenticate(request, response, null);
+            this.authenticator.authenticate(request, response, null);
             assertTrue(response.getHeader("WWW-Authenticate").startsWith(securityPackage + " "));
             assertEquals("keep-alive", response.getHeader("Connection"));
             assertEquals(2, response.getHeaderNames().length);
@@ -144,7 +144,7 @@ public class MixedAuthenticatorTests {
                 request.addHeader("Authorization", securityPackage + " " + clientToken);
 
                 SimpleHttpResponse response = new SimpleHttpResponse();
-                authenticated = _authenticator.authenticate(request, response, null);
+                authenticated = this.authenticator.authenticate(request, response, null);
 
                 if (authenticated) {
                     assertTrue(response.getHeaderNames().length >= 0);
@@ -180,7 +180,7 @@ public class MixedAuthenticatorTests {
         loginConfig.setLoginPage("login.html");
         SimpleHttpRequest request = new SimpleHttpRequest();
         SimpleHttpResponse response = new SimpleHttpResponse();
-        assertFalse(_authenticator.authenticate(request, response, loginConfig));
+        assertFalse(this.authenticator.authenticate(request, response, loginConfig));
         assertEquals(304, response.getStatus());
         assertEquals("login.html", response.getHeader("Location"));
         assertEquals(1, response.getHeaderNames().length);
@@ -196,7 +196,7 @@ public class MixedAuthenticatorTests {
         request.addParameter("j_username", "username");
         request.addParameter("j_password", "password");
         SimpleHttpResponse response = new SimpleHttpResponse();
-        assertFalse(_authenticator.authenticate(request, response, loginConfig));
+        assertFalse(this.authenticator.authenticate(request, response, loginConfig));
         assertEquals(304, response.getStatus());
         assertEquals("error.html", response.getHeader("Location"));
         assertEquals(1, response.getHeaderNames().length);
@@ -204,7 +204,7 @@ public class MixedAuthenticatorTests {
 
     @Test
     public void testSecurityCheckQueryString() {
-        _authenticator.setAuth(new MockWindowsAuthProvider());
+        this.authenticator.setAuth(new MockWindowsAuthProvider());
         LoginConfig loginConfig = new LoginConfig();
         loginConfig.setErrorPage("error.html");
         loginConfig.setLoginPage("login.html");
@@ -213,12 +213,12 @@ public class MixedAuthenticatorTests {
         request.addParameter("j_username", WindowsAccountImpl.getCurrentUsername());
         request.addParameter("j_password", "");
         SimpleHttpResponse response = new SimpleHttpResponse();
-        assertTrue(_authenticator.authenticate(request, response, loginConfig));
+        assertTrue(this.authenticator.authenticate(request, response, loginConfig));
     }
 
     @Test
     public void testSecurityCheckParameters() {
-        _authenticator.setAuth(new MockWindowsAuthProvider());
+        this.authenticator.setAuth(new MockWindowsAuthProvider());
         LoginConfig loginConfig = new LoginConfig();
         loginConfig.setErrorPage("error.html");
         loginConfig.setLoginPage("login.html");
@@ -227,6 +227,6 @@ public class MixedAuthenticatorTests {
         request.addParameter("j_username", WindowsAccountImpl.getCurrentUsername());
         request.addParameter("j_password", "");
         SimpleHttpResponse response = new SimpleHttpResponse();
-        assertTrue(_authenticator.authenticate(request, response, loginConfig));
+        assertTrue(this.authenticator.authenticate(request, response, loginConfig));
     }
 }

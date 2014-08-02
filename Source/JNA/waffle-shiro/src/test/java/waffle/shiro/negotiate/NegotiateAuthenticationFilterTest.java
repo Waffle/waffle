@@ -43,35 +43,35 @@ public final class NegotiateAuthenticationFilterTest {
 
     @Before
     public void setUp() {
-        negAuthFilter = new NegotiateAuthenticationFilter();
+        this.negAuthFilter = new NegotiateAuthenticationFilter();
 
-        response = new MockServletResponse();
+        this.response = new MockServletResponse();
     }
 
     @Test
     public void testIsLoginAttempt() {
-        Assert.assertFalse(negAuthFilter.isLoginAttempt(""));
-        Assert.assertTrue(negAuthFilter.isLoginAttempt("NEGOTIATe"));
-        Assert.assertTrue(negAuthFilter.isLoginAttempt("ntlm"));
+        Assert.assertFalse(this.negAuthFilter.isLoginAttempt(""));
+        Assert.assertTrue(this.negAuthFilter.isLoginAttempt("NEGOTIATe"));
+        Assert.assertTrue(this.negAuthFilter.isLoginAttempt("ntlm"));
     }
 
     @Test
     public void testSendChallengeInitiateNegotiate() {
 
-        out = new byte[1];
-        out[0] = -1;
+        this.out = new byte[1];
+        this.out[0] = -1;
 
-        negAuthFilter.sendChallengeInitiateNegotiate(response);
+        this.negAuthFilter.sendChallengeInitiateNegotiate(this.response);
 
-        Assert.assertEquals("Negotiate", response.headersAdded.get("WWW-Authenticate").get(0));
-        Assert.assertEquals("NTLM", response.headersAdded.get("WWW-Authenticate").get(1));
+        Assert.assertEquals("Negotiate", this.response.headersAdded.get("WWW-Authenticate").get(0));
+        Assert.assertEquals("NTLM", this.response.headersAdded.get("WWW-Authenticate").get(1));
 
-        Assert.assertEquals("keep-alive", response.headers.get("Connection"));
+        Assert.assertEquals("keep-alive", this.response.headers.get("Connection"));
 
-        Assert.assertEquals(HttpServletResponse.SC_UNAUTHORIZED, response.sc);
-        Assert.assertEquals(0, response.errorCode);
+        Assert.assertEquals(HttpServletResponse.SC_UNAUTHORIZED, this.response.sc);
+        Assert.assertEquals(0, this.response.errorCode);
 
-        Assert.assertFalse(response.isFlushed);
+        Assert.assertFalse(this.response.isFlushed);
     }
 
     @Test
@@ -79,36 +79,36 @@ public final class NegotiateAuthenticationFilterTest {
 
         final String myProtocol = "myProtocol";
 
-        out = new byte[1];
-        out[0] = -1;
+        this.out = new byte[1];
+        this.out[0] = -1;
 
-        negAuthFilter.sendChallengeDuringNegotiate(myProtocol, response, out);
+        this.negAuthFilter.sendChallengeDuringNegotiate(myProtocol, this.response, this.out);
 
-        Assert.assertEquals(myProtocol + " " + BaseEncoding.base64().encode(out),
-                response.headers.get("WWW-Authenticate"));
+        Assert.assertEquals(myProtocol + " " + BaseEncoding.base64().encode(this.out),
+                this.response.headers.get("WWW-Authenticate"));
 
-        Assert.assertEquals("keep-alive", response.headers.get("Connection"));
+        Assert.assertEquals("keep-alive", this.response.headers.get("Connection"));
 
-        Assert.assertEquals(HttpServletResponse.SC_UNAUTHORIZED, response.sc);
-        Assert.assertEquals(0, response.errorCode);
+        Assert.assertEquals(HttpServletResponse.SC_UNAUTHORIZED, this.response.sc);
+        Assert.assertEquals(0, this.response.errorCode);
 
-        Assert.assertFalse(response.isFlushed);
+        Assert.assertFalse(this.response.isFlushed);
     }
 
     @Test
     public void testSendChallengeOnFailure() {
 
-        negAuthFilter.sendChallengeOnFailure(response);
+        this.negAuthFilter.sendChallengeOnFailure(this.response);
 
-        Assert.assertEquals("Negotiate", response.headersAdded.get("WWW-Authenticate").get(0));
-        Assert.assertEquals("NTLM", response.headersAdded.get("WWW-Authenticate").get(1));
+        Assert.assertEquals("Negotiate", this.response.headersAdded.get("WWW-Authenticate").get(0));
+        Assert.assertEquals("NTLM", this.response.headersAdded.get("WWW-Authenticate").get(1));
 
-        Assert.assertEquals("close", response.headers.get("Connection"));
+        Assert.assertEquals("close", this.response.headers.get("Connection"));
 
-        Assert.assertEquals(0, response.sc);
-        Assert.assertEquals(HttpServletResponse.SC_UNAUTHORIZED, response.errorCode);
+        Assert.assertEquals(0, this.response.sc);
+        Assert.assertEquals(HttpServletResponse.SC_UNAUTHORIZED, this.response.errorCode);
 
-        Assert.assertTrue(response.isFlushed);
+        Assert.assertTrue(this.response.isFlushed);
     }
 
     private static class MockServletResponse implements HttpServletResponse {
@@ -170,7 +170,7 @@ public final class NegotiateAuthenticationFilterTest {
 
         @Override
         public void flushBuffer() throws IOException {
-            isFlushed = true;
+            this.isFlushed = true;
         }
 
         @Override
@@ -244,7 +244,7 @@ public final class NegotiateAuthenticationFilterTest {
 
         @Override
         public void sendError(int sc) throws IOException {
-            errorCode = sc;
+            this.errorCode = sc;
         }
 
         @Override
@@ -266,21 +266,21 @@ public final class NegotiateAuthenticationFilterTest {
 
         @Override
         public void setHeader(String name, String value) {
-            headers.put(name, value);
+            this.headers.put(name, value);
         }
 
         final Map<String, List<String>> headersAdded = new HashMap<String, List<String>>();
 
         @Override
         public void addHeader(String name, String value) {
-            if (headersAdded.containsKey(name)) {
-                headersAdded.get(name).add(value);
+            if (this.headersAdded.containsKey(name)) {
+                this.headersAdded.get(name).add(value);
                 return;
             }
 
             List<String> values = new ArrayList<String>();
             values.add(value);
-            headersAdded.put(name, values);
+            this.headersAdded.put(name, values);
         }
 
         @Override

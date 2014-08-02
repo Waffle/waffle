@@ -48,8 +48,8 @@ import org.apache.tomcat.util.http.mapper.Mapper;
  */
 public class SimpleContext implements Context {
 
-    private Realm          _realm;
-    private ServletContext _servletContext = new SimpleServletContext();
+    private Realm          realm;
+    private ServletContext servletContext = new SimpleServletContext();
 
     @Override
     public void addApplicationListener(String arg0) {
@@ -402,7 +402,7 @@ public class SimpleContext implements Context {
 
     @Override
     public ServletContext getServletContext() {
-        return _servletContext;
+        return this.servletContext;
     }
 
     @Override
@@ -771,7 +771,7 @@ public class SimpleContext implements Context {
 
     @Override
     public Realm getRealm() {
-        return _realm;
+        return this.realm;
     }
 
     @Override
@@ -836,7 +836,7 @@ public class SimpleContext implements Context {
 
     @Override
     public void setRealm(Realm realm) {
-        _realm = realm;
+        this.realm = realm;
     }
 
     @Override
