@@ -27,23 +27,23 @@ import waffle.windows.auth.IWindowsImpersonationContext;
  */
 public class MockWindowsIdentity implements IWindowsIdentity {
 
-    private String       _fqn;
-    private List<String> _groups;
+    private String       fqn;
+    private List<String> groups;
 
     public MockWindowsIdentity(String fqn, List<String> groups) {
-        _fqn = fqn;
-        _groups = groups;
+        this.fqn = fqn;
+        this.groups = groups;
     }
 
     @Override
     public String getFqn() {
-        return _fqn;
+        return this.fqn;
     }
 
     @Override
     public IWindowsAccount[] getGroups() {
         List<MockWindowsAccount> groups = new ArrayList<MockWindowsAccount>();
-        for (String group : _groups) {
+        for (String group : this.groups) {
             groups.add(new MockWindowsAccount(group));
         }
         return groups.toArray(new IWindowsAccount[0]);
@@ -56,7 +56,7 @@ public class MockWindowsIdentity implements IWindowsIdentity {
 
     @Override
     public String getSidString() {
-        return "S-" + _fqn.hashCode();
+        return "S-" + this.fqn.hashCode();
     }
 
     @Override
@@ -66,7 +66,7 @@ public class MockWindowsIdentity implements IWindowsIdentity {
 
     @Override
     public boolean isGuest() {
-        return _fqn.equals("Guest");
+        return this.fqn.equals("Guest");
     }
 
     @Override

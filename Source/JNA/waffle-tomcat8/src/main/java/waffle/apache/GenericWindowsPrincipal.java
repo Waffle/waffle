@@ -32,9 +32,9 @@ import waffle.windows.auth.WindowsAccount;
  */
 public class GenericWindowsPrincipal extends GenericPrincipal {
 
-    private byte[]                      _sid;
-    private String                      _sidString;
-    private Map<String, WindowsAccount> _groups;
+    private byte[]                      sid;
+    private String                      sidString;
+    private Map<String, WindowsAccount> groups;
 
     /**
      * A windows principal.
@@ -49,9 +49,9 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
     public GenericWindowsPrincipal(IWindowsIdentity windowsIdentity, PrincipalFormat principalFormat,
             PrincipalFormat roleFormat) {
         super(windowsIdentity.getFqn(), "", getRoles(windowsIdentity, principalFormat, roleFormat));
-        _sid = windowsIdentity.getSid();
-        _sidString = windowsIdentity.getSidString();
-        _groups = getGroups(windowsIdentity.getGroups());
+        this.sid = windowsIdentity.getSid();
+        this.sidString = windowsIdentity.getSidString();
+        this.groups = getGroups(windowsIdentity.getGroups());
     }
 
     private static List<String> getRoles(IWindowsIdentity windowsIdentity, PrincipalFormat principalFormat,
@@ -78,7 +78,7 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      * @return Array of bytes.
      */
     public byte[] getSid() {
-        return _sid.clone();
+        return this.sid.clone();
     }
 
     /**
@@ -87,7 +87,7 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      * @return String.
      */
     public String getSidString() {
-        return _sidString;
+        return this.sidString;
     }
 
     /**
@@ -96,7 +96,7 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      * @return A map of group names to groups.
      */
     public Map<String, WindowsAccount> getGroups() {
-        return _groups;
+        return this.groups;
     }
 
     /**
@@ -109,7 +109,6 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      * @return List of role principal objects.
      */
     private static List<String> getRoleNames(IWindowsAccount group, PrincipalFormat principalFormat) {
-
         List<String> principals = new ArrayList<String>();
         switch (principalFormat) {
             case fqn:
@@ -127,7 +126,6 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
             default:
                 break;
         }
-
         return principals;
     }
 
@@ -141,7 +139,6 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      * @return A list of user principal objects.
      */
     private static List<String> getPrincipalNames(IWindowsIdentity windowsIdentity, PrincipalFormat principalFormat) {
-
         List<String> principals = new ArrayList<String>();
         switch (principalFormat) {
             case fqn:
@@ -159,7 +156,6 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
             default:
                 break;
         }
-
         return principals;
     }
 

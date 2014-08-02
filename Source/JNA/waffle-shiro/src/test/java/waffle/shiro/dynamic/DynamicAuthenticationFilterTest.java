@@ -40,21 +40,21 @@ public class DynamicAuthenticationFilterTest {
 
     @Before
     public void setUp() {
-        dynamicAuthenticationFilter = new DynamicAuthenticationFilter();
+        this.dynamicAuthenticationFilter = new DynamicAuthenticationFilter();
 
-        request = new MockServletRequest();
+        this.request = new MockServletRequest();
     }
 
     @Test
     public void testIsAuthTypeNegotiate() {
-        Assert.assertFalse(dynamicAuthenticationFilter.isAuthTypeNegotiate(request));
+        Assert.assertFalse(this.dynamicAuthenticationFilter.isAuthTypeNegotiate(this.request));
 
-        request.parameters.put(DynamicAuthenticationFilter.PARAM_NAME_AUTHTYPE, "zzz");
-        Assert.assertFalse(dynamicAuthenticationFilter.isAuthTypeNegotiate(request));
+        this.request.parameters.put(DynamicAuthenticationFilter.PARAM_NAME_AUTHTYPE, "zzz");
+        Assert.assertFalse(this.dynamicAuthenticationFilter.isAuthTypeNegotiate(this.request));
 
-        request.parameters.put(DynamicAuthenticationFilter.PARAM_NAME_AUTHTYPE,
+        this.request.parameters.put(DynamicAuthenticationFilter.PARAM_NAME_AUTHTYPE,
                 DynamicAuthenticationFilter.PARAM_VAL_AUTHTYPE_NEGOTIATE);
-        Assert.assertTrue(dynamicAuthenticationFilter.isAuthTypeNegotiate(request));
+        Assert.assertTrue(this.dynamicAuthenticationFilter.isAuthTypeNegotiate(this.request));
     }
 
     private static class MockServletRequest implements ServletRequest {
@@ -107,7 +107,7 @@ public class DynamicAuthenticationFilterTest {
 
         @Override
         public String getParameter(String name) {
-            return parameters.get(name);
+            return this.parameters.get(name);
         }
 
         @Override
@@ -204,6 +204,7 @@ public class DynamicAuthenticationFilterTest {
             return null;
         }
 
+        @Deprecated
         @Override
         public String getRealPath(String path) {
             notImplemented();

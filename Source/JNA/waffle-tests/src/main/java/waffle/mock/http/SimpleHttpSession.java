@@ -29,11 +29,11 @@ import javax.servlet.http.HttpSessionContext;
 @SuppressWarnings("deprecation")
 public class SimpleHttpSession implements HttpSession {
 
-    private Map<String, Object> _attributes = new HashMap<String, Object>();
+    private Map<String, Object> attributes = new HashMap<String, Object>();
 
     @Override
     public Object getAttribute(String attributeName) {
-        return _attributes.get(attributeName);
+        return this.attributes.get(attributeName);
     }
 
     @Override
@@ -66,16 +66,19 @@ public class SimpleHttpSession implements HttpSession {
         return null;
     }
 
+    @Deprecated
     @Override
     public HttpSessionContext getSessionContext() {
         return null;
     }
 
+    @Deprecated
     @Override
     public Object getValue(String arg0) {
         return null;
     }
 
+    @Deprecated
     @Override
     public String[] getValueNames() {
         return new String[0];
@@ -91,6 +94,7 @@ public class SimpleHttpSession implements HttpSession {
         return false;
     }
 
+    @Deprecated
     @Override
     public void putValue(String arg0, Object arg1) {
         // Do Nothing
@@ -98,9 +102,10 @@ public class SimpleHttpSession implements HttpSession {
 
     @Override
     public void removeAttribute(String attributeName) {
-        _attributes.remove(attributeName);
+        this.attributes.remove(attributeName);
     }
 
+    @Deprecated
     @Override
     public void removeValue(String arg0) {
         // Do Nothing
@@ -108,7 +113,7 @@ public class SimpleHttpSession implements HttpSession {
 
     @Override
     public void setAttribute(String attributeName, Object attributeValue) {
-        _attributes.put(attributeName, attributeValue);
+        this.attributes.put(attributeName, attributeValue);
     }
 
     @Override

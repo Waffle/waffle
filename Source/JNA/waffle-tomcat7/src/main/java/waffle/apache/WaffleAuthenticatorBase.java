@@ -39,14 +39,14 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
     private static final Set<String> SUPPORTED_PROTOCOLS = new LinkedHashSet<String>(asList("Negotiate", "NTLM"));
 
-    protected String                 _info;
-    protected Logger                 _log;
-    protected PrincipalFormat        _principalFormat    = PrincipalFormat.fqn;
-    protected PrincipalFormat        _roleFormat         = PrincipalFormat.fqn;
-    protected boolean                _allowGuestLogin    = true;
-    protected Set<String>            _protocols          = SUPPORTED_PROTOCOLS;
+    protected String                 info;
+    protected Logger                 log;
+    protected PrincipalFormat        principalFormat     = PrincipalFormat.fqn;
+    protected PrincipalFormat        roleFormat          = PrincipalFormat.fqn;
+    protected boolean                allowGuestLogin     = true;
+    protected Set<String>            protocols           = SUPPORTED_PROTOCOLS;
 
-    protected IWindowsAuthProvider   _auth               = new WindowsAuthProviderImpl();
+    protected IWindowsAuthProvider   auth                = new WindowsAuthProviderImpl();
 
     /**
      * Windows authentication provider.
@@ -54,7 +54,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      * @return IWindowsAuthProvider.
      */
     public IWindowsAuthProvider getAuth() {
-        return _auth;
+        return this.auth;
     }
 
     /**
@@ -64,12 +64,12 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      *            Class implements IWindowsAuthProvider.
      */
     public void setAuth(IWindowsAuthProvider provider) {
-        _auth = provider;
+        this.auth = provider;
     }
 
     @Override
     public String getInfo() {
-        return _info;
+        return this.info;
     }
 
     /**
@@ -79,8 +79,8 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      *            Principal format.
      */
     public void setPrincipalFormat(String format) {
-        _principalFormat = PrincipalFormat.valueOf(format);
-        _log.debug("principal format: {}", _principalFormat);
+        this.principalFormat = PrincipalFormat.valueOf(format);
+        this.log.debug("principal format: {}", this.principalFormat);
     }
 
     /**
@@ -89,7 +89,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      * @return Principal format.
      */
     public PrincipalFormat getPrincipalFormat() {
-        return _principalFormat;
+        return this.principalFormat;
     }
 
     /**
@@ -99,8 +99,8 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      *            Role format.
      */
     public void setRoleFormat(String format) {
-        _roleFormat = PrincipalFormat.valueOf(format);
-        _log.debug("role format: {}", _roleFormat);
+        this.roleFormat = PrincipalFormat.valueOf(format);
+        this.log.debug("role format: {}", this.roleFormat);
     }
 
     /**
@@ -109,7 +109,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      * @return Role format.
      */
     public PrincipalFormat getRoleFormat() {
-        return _roleFormat;
+        return this.roleFormat;
     }
 
     /**
@@ -118,7 +118,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      * @return True if Guest login permitted, false otherwise.
      */
     public boolean isAllowGuestLogin() {
-        return _allowGuestLogin;
+        return this.allowGuestLogin;
     }
 
     /**
@@ -129,7 +129,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      *            True or false.
      */
     public void setAllowGuestLogin(boolean value) {
-        _allowGuestLogin = value;
+        this.allowGuestLogin = value;
     }
 
     /**
@@ -139,16 +139,16 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      *            Authentication protocols
      */
     public void setProtocols(String protocols) {
-        _protocols = new LinkedHashSet<String>();
+        this.protocols = new LinkedHashSet<String>();
         String[] protocolNames = protocols.split(",");
         for (String protocolName : protocolNames) {
             protocolName = protocolName.trim();
             if (!protocolName.isEmpty()) {
-                _log.debug("init protocol: {}", protocolName);
+                this.log.debug("init protocol: {}", protocolName);
                 if (SUPPORTED_PROTOCOLS.contains(protocolName)) {
-                    _protocols.add(protocolName);
+                    this.protocols.add(protocolName);
                 } else {
-                    _log.error("unsupported protocol: {}", protocolName);
+                    this.log.error("unsupported protocol: {}", protocolName);
                     throw new RuntimeException("Unsupported protocol: " + protocolName);
                 }
             }
@@ -163,7 +163,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      */
     protected void sendUnauthorized(HttpServletResponse response) {
         try {
-            for (String protocol : _protocols) {
+            for (String protocol : this.protocols) {
                 response.addHeader("WWW-Authenticate", protocol);
             }
             response.setHeader("Connection", "close");
@@ -186,8 +186,8 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
         try {
             response.sendError(code);
         } catch (IOException e) {
-            _log.error(e.getMessage());
-            _log.trace("{}", e);
+            this.log.error(e.getMessage());
+            this.log.trace("{}", e);
             throw new RuntimeException(e);
         }
     }
@@ -199,25 +199,25 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
     @Override
     protected Principal doLogin(Request request, String username, String password) throws ServletException {
-        _log.debug("logging in: {}", username);
+        this.log.debug("logging in: {}", username);
         IWindowsIdentity windowsIdentity;
         try {
-            windowsIdentity = _auth.logonUser(username, password);
+            windowsIdentity = this.auth.logonUser(username, password);
         } catch (Exception e) {
-            _log.error(e.getMessage());
-            _log.trace("{}", e);
+            this.log.error(e.getMessage());
+            this.log.trace("{}", e);
             return super.doLogin(request, username, password);
         }
         // disable guest login
-        if (!_allowGuestLogin && windowsIdentity.isGuest()) {
-            _log.warn("guest login disabled: {}", windowsIdentity.getFqn());
+        if (!this.allowGuestLogin && windowsIdentity.isGuest()) {
+            this.log.warn("guest login disabled: {}", windowsIdentity.getFqn());
             return super.doLogin(request, username, password);
         }
         try {
-            _log.debug("successfully logged in {} ({})", username, windowsIdentity.getSidString());
-            GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(windowsIdentity, _principalFormat,
-                    _roleFormat);
-            _log.debug("roles: {}", windowsPrincipal.getRolesString());
+            this.log.debug("successfully logged in {} ({})", username, windowsIdentity.getSidString());
+            GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(windowsIdentity,
+                    this.principalFormat, this.roleFormat);
+            this.log.debug("roles: {}", windowsPrincipal.getRolesString());
             return windowsPrincipal;
         } finally {
             windowsIdentity.dispose();

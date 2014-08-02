@@ -31,15 +31,15 @@ import waffle.windows.auth.IWindowsSecurityContext;
  */
 public class MockWindowsAuthProvider implements IWindowsAuthProvider {
 
-    private List<String> _groups = new ArrayList<String>();
+    private List<String> groups = new ArrayList<String>();
 
     public MockWindowsAuthProvider() {
-        _groups.add("Users");
-        _groups.add("Everyone");
+        this.groups.add("Users");
+        this.groups.add("Everyone");
     }
 
     public void addGroup(String name) {
-        _groups.add(name);
+        this.groups.add(name);
     }
 
     @Override
@@ -76,9 +76,9 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
     public IWindowsIdentity logonUser(String username, String password) {
         String currentUsername = Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);
         if (username.equals(currentUsername)) {
-            return new MockWindowsIdentity(currentUsername, _groups);
+            return new MockWindowsIdentity(currentUsername, this.groups);
         } else if (username.equals("Guest")) {
-            return new MockWindowsIdentity("Guest", _groups);
+            return new MockWindowsIdentity("Guest", this.groups);
         } else {
             throw new RuntimeException("Mock error: " + username);
         }

@@ -27,9 +27,9 @@ public class WaffleFqnPrincipal implements Serializable {
     private final Set<String> groupFqns        = new HashSet<String>();
 
     WaffleFqnPrincipal(IWindowsIdentity identity) {
-        fqn = identity.getFqn();
+        this.fqn = identity.getFqn();
         for (IWindowsAccount group : identity.getGroups()) {
-            groupFqns.add(group.getFqn());
+            this.groupFqns.add(group.getFqn());
         }
     }
 
@@ -37,27 +37,27 @@ public class WaffleFqnPrincipal implements Serializable {
      * Returns the fully qualified name of the user
      */
     public String getFqn() {
-        return fqn;
+        return this.fqn;
     }
 
     /**
      * Returns the fully qualified names of all groups that the use belongs to
      */
     public Set<String> getGroupFqns() {
-        return Collections.unmodifiableSet(groupFqns);
+        return Collections.unmodifiableSet(this.groupFqns);
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof WaffleFqnPrincipal) {
-            return fqn.equals(((WaffleFqnPrincipal) obj).fqn);
+            return this.fqn.equals(((WaffleFqnPrincipal) obj).fqn);
         }
         return false;
     }
 
     @Override
     public int hashCode() {
-        return fqn.hashCode();
+        return this.fqn.hashCode();
     }
 
     @Override
@@ -66,7 +66,7 @@ public class WaffleFqnPrincipal implements Serializable {
         stringBuilder.append("{");
         stringBuilder.append(getClass().getSimpleName());
         stringBuilder.append(":");
-        stringBuilder.append(fqn);
+        stringBuilder.append(this.fqn);
         stringBuilder.append("}");
         return stringBuilder.toString();
     }

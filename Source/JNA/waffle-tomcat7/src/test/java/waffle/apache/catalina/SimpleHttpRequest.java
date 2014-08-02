@@ -26,97 +26,94 @@ import org.apache.catalina.connector.Request;
  */
 public class SimpleHttpRequest extends Request {
 
-    private static int          _remotePort_s;
+    private static int          remotePortS;
 
-    private String              _requestURI;
-    private String              _queryString;
-    private String              _remoteUser;
-    private String              _method     = "GET";
-    private String              _remoteHost;
-    private String              _remoteAddr;
-    private int                 _remotePort = -1;
-    private Map<String, String> _headers    = new HashMap<String, String>();
-    private Map<String, String> _parameters = new HashMap<String, String>();
-    private byte[]              _content;
-    private HttpSession         _session    = new SimpleHttpSession();
-    private Principal           _principal;
+    private String              requestURI;
+    private String              queryString;
+    private String              remoteUser;
+    private String              method      = "GET";
+    private Map<String, String> headers     = new HashMap<String, String>();
+    private Map<String, String> parameters  = new HashMap<String, String>();
+    private byte[]              content;
+    private HttpSession         httpSession = new SimpleHttpSession();
+    private Principal           principal;
 
     public SimpleHttpRequest() {
         super();
-        _remotePort = nextRemotePort();
+        this.remotePort = nextRemotePort();
     }
 
     public synchronized static int nextRemotePort() {
-        return ++_remotePort_s;
+        return ++remotePortS;
     }
 
     public synchronized static void resetRemotePort() {
-        _remotePort_s = 0;
+        remotePortS = 0;
     }
 
     public void addHeader(String headerName, String headerValue) {
-        _headers.put(headerName, headerValue);
+        this.headers.put(headerName, headerValue);
     }
 
     @Override
     public String getHeader(String headerName) {
-        return _headers.get(headerName);
+        return this.headers.get(headerName);
     }
 
     @Override
     public String getMethod() {
-        return _method;
+        return this.method;
     }
 
     @Override
     public int getContentLength() {
-        return _content == null ? -1 : _content.length;
+        return this.content == null ? -1 : this.content.length;
     }
 
     @Override
     public int getRemotePort() {
-        return _remotePort;
+        return this.remotePort;
     }
 
     public void setMethod(String methodName) {
-        _method = methodName;
+        this.method = methodName;
     }
 
     public void setContentLength(int length) {
-        _content = new byte[length];
+        this.content = new byte[length];
     }
 
     public void setRemoteUser(String username) {
-        _remoteUser = username;
+        this.remoteUser = username;
     }
 
     @Override
     public String getRemoteUser() {
-        return _remoteUser;
+        return this.remoteUser;
     }
 
     @Override
     public HttpSession getSession() {
-        return _session;
+        return this.httpSession;
     }
 
     @Override
     public HttpSession getSession(boolean create) {
-        if (_session == null && create) {
-            _session = new SimpleHttpSession();
+        if (this.httpSession == null && create) {
+            this.httpSession = new SimpleHttpSession();
         }
-        return _session;
+        return this.httpSession;
     }
 
     @Override
     public String getQueryString() {
-        return _queryString;
+        return this.queryString;
     }
 
     public void setQueryString(String queryString) {
-        _queryString = queryString;
-        if (_queryString != null) {
-            for (String eachParameter : _queryString.split("[&]")) {
+        this.queryString = queryString;
+        if (this.queryString != null) {
+            for (String eachParameter : this.queryString.split("[&]")) {
                 String[] pair = eachParameter.split("=");
                 String value = (pair.length == 2) ? pair[1] : "";
                 addParameter(pair[0], value);
@@ -125,50 +122,50 @@ public class SimpleHttpRequest extends Request {
     }
 
     public void setRequestURI(String uri) {
-        _requestURI = uri;
+        this.requestURI = uri;
     }
 
     @Override
     public String getRequestURI() {
-        return _requestURI;
+        return this.requestURI;
     }
 
     @Override
     public String getParameter(String parameterName) {
-        return _parameters.get(parameterName);
+        return this.parameters.get(parameterName);
     }
 
     public void addParameter(String parameterName, String parameterValue) {
-        _parameters.put(parameterName, parameterValue);
+        this.parameters.put(parameterName, parameterValue);
     }
 
     @Override
     public String getRemoteHost() {
-        return _remoteHost;
+        return this.remoteHost;
     }
 
     @Override
     public void setRemoteHost(String remoteHost) {
-        _remoteHost = remoteHost;
+        this.remoteHost = remoteHost;
     }
 
     @Override
     public String getRemoteAddr() {
-        return _remoteAddr;
+        return this.remoteAddr;
     }
 
     @Override
     public void setRemoteAddr(String remoteAddr) {
-        _remoteAddr = remoteAddr;
+        this.remoteAddr = remoteAddr;
     }
 
     @Override
     public Principal getUserPrincipal() {
-        return _principal;
+        return this.principal;
     }
 
     @Override
     public void setUserPrincipal(Principal principal) {
-        _principal = principal;
+        this.principal = principal;
     }
 }

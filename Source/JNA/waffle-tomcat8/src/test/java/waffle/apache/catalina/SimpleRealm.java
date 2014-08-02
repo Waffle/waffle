@@ -29,11 +29,13 @@ public class SimpleRealm extends RealmBase {
 
     @Override
     protected String getPassword(String arg0) {
+        // Not Implemented
         return null;
     }
 
     @Override
     protected Principal getPrincipal(String arg0) {
+        // Not Implemented
         return null;
     }
 }

@@ -44,10 +44,10 @@ public class BasicSecurityFilterTests {
 
     @Before
     public void setUp() {
-        filter = new NegotiateSecurityFilter();
-        filter.setAuth(new MockWindowsAuthProvider());
+        this.filter = new NegotiateSecurityFilter();
+        this.filter.setAuth(new MockWindowsAuthProvider());
         try {
-            filter.init(null);
+            this.filter.init(null);
         } catch (ServletException e) {
             fail(e.getMessage());
         }
@@ -55,7 +55,7 @@ public class BasicSecurityFilterTests {
 
     @After
     public void tearDown() {
-        filter.destroy();
+        this.filter.destroy();
     }
 
     @Test
@@ -69,7 +69,7 @@ public class BasicSecurityFilterTests {
 
         SimpleHttpResponse response = new SimpleHttpResponse();
         FilterChain filterChain = new SimpleFilterChain();
-        filter.doFilter(request, response, filterChain);
+        this.filter.doFilter(request, response, filterChain);
         Subject subject = (Subject) request.getSession().getAttribute("javax.security.auth.subject");
         boolean authenticated = (subject != null && subject.getPrincipals().size() > 0);
         assertTrue(authenticated);

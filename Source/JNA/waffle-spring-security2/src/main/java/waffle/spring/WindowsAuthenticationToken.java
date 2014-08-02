@@ -46,8 +46,8 @@ public class WindowsAuthenticationToken implements Authentication {
                                                                                           "ROLE_USER");
 
     private static final long                   serialVersionUID                  = 1L;
-    private WindowsPrincipal                    _principal;
-    private Collection<GrantedAuthority>        _authorities;
+    private WindowsPrincipal                    principal;
+    private Collection<GrantedAuthority>        authorities;
 
     /**
      * Convenience constructor that calls
@@ -74,20 +74,20 @@ public class WindowsAuthenticationToken implements Authentication {
     public WindowsAuthenticationToken(WindowsPrincipal identity, GrantedAuthorityFactory grantedAuthorityFactory,
             GrantedAuthority defaultGrantedAuthority) {
 
-        _principal = identity;
-        _authorities = new ArrayList<GrantedAuthority>();
+        this.principal = identity;
+        this.authorities = new ArrayList<GrantedAuthority>();
         if (defaultGrantedAuthority != null) {
-            _authorities.add(defaultGrantedAuthority);
+            this.authorities.add(defaultGrantedAuthority);
         }
-        for (WindowsAccount group : _principal.getGroups().values()) {
-            _authorities.add(grantedAuthorityFactory.createGrantedAuthority(group));
+        for (WindowsAccount group : this.principal.getGroups().values()) {
+            this.authorities.add(grantedAuthorityFactory.createGrantedAuthority(group));
         }
     }
 
     @Override
     public GrantedAuthority[] getAuthorities() {
-        GrantedAuthority[] grantedAuthorities = new GrantedAuthority[_authorities.size()];
-        _authorities.toArray(grantedAuthorities);
+        GrantedAuthority[] grantedAuthorities = new GrantedAuthority[this.authorities.size()];
+        this.authorities.toArray(grantedAuthorities);
         return grantedAuthorities;
     }
 
@@ -103,12 +103,12 @@ public class WindowsAuthenticationToken implements Authentication {
 
     @Override
     public Object getPrincipal() {
-        return _principal;
+        return this.principal;
     }
 
     @Override
     public boolean isAuthenticated() {
-        return _principal != null;
+        return this.principal != null;
     }
 
     @Override
@@ -118,6 +118,6 @@ public class WindowsAuthenticationToken implements Authentication {
 
     @Override
     public String getName() {
-        return _principal.getName();
+        return this.principal.getName();
     }
 }

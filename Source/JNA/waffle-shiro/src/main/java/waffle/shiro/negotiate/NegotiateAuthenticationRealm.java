@@ -49,7 +49,7 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
     private final IWindowsAuthProvider windowsAuthProvider;
 
     public NegotiateAuthenticationRealm() {
-        windowsAuthProvider = new WindowsAuthProviderImpl();
+        this.windowsAuthProvider = new WindowsAuthProviderImpl();
     }
 
     @Override
@@ -65,12 +65,12 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
 
         if (token.isNtlmPost()) {
             // type 2 NTLM authentication message received
-            windowsAuthProvider.resetSecurityToken(token.getConnectionId());
+            this.windowsAuthProvider.resetSecurityToken(token.getConnectionId());
         }
 
         final IWindowsSecurityContext securityContext;
         try {
-            securityContext = windowsAuthProvider.acceptSecurityToken(token.getConnectionId(), inToken,
+            securityContext = this.windowsAuthProvider.acceptSecurityToken(token.getConnectionId(), inToken,
                     token.getSecurityPackage());
         } catch (Exception e) {
             log.warn("error logging in user: {}", e.getMessage());

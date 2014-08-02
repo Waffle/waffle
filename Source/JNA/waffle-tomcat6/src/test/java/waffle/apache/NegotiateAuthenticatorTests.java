@@ -47,50 +47,50 @@ import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
  */
 public class NegotiateAuthenticatorTests {
 
-    private static final Logger    logger = LoggerFactory.getLogger(NegotiateAuthenticatorTests.class);
+    private static final Logger    LOGGER = LoggerFactory.getLogger(NegotiateAuthenticatorTests.class);
 
-    private NegotiateAuthenticator _authenticator;
+    private NegotiateAuthenticator authenticator;
 
     @Before
     public void setUp() {
-        _authenticator = new NegotiateAuthenticator();
+        this.authenticator = new NegotiateAuthenticator();
         SimpleContext ctx = new SimpleContext();
         Realm realm = new SimpleRealm();
         ctx.setRealm(realm);
-        _authenticator.setContainer(ctx);
-        _authenticator.start();
+        this.authenticator.setContainer(ctx);
+        this.authenticator.start();
     }
 
     @After
     public void tearDown() {
-        _authenticator.stop();
+        this.authenticator.stop();
     }
 
     @Test
     public void testGetInfo() {
-        assertTrue(_authenticator.getInfo().length() > 0);
-        assertTrue(_authenticator.getAuth() instanceof WindowsAuthProviderImpl);
+        assertTrue(this.authenticator.getInfo().length() > 0);
+        assertTrue(this.authenticator.getAuth() instanceof WindowsAuthProviderImpl);
     }
 
     @Test
     public void testAllowGuestLogin() {
-        assertTrue(_authenticator.isAllowGuestLogin());
-        _authenticator.setAllowGuestLogin(false);
-        assertFalse(_authenticator.isAllowGuestLogin());
+        assertTrue(this.authenticator.isAllowGuestLogin());
+        this.authenticator.setAllowGuestLogin(false);
+        assertFalse(this.authenticator.isAllowGuestLogin());
     }
 
     @Test
     public void testPrincipalFormat() {
-        assertEquals(PrincipalFormat.fqn, _authenticator.getPrincipalFormat());
-        _authenticator.setPrincipalFormat("both");
-        assertEquals(PrincipalFormat.both, _authenticator.getPrincipalFormat());
+        assertEquals(PrincipalFormat.fqn, this.authenticator.getPrincipalFormat());
+        this.authenticator.setPrincipalFormat("both");
+        assertEquals(PrincipalFormat.both, this.authenticator.getPrincipalFormat());
     }
 
     @Test
     public void testRoleFormat() {
-        assertEquals(PrincipalFormat.fqn, _authenticator.getRoleFormat());
-        _authenticator.setRoleFormat("both");
-        assertEquals(PrincipalFormat.both, _authenticator.getRoleFormat());
+        assertEquals(PrincipalFormat.fqn, this.authenticator.getRoleFormat());
+        this.authenticator.setRoleFormat("both");
+        assertEquals(PrincipalFormat.both, this.authenticator.getRoleFormat());
     }
 
     @Test
@@ -98,7 +98,7 @@ public class NegotiateAuthenticatorTests {
         SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
         SimpleHttpResponse response = new SimpleHttpResponse();
-        _authenticator.authenticate(request, response, null);
+        this.authenticator.authenticate(request, response, null);
         String[] wwwAuthenticates = response.getHeaderValues("WWW-Authenticate");
         assertEquals(2, wwwAuthenticates.length);
         assertEquals("Negotiate", wwwAuthenticates[0]);
@@ -128,7 +128,7 @@ public class NegotiateAuthenticatorTests {
             String clientToken = BaseEncoding.base64().encode(clientContext.getToken());
             request.addHeader("Authorization", securityPackage + " " + clientToken);
             SimpleHttpResponse response = new SimpleHttpResponse();
-            _authenticator.authenticate(request, response, null);
+            this.authenticator.authenticate(request, response, null);
             assertTrue(response.getHeader("WWW-Authenticate").startsWith(securityPackage + " "));
             assertEquals("keep-alive", response.getHeader("Connection"));
             assertEquals(2, response.getHeaderNames().length);
@@ -169,9 +169,9 @@ public class NegotiateAuthenticatorTests {
 
                 SimpleHttpResponse response = new SimpleHttpResponse();
                 try {
-                    authenticated = _authenticator.authenticate(request, response, null);
+                    authenticated = this.authenticator.authenticate(request, response, null);
                 } catch (Exception e) {
-                    logger.error("{}", e);
+                    LOGGER.error("{}", e);
                     return;
                 }
 
@@ -225,7 +225,7 @@ public class NegotiateAuthenticatorTests {
                 request.addHeader("Authorization", securityPackage + " " + clientToken);
 
                 SimpleHttpResponse response = new SimpleHttpResponse();
-                authenticated = _authenticator.authenticate(request, response, null);
+                authenticated = this.authenticator.authenticate(request, response, null);
 
                 if (authenticated) {
                     assertNotNull(request.getUserPrincipal());

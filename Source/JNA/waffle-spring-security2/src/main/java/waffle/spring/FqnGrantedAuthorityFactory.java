@@ -28,12 +28,12 @@ import waffle.windows.auth.WindowsAccount;
  */
 public class FqnGrantedAuthorityFactory implements GrantedAuthorityFactory {
 
-    private final String  _prefix;
-    private final boolean _convertToUpperCase;
+    private final String  prefix;
+    private final boolean convertToUpperCase;
 
     public FqnGrantedAuthorityFactory(String prefix, boolean convertToUpperCase) {
-        _prefix = prefix;
-        _convertToUpperCase = convertToUpperCase;
+        this.prefix = prefix;
+        this.convertToUpperCase = convertToUpperCase;
     }
 
     @Override
@@ -41,11 +41,11 @@ public class FqnGrantedAuthorityFactory implements GrantedAuthorityFactory {
 
         String grantedAuthorityString = windowsAccount.getFqn();
 
-        if (_prefix != null) {
-            grantedAuthorityString = _prefix + grantedAuthorityString;
+        if (this.prefix != null) {
+            grantedAuthorityString = this.prefix + grantedAuthorityString;
         }
 
-        if (_convertToUpperCase) {
+        if (this.convertToUpperCase) {
             grantedAuthorityString = grantedAuthorityString.toUpperCase();
         }
 
