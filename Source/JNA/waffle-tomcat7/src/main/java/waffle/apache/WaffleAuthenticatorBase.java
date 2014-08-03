@@ -63,7 +63,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      * @param provider
      *            Class implements IWindowsAuthProvider.
      */
-    public void setAuth(IWindowsAuthProvider provider) {
+    public void setAuth(final IWindowsAuthProvider provider) {
         this.auth = provider;
     }
 
@@ -128,7 +128,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      * @param value
      *            True or false.
      */
-    public void setAllowGuestLogin(boolean value) {
+    public void setAllowGuestLogin(final boolean value) {
         this.allowGuestLogin = value;
     }
 
@@ -138,9 +138,9 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      * @param protocols
      *            Authentication protocols
      */
-    public void setProtocols(String protocols) {
+    public void setProtocols(final String value) {
         this.protocols = new LinkedHashSet<String>();
-        String[] protocolNames = protocols.split(",");
+        final String[] protocolNames = value.split(",");
         for (String protocolName : protocolNames) {
             protocolName = protocolName.trim();
             if (!protocolName.isEmpty()) {
@@ -161,7 +161,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      * @param response
      *            HTTP Response
      */
-    protected void sendUnauthorized(HttpServletResponse response) {
+    protected void sendUnauthorized(final HttpServletResponse response) {
         try {
             for (String protocol : this.protocols) {
                 response.addHeader("WWW-Authenticate", protocol);
@@ -182,7 +182,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      * @param code
      *            Error Code
      */
-    protected void sendError(HttpServletResponse response, int code) {
+    protected void sendError(final HttpServletResponse response, final int code) {
         try {
             response.sendError(code);
         } catch (IOException e) {
@@ -198,7 +198,8 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
     }
 
     @Override
-    protected Principal doLogin(Request request, String username, String password) throws ServletException {
+    protected Principal doLogin(final Request request, final String username, final String password)
+            throws ServletException {
         this.log.debug("logging in: {}", username);
         IWindowsIdentity windowsIdentity;
         try {

@@ -32,7 +32,7 @@ public class SimpleHttpSession implements HttpSession {
     private Map<String, Object> attributes = new HashMap<String, Object>();
 
     @Override
-    public Object getAttribute(String attributeName) {
+    public Object getAttribute(final String attributeName) {
         return this.attributes.get(attributeName);
     }
 
@@ -74,7 +74,7 @@ public class SimpleHttpSession implements HttpSession {
 
     @Deprecated
     @Override
-    public Object getValue(String arg0) {
+    public Object getValue(final String arg0) {
         return null;
     }
 
@@ -96,28 +96,28 @@ public class SimpleHttpSession implements HttpSession {
 
     @Deprecated
     @Override
-    public void putValue(String arg0, Object arg1) {
+    public void putValue(final String arg0, final Object arg1) {
         // Do Nothing
     }
 
     @Override
-    public void removeAttribute(String attributeName) {
+    public void removeAttribute(final String attributeName) {
         this.attributes.remove(attributeName);
     }
 
     @Deprecated
     @Override
-    public void removeValue(String arg0) {
+    public void removeValue(final String arg0) {
         // Do Nothing
     }
 
     @Override
-    public void setAttribute(String attributeName, Object attributeValue) {
+    public void setAttribute(final String attributeName, final Object attributeValue) {
         this.attributes.put(attributeName, attributeValue);
     }
 
     @Override
-    public void setMaxInactiveInterval(int arg0) {
+    public void setMaxInactiveInterval(final int arg0) {
         // Do Nothing
     }
 }

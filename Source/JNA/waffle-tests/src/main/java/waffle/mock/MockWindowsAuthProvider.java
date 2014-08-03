@@ -31,20 +31,22 @@ import waffle.windows.auth.IWindowsSecurityContext;
  */
 public class MockWindowsAuthProvider implements IWindowsAuthProvider {
 
-    private List<String> groups = new ArrayList<String>();
+    private static final String GUEST  = "Guest";
+
+    private List<String>        groups = new ArrayList<String>();
 
     public MockWindowsAuthProvider() {
         this.groups.add("Users");
         this.groups.add("Everyone");
     }
 
-    public void addGroup(String name) {
+    public void addGroup(final String name) {
         this.groups.add(name);
     }
 
     @Override
-    public IWindowsSecurityContext acceptSecurityToken(String connectionId, byte[] token, String securityPackage) {
-
+    public IWindowsSecurityContext acceptSecurityToken(final String connectionId, final byte[] token,
+            final String securityPackage) {
         return new MockWindowsSecurityContext(new String(token));
     }
 
@@ -59,13 +61,13 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
     }
 
     @Override
-    public IWindowsIdentity logonDomainUser(String username, String domain, String password) {
+    public IWindowsIdentity logonDomainUser(final String username, final String domain, final String password) {
         return null;
     }
 
     @Override
-    public IWindowsIdentity logonDomainUserEx(String username, String domain, String password, int logonType,
-            int logonProvider) {
+    public IWindowsIdentity logonDomainUserEx(final String username, final String domain, final String password,
+            final int logonType, final int logonProvider) {
         return null;
     }
 
@@ -73,24 +75,24 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
      * Will login the current user with any password. Will logon a "Guest" user as guest.
      */
     @Override
-    public IWindowsIdentity logonUser(String username, String password) {
-        String currentUsername = Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);
+    public IWindowsIdentity logonUser(final String username, final String password) {
+        final String currentUsername = Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);
         if (username.equals(currentUsername)) {
             return new MockWindowsIdentity(currentUsername, this.groups);
-        } else if (username.equals("Guest")) {
-            return new MockWindowsIdentity("Guest", this.groups);
+        } else if (username.equals(GUEST)) {
+            return new MockWindowsIdentity(GUEST, this.groups);
         } else {
             throw new RuntimeException("Mock error: " + username);
         }
     }
 
     @Override
-    public IWindowsAccount lookupAccount(String username) {
+    public IWindowsAccount lookupAccount(final String username) {
         return null;
     }
 
     @Override
-    public void resetSecurityToken(String connectionId) {
+    public void resetSecurityToken(final String connectionId) {
         // Do Nothing
     }
 }

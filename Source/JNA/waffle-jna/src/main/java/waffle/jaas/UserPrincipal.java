@@ -32,7 +32,7 @@ public class UserPrincipal implements Principal, Serializable {
      * @param fqn
      *            Fully qualified username.
      */
-    public UserPrincipal(String fqn) {
+    public UserPrincipal(final String fqn) {
         this.fqn = fqn;
     }
 
@@ -45,7 +45,7 @@ public class UserPrincipal implements Principal, Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
 
         if (this == o) {
             return true;

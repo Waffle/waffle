@@ -59,12 +59,12 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         remotePortS = 0;
     }
 
-    public void addHeader(String headerName, String headerValue) {
+    public void addHeader(final String headerName, final String headerValue) {
         this.headers.put(headerName, headerValue);
     }
 
     @Override
-    public String getHeader(String headerName) {
+    public String getHeader(final String headerName) {
         return this.headers.get(headerName);
     }
 
@@ -88,15 +88,15 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         return this.remotePort;
     }
 
-    public void setMethod(String methodName) {
+    public void setMethod(final String methodName) {
         this.method = methodName;
     }
 
-    public void setContentLength(int length) {
+    public void setContentLength(final int length) {
         this.content = new byte[length];
     }
 
-    public void setRemoteUser(String username) {
+    public void setRemoteUser(final String username) {
         this.remoteUser = username;
     }
 
@@ -111,7 +111,7 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
     }
 
     @Override
-    public HttpSession getSession(boolean create) {
+    public HttpSession getSession(final boolean create) {
         if (this.session == null && create) {
             this.session = new SimpleHttpSession();
         }
@@ -123,18 +123,18 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         return this.queryString;
     }
 
-    public void setQueryString(String query) {
+    public void setQueryString(final String query) {
         this.queryString = query;
         if (this.queryString != null) {
             for (String eachParameter : this.queryString.split("[&]")) {
-                String[] pair = eachParameter.split("=");
-                String value = (pair.length == 2) ? pair[1] : "";
+                final String[] pair = eachParameter.split("=");
+                final String value = (pair.length == 2) ? pair[1] : "";
                 addParameter(pair[0], value);
             }
         }
     }
 
-    public void setRequestURI(String uri) {
+    public void setRequestURI(final String uri) {
         this.requestURI = uri;
     }
 
@@ -144,11 +144,11 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
     }
 
     @Override
-    public String getParameter(String parameterName) {
+    public String getParameter(final String parameterName) {
         return this.parameters.get(parameterName);
     }
 
-    public void addParameter(String parameterName, String parameterValue) {
+    public void addParameter(final String parameterName, final String parameterValue) {
         this.parameters.put(parameterName, parameterValue);
     }
 
@@ -157,7 +157,7 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         return this.remoteHost;
     }
 
-    public void setRemoteHost(String value) {
+    public void setRemoteHost(final String value) {
         this.remoteHost = value;
     }
 
@@ -166,7 +166,7 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         return this.remoteAddr;
     }
 
-    public void setRemoteAddr(String value) {
+    public void setRemoteAddr(final String value) {
         this.remoteAddr = value;
     }
 
@@ -175,7 +175,7 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         return this.principal;
     }
 
-    public void setUserPrincipal(Principal value) {
+    public void setUserPrincipal(final Principal value) {
         this.principal = value;
     }
 }

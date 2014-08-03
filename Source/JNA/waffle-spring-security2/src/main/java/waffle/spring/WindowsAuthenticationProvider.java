@@ -48,10 +48,10 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
     }
 
     @Override
-    public Authentication authenticate(Authentication authentication) {
-        UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;
-        IWindowsIdentity windowsIdentity = this.authProvider
-                .logonUser(auth.getName(), auth.getCredentials().toString());
+    public Authentication authenticate(final Authentication authentication) {
+        final UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;
+        final IWindowsIdentity windowsIdentity = this.authProvider.logonUser(auth.getName(), auth.getCredentials()
+                .toString());
         LOGGER.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
 
         if (!this.allowGuestLogin && windowsIdentity.isGuest()) {
@@ -59,10 +59,11 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
             throw new GuestLoginDisabledAuthenticationException(windowsIdentity.getFqn());
         }
 
-        WindowsPrincipal windowsPrincipal = new WindowsPrincipal(windowsIdentity, this.principalFormat, this.roleFormat);
+        final WindowsPrincipal windowsPrincipal = new WindowsPrincipal(windowsIdentity, this.principalFormat,
+                this.roleFormat);
         LOGGER.debug("roles: {}", windowsPrincipal.getRolesString());
 
-        WindowsAuthenticationToken token = new WindowsAuthenticationToken(windowsPrincipal,
+        final WindowsAuthenticationToken token = new WindowsAuthenticationToken(windowsPrincipal,
                 this.grantedAuthorityFactory, this.defaultGrantedAuthority);
 
         LOGGER.info("successfully logged in user: {}", windowsIdentity.getFqn());
@@ -71,7 +72,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public boolean supports(Class clazz) {
+    public boolean supports(final Class clazz) {
         Class<? extends Object> authentication = clazz;
         return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
     }
@@ -80,7 +81,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
         return this.principalFormat;
     }
 
-    public void setPrincipalFormat(PrincipalFormat value) {
+    public void setPrincipalFormat(final PrincipalFormat value) {
         this.principalFormat = value;
     }
 
@@ -88,7 +89,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
         return this.roleFormat;
     }
 
-    public void setRoleFormat(PrincipalFormat value) {
+    public void setRoleFormat(final PrincipalFormat value) {
         this.roleFormat = value;
     }
 
@@ -96,7 +97,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
         return this.allowGuestLogin;
     }
 
-    public void setAllowGuestLogin(boolean value) {
+    public void setAllowGuestLogin(final boolean value) {
         this.allowGuestLogin = value;
     }
 
@@ -104,7 +105,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
         return this.authProvider;
     }
 
-    public void setAuthProvider(IWindowsAuthProvider value) {
+    public void setAuthProvider(final IWindowsAuthProvider value) {
         this.authProvider = value;
     }
 
@@ -112,7 +113,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
         return this.grantedAuthorityFactory;
     }
 
-    public void setGrantedAuthorityFactory(GrantedAuthorityFactory value) {
+    public void setGrantedAuthorityFactory(final GrantedAuthorityFactory value) {
         this.grantedAuthorityFactory = value;
     }
 
@@ -120,7 +121,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
         return this.defaultGrantedAuthority;
     }
 
-    public void setDefaultGrantedAuthority(GrantedAuthority value) {
+    public void setDefaultGrantedAuthority(final GrantedAuthority value) {
         this.defaultGrantedAuthority = value;
     }
 }

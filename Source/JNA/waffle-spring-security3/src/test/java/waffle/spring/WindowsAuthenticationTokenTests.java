@@ -65,19 +65,19 @@ public class WindowsAuthenticationTokenTests {
     @Test
     public void testCustomGrantedAuthorityFactory() {
 
-        WindowsAuthenticationToken token = new WindowsAuthenticationToken(this.principal,
+        WindowsAuthenticationToken myToken = new WindowsAuthenticationToken(this.principal,
                 new FqnGrantedAuthorityFactory(null, false), null);
 
-        assertNull(token.getCredentials());
-        assertNull(token.getDetails());
-        assertTrue(token.isAuthenticated());
-        assertEquals("localhost\\user1", token.getName());
-        Collection<GrantedAuthority> authorities = token.getAuthorities();
+        assertNull(myToken.getCredentials());
+        assertNull(myToken.getDetails());
+        assertTrue(myToken.isAuthenticated());
+        assertEquals("localhost\\user1", myToken.getName());
+        Collection<GrantedAuthority> authorities = myToken.getAuthorities();
         Iterator<GrantedAuthority> authoritiesIterator = authorities.iterator();
         assertEquals(2, authorities.size());
         assertEquals("group1", authoritiesIterator.next().getAuthority());
         assertEquals("group2", authoritiesIterator.next().getAuthority());
-        assertEquals(this.principal, token.getPrincipal());
+        assertEquals(this.principal, myToken.getPrincipal());
     }
 
     @Test(expected = IllegalArgumentException.class)

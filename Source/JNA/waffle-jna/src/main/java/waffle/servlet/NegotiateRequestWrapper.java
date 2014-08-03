@@ -27,7 +27,7 @@ public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
 
     private WindowsPrincipal principal;
 
-    public NegotiateRequestWrapper(HttpServletRequest request, WindowsPrincipal principal) {
+    public NegotiateRequestWrapper(final HttpServletRequest request, final WindowsPrincipal principal) {
         super(request);
         this.principal = principal;
     }
@@ -60,7 +60,7 @@ public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
      * Returns true if the user is in a given role.
      */
     @Override
-    public boolean isUserInRole(String role) {
+    public boolean isUserInRole(final String role) {
         return this.principal.hasRole(role);
     }
 }

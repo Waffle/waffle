@@ -27,8 +27,8 @@ public class WindowsSecurityContextImpersonationContextImpl implements IWindowsI
 
     private CtxtHandle ctx;
 
-    public WindowsSecurityContextImpersonationContextImpl(CtxtHandle ctx) {
-        int rc = Secur32.INSTANCE.ImpersonateSecurityContext(ctx);
+    public WindowsSecurityContextImpersonationContextImpl(final CtxtHandle ctx) {
+        final int rc = Secur32.INSTANCE.ImpersonateSecurityContext(ctx);
         if (rc != WinError.SEC_E_OK) {
             throw new Win32Exception(rc);
         }
@@ -38,7 +38,7 @@ public class WindowsSecurityContextImpersonationContextImpl implements IWindowsI
 
     @Override
     public void revertToSelf() {
-        int rc = Secur32.INSTANCE.RevertSecurityContext(this.ctx);
+        final int rc = Secur32.INSTANCE.RevertSecurityContext(this.ctx);
         if (rc != WinError.SEC_E_OK) {
             throw new Win32Exception(rc);
         }

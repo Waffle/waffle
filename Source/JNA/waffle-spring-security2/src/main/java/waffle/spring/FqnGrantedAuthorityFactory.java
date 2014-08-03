@@ -31,13 +31,13 @@ public class FqnGrantedAuthorityFactory implements GrantedAuthorityFactory {
     private final String  prefix;
     private final boolean convertToUpperCase;
 
-    public FqnGrantedAuthorityFactory(String prefix, boolean convertToUpperCase) {
+    public FqnGrantedAuthorityFactory(final String prefix, final boolean convertToUpperCase) {
         this.prefix = prefix;
         this.convertToUpperCase = convertToUpperCase;
     }
 
     @Override
-    public GrantedAuthority createGrantedAuthority(WindowsAccount windowsAccount) {
+    public GrantedAuthority createGrantedAuthority(final WindowsAccount windowsAccount) {
 
         String grantedAuthorityString = windowsAccount.getFqn();
 

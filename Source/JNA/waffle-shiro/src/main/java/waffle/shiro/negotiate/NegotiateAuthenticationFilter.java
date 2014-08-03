@@ -63,15 +63,15 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
     // related to setSPN and running tomcat server as NT Service account vs. as normal user account.
     // http://waffle.codeplex.com/discussions/254748
     // setspn -A HTTP/<server-fqdn> <user_tomcat_running_under>
-    private static final List<String> protocols           = new ArrayList<String>();
+    private static final List<String> PROTOCOLS           = new ArrayList<String>();
 
     private String                    failureKeyAttribute = FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME;
 
     private String                    rememberMeParam     = FormAuthenticationFilter.DEFAULT_REMEMBER_ME_PARAM;
 
     public NegotiateAuthenticationFilter() {
-        NegotiateAuthenticationFilter.protocols.add("Negotiate");
-        NegotiateAuthenticationFilter.protocols.add("NTLM");
+        NegotiateAuthenticationFilter.PROTOCOLS.add("Negotiate");
+        NegotiateAuthenticationFilter.PROTOCOLS.add("NTLM");
     }
 
     public String getRememberMeParam() {
@@ -89,8 +89,8 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      * @param rememberMeParam
      *            the name of the request param to check for acquiring the rememberMe boolean value.
      */
-    public void setRememberMeParam(final String rememberMeParam) {
-        this.rememberMeParam = rememberMeParam;
+    public void setRememberMeParam(final String value) {
+        this.rememberMeParam = value;
     }
 
     @Override
@@ -157,8 +157,8 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         return this.failureKeyAttribute;
     }
 
-    public void setFailureKeyAttribute(final String failureKeyAttribute) {
-        this.failureKeyAttribute = failureKeyAttribute;
+    public void setFailureKeyAttribute(final String value) {
+        this.failureKeyAttribute = value;
     }
 
     @Override
@@ -169,7 +169,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         if (isLoginAttempt(request)) {
             loggedIn = executeLogin(request, response);
         } else {
-            LOGGER.debug("authorization required, supported protocols: {}", protocols);
+            LOGGER.debug("authorization required, supported protocols: {}", PROTOCOLS);
             sendChallengeInitiateNegotiate(response);
         }
         return loggedIn;
@@ -227,7 +227,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      * @return <code>true</code> if the authzHeader value matches any of the configured protocols (Negotiate or NTLM).
      */
     boolean isLoginAttempt(final String authzHeader) {
-        for (final String protocol : protocols) {
+        for (final String protocol : PROTOCOLS) {
             if (authzHeader.toLowerCase().startsWith(protocol.toLowerCase())) {
                 return true;
             }
@@ -256,7 +256,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
     }
 
     void sendChallengeInitiateNegotiate(final ServletResponse response) {
-        sendChallenge(protocols, response, null);
+        sendChallenge(PROTOCOLS, response, null);
     }
 
     void sendChallengeDuringNegotiate(final String protocol, final ServletResponse response, final byte[] out) {
@@ -268,7 +268,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
 
     void sendChallengeOnFailure(final ServletResponse response) {
         final HttpServletResponse httpResponse = WebUtils.toHttp(response);
-        sendUnauthorized(protocols, null, httpResponse);
+        sendUnauthorized(PROTOCOLS, null, httpResponse);
         httpResponse.setHeader("Connection", "close");
         try {
             httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED);

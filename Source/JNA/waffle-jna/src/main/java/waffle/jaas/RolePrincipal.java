@@ -32,7 +32,7 @@ public class RolePrincipal implements Principal, Serializable {
      * @param fqn
      *            Fully qualified name.
      */
-    public RolePrincipal(String fqn) {
+    public RolePrincipal(final String fqn) {
         this.fqn = fqn;
     }
 
@@ -51,7 +51,7 @@ public class RolePrincipal implements Principal, Serializable {
      *            Object used for Equality Check.
      */
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
 
         if (this == o) {
             return true;

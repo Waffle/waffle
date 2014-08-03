@@ -54,6 +54,9 @@ import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
  */
 public class NegotiateSecurityFilterTests {
 
+    private static final String     NEGOTIATE = "Negotiate";
+    private static final String     NTLM      = "NTLM";
+
     private NegotiateSecurityFilter filter;
 
     @Before
@@ -80,8 +83,8 @@ public class NegotiateSecurityFilterTests {
         this.filter.doFilter(request, response, null);
         String[] wwwAuthenticates = response.getHeaderValues("WWW-Authenticate");
         assertEquals(3, wwwAuthenticates.length);
-        assertEquals("Negotiate", wwwAuthenticates[0]);
-        assertEquals("NTLM", wwwAuthenticates[1]);
+        assertEquals(NEGOTIATE, wwwAuthenticates[0]);
+        assertEquals(NTLM, wwwAuthenticates[1]);
         assertTrue(wwwAuthenticates[2].startsWith("Basic realm=\""));
         assertEquals(2, response.getHeaderNamesSize());
         assertEquals("keep-alive", response.getHeader("Connection"));
@@ -90,7 +93,7 @@ public class NegotiateSecurityFilterTests {
 
     @Test
     public void testChallengePOST() throws IOException, ServletException {
-        String securityPackage = "Negotiate";
+        String securityPackage = NEGOTIATE;
         IWindowsCredentialsHandle clientCredentials = null;
         WindowsSecurityContextImpl clientContext = null;
         try {
@@ -126,7 +129,7 @@ public class NegotiateSecurityFilterTests {
 
     @Test
     public void testNegotiate() throws IOException, ServletException {
-        String securityPackage = "Negotiate";
+        String securityPackage = NEGOTIATE;
         // client credentials handle
         IWindowsCredentialsHandle clientCredentials = null;
         WindowsSecurityContextImpl clientContext = null;
@@ -176,7 +179,7 @@ public class NegotiateSecurityFilterTests {
             assertTrue(filterChain.getRequest() instanceof NegotiateRequestWrapper);
             assertTrue(filterChain.getResponse() instanceof SimpleHttpResponse);
             NegotiateRequestWrapper wrappedRequest = (NegotiateRequestWrapper) filterChain.getRequest();
-            assertEquals("NEGOTIATE", wrappedRequest.getAuthType());
+            assertEquals(NEGOTIATE.toUpperCase(), wrappedRequest.getAuthType());
             assertEquals(Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible),
                     wrappedRequest.getRemoteUser());
             assertTrue(wrappedRequest.getUserPrincipal() instanceof WindowsPrincipal);

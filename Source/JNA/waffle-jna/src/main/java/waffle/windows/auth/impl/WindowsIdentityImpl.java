@@ -37,6 +37,10 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
     private Account[] userGroups;
     private Account   windowsAccount;
 
+    public WindowsIdentityImpl(final HANDLE windowsIdentity) {
+        this.windowsIdentity = windowsIdentity;
+    }
+
     private Account getWindowsAccount() {
         if (this.windowsAccount == null) {
             this.windowsAccount = Advapi32Util.getTokenAccount(this.windowsIdentity);
@@ -59,9 +63,9 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
     @Override
     public IWindowsAccount[] getGroups() {
 
-        Account[] userGroups = getUserGroups();
+        final Account[] userGroups = getUserGroups();
 
-        List<IWindowsAccount> result = new ArrayList<IWindowsAccount>(userGroups.length);
+        final List<IWindowsAccount> result = new ArrayList<IWindowsAccount>(userGroups.length);
         for (Account userGroup : userGroups) {
             WindowsAccountImpl account = new WindowsAccountImpl(userGroup);
             result.add(account);
@@ -90,10 +94,6 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
     @Override
     public IWindowsImpersonationContext impersonate() {
         return new WindowsIdentityImpersonationContextImpl(this.windowsIdentity);
-    }
-
-    public WindowsIdentityImpl(HANDLE windowsIdentity) {
-        this.windowsIdentity = windowsIdentity;
     }
 
     @Override

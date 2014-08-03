@@ -44,9 +44,14 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
     private boolean        continueFlag;
 
     @Override
+    public IWindowsImpersonationContext impersonate() {
+        return new WindowsSecurityContextImpersonationContextImpl(this.ctx);
+    }
+
+    @Override
     public IWindowsIdentity getIdentity() {
-        HANDLEByReference phContextToken = new HANDLEByReference();
-        int rc = Secur32.INSTANCE.QuerySecurityContextToken(this.ctx, phContextToken);
+        final HANDLEByReference phContextToken = new HANDLEByReference();
+        final int rc = Secur32.INSTANCE.QuerySecurityContextToken(this.ctx, phContextToken);
         if (WinError.SEC_E_OK != rc) {
             throw new Win32Exception(rc);
         }
@@ -70,11 +75,11 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
      *            SSPI package.
      * @return Windows security context.
      */
-    public static IWindowsSecurityContext getCurrent(String securityPackage, String targetName) {
-        IWindowsCredentialsHandle credentialsHandle = WindowsCredentialsHandleImpl.getCurrent(securityPackage);
+    public static IWindowsSecurityContext getCurrent(final String securityPackage, final String targetName) {
+        final IWindowsCredentialsHandle credentialsHandle = WindowsCredentialsHandleImpl.getCurrent(securityPackage);
         credentialsHandle.initialize();
         try {
-            WindowsSecurityContextImpl ctx = new WindowsSecurityContextImpl();
+            final WindowsSecurityContextImpl ctx = new WindowsSecurityContextImpl();
             ctx.setPrincipalName(WindowsAccountImpl.getCurrentUsername());
             ctx.setCredentialsHandle(credentialsHandle.getHandle());
             ctx.setSecurityPackage(securityPackage);
@@ -86,7 +91,7 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
     }
 
     @Override
-    public void initialize(CtxtHandle continueCtx, SecBufferDesc continueToken, String targetName) {
+    public void initialize(final CtxtHandle continueCtx, final SecBufferDesc continueToken, final String targetName) {
         this.attr = new IntByReference();
         this.ctx = new CtxtHandle();
         int tokenSize = Sspi.MAX_TOKEN_SIZE;
@@ -124,9 +129,9 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
      *            Security context.
      * @return True if a context was disposed.
      */
-    public static boolean dispose(CtxtHandle ctx) {
+    public static boolean dispose(final CtxtHandle ctx) {
         if (ctx != null && !ctx.isNull()) {
-            int rc = Secur32.INSTANCE.DeleteSecurityContext(ctx);
+            final int rc = Secur32.INSTANCE.DeleteSecurityContext(ctx);
             if (WinError.SEC_E_OK != rc) {
                 throw new Win32Exception(rc);
             }
@@ -140,7 +145,7 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
         return this.principalName;
     }
 
-    public void setPrincipalName(String value) {
+    public void setPrincipalName(final String value) {
         this.principalName = value;
     }
 
@@ -149,19 +154,19 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
         return this.ctx;
     }
 
-    public void setCredentialsHandle(CredHandle handle) {
+    public void setCredentialsHandle(final CredHandle handle) {
         this.credentials = handle;
     }
 
-    public void setToken(byte[] bytes) {
+    public void setToken(final byte[] bytes) {
         this.token = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, bytes);
     }
 
-    public void setSecurityPackage(String value) {
+    public void setSecurityPackage(final String value) {
         this.securityPackage = value;
     }
 
-    public void setSecurityContext(CtxtHandle phNewServerContext) {
+    public void setSecurityContext(final CtxtHandle phNewServerContext) {
         this.ctx = phNewServerContext;
     }
 
@@ -170,12 +175,8 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
         return this.continueFlag;
     }
 
-    public void setContinue(boolean b) {
+    public void setContinue(final boolean b) {
         this.continueFlag = b;
     }
 
-    @Override
-    public IWindowsImpersonationContext impersonate() {
-        return new WindowsSecurityContextImpersonationContextImpl(this.ctx);
-    }
 }

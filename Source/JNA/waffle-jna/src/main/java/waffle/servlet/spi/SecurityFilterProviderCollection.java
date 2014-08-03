@@ -39,7 +39,7 @@ public class SecurityFilterProviderCollection {
     private static final Logger          LOGGER    = LoggerFactory.getLogger(SecurityFilterProviderCollection.class);
     private List<SecurityFilterProvider> providers = new ArrayList<SecurityFilterProvider>();
 
-    public SecurityFilterProviderCollection(SecurityFilterProvider[] providers) {
+    public SecurityFilterProviderCollection(final SecurityFilterProvider[] providers) {
         for (SecurityFilterProvider provider : providers) {
             LOGGER.info("using '{}'", provider.getClass().getName());
             this.providers.add(provider);
@@ -47,7 +47,7 @@ public class SecurityFilterProviderCollection {
     }
 
     @SuppressWarnings("unchecked")
-    public SecurityFilterProviderCollection(String[] providerNames, IWindowsAuthProvider auth) {
+    public SecurityFilterProviderCollection(final String[] providerNames, final IWindowsAuthProvider auth) {
         for (String providerName : providerNames) {
             providerName = providerName.trim();
             LOGGER.info("loading '{}'", providerName);
@@ -57,33 +57,33 @@ public class SecurityFilterProviderCollection {
                 Constructor<SecurityFilterProvider> c = providerClass.getConstructor(IWindowsAuthProvider.class);
                 SecurityFilterProvider provider = c.newInstance(auth);
                 this.providers.add(provider);
-            } catch (ClassNotFoundException e) {
+            } catch (final ClassNotFoundException e) {
                 LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
                 LOGGER.trace("{}", e);
                 throw new RuntimeException(e);
-            } catch (SecurityException e) {
+            } catch (final SecurityException e) {
                 LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
                 LOGGER.trace("{}", e);
-            } catch (NoSuchMethodException e) {
+            } catch (final NoSuchMethodException e) {
                 LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
                 LOGGER.trace("{}", e);
-            } catch (IllegalArgumentException e) {
+            } catch (final IllegalArgumentException e) {
                 LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
                 LOGGER.trace("{}", e);
-            } catch (InstantiationException e) {
+            } catch (final InstantiationException e) {
                 LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
                 LOGGER.trace("{}", e);
-            } catch (IllegalAccessException e) {
+            } catch (final IllegalAccessException e) {
                 LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
                 LOGGER.trace("{}", e);
-            } catch (InvocationTargetException e) {
+            } catch (final InvocationTargetException e) {
                 LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
                 LOGGER.trace("{}", e);
             }
         }
     }
 
-    public SecurityFilterProviderCollection(IWindowsAuthProvider auth) {
+    public SecurityFilterProviderCollection(final IWindowsAuthProvider auth) {
         this.providers.add(new NegotiateSecurityFilterProvider(auth));
         this.providers.add(new BasicSecurityFilterProvider(auth));
     }
@@ -95,11 +95,11 @@ public class SecurityFilterProviderCollection {
      *            Security package.
      * @return True if the security package is supported, false otherwise.
      */
-    public boolean isSecurityPackageSupported(String securityPackage) {
+    public boolean isSecurityPackageSupported(final String securityPackage) {
         return get(securityPackage) != null;
     }
 
-    private SecurityFilterProvider get(String securityPackage) {
+    private SecurityFilterProvider get(final String securityPackage) {
         for (SecurityFilterProvider provider : this.providers) {
             if (provider.isSecurityPackageSupported(securityPackage)) {
                 return provider;
@@ -118,10 +118,11 @@ public class SecurityFilterProviderCollection {
      * @return Windows Identity or NULL.
      * @throws IOException
      */
-    public IWindowsIdentity doFilter(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public IWindowsIdentity doFilter(final HttpServletRequest request, final HttpServletResponse response)
+            throws IOException {
 
-        AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
-        SecurityFilterProvider provider = get(authorizationHeader.getSecurityPackage());
+        final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
+        final SecurityFilterProvider provider = get(authorizationHeader.getSecurityPackage());
         if (provider == null) {
             throw new RuntimeException("Unsupported security package: " + authorizationHeader.getSecurityPackage());
         }
@@ -135,7 +136,7 @@ public class SecurityFilterProviderCollection {
      *            Http Request
      * @return True if authentication is required.
      */
-    public boolean isPrincipalException(HttpServletRequest request) {
+    public boolean isPrincipalException(final HttpServletRequest request) {
 
         for (SecurityFilterProvider provider : this.providers) {
             if (provider.isPrincipalException(request)) {
@@ -152,7 +153,7 @@ public class SecurityFilterProviderCollection {
      * @param response
      *            Http Response
      */
-    public void sendUnauthorized(HttpServletResponse response) {
+    public void sendUnauthorized(final HttpServletResponse response) {
         for (SecurityFilterProvider provider : this.providers) {
             provider.sendUnauthorized(response);
         }
@@ -175,7 +176,7 @@ public class SecurityFilterProviderCollection {
      * @return A security provider instance.
      * @throws ClassNotFoundException
      */
-    public SecurityFilterProvider getByClassName(String name) throws ClassNotFoundException {
+    public SecurityFilterProvider getByClassName(final String name) throws ClassNotFoundException {
         for (SecurityFilterProvider provider : this.providers) {
             if (provider.getClass().getName().equals(name)) {
                 return provider;

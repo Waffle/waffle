@@ -23,21 +23,24 @@ public class SimplePipeline implements Pipeline {
 
     @Override
     public void addValve(Valve arg0) {
-
+        // Not Implemented
     }
 
     @Override
     public Valve getBasic() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public Container getContainer() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public Valve getFirst() {
+        // Not Implemented
         return null;
     }
 
@@ -48,21 +51,23 @@ public class SimplePipeline implements Pipeline {
 
     @Override
     public boolean isAsyncSupported() {
+        // Not Implemented
         return false;
     }
 
     @Override
     public void removeValve(Valve arg0) {
-
+        // Not Implemented
     }
 
     @Override
     public void setBasic(Valve arg0) {
-
+        // Not Implemented
     }
 
     @Override
     public void setContainer(Container arg0) {
-
+        // Not Implemented
     }
+
 }

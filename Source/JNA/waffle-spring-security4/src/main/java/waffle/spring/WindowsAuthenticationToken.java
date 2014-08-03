@@ -59,7 +59,7 @@ public class WindowsAuthenticationToken implements Authentication {
      * <li>the {@link #DEFAULT_GRANTED_AUTHORITY}</li>
      * </ul>
      */
-    public WindowsAuthenticationToken(WindowsPrincipal identity) {
+    public WindowsAuthenticationToken(final WindowsPrincipal identity) {
         this(identity, DEFAULT_GRANTED_AUTHORITY_FACTORY, DEFAULT_GRANTED_AUTHORITY);
     }
 
@@ -72,8 +72,8 @@ public class WindowsAuthenticationToken implements Authentication {
      * @param defaultGrantedAuthority
      *            if not null, this {@link GrantedAuthority} will always be added to the granted authorities list
      */
-    public WindowsAuthenticationToken(WindowsPrincipal identity, GrantedAuthorityFactory grantedAuthorityFactory,
-            GrantedAuthority defaultGrantedAuthority) {
+    public WindowsAuthenticationToken(final WindowsPrincipal identity,
+            final GrantedAuthorityFactory grantedAuthorityFactory, final GrantedAuthority defaultGrantedAuthority) {
 
         this.principal = identity;
         this.authorities = new ArrayList<GrantedAuthority>();
@@ -111,7 +111,7 @@ public class WindowsAuthenticationToken implements Authentication {
     }
 
     @Override
-    public void setAuthenticated(boolean authenticated) {
+    public void setAuthenticated(final boolean authenticated) {
         throw new IllegalArgumentException();
     }
 

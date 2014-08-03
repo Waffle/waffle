@@ -36,18 +36,18 @@ public class SimpleFilterConfig implements FilterConfig {
         return this.filterName;
     }
 
-    public void setFilterName(String value) {
+    public void setFilterName(final String value) {
         this.filterName = value;
     }
 
     @Override
-    public String getInitParameter(String s) {
+    public String getInitParameter(final String s) {
         return this.parameters.get(s);
     }
 
     @Override
     public Enumeration<String> getInitParameterNames() {
-        List<String> keys = new ArrayList<String>();
+        final List<String> keys = new ArrayList<String>();
         keys.addAll(this.parameters.keySet());
         return Collections.enumeration(keys);
     }
@@ -57,7 +57,7 @@ public class SimpleFilterConfig implements FilterConfig {
         return null;
     }
 
-    public void setParameter(String parameterName, String parameterValue) {
+    public void setParameter(final String parameterName, final String parameterValue) {
         this.parameters.put(parameterName, parameterValue);
     }
 }

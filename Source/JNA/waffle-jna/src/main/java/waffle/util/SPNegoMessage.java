@@ -22,13 +22,13 @@ public final class SPNegoMessage {
 
     // Check for NegTokenInit. It has always a special oid ("spnegoOid"),
     // which makes it rather easy to detect.
-    private static final byte[] spnegoOid = { 0x06, 0x06, 0x2b, 0x06, 0x01, 0x05, 0x05, 0x02 };
+    private static final byte[] SPENGO_OID = { 0x06, 0x06, 0x2b, 0x06, 0x01, 0x05, 0x05, 0x02 };
 
     // Check if this message is SPNEGO authentication token. There
     // are two token types, NegTokenInit and NegTokenArg.
     // For details and specification, see
     // http://msdn.microsoft.com/en-us/library/ms995330.aspx
-    public static boolean isSPNegoMessage(byte[] message) {
+    public static boolean isSPNegoMessage(final byte[] message) {
 
         // Message should always contains at least some kind of
         // id byte and length. If it is too short, it
@@ -41,7 +41,7 @@ public final class SPNegoMessage {
         return isNegTokenInit(message) || isNegTokenArg(message);
     }
 
-    public static boolean isNegTokenInit(byte[] message) {
+    public static boolean isNegTokenInit(final byte[] message) {
         // First byte should always be 0x60 (Application Constructed Object)
         if (message[0] != 0x60) {
             return false;
@@ -54,13 +54,13 @@ public final class SPNegoMessage {
             lenBytes = 1 + (message[1] & 0x7f);
         }
 
-        if (message.length < spnegoOid.length + 1 + lenBytes) {
+        if (message.length < SPENGO_OID.length + 1 + lenBytes) {
             return false;
         }
 
         // Now check for SPNEGO OID, which should start just after length data.
-        for (int i = 0; i < spnegoOid.length; i++) {
-            if (spnegoOid[i] != message[i + 1 + lenBytes]) {
+        for (int i = 0; i < SPENGO_OID.length; i++) {
+            if (SPENGO_OID[i] != message[i + 1 + lenBytes]) {
                 return false;
             }
         }
@@ -72,7 +72,7 @@ public final class SPNegoMessage {
     // Instead id has one-byte id (0xa1). Obviously this is not
     // a great way to detect the message, so we check encoded
     // message length against number of received message bytes.
-    public static boolean isNegTokenArg(byte[] message) {
+    public static boolean isNegTokenArg(final byte[] message) {
         // Check if this is NegTokenArg packet, it's id is 0xa1
         if ((message[0] & 0xff) != 0xa1) {
             return false;

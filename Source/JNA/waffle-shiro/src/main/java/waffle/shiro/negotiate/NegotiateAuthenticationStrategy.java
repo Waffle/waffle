@@ -13,7 +13,6 @@
  */
 package waffle.shiro.negotiate;
 
-import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.pam.AbstractAuthenticationStrategy;
@@ -54,8 +53,7 @@ public class NegotiateAuthenticationStrategy extends AbstractAuthenticationStrat
      */
     @Override
     public AuthenticationInfo afterAttempt(final Realm realm, final AuthenticationToken token,
-            final AuthenticationInfo singleRealmInfo, final AuthenticationInfo aggregateInfo, final Throwable t)
-            throws AuthenticationException {
+            final AuthenticationInfo singleRealmInfo, final AuthenticationInfo aggregateInfo, final Throwable t) {
 
         if (realm instanceof NegotiateAuthenticationRealm && t instanceof AuthenticationInProgressException) {
             // propagate exception upward as is, to signal continue is needed

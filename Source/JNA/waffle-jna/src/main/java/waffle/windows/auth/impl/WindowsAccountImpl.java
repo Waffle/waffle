@@ -16,9 +16,9 @@ package waffle.windows.auth.impl;
 import waffle.windows.auth.IWindowsAccount;
 
 import com.sun.jna.platform.win32.Advapi32Util;
-import com.sun.jna.platform.win32.Secur32Util;
 import com.sun.jna.platform.win32.Advapi32Util.Account;
 import com.sun.jna.platform.win32.Secur32.EXTENDED_NAME_FORMAT;
+import com.sun.jna.platform.win32.Secur32Util;
 
 /**
  * Windows Account.
@@ -27,16 +27,7 @@ import com.sun.jna.platform.win32.Secur32.EXTENDED_NAME_FORMAT;
  */
 public class WindowsAccountImpl implements IWindowsAccount {
 
-    /**
-     * Get the SAM-compatible username of the currently logged-on user.
-     * 
-     * @return String.
-     */
-    public static String getCurrentUsername() {
-        return Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);
-    }
-
-    private Account account;
+    private final Account account;
 
     /**
      * Windows Account.
@@ -44,7 +35,7 @@ public class WindowsAccountImpl implements IWindowsAccount {
      * @param account
      *            Account.
      */
-    public WindowsAccountImpl(Account account) {
+    public WindowsAccountImpl(final Account account) {
         this.account = account;
     }
 
@@ -54,7 +45,7 @@ public class WindowsAccountImpl implements IWindowsAccount {
      * @param userName
      *            Fully qualified username.
      */
-    public WindowsAccountImpl(String userName) {
+    public WindowsAccountImpl(final String userName) {
         this(userName, null);
     }
 
@@ -66,8 +57,17 @@ public class WindowsAccountImpl implements IWindowsAccount {
      * @param systemName
      *            Machine name.
      */
-    public WindowsAccountImpl(String accountName, String systemName) {
+    public WindowsAccountImpl(final String accountName, final String systemName) {
         this(Advapi32Util.getAccountByName(systemName, accountName));
+    }
+
+    /**
+     * Get the SAM-compatible username of the currently logged-on user.
+     * 
+     * @return String.
+     */
+    public static String getCurrentUsername() {
+        return Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);
     }
 
     /**
@@ -95,4 +95,5 @@ public class WindowsAccountImpl implements IWindowsAccount {
     public String getSidString() {
         return this.account.sidString;
     }
+
 }

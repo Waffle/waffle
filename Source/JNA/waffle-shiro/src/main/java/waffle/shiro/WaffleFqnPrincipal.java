@@ -26,7 +26,7 @@ public class WaffleFqnPrincipal implements Serializable {
     private final String      fqn;
     private final Set<String> groupFqns        = new HashSet<String>();
 
-    WaffleFqnPrincipal(IWindowsIdentity identity) {
+    WaffleFqnPrincipal(final IWindowsIdentity identity) {
         this.fqn = identity.getFqn();
         for (IWindowsAccount group : identity.getGroups()) {
             this.groupFqns.add(group.getFqn());
@@ -48,7 +48,7 @@ public class WaffleFqnPrincipal implements Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (obj instanceof WaffleFqnPrincipal) {
             return this.fqn.equals(((WaffleFqnPrincipal) obj).fqn);
         }

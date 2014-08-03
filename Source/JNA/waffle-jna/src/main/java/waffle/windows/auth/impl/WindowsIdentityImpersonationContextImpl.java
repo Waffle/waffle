@@ -31,7 +31,7 @@ public class WindowsIdentityImpersonationContextImpl implements IWindowsImperson
      * @param windowsIdentity
      *            Windows identity obtained via LogonUser.
      */
-    public WindowsIdentityImpersonationContextImpl(HANDLE windowsIdentity) {
+    public WindowsIdentityImpersonationContextImpl(final HANDLE windowsIdentity) {
         if (!Advapi32.INSTANCE.ImpersonateLoggedOnUser(windowsIdentity)) {
             throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
         }

@@ -26,7 +26,7 @@ public class AuthorizationHeader {
 
     private HttpServletRequest request;
 
-    public AuthorizationHeader(HttpServletRequest httpServletRequest) {
+    public AuthorizationHeader(final HttpServletRequest httpServletRequest) {
         this.request = httpServletRequest;
     }
 
@@ -44,13 +44,13 @@ public class AuthorizationHeader {
      * @return Negotiate or NTLM.
      */
     public String getSecurityPackage() {
-        String header = getHeader();
+        final String header = getHeader();
 
         if (header == null) {
             throw new RuntimeException("Missing Authorization: header");
         }
 
-        int space = header.indexOf(' ');
+        final int space = header.indexOf(' ');
         if (space > 0) {
             return header.substring(0, space);
         }
@@ -76,7 +76,7 @@ public class AuthorizationHeader {
             return false;
         }
 
-        byte[] tokenBytes = getTokenBytes();
+        final byte[] tokenBytes = getTokenBytes();
         if (!NtlmMessage.isNtlmMessage(tokenBytes)) {
             return false;
         }
@@ -90,7 +90,7 @@ public class AuthorizationHeader {
             return false;
         }
 
-        byte[] tokenBytes = getTokenBytes();
+        final byte[] tokenBytes = getTokenBytes();
         if (!SPNegoMessage.isSPNegoMessage(tokenBytes)) {
             return false;
         }

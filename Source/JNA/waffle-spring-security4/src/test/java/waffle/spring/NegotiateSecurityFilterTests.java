@@ -51,34 +51,34 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
  */
 public class NegotiateSecurityFilterTests {
 
-    private NegotiateSecurityFilter _filter;
+    private NegotiateSecurityFilter filter;
     private ApplicationContext      ctx;
 
     @Before
     public void setUp() {
         String[] configFiles = new String[] { "springTestFilterBeans.xml" };
-        ctx = new ClassPathXmlApplicationContext(configFiles);
+        this.ctx = new ClassPathXmlApplicationContext(configFiles);
         SecurityContextHolder.getContext().setAuthentication(null);
-        _filter = (NegotiateSecurityFilter) ctx.getBean("waffleNegotiateSecurityFilter");
+        this.filter = (NegotiateSecurityFilter) this.ctx.getBean("waffleNegotiateSecurityFilter");
     }
 
     @After
     public void shutDown() {
-        ((AbstractApplicationContext) ctx).close();
+        ((AbstractApplicationContext) this.ctx).close();
     }
 
     @Test
     public void testFilter() {
-        assertFalse(_filter.isAllowGuestLogin());
-        assertEquals(PrincipalFormat.fqn, _filter.getPrincipalFormat());
-        assertEquals(PrincipalFormat.both, _filter.getRoleFormat());
-        assertNull(_filter.getFilterConfig());
-        assertNotNull(_filter.getProvider());
+        assertFalse(this.filter.isAllowGuestLogin());
+        assertEquals(PrincipalFormat.FQN, this.filter.getPrincipalFormat());
+        assertEquals(PrincipalFormat.BOTH, this.filter.getRoleFormat());
+        assertNull(this.filter.getFilterConfig());
+        assertNotNull(this.filter.getProvider());
     }
 
     @Test
     public void testProvider() throws ClassNotFoundException {
-        SecurityFilterProviderCollection provider = _filter.getProvider();
+        SecurityFilterProviderCollection provider = this.filter.getProvider();
         assertEquals(2, provider.size());
         assertTrue(provider.getByClassName("waffle.servlet.spi.BasicSecurityFilterProvider") instanceof BasicSecurityFilterProvider);
         assertTrue(provider.getByClassName("waffle.servlet.spi.NegotiateSecurityFilterProvider") instanceof NegotiateSecurityFilterProvider);
@@ -90,7 +90,7 @@ public class NegotiateSecurityFilterTests {
         request.setMethod("GET");
         SimpleHttpResponse response = new SimpleHttpResponse();
         SimpleFilterChain chain = new SimpleFilterChain();
-        _filter.doFilter(request, response, chain);
+        this.filter.doFilter(request, response, chain);
         // unlike servlet filters, it's a passthrough
         assertEquals(500, response.getStatus());
     }
@@ -105,7 +105,7 @@ public class NegotiateSecurityFilterTests {
         request.addHeader("Authorization", securityPackage + " " + clientToken);
 
         SimpleHttpResponse response = new SimpleHttpResponse();
-        _filter.doFilter(request, response, filterChain);
+        this.filter.doFilter(request, response, filterChain);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         assertNotNull(auth);
@@ -125,7 +125,7 @@ public class NegotiateSecurityFilterTests {
         SimpleHttpRequest request = new SimpleHttpRequest();
         request.addHeader("Authorization", "Unsupported challenge");
         SimpleHttpResponse response = new SimpleHttpResponse();
-        _filter.doFilter(request, response, filterChain);
+        this.filter.doFilter(request, response, filterChain);
         // the filter should ignore authorization for an unsupported security package, ie. not return a 401
         assertEquals(500, response.getStatus());
     }
@@ -140,7 +140,7 @@ public class NegotiateSecurityFilterTests {
         request.addHeader("Authorization", securityPackage + " " + clientToken);
 
         SimpleHttpResponse response = new SimpleHttpResponse();
-        _filter.doFilter(request, response, filterChain);
+        this.filter.doFilter(request, response, filterChain);
 
         assertEquals(401, response.getStatus());
         assertNull(SecurityContextHolder.getContext().getAuthentication());
@@ -148,7 +148,7 @@ public class NegotiateSecurityFilterTests {
 
     @Test(expected = ServletException.class)
     public void testAfterPropertiesSet() throws ServletException {
-        _filter.setProvider(null);
-        _filter.afterPropertiesSet();
+        this.filter.setProvider(null);
+        this.filter.afterPropertiesSet();
     }
 }

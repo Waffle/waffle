@@ -24,20 +24,20 @@ import org.apache.catalina.realm.RealmBase;
  */
 public class WindowsRealm extends RealmBase {
 
-    protected static final String name = "waffle.apache.WindowsRealm/1.0";
+    protected static final String NAME = "waffle.apache.WindowsRealm/1.0";
 
     @Override
     protected String getName() {
-        return name;
+        return NAME;
     }
 
     @Override
-    protected String getPassword(String value) {
+    protected String getPassword(final String value) {
         return null;
     }
 
     @Override
-    protected Principal getPrincipal(String value) {
+    protected Principal getPrincipal(final String value) {
         return null;
     }
 }

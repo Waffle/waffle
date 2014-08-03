@@ -37,20 +37,6 @@ public class WindowsCredentialsHandleImpl implements IWindowsCredentialsHandle {
     private TimeStamp  clientLifetime;
 
     /**
-     * Returns the current credentials handle.
-     * 
-     * @param securityPackage
-     *            Security package, eg. "Negotiate".
-     * @return A windows credentials handle
-     */
-    public static IWindowsCredentialsHandle getCurrent(String securityPackage) {
-        IWindowsCredentialsHandle handle = new WindowsCredentialsHandleImpl(null, Sspi.SECPKG_CRED_OUTBOUND,
-                securityPackage);
-        handle.initialize();
-        return handle;
-    }
-
-    /**
      * A new Windows credentials handle.
      * 
      * @param principalName
@@ -60,10 +46,25 @@ public class WindowsCredentialsHandleImpl implements IWindowsCredentialsHandle {
      * @param securityPackage
      *            Security package.
      */
-    public WindowsCredentialsHandleImpl(String principalName, int credentialsType, String securityPackage) {
+    public WindowsCredentialsHandleImpl(final String principalName, final int credentialsType,
+            final String securityPackage) {
         this.principalName = principalName;
         this.credentialsType = credentialsType;
         this.securityPackage = securityPackage;
+    }
+
+    /**
+     * Returns the current credentials handle.
+     * 
+     * @param securityPackage
+     *            Security package, eg. "Negotiate".
+     * @return A windows credentials handle
+     */
+    public static IWindowsCredentialsHandle getCurrent(final String securityPackage) {
+        final IWindowsCredentialsHandle handle = new WindowsCredentialsHandleImpl(null, Sspi.SECPKG_CRED_OUTBOUND,
+                securityPackage);
+        handle.initialize();
+        return handle;
     }
 
     /**
@@ -73,7 +74,7 @@ public class WindowsCredentialsHandleImpl implements IWindowsCredentialsHandle {
     public void initialize() {
         this.handle = new CredHandle();
         this.clientLifetime = new TimeStamp();
-        int rc = Secur32.INSTANCE.AcquireCredentialsHandle(this.principalName, this.securityPackage,
+        final int rc = Secur32.INSTANCE.AcquireCredentialsHandle(this.principalName, this.securityPackage,
                 this.credentialsType, null, null, null, null, this.handle, this.clientLifetime);
         if (WinError.SEC_E_OK != rc) {
             throw new Win32Exception(rc);
@@ -86,7 +87,7 @@ public class WindowsCredentialsHandleImpl implements IWindowsCredentialsHandle {
     @Override
     public void dispose() {
         if (this.handle != null && !this.handle.isNull()) {
-            int rc = Secur32.INSTANCE.FreeCredentialsHandle(this.handle);
+            final int rc = Secur32.INSTANCE.FreeCredentialsHandle(this.handle);
             if (WinError.SEC_E_OK != rc) {
                 throw new Win32Exception(rc);
             }
