@@ -21,6 +21,8 @@ import java.util.Map;
 import org.apache.catalina.Realm;
 import org.apache.catalina.realm.GenericPrincipal;
 
+import com.google.common.base.Joiner;
+
 import waffle.windows.auth.IWindowsAccount;
 import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.PrincipalFormat;
@@ -49,17 +51,17 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      * @param roleFormat
      *            Role format.
      */
-    public GenericWindowsPrincipal(IWindowsIdentity windowsIdentity, Realm realm, PrincipalFormat principalFormat,
-            PrincipalFormat roleFormat) {
+    public GenericWindowsPrincipal(final IWindowsIdentity windowsIdentity, final Realm realm,
+            final PrincipalFormat principalFormat, final PrincipalFormat roleFormat) {
         super(realm, windowsIdentity.getFqn(), "", getRoles(windowsIdentity, principalFormat, roleFormat));
         this.sid = windowsIdentity.getSid();
         this.sidString = windowsIdentity.getSidString();
         this.groups = getGroups(windowsIdentity.getGroups());
     }
 
-    private static List<String> getRoles(IWindowsIdentity windowsIdentity, PrincipalFormat principalFormat,
-            PrincipalFormat roleFormat) {
-        List<String> roles = new ArrayList<String>();
+    private static List<String> getRoles(final IWindowsIdentity windowsIdentity, final PrincipalFormat principalFormat,
+            final PrincipalFormat roleFormat) {
+        final List<String> roles = new ArrayList<String>();
         roles.addAll(getPrincipalNames(windowsIdentity, principalFormat));
         for (IWindowsAccount group : windowsIdentity.getGroups()) {
             roles.addAll(getRoleNames(group, roleFormat));
@@ -67,8 +69,8 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
         return roles;
     }
 
-    private static Map<String, WindowsAccount> getGroups(IWindowsAccount[] groups) {
-        Map<String, WindowsAccount> groupMap = new HashMap<String, WindowsAccount>();
+    private static Map<String, WindowsAccount> getGroups(final IWindowsAccount[] groups) {
+        final Map<String, WindowsAccount> groupMap = new HashMap<String, WindowsAccount>();
         for (IWindowsAccount group : groups) {
             groupMap.put(group.getFqn(), new WindowsAccount(group));
         }
@@ -111,9 +113,8 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      *            Principal format.
      * @return List of role principal objects.
      */
-    private static List<String> getRoleNames(IWindowsAccount group, PrincipalFormat principalFormat) {
-
-        List<String> principals = new ArrayList<String>();
+    private static List<String> getRoleNames(final IWindowsAccount group, final PrincipalFormat principalFormat) {
+        final List<String> principals = new ArrayList<String>();
         switch (principalFormat) {
             case fqn:
                 principals.add(group.getFqn());
@@ -130,7 +131,6 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
             default:
                 break;
         }
-
         return principals;
     }
 
@@ -143,9 +143,9 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      *            Principal format.
      * @return A list of user principal objects.
      */
-    private static List<String> getPrincipalNames(IWindowsIdentity windowsIdentity, PrincipalFormat principalFormat) {
-
-        List<String> principals = new ArrayList<String>();
+    private static List<String> getPrincipalNames(final IWindowsIdentity windowsIdentity,
+            final PrincipalFormat principalFormat) {
+        final List<String> principals = new ArrayList<String>();
         switch (principalFormat) {
             case fqn:
                 principals.add(windowsIdentity.getFqn());
@@ -162,7 +162,6 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
             default:
                 break;
         }
-
         return principals;
     }
 
@@ -172,13 +171,6 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      * @return Role1, Role2, ...
      */
     public String getRolesString() {
-        StringBuilder sb = new StringBuilder();
-        for (String role : getRoles()) {
-            if (sb.length() > 0) {
-                sb.append(", ");
-            }
-            sb.append(role);
-        }
-        return sb.toString();
+        return Joiner.on(", ").join(getRoles());
     }
 }

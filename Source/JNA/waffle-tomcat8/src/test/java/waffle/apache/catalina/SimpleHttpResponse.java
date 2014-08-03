@@ -23,6 +23,8 @@ import org.apache.catalina.connector.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Joiner;
+
 /**
  * @author dblock[at]dblock[dot]org
  */
@@ -90,17 +92,7 @@ public class SimpleHttpResponse extends Response {
     @Override
     public String getHeader(String headerName) {
         List<String> headerValues = this.headers.get(headerName);
-        if (headerValues == null) {
-            return null;
-        }
-        StringBuilder sb = new StringBuilder();
-        for (String headerValue : headerValues) {
-            if (sb.length() > 0) {
-                sb.append(", ");
-            }
-            sb.append(headerValue);
-        }
-        return sb.toString();
+        return headerValues == null ? null : Joiner.on(", ").join(headerValues);
     }
 
     @Override
