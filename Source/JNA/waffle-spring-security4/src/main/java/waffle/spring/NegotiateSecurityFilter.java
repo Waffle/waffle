@@ -45,8 +45,8 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
     private static final Logger              LOGGER                  = LoggerFactory
                                                                              .getLogger(NegotiateSecurityFilter.class);
     private SecurityFilterProviderCollection provider;
-    private PrincipalFormat                  principalFormat         = PrincipalFormat.fqn;
-    private PrincipalFormat                  roleFormat              = PrincipalFormat.fqn;
+    private PrincipalFormat                  principalFormat         = PrincipalFormat.FQN;
+    private PrincipalFormat                  roleFormat              = PrincipalFormat.FQN;
     private boolean                          allowGuestLogin         = true;
 
     private GrantedAuthorityFactory          grantedAuthorityFactory = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY_FACTORY;

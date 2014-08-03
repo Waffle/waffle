@@ -36,8 +36,8 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
 
     private static final Logger     LOGGER                  = LoggerFactory
                                                                     .getLogger(WindowsAuthenticationProvider.class);
-    private PrincipalFormat         principalFormat         = PrincipalFormat.fqn;
-    private PrincipalFormat         roleFormat              = PrincipalFormat.fqn;
+    private PrincipalFormat         principalFormat         = PrincipalFormat.FQN;
+    private PrincipalFormat         roleFormat              = PrincipalFormat.FQN;
     private boolean                 allowGuestLogin         = true;
     private IWindowsAuthProvider    authProvider;
     private GrantedAuthorityFactory grantedAuthorityFactory = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY_FACTORY;

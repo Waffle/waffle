@@ -113,17 +113,17 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
     private static List<String> getRoleNames(final IWindowsAccount group, final PrincipalFormat principalFormat) {
         final List<String> principals = new ArrayList<String>();
         switch (principalFormat) {
-            case fqn:
+            case FQN:
                 principals.add(group.getFqn());
                 break;
-            case sid:
+            case SID:
                 principals.add(group.getSidString());
                 break;
-            case both:
+            case BOTH:
                 principals.add(group.getFqn());
                 principals.add(group.getSidString());
                 break;
-            case none:
+            case NONE:
                 break;
             default:
                 break;
@@ -144,17 +144,17 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
             final PrincipalFormat principalFormat) {
         final List<String> principals = new ArrayList<String>();
         switch (principalFormat) {
-            case fqn:
+            case FQN:
                 principals.add(windowsIdentity.getFqn());
                 break;
-            case sid:
+            case SID:
                 principals.add(windowsIdentity.getSidString());
                 break;
-            case both:
+            case BOTH:
                 principals.add(windowsIdentity.getFqn());
                 principals.add(windowsIdentity.getSidString());
                 break;
-            case none:
+            case NONE:
                 break;
             default:
                 break;

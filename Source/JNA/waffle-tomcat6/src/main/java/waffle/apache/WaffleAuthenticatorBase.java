@@ -38,8 +38,8 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
     protected String                 info;
     protected Logger                 log;
-    protected PrincipalFormat        principalFormat     = PrincipalFormat.fqn;
-    protected PrincipalFormat        roleFormat          = PrincipalFormat.fqn;
+    protected PrincipalFormat        principalFormat     = PrincipalFormat.FQN;
+    protected PrincipalFormat        roleFormat          = PrincipalFormat.FQN;
     protected boolean                allowGuestLogin     = true;
     protected Set<String>            protocols           = SUPPORTED_PROTOCOLS;
 

@@ -263,8 +263,8 @@ public class NegotiateSecurityFilterTests {
         filterConfig.setParameter("waffle.servlet.spi.BasicSecurityFilterProvider/realm", "DemoRealm");
         filterConfig.setParameter("authProvider", MockWindowsAuthProvider.class.getName());
         this.filter.init(filterConfig);
-        assertEquals(this.filter.getPrincipalFormat(), PrincipalFormat.sid);
-        assertEquals(this.filter.getRoleFormat(), PrincipalFormat.none);
+        assertEquals(this.filter.getPrincipalFormat(), PrincipalFormat.SID);
+        assertEquals(this.filter.getRoleFormat(), PrincipalFormat.NONE);
         assertTrue(this.filter.isAllowGuestLogin());
         assertEquals(1, this.filter.getProviders().size());
         assertTrue(this.filter.getAuth() instanceof MockWindowsAuthProvider);
@@ -287,8 +287,8 @@ public class NegotiateSecurityFilterTests {
         filterConfig.setParameter("waffle.servlet.spi.NegotiateSecurityFilterProvider/protocols",
                 "NTLM\nNegotiate NTLM");
         this.filter.init(filterConfig);
-        assertEquals(this.filter.getPrincipalFormat(), PrincipalFormat.fqn);
-        assertEquals(this.filter.getRoleFormat(), PrincipalFormat.fqn);
+        assertEquals(this.filter.getPrincipalFormat(), PrincipalFormat.FQN);
+        assertEquals(this.filter.getRoleFormat(), PrincipalFormat.FQN);
         assertTrue(this.filter.isAllowGuestLogin());
         assertEquals(1, this.filter.getProviders().size());
     }
