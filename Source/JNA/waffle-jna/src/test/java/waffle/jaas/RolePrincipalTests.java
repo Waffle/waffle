@@ -31,11 +31,11 @@ import org.junit.Test;
  */
 public class RolePrincipalTests {
 
-    private RolePrincipal _rolePrincipal;
+    private RolePrincipal rolePrincipal;
 
     @Before
     public void setUp() {
-        _rolePrincipal = new RolePrincipal("localhost\\Administrator");
+        this.rolePrincipal = new RolePrincipal("localhost\\Administrator");
     }
 
     @Test
@@ -43,7 +43,7 @@ public class RolePrincipalTests {
         // serialize
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(out);
-        oos.writeObject(_rolePrincipal);
+        oos.writeObject(this.rolePrincipal);
         oos.close();
         assertTrue(out.toByteArray().length > 0);
         // deserialize
@@ -52,7 +52,7 @@ public class RolePrincipalTests {
         Object o = ois.readObject();
         RolePrincipal copy = (RolePrincipal) o;
         // test
-        assertEquals(_rolePrincipal, copy);
-        assertEquals(_rolePrincipal.getName(), copy.getName());
+        assertEquals(this.rolePrincipal, copy);
+        assertEquals(this.rolePrincipal.getName(), copy.getName());
     }
 }

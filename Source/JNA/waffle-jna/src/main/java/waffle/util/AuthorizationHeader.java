@@ -15,6 +15,8 @@ package waffle.util;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.google.common.io.BaseEncoding;
+
 /**
  * Authorization header.
  * 
@@ -22,19 +24,18 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class AuthorizationHeader {
 
-    private HttpServletRequest _request;
+    private HttpServletRequest request;
 
-    public AuthorizationHeader(HttpServletRequest request) {
-        _request = request;
+    public AuthorizationHeader(HttpServletRequest httpServletRequest) {
+        this.request = httpServletRequest;
     }
 
     public String getHeader() {
-        return _request.getHeader("Authorization");
+        return this.request.getHeader("Authorization");
     }
 
     public boolean isNull() {
-        String header = getHeader();
-        return header == null || header.length() == 0;
+        return getHeader() == null || getHeader().length() == 0;
     }
 
     /**
@@ -67,7 +68,7 @@ public class AuthorizationHeader {
     }
 
     public byte[] getTokenBytes() {
-        return Base64.decode(getToken());
+        return BaseEncoding.base64().decode(getToken());
     }
 
     public boolean isNtlmType1Message() {
@@ -106,11 +107,11 @@ public class AuthorizationHeader {
      * @return True if request is an NTLM POST or PUT with an Authorization header and no data.
      */
     public boolean isNtlmType1PostAuthorizationHeader() {
-        if (!_request.getMethod().equals("POST") && !_request.getMethod().equals("PUT")) {
+        if (!this.request.getMethod().equals("POST") && !this.request.getMethod().equals("PUT")) {
             return false;
         }
 
-        if (_request.getContentLength() != 0) {
+        if (this.request.getContentLength() != 0) {
             return false;
         }
 

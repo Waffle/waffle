@@ -28,45 +28,45 @@ import org.slf4j.LoggerFactory;
  */
 public class SimpleHttpResponse extends Response {
 
-    private static final Logger       logger   = LoggerFactory.getLogger(SimpleHttpResponse.class);
+    private static final Logger       logger  = LoggerFactory.getLogger(SimpleHttpResponse.class);
 
-    private int                       _status  = 500;
-    private Map<String, List<String>> _headers = new HashMap<String, List<String>>();
+    private int                       status  = 500;
+    private Map<String, List<String>> headers = new HashMap<String, List<String>>();
 
     @Override
     public int getStatus() {
-        return _status;
+        return this.status;
     }
 
     @Override
     public void addHeader(String headerName, String headerValue) {
-        List<String> current = _headers.get(headerName);
+        List<String> current = this.headers.get(headerName);
         if (current == null) {
             current = new ArrayList<String>();
         }
         current.add(headerValue);
-        _headers.put(headerName, current);
+        this.headers.put(headerName, current);
     }
 
     @Override
     public void setHeader(String headerName, String headerValue) {
-        List<String> current = _headers.get(headerName);
+        List<String> current = this.headers.get(headerName);
         if (current == null) {
             current = new ArrayList<String>();
         } else {
             current.clear();
         }
         current.add(headerValue);
-        _headers.put(headerName, current);
+        this.headers.put(headerName, current);
     }
 
     @Override
     public void setStatus(int value) {
-        _status = value;
+        this.status = value;
     }
 
     public String getStatusString() {
-        if (_status == 401) {
+        if (this.status == 401) {
             return "Unauthorized";
         }
         return "Unknown";
@@ -74,22 +74,22 @@ public class SimpleHttpResponse extends Response {
 
     @Override
     public void flushBuffer() {
-        this.logger.info("{} {}", Integer.valueOf(_status), getStatusString());
-        for (String header : _headers.keySet()) {
-            for (String headerValue : _headers.get(header)) {
+        this.logger.info("{} {}", Integer.valueOf(this.status), getStatusString());
+        for (String header : this.headers.keySet()) {
+            for (String headerValue : this.headers.get(header)) {
                 this.logger.info("{}: {}", header, headerValue);
             }
         }
     }
 
     public String[] getHeaderValues(String headerName) {
-        List<String> headerValues = _headers.get(headerName);
+        List<String> headerValues = this.headers.get(headerName);
         return headerValues == null ? null : headerValues.toArray(new String[0]);
     }
 
     @Override
     public String getHeader(String headerName) {
-        List<String> headerValues = _headers.get(headerName);
+        List<String> headerValues = this.headers.get(headerName);
         if (headerValues == null) {
             return null;
         }
@@ -105,16 +105,16 @@ public class SimpleHttpResponse extends Response {
 
     @Override
     public Collection<String> getHeaderNames() {
-        return _headers.keySet();
+        return this.headers.keySet();
     }
 
     @Override
     public void sendError(int rc, String message) {
-        _status = rc;
+        this.status = rc;
     }
 
     @Override
     public void sendError(int rc) {
-        _status = rc;
+        this.status = rc;
     }
 }

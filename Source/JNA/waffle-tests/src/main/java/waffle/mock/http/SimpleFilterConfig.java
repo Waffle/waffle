@@ -28,27 +28,27 @@ import javax.servlet.ServletContext;
  */
 public class SimpleFilterConfig implements FilterConfig {
 
-    private String              _filterName = "Simple Filter";
-    private Map<String, String> _parameters = new TreeMap<String, String>();
+    private String              filterName = "Simple Filter";
+    private Map<String, String> parameters = new TreeMap<String, String>();
 
     @Override
     public String getFilterName() {
-        return _filterName;
+        return this.filterName;
     }
 
-    public void setFilterName(String filterName) {
-        _filterName = filterName;
+    public void setFilterName(String value) {
+        this.filterName = value;
     }
 
     @Override
     public String getInitParameter(String s) {
-        return _parameters.get(s);
+        return this.parameters.get(s);
     }
 
     @Override
     public Enumeration<String> getInitParameterNames() {
         List<String> keys = new ArrayList<String>();
-        keys.addAll(_parameters.keySet());
+        keys.addAll(this.parameters.keySet());
         return Collections.enumeration(keys);
     }
 
@@ -58,6 +58,6 @@ public class SimpleFilterConfig implements FilterConfig {
     }
 
     public void setParameter(String parameterName, String parameterValue) {
-        _parameters.put(parameterName, parameterValue);
+        this.parameters.put(parameterName, parameterValue);
     }
 }

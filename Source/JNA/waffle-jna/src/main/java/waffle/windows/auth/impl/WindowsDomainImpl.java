@@ -25,55 +25,55 @@ import com.sun.jna.platform.win32.Netapi32Util.DomainTrust;
 public class WindowsDomainImpl implements IWindowsDomain {
 
     private enum TrustDirection {
-        Inbound, Outbound, Bidirectional
+        INBOUND, OUTBOUND, BIDIRECTIONAL
     }
 
     private enum TrustType {
-        TreeRoot, ParentChild, CrossLink, External, Forest, Kerberos, Unknown
+        TREE_ROOT, PARENT_CHILD, CROSS_LINK, EXTERNAL, FOREST, KERBEROS, UNKNOWN
     }
 
-    private String         _fqn;
-    private TrustDirection _trustDirection = TrustDirection.Bidirectional;
-    private TrustType      _trustType      = TrustType.Unknown;
+    private String         fqn;
+    private TrustDirection trustDirection = TrustDirection.BIDIRECTIONAL;
+    private TrustType      trustType      = TrustType.UNKNOWN;
 
     @Override
     public String getFqn() {
-        return _fqn;
+        return this.fqn;
     }
 
     @Override
     public String getTrustDirectionString() {
-        return _trustDirection.toString();
+        return this.trustDirection.toString();
     }
 
     @Override
     public String getTrustTypeString() {
-        return _trustType.toString();
+        return this.trustType.toString();
     }
 
     public WindowsDomainImpl(String fqn) {
-        _fqn = fqn;
+        this.fqn = fqn;
     }
 
     public WindowsDomainImpl(DomainTrust trust) {
         // fqn
-        _fqn = trust.DnsDomainName;
-        if (_fqn == null || _fqn.length() == 0) {
-            _fqn = trust.NetbiosDomainName;
+        this.fqn = trust.DnsDomainName;
+        if (this.fqn == null || this.fqn.length() == 0) {
+            this.fqn = trust.NetbiosDomainName;
         }
         // trust direction
         if (trust.isInbound() && trust.isOutbound()) {
-            _trustDirection = TrustDirection.Bidirectional;
+            this.trustDirection = TrustDirection.BIDIRECTIONAL;
         } else if (trust.isOutbound()) {
-            _trustDirection = TrustDirection.Outbound;
+            this.trustDirection = TrustDirection.OUTBOUND;
         } else if (trust.isInbound()) {
-            _trustDirection = TrustDirection.Inbound;
+            this.trustDirection = TrustDirection.INBOUND;
         }
         // trust type
         if (trust.isInForest()) {
-            _trustType = TrustType.Forest;
+            this.trustType = TrustType.FOREST;
         } else if (trust.isRoot()) {
-            _trustType = TrustType.TreeRoot;
+            this.trustType = TrustType.TREE_ROOT;
         }
     }
 }

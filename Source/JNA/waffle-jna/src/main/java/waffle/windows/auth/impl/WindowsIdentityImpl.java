@@ -33,22 +33,22 @@ import com.sun.jna.platform.win32.WinNT.WELL_KNOWN_SID_TYPE;
  */
 public class WindowsIdentityImpl implements IWindowsIdentity {
 
-    private HANDLE    _windowsIdentity;
-    private Account[] _userGroups;
-    private Account   _windowsAccount;
+    private HANDLE    windowsIdentity;
+    private Account[] userGroups;
+    private Account   windowsAccount;
 
     private Account getWindowsAccount() {
-        if (_windowsAccount == null) {
-            _windowsAccount = Advapi32Util.getTokenAccount(_windowsIdentity);
+        if (this.windowsAccount == null) {
+            this.windowsAccount = Advapi32Util.getTokenAccount(this.windowsIdentity);
         }
-        return _windowsAccount;
+        return this.windowsAccount;
     }
 
     private Account[] getUserGroups() {
-        if (_userGroups == null) {
-            _userGroups = Advapi32Util.getTokenGroups(_windowsIdentity);
+        if (this.userGroups == null) {
+            this.userGroups = Advapi32Util.getTokenGroups(this.windowsIdentity);
         }
-        return _userGroups.clone();
+        return this.userGroups.clone();
     }
 
     @Override
@@ -82,18 +82,18 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
 
     @Override
     public void dispose() {
-        if (_windowsIdentity != null) {
-            Kernel32.INSTANCE.CloseHandle(_windowsIdentity);
+        if (this.windowsIdentity != null) {
+            Kernel32.INSTANCE.CloseHandle(this.windowsIdentity);
         }
     }
 
     @Override
     public IWindowsImpersonationContext impersonate() {
-        return new WindowsIdentityImpersonationContextImpl(_windowsIdentity);
+        return new WindowsIdentityImpersonationContextImpl(this.windowsIdentity);
     }
 
     public WindowsIdentityImpl(HANDLE windowsIdentity) {
-        _windowsIdentity = windowsIdentity;
+        this.windowsIdentity = windowsIdentity;
     }
 
     @Override

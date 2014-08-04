@@ -61,7 +61,7 @@ public class NegotiateInfo implements AuthenticationInfo {
      */
     @Override
     public PrincipalCollection getPrincipals() {
-        return new SimplePrincipalCollection(subject.getPrincipals(), realmName);
+        return new SimplePrincipalCollection(this.subject.getPrincipals(), this.realmName);
     }
 
     /**
@@ -71,6 +71,6 @@ public class NegotiateInfo implements AuthenticationInfo {
      */
     @Override
     public Object getCredentials() {
-        return subject;
+        return this.subject;
     }
 }

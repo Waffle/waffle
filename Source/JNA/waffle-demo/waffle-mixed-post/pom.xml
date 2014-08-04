@@ -12,4 +12,15 @@
     <packaging>war</packaging>
     <name>waffle-mixed-post</name>
     <description>Mixed Post Demo for WAFFLE</description>
+    <properties>
+        <servlet.version>2.5</servlet.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>${servlet.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 </project>

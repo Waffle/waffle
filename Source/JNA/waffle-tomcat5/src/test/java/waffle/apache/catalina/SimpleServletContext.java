@@ -108,6 +108,7 @@ public class SimpleServletContext implements ServletContext {
         return null;
     }
 
+    @Deprecated
     @Override
     public Servlet getServlet(String arg0) throws ServletException {
         return null;
@@ -118,11 +119,13 @@ public class SimpleServletContext implements ServletContext {
         return null;
     }
 
+    @Deprecated
     @Override
     public Enumeration<String> getServletNames() {
         return null;
     }
 
+    @Deprecated
     @Override
     public Enumeration<Servlet> getServlets() {
         return null;
@@ -133,6 +136,7 @@ public class SimpleServletContext implements ServletContext {
 
     }
 
+    @Deprecated
     @Override
     public void log(Exception arg0, String arg1) {
 

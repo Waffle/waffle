@@ -29,21 +29,21 @@ public class NegotiateSecurityFilterLoadTests {
     @Rule
     public ContiPerfRule                 contiPerfRule = new ContiPerfRule();
 
-    private NegotiateSecurityFilterTests _tests        = new NegotiateSecurityFilterTests();
+    private NegotiateSecurityFilterTests tests         = new NegotiateSecurityFilterTests();
 
     @Before
     public void setUp() {
-        _tests.setUp();
+        this.tests.setUp();
     }
 
     @After
     public void tearDown() {
-        _tests.tearDown();
+        this.tests.tearDown();
     }
 
     @Test
     @PerfTest(invocations = 10, threads = 10)
     public void testLoad() throws Throwable {
-        _tests.testNegotiate();
+        this.tests.testNegotiate();
     }
 }

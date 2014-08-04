@@ -30,9 +30,9 @@ public class WaffleAuthenticatorBaseTest {
 
     @Before
     public void init() {
-        waffleAuthenticatorBase = new WaffleAuthenticatorBase() {
+        this.waffleAuthenticatorBase = new WaffleAuthenticatorBase() {
             {
-                _log = LoggerFactory.getLogger(WaffleAuthenticatorBaseTest.class);
+                this.log = LoggerFactory.getLogger(WaffleAuthenticatorBaseTest.class);
             }
 
             @Override
@@ -44,31 +44,31 @@ public class WaffleAuthenticatorBaseTest {
 
     @Test
     public void should_accept_NTLM_protocol() throws Exception {
-        waffleAuthenticatorBase.setProtocols("  NTLM ");
+        this.waffleAuthenticatorBase.setProtocols("  NTLM ");
 
-        assertEquals("One protocol added", 1, waffleAuthenticatorBase._protocols.size());
-        assertEquals("NTLM", waffleAuthenticatorBase._protocols.iterator().next());
+        assertEquals("One protocol added", 1, this.waffleAuthenticatorBase.protocols.size());
+        assertEquals("NTLM", this.waffleAuthenticatorBase.protocols.iterator().next());
     }
 
     @Test
     public void should_accept_Negotiate_protocol() throws Exception {
-        waffleAuthenticatorBase.setProtocols(" Negotiate  ");
+        this.waffleAuthenticatorBase.setProtocols(" Negotiate  ");
 
-        assertEquals("One protocol added", 1, waffleAuthenticatorBase._protocols.size());
-        assertEquals("Negotiate", waffleAuthenticatorBase._protocols.iterator().next());
+        assertEquals("One protocol added", 1, this.waffleAuthenticatorBase.protocols.size());
+        assertEquals("Negotiate", this.waffleAuthenticatorBase.protocols.iterator().next());
     }
 
     @Test
     public void should_accept_both_protocols() throws Exception {
-        waffleAuthenticatorBase.setProtocols("  NTLM , , Negotiate   ");
+        this.waffleAuthenticatorBase.setProtocols("  NTLM , , Negotiate   ");
 
-        assertEquals("Two protocols added", 2, waffleAuthenticatorBase._protocols.size());
-        assertTrue("NTLM has been added", waffleAuthenticatorBase._protocols.contains("NTLM"));
-        assertTrue("Negotiate has been added", waffleAuthenticatorBase._protocols.contains("Negotiate"));
+        assertEquals("Two protocols added", 2, this.waffleAuthenticatorBase.protocols.size());
+        assertTrue("NTLM has been added", this.waffleAuthenticatorBase.protocols.contains("NTLM"));
+        assertTrue("Negotiate has been added", this.waffleAuthenticatorBase.protocols.contains("Negotiate"));
     }
 
     @Test(expected = RuntimeException.class)
     public void should_refuse_other_protocol() throws Exception {
-        waffleAuthenticatorBase.setProtocols("  NTLM , OTHER, Negotiate   ");
+        this.waffleAuthenticatorBase.setProtocols("  NTLM , OTHER, Negotiate   ");
     }
 }

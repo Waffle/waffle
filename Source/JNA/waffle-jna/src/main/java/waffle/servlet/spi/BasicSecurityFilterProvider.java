@@ -33,12 +33,12 @@ import waffle.windows.auth.IWindowsIdentity;
  */
 public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 
-    private static final Logger  _log   = LoggerFactory.getLogger(BasicSecurityFilterProvider.class);
-    private String               _realm = "BasicSecurityFilterProvider";
-    private IWindowsAuthProvider _auth;
+    private static final Logger  LOGGER = LoggerFactory.getLogger(BasicSecurityFilterProvider.class);
+    private String               realm  = "BasicSecurityFilterProvider";
+    private IWindowsAuthProvider auth;
 
     public BasicSecurityFilterProvider(IWindowsAuthProvider auth) {
-        _auth = auth;
+        this.auth = auth;
     }
 
     @Override
@@ -50,8 +50,8 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
         if (usernamePasswordArray.length != 2) {
             throw new RuntimeException("Invalid username:password in Authorization header.");
         }
-        _log.debug("logging in user: {}", usernamePasswordArray[0]);
-        return _auth.logonUser(usernamePasswordArray[0], usernamePasswordArray[1]);
+        LOGGER.debug("logging in user: {}", usernamePasswordArray[0]);
+        return this.auth.logonUser(usernamePasswordArray[0], usernamePasswordArray[1]);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 
     @Override
     public void sendUnauthorized(HttpServletResponse response) {
-        response.addHeader("WWW-Authenticate", "Basic realm=\"" + _realm + "\"");
+        response.addHeader("WWW-Authenticate", "Basic realm=\"" + this.realm + "\"");
     }
 
     /**
@@ -75,17 +75,17 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
      * @return Name of the protection space.
      */
     public String getRealm() {
-        return _realm;
+        return this.realm;
     }
 
     /**
      * Set the protection space.
      * 
-     * @param realm
+     * @param value
      *            Protection space name.
      */
-    public void setRealm(String realm) {
-        _realm = realm;
+    public void setRealm(String value) {
+        this.realm = value;
     }
 
     /**

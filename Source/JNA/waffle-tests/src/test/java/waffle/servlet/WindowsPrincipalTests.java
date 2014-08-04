@@ -35,12 +35,12 @@ import waffle.mock.MockWindowsSecurityContext;
  */
 public class WindowsPrincipalTests {
 
-    private WindowsPrincipal _windowsPrincipal;
+    private WindowsPrincipal windowsPrincipal;
 
     @Before
     public void setUp() {
         MockWindowsSecurityContext ctx = new MockWindowsSecurityContext("Administrator");
-        _windowsPrincipal = new WindowsPrincipal(ctx.getIdentity());
+        this.windowsPrincipal = new WindowsPrincipal(ctx.getIdentity());
     }
 
     @Test
@@ -48,7 +48,7 @@ public class WindowsPrincipalTests {
         // serialize
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(out);
-        oos.writeObject(_windowsPrincipal);
+        oos.writeObject(this.windowsPrincipal);
         oos.close();
         assertTrue(out.toByteArray().length > 0);
         // deserialize
@@ -57,17 +57,17 @@ public class WindowsPrincipalTests {
         Object o = ois.readObject();
         WindowsPrincipal copy = (WindowsPrincipal) o;
         // test
-        assertEquals(_windowsPrincipal.getName(), copy.getName());
-        assertEquals(_windowsPrincipal.getRolesString(), copy.getRolesString());
-        assertEquals(_windowsPrincipal.getSidString(), copy.getSidString());
-        assertEquals(Boolean.valueOf(Arrays.equals(_windowsPrincipal.getSid(), copy.getSid())), Boolean.TRUE);
+        assertEquals(this.windowsPrincipal.getName(), copy.getName());
+        assertEquals(this.windowsPrincipal.getRolesString(), copy.getRolesString());
+        assertEquals(this.windowsPrincipal.getSidString(), copy.getSidString());
+        assertEquals(Boolean.valueOf(Arrays.equals(this.windowsPrincipal.getSid(), copy.getSid())), Boolean.TRUE);
     }
 
     @Test
     public void testHasRole() {
-        assertTrue(_windowsPrincipal.hasRole("Administrator"));
-        assertTrue(_windowsPrincipal.hasRole("Users"));
-        assertTrue(_windowsPrincipal.hasRole("Everyone"));
-        assertFalse(_windowsPrincipal.hasRole("RoleDoesNotExist"));
+        assertTrue(this.windowsPrincipal.hasRole("Administrator"));
+        assertTrue(this.windowsPrincipal.hasRole("Users"));
+        assertTrue(this.windowsPrincipal.hasRole("Everyone"));
+        assertFalse(this.windowsPrincipal.hasRole("RoleDoesNotExist"));
     }
 }

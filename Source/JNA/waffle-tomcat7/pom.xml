@@ -13,7 +13,7 @@
     <name>waffle-tomcat7</name>
     <description>Tomcat 7 integration for WAFFLE</description>
     <properties>
-        <tomcat.version>7.0.54</tomcat.version>
+        <tomcat.version>7.0.55</tomcat.version>
     </properties>
     <dependencies>
         <dependency>

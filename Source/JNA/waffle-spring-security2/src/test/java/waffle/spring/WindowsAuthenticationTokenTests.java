@@ -32,8 +32,8 @@ import waffle.servlet.WindowsPrincipal;
  */
 public class WindowsAuthenticationTokenTests {
 
-    private WindowsPrincipal           _principal = null;
-    private WindowsAuthenticationToken _token     = null;
+    private WindowsPrincipal           principal = null;
+    private WindowsAuthenticationToken token     = null;
 
     @Before
     public void setUp() {
@@ -41,29 +41,29 @@ public class WindowsAuthenticationTokenTests {
         mockGroups.add("group1");
         mockGroups.add("group2");
         MockWindowsIdentity mockIdentity = new MockWindowsIdentity("localhost\\user1", mockGroups);
-        _principal = new WindowsPrincipal(mockIdentity);
-        _token = new WindowsAuthenticationToken(_principal);
+        this.principal = new WindowsPrincipal(mockIdentity);
+        this.token = new WindowsAuthenticationToken(this.principal);
     }
 
     @Test
     public void testWindowsAuthenticationToken() {
-        assertNull(_token.getCredentials());
-        assertNull(_token.getDetails());
-        assertTrue(_token.isAuthenticated());
-        assertEquals("localhost\\user1", _token.getName());
-        GrantedAuthority[] authorities = _token.getAuthorities();
+        assertNull(this.token.getCredentials());
+        assertNull(this.token.getDetails());
+        assertTrue(this.token.isAuthenticated());
+        assertEquals("localhost\\user1", this.token.getName());
+        GrantedAuthority[] authorities = this.token.getAuthorities();
         assertEquals(3, authorities.length);
         assertEquals("ROLE_USER", authorities[0].getAuthority());
         assertEquals("ROLE_GROUP1", authorities[1].getAuthority());
         assertEquals("ROLE_GROUP2", authorities[2].getAuthority());
-        assertEquals(_principal, _token.getPrincipal());
+        assertEquals(this.principal, this.token.getPrincipal());
     }
 
     @Test
     public void testCustomGrantedAuthorityFactory() {
 
-        WindowsAuthenticationToken token = new WindowsAuthenticationToken(_principal, new FqnGrantedAuthorityFactory(
-                null, false), null);
+        WindowsAuthenticationToken token = new WindowsAuthenticationToken(this.principal,
+                new FqnGrantedAuthorityFactory(null, false), null);
 
         assertNull(token.getCredentials());
         assertNull(token.getDetails());
@@ -73,12 +73,12 @@ public class WindowsAuthenticationTokenTests {
         assertEquals(2, authorities.length);
         assertEquals("group1", authorities[0].getAuthority());
         assertEquals("group2", authorities[1].getAuthority());
-        assertEquals(_principal, token.getPrincipal());
+        assertEquals(this.principal, token.getPrincipal());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testAuthenticated() {
-        assertTrue(_token.isAuthenticated());
-        _token.setAuthenticated(true);
+        assertTrue(this.token.isAuthenticated());
+        this.token.setAuthenticated(true);
     }
 }

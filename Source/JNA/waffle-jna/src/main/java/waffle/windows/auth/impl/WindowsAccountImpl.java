@@ -27,34 +27,6 @@ import com.sun.jna.platform.win32.Secur32.EXTENDED_NAME_FORMAT;
  */
 public class WindowsAccountImpl implements IWindowsAccount {
 
-    private Account _account;
-
-    @Override
-    public String getFqn() {
-        return _account.fqn;
-    }
-
-    @Override
-    public String getSidString() {
-        return _account.sidString;
-    }
-
-    /**
-     * Account name.
-     */
-    @Override
-    public String getName() {
-        return _account.name;
-    }
-
-    /**
-     * Account domain.
-     */
-    @Override
-    public String getDomain() {
-        return _account.domain;
-    }
-
     /**
      * Get the SAM-compatible username of the currently logged-on user.
      * 
@@ -62,6 +34,18 @@ public class WindowsAccountImpl implements IWindowsAccount {
      */
     public static String getCurrentUsername() {
         return Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);
+    }
+
+    private Account account;
+
+    /**
+     * Windows Account.
+     * 
+     * @param account
+     *            Account.
+     */
+    public WindowsAccountImpl(Account account) {
+        this.account = account;
     }
 
     /**
@@ -87,12 +71,28 @@ public class WindowsAccountImpl implements IWindowsAccount {
     }
 
     /**
-     * Windows Account.
-     * 
-     * @param account
-     *            Account.
+     * Account domain.
      */
-    public WindowsAccountImpl(Account account) {
-        _account = account;
+    @Override
+    public String getDomain() {
+        return this.account.domain;
+    }
+
+    @Override
+    public String getFqn() {
+        return this.account.fqn;
+    }
+
+    /**
+     * Account name.
+     */
+    @Override
+    public String getName() {
+        return this.account.name;
+    }
+
+    @Override
+    public String getSidString() {
+        return this.account.sidString;
     }
 }

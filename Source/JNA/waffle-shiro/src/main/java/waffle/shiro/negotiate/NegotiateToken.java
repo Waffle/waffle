@@ -71,53 +71,53 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
     }
 
     public String getConnectionId() {
-        return connectionId;
+        return this.connectionId;
     }
 
     public String getSecurityPackage() {
-        return securityPackage;
+        return this.securityPackage;
     }
 
     public boolean isNtlmPost() {
-        return ntlmPost;
+        return this.ntlmPost;
     }
 
     @Override
     public Object getCredentials() {
-        return subject;
+        return this.subject;
     }
 
     @Override
     public Object getPrincipal() {
-        return principal;
+        return this.principal;
     }
 
     byte[] getOut() {
-        return out;
+        return this.out;
     }
 
     public void setOut(final byte[] outToken) {
         this.out = (outToken != null ? outToken.clone() : null);
     }
 
-    public void setSubject(final Subject subject) {
-        this.subject = subject;
+    public void setSubject(final Subject value) {
+        this.subject = value;
     }
 
     public byte[] getIn() {
-        return in.clone();
+        return this.in.clone();
     }
 
     public Subject getSubject() {
-        return subject;
+        return this.subject;
     }
 
     public AuthenticationInfo createInfo() {
-        return new NegotiateInfo(subject, "NegotiateWaffleRealm");
+        return new NegotiateInfo(this.subject, "NegotiateWaffleRealm");
     }
 
-    public void setPrincipal(final Object principal) {
-        this.principal = principal;
+    public void setPrincipal(final Object value) {
+        this.principal = value;
     }
 
     /**
@@ -130,7 +130,7 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
      */
     @Override
     public boolean isRememberMe() {
-        return rememberMe;
+        return this.rememberMe;
     }
 
     /**
@@ -148,6 +148,6 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
      */
     @Override
     public String getHost() {
-        return host;
+        return this.host;
     }
 }

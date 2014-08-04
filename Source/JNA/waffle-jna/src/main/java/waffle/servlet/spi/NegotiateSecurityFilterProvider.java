@@ -25,8 +25,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.io.BaseEncoding;
+
 import waffle.util.AuthorizationHeader;
-import waffle.util.Base64;
 import waffle.util.NtlmServletRequest;
 import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.IWindowsIdentity;
@@ -39,27 +40,27 @@ import waffle.windows.auth.IWindowsSecurityContext;
  */
 public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
-    private static final Logger  _log       = LoggerFactory.getLogger(NegotiateSecurityFilterProvider.class);
-    private List<String>         _protocols = new ArrayList<String>();
-    private IWindowsAuthProvider _auth;
+    private static final Logger  LOGGER    = LoggerFactory.getLogger(NegotiateSecurityFilterProvider.class);
+    private List<String>         protocols = new ArrayList<String>();
+    private IWindowsAuthProvider auth;
 
     public NegotiateSecurityFilterProvider(IWindowsAuthProvider auth) {
-        _auth = auth;
-        _protocols.add("Negotiate");
-        _protocols.add("NTLM");
+        this.auth = auth;
+        this.protocols.add("Negotiate");
+        this.protocols.add("NTLM");
     }
 
     public List<String> getProtocols() {
-        return _protocols;
+        return this.protocols;
     }
 
-    public void setProtocols(List<String> protocols) {
-        _protocols = protocols;
+    public void setProtocols(List<String> values) {
+        this.protocols = values;
     }
 
     @Override
     public void sendUnauthorized(HttpServletResponse response) {
-        Iterator<String> protocolsIterator = _protocols.iterator();
+        Iterator<String> protocolsIterator = this.protocols.iterator();
         while (protocolsIterator.hasNext()) {
             response.addHeader("WWW-Authenticate", protocolsIterator.next());
         }
@@ -69,7 +70,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
     public boolean isPrincipalException(HttpServletRequest request) {
         AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
         boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
-        _log.debug("authorization: {}, ntlm post: {}", authorizationHeader, Boolean.valueOf(ntlmPost));
+        LOGGER.debug("authorization: {}, ntlm post: {}", authorizationHeader, Boolean.valueOf(ntlmPost));
         return ntlmPost;
     }
 
@@ -79,28 +80,29 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
         AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
         boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
 
-        // maintain a connection-based session for NTLM tokns
+        // maintain a connection-based session for NTLM tokens
         String connectionId = NtlmServletRequest.getConnectionId(request);
         String securityPackage = authorizationHeader.getSecurityPackage();
-        _log.debug("security package: {}, connection id: {}", securityPackage, connectionId);
+        LOGGER.debug("security package: {}, connection id: {}", securityPackage, connectionId);
 
         if (ntlmPost) {
             // type 2 NTLM authentication message received
-            _auth.resetSecurityToken(connectionId);
+            this.auth.resetSecurityToken(connectionId);
         }
 
         byte[] tokenBuffer = authorizationHeader.getTokenBytes();
-        _log.debug("token buffer: {} byte(s)", Integer.valueOf(tokenBuffer.length));
-        IWindowsSecurityContext securityContext = _auth.acceptSecurityToken(connectionId, tokenBuffer, securityPackage);
+        LOGGER.debug("token buffer: {} byte(s)", Integer.valueOf(tokenBuffer.length));
+        IWindowsSecurityContext securityContext = this.auth.acceptSecurityToken(connectionId, tokenBuffer,
+                securityPackage);
 
         byte[] continueTokenBytes = securityContext.getToken();
         if (continueTokenBytes != null && continueTokenBytes.length > 0) {
-            String continueToken = Base64.encode(continueTokenBytes);
-            _log.debug("continue token: {}", continueToken);
+            String continueToken = BaseEncoding.base64().encode(continueTokenBytes);
+            LOGGER.debug("continue token: {}", continueToken);
             response.addHeader("WWW-Authenticate", securityPackage + " " + continueToken);
         }
 
-        _log.debug("continue required: {}", Boolean.valueOf(securityContext.isContinue()));
+        LOGGER.debug("continue required: {}", Boolean.valueOf(securityContext.isContinue()));
         if (securityContext.isContinue() || ntlmPost) {
             response.setHeader("Connection", "keep-alive");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -115,7 +117,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
     @Override
     public boolean isSecurityPackageSupported(String securityPackage) {
-        for (String protocol : _protocols) {
+        for (String protocol : this.protocols) {
             if (protocol.equalsIgnoreCase(securityPackage)) {
                 return true;
             }
@@ -126,16 +128,16 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
     @Override
     public void initParameter(String parameterName, String parameterValue) {
         if (parameterName.equals("protocols")) {
-            _protocols = new ArrayList<String>();
+            this.protocols = new ArrayList<String>();
             String[] protocolNames = parameterValue.split("\\s+");
             for (String protocolName : protocolNames) {
                 protocolName = protocolName.trim();
                 if (protocolName.length() > 0) {
-                    _log.debug("init protocol: {}", protocolName);
+                    LOGGER.debug("init protocol: {}", protocolName);
                     if (protocolName.equals("Negotiate") || protocolName.equals("NTLM")) {
-                        _protocols.add(protocolName);
+                        this.protocols.add(protocolName);
                     } else {
-                        _log.error("unsupported protocol: {}", protocolName);
+                        LOGGER.error("unsupported protocol: {}", protocolName);
                         throw new RuntimeException("Unsupported protocol: " + protocolName);
                     }
                 }

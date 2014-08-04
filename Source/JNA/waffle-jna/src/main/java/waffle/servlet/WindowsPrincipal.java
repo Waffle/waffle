@@ -33,12 +33,12 @@ import waffle.windows.auth.WindowsAccount;
 public class WindowsPrincipal implements Principal, Serializable {
 
     private static final long           serialVersionUID = 1L;
-    private String                      _fqn;
-    private byte[]                      _sid;
-    private String                      _sidString;
-    private List<String>                _roles;
-    private transient IWindowsIdentity  _identity;
-    private Map<String, WindowsAccount> _groups;
+    private String                      fqn;
+    private byte[]                      sid;
+    private String                      sidString;
+    private List<String>                roles;
+    private transient IWindowsIdentity  identity;
+    private Map<String, WindowsAccount> groups;
 
     /**
      * A windows principal.
@@ -62,12 +62,12 @@ public class WindowsPrincipal implements Principal, Serializable {
      */
     public WindowsPrincipal(IWindowsIdentity windowsIdentity, PrincipalFormat principalFormat,
             PrincipalFormat roleFormat) {
-        _identity = windowsIdentity;
-        _fqn = windowsIdentity.getFqn();
-        _sid = windowsIdentity.getSid();
-        _sidString = windowsIdentity.getSidString();
-        _groups = getGroups(windowsIdentity.getGroups());
-        _roles = getRoles(windowsIdentity, principalFormat, roleFormat);
+        this.identity = windowsIdentity;
+        this.fqn = windowsIdentity.getFqn();
+        this.sid = windowsIdentity.getSid();
+        this.sidString = windowsIdentity.getSidString();
+        this.groups = getGroups(windowsIdentity.getGroups());
+        this.roles = getRoles(windowsIdentity, principalFormat, roleFormat);
     }
 
     private static List<String> getRoles(IWindowsIdentity windowsIdentity, PrincipalFormat principalFormat,
@@ -94,7 +94,7 @@ public class WindowsPrincipal implements Principal, Serializable {
      * @return Array of bytes.
      */
     public byte[] getSid() {
-        return _sid.clone();
+        return this.sid.clone();
     }
 
     /**
@@ -103,7 +103,7 @@ public class WindowsPrincipal implements Principal, Serializable {
      * @return String.
      */
     public String getSidString() {
-        return _sidString;
+        return this.sidString;
     }
 
     /**
@@ -112,7 +112,7 @@ public class WindowsPrincipal implements Principal, Serializable {
      * @return A map of group names to groups.
      */
     public Map<String, WindowsAccount> getGroups() {
-        return _groups;
+        return this.groups;
     }
 
     /**
@@ -186,7 +186,7 @@ public class WindowsPrincipal implements Principal, Serializable {
      */
     public String getRolesString() {
         StringBuilder sb = new StringBuilder();
-        for (String role : _roles) {
+        for (String role : this.roles) {
             if (sb.length() > 0) {
                 sb.append(", ");
             }
@@ -203,7 +203,7 @@ public class WindowsPrincipal implements Principal, Serializable {
      * @return True if the principal has a role, false otherwise.
      */
     public boolean hasRole(String role) {
-        return _roles.contains(role);
+        return this.roles.contains(role);
     }
 
     /**
@@ -211,11 +211,11 @@ public class WindowsPrincipal implements Principal, Serializable {
      */
     @Override
     public String getName() {
-        return _fqn;
+        return this.fqn;
     }
 
     /** Underlying identity */
     public IWindowsIdentity getIdentity() {
-        return _identity;
+        return this.identity;
     }
 }

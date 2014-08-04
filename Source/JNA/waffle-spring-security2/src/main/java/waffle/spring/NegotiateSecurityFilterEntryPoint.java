@@ -34,12 +34,12 @@ import waffle.servlet.spi.SecurityFilterProviderCollection;
  */
 public class NegotiateSecurityFilterEntryPoint implements AuthenticationEntryPoint {
 
-    private static final Logger              _log      = LoggerFactory
-                                                               .getLogger(NegotiateSecurityFilterEntryPoint.class);
-    private SecurityFilterProviderCollection _provider = null;
+    private static final Logger              LOGGER   = LoggerFactory
+                                                              .getLogger(NegotiateSecurityFilterEntryPoint.class);
+    private SecurityFilterProviderCollection provider = null;
 
     public NegotiateSecurityFilterEntryPoint() {
-        _log.debug("[waffle.spring.NegotiateEntryPoint] loaded");
+        LOGGER.debug("[waffle.spring.NegotiateEntryPoint] loaded");
     }
 
     @Override
@@ -48,23 +48,23 @@ public class NegotiateSecurityFilterEntryPoint implements AuthenticationEntryPoi
 
         HttpServletResponse response = (HttpServletResponse) srep;
 
-        _log.debug("[waffle.spring.NegotiateEntryPoint] commence");
+        LOGGER.debug("[waffle.spring.NegotiateEntryPoint] commence");
 
-        if (_provider == null) {
+        if (this.provider == null) {
             throw new ServletException("Missing NegotiateEntryPoint.Provider");
         }
 
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setHeader("Connection", "keep-alive");
-        _provider.sendUnauthorized(response);
+        this.provider.sendUnauthorized(response);
         response.flushBuffer();
     }
 
     public SecurityFilterProviderCollection getProvider() {
-        return _provider;
+        return this.provider;
     }
 
     public void setProvider(SecurityFilterProviderCollection provider) {
-        _provider = provider;
+        this.provider = provider;
     }
 }

@@ -42,16 +42,16 @@ public class GroupMappingWaffleRealmTests {
 
     @Before
     public void setUp() {
-        windowsAuthProvider = new MockWindowsAuthProvider();
-        realm = new GroupMappingWaffleRealm();
-        realm.setProvider(windowsAuthProvider);
-        realm.setGroupRolesMap(Collections.singletonMap("Users", ROLE_NAME));
+        this.windowsAuthProvider = new MockWindowsAuthProvider();
+        this.realm = new GroupMappingWaffleRealm();
+        this.realm.setProvider(this.windowsAuthProvider);
+        this.realm.setGroupRolesMap(Collections.singletonMap("Users", ROLE_NAME));
     }
 
     @Test
     public void testValidUsernamePassword() {
         AuthenticationToken token = new UsernamePasswordToken(getCurrentUserName(), "somePassword");
-        AuthenticationInfo authcInfo = realm.getAuthenticationInfo(token);
+        AuthenticationInfo authcInfo = this.realm.getAuthenticationInfo(token);
         PrincipalCollection principals = authcInfo.getPrincipals();
         assertFalse(principals.isEmpty());
         Object primaryPrincipal = principals.getPrimaryPrincipal();
@@ -62,19 +62,19 @@ public class GroupMappingWaffleRealmTests {
         Object credentials = authcInfo.getCredentials();
         assertThat(credentials, instanceOf(char[].class));
         assertThat((char[]) credentials, equalTo("somePassword".toCharArray()));
-        assertTrue(realm.hasRole(principals, ROLE_NAME));
+        assertTrue(this.realm.hasRole(principals, ROLE_NAME));
     }
 
     @Test(expected = AuthenticationException.class)
     public void testInvalidUsernamePassword() {
         AuthenticationToken token = new UsernamePasswordToken("InvalidUser", "somePassword");
-        realm.getAuthenticationInfo(token);
+        this.realm.getAuthenticationInfo(token);
     }
 
     @Test(expected = AuthenticationException.class)
     public void testGuestUsernamePassword() {
         AuthenticationToken token = new UsernamePasswordToken("Guest", "somePassword");
-        realm.getAuthenticationInfo(token);
+        this.realm.getAuthenticationInfo(token);
     }
 
     private String getCurrentUserName() {

@@ -32,10 +32,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import waffle.mock.MockWindowsAccount;
-import waffle.mock.http.*;
-import waffle.util.Base64;
+import waffle.mock.http.SimpleFilterChain;
+import waffle.mock.http.SimpleHttpRequest;
+import waffle.mock.http.SimpleHttpResponse;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
+import com.google.common.io.BaseEncoding;
 import com.sun.jna.WString;
 import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.LMAccess;
@@ -44,36 +46,36 @@ import com.sun.jna.platform.win32.Netapi32;
 
 public class ImpersonateTests {
 
-    private NegotiateSecurityFilter _filter;
-    private LMAccess.USER_INFO_1    _userInfo;
+    private NegotiateSecurityFilter filter;
+    private LMAccess.USER_INFO_1    userInfo;
     private int                     resultOfNetAddUser;
 
     @Before
     public void setUp() {
-        _filter = new NegotiateSecurityFilter();
-        _filter.setAuth(new WindowsAuthProviderImpl());
+        this.filter = new NegotiateSecurityFilter();
+        this.filter.setAuth(new WindowsAuthProviderImpl());
         try {
-            _filter.init(null);
+            this.filter.init(null);
         } catch (ServletException e) {
             fail(e.getMessage());
         }
 
-        _userInfo = new LMAccess.USER_INFO_1();
-        _userInfo.usri1_name = new WString(MockWindowsAccount.TEST_USER_NAME);
-        _userInfo.usri1_password = new WString(MockWindowsAccount.TEST_PASSWORD);
-        _userInfo.usri1_priv = LMAccess.USER_PRIV_USER;
+        this.userInfo = new LMAccess.USER_INFO_1();
+        this.userInfo.usri1_name = new WString(MockWindowsAccount.TEST_USER_NAME);
+        this.userInfo.usri1_password = new WString(MockWindowsAccount.TEST_PASSWORD);
+        this.userInfo.usri1_priv = LMAccess.USER_PRIV_USER;
 
-        resultOfNetAddUser = Netapi32.INSTANCE.NetUserAdd(null, 1, _userInfo, null);
+        this.resultOfNetAddUser = Netapi32.INSTANCE.NetUserAdd(null, 1, this.userInfo, null);
         // ignore test if not able to add user (need to be administrator to do this).
-        assumeTrue(LMErr.NERR_Success == resultOfNetAddUser);
+        assumeTrue(LMErr.NERR_Success == this.resultOfNetAddUser);
     }
 
     @After
     public void tearDown() {
-        _filter.destroy();
+        this.filter.destroy();
 
-        if (LMErr.NERR_Success == resultOfNetAddUser) {
-            assertEquals(LMErr.NERR_Success, Netapi32.INSTANCE.NetUserDel(null, _userInfo.usri1_name.toString()));
+        if (LMErr.NERR_Success == this.resultOfNetAddUser) {
+            assertEquals(LMErr.NERR_Success, Netapi32.INSTANCE.NetUserDel(null, this.userInfo.usri1_name.toString()));
         }
     }
 
@@ -86,7 +88,7 @@ public class ImpersonateTests {
         SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
         String userHeaderValue = MockWindowsAccount.TEST_USER_NAME + ":" + MockWindowsAccount.TEST_PASSWORD;
-        String basicAuthHeader = "Basic " + Base64.encode(userHeaderValue.getBytes());
+        String basicAuthHeader = "Basic " + BaseEncoding.base64().encode(userHeaderValue.getBytes());
         request.addHeader("Authorization", basicAuthHeader);
 
         SimpleHttpResponse response = new SimpleHttpResponse();
@@ -94,8 +96,8 @@ public class ImpersonateTests {
 
         AutoDisposableWindowsPrincipal windowsPrincipal = null;
         try {
-            _filter.setImpersonate(true);
-            _filter.doFilter(request, response, filterChain);
+            this.filter.setImpersonate(true);
+            this.filter.doFilter(request, response, filterChain);
 
             Subject subject = (Subject) request.getSession().getAttribute("javax.security.auth.subject");
             boolean authenticated = (subject != null && subject.getPrincipals().size() > 0);
@@ -127,15 +129,15 @@ public class ImpersonateTests {
         SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
         String userHeaderValue = MockWindowsAccount.TEST_USER_NAME + ":" + MockWindowsAccount.TEST_PASSWORD;
-        String basicAuthHeader = "Basic " + Base64.encode(userHeaderValue.getBytes());
+        String basicAuthHeader = "Basic " + BaseEncoding.base64().encode(userHeaderValue.getBytes());
         request.addHeader("Authorization", basicAuthHeader);
         SimpleHttpResponse response = new SimpleHttpResponse();
         RecordUserNameFilterChain filterChain = new RecordUserNameFilterChain();
 
         WindowsPrincipal windowsPrincipal = null;
         try {
-            _filter.setImpersonate(false);
-            _filter.doFilter(request, response, filterChain);
+            this.filter.setImpersonate(false);
+            this.filter.doFilter(request, response, filterChain);
 
             Subject subject = (Subject) request.getSession().getAttribute("javax.security.auth.subject");
             boolean authenticated = (subject != null && subject.getPrincipals().size() > 0);
@@ -167,11 +169,11 @@ public class ImpersonateTests {
 
         @Override
         public void doFilter(ServletRequest sreq, ServletResponse srep) throws IOException, ServletException {
-            userName = Advapi32Util.getUserName();
+            this.userName = Advapi32Util.getUserName();
         }
 
         public String getUserName() {
-            return userName;
+            return this.userName;
         }
     }
 

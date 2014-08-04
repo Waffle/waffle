@@ -25,12 +25,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import waffle.mock.MockWindowsAccount;
-import waffle.util.Base64;
 import waffle.windows.auth.impl.WindowsAccountImpl;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 import waffle.windows.auth.impl.WindowsCredentialsHandleImpl;
 import waffle.windows.auth.impl.WindowsSecurityContextImpl;
 
+import com.google.common.io.BaseEncoding;
 import com.sun.jna.WString;
 import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.LMAccess;
@@ -46,7 +46,7 @@ import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
  */
 public class WindowsAuthProviderTests {
 
-    private static final Logger _log = LoggerFactory.getLogger(WindowsAuthProviderTests.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(WindowsAuthProviderTests.class);
 
     // TODO This was commented out, uncommented and ignore until I can determine if this is valid
     @Ignore
@@ -54,8 +54,8 @@ public class WindowsAuthProviderTests {
     public void testLogonGuestUser() {
         IWindowsAuthProvider prov = new WindowsAuthProviderImpl();
         IWindowsIdentity identity = prov.logonUser("garbage", "garbage");
-        _log.debug("Fqn: {}", identity.getFqn());
-        _log.debug("Guest: {}", Boolean.valueOf(identity.isGuest()));
+        LOGGER.debug("Fqn: {}", identity.getFqn());
+        LOGGER.debug("Guest: {}", Boolean.valueOf(identity.isGuest()));
         assertTrue(identity.getFqn().endsWith("\\Guest"));
         assertTrue(identity.isGuest());
         identity.dispose();
@@ -107,15 +107,15 @@ public class WindowsAuthProviderTests {
     public void testGetCurrentComputer() {
         IWindowsAuthProvider prov = new WindowsAuthProviderImpl();
         IWindowsComputer computer = prov.getCurrentComputer();
-        _log.debug(computer.getComputerName());
+        LOGGER.debug(computer.getComputerName());
         assertTrue(computer.getComputerName().length() > 0);
-        _log.debug(computer.getJoinStatus());
-        _log.debug(computer.getMemberOf());
+        LOGGER.debug(computer.getJoinStatus());
+        LOGGER.debug(computer.getMemberOf());
         String[] localGroups = computer.getGroups();
         assertNotNull(localGroups);
         assertTrue(localGroups.length > 0);
         for (String localGroup : localGroups) {
-            _log.debug(" {}", localGroup);
+            LOGGER.debug(" {}", localGroup);
         }
     }
 
@@ -129,7 +129,7 @@ public class WindowsAuthProviderTests {
         IWindowsDomain[] domains = prov.getDomains();
         assertNotNull(domains);
         for (IWindowsDomain domain : domains) {
-            _log.debug("{}: {}", domain.getFqn(), domain.getTrustDirectionString());
+            LOGGER.debug("{}: {}", domain.getFqn(), domain.getTrustDirectionString());
         }
     }
 
@@ -159,7 +159,7 @@ public class WindowsAuthProviderTests {
                     serverContext = provider.acceptSecurityToken(connectionId, clientContext.getToken(),
                             securityPackage);
                 } catch (Exception e) {
-                    _log.error("{}", e);
+                    LOGGER.error("{}", e);
                     break;
                 }
 
@@ -167,7 +167,7 @@ public class WindowsAuthProviderTests {
                     // initialize on the client
                     SecBufferDesc continueToken = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, serverContext.getToken());
                     clientContext.initialize(clientContext.getHandle(), continueToken, targetName);
-                    _log.debug("Token: {}", Base64.encode(serverContext.getToken()));
+                    LOGGER.debug("Token: {}", BaseEncoding.base64().encode(serverContext.getToken()));
                 }
 
             } while (clientContext.isContinue() || serverContext != null && serverContext.isContinue());
@@ -175,9 +175,9 @@ public class WindowsAuthProviderTests {
             if (serverContext != null) {
                 assertTrue(serverContext.getIdentity().getFqn().length() > 0);
 
-                _log.debug(serverContext.getIdentity().getFqn());
+                LOGGER.debug(serverContext.getIdentity().getFqn());
                 for (IWindowsAccount group : serverContext.getIdentity().getGroups()) {
-                    _log.debug(" {}", group.getFqn());
+                    LOGGER.debug(" {}", group.getFqn());
                 }
             }
         } finally {
@@ -218,7 +218,7 @@ public class WindowsAuthProviderTests {
                 serverContext = provider.acceptSecurityToken(connectionId, clientContext.getToken(), securityPackage);
                 assertTrue(provider.getContinueContextsSize() > 0);
             }
-            _log.debug("Cached security contexts: {}", Integer.valueOf(provider.getContinueContextsSize()));
+            LOGGER.debug("Cached security contexts: {}", Integer.valueOf(provider.getContinueContextsSize()));
             assertFalse(max == provider.getContinueContextsSize());
         } finally {
             if (serverContext != null) {
@@ -259,7 +259,7 @@ public class WindowsAuthProviderTests {
                     serverContext = provider.acceptSecurityToken(connectionId, clientContext.getToken(),
                             securityPackage);
                 } catch (Exception e) {
-                    _log.error("{}", e);
+                    LOGGER.error("{}", e);
                     break;
                 }
 
@@ -277,9 +277,9 @@ public class WindowsAuthProviderTests {
                 IWindowsImpersonationContext impersonationCtx = serverContext.impersonate();
                 impersonationCtx.revertToSelf();
 
-                _log.debug(serverContext.getIdentity().getFqn());
+                LOGGER.debug(serverContext.getIdentity().getFqn());
                 for (IWindowsAccount group : serverContext.getIdentity().getGroups()) {
-                    _log.debug(" {}", group.getFqn());
+                    LOGGER.debug(" {}", group.getFqn());
                 }
             }
         } finally {

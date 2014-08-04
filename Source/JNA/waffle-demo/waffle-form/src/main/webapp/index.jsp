@@ -28,7 +28,7 @@
   <title>Protected Page for Examples</title>
   <% Subject subject = Subject.getSubject(AccessController.getContext()); %>
  </head>
- <body bgcolor="white">
+ <body style="background-color:white;">
   <b>Subject</b> = <%= subject %>
   You are logged in as remote user <b><%= request.getRemoteUser() %></b> in session <b><%= session.getId() %></b>.
   <br><br>

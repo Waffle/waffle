@@ -28,13 +28,13 @@ import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
  */
 public class MockWindowsSecurityContext implements IWindowsSecurityContext {
 
-    private IWindowsIdentity _identity;
+    private IWindowsIdentity identity;
 
     public MockWindowsSecurityContext(String username) {
         List<String> groups = new ArrayList<String>();
         groups.add("Users");
         groups.add("Everyone");
-        _identity = new MockWindowsIdentity(username, groups);
+        this.identity = new MockWindowsIdentity(username, groups);
     }
 
     @Override
@@ -54,12 +54,12 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
 
     @Override
     public IWindowsIdentity getIdentity() {
-        return _identity;
+        return this.identity;
     }
 
     @Override
     public String getPrincipalName() {
-        return _identity.getFqn();
+        return this.identity.getFqn();
     }
 
     @Override
