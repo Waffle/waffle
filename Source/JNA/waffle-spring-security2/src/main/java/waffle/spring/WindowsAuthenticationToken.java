@@ -30,6 +30,8 @@ import waffle.windows.auth.WindowsAccount;
  */
 public class WindowsAuthenticationToken implements Authentication {
 
+    private static final long                   serialVersionUID                  = 1L;
+
     /**
      * The {@link GrantedAuthorityFactory} that is used by default if a custom one is not specified. This default
      * {@link GrantedAuthorityFactory} is a {@link FqnGrantedAuthorityFactory} with prefix {@code "ROLE_"} and will
@@ -45,7 +47,6 @@ public class WindowsAuthenticationToken implements Authentication {
     public static final GrantedAuthority        DEFAULT_GRANTED_AUTHORITY         = new GrantedAuthorityImpl(
                                                                                           "ROLE_USER");
 
-    private static final long                   serialVersionUID                  = 1L;
     private WindowsPrincipal                    principal;
     private Collection<GrantedAuthority>        authorities;
 
@@ -58,7 +59,7 @@ public class WindowsAuthenticationToken implements Authentication {
      * <li>the {@link #DEFAULT_GRANTED_AUTHORITY}</li>
      * </ul>
      */
-    public WindowsAuthenticationToken(WindowsPrincipal identity) {
+    public WindowsAuthenticationToken(final WindowsPrincipal identity) {
         this(identity, DEFAULT_GRANTED_AUTHORITY_FACTORY, DEFAULT_GRANTED_AUTHORITY);
     }
 
@@ -71,8 +72,8 @@ public class WindowsAuthenticationToken implements Authentication {
      * @param defaultGrantedAuthority
      *            if not null, this {@link GrantedAuthority} will always be added to the granted authorities list
      */
-    public WindowsAuthenticationToken(WindowsPrincipal identity, GrantedAuthorityFactory grantedAuthorityFactory,
-            GrantedAuthority defaultGrantedAuthority) {
+    public WindowsAuthenticationToken(final WindowsPrincipal identity,
+            final GrantedAuthorityFactory grantedAuthorityFactory, final GrantedAuthority defaultGrantedAuthority) {
 
         this.principal = identity;
         this.authorities = new ArrayList<GrantedAuthority>();
@@ -86,7 +87,7 @@ public class WindowsAuthenticationToken implements Authentication {
 
     @Override
     public GrantedAuthority[] getAuthorities() {
-        GrantedAuthority[] grantedAuthorities = new GrantedAuthority[this.authorities.size()];
+        final GrantedAuthority[] grantedAuthorities = new GrantedAuthority[this.authorities.size()];
         this.authorities.toArray(grantedAuthorities);
         return grantedAuthorities;
     }
@@ -112,7 +113,7 @@ public class WindowsAuthenticationToken implements Authentication {
     }
 
     @Override
-    public void setAuthenticated(boolean authenticated) {
+    public void setAuthenticated(final boolean authenticated) {
         throw new IllegalArgumentException();
     }
 

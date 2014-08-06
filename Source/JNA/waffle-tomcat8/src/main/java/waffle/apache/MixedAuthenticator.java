@@ -61,7 +61,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
     }
 
     @Override
-    public boolean authenticate(Request request, HttpServletResponse response) {
+    public boolean authenticate(final Request request, final HttpServletResponse response) {
 
         // realm: fail if no realm is configured
         if (this.context == null || this.context.getRealm() == null) {
@@ -73,18 +73,18 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
         this.log.debug("{} {}, contentlength: {}", request.getMethod(), request.getRequestURI(),
                 Integer.valueOf(request.getContentLength()));
 
-        boolean negotiateCheck = request.getParameter("j_negotiate_check") != null;
+        final boolean negotiateCheck = request.getParameter("j_negotiate_check") != null;
         this.log.debug("negotiateCheck: {}", Boolean.valueOf(negotiateCheck));
-        boolean securityCheck = request.getParameter("j_security_check") != null;
+        final boolean securityCheck = request.getParameter("j_security_check") != null;
         this.log.debug("securityCheck: {}", Boolean.valueOf(securityCheck));
 
-        Principal principal = request.getUserPrincipal();
+        final Principal principal = request.getUserPrincipal();
 
-        AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
-        boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
+        final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
+        final boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
         this.log.debug("authorization: {}, ntlm post: {}", authorizationHeader, Boolean.valueOf(ntlmPost));
 
-        LoginConfig loginConfig = new LoginConfig();
+        final LoginConfig loginConfig = new LoginConfig();
         loginConfig.setErrorPage("error.html");
         loginConfig.setLoginPage("login.html");
 
@@ -99,7 +99,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
             sendUnauthorized(response);
             return false;
         } else if (securityCheck) {
-            boolean postResult = post(request, response);
+            final boolean postResult = post(request, response);
             if (postResult) {
                 redirectTo(request, response, request.getServletPath());
             } else {
@@ -112,15 +112,16 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
         }
     }
 
-    private boolean negotiate(Request request, HttpServletResponse response, AuthorizationHeader authorizationHeader) {
+    private boolean negotiate(final Request request, final HttpServletResponse response,
+            final AuthorizationHeader authorizationHeader) {
 
-        String securityPackage = authorizationHeader.getSecurityPackage();
+        final String securityPackage = authorizationHeader.getSecurityPackage();
         // maintain a connection-based session for NTLM tokens
-        String connectionId = NtlmServletRequest.getConnectionId(request);
+        final String connectionId = NtlmServletRequest.getConnectionId(request);
 
         this.log.debug("security package: {}, connection id: {}", securityPackage, connectionId);
 
-        boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
+        final boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
 
         if (ntlmPost) {
             // type 1 NTLM authentication message received
@@ -131,12 +132,12 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
         IWindowsSecurityContext securityContext = null;
 
         try {
-            byte[] tokenBuffer = authorizationHeader.getTokenBytes();
+            final byte[] tokenBuffer = authorizationHeader.getTokenBytes();
             this.log.debug("token buffer: {} byte(s)", Integer.valueOf(tokenBuffer.length));
             securityContext = this.auth.acceptSecurityToken(connectionId, tokenBuffer, securityPackage);
             this.log.debug("continue required: {}", Boolean.valueOf(securityContext.isContinue()));
 
-            byte[] continueTokenBytes = securityContext.getToken();
+            final byte[] continueTokenBytes = securityContext.getToken();
             if (continueTokenBytes != null && continueTokenBytes.length > 0) {
                 String continueToken = BaseEncoding.base64().encode(continueTokenBytes);
                 this.log.debug("continue token: {}", continueToken);
@@ -158,7 +159,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
         }
 
         // create and register the user principal with the session
-        IWindowsIdentity windowsIdentity = securityContext.getIdentity();
+        final IWindowsIdentity windowsIdentity = securityContext.getIdentity();
 
         // disable guest login
         if (!this.allowGuestLogin && windowsIdentity.isGuest()) {
@@ -170,13 +171,13 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
         try {
             this.log.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
 
-            GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(windowsIdentity,
+            final GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(windowsIdentity,
                     this.principalFormat, this.roleFormat);
 
             this.log.debug("roles: {}", windowsPrincipal.getRolesString());
 
             // create a session associated with this request if there's none
-            HttpSession session = request.getSession(true);
+            final HttpSession session = request.getSession(true);
             this.log.debug("session id: {}", session.getId());
 
             register(request, response, windowsPrincipal, securityPackage, windowsPrincipal.getName(), null);
@@ -189,10 +190,10 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
         return true;
     }
 
-    private boolean post(Request request, HttpServletResponse response) {
+    private boolean post(final Request request, final HttpServletResponse response) {
 
-        String username = request.getParameter("j_username");
-        String password = request.getParameter("j_password");
+        final String username = request.getParameter("j_username");
+        final String password = request.getParameter("j_password");
 
         this.log.debug("logging in: {}", username);
 
@@ -214,13 +215,13 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
         try {
             this.log.debug("successfully logged in {} ({})", username, windowsIdentity.getSidString());
 
-            GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(windowsIdentity,
+            final GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(windowsIdentity,
                     this.principalFormat, this.roleFormat);
 
             this.log.debug("roles: {}", windowsPrincipal.getRolesString());
 
             // create a session associated with this request if there's none
-            HttpSession session = request.getSession(true);
+            final HttpSession session = request.getSession(true);
             this.log.debug("session id: {}", session.getId());
 
             register(request, response, windowsPrincipal, "FORM", windowsPrincipal.getName(), null);
@@ -232,11 +233,11 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
         return true;
     }
 
-    private void redirectTo(Request request, HttpServletResponse response, String url) {
+    private void redirectTo(final Request request, final HttpServletResponse response, final String url) {
         try {
             this.log.debug("redirecting to: {}", url);
-            ServletContext servletContext = this.context.getServletContext();
-            RequestDispatcher disp = servletContext.getRequestDispatcher(url);
+            final ServletContext servletContext = this.context.getServletContext();
+            final RequestDispatcher disp = servletContext.getRequestDispatcher(url);
             disp.forward(request.getRequest(), response);
         } catch (IOException e) {
             this.log.error(e.getMessage());

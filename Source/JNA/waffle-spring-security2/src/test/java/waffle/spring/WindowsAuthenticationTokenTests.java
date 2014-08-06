@@ -32,8 +32,8 @@ import waffle.servlet.WindowsPrincipal;
  */
 public class WindowsAuthenticationTokenTests {
 
-    private WindowsPrincipal           principal = null;
-    private WindowsAuthenticationToken token     = null;
+    private WindowsPrincipal           principal;
+    private WindowsAuthenticationToken token;
 
     @Before
     public void setUp() {
@@ -62,18 +62,18 @@ public class WindowsAuthenticationTokenTests {
     @Test
     public void testCustomGrantedAuthorityFactory() {
 
-        WindowsAuthenticationToken token = new WindowsAuthenticationToken(this.principal,
+        WindowsAuthenticationToken myToken = new WindowsAuthenticationToken(this.principal,
                 new FqnGrantedAuthorityFactory(null, false), null);
 
-        assertNull(token.getCredentials());
-        assertNull(token.getDetails());
-        assertTrue(token.isAuthenticated());
-        assertEquals("localhost\\user1", token.getName());
-        GrantedAuthority[] authorities = token.getAuthorities();
+        assertNull(myToken.getCredentials());
+        assertNull(myToken.getDetails());
+        assertTrue(myToken.isAuthenticated());
+        assertEquals("localhost\\user1", myToken.getName());
+        GrantedAuthority[] authorities = myToken.getAuthorities();
         assertEquals(2, authorities.length);
         assertEquals("group1", authorities[0].getAuthority());
         assertEquals("group2", authorities[1].getAuthority());
-        assertEquals(this.principal, token.getPrincipal());
+        assertEquals(this.principal, myToken.getPrincipal());
     }
 
     @Test(expected = IllegalArgumentException.class)

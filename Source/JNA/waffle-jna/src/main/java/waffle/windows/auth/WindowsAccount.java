@@ -28,7 +28,7 @@ public class WindowsAccount implements Serializable {
     private String            name;
     private String            domain;
 
-    public WindowsAccount(IWindowsAccount account) {
+    public WindowsAccount(final IWindowsAccount account) {
         this.sidString = account.getSidString();
         this.fqn = account.getFqn();
         this.name = account.getName();
@@ -52,7 +52,7 @@ public class WindowsAccount implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
 
         if (this == o) {
             return true;

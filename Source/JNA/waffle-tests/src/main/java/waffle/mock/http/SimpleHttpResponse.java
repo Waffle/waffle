@@ -29,6 +29,8 @@ import org.mockito.Mockito;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Joiner;
+
 /**
  * @author dblock[at]dblock[dot]org
  */
@@ -43,7 +45,7 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
 
     private final ServletOutputStream out     = new ServletOutputStream() {
                                                   @Override
-                                                  public void write(int b) throws IOException {
+                                                  public void write(final int b) throws IOException {
                                                       SimpleHttpResponse.this.bytes.write(b);
                                                   }
                                               };
@@ -59,7 +61,7 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
     }
 
     @Override
-    public void addHeader(String headerName, String headerValue) {
+    public void addHeader(final String headerName, final String headerValue) {
         List<String> current = this.headers.get(headerName);
         if (current == null) {
             current = new ArrayList<String>();
@@ -69,7 +71,7 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
     }
 
     @Override
-    public void setHeader(String headerName, String headerValue) {
+    public void setHeader(final String headerName, final String headerValue) {
         List<String> current = this.headers.get(headerName);
         if (current == null) {
             current = new ArrayList<String>();
@@ -81,7 +83,7 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
     }
 
     @Override
-    public void setStatus(int value) {
+    public void setStatus(final int value) {
         this.status = value;
     }
 
@@ -109,33 +111,23 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
         return this.headers.size();
     }
 
-    public String[] getHeaderValues(String headerName) {
-        List<String> headerValues = this.headers.get(headerName);
+    public String[] getHeaderValues(final String headerName) {
+        final List<String> headerValues = this.headers.get(headerName);
         return headerValues == null ? null : headerValues.toArray(new String[0]);
     }
 
-    public String getHeader(String headerName) {
-        List<String> headerValues = this.headers.get(headerName);
-        if (headerValues == null) {
-            return null;
-        }
-        StringBuilder sb = new StringBuilder();
-        for (String headerValue : headerValues) {
-            if (sb.length() > 0) {
-                sb.append(", ");
-            }
-            sb.append(headerValue);
-        }
-        return sb.toString();
+    public String getHeader(final String headerName) {
+        final List<String> headerValues = this.headers.get(headerName);
+        return headerValues == null ? null : Joiner.on(", ").join(headerValues);
     }
 
     @Override
-    public void sendError(int rc, String message) {
+    public void sendError(final int rc, final String message) {
         this.status = rc;
     }
 
     @Override
-    public void sendError(int rc) {
+    public void sendError(final int rc) {
         this.status = rc;
     }
 

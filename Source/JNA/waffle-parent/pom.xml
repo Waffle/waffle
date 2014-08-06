@@ -217,37 +217,6 @@
                             <artifactId>wagon-ssh</artifactId>
                             <version>2.6</version>
                         </dependency>
-                        <dependency>
-                            <groupId>com.jcraft</groupId>
-                            <artifactId>jsch</artifactId>
-                            <version>0.1.51</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>com.jcraft</groupId>
-                            <artifactId>jsch.agentproxy.connector-factory</artifactId>
-                            <version>0.0.7</version>
-                            <exclusions>
-                                <exclusion>
-                                    <artifactId>platform</artifactId>
-                                    <groupId>net.java.dev.jna</groupId>
-                                </exclusion>
-                            </exclusions>
-                        </dependency>
-                        <dependency>
-                            <groupId>com.jcraft</groupId>
-                            <artifactId>jsch.agentproxy.jsch</artifactId>
-                            <version>0.0.7</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>net.java.dev.jna</groupId>
-                            <artifactId>jna-platform</artifactId>
-                            <version>4.1.0</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.codehaus.plexus</groupId>
-                            <artifactId>plexus-utils</artifactId>
-                            <version>3.0.17</version>
-                        </dependency>
                     </dependencies>
                 </plugin>
                 <plugin>
@@ -299,55 +268,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-pmd-plugin</artifactId>
-                    <version>3.1</version>
-                    <dependencies>
-                        <dependency>
-                            <groupId>net.sourceforge.pmd</groupId>
-                            <artifactId>pmd</artifactId>
-                            <version>5.1.2</version>
-                            <exclusions>
-                                <exclusion>
-                                    <artifactId>ant</artifactId>
-                                    <groupId>org.apache.ant</groupId>
-                                </exclusion>
-                            </exclusions>
-                        </dependency>
-                        <dependency>
-                            <groupId>com.beust</groupId>
-                            <artifactId>jcommander</artifactId>
-                            <version>1.35</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>commons-io</groupId>
-                            <artifactId>commons-io</artifactId>
-                            <version>2.4</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>jaxen</groupId>
-                            <artifactId>jaxen</artifactId>
-                            <version>1.1.6</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>junit</groupId>
-                            <artifactId>junit</artifactId>
-                            <version>4.11</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.apache.ant</groupId>
-                            <artifactId>ant-testutil</artifactId>
-                            <version>1.9.4</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.mozilla</groupId>
-                            <artifactId>rhino</artifactId>
-                            <version>1.7R4</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>xerces</groupId>
-                            <artifactId>xercesImpl</artifactId>
-                            <version>2.11.0</version>
-                        </dependency>
-                    </dependencies>
+                    <version>3.2</version>
                 </plugin>
                 <!-- Tools -->
                 <plugin>

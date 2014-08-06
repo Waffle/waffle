@@ -34,7 +34,7 @@ public class GroupMappingWaffleRealm extends AbstractWaffleRealm {
      * Sets the translation from group names to role names. If not set, the map is empty, resulting in no users getting
      * roles.
      */
-    public void setGroupRolesMap(Map<String, String> value) {
+    public void setGroupRolesMap(final Map<String, String> value) {
         this.groupRolesMap.clear();
         if (value != null) {
             this.groupRolesMap.putAll(value);
@@ -50,8 +50,8 @@ public class GroupMappingWaffleRealm extends AbstractWaffleRealm {
      * @return a collection of roles that are implied by the given role names
      * @see #setGroupRolesMap
      */
-    protected Collection<String> getRoleNamesForGroups(Collection<String> groupNames) {
-        Set<String> roleNames = new HashSet<String>();
+    protected Collection<String> getRoleNamesForGroups(final Collection<String> groupNames) {
+        final Set<String> roleNames = new HashSet<String>();
         for (String groupName : groupNames) {
             String roleName = this.groupRolesMap.get(groupName);
             if (roleName != null) {
@@ -73,8 +73,8 @@ public class GroupMappingWaffleRealm extends AbstractWaffleRealm {
      * @see #getRoleNamesForGroups
      */
     @Override
-    protected AuthorizationInfo buildAuthorizationInfo(WaffleFqnPrincipal principal) {
-        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+    protected AuthorizationInfo buildAuthorizationInfo(final WaffleFqnPrincipal principal) {
+        final SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         authorizationInfo.addRoles(getRoleNamesForGroups(principal.getGroupFqns()));
         return authorizationInfo;
     }

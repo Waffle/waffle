@@ -33,7 +33,7 @@ public interface SecurityFilterProvider {
      * @param response
      *            Http Response
      */
-    void sendUnauthorized(HttpServletResponse response);
+    void sendUnauthorized(final HttpServletResponse response);
 
     /**
      * Returns true if despite having a principal authentication needs to happen.
@@ -42,7 +42,7 @@ public interface SecurityFilterProvider {
      *            Http Request
      * @return True if authentication is required.
      */
-    boolean isPrincipalException(HttpServletRequest request);
+    boolean isPrincipalException(final HttpServletRequest request);
 
     /**
      * Execute filter.
@@ -54,7 +54,7 @@ public interface SecurityFilterProvider {
      * @return A Windows identity in case authentication completed or NULL if not. Thrown exceptions should be caught
      *         and processed as 401 Access Denied.
      */
-    IWindowsIdentity doFilter(HttpServletRequest request, HttpServletResponse response) throws IOException;
+    IWindowsIdentity doFilter(final HttpServletRequest request, final HttpServletResponse response) throws IOException;
 
     /**
      * Tests whether a specific security package is supported.
@@ -63,7 +63,7 @@ public interface SecurityFilterProvider {
      *            Security package.
      * @return True if the security package is supported, false otherwise.
      */
-    boolean isSecurityPackageSupported(String securityPackage);
+    boolean isSecurityPackageSupported(final String securityPackage);
 
     /**
      * Init a parameter.
@@ -73,5 +73,5 @@ public interface SecurityFilterProvider {
      * @param parameterValue
      *            Parameter value.
      */
-    void initParameter(String parameterName, String parameterValue);
+    void initParameter(final String parameterName, final String parameterValue);
 }

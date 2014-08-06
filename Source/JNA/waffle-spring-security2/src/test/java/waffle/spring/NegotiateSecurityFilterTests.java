@@ -68,8 +68,8 @@ public class NegotiateSecurityFilterTests {
     @Test
     public void testFilter() {
         assertFalse(this.filter.isAllowGuestLogin());
-        assertEquals(PrincipalFormat.fqn, this.filter.getPrincipalFormat());
-        assertEquals(PrincipalFormat.both, this.filter.getRoleFormat());
+        assertEquals(PrincipalFormat.FQN, this.filter.getPrincipalFormatEnum());
+        assertEquals(PrincipalFormat.BOTH, this.filter.getRoleFormatEnum());
         assertNull(this.filter.getFilterConfig());
         assertNotNull(this.filter.getProvider());
     }

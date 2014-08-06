@@ -37,16 +37,17 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
     private String               realm  = "BasicSecurityFilterProvider";
     private IWindowsAuthProvider auth;
 
-    public BasicSecurityFilterProvider(IWindowsAuthProvider auth) {
+    public BasicSecurityFilterProvider(final IWindowsAuthProvider auth) {
         this.auth = auth;
     }
 
     @Override
-    public IWindowsIdentity doFilter(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public IWindowsIdentity doFilter(final HttpServletRequest request, final HttpServletResponse response)
+            throws IOException {
 
-        AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
-        String usernamePassword = new String(authorizationHeader.getTokenBytes());
-        String[] usernamePasswordArray = usernamePassword.split(":", 2);
+        final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
+        final String usernamePassword = new String(authorizationHeader.getTokenBytes());
+        final String[] usernamePasswordArray = usernamePassword.split(":", 2);
         if (usernamePasswordArray.length != 2) {
             throw new RuntimeException("Invalid username:password in Authorization header.");
         }
@@ -55,17 +56,17 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
     }
 
     @Override
-    public boolean isPrincipalException(HttpServletRequest request) {
+    public boolean isPrincipalException(final HttpServletRequest request) {
         return false;
     }
 
     @Override
-    public boolean isSecurityPackageSupported(String securityPackage) {
+    public boolean isSecurityPackageSupported(final String securityPackage) {
         return securityPackage.equalsIgnoreCase("Basic");
     }
 
     @Override
-    public void sendUnauthorized(HttpServletResponse response) {
+    public void sendUnauthorized(final HttpServletResponse response) {
         response.addHeader("WWW-Authenticate", "Basic realm=\"" + this.realm + "\"");
     }
 
@@ -84,7 +85,7 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
      * @param value
      *            Protection space name.
      */
-    public void setRealm(String value) {
+    public void setRealm(final String value) {
         this.realm = value;
     }
 
@@ -92,7 +93,7 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
      * Init configuration parameters.
      */
     @Override
-    public void initParameter(String parameterName, String parameterValue) {
+    public void initParameter(final String parameterName, final String parameterValue) {
         if (parameterName.equals("realm")) {
             setRealm(parameterValue);
         } else {

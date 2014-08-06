@@ -18,6 +18,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
@@ -56,13 +57,13 @@ public class WindowsLoginModule implements LoginModule {
     private CallbackHandler      callbackHandler;
     private IWindowsAuthProvider auth            = new WindowsAuthProviderImpl();
     private Set<Principal>       principals;
-    private PrincipalFormat      principalFormat = PrincipalFormat.fqn;
-    private PrincipalFormat      roleFormat      = PrincipalFormat.fqn;
+    private PrincipalFormat      principalFormat = PrincipalFormat.FQN;
+    private PrincipalFormat      roleFormat      = PrincipalFormat.FQN;
     private boolean              allowGuestLogin = true;
 
     @Override
-    public void initialize(Subject subject, CallbackHandler callbackHandler, Map<String, ?> sharedState,
-            Map<String, ?> options) {
+    public void initialize(final Subject subject, final CallbackHandler callbackHandler,
+            final Map<String, ?> sharedState, final Map<String, ?> options) {
 
         this.subject = subject;
         this.callbackHandler = callbackHandler;
@@ -71,9 +72,10 @@ public class WindowsLoginModule implements LoginModule {
             if (option.getKey().equalsIgnoreCase("debug")) {
                 this.debug = Boolean.parseBoolean((String) option.getValue());
             } else if (option.getKey().equalsIgnoreCase("principalFormat")) {
-                this.principalFormat = PrincipalFormat.valueOf((String) option.getValue());
+                this.principalFormat = PrincipalFormat
+                        .valueOf(((String) option.getValue()).toUpperCase(Locale.ENGLISH));
             } else if (option.getKey().equalsIgnoreCase("roleFormat")) {
-                this.roleFormat = PrincipalFormat.valueOf((String) option.getValue());
+                this.roleFormat = PrincipalFormat.valueOf(((String) option.getValue()).toUpperCase(Locale.ENGLISH));
             }
         }
     }
@@ -87,15 +89,15 @@ public class WindowsLoginModule implements LoginModule {
             throw new LoginException("Missing callback to gather information from the user.");
         }
 
-        NameCallback usernameCallback = new NameCallback("user name: ");
-        PasswordCallback passwordCallback = new PasswordCallback("password: ", false);
+        final NameCallback usernameCallback = new NameCallback("user name: ");
+        final PasswordCallback passwordCallback = new PasswordCallback("password: ", false);
 
-        Callback[] callbacks = new Callback[2];
+        final Callback[] callbacks = new Callback[2];
         callbacks[0] = usernameCallback;
         callbacks[1] = passwordCallback;
 
-        String userName;
-        String password;
+        final String userName;
+        final String password;
 
         try {
             this.callbackHandler.handle(callbacks);
@@ -129,7 +131,7 @@ public class WindowsLoginModule implements LoginModule {
 
             this.principals = new LinkedHashSet<Principal>();
             this.principals.addAll(getUserPrincipals(windowsIdentity, this.principalFormat));
-            if (this.roleFormat != PrincipalFormat.none) {
+            if (this.roleFormat != PrincipalFormat.NONE) {
                 for (IWindowsAccount group : windowsIdentity.getGroups()) {
                     this.principals.addAll(getRolePrincipals(group, this.roleFormat));
                 }
@@ -165,7 +167,7 @@ public class WindowsLoginModule implements LoginModule {
             throw new LoginException("Subject cannot be read-only.");
         }
 
-        Set<Principal> principalsSet = this.subject.getPrincipals();
+        final Set<Principal> principalsSet = this.subject.getPrincipals();
         principalsSet.addAll(this.principals);
 
         LOGGER.debug("committing {} principals", Integer.valueOf(this.subject.getPrincipals().size()));
@@ -220,7 +222,7 @@ public class WindowsLoginModule implements LoginModule {
      * @param provider
      *            Class implements IWindowsAuthProvider.
      */
-    public void setAuth(IWindowsAuthProvider provider) {
+    public void setAuth(final IWindowsAuthProvider provider) {
         this.auth = provider;
     }
 
@@ -233,21 +235,22 @@ public class WindowsLoginModule implements LoginModule {
      *            Principal format.
      * @return A list of user principal objects.
      */
-    private static List<Principal> getUserPrincipals(IWindowsIdentity windowsIdentity, PrincipalFormat principalFormat) {
+    private static List<Principal> getUserPrincipals(final IWindowsIdentity windowsIdentity,
+            final PrincipalFormat principalFormat) {
 
-        List<Principal> principalsList = new ArrayList<Principal>();
+        final List<Principal> principalsList = new ArrayList<Principal>();
         switch (principalFormat) {
-            case fqn:
+            case FQN:
                 principalsList.add(new UserPrincipal(windowsIdentity.getFqn()));
                 break;
-            case sid:
+            case SID:
                 principalsList.add(new UserPrincipal(windowsIdentity.getSidString()));
                 break;
-            case both:
+            case BOTH:
                 principalsList.add(new UserPrincipal(windowsIdentity.getFqn()));
                 principalsList.add(new UserPrincipal(windowsIdentity.getSidString()));
                 break;
-            case none:
+            case NONE:
                 break;
             default:
                 break;
@@ -265,21 +268,21 @@ public class WindowsLoginModule implements LoginModule {
      *            Principal format.
      * @return List of role principal objects.
      */
-    private static List<Principal> getRolePrincipals(IWindowsAccount group, PrincipalFormat principalFormat) {
+    private static List<Principal> getRolePrincipals(final IWindowsAccount group, final PrincipalFormat principalFormat) {
 
-        List<Principal> principalsList = new ArrayList<Principal>();
+        final List<Principal> principalsList = new ArrayList<Principal>();
         switch (principalFormat) {
-            case fqn:
+            case FQN:
                 principalsList.add(new RolePrincipal(group.getFqn()));
                 break;
-            case sid:
+            case SID:
                 principalsList.add(new RolePrincipal(group.getSidString()));
                 break;
-            case both:
+            case BOTH:
                 principalsList.add(new RolePrincipal(group.getFqn()));
                 principalsList.add(new RolePrincipal(group.getSidString()));
                 break;
-            case none:
+            case NONE:
                 break;
             default:
                 break;
@@ -304,7 +307,7 @@ public class WindowsLoginModule implements LoginModule {
      * @param value
      *            True or false.
      */
-    public void setAllowGuestLogin(boolean value) {
+    public void setAllowGuestLogin(final boolean value) {
         this.allowGuestLogin = value;
     }
 }

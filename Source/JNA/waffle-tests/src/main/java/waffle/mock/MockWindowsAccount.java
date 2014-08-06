@@ -28,11 +28,11 @@ public class MockWindowsAccount implements IWindowsAccount {
     private String             domain;
     private String             sid;
 
-    public MockWindowsAccount(String fqn) {
+    public MockWindowsAccount(final String fqn) {
         this(fqn, "S-" + fqn.hashCode());
     }
 
-    public MockWindowsAccount(String fqn, String sid) {
+    public MockWindowsAccount(final String fqn, final String sid) {
         this.fqn = fqn;
         this.sid = sid;
         String[] userNameDomain = fqn.split("\\\\", 2);

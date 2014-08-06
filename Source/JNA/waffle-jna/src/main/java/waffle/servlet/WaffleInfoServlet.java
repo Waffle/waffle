@@ -43,18 +43,19 @@ public class WaffleInfoServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        WaffleInfo info = new WaffleInfo();
+    public void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
+            IOException {
+        final WaffleInfo info = new WaffleInfo();
         try {
-            Document doc = info.getWaffleInfo();
-            Element root = doc.getDocumentElement();
+            final Document doc = info.getWaffleInfo();
+            final Element root = doc.getDocumentElement();
 
             // Add the Request Information Here
-            Element http = getRequestInfo(doc, request);
+            final Element http = getRequestInfo(doc, request);
             root.insertBefore(http, root.getFirstChild());
 
             // Lookup Accounts By Name
-            String[] lookup = request.getParameterValues("lookup");
+            final String[] lookup = request.getParameterValues("lookup");
             if (lookup != null) {
                 for (String name : lookup) {
                     root.appendChild(info.getLookupInfo(doc, name));
@@ -62,12 +63,12 @@ public class WaffleInfoServlet extends HttpServlet {
             }
 
             // Write the XML Response
-            TransformerFactory transfac = TransformerFactory.newInstance();
-            Transformer trans = transfac.newTransformer();
+            final TransformerFactory transfac = TransformerFactory.newInstance();
+            final Transformer trans = transfac.newTransformer();
             trans.setOutputProperty(OutputKeys.INDENT, "yes");
 
-            StreamResult result = new StreamResult(response.getWriter());
-            DOMSource source = new DOMSource(doc);
+            final StreamResult result = new StreamResult(response.getWriter());
+            final DOMSource source = new DOMSource(doc);
             trans.transform(source, result);
             response.setContentType("application/xml");
         } catch (ParserConfigurationException e) {
@@ -83,18 +84,19 @@ public class WaffleInfoServlet extends HttpServlet {
      * Delegate POST to GET
      */
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
+            IOException {
         doGet(request, response);
     }
 
-    public Element getRequestInfo(Document doc, HttpServletRequest request) {
-        Element node = doc.createElement("request");
+    public Element getRequestInfo(final Document doc, final HttpServletRequest request) {
+        final Element node = doc.createElement("request");
 
         Element value = doc.createElement("AuthType");
         value.setTextContent(request.getAuthType());
         node.appendChild(value);
 
-        Principal p = request.getUserPrincipal();
+        final Principal p = request.getUserPrincipal();
         if (p != null) {
             Element child = doc.createElement("principal");
             child.setAttribute("class", p.getClass().getName());
@@ -110,7 +112,7 @@ public class WaffleInfoServlet extends HttpServlet {
             node.appendChild(child);
         }
 
-        Enumeration<?> headers = request.getHeaderNames();
+        final Enumeration<?> headers = request.getHeaderNames();
         if (headers.hasMoreElements()) {
             Element child = doc.createElement("headers");
             while (headers.hasMoreElements()) {

@@ -69,8 +69,7 @@ public class WindowsAccountTests {
         // deserialize
         InputStream in = new ByteArrayInputStream(out.toByteArray());
         ObjectInputStream ois = new ObjectInputStream(in);
-        Object o = ois.readObject();
-        WindowsAccount copy = (WindowsAccount) o;
+        WindowsAccount copy = (WindowsAccount) ois.readObject();
         // test
         assertEquals(this.windowsAccount, copy);
         assertEquals(this.windowsAccount.getDomain(), copy.getDomain());

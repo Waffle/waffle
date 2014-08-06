@@ -24,7 +24,7 @@ public class GuestLoginDisabledAuthenticationException extends AuthenticationExc
 
     private static final long serialVersionUID = 1L;
 
-    public GuestLoginDisabledAuthenticationException(String msg) {
+    public GuestLoginDisabledAuthenticationException(final String msg) {
         super(msg);
     }
 }

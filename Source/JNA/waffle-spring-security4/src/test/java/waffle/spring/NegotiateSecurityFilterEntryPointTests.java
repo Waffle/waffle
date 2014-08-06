@@ -37,19 +37,19 @@ import waffle.mock.http.SimpleHttpResponse;
  */
 public class NegotiateSecurityFilterEntryPointTests {
 
-    private NegotiateSecurityFilterEntryPoint _entryPoint;
+    private NegotiateSecurityFilterEntryPoint entryPoint;
     private ApplicationContext                ctx;
 
     @Before
     public void setUp() {
         String[] configFiles = new String[] { "springTestFilterBeans.xml" };
-        ctx = new ClassPathXmlApplicationContext(configFiles);
-        _entryPoint = (NegotiateSecurityFilterEntryPoint) ctx.getBean("negotiateSecurityFilterEntryPoint");
+        this.ctx = new ClassPathXmlApplicationContext(configFiles);
+        this.entryPoint = (NegotiateSecurityFilterEntryPoint) this.ctx.getBean("negotiateSecurityFilterEntryPoint");
     }
 
     @After
     public void shutDown() {
-        ((AbstractApplicationContext) ctx).close();
+        ((AbstractApplicationContext) this.ctx).close();
     }
 
     @Test
@@ -57,7 +57,7 @@ public class NegotiateSecurityFilterEntryPointTests {
         SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
         SimpleHttpResponse response = new SimpleHttpResponse();
-        _entryPoint.commence(request, response, null);
+        this.entryPoint.commence(request, response, null);
         String[] wwwAuthenticates = response.getHeaderValues("WWW-Authenticate");
         assertEquals(3, wwwAuthenticates.length);
         assertEquals("NTLM", wwwAuthenticates[0]);
@@ -70,12 +70,12 @@ public class NegotiateSecurityFilterEntryPointTests {
 
     @Test(expected = ServletException.class)
     public void testGetSetProvider() throws IOException, ServletException {
-        assertNotNull(_entryPoint.getProvider());
-        _entryPoint.setProvider(null);
+        assertNotNull(this.entryPoint.getProvider());
+        this.entryPoint.setProvider(null);
         SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
         SimpleHttpResponse response = new SimpleHttpResponse();
-        _entryPoint.commence(request, response, null);
+        this.entryPoint.commence(request, response, null);
         fail("expected ServletException");
     }
 }

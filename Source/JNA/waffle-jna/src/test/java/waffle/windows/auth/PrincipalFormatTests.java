@@ -24,10 +24,10 @@ public class PrincipalFormatTests {
 
     @Test
     public void testKnown() {
-        assertEquals(PrincipalFormat.fqn, PrincipalFormat.valueOf("fqn"));
-        assertEquals(PrincipalFormat.sid, PrincipalFormat.valueOf("sid"));
-        assertEquals(PrincipalFormat.both, PrincipalFormat.valueOf("both"));
-        assertEquals(PrincipalFormat.none, PrincipalFormat.valueOf("none"));
+        assertEquals(PrincipalFormat.FQN, PrincipalFormat.valueOf("FQN"));
+        assertEquals(PrincipalFormat.SID, PrincipalFormat.valueOf("SID"));
+        assertEquals(PrincipalFormat.BOTH, PrincipalFormat.valueOf("BOTH"));
+        assertEquals(PrincipalFormat.NONE, PrincipalFormat.valueOf("NONE"));
         assertEquals(4, PrincipalFormat.values().length);
     }
 

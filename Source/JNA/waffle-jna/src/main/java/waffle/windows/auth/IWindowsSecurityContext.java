@@ -76,7 +76,7 @@ public interface IWindowsSecurityContext {
      * @param targetName
      *            The target of the context. The string contents are security-package specific.
      */
-    void initialize(CtxtHandle continueCtx, SecBufferDesc continueToken, String targetName);
+    void initialize(final CtxtHandle continueCtx, final SecBufferDesc continueToken, final String targetName);
 
     /**
      * Impersonate this security context.

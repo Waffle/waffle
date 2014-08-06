@@ -23,22 +23,22 @@ public class AutoDisposableWindowsPrincipal extends WindowsPrincipal implements 
 
     private static final long serialVersionUID = 1L;
 
-    public AutoDisposableWindowsPrincipal(IWindowsIdentity windowsIdentity) {
+    public AutoDisposableWindowsPrincipal(final IWindowsIdentity windowsIdentity) {
         super(windowsIdentity);
     }
 
-    public AutoDisposableWindowsPrincipal(IWindowsIdentity windowsIdentity, PrincipalFormat principalFormat,
-            PrincipalFormat roleFormat) {
+    public AutoDisposableWindowsPrincipal(final IWindowsIdentity windowsIdentity,
+            final PrincipalFormat principalFormat, final PrincipalFormat roleFormat) {
         super(windowsIdentity, principalFormat, roleFormat);
     }
 
     @Override
-    public void valueBound(HttpSessionBindingEvent evt) {
+    public void valueBound(final HttpSessionBindingEvent evt) {
         // Do nothing
     }
 
     @Override
-    public void valueUnbound(HttpSessionBindingEvent evt) {
+    public void valueUnbound(final HttpSessionBindingEvent evt) {
         if (getIdentity() != null) {
             getIdentity().dispose();
         }

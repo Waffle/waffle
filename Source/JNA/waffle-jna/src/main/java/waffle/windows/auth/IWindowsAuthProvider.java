@@ -30,7 +30,7 @@ public interface IWindowsAuthProvider {
      *            A string that specifies the plaintext password for the user account specified by username.
      * @return Windows identity.
      */
-    IWindowsIdentity logonUser(String username, String password);
+    IWindowsIdentity logonUser(final String username, final String password);
 
     /**
      * The LogonDomainUser function attempts to log a user on to the local computer using a network logon type and the
@@ -47,7 +47,7 @@ public interface IWindowsAuthProvider {
      *            A string that specifies the plaintext password for the user account specified by username.
      * @return Windows identity.
      */
-    IWindowsIdentity logonDomainUser(String username, String domain, String password);
+    IWindowsIdentity logonDomainUser(final String username, final String domain, final String password);
 
     /**
      * The LogonDomainUserEx function attempts to log a user on to the local computer. The local computer is the
@@ -69,7 +69,8 @@ public interface IWindowsAuthProvider {
      *            Specifies the logon provider.
      * @return Windows identity.
      */
-    IWindowsIdentity logonDomainUserEx(String username, String domain, String password, int logonType, int logonProvider);
+    IWindowsIdentity logonDomainUserEx(final String username, final String domain, final String password,
+            final int logonType, final int logonProvider);
 
     /**
      * Retrieve a security identifier (SID) for the account and the name of the domain or local computer on which the
@@ -79,7 +80,7 @@ public interface IWindowsAuthProvider {
      *            Fully qualified or partial username.
      * @return Windows account.
      */
-    IWindowsAccount lookupAccount(String username);
+    IWindowsAccount lookupAccount(final String username);
 
     /**
      * Retrieve the current computer information.
@@ -110,7 +111,8 @@ public interface IWindowsAuthProvider {
      *            package to use. Other common values are "Kerberos" and "NTLM".
      * @return Windows account.
      */
-    IWindowsSecurityContext acceptSecurityToken(String connectionId, byte[] token, String securityPackage);
+    IWindowsSecurityContext acceptSecurityToken(final String connectionId, final byte[] token,
+            final String securityPackage);
 
     /**
      * Reset a previously saved continuation security token for a given connection id.
@@ -118,5 +120,5 @@ public interface IWindowsAuthProvider {
      * @param connectionId
      *            Connection id.
      */
-    void resetSecurityToken(String connectionId);
+    void resetSecurityToken(final String connectionId);
 }

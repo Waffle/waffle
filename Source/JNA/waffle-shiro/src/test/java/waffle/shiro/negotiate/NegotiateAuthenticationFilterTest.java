@@ -223,12 +223,14 @@ public final class NegotiateAuthenticationFilterTest {
             return null;
         }
 
+        @Deprecated
         @Override
         public String encodeUrl(String url) {
             notImplemented();
             return null;
         }
 
+        @Deprecated
         @Override
         public String encodeRedirectUrl(String url) {
             notImplemented();
@@ -300,6 +302,7 @@ public final class NegotiateAuthenticationFilterTest {
             this.sc = sc;
         }
 
+        @Deprecated
         @Override
         public void setStatus(int sc, String sm) {
             notImplemented();

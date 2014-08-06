@@ -21,15 +21,15 @@ package waffle.util;
 public final class NtlmMessage {
 
     // NTLM messages start with 0x4e544c4d53535000, NTLMSSP signature
-    private static final byte[] ntlmsspSignature = { 0x4e, 0x54, 0x4c, 0x4d, 0x53, 0x53, 0x50, 0x00 };
+    private static final byte[] NTLM_SSP_SIGNATURE = { 0x4e, 0x54, 0x4c, 0x4d, 0x53, 0x53, 0x50, 0x00 };
 
-    public static boolean isNtlmMessage(byte[] message) {
-        if (message == null || message.length < ntlmsspSignature.length) {
+    public static boolean isNtlmMessage(final byte[] message) {
+        if (message == null || message.length < NTLM_SSP_SIGNATURE.length) {
             return false;
         }
 
-        for (int i = 0; i < ntlmsspSignature.length; i++) {
-            if (ntlmsspSignature[i] != message[i]) {
+        for (int i = 0; i < NTLM_SSP_SIGNATURE.length; i++) {
+            if (NTLM_SSP_SIGNATURE[i] != message[i]) {
                 return false;
             }
         }
@@ -44,8 +44,8 @@ public final class NtlmMessage {
      *            Assuming a valid NTLM message.
      * @return Message type.
      */
-    public static int getMessageType(byte[] message) {
-        return message[ntlmsspSignature.length];
+    public static int getMessageType(final byte[] message) {
+        return message[NTLM_SSP_SIGNATURE.length];
     }
 
     private NtlmMessage() {

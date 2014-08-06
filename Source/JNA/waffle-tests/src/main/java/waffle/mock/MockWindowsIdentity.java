@@ -30,7 +30,7 @@ public class MockWindowsIdentity implements IWindowsIdentity {
     private String       fqn;
     private List<String> groups;
 
-    public MockWindowsIdentity(String fqn, List<String> groups) {
+    public MockWindowsIdentity(final String fqn, final List<String> groups) {
         this.fqn = fqn;
         this.groups = groups;
     }
@@ -42,7 +42,7 @@ public class MockWindowsIdentity implements IWindowsIdentity {
 
     @Override
     public IWindowsAccount[] getGroups() {
-        List<MockWindowsAccount> groups = new ArrayList<MockWindowsAccount>();
+        final List<MockWindowsAccount> groups = new ArrayList<MockWindowsAccount>();
         for (String group : this.groups) {
             groups.add(new MockWindowsAccount(group));
         }

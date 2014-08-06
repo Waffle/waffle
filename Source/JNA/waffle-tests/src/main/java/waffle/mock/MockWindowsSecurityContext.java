@@ -30,8 +30,8 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
 
     private IWindowsIdentity identity;
 
-    public MockWindowsSecurityContext(String username) {
-        List<String> groups = new ArrayList<String>();
+    public MockWindowsSecurityContext(final String username) {
+        final List<String> groups = new ArrayList<String>();
         groups.add("Users");
         groups.add("Everyone");
         this.identity = new MockWindowsIdentity(username, groups);
@@ -82,7 +82,8 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
     }
 
     @Override
-    public void initialize(CtxtHandle continueCtx, SecBufferDesc continueToken, String targetPrincipalName) {
+    public void initialize(final CtxtHandle continueCtx, final SecBufferDesc continueToken,
+            final String targetPrincipalName) {
         // Do Nothing
     }
 }

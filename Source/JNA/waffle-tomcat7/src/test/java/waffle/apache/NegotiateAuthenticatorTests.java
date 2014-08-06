@@ -89,16 +89,16 @@ public class NegotiateAuthenticatorTests {
 
     @Test
     public void testPrincipalFormat() {
-        assertEquals(PrincipalFormat.fqn, this.authenticator.getPrincipalFormat());
+        assertEquals(PrincipalFormat.FQN, this.authenticator.getPrincipalFormat());
         this.authenticator.setPrincipalFormat("both");
-        assertEquals(PrincipalFormat.both, this.authenticator.getPrincipalFormat());
+        assertEquals(PrincipalFormat.BOTH, this.authenticator.getPrincipalFormat());
     }
 
     @Test
     public void testRoleFormat() {
-        assertEquals(PrincipalFormat.fqn, this.authenticator.getRoleFormat());
+        assertEquals(PrincipalFormat.FQN, this.authenticator.getRoleFormat());
         this.authenticator.setRoleFormat("both");
-        assertEquals(PrincipalFormat.both, this.authenticator.getRoleFormat());
+        assertEquals(PrincipalFormat.BOTH, this.authenticator.getRoleFormat());
     }
 
     @Test

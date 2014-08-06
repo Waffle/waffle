@@ -61,8 +61,8 @@ public class WindowsAuthenticationProviderTests {
     public void testWindowsAuthenticationProvider() {
         assertTrue(this.provider.isAllowGuestLogin());
         assertTrue(this.provider.getAuthProvider() instanceof MockWindowsAuthProvider);
-        assertEquals(PrincipalFormat.sid, this.provider.getPrincipalFormat());
-        assertEquals(PrincipalFormat.both, this.provider.getRoleFormat());
+        assertEquals(PrincipalFormat.SID, this.provider.getPrincipalFormatEnum());
+        assertEquals(PrincipalFormat.BOTH, this.provider.getRoleFormatEnum());
     }
 
     @Test

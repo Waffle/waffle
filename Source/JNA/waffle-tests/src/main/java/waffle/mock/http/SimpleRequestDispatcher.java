@@ -28,19 +28,21 @@ public class SimpleRequestDispatcher implements RequestDispatcher {
 
     private String url;
 
-    public SimpleRequestDispatcher(String url) {
-        this.url = url;
+    public SimpleRequestDispatcher(final String newUrl) {
+        this.url = newUrl;
     }
 
     @Override
-    public void forward(ServletRequest request, ServletResponse response) throws ServletException, IOException {
+    public void forward(final ServletRequest request, final ServletResponse response) throws ServletException,
+            IOException {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         httpResponse.setStatus(304);
         httpResponse.addHeader("Location", this.url);
     }
 
     @Override
-    public void include(ServletRequest request, ServletResponse response) throws ServletException, IOException {
+    public void include(final ServletRequest request, final ServletResponse response) throws ServletException,
+            IOException {
         // Do Nothing
     }
 }

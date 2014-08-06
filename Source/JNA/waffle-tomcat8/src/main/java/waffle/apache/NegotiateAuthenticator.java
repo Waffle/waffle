@@ -57,11 +57,11 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
     }
 
     @Override
-    public boolean authenticate(Request request, HttpServletResponse response) {
+    public boolean authenticate(final Request request, final HttpServletResponse response) {
 
         Principal principal = request.getUserPrincipal();
-        AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
-        boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
+        final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
+        final boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
 
         this.log.debug("{} {}, contentlength: {}", request.getMethod(), request.getRequestURI(),
                 Integer.valueOf(request.getContentLength()));
@@ -76,9 +76,9 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
         // authenticate user
         if (!authorizationHeader.isNull()) {
 
-            String securityPackage = authorizationHeader.getSecurityPackage();
+            final String securityPackage = authorizationHeader.getSecurityPackage();
             // maintain a connection-based session for NTLM tokens
-            String connectionId = NtlmServletRequest.getConnectionId(request);
+            final String connectionId = NtlmServletRequest.getConnectionId(request);
 
             this.log.debug("security package: {}, connection id: {}", securityPackage, connectionId);
 
@@ -91,14 +91,14 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
             IWindowsSecurityContext securityContext;
 
             try {
-                byte[] tokenBuffer = authorizationHeader.getTokenBytes();
+                final byte[] tokenBuffer = authorizationHeader.getTokenBytes();
                 this.log.debug("token buffer: {} byte(s)", Integer.valueOf(tokenBuffer.length));
                 securityContext = this.auth.acceptSecurityToken(connectionId, tokenBuffer, securityPackage);
                 this.log.debug("continue required: {}", Boolean.valueOf(securityContext.isContinue()));
 
-                byte[] continueTokenBytes = securityContext.getToken();
+                final byte[] continueTokenBytes = securityContext.getToken();
                 if (continueTokenBytes != null && continueTokenBytes.length > 0) {
-                    String continueToken = BaseEncoding.base64().encode(continueTokenBytes);
+                    final String continueToken = BaseEncoding.base64().encode(continueTokenBytes);
                     this.log.debug("continue token: {}", continueToken);
                     response.addHeader("WWW-Authenticate", securityPackage + " " + continueToken);
                 }
@@ -125,7 +125,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
             }
 
             // create and register the user principal with the session
-            IWindowsIdentity windowsIdentity = securityContext.getIdentity();
+            final IWindowsIdentity windowsIdentity = securityContext.getIdentity();
 
             // disable guest login
             if (!this.allowGuestLogin && windowsIdentity.isGuest()) {
@@ -137,7 +137,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
             try {
                 this.log.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
 
-                GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(windowsIdentity,
+                final GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(windowsIdentity,
                         this.principalFormat, this.roleFormat);
 
                 this.log.debug("roles: {}", windowsPrincipal.getRolesString());
@@ -145,7 +145,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
                 principal = windowsPrincipal;
 
                 // create a session associated with this request if there's none
-                HttpSession session = request.getSession(true);
+                final HttpSession session = request.getSession(true);
                 this.log.debug("session id: {}", session.getId());
 
                 // register the authenticated principal

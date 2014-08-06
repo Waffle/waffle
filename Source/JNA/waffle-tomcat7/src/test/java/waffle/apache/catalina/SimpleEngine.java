@@ -24,6 +24,7 @@ import org.apache.catalina.AccessLog;
 import org.apache.catalina.Cluster;
 import org.apache.catalina.Container;
 import org.apache.catalina.ContainerListener;
+import org.apache.catalina.Engine;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.LifecycleListener;
 import org.apache.catalina.LifecycleState;
@@ -36,7 +37,7 @@ import org.apache.catalina.connector.Request;
 import org.apache.catalina.connector.Response;
 import org.apache.juli.logging.Log;
 
-public class SimpleEngine implements org.apache.catalina.Engine {
+public class SimpleEngine implements Engine {
 
     private Pipeline pipeline;
 

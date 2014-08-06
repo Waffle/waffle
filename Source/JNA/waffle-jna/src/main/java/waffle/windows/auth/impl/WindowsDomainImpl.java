@@ -36,26 +36,11 @@ public class WindowsDomainImpl implements IWindowsDomain {
     private TrustDirection trustDirection = TrustDirection.BIDIRECTIONAL;
     private TrustType      trustType      = TrustType.UNKNOWN;
 
-    @Override
-    public String getFqn() {
-        return this.fqn;
-    }
-
-    @Override
-    public String getTrustDirectionString() {
-        return this.trustDirection.toString();
-    }
-
-    @Override
-    public String getTrustTypeString() {
-        return this.trustType.toString();
-    }
-
-    public WindowsDomainImpl(String fqn) {
+    public WindowsDomainImpl(final String fqn) {
         this.fqn = fqn;
     }
 
-    public WindowsDomainImpl(DomainTrust trust) {
+    public WindowsDomainImpl(final DomainTrust trust) {
         // fqn
         this.fqn = trust.DnsDomainName;
         if (this.fqn == null || this.fqn.length() == 0) {
@@ -76,4 +61,20 @@ public class WindowsDomainImpl implements IWindowsDomain {
             this.trustType = TrustType.TREE_ROOT;
         }
     }
+
+    @Override
+    public String getFqn() {
+        return this.fqn;
+    }
+
+    @Override
+    public String getTrustDirectionString() {
+        return this.trustDirection.toString();
+    }
+
+    @Override
+    public String getTrustTypeString() {
+        return this.trustType.toString();
+    }
+
 }

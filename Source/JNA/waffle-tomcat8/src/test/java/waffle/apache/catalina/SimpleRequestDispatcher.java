@@ -28,8 +28,8 @@ public class SimpleRequestDispatcher implements RequestDispatcher {
 
     private String url;
 
-    public SimpleRequestDispatcher(String url) {
-        this.url = url;
+    public SimpleRequestDispatcher(String newUrl) {
+        this.url = newUrl;
     }
 
     @Override

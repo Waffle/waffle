@@ -41,8 +41,8 @@ public class NegotiateSecurityFilterEntryPoint implements AuthenticationEntryPoi
     }
 
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException ex)
-            throws IOException, ServletException {
+    public void commence(final HttpServletRequest request, final HttpServletResponse response,
+            final AuthenticationException ex) throws IOException, ServletException {
 
         LOGGER.debug("[waffle.spring.NegotiateEntryPoint] commence");
 
@@ -60,7 +60,7 @@ public class NegotiateSecurityFilterEntryPoint implements AuthenticationEntryPoi
         return this.provider;
     }
 
-    public void setProvider(SecurityFilterProviderCollection provider) {
-        this.provider = provider;
+    public void setProvider(final SecurityFilterProviderCollection value) {
+        this.provider = value;
     }
 }

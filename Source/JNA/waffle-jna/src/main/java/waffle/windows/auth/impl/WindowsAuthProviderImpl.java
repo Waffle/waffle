@@ -62,21 +62,22 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
      * @param continueContextsTimeout
      *            Timeout for security contexts in seconds.
      */
-    public WindowsAuthProviderImpl(int continueContextsTimeout) {
+    public WindowsAuthProviderImpl(final int continueContextsTimeout) {
         this.continueContexts = CacheBuilder.newBuilder().expireAfterWrite(continueContextsTimeout, TimeUnit.SECONDS)
                 .build();
     }
 
     @Override
-    public IWindowsSecurityContext acceptSecurityToken(String connectionId, byte[] token, String securityPackage) {
+    public IWindowsSecurityContext acceptSecurityToken(final String connectionId, final byte[] token,
+            final String securityPackage) {
 
         if (token == null || token.length == 0) {
             this.continueContexts.asMap().remove(connectionId);
             throw new Win32Exception(WinError.SEC_E_INVALID_TOKEN);
         }
 
-        IWindowsCredentialsHandle serverCredential = new WindowsCredentialsHandleImpl(null, Sspi.SECPKG_CRED_INBOUND,
-                securityPackage);
+        final IWindowsCredentialsHandle serverCredential = new WindowsCredentialsHandleImpl(null,
+                Sspi.SECPKG_CRED_INBOUND, securityPackage);
         serverCredential.initialize();
 
         WindowsSecurityContextImpl sc = null;
@@ -87,8 +88,8 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
         CtxtHandle continueContext = null;
         SecBufferDesc pbServerToken = null;
         SecBufferDesc pbClientToken = null;
-        IntByReference pfClientContextAttr = new IntByReference();
-        CtxtHandle phNewServerContext = new CtxtHandle();
+        final IntByReference pfClientContextAttr = new IntByReference();
+        final CtxtHandle phNewServerContext = new CtxtHandle();
         do {
             pbServerToken = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, tokenSize);
             pbClientToken = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, token);
@@ -157,15 +158,15 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
     }
 
     @Override
-    public IWindowsIdentity logonDomainUser(String username, String domain, String password) {
+    public IWindowsIdentity logonDomainUser(final String username, final String domain, final String password) {
         return logonDomainUserEx(username, domain, password, WinBase.LOGON32_LOGON_NETWORK,
                 WinBase.LOGON32_PROVIDER_DEFAULT);
     }
 
     @Override
-    public IWindowsIdentity logonDomainUserEx(String username, String domain, String password, int logonType,
-            int logonProvider) {
-        HANDLEByReference phUser = new HANDLEByReference();
+    public IWindowsIdentity logonDomainUserEx(final String username, final String domain, final String password,
+            final int logonType, final int logonProvider) {
+        final HANDLEByReference phUser = new HANDLEByReference();
         if (!Advapi32.INSTANCE.LogonUser(username, domain, password, logonType, logonProvider, phUser)) {
             throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
         }
@@ -173,10 +174,10 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
     }
 
     @Override
-    public IWindowsIdentity logonUser(String username, String password) {
+    public IWindowsIdentity logonUser(final String username, final String password) {
         // username@domain UPN format is natively supported by the
         // Windows LogonUser API process domain\\username format
-        String[] userNameDomain = username.split("\\\\", 2);
+        final String[] userNameDomain = username.split("\\\\", 2);
         if (userNameDomain.length == 2) {
             return logonDomainUser(userNameDomain[1], userNameDomain[0], password);
         }
@@ -184,12 +185,12 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
     }
 
     @Override
-    public IWindowsAccount lookupAccount(String username) {
+    public IWindowsAccount lookupAccount(final String username) {
         return new WindowsAccountImpl(username);
     }
 
     @Override
-    public void resetSecurityToken(String connectionId) {
+    public void resetSecurityToken(final String connectionId) {
         this.continueContexts.asMap().remove(connectionId);
     }
 

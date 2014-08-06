@@ -45,12 +45,11 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
     private IWindowsAuthProvider provider   = new WindowsAuthProviderImpl();
 
     @Override
-    protected final AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authToken)
-            throws AuthenticationException {
+    protected final AuthenticationInfo doGetAuthenticationInfo(final AuthenticationToken authToken) {
         AuthenticationInfo authenticationInfo = null;
         if (authToken instanceof UsernamePasswordToken) {
-            UsernamePasswordToken token = (UsernamePasswordToken) authToken;
-            String username = token.getUsername();
+            final UsernamePasswordToken token = (UsernamePasswordToken) authToken;
+            final String username = token.getUsername();
             IWindowsIdentity identity = null;
             try {
                 LOGGER.debug("Attempting login for user {}", username);
@@ -59,7 +58,7 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
                     LOGGER.debug("Guest identity for user {}; denying access", username);
                     throw new AuthenticationException("Guest identities are not allowed access");
                 }
-                Object principal = new WaffleFqnPrincipal(identity);
+                final Object principal = new WaffleFqnPrincipal(identity);
                 authenticationInfo = buildAuthenticationInfo(token, principal);
                 LOGGER.debug("Successful login for user {}", username);
             } catch (RuntimeException e) {
@@ -75,23 +74,23 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
         return authenticationInfo;
     }
 
-    private AuthenticationInfo buildAuthenticationInfo(UsernamePasswordToken token, Object principal) {
+    private AuthenticationInfo buildAuthenticationInfo(final UsernamePasswordToken token, final Object principal) {
         AuthenticationInfo authenticationInfo;
-        HashingPasswordService hashService = getHashService();
+        final HashingPasswordService hashService = getHashService();
         if (hashService != null) {
-            Hash hash = hashService.hashPassword(token.getPassword());
-            ByteSource salt = hash.getSalt();
+            final Hash hash = hashService.hashPassword(token.getPassword());
+            final ByteSource salt = hash.getSalt();
             authenticationInfo = new SimpleAuthenticationInfo(principal, hash, salt, REALM_NAME);
         } else {
-            Object creds = token.getCredentials();
+            final Object creds = token.getCredentials();
             authenticationInfo = new SimpleAuthenticationInfo(principal, creds, REALM_NAME);
         }
         return authenticationInfo;
     }
 
     @Override
-    protected final AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        WaffleFqnPrincipal principal = principals.oneByType(WaffleFqnPrincipal.class);
+    protected final AuthorizationInfo doGetAuthorizationInfo(final PrincipalCollection principals) {
+        final WaffleFqnPrincipal principal = principals.oneByType(WaffleFqnPrincipal.class);
         return principal == null ? null : buildAuthorizationInfo(principal);
     }
 
@@ -102,21 +101,21 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
      *            the principal for which to assemble authorization information
      * @return the authorization information for the specified principal
      */
-    protected abstract AuthorizationInfo buildAuthorizationInfo(WaffleFqnPrincipal principal);
+    protected abstract AuthorizationInfo buildAuthorizationInfo(final WaffleFqnPrincipal principal);
 
     /**
      * Allow overriding the default implementation of {@link IWindowsAuthProvider} This is only needed for testing,
      * since for normal usage the default is what you want.
      */
-    void setProvider(IWindowsAuthProvider value) {
+    void setProvider(final IWindowsAuthProvider value) {
         this.provider = value;
     }
 
     private HashingPasswordService getHashService() {
-        CredentialsMatcher matcher = getCredentialsMatcher();
+        final CredentialsMatcher matcher = getCredentialsMatcher();
         if (matcher instanceof PasswordMatcher) {
-            PasswordMatcher passwordMatcher = (PasswordMatcher) matcher;
-            PasswordService passwordService = passwordMatcher.getPasswordService();
+            final PasswordMatcher passwordMatcher = (PasswordMatcher) matcher;
+            final PasswordService passwordService = passwordMatcher.getPasswordService();
             if (passwordService instanceof HashingPasswordService) {
                 return (HashingPasswordService) passwordService;
             }

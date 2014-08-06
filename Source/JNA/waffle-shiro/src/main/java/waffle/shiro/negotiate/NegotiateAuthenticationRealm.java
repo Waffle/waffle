@@ -44,7 +44,7 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
     /**
      * This class's private logger.
      */
-    private static final Logger        log = LoggerFactory.getLogger(NegotiateAuthenticationRealm.class);
+    private static final Logger        LOGGER = LoggerFactory.getLogger(NegotiateAuthenticationRealm.class);
 
     private final IWindowsAuthProvider windowsAuthProvider;
 
@@ -58,7 +58,7 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
     }
 
     @Override
-    protected AuthenticationInfo doGetAuthenticationInfo(final AuthenticationToken t) throws AuthenticationException {
+    protected AuthenticationInfo doGetAuthenticationInfo(final AuthenticationToken t) {
 
         final NegotiateToken token = (NegotiateToken) t;
         final byte[] inToken = token.getIn();
@@ -73,16 +73,16 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
             securityContext = this.windowsAuthProvider.acceptSecurityToken(token.getConnectionId(), inToken,
                     token.getSecurityPackage());
         } catch (Exception e) {
-            log.warn("error logging in user: {}", e.getMessage());
+            LOGGER.warn("error logging in user: {}", e.getMessage());
             throw new AuthenticationException(e);
         }
 
         final byte[] continueTokenBytes = securityContext.getToken();
         token.setOut(continueTokenBytes);
         if (continueTokenBytes != null) {
-            log.debug("continue token bytes: {}", Integer.valueOf(continueTokenBytes.length));
+            LOGGER.debug("continue token bytes: {}", Integer.valueOf(continueTokenBytes.length));
         } else {
-            log.debug("no continue token bytes");
+            LOGGER.debug("no continue token bytes");
         }
 
         if (securityContext.isContinue() || token.isNtlmPost()) {
@@ -92,7 +92,7 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
         final IWindowsIdentity windowsIdentity = securityContext.getIdentity();
         securityContext.dispose();
 
-        log.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
+        LOGGER.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
 
         final Principal principal = new WindowsPrincipal(windowsIdentity);
         token.setPrincipal(principal);

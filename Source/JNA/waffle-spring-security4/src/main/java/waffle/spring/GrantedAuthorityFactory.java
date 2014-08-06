@@ -26,6 +26,6 @@ public interface GrantedAuthorityFactory {
     /**
      * Creates a {@link GrantedAuthority} from the given {@link WindowsAccount}.
      */
-    GrantedAuthority createGrantedAuthority(WindowsAccount windowsAccount);
+    GrantedAuthority createGrantedAuthority(final WindowsAccount windowsAccount);
 
 }
