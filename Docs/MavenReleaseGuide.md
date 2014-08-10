@@ -17,7 +17,7 @@ One-Time Release Setup
 
 In order to perform Maven releases, there's some extra steps needed beyond what's needed to build WAFFLE.
 
-First, make sure you have a [GPG][] client installed and on your command-line path.  If you don't already have one, create a [GPG][] key pair and distribute your public key to hkp://pool.sks-keyservers.net/.  See [How To Generate PGP Signatures With Maven](https://docs.sonatype.org/display/Repository/How+To+Generate+PGP+Signatures+With+Maven) for more information.
+First, make sure you have a [GPG][] client installed and on your command-line path.  If you don't already have one, create a [GPG][] key pair and distribute your public key to hkp://pool.sks-keyservers.net/.  See [How To Generate PGP Signatures With Maven](http://central.sonatype.org/pages/working-with-pgp-signatures.html) for more information.
 
 Next, you need to get access to the Sonatype OSS repositories.  This is covered as steps 2-3 in the [Sonatype OSS Maven Repository Usage Guide][OSSGuide].  The correct groupId to use is "com.github.dblock".
 
@@ -72,7 +72,7 @@ Once you've succeeded in finishing those steps, log in to [Sonatype OS](https://
 *   The release should now be in the *Releases* repository.
 *   For projects that have Maven Central synchonization enabled, their artifacts in the *Releases* repository are synched to Maven Central every two hours. The *very first time* the WAFFLE project published required a comment on the setup JIRA ticket to get synch enabled.
 
-[OSSGuide]: https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide
+[OSSGuide]: http://central.sonatype.org/pages/ossrh-guide.html
 [Maven]: http://maven.apache.org/
 [gpg]: http://www.gnupg.org/
 [maven-release-plugin]: http://maven.apache.org/plugins/maven-release-plugin/
