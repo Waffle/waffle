@@ -90,8 +90,8 @@
         <url>https://github.com/dblock/waffle/issues</url>
     </issueManagement>
     <ciManagement>
-        <system>jenkins</system>
-        <url>http://localhost:8080/jenkins</url>
+        <system>travis</system>
+        <url>https://travis-ci.org/dblock/waffle/</url>
     </ciManagement>
     <properties>
         <copywrite>2014</copywrite>
@@ -486,6 +486,10 @@
                 <artifactId>git-commit-id-plugin</artifactId>
                 <configuration>
                     <dotGitDirectory>${git.relative.loc}/.git</dotGitDirectory>
+                    <!-- Fixes occassional issue in commit id plugin - see https://github.com/ktoso/maven-git-commit-id-plugin/issues/61 -->
+                    <gitDescribe>
+                        <skip>true</skip>
+                    </gitDescribe>
                 </configuration>
                 <executions>
                     <execution>
