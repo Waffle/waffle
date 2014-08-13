@@ -129,7 +129,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
         }
 
         // log the user in using the token
-        IWindowsSecurityContext securityContext = null;
+        IWindowsSecurityContext securityContext;
 
         try {
             final byte[] tokenBuffer = authorizationHeader.getTokenBytes();
@@ -139,7 +139,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 
             final byte[] continueTokenBytes = securityContext.getToken();
             if (continueTokenBytes != null && continueTokenBytes.length > 0) {
-                String continueToken = BaseEncoding.base64().encode(continueTokenBytes);
+                final String continueToken = BaseEncoding.base64().encode(continueTokenBytes);
                 this.log.debug("continue token: {}", continueToken);
                 response.addHeader("WWW-Authenticate", securityPackage + " " + continueToken);
             }
@@ -169,6 +169,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
         }
 
         try {
+
             this.log.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
 
             final GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(windowsIdentity,
@@ -197,7 +198,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 
         this.log.debug("logging in: {}", username);
 
-        IWindowsIdentity windowsIdentity = null;
+        IWindowsIdentity windowsIdentity;
         try {
             windowsIdentity = this.auth.logonUser(username, password);
         } catch (Exception e) {

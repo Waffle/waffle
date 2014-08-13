@@ -29,7 +29,7 @@ import com.google.common.base.Joiner;
  */
 public class SimpleHttpResponse extends Response {
 
-    private static final Logger       logger  = LoggerFactory.getLogger(SimpleHttpResponse.class);
+    private static final Logger       LOGGER  = LoggerFactory.getLogger(SimpleHttpResponse.class);
 
     private int                       status  = 500;
     private Map<String, List<String>> headers = new HashMap<String, List<String>>();
@@ -75,10 +75,10 @@ public class SimpleHttpResponse extends Response {
 
     @Override
     public void flushBuffer() {
-        SimpleHttpResponse.logger.info("{} {}", Integer.valueOf(this.status), getStatusString());
+        SimpleHttpResponse.LOGGER.info("{} {}", Integer.valueOf(this.status), getStatusString());
         for (String header : this.headers.keySet()) {
             for (String headerValue : this.headers.get(header)) {
-                SimpleHttpResponse.logger.info("{}: {}", header, headerValue);
+                SimpleHttpResponse.LOGGER.info("{}: {}", header, headerValue);
             }
         }
     }

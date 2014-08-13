@@ -32,12 +32,12 @@ public class WindowsRealm extends RealmBase {
     }
 
     @Override
-    protected String getPassword(final String arg0) {
+    protected String getPassword(final String value) {
         return null;
     }
 
     @Override
-    protected Principal getPrincipal(final String arg0) {
+    protected Principal getPrincipal(final String value) {
         return null;
     }
 }
