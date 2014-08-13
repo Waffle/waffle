@@ -40,7 +40,6 @@ public class SimpleFilterChain implements FilterChain {
 
     @Override
     public void doFilter(ServletRequest sreq, ServletResponse srep) throws IOException, ServletException {
-
         this.request = sreq;
         this.response = srep;
     }

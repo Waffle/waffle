@@ -38,46 +38,55 @@ public class SimpleHttpSession implements HttpSession {
 
     @Override
     public Enumeration<String> getAttributeNames() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public long getCreationTime() {
+        // Not Implemented
         return 0;
     }
 
     @Override
     public String getId() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public long getLastAccessedTime() {
+        // Not Implemented
         return 0;
     }
 
     @Override
     public int getMaxInactiveInterval() {
+        // Not Implemented
         return 0;
     }
 
     @Override
     public ServletContext getServletContext() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public HttpSessionContext getSessionContext() {
+        // Not Implemented
         return null;
     }
 
     @Override
     public Object getValue(String arg0) {
+        // Not Implemented
         return null;
     }
 
     @Override
     public String[] getValueNames() {
+        // Not Implemented
         return new String[0];
     }
 
@@ -88,6 +97,7 @@ public class SimpleHttpSession implements HttpSession {
 
     @Override
     public boolean isNew() {
+        // Not Implemented
         return false;
     }
 

@@ -216,7 +216,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
         }
         try {
             this.log.debug("successfully logged in {} ({})", username, windowsIdentity.getSidString());
-            GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(windowsIdentity,
+            final GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(windowsIdentity,
                     this.principalFormat, this.roleFormat);
             this.log.debug("roles: {}", windowsPrincipal.getRolesString());
             return windowsPrincipal;

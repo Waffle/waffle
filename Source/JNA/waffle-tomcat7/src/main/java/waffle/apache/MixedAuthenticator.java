@@ -95,7 +95,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
             sendUnauthorized(response);
             return false;
         } else if (securityCheck) {
-            boolean postResult = post(request, response);
+            final boolean postResult = post(request, response);
             if (postResult) {
                 redirectTo(request, response, request.getServletPath());
             } else {

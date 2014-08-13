@@ -31,8 +31,9 @@ setspn -A HTTP/machine:port username
 ```
 
 Useful Troubleshooting Resources:
-* [Enabling Kerberos Logging](http://support.microsoft.com/?id=262177)
-* [Troubleshooting Kerberos Delegation](http://www.microsoft.com/downloads/en/details.aspx?familyid=99b0f94f-e28a-4726-bffe-2f64ae2f59a2&displaylang=en)
+* [Enabling Kerberos Logging](http://support.microsoft.com/kb/262177/en-us)
+* [Troubleshooting Kerberos Delegation](http://www.microsoft.com/en-us/download/confirmation.aspx?id=4754)
+
 
 
 Troubleshooting NTLM
@@ -55,7 +56,7 @@ With new versions of Internet Explorer, Firefox or Chrome, use developer tools.
 
 With older versions of Internet Explorer, trace the HTTP request/response.
 
-1. Download and install [IEHttpHeaders](http://www.brothersoft.com/downloads/iehttpheaders.html).
+1. Download and install [IEHttpHeaders](http://www.blunck.info/iehttpheaders.html).
 2. Choose _Tools_, Display _IEHttpHeaders_.
 3. Make one request that ends up in a popup or failure.
 4. Copy the entire HTTP conversation.

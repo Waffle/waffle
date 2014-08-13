@@ -75,16 +75,16 @@ public class SimpleHttpRequest extends Request {
         return this.remotePort;
     }
 
-    public void setMethod(String methodName) {
-        this.method = methodName;
+    public void setMethod(String value) {
+        this.method = value;
     }
 
     public void setContentLength(int length) {
         this.content = new byte[length];
     }
 
-    public void setRemoteUser(String username) {
-        this.remoteUser = username;
+    public void setRemoteUser(String value) {
+        this.remoteUser = value;
     }
 
     @Override
@@ -110,8 +110,8 @@ public class SimpleHttpRequest extends Request {
         return this.queryString;
     }
 
-    public void setQueryString(String queryString) {
-        this.queryString = queryString;
+    public void setQueryString(String queryValue) {
+        this.queryString = queryValue;
         if (this.queryString != null) {
             for (String eachParameter : this.queryString.split("[&]")) {
                 String[] pair = eachParameter.split("=");
@@ -121,8 +121,8 @@ public class SimpleHttpRequest extends Request {
         }
     }
 
-    public void setRequestURI(String uri) {
-        this.requestURI = uri;
+    public void setRequestURI(String value) {
+        this.requestURI = value;
     }
 
     @Override
@@ -145,8 +145,8 @@ public class SimpleHttpRequest extends Request {
     }
 
     @Override
-    public void setRemoteHost(String remoteHost) {
-        this.remoteHost = remoteHost;
+    public void setRemoteHost(String value) {
+        this.remoteHost = value;
     }
 
     @Override
@@ -155,8 +155,8 @@ public class SimpleHttpRequest extends Request {
     }
 
     @Override
-    public void setRemoteAddr(String remoteAddr) {
-        this.remoteAddr = remoteAddr;
+    public void setRemoteAddr(String value) {
+        this.remoteAddr = value;
     }
 
     @Override
@@ -165,7 +165,7 @@ public class SimpleHttpRequest extends Request {
     }
 
     @Override
-    public void setUserPrincipal(Principal principal) {
-        this.principal = principal;
+    public void setUserPrincipal(Principal value) {
+        this.principal = value;
     }
 }

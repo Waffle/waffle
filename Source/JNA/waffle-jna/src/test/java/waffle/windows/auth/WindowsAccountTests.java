@@ -26,12 +26,12 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
  */
 public class WindowsAccountTests {
 
-    private Logger logger = LoggerFactory.getLogger(WindowsAccountTests.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(WindowsAccountTests.class);
 
     @Test
     public void testGetCurrentUsername() {
         String currentUsername = WindowsAccountImpl.getCurrentUsername();
-        this.logger.info("Current username: {}", currentUsername);
+        WindowsAccountTests.LOGGER.info("Current username: {}", currentUsername);
         assertTrue(currentUsername.length() > 0);
     }
 
@@ -40,13 +40,13 @@ public class WindowsAccountTests {
         String currentUsername = WindowsAccountImpl.getCurrentUsername();
         IWindowsAccount account = new WindowsAccountImpl(currentUsername);
         assertTrue(account.getName().length() > 0);
-        this.logger.info("Name: {}", account.getName());
+        WindowsAccountTests.LOGGER.info("Name: {}", account.getName());
         assertTrue(account.getDomain().length() > 0);
-        this.logger.info("Domain: {}", account.getDomain());
+        WindowsAccountTests.LOGGER.info("Domain: {}", account.getDomain());
         assertTrue(account.getFqn().length() > 0);
-        this.logger.info("Fqn: {}", account.getFqn());
+        WindowsAccountTests.LOGGER.info("Fqn: {}", account.getFqn());
         assertTrue(account.getSidString().length() > 0);
-        this.logger.info("Sid: {}", account.getSidString());
+        WindowsAccountTests.LOGGER.info("Sid: {}", account.getSidString());
         // To avoid errors with machine naming being all upper-case, use test in this manner
         assertTrue(currentUsername.equalsIgnoreCase(account.getFqn()));
         assertTrue(currentUsername.endsWith("\\" + account.getName()));

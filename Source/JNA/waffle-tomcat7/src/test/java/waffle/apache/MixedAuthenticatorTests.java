@@ -134,7 +134,6 @@ public class MixedAuthenticatorTests {
     @Test
     public void testNegotiate() {
         String securityPackage = "Negotiate";
-        // client credentials handle
         IWindowsCredentialsHandle clientCredentials = null;
         WindowsSecurityContextImpl clientContext = null;
         try {

@@ -28,8 +28,8 @@ public class SimpleRequestDispatcher implements RequestDispatcher {
 
     private String url;
 
-    public SimpleRequestDispatcher(String url) {
-        this.url = url;
+    public SimpleRequestDispatcher(String newUrl) {
+        this.url = newUrl;
     }
 
     @Override
@@ -41,5 +41,7 @@ public class SimpleRequestDispatcher implements RequestDispatcher {
 
     @Override
     public void include(ServletRequest request, ServletResponse response) throws ServletException, IOException {
+        // Not Implemented
     }
+
 }

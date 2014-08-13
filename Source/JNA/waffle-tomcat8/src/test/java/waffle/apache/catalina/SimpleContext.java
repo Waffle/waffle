@@ -101,7 +101,7 @@ public class SimpleContext implements Context {
     }
 
     @Override
-    public void addLocaleEncodingMappingParameter(String value, String arg1) {
+    public void addLocaleEncodingMappingParameter(String locale, String encoding) {
         // Not Implemented
     }
 
@@ -1379,4 +1379,5 @@ public class SimpleContext implements Context {
         // Not Implemented
         return null;
     }
+
 }
