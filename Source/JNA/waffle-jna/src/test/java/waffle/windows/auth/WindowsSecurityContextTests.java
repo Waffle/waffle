@@ -28,9 +28,9 @@ public class WindowsSecurityContextTests {
 
     @Test
     public void testNegotiate() {
-        String securityPackage = "Negotiate";
+        final String securityPackage = "Negotiate";
         // security context
-        IWindowsSecurityContext ctx = WindowsSecurityContextImpl.getCurrent(securityPackage,
+        final IWindowsSecurityContext ctx = WindowsSecurityContextImpl.getCurrent(securityPackage,
                 WindowsAccountImpl.getCurrentUsername());
         assertTrue(ctx.isContinue());
         assertEquals(securityPackage, ctx.getSecurityPackage());

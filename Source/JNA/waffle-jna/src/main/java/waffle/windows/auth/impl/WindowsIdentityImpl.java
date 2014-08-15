@@ -63,10 +63,10 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
     @Override
     public IWindowsAccount[] getGroups() {
 
-        final Account[] userGroups = getUserGroups();
+        final Account[] groups = getUserGroups();
 
-        final List<IWindowsAccount> result = new ArrayList<IWindowsAccount>(userGroups.length);
-        for (Account userGroup : userGroups) {
+        final List<IWindowsAccount> result = new ArrayList<IWindowsAccount>(groups.length);
+        for (Account userGroup : groups) {
             WindowsAccountImpl account = new WindowsAccountImpl(userGroup);
             result.add(account);
         }

@@ -37,6 +37,7 @@ import waffle.mock.http.SimpleHttpRequest;
 import waffle.mock.http.SimpleHttpResponse;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
+import com.google.common.base.Charsets;
 import com.google.common.io.BaseEncoding;
 import com.sun.jna.WString;
 import com.sun.jna.platform.win32.Advapi32Util;
@@ -85,28 +86,29 @@ public class ImpersonateTests {
         assertFalse("Current user shouldn't be the test user prior to the test",
                 Advapi32Util.getUserName().equals(MockWindowsAccount.TEST_USER_NAME));
 
-        SimpleHttpRequest request = new SimpleHttpRequest();
+        final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
-        String userHeaderValue = MockWindowsAccount.TEST_USER_NAME + ":" + MockWindowsAccount.TEST_PASSWORD;
-        String basicAuthHeader = "Basic " + BaseEncoding.base64().encode(userHeaderValue.getBytes());
+        final String userHeaderValue = MockWindowsAccount.TEST_USER_NAME + ":" + MockWindowsAccount.TEST_PASSWORD;
+        final String basicAuthHeader = "Basic "
+                + BaseEncoding.base64().encode(userHeaderValue.getBytes(Charsets.UTF_8));
         request.addHeader("Authorization", basicAuthHeader);
 
-        SimpleHttpResponse response = new SimpleHttpResponse();
-        RecordUserNameFilterChain filterChain = new RecordUserNameFilterChain();
+        final SimpleHttpResponse response = new SimpleHttpResponse();
+        final RecordUserNameFilterChain filterChain = new RecordUserNameFilterChain();
 
         AutoDisposableWindowsPrincipal windowsPrincipal = null;
         try {
             this.filter.setImpersonate(true);
             this.filter.doFilter(request, response, filterChain);
 
-            Subject subject = (Subject) request.getSession().getAttribute("javax.security.auth.subject");
-            boolean authenticated = (subject != null && subject.getPrincipals().size() > 0);
+            final Subject subject = (Subject) request.getSession().getAttribute("javax.security.auth.subject");
+            final boolean authenticated = (subject != null && subject.getPrincipals().size() > 0);
             assertTrue("Test user should be authenticated", authenticated);
 
             if (subject == null) {
                 return;
             }
-            Principal principal = subject.getPrincipals().iterator().next();
+            final Principal principal = subject.getPrincipals().iterator().next();
             assertTrue(principal instanceof AutoDisposableWindowsPrincipal);
             windowsPrincipal = (AutoDisposableWindowsPrincipal) principal;
 
@@ -126,27 +128,28 @@ public class ImpersonateTests {
 
         assertFalse("Current user shouldn't be the test user prior to the test",
                 Advapi32Util.getUserName().equals(MockWindowsAccount.TEST_USER_NAME));
-        SimpleHttpRequest request = new SimpleHttpRequest();
+        final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
-        String userHeaderValue = MockWindowsAccount.TEST_USER_NAME + ":" + MockWindowsAccount.TEST_PASSWORD;
-        String basicAuthHeader = "Basic " + BaseEncoding.base64().encode(userHeaderValue.getBytes());
+        final String userHeaderValue = MockWindowsAccount.TEST_USER_NAME + ":" + MockWindowsAccount.TEST_PASSWORD;
+        final String basicAuthHeader = "Basic "
+                + BaseEncoding.base64().encode(userHeaderValue.getBytes(Charsets.UTF_8));
         request.addHeader("Authorization", basicAuthHeader);
-        SimpleHttpResponse response = new SimpleHttpResponse();
-        RecordUserNameFilterChain filterChain = new RecordUserNameFilterChain();
+        final SimpleHttpResponse response = new SimpleHttpResponse();
+        final RecordUserNameFilterChain filterChain = new RecordUserNameFilterChain();
 
         WindowsPrincipal windowsPrincipal = null;
         try {
             this.filter.setImpersonate(false);
             this.filter.doFilter(request, response, filterChain);
 
-            Subject subject = (Subject) request.getSession().getAttribute("javax.security.auth.subject");
-            boolean authenticated = (subject != null && subject.getPrincipals().size() > 0);
+            final Subject subject = (Subject) request.getSession().getAttribute("javax.security.auth.subject");
+            final boolean authenticated = (subject != null && subject.getPrincipals().size() > 0);
             assertTrue("Test user should be authenticated", authenticated);
 
             if (subject == null) {
                 return;
             }
-            Principal principal = subject.getPrincipals().iterator().next();
+            final Principal principal = subject.getPrincipals().iterator().next();
             assertTrue(principal instanceof WindowsPrincipal);
             windowsPrincipal = (WindowsPrincipal) principal;
 
@@ -164,7 +167,7 @@ public class ImpersonateTests {
     /**
      * Filter chain that records current username
      */
-    public class RecordUserNameFilterChain extends SimpleFilterChain {
+    public static class RecordUserNameFilterChain extends SimpleFilterChain {
         private String userName;
 
         @Override

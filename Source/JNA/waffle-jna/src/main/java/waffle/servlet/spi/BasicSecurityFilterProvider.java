@@ -22,6 +22,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Charsets;
+
 import waffle.util.AuthorizationHeader;
 import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.IWindowsIdentity;
@@ -46,7 +48,7 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
             throws IOException {
 
         final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
-        final String usernamePassword = new String(authorizationHeader.getTokenBytes());
+        final String usernamePassword = new String(authorizationHeader.getTokenBytes(), Charsets.UTF_8);
         final String[] usernamePasswordArray = usernamePassword.split(":", 2);
         if (usernamePasswordArray.length != 2) {
             throw new RuntimeException("Invalid username:password in Authorization header.");

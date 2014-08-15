@@ -30,15 +30,15 @@ public class WindowsAccountTests {
 
     @Test
     public void testGetCurrentUsername() {
-        String currentUsername = WindowsAccountImpl.getCurrentUsername();
+        final String currentUsername = WindowsAccountImpl.getCurrentUsername();
         WindowsAccountTests.LOGGER.info("Current username: {}", currentUsername);
         assertTrue(currentUsername.length() > 0);
     }
 
     @Test
     public void testGetCurrentAccount() {
-        String currentUsername = WindowsAccountImpl.getCurrentUsername();
-        IWindowsAccount account = new WindowsAccountImpl(currentUsername);
+        final String currentUsername = WindowsAccountImpl.getCurrentUsername();
+        final IWindowsAccount account = new WindowsAccountImpl(currentUsername);
         assertTrue(account.getName().length() > 0);
         WindowsAccountTests.LOGGER.info("Name: {}", account.getName());
         assertTrue(account.getDomain().length() > 0);

@@ -41,16 +41,16 @@ public class UserPrincipalTests {
     @Test
     public void testIsSerializable() throws IOException, ClassNotFoundException {
         // serialize
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(out);
+        final ByteArrayOutputStream out = new ByteArrayOutputStream();
+        final ObjectOutputStream oos = new ObjectOutputStream(out);
         oos.writeObject(this.userPrincipal);
         oos.close();
         assertTrue(out.toByteArray().length > 0);
         // deserialize
-        InputStream in = new ByteArrayInputStream(out.toByteArray());
-        ObjectInputStream ois = new ObjectInputStream(in);
-        Object o = ois.readObject();
-        UserPrincipal copy = (UserPrincipal) o;
+        final InputStream in = new ByteArrayInputStream(out.toByteArray());
+        final ObjectInputStream ois = new ObjectInputStream(in);
+        final Object o = ois.readObject();
+        final UserPrincipal copy = (UserPrincipal) o;
         // test
         assertEquals(this.userPrincipal, copy);
         assertEquals(this.userPrincipal.getName(), copy.getName());

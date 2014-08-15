@@ -65,7 +65,7 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 
     @Override
     public byte[] getToken() {
-        return this.token == null ? null : this.token.getBytes().clone();
+        return this.token == null || this.token.getBytes() == null ? null : this.token.getBytes().clone();
     }
 
     /**

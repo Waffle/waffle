@@ -33,6 +33,7 @@ import org.springframework.security.Authentication;
 import org.springframework.security.GrantedAuthority;
 import org.springframework.security.context.SecurityContextHolder;
 
+import com.google.common.base.Charsets;
 import com.google.common.io.BaseEncoding;
 
 import waffle.mock.http.SimpleFilterChain;
@@ -54,7 +55,7 @@ public class NegotiateSecurityFilterTests {
 
     @Before
     public void setUp() {
-        String[] configFiles = new String[] { "springTestFilterBeans.xml" };
+        final String[] configFiles = new String[] { "springTestFilterBeans.xml" };
         this.ctx = new ClassPathXmlApplicationContext(configFiles);
         SecurityContextHolder.getContext().setAuthentication(null);
         this.filter = (NegotiateSecurityFilter) this.ctx.getBean("waffleNegotiateSecurityFilter");
@@ -76,7 +77,7 @@ public class NegotiateSecurityFilterTests {
 
     @Test
     public void testProvider() throws ClassNotFoundException {
-        SecurityFilterProviderCollection provider = this.filter.getProvider();
+        final SecurityFilterProviderCollection provider = this.filter.getProvider();
         assertEquals(2, provider.size());
         assertTrue(provider.getByClassName("waffle.servlet.spi.BasicSecurityFilterProvider") instanceof BasicSecurityFilterProvider);
         assertTrue(provider.getByClassName("waffle.servlet.spi.NegotiateSecurityFilterProvider") instanceof NegotiateSecurityFilterProvider);
@@ -84,10 +85,10 @@ public class NegotiateSecurityFilterTests {
 
     @Test
     public void testNoChallengeGET() throws IOException, ServletException {
-        SimpleHttpRequest request = new SimpleHttpRequest();
+        final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
-        SimpleHttpResponse response = new SimpleHttpResponse();
-        SimpleFilterChain chain = new SimpleFilterChain();
+        final SimpleHttpResponse response = new SimpleHttpResponse();
+        final SimpleFilterChain chain = new SimpleFilterChain();
         this.filter.doFilter(request, response, chain);
         // unlike servlet filters, it's a passthrough
         assertEquals(500, response.getStatus());
@@ -95,19 +96,20 @@ public class NegotiateSecurityFilterTests {
 
     @Test
     public void testNegotiate() throws IOException, ServletException {
-        String securityPackage = "Negotiate";
-        SimpleFilterChain filterChain = new SimpleFilterChain();
-        SimpleHttpRequest request = new SimpleHttpRequest();
+        final String securityPackage = "Negotiate";
+        final SimpleFilterChain filterChain = new SimpleFilterChain();
+        final SimpleHttpRequest request = new SimpleHttpRequest();
 
-        String clientToken = BaseEncoding.base64().encode(WindowsAccountImpl.getCurrentUsername().getBytes());
+        final String clientToken = BaseEncoding.base64().encode(
+                WindowsAccountImpl.getCurrentUsername().getBytes(Charsets.UTF_8));
         request.addHeader("Authorization", securityPackage + " " + clientToken);
 
-        SimpleHttpResponse response = new SimpleHttpResponse();
+        final SimpleHttpResponse response = new SimpleHttpResponse();
         this.filter.doFilter(request, response, filterChain);
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         assertNotNull(auth);
-        GrantedAuthority[] authorities = auth.getAuthorities();
+        final GrantedAuthority[] authorities = auth.getAuthorities();
         assertNotNull(authorities);
         assertEquals(3, authorities.length);
         assertEquals("ROLE_USER", authorities[0].getAuthority());
@@ -118,10 +120,10 @@ public class NegotiateSecurityFilterTests {
 
     @Test
     public void testUnsupportedSecurityPackagePassthrough() throws IOException, ServletException {
-        SimpleFilterChain filterChain = new SimpleFilterChain();
-        SimpleHttpRequest request = new SimpleHttpRequest();
+        final SimpleFilterChain filterChain = new SimpleFilterChain();
+        final SimpleHttpRequest request = new SimpleHttpRequest();
         request.addHeader("Authorization", "Unsupported challenge");
-        SimpleHttpResponse response = new SimpleHttpResponse();
+        final SimpleHttpResponse response = new SimpleHttpResponse();
         this.filter.doFilter(request, response, filterChain);
         // the filter should ignore authorization for an unsupported security package, ie. not return a 401
         assertEquals(500, response.getStatus());
@@ -129,14 +131,14 @@ public class NegotiateSecurityFilterTests {
 
     @Test
     public void testGuestIsDisabled() throws IOException, ServletException {
-        String securityPackage = "Negotiate";
-        SimpleFilterChain filterChain = new SimpleFilterChain();
-        SimpleHttpRequest request = new SimpleHttpRequest();
+        final String securityPackage = "Negotiate";
+        final SimpleFilterChain filterChain = new SimpleFilterChain();
+        final SimpleHttpRequest request = new SimpleHttpRequest();
 
-        String clientToken = BaseEncoding.base64().encode("Guest".getBytes());
+        final String clientToken = BaseEncoding.base64().encode("Guest".getBytes(Charsets.UTF_8));
         request.addHeader("Authorization", securityPackage + " " + clientToken);
 
-        SimpleHttpResponse response = new SimpleHttpResponse();
+        final SimpleHttpResponse response = new SimpleHttpResponse();
         this.filter.doFilter(request, response, filterChain);
 
         assertEquals(401, response.getStatus());

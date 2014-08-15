@@ -147,7 +147,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 
                 // create a session associated with this request if there's none
                 final HttpSession session = request.getSession(true);
-                this.log.debug("session id: {}", session.getId());
+                this.log.debug("session id: {}", session == null ? "null" : session.getId());
 
                 // register the authenticated principal
                 register(request, response, principal, securityPackage, principal.getName(), null);

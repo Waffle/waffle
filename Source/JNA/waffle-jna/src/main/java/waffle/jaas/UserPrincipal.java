@@ -29,11 +29,11 @@ public class UserPrincipal implements Principal, Serializable {
     /**
      * A user principal.
      * 
-     * @param fqn
+     * @param newFqn
      *            Fully qualified username.
      */
-    public UserPrincipal(final String fqn) {
-        this.fqn = fqn;
+    public UserPrincipal(final String newFqn) {
+        this.fqn = newFqn;
     }
 
     /**

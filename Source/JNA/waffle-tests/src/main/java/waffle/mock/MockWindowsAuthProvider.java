@@ -16,6 +16,7 @@ package waffle.mock;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.base.Charsets;
 import com.sun.jna.platform.win32.Secur32Util;
 import com.sun.jna.platform.win32.Secur32.EXTENDED_NAME_FORMAT;
 
@@ -47,7 +48,7 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
     @Override
     public IWindowsSecurityContext acceptSecurityToken(final String connectionId, final byte[] token,
             final String securityPackage) {
-        return new MockWindowsSecurityContext(new String(token));
+        return new MockWindowsSecurityContext(new String(token, Charsets.UTF_8));
     }
 
     @Override

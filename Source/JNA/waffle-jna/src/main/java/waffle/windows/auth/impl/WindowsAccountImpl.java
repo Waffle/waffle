@@ -35,8 +35,8 @@ public class WindowsAccountImpl implements IWindowsAccount {
      * @param account
      *            Account.
      */
-    public WindowsAccountImpl(final Account account) {
-        this.account = account;
+    public WindowsAccountImpl(final Account newAccount) {
+        this.account = newAccount;
     }
 
     /**

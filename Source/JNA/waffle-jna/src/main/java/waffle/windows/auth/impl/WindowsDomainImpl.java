@@ -36,8 +36,8 @@ public class WindowsDomainImpl implements IWindowsDomain {
     private TrustDirection trustDirection = TrustDirection.BIDIRECTIONAL;
     private TrustType      trustType      = TrustType.UNKNOWN;
 
-    public WindowsDomainImpl(final String fqn) {
-        this.fqn = fqn;
+    public WindowsDomainImpl(final String newFqn) {
+        this.fqn = newFqn;
     }
 
     public WindowsDomainImpl(final DomainTrust trust) {

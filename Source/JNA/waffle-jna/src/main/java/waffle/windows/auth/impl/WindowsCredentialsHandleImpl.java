@@ -39,18 +39,18 @@ public class WindowsCredentialsHandleImpl implements IWindowsCredentialsHandle {
     /**
      * A new Windows credentials handle.
      * 
-     * @param principalName
+     * @param newPrincipalName
      *            Principal name.
-     * @param credentialsType
+     * @param newCredentialsType
      *            Credentials type.
-     * @param securityPackage
+     * @param newSecurityPackage
      *            Security package.
      */
-    public WindowsCredentialsHandleImpl(final String principalName, final int credentialsType,
-            final String securityPackage) {
-        this.principalName = principalName;
-        this.credentialsType = credentialsType;
-        this.securityPackage = securityPackage;
+    public WindowsCredentialsHandleImpl(final String newPrincipalName, final int newCredentialsType,
+            final String newSecurityPackage) {
+        this.principalName = newPrincipalName;
+        this.credentialsType = newCredentialsType;
+        this.securityPackage = newSecurityPackage;
     }
 
     /**

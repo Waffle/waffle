@@ -38,31 +38,29 @@ public class WaffleInfoTests {
 
     @Test
     public void testWaffleInfo() throws ParserConfigurationException {
-        WaffleInfo helper = new WaffleInfo();
-        Document info = helper.getWaffleInfo();
+        final WaffleInfo helper = new WaffleInfo();
+        final Document info = helper.getWaffleInfo();
 
         // Make sure JNA Version is properly noted
         assertEquals(Platform.class.getPackage().getImplementationVersion(),
                 info.getDocumentElement().getAttribute("jna"));
 
-        Node node = info.getDocumentElement() // waffle
-                .getFirstChild() // auth
-                .getFirstChild() // currentUser
-                .getNextSibling(); // computer
+        // waffle auth currentUser computer
+        final Node node = info.getDocumentElement().getFirstChild().getFirstChild().getNextSibling();
 
         assertEquals("computer", node.getNodeName());
 
-        IWindowsAuthProvider auth = new WindowsAuthProviderImpl();
-        IWindowsComputer computer = auth.getCurrentComputer();
+        final IWindowsAuthProvider auth = new WindowsAuthProviderImpl();
+        final IWindowsComputer computer = auth.getCurrentComputer();
 
-        NodeList nodes = node.getChildNodes();
+        final NodeList nodes = node.getChildNodes();
         assertEquals(computer.getComputerName(), nodes.item(0).getTextContent());
         assertEquals(computer.getMemberOf(), nodes.item(1).getTextContent());
         assertEquals(computer.getJoinStatus(), nodes.item(2).getTextContent());
 
         // Add Lookup Info for Various accounts
         String lookup = WindowsAccountImpl.getCurrentUsername();
-        IWindowsAccount account = new WindowsAccountImpl(lookup);
+        final IWindowsAccount account = new WindowsAccountImpl(lookup);
         Element elem = helper.getLookupInfo(info, lookup);
         assertEquals(lookup, elem.getAttribute("name"));
         assertEquals(account.getName(), elem.getFirstChild().getTextContent());

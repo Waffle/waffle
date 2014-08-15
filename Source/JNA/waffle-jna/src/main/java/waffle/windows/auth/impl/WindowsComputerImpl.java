@@ -32,9 +32,9 @@ public class WindowsComputerImpl implements IWindowsComputer {
     private String computerName;
     private String domainName;
 
-    public WindowsComputerImpl(final String computerName) {
-        this.computerName = computerName;
-        this.domainName = Netapi32Util.getDomainName(computerName);
+    public WindowsComputerImpl(final String newComputerName) {
+        this.computerName = newComputerName;
+        this.domainName = Netapi32Util.getDomainName(newComputerName);
     }
 
     @Override
