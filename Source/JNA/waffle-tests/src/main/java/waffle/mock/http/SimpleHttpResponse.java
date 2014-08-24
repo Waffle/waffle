@@ -16,6 +16,7 @@ package waffle.mock.http;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -143,6 +144,11 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
 
     public String getOutputText() {
         this.writer.flush();
-        return this.bytes.toString();
+        try {
+            return this.bytes.toString("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            LOGGER.error("{}", e);
+        }
+        return null;
     }
 }

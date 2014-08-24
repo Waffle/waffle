@@ -27,13 +27,13 @@ public class WindowsSecurityContextImpersonationContextImpl implements IWindowsI
 
     private CtxtHandle ctx;
 
-    public WindowsSecurityContextImpersonationContextImpl(final CtxtHandle ctx) {
-        final int rc = Secur32.INSTANCE.ImpersonateSecurityContext(ctx);
+    public WindowsSecurityContextImpersonationContextImpl(final CtxtHandle newCtx) {
+        final int rc = Secur32.INSTANCE.ImpersonateSecurityContext(newCtx);
         if (rc != WinError.SEC_E_OK) {
             throw new Win32Exception(rc);
         }
 
-        this.ctx = ctx;
+        this.ctx = newCtx;
     }
 
     @Override

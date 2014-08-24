@@ -29,11 +29,11 @@ public class RolePrincipal implements Principal, Serializable {
     /**
      * A windows principal.
      * 
-     * @param fqn
+     * @param newFqn
      *            Fully qualified name.
      */
-    public RolePrincipal(final String fqn) {
-        this.fqn = fqn;
+    public RolePrincipal(final String newFqn) {
+        this.fqn = newFqn;
     }
 
     /**

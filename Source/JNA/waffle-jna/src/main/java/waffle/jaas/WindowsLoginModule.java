@@ -114,7 +114,7 @@ public class WindowsLoginModule implements LoginModule {
                             .getCallback().getClass().getName()));
         }
 
-        IWindowsIdentity windowsIdentity = null;
+        IWindowsIdentity windowsIdentity;
         try {
             windowsIdentity = this.auth.logonUser(userName, password);
         } catch (Exception e) {
@@ -255,7 +255,6 @@ public class WindowsLoginModule implements LoginModule {
             default:
                 break;
         }
-
         return principalsList;
     }
 
@@ -287,7 +286,6 @@ public class WindowsLoginModule implements LoginModule {
             default:
                 break;
         }
-
         return principalsList;
     }
 

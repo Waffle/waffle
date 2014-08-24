@@ -87,13 +87,13 @@ public class NegotiateSecurityFilter implements Filter {
             return;
         }
 
-        AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
+        final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
 
         // authenticate user
         if (!authorizationHeader.isNull()) {
 
             // log the user in using the token
-            IWindowsIdentity windowsIdentity = null;
+            IWindowsIdentity windowsIdentity;
             try {
                 windowsIdentity = this.providers.doFilter(request, response);
                 if (windowsIdentity == null) {

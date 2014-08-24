@@ -27,9 +27,9 @@ public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
 
     private WindowsPrincipal principal;
 
-    public NegotiateRequestWrapper(final HttpServletRequest request, final WindowsPrincipal principal) {
-        super(request);
-        this.principal = principal;
+    public NegotiateRequestWrapper(final HttpServletRequest newRequest, final WindowsPrincipal newPrincipal) {
+        super(newRequest);
+        this.principal = newPrincipal;
     }
 
     /**

@@ -41,16 +41,16 @@ public class RolePrincipalTests {
     @Test
     public void testIsSerializable() throws IOException, ClassNotFoundException {
         // serialize
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(out);
+        final ByteArrayOutputStream out = new ByteArrayOutputStream();
+        final ObjectOutputStream oos = new ObjectOutputStream(out);
         oos.writeObject(this.rolePrincipal);
         oos.close();
         assertTrue(out.toByteArray().length > 0);
         // deserialize
-        InputStream in = new ByteArrayInputStream(out.toByteArray());
-        ObjectInputStream ois = new ObjectInputStream(in);
-        Object o = ois.readObject();
-        RolePrincipal copy = (RolePrincipal) o;
+        final InputStream in = new ByteArrayInputStream(out.toByteArray());
+        final ObjectInputStream ois = new ObjectInputStream(in);
+        final Object o = ois.readObject();
+        final RolePrincipal copy = (RolePrincipal) o;
         // test
         assertEquals(this.rolePrincipal, copy);
         assertEquals(this.rolePrincipal.getName(), copy.getName());

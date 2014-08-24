@@ -139,8 +139,9 @@ public class WaffleInfo {
         child.appendChild(value);
 
         value = doc.createElement("groups");
+        Element g;
         for (String s : c.getGroups()) {
-            final Element g = doc.createElement("group");
+            g = doc.createElement("group");
             g.setTextContent(s);
             value.appendChild(g);
         }
@@ -151,8 +152,9 @@ public class WaffleInfo {
             child = doc.createElement("domains");
             node.appendChild(child);
 
+            Element d;
             for (IWindowsDomain domain : auth.getDomains()) {
-                Element d = doc.createElement("domain");
+                d = doc.createElement("domain");
                 node.appendChild(d);
 
                 value = doc.createElement("FQN");
@@ -239,8 +241,9 @@ public class WaffleInfo {
         boolean show = false;
         final List<String> lookup = new ArrayList<String>();
         if (args != null) {
+            String arg;
             for (int i = 0; i < args.length; i++) {
-                final String arg = args[i];
+                arg = args[i];
                 if ("-show".equals(arg)) {
                     show = true;
                 } else if ("-lookup".equals(arg)) {
@@ -260,8 +263,9 @@ public class WaffleInfo {
             }
 
             final String xml = toPrettyXML(info);
+            final File f;
             if (show) {
-                final File f = File.createTempFile("waffle-info-", ".xml");
+                f = File.createTempFile("waffle-info-", ".xml");
                 Files.write(xml, f, Charsets.UTF_8);
                 Desktop.getDesktop().open(f);
             } else {
