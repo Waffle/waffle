@@ -210,4 +210,9 @@ public class WindowsPrincipal implements Principal, Serializable {
     public IWindowsIdentity getIdentity() {
         return this.identity;
     }
+
+    public String toString() {
+        return getName();
+    }
+
 }
