@@ -39,8 +39,8 @@ public class SecurityFilterProviderCollection {
     private static final Logger          LOGGER    = LoggerFactory.getLogger(SecurityFilterProviderCollection.class);
     private List<SecurityFilterProvider> providers = new ArrayList<SecurityFilterProvider>();
 
-    public SecurityFilterProviderCollection(final SecurityFilterProvider[] providers) {
-        for (SecurityFilterProvider provider : providers) {
+    public SecurityFilterProviderCollection(final SecurityFilterProvider[] providerArray) {
+        for (SecurityFilterProvider provider : providerArray) {
             LOGGER.info("using '{}'", provider.getClass().getName());
             this.providers.add(provider);
         }
@@ -117,6 +117,7 @@ public class SecurityFilterProviderCollection {
      *            Http Response
      * @return Windows Identity or NULL.
      * @throws IOException
+     *             on doFilter.
      */
     public IWindowsIdentity doFilter(final HttpServletRequest request, final HttpServletResponse response)
             throws IOException {
@@ -175,6 +176,7 @@ public class SecurityFilterProviderCollection {
      *            Class name.
      * @return A security provider instance.
      * @throws ClassNotFoundException
+     *             when class not found.
      */
     public SecurityFilterProvider getByClassName(final String name) throws ClassNotFoundException {
         for (SecurityFilterProvider provider : this.providers) {

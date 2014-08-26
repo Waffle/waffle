@@ -31,7 +31,7 @@ public interface SecurityFilterProvider {
      * Add authentication method headers.
      * 
      * @param response
-     *            Http Response
+     *            Http Response.
      */
     void sendUnauthorized(final HttpServletResponse response);
 
@@ -39,7 +39,7 @@ public interface SecurityFilterProvider {
      * Returns true if despite having a principal authentication needs to happen.
      * 
      * @param request
-     *            Http Request
+     *            Http Request.
      * @return True if authentication is required.
      */
     boolean isPrincipalException(final HttpServletRequest request);
@@ -48,11 +48,13 @@ public interface SecurityFilterProvider {
      * Execute filter.
      * 
      * @param request
-     *            Http Request
+     *            Http Servlet Request.
      * @param response
-     *            Http Response
+     *            Http Servlet Response.
      * @return A Windows identity in case authentication completed or NULL if not. Thrown exceptions should be caught
      *         and processed as 401 Access Denied.
+     * @throws IOException
+     *             on doFilter.
      */
     IWindowsIdentity doFilter(final HttpServletRequest request, final HttpServletResponse response) throws IOException;
 

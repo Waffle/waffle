@@ -73,6 +73,8 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
      * 
      * @param securityPackage
      *            SSPI package.
+     * @param targetName
+     *            The target of the context. The string contents are security-package specific.
      * @return Windows security context.
      */
     public static IWindowsSecurityContext getCurrent(final String securityPackage, final String targetName) {
