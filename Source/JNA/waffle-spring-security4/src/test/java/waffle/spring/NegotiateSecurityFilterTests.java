@@ -20,8 +20,11 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.ServletException;
 
@@ -115,9 +118,15 @@ public class NegotiateSecurityFilterTests {
         assertNotNull(authorities);
         assertEquals(3, authorities.size());
         final Iterator<? extends GrantedAuthority> authoritiesIterator = authorities.iterator();
-        assertEquals("ROLE_USER", authoritiesIterator.next().getAuthority());
-        assertEquals("ROLE_USERS", authoritiesIterator.next().getAuthority());
-        assertEquals("ROLE_EVERYONE", authoritiesIterator.next().getAuthority());
+
+        final List<String> list = new ArrayList<String>();
+        while (authoritiesIterator.hasNext()) {
+            list.add(authoritiesIterator.next().getAuthority());
+        }
+        Collections.sort(list);
+        assertEquals("ROLE_EVERYONE", list.get(0));
+        assertEquals("ROLE_USER", list.get(1));
+        assertEquals("ROLE_USERS", list.get(2));
         assertEquals(0, response.getHeaderNamesSize());
     }
 

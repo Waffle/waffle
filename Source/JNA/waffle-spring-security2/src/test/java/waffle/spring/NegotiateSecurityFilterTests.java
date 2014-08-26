@@ -20,6 +20,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
 
 import javax.servlet.ServletException;
 
@@ -94,6 +96,7 @@ public class NegotiateSecurityFilterTests {
         assertEquals(500, response.getStatus());
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void testNegotiate() throws IOException, ServletException {
         final String securityPackage = "Negotiate";
@@ -112,9 +115,10 @@ public class NegotiateSecurityFilterTests {
         final GrantedAuthority[] authorities = auth.getAuthorities();
         assertNotNull(authorities);
         assertEquals(3, authorities.length);
-        assertEquals("ROLE_USER", authorities[0].getAuthority());
-        assertEquals("ROLE_USERS", authorities[1].getAuthority());
-        assertEquals("ROLE_EVERYONE", authorities[2].getAuthority());
+        Collections.sort(Arrays.asList(authorities));
+        assertEquals("ROLE_EVERYONE", authorities[0].getAuthority());
+        assertEquals("ROLE_USER", authorities[1].getAuthority());
+        assertEquals("ROLE_USERS", authorities[2].getAuthority());
         assertEquals(0, response.getHeaderNamesSize());
     }
 
