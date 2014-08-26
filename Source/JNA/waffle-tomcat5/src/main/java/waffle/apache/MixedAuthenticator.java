@@ -172,7 +172,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 
             // create a session associated with this request if there's none
             final HttpSession session = request.getSession(true);
-            this.log.debug("session id: {}", session.getId());
+            this.log.debug("session id: {}", session == null ? "null" : session.getId());
 
             register(request, response, windowsPrincipal, securityPackage, windowsPrincipal.getName(), null);
             this.log.info("successfully logged in user: {}", windowsPrincipal.getName());
@@ -216,7 +216,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 
             // create a session associated with this request if there's none
             final HttpSession session = request.getSession(true);
-            this.log.debug("session id: {}", session.getId());
+            this.log.debug("session id: {}", session == null ? "null" : session.getId());
 
             register(request, response, windowsPrincipal, "FORM", windowsPrincipal.getName(), null);
             this.log.info("successfully logged in user: {}", windowsPrincipal.getName());
