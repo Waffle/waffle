@@ -32,7 +32,7 @@ public class WindowsAccountImpl implements IWindowsAccount {
     /**
      * Windows Account.
      * 
-     * @param account
+     * @param newAccount
      *            Account.
      */
     public WindowsAccountImpl(final Account newAccount) {
@@ -50,7 +50,7 @@ public class WindowsAccountImpl implements IWindowsAccount {
     }
 
     /**
-     * Windows Account
+     * Windows Account.
      * 
      * @param accountName
      *            Username, without a domain or machine.
@@ -72,6 +72,8 @@ public class WindowsAccountImpl implements IWindowsAccount {
 
     /**
      * Account domain.
+     * 
+     * @return String.
      */
     @Override
     public String getDomain() {
@@ -85,6 +87,8 @@ public class WindowsAccountImpl implements IWindowsAccount {
 
     /**
      * Account name.
+     * 
+     * @return String.
      */
     @Override
     public String getName() {

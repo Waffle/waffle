@@ -106,7 +106,9 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
     }
 
     /**
-     * Use this for testing the number of headers
+     * Use this for testing the number of headers.
+     * 
+     * @return int header name size.
      */
     public int getHeaderNamesSize() {
         return this.headers.size();

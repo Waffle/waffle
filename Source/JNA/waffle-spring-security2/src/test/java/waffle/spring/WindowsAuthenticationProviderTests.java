@@ -20,6 +20,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.After;
 import org.junit.Before;
@@ -71,6 +73,7 @@ public class WindowsAuthenticationProviderTests {
         assertTrue(this.provider.supports(UsernamePasswordAuthenticationToken.class));
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void testAuthenticate() {
         MockWindowsIdentity mockIdentity = new MockWindowsIdentity(WindowsAccountImpl.getCurrentUsername(),
@@ -82,13 +85,15 @@ public class WindowsAuthenticationProviderTests {
         assertNotNull(authenticated);
         assertTrue(authenticated.isAuthenticated());
         GrantedAuthority[] authorities = authenticated.getAuthorities();
+        Collections.sort(Arrays.asList(authorities));
         assertEquals(3, authorities.length);
-        assertEquals("ROLE_USER", authorities[0].getAuthority());
-        assertEquals("ROLE_USERS", authorities[1].getAuthority());
-        assertEquals("ROLE_EVERYONE", authorities[2].getAuthority());
+        assertEquals("ROLE_EVERYONE", authorities[0].getAuthority());
+        assertEquals("ROLE_USER", authorities[1].getAuthority());
+        assertEquals("ROLE_USERS", authorities[2].getAuthority());
         assertTrue(authenticated.getPrincipal() instanceof WindowsPrincipal);
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void testAuthenticateWithCustomGrantedAuthorityFactory() {
         this.provider.setDefaultGrantedAuthority(null);
@@ -105,8 +110,9 @@ public class WindowsAuthenticationProviderTests {
         assertTrue(authenticated.isAuthenticated());
         GrantedAuthority[] authorities = authenticated.getAuthorities();
         assertEquals(2, authorities.length);
-        assertEquals("Users", authorities[0].getAuthority());
-        assertEquals("Everyone", authorities[1].getAuthority());
+        Collections.sort(Arrays.asList(authorities));
+        assertEquals("Everyone", authorities[0].getAuthority());
+        assertEquals("Users", authorities[1].getAuthority());
         assertTrue(authenticated.getPrincipal() instanceof WindowsPrincipal);
     }
 

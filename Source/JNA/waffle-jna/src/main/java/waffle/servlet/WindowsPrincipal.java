@@ -200,13 +200,19 @@ public class WindowsPrincipal implements Principal, Serializable {
 
     /**
      * Fully qualified name.
+     * 
+     * @return String.
      */
     @Override
     public String getName() {
         return this.fqn;
     }
 
-    /** Underlying identity */
+    /**
+     * Underlying identity.
+     * 
+     * @return String.
+     */
     public IWindowsIdentity getIdentity() {
         return this.identity;
     }

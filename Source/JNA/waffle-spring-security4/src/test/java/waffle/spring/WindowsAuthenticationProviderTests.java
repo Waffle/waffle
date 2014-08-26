@@ -21,7 +21,9 @@ import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -86,9 +88,15 @@ public class WindowsAuthenticationProviderTests {
         Collection<? extends GrantedAuthority> authorities = authenticated.getAuthorities();
         Iterator<? extends GrantedAuthority> authoritiesIterator = authorities.iterator();
         assertEquals(3, authorities.size());
-        assertEquals("ROLE_USER", authoritiesIterator.next().getAuthority());
-        assertEquals("ROLE_USERS", authoritiesIterator.next().getAuthority());
-        assertEquals("ROLE_EVERYONE", authoritiesIterator.next().getAuthority());
+
+        final List<String> list = new ArrayList<String>();
+        while (authoritiesIterator.hasNext()) {
+            list.add(authoritiesIterator.next().getAuthority());
+        }
+        Collections.sort(list);
+        assertEquals("ROLE_EVERYONE", list.get(0));
+        assertEquals("ROLE_USER", list.get(1));
+        assertEquals("ROLE_USERS", list.get(2));
         assertTrue(authenticated.getPrincipal() instanceof WindowsPrincipal);
     }
 
@@ -109,8 +117,14 @@ public class WindowsAuthenticationProviderTests {
         Collection<? extends GrantedAuthority> authorities = authenticated.getAuthorities();
         Iterator<? extends GrantedAuthority> authoritiesIterator = authorities.iterator();
         assertEquals(2, authorities.size());
-        assertEquals("Users", authoritiesIterator.next().getAuthority());
-        assertEquals("Everyone", authoritiesIterator.next().getAuthority());
+
+        final List<String> list = new ArrayList<String>();
+        while (authoritiesIterator.hasNext()) {
+            list.add(authoritiesIterator.next().getAuthority());
+        }
+        Collections.sort(list);
+        assertEquals("Everyone", list.get(0));
+        assertEquals("Users", list.get(1));
         assertTrue(authenticated.getPrincipal() instanceof WindowsPrincipal);
     }
 

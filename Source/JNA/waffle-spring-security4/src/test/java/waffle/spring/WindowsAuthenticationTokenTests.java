@@ -19,6 +19,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -56,9 +57,15 @@ public class WindowsAuthenticationTokenTests {
         Collection<GrantedAuthority> authorities = this.token.getAuthorities();
         Iterator<GrantedAuthority> authoritiesIterator = authorities.iterator();
         assertEquals(3, authorities.size());
-        assertEquals("ROLE_USER", authoritiesIterator.next().getAuthority());
-        assertEquals("ROLE_GROUP1", authoritiesIterator.next().getAuthority());
-        assertEquals("ROLE_GROUP2", authoritiesIterator.next().getAuthority());
+
+        final List<String> list = new ArrayList<String>();
+        while (authoritiesIterator.hasNext()) {
+            list.add(authoritiesIterator.next().getAuthority());
+        }
+        Collections.sort(list);
+        assertEquals("ROLE_GROUP1", list.get(0));
+        assertEquals("ROLE_GROUP2", list.get(1));
+        assertEquals("ROLE_USER", list.get(2));
         assertEquals(this.principal, this.token.getPrincipal());
     }
 
@@ -75,8 +82,14 @@ public class WindowsAuthenticationTokenTests {
         Collection<GrantedAuthority> authorities = myToken.getAuthorities();
         Iterator<GrantedAuthority> authoritiesIterator = authorities.iterator();
         assertEquals(2, authorities.size());
-        assertEquals("group1", authoritiesIterator.next().getAuthority());
-        assertEquals("group2", authoritiesIterator.next().getAuthority());
+
+        final List<String> list = new ArrayList<String>();
+        while (authoritiesIterator.hasNext()) {
+            list.add(authoritiesIterator.next().getAuthority());
+        }
+        Collections.sort(list);
+        assertEquals("group1", list.get(0));
+        assertEquals("group2", list.get(1));
         assertEquals(this.principal, myToken.getPrincipal());
     }
 

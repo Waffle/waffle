@@ -81,8 +81,15 @@ public class WaffleInfoServlet extends HttpServlet {
     }
 
     /**
-     * Delegate POST to GET
-     */
+     * Delegate POST to GET.
+     * 
+     * @param request
+     *            httpServletRequest.
+     * @param response
+     *            httpServletResponse.
+     * @throws ServletException
+     *             or IOException.
+     * */
     @Override
     public void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
             IOException {

@@ -54,19 +54,33 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 /**
  * A Utility class to read system info to help troubleshoot WAFFLE system configuration.
  * 
+ * <pre>
  * This utility class collects system information and returns it as an XML document.
+ * </pre>
  * 
- * From the command line, you can write the info to stdout using: <code>
+ * From the command line, you can write the info to stdout using:
+ * 
+ * <pre>
+ * <code>
  *   java -cp "jna.jar;waffle-core.jar;waffle-api.jar;jna-platform.jar;guava-17.0.jar" waffle.util.WaffleInfo
  * </code>
+ * </pre>
  * 
- * To show this information in a browser, run: <code>
+ * To show this information in a browser, run:
+ * 
+ * <pre>
+ * <code>
  *   java -cp "..." waffle.util.WaffleInfo -show
  * </code>
+ * </pre>
  * 
- * To lookup account names and return any listed info, run: <code>
+ * To lookup account names and return any listed info, run:
+ * 
+ * <pre>
+ * <code>
  *   java -cp "..." waffle.util.WaffleInfo -lookup AccountName
  * </code>
+ * </pre>
  * 
  */
 public class WaffleInfo {
@@ -78,12 +92,13 @@ public class WaffleInfo {
      * 
      * This uses the builtin javax.xml package even though the API is quite verbose
      * 
+     * @return Document with waffle info.
+     * 
      * @throws ParserConfigurationException
+     *             when getting new document builder.
      */
     public Document getWaffleInfo() throws ParserConfigurationException {
-        final DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
-        final DocumentBuilder docBuilder = dbfac.newDocumentBuilder();
-        final Document doc = docBuilder.newDocument();
+        final Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
 
         // create the root element and add it to the document
         final Element root = doc.createElement("waffle");
@@ -235,7 +250,10 @@ public class WaffleInfo {
     }
 
     /**
-     * Print system information
+     * Print system information.
+     * 
+     * @param args
+     *            variable arguments to pass to main. Valid values are "-show" and "-lookup".
      */
     public static void main(final String[] args) {
         boolean show = false;

@@ -33,6 +33,8 @@ public interface IWindowsCredentialsHandle {
 
     /**
      * Return a security handle.
+     * 
+     * @return CredHandle.
      */
     CredHandle getHandle();
 }

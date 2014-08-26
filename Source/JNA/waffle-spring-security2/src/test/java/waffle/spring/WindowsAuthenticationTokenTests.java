@@ -18,6 +18,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Before;
@@ -45,6 +47,7 @@ public class WindowsAuthenticationTokenTests {
         this.token = new WindowsAuthenticationToken(this.principal);
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void testWindowsAuthenticationToken() {
         assertNull(this.token.getCredentials());
@@ -53,12 +56,14 @@ public class WindowsAuthenticationTokenTests {
         assertEquals("localhost\\user1", this.token.getName());
         GrantedAuthority[] authorities = this.token.getAuthorities();
         assertEquals(3, authorities.length);
-        assertEquals("ROLE_USER", authorities[0].getAuthority());
-        assertEquals("ROLE_GROUP1", authorities[1].getAuthority());
-        assertEquals("ROLE_GROUP2", authorities[2].getAuthority());
+        Collections.sort(Arrays.asList(authorities));
+        assertEquals("ROLE_GROUP1", authorities[0].getAuthority());
+        assertEquals("ROLE_GROUP2", authorities[1].getAuthority());
+        assertEquals("ROLE_USER", authorities[2].getAuthority());
         assertEquals(this.principal, this.token.getPrincipal());
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void testCustomGrantedAuthorityFactory() {
 
@@ -71,6 +76,7 @@ public class WindowsAuthenticationTokenTests {
         assertEquals("localhost\\user1", myToken.getName());
         GrantedAuthority[] authorities = myToken.getAuthorities();
         assertEquals(2, authorities.length);
+        Collections.sort(Arrays.asList(authorities));
         assertEquals("group1", authorities[0].getAuthority());
         assertEquals("group2", authorities[1].getAuthority());
         assertEquals(this.principal, myToken.getPrincipal());
