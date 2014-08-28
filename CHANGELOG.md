@@ -17,6 +17,8 @@ Notable Feature Changes
 
 Changes
 --------
+* [#136](https://github.com/dblock/waffle/pull/136): Enable user logging when using filter [@tbenbrahim](https://github.com/tbenbrahim).
+  * Added toString to WindowsPrincipal to enable logging of authenticated user when using the servlet filter, using the waffle.servlet.NegotiateSecurityFilter.PRINCIPAL session attribute.
 * [#120](https://github.com/dblock/waffle/pull/120): Application Security License - [@hazendaz](https://github.com/hazendaz).
   * Using License Maven Plugin to ensure license is up to date on java files
   * All donated code to library now has proper license
