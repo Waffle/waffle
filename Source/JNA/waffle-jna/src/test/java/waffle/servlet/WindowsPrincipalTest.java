@@ -23,21 +23,21 @@ import waffle.windows.auth.IWindowsAccount;
 import waffle.windows.auth.IWindowsIdentity;
 
 /**
- * @author Tony BenBrahim <tony.benbrahim@airliquide.com>
- *
+ * @author Tony BenBrahim &lt;tony.benbrahim@airliquide.com&gt;
+ * 
  */
 public class WindowsPrincipalTest {
 
-	private static final String TEST_FQN = "ACME\\john.smith";
+    private static final String TEST_FQN = "ACME\\john.smith";
 
-	@Test
-	public void testToString() {
-		final IWindowsIdentity windowsIdentity = mock(IWindowsIdentity.class);
-		when(windowsIdentity.getFqn()).thenReturn(TEST_FQN);
-		when(windowsIdentity.getGroups()).thenReturn(new IWindowsAccount[0]);
-		final WindowsPrincipal principal = new WindowsPrincipal(windowsIdentity);
-		assertEquals(TEST_FQN, principal.getName());
-		assertEquals(TEST_FQN, principal.toString());
-	}
+    @Test
+    public void testToString() {
+        final IWindowsIdentity windowsIdentity = mock(IWindowsIdentity.class);
+        when(windowsIdentity.getFqn()).thenReturn(TEST_FQN);
+        when(windowsIdentity.getGroups()).thenReturn(new IWindowsAccount[0]);
+        final WindowsPrincipal principal = new WindowsPrincipal(windowsIdentity);
+        assertEquals(TEST_FQN, principal.getName());
+        assertEquals(TEST_FQN, principal.toString());
+    }
 
 }
