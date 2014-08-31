@@ -100,6 +100,7 @@ public class NegotiateAuthenticatorTests {
         SimpleHttpResponse response = new SimpleHttpResponse();
         this.authenticator.authenticate(request, response, null);
         String[] wwwAuthenticates = response.getHeaderValues("WWW-Authenticate");
+        assertNotNull(wwwAuthenticates);
         assertEquals(2, wwwAuthenticates.length);
         assertEquals("Negotiate", wwwAuthenticates[0]);
         assertEquals("NTLM", wwwAuthenticates[1]);
