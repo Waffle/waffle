@@ -13,61 +13,20 @@
  */
 package waffle.apache.catalina;
 
-import org.apache.catalina.Container;
 import org.apache.catalina.Pipeline;
 import org.apache.catalina.Valve;
 
-public class SimplePipeline implements Pipeline {
+public abstract class SimplePipeline implements Pipeline {
 
-    private Valve[] valves = new Valve[0];
-
-    @Override
-    public void addValve(Valve arg0) {
-        // Not Implemented
-    }
-
-    @Override
-    public Valve getBasic() {
-        // Not Implemented
-        return null;
-    }
-
-    @Override
-    public Container getContainer() {
-        // Not Implemented
-        return null;
-    }
-
-    @Override
-    public Valve getFirst() {
-        // Not Implemented
-        return null;
-    }
+    private Valve[] valves;
 
     @Override
     public Valve[] getValves() {
         return this.valves.clone();
     }
 
-    @Override
-    public boolean isAsyncSupported() {
-        // Not Implemented
-        return false;
-    }
-
-    @Override
-    public void removeValve(Valve arg0) {
-        // Not Implemented
-    }
-
-    @Override
-    public void setBasic(Valve arg0) {
-        // Not Implemented
-    }
-
-    @Override
-    public void setContainer(Container arg0) {
-        // Not Implemented
+    public void setValves(final Valve[] value) {
+        this.valves = value;
     }
 
 }

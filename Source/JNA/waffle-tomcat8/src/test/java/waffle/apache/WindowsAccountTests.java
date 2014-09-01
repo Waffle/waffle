@@ -16,7 +16,6 @@ package waffle.apache;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -24,6 +23,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -61,15 +61,15 @@ public class WindowsAccountTests {
     @Test
     public void testIsSerializable() throws IOException, ClassNotFoundException {
         // serialize
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(out);
+        final ByteArrayOutputStream out = new ByteArrayOutputStream();
+        final ObjectOutputStream oos = new ObjectOutputStream(out);
         oos.writeObject(this.windowsAccount);
         oos.close();
-        assertTrue(out.toByteArray().length > 0);
+        Assertions.assertThat(out.toByteArray().length).isGreaterThan(0);
         // deserialize
-        InputStream in = new ByteArrayInputStream(out.toByteArray());
-        ObjectInputStream ois = new ObjectInputStream(in);
-        WindowsAccount copy = (WindowsAccount) ois.readObject();
+        final InputStream in = new ByteArrayInputStream(out.toByteArray());
+        final ObjectInputStream ois = new ObjectInputStream(in);
+        final WindowsAccount copy = (WindowsAccount) ois.readObject();
         // test
         assertEquals(this.windowsAccount, copy);
         assertEquals(this.windowsAccount.getDomain(), copy.getDomain());
