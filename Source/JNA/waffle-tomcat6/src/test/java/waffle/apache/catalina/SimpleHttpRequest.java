@@ -42,10 +42,10 @@ public class SimpleHttpRequest extends Request {
     private String                    requestURI;
     private String                    queryString;
     private String                    remoteUser;
-    private String                    method      = "GET";
-    private final Map<String, String> headers     = new HashMap<String, String>();
+    private String                    method     = "GET";
+    private final Map<String, String> headers    = new HashMap<String, String>();
 
-    private final Map<String, String> parameters  = new HashMap<String, String>();
+    private final Map<String, String> parameters = new HashMap<String, String>();
 
     private byte[]                    content;
 
