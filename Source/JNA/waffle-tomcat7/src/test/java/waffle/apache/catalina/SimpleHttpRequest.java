@@ -20,43 +20,59 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.apache.catalina.connector.Request;
+import org.mockito.Mockito;
 
 /**
+ * Simple HTTP Request.
+ * 
  * @author dblock[at]dblock[dot]org
  */
 public class SimpleHttpRequest extends Request {
 
-    private static int          remotePortS;
-
-    private String              requestURI;
-    private String              queryString;
-    private String              remoteUser;
-    private String              method      = "GET";
-    private Map<String, String> headers     = new HashMap<String, String>();
-    private Map<String, String> parameters  = new HashMap<String, String>();
-    private byte[]              content;
-    private HttpSession         httpSession = new SimpleHttpSession();
-    private Principal           principal;
-
-    public SimpleHttpRequest() {
-        super();
-        this.remotePort = nextRemotePort();
-    }
+    private static int remotePortS;
 
     public synchronized static int nextRemotePort() {
-        return ++remotePortS;
+        return ++SimpleHttpRequest.remotePortS;
     }
 
     public synchronized static void resetRemotePort() {
-        remotePortS = 0;
+        SimpleHttpRequest.remotePortS = 0;
     }
 
-    public void addHeader(String headerName, String headerValue) {
+    private String                    requestURI;
+    private String                    queryString;
+    private String                    remoteUser;
+    private String                    method     = "GET";
+    private final Map<String, String> headers    = new HashMap<String, String>();
+    private final Map<String, String> parameters = new HashMap<String, String>();
+    private byte[]                    content;
+
+    private SimpleHttpSession         httpSession;
+
+    private Principal                 principal;
+
+    public SimpleHttpRequest() {
+        super();
+        this.httpSession = Mockito.mock(SimpleHttpSession.class, Mockito.CALLS_REAL_METHODS);
+        this.httpSession.setAttributes(new HashMap<String, Object>());
+        this.remotePort = SimpleHttpRequest.nextRemotePort();
+    }
+
+    public void addHeader(final String headerName, final String headerValue) {
         this.headers.put(headerName, headerValue);
     }
 
+    public void addParameter(final String parameterName, final String parameterValue) {
+        this.parameters.put(parameterName, parameterValue);
+    }
+
     @Override
-    public String getHeader(String headerName) {
+    public int getContentLength() {
+        return this.content == null ? -1 : this.content.length;
+    }
+
+    @Override
+    public String getHeader(final String headerName) {
         return this.headers.get(headerName);
     }
 
@@ -66,87 +82,13 @@ public class SimpleHttpRequest extends Request {
     }
 
     @Override
-    public int getContentLength() {
-        return this.content == null ? -1 : this.content.length;
-    }
-
-    @Override
-    public int getRemotePort() {
-        return this.remotePort;
-    }
-
-    public void setMethod(String value) {
-        this.method = value;
-    }
-
-    public void setContentLength(int length) {
-        this.content = new byte[length];
-    }
-
-    public void setRemoteUser(String value) {
-        this.remoteUser = value;
-    }
-
-    @Override
-    public String getRemoteUser() {
-        return this.remoteUser;
-    }
-
-    @Override
-    public HttpSession getSession() {
-        return this.httpSession;
-    }
-
-    @Override
-    public HttpSession getSession(boolean create) {
-        if (this.httpSession == null && create) {
-            this.httpSession = new SimpleHttpSession();
-        }
-        return this.httpSession;
+    public String getParameter(final String parameterName) {
+        return this.parameters.get(parameterName);
     }
 
     @Override
     public String getQueryString() {
         return this.queryString;
-    }
-
-    public void setQueryString(String queryValue) {
-        this.queryString = queryValue;
-        if (this.queryString != null) {
-            for (String eachParameter : this.queryString.split("[&]")) {
-                String[] pair = eachParameter.split("=");
-                String value = (pair.length == 2) ? pair[1] : "";
-                addParameter(pair[0], value);
-            }
-        }
-    }
-
-    public void setRequestURI(String value) {
-        this.requestURI = value;
-    }
-
-    @Override
-    public String getRequestURI() {
-        return this.requestURI;
-    }
-
-    @Override
-    public String getParameter(String parameterName) {
-        return this.parameters.get(parameterName);
-    }
-
-    public void addParameter(String parameterName, String parameterValue) {
-        this.parameters.put(parameterName, parameterValue);
-    }
-
-    @Override
-    public String getRemoteHost() {
-        return this.remoteHost;
-    }
-
-    @Override
-    public void setRemoteHost(String value) {
-        this.remoteHost = value;
     }
 
     @Override
@@ -155,8 +97,37 @@ public class SimpleHttpRequest extends Request {
     }
 
     @Override
-    public void setRemoteAddr(String value) {
-        this.remoteAddr = value;
+    public String getRemoteHost() {
+        return this.remoteHost;
+    }
+
+    @Override
+    public int getRemotePort() {
+        return this.remotePort;
+    }
+
+    @Override
+    public String getRemoteUser() {
+        return this.remoteUser;
+    }
+
+    @Override
+    public String getRequestURI() {
+        return this.requestURI;
+    }
+
+    @Override
+    public HttpSession getSession() {
+        return this.httpSession;
+    }
+
+    @Override
+    public HttpSession getSession(final boolean create) {
+        if (this.httpSession == null && create) {
+            this.httpSession = Mockito.mock(SimpleHttpSession.class, Mockito.CALLS_REAL_METHODS);
+            this.httpSession.setAttributes(new HashMap<String, Object>());
+        }
+        return this.httpSession;
     }
 
     @Override
@@ -164,8 +135,45 @@ public class SimpleHttpRequest extends Request {
         return this.principal;
     }
 
+    public void setContentLength(final int length) {
+        this.content = new byte[length];
+    }
+
+    public void setMethod(final String value) {
+        this.method = value;
+    }
+
+    public void setQueryString(final String queryValue) {
+        this.queryString = queryValue;
+        if (this.queryString != null) {
+            for (final String eachParameter : this.queryString.split("[&]")) {
+                final String[] pair = eachParameter.split("=");
+                final String value = pair.length == 2 ? pair[1] : "";
+                this.addParameter(pair[0], value);
+            }
+        }
+    }
+
     @Override
-    public void setUserPrincipal(Principal value) {
+    public void setRemoteAddr(final String value) {
+        this.remoteAddr = value;
+    }
+
+    @Override
+    public void setRemoteHost(final String value) {
+        this.remoteHost = value;
+    }
+
+    public void setRemoteUser(final String value) {
+        this.remoteUser = value;
+    }
+
+    public void setRequestURI(final String value) {
+        this.requestURI = value;
+    }
+
+    @Override
+    public void setUserPrincipal(final Principal value) {
         this.principal = value;
     }
 }

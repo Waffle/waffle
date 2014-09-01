@@ -26,22 +26,19 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.Joiner;
 
 /**
+ * Simple HTTP Response.
+ * 
  * @author dblock[at]dblock[dot]org
  */
 public class SimpleHttpResponse extends Response {
 
-    private static final Logger       LOGGER  = LoggerFactory.getLogger(SimpleHttpResponse.class);
+    private static final Logger             LOGGER  = LoggerFactory.getLogger(SimpleHttpResponse.class);
 
-    private int                       status  = 500;
-    private Map<String, List<String>> headers = new HashMap<String, List<String>>();
-
-    @Override
-    public int getStatus() {
-        return this.status;
-    }
+    private int                             status  = 500;
+    private final Map<String, List<String>> headers = new HashMap<String, List<String>>();
 
     @Override
-    public void addHeader(String headerName, String headerValue) {
+    public void addHeader(final String headerName, final String headerValue) {
         List<String> current = this.headers.get(headerName);
         if (current == null) {
             current = new ArrayList<String>();
@@ -51,7 +48,52 @@ public class SimpleHttpResponse extends Response {
     }
 
     @Override
-    public void setHeader(String headerName, String headerValue) {
+    public void flushBuffer() {
+        SimpleHttpResponse.LOGGER.info("{} {}", Integer.valueOf(this.status), this.getStatusString());
+        for (final String header : this.headers.keySet()) {
+            for (final String headerValue : this.headers.get(header)) {
+                SimpleHttpResponse.LOGGER.info("{}: {}", header, headerValue);
+            }
+        }
+    }
+
+    @Override
+    public String getHeader(final String headerName) {
+        final List<String> headerValues = this.headers.get(headerName);
+        return headerValues == null ? null : Joiner.on(", ").join(headerValues);
+    }
+
+    @Override
+    public Collection<String> getHeaderNames() {
+        return this.headers.keySet();
+    }
+
+    public String[] getHeaderValues(final String headerName) {
+        final List<String> headerValues = this.headers.get(headerName);
+        return headerValues == null ? null : headerValues.toArray(new String[0]);
+    }
+
+    @Override
+    public int getStatus() {
+        return this.status;
+    }
+
+    public String getStatusString() {
+        return this.status == 401 ? "Unauthorized" : "Unknown";
+    }
+
+    @Override
+    public void sendError(final int rc) {
+        this.status = rc;
+    }
+
+    @Override
+    public void sendError(final int rc, final String message) {
+        this.status = rc;
+    }
+
+    @Override
+    public void setHeader(final String headerName, final String headerValue) {
         List<String> current = this.headers.get(headerName);
         if (current == null) {
             current = new ArrayList<String>();
@@ -63,50 +105,7 @@ public class SimpleHttpResponse extends Response {
     }
 
     @Override
-    public void setStatus(int value) {
+    public void setStatus(final int value) {
         this.status = value;
-    }
-
-    public String getStatusString() {
-        if (this.status == 401) {
-            return "Unauthorized";
-        }
-        return "Unknown";
-    }
-
-    @Override
-    public void flushBuffer() {
-        SimpleHttpResponse.LOGGER.info("{} {}", Integer.valueOf(this.status), getStatusString());
-        for (String header : this.headers.keySet()) {
-            for (String headerValue : this.headers.get(header)) {
-                SimpleHttpResponse.LOGGER.info("{}: {}", header, headerValue);
-            }
-        }
-    }
-
-    public String[] getHeaderValues(String headerName) {
-        List<String> headerValues = this.headers.get(headerName);
-        return headerValues == null ? null : headerValues.toArray(new String[0]);
-    }
-
-    @Override
-    public String getHeader(String headerName) {
-        List<String> headerValues = this.headers.get(headerName);
-        return headerValues == null ? null : Joiner.on(", ").join(headerValues);
-    }
-
-    @Override
-    public Collection<String> getHeaderNames() {
-        return this.headers.keySet();
-    }
-
-    @Override
-    public void sendError(int rc, String message) {
-        this.status = rc;
-    }
-
-    @Override
-    public void sendError(int rc) {
-        this.status = rc;
     }
 }
