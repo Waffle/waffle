@@ -30,18 +30,17 @@ public class SimpleFilterChain implements FilterChain {
     private ServletRequest  request;
     private ServletResponse response;
 
+    @Override
+    public void doFilter(final ServletRequest sreq, final ServletResponse srep) throws IOException, ServletException {
+        this.request = sreq;
+        this.response = srep;
+    }
+
     public ServletRequest getRequest() {
         return this.request;
     }
 
     public ServletResponse getResponse() {
         return this.response;
-    }
-
-    @Override
-    public void doFilter(ServletRequest sreq, ServletResponse srep) throws IOException, ServletException {
-
-        this.request = sreq;
-        this.response = srep;
     }
 }
