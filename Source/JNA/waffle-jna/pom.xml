@@ -13,7 +13,7 @@
     <name>waffle-jna</name>
     <description>WAFFLE JNA implementation</description>
     <properties>
-        <guava.version>17.0</guava.version>
+        <guava.version>18.0</guava.version>
         <jna.version>4.1.0</jna.version>
         <servlet.version>2.5</servlet.version>
         <slf4j.version>1.7.7</slf4j.version>

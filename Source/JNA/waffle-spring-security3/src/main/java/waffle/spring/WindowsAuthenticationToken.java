@@ -58,6 +58,9 @@ public class WindowsAuthenticationToken implements Authentication {
      * <li>the {@link #DEFAULT_GRANTED_AUTHORITY_FACTORY}</li>
      * <li>the {@link #DEFAULT_GRANTED_AUTHORITY}</li>
      * </ul>
+     * 
+     * @param identity
+     *            The {@link WindowsPrincipal} for which this token exists.
      */
     public WindowsAuthenticationToken(final WindowsPrincipal identity) {
         this(identity, DEFAULT_GRANTED_AUTHORITY_FACTORY, DEFAULT_GRANTED_AUTHORITY);

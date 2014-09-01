@@ -15,6 +15,7 @@ package waffle.apache;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import javax.servlet.ServletException;
@@ -86,6 +87,7 @@ public class MixedAuthenticatorTests {
         SimpleHttpResponse response = new SimpleHttpResponse();
         this.authenticator.authenticate(request, response, null);
         String[] wwwAuthenticates = response.getHeaderValues("WWW-Authenticate");
+        assertNotNull(wwwAuthenticates);
         assertEquals(2, wwwAuthenticates.length);
         assertEquals("Negotiate", wwwAuthenticates[0]);
         assertEquals("NTLM", wwwAuthenticates[1]);

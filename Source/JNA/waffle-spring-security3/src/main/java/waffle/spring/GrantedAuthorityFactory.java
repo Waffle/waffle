@@ -25,6 +25,10 @@ public interface GrantedAuthorityFactory {
 
     /**
      * Creates a {@link GrantedAuthority} from the given {@link WindowsAccount}.
+     * 
+     * @param windowsAccount
+     *            A flattened Windows Account used in a Windows principal.
+     * @return GrantedAuthority Represents an authority granted to an Authentication object
      */
     GrantedAuthority createGrantedAuthority(final WindowsAccount windowsAccount);
 

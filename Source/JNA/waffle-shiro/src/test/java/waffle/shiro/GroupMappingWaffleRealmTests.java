@@ -18,6 +18,7 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.Collections;
 
@@ -55,6 +56,7 @@ public class GroupMappingWaffleRealmTests {
         PrincipalCollection principals = authcInfo.getPrincipals();
         assertFalse(principals.isEmpty());
         Object primaryPrincipal = principals.getPrimaryPrincipal();
+        assertNotNull(primaryPrincipal);
         assertThat(primaryPrincipal, instanceOf(WaffleFqnPrincipal.class));
         WaffleFqnPrincipal fqnPrincipal = (WaffleFqnPrincipal) primaryPrincipal;
         assertThat(fqnPrincipal.getFqn(), equalTo(getCurrentUserName()));

@@ -13,26 +13,33 @@
  */
 package waffle.shiro.dynamic;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletInputStream;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.ServletRequest;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
+import org.mockito.Matchers;
+import org.mockito.Mockito;
+import org.powermock.reflect.Whitebox;
 
 /**
  * @author Dan Rollo Date: 2/26/13 Time: 5:47 PM
  */
 public class DynamicAuthenticationFilterTest {
+
+    private static abstract class MockServletRequest implements ServletRequest {
+
+        private final Map<String, String> parameters = new HashMap<String, String>();
+
+        @Override
+        public String getParameter(final String name) {
+            return this.parameters.get(name);
+        }
+
+    }
 
     private DynamicAuthenticationFilter dynamicAuthenticationFilter;
 
@@ -42,197 +49,21 @@ public class DynamicAuthenticationFilterTest {
     public void setUp() {
         this.dynamicAuthenticationFilter = new DynamicAuthenticationFilter();
 
-        this.request = new MockServletRequest();
+        this.request = Mockito.mock(MockServletRequest.class, Mockito.CALLS_REAL_METHODS);
+        Whitebox.setInternalState(this.request, Map.class, new HashMap<String, String>());
     }
 
     @Test
     public void testIsAuthTypeNegotiate() {
+        Mockito.when(this.request.getParameter(Matchers.anyString())).thenReturn(null);
         Assert.assertFalse(this.dynamicAuthenticationFilter.isAuthTypeNegotiate(this.request));
 
-        this.request.parameters.put(DynamicAuthenticationFilter.PARAM_NAME_AUTHTYPE, "zzz");
+        Mockito.when(this.request.getParameter(Matchers.anyString())).thenReturn("zzz");
         Assert.assertFalse(this.dynamicAuthenticationFilter.isAuthTypeNegotiate(this.request));
 
-        this.request.parameters.put(DynamicAuthenticationFilter.PARAM_NAME_AUTHTYPE,
+        Mockito.when(this.request.getParameter(Matchers.anyString())).thenReturn(
                 DynamicAuthenticationFilter.PARAM_VAL_AUTHTYPE_NEGOTIATE);
         Assert.assertTrue(this.dynamicAuthenticationFilter.isAuthTypeNegotiate(this.request));
     }
 
-    private static class MockServletRequest implements ServletRequest {
-        private void notImplemented() {
-            throw new RuntimeException("not implemented");
-        }
-
-        @Override
-        public Object getAttribute(String name) {
-            notImplemented();
-            return null;
-        }
-
-        @Override
-        public Enumeration<?> getAttributeNames() {
-            notImplemented();
-            return null;
-        }
-
-        @Override
-        public String getCharacterEncoding() {
-            notImplemented();
-            return null;
-        }
-
-        @Override
-        public void setCharacterEncoding(String env) throws UnsupportedEncodingException {
-            notImplemented();
-        }
-
-        @Override
-        public int getContentLength() {
-            notImplemented();
-            return 0;
-        }
-
-        @Override
-        public String getContentType() {
-            notImplemented();
-            return null;
-        }
-
-        @Override
-        public ServletInputStream getInputStream() throws IOException {
-            notImplemented();
-            return null;
-        }
-
-        final Map<String, String> parameters = new HashMap<String, String>();
-
-        @Override
-        public String getParameter(String name) {
-            return this.parameters.get(name);
-        }
-
-        @Override
-        public Enumeration<?> getParameterNames() {
-            notImplemented();
-            return null;
-        }
-
-        @Override
-        public String[] getParameterValues(String name) {
-            notImplemented();
-            return new String[0];
-        }
-
-        @Override
-        public Map<?, ?> getParameterMap() {
-            notImplemented();
-            return null;
-        }
-
-        @Override
-        public String getProtocol() {
-            notImplemented();
-            return null;
-        }
-
-        @Override
-        public String getScheme() {
-            notImplemented();
-            return null;
-        }
-
-        @Override
-        public String getServerName() {
-            notImplemented();
-            return null;
-        }
-
-        @Override
-        public int getServerPort() {
-            notImplemented();
-            return 0;
-        }
-
-        @Override
-        public BufferedReader getReader() throws IOException {
-            notImplemented();
-            return null;
-        }
-
-        @Override
-        public String getRemoteAddr() {
-            notImplemented();
-            return null;
-        }
-
-        @Override
-        public String getRemoteHost() {
-            notImplemented();
-            return null;
-        }
-
-        @Override
-        public void setAttribute(String name, Object o) {
-            notImplemented();
-        }
-
-        @Override
-        public void removeAttribute(String name) {
-            notImplemented();
-        }
-
-        @Override
-        public Locale getLocale() {
-            notImplemented();
-            return null;
-        }
-
-        @Override
-        public Enumeration<?> getLocales() {
-            notImplemented();
-            return null;
-        }
-
-        @Override
-        public boolean isSecure() {
-            notImplemented();
-            return false;
-        }
-
-        @Override
-        public RequestDispatcher getRequestDispatcher(String path) {
-            notImplemented();
-            return null;
-        }
-
-        @Deprecated
-        @Override
-        public String getRealPath(String path) {
-            notImplemented();
-            return null;
-        }
-
-        @Override
-        public int getRemotePort() {
-            notImplemented();
-            return 0;
-        }
-
-        @Override
-        public String getLocalName() {
-            notImplemented();
-            return null;
-        }
-
-        @Override
-        public String getLocalAddr() {
-            notImplemented();
-            return null;
-        }
-
-        @Override
-        public int getLocalPort() {
-            notImplemented();
-            return 0;
-        }
-    }
 }
