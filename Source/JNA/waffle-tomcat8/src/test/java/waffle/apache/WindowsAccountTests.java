@@ -13,9 +13,6 @@
  */
 package waffle.apache;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -24,6 +21,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import org.assertj.core.api.Assertions;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,12 +29,14 @@ import waffle.mock.MockWindowsAccount;
 import waffle.windows.auth.WindowsAccount;
 
 /**
+ * Windows Account Tests.
+ * 
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsAccountTests {
 
-    private MockWindowsAccount mockWindowsAccount = new MockWindowsAccount("localhost\\Administrator");
-    private WindowsAccount     windowsAccount;
+    private final MockWindowsAccount mockWindowsAccount = new MockWindowsAccount("localhost\\Administrator");
+    private WindowsAccount           windowsAccount;
 
     @Before
     public void setUp() {
@@ -44,18 +44,10 @@ public class WindowsAccountTests {
     }
 
     @Test
-    public void testProperties() {
-        assertEquals("localhost", this.windowsAccount.getDomain());
-        assertEquals("localhost\\Administrator", this.windowsAccount.getFqn());
-        assertEquals("Administrator", this.windowsAccount.getName());
-        assertTrue(this.windowsAccount.getSidString().startsWith("S-"));
-    }
-
-    @Test
     public void testEquals() {
-        assertEquals(this.windowsAccount, new WindowsAccount(this.mockWindowsAccount));
-        MockWindowsAccount mockWindowsAccount2 = new MockWindowsAccount("localhost\\Administrator2");
-        assertFalse(this.windowsAccount.equals(new WindowsAccount(mockWindowsAccount2)));
+        Assert.assertEquals(this.windowsAccount, new WindowsAccount(this.mockWindowsAccount));
+        final MockWindowsAccount mockWindowsAccount2 = new MockWindowsAccount("localhost\\Administrator2");
+        Assert.assertFalse(this.windowsAccount.equals(new WindowsAccount(mockWindowsAccount2)));
     }
 
     @Test
@@ -71,10 +63,18 @@ public class WindowsAccountTests {
         final ObjectInputStream ois = new ObjectInputStream(in);
         final WindowsAccount copy = (WindowsAccount) ois.readObject();
         // test
-        assertEquals(this.windowsAccount, copy);
-        assertEquals(this.windowsAccount.getDomain(), copy.getDomain());
-        assertEquals(this.windowsAccount.getFqn(), copy.getFqn());
-        assertEquals(this.windowsAccount.getName(), copy.getName());
-        assertEquals(this.windowsAccount.getSidString(), copy.getSidString());
+        Assert.assertEquals(this.windowsAccount, copy);
+        Assert.assertEquals(this.windowsAccount.getDomain(), copy.getDomain());
+        Assert.assertEquals(this.windowsAccount.getFqn(), copy.getFqn());
+        Assert.assertEquals(this.windowsAccount.getName(), copy.getName());
+        Assert.assertEquals(this.windowsAccount.getSidString(), copy.getSidString());
+    }
+
+    @Test
+    public void testProperties() {
+        Assert.assertEquals("localhost", this.windowsAccount.getDomain());
+        Assert.assertEquals("localhost\\Administrator", this.windowsAccount.getFqn());
+        Assert.assertEquals("Administrator", this.windowsAccount.getName());
+        Assert.assertTrue(this.windowsAccount.getSidString().startsWith("S-"));
     }
 }

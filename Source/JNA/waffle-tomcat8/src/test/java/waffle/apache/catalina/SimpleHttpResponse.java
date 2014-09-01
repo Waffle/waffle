@@ -26,6 +26,8 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.Joiner;
 
 /**
+ * Simple HTTP Response.
+ * 
  * @author dblock[at]dblock[dot]org
  */
 public class SimpleHttpResponse extends Response {

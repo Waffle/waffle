@@ -16,6 +16,8 @@ package waffle.apache.catalina;
 import org.apache.catalina.realm.RealmBase;
 
 /**
+ * Simple Realm.
+ * 
  * @author dblock[at]dblock[dot]org
  */
 public abstract class SimpleRealm extends RealmBase {

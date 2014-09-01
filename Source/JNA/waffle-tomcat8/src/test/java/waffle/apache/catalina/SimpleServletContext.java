@@ -19,6 +19,8 @@ import javax.servlet.ServletContext;
 import org.mockito.Mockito;
 
 /**
+ * Simple Servlet Context.
+ * 
  * @author dblock[at]dblock[dot]org
  */
 public abstract class SimpleServletContext implements ServletContext {

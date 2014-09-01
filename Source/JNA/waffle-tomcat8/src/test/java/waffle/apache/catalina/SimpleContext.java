@@ -25,6 +25,8 @@ import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 
 /**
+ * Simple Context.
+ * 
  * @author dblock[at]dblock[dot]org
  */
 public abstract class SimpleContext implements Context {

@@ -14,9 +14,15 @@
 package waffle.apache.catalina;
 
 import org.apache.catalina.Container;
+import org.apache.catalina.Engine;
 import org.apache.catalina.Pipeline;
 
-public abstract class SimpleEngine implements org.apache.catalina.Engine {
+/**
+ * Simple Engine.
+ * 
+ * @author dblock[at]dblock[dot]org
+ */
+public abstract class SimpleEngine implements Engine {
 
     private Pipeline pipeline;
 

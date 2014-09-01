@@ -16,6 +16,11 @@ package waffle.apache.catalina;
 import org.apache.catalina.Pipeline;
 import org.apache.catalina.Valve;
 
+/**
+ * Simple Pipeline.
+ * 
+ * @author dblock[at]dblock[dot]org
+ */
 public abstract class SimplePipeline implements Pipeline {
 
     private Valve[] valves;

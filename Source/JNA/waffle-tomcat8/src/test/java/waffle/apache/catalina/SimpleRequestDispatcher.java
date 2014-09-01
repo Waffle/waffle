@@ -22,6 +22,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * Simple Request Dispatcher.
+ * 
  * @author dblock[at]dblock[dot]org
  */
 public abstract class SimpleRequestDispatcher implements RequestDispatcher {

@@ -23,6 +23,8 @@ import org.apache.catalina.connector.Request;
 import org.mockito.Mockito;
 
 /**
+ * Simple HTTP Request.
+ * 
  * @author dblock[at]dblock[dot]org
  */
 public class SimpleHttpRequest extends Request {

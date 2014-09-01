@@ -18,7 +18,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 /**
- * Simple Http Session
+ * Simple HTTP Session.
  * 
  * @author dblock[at]dblock[dot]org
  */
