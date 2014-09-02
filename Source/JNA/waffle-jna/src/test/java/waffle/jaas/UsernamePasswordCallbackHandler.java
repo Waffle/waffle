@@ -25,26 +25,28 @@ import javax.security.auth.callback.UnsupportedCallbackException;
  * @author dblock[at]dblock[dot]org
  */
 public class UsernamePasswordCallbackHandler implements CallbackHandler {
-    private String username;
-    private String password;
 
-    public UsernamePasswordCallbackHandler(String newUsername, String newPassword) {
-        this.username = newUsername;
+    private final String username;
+    private final String password;
+
+    public UsernamePasswordCallbackHandler(final String newUserName, final String newPassword) {
+        this.username = newUserName;
         this.password = newPassword;
     }
 
     @Override
-    public void handle(Callback[] cb) throws IOException, UnsupportedCallbackException {
-        for (int i = 0; i < cb.length; i++) {
-            if (cb[i] instanceof NameCallback) {
-                NameCallback nc = (NameCallback) cb[i];
+    public void handle(final Callback[] cb) throws IOException, UnsupportedCallbackException {
+        for (final Callback element : cb) {
+            if (element instanceof NameCallback) {
+                final NameCallback nc = (NameCallback) element;
                 nc.setName(this.username);
-            } else if (cb[i] instanceof PasswordCallback) {
-                PasswordCallback pc = (PasswordCallback) cb[i];
-                pc.setPassword(this.password.toCharArray());
+            } else if (element instanceof PasswordCallback) {
+                final PasswordCallback pc = (PasswordCallback) element;
+                pc.setPassword(this.password == null ? null : this.password.toCharArray());
             } else {
-                throw new UnsupportedCallbackException(cb[i], "UsernamePasswordCallbackHandler");
+                throw new UnsupportedCallbackException(element, "UsernamePasswordCallbackHandler");
             }
         }
     }
+
 }

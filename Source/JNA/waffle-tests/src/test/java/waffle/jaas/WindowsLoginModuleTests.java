@@ -29,6 +29,7 @@ import java.util.Map;
 import javax.security.auth.Subject;
 import javax.security.auth.login.LoginException;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -209,6 +210,6 @@ public class WindowsLoginModuleTests {
         this.loginModule.initialize(subject, callbackHandler, null, options);
         assertTrue(this.loginModule.login());
         this.loginModule.abort();
-        assertSame(Integer.valueOf(subject.getPrincipals().size()), Integer.valueOf(0));
+        Assertions.assertThat(subject.getPrincipals().size()).isEqualTo(0);
     }
 }

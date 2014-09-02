@@ -62,13 +62,13 @@ public class WindowsLoginModule implements LoginModule {
     private boolean              allowGuestLogin = true;
 
     @Override
-    public void initialize(final Subject subject, final CallbackHandler callbackHandler,
-            final Map<String, ?> sharedState, final Map<String, ?> options) {
+    public void initialize(final Subject initSubject, final CallbackHandler initCallbackHandler,
+            final Map<String, ?> initSharedState, final Map<String, ?> initOptions) {
 
-        this.subject = subject;
-        this.callbackHandler = callbackHandler;
+        this.subject = initSubject;
+        this.callbackHandler = initCallbackHandler;
 
-        for (Entry<String, ?> option : options.entrySet()) {
+        for (Entry<String, ?> option : initOptions.entrySet()) {
             if (option.getKey().equalsIgnoreCase("debug")) {
                 this.debug = Boolean.parseBoolean((String) option.getValue());
             } else if (option.getKey().equalsIgnoreCase("principalFormat")) {

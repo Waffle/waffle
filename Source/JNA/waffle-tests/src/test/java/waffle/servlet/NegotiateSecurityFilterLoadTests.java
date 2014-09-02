@@ -13,9 +13,10 @@
  */
 package waffle.servlet;
 
+import javax.servlet.ServletException;
+
 import org.databene.contiperf.PerfTest;
 import org.databene.contiperf.junit.ContiPerfRule;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -32,7 +33,7 @@ public class NegotiateSecurityFilterLoadTests {
     private NegotiateSecurityFilterTests tests         = new NegotiateSecurityFilterTests();
 
     @Before
-    public void setUp() {
+    public void setUp() throws ServletException {
         this.tests.setUp();
     }
 

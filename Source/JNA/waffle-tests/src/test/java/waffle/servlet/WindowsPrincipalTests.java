@@ -25,6 +25,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Arrays;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -50,12 +51,11 @@ public class WindowsPrincipalTests {
         ObjectOutputStream oos = new ObjectOutputStream(out);
         oos.writeObject(this.windowsPrincipal);
         oos.close();
-        assertTrue(out.toByteArray().length > 0);
+        Assertions.assertThat(out.toByteArray().length).isGreaterThan(0);
         // deserialize
         InputStream in = new ByteArrayInputStream(out.toByteArray());
         ObjectInputStream ois = new ObjectInputStream(in);
-        Object o = ois.readObject();
-        WindowsPrincipal copy = (WindowsPrincipal) o;
+        WindowsPrincipal copy = (WindowsPrincipal) ois.readObject();
         // test
         assertEquals(this.windowsPrincipal.getName(), copy.getName());
         assertEquals(this.windowsPrincipal.getRolesString(), copy.getRolesString());

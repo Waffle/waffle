@@ -13,9 +13,6 @@
  */
 package waffle.servlet;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.io.IOException;
 
 import javax.security.auth.Subject;
@@ -24,7 +21,9 @@ import javax.servlet.ServletException;
 
 import waffle.mock.http.*;
 
+import org.assertj.core.api.Assertions;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -44,14 +43,10 @@ public class BasicSecurityFilterTests {
     private NegotiateSecurityFilter filter;
 
     @Before
-    public void setUp() {
+    public void setUp() throws ServletException {
         this.filter = new NegotiateSecurityFilter();
         this.filter.setAuth(new MockWindowsAuthProvider());
-        try {
-            this.filter.init(null);
-        } catch (ServletException e) {
-            fail(e.getMessage());
-        }
+        this.filter.init(null);
     }
 
     @After
@@ -73,7 +68,7 @@ public class BasicSecurityFilterTests {
         final FilterChain filterChain = new SimpleFilterChain();
         this.filter.doFilter(request, response, filterChain);
         final Subject subject = (Subject) request.getSession().getAttribute("javax.security.auth.subject");
-        final boolean authenticated = (subject != null && subject.getPrincipals().size() > 0);
-        assertTrue(authenticated);
+        Assert.assertNotNull(subject);
+        Assertions.assertThat(subject.getPrincipals().size()).isGreaterThan(0);
     }
 }

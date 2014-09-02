@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import javax.security.auth.Subject;
 import javax.servlet.ServletException;
 
+import org.assertj.core.api.Assertions;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -60,14 +61,10 @@ public class NegotiateSecurityFilterTests {
     private NegotiateSecurityFilter filter;
 
     @Before
-    public void setUp() {
+    public void setUp() throws ServletException {
         this.filter = new NegotiateSecurityFilter();
         this.filter.setAuth(new WindowsAuthProviderImpl());
-        try {
-            this.filter.init(null);
-        } catch (ServletException e) {
-            fail(e.getMessage());
-        }
+        this.filter.init(null);
     }
 
     @After
@@ -161,7 +158,7 @@ public class NegotiateSecurityFilterTests {
                 authenticated = (subject != null && subject.getPrincipals().size() > 0);
 
                 if (authenticated) {
-                    assertTrue(response.getHeaderNamesSize() >= 0);
+                    Assertions.assertThat(response.getHeaderNamesSize()).isGreaterThanOrEqualTo(0);
                     break;
                 }
 
@@ -171,7 +168,7 @@ public class NegotiateSecurityFilterTests {
                 assertEquals(401, response.getStatus());
                 String continueToken = response.getHeader("WWW-Authenticate").substring(securityPackage.length() + 1);
                 byte[] continueTokenBytes = BaseEncoding.base64().decode(continueToken);
-                assertTrue(continueTokenBytes.length > 0);
+                Assertions.assertThat(continueTokenBytes.length).isGreaterThan(0);
                 SecBufferDesc continueTokenBuffer = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, continueTokenBytes);
                 clientContext.initialize(clientContext.getHandle(), continueTokenBuffer, "localhost");
             }

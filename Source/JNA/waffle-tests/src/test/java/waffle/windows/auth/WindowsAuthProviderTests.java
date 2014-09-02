@@ -19,6 +19,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeTrue;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -108,12 +109,12 @@ public class WindowsAuthProviderTests {
         IWindowsAuthProvider prov = new WindowsAuthProviderImpl();
         IWindowsComputer computer = prov.getCurrentComputer();
         LOGGER.debug(computer.getComputerName());
-        assertTrue(computer.getComputerName().length() > 0);
+        Assertions.assertThat(computer.getComputerName().length()).isGreaterThan(0);
         LOGGER.debug(computer.getJoinStatus());
         LOGGER.debug(computer.getMemberOf());
         String[] localGroups = computer.getGroups();
         assertNotNull(localGroups);
-        assertTrue(localGroups.length > 0);
+        Assertions.assertThat(localGroups.length).isGreaterThan(0);
         for (String localGroup : localGroups) {
             LOGGER.debug(" {}", localGroup);
         }
@@ -173,7 +174,7 @@ public class WindowsAuthProviderTests {
             } while (clientContext.isContinue() || serverContext != null && serverContext.isContinue());
 
             if (serverContext != null) {
-                assertTrue(serverContext.getIdentity().getFqn().length() > 0);
+                Assertions.assertThat(serverContext.getIdentity().getFqn().length()).isGreaterThan(0);
 
                 LOGGER.debug(serverContext.getIdentity().getFqn());
                 for (IWindowsAccount group : serverContext.getIdentity().getGroups()) {
@@ -216,7 +217,7 @@ public class WindowsAuthProviderTests {
                 Thread.sleep(25);
                 String connectionId = "testConnection_" + i;
                 serverContext = provider.acceptSecurityToken(connectionId, clientContext.getToken(), securityPackage);
-                assertTrue(provider.getContinueContextsSize() > 0);
+                Assertions.assertThat(provider.getContinueContextsSize()).isGreaterThan(0);
             }
             LOGGER.debug("Cached security contexts: {}", Integer.valueOf(provider.getContinueContextsSize()));
             assertFalse(max == provider.getContinueContextsSize());
@@ -272,7 +273,7 @@ public class WindowsAuthProviderTests {
             } while (clientContext.isContinue() || serverContext != null && serverContext.isContinue());
 
             if (serverContext != null) {
-                assertTrue(serverContext.getIdentity().getFqn().length() > 0);
+                Assertions.assertThat(serverContext.getIdentity().getFqn().length()).isGreaterThan(0);
 
                 IWindowsImpersonationContext impersonationCtx = serverContext.impersonate();
                 impersonationCtx.revertToSelf();

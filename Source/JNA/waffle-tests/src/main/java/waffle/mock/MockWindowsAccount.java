@@ -28,19 +28,19 @@ public class MockWindowsAccount implements IWindowsAccount {
     private String             domain;
     private String             sid;
 
-    public MockWindowsAccount(final String fqn) {
-        this(fqn, "S-" + fqn.hashCode());
+    public MockWindowsAccount(final String newFqn) {
+        this(newFqn, "S-" + newFqn.hashCode());
     }
 
-    public MockWindowsAccount(final String fqn, final String sid) {
-        this.fqn = fqn;
-        this.sid = sid;
-        String[] userNameDomain = fqn.split("\\\\", 2);
+    public MockWindowsAccount(final String newFqn, final String newSid) {
+        this.fqn = newFqn;
+        this.sid = newSid;
+        String[] userNameDomain = newFqn.split("\\\\", 2);
         if (userNameDomain.length == 2) {
             this.name = userNameDomain[1];
             this.domain = userNameDomain[0];
         } else {
-            this.name = fqn;
+            this.name = newFqn;
         }
     }
 
