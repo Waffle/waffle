@@ -53,7 +53,8 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      */
     public GenericWindowsPrincipal(final IWindowsIdentity newWindowsIdentity, final Realm newRealm,
             final PrincipalFormat newPrincipalFormat, final PrincipalFormat newRoleFormat) {
-        super(newRealm, newWindowsIdentity.getFqn(), "", getRoles(newWindowsIdentity, newPrincipalFormat, newRoleFormat));
+        super(newRealm, newWindowsIdentity.getFqn(), "",
+                getRoles(newWindowsIdentity, newPrincipalFormat, newRoleFormat));
         this.sid = newWindowsIdentity.getSid();
         this.sidString = newWindowsIdentity.getSidString();
         this.groups = getGroups(newWindowsIdentity.getGroups());
