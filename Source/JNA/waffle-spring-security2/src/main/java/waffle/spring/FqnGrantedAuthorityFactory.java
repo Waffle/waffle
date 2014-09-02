@@ -31,9 +31,9 @@ public class FqnGrantedAuthorityFactory implements GrantedAuthorityFactory {
     private final String  prefix;
     private final boolean convertToUpperCase;
 
-    public FqnGrantedAuthorityFactory(final String prefix, final boolean convertToUpperCase) {
-        this.prefix = prefix;
-        this.convertToUpperCase = convertToUpperCase;
+    public FqnGrantedAuthorityFactory(final String newPrefix, final boolean newConvertToUpperCase) {
+        this.prefix = newPrefix;
+        this.convertToUpperCase = newConvertToUpperCase;
     }
 
     @Override

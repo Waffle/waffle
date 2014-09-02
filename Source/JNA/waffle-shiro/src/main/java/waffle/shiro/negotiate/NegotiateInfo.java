@@ -44,14 +44,14 @@ public class NegotiateInfo implements AuthenticationInfo {
     /**
      * Creates a new info object.
      * 
-     * @param subject
+     * @param newSubject
      *            a subject containing the authenticated users {@link waffle.servlet.WindowsPrincipal}.
-     * @param realmName
+     * @param newRealmName
      *            a <code>String</code> containing the name of the authentication realm
      */
-    public NegotiateInfo(final Subject subject, final String realmName) {
-        this.subject = subject;
-        this.realmName = realmName;
+    public NegotiateInfo(final Subject newSubject, final String newRealmName) {
+        this.subject = newSubject;
+        this.realmName = newRealmName;
     }
 
     /**

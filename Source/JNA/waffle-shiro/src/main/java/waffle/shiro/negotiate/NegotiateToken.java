@@ -58,16 +58,17 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
      */
     private final String      host;
 
-    public NegotiateToken(final byte[] in, final byte[] out, final String connectionId, final String securityPackage,
-            final boolean ntlmPost, final boolean rememberMe, final String host) {
-        this.in = in;
-        this.out = out;
-        this.connectionId = connectionId;
-        this.securityPackage = securityPackage;
-        this.ntlmPost = ntlmPost;
+    public NegotiateToken(final byte[] newIn, final byte[] newOut, final String newConnectionId,
+            final String newSecurityPackage, final boolean newNtlmPost, final boolean newRememberMe,
+            final String newHost) {
+        this.in = newIn;
+        this.out = newOut;
+        this.connectionId = newConnectionId;
+        this.securityPackage = newSecurityPackage;
+        this.ntlmPost = newNtlmPost;
 
-        this.rememberMe = rememberMe;
-        this.host = host;
+        this.rememberMe = newRememberMe;
+        this.host = newHost;
     }
 
     public String getConnectionId() {

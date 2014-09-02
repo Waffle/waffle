@@ -28,9 +28,9 @@ public class UsernamePasswordCallbackHandler implements CallbackHandler {
     private String username;
     private String password;
 
-    public UsernamePasswordCallbackHandler(String username, String password) {
-        this.username = username;
-        this.password = password;
+    public UsernamePasswordCallbackHandler(String newUsername, String newPassword) {
+        this.username = newUsername;
+        this.password = newPassword;
     }
 
     @Override

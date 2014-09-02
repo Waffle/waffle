@@ -103,8 +103,8 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
 
         private final DynamicAuthenticationFilter parent;
 
-        WrapNegotiateAuthenticationFilter(final DynamicAuthenticationFilter parent) {
-            this.parent = parent;
+        WrapNegotiateAuthenticationFilter(final DynamicAuthenticationFilter newParent) {
+            this.parent = newParent;
         }
 
         @Override
@@ -128,8 +128,8 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
 
         private final DynamicAuthenticationFilter parent;
 
-        WrapFormAuthenticationFilter(final DynamicAuthenticationFilter parent) {
-            this.parent = parent;
+        WrapFormAuthenticationFilter(final DynamicAuthenticationFilter newParent) {
+            this.parent = newParent;
         }
 
         @Override
