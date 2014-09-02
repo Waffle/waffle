@@ -1,4 +1,4 @@
-1.7 (8/xx/2014 - Coming Soon)
+1.7 (9/xx/2014 - Coming Soon)
 ================
 
 Notable Feature Changes
@@ -14,9 +14,12 @@ Notable Feature Changes
 * Enforce Java code formatting (space based) through maven plugin
 * Enforce License information in Java code through maven plugin
 * Deprecated Base64 internal usage in favor of using Guava BaseEncoding Base64.
+* Mocking Testing of third party implementations for cleaner intent.
 
 Changes
 --------
+* [#140](https://github.com/dblock/waffle/pull/140): Mocking Unit Tests - [@hazendaz](https://github.com/hazendaz).
+  * Mock implementations used in unit tests for various features such as tomcat/shiro in order to make it clear to intention of waffle tests.
 * [#136](https://github.com/dblock/waffle/pull/136): Enable user logging when using filter [@tbenbrahim](https://github.com/tbenbrahim).
   * Added toString to WindowsPrincipal to enable logging of authenticated user when using the servlet filter, using the waffle.servlet.NegotiateSecurityFilter.PRINCIPAL session attribute.
 * [#120](https://github.com/dblock/waffle/pull/120): Application Security License - [@hazendaz](https://github.com/hazendaz).

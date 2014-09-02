@@ -13,29 +13,18 @@
  */
 package waffle.apache.catalina;
 
-import java.security.Principal;
-
 import org.apache.catalina.realm.RealmBase;
 
 /**
+ * Simple Realm.
+ * 
  * @author dblock[at]dblock[dot]org
  */
-public class SimpleRealm extends RealmBase {
+public abstract class SimpleRealm extends RealmBase {
 
     @Override
     protected String getName() {
         return "simpleRealm";
     }
 
-    @Override
-    protected String getPassword(String arg0) {
-        // Not Implemented
-        return null;
-    }
-
-    @Override
-    protected Principal getPrincipal(String arg0) {
-        // Not Implemented
-        return null;
-    }
 }

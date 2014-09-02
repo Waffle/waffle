@@ -22,24 +22,24 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * Simple Request Dispatcher.
+ * 
  * @author dblock[at]dblock[dot]org
  */
-public class SimpleRequestDispatcher implements RequestDispatcher {
+public abstract class SimpleRequestDispatcher implements RequestDispatcher {
 
-    private String _url;
-
-    public SimpleRequestDispatcher(String url) {
-        _url = url;
-    }
+    private String url;
 
     @Override
-    public void forward(ServletRequest request, ServletResponse response) throws ServletException, IOException {
-        HttpServletResponse httpResponse = (HttpServletResponse) response;
+    public void forward(final ServletRequest request, final ServletResponse response) throws ServletException,
+            IOException {
+        final HttpServletResponse httpResponse = (HttpServletResponse) response;
         httpResponse.setStatus(304);
-        httpResponse.addHeader("Location", _url);
+        httpResponse.addHeader("Location", this.url);
     }
 
-    @Override
-    public void include(ServletRequest request, ServletResponse response) throws ServletException, IOException {
+    public void setUrl(final String value) {
+        this.url = value;
     }
+
 }

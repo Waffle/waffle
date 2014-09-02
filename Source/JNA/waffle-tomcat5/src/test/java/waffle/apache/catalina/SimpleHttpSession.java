@@ -13,105 +13,41 @@
  */
 package waffle.apache.catalina;
 
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionContext;
 
 /**
- * Simple Http Session
+ * Simple HTTP Session.
  * 
  * @author dblock[at]dblock[dot]org
  */
-@SuppressWarnings("deprecation")
-public class SimpleHttpSession implements HttpSession {
+public abstract class SimpleHttpSession implements HttpSession {
 
-    private Map<String, Object> attributes = new HashMap<String, Object>();
+    private Map<String, Object> attributes;
 
     @Override
-    public Object getAttribute(String attributeName) {
+    public Object getAttribute(final String attributeName) {
         return this.attributes.get(attributeName);
     }
 
     @Override
-    public Enumeration<String> getAttributeNames() {
-        return null;
-    }
-
-    @Override
-    public long getCreationTime() {
-        return 0;
-    }
-
-    @Override
     public String getId() {
-        return null;
+        return "WaffleId";
     }
 
     @Override
-    public long getLastAccessedTime() {
-        return 0;
-    }
-
-    @Override
-    public int getMaxInactiveInterval() {
-        return 0;
-    }
-
-    @Override
-    public ServletContext getServletContext() {
-        return null;
-    }
-
-    @Override
-    public HttpSessionContext getSessionContext() {
-        return null;
-    }
-
-    @Override
-    public Object getValue(String arg0) {
-        return null;
-    }
-
-    @Override
-    public String[] getValueNames() {
-        return new String[0];
-    }
-
-    @Override
-    public void invalidate() {
-
-    }
-
-    @Override
-    public boolean isNew() {
-        return false;
-    }
-
-    @Override
-    public void putValue(String arg0, Object arg1) {
-    }
-
-    @Override
-    public void removeAttribute(String attributeName) {
+    public void removeAttribute(final String attributeName) {
         this.attributes.remove(attributeName);
     }
 
     @Override
-    public void removeValue(String arg0) {
-
-    }
-
-    @Override
-    public void setAttribute(String attributeName, Object attributeValue) {
+    public void setAttribute(final String attributeName, final Object attributeValue) {
         this.attributes.put(attributeName, attributeValue);
     }
 
-    @Override
-    public void setMaxInactiveInterval(int arg0) {
-
+    public void setAttributes(final Map<String, Object> value) {
+        this.attributes = value;
     }
+
 }
