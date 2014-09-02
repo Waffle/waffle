@@ -37,8 +37,8 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
     private Account[] userGroups;
     private Account   windowsAccount;
 
-    public WindowsIdentityImpl(final HANDLE windowsIdentity) {
-        this.windowsIdentity = windowsIdentity;
+    public WindowsIdentityImpl(final HANDLE newWindowsIdentity) {
+        this.windowsIdentity = newWindowsIdentity;
     }
 
     private Account getWindowsAccount() {

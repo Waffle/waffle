@@ -217,8 +217,9 @@ public class WindowsPrincipal implements Principal, Serializable {
         return this.identity;
     }
 
+    @Override
     public String toString() {
-        return getName();
+        return this.getName();
     }
 
 }

@@ -39,8 +39,8 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
     private String               realm  = "BasicSecurityFilterProvider";
     private IWindowsAuthProvider auth;
 
-    public BasicSecurityFilterProvider(final IWindowsAuthProvider auth) {
-        this.auth = auth;
+    public BasicSecurityFilterProvider(final IWindowsAuthProvider newAuthProvider) {
+        this.auth = newAuthProvider;
     }
 
     @Override

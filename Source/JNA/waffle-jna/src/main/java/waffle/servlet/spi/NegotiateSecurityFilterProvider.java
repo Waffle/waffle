@@ -51,8 +51,8 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
     private List<String>         protocols        = new ArrayList<String>();
     private IWindowsAuthProvider auth;
 
-    public NegotiateSecurityFilterProvider(final IWindowsAuthProvider auth) {
-        this.auth = auth;
+    public NegotiateSecurityFilterProvider(final IWindowsAuthProvider newAuthProvider) {
+        this.auth = newAuthProvider;
         this.protocols.add(NEGOTIATE);
         this.protocols.add(NTLM);
     }
