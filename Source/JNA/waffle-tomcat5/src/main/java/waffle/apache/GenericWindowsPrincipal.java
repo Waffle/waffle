@@ -42,21 +42,21 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
     /**
      * A windows principal.
      * 
-     * @param windowsIdentity
+     * @param newWindowsIdentity
      *            Windows identity.
-     * @param realm
+     * @param newRealm
      *            Authentication realm.
-     * @param principalFormat
+     * @param newPrincipalFormat
      *            Principal format.
-     * @param roleFormat
+     * @param newRoleFormat
      *            Role format.
      */
-    public GenericWindowsPrincipal(final IWindowsIdentity windowsIdentity, final Realm realm,
-            final PrincipalFormat principalFormat, final PrincipalFormat roleFormat) {
-        super(realm, windowsIdentity.getFqn(), "", getRoles(windowsIdentity, principalFormat, roleFormat));
-        this.sid = windowsIdentity.getSid();
-        this.sidString = windowsIdentity.getSidString();
-        this.groups = getGroups(windowsIdentity.getGroups());
+    public GenericWindowsPrincipal(final IWindowsIdentity newWindowsIdentity, final Realm newRealm,
+            final PrincipalFormat newPrincipalFormat, final PrincipalFormat newRoleFormat) {
+        super(newRealm, newWindowsIdentity.getFqn(), "", getRoles(newWindowsIdentity, newPrincipalFormat, newRoleFormat));
+        this.sid = newWindowsIdentity.getSid();
+        this.sidString = newWindowsIdentity.getSidString();
+        this.groups = getGroups(newWindowsIdentity.getGroups());
     }
 
     private static List<String> getRoles(final IWindowsIdentity windowsIdentity, final PrincipalFormat principalFormat,

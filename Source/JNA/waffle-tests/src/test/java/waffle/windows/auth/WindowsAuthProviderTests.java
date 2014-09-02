@@ -273,7 +273,7 @@ public class WindowsAuthProviderTests {
             } while (clientContext.isContinue() || serverContext != null && serverContext.isContinue());
 
             if (serverContext != null) {
-                assertTrue(serverContext.getIdentity().getFqn().length() > 0);
+                Assertions.assertThat(serverContext.getIdentity().getFqn().length()).isGreaterThan(0);
 
                 IWindowsImpersonationContext impersonationCtx = serverContext.impersonate();
                 impersonationCtx.revertToSelf();
