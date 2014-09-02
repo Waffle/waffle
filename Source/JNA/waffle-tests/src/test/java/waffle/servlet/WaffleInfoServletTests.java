@@ -71,7 +71,7 @@ public class WaffleInfoServletTests {
         assertEquals("hello", child.getNodeName());
     }
 
-    public static Document loadXMLFromString(String xml) throws ParserConfigurationException, SAXException, IOException {
+    private static Document loadXMLFromString(String xml) throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         InputSource is = new InputSource(new StringReader(xml));
