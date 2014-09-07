@@ -109,9 +109,9 @@
 
         <assertj.version>1.6.1</assertj.version>
         <contiperf.version>2.2.0</contiperf.version>
-        <junit.version>4.11</junit.version>
+        <junit.version>4.12-beta-1</junit.version>
         <mockito.version>1.9.5</mockito.version>
-        <powermock.version>1.5.5</powermock.version>
+        <powermock.version>1.5.6</powermock.version>
         <signature.version>java16</signature.version>
         <slf4j.version>1.7.7</slf4j.version>
     </properties>
@@ -184,7 +184,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.8.1</version>
+                    <version>2.8.2</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -202,7 +202,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-install-plugin</artifactId>
-                    <version>2.5.1</version>
+                    <version>2.5.2</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>

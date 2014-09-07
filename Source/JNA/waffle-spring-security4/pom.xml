@@ -18,7 +18,7 @@
 
         <thirdparty.dir>${project.basedir}/../../ThirdParty</thirdparty.dir>
 
-        <spring.version>4.0.6.RELEASE</spring.version>
+        <spring.version>4.1.0.RELEASE</spring.version>
         <spring.security.version>4.0.0.M2</spring.security.version>
     </properties>
     <dependencies>
