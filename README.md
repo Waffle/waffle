@@ -15,9 +15,9 @@ Unlike many other implementations Waffle on Windows does not require any server-
 Essentials
 ----------
 
-* [Download Version 1.7](http://code.dblock.org/downloads/waffle/Waffle.1.7.zip)
+* [Download Version 1.6](http://code.dblock.org/downloads/waffle/Waffle.1.6.zip)
 * [Waffle in Maven Central](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.github.dblock.waffle%22)
-* [Waffle 1.8 Snapshot](https://oss.sonatype.org/content/repositories/snapshots/com/github/dblock/waffle/)
+* [Waffle 1.7 Snapshot](https://oss.sonatype.org/content/repositories/snapshots/com/github/dblock/waffle/)
 * [Get Waffle To Work in Tomcat, Jetty, WebSphere, etc.](Docs/ServletSingleSignOnSecurityFilter.md)
 * [Need Help? Google Group](http://groups.google.com/group/waffle-users)
 * [Troubleshooting](Docs/Troubleshooting.md)
@@ -68,6 +68,13 @@ Contributing
 * Make your code changes. Don't forget tests.
 * Update [CHANGELOG](CHANGELOG.md).
 * Make pull requests. Bonus points for topic branches. 
+
+Sonar Results
+-------------
+
+Current status of sonar results for Waffle.
+
+![sonar-results](Docs/imgs/sonar-results.png)
 
 License and Copyright
 ---------------------
