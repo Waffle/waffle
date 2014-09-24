@@ -40,6 +40,11 @@ After you have your account all set up, configure your Maven settings.xml (gener
       ...
     </settings>
 
+In order to perform mvn release, there's some extra steps needed byond what's needed to build WAFFLE.
+
+First, follow this link and get yourself setup with ssh on github first [github-ssh-keys].  If ssh-add does not work and fails 
+with error 'Could not open a connection to your authentication agent' but the agent looks right, enter 'eval $(ssh-agent)', then try the ssh-add again.
+
 Deploying Snapshots
 -------------------
 
@@ -76,3 +81,4 @@ Once you've succeeded in finishing those steps, log in to [Sonatype OS](https://
 [Maven]: http://maven.apache.org/
 [gpg]: http://www.gnupg.org/
 [maven-release-plugin]: http://maven.apache.org/plugins/maven-release-plugin/
+[github-ssh-keys]: https://help.github.com/articles/generating-ssh-keys/
