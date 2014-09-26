@@ -9,6 +9,7 @@
         <relativePath>../waffle-demo-parent</relativePath>
     </parent>
     <artifactId>waffle-spring-form</artifactId>
+    <version>1.7-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>waffle-spring-form</name>
     <description>Spring Form Demo for WAFFLE</description>

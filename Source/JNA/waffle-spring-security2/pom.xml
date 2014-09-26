@@ -9,6 +9,7 @@
         <relativePath>../waffle-parent</relativePath>
     </parent>
     <artifactId>waffle-spring-security2</artifactId>
+    <version>1.7-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>waffle-spring-security2</name>
     <description>Spring Security 2 integration for WAFFLE</description>

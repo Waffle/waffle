@@ -9,6 +9,7 @@
         <relativePath>../waffle-parent</relativePath>
     </parent>
     <artifactId>waffle-tomcat7</artifactId>
+    <version>1.7-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>waffle-tomcat7</name>
     <description>Tomcat 7 integration for WAFFLE</description>

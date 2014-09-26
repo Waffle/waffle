@@ -9,6 +9,7 @@
         <relativePath>../waffle-demo-parent</relativePath>
     </parent>
     <artifactId>waffle-filter</artifactId>
+    <version>1.7-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>waffle-filter</name>
     <description>Filter Demo for WAFFLE</description>

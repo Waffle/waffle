@@ -9,6 +9,7 @@
     </parent>
     <groupId>com.github.dblock.waffle.demo</groupId>
     <artifactId>waffle-demo-parent</artifactId>
+    <version>1.7-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>waffle-demo-parent</name>
     <!-- Due to maven release plugin temporarily comment modules
