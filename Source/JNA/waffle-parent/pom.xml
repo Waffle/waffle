@@ -108,7 +108,7 @@
         <git.relative.loc>../../..</git.relative.loc>
 
         <assertj.version>1.6.1</assertj.version>
-        <contiperf.version>2.2.0</contiperf.version>
+        <contiperf.version>2.3.4</contiperf.version>
         <junit.version>4.12-beta-1</junit.version>
         <mockito.version>1.9.5</mockito.version>
         <powermock.version>1.5.6</powermock.version>
@@ -174,7 +174,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-clean-plugin</artifactId>
-                    <version>2.5</version>
+                    <version>2.6</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
