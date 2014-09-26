@@ -9,6 +9,7 @@
         <relativePath>../waffle-demo-parent</relativePath>
     </parent>
     <artifactId>waffle-jaas</artifactId>
+    <version>1.7-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>waffle-jaas</name>
     <description>Jaas Demo for WAFFLE</description>

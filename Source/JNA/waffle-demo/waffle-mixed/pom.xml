@@ -9,6 +9,7 @@
         <relativePath>../waffle-demo-parent</relativePath>
     </parent>
     <artifactId>waffle-mixed</artifactId>
+    <version>1.7-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>waffle-mixed</name>
     <description>Mixed Demo for WAFFLE</description>

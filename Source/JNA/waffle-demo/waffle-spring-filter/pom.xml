@@ -9,6 +9,7 @@
         <relativePath>../waffle-demo-parent</relativePath>
     </parent>
     <artifactId>waffle-spring-filter</artifactId>
+    <version>1.7-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>waffle-spring-filter</name>
     <description>Spring Filter Demo for WAFFLE</description>

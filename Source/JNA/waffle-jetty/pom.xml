@@ -9,6 +9,7 @@
         <relativePath>../waffle-parent</relativePath>
     </parent>
     <artifactId>waffle-jetty</artifactId>
+    <version>1.7-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>waffle-jetty</name>
     <description>Jetty integration for WAFFLE</description>

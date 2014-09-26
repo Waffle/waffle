@@ -9,6 +9,7 @@
         <relativePath>../waffle-parent</relativePath>
     </parent>
     <artifactId>waffle-distro</artifactId>
+    <version>1.7-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>waffle-distro</name>
     <description>Distribution for WAFFLE</description>
