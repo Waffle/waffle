@@ -64,6 +64,7 @@
     <prerequisites>
         <maven>3.0.5</maven>
     </prerequisites>
+    <!-- Due to maven release plugin temporarily comment modules
     <modules>
         <module>../waffle-demo/waffle-demo-parent</module>
         <module>../waffle-distro</module>
@@ -79,6 +80,7 @@
         <module>../waffle-tomcat7</module>
         <module>../waffle-tomcat8</module>
     </modules>
+    -->
     <scm>
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
