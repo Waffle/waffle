@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.github.dblock.waffle</groupId>
@@ -9,7 +8,7 @@
         <relativePath>../waffle-parent</relativePath>
     </parent>
     <artifactId>waffle-tomcat5</artifactId>
-    <version>1.7-SNAPSHOT</version>
+    <version>1.7</version>
     <packaging>jar</packaging>
     <name>waffle-tomcat5</name>
     <description>Tomcat 5 integration for WAFFLE</description>
@@ -22,18 +21,19 @@
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
         <url>https://github.com/dblock/waffle</url>
-    </scm>
+      <tag>waffle-tomcat5-1.7</tag>
+  </scm>
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>waffle-jna</artifactId>
-            <version>${project.version}</version>
+            <version>1.7</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>waffle-tests</artifactId>
-            <version>${project.version}</version>
+            <version>1.7</version>
             <scope>test</scope>
         </dependency>
         <dependency>
