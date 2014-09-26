@@ -11,6 +11,7 @@
     <artifactId>waffle-demo-parent</artifactId>
     <packaging>pom</packaging>
     <name>waffle-demo-parent</name>
+    <!-- Due to maven release plugin temporarily comment modules
     <modules>
         <module>../waffle-filter</module>
         <module>../waffle-form</module>
@@ -21,6 +22,7 @@
         <module>../waffle-spring-filter</module>
         <module>../waffle-spring-form</module>
     </modules>
+    -->
     <properties>
         <format.relative.loc>../..</format.relative.loc>
         <git.relative.loc>../../../..</git.relative.loc>
