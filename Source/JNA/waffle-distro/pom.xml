@@ -13,6 +13,11 @@
     <packaging>pom</packaging>
     <name>waffle-distro</name>
     <description>Distribution for WAFFLE</description>
+    <scm>
+        <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
+        <url>https://github.com/dblock/waffle</url>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>com.github.dblock.waffle</groupId>
