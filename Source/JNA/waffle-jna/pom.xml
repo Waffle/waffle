@@ -8,7 +8,7 @@
         <relativePath>../waffle-parent</relativePath>
     </parent>
     <artifactId>waffle-jna</artifactId>
-    <version>1.7-SNAPSHOT</version>
+    <version>1.7</version>
     <packaging>jar</packaging>
     <name>waffle-jna</name>
     <description>WAFFLE JNA implementation</description>
@@ -22,7 +22,8 @@
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
         <url>https://github.com/dblock/waffle</url>
-    </scm>
+      <tag>waffle-jna-1.7</tag>
+  </scm>
     <dependencies>
         <dependency>
             <groupId>net.java.dev.jna</groupId>
