@@ -9,7 +9,7 @@
     </parent>
     <groupId>com.github.dblock.waffle.demo</groupId>
     <artifactId>waffle-demo-parent</artifactId>
-    <version>1.7-SNAPSHOT</version>
+    <version>1.7</version>
     <packaging>pom</packaging>
     <name>waffle-demo-parent</name>
     <!-- Due to maven release plugin temporarily comment modules
@@ -32,14 +32,14 @@
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
         <url>https://github.com/dblock/waffle</url>
-        <tag>HEAD</tag>
+        <tag>waffle-demo-parent-1.7</tag>
     </scm>
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>com.github.dblock.waffle</groupId>
                 <artifactId>waffle-jna</artifactId>
-                <version>${project.version}</version>
+                <version>1.7</version>
             </dependency>
             <dependency>
                 <groupId>com.github.dblock.waffle</groupId>
