@@ -28,6 +28,11 @@
         <format.relative.loc>../..</format.relative.loc>
         <git.relative.loc>../../../..</git.relative.loc>
     </properties>
+    <scm>
+        <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
+        <url>https://github.com/dblock/waffle</url>
+    </scm>
     <dependencyManagement>
         <dependencies>
             <dependency>

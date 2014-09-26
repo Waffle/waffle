@@ -17,6 +17,11 @@
         <spring.version>3.2.11.RELEASE</spring.version>
         <spring.security.version>3.2.5.RELEASE</spring.security.version>
     </properties>
+    <scm>
+        <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
+        <url>https://github.com/dblock/waffle</url>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>

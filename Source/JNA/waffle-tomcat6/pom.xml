@@ -16,6 +16,11 @@
     <properties>
         <tomcat.version>6.0.41</tomcat.version>
     </properties>
+    <scm>
+        <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
+        <url>https://github.com/dblock/waffle</url>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
