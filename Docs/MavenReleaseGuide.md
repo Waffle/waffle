@@ -59,6 +59,8 @@ Releasing to Maven Central via the Sonatype OSS Repository is a two-phase proces
 
 To build the artifacts and upload them to a new staging repository, run the following commands.  These make use of the [Maven Release Plugin][maven-release-plugin], which is rather complex.  It will prompt you for various information related to the release, modify the POM files to update the version, and perform Git operations on your behalf.  It is recommended to read its documentation before proceeding, and consider doing a dry run (as documented in the [usage page](http://maven.apache.org/plugins/maven-release-plugin/usage.html)) before proceeding with the actual release.
 
+*** DO NOT USE ECLIPSE TO RUN THESE AS IT HANGS, USE COMMAND LINE ***
+
     mvn release:clean
     mvn release:prepare
     mvn release:perform
