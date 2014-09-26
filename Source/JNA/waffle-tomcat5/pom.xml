@@ -8,7 +8,7 @@
         <relativePath>../waffle-parent</relativePath>
     </parent>
     <artifactId>waffle-tomcat5</artifactId>
-    <version>1.7</version>
+    <version>1.8-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>waffle-tomcat5</name>
     <description>Tomcat 5 integration for WAFFLE</description>
@@ -21,7 +21,7 @@
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
         <url>https://github.com/dblock/waffle</url>
-      <tag>waffle-tomcat5-1.7</tag>
+      <tag>HEAD</tag>
   </scm>
     <dependencies>
         <dependency>
