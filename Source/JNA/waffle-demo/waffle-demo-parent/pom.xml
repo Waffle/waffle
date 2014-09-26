@@ -32,6 +32,7 @@
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
         <url>https://github.com/dblock/waffle</url>
+        <tag>HEAD</tag>
     </scm>
     <dependencyManagement>
         <dependencies>
@@ -88,5 +89,14 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <configuration>
+                    <header>../../waffle-parent/license.txt</header>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 </project>
