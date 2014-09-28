@@ -8,7 +8,7 @@
         <relativePath>../waffle-parent</relativePath>
     </parent>
     <artifactId>waffle-distro</artifactId>
-    <version>1.7</version>
+    <version>1.8-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>waffle-distro</name>
     <description>Distribution for WAFFLE</description>
@@ -16,7 +16,7 @@
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
         <url>https://github.com/dblock/waffle</url>
-        <tag>waffle-distro-1.7</tag>
+        <tag>HEAD</tag>
     </scm>
     <dependencies>
         <dependency>
