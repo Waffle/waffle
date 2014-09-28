@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.github.dblock.waffle</groupId>
@@ -9,7 +8,7 @@
         <relativePath>../waffle-parent</relativePath>
     </parent>
     <artifactId>waffle-distro</artifactId>
-    <version>1.7-SNAPSHOT</version>
+    <version>1.7</version>
     <packaging>pom</packaging>
     <name>waffle-distro</name>
     <description>Distribution for WAFFLE</description>
@@ -17,128 +16,128 @@
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
         <url>https://github.com/dblock/waffle</url>
-        <tag>HEAD</tag>
+        <tag>waffle-distro-1.7</tag>
     </scm>
     <dependencies>
         <dependency>
             <groupId>com.github.dblock.waffle</groupId>
             <artifactId>waffle-jetty</artifactId>
-            <version>${project.version}</version>
+            <version>1.7</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle</groupId>
             <artifactId>waffle-jna</artifactId>
-            <version>${project.version}</version>
+            <version>1.7</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle</groupId>
             <artifactId>waffle-shiro</artifactId>
-            <version>${project.version}</version>
+            <version>1.7</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle</groupId>
             <artifactId>waffle-spring-security2</artifactId>
-            <version>${project.version}</version>
+            <version>1.7</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle</groupId>
             <artifactId>waffle-spring-security3</artifactId>
-            <version>${project.version}</version>
+            <version>1.7</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle</groupId>
             <artifactId>waffle-spring-security4</artifactId>
-            <version>${project.version}</version>
+            <version>1.7</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle</groupId>
             <artifactId>waffle-tests</artifactId>
-            <version>${project.version}</version>
+            <version>1.7</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle</groupId>
             <artifactId>waffle-tomcat5</artifactId>
-            <version>${project.version}</version>
+            <version>1.7</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle</groupId>
             <artifactId>waffle-tomcat6</artifactId>
-            <version>${project.version}</version>
+            <version>1.7</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle</groupId>
             <artifactId>waffle-tomcat7</artifactId>
-            <version>${project.version}</version>
+            <version>1.7</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle</groupId>
             <artifactId>waffle-tomcat8</artifactId>
-            <version>${project.version}</version>
+            <version>1.7</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle.demo</groupId>
             <artifactId>waffle-filter</artifactId>
-            <version>${project.version}</version>
+            <version>1.7</version>
             <scope>runtime</scope>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle.demo</groupId>
             <artifactId>waffle-form</artifactId>
-            <version>${project.version}</version>
+            <version>1.7</version>
             <scope>runtime</scope>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle.demo</groupId>
             <artifactId>waffle-jaas</artifactId>
-            <version>${project.version}</version>
+            <version>1.7</version>
             <scope>runtime</scope>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle.demo</groupId>
             <artifactId>waffle-mixed</artifactId>
-            <version>${project.version}</version>
+            <version>1.7</version>
             <scope>runtime</scope>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle.demo</groupId>
             <artifactId>waffle-mixed-post</artifactId>
-            <version>${project.version}</version>
+            <version>1.7</version>
             <scope>runtime</scope>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle.demo</groupId>
             <artifactId>waffle-negotiate</artifactId>
-            <version>${project.version}</version>
+            <version>1.7</version>
             <scope>runtime</scope>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle.demo</groupId>
             <artifactId>waffle-spring-filter</artifactId>
-            <version>${project.version}</version>
+            <version>1.7</version>
             <scope>runtime</scope>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle.demo</groupId>
             <artifactId>waffle-spring-form</artifactId>
-            <version>${project.version}</version>
+            <version>1.7</version>
             <scope>runtime</scope>
             <type>war</type>
         </dependency>
