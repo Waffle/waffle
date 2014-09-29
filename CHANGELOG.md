@@ -1,8 +1,8 @@
-1.7 (9/xx/2014 - Coming Soon)
-================
+1.7 (9/25/2014)
+===============
 
 Notable Feature Changes
---------
+-----------------------
 * Full Mavenized Build
 * All demos now mavenized
 * Support for Tomcat 8
