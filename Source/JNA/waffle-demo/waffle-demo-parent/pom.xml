@@ -4,7 +4,7 @@
     <parent>
         <groupId>com.github.dblock.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
-        <version>1.7</version>
+        <version>1.8-SNAPSHOT</version>
         <relativePath>../../waffle-parent</relativePath>
     </parent>
     <groupId>com.github.dblock.waffle.demo</groupId>
@@ -12,7 +12,9 @@
     <version>1.8-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>waffle-demo-parent</name>
-    <!-- Due to maven release plugin temporarily comment modules
+    <description>Parent POM for Waffle Demo</description>
+    <url>http://dblock.github.com/waffle/</url>
+    <!-- Due to maven release plugin temporarily comment modules when releasing -->
     <modules>
         <module>../waffle-filter</module>
         <module>../waffle-form</module>
@@ -23,7 +25,6 @@
         <module>../waffle-spring-filter</module>
         <module>../waffle-spring-form</module>
     </modules>
-    -->
     <properties>
         <format.relative.loc>../..</format.relative.loc>
         <git.relative.loc>../../../..</git.relative.loc>
@@ -39,7 +40,7 @@
             <dependency>
                 <groupId>com.github.dblock.waffle</groupId>
                 <artifactId>waffle-jna</artifactId>
-                <version>1.7</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.dblock.waffle</groupId>

@@ -4,7 +4,7 @@
     <parent>
         <groupId>com.github.dblock.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
-        <version>1.7</version>
+        <version>1.8-SNAPSHOT</version>
         <relativePath>../waffle-parent</relativePath>
     </parent>
     <artifactId>waffle-spring-security3</artifactId>
@@ -12,7 +12,9 @@
     <packaging>jar</packaging>
     <name>waffle-spring-security3</name>
     <description>Spring Security 3 integration for WAFFLE</description>
+    <url>http://dblock.github.com/waffle/</url>
     <properties>
+        <servlet.version>3.0.1</servlet.version>
         <spring.version>3.2.11.RELEASE</spring.version>
         <spring.security.version>3.2.5.RELEASE</spring.security.version>
     </properties>
@@ -21,24 +23,24 @@
         <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
         <url>https://github.com/dblock/waffle</url>
         <tag>HEAD</tag>
-  </scm>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>waffle-jna</artifactId>
-            <version>1.7</version>
+            <version>1.8-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>waffle-tests</artifactId>
-            <version>1.7</version>
+            <version>1.8-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>3.0.1</version>
+            <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

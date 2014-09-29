@@ -4,7 +4,7 @@
     <parent>
         <groupId>com.github.dblock.waffle.demo</groupId>
         <artifactId>waffle-demo-parent</artifactId>
-        <version>1.7</version>
+        <version>1.8-SNAPSHOT</version>
         <relativePath>../waffle-demo-parent</relativePath>
     </parent>
     <artifactId>waffle-form</artifactId>
@@ -12,6 +12,7 @@
     <packaging>war</packaging>
     <name>waffle-form</name>
     <description>Form Demo for WAFFLE</description>
+    <url>http://dblock.github.com/waffle/</url>
     <properties>
         <servlet.version>2.5</servlet.version>
     </properties>
