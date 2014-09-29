@@ -4,7 +4,7 @@
     <parent>
         <groupId>com.github.dblock.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
-        <version>1.7</version>
+        <version>1.8-SNAPSHOT</version>
         <relativePath>../waffle-parent</relativePath>
     </parent>
     <artifactId>waffle-shiro</artifactId>
@@ -12,6 +12,7 @@
     <packaging>jar</packaging>
     <name>waffle-shiro</name>
     <description>Shiro integration for WAFFLE</description>
+    <url>http://dblock.github.com/waffle/</url>
     <properties>
         <servlet.version>2.5</servlet.version>
         <shiro.version>1.2.3</shiro.version>
@@ -21,18 +22,18 @@
         <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
         <url>https://github.com/dblock/waffle</url>
         <tag>HEAD</tag>
-  </scm>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>waffle-jna</artifactId>
-            <version>1.7</version>
+            <version>1.8-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>waffle-tests</artifactId>
-            <version>1.7</version>
+            <version>1.8-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
         <dependency>

@@ -4,7 +4,7 @@
     <parent>
         <groupId>com.github.dblock.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
-        <version>1.7</version>
+        <version>1.8-SNAPSHOT</version>
         <relativePath>../waffle-parent</relativePath>
     </parent>
     <artifactId>waffle-jetty</artifactId>
@@ -12,11 +12,21 @@
     <packaging>jar</packaging>
     <name>waffle-jetty</name>
     <description>Jetty integration for WAFFLE</description>
+    <url>http://dblock.github.com/waffle/</url>
     <properties>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
+
+        <!-- Skipping because there is no source to prevent it failing -->
         <maven.javadoc.skip>true</maven.javadoc.skip>
+
+        <el.version>3.0.1-b05</el.version>
+        <el-api.version>3.0.1-b04</el-api.version>
         <jetty.version>9.2.3.v20140905</jetty.version>
+        <jdt.version>4.4</jdt.version>
+        <jsp.version>2.3.3-b02</jsp.version>
+        <jsp-api.version>2.3.2-b01</jsp-api.version>
+        <jstl.version>1.2.3</jstl.version>
         <slf4j.version>1.7.7</slf4j.version>
     </properties>
     <scm>
@@ -24,12 +34,12 @@
         <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
         <url>https://github.com/dblock/waffle</url>
         <tag>HEAD</tag>
-  </scm>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>waffle-jna</artifactId>
-            <version>1.7</version>
+            <version>1.8-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -39,39 +49,39 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.jetty.orbit</groupId>
-            <artifactId>org.eclipse.jdt.core</artifactId>
-            <version>3.8.2.v20130121</version>
+            <groupId>org.eclipse.jdt.core.compiler</groupId>
+            <artifactId>ecj</artifactId>
+            <version>${jdt.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.el</groupId>
             <artifactId>javax.el-api</artifactId>
-            <version>3.0.1-b04</version>
+            <version>${el-api.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>javax.servlet.jsp-api</artifactId>
-            <version>2.3.2-b01</version>
+            <version>${jsp-api.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>javax.el</artifactId>
-            <version>3.0.1-b05</version>
+            <version>${el.version}</version>
             <scope>provided</scope>
         </dependency>
          <dependency>
             <groupId>org.glassfish.web</groupId>
             <artifactId>javax.servlet.jsp</artifactId>
-            <version>2.3.3-b02</version>
+            <version>${jsp.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish.web</groupId>
             <artifactId>javax.servlet.jsp.jstl</artifactId>
-            <version>1.2.3</version>
+            <version>${jstl.version}</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>

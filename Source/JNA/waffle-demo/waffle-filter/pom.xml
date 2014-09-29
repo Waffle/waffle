@@ -4,7 +4,7 @@
     <parent>
         <groupId>com.github.dblock.waffle.demo</groupId>
         <artifactId>waffle-demo-parent</artifactId>
-        <version>1.7</version>
+        <version>1.8-SNAPSHOT</version>
         <relativePath>../waffle-demo-parent</relativePath>
     </parent>
     <artifactId>waffle-filter</artifactId>
@@ -12,6 +12,10 @@
     <packaging>war</packaging>
     <name>waffle-filter</name>
     <description>Filter Demo for WAFFLE</description>
+    <url>http://dblock.github.com/waffle/</url>
+    <properties>
+        <servlet.version>2.5</servlet.version>
+    </properties>
     <scm>
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
@@ -27,7 +31,7 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
+            <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
