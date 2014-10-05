@@ -27,7 +27,7 @@ Download Maven from [here](http://maven.apache.org/download.cgi) and unzip it to
 
 ### Third Party (Non Maven Central Items)
 
-After maven is installed, go into `Source/ThirdParty` and run `maven-install.bat`.  This will install third party dependencies needed for building that are not available in maven central.  This is done to allow us to avoid using system scope dependencies.
+After maven is installed, go into `Source/ThirdParty` and run `maven-install.cmd`.  This will install third party dependencies needed for building that are not available in maven central.  This is done to allow us to avoid using system scope dependencies.
 
 ### Microsoft Visual Studio 2010
 

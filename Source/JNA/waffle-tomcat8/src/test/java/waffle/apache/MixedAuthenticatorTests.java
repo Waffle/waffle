@@ -216,12 +216,12 @@ public class MixedAuthenticatorTests {
     public void testProgrammaticSecurity() throws ServletException {
         this.authenticator.setAuth(new MockWindowsAuthProvider());
         final SimpleHttpRequest request = new SimpleHttpRequest();
-        request.setContext((Context) this.authenticator.getContainer());
+        request.getMappingData().context = (Context) this.authenticator.getContainer();
 
         request.login(WindowsAccountImpl.getCurrentUsername(), "");
 
         // TODO Why is remote user null here?
-        // assertEquals(WindowsAccountImpl.getCurrentUsername(), request.getRemoteUser());
+        // Assert.assertEquals(WindowsAccountImpl.getCurrentUsername(), request.getRemoteUser());
         Assert.assertTrue(request.getUserPrincipal() instanceof GenericWindowsPrincipal);
         final GenericWindowsPrincipal windowsPrincipal = (GenericWindowsPrincipal) request.getUserPrincipal();
         Assert.assertTrue(windowsPrincipal.getSidString().startsWith("S-"));
