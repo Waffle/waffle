@@ -85,12 +85,10 @@ public final class SPNegoMessage {
         if ((message[1] & 0x80) == 0) {
             len = message[1];
         } else {
-
             lenBytes = message[1] & 0x7f;
             len = 0;
             int i = 2;
             while (lenBytes > 0) {
-
                 len = len << 8;
                 len |= (message[i] & 0xff);
                 --lenBytes;
