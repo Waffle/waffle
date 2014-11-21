@@ -1,3 +1,9 @@
+1.8 (in-progress)
+=================
+* Added try/catch to authorization header base64 decode in cases of invalid or unsupported authentication header.
+  ** Throws runtimeException "Invalid authorization header."
+
+
 1.7 (9/25/2014)
 ===============
 
