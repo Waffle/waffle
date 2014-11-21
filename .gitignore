@@ -14,3 +14,4 @@ Thumbs.db
 Waffle.sln.cache
 Waffle.suo
 *.csproj.user
+.tern-project

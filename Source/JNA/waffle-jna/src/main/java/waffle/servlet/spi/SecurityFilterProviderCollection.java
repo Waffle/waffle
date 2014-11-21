@@ -48,14 +48,15 @@ public class SecurityFilterProviderCollection {
 
     @SuppressWarnings("unchecked")
     public SecurityFilterProviderCollection(final String[] providerNames, final IWindowsAuthProvider auth) {
+        Class<SecurityFilterProvider> providerClass;
+        Constructor<SecurityFilterProvider> providerConstructor;
         for (String providerName : providerNames) {
             providerName = providerName.trim();
             LOGGER.info("loading '{}'", providerName);
             try {
-                Class<SecurityFilterProvider> providerClass = (Class<SecurityFilterProvider>) Class
-                        .forName(providerName);
-                Constructor<SecurityFilterProvider> c = providerClass.getConstructor(IWindowsAuthProvider.class);
-                SecurityFilterProvider provider = c.newInstance(auth);
+                providerClass = (Class<SecurityFilterProvider>) Class.forName(providerName);
+                providerConstructor = providerClass.getConstructor(IWindowsAuthProvider.class);
+                final SecurityFilterProvider provider = providerConstructor.newInstance(auth);
                 this.providers.add(provider);
             } catch (final ClassNotFoundException e) {
                 LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
@@ -121,7 +122,6 @@ public class SecurityFilterProviderCollection {
      */
     public IWindowsIdentity doFilter(final HttpServletRequest request, final HttpServletResponse response)
             throws IOException {
-
         final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
         final SecurityFilterProvider provider = get(authorizationHeader.getSecurityPackage());
         if (provider == null) {
@@ -138,13 +138,11 @@ public class SecurityFilterProviderCollection {
      * @return True if authentication is required.
      */
     public boolean isPrincipalException(final HttpServletRequest request) {
-
         for (SecurityFilterProvider provider : this.providers) {
             if (provider.isPrincipalException(request)) {
                 return true;
             }
         }
-
         return false;
     }
 

@@ -68,7 +68,11 @@ public class AuthorizationHeader {
     }
 
     public byte[] getTokenBytes() {
-        return BaseEncoding.base64().decode(getToken());
+        try {
+            return BaseEncoding.base64().decode(getToken());
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException("Invalid authorization header.");
+        }
     }
 
     public boolean isNtlmType1Message() {

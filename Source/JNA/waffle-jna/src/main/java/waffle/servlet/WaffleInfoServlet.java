@@ -121,9 +121,10 @@ public class WaffleInfoServlet extends HttpServlet {
 
         final Enumeration<?> headers = request.getHeaderNames();
         if (headers.hasMoreElements()) {
+            String name;
             Element child = doc.createElement("headers");
             while (headers.hasMoreElements()) {
-                String name = (String) headers.nextElement();
+                name = (String) headers.nextElement();
 
                 value = doc.createElement(name);
                 value.setTextContent(request.getHeader(name));
