@@ -50,14 +50,13 @@ public class SecurityFilterProviderCollection {
     public SecurityFilterProviderCollection(final String[] providerNames, final IWindowsAuthProvider auth) {
         Class<SecurityFilterProvider> providerClass;
         Constructor<SecurityFilterProvider> providerConstructor;
-        SecurityFilterProvider provider;
         for (String providerName : providerNames) {
             providerName = providerName.trim();
             LOGGER.info("loading '{}'", providerName);
             try {
                 providerClass = (Class<SecurityFilterProvider>) Class.forName(providerName);
                 providerConstructor = providerClass.getConstructor(IWindowsAuthProvider.class);
-                provider = providerConstructor.newInstance(auth);
+                final SecurityFilterProvider provider = providerConstructor.newInstance(auth);
                 this.providers.add(provider);
             } catch (final ClassNotFoundException e) {
                 LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
