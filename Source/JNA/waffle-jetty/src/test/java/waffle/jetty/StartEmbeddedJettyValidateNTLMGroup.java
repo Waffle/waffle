@@ -50,19 +50,19 @@ public class StartEmbeddedJettyValidateNTLMGroup {
 
     private static Logger LOGGER = LoggerFactory.getLogger(StartEmbeddedJettyValidateNTLMGroup.class);
 
-    public static void main(String args[]) {
+    public static void main(final String args[]) {
         System.setProperty(SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "TRACE");
 
-        Server server = new Server(8080);
+        final Server server = new Server(8080);
 
-        ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
+        final ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");
 
-        ServletHandler handler = new ServletHandler();
-        ServletHolder sh = new ServletHolder(new InfoServlet());
+        final ServletHandler handler = new ServletHandler();
+        final ServletHolder sh = new ServletHolder(new InfoServlet());
         context.addServlet(sh, "/*");
 
-        FilterHolder fh = handler.addFilterWithMapping(NegotiateSecurityFilter.class, "/*",
+        final FilterHolder fh = handler.addFilterWithMapping(NegotiateSecurityFilter.class, "/*",
                 EnumSet.of(DispatcherType.REQUEST));
         setFilterParams(fh);
         context.addFilter(fh, "/*", EnumSet.of(DispatcherType.REQUEST));
@@ -77,7 +77,7 @@ public class StartEmbeddedJettyValidateNTLMGroup {
         }
     }
 
-    private static void setFilterParams(FilterHolder fh) {
+    private static void setFilterParams(final FilterHolder fh) {
         fh.setInitParameter("principalFormat", "fqn");
         fh.setInitParameter("roleFormat", "both");
 
@@ -98,12 +98,12 @@ public class StartEmbeddedJettyValidateNTLMGroup {
         private static List<String> authorisedGroups = Arrays.asList("NTGroup1", "NTGroup2");
 
         @Override
-        public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-                IOException {
+        public void doGet(final HttpServletRequest request, final HttpServletResponse response)
+                throws ServletException, IOException {
             response.setContentType("text/html");
             response.setStatus(HttpServletResponse.SC_OK);
 
-            boolean isUserAuthorised = isUserAuthorised(request, authorisedGroups);
+            final boolean isUserAuthorised = isUserAuthorised(request, authorisedGroups);
             if (isUserAuthorised) {
                 response.getWriter().println("User is authorised");
             } else {
@@ -111,35 +111,35 @@ public class StartEmbeddedJettyValidateNTLMGroup {
             }
         }
 
-        private boolean isUserAuthorised(HttpServletRequest request, List<String> authorizedGroups) {
-            List<String> usersGroups = getUsersGroups(request);
+        private boolean isUserAuthorised(final HttpServletRequest request, final List<String> authorizedGroups) {
+            final List<String> usersGroups = getUsersGroups(request);
 
-            boolean noOverlappingGroups = Collections.disjoint(authorizedGroups, usersGroups);
+            final boolean noOverlappingGroups = Collections.disjoint(authorizedGroups, usersGroups);
             if (!noOverlappingGroups) {
                 return true;
             }
             return false;
         }
 
-        private List<String> getUsersGroups(HttpServletRequest request) {
-            List<String> result = new ArrayList<String>();
-            Principal principal = request.getUserPrincipal();
+        private List<String> getUsersGroups(final HttpServletRequest request) {
+            final List<String> result = new ArrayList<String>();
+            final Principal principal = request.getUserPrincipal();
             if (principal instanceof WindowsPrincipal) {
-                WindowsPrincipal windowsPrincipal = (WindowsPrincipal) principal;
-                for (WindowsAccount account : windowsPrincipal.getGroups().values()) {
-                    String groupName = getGroupName(account.getDomain(), account.getFqn());
+                String groupName;
+                final WindowsPrincipal windowsPrincipal = (WindowsPrincipal) principal;
+                for (final WindowsAccount account : windowsPrincipal.getGroups().values()) {
+                    groupName = getGroupName(account.getDomain(), account.getFqn());
                     result.add(groupName);
                 }
             }
             return result;
         }
 
-        private String getGroupName(String domain, String groupString) {
+        private String getGroupName(final String domain, final String groupString) {
             if (domain == null || groupString == null) {
                 return "";
             }
-            String group = groupString.split(domain)[1];
-            return group.substring(1);
+            return groupString.split(domain)[1].substring(1);
         }
     }
 

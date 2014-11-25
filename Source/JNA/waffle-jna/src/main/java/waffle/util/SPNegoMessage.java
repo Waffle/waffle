@@ -81,7 +81,7 @@ public final class SPNegoMessage {
         int lenBytes;
         int len;
 
-        // Get lenght of message for additional check.
+        // Get length of message for additional check.
         if ((message[1] & 0x80) == 0) {
             len = message[1];
         } else {
