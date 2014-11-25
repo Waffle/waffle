@@ -25,6 +25,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.sun.jna.platform.win32.Win32Exception;
+
 import waffle.util.AuthorizationHeader;
 import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.IWindowsIdentity;
@@ -127,7 +129,11 @@ public class SecurityFilterProviderCollection {
         if (provider == null) {
             throw new RuntimeException("Unsupported security package: " + authorizationHeader.getSecurityPackage());
         }
-        return provider.doFilter(request, response);
+        try {
+            return provider.doFilter(request, response);
+        } catch (Win32Exception e) {
+            throw new IOException(e);
+        }
     }
 
     /**
