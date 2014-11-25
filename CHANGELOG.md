@@ -1,8 +1,13 @@
-1.8 (in-progress)
-=================
-* Added try/catch to authorization header base64 decode in cases of invalid or unsupported authentication header.
+1.7.1 (11/24/2014 - waffle-jna only)
+====================================
+* #164: Added try/catch to authorization header base64 decode in cases of invalid or unsupported authentication header.
   ** Throws runtimeException "Invalid authorization header."
-
+* #168 Exception stack trace on invalid credentials.
+  ** Change in waffle 1.7 per sonar to trap only thrown errors resulted in a regression where user enters invalid
+     creditionals and expected behaviour is to ask again but instead a stack trace was thrown.  Special thanks to
+     @gstanchev for finding and helping resolve this issue.
+* Drop legacy base64 usage previously deprecated.  We use guava for this now.
+* Small number of array object creations cleanup.
 
 1.7 (9/25/2014)
 ===============
