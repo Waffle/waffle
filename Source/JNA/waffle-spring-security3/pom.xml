@@ -15,7 +15,7 @@
     <url>http://dblock.github.com/waffle/</url>
     <properties>
         <servlet.version>3.0.1</servlet.version>
-        <spring.version>3.2.11.RELEASE</spring.version>
+        <spring.version>3.2.12.RELEASE</spring.version>
         <spring.security.version>3.2.5.RELEASE</spring.security.version>
     </properties>
     <scm>
