@@ -19,12 +19,17 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.googlecode.catchexception.CatchException;
+import com.googlecode.catchexception.apis.BDDCatchException;
+
 import waffle.mock.http.SimpleHttpRequest;
 
 /**
  * @author dblock[at]dblock[dot]org
  */
 public class AuthorizationHeaderTests {
+
+    private static final String DIGEST_HEADER = "Digest username=\"admin\", realm=\"milton\", nonce=\"YjNjZDgxNDYtOGIwMS00NDk0LTlkMTItYzExMGJkNTcxZjli\", uri=\"/case-user-data/431b971d9e1441d381adb277de4f39f8/test\", response=\"30d2d15e89e0b7596325a12852ae6ca5\", qop=auth, nc=00000025, cnonce=\"fb2f97a275d3d9cb\"";
 
     @Test
     public void testIsNull() {
@@ -106,5 +111,20 @@ public class AuthorizationHeaderTests {
         // PUT
         request.setMethod("PUT");
         assertTrue(header.isNtlmType1PostAuthorizationHeader());
+    }
+
+    /**
+     * This test was designed to specifically test a try/catch that was added around base64 processing to ensure that we
+     * push out a more readable error condition when unsupported type is sent in. Specifically, this is testing the
+     * Digest which is closely related to NTLM but not supported in Waffle.
+     */
+    @Test
+    public void testIsDigestAuthorizationHeaderFailure() {
+        final SimpleHttpRequest request = new SimpleHttpRequest();
+        final AuthorizationHeader header = new AuthorizationHeader(request);
+        request.addHeader("Authorization", DIGEST_HEADER);
+        BDDCatchException.when(header).getTokenBytes();
+        BDDCatchException.then(CatchException.caughtException()).isInstanceOf(RuntimeException.class)
+                .hasMessage("Invalid authorization header.");
     }
 }
