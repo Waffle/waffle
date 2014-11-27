@@ -1,3 +1,7 @@
+1.8-SNAPSHOT
+============
+* [#164](https://github.com/dblock/waffle/issues/164): Added unit test in waffle-tests using catch-exception test library to verify the condition caught is actually expected.
+
 1.7.1 (11/24/2014 - waffle-jna only)
 ====================================
 * [#164](https://github.com/dblock/waffle/issues/164): Added try/catch to authorization header base64 decode in cases of invalid or unsupported authentication header.
