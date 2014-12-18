@@ -5,6 +5,7 @@ WAFFLE - Windows Authentication Framework
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/2775/badge.svg)](https://scan.coverity.com/projects/2775)
 [![Coverage Status](https://coveralls.io/repos/hazendaz/waffle/badge.png)](https://coveralls.io/r/hazendaz/waffle)
 [![Maven central](https://maven-badges.herokuapp.com/maven-central/com.github.dblock.waffle/waffle-jna/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.dblock.waffle/waffle-jna)
+[![Eclipse](http://img.shields.io/badge/license-Eclipse-blue.svg)](https://www.eclipse.org/legal/epl-v10.html)
 
 ![waffle](https://github.com/dblock/waffle/raw/master/waffle.jpg)
 
