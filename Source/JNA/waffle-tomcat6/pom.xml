@@ -14,7 +14,7 @@
     <description>Tomcat 6 integration for WAFFLE</description>
     <url>http://dblock.github.com/waffle/</url>
     <properties>
-        <tomcat.version>6.0.41</tomcat.version>
+        <tomcat.version>6.0.43</tomcat.version>
     </properties>
     <scm>
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
