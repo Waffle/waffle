@@ -84,4 +84,4 @@ Copyright (c) [Application Security Inc.](http://www.appsecinc.com), 2010-2014 a
 
 This project is licensed under the [Eclipse Public License](https://github.com/dblock/waffle/blob/master/LICENSE).
 
-Project maintained by [Daniel Doubrovkine](https://github.com/dblock).
+Project maintained by [Daniel Doubrovkine](https://github.com/dblock) & [Jeremy Landis](https://github.com/hazendaz).
