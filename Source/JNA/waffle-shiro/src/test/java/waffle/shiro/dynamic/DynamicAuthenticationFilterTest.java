@@ -18,12 +18,13 @@ import java.util.Map;
 
 import javax.servlet.ServletRequest;
 
+import mockit.Deencapsulation;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
-import org.powermock.reflect.Whitebox;
 
 /**
  * @author Dan Rollo Date: 2/26/13 Time: 5:47 PM
@@ -50,7 +51,7 @@ public class DynamicAuthenticationFilterTest {
         this.dynamicAuthenticationFilter = new DynamicAuthenticationFilter();
 
         this.request = Mockito.mock(MockServletRequest.class, Mockito.CALLS_REAL_METHODS);
-        Whitebox.setInternalState(this.request, Map.class, new HashMap<String, String>());
+        Deencapsulation.setField(this.request, new HashMap<String, String>());
     }
 
     @Test

@@ -27,13 +27,13 @@ import javax.security.auth.callback.NameCallback;
 import javax.security.auth.callback.UnsupportedCallbackException;
 import javax.security.auth.login.LoginException;
 
+import mockit.Deencapsulation;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.reflect.Whitebox;
 
 import waffle.windows.auth.PrincipalFormat;
 
@@ -66,14 +66,14 @@ public class WindowsLoginModuleTest {
     @Test(expected = LoginException.class)
     public void commit_subjectReadOnly() throws LoginException {
         this.subject.setReadOnly();
-        Whitebox.setInternalState(this.loginModule, Set.class, new LinkedHashSet<Principal>());
+        Deencapsulation.setField(this.loginModule, new LinkedHashSet<Principal>());
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
         this.loginModule.commit();
     }
 
     @Test
     public void commit_success() throws LoginException {
-        Whitebox.setInternalState(this.loginModule, Set.class, new LinkedHashSet<Principal>());
+        Deencapsulation.setField(this.loginModule, new LinkedHashSet<Principal>());
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
         this.loginModule.commit();
     }
@@ -84,7 +84,7 @@ public class WindowsLoginModuleTest {
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
         final Set<Principal> principals = new LinkedHashSet<Principal>();
         principals.add(new UserPrincipal("FQN"));
-        Whitebox.setInternalState(this.loginModule, Set.class, principals);
+        Deencapsulation.setField(this.loginModule, principals);
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
         this.loginModule.commit();
     }
@@ -105,8 +105,8 @@ public class WindowsLoginModuleTest {
         this.options.put("junk", "junk");
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
         Assert.assertTrue(this.loginModule.isDebug());
-        Assert.assertEquals(PrincipalFormat.SID, Whitebox.getInternalState(this.loginModule, "principalFormat"));
-        Assert.assertEquals(PrincipalFormat.NONE, Whitebox.getInternalState(this.loginModule, "roleFormat"));
+        Assert.assertEquals(PrincipalFormat.SID, Deencapsulation.getField(this.loginModule, "principalFormat"));
+        Assert.assertEquals(PrincipalFormat.NONE, Deencapsulation.getField(this.loginModule, "roleFormat"));
     }
 
     @Test(expected = LoginException.class)
@@ -132,7 +132,7 @@ public class WindowsLoginModuleTest {
         this.options.put("debug", "true");
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
         Assert.assertTrue(this.loginModule.isAllowGuestLogin());
-        PowerMockito.doThrow(new IOException()).when(this.callbackHandler).handle(Matchers.any(Callback[].class));
+        Mockito.doThrow(new IOException()).when(this.callbackHandler).handle(Matchers.any(Callback[].class));
         this.loginModule.login();
     }
 
@@ -142,7 +142,7 @@ public class WindowsLoginModuleTest {
         this.options.put("debug", "true");
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
         Assert.assertTrue(this.loginModule.isAllowGuestLogin());
-        PowerMockito.doThrow(new UnsupportedCallbackException(new NameCallback("Callback Exception")))
+        Mockito.doThrow(new UnsupportedCallbackException(new NameCallback("Callback Exception")))
                 .when(this.callbackHandler).handle(Matchers.any(Callback[].class));
         this.loginModule.login();
     }
@@ -173,7 +173,7 @@ public class WindowsLoginModuleTest {
 
     @Test
     public void logout_validUser() throws LoginException {
-        Whitebox.setInternalState(this.loginModule, "username", "waffle-user");
+        Deencapsulation.setField(this.loginModule, "username", "waffle-user");
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
         Assert.assertTrue(this.loginModule.logout());
     }

@@ -21,11 +21,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import mockit.Deencapsulation;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.powermock.reflect.Whitebox;
 
 import com.google.common.base.Joiner;
 import com.google.common.io.BaseEncoding;
@@ -91,8 +92,8 @@ public final class NegotiateAuthenticationFilterTest {
         this.negAuthFilter = new NegotiateAuthenticationFilter();
 
         this.response = Mockito.mock(MockServletResponse.class, Mockito.CALLS_REAL_METHODS);
-        Whitebox.setInternalState(this.response, "headers", new HashMap<String, String>());
-        Whitebox.setInternalState(this.response, "headersAdded", new HashMap<String, String>());
+        Deencapsulation.setField(this.response, "headers", new HashMap<String, String>());
+        Deencapsulation.setField(this.response, "headersAdded", new HashMap<String, String>());
     }
 
     @Test
