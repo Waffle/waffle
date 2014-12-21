@@ -89,14 +89,5 @@
                 </plugin>
             </plugins>
         </pluginManagement>
-        <plugins>
-            <plugin>
-                <groupId>com.mycila</groupId>
-                <artifactId>license-maven-plugin</artifactId>
-                <configuration>
-                    <header>../license.txt</header>
-                </configuration>
-            </plugin>
-        </plugins>
     </build>
 </project>

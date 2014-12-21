@@ -372,9 +372,6 @@
                     <artifactId>license-maven-plugin</artifactId>
                     <version>2.7</version>
                     <configuration>
-                        <!-- Duplicate license text in JNA level and DEMO level. In order to
-                           | correctly resolve we must move demo out of this structure.
-                           | This is due to problems with this pluging determining layout. -->
                         <header>${src.relative.loc}/license.txt</header>
                         <excludes>
                             <exclude>target/**</exclude>
