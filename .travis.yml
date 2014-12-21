@@ -29,7 +29,7 @@ before_script:
 - mvn install:install-file -Dfile=tomcat/5.5.36/tomcat-util-5.5.36.jar -DgroupId=tomcat -DartifactId=tomcat-util -Dversion=5.5.36 -Dpackaging=jar
 - mvn install:install-file -Dfile=spring-security/spring-security-core-4.0.0.M2.jar -DgroupId=org.springframework.security -DartifactId=spring-security-core -Dversion=4.0.0.M2 -Dpackaging=jar
 - mvn install:install-file -Dfile=spring-security/spring-security-web-4.0.0.M2.jar -DgroupId=org.springframework.security -DartifactId=spring-security-web -Dversion=4.0.0.M2 -Dpackaging=jar
-- cd ../JNA/waffle-parent
+- cd ../JNA
 
 script: if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then mvn clean install -DskipTests=true; fi
 
