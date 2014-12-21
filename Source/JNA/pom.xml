@@ -9,7 +9,7 @@
     </parent>
     <groupId>com.github.dblock.waffle</groupId>
     <artifactId>waffle-parent</artifactId>
-    <version>1.8-SNAPSHOT</version>
+    <version>1.7.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>waffle-parent</name>
     <description>Parent POM for WAFFLE</description>
@@ -63,21 +63,20 @@
     <prerequisites>
         <maven>3.2.1</maven>
     </prerequisites>
-    <!-- Due to maven release plugin temporarily comment modules when releasing -->
     <modules>
-        <module>../waffle-demo/waffle-demo-parent</module>
-        <module>../waffle-distro</module>
-        <module>../waffle-jetty</module>
-        <module>../waffle-jna</module>
-        <module>../waffle-shiro</module>
-        <module>../waffle-spring-security2</module>
-        <module>../waffle-spring-security3</module>
-        <module>../waffle-spring-security4</module>
-        <module>../waffle-tests</module>
-        <module>../waffle-tomcat5</module>
-        <module>../waffle-tomcat6</module>
-        <module>../waffle-tomcat7</module>
-        <module>../waffle-tomcat8</module>
+        <module>waffle-demo</module>
+        <module>waffle-distro</module>
+        <module>waffle-jetty</module>
+        <module>waffle-jna</module>
+        <module>waffle-shiro</module>
+        <module>waffle-spring-security2</module>
+        <module>waffle-spring-security3</module>
+        <module>waffle-spring-security4</module>
+        <module>waffle-tests</module>
+        <module>waffle-tomcat5</module>
+        <module>waffle-tomcat6</module>
+        <module>waffle-tomcat7</module>
+        <module>waffle-tomcat8</module>
     </modules>
     <scm>
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
@@ -104,8 +103,8 @@
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <format.relative.loc>..</format.relative.loc>
-        <git.relative.loc>../../..</git.relative.loc>
+        <src.relative.loc>.</src.relative.loc>
+        <git.relative.loc>../..</git.relative.loc>
 
         <assertj.version>1.7.0</assertj.version>
         <catch-exception.version>1.3.3</catch-exception.version>
@@ -373,7 +372,10 @@
                     <artifactId>license-maven-plugin</artifactId>
                     <version>2.7</version>
                     <configuration>
-                        <header>../waffle-parent/license.txt</header>
+                        <!-- Duplicate license text in JNA level and DEMO level. In order to
+                           | correctly resolve we must move demo out of this structure.
+                           | This is due to problems with this pluging determining layout. -->
+                        <header>${src.relative.loc}/license.txt</header>
                         <excludes>
                             <exclude>target/**</exclude>
                             <exclude>**/.gitignore</exclude>
@@ -985,7 +987,7 @@
             <id>format</id>
             <activation>
                 <file>
-                    <exists>${format.relative.loc}/waffle-parent/format.xml</exists>
+                    <exists>${src.relative.loc}/format.xml</exists>
                 </file>
             </activation>
             <build>
@@ -994,7 +996,7 @@
                         <groupId>com.googlecode.maven-java-formatter-plugin</groupId>
                         <artifactId>maven-java-formatter-plugin</artifactId>
                         <configuration>
-                            <configFile>${format.relative.loc}/waffle-parent/format.xml</configFile>
+                            <configFile>${src.relative.loc}/format.xml</configFile>
                         </configuration>
                         <executions>
                             <execution>

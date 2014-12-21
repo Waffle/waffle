@@ -4,16 +4,19 @@
     <parent>
         <groupId>com.github.dblock.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
-        <version>1.8-SNAPSHOT</version>
-        <relativePath>../waffle-parent</relativePath>
+        <version>1.7.2-SNAPSHOT</version>
+        <relativePath>..</relativePath>
     </parent>
     <artifactId>waffle-spring-security2</artifactId>
-    <version>1.8-SNAPSHOT</version>
+    <version>1.7.2-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>waffle-spring-security2</name>
     <description>Spring Security 2 integration for WAFFLE</description>
     <url>http://dblock.github.com/waffle/</url>
     <properties>
+        <src.relative.loc>..</src.relative.loc>
+        <git.relative.loc>../../..</git.relative.loc>
+
         <servlet.version>2.5</servlet.version>
         <spring.version>2.5.6.SEC03</spring.version>
         <spring.security.version>2.0.8.RELEASE</spring.security.version>
@@ -28,13 +31,13 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>waffle-jna</artifactId>
-            <version>1.8-SNAPSHOT</version>
+            <version>1.7.2-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>waffle-tests</artifactId>
-            <version>1.8-SNAPSHOT</version>
+            <version>1.7.2-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
         <dependency>

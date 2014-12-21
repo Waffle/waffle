@@ -4,17 +4,21 @@
     <parent>
         <groupId>com.github.dblock.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
-        <version>1.8-SNAPSHOT</version>
-        <relativePath>../waffle-parent</relativePath>
+        <version>1.7.2-SNAPSHOT</version>
+        <relativePath>..</relativePath>
     </parent>
     <artifactId>waffle-tomcat5</artifactId>
-    <version>1.8-SNAPSHOT</version>
+    <version>1.7.2-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>waffle-tomcat5</name>
     <description>Tomcat 5 integration for WAFFLE</description>
     <url>http://dblock.github.com/waffle/</url>
     <properties>
-        <thirdparty.dir>${project.basedir}/../../ThirdParty</thirdparty.dir>
+        <src.relative.loc>..</src.relative.loc>
+        <git.relative.loc>../../..</git.relative.loc>
+
+        <thirdparty.dir>../../ThirdParty</thirdparty.dir>
+
         <slf4j.version>1.7.7</slf4j.version>
         <tomcat.version>5.5.36</tomcat.version>
     </properties>
@@ -28,13 +32,13 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>waffle-jna</artifactId>
-            <version>1.8-SNAPSHOT</version>
+            <version>1.7.2-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>waffle-tests</artifactId>
-            <version>1.8-SNAPSHOT</version>
+            <version>1.7.2-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
         <dependency>

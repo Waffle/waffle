@@ -4,16 +4,19 @@
     <parent>
         <groupId>com.github.dblock.waffle.demo</groupId>
         <artifactId>waffle-demo-parent</artifactId>
-        <version>1.8-SNAPSHOT</version>
-        <relativePath>../waffle-demo-parent</relativePath>
+        <version>1.7.2-SNAPSHOT</version>
+        <relativePath>..</relativePath>
     </parent>
     <artifactId>waffle-mixed-post</artifactId>
-    <version>1.8-SNAPSHOT</version>
+    <version>1.7.2-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>waffle-mixed-post</name>
     <description>Mixed Post Demo for WAFFLE</description>
     <url>http://dblock.github.com/waffle/</url>
     <properties>
+        <src.relative.loc>../..</src.relative.loc>
+        <git.relative.loc>../../../..</git.relative.loc>
+
         <servlet.version>2.5</servlet.version>
     </properties>
     <scm>

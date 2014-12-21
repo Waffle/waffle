@@ -4,30 +4,29 @@
     <parent>
         <groupId>com.github.dblock.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
-        <version>1.8-SNAPSHOT</version>
-        <relativePath>../../waffle-parent</relativePath>
+        <version>1.7.2-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <groupId>com.github.dblock.waffle.demo</groupId>
     <artifactId>waffle-demo-parent</artifactId>
-    <version>1.8-SNAPSHOT</version>
+    <version>1.7.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>waffle-demo-parent</name>
     <description>Parent POM for Waffle Demo</description>
     <url>http://dblock.github.com/waffle/</url>
-    <!-- Due to maven release plugin temporarily comment modules when releasing -->
     <modules>
-        <module>../waffle-filter</module>
-        <module>../waffle-form</module>
-        <module>../waffle-jaas</module>
-        <module>../waffle-mixed</module>
-        <module>../waffle-mixed-post</module>
-        <module>../waffle-negotiate</module>
-        <module>../waffle-spring-filter</module>
-        <module>../waffle-spring-form</module>
+        <module>waffle-filter</module>
+        <module>waffle-form</module>
+        <module>waffle-jaas</module>
+        <module>waffle-mixed</module>
+        <module>waffle-mixed-post</module>
+        <module>waffle-negotiate</module>
+        <module>waffle-spring-filter</module>
+        <module>waffle-spring-form</module>
     </modules>
     <properties>
-        <format.relative.loc>../..</format.relative.loc>
-        <git.relative.loc>../../../..</git.relative.loc>
+        <src.relative.loc>..</src.relative.loc>
+        <git.relative.loc>../../..</git.relative.loc>
     </properties>
     <scm>
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
@@ -95,7 +94,7 @@
                 <groupId>com.mycila</groupId>
                 <artifactId>license-maven-plugin</artifactId>
                 <configuration>
-                    <header>../../waffle-parent/license.txt</header>
+                    <header>../license.txt</header>
                 </configuration>
             </plugin>
         </plugins>

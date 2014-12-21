@@ -4,16 +4,19 @@
     <parent>
         <groupId>com.github.dblock.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
-        <version>1.8-SNAPSHOT</version>
-        <relativePath>../waffle-parent</relativePath>
+        <version>1.7.2-SNAPSHOT</version>
+        <relativePath>..</relativePath>
     </parent>
     <artifactId>waffle-jna</artifactId>
-    <version>1.8-SNAPSHOT</version>
+    <version>1.7.2-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>waffle-jna</name>
     <description>WAFFLE JNA implementation</description>
     <url>http://dblock.github.com/waffle/</url>
     <properties>
+        <src.relative.loc>..</src.relative.loc>
+        <git.relative.loc>../../..</git.relative.loc>
+
         <guava.version>18.0</guava.version>
         <jna.version>4.1.0</jna.version>
         <servlet.version>2.5</servlet.version>

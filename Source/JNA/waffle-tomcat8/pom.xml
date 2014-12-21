@@ -4,11 +4,11 @@
     <parent>
         <groupId>com.github.dblock.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
-        <version>1.8-SNAPSHOT</version>
-        <relativePath>../waffle-parent</relativePath>
+        <version>1.7.2-SNAPSHOT</version>
+        <relativePath>..</relativePath>
     </parent>
     <artifactId>waffle-tomcat8</artifactId>
-    <version>1.8-SNAPSHOT</version>
+    <version>1.7.2-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>waffle-tomcat8</name>
     <description>Tomcat 8 integration for WAFFLE</description>
@@ -16,6 +16,10 @@
     <properties>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
+
+        <src.relative.loc>..</src.relative.loc>
+        <git.relative.loc>../../..</git.relative.loc>
+
         <tomcat.version>8.0.15</tomcat.version>
     </properties>
     <scm>
@@ -28,13 +32,13 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>waffle-jna</artifactId>
-            <version>1.8-SNAPSHOT</version>
+            <version>1.7.2-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>waffle-tests</artifactId>
-            <version>1.8-SNAPSHOT</version>
+            <version>1.7.2-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
         <dependency>

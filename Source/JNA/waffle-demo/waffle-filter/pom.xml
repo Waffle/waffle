@@ -4,16 +4,19 @@
     <parent>
         <groupId>com.github.dblock.waffle.demo</groupId>
         <artifactId>waffle-demo-parent</artifactId>
-        <version>1.8-SNAPSHOT</version>
-        <relativePath>../waffle-demo-parent</relativePath>
+        <version>1.7.2-SNAPSHOT</version>
+        <relativePath>..</relativePath>
     </parent>
     <artifactId>waffle-filter</artifactId>
-    <version>1.8-SNAPSHOT</version>
+    <version>1.7.2-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>waffle-filter</name>
     <description>Filter Demo for WAFFLE</description>
     <url>http://dblock.github.com/waffle/</url>
     <properties>
+        <src.relative.loc>../..</src.relative.loc>
+        <git.relative.loc>../../../..</git.relative.loc>
+
         <servlet.version>2.5</servlet.version>
     </properties>
     <scm>
@@ -86,7 +89,7 @@ Setup
 
  3. Start your tomcat server. You can launch a locally installed tomcat with remote debugging enabled on port 8000 using:
 
-        apache-tomcat-6.0.39$ bin/catalina.sh jpda start
+        apache-tomcat-6.0.43$ bin/catalina.sh jpda start
 
  4. Build and Deploy the demo application to the local tomcat 6 instance using:
 
