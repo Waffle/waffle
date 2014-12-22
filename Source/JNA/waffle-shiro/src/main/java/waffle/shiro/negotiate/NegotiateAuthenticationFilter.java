@@ -18,8 +18,6 @@ package waffle.shiro.negotiate;
  * see: https://bitbucket.org/lothor/shiro-negotiate/src/7b25efde130b9cbcacf579b3f926c532d919aa23/src/main/java/net/skorgenes/security/jsecurity/negotiate/NegotiateAuthenticationFilter.java?at=default
  *
  * @author Dan Rollo
- * Date: 1/15/13
- * Time: 10:45 PM
  */
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -81,12 +79,12 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
     /**
      * Sets the request parameter name to look for when acquiring the rememberMe boolean value. Unless overridden by
      * calling this method, the default is <code>rememberMe</code>.
-     * <p/>
+     * <br><br>
      * RememberMe will be <code>true</code> if the parameter value equals any of those supported by
      * {@link org.apache.shiro.web.util.WebUtils#isTrue(javax.servlet.ServletRequest, String)
      * WebUtils.isTrue(request,value)}, <code>false</code> otherwise.
      * 
-     * @param rememberMeParam
+     * @param value
      *            the name of the request param to check for acquiring the rememberMe boolean value.
      */
     public void setRememberMeParam(final String value) {
@@ -188,7 +186,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      *            incoming ServletRequest
      * @return true if the incoming request is an attempt to log in based, false otherwise
      */
-    boolean isLoginAttempt(final ServletRequest request) {
+    private boolean isLoginAttempt(final ServletRequest request) {
         final String authzHeader = getAuthzHeader(request);
         return authzHeader != null && isLoginAttempt(authzHeader);
     }
@@ -206,12 +204,12 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      *            the incoming <code>ServletRequest</code>
      * @return the <code>Authorization</code> header's value.
      */
-    String getAuthzHeader(final ServletRequest request) {
+    private String getAuthzHeader(final ServletRequest request) {
         final HttpServletRequest httpRequest = WebUtils.toHttp(request);
         return httpRequest.getHeader("Authorization");
     }
 
-    String getAuthzHeaderProtocol(final ServletRequest request) {
+    private String getAuthzHeaderProtocol(final ServletRequest request) {
         final String authzHeader = getAuthzHeader(request);
         return authzHeader.substring(0, authzHeader.indexOf(" "));
     }
@@ -260,7 +258,6 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
     }
 
     void sendChallengeDuringNegotiate(final String protocol, final ServletResponse response, final byte[] out) {
-
         final List<String> protocolsList = new ArrayList<String>();
         protocolsList.add(protocol);
         sendChallenge(protocolsList, response, out);
@@ -280,9 +277,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
 
     private void sendAuthenticateHeader(final List<String> protocolsList, final byte[] out,
             final HttpServletResponse httpResponse) {
-
         sendUnauthorized(protocolsList, out, httpResponse);
-
         httpResponse.setHeader("Connection", "keep-alive");
     }
 

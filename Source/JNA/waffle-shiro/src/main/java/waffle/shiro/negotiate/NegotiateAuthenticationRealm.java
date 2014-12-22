@@ -18,8 +18,6 @@ package waffle.shiro.negotiate;
  * see: https://bitbucket.org/lothor/shiro-negotiate/src/7b25efde130b/src/main/java/net/skorgenes/security/jsecurity/negotiate/NegotiateAuthenticationRealm.java?at=default
  *
  * @author Dan Rollo
- * Date: 1/16/13
- * Time: 12:23 AM
  */
 import javax.security.auth.Subject;
 

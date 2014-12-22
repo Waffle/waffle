@@ -106,6 +106,9 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
     /**
      * Allow overriding the default implementation of {@link IWindowsAuthProvider} This is only needed for testing,
      * since for normal usage the default is what you want.
+     * 
+     * @param value
+     *            the windows authorization provider
      */
     void setProvider(final IWindowsAuthProvider value) {
         this.provider = value;

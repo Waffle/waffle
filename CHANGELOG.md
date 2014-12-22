@@ -3,11 +3,17 @@
 
 * In progress release
 
-1.7.2 (12/21/2014)
-==================
+1.7.3 (in-progress)
+===================
+* Corrected javadoc issues in shiro package to ensure javadocs build
+* Make some package methods private in shiro package
+
+1.7.2 (Not Released)
+====================
 * Ensure waffle dependencies referenced in poms are against vulnerability free releases
 * Rework java build to conform with maven standard practices
 * Enhance distribution to build zip thus allowing maven central deployment
+* Discovered issues with classpath / javadoc, release aborted upon push to maven central
 
 Developer note
 --------------

@@ -34,14 +34,14 @@ public class WaffleFqnPrincipal implements Serializable {
     }
 
     /**
-     * Returns the fully qualified name of the user
+     * @return the fully qualified name of the user
      */
     public String getFqn() {
         return this.fqn;
     }
 
     /**
-     * Returns the fully qualified names of all groups that the use belongs to
+     * @return the fully qualified names of all groups that the use belongs to
      */
     public Set<String> getGroupFqns() {
         return Collections.unmodifiableSet(this.groupFqns);
