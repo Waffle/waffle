@@ -4,11 +4,11 @@
     <parent>
         <groupId>com.github.dblock.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
-        <version>1.7.3</version>
+        <version>1.7.4-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
     <artifactId>waffle-jna</artifactId>
-    <version>1.7.3</version>
+    <version>1.7.4-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>waffle-jna</name>
     <description>WAFFLE JNA implementation</description>
@@ -26,7 +26,7 @@
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
         <url>https://github.com/dblock/waffle</url>
-        <tag>waffle-parent-1.7.3</tag>
+        <tag>HEAD</tag>
     </scm>
     <dependencies>
         <dependency>
