@@ -57,7 +57,7 @@ Related and Similar Products
 
 * [Cross-Platform SPNEGO](http://spnego.sourceforge.net/)
 * [Tomcat SPNEGO](http://tomcatspnego.codeplex.com/)
-* [Quest Vintella Single-Sign-On](http://www.quest.com/single-sign-on-for-java/) (Commercial)
+* [Quest Vintela Single-Sign-On](http://www.quest.com/single-sign-on-for-java/) (Commercial)
 * [IOPlex Jespa](http://www.ioplex.com/) (Commercial)
 * [Josso](http://www.josso.org/confluence/display/JOSSO1/JOSSO+-+Java+Open+Single+Sign-On+Project+Home)
 
