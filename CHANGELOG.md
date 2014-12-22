@@ -3,6 +3,12 @@
 
 * In progress release
 
+1.7.2 (12/21/2014)
+==================
+* Ensure waffle dependencies referenced in poms are against vulnerability free releases
+* Rework java build to conform with maven standard practices
+* Enhance distribution to build zip thus allowing maven central deployment
+
 Developer note
 --------------
 * [#164](https://github.com/dblock/waffle/issues/164): Added unit test in waffle-tests using catch-exception test library to verify the condition caught is actually expected.
