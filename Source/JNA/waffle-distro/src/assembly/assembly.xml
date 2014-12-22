@@ -6,6 +6,7 @@
 
     <formats>
         <format>dir</format>
+        <format>zip</format>
     </formats>
 
     <includeBaseDirectory>false</includeBaseDirectory>
@@ -34,7 +35,7 @@
     <fileSets>
         <fileSet>
             <directory>../../../</directory>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory>.</outputDirectory>
             <includes>
                 <include>CHANGELOG.md</include>
                 <include>LICENSE</include>
