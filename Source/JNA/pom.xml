@@ -9,7 +9,7 @@
     </parent>
     <groupId>com.github.dblock.waffle</groupId>
     <artifactId>waffle-parent</artifactId>
-    <version>1.7.2-SNAPSHOT</version>
+    <version>1.7.2</version>
     <packaging>pom</packaging>
     <name>waffle-parent</name>
     <description>Parent POM for WAFFLE</description>
@@ -82,7 +82,7 @@
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
         <url>https://github.com/dblock/waffle</url>
-        <tag>HEAD</tag>
+        <tag>waffle-parent-1.7.2</tag>
     </scm>
     <issueManagement>
         <system>Github</system>
@@ -497,7 +497,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore></ignore>
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
                                 <pluginExecution>
@@ -510,7 +510,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore></ignore>
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
                                 <pluginExecution>
@@ -523,7 +523,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore></ignore>
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
                                 <pluginExecution>
@@ -536,7 +536,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore></ignore>
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
                             </pluginExecutions>

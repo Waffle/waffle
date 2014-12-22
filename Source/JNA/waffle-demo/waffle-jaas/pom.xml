@@ -4,11 +4,11 @@
     <parent>
         <groupId>com.github.dblock.waffle.demo</groupId>
         <artifactId>waffle-demo-parent</artifactId>
-        <version>1.7.2-SNAPSHOT</version>
+        <version>1.7.2</version>
         <relativePath>..</relativePath>
     </parent>
     <artifactId>waffle-jaas</artifactId>
-    <version>1.7.2-SNAPSHOT</version>
+    <version>1.7.2</version>
     <packaging>war</packaging>
     <name>waffle-jaas</name>
     <description>Jaas Demo for WAFFLE</description>
@@ -23,7 +23,7 @@
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
         <url>https://github.com/dblock/waffle</url>
-        <tag>HEAD</tag>
+        <tag>waffle-parent-1.7.2</tag>
     </scm>
     <dependencies>
         <dependency>
