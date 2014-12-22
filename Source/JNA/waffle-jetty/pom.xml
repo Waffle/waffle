@@ -17,9 +17,6 @@
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
 
-        <!-- Skipping because there is no source to prevent it failing -->
-        <maven.javadoc.skip>true</maven.javadoc.skip>
-
         <src.relative.loc>..</src.relative.loc>
         <git.relative.loc>../../..</git.relative.loc>
 
