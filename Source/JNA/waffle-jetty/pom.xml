@@ -4,11 +4,11 @@
     <parent>
         <groupId>com.github.dblock.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
-        <version>1.7.3-SNAPSHOT</version>
+        <version>1.7.3</version>
         <relativePath>..</relativePath>
     </parent>
     <artifactId>waffle-jetty</artifactId>
-    <version>1.7.3-SNAPSHOT</version>
+    <version>1.7.3</version>
     <packaging>jar</packaging>
     <name>waffle-jetty</name>
     <description>Jetty integration for WAFFLE</description>
@@ -33,13 +33,13 @@
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
         <url>https://github.com/dblock/waffle</url>
-        <tag>HEAD</tag>
+        <tag>waffle-parent-1.7.3</tag>
     </scm>
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>waffle-jna</artifactId>
-            <version>1.7.3-SNAPSHOT</version>
+            <version>1.7.3</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
