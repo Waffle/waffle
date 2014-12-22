@@ -19,7 +19,7 @@
 
         <thirdparty.dir>../../ThirdParty</thirdparty.dir>
 
-        <slf4j.version>1.7.7</slf4j.version>
+        <slf4j.version>1.7.9</slf4j.version>
         <tomcat.version>5.5.36</tomcat.version>
     </properties>
     <scm>
