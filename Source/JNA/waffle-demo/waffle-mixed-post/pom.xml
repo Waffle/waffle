@@ -4,11 +4,11 @@
     <parent>
         <groupId>com.github.dblock.waffle.demo</groupId>
         <artifactId>waffle-demo-parent</artifactId>
-        <version>1.7.2</version>
+        <version>1.7.3-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
     <artifactId>waffle-mixed-post</artifactId>
-    <version>1.7.2</version>
+    <version>1.7.3-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>waffle-mixed-post</name>
     <description>Mixed Post Demo for WAFFLE</description>
@@ -23,7 +23,7 @@
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
         <url>https://github.com/dblock/waffle</url>
-        <tag>waffle-parent-1.7.2</tag>
+        <tag>HEAD</tag>
     </scm>
     <dependencies>
         <dependency>
