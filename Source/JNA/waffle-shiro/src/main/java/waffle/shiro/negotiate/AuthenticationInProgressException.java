@@ -17,8 +17,6 @@ package waffle.shiro.negotiate;
  * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateAuthenticationFilter.
  *
  * @author Dan Rollo
- * Date: 1/16/13
- * Time: 12:25 AM
  */
 import org.apache.shiro.authc.AuthenticationException;
 

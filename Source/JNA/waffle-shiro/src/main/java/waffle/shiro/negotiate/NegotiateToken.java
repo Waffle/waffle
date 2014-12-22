@@ -18,8 +18,6 @@ package waffle.shiro.negotiate;
  * see: https://bitbucket.org/lothor/shiro-negotiate/src/7b25efde130b9cbcacf579b3f926c532d919aa23/src/main/java/net/skorgenes/security/jsecurity/negotiate/NegotiateAuthenticationFilter.java?at=default
  *
  * @author Dan Rollo
- * Date: 1/15/13
- * Time: 10:54 PM
  */
 import javax.security.auth.Subject;
 
@@ -138,7 +136,7 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
      * Returns the host name or IP string from where the authentication attempt occurs. May be <tt>null</tt> if the host
      * name/IP is unknown or explicitly omitted. It is up to the Authenticator implementation processing this token if
      * an authentication attempt without a host is valid or not.
-     * <p/>
+     * 
      * <p>
      * (Shiro's default Authenticator allows <tt>null</tt> hosts to support localhost and proxy server environments).
      * </p>

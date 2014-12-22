@@ -33,6 +33,9 @@ public class GroupMappingWaffleRealm extends AbstractWaffleRealm {
     /**
      * Sets the translation from group names to role names. If not set, the map is empty, resulting in no users getting
      * roles.
+     * 
+     * @param value
+     *            the group roles map to set
      */
     public void setGroupRolesMap(final Map<String, String> value) {
         this.groupRolesMap.clear();

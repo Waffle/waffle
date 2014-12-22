@@ -25,7 +25,7 @@ import org.apache.shiro.realm.Realm;
  * {@link AuthenticationInProgressException}. This custom strategy detects this exception, and immediately re-throws it
  * so classes higher up in the call stack will allow the handshake to proceed. Without this added logic, the handshake
  * could be halted after the first connection by the existing error handling.
- * <p/>
+ * <br><br>
  * This strategy is needed when using {@link NegotiateAuthenticationFilter} and more than one realm is configured in
  * shiro.ini. If only one realm is defined, the current error handling in
  * {@link org.apache.shiro.authc.pam.ModularRealmAuthenticator#doSingleRealmAuthentication(org.apache.shiro.realm.Realm, org.apache.shiro.authc.AuthenticationToken)}
