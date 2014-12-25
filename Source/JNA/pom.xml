@@ -119,6 +119,14 @@
     </properties>
     <dependencies>
         <dependency>
+            <!-- prevent warning: SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder". -->
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>eu.codearte.catch-exception</groupId>
             <artifactId>catch-exception</artifactId>
             <version>${catch-exception.version}</version>
@@ -129,19 +137,6 @@
                     <groupId>org.mockito</groupId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <!-- prevent warning: SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder". -->
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>${slf4j.version}</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
@@ -162,6 +157,13 @@
             <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.databene</groupId>
             <artifactId>contiperf</artifactId>
