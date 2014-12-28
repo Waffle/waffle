@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="Date-Revision-yyyymmdd" content="20141228" />
     <meta http-equiv="Content-Language" content="en" />
-    <title>waffle-tomcat5 &#x2013; Project Dependencies</title>
+    <title>waffle-tomcat7 &#x2013; Project Dependencies</title>
     <link rel="stylesheet" href="./css/apache-maven-fluido-1.3.1.min.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <link rel="stylesheet" href="./css/print.css" media="print" />
@@ -363,12 +363,6 @@
 <td><a class="externalLink" href="http://github.com/mockito/mockito/blob/master/LICENSE">The MIT License</a></td></tr>
 <tr class="a">
 <td>org.slf4j</td>
-<td><a class="externalLink" href="http://www.slf4j.org">jcl-over-slf4j</a></td>
-<td>1.7.9</td>
-<td>jar</td>
-<td><a class="externalLink" href="http://www.opensource.org/licenses/mit-license.php">MIT License</a></td></tr>
-<tr class="b">
-<td>org.slf4j</td>
 <td><a class="externalLink" href="http://www.slf4j.org">slf4j-simple</a></td>
 <td>1.7.9</td>
 <td>jar</td>
@@ -384,23 +378,42 @@
 <th>Type</th>
 <th>License</th></tr>
 <tr class="b">
-<td>tomcat</td>
-<td>catalina</td>
-<td>5.5.36</td>
+<td>org.apache.tomcat</td>
+<td><a class="externalLink" href="http://tomcat.apache.org/">tomcat-api</a></td>
+<td>7.0.57</td>
 <td>jar</td>
-<td>-</td></tr>
+<td><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a></td></tr>
 <tr class="a">
-<td>tomcat</td>
-<td>servlet-api</td>
-<td>5.5.36</td>
+<td>org.apache.tomcat</td>
+<td><a class="externalLink" href="http://tomcat.apache.org/">tomcat-catalina</a></td>
+<td>7.0.57</td>
 <td>jar</td>
-<td>-</td></tr>
+<td><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a></td></tr>
 <tr class="b">
-<td>tomcat</td>
-<td>tomcat-util</td>
-<td>5.5.36</td>
+<td>org.apache.tomcat</td>
+<td><a class="externalLink" href="http://tomcat.apache.org/">tomcat-coyote</a></td>
+<td>7.0.57</td>
 <td>jar</td>
-<td>-</td></tr></table></div></div><a name="Project_Transitive_Dependencies"></a>
+<td><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a></td></tr>
+<tr class="a">
+<td>org.apache.tomcat</td>
+<td><a class="externalLink" href="http://tomcat.apache.org/">tomcat-juli</a></td>
+<td>7.0.57</td>
+<td>jar</td>
+<td><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a></td></tr>
+<tr class="b">
+<td>org.apache.tomcat</td>
+<td><a class="externalLink" href="http://tomcat.apache.org/">tomcat-servlet-api</a></td>
+<td>7.0.57</td>
+<td>jar</td>
+<td>http://www.apache.org/licenses/LICENSE-2.0.txt and
+        http://www.opensource.org/licenses/cddl1.txt</td></tr>
+<tr class="a">
+<td>org.apache.tomcat</td>
+<td><a class="externalLink" href="http://tomcat.apache.org/">tomcat-util</a></td>
+<td>7.0.57</td>
+<td>jar</td>
+<td><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a></td></tr></table></div></div><a name="Project_Transitive_Dependencies"></a>
 <div class="section">
 <h2><a name="Project_Transitive_Dependencies"></a>Project Transitive Dependencies</h2>
 <p>The following is a list of transitive dependencies for this project. Transitive dependencies are the dependencies of the project dependencies.</p><a name="Project_Transitive_Dependencies_compile"></a>
@@ -459,7 +472,23 @@
 <td><a class="externalLink" href="http://objenesis.org">objenesis</a></td>
 <td>2.1</td>
 <td>jar</td>
-<td><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2</a></td></tr></table></div></div><a name="Project_Dependency_Graph"></a>
+<td><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2</a></td></tr></table></div><a name="Project_Transitive_Dependencies_provided"></a>
+<div class="section">
+<h3><a name="provided"></a>provided</h3>
+<p>The following is a list of provided dependencies for this project. These dependencies are required to compile the application, but should be provided by default when using the library:</p>
+<table border="0" class="table table-striped">
+<tr class="a">
+<th>GroupId</th>
+<th>ArtifactId</th>
+<th>Version</th>
+<th>Type</th>
+<th>License</th></tr>
+<tr class="b">
+<td>org.apache.tomcat</td>
+<td><a class="externalLink" href="http://tomcat.apache.org/">tomcat-annotations-api</a></td>
+<td>7.0.57</td>
+<td>jar</td>
+<td><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a></td></tr></table></div></div><a name="Project_Dependency_Graph"></a>
 <div class="section">
 <h2><a name="Project_Dependency_Graph"></a>Project Dependency Graph</h2><script language="javascript" type="text/javascript">
       function toggleDependencyDetail( divId, imgId )
@@ -482,13 +511,13 @@
 <div class="section">
 <h3><a name="Dependency_Tree"></a>Dependency Tree</h3>
 <ul>
-<li>com.github.dblock.waffle:waffle-tomcat5:jar:1.7.4-SNAPSHOT <img id="_img1" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep0', '_img1' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep0" style="display:none">
+<li>com.github.dblock.waffle:waffle-tomcat7:jar:1.7.4-SNAPSHOT <img id="_img1" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep0', '_img1' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep0" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
-<th>waffle-tomcat5</th></tr>
+<th>waffle-tomcat7</th></tr>
 <tr class="b">
 <td>
-<p><b>Description: </b>Tomcat 5 integration for WAFFLE</p>
+<p><b>Description: </b>Tomcat 7 integration for WAFFLE</p>
 <p><b>URL: </b><a class="externalLink" href="http://dblock.github.com/waffle/">http://dblock.github.com/waffle/</a></p>
 <p><b>Project License: </b><a class="externalLink" href="https://raw.github.com/dblock/waffle/master/LICENSE">Eclipse Public License</a></p></td></tr></table></div>
 <ul>
@@ -552,40 +581,73 @@
 <p><b>Description: </b>Tests for WAFFLE</p>
 <p><b>URL: </b><a class="externalLink" href="http://dblock.github.com/waffle/">http://dblock.github.com/waffle/</a></p>
 <p><b>Project License: </b><a class="externalLink" href="https://raw.github.com/dblock/waffle/master/LICENSE">Eclipse Public License</a></p></td></tr></table></div></li>
-<li>tomcat:catalina:jar:5.5.36 (provided) <img id="_img15" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep14', '_img15' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep14" style="display:none">
+<li>org.apache.tomcat:tomcat-api:jar:7.0.57 (provided) <img id="_img15" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep14', '_img15' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep14" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
-<th>catalina</th></tr>
+<th>tomcat-api</th></tr>
 <tr class="b">
 <td>
-<p><b>Description: </b>POM was created from install:install-file</p>
-<p><b>Project License: </b>No license is defined for this project.</p></td></tr></table></div></li>
-<li>tomcat:servlet-api:jar:5.5.36 (provided) <img id="_img17" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep16', '_img17' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep16" style="display:none">
+<p><b>Description: </b>Definition of interfaces shared by Catalina and Jasper</p>
+<p><b>URL: </b><a class="externalLink" href="http://tomcat.apache.org/">http://tomcat.apache.org/</a></p>
+<p><b>Project License: </b><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a></p></td></tr></table></div></li>
+<li>org.apache.tomcat:tomcat-catalina:jar:7.0.57 (provided) <img id="_img17" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep16', '_img17' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep16" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
-<th>servlet-api</th></tr>
+<th>tomcat-catalina</th></tr>
 <tr class="b">
 <td>
-<p><b>Description: </b>POM was created from install:install-file</p>
-<p><b>Project License: </b>No license is defined for this project.</p></td></tr></table></div></li>
-<li>tomcat:tomcat-util:jar:5.5.36 (provided) <img id="_img19" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep18', '_img19' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep18" style="display:none">
+<p><b>Description: </b>Tomcat Servlet Engine Core Classes and Standard implementations</p>
+<p><b>URL: </b><a class="externalLink" href="http://tomcat.apache.org/">http://tomcat.apache.org/</a></p>
+<p><b>Project License: </b><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a></p></td></tr></table></div>
+<ul>
+<li>org.apache.tomcat:tomcat-annotations-api:jar:7.0.57 (provided) <img id="_img19" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep18', '_img19' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep18" style="display:none">
+<table border="0" class="table table-striped">
+<tr class="a">
+<th>tomcat-annotations-api</th></tr>
+<tr class="b">
+<td>
+<p><b>Description: </b>Annotations Package</p>
+<p><b>URL: </b><a class="externalLink" href="http://tomcat.apache.org/">http://tomcat.apache.org/</a></p>
+<p><b>Project License: </b><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a></p></td></tr></table></div></li></ul></li>
+<li>org.apache.tomcat:tomcat-coyote:jar:7.0.57 (provided) <img id="_img21" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep20', '_img21' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep20" style="display:none">
+<table border="0" class="table table-striped">
+<tr class="a">
+<th>tomcat-coyote</th></tr>
+<tr class="b">
+<td>
+<p><b>Description: </b>Tomcat Connectors and HTTP parser</p>
+<p><b>URL: </b><a class="externalLink" href="http://tomcat.apache.org/">http://tomcat.apache.org/</a></p>
+<p><b>Project License: </b><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a></p></td></tr></table></div></li>
+<li>org.apache.tomcat:tomcat-juli:jar:7.0.57 (provided) <img id="_img23" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep22', '_img23' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep22" style="display:none">
+<table border="0" class="table table-striped">
+<tr class="a">
+<th>tomcat-juli</th></tr>
+<tr class="b">
+<td>
+<p><b>Description: </b>Tomcat Core Logging Package</p>
+<p><b>URL: </b><a class="externalLink" href="http://tomcat.apache.org/">http://tomcat.apache.org/</a></p>
+<p><b>Project License: </b><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a></p></td></tr></table></div></li>
+<li>org.apache.tomcat:tomcat-servlet-api:jar:7.0.57 (provided) <img id="_img25" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep24', '_img25' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep24" style="display:none">
+<table border="0" class="table table-striped">
+<tr class="a">
+<th>tomcat-servlet-api</th></tr>
+<tr class="b">
+<td>
+<p><b>Description: </b>javax.servlet package</p>
+<p><b>URL: </b><a class="externalLink" href="http://tomcat.apache.org/">http://tomcat.apache.org/</a></p>
+<p><b>Project License: </b><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt and
+        http://www.opensource.org/licenses/cddl1.txt">Apache License, Version 2.0 and
+        Common Development And Distribution License (CDDL) Version 1.0</a></p></td></tr></table></div></li>
+<li>org.apache.tomcat:tomcat-util:jar:7.0.57 (provided) <img id="_img27" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep26', '_img27' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep26" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>tomcat-util</th></tr>
 <tr class="b">
 <td>
-<p><b>Description: </b>POM was created from install:install-file</p>
-<p><b>Project License: </b>No license is defined for this project.</p></td></tr></table></div></li>
-<li>org.slf4j:jcl-over-slf4j:jar:1.7.9 (test) <img id="_img21" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep20', '_img21' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep20" style="display:none">
-<table border="0" class="table table-striped">
-<tr class="a">
-<th>JCL 1.1.1 implemented over SLF4J</th></tr>
-<tr class="b">
-<td>
-<p><b>Description: </b>JCL 1.1.1 implemented over SLF4J</p>
-<p><b>URL: </b><a class="externalLink" href="http://www.slf4j.org">http://www.slf4j.org</a></p>
-<p><b>Project License: </b><a class="externalLink" href="http://www.opensource.org/licenses/mit-license.php">MIT License</a></p></td></tr></table></div></li>
-<li>org.slf4j:slf4j-simple:jar:1.7.9 (test) <img id="_img23" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep22', '_img23' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep22" style="display:none">
+<p><b>Description: </b>Common code shared by Catalina and Jasper</p>
+<p><b>URL: </b><a class="externalLink" href="http://tomcat.apache.org/">http://tomcat.apache.org/</a></p>
+<p><b>Project License: </b><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a></p></td></tr></table></div></li>
+<li>org.slf4j:slf4j-simple:jar:1.7.9 (test) <img id="_img29" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep28', '_img29' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep28" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>SLF4J Simple Binding</th></tr>
@@ -594,7 +656,7 @@
 <p><b>Description: </b>SLF4J Simple binding</p>
 <p><b>URL: </b><a class="externalLink" href="http://www.slf4j.org">http://www.slf4j.org</a></p>
 <p><b>Project License: </b><a class="externalLink" href="http://www.opensource.org/licenses/mit-license.php">MIT License</a></p></td></tr></table></div></li>
-<li>eu.codearte.catch-exception:catch-exception:jar:1.3.3 (test) <img id="_img25" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep24', '_img25' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep24" style="display:none">
+<li>eu.codearte.catch-exception:catch-exception:jar:1.3.3 (test) <img id="_img31" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep30', '_img31' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep30" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>catch-exception</th></tr>
@@ -603,7 +665,7 @@
 <p><b>Description: </b>Catch and verify exceptions</p>
 <p><b>URL: </b><a class="externalLink" href="http://code.google.com/p/catch-exception/">http://code.google.com/p/catch-exception/</a></p>
 <p><b>Project License: </b><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2</a></p></td></tr></table></div></li>
-<li>org.assertj:assertj-core:jar:1.7.0 (test) <img id="_img27" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep26', '_img27' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep26" style="display:none">
+<li>org.assertj:assertj-core:jar:1.7.0 (test) <img id="_img33" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep32', '_img33' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep32" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>AssertJ fluent assertions</th></tr>
@@ -612,7 +674,7 @@
 <p><b>Description: </b>Rich and fluent assertions for testing</p>
 <p><b>URL: </b><a class="externalLink" href="http://nexus.sonatype.org/oss-repository-hosting.html/assertj-parent-pom/assertj-core">http://nexus.sonatype.org/oss-repository-hosting.html/assertj-parent-pom/assertj-core</a></p>
 <p><b>Project License: </b><a href="LICENSE.txt">Apache License, Version 2.0</a></p></td></tr></table></div></li>
-<li>org.jmockit:jmockit:jar:1.14 (test) <img id="_img29" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep28', '_img29' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep28" style="display:none">
+<li>org.jmockit:jmockit:jar:1.14 (test) <img id="_img35" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep34', '_img35' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep34" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>Main</th></tr>
@@ -624,7 +686,7 @@
       in isolation from selected dependencies.</p>
 <p><b>URL: </b><a class="externalLink" href="http://www.jmockit.org">http://www.jmockit.org</a></p>
 <p><b>Project License: </b><a class="externalLink" href="http://www.opensource.org/licenses/mit-license.php">MIT LICENSE</a></p></td></tr></table></div></li>
-<li>org.mockito:mockito-core:jar:1.10.17 (test) <img id="_img31" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep30', '_img31' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep30" style="display:none">
+<li>org.mockito:mockito-core:jar:1.10.17 (test) <img id="_img37" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep36', '_img37' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep36" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>Mockito</th></tr>
@@ -634,7 +696,7 @@
 <p><b>URL: </b><a class="externalLink" href="http://www.mockito.org">http://www.mockito.org</a></p>
 <p><b>Project License: </b><a class="externalLink" href="http://github.com/mockito/mockito/blob/master/LICENSE">The MIT License</a></p></td></tr></table></div>
 <ul>
-<li>org.hamcrest:hamcrest-core:jar:1.1 (test) <img id="_img33" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep32', '_img33' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep32" style="display:none">
+<li>org.hamcrest:hamcrest-core:jar:1.1 (test) <img id="_img39" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep38', '_img39' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep38" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>Hamcrest Core</th></tr>
@@ -642,7 +704,7 @@
 <td>
 <p><b>Description: </b>There is currently no description associated with this project.</p>
 <p><b>Project License: </b><a class="externalLink" href="http://www.opensource.org/licenses/bsd-license.php">BSD style</a></p></td></tr></table></div></li>
-<li>org.objenesis:objenesis:jar:2.1 (test) <img id="_img35" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep34', '_img35' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep34" style="display:none">
+<li>org.objenesis:objenesis:jar:2.1 (test) <img id="_img41" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep40', '_img41' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep40" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>Objenesis</th></tr>
@@ -651,7 +713,7 @@
 <p><b>Description: </b>A library for instantiating Java objects</p>
 <p><b>URL: </b><a class="externalLink" href="http://objenesis.org">http://objenesis.org</a></p>
 <p><b>Project License: </b><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2</a></p></td></tr></table></div></li></ul></li>
-<li>junit:junit:jar:4.12 (test) <img id="_img37" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep36', '_img37' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep36" style="display:none">
+<li>junit:junit:jar:4.12 (test) <img id="_img43" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep42', '_img43' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep42" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>JUnit</th></tr>
@@ -660,7 +722,7 @@
 <p><b>Description: </b>JUnit is a unit testing framework for Java, created by Erich Gamma and Kent Beck.</p>
 <p><b>URL: </b><a class="externalLink" href="http://junit.org">http://junit.org</a></p>
 <p><b>Project License: </b><a class="externalLink" href="http://www.eclipse.org/legal/epl-v10.html">Eclipse Public License 1.0</a></p></td></tr></table></div></li>
-<li>org.databene:contiperf:jar:2.3.4 (test) <img id="_img39" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep38', '_img39' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep38" style="display:none">
+<li>org.databene:contiperf:jar:2.3.4 (test) <img id="_img45" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep44', '_img45' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep44" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>databene ContiPerf</th></tr>
@@ -672,16 +734,17 @@
 <p><b>Project License: </b><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a></p></td></tr></table></div></li></ul></li></ul></div></div><a name="Licenses"></a>
 <div class="section">
 <h2><a name="Licenses"></a>Licenses</h2>
+<p><b>Apache License, Version 2.0 and
+        Common Development And Distribution License (CDDL) Version 1.0: </b>tomcat-servlet-api</p>
 <p><b>Eclipse Public License 1.0: </b>JUnit</p>
-<p><b>MIT License: </b>JCL 1.1.1 implemented over SLF4J, SLF4J API Module, SLF4J Simple Binding</p>
+<p><b>MIT License: </b>SLF4J API Module, SLF4J Simple Binding</p>
 <p><b>MIT LICENSE: </b>Main</p>
-<p><b>Eclipse Public License: </b>waffle-jna, waffle-tests, waffle-tomcat5</p>
+<p><b>Eclipse Public License: </b>waffle-jna, waffle-tests, waffle-tomcat7</p>
 <p><b>Apache 2: </b>Objenesis, catch-exception</p>
 <p><b>BSD style: </b>Hamcrest Core</p>
-<p><b>Unknown: </b>catalina, servlet-api, tomcat-util</p>
 <p><b>Apache License 2.0: </b>databene ContiPerf</p>
 <p><b>The MIT License: </b>Mockito</p>
-<p><b>Apache License, Version 2.0: </b>AssertJ fluent assertions</p>
+<p><b>Apache License, Version 2.0: </b>AssertJ fluent assertions, tomcat-annotations-api, tomcat-api, tomcat-catalina, tomcat-coyote, tomcat-juli, tomcat-util</p>
 <p><b>ASL, version 2: </b>Java Native Access, Java Native Access Platform</p>
 <p><b>LGPL, version 2.1: </b>Java Native Access, Java Native Access Platform</p>
 <p><b>The Apache Software License, Version 2.0: </b>Guava: Google Core Libraries for Java</p></div><a name="Dependency_File_Details"></a>
@@ -753,6 +816,62 @@
 <td>1.6</td>
 <td>debug</td></tr>
 <tr class="a">
+<td>tomcat-annotations-api-7.0.57.jar</td>
+<td>15.60 kB</td>
+<td>27</td>
+<td>24</td>
+<td>6</td>
+<td>1.6</td>
+<td>debug</td></tr>
+<tr class="b">
+<td>tomcat-api-7.0.57.jar</td>
+<td>6.00 kB</td>
+<td>7</td>
+<td>4</td>
+<td>1</td>
+<td>1.6</td>
+<td>release</td></tr>
+<tr class="a">
+<td>tomcat-catalina-7.0.57.jar</td>
+<td>1.53 MB</td>
+<td>711</td>
+<td>669</td>
+<td>27</td>
+<td>1.6</td>
+<td>debug</td></tr>
+<tr class="b">
+<td>tomcat-coyote-7.0.57.jar</td>
+<td>749.47 kB</td>
+<td>443</td>
+<td>427</td>
+<td>29</td>
+<td>1.6</td>
+<td>debug</td></tr>
+<tr class="a">
+<td>tomcat-juli-7.0.57.jar</td>
+<td>37.30 kB</td>
+<td>26</td>
+<td>23</td>
+<td>2</td>
+<td>1.6</td>
+<td>debug</td></tr>
+<tr class="b">
+<td>tomcat-servlet-api-7.0.57.jar</td>
+<td>193.24 kB</td>
+<td>105</td>
+<td>74</td>
+<td>4</td>
+<td>1.6</td>
+<td>debug</td></tr>
+<tr class="a">
+<td>tomcat-util-7.0.57.jar</td>
+<td>31.20 kB</td>
+<td>24</td>
+<td>19</td>
+<td>5</td>
+<td>1.6</td>
+<td>debug</td></tr>
+<tr class="b">
 <td>assertj-core-1.7.0.jar</td>
 <td>604.43 kB</td>
 <td>520</td>
@@ -760,7 +879,7 @@
 <td>18</td>
 <td>1.6</td>
 <td>debug</td></tr>
-<tr class="b">
+<tr class="a">
 <td>contiperf-2.3.4.jar</td>
 <td>100.76 kB</td>
 <td>105</td>
@@ -768,7 +887,7 @@
 <td>10</td>
 <td>1.6</td>
 <td>debug</td></tr>
-<tr class="a">
+<tr class="b">
 <td>hamcrest-core-1.1.jar</td>
 <td>74.85 kB</td>
 <td>54</td>
@@ -776,7 +895,7 @@
 <td>3</td>
 <td>1.5</td>
 <td>debug</td></tr>
-<tr class="b">
+<tr class="a">
 <td>jmockit-1.14.jar</td>
 <td>583.02 kB</td>
 <td>335</td>
@@ -784,7 +903,7 @@
 <td>25</td>
 <td>1.6</td>
 <td>debug</td></tr>
-<tr class="a">
+<tr class="b">
 <td>mockito-core-1.10.17.jar</td>
 <td>1.12 MB</td>
 <td>1,138</td>
@@ -792,20 +911,12 @@
 <td>67</td>
 <td>1.5</td>
 <td>debug</td></tr>
-<tr class="b">
+<tr class="a">
 <td>objenesis-2.1.jar</td>
 <td>40.78 kB</td>
 <td>52</td>
 <td>37</td>
 <td>9</td>
-<td>1.5</td>
-<td>debug</td></tr>
-<tr class="a">
-<td>jcl-over-slf4j-1.7.9.jar</td>
-<td>16.22 kB</td>
-<td>23</td>
-<td>9</td>
-<td>2</td>
 <td>1.5</td>
 <td>debug</td></tr>
 <tr class="b">
@@ -825,30 +936,6 @@
 <td>1.5</td>
 <td>debug</td></tr>
 <tr class="b">
-<td>catalina-5.5.36.jar</td>
-<td>676.82 kB</td>
-<td>335</td>
-<td>288</td>
-<td>15</td>
-<td>1.4</td>
-<td>debug</td></tr>
-<tr class="a">
-<td>servlet-api-5.5.36.jar</td>
-<td>91.36 kB</td>
-<td>67</td>
-<td>42</td>
-<td>2</td>
-<td>1.2</td>
-<td>debug</td></tr>
-<tr class="b">
-<td>tomcat-util-5.5.36.jar</td>
-<td>268.52 kB</td>
-<td>182</td>
-<td>139</td>
-<td>12</td>
-<td>1.2</td>
-<td>debug</td></tr>
-<tr class="a">
 <th>Total</th>
 <th>Size</th>
 <th>Entries</th>
@@ -856,15 +943,15 @@
 <th>Packages</th>
 <th>JDK Rev</th>
 <th>Debug</th></tr>
-<tr class="b">
-<td>19</td>
-<td>8.30 MB</td>
-<td>5,757</td>
-<td>4,850</td>
-<td>231</td>
-<td>1.6</td>
-<td>17</td></tr>
 <tr class="a">
+<td>22</td>
+<td>9.81 MB</td>
+<td>6,493</td>
+<td>5,612</td>
+<td>274</td>
+<td>1.6</td>
+<td>19</td></tr>
+<tr class="b">
 <td>compile: 5</td>
 <td>compile: 4.45 MB</td>
 <td>compile: 2,570</td>
@@ -872,22 +959,22 @@
 <td>compile: 32</td>
 <td>-</td>
 <td>compile: 4</td></tr>
-<tr class="b">
-<td>test: 11</td>
-<td>test: 2.84 MB</td>
-<td>test: 2,603</td>
-<td>test: 1,921</td>
-<td>test: 170</td>
-<td>-</td>
-<td>test: 10</td></tr>
 <tr class="a">
-<td>provided: 3</td>
-<td>provided: 1.01 MB</td>
-<td>provided: 584</td>
-<td>provided: 469</td>
-<td>provided: 29</td>
+<td>test: 10</td>
+<td>test: 2.82 MB</td>
+<td>test: 2,580</td>
+<td>test: 1,912</td>
+<td>test: 168</td>
 <td>-</td>
-<td>provided: 3</td></tr></table></div><a name="Dependency_Repository_Locations"></a>
+<td>test: 9</td></tr>
+<tr class="b">
+<td>provided: 7</td>
+<td>provided: 2.54 MB</td>
+<td>provided: 1,343</td>
+<td>provided: 1,240</td>
+<td>provided: 74</td>
+<td>-</td>
+<td>provided: 6</td></tr></table></div><a name="Dependency_Repository_Locations"></a>
 <div class="section">
 <h2><a name="Dependency_Repository_Locations"></a>Dependency Repository Locations</h2>
 <table border="0" class="table table-striped">
@@ -928,26 +1015,44 @@
 <td>net.java.dev.jna:jna-platform:jar:4.1.0</td>
 <td><a class="externalLink" href="http://localhost:8081/nexus/content/groups/public/net/java/dev/jna/jna-platform/4.1.0/jna-platform-4.1.0.jar"><img alt="Found at http://localhost:8081/nexus/content/groups/public" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="a">
+<td>org.apache.tomcat:tomcat-annotations-api:jar:7.0.57</td>
+<td><a class="externalLink" href="http://localhost:8081/nexus/content/groups/public/org/apache/tomcat/tomcat-annotations-api/7.0.57/tomcat-annotations-api-7.0.57.jar"><img alt="Found at http://localhost:8081/nexus/content/groups/public" src="images/icon_success_sml.gif" /></a></td></tr>
+<tr class="b">
+<td>org.apache.tomcat:tomcat-api:jar:7.0.57</td>
+<td><a class="externalLink" href="http://localhost:8081/nexus/content/groups/public/org/apache/tomcat/tomcat-api/7.0.57/tomcat-api-7.0.57.jar"><img alt="Found at http://localhost:8081/nexus/content/groups/public" src="images/icon_success_sml.gif" /></a></td></tr>
+<tr class="a">
+<td>org.apache.tomcat:tomcat-catalina:jar:7.0.57</td>
+<td><a class="externalLink" href="http://localhost:8081/nexus/content/groups/public/org/apache/tomcat/tomcat-catalina/7.0.57/tomcat-catalina-7.0.57.jar"><img alt="Found at http://localhost:8081/nexus/content/groups/public" src="images/icon_success_sml.gif" /></a></td></tr>
+<tr class="b">
+<td>org.apache.tomcat:tomcat-coyote:jar:7.0.57</td>
+<td><a class="externalLink" href="http://localhost:8081/nexus/content/groups/public/org/apache/tomcat/tomcat-coyote/7.0.57/tomcat-coyote-7.0.57.jar"><img alt="Found at http://localhost:8081/nexus/content/groups/public" src="images/icon_success_sml.gif" /></a></td></tr>
+<tr class="a">
+<td>org.apache.tomcat:tomcat-juli:jar:7.0.57</td>
+<td><a class="externalLink" href="http://localhost:8081/nexus/content/groups/public/org/apache/tomcat/tomcat-juli/7.0.57/tomcat-juli-7.0.57.jar"><img alt="Found at http://localhost:8081/nexus/content/groups/public" src="images/icon_success_sml.gif" /></a></td></tr>
+<tr class="b">
+<td>org.apache.tomcat:tomcat-servlet-api:jar:7.0.57</td>
+<td><a class="externalLink" href="http://localhost:8081/nexus/content/groups/public/org/apache/tomcat/tomcat-servlet-api/7.0.57/tomcat-servlet-api-7.0.57.jar"><img alt="Found at http://localhost:8081/nexus/content/groups/public" src="images/icon_success_sml.gif" /></a></td></tr>
+<tr class="a">
+<td>org.apache.tomcat:tomcat-util:jar:7.0.57</td>
+<td><a class="externalLink" href="http://localhost:8081/nexus/content/groups/public/org/apache/tomcat/tomcat-util/7.0.57/tomcat-util-7.0.57.jar"><img alt="Found at http://localhost:8081/nexus/content/groups/public" src="images/icon_success_sml.gif" /></a></td></tr>
+<tr class="b">
 <td>org.assertj:assertj-core:jar:1.7.0</td>
 <td><a class="externalLink" href="http://localhost:8081/nexus/content/groups/public/org/assertj/assertj-core/1.7.0/assertj-core-1.7.0.jar"><img alt="Found at http://localhost:8081/nexus/content/groups/public" src="images/icon_success_sml.gif" /></a></td></tr>
-<tr class="b">
+<tr class="a">
 <td>org.databene:contiperf:jar:2.3.4</td>
 <td><a class="externalLink" href="http://localhost:8081/nexus/content/groups/public/org/databene/contiperf/2.3.4/contiperf-2.3.4.jar"><img alt="Found at http://localhost:8081/nexus/content/groups/public" src="images/icon_success_sml.gif" /></a></td></tr>
-<tr class="a">
+<tr class="b">
 <td>org.hamcrest:hamcrest-core:jar:1.1</td>
 <td><a class="externalLink" href="http://localhost:8081/nexus/content/groups/public/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar"><img alt="Found at http://localhost:8081/nexus/content/groups/public" src="images/icon_success_sml.gif" /></a></td></tr>
-<tr class="b">
+<tr class="a">
 <td>org.jmockit:jmockit:jar:1.14</td>
 <td><a class="externalLink" href="http://localhost:8081/nexus/content/groups/public/org/jmockit/jmockit/1.14/jmockit-1.14.jar"><img alt="Found at http://localhost:8081/nexus/content/groups/public" src="images/icon_success_sml.gif" /></a></td></tr>
-<tr class="a">
+<tr class="b">
 <td>org.mockito:mockito-core:jar:1.10.17</td>
 <td><a class="externalLink" href="http://localhost:8081/nexus/content/groups/public/org/mockito/mockito-core/1.10.17/mockito-core-1.10.17.jar"><img alt="Found at http://localhost:8081/nexus/content/groups/public" src="images/icon_success_sml.gif" /></a></td></tr>
-<tr class="b">
+<tr class="a">
 <td>org.objenesis:objenesis:jar:2.1</td>
 <td><a class="externalLink" href="http://localhost:8081/nexus/content/groups/public/org/objenesis/objenesis/2.1/objenesis-2.1.jar"><img alt="Found at http://localhost:8081/nexus/content/groups/public" src="images/icon_success_sml.gif" /></a></td></tr>
-<tr class="a">
-<td>org.slf4j:jcl-over-slf4j:jar:1.7.9</td>
-<td><a class="externalLink" href="http://localhost:8081/nexus/content/groups/public/org/slf4j/jcl-over-slf4j/1.7.9/jcl-over-slf4j-1.7.9.jar"><img alt="Found at http://localhost:8081/nexus/content/groups/public" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="b">
 <td>org.slf4j:slf4j-api:jar:1.7.9</td>
 <td><a class="externalLink" href="http://localhost:8081/nexus/content/groups/public/org/slf4j/slf4j-api/1.7.9/slf4j-api-1.7.9.jar"><img alt="Found at http://localhost:8081/nexus/content/groups/public" src="images/icon_success_sml.gif" /></a></td></tr>
@@ -955,20 +1060,11 @@
 <td>org.slf4j:slf4j-simple:jar:1.7.9</td>
 <td><a class="externalLink" href="http://localhost:8081/nexus/content/groups/public/org/slf4j/slf4j-simple/1.7.9/slf4j-simple-1.7.9.jar"><img alt="Found at http://localhost:8081/nexus/content/groups/public" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="b">
-<td>tomcat:catalina:jar:5.5.36</td>
-<td>-</td></tr>
-<tr class="a">
-<td>tomcat:servlet-api:jar:5.5.36</td>
-<td>-</td></tr>
-<tr class="b">
-<td>tomcat:tomcat-util:jar:5.5.36</td>
-<td>-</td></tr>
-<tr class="a">
 <th>Total</th>
 <th>nexus</th></tr>
-<tr class="b">
-<td>19 (compile: 5, test: 11, provided: 3)</td>
-<td>14</td></tr></table></div>
+<tr class="a">
+<td>22 (compile: 5, test: 10, provided: 7)</td>
+<td>20</td></tr></table></div>
                   </div>
             </div>
           </div>

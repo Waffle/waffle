@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="Date-Revision-yyyymmdd" content="20141228" />
     <meta http-equiv="Content-Language" content="en" />
-    <title>waffle-tomcat5 &#x2013; CPD Results</title>
+    <title>waffle-tomcat7 &#x2013; CPD Results</title>
     <link rel="stylesheet" href="./css/apache-maven-fluido-1.3.1.min.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <link rel="stylesheet" href="./css/print.css" media="print" />
@@ -308,13 +308,24 @@
 <th>Line</th></tr>
 <tr class="b">
 <td>waffle\apache\MixedAuthenticator.java</td>
-<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L129">129</a></td></tr>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L120">120</a></td></tr>
 <tr class="a">
 <td>waffle\apache\NegotiateAuthenticator.java</td>
-<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L93">93</a></td></tr>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L84">84</a></td></tr>
 <tr class="b"><td colspan='2'>
 <div>
-<pre>            final byte[] tokenBuffer = authorizationHeader.getTokenBytes();
+<pre>        final boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
+
+        if (ntlmPost) {
+            // type 1 NTLM authentication message received
+            this.auth.resetSecurityToken(connectionId);
+        }
+
+        // log the user in using the token
+        IWindowsSecurityContext securityContext;
+
+        try {
+            final byte[] tokenBuffer = authorizationHeader.getTokenBytes();
             this.log.debug(&quot;token buffer: {} byte(s)&quot;, Integer.valueOf(tokenBuffer.length));
             securityContext = this.auth.acceptSecurityToken(connectionId, tokenBuffer, securityPackage);
             this.log.debug(&quot;continue required: {}&quot;, Boolean.valueOf(securityContext.isContinue()));
@@ -338,7 +349,41 @@
             this.log.trace(&quot;{}&quot;, e);
             sendUnauthorized(response);
             return false;
-        }</pre></div></td></tr></table></div>
+        }</pre></div></td></tr></table>
+<table border="0" class="table table-striped">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>waffle\apache\MixedAuthenticator.java</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L153">153</a></td></tr>
+<tr class="a">
+<td>waffle\apache\NegotiateAuthenticator.java</td>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L124">124</a></td></tr>
+<tr class="b"><td colspan='2'>
+<div>
+<pre>            sendUnauthorized(response);
+            return false;
+        }
+
+        // create and register the user principal with the session
+        final IWindowsIdentity windowsIdentity = securityContext.getIdentity();
+
+        // disable guest login
+        if (!this.allowGuestLogin &amp;&amp; windowsIdentity.isGuest()) {
+            this.log.warn(&quot;guest login disabled: {}&quot;, windowsIdentity.getFqn());
+            sendUnauthorized(response);
+            return false;
+        }
+
+        try {
+
+            this.log.debug(&quot;logged in user: {} ({})&quot;, windowsIdentity.getFqn(), windowsIdentity.getSidString());
+
+            final GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(windowsIdentity,
+                    this.principalFormat, this.roleFormat);
+
+            this.log.debug(&quot;roles: {}&quot;, windowsPrincipal.getRolesString());</pre></div></td></tr></table></div>
                   </div>
             </div>
           </div>

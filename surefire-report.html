@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="Date-Revision-yyyymmdd" content="20141228" />
     <meta http-equiv="Content-Language" content="en" />
-    <title>waffle-tomcat5 &#x2013; Surefire Report</title>
+    <title>waffle-tomcat7 &#x2013; Surefire Report</title>
     <link rel="stylesheet" href="./css/apache-maven-fluido-1.3.1.min.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <link rel="stylesheet" href="./css/print.css" media="print" />
@@ -328,12 +328,12 @@ function toggleDisplay(elementId) {
 <th>Success Rate</th>
 <th>Time</th></tr>
 <tr class="b">
-<td>20</td>
+<td>21</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>100%</td>
-<td>1.08</td></tr></table><br />
+<td>1.468</td></tr></table><br />
 <p>Note: failures are anticipated and checked for with assertions while errors are unanticipated.</p><br /></div>
 <div class="section">
 <h2><a name="Package_List"></a>Package List</h2><a name="Package_List"></a>
@@ -349,12 +349,12 @@ function toggleDisplay(elementId) {
 <th>Time</th></tr>
 <tr class="b">
 <td><a href="#waffle.apache">waffle.apache</a></td>
-<td>20</td>
+<td>21</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>100%</td>
-<td>1.08</td></tr></table><br />
+<td>1.468</td></tr></table><br />
 <p>Note: package statistics are not computed recursively, they only sum up all of its testsuites numbers.</p>
 <div class="section">
 <h3><a name="waffle.apache"></a>waffle.apache</h3><a name="waffle.apache"></a>
@@ -371,12 +371,12 @@ function toggleDisplay(elementId) {
 <tr class="b">
 <td><a href="#waffle.apacheMixedAuthenticatorTests"><img src="images/icon_success_sml.gif" alt="" /></a></td>
 <td><a href="#waffle.apacheMixedAuthenticatorTests">MixedAuthenticatorTests</a></td>
-<td>8</td>
+<td>9</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>100%</td>
-<td>1.032</td></tr>
+<td>1.406</td></tr>
 <tr class="a">
 <td><a href="#waffle.apacheNegotiateAuthenticatorTests"><img src="images/icon_success_sml.gif" alt="" /></a></td>
 <td><a href="#waffle.apacheNegotiateAuthenticatorTests">NegotiateAuthenticatorTests</a></td>
@@ -385,7 +385,7 @@ function toggleDisplay(elementId) {
 <td>0</td>
 <td>0</td>
 <td>100%</td>
-<td>0.042</td></tr>
+<td>0.056</td></tr>
 <tr class="b">
 <td><a href="#waffle.apacheWindowsAccountTests"><img src="images/icon_success_sml.gif" alt="" /></a></td>
 <td><a href="#waffle.apacheWindowsAccountTests">WindowsAccountTests</a></td>
@@ -412,51 +412,55 @@ function toggleDisplay(elementId) {
 <table border="1" class="table table-striped">
 <tr class="a">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>testSecurityCheckParameters</td>
-<td>0.784</td></tr>
+<td>testProgrammaticSecurity</td>
+<td>1.092</td></tr>
 <tr class="b">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testSecurityCheckParameters</td>
+<td>0.046</td></tr>
+<tr class="a">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
 <td>testGet</td>
-<td>0.001</td></tr>
-<tr class="a">
+<td>0.002</td></tr>
+<tr class="b">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
 <td>testGetInfo</td>
-<td>0.065</td></tr>
-<tr class="b">
+<td>0.063</td></tr>
+<tr class="a">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
 <td>testNegotiate</td>
-<td>0.169</td></tr>
-<tr class="a">
+<td>0.164</td></tr>
+<tr class="b">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
 <td>testSecurityCheckQueryString</td>
-<td>0.001</td></tr>
-<tr class="b">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>testChallengePOST</td>
-<td>0.01</td></tr>
+<td>0.022</td></tr>
 <tr class="a">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>testChallengeGET</td>
-<td>0</td></tr>
+<td>testChallengePOST</td>
+<td>0.012</td></tr>
 <tr class="b">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testChallengeGET</td>
+<td>0.002</td></tr>
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
 <td>testPostSecurityCheck</td>
-<td>0.002</td></tr></table></div>
+<td>0.003</td></tr></table></div>
 <div class="section">
 <h3><a name="NegotiateAuthenticatorTests"></a>NegotiateAuthenticatorTests</h3><a name="waffle.apacheNegotiateAuthenticatorTests"></a>
 <table border="1" class="table table-striped">
 <tr class="a">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
 <td>testAllowGuestLogin</td>
-<td>0</td></tr>
+<td>0.004</td></tr>
 <tr class="b">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
 <td>testPrincipalFormat</td>
-<td>0</td></tr>
+<td>0.002</td></tr>
 <tr class="a">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
 <td>testPOSTEmpty</td>
-<td>0.013</td></tr>
+<td>0.015</td></tr>
 <tr class="b">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
 <td>testGetInfo</td>
@@ -464,11 +468,11 @@ function toggleDisplay(elementId) {
 <tr class="a">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
 <td>testNegotiate</td>
-<td>0.019</td></tr>
+<td>0.023</td></tr>
 <tr class="b">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
 <td>testRoleFormat</td>
-<td>0</td></tr>
+<td>0.001</td></tr>
 <tr class="a">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
 <td>testChallengePOST</td>
@@ -476,7 +480,7 @@ function toggleDisplay(elementId) {
 <tr class="b">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
 <td>testChallengeGET</td>
-<td>0.001</td></tr></table></div>
+<td>0.002</td></tr></table></div>
 <div class="section">
 <h3><a name="WindowsAccountTests"></a>WindowsAccountTests</h3><a name="waffle.apacheWindowsAccountTests"></a>
 <table border="1" class="table table-striped">
