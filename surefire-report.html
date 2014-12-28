@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="Date-Revision-yyyymmdd" content="20141228" />
     <meta http-equiv="Content-Language" content="en" />
-    <title>waffle-parent &#x2013; Surefire Report</title>
+    <title>waffle-jna &#x2013; Surefire Report</title>
     <link rel="stylesheet" href="./css/apache-maven-fluido-1.3.1.min.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <link rel="stylesheet" href="./css/print.css" media="print" />
@@ -36,14 +36,6 @@
                 
                                 <ul class="nav">
                           <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">User guide <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-        
-                      <li>      <a href="README.html"  title="README">README</a>
-</li>
-                          </ul>
-      </li>
-                <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Project Documentation <b class="caret"></b></a>
         <ul class="dropdown-menu">
         
@@ -58,8 +50,6 @@
 </li>
                                   <li>      <a href="dependency-info.html"  title="Dependency Information">Dependency Information</a>
 </li>
-                                  <li>      <a href="dependency-convergence.html"  title="Dependency Convergence">Dependency Convergence</a>
-</li>
                                   <li>      <a href="source-repository.html"  title="Source Repository">Source Repository</a>
 </li>
                                   <li>      <a href="mail-lists.html"  title="Mailing Lists">Mailing Lists</a>
@@ -71,8 +61,6 @@
                                   <li>      <a href="plugins.html"  title="Project Plugins">Project Plugins</a>
 </li>
                                   <li>      <a href="license.html"  title="Project License">Project License</a>
-</li>
-                                  <li>      <a href="modules.html"  title="Project Modules">Project Modules</a>
 </li>
                                   <li>      <a href="team-list.html"  title="Project Team">Project Team</a>
 </li>
@@ -86,7 +74,7 @@
                       <li class="dropdown-submenu">
                                       <a href="project-reports.html"  title="Project Reports">Project Reports</a>
               <ul class="dropdown-menu">
-                                  <li>      <a href="checkstyle-aggregate.html"  title="Checkstyle">Checkstyle</a>
+                                  <li>      <a href="checkstyle.html"  title="Checkstyle">Checkstyle</a>
 </li>
                                   <li>      <a href="apidocs/index.html"  title="JavaDocs">JavaDocs</a>
 </li>
@@ -96,13 +84,23 @@
 </li>
                                   <li>      <a href="xref-test/index.html"  title="Test Source Xref">Test Source Xref</a>
 </li>
+                                  <li>      <a href="pmd.html"  title="PMD">PMD</a>
+</li>
                                   <li>      <a href="surefire-report.html"  title="Surefire Report">Surefire Report</a>
+</li>
+                                  <li>      <a href="findbugs.html"  title="FindBugs">FindBugs</a>
+</li>
+                                  <li>      <a href="jacoco/index.html"  title="JaCoCo Test">JaCoCo Test</a>
 </li>
                                   <li>      <a href="property-updates-report.html"  title="Property Updates Report">Property Updates Report</a>
 </li>
                                   <li>      <a href="plugin-updates-report.html"  title="Plugin Updates Report">Plugin Updates Report</a>
 </li>
                                   <li>      <a href="dependency-updates-report.html"  title="Dependency Updates Report">Dependency Updates Report</a>
+</li>
+                                  <li>      <a href="taglist.html"  title="Tag List">Tag List</a>
+</li>
+                                  <li>      <a href="jdepend-report.html"  title="JDepend">JDepend</a>
 </li>
                               </ul>
             </li>
@@ -165,23 +163,15 @@
                 
                     
                 <ul class="nav nav-list">
-                    <li class="nav-header">User guide</li>
-                              
-      <li>
-  
-                          <a href="README.html" title="README">
-          <i class="none"></i>
-        README</a>
-            </li>
-                              <li class="nav-header">Project Documentation</li>
-                                                                                                                                                                                                                                                                                                                                            
+                    <li class="nav-header">Project Documentation</li>
+                                                                                                                                                                                                                                                                                                        
       <li>
   
                           <a href="project-info.html" title="Project Information">
           <i class="icon-chevron-right"></i>
         Project Information</a>
                   </li>
-                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                                      
       <li>
   
                           <a href="project-reports.html" title="Project Reports">
@@ -191,7 +181,7 @@
                     
       <li>
   
-                          <a href="checkstyle-aggregate.html" title="Checkstyle">
+                          <a href="checkstyle.html" title="Checkstyle">
           <i class="none"></i>
         Checkstyle</a>
             </li>
@@ -224,10 +214,31 @@
         Test Source Xref</a>
             </li>
                     
+      <li>
+  
+                          <a href="pmd.html" title="PMD">
+          <i class="none"></i>
+        PMD</a>
+            </li>
+                    
       <li class="active">
   
             <a href="#"><i class="none"></i>Surefire Report</a>
           </li>
+                    
+      <li>
+  
+                          <a href="findbugs.html" title="FindBugs">
+          <i class="none"></i>
+        FindBugs</a>
+            </li>
+                    
+      <li>
+  
+                          <a href="jacoco/index.html" title="JaCoCo Test">
+          <i class="none"></i>
+        JaCoCo Test</a>
+            </li>
                     
       <li>
   
@@ -248,6 +259,20 @@
                           <a href="dependency-updates-report.html" title="Dependency Updates Report">
           <i class="none"></i>
         Dependency Updates Report</a>
+            </li>
+                    
+      <li>
+  
+                          <a href="taglist.html" title="Tag List">
+          <i class="none"></i>
+        Tag List</a>
+            </li>
+                    
+      <li>
+  
+                          <a href="jdepend-report.html" title="JDepend">
+          <i class="none"></i>
+        JDepend</a>
             </li>
               </ul>
         </li>
@@ -292,7 +317,8 @@ function toggleDisplay(elementId) {
 <div class="section">
 <h2><a name="Surefire_Report"></a>Surefire Report</h2></div>
 <div class="section">
-<h2><a name="Summary"></a>Summary</h2><a name="Summary"></a><br />
+<h2><a name="Summary"></a>Summary</h2><a name="Summary"></a>
+<p>[<a href="#Summary">Summary</a>] [<a href="#Package_List">Package List</a>] [<a href="#Test_Cases">Test Cases</a>]</p><br />
 <table border="1" class="table table-striped">
 <tr class="a">
 <th>Tests</th>
@@ -302,13 +328,321 @@ function toggleDisplay(elementId) {
 <th>Success Rate</th>
 <th>Time</th></tr>
 <tr class="b">
+<td>23</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
-<td>0</td>
-<td>0%</td>
-<td>0</td></tr></table><br />
+<td>100%</td>
+<td>0.543</td></tr></table><br />
 <p>Note: failures are anticipated and checked for with assertions while errors are unanticipated.</p><br /></div>
+<div class="section">
+<h2><a name="Package_List"></a>Package List</h2><a name="Package_List"></a>
+<p>[<a href="#Summary">Summary</a>] [<a href="#Package_List">Package List</a>] [<a href="#Test_Cases">Test Cases</a>]</p><br />
+<table border="1" class="table table-striped">
+<tr class="a">
+<th>Package</th>
+<th>Tests</th>
+<th>Errors </th>
+<th>Failures</th>
+<th>Skipped</th>
+<th>Success Rate</th>
+<th>Time</th></tr>
+<tr class="b">
+<td><a href="#waffle.windows.auth">waffle.windows.auth</a></td>
+<td>6</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.022</td></tr>
+<tr class="a">
+<td><a href="#waffle.util">waffle.util</a></td>
+<td>6</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.377</td></tr>
+<tr class="b">
+<td><a href="#waffle.jaas">waffle.jaas</a></td>
+<td>8</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.07</td></tr>
+<tr class="a">
+<td><a href="#waffle.servlet.spi">waffle.servlet.spi</a></td>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.074</td></tr></table><br />
+<p>Note: package statistics are not computed recursively, they only sum up all of its testsuites numbers.</p>
+<div class="section">
+<h3><a name="waffle.windows.auth"></a>waffle.windows.auth</h3><a name="waffle.windows.auth"></a>
+<table border="1" class="table table-striped">
+<tr class="a">
+<th></th>
+<th>Class</th>
+<th>Tests</th>
+<th>Errors </th>
+<th>Failures</th>
+<th>Skipped</th>
+<th>Success Rate</th>
+<th>Time</th></tr>
+<tr class="b">
+<td><a href="#waffle.windows.authPrincipalFormatTests"><img src="images/icon_success_sml.gif" alt="" /></a></td>
+<td><a href="#waffle.windows.authPrincipalFormatTests">PrincipalFormatTests</a></td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.002</td></tr>
+<tr class="a">
+<td><a href="#waffle.windows.authWindowsAccountTests"><img src="images/icon_success_sml.gif" alt="" /></a></td>
+<td><a href="#waffle.windows.authWindowsAccountTests">WindowsAccountTests</a></td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.004</td></tr>
+<tr class="b">
+<td><a href="#waffle.windows.authWindowsCredentialsHandleTests"><img src="images/icon_success_sml.gif" alt="" /></a></td>
+<td><a href="#waffle.windows.authWindowsCredentialsHandleTests">WindowsCredentialsHandleTests</a></td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.004</td></tr>
+<tr class="a">
+<td><a href="#waffle.windows.authWindowsSecurityContextTests"><img src="images/icon_success_sml.gif" alt="" /></a></td>
+<td><a href="#waffle.windows.authWindowsSecurityContextTests">WindowsSecurityContextTests</a></td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.012</td></tr></table></div>
+<div class="section">
+<h3><a name="waffle.util"></a>waffle.util</h3><a name="waffle.util"></a>
+<table border="1" class="table table-striped">
+<tr class="a">
+<th></th>
+<th>Class</th>
+<th>Tests</th>
+<th>Errors </th>
+<th>Failures</th>
+<th>Skipped</th>
+<th>Success Rate</th>
+<th>Time</th></tr>
+<tr class="b">
+<td><a href="#waffle.utilNtlmMessageTests"><img src="images/icon_success_sml.gif" alt="" /></a></td>
+<td><a href="#waffle.utilNtlmMessageTests">NtlmMessageTests</a></td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.002</td></tr>
+<tr class="a">
+<td><a href="#waffle.utilSPNegoMessageTests"><img src="images/icon_success_sml.gif" alt="" /></a></td>
+<td><a href="#waffle.utilSPNegoMessageTests">SPNegoMessageTests</a></td>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.002</td></tr>
+<tr class="b">
+<td><a href="#waffle.utilWaffleInfoTests"><img src="images/icon_success_sml.gif" alt="" /></a></td>
+<td><a href="#waffle.utilWaffleInfoTests">WaffleInfoTests</a></td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.373</td></tr></table></div>
+<div class="section">
+<h3><a name="waffle.jaas"></a>waffle.jaas</h3><a name="waffle.jaas"></a>
+<table border="1" class="table table-striped">
+<tr class="a">
+<th></th>
+<th>Class</th>
+<th>Tests</th>
+<th>Errors </th>
+<th>Failures</th>
+<th>Skipped</th>
+<th>Success Rate</th>
+<th>Time</th></tr>
+<tr class="b">
+<td><a href="#waffle.jaasRolePrincipalTests"><img src="images/icon_success_sml.gif" alt="" /></a></td>
+<td><a href="#waffle.jaasRolePrincipalTests">RolePrincipalTests</a></td>
+<td>4</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.07</td></tr>
+<tr class="a">
+<td><a href="#waffle.jaasUserPrincipalTests"><img src="images/icon_success_sml.gif" alt="" /></a></td>
+<td><a href="#waffle.jaasUserPrincipalTests">UserPrincipalTests</a></td>
+<td>4</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0</td></tr></table></div>
+<div class="section">
+<h3><a name="waffle.servlet.spi"></a>waffle.servlet.spi</h3><a name="waffle.servlet.spi"></a>
+<table border="1" class="table table-striped">
+<tr class="a">
+<th></th>
+<th>Class</th>
+<th>Tests</th>
+<th>Errors </th>
+<th>Failures</th>
+<th>Skipped</th>
+<th>Success Rate</th>
+<th>Time</th></tr>
+<tr class="b">
+<td><a href="#waffle.servlet.spiSecurityFilterProviderCollectionTests"><img src="images/icon_success_sml.gif" alt="" /></a></td>
+<td><a href="#waffle.servlet.spiSecurityFilterProviderCollectionTests">SecurityFilterProviderCollectionTests</a></td>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.074</td></tr></table></div><br /></div>
+<div class="section">
+<h2><a name="Test_Cases"></a>Test Cases</h2><a name="Test_Cases"></a>
+<p>[<a href="#Summary">Summary</a>] [<a href="#Package_List">Package List</a>] [<a href="#Test_Cases">Test Cases</a>]</p>
+<div class="section">
+<h3><a name="RolePrincipalTests"></a>RolePrincipalTests</h3><a name="waffle.jaasRolePrincipalTests"></a>
+<table border="1" class="table table-striped">
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testIsSerializable</td>
+<td>0.07</td></tr>
+<tr class="b">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>equals_sameObject</td>
+<td>0</td></tr>
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>equals_otherObject</td>
+<td>0</td></tr>
+<tr class="b">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testEquals_Symmetric</td>
+<td>0</td></tr></table></div>
+<div class="section">
+<h3><a name="UserPrincipalTests"></a>UserPrincipalTests</h3><a name="waffle.jaasUserPrincipalTests"></a>
+<table border="1" class="table table-striped">
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testIsSerializable</td>
+<td>0</td></tr>
+<tr class="b">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>equals_sameObject</td>
+<td>0</td></tr>
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>equals_otherObject</td>
+<td>0</td></tr>
+<tr class="b">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testEquals_Symmetric</td>
+<td>0</td></tr></table></div>
+<div class="section">
+<h3><a name="SecurityFilterProviderCollectionTests"></a>SecurityFilterProviderCollectionTests</h3><a name="waffle.servlet.spiSecurityFilterProviderCollectionTests"></a>
+<table border="1" class="table table-striped">
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testDefaultCollection</td>
+<td>0.073</td></tr>
+<tr class="b">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testIsSecurityPackageSupported</td>
+<td>0</td></tr>
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testGetByClassNameInvalid</td>
+<td>0.001</td></tr></table></div>
+<div class="section">
+<h3><a name="NtlmMessageTests"></a>NtlmMessageTests</h3><a name="waffle.utilNtlmMessageTests"></a>
+<table border="1" class="table table-striped">
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testGetNtlmMessageType</td>
+<td>0.002</td></tr>
+<tr class="b">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testIsNtlmMessage</td>
+<td>0</td></tr></table></div>
+<div class="section">
+<h3><a name="SPNegoMessageTests"></a>SPNegoMessageTests</h3><a name="waffle.utilSPNegoMessageTests"></a>
+<table border="1" class="table table-striped">
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testIsNegTokenArg</td>
+<td>0.002</td></tr>
+<tr class="b">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testIsSPNegoMessage</td>
+<td>0</td></tr>
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testIsNegTokenInit</td>
+<td>0</td></tr></table></div>
+<div class="section">
+<h3><a name="WaffleInfoTests"></a>WaffleInfoTests</h3><a name="waffle.utilWaffleInfoTests"></a>
+<table border="1" class="table table-striped">
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testWaffleInfo</td>
+<td>0.373</td></tr></table></div>
+<div class="section">
+<h3><a name="PrincipalFormatTests"></a>PrincipalFormatTests</h3><a name="waffle.windows.authPrincipalFormatTests"></a>
+<table border="1" class="table table-striped">
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testKnown</td>
+<td>0.002</td></tr>
+<tr class="b">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testUnknown</td>
+<td>0</td></tr></table></div>
+<div class="section">
+<h3><a name="WindowsAccountTests"></a>WindowsAccountTests</h3><a name="waffle.windows.authWindowsAccountTests"></a>
+<table border="1" class="table table-striped">
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testGetCurrentAccount</td>
+<td>0.003</td></tr>
+<tr class="b">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testGetCurrentUsername</td>
+<td>0.001</td></tr></table></div>
+<div class="section">
+<h3><a name="WindowsCredentialsHandleTests"></a>WindowsCredentialsHandleTests</h3><a name="waffle.windows.authWindowsCredentialsHandleTests"></a>
+<table border="1" class="table table-striped">
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testGetCurrent</td>
+<td>0.004</td></tr></table></div>
+<div class="section">
+<h3><a name="WindowsSecurityContextTests"></a>WindowsSecurityContextTests</h3><a name="waffle.windows.authWindowsSecurityContextTests"></a>
+<table border="1" class="table table-striped">
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testNegotiate</td>
+<td>0.012</td></tr></table></div><br /></div>
                   </div>
             </div>
           </div>
