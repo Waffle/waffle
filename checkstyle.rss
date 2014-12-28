@@ -19,14 +19,14 @@ under the License.
 -->
 <rss version="0.91">
   <channel>
-    <title>waffle-tomcat7 - Checkstyle report</title>
+    <title>waffle-tomcat8 - Checkstyle report</title>
     <link>http://dblock.github.com/waffle/</link>
-    <description>waffle-tomcat7 - Checkstyle report</description>
+    <description>waffle-tomcat8 - Checkstyle report</description>
     <language>en-us</language>
     <copyright>&#169;2010 - 2014 com.github.dblock</copyright>
     <item>
       <title>File: 6,
-             Errors: 135,
+             Errors: 136,
              Warnings: 0,
              Infos: 0
       </title>
@@ -97,7 +97,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  38
+                  39
                 </td>
               </tr>
                           <tr>
