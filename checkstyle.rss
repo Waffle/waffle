@@ -19,9 +19,9 @@ under the License.
 -->
 <rss version="0.91">
   <channel>
-    <title>waffle-filter - Checkstyle report</title>
+    <title>waffle-form - Checkstyle report</title>
     <link>http://dblock.github.com/waffle/</link>
-    <description>waffle-filter - Checkstyle report</description>
+    <description>waffle-form - Checkstyle report</description>
     <language>en-us</language>
     <copyright>&#169;2010 - 2014 com.github.dblock</copyright>
     <item>
