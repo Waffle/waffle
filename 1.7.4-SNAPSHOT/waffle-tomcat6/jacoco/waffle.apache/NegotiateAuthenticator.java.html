@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>NegotiateAuthenticator.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-tomcat6</a> &gt; <a href="index.source.html" class="el_package">waffle.apache</a> &gt; <span class="el_source">NegotiateAuthenticator.java</span></div><h1>NegotiateAuthenticator.java</h1><pre class="source lang-java linenums">/**
+ * Waffle (https://github.com/dblock/waffle)
+ *
+ * Copyright (c) 2010 - 2014 Application Security, Inc.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Application Security, Inc.
+ */
+package waffle.apache;
+
+import java.io.IOException;
+import java.security.Principal;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.catalina.connector.Request;
+import org.apache.catalina.connector.Response;
+import org.apache.catalina.deploy.LoginConfig;
+import org.slf4j.LoggerFactory;
+
+import com.google.common.io.BaseEncoding;
+
+import waffle.util.AuthorizationHeader;
+import waffle.util.NtlmServletRequest;
+import waffle.windows.auth.IWindowsIdentity;
+import waffle.windows.auth.IWindowsSecurityContext;
+
+/**
+ * An Apache Negotiate (NTLM, Kerberos) Authenticator.
+ * 
+ * @author dblock[at]dblock[dot]org
+ */
+public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
+
+    public NegotiateAuthenticator() {
+<span class="fc" id="L42">        super();</span>
+<span class="fc" id="L43">        this.log = LoggerFactory.getLogger(NegotiateAuthenticator.class);</span>
+<span class="fc" id="L44">        this.info = &quot;waffle.apache.NegotiateAuthenticator/1.0&quot;;</span>
+<span class="fc" id="L45">        this.log.debug(&quot;[waffle.apache.NegotiateAuthenticator] loaded&quot;);</span>
+<span class="fc" id="L46">    }</span>
+
+    @Override
+    public void start() {
+<span class="fc" id="L50">        this.log.info(&quot;[waffle.apache.NegotiateAuthenticator] started&quot;);</span>
+<span class="fc" id="L51">    }</span>
+
+    @Override
+    public void stop() {
+<span class="fc" id="L55">        this.log.info(&quot;[waffle.apache.NegotiateAuthenticator] stopped&quot;);</span>
+<span class="fc" id="L56">    }</span>
+
+    @Override
+    public boolean authenticate(final Request request, final Response response, final LoginConfig loginConfig) {
+
+<span class="fc" id="L61">        Principal principal = request.getUserPrincipal();</span>
+<span class="fc" id="L62">        final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);</span>
+<span class="fc" id="L63">        final boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();</span>
+
+<span class="fc" id="L65">        this.log.debug(&quot;{} {}, contentlength: {}&quot;, request.getMethod(), request.getRequestURI(),</span>
+<span class="fc" id="L66">                Integer.valueOf(request.getContentLength()));</span>
+<span class="fc" id="L67">        this.log.debug(&quot;authorization: {}, ntlm post: {}&quot;, authorizationHeader, Boolean.valueOf(ntlmPost));</span>
+
+<span class="pc bpc" id="L69" title="3 of 4 branches missed.">        if (principal != null &amp;&amp; !ntlmPost) {</span>
+            // user already authenticated
+<span class="nc" id="L71">            this.log.debug(&quot;previously authenticated user: {}&quot;, principal.getName());</span>
+<span class="nc" id="L72">            return true;</span>
+        }
+
+        // authenticate user
+<span class="fc bfc" id="L76" title="All 2 branches covered.">        if (!authorizationHeader.isNull()) {</span>
+
+<span class="fc" id="L78">            final String securityPackage = authorizationHeader.getSecurityPackage();</span>
+            // maintain a connection-based session for NTLM tokens
+<span class="fc" id="L80">            final String connectionId = NtlmServletRequest.getConnectionId(request);</span>
+
+<span class="fc" id="L82">            this.log.debug(&quot;security package: {}, connection id: {}&quot;, securityPackage, connectionId);</span>
+
+<span class="fc bfc" id="L84" title="All 2 branches covered.">            if (ntlmPost) {</span>
+                // type 1 NTLM authentication message received
+<span class="fc" id="L86">                this.auth.resetSecurityToken(connectionId);</span>
+            }
+
+            // log the user in using the token
+            IWindowsSecurityContext securityContext;
+
+            try {
+<span class="fc" id="L93">                final byte[] tokenBuffer = authorizationHeader.getTokenBytes();</span>
+<span class="fc" id="L94">                this.log.debug(&quot;token buffer: {} byte(s)&quot;, Integer.valueOf(tokenBuffer.length));</span>
+<span class="fc" id="L95">                securityContext = this.auth.acceptSecurityToken(connectionId, tokenBuffer, securityPackage);</span>
+<span class="fc" id="L96">                this.log.debug(&quot;continue required: {}&quot;, Boolean.valueOf(securityContext.isContinue()));</span>
+
+<span class="fc" id="L98">                final byte[] continueTokenBytes = securityContext.getToken();</span>
+<span class="pc bpc" id="L99" title="2 of 4 branches missed.">                if (continueTokenBytes != null &amp;&amp; continueTokenBytes.length &gt; 0) {</span>
+<span class="fc" id="L100">                    String continueToken = BaseEncoding.base64().encode(continueTokenBytes);</span>
+<span class="fc" id="L101">                    this.log.debug(&quot;continue token: {}&quot;, continueToken);</span>
+<span class="fc" id="L102">                    response.addHeader(&quot;WWW-Authenticate&quot;, securityPackage + &quot; &quot; + continueToken);</span>
+                }
+
+<span class="pc bpc" id="L105" title="1 of 4 branches missed.">                if (securityContext.isContinue() || ntlmPost) {</span>
+<span class="fc" id="L106">                    response.setHeader(&quot;Connection&quot;, &quot;keep-alive&quot;);</span>
+<span class="fc" id="L107">                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED);</span>
+<span class="fc" id="L108">                    response.flushBuffer();</span>
+<span class="fc" id="L109">                    return false;</span>
+                }
+
+<span class="nc" id="L112">            } catch (IOException e) {</span>
+<span class="nc" id="L113">                this.log.warn(&quot;error logging in user: {}&quot;, e.getMessage());</span>
+<span class="nc" id="L114">                this.log.trace(&quot;{}&quot;, e);</span>
+<span class="nc" id="L115">                sendUnauthorized(response);</span>
+<span class="nc" id="L116">                return false;</span>
+<span class="fc" id="L117">            }</span>
+
+            // realm: fail if no realm is configured
+<span class="pc bpc" id="L120" title="2 of 4 branches missed.">            if (this.context == null || this.context.getRealm() == null) {</span>
+<span class="nc" id="L121">                this.log.warn(&quot;missing context/realm&quot;);</span>
+<span class="nc" id="L122">                sendError(response, HttpServletResponse.SC_SERVICE_UNAVAILABLE);</span>
+<span class="nc" id="L123">                return false;</span>
+            }
+
+            // create and register the user principal with the session
+<span class="fc" id="L127">            final IWindowsIdentity windowsIdentity = securityContext.getIdentity();</span>
+
+            // disable guest login
+<span class="pc bpc" id="L130" title="3 of 4 branches missed.">            if (!this.allowGuestLogin &amp;&amp; windowsIdentity.isGuest()) {</span>
+<span class="nc" id="L131">                this.log.warn(&quot;guest login disabled: {}&quot;, windowsIdentity.getFqn());</span>
+<span class="nc" id="L132">                sendUnauthorized(response);</span>
+<span class="nc" id="L133">                return false;</span>
+            }
+
+            try {
+<span class="fc" id="L137">                this.log.debug(&quot;logged in user: {} ({})&quot;, windowsIdentity.getFqn(), windowsIdentity.getSidString());</span>
+
+<span class="fc" id="L139">                final GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(windowsIdentity,</span>
+<span class="fc" id="L140">                        this.context.getRealm(), this.principalFormat, this.roleFormat);</span>
+
+<span class="fc" id="L142">                this.log.debug(&quot;roles: {}&quot;, windowsPrincipal.getRolesString());</span>
+
+<span class="fc" id="L144">                principal = windowsPrincipal;</span>
+
+                // create a session associated with this request if there's none
+<span class="fc" id="L147">                final HttpSession session = request.getSession(true);</span>
+<span class="pc bpc" id="L148" title="1 of 2 branches missed.">                this.log.debug(&quot;session id: {}&quot;, session == null ? &quot;null&quot; : session.getId());</span>
+
+                // register the authenticated principal
+<span class="fc" id="L151">                register(request, response, principal, securityPackage, principal.getName(), null);</span>
+<span class="fc" id="L152">                this.log.info(&quot;successfully logged in user: {}&quot;, principal.getName());</span>
+
+            } finally {
+<span class="pc" id="L155">                windowsIdentity.dispose();</span>
+<span class="fc" id="L156">            }</span>
+
+<span class="fc" id="L158">            return true;</span>
+        }
+
+<span class="fc" id="L161">        this.log.debug(&quot;authorization required&quot;);</span>
+<span class="fc" id="L162">        sendUnauthorized(response);</span>
+<span class="fc" id="L163">        return false;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>
