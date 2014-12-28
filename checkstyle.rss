@@ -19,14 +19,14 @@ under the License.
 -->
 <rss version="0.91">
   <channel>
-    <title>waffle-spring-security4 - Checkstyle report</title>
+    <title>waffle-tomcat5 - Checkstyle report</title>
     <link>http://dblock.github.com/waffle/</link>
-    <description>waffle-spring-security4 - Checkstyle report</description>
+    <description>waffle-tomcat5 - Checkstyle report</description>
     <language>en-us</language>
     <copyright>&#169;2010 - 2014 com.github.dblock</copyright>
     <item>
-      <title>File: 8,
-             Errors: 175,
+      <title>File: 6,
+             Errors: 133,
              Warnings: 0,
              Infos: 0
       </title>
@@ -46,7 +46,7 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.spring.FqnGrantedAuthorityFactory.java">waffle/spring/FqnGrantedAuthorityFactory.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.apache.GenericWindowsPrincipal.java">waffle/apache/GenericWindowsPrincipal.java</a>
                 </td>
                 <td>
                   0
@@ -55,26 +55,12 @@ under the License.
                   0
                 </td>
                 <td>
-                  9
+                  25
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.spring.NegotiateSecurityFilter.java">waffle/spring/NegotiateSecurityFilter.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  62
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.spring.package-info.java">waffle/spring/package-info.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.apache.package-info.java">waffle/apache/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -88,7 +74,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.spring.WindowsAuthenticationToken.java">waffle/spring/WindowsAuthenticationToken.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.apache.WindowsRealm.java">waffle/apache/WindowsRealm.java</a>
                 </td>
                 <td>
                   0
@@ -97,12 +83,12 @@ under the License.
                   0
                 </td>
                 <td>
-                  27
+                  5
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.spring.GrantedAuthorityFactory.java">waffle/spring/GrantedAuthorityFactory.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.apache.WaffleAuthenticatorBase.java">waffle/apache/WaffleAuthenticatorBase.java</a>
                 </td>
                 <td>
                   0
@@ -111,12 +97,12 @@ under the License.
                   0
                 </td>
                 <td>
-                  4
+                  34
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.spring.GuestLoginDisabledAuthenticationException.java">waffle/spring/GuestLoginDisabledAuthenticationException.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.apache.NegotiateAuthenticator.java">waffle/apache/NegotiateAuthenticator.java</a>
                 </td>
                 <td>
                   0
@@ -125,12 +111,12 @@ under the License.
                   0
                 </td>
                 <td>
-                  4
+                  29
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.spring.NegotiateSecurityFilterEntryPoint.java">waffle/spring/NegotiateSecurityFilterEntryPoint.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.apache.MixedAuthenticator.java">waffle/apache/MixedAuthenticator.java</a>
                 </td>
                 <td>
                   0
@@ -139,21 +125,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  13
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.spring.WindowsAuthenticationProvider.java">waffle/spring/WindowsAuthenticationProvider.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  56
+                  40
                 </td>
               </tr>
                       </tbody>

@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="Date-Revision-yyyymmdd" content="20141228" />
     <meta http-equiv="Content-Language" content="en" />
-    <title>waffle-spring-security4 &#x2013; CPD Results</title>
+    <title>waffle-tomcat5 &#x2013; CPD Results</title>
     <link rel="stylesheet" href="./css/apache-maven-fluido-1.3.1.min.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <link rel="stylesheet" href="./css/print.css" media="print" />
@@ -307,48 +307,38 @@
 <th>File</th>
 <th>Line</th></tr>
 <tr class="b">
-<td>waffle\spring\NegotiateSecurityFilter.java</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L151">151</a></td></tr>
+<td>waffle\apache\MixedAuthenticator.java</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L129">129</a></td></tr>
 <tr class="a">
-<td>waffle\spring\WindowsAuthenticationProvider.java</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L76">76</a></td></tr>
+<td>waffle\apache\NegotiateAuthenticator.java</td>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L93">93</a></td></tr>
 <tr class="b"><td colspan='2'>
 <div>
-<pre>    }
+<pre>            final byte[] tokenBuffer = authorizationHeader.getTokenBytes();
+            this.log.debug(&quot;token buffer: {} byte(s)&quot;, Integer.valueOf(tokenBuffer.length));
+            securityContext = this.auth.acceptSecurityToken(connectionId, tokenBuffer, securityPackage);
+            this.log.debug(&quot;continue required: {}&quot;, Boolean.valueOf(securityContext.isContinue()));
 
-    public PrincipalFormat getPrincipalFormat() {
-        return this.principalFormat;
-    }
+            final byte[] continueTokenBytes = securityContext.getToken();
+            if (continueTokenBytes != null &amp;&amp; continueTokenBytes.length &gt; 0) {
+                final String continueToken = BaseEncoding.base64().encode(continueTokenBytes);
+                this.log.debug(&quot;continue token: {}&quot;, continueToken);
+                response.addHeader(&quot;WWW-Authenticate&quot;, securityPackage + &quot; &quot; + continueToken);
+            }
 
-    public void setPrincipalFormatEnum(final PrincipalFormat value) {
-        this.principalFormat = value;
-    }
+            if (securityContext.isContinue() || ntlmPost) {
+                response.setHeader(&quot;Connection&quot;, &quot;keep-alive&quot;);
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+                response.flushBuffer();
+                return false;
+            }
 
-    public void setPrincipalFormat(final String value) {
-        this.setPrincipalFormatEnum(PrincipalFormat.valueOf(value.toUpperCase(Locale.ENGLISH)));
-    }
-
-    public PrincipalFormat getRoleFormat() {
-        return this.roleFormat;
-    }
-
-    public void setRoleFormatEnum(final PrincipalFormat value) {
-        this.roleFormat = value;
-    }
-
-    public void setRoleFormat(final String value) {
-        this.setRoleFormatEnum(PrincipalFormat.valueOf(value.toUpperCase(Locale.ENGLISH)));
-    }
-
-    public boolean isAllowGuestLogin() {
-        return this.allowGuestLogin;
-    }
-
-    public void setAllowGuestLogin(final boolean value) {
-        this.allowGuestLogin = value;
-    }
-
-    public SecurityFilterProviderCollection getProvider() {</pre></div></td></tr></table></div>
+        } catch (IOException e) {
+            this.log.warn(&quot;error logging in user: {}&quot;, e.getMessage());
+            this.log.trace(&quot;{}&quot;, e);
+            sendUnauthorized(response);
+            return false;
+        }</pre></div></td></tr></table></div>
                   </div>
             </div>
           </div>

@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="Date-Revision-yyyymmdd" content="20141228" />
     <meta http-equiv="Content-Language" content="en" />
-    <title>waffle-spring-security4 &#x2013; Checkstyle Results</title>
+    <title>waffle-tomcat5 &#x2013; Checkstyle Results</title>
     <link rel="stylesheet" href="./css/apache-maven-fluido-1.3.1.min.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <link rel="stylesheet" href="./css/print.css" media="print" />
@@ -309,10 +309,10 @@
 <th><img src="images/icon_warning_sml.gif" alt="" />&#160;Warnings</th>
 <th><img src="images/icon_error_sml.gif" alt="" />&#160;Errors</th></tr>
 <tr class="b">
-<td>8</td>
+<td>6</td>
 <td>0</td>
 <td>0</td>
-<td>175</td></tr></table></div>
+<td>133</td></tr></table></div>
 <div class="section">
 <h2><a name="Files"></a>Files</h2>
 <table border="0" class="table table-striped">
@@ -322,40 +322,30 @@
 <th><img src="images/icon_warning_sml.gif" alt="" />&#160;W</th>
 <th><img src="images/icon_error_sml.gif" alt="" />&#160;E</th></tr>
 <tr class="b">
-<td><a href="#waffle.spring.FqnGrantedAuthorityFactory.java">waffle/spring/FqnGrantedAuthorityFactory.java</a></td>
+<td><a href="#waffle.apache.GenericWindowsPrincipal.java">waffle/apache/GenericWindowsPrincipal.java</a></td>
 <td>0</td>
 <td>0</td>
-<td>9</td></tr>
+<td>25</td></tr>
 <tr class="a">
-<td><a href="#waffle.spring.GrantedAuthorityFactory.java">waffle/spring/GrantedAuthorityFactory.java</a></td>
+<td><a href="#waffle.apache.MixedAuthenticator.java">waffle/apache/MixedAuthenticator.java</a></td>
 <td>0</td>
 <td>0</td>
-<td>4</td></tr>
+<td>40</td></tr>
 <tr class="b">
-<td><a href="#waffle.spring.GuestLoginDisabledAuthenticationException.java">waffle/spring/GuestLoginDisabledAuthenticationException.java</a></td>
+<td><a href="#waffle.apache.NegotiateAuthenticator.java">waffle/apache/NegotiateAuthenticator.java</a></td>
 <td>0</td>
 <td>0</td>
-<td>4</td></tr>
+<td>29</td></tr>
 <tr class="a">
-<td><a href="#waffle.spring.NegotiateSecurityFilter.java">waffle/spring/NegotiateSecurityFilter.java</a></td>
+<td><a href="#waffle.apache.WaffleAuthenticatorBase.java">waffle/apache/WaffleAuthenticatorBase.java</a></td>
 <td>0</td>
 <td>0</td>
-<td>62</td></tr>
+<td>34</td></tr>
 <tr class="b">
-<td><a href="#waffle.spring.NegotiateSecurityFilterEntryPoint.java">waffle/spring/NegotiateSecurityFilterEntryPoint.java</a></td>
+<td><a href="#waffle.apache.WindowsRealm.java">waffle/apache/WindowsRealm.java</a></td>
 <td>0</td>
 <td>0</td>
-<td>13</td></tr>
-<tr class="a">
-<td><a href="#waffle.spring.WindowsAuthenticationProvider.java">waffle/spring/WindowsAuthenticationProvider.java</a></td>
-<td>0</td>
-<td>0</td>
-<td>56</td></tr>
-<tr class="b">
-<td><a href="#waffle.spring.WindowsAuthenticationToken.java">waffle/spring/WindowsAuthenticationToken.java</a></td>
-<td>0</td>
-<td>0</td>
-<td>27</td></tr></table></div>
+<td>5</td></tr></table></div>
 <div class="section">
 <h2><a name="Rules"></a>Rules</h2>
 <table border="0" class="table table-striped">
@@ -365,24 +355,34 @@
 <th>Violations</th>
 <th>Severity</th></tr>
 <tr class="b">
+<td>coding</td>
+<td><a class="externalLink" href="http://checkstyle.sourceforge.net/config_coding.html#AvoidInlineConditionals">AvoidInlineConditionals</a></td>
+<td>3</td>
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td></tr>
+<tr class="a">
 <td>design</td>
 <td><a class="externalLink" href="http://checkstyle.sourceforge.net/config_design.html#DesignForExtension">DesignForExtension</a></td>
-<td>43</td>
+<td>13</td>
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td></tr>
+<tr class="b">
+<td></td>
+<td><a class="externalLink" href="http://checkstyle.sourceforge.net/config_design.html#VisibilityModifier">VisibilityModifier</a></td>
+<td>7</td>
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td></tr>
 <tr class="a">
 <td>javadoc</td>
 <td><a class="externalLink" href="http://checkstyle.sourceforge.net/config_javadoc.html#JavadocMethod">JavadocMethod</a></td>
-<td>38</td>
+<td>7</td>
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td></tr>
 <tr class="b">
 <td></td>
-<td><a class="externalLink" href="http://checkstyle.sourceforge.net/config_javadoc.html#JavadocStyle">JavadocStyle</a></td>
-<td>2</td>
+<td><a class="externalLink" href="http://checkstyle.sourceforge.net/config_javadoc.html#JavadocVariable">JavadocVariable</a></td>
+<td>12</td>
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td></tr>
 <tr class="a">
-<td></td>
-<td><a class="externalLink" href="http://checkstyle.sourceforge.net/config_javadoc.html#JavadocVariable">JavadocVariable</a></td>
-<td>22</td>
+<td>misc</td>
+<td><a class="externalLink" href="http://checkstyle.sourceforge.net/config_misc.html#FinalParameters">FinalParameters</a></td>
+<td>2</td>
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td></tr>
 <tr class="b">
 <td>regexp</td>
@@ -390,17 +390,17 @@
 <ul>
 <li>format: <tt>&quot;\s+$&quot;</tt></li>
 <li>message: <tt>&quot;Line has trailing spaces.&quot;</tt></li></ul></td>
-<td>6</td>
+<td>22</td>
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td></tr>
 <tr class="a">
 <td>sizes</td>
 <td><a class="externalLink" href="http://checkstyle.sourceforge.net/config_sizes.html#LineLength">LineLength</a></td>
-<td>64</td>
+<td>67</td>
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td></tr></table></div>
 <div class="section">
 <h2><a name="Details"></a>Details</h2>
 <div class="section">
-<h3 id="waffle.spring.FqnGrantedAuthorityFactory.java">waffle/spring/FqnGrantedAuthorityFactory.java</h3>
+<h3 id="waffle.apache.GenericWindowsPrincipal.java">waffle/apache/GenericWindowsPrincipal.java</h3>
 <table border="0" class="table table-striped">
 <tr class="b">
 <th>Severity</th>
@@ -410,939 +410,156 @@
 <th>Line</th></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td><a href="./xref/waffle/apache/GenericWindowsPrincipal.html#L33">33</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
-<td>JavadocStyle</td>
-<td>First sentence should end with a period.</td>
-<td><a href="./xref/waffle/spring/FqnGrantedAuthorityFactory.html#L21">21</a></td></tr>
+<td>JavadocVariable</td>
+<td>Missing a Javadoc comment.</td>
+<td><a href="./xref/waffle/apache/GenericWindowsPrincipal.html#L38">38</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocVariable</td>
+<td>Missing a Javadoc comment.</td>
+<td><a href="./xref/waffle/apache/GenericWindowsPrincipal.html#L39">39</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocVariable</td>
+<td>Missing a Javadoc comment.</td>
+<td><a href="./xref/waffle/apache/GenericWindowsPrincipal.html#L40">40</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td><a href="./xref/waffle/apache/GenericWindowsPrincipal.html#L44">44</a></td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>sizes</td>
 <td>LineLength</td>
 <td>Line is longer than 80 characters (found 99).</td>
-<td><a href="./xref/waffle/spring/FqnGrantedAuthorityFactory.html#L22">22</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 81).</td>
-<td><a href="./xref/waffle/spring/FqnGrantedAuthorityFactory.html#L23">23</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocVariable</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/FqnGrantedAuthorityFactory.html#L31">31</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocVariable</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/FqnGrantedAuthorityFactory.html#L32">32</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 100).</td>
-<td><a href="./xref/waffle/spring/FqnGrantedAuthorityFactory.html#L34">34</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/FqnGrantedAuthorityFactory.html#L34">34</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'createGrantedAuthority' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/FqnGrantedAuthorityFactory.html#L39">39</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 89).</td>
-<td><a href="./xref/waffle/spring/FqnGrantedAuthorityFactory.html#L40">40</a></td></tr></table></div>
-<div class="section">
-<h3 id="waffle.spring.GrantedAuthorityFactory.java">waffle/spring/GrantedAuthorityFactory.java</h3>
-<table border="0" class="table table-striped">
-<tr class="b">
-<th>Severity</th>
-<th>Category</th>
-<th>Rule</th>
-<th>Message</th>
-<th>Line</th></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 105).</td>
-<td><a href="./xref/waffle/spring/GrantedAuthorityFactory.html#L21">21</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Expected an @return tag.</td>
-<td><a href="./xref/waffle/spring/GrantedAuthorityFactory.html#L29">29</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 81).</td>
-<td><a href="./xref/waffle/spring/GrantedAuthorityFactory.html#L29">29</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Expected @param tag for 'windowsAccount'.</td>
-<td><a href="./xref/waffle/spring/GrantedAuthorityFactory.html#L29">29</a></td></tr></table></div>
-<div class="section">
-<h3 id="waffle.spring.GuestLoginDisabledAuthenticationException.java">waffle/spring/GuestLoginDisabledAuthenticationException.java</h3>
-<table border="0" class="table table-striped">
-<tr class="a">
-<th>Severity</th>
-<th>Category</th>
-<th>Rule</th>
-<th>Message</th>
-<th>Line</th></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>regexp</td>
-<td>RegexpSingleline</td>
-<td>Line has trailing spaces.</td>
-<td><a href="./xref/waffle/spring/GuestLoginDisabledAuthenticationException.html#L20">20</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 88).</td>
-<td><a href="./xref/waffle/spring/GuestLoginDisabledAuthenticationException.html#L23">23</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocVariable</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/GuestLoginDisabledAuthenticationException.html#L25">25</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/GuestLoginDisabledAuthenticationException.html#L27">27</a></td></tr></table></div>
-<div class="section">
-<h3 id="waffle.spring.NegotiateSecurityFilter.java">waffle/spring/NegotiateSecurityFilter.java</h3>
-<table border="0" class="table table-striped">
-<tr class="b">
-<th>Severity</th>
-<th>Category</th>
-<th>Rule</th>
-<th>Message</th>
-<th>Line</th></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>regexp</td>
-<td>RegexpSingleline</td>
-<td>Line has trailing spaces.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L41">41</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 84).</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L46">46</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocVariable</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L46">46</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 119).</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L47">47</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocVariable</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L48">48</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 91).</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L49">49</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocVariable</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L49">49</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 91).</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L50">50</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocVariable</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L50">50</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocVariable</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L51">51</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 132).</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L53">53</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocVariable</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L53">53</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 124).</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L54">54</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocVariable</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L54">54</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L56">56</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'doFilter' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L61">61</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 102).</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L62">62</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 94).</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L68">68</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 89).</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L71">71</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 104).</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L75">75</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 82).</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L93">93</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 114).</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L99">99</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 110).</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L101">101</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 95).</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L106">106</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 84).</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L107">107</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 85).</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L109">109</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 89).</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L111">111</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'afterPropertiesSet' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L121">121</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 83).</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L126">126</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>regexp</td>
-<td>RegexpSingleline</td>
-<td>Line has trailing spaces.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L132">132</a></td></tr>
+<td><a href="./xref/waffle/apache/GenericWindowsPrincipal.html#L54">54</a></td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>sizes</td>
 <td>LineLength</td>
 <td>Line is longer than 80 characters (found 92).</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L138">138</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'getPrincipalFormat' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L153">153</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L153">153</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'setPrincipalFormatEnum' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L157">157</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L157">157</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'setPrincipalFormat' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L161">161</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L161">161</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 96).</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L162">162</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'getRoleFormat' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L165">165</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L165">165</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'setRoleFormatEnum' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L169">169</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L169">169</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'setRoleFormat' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L173">173</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L173">173</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 91).</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L174">174</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'isAllowGuestLogin' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L177">177</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L177">177</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'setAllowGuestLogin' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L181">181</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L181">181</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'getProvider' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L185">185</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L185">185</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'setProvider' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L189">189</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L189">189</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'getGrantedAuthorityFactory' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L193">193</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L193">193</a></td></tr>
+<td><a href="./xref/waffle/apache/GenericWindowsPrincipal.html#L55">55</a></td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>sizes</td>
 <td>LineLength</td>
 <td>Line is longer than 80 characters (found 81).</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L197">197</a></td></tr>
+<td><a href="./xref/waffle/apache/GenericWindowsPrincipal.html#L57">57</a></td></tr>
 <tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'setGrantedAuthorityFactory' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L197">197</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L197">197</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'getDefaultGrantedAuthority' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L201">201</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L201">201</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'setDefaultGrantedAuthority' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L205">205</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilter.html#L205">205</a></td></tr></table></div>
-<div class="section">
-<h3 id="waffle.spring.NegotiateSecurityFilterEntryPoint.java">waffle/spring/NegotiateSecurityFilterEntryPoint.java</h3>
-<table border="0" class="table table-striped">
-<tr class="a">
-<th>Severity</th>
-<th>Category</th>
-<th>Rule</th>
-<th>Message</th>
-<th>Line</th></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>regexp</td>
-<td>RegexpSingleline</td>
-<td>Line has trailing spaces.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilterEntryPoint.html#L31">31</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 84).</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilterEntryPoint.html#L34">34</a></td></tr>
-<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>sizes</td>
 <td>LineLength</td>
 <td>Line is longer than 80 characters (found 119).</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilterEntryPoint.html#L36">36</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocVariable</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilterEntryPoint.html#L36">36</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocVariable</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilterEntryPoint.html#L37">37</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilterEntryPoint.html#L39">39</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'commence' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilterEntryPoint.html#L43">43</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 94).</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilterEntryPoint.html#L44">44</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 84).</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilterEntryPoint.html#L45">45</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'getProvider' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilterEntryPoint.html#L59">59</a></td></tr>
+<td><a href="./xref/waffle/apache/GenericWindowsPrincipal.html#L63">63</a></td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilterEntryPoint.html#L59">59</a></td></tr>
+<td><a href="./xref/waffle/apache/GenericWindowsPrincipal.html#L63">63</a></td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'setProvider' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilterEntryPoint.html#L63">63</a></td></tr>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 90).</td>
+<td><a href="./xref/waffle/apache/GenericWindowsPrincipal.html#L73">73</a></td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>javadoc</td>
 <td>JavadocMethod</td>
 <td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/NegotiateSecurityFilterEntryPoint.html#L63">63</a></td></tr></table></div>
-<div class="section">
-<h3 id="waffle.spring.WindowsAuthenticationProvider.java">waffle/spring/WindowsAuthenticationProvider.java</h3>
-<table border="0" class="table table-striped">
+<td><a href="./xref/waffle/apache/GenericWindowsPrincipal.html#L73">73</a></td></tr>
 <tr class="a">
-<th>Severity</th>
-<th>Category</th>
-<th>Rule</th>
-<th>Message</th>
-<th>Line</th></tr>
-<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>sizes</td>
 <td>LineLength</td>
-<td>Line is longer than 80 characters (found 87).</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L21">21</a></td></tr>
-<tr class="a">
+<td>Line is longer than 80 characters (found 91).</td>
+<td><a href="./xref/waffle/apache/GenericWindowsPrincipal.html#L74">74</a></td></tr>
+<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>regexp</td>
 <td>RegexpSingleline</td>
 <td>Line has trailing spaces.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L32">32</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocVariable</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L37">37</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 116).</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L38">38</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 82).</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L39">39</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocVariable</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L39">39</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 82).</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L40">40</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocVariable</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L40">40</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocVariable</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L41">41</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocVariable</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L42">42</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 123).</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L43">43</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocVariable</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L43">43</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 115).</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L44">44</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocVariable</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L44">44</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L46">46</a></td></tr>
+<td><a href="./xref/waffle/apache/GenericWindowsPrincipal.html#L83">83</a></td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
-<td>Method 'authenticate' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L50">50</a></td></tr>
+<td>Method 'getSid' is not designed for extension - needs to be abstract, final or empty.</td>
+<td><a href="./xref/waffle/apache/GenericWindowsPrincipal.html#L86">86</a></td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 110).</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L52">52</a></td></tr>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td><a href="./xref/waffle/apache/GenericWindowsPrincipal.html#L92">92</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'getSidString' is not designed for extension - needs to be abstract, final or empty.</td>
+<td><a href="./xref/waffle/apache/GenericWindowsPrincipal.html#L95">95</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td><a href="./xref/waffle/apache/GenericWindowsPrincipal.html#L101">101</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'getGroups' is not designed for extension - needs to be abstract, final or empty.</td>
+<td><a href="./xref/waffle/apache/GenericWindowsPrincipal.html#L104">104</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td><a href="./xref/waffle/apache/GenericWindowsPrincipal.html#L110">110</a></td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>sizes</td>
 <td>LineLength</td>
 <td>Line is longer than 80 characters (found 114).</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L53">53</a></td></tr>
+<td><a href="./xref/waffle/apache/GenericWindowsPrincipal.html#L117">117</a></td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 106).</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L55">55</a></td></tr>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td><a href="./xref/waffle/apache/GenericWindowsPrincipal.html#L140">140</a></td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>sizes</td>
 <td>LineLength</td>
-<td>Line is longer than 80 characters (found 90).</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L59">59</a></td></tr>
+<td>Line is longer than 80 characters (found 89).</td>
+<td><a href="./xref/waffle/apache/GenericWindowsPrincipal.html#L147">147</a></td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 109).</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L62">62</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 97).</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L66">66</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 81).</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L69">69</a></td></tr>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td><a href="./xref/waffle/apache/GenericWindowsPrincipal.html#L171">171</a></td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
-<td>Method 'supports' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L73">73</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 90).</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L75">75</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'getPrincipalFormat' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L78">78</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L78">78</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'setPrincipalFormatEnum' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L82">82</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L82">82</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'setPrincipalFormat' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L86">86</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L86">86</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 96).</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L87">87</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'getRoleFormat' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L90">90</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L90">90</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'setRoleFormatEnum' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L94">94</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L94">94</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'setRoleFormat' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L98">98</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L98">98</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 91).</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L99">99</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'isAllowGuestLogin' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L102">102</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L102">102</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'setAllowGuestLogin' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L106">106</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L106">106</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'getAuthProvider' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L110">110</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L110">110</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'setAuthProvider' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L114">114</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L114">114</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'getGrantedAuthorityFactory' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L118">118</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L118">118</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 81).</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L122">122</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'setGrantedAuthorityFactory' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L122">122</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L122">122</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'getDefaultGrantedAuthority' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L126">126</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L126">126</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'setDefaultGrantedAuthority' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L130">130</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationProvider.html#L130">130</a></td></tr></table></div>
+<td>Method 'getRolesString' is not designed for extension - needs to be abstract, final or empty.</td>
+<td><a href="./xref/waffle/apache/GenericWindowsPrincipal.html#L174">174</a></td></tr></table></div>
 <div class="section">
-<h3 id="waffle.spring.WindowsAuthenticationToken.java">waffle/spring/WindowsAuthenticationToken.java</h3>
+<h3 id="waffle.apache.MixedAuthenticator.java">waffle/apache/MixedAuthenticator.java</h3>
 <table border="0" class="table table-striped">
 <tr class="b">
 <th>Severity</th>
@@ -1355,163 +572,676 @@
 <td>regexp</td>
 <td>RegexpSingleline</td>
 <td>Line has trailing spaces.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationToken.html#L28">28</a></td></tr>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L39">39</a></td></tr>
 <tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L44">44</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'start' is not designed for extension - needs to be abstract, final or empty.</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L51">51</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'stop' is not designed for extension - needs to be abstract, final or empty.</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L56">56</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'authenticate' is not designed for extension - needs to be abstract, final or empty.</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L61">61</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 112).</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L62">62</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 96).</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L71">71</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 89).</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L74">74</a></td></tr>
+<tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>sizes</td>
 <td>LineLength</td>
 <td>Line is longer than 80 characters (found 87).</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationToken.html#L33">33</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocVariable</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationToken.html#L33">33</a></td></tr>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L76">76</a></td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>sizes</td>
 <td>LineLength</td>
-<td>Line is longer than 80 characters (found 113).</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationToken.html#L36">36</a></td></tr>
+<td>Line is longer than 80 characters (found 89).</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L81">81</a></td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>sizes</td>
 <td>LineLength</td>
-<td>Line is longer than 80 characters (found 115).</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationToken.html#L37">37</a></td></tr>
+<td>Line is longer than 80 characters (found 90).</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L82">82</a></td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>sizes</td>
 <td>LineLength</td>
-<td>Line is longer than 80 characters (found 115).</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationToken.html#L40">40</a></td></tr>
+<td>Line is longer than 80 characters (found 107).</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L83">83</a></td></tr>
 <tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 105).</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationToken.html#L41">41</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 119).</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationToken.html#L44">44</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 111).</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationToken.html#L47">47</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 103).</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationToken.html#L48">48</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocVariable</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationToken.html#L50">50</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocVariable</td>
-<td>Missing a Javadoc comment.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationToken.html#L51">51</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocStyle</td>
-<td>First sentence should end with a period.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationToken.html#L53">53</a></td></tr>
-<tr class="b">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>sizes</td>
-<td>LineLength</td>
-<td>Line is longer than 80 characters (found 109).</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationToken.html#L55">55</a></td></tr>
-<tr class="a">
-<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>javadoc</td>
-<td>JavadocMethod</td>
-<td>Expected @param tag for 'identity'.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationToken.html#L62">62</a></td></tr>
-<tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>sizes</td>
 <td>LineLength</td>
 <td>Line is longer than 80 characters (found 85).</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationToken.html#L63">63</a></td></tr>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L86">86</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L109">109</a></td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>sizes</td>
 <td>LineLength</td>
 <td>Line is longer than 80 characters (found 97).</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationToken.html#L70">70</a></td></tr>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L116">116</a></td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>sizes</td>
 <td>LineLength</td>
-<td>Line is longer than 80 characters (found 113).</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationToken.html#L73">73</a></td></tr>
+<td>Line is longer than 80 characters (found 90).</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L118">118</a></td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>sizes</td>
 <td>LineLength</td>
+<td>Line is longer than 80 characters (found 92).</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L130">130</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 104).</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L131">131</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 99).</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L132">132</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 94).</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L136">136</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 94).</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L138">138</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 119).</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L166">166</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 105).</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L168">168</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 84).</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L169">169</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 89).</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L175">175</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>coding</td>
+<td>AvoidInlineConditionals</td>
+<td>Avoid inline conditionals.</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L175">175</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 109).</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L177">177</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 89).</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L178">178</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L187">187</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 103).</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L210">210</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 105).</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L212">212</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 84).</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L213">213</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 89).</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L219">219</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>coding</td>
+<td>AvoidInlineConditionals</td>
+<td>Avoid inline conditionals.</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L219">219</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 100).</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L221">221</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 89).</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L222">222</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 95).</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L230">230</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L230">230</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 83).</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L233">233</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 84).</td>
+<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L234">234</a></td></tr></table></div>
+<div class="section">
+<h3 id="waffle.apache.NegotiateAuthenticator.java">waffle/apache/NegotiateAuthenticator.java</h3>
+<table border="0" class="table table-striped">
+<tr class="a">
+<th>Severity</th>
+<th>Category</th>
+<th>Rule</th>
+<th>Message</th>
+<th>Line</th></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L36">36</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocMethod</td>
+<td>Missing a Javadoc comment.</td>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L41">41</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'start' is not designed for extension - needs to be abstract, final or empty.</td>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L48">48</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'stop' is not designed for extension - needs to be abstract, final or empty.</td>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L53">53</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'authenticate' is not designed for extension - needs to be abstract, final or empty.</td>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L58">58</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 112).</td>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L59">59</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 89).</td>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L62">62</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 90).</td>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L63">63</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 96).</td>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L65">65</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 107).</td>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L67">67</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 85).</td>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L71">71</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 84).</td>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L78">78</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 84).</td>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L80">80</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 101).</td>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L82">82</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 96).</td>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L94">94</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 108).</td>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L95">95</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 103).</td>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L96">96</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 82).</td>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L99">99</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 98).</td>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L100">100</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 98).</td>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L102">102</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 83).</td>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L127">127</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 84).</td>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L131">131</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
 <td>Line is longer than 80 characters (found 116).</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationToken.html#L76">76</a></td></tr>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L137">137</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 109).</td>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L139">139</a></td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>sizes</td>
 <td>LineLength</td>
 <td>Line is longer than 80 characters (found 88).</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationToken.html#L84">84</a></td></tr>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L140">140</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 93).</td>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L148">148</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>coding</td>
+<td>AvoidInlineConditionals</td>
+<td>Avoid inline conditionals.</td>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L148">148</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 99).</td>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L151">151</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 86).</td>
+<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L152">152</a></td></tr></table></div>
+<div class="section">
+<h3 id="waffle.apache.WaffleAuthenticatorBase.java">waffle/apache/WaffleAuthenticatorBase.java</h3>
+<table border="0" class="table table-striped">
+<tr class="a">
+<th>Severity</th>
+<th>Category</th>
+<th>Rule</th>
+<th>Message</th>
+<th>Line</th></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 114).</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L37">37</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocVariable</td>
+<td>Missing a Javadoc comment.</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L37">37</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocVariable</td>
+<td>Missing a Javadoc comment.</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L39">39</a></td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'getAuthorities' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationToken.html#L88">88</a></td></tr>
+<td>VisibilityModifier</td>
+<td>Variable 'info' must be private and have accessor methods.</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L39">39</a></td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'getCredentials' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationToken.html#L93">93</a></td></tr>
+<td>javadoc</td>
+<td>JavadocVariable</td>
+<td>Missing a Javadoc comment.</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L40">40</a></td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'getDetails' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationToken.html#L98">98</a></td></tr>
+<td>VisibilityModifier</td>
+<td>Variable 'log' must be private and have accessor methods.</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L40">40</a></td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
-<td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'getPrincipal' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationToken.html#L103">103</a></td></tr>
+<td>javadoc</td>
+<td>JavadocVariable</td>
+<td>Missing a Javadoc comment.</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L41">41</a></td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'isAuthenticated' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationToken.html#L108">108</a></td></tr>
+<td>VisibilityModifier</td>
+<td>Variable 'principalFormat' must be private and have accessor methods.</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L41">41</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocVariable</td>
+<td>Missing a Javadoc comment.</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L42">42</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>VisibilityModifier</td>
+<td>Variable 'roleFormat' must be private and have accessor methods.</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L42">42</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocVariable</td>
+<td>Missing a Javadoc comment.</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L43">43</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>VisibilityModifier</td>
+<td>Variable 'allowGuestLogin' must be private and have accessor methods.</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L43">43</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocVariable</td>
+<td>Missing a Javadoc comment.</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L44">44</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>VisibilityModifier</td>
+<td>Variable 'protocols' must be private and have accessor methods.</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L44">44</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 89).</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L46">46</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocVariable</td>
+<td>Missing a Javadoc comment.</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L46">46</a></td></tr>
 <tr class="b">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
-<td>DesignForExtension</td>
-<td>Method 'setAuthenticated' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationToken.html#L113">113</a></td></tr>
+<td>VisibilityModifier</td>
+<td>Variable 'auth' must be private and have accessor methods.</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L46">46</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L50">50</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L59">59</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L74">74</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>misc</td>
+<td>FinalParameters</td>
+<td>Parameter format should be final.</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L78">78</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 91).</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L79">79</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L85">85</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L94">94</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>misc</td>
+<td>FinalParameters</td>
+<td>Parameter format should be final.</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L98">98</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 86).</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L99">99</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L105">105</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L114">114</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 105).</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L122">122</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L124">124</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L134">134</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>sizes</td>
+<td>LineLength</td>
+<td>Line is longer than 80 characters (found 88).</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L149">149</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L157">157</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td><a href="./xref/waffle/apache/WaffleAuthenticatorBase.html#L176">176</a></td></tr></table></div>
+<div class="section">
+<h3 id="waffle.apache.WindowsRealm.java">waffle/apache/WindowsRealm.java</h3>
+<table border="0" class="table table-striped">
+<tr class="b">
+<th>Severity</th>
+<th>Category</th>
+<th>Rule</th>
+<th>Message</th>
+<th>Line</th></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>regexp</td>
+<td>RegexpSingleline</td>
+<td>Line has trailing spaces.</td>
+<td><a href="./xref/waffle/apache/WindowsRealm.html#L22">22</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>javadoc</td>
+<td>JavadocVariable</td>
+<td>Missing a Javadoc comment.</td>
+<td><a href="./xref/waffle/apache/WindowsRealm.html#L27">27</a></td></tr>
 <tr class="a">
 <td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
 <td>design</td>
 <td>DesignForExtension</td>
 <td>Method 'getName' is not designed for extension - needs to be abstract, final or empty.</td>
-<td><a href="./xref/waffle/spring/WindowsAuthenticationToken.html#L118">118</a></td></tr></table></div></div>
+<td><a href="./xref/waffle/apache/WindowsRealm.html#L29">29</a></td></tr>
+<tr class="b">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'getPassword' is not designed for extension - needs to be abstract, final or empty.</td>
+<td><a href="./xref/waffle/apache/WindowsRealm.html#L34">34</a></td></tr>
+<tr class="a">
+<td><img src="images/icon_error_sml.gif" alt="" />&#160;Error</td>
+<td>design</td>
+<td>DesignForExtension</td>
+<td>Method 'getPrincipal' is not designed for extension - needs to be abstract, final or empty.</td>
+<td><a href="./xref/waffle/apache/WindowsRealm.html#L39">39</a></td></tr></table></div></div>
                   </div>
             </div>
           </div>
