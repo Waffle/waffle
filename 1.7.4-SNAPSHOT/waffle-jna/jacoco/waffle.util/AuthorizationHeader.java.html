@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>AuthorizationHeader.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-jna</a> &gt; <a href="index.source.html" class="el_package">waffle.util</a> &gt; <span class="el_source">AuthorizationHeader.java</span></div><h1>AuthorizationHeader.java</h1><pre class="source lang-java linenums">/**
+ * Waffle (https://github.com/dblock/waffle)
+ *
+ * Copyright (c) 2010 - 2014 Application Security, Inc.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Application Security, Inc.
+ */
+package waffle.util;
+
+import javax.servlet.http.HttpServletRequest;
+
+import com.google.common.io.BaseEncoding;
+
+/**
+ * Authorization header.
+ * 
+ * @author dblock[at]dblock[dot]org
+ */
+public class AuthorizationHeader {
+
+    private HttpServletRequest request;
+
+<span class="nc" id="L29">    public AuthorizationHeader(final HttpServletRequest httpServletRequest) {</span>
+<span class="nc" id="L30">        this.request = httpServletRequest;</span>
+<span class="nc" id="L31">    }</span>
+
+    public String getHeader() {
+<span class="nc" id="L34">        return this.request.getHeader(&quot;Authorization&quot;);</span>
+    }
+
+    public boolean isNull() {
+<span class="nc bnc" id="L38" title="All 4 branches missed.">        return getHeader() == null || getHeader().length() == 0;</span>
+    }
+
+    /**
+     * Returns a supported security package string.
+     * 
+     * @return Negotiate or NTLM.
+     */
+    public String getSecurityPackage() {
+<span class="nc" id="L47">        final String header = getHeader();</span>
+
+<span class="nc bnc" id="L49" title="All 2 branches missed.">        if (header == null) {</span>
+<span class="nc" id="L50">            throw new RuntimeException(&quot;Missing Authorization: header&quot;);</span>
+        }
+
+<span class="nc" id="L53">        final int space = header.indexOf(' ');</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">        if (space &gt; 0) {</span>
+<span class="nc" id="L55">            return header.substring(0, space);</span>
+        }
+
+<span class="nc" id="L58">        throw new RuntimeException(&quot;Invalid Authorization header: &quot; + header);</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        return isNull() ? &quot;&lt;none&gt;&quot; : getHeader();</span>
+    }
+
+    public String getToken() {
+<span class="nc" id="L67">        return getHeader().substring(getSecurityPackage().length() + 1);</span>
+    }
+
+    public byte[] getTokenBytes() {
+        try {
+<span class="nc" id="L72">            return BaseEncoding.base64().decode(getToken());</span>
+<span class="nc" id="L73">        } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L74">            throw new RuntimeException(&quot;Invalid authorization header.&quot;);</span>
+        }
+    }
+
+    public boolean isNtlmType1Message() {
+<span class="nc bnc" id="L79" title="All 2 branches missed.">        if (isNull()) {</span>
+<span class="nc" id="L80">            return false;</span>
+        }
+
+<span class="nc" id="L83">        final byte[] tokenBytes = getTokenBytes();</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">        if (!NtlmMessage.isNtlmMessage(tokenBytes)) {</span>
+<span class="nc" id="L85">            return false;</span>
+        }
+
+<span class="nc bnc" id="L88" title="All 2 branches missed.">        return 1 == NtlmMessage.getMessageType(tokenBytes);</span>
+    }
+
+    public boolean isSPNegoMessage() {
+
+<span class="nc bnc" id="L93" title="All 2 branches missed.">        if (isNull()) {</span>
+<span class="nc" id="L94">            return false;</span>
+        }
+
+<span class="nc" id="L97">        final byte[] tokenBytes = getTokenBytes();</span>
+<span class="nc bnc" id="L98" title="All 2 branches missed.">        if (!SPNegoMessage.isSPNegoMessage(tokenBytes)) {</span>
+<span class="nc" id="L99">            return false;</span>
+        }
+
+<span class="nc" id="L102">        return true;</span>
+    }
+
+    /**
+     * When using NTLM authentication and the browser is making a POST request, it preemptively sends a Type 2
+     * authentication message (without the POSTed data). The server responds with a 401, and the browser sends a Type 3
+     * request with the POSTed data. This is to avoid the situation where user's credentials might be potentially
+     * invalid, and all this data is being POSTed across the wire.
+     * 
+     * @return True if request is an NTLM POST or PUT with an Authorization header and no data.
+     */
+    public boolean isNtlmType1PostAuthorizationHeader() {
+<span class="nc bnc" id="L114" title="All 4 branches missed.">        if (!this.request.getMethod().equals(&quot;POST&quot;) &amp;&amp; !this.request.getMethod().equals(&quot;PUT&quot;)) {</span>
+<span class="nc" id="L115">            return false;</span>
+        }
+
+<span class="nc bnc" id="L118" title="All 2 branches missed.">        if (this.request.getContentLength() != 0) {</span>
+<span class="nc" id="L119">            return false;</span>
+        }
+
+<span class="nc bnc" id="L122" title="All 4 branches missed.">        return isNtlmType1Message() || isSPNegoMessage();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>
