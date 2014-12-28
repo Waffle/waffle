@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="Date-Revision-yyyymmdd" content="20141228" />
     <meta http-equiv="Content-Language" content="en" />
-    <title>waffle-shiro &#x2013; JDepend Report Metrics</title>
+    <title>waffle-spring-security2 &#x2013; JDepend Report Metrics</title>
     <link rel="stylesheet" href="./css/apache-maven-fluido-1.3.1.min.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <link rel="stylesheet" href="./css/print.css" media="print" />
@@ -83,6 +83,8 @@
                                   <li>      <a href="xref/index.html"  title="Source Xref">Source Xref</a>
 </li>
                                   <li>      <a href="xref-test/index.html"  title="Test Source Xref">Test Source Xref</a>
+</li>
+                                  <li>      <a href="cpd.html"  title="CPD">CPD</a>
 </li>
                                   <li>      <a href="surefire-report.html"  title="Surefire Report">Surefire Report</a>
 </li>
@@ -169,7 +171,7 @@
           <i class="icon-chevron-right"></i>
         Project Information</a>
                   </li>
-                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                      
       <li>
   
                           <a href="project-reports.html" title="Project Reports">
@@ -210,6 +212,13 @@
                           <a href="xref-test/index.html" title="Test Source Xref">
           <i class="none"></i>
         Test Source Xref</a>
+            </li>
+                    
+      <li>
+  
+                          <a href="cpd.html" title="CPD">
+          <i class="none"></i>
+        CPD</a>
             </li>
                     
       <li>
@@ -304,40 +313,18 @@
 <th>D</th>
 <th>V</th></tr>
 <tr class="b">
-<td><a href="#waffle.shiro">waffle.shiro</a></td>
-<td>3</td>
-<td>2</td>
-<td>1</td>
-<td>0</td>
-<td>12</td>
-<td>33.0%</td>
-<td>100.0%</td>
-<td>33.0%</td>
-<td>1</td></tr>
-<tr class="a">
-<td><a href="#waffle.shiro.dynamic">waffle.shiro.dynamic</a></td>
-<td>3</td>
-<td>3</td>
-<td>0</td>
-<td>0</td>
+<td><a href="#waffle.spring">waffle.spring</a></td>
 <td>7</td>
-<td>0.0%</td>
-<td>100.0%</td>
-<td>0.0%</td>
-<td>1</td></tr>
-<tr class="b">
-<td><a href="#waffle.shiro.negotiate">waffle.shiro.negotiate</a></td>
 <td>6</td>
-<td>6</td>
-<td>0</td>
 <td>1</td>
-<td>18</td>
-<td>0.0%</td>
-<td>95.0%</td>
-<td>5.0%</td>
+<td>0</td>
+<td>15</td>
+<td>14.0%</td>
+<td>100.0%</td>
+<td>14.0%</td>
 <td>1</td></tr></table><a name="packages"></a>
-<h2><a name="Packages"></a>Packages</h2>[ <a href="#summary">summary</a> ] [ <a href="#packages">packages</a> ] [ <a href="#cycles">cycles</a> ] [ <a href="#explanations">explanations</a> ] <br /><a name="waffle.shiro"></a>
-<h3><a name="waffle.shiro"></a>waffle.shiro</h3>
+<h2><a name="Packages"></a>Packages</h2>[ <a href="#summary">summary</a> ] [ <a href="#packages">packages</a> ] [ <a href="#cycles">cycles</a> ] [ <a href="#explanations">explanations</a> ] <br /><a name="waffle.spring"></a>
+<h3><a name="waffle.spring"></a>waffle.spring</h3>
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>Afferent Couplings</th>
@@ -347,10 +334,10 @@
 <th>Distance</th></tr>
 <tr class="b">
 <td>0</td>
-<td>12</td>
-<td>33.0%</td>
+<td>15</td>
+<td>14.0%</td>
 <td>100.0%</td>
-<td>33.0%</td></tr></table>
+<td>14.0%</td></tr></table>
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>Abstract Classes</th>
@@ -358,60 +345,10 @@
 <th>Used by Packages</th>
 <th>Uses Packages</th></tr>
 <tr class="b">
-<td>waffle.shiro.AbstractWaffleRealm<br /></td>
-<td>waffle.shiro.GroupMappingWaffleRealm<br />waffle.shiro.WaffleFqnPrincipal<br /></td>
+<td>waffle.spring.GrantedAuthorityFactory<br /></td>
+<td>waffle.spring.FqnGrantedAuthorityFactory<br />waffle.spring.GuestLoginDisabledAuthenticationException<br />waffle.spring.NegotiateSecurityFilter<br />waffle.spring.NegotiateSecurityFilterEntryPoint<br />waffle.spring.WindowsAuthenticationProvider<br />waffle.spring.WindowsAuthenticationToken<br /></td>
 <td><i>None</i></td>
-<td>java.io<br />java.lang<br />java.util<br />org.apache.shiro.authc<br />org.apache.shiro.authc.credential<br />org.apache.shiro.authz<br />org.apache.shiro.crypto.hash<br />org.apache.shiro.realm<br />org.apache.shiro.subject<br />org.slf4j<br />waffle.windows.auth<br />waffle.windows.auth.impl<br /></td></tr></table><a name="waffle.shiro.dynamic"></a>
-<h3><a name="waffle.shiro.dynamic"></a>waffle.shiro.dynamic</h3>
-<table border="0" class="table table-striped">
-<tr class="a">
-<th>Afferent Couplings</th>
-<th>Efferent Couplings</th>
-<th>Abstractness</th>
-<th>Instability</th>
-<th>Distance</th></tr>
-<tr class="b">
-<td>0</td>
-<td>7</td>
-<td>0.0%</td>
-<td>100.0%</td>
-<td>0.0%</td></tr></table>
-<table border="0" class="table table-striped">
-<tr class="a">
-<th>Abstract Classes</th>
-<th>Concrete Classes</th>
-<th>Used by Packages</th>
-<th>Uses Packages</th></tr>
-<tr class="b">
-<td><i>None</i></td>
-<td>waffle.shiro.dynamic.DynamicAuthenticationFilter<br />waffle.shiro.dynamic.DynamicAuthenticationFilter$WrapFormAuthenticationFilter<br />waffle.shiro.dynamic.DynamicAuthenticationFilter$WrapNegotiateAuthenticationFilter<br /></td>
-<td><i>None</i></td>
-<td>java.lang<br />javax.servlet<br />org.apache.shiro.authc<br />org.apache.shiro.subject<br />org.apache.shiro.web.filter.authc<br />org.slf4j<br />waffle.shiro.negotiate<br /></td></tr></table><a name="waffle.shiro.negotiate"></a>
-<h3><a name="waffle.shiro.negotiate"></a>waffle.shiro.negotiate</h3>
-<table border="0" class="table table-striped">
-<tr class="a">
-<th>Afferent Couplings</th>
-<th>Efferent Couplings</th>
-<th>Abstractness</th>
-<th>Instability</th>
-<th>Distance</th></tr>
-<tr class="b">
-<td>1</td>
-<td>18</td>
-<td>0.0%</td>
-<td>95.0%</td>
-<td>5.0%</td></tr></table>
-<table border="0" class="table table-striped">
-<tr class="a">
-<th>Abstract Classes</th>
-<th>Concrete Classes</th>
-<th>Used by Packages</th>
-<th>Uses Packages</th></tr>
-<tr class="b">
-<td><i>None</i></td>
-<td>waffle.shiro.negotiate.AuthenticationInProgressException<br />waffle.shiro.negotiate.NegotiateAuthenticationFilter<br />waffle.shiro.negotiate.NegotiateAuthenticationRealm<br />waffle.shiro.negotiate.NegotiateAuthenticationStrategy<br />waffle.shiro.negotiate.NegotiateInfo<br />waffle.shiro.negotiate.NegotiateToken<br /></td>
-<td>waffle.shiro.dynamic<br /></td>
-<td>com.google.common.io<br />java.io<br />java.lang<br />java.util<br />javax.security.auth<br />javax.servlet<br />javax.servlet.http<br />org.apache.shiro.authc<br />org.apache.shiro.authc.pam<br />org.apache.shiro.realm<br />org.apache.shiro.subject<br />org.apache.shiro.web.filter.authc<br />org.apache.shiro.web.util<br />org.slf4j<br />waffle.servlet<br />waffle.util<br />waffle.windows.auth<br />waffle.windows.auth.impl<br /></td></tr></table><a name="cycles"></a>
+<td>java.io<br />java.lang<br />java.util<br />javax.servlet<br />javax.servlet.http<br />org.slf4j<br />org.springframework.security<br />org.springframework.security.context<br />org.springframework.security.providers<br />org.springframework.security.ui<br />org.springframework.web.filter<br />waffle.servlet<br />waffle.servlet.spi<br />waffle.util<br />waffle.windows.auth<br /></td></tr></table><a name="cycles"></a>
 <h2><a name="Cycles"></a>Cycles</h2>[ <a href="#summary">summary</a> ] [ <a href="#packages">packages</a> ] [ <a href="#cycles">cycles</a> ] [ <a href="#explanations">explanations</a> ] <br /><br />There are no cyclic dependencies.<br /><a name="explanations"></a>
 <h2><a name="Explanation"></a>Explanation</h2>[ <a href="#summary">summary</a> ] [ <a href="#packages">packages</a> ] [ <a href="#cycles">cycles</a> ] [ <a href="#explanations">explanations</a> ] <br /><br />The following explanations are for quick reference and are lifted directly from the original JDepend documentation.<br /><br />
 <table border="0" class="table table-striped">
