@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="Date-Revision-yyyymmdd" content="20141228" />
     <meta http-equiv="Content-Language" content="en" />
-    <title>waffle-demo-parent &#x2013; Project Dependencies</title>
+    <title>waffle-filter &#x2013; Project Dependencies</title>
     <link rel="stylesheet" href="./css/apache-maven-fluido-1.3.1.min.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <link rel="stylesheet" href="./css/print.css" media="print" />
@@ -62,8 +62,6 @@
 </li>
                                   <li>      <a href="license.html"  title="Project License">Project License</a>
 </li>
-                                  <li>      <a href="modules.html"  title="Project Modules">Project Modules</a>
-</li>
                                   <li>      <a href="dependency-management.html"  title="Dependency Management">Dependency Management</a>
 </li>
                                   <li>      <a href="team-list.html"  title="Project Team">Project Team</a>
@@ -78,6 +76,8 @@
                       <li class="dropdown-submenu">
                                       <a href="project-reports.html"  title="Project Reports">Project Reports</a>
               <ul class="dropdown-menu">
+                                  <li>      <a href="checkstyle.html"  title="Checkstyle">Checkstyle</a>
+</li>
                                   <li>      <a href="surefire-report.html"  title="Surefire Report">Surefire Report</a>
 </li>
                                   <li>      <a href="property-updates-report.html"  title="Property Updates Report">Property Updates Report</a>
@@ -85,6 +85,8 @@
                                   <li>      <a href="plugin-updates-report.html"  title="Plugin Updates Report">Plugin Updates Report</a>
 </li>
                                   <li>      <a href="dependency-updates-report.html"  title="Dependency Updates Report">Dependency Updates Report</a>
+</li>
+                                  <li>      <a href="jdepend-report.html"  title="JDepend">JDepend</a>
 </li>
                               </ul>
             </li>
@@ -148,7 +150,7 @@
                     
                 <ul class="nav nav-list">
                     <li class="nav-header">Project Documentation</li>
-                                                                                                                                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                                                                                                    
       <li>
   
                           <a href="project-info.html" title="Project Information">
@@ -228,13 +230,6 @@
                     
       <li>
   
-                          <a href="modules.html" title="Project Modules">
-          <i class="none"></i>
-        Project Modules</a>
-            </li>
-                    
-      <li>
-  
                           <a href="dependency-management.html" title="Dependency Management">
           <i class="none"></i>
         Dependency Management</a>
@@ -260,7 +255,7 @@
           </li>
               </ul>
         </li>
-                                                                                                                        
+                                                                                                                                                            
       <li>
   
                           <a href="project-reports.html" title="Project Reports">
@@ -304,6 +299,12 @@
 <tr class="b">
 <td>com.github.dblock.waffle</td>
 <td><a class="externalLink" href="http://dblock.github.com/waffle/">waffle-jna</a></td>
+<td>1.7.4-SNAPSHOT</td>
+<td>jar</td>
+<td><a class="externalLink" href="https://raw.github.com/dblock/waffle/master/LICENSE">Eclipse Public License</a></td></tr>
+<tr class="a">
+<td>com.github.dblock.waffle</td>
+<td><a class="externalLink" href="http://dblock.github.com/waffle/">waffle-tomcat6</a></td>
 <td>1.7.4-SNAPSHOT</td>
 <td>jar</td>
 <td><a class="externalLink" href="https://raw.github.com/dblock/waffle/master/LICENSE">Eclipse Public License</a></td></tr></table></div><a name="Project_Dependencies_test"></a>
@@ -358,7 +359,23 @@
 <td><a class="externalLink" href="http://www.slf4j.org">slf4j-simple</a></td>
 <td>1.7.9</td>
 <td>jar</td>
-<td><a class="externalLink" href="http://www.opensource.org/licenses/mit-license.php">MIT License</a></td></tr></table></div></div><a name="Project_Transitive_Dependencies"></a>
+<td><a class="externalLink" href="http://www.opensource.org/licenses/mit-license.php">MIT License</a></td></tr></table></div><a name="Project_Dependencies_provided"></a>
+<div class="section">
+<h3><a name="provided"></a>provided</h3>
+<p>The following is a list of provided dependencies for this project. These dependencies are required to compile the application, but should be provided by default when using the library:</p>
+<table border="0" class="table table-striped">
+<tr class="a">
+<th>GroupId</th>
+<th>ArtifactId</th>
+<th>Version</th>
+<th>Type</th>
+<th>License</th></tr>
+<tr class="b">
+<td>javax.servlet</td>
+<td>servlet-api</td>
+<td>2.5</td>
+<td>jar</td>
+<td>-</td></tr></table></div></div><a name="Project_Transitive_Dependencies"></a>
 <div class="section">
 <h2><a name="Project_Transitive_Dependencies"></a>Project Transitive Dependencies</h2>
 <p>The following is a list of transitive dependencies for this project. Transitive dependencies are the dependencies of the project dependencies.</p><a name="Project_Transitive_Dependencies_compile"></a>
@@ -440,17 +457,34 @@
 <div class="section">
 <h3><a name="Dependency_Tree"></a>Dependency Tree</h3>
 <ul>
-<li>com.github.dblock.waffle.demo:waffle-demo-parent:pom:1.7.4-SNAPSHOT <img id="_img1" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep0', '_img1' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep0" style="display:none">
+<li>com.github.dblock.waffle.demo:waffle-filter:war:1.7.4-SNAPSHOT <img id="_img1" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep0', '_img1' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep0" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
-<th>waffle-demo-parent</th></tr>
+<th>waffle-filter</th></tr>
 <tr class="b">
 <td>
-<p><b>Description: </b>Parent POM for Waffle Demo</p>
+<p><b>Description: </b>Filter Demo for WAFFLE</p>
 <p><b>URL: </b><a class="externalLink" href="http://dblock.github.com/waffle/">http://dblock.github.com/waffle/</a></p>
 <p><b>Project License: </b><a class="externalLink" href="https://raw.github.com/dblock/waffle/master/LICENSE">Eclipse Public License</a></p></td></tr></table></div>
 <ul>
-<li>com.github.dblock.waffle:waffle-jna:jar:1.7.4-SNAPSHOT (compile) <img id="_img3" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep2', '_img3' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep2" style="display:none">
+<li>com.github.dblock.waffle:waffle-tomcat6:jar:1.7.4-SNAPSHOT (compile) <img id="_img3" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep2', '_img3' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep2" style="display:none">
+<table border="0" class="table table-striped">
+<tr class="a">
+<th>waffle-tomcat6</th></tr>
+<tr class="b">
+<td>
+<p><b>Description: </b>Tomcat 6 integration for WAFFLE</p>
+<p><b>URL: </b><a class="externalLink" href="http://dblock.github.com/waffle/">http://dblock.github.com/waffle/</a></p>
+<p><b>Project License: </b><a class="externalLink" href="https://raw.github.com/dblock/waffle/master/LICENSE">Eclipse Public License</a></p></td></tr></table></div></li>
+<li>javax.servlet:servlet-api:jar:2.5 (provided) <img id="_img5" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep4', '_img5' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep4" style="display:none">
+<table border="0" class="table table-striped">
+<tr class="a">
+<th>servlet-api</th></tr>
+<tr class="b">
+<td>
+<p><b>Description: </b>There is currently no description associated with this project.</p>
+<p><b>Project License: </b>No license is defined for this project.</p></td></tr></table></div></li>
+<li>com.github.dblock.waffle:waffle-jna:jar:1.7.4-SNAPSHOT (compile) <img id="_img7" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep6', '_img7' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep6" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>waffle-jna</th></tr>
@@ -460,7 +494,7 @@
 <p><b>URL: </b><a class="externalLink" href="http://dblock.github.com/waffle/">http://dblock.github.com/waffle/</a></p>
 <p><b>Project License: </b><a class="externalLink" href="https://raw.github.com/dblock/waffle/master/LICENSE">Eclipse Public License</a></p></td></tr></table></div>
 <ul>
-<li>net.java.dev.jna:jna:jar:4.1.0 (compile) <img id="_img5" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep4', '_img5' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep4" style="display:none">
+<li>net.java.dev.jna:jna:jar:4.1.0 (compile) <img id="_img9" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep8', '_img9' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep8" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>Java Native Access</th></tr>
@@ -469,7 +503,7 @@
 <p><b>Description: </b>Java Native Access</p>
 <p><b>URL: </b><a class="externalLink" href="https://github.com/twall/jna">https://github.com/twall/jna</a></p>
 <p><b>Project License: </b><a class="externalLink" href="http://www.gnu.org/licenses/licenses.html">LGPL, version 2.1</a><a class="externalLink" href="http://www.apache.org/licenses/">ASL, version 2</a></p></td></tr></table></div></li>
-<li>net.java.dev.jna:jna-platform:jar:4.1.0 (compile) <img id="_img7" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep6', '_img7' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep6" style="display:none">
+<li>net.java.dev.jna:jna-platform:jar:4.1.0 (compile) <img id="_img11" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep10', '_img11' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep10" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>Java Native Access Platform</th></tr>
@@ -478,7 +512,7 @@
 <p><b>Description: </b>Java Native Access Platform</p>
 <p><b>URL: </b><a class="externalLink" href="https://github.com/twall/jna">https://github.com/twall/jna</a></p>
 <p><b>Project License: </b><a class="externalLink" href="http://www.gnu.org/licenses/licenses.html">LGPL, version 2.1</a><a class="externalLink" href="http://www.apache.org/licenses/">ASL, version 2</a></p></td></tr></table></div></li>
-<li>org.slf4j:slf4j-api:jar:1.7.9 (compile) <img id="_img9" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep8', '_img9' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep8" style="display:none">
+<li>org.slf4j:slf4j-api:jar:1.7.9 (compile) <img id="_img13" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep12', '_img13' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep12" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>SLF4J API Module</th></tr>
@@ -487,7 +521,7 @@
 <p><b>Description: </b>The slf4j API</p>
 <p><b>URL: </b><a class="externalLink" href="http://www.slf4j.org">http://www.slf4j.org</a></p>
 <p><b>Project License: </b><a class="externalLink" href="http://www.opensource.org/licenses/mit-license.php">MIT License</a></p></td></tr></table></div></li>
-<li>com.google.guava:guava:jar:18.0 (compile) <img id="_img11" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep10', '_img11' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep10" style="display:none">
+<li>com.google.guava:guava:jar:18.0 (compile) <img id="_img15" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep14', '_img15' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep14" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>Guava: Google Core Libraries for Java</th></tr>
@@ -501,7 +535,7 @@
     per the JSR-305 spec.</p>
 <p><b>URL: </b><a class="externalLink" href="http://code.google.com/p/guava-libraries/guava">http://code.google.com/p/guava-libraries/guava</a></p>
 <p><b>Project License: </b><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a></p></td></tr></table></div></li></ul></li>
-<li>org.slf4j:slf4j-simple:jar:1.7.9 (test) <img id="_img13" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep12', '_img13' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep12" style="display:none">
+<li>org.slf4j:slf4j-simple:jar:1.7.9 (test) <img id="_img17" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep16', '_img17' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep16" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>SLF4J Simple Binding</th></tr>
@@ -510,7 +544,7 @@
 <p><b>Description: </b>SLF4J Simple binding</p>
 <p><b>URL: </b><a class="externalLink" href="http://www.slf4j.org">http://www.slf4j.org</a></p>
 <p><b>Project License: </b><a class="externalLink" href="http://www.opensource.org/licenses/mit-license.php">MIT License</a></p></td></tr></table></div></li>
-<li>eu.codearte.catch-exception:catch-exception:jar:1.3.3 (test) <img id="_img15" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep14', '_img15' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep14" style="display:none">
+<li>eu.codearte.catch-exception:catch-exception:jar:1.3.3 (test) <img id="_img19" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep18', '_img19' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep18" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>catch-exception</th></tr>
@@ -519,7 +553,7 @@
 <p><b>Description: </b>Catch and verify exceptions</p>
 <p><b>URL: </b><a class="externalLink" href="http://code.google.com/p/catch-exception/">http://code.google.com/p/catch-exception/</a></p>
 <p><b>Project License: </b><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2</a></p></td></tr></table></div></li>
-<li>org.assertj:assertj-core:jar:1.7.0 (test) <img id="_img17" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep16', '_img17' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep16" style="display:none">
+<li>org.assertj:assertj-core:jar:1.7.0 (test) <img id="_img21" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep20', '_img21' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep20" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>AssertJ fluent assertions</th></tr>
@@ -528,7 +562,7 @@
 <p><b>Description: </b>Rich and fluent assertions for testing</p>
 <p><b>URL: </b><a class="externalLink" href="http://nexus.sonatype.org/oss-repository-hosting.html/assertj-parent-pom/assertj-core">http://nexus.sonatype.org/oss-repository-hosting.html/assertj-parent-pom/assertj-core</a></p>
 <p><b>Project License: </b><a href="LICENSE.txt">Apache License, Version 2.0</a></p></td></tr></table></div></li>
-<li>org.jmockit:jmockit:jar:1.14 (test) <img id="_img19" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep18', '_img19' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep18" style="display:none">
+<li>org.jmockit:jmockit:jar:1.14 (test) <img id="_img23" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep22', '_img23' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep22" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>Main</th></tr>
@@ -540,7 +574,7 @@
       in isolation from selected dependencies.</p>
 <p><b>URL: </b><a class="externalLink" href="http://www.jmockit.org">http://www.jmockit.org</a></p>
 <p><b>Project License: </b><a class="externalLink" href="http://www.opensource.org/licenses/mit-license.php">MIT LICENSE</a></p></td></tr></table></div></li>
-<li>org.mockito:mockito-core:jar:1.10.17 (test) <img id="_img21" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep20', '_img21' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep20" style="display:none">
+<li>org.mockito:mockito-core:jar:1.10.17 (test) <img id="_img25" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep24', '_img25' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep24" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>Mockito</th></tr>
@@ -550,7 +584,7 @@
 <p><b>URL: </b><a class="externalLink" href="http://www.mockito.org">http://www.mockito.org</a></p>
 <p><b>Project License: </b><a class="externalLink" href="http://github.com/mockito/mockito/blob/master/LICENSE">The MIT License</a></p></td></tr></table></div>
 <ul>
-<li>org.hamcrest:hamcrest-core:jar:1.1 (test) <img id="_img23" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep22', '_img23' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep22" style="display:none">
+<li>org.hamcrest:hamcrest-core:jar:1.1 (test) <img id="_img27" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep26', '_img27' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep26" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>Hamcrest Core</th></tr>
@@ -558,7 +592,7 @@
 <td>
 <p><b>Description: </b>There is currently no description associated with this project.</p>
 <p><b>Project License: </b><a class="externalLink" href="http://www.opensource.org/licenses/bsd-license.php">BSD style</a></p></td></tr></table></div></li>
-<li>org.objenesis:objenesis:jar:2.1 (test) <img id="_img25" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep24', '_img25' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep24" style="display:none">
+<li>org.objenesis:objenesis:jar:2.1 (test) <img id="_img29" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep28', '_img29' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep28" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>Objenesis</th></tr>
@@ -567,7 +601,7 @@
 <p><b>Description: </b>A library for instantiating Java objects</p>
 <p><b>URL: </b><a class="externalLink" href="http://objenesis.org">http://objenesis.org</a></p>
 <p><b>Project License: </b><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2</a></p></td></tr></table></div></li></ul></li>
-<li>junit:junit:jar:4.12 (test) <img id="_img27" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep26', '_img27' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep26" style="display:none">
+<li>junit:junit:jar:4.12 (test) <img id="_img31" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep30', '_img31' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep30" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>JUnit</th></tr>
@@ -576,7 +610,7 @@
 <p><b>Description: </b>JUnit is a unit testing framework for Java, created by Erich Gamma and Kent Beck.</p>
 <p><b>URL: </b><a class="externalLink" href="http://junit.org">http://junit.org</a></p>
 <p><b>Project License: </b><a class="externalLink" href="http://www.eclipse.org/legal/epl-v10.html">Eclipse Public License 1.0</a></p></td></tr></table></div></li>
-<li>org.databene:contiperf:jar:2.3.4 (test) <img id="_img29" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep28', '_img29' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep28" style="display:none">
+<li>org.databene:contiperf:jar:2.3.4 (test) <img id="_img33" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep32', '_img33' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep32" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>databene ContiPerf</th></tr>
@@ -588,16 +622,17 @@
 <p><b>Project License: </b><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a></p></td></tr></table></div></li></ul></li></ul></div></div><a name="Licenses"></a>
 <div class="section">
 <h2><a name="Licenses"></a>Licenses</h2>
+<p><b>Eclipse Public License 1.0: </b>JUnit</p>
+<p><b>MIT License: </b>SLF4J API Module, SLF4J Simple Binding</p>
+<p><b>MIT LICENSE: </b>Main</p>
+<p><b>Eclipse Public License: </b>waffle-filter, waffle-jna, waffle-tomcat6</p>
 <p><b>Apache 2: </b>Objenesis, catch-exception</p>
 <p><b>BSD style: </b>Hamcrest Core</p>
-<p><b>Eclipse Public License 1.0: </b>JUnit</p>
+<p><b>Unknown: </b>servlet-api</p>
 <p><b>Apache License 2.0: </b>databene ContiPerf</p>
-<p><b>MIT License: </b>SLF4J API Module, SLF4J Simple Binding</p>
 <p><b>The MIT License: </b>Mockito</p>
 <p><b>Apache License, Version 2.0: </b>AssertJ fluent assertions</p>
-<p><b>MIT LICENSE: </b>Main</p>
 <p><b>ASL, version 2: </b>Java Native Access, Java Native Access Platform</p>
-<p><b>Eclipse Public License: </b>waffle-demo-parent, waffle-jna</p>
 <p><b>LGPL, version 2.1: </b>Java Native Access, Java Native Access Platform</p>
 <p><b>The Apache Software License, Version 2.0: </b>Guava: Google Core Libraries for Java</p></div><a name="Dependency_File_Details"></a>
 <div class="section">
@@ -620,6 +655,14 @@
 <td>-</td>
 <td>release</td></tr>
 <tr class="a">
+<td>waffle-tomcat6/target/classes</td>
+<td>-</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>-</td>
+<td>release</td></tr>
+<tr class="b">
 <td>guava-18.0.jar</td>
 <td>2.15 MB</td>
 <td>1,719</td>
@@ -627,13 +670,21 @@
 <td>17</td>
 <td>1.6</td>
 <td>debug</td></tr>
-<tr class="b">
+<tr class="a">
 <td>catch-exception-1.3.3.jar</td>
 <td>19.56 kB</td>
 <td>37</td>
 <td>19</td>
 <td>5</td>
 <td>1.6</td>
+<td>debug</td></tr>
+<tr class="b">
+<td>servlet-api-2.5.jar</td>
+<td>102.65 kB</td>
+<td>68</td>
+<td>42</td>
+<td>2</td>
+<td>1.5</td>
 <td>debug</td></tr>
 <tr class="a">
 <td>junit-4.12.jar</td>
@@ -732,15 +783,15 @@
 <th>JDK Rev</th>
 <th>Debug</th></tr>
 <tr class="a">
-<td>14</td>
-<td>7.27 MB</td>
-<td>5,150</td>
-<td>4,372</td>
-<td>200</td>
+<td>16</td>
+<td>7.37 MB</td>
+<td>5,218</td>
+<td>4,414</td>
+<td>202</td>
 <td>1.6</td>
-<td>13</td></tr>
+<td>14</td></tr>
 <tr class="b">
-<td>compile: 5</td>
+<td>compile: 6</td>
 <td>compile: 4.45 MB</td>
 <td>compile: 2,570</td>
 <td>compile: 2,460</td>
@@ -754,7 +805,15 @@
 <td>test: 1,912</td>
 <td>test: 168</td>
 <td>-</td>
-<td>test: 9</td></tr></table></div><a name="Dependency_Repository_Locations"></a>
+<td>test: 9</td></tr>
+<tr class="b">
+<td>provided: 1</td>
+<td>provided: 102.65 kB</td>
+<td>provided: 68</td>
+<td>provided: 42</td>
+<td>provided: 2</td>
+<td>-</td>
+<td>provided: 1</td></tr></table></div><a name="Dependency_Repository_Locations"></a>
 <div class="section">
 <h2><a name="Dependency_Repository_Locations"></a>Dependency Repository Locations</h2>
 <table border="0" class="table table-striped">
@@ -777,11 +836,17 @@
 <td>com.github.dblock.waffle:waffle-jna:jar:1.7.4-SNAPSHOT</td>
 <td>-</td></tr>
 <tr class="a">
+<td>com.github.dblock.waffle:waffle-tomcat6:jar:1.7.4-SNAPSHOT</td>
+<td>-</td></tr>
+<tr class="b">
 <td>com.google.guava:guava:jar:18.0</td>
 <td><a class="externalLink" href="http://localhost:8081/nexus/content/groups/public/com/google/guava/guava/18.0/guava-18.0.jar"><img alt="Found at http://localhost:8081/nexus/content/groups/public" src="images/icon_success_sml.gif" /></a></td></tr>
-<tr class="b">
+<tr class="a">
 <td>eu.codearte.catch-exception:catch-exception:jar:1.3.3</td>
 <td><a class="externalLink" href="http://localhost:8081/nexus/content/groups/public/eu/codearte/catch-exception/catch-exception/1.3.3/catch-exception-1.3.3.jar"><img alt="Found at http://localhost:8081/nexus/content/groups/public" src="images/icon_success_sml.gif" /></a></td></tr>
+<tr class="b">
+<td>javax.servlet:servlet-api:jar:2.5</td>
+<td><a class="externalLink" href="http://localhost:8081/nexus/content/groups/public/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar"><img alt="Found at http://localhost:8081/nexus/content/groups/public" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="a">
 <td>junit:junit:jar:4.12</td>
 <td><a class="externalLink" href="http://localhost:8081/nexus/content/groups/public/junit/junit/4.12/junit-4.12.jar"><img alt="Found at http://localhost:8081/nexus/content/groups/public" src="images/icon_success_sml.gif" /></a></td></tr>
@@ -819,8 +884,8 @@
 <th>Total</th>
 <th>nexus</th></tr>
 <tr class="a">
-<td>14 (compile: 5, test: 9)</td>
-<td>13</td></tr></table></div>
+<td>16 (compile: 6, test: 9, provided: 1)</td>
+<td>14</td></tr></table></div>
                   </div>
             </div>
           </div>
