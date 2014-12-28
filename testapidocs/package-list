@@ -1,5 +1,4 @@
 waffle.jaas
 waffle.servlet
-waffle.servlet.spi
 waffle.util
 waffle.windows.auth

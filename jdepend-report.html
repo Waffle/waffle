@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="Date-Revision-yyyymmdd" content="20141228" />
     <meta http-equiv="Content-Language" content="en" />
-    <title>waffle-jna &#x2013; JDepend Report Metrics</title>
+    <title>waffle-tests &#x2013; JDepend Report Metrics</title>
     <link rel="stylesheet" href="./css/apache-maven-fluido-1.3.1.min.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <link rel="stylesheet" href="./css/print.css" media="print" />
@@ -83,8 +83,6 @@
                                   <li>      <a href="xref/index.html"  title="Source Xref">Source Xref</a>
 </li>
                                   <li>      <a href="xref-test/index.html"  title="Test Source Xref">Test Source Xref</a>
-</li>
-                                  <li>      <a href="pmd.html"  title="PMD">PMD</a>
 </li>
                                   <li>      <a href="surefire-report.html"  title="Surefire Report">Surefire Report</a>
 </li>
@@ -171,7 +169,7 @@
           <i class="icon-chevron-right"></i>
         Project Information</a>
                   </li>
-                                                                                                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                                                                    
       <li>
   
                           <a href="project-reports.html" title="Project Reports">
@@ -212,13 +210,6 @@
                           <a href="xref-test/index.html" title="Test Source Xref">
           <i class="none"></i>
         Test Source Xref</a>
-            </li>
-                    
-      <li>
-  
-                          <a href="pmd.html" title="PMD">
-          <i class="none"></i>
-        PMD</a>
             </li>
                     
       <li>
@@ -313,73 +304,29 @@
 <th>D</th>
 <th>V</th></tr>
 <tr class="b">
-<td><a href="#waffle.jaas">waffle.jaas</a></td>
-<td>4</td>
-<td>4</td>
+<td><a href="#waffle.mock">waffle.mock</a></td>
+<td>5</td>
+<td>5</td>
 <td>0</td>
 <td>0</td>
-<td>11</td>
+<td>5</td>
 <td>0.0%</td>
 <td>100.0%</td>
 <td>0.0%</td>
 <td>1</td></tr>
 <tr class="a">
-<td><a href="#waffle.servlet">waffle.servlet</a></td>
-<td>6</td>
-<td>6</td>
+<td><a href="#waffle.mock.http">waffle.mock.http</a></td>
+<td>7</td>
+<td>7</td>
 <td>0</td>
 <td>0</td>
-<td>19</td>
-<td>0.0%</td>
-<td>100.0%</td>
-<td>0.0%</td>
-<td>1</td></tr>
-<tr class="b">
-<td><a href="#waffle.servlet.spi">waffle.servlet.spi</a></td>
-<td>4</td>
-<td>3</td>
-<td>1</td>
-<td>1</td>
-<td>12</td>
-<td>25.0%</td>
-<td>92.0%</td>
-<td>17.0%</td>
-<td>1</td></tr>
-<tr class="a">
-<td><a href="#waffle.util">waffle.util</a></td>
-<td>5</td>
-<td>5</td>
-<td>0</td>
-<td>2</td>
-<td>18</td>
-<td>0.0%</td>
-<td>90.0%</td>
-<td>10.0%</td>
-<td>1</td></tr>
-<tr class="b">
-<td><a href="#waffle.windows.auth">waffle.windows.auth</a></td>
 <td>10</td>
-<td>2</td>
-<td>8</td>
-<td>5</td>
-<td>3</td>
-<td>80.0%</td>
-<td>38.0%</td>
-<td>17.0%</td>
-<td>1</td></tr>
-<tr class="a">
-<td><a href="#waffle.windows.auth.impl">waffle.windows.auth.impl</a></td>
-<td>11</td>
-<td>11</td>
-<td>0</td>
-<td>3</td>
-<td>8</td>
 <td>0.0%</td>
-<td>73.0%</td>
-<td>27.000002%</td>
+<td>100.0%</td>
+<td>0.0%</td>
 <td>1</td></tr></table><a name="packages"></a>
-<h2><a name="Packages"></a>Packages</h2>[ <a href="#summary">summary</a> ] [ <a href="#packages">packages</a> ] [ <a href="#cycles">cycles</a> ] [ <a href="#explanations">explanations</a> ] <br /><a name="waffle.jaas"></a>
-<h3><a name="waffle.jaas"></a>waffle.jaas</h3>
+<h2><a name="Packages"></a>Packages</h2>[ <a href="#summary">summary</a> ] [ <a href="#packages">packages</a> ] [ <a href="#cycles">cycles</a> ] [ <a href="#explanations">explanations</a> ] <br /><a name="waffle.mock"></a>
+<h3><a name="waffle.mock"></a>waffle.mock</h3>
 <table border="0" class="table table-striped">
 <tr class="b">
 <th>Afferent Couplings</th>
@@ -389,135 +336,10 @@
 <th>Distance</th></tr>
 <tr class="a">
 <td>0</td>
-<td>11</td>
-<td>0.0%</td>
-<td>100.0%</td>
-<td>0.0%</td></tr></table>
-<table border="0" class="table table-striped">
-<tr class="b">
-<th>Abstract Classes</th>
-<th>Concrete Classes</th>
-<th>Used by Packages</th>
-<th>Uses Packages</th></tr>
-<tr class="a">
-<td><i>None</i></td>
-<td>waffle.jaas.RolePrincipal<br />waffle.jaas.UserPrincipal<br />waffle.jaas.WindowsLoginModule<br />waffle.jaas.WindowsLoginModule$1<br /></td>
-<td><i>None</i></td>
-<td>java.io<br />java.lang<br />java.security<br />java.util<br />javax.security.auth<br />javax.security.auth.callback<br />javax.security.auth.login<br />javax.security.auth.spi<br />org.slf4j<br />waffle.windows.auth<br />waffle.windows.auth.impl<br /></td></tr></table><a name="waffle.servlet"></a>
-<h3><a name="waffle.servlet"></a>waffle.servlet</h3>
-<table border="0" class="table table-striped">
-<tr class="b">
-<th>Afferent Couplings</th>
-<th>Efferent Couplings</th>
-<th>Abstractness</th>
-<th>Instability</th>
-<th>Distance</th></tr>
-<tr class="a">
-<td>0</td>
-<td>19</td>
-<td>0.0%</td>
-<td>100.0%</td>
-<td>0.0%</td></tr></table>
-<table border="0" class="table table-striped">
-<tr class="b">
-<th>Abstract Classes</th>
-<th>Concrete Classes</th>
-<th>Used by Packages</th>
-<th>Uses Packages</th></tr>
-<tr class="a">
-<td><i>None</i></td>
-<td>waffle.servlet.AutoDisposableWindowsPrincipal<br />waffle.servlet.NegotiateRequestWrapper<br />waffle.servlet.NegotiateSecurityFilter<br />waffle.servlet.WaffleInfoServlet<br />waffle.servlet.WindowsPrincipal<br />waffle.servlet.WindowsPrincipal$1<br /></td>
-<td><i>None</i></td>
-<td>com.google.common.base<br />java.io<br />java.lang<br />java.lang.reflect<br />java.security<br />java.util<br />javax.security.auth<br />javax.servlet<br />javax.servlet.http<br />javax.xml.parsers<br />javax.xml.transform<br />javax.xml.transform.dom<br />javax.xml.transform.stream<br />org.slf4j<br />org.w3c.dom<br />waffle.servlet.spi<br />waffle.util<br />waffle.windows.auth<br />waffle.windows.auth.impl<br /></td></tr></table><a name="waffle.servlet.spi"></a>
-<h3><a name="waffle.servlet.spi"></a>waffle.servlet.spi</h3>
-<table border="0" class="table table-striped">
-<tr class="b">
-<th>Afferent Couplings</th>
-<th>Efferent Couplings</th>
-<th>Abstractness</th>
-<th>Instability</th>
-<th>Distance</th></tr>
-<tr class="a">
-<td>1</td>
-<td>12</td>
-<td>25.0%</td>
-<td>92.0%</td>
-<td>17.0%</td></tr></table>
-<table border="0" class="table table-striped">
-<tr class="b">
-<th>Abstract Classes</th>
-<th>Concrete Classes</th>
-<th>Used by Packages</th>
-<th>Uses Packages</th></tr>
-<tr class="a">
-<td>waffle.servlet.spi.SecurityFilterProvider<br /></td>
-<td>waffle.servlet.spi.BasicSecurityFilterProvider<br />waffle.servlet.spi.NegotiateSecurityFilterProvider<br />waffle.servlet.spi.SecurityFilterProviderCollection<br /></td>
-<td>waffle.servlet<br /></td>
-<td>com.google.common.base<br />com.google.common.io<br />com.sun.jna.platform.win32<br />java.io<br />java.lang<br />java.lang.reflect<br />java.security<br />java.util<br />javax.servlet.http<br />org.slf4j<br />waffle.util<br />waffle.windows.auth<br /></td></tr></table><a name="waffle.util"></a>
-<h3><a name="waffle.util"></a>waffle.util</h3>
-<table border="0" class="table table-striped">
-<tr class="b">
-<th>Afferent Couplings</th>
-<th>Efferent Couplings</th>
-<th>Abstractness</th>
-<th>Instability</th>
-<th>Distance</th></tr>
-<tr class="a">
-<td>2</td>
-<td>18</td>
-<td>0.0%</td>
-<td>90.0%</td>
-<td>10.0%</td></tr></table>
-<table border="0" class="table table-striped">
-<tr class="b">
-<th>Abstract Classes</th>
-<th>Concrete Classes</th>
-<th>Used by Packages</th>
-<th>Uses Packages</th></tr>
-<tr class="a">
-<td><i>None</i></td>
-<td>waffle.util.AuthorizationHeader<br />waffle.util.NtlmMessage<br />waffle.util.NtlmServletRequest<br />waffle.util.SPNegoMessage<br />waffle.util.WaffleInfo<br /></td>
-<td>waffle.servlet<br />waffle.servlet.spi<br /></td>
-<td>com.google.common.base<br />com.google.common.io<br />com.sun.jna<br />com.sun.jna.platform<br />com.sun.jna.platform.win32<br />java.awt<br />java.io<br />java.lang<br />java.util<br />javax.servlet.http<br />javax.xml.parsers<br />javax.xml.transform<br />javax.xml.transform.dom<br />javax.xml.transform.stream<br />org.slf4j<br />org.w3c.dom<br />waffle.windows.auth<br />waffle.windows.auth.impl<br /></td></tr></table><a name="waffle.windows.auth"></a>
-<h3><a name="waffle.windows.auth"></a>waffle.windows.auth</h3>
-<table border="0" class="table table-striped">
-<tr class="b">
-<th>Afferent Couplings</th>
-<th>Efferent Couplings</th>
-<th>Abstractness</th>
-<th>Instability</th>
-<th>Distance</th></tr>
-<tr class="a">
 <td>5</td>
-<td>3</td>
-<td>80.0%</td>
-<td>38.0%</td>
-<td>17.0%</td></tr></table>
-<table border="0" class="table table-striped">
-<tr class="b">
-<th>Abstract Classes</th>
-<th>Concrete Classes</th>
-<th>Used by Packages</th>
-<th>Uses Packages</th></tr>
-<tr class="a">
-<td>waffle.windows.auth.IWindowsAccount<br />waffle.windows.auth.IWindowsAuthProvider<br />waffle.windows.auth.IWindowsComputer<br />waffle.windows.auth.IWindowsCredentialsHandle<br />waffle.windows.auth.IWindowsDomain<br />waffle.windows.auth.IWindowsIdentity<br />waffle.windows.auth.IWindowsImpersonationContext<br />waffle.windows.auth.IWindowsSecurityContext<br /></td>
-<td>waffle.windows.auth.PrincipalFormat<br />waffle.windows.auth.WindowsAccount<br /></td>
-<td>waffle.jaas<br />waffle.servlet<br />waffle.servlet.spi<br />waffle.util<br />waffle.windows.auth.impl<br /></td>
-<td>com.sun.jna.platform.win32<br />java.io<br />java.lang<br /></td></tr></table><a name="waffle.windows.auth.impl"></a>
-<h3><a name="waffle.windows.auth.impl"></a>waffle.windows.auth.impl</h3>
-<table border="0" class="table table-striped">
-<tr class="b">
-<th>Afferent Couplings</th>
-<th>Efferent Couplings</th>
-<th>Abstractness</th>
-<th>Instability</th>
-<th>Distance</th></tr>
-<tr class="a">
-<td>3</td>
-<td>8</td>
 <td>0.0%</td>
-<td>73.0%</td>
-<td>27.000002%</td></tr></table>
+<td>100.0%</td>
+<td>0.0%</td></tr></table>
 <table border="0" class="table table-striped">
 <tr class="b">
 <th>Abstract Classes</th>
@@ -526,9 +348,34 @@
 <th>Uses Packages</th></tr>
 <tr class="a">
 <td><i>None</i></td>
-<td>waffle.windows.auth.impl.WindowsAccountImpl<br />waffle.windows.auth.impl.WindowsAuthProviderImpl<br />waffle.windows.auth.impl.WindowsComputerImpl<br />waffle.windows.auth.impl.WindowsCredentialsHandleImpl<br />waffle.windows.auth.impl.WindowsDomainImpl<br />waffle.windows.auth.impl.WindowsDomainImpl$TrustDirection<br />waffle.windows.auth.impl.WindowsDomainImpl$TrustType<br />waffle.windows.auth.impl.WindowsIdentityImpersonationContextImpl<br />waffle.windows.auth.impl.WindowsIdentityImpl<br />waffle.windows.auth.impl.WindowsSecurityContextImpersonationContextImpl<br />waffle.windows.auth.impl.WindowsSecurityContextImpl<br /></td>
-<td>waffle.jaas<br />waffle.servlet<br />waffle.util<br /></td>
-<td>com.google.common.cache<br />com.sun.jna.platform.win32<br />com.sun.jna.ptr<br />java.lang<br />java.net<br />java.util<br />java.util.concurrent<br />waffle.windows.auth<br /></td></tr></table><a name="cycles"></a>
+<td>waffle.mock.MockWindowsAccount<br />waffle.mock.MockWindowsAuthProvider<br />waffle.mock.MockWindowsIdentity<br />waffle.mock.MockWindowsImpersonationContext<br />waffle.mock.MockWindowsSecurityContext<br /></td>
+<td><i>None</i></td>
+<td>com.google.common.base<br />com.sun.jna.platform.win32<br />java.lang<br />java.util<br />waffle.windows.auth<br /></td></tr></table><a name="waffle.mock.http"></a>
+<h3><a name="waffle.mock.http"></a>waffle.mock.http</h3>
+<table border="0" class="table table-striped">
+<tr class="b">
+<th>Afferent Couplings</th>
+<th>Efferent Couplings</th>
+<th>Abstractness</th>
+<th>Instability</th>
+<th>Distance</th></tr>
+<tr class="a">
+<td>0</td>
+<td>10</td>
+<td>0.0%</td>
+<td>100.0%</td>
+<td>0.0%</td></tr></table>
+<table border="0" class="table table-striped">
+<tr class="b">
+<th>Abstract Classes</th>
+<th>Concrete Classes</th>
+<th>Used by Packages</th>
+<th>Uses Packages</th></tr>
+<tr class="a">
+<td><i>None</i></td>
+<td>waffle.mock.http.SimpleFilterChain<br />waffle.mock.http.SimpleFilterConfig<br />waffle.mock.http.SimpleHttpRequest<br />waffle.mock.http.SimpleHttpResponse<br />waffle.mock.http.SimpleHttpResponse$1<br />waffle.mock.http.SimpleHttpSession<br />waffle.mock.http.SimpleRequestDispatcher<br /></td>
+<td><i>None</i></td>
+<td>com.google.common.base<br />com.google.common.collect<br />java.io<br />java.lang<br />java.security<br />java.util<br />javax.servlet<br />javax.servlet.http<br />org.mockito<br />org.slf4j<br /></td></tr></table><a name="cycles"></a>
 <h2><a name="Cycles"></a>Cycles</h2>[ <a href="#summary">summary</a> ] [ <a href="#packages">packages</a> ] [ <a href="#cycles">cycles</a> ] [ <a href="#explanations">explanations</a> ] <br /><br />There are no cyclic dependencies.<br /><a name="explanations"></a>
 <h2><a name="Explanation"></a>Explanation</h2>[ <a href="#summary">summary</a> ] [ <a href="#packages">packages</a> ] [ <a href="#cycles">cycles</a> ] [ <a href="#explanations">explanations</a> ] <br /><br />The following explanations are for quick reference and are lifted directly from the original JDepend documentation.<br /><br />
 <table border="0" class="table table-striped">

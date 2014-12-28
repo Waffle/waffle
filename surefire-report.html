@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="Date-Revision-yyyymmdd" content="20141228" />
     <meta http-equiv="Content-Language" content="en" />
-    <title>waffle-jna &#x2013; Surefire Report</title>
+    <title>waffle-tests &#x2013; Surefire Report</title>
     <link rel="stylesheet" href="./css/apache-maven-fluido-1.3.1.min.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <link rel="stylesheet" href="./css/print.css" media="print" />
@@ -83,8 +83,6 @@
                                   <li>      <a href="xref/index.html"  title="Source Xref">Source Xref</a>
 </li>
                                   <li>      <a href="xref-test/index.html"  title="Test Source Xref">Test Source Xref</a>
-</li>
-                                  <li>      <a href="pmd.html"  title="PMD">PMD</a>
 </li>
                                   <li>      <a href="surefire-report.html"  title="Surefire Report">Surefire Report</a>
 </li>
@@ -171,7 +169,7 @@
           <i class="icon-chevron-right"></i>
         Project Information</a>
                   </li>
-                                                                                                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                                                                    
       <li>
   
                           <a href="project-reports.html" title="Project Reports">
@@ -212,13 +210,6 @@
                           <a href="xref-test/index.html" title="Test Source Xref">
           <i class="none"></i>
         Test Source Xref</a>
-            </li>
-                    
-      <li>
-  
-                          <a href="pmd.html" title="PMD">
-          <i class="none"></i>
-        PMD</a>
             </li>
                     
       <li class="active">
@@ -328,12 +319,12 @@ function toggleDisplay(elementId) {
 <th>Success Rate</th>
 <th>Time</th></tr>
 <tr class="b">
-<td>23</td>
+<td>46</td>
 <td>0</td>
 <td>0</td>
-<td>0</td>
-<td>100%</td>
-<td>0.543</td></tr></table><br />
+<td>5</td>
+<td>89.13%</td>
+<td>3.722</td></tr></table><br />
 <p>Note: failures are anticipated and checked for with assertions while errors are unanticipated.</p><br /></div>
 <div class="section">
 <h2><a name="Package_List"></a>Package List</h2><a name="Package_List"></a>
@@ -348,38 +339,95 @@ function toggleDisplay(elementId) {
 <th>Success Rate</th>
 <th>Time</th></tr>
 <tr class="b">
-<td><a href="#waffle.windows.auth">waffle.windows.auth</a></td>
-<td>6</td>
+<td><a href="#waffle.servlet">waffle.servlet</a></td>
+<td>18</td>
 <td>0</td>
 <td>0</td>
-<td>0</td>
-<td>100%</td>
-<td>0.022</td></tr>
+<td>2</td>
+<td>88.889%</td>
+<td>0.502</td></tr>
 <tr class="a">
-<td><a href="#waffle.util">waffle.util</a></td>
-<td>6</td>
+<td><a href="#waffle.windows.auth">waffle.windows.auth</a></td>
+<td>8</td>
 <td>0</td>
 <td>0</td>
-<td>0</td>
-<td>100%</td>
-<td>0.377</td></tr>
+<td>3</td>
+<td>62.5%</td>
+<td>2.785</td></tr>
 <tr class="b">
-<td><a href="#waffle.jaas">waffle.jaas</a></td>
+<td><a href="#waffle.util">waffle.util</a></td>
 <td>8</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>100%</td>
-<td>0.07</td></tr>
+<td>0.014</td></tr>
 <tr class="a">
-<td><a href="#waffle.servlet.spi">waffle.servlet.spi</a></td>
-<td>3</td>
+<td><a href="#waffle.jaas">waffle.jaas</a></td>
+<td>12</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>100%</td>
-<td>0.074</td></tr></table><br />
+<td>0.421</td></tr></table><br />
 <p>Note: package statistics are not computed recursively, they only sum up all of its testsuites numbers.</p>
+<div class="section">
+<h3><a name="waffle.servlet"></a>waffle.servlet</h3><a name="waffle.servlet"></a>
+<table border="1" class="table table-striped">
+<tr class="a">
+<th></th>
+<th>Class</th>
+<th>Tests</th>
+<th>Errors </th>
+<th>Failures</th>
+<th>Skipped</th>
+<th>Success Rate</th>
+<th>Time</th></tr>
+<tr class="b">
+<td><a href="#waffle.servletBasicSecurityFilterTests"><img src="images/icon_success_sml.gif" alt="" /></a></td>
+<td><a href="#waffle.servletBasicSecurityFilterTests">BasicSecurityFilterTests</a></td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.264</td></tr>
+<tr class="a">
+<td><a href="#waffle.servletImpersonateTests"><img src="images/icon_warning_sml.gif" alt="" /></a></td>
+<td><a href="#waffle.servletImpersonateTests">ImpersonateTests</a></td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+<td>0%</td>
+<td>0</td></tr>
+<tr class="b">
+<td><a href="#waffle.servletNegotiateSecurityFilterTests"><img src="images/icon_success_sml.gif" alt="" /></a></td>
+<td><a href="#waffle.servletNegotiateSecurityFilterTests">NegotiateSecurityFilterTests</a></td>
+<td>12</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.154</td></tr>
+<tr class="a">
+<td><a href="#waffle.servletWaffleInfoServletTests"><img src="images/icon_success_sml.gif" alt="" /></a></td>
+<td><a href="#waffle.servletWaffleInfoServletTests">WaffleInfoServletTests</a></td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.076</td></tr>
+<tr class="b">
+<td><a href="#waffle.servletWindowsPrincipalTests"><img src="images/icon_success_sml.gif" alt="" /></a></td>
+<td><a href="#waffle.servletWindowsPrincipalTests">WindowsPrincipalTests</a></td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.008</td></tr></table></div>
 <div class="section">
 <h3><a name="waffle.windows.auth"></a>waffle.windows.auth</h3><a name="waffle.windows.auth"></a>
 <table border="1" class="table table-striped">
@@ -393,41 +441,14 @@ function toggleDisplay(elementId) {
 <th>Success Rate</th>
 <th>Time</th></tr>
 <tr class="b">
-<td><a href="#waffle.windows.authPrincipalFormatTests"><img src="images/icon_success_sml.gif" alt="" /></a></td>
-<td><a href="#waffle.windows.authPrincipalFormatTests">PrincipalFormatTests</a></td>
-<td>2</td>
+<td><a href="#waffle.windows.authWindowsAuthProviderTests"><img src="images/icon_warning_sml.gif" alt="" /></a></td>
+<td><a href="#waffle.windows.authWindowsAuthProviderTests">WindowsAuthProviderTests</a></td>
+<td>8</td>
 <td>0</td>
 <td>0</td>
-<td>0</td>
-<td>100%</td>
-<td>0.002</td></tr>
-<tr class="a">
-<td><a href="#waffle.windows.authWindowsAccountTests"><img src="images/icon_success_sml.gif" alt="" /></a></td>
-<td><a href="#waffle.windows.authWindowsAccountTests">WindowsAccountTests</a></td>
-<td>2</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>100%</td>
-<td>0.004</td></tr>
-<tr class="b">
-<td><a href="#waffle.windows.authWindowsCredentialsHandleTests"><img src="images/icon_success_sml.gif" alt="" /></a></td>
-<td><a href="#waffle.windows.authWindowsCredentialsHandleTests">WindowsCredentialsHandleTests</a></td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>100%</td>
-<td>0.004</td></tr>
-<tr class="a">
-<td><a href="#waffle.windows.authWindowsSecurityContextTests"><img src="images/icon_success_sml.gif" alt="" /></a></td>
-<td><a href="#waffle.windows.authWindowsSecurityContextTests">WindowsSecurityContextTests</a></td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>100%</td>
-<td>0.012</td></tr></table></div>
+<td>3</td>
+<td>62.5%</td>
+<td>2.785</td></tr></table></div>
 <div class="section">
 <h3><a name="waffle.util"></a>waffle.util</h3><a name="waffle.util"></a>
 <table border="1" class="table table-striped">
@@ -441,32 +462,23 @@ function toggleDisplay(elementId) {
 <th>Success Rate</th>
 <th>Time</th></tr>
 <tr class="b">
-<td><a href="#waffle.utilNtlmMessageTests"><img src="images/icon_success_sml.gif" alt="" /></a></td>
-<td><a href="#waffle.utilNtlmMessageTests">NtlmMessageTests</a></td>
-<td>2</td>
+<td><a href="#waffle.utilAuthorizationHeaderTests"><img src="images/icon_success_sml.gif" alt="" /></a></td>
+<td><a href="#waffle.utilAuthorizationHeaderTests">AuthorizationHeaderTests</a></td>
+<td>7</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>100%</td>
-<td>0.002</td></tr>
+<td>0.014</td></tr>
 <tr class="a">
-<td><a href="#waffle.utilSPNegoMessageTests"><img src="images/icon_success_sml.gif" alt="" /></a></td>
-<td><a href="#waffle.utilSPNegoMessageTests">SPNegoMessageTests</a></td>
-<td>3</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>100%</td>
-<td>0.002</td></tr>
-<tr class="b">
-<td><a href="#waffle.utilWaffleInfoTests"><img src="images/icon_success_sml.gif" alt="" /></a></td>
-<td><a href="#waffle.utilWaffleInfoTests">WaffleInfoTests</a></td>
+<td><a href="#waffle.utilNtlmServletRequestTests"><img src="images/icon_success_sml.gif" alt="" /></a></td>
+<td><a href="#waffle.utilNtlmServletRequestTests">NtlmServletRequestTests</a></td>
 <td>1</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>100%</td>
-<td>0.373</td></tr></table></div>
+<td>0</td></tr></table></div>
 <div class="section">
 <h3><a name="waffle.jaas"></a>waffle.jaas</h3><a name="waffle.jaas"></a>
 <table border="1" class="table table-striped">
@@ -480,169 +492,287 @@ function toggleDisplay(elementId) {
 <th>Success Rate</th>
 <th>Time</th></tr>
 <tr class="b">
-<td><a href="#waffle.jaasRolePrincipalTests"><img src="images/icon_success_sml.gif" alt="" /></a></td>
-<td><a href="#waffle.jaasRolePrincipalTests">RolePrincipalTests</a></td>
-<td>4</td>
+<td><a href="#waffle.jaasWindowsLoginModuleTests"><img src="images/icon_success_sml.gif" alt="" /></a></td>
+<td><a href="#waffle.jaasWindowsLoginModuleTests">WindowsLoginModuleTests</a></td>
+<td>12</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>100%</td>
-<td>0.07</td></tr>
-<tr class="a">
-<td><a href="#waffle.jaasUserPrincipalTests"><img src="images/icon_success_sml.gif" alt="" /></a></td>
-<td><a href="#waffle.jaasUserPrincipalTests">UserPrincipalTests</a></td>
-<td>4</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>100%</td>
-<td>0</td></tr></table></div>
-<div class="section">
-<h3><a name="waffle.servlet.spi"></a>waffle.servlet.spi</h3><a name="waffle.servlet.spi"></a>
-<table border="1" class="table table-striped">
-<tr class="a">
-<th></th>
-<th>Class</th>
-<th>Tests</th>
-<th>Errors </th>
-<th>Failures</th>
-<th>Skipped</th>
-<th>Success Rate</th>
-<th>Time</th></tr>
-<tr class="b">
-<td><a href="#waffle.servlet.spiSecurityFilterProviderCollectionTests"><img src="images/icon_success_sml.gif" alt="" /></a></td>
-<td><a href="#waffle.servlet.spiSecurityFilterProviderCollectionTests">SecurityFilterProviderCollectionTests</a></td>
-<td>3</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>100%</td>
-<td>0.074</td></tr></table></div><br /></div>
+<td>0.421</td></tr></table></div><br /></div>
 <div class="section">
 <h2><a name="Test_Cases"></a>Test Cases</h2><a name="Test_Cases"></a>
 <p>[<a href="#Summary">Summary</a>] [<a href="#Package_List">Package List</a>] [<a href="#Test_Cases">Test Cases</a>]</p>
 <div class="section">
-<h3><a name="RolePrincipalTests"></a>RolePrincipalTests</h3><a name="waffle.jaasRolePrincipalTests"></a>
+<h3><a name="WindowsLoginModuleTests"></a>WindowsLoginModuleTests</h3><a name="waffle.jaasWindowsLoginModuleTests"></a>
 <table border="1" class="table table-striped">
 <tr class="a">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>testIsSerializable</td>
-<td>0.07</td></tr>
+<td>testGetSetAuth</td>
+<td>0.104</td></tr>
 <tr class="b">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>equals_sameObject</td>
+<td>testLoginNoUsername</td>
+<td>0.251</td></tr>
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testAbort</td>
+<td>0.062</td></tr>
+<tr class="b">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testLogin</td>
+<td>0.002</td></tr>
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testNoCallbackHandler</td>
+<td>0</td></tr>
+<tr class="b">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testInitialize</td>
+<td>0.001</td></tr>
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testRoleFormatSid</td>
+<td>0</td></tr>
+<tr class="b">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testPrincipalFormatBoth</td>
+<td>0.001</td></tr>
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testRoleUnique</td>
+<td>0</td></tr>
+<tr class="b">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testRoleFormatBoth</td>
 <td>0</td></tr>
 <tr class="a">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>equals_otherObject</td>
+<td>testRoleFormatNone</td>
 <td>0</td></tr>
 <tr class="b">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>testEquals_Symmetric</td>
+<td>testGuestLogin</td>
 <td>0</td></tr></table></div>
 <div class="section">
-<h3><a name="UserPrincipalTests"></a>UserPrincipalTests</h3><a name="waffle.jaasUserPrincipalTests"></a>
+<h3><a name="BasicSecurityFilterTests"></a>BasicSecurityFilterTests</h3><a name="waffle.servletBasicSecurityFilterTests"></a>
 <table border="1" class="table table-striped">
 <tr class="a">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>testIsSerializable</td>
-<td>0</td></tr>
-<tr class="b">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>equals_sameObject</td>
-<td>0</td></tr>
-<tr class="a">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>equals_otherObject</td>
-<td>0</td></tr>
-<tr class="b">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>testEquals_Symmetric</td>
-<td>0</td></tr></table></div>
+<td>testBasicAuth</td>
+<td>0.264</td></tr></table></div>
 <div class="section">
-<h3><a name="SecurityFilterProviderCollectionTests"></a>SecurityFilterProviderCollectionTests</h3><a name="waffle.servlet.spiSecurityFilterProviderCollectionTests"></a>
+<h3><a name="ImpersonateTests"></a>ImpersonateTests</h3><a name="waffle.servletImpersonateTests"></a>
+<table border="1" class="table table-striped">
+<tr class="a">
+<td><a href="#waffle.servlet.ImpersonateTests.testImpersonateDisabled"><img src="images/icon_warning_sml.gif" alt="" /></a></td>
+<td><a href="#waffle.servlet.ImpersonateTests.testImpersonateDisabled">testImpersonateDisabled</a>
+<div class="detailToggle" style="display:inline"><a href="javascript:toggleDisplay(&apos;waffle.servlet.ImpersonateTests.testImpersonateDisabled&apos;);"><span style="display:inline;" id="waffle.servlet.ImpersonateTests.testImpersonateDisabledoff"> + </span><span style="display:none;" id="waffle.servlet.ImpersonateTests.testImpersonateDisabledon"> - </span>[ Detail ]</a></div></td>
+<td>0</td></tr>
+<tr class="b">
+<td></td>
+<td>skipped</td>
+<td></td></tr>
+<tr class="a">
+<td><a href="#waffle.servlet.ImpersonateTests.testImpersonateEnabled"><img src="images/icon_warning_sml.gif" alt="" /></a></td>
+<td><a href="#waffle.servlet.ImpersonateTests.testImpersonateEnabled">testImpersonateEnabled</a>
+<div class="detailToggle" style="display:inline"><a href="javascript:toggleDisplay(&apos;waffle.servlet.ImpersonateTests.testImpersonateEnabled&apos;);"><span style="display:inline;" id="waffle.servlet.ImpersonateTests.testImpersonateEnabledoff"> + </span><span style="display:none;" id="waffle.servlet.ImpersonateTests.testImpersonateEnabledon"> - </span>[ Detail ]</a></div></td>
+<td>0</td></tr>
+<tr class="b">
+<td></td>
+<td>skipped</td>
+<td></td></tr></table></div>
+<div class="section">
+<h3><a name="NegotiateSecurityFilterTests"></a>NegotiateSecurityFilterTests</h3><a name="waffle.servletNegotiateSecurityFilterTests"></a>
 <table border="1" class="table table-striped">
 <tr class="a">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>testDefaultCollection</td>
-<td>0.073</td></tr>
+<td>testChallengeNTLMPOST</td>
+<td>0.012</td></tr>
 <tr class="b">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>testIsSecurityPackageSupported</td>
-<td>0</td></tr>
+<td>testInitNegotiateSecurityFilterProvider</td>
+<td>0.003</td></tr>
 <tr class="a">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>testGetByClassNameInvalid</td>
+<td>testInitInvalidClassInParameter</td>
+<td>0</td></tr>
+<tr class="b">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testNegotiate</td>
+<td>0.121</td></tr>
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testChallengeNTLMPUT</td>
+<td>0.002</td></tr>
+<tr class="b">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testInitBasicSecurityFilterProvider</td>
+<td>0.001</td></tr>
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testChallengePOST</td>
+<td>0.012</td></tr>
+<tr class="b">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testChallengeGET</td>
+<td>0.001</td></tr>
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testInitInvalidParameter</td>
+<td>0</td></tr>
+<tr class="b">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testInitNegotiateSecurityFilterProviderInvalidProtocol</td>
+<td>0.001</td></tr>
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testInitTwoSecurityFilterProviders</td>
+<td>0</td></tr>
+<tr class="b">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testNegotiatePreviousAuthWithWindowsPrincipal</td>
 <td>0.001</td></tr></table></div>
 <div class="section">
-<h3><a name="NtlmMessageTests"></a>NtlmMessageTests</h3><a name="waffle.utilNtlmMessageTests"></a>
+<h3><a name="WaffleInfoServletTests"></a>WaffleInfoServletTests</h3><a name="waffle.servletWaffleInfoServletTests"></a>
 <table border="1" class="table table-striped">
 <tr class="a">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>testGetNtlmMessageType</td>
-<td>0.002</td></tr>
+<td>testGetInfo</td>
+<td>0.076</td></tr></table></div>
+<div class="section">
+<h3><a name="WindowsPrincipalTests"></a>WindowsPrincipalTests</h3><a name="waffle.servletWindowsPrincipalTests"></a>
+<table border="1" class="table table-striped">
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testIsSerializable</td>
+<td>0.007</td></tr>
 <tr class="b">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>testIsNtlmMessage</td>
-<td>0</td></tr></table></div>
+<td>testHasRole</td>
+<td>0.001</td></tr></table></div>
 <div class="section">
-<h3><a name="SPNegoMessageTests"></a>SPNegoMessageTests</h3><a name="waffle.utilSPNegoMessageTests"></a>
+<h3><a name="AuthorizationHeaderTests"></a>AuthorizationHeaderTests</h3><a name="waffle.utilAuthorizationHeaderTests"></a>
 <table border="1" class="table table-striped">
 <tr class="a">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>testIsNegTokenArg</td>
-<td>0.002</td></tr>
+<td>testIsNtlmType1Message</td>
+<td>0</td></tr>
+<tr class="b">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testIsDigestAuthorizationHeaderFailure</td>
+<td>0.014</td></tr>
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testGetSecurityPackage</td>
+<td>0</td></tr>
 <tr class="b">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
 <td>testIsSPNegoMessage</td>
 <td>0</td></tr>
 <tr class="a">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>testIsNegTokenInit</td>
+<td>testIsSPNegoPostAuthorizationHeader</td>
+<td>0</td></tr>
+<tr class="b">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testIsNull</td>
+<td>0</td></tr>
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testIsNtlmType1PostAuthorizationHeader</td>
 <td>0</td></tr></table></div>
 <div class="section">
-<h3><a name="WaffleInfoTests"></a>WaffleInfoTests</h3><a name="waffle.utilWaffleInfoTests"></a>
+<h3><a name="NtlmServletRequestTests"></a>NtlmServletRequestTests</h3><a name="waffle.utilNtlmServletRequestTests"></a>
 <table border="1" class="table table-striped">
 <tr class="a">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>testWaffleInfo</td>
-<td>0.373</td></tr></table></div>
+<td>testGetConnectionId</td>
+<td>0</td></tr></table></div>
 <div class="section">
-<h3><a name="PrincipalFormatTests"></a>PrincipalFormatTests</h3><a name="waffle.windows.authPrincipalFormatTests"></a>
+<h3><a name="WindowsAuthProviderTests"></a>WindowsAuthProviderTests</h3><a name="waffle.windows.authWindowsAuthProviderTests"></a>
 <table border="1" class="table table-striped">
 <tr class="a">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>testKnown</td>
+<td>testGetDomains</td>
+<td>0</td></tr>
+<tr class="b">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testSecurityContextsExpire</td>
+<td>2.727</td></tr>
+<tr class="a">
+<td><a href="#waffle.windows.auth.WindowsAuthProviderTests.testLogonUser"><img src="images/icon_warning_sml.gif" alt="" /></a></td>
+<td><a href="#waffle.windows.auth.WindowsAuthProviderTests.testLogonUser">testLogonUser</a>
+<div class="detailToggle" style="display:inline"><a href="javascript:toggleDisplay(&apos;waffle.windows.auth.WindowsAuthProviderTests.testLogonUser&apos;);"><span style="display:inline;" id="waffle.windows.auth.WindowsAuthProviderTests.testLogonUseroff"> + </span><span style="display:none;" id="waffle.windows.auth.WindowsAuthProviderTests.testLogonUseron"> - </span>[ Detail ]</a></div></td>
+<td>0</td></tr>
+<tr class="b">
+<td></td>
+<td>skipped</td>
+<td></td></tr>
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testAcceptAndImpersonateSecurityToken</td>
+<td>0.02</td></tr>
+<tr class="b">
+<td><a href="#waffle.windows.auth.WindowsAuthProviderTests.testImpersonateLoggedOnUser"><img src="images/icon_warning_sml.gif" alt="" /></a></td>
+<td><a href="#waffle.windows.auth.WindowsAuthProviderTests.testImpersonateLoggedOnUser">testImpersonateLoggedOnUser</a>
+<div class="detailToggle" style="display:inline"><a href="javascript:toggleDisplay(&apos;waffle.windows.auth.WindowsAuthProviderTests.testImpersonateLoggedOnUser&apos;);"><span style="display:inline;" id="waffle.windows.auth.WindowsAuthProviderTests.testImpersonateLoggedOnUseroff"> + </span><span style="display:none;" id="waffle.windows.auth.WindowsAuthProviderTests.testImpersonateLoggedOnUseron"> - </span>[ Detail ]</a></div></td>
+<td>0</td></tr>
+<tr class="a">
+<td></td>
+<td>skipped</td>
+<td></td></tr>
+<tr class="b">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>testGetCurrentComputer</td>
 <td>0.002</td></tr>
+<tr class="a">
+<td><a href="#waffle.windows.auth.WindowsAuthProviderTests.testLogonGuestUser"><img src="images/icon_warning_sml.gif" alt="" /></a></td>
+<td><a href="#waffle.windows.auth.WindowsAuthProviderTests.testLogonGuestUser">testLogonGuestUser</a>
+<div class="detailToggle" style="display:inline"><a href="javascript:toggleDisplay(&apos;waffle.windows.auth.WindowsAuthProviderTests.testLogonGuestUser&apos;);"><span style="display:inline;" id="waffle.windows.auth.WindowsAuthProviderTests.testLogonGuestUseroff"> + </span><span style="display:none;" id="waffle.windows.auth.WindowsAuthProviderTests.testLogonGuestUseron"> - </span>[ Detail ]</a></div></td>
+<td>0</td></tr>
 <tr class="b">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>testUnknown</td>
-<td>0</td></tr></table></div>
-<div class="section">
-<h3><a name="WindowsAccountTests"></a>WindowsAccountTests</h3><a name="waffle.windows.authWindowsAccountTests"></a>
-<table border="1" class="table table-striped">
+<td></td>
+<td>skipped</td>
+<td></td></tr>
 <tr class="a">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>testGetCurrentAccount</td>
-<td>0.003</td></tr>
+<td>testAcceptSecurityToken</td>
+<td>0.036</td></tr></table></div><br /></div>
+<div class="section">
+<h2><a name="Failure_Details"></a>Failure Details</h2><a name="Failure_Details"></a>
+<p>[<a href="#Summary">Summary</a>] [<a href="#Package_List">Package List</a>] [<a href="#Test_Cases">Test Cases</a>]</p><br />
+<table border="1" class="table table-striped">
+<tr class="a">
+<td><img src="images/icon_warning_sml.gif" alt="" /></td>
+<td><a name="waffle.servlet.ImpersonateTests.testImpersonateDisabled"></a>testImpersonateDisabled</td></tr>
 <tr class="b">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>testGetCurrentUsername</td>
-<td>0.001</td></tr></table></div>
-<div class="section">
-<h3><a name="WindowsCredentialsHandleTests"></a>WindowsCredentialsHandleTests</h3><a name="waffle.windows.authWindowsCredentialsHandleTests"></a>
-<table border="1" class="table table-striped">
+<td></td>
+<td>skipped: skipped</td></tr>
 <tr class="a">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>testGetCurrent</td>
-<td>0.004</td></tr></table></div>
-<div class="section">
-<h3><a name="WindowsSecurityContextTests"></a>WindowsSecurityContextTests</h3><a name="waffle.windows.authWindowsSecurityContextTests"></a>
-<table border="1" class="table table-striped">
+<td><img src="images/icon_warning_sml.gif" alt="" /></td>
+<td><a name="waffle.servlet.ImpersonateTests.testImpersonateEnabled"></a>testImpersonateEnabled</td></tr>
+<tr class="b">
+<td></td>
+<td>skipped: skipped</td></tr>
 <tr class="a">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>testNegotiate</td>
-<td>0.012</td></tr></table></div><br /></div>
+<td><img src="images/icon_warning_sml.gif" alt="" /></td>
+<td><a name="waffle.windows.auth.WindowsAuthProviderTests.testLogonUser"></a>testLogonUser</td></tr>
+<tr class="b">
+<td></td>
+<td>skipped: skipped</td></tr>
+<tr class="a">
+<td><img src="images/icon_warning_sml.gif" alt="" /></td>
+<td><a name="waffle.windows.auth.WindowsAuthProviderTests.testImpersonateLoggedOnUser"></a>testImpersonateLoggedOnUser</td></tr>
+<tr class="b">
+<td></td>
+<td>skipped: skipped</td></tr>
+<tr class="a">
+<td><img src="images/icon_warning_sml.gif" alt="" /></td>
+<td><a name="waffle.windows.auth.WindowsAuthProviderTests.testLogonGuestUser"></a>testLogonGuestUser</td></tr>
+<tr class="b">
+<td></td>
+<td>skipped: skipped</td></tr></table><br /></div>
                   </div>
             </div>
           </div>

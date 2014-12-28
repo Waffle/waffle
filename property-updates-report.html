@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="Date-Revision-yyyymmdd" content="20141228" />
     <meta http-equiv="Content-Language" content="en" />
-    <title>waffle-jna &#x2013; Property Updates Report</title>
+    <title>waffle-tests &#x2013; Property Updates Report</title>
     <link rel="stylesheet" href="./css/apache-maven-fluido-1.3.1.min.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <link rel="stylesheet" href="./css/print.css" media="print" />
@@ -83,8 +83,6 @@
                                   <li>      <a href="xref/index.html"  title="Source Xref">Source Xref</a>
 </li>
                                   <li>      <a href="xref-test/index.html"  title="Test Source Xref">Test Source Xref</a>
-</li>
-                                  <li>      <a href="pmd.html"  title="PMD">PMD</a>
 </li>
                                   <li>      <a href="surefire-report.html"  title="Surefire Report">Surefire Report</a>
 </li>
@@ -171,7 +169,7 @@
           <i class="icon-chevron-right"></i>
         Project Information</a>
                   </li>
-                                                                                                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                                                                    
       <li>
   
                           <a href="project-reports.html" title="Project Reports">
@@ -212,13 +210,6 @@
                           <a href="xref-test/index.html" title="Test Source Xref">
           <i class="none"></i>
         Test Source Xref</a>
-            </li>
-                    
-      <li>
-  
-                          <a href="pmd.html" title="PMD">
-          <i class="none"></i>
-        PMD</a>
             </li>
                     
       <li>
@@ -304,7 +295,7 @@
 <tr class="a">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
 <td># of properties using the latest version available</td>
-<td>3</td></tr>
+<td>1</td></tr>
 <tr class="b">
 <td><img src="images/icon_warning_sml.gif" alt="" /></td>
 <td># of properties where the next version available is smaller than an incremental version update</td>
@@ -342,24 +333,8 @@
 <td></td></tr>
 <tr class="b">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>${slf4j.version}</td>
-<td>1.7.9</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td></tr>
-<tr class="a">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>${guava.version}</td>
-<td>18.0</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td></tr>
-<tr class="b">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>${jna.version}</td>
-<td>4.1.0</td>
+<td>${mockito.version}</td>
+<td>1.10.17</td>
 <td></td>
 <td></td>
 <td></td>
@@ -376,20 +351,20 @@
 <h2><a name="Properties_associated_with_artifact_versions"></a>Properties associated with artifact versions</h2>
 <p></p>
 <div class="section">
-<h3><a name="aguava.version"></a>${guava.version}</h3>
+<h3><a name="amockito.version"></a>${mockito.version}</h3>
 <table border="0" class="table table-striped">
 <tr class="b">
 <th width="80%">Status</th>
 <td><img src="images/icon_success_sml.gif" alt="" />&#160;No newer versions available.</td></tr>
 <tr class="a">
 <th width="80%">Property</th>
-<td>${guava.version}</td></tr>
+<td>${mockito.version}</td></tr>
 <tr class="b">
 <th width="80%">Associated artifacts</th>
-<td>com.google.guava:guava</td></tr>
+<td>org.mockito:mockito-core</td></tr>
 <tr class="a">
 <th width="80%">Current Version</th>
-<td>18.0</td></tr>
+<td>1.10.17</td></tr>
 <tr class="b">
 <th width="80%">Allowed version range</th>
 <td>[,)</td></tr>
@@ -403,36 +378,6 @@
 <th width="80%">Include projects from reactor</th>
 <td>Yes</td></tr>
 <tr class="b">
-<th width="80%">Always use reactor projects (even if older or -SNAPSHOT)</th>
-<td>Yes</td></tr></table></div>
-<div class="section">
-<h3><a name="ajna.version"></a>${jna.version}</h3>
-<table border="0" class="table table-striped">
-<tr class="a">
-<th width="80%">Status</th>
-<td><img src="images/icon_success_sml.gif" alt="" />&#160;No newer versions available.</td></tr>
-<tr class="b">
-<th width="80%">Property</th>
-<td>${jna.version}</td></tr>
-<tr class="a">
-<th width="80%">Associated artifacts</th>
-<td>net.java.dev.jna:jna<br />net.java.dev.jna:jna-platform</td></tr>
-<tr class="b">
-<th width="80%">Current Version</th>
-<td>4.1.0</td></tr>
-<tr class="a">
-<th width="80%">Allowed version range</th>
-<td>[,)</td></tr>
-<tr class="b">
-<th width="80%">Infer associations from project</th>
-<td>Yes</td></tr>
-<tr class="a">
-<th width="80%">Only use release versions</th>
-<td>No</td></tr>
-<tr class="b">
-<th width="80%">Include projects from reactor</th>
-<td>Yes</td></tr>
-<tr class="a">
 <th width="80%">Always use reactor projects (even if older or -SNAPSHOT)</th>
 <td>Yes</td></tr></table></div>
 <div class="section">
@@ -466,36 +411,6 @@
 <th width="80%">Include projects from reactor</th>
 <td>Yes</td></tr>
 <tr class="b">
-<th width="80%">Always use reactor projects (even if older or -SNAPSHOT)</th>
-<td>Yes</td></tr></table></div>
-<div class="section">
-<h3><a name="aslf4j.version"></a>${slf4j.version}</h3>
-<table border="0" class="table table-striped">
-<tr class="a">
-<th width="80%">Status</th>
-<td><img src="images/icon_success_sml.gif" alt="" />&#160;No newer versions available.</td></tr>
-<tr class="b">
-<th width="80%">Property</th>
-<td>${slf4j.version}</td></tr>
-<tr class="a">
-<th width="80%">Associated artifacts</th>
-<td>org.slf4j:slf4j-api<br />org.slf4j:slf4j-simple</td></tr>
-<tr class="b">
-<th width="80%">Current Version</th>
-<td>1.7.9</td></tr>
-<tr class="a">
-<th width="80%">Allowed version range</th>
-<td>[,)</td></tr>
-<tr class="b">
-<th width="80%">Infer associations from project</th>
-<td>Yes</td></tr>
-<tr class="a">
-<th width="80%">Only use release versions</th>
-<td>No</td></tr>
-<tr class="b">
-<th width="80%">Include projects from reactor</th>
-<td>Yes</td></tr>
-<tr class="a">
 <th width="80%">Always use reactor projects (even if older or -SNAPSHOT)</th>
 <td>Yes</td></tr></table></div></div>
                   </div>
