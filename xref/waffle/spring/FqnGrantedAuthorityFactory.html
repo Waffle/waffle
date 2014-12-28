@@ -21,8 +21,8 @@
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">package</strong> waffle.spring;
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> org.springframework.security.GrantedAuthority;
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> org.springframework.security.GrantedAuthorityImpl;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> org.springframework.security.core.GrantedAuthority;
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> org.springframework.security.core.authority.SimpleGrantedAuthority;
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> waffle.windows.auth.WindowsAccount;
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>  
@@ -57,7 +57,7 @@
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>              grantedAuthorityString = grantedAuthorityString.toUpperCase();
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>          }
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>  
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> GrantedAuthorityImpl(grantedAuthorityString);
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> SimpleGrantedAuthority(grantedAuthorityString);
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>      }
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  }
 </pre>

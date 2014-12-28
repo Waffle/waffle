@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>NegotiateSecurityFilter.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-spring-security2</a> &gt; <a href="index.source.html" class="el_package">waffle.spring</a> &gt; <span class="el_source">NegotiateSecurityFilter.java</span></div><h1>NegotiateSecurityFilter.java</h1><pre class="source lang-java linenums">/**
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>NegotiateSecurityFilter.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-spring-security4</a> &gt; <a href="index.source.html" class="el_package">waffle.spring</a> &gt; <span class="el_source">NegotiateSecurityFilter.java</span></div><h1>NegotiateSecurityFilter.java</h1><pre class="source lang-java linenums">/**
  * Waffle (https://github.com/dblock/waffle)
  *
  * Copyright (c) 2010 - 2014 Application Security, Inc.
@@ -25,9 +25,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.Authentication;
-import org.springframework.security.GrantedAuthority;
-import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
 
 import waffle.servlet.WindowsPrincipal;
@@ -150,68 +150,60 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
 <span class="fc" id="L150">        }</span>
 <span class="fc" id="L151">    }</span>
 
-    public PrincipalFormat getPrincipalFormatEnum() {
+    public PrincipalFormat getPrincipalFormat() {
 <span class="fc" id="L154">        return this.principalFormat;</span>
     }
 
-    public String getPrincipalFormat() {
-<span class="nc" id="L158">        return String.valueOf(this.getPrincipalFormatEnum());</span>
-    }
-
     public void setPrincipalFormatEnum(final PrincipalFormat value) {
-<span class="fc" id="L162">        this.principalFormat = value;</span>
-<span class="fc" id="L163">    }</span>
+<span class="fc" id="L158">        this.principalFormat = value;</span>
+<span class="fc" id="L159">    }</span>
 
     public void setPrincipalFormat(final String value) {
-<span class="fc" id="L166">        this.setPrincipalFormatEnum(PrincipalFormat.valueOf(value.toUpperCase(Locale.ENGLISH)));</span>
-<span class="fc" id="L167">    }</span>
+<span class="fc" id="L162">        this.setPrincipalFormatEnum(PrincipalFormat.valueOf(value.toUpperCase(Locale.ENGLISH)));</span>
+<span class="fc" id="L163">    }</span>
 
-    public PrincipalFormat getRoleFormatEnum() {
-<span class="fc" id="L170">        return this.roleFormat;</span>
-    }
-
-    public String getRoleFormat() {
-<span class="nc" id="L174">        return String.valueOf(this.getRoleFormatEnum());</span>
+    public PrincipalFormat getRoleFormat() {
+<span class="fc" id="L166">        return this.roleFormat;</span>
     }
 
     public void setRoleFormatEnum(final PrincipalFormat value) {
-<span class="fc" id="L178">        this.roleFormat = value;</span>
-<span class="fc" id="L179">    }</span>
+<span class="fc" id="L170">        this.roleFormat = value;</span>
+<span class="fc" id="L171">    }</span>
 
     public void setRoleFormat(final String value) {
-<span class="fc" id="L182">        this.setRoleFormatEnum(PrincipalFormat.valueOf(value.toUpperCase(Locale.ENGLISH)));</span>
-<span class="fc" id="L183">    }</span>
+<span class="fc" id="L174">        this.setRoleFormatEnum(PrincipalFormat.valueOf(value.toUpperCase(Locale.ENGLISH)));</span>
+<span class="fc" id="L175">    }</span>
 
     public boolean isAllowGuestLogin() {
-<span class="fc" id="L186">        return this.allowGuestLogin;</span>
+<span class="fc" id="L178">        return this.allowGuestLogin;</span>
     }
 
     public void setAllowGuestLogin(final boolean value) {
-<span class="fc" id="L190">        this.allowGuestLogin = value;</span>
-<span class="fc" id="L191">    }</span>
+<span class="fc" id="L182">        this.allowGuestLogin = value;</span>
+<span class="fc" id="L183">    }</span>
 
     public SecurityFilterProviderCollection getProvider() {
-<span class="fc" id="L194">        return this.provider;</span>
+<span class="fc" id="L186">        return this.provider;</span>
     }
 
     public void setProvider(final SecurityFilterProviderCollection value) {
-<span class="fc" id="L198">        this.provider = value;</span>
-<span class="fc" id="L199">    }</span>
+<span class="fc" id="L190">        this.provider = value;</span>
+<span class="fc" id="L191">    }</span>
 
     public GrantedAuthorityFactory getGrantedAuthorityFactory() {
-<span class="nc" id="L202">        return this.grantedAuthorityFactory;</span>
+<span class="nc" id="L194">        return this.grantedAuthorityFactory;</span>
     }
 
     public void setGrantedAuthorityFactory(final GrantedAuthorityFactory value) {
-<span class="nc" id="L206">        this.grantedAuthorityFactory = value;</span>
-<span class="nc" id="L207">    }</span>
+<span class="nc" id="L198">        this.grantedAuthorityFactory = value;</span>
+<span class="nc" id="L199">    }</span>
 
     public GrantedAuthority getDefaultGrantedAuthority() {
-<span class="nc" id="L210">        return this.defaultGrantedAuthority;</span>
+<span class="nc" id="L202">        return this.defaultGrantedAuthority;</span>
     }
 
     public void setDefaultGrantedAuthority(final GrantedAuthority value) {
-<span class="nc" id="L214">        this.defaultGrantedAuthority = value;</span>
-<span class="nc" id="L215">    }</span>
+<span class="nc" id="L206">        this.defaultGrantedAuthority = value;</span>
+<span class="nc" id="L207">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

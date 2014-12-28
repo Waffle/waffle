@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>WindowsAuthenticationToken.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-spring-security2</a> &gt; <a href="index.source.html" class="el_package">waffle.spring</a> &gt; <span class="el_source">WindowsAuthenticationToken.java</span></div><h1>WindowsAuthenticationToken.java</h1><pre class="source lang-java linenums">/**
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>WindowsAuthenticationToken.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-spring-security4</a> &gt; <a href="index.source.html" class="el_package">waffle.spring</a> &gt; <span class="el_source">WindowsAuthenticationToken.java</span></div><h1>WindowsAuthenticationToken.java</h1><pre class="source lang-java linenums">/**
  * Waffle (https://github.com/dblock/waffle)
  *
  * Copyright (c) 2010 - 2014 Application Security, Inc.
@@ -16,9 +16,9 @@ package waffle.spring;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.springframework.security.Authentication;
-import org.springframework.security.GrantedAuthority;
-import org.springframework.security.GrantedAuthorityImpl;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import waffle.servlet.WindowsPrincipal;
 import waffle.windows.auth.WindowsAccount;
@@ -44,7 +44,7 @@ public class WindowsAuthenticationToken implements Authentication {
      * The {@link GrantedAuthority} that will be added to every WindowsAuthenticationToken, unless another (or null) is
      * specified.
      */
-<span class="fc" id="L47">    public static final GrantedAuthority        DEFAULT_GRANTED_AUTHORITY         = new GrantedAuthorityImpl(</span>
+<span class="fc" id="L47">    public static final GrantedAuthority        DEFAULT_GRANTED_AUTHORITY         = new SimpleGrantedAuthority(</span>
                                                                                           &quot;ROLE_USER&quot;);
 
     private WindowsPrincipal                    principal;
@@ -86,40 +86,38 @@ public class WindowsAuthenticationToken implements Authentication {
 <span class="fc" id="L86">    }</span>
 
     @Override
-    public GrantedAuthority[] getAuthorities() {
-<span class="fc" id="L90">        final GrantedAuthority[] grantedAuthorities = new GrantedAuthority[this.authorities.size()];</span>
-<span class="fc" id="L91">        this.authorities.toArray(grantedAuthorities);</span>
-<span class="fc" id="L92">        return grantedAuthorities;</span>
+    public Collection&lt;GrantedAuthority&gt; getAuthorities() {
+<span class="fc" id="L90">        return this.authorities;</span>
     }
 
     @Override
     public Object getCredentials() {
-<span class="fc" id="L97">        return null;</span>
+<span class="fc" id="L95">        return null;</span>
     }
 
     @Override
     public Object getDetails() {
-<span class="fc" id="L102">        return null;</span>
+<span class="fc" id="L100">        return null;</span>
     }
 
     @Override
     public Object getPrincipal() {
-<span class="fc" id="L107">        return this.principal;</span>
+<span class="fc" id="L105">        return this.principal;</span>
     }
 
     @Override
     public boolean isAuthenticated() {
-<span class="pc bpc" id="L112" title="1 of 2 branches missed.">        return this.principal != null;</span>
+<span class="pc bpc" id="L110" title="1 of 2 branches missed.">        return this.principal != null;</span>
     }
 
     @Override
     public void setAuthenticated(final boolean authenticated) {
-<span class="fc" id="L117">        throw new IllegalArgumentException();</span>
+<span class="fc" id="L115">        throw new IllegalArgumentException();</span>
     }
 
     @Override
     public String getName() {
-<span class="fc" id="L122">        return this.principal.getName();</span>
+<span class="fc" id="L120">        return this.principal.getName();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>
