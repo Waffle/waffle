@@ -1,4 +1,2 @@
-waffle.jaas
-waffle.servlet
-waffle.util
-waffle.windows.auth
+waffle.apache
+waffle.apache.catalina
