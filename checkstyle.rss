@@ -19,14 +19,14 @@ under the License.
 -->
 <rss version="0.91">
   <channel>
-    <title>waffle-spring-form - Checkstyle report</title>
+    <title>waffle-jetty - Checkstyle report</title>
     <link>http://dblock.github.com/waffle/</link>
-    <description>waffle-spring-form - Checkstyle report</description>
+    <description>waffle-jetty - Checkstyle report</description>
     <language>en-us</language>
     <copyright>&#169;2010 - 2014 com.github.dblock</copyright>
     <item>
-      <title>File: 0,
-             Errors: 0,
+      <title>File: 2,
+             Errors: 5,
              Warnings: 0,
              Infos: 0
       </title>
@@ -44,6 +44,34 @@ under the License.
             </tr>
           </thead>
           <tbody>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.jetty.package-info.java">waffle/jetty/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.jetty.DummyClass.java">waffle/jetty/DummyClass.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
                       </tbody>
         </table>
         
