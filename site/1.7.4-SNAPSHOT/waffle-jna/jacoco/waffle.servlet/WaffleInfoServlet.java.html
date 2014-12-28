@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>WaffleInfoServlet.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-jna</a> &gt; <a href="index.source.html" class="el_package">waffle.servlet</a> &gt; <span class="el_source">WaffleInfoServlet.java</span></div><h1>WaffleInfoServlet.java</h1><pre class="source lang-java linenums">/**
+ * Waffle (https://github.com/dblock/waffle)
+ *
+ * Copyright (c) 2010 - 2014 Application Security, Inc.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Application Security, Inc.
+ */
+package waffle.servlet;
+
+import java.io.IOException;
+import java.security.Principal;
+import java.util.Enumeration;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import waffle.util.WaffleInfo;
+
+/**
+ * A servlet that returns WaffleInfo as XML
+ */
+<span class="nc" id="L41">public class WaffleInfoServlet extends HttpServlet {</span>
+
+    private static final long serialVersionUID = 1L;
+
+    @Override
+    public void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
+            IOException {
+<span class="nc" id="L48">        final WaffleInfo info = new WaffleInfo();</span>
+        try {
+<span class="nc" id="L50">            final Document doc = info.getWaffleInfo();</span>
+<span class="nc" id="L51">            final Element root = doc.getDocumentElement();</span>
+
+            // Add the Request Information Here
+<span class="nc" id="L54">            final Element http = getRequestInfo(doc, request);</span>
+<span class="nc" id="L55">            root.insertBefore(http, root.getFirstChild());</span>
+
+            // Lookup Accounts By Name
+<span class="nc" id="L58">            final String[] lookup = request.getParameterValues(&quot;lookup&quot;);</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">            if (lookup != null) {</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">                for (String name : lookup) {</span>
+<span class="nc" id="L61">                    root.appendChild(info.getLookupInfo(doc, name));</span>
+                }
+            }
+
+            // Write the XML Response
+<span class="nc" id="L66">            final TransformerFactory transfac = TransformerFactory.newInstance();</span>
+<span class="nc" id="L67">            final Transformer trans = transfac.newTransformer();</span>
+<span class="nc" id="L68">            trans.setOutputProperty(OutputKeys.INDENT, &quot;yes&quot;);</span>
+
+<span class="nc" id="L70">            final StreamResult result = new StreamResult(response.getWriter());</span>
+<span class="nc" id="L71">            final DOMSource source = new DOMSource(doc);</span>
+<span class="nc" id="L72">            trans.transform(source, result);</span>
+<span class="nc" id="L73">            response.setContentType(&quot;application/xml&quot;);</span>
+<span class="nc" id="L74">        } catch (ParserConfigurationException e) {</span>
+<span class="nc" id="L75">            throw new ServletException(e);</span>
+<span class="nc" id="L76">        } catch (TransformerConfigurationException e) {</span>
+<span class="nc" id="L77">            throw new ServletException(e);</span>
+<span class="nc" id="L78">        } catch (TransformerException e) {</span>
+<span class="nc" id="L79">            throw new ServletException(e);</span>
+<span class="nc" id="L80">        }</span>
+<span class="nc" id="L81">    }</span>
+
+    /**
+     * Delegate POST to GET.
+     * 
+     * @param request
+     *            httpServletRequest.
+     * @param response
+     *            httpServletResponse.
+     * @throws ServletException
+     *             or IOException.
+     * */
+    @Override
+    public void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
+            IOException {
+<span class="nc" id="L96">        doGet(request, response);</span>
+<span class="nc" id="L97">    }</span>
+
+    public Element getRequestInfo(final Document doc, final HttpServletRequest request) {
+<span class="nc" id="L100">        final Element node = doc.createElement(&quot;request&quot;);</span>
+
+<span class="nc" id="L102">        Element value = doc.createElement(&quot;AuthType&quot;);</span>
+<span class="nc" id="L103">        value.setTextContent(request.getAuthType());</span>
+<span class="nc" id="L104">        node.appendChild(value);</span>
+
+<span class="nc" id="L106">        final Principal p = request.getUserPrincipal();</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">        if (p != null) {</span>
+<span class="nc" id="L108">            Element child = doc.createElement(&quot;principal&quot;);</span>
+<span class="nc" id="L109">            child.setAttribute(&quot;class&quot;, p.getClass().getName());</span>
+
+<span class="nc" id="L111">            value = doc.createElement(&quot;name&quot;);</span>
+<span class="nc" id="L112">            value.setTextContent(p.getName());</span>
+<span class="nc" id="L113">            child.appendChild(value);</span>
+
+<span class="nc" id="L115">            value = doc.createElement(&quot;string&quot;);</span>
+<span class="nc" id="L116">            value.setTextContent(p.toString());</span>
+<span class="nc" id="L117">            child.appendChild(value);</span>
+
+<span class="nc" id="L119">            node.appendChild(child);</span>
+        }
+
+<span class="nc" id="L122">        final Enumeration&lt;?&gt; headers = request.getHeaderNames();</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">        if (headers.hasMoreElements()) {</span>
+            String name;
+<span class="nc" id="L125">            Element child = doc.createElement(&quot;headers&quot;);</span>
+<span class="nc bnc" id="L126" title="All 2 branches missed.">            while (headers.hasMoreElements()) {</span>
+<span class="nc" id="L127">                name = (String) headers.nextElement();</span>
+
+<span class="nc" id="L129">                value = doc.createElement(name);</span>
+<span class="nc" id="L130">                value.setTextContent(request.getHeader(name));</span>
+<span class="nc" id="L131">                child.appendChild(value);</span>
+            }
+<span class="nc" id="L133">            node.appendChild(child);</span>
+        }
+<span class="nc" id="L135">        return node;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>
