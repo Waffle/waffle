@@ -19,9 +19,9 @@ under the License.
 -->
 <rss version="0.91">
   <channel>
-    <title>waffle-jaas - Checkstyle report</title>
+    <title>waffle-mixed - Checkstyle report</title>
     <link>http://dblock.github.com/waffle/</link>
-    <description>waffle-jaas - Checkstyle report</description>
+    <description>waffle-mixed - Checkstyle report</description>
     <language>en-us</language>
     <copyright>&#169;2010 - 2014 com.github.dblock</copyright>
     <item>
