@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="Date-Revision-yyyymmdd" content="20141228" />
     <meta http-equiv="Content-Language" content="en" />
-    <title>waffle-parent &#x2013; About</title>
+    <title>waffle-parent &#x2013; Dependency Information</title>
     <link rel="stylesheet" href="./css/apache-maven-fluido-1.3.1.min.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <link rel="stylesheet" href="./css/print.css" media="print" />
@@ -182,10 +182,12 @@
         Project Information</a>
                     <ul class="nav nav-list">
                     
-      <li class="active">
+      <li>
   
-            <a href="#"><i class="none"></i>About</a>
-          </li>
+                          <a href="index.html" title="About">
+          <i class="none"></i>
+        About</a>
+            </li>
                     
       <li>
   
@@ -201,12 +203,10 @@
         Distribution Management</a>
             </li>
                     
-      <li>
+      <li class="active">
   
-                          <a href="dependency-info.html" title="Dependency Information">
-          <i class="none"></i>
-        Dependency Information</a>
-            </li>
+            <a href="#"><i class="none"></i>Dependency Information</a>
+          </li>
                     
       <li>
   
@@ -315,78 +315,44 @@
         <div id="bodyColumn"  class="span9" >
                                   
             <div class="section">
-<h2><a name="About_waffle-parent"></a>About waffle-parent</h2><a name="About_waffle-parent"></a>
-<p>Parent POM for WAFFLE</p>
+<h2><a name="Dependency_Information"></a>Dependency Information</h2><a name="Dependency_Information"></a>
 <div class="section">
-<h3><a name="Project_Modules"></a>Project Modules</h3><a name="Project_Modules"></a>
-<p>This project has declared the following modules:</p>
-<table border="0" class="table table-striped">
-<tr class="a">
-<th>Name</th>
-<th>Description</th></tr>
-<tr class="b">
-<td><a href="/index.html">waffle-filter</a></td>
-<td>Filter Demo for WAFFLE</td></tr>
-<tr class="a">
-<td><a href="/index.html">waffle-form</a></td>
-<td>Form Demo for WAFFLE</td></tr>
-<tr class="b">
-<td><a href="/index.html">waffle-jaas</a></td>
-<td>Jaas Demo for WAFFLE</td></tr>
-<tr class="a">
-<td><a href="/index.html">waffle-mixed</a></td>
-<td>Mixed Demo for WAFFLE</td></tr>
-<tr class="b">
-<td><a href="/index.html">waffle-mixed-post</a></td>
-<td>Mixed Post Demo for WAFFLE</td></tr>
-<tr class="a">
-<td><a href="/index.html">waffle-negotiate</a></td>
-<td>Negotiate Demo for WAFFLE</td></tr>
-<tr class="b">
-<td><a href="/index.html">waffle-spring-filter</a></td>
-<td>Spring Filter Demo for WAFFLE</td></tr>
-<tr class="a">
-<td><a href="/index.html">waffle-spring-form</a></td>
-<td>Spring Form Demo for WAFFLE</td></tr>
-<tr class="b">
-<td><a href="/index.html">waffle-demo-parent</a></td>
-<td>Parent POM for Waffle Demo</td></tr>
-<tr class="a">
-<td><a href="/index.html">waffle-distro</a></td>
-<td>Distribution for WAFFLE</td></tr>
-<tr class="b">
-<td><a href="/index.html">waffle-jetty</a></td>
-<td>Jetty integration for WAFFLE</td></tr>
-<tr class="a">
-<td><a href="/index.html">waffle-jna</a></td>
-<td>WAFFLE JNA implementation</td></tr>
-<tr class="b">
-<td><a href="/index.html">waffle-shiro</a></td>
-<td>Shiro integration for WAFFLE</td></tr>
-<tr class="a">
-<td><a href="/index.html">waffle-spring-security2</a></td>
-<td>Spring Security 2 integration for WAFFLE</td></tr>
-<tr class="b">
-<td><a href="/index.html">waffle-spring-security3</a></td>
-<td>Spring Security 3 integration for WAFFLE</td></tr>
-<tr class="a">
-<td><a href="/index.html">waffle-spring-security4</a></td>
-<td>Spring Security 4 integration for WAFFLE</td></tr>
-<tr class="b">
-<td><a href="/index.html">waffle-tests</a></td>
-<td>Tests for WAFFLE</td></tr>
-<tr class="a">
-<td><a href="/index.html">waffle-tomcat5</a></td>
-<td>Tomcat 5 integration for WAFFLE</td></tr>
-<tr class="b">
-<td><a href="/index.html">waffle-tomcat6</a></td>
-<td>Tomcat 6 integration for WAFFLE</td></tr>
-<tr class="a">
-<td><a href="/index.html">waffle-tomcat7</a></td>
-<td>Tomcat 7 integration for WAFFLE</td></tr>
-<tr class="b">
-<td><a href="/index.html">waffle-tomcat8</a></td>
-<td>Tomcat 8 integration for WAFFLE</td></tr></table></div></div>
+<h3><a name="Apache_Maven"></a>Apache Maven</h3><a name="Apache_Maven"></a>
+<div class="source">
+<pre>&lt;dependency&gt;
+  &lt;groupId&gt;com.github.dblock.waffle&lt;/groupId&gt;
+  &lt;artifactId&gt;waffle-parent&lt;/artifactId&gt;
+  &lt;version&gt;1.7.4-SNAPSHOT&lt;/version&gt;
+  &lt;type&gt;pom&lt;/type&gt;
+&lt;/dependency&gt;</pre></div></div>
+<div class="section">
+<h3><a name="Apache_Buildr"></a>Apache Buildr</h3><a name="Apache_Buildr"></a>
+<div class="source">
+<pre>'com.github.dblock.waffle:waffle-parent:pom:1.7.4-SNAPSHOT'</pre></div></div>
+<div class="section">
+<h3><a name="Apache_Ant"></a>Apache Ant</h3><a name="Apache_Ant"></a>
+<div class="source">
+<pre>&lt;dependency org=&quot;com.github.dblock.waffle&quot; name=&quot;waffle-parent&quot; rev=&quot;1.7.4-SNAPSHOT&quot;&gt;
+  &lt;artifact name=&quot;waffle-parent&quot; type=&quot;pom&quot; /&gt;
+&lt;/dependency&gt;</pre></div></div>
+<div class="section">
+<h3><a name="Groovy_Grape"></a>Groovy Grape</h3><a name="Groovy_Grape"></a>
+<div class="source">
+<pre>@Grapes(
+@Grab(group='com.github.dblock.waffle', module='waffle-parent', version='1.7.4-SNAPSHOT')
+)</pre></div></div>
+<div class="section">
+<h3><a name="Grails"></a>Grails</h3><a name="Grails"></a>
+<div class="source">
+<pre>compile 'com.github.dblock.waffle:waffle-parent:1.7.4-SNAPSHOT'</pre></div></div>
+<div class="section">
+<h3><a name="Leiningen"></a>Leiningen</h3><a name="Leiningen"></a>
+<div class="source">
+<pre>[com.github.dblock.waffle/waffle-parent &quot;1.7.4-SNAPSHOT&quot;]</pre></div></div>
+<div class="section">
+<h3><a name="SBT"></a>SBT</h3><a name="SBT"></a>
+<div class="source">
+<pre>libraryDependencies += &quot;com.github.dblock.waffle&quot; %% &quot;waffle-parent&quot; % &quot;1.7.4-SNAPSHOT&quot;</pre></div></div></div>
                   </div>
             </div>
           </div>
