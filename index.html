@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="Date-Revision-yyyymmdd" content="20141228" />
     <meta http-equiv="Content-Language" content="en" />
-    <title>waffle-distro &#x2013; About</title>
+    <title>waffle-parent &#x2013; About</title>
     <link rel="stylesheet" href="./css/apache-maven-fluido-1.3.1.min.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <link rel="stylesheet" href="./css/print.css" media="print" />
@@ -36,6 +36,14 @@
                 
                                 <ul class="nav">
                           <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">User guide <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+        
+                      <li>      <a href="README.html"  title="README">README</a>
+</li>
+                          </ul>
+      </li>
+                <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Project Documentation <b class="caret"></b></a>
         <ul class="dropdown-menu">
         
@@ -50,6 +58,8 @@
 </li>
                                   <li>      <a href="dependency-info.html"  title="Dependency Information">Dependency Information</a>
 </li>
+                                  <li>      <a href="dependency-convergence.html"  title="Dependency Convergence">Dependency Convergence</a>
+</li>
                                   <li>      <a href="source-repository.html"  title="Source Repository">Source Repository</a>
 </li>
                                   <li>      <a href="mail-lists.html"  title="Mailing Lists">Mailing Lists</a>
@@ -61,6 +71,8 @@
                                   <li>      <a href="plugins.html"  title="Project Plugins">Project Plugins</a>
 </li>
                                   <li>      <a href="license.html"  title="Project License">Project License</a>
+</li>
+                                  <li>      <a href="modules.html"  title="Project Modules">Project Modules</a>
 </li>
                                   <li>      <a href="team-list.html"  title="Project Team">Project Team</a>
 </li>
@@ -74,6 +86,16 @@
                       <li class="dropdown-submenu">
                                       <a href="project-reports.html"  title="Project Reports">Project Reports</a>
               <ul class="dropdown-menu">
+                                  <li>      <a href="checkstyle-aggregate.html"  title="Checkstyle">Checkstyle</a>
+</li>
+                                  <li>      <a href="apidocs/index.html"  title="JavaDocs">JavaDocs</a>
+</li>
+                                  <li>      <a href="testapidocs/index.html"  title="Test JavaDocs">Test JavaDocs</a>
+</li>
+                                  <li>      <a href="xref/index.html"  title="Source Xref">Source Xref</a>
+</li>
+                                  <li>      <a href="xref-test/index.html"  title="Test Source Xref">Test Source Xref</a>
+</li>
                                   <li>      <a href="surefire-report.html"  title="Surefire Report">Surefire Report</a>
 </li>
                                   <li>      <a href="property-updates-report.html"  title="Property Updates Report">Property Updates Report</a>
@@ -143,8 +165,16 @@
                 
                     
                 <ul class="nav nav-list">
-                    <li class="nav-header">Project Documentation</li>
-                                                                                                                                                                                                                                                                                                                  
+                    <li class="nav-header">User guide</li>
+                              
+      <li>
+  
+                          <a href="README.html" title="README">
+          <i class="none"></i>
+        README</a>
+            </li>
+                              <li class="nav-header">Project Documentation</li>
+                                                                                                                                                                                                                                                                                                                                                      
       <li>
   
                           <a href="project-info.html" title="Project Information">
@@ -176,6 +206,13 @@
                           <a href="dependency-info.html" title="Dependency Information">
           <i class="none"></i>
         Dependency Information</a>
+            </li>
+                    
+      <li>
+  
+                          <a href="dependency-convergence.html" title="Dependency Convergence">
+          <i class="none"></i>
+        Dependency Convergence</a>
             </li>
                     
       <li>
@@ -222,6 +259,13 @@
                     
       <li>
   
+                          <a href="modules.html" title="Project Modules">
+          <i class="none"></i>
+        Project Modules</a>
+            </li>
+                    
+      <li>
+  
                           <a href="team-list.html" title="Project Team">
           <i class="none"></i>
         Project Team</a>
@@ -242,7 +286,7 @@
             </li>
               </ul>
         </li>
-                                                                                                                        
+                                                                                                                                                                                                                  
       <li>
   
                           <a href="project-reports.html" title="Project Reports">
@@ -271,8 +315,78 @@
         <div id="bodyColumn"  class="span9" >
                                   
             <div class="section">
-<h2><a name="About_waffle-distro"></a>About waffle-distro</h2><a name="About_waffle-distro"></a>
-<p>Distribution for WAFFLE</p></div>
+<h2><a name="About_waffle-parent"></a>About waffle-parent</h2><a name="About_waffle-parent"></a>
+<p>Parent POM for WAFFLE</p>
+<div class="section">
+<h3><a name="Project_Modules"></a>Project Modules</h3><a name="Project_Modules"></a>
+<p>This project has declared the following modules:</p>
+<table border="0" class="table table-striped">
+<tr class="a">
+<th>Name</th>
+<th>Description</th></tr>
+<tr class="b">
+<td><a href="/index.html">waffle-filter</a></td>
+<td>Filter Demo for WAFFLE</td></tr>
+<tr class="a">
+<td><a href="/index.html">waffle-form</a></td>
+<td>Form Demo for WAFFLE</td></tr>
+<tr class="b">
+<td><a href="/index.html">waffle-jaas</a></td>
+<td>Jaas Demo for WAFFLE</td></tr>
+<tr class="a">
+<td><a href="/index.html">waffle-mixed</a></td>
+<td>Mixed Demo for WAFFLE</td></tr>
+<tr class="b">
+<td><a href="/index.html">waffle-mixed-post</a></td>
+<td>Mixed Post Demo for WAFFLE</td></tr>
+<tr class="a">
+<td><a href="/index.html">waffle-negotiate</a></td>
+<td>Negotiate Demo for WAFFLE</td></tr>
+<tr class="b">
+<td><a href="/index.html">waffle-spring-filter</a></td>
+<td>Spring Filter Demo for WAFFLE</td></tr>
+<tr class="a">
+<td><a href="/index.html">waffle-spring-form</a></td>
+<td>Spring Form Demo for WAFFLE</td></tr>
+<tr class="b">
+<td><a href="/index.html">waffle-demo-parent</a></td>
+<td>Parent POM for Waffle Demo</td></tr>
+<tr class="a">
+<td><a href="/index.html">waffle-distro</a></td>
+<td>Distribution for WAFFLE</td></tr>
+<tr class="b">
+<td><a href="/index.html">waffle-jetty</a></td>
+<td>Jetty integration for WAFFLE</td></tr>
+<tr class="a">
+<td><a href="/index.html">waffle-jna</a></td>
+<td>WAFFLE JNA implementation</td></tr>
+<tr class="b">
+<td><a href="/index.html">waffle-shiro</a></td>
+<td>Shiro integration for WAFFLE</td></tr>
+<tr class="a">
+<td><a href="/index.html">waffle-spring-security2</a></td>
+<td>Spring Security 2 integration for WAFFLE</td></tr>
+<tr class="b">
+<td><a href="/index.html">waffle-spring-security3</a></td>
+<td>Spring Security 3 integration for WAFFLE</td></tr>
+<tr class="a">
+<td><a href="/index.html">waffle-spring-security4</a></td>
+<td>Spring Security 4 integration for WAFFLE</td></tr>
+<tr class="b">
+<td><a href="/index.html">waffle-tests</a></td>
+<td>Tests for WAFFLE</td></tr>
+<tr class="a">
+<td><a href="/index.html">waffle-tomcat5</a></td>
+<td>Tomcat 5 integration for WAFFLE</td></tr>
+<tr class="b">
+<td><a href="/index.html">waffle-tomcat6</a></td>
+<td>Tomcat 6 integration for WAFFLE</td></tr>
+<tr class="a">
+<td><a href="/index.html">waffle-tomcat7</a></td>
+<td>Tomcat 7 integration for WAFFLE</td></tr>
+<tr class="b">
+<td><a href="/index.html">waffle-tomcat8</a></td>
+<td>Tomcat 8 integration for WAFFLE</td></tr></table></div></div>
                   </div>
             </div>
           </div>

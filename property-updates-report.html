@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="Date-Revision-yyyymmdd" content="20141228" />
     <meta http-equiv="Content-Language" content="en" />
-    <title>waffle-distro &#x2013; Property Updates Report</title>
+    <title>waffle-parent &#x2013; Property Updates Report</title>
     <link rel="stylesheet" href="./css/apache-maven-fluido-1.3.1.min.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <link rel="stylesheet" href="./css/print.css" media="print" />
@@ -36,6 +36,14 @@
                 
                                 <ul class="nav">
                           <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">User guide <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+        
+                      <li>      <a href="README.html"  title="README">README</a>
+</li>
+                          </ul>
+      </li>
+                <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Project Documentation <b class="caret"></b></a>
         <ul class="dropdown-menu">
         
@@ -50,6 +58,8 @@
 </li>
                                   <li>      <a href="dependency-info.html"  title="Dependency Information">Dependency Information</a>
 </li>
+                                  <li>      <a href="dependency-convergence.html"  title="Dependency Convergence">Dependency Convergence</a>
+</li>
                                   <li>      <a href="source-repository.html"  title="Source Repository">Source Repository</a>
 </li>
                                   <li>      <a href="mail-lists.html"  title="Mailing Lists">Mailing Lists</a>
@@ -61,6 +71,8 @@
                                   <li>      <a href="plugins.html"  title="Project Plugins">Project Plugins</a>
 </li>
                                   <li>      <a href="license.html"  title="Project License">Project License</a>
+</li>
+                                  <li>      <a href="modules.html"  title="Project Modules">Project Modules</a>
 </li>
                                   <li>      <a href="team-list.html"  title="Project Team">Project Team</a>
 </li>
@@ -74,6 +86,16 @@
                       <li class="dropdown-submenu">
                                       <a href="project-reports.html"  title="Project Reports">Project Reports</a>
               <ul class="dropdown-menu">
+                                  <li>      <a href="checkstyle-aggregate.html"  title="Checkstyle">Checkstyle</a>
+</li>
+                                  <li>      <a href="apidocs/index.html"  title="JavaDocs">JavaDocs</a>
+</li>
+                                  <li>      <a href="testapidocs/index.html"  title="Test JavaDocs">Test JavaDocs</a>
+</li>
+                                  <li>      <a href="xref/index.html"  title="Source Xref">Source Xref</a>
+</li>
+                                  <li>      <a href="xref-test/index.html"  title="Test Source Xref">Test Source Xref</a>
+</li>
                                   <li>      <a href="surefire-report.html"  title="Surefire Report">Surefire Report</a>
 </li>
                                   <li>      <a href="property-updates-report.html"  title="Property Updates Report">Property Updates Report</a>
@@ -143,21 +165,64 @@
                 
                     
                 <ul class="nav nav-list">
-                    <li class="nav-header">Project Documentation</li>
-                                                                                                                                                                                                                                                                                                        
+                    <li class="nav-header">User guide</li>
+                              
+      <li>
+  
+                          <a href="README.html" title="README">
+          <i class="none"></i>
+        README</a>
+            </li>
+                              <li class="nav-header">Project Documentation</li>
+                                                                                                                                                                                                                                                                                                                                            
       <li>
   
                           <a href="project-info.html" title="Project Information">
           <i class="icon-chevron-right"></i>
         Project Information</a>
                   </li>
-                                                                                                                                  
+                                                                                                                                                                                                                            
       <li>
   
                           <a href="project-reports.html" title="Project Reports">
           <i class="icon-chevron-down"></i>
         Project Reports</a>
                     <ul class="nav nav-list">
+                    
+      <li>
+  
+                          <a href="checkstyle-aggregate.html" title="Checkstyle">
+          <i class="none"></i>
+        Checkstyle</a>
+            </li>
+                    
+      <li>
+  
+                          <a href="apidocs/index.html" title="JavaDocs">
+          <i class="none"></i>
+        JavaDocs</a>
+            </li>
+                    
+      <li>
+  
+                          <a href="testapidocs/index.html" title="Test JavaDocs">
+          <i class="none"></i>
+        Test JavaDocs</a>
+            </li>
+                    
+      <li>
+  
+                          <a href="xref/index.html" title="Source Xref">
+          <i class="none"></i>
+        Source Xref</a>
+            </li>
+                    
+      <li>
+  
+                          <a href="xref-test/index.html" title="Test Source Xref">
+          <i class="none"></i>
+        Test Source Xref</a>
+            </li>
                     
       <li>
   
@@ -214,7 +279,7 @@
 <tr class="a">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
 <td># of properties using the latest version available</td>
-<td>1</td></tr>
+<td>7</td></tr>
 <tr class="b">
 <td><img src="images/icon_warning_sml.gif" alt="" /></td>
 <td># of properties where the next version available is smaller than an incremental version update</td>
@@ -244,8 +309,56 @@
 <th>Next Major</th></tr>
 <tr class="a">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>${logback.version}</td>
-<td>1.1.2</td>
+<td>${contiperf.version}</td>
+<td>2.3.4</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td></tr>
+<tr class="b">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>${catch-exception.version}</td>
+<td>1.3.3</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td></tr>
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>${slf4j.version}</td>
+<td>1.7.9</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td></tr>
+<tr class="b">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>${jmockit.version}</td>
+<td>1.14</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td></tr>
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>${assertj.version}</td>
+<td>1.7.0</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td></tr>
+<tr class="b">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>${junit.version}</td>
+<td>4.12</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td></tr>
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>${mockito.version}</td>
+<td>1.10.17</td>
 <td></td>
 <td></td>
 <td></td>
@@ -262,20 +375,200 @@
 <h2><a name="Properties_associated_with_artifact_versions"></a>Properties associated with artifact versions</h2>
 <p></p>
 <div class="section">
-<h3><a name="alogback.version"></a>${logback.version}</h3>
+<h3><a name="aassertj.version"></a>${assertj.version}</h3>
 <table border="0" class="table table-striped">
 <tr class="a">
 <th width="80%">Status</th>
 <td><img src="images/icon_success_sml.gif" alt="" />&#160;No newer versions available.</td></tr>
 <tr class="b">
 <th width="80%">Property</th>
-<td>${logback.version}</td></tr>
+<td>${assertj.version}</td></tr>
 <tr class="a">
 <th width="80%">Associated artifacts</th>
-<td>ch.qos.logback:logback-classic<br />ch.qos.logback:logback-core</td></tr>
+<td>org.assertj:assertj-core</td></tr>
 <tr class="b">
 <th width="80%">Current Version</th>
-<td>1.1.2</td></tr>
+<td>1.7.0</td></tr>
+<tr class="a">
+<th width="80%">Allowed version range</th>
+<td>[,)</td></tr>
+<tr class="b">
+<th width="80%">Infer associations from project</th>
+<td>Yes</td></tr>
+<tr class="a">
+<th width="80%">Only use release versions</th>
+<td>No</td></tr>
+<tr class="b">
+<th width="80%">Include projects from reactor</th>
+<td>Yes</td></tr>
+<tr class="a">
+<th width="80%">Always use reactor projects (even if older or -SNAPSHOT)</th>
+<td>Yes</td></tr></table></div>
+<div class="section">
+<h3><a name="acatch-exception.version"></a>${catch-exception.version}</h3>
+<table border="0" class="table table-striped">
+<tr class="a">
+<th width="80%">Status</th>
+<td><img src="images/icon_success_sml.gif" alt="" />&#160;No newer versions available.</td></tr>
+<tr class="b">
+<th width="80%">Property</th>
+<td>${catch-exception.version}</td></tr>
+<tr class="a">
+<th width="80%">Associated artifacts</th>
+<td>eu.codearte.catch-exception:catch-exception</td></tr>
+<tr class="b">
+<th width="80%">Current Version</th>
+<td>1.3.3</td></tr>
+<tr class="a">
+<th width="80%">Allowed version range</th>
+<td>[,)</td></tr>
+<tr class="b">
+<th width="80%">Infer associations from project</th>
+<td>Yes</td></tr>
+<tr class="a">
+<th width="80%">Only use release versions</th>
+<td>No</td></tr>
+<tr class="b">
+<th width="80%">Include projects from reactor</th>
+<td>Yes</td></tr>
+<tr class="a">
+<th width="80%">Always use reactor projects (even if older or -SNAPSHOT)</th>
+<td>Yes</td></tr></table></div>
+<div class="section">
+<h3><a name="acontiperf.version"></a>${contiperf.version}</h3>
+<table border="0" class="table table-striped">
+<tr class="a">
+<th width="80%">Status</th>
+<td><img src="images/icon_success_sml.gif" alt="" />&#160;No newer versions available.</td></tr>
+<tr class="b">
+<th width="80%">Property</th>
+<td>${contiperf.version}</td></tr>
+<tr class="a">
+<th width="80%">Associated artifacts</th>
+<td>org.databene:contiperf</td></tr>
+<tr class="b">
+<th width="80%">Current Version</th>
+<td>2.3.4</td></tr>
+<tr class="a">
+<th width="80%">Allowed version range</th>
+<td>[,)</td></tr>
+<tr class="b">
+<th width="80%">Infer associations from project</th>
+<td>Yes</td></tr>
+<tr class="a">
+<th width="80%">Only use release versions</th>
+<td>No</td></tr>
+<tr class="b">
+<th width="80%">Include projects from reactor</th>
+<td>Yes</td></tr>
+<tr class="a">
+<th width="80%">Always use reactor projects (even if older or -SNAPSHOT)</th>
+<td>Yes</td></tr></table></div>
+<div class="section">
+<h3><a name="ajmockit.version"></a>${jmockit.version}</h3>
+<table border="0" class="table table-striped">
+<tr class="a">
+<th width="80%">Status</th>
+<td><img src="images/icon_success_sml.gif" alt="" />&#160;No newer versions available.</td></tr>
+<tr class="b">
+<th width="80%">Property</th>
+<td>${jmockit.version}</td></tr>
+<tr class="a">
+<th width="80%">Associated artifacts</th>
+<td>org.jmockit:jmockit</td></tr>
+<tr class="b">
+<th width="80%">Current Version</th>
+<td>1.14</td></tr>
+<tr class="a">
+<th width="80%">Allowed version range</th>
+<td>[,)</td></tr>
+<tr class="b">
+<th width="80%">Infer associations from project</th>
+<td>Yes</td></tr>
+<tr class="a">
+<th width="80%">Only use release versions</th>
+<td>No</td></tr>
+<tr class="b">
+<th width="80%">Include projects from reactor</th>
+<td>Yes</td></tr>
+<tr class="a">
+<th width="80%">Always use reactor projects (even if older or -SNAPSHOT)</th>
+<td>Yes</td></tr></table></div>
+<div class="section">
+<h3><a name="ajunit.version"></a>${junit.version}</h3>
+<table border="0" class="table table-striped">
+<tr class="a">
+<th width="80%">Status</th>
+<td><img src="images/icon_success_sml.gif" alt="" />&#160;No newer versions available.</td></tr>
+<tr class="b">
+<th width="80%">Property</th>
+<td>${junit.version}</td></tr>
+<tr class="a">
+<th width="80%">Associated artifacts</th>
+<td>junit:junit</td></tr>
+<tr class="b">
+<th width="80%">Current Version</th>
+<td>4.12</td></tr>
+<tr class="a">
+<th width="80%">Allowed version range</th>
+<td>[,)</td></tr>
+<tr class="b">
+<th width="80%">Infer associations from project</th>
+<td>Yes</td></tr>
+<tr class="a">
+<th width="80%">Only use release versions</th>
+<td>No</td></tr>
+<tr class="b">
+<th width="80%">Include projects from reactor</th>
+<td>Yes</td></tr>
+<tr class="a">
+<th width="80%">Always use reactor projects (even if older or -SNAPSHOT)</th>
+<td>Yes</td></tr></table></div>
+<div class="section">
+<h3><a name="amockito.version"></a>${mockito.version}</h3>
+<table border="0" class="table table-striped">
+<tr class="a">
+<th width="80%">Status</th>
+<td><img src="images/icon_success_sml.gif" alt="" />&#160;No newer versions available.</td></tr>
+<tr class="b">
+<th width="80%">Property</th>
+<td>${mockito.version}</td></tr>
+<tr class="a">
+<th width="80%">Associated artifacts</th>
+<td>org.mockito:mockito-core</td></tr>
+<tr class="b">
+<th width="80%">Current Version</th>
+<td>1.10.17</td></tr>
+<tr class="a">
+<th width="80%">Allowed version range</th>
+<td>[,)</td></tr>
+<tr class="b">
+<th width="80%">Infer associations from project</th>
+<td>Yes</td></tr>
+<tr class="a">
+<th width="80%">Only use release versions</th>
+<td>No</td></tr>
+<tr class="b">
+<th width="80%">Include projects from reactor</th>
+<td>Yes</td></tr>
+<tr class="a">
+<th width="80%">Always use reactor projects (even if older or -SNAPSHOT)</th>
+<td>Yes</td></tr></table></div>
+<div class="section">
+<h3><a name="aslf4j.version"></a>${slf4j.version}</h3>
+<table border="0" class="table table-striped">
+<tr class="a">
+<th width="80%">Status</th>
+<td><img src="images/icon_success_sml.gif" alt="" />&#160;No newer versions available.</td></tr>
+<tr class="b">
+<th width="80%">Property</th>
+<td>${slf4j.version}</td></tr>
+<tr class="a">
+<th width="80%">Associated artifacts</th>
+<td>org.slf4j:slf4j-simple</td></tr>
+<tr class="b">
+<th width="80%">Current Version</th>
+<td>1.7.9</td></tr>
 <tr class="a">
 <th width="80%">Allowed version range</th>
 <td>[,)</td></tr>
