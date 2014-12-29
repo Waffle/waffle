@@ -24,6 +24,9 @@
         <links>
             <item name="waffle" href="http://github.com/waffle" />
         </links>
+        <menu name="User guide">
+            <item href="README.html" name="README" />
+        </menu>
         <menu ref="reports" />
     </body>
 </project>
