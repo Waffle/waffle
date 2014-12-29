@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>WindowsAuthenticationToken.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-spring-security4</a> &gt; <a href="index.source.html" class="el_package">waffle.spring</a> &gt; <span class="el_source">WindowsAuthenticationToken.java</span></div><h1>WindowsAuthenticationToken.java</h1><pre class="source lang-java linenums">/**
+ * Waffle (https://github.com/dblock/waffle)
+ *
+ * Copyright (c) 2010 - 2014 Application Security, Inc.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Application Security, Inc.
+ */
+package waffle.spring;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import waffle.servlet.WindowsPrincipal;
+import waffle.windows.auth.WindowsAccount;
+
+/**
+ * A Windows authentication token.
+ * 
+ * @author dblock[at]dblock[dot]org
+ */
+public class WindowsAuthenticationToken implements Authentication {
+
+    private static final long                   serialVersionUID                  = 1L;
+
+    /**
+     * The {@link GrantedAuthorityFactory} that is used by default if a custom one is not specified. This default
+     * {@link GrantedAuthorityFactory} is a {@link FqnGrantedAuthorityFactory} with prefix {@code &quot;ROLE_&quot;} and will
+     * convert the fqn to uppercase
+     */
+<span class="fc" id="L40">    public static final GrantedAuthorityFactory DEFAULT_GRANTED_AUTHORITY_FACTORY = new FqnGrantedAuthorityFactory(</span>
+                                                                                          &quot;ROLE_&quot;, true);
+
+    /**
+     * The {@link GrantedAuthority} that will be added to every WindowsAuthenticationToken, unless another (or null) is
+     * specified.
+     */
+<span class="fc" id="L47">    public static final GrantedAuthority        DEFAULT_GRANTED_AUTHORITY         = new SimpleGrantedAuthority(</span>
+                                                                                          &quot;ROLE_USER&quot;);
+
+    private WindowsPrincipal                    principal;
+    private Collection&lt;GrantedAuthority&gt;        authorities;
+
+    /**
+     * Convenience constructor that calls
+     * {@link #WindowsAuthenticationToken(WindowsPrincipal, GrantedAuthorityFactory, GrantedAuthority)} with:
+     * &lt;ul&gt;
+     * &lt;li&gt;the given identity,&lt;/li&gt;
+     * &lt;li&gt;the {@link #DEFAULT_GRANTED_AUTHORITY_FACTORY}&lt;/li&gt;
+     * &lt;li&gt;the {@link #DEFAULT_GRANTED_AUTHORITY}&lt;/li&gt;
+     * &lt;/ul&gt;
+     */
+    public WindowsAuthenticationToken(final WindowsPrincipal identity) {
+<span class="fc" id="L63">        this(identity, DEFAULT_GRANTED_AUTHORITY_FACTORY, DEFAULT_GRANTED_AUTHORITY);</span>
+<span class="fc" id="L64">    }</span>
+
+    /**
+     * @param identity
+     *            The {@link WindowsPrincipal} for which this token exists.
+     * @param grantedAuthorityFactory
+     *            used to construct {@link GrantedAuthority}s for each of the groups to which the
+     *            {@link WindowsPrincipal} belongs
+     * @param defaultGrantedAuthority
+     *            if not null, this {@link GrantedAuthority} will always be added to the granted authorities list
+     */
+    public WindowsAuthenticationToken(final WindowsPrincipal identity,
+<span class="fc" id="L76">            final GrantedAuthorityFactory grantedAuthorityFactory, final GrantedAuthority defaultGrantedAuthority) {</span>
+
+<span class="fc" id="L78">        this.principal = identity;</span>
+<span class="fc" id="L79">        this.authorities = new ArrayList&lt;GrantedAuthority&gt;();</span>
+<span class="fc bfc" id="L80" title="All 2 branches covered.">        if (defaultGrantedAuthority != null) {</span>
+<span class="fc" id="L81">            this.authorities.add(defaultGrantedAuthority);</span>
+        }
+<span class="fc bfc" id="L83" title="All 2 branches covered.">        for (WindowsAccount group : this.principal.getGroups().values()) {</span>
+<span class="fc" id="L84">            this.authorities.add(grantedAuthorityFactory.createGrantedAuthority(group));</span>
+<span class="fc" id="L85">        }</span>
+<span class="fc" id="L86">    }</span>
+
+    @Override
+    public Collection&lt;GrantedAuthority&gt; getAuthorities() {
+<span class="fc" id="L90">        return this.authorities;</span>
+    }
+
+    @Override
+    public Object getCredentials() {
+<span class="fc" id="L95">        return null;</span>
+    }
+
+    @Override
+    public Object getDetails() {
+<span class="fc" id="L100">        return null;</span>
+    }
+
+    @Override
+    public Object getPrincipal() {
+<span class="fc" id="L105">        return this.principal;</span>
+    }
+
+    @Override
+    public boolean isAuthenticated() {
+<span class="pc bpc" id="L110" title="1 of 2 branches missed.">        return this.principal != null;</span>
+    }
+
+    @Override
+    public void setAuthenticated(final boolean authenticated) {
+<span class="fc" id="L115">        throw new IllegalArgumentException();</span>
+    }
+
+    @Override
+    public String getName() {
+<span class="fc" id="L120">        return this.principal.getName();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>
