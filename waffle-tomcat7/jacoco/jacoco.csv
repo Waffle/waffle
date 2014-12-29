@@ -1,0 +1,7 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+waffle-tomcat7,waffle.apache,WaffleAuthenticatorBase,128,157,9,3,26,40,7,15,2,14
+waffle-tomcat7,waffle.apache,GenericWindowsPrincipal.new Object() {...},4,29,0,0,0,1,0,1,0,1
+waffle-tomcat7,waffle.apache,WindowsRealm,0,9,0,0,0,4,0,4,0,4
+waffle-tomcat7,waffle.apache,MixedAuthenticator,108,420,16,26,23,96,13,15,0,7
+waffle-tomcat7,waffle.apache,NegotiateAuthenticator,58,241,12,14,13,56,10,7,0,4
+waffle-tomcat7,waffle.apache,GenericWindowsPrincipal,36,140,8,6,12,28,8,11,0,9
