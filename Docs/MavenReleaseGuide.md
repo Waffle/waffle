@@ -81,7 +81,7 @@ Once you've succeeded in finishing those steps, log in to [Sonatype OS](https://
 
 
 Releasing the Site Page to gh-pages
-===================================
+-----------------------------------
 
 Setup deployment by adding this to your .m2 settings.xml file.
 
