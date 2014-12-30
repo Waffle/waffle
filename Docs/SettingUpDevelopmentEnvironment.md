@@ -29,7 +29,7 @@ Download Maven from [here](http://maven.apache.org/download.cgi) and unzip it to
 
 After maven is installed, go into `Source/ThirdParty` and run `maven-install.cmd`.  This will install third party dependencies needed for building that are not available in maven central.  This is done to allow us to avoid using system scope dependencies.
 
-### Microsoft Visual Studio 2010
+### Microsoft Visual Studio 2013
 
 Visual Studio is not required, but useful when editing .NET code. At the least, install the Windows SDK for your operating system. You should be able to run `msbuild` from the command prompt after installing sdk.
 
