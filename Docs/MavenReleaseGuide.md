@@ -79,6 +79,27 @@ Once you've succeeded in finishing those steps, log in to [Sonatype OS](https://
 *   The release should now be in the *Releases* repository.
 *   For projects that have Maven Central synchonization enabled, their artifacts in the *Releases* repository are synched to Maven Central every two hours. The *very first time* the WAFFLE project published required a comment on the setup JIRA ticket to get synch enabled.
 
+
+Releasing the Site Page to gh-pages
+===================================
+
+Setup deployment by adding this to your .m2 settings.xml file.
+
+    <server>
+      <id>gh-pages</id>
+      <password>--replace-with-your-password--</password>
+    </server>
+
+Generate the site pages off waffle-parent pom by running.
+
+    mvn site
+
+Deploy the site pages off waffle-parent pom by running.
+
+    mvn site:deploy
+
+Deploy will use ssh to perform the deployment.  This takes some time.  Be patient!!!
+
 [OSSGuide]: http://central.sonatype.org/pages/ossrh-guide.html
 [Maven]: http://maven.apache.org/
 [gpg]: http://www.gnupg.org/
