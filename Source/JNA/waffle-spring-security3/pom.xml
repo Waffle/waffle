@@ -18,7 +18,7 @@
         <git.relative.loc>../../..</git.relative.loc>
 
         <servlet.version>3.0.1</servlet.version>
-        <spring.version>3.2.12.RELEASE</spring.version>
+        <spring.version>3.2.13.RELEASE</spring.version>
         <spring.security.version>3.2.5.RELEASE</spring.security.version>
     </properties>
     <scm>
