@@ -6,7 +6,7 @@ This is a guide for WAFFLE developers hoping to publish a release to Maven Centr
 Building with Maven
 -------------------
 
-In order to build with [Maven][], you'll need Java 6+ and [Maven][] 3.0.5+.  Download and install them, and then run `mvn --version` to check that it's working.  If you don't already have it, also get Git and a clone of the WAFFLE repository.  Once you have this, run `mvn package` in the `Source/JNA/waffle-parent` directory.  This command compiles, unit tests, and JARs all of the WAFFLE components that are currently Maven-enabled.
+In order to build with [Maven][], you'll need Java 6+ and [Maven][] 3.2.1+.  Download and install them, and then run `mvn --version` to check that it's working.  If you don't already have it, also get Git and a clone of the WAFFLE repository.  Once you have this, run `mvn package` in the `Source/JNA/waffle-parent` directory.  This command compiles, unit tests, and JARs all of the WAFFLE components that are currently Maven-enabled.
 
 If you don't want to run the unit tests (which can be useful if you're trying to compile on a non-Windows platform), use `mvn package -DskipTests=true` instead.  This isn't recommended for release builds.
 
@@ -78,6 +78,27 @@ Once you've succeeded in finishing those steps, log in to [Sonatype OS](https://
 *   If there are any problems reported, fix them.
 *   The release should now be in the *Releases* repository.
 *   For projects that have Maven Central synchonization enabled, their artifacts in the *Releases* repository are synched to Maven Central every two hours. The *very first time* the WAFFLE project published required a comment on the setup JIRA ticket to get synch enabled.
+
+
+Releasing the Site Page to gh-pages
+-----------------------------------
+
+Setup deployment by adding this to your .m2 settings.xml file.
+
+    <server>
+      <id>gh-pages</id>
+      <password>--replace-with-your-password--</password>
+    </server>
+
+Generate the site pages off waffle-parent pom by running.
+
+    mvn site
+
+Deploy the site pages off waffle-parent pom by running.
+
+    mvn site:deploy
+
+Deploy will use ssh to perform the deployment.  This takes some time.  Be patient!!!
 
 [OSSGuide]: http://central.sonatype.org/pages/ossrh-guide.html
 [Maven]: http://maven.apache.org/

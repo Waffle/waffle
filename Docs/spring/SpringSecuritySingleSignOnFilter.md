@@ -28,7 +28,7 @@ We'll assume that Spring-Security is configured via `web.xml` with a filter chai
 </listener>
 ```
 
-Copy Waffle JARs, including `waffle-jna.jar`, `guava-17.0.jar`, `jna-4.1.0.jar`, `jna-platform-4.1.0.jar`, `slf4j*.jar` and `waffle-spring-security-3.jar` in the application's `lib` directory along with Spring and Spring-Security JARs. Or, if you use Maven, add the following to your `pom.xml`:
+Copy Waffle JARs, including `waffle-jna.jar`, `guava-18.0.jar`, `jna-4.1.0.jar`, `jna-platform-4.1.0.jar`, `slf4j*.jar` and `waffle-spring-security-3.jar` in the application's `lib` directory along with Spring and Spring-Security JARs. Or, if you use Maven, add the following to your `pom.xml`:
 
 ``` xml
 <dependency>
