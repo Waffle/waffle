@@ -3,7 +3,7 @@
 
 * In progress release
 
-1.7.3 (in-progress)
+1.7.3 (12/21/2014)
 ===================
 * Corrected javadoc issues in shiro package to ensure javadocs build
 * Make some package methods private in shiro package
