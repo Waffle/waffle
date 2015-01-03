@@ -35,6 +35,23 @@ Essentials
 * [Older Versions on CodePlex](http://waffle.codeplex.com/).
 * [PlatformSDK Security Group](https://groups.google.com/group/microsoft.public.platformsdk.security)
 
+Legacy 1.7.x Branch
+-------------------
+Waffle will soon see legacy support for various integrations removed.  From 1/3/2015 through 1/1/2016 we will continue to support the 1.7.x branch for any bug fixes to
+legacy items.
+
+Legacy is defined as...
+
+* Spring 2
+* Tomcat 5
+
+and possiblity of...
+
+* Servlet 2.5
+* Java 6
+
+More to come on this in the near future.  Stay tuned...
+
 Documentation
 -------------
 
