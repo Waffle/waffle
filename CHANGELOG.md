@@ -1,7 +1,10 @@
 1.8-SNAPSHOT (in-progress)
 ==========================
 
-* In progress release
+** In progress release
+
+* Created 1.7.x branch for spring 2 and tomcat 5 continued support for one year.
+* Removed Spring 2 and Tomcat 5
 
 1.7.3 (12/21/2014)
 ===================
