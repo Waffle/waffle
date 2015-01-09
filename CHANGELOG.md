@@ -6,6 +6,7 @@
 Developer note
 --------------
 * [#164](https://github.com/dblock/waffle/issues/164): Added unit test in waffle-tests using catch-exception test library to verify the condition caught is actually expected.
+* [#188](https://github.com/dblock/waffle/issues/188): Added support for service provider to authorize the principal
 
 1.7.1 (11/30/2014 - waffle-jna only)
 ====================================
