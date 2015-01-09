@@ -1,12 +1,12 @@
 Delegating Spring Security Single-SignOn Filter
 ====================================
 
-The Waffle Delegating Spring-Security Filter extends the [Spring Security Single-SignOn Filter] by allowing the application using the filter to inject an additional authenticationmanager to provide authorization to a principal
+The Waffle Delegating Spring-Security Filter extends the [Spring Security Single-SignOn Filter](https://github.com/dblock/waffle/blob/master/Docs/spring/SpringSecuritySingleSignOnFilter.md) by allowing the application using the filter to inject an additional authenticationmanager to provide authorization to a principal
 that is authenticated in towards the active directory in the single sign-on process.
 
 Configuring Spring Security
 ---------------------------
-Configure spring security as is done for [Spring Security Single-SignOn Filter]
+Configure spring security as is done for [Spring Security Single-SignOn Filter](https://github.com/dblock/waffle/blob/master/Docs/spring/SpringSecuritySingleSignOnFilter.md)
 
 Negotiate Security Filter Provider Options
 ------------------------------------------
