@@ -2,7 +2,7 @@ Spring Security Single-SignOn Filter
 ====================================
 
 The Waffle Spring-Security Filter implements the Negotiate and Basic protocols with Kerberos and NTLM single sign-on support for web applications that utilize Spring-Security. This allows users to browse to a Windows intranet site without having to re-enter credentials for browsers that support Kerberos or NTLM and to fall back to Basic authentication for those that do not. For more information about Spring-Security see [http://static.springsource.org/spring-security/site/](http://static.springsource.org/spring-security/site/). 
-
+NOTE: Also available with delegation to support authentication for the service provider [here] (https://github.com/dblock/waffle/blob/master/Docs/spring/DelegatingSpringSecuritySingleSignOnFilter.md)
 Configuring Spring Security
 ---------------------------
 

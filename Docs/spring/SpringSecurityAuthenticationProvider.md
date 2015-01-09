@@ -2,7 +2,7 @@ Spring Security Authentication Provider
 =======================================
 
 The Waffle Spring-Security Authenticator implements Windows authentication for Spring-Security-enabled applications. For more information about Spring-Security see [http://static.springsource.org/spring-security/site/](http://static.springsource.org/spring-security/site/). 
-NOTE: Also available with delegation to support authentication for the service provider [here] (https://github.com/dblock/waffle/blob/master/Docs/spring/DelegatingSpringSecuritySingleSignOnFilter.md)
+
 Configuring Spring Security
 ---------------------------
 
