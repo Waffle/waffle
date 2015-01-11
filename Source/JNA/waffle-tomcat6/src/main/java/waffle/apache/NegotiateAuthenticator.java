@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -38,6 +38,9 @@ import waffle.windows.auth.IWindowsSecurityContext;
  */
 public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 
+    /**
+     * Instantiates a new negotiate authenticator.
+     */
     public NegotiateAuthenticator() {
         super();
         this.log = LoggerFactory.getLogger(NegotiateAuthenticator.class);
@@ -45,16 +48,25 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
         this.log.debug("[waffle.apache.NegotiateAuthenticator] loaded");
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.catalina.authenticator.AuthenticatorBase#start()
+     */
     @Override
     public void start() {
         this.log.info("[waffle.apache.NegotiateAuthenticator] started");
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.catalina.authenticator.AuthenticatorBase#stop()
+     */
     @Override
     public void stop() {
         this.log.info("[waffle.apache.NegotiateAuthenticator] stopped");
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.catalina.authenticator.AuthenticatorBase#authenticate(org.apache.catalina.connector.Request, org.apache.catalina.connector.Response, org.apache.catalina.deploy.LoginConfig)
+     */
     @Override
     public boolean authenticate(final Request request, final Response response, final LoginConfig loginConfig) {
 

@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import com.google.common.base.Joiner;
 
 /**
+ * The Class NtlmServletRequest.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public final class NtlmServletRequest {
@@ -34,10 +36,20 @@ public final class NtlmServletRequest {
                 .join(NtlmServletRequest.getRemoteHost(request), Integer.valueOf(request.getRemotePort()));
     }
 
+    /**
+     * Gets the remote host.
+     *
+     * @param request
+     *            the request
+     * @return the remote host
+     */
     private static String getRemoteHost(final HttpServletRequest request) {
         return request.getRemoteHost() == null ? request.getRemoteAddr() : request.getRemoteHost();
     }
 
+    /**
+     * Instantiates a new ntlm servlet request.
+     */
     private NtlmServletRequest() {
         // Prevent Instantiation of object
     }

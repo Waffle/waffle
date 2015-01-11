@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -25,8 +25,17 @@ import javax.servlet.http.HttpServletRequestWrapper;
  */
 public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
 
+    /** The principal. */
     private WindowsPrincipal principal;
 
+    /**
+     * Instantiates a new negotiate request wrapper.
+     *
+     * @param newRequest
+     *            the new request
+     * @param newPrincipal
+     *            the new principal
+     */
     public NegotiateRequestWrapper(final HttpServletRequest newRequest, final WindowsPrincipal newPrincipal) {
         super(newRequest);
         this.principal = newPrincipal;
@@ -34,6 +43,8 @@ public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
 
     /**
      * User principal.
+     *
+     * @return the user principal
      */
     @Override
     public Principal getUserPrincipal() {
@@ -42,6 +53,8 @@ public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
 
     /**
      * Authentication type.
+     *
+     * @return the auth type
      */
     @Override
     public String getAuthType() {
@@ -50,6 +63,8 @@ public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
 
     /**
      * Remote username.
+     *
+     * @return the remote user
      */
     @Override
     public String getRemoteUser() {
@@ -58,6 +73,10 @@ public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
 
     /**
      * Returns true if the user is in a given role.
+     *
+     * @param role
+     *            the role
+     * @return true, if is user in role
      */
     @Override
     public boolean isUserInRole(final String role) {

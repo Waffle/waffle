@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -49,18 +49,39 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  */
 public class WindowsLoginModule implements LoginModule {
 
+    /** The Constant LOGGER. */
     private static final Logger  LOGGER          = LoggerFactory.getLogger(WindowsLoginModule.class);
 
+    /** The username. */
     private String               username;
+    
+    /** The debug. */
     private boolean              debug;
+    
+    /** The subject. */
     private Subject              subject;
+    
+    /** The callback handler. */
     private CallbackHandler      callbackHandler;
+    
+    /** The auth. */
     private IWindowsAuthProvider auth            = new WindowsAuthProviderImpl();
+    
+    /** The principals. */
     private Set<Principal>       principals;
+    
+    /** The principal format. */
     private PrincipalFormat      principalFormat = PrincipalFormat.FQN;
+    
+    /** The role format. */
     private PrincipalFormat      roleFormat      = PrincipalFormat.FQN;
+    
+    /** The allow guest login. */
     private boolean              allowGuestLogin = true;
 
+    /* (non-Javadoc)
+     * @see javax.security.auth.spi.LoginModule#initialize(javax.security.auth.Subject, javax.security.auth.callback.CallbackHandler, java.util.Map, java.util.Map)
+     */
     @Override
     public void initialize(final Subject initSubject, final CallbackHandler initCallbackHandler,
             final Map<String, ?> initSharedState, final Map<String, ?> initOptions) {
@@ -82,6 +103,10 @@ public class WindowsLoginModule implements LoginModule {
 
     /**
      * Use Windows SSPI to authenticate a username with a password.
+     *
+     * @return true, if successful
+     * @throws LoginException
+     *             the login exception
      */
     @Override
     public boolean login() throws LoginException {
@@ -148,6 +173,10 @@ public class WindowsLoginModule implements LoginModule {
 
     /**
      * Abort a login process.
+     *
+     * @return true, if successful
+     * @throws LoginException
+     *             the login exception
      */
     @Override
     public boolean abort() throws LoginException {
@@ -156,6 +185,10 @@ public class WindowsLoginModule implements LoginModule {
 
     /**
      * Commit principals to the subject.
+     *
+     * @return true, if successful
+     * @throws LoginException
+     *             the login exception
      */
     @Override
     public boolean commit() throws LoginException {
@@ -182,6 +215,10 @@ public class WindowsLoginModule implements LoginModule {
 
     /**
      * Logout a user.
+     *
+     * @return true, if successful
+     * @throws LoginException
+     *             the login exception
      */
     @Override
     public boolean logout() throws LoginException {
