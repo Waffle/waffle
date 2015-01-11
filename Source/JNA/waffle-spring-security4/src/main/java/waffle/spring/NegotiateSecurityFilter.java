@@ -106,7 +106,9 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
                 final Authentication authentication = new WindowsAuthenticationToken(principal,
                         this.grantedAuthorityFactory, this.defaultGrantedAuthority);
 
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+                if (!setAuthentication(request, response, authentication)) {
+                    return;
+                }
 
                 LOGGER.info("successfully logged in user: {}", windowsIdentity.getFqn());
 
@@ -116,6 +118,18 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
         }
 
         chain.doFilter(request, response);
+    }
+
+    /*
+     * Invoked when authentication towards ad was succesful to populate securitycontext Override to add service provider
+     * authorization checks.
+     * 
+     * @return if security context was set.
+     */
+    protected boolean setAuthentication(final HttpServletRequest request, final HttpServletResponse response,
+            final Authentication authentication) {
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        return true;
     }
 
     @Override
@@ -135,7 +149,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
      * @param close
      *            Close connection.
      */
-    private void sendUnauthorized(final HttpServletResponse response, final boolean close) {
+    protected void sendUnauthorized(final HttpServletResponse response, final boolean close) {
         try {
             this.provider.sendUnauthorized(response);
             if (close) {
