@@ -40,31 +40,61 @@ import waffle.windows.auth.IWindowsSecurityContext;
  */
 public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
+    /** The Constant LOGGER. */
     private static final Logger  LOGGER           = LoggerFactory.getLogger(NegotiateSecurityFilterProvider.class);
 
+    /** The Constant WWW_AUTHENTICATE. */
     private static final String  WWW_AUTHENTICATE = "WWW-Authenticate";
 
+    /** The Constant PROTOCOLS. */
     private static final String  PROTOCOLS        = "protocols";
+    
+    /** The Constant NEGOTIATE. */
     private static final String  NEGOTIATE        = "Negotiate";
+    
+    /** The Constant NTLM. */
     private static final String  NTLM             = "NTLM";
 
+    /** The protocols. */
     private List<String>         protocols        = new ArrayList<String>();
+    
+    /** The auth. */
     private IWindowsAuthProvider auth;
 
+    /**
+     * Instantiates a new negotiate security filter provider.
+     *
+     * @param newAuthProvider
+     *            the new auth provider
+     */
     public NegotiateSecurityFilterProvider(final IWindowsAuthProvider newAuthProvider) {
         this.auth = newAuthProvider;
         this.protocols.add(NEGOTIATE);
         this.protocols.add(NTLM);
     }
 
+    /**
+     * Gets the protocols.
+     *
+     * @return the protocols
+     */
     public List<String> getProtocols() {
         return this.protocols;
     }
 
+    /**
+     * Sets the protocols.
+     *
+     * @param values
+     *            the new protocols
+     */
     public void setProtocols(final List<String> values) {
         this.protocols = values;
     }
 
+    /* (non-Javadoc)
+     * @see waffle.servlet.spi.SecurityFilterProvider#sendUnauthorized(javax.servlet.http.HttpServletResponse)
+     */
     @Override
     public void sendUnauthorized(final HttpServletResponse response) {
         final Iterator<String> protocolsIterator = this.protocols.iterator();
@@ -73,6 +103,9 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
         }
     }
 
+    /* (non-Javadoc)
+     * @see waffle.servlet.spi.SecurityFilterProvider#isPrincipalException(javax.servlet.http.HttpServletRequest)
+     */
     @Override
     public boolean isPrincipalException(final HttpServletRequest request) {
         final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
@@ -81,6 +114,9 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
         return ntlmPost;
     }
 
+    /* (non-Javadoc)
+     * @see waffle.servlet.spi.SecurityFilterProvider#doFilter(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     @Override
     public IWindowsIdentity doFilter(final HttpServletRequest request, final HttpServletResponse response)
             throws IOException {
@@ -123,6 +159,9 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
         return identity;
     }
 
+    /* (non-Javadoc)
+     * @see waffle.servlet.spi.SecurityFilterProvider#isSecurityPackageSupported(java.lang.String)
+     */
     @Override
     public boolean isSecurityPackageSupported(final String securityPackage) {
         for (String protocol : this.protocols) {
@@ -133,6 +172,9 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see waffle.servlet.spi.SecurityFilterProvider#initParameter(java.lang.String, java.lang.String)
+     */
     @Override
     public void initParameter(final String parameterName, final String parameterValue) {
         if (parameterName.equals(PROTOCOLS)) {

@@ -24,18 +24,28 @@ import org.apache.catalina.realm.RealmBase;
  */
 public class WindowsRealm extends RealmBase {
 
+    /** The Constant NAME. */
     protected static final String NAME = "waffle.apache.WindowsRealm/1.0";
 
+    /* (non-Javadoc)
+     * @see org.apache.catalina.realm.RealmBase#getName()
+     */
     @Override
     protected String getName() {
         return NAME;
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.catalina.realm.RealmBase#getPassword(java.lang.String)
+     */
     @Override
     protected String getPassword(final String arg0) {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.catalina.realm.RealmBase#getPrincipal(java.lang.String)
+     */
     @Override
     protected Principal getPrincipal(final String arg0) {
         return null;

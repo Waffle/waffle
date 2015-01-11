@@ -21,6 +21,8 @@ import com.sun.jna.platform.win32.WinNT.HANDLE;
 import waffle.windows.auth.IWindowsImpersonationContext;
 
 /**
+ * The Class WindowsIdentityImpersonationContextImpl.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsIdentityImpersonationContextImpl implements IWindowsImpersonationContext {
@@ -37,6 +39,9 @@ public class WindowsIdentityImpersonationContextImpl implements IWindowsImperson
         }
     }
 
+    /* (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsImpersonationContext#revertToSelf()
+     */
     @Override
     public void revertToSelf() {
         Advapi32.INSTANCE.RevertToSelf();

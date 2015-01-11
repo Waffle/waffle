@@ -35,10 +35,14 @@ import org.apache.shiro.subject.SimplePrincipalCollection;
  * @since 1.0.0
  */
 public class NegotiateInfo implements AuthenticationInfo {
+    
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -1537448549089922914L;
 
+    /** The subject. */
     private final Subject     subject;
 
+    /** The realm name. */
     private final String      realmName;
 
     /**

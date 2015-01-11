@@ -22,12 +22,27 @@ import java.io.Serializable;
  */
 public class WindowsAccount implements Serializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
+    
+    /** The sid string. */
     private String            sidString;
+    
+    /** The fqn. */
     private String            fqn;
+    
+    /** The name. */
     private String            name;
+    
+    /** The domain. */
     private String            domain;
 
+    /**
+     * Instantiates a new windows account.
+     *
+     * @param account
+     *            the account
+     */
     public WindowsAccount(final IWindowsAccount account) {
         this.sidString = account.getSidString();
         this.fqn = account.getFqn();
@@ -35,22 +50,45 @@ public class WindowsAccount implements Serializable {
         this.domain = account.getDomain();
     }
 
+    /**
+     * Gets the sid string.
+     *
+     * @return the sid string
+     */
     public String getSidString() {
         return this.sidString;
     }
 
+    /**
+     * Gets the fqn.
+     *
+     * @return the fqn
+     */
     public String getFqn() {
         return this.fqn;
     }
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Gets the domain.
+     *
+     * @return the domain
+     */
     public String getDomain() {
         return this.domain;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object o) {
 
@@ -65,6 +103,9 @@ public class WindowsAccount implements Serializable {
         return ((WindowsAccount) o).getSidString().equals(getSidString());
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         return getSidString().hashCode();

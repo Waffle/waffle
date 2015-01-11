@@ -22,8 +22,15 @@ import org.springframework.security.core.AuthenticationException;
  */
 public class GuestLoginDisabledAuthenticationException extends AuthenticationException {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Instantiates a new guest login disabled authentication exception.
+     *
+     * @param msg
+     *            the msg
+     */
     public GuestLoginDisabledAuthenticationException(final String msg) {
         super(msg);
     }

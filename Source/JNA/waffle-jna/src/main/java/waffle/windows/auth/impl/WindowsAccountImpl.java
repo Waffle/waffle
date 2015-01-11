@@ -27,6 +27,7 @@ import com.sun.jna.platform.win32.Secur32Util;
  */
 public class WindowsAccountImpl implements IWindowsAccount {
 
+    /** The account. */
     private final Account account;
 
     /**
@@ -80,6 +81,9 @@ public class WindowsAccountImpl implements IWindowsAccount {
         return this.account.domain;
     }
 
+    /* (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsAccount#getFqn()
+     */
     @Override
     public String getFqn() {
         return this.account.fqn;
@@ -95,6 +99,9 @@ public class WindowsAccountImpl implements IWindowsAccount {
         return this.account.name;
     }
 
+    /* (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsAccount#getSidString()
+     */
     @Override
     public String getSidString() {
         return this.account.sidString;

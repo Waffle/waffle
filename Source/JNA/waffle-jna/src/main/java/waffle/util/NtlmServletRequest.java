@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import com.google.common.base.Joiner;
 
 /**
+ * The Class NtlmServletRequest.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public final class NtlmServletRequest {
@@ -34,10 +36,20 @@ public final class NtlmServletRequest {
                 .join(NtlmServletRequest.getRemoteHost(request), Integer.valueOf(request.getRemotePort()));
     }
 
+    /**
+     * Gets the remote host.
+     *
+     * @param request
+     *            the request
+     * @return the remote host
+     */
     private static String getRemoteHost(final HttpServletRequest request) {
         return request.getRemoteHost() == null ? request.getRemoteAddr() : request.getRemoteHost();
     }
 
+    /**
+     * Instantiates a new ntlm servlet request.
+     */
     private NtlmServletRequest() {
         // Prevent Instantiation of object
     }

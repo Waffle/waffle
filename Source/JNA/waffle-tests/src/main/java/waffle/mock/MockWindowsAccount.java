@@ -16,22 +16,48 @@ package waffle.mock;
 import waffle.windows.auth.IWindowsAccount;
 
 /**
+ * The Class MockWindowsAccount.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class MockWindowsAccount implements IWindowsAccount {
 
+    /** The Constant TEST_USER_NAME. */
     public static final String TEST_USER_NAME = "WaffleTestUser";
+    
+    /** The Constant TEST_PASSWORD. */
     public static final String TEST_PASSWORD  = "!WAFFLEP$$Wrd0";
 
+    /** The fqn. */
     private String             fqn;
+    
+    /** The name. */
     private String             name;
+    
+    /** The domain. */
     private String             domain;
+    
+    /** The sid. */
     private String             sid;
 
+    /**
+     * Instantiates a new mock windows account.
+     *
+     * @param newFqn
+     *            the new fqn
+     */
     public MockWindowsAccount(final String newFqn) {
         this(newFqn, "S-" + newFqn.hashCode());
     }
 
+    /**
+     * Instantiates a new mock windows account.
+     *
+     * @param newFqn
+     *            the new fqn
+     * @param newSid
+     *            the new sid
+     */
     public MockWindowsAccount(final String newFqn, final String newSid) {
         this.fqn = newFqn;
         this.sid = newSid;
@@ -44,21 +70,33 @@ public class MockWindowsAccount implements IWindowsAccount {
         }
     }
 
+    /* (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsAccount#getDomain()
+     */
     @Override
     public String getDomain() {
         return this.domain;
     }
 
+    /* (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsAccount#getFqn()
+     */
     @Override
     public String getFqn() {
         return this.fqn;
     }
 
+    /* (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsAccount#getName()
+     */
     @Override
     public String getName() {
         return this.name;
     }
 
+    /* (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsAccount#getSidString()
+     */
     @Override
     public String getSidString() {
         return this.sid;

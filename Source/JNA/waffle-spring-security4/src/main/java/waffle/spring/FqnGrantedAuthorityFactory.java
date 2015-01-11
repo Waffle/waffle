@@ -25,17 +25,32 @@ import waffle.windows.auth.WindowsAccount;
  * <li>prepending a prefix, and</li>
  * <li>converting to uppercase</li>
  * </ul>
+ * .
  */
 public class FqnGrantedAuthorityFactory implements GrantedAuthorityFactory {
 
+    /** The prefix. */
     private final String  prefix;
+    
+    /** The convert to upper case. */
     private final boolean convertToUpperCase;
 
+    /**
+     * Instantiates a new fqn granted authority factory.
+     *
+     * @param newPrefix
+     *            the new prefix
+     * @param newConvertToUpperCase
+     *            the new convert to upper case
+     */
     public FqnGrantedAuthorityFactory(final String newPrefix, final boolean newConvertToUpperCase) {
         this.prefix = newPrefix;
         this.convertToUpperCase = newConvertToUpperCase;
     }
 
+    /* (non-Javadoc)
+     * @see waffle.spring.GrantedAuthorityFactory#createGrantedAuthority(waffle.windows.auth.WindowsAccount)
+     */
     @Override
     public GrantedAuthority createGrantedAuthority(final WindowsAccount windowsAccount) {
 

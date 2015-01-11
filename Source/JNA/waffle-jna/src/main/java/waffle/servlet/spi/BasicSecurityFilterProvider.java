@@ -35,14 +35,28 @@ import waffle.windows.auth.IWindowsIdentity;
  */
 public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 
+    /** The Constant LOGGER. */
     private static final Logger  LOGGER = LoggerFactory.getLogger(BasicSecurityFilterProvider.class);
+    
+    /** The realm. */
     private String               realm  = "BasicSecurityFilterProvider";
+    
+    /** The auth. */
     private IWindowsAuthProvider auth;
 
+    /**
+     * Instantiates a new basic security filter provider.
+     *
+     * @param newAuthProvider
+     *            the new auth provider
+     */
     public BasicSecurityFilterProvider(final IWindowsAuthProvider newAuthProvider) {
         this.auth = newAuthProvider;
     }
 
+    /* (non-Javadoc)
+     * @see waffle.servlet.spi.SecurityFilterProvider#doFilter(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     @Override
     public IWindowsIdentity doFilter(final HttpServletRequest request, final HttpServletResponse response)
             throws IOException {
@@ -57,16 +71,25 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
         return this.auth.logonUser(usernamePasswordArray[0], usernamePasswordArray[1]);
     }
 
+    /* (non-Javadoc)
+     * @see waffle.servlet.spi.SecurityFilterProvider#isPrincipalException(javax.servlet.http.HttpServletRequest)
+     */
     @Override
     public boolean isPrincipalException(final HttpServletRequest request) {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see waffle.servlet.spi.SecurityFilterProvider#isSecurityPackageSupported(java.lang.String)
+     */
     @Override
     public boolean isSecurityPackageSupported(final String securityPackage) {
         return securityPackage.equalsIgnoreCase("Basic");
     }
 
+    /* (non-Javadoc)
+     * @see waffle.servlet.spi.SecurityFilterProvider#sendUnauthorized(javax.servlet.http.HttpServletResponse)
+     */
     @Override
     public void sendUnauthorized(final HttpServletResponse response) {
         response.addHeader("WWW-Authenticate", "Basic realm=\"" + this.realm + "\"");
@@ -93,6 +116,11 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 
     /**
      * Init configuration parameters.
+     *
+     * @param parameterName
+     *            the parameter name
+     * @param parameterValue
+     *            the parameter value
      */
     @Override
     public void initParameter(final String parameterName, final String parameterValue) {

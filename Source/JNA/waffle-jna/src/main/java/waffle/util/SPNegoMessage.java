@@ -22,12 +22,20 @@ public final class SPNegoMessage {
 
     // Check for NegTokenInit. It has always a special oid ("spnegoOid"),
     // which makes it rather easy to detect.
+    /** The Constant SPENGO_OID. */
     private static final byte[] SPENGO_OID = { 0x06, 0x06, 0x2b, 0x06, 0x01, 0x05, 0x05, 0x02 };
 
     // Check if this message is SPNEGO authentication token. There
     // are two token types, NegTokenInit and NegTokenArg.
     // For details and specification, see
     // http://msdn.microsoft.com/en-us/library/ms995330.aspx
+    /**
+     * Checks if is SP nego message.
+     *
+     * @param message
+     *            the message
+     * @return true, if is SP nego message
+     */
     public static boolean isSPNegoMessage(final byte[] message) {
 
         // Message should always contains at least some kind of
@@ -41,6 +49,13 @@ public final class SPNegoMessage {
         return isNegTokenInit(message) || isNegTokenArg(message);
     }
 
+    /**
+     * Checks if is neg token init.
+     *
+     * @param message
+     *            the message
+     * @return true, if is neg token init
+     */
     public static boolean isNegTokenInit(final byte[] message) {
         // First byte should always be 0x60 (Application Constructed Object)
         if (message[0] != 0x60) {
@@ -72,6 +87,13 @@ public final class SPNegoMessage {
     // Instead id has one-byte id (0xa1). Obviously this is not
     // a great way to detect the message, so we check encoded
     // message length against number of received message bytes.
+    /**
+     * Checks if is neg token arg.
+     *
+     * @param message
+     *            the message
+     * @return true, if is neg token arg
+     */
     public static boolean isNegTokenArg(final byte[] message) {
         // Check if this is NegTokenArg packet, it's id is 0xa1
         if ((message[0] & 0xff) != 0xa1) {
@@ -98,6 +120,9 @@ public final class SPNegoMessage {
         return len + 2 == message.length;
     }
 
+    /**
+     * Instantiates a new SP nego message.
+     */
     private SPNegoMessage() {
         // Prevent Instantiation of object
     }

@@ -38,9 +38,18 @@ import waffle.windows.auth.IWindowsIdentity;
  */
 public class SecurityFilterProviderCollection {
 
+    /** The Constant LOGGER. */
     private static final Logger          LOGGER    = LoggerFactory.getLogger(SecurityFilterProviderCollection.class);
+    
+    /** The providers. */
     private List<SecurityFilterProvider> providers = new ArrayList<SecurityFilterProvider>();
 
+    /**
+     * Instantiates a new security filter provider collection.
+     *
+     * @param providerArray
+     *            the provider array
+     */
     public SecurityFilterProviderCollection(final SecurityFilterProvider[] providerArray) {
         for (SecurityFilterProvider provider : providerArray) {
             LOGGER.info("using '{}'", provider.getClass().getName());
@@ -48,6 +57,14 @@ public class SecurityFilterProviderCollection {
         }
     }
 
+    /**
+     * Instantiates a new security filter provider collection.
+     *
+     * @param providerNames
+     *            the provider names
+     * @param auth
+     *            the auth
+     */
     @SuppressWarnings("unchecked")
     public SecurityFilterProviderCollection(final String[] providerNames, final IWindowsAuthProvider auth) {
         Class<SecurityFilterProvider> providerClass;
@@ -86,6 +103,12 @@ public class SecurityFilterProviderCollection {
         }
     }
 
+    /**
+     * Instantiates a new security filter provider collection.
+     *
+     * @param auth
+     *            the auth
+     */
     public SecurityFilterProviderCollection(final IWindowsAuthProvider auth) {
         this.providers.add(new NegotiateSecurityFilterProvider(auth));
         this.providers.add(new BasicSecurityFilterProvider(auth));
@@ -102,6 +125,13 @@ public class SecurityFilterProviderCollection {
         return get(securityPackage) != null;
     }
 
+    /**
+     * Gets the.
+     *
+     * @param securityPackage
+     *            the security package
+     * @return the security filter provider
+     */
     private SecurityFilterProvider get(final String securityPackage) {
         for (SecurityFilterProvider provider : this.providers) {
             if (provider.isSecurityPackageSupported(securityPackage)) {

@@ -61,17 +61,28 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
     // related to setSPN and running tomcat server as NT Service account vs. as normal user account.
     // http://waffle.codeplex.com/discussions/254748
     // setspn -A HTTP/<server-fqdn> <user_tomcat_running_under>
+    /** The Constant PROTOCOLS. */
     private static final List<String> PROTOCOLS           = new ArrayList<String>();
 
+    /** The failure key attribute. */
     private String                    failureKeyAttribute = FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME;
 
+    /** The remember me param. */
     private String                    rememberMeParam     = FormAuthenticationFilter.DEFAULT_REMEMBER_ME_PARAM;
 
+    /**
+     * Instantiates a new negotiate authentication filter.
+     */
     public NegotiateAuthenticationFilter() {
         NegotiateAuthenticationFilter.PROTOCOLS.add("Negotiate");
         NegotiateAuthenticationFilter.PROTOCOLS.add("NTLM");
     }
 
+    /**
+     * Gets the remember me param.
+     *
+     * @return the remember me param
+     */
     public String getRememberMeParam() {
         return this.rememberMeParam;
     }
@@ -91,11 +102,17 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         this.rememberMeParam = value;
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.shiro.web.filter.authc.AuthenticatingFilter#isRememberMe(javax.servlet.ServletRequest)
+     */
     @Override
     protected boolean isRememberMe(final ServletRequest request) {
         return WebUtils.isTrue(request, getRememberMeParam());
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.shiro.web.filter.authc.AuthenticatingFilter#createToken(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+     */
     @Override
     protected AuthenticationToken createToken(final ServletRequest request, final ServletResponse response) {
         final String authorization = getAuthzHeader(request);
@@ -120,6 +137,9 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         return new NegotiateToken(inToken, new byte[0], connectionId, securityPackage, ntlmPost, rememberMe, host);
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.shiro.web.filter.authc.AuthenticatingFilter#onLoginSuccess(org.apache.shiro.authc.AuthenticationToken, org.apache.shiro.subject.Subject, javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+     */
     @Override
     protected boolean onLoginSuccess(final AuthenticationToken token, final Subject subject,
             final ServletRequest request, final ServletResponse response) throws Exception {
@@ -127,6 +147,9 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.shiro.web.filter.authc.AuthenticatingFilter#onLoginFailure(org.apache.shiro.authc.AuthenticationToken, org.apache.shiro.authc.AuthenticationException, javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+     */
     @Override
     protected boolean onLoginFailure(final AuthenticationToken token, final AuthenticationException e,
             final ServletRequest request, final ServletResponse response) {
@@ -146,19 +169,41 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         return true;
     }
 
+    /**
+     * Sets the failure attribute.
+     *
+     * @param request
+     *            the request
+     * @param ae
+     *            the ae
+     */
     protected void setFailureAttribute(final ServletRequest request, final AuthenticationException ae) {
         String className = ae.getClass().getName();
         request.setAttribute(getFailureKeyAttribute(), className);
     }
 
+    /**
+     * Gets the failure key attribute.
+     *
+     * @return the failure key attribute
+     */
     public String getFailureKeyAttribute() {
         return this.failureKeyAttribute;
     }
 
+    /**
+     * Sets the failure key attribute.
+     *
+     * @param value
+     *            the new failure key attribute
+     */
     public void setFailureKeyAttribute(final String value) {
         this.failureKeyAttribute = value;
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.shiro.web.filter.AccessControlFilter#onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+     */
     @Override
     protected boolean onAccessDenied(final ServletRequest request, final ServletResponse response) throws Exception {
         // false by default or we wouldn't be in
@@ -209,6 +254,13 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         return httpRequest.getHeader("Authorization");
     }
 
+    /**
+     * Gets the authz header protocol.
+     *
+     * @param request
+     *            the request
+     * @return the authz header protocol
+     */
     private String getAuthzHeaderProtocol(final ServletRequest request) {
         final String authzHeader = getAuthzHeader(request);
         return authzHeader.substring(0, authzHeader.indexOf(" "));
@@ -253,16 +305,38 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
     }
 
+    /**
+     * Send challenge initiate negotiate.
+     *
+     * @param response
+     *            the response
+     */
     void sendChallengeInitiateNegotiate(final ServletResponse response) {
         sendChallenge(PROTOCOLS, response, null);
     }
 
+    /**
+     * Send challenge during negotiate.
+     *
+     * @param protocol
+     *            the protocol
+     * @param response
+     *            the response
+     * @param out
+     *            the out
+     */
     void sendChallengeDuringNegotiate(final String protocol, final ServletResponse response, final byte[] out) {
         final List<String> protocolsList = new ArrayList<String>();
         protocolsList.add(protocol);
         sendChallenge(protocolsList, response, out);
     }
 
+    /**
+     * Send challenge on failure.
+     *
+     * @param response
+     *            the response
+     */
     void sendChallengeOnFailure(final ServletResponse response) {
         final HttpServletResponse httpResponse = WebUtils.toHttp(response);
         sendUnauthorized(PROTOCOLS, null, httpResponse);
@@ -275,12 +349,32 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         }
     }
 
+    /**
+     * Send authenticate header.
+     *
+     * @param protocolsList
+     *            the protocols list
+     * @param out
+     *            the out
+     * @param httpResponse
+     *            the http response
+     */
     private void sendAuthenticateHeader(final List<String> protocolsList, final byte[] out,
             final HttpServletResponse httpResponse) {
         sendUnauthorized(protocolsList, out, httpResponse);
         httpResponse.setHeader("Connection", "keep-alive");
     }
 
+    /**
+     * Send unauthorized.
+     *
+     * @param protocols
+     *            the protocols
+     * @param out
+     *            the out
+     * @param response
+     *            the response
+     */
     private void sendUnauthorized(final List<String> protocols, final byte[] out, final HttpServletResponse response) {
         for (final String protocol : protocols) {
             if (out == null || out.length == 0) {
