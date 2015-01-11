@@ -1,10 +1,9 @@
 1.8-SNAPSHOT (in-progress)
 ==========================
 
-** In progress release
-
 * Created 1.7.x branch for spring 2 and tomcat 5 continued support for one year.
-* Removed Spring 2 and Tomcat 5
+* [#174](https://github.com/dblock/waffle/issues/174): Removed Spring 2 and Tomcat 5
+* [#188](https://github.com/dblock/waffle/issues/188): Added support for service provider to authorize the principal
 
 1.7.3 (12/21/2014)
 ===================
@@ -21,7 +20,6 @@
 Developer note
 --------------
 * [#164](https://github.com/dblock/waffle/issues/164): Added unit test in waffle-tests using catch-exception test library to verify the condition caught is actually expected.
-* [#188](https://github.com/dblock/waffle/issues/188): Added support for service provider to authorize the principal
 
 1.7.1 (11/30/2014 - waffle-jna only)
 ====================================
