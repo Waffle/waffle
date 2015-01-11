@@ -1,9 +1,12 @@
 1.8-SNAPSHOT (in-progress)
 ==========================
 
-* In progress release
+** In progress release
 
-1.7.3 (in-progress)
+* Created 1.7.x branch for spring 2 and tomcat 5 continued support for one year.
+* Removed Spring 2 and Tomcat 5
+
+1.7.3 (12/21/2014)
 ===================
 * Corrected javadoc issues in shiro package to ensure javadocs build
 * Make some package methods private in shiro package
