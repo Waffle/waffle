@@ -21,11 +21,26 @@ import java.util.Set;
 import waffle.windows.auth.IWindowsAccount;
 import waffle.windows.auth.IWindowsIdentity;
 
+/**
+ * The Class WaffleFqnPrincipal.
+ */
 public class WaffleFqnPrincipal implements Serializable {
+    
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1;
+    
+    /** The fqn. */
     private final String      fqn;
+    
+    /** The group fqns. */
     private final Set<String> groupFqns        = new HashSet<String>();
 
+    /**
+     * Instantiates a new waffle fqn principal.
+     *
+     * @param identity
+     *            the identity
+     */
     WaffleFqnPrincipal(final IWindowsIdentity identity) {
         this.fqn = identity.getFqn();
         for (IWindowsAccount group : identity.getGroups()) {
@@ -34,6 +49,8 @@ public class WaffleFqnPrincipal implements Serializable {
     }
 
     /**
+     * Gets the fqn.
+     *
      * @return the fully qualified name of the user
      */
     public String getFqn() {
@@ -41,12 +58,17 @@ public class WaffleFqnPrincipal implements Serializable {
     }
 
     /**
+     * Gets the group fqns.
+     *
      * @return the fully qualified names of all groups that the use belongs to
      */
     public Set<String> getGroupFqns() {
         return Collections.unmodifiableSet(this.groupFqns);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (obj instanceof WaffleFqnPrincipal) {
@@ -55,11 +77,17 @@ public class WaffleFqnPrincipal implements Serializable {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         return this.fqn.hashCode();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         final StringBuilder stringBuilder = new StringBuilder();

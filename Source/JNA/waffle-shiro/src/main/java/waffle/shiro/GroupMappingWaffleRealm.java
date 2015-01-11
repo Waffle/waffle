@@ -28,6 +28,8 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
  * {@link org.apache.shiro.authz.permission.RolePermissionResolver}.
  */
 public class GroupMappingWaffleRealm extends AbstractWaffleRealm {
+    
+    /** The group roles map. */
     private final Map<String, String> groupRolesMap = new HashMap<String, String>();
 
     /**

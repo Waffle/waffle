@@ -16,10 +16,15 @@ package waffle.mock;
 import waffle.windows.auth.IWindowsImpersonationContext;
 
 /**
+ * The Class MockWindowsImpersonationContext.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class MockWindowsImpersonationContext implements IWindowsImpersonationContext {
 
+    /* (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsImpersonationContext#revertToSelf()
+     */
     @Override
     public void revertToSelf() {
         // Do Nothing

@@ -24,16 +24,33 @@ import com.google.common.io.BaseEncoding;
  */
 public class AuthorizationHeader {
 
+    /** The request. */
     private HttpServletRequest request;
 
+    /**
+     * Instantiates a new authorization header.
+     *
+     * @param httpServletRequest
+     *            the http servlet request
+     */
     public AuthorizationHeader(final HttpServletRequest httpServletRequest) {
         this.request = httpServletRequest;
     }
 
+    /**
+     * Gets the header.
+     *
+     * @return the header
+     */
     public String getHeader() {
         return this.request.getHeader("Authorization");
     }
 
+    /**
+     * Checks if is null.
+     *
+     * @return true, if is null
+     */
     public boolean isNull() {
         return getHeader() == null || getHeader().length() == 0;
     }
@@ -58,15 +75,28 @@ public class AuthorizationHeader {
         throw new RuntimeException("Invalid Authorization header: " + header);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return isNull() ? "<none>" : getHeader();
     }
 
+    /**
+     * Gets the token.
+     *
+     * @return the token
+     */
     public String getToken() {
         return getHeader().substring(getSecurityPackage().length() + 1);
     }
 
+    /**
+     * Gets the token bytes.
+     *
+     * @return the token bytes
+     */
     public byte[] getTokenBytes() {
         try {
             return BaseEncoding.base64().decode(getToken());
@@ -75,6 +105,11 @@ public class AuthorizationHeader {
         }
     }
 
+    /**
+     * Checks if is ntlm type1 message.
+     *
+     * @return true, if is ntlm type1 message
+     */
     public boolean isNtlmType1Message() {
         if (isNull()) {
             return false;
@@ -88,6 +123,11 @@ public class AuthorizationHeader {
         return 1 == NtlmMessage.getMessageType(tokenBytes);
     }
 
+    /**
+     * Checks if is SP nego message.
+     *
+     * @return true, if is SP nego message
+     */
     public boolean isSPNegoMessage() {
 
         if (isNull()) {

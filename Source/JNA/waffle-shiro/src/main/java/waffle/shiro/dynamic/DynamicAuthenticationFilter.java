@@ -90,10 +90,14 @@ import javax.servlet.ServletResponse;
  */
 public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER                       = LoggerFactory
                                                                      .getLogger(DynamicAuthenticationFilter.class);
 
+    /** The Constant PARAM_NAME_AUTHTYPE. */
     public static final String  PARAM_NAME_AUTHTYPE          = "authType";
+    
+    /** The Constant PARAM_VAL_AUTHTYPE_NEGOTIATE. */
     public static final String  PARAM_VAL_AUTHTYPE_NEGOTIATE = "j_negotiate";
 
     /**
@@ -101,17 +105,30 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
      */
     private static final class WrapNegotiateAuthenticationFilter extends NegotiateAuthenticationFilter {
 
+        /** The parent. */
         private final DynamicAuthenticationFilter parent;
 
+        /**
+         * Instantiates a new wrap negotiate authentication filter.
+         *
+         * @param newParent
+         *            the new parent
+         */
         WrapNegotiateAuthenticationFilter(final DynamicAuthenticationFilter newParent) {
             this.parent = newParent;
         }
 
+        /* (non-Javadoc)
+         * @see waffle.shiro.negotiate.NegotiateAuthenticationFilter#onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+         */
         @Override
         public boolean onAccessDenied(final ServletRequest request, final ServletResponse response) throws Exception {
             return super.onAccessDenied(request, response);
         }
 
+        /* (non-Javadoc)
+         * @see waffle.shiro.negotiate.NegotiateAuthenticationFilter#onLoginSuccess(org.apache.shiro.authc.AuthenticationToken, org.apache.shiro.subject.Subject, javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+         */
         @Override
         protected boolean onLoginSuccess(final AuthenticationToken token, final Subject subject,
                 final ServletRequest request, final ServletResponse response) throws Exception {
@@ -119,6 +136,7 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
         }
     }
 
+    /** The filter negotiate. */
     private final WrapNegotiateAuthenticationFilter filterNegotiate = new WrapNegotiateAuthenticationFilter(this);
 
     /**
@@ -126,17 +144,30 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
      */
     private static final class WrapFormAuthenticationFilter extends FormAuthenticationFilter {
 
+        /** The parent. */
         private final DynamicAuthenticationFilter parent;
 
+        /**
+         * Instantiates a new wrap form authentication filter.
+         *
+         * @param newParent
+         *            the new parent
+         */
         WrapFormAuthenticationFilter(final DynamicAuthenticationFilter newParent) {
             this.parent = newParent;
         }
 
+        /* (non-Javadoc)
+         * @see org.apache.shiro.web.filter.authc.FormAuthenticationFilter#onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+         */
         @Override
         public boolean onAccessDenied(final ServletRequest request, final ServletResponse response) throws Exception {
             return super.onAccessDenied(request, response);
         }
 
+        /* (non-Javadoc)
+         * @see org.apache.shiro.web.filter.authc.FormAuthenticationFilter#onLoginSuccess(org.apache.shiro.authc.AuthenticationToken, org.apache.shiro.subject.Subject, javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+         */
         @Override
         protected boolean onLoginSuccess(final AuthenticationToken token, final Subject subject,
                 final ServletRequest request, final ServletResponse response) throws Exception {
@@ -144,6 +175,7 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
         }
     }
 
+    /** The filter form authc. */
     private final WrapFormAuthenticationFilter filterFormAuthc = new WrapFormAuthenticationFilter(this);
 
     /**
@@ -163,6 +195,13 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
         return this.filterFormAuthc.onAccessDenied(request, response);
     }
 
+    /**
+     * Checks if is auth type negotiate.
+     *
+     * @param request
+     *            the request
+     * @return true, if is auth type negotiate
+     */
     boolean isAuthTypeNegotiate(final ServletRequest request) {
         final String authType = request.getParameter(PARAM_NAME_AUTHTYPE);
         return authType != null && PARAM_VAL_AUTHTYPE_NEGOTIATE.equalsIgnoreCase(authType);

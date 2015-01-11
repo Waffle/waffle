@@ -18,28 +18,71 @@ import waffle.windows.auth.IWindowsDomain;
 import com.sun.jna.platform.win32.Netapi32Util.DomainTrust;
 
 /**
- * Windows Domain
- * 
+ * Windows Domain.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsDomainImpl implements IWindowsDomain {
 
+    /**
+     * The Enum TrustDirection.
+     */
     private enum TrustDirection {
-        INBOUND, OUTBOUND, BIDIRECTIONAL
+        
+        /** The inbound. */
+        INBOUND, 
+ /** The outbound. */
+ OUTBOUND, 
+ /** The bidirectional. */
+ BIDIRECTIONAL
     }
 
+    /**
+     * The Enum TrustType.
+     */
     private enum TrustType {
-        TREE_ROOT, PARENT_CHILD, CROSS_LINK, EXTERNAL, FOREST, KERBEROS, UNKNOWN
+        
+        /** The tree root. */
+        TREE_ROOT, 
+ /** The parent child. */
+ PARENT_CHILD, 
+ /** The cross link. */
+ CROSS_LINK, 
+ /** The external. */
+ EXTERNAL, 
+ /** The forest. */
+ FOREST, 
+ /** The kerberos. */
+ KERBEROS, 
+ /** The unknown. */
+ UNKNOWN
     }
 
+    /** The fqn. */
     private String         fqn;
+    
+    /** The trust direction. */
     private TrustDirection trustDirection = TrustDirection.BIDIRECTIONAL;
+    
+    /** The trust type. */
     private TrustType      trustType      = TrustType.UNKNOWN;
 
+    /**
+     * Instantiates a new windows domain impl.
+     *
+     * @param newFqn
+     *            the new fqn
+     */
     public WindowsDomainImpl(final String newFqn) {
         this.fqn = newFqn;
     }
 
+    /**
+     * Instantiates a new windows domain impl.
+     *
+     * @param trust
+     *            the trust
+     */
     public WindowsDomainImpl(final DomainTrust trust) {
         // fqn
         this.fqn = trust.DnsDomainName;
@@ -62,16 +105,25 @@ public class WindowsDomainImpl implements IWindowsDomain {
         }
     }
 
+    /* (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsDomain#getFqn()
+     */
     @Override
     public String getFqn() {
         return this.fqn;
     }
 
+    /* (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsDomain#getTrustDirectionString()
+     */
     @Override
     public String getTrustDirectionString() {
         return this.trustDirection.toString();
     }
 
+    /* (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsDomain#getTrustTypeString()
+     */
     @Override
     public String getTrustTypeString() {
         return this.trustType.toString();

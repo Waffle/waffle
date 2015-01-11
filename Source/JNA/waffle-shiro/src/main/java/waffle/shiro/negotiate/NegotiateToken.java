@@ -32,22 +32,33 @@ import org.apache.shiro.authc.RememberMeAuthenticationToken;
  * @since 1.0.0
  */
 public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthenticationToken {
+    
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1345343228636916781L;
 
+    /** The in. */
     private final byte[]      in;
 
+    /** The out. */
     private byte[]            out;
 
+    /** The subject. */
     private Subject           subject;
 
+    /** The principal. */
     private Object            principal;
 
+    /** The connection id. */
     private final String      connectionId;
+    
+    /** The security package. */
     private final String      securityPackage;
+    
+    /** The ntlm post. */
     private final boolean     ntlmPost;
 
     /**
-     * Whether or not 'rememberMe' should be enabled for the corresponding login attempt; default is <code>false</code>
+     * Whether or not 'rememberMe' should be enabled for the corresponding login attempt; default is <code>false</code>.
      */
     private final boolean     rememberMe;
 
@@ -56,6 +67,24 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
      */
     private final String      host;
 
+    /**
+     * Instantiates a new negotiate token.
+     *
+     * @param newIn
+     *            the new in
+     * @param newOut
+     *            the new out
+     * @param newConnectionId
+     *            the new connection id
+     * @param newSecurityPackage
+     *            the new security package
+     * @param newNtlmPost
+     *            the new ntlm post
+     * @param newRememberMe
+     *            the new remember me
+     * @param newHost
+     *            the new host
+     */
     public NegotiateToken(final byte[] newIn, final byte[] newOut, final String newConnectionId,
             final String newSecurityPackage, final boolean newNtlmPost, final boolean newRememberMe,
             final String newHost) {
@@ -69,52 +98,111 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
         this.host = newHost;
     }
 
+    /**
+     * Gets the connection id.
+     *
+     * @return the connection id
+     */
     public String getConnectionId() {
         return this.connectionId;
     }
 
+    /**
+     * Gets the security package.
+     *
+     * @return the security package
+     */
     public String getSecurityPackage() {
         return this.securityPackage;
     }
 
+    /**
+     * Checks if is ntlm post.
+     *
+     * @return true, if is ntlm post
+     */
     public boolean isNtlmPost() {
         return this.ntlmPost;
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.shiro.authc.AuthenticationToken#getCredentials()
+     */
     @Override
     public Object getCredentials() {
         return this.subject;
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.shiro.authc.AuthenticationToken#getPrincipal()
+     */
     @Override
     public Object getPrincipal() {
         return this.principal;
     }
 
+    /**
+     * Gets the out.
+     *
+     * @return the out
+     */
     byte[] getOut() {
         return this.out;
     }
 
+    /**
+     * Sets the out.
+     *
+     * @param outToken
+     *            the new out
+     */
     public void setOut(final byte[] outToken) {
         this.out = (outToken != null ? outToken.clone() : null);
     }
 
+    /**
+     * Sets the subject.
+     *
+     * @param value
+     *            the new subject
+     */
     public void setSubject(final Subject value) {
         this.subject = value;
     }
 
+    /**
+     * Gets the in.
+     *
+     * @return the in
+     */
     public byte[] getIn() {
         return this.in.clone();
     }
 
+    /**
+     * Gets the subject.
+     *
+     * @return the subject
+     */
     public Subject getSubject() {
         return this.subject;
     }
 
+    /**
+     * Creates the info.
+     *
+     * @return the authentication info
+     */
     public AuthenticationInfo createInfo() {
         return new NegotiateInfo(this.subject, "NegotiateWaffleRealm");
     }
 
+    /**
+     * Sets the principal.
+     *
+     * @param value
+     *            the new principal
+     */
     public void setPrincipal(final Object value) {
         this.principal = value;
     }

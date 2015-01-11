@@ -84,6 +84,7 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  */
 public class WaffleInfo {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory.getLogger(WaffleInfo.class);
 
     /**
@@ -122,6 +123,13 @@ public class WaffleInfo {
         return doc;
     }
 
+    /**
+     * Gets the auth provider info.
+     *
+     * @param doc
+     *            the doc
+     * @return the auth provider info
+     */
     protected Element getAuthProviderInfo(final Document doc) {
         final IWindowsAuthProvider auth = new WindowsAuthProviderImpl();
 
@@ -187,6 +195,16 @@ public class WaffleInfo {
         return node;
     }
 
+    /**
+     * Adds the account info.
+     *
+     * @param doc
+     *            the doc
+     * @param node
+     *            the node
+     * @param account
+     *            the account
+     */
     protected void addAccountInfo(final Document doc, final Element node, final IWindowsAccount account) {
         Element value = doc.createElement("Name");
         value.setTextContent(account.getName());
@@ -205,6 +223,15 @@ public class WaffleInfo {
         node.appendChild(value);
     }
 
+    /**
+     * Gets the lookup info.
+     *
+     * @param doc
+     *            the doc
+     * @param lookup
+     *            the lookup
+     * @return the lookup info
+     */
     public Element getLookupInfo(final Document doc, final String lookup) {
         final IWindowsAuthProvider auth = new WindowsAuthProviderImpl();
         final Element node = doc.createElement("lookup");
@@ -217,6 +244,15 @@ public class WaffleInfo {
         return node;
     }
 
+    /**
+     * Gets the exception.
+     *
+     * @param doc
+     *            the doc
+     * @param t
+     *            the t
+     * @return the exception
+     */
     public static Element getException(final Document doc, final Exception t) {
         final Element node = doc.createElement("exception");
         node.setAttribute("class", t.getClass().getName());
@@ -233,6 +269,15 @@ public class WaffleInfo {
         return node;
     }
 
+    /**
+     * To pretty xml.
+     *
+     * @param doc
+     *            the doc
+     * @return the string
+     * @throws TransformerException
+     *             the transformer exception
+     */
     public static String toPrettyXML(final Document doc) throws TransformerException {
         // set up a transformer
         final TransformerFactory transfac = TransformerFactory.newInstance();

@@ -14,8 +14,18 @@
 package waffle.windows.auth;
 
 /**
+ * The Enum PrincipalFormat.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public enum PrincipalFormat {
-    FQN, SID, BOTH, NONE;
+    
+    /** The fqn. */
+    FQN, 
+ /** The sid. */
+ SID, 
+ /** The both. */
+ BOTH, 
+ /** The none. */
+ NONE;
 }

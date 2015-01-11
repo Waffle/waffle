@@ -46,32 +46,56 @@ import waffle.windows.auth.PrincipalFormat;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
 /**
- * A Negotiate (NTLM/Kerberos) Security Filter
- * 
+ * A Negotiate (NTLM/Kerberos) Security Filter.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class NegotiateSecurityFilter implements Filter {
 
+    /** The Constant LOGGER. */
     private static final Logger              LOGGER              = LoggerFactory
                                                                          .getLogger(NegotiateSecurityFilter.class);
+    
+    /** The principal format. */
     private PrincipalFormat                  principalFormat     = PrincipalFormat.FQN;
+    
+    /** The role format. */
     private PrincipalFormat                  roleFormat          = PrincipalFormat.FQN;
+    
+    /** The providers. */
     private SecurityFilterProviderCollection providers;
+    
+    /** The auth. */
     private IWindowsAuthProvider             auth;
+    
+    /** The allow guest login. */
     private boolean                          allowGuestLogin     = true;
+    
+    /** The impersonate. */
     private boolean                          impersonate;
+    
+    /** The Constant PRINCIPALSESSIONKEY. */
     private static final String              PRINCIPALSESSIONKEY = NegotiateSecurityFilter.class.getName()
                                                                          + ".PRINCIPAL";
 
+    /**
+     * Instantiates a new negotiate security filter.
+     */
     public NegotiateSecurityFilter() {
         LOGGER.debug("[waffle.servlet.NegotiateSecurityFilter] loaded");
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.Filter#destroy()
+     */
     @Override
     public void destroy() {
         LOGGER.info("[waffle.servlet.NegotiateSecurityFilter] stopped");
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+     */
     @Override
     public void doFilter(final ServletRequest sreq, final ServletResponse sres, final FilterChain chain)
             throws IOException, ServletException {
@@ -168,7 +192,7 @@ public class NegotiateSecurityFilter implements Filter {
 
     /**
      * Filter for a previously logged on user.
-     * 
+     *
      * @param request
      *            HTTP request.
      * @param response
@@ -176,8 +200,10 @@ public class NegotiateSecurityFilter implements Filter {
      * @param chain
      *            Filter chain.
      * @return True if a user already authenticated.
-     * @throws ServletException
      * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ServletException
+     *             the servlet exception
      */
     private boolean doFilterPrincipal(final HttpServletRequest request, final HttpServletResponse response,
             final FilterChain chain) throws IOException, ServletException {
@@ -234,6 +260,9 @@ public class NegotiateSecurityFilter implements Filter {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
+     */
     @SuppressWarnings("unchecked")
     @Override
     public void init(final FilterConfig filterConfig) throws ServletException {
@@ -435,8 +464,8 @@ public class NegotiateSecurityFilter implements Filter {
     }
 
     /**
-     * Enable/Disable impersonation
-     * 
+     * Enable/Disable impersonation.
+     *
      * @param value
      *            true to enable impersonation, false otherwise
      */
@@ -445,6 +474,8 @@ public class NegotiateSecurityFilter implements Filter {
     }
 
     /**
+     * Checks if is impersonate.
+     *
      * @return true if impersonation is enabled, false otherwise
      */
     public boolean isImpersonate() {

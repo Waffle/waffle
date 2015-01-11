@@ -19,24 +19,50 @@ import javax.servlet.http.HttpSessionBindingListener;
 import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.PrincipalFormat;
 
+/**
+ * The Class AutoDisposableWindowsPrincipal.
+ */
 public class AutoDisposableWindowsPrincipal extends WindowsPrincipal implements HttpSessionBindingListener {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Instantiates a new auto disposable windows principal.
+     *
+     * @param windowsIdentity
+     *            the windows identity
+     */
     public AutoDisposableWindowsPrincipal(final IWindowsIdentity windowsIdentity) {
         super(windowsIdentity);
     }
 
+    /**
+     * Instantiates a new auto disposable windows principal.
+     *
+     * @param windowsIdentity
+     *            the windows identity
+     * @param principalFormat
+     *            the principal format
+     * @param roleFormat
+     *            the role format
+     */
     public AutoDisposableWindowsPrincipal(final IWindowsIdentity windowsIdentity,
             final PrincipalFormat principalFormat, final PrincipalFormat roleFormat) {
         super(windowsIdentity, principalFormat, roleFormat);
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.http.HttpSessionBindingListener#valueBound(javax.servlet.http.HttpSessionBindingEvent)
+     */
     @Override
     public void valueBound(final HttpSessionBindingEvent evt) {
         // Do nothing
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.http.HttpSessionBindingListener#valueUnbound(javax.servlet.http.HttpSessionBindingEvent)
+     */
     @Override
     public void valueUnbound(final HttpSessionBindingEvent evt) {
         if (getIdentity() != null) {

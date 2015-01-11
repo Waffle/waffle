@@ -41,6 +41,9 @@ import waffle.windows.auth.IWindowsSecurityContext;
  */
 public class MixedAuthenticator extends WaffleAuthenticatorBase {
 
+    /**
+     * Instantiates a new mixed authenticator.
+     */
     public MixedAuthenticator() {
         super();
         this.log = LoggerFactory.getLogger(MixedAuthenticator.class);
@@ -48,18 +51,27 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
         this.log.debug("[waffle.apache.MixedAuthenticator] loaded");
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.catalina.authenticator.AuthenticatorBase#startInternal()
+     */
     @Override
     public synchronized void startInternal() throws LifecycleException {
         this.log.info("[waffle.apache.MixedAuthenticator] started");
         super.startInternal();
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.catalina.authenticator.AuthenticatorBase#stopInternal()
+     */
     @Override
     public synchronized void stopInternal() throws LifecycleException {
         super.stopInternal();
         this.log.info("[waffle.apache.MixedAuthenticator] stopped");
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.catalina.authenticator.AuthenticatorBase#authenticate(org.apache.catalina.connector.Request, javax.servlet.http.HttpServletResponse)
+     */
     @Override
     public boolean authenticate(final Request request, final HttpServletResponse response) {
 
@@ -112,6 +124,17 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
         }
     }
 
+    /**
+     * Negotiate.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @param authorizationHeader
+     *            the authorization header
+     * @return true, if successful
+     */
     private boolean negotiate(final Request request, final HttpServletResponse response,
             final AuthorizationHeader authorizationHeader) {
 
@@ -191,6 +214,15 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
         return true;
     }
 
+    /**
+     * Post.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @return true, if successful
+     */
     private boolean post(final Request request, final HttpServletResponse response) {
 
         final String username = request.getParameter("j_username");
@@ -234,6 +266,16 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
         return true;
     }
 
+    /**
+     * Redirect to.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @param url
+     *            the url
+     */
     private void redirectTo(final Request request, final HttpServletResponse response, final String url) {
         try {
             this.log.debug("redirecting to: {}", url);

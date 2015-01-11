@@ -81,14 +81,25 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
  * </pre>
  */
 public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
+    
+    /** The Constant LOGGER. */
     private static final Logger          LOGGER = LoggerFactory.getLogger(NegotiateSecurityFilter.class);
 
+    /** The authentication manager. */
     private AuthenticationManager        authenticationManager;
+    
+    /** The authentication success handler. */
     private AuthenticationSuccessHandler authenticationSuccessHandler;
+    
+    /** The authentication failure handler. */
     private AuthenticationFailureHandler authenticationFailureHandler;
+    
+    /** The access denied handler. */
     private AccessDeniedHandler          accessDeniedHandler;
 
     /**
+     * Gets the access denied handler.
+     *
      * @return the accessDeniedHandler
      */
     public AccessDeniedHandler getAccessDeniedHandler() {
@@ -96,6 +107,8 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
     }
 
     /**
+     * Sets the access denied handler.
+     *
      * @param accessDeniedHandler
      *            the accessDeniedHandler to set
      */
@@ -104,6 +117,8 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
     }
 
     /**
+     * Gets the authentication failure handler.
+     *
      * @return the authenticationFailureHandler
      */
     public AuthenticationFailureHandler getAuthenticationFailureHandler() {
@@ -111,6 +126,8 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
     }
 
     /**
+     * Sets the authentication failure handler.
+     *
      * @param authenticationFailureHandler
      *            the authenticationFailureHandler to set
      */
@@ -118,11 +135,17 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
         this.authenticationFailureHandler = authenticationFailureHandler;
     }
 
+    /**
+     * Instantiates a new delegating negotiate security filter.
+     */
     public DelegatingNegotiateSecurityFilter() {
         super();
         LOGGER.debug("[waffle.spring.NegotiateSecurityFilter] loaded");
     }
 
+    /* (non-Javadoc)
+     * @see waffle.spring.NegotiateSecurityFilter#setAuthentication(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, org.springframework.security.core.Authentication)
+     */
     @Override
     protected boolean setAuthentication(final HttpServletRequest request, final HttpServletResponse response,
             final Authentication authentication) {
@@ -156,6 +179,9 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see waffle.spring.NegotiateSecurityFilter#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws ServletException {
         super.afterPropertiesSet();
@@ -167,11 +193,13 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
 
     /**
      * Forward to authenticationFailureHandler.
-     * 
+     *
+     * @param request
+     *            the request
      * @param response
      *            HTTP Response
-     * @param close
-     *            Close connection.
+     * @param ae
+     *            the ae
      */
     private void sendAuthenticationFailed(final HttpServletRequest request, final HttpServletResponse response,
             final AuthenticationException ae) {
@@ -190,11 +218,13 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
 
     /**
      * Forward to accessDeniedHandler.
-     * 
+     *
+     * @param request
+     *            the request
      * @param response
      *            HTTP Response
-     * @param close
-     *            Close connection.
+     * @param ae
+     *            the ae
      */
     private void sendAccessDenied(final HttpServletRequest request, final HttpServletResponse response,
             final AccessDeniedException ae) {
@@ -213,6 +243,8 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
     }
 
     /**
+     * Gets the authentication success handler.
+     *
      * @return the authenticationSuccessHandler
      */
     public AuthenticationSuccessHandler getAuthenticationSuccessHandler() {
@@ -220,6 +252,8 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
     }
 
     /**
+     * Sets the authentication success handler.
+     *
      * @param authenticationSuccessHandler
      *            the authenticationSuccessHandler to set
      */
@@ -228,6 +262,8 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
     }
 
     /**
+     * Gets the authentication manager.
+     *
      * @return the authenticationManager
      */
     public AuthenticationManager getAuthenticationManager() {
@@ -235,6 +271,8 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
     }
 
     /**
+     * Sets the authentication manager.
+     *
      * @param authenticationManager
      *            the authenticationManager to set
      */

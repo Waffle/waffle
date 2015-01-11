@@ -43,21 +43,39 @@ import waffle.windows.auth.PrincipalFormat;
  */
 public class NegotiateSecurityFilter extends GenericFilterBean {
 
+    /** The Constant LOGGER. */
     private static final Logger              LOGGER                  = LoggerFactory
                                                                              .getLogger(NegotiateSecurityFilter.class);
+    
+    /** The provider. */
     private SecurityFilterProviderCollection provider;
+    
+    /** The principal format. */
     private PrincipalFormat                  principalFormat         = PrincipalFormat.FQN;
+    
+    /** The role format. */
     private PrincipalFormat                  roleFormat              = PrincipalFormat.FQN;
+    
+    /** The allow guest login. */
     private boolean                          allowGuestLogin         = true;
 
+    /** The granted authority factory. */
     private GrantedAuthorityFactory          grantedAuthorityFactory = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY_FACTORY;
+    
+    /** The default granted authority. */
     private GrantedAuthority                 defaultGrantedAuthority = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY;
 
+    /**
+     * Instantiates a new negotiate security filter.
+     */
     public NegotiateSecurityFilter() {
         super();
         LOGGER.debug("[waffle.spring.NegotiateSecurityFilter] loaded");
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+     */
     @Override
     public void doFilter(final ServletRequest req, final ServletResponse res, final FilterChain chain)
             throws IOException, ServletException {
@@ -126,12 +144,26 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
      * 
      * @return if security context was set.
      */
+    /**
+     * Sets the authentication.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @param authentication
+     *            the authentication
+     * @return true, if successful
+     */
     protected boolean setAuthentication(final HttpServletRequest request, final HttpServletResponse response,
             final Authentication authentication) {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.web.filter.GenericFilterBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws ServletException {
         super.afterPropertiesSet();
@@ -164,58 +196,136 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
         }
     }
 
+    /**
+     * Gets the principal format.
+     *
+     * @return the principal format
+     */
     public PrincipalFormat getPrincipalFormat() {
         return this.principalFormat;
     }
 
+    /**
+     * Sets the principal format enum.
+     *
+     * @param value
+     *            the new principal format enum
+     */
     public void setPrincipalFormatEnum(final PrincipalFormat value) {
         this.principalFormat = value;
     }
 
+    /**
+     * Sets the principal format.
+     *
+     * @param value
+     *            the new principal format
+     */
     public void setPrincipalFormat(final String value) {
         this.setPrincipalFormatEnum(PrincipalFormat.valueOf(value.toUpperCase(Locale.ENGLISH)));
     }
 
+    /**
+     * Gets the role format.
+     *
+     * @return the role format
+     */
     public PrincipalFormat getRoleFormat() {
         return this.roleFormat;
     }
 
+    /**
+     * Sets the role format enum.
+     *
+     * @param value
+     *            the new role format enum
+     */
     public void setRoleFormatEnum(final PrincipalFormat value) {
         this.roleFormat = value;
     }
 
+    /**
+     * Sets the role format.
+     *
+     * @param value
+     *            the new role format
+     */
     public void setRoleFormat(final String value) {
         this.setRoleFormatEnum(PrincipalFormat.valueOf(value.toUpperCase(Locale.ENGLISH)));
     }
 
+    /**
+     * Checks if is allow guest login.
+     *
+     * @return true, if is allow guest login
+     */
     public boolean isAllowGuestLogin() {
         return this.allowGuestLogin;
     }
 
+    /**
+     * Sets the allow guest login.
+     *
+     * @param value
+     *            the new allow guest login
+     */
     public void setAllowGuestLogin(final boolean value) {
         this.allowGuestLogin = value;
     }
 
+    /**
+     * Gets the provider.
+     *
+     * @return the provider
+     */
     public SecurityFilterProviderCollection getProvider() {
         return this.provider;
     }
 
+    /**
+     * Sets the provider.
+     *
+     * @param value
+     *            the new provider
+     */
     public void setProvider(final SecurityFilterProviderCollection value) {
         this.provider = value;
     }
 
+    /**
+     * Gets the granted authority factory.
+     *
+     * @return the granted authority factory
+     */
     public GrantedAuthorityFactory getGrantedAuthorityFactory() {
         return this.grantedAuthorityFactory;
     }
 
+    /**
+     * Sets the granted authority factory.
+     *
+     * @param value
+     *            the new granted authority factory
+     */
     public void setGrantedAuthorityFactory(final GrantedAuthorityFactory value) {
         this.grantedAuthorityFactory = value;
     }
 
+    /**
+     * Gets the default granted authority.
+     *
+     * @return the default granted authority
+     */
     public GrantedAuthority getDefaultGrantedAuthority() {
         return this.defaultGrantedAuthority;
     }
 
+    /**
+     * Sets the default granted authority.
+     *
+     * @param value
+     *            the new default granted authority
+     */
     public void setDefaultGrantedAuthority(final GrantedAuthority value) {
         this.defaultGrantedAuthority = value;
     }

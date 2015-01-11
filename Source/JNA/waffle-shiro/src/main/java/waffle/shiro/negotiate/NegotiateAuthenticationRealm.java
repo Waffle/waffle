@@ -37,6 +37,9 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
 import java.security.Principal;
 
+/**
+ * The Class NegotiateAuthenticationRealm.
+ */
 public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
 
     /**
@@ -44,17 +47,27 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
      */
     private static final Logger        LOGGER = LoggerFactory.getLogger(NegotiateAuthenticationRealm.class);
 
+    /** The windows auth provider. */
     private final IWindowsAuthProvider windowsAuthProvider;
 
+    /**
+     * Instantiates a new negotiate authentication realm.
+     */
     public NegotiateAuthenticationRealm() {
         this.windowsAuthProvider = new WindowsAuthProviderImpl();
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.shiro.realm.AuthenticatingRealm#supports(org.apache.shiro.authc.AuthenticationToken)
+     */
     @Override
     public boolean supports(final AuthenticationToken token) {
         return token instanceof NegotiateToken;
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.shiro.realm.AuthenticatingRealm#doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)
+     */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(final AuthenticationToken t) {
 
