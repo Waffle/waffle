@@ -1,25 +1,25 @@
 1.8-SNAPSHOT (in-progress)
 ==========================
 
-* [#174](https://github.com/dblock/waffle/issues/174): Removed Spring 2 and Tomcat 5
-* [#188](https://github.com/dblock/waffle/issues/188): Added support for service provider to authorize the principal
-* [#192](https://github.com/dblock/waffle/pull/192): Mixed authenticator bug
+* [#174](https://github.com/dblock/waffle/issues/174): Removed Spring 2 and Tomcat 5 support.
+* [#188](https://github.com/dblock/waffle/issues/188): Added support for service provider to authorize the principal.
+* [#192](https://github.com/dblock/waffle/pull/192): Fix: Tomcat 8 MixedAuthenticator uses LoginConfig out of context.
 
 * Created 1.7.x branch for spring 2 and tomcat 5 continued support for one year.
-* ghpages now built via mvn site plugin
-* We use sfl4j, so use jcl-over-slf4j instead of allowing spring to bring in commons-logging
+* Github gh-pages now built via mvn site plugin.
+* We use sfl4j, so use jcl-over-slf4j instead of allowing spring to bring in commons-logging.
 
 1.7.3 (12/21/2014)
 ===================
-* Corrected javadoc issues in shiro package to ensure javadocs build
-* Make some package methods private in shiro package
+* Corrected javadoc issues in shiro package to ensure javadocs build.
+* Make some package methods private in shiro package.
 
 1.7.2 (Not Released)
 ====================
-* Ensure waffle dependencies referenced in poms are against vulnerability free releases
-* Rework java build to conform with maven standard practices
-* Enhance distribution to build zip thus allowing maven central deployment
-* Discovered issues with classpath / javadoc, release aborted upon push to maven central
+* Ensure waffle dependencies referenced in poms are against vulnerability free releases.
+* Rework java build to conform with maven standard practices.
+* Enhance distribution to build zip thus allowing maven central deployment.
+* Discovered issues with classpath / javadoc, release aborted upon push to maven central.
 
 Developer note
 --------------
