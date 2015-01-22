@@ -6,6 +6,8 @@
 * [#192](https://github.com/dblock/waffle/pull/192): Mixed authenticator bug
 
 * Created 1.7.x branch for spring 2 and tomcat 5 continued support for one year.
+* ghpages now built via mvn site plugin
+* We use sfl4j, so use jcl-over-slf4j instead of allowing spring to bring in commons-logging
 
 1.7.3 (12/21/2014)
 ===================
