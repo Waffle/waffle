@@ -1,9 +1,13 @@
 1.8-SNAPSHOT (in-progress)
 ==========================
 
-* Created 1.7.x branch for spring 2 and tomcat 5 continued support for one year.
 * [#174](https://github.com/dblock/waffle/issues/174): Removed Spring 2 and Tomcat 5
 * [#188](https://github.com/dblock/waffle/issues/188): Added support for service provider to authorize the principal
+* [#192](https://github.com/dblock/waffle/pull/192): Mixed authenticator bug
+
+* Created 1.7.x branch for spring 2 and tomcat 5 continued support for one year.
+* ghpages now built via mvn site plugin
+* We use sfl4j, so use jcl-over-slf4j instead of allowing spring to bring in commons-logging
 
 1.7.3 (12/21/2014)
 ===================
