@@ -65,6 +65,22 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
     protected IWindowsAuthProvider   auth                = null;
 
     /**
+     * Gets the continue context time out configuration
+     * @return
+     */
+    public int getContinueContextsTimeout() {
+        return continueContextsTimeout;
+    }
+
+    /**
+     * Sets the continue context time out configuration
+     * @param continueContextsTimeout
+     */
+    public void setContinueContextsTimeout(int continueContextsTimeout) {
+        this.continueContextsTimeout = continueContextsTimeout;
+    }
+
+    /**
      * Windows authentication provider.
      * 
      * @return IWindowsAuthProvider.
