@@ -48,6 +48,9 @@ import waffle.windows.auth.IWindowsSecurityContext;
  */
 public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
 
+    /** The Continue Context Timeout. */
+    public static final int CONTINUE_CONTEXT_TIMEOUT = 30;
+
     /**
      * The Class ContinueContext.
      */
@@ -79,7 +82,7 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
      * Instantiates a new windows auth provider impl.
      */
     public WindowsAuthProviderImpl() {
-        this(30);
+        this(WindowsAuthProviderImpl.CONTINUE_CONTEXT_TIMEOUT);
     }
 
     /**

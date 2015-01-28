@@ -57,6 +57,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
     @Override
     public void start() {
         this.log.info("[waffle.apache.MixedAuthenticator] started");
+        super.start();
     }
 
     /*
@@ -66,6 +67,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
     @Override
     public void stop() {
         this.log.info("[waffle.apache.MixedAuthenticator] stopped");
+        // Do not call tomcat 6 super.stop() as we never have and it doesn't seem to work.
     }
 
     /*

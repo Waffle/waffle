@@ -21,6 +21,7 @@ import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.LifecycleException;
 import org.apache.catalina.authenticator.AuthenticatorBase;
 import org.apache.catalina.connector.Request;
 import org.slf4j.Logger;
@@ -38,7 +39,7 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
     /** The Constant SUPPORTED_PROTOCOLS. */
-    private static final Set<String> SUPPORTED_PROTOCOLS = new LinkedHashSet<>(Arrays.asList("Negotiate", "NTLM"));
+    private static final Set<String> SUPPORTED_PROTOCOLS     = new LinkedHashSet<>(Arrays.asList("Negotiate", "NTLM"));
 
     /** The info. */
     @SuppressWarnings("hiding")
@@ -48,19 +49,38 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
     protected Logger                 log;
 
     /** The principal format. */
-    protected PrincipalFormat        principalFormat     = PrincipalFormat.FQN;
+    protected PrincipalFormat        principalFormat         = PrincipalFormat.FQN;
 
     /** The role format. */
-    protected PrincipalFormat        roleFormat          = PrincipalFormat.FQN;
+    protected PrincipalFormat        roleFormat              = PrincipalFormat.FQN;
 
     /** The allow guest login. */
-    protected boolean                allowGuestLogin     = true;
+    protected boolean                allowGuestLogin         = true;
 
     /** The protocols. */
-    protected Set<String>            protocols           = WaffleAuthenticatorBase.SUPPORTED_PROTOCOLS;
+    protected Set<String>            protocols               = WaffleAuthenticatorBase.SUPPORTED_PROTOCOLS;
+
+    /** The auth continueContextsTimeout configuration */
+    protected int                    continueContextsTimeout = WindowsAuthProviderImpl.CONTINUE_CONTEXT_TIMEOUT;
 
     /** The auth. */
-    protected IWindowsAuthProvider   auth                = new WindowsAuthProviderImpl();
+    protected IWindowsAuthProvider   auth;
+
+    /**
+     * Gets the continue context time out configuration
+     * @return
+     */
+    public int getContinueContextsTimeout() {
+        return continueContextsTimeout;
+    }
+
+    /**
+     * Sets the continue context time out configuration
+     * @param continueContextsTimeout
+     */
+    public void setContinueContextsTimeout(int continueContextsTimeout) {
+        this.continueContextsTimeout = continueContextsTimeout;
+    }
 
     /**
      * Windows authentication provider.
@@ -250,6 +270,18 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
         } finally {
             windowsIdentity.dispose();
         }
+    }
+
+    /**
+     * Hook to the start and to set up the dependencies.
+     * @throws LifecycleException
+     */
+    @Override
+    protected synchronized void startInternal() throws LifecycleException {
+        this.log.debug("Creating a windows authentication provider with continueContextsTimeout property set to: {}",
+                this.continueContextsTimeout);
+        this.auth = new WindowsAuthProviderImpl(this.continueContextsTimeout);
+        super.startInternal();
     }
 
 }
