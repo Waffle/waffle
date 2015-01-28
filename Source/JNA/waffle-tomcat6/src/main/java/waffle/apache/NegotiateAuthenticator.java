@@ -19,6 +19,7 @@ import java.security.Principal;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.LifecycleException;
 import org.apache.catalina.connector.Request;
 import org.apache.catalina.connector.Response;
 import org.apache.catalina.deploy.LoginConfig;
@@ -52,16 +53,18 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
      * @see org.apache.catalina.authenticator.AuthenticatorBase#start()
      */
     @Override
-    public void start() {
-        this.log.info("[waffle.apache.NegotiateAuthenticator] started");
+    public void start() throws LifecycleException {
+        this.log.info("[waffle.apache.MixedAuthenticator] started");
+        super.start();
     }
 
     /* (non-Javadoc)
      * @see org.apache.catalina.authenticator.AuthenticatorBase#stop()
      */
     @Override
-    public void stop() {
-        this.log.info("[waffle.apache.NegotiateAuthenticator] stopped");
+    public void stop() throws LifecycleException {
+        this.log.info("[waffle.apache.MixedAuthenticator] stopped");
+        super.stop();
     }
 
     /* (non-Javadoc)

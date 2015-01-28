@@ -22,6 +22,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.LifecycleException;
 import org.apache.catalina.connector.Request;
 import org.apache.catalina.connector.Response;
 import org.apache.catalina.deploy.LoginConfig;
@@ -55,16 +56,18 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
      * @see org.apache.catalina.authenticator.AuthenticatorBase#start()
      */
     @Override
-    public void start() {
+    public void start() throws LifecycleException {
         this.log.info("[waffle.apache.MixedAuthenticator] started");
+        super.start();
     }
 
     /* (non-Javadoc)
      * @see org.apache.catalina.authenticator.AuthenticatorBase#stop()
      */
     @Override
-    public void stop() {
+    public void stop() throws LifecycleException {
         this.log.info("[waffle.apache.MixedAuthenticator] stopped");
+        super.stop();
     }
 
     /* (non-Javadoc)
