@@ -16,7 +16,7 @@ Unlike many other implementations Waffle on Windows does not require any server-
 Essentials
 ----------
 
-* [Download Version 1.7.1](https://github.com/dblock/waffle/releases/download/Waffle-1.7.1/Waffle.1.7.1.zip)
+* [Download Version 1.7.3](https://github.com/dblock/waffle/releases/download/Waffle-1.7.3/Waffle.1.7.3.zip)
 * [Waffle in Maven Central](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.github.dblock.waffle%22)
 * [Waffle Snapshots](https://oss.sonatype.org/content/repositories/snapshots/com/github/dblock/waffle/)
 * [Get Waffle To Work in Tomcat, Jetty, WebSphere, etc.](Docs/ServletSingleSignOnSecurityFilter.md)
@@ -80,7 +80,7 @@ Current status of sonar results for Waffle.
 License and Copyright
 ---------------------
 
-Copyright (c) [Application Security Inc.](http://www.appsecinc.com), 2010-2014 and Contributors. 
+Copyright (c) [Application Security Inc.](http://www.appsecinc.com), 2010-2015 and Contributors. 
 
 This project is licensed under the [Eclipse Public License](https://github.com/dblock/waffle/blob/master/LICENSE).
 
