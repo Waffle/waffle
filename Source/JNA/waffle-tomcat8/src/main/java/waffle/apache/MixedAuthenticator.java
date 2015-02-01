@@ -96,7 +96,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
         final boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
         this.log.debug("authorization: {}, ntlm post: {}", authorizationHeader, Boolean.valueOf(ntlmPost));
 
-        final LoginConfig loginConfig = context.getLoginConfig();
+        final LoginConfig loginConfig = this.context.getLoginConfig();
 
         if (principal != null && !ntlmPost) {
             this.log.debug("previously authenticated user: {}", principal.getName());
