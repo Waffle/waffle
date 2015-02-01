@@ -98,7 +98,7 @@
         </site>
     </distributionManagement>
     <properties>
-        <copywrite>2014</copywrite>
+        <copywrite>2015</copywrite>
         <jacoco.minimum.coverage>0.0</jacoco.minimum.coverage>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
         <maven.compiler.source>1.6</maven.compiler.source>
