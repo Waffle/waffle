@@ -1,7 +1,7 @@
 1.8-SNAPSHOT (in-progress)
 ==========================
 
-* [#174](https://github.com/dblock/waffle/issues/174): Removed Spring 2 and Tomcat 5 support.
+* [#187](https://github.com/dblock/waffle/pull/187): Removed Spring 2 and Tomcat 5 support.
 * [#188](https://github.com/dblock/waffle/issues/188): Added support for service provider to authorize the principal.
 * [#192](https://github.com/dblock/waffle/pull/192): Fix: Tomcat 8 MixedAuthenticator uses LoginConfig out of context.
 
