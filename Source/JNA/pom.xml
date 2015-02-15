@@ -101,7 +101,7 @@
         </site>
     </distributionManagement>
     <properties>
-        <copywrite>2015</copywrite>
+        <copyright>2015</copyright>
         <jacoco.minimum.coverage>0.0</jacoco.minimum.coverage>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
         <maven.compiler.source>1.6</maven.compiler.source>
@@ -560,7 +560,7 @@
                         </manifest>
                         <manifestEntries>
                             <Build-Time>${maven.build.timestamp}</Build-Time>
-                            <Copywrite>${copywrite}</Copywrite>
+                            <copyright>${copyright}</copyright>
                             <Git-Revision>${git.commit.id}</Git-Revision>
                             <Os-Name>${os.name}</Os-Name>
                             <Os-Arch>${os.arch}</Os-Arch>
@@ -583,7 +583,7 @@
                         <manifestEntries>
                             <Build-Number>${buildNumber}</Build-Number>
                             <Build-Time>${maven.build.timestamp}</Build-Time>
-                            <Copywrite>${copywrite}</Copywrite>
+                            <copyright>${copyright}</copyright>
                             <Git-Revision>${git.commit.id}</Git-Revision>
                             <Os-Name>${os.name}</Os-Name>
                             <Os-Arch>${os.arch}</Os-Arch>
@@ -606,7 +606,7 @@
                         </manifest>
                         <manifestEntries>
                             <Build-Time>${maven.build.timestamp}</Build-Time>
-                            <Copywrite>${copywrite}</Copywrite>
+                            <copyright>${copyright}</copyright>
                             <Git-Revision>${git.commit.id}</Git-Revision>
                             <Os-Name>${os.name}</Os-Name>
                             <Os-Arch>${os.arch}</Os-Arch>
@@ -643,7 +643,7 @@
                         </manifest>
                         <manifestEntries>
                             <Build-Time>${maven.build.timestamp}</Build-Time>
-                            <Copywrite>${copywrite}</Copywrite>
+                            <copyright>${copyright}</copyright>
                             <Git-Revision>${git.commit.id}</Git-Revision>
                             <Os-Name>${os.name}</Os-Name>
                             <Os-Arch>${os.arch}</Os-Arch>
