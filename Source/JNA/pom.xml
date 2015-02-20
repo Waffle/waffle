@@ -369,7 +369,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>tidy-maven-plugin</artifactId>
-                    <version>1.0-alpha-2</version>
+                    <version>1.0-beta-1</version>
                 </plugin>
                 <plugin>
                     <groupId>net.alchim31.maven</groupId>
