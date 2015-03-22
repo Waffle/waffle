@@ -114,7 +114,7 @@
 
         <assertj.version>1.7.1</assertj.version>
         <contiperf.version>2.3.4</contiperf.version>
-        <jmockit.version>1.14</jmockit.version>
+        <jmockit.version>1.16</jmockit.version>
         <junit.version>4.12</junit.version>
         <mockito.version>1.10.19</mockito.version>
         <slf4j.version>1.7.10</slf4j.version>
