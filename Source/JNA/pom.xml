@@ -62,7 +62,7 @@
         </contributor>
     </contributors>
     <prerequisites>
-        <maven>3.2.1</maven>
+        <maven>3.2.3</maven>
     </prerequisites>
     <modules>
         <module>waffle-demo</module>
@@ -107,6 +107,7 @@
         <maven.compiler.source>1.6</maven.compiler.source>
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.min-version>3.2.1</maven.min-version>
+        <maven.min-version>3.2.3</maven.min-version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
