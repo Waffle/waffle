@@ -4,8 +4,11 @@
 * [#187](https://github.com/dblock/waffle/pull/187): Removed Spring 2 and Tomcat 5 support.
 * [#188](https://github.com/dblock/waffle/issues/188): Added support for service provider to authorize the principal.
 * [#192](https://github.com/dblock/waffle/pull/192): Fix: Tomcat 8 MixedAuthenticator uses LoginConfig out of context.
+* [#206](https://github.com/dblock/waffle/pull/206): Fix issue [#203](https://github.com/dblock/waffle/issues/203)
+  ** Tomcat negotiate filters reporting Win32Error 500 status error instead of 401.
+  ** Related to issue [#107](https://github.com/dblock/waffle/issues/107)
 
-* Created 1.7.x branch for spring 2 and tomcat 5 continued support for one year.
+* Created 1.7.x branch for spring 2 and tomcat 5 continued support for one year.  Only complete show stoppers to be addressed there.
 * Github gh-pages now built via mvn site plugin.
 * We use sfl4j, so use jcl-over-slf4j instead of allowing spring to bring in commons-logging.
 
