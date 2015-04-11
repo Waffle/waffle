@@ -8,6 +8,8 @@
 * [#206](https://github.com/dblock/waffle/pull/206): Fix issue [#203](https://github.com/dblock/waffle/issues/203)
   ** Tomcat negotiate filters reporting Win32Error 500 status error instead of 401.
   ** Related to issue [#107](https://github.com/dblock/waffle/issues/107)
+* [#207](https://github.com/dblock/waffle/pull/207): Further refinement of test dependencies and now requires java 7 to compile library.
+  ** At this point, still supports java 6 runtimes.
 
 * Created 1.7.x branch for spring 2 and tomcat 5 continued support for one year.  Only complete show stoppers to be addressed there.
 * Github gh-pages now built via mvn site plugin.
