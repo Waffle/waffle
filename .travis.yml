@@ -4,7 +4,6 @@ jdk:
   - oraclejdk8
   - oraclejdk7
   - openjdk7
-  - openjdk6
 
 env:
   global:
@@ -24,8 +23,7 @@ addons:
 
 before_script:
 - cd Source/ThirdParty
-- mvn install:install-file -Dfile=spring-security/spring-security-core-4.0.0.M2.jar -DgroupId=org.springframework.security -DartifactId=spring-security-core -Dversion=4.0.0.M2 -Dpackaging=jar
-- mvn install:install-file -Dfile=spring-security/spring-security-web-4.0.0.M2.jar -DgroupId=org.springframework.security -DartifactId=spring-security-web -Dversion=4.0.0.M2 -Dpackaging=jar
+# sample -  mvn install:install-file -Dfile=spring-security/spring-security-core-4.0.0.M2.jar -DgroupId=org.springframework.security -DartifactId=spring-security-core -Dversion=4.0.0.M2 -Dpackaging=jar
 - cd ../JNA
 
 script: if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then mvn clean install -DskipTests=true; fi
