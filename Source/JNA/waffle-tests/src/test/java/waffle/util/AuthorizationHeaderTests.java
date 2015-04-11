@@ -17,10 +17,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Rule;
+import org.assertj.core.api.BDDSoftAssertions;
+import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.Test;
 
-import pl.wkr.fluentrule.api.FluentExpectedException;
 import waffle.mock.http.SimpleHttpRequest;
 
 /**
@@ -29,9 +29,6 @@ import waffle.mock.http.SimpleHttpRequest;
 public class AuthorizationHeaderTests {
 
     private static final String DIGEST_HEADER = "Digest username=\"admin\", realm=\"milton\", nonce=\"YjNjZDgxNDYtOGIwMS00NDk0LTlkMTItYzExMGJkNTcxZjli\", uri=\"/case-user-data/431b971d9e1441d381adb277de4f39f8/test\", response=\"30d2d15e89e0b7596325a12852ae6ca5\", qop=auth, nc=00000025, cnonce=\"fb2f97a275d3d9cb\"";
-
-    @Rule
-    public FluentExpectedException thrown = FluentExpectedException.none();
 
     @Test
     public void testIsNull() {
@@ -125,7 +122,13 @@ public class AuthorizationHeaderTests {
         final SimpleHttpRequest request = new SimpleHttpRequest();
         final AuthorizationHeader header = new AuthorizationHeader(request);
         request.addHeader("Authorization", DIGEST_HEADER);
-        this.thrown.expect(RuntimeException.class).hasMessage("Invalid authorization header.");
-        header.getTokenBytes();
+
+        final BDDSoftAssertions softly = new BDDSoftAssertions();
+        softly.thenThrownBy(new ThrowingCallable() {
+            @Override
+            public void call() throws Exception {
+                header.getTokenBytes();
+            }
+        }).isInstanceOf(RuntimeException.class).hasMessageContaining("Invalid authorization header");
     }
 }
