@@ -106,6 +106,8 @@
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
         <maven.compiler.source>1.6</maven.compiler.source>
         <maven.compiler.target>1.6</maven.compiler.target>
+        <maven.compiler.testSource>1.7</maven.compiler.testSource>
+        <maven.compiler.testTarget>1.7</maven.compiler.testTarget>
         <maven.min-version>3.2.3</maven.min-version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
@@ -114,7 +116,8 @@
         <src.relative.loc>.</src.relative.loc>
         <git.relative.loc>../..</git.relative.loc>
 
-        <assertj.version>1.7.1</assertj.version>
+        <assertj.version>2.0.0</assertj.version>
+        <cglib.version>3.1</cglib.version>
         <contiperf.version>2.3.4</contiperf.version>
         <jmockit.version>1.16</jmockit.version>
         <junit.version>4.12</junit.version>
@@ -140,6 +143,12 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib-nodep</artifactId>
+            <version>${cglib.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.jmockit</groupId>
             <artifactId>jmockit</artifactId>
             <version>${jmockit.version}</version>
@@ -157,12 +166,6 @@
                     <groupId>org.hamcrest</groupId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>pl.wkr</groupId>
-            <artifactId>fluent-exception-rule</artifactId>
-            <version>1.0.1</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
