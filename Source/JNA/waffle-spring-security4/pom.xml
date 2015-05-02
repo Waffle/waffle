@@ -24,7 +24,7 @@
 
         <servlet.version>3.1.0</servlet.version>
         <spring.version>4.1.6.RELEASE</spring.version>
-        <spring.security.version>4.0.0.RELEASE</spring.security.version>
+        <spring.security.version>4.0.1.RELEASE</spring.security.version>
     </properties>
     <scm>
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
@@ -36,13 +36,13 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>waffle-jna</artifactId>
-            <version>1.7.4-SNAPSHOT</version>
+            <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>waffle-tests</artifactId>
-            <version>1.7.4-SNAPSHOT</version>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>

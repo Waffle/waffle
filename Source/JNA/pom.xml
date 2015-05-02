@@ -117,7 +117,7 @@
         <assertj.version>2.0.0</assertj.version>
         <cglib.version>3.1</cglib.version>
         <contiperf.version>2.3.4</contiperf.version>
-        <jmockit.version>1.16</jmockit.version>
+        <jmockit.version>1.17</jmockit.version>
         <junit.version>4.12</junit.version>
         <mockito.version>1.10.19</mockito.version>
         <slf4j.version>1.7.12</slf4j.version>
@@ -238,7 +238,7 @@
                         <dependency>
                             <groupId>net.trajano.wagon</groupId>
                             <artifactId>wagon-git</artifactId>
-                            <version>2.0.2</version>
+                            <version>2.0.3</version>
                         </dependency>
                         <!-- For reporting only of versions -->
                         <dependency>
@@ -249,7 +249,7 @@
                         <dependency>
                             <groupId>org.apache.maven.wagon</groupId>
                             <artifactId>wagon-ssh</artifactId>
-                            <version>2.8</version>
+                            <version>2.9</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -297,7 +297,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>2.10.2</version>
+                    <version>2.10.3</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -313,7 +313,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
-                    <version>2.5.3</version>
+                    <version>2.5.4</version>
                     <configuration>
                         <descriptor>${project.basedir}/src/assembly/assembly.xml</descriptor>
                     </configuration>
@@ -326,7 +326,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
-                    <version>2.5.1</version>
+                    <version>2.5.2</version>
                     <configuration>
                         <autoVersionSubmodules>true</autoVersionSubmodules>
                     </configuration>
@@ -394,7 +394,7 @@
                 <plugin>
                     <groupId>com.mycila</groupId>
                     <artifactId>license-maven-plugin</artifactId>
-                    <version>2.10</version>
+                    <version>2.11</version>
                     <configuration>
                         <header>${src.relative.loc}/license.txt</header>
                         <excludes>
@@ -443,18 +443,18 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
-                    <version>2.1</version>
+                    <version>2.2</version>
                 </plugin>
                 <!-- SCM -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-scm-plugin</artifactId>
-                    <version>1.9.2</version>
+                    <version>1.9.4</version>
                     <dependencies>
                         <dependency>
                             <groupId>org.apache.maven.scm</groupId>
                             <artifactId>maven-scm-provider-jgit</artifactId>
-                            <version>1.9.2</version>
+                            <version>1.9.4</version>
                         </dependency>
                         <dependency>
                             <groupId>com.googlecode.javaewah</groupId>
@@ -469,12 +469,12 @@
                         <dependency>
                             <groupId>org.eclipse.jgit</groupId>
                             <artifactId>org.eclipse.jgit</artifactId>
-                            <version>3.7.0.201502260915-r</version>
+                            <version>3.7.1.201504261725-r </version>
                         </dependency>
                         <dependency>
                             <groupId>org.codehaus.plexus</groupId>
                             <artifactId>plexus-utils</artifactId>
-                            <version>3.0.21</version>
+                            <version>3.0.22</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -482,7 +482,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>sonar-maven-plugin</artifactId>
-                    <version>2.5</version>
+                    <version>2.6</version>
                 </plugin>
                 <!-- Wagon -->
                 <plugin>
@@ -505,7 +505,7 @@
                 <plugin>
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
-                    <version>1.2.9</version>
+                    <version>1.2.10</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -1015,7 +1015,7 @@
                                         <pluginExecutionFilter>
                                             <groupId>org.jacoco</groupId>
                                             <artifactId>jacoco-maven-plugin</artifactId>
-                                            <versionRange>[0.7.2.201409121644,)</versionRange>
+                                            <versionRange>[0.7.4.201502262128,)</versionRange>
                                             <goals>
                                                 <goal>prepare-agent</goal>
                                             </goals>
