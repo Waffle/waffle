@@ -243,7 +243,7 @@
                         <dependency>
                             <groupId>org.apache.maven.skins</groupId>
                             <artifactId>maven-fluido-skin</artifactId>
-                            <version>1.3.1</version>
+                            <version>1.4</version>
                         </dependency>
                         <dependency>
                             <groupId>org.apache.maven.wagon</groupId>
