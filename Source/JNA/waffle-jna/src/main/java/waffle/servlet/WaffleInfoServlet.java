@@ -43,12 +43,43 @@ public class WaffleInfoServlet extends HttpServlet {
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
-    /* (non-Javadoc)
-     * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+    /*
+     * (non-Javadoc)
+     * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest,
+     * javax.servlet.http.HttpServletResponse)
      */
     @Override
     public void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
             IOException {
+        this.getWaffleInfoResponse(request, response);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest,
+     * javax.servlet.http.HttpServletResponse)
+     */
+    @Override
+    public void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
+            IOException {
+        this.getWaffleInfoResponse(request, response);
+    }
+
+    /**
+     * Gets the waffle info response.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @return the waffle info response
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ServletException
+     *             the servlet exception
+     */
+    public void getWaffleInfoResponse(final HttpServletRequest request, final HttpServletResponse response)
+            throws IOException, ServletException {
         final WaffleInfo info = new WaffleInfo();
         try {
             final Document doc = info.getWaffleInfo();
@@ -61,7 +92,7 @@ public class WaffleInfoServlet extends HttpServlet {
             // Lookup Accounts By Name
             final String[] lookup = request.getParameterValues("lookup");
             if (lookup != null) {
-                for (String name : lookup) {
+                for (final String name : lookup) {
                     root.appendChild(info.getLookupInfo(doc, name));
                 }
             }
@@ -75,31 +106,13 @@ public class WaffleInfoServlet extends HttpServlet {
             final DOMSource source = new DOMSource(doc);
             trans.transform(source, result);
             response.setContentType("application/xml");
-        } catch (ParserConfigurationException e) {
+        } catch (final ParserConfigurationException e) {
             throw new ServletException(e);
-        } catch (TransformerConfigurationException e) {
+        } catch (final TransformerConfigurationException e) {
             throw new ServletException(e);
-        } catch (TransformerException e) {
+        } catch (final TransformerException e) {
             throw new ServletException(e);
         }
-    }
-
-    /**
-     * Delegate POST to GET.
-     *
-     * @param request
-     *            httpServletRequest.
-     * @param response
-     *            httpServletResponse.
-     * @throws ServletException
-     *             or IOException.
-     * @throws IOException
-     *             Signals that an I/O exception has occurred.
-     */
-    @Override
-    public void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-            IOException {
-        doGet(request, response);
     }
 
     /**
@@ -111,7 +124,7 @@ public class WaffleInfoServlet extends HttpServlet {
      *            the request
      * @return the request info
      */
-    public Element getRequestInfo(final Document doc, final HttpServletRequest request) {
+    private Element getRequestInfo(final Document doc, final HttpServletRequest request) {
         final Element node = doc.createElement("request");
 
         Element value = doc.createElement("AuthType");
@@ -120,7 +133,7 @@ public class WaffleInfoServlet extends HttpServlet {
 
         final Principal p = request.getUserPrincipal();
         if (p != null) {
-            Element child = doc.createElement("principal");
+            final Element child = doc.createElement("principal");
             child.setAttribute("class", p.getClass().getName());
 
             value = doc.createElement("name");
@@ -137,7 +150,7 @@ public class WaffleInfoServlet extends HttpServlet {
         final Enumeration<?> headers = request.getHeaderNames();
         if (headers.hasMoreElements()) {
             String name;
-            Element child = doc.createElement("headers");
+            final Element child = doc.createElement("headers");
             while (headers.hasMoreElements()) {
                 name = (String) headers.nextElement();
 
