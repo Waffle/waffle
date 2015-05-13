@@ -25,6 +25,7 @@ import org.apache.catalina.deploy.LoginConfig;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.io.BaseEncoding;
+import com.sun.jna.platform.win32.Win32Exception;
 
 import waffle.util.AuthorizationHeader;
 import waffle.util.NtlmServletRequest;
