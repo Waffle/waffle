@@ -103,7 +103,7 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
      * @return the accessDeniedHandler
      */
     public AccessDeniedHandler getAccessDeniedHandler() {
-        return accessDeniedHandler;
+        return this.accessDeniedHandler;
     }
 
     /**
@@ -122,7 +122,7 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
      * @return the authenticationFailureHandler
      */
     public AuthenticationFailureHandler getAuthenticationFailureHandler() {
-        return authenticationFailureHandler;
+        return this.authenticationFailureHandler;
     }
 
     /**
@@ -150,29 +150,29 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
     protected boolean setAuthentication(final HttpServletRequest request, final HttpServletResponse response,
             final Authentication authentication) {
         try {
-            if (authenticationManager != null) {
-                logger.debug("Delegating to custom authenticationmanager");
-                final Authentication customAuthentication = authenticationManager.authenticate(authentication);
+            if (this.authenticationManager != null) {
+                this.logger.debug("Delegating to custom authenticationmanager");
+                final Authentication customAuthentication = this.authenticationManager.authenticate(authentication);
                 SecurityContextHolder.getContext().setAuthentication(customAuthentication);
             }
-            if (authenticationSuccessHandler != null) {
+            if (this.authenticationSuccessHandler != null) {
                 try {
-                    authenticationSuccessHandler.onAuthenticationSuccess(request, response, authentication);
+                    this.authenticationSuccessHandler.onAuthenticationSuccess(request, response, authentication);
                 } catch (final IOException e) {
-                    logger.warn("Error calling authenticationSuccessHandler: " + e.getMessage());
+                    this.logger.warn("Error calling authenticationSuccessHandler: " + e.getMessage());
                     return false;
                 } catch (final ServletException e) {
-                    logger.warn("Error calling authenticationSuccessHandler: " + e.getMessage());
+                    this.logger.warn("Error calling authenticationSuccessHandler: " + e.getMessage());
                     return false;
                 }
             }
         } catch (final AuthenticationException e) {
 
-            logger.warn("Error authenticating user in custom authenticationmanager: " + e.getMessage());
+            this.logger.warn("Error authenticating user in custom authenticationmanager: " + e.getMessage());
             sendAuthenticationFailed(request, response, e);
             return false;
         } catch (final AccessDeniedException e) {
-            logger.warn("Error authorizing user in custom authenticationmanager: " + e.getMessage());
+            this.logger.warn("Error authorizing user in custom authenticationmanager: " + e.getMessage());
             sendAccessDenied(request, response, e);
             return false;
         }
@@ -203,9 +203,9 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
      */
     private void sendAuthenticationFailed(final HttpServletRequest request, final HttpServletResponse response,
             final AuthenticationException ae) {
-        if (authenticationFailureHandler != null) {
+        if (this.authenticationFailureHandler != null) {
             try {
-                authenticationFailureHandler.onAuthenticationFailure(request, response, ae);
+                this.authenticationFailureHandler.onAuthenticationFailure(request, response, ae);
                 return;
             } catch (final IOException e) {
                 LOGGER.warn("IOException invoking authenticationFailureHandler: " + e.getMessage());
@@ -228,9 +228,9 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
      */
     private void sendAccessDenied(final HttpServletRequest request, final HttpServletResponse response,
             final AccessDeniedException ae) {
-        if (accessDeniedHandler != null) {
+        if (this.accessDeniedHandler != null) {
             try {
-                accessDeniedHandler.handle(request, response, ae);
+                this.accessDeniedHandler.handle(request, response, ae);
                 return;
             } catch (final IOException e) {
                 LOGGER.warn("IOException invoking accessDeniedHandler: " + e.getMessage());
@@ -248,7 +248,7 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
      * @return the authenticationSuccessHandler
      */
     public AuthenticationSuccessHandler getAuthenticationSuccessHandler() {
-        return authenticationSuccessHandler;
+        return this.authenticationSuccessHandler;
     }
 
     /**
@@ -267,7 +267,7 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
      * @return the authenticationManager
      */
     public AuthenticationManager getAuthenticationManager() {
-        return authenticationManager;
+        return this.authenticationManager;
     }
 
     /**

@@ -17,10 +17,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.assertj.core.api.BDDSoftAssertions;
+import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.Test;
-
-import com.googlecode.catchexception.CatchException;
-import com.googlecode.catchexception.apis.BDDCatchException;
 
 import waffle.mock.http.SimpleHttpRequest;
 
@@ -123,8 +122,13 @@ public class AuthorizationHeaderTests {
         final SimpleHttpRequest request = new SimpleHttpRequest();
         final AuthorizationHeader header = new AuthorizationHeader(request);
         request.addHeader("Authorization", DIGEST_HEADER);
-        BDDCatchException.when(header).getTokenBytes();
-        BDDCatchException.then(CatchException.caughtException()).isInstanceOf(RuntimeException.class)
-                .hasMessage("Invalid authorization header.");
+
+        final BDDSoftAssertions softly = new BDDSoftAssertions();
+        softly.thenThrownBy(new ThrowingCallable() {
+            @Override
+            public void call() throws Exception {
+                header.getTokenBytes();
+            }
+        }).isInstanceOf(RuntimeException.class).hasMessageContaining("Invalid authorization header");
     }
 }

@@ -22,12 +22,12 @@
 
         <el.version>3.0.1-b05</el.version>
         <el-api.version>3.0.1-b04</el-api.version>
-        <jetty.version>9.2.6.v20141205</jetty.version>
-        <jdt.version>4.4</jdt.version>
+        <jetty.version>9.2.10.v20150310</jetty.version>
+        <jdt.version>4.4.2</jdt.version>
         <jsp.version>2.3.3-b02</jsp.version>
         <jsp-api.version>2.3.2-b01</jsp-api.version>
         <jstl.version>1.2.4</jstl.version>
-        <slf4j.version>1.7.10</slf4j.version>
+        <slf4j.version>1.7.12</slf4j.version>
     </properties>
     <scm>
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
@@ -39,7 +39,7 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>waffle-jna</artifactId>
-            <version>1.7.4-SNAPSHOT</version>
+            <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

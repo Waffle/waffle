@@ -18,6 +18,7 @@ import javax.servlet.ServletException;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.Valve;
+import org.apache.tomcat.util.descriptor.web.LoginConfig;
 import org.assertj.core.api.Assertions;
 import org.junit.After;
 import org.junit.Assert;
@@ -54,7 +55,11 @@ public class MixedAuthenticatorTests {
     @Before
     public void setUp() throws LifecycleException {
         this.authenticator = new MixedAuthenticator();
+        final LoginConfig loginConfig = new LoginConfig();
+        loginConfig.setErrorPage("error.html");
+        loginConfig.setLoginPage("login.html");
         final SimpleContext ctx = Mockito.mock(SimpleContext.class, Mockito.CALLS_REAL_METHODS);
+        Mockito.when(ctx.getLoginConfig()).thenReturn(loginConfig);
         ctx.setServletContext(Mockito.mock(SimpleServletContext.class, Mockito.CALLS_REAL_METHODS));
         ctx.setPath("/");
         ctx.setName("SimpleContext");
@@ -131,6 +136,7 @@ public class MixedAuthenticatorTests {
 
     @Test
     public void testGet() {
+
         final SimpleHttpRequest request = new SimpleHttpRequest();
         final SimpleHttpResponse response = new SimpleHttpResponse();
         Assert.assertFalse(this.authenticator.authenticate(request, response));

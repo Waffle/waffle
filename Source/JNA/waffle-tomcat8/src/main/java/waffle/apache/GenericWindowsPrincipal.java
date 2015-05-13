@@ -34,12 +34,14 @@ import waffle.windows.auth.WindowsAccount;
  */
 public class GenericWindowsPrincipal extends GenericPrincipal {
 
+    private static final long serialVersionUID = 1L;
+
     /** The sid. */
     private byte[]                      sid;
-    
+
     /** The sid string. */
     private String                      sidString;
-    
+
     /** The groups. */
     private Map<String, WindowsAccount> groups;
 

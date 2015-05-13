@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -229,6 +229,13 @@ public class NegotiateAuthenticatorTests {
                 if (authenticated) {
                     Assertions.assertThat(response.getHeaderNames().length).isGreaterThanOrEqualTo(0);
                     break;
+                }
+
+                if (response.getHeader("WWW-Authenticate").startsWith(securityPackage + ",")) {
+                    Assert.assertEquals("close", response.getHeader("Connection"));
+                    Assert.assertEquals(2, response.getHeaderNames().length);
+                    Assert.assertEquals(401, response.getStatus());
+                    return;
                 }
 
                 Assert.assertTrue(response.getHeader("WWW-Authenticate").startsWith(securityPackage + " "));

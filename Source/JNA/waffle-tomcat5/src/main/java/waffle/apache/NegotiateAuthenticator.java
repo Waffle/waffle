@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -25,6 +25,7 @@ import org.apache.catalina.deploy.LoginConfig;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.io.BaseEncoding;
+import com.sun.jna.platform.win32.Win32Exception;
 
 import waffle.util.AuthorizationHeader;
 import waffle.util.NtlmServletRequest;
@@ -92,7 +93,14 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
             try {
                 byte[] tokenBuffer = authorizationHeader.getTokenBytes();
                 this.log.debug("token buffer: {} byte(s)", Integer.valueOf(tokenBuffer.length));
-                securityContext = this.auth.acceptSecurityToken(connectionId, tokenBuffer, securityPackage);
+                try {
+                    securityContext = this.auth.acceptSecurityToken(connectionId, tokenBuffer, securityPackage);
+                } catch (final Win32Exception e) {
+                    this.log.warn("error logging in user: {}", e.getMessage());
+                    this.log.trace("{}", e);
+                    sendUnauthorized(response);
+                    return false;
+                }
                 this.log.debug("continue required: {}", Boolean.valueOf(securityContext.isContinue()));
 
                 final byte[] continueTokenBytes = securityContext.getToken();

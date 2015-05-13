@@ -17,7 +17,7 @@
         <src.relative.loc>..</src.relative.loc>
         <git.relative.loc>../../..</git.relative.loc>
 
-        <tomcat.version>7.0.57</tomcat.version>
+        <tomcat.version>7.0.61</tomcat.version>
     </properties>
     <scm>
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
@@ -29,13 +29,13 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>waffle-jna</artifactId>
-            <version>1.7.4-SNAPSHOT</version>
+            <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>waffle-tests</artifactId>
-            <version>1.7.4-SNAPSHOT</version>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
