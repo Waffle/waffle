@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -35,10 +35,14 @@ import org.apache.shiro.subject.SimplePrincipalCollection;
  * @since 1.0.0
  */
 public class NegotiateInfo implements AuthenticationInfo {
+    
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -1537448549089922914L;
 
+    /** The subject. */
     private final Subject     subject;
 
+    /** The realm name. */
     private final String      realmName;
 
     /**

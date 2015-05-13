@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -34,12 +34,25 @@ import waffle.windows.auth.WindowsAccount;
  */
 public class WindowsPrincipal implements Principal, Serializable {
 
+    /** The Constant serialVersionUID. */
     private static final long           serialVersionUID = 1L;
+    
+    /** The fqn. */
     private String                      fqn;
+    
+    /** The sid. */
     private byte[]                      sid;
+    
+    /** The sid string. */
     private String                      sidString;
+    
+    /** The roles. */
     private List<String>                roles;
+    
+    /** The identity. */
     private transient IWindowsIdentity  identity;
+    
+    /** The groups. */
     private Map<String, WindowsAccount> groups;
 
     /**
@@ -72,6 +85,17 @@ public class WindowsPrincipal implements Principal, Serializable {
         this.roles = getRoles(windowsIdentity, principalFormat, roleFormat);
     }
 
+    /**
+     * Gets the roles.
+     *
+     * @param windowsIdentity
+     *            the windows identity
+     * @param principalFormat
+     *            the principal format
+     * @param roleFormat
+     *            the role format
+     * @return the roles
+     */
     private static List<String> getRoles(final IWindowsIdentity windowsIdentity, final PrincipalFormat principalFormat,
             final PrincipalFormat roleFormat) {
         final List<String> roles = new ArrayList<String>();
@@ -82,6 +106,13 @@ public class WindowsPrincipal implements Principal, Serializable {
         return roles;
     }
 
+    /**
+     * Gets the groups.
+     *
+     * @param groups
+     *            the groups
+     * @return the groups
+     */
     private static Map<String, WindowsAccount> getGroups(final IWindowsAccount[] groups) {
         final Map<String, WindowsAccount> groupMap = new HashMap<String, WindowsAccount>();
         for (IWindowsAccount group : groups) {
@@ -217,6 +248,9 @@ public class WindowsPrincipal implements Principal, Serializable {
         return this.identity;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return this.getName();

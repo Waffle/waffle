@@ -1,9 +1,12 @@
 1.8-SNAPSHOT (in-progress)
 ==========================
 
-* In progress release
+1.7.4 (05/12/15)
+================
+* [#188](https://github.com/dblock/waffle/issues/188): Added support for service provider to authorize the principal
+* [#192](https://github.com/dblock/waffle/pull/192): Mixed authenticator bug
 
-1.7.3 (in-progress)
+1.7.3 (12/21/2014)
 ===================
 * Corrected javadoc issues in shiro package to ensure javadocs build
 * Make some package methods private in shiro package
@@ -18,6 +21,7 @@
 Developer note
 --------------
 * [#164](https://github.com/dblock/waffle/issues/164): Added unit test in waffle-tests using catch-exception test library to verify the condition caught is actually expected.
+* [#188](https://github.com/dblock/waffle/issues/188): Added support for service provider to authorize the principal
 
 1.7.1 (11/30/2014 - waffle-jna only)
 ====================================

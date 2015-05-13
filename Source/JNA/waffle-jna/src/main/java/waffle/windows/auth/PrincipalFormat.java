@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -14,8 +14,18 @@
 package waffle.windows.auth;
 
 /**
+ * The Enum PrincipalFormat.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public enum PrincipalFormat {
-    FQN, SID, BOTH, NONE;
+    
+    /** The fqn. */
+    FQN, 
+ /** The sid. */
+ SID, 
+ /** The both. */
+ BOTH, 
+ /** The none. */
+ NONE;
 }

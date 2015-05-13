@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -21,12 +21,21 @@ import com.sun.jna.platform.win32.WinError;
 import waffle.windows.auth.IWindowsImpersonationContext;
 
 /**
+ * The Class WindowsSecurityContextImpersonationContextImpl.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsSecurityContextImpersonationContextImpl implements IWindowsImpersonationContext {
 
+    /** The ctx. */
     private CtxtHandle ctx;
 
+    /**
+     * Instantiates a new windows security context impersonation context impl.
+     *
+     * @param newCtx
+     *            the new ctx
+     */
     public WindowsSecurityContextImpersonationContextImpl(final CtxtHandle newCtx) {
         final int rc = Secur32.INSTANCE.ImpersonateSecurityContext(newCtx);
         if (rc != WinError.SEC_E_OK) {
@@ -36,6 +45,9 @@ public class WindowsSecurityContextImpersonationContextImpl implements IWindowsI
         this.ctx = newCtx;
     }
 
+    /* (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsImpersonationContext#revertToSelf()
+     */
     @Override
     public void revertToSelf() {
         final int rc = Secur32.INSTANCE.RevertSecurityContext(this.ctx);

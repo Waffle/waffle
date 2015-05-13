@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -30,6 +30,7 @@ import waffle.windows.auth.WindowsAccount;
  */
 public class WindowsAuthenticationToken implements Authentication {
 
+    /** The Constant serialVersionUID. */
     private static final long                   serialVersionUID                  = 1L;
 
     /**
@@ -47,7 +48,10 @@ public class WindowsAuthenticationToken implements Authentication {
     public static final GrantedAuthority        DEFAULT_GRANTED_AUTHORITY         = new SimpleGrantedAuthority(
                                                                                           "ROLE_USER");
 
+    /** The principal. */
     private WindowsPrincipal                    principal;
+    
+    /** The authorities. */
     private Collection<GrantedAuthority>        authorities;
 
     /**
@@ -58,7 +62,8 @@ public class WindowsAuthenticationToken implements Authentication {
      * <li>the {@link #DEFAULT_GRANTED_AUTHORITY_FACTORY}</li>
      * <li>the {@link #DEFAULT_GRANTED_AUTHORITY}</li>
      * </ul>
-     * 
+     * .
+     *
      * @param identity
      *            The {@link WindowsPrincipal} for which this token exists.
      */
@@ -67,6 +72,8 @@ public class WindowsAuthenticationToken implements Authentication {
     }
 
     /**
+     * Instantiates a new windows authentication token.
+     *
      * @param identity
      *            The {@link WindowsPrincipal} for which this token exists.
      * @param grantedAuthorityFactory
@@ -88,36 +95,57 @@ public class WindowsAuthenticationToken implements Authentication {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.security.core.Authentication#getAuthorities()
+     */
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
         return this.authorities;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.security.core.Authentication#getCredentials()
+     */
     @Override
     public Object getCredentials() {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.security.core.Authentication#getDetails()
+     */
     @Override
     public Object getDetails() {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.security.core.Authentication#getPrincipal()
+     */
     @Override
     public Object getPrincipal() {
         return this.principal;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.security.core.Authentication#isAuthenticated()
+     */
     @Override
     public boolean isAuthenticated() {
         return this.principal != null;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.security.core.Authentication#setAuthenticated(boolean)
+     */
     @Override
     public void setAuthenticated(final boolean authenticated) {
         throw new IllegalArgumentException();
     }
 
+    /* (non-Javadoc)
+     * @see java.security.Principal#getName()
+     */
     @Override
     public String getName() {
         return this.principal.getName();

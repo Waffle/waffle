@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -30,19 +30,34 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 import static java.util.Arrays.asList;
 
 /**
+ * The Class WaffleAuthenticatorBase.
+ *
  * @author dblock[at]dblock[dot]org
  */
 abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
+    /** The Constant SUPPORTED_PROTOCOLS. */
     private static final Set<String> SUPPORTED_PROTOCOLS = new LinkedHashSet<String>(asList("Negotiate", "NTLM"));
 
+    /** The info. */
     protected String                 info;
+    
+    /** The log. */
     protected Logger                 log;
+    
+    /** The principal format. */
     protected PrincipalFormat        principalFormat     = PrincipalFormat.FQN;
+    
+    /** The role format. */
     protected PrincipalFormat        roleFormat          = PrincipalFormat.FQN;
+    
+    /** The allow guest login. */
     protected boolean                allowGuestLogin     = true;
+    
+    /** The protocols. */
     protected Set<String>            protocols           = SUPPORTED_PROTOCOLS;
 
+    /** The auth. */
     protected IWindowsAuthProvider   auth                = new WindowsAuthProviderImpl();
 
     /**
@@ -64,6 +79,9 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
         this.auth = provider;
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.catalina.authenticator.AuthenticatorBase#getInfo()
+     */
     @Override
     public String getInfo() {
         return this.info;

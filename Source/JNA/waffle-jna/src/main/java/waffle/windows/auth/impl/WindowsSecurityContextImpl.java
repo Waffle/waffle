@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -35,19 +35,38 @@ import com.sun.jna.ptr.IntByReference;
  */
 public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 
+    /** The principal name. */
     private String         principalName;
+    
+    /** The security package. */
     private String         securityPackage;
+    
+    /** The token. */
     private SecBufferDesc  token;
+    
+    /** The ctx. */
     private CtxtHandle     ctx;
+    
+    /** The attr. */
     private IntByReference attr;
+    
+    /** The credentials. */
     private CredHandle     credentials;
+    
+    /** The continue flag. */
     private boolean        continueFlag;
 
+    /* (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsSecurityContext#impersonate()
+     */
     @Override
     public IWindowsImpersonationContext impersonate() {
         return new WindowsSecurityContextImpersonationContextImpl(this.ctx);
     }
 
+    /* (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsSecurityContext#getIdentity()
+     */
     @Override
     public IWindowsIdentity getIdentity() {
         final HANDLEByReference phContextToken = new HANDLEByReference();
@@ -58,11 +77,17 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
         return new WindowsIdentityImpl(phContextToken.getValue());
     }
 
+    /* (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsSecurityContext#getSecurityPackage()
+     */
     @Override
     public String getSecurityPackage() {
         return this.securityPackage;
     }
 
+    /* (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsSecurityContext#getToken()
+     */
     @Override
     public byte[] getToken() {
         return this.token == null || this.token.getBytes() == null ? null : this.token.getBytes().clone();
@@ -92,6 +117,9 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
         }
     }
 
+    /* (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsSecurityContext#initialize(com.sun.jna.platform.win32.Sspi.CtxtHandle, com.sun.jna.platform.win32.Sspi.SecBufferDesc, java.lang.String)
+     */
     @Override
     public void initialize(final CtxtHandle continueCtx, final SecBufferDesc continueToken, final String targetName) {
         this.attr = new IntByReference();
@@ -119,6 +147,9 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
         } while (rc == WinError.SEC_E_INSUFFICIENT_MEMORY);
     }
 
+    /* (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsSecurityContext#dispose()
+     */
     @Override
     public void dispose() {
         dispose(this.ctx);
@@ -142,41 +173,86 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsSecurityContext#getPrincipalName()
+     */
     @Override
     public String getPrincipalName() {
         return this.principalName;
     }
 
+    /**
+     * Sets the principal name.
+     *
+     * @param value
+     *            the new principal name
+     */
     public void setPrincipalName(final String value) {
         this.principalName = value;
     }
 
+    /* (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsSecurityContext#getHandle()
+     */
     @Override
     public CtxtHandle getHandle() {
         return this.ctx;
     }
 
+    /**
+     * Sets the credentials handle.
+     *
+     * @param handle
+     *            the new credentials handle
+     */
     public void setCredentialsHandle(final CredHandle handle) {
         this.credentials = handle;
     }
 
+    /**
+     * Sets the token.
+     *
+     * @param bytes
+     *            the new token
+     */
     public void setToken(final byte[] bytes) {
         this.token = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, bytes);
     }
 
+    /**
+     * Sets the security package.
+     *
+     * @param value
+     *            the new security package
+     */
     public void setSecurityPackage(final String value) {
         this.securityPackage = value;
     }
 
+    /**
+     * Sets the security context.
+     *
+     * @param phNewServerContext
+     *            the new security context
+     */
     public void setSecurityContext(final CtxtHandle phNewServerContext) {
         this.ctx = phNewServerContext;
     }
 
+    /* (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsSecurityContext#isContinue()
+     */
     @Override
     public boolean isContinue() {
         return this.continueFlag;
     }
 
+    /**
+     * Sets the continue.
+     *
+     * @param b
+     *            the new continue
+     */
     public void setContinue(final boolean b) {
         this.continueFlag = b;
     }

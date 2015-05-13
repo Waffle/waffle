@@ -38,11 +38,6 @@
         <dependencies>
             <dependency>
                 <groupId>com.github.dblock.waffle</groupId>
-                <artifactId>waffle-jna</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.dblock.waffle</groupId>
                 <artifactId>waffle-tomcat6</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -62,16 +57,12 @@
         <dependency>
             <groupId>com.github.dblock.waffle</groupId>
             <artifactId>waffle-jna</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
     <build>
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-war-plugin</artifactId>
-                    <version>2.5</version>
-                </plugin>
                 <plugin>
                     <groupId>org.apache.tomcat.maven</groupId>
                     <artifactId>tomcat6-maven-plugin</artifactId>

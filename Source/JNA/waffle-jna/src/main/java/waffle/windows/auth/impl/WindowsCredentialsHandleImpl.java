@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -30,10 +30,19 @@ import com.sun.jna.platform.win32.WinError;
  */
 public class WindowsCredentialsHandleImpl implements IWindowsCredentialsHandle {
 
+    /** The principal name. */
     private String     principalName;
+    
+    /** The credentials type. */
     private int        credentialsType;
+    
+    /** The security package. */
     private String     securityPackage;
+    
+    /** The handle. */
     private CredHandle handle;
+    
+    /** The client lifetime. */
     private TimeStamp  clientLifetime;
 
     /**
@@ -96,6 +105,8 @@ public class WindowsCredentialsHandleImpl implements IWindowsCredentialsHandle {
 
     /**
      * Get CredHandle.
+     *
+     * @return the handle
      */
     @Override
     public CredHandle getHandle() {

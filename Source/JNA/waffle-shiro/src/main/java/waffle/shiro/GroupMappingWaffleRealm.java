@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -28,6 +28,8 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
  * {@link org.apache.shiro.authz.permission.RolePermissionResolver}.
  */
 public class GroupMappingWaffleRealm extends AbstractWaffleRealm {
+    
+    /** The group roles map. */
     private final Map<String, String> groupRolesMap = new HashMap<String, String>();
 
     /**

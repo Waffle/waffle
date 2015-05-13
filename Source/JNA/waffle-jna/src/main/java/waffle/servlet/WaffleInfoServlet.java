@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -36,12 +36,16 @@ import org.w3c.dom.Element;
 import waffle.util.WaffleInfo;
 
 /**
- * A servlet that returns WaffleInfo as XML
+ * A servlet that returns WaffleInfo as XML.
  */
 public class WaffleInfoServlet extends HttpServlet {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+    /* (non-Javadoc)
+     * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     @Override
     public void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
             IOException {
@@ -82,20 +86,31 @@ public class WaffleInfoServlet extends HttpServlet {
 
     /**
      * Delegate POST to GET.
-     * 
+     *
      * @param request
      *            httpServletRequest.
      * @param response
      *            httpServletResponse.
      * @throws ServletException
      *             or IOException.
-     * */
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Override
     public void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
             IOException {
         doGet(request, response);
     }
 
+    /**
+     * Gets the request info.
+     *
+     * @param doc
+     *            the doc
+     * @param request
+     *            the request
+     * @return the request info
+     */
     public Element getRequestInfo(final Document doc, final HttpServletRequest request) {
         final Element node = doc.createElement("request");
 

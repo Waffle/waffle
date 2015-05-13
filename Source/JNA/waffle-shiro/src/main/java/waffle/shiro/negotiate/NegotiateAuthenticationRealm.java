@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -37,6 +37,9 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
 import java.security.Principal;
 
+/**
+ * The Class NegotiateAuthenticationRealm.
+ */
 public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
 
     /**
@@ -44,17 +47,27 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
      */
     private static final Logger        LOGGER = LoggerFactory.getLogger(NegotiateAuthenticationRealm.class);
 
+    /** The windows auth provider. */
     private final IWindowsAuthProvider windowsAuthProvider;
 
+    /**
+     * Instantiates a new negotiate authentication realm.
+     */
     public NegotiateAuthenticationRealm() {
         this.windowsAuthProvider = new WindowsAuthProviderImpl();
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.shiro.realm.AuthenticatingRealm#supports(org.apache.shiro.authc.AuthenticationToken)
+     */
     @Override
     public boolean supports(final AuthenticationToken token) {
         return token instanceof NegotiateToken;
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.shiro.realm.AuthenticatingRealm#doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)
+     */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(final AuthenticationToken t) {
 
