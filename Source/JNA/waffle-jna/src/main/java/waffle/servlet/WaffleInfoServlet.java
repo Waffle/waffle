@@ -72,7 +72,6 @@ public class WaffleInfoServlet extends HttpServlet {
      *            the request
      * @param response
      *            the response
-     * @return the waffle info response
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      * @throws ServletException
