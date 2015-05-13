@@ -231,6 +231,13 @@ public class NegotiateAuthenticatorTests {
                     break;
                 }
 
+                if (response.getHeader("WWW-Authenticate").startsWith(securityPackage + ",")) {
+                    Assert.assertEquals("close", response.getHeader("Connection"));
+                    Assert.assertEquals(2, response.getHeaderNames().length);
+                    Assert.assertEquals(401, response.getStatus());
+                    return;
+                }
+
                 Assert.assertTrue(response.getHeader("WWW-Authenticate").startsWith(securityPackage + " "));
                 Assert.assertEquals("keep-alive", response.getHeader("Connection"));
                 Assert.assertEquals(2, response.getHeaderNames().length);
