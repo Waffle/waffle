@@ -29,19 +29,19 @@
         <dependency>
             <groupId>com.github.dblock.waffle</groupId>
             <artifactId>waffle-jetty</artifactId>
-            <version>1.7.4-SNAPSHOT-SNAPSHOT</version>
+            <version>1.7.4-SNAPSHOT</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle</groupId>
             <artifactId>waffle-jna</artifactId>
-            <version>1.7.4-SNAPSHOT-SNAPSHOT</version>
+            <version>1.7.4-SNAPSHOT</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle</groupId>
             <artifactId>waffle-shiro</artifactId>
-            <version>1.7.4-SNAPSHOT-SNAPSHOT</version>
+            <version>1.7.4-SNAPSHOT</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -53,19 +53,19 @@
         <dependency>
             <groupId>com.github.dblock.waffle</groupId>
             <artifactId>waffle-spring-security3</artifactId>
-            <version>1.7.4-SNAPSHOT-SNAPSHOT</version>
+            <version>1.7.4-SNAPSHOT</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle</groupId>
             <artifactId>waffle-spring-security4</artifactId>
-            <version>1.7.4-SNAPSHOT-SNAPSHOT</version>
+            <version>1.7.4-SNAPSHOT</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle</groupId>
             <artifactId>waffle-tests</artifactId>
-            <version>1.7.4-SNAPSHOT-SNAPSHOT</version>
+            <version>1.7.4-SNAPSHOT</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -77,74 +77,74 @@
         <dependency>
             <groupId>com.github.dblock.waffle</groupId>
             <artifactId>waffle-tomcat6</artifactId>
-            <version>1.7.4-SNAPSHOT-SNAPSHOT</version>
+            <version>1.7.4-SNAPSHOT</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle</groupId>
             <artifactId>waffle-tomcat7</artifactId>
-            <version>1.7.4-SNAPSHOT-SNAPSHOT</version>
+            <version>1.7.4-SNAPSHOT</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle</groupId>
             <artifactId>waffle-tomcat8</artifactId>
-            <version>1.7.4-SNAPSHOT-SNAPSHOT</version>
+            <version>1.7.4-SNAPSHOT</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle.demo</groupId>
             <artifactId>waffle-filter</artifactId>
-            <version>1.7.4-SNAPSHOT-SNAPSHOT</version>
+            <version>1.7.4-SNAPSHOT</version>
             <scope>runtime</scope>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle.demo</groupId>
             <artifactId>waffle-form</artifactId>
-            <version>1.7.4-SNAPSHOT-SNAPSHOT</version>
+            <version>1.7.4-SNAPSHOT</version>
             <scope>runtime</scope>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle.demo</groupId>
             <artifactId>waffle-jaas</artifactId>
-            <version>1.7.4-SNAPSHOT-SNAPSHOT</version>
+            <version>1.7.4-SNAPSHOT</version>
             <scope>runtime</scope>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle.demo</groupId>
             <artifactId>waffle-mixed</artifactId>
-            <version>1.7.4-SNAPSHOT-SNAPSHOT</version>
+            <version>1.7.4-SNAPSHOT</version>
             <scope>runtime</scope>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle.demo</groupId>
             <artifactId>waffle-mixed-post</artifactId>
-            <version>1.7.4-SNAPSHOT-SNAPSHOT</version>
+            <version>1.7.4-SNAPSHOT</version>
             <scope>runtime</scope>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle.demo</groupId>
             <artifactId>waffle-negotiate</artifactId>
-            <version>1.7.4-SNAPSHOT-SNAPSHOT</version>
+            <version>1.7.4-SNAPSHOT</version>
             <scope>runtime</scope>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle.demo</groupId>
             <artifactId>waffle-spring-filter</artifactId>
-            <version>1.7.4-SNAPSHOT-SNAPSHOT</version>
+            <version>1.7.4-SNAPSHOT</version>
             <scope>runtime</scope>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>com.github.dblock.waffle.demo</groupId>
             <artifactId>waffle-spring-form</artifactId>
-            <version>1.7.4-SNAPSHOT-SNAPSHOT</version>
+            <version>1.7.4-SNAPSHOT</version>
             <scope>runtime</scope>
             <type>war</type>
         </dependency>

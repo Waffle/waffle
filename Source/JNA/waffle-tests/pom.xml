@@ -30,7 +30,7 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>waffle-jna</artifactId>
-            <version>1.7.4-SNAPSHOT-SNAPSHOT</version>
+            <version>1.7.4-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
