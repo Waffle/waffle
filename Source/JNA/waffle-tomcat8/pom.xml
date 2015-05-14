@@ -32,13 +32,13 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>waffle-jna</artifactId>
-            <version>${project.version}</version>
+            <version>1.7.4-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>waffle-tests</artifactId>
-            <version>${project.version}</version>
+            <version>1.7.4-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
         <dependency>
