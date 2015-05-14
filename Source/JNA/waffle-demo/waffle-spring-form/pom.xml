@@ -35,7 +35,7 @@
         <dependency>
             <groupId>com.github.dblock.waffle</groupId>
             <artifactId>waffle-spring-security3</artifactId>
-            <version>1.7.4-SNAPSHOT-SNAPSHOT</version>
+            <version>1.7.4-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
