@@ -4,11 +4,11 @@
     <parent>
         <groupId>com.github.dblock.waffle.demo</groupId>
         <artifactId>waffle-demo-parent</artifactId>
-        <version>1.7.5-SNAPSHOT</version>
+        <version>1.7.5</version>
         <relativePath>..</relativePath>
     </parent>
     <artifactId>waffle-filter</artifactId>
-    <version>1.7.5-SNAPSHOT</version>
+    <version>1.7.5</version>
     <packaging>war</packaging>
     <name>waffle-filter</name>
     <description>Filter Demo for WAFFLE</description>
@@ -23,7 +23,7 @@
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
         <url>https://github.com/dblock/waffle</url>
-        <tag>HEAD</tag>
+        <tag>waffle-parent-1.7.5</tag>
     </scm>
     <dependencies>
         <dependency>
