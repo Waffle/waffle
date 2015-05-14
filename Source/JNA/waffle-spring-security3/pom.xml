@@ -25,7 +25,7 @@
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
         <url>https://github.com/dblock/waffle</url>
-        <tag>waffle-parent-1.7.4-SNAPSHOT</tag>
+        <tag>HEAD</tag>
     </scm>
     <dependencies>
         <dependency>
