@@ -79,6 +79,16 @@ Once you've succeeded in finishing those steps, log in to [Sonatype OS](https://
 *   The release should now be in the *Releases* repository.
 *   For projects that have Maven Central synchonization enabled, their artifacts in the *Releases* repository are synched to Maven Central every two hours. The *very first time* the WAFFLE project published required a comment on the setup JIRA ticket to get synch enabled.
 
+Deploying in event of release plugin failure
+--------------------------------------------
+
+The release plugin can be quite tricky.  Recently, we ran into issues trying to use it where it would change from snapshot to the release version but then failed the release:prepare.  As such, there is a way to get around this issue without much more work.
+
+If release plugin fails and versions are all essentially flagged for release version.  Simply use this then follow the remainder of the release process.
+
+   mvn deploy -Psonatype-oss-release
+
+After deployment in this case, make sure to set everything manually back to next snapshot release.
 
 Releasing the Site Page to gh-pages
 -----------------------------------
