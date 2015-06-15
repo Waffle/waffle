@@ -17,9 +17,9 @@
         <src.relative.loc>..</src.relative.loc>
         <git.relative.loc>../../..</git.relative.loc>
 
-        <el.version>3.0.1-b05</el.version>
+        <el.version>3.0.1-b08</el.version>
         <el-api.version>3.0.1-b04</el-api.version>
-        <jetty.version>9.2.10.v20150310</jetty.version>
+        <jetty.version>9.2.11.v20150529</jetty.version>
         <jdt.version>4.4.2</jdt.version>
         <jsp.version>2.3.3-b02</jsp.version>
         <jsp-api.version>2.3.2-b01</jsp-api.version>
