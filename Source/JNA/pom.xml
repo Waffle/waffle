@@ -122,8 +122,8 @@
         <mockito.version>1.10.19</mockito.version>
         <slf4j.version>1.7.12</slf4j.version>
 
-        <signature.artifact>java16</signature.artifact>
-        <signature.version>1.1</signature.version>
+        <signature.artifact>java17</signature.artifact>
+        <signature.version>1.0</signature.version>
     </properties>
     <dependencies>
         <dependency>
