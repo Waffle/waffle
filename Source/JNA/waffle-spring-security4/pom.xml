@@ -14,9 +14,6 @@
     <description>Spring Security 4 integration for WAFFLE</description>
     <url>http://dblock.github.com/waffle/</url>
     <properties>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
-
         <src.relative.loc>..</src.relative.loc>
         <git.relative.loc>../../..</git.relative.loc>
 

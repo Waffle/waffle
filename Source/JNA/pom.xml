@@ -102,8 +102,8 @@
         <copyright>2015</copyright>
         <jacoco.minimum.coverage>0.0</jacoco.minimum.coverage>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
-        <maven.compiler.source>1.6</maven.compiler.source>
-        <maven.compiler.target>1.6</maven.compiler.target>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
         <maven.compiler.testSource>1.7</maven.compiler.testSource>
         <maven.compiler.testTarget>1.7</maven.compiler.testTarget>
         <maven.min-version>3.2.3</maven.min-version>
@@ -122,8 +122,8 @@
         <mockito.version>1.10.19</mockito.version>
         <slf4j.version>1.7.12</slf4j.version>
 
-        <signature.artifact>java16</signature.artifact>
-        <signature.version>1.1</signature.version>
+        <signature.artifact>java17</signature.artifact>
+        <signature.version>1.0</signature.version>
     </properties>
     <dependencies>
         <dependency>
@@ -267,7 +267,7 @@
                 <plugin>
                     <groupId>pl.project13.maven</groupId>
                     <artifactId>git-commit-id-plugin</artifactId>
-                    <version>2.1.13</version>
+                    <version>2.1.15</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -310,7 +310,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
-                    <version>2.5.4</version>
+                    <version>2.5.5</version>
                     <configuration>
                         <descriptor>${project.basedir}/src/assembly/assembly.xml</descriptor>
                     </configuration>
@@ -359,7 +359,7 @@
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.7.4.201502262128</version>
+                    <version>0.7.5.201505241946</version>
                 </plugin>
                 <plugin>
                     <groupId>org.eluder.coveralls</groupId>
@@ -384,9 +384,9 @@
                     </dependencies>
                 </plugin>
                 <plugin>
-                    <groupId>com.googlecode.maven-java-formatter-plugin</groupId>
-                    <artifactId>maven-java-formatter-plugin</artifactId>
-                    <version>0.4</version>
+                    <groupId>net.revelc.code</groupId>
+                    <artifactId>formatter-maven-plugin</artifactId>
+                    <version>0.5.2</version>
                 </plugin>
                 <plugin>
                     <groupId>com.mycila</groupId>
@@ -461,12 +461,12 @@
                         <dependency>
                             <groupId>com.jcraft</groupId>
                             <artifactId>jsch</artifactId>
-                            <version>0.1.52</version>
+                            <version>0.1.53</version>
                         </dependency>
                         <dependency>
                             <groupId>org.eclipse.jgit</groupId>
                             <artifactId>org.eclipse.jgit</artifactId>
-                            <version>3.7.1.201504261725-r </version>
+                            <version>4.0.0.201506090130-r</version>
                         </dependency>
                         <dependency>
                             <groupId>org.codehaus.plexus</groupId>
@@ -502,7 +502,7 @@
                 <plugin>
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
-                    <version>1.2.10</version>
+                    <version>1.2.11</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -1026,9 +1026,9 @@
                                         </pluginExecution>
                                         <pluginExecution>
                                             <pluginExecutionFilter>
-                                                <groupId>com.googlecode.maven-java-formatter-plugin</groupId>
-                                                <artifactId>maven-java-formatter-plugin</artifactId>
-                                                <versionRange>[0.4,)</versionRange>
+                                                <groupId>net.revelc.code</groupId>
+                                                <artifactId>formatter-maven-plugin</artifactId>
+                                                <versionRange>[0.5.2,)</versionRange>
                                                 <goals>
                                                     <goal>format</goal>
                                                 </goals>
@@ -1068,8 +1068,8 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>com.googlecode.maven-java-formatter-plugin</groupId>
-                        <artifactId>maven-java-formatter-plugin</artifactId>
+                        <groupId>net.revelc.code</groupId>
+                        <artifactId>formatter-maven-plugin</artifactId>
                         <configuration>
                             <configFile>${src.relative.loc}/format.xml</configFile>
                         </configuration>
