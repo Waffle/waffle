@@ -102,8 +102,8 @@
         <copyright>2015</copyright>
         <jacoco.minimum.coverage>0.0</jacoco.minimum.coverage>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
-        <maven.compiler.source>1.6</maven.compiler.source>
-        <maven.compiler.target>1.6</maven.compiler.target>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
         <maven.compiler.testSource>1.7</maven.compiler.testSource>
         <maven.compiler.testTarget>1.7</maven.compiler.testTarget>
         <maven.min-version>3.2.3</maven.min-version>
