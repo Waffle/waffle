@@ -1,6 +1,15 @@
 1.8-SNAPSHOT (in-progress)
 ==========================
+*** Java Requirement now 1.7 ***
 
+* [#226](https://github.com/dblock/waffle/pull/226): Moving base to java 1.7
+
+1.7.x Branch News (on 1.7.4)
+=================
+* Created 1.7.x branch for spring 2, tomcat 5, and java 6 continued support for one year.  Only complete show stoppers to be addressed there.
+
+1.7.4 (05/12/15)
+================
 * [#187](https://github.com/dblock/waffle/pull/187): Removed Spring 2 and Tomcat 5 support.
 * [#188](https://github.com/dblock/waffle/issues/188): Added support for service provider to authorize the principal.
 * [#192](https://github.com/dblock/waffle/pull/192): Fix: Tomcat 8 MixedAuthenticator uses LoginConfig out of context.
@@ -10,7 +19,6 @@
 * [#207](https://github.com/dblock/waffle/pull/207): Further refinement of test dependencies and now requires java 7 to compile library.
   ** At this point, still supports java 6 runtimes.
 
-* Created 1.7.x branch for spring 2 and tomcat 5 continued support for one year.  Only complete show stoppers to be addressed there.
 * Github gh-pages now built via mvn site plugin.
 * We use sfl4j, so use jcl-over-slf4j instead of allowing spring to bring in commons-logging.
 
