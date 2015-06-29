@@ -538,7 +538,7 @@
                     <!-- Fixes occassional issue in commit id plugin - see 
                         https://github.com/ktoso/maven-git-commit-id-plugin/issues/61 -->
                     <gitDescribe>
-                        <skip>true</skip>
+                        <always>true</always>
                     </gitDescribe>
                 </configuration>
                 <executions>
