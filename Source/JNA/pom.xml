@@ -563,7 +563,7 @@
                         </manifest>
                         <manifestEntries>
                             <Build-Time>${maven.build.timestamp}</Build-Time>
-                            <copyright>${copyright}</copyright>
+                            <Copyright>${copyright}</Copyright>
                             <Git-Revision>${git.commit.id}</Git-Revision>
                             <Os-Name>${os.name}</Os-Name>
                             <Os-Arch>${os.arch}</Os-Arch>
@@ -586,7 +586,7 @@
                         <manifestEntries>
                             <Build-Number>${buildNumber}</Build-Number>
                             <Build-Time>${maven.build.timestamp}</Build-Time>
-                            <copyright>${copyright}</copyright>
+                            <Copyright>${copyright}</Copyright>
                             <Git-Revision>${git.commit.id}</Git-Revision>
                             <Os-Name>${os.name}</Os-Name>
                             <Os-Arch>${os.arch}</Os-Arch>
@@ -609,7 +609,7 @@
                         </manifest>
                         <manifestEntries>
                             <Build-Time>${maven.build.timestamp}</Build-Time>
-                            <copyright>${copyright}</copyright>
+                            <Copyright>${copyright}</Copyright>
                             <Git-Revision>${git.commit.id}</Git-Revision>
                             <Os-Name>${os.name}</Os-Name>
                             <Os-Arch>${os.arch}</Os-Arch>
@@ -646,7 +646,7 @@
                         </manifest>
                         <manifestEntries>
                             <Build-Time>${maven.build.timestamp}</Build-Time>
-                            <copyright>${copyright}</copyright>
+                            <Copyright>${copyright}</Copyright>
                             <Git-Revision>${git.commit.id}</Git-Revision>
                             <Os-Name>${os.name}</Os-Name>
                             <Os-Arch>${os.arch}</Os-Arch>
