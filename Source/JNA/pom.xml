@@ -114,7 +114,7 @@
         <src.relative.loc>.</src.relative.loc>
         <git.relative.loc>../..</git.relative.loc>
 
-        <assertj.version>2.0.0</assertj.version>
+        <assertj.version>2.1.0</assertj.version>
         <cglib.version>3.1</cglib.version>
         <contiperf.version>2.3.4</contiperf.version>
         <jmockit.version>1.17</jmockit.version>
@@ -419,6 +419,11 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-changelog-plugin</artifactId>
+                    <version>2.3</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jxr-plugin</artifactId>
                     <version>2.5</version>
                 </plugin>
@@ -466,7 +471,7 @@
                         <dependency>
                             <groupId>org.eclipse.jgit</groupId>
                             <artifactId>org.eclipse.jgit</artifactId>
-                            <version>4.0.0.201506090130-r</version>
+                            <version>4.0.1.201506240215-r</version>
                         </dependency>
                         <dependency>
                             <groupId>org.codehaus.plexus</groupId>
@@ -533,7 +538,7 @@
                     <!-- Fixes occassional issue in commit id plugin - see 
                         https://github.com/ktoso/maven-git-commit-id-plugin/issues/61 -->
                     <gitDescribe>
-                        <skip>true</skip>
+                        <always>true</always>
                     </gitDescribe>
                 </configuration>
                 <executions>
@@ -558,7 +563,7 @@
                         </manifest>
                         <manifestEntries>
                             <Build-Time>${maven.build.timestamp}</Build-Time>
-                            <copyright>${copyright}</copyright>
+                            <Copyright>${copyright}</Copyright>
                             <Git-Revision>${git.commit.id}</Git-Revision>
                             <Os-Name>${os.name}</Os-Name>
                             <Os-Arch>${os.arch}</Os-Arch>
@@ -581,7 +586,7 @@
                         <manifestEntries>
                             <Build-Number>${buildNumber}</Build-Number>
                             <Build-Time>${maven.build.timestamp}</Build-Time>
-                            <copyright>${copyright}</copyright>
+                            <Copyright>${copyright}</Copyright>
                             <Git-Revision>${git.commit.id}</Git-Revision>
                             <Os-Name>${os.name}</Os-Name>
                             <Os-Arch>${os.arch}</Os-Arch>
@@ -604,7 +609,7 @@
                         </manifest>
                         <manifestEntries>
                             <Build-Time>${maven.build.timestamp}</Build-Time>
-                            <copyright>${copyright}</copyright>
+                            <Copyright>${copyright}</Copyright>
                             <Git-Revision>${git.commit.id}</Git-Revision>
                             <Os-Name>${os.name}</Os-Name>
                             <Os-Arch>${os.arch}</Os-Arch>
@@ -641,7 +646,7 @@
                         </manifest>
                         <manifestEntries>
                             <Build-Time>${maven.build.timestamp}</Build-Time>
-                            <copyright>${copyright}</copyright>
+                            <Copyright>${copyright}</Copyright>
                             <Git-Revision>${git.commit.id}</Git-Revision>
                             <Os-Name>${os.name}</Os-Name>
                             <Os-Arch>${os.arch}</Os-Arch>
@@ -749,12 +754,16 @@
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
                 <artifactId>wagon-ssh</artifactId>
-                <version>2.8</version>
+                <version>2.9</version>
             </extension>
         </extensions>
     </build>
     <reporting>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-changelog-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
