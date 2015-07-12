@@ -193,7 +193,7 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.3</version>
                     <configuration>
-                        <!-- Slightly faster builds, see https://jira.codehaus.org/browse/MCOMPILER-209 -->
+                        <!-- Slightly faster builds, see https://issues.apache.org/jira/browse/MCOMPILER-209 -->
                         <useIncrementalCompilation>false</useIncrementalCompilation>
                     </configuration>
                 </plugin>
@@ -674,7 +674,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <!-- Seems like maven bug when trying to exclude enforce in mapping lifecycle -->
+                <!-- Due to OSS parent causing maven bug, this would be 1.2 otherwise -->
                 <version>1.4</version>
                 <configuration>
                     <rules>
@@ -1022,9 +1022,22 @@
                                         </pluginExecution>
                                         <pluginExecution>
                                             <pluginExecutionFilter>
+                                                <groupId>com.mycila</groupId>
+                                                <artifactId>license-maven-plugin</artifactId>
+                                                <versionRange>[2.11,)</versionRange>
+                                                <goals>
+                                                    <goal>format</goal>
+                                                </goals>
+                                            </pluginExecutionFilter>
+                                            <action>
+                                                <ignore />
+                                            </action>
+                                        </pluginExecution>
+                                        <pluginExecution>
+                                            <pluginExecutionFilter>
                                                 <groupId>org.jacoco</groupId>
                                                 <artifactId>jacoco-maven-plugin</artifactId>
-                                                <versionRange>[0.7.4.201502262128,)</versionRange>
+                                                <versionRange>[0.7.5.201505241946,)</versionRange>
                                                 <goals>
                                                     <goal>prepare-agent</goal>
                                                 </goals>
