@@ -32,7 +32,7 @@ public class WindowsRealm extends RealmBase {
      */
     @Override
     protected String getName() {
-        return NAME;
+        return WindowsRealm.NAME;
     }
 
     /* (non-Javadoc)
