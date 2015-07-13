@@ -68,7 +68,7 @@ public class WindowsAuthenticationToken implements Authentication {
      *            the identity
      */
     public WindowsAuthenticationToken(final WindowsPrincipal identity) {
-        this(identity, DEFAULT_GRANTED_AUTHORITY_FACTORY, DEFAULT_GRANTED_AUTHORITY);
+        this(identity, WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY_FACTORY, WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY);
     }
 
     /**

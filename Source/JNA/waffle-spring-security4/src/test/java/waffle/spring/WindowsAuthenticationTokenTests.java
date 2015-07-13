@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.security.core.GrantedAuthority;
@@ -50,23 +51,23 @@ public class WindowsAuthenticationTokenTests {
 
     @Test
     public void testWindowsAuthenticationToken() {
-        assertNull(this.token.getCredentials());
-        assertNull(this.token.getDetails());
-        assertTrue(this.token.isAuthenticated());
-        assertEquals("localhost\\user1", this.token.getName());
+        Assert.assertNull(this.token.getCredentials());
+        Assert.assertNull(this.token.getDetails());
+        Assert.assertTrue(this.token.isAuthenticated());
+        Assert.assertEquals("localhost\\user1", this.token.getName());
         Collection<GrantedAuthority> authorities = this.token.getAuthorities();
         Iterator<GrantedAuthority> authoritiesIterator = authorities.iterator();
-        assertEquals(3, authorities.size());
+        Assert.assertEquals(3, authorities.size());
 
         final List<String> list = new ArrayList<String>();
         while (authoritiesIterator.hasNext()) {
             list.add(authoritiesIterator.next().getAuthority());
         }
         Collections.sort(list);
-        assertEquals("ROLE_GROUP1", list.get(0));
-        assertEquals("ROLE_GROUP2", list.get(1));
-        assertEquals("ROLE_USER", list.get(2));
-        assertEquals(this.principal, this.token.getPrincipal());
+        Assert.assertEquals("ROLE_GROUP1", list.get(0));
+        Assert.assertEquals("ROLE_GROUP2", list.get(1));
+        Assert.assertEquals("ROLE_USER", list.get(2));
+        Assert.assertEquals(this.principal, this.token.getPrincipal());
     }
 
     @Test
@@ -75,27 +76,27 @@ public class WindowsAuthenticationTokenTests {
         WindowsAuthenticationToken myToken = new WindowsAuthenticationToken(this.principal,
                 new FqnGrantedAuthorityFactory(null, false), null);
 
-        assertNull(myToken.getCredentials());
-        assertNull(myToken.getDetails());
-        assertTrue(myToken.isAuthenticated());
-        assertEquals("localhost\\user1", myToken.getName());
+        Assert.assertNull(myToken.getCredentials());
+        Assert.assertNull(myToken.getDetails());
+        Assert.assertTrue(myToken.isAuthenticated());
+        Assert.assertEquals("localhost\\user1", myToken.getName());
         Collection<GrantedAuthority> authorities = myToken.getAuthorities();
         Iterator<GrantedAuthority> authoritiesIterator = authorities.iterator();
-        assertEquals(2, authorities.size());
+        Assert.assertEquals(2, authorities.size());
 
         final List<String> list = new ArrayList<String>();
         while (authoritiesIterator.hasNext()) {
             list.add(authoritiesIterator.next().getAuthority());
         }
         Collections.sort(list);
-        assertEquals("group1", list.get(0));
-        assertEquals("group2", list.get(1));
-        assertEquals(this.principal, myToken.getPrincipal());
+        Assert.assertEquals("group1", list.get(0));
+        Assert.assertEquals("group2", list.get(1));
+        Assert.assertEquals(this.principal, myToken.getPrincipal());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testAuthenticated() {
-        assertTrue(this.token.isAuthenticated());
+        Assert.assertTrue(this.token.isAuthenticated());
         this.token.setAuthenticated(true);
     }
 }

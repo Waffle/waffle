@@ -70,7 +70,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
      */
     public NegotiateSecurityFilter() {
         super();
-        LOGGER.debug("[waffle.spring.NegotiateSecurityFilter] loaded");
+        NegotiateSecurityFilter.LOGGER.debug("[waffle.spring.NegotiateSecurityFilter] loaded");
     }
 
     /* (non-Javadoc)
@@ -83,7 +83,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
         final HttpServletRequest request = (HttpServletRequest) req;
         final HttpServletResponse response = (HttpServletResponse) res;
 
-        LOGGER.debug("{} {}, contentlength: {}", request.getMethod(), request.getRequestURI(),
+        NegotiateSecurityFilter.LOGGER.debug("{} {}, contentlength: {}", request.getMethod(), request.getRequestURI(),
                 Integer.valueOf(request.getContentLength()));
 
         final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
@@ -101,25 +101,25 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
                     return;
                 }
             } catch (IOException e) {
-                LOGGER.warn("error logging in user: {}", e.getMessage());
-                LOGGER.trace("{}", e);
+                NegotiateSecurityFilter.LOGGER.warn("error logging in user: {}", e.getMessage());
+                NegotiateSecurityFilter.LOGGER.trace("{}", e);
                 this.sendUnauthorized(response, true);
                 return;
             }
 
             if (!this.allowGuestLogin && windowsIdentity.isGuest()) {
-                LOGGER.warn("guest login disabled: {}", windowsIdentity.getFqn());
+                NegotiateSecurityFilter.LOGGER.warn("guest login disabled: {}", windowsIdentity.getFqn());
                 this.sendUnauthorized(response, true);
                 return;
             }
 
             try {
-                LOGGER.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
+                NegotiateSecurityFilter.LOGGER.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
 
                 final WindowsPrincipal principal = new WindowsPrincipal(windowsIdentity, this.principalFormat,
                         this.roleFormat);
 
-                LOGGER.debug("roles: {}", principal.getRolesString());
+                NegotiateSecurityFilter.LOGGER.debug("roles: {}", principal.getRolesString());
 
                 final Authentication authentication = new WindowsAuthenticationToken(principal,
                         this.grantedAuthorityFactory, this.defaultGrantedAuthority);
@@ -128,7 +128,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
                     return;
                 }
 
-                LOGGER.info("successfully logged in user: {}", windowsIdentity.getFqn());
+                NegotiateSecurityFilter.LOGGER.info("successfully logged in user: {}", windowsIdentity.getFqn());
 
             } finally {
                 windowsIdentity.dispose();
