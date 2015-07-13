@@ -52,7 +52,7 @@ public class SecurityFilterProviderCollection {
      */
     public SecurityFilterProviderCollection(final SecurityFilterProvider[] providerArray) {
         for (SecurityFilterProvider provider : providerArray) {
-            LOGGER.info("using '{}'", provider.getClass().getName());
+            SecurityFilterProviderCollection.LOGGER.info("using '{}'", provider.getClass().getName());
             this.providers.add(provider);
         }
     }
@@ -71,34 +71,34 @@ public class SecurityFilterProviderCollection {
         Constructor<SecurityFilterProvider> providerConstructor;
         for (String providerName : providerNames) {
             providerName = providerName.trim();
-            LOGGER.info("loading '{}'", providerName);
+            SecurityFilterProviderCollection.LOGGER.info("loading '{}'", providerName);
             try {
                 providerClass = (Class<SecurityFilterProvider>) Class.forName(providerName);
                 providerConstructor = providerClass.getConstructor(IWindowsAuthProvider.class);
                 final SecurityFilterProvider provider = providerConstructor.newInstance(auth);
                 this.providers.add(provider);
             } catch (final ClassNotFoundException e) {
-                LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
-                LOGGER.trace("{}", e);
+                SecurityFilterProviderCollection.LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
+                SecurityFilterProviderCollection.LOGGER.trace("{}", e);
                 throw new RuntimeException(e);
             } catch (final SecurityException e) {
-                LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
-                LOGGER.trace("{}", e);
+                SecurityFilterProviderCollection.LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
+                SecurityFilterProviderCollection.LOGGER.trace("{}", e);
             } catch (final NoSuchMethodException e) {
-                LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
-                LOGGER.trace("{}", e);
+                SecurityFilterProviderCollection.LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
+                SecurityFilterProviderCollection.LOGGER.trace("{}", e);
             } catch (final IllegalArgumentException e) {
-                LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
-                LOGGER.trace("{}", e);
+                SecurityFilterProviderCollection.LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
+                SecurityFilterProviderCollection.LOGGER.trace("{}", e);
             } catch (final InstantiationException e) {
-                LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
-                LOGGER.trace("{}", e);
+                SecurityFilterProviderCollection.LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
+                SecurityFilterProviderCollection.LOGGER.trace("{}", e);
             } catch (final IllegalAccessException e) {
-                LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
-                LOGGER.trace("{}", e);
+                SecurityFilterProviderCollection.LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
+                SecurityFilterProviderCollection.LOGGER.trace("{}", e);
             } catch (final InvocationTargetException e) {
-                LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
-                LOGGER.trace("{}", e);
+                SecurityFilterProviderCollection.LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
+                SecurityFilterProviderCollection.LOGGER.trace("{}", e);
             }
         }
     }

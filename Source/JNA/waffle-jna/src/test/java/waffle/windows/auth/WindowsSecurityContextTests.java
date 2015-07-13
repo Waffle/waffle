@@ -17,6 +17,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.assertj.core.api.Assertions;
+import org.junit.Assert;
 import org.junit.Test;
 
 import waffle.windows.auth.impl.WindowsAccountImpl;
@@ -33,8 +34,8 @@ public class WindowsSecurityContextTests {
         // security context
         final IWindowsSecurityContext ctx = WindowsSecurityContextImpl.getCurrent(securityPackage,
                 WindowsAccountImpl.getCurrentUsername());
-        assertTrue(ctx.isContinue());
-        assertEquals(securityPackage, ctx.getSecurityPackage());
+        Assert.assertTrue(ctx.isContinue());
+        Assert.assertEquals(securityPackage, ctx.getSecurityPackage());
         Assertions.assertThat(ctx.getToken().length).isGreaterThan(0);
         ctx.dispose();
     }

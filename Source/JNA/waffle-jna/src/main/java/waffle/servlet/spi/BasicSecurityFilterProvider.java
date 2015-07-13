@@ -67,7 +67,7 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
         if (usernamePasswordArray.length != 2) {
             throw new RuntimeException("Invalid username:password in Authorization header.");
         }
-        LOGGER.debug("logging in user: {}", usernamePasswordArray[0]);
+        BasicSecurityFilterProvider.LOGGER.debug("logging in user: {}", usernamePasswordArray[0]);
         return this.auth.logonUser(usernamePasswordArray[0], usernamePasswordArray[1]);
     }
 

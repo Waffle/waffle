@@ -130,10 +130,10 @@ public class WindowsLoginModule implements LoginModule {
             password = passwordCallback.getPassword() == null ? "" : new String(passwordCallback.getPassword());
             passwordCallback.clearPassword();
         } catch (IOException e) {
-            LOGGER.trace("{}", e);
+            WindowsLoginModule.LOGGER.trace("{}", e);
             throw new LoginException(e.toString());
         } catch (UnsupportedCallbackException e) {
-            LOGGER.trace("{}", e);
+            WindowsLoginModule.LOGGER.trace("{}", e);
             throw new LoginException(
                     "Callback {} not available to gather authentication information from the user.".replace("{}", e
                             .getCallback().getClass().getName()));
@@ -143,27 +143,27 @@ public class WindowsLoginModule implements LoginModule {
         try {
             windowsIdentity = this.auth.logonUser(userName, password);
         } catch (Exception e) {
-            LOGGER.trace("{}", e);
+            WindowsLoginModule.LOGGER.trace("{}", e);
             throw new LoginException(e.getMessage());
         }
 
         try {
             // disable guest login
             if (!this.allowGuestLogin && windowsIdentity.isGuest()) {
-                LOGGER.debug("guest login disabled: {}", windowsIdentity.getFqn());
+                WindowsLoginModule.LOGGER.debug("guest login disabled: {}", windowsIdentity.getFqn());
                 throw new LoginException("Guest login disabled");
             }
 
             this.principals = new LinkedHashSet<Principal>();
-            this.principals.addAll(getUserPrincipals(windowsIdentity, this.principalFormat));
+            this.principals.addAll(WindowsLoginModule.getUserPrincipals(windowsIdentity, this.principalFormat));
             if (this.roleFormat != PrincipalFormat.NONE) {
                 for (IWindowsAccount group : windowsIdentity.getGroups()) {
-                    this.principals.addAll(getRolePrincipals(group, this.roleFormat));
+                    this.principals.addAll(WindowsLoginModule.getRolePrincipals(group, this.roleFormat));
                 }
             }
 
             this.username = windowsIdentity.getFqn();
-            LOGGER.debug("successfully logged in {} ({})", this.username, windowsIdentity.getSidString());
+            WindowsLoginModule.LOGGER.debug("successfully logged in {} ({})", this.username, windowsIdentity.getSidString());
         } finally {
             windowsIdentity.dispose();
         }
@@ -203,10 +203,10 @@ public class WindowsLoginModule implements LoginModule {
         final Set<Principal> principalsSet = this.subject.getPrincipals();
         principalsSet.addAll(this.principals);
 
-        LOGGER.debug("committing {} principals", Integer.valueOf(this.subject.getPrincipals().size()));
+        WindowsLoginModule.LOGGER.debug("committing {} principals", Integer.valueOf(this.subject.getPrincipals().size()));
         if (this.debug) {
             for (Principal principal : principalsSet) {
-                LOGGER.debug(" principal: {}", principal.getName());
+                WindowsLoginModule.LOGGER.debug(" principal: {}", principal.getName());
             }
         }
 
@@ -229,7 +229,7 @@ public class WindowsLoginModule implements LoginModule {
         this.subject.getPrincipals().clear();
 
         if (this.username != null) {
-            LOGGER.debug("logging out {}", this.username);
+            WindowsLoginModule.LOGGER.debug("logging out {}", this.username);
         }
 
         return true;

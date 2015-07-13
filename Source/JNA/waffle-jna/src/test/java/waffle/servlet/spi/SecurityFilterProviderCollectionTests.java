@@ -18,6 +18,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
@@ -31,9 +32,9 @@ public class SecurityFilterProviderCollectionTests {
     public void testDefaultCollection() throws ClassNotFoundException {
         final SecurityFilterProviderCollection coll = new SecurityFilterProviderCollection(
                 new WindowsAuthProviderImpl());
-        assertEquals(2, coll.size());
-        assertNotNull(coll.getByClassName(NegotiateSecurityFilterProvider.class.getName()));
-        assertNotNull(coll.getByClassName(BasicSecurityFilterProvider.class.getName()));
+        Assert.assertEquals(2, coll.size());
+        Assert.assertNotNull(coll.getByClassName(NegotiateSecurityFilterProvider.class.getName()));
+        Assert.assertNotNull(coll.getByClassName(BasicSecurityFilterProvider.class.getName()));
     }
 
     @Test(expected = ClassNotFoundException.class)
@@ -47,10 +48,10 @@ public class SecurityFilterProviderCollectionTests {
     public void testIsSecurityPackageSupported() {
         final SecurityFilterProviderCollection coll = new SecurityFilterProviderCollection(
                 new WindowsAuthProviderImpl());
-        assertTrue(coll.isSecurityPackageSupported("NTLM"));
-        assertTrue(coll.isSecurityPackageSupported("Negotiate"));
-        assertTrue(coll.isSecurityPackageSupported("Basic"));
-        assertFalse(coll.isSecurityPackageSupported(""));
-        assertFalse(coll.isSecurityPackageSupported("Invalid"));
+        Assert.assertTrue(coll.isSecurityPackageSupported("NTLM"));
+        Assert.assertTrue(coll.isSecurityPackageSupported("Negotiate"));
+        Assert.assertTrue(coll.isSecurityPackageSupported("Basic"));
+        Assert.assertFalse(coll.isSecurityPackageSupported(""));
+        Assert.assertFalse(coll.isSecurityPackageSupported("Invalid"));
     }
 }

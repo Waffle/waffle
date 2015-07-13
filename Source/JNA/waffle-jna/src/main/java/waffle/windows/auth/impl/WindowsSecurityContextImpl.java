@@ -152,7 +152,7 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
      */
     @Override
     public void dispose() {
-        dispose(this.ctx);
+        WindowsSecurityContextImpl.dispose(this.ctx);
     }
 
     /**

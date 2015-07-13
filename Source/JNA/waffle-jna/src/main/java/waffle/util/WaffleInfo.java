@@ -239,7 +239,7 @@ public class WaffleInfo {
         try {
             this.addAccountInfo(doc, node, auth.lookupAccount(lookup));
         } catch (Win32Exception ex) {
-            node.appendChild(getException(doc, ex));
+            node.appendChild(WaffleInfo.getException(doc, ex));
         }
         return node;
     }
@@ -311,7 +311,7 @@ public class WaffleInfo {
                 } else if ("-lookup".equals(arg)) {
                     lookup.add(args[++i]);
                 } else {
-                    LOGGER.error("Unknown Argument: {}", arg);
+                    WaffleInfo.LOGGER.error("Unknown Argument: {}", arg);
                     throw new RuntimeException("Unknown Argument: " + arg);
                 }
             }
@@ -324,24 +324,24 @@ public class WaffleInfo {
                 info.getDocumentElement().appendChild(helper.getLookupInfo(info, name));
             }
 
-            final String xml = toPrettyXML(info);
+            final String xml = WaffleInfo.toPrettyXML(info);
             final File f;
             if (show) {
                 f = File.createTempFile("waffle-info-", ".xml");
                 Files.write(xml, f, Charsets.UTF_8);
                 Desktop.getDesktop().open(f);
             } else {
-                LOGGER.info(xml);
+                WaffleInfo.LOGGER.info(xml);
             }
         } catch (IOException e) {
-            LOGGER.error(e.getMessage());
-            LOGGER.trace("{}", e);
+            WaffleInfo.LOGGER.error(e.getMessage());
+            WaffleInfo.LOGGER.trace("{}", e);
         } catch (TransformerException e) {
-            LOGGER.error(e.getMessage());
-            LOGGER.trace("{}", e);
+            WaffleInfo.LOGGER.error(e.getMessage());
+            WaffleInfo.LOGGER.trace("{}", e);
         } catch (ParserConfigurationException e) {
-            LOGGER.error(e.getMessage());
-            LOGGER.trace("{}", e);
+            WaffleInfo.LOGGER.error(e.getMessage());
+            WaffleInfo.LOGGER.trace("{}", e);
         }
     }
 }

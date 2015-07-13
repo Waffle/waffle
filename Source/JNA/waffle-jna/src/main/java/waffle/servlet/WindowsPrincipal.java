@@ -81,8 +81,8 @@ public class WindowsPrincipal implements Principal, Serializable {
         this.fqn = windowsIdentity.getFqn();
         this.sid = windowsIdentity.getSid();
         this.sidString = windowsIdentity.getSidString();
-        this.groups = getGroups(windowsIdentity.getGroups());
-        this.roles = getRoles(windowsIdentity, principalFormat, roleFormat);
+        this.groups = WindowsPrincipal.getGroups(windowsIdentity.getGroups());
+        this.roles = WindowsPrincipal.getRoles(windowsIdentity, principalFormat, roleFormat);
     }
 
     /**
@@ -99,9 +99,9 @@ public class WindowsPrincipal implements Principal, Serializable {
     private static List<String> getRoles(final IWindowsIdentity windowsIdentity, final PrincipalFormat principalFormat,
             final PrincipalFormat roleFormat) {
         final List<String> roles = new ArrayList<String>();
-        roles.addAll(getPrincipalNames(windowsIdentity, principalFormat));
+        roles.addAll(WindowsPrincipal.getPrincipalNames(windowsIdentity, principalFormat));
         for (IWindowsAccount group : windowsIdentity.getGroups()) {
-            roles.addAll(getRoleNames(group, roleFormat));
+            roles.addAll(WindowsPrincipal.getRoleNames(group, roleFormat));
         }
         return roles;
     }
