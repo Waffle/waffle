@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>MockWindowsImpersonationContext.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-tests</a> &gt; <a href="index.source.html" class="el_package">waffle.mock</a> &gt; <span class="el_source">MockWindowsImpersonationContext.java</span></div><h1>MockWindowsImpersonationContext.java</h1><pre class="source lang-java linenums">/**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -16,13 +16,18 @@ package waffle.mock;
 import waffle.windows.auth.IWindowsImpersonationContext;
 
 /**
+ * The Class MockWindowsImpersonationContext.
+ *
  * @author dblock[at]dblock[dot]org
  */
-<span class="nc" id="L21">public class MockWindowsImpersonationContext implements IWindowsImpersonationContext {</span>
+<span class="nc" id="L23">public class MockWindowsImpersonationContext implements IWindowsImpersonationContext {</span>
 
+    /* (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsImpersonationContext#revertToSelf()
+     */
     @Override
     public void revertToSelf() {
         // Do Nothing
-<span class="nc" id="L26">    }</span>
+<span class="nc" id="L31">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>MockWindowsAccount.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-tests</a> &gt; <a href="index.source.html" class="el_package">waffle.mock</a> &gt; <span class="el_source">MockWindowsAccount.java</span></div><h1>MockWindowsAccount.java</h1><pre class="source lang-java linenums">/**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -16,52 +16,90 @@ package waffle.mock;
 import waffle.windows.auth.IWindowsAccount;
 
 /**
+ * The Class MockWindowsAccount.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class MockWindowsAccount implements IWindowsAccount {
 
+    /** The Constant TEST_USER_NAME. */
     public static final String TEST_USER_NAME = &quot;WaffleTestUser&quot;;
+    
+    /** The Constant TEST_PASSWORD. */
     public static final String TEST_PASSWORD  = &quot;!WAFFLEP$$Wrd0&quot;;
 
-    private String             fqn;
+    /** The fqn. */
+    private final String             fqn;
+    
+    /** The name. */
     private String             name;
+    
+    /** The domain. */
     private String             domain;
-    private String             sid;
+    
+    /** The sid. */
+    private final String             sid;
 
+    /**
+     * Instantiates a new mock windows account.
+     *
+     * @param newFqn
+     *            the new fqn
+     */
     public MockWindowsAccount(final String newFqn) {
-<span class="fc" id="L32">        this(newFqn, &quot;S-&quot; + newFqn.hashCode());</span>
-<span class="fc" id="L33">    }</span>
+<span class="fc" id="L50">        this(newFqn, &quot;S-&quot; + newFqn.hashCode());</span>
+<span class="fc" id="L51">    }</span>
 
-<span class="fc" id="L35">    public MockWindowsAccount(final String newFqn, final String newSid) {</span>
-<span class="fc" id="L36">        this.fqn = newFqn;</span>
-<span class="fc" id="L37">        this.sid = newSid;</span>
-<span class="fc" id="L38">        String[] userNameDomain = newFqn.split(&quot;\\\\&quot;, 2);</span>
-<span class="pc bpc" id="L39" title="1 of 2 branches missed.">        if (userNameDomain.length == 2) {</span>
-<span class="nc" id="L40">            this.name = userNameDomain[1];</span>
-<span class="nc" id="L41">            this.domain = userNameDomain[0];</span>
+    /**
+     * Instantiates a new mock windows account.
+     *
+     * @param newFqn
+     *            the new fqn
+     * @param newSid
+     *            the new sid
+     */
+<span class="fc" id="L61">    public MockWindowsAccount(final String newFqn, final String newSid) {</span>
+<span class="fc" id="L62">        this.fqn = newFqn;</span>
+<span class="fc" id="L63">        this.sid = newSid;</span>
+<span class="fc" id="L64">        final String[] userNameDomain = newFqn.split(&quot;\\\\&quot;, 2);</span>
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">        if (userNameDomain.length == 2) {</span>
+<span class="nc" id="L66">            this.name = userNameDomain[1];</span>
+<span class="nc" id="L67">            this.domain = userNameDomain[0];</span>
         } else {
-<span class="fc" id="L43">            this.name = newFqn;</span>
+<span class="fc" id="L69">            this.name = newFqn;</span>
         }
-<span class="fc" id="L45">    }</span>
+<span class="fc" id="L71">    }</span>
 
+    /* (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsAccount#getDomain()
+     */
     @Override
     public String getDomain() {
-<span class="fc" id="L49">        return this.domain;</span>
+<span class="fc" id="L78">        return this.domain;</span>
     }
 
+    /* (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsAccount#getFqn()
+     */
     @Override
     public String getFqn() {
-<span class="fc" id="L54">        return this.fqn;</span>
+<span class="fc" id="L86">        return this.fqn;</span>
     }
 
+    /* (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsAccount#getName()
+     */
     @Override
     public String getName() {
-<span class="fc" id="L59">        return this.name;</span>
+<span class="fc" id="L94">        return this.name;</span>
     }
 
+    /* (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsAccount#getSidString()
+     */
     @Override
     public String getSidString() {
-<span class="fc" id="L64">        return this.sid;</span>
+<span class="fc" id="L102">        return this.sid;</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
