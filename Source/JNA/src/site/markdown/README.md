@@ -16,7 +16,7 @@ Unlike many other implementations Waffle on Windows does not require any server-
 Essentials
 ----------
 
-* [Download Version 1.7.3](https://github.com/dblock/waffle/releases/download/Waffle-1.7.3/Waffle.1.7.3.zip)
+* [Download Version 1.7.4](https://github.com/dblock/waffle/releases/download/Waffle-1.7.4/Waffle.1.7.4.zip)
 * [Waffle in Maven Central](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.github.dblock.waffle%22)
 * [Waffle Snapshots](https://oss.sonatype.org/content/repositories/snapshots/com/github/dblock/waffle/)
 * [Get Waffle To Work in Tomcat, Jetty, WebSphere, etc.](Docs/ServletSingleSignOnSecurityFilter.md)
@@ -25,6 +25,17 @@ Essentials
 * [Frequently Asked Questions](Docs/FAQ.md)
 * [Older Versions on CodePlex](http://waffle.codeplex.com/).
 * [PlatformSDK Security Group](https://groups.google.com/group/microsoft.public.platformsdk.security)
+
+Legacy 1.7.x Branch
+-------------------
+Waffle legacy support.  From 1/3/2015 through 1/1/2016 we will continue to support the 1.7.x branch for any bug fixes to
+legacy items.
+
+Legacy is defined as...
+
+* Spring 2
+* Tomcat 5
+* Java 6
 
 Documentation
 -------------
