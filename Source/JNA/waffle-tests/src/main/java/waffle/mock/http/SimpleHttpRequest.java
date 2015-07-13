@@ -225,7 +225,7 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
             for (String eachParameter : this.queryString.split("[&]")) {
                 final String[] pair = eachParameter.split("=");
                 final String value = (pair.length == 2) ? pair[1] : "";
-                addParameter(pair[0], value);
+                this.addParameter(pair[0], value);
             }
         }
     }

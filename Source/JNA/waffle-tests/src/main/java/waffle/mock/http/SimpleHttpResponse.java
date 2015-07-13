@@ -131,7 +131,7 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
      */
     @Override
     public void flushBuffer() {
-        LOGGER.info("{}: {}", Integer.valueOf(this.status), getStatusString());
+        LOGGER.info("{}: {}", Integer.valueOf(this.status), this.getStatusString());
         for (String header : this.headers.keySet()) {
             for (String headerValue : this.headers.get(header)) {
                 LOGGER.info("{}: {}", header, headerValue);
