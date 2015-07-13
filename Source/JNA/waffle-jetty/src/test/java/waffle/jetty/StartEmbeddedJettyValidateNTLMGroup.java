@@ -64,7 +64,7 @@ public class StartEmbeddedJettyValidateNTLMGroup {
 
         final FilterHolder fh = handler.addFilterWithMapping(NegotiateSecurityFilter.class, "/*",
                 EnumSet.of(DispatcherType.REQUEST));
-        setFilterParams(fh);
+        StartEmbeddedJettyValidateNTLMGroup.setFilterParams(fh);
         context.addFilter(fh, "/*", EnumSet.of(DispatcherType.REQUEST));
 
         context.setHandler(handler);
@@ -103,7 +103,7 @@ public class StartEmbeddedJettyValidateNTLMGroup {
             response.setContentType("text/html");
             response.setStatus(HttpServletResponse.SC_OK);
 
-            final boolean isUserAuthorised = isUserAuthorised(request, authorisedGroups);
+            final boolean isUserAuthorised = this.isUserAuthorised(request, InfoServlet.authorisedGroups);
             if (isUserAuthorised) {
                 response.getWriter().println("User is authorised");
             } else {
@@ -112,7 +112,7 @@ public class StartEmbeddedJettyValidateNTLMGroup {
         }
 
         private boolean isUserAuthorised(final HttpServletRequest request, final List<String> authorizedGroups) {
-            final List<String> usersGroups = getUsersGroups(request);
+            final List<String> usersGroups = this.getUsersGroups(request);
 
             final boolean noOverlappingGroups = Collections.disjoint(authorizedGroups, usersGroups);
             if (!noOverlappingGroups) {
@@ -128,7 +128,7 @@ public class StartEmbeddedJettyValidateNTLMGroup {
                 String groupName;
                 final WindowsPrincipal windowsPrincipal = (WindowsPrincipal) principal;
                 for (final WindowsAccount account : windowsPrincipal.getGroups().values()) {
-                    groupName = getGroupName(account.getDomain(), account.getFqn());
+                    groupName = this.getGroupName(account.getDomain(), account.getFqn());
                     result.add(groupName);
                 }
             }
