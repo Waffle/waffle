@@ -13,9 +13,6 @@
  */
 package waffle.windows.auth;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import org.assertj.core.api.Assertions;
 import org.junit.Assert;
 import org.junit.Test;

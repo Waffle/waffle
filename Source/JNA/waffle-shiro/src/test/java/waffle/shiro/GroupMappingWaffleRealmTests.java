@@ -13,10 +13,6 @@
  */
 package waffle.shiro;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertNotNull;
-
 import java.util.Collections;
 
 import org.apache.shiro.authc.AuthenticationException;

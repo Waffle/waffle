@@ -13,8 +13,6 @@
  */
 package waffle.util;
 
-import static org.junit.Assert.assertEquals;
-
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.junit.Assert;

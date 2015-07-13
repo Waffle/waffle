@@ -13,10 +13,6 @@
  */
 package waffle.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import org.assertj.core.api.BDDSoftAssertions;
 import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.Assert;
