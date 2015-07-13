@@ -193,6 +193,6 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      * @return Role1, Role2, ...
      */
     public String getRolesString() {
-        return Joiner.on(", ").join(getRoles());
+        return Joiner.on(", ").join(this.getRoles());
     }
 }
