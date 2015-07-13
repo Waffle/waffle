@@ -48,7 +48,7 @@ public class GroupMappingWaffleRealmTests {
 
     @Test
     public void testValidUsernamePassword() {
-        AuthenticationToken token = new UsernamePasswordToken(getCurrentUserName(), "somePassword");
+        AuthenticationToken token = new UsernamePasswordToken(this.getCurrentUserName(), "somePassword");
         AuthenticationInfo authcInfo = this.realm.getAuthenticationInfo(token);
         PrincipalCollection principals = authcInfo.getPrincipals();
         assertFalse(principals.isEmpty());
@@ -56,7 +56,7 @@ public class GroupMappingWaffleRealmTests {
         assertNotNull(primaryPrincipal);
         Assertions.assertThat(primaryPrincipal).isInstanceOf(WaffleFqnPrincipal.class);
         WaffleFqnPrincipal fqnPrincipal = (WaffleFqnPrincipal) primaryPrincipal;
-        Assertions.assertThat(fqnPrincipal.getFqn()).isEqualTo(getCurrentUserName());
+        Assertions.assertThat(fqnPrincipal.getFqn()).isEqualTo(this.getCurrentUserName());
         Assertions.assertThat(fqnPrincipal.getGroupFqns()).contains("Users", "Everyone");
         Object credentials = authcInfo.getCredentials();
         Assertions.assertThat(credentials).isInstanceOf(char[].class);

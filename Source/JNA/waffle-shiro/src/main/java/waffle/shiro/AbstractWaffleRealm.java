@@ -67,7 +67,7 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
                     throw new AuthenticationException("Guest identities are not allowed access");
                 }
                 final Object principal = new WaffleFqnPrincipal(identity);
-                authenticationInfo = buildAuthenticationInfo(token, principal);
+                authenticationInfo = this.buildAuthenticationInfo(token, principal);
                 LOGGER.debug("Successful login for user {}", username);
             } catch (RuntimeException e) {
                 LOGGER.debug("Failed login for user {}: {}", username, e.getMessage());
@@ -93,7 +93,7 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
      */
     private AuthenticationInfo buildAuthenticationInfo(final UsernamePasswordToken token, final Object principal) {
         AuthenticationInfo authenticationInfo;
-        final HashingPasswordService hashService = getHashService();
+        final HashingPasswordService hashService = this.getHashService();
         if (hashService != null) {
             final Hash hash = hashService.hashPassword(token.getPassword());
             final ByteSource salt = hash.getSalt();
@@ -111,7 +111,7 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
     @Override
     protected final AuthorizationInfo doGetAuthorizationInfo(final PrincipalCollection principals) {
         final WaffleFqnPrincipal principal = principals.oneByType(WaffleFqnPrincipal.class);
-        return principal == null ? null : buildAuthorizationInfo(principal);
+        return principal == null ? null : this.buildAuthorizationInfo(principal);
     }
 
     /**
@@ -140,7 +140,7 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
      * @return the hash service
      */
     private HashingPasswordService getHashService() {
-        final CredentialsMatcher matcher = getCredentialsMatcher();
+        final CredentialsMatcher matcher = this.getCredentialsMatcher();
         if (matcher instanceof PasswordMatcher) {
             final PasswordMatcher passwordMatcher = (PasswordMatcher) matcher;
             final PasswordService passwordService = passwordMatcher.getPasswordService();

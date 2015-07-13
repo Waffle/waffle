@@ -187,7 +187,7 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
      */
     @Override
     protected boolean executeLogin(final ServletRequest request, final ServletResponse response) throws Exception {
-        if (isAuthTypeNegotiate(request)) {
+        if (this.isAuthTypeNegotiate(request)) {
             LOGGER.debug("using filterNegotiate");
             return this.filterNegotiate.onAccessDenied(request, response);
         }

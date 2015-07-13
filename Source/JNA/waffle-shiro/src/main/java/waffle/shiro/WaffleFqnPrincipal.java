@@ -92,7 +92,7 @@ public class WaffleFqnPrincipal implements Serializable {
     public String toString() {
         final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{");
-        stringBuilder.append(getClass().getSimpleName());
+        stringBuilder.append(this.getClass().getSimpleName());
         stringBuilder.append(":");
         stringBuilder.append(this.fqn);
         stringBuilder.append("}");

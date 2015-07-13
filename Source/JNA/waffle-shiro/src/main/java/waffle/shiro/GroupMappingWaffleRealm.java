@@ -80,7 +80,7 @@ public class GroupMappingWaffleRealm extends AbstractWaffleRealm {
     @Override
     protected AuthorizationInfo buildAuthorizationInfo(final WaffleFqnPrincipal principal) {
         final SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        authorizationInfo.addRoles(getRoleNamesForGroups(principal.getGroupFqns()));
+        authorizationInfo.addRoles(this.getRoleNamesForGroups(principal.getGroupFqns()));
         return authorizationInfo;
     }
 }
