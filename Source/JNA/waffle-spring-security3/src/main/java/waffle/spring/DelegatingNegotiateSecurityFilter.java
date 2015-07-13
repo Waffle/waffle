@@ -140,7 +140,7 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
      */
     public DelegatingNegotiateSecurityFilter() {
         super();
-        LOGGER.debug("[waffle.spring.NegotiateSecurityFilter] loaded");
+        DelegatingNegotiateSecurityFilter.LOGGER.debug("[waffle.spring.NegotiateSecurityFilter] loaded");
     }
 
     /* (non-Javadoc)
@@ -208,9 +208,9 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
                 this.authenticationFailureHandler.onAuthenticationFailure(request, response, ae);
                 return;
             } catch (final IOException e) {
-                LOGGER.warn("IOException invoking authenticationFailureHandler: " + e.getMessage());
+                DelegatingNegotiateSecurityFilter.LOGGER.warn("IOException invoking authenticationFailureHandler: " + e.getMessage());
             } catch (final ServletException e) {
-                LOGGER.warn("ServletException invoking authenticationFailureHandler: " + e.getMessage());
+                DelegatingNegotiateSecurityFilter.LOGGER.warn("ServletException invoking authenticationFailureHandler: " + e.getMessage());
             }
         }
         super.sendUnauthorized(response, true);
@@ -233,9 +233,9 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
                 this.accessDeniedHandler.handle(request, response, ae);
                 return;
             } catch (final IOException e) {
-                LOGGER.warn("IOException invoking accessDeniedHandler: " + e.getMessage());
+                DelegatingNegotiateSecurityFilter.LOGGER.warn("IOException invoking accessDeniedHandler: " + e.getMessage());
             } catch (final ServletException e) {
-                LOGGER.warn("ServletException invoking accessDeniedHandler: " + e.getMessage());
+                DelegatingNegotiateSecurityFilter.LOGGER.warn("ServletException invoking accessDeniedHandler: " + e.getMessage());
             }
         }
         // fallback
