@@ -9,7 +9,7 @@
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> * Waffle (https://github.com/dblock/waffle)</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> * Copyright (c) 2010 - 2014 Application Security, Inc.</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> * Copyright (c) 2010 - 2015 Application Security, Inc.</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment"> * All rights reserved. This program and the accompanying materials</em>
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_javadoccomment"> * are made available under the terms of the Eclipse Public License v1.0</em>
@@ -252,44 +252,51 @@
 <a class="jxr_linenumber" name="L244" href="#L244">244</a>                     <strong class="jxr_keyword">break</strong>;
 <a class="jxr_linenumber" name="L245" href="#L245">245</a>                 }
 <a class="jxr_linenumber" name="L246" href="#L246">246</a> 
-<a class="jxr_linenumber" name="L247" href="#L247">247</a>                 Assert.assertTrue(response.getHeader(<span class="jxr_string">"WWW-Authenticate"</span>).startsWith(securityPackage + <span class="jxr_string">" "</span>));
-<a class="jxr_linenumber" name="L248" href="#L248">248</a>                 Assert.assertEquals(<span class="jxr_string">"keep-alive"</span>, response.getHeader(<span class="jxr_string">"Connection"</span>));
-<a class="jxr_linenumber" name="L249" href="#L249">249</a>                 Assert.assertEquals(2, response.getHeaderNames().size());
-<a class="jxr_linenumber" name="L250" href="#L250">250</a>                 Assert.assertEquals(401, response.getStatus());
-<a class="jxr_linenumber" name="L251" href="#L251">251</a>                 continueToken = response.getHeader(<span class="jxr_string">"WWW-Authenticate"</span>).substring(securityPackage.length() + 1);
-<a class="jxr_linenumber" name="L252" href="#L252">252</a>                 continueTokenBytes = BaseEncoding.base64().decode(continueToken);
-<a class="jxr_linenumber" name="L253" href="#L253">253</a>                 Assertions.assertThat(continueTokenBytes.length).isGreaterThan(0);
-<a class="jxr_linenumber" name="L254" href="#L254">254</a>                 continueTokenBuffer = <strong class="jxr_keyword">new</strong> SecBufferDesc(Sspi.SECBUFFER_TOKEN, continueTokenBytes);
-<a class="jxr_linenumber" name="L255" href="#L255">255</a>                 clientContext.initialize(clientContext.getHandle(), continueTokenBuffer,
-<a class="jxr_linenumber" name="L256" href="#L256">256</a>                         WindowsAccountImpl.getCurrentUsername());
-<a class="jxr_linenumber" name="L257" href="#L257">257</a>             }
-<a class="jxr_linenumber" name="L258" href="#L258">258</a>             Assert.assertTrue(authenticated);
-<a class="jxr_linenumber" name="L259" href="#L259">259</a>         } <strong class="jxr_keyword">finally</strong> {
-<a class="jxr_linenumber" name="L260" href="#L260">260</a>             <strong class="jxr_keyword">if</strong> (clientContext != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L261" href="#L261">261</a>                 clientContext.dispose();
-<a class="jxr_linenumber" name="L262" href="#L262">262</a>             }
-<a class="jxr_linenumber" name="L263" href="#L263">263</a>             <strong class="jxr_keyword">if</strong> (clientCredentials != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L264" href="#L264">264</a>                 clientCredentials.dispose();
-<a class="jxr_linenumber" name="L265" href="#L265">265</a>             }
-<a class="jxr_linenumber" name="L266" href="#L266">266</a>         }
-<a class="jxr_linenumber" name="L267" href="#L267">267</a>     }
-<a class="jxr_linenumber" name="L268" href="#L268">268</a> 
-<a class="jxr_linenumber" name="L269" href="#L269">269</a>     @Test
-<a class="jxr_linenumber" name="L270" href="#L270">270</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testPrincipalFormat() {
-<a class="jxr_linenumber" name="L271" href="#L271">271</a>         Assert.assertEquals(PrincipalFormat.FQN, <strong class="jxr_keyword">this</strong>.authenticator.getPrincipalFormat());
-<a class="jxr_linenumber" name="L272" href="#L272">272</a>         <strong class="jxr_keyword">this</strong>.authenticator.setPrincipalFormat(<span class="jxr_string">"both"</span>);
-<a class="jxr_linenumber" name="L273" href="#L273">273</a>         Assert.assertEquals(PrincipalFormat.BOTH, <strong class="jxr_keyword">this</strong>.authenticator.getPrincipalFormat());
+<a class="jxr_linenumber" name="L247" href="#L247">247</a>                 <strong class="jxr_keyword">if</strong> (response.getHeader(<span class="jxr_string">"WWW-Authenticate"</span>).startsWith(securityPackage + <span class="jxr_string">","</span>)) {
+<a class="jxr_linenumber" name="L248" href="#L248">248</a>                     Assert.assertEquals(<span class="jxr_string">"close"</span>, response.getHeader(<span class="jxr_string">"Connection"</span>));
+<a class="jxr_linenumber" name="L249" href="#L249">249</a>                     Assert.assertEquals(2, response.getHeaderNames().size());
+<a class="jxr_linenumber" name="L250" href="#L250">250</a>                     Assert.assertEquals(401, response.getStatus());
+<a class="jxr_linenumber" name="L251" href="#L251">251</a>                     <strong class="jxr_keyword">return</strong>;
+<a class="jxr_linenumber" name="L252" href="#L252">252</a>                 }
+<a class="jxr_linenumber" name="L253" href="#L253">253</a> 
+<a class="jxr_linenumber" name="L254" href="#L254">254</a>                 Assert.assertTrue(response.getHeader(<span class="jxr_string">"WWW-Authenticate"</span>).startsWith(securityPackage + <span class="jxr_string">" "</span>));
+<a class="jxr_linenumber" name="L255" href="#L255">255</a>                 Assert.assertEquals(<span class="jxr_string">"keep-alive"</span>, response.getHeader(<span class="jxr_string">"Connection"</span>));
+<a class="jxr_linenumber" name="L256" href="#L256">256</a>                 Assert.assertEquals(2, response.getHeaderNames().size());
+<a class="jxr_linenumber" name="L257" href="#L257">257</a>                 Assert.assertEquals(401, response.getStatus());
+<a class="jxr_linenumber" name="L258" href="#L258">258</a>                 continueToken = response.getHeader(<span class="jxr_string">"WWW-Authenticate"</span>).substring(securityPackage.length() + 1);
+<a class="jxr_linenumber" name="L259" href="#L259">259</a>                 continueTokenBytes = BaseEncoding.base64().decode(continueToken);
+<a class="jxr_linenumber" name="L260" href="#L260">260</a>                 Assertions.assertThat(continueTokenBytes.length).isGreaterThan(0);
+<a class="jxr_linenumber" name="L261" href="#L261">261</a>                 continueTokenBuffer = <strong class="jxr_keyword">new</strong> SecBufferDesc(Sspi.SECBUFFER_TOKEN, continueTokenBytes);
+<a class="jxr_linenumber" name="L262" href="#L262">262</a>                 clientContext.initialize(clientContext.getHandle(), continueTokenBuffer,
+<a class="jxr_linenumber" name="L263" href="#L263">263</a>                         WindowsAccountImpl.getCurrentUsername());
+<a class="jxr_linenumber" name="L264" href="#L264">264</a>             }
+<a class="jxr_linenumber" name="L265" href="#L265">265</a>             Assert.assertTrue(authenticated);
+<a class="jxr_linenumber" name="L266" href="#L266">266</a>         } <strong class="jxr_keyword">finally</strong> {
+<a class="jxr_linenumber" name="L267" href="#L267">267</a>             <strong class="jxr_keyword">if</strong> (clientContext != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L268" href="#L268">268</a>                 clientContext.dispose();
+<a class="jxr_linenumber" name="L269" href="#L269">269</a>             }
+<a class="jxr_linenumber" name="L270" href="#L270">270</a>             <strong class="jxr_keyword">if</strong> (clientCredentials != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L271" href="#L271">271</a>                 clientCredentials.dispose();
+<a class="jxr_linenumber" name="L272" href="#L272">272</a>             }
+<a class="jxr_linenumber" name="L273" href="#L273">273</a>         }
 <a class="jxr_linenumber" name="L274" href="#L274">274</a>     }
 <a class="jxr_linenumber" name="L275" href="#L275">275</a> 
 <a class="jxr_linenumber" name="L276" href="#L276">276</a>     @Test
-<a class="jxr_linenumber" name="L277" href="#L277">277</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testRoleFormat() {
-<a class="jxr_linenumber" name="L278" href="#L278">278</a>         Assert.assertEquals(PrincipalFormat.FQN, <strong class="jxr_keyword">this</strong>.authenticator.getRoleFormat());
-<a class="jxr_linenumber" name="L279" href="#L279">279</a>         <strong class="jxr_keyword">this</strong>.authenticator.setRoleFormat(<span class="jxr_string">"both"</span>);
-<a class="jxr_linenumber" name="L280" href="#L280">280</a>         Assert.assertEquals(PrincipalFormat.BOTH, <strong class="jxr_keyword">this</strong>.authenticator.getRoleFormat());
+<a class="jxr_linenumber" name="L277" href="#L277">277</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testPrincipalFormat() {
+<a class="jxr_linenumber" name="L278" href="#L278">278</a>         Assert.assertEquals(PrincipalFormat.FQN, <strong class="jxr_keyword">this</strong>.authenticator.getPrincipalFormat());
+<a class="jxr_linenumber" name="L279" href="#L279">279</a>         <strong class="jxr_keyword">this</strong>.authenticator.setPrincipalFormat(<span class="jxr_string">"both"</span>);
+<a class="jxr_linenumber" name="L280" href="#L280">280</a>         Assert.assertEquals(PrincipalFormat.BOTH, <strong class="jxr_keyword">this</strong>.authenticator.getPrincipalFormat());
 <a class="jxr_linenumber" name="L281" href="#L281">281</a>     }
-<a class="jxr_linenumber" name="L282" href="#L282">282</a> }
+<a class="jxr_linenumber" name="L282" href="#L282">282</a> 
+<a class="jxr_linenumber" name="L283" href="#L283">283</a>     @Test
+<a class="jxr_linenumber" name="L284" href="#L284">284</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testRoleFormat() {
+<a class="jxr_linenumber" name="L285" href="#L285">285</a>         Assert.assertEquals(PrincipalFormat.FQN, <strong class="jxr_keyword">this</strong>.authenticator.getRoleFormat());
+<a class="jxr_linenumber" name="L286" href="#L286">286</a>         <strong class="jxr_keyword">this</strong>.authenticator.setRoleFormat(<span class="jxr_string">"both"</span>);
+<a class="jxr_linenumber" name="L287" href="#L287">287</a>         Assert.assertEquals(PrincipalFormat.BOTH, <strong class="jxr_keyword">this</strong>.authenticator.getRoleFormat());
+<a class="jxr_linenumber" name="L288" href="#L288">288</a>     }
+<a class="jxr_linenumber" name="L289" href="#L289">289</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2010&#x2013;2014 <a href="https://github.com/dblock/">com.github.dblock</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2010&#x2013;2015 <a href="https://github.com/dblock/">com.github.dblock</a>. All rights reserved.</div>
 </body>
 </html>
