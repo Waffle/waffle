@@ -60,18 +60,18 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
             final String username = token.getUsername();
             IWindowsIdentity identity = null;
             try {
-                LOGGER.debug("Attempting login for user {}", username);
+                AbstractWaffleRealm.LOGGER.debug("Attempting login for user {}", username);
                 identity = this.provider.logonUser(username, new String(token.getPassword()));
                 if (identity.isGuest()) {
-                    LOGGER.debug("Guest identity for user {}; denying access", username);
+                    AbstractWaffleRealm.LOGGER.debug("Guest identity for user {}; denying access", username);
                     throw new AuthenticationException("Guest identities are not allowed access");
                 }
                 final Object principal = new WaffleFqnPrincipal(identity);
                 authenticationInfo = this.buildAuthenticationInfo(token, principal);
-                LOGGER.debug("Successful login for user {}", username);
+                AbstractWaffleRealm.LOGGER.debug("Successful login for user {}", username);
             } catch (RuntimeException e) {
-                LOGGER.debug("Failed login for user {}: {}", username, e.getMessage());
-                LOGGER.trace("{}", e);
+                AbstractWaffleRealm.LOGGER.debug("Failed login for user {}: {}", username, e.getMessage());
+                AbstractWaffleRealm.LOGGER.trace("{}", e);
                 throw new AuthenticationException("Login failed", e);
             } finally {
                 if (identity != null) {
@@ -97,10 +97,10 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
         if (hashService != null) {
             final Hash hash = hashService.hashPassword(token.getPassword());
             final ByteSource salt = hash.getSalt();
-            authenticationInfo = new SimpleAuthenticationInfo(principal, hash, salt, REALM_NAME);
+            authenticationInfo = new SimpleAuthenticationInfo(principal, hash, salt, AbstractWaffleRealm.REALM_NAME);
         } else {
             final Object creds = token.getCredentials();
-            authenticationInfo = new SimpleAuthenticationInfo(principal, creds, REALM_NAME);
+            authenticationInfo = new SimpleAuthenticationInfo(principal, creds, AbstractWaffleRealm.REALM_NAME);
         }
         return authenticationInfo;
     }

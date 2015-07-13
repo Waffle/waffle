@@ -128,7 +128,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         final AuthorizationHeader authorizationHeader = new AuthorizationHeader((HttpServletRequest) request);
         final boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
 
-        LOGGER.debug("security package: {}, connection id: {}, ntlmPost: {}", securityPackage, connectionId,
+        NegotiateAuthenticationFilter.LOGGER.debug("security package: {}, connection id: {}, ntlmPost: {}", securityPackage, connectionId,
                 Boolean.valueOf(ntlmPost));
 
         final boolean rememberMe = this.isRememberMe(request);
@@ -156,11 +156,11 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         if (e instanceof AuthenticationInProgressException) {
             // negotiate is processing
             final String protocol = this.getAuthzHeaderProtocol(request);
-            LOGGER.debug("Negotiation in progress for protocol: {}", protocol);
+            NegotiateAuthenticationFilter.LOGGER.debug("Negotiation in progress for protocol: {}", protocol);
             this.sendChallengeDuringNegotiate(protocol, response, ((NegotiateToken) token).getOut());
             return false;
         }
-        LOGGER.warn("login exception: {}", e.getMessage());
+        NegotiateAuthenticationFilter.LOGGER.warn("login exception: {}", e.getMessage());
 
         // do not send token.out bytes, this was a login failure.
         this.sendChallengeOnFailure(response);
@@ -212,7 +212,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         if (this.isLoginAttempt(request)) {
             loggedIn = this.executeLogin(request, response);
         } else {
-            LOGGER.debug("authorization required, supported protocols: {}", PROTOCOLS);
+            NegotiateAuthenticationFilter.LOGGER.debug("authorization required, supported protocols: {}", NegotiateAuthenticationFilter.PROTOCOLS);
             this.sendChallengeInitiateNegotiate(response);
         }
         return loggedIn;
@@ -277,7 +277,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      * @return <code>true</code> if the authzHeader value matches any of the configured protocols (Negotiate or NTLM).
      */
     boolean isLoginAttempt(final String authzHeader) {
-        for (final String protocol : PROTOCOLS) {
+        for (final String protocol : NegotiateAuthenticationFilter.PROTOCOLS) {
             if (authzHeader.toLowerCase().startsWith(protocol.toLowerCase())) {
                 return true;
             }
@@ -312,7 +312,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      *            the response
      */
     void sendChallengeInitiateNegotiate(final ServletResponse response) {
-        this.sendChallenge(PROTOCOLS, response, null);
+        this.sendChallenge(NegotiateAuthenticationFilter.PROTOCOLS, response, null);
     }
 
     /**
@@ -339,7 +339,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      */
     void sendChallengeOnFailure(final ServletResponse response) {
         final HttpServletResponse httpResponse = WebUtils.toHttp(response);
-        this.sendUnauthorized(PROTOCOLS, null, httpResponse);
+        this.sendUnauthorized(NegotiateAuthenticationFilter.PROTOCOLS, null, httpResponse);
         httpResponse.setHeader("Connection", "close");
         try {
             httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED);

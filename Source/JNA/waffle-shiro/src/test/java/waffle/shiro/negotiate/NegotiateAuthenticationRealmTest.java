@@ -29,7 +29,7 @@ public final class NegotiateAuthenticationRealmTest extends TestCase {
     }
 
     public void testSupports() {
-        assertFalse("Non-NegotiateToken should not be supported.",
+        TestCase.assertFalse("Non-NegotiateToken should not be supported.",
                 this.negAuthRealm.supports(new AuthenticationToken() {
                     private static final long serialVersionUID = 334672725950031145L;
 
@@ -44,6 +44,6 @@ public final class NegotiateAuthenticationRealmTest extends TestCase {
                     }
                 }));
 
-        assertTrue(this.negAuthRealm.supports(new NegotiateToken(null, null, null, null, false, false, null)));
+        TestCase.assertTrue(this.negAuthRealm.supports(new NegotiateToken(null, null, null, null, false, false, null)));
     }
 }

@@ -25,6 +25,7 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.assertj.core.api.Assertions;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -43,7 +44,7 @@ public class GroupMappingWaffleRealmTests {
         this.windowsAuthProvider = new MockWindowsAuthProvider();
         this.realm = new GroupMappingWaffleRealm();
         this.realm.setProvider(this.windowsAuthProvider);
-        this.realm.setGroupRolesMap(Collections.singletonMap("Users", ROLE_NAME));
+        this.realm.setGroupRolesMap(Collections.singletonMap("Users", GroupMappingWaffleRealmTests.ROLE_NAME));
     }
 
     @Test
@@ -51,9 +52,9 @@ public class GroupMappingWaffleRealmTests {
         AuthenticationToken token = new UsernamePasswordToken(this.getCurrentUserName(), "somePassword");
         AuthenticationInfo authcInfo = this.realm.getAuthenticationInfo(token);
         PrincipalCollection principals = authcInfo.getPrincipals();
-        assertFalse(principals.isEmpty());
+        Assert.assertFalse(principals.isEmpty());
         Object primaryPrincipal = principals.getPrimaryPrincipal();
-        assertNotNull(primaryPrincipal);
+        Assert.assertNotNull(primaryPrincipal);
         Assertions.assertThat(primaryPrincipal).isInstanceOf(WaffleFqnPrincipal.class);
         WaffleFqnPrincipal fqnPrincipal = (WaffleFqnPrincipal) primaryPrincipal;
         Assertions.assertThat(fqnPrincipal.getFqn()).isEqualTo(this.getCurrentUserName());
@@ -61,7 +62,7 @@ public class GroupMappingWaffleRealmTests {
         Object credentials = authcInfo.getCredentials();
         Assertions.assertThat(credentials).isInstanceOf(char[].class);
         Assertions.assertThat(credentials).isEqualTo("somePassword".toCharArray());
-        assertTrue(this.realm.hasRole(principals, ROLE_NAME));
+        Assert.assertTrue(this.realm.hasRole(principals, GroupMappingWaffleRealmTests.ROLE_NAME));
     }
 
     @Test(expected = AuthenticationException.class)
