@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>WindowsDomainImpl.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-jna</a> &gt; <a href="index.source.html" class="el_package">waffle.windows.auth.impl</a> &gt; <span class="el_source">WindowsDomainImpl.java</span></div><h1>WindowsDomainImpl.java</h1><pre class="source lang-java linenums">/**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -18,64 +18,116 @@ import waffle.windows.auth.IWindowsDomain;
 import com.sun.jna.platform.win32.Netapi32Util.DomainTrust;
 
 /**
- * Windows Domain
- * 
+ * Windows Domain.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsDomainImpl implements IWindowsDomain {
 
-<span class="nc" id="L27">    private enum TrustDirection {</span>
-<span class="nc" id="L28">        INBOUND, OUTBOUND, BIDIRECTIONAL</span>
+    /**
+     * The Enum TrustDirection.
+     */
+<span class="nc" id="L30">    private enum TrustDirection {</span>
+        
+        /** The inbound. */
+<span class="nc" id="L33">        INBOUND, </span>
+ /** The outbound. */
+<span class="nc" id="L35"> OUTBOUND, </span>
+ /** The bidirectional. */
+<span class="nc" id="L37"> BIDIRECTIONAL</span>
     }
 
-<span class="nc" id="L31">    private enum TrustType {</span>
-<span class="nc" id="L32">        TREE_ROOT, PARENT_CHILD, CROSS_LINK, EXTERNAL, FOREST, KERBEROS, UNKNOWN</span>
+    /**
+     * The Enum TrustType.
+     */
+<span class="nc" id="L43">    private enum TrustType {</span>
+        
+        /** The tree root. */
+<span class="nc" id="L46">        TREE_ROOT, </span>
+ /** The parent child. */
+<span class="nc" id="L48"> PARENT_CHILD, </span>
+ /** The cross link. */
+<span class="nc" id="L50"> CROSS_LINK, </span>
+ /** The external. */
+<span class="nc" id="L52"> EXTERNAL, </span>
+ /** The forest. */
+<span class="nc" id="L54"> FOREST, </span>
+ /** The kerberos. */
+<span class="nc" id="L56"> KERBEROS, </span>
+ /** The unknown. */
+<span class="nc" id="L58"> UNKNOWN</span>
     }
 
+    /** The fqn. */
     private String         fqn;
-<span class="nc" id="L36">    private TrustDirection trustDirection = TrustDirection.BIDIRECTIONAL;</span>
-<span class="nc" id="L37">    private TrustType      trustType      = TrustType.UNKNOWN;</span>
+    
+    /** The trust direction. */
+<span class="nc" id="L65">    private TrustDirection trustDirection = TrustDirection.BIDIRECTIONAL;</span>
+    
+    /** The trust type. */
+<span class="nc" id="L68">    private TrustType      trustType      = TrustType.UNKNOWN;</span>
 
-<span class="nc" id="L39">    public WindowsDomainImpl(final String newFqn) {</span>
-<span class="nc" id="L40">        this.fqn = newFqn;</span>
-<span class="nc" id="L41">    }</span>
+    /**
+     * Instantiates a new windows domain impl.
+     *
+     * @param newFqn
+     *            the new fqn
+     */
+<span class="nc" id="L76">    public WindowsDomainImpl(final String newFqn) {</span>
+<span class="nc" id="L77">        this.fqn = newFqn;</span>
+<span class="nc" id="L78">    }</span>
 
-<span class="nc" id="L43">    public WindowsDomainImpl(final DomainTrust trust) {</span>
+    /**
+     * Instantiates a new windows domain impl.
+     *
+     * @param trust
+     *            the trust
+     */
+<span class="nc" id="L86">    public WindowsDomainImpl(final DomainTrust trust) {</span>
         // fqn
-<span class="nc" id="L45">        this.fqn = trust.DnsDomainName;</span>
-<span class="nc bnc" id="L46" title="All 4 branches missed.">        if (this.fqn == null || this.fqn.length() == 0) {</span>
-<span class="nc" id="L47">            this.fqn = trust.NetbiosDomainName;</span>
+<span class="nc" id="L88">        this.fqn = trust.DnsDomainName;</span>
+<span class="nc bnc" id="L89" title="All 4 branches missed.">        if (this.fqn == null || this.fqn.length() == 0) {</span>
+<span class="nc" id="L90">            this.fqn = trust.NetbiosDomainName;</span>
         }
         // trust direction
-<span class="nc bnc" id="L50" title="All 4 branches missed.">        if (trust.isInbound() &amp;&amp; trust.isOutbound()) {</span>
-<span class="nc" id="L51">            this.trustDirection = TrustDirection.BIDIRECTIONAL;</span>
-<span class="nc bnc" id="L52" title="All 2 branches missed.">        } else if (trust.isOutbound()) {</span>
-<span class="nc" id="L53">            this.trustDirection = TrustDirection.OUTBOUND;</span>
-<span class="nc bnc" id="L54" title="All 2 branches missed.">        } else if (trust.isInbound()) {</span>
-<span class="nc" id="L55">            this.trustDirection = TrustDirection.INBOUND;</span>
+<span class="nc bnc" id="L93" title="All 4 branches missed.">        if (trust.isInbound() &amp;&amp; trust.isOutbound()) {</span>
+<span class="nc" id="L94">            this.trustDirection = TrustDirection.BIDIRECTIONAL;</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">        } else if (trust.isOutbound()) {</span>
+<span class="nc" id="L96">            this.trustDirection = TrustDirection.OUTBOUND;</span>
+<span class="nc bnc" id="L97" title="All 2 branches missed.">        } else if (trust.isInbound()) {</span>
+<span class="nc" id="L98">            this.trustDirection = TrustDirection.INBOUND;</span>
         }
         // trust type
-<span class="nc bnc" id="L58" title="All 2 branches missed.">        if (trust.isInForest()) {</span>
-<span class="nc" id="L59">            this.trustType = TrustType.FOREST;</span>
-<span class="nc bnc" id="L60" title="All 2 branches missed.">        } else if (trust.isRoot()) {</span>
-<span class="nc" id="L61">            this.trustType = TrustType.TREE_ROOT;</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        if (trust.isInForest()) {</span>
+<span class="nc" id="L102">            this.trustType = TrustType.FOREST;</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        } else if (trust.isRoot()) {</span>
+<span class="nc" id="L104">            this.trustType = TrustType.TREE_ROOT;</span>
         }
-<span class="nc" id="L63">    }</span>
+<span class="nc" id="L106">    }</span>
 
+    /* (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsDomain#getFqn()
+     */
     @Override
     public String getFqn() {
-<span class="nc" id="L67">        return this.fqn;</span>
+<span class="nc" id="L113">        return this.fqn;</span>
     }
 
+    /* (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsDomain#getTrustDirectionString()
+     */
     @Override
     public String getTrustDirectionString() {
-<span class="nc" id="L72">        return this.trustDirection.toString();</span>
+<span class="nc" id="L121">        return this.trustDirection.toString();</span>
     }
 
+    /* (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsDomain#getTrustTypeString()
+     */
     @Override
     public String getTrustTypeString() {
-<span class="nc" id="L77">        return this.trustType.toString();</span>
+<span class="nc" id="L129">        return this.trustType.toString();</span>
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

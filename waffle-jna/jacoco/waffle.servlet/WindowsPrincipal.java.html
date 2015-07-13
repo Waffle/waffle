@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>WindowsPrincipal.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-jna</a> &gt; <a href="index.source.html" class="el_package">waffle.servlet</a> &gt; <span class="el_source">WindowsPrincipal.java</span></div><h1>WindowsPrincipal.java</h1><pre class="source lang-java linenums">/**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -34,13 +34,26 @@ import waffle.windows.auth.WindowsAccount;
  */
 public class WindowsPrincipal implements Principal, Serializable {
 
+    /** The Constant serialVersionUID. */
     private static final long           serialVersionUID = 1L;
-    private String                      fqn;
-    private byte[]                      sid;
-    private String                      sidString;
-    private List&lt;String&gt;                roles;
+    
+    /** The fqn. */
+    private final String                      fqn;
+    
+    /** The sid. */
+    private final byte[]                      sid;
+    
+    /** The sid string. */
+    private final String                      sidString;
+    
+    /** The roles. */
+    private final List&lt;String&gt;                roles;
+    
+    /** The identity. */
     private transient IWindowsIdentity  identity;
-    private Map&lt;String, WindowsAccount&gt; groups;
+    
+    /** The groups. */
+    private final Map&lt;String, WindowsAccount&gt; groups;
 
     /**
      * A windows principal.
@@ -49,8 +62,8 @@ public class WindowsPrincipal implements Principal, Serializable {
      *            Windows identity.
      */
     public WindowsPrincipal(final IWindowsIdentity windowsIdentity) {
-<span class="nc" id="L52">        this(windowsIdentity, PrincipalFormat.FQN, PrincipalFormat.FQN);</span>
-<span class="nc" id="L53">    }</span>
+<span class="nc" id="L65">        this(windowsIdentity, PrincipalFormat.FQN, PrincipalFormat.FQN);</span>
+<span class="nc" id="L66">    }</span>
 
     /**
      * A windows principal.
@@ -63,31 +76,49 @@ public class WindowsPrincipal implements Principal, Serializable {
      *            Role format.
      */
     public WindowsPrincipal(final IWindowsIdentity windowsIdentity, final PrincipalFormat principalFormat,
-<span class="nc" id="L66">            final PrincipalFormat roleFormat) {</span>
-<span class="nc" id="L67">        this.identity = windowsIdentity;</span>
-<span class="nc" id="L68">        this.fqn = windowsIdentity.getFqn();</span>
-<span class="nc" id="L69">        this.sid = windowsIdentity.getSid();</span>
-<span class="nc" id="L70">        this.sidString = windowsIdentity.getSidString();</span>
-<span class="nc" id="L71">        this.groups = getGroups(windowsIdentity.getGroups());</span>
-<span class="nc" id="L72">        this.roles = getRoles(windowsIdentity, principalFormat, roleFormat);</span>
-<span class="nc" id="L73">    }</span>
+<span class="nc" id="L79">            final PrincipalFormat roleFormat) {</span>
+<span class="nc" id="L80">        this.identity = windowsIdentity;</span>
+<span class="nc" id="L81">        this.fqn = windowsIdentity.getFqn();</span>
+<span class="nc" id="L82">        this.sid = windowsIdentity.getSid();</span>
+<span class="nc" id="L83">        this.sidString = windowsIdentity.getSidString();</span>
+<span class="nc" id="L84">        this.groups = WindowsPrincipal.getGroups(windowsIdentity.getGroups());</span>
+<span class="nc" id="L85">        this.roles = WindowsPrincipal.getRoles(windowsIdentity, principalFormat, roleFormat);</span>
+<span class="nc" id="L86">    }</span>
 
+    /**
+     * Gets the roles.
+     *
+     * @param windowsIdentity
+     *            the windows identity
+     * @param principalFormat
+     *            the principal format
+     * @param roleFormat
+     *            the role format
+     * @return the roles
+     */
     private static List&lt;String&gt; getRoles(final IWindowsIdentity windowsIdentity, final PrincipalFormat principalFormat,
             final PrincipalFormat roleFormat) {
-<span class="nc" id="L77">        final List&lt;String&gt; roles = new ArrayList&lt;String&gt;();</span>
-<span class="nc" id="L78">        roles.addAll(getPrincipalNames(windowsIdentity, principalFormat));</span>
-<span class="nc bnc" id="L79" title="All 2 branches missed.">        for (IWindowsAccount group : windowsIdentity.getGroups()) {</span>
-<span class="nc" id="L80">            roles.addAll(getRoleNames(group, roleFormat));</span>
+<span class="nc" id="L101">        final List&lt;String&gt; roles = new ArrayList&lt;String&gt;();</span>
+<span class="nc" id="L102">        roles.addAll(WindowsPrincipal.getPrincipalNames(windowsIdentity, principalFormat));</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        for (final IWindowsAccount group : windowsIdentity.getGroups()) {</span>
+<span class="nc" id="L104">            roles.addAll(WindowsPrincipal.getRoleNames(group, roleFormat));</span>
         }
-<span class="nc" id="L82">        return roles;</span>
+<span class="nc" id="L106">        return roles;</span>
     }
 
+    /**
+     * Gets the groups.
+     *
+     * @param groups
+     *            the groups
+     * @return the groups
+     */
     private static Map&lt;String, WindowsAccount&gt; getGroups(final IWindowsAccount[] groups) {
-<span class="nc" id="L86">        final Map&lt;String, WindowsAccount&gt; groupMap = new HashMap&lt;String, WindowsAccount&gt;();</span>
-<span class="nc bnc" id="L87" title="All 2 branches missed.">        for (IWindowsAccount group : groups) {</span>
-<span class="nc" id="L88">            groupMap.put(group.getFqn(), new WindowsAccount(group));</span>
+<span class="nc" id="L117">        final Map&lt;String, WindowsAccount&gt; groupMap = new HashMap&lt;String, WindowsAccount&gt;();</span>
+<span class="nc bnc" id="L118" title="All 2 branches missed.">        for (final IWindowsAccount group : groups) {</span>
+<span class="nc" id="L119">            groupMap.put(group.getFqn(), new WindowsAccount(group));</span>
         }
-<span class="nc" id="L90">        return groupMap;</span>
+<span class="nc" id="L121">        return groupMap;</span>
     }
 
     /**
@@ -96,7 +127,7 @@ public class WindowsPrincipal implements Principal, Serializable {
      * @return Array of bytes.
      */
     public byte[] getSid() {
-<span class="nc" id="L99">        return this.sid.clone();</span>
+<span class="nc" id="L130">        return this.sid.clone();</span>
     }
 
     /**
@@ -105,7 +136,7 @@ public class WindowsPrincipal implements Principal, Serializable {
      * @return String.
      */
     public String getSidString() {
-<span class="nc" id="L108">        return this.sidString;</span>
+<span class="nc" id="L139">        return this.sidString;</span>
     }
 
     /**
@@ -114,7 +145,7 @@ public class WindowsPrincipal implements Principal, Serializable {
      * @return A map of group names to groups.
      */
     public Map&lt;String, WindowsAccount&gt; getGroups() {
-<span class="nc" id="L117">        return this.groups;</span>
+<span class="nc" id="L148">        return this.groups;</span>
     }
 
     /**
@@ -127,24 +158,24 @@ public class WindowsPrincipal implements Principal, Serializable {
      * @return List of role principal objects.
      */
     private static List&lt;String&gt; getRoleNames(final IWindowsAccount group, final PrincipalFormat principalFormat) {
-<span class="nc" id="L130">        final List&lt;String&gt; principals = new ArrayList&lt;String&gt;();</span>
-<span class="nc bnc" id="L131" title="All 5 branches missed.">        switch (principalFormat) {</span>
+<span class="nc" id="L161">        final List&lt;String&gt; principals = new ArrayList&lt;String&gt;();</span>
+<span class="nc bnc" id="L162" title="All 5 branches missed.">        switch (principalFormat) {</span>
             case FQN:
-<span class="nc" id="L133">                principals.add(group.getFqn());</span>
-<span class="nc" id="L134">                break;</span>
+<span class="nc" id="L164">                principals.add(group.getFqn());</span>
+<span class="nc" id="L165">                break;</span>
             case SID:
-<span class="nc" id="L136">                principals.add(group.getSidString());</span>
-<span class="nc" id="L137">                break;</span>
+<span class="nc" id="L167">                principals.add(group.getSidString());</span>
+<span class="nc" id="L168">                break;</span>
             case BOTH:
-<span class="nc" id="L139">                principals.add(group.getFqn());</span>
-<span class="nc" id="L140">                principals.add(group.getSidString());</span>
-<span class="nc" id="L141">                break;</span>
+<span class="nc" id="L170">                principals.add(group.getFqn());</span>
+<span class="nc" id="L171">                principals.add(group.getSidString());</span>
+<span class="nc" id="L172">                break;</span>
             case NONE:
-<span class="nc" id="L143">                break;</span>
+<span class="nc" id="L174">                break;</span>
             default:
                 break;
         }
-<span class="nc" id="L147">        return principals;</span>
+<span class="nc" id="L178">        return principals;</span>
     }
 
     /**
@@ -158,24 +189,24 @@ public class WindowsPrincipal implements Principal, Serializable {
      */
     private static List&lt;String&gt; getPrincipalNames(final IWindowsIdentity windowsIdentity,
             final PrincipalFormat principalFormat) {
-<span class="nc" id="L161">        final List&lt;String&gt; principals = new ArrayList&lt;String&gt;();</span>
-<span class="nc bnc" id="L162" title="All 5 branches missed.">        switch (principalFormat) {</span>
+<span class="nc" id="L192">        final List&lt;String&gt; principals = new ArrayList&lt;String&gt;();</span>
+<span class="nc bnc" id="L193" title="All 5 branches missed.">        switch (principalFormat) {</span>
             case FQN:
-<span class="nc" id="L164">                principals.add(windowsIdentity.getFqn());</span>
-<span class="nc" id="L165">                break;</span>
+<span class="nc" id="L195">                principals.add(windowsIdentity.getFqn());</span>
+<span class="nc" id="L196">                break;</span>
             case SID:
-<span class="nc" id="L167">                principals.add(windowsIdentity.getSidString());</span>
-<span class="nc" id="L168">                break;</span>
+<span class="nc" id="L198">                principals.add(windowsIdentity.getSidString());</span>
+<span class="nc" id="L199">                break;</span>
             case BOTH:
-<span class="nc" id="L170">                principals.add(windowsIdentity.getFqn());</span>
-<span class="nc" id="L171">                principals.add(windowsIdentity.getSidString());</span>
-<span class="nc" id="L172">                break;</span>
+<span class="nc" id="L201">                principals.add(windowsIdentity.getFqn());</span>
+<span class="nc" id="L202">                principals.add(windowsIdentity.getSidString());</span>
+<span class="nc" id="L203">                break;</span>
             case NONE:
-<span class="nc" id="L174">                break;</span>
+<span class="nc" id="L205">                break;</span>
             default:
                 break;
         }
-<span class="nc" id="L178">        return principals;</span>
+<span class="nc" id="L209">        return principals;</span>
     }
 
     /**
@@ -184,7 +215,7 @@ public class WindowsPrincipal implements Principal, Serializable {
      * @return Role1, Role2, ...
      */
     public String getRolesString() {
-<span class="nc" id="L187">        return Joiner.on(&quot;, &quot;).join(this.roles);</span>
+<span class="nc" id="L218">        return Joiner.on(&quot;, &quot;).join(this.roles);</span>
     }
 
     /**
@@ -195,7 +226,7 @@ public class WindowsPrincipal implements Principal, Serializable {
      * @return True if the principal has a role, false otherwise.
      */
     public boolean hasRole(final String role) {
-<span class="nc" id="L198">        return this.roles.contains(role);</span>
+<span class="nc" id="L229">        return this.roles.contains(role);</span>
     }
 
     /**
@@ -205,7 +236,7 @@ public class WindowsPrincipal implements Principal, Serializable {
      */
     @Override
     public String getName() {
-<span class="nc" id="L208">        return this.fqn;</span>
+<span class="nc" id="L239">        return this.fqn;</span>
     }
 
     /**
@@ -214,13 +245,16 @@ public class WindowsPrincipal implements Principal, Serializable {
      * @return String.
      */
     public IWindowsIdentity getIdentity() {
-<span class="nc" id="L217">        return this.identity;</span>
+<span class="nc" id="L248">        return this.identity;</span>
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
-<span class="nc" id="L222">        return this.getName();</span>
+<span class="nc" id="L256">        return this.getName();</span>
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
