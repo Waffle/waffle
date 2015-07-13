@@ -23,10 +23,10 @@ under the License.
     <link>http://dblock.github.com/waffle/</link>
     <description>waffle-parent - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2010 - 2014 com.github.dblock</copyright>
+    <copyright>&#169;2010 - 2015 com.github.dblock</copyright>
     <item>
-      <title>File: 84,
-             Errors: 2304,
+      <title>File: 85,
+             Errors: 1928,
              Warnings: 0,
              Infos: 0
       </title>
@@ -46,7 +46,7 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.servlet.WaffleInfoServlet.java">waffle/servlet/WaffleInfoServlet.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.spring.WindowsAuthenticationToken.java">waffle/spring/WindowsAuthenticationToken.java</a>
                 </td>
                 <td>
                   0
@@ -55,12 +55,12 @@ under the License.
                   0
                 </td>
                 <td>
-                  14
+                  48
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.GroupMappingWaffleRealm.java">waffle/shiro/GroupMappingWaffleRealm.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.apache.WindowsRealm.java">waffle/apache/WindowsRealm.java</a>
                 </td>
                 <td>
                   0
@@ -69,12 +69,12 @@ under the License.
                   0
                 </td>
                 <td>
-                  18
+                  12
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsSecurityContextImpersonationContextImpl.java">waffle/windows/auth/impl/WindowsSecurityContextImpersonationContextImpl.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.IWindowsAccount.java">waffle/windows/auth/IWindowsAccount.java</a>
                 </td>
                 <td>
                   0
@@ -84,188 +84,6 @@ under the License.
                 </td>
                 <td>
                   5
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.servlet.WindowsPrincipal.java">waffle/servlet/WindowsPrincipal.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  35
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.dynamic.DynamicAuthenticationFilter.java">waffle/shiro/dynamic/DynamicAuthenticationFilter.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  60
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.http.SimpleHttpSession.java">waffle/mock/http/SimpleHttpSession.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  17
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.http.SimpleHttpRequest.java">waffle/mock/http/SimpleHttpRequest.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  54
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.NegotiateToken.java">waffle/shiro/negotiate/NegotiateToken.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  53
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.servlet.package-info.java">waffle/servlet/package-info.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.spring.package-info.java">waffle/spring/package-info.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.servlet.spi.SecurityFilterProvider.java">waffle/servlet/spi/SecurityFilterProvider.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  9
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.util.NtlmServletRequest.java">waffle/util/NtlmServletRequest.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  6
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.jaas.WindowsLoginModule.java">waffle/jaas/WindowsLoginModule.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  57
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.jaas.UserPrincipal.java">waffle/jaas/UserPrincipal.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  8
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.apache.WaffleAuthenticatorBase.java">waffle/apache/WaffleAuthenticatorBase.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  147
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.http.SimpleHttpResponse.java">waffle/mock/http/SimpleHttpResponse.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  38
                 </td>
               </tr>
                           <tr>
@@ -284,7 +102,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.servlet.spi.SecurityFilterProviderCollection.java">waffle/servlet/spi/SecurityFilterProviderCollection.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.WindowsAccount.java">waffle/windows/auth/WindowsAccount.java</a>
                 </td>
                 <td>
                   0
@@ -293,12 +111,12 @@ under the License.
                   0
                 </td>
                 <td>
-                  40
+                  11
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.apache.GenericWindowsPrincipal.java">waffle/apache/GenericWindowsPrincipal.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.IWindowsAuthProvider.java">waffle/windows/auth/IWindowsAuthProvider.java</a>
                 </td>
                 <td>
                   0
@@ -307,12 +125,12 @@ under the License.
                   0
                 </td>
                 <td>
-                  98
+                  36
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.IWindowsCredentialsHandle.java">waffle/windows/auth/IWindowsCredentialsHandle.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.servlet.spi.NegotiateSecurityFilterProvider.java">waffle/servlet/spi/NegotiateSecurityFilterProvider.java</a>
                 </td>
                 <td>
                   0
@@ -321,7 +139,77 @@ under the License.
                   0
                 </td>
                 <td>
-                  2
+                  37
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.util.package-info.java">waffle/util/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.servlet.spi.package-info.java">waffle/servlet/spi/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.dynamic.package-info.java">waffle/shiro/dynamic/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.util.NtlmMessage.java">waffle/util/NtlmMessage.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  5
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.jaas.UserPrincipal.java">waffle/jaas/UserPrincipal.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
                 </td>
               </tr>
                           <tr>
@@ -340,7 +228,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.MockWindowsIdentity.java">waffle/mock/MockWindowsIdentity.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.spring.NegotiateSecurityFilter.java">waffle/spring/NegotiateSecurityFilter.java</a>
                 </td>
                 <td>
                   0
@@ -349,12 +237,12 @@ under the License.
                   0
                 </td>
                 <td>
-                  12
+                  110
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.package-info.java">waffle/shiro/package-info.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.servlet.WaffleInfoServlet.java">waffle/servlet/WaffleInfoServlet.java</a>
                 </td>
                 <td>
                   0
@@ -363,12 +251,12 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  10
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.apache.package-info.java">waffle/apache/package-info.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.util.AuthorizationHeader.java">waffle/util/AuthorizationHeader.java</a>
                 </td>
                 <td>
                   0
@@ -377,26 +265,12 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  19
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.spring.FqnGrantedAuthorityFactory.java">waffle/spring/FqnGrantedAuthorityFactory.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  27
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.jaas.package-info.java">waffle/jaas/package-info.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.package-info.java">waffle/shiro/negotiate/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -410,7 +284,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsAccountImpl.java">waffle/windows/auth/impl/WindowsAccountImpl.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.NegotiateAuthenticationStrategy.java">waffle/shiro/negotiate/NegotiateAuthenticationStrategy.java</a>
                 </td>
                 <td>
                   0
@@ -419,7 +293,35 @@ under the License.
                   0
                 </td>
                 <td>
-                  14
+                  25
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.AbstractWaffleRealm.java">waffle/shiro/AbstractWaffleRealm.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  30
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.MockWindowsAuthProvider.java">waffle/mock/MockWindowsAuthProvider.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  21
                 </td>
               </tr>
                           <tr>
@@ -438,7 +340,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.WaffleFqnPrincipal.java">waffle/shiro/WaffleFqnPrincipal.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsSecurityContextImpl.java">waffle/windows/auth/impl/WindowsSecurityContextImpl.java</a>
                 </td>
                 <td>
                   0
@@ -447,35 +349,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  10
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.http.SimpleFilterConfig.java">waffle/mock/http/SimpleFilterConfig.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  11
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.MockWindowsAccount.java">waffle/mock/MockWindowsAccount.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  12
+                  35
                 </td>
               </tr>
                           <tr>
@@ -489,12 +363,12 @@ under the License.
                   0
                 </td>
                 <td>
-                  41
+                  24
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.MockWindowsImpersonationContext.java">waffle/mock/MockWindowsImpersonationContext.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.dynamic.DynamicAuthenticationFilter.java">waffle/shiro/dynamic/DynamicAuthenticationFilter.java</a>
                 </td>
                 <td>
                   0
@@ -503,12 +377,12 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  56
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.http.SimpleFilterChain.java">waffle/mock/http/SimpleFilterChain.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.servlet.WindowsPrincipal.java">waffle/servlet/WindowsPrincipal.java</a>
                 </td>
                 <td>
                   0
@@ -517,12 +391,12 @@ under the License.
                   0
                 </td>
                 <td>
-                  10
+                  34
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.impl.package-info.java">waffle/windows/auth/impl/package-info.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.servlet.AutoDisposableWindowsPrincipal.java">waffle/servlet/AutoDisposableWindowsPrincipal.java</a>
                 </td>
                 <td>
                   0
@@ -531,12 +405,12 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  7
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.AuthenticationInProgressException.java">waffle/shiro/negotiate/AuthenticationInProgressException.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.servlet.spi.BasicSecurityFilterProvider.java">waffle/servlet/spi/BasicSecurityFilterProvider.java</a>
                 </td>
                 <td>
                   0
@@ -545,12 +419,54 @@ under the License.
                   0
                 </td>
                 <td>
-                  5
+                  27
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.PrincipalFormat.java">waffle/windows/auth/PrincipalFormat.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsIdentityImpersonationContextImpl.java">waffle/windows/auth/impl/WindowsIdentityImpersonationContextImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.spring.FqnGrantedAuthorityFactory.java">waffle/spring/FqnGrantedAuthorityFactory.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  14
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.NegotiateAuthenticationFilter.java">waffle/shiro/negotiate/NegotiateAuthenticationFilter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  80
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.util.NtlmServletRequest.java">waffle/util/NtlmServletRequest.java</a>
                 </td>
                 <td>
                   0
@@ -573,40 +489,12 @@ under the License.
                   0
                 </td>
                 <td>
-                  172
+                  88
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.util.WaffleInfo.java">waffle/util/WaffleInfo.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  35
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.spring.NegotiateSecurityFilter.java">waffle/spring/NegotiateSecurityFilter.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  196
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.http.SimpleRequestDispatcher.java">waffle/mock/http/SimpleRequestDispatcher.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.WaffleFqnPrincipal.java">waffle/shiro/WaffleFqnPrincipal.java</a>
                 </td>
                 <td>
                   0
@@ -620,7 +508,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.apache.NegotiateAuthenticator.java">waffle/apache/NegotiateAuthenticator.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsCredentialsHandleImpl.java">waffle/windows/auth/impl/WindowsCredentialsHandleImpl.java</a>
                 </td>
                 <td>
                   0
@@ -629,12 +517,12 @@ under the License.
                   0
                 </td>
                 <td>
-                  118
+                  17
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.util.package-info.java">waffle/util/package-info.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.AuthenticationInProgressException.java">waffle/shiro/negotiate/AuthenticationInProgressException.java</a>
                 </td>
                 <td>
                   0
@@ -643,68 +531,12 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  5
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.IWindowsAuthProvider.java">waffle/windows/auth/IWindowsAuthProvider.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  36
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsIdentityImpersonationContextImpl.java">waffle/windows/auth/impl/WindowsIdentityImpersonationContextImpl.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  4
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.package-info.java">waffle/shiro/negotiate/package-info.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsDomainImpl.java">waffle/windows/auth/impl/WindowsDomainImpl.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  22
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.package-info.java">waffle/windows/auth/package-info.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.apache.package-info.java">waffle/apache/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -727,7 +559,21 @@ under the License.
                   0
                 </td>
                 <td>
-                  12
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.http.SimpleHttpRequest.java">waffle/mock/http/SimpleHttpRequest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  42
                 </td>
               </tr>
                           <tr>
@@ -741,166 +587,12 @@ under the License.
                   0
                 </td>
                 <td>
-                  2
+                  1
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.dynamic.package-info.java">waffle/shiro/dynamic/package-info.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.NegotiateInfo.java">waffle/shiro/negotiate/NegotiateInfo.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  15
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.NegotiateAuthenticationStrategy.java">waffle/shiro/negotiate/NegotiateAuthenticationStrategy.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  26
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.servlet.spi.package-info.java">waffle/servlet/spi/package-info.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsCredentialsHandleImpl.java">waffle/windows/auth/impl/WindowsCredentialsHandleImpl.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  19
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.WindowsAccount.java">waffle/windows/auth/WindowsAccount.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  17
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.spring.WindowsAuthenticationToken.java">waffle/spring/WindowsAuthenticationToken.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  82
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.servlet.AutoDisposableWindowsPrincipal.java">waffle/servlet/AutoDisposableWindowsPrincipal.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  9
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.util.SPNegoMessage.java">waffle/util/SPNegoMessage.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  18
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.apache.WindowsRealm.java">waffle/apache/WindowsRealm.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  20
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.spring.GuestLoginDisabledAuthenticationException.java">waffle/spring/GuestLoginDisabledAuthenticationException.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  12
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.IWindowsDomain.java">waffle/windows/auth/IWindowsDomain.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.PrincipalFormat.java">waffle/windows/auth/PrincipalFormat.java</a>
                 </td>
                 <td>
                   0
@@ -914,6 +606,188 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.MockWindowsAccount.java">waffle/mock/MockWindowsAccount.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  8
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.jetty.package-info.java">waffle/jetty/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.apache.GenericWindowsPrincipal.java">waffle/apache/GenericWindowsPrincipal.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  72
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.http.SimpleFilterChain.java">waffle/mock/http/SimpleFilterChain.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  7
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.http.SimpleHttpSession.java">waffle/mock/http/SimpleHttpSession.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  17
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.spring.package-info.java">waffle/spring/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.apache.NegotiateAuthenticator.java">waffle/apache/NegotiateAuthenticator.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  88
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.NegotiateAuthenticationRealm.java">waffle/shiro/negotiate/NegotiateAuthenticationRealm.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  15
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.servlet.package-info.java">waffle/servlet/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsDomainImpl.java">waffle/windows/auth/impl/WindowsDomainImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  15
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.package-info.java">waffle/windows/auth/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.jaas.package-info.java">waffle/jaas/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.http.SimpleFilterConfig.java">waffle/mock/http/SimpleFilterConfig.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  9
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsAuthProviderImpl.java">waffle/windows/auth/impl/WindowsAuthProviderImpl.java</a>
                 </td>
                 <td>
@@ -923,12 +797,12 @@ under the License.
                   0
                 </td>
                 <td>
-                  35
+                  39
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsSecurityContextImpl.java">waffle/windows/auth/impl/WindowsSecurityContextImpl.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.IWindowsCredentialsHandle.java">waffle/windows/auth/IWindowsCredentialsHandle.java</a>
                 </td>
                 <td>
                   0
@@ -937,12 +811,12 @@ under the License.
                   0
                 </td>
                 <td>
-                  41
+                  2
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsIdentityImpl.java">waffle/windows/auth/impl/WindowsIdentityImpl.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.servlet.spi.SecurityFilterProviderCollection.java">waffle/servlet/spi/SecurityFilterProviderCollection.java</a>
                 </td>
                 <td>
                   0
@@ -951,35 +825,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  21
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.IWindowsImpersonationContext.java">waffle/windows/auth/IWindowsImpersonationContext.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  1
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.servlet.spi.BasicSecurityFilterProvider.java">waffle/servlet/spi/BasicSecurityFilterProvider.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  26
+                  37
                 </td>
               </tr>
                           <tr>
@@ -998,7 +844,119 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.jetty.package-info.java">waffle/jetty/package-info.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsComputerImpl.java">waffle/windows/auth/impl/WindowsComputerImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  8
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.package-info.java">waffle/shiro/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.MockWindowsImpersonationContext.java">waffle/mock/MockWindowsImpersonationContext.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.NegotiateInfo.java">waffle/shiro/negotiate/NegotiateInfo.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  13
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.MockWindowsIdentity.java">waffle/mock/MockWindowsIdentity.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  10
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.jaas.RolePrincipal.java">waffle/jaas/RolePrincipal.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  8
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.spring.GuestLoginDisabledAuthenticationException.java">waffle/spring/GuestLoginDisabledAuthenticationException.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.apache.WaffleAuthenticatorBase.java">waffle/apache/WaffleAuthenticatorBase.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  103
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsSecurityContextImpersonationContextImpl.java">waffle/windows/auth/impl/WindowsSecurityContextImpersonationContextImpl.java</a>
                 </td>
                 <td>
                   0
@@ -1021,12 +979,12 @@ under the License.
                   0
                 </td>
                 <td>
-                  11
+                  9
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.servlet.spi.NegotiateSecurityFilterProvider.java">waffle/servlet/spi/NegotiateSecurityFilterProvider.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.spring.DelegatingNegotiateSecurityFilter.java">waffle/spring/DelegatingNegotiateSecurityFilter.java</a>
                 </td>
                 <td>
                   0
@@ -1035,12 +993,12 @@ under the License.
                   0
                 </td>
                 <td>
-                  35
+                  162
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.NegotiateAuthenticationFilter.java">waffle/shiro/negotiate/NegotiateAuthenticationFilter.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsIdentityImpl.java">waffle/windows/auth/impl/WindowsIdentityImpl.java</a>
                 </td>
                 <td>
                   0
@@ -1049,7 +1007,175 @@ under the License.
                   0
                 </td>
                 <td>
-                  85
+                  18
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.IWindowsDomain.java">waffle/windows/auth/IWindowsDomain.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.apache.MixedAuthenticator.java">waffle/apache/MixedAuthenticator.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  114
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.util.SPNegoMessage.java">waffle/util/SPNegoMessage.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  14
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.servlet.spi.SecurityFilterProvider.java">waffle/servlet/spi/SecurityFilterProvider.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  9
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.util.WaffleInfo.java">waffle/util/WaffleInfo.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  30
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.servlet.NegotiateRequestWrapper.java">waffle/servlet/NegotiateRequestWrapper.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsAccountImpl.java">waffle/windows/auth/impl/WindowsAccountImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  13
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.http.SimpleHttpResponse.java">waffle/mock/http/SimpleHttpResponse.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  31
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.http.SimpleRequestDispatcher.java">waffle/mock/http/SimpleRequestDispatcher.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.impl.package-info.java">waffle/windows/auth/impl/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.jaas.WindowsLoginModule.java">waffle/jaas/WindowsLoginModule.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  50
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.GroupMappingWaffleRealm.java">waffle/shiro/GroupMappingWaffleRealm.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  18
                 </td>
               </tr>
                           <tr>
@@ -1068,132 +1194,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.apache.MixedAuthenticator.java">waffle/apache/MixedAuthenticator.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  164
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.util.NtlmMessage.java">waffle/util/NtlmMessage.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  7
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.servlet.NegotiateRequestWrapper.java">waffle/servlet/NegotiateRequestWrapper.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  13
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.util.AuthorizationHeader.java">waffle/util/AuthorizationHeader.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  26
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.MockWindowsAuthProvider.java">waffle/mock/MockWindowsAuthProvider.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  22
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.NegotiateAuthenticationRealm.java">waffle/shiro/negotiate/NegotiateAuthenticationRealm.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  14
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.IWindowsAccount.java">waffle/windows/auth/IWindowsAccount.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  5
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.AbstractWaffleRealm.java">waffle/shiro/AbstractWaffleRealm.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  27
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.jaas.RolePrincipal.java">waffle/jaas/RolePrincipal.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  11
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.servlet.NegotiateSecurityFilter.java">waffle/servlet/NegotiateSecurityFilter.java</a>
                 </td>
                 <td>
@@ -1203,12 +1203,12 @@ under the License.
                   0
                 </td>
                 <td>
-                  89
+                  91
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsComputerImpl.java">waffle/windows/auth/impl/WindowsComputerImpl.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.NegotiateToken.java">waffle/shiro/negotiate/NegotiateToken.java</a>
                 </td>
                 <td>
                   0
@@ -1217,7 +1217,21 @@ under the License.
                   0
                 </td>
                 <td>
-                  10
+                  36
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.windows.auth.IWindowsImpersonationContext.java">waffle/windows/auth/IWindowsImpersonationContext.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
                 </td>
               </tr>
                       </tbody>
