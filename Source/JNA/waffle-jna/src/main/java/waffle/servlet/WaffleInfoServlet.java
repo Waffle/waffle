@@ -85,7 +85,7 @@ public class WaffleInfoServlet extends HttpServlet {
             final Element root = doc.getDocumentElement();
 
             // Add the Request Information Here
-            final Element http = getRequestInfo(doc, request);
+            final Element http = this.getRequestInfo(doc, request);
             root.insertBefore(http, root.getFirstChild());
 
             // Lookup Accounts By Name

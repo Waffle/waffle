@@ -106,7 +106,7 @@ public class NegotiateSecurityFilter implements Filter {
         LOGGER.debug("{} {}, contentlength: {}", request.getMethod(), request.getRequestURI(),
                 Integer.valueOf(request.getContentLength()));
 
-        if (doFilterPrincipal(request, response, chain)) {
+        if (this.doFilterPrincipal(request, response, chain)) {
             // previously authenticated user
             return;
         }
@@ -126,7 +126,7 @@ public class NegotiateSecurityFilter implements Filter {
             } catch (IOException e) {
                 LOGGER.warn("error logging in user: {}", e.getMessage());
                 LOGGER.trace("{}", e);
-                sendUnauthorized(response, true);
+                this.sendUnauthorized(response, true);
                 return;
             }
 
@@ -134,7 +134,7 @@ public class NegotiateSecurityFilter implements Filter {
             try {
                 if (!this.allowGuestLogin && windowsIdentity.isGuest()) {
                     LOGGER.warn("guest login disabled: {}", windowsIdentity.getFqn());
-                    sendUnauthorized(response, true);
+                    this.sendUnauthorized(response, true);
                     return;
                 }
 
@@ -187,7 +187,7 @@ public class NegotiateSecurityFilter implements Filter {
         }
 
         LOGGER.debug("authorization required");
-        sendUnauthorized(response, false);
+        this.sendUnauthorized(response, false);
     }
 
     /**

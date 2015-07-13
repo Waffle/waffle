@@ -175,7 +175,7 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
      */
     @Override
     public IWindowsIdentity logonDomainUser(final String username, final String domain, final String password) {
-        return logonDomainUserEx(username, domain, password, WinBase.LOGON32_LOGON_NETWORK,
+        return this.logonDomainUserEx(username, domain, password, WinBase.LOGON32_LOGON_NETWORK,
                 WinBase.LOGON32_PROVIDER_DEFAULT);
     }
 
@@ -201,9 +201,9 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
         // Windows LogonUser API process domain\\username format
         final String[] userNameDomain = username.split("\\\\", 2);
         if (userNameDomain.length == 2) {
-            return logonDomainUser(userNameDomain[1], userNameDomain[0], password);
+            return this.logonDomainUser(userNameDomain[1], userNameDomain[0], password);
         }
-        return logonDomainUser(username, null, password);
+        return this.logonDomainUser(username, null, password);
     }
 
     /* (non-Javadoc)

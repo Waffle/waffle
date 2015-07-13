@@ -58,7 +58,7 @@ public class RolePrincipal implements Principal, Serializable {
         }
 
         if (o instanceof RolePrincipal) {
-            return getName().equals(((RolePrincipal) o).getName());
+            return this.getName().equals(((RolePrincipal) o).getName());
         }
 
         return false;
@@ -69,7 +69,7 @@ public class RolePrincipal implements Principal, Serializable {
      */
     @Override
     public int hashCode() {
-        return getName().hashCode();
+        return this.getName().hashCode();
     }
 
 }

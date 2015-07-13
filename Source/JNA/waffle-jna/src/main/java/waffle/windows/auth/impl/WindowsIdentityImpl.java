@@ -81,7 +81,7 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
      */
     @Override
     public String getFqn() {
-        return getWindowsAccount().fqn;
+        return this.getWindowsAccount().fqn;
     }
 
     /* (non-Javadoc)
@@ -90,7 +90,7 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
     @Override
     public IWindowsAccount[] getGroups() {
 
-        final Account[] groups = getUserGroups();
+        final Account[] groups = this.getUserGroups();
 
         final List<IWindowsAccount> result = new ArrayList<IWindowsAccount>(groups.length);
         for (Account userGroup : groups) {
@@ -106,7 +106,7 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
      */
     @Override
     public byte[] getSid() {
-        return getWindowsAccount().sid;
+        return this.getWindowsAccount().sid;
     }
 
     /* (non-Javadoc)
@@ -114,7 +114,7 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
      */
     @Override
     public String getSidString() {
-        return getWindowsAccount().sidString;
+        return this.getWindowsAccount().sidString;
     }
 
     /* (non-Javadoc)
@@ -140,7 +140,7 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
      */
     @Override
     public boolean isGuest() {
-        for (Account userGroup : getUserGroups()) {
+        for (Account userGroup : this.getUserGroups()) {
             if (Advapi32Util.isWellKnownSid(userGroup.sid, WELL_KNOWN_SID_TYPE.WinBuiltinGuestsSid)) {
                 return true;
             }
@@ -152,7 +152,7 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
             }
         }
 
-        if (Advapi32Util.isWellKnownSid(getSid(), WELL_KNOWN_SID_TYPE.WinAnonymousSid)) {
+        if (Advapi32Util.isWellKnownSid(this.getSid(), WELL_KNOWN_SID_TYPE.WinAnonymousSid)) {
             return true;
         }
 

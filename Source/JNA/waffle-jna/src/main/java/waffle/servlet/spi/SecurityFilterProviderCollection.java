@@ -122,7 +122,7 @@ public class SecurityFilterProviderCollection {
      * @return True if the security package is supported, false otherwise.
      */
     public boolean isSecurityPackageSupported(final String securityPackage) {
-        return get(securityPackage) != null;
+        return this.get(securityPackage) != null;
     }
 
     /**
@@ -155,7 +155,7 @@ public class SecurityFilterProviderCollection {
     public IWindowsIdentity doFilter(final HttpServletRequest request, final HttpServletResponse response)
             throws IOException {
         final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
-        final SecurityFilterProvider provider = get(authorizationHeader.getSecurityPackage());
+        final SecurityFilterProvider provider = this.get(authorizationHeader.getSecurityPackage());
         if (provider == null) {
             throw new RuntimeException("Unsupported security package: " + authorizationHeader.getSecurityPackage());
         }

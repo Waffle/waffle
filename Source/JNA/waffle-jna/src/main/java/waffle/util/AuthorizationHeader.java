@@ -52,7 +52,7 @@ public class AuthorizationHeader {
      * @return true, if is null
      */
     public boolean isNull() {
-        return getHeader() == null || getHeader().length() == 0;
+        return this.getHeader() == null || this.getHeader().length() == 0;
     }
 
     /**
@@ -61,7 +61,7 @@ public class AuthorizationHeader {
      * @return Negotiate or NTLM.
      */
     public String getSecurityPackage() {
-        final String header = getHeader();
+        final String header = this.getHeader();
 
         if (header == null) {
             throw new RuntimeException("Missing Authorization: header");
@@ -80,7 +80,7 @@ public class AuthorizationHeader {
      */
     @Override
     public String toString() {
-        return isNull() ? "<none>" : getHeader();
+        return this.isNull() ? "<none>" : this.getHeader();
     }
 
     /**
@@ -89,7 +89,7 @@ public class AuthorizationHeader {
      * @return the token
      */
     public String getToken() {
-        return getHeader().substring(getSecurityPackage().length() + 1);
+        return this.getHeader().substring(this.getSecurityPackage().length() + 1);
     }
 
     /**
@@ -99,7 +99,7 @@ public class AuthorizationHeader {
      */
     public byte[] getTokenBytes() {
         try {
-            return BaseEncoding.base64().decode(getToken());
+            return BaseEncoding.base64().decode(this.getToken());
         } catch (IllegalArgumentException e) {
             throw new RuntimeException("Invalid authorization header.");
         }
@@ -111,11 +111,11 @@ public class AuthorizationHeader {
      * @return true, if is ntlm type1 message
      */
     public boolean isNtlmType1Message() {
-        if (isNull()) {
+        if (this.isNull()) {
             return false;
         }
 
-        final byte[] tokenBytes = getTokenBytes();
+        final byte[] tokenBytes = this.getTokenBytes();
         if (!NtlmMessage.isNtlmMessage(tokenBytes)) {
             return false;
         }
@@ -130,11 +130,11 @@ public class AuthorizationHeader {
      */
     public boolean isSPNegoMessage() {
 
-        if (isNull()) {
+        if (this.isNull()) {
             return false;
         }
 
-        final byte[] tokenBytes = getTokenBytes();
+        final byte[] tokenBytes = this.getTokenBytes();
         if (!SPNegoMessage.isSPNegoMessage(tokenBytes)) {
             return false;
         }
@@ -159,6 +159,6 @@ public class AuthorizationHeader {
             return false;
         }
 
-        return isNtlmType1Message() || isSPNegoMessage();
+        return this.isNtlmType1Message() || this.isSPNegoMessage();
     }
 }

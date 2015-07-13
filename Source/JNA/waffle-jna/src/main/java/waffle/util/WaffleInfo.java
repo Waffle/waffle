@@ -118,7 +118,7 @@ public class WaffleInfo {
         }
 
         doc.appendChild(root);
-        root.appendChild(getAuthProviderInfo(doc));
+        root.appendChild(this.getAuthProviderInfo(doc));
 
         return doc;
     }
@@ -141,7 +141,7 @@ public class WaffleInfo {
         node.appendChild(child);
 
         final String currentUsername = WindowsAccountImpl.getCurrentUsername();
-        addAccountInfo(doc, child, new WindowsAccountImpl(currentUsername));
+        this.addAccountInfo(doc, child, new WindowsAccountImpl(currentUsername));
 
         // Computer
         child = doc.createElement("computer");
@@ -237,7 +237,7 @@ public class WaffleInfo {
         final Element node = doc.createElement("lookup");
         node.setAttribute("name", lookup);
         try {
-            addAccountInfo(doc, node, auth.lookupAccount(lookup));
+            this.addAccountInfo(doc, node, auth.lookupAccount(lookup));
         } catch (Win32Exception ex) {
             node.appendChild(getException(doc, ex));
         }

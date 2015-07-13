@@ -180,7 +180,7 @@ public class WindowsLoginModule implements LoginModule {
      */
     @Override
     public boolean abort() throws LoginException {
-        return logout();
+        return this.logout();
     }
 
     /**

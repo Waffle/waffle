@@ -125,7 +125,7 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
     @Override
     public void initParameter(final String parameterName, final String parameterValue) {
         if (parameterName.equals("realm")) {
-            setRealm(parameterValue);
+            this.setRealm(parameterValue);
         } else {
             throw new InvalidParameterException(parameterName);
         }

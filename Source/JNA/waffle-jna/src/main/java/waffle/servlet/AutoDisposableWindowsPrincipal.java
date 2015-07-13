@@ -65,8 +65,8 @@ public class AutoDisposableWindowsPrincipal extends WindowsPrincipal implements 
      */
     @Override
     public void valueUnbound(final HttpSessionBindingEvent evt) {
-        if (getIdentity() != null) {
-            getIdentity().dispose();
+        if (this.getIdentity() != null) {
+            this.getIdentity().dispose();
         }
     }
 
