@@ -110,7 +110,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
                 } catch (final Win32Exception e) {
                     this.log.warn("error logging in user: {}", e.getMessage());
                     this.log.trace("{}", e);
-                    sendUnauthorized(response);
+                    this.sendUnauthorized(response);
                     return false;
                 }
                 this.log.debug("continue required: {}", Boolean.valueOf(securityContext.isContinue()));
@@ -132,14 +132,14 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
             } catch (IOException e) {
                 this.log.warn("error logging in user: {}", e.getMessage());
                 this.log.trace("{}", e);
-                sendUnauthorized(response);
+                this.sendUnauthorized(response);
                 return false;
             }
 
             // realm: fail if no realm is configured
             if (this.context == null || this.context.getRealm() == null) {
                 this.log.warn("missing context/realm");
-                sendError(response, HttpServletResponse.SC_SERVICE_UNAVAILABLE);
+                this.sendError(response, HttpServletResponse.SC_SERVICE_UNAVAILABLE);
                 return false;
             }
 
@@ -149,7 +149,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
             // disable guest login
             if (!this.allowGuestLogin && windowsIdentity.isGuest()) {
                 this.log.warn("guest login disabled: {}", windowsIdentity.getFqn());
-                sendUnauthorized(response);
+                this.sendUnauthorized(response);
                 return false;
             }
 
@@ -168,7 +168,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
                 this.log.debug("session id: {}", session == null ? "null" : session.getId());
 
                 // register the authenticated principal
-                register(request, response, principal, securityPackage, principal.getName(), null);
+                this.register(request, response, principal, securityPackage, principal.getName(), null);
                 this.log.info("successfully logged in user: {}", principal.getName());
 
             } finally {
@@ -179,7 +179,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
         }
 
         this.log.debug("authorization required");
-        sendUnauthorized(response);
+        this.sendUnauthorized(response);
         return false;
     }
 }
