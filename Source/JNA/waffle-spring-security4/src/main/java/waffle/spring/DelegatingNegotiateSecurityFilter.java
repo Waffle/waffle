@@ -169,11 +169,11 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
         } catch (final AuthenticationException e) {
 
             this.logger.warn("Error authenticating user in custom authenticationmanager: " + e.getMessage());
-            sendAuthenticationFailed(request, response, e);
+            this.sendAuthenticationFailed(request, response, e);
             return false;
         } catch (final AccessDeniedException e) {
             this.logger.warn("Error authorizing user in custom authenticationmanager: " + e.getMessage());
-            sendAccessDenied(request, response, e);
+            this.sendAccessDenied(request, response, e);
             return false;
         }
         return true;
@@ -239,7 +239,7 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
             }
         }
         // fallback
-        sendUnauthorized(response, true);
+        this.sendUnauthorized(response, true);
     }
 
     /**
