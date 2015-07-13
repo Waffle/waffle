@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>DynamicAuthenticationFilter.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-shiro</a> &gt; <a href="index.source.html" class="el_package">waffle.shiro.dynamic</a> &gt; <span class="el_source">DynamicAuthenticationFilter.java</span></div><h1>DynamicAuthenticationFilter.java</h1><pre class="source lang-java linenums">/**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -90,61 +90,93 @@ import javax.servlet.ServletResponse;
  */
 <span class="nc" id="L91">public class DynamicAuthenticationFilter extends FormAuthenticationFilter {</span>
 
-<span class="nc" id="L93">    private static final Logger LOGGER                       = LoggerFactory</span>
-<span class="nc" id="L94">                                                                     .getLogger(DynamicAuthenticationFilter.class);</span>
+    /** The Constant LOGGER. */
+<span class="nc" id="L94">    private static final Logger LOGGER                       = LoggerFactory</span>
+<span class="nc" id="L95">                                                                     .getLogger(DynamicAuthenticationFilter.class);</span>
 
+    /** The Constant PARAM_NAME_AUTHTYPE. */
     public static final String  PARAM_NAME_AUTHTYPE          = &quot;authType&quot;;
-    public static final String  PARAM_VAL_AUTHTYPE_NEGOTIATE = &quot;j_negotiate&quot;;
+    
+    /** The Constant PARAM_VAL_AUTHTYPE_NEGOTIATE. */
+<span class="nc" id="L101">    public static final String  PARAM_VAL_AUTHTYPE_NEGOTIATE = &quot;j_negotiate&quot;;</span>
 
     /**
      * Wrapper to make protected methods in different package callable from here.
      */
     private static final class WrapNegotiateAuthenticationFilter extends NegotiateAuthenticationFilter {
 
+        /** The parent. */
         private final DynamicAuthenticationFilter parent;
 
-<span class="nc" id="L106">        WrapNegotiateAuthenticationFilter(final DynamicAuthenticationFilter newParent) {</span>
-<span class="nc" id="L107">            this.parent = newParent;</span>
-<span class="nc" id="L108">        }</span>
+        /**
+         * Instantiates a new wrap negotiate authentication filter.
+         *
+         * @param newParent
+         *            the new parent
+         */
+<span class="nc" id="L117">        WrapNegotiateAuthenticationFilter(final DynamicAuthenticationFilter newParent) {</span>
+<span class="nc" id="L118">            this.parent = newParent;</span>
+<span class="nc" id="L119">        }</span>
 
+        /* (non-Javadoc)
+         * @see waffle.shiro.negotiate.NegotiateAuthenticationFilter#onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+         */
         @Override
         public boolean onAccessDenied(final ServletRequest request, final ServletResponse response) throws Exception {
-<span class="nc" id="L112">            return super.onAccessDenied(request, response);</span>
+<span class="nc" id="L126">            return super.onAccessDenied(request, response);</span>
         }
 
+        /* (non-Javadoc)
+         * @see waffle.shiro.negotiate.NegotiateAuthenticationFilter#onLoginSuccess(org.apache.shiro.authc.AuthenticationToken, org.apache.shiro.subject.Subject, javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+         */
         @Override
         protected boolean onLoginSuccess(final AuthenticationToken token, final Subject subject,
                 final ServletRequest request, final ServletResponse response) throws Exception {
-<span class="nc" id="L118">            return this.parent.onLoginSuccess(token, subject, request, response);</span>
+<span class="nc" id="L135">            return this.parent.onLoginSuccess(token, subject, request, response);</span>
         }
     }
 
-<span class="nc" id="L122">    private final WrapNegotiateAuthenticationFilter filterNegotiate = new WrapNegotiateAuthenticationFilter(this);</span>
+    /** The filter negotiate. */
+<span class="nc" id="L140">    private final WrapNegotiateAuthenticationFilter filterNegotiate = new WrapNegotiateAuthenticationFilter(this);</span>
 
     /**
      * Wrapper to make protected methods in different package callable from here.
      */
     private static final class WrapFormAuthenticationFilter extends FormAuthenticationFilter {
 
+        /** The parent. */
         private final DynamicAuthenticationFilter parent;
 
-<span class="nc" id="L131">        WrapFormAuthenticationFilter(final DynamicAuthenticationFilter newParent) {</span>
-<span class="nc" id="L132">            this.parent = newParent;</span>
-<span class="nc" id="L133">        }</span>
+        /**
+         * Instantiates a new wrap form authentication filter.
+         *
+         * @param newParent
+         *            the new parent
+         */
+<span class="nc" id="L156">        WrapFormAuthenticationFilter(final DynamicAuthenticationFilter newParent) {</span>
+<span class="nc" id="L157">            this.parent = newParent;</span>
+<span class="nc" id="L158">        }</span>
 
+        /* (non-Javadoc)
+         * @see org.apache.shiro.web.filter.authc.FormAuthenticationFilter#onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+         */
         @Override
         public boolean onAccessDenied(final ServletRequest request, final ServletResponse response) throws Exception {
-<span class="nc" id="L137">            return super.onAccessDenied(request, response);</span>
+<span class="nc" id="L165">            return super.onAccessDenied(request, response);</span>
         }
 
+        /* (non-Javadoc)
+         * @see org.apache.shiro.web.filter.authc.FormAuthenticationFilter#onLoginSuccess(org.apache.shiro.authc.AuthenticationToken, org.apache.shiro.subject.Subject, javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+         */
         @Override
         protected boolean onLoginSuccess(final AuthenticationToken token, final Subject subject,
                 final ServletRequest request, final ServletResponse response) throws Exception {
-<span class="nc" id="L143">            return this.parent.onLoginSuccess(token, subject, request, response);</span>
+<span class="nc" id="L174">            return this.parent.onLoginSuccess(token, subject, request, response);</span>
         }
     }
 
-<span class="nc" id="L147">    private final WrapFormAuthenticationFilter filterFormAuthc = new WrapFormAuthenticationFilter(this);</span>
+    /** The filter form authc. */
+<span class="nc" id="L179">    private final WrapFormAuthenticationFilter filterFormAuthc = new WrapFormAuthenticationFilter(this);</span>
 
     /**
      * Call
@@ -155,18 +187,25 @@ import javax.servlet.ServletResponse;
      */
     @Override
     protected boolean executeLogin(final ServletRequest request, final ServletResponse response) throws Exception {
-<span class="nc bnc" id="L158" title="All 2 branches missed.">        if (isAuthTypeNegotiate(request)) {</span>
-<span class="nc" id="L159">            LOGGER.debug(&quot;using filterNegotiate&quot;);</span>
-<span class="nc" id="L160">            return this.filterNegotiate.onAccessDenied(request, response);</span>
+<span class="nc bnc" id="L190" title="All 2 branches missed.">        if (this.isAuthTypeNegotiate(request)) {</span>
+<span class="nc" id="L191">            DynamicAuthenticationFilter.LOGGER.debug(&quot;using filterNegotiate&quot;);</span>
+<span class="nc" id="L192">            return this.filterNegotiate.onAccessDenied(request, response);</span>
         }
-<span class="nc" id="L162">        LOGGER.debug(&quot;using filterFormAuthc&quot;);</span>
-<span class="nc" id="L163">        return this.filterFormAuthc.onAccessDenied(request, response);</span>
+<span class="nc" id="L194">        DynamicAuthenticationFilter.LOGGER.debug(&quot;using filterFormAuthc&quot;);</span>
+<span class="nc" id="L195">        return this.filterFormAuthc.onAccessDenied(request, response);</span>
     }
 
+    /**
+     * Checks if is auth type negotiate.
+     *
+     * @param request
+     *            the request
+     * @return true, if is auth type negotiate
+     */
     boolean isAuthTypeNegotiate(final ServletRequest request) {
-<span class="nc" id="L167">        final String authType = request.getParameter(PARAM_NAME_AUTHTYPE);</span>
-<span class="nc bnc" id="L168" title="All 4 branches missed.">        return authType != null &amp;&amp; PARAM_VAL_AUTHTYPE_NEGOTIATE.equalsIgnoreCase(authType);</span>
+<span class="nc" id="L206">        final String authType = request.getParameter(DynamicAuthenticationFilter.PARAM_NAME_AUTHTYPE);</span>
+<span class="nc bnc" id="L207" title="All 4 branches missed.">        return authType != null &amp;&amp; DynamicAuthenticationFilter.PARAM_VAL_AUTHTYPE_NEGOTIATE.equalsIgnoreCase(authType);</span>
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

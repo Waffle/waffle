@@ -23,10 +23,10 @@ under the License.
     <link>http://dblock.github.com/waffle/</link>
     <description>waffle-shiro - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2010 - 2014 com.github.dblock</copyright>
+    <copyright>&#169;2010 - 2015 com.github.dblock</copyright>
     <item>
       <title>File: 13,
-             Errors: 313,
+             Errors: 286,
              Warnings: 0,
              Infos: 0
       </title>
@@ -46,7 +46,7 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.package-info.java">waffle/shiro/negotiate/package-info.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.AbstractWaffleRealm.java">waffle/shiro/AbstractWaffleRealm.java</a>
                 </td>
                 <td>
                   0
@@ -55,12 +55,68 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  30
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.package-info.java">waffle/shiro/package-info.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.NegotiateAuthenticationRealm.java">waffle/shiro/negotiate/NegotiateAuthenticationRealm.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  15
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.dynamic.DynamicAuthenticationFilter.java">waffle/shiro/dynamic/DynamicAuthenticationFilter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  56
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.NegotiateAuthenticationFilter.java">waffle/shiro/negotiate/NegotiateAuthenticationFilter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  80
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.WaffleFqnPrincipal.java">waffle/shiro/WaffleFqnPrincipal.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  8
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.dynamic.package-info.java">waffle/shiro/dynamic/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -88,7 +144,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.dynamic.package-info.java">waffle/shiro/dynamic/package-info.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.package-info.java">waffle/shiro/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -98,76 +154,6 @@ under the License.
                 </td>
                 <td>
                   0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.NegotiateAuthenticationFilter.java">waffle/shiro/negotiate/NegotiateAuthenticationFilter.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  85
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.WaffleFqnPrincipal.java">waffle/shiro/WaffleFqnPrincipal.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  10
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.dynamic.DynamicAuthenticationFilter.java">waffle/shiro/dynamic/DynamicAuthenticationFilter.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  60
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.NegotiateInfo.java">waffle/shiro/negotiate/NegotiateInfo.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  15
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.NegotiateToken.java">waffle/shiro/negotiate/NegotiateToken.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  53
                 </td>
               </tr>
                           <tr>
@@ -186,6 +172,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.NegotiateInfo.java">waffle/shiro/negotiate/NegotiateInfo.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  13
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.NegotiateAuthenticationStrategy.java">waffle/shiro/negotiate/NegotiateAuthenticationStrategy.java</a>
                 </td>
                 <td>
@@ -195,12 +195,12 @@ under the License.
                   0
                 </td>
                 <td>
-                  26
+                  25
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.NegotiateAuthenticationRealm.java">waffle/shiro/negotiate/NegotiateAuthenticationRealm.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.package-info.java">waffle/shiro/negotiate/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -209,12 +209,12 @@ under the License.
                   0
                 </td>
                 <td>
-                  14
+                  0
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.AbstractWaffleRealm.java">waffle/shiro/AbstractWaffleRealm.java</a>
+                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.NegotiateToken.java">waffle/shiro/negotiate/NegotiateToken.java</a>
                 </td>
                 <td>
                   0
@@ -223,7 +223,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  27
+                  36
                 </td>
               </tr>
                       </tbody>
