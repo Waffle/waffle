@@ -57,10 +57,10 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      */
     public GenericWindowsPrincipal(final IWindowsIdentity windowsIdentity, final PrincipalFormat principalFormat,
             final PrincipalFormat roleFormat) {
-        super(windowsIdentity.getFqn(), "", getRoles(windowsIdentity, principalFormat, roleFormat));
+        super(windowsIdentity.getFqn(), "", GenericWindowsPrincipal.getRoles(windowsIdentity, principalFormat, roleFormat));
         this.sid = windowsIdentity.getSid();
         this.sidString = windowsIdentity.getSidString();
-        this.groups = getGroups(windowsIdentity.getGroups());
+        this.groups = GenericWindowsPrincipal.getGroups(windowsIdentity.getGroups());
     }
 
     /**
@@ -77,9 +77,9 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
     private static List<String> getRoles(final IWindowsIdentity windowsIdentity, final PrincipalFormat principalFormat,
             final PrincipalFormat roleFormat) {
         final List<String> roles = new ArrayList<String>();
-        roles.addAll(getPrincipalNames(windowsIdentity, principalFormat));
+        roles.addAll(GenericWindowsPrincipal.getPrincipalNames(windowsIdentity, principalFormat));
         for (IWindowsAccount group : windowsIdentity.getGroups()) {
-            roles.addAll(getRoleNames(group, roleFormat));
+            roles.addAll(GenericWindowsPrincipal.getRoleNames(group, roleFormat));
         }
         return roles;
     }

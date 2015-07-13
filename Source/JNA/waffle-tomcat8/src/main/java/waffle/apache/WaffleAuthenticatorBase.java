@@ -15,6 +15,7 @@ package waffle.apache;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Locale;
 import java.util.Set;
@@ -40,7 +41,7 @@ import static java.util.Arrays.asList;
 abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
     /** The Constant SUPPORTED_PROTOCOLS. */
-    private static final Set<String> SUPPORTED_PROTOCOLS = new LinkedHashSet<String>(asList("Negotiate", "NTLM"));
+    private static final Set<String> SUPPORTED_PROTOCOLS = new LinkedHashSet<String>(Arrays.asList("Negotiate", "NTLM"));
 
     /** The info. */
     protected String                 info;
@@ -58,7 +59,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
     protected boolean                allowGuestLogin     = true;
     
     /** The protocols. */
-    protected Set<String>            protocols           = SUPPORTED_PROTOCOLS;
+    protected Set<String>            protocols           = WaffleAuthenticatorBase.SUPPORTED_PROTOCOLS;
 
     /** The auth. */
     protected IWindowsAuthProvider   auth                = new WindowsAuthProviderImpl();
@@ -164,7 +165,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
             protocolName = protocolName.trim();
             if (!protocolName.isEmpty()) {
                 this.log.debug("init protocol: {}", protocolName);
-                if (SUPPORTED_PROTOCOLS.contains(protocolName)) {
+                if (WaffleAuthenticatorBase.SUPPORTED_PROTOCOLS.contains(protocolName)) {
                     this.protocols.add(protocolName);
                 } else {
                     this.log.error("unsupported protocol: {}", protocolName);
