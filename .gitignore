@@ -1,3 +1,5 @@
+.idea
+
 Source/Common/GlobalAssemblyInfo.cs
 Source/Version/Version.properties
 Source/Version/Version.wxi

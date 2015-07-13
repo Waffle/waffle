@@ -34,7 +34,7 @@ public class SimpleFilterConfig implements FilterConfig {
     private String              filterName = "Simple Filter";
     
     /** The parameters. */
-    private Map<String, String> parameters = new TreeMap<String, String>();
+    private final Map<String, String> parameters = new TreeMap<String, String>();
 
     /* (non-Javadoc)
      * @see javax.servlet.FilterConfig#getFilterName()

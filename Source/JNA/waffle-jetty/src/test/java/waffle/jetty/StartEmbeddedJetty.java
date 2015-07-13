@@ -31,22 +31,22 @@ public class StartEmbeddedJetty {
 
     private static Logger LOGGER = LoggerFactory.getLogger(StartEmbeddedJetty.class);
 
-    public static void main(String[] args) throws Exception {
-        String path = "../waffle-demo/waffle-filter";
+    public static void main(final String[] args) throws Exception {
+        final String path = "../waffle-demo/waffle-filter";
 
-        File dir = new File(path);
+        final File dir = new File(path);
         if (!dir.exists()) {
             throw new FileNotFoundException("Can not find webapp: " + dir.getAbsolutePath());
         }
 
-        Server server = new Server(8080);
-        WebAppContext context = new WebAppContext();
+        final Server server = new Server(8080);
+        final WebAppContext context = new WebAppContext();
         context.setServer(server);
         context.setContextPath("/");
         context.setWar(path);
 
         // Try adding JSP
-        ServletHolder jsp = context.addServlet(JspServlet.class, "*.jsp");
+        final ServletHolder jsp = context.addServlet(JspServlet.class, "*.jsp");
         jsp.setInitParameter("classpath", context.getClassPath());
 
         server.setHandler(context);
@@ -58,10 +58,10 @@ public class StartEmbeddedJetty {
             StartEmbeddedJetty.LOGGER.info(">>> STOPPING EMBEDDED JETTY SERVER");
             server.stop();
             server.join();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             StartEmbeddedJetty.LOGGER.error("{}", e);
             System.exit(100);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             StartEmbeddedJetty.LOGGER.error("{}", e);
             System.exit(100);
         }

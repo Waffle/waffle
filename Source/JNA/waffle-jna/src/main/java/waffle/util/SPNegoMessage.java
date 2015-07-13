@@ -46,7 +46,7 @@ public final class SPNegoMessage {
         }
 
         // Message is SPNEGO message if it is either NegTokenInit or NegTokenArg.
-        return isNegTokenInit(message) || isNegTokenArg(message);
+        return SPNegoMessage.isNegTokenInit(message) || SPNegoMessage.isNegTokenArg(message);
     }
 
     /**
@@ -69,13 +69,13 @@ public final class SPNegoMessage {
             lenBytes = 1 + (message[1] & 0x7f);
         }
 
-        if (message.length < SPENGO_OID.length + 1 + lenBytes) {
+        if (message.length < SPNegoMessage.SPENGO_OID.length + 1 + lenBytes) {
             return false;
         }
 
         // Now check for SPNEGO OID, which should start just after length data.
-        for (int i = 0; i < SPENGO_OID.length; i++) {
-            if (SPENGO_OID[i] != message[i + 1 + lenBytes]) {
+        for (int i = 0; i < SPNegoMessage.SPENGO_OID.length; i++) {
+            if (SPNegoMessage.SPENGO_OID[i] != message[i + 1 + lenBytes]) {
                 return false;
             }
         }
@@ -109,7 +109,7 @@ public final class SPNegoMessage {
         } else {
             lenBytes = message[1] & 0x7f;
             len = 0;
-            int i = 2;
+            final int i = 2;
             while (lenBytes > 0) {
                 len = len << 8;
                 len |= (message[i] & 0xff);

@@ -31,13 +31,13 @@ import com.sun.jna.platform.win32.WinError;
 public class WindowsCredentialsHandleImpl implements IWindowsCredentialsHandle {
 
     /** The principal name. */
-    private String     principalName;
+    private final String     principalName;
     
     /** The credentials type. */
-    private int        credentialsType;
+    private final int        credentialsType;
     
     /** The security package. */
-    private String     securityPackage;
+    private final String     securityPackage;
     
     /** The handle. */
     private CredHandle handle;

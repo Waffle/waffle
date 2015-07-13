@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletRequestWrapper;
 public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
 
     /** The principal. */
-    private WindowsPrincipal principal;
+    private final WindowsPrincipal principal;
 
     /**
      * Instantiates a new negotiate request wrapper.

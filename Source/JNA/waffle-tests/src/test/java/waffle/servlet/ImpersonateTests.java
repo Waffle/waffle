@@ -13,12 +13,6 @@
  */
 package waffle.servlet;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-import static org.junit.Assume.assumeTrue;
-
 import java.io.IOException;
 import java.security.Principal;
 
@@ -28,6 +22,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 import org.junit.After;
+import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -57,8 +53,8 @@ public class ImpersonateTests {
         this.filter.setAuth(new WindowsAuthProviderImpl());
         try {
             this.filter.init(null);
-        } catch (ServletException e) {
-            fail(e.getMessage());
+        } catch (final ServletException e) {
+            Assert.fail(e.getMessage());
         }
 
         this.userInfo = new LMAccess.USER_INFO_1();
@@ -68,7 +64,7 @@ public class ImpersonateTests {
 
         this.resultOfNetAddUser = Netapi32.INSTANCE.NetUserAdd(null, 1, this.userInfo, null);
         // ignore test if not able to add user (need to be administrator to do this).
-        assumeTrue(LMErr.NERR_Success == this.resultOfNetAddUser);
+        Assume.assumeTrue(LMErr.NERR_Success == this.resultOfNetAddUser);
     }
 
     @After
@@ -76,14 +72,14 @@ public class ImpersonateTests {
         this.filter.destroy();
 
         if (LMErr.NERR_Success == this.resultOfNetAddUser) {
-            assertEquals(LMErr.NERR_Success, Netapi32.INSTANCE.NetUserDel(null, this.userInfo.usri1_name.toString()));
+            Assert.assertEquals(LMErr.NERR_Success, Netapi32.INSTANCE.NetUserDel(null, this.userInfo.usri1_name.toString()));
         }
     }
 
     @Test
     public void testImpersonateEnabled() throws IOException, ServletException {
 
-        assertFalse("Current user shouldn't be the test user prior to the test",
+        Assert.assertFalse("Current user shouldn't be the test user prior to the test",
                 Advapi32Util.getUserName().equals(MockWindowsAccount.TEST_USER_NAME));
 
         final SimpleHttpRequest request = new SimpleHttpRequest();
@@ -103,18 +99,18 @@ public class ImpersonateTests {
 
             final Subject subject = (Subject) request.getSession().getAttribute("javax.security.auth.subject");
             final boolean authenticated = (subject != null && subject.getPrincipals().size() > 0);
-            assertTrue("Test user should be authenticated", authenticated);
+            Assert.assertTrue("Test user should be authenticated", authenticated);
 
             if (subject == null) {
                 return;
             }
             final Principal principal = subject.getPrincipals().iterator().next();
-            assertTrue(principal instanceof AutoDisposableWindowsPrincipal);
+            Assert.assertTrue(principal instanceof AutoDisposableWindowsPrincipal);
             windowsPrincipal = (AutoDisposableWindowsPrincipal) principal;
 
-            assertEquals("Test user should be impersonated", MockWindowsAccount.TEST_USER_NAME,
+            Assert.assertEquals("Test user should be impersonated", MockWindowsAccount.TEST_USER_NAME,
                     filterChain.getUserName());
-            assertFalse("Impersonation context should have been reverted",
+            Assert.assertFalse("Impersonation context should have been reverted",
                     Advapi32Util.getUserName().equals(MockWindowsAccount.TEST_USER_NAME));
         } finally {
             if (windowsPrincipal != null) {
@@ -126,7 +122,7 @@ public class ImpersonateTests {
     @Test
     public void testImpersonateDisabled() throws IOException, ServletException {
 
-        assertFalse("Current user shouldn't be the test user prior to the test",
+        Assert.assertFalse("Current user shouldn't be the test user prior to the test",
                 Advapi32Util.getUserName().equals(MockWindowsAccount.TEST_USER_NAME));
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
@@ -144,18 +140,18 @@ public class ImpersonateTests {
 
             final Subject subject = (Subject) request.getSession().getAttribute("javax.security.auth.subject");
             final boolean authenticated = (subject != null && subject.getPrincipals().size() > 0);
-            assertTrue("Test user should be authenticated", authenticated);
+            Assert.assertTrue("Test user should be authenticated", authenticated);
 
             if (subject == null) {
                 return;
             }
             final Principal principal = subject.getPrincipals().iterator().next();
-            assertTrue(principal instanceof WindowsPrincipal);
+            Assert.assertTrue(principal instanceof WindowsPrincipal);
             windowsPrincipal = (WindowsPrincipal) principal;
 
-            assertFalse("Test user should not be impersonated",
+            Assert.assertFalse("Test user should not be impersonated",
                     MockWindowsAccount.TEST_USER_NAME.equals(filterChain.getUserName()));
-            assertFalse("Impersonation context should have been reverted",
+            Assert.assertFalse("Impersonation context should have been reverted",
                     Advapi32Util.getUserName().equals(MockWindowsAccount.TEST_USER_NAME));
         } finally {
             if (windowsPrincipal != null) {
@@ -171,7 +167,7 @@ public class ImpersonateTests {
         private String userName;
 
         @Override
-        public void doFilter(ServletRequest sreq, ServletResponse srep) throws IOException, ServletException {
+        public void doFilter(final ServletRequest sreq, final ServletResponse srep) throws IOException, ServletException {
             this.userName = Advapi32Util.getUserName();
         }
 

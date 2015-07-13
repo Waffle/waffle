@@ -43,7 +43,7 @@ public class NegotiateSecurityFilterEntryPoint implements AuthenticationEntryPoi
      * Instantiates a new negotiate security filter entry point.
      */
     public NegotiateSecurityFilterEntryPoint() {
-        LOGGER.debug("[waffle.spring.NegotiateEntryPoint] loaded");
+        NegotiateSecurityFilterEntryPoint.LOGGER.debug("[waffle.spring.NegotiateEntryPoint] loaded");
     }
 
     /* (non-Javadoc)
@@ -53,7 +53,7 @@ public class NegotiateSecurityFilterEntryPoint implements AuthenticationEntryPoi
     public void commence(final HttpServletRequest request, final HttpServletResponse response,
             final AuthenticationException ex) throws IOException, ServletException {
 
-        LOGGER.debug("[waffle.spring.NegotiateEntryPoint] commence");
+        NegotiateSecurityFilterEntryPoint.LOGGER.debug("[waffle.spring.NegotiateEntryPoint] commence");
 
         if (this.provider == null) {
             throw new ServletException("Missing NegotiateEntryPoint.Provider");

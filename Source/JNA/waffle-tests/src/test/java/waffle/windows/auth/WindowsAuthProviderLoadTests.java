@@ -27,7 +27,7 @@ public class WindowsAuthProviderLoadTests {
     @Rule
     public ContiPerfRule             contiPerfRule = new ContiPerfRule();
 
-    private WindowsAuthProviderTests tests         = new WindowsAuthProviderTests();
+    private final WindowsAuthProviderTests tests         = new WindowsAuthProviderTests();
 
     @Test
     @PerfTest(invocations = 10, threads = 10)

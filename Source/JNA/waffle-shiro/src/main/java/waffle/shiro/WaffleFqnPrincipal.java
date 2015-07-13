@@ -43,7 +43,7 @@ public class WaffleFqnPrincipal implements Serializable {
      */
     WaffleFqnPrincipal(final IWindowsIdentity identity) {
         this.fqn = identity.getFqn();
-        for (IWindowsAccount group : identity.getGroups()) {
+        for (final IWindowsAccount group : identity.getGroups()) {
             this.groupFqns.add(group.getFqn());
         }
     }
@@ -92,7 +92,7 @@ public class WaffleFqnPrincipal implements Serializable {
     public String toString() {
         final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{");
-        stringBuilder.append(getClass().getSimpleName());
+        stringBuilder.append(this.getClass().getSimpleName());
         stringBuilder.append(":");
         stringBuilder.append(this.fqn);
         stringBuilder.append("}");

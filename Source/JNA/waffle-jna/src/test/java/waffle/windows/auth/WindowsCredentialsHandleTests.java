@@ -13,8 +13,7 @@
  */
 package waffle.windows.auth;
 
-import static org.junit.Assert.assertNotNull;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 import waffle.windows.auth.impl.WindowsCredentialsHandleImpl;
@@ -27,7 +26,7 @@ public class WindowsCredentialsHandleTests {
     @Test
     public void testGetCurrent() {
         final IWindowsCredentialsHandle handle = WindowsCredentialsHandleImpl.getCurrent("Negotiate");
-        assertNotNull(handle);
+        Assert.assertNotNull(handle);
         handle.initialize();
         handle.dispose();
     }

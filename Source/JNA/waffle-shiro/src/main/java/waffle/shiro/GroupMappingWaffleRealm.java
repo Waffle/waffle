@@ -57,8 +57,8 @@ public class GroupMappingWaffleRealm extends AbstractWaffleRealm {
      */
     protected Collection<String> getRoleNamesForGroups(final Collection<String> groupNames) {
         final Set<String> roleNames = new HashSet<String>();
-        for (String groupName : groupNames) {
-            String roleName = this.groupRolesMap.get(groupName);
+        for (final String groupName : groupNames) {
+            final String roleName = this.groupRolesMap.get(groupName);
             if (roleName != null) {
                 roleNames.add(roleName);
             }
@@ -80,7 +80,7 @@ public class GroupMappingWaffleRealm extends AbstractWaffleRealm {
     @Override
     protected AuthorizationInfo buildAuthorizationInfo(final WaffleFqnPrincipal principal) {
         final SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        authorizationInfo.addRoles(getRoleNamesForGroups(principal.getGroupFqns()));
+        authorizationInfo.addRoles(this.getRoleNamesForGroups(principal.getGroupFqns()));
         return authorizationInfo;
     }
 }

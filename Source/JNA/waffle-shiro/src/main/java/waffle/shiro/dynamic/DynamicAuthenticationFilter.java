@@ -187,11 +187,11 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
      */
     @Override
     protected boolean executeLogin(final ServletRequest request, final ServletResponse response) throws Exception {
-        if (isAuthTypeNegotiate(request)) {
-            LOGGER.debug("using filterNegotiate");
+        if (this.isAuthTypeNegotiate(request)) {
+            DynamicAuthenticationFilter.LOGGER.debug("using filterNegotiate");
             return this.filterNegotiate.onAccessDenied(request, response);
         }
-        LOGGER.debug("using filterFormAuthc");
+        DynamicAuthenticationFilter.LOGGER.debug("using filterFormAuthc");
         return this.filterFormAuthc.onAccessDenied(request, response);
     }
 
@@ -203,8 +203,8 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
      * @return true, if is auth type negotiate
      */
     boolean isAuthTypeNegotiate(final ServletRequest request) {
-        final String authType = request.getParameter(PARAM_NAME_AUTHTYPE);
-        return authType != null && PARAM_VAL_AUTHTYPE_NEGOTIATE.equalsIgnoreCase(authType);
+        final String authType = request.getParameter(DynamicAuthenticationFilter.PARAM_NAME_AUTHTYPE);
+        return authType != null && DynamicAuthenticationFilter.PARAM_VAL_AUTHTYPE_NEGOTIATE.equalsIgnoreCase(authType);
     }
 
 }

@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SimpleRequestDispatcher implements RequestDispatcher {
 
     /** The url. */
-    private String url;
+    private final String url;
 
     /**
      * Instantiates a new simple request dispatcher.
@@ -47,7 +47,7 @@ public class SimpleRequestDispatcher implements RequestDispatcher {
     @Override
     public void forward(final ServletRequest request, final ServletResponse response) throws ServletException,
             IOException {
-        HttpServletResponse httpResponse = (HttpServletResponse) response;
+        final HttpServletResponse httpResponse = (HttpServletResponse) response;
         httpResponse.setStatus(304);
         httpResponse.addHeader("Location", this.url);
     }

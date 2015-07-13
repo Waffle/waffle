@@ -13,10 +13,6 @@
  */
 package waffle.servlet;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -26,6 +22,7 @@ import java.io.ObjectOutputStream;
 import java.util.Arrays;
 
 import org.assertj.core.api.Assertions;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -40,34 +37,34 @@ public class WindowsPrincipalTests {
 
     @Before
     public void setUp() {
-        MockWindowsSecurityContext ctx = new MockWindowsSecurityContext("Administrator");
+        final MockWindowsSecurityContext ctx = new MockWindowsSecurityContext("Administrator");
         this.windowsPrincipal = new WindowsPrincipal(ctx.getIdentity());
     }
 
     @Test
     public void testIsSerializable() throws IOException, ClassNotFoundException {
         // serialize
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(out);
+        final ByteArrayOutputStream out = new ByteArrayOutputStream();
+        final ObjectOutputStream oos = new ObjectOutputStream(out);
         oos.writeObject(this.windowsPrincipal);
         oos.close();
         Assertions.assertThat(out.toByteArray().length).isGreaterThan(0);
         // deserialize
-        InputStream in = new ByteArrayInputStream(out.toByteArray());
-        ObjectInputStream ois = new ObjectInputStream(in);
-        WindowsPrincipal copy = (WindowsPrincipal) ois.readObject();
+        final InputStream in = new ByteArrayInputStream(out.toByteArray());
+        final ObjectInputStream ois = new ObjectInputStream(in);
+        final WindowsPrincipal copy = (WindowsPrincipal) ois.readObject();
         // test
-        assertEquals(this.windowsPrincipal.getName(), copy.getName());
-        assertEquals(this.windowsPrincipal.getRolesString(), copy.getRolesString());
-        assertEquals(this.windowsPrincipal.getSidString(), copy.getSidString());
-        assertEquals(Boolean.valueOf(Arrays.equals(this.windowsPrincipal.getSid(), copy.getSid())), Boolean.TRUE);
+        Assert.assertEquals(this.windowsPrincipal.getName(), copy.getName());
+        Assert.assertEquals(this.windowsPrincipal.getRolesString(), copy.getRolesString());
+        Assert.assertEquals(this.windowsPrincipal.getSidString(), copy.getSidString());
+        Assert.assertEquals(Boolean.valueOf(Arrays.equals(this.windowsPrincipal.getSid(), copy.getSid())), Boolean.TRUE);
     }
 
     @Test
     public void testHasRole() {
-        assertTrue(this.windowsPrincipal.hasRole("Administrator"));
-        assertTrue(this.windowsPrincipal.hasRole("Users"));
-        assertTrue(this.windowsPrincipal.hasRole("Everyone"));
-        assertFalse(this.windowsPrincipal.hasRole("RoleDoesNotExist"));
+        Assert.assertTrue(this.windowsPrincipal.hasRole("Administrator"));
+        Assert.assertTrue(this.windowsPrincipal.hasRole("Users"));
+        Assert.assertTrue(this.windowsPrincipal.hasRole("Everyone"));
+        Assert.assertFalse(this.windowsPrincipal.hasRole("RoleDoesNotExist"));
     }
 }

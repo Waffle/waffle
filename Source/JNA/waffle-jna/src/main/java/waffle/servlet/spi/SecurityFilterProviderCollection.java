@@ -42,7 +42,7 @@ public class SecurityFilterProviderCollection {
     private static final Logger          LOGGER    = LoggerFactory.getLogger(SecurityFilterProviderCollection.class);
     
     /** The providers. */
-    private List<SecurityFilterProvider> providers = new ArrayList<SecurityFilterProvider>();
+    private final List<SecurityFilterProvider> providers = new ArrayList<SecurityFilterProvider>();
 
     /**
      * Instantiates a new security filter provider collection.
@@ -51,8 +51,8 @@ public class SecurityFilterProviderCollection {
      *            the provider array
      */
     public SecurityFilterProviderCollection(final SecurityFilterProvider[] providerArray) {
-        for (SecurityFilterProvider provider : providerArray) {
-            LOGGER.info("using '{}'", provider.getClass().getName());
+        for (final SecurityFilterProvider provider : providerArray) {
+            SecurityFilterProviderCollection.LOGGER.info("using '{}'", provider.getClass().getName());
             this.providers.add(provider);
         }
     }
@@ -71,34 +71,34 @@ public class SecurityFilterProviderCollection {
         Constructor<SecurityFilterProvider> providerConstructor;
         for (String providerName : providerNames) {
             providerName = providerName.trim();
-            LOGGER.info("loading '{}'", providerName);
+            SecurityFilterProviderCollection.LOGGER.info("loading '{}'", providerName);
             try {
                 providerClass = (Class<SecurityFilterProvider>) Class.forName(providerName);
                 providerConstructor = providerClass.getConstructor(IWindowsAuthProvider.class);
                 final SecurityFilterProvider provider = providerConstructor.newInstance(auth);
                 this.providers.add(provider);
             } catch (final ClassNotFoundException e) {
-                LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
-                LOGGER.trace("{}", e);
+                SecurityFilterProviderCollection.LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
+                SecurityFilterProviderCollection.LOGGER.trace("{}", e);
                 throw new RuntimeException(e);
             } catch (final SecurityException e) {
-                LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
-                LOGGER.trace("{}", e);
+                SecurityFilterProviderCollection.LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
+                SecurityFilterProviderCollection.LOGGER.trace("{}", e);
             } catch (final NoSuchMethodException e) {
-                LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
-                LOGGER.trace("{}", e);
+                SecurityFilterProviderCollection.LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
+                SecurityFilterProviderCollection.LOGGER.trace("{}", e);
             } catch (final IllegalArgumentException e) {
-                LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
-                LOGGER.trace("{}", e);
+                SecurityFilterProviderCollection.LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
+                SecurityFilterProviderCollection.LOGGER.trace("{}", e);
             } catch (final InstantiationException e) {
-                LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
-                LOGGER.trace("{}", e);
+                SecurityFilterProviderCollection.LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
+                SecurityFilterProviderCollection.LOGGER.trace("{}", e);
             } catch (final IllegalAccessException e) {
-                LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
-                LOGGER.trace("{}", e);
+                SecurityFilterProviderCollection.LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
+                SecurityFilterProviderCollection.LOGGER.trace("{}", e);
             } catch (final InvocationTargetException e) {
-                LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
-                LOGGER.trace("{}", e);
+                SecurityFilterProviderCollection.LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
+                SecurityFilterProviderCollection.LOGGER.trace("{}", e);
             }
         }
     }
@@ -122,7 +122,7 @@ public class SecurityFilterProviderCollection {
      * @return True if the security package is supported, false otherwise.
      */
     public boolean isSecurityPackageSupported(final String securityPackage) {
-        return get(securityPackage) != null;
+        return this.get(securityPackage) != null;
     }
 
     /**
@@ -133,7 +133,7 @@ public class SecurityFilterProviderCollection {
      * @return the security filter provider
      */
     private SecurityFilterProvider get(final String securityPackage) {
-        for (SecurityFilterProvider provider : this.providers) {
+        for (final SecurityFilterProvider provider : this.providers) {
             if (provider.isSecurityPackageSupported(securityPackage)) {
                 return provider;
             }
@@ -155,13 +155,13 @@ public class SecurityFilterProviderCollection {
     public IWindowsIdentity doFilter(final HttpServletRequest request, final HttpServletResponse response)
             throws IOException {
         final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
-        final SecurityFilterProvider provider = get(authorizationHeader.getSecurityPackage());
+        final SecurityFilterProvider provider = this.get(authorizationHeader.getSecurityPackage());
         if (provider == null) {
             throw new RuntimeException("Unsupported security package: " + authorizationHeader.getSecurityPackage());
         }
         try {
             return provider.doFilter(request, response);
-        } catch (Win32Exception e) {
+        } catch (final Win32Exception e) {
             throw new IOException(e);
         }
     }
@@ -174,7 +174,7 @@ public class SecurityFilterProviderCollection {
      * @return True if authentication is required.
      */
     public boolean isPrincipalException(final HttpServletRequest request) {
-        for (SecurityFilterProvider provider : this.providers) {
+        for (final SecurityFilterProvider provider : this.providers) {
             if (provider.isPrincipalException(request)) {
                 return true;
             }
@@ -189,7 +189,7 @@ public class SecurityFilterProviderCollection {
      *            Http Response
      */
     public void sendUnauthorized(final HttpServletResponse response) {
-        for (SecurityFilterProvider provider : this.providers) {
+        for (final SecurityFilterProvider provider : this.providers) {
             provider.sendUnauthorized(response);
         }
     }
@@ -213,7 +213,7 @@ public class SecurityFilterProviderCollection {
      *             when class not found.
      */
     public SecurityFilterProvider getByClassName(final String name) throws ClassNotFoundException {
-        for (SecurityFilterProvider provider : this.providers) {
+        for (final SecurityFilterProvider provider : this.providers) {
             if (provider.getClass().getName().equals(name)) {
                 return provider;
             }

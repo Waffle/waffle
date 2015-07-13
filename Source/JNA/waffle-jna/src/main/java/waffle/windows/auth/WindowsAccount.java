@@ -26,16 +26,16 @@ public class WindowsAccount implements Serializable {
     private static final long serialVersionUID = 1L;
     
     /** The sid string. */
-    private String            sidString;
+    private final String            sidString;
     
     /** The fqn. */
-    private String            fqn;
+    private final String            fqn;
     
     /** The name. */
-    private String            name;
+    private final String            name;
     
     /** The domain. */
-    private String            domain;
+    private final String            domain;
 
     /**
      * Instantiates a new windows account.
@@ -100,7 +100,7 @@ public class WindowsAccount implements Serializable {
             return false;
         }
 
-        return ((WindowsAccount) o).getSidString().equals(getSidString());
+        return ((WindowsAccount) o).getSidString().equals(this.getSidString());
     }
 
     /* (non-Javadoc)
@@ -108,6 +108,6 @@ public class WindowsAccount implements Serializable {
      */
     @Override
     public int hashCode() {
-        return getSidString().hashCode();
+        return this.getSidString().hashCode();
     }
 }

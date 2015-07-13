@@ -28,7 +28,7 @@ import waffle.windows.auth.IWindowsImpersonationContext;
 public class WindowsSecurityContextImpersonationContextImpl implements IWindowsImpersonationContext {
 
     /** The ctx. */
-    private CtxtHandle ctx;
+    private final CtxtHandle ctx;
 
     /**
      * Instantiates a new windows security context impersonation context impl.

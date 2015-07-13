@@ -13,10 +13,9 @@
  */
 package waffle.util;
 
-import static org.junit.Assert.assertEquals;
-
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -42,33 +41,33 @@ public class WaffleInfoTests {
         final Document info = helper.getWaffleInfo();
 
         // Make sure JNA Version is properly noted
-        assertEquals(Platform.class.getPackage().getImplementationVersion(),
+        Assert.assertEquals(Platform.class.getPackage().getImplementationVersion(),
                 info.getDocumentElement().getAttribute("jna"));
 
         // waffle auth currentUser computer
         final Node node = info.getDocumentElement().getFirstChild().getFirstChild().getNextSibling();
 
-        assertEquals("computer", node.getNodeName());
+        Assert.assertEquals("computer", node.getNodeName());
 
         final IWindowsAuthProvider auth = new WindowsAuthProviderImpl();
         final IWindowsComputer computer = auth.getCurrentComputer();
 
         final NodeList nodes = node.getChildNodes();
-        assertEquals(computer.getComputerName(), nodes.item(0).getTextContent());
-        assertEquals(computer.getMemberOf(), nodes.item(1).getTextContent());
-        assertEquals(computer.getJoinStatus(), nodes.item(2).getTextContent());
+        Assert.assertEquals(computer.getComputerName(), nodes.item(0).getTextContent());
+        Assert.assertEquals(computer.getMemberOf(), nodes.item(1).getTextContent());
+        Assert.assertEquals(computer.getJoinStatus(), nodes.item(2).getTextContent());
 
         // Add Lookup Info for Various accounts
         String lookup = WindowsAccountImpl.getCurrentUsername();
         final IWindowsAccount account = new WindowsAccountImpl(lookup);
         Element elem = helper.getLookupInfo(info, lookup);
-        assertEquals(lookup, elem.getAttribute("name"));
-        assertEquals(account.getName(), elem.getFirstChild().getTextContent());
+        Assert.assertEquals(lookup, elem.getAttribute("name"));
+        Assert.assertEquals(account.getName(), elem.getFirstChild().getTextContent());
 
         // Report an error when unknown name
         lookup = "__UNKNOWN_ACCOUNT_NAME___";
         elem = helper.getLookupInfo(info, lookup);
-        assertEquals(lookup, elem.getAttribute("name"));
-        assertEquals("exception", elem.getFirstChild().getNodeName());
+        Assert.assertEquals(lookup, elem.getAttribute("name"));
+        Assert.assertEquals("exception", elem.getFirstChild().getNodeName());
     }
 }

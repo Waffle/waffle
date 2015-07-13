@@ -60,7 +60,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      * Instantiates a new windows authentication provider.
      */
     public WindowsAuthenticationProvider() {
-        LOGGER.debug("[waffle.spring.WindowsAuthenticationProvider] loaded");
+        WindowsAuthenticationProvider.LOGGER.debug("[waffle.spring.WindowsAuthenticationProvider] loaded");
     }
 
     /* (non-Javadoc)
@@ -71,21 +71,21 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
         final UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;
         final IWindowsIdentity windowsIdentity = this.authProvider.logonUser(auth.getName(), auth.getCredentials()
                 .toString());
-        LOGGER.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
+        WindowsAuthenticationProvider.LOGGER.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
 
         if (!this.allowGuestLogin && windowsIdentity.isGuest()) {
-            LOGGER.warn("guest login disabled: {}", windowsIdentity.getFqn());
+            WindowsAuthenticationProvider.LOGGER.warn("guest login disabled: {}", windowsIdentity.getFqn());
             throw new GuestLoginDisabledAuthenticationException(windowsIdentity.getFqn());
         }
 
         final WindowsPrincipal windowsPrincipal = new WindowsPrincipal(windowsIdentity, this.principalFormat,
                 this.roleFormat);
-        LOGGER.debug("roles: {}", windowsPrincipal.getRolesString());
+        WindowsAuthenticationProvider.LOGGER.debug("roles: {}", windowsPrincipal.getRolesString());
 
         final WindowsAuthenticationToken token = new WindowsAuthenticationToken(windowsPrincipal,
                 this.grantedAuthorityFactory, this.defaultGrantedAuthority);
 
-        LOGGER.info("successfully logged in user: {}", windowsIdentity.getFqn());
+        WindowsAuthenticationProvider.LOGGER.info("successfully logged in user: {}", windowsIdentity.getFqn());
         return token;
     }
 

@@ -42,7 +42,7 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
     private String               realm  = "BasicSecurityFilterProvider";
     
     /** The auth. */
-    private IWindowsAuthProvider auth;
+    private final IWindowsAuthProvider auth;
 
     /**
      * Instantiates a new basic security filter provider.
@@ -67,7 +67,7 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
         if (usernamePasswordArray.length != 2) {
             throw new RuntimeException("Invalid username:password in Authorization header.");
         }
-        LOGGER.debug("logging in user: {}", usernamePasswordArray[0]);
+        BasicSecurityFilterProvider.LOGGER.debug("logging in user: {}", usernamePasswordArray[0]);
         return this.auth.logonUser(usernamePasswordArray[0], usernamePasswordArray[1]);
     }
 
@@ -125,7 +125,7 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
     @Override
     public void initParameter(final String parameterName, final String parameterValue) {
         if (parameterName.equals("realm")) {
-            setRealm(parameterValue);
+            this.setRealm(parameterValue);
         } else {
             throw new InvalidParameterException(parameterName);
         }

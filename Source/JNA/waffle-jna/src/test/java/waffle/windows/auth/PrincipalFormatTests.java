@@ -13,8 +13,7 @@
  */
 package waffle.windows.auth;
 
-import static org.junit.Assert.assertEquals;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -24,11 +23,11 @@ public class PrincipalFormatTests {
 
     @Test
     public void testKnown() {
-        assertEquals(PrincipalFormat.FQN, PrincipalFormat.valueOf("FQN"));
-        assertEquals(PrincipalFormat.SID, PrincipalFormat.valueOf("SID"));
-        assertEquals(PrincipalFormat.BOTH, PrincipalFormat.valueOf("BOTH"));
-        assertEquals(PrincipalFormat.NONE, PrincipalFormat.valueOf("NONE"));
-        assertEquals(4, PrincipalFormat.values().length);
+        Assert.assertEquals(PrincipalFormat.FQN, PrincipalFormat.valueOf("FQN"));
+        Assert.assertEquals(PrincipalFormat.SID, PrincipalFormat.valueOf("SID"));
+        Assert.assertEquals(PrincipalFormat.BOTH, PrincipalFormat.valueOf("BOTH"));
+        Assert.assertEquals(PrincipalFormat.NONE, PrincipalFormat.valueOf("NONE"));
+        Assert.assertEquals(4, PrincipalFormat.values().length);
     }
 
     @Test(expected = RuntimeException.class)

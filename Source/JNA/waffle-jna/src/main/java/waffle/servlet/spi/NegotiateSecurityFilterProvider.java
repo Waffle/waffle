@@ -59,7 +59,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
     private List<String>         protocols        = new ArrayList<String>();
     
     /** The auth. */
-    private IWindowsAuthProvider auth;
+    private final IWindowsAuthProvider auth;
 
     /**
      * Instantiates a new negotiate security filter provider.
@@ -69,8 +69,8 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
      */
     public NegotiateSecurityFilterProvider(final IWindowsAuthProvider newAuthProvider) {
         this.auth = newAuthProvider;
-        this.protocols.add(NEGOTIATE);
-        this.protocols.add(NTLM);
+        this.protocols.add(NegotiateSecurityFilterProvider.NEGOTIATE);
+        this.protocols.add(NegotiateSecurityFilterProvider.NTLM);
     }
 
     /**
@@ -99,7 +99,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
     public void sendUnauthorized(final HttpServletResponse response) {
         final Iterator<String> protocolsIterator = this.protocols.iterator();
         while (protocolsIterator.hasNext()) {
-            response.addHeader(WWW_AUTHENTICATE, protocolsIterator.next());
+            response.addHeader(NegotiateSecurityFilterProvider.WWW_AUTHENTICATE, protocolsIterator.next());
         }
     }
 
@@ -110,7 +110,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
     public boolean isPrincipalException(final HttpServletRequest request) {
         final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
         final boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
-        LOGGER.debug("authorization: {}, ntlm post: {}", authorizationHeader, Boolean.valueOf(ntlmPost));
+        NegotiateSecurityFilterProvider.LOGGER.debug("authorization: {}, ntlm post: {}", authorizationHeader, Boolean.valueOf(ntlmPost));
         return ntlmPost;
     }
 
@@ -127,7 +127,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
         // maintain a connection-based session for NTLM tokens
         final String connectionId = NtlmServletRequest.getConnectionId(request);
         final String securityPackage = authorizationHeader.getSecurityPackage();
-        LOGGER.debug("security package: {}, connection id: {}", securityPackage, connectionId);
+        NegotiateSecurityFilterProvider.LOGGER.debug("security package: {}, connection id: {}", securityPackage, connectionId);
 
         if (ntlmPost) {
             // type 2 NTLM authentication message received
@@ -135,18 +135,18 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
         }
 
         final byte[] tokenBuffer = authorizationHeader.getTokenBytes();
-        LOGGER.debug("token buffer: {} byte(s)", Integer.valueOf(tokenBuffer.length));
+        NegotiateSecurityFilterProvider.LOGGER.debug("token buffer: {} byte(s)", Integer.valueOf(tokenBuffer.length));
         final IWindowsSecurityContext securityContext = this.auth.acceptSecurityToken(connectionId, tokenBuffer,
                 securityPackage);
 
         final byte[] continueTokenBytes = securityContext.getToken();
         if (continueTokenBytes != null && continueTokenBytes.length > 0) {
-            String continueToken = BaseEncoding.base64().encode(continueTokenBytes);
-            LOGGER.debug("continue token: {}", continueToken);
-            response.addHeader(WWW_AUTHENTICATE, securityPackage + " " + continueToken);
+            final String continueToken = BaseEncoding.base64().encode(continueTokenBytes);
+            NegotiateSecurityFilterProvider.LOGGER.debug("continue token: {}", continueToken);
+            response.addHeader(NegotiateSecurityFilterProvider.WWW_AUTHENTICATE, securityPackage + " " + continueToken);
         }
 
-        LOGGER.debug("continue required: {}", Boolean.valueOf(securityContext.isContinue()));
+        NegotiateSecurityFilterProvider.LOGGER.debug("continue required: {}", Boolean.valueOf(securityContext.isContinue()));
         if (securityContext.isContinue() || ntlmPost) {
             response.setHeader("Connection", "keep-alive");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -164,7 +164,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
      */
     @Override
     public boolean isSecurityPackageSupported(final String securityPackage) {
-        for (String protocol : this.protocols) {
+        for (final String protocol : this.protocols) {
             if (protocol.equalsIgnoreCase(securityPackage)) {
                 return true;
             }
@@ -177,17 +177,17 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
      */
     @Override
     public void initParameter(final String parameterName, final String parameterValue) {
-        if (parameterName.equals(PROTOCOLS)) {
+        if (parameterName.equals(NegotiateSecurityFilterProvider.PROTOCOLS)) {
             this.protocols = new ArrayList<String>();
-            String[] protocolNames = parameterValue.split("\\s+");
+            final String[] protocolNames = parameterValue.split("\\s+");
             for (String protocolName : protocolNames) {
                 protocolName = protocolName.trim();
                 if (protocolName.length() > 0) {
-                    LOGGER.debug("init protocol: {}", protocolName);
-                    if (protocolName.equals(NEGOTIATE) || protocolName.equals(NTLM)) {
+                    NegotiateSecurityFilterProvider.LOGGER.debug("init protocol: {}", protocolName);
+                    if (protocolName.equals(NegotiateSecurityFilterProvider.NEGOTIATE) || protocolName.equals(NegotiateSecurityFilterProvider.NTLM)) {
                         this.protocols.add(protocolName);
                     } else {
-                        LOGGER.error("unsupported protocol: {}", protocolName);
+                        NegotiateSecurityFilterProvider.LOGGER.error("unsupported protocol: {}", protocolName);
                         throw new RuntimeException("Unsupported protocol: " + protocolName);
                     }
                 }

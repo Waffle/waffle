@@ -38,7 +38,7 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
     private static final String GUEST  = "Guest";
 
     /** The groups. */
-    private List<String>        groups = new ArrayList<String>();
+    private final List<String>        groups = new ArrayList<String>();
 
     /**
      * Instantiates a new mock windows auth provider.
@@ -114,8 +114,8 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
         final String currentUsername = Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);
         if (username.equals(currentUsername)) {
             return new MockWindowsIdentity(currentUsername, this.groups);
-        } else if (username.equals(GUEST)) {
-            return new MockWindowsIdentity(GUEST, this.groups);
+        } else if (username.equals(MockWindowsAuthProvider.GUEST)) {
+            return new MockWindowsIdentity(MockWindowsAuthProvider.GUEST, this.groups);
         } else {
             throw new RuntimeException("Mock error: " + username);
         }

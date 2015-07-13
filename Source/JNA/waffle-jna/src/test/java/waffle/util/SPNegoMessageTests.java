@@ -13,9 +13,7 @@
  */
 package waffle.util;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -40,25 +38,25 @@ public class SPNegoMessageTests {
 
     @Test
     public void testIsSPNegoMessage() {
-        assertFalse(SPNegoMessage.isSPNegoMessage(null));
-        assertTrue(SPNegoMessage.isSPNegoMessage(negTokenInitOk));
-        assertFalse(SPNegoMessage.isSPNegoMessage(negTokenInitTooShort));
-        assertTrue(SPNegoMessage.isSPNegoMessage(negTokenArgOk));
-        assertFalse(SPNegoMessage.isSPNegoMessage(negTokenArgTooShort));
-        assertFalse(SPNegoMessage.isSPNegoMessage(badMessage));
+        Assert.assertFalse(SPNegoMessage.isSPNegoMessage(null));
+        Assert.assertTrue(SPNegoMessage.isSPNegoMessage(SPNegoMessageTests.negTokenInitOk));
+        Assert.assertFalse(SPNegoMessage.isSPNegoMessage(SPNegoMessageTests.negTokenInitTooShort));
+        Assert.assertTrue(SPNegoMessage.isSPNegoMessage(SPNegoMessageTests.negTokenArgOk));
+        Assert.assertFalse(SPNegoMessage.isSPNegoMessage(SPNegoMessageTests.negTokenArgTooShort));
+        Assert.assertFalse(SPNegoMessage.isSPNegoMessage(SPNegoMessageTests.badMessage));
     }
 
     @Test
     public void testIsNegTokenInit() {
-        assertTrue(SPNegoMessage.isNegTokenInit(negTokenInitOk));
-        assertFalse(SPNegoMessage.isNegTokenInit(negTokenInitTooShort));
-        assertFalse(SPNegoMessage.isNegTokenInit(badMessage));
+        Assert.assertTrue(SPNegoMessage.isNegTokenInit(SPNegoMessageTests.negTokenInitOk));
+        Assert.assertFalse(SPNegoMessage.isNegTokenInit(SPNegoMessageTests.negTokenInitTooShort));
+        Assert.assertFalse(SPNegoMessage.isNegTokenInit(SPNegoMessageTests.badMessage));
     }
 
     @Test
     public void testIsNegTokenArg() {
-        assertTrue(SPNegoMessage.isNegTokenArg(negTokenArgOk));
-        assertFalse(SPNegoMessage.isNegTokenArg(negTokenArgTooShort));
-        assertFalse(SPNegoMessage.isNegTokenArg(badMessage));
+        Assert.assertTrue(SPNegoMessage.isNegTokenArg(SPNegoMessageTests.negTokenArgOk));
+        Assert.assertFalse(SPNegoMessage.isNegTokenArg(SPNegoMessageTests.negTokenArgTooShort));
+        Assert.assertFalse(SPNegoMessage.isNegTokenArg(SPNegoMessageTests.badMessage));
     }
 }

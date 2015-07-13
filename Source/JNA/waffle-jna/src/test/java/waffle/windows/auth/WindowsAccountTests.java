@@ -13,9 +13,8 @@
  */
 package waffle.windows.auth;
 
-import static org.junit.Assert.assertTrue;
-
 import org.assertj.core.api.Assertions;
+import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,9 +48,9 @@ public class WindowsAccountTests {
         Assertions.assertThat(account.getSidString().length()).isGreaterThan(0);
         WindowsAccountTests.LOGGER.info("Sid: {}", account.getSidString());
         // To avoid errors with machine naming being all upper-case, use test in this manner
-        assertTrue(currentUsername.equalsIgnoreCase(account.getFqn()));
-        assertTrue(currentUsername.endsWith("\\" + account.getName()));
+        Assert.assertTrue(currentUsername.equalsIgnoreCase(account.getFqn()));
+        Assert.assertTrue(currentUsername.endsWith("\\" + account.getName()));
         // To avoid errors with machine naming being all upper-case, use test in this manner
-        assertTrue(currentUsername.toLowerCase().startsWith(account.getDomain().toLowerCase() + "\\"));
+        Assert.assertTrue(currentUsername.toLowerCase().startsWith(account.getDomain().toLowerCase() + "\\"));
     }
 }

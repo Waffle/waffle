@@ -78,7 +78,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
         // realm: fail if no realm is configured
         if (this.context == null || this.context.getRealm() == null) {
             this.log.warn("missing context/realm");
-            sendError(response, HttpServletResponse.SC_SERVICE_UNAVAILABLE);
+            this.sendError(response, HttpServletResponse.SC_SERVICE_UNAVAILABLE);
             return false;
         }
 
@@ -103,21 +103,21 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
             return true;
         } else if (negotiateCheck) {
             if (!authorizationHeader.isNull()) {
-                return negotiate(request, response, authorizationHeader);
+                return this.negotiate(request, response, authorizationHeader);
             }
             this.log.debug("authorization required");
-            sendUnauthorized(response);
+            this.sendUnauthorized(response);
             return false;
         } else if (securityCheck) {
-            final boolean postResult = post(request, response);
+            final boolean postResult = this.post(request, response);
             if (postResult) {
-                redirectTo(request, response, request.getServletPath());
+                this.redirectTo(request, response, request.getServletPath());
             } else {
-                redirectTo(request, response, loginConfig.getErrorPage());
+                this.redirectTo(request, response, loginConfig.getErrorPage());
             }
             return postResult;
         } else {
-            redirectTo(request, response, loginConfig.getLoginPage());
+            this.redirectTo(request, response, loginConfig.getLoginPage());
             return false;
         }
     }
@@ -172,10 +172,10 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
                 return false;
             }
 
-        } catch (IOException e) {
+        } catch (final IOException e) {
             this.log.warn("error logging in user: {}", e.getMessage());
             this.log.trace("{}", e);
-            sendUnauthorized(response);
+            this.sendUnauthorized(response);
             return false;
         }
 
@@ -185,7 +185,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
         // disable guest login
         if (!this.allowGuestLogin && windowsIdentity.isGuest()) {
             this.log.warn("guest login disabled: {}", windowsIdentity.getFqn());
-            sendUnauthorized(response);
+            this.sendUnauthorized(response);
             return false;
         }
 
@@ -202,7 +202,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
             final HttpSession session = request.getSession(true);
             this.log.debug("session id: {}", session == null ? "null" : session.getId());
 
-            register(request, response, windowsPrincipal, securityPackage, windowsPrincipal.getName(), null);
+            this.register(request, response, windowsPrincipal, securityPackage, windowsPrincipal.getName(), null);
             this.log.info("successfully logged in user: {}", windowsPrincipal.getName());
 
         } finally {
@@ -231,7 +231,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
         IWindowsIdentity windowsIdentity;
         try {
             windowsIdentity = this.auth.logonUser(username, password);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             this.log.error(e.getMessage());
             this.log.trace("{}", e);
             return false;
@@ -255,7 +255,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
             final HttpSession session = request.getSession(true);
             this.log.debug("session id: {}", session == null ? "null" : session.getId());
 
-            register(request, response, windowsPrincipal, "FORM", windowsPrincipal.getName(), null);
+            this.register(request, response, windowsPrincipal, "FORM", windowsPrincipal.getName(), null);
             this.log.info("successfully logged in user: {}", windowsPrincipal.getName());
         } finally {
             windowsIdentity.dispose();
@@ -280,11 +280,11 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
             final ServletContext servletContext = this.context.getServletContext();
             final RequestDispatcher disp = servletContext.getRequestDispatcher(url);
             disp.forward(request.getRequest(), response);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             this.log.error(e.getMessage());
             this.log.trace("{}", e);
             throw new RuntimeException(e);
-        } catch (ServletException e) {
+        } catch (final ServletException e) {
             this.log.error(e.getMessage());
             this.log.trace("{}", e);
             throw new RuntimeException(e);

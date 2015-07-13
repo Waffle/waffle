@@ -31,7 +31,7 @@ import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 public class MockWindowsSecurityContext implements IWindowsSecurityContext {
 
     /** The identity. */
-    private IWindowsIdentity identity;
+    private final IWindowsIdentity identity;
 
     /**
      * Instantiates a new mock windows security context.

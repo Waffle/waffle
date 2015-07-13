@@ -13,10 +13,7 @@
  */
 package waffle.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -26,27 +23,27 @@ public class NtlmMessageTests {
 
     @Test
     public void testIsNtlmMessage() {
-        assertFalse(NtlmMessage.isNtlmMessage(null));
+        Assert.assertFalse(NtlmMessage.isNtlmMessage(null));
         final byte[] ntlmSignature = { 0x4e, 0x54, 0x4c, 0x4d, 0x53, 0x53, 0x50, 0x00 };
-        assertTrue(NtlmMessage.isNtlmMessage(ntlmSignature));
+        Assert.assertTrue(NtlmMessage.isNtlmMessage(ntlmSignature));
         final byte[] shortMessage = { 0x4e, 0x54, 0x4c, 0x4d, 0x53, 0x53, 0x50 };
-        assertFalse(NtlmMessage.isNtlmMessage(shortMessage));
+        Assert.assertFalse(NtlmMessage.isNtlmMessage(shortMessage));
         final byte[] longMessage = { 0x4e, 0x54, 0x4c, 0x4d, 0x53, 0x53, 0x50, 0x00, 0x00 };
-        assertTrue(NtlmMessage.isNtlmMessage(longMessage));
+        Assert.assertTrue(NtlmMessage.isNtlmMessage(longMessage));
         final byte[] badMessage = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
-        assertFalse(NtlmMessage.isNtlmMessage(badMessage));
+        Assert.assertFalse(NtlmMessage.isNtlmMessage(badMessage));
     }
 
     @Test
     public void testGetNtlmMessageType() {
         final byte[] ntlmMessageType1 = { 0x4e, 0x54, 0x4c, 0x4d, 0x53, 0x53, 0x50, 0x00, 0x01, 0x00, 0x00, 0x00, 0x02,
                 0x02, 0x00, 0x00 };
-        assertEquals(1, NtlmMessage.getMessageType(ntlmMessageType1));
+        Assert.assertEquals(1, NtlmMessage.getMessageType(ntlmMessageType1));
         final byte[] ntlmMessageType2 = { 0x4e, 0x54, 0x4c, 0x4d, 0x53, 0x53, 0x50, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00,
                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x02, 0x00, 0x00, 0x01, 0x23, 0x45, 0x67 };
-        assertEquals(2, NtlmMessage.getMessageType(ntlmMessageType2));
+        Assert.assertEquals(2, NtlmMessage.getMessageType(ntlmMessageType2));
         final byte[] ntlmMessageType3 = { 0x4e, 0x54, 0x4c, 0x4d, 0x53, 0x53, 0x50, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00,
                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x02, 0x00, 0x00, 0x01, 0x23, 0x45, 0x67 };
-        assertEquals(3, NtlmMessage.getMessageType(ntlmMessageType3));
+        Assert.assertEquals(3, NtlmMessage.getMessageType(ntlmMessageType3));
     }
 }

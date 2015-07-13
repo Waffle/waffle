@@ -35,13 +35,13 @@ import waffle.windows.auth.WindowsAccount;
 public class GenericWindowsPrincipal extends GenericPrincipal {
 
     /** The sid. */
-    private byte[]                      sid;
+    private final byte[]                      sid;
     
     /** The sid string. */
-    private String                      sidString;
+    private final String                      sidString;
     
     /** The groups. */
-    private Map<String, WindowsAccount> groups;
+    private final Map<String, WindowsAccount> groups;
 
     /**
      * A windows principal.
@@ -55,10 +55,10 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      */
     public GenericWindowsPrincipal(final IWindowsIdentity windowsIdentity, final PrincipalFormat principalFormat,
             final PrincipalFormat roleFormat) {
-        super(windowsIdentity.getFqn(), "", getRoles(windowsIdentity, principalFormat, roleFormat));
+        super(windowsIdentity.getFqn(), "", GenericWindowsPrincipal.getRoles(windowsIdentity, principalFormat, roleFormat));
         this.sid = windowsIdentity.getSid();
         this.sidString = windowsIdentity.getSidString();
-        this.groups = getGroups(windowsIdentity.getGroups());
+        this.groups = GenericWindowsPrincipal.getGroups(windowsIdentity.getGroups());
     }
 
     /**
@@ -75,9 +75,9 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
     private static List<String> getRoles(final IWindowsIdentity windowsIdentity, final PrincipalFormat principalFormat,
             final PrincipalFormat roleFormat) {
         final List<String> roles = new ArrayList<String>();
-        roles.addAll(getPrincipalNames(windowsIdentity, principalFormat));
-        for (IWindowsAccount group : windowsIdentity.getGroups()) {
-            roles.addAll(getRoleNames(group, roleFormat));
+        roles.addAll(GenericWindowsPrincipal.getPrincipalNames(windowsIdentity, principalFormat));
+        for (final IWindowsAccount group : windowsIdentity.getGroups()) {
+            roles.addAll(GenericWindowsPrincipal.getRoleNames(group, roleFormat));
         }
         return roles;
     }
@@ -91,7 +91,7 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      */
     private static Map<String, WindowsAccount> getGroups(final IWindowsAccount[] groups) {
         final Map<String, WindowsAccount> groupMap = new HashMap<String, WindowsAccount>();
-        for (IWindowsAccount group : groups) {
+        for (final IWindowsAccount group : groups) {
             groupMap.put(group.getFqn(), new WindowsAccount(group));
         }
         return groupMap;
@@ -191,6 +191,6 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      * @return Role1, Role2, ...
      */
     public String getRolesString() {
-        return Joiner.on(", ").join(getRoles());
+        return Joiner.on(", ").join(this.getRoles());
     }
 }

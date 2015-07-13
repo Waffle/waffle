@@ -29,7 +29,7 @@ public class MockWindowsAccount implements IWindowsAccount {
     public static final String TEST_PASSWORD  = "!WAFFLEP$$Wrd0";
 
     /** The fqn. */
-    private String             fqn;
+    private final String             fqn;
     
     /** The name. */
     private String             name;
@@ -38,7 +38,7 @@ public class MockWindowsAccount implements IWindowsAccount {
     private String             domain;
     
     /** The sid. */
-    private String             sid;
+    private final String             sid;
 
     /**
      * Instantiates a new mock windows account.
@@ -61,7 +61,7 @@ public class MockWindowsAccount implements IWindowsAccount {
     public MockWindowsAccount(final String newFqn, final String newSid) {
         this.fqn = newFqn;
         this.sid = newSid;
-        String[] userNameDomain = newFqn.split("\\\\", 2);
+        final String[] userNameDomain = newFqn.split("\\\\", 2);
         if (userNameDomain.length == 2) {
             this.name = userNameDomain[1];
             this.domain = userNameDomain[0];

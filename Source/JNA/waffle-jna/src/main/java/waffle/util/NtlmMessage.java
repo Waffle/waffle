@@ -32,12 +32,12 @@ public final class NtlmMessage {
      * @return true, if is ntlm message
      */
     public static boolean isNtlmMessage(final byte[] message) {
-        if (message == null || message.length < NTLM_SSP_SIGNATURE.length) {
+        if (message == null || message.length < NtlmMessage.NTLM_SSP_SIGNATURE.length) {
             return false;
         }
 
-        for (int i = 0; i < NTLM_SSP_SIGNATURE.length; i++) {
-            if (NTLM_SSP_SIGNATURE[i] != message[i]) {
+        for (int i = 0; i < NtlmMessage.NTLM_SSP_SIGNATURE.length; i++) {
+            if (NtlmMessage.NTLM_SSP_SIGNATURE[i] != message[i]) {
                 return false;
             }
         }
@@ -53,7 +53,7 @@ public final class NtlmMessage {
      * @return Message type.
      */
     public static int getMessageType(final byte[] message) {
-        return message[NTLM_SSP_SIGNATURE.length];
+        return message[NtlmMessage.NTLM_SSP_SIGNATURE.length];
     }
 
     /**

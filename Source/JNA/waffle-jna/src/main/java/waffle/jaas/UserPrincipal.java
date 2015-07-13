@@ -27,7 +27,7 @@ public class UserPrincipal implements Principal, Serializable {
     private static final long serialVersionUID = 1L;
     
     /** The fqn. */
-    private String            fqn;
+    private final String            fqn;
 
     /**
      * A user principal.
@@ -60,7 +60,7 @@ public class UserPrincipal implements Principal, Serializable {
         }
 
         if (o instanceof UserPrincipal) {
-            return getName().equals(((UserPrincipal) o).getName());
+            return this.getName().equals(((UserPrincipal) o).getName());
         }
 
         return false;
@@ -71,6 +71,6 @@ public class UserPrincipal implements Principal, Serializable {
      */
     @Override
     public int hashCode() {
-        return getName().hashCode();
+        return this.getName().hashCode();
     }
 }

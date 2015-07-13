@@ -13,10 +13,6 @@
  */
 package waffle.shiro;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertNotNull;
-
 import java.util.Collections;
 
 import org.apache.shiro.authc.AuthenticationException;
@@ -25,6 +21,7 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.assertj.core.api.Assertions;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -43,36 +40,36 @@ public class GroupMappingWaffleRealmTests {
         this.windowsAuthProvider = new MockWindowsAuthProvider();
         this.realm = new GroupMappingWaffleRealm();
         this.realm.setProvider(this.windowsAuthProvider);
-        this.realm.setGroupRolesMap(Collections.singletonMap("Users", ROLE_NAME));
+        this.realm.setGroupRolesMap(Collections.singletonMap("Users", GroupMappingWaffleRealmTests.ROLE_NAME));
     }
 
     @Test
     public void testValidUsernamePassword() {
-        AuthenticationToken token = new UsernamePasswordToken(getCurrentUserName(), "somePassword");
-        AuthenticationInfo authcInfo = this.realm.getAuthenticationInfo(token);
-        PrincipalCollection principals = authcInfo.getPrincipals();
-        assertFalse(principals.isEmpty());
-        Object primaryPrincipal = principals.getPrimaryPrincipal();
-        assertNotNull(primaryPrincipal);
+        final AuthenticationToken token = new UsernamePasswordToken(this.getCurrentUserName(), "somePassword");
+        final AuthenticationInfo authcInfo = this.realm.getAuthenticationInfo(token);
+        final PrincipalCollection principals = authcInfo.getPrincipals();
+        Assert.assertFalse(principals.isEmpty());
+        final Object primaryPrincipal = principals.getPrimaryPrincipal();
+        Assert.assertNotNull(primaryPrincipal);
         Assertions.assertThat(primaryPrincipal).isInstanceOf(WaffleFqnPrincipal.class);
-        WaffleFqnPrincipal fqnPrincipal = (WaffleFqnPrincipal) primaryPrincipal;
-        Assertions.assertThat(fqnPrincipal.getFqn()).isEqualTo(getCurrentUserName());
+        final WaffleFqnPrincipal fqnPrincipal = (WaffleFqnPrincipal) primaryPrincipal;
+        Assertions.assertThat(fqnPrincipal.getFqn()).isEqualTo(this.getCurrentUserName());
         Assertions.assertThat(fqnPrincipal.getGroupFqns()).contains("Users", "Everyone");
-        Object credentials = authcInfo.getCredentials();
+        final Object credentials = authcInfo.getCredentials();
         Assertions.assertThat(credentials).isInstanceOf(char[].class);
         Assertions.assertThat(credentials).isEqualTo("somePassword".toCharArray());
-        assertTrue(this.realm.hasRole(principals, ROLE_NAME));
+        Assert.assertTrue(this.realm.hasRole(principals, GroupMappingWaffleRealmTests.ROLE_NAME));
     }
 
     @Test(expected = AuthenticationException.class)
     public void testInvalidUsernamePassword() {
-        AuthenticationToken token = new UsernamePasswordToken("InvalidUser", "somePassword");
+        final AuthenticationToken token = new UsernamePasswordToken("InvalidUser", "somePassword");
         this.realm.getAuthenticationInfo(token);
     }
 
     @Test(expected = AuthenticationException.class)
     public void testGuestUsernamePassword() {
-        AuthenticationToken token = new UsernamePasswordToken("Guest", "somePassword");
+        final AuthenticationToken token = new UsernamePasswordToken("Guest", "somePassword");
         this.realm.getAuthenticationInfo(token);
     }
 
