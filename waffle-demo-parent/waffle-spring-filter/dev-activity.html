@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="Date-Revision-yyyymmdd" content="20150712" />
     <meta http-equiv="Content-Language" content="en" />
-    <title>waffle-spring-filter &#x2013; JDepend Report Metrics</title>
+    <title>waffle-spring-filter &#x2013; Developer Activity Report</title>
     <link rel="stylesheet" href="./css/apache-maven-fluido-1.4.min.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <link rel="stylesheet" href="./css/print.css" media="print" />
@@ -185,12 +185,10 @@
         File Activity</a>
             </li>
                     
-      <li>
+      <li class="active">
   
-                          <a href="dev-activity.html" title="Developer Activity">
-          <span class="none"></span>
-        Developer Activity</a>
-            </li>
+            <a href="#"><span class="none"></span>Developer Activity</a>
+          </li>
                     
       <li>
   
@@ -227,10 +225,12 @@
         Property Updates Report</a>
             </li>
                     
-      <li class="active">
+      <li>
   
-            <a href="#"><span class="none"></span>JDepend</a>
-          </li>
+                          <a href="jdepend-report.html" title="JDepend">
+          <span class="none"></span>
+        JDepend</a>
+            </li>
                     
       <li>
   
@@ -262,48 +262,19 @@
         <div id="bodyColumn"  class="span10" >
                                   
             <div class="section">
-<h2><a name="Metric_Results"></a>Metric Results</h2>[ <a href="#summary">summary</a> ] [ <a href="#packages">packages</a> ] [ <a href="#cycles">cycles</a> ] [ <a href="#explanations">explanations</a> ] <br /><br />The following document contains the results of a JDepend metric analysis. The various metrics are defined at the bottom of this document.<br /><br /><a name="summary"></a>
-<h2><a name="Summary"></a>Summary</h2>[ <a href="#summary">summary</a> ] [ <a href="#packages">packages</a> ] [ <a href="#cycles">cycles</a> ] [ <a href="#explanations">explanations</a> ] <br /><br />
+<h2><a name="Developer_Activity_Report"></a>Developer Activity Report</h2>
+<div class="section">
+<h3><a name="Changes_between_2015-06-12_and_2015-07-13"></a>Changes between 2015-06-12 and 2015-07-13</h3>
+<p>Total commits: 5<br />Total number of files changed: 4</p>
 <table border="0" class="table table-striped">
 <tr class="a">
-<th>Package</th>
-<th>TC</th>
-<th>CC</th>
-<th>AC</th>
-<th>Ca</th>
-<th>Ce</th>
-<th>A</th>
-<th>I</th>
-<th>D</th>
-<th>V</th></tr></table><a name="packages"></a>
-<h2><a name="Packages"></a>Packages</h2>[ <a href="#summary">summary</a> ] [ <a href="#packages">packages</a> ] [ <a href="#cycles">cycles</a> ] [ <a href="#explanations">explanations</a> ] <br />There are no package used.<br /><a name="cycles"></a>
-<h2><a name="Cycles"></a>Cycles</h2>[ <a href="#summary">summary</a> ] [ <a href="#packages">packages</a> ] [ <a href="#cycles">cycles</a> ] [ <a href="#explanations">explanations</a> ] <br /><br />There are no cyclic dependencies.<br /><a name="explanations"></a>
-<h2><a name="Explanation"></a>Explanation</h2>[ <a href="#summary">summary</a> ] [ <a href="#packages">packages</a> ] [ <a href="#cycles">cycles</a> ] [ <a href="#explanations">explanations</a> ] <br /><br />The following explanations are for quick reference and are lifted directly from the original JDepend documentation.<br /><br />
-<table border="0" class="table table-striped">
+<th>Developer</th>
+<th>Total commits</th>
+<th>Total Number of Files Changed</th></tr>
 <tr class="b">
-<th>Term</th>
-<th>Description</th></tr>
-<tr class="a">
-<td>Number of Classes</td>
-<td>The number of concrete and abstract classes (and interfaces) in the package is an indicator of the extensibility of the package.</td></tr>
-<tr class="b">
-<td>Afferent Couplings</td>
-<td>The number of other packages that depend upon classes within the package is an indicator of the package's responsibility.</td></tr>
-<tr class="a">
-<td>Efferent Couplings</td>
-<td>The number of other packages that the classes in the package depend upon is an indicator of the package's independence.</td></tr>
-<tr class="b">
-<td>Abstractness</td>
-<td>The ratio of the number of abstract classes (and interfaces) in the analyzed package to the total number of classes in the analyzed package. The range for this metric is 0 to 1, with A=0 indicating a completely concrete package and A=1 indicating a completely abstract package.</td></tr>
-<tr class="a">
-<td>Instability</td>
-<td>The ratio of efferent coupling (Ce) to total coupling (Ce / (Ce + Ca)). This metric is an indicator of the package's resilience to change. The range for this metric is 0 to 1, with I=0 indicating a completely stable package and I=1 indicating a completely instable package.</td></tr>
-<tr class="b">
-<td>Distance</td>
-<td>The perpendicular distance of a package from the idealized line A + I = 1. This metric is an indicator of the package's balance between abstractness and stability. A package squarely on the main sequence is optimally balanced with respect to its abstractness and stability. Ideal packages are either completely abstract and stable (x=0, y=1) or completely concrete and instable (x=1, y=0). The range for this metric is 0 to 1, with D=0 indicating a package that is coincident with the main sequence and D=1 indicating a package that is as far from the main sequence as possible.</td></tr>
-<tr class="a">
-<td>Cycles</td>
-<td>Packages participating in a package dependency cycle are  in a deadly embrace with respect to reusability and their  release cycle. Package dependency cycles can be easily identified by reviewing the textual reports of dependency cycles. Once these dependency cycles have been identified with JDepend, they can be broken by employing various object-oriented techniques.</td></tr></table></div>
+<td>Jeremy Landis &lt;jeremylandis@hotmail.com&gt;</td>
+<td>5</td>
+<td>4</td></tr></table></div></div>
                   </div>
             </div>
           </div>
