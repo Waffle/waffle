@@ -77,7 +77,7 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
      */
     public SimpleHttpRequest() {
         super(Mockito.mock(HttpServletRequest.class));
-        this.remotePort = nextRemotePort();
+        this.remotePort = SimpleHttpRequest.nextRemotePort();
     }
 
     /**
@@ -86,14 +86,14 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
      * @return the int
      */
     public static synchronized int nextRemotePort() {
-        return ++remotePortS;
+        return ++SimpleHttpRequest.remotePortS;
     }
 
     /**
      * Reset remote port.
      */
     public static synchronized void resetRemotePort() {
-        remotePortS = 0;
+        SimpleHttpRequest.remotePortS = 0;
     }
 
     /**

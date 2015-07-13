@@ -30,6 +30,7 @@ import javax.security.auth.Subject;
 import javax.security.auth.login.LoginException;
 
 import org.assertj.core.api.Assertions;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -57,14 +58,14 @@ public class WindowsLoginModuleTests {
         Map<String, String> options = new HashMap<String, String>();
         options.put("debug", "true");
         this.loginModule.initialize(subject, callbackHandler, null, options);
-        assertTrue(this.loginModule.isDebug());
+        Assert.assertTrue(this.loginModule.isDebug());
     }
 
     @Test
     public void testGetSetAuth() {
-        assertNotNull(this.loginModule.getAuth());
+        Assert.assertNotNull(this.loginModule.getAuth());
         this.loginModule.setAuth(null);
-        assertNull(this.loginModule.getAuth());
+        Assert.assertNull(this.loginModule.getAuth());
     }
 
     @Test
@@ -75,15 +76,15 @@ public class WindowsLoginModuleTests {
         Map<String, String> options = new HashMap<String, String>();
         options.put("debug", "true");
         this.loginModule.initialize(subject, callbackHandler, null, options);
-        assertTrue(this.loginModule.login());
-        assertEquals(0, subject.getPrincipals().size());
-        assertTrue(this.loginModule.commit());
-        assertEquals(3, subject.getPrincipals().size());
-        assertTrue(subject.getPrincipals().contains(new RolePrincipal("Everyone")));
-        assertTrue(subject.getPrincipals().contains(new RolePrincipal("Users")));
-        assertTrue(subject.getPrincipals().contains(new UserPrincipal(WindowsAccountImpl.getCurrentUsername())));
-        assertTrue(this.loginModule.logout());
-        assertSame(Integer.valueOf(subject.getPrincipals().size()), Integer.valueOf(0));
+        Assert.assertTrue(this.loginModule.login());
+        Assert.assertEquals(0, subject.getPrincipals().size());
+        Assert.assertTrue(this.loginModule.commit());
+        Assert.assertEquals(3, subject.getPrincipals().size());
+        Assert.assertTrue(subject.getPrincipals().contains(new RolePrincipal("Everyone")));
+        Assert.assertTrue(subject.getPrincipals().contains(new RolePrincipal("Users")));
+        Assert.assertTrue(subject.getPrincipals().contains(new UserPrincipal(WindowsAccountImpl.getCurrentUsername())));
+        Assert.assertTrue(this.loginModule.logout());
+        Assert.assertSame(Integer.valueOf(subject.getPrincipals().size()), Integer.valueOf(0));
     }
 
     @Test(expected = LoginException.class)
@@ -101,8 +102,8 @@ public class WindowsLoginModuleTests {
         Map<String, String> options = new HashMap<String, String>();
         options.put("debug", "true");
         this.loginModule.initialize(subject, callbackHandler, null, options);
-        assertFalse(this.loginModule.login());
-        fail("Expected LoginException");
+        Assert.assertFalse(this.loginModule.login());
+        Assert.fail("Expected LoginException");
     }
 
     @Test
@@ -114,9 +115,9 @@ public class WindowsLoginModuleTests {
         options.put("debug", "true");
         options.put("roleFormat", "none");
         this.loginModule.initialize(subject, callbackHandler, null, options);
-        assertTrue(this.loginModule.login());
-        assertTrue(this.loginModule.commit());
-        assertEquals(1, subject.getPrincipals().size());
+        Assert.assertTrue(this.loginModule.login());
+        Assert.assertTrue(this.loginModule.commit());
+        Assert.assertEquals(1, subject.getPrincipals().size());
     }
 
     @Test
@@ -128,9 +129,9 @@ public class WindowsLoginModuleTests {
         options.put("debug", "true");
         options.put("roleFormat", "both");
         this.loginModule.initialize(subject, callbackHandler, null, options);
-        assertTrue(this.loginModule.login());
-        assertTrue(this.loginModule.commit());
-        assertEquals(5, subject.getPrincipals().size());
+        Assert.assertTrue(this.loginModule.login());
+        Assert.assertTrue(this.loginModule.commit());
+        Assert.assertEquals(5, subject.getPrincipals().size());
     }
 
     @Test
@@ -143,9 +144,9 @@ public class WindowsLoginModuleTests {
         options.put("principalFormat", "both");
         options.put("roleFormat", "none");
         this.loginModule.initialize(subject, callbackHandler, null, options);
-        assertTrue(this.loginModule.login());
-        assertTrue(this.loginModule.commit());
-        assertEquals(2, subject.getPrincipals().size());
+        Assert.assertTrue(this.loginModule.login());
+        Assert.assertTrue(this.loginModule.commit());
+        Assert.assertEquals(2, subject.getPrincipals().size());
     }
 
     @Test
@@ -157,13 +158,13 @@ public class WindowsLoginModuleTests {
         options.put("debug", "true");
         options.put("roleFormat", "sid");
         this.loginModule.initialize(subject, callbackHandler, null, options);
-        assertTrue(this.loginModule.login());
-        assertTrue(this.loginModule.commit());
-        assertEquals(3, subject.getPrincipals().size());
+        Assert.assertTrue(this.loginModule.login());
+        Assert.assertTrue(this.loginModule.commit());
+        Assert.assertEquals(3, subject.getPrincipals().size());
         Iterator<Principal> principals = subject.getPrincipals().iterator();
-        assertTrue(principals.next().getName().equals(WindowsAccountImpl.getCurrentUsername()));
-        assertTrue(principals.next().getName().startsWith("S-"));
-        assertTrue(principals.next().getName().startsWith("S-"));
+        Assert.assertTrue(principals.next().getName().equals(WindowsAccountImpl.getCurrentUsername()));
+        Assert.assertTrue(principals.next().getName().startsWith("S-"));
+        Assert.assertTrue(principals.next().getName().startsWith("S-"));
     }
 
     @Test
@@ -177,9 +178,9 @@ public class WindowsLoginModuleTests {
         Map<String, String> options = new HashMap<String, String>();
         options.put("debug", "true");
         this.loginModule.initialize(subject, callbackHandler, null, options);
-        assertTrue(this.loginModule.login());
-        assertTrue(this.loginModule.commit());
-        assertEquals(4, subject.getPrincipals().size());
+        Assert.assertTrue(this.loginModule.login());
+        Assert.assertTrue(this.loginModule.commit());
+        Assert.assertEquals(4, subject.getPrincipals().size());
     }
 
     @Test(expected = LoginException.class)
@@ -189,16 +190,16 @@ public class WindowsLoginModuleTests {
         Map<String, String> options = new HashMap<String, String>();
         options.put("debug", "true");
         this.loginModule.initialize(subject, callbackHandler, null, options);
-        assertTrue(this.loginModule.isAllowGuestLogin());
-        assertTrue(this.loginModule.login());
-        assertEquals(0, subject.getPrincipals().size());
-        assertTrue(this.loginModule.commit());
-        assertEquals(3, subject.getPrincipals().size());
-        assertTrue(subject.getPrincipals().contains(new RolePrincipal("Everyone")));
-        assertTrue(subject.getPrincipals().contains(new RolePrincipal("Users")));
+        Assert.assertTrue(this.loginModule.isAllowGuestLogin());
+        Assert.assertTrue(this.loginModule.login());
+        Assert.assertEquals(0, subject.getPrincipals().size());
+        Assert.assertTrue(this.loginModule.commit());
+        Assert.assertEquals(3, subject.getPrincipals().size());
+        Assert.assertTrue(subject.getPrincipals().contains(new RolePrincipal("Everyone")));
+        Assert.assertTrue(subject.getPrincipals().contains(new RolePrincipal("Users")));
         this.loginModule.setAllowGuestLogin(false);
-        assertTrue(this.loginModule.login());
-        fail("expected LoginException");
+        Assert.assertTrue(this.loginModule.login());
+        Assert.fail("expected LoginException");
     }
 
     @Test
@@ -208,7 +209,7 @@ public class WindowsLoginModuleTests {
         Map<String, String> options = new HashMap<String, String>();
         options.put("debug", "true");
         this.loginModule.initialize(subject, callbackHandler, null, options);
-        assertTrue(this.loginModule.login());
+        Assert.assertTrue(this.loginModule.login());
         this.loginModule.abort();
         Assertions.assertThat(subject.getPrincipals().size()).isEqualTo(0);
     }

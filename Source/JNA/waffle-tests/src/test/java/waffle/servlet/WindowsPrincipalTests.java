@@ -26,6 +26,7 @@ import java.io.ObjectOutputStream;
 import java.util.Arrays;
 
 import org.assertj.core.api.Assertions;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -57,17 +58,17 @@ public class WindowsPrincipalTests {
         ObjectInputStream ois = new ObjectInputStream(in);
         WindowsPrincipal copy = (WindowsPrincipal) ois.readObject();
         // test
-        assertEquals(this.windowsPrincipal.getName(), copy.getName());
-        assertEquals(this.windowsPrincipal.getRolesString(), copy.getRolesString());
-        assertEquals(this.windowsPrincipal.getSidString(), copy.getSidString());
-        assertEquals(Boolean.valueOf(Arrays.equals(this.windowsPrincipal.getSid(), copy.getSid())), Boolean.TRUE);
+        Assert.assertEquals(this.windowsPrincipal.getName(), copy.getName());
+        Assert.assertEquals(this.windowsPrincipal.getRolesString(), copy.getRolesString());
+        Assert.assertEquals(this.windowsPrincipal.getSidString(), copy.getSidString());
+        Assert.assertEquals(Boolean.valueOf(Arrays.equals(this.windowsPrincipal.getSid(), copy.getSid())), Boolean.TRUE);
     }
 
     @Test
     public void testHasRole() {
-        assertTrue(this.windowsPrincipal.hasRole("Administrator"));
-        assertTrue(this.windowsPrincipal.hasRole("Users"));
-        assertTrue(this.windowsPrincipal.hasRole("Everyone"));
-        assertFalse(this.windowsPrincipal.hasRole("RoleDoesNotExist"));
+        Assert.assertTrue(this.windowsPrincipal.hasRole("Administrator"));
+        Assert.assertTrue(this.windowsPrincipal.hasRole("Users"));
+        Assert.assertTrue(this.windowsPrincipal.hasRole("Everyone"));
+        Assert.assertFalse(this.windowsPrincipal.hasRole("RoleDoesNotExist"));
     }
 }

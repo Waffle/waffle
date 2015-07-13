@@ -131,10 +131,10 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
      */
     @Override
     public void flushBuffer() {
-        LOGGER.info("{}: {}", Integer.valueOf(this.status), this.getStatusString());
+        SimpleHttpResponse.LOGGER.info("{}: {}", Integer.valueOf(this.status), this.getStatusString());
         for (String header : this.headers.keySet()) {
             for (String headerValue : this.headers.get(header)) {
-                LOGGER.info("{}: {}", header, headerValue);
+                SimpleHttpResponse.LOGGER.info("{}: {}", header, headerValue);
             }
         }
     }
@@ -214,7 +214,7 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
         try {
             return this.bytes.toString("UTF-8");
         } catch (UnsupportedEncodingException e) {
-            LOGGER.error("{}", e);
+            SimpleHttpResponse.LOGGER.error("{}", e);
         }
         return null;
     }

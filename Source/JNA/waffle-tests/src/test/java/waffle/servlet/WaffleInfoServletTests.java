@@ -22,6 +22,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,12 +54,12 @@ public class WaffleInfoServletTests {
         servlet.doGet(request, response);
 
         String xml = response.getOutputText();
-        Document doc = loadXMLFromString(xml);
+        Document doc = WaffleInfoServletTests.loadXMLFromString(xml);
 
         WaffleInfoServletTests.LOGGER.info("GOT: {}", xml);
 
         // Make sure JNA Version is properly noted
-        assertEquals(Platform.class.getPackage().getImplementationVersion(),
+        Assert.assertEquals(Platform.class.getPackage().getImplementationVersion(),
                 doc.getDocumentElement().getAttribute("jna"));
 
         Node node = doc.getDocumentElement().getFirstChild().getNextSibling() // request
@@ -66,9 +67,9 @@ public class WaffleInfoServletTests {
                 .getNextSibling().getNextSibling();
 
         // Make sure the headers were added correctly
-        assertEquals("headers", node.getNodeName());
+        Assert.assertEquals("headers", node.getNodeName());
         Node child = node.getFirstChild().getNextSibling();
-        assertEquals("hello", child.getNodeName());
+        Assert.assertEquals("hello", child.getNodeName());
     }
 
     private static Document loadXMLFromString(String xml) throws ParserConfigurationException, SAXException,
