@@ -103,13 +103,13 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
             } catch (IOException e) {
                 LOGGER.warn("error logging in user: {}", e.getMessage());
                 LOGGER.trace("{}", e);
-                sendUnauthorized(response, true);
+                this.sendUnauthorized(response, true);
                 return;
             }
 
             if (!this.allowGuestLogin && windowsIdentity.isGuest()) {
                 LOGGER.warn("guest login disabled: {}", windowsIdentity.getFqn());
-                sendUnauthorized(response, true);
+                this.sendUnauthorized(response, true);
                 return;
             }
 
@@ -124,7 +124,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
                 final Authentication authentication = new WindowsAuthenticationToken(principal,
                         this.grantedAuthorityFactory, this.defaultGrantedAuthority);
 
-                if (!setAuthentication(request, response, authentication)) {
+                if (!this.setAuthentication(request, response, authentication)) {
                     return;
                 }
 
