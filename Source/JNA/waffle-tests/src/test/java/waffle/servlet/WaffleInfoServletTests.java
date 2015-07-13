@@ -43,16 +43,16 @@ public class WaffleInfoServletTests {
 
     @Test
     public void testGetInfo() throws Exception {
-        SimpleHttpRequest request = new SimpleHttpRequest();
+        final SimpleHttpRequest request = new SimpleHttpRequest();
         request.addHeader("hello", "waffle");
 
-        SimpleHttpResponse response = new SimpleHttpResponse();
+        final SimpleHttpResponse response = new SimpleHttpResponse();
 
-        WaffleInfoServlet servlet = new WaffleInfoServlet();
+        final WaffleInfoServlet servlet = new WaffleInfoServlet();
         servlet.doGet(request, response);
 
-        String xml = response.getOutputText();
-        Document doc = WaffleInfoServletTests.loadXMLFromString(xml);
+        final String xml = response.getOutputText();
+        final Document doc = WaffleInfoServletTests.loadXMLFromString(xml);
 
         WaffleInfoServletTests.LOGGER.info("GOT: {}", xml);
 
@@ -60,21 +60,21 @@ public class WaffleInfoServletTests {
         Assert.assertEquals(Platform.class.getPackage().getImplementationVersion(),
                 doc.getDocumentElement().getAttribute("jna"));
 
-        Node node = doc.getDocumentElement().getFirstChild().getNextSibling() // request
+        final Node node = doc.getDocumentElement().getFirstChild().getNextSibling() // request
                 .getFirstChild().getNextSibling() // AuthType
                 .getNextSibling().getNextSibling();
 
         // Make sure the headers were added correctly
         Assert.assertEquals("headers", node.getNodeName());
-        Node child = node.getFirstChild().getNextSibling();
+        final Node child = node.getFirstChild().getNextSibling();
         Assert.assertEquals("hello", child.getNodeName());
     }
 
-    private static Document loadXMLFromString(String xml) throws ParserConfigurationException, SAXException,
+    private static Document loadXMLFromString(final String xml) throws ParserConfigurationException, SAXException,
             IOException {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        InputSource is = new InputSource(new StringReader(xml));
+        final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        final DocumentBuilder builder = factory.newDocumentBuilder();
+        final InputSource is = new InputSource(new StringReader(xml));
         return builder.parse(is);
     }
 }

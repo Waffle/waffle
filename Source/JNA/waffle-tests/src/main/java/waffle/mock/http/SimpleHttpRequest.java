@@ -58,10 +58,10 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
     private int                 remotePort  = -1;
     
     /** The headers. */
-    private Map<String, String> headers     = new HashMap<String, String>();
+    private final Map<String, String> headers     = new HashMap<String, String>();
     
     /** The parameters. */
-    private Map<String, String> parameters  = new HashMap<String, String>();
+    private final Map<String, String> parameters  = new HashMap<String, String>();
     
     /** The content. */
     private byte[]              content;
@@ -222,7 +222,7 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
     public void setQueryString(final String query) {
         this.queryString = query;
         if (this.queryString != null) {
-            for (String eachParameter : this.queryString.split("[&]")) {
+            for (final String eachParameter : this.queryString.split("[&]")) {
                 final String[] pair = eachParameter.split("=");
                 final String value = (pair.length == 2) ? pair[1] : "";
                 this.addParameter(pair[0], value);

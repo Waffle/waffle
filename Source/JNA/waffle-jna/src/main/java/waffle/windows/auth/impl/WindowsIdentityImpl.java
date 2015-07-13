@@ -34,7 +34,7 @@ import com.sun.jna.platform.win32.WinNT.WELL_KNOWN_SID_TYPE;
 public class WindowsIdentityImpl implements IWindowsIdentity {
 
     /** The windows identity. */
-    private HANDLE    windowsIdentity;
+    private final HANDLE    windowsIdentity;
     
     /** The user groups. */
     private Account[] userGroups;
@@ -93,8 +93,8 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
         final Account[] groups = this.getUserGroups();
 
         final List<IWindowsAccount> result = new ArrayList<IWindowsAccount>(groups.length);
-        for (Account userGroup : groups) {
-            WindowsAccountImpl account = new WindowsAccountImpl(userGroup);
+        for (final Account userGroup : groups) {
+            final WindowsAccountImpl account = new WindowsAccountImpl(userGroup);
             result.add(account);
         }
 
@@ -140,7 +140,7 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
      */
     @Override
     public boolean isGuest() {
-        for (Account userGroup : this.getUserGroups()) {
+        for (final Account userGroup : this.getUserGroups()) {
             if (Advapi32Util.isWellKnownSid(userGroup.sid, WELL_KNOWN_SID_TYPE.WinBuiltinGuestsSid)) {
                 return true;
             }

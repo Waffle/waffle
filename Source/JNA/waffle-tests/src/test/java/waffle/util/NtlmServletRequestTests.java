@@ -26,9 +26,9 @@ public class NtlmServletRequestTests {
     @Test
     public void testGetConnectionId() {
         SimpleHttpRequest.resetRemotePort();
-        SimpleHttpRequest request1 = new SimpleHttpRequest();
+        final SimpleHttpRequest request1 = new SimpleHttpRequest();
         Assert.assertEquals(":1", NtlmServletRequest.getConnectionId(request1));
-        SimpleHttpRequest request2 = new SimpleHttpRequest();
+        final SimpleHttpRequest request2 = new SimpleHttpRequest();
         Assert.assertEquals(":2", NtlmServletRequest.getConnectionId(request2));
         request2.setRemoteAddr("192.168.1.1");
         Assert.assertEquals("192.168.1.1:2", NtlmServletRequest.getConnectionId(request2));

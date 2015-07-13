@@ -69,7 +69,7 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
                 final Object principal = new WaffleFqnPrincipal(identity);
                 authenticationInfo = this.buildAuthenticationInfo(token, principal);
                 AbstractWaffleRealm.LOGGER.debug("Successful login for user {}", username);
-            } catch (RuntimeException e) {
+            } catch (final RuntimeException e) {
                 AbstractWaffleRealm.LOGGER.debug("Failed login for user {}: {}", username, e.getMessage());
                 AbstractWaffleRealm.LOGGER.trace("{}", e);
                 throw new AuthenticationException("Login failed", e);

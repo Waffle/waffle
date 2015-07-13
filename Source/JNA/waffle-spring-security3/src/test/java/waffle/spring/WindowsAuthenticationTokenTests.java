@@ -37,10 +37,10 @@ public class WindowsAuthenticationTokenTests {
 
     @Before
     public void setUp() {
-        List<String> mockGroups = new ArrayList<String>();
+        final List<String> mockGroups = new ArrayList<String>();
         mockGroups.add("group1");
         mockGroups.add("group2");
-        MockWindowsIdentity mockIdentity = new MockWindowsIdentity("localhost\\user1", mockGroups);
+        final MockWindowsIdentity mockIdentity = new MockWindowsIdentity("localhost\\user1", mockGroups);
         this.principal = new WindowsPrincipal(mockIdentity);
         this.token = new WindowsAuthenticationToken(this.principal);
     }
@@ -51,8 +51,8 @@ public class WindowsAuthenticationTokenTests {
         Assert.assertNull(this.token.getDetails());
         Assert.assertTrue(this.token.isAuthenticated());
         Assert.assertEquals("localhost\\user1", this.token.getName());
-        Collection<GrantedAuthority> authorities = this.token.getAuthorities();
-        Iterator<GrantedAuthority> authoritiesIterator = authorities.iterator();
+        final Collection<GrantedAuthority> authorities = this.token.getAuthorities();
+        final Iterator<GrantedAuthority> authoritiesIterator = authorities.iterator();
         Assert.assertEquals(3, authorities.size());
 
         final List<String> list = new ArrayList<String>();
@@ -69,15 +69,15 @@ public class WindowsAuthenticationTokenTests {
     @Test
     public void testCustomGrantedAuthorityFactory() {
 
-        WindowsAuthenticationToken myToken = new WindowsAuthenticationToken(this.principal,
+        final WindowsAuthenticationToken myToken = new WindowsAuthenticationToken(this.principal,
                 new FqnGrantedAuthorityFactory(null, false), null);
 
         Assert.assertNull(myToken.getCredentials());
         Assert.assertNull(myToken.getDetails());
         Assert.assertTrue(myToken.isAuthenticated());
         Assert.assertEquals("localhost\\user1", myToken.getName());
-        Collection<GrantedAuthority> authorities = myToken.getAuthorities();
-        Iterator<GrantedAuthority> authoritiesIterator = authorities.iterator();
+        final Collection<GrantedAuthority> authorities = myToken.getAuthorities();
+        final Iterator<GrantedAuthority> authoritiesIterator = authorities.iterator();
         Assert.assertEquals(2, authorities.size());
 
         final List<String> list = new ArrayList<String>();

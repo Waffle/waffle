@@ -49,10 +49,10 @@ public class WindowsAuthenticationToken implements Authentication {
                                                                                           "ROLE_USER");
 
     /** The principal. */
-    private WindowsPrincipal                    principal;
+    private final WindowsPrincipal                    principal;
     
     /** The authorities. */
-    private Collection<GrantedAuthority>        authorities;
+    private final Collection<GrantedAuthority>        authorities;
 
     /**
      * Convenience constructor that calls
@@ -90,7 +90,7 @@ public class WindowsAuthenticationToken implements Authentication {
         if (defaultGrantedAuthority != null) {
             this.authorities.add(defaultGrantedAuthority);
         }
-        for (WindowsAccount group : this.principal.getGroups().values()) {
+        for (final WindowsAccount group : this.principal.getGroups().values()) {
             this.authorities.add(grantedAuthorityFactory.createGrantedAuthority(group));
         }
     }

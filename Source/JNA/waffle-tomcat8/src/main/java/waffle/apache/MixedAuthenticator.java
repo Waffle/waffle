@@ -172,7 +172,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
                 return false;
             }
 
-        } catch (IOException e) {
+        } catch (final IOException e) {
             this.log.warn("error logging in user: {}", e.getMessage());
             this.log.trace("{}", e);
             this.sendUnauthorized(response);
@@ -231,7 +231,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
         IWindowsIdentity windowsIdentity;
         try {
             windowsIdentity = this.auth.logonUser(username, password);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             this.log.error(e.getMessage());
             this.log.trace("{}", e);
             return false;
@@ -280,11 +280,11 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
             final ServletContext servletContext = this.context.getServletContext();
             final RequestDispatcher disp = servletContext.getRequestDispatcher(url);
             disp.forward(request.getRequest(), response);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             this.log.error(e.getMessage());
             this.log.trace("{}", e);
             throw new RuntimeException(e);
-        } catch (ServletException e) {
+        } catch (final ServletException e) {
             this.log.error(e.getMessage());
             this.log.trace("{}", e);
             throw new RuntimeException(e);

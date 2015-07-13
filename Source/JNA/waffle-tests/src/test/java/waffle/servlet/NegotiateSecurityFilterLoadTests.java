@@ -30,7 +30,7 @@ public class NegotiateSecurityFilterLoadTests {
     @Rule
     public ContiPerfRule                 contiPerfRule = new ContiPerfRule();
 
-    private NegotiateSecurityFilterTests tests         = new NegotiateSecurityFilterTests();
+    private final NegotiateSecurityFilterTests tests         = new NegotiateSecurityFilterTests();
 
     @Before
     public void setUp() throws ServletException {

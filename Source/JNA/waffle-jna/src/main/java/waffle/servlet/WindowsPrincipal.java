@@ -38,22 +38,22 @@ public class WindowsPrincipal implements Principal, Serializable {
     private static final long           serialVersionUID = 1L;
     
     /** The fqn. */
-    private String                      fqn;
+    private final String                      fqn;
     
     /** The sid. */
-    private byte[]                      sid;
+    private final byte[]                      sid;
     
     /** The sid string. */
-    private String                      sidString;
+    private final String                      sidString;
     
     /** The roles. */
-    private List<String>                roles;
+    private final List<String>                roles;
     
     /** The identity. */
     private transient IWindowsIdentity  identity;
     
     /** The groups. */
-    private Map<String, WindowsAccount> groups;
+    private final Map<String, WindowsAccount> groups;
 
     /**
      * A windows principal.
@@ -100,7 +100,7 @@ public class WindowsPrincipal implements Principal, Serializable {
             final PrincipalFormat roleFormat) {
         final List<String> roles = new ArrayList<String>();
         roles.addAll(WindowsPrincipal.getPrincipalNames(windowsIdentity, principalFormat));
-        for (IWindowsAccount group : windowsIdentity.getGroups()) {
+        for (final IWindowsAccount group : windowsIdentity.getGroups()) {
             roles.addAll(WindowsPrincipal.getRoleNames(group, roleFormat));
         }
         return roles;
@@ -115,7 +115,7 @@ public class WindowsPrincipal implements Principal, Serializable {
      */
     private static Map<String, WindowsAccount> getGroups(final IWindowsAccount[] groups) {
         final Map<String, WindowsAccount> groupMap = new HashMap<String, WindowsAccount>();
-        for (IWindowsAccount group : groups) {
+        for (final IWindowsAccount group : groups) {
             groupMap.put(group.getFqn(), new WindowsAccount(group));
         }
         return groupMap;

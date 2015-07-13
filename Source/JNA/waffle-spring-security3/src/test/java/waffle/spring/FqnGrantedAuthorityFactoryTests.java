@@ -32,25 +32,25 @@ public class FqnGrantedAuthorityFactoryTests {
 
     @Test
     public void testPrefixAndUppercase() {
-        FqnGrantedAuthorityFactory factory = new FqnGrantedAuthorityFactory("prefix_", true);
+        final FqnGrantedAuthorityFactory factory = new FqnGrantedAuthorityFactory("prefix_", true);
         Assert.assertEquals(new SimpleGrantedAuthority("PREFIX_GROUP"), factory.createGrantedAuthority(this.group));
     }
 
     @Test
     public void testPrefixAndLowercase() {
-        FqnGrantedAuthorityFactory factory = new FqnGrantedAuthorityFactory("prefix_", false);
+        final FqnGrantedAuthorityFactory factory = new FqnGrantedAuthorityFactory("prefix_", false);
         Assert.assertEquals(new SimpleGrantedAuthority("prefix_group"), factory.createGrantedAuthority(this.group));
     }
 
     @Test
     public void testNoPrefixAndUppercase() {
-        FqnGrantedAuthorityFactory factory = new FqnGrantedAuthorityFactory(null, true);
+        final FqnGrantedAuthorityFactory factory = new FqnGrantedAuthorityFactory(null, true);
         Assert.assertEquals(new SimpleGrantedAuthority("GROUP"), factory.createGrantedAuthority(this.group));
     }
 
     @Test
     public void testNoPrefixAndLowercase() {
-        FqnGrantedAuthorityFactory factory = new FqnGrantedAuthorityFactory(null, false);
+        final FqnGrantedAuthorityFactory factory = new FqnGrantedAuthorityFactory(null, false);
         Assert.assertEquals(new SimpleGrantedAuthority("group"), factory.createGrantedAuthority(this.group));
     }
 

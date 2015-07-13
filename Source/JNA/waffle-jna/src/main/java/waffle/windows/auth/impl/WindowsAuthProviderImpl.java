@@ -51,7 +51,7 @@ import com.sun.jna.ptr.IntByReference;
 public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
 
     /** The continue contexts. */
-    private Cache<String, CtxtHandle> continueContexts;
+    private final Cache<String, CtxtHandle> continueContexts;
 
     /**
      * Instantiates a new windows auth provider impl.
@@ -152,7 +152,7 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
     public IWindowsComputer getCurrentComputer() {
         try {
             return new WindowsComputerImpl(InetAddress.getLocalHost().getHostName());
-        } catch (UnknownHostException e) {
+        } catch (final UnknownHostException e) {
             throw new RuntimeException(e);
         }
     }
@@ -164,7 +164,7 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
     public IWindowsDomain[] getDomains() {
         final List<IWindowsDomain> domains = new ArrayList<IWindowsDomain>();
         final DomainTrust[] trusts = Netapi32Util.getDomainTrusts();
-        for (DomainTrust trust : trusts) {
+        for (final DomainTrust trust : trusts) {
             domains.add(new WindowsDomainImpl(trust));
         }
         return domains.toArray(new IWindowsDomain[0]);

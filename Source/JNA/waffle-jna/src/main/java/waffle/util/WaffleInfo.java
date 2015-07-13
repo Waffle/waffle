@@ -147,7 +147,7 @@ public class WaffleInfo {
         child = doc.createElement("computer");
         node.appendChild(child);
 
-        IWindowsComputer c = auth.getCurrentComputer();
+        final IWindowsComputer c = auth.getCurrentComputer();
         Element value = doc.createElement("computerName");
         value.setTextContent(c.getComputerName());
         child.appendChild(value);
@@ -162,7 +162,7 @@ public class WaffleInfo {
 
         value = doc.createElement("groups");
         Element g;
-        for (String s : c.getGroups()) {
+        for (final String s : c.getGroups()) {
             g = doc.createElement("group");
             g.setTextContent(s);
             value.appendChild(g);
@@ -175,7 +175,7 @@ public class WaffleInfo {
             node.appendChild(child);
 
             Element d;
-            for (IWindowsDomain domain : auth.getDomains()) {
+            for (final IWindowsDomain domain : auth.getDomains()) {
                 d = doc.createElement("domain");
                 node.appendChild(d);
 
@@ -238,7 +238,7 @@ public class WaffleInfo {
         node.setAttribute("name", lookup);
         try {
             this.addAccountInfo(doc, node, auth.lookupAccount(lookup));
-        } catch (Win32Exception ex) {
+        } catch (final Win32Exception ex) {
             node.appendChild(WaffleInfo.getException(doc, ex));
         }
         return node;
@@ -320,7 +320,7 @@ public class WaffleInfo {
         final WaffleInfo helper = new WaffleInfo();
         try {
             final Document info = helper.getWaffleInfo();
-            for (String name : lookup) {
+            for (final String name : lookup) {
                 info.getDocumentElement().appendChild(helper.getLookupInfo(info, name));
             }
 
@@ -333,13 +333,13 @@ public class WaffleInfo {
             } else {
                 WaffleInfo.LOGGER.info(xml);
             }
-        } catch (IOException e) {
+        } catch (final IOException e) {
             WaffleInfo.LOGGER.error(e.getMessage());
             WaffleInfo.LOGGER.trace("{}", e);
-        } catch (TransformerException e) {
+        } catch (final TransformerException e) {
             WaffleInfo.LOGGER.error(e.getMessage());
             WaffleInfo.LOGGER.trace("{}", e);
-        } catch (ParserConfigurationException e) {
+        } catch (final ParserConfigurationException e) {
             WaffleInfo.LOGGER.error(e.getMessage());
             WaffleInfo.LOGGER.trace("{}", e);
         }

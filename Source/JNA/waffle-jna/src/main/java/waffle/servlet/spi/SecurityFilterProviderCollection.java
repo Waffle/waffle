@@ -42,7 +42,7 @@ public class SecurityFilterProviderCollection {
     private static final Logger          LOGGER    = LoggerFactory.getLogger(SecurityFilterProviderCollection.class);
     
     /** The providers. */
-    private List<SecurityFilterProvider> providers = new ArrayList<SecurityFilterProvider>();
+    private final List<SecurityFilterProvider> providers = new ArrayList<SecurityFilterProvider>();
 
     /**
      * Instantiates a new security filter provider collection.
@@ -51,7 +51,7 @@ public class SecurityFilterProviderCollection {
      *            the provider array
      */
     public SecurityFilterProviderCollection(final SecurityFilterProvider[] providerArray) {
-        for (SecurityFilterProvider provider : providerArray) {
+        for (final SecurityFilterProvider provider : providerArray) {
             SecurityFilterProviderCollection.LOGGER.info("using '{}'", provider.getClass().getName());
             this.providers.add(provider);
         }
@@ -133,7 +133,7 @@ public class SecurityFilterProviderCollection {
      * @return the security filter provider
      */
     private SecurityFilterProvider get(final String securityPackage) {
-        for (SecurityFilterProvider provider : this.providers) {
+        for (final SecurityFilterProvider provider : this.providers) {
             if (provider.isSecurityPackageSupported(securityPackage)) {
                 return provider;
             }
@@ -161,7 +161,7 @@ public class SecurityFilterProviderCollection {
         }
         try {
             return provider.doFilter(request, response);
-        } catch (Win32Exception e) {
+        } catch (final Win32Exception e) {
             throw new IOException(e);
         }
     }
@@ -174,7 +174,7 @@ public class SecurityFilterProviderCollection {
      * @return True if authentication is required.
      */
     public boolean isPrincipalException(final HttpServletRequest request) {
-        for (SecurityFilterProvider provider : this.providers) {
+        for (final SecurityFilterProvider provider : this.providers) {
             if (provider.isPrincipalException(request)) {
                 return true;
             }
@@ -189,7 +189,7 @@ public class SecurityFilterProviderCollection {
      *            Http Response
      */
     public void sendUnauthorized(final HttpServletResponse response) {
-        for (SecurityFilterProvider provider : this.providers) {
+        for (final SecurityFilterProvider provider : this.providers) {
             provider.sendUnauthorized(response);
         }
     }
@@ -213,7 +213,7 @@ public class SecurityFilterProviderCollection {
      *             when class not found.
      */
     public SecurityFilterProvider getByClassName(final String name) throws ClassNotFoundException {
-        for (SecurityFilterProvider provider : this.providers) {
+        for (final SecurityFilterProvider provider : this.providers) {
             if (provider.getClass().getName().equals(name)) {
                 return provider;
             }

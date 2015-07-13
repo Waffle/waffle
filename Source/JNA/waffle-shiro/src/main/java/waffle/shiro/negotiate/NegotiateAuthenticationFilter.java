@@ -178,7 +178,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      *            the ae
      */
     protected void setFailureAttribute(final ServletRequest request, final AuthenticationException ae) {
-        String className = ae.getClass().getName();
+        final String className = ae.getClass().getName();
         request.setAttribute(this.getFailureKeyAttribute(), className);
     }
 
@@ -344,7 +344,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         try {
             httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             httpResponse.flushBuffer();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new RuntimeException(e);
         }
     }

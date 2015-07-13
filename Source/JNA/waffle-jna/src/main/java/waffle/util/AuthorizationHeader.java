@@ -25,7 +25,7 @@ import com.google.common.io.BaseEncoding;
 public class AuthorizationHeader {
 
     /** The request. */
-    private HttpServletRequest request;
+    private final HttpServletRequest request;
 
     /**
      * Instantiates a new authorization header.
@@ -100,7 +100,7 @@ public class AuthorizationHeader {
     public byte[] getTokenBytes() {
         try {
             return BaseEncoding.base64().decode(this.getToken());
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             throw new RuntimeException("Invalid authorization header.");
         }
     }

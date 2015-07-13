@@ -45,9 +45,9 @@ public class WindowsLoginModuleTests {
 
     @Test
     public void testInitialize() {
-        Subject subject = new Subject();
-        UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler("", "");
-        Map<String, String> options = new HashMap<String, String>();
+        final Subject subject = new Subject();
+        final UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler("", "");
+        final Map<String, String> options = new HashMap<String, String>();
         options.put("debug", "true");
         this.loginModule.initialize(subject, callbackHandler, null, options);
         Assert.assertTrue(this.loginModule.isDebug());
@@ -62,10 +62,10 @@ public class WindowsLoginModuleTests {
 
     @Test
     public void testLogin() throws LoginException {
-        Subject subject = new Subject();
-        UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
+        final Subject subject = new Subject();
+        final UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
                 WindowsAccountImpl.getCurrentUsername(), "password");
-        Map<String, String> options = new HashMap<String, String>();
+        final Map<String, String> options = new HashMap<String, String>();
         options.put("debug", "true");
         this.loginModule.initialize(subject, callbackHandler, null, options);
         Assert.assertTrue(this.loginModule.login());
@@ -81,17 +81,17 @@ public class WindowsLoginModuleTests {
 
     @Test(expected = LoginException.class)
     public void testNoCallbackHandler() throws LoginException {
-        Subject subject = new Subject();
-        Map<String, String> options = new HashMap<String, String>();
+        final Subject subject = new Subject();
+        final Map<String, String> options = new HashMap<String, String>();
         this.loginModule.initialize(subject, null, null, options);
         this.loginModule.login();
     }
 
     @Test(expected = LoginException.class)
     public void testLoginNoUsername() throws LoginException {
-        Subject subject = new Subject();
-        UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler("", "");
-        Map<String, String> options = new HashMap<String, String>();
+        final Subject subject = new Subject();
+        final UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler("", "");
+        final Map<String, String> options = new HashMap<String, String>();
         options.put("debug", "true");
         this.loginModule.initialize(subject, callbackHandler, null, options);
         Assert.assertFalse(this.loginModule.login());
@@ -100,10 +100,10 @@ public class WindowsLoginModuleTests {
 
     @Test
     public void testRoleFormatNone() throws LoginException {
-        Subject subject = new Subject();
-        UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
+        final Subject subject = new Subject();
+        final UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
                 WindowsAccountImpl.getCurrentUsername(), "password");
-        Map<String, String> options = new HashMap<String, String>();
+        final Map<String, String> options = new HashMap<String, String>();
         options.put("debug", "true");
         options.put("roleFormat", "none");
         this.loginModule.initialize(subject, callbackHandler, null, options);
@@ -114,10 +114,10 @@ public class WindowsLoginModuleTests {
 
     @Test
     public void testRoleFormatBoth() throws LoginException {
-        Subject subject = new Subject();
-        UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
+        final Subject subject = new Subject();
+        final UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
                 WindowsAccountImpl.getCurrentUsername(), "password");
-        Map<String, String> options = new HashMap<String, String>();
+        final Map<String, String> options = new HashMap<String, String>();
         options.put("debug", "true");
         options.put("roleFormat", "both");
         this.loginModule.initialize(subject, callbackHandler, null, options);
@@ -128,10 +128,10 @@ public class WindowsLoginModuleTests {
 
     @Test
     public void testPrincipalFormatBoth() throws LoginException {
-        Subject subject = new Subject();
-        UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
+        final Subject subject = new Subject();
+        final UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
                 WindowsAccountImpl.getCurrentUsername(), "password");
-        Map<String, String> options = new HashMap<String, String>();
+        final Map<String, String> options = new HashMap<String, String>();
         options.put("debug", "true");
         options.put("principalFormat", "both");
         options.put("roleFormat", "none");
@@ -143,17 +143,17 @@ public class WindowsLoginModuleTests {
 
     @Test
     public void testRoleFormatSid() throws LoginException {
-        Subject subject = new Subject();
-        UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
+        final Subject subject = new Subject();
+        final UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
                 WindowsAccountImpl.getCurrentUsername(), "password");
-        Map<String, String> options = new HashMap<String, String>();
+        final Map<String, String> options = new HashMap<String, String>();
         options.put("debug", "true");
         options.put("roleFormat", "sid");
         this.loginModule.initialize(subject, callbackHandler, null, options);
         Assert.assertTrue(this.loginModule.login());
         Assert.assertTrue(this.loginModule.commit());
         Assert.assertEquals(3, subject.getPrincipals().size());
-        Iterator<Principal> principals = subject.getPrincipals().iterator();
+        final Iterator<Principal> principals = subject.getPrincipals().iterator();
         Assert.assertTrue(principals.next().getName().equals(WindowsAccountImpl.getCurrentUsername()));
         Assert.assertTrue(principals.next().getName().startsWith("S-"));
         Assert.assertTrue(principals.next().getName().startsWith("S-"));
@@ -161,13 +161,13 @@ public class WindowsLoginModuleTests {
 
     @Test
     public void testRoleUnique() throws LoginException {
-        Subject subject = new Subject();
+        final Subject subject = new Subject();
         // the mock has an "Everyone" group
-        UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
+        final UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
                 WindowsAccountImpl.getCurrentUsername(), "password");
         this.provider.addGroup("Group 1");
         this.provider.addGroup("Group 1");
-        Map<String, String> options = new HashMap<String, String>();
+        final Map<String, String> options = new HashMap<String, String>();
         options.put("debug", "true");
         this.loginModule.initialize(subject, callbackHandler, null, options);
         Assert.assertTrue(this.loginModule.login());
@@ -177,9 +177,9 @@ public class WindowsLoginModuleTests {
 
     @Test(expected = LoginException.class)
     public void testGuestLogin() throws LoginException {
-        Subject subject = new Subject();
-        UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler("Guest", "password");
-        Map<String, String> options = new HashMap<String, String>();
+        final Subject subject = new Subject();
+        final UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler("Guest", "password");
+        final Map<String, String> options = new HashMap<String, String>();
         options.put("debug", "true");
         this.loginModule.initialize(subject, callbackHandler, null, options);
         Assert.assertTrue(this.loginModule.isAllowGuestLogin());
@@ -196,9 +196,9 @@ public class WindowsLoginModuleTests {
 
     @Test
     public void testAbort() throws LoginException {
-        Subject subject = new Subject();
-        UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler("Guest", "password");
-        Map<String, String> options = new HashMap<String, String>();
+        final Subject subject = new Subject();
+        final UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler("Guest", "password");
+        final Map<String, String> options = new HashMap<String, String>();
         options.put("debug", "true");
         this.loginModule.initialize(subject, callbackHandler, null, options);
         Assert.assertTrue(this.loginModule.login());

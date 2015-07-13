@@ -46,7 +46,7 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
     private int                       status  = 500;
     
     /** The headers. */
-    private Map<String, List<String>> headers = new HashMap<String, List<String>>();
+    private final Map<String, List<String>> headers = new HashMap<String, List<String>>();
 
     /** The bytes. */
     final ByteArrayOutputStream       bytes   = new ByteArrayOutputStream();
@@ -132,8 +132,8 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
     @Override
     public void flushBuffer() {
         SimpleHttpResponse.LOGGER.info("{}: {}", Integer.valueOf(this.status), this.getStatusString());
-        for (String header : this.headers.keySet()) {
-            for (String headerValue : this.headers.get(header)) {
+        for (final String header : this.headers.keySet()) {
+            for (final String headerValue : this.headers.get(header)) {
                 SimpleHttpResponse.LOGGER.info("{}: {}", header, headerValue);
             }
         }
@@ -213,7 +213,7 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
         this.writer.flush();
         try {
             return this.bytes.toString("UTF-8");
-        } catch (UnsupportedEncodingException e) {
+        } catch (final UnsupportedEncodingException e) {
             SimpleHttpResponse.LOGGER.error("{}", e);
         }
         return null;

@@ -30,10 +30,10 @@ import com.sun.jna.platform.win32.Netapi32Util.LocalGroup;
 public class WindowsComputerImpl implements IWindowsComputer {
 
     /** The computer name. */
-    private String computerName;
+    private final String computerName;
     
     /** The domain name. */
-    private String domainName;
+    private final String domainName;
 
     /**
      * Instantiates a new windows computer impl.
@@ -61,7 +61,7 @@ public class WindowsComputerImpl implements IWindowsComputer {
     public String[] getGroups() {
         final List<String> groupNames = new ArrayList<String>();
         final LocalGroup[] groups = Netapi32Util.getLocalGroups(this.computerName);
-        for (LocalGroup group : groups) {
+        for (final LocalGroup group : groups) {
             groupNames.add(group.name);
         }
         return groupNames.toArray(new String[0]);

@@ -35,13 +35,13 @@ import waffle.windows.auth.WindowsAccount;
 public class GenericWindowsPrincipal extends GenericPrincipal {
 
     /** The sid. */
-    private byte[]                      sid;
+    private final byte[]                      sid;
     
     /** The sid string. */
-    private String                      sidString;
+    private final String                      sidString;
     
     /** The groups. */
-    private Map<String, WindowsAccount> groups;
+    private final Map<String, WindowsAccount> groups;
 
     /**
      * A windows principal.
@@ -76,7 +76,7 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
             final PrincipalFormat roleFormat) {
         final List<String> roles = new ArrayList<String>();
         roles.addAll(GenericWindowsPrincipal.getPrincipalNames(windowsIdentity, principalFormat));
-        for (IWindowsAccount group : windowsIdentity.getGroups()) {
+        for (final IWindowsAccount group : windowsIdentity.getGroups()) {
             roles.addAll(GenericWindowsPrincipal.getRoleNames(group, roleFormat));
         }
         return roles;
@@ -91,7 +91,7 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      */
     private static Map<String, WindowsAccount> getGroups(final IWindowsAccount[] groups) {
         final Map<String, WindowsAccount> groupMap = new HashMap<String, WindowsAccount>();
-        for (IWindowsAccount group : groups) {
+        for (final IWindowsAccount group : groups) {
             groupMap.put(group.getFqn(), new WindowsAccount(group));
         }
         return groupMap;

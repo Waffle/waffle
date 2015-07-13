@@ -45,17 +45,17 @@ public class GroupMappingWaffleRealmTests {
 
     @Test
     public void testValidUsernamePassword() {
-        AuthenticationToken token = new UsernamePasswordToken(this.getCurrentUserName(), "somePassword");
-        AuthenticationInfo authcInfo = this.realm.getAuthenticationInfo(token);
-        PrincipalCollection principals = authcInfo.getPrincipals();
+        final AuthenticationToken token = new UsernamePasswordToken(this.getCurrentUserName(), "somePassword");
+        final AuthenticationInfo authcInfo = this.realm.getAuthenticationInfo(token);
+        final PrincipalCollection principals = authcInfo.getPrincipals();
         Assert.assertFalse(principals.isEmpty());
-        Object primaryPrincipal = principals.getPrimaryPrincipal();
+        final Object primaryPrincipal = principals.getPrimaryPrincipal();
         Assert.assertNotNull(primaryPrincipal);
         Assertions.assertThat(primaryPrincipal).isInstanceOf(WaffleFqnPrincipal.class);
-        WaffleFqnPrincipal fqnPrincipal = (WaffleFqnPrincipal) primaryPrincipal;
+        final WaffleFqnPrincipal fqnPrincipal = (WaffleFqnPrincipal) primaryPrincipal;
         Assertions.assertThat(fqnPrincipal.getFqn()).isEqualTo(this.getCurrentUserName());
         Assertions.assertThat(fqnPrincipal.getGroupFqns()).contains("Users", "Everyone");
-        Object credentials = authcInfo.getCredentials();
+        final Object credentials = authcInfo.getCredentials();
         Assertions.assertThat(credentials).isInstanceOf(char[].class);
         Assertions.assertThat(credentials).isEqualTo("somePassword".toCharArray());
         Assert.assertTrue(this.realm.hasRole(principals, GroupMappingWaffleRealmTests.ROLE_NAME));
@@ -63,13 +63,13 @@ public class GroupMappingWaffleRealmTests {
 
     @Test(expected = AuthenticationException.class)
     public void testInvalidUsernamePassword() {
-        AuthenticationToken token = new UsernamePasswordToken("InvalidUser", "somePassword");
+        final AuthenticationToken token = new UsernamePasswordToken("InvalidUser", "somePassword");
         this.realm.getAuthenticationInfo(token);
     }
 
     @Test(expected = AuthenticationException.class)
     public void testGuestUsernamePassword() {
-        AuthenticationToken token = new UsernamePasswordToken("Guest", "somePassword");
+        final AuthenticationToken token = new UsernamePasswordToken("Guest", "somePassword");
         this.realm.getAuthenticationInfo(token);
     }
 

@@ -89,7 +89,7 @@ public class WindowsLoginModule implements LoginModule {
         this.subject = initSubject;
         this.callbackHandler = initCallbackHandler;
 
-        for (Entry<String, ?> option : initOptions.entrySet()) {
+        for (final Entry<String, ?> option : initOptions.entrySet()) {
             if (option.getKey().equalsIgnoreCase("debug")) {
                 this.debug = Boolean.parseBoolean((String) option.getValue());
             } else if (option.getKey().equalsIgnoreCase("principalFormat")) {
@@ -129,10 +129,10 @@ public class WindowsLoginModule implements LoginModule {
             userName = usernameCallback.getName();
             password = passwordCallback.getPassword() == null ? "" : new String(passwordCallback.getPassword());
             passwordCallback.clearPassword();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             WindowsLoginModule.LOGGER.trace("{}", e);
             throw new LoginException(e.toString());
-        } catch (UnsupportedCallbackException e) {
+        } catch (final UnsupportedCallbackException e) {
             WindowsLoginModule.LOGGER.trace("{}", e);
             throw new LoginException(
                     "Callback {} not available to gather authentication information from the user.".replace("{}", e
@@ -142,7 +142,7 @@ public class WindowsLoginModule implements LoginModule {
         IWindowsIdentity windowsIdentity;
         try {
             windowsIdentity = this.auth.logonUser(userName, password);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             WindowsLoginModule.LOGGER.trace("{}", e);
             throw new LoginException(e.getMessage());
         }
@@ -157,7 +157,7 @@ public class WindowsLoginModule implements LoginModule {
             this.principals = new LinkedHashSet<Principal>();
             this.principals.addAll(WindowsLoginModule.getUserPrincipals(windowsIdentity, this.principalFormat));
             if (this.roleFormat != PrincipalFormat.NONE) {
-                for (IWindowsAccount group : windowsIdentity.getGroups()) {
+                for (final IWindowsAccount group : windowsIdentity.getGroups()) {
                     this.principals.addAll(WindowsLoginModule.getRolePrincipals(group, this.roleFormat));
                 }
             }
@@ -205,7 +205,7 @@ public class WindowsLoginModule implements LoginModule {
 
         WindowsLoginModule.LOGGER.debug("committing {} principals", Integer.valueOf(this.subject.getPrincipals().size()));
         if (this.debug) {
-            for (Principal principal : principalsSet) {
+            for (final Principal principal : principalsSet) {
                 WindowsLoginModule.LOGGER.debug(" principal: {}", principal.getName());
             }
         }

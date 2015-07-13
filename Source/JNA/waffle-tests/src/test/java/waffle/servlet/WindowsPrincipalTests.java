@@ -37,22 +37,22 @@ public class WindowsPrincipalTests {
 
     @Before
     public void setUp() {
-        MockWindowsSecurityContext ctx = new MockWindowsSecurityContext("Administrator");
+        final MockWindowsSecurityContext ctx = new MockWindowsSecurityContext("Administrator");
         this.windowsPrincipal = new WindowsPrincipal(ctx.getIdentity());
     }
 
     @Test
     public void testIsSerializable() throws IOException, ClassNotFoundException {
         // serialize
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(out);
+        final ByteArrayOutputStream out = new ByteArrayOutputStream();
+        final ObjectOutputStream oos = new ObjectOutputStream(out);
         oos.writeObject(this.windowsPrincipal);
         oos.close();
         Assertions.assertThat(out.toByteArray().length).isGreaterThan(0);
         // deserialize
-        InputStream in = new ByteArrayInputStream(out.toByteArray());
-        ObjectInputStream ois = new ObjectInputStream(in);
-        WindowsPrincipal copy = (WindowsPrincipal) ois.readObject();
+        final InputStream in = new ByteArrayInputStream(out.toByteArray());
+        final ObjectInputStream ois = new ObjectInputStream(in);
+        final WindowsPrincipal copy = (WindowsPrincipal) ois.readObject();
         // test
         Assert.assertEquals(this.windowsPrincipal.getName(), copy.getName());
         Assert.assertEquals(this.windowsPrincipal.getRolesString(), copy.getRolesString());

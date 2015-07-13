@@ -27,7 +27,7 @@ public class UserPrincipal implements Principal, Serializable {
     private static final long serialVersionUID = 1L;
     
     /** The fqn. */
-    private String            fqn;
+    private final String            fqn;
 
     /**
      * A user principal.

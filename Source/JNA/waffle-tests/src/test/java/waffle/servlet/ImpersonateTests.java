@@ -53,7 +53,7 @@ public class ImpersonateTests {
         this.filter.setAuth(new WindowsAuthProviderImpl());
         try {
             this.filter.init(null);
-        } catch (ServletException e) {
+        } catch (final ServletException e) {
             Assert.fail(e.getMessage());
         }
 
@@ -167,7 +167,7 @@ public class ImpersonateTests {
         private String userName;
 
         @Override
-        public void doFilter(ServletRequest sreq, ServletResponse srep) throws IOException, ServletException {
+        public void doFilter(final ServletRequest sreq, final ServletResponse srep) throws IOException, ServletException {
             this.userName = Advapi32Util.getUserName();
         }
 

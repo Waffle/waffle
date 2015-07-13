@@ -38,7 +38,7 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
     private static final String GUEST  = "Guest";
 
     /** The groups. */
-    private List<String>        groups = new ArrayList<String>();
+    private final List<String>        groups = new ArrayList<String>();
 
     /**
      * Instantiates a new mock windows auth provider.

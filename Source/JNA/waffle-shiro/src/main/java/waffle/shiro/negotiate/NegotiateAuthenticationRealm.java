@@ -83,7 +83,7 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
         try {
             securityContext = this.windowsAuthProvider.acceptSecurityToken(token.getConnectionId(), inToken,
                     token.getSecurityPackage());
-        } catch (Exception e) {
+        } catch (final Exception e) {
             NegotiateAuthenticationRealm.LOGGER.warn("error logging in user: {}", e.getMessage());
             throw new AuthenticationException(e);
         }

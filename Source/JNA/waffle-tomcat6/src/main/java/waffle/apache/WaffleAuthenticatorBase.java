@@ -93,7 +93,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      * @param format
      *            Principal format.
      */
-    public void setPrincipalFormat(String format) {
+    public void setPrincipalFormat(final String format) {
         this.principalFormat = PrincipalFormat.valueOf(format.toUpperCase(Locale.ENGLISH));
         this.log.debug("principal format: {}", this.principalFormat);
     }
@@ -113,7 +113,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      * @param format
      *            Role format.
      */
-    public void setRoleFormat(String format) {
+    public void setRoleFormat(final String format) {
         this.roleFormat = PrincipalFormat.valueOf(format.toUpperCase(Locale.ENGLISH));
         this.log.debug("role format: {}", this.roleFormat);
     }
@@ -178,13 +178,13 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      */
     protected void sendUnauthorized(final Response response) {
         try {
-            for (String protocol : this.protocols) {
+            for (final String protocol : this.protocols) {
                 response.addHeader("WWW-Authenticate", protocol);
             }
             response.setHeader("Connection", "close");
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             response.flushBuffer();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -200,7 +200,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
     protected void sendError(final Response response, final int code) {
         try {
             response.sendError(code);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             this.log.error(e.getMessage());
             this.log.trace("{}", e);
             throw new RuntimeException(e);

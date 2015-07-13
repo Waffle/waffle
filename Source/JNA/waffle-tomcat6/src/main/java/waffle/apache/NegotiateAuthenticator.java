@@ -117,7 +117,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 
                 final byte[] continueTokenBytes = securityContext.getToken();
                 if (continueTokenBytes != null && continueTokenBytes.length > 0) {
-                    String continueToken = BaseEncoding.base64().encode(continueTokenBytes);
+                    final String continueToken = BaseEncoding.base64().encode(continueTokenBytes);
                     this.log.debug("continue token: {}", continueToken);
                     response.addHeader("WWW-Authenticate", securityPackage + " " + continueToken);
                 }
@@ -129,7 +129,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
                     return false;
                 }
 
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 this.log.warn("error logging in user: {}", e.getMessage());
                 this.log.trace("{}", e);
                 this.sendUnauthorized(response);

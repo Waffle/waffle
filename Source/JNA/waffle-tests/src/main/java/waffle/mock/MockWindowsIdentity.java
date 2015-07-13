@@ -28,10 +28,10 @@ import waffle.windows.auth.IWindowsImpersonationContext;
 public class MockWindowsIdentity implements IWindowsIdentity {
 
     /** The fqn. */
-    private String       fqn;
+    private final String       fqn;
     
     /** The groups. */
-    private List<String> groups;
+    private final List<String> groups;
 
     /**
      * Instantiates a new mock windows identity.
@@ -60,7 +60,7 @@ public class MockWindowsIdentity implements IWindowsIdentity {
     @Override
     public IWindowsAccount[] getGroups() {
         final List<MockWindowsAccount> groupsList = new ArrayList<MockWindowsAccount>();
-        for (String group : this.groups) {
+        for (final String group : this.groups) {
             groupsList.add(new MockWindowsAccount(group));
         }
         return groupsList.toArray(new IWindowsAccount[0]);

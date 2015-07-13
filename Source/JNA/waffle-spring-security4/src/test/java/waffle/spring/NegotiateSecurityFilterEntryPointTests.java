@@ -38,7 +38,7 @@ public class NegotiateSecurityFilterEntryPointTests {
 
     @Before
     public void setUp() {
-        String[] configFiles = new String[] { "springTestFilterBeans.xml" };
+        final String[] configFiles = new String[] { "springTestFilterBeans.xml" };
         this.ctx = new ClassPathXmlApplicationContext(configFiles);
         this.entryPoint = (NegotiateSecurityFilterEntryPoint) this.ctx.getBean("negotiateSecurityFilterEntryPoint");
     }
@@ -50,11 +50,11 @@ public class NegotiateSecurityFilterEntryPointTests {
 
     @Test
     public void testChallengeGET() throws IOException, ServletException {
-        SimpleHttpRequest request = new SimpleHttpRequest();
+        final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
-        SimpleHttpResponse response = new SimpleHttpResponse();
+        final SimpleHttpResponse response = new SimpleHttpResponse();
         this.entryPoint.commence(request, response, null);
-        String[] wwwAuthenticates = response.getHeaderValues("WWW-Authenticate");
+        final String[] wwwAuthenticates = response.getHeaderValues("WWW-Authenticate");
         Assert.assertEquals(3, wwwAuthenticates.length);
         Assert.assertEquals("NTLM", wwwAuthenticates[0]);
         Assert.assertEquals("Negotiate", wwwAuthenticates[1]);
@@ -68,9 +68,9 @@ public class NegotiateSecurityFilterEntryPointTests {
     public void testGetSetProvider() throws IOException, ServletException {
         Assert.assertNotNull(this.entryPoint.getProvider());
         this.entryPoint.setProvider(null);
-        SimpleHttpRequest request = new SimpleHttpRequest();
+        final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
-        SimpleHttpResponse response = new SimpleHttpResponse();
+        final SimpleHttpResponse response = new SimpleHttpResponse();
         this.entryPoint.commence(request, response, null);
         Assert.fail("expected ServletException");
     }

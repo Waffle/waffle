@@ -59,7 +59,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
     private List<String>         protocols        = new ArrayList<String>();
     
     /** The auth. */
-    private IWindowsAuthProvider auth;
+    private final IWindowsAuthProvider auth;
 
     /**
      * Instantiates a new negotiate security filter provider.
@@ -141,7 +141,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
         final byte[] continueTokenBytes = securityContext.getToken();
         if (continueTokenBytes != null && continueTokenBytes.length > 0) {
-            String continueToken = BaseEncoding.base64().encode(continueTokenBytes);
+            final String continueToken = BaseEncoding.base64().encode(continueTokenBytes);
             NegotiateSecurityFilterProvider.LOGGER.debug("continue token: {}", continueToken);
             response.addHeader(NegotiateSecurityFilterProvider.WWW_AUTHENTICATE, securityPackage + " " + continueToken);
         }
@@ -164,7 +164,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
      */
     @Override
     public boolean isSecurityPackageSupported(final String securityPackage) {
-        for (String protocol : this.protocols) {
+        for (final String protocol : this.protocols) {
             if (protocol.equalsIgnoreCase(securityPackage)) {
                 return true;
             }
@@ -179,7 +179,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
     public void initParameter(final String parameterName, final String parameterValue) {
         if (parameterName.equals(NegotiateSecurityFilterProvider.PROTOCOLS)) {
             this.protocols = new ArrayList<String>();
-            String[] protocolNames = parameterValue.split("\\s+");
+            final String[] protocolNames = parameterValue.split("\\s+");
             for (String protocolName : protocolNames) {
                 protocolName = protocolName.trim();
                 if (protocolName.length() > 0) {

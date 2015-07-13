@@ -100,7 +100,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
                 if (windowsIdentity == null) {
                     return;
                 }
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 NegotiateSecurityFilter.LOGGER.warn("error logging in user: {}", e.getMessage());
                 NegotiateSecurityFilter.LOGGER.trace("{}", e);
                 this.sendUnauthorized(response, true);
@@ -191,7 +191,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
             }
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             response.flushBuffer();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new RuntimeException(e);
         }
     }

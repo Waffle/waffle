@@ -72,7 +72,7 @@ public class StartEmbeddedJettyValidateNTLMGroup {
 
         try {
             server.start();
-        } catch (Exception e) {
+        } catch (final Exception e) {
             StartEmbeddedJettyValidateNTLMGroup.LOGGER.trace("{}", e);
         }
     }

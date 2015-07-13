@@ -42,7 +42,7 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
     private String               realm  = "BasicSecurityFilterProvider";
     
     /** The auth. */
-    private IWindowsAuthProvider auth;
+    private final IWindowsAuthProvider auth;
 
     /**
      * Instantiates a new basic security filter provider.

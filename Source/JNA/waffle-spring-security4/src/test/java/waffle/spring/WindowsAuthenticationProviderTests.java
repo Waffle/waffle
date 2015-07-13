@@ -46,7 +46,7 @@ public class WindowsAuthenticationProviderTests {
 
     @Before
     public void setUp() {
-        String[] configFiles = new String[] { "springTestAuthBeans.xml" };
+        final String[] configFiles = new String[] { "springTestAuthBeans.xml" };
         this.ctx = new ClassPathXmlApplicationContext(configFiles);
         this.provider = (WindowsAuthenticationProvider) this.ctx.getBean("waffleSpringAuthenticationProvider");
     }
@@ -72,16 +72,16 @@ public class WindowsAuthenticationProviderTests {
 
     @Test
     public void testAuthenticate() {
-        MockWindowsIdentity mockIdentity = new MockWindowsIdentity(WindowsAccountImpl.getCurrentUsername(),
+        final MockWindowsIdentity mockIdentity = new MockWindowsIdentity(WindowsAccountImpl.getCurrentUsername(),
                 new ArrayList<String>());
-        WindowsPrincipal principal = new WindowsPrincipal(mockIdentity);
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(principal,
+        final WindowsPrincipal principal = new WindowsPrincipal(mockIdentity);
+        final UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(principal,
                 "password");
-        Authentication authenticated = this.provider.authenticate(authentication);
+        final Authentication authenticated = this.provider.authenticate(authentication);
         Assert.assertNotNull(authenticated);
         Assert.assertTrue(authenticated.isAuthenticated());
-        Collection<? extends GrantedAuthority> authorities = authenticated.getAuthorities();
-        Iterator<? extends GrantedAuthority> authoritiesIterator = authorities.iterator();
+        final Collection<? extends GrantedAuthority> authorities = authenticated.getAuthorities();
+        final Iterator<? extends GrantedAuthority> authoritiesIterator = authorities.iterator();
         Assert.assertEquals(3, authorities.size());
 
         final List<String> list = new ArrayList<String>();
@@ -100,17 +100,17 @@ public class WindowsAuthenticationProviderTests {
         this.provider.setDefaultGrantedAuthority(null);
         this.provider.setGrantedAuthorityFactory(new FqnGrantedAuthorityFactory(null, false));
 
-        MockWindowsIdentity mockIdentity = new MockWindowsIdentity(WindowsAccountImpl.getCurrentUsername(),
+        final MockWindowsIdentity mockIdentity = new MockWindowsIdentity(WindowsAccountImpl.getCurrentUsername(),
                 new ArrayList<String>());
-        WindowsPrincipal principal = new WindowsPrincipal(mockIdentity);
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(principal,
+        final WindowsPrincipal principal = new WindowsPrincipal(mockIdentity);
+        final UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(principal,
                 "password");
 
-        Authentication authenticated = this.provider.authenticate(authentication);
+        final Authentication authenticated = this.provider.authenticate(authentication);
         Assert.assertNotNull(authenticated);
         Assert.assertTrue(authenticated.isAuthenticated());
-        Collection<? extends GrantedAuthority> authorities = authenticated.getAuthorities();
-        Iterator<? extends GrantedAuthority> authoritiesIterator = authorities.iterator();
+        final Collection<? extends GrantedAuthority> authorities = authenticated.getAuthorities();
+        final Iterator<? extends GrantedAuthority> authoritiesIterator = authorities.iterator();
         Assert.assertEquals(2, authorities.size());
 
         final List<String> list = new ArrayList<String>();
@@ -125,10 +125,10 @@ public class WindowsAuthenticationProviderTests {
 
     @Test(expected = GuestLoginDisabledAuthenticationException.class)
     public void testGuestIsDisabled() {
-        MockWindowsIdentity mockIdentity = new MockWindowsIdentity("Guest", new ArrayList<String>());
+        final MockWindowsIdentity mockIdentity = new MockWindowsIdentity("Guest", new ArrayList<String>());
         this.provider.setAllowGuestLogin(false);
-        WindowsPrincipal principal = new WindowsPrincipal(mockIdentity);
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(principal,
+        final WindowsPrincipal principal = new WindowsPrincipal(mockIdentity);
+        final UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(principal,
                 "password");
         this.provider.authenticate(authentication);
         Assert.fail("expected AuthenticationServiceException");

@@ -57,8 +57,8 @@ public class GroupMappingWaffleRealm extends AbstractWaffleRealm {
      */
     protected Collection<String> getRoleNamesForGroups(final Collection<String> groupNames) {
         final Set<String> roleNames = new HashSet<String>();
-        for (String groupName : groupNames) {
-            String roleName = this.groupRolesMap.get(groupName);
+        for (final String groupName : groupNames) {
+            final String roleName = this.groupRolesMap.get(groupName);
             if (roleName != null) {
                 roleNames.add(roleName);
             }
