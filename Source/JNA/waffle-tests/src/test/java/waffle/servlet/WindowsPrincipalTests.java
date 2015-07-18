@@ -45,9 +45,9 @@ public class WindowsPrincipalTests {
     public void testIsSerializable() throws IOException, ClassNotFoundException {
         // serialize
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
-        final ObjectOutputStream oos = new ObjectOutputStream(out);
-        oos.writeObject(this.windowsPrincipal);
-        oos.close();
+        try (final ObjectOutputStream oos = new ObjectOutputStream(out)) {
+            oos.writeObject(this.windowsPrincipal);
+        }
         Assertions.assertThat(out.toByteArray().length).isGreaterThan(0);
         // deserialize
         final InputStream in = new ByteArrayInputStream(out.toByteArray());

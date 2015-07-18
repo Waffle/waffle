@@ -59,9 +59,9 @@ public class RolePrincipalTests {
     public void testIsSerializable() throws IOException, ClassNotFoundException {
         // serialize
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
-        final ObjectOutputStream oos = new ObjectOutputStream(out);
-        oos.writeObject(this.rolePrincipal);
-        oos.close();
+        try (final ObjectOutputStream oos = new ObjectOutputStream(out)) {
+            oos.writeObject(this.rolePrincipal);
+        }
         Assertions.assertThat(out.toByteArray().length).isGreaterThan(0);
         // deserialize
         final InputStream in = new ByteArrayInputStream(out.toByteArray());
