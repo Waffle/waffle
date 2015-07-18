@@ -56,7 +56,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
     private static final String  NTLM             = "NTLM";
 
     /** The protocols. */
-    private List<String>         protocols        = new ArrayList<String>();
+    private List<String>         protocols        = new ArrayList<>();
     
     /** The auth. */
     private final IWindowsAuthProvider auth;
@@ -178,7 +178,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
     @Override
     public void initParameter(final String parameterName, final String parameterValue) {
         if (parameterName.equals(NegotiateSecurityFilterProvider.PROTOCOLS)) {
-            this.protocols = new ArrayList<String>();
+            this.protocols = new ArrayList<>();
             final String[] protocolNames = parameterValue.split("\\s+");
             for (String protocolName : protocolNames) {
                 protocolName = protocolName.trim();

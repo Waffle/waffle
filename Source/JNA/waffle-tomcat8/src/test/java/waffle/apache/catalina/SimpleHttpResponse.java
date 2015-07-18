@@ -35,13 +35,13 @@ public class SimpleHttpResponse extends Response {
     private static final Logger             LOGGER  = LoggerFactory.getLogger(SimpleHttpResponse.class);
 
     private int                             status  = 500;
-    private final Map<String, List<String>> headers = new HashMap<String, List<String>>();
+    private final Map<String, List<String>> headers = new HashMap<>();
 
     @Override
     public void addHeader(final String headerName, final String headerValue) {
         List<String> current = this.headers.get(headerName);
         if (current == null) {
-            current = new ArrayList<String>();
+            current = new ArrayList<>();
         }
         current.add(headerValue);
         this.headers.put(headerName, current);
@@ -96,7 +96,7 @@ public class SimpleHttpResponse extends Response {
     public void setHeader(final String headerName, final String headerValue) {
         List<String> current = this.headers.get(headerName);
         if (current == null) {
-            current = new ArrayList<String>();
+            current = new ArrayList<>();
         } else {
             current.clear();
         }

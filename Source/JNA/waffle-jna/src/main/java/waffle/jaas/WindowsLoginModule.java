@@ -154,7 +154,7 @@ public class WindowsLoginModule implements LoginModule {
                 throw new LoginException("Guest login disabled");
             }
 
-            this.principals = new LinkedHashSet<Principal>();
+            this.principals = new LinkedHashSet<>();
             this.principals.addAll(WindowsLoginModule.getUserPrincipals(windowsIdentity, this.principalFormat));
             if (this.roleFormat != PrincipalFormat.NONE) {
                 for (final IWindowsAccount group : windowsIdentity.getGroups()) {
@@ -275,7 +275,7 @@ public class WindowsLoginModule implements LoginModule {
     private static List<Principal> getUserPrincipals(final IWindowsIdentity windowsIdentity,
             final PrincipalFormat principalFormat) {
 
-        final List<Principal> principalsList = new ArrayList<Principal>();
+        final List<Principal> principalsList = new ArrayList<>();
         switch (principalFormat) {
             case FQN:
                 principalsList.add(new UserPrincipal(windowsIdentity.getFqn()));
@@ -306,7 +306,7 @@ public class WindowsLoginModule implements LoginModule {
      */
     private static List<Principal> getRolePrincipals(final IWindowsAccount group, final PrincipalFormat principalFormat) {
 
-        final List<Principal> principalsList = new ArrayList<Principal>();
+        final List<Principal> principalsList = new ArrayList<>();
         switch (principalFormat) {
             case FQN:
                 principalsList.add(new RolePrincipal(group.getFqn()));

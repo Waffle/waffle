@@ -30,7 +30,7 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 public class GroupMappingWaffleRealm extends AbstractWaffleRealm {
     
     /** The group roles map. */
-    private final Map<String, String> groupRolesMap = new HashMap<String, String>();
+    private final Map<String, String> groupRolesMap = new HashMap<>();
 
     /**
      * Sets the translation from group names to role names. If not set, the map is empty, resulting in no users getting
@@ -56,7 +56,7 @@ public class GroupMappingWaffleRealm extends AbstractWaffleRealm {
      * @see #setGroupRolesMap
      */
     protected Collection<String> getRoleNamesForGroups(final Collection<String> groupNames) {
-        final Set<String> roleNames = new HashSet<String>();
+        final Set<String> roleNames = new HashSet<>();
         for (final String groupName : groupNames) {
             final String roleName = this.groupRolesMap.get(groupName);
             if (roleName != null) {

@@ -122,7 +122,7 @@ public class StartEmbeddedJettyValidateNTLMGroup {
         }
 
         private List<String> getUsersGroups(final HttpServletRequest request) {
-            final List<String> result = new ArrayList<String>();
+            final List<String> result = new ArrayList<>();
             final Principal principal = request.getUserPrincipal();
             if (principal instanceof WindowsPrincipal) {
                 String groupName;

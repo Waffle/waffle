@@ -42,9 +42,9 @@ public final class NegotiateAuthenticationFilterTest {
 
         int                             errorCode;
 
-        final Map<String, String>       headers      = new HashMap<String, String>();
+        final Map<String, String>       headers      = new HashMap<>();
 
-        final Map<String, List<String>> headersAdded = new HashMap<String, List<String>>();
+        final Map<String, List<String>> headersAdded = new HashMap<>();
 
         int                             sc;
 
@@ -55,7 +55,7 @@ public final class NegotiateAuthenticationFilterTest {
                 return;
             }
 
-            final List<String> values = new ArrayList<String>();
+            final List<String> values = new ArrayList<>();
             values.add(value);
             this.headersAdded.put(name, values);
         }

@@ -84,7 +84,7 @@ public class WindowsAuthenticationProviderTests {
         final Iterator<? extends GrantedAuthority> authoritiesIterator = authorities.iterator();
         Assert.assertEquals(3, authorities.size());
 
-        final List<String> list = new ArrayList<String>();
+        final List<String> list = new ArrayList<>();
         while (authoritiesIterator.hasNext()) {
             list.add(authoritiesIterator.next().getAuthority());
         }
@@ -113,7 +113,7 @@ public class WindowsAuthenticationProviderTests {
         final Iterator<? extends GrantedAuthority> authoritiesIterator = authorities.iterator();
         Assert.assertEquals(2, authorities.size());
 
-        final List<String> list = new ArrayList<String>();
+        final List<String> list = new ArrayList<>();
         while (authoritiesIterator.hasNext()) {
             list.add(authoritiesIterator.next().getAuthority());
         }

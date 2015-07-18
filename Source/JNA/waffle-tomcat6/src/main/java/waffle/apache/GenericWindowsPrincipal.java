@@ -78,7 +78,7 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      */
     private static List<String> getRoles(final IWindowsIdentity windowsIdentity, final PrincipalFormat principalFormat,
             final PrincipalFormat roleFormat) {
-        final List<String> roles = new ArrayList<String>();
+        final List<String> roles = new ArrayList<>();
         roles.addAll(GenericWindowsPrincipal.getPrincipalNames(windowsIdentity, principalFormat));
         for (final IWindowsAccount group : windowsIdentity.getGroups()) {
             roles.addAll(GenericWindowsPrincipal.getRoleNames(group, roleFormat));
@@ -94,7 +94,7 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      * @return the groups
      */
     private static Map<String, WindowsAccount> getGroups(final IWindowsAccount[] groups) {
-        final Map<String, WindowsAccount> groupMap = new HashMap<String, WindowsAccount>();
+        final Map<String, WindowsAccount> groupMap = new HashMap<>();
         for (final IWindowsAccount group : groups) {
             groupMap.put(group.getFqn(), new WindowsAccount(group));
         }
@@ -138,7 +138,7 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      * @return List of role principal objects.
      */
     private static List<String> getRoleNames(final IWindowsAccount group, final PrincipalFormat principalFormat) {
-        final List<String> principals = new ArrayList<String>();
+        final List<String> principals = new ArrayList<>();
         switch (principalFormat) {
             case FQN:
                 principals.add(group.getFqn());
@@ -169,7 +169,7 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      */
     private static List<String> getPrincipalNames(final IWindowsIdentity windowsIdentity,
             final PrincipalFormat principalFormat) {
-        final List<String> principals = new ArrayList<String>();
+        final List<String> principals = new ArrayList<>();
         switch (principalFormat) {
             case FQN:
                 principals.add(windowsIdentity.getFqn());

@@ -42,7 +42,7 @@ public class SecurityFilterProviderCollection {
     private static final Logger          LOGGER    = LoggerFactory.getLogger(SecurityFilterProviderCollection.class);
     
     /** The providers. */
-    private final List<SecurityFilterProvider> providers = new ArrayList<SecurityFilterProvider>();
+    private final List<SecurityFilterProvider> providers = new ArrayList<>();
 
     /**
      * Instantiates a new security filter provider collection.

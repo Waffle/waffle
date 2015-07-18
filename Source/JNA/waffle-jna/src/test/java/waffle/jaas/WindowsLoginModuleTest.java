@@ -82,7 +82,7 @@ public class WindowsLoginModuleTest {
     public void commit_withDebug() throws LoginException {
         this.options.put("debug", "true");
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
-        final Set<Principal> principals = new LinkedHashSet<Principal>();
+        final Set<Principal> principals = new LinkedHashSet<>();
         principals.add(new UserPrincipal("FQN"));
         Deencapsulation.setField(this.loginModule, principals);
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
@@ -94,7 +94,7 @@ public class WindowsLoginModuleTest {
         this.loginModule = new WindowsLoginModule();
         this.subject = new Subject();
         this.callbackHandler = Mockito.mock(CallbackHandler.class);
-        this.options = new HashMap<String, String>();
+        this.options = new HashMap<>();
     }
 
     @Test

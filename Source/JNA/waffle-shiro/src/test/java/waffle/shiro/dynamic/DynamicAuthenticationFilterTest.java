@@ -33,7 +33,7 @@ public class DynamicAuthenticationFilterTest {
 
     private static abstract class MockServletRequest implements ServletRequest {
 
-        private final Map<String, String> parameters = new HashMap<String, String>();
+        private final Map<String, String> parameters = new HashMap<>();
 
         @Override
         public String getParameter(final String name) {

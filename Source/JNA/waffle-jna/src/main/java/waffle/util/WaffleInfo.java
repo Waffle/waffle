@@ -301,7 +301,7 @@ public class WaffleInfo {
      */
     public static void main(final String[] args) {
         boolean show = false;
-        final List<String> lookup = new ArrayList<String>();
+        final List<String> lookup = new ArrayList<>();
         if (args != null) {
             String arg;
             for (int i = 0; i < args.length; i++) {

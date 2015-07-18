@@ -266,7 +266,7 @@ public class NegotiateSecurityFilter implements Filter {
     @SuppressWarnings("unchecked")
     @Override
     public void init(final FilterConfig filterConfig) throws ServletException {
-        final Map<String, String> implParameters = new HashMap<String, String>();
+        final Map<String, String> implParameters = new HashMap<>();
 
         String authProvider = null;
         String[] providerNames = null;

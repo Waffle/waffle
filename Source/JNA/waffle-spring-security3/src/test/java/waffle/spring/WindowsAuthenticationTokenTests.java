@@ -37,7 +37,7 @@ public class WindowsAuthenticationTokenTests {
 
     @Before
     public void setUp() {
-        final List<String> mockGroups = new ArrayList<String>();
+        final List<String> mockGroups = new ArrayList<>();
         mockGroups.add("group1");
         mockGroups.add("group2");
         final MockWindowsIdentity mockIdentity = new MockWindowsIdentity("localhost\\user1", mockGroups);
@@ -55,7 +55,7 @@ public class WindowsAuthenticationTokenTests {
         final Iterator<GrantedAuthority> authoritiesIterator = authorities.iterator();
         Assert.assertEquals(3, authorities.size());
 
-        final List<String> list = new ArrayList<String>();
+        final List<String> list = new ArrayList<>();
         while (authoritiesIterator.hasNext()) {
             list.add(authoritiesIterator.next().getAuthority());
         }
@@ -80,7 +80,7 @@ public class WindowsAuthenticationTokenTests {
         final Iterator<GrantedAuthority> authoritiesIterator = authorities.iterator();
         Assert.assertEquals(2, authorities.size());
 
-        final List<String> list = new ArrayList<String>();
+        final List<String> list = new ArrayList<>();
         while (authoritiesIterator.hasNext()) {
             list.add(authoritiesIterator.next().getAuthority());
         }

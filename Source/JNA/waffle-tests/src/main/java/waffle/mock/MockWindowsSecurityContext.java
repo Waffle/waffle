@@ -40,7 +40,7 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
      *            the username
      */
     public MockWindowsSecurityContext(final String username) {
-        final List<String> groups = new ArrayList<String>();
+        final List<String> groups = new ArrayList<>();
         groups.add("Users");
         groups.add("Everyone");
         this.identity = new MockWindowsIdentity(username, groups);

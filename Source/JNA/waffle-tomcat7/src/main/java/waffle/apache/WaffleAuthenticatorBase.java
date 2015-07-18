@@ -40,7 +40,7 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
     /** The Constant SUPPORTED_PROTOCOLS. */
-    private static final Set<String> SUPPORTED_PROTOCOLS = new LinkedHashSet<String>(Arrays.asList("Negotiate", "NTLM"));
+    private static final Set<String> SUPPORTED_PROTOCOLS = new LinkedHashSet<>(Arrays.asList("Negotiate", "NTLM"));
 
     /** The info. */
     protected String                 info;
@@ -157,7 +157,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      *            Authentication protocols
      */
     public void setProtocols(final String value) {
-        this.protocols = new LinkedHashSet<String>();
+        this.protocols = new LinkedHashSet<>();
         final String[] protocolNames = value.split(",");
         for (String protocolName : protocolNames) {
             protocolName = protocolName.trim();

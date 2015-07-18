@@ -30,7 +30,7 @@ import javax.servlet.http.HttpSessionContext;
 public class SimpleHttpSession implements HttpSession {
 
     /** The attributes. */
-    private final Map<String, Object> attributes = new HashMap<String, Object>();
+    private final Map<String, Object> attributes = new HashMap<>();
 
     /* (non-Javadoc)
      * @see javax.servlet.http.HttpSession#getAttribute(java.lang.String)
