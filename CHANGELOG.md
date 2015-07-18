@@ -3,6 +3,7 @@
 *** Java Requirement now 1.7 ***
 
 * [#226](https://github.com/dblock/waffle/pull/226): Moving base to java 1.7
+* Introduction of diamond operator and try with resources
 
 1.7.x Branch News (on 1.7.4)
 =================
