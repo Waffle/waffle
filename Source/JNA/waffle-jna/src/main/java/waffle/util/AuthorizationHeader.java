@@ -15,6 +15,9 @@ package waffle.util;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.common.io.BaseEncoding;
 
 /**
@@ -23,6 +26,9 @@ import com.google.common.io.BaseEncoding;
  * @author dblock[at]dblock[dot]org
  */
 public class AuthorizationHeader {
+
+    /** The logger. */
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthorizationHeader.class);
 
     /** The request. */
     private final HttpServletRequest request;
@@ -101,6 +107,7 @@ public class AuthorizationHeader {
         try {
             return BaseEncoding.base64().decode(this.getToken());
         } catch (final IllegalArgumentException e) {
+            AuthorizationHeader.LOGGER.debug("{}", e);
             throw new RuntimeException("Invalid authorization header.");
         }
     }
