@@ -276,20 +276,28 @@ public class NegotiateSecurityFilter implements Filter {
                 final String parameterName = parameterNames.nextElement();
                 final String parameterValue = filterConfig.getInitParameter(parameterName);
                 NegotiateSecurityFilter.LOGGER.debug("{}={}", parameterName, parameterValue);
-                if (parameterName.equals("principalFormat")) {
-                    this.principalFormat = PrincipalFormat.valueOf(parameterValue.toUpperCase(Locale.ENGLISH));
-                } else if (parameterName.equals("roleFormat")) {
-                    this.roleFormat = PrincipalFormat.valueOf(parameterValue.toUpperCase(Locale.ENGLISH));
-                } else if (parameterName.equals("allowGuestLogin")) {
-                    this.allowGuestLogin = Boolean.parseBoolean(parameterValue);
-                } else if (parameterName.equals("impersonate")) {
-                    this.impersonate = Boolean.parseBoolean(parameterValue);
-                } else if (parameterName.equals("securityFilterProviders")) {
-                    providerNames = parameterValue.split("\\s+");
-                } else if (parameterName.equals("authProvider")) {
-                    authProvider = parameterValue;
-                } else {
-                    implParameters.put(parameterName, parameterValue);
+                switch (parameterName) {
+                    case "principalFormat":
+                        this.principalFormat = PrincipalFormat.valueOf(parameterValue.toUpperCase(Locale.ENGLISH));
+                        break;
+                    case "roleFormat":
+                        this.roleFormat = PrincipalFormat.valueOf(parameterValue.toUpperCase(Locale.ENGLISH));
+                        break;
+                    case "allowGuestLogin":
+                        this.allowGuestLogin = Boolean.parseBoolean(parameterValue);
+                        break;
+                    case "impersonate":
+                        this.impersonate = Boolean.parseBoolean(parameterValue);
+                        break;
+                    case "securityFilterProviders":
+                        providerNames = parameterValue.split("\\s+");
+                        break;
+                    case "authProvider":
+                        authProvider = parameterValue;
+                        break;
+                    default:
+                        implParameters.put(parameterName, parameterValue);
+                        break;
                 }
             }
         }
