@@ -26,27 +26,42 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
+ * The Class RolePrincipalTests.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class RolePrincipalTests {
 
+    /** The role principal. */
     private RolePrincipal rolePrincipal;
 
+    /**
+     * Equals_other object.
+     */
     @Test
     public void equals_otherObject() {
         Assert.assertNotEquals(this.rolePrincipal, new String());
     }
 
+    /**
+     * Equals_same object.
+     */
     @Test
     public void equals_sameObject() {
         Assert.assertEquals(this.rolePrincipal, this.rolePrincipal);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         this.rolePrincipal = new RolePrincipal("localhost\\Administrator");
     }
 
+    /**
+     * Test equals_ symmetric.
+     */
     @Test
     public void testEquals_Symmetric() {
         final RolePrincipal x = new RolePrincipal("localhost\\Administrator");
@@ -55,6 +70,12 @@ public class RolePrincipalTests {
         Assert.assertEquals(x.hashCode(), y.hashCode());
     }
 
+    /**
+     * Test is serializable.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ClassNotFoundException the class not found exception
+     */
     @Test
     public void testIsSerializable() throws IOException, ClassNotFoundException {
         // serialize

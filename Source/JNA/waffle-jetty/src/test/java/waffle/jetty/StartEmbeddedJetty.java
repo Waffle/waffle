@@ -25,10 +25,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A simple embedded server that lets us run directly within Eclipse
+ * A simple embedded server that lets us run directly within Eclipse.
  */
 public class StartEmbeddedJetty {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory.getLogger(StartEmbeddedJetty.class);
 
     /**

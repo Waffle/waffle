@@ -32,22 +32,35 @@ import com.google.common.base.Joiner;
 import com.google.common.io.BaseEncoding;
 
 /**
+ * The Class NegotiateAuthenticationFilterTest.
+ *
  * @author Dan Rollo Date: 2/14/13 Time: 11:11 PM
  */
 public final class NegotiateAuthenticationFilterTest {
 
+    /**
+     * The Class MockServletResponse.
+     */
     private static abstract class MockServletResponse implements HttpServletResponse {
 
+        /** The is flushed. */
         boolean                         isFlushed;
 
+        /** The error code. */
         int                             errorCode;
 
+        /** The headers. */
         final Map<String, String>       headers      = new HashMap<>();
 
+        /** The headers added. */
         final Map<String, List<String>> headersAdded = new HashMap<>();
 
+        /** The sc. */
         int                             sc;
 
+        /* (non-Javadoc)
+         * @see javax.servlet.http.HttpServletResponse#addHeader(java.lang.String, java.lang.String)
+         */
         @Override
         public void addHeader(final String name, final String value) {
             if (this.headersAdded.containsKey(name)) {
@@ -60,21 +73,33 @@ public final class NegotiateAuthenticationFilterTest {
             this.headersAdded.put(name, values);
         }
 
+        /* (non-Javadoc)
+         * @see javax.servlet.ServletResponse#flushBuffer()
+         */
         @Override
         public void flushBuffer() throws IOException {
             this.isFlushed = true;
         }
 
+        /* (non-Javadoc)
+         * @see javax.servlet.http.HttpServletResponse#sendError(int)
+         */
         @Override
         public void sendError(final int sendError) throws IOException {
             this.errorCode = sendError;
         }
 
+        /* (non-Javadoc)
+         * @see javax.servlet.http.HttpServletResponse#setHeader(java.lang.String, java.lang.String)
+         */
         @Override
         public void setHeader(final String name, final String value) {
             this.headers.put(name, value);
         }
 
+        /* (non-Javadoc)
+         * @see javax.servlet.http.HttpServletResponse#setStatus(int)
+         */
         @Override
         public void setStatus(final int status) {
             this.sc = status;
@@ -82,11 +107,18 @@ public final class NegotiateAuthenticationFilterTest {
 
     }
 
+    /** The neg auth filter. */
     private NegotiateAuthenticationFilter negAuthFilter;
+    
+    /** The response. */
     private MockServletResponse           response;
 
+    /** The out. */
     private byte[]                        out;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         this.negAuthFilter = new NegotiateAuthenticationFilter();
@@ -96,6 +128,9 @@ public final class NegotiateAuthenticationFilterTest {
         Deencapsulation.setField(this.response, "headersAdded", new HashMap<String, String>());
     }
 
+    /**
+     * Test is login attempt.
+     */
     @Test
     public void testIsLoginAttempt() {
         Assert.assertFalse(this.negAuthFilter.isLoginAttempt(""));
@@ -103,6 +138,9 @@ public final class NegotiateAuthenticationFilterTest {
         Assert.assertTrue(this.negAuthFilter.isLoginAttempt("ntlm"));
     }
 
+    /**
+     * Test send challenge during negotiate.
+     */
     @Test
     public void testSendChallengeDuringNegotiate() {
 
@@ -124,6 +162,9 @@ public final class NegotiateAuthenticationFilterTest {
         Assert.assertFalse(this.response.isFlushed);
     }
 
+    /**
+     * Test send challenge initiate negotiate.
+     */
     @Test
     public void testSendChallengeInitiateNegotiate() {
 
@@ -143,6 +184,9 @@ public final class NegotiateAuthenticationFilterTest {
         Assert.assertFalse(this.response.isFlushed);
     }
 
+    /**
+     * Test send challenge on failure.
+     */
     @Test
     public void testSendChallengeOnFailure() {
 

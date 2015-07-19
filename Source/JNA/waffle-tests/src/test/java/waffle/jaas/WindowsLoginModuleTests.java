@@ -30,12 +30,21 @@ import waffle.mock.MockWindowsAuthProvider;
 import waffle.windows.auth.impl.WindowsAccountImpl;
 
 /**
+ * The Class WindowsLoginModuleTests.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsLoginModuleTests {
+    
+    /** The login module. */
     WindowsLoginModule      loginModule;
+    
+    /** The provider. */
     MockWindowsAuthProvider provider;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         this.provider = new MockWindowsAuthProvider();
@@ -43,6 +52,9 @@ public class WindowsLoginModuleTests {
         this.loginModule.setAuth(this.provider);
     }
 
+    /**
+     * Test initialize.
+     */
     @Test
     public void testInitialize() {
         final Subject subject = new Subject();
@@ -53,6 +65,9 @@ public class WindowsLoginModuleTests {
         Assert.assertTrue(this.loginModule.isDebug());
     }
 
+    /**
+     * Test get set auth.
+     */
     @Test
     public void testGetSetAuth() {
         Assert.assertNotNull(this.loginModule.getAuth());
@@ -60,6 +75,11 @@ public class WindowsLoginModuleTests {
         Assert.assertNull(this.loginModule.getAuth());
     }
 
+    /**
+     * Test login.
+     *
+     * @throws LoginException the login exception
+     */
     @Test
     public void testLogin() throws LoginException {
         final Subject subject = new Subject();
@@ -79,6 +99,11 @@ public class WindowsLoginModuleTests {
         Assert.assertSame(Integer.valueOf(subject.getPrincipals().size()), Integer.valueOf(0));
     }
 
+    /**
+     * Test no callback handler.
+     *
+     * @throws LoginException the login exception
+     */
     @Test(expected = LoginException.class)
     public void testNoCallbackHandler() throws LoginException {
         final Subject subject = new Subject();
@@ -87,6 +112,11 @@ public class WindowsLoginModuleTests {
         this.loginModule.login();
     }
 
+    /**
+     * Test login no username.
+     *
+     * @throws LoginException the login exception
+     */
     @Test(expected = LoginException.class)
     public void testLoginNoUsername() throws LoginException {
         final Subject subject = new Subject();
@@ -98,6 +128,11 @@ public class WindowsLoginModuleTests {
         Assert.fail("Expected LoginException");
     }
 
+    /**
+     * Test role format none.
+     *
+     * @throws LoginException the login exception
+     */
     @Test
     public void testRoleFormatNone() throws LoginException {
         final Subject subject = new Subject();
@@ -112,6 +147,11 @@ public class WindowsLoginModuleTests {
         Assert.assertEquals(1, subject.getPrincipals().size());
     }
 
+    /**
+     * Test role format both.
+     *
+     * @throws LoginException the login exception
+     */
     @Test
     public void testRoleFormatBoth() throws LoginException {
         final Subject subject = new Subject();
@@ -126,6 +166,11 @@ public class WindowsLoginModuleTests {
         Assert.assertEquals(5, subject.getPrincipals().size());
     }
 
+    /**
+     * Test principal format both.
+     *
+     * @throws LoginException the login exception
+     */
     @Test
     public void testPrincipalFormatBoth() throws LoginException {
         final Subject subject = new Subject();
@@ -141,6 +186,11 @@ public class WindowsLoginModuleTests {
         Assert.assertEquals(2, subject.getPrincipals().size());
     }
 
+    /**
+     * Test role format sid.
+     *
+     * @throws LoginException the login exception
+     */
     @Test
     public void testRoleFormatSid() throws LoginException {
         final Subject subject = new Subject();
@@ -159,6 +209,11 @@ public class WindowsLoginModuleTests {
         Assert.assertTrue(principals.next().getName().startsWith("S-"));
     }
 
+    /**
+     * Test role unique.
+     *
+     * @throws LoginException the login exception
+     */
     @Test
     public void testRoleUnique() throws LoginException {
         final Subject subject = new Subject();
@@ -175,6 +230,11 @@ public class WindowsLoginModuleTests {
         Assert.assertEquals(4, subject.getPrincipals().size());
     }
 
+    /**
+     * Test guest login.
+     *
+     * @throws LoginException the login exception
+     */
     @Test(expected = LoginException.class)
     public void testGuestLogin() throws LoginException {
         final Subject subject = new Subject();
@@ -194,6 +254,11 @@ public class WindowsLoginModuleTests {
         Assert.fail("expected LoginException");
     }
 
+    /**
+     * Test abort.
+     *
+     * @throws LoginException the login exception
+     */
     @Test
     public void testAbort() throws LoginException {
         final Subject subject = new Subject();

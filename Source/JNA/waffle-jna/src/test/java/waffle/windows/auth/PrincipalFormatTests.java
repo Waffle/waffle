@@ -17,10 +17,15 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
+ * The Class PrincipalFormatTests.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class PrincipalFormatTests {
 
+    /**
+     * Test known.
+     */
     @Test
     public void testKnown() {
         Assert.assertEquals(PrincipalFormat.FQN, PrincipalFormat.valueOf("FQN"));
@@ -30,6 +35,9 @@ public class PrincipalFormatTests {
         Assert.assertEquals(4, PrincipalFormat.values().length);
     }
 
+    /**
+     * Test unknown.
+     */
     @Test(expected = RuntimeException.class)
     public void testUnknown() {
         PrincipalFormat.valueOf("garbage");

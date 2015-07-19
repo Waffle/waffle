@@ -35,14 +35,23 @@ import waffle.windows.auth.WindowsAccount;
  */
 public class WindowsAccountTests {
 
+    /** The mock windows account. */
     private final MockWindowsAccount mockWindowsAccount = new MockWindowsAccount("localhost\\Administrator");
+    
+    /** The windows account. */
     private WindowsAccount           windowsAccount;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         this.windowsAccount = new WindowsAccount(this.mockWindowsAccount);
     }
 
+    /**
+     * Test equals.
+     */
     @Test
     public void testEquals() {
         Assert.assertEquals(this.windowsAccount, new WindowsAccount(this.mockWindowsAccount));
@@ -50,6 +59,12 @@ public class WindowsAccountTests {
         Assert.assertFalse(this.windowsAccount.equals(new WindowsAccount(mockWindowsAccount2)));
     }
 
+    /**
+     * Test is serializable.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ClassNotFoundException the class not found exception
+     */
     @Test
     public void testIsSerializable() throws IOException, ClassNotFoundException {
         // serialize
@@ -70,6 +85,9 @@ public class WindowsAccountTests {
         Assert.assertEquals(this.windowsAccount.getSidString(), copy.getSidString());
     }
 
+    /**
+     * Test properties.
+     */
     @Test
     public void testProperties() {
         Assert.assertEquals("localhost", this.windowsAccount.getDomain());

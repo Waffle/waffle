@@ -31,10 +31,15 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 import com.sun.jna.Platform;
 
 /**
- * Build an info document and check that it has the right values
+ * Build an info document and check that it has the right values.
  */
 public class WaffleInfoTests {
 
+    /**
+     * Test waffle info.
+     *
+     * @throws ParserConfigurationException the parser configuration exception
+     */
     @Test
     public void testWaffleInfo() throws ParserConfigurationException {
         final WaffleInfo helper = new WaffleInfo();

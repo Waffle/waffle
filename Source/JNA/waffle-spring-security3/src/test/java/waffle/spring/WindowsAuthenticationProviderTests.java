@@ -37,13 +37,21 @@ import waffle.windows.auth.PrincipalFormat;
 import waffle.windows.auth.impl.WindowsAccountImpl;
 
 /**
+ * The Class WindowsAuthenticationProviderTests.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsAuthenticationProviderTests {
 
+    /** The provider. */
     private WindowsAuthenticationProvider provider;
+    
+    /** The ctx. */
     private ApplicationContext            ctx;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         final String[] configFiles = new String[] { "springTestAuthBeans.xml" };
@@ -51,11 +59,17 @@ public class WindowsAuthenticationProviderTests {
         this.provider = (WindowsAuthenticationProvider) this.ctx.getBean("waffleSpringAuthenticationProvider");
     }
 
+    /**
+     * Shut down.
+     */
     @After
     public void shutDown() {
         ((AbstractApplicationContext) this.ctx).close();
     }
 
+    /**
+     * Test windows authentication provider.
+     */
     @Test
     public void testWindowsAuthenticationProvider() {
         Assert.assertTrue(this.provider.isAllowGuestLogin());
@@ -64,12 +78,18 @@ public class WindowsAuthenticationProviderTests {
         Assert.assertEquals(PrincipalFormat.BOTH, this.provider.getRoleFormat());
     }
 
+    /**
+     * Test supports.
+     */
     @Test
     public void testSupports() {
         Assert.assertFalse(this.provider.supports(this.getClass()));
         Assert.assertTrue(this.provider.supports(UsernamePasswordAuthenticationToken.class));
     }
 
+    /**
+     * Test authenticate.
+     */
     @Test
     public void testAuthenticate() {
         final MockWindowsIdentity mockIdentity = new MockWindowsIdentity(WindowsAccountImpl.getCurrentUsername(),
@@ -95,6 +115,9 @@ public class WindowsAuthenticationProviderTests {
         Assert.assertTrue(authenticated.getPrincipal() instanceof WindowsPrincipal);
     }
 
+    /**
+     * Test authenticate with custom granted authority factory.
+     */
     @Test
     public void testAuthenticateWithCustomGrantedAuthorityFactory() {
         this.provider.setDefaultGrantedAuthority(null);
@@ -123,6 +146,9 @@ public class WindowsAuthenticationProviderTests {
         Assert.assertTrue(authenticated.getPrincipal() instanceof WindowsPrincipal);
     }
 
+    /**
+     * Test guest is disabled.
+     */
     @Test(expected = GuestLoginDisabledAuthenticationException.class)
     public void testGuestIsDisabled() {
         final MockWindowsIdentity mockIdentity = new MockWindowsIdentity("Guest", new ArrayList<String>());

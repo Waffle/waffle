@@ -25,11 +25,16 @@ import org.apache.catalina.Realm;
  */
 public abstract class SimpleContext implements Context {
 
+    /** The realm. */
     private Realm          realm;
+    
+    /** The servlet context. */
     private ServletContext servletContext;
 
     /**
      * Get Realm Used By Waffle.
+     *
+     * @return the realm
      */
     @Override
     public Realm getRealm() {
@@ -38,12 +43,17 @@ public abstract class SimpleContext implements Context {
 
     /**
      * Get Servlet Context Used By Waffle.
+     *
+     * @return the servlet context
      */
     @Override
     public ServletContext getServletContext() {
         return this.servletContext;
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.catalina.Container#setRealm(org.apache.catalina.Realm)
+     */
     @Override
     public void setRealm(final Realm value) {
         this.realm = value;
@@ -51,6 +61,8 @@ public abstract class SimpleContext implements Context {
 
     /**
      * Set Servlet Context Used By Waffle.
+     *
+     * @param value the new servlet context
      */
     public void setServletContext(final ServletContext value) {
         this.servletContext = value;

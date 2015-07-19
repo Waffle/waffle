@@ -28,13 +28,21 @@ import waffle.mock.MockWindowsIdentity;
 import waffle.servlet.WindowsPrincipal;
 
 /**
+ * The Class WindowsAuthenticationTokenTests.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsAuthenticationTokenTests {
 
+    /** The principal. */
     private WindowsPrincipal           principal;
+    
+    /** The token. */
     private WindowsAuthenticationToken token;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         final List<String> mockGroups = new ArrayList<>();
@@ -45,6 +53,9 @@ public class WindowsAuthenticationTokenTests {
         this.token = new WindowsAuthenticationToken(this.principal);
     }
 
+    /**
+     * Test windows authentication token.
+     */
     @Test
     public void testWindowsAuthenticationToken() {
         Assert.assertNull(this.token.getCredentials());
@@ -66,6 +77,9 @@ public class WindowsAuthenticationTokenTests {
         Assert.assertEquals(this.principal, this.token.getPrincipal());
     }
 
+    /**
+     * Test custom granted authority factory.
+     */
     @Test
     public void testCustomGrantedAuthorityFactory() {
 
@@ -90,6 +104,9 @@ public class WindowsAuthenticationTokenTests {
         Assert.assertEquals(this.principal, myToken.getPrincipal());
     }
 
+    /**
+     * Test authenticated.
+     */
     @Test(expected = IllegalArgumentException.class)
     public void testAuthenticated() {
         Assert.assertTrue(this.token.isAuthenticated());

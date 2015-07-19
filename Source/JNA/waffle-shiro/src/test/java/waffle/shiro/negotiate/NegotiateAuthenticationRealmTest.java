@@ -17,17 +17,26 @@ import junit.framework.TestCase;
 import org.apache.shiro.authc.AuthenticationToken;
 
 /**
+ * The Class NegotiateAuthenticationRealmTest.
+ *
  * @author Dan Rollo Date: 2/14/13 Time: 11:11 PM
  */
 public final class NegotiateAuthenticationRealmTest extends TestCase {
 
+    /** The neg auth realm. */
     private NegotiateAuthenticationRealm negAuthRealm;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         this.negAuthRealm = new NegotiateAuthenticationRealm();
     }
 
+    /**
+     * Test supports.
+     */
     public void testSupports() {
         TestCase.assertFalse("Non-NegotiateToken should not be supported.",
                 this.negAuthRealm.supports(new AuthenticationToken() {

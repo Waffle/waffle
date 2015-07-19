@@ -19,10 +19,15 @@ import org.junit.Test;
 import waffle.windows.auth.impl.WindowsCredentialsHandleImpl;
 
 /**
+ * The Class WindowsCredentialsHandleTests.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsCredentialsHandleTests {
 
+    /**
+     * Test get current.
+     */
     @Test
     public void testGetCurrent() {
         final IWindowsCredentialsHandle handle = WindowsCredentialsHandleImpl.getCurrent("Negotiate");

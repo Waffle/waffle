@@ -22,12 +22,18 @@ import org.slf4j.LoggerFactory;
 import waffle.windows.auth.impl.WindowsAccountImpl;
 
 /**
+ * The Class WindowsAccountTests.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsAccountTests {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory.getLogger(WindowsAccountTests.class);
 
+    /**
+     * Test get current username.
+     */
     @Test
     public void testGetCurrentUsername() {
         final String currentUsername = WindowsAccountImpl.getCurrentUsername();
@@ -35,6 +41,9 @@ public class WindowsAccountTests {
         Assertions.assertThat(currentUsername.length()).isGreaterThan(0);
     }
 
+    /**
+     * Test get current account.
+     */
     @Test
     public void testGetCurrentAccount() {
         final String currentUsername = WindowsAccountImpl.getCurrentUsername();

@@ -21,12 +21,18 @@ import org.junit.Test;
 import waffle.mock.http.SimpleHttpRequest;
 
 /**
+ * The Class AuthorizationHeaderTests.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class AuthorizationHeaderTests {
 
+    /** The Constant DIGEST_HEADER. */
     private static final String DIGEST_HEADER = "Digest username=\"admin\", realm=\"milton\", nonce=\"YjNjZDgxNDYtOGIwMS00NDk0LTlkMTItYzExMGJkNTcxZjli\", uri=\"/case-user-data/431b971d9e1441d381adb277de4f39f8/test\", response=\"30d2d15e89e0b7596325a12852ae6ca5\", qop=auth, nc=00000025, cnonce=\"fb2f97a275d3d9cb\"";
 
+    /**
+     * Test is null.
+     */
     @Test
     public void testIsNull() {
         final SimpleHttpRequest request = new SimpleHttpRequest();
@@ -38,6 +44,9 @@ public class AuthorizationHeaderTests {
         Assert.assertFalse(header.isNull());
     }
 
+    /**
+     * Test get security package.
+     */
     @Test
     public void testGetSecurityPackage() {
         final SimpleHttpRequest request = new SimpleHttpRequest();
@@ -49,6 +58,9 @@ public class AuthorizationHeaderTests {
         Assert.assertEquals("Negotiate", header.getSecurityPackage());
     }
 
+    /**
+     * Test is ntlm type1 message.
+     */
     @Test
     public void testIsNtlmType1Message() {
         final SimpleHttpRequest request = new SimpleHttpRequest();
@@ -60,6 +72,9 @@ public class AuthorizationHeaderTests {
         Assert.assertTrue(header.isNtlmType1Message());
     }
 
+    /**
+     * Test is ntlm type1 post authorization header.
+     */
     @Test
     public void testIsNtlmType1PostAuthorizationHeader() {
         final SimpleHttpRequest request = new SimpleHttpRequest();
@@ -77,6 +92,9 @@ public class AuthorizationHeaderTests {
         Assert.assertTrue(header.isNtlmType1PostAuthorizationHeader());
     }
 
+    /**
+     * Test is sp nego message.
+     */
     @Test
     public void testIsSPNegoMessage() {
         final SimpleHttpRequest request = new SimpleHttpRequest();
@@ -90,6 +108,9 @@ public class AuthorizationHeaderTests {
         Assert.assertTrue(header.isSPNegoMessage());
     }
 
+    /**
+     * Test is sp nego post authorization header.
+     */
     @Test
     public void testIsSPNegoPostAuthorizationHeader() {
         final SimpleHttpRequest request = new SimpleHttpRequest();

@@ -43,8 +43,12 @@ import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
  */
 public class MixedAuthenticatorTests {
 
+    /** The authenticator. */
     private MixedAuthenticator authenticator;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         this.authenticator = new MixedAuthenticator();
@@ -55,11 +59,17 @@ public class MixedAuthenticatorTests {
         this.authenticator.start();
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         this.authenticator.stop();
     }
 
+    /**
+     * Test challenge get.
+     */
     @Test
     public void testChallengeGET() {
         final SimpleHttpRequest request = new SimpleHttpRequest();
@@ -77,6 +87,9 @@ public class MixedAuthenticatorTests {
         Assert.assertEquals(401, response.getStatus());
     }
 
+    /**
+     * Test challenge post.
+     */
     @Test
     public void testChallengePOST() {
         final String securityPackage = "Negotiate";
@@ -114,6 +127,9 @@ public class MixedAuthenticatorTests {
         }
     }
 
+    /**
+     * Test get.
+     */
     @Test
     public void testGet() {
         final LoginConfig loginConfig = new LoginConfig();
@@ -127,11 +143,17 @@ public class MixedAuthenticatorTests {
         Assert.assertEquals(1, response.getHeaderNames().length);
     }
 
+    /**
+     * Test get info.
+     */
     @Test
     public void testGetInfo() {
         Assertions.assertThat(this.authenticator.getInfo().length()).isGreaterThan(0);
     }
 
+    /**
+     * Test negotiate.
+     */
     @Test
     public void testNegotiate() {
         final String securityPackage = "Negotiate";
@@ -187,6 +209,9 @@ public class MixedAuthenticatorTests {
         }
     }
 
+    /**
+     * Test post security check.
+     */
     @Test
     public void testPostSecurityCheck() {
         final LoginConfig loginConfig = new LoginConfig();
@@ -203,6 +228,9 @@ public class MixedAuthenticatorTests {
         Assert.assertEquals(1, response.getHeaderNames().length);
     }
 
+    /**
+     * Test security check parameters.
+     */
     @Test
     public void testSecurityCheckParameters() {
         this.authenticator.setAuth(new MockWindowsAuthProvider());
@@ -217,6 +245,9 @@ public class MixedAuthenticatorTests {
         Assert.assertTrue(this.authenticator.authenticate(request, response, loginConfig));
     }
 
+    /**
+     * Test security check query string.
+     */
     @Test
     public void testSecurityCheckQueryString() {
         this.authenticator.setAuth(new MockWindowsAuthProvider());

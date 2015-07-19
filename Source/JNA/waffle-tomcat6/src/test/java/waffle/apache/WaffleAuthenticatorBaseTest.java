@@ -30,8 +30,12 @@ import org.slf4j.LoggerFactory;
  */
 public class WaffleAuthenticatorBaseTest {
 
+    /** The waffle authenticator base. */
     private WaffleAuthenticatorBase waffleAuthenticatorBase;
 
+    /**
+     * Inits the.
+     */
     @Before
     public void init() {
         this.waffleAuthenticatorBase = new WaffleAuthenticatorBase() {
@@ -47,6 +51,11 @@ public class WaffleAuthenticatorBaseTest {
         };
     }
 
+    /**
+     * Should_accept_both_protocols.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void should_accept_both_protocols() throws Exception {
         this.waffleAuthenticatorBase.setProtocols("  NTLM , , Negotiate   ");
@@ -56,6 +65,11 @@ public class WaffleAuthenticatorBaseTest {
         Assert.assertTrue("Negotiate has been added", this.waffleAuthenticatorBase.protocols.contains("Negotiate"));
     }
 
+    /**
+     * Should_accept_ negotiate_protocol.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void should_accept_Negotiate_protocol() throws Exception {
         this.waffleAuthenticatorBase.setProtocols(" Negotiate  ");
@@ -64,6 +78,11 @@ public class WaffleAuthenticatorBaseTest {
         Assert.assertEquals("Negotiate", this.waffleAuthenticatorBase.protocols.iterator().next());
     }
 
+    /**
+     * Should_accept_ ntl m_protocol.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void should_accept_NTLM_protocol() throws Exception {
         this.waffleAuthenticatorBase.setProtocols("  NTLM ");
@@ -72,6 +91,11 @@ public class WaffleAuthenticatorBaseTest {
         Assert.assertEquals("NTLM", this.waffleAuthenticatorBase.protocols.iterator().next());
     }
 
+    /**
+     * Should_refuse_other_protocol.
+     *
+     * @throws Exception the exception
+     */
     @Test(expected = RuntimeException.class)
     public void should_refuse_other_protocol() throws Exception {
         this.waffleAuthenticatorBase.setProtocols("  NTLM , OTHER, Negotiate   ");

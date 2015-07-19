@@ -34,6 +34,7 @@ import waffle.windows.auth.WindowsAccount;
  */
 public class GenericWindowsPrincipal extends GenericPrincipal {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
     /** The sid. */

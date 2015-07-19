@@ -39,12 +39,18 @@ import com.sun.jna.platform.win32.Sspi;
 import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 
 /**
+ * The Class WindowsAuthProviderTests.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsAuthProviderTests {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory.getLogger(WindowsAuthProviderTests.class);
 
+    /**
+     * Test logon guest user.
+     */
     // TODO This was commented out, uncommented and ignore until I can determine if this is valid
     @Ignore
     @Test
@@ -58,6 +64,9 @@ public class WindowsAuthProviderTests {
         identity.dispose();
     }
 
+    /**
+     * Test logon user.
+     */
     @Test
     public void testLogonUser() {
         final LMAccess.USER_INFO_1 userInfo = new LMAccess.USER_INFO_1();
@@ -78,6 +87,9 @@ public class WindowsAuthProviderTests {
         }
     }
 
+    /**
+     * Test impersonate logged on user.
+     */
     @Test
     public void testImpersonateLoggedOnUser() {
         final LMAccess.USER_INFO_1 userInfo = new LMAccess.USER_INFO_1();
@@ -100,6 +112,9 @@ public class WindowsAuthProviderTests {
         }
     }
 
+    /**
+     * Test get current computer.
+     */
     @Test
     public void testGetCurrentComputer() {
         final IWindowsAuthProvider prov = new WindowsAuthProviderImpl();
@@ -116,6 +131,9 @@ public class WindowsAuthProviderTests {
         }
     }
 
+    /**
+     * Test get domains.
+     */
     @Test
     public void testGetDomains() {
         if (Netapi32Util.getJoinStatus() != LMJoin.NETSETUP_JOIN_STATUS.NetSetupDomainName) {
@@ -130,6 +148,9 @@ public class WindowsAuthProviderTests {
         }
     }
 
+    /**
+     * Test accept security token.
+     */
     @Test
     public void testAcceptSecurityToken() {
         final String securityPackage = "Negotiate";
@@ -190,6 +211,11 @@ public class WindowsAuthProviderTests {
         }
     }
 
+    /**
+     * Test security contexts expire.
+     *
+     * @throws InterruptedException the interrupted exception
+     */
     @Test
     public void testSecurityContextsExpire() throws InterruptedException {
         final String securityPackage = "Negotiate";
@@ -230,6 +256,9 @@ public class WindowsAuthProviderTests {
         }
     }
 
+    /**
+     * Test accept and impersonate security token.
+     */
     @Test
     public void testAcceptAndImpersonateSecurityToken() {
         final String securityPackage = "Negotiate";

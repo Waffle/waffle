@@ -23,25 +23,42 @@ import org.junit.Rule;
 import org.junit.Test;
 
 /**
+ * The Class NegotiateSecurityFilterLoadTests.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class NegotiateSecurityFilterLoadTests {
 
+    /** The conti perf rule. */
     @Rule
     public ContiPerfRule                 contiPerfRule = new ContiPerfRule();
 
+    /** The tests. */
     private final NegotiateSecurityFilterTests tests         = new NegotiateSecurityFilterTests();
 
+    /**
+     * Sets the up.
+     *
+     * @throws ServletException the servlet exception
+     */
     @Before
     public void setUp() throws ServletException {
         this.tests.setUp();
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         this.tests.tearDown();
     }
 
+    /**
+     * Test load.
+     *
+     * @throws Throwable the throwable
+     */
     @Test
     @PerfTest(invocations = 10, threads = 10)
     public void testLoad() throws Throwable {
