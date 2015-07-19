@@ -333,13 +333,7 @@ public class WaffleInfo {
             } else {
                 WaffleInfo.LOGGER.info(xml);
             }
-        } catch (final IOException e) {
-            WaffleInfo.LOGGER.error(e.getMessage());
-            WaffleInfo.LOGGER.trace("{}", e);
-        } catch (final TransformerException e) {
-            WaffleInfo.LOGGER.error(e.getMessage());
-            WaffleInfo.LOGGER.trace("{}", e);
-        } catch (final ParserConfigurationException e) {
+        } catch (final IOException | TransformerException | ParserConfigurationException e) {
             WaffleInfo.LOGGER.error(e.getMessage());
             WaffleInfo.LOGGER.trace("{}", e);
         }

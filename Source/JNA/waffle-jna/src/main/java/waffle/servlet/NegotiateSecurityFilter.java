@@ -297,31 +297,7 @@ public class NegotiateSecurityFilter implements Filter {
         if (authProvider != null) {
             try {
                 this.auth = (IWindowsAuthProvider) Class.forName(authProvider).getConstructor().newInstance();
-            } catch (final ClassNotFoundException e) {
-                NegotiateSecurityFilter.LOGGER.error("error loading '{}': {}", authProvider, e.getMessage());
-                NegotiateSecurityFilter.LOGGER.trace("{}", e);
-                throw new ServletException(e);
-            } catch (final IllegalArgumentException e) {
-                NegotiateSecurityFilter.LOGGER.error("error loading '{}': {}", authProvider, e.getMessage());
-                NegotiateSecurityFilter.LOGGER.trace("{}", e);
-                throw new ServletException(e);
-            } catch (final SecurityException e) {
-                NegotiateSecurityFilter.LOGGER.error("error loading '{}': {}", authProvider, e.getMessage());
-                NegotiateSecurityFilter.LOGGER.trace("{}", e);
-                throw new ServletException(e);
-            } catch (final InstantiationException e) {
-                NegotiateSecurityFilter.LOGGER.error("error loading '{}': {}", authProvider, e.getMessage());
-                NegotiateSecurityFilter.LOGGER.trace("{}", e);
-                throw new ServletException(e);
-            } catch (final IllegalAccessException e) {
-                NegotiateSecurityFilter.LOGGER.error("error loading '{}': {}", authProvider, e.getMessage());
-                NegotiateSecurityFilter.LOGGER.trace("{}", e);
-                throw new ServletException(e);
-            } catch (final InvocationTargetException e) {
-                NegotiateSecurityFilter.LOGGER.error("error loading '{}': {}", authProvider, e.getMessage());
-                NegotiateSecurityFilter.LOGGER.trace("{}", e);
-                throw new ServletException(e);
-            } catch (final NoSuchMethodException e) {
+            } catch (final ClassNotFoundException | IllegalArgumentException | SecurityException | InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                 NegotiateSecurityFilter.LOGGER.error("error loading '{}': {}", authProvider, e.getMessage());
                 NegotiateSecurityFilter.LOGGER.trace("{}", e);
                 throw new ServletException(e);

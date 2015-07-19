@@ -158,10 +158,7 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
             if (this.authenticationSuccessHandler != null) {
                 try {
                     this.authenticationSuccessHandler.onAuthenticationSuccess(request, response, authentication);
-                } catch (final IOException e) {
-                    this.logger.warn("Error calling authenticationSuccessHandler: " + e.getMessage());
-                    return false;
-                } catch (final ServletException e) {
+                } catch (final IOException | ServletException e) {
                     this.logger.warn("Error calling authenticationSuccessHandler: " + e.getMessage());
                     return false;
                 }
