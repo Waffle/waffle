@@ -151,11 +151,6 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
                 return true;
             }
         }
-
-        if (Advapi32Util.isWellKnownSid(this.getSid(), WELL_KNOWN_SID_TYPE.WinAnonymousSid)) {
-            return true;
-        }
-
-        return false;
+        return Advapi32Util.isWellKnownSid(this.getSid(), WELL_KNOWN_SID_TYPE.WinAnonymousSid);
     }
 }
