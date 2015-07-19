@@ -23,13 +23,22 @@ import org.apache.catalina.Valve;
  */
 public abstract class SimplePipeline implements Pipeline {
 
+    /** The valves. */
     private Valve[] valves;
 
+    /* (non-Javadoc)
+     * @see org.apache.catalina.Pipeline#getValves()
+     */
     @Override
     public Valve[] getValves() {
         return this.valves.clone();
     }
 
+    /**
+     * Sets the valves.
+     *
+     * @param value the new valves
+     */
     public void setValves(final Valve[] value) {
         this.valves = value;
     }

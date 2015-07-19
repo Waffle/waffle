@@ -26,27 +26,42 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
+ * The Class UserPrincipalTests.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class UserPrincipalTests {
 
+    /** The user principal. */
     private UserPrincipal userPrincipal;
 
+    /**
+     * Equals_other object.
+     */
     @Test
     public void equals_otherObject() {
         Assert.assertNotEquals(this.userPrincipal, new String());
     }
 
+    /**
+     * Equals_same object.
+     */
     @Test
     public void equals_sameObject() {
         Assert.assertEquals(this.userPrincipal, this.userPrincipal);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         this.userPrincipal = new UserPrincipal("localhost\\Administrator");
     }
 
+    /**
+     * Test equals_ symmetric.
+     */
     @Test
     public void testEquals_Symmetric() {
         final UserPrincipal x = new UserPrincipal("localhost\\Administrator");
@@ -55,13 +70,19 @@ public class UserPrincipalTests {
         Assert.assertEquals(x.hashCode(), y.hashCode());
     }
 
+    /**
+     * Test is serializable.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ClassNotFoundException the class not found exception
+     */
     @Test
     public void testIsSerializable() throws IOException, ClassNotFoundException {
         // serialize
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
-        final ObjectOutputStream oos = new ObjectOutputStream(out);
-        oos.writeObject(this.userPrincipal);
-        oos.close();
+        try (final ObjectOutputStream oos = new ObjectOutputStream(out)) {
+            oos.writeObject(this.userPrincipal);
+        }
         Assertions.assertThat(out.toByteArray().length).isGreaterThan(0);
         // deserialize
         final InputStream in = new ByteArrayInputStream(out.toByteArray());

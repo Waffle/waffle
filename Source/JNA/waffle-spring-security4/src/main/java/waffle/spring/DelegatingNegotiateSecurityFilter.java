@@ -109,11 +109,11 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
     /**
      * Sets the access denied handler.
      *
-     * @param accessDeniedHandler
+     * @param value
      *            the accessDeniedHandler to set
      */
-    public void setAccessDeniedHandler(final AccessDeniedHandler accessDeniedHandler) {
-        this.accessDeniedHandler = accessDeniedHandler;
+    public void setAccessDeniedHandler(final AccessDeniedHandler value) {
+        this.accessDeniedHandler = value;
     }
 
     /**
@@ -128,11 +128,11 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
     /**
      * Sets the authentication failure handler.
      *
-     * @param authenticationFailureHandler
+     * @param value
      *            the authenticationFailureHandler to set
      */
-    public void setAuthenticationFailureHandler(final AuthenticationFailureHandler authenticationFailureHandler) {
-        this.authenticationFailureHandler = authenticationFailureHandler;
+    public void setAuthenticationFailureHandler(final AuthenticationFailureHandler value) {
+        this.authenticationFailureHandler = value;
     }
 
     /**
@@ -158,10 +158,7 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
             if (this.authenticationSuccessHandler != null) {
                 try {
                     this.authenticationSuccessHandler.onAuthenticationSuccess(request, response, authentication);
-                } catch (final IOException e) {
-                    this.logger.warn("Error calling authenticationSuccessHandler: " + e.getMessage());
-                    return false;
-                } catch (final ServletException e) {
+                } catch (final IOException | ServletException e) {
                     this.logger.warn("Error calling authenticationSuccessHandler: " + e.getMessage());
                     return false;
                 }
@@ -254,11 +251,11 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
     /**
      * Sets the authentication success handler.
      *
-     * @param authenticationSuccessHandler
+     * @param value
      *            the authenticationSuccessHandler to set
      */
-    public void setAuthenticationSuccessHandler(final AuthenticationSuccessHandler authenticationSuccessHandler) {
-        this.authenticationSuccessHandler = authenticationSuccessHandler;
+    public void setAuthenticationSuccessHandler(final AuthenticationSuccessHandler value) {
+        this.authenticationSuccessHandler = value;
     }
 
     /**
@@ -273,11 +270,11 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
     /**
      * Sets the authentication manager.
      *
-     * @param authenticationManager
+     * @param value
      *            the authenticationManager to set
      */
-    public void setAuthenticationManager(final AuthenticationManager authenticationManager) {
-        this.authenticationManager = authenticationManager;
+    public void setAuthenticationManager(final AuthenticationManager value) {
+        this.authenticationManager = value;
     }
 
 }

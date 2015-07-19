@@ -29,25 +29,37 @@ import org.junit.Test;
 import waffle.mock.MockWindowsSecurityContext;
 
 /**
+ * The Class WindowsPrincipalTests.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsPrincipalTests {
 
+    /** The windows principal. */
     private WindowsPrincipal windowsPrincipal;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         final MockWindowsSecurityContext ctx = new MockWindowsSecurityContext("Administrator");
         this.windowsPrincipal = new WindowsPrincipal(ctx.getIdentity());
     }
 
+    /**
+     * Test is serializable.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ClassNotFoundException the class not found exception
+     */
     @Test
     public void testIsSerializable() throws IOException, ClassNotFoundException {
         // serialize
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
-        final ObjectOutputStream oos = new ObjectOutputStream(out);
-        oos.writeObject(this.windowsPrincipal);
-        oos.close();
+        try (final ObjectOutputStream oos = new ObjectOutputStream(out)) {
+            oos.writeObject(this.windowsPrincipal);
+        }
         Assertions.assertThat(out.toByteArray().length).isGreaterThan(0);
         // deserialize
         final InputStream in = new ByteArrayInputStream(out.toByteArray());
@@ -60,6 +72,9 @@ public class WindowsPrincipalTests {
         Assert.assertEquals(Boolean.valueOf(Arrays.equals(this.windowsPrincipal.getSid(), copy.getSid())), Boolean.TRUE);
     }
 
+    /**
+     * Test has role.
+     */
     @Test
     public void testHasRole() {
         Assert.assertTrue(this.windowsPrincipal.hasRole("Administrator"));

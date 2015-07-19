@@ -27,19 +27,35 @@ import javax.servlet.ServletResponse;
  */
 public class SimpleFilterChain implements FilterChain {
 
+    /** The request. */
     private ServletRequest  request;
+    
+    /** The response. */
     private ServletResponse response;
 
+    /* (non-Javadoc)
+     * @see javax.servlet.FilterChain#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+     */
     @Override
     public void doFilter(final ServletRequest sreq, final ServletResponse srep) throws IOException, ServletException {
         this.request = sreq;
         this.response = srep;
     }
 
+    /**
+     * Gets the request.
+     *
+     * @return the request
+     */
     public ServletRequest getRequest() {
         return this.request;
     }
 
+    /**
+     * Gets the response.
+     *
+     * @return the response
+     */
     public ServletResponse getResponse() {
         return this.response;
     }

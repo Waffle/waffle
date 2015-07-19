@@ -24,10 +24,13 @@ import org.apache.catalina.Pipeline;
  */
 public abstract class SimpleEngine implements Engine {
 
+    /** The pipeline. */
     private Pipeline pipeline;
 
     /**
      * Return Null Parent for Waffle Tests.
+     *
+     * @return the parent
      */
     @Override
     public Container getParent() {
@@ -36,6 +39,8 @@ public abstract class SimpleEngine implements Engine {
 
     /**
      * Get Pipeline Used By Waffle.
+     *
+     * @return the pipeline
      */
     @Override
     public Pipeline getPipeline() {
@@ -44,8 +49,8 @@ public abstract class SimpleEngine implements Engine {
 
     /**
      * Set Pipeline Used By Waffle.
-     * 
-     * @param value
+     *
+     * @param value the new pipeline
      */
     public void setPipeline(final Pipeline value) {
         this.pipeline = value;

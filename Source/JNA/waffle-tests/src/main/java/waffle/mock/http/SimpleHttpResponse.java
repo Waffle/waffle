@@ -46,7 +46,7 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
     private int                       status  = 500;
     
     /** The headers. */
-    private final Map<String, List<String>> headers = new HashMap<String, List<String>>();
+    private final Map<String, List<String>> headers = new HashMap<>();
 
     /** The bytes. */
     final ByteArrayOutputStream       bytes   = new ByteArrayOutputStream();
@@ -85,7 +85,7 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
     public void addHeader(final String headerName, final String headerValue) {
         List<String> current = this.headers.get(headerName);
         if (current == null) {
-            current = new ArrayList<String>();
+            current = new ArrayList<>();
         }
         current.add(headerValue);
         this.headers.put(headerName, current);
@@ -98,7 +98,7 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
     public void setHeader(final String headerName, final String headerValue) {
         List<String> current = this.headers.get(headerName);
         if (current == null) {
-            current = new ArrayList<String>();
+            current = new ArrayList<>();
         } else {
             current.clear();
         }

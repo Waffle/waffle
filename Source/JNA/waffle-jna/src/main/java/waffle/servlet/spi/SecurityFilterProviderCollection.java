@@ -42,7 +42,7 @@ public class SecurityFilterProviderCollection {
     private static final Logger          LOGGER    = LoggerFactory.getLogger(SecurityFilterProviderCollection.class);
     
     /** The providers. */
-    private final List<SecurityFilterProvider> providers = new ArrayList<SecurityFilterProvider>();
+    private final List<SecurityFilterProvider> providers = new ArrayList<>();
 
     /**
      * Instantiates a new security filter provider collection.
@@ -81,22 +81,7 @@ public class SecurityFilterProviderCollection {
                 SecurityFilterProviderCollection.LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
                 SecurityFilterProviderCollection.LOGGER.trace("{}", e);
                 throw new RuntimeException(e);
-            } catch (final SecurityException e) {
-                SecurityFilterProviderCollection.LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
-                SecurityFilterProviderCollection.LOGGER.trace("{}", e);
-            } catch (final NoSuchMethodException e) {
-                SecurityFilterProviderCollection.LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
-                SecurityFilterProviderCollection.LOGGER.trace("{}", e);
-            } catch (final IllegalArgumentException e) {
-                SecurityFilterProviderCollection.LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
-                SecurityFilterProviderCollection.LOGGER.trace("{}", e);
-            } catch (final InstantiationException e) {
-                SecurityFilterProviderCollection.LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
-                SecurityFilterProviderCollection.LOGGER.trace("{}", e);
-            } catch (final IllegalAccessException e) {
-                SecurityFilterProviderCollection.LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
-                SecurityFilterProviderCollection.LOGGER.trace("{}", e);
-            } catch (final InvocationTargetException e) {
+            } catch (final SecurityException | NoSuchMethodException | IllegalArgumentException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
                 SecurityFilterProviderCollection.LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
                 SecurityFilterProviderCollection.LOGGER.trace("{}", e);
             }

@@ -29,13 +29,21 @@ import waffle.mock.http.SimpleHttpRequest;
 import waffle.mock.http.SimpleHttpResponse;
 
 /**
+ * The Class NegotiateSecurityFilterEntryPointTests.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class NegotiateSecurityFilterEntryPointTests {
 
+    /** The entry point. */
     private NegotiateSecurityFilterEntryPoint entryPoint;
+    
+    /** The ctx. */
     private ApplicationContext                ctx;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         final String[] configFiles = new String[] { "springTestFilterBeans.xml" };
@@ -43,11 +51,20 @@ public class NegotiateSecurityFilterEntryPointTests {
         this.entryPoint = (NegotiateSecurityFilterEntryPoint) this.ctx.getBean("negotiateSecurityFilterEntryPoint");
     }
 
+    /**
+     * Shut down.
+     */
     @After
     public void shutDown() {
         ((AbstractApplicationContext) this.ctx).close();
     }
 
+    /**
+     * Test challenge get.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ServletException the servlet exception
+     */
     @Test
     public void testChallengeGET() throws IOException, ServletException {
         final SimpleHttpRequest request = new SimpleHttpRequest();
@@ -64,6 +81,12 @@ public class NegotiateSecurityFilterEntryPointTests {
         Assert.assertEquals(401, response.getStatus());
     }
 
+    /**
+     * Test get set provider.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ServletException the servlet exception
+     */
     @Test(expected = ServletException.class)
     public void testGetSetProvider() throws IOException, ServletException {
         Assert.assertNotNull(this.entryPoint.getProvider());

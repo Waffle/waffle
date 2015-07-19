@@ -34,7 +34,7 @@ public class SimpleFilterConfig implements FilterConfig {
     private String              filterName = "Simple Filter";
     
     /** The parameters. */
-    private final Map<String, String> parameters = new TreeMap<String, String>();
+    private final Map<String, String> parameters = new TreeMap<>();
 
     /* (non-Javadoc)
      * @see javax.servlet.FilterConfig#getFilterName()
@@ -67,7 +67,7 @@ public class SimpleFilterConfig implements FilterConfig {
      */
     @Override
     public Enumeration<String> getInitParameterNames() {
-        final List<String> keys = new ArrayList<String>();
+        final List<String> keys = new ArrayList<>();
         keys.addAll(this.parameters.keySet());
         return Collections.enumeration(keys);
     }

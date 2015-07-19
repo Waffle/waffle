@@ -41,12 +41,23 @@ import com.sun.jna.platform.win32.LMAccess;
 import com.sun.jna.platform.win32.LMErr;
 import com.sun.jna.platform.win32.Netapi32;
 
+/**
+ * The Class ImpersonateTests.
+ */
 public class ImpersonateTests {
 
+    /** The filter. */
     private NegotiateSecurityFilter filter;
+    
+    /** The user info. */
     private LMAccess.USER_INFO_1    userInfo;
+    
+    /** The result of net add user. */
     private int                     resultOfNetAddUser;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         this.filter = new NegotiateSecurityFilter();
@@ -67,6 +78,9 @@ public class ImpersonateTests {
         Assume.assumeTrue(LMErr.NERR_Success == this.resultOfNetAddUser);
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         this.filter.destroy();
@@ -76,6 +90,12 @@ public class ImpersonateTests {
         }
     }
 
+    /**
+     * Test impersonate enabled.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ServletException the servlet exception
+     */
     @Test
     public void testImpersonateEnabled() throws IOException, ServletException {
 
@@ -119,6 +139,12 @@ public class ImpersonateTests {
         }
     }
 
+    /**
+     * Test impersonate disabled.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ServletException the servlet exception
+     */
     @Test
     public void testImpersonateDisabled() throws IOException, ServletException {
 
@@ -161,16 +187,26 @@ public class ImpersonateTests {
     }
 
     /**
-     * Filter chain that records current username
+     * Filter chain that records current username.
      */
     public static class RecordUserNameFilterChain extends SimpleFilterChain {
+        
+        /** The user name. */
         private String userName;
 
+        /* (non-Javadoc)
+         * @see waffle.mock.http.SimpleFilterChain#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+         */
         @Override
         public void doFilter(final ServletRequest sreq, final ServletResponse srep) throws IOException, ServletException {
             this.userName = Advapi32Util.getUserName();
         }
 
+        /**
+         * Gets the user name.
+         *
+         * @return the user name
+         */
         public String getUserName() {
             return this.userName;
         }

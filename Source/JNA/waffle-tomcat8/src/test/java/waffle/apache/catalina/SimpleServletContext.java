@@ -27,6 +27,9 @@ public abstract class SimpleServletContext implements ServletContext {
 
     /**
      * Get Request Dispatcher used by Waffle.
+     *
+     * @param url the url
+     * @return the request dispatcher
      */
     @Override
     public RequestDispatcher getRequestDispatcher(final String url) {

@@ -43,13 +43,18 @@ import waffle.windows.auth.WindowsAccount;
 /**
  * A simple embedded server that lets us run directly within Eclipse with added group validation
  * 
- * Browse to http://localhost:8080/ to test
- * 
+ * Browse to http://localhost:8080/ to test.
  */
 public class StartEmbeddedJettyValidateNTLMGroup {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(StartEmbeddedJettyValidateNTLMGroup.class);
+    /** The logger. */
+    private static final Logger LOGGER = LoggerFactory.getLogger(StartEmbeddedJettyValidateNTLMGroup.class);
 
+    /**
+     * The main method.
+     *
+     * @param args the arguments
+     */
     public static void main(final String args[]) {
         System.setProperty(SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "TRACE");
 
@@ -77,6 +82,11 @@ public class StartEmbeddedJettyValidateNTLMGroup {
         }
     }
 
+    /**
+     * Sets the filter params.
+     *
+     * @param fh the new filter params
+     */
     private static void setFilterParams(final FilterHolder fh) {
         fh.setInitParameter("principalFormat", "fqn");
         fh.setInitParameter("roleFormat", "both");
@@ -91,12 +101,20 @@ public class StartEmbeddedJettyValidateNTLMGroup {
         fh.setInitParameter("waffle.servlet.spi.BasicSecurityFilterProvider/realm", "SecureServiceRunner");
     }
 
+    /**
+     * The Class InfoServlet.
+     */
     public static class InfoServlet extends HttpServlet {
 
+        /** The Constant serialVersionUID. */
         private static final long   serialVersionUID = 1L;
 
-        private static List<String> authorisedGroups = Arrays.asList("NTGroup1", "NTGroup2");
+        /** The authorised groups. */
+        private static final List<String> authorisedGroups = Arrays.asList("NTGroup1", "NTGroup2");
 
+        /* (non-Javadoc)
+         * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+         */
         @Override
         public void doGet(final HttpServletRequest request, final HttpServletResponse response)
                 throws ServletException, IOException {
@@ -111,18 +129,28 @@ public class StartEmbeddedJettyValidateNTLMGroup {
             }
         }
 
+        /**
+         * Checks if is user authorised.
+         *
+         * @param request the request
+         * @param authorizedGroups the authorized groups
+         * @return true, if is user authorised
+         */
         private boolean isUserAuthorised(final HttpServletRequest request, final List<String> authorizedGroups) {
             final List<String> usersGroups = this.getUsersGroups(request);
 
             final boolean noOverlappingGroups = Collections.disjoint(authorizedGroups, usersGroups);
-            if (!noOverlappingGroups) {
-                return true;
-            }
-            return false;
+            return !noOverlappingGroups;
         }
 
+        /**
+         * Gets the users groups.
+         *
+         * @param request the request
+         * @return the users groups
+         */
         private List<String> getUsersGroups(final HttpServletRequest request) {
-            final List<String> result = new ArrayList<String>();
+            final List<String> result = new ArrayList<>();
             final Principal principal = request.getUserPrincipal();
             if (principal instanceof WindowsPrincipal) {
                 String groupName;
@@ -135,6 +163,13 @@ public class StartEmbeddedJettyValidateNTLMGroup {
             return result;
         }
 
+        /**
+         * Gets the group name.
+         *
+         * @param domain the domain
+         * @param groupString the group string
+         * @return the group name
+         */
         private String getGroupName(final String domain, final String groupString) {
             if (domain == null || groupString == null) {
                 return "";

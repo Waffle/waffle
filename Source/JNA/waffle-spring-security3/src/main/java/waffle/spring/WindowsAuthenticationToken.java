@@ -86,7 +86,7 @@ public class WindowsAuthenticationToken implements Authentication {
             final GrantedAuthorityFactory grantedAuthorityFactory, final GrantedAuthority defaultGrantedAuthority) {
 
         this.principal = identity;
-        this.authorities = new ArrayList<GrantedAuthority>();
+        this.authorities = new ArrayList<>();
         if (defaultGrantedAuthority != null) {
             this.authorities.add(defaultGrantedAuthority);
         }

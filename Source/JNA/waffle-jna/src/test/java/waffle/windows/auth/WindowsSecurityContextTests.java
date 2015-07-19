@@ -21,10 +21,15 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
 import waffle.windows.auth.impl.WindowsSecurityContextImpl;
 
 /**
+ * The Class WindowsSecurityContextTests.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsSecurityContextTests {
 
+    /**
+     * Test negotiate.
+     */
     @Test
     public void testNegotiate() {
         final String securityPackage = "Negotiate";

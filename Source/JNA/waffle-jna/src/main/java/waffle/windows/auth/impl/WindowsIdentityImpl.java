@@ -92,7 +92,7 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
 
         final Account[] groups = this.getUserGroups();
 
-        final List<IWindowsAccount> result = new ArrayList<IWindowsAccount>(groups.length);
+        final List<IWindowsAccount> result = new ArrayList<>(groups.length);
         for (final Account userGroup : groups) {
             final WindowsAccountImpl account = new WindowsAccountImpl(userGroup);
             result.add(account);
@@ -151,11 +151,6 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
                 return true;
             }
         }
-
-        if (Advapi32Util.isWellKnownSid(this.getSid(), WELL_KNOWN_SID_TYPE.WinAnonymousSid)) {
-            return true;
-        }
-
-        return false;
+        return Advapi32Util.isWellKnownSid(this.getSid(), WELL_KNOWN_SID_TYPE.WinAnonymousSid);
     }
 }

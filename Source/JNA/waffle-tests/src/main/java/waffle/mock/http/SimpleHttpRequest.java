@@ -58,10 +58,10 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
     private int                 remotePort  = -1;
     
     /** The headers. */
-    private final Map<String, String> headers     = new HashMap<String, String>();
+    private final Map<String, String> headers     = new HashMap<>();
     
     /** The parameters. */
-    private final Map<String, String> parameters  = new HashMap<String, String>();
+    private final Map<String, String> parameters  = new HashMap<>();
     
     /** The content. */
     private byte[]              content;

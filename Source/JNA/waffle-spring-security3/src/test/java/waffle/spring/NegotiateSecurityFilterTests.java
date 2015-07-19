@@ -46,13 +46,21 @@ import waffle.windows.auth.PrincipalFormat;
 import waffle.windows.auth.impl.WindowsAccountImpl;
 
 /**
+ * The Class NegotiateSecurityFilterTests.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class NegotiateSecurityFilterTests {
 
+    /** The filter. */
     private NegotiateSecurityFilter filter;
+    
+    /** The ctx. */
     private ApplicationContext      ctx;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         final String[] configFiles = new String[] { "springTestFilterBeans.xml" };
@@ -61,11 +69,17 @@ public class NegotiateSecurityFilterTests {
         this.filter = (NegotiateSecurityFilter) this.ctx.getBean("waffleNegotiateSecurityFilter");
     }
 
+    /**
+     * Shut down.
+     */
     @After
     public void shutDown() {
         ((AbstractApplicationContext) this.ctx).close();
     }
 
+    /**
+     * Test filter.
+     */
     @Test
     public void testFilter() {
         Assert.assertFalse(this.filter.isAllowGuestLogin());
@@ -75,6 +89,11 @@ public class NegotiateSecurityFilterTests {
         Assert.assertNotNull(this.filter.getProvider());
     }
 
+    /**
+     * Test provider.
+     *
+     * @throws ClassNotFoundException the class not found exception
+     */
     @Test
     public void testProvider() throws ClassNotFoundException {
         final SecurityFilterProviderCollection provider = this.filter.getProvider();
@@ -83,6 +102,12 @@ public class NegotiateSecurityFilterTests {
         Assert.assertTrue(provider.getByClassName("waffle.servlet.spi.NegotiateSecurityFilterProvider") instanceof NegotiateSecurityFilterProvider);
     }
 
+    /**
+     * Test no challenge get.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ServletException the servlet exception
+     */
     @Test
     public void testNoChallengeGET() throws IOException, ServletException {
         final SimpleHttpRequest request = new SimpleHttpRequest();
@@ -94,6 +119,12 @@ public class NegotiateSecurityFilterTests {
         Assert.assertEquals(500, response.getStatus());
     }
 
+    /**
+     * Test negotiate.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ServletException the servlet exception
+     */
     @Test
     public void testNegotiate() throws IOException, ServletException {
         final String securityPackage = "Negotiate";
@@ -114,7 +145,7 @@ public class NegotiateSecurityFilterTests {
         Assert.assertEquals(3, authorities.size());
         final Iterator<? extends GrantedAuthority> authoritiesIterator = authorities.iterator();
 
-        final List<String> list = new ArrayList<String>();
+        final List<String> list = new ArrayList<>();
         while (authoritiesIterator.hasNext()) {
             list.add(authoritiesIterator.next().getAuthority());
         }
@@ -125,6 +156,12 @@ public class NegotiateSecurityFilterTests {
         Assert.assertEquals(0, response.getHeaderNamesSize());
     }
 
+    /**
+     * Test unsupported security package passthrough.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ServletException the servlet exception
+     */
     @Test
     public void testUnsupportedSecurityPackagePassthrough() throws IOException, ServletException {
         final SimpleFilterChain filterChain = new SimpleFilterChain();
@@ -136,6 +173,12 @@ public class NegotiateSecurityFilterTests {
         Assert.assertEquals(500, response.getStatus());
     }
 
+    /**
+     * Test guest is disabled.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ServletException the servlet exception
+     */
     @Test
     public void testGuestIsDisabled() throws IOException, ServletException {
         final String securityPackage = "Negotiate";
@@ -152,6 +195,11 @@ public class NegotiateSecurityFilterTests {
         Assert.assertNull(SecurityContextHolder.getContext().getAuthentication());
     }
 
+    /**
+     * Test after properties set.
+     *
+     * @throws ServletException the servlet exception
+     */
     @Test(expected = ServletException.class)
     public void testAfterPropertiesSet() throws ServletException {
         this.filter.setProvider(null);

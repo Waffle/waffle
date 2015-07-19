@@ -19,10 +19,17 @@ import org.junit.Test;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
 /**
+ * The Class SecurityFilterProviderCollectionTests.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class SecurityFilterProviderCollectionTests {
 
+    /**
+     * Test default collection.
+     *
+     * @throws ClassNotFoundException the class not found exception
+     */
     @Test
     public void testDefaultCollection() throws ClassNotFoundException {
         final SecurityFilterProviderCollection coll = new SecurityFilterProviderCollection(
@@ -32,6 +39,11 @@ public class SecurityFilterProviderCollectionTests {
         Assert.assertNotNull(coll.getByClassName(BasicSecurityFilterProvider.class.getName()));
     }
 
+    /**
+     * Test get by class name invalid.
+     *
+     * @throws ClassNotFoundException the class not found exception
+     */
     @Test(expected = ClassNotFoundException.class)
     public void testGetByClassNameInvalid() throws ClassNotFoundException {
         final SecurityFilterProviderCollection coll = new SecurityFilterProviderCollection(
@@ -39,6 +51,9 @@ public class SecurityFilterProviderCollectionTests {
         coll.getByClassName("classDoesNotExist");
     }
 
+    /**
+     * Test is security package supported.
+     */
     @Test
     public void testIsSecurityPackageSupported() {
         final SecurityFilterProviderCollection coll = new SecurityFilterProviderCollection(

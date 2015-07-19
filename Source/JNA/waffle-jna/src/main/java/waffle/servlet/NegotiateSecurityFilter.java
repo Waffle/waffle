@@ -150,7 +150,7 @@ public class NegotiateSecurityFilter implements Filter {
                     subject = new Subject();
                 }
 
-                WindowsPrincipal windowsPrincipal = null;
+                WindowsPrincipal windowsPrincipal;
                 if (this.impersonate) {
                     windowsPrincipal = new AutoDisposableWindowsPrincipal(windowsIdentity, this.principalFormat,
                             this.roleFormat);
@@ -266,7 +266,7 @@ public class NegotiateSecurityFilter implements Filter {
     @SuppressWarnings("unchecked")
     @Override
     public void init(final FilterConfig filterConfig) throws ServletException {
-        final Map<String, String> implParameters = new HashMap<String, String>();
+        final Map<String, String> implParameters = new HashMap<>();
 
         String authProvider = null;
         String[] providerNames = null;
@@ -276,20 +276,28 @@ public class NegotiateSecurityFilter implements Filter {
                 final String parameterName = parameterNames.nextElement();
                 final String parameterValue = filterConfig.getInitParameter(parameterName);
                 NegotiateSecurityFilter.LOGGER.debug("{}={}", parameterName, parameterValue);
-                if (parameterName.equals("principalFormat")) {
-                    this.principalFormat = PrincipalFormat.valueOf(parameterValue.toUpperCase(Locale.ENGLISH));
-                } else if (parameterName.equals("roleFormat")) {
-                    this.roleFormat = PrincipalFormat.valueOf(parameterValue.toUpperCase(Locale.ENGLISH));
-                } else if (parameterName.equals("allowGuestLogin")) {
-                    this.allowGuestLogin = Boolean.parseBoolean(parameterValue);
-                } else if (parameterName.equals("impersonate")) {
-                    this.impersonate = Boolean.parseBoolean(parameterValue);
-                } else if (parameterName.equals("securityFilterProviders")) {
-                    providerNames = parameterValue.split("\\s+");
-                } else if (parameterName.equals("authProvider")) {
-                    authProvider = parameterValue;
-                } else {
-                    implParameters.put(parameterName, parameterValue);
+                switch (parameterName) {
+                    case "principalFormat":
+                        this.principalFormat = PrincipalFormat.valueOf(parameterValue.toUpperCase(Locale.ENGLISH));
+                        break;
+                    case "roleFormat":
+                        this.roleFormat = PrincipalFormat.valueOf(parameterValue.toUpperCase(Locale.ENGLISH));
+                        break;
+                    case "allowGuestLogin":
+                        this.allowGuestLogin = Boolean.parseBoolean(parameterValue);
+                        break;
+                    case "impersonate":
+                        this.impersonate = Boolean.parseBoolean(parameterValue);
+                        break;
+                    case "securityFilterProviders":
+                        providerNames = parameterValue.split("\\s+");
+                        break;
+                    case "authProvider":
+                        authProvider = parameterValue;
+                        break;
+                    default:
+                        implParameters.put(parameterName, parameterValue);
+                        break;
                 }
             }
         }
@@ -297,31 +305,7 @@ public class NegotiateSecurityFilter implements Filter {
         if (authProvider != null) {
             try {
                 this.auth = (IWindowsAuthProvider) Class.forName(authProvider).getConstructor().newInstance();
-            } catch (final ClassNotFoundException e) {
-                NegotiateSecurityFilter.LOGGER.error("error loading '{}': {}", authProvider, e.getMessage());
-                NegotiateSecurityFilter.LOGGER.trace("{}", e);
-                throw new ServletException(e);
-            } catch (final IllegalArgumentException e) {
-                NegotiateSecurityFilter.LOGGER.error("error loading '{}': {}", authProvider, e.getMessage());
-                NegotiateSecurityFilter.LOGGER.trace("{}", e);
-                throw new ServletException(e);
-            } catch (final SecurityException e) {
-                NegotiateSecurityFilter.LOGGER.error("error loading '{}': {}", authProvider, e.getMessage());
-                NegotiateSecurityFilter.LOGGER.trace("{}", e);
-                throw new ServletException(e);
-            } catch (final InstantiationException e) {
-                NegotiateSecurityFilter.LOGGER.error("error loading '{}': {}", authProvider, e.getMessage());
-                NegotiateSecurityFilter.LOGGER.trace("{}", e);
-                throw new ServletException(e);
-            } catch (final IllegalAccessException e) {
-                NegotiateSecurityFilter.LOGGER.error("error loading '{}': {}", authProvider, e.getMessage());
-                NegotiateSecurityFilter.LOGGER.trace("{}", e);
-                throw new ServletException(e);
-            } catch (final InvocationTargetException e) {
-                NegotiateSecurityFilter.LOGGER.error("error loading '{}': {}", authProvider, e.getMessage());
-                NegotiateSecurityFilter.LOGGER.trace("{}", e);
-                throw new ServletException(e);
-            } catch (final NoSuchMethodException e) {
+            } catch (final ClassNotFoundException | IllegalArgumentException | SecurityException | InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                 NegotiateSecurityFilter.LOGGER.error("error loading '{}': {}", authProvider, e.getMessage());
                 NegotiateSecurityFilter.LOGGER.trace("{}", e);
                 throw new ServletException(e);

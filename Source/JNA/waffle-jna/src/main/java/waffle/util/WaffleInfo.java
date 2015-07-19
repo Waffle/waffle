@@ -301,18 +301,21 @@ public class WaffleInfo {
      */
     public static void main(final String[] args) {
         boolean show = false;
-        final List<String> lookup = new ArrayList<String>();
+        final List<String> lookup = new ArrayList<>();
         if (args != null) {
             String arg;
             for (int i = 0; i < args.length; i++) {
                 arg = args[i];
-                if ("-show".equals(arg)) {
-                    show = true;
-                } else if ("-lookup".equals(arg)) {
-                    lookup.add(args[++i]);
-                } else {
-                    WaffleInfo.LOGGER.error("Unknown Argument: {}", arg);
-                    throw new RuntimeException("Unknown Argument: " + arg);
+                if (null != arg) switch (arg) {
+                    case "-show":
+                        show = true;
+                        break;
+                    case "-lookup":
+                        lookup.add(args[++i]);
+                        break;
+                    default:
+                        WaffleInfo.LOGGER.error("Unknown Argument: {}", arg);
+                        throw new RuntimeException("Unknown Argument: " + arg);
                 }
             }
         }
@@ -333,13 +336,7 @@ public class WaffleInfo {
             } else {
                 WaffleInfo.LOGGER.info(xml);
             }
-        } catch (final IOException e) {
-            WaffleInfo.LOGGER.error(e.getMessage());
-            WaffleInfo.LOGGER.trace("{}", e);
-        } catch (final TransformerException e) {
-            WaffleInfo.LOGGER.error(e.getMessage());
-            WaffleInfo.LOGGER.trace("{}", e);
-        } catch (final ParserConfigurationException e) {
+        } catch (final IOException | TransformerException | ParserConfigurationException e) {
             WaffleInfo.LOGGER.error(e.getMessage());
             WaffleInfo.LOGGER.trace("{}", e);
         }

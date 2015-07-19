@@ -125,7 +125,7 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
         this.attr = new IntByReference();
         this.ctx = new CtxtHandle();
         int tokenSize = Sspi.MAX_TOKEN_SIZE;
-        int rc = 0;
+        int rc;
         do {
             this.token = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, tokenSize);
             rc = Secur32.INSTANCE.InitializeSecurityContext(this.credentials, continueCtx, targetName,

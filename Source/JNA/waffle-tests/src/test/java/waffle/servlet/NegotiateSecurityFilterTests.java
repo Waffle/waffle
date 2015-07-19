@@ -46,17 +46,26 @@ import com.sun.jna.platform.win32.Sspi;
 import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 
 /**
- * Waffle Tomcat Security Filter Tests
- * 
+ * Waffle Tomcat Security Filter Tests.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class NegotiateSecurityFilterTests {
 
+    /** The Constant NEGOTIATE. */
     private static final String     NEGOTIATE = "Negotiate";
+    
+    /** The Constant NTLM. */
     private static final String     NTLM      = "NTLM";
 
+    /** The filter. */
     private NegotiateSecurityFilter filter;
 
+    /**
+     * Sets the up.
+     *
+     * @throws ServletException the servlet exception
+     */
     @Before
     public void setUp() throws ServletException {
         this.filter = new NegotiateSecurityFilter();
@@ -64,11 +73,20 @@ public class NegotiateSecurityFilterTests {
         this.filter.init(null);
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         this.filter.destroy();
     }
 
+    /**
+     * Test challenge get.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ServletException the servlet exception
+     */
     @Test
     public void testChallengeGET() throws IOException, ServletException {
         final SimpleHttpRequest request = new SimpleHttpRequest();
@@ -85,6 +103,12 @@ public class NegotiateSecurityFilterTests {
         Assert.assertEquals(401, response.getStatus());
     }
 
+    /**
+     * Test challenge post.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ServletException the servlet exception
+     */
     @Test
     public void testChallengePOST() throws IOException, ServletException {
         final String securityPackage = NegotiateSecurityFilterTests.NEGOTIATE;
@@ -121,6 +145,12 @@ public class NegotiateSecurityFilterTests {
         }
     }
 
+    /**
+     * Test negotiate.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ServletException the servlet exception
+     */
     @Test
     public void testNegotiate() throws IOException, ServletException {
         final String securityPackage = NegotiateSecurityFilterTests.NEGOTIATE;
@@ -190,6 +220,12 @@ public class NegotiateSecurityFilterTests {
         }
     }
 
+    /**
+     * Test negotiate previous auth with windows principal.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ServletException the servlet exception
+     */
     @Test
     public void testNegotiatePreviousAuthWithWindowsPrincipal() throws IOException, ServletException {
         final MockWindowsIdentity mockWindowsIdentity = new MockWindowsIdentity("user", new ArrayList<String>());
@@ -205,6 +241,12 @@ public class NegotiateSecurityFilterTests {
         Assert.assertEquals(windowsPrincipal, wrappedRequest.getUserPrincipal());
     }
 
+    /**
+     * Test challenge ntlmpost.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ServletException the servlet exception
+     */
     @Test
     public void testChallengeNTLMPOST() throws IOException, ServletException {
         final MockWindowsIdentity mockWindowsIdentity = new MockWindowsIdentity("user", new ArrayList<String>());
@@ -226,6 +268,12 @@ public class NegotiateSecurityFilterTests {
         Assert.assertEquals(401, response.getStatus());
     }
 
+    /**
+     * Test challenge ntlmput.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ServletException the servlet exception
+     */
     @Test
     public void testChallengeNTLMPUT() throws IOException, ServletException {
         final MockWindowsIdentity mockWindowsIdentity = new MockWindowsIdentity("user", new ArrayList<String>());
@@ -247,6 +295,11 @@ public class NegotiateSecurityFilterTests {
         Assert.assertEquals(401, response.getStatus());
     }
 
+    /**
+     * Test init basic security filter provider.
+     *
+     * @throws ServletException the servlet exception
+     */
     @Test
     public void testInitBasicSecurityFilterProvider() throws ServletException {
         final SimpleFilterConfig filterConfig = new SimpleFilterConfig();
@@ -264,6 +317,11 @@ public class NegotiateSecurityFilterTests {
         Assert.assertTrue(this.filter.getAuth() instanceof MockWindowsAuthProvider);
     }
 
+    /**
+     * Test init two security filter providers.
+     *
+     * @throws ServletException the servlet exception
+     */
     @Test
     public void testInitTwoSecurityFilterProviders() throws ServletException {
         // make sure that providers can be specified separated by any kind of space
@@ -274,6 +332,11 @@ public class NegotiateSecurityFilterTests {
         Assert.assertEquals(3, this.filter.getProviders().size());
     }
 
+    /**
+     * Test init negotiate security filter provider.
+     *
+     * @throws ServletException the servlet exception
+     */
     @Test
     public void testInitNegotiateSecurityFilterProvider() throws ServletException {
         final SimpleFilterConfig filterConfig = new SimpleFilterConfig();
@@ -287,6 +350,9 @@ public class NegotiateSecurityFilterTests {
         Assert.assertEquals(1, this.filter.getProviders().size());
     }
 
+    /**
+     * Test init negotiate security filter provider invalid protocol.
+     */
     @Test
     public void testInitNegotiateSecurityFilterProviderInvalidProtocol() {
         final SimpleFilterConfig filterConfig = new SimpleFilterConfig();
@@ -300,6 +366,9 @@ public class NegotiateSecurityFilterTests {
         }
     }
 
+    /**
+     * Test init invalid parameter.
+     */
     @Test
     public void testInitInvalidParameter() {
         try {
@@ -312,6 +381,9 @@ public class NegotiateSecurityFilterTests {
         }
     }
 
+    /**
+     * Test init invalid class in parameter.
+     */
     @Test
     public void testInitInvalidClassInParameter() {
         try {

@@ -49,10 +49,17 @@ import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
  */
 public class NegotiateAuthenticatorTests {
 
+    /** The Constant LOGGER. */
     private static final Logger    LOGGER = LoggerFactory.getLogger(NegotiateAuthenticatorTests.class);
 
+    /** The authenticator. */
     private NegotiateAuthenticator authenticator;
 
+    /**
+     * Sets the up.
+     *
+     * @throws LifecycleException the lifecycle exception
+     */
     @Before
     public void setUp() throws LifecycleException {
         this.authenticator = new NegotiateAuthenticator();
@@ -72,11 +79,19 @@ public class NegotiateAuthenticatorTests {
         this.authenticator.start();
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws LifecycleException the lifecycle exception
+     */
     @After
     public void tearDown() throws LifecycleException {
         this.authenticator.stop();
     }
 
+    /**
+     * Test allow guest login.
+     */
     @Test
     public void testAllowGuestLogin() {
         Assert.assertTrue(this.authenticator.isAllowGuestLogin());
@@ -84,6 +99,9 @@ public class NegotiateAuthenticatorTests {
         Assert.assertFalse(this.authenticator.isAllowGuestLogin());
     }
 
+    /**
+     * Test challenge get.
+     */
     @Test
     public void testChallengeGET() {
         final SimpleHttpRequest request = new SimpleHttpRequest();
@@ -100,6 +118,9 @@ public class NegotiateAuthenticatorTests {
         Assert.assertEquals(401, response.getStatus());
     }
 
+    /**
+     * Test challenge post.
+     */
     @Test
     public void testChallengePOST() {
         final String securityPackage = "Negotiate";
@@ -136,12 +157,18 @@ public class NegotiateAuthenticatorTests {
         }
     }
 
+    /**
+     * Test get info.
+     */
     @Test
     public void testGetInfo() {
         Assertions.assertThat(this.authenticator.getInfo().length()).isGreaterThan(0);
         Assert.assertTrue(this.authenticator.getAuth() instanceof WindowsAuthProviderImpl);
     }
 
+    /**
+     * Test negotiate.
+     */
     @Test
     public void testNegotiate() {
         final String securityPackage = "Negotiate";
@@ -202,6 +229,9 @@ public class NegotiateAuthenticatorTests {
         }
     }
 
+    /**
+     * Test post empty.
+     */
     @Test
     public void testPOSTEmpty() {
         final String securityPackage = "Negotiate";
@@ -273,6 +303,9 @@ public class NegotiateAuthenticatorTests {
         }
     }
 
+    /**
+     * Test principal format.
+     */
     @Test
     public void testPrincipalFormat() {
         Assert.assertEquals(PrincipalFormat.FQN, this.authenticator.getPrincipalFormat());
@@ -280,6 +313,9 @@ public class NegotiateAuthenticatorTests {
         Assert.assertEquals(PrincipalFormat.BOTH, this.authenticator.getPrincipalFormat());
     }
 
+    /**
+     * Test role format.
+     */
     @Test
     public void testRoleFormat() {
         Assert.assertEquals(PrincipalFormat.FQN, this.authenticator.getRoleFormat());

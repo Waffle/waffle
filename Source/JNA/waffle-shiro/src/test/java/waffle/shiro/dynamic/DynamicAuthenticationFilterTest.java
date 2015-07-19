@@ -27,14 +27,23 @@ import org.mockito.Matchers;
 import org.mockito.Mockito;
 
 /**
+ * The Class DynamicAuthenticationFilterTest.
+ *
  * @author Dan Rollo Date: 2/26/13 Time: 5:47 PM
  */
 public class DynamicAuthenticationFilterTest {
 
+    /**
+     * The Class MockServletRequest.
+     */
     private static abstract class MockServletRequest implements ServletRequest {
 
-        private final Map<String, String> parameters = new HashMap<String, String>();
+        /** The parameters. */
+        private final Map<String, String> parameters = new HashMap<>();
 
+        /* (non-Javadoc)
+         * @see javax.servlet.ServletRequest#getParameter(java.lang.String)
+         */
         @Override
         public String getParameter(final String name) {
             return this.parameters.get(name);
@@ -42,10 +51,15 @@ public class DynamicAuthenticationFilterTest {
 
     }
 
+    /** The dynamic authentication filter. */
     private DynamicAuthenticationFilter dynamicAuthenticationFilter;
 
+    /** The request. */
     private MockServletRequest          request;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         this.dynamicAuthenticationFilter = new DynamicAuthenticationFilter();
@@ -54,6 +68,9 @@ public class DynamicAuthenticationFilterTest {
         Deencapsulation.setField(this.request, new HashMap<String, String>());
     }
 
+    /**
+     * Test is auth type negotiate.
+     */
     @Test
     public void testIsAuthTypeNegotiate() {
         Mockito.when(this.request.getParameter(Matchers.anyString())).thenReturn(null);

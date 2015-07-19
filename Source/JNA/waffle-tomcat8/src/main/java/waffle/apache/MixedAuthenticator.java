@@ -280,11 +280,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
             final ServletContext servletContext = this.context.getServletContext();
             final RequestDispatcher disp = servletContext.getRequestDispatcher(url);
             disp.forward(request.getRequest(), response);
-        } catch (final IOException e) {
-            this.log.error(e.getMessage());
-            this.log.trace("{}", e);
-            throw new RuntimeException(e);
-        } catch (final ServletException e) {
+        } catch (final IOException | ServletException e) {
             this.log.error(e.getMessage());
             this.log.trace("{}", e);
             throw new RuntimeException(e);

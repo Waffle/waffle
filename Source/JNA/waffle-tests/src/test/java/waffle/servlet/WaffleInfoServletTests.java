@@ -35,12 +35,18 @@ import waffle.mock.http.SimpleHttpRequest;
 import waffle.mock.http.SimpleHttpResponse;
 
 /**
- * Test the WaffleInfoServlet
+ * Test the WaffleInfoServlet.
  */
 public class WaffleInfoServletTests {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory.getLogger(WaffleInfoServletTests.class);
 
+    /**
+     * Test get info.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testGetInfo() throws Exception {
         final SimpleHttpRequest request = new SimpleHttpRequest();
@@ -70,6 +76,15 @@ public class WaffleInfoServletTests {
         Assert.assertEquals("hello", child.getNodeName());
     }
 
+    /**
+     * Load xml from string.
+     *
+     * @param xml the xml
+     * @return the document
+     * @throws ParserConfigurationException the parser configuration exception
+     * @throws SAXException the SAX exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     private static Document loadXMLFromString(final String xml) throws ParserConfigurationException, SAXException,
             IOException {
         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();

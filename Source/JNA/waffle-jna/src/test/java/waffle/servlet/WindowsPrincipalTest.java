@@ -21,12 +21,18 @@ import waffle.windows.auth.IWindowsAccount;
 import waffle.windows.auth.IWindowsIdentity;
 
 /**
+ * The Class WindowsPrincipalTest.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsPrincipalTest {
 
+    /** The Constant TEST_FQN. */
     private static final String TEST_FQN = "ACME\\john.smith";
 
+    /**
+     * Test to string.
+     */
     @Test
     public void testToString() {
         final IWindowsIdentity windowsIdentity = Mockito.mock(IWindowsIdentity.class);

@@ -33,7 +33,7 @@ public class WaffleFqnPrincipal implements Serializable {
     private final String      fqn;
     
     /** The group fqns. */
-    private final Set<String> groupFqns        = new HashSet<String>();
+    private final Set<String> groupFqns        = new HashSet<>();
 
     /**
      * Instantiates a new waffle fqn principal.

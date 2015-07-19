@@ -19,10 +19,15 @@ import org.junit.Test;
 import waffle.mock.http.SimpleHttpRequest;
 
 /**
+ * The Class NtlmServletRequestTests.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class NtlmServletRequestTests {
 
+    /**
+     * Test get connection id.
+     */
     @Test
     public void testGetConnectionId() {
         SimpleHttpRequest.resetRemotePort();

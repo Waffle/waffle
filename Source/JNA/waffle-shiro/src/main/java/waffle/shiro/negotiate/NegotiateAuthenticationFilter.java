@@ -62,7 +62,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
     // http://waffle.codeplex.com/discussions/254748
     // setspn -A HTTP/<server-fqdn> <user_tomcat_running_under>
     /** The Constant PROTOCOLS. */
-    private static final List<String> PROTOCOLS           = new ArrayList<String>();
+    private static final List<String> PROTOCOLS           = new ArrayList<>();
 
     /** The failure key attribute. */
     private String                    failureKeyAttribute = FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME;
@@ -326,7 +326,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      *            the out
      */
     void sendChallengeDuringNegotiate(final String protocol, final ServletResponse response, final byte[] out) {
-        final List<String> protocolsList = new ArrayList<String>();
+        final List<String> protocolsList = new ArrayList<>();
         protocolsList.add(protocol);
         this.sendChallenge(protocolsList, response, out);
     }

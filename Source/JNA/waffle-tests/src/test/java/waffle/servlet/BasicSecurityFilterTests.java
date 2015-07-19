@@ -34,14 +34,20 @@ import waffle.mock.MockWindowsAuthProvider;
 import waffle.windows.auth.impl.WindowsAccountImpl;
 
 /**
- * Waffle Tomcat Security Filter Tests
- * 
+ * Waffle Tomcat Security Filter Tests.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class BasicSecurityFilterTests {
 
+    /** The filter. */
     private NegotiateSecurityFilter filter;
 
+    /**
+     * Sets the up.
+     *
+     * @throws ServletException the servlet exception
+     */
     @Before
     public void setUp() throws ServletException {
         this.filter = new NegotiateSecurityFilter();
@@ -49,11 +55,20 @@ public class BasicSecurityFilterTests {
         this.filter.init(null);
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         this.filter.destroy();
     }
 
+    /**
+     * Test basic auth.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ServletException the servlet exception
+     */
     @Test
     public void testBasicAuth() throws IOException, ServletException {
         final SimpleHttpRequest request = new SimpleHttpRequest();

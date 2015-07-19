@@ -23,6 +23,9 @@ import org.junit.Test;
  */
 public class WindowsRealmTests {
 
+    /**
+     * Test properties.
+     */
     @Test
     public void testProperties() {
         final WindowsRealm realm = new WindowsRealm();

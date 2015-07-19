@@ -17,10 +17,15 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
+ * The Class NtlmMessageTests.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class NtlmMessageTests {
 
+    /**
+     * Test is ntlm message.
+     */
     @Test
     public void testIsNtlmMessage() {
         Assert.assertFalse(NtlmMessage.isNtlmMessage(null));
@@ -34,6 +39,9 @@ public class NtlmMessageTests {
         Assert.assertFalse(NtlmMessage.isNtlmMessage(badMessage));
     }
 
+    /**
+     * Test get ntlm message type.
+     */
     @Test
     public void testGetNtlmMessageType() {
         final byte[] ntlmMessageType1 = { 0x4e, 0x54, 0x4c, 0x4d, 0x53, 0x53, 0x50, 0x00, 0x01, 0x00, 0x00, 0x00, 0x02,
