@@ -150,7 +150,7 @@ public class NegotiateSecurityFilter implements Filter {
                     subject = new Subject();
                 }
 
-                WindowsPrincipal windowsPrincipal = null;
+                WindowsPrincipal windowsPrincipal;
                 if (this.impersonate) {
                     windowsPrincipal = new AutoDisposableWindowsPrincipal(windowsIdentity, this.principalFormat,
                             this.roleFormat);
