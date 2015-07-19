@@ -48,7 +48,7 @@ import waffle.windows.auth.WindowsAccount;
 public class StartEmbeddedJettyValidateNTLMGroup {
 
     /** The logger. */
-    private static Logger LOGGER = LoggerFactory.getLogger(StartEmbeddedJettyValidateNTLMGroup.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(StartEmbeddedJettyValidateNTLMGroup.class);
 
     /**
      * The main method.
@@ -110,7 +110,7 @@ public class StartEmbeddedJettyValidateNTLMGroup {
         private static final long   serialVersionUID = 1L;
 
         /** The authorised groups. */
-        private static List<String> authorisedGroups = Arrays.asList("NTGroup1", "NTGroup2");
+        private static final List<String> authorisedGroups = Arrays.asList("NTGroup1", "NTGroup2");
 
         /* (non-Javadoc)
          * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -140,10 +140,7 @@ public class StartEmbeddedJettyValidateNTLMGroup {
             final List<String> usersGroups = this.getUsersGroups(request);
 
             final boolean noOverlappingGroups = Collections.disjoint(authorizedGroups, usersGroups);
-            if (!noOverlappingGroups) {
-                return true;
-            }
-            return false;
+            return !noOverlappingGroups;
         }
 
         /**
