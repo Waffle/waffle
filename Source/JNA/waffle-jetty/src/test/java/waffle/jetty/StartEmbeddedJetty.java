@@ -29,8 +29,16 @@ import org.slf4j.LoggerFactory;
  */
 public class StartEmbeddedJetty {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(StartEmbeddedJetty.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(StartEmbeddedJetty.class);
 
+    /**
+     * Main method.
+     * 
+     * @param args
+     *          input arguments to main.
+     * @throws Exception 
+     *          Exception thrown.
+     */
     public static void main(final String[] args) throws Exception {
         final String path = "../waffle-demo/waffle-filter";
 
