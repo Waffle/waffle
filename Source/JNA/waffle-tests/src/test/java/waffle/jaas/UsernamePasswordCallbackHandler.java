@@ -35,15 +35,15 @@ public class UsernamePasswordCallbackHandler implements CallbackHandler {
 
     @Override
     public void handle(final Callback[] cb) throws IOException, UnsupportedCallbackException {
-        for (int i = 0; i < cb.length; i++) {
-            if (cb[i] instanceof NameCallback) {
-                final NameCallback nc = (NameCallback) cb[i];
+        for (Callback cb1 : cb) {
+            if (cb1 instanceof NameCallback) {
+                final NameCallback nc = (NameCallback) cb1;
                 nc.setName(this.username);
-            } else if (cb[i] instanceof PasswordCallback) {
-                final PasswordCallback pc = (PasswordCallback) cb[i];
+            } else if (cb1 instanceof PasswordCallback) {
+                final PasswordCallback pc = (PasswordCallback) cb1;
                 pc.setPassword(this.password.toCharArray());
             } else {
-                throw new UnsupportedCallbackException(cb[i], "UsernamePasswordCallbackHandler");
+                throw new UnsupportedCallbackException(cb1, "UsernamePasswordCallbackHandler");
             }
         }
     }
