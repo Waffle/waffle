@@ -19,13 +19,13 @@ package waffle.windows.auth;
  * @author dblock[at]dblock[dot]org
  */
 public enum PrincipalFormat {
-    
+
     /** The fqn. */
-    FQN, 
- /** The sid. */
- SID, 
- /** The both. */
- BOTH, 
- /** The none. */
- NONE;
+    FQN,
+    /** The sid. */
+    SID,
+    /** The both. */
+    BOTH,
+    /** The none. */
+    NONE;
 }

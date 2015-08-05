@@ -18,6 +18,6 @@ package waffle.jetty;
  */
 public class DummyClass {
 
-    // Dummy class to prevent javadoc build issues.  Eventually there will be jetty code.  This ensures no empty javadoc.
+    // Dummy class to prevent javadoc build issues. Eventually there will be jetty code. This ensures no empty javadoc.
 
 }

@@ -54,33 +54,36 @@ public class WindowsLoginModule implements LoginModule {
 
     /** The username. */
     private String               username;
-    
+
     /** The debug. */
     private boolean              debug;
-    
+
     /** The subject. */
     private Subject              subject;
-    
+
     /** The callback handler. */
     private CallbackHandler      callbackHandler;
-    
+
     /** The auth. */
     private IWindowsAuthProvider auth            = new WindowsAuthProviderImpl();
-    
+
     /** The principals. */
     private Set<Principal>       principals;
-    
+
     /** The principal format. */
     private PrincipalFormat      principalFormat = PrincipalFormat.FQN;
-    
+
     /** The role format. */
     private PrincipalFormat      roleFormat      = PrincipalFormat.FQN;
-    
+
     /** The allow guest login. */
     private boolean              allowGuestLogin = true;
 
-    /* (non-Javadoc)
-     * @see javax.security.auth.spi.LoginModule#initialize(javax.security.auth.Subject, javax.security.auth.callback.CallbackHandler, java.util.Map, java.util.Map)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.security.auth.spi.LoginModule#initialize(javax.security.auth.Subject,
+     * javax.security.auth.callback.CallbackHandler, java.util.Map, java.util.Map)
      */
     @Override
     public void initialize(final Subject initSubject, final CallbackHandler initCallbackHandler,
@@ -163,7 +166,8 @@ public class WindowsLoginModule implements LoginModule {
             }
 
             this.username = windowsIdentity.getFqn();
-            WindowsLoginModule.LOGGER.debug("successfully logged in {} ({})", this.username, windowsIdentity.getSidString());
+            WindowsLoginModule.LOGGER.debug("successfully logged in {} ({})", this.username,
+                    windowsIdentity.getSidString());
         } finally {
             windowsIdentity.dispose();
         }
@@ -203,7 +207,8 @@ public class WindowsLoginModule implements LoginModule {
         final Set<Principal> principalsSet = this.subject.getPrincipals();
         principalsSet.addAll(this.principals);
 
-        WindowsLoginModule.LOGGER.debug("committing {} principals", Integer.valueOf(this.subject.getPrincipals().size()));
+        WindowsLoginModule.LOGGER.debug("committing {} principals",
+                Integer.valueOf(this.subject.getPrincipals().size()));
         if (this.debug) {
             for (final Principal principal : principalsSet) {
                 WindowsLoginModule.LOGGER.debug(" principal: {}", principal.getName());

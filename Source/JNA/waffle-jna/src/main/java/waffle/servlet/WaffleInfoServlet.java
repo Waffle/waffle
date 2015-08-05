@@ -45,6 +45,7 @@ public class WaffleInfoServlet extends HttpServlet {
 
     /*
      * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest,
      * javax.servlet.http.HttpServletResponse)
      */
@@ -56,6 +57,7 @@ public class WaffleInfoServlet extends HttpServlet {
 
     /*
      * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest,
      * javax.servlet.http.HttpServletResponse)
      */
@@ -68,10 +70,14 @@ public class WaffleInfoServlet extends HttpServlet {
     /**
      * Gets the waffle info response.
      *
-     * @param request            the request
-     * @param response            the response
-     * @throws IOException             Signals that an I/O exception has occurred.
-     * @throws ServletException             the servlet exception
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ServletException
+     *             the servlet exception
      */
     public void getWaffleInfoResponse(final HttpServletRequest request, final HttpServletResponse response)
             throws IOException, ServletException {

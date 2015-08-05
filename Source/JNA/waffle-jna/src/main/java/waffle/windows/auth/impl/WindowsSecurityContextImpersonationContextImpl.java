@@ -45,7 +45,9 @@ public class WindowsSecurityContextImpersonationContextImpl implements IWindowsI
         this.ctx = newCtx;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see waffle.windows.auth.IWindowsImpersonationContext#revertToSelf()
      */
     @Override

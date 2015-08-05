@@ -25,9 +25,9 @@ public class RolePrincipal implements Principal, Serializable {
 
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
-    
+
     /** The fqn. */
-    private final String            fqn;
+    private final String      fqn;
 
     /**
      * A windows principal.
@@ -52,7 +52,8 @@ public class RolePrincipal implements Principal, Serializable {
     /**
      * Role Principal Equals for FQN.
      *
-     * @param o            Object used for Equality Check.
+     * @param o
+     *            Object used for Equality Check.
      * @return true, if successful
      */
     @Override

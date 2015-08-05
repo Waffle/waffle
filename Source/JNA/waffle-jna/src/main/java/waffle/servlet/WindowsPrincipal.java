@@ -35,23 +35,23 @@ import waffle.windows.auth.WindowsAccount;
 public class WindowsPrincipal implements Principal, Serializable {
 
     /** The Constant serialVersionUID. */
-    private static final long           serialVersionUID = 1L;
-    
+    private static final long                 serialVersionUID = 1L;
+
     /** The fqn. */
     private final String                      fqn;
-    
+
     /** The sid. */
     private final byte[]                      sid;
-    
+
     /** The sid string. */
     private final String                      sidString;
-    
+
     /** The roles. */
     private final List<String>                roles;
-    
+
     /** The identity. */
-    private transient IWindowsIdentity  identity;
-    
+    private transient IWindowsIdentity        identity;
+
     /** The groups. */
     private final Map<String, WindowsAccount> groups;
 
@@ -248,7 +248,9 @@ public class WindowsPrincipal implements Principal, Serializable {
         return this.identity;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#toString()
      */
     @Override

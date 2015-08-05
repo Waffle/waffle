@@ -71,7 +71,9 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
                 .build();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see waffle.windows.auth.IWindowsAuthProvider#acceptSecurityToken(java.lang.String, byte[], java.lang.String)
      */
     @Override
@@ -145,7 +147,9 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
         return sc;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see waffle.windows.auth.IWindowsAuthProvider#getCurrentComputer()
      */
     @Override
@@ -157,7 +161,9 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
         }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see waffle.windows.auth.IWindowsAuthProvider#getDomains()
      */
     @Override
@@ -170,8 +176,11 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
         return domains.toArray(new IWindowsDomain[0]);
     }
 
-    /* (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsAuthProvider#logonDomainUser(java.lang.String, java.lang.String, java.lang.String)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see waffle.windows.auth.IWindowsAuthProvider#logonDomainUser(java.lang.String, java.lang.String,
+     * java.lang.String)
      */
     @Override
     public IWindowsIdentity logonDomainUser(final String username, final String domain, final String password) {
@@ -179,8 +188,11 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
                 WinBase.LOGON32_PROVIDER_DEFAULT);
     }
 
-    /* (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsAuthProvider#logonDomainUserEx(java.lang.String, java.lang.String, java.lang.String, int, int)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see waffle.windows.auth.IWindowsAuthProvider#logonDomainUserEx(java.lang.String, java.lang.String,
+     * java.lang.String, int, int)
      */
     @Override
     public IWindowsIdentity logonDomainUserEx(final String username, final String domain, final String password,
@@ -192,7 +204,9 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
         return new WindowsIdentityImpl(phUser.getValue());
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see waffle.windows.auth.IWindowsAuthProvider#logonUser(java.lang.String, java.lang.String)
      */
     @Override
@@ -206,7 +220,9 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
         return this.logonDomainUser(username, null, password);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see waffle.windows.auth.IWindowsAuthProvider#lookupAccount(java.lang.String)
      */
     @Override
@@ -214,7 +230,9 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
         return new WindowsAccountImpl(username);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see waffle.windows.auth.IWindowsAuthProvider#resetSecurityToken(java.lang.String)
      */
     @Override

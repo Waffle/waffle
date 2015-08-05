@@ -28,7 +28,8 @@ public class SecurityFilterProviderCollectionTests {
     /**
      * Test default collection.
      *
-     * @throws ClassNotFoundException the class not found exception
+     * @throws ClassNotFoundException
+     *             the class not found exception
      */
     @Test
     public void testDefaultCollection() throws ClassNotFoundException {
@@ -42,7 +43,8 @@ public class SecurityFilterProviderCollectionTests {
     /**
      * Test get by class name invalid.
      *
-     * @throws ClassNotFoundException the class not found exception
+     * @throws ClassNotFoundException
+     *             the class not found exception
      */
     @Test(expected = ClassNotFoundException.class)
     public void testGetByClassNameInvalid() throws ClassNotFoundException {

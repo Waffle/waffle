@@ -41,23 +41,24 @@ import waffle.windows.auth.IWindowsSecurityContext;
 public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
     /** The Constant LOGGER. */
-    private static final Logger  LOGGER           = LoggerFactory.getLogger(NegotiateSecurityFilterProvider.class);
+    private static final Logger        LOGGER           = LoggerFactory
+                                                                .getLogger(NegotiateSecurityFilterProvider.class);
 
     /** The Constant WWW_AUTHENTICATE. */
-    private static final String  WWW_AUTHENTICATE = "WWW-Authenticate";
+    private static final String        WWW_AUTHENTICATE = "WWW-Authenticate";
 
     /** The Constant PROTOCOLS. */
-    private static final String  PROTOCOLS        = "protocols";
-    
+    private static final String        PROTOCOLS        = "protocols";
+
     /** The Constant NEGOTIATE. */
-    private static final String  NEGOTIATE        = "Negotiate";
-    
+    private static final String        NEGOTIATE        = "Negotiate";
+
     /** The Constant NTLM. */
-    private static final String  NTLM             = "NTLM";
+    private static final String        NTLM             = "NTLM";
 
     /** The protocols. */
-    private List<String>         protocols        = new ArrayList<>();
-    
+    private List<String>               protocols        = new ArrayList<>();
+
     /** The auth. */
     private final IWindowsAuthProvider auth;
 
@@ -92,7 +93,9 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
         this.protocols = values;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see waffle.servlet.spi.SecurityFilterProvider#sendUnauthorized(javax.servlet.http.HttpServletResponse)
      */
     @Override
@@ -103,19 +106,25 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
         }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see waffle.servlet.spi.SecurityFilterProvider#isPrincipalException(javax.servlet.http.HttpServletRequest)
      */
     @Override
     public boolean isPrincipalException(final HttpServletRequest request) {
         final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
         final boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
-        NegotiateSecurityFilterProvider.LOGGER.debug("authorization: {}, ntlm post: {}", authorizationHeader, Boolean.valueOf(ntlmPost));
+        NegotiateSecurityFilterProvider.LOGGER.debug("authorization: {}, ntlm post: {}", authorizationHeader,
+                Boolean.valueOf(ntlmPost));
         return ntlmPost;
     }
 
-    /* (non-Javadoc)
-     * @see waffle.servlet.spi.SecurityFilterProvider#doFilter(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see waffle.servlet.spi.SecurityFilterProvider#doFilter(javax.servlet.http.HttpServletRequest,
+     * javax.servlet.http.HttpServletResponse)
      */
     @Override
     public IWindowsIdentity doFilter(final HttpServletRequest request, final HttpServletResponse response)
@@ -127,7 +136,8 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
         // maintain a connection-based session for NTLM tokens
         final String connectionId = NtlmServletRequest.getConnectionId(request);
         final String securityPackage = authorizationHeader.getSecurityPackage();
-        NegotiateSecurityFilterProvider.LOGGER.debug("security package: {}, connection id: {}", securityPackage, connectionId);
+        NegotiateSecurityFilterProvider.LOGGER.debug("security package: {}, connection id: {}", securityPackage,
+                connectionId);
 
         if (ntlmPost) {
             // type 2 NTLM authentication message received
@@ -146,7 +156,8 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
             response.addHeader(NegotiateSecurityFilterProvider.WWW_AUTHENTICATE, securityPackage + " " + continueToken);
         }
 
-        NegotiateSecurityFilterProvider.LOGGER.debug("continue required: {}", Boolean.valueOf(securityContext.isContinue()));
+        NegotiateSecurityFilterProvider.LOGGER.debug("continue required: {}",
+                Boolean.valueOf(securityContext.isContinue()));
         if (securityContext.isContinue() || ntlmPost) {
             response.setHeader("Connection", "keep-alive");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -159,7 +170,9 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
         return identity;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see waffle.servlet.spi.SecurityFilterProvider#isSecurityPackageSupported(java.lang.String)
      */
     @Override
@@ -172,7 +185,9 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
         return false;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see waffle.servlet.spi.SecurityFilterProvider#initParameter(java.lang.String, java.lang.String)
      */
     @Override
@@ -184,7 +199,8 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
                 protocolName = protocolName.trim();
                 if (protocolName.length() > 0) {
                     NegotiateSecurityFilterProvider.LOGGER.debug("init protocol: {}", protocolName);
-                    if (protocolName.equals(NegotiateSecurityFilterProvider.NEGOTIATE) || protocolName.equals(NegotiateSecurityFilterProvider.NTLM)) {
+                    if (protocolName.equals(NegotiateSecurityFilterProvider.NEGOTIATE)
+                            || protocolName.equals(NegotiateSecurityFilterProvider.NTLM)) {
                         this.protocols.add(protocolName);
                     } else {
                         NegotiateSecurityFilterProvider.LOGGER.error("unsupported protocol: {}", protocolName);

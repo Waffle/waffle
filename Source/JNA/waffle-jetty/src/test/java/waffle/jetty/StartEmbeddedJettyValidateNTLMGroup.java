@@ -53,7 +53,8 @@ public class StartEmbeddedJettyValidateNTLMGroup {
     /**
      * The main method.
      *
-     * @param args the arguments
+     * @param args
+     *            the arguments
      */
     public static void main(final String args[]) {
         System.setProperty(SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "TRACE");
@@ -85,7 +86,8 @@ public class StartEmbeddedJettyValidateNTLMGroup {
     /**
      * Sets the filter params.
      *
-     * @param fh the new filter params
+     * @param fh
+     *            the new filter params
      */
     private static void setFilterParams(final FilterHolder fh) {
         fh.setInitParameter("principalFormat", "fqn");
@@ -107,13 +109,16 @@ public class StartEmbeddedJettyValidateNTLMGroup {
     public static class InfoServlet extends HttpServlet {
 
         /** The Constant serialVersionUID. */
-        private static final long   serialVersionUID = 1L;
+        private static final long         serialVersionUID = 1L;
 
         /** The authorised groups. */
         private static final List<String> authorisedGroups = Arrays.asList("NTGroup1", "NTGroup2");
 
-        /* (non-Javadoc)
-         * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+        /*
+         * (non-Javadoc)
+         * 
+         * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest,
+         * javax.servlet.http.HttpServletResponse)
          */
         @Override
         public void doGet(final HttpServletRequest request, final HttpServletResponse response)
@@ -132,8 +137,10 @@ public class StartEmbeddedJettyValidateNTLMGroup {
         /**
          * Checks if is user authorised.
          *
-         * @param request the request
-         * @param authorizedGroups the authorized groups
+         * @param request
+         *            the request
+         * @param authorizedGroups
+         *            the authorized groups
          * @return true, if is user authorised
          */
         private boolean isUserAuthorised(final HttpServletRequest request, final List<String> authorizedGroups) {
@@ -146,7 +153,8 @@ public class StartEmbeddedJettyValidateNTLMGroup {
         /**
          * Gets the users groups.
          *
-         * @param request the request
+         * @param request
+         *            the request
          * @return the users groups
          */
         private List<String> getUsersGroups(final HttpServletRequest request) {
@@ -166,8 +174,10 @@ public class StartEmbeddedJettyValidateNTLMGroup {
         /**
          * Gets the group name.
          *
-         * @param domain the domain
-         * @param groupString the group string
+         * @param domain
+         *            the domain
+         * @param groupString
+         *            the group string
          * @return the group name
          */
         private String getGroupName(final String domain, final String groupString) {

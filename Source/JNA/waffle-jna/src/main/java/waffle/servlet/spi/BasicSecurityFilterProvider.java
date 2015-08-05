@@ -36,11 +36,11 @@ import waffle.windows.auth.IWindowsIdentity;
 public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 
     /** The Constant LOGGER. */
-    private static final Logger  LOGGER = LoggerFactory.getLogger(BasicSecurityFilterProvider.class);
-    
+    private static final Logger        LOGGER = LoggerFactory.getLogger(BasicSecurityFilterProvider.class);
+
     /** The realm. */
-    private String               realm  = "BasicSecurityFilterProvider";
-    
+    private String                     realm  = "BasicSecurityFilterProvider";
+
     /** The auth. */
     private final IWindowsAuthProvider auth;
 
@@ -54,8 +54,11 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
         this.auth = newAuthProvider;
     }
 
-    /* (non-Javadoc)
-     * @see waffle.servlet.spi.SecurityFilterProvider#doFilter(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see waffle.servlet.spi.SecurityFilterProvider#doFilter(javax.servlet.http.HttpServletRequest,
+     * javax.servlet.http.HttpServletResponse)
      */
     @Override
     public IWindowsIdentity doFilter(final HttpServletRequest request, final HttpServletResponse response)
@@ -71,7 +74,9 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
         return this.auth.logonUser(usernamePasswordArray[0], usernamePasswordArray[1]);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see waffle.servlet.spi.SecurityFilterProvider#isPrincipalException(javax.servlet.http.HttpServletRequest)
      */
     @Override
@@ -79,7 +84,9 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
         return false;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see waffle.servlet.spi.SecurityFilterProvider#isSecurityPackageSupported(java.lang.String)
      */
     @Override
@@ -87,7 +94,9 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
         return securityPackage.equalsIgnoreCase("Basic");
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see waffle.servlet.spi.SecurityFilterProvider#sendUnauthorized(javax.servlet.http.HttpServletResponse)
      */
     @Override

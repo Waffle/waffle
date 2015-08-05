@@ -25,9 +25,9 @@ public class UserPrincipal implements Principal, Serializable {
 
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
-    
+
     /** The fqn. */
-    private final String            fqn;
+    private final String      fqn;
 
     /**
      * A user principal.
@@ -49,7 +49,9 @@ public class UserPrincipal implements Principal, Serializable {
         return this.fqn;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -66,7 +68,9 @@ public class UserPrincipal implements Principal, Serializable {
         return false;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#hashCode()
      */
     @Override
