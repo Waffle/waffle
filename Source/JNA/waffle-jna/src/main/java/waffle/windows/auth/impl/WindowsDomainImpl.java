@@ -107,7 +107,6 @@ public class WindowsDomainImpl implements IWindowsDomain {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsDomain#getFqn()
      */
     @Override
@@ -117,7 +116,6 @@ public class WindowsDomainImpl implements IWindowsDomain {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsDomain#getTrustDirectionString()
      */
     @Override
@@ -127,7 +125,6 @@ public class WindowsDomainImpl implements IWindowsDomain {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsDomain#getTrustTypeString()
      */
     @Override

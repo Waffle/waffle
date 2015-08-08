@@ -95,7 +95,6 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.servlet.spi.SecurityFilterProvider#sendUnauthorized(javax.servlet.http.HttpServletResponse)
      */
     @Override
@@ -108,7 +107,6 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.servlet.spi.SecurityFilterProvider#isPrincipalException(javax.servlet.http.HttpServletRequest)
      */
     @Override
@@ -122,7 +120,6 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.servlet.spi.SecurityFilterProvider#doFilter(javax.servlet.http.HttpServletRequest,
      * javax.servlet.http.HttpServletResponse)
      */
@@ -172,7 +169,6 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.servlet.spi.SecurityFilterProvider#isSecurityPackageSupported(java.lang.String)
      */
     @Override
@@ -187,7 +183,6 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.servlet.spi.SecurityFilterProvider#initParameter(java.lang.String, java.lang.String)
      */
     @Override

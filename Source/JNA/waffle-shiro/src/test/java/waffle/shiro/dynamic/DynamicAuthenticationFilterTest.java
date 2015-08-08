@@ -43,7 +43,6 @@ public class DynamicAuthenticationFilterTest {
 
         /*
          * (non-Javadoc)
-         * 
          * @see javax.servlet.ServletRequest#getParameter(java.lang.String)
          */
         @Override

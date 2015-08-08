@@ -87,7 +87,6 @@ public class NegotiateSecurityFilter implements Filter {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.Filter#destroy()
      */
     @Override
@@ -97,7 +96,6 @@ public class NegotiateSecurityFilter implements Filter {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse,
      * javax.servlet.FilterChain)
      */
@@ -268,7 +266,6 @@ public class NegotiateSecurityFilter implements Filter {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
      */
     @SuppressWarnings("unchecked")

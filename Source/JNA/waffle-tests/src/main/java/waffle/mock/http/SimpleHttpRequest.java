@@ -110,7 +110,6 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.http.HttpServletRequestWrapper#getHeader(java.lang.String)
      */
     @Override
@@ -120,7 +119,6 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.http.HttpServletRequestWrapper#getHeaderNames()
      */
     @Override
@@ -130,7 +128,6 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.http.HttpServletRequestWrapper#getMethod()
      */
     @Override
@@ -140,7 +137,6 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.ServletRequestWrapper#getContentLength()
      */
     @Override
@@ -150,7 +146,6 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.ServletRequestWrapper#getRemotePort()
      */
     @Override
@@ -190,7 +185,6 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.http.HttpServletRequestWrapper#getRemoteUser()
      */
     @Override
@@ -200,7 +194,6 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.http.HttpServletRequestWrapper#getSession()
      */
     @Override
@@ -210,7 +203,6 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.http.HttpServletRequestWrapper#getSession(boolean)
      */
     @Override
@@ -223,7 +215,6 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.http.HttpServletRequestWrapper#getQueryString()
      */
     @Override
@@ -260,7 +251,6 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.http.HttpServletRequestWrapper#getRequestURI()
      */
     @Override
@@ -270,7 +260,6 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.ServletRequestWrapper#getParameter(java.lang.String)
      */
     @Override
@@ -292,7 +281,6 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.ServletRequestWrapper#getRemoteHost()
      */
     @Override
@@ -312,7 +300,6 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.ServletRequestWrapper#getRemoteAddr()
      */
     @Override
@@ -332,7 +319,6 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.http.HttpServletRequestWrapper#getUserPrincipal()
      */
     @Override

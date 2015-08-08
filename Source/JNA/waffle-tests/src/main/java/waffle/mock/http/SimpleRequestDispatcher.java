@@ -43,7 +43,6 @@ public class SimpleRequestDispatcher implements RequestDispatcher {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.RequestDispatcher#forward(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
      */
     @Override
@@ -56,7 +55,6 @@ public class SimpleRequestDispatcher implements RequestDispatcher {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.RequestDispatcher#include(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
      */
     @Override

@@ -15,10 +15,14 @@
  * Nothing for now, but in the future, this would include:
  *
  * <p>
- *  <a href="http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/jetty/trunk/jetty-security/src/main/java/org/eclipse/jetty/security/Authenticator.java">org/eclipse/jetty/security/Authenticator.java</a>
+ * <a href=
+ * "http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/jetty/trunk/jetty-security/src/main/java/org/eclipse/jetty/security/Authenticator.java"
+ * >org/eclipse/jetty/security/Authenticator.java</a>
  * </p>
  * <p>
- *  <a href="http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/jetty/trunk/jetty-security/src/main/java/org/eclipse/jetty/security/LoginService.java">org/eclipse/jetty/security/LoginService.java</a>
+ * <a href=
+ * "http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/jetty/trunk/jetty-security/src/main/java/org/eclipse/jetty/security/LoginService.java"
+ * >org/eclipse/jetty/security/LoginService.java</a>
  * </p>
  */
 package waffle.jetty;

@@ -72,7 +72,6 @@ public class MockWindowsAccount implements IWindowsAccount {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsAccount#getDomain()
      */
     @Override
@@ -82,7 +81,6 @@ public class MockWindowsAccount implements IWindowsAccount {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsAccount#getFqn()
      */
     @Override
@@ -92,7 +90,6 @@ public class MockWindowsAccount implements IWindowsAccount {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsAccount#getName()
      */
     @Override
@@ -102,7 +99,6 @@ public class MockWindowsAccount implements IWindowsAccount {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsAccount#getSidString()
      */
     @Override

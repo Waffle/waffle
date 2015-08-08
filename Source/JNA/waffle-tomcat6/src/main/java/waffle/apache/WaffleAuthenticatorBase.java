@@ -81,7 +81,6 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.authenticator.AuthenticatorBase#getInfo()
      */
     @Override

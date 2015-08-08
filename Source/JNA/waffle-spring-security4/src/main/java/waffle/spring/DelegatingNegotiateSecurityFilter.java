@@ -145,7 +145,6 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.spring.NegotiateSecurityFilter#setAuthentication(javax.servlet.http.HttpServletRequest,
      * javax.servlet.http.HttpServletResponse, org.springframework.security.core.Authentication)
      */
@@ -181,7 +180,6 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.spring.NegotiateSecurityFilter#afterPropertiesSet()
      */
     @Override

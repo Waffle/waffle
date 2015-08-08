@@ -50,7 +50,6 @@ public class FqnGrantedAuthorityFactory implements GrantedAuthorityFactory {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.spring.GrantedAuthorityFactory#createGrantedAuthority(waffle.windows.auth.WindowsAccount)
      */
     @Override

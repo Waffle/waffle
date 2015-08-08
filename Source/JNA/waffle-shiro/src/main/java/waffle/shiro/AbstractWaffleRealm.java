@@ -51,7 +51,6 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
 
     /*
      * (non-Javadoc)
-     * 
      * @see
      * org.apache.shiro.realm.AuthenticatingRealm#doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)
      */
@@ -110,7 +109,6 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.shiro.realm.AuthorizingRealm#doGetAuthorizationInfo(org.apache.shiro.subject.PrincipalCollection)
      */
     @Override

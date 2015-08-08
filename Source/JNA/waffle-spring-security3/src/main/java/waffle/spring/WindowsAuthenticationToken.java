@@ -98,7 +98,6 @@ public class WindowsAuthenticationToken implements Authentication {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.springframework.security.core.Authentication#getAuthorities()
      */
     @Override
@@ -108,7 +107,6 @@ public class WindowsAuthenticationToken implements Authentication {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.springframework.security.core.Authentication#getCredentials()
      */
     @Override
@@ -118,7 +116,6 @@ public class WindowsAuthenticationToken implements Authentication {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.springframework.security.core.Authentication#getDetails()
      */
     @Override
@@ -128,7 +125,6 @@ public class WindowsAuthenticationToken implements Authentication {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.springframework.security.core.Authentication#getPrincipal()
      */
     @Override
@@ -138,7 +134,6 @@ public class WindowsAuthenticationToken implements Authentication {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.springframework.security.core.Authentication#isAuthenticated()
      */
     @Override
@@ -148,7 +143,6 @@ public class WindowsAuthenticationToken implements Authentication {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.springframework.security.core.Authentication#setAuthenticated(boolean)
      */
     @Override
@@ -158,7 +152,6 @@ public class WindowsAuthenticationToken implements Authentication {
 
     /*
      * (non-Javadoc)
-     * 
      * @see java.security.Principal#getName()
      */
     @Override

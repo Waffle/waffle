@@ -65,7 +65,6 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
 
     /*
      * (non-Javadoc)
-     * 
      * @see
      * org.springframework.security.authentication.AuthenticationProvider#authenticate(org.springframework.security.
      * core.Authentication)

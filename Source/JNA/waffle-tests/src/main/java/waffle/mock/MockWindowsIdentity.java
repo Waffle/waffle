@@ -48,7 +48,6 @@ public class MockWindowsIdentity implements IWindowsIdentity {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsIdentity#getFqn()
      */
     @Override
@@ -58,7 +57,6 @@ public class MockWindowsIdentity implements IWindowsIdentity {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsIdentity#getGroups()
      */
     @Override
@@ -72,7 +70,6 @@ public class MockWindowsIdentity implements IWindowsIdentity {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsIdentity#getSid()
      */
     @Override
@@ -82,7 +79,6 @@ public class MockWindowsIdentity implements IWindowsIdentity {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsIdentity#getSidString()
      */
     @Override
@@ -92,7 +88,6 @@ public class MockWindowsIdentity implements IWindowsIdentity {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsIdentity#dispose()
      */
     @Override
@@ -102,7 +97,6 @@ public class MockWindowsIdentity implements IWindowsIdentity {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsIdentity#isGuest()
      */
     @Override
@@ -112,7 +106,6 @@ public class MockWindowsIdentity implements IWindowsIdentity {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsIdentity#impersonate()
      */
     @Override

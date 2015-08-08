@@ -56,7 +56,6 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.servlet.spi.SecurityFilterProvider#doFilter(javax.servlet.http.HttpServletRequest,
      * javax.servlet.http.HttpServletResponse)
      */
@@ -76,7 +75,6 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.servlet.spi.SecurityFilterProvider#isPrincipalException(javax.servlet.http.HttpServletRequest)
      */
     @Override
@@ -86,7 +84,6 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.servlet.spi.SecurityFilterProvider#isSecurityPackageSupported(java.lang.String)
      */
     @Override
@@ -96,7 +93,6 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.servlet.spi.SecurityFilterProvider#sendUnauthorized(javax.servlet.http.HttpServletResponse)
      */
     @Override

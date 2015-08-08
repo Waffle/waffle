@@ -84,7 +84,6 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.authenticator.AuthenticatorBase#getInfo()
      */
     @Override
@@ -214,7 +213,6 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.authenticator.AuthenticatorBase#getAuthMethod()
      */
     @Override
@@ -224,7 +222,6 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.authenticator.AuthenticatorBase#doLogin(org.apache.catalina.connector.Request,
      * java.lang.String, java.lang.String)
      */

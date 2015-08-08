@@ -24,7 +24,6 @@ public class MockWindowsImpersonationContext implements IWindowsImpersonationCon
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsImpersonationContext#revertToSelf()
      */
     @Override

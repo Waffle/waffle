@@ -54,7 +54,6 @@ public class AutoDisposableWindowsPrincipal extends WindowsPrincipal implements 
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.http.HttpSessionBindingListener#valueBound(javax.servlet.http.HttpSessionBindingEvent)
      */
     @Override
@@ -64,7 +63,6 @@ public class AutoDisposableWindowsPrincipal extends WindowsPrincipal implements 
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.http.HttpSessionBindingListener#valueUnbound(javax.servlet.http.HttpSessionBindingEvent)
      */
     @Override

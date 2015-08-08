@@ -53,7 +53,6 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.authenticator.AuthenticatorBase#start()
      */
     @Override
@@ -63,7 +62,6 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.authenticator.AuthenticatorBase#stop()
      */
     @Override
@@ -73,7 +71,6 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.authenticator.AuthenticatorBase#authenticate(org.apache.catalina.connector.Request,
      * org.apache.catalina.connector.Response, org.apache.catalina.deploy.LoginConfig)
      */

@@ -29,7 +29,6 @@ public class WindowsRealm extends RealmBase {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.realm.RealmBase#getName()
      */
     @Override
@@ -39,7 +38,6 @@ public class WindowsRealm extends RealmBase {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.realm.RealmBase#getPassword(java.lang.String)
      */
     @Override
@@ -49,7 +47,6 @@ public class WindowsRealm extends RealmBase {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.realm.RealmBase#getPrincipal(java.lang.String)
      */
     @Override

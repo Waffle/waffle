@@ -116,7 +116,6 @@ public class StartEmbeddedJettyValidateNTLMGroup {
 
         /*
          * (non-Javadoc)
-         * 
          * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest,
          * javax.servlet.http.HttpServletResponse)
          */

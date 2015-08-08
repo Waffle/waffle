@@ -38,7 +38,6 @@ public class SimpleFilterConfig implements FilterConfig {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.FilterConfig#getFilterName()
      */
     @Override
@@ -58,7 +57,6 @@ public class SimpleFilterConfig implements FilterConfig {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.FilterConfig#getInitParameter(java.lang.String)
      */
     @Override
@@ -68,7 +66,6 @@ public class SimpleFilterConfig implements FilterConfig {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.FilterConfig#getInitParameterNames()
      */
     @Override
@@ -80,7 +77,6 @@ public class SimpleFilterConfig implements FilterConfig {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.FilterConfig#getServletContext()
      */
     @Override

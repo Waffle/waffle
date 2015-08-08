@@ -41,7 +41,6 @@ public class WindowsIdentityImpersonationContextImpl implements IWindowsImperson
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsImpersonationContext#revertToSelf()
      */
     @Override

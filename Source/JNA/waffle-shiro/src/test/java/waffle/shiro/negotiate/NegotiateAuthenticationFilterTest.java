@@ -60,7 +60,6 @@ public final class NegotiateAuthenticationFilterTest {
 
         /*
          * (non-Javadoc)
-         * 
          * @see javax.servlet.http.HttpServletResponse#addHeader(java.lang.String, java.lang.String)
          */
         @Override
@@ -77,7 +76,6 @@ public final class NegotiateAuthenticationFilterTest {
 
         /*
          * (non-Javadoc)
-         * 
          * @see javax.servlet.ServletResponse#flushBuffer()
          */
         @Override
@@ -87,7 +85,6 @@ public final class NegotiateAuthenticationFilterTest {
 
         /*
          * (non-Javadoc)
-         * 
          * @see javax.servlet.http.HttpServletResponse#sendError(int)
          */
         @Override
@@ -97,7 +94,6 @@ public final class NegotiateAuthenticationFilterTest {
 
         /*
          * (non-Javadoc)
-         * 
          * @see javax.servlet.http.HttpServletResponse#setHeader(java.lang.String, java.lang.String)
          */
         @Override
@@ -107,7 +103,6 @@ public final class NegotiateAuthenticationFilterTest {
 
         /*
          * (non-Javadoc)
-         * 
          * @see javax.servlet.http.HttpServletResponse#setStatus(int)
          */
         @Override

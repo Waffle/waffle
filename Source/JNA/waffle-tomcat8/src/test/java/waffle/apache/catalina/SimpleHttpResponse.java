@@ -43,7 +43,6 @@ public class SimpleHttpResponse extends Response {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.connector.Response#addHeader(java.lang.String, java.lang.String)
      */
     @Override
@@ -58,7 +57,6 @@ public class SimpleHttpResponse extends Response {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.connector.Response#flushBuffer()
      */
     @Override
@@ -73,7 +71,6 @@ public class SimpleHttpResponse extends Response {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.connector.Response#getHeader(java.lang.String)
      */
     @Override
@@ -84,7 +81,6 @@ public class SimpleHttpResponse extends Response {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.connector.Response#getHeaderNames()
      */
     @Override
@@ -106,7 +102,6 @@ public class SimpleHttpResponse extends Response {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.connector.Response#getStatus()
      */
     @Override
@@ -125,7 +120,6 @@ public class SimpleHttpResponse extends Response {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.connector.Response#sendError(int)
      */
     @Override
@@ -135,7 +129,6 @@ public class SimpleHttpResponse extends Response {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.connector.Response#sendError(int, java.lang.String)
      */
     @Override
@@ -145,7 +138,6 @@ public class SimpleHttpResponse extends Response {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.connector.Response#setHeader(java.lang.String, java.lang.String)
      */
     @Override
@@ -162,7 +154,6 @@ public class SimpleHttpResponse extends Response {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.connector.Response#setStatus(int)
      */
     @Override

@@ -14,8 +14,10 @@
 package waffle.shiro.negotiate;
 
 /**
- * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateAuthenticationFilter.
- * see: https://bitbucket.org/lothor/shiro-negotiate/src/7b25efde130b9cbcacf579b3f926c532d919aa23/src/main/java/net/skorgenes/security/jsecurity/negotiate/NegotiateAuthenticationFilter.java?at=default
+ * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateAuthenticationFilter. see:
+ * https://bitbucket.org/lothor
+ * /shiro-negotiate/src/7b25efde130b9cbcacf579b3f926c532d919aa23/src/main/java/net/skorgenes/
+ * security/jsecurity/negotiate/NegotiateAuthenticationFilter.java?at=default
  *
  * @author Dan Rollo
  */
@@ -104,7 +106,6 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.shiro.web.filter.authc.AuthenticatingFilter#isRememberMe(javax.servlet.ServletRequest)
      */
     @Override
@@ -114,7 +115,6 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.shiro.web.filter.authc.AuthenticatingFilter#createToken(javax.servlet.ServletRequest,
      * javax.servlet.ServletResponse)
      */
@@ -144,7 +144,6 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
 
     /*
      * (non-Javadoc)
-     * 
      * @see
      * org.apache.shiro.web.filter.authc.AuthenticatingFilter#onLoginSuccess(org.apache.shiro.authc.AuthenticationToken,
      * org.apache.shiro.subject.Subject, javax.servlet.ServletRequest, javax.servlet.ServletResponse)
@@ -158,7 +157,6 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
 
     /*
      * (non-Javadoc)
-     * 
      * @see
      * org.apache.shiro.web.filter.authc.AuthenticatingFilter#onLoginFailure(org.apache.shiro.authc.AuthenticationToken,
      * org.apache.shiro.authc.AuthenticationException, javax.servlet.ServletRequest, javax.servlet.ServletResponse)
@@ -216,7 +214,6 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.shiro.web.filter.AccessControlFilter#onAccessDenied(javax.servlet.ServletRequest,
      * javax.servlet.ServletResponse)
      */

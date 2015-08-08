@@ -29,7 +29,6 @@ public abstract class SimpleHttpSession implements HttpSession {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.http.HttpSession#getAttribute(java.lang.String)
      */
     @Override
@@ -39,7 +38,6 @@ public abstract class SimpleHttpSession implements HttpSession {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.http.HttpSession#getId()
      */
     @Override
@@ -49,7 +47,6 @@ public abstract class SimpleHttpSession implements HttpSession {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.http.HttpSession#removeAttribute(java.lang.String)
      */
     @Override
@@ -59,7 +56,6 @@ public abstract class SimpleHttpSession implements HttpSession {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.http.HttpSession#setAttribute(java.lang.String, java.lang.Object)
      */
     @Override

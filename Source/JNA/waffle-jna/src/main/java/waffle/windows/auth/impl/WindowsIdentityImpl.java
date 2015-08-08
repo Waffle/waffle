@@ -78,7 +78,6 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsIdentity#getFqn()
      */
     @Override
@@ -88,7 +87,6 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsIdentity#getGroups()
      */
     @Override
@@ -107,7 +105,6 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsIdentity#getSid()
      */
     @Override
@@ -117,7 +114,6 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsIdentity#getSidString()
      */
     @Override
@@ -127,7 +123,6 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsIdentity#dispose()
      */
     @Override
@@ -139,7 +134,6 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsIdentity#impersonate()
      */
     @Override
@@ -149,7 +143,6 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsIdentity#isGuest()
      */
     @Override

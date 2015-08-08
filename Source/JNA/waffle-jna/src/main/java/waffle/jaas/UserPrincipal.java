@@ -51,7 +51,6 @@ public class UserPrincipal implements Principal, Serializable {
 
     /*
      * (non-Javadoc)
-     * 
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -70,7 +69,6 @@ public class UserPrincipal implements Principal, Serializable {
 
     /*
      * (non-Javadoc)
-     * 
      * @see java.lang.Object#hashCode()
      */
     @Override

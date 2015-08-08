@@ -80,7 +80,6 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.http.HttpServletResponseWrapper#addHeader(java.lang.String, java.lang.String)
      */
     @Override
@@ -95,7 +94,6 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.http.HttpServletResponseWrapper#setHeader(java.lang.String, java.lang.String)
      */
     @Override
@@ -112,7 +110,6 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.http.HttpServletResponseWrapper#setStatus(int)
      */
     @Override
@@ -134,7 +131,6 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.ServletResponseWrapper#flushBuffer()
      */
     @Override
@@ -182,7 +178,6 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.http.HttpServletResponseWrapper#sendError(int, java.lang.String)
      */
     @Override
@@ -192,7 +187,6 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.http.HttpServletResponseWrapper#sendError(int)
      */
     @Override
@@ -202,7 +196,6 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.ServletResponseWrapper#getWriter()
      */
     @Override
@@ -212,7 +205,6 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.ServletResponseWrapper#getOutputStream()
      */
     @Override

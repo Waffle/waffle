@@ -51,7 +51,6 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.authenticator.AuthenticatorBase#startInternal()
      */
     @Override
@@ -62,7 +61,6 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.authenticator.AuthenticatorBase#stopInternal()
      */
     @Override
@@ -73,7 +71,6 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.authenticator.AuthenticatorBase#authenticate(org.apache.catalina.connector.Request,
      * javax.servlet.http.HttpServletResponse, org.apache.catalina.deploy.LoginConfig)
      */

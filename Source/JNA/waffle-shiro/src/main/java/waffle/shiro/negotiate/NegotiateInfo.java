@@ -14,12 +14,11 @@
 package waffle.shiro.negotiate;
 
 /**
- * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateToken.
- * see: https://bitbucket.org/lothor/shiro-negotiate/src/7b25efde130b/src/main/java/net/skorgenes/security/jsecurity/negotiate/NegotiateInfo.java?at=default
+ * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateToken. see:
+ * https://bitbucket.org/lothor/shiro-negotiate
+ * /src/7b25efde130b/src/main/java/net/skorgenes/security/jsecurity/negotiate/NegotiateInfo.java?at=default
  *
- * @author Dan Rollo
- * Date: 1/15/13
- * Time: 11:00 PM
+ * @author Dan Rollo Date: 1/15/13 Time: 11:00 PM
  */
 import javax.security.auth.Subject;
 

@@ -87,7 +87,6 @@ public class SimpleHttpRequest extends Request {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.connector.Request#addHeader(java.lang.String, java.lang.String)
      */
     @Override
@@ -109,7 +108,6 @@ public class SimpleHttpRequest extends Request {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.connector.Request#getContentLength()
      */
     @Override
@@ -119,7 +117,6 @@ public class SimpleHttpRequest extends Request {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.connector.Request#getHeader(java.lang.String)
      */
     @Override
@@ -129,7 +126,6 @@ public class SimpleHttpRequest extends Request {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.connector.Request#getMethod()
      */
     @Override
@@ -139,7 +135,6 @@ public class SimpleHttpRequest extends Request {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.connector.Request#getParameter(java.lang.String)
      */
     @Override
@@ -149,7 +144,6 @@ public class SimpleHttpRequest extends Request {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.connector.Request#getQueryString()
      */
     @Override
@@ -159,7 +153,6 @@ public class SimpleHttpRequest extends Request {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.connector.Request#getRemoteAddr()
      */
     @Override
@@ -169,7 +162,6 @@ public class SimpleHttpRequest extends Request {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.connector.Request#getRemoteHost()
      */
     @Override
@@ -179,7 +171,6 @@ public class SimpleHttpRequest extends Request {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.connector.Request#getRemotePort()
      */
     @Override
@@ -189,7 +180,6 @@ public class SimpleHttpRequest extends Request {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.connector.Request#getRemoteUser()
      */
     @Override
@@ -199,7 +189,6 @@ public class SimpleHttpRequest extends Request {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.connector.Request#getRequestURI()
      */
     @Override
@@ -209,7 +198,6 @@ public class SimpleHttpRequest extends Request {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.connector.Request#getSession()
      */
     @Override
@@ -219,7 +207,6 @@ public class SimpleHttpRequest extends Request {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.connector.Request#getSession(boolean)
      */
     @Override
@@ -233,7 +220,6 @@ public class SimpleHttpRequest extends Request {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.connector.Request#getUserPrincipal()
      */
     @Override
@@ -243,7 +229,6 @@ public class SimpleHttpRequest extends Request {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.connector.Request#setContentLength(int)
      */
     @Override
@@ -253,7 +238,6 @@ public class SimpleHttpRequest extends Request {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.connector.Request#setMethod(java.lang.String)
      */
     @Override
@@ -263,7 +247,6 @@ public class SimpleHttpRequest extends Request {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.connector.Request#setQueryString(java.lang.String)
      */
     @Override
@@ -280,7 +263,6 @@ public class SimpleHttpRequest extends Request {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.connector.Request#setRemoteAddr(java.lang.String)
      */
     @Override
@@ -290,7 +272,6 @@ public class SimpleHttpRequest extends Request {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.connector.Request#setRemoteHost(java.lang.String)
      */
     @Override
@@ -310,7 +291,6 @@ public class SimpleHttpRequest extends Request {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.connector.Request#setRequestURI(java.lang.String)
      */
     @Override
@@ -320,7 +300,6 @@ public class SimpleHttpRequest extends Request {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.connector.Request#setUserPrincipal(java.security.Principal)
      */
     @Override

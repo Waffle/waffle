@@ -250,7 +250,6 @@ public class WindowsPrincipal implements Principal, Serializable {
 
     /*
      * (non-Javadoc)
-     * 
      * @see java.lang.Object#toString()
      */
     @Override

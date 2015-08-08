@@ -120,7 +120,6 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
 
         /*
          * (non-Javadoc)
-         * 
          * @see waffle.shiro.negotiate.NegotiateAuthenticationFilter#onAccessDenied(javax.servlet.ServletRequest,
          * javax.servlet.ServletResponse)
          */
@@ -131,7 +130,6 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
 
         /*
          * (non-Javadoc)
-         * 
          * @see
          * waffle.shiro.negotiate.NegotiateAuthenticationFilter#onLoginSuccess(org.apache.shiro.authc.AuthenticationToken
          * , org.apache.shiro.subject.Subject, javax.servlet.ServletRequest, javax.servlet.ServletResponse)
@@ -166,7 +164,6 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
 
         /*
          * (non-Javadoc)
-         * 
          * @see org.apache.shiro.web.filter.authc.FormAuthenticationFilter#onAccessDenied(javax.servlet.ServletRequest,
          * javax.servlet.ServletResponse)
          */
@@ -177,7 +174,6 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
 
         /*
          * (non-Javadoc)
-         * 
          * @see org.apache.shiro.web.filter.authc.FormAuthenticationFilter#onLoginSuccess(org.apache.shiro.authc.
          * AuthenticationToken, org.apache.shiro.subject.Subject, javax.servlet.ServletRequest,
          * javax.servlet.ServletResponse)

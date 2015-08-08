@@ -28,7 +28,6 @@ public abstract class SimplePipeline implements Pipeline {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.Pipeline#getValves()
      */
     @Override

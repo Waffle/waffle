@@ -48,7 +48,6 @@ public class WindowsComputerImpl implements IWindowsComputer {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsComputer#getComputerName()
      */
     @Override
@@ -58,7 +57,6 @@ public class WindowsComputerImpl implements IWindowsComputer {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsComputer#getGroups()
      */
     @Override
@@ -73,7 +71,6 @@ public class WindowsComputerImpl implements IWindowsComputer {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsComputer#getJoinStatus()
      */
     @Override
@@ -95,7 +92,6 @@ public class WindowsComputerImpl implements IWindowsComputer {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsComputer#getMemberOf()
      */
     @Override

@@ -48,7 +48,6 @@ public class NegotiateSecurityFilterEntryPoint implements AuthenticationEntryPoi
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.springframework.security.web.AuthenticationEntryPoint#commence(javax.servlet.http.HttpServletRequest,
      * javax.servlet.http.HttpServletResponse, org.springframework.security.core.AuthenticationException)
      */

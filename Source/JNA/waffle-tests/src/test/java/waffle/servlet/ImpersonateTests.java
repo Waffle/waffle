@@ -201,7 +201,6 @@ public class ImpersonateTests {
 
         /*
          * (non-Javadoc)
-         * 
          * @see waffle.mock.http.SimpleFilterChain#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
          */
         @Override

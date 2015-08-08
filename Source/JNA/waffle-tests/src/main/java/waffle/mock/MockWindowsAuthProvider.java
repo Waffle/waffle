@@ -60,7 +60,6 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsAuthProvider#acceptSecurityToken(java.lang.String, byte[], java.lang.String)
      */
     @Override
@@ -71,7 +70,6 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsAuthProvider#getCurrentComputer()
      */
     @Override
@@ -81,7 +79,6 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsAuthProvider#getDomains()
      */
     @Override
@@ -91,7 +88,6 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsAuthProvider#logonDomainUser(java.lang.String, java.lang.String,
      * java.lang.String)
      */
@@ -102,7 +98,6 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsAuthProvider#logonDomainUserEx(java.lang.String, java.lang.String,
      * java.lang.String, int, int)
      */
@@ -135,7 +130,6 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsAuthProvider#lookupAccount(java.lang.String)
      */
     @Override
@@ -145,7 +139,6 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsAuthProvider#resetSecurityToken(java.lang.String)
      */
     @Override

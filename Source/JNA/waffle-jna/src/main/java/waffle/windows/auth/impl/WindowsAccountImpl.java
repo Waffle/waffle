@@ -83,7 +83,6 @@ public class WindowsAccountImpl implements IWindowsAccount {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsAccount#getFqn()
      */
     @Override
@@ -103,7 +102,6 @@ public class WindowsAccountImpl implements IWindowsAccount {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsAccount#getSidString()
      */
     @Override

@@ -28,7 +28,6 @@ public final class NegotiateAuthenticationRealmTest extends TestCase {
 
     /*
      * (non-Javadoc)
-     * 
      * @see junit.framework.TestCase#setUp()
      */
     @Override

@@ -88,7 +88,6 @@ public class WindowsAccount implements Serializable {
 
     /*
      * (non-Javadoc)
-     * 
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -107,7 +106,6 @@ public class WindowsAccount implements Serializable {
 
     /*
      * (non-Javadoc)
-     * 
      * @see java.lang.Object#hashCode()
      */
     @Override

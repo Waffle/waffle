@@ -24,7 +24,6 @@ public abstract class SimpleRealm extends RealmBase {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.realm.RealmBase#getName()
      */
     @Override

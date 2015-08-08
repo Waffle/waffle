@@ -49,7 +49,6 @@ public class UsernamePasswordCallbackHandler implements CallbackHandler {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.security.auth.callback.CallbackHandler#handle(javax.security.auth.callback.Callback[])
      */
     @Override

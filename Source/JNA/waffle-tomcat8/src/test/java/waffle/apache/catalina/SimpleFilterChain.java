@@ -35,7 +35,6 @@ public class SimpleFilterChain implements FilterChain {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.FilterChain#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
      */
     @Override

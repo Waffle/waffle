@@ -53,7 +53,6 @@ public abstract class SimpleContext implements Context {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.catalina.Container#setRealm(org.apache.catalina.Realm)
      */
     @Override

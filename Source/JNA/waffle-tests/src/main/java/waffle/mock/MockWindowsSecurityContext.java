@@ -48,7 +48,6 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsSecurityContext#dispose()
      */
     @Override
@@ -58,7 +57,6 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsSecurityContext#isContinue()
      */
     @Override
@@ -68,7 +66,6 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsSecurityContext#getHandle()
      */
     @Override
@@ -78,7 +75,6 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsSecurityContext#getIdentity()
      */
     @Override
@@ -88,7 +84,6 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsSecurityContext#getPrincipalName()
      */
     @Override
@@ -98,7 +93,6 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsSecurityContext#getSecurityPackage()
      */
     @Override
@@ -108,7 +102,6 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsSecurityContext#getToken()
      */
     @Override
@@ -118,7 +111,6 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsSecurityContext#impersonate()
      */
     @Override
@@ -135,7 +127,6 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
 
     /*
      * (non-Javadoc)
-     * 
      * @see waffle.windows.auth.IWindowsSecurityContext#initialize(com.sun.jna.platform.win32.Sspi.CtxtHandle,
      * com.sun.jna.platform.win32.Sspi.SecBufferDesc, java.lang.String)
      */

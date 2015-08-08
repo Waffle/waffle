@@ -14,8 +14,10 @@
 package waffle.shiro.negotiate;
 
 /**
- * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateAuthenticationFilter.
- * see: https://bitbucket.org/lothor/shiro-negotiate/src/7b25efde130b/src/main/java/net/skorgenes/security/jsecurity/negotiate/NegotiateAuthenticationRealm.java?at=default
+ * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateAuthenticationFilter. see:
+ * https://bitbucket.org/lothor
+ * /shiro-negotiate/src/7b25efde130b/src/main/java/net/skorgenes/security/jsecurity/negotiate
+ * /NegotiateAuthenticationRealm.java?at=default
  *
  * @author Dan Rollo
  */
@@ -59,7 +61,6 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.apache.shiro.realm.AuthenticatingRealm#supports(org.apache.shiro.authc.AuthenticationToken)
      */
     @Override
@@ -69,7 +70,6 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
 
     /*
      * (non-Javadoc)
-     * 
      * @see
      * org.apache.shiro.realm.AuthenticatingRealm#doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)
      */

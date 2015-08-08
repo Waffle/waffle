@@ -81,7 +81,6 @@ public class WindowsLoginModule implements LoginModule {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.security.auth.spi.LoginModule#initialize(javax.security.auth.Subject,
      * javax.security.auth.callback.CallbackHandler, java.util.Map, java.util.Map)
      */

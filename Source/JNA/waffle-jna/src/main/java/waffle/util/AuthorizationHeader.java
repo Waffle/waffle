@@ -83,7 +83,6 @@ public class AuthorizationHeader {
 
     /*
      * (non-Javadoc)
-     * 
      * @see java.lang.Object#toString()
      */
     @Override

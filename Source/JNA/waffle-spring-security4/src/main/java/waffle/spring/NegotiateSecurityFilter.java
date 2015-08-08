@@ -75,7 +75,6 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
 
     /*
      * (non-Javadoc)
-     * 
      * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse,
      * javax.servlet.FilterChain)
      */
@@ -145,7 +144,6 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
     /*
      * Invoked when authentication towards ad was succesful to populate securitycontext Override to add service provider
      * authorization checks.
-     * 
      * @return if security context was set.
      */
     /**
@@ -167,7 +165,6 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.springframework.web.filter.GenericFilterBean#afterPropertiesSet()
      */
     @Override
