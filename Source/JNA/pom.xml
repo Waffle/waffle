@@ -386,6 +386,13 @@
                     <groupId>net.revelc.code</groupId>
                     <artifactId>formatter-maven-plugin</artifactId>
                     <version>0.5.2</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.github.hazendaz</groupId>
+                            <artifactId>build-tools</artifactId>
+                            <version>1.1.1</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>com.mycila</groupId>
@@ -986,6 +993,7 @@
                             <targetFolder>${project.basedir}/target/classes</targetFolder>
                             <fileExt>
                                 <fileExt>html</fileExt>
+                                <fileExt>jsp</fileExt>
                                 <fileExt>xhtml</fileExt>
                                 <fileExt>xml</fileExt>
                             </fileExt>
@@ -1124,7 +1132,7 @@
             <id>format</id>
             <activation>
                 <file>
-                    <exists>${src.relative.loc}/format.xml</exists>
+                    <exists>format.xml</exists>
                 </file>
             </activation>
             <build>
@@ -1133,7 +1141,7 @@
                         <groupId>net.revelc.code</groupId>
                         <artifactId>formatter-maven-plugin</artifactId>
                         <configuration>
-                            <configFile>${src.relative.loc}/format.xml</configFile>
+                           <configFile>eclipse-formatter-config.xml</configFile>
                         </configuration>
                         <executions>
                             <execution>
