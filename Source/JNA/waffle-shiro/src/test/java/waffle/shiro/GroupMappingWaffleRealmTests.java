@@ -34,13 +34,13 @@ import com.sun.jna.platform.win32.Secur32Util;
  * The Class GroupMappingWaffleRealmTests.
  */
 public class GroupMappingWaffleRealmTests {
-    
+
     /** The Constant ROLE_NAME. */
     private static final String     ROLE_NAME = "ShiroUsers";
-    
+
     /** The windows auth provider. */
     private MockWindowsAuthProvider windowsAuthProvider;
-    
+
     /** The realm. */
     private GroupMappingWaffleRealm realm;
 

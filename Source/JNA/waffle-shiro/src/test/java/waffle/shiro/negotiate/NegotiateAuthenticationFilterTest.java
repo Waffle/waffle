@@ -58,7 +58,9 @@ public final class NegotiateAuthenticationFilterTest {
         /** The sc. */
         int                             sc;
 
-        /* (non-Javadoc)
+        /*
+         * (non-Javadoc)
+         * 
          * @see javax.servlet.http.HttpServletResponse#addHeader(java.lang.String, java.lang.String)
          */
         @Override
@@ -73,7 +75,9 @@ public final class NegotiateAuthenticationFilterTest {
             this.headersAdded.put(name, values);
         }
 
-        /* (non-Javadoc)
+        /*
+         * (non-Javadoc)
+         * 
          * @see javax.servlet.ServletResponse#flushBuffer()
          */
         @Override
@@ -81,7 +85,9 @@ public final class NegotiateAuthenticationFilterTest {
             this.isFlushed = true;
         }
 
-        /* (non-Javadoc)
+        /*
+         * (non-Javadoc)
+         * 
          * @see javax.servlet.http.HttpServletResponse#sendError(int)
          */
         @Override
@@ -89,7 +95,9 @@ public final class NegotiateAuthenticationFilterTest {
             this.errorCode = sendError;
         }
 
-        /* (non-Javadoc)
+        /*
+         * (non-Javadoc)
+         * 
          * @see javax.servlet.http.HttpServletResponse#setHeader(java.lang.String, java.lang.String)
          */
         @Override
@@ -97,7 +105,9 @@ public final class NegotiateAuthenticationFilterTest {
             this.headers.put(name, value);
         }
 
-        /* (non-Javadoc)
+        /*
+         * (non-Javadoc)
+         * 
          * @see javax.servlet.http.HttpServletResponse#setStatus(int)
          */
         @Override
@@ -109,7 +119,7 @@ public final class NegotiateAuthenticationFilterTest {
 
     /** The neg auth filter. */
     private NegotiateAuthenticationFilter negAuthFilter;
-    
+
     /** The response. */
     private MockServletResponse           response;
 

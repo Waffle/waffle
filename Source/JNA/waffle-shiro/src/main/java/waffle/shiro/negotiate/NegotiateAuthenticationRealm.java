@@ -57,7 +57,9 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
         this.windowsAuthProvider = new WindowsAuthProviderImpl();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.apache.shiro.realm.AuthenticatingRealm#supports(org.apache.shiro.authc.AuthenticationToken)
      */
     @Override
@@ -65,8 +67,11 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
         return token instanceof NegotiateToken;
     }
 
-    /* (non-Javadoc)
-     * @see org.apache.shiro.realm.AuthenticatingRealm#doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.apache.shiro.realm.AuthenticatingRealm#doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(final AuthenticationToken t) {
@@ -91,7 +96,8 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
         final byte[] continueTokenBytes = securityContext.getToken();
         token.setOut(continueTokenBytes);
         if (continueTokenBytes != null) {
-            NegotiateAuthenticationRealm.LOGGER.debug("continue token bytes: {}", Integer.valueOf(continueTokenBytes.length));
+            NegotiateAuthenticationRealm.LOGGER.debug("continue token bytes: {}",
+                    Integer.valueOf(continueTokenBytes.length));
         } else {
             NegotiateAuthenticationRealm.LOGGER.debug("no continue token bytes");
         }
@@ -103,7 +109,8 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
         final IWindowsIdentity windowsIdentity = securityContext.getIdentity();
         securityContext.dispose();
 
-        NegotiateAuthenticationRealm.LOGGER.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
+        NegotiateAuthenticationRealm.LOGGER.debug("logged in user: {} ({})", windowsIdentity.getFqn(),
+                windowsIdentity.getSidString());
 
         final Principal principal = new WindowsPrincipal(windowsIdentity);
         token.setPrincipal(principal);

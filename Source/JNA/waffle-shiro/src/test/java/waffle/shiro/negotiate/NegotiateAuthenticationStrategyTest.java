@@ -40,7 +40,8 @@ public class NegotiateAuthenticationStrategyTest {
     /**
      * Test after attempt.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test(expected = AuthenticationInProgressException.class)
     public void testAfterAttempt() throws Exception {
