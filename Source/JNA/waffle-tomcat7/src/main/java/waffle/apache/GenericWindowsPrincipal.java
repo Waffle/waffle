@@ -36,10 +36,10 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
 
     /** The sid. */
     private final byte[]                      sid;
-    
+
     /** The sid string. */
     private final String                      sidString;
-    
+
     /** The groups. */
     private final Map<String, WindowsAccount> groups;
 
@@ -55,7 +55,8 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      */
     public GenericWindowsPrincipal(final IWindowsIdentity windowsIdentity, final PrincipalFormat principalFormat,
             final PrincipalFormat roleFormat) {
-        super(windowsIdentity.getFqn(), "", GenericWindowsPrincipal.getRoles(windowsIdentity, principalFormat, roleFormat));
+        super(windowsIdentity.getFqn(), "", GenericWindowsPrincipal.getRoles(windowsIdentity, principalFormat,
+                roleFormat));
         this.sid = windowsIdentity.getSid();
         this.sidString = windowsIdentity.getSidString();
         this.groups = GenericWindowsPrincipal.getGroups(windowsIdentity.getGroups());

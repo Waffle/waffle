@@ -26,7 +26,9 @@ public abstract class SimplePipeline implements Pipeline {
     /** The valves. */
     private Valve[] valves;
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.apache.catalina.Pipeline#getValves()
      */
     @Override
@@ -37,7 +39,8 @@ public abstract class SimplePipeline implements Pipeline {
     /**
      * Sets the valves.
      *
-     * @param value the new valves
+     * @param value
+     *            the new valves
      */
     public void setValves(final Valve[] value) {
         this.valves = value;

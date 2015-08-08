@@ -55,7 +55,8 @@ public class WaffleAuthenticatorBaseTest {
     /**
      * Should_accept_both_protocols.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void should_accept_both_protocols() throws Exception {
@@ -69,7 +70,8 @@ public class WaffleAuthenticatorBaseTest {
     /**
      * Should_accept_ negotiate_protocol.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void should_accept_Negotiate_protocol() throws Exception {
@@ -82,7 +84,8 @@ public class WaffleAuthenticatorBaseTest {
     /**
      * Should_accept_ ntl m_protocol.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void should_accept_NTLM_protocol() throws Exception {
@@ -95,7 +98,8 @@ public class WaffleAuthenticatorBaseTest {
     /**
      * Should_refuse_other_protocol.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test(expected = RuntimeException.class)
     public void should_refuse_other_protocol() throws Exception {

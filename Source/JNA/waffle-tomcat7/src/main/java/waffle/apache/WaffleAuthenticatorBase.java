@@ -44,19 +44,19 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
     /** The info. */
     protected String                 info;
-    
+
     /** The log. */
     protected Logger                 log;
-    
+
     /** The principal format. */
     protected PrincipalFormat        principalFormat     = PrincipalFormat.FQN;
-    
+
     /** The role format. */
     protected PrincipalFormat        roleFormat          = PrincipalFormat.FQN;
-    
+
     /** The allow guest login. */
     protected boolean                allowGuestLogin     = true;
-    
+
     /** The protocols. */
     protected Set<String>            protocols           = WaffleAuthenticatorBase.SUPPORTED_PROTOCOLS;
 
@@ -82,7 +82,9 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
         this.auth = provider;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.apache.catalina.authenticator.AuthenticatorBase#getInfo()
      */
     @Override
@@ -210,7 +212,9 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
         }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.apache.catalina.authenticator.AuthenticatorBase#getAuthMethod()
      */
     @Override
@@ -218,8 +222,11 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.apache.catalina.authenticator.AuthenticatorBase#doLogin(org.apache.catalina.connector.Request, java.lang.String, java.lang.String)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.apache.catalina.authenticator.AuthenticatorBase#doLogin(org.apache.catalina.connector.Request,
+     * java.lang.String, java.lang.String)
      */
     @Override
     protected Principal doLogin(final Request request, final String username, final String password)

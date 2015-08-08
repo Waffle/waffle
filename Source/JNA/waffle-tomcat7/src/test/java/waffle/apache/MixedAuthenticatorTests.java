@@ -56,7 +56,8 @@ public class MixedAuthenticatorTests {
     /**
      * Sets the up.
      *
-     * @throws LifecycleException the lifecycle exception
+     * @throws LifecycleException
+     *             the lifecycle exception
      */
     @Before
     public void setUp() throws LifecycleException {
@@ -80,7 +81,8 @@ public class MixedAuthenticatorTests {
     /**
      * Tear down.
      *
-     * @throws LifecycleException the lifecycle exception
+     * @throws LifecycleException
+     *             the lifecycle exception
      */
     @After
     public void tearDown() throws LifecycleException {
@@ -251,7 +253,8 @@ public class MixedAuthenticatorTests {
     /**
      * Test programmatic security.
      *
-     * @throws ServletException the servlet exception
+     * @throws ServletException
+     *             the servlet exception
      */
     @Test
     public void testProgrammaticSecurity() throws ServletException {
