@@ -29,11 +29,13 @@ public class SimpleFilterChain implements FilterChain {
 
     /** The request. */
     private ServletRequest  request;
-    
+
     /** The response. */
     private ServletResponse response;
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.FilterChain#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
      */
     @Override

@@ -22,7 +22,9 @@ import org.apache.catalina.realm.RealmBase;
  */
 public abstract class SimpleRealm extends RealmBase {
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.apache.catalina.realm.RealmBase#getName()
      */
     @Override

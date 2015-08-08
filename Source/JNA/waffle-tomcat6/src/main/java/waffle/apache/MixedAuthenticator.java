@@ -51,7 +51,9 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
         this.log.debug("[waffle.apache.MixedAuthenticator] loaded");
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.apache.catalina.authenticator.AuthenticatorBase#start()
      */
     @Override
@@ -59,7 +61,9 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
         this.log.info("[waffle.apache.MixedAuthenticator] started");
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.apache.catalina.authenticator.AuthenticatorBase#stop()
      */
     @Override
@@ -67,8 +71,11 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
         this.log.info("[waffle.apache.MixedAuthenticator] stopped");
     }
 
-    /* (non-Javadoc)
-     * @see org.apache.catalina.authenticator.AuthenticatorBase#authenticate(org.apache.catalina.connector.Request, org.apache.catalina.connector.Response, org.apache.catalina.deploy.LoginConfig)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.apache.catalina.authenticator.AuthenticatorBase#authenticate(org.apache.catalina.connector.Request,
+     * org.apache.catalina.connector.Response, org.apache.catalina.deploy.LoginConfig)
      */
     @Override
     public boolean authenticate(final Request request, final Response response, final LoginConfig loginConfig) {

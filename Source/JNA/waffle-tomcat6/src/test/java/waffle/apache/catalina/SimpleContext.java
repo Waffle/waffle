@@ -27,7 +27,7 @@ public abstract class SimpleContext implements Context {
 
     /** The realm. */
     private Realm          realm;
-    
+
     /** The servlet context. */
     private ServletContext servletContext;
 
@@ -51,7 +51,9 @@ public abstract class SimpleContext implements Context {
         return this.servletContext;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.apache.catalina.Container#setRealm(org.apache.catalina.Realm)
      */
     @Override
@@ -62,7 +64,8 @@ public abstract class SimpleContext implements Context {
     /**
      * Set Servlet Context Used By Waffle.
      *
-     * @param value the new servlet context
+     * @param value
+     *            the new servlet context
      */
     public void setServletContext(final ServletContext value) {
         this.servletContext = value;
