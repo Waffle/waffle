@@ -31,7 +31,7 @@ public class NegotiateSecurityFilterLoadTests {
 
     /** The conti perf rule. */
     @Rule
-    public ContiPerfRule                 contiPerfRule = new ContiPerfRule();
+    public ContiPerfRule                       contiPerfRule = new ContiPerfRule();
 
     /** The tests. */
     private final NegotiateSecurityFilterTests tests         = new NegotiateSecurityFilterTests();
@@ -39,7 +39,8 @@ public class NegotiateSecurityFilterLoadTests {
     /**
      * Sets the up.
      *
-     * @throws ServletException the servlet exception
+     * @throws ServletException
+     *             the servlet exception
      */
     @Before
     public void setUp() throws ServletException {
@@ -57,7 +58,8 @@ public class NegotiateSecurityFilterLoadTests {
     /**
      * Test load.
      *
-     * @throws Throwable the throwable
+     * @throws Throwable
+     *             the throwable
      */
     @Test
     @PerfTest(invocations = 10, threads = 10)

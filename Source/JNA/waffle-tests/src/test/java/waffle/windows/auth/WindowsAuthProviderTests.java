@@ -183,9 +183,11 @@ public class WindowsAuthProviderTests {
 
                 if (serverContext != null && serverContext.isContinue()) {
                     // initialize on the client
-                    final SecBufferDesc continueToken = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, serverContext.getToken());
+                    final SecBufferDesc continueToken = new SecBufferDesc(Sspi.SECBUFFER_TOKEN,
+                            serverContext.getToken());
                     clientContext.initialize(clientContext.getHandle(), continueToken, targetName);
-                    WindowsAuthProviderTests.LOGGER.debug("Token: {}", BaseEncoding.base64().encode(serverContext.getToken()));
+                    WindowsAuthProviderTests.LOGGER.debug("Token: {}",
+                            BaseEncoding.base64().encode(serverContext.getToken()));
                 }
 
             } while (clientContext.isContinue() || serverContext != null && serverContext.isContinue());
@@ -214,7 +216,8 @@ public class WindowsAuthProviderTests {
     /**
      * Test security contexts expire.
      *
-     * @throws InterruptedException the interrupted exception
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     @Test
     public void testSecurityContextsExpire() throws InterruptedException {
@@ -241,7 +244,8 @@ public class WindowsAuthProviderTests {
                 serverContext = provider.acceptSecurityToken(connectionId, clientContext.getToken(), securityPackage);
                 Assertions.assertThat(provider.getContinueContextsSize()).isGreaterThan(0);
             }
-            WindowsAuthProviderTests.LOGGER.debug("Cached security contexts: {}", Integer.valueOf(provider.getContinueContextsSize()));
+            WindowsAuthProviderTests.LOGGER.debug("Cached security contexts: {}",
+                    Integer.valueOf(provider.getContinueContextsSize()));
             Assert.assertFalse(max == provider.getContinueContextsSize());
         } finally {
             if (serverContext != null) {
@@ -291,7 +295,8 @@ public class WindowsAuthProviderTests {
 
                 if (serverContext != null && serverContext.isContinue()) {
                     // initialize on the client
-                    final SecBufferDesc continueToken = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, serverContext.getToken());
+                    final SecBufferDesc continueToken = new SecBufferDesc(Sspi.SECBUFFER_TOKEN,
+                            serverContext.getToken());
                     clientContext.initialize(clientContext.getHandle(), continueToken, targetName);
                 }
 

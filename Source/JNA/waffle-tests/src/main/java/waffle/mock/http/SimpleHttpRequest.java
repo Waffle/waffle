@@ -34,43 +34,43 @@ import com.google.common.collect.Iterators;
 public class SimpleHttpRequest extends HttpServletRequestWrapper {
 
     /** The remote port s. */
-    private static int          remotePortS = 0;
+    private static int                remotePortS = 0;
 
     /** The request uri. */
-    private String              requestURI;
-    
+    private String                    requestURI;
+
     /** The query string. */
-    private String              queryString;
-    
+    private String                    queryString;
+
     /** The remote user. */
-    private String              remoteUser;
-    
+    private String                    remoteUser;
+
     /** The method. */
-    private String              method      = "GET";
-    
+    private String                    method      = "GET";
+
     /** The remote host. */
-    private String              remoteHost;
-    
+    private String                    remoteHost;
+
     /** The remote addr. */
-    private String              remoteAddr;
-    
+    private String                    remoteAddr;
+
     /** The remote port. */
-    private int                 remotePort  = -1;
-    
+    private int                       remotePort  = -1;
+
     /** The headers. */
     private final Map<String, String> headers     = new HashMap<>();
-    
+
     /** The parameters. */
     private final Map<String, String> parameters  = new HashMap<>();
-    
+
     /** The content. */
-    private byte[]              content;
-    
+    private byte[]                    content;
+
     /** The session. */
-    private HttpSession         session     = new SimpleHttpSession();
-    
+    private HttpSession               session     = new SimpleHttpSession();
+
     /** The principal. */
-    private Principal           principal;
+    private Principal                 principal;
 
     /**
      * Instantiates a new simple http request.
@@ -108,7 +108,9 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         this.headers.put(headerName, headerValue);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpServletRequestWrapper#getHeader(java.lang.String)
      */
     @Override
@@ -116,7 +118,9 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         return this.headers.get(headerName);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpServletRequestWrapper#getHeaderNames()
      */
     @Override
@@ -124,7 +128,9 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         return Iterators.asEnumeration(this.headers.keySet().iterator());
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpServletRequestWrapper#getMethod()
      */
     @Override
@@ -132,7 +138,9 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         return this.method;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.ServletRequestWrapper#getContentLength()
      */
     @Override
@@ -140,7 +148,9 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         return this.content == null ? -1 : this.content.length;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.ServletRequestWrapper#getRemotePort()
      */
     @Override
@@ -178,7 +188,9 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         this.remoteUser = username;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpServletRequestWrapper#getRemoteUser()
      */
     @Override
@@ -186,7 +198,9 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         return this.remoteUser;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpServletRequestWrapper#getSession()
      */
     @Override
@@ -194,7 +208,9 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         return this.session;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpServletRequestWrapper#getSession(boolean)
      */
     @Override
@@ -205,7 +221,9 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         return this.session;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpServletRequestWrapper#getQueryString()
      */
     @Override
@@ -240,7 +258,9 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         this.requestURI = uri;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpServletRequestWrapper#getRequestURI()
      */
     @Override
@@ -248,7 +268,9 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         return this.requestURI;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.ServletRequestWrapper#getParameter(java.lang.String)
      */
     @Override
@@ -268,7 +290,9 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         this.parameters.put(parameterName, parameterValue);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.ServletRequestWrapper#getRemoteHost()
      */
     @Override
@@ -286,7 +310,9 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         this.remoteHost = value;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.ServletRequestWrapper#getRemoteAddr()
      */
     @Override
@@ -304,7 +330,9 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         this.remoteAddr = value;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpServletRequestWrapper#getUserPrincipal()
      */
     @Override

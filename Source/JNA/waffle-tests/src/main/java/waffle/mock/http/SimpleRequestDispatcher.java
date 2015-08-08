@@ -41,7 +41,9 @@ public class SimpleRequestDispatcher implements RequestDispatcher {
         this.url = newUrl;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.RequestDispatcher#forward(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
      */
     @Override
@@ -52,7 +54,9 @@ public class SimpleRequestDispatcher implements RequestDispatcher {
         httpResponse.addHeader("Location", this.url);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.RequestDispatcher#include(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
      */
     @Override

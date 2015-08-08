@@ -32,7 +32,9 @@ public class SimpleHttpSession implements HttpSession {
     /** The attributes. */
     private final Map<String, Object> attributes = new HashMap<>();
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpSession#getAttribute(java.lang.String)
      */
     @Override
@@ -40,7 +42,9 @@ public class SimpleHttpSession implements HttpSession {
         return this.attributes.get(attributeName);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpSession#getAttributeNames()
      */
     @Override
@@ -48,7 +52,9 @@ public class SimpleHttpSession implements HttpSession {
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpSession#getCreationTime()
      */
     @Override
@@ -56,7 +62,9 @@ public class SimpleHttpSession implements HttpSession {
         return 0;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpSession#getId()
      */
     @Override
@@ -64,7 +72,9 @@ public class SimpleHttpSession implements HttpSession {
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpSession#getLastAccessedTime()
      */
     @Override
@@ -72,7 +82,9 @@ public class SimpleHttpSession implements HttpSession {
         return 0;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpSession#getMaxInactiveInterval()
      */
     @Override
@@ -80,7 +92,9 @@ public class SimpleHttpSession implements HttpSession {
         return 0;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpSession#getServletContext()
      */
     @Override
@@ -88,7 +102,9 @@ public class SimpleHttpSession implements HttpSession {
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpSession#getSessionContext()
      */
     @Deprecated
@@ -97,7 +113,9 @@ public class SimpleHttpSession implements HttpSession {
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpSession#getValue(java.lang.String)
      */
     @Deprecated
@@ -106,7 +124,9 @@ public class SimpleHttpSession implements HttpSession {
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpSession#getValueNames()
      */
     @Deprecated
@@ -115,7 +135,9 @@ public class SimpleHttpSession implements HttpSession {
         return new String[0];
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpSession#invalidate()
      */
     @Override
@@ -123,7 +145,9 @@ public class SimpleHttpSession implements HttpSession {
         // Do Nothing
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpSession#isNew()
      */
     @Override
@@ -131,7 +155,9 @@ public class SimpleHttpSession implements HttpSession {
         return false;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpSession#putValue(java.lang.String, java.lang.Object)
      */
     @Deprecated
@@ -140,7 +166,9 @@ public class SimpleHttpSession implements HttpSession {
         // Do Nothing
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpSession#removeAttribute(java.lang.String)
      */
     @Override
@@ -148,7 +176,9 @@ public class SimpleHttpSession implements HttpSession {
         this.attributes.remove(attributeName);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpSession#removeValue(java.lang.String)
      */
     @Deprecated
@@ -157,7 +187,9 @@ public class SimpleHttpSession implements HttpSession {
         // Do Nothing
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpSession#setAttribute(java.lang.String, java.lang.Object)
      */
     @Override
@@ -165,7 +197,9 @@ public class SimpleHttpSession implements HttpSession {
         this.attributes.put(attributeName, attributeValue);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpSession#setMaxInactiveInterval(int)
      */
     @Override

@@ -28,7 +28,7 @@ public class WindowsAuthProviderLoadTests {
 
     /** The conti perf rule. */
     @Rule
-    public ContiPerfRule             contiPerfRule = new ContiPerfRule();
+    public ContiPerfRule                   contiPerfRule = new ContiPerfRule();
 
     /** The tests. */
     private final WindowsAuthProviderTests tests         = new WindowsAuthProviderTests();
@@ -36,7 +36,8 @@ public class WindowsAuthProviderLoadTests {
     /**
      * Test load.
      *
-     * @throws Throwable the throwable
+     * @throws Throwable
+     *             the throwable
      */
     @Test
     @PerfTest(invocations = 10, threads = 10)

@@ -29,7 +29,7 @@ public class MockWindowsIdentity implements IWindowsIdentity {
 
     /** The fqn. */
     private final String       fqn;
-    
+
     /** The groups. */
     private final List<String> groups;
 
@@ -46,7 +46,9 @@ public class MockWindowsIdentity implements IWindowsIdentity {
         this.groups = newGroups;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see waffle.windows.auth.IWindowsIdentity#getFqn()
      */
     @Override
@@ -54,7 +56,9 @@ public class MockWindowsIdentity implements IWindowsIdentity {
         return this.fqn;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see waffle.windows.auth.IWindowsIdentity#getGroups()
      */
     @Override
@@ -66,7 +70,9 @@ public class MockWindowsIdentity implements IWindowsIdentity {
         return groupsList.toArray(new IWindowsAccount[0]);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see waffle.windows.auth.IWindowsIdentity#getSid()
      */
     @Override
@@ -74,7 +80,9 @@ public class MockWindowsIdentity implements IWindowsIdentity {
         return new byte[0];
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see waffle.windows.auth.IWindowsIdentity#getSidString()
      */
     @Override
@@ -82,7 +90,9 @@ public class MockWindowsIdentity implements IWindowsIdentity {
         return "S-" + this.fqn.hashCode();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see waffle.windows.auth.IWindowsIdentity#dispose()
      */
     @Override
@@ -90,7 +100,9 @@ public class MockWindowsIdentity implements IWindowsIdentity {
         // Do Nothing
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see waffle.windows.auth.IWindowsIdentity#isGuest()
      */
     @Override
@@ -98,7 +110,9 @@ public class MockWindowsIdentity implements IWindowsIdentity {
         return this.fqn.equals("Guest");
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see waffle.windows.auth.IWindowsIdentity#impersonate()
      */
     @Override
