@@ -54,7 +54,7 @@ public class NegotiateSecurityFilterTests {
 
     /** The filter. */
     private NegotiateSecurityFilter filter;
-    
+
     /** The ctx. */
     private ApplicationContext      ctx;
 
@@ -92,7 +92,8 @@ public class NegotiateSecurityFilterTests {
     /**
      * Test provider.
      *
-     * @throws ClassNotFoundException the class not found exception
+     * @throws ClassNotFoundException
+     *             the class not found exception
      */
     @Test
     public void testProvider() throws ClassNotFoundException {
@@ -105,8 +106,10 @@ public class NegotiateSecurityFilterTests {
     /**
      * Test no challenge get.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws ServletException the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Test
     public void testNoChallengeGET() throws IOException, ServletException {
@@ -122,8 +125,10 @@ public class NegotiateSecurityFilterTests {
     /**
      * Test negotiate.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws ServletException the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Test
     public void testNegotiate() throws IOException, ServletException {
@@ -159,8 +164,10 @@ public class NegotiateSecurityFilterTests {
     /**
      * Test unsupported security package passthrough.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws ServletException the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Test
     public void testUnsupportedSecurityPackagePassthrough() throws IOException, ServletException {
@@ -176,8 +183,10 @@ public class NegotiateSecurityFilterTests {
     /**
      * Test guest is disabled.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws ServletException the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Test
     public void testGuestIsDisabled() throws IOException, ServletException {
@@ -198,7 +207,8 @@ public class NegotiateSecurityFilterTests {
     /**
      * Test after properties set.
      *
-     * @throws ServletException the servlet exception
+     * @throws ServletException
+     *             the servlet exception
      */
     @Test(expected = ServletException.class)
     public void testAfterPropertiesSet() throws ServletException {

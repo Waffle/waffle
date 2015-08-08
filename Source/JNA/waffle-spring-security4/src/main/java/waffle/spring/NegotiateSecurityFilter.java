@@ -46,22 +46,22 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
     /** The Constant LOGGER. */
     private static final Logger              LOGGER                  = LoggerFactory
                                                                              .getLogger(NegotiateSecurityFilter.class);
-    
+
     /** The provider. */
     private SecurityFilterProviderCollection provider;
-    
+
     /** The principal format. */
     private PrincipalFormat                  principalFormat         = PrincipalFormat.FQN;
-    
+
     /** The role format. */
     private PrincipalFormat                  roleFormat              = PrincipalFormat.FQN;
-    
+
     /** The allow guest login. */
     private boolean                          allowGuestLogin         = true;
 
     /** The granted authority factory. */
     private GrantedAuthorityFactory          grantedAuthorityFactory = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY_FACTORY;
-    
+
     /** The default granted authority. */
     private GrantedAuthority                 defaultGrantedAuthority = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY;
 
@@ -73,8 +73,11 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
         NegotiateSecurityFilter.LOGGER.debug("[waffle.spring.NegotiateSecurityFilter] loaded");
     }
 
-    /* (non-Javadoc)
-     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse,
+     * javax.servlet.FilterChain)
      */
     @Override
     public void doFilter(final ServletRequest req, final ServletResponse res, final FilterChain chain)
@@ -114,7 +117,8 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
             }
 
             try {
-                NegotiateSecurityFilter.LOGGER.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
+                NegotiateSecurityFilter.LOGGER.debug("logged in user: {} ({})", windowsIdentity.getFqn(),
+                        windowsIdentity.getSidString());
 
                 final WindowsPrincipal principal = new WindowsPrincipal(windowsIdentity, this.principalFormat,
                         this.roleFormat);
@@ -161,7 +165,9 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
         return true;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.springframework.web.filter.GenericFilterBean#afterPropertiesSet()
      */
     @Override

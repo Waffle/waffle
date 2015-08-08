@@ -49,10 +49,10 @@ public class WindowsAuthenticationToken implements Authentication {
                                                                                           "ROLE_USER");
 
     /** The principal. */
-    private final WindowsPrincipal                    principal;
-    
+    private final WindowsPrincipal              principal;
+
     /** The authorities. */
-    private final Collection<GrantedAuthority>        authorities;
+    private final Collection<GrantedAuthority>  authorities;
 
     /**
      * Convenience constructor that calls
@@ -68,7 +68,8 @@ public class WindowsAuthenticationToken implements Authentication {
      *            the identity
      */
     public WindowsAuthenticationToken(final WindowsPrincipal identity) {
-        this(identity, WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY_FACTORY, WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY);
+        this(identity, WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY_FACTORY,
+                WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY);
     }
 
     /**
@@ -95,7 +96,9 @@ public class WindowsAuthenticationToken implements Authentication {
         }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.springframework.security.core.Authentication#getAuthorities()
      */
     @Override
@@ -103,7 +106,9 @@ public class WindowsAuthenticationToken implements Authentication {
         return this.authorities;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.springframework.security.core.Authentication#getCredentials()
      */
     @Override
@@ -111,7 +116,9 @@ public class WindowsAuthenticationToken implements Authentication {
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.springframework.security.core.Authentication#getDetails()
      */
     @Override
@@ -119,7 +126,9 @@ public class WindowsAuthenticationToken implements Authentication {
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.springframework.security.core.Authentication#getPrincipal()
      */
     @Override
@@ -127,7 +136,9 @@ public class WindowsAuthenticationToken implements Authentication {
         return this.principal;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.springframework.security.core.Authentication#isAuthenticated()
      */
     @Override
@@ -135,7 +146,9 @@ public class WindowsAuthenticationToken implements Authentication {
         return this.principal != null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.springframework.security.core.Authentication#setAuthenticated(boolean)
      */
     @Override
@@ -143,7 +156,9 @@ public class WindowsAuthenticationToken implements Authentication {
         throw new IllegalArgumentException();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.security.Principal#getName()
      */
     @Override

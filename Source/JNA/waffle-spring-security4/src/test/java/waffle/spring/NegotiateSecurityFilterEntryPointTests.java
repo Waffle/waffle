@@ -37,7 +37,7 @@ public class NegotiateSecurityFilterEntryPointTests {
 
     /** The entry point. */
     private NegotiateSecurityFilterEntryPoint entryPoint;
-    
+
     /** The ctx. */
     private ApplicationContext                ctx;
 
@@ -62,8 +62,10 @@ public class NegotiateSecurityFilterEntryPointTests {
     /**
      * Test challenge get.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws ServletException the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Test
     public void testChallengeGET() throws IOException, ServletException {
@@ -84,8 +86,10 @@ public class NegotiateSecurityFilterEntryPointTests {
     /**
      * Test get set provider.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws ServletException the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Test(expected = ServletException.class)
     public void testGetSetProvider() throws IOException, ServletException {
