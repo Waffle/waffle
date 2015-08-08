@@ -15,7 +15,6 @@
     <url>http://dblock.github.com/waffle/</url>
     <properties>
         <src.relative.loc>..</src.relative.loc>
-        <git.relative.loc>../../..</git.relative.loc>
 
         <servlet.version>3.0.1</servlet.version>
         <spring.version>3.2.14.RELEASE</spring.version>

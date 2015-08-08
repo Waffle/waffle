@@ -112,7 +112,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <src.relative.loc>.</src.relative.loc>
-        <git.relative.loc>../..</git.relative.loc>
 
         <assertj.version>2.1.0</assertj.version>
         <cglib.version>3.1</cglib.version>
@@ -566,9 +565,7 @@
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
                 <configuration>
-                    <dotGitDirectory>${git.relative.loc}/.git</dotGitDirectory>
-                    <!-- Fixes occassional issue in commit id plugin - see 
-                        https://github.com/ktoso/maven-git-commit-id-plugin/issues/61 -->
+                    <!-- Prevent issues, see https://github.com/ktoso/maven-git-commit-id-plugin/issues/61 -->
                     <gitDescribe>
                         <always>true</always>
                     </gitDescribe>

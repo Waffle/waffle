@@ -15,7 +15,6 @@
     <url>http://dblock.github.com/waffle/</url>
     <properties>
         <src.relative.loc>..</src.relative.loc>
-        <git.relative.loc>../../..</git.relative.loc>
 
         <guava.version>18.0</guava.version>
         <jna.version>4.1.0</jna.version>

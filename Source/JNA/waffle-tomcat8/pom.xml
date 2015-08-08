@@ -18,7 +18,6 @@
         <maven.compiler.target>1.7</maven.compiler.target>
 
         <src.relative.loc>..</src.relative.loc>
-        <git.relative.loc>../../..</git.relative.loc>
 
         <tomcat.version>8.0.24</tomcat.version>
     </properties>

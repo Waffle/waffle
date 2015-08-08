@@ -15,7 +15,6 @@
     <url>http://dblock.github.com/waffle/</url>
     <properties>
         <src.relative.loc>..</src.relative.loc>
-        <git.relative.loc>../../..</git.relative.loc>
 
         <servlet.version>2.5</servlet.version>
         <mockito.version>1.10.19</mockito.version>
