@@ -27,7 +27,9 @@ public abstract class SimpleHttpSession implements HttpSession {
     /** The attributes. */
     private Map<String, Object> attributes;
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpSession#getAttribute(java.lang.String)
      */
     @Override
@@ -35,7 +37,9 @@ public abstract class SimpleHttpSession implements HttpSession {
         return this.attributes.get(attributeName);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpSession#getId()
      */
     @Override
@@ -43,7 +47,9 @@ public abstract class SimpleHttpSession implements HttpSession {
         return "WaffleId";
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpSession#removeAttribute(java.lang.String)
      */
     @Override
@@ -51,7 +57,9 @@ public abstract class SimpleHttpSession implements HttpSession {
         this.attributes.remove(attributeName);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.servlet.http.HttpSession#setAttribute(java.lang.String, java.lang.Object)
      */
     @Override
@@ -62,7 +70,8 @@ public abstract class SimpleHttpSession implements HttpSession {
     /**
      * Sets the attributes.
      *
-     * @param value the value
+     * @param value
+     *            the value
      */
     public void setAttributes(final Map<String, Object> value) {
         this.attributes = value;

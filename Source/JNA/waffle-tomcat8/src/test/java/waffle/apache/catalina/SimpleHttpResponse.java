@@ -37,11 +37,13 @@ public class SimpleHttpResponse extends Response {
 
     /** The status. */
     private int                             status  = 500;
-    
+
     /** The headers. */
     private final Map<String, List<String>> headers = new HashMap<>();
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.apache.catalina.connector.Response#addHeader(java.lang.String, java.lang.String)
      */
     @Override
@@ -54,7 +56,9 @@ public class SimpleHttpResponse extends Response {
         this.headers.put(headerName, current);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.apache.catalina.connector.Response#flushBuffer()
      */
     @Override
@@ -67,7 +71,9 @@ public class SimpleHttpResponse extends Response {
         }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.apache.catalina.connector.Response#getHeader(java.lang.String)
      */
     @Override
@@ -76,7 +82,9 @@ public class SimpleHttpResponse extends Response {
         return headerValues == null ? null : Joiner.on(", ").join(headerValues);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.apache.catalina.connector.Response#getHeaderNames()
      */
     @Override
@@ -87,7 +95,8 @@ public class SimpleHttpResponse extends Response {
     /**
      * Gets the header values.
      *
-     * @param headerName the header name
+     * @param headerName
+     *            the header name
      * @return the header values
      */
     public String[] getHeaderValues(final String headerName) {
@@ -95,7 +104,9 @@ public class SimpleHttpResponse extends Response {
         return headerValues == null ? null : headerValues.toArray(new String[0]);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.apache.catalina.connector.Response#getStatus()
      */
     @Override
@@ -112,7 +123,9 @@ public class SimpleHttpResponse extends Response {
         return this.status == 401 ? "Unauthorized" : "Unknown";
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.apache.catalina.connector.Response#sendError(int)
      */
     @Override
@@ -120,7 +133,9 @@ public class SimpleHttpResponse extends Response {
         this.status = rc;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.apache.catalina.connector.Response#sendError(int, java.lang.String)
      */
     @Override
@@ -128,7 +143,9 @@ public class SimpleHttpResponse extends Response {
         this.status = rc;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.apache.catalina.connector.Response#setHeader(java.lang.String, java.lang.String)
      */
     @Override
@@ -143,7 +160,9 @@ public class SimpleHttpResponse extends Response {
         this.headers.put(headerName, current);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.apache.catalina.connector.Response#setStatus(int)
      */
     @Override

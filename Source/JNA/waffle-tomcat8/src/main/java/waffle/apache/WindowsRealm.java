@@ -27,7 +27,9 @@ public class WindowsRealm extends RealmBase {
     /** The Constant NAME. */
     protected static final String NAME = "waffle.apache.WindowsRealm/1.0";
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.apache.catalina.realm.RealmBase#getName()
      */
     @Override
@@ -35,7 +37,9 @@ public class WindowsRealm extends RealmBase {
         return WindowsRealm.NAME;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.apache.catalina.realm.RealmBase#getPassword(java.lang.String)
      */
     @Override
@@ -43,7 +47,9 @@ public class WindowsRealm extends RealmBase {
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.apache.catalina.realm.RealmBase#getPrincipal(java.lang.String)
      */
     @Override

@@ -33,22 +33,22 @@ public abstract class SimpleContext implements Context {
 
     /** The path. */
     private String         path;
-    
+
     /** The name. */
     private String         name;
-    
+
     /** The realm. */
     private Realm          realm;
-    
+
     /** The parent. */
     private Container      parent;
-    
+
     /** The servlet context. */
     private ServletContext servletContext;
-    
+
     /** The pipeline. */
     private Pipeline       pipeline;
-    
+
     /** The authenticator. */
     private Authenticator  authenticator;
 
@@ -165,7 +165,8 @@ public abstract class SimpleContext implements Context {
     /**
      * Set Authenticator Used By Waffle.
      *
-     * @param value the new authenticator
+     * @param value
+     *            the new authenticator
      */
     public void setAuthenticator(final Authenticator value) {
         this.authenticator = value;
@@ -174,7 +175,8 @@ public abstract class SimpleContext implements Context {
     /**
      * Set Name Used By Waffle.
      *
-     * @param value the new name
+     * @param value
+     *            the new name
      */
     @Override
     public void setName(final String value) {
@@ -184,7 +186,8 @@ public abstract class SimpleContext implements Context {
     /**
      * Set Parent Used By Waffle.
      *
-     * @param container the new parent
+     * @param container
+     *            the new parent
      */
     @Override
     public void setParent(final Container container) {
@@ -194,7 +197,8 @@ public abstract class SimpleContext implements Context {
     /**
      * Set Path Used By Waffle.
      *
-     * @param value the new path
+     * @param value
+     *            the new path
      */
     @Override
     public void setPath(final String value) {
@@ -204,7 +208,8 @@ public abstract class SimpleContext implements Context {
     /**
      * Set Pipeline Used By Waffle.
      *
-     * @param value the new pipeline
+     * @param value
+     *            the new pipeline
      */
     public void setPipeline(final Pipeline value) {
         this.pipeline = value;
@@ -213,7 +218,8 @@ public abstract class SimpleContext implements Context {
     /**
      * Set Realm Used By Waffle.
      *
-     * @param value the new realm
+     * @param value
+     *            the new realm
      */
     @Override
     public void setRealm(final Realm value) {
@@ -223,7 +229,8 @@ public abstract class SimpleContext implements Context {
     /**
      * Set Servlet Context Used By Waffle.
      *
-     * @param value the new servlet context
+     * @param value
+     *            the new servlet context
      */
     public void setServletContext(final ServletContext value) {
         this.servletContext = value;

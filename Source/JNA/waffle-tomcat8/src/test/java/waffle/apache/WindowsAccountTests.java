@@ -37,7 +37,7 @@ public class WindowsAccountTests {
 
     /** The mock windows account. */
     private final MockWindowsAccount mockWindowsAccount = new MockWindowsAccount("localhost\\Administrator");
-    
+
     /** The windows account. */
     private WindowsAccount           windowsAccount;
 
@@ -62,8 +62,10 @@ public class WindowsAccountTests {
     /**
      * Test is serializable.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws ClassNotFoundException the class not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ClassNotFoundException
+     *             the class not found exception
      */
     @Test
     public void testIsSerializable() throws IOException, ClassNotFoundException {
