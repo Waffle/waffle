@@ -30,22 +30,25 @@ public class UsernamePasswordCallbackHandler implements CallbackHandler {
 
     /** The username. */
     private final String username;
-    
+
     /** The password. */
     private final String password;
 
     /**
      * Instantiates a new username password callback handler.
      *
-     * @param newUserName the new user name
-     * @param newPassword the new password
+     * @param newUserName
+     *            the new user name
+     * @param newPassword
+     *            the new password
      */
     public UsernamePasswordCallbackHandler(final String newUserName, final String newPassword) {
         this.username = newUserName;
         this.password = newPassword;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.security.auth.callback.CallbackHandler#handle(javax.security.auth.callback.Callback[])
      */
     @Override

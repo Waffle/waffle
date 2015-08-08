@@ -31,7 +31,8 @@ public abstract class SimpleRequestDispatcher implements RequestDispatcher {
     /** The url. */
     private String url;
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.RequestDispatcher#forward(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
      */
     @Override
@@ -45,7 +46,8 @@ public abstract class SimpleRequestDispatcher implements RequestDispatcher {
     /**
      * Sets the url.
      *
-     * @param value the new url
+     * @param value
+     *            the new url
      */
     public void setUrl(final String value) {
         this.url = value;

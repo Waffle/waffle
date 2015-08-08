@@ -41,7 +41,8 @@ public class DynamicAuthenticationFilterTest {
         /** The parameters. */
         private final Map<String, String> parameters = new HashMap<>();
 
-        /* (non-Javadoc)
+        /*
+         * (non-Javadoc)
          * @see javax.servlet.ServletRequest#getParameter(java.lang.String)
          */
         @Override

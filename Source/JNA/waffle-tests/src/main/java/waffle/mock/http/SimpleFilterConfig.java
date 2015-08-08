@@ -31,12 +31,13 @@ import javax.servlet.ServletContext;
 public class SimpleFilterConfig implements FilterConfig {
 
     /** The filter name. */
-    private String              filterName = "Simple Filter";
-    
+    private String                    filterName = "Simple Filter";
+
     /** The parameters. */
     private final Map<String, String> parameters = new TreeMap<>();
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.FilterConfig#getFilterName()
      */
     @Override
@@ -54,7 +55,8 @@ public class SimpleFilterConfig implements FilterConfig {
         this.filterName = value;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.FilterConfig#getInitParameter(java.lang.String)
      */
     @Override
@@ -62,7 +64,8 @@ public class SimpleFilterConfig implements FilterConfig {
         return this.parameters.get(s);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.FilterConfig#getInitParameterNames()
      */
     @Override
@@ -72,7 +75,8 @@ public class SimpleFilterConfig implements FilterConfig {
         return Collections.enumeration(keys);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.FilterConfig#getServletContext()
      */
     @Override

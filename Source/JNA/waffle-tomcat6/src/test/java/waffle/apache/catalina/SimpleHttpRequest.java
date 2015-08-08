@@ -50,16 +50,16 @@ public class SimpleHttpRequest extends Request {
 
     /** The request uri. */
     private String                    requestURI;
-    
+
     /** The query string. */
     private String                    queryString;
-    
+
     /** The remote user. */
     private String                    remoteUser;
-    
+
     /** The method. */
     private String                    method     = "GET";
-    
+
     /** The headers. */
     private final Map<String, String> headers    = new HashMap<>();
 
@@ -85,7 +85,8 @@ public class SimpleHttpRequest extends Request {
         this.remotePort = SimpleHttpRequest.nextRemotePort();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.apache.catalina.connector.Request#addHeader(java.lang.String, java.lang.String)
      */
     @Override
@@ -96,14 +97,17 @@ public class SimpleHttpRequest extends Request {
     /**
      * Adds the parameter.
      *
-     * @param parameterName the parameter name
-     * @param parameterValue the parameter value
+     * @param parameterName
+     *            the parameter name
+     * @param parameterValue
+     *            the parameter value
      */
     public void addParameter(final String parameterName, final String parameterValue) {
         this.parameters.put(parameterName, parameterValue);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.apache.catalina.connector.Request#getContentLength()
      */
     @Override
@@ -111,7 +115,8 @@ public class SimpleHttpRequest extends Request {
         return this.content == null ? -1 : this.content.length;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.apache.catalina.connector.Request#getHeader(java.lang.String)
      */
     @Override
@@ -119,7 +124,8 @@ public class SimpleHttpRequest extends Request {
         return this.headers.get(headerName);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.apache.catalina.connector.Request#getMethod()
      */
     @Override
@@ -127,7 +133,8 @@ public class SimpleHttpRequest extends Request {
         return this.method;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.apache.catalina.connector.Request#getParameter(java.lang.String)
      */
     @Override
@@ -135,7 +142,8 @@ public class SimpleHttpRequest extends Request {
         return this.parameters.get(parameterName);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.apache.catalina.connector.Request#getQueryString()
      */
     @Override
@@ -143,7 +151,8 @@ public class SimpleHttpRequest extends Request {
         return this.queryString;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.apache.catalina.connector.Request#getRemoteAddr()
      */
     @Override
@@ -151,7 +160,8 @@ public class SimpleHttpRequest extends Request {
         return this.remoteAddr;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.apache.catalina.connector.Request#getRemoteHost()
      */
     @Override
@@ -159,7 +169,8 @@ public class SimpleHttpRequest extends Request {
         return this.remoteHost;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.apache.catalina.connector.Request#getRemotePort()
      */
     @Override
@@ -167,7 +178,8 @@ public class SimpleHttpRequest extends Request {
         return this.remotePort;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.apache.catalina.connector.Request#getRemoteUser()
      */
     @Override
@@ -175,7 +187,8 @@ public class SimpleHttpRequest extends Request {
         return this.remoteUser;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.apache.catalina.connector.Request#getRequestURI()
      */
     @Override
@@ -183,7 +196,8 @@ public class SimpleHttpRequest extends Request {
         return this.requestURI;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.apache.catalina.connector.Request#getSession()
      */
     @Override
@@ -191,7 +205,8 @@ public class SimpleHttpRequest extends Request {
         return this.httpSession;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.apache.catalina.connector.Request#getSession(boolean)
      */
     @Override
@@ -203,7 +218,8 @@ public class SimpleHttpRequest extends Request {
         return this.httpSession;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.apache.catalina.connector.Request#getUserPrincipal()
      */
     @Override
@@ -211,7 +227,8 @@ public class SimpleHttpRequest extends Request {
         return this.principal;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.apache.catalina.connector.Request#setContentLength(int)
      */
     @Override
@@ -219,7 +236,8 @@ public class SimpleHttpRequest extends Request {
         this.content = new byte[length];
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.apache.catalina.connector.Request#setMethod(java.lang.String)
      */
     @Override
@@ -227,7 +245,8 @@ public class SimpleHttpRequest extends Request {
         this.method = value;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.apache.catalina.connector.Request#setQueryString(java.lang.String)
      */
     @Override
@@ -242,7 +261,8 @@ public class SimpleHttpRequest extends Request {
         }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.apache.catalina.connector.Request#setRemoteAddr(java.lang.String)
      */
     @Override
@@ -250,7 +270,8 @@ public class SimpleHttpRequest extends Request {
         this.remoteAddr = value;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.apache.catalina.connector.Request#setRemoteHost(java.lang.String)
      */
     @Override
@@ -261,13 +282,15 @@ public class SimpleHttpRequest extends Request {
     /**
      * Sets the remote user.
      *
-     * @param value the new remote user
+     * @param value
+     *            the new remote user
      */
     public void setRemoteUser(final String value) {
         this.remoteUser = value;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.apache.catalina.connector.Request#setRequestURI(java.lang.String)
      */
     @Override
@@ -275,7 +298,8 @@ public class SimpleHttpRequest extends Request {
         this.requestURI = value;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.apache.catalina.connector.Request#setUserPrincipal(java.security.Principal)
      */
     @Override

@@ -31,7 +31,7 @@ public class FqnGrantedAuthorityFactory implements GrantedAuthorityFactory {
 
     /** The prefix. */
     private final String  prefix;
-    
+
     /** The convert to upper case. */
     private final boolean convertToUpperCase;
 
@@ -48,7 +48,8 @@ public class FqnGrantedAuthorityFactory implements GrantedAuthorityFactory {
         this.convertToUpperCase = newConvertToUpperCase;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.spring.GrantedAuthorityFactory#createGrantedAuthority(waffle.windows.auth.WindowsAccount)
      */
     @Override

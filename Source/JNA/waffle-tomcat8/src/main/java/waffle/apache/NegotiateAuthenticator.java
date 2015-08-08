@@ -48,7 +48,8 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
         this.log.debug("[waffle.apache.NegotiateAuthenticator] loaded");
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.apache.catalina.authenticator.AuthenticatorBase#startInternal()
      */
     @Override
@@ -57,7 +58,8 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
         super.startInternal();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.apache.catalina.authenticator.AuthenticatorBase#stopInternal()
      */
     @Override
@@ -66,8 +68,10 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
         this.log.info("[waffle.apache.NegotiateAuthenticator] stopped");
     }
 
-    /* (non-Javadoc)
-     * @see org.apache.catalina.authenticator.AuthenticatorBase#authenticate(org.apache.catalina.connector.Request, javax.servlet.http.HttpServletResponse)
+    /*
+     * (non-Javadoc)
+     * @see org.apache.catalina.authenticator.AuthenticatorBase#authenticate(org.apache.catalina.connector.Request,
+     * javax.servlet.http.HttpServletResponse)
      */
     @Override
     public boolean authenticate(final Request request, final HttpServletResponse response) {

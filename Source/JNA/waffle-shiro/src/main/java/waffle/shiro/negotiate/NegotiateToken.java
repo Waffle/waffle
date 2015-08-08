@@ -14,8 +14,10 @@
 package waffle.shiro.negotiate;
 
 /**
- * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateToken.
- * see: https://bitbucket.org/lothor/shiro-negotiate/src/7b25efde130b9cbcacf579b3f926c532d919aa23/src/main/java/net/skorgenes/security/jsecurity/negotiate/NegotiateAuthenticationFilter.java?at=default
+ * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateToken. see:
+ * https://bitbucket.org/lothor/shiro-negotiate
+ * /src/7b25efde130b9cbcacf579b3f926c532d919aa23/src/main/java/net/skorgenes/
+ * security/jsecurity/negotiate/NegotiateAuthenticationFilter.java?at=default
  *
  * @author Dan Rollo
  */
@@ -32,7 +34,7 @@ import org.apache.shiro.authc.RememberMeAuthenticationToken;
  * @since 1.0.0
  */
 public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthenticationToken {
-    
+
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1345343228636916781L;
 
@@ -50,10 +52,10 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
 
     /** The connection id. */
     private final String      connectionId;
-    
+
     /** The security package. */
     private final String      securityPackage;
-    
+
     /** The ntlm post. */
     private final boolean     ntlmPost;
 
@@ -125,7 +127,8 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
         return this.ntlmPost;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.apache.shiro.authc.AuthenticationToken#getCredentials()
      */
     @Override
@@ -133,7 +136,8 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
         return this.subject;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.apache.shiro.authc.AuthenticationToken#getPrincipal()
      */
     @Override

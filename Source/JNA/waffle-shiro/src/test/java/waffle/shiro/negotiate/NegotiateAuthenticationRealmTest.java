@@ -26,7 +26,8 @@ public final class NegotiateAuthenticationRealmTest extends TestCase {
     /** The neg auth realm. */
     private NegotiateAuthenticationRealm negAuthRealm;
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see junit.framework.TestCase#setUp()
      */
     @Override

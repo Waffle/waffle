@@ -31,19 +31,19 @@ import com.sun.jna.platform.win32.WinError;
 public class WindowsCredentialsHandleImpl implements IWindowsCredentialsHandle {
 
     /** The principal name. */
-    private final String     principalName;
-    
+    private final String principalName;
+
     /** The credentials type. */
-    private final int        credentialsType;
-    
+    private final int    credentialsType;
+
     /** The security package. */
-    private final String     securityPackage;
-    
+    private final String securityPackage;
+
     /** The handle. */
-    private CredHandle handle;
-    
+    private CredHandle   handle;
+
     /** The client lifetime. */
-    private TimeStamp  clientLifetime;
+    private TimeStamp    clientLifetime;
 
     /**
      * A new Windows credentials handle.

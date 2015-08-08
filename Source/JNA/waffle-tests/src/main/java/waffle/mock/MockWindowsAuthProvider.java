@@ -38,7 +38,7 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
     private static final String GUEST  = "Guest";
 
     /** The groups. */
-    private final List<String>        groups = new ArrayList<>();
+    private final List<String>  groups = new ArrayList<>();
 
     /**
      * Instantiates a new mock windows auth provider.
@@ -58,7 +58,8 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
         this.groups.add(name);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsAuthProvider#acceptSecurityToken(java.lang.String, byte[], java.lang.String)
      */
     @Override
@@ -67,7 +68,8 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
         return new MockWindowsSecurityContext(new String(token, Charsets.UTF_8));
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsAuthProvider#getCurrentComputer()
      */
     @Override
@@ -75,7 +77,8 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsAuthProvider#getDomains()
      */
     @Override
@@ -83,16 +86,20 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
         return new IWindowsDomain[0];
     }
 
-    /* (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsAuthProvider#logonDomainUser(java.lang.String, java.lang.String, java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsAuthProvider#logonDomainUser(java.lang.String, java.lang.String,
+     * java.lang.String)
      */
     @Override
     public IWindowsIdentity logonDomainUser(final String username, final String domain, final String password) {
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsAuthProvider#logonDomainUserEx(java.lang.String, java.lang.String, java.lang.String, int, int)
+    /*
+     * (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsAuthProvider#logonDomainUserEx(java.lang.String, java.lang.String,
+     * java.lang.String, int, int)
      */
     @Override
     public IWindowsIdentity logonDomainUserEx(final String username, final String domain, final String password,
@@ -121,7 +128,8 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
         }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsAuthProvider#lookupAccount(java.lang.String)
      */
     @Override
@@ -129,7 +137,8 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsAuthProvider#resetSecurityToken(java.lang.String)
      */
     @Override

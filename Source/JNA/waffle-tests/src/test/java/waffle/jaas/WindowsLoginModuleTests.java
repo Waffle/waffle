@@ -35,10 +35,10 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsLoginModuleTests {
-    
+
     /** The login module. */
     WindowsLoginModule      loginModule;
-    
+
     /** The provider. */
     MockWindowsAuthProvider provider;
 
@@ -78,7 +78,8 @@ public class WindowsLoginModuleTests {
     /**
      * Test login.
      *
-     * @throws LoginException the login exception
+     * @throws LoginException
+     *             the login exception
      */
     @Test
     public void testLogin() throws LoginException {
@@ -102,7 +103,8 @@ public class WindowsLoginModuleTests {
     /**
      * Test no callback handler.
      *
-     * @throws LoginException the login exception
+     * @throws LoginException
+     *             the login exception
      */
     @Test(expected = LoginException.class)
     public void testNoCallbackHandler() throws LoginException {
@@ -115,7 +117,8 @@ public class WindowsLoginModuleTests {
     /**
      * Test login no username.
      *
-     * @throws LoginException the login exception
+     * @throws LoginException
+     *             the login exception
      */
     @Test(expected = LoginException.class)
     public void testLoginNoUsername() throws LoginException {
@@ -131,7 +134,8 @@ public class WindowsLoginModuleTests {
     /**
      * Test role format none.
      *
-     * @throws LoginException the login exception
+     * @throws LoginException
+     *             the login exception
      */
     @Test
     public void testRoleFormatNone() throws LoginException {
@@ -150,7 +154,8 @@ public class WindowsLoginModuleTests {
     /**
      * Test role format both.
      *
-     * @throws LoginException the login exception
+     * @throws LoginException
+     *             the login exception
      */
     @Test
     public void testRoleFormatBoth() throws LoginException {
@@ -169,7 +174,8 @@ public class WindowsLoginModuleTests {
     /**
      * Test principal format both.
      *
-     * @throws LoginException the login exception
+     * @throws LoginException
+     *             the login exception
      */
     @Test
     public void testPrincipalFormatBoth() throws LoginException {
@@ -189,7 +195,8 @@ public class WindowsLoginModuleTests {
     /**
      * Test role format sid.
      *
-     * @throws LoginException the login exception
+     * @throws LoginException
+     *             the login exception
      */
     @Test
     public void testRoleFormatSid() throws LoginException {
@@ -212,7 +219,8 @@ public class WindowsLoginModuleTests {
     /**
      * Test role unique.
      *
-     * @throws LoginException the login exception
+     * @throws LoginException
+     *             the login exception
      */
     @Test
     public void testRoleUnique() throws LoginException {
@@ -233,7 +241,8 @@ public class WindowsLoginModuleTests {
     /**
      * Test guest login.
      *
-     * @throws LoginException the login exception
+     * @throws LoginException
+     *             the login exception
      */
     @Test(expected = LoginException.class)
     public void testGuestLogin() throws LoginException {
@@ -257,7 +266,8 @@ public class WindowsLoginModuleTests {
     /**
      * Test abort.
      *
-     * @throws LoginException the login exception
+     * @throws LoginException
+     *             the login exception
      */
     @Test
     public void testAbort() throws LoginException {

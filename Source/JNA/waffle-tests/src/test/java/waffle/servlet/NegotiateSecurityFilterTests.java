@@ -54,7 +54,7 @@ public class NegotiateSecurityFilterTests {
 
     /** The Constant NEGOTIATE. */
     private static final String     NEGOTIATE = "Negotiate";
-    
+
     /** The Constant NTLM. */
     private static final String     NTLM      = "NTLM";
 
@@ -64,7 +64,8 @@ public class NegotiateSecurityFilterTests {
     /**
      * Sets the up.
      *
-     * @throws ServletException the servlet exception
+     * @throws ServletException
+     *             the servlet exception
      */
     @Before
     public void setUp() throws ServletException {
@@ -84,8 +85,10 @@ public class NegotiateSecurityFilterTests {
     /**
      * Test challenge get.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws ServletException the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Test
     public void testChallengeGET() throws IOException, ServletException {
@@ -106,8 +109,10 @@ public class NegotiateSecurityFilterTests {
     /**
      * Test challenge post.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws ServletException the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Test
     public void testChallengePOST() throws IOException, ServletException {
@@ -148,8 +153,10 @@ public class NegotiateSecurityFilterTests {
     /**
      * Test negotiate.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws ServletException the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Test
     public void testNegotiate() throws IOException, ServletException {
@@ -193,7 +200,8 @@ public class NegotiateSecurityFilterTests {
                 Assert.assertEquals("keep-alive", response.getHeader("Connection"));
                 Assert.assertEquals(2, response.getHeaderNamesSize());
                 Assert.assertEquals(401, response.getStatus());
-                final String continueToken = response.getHeader("WWW-Authenticate").substring(securityPackage.length() + 1);
+                final String continueToken = response.getHeader("WWW-Authenticate").substring(
+                        securityPackage.length() + 1);
                 final byte[] continueTokenBytes = BaseEncoding.base64().decode(continueToken);
                 Assertions.assertThat(continueTokenBytes.length).isGreaterThan(0);
                 final SecBufferDesc continueTokenBuffer = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, continueTokenBytes);
@@ -223,8 +231,10 @@ public class NegotiateSecurityFilterTests {
     /**
      * Test negotiate previous auth with windows principal.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws ServletException the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Test
     public void testNegotiatePreviousAuthWithWindowsPrincipal() throws IOException, ServletException {
@@ -244,8 +254,10 @@ public class NegotiateSecurityFilterTests {
     /**
      * Test challenge ntlmpost.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws ServletException the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Test
     public void testChallengeNTLMPOST() throws IOException, ServletException {
@@ -271,8 +283,10 @@ public class NegotiateSecurityFilterTests {
     /**
      * Test challenge ntlmput.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws ServletException the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Test
     public void testChallengeNTLMPUT() throws IOException, ServletException {
@@ -298,7 +312,8 @@ public class NegotiateSecurityFilterTests {
     /**
      * Test init basic security filter provider.
      *
-     * @throws ServletException the servlet exception
+     * @throws ServletException
+     *             the servlet exception
      */
     @Test
     public void testInitBasicSecurityFilterProvider() throws ServletException {
@@ -320,7 +335,8 @@ public class NegotiateSecurityFilterTests {
     /**
      * Test init two security filter providers.
      *
-     * @throws ServletException the servlet exception
+     * @throws ServletException
+     *             the servlet exception
      */
     @Test
     public void testInitTwoSecurityFilterProviders() throws ServletException {
@@ -335,7 +351,8 @@ public class NegotiateSecurityFilterTests {
     /**
      * Test init negotiate security filter provider.
      *
-     * @throws ServletException the servlet exception
+     * @throws ServletException
+     *             the servlet exception
      */
     @Test
     public void testInitNegotiateSecurityFilterProvider() throws ServletException {

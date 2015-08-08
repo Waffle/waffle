@@ -25,13 +25,13 @@ import waffle.windows.auth.IWindowsIdentity;
  * The Class WaffleFqnPrincipal.
  */
 public class WaffleFqnPrincipal implements Serializable {
-    
+
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1;
-    
+
     /** The fqn. */
     private final String      fqn;
-    
+
     /** The group fqns. */
     private final Set<String> groupFqns        = new HashSet<>();
 
@@ -66,7 +66,8 @@ public class WaffleFqnPrincipal implements Serializable {
         return Collections.unmodifiableSet(this.groupFqns);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -77,7 +78,8 @@ public class WaffleFqnPrincipal implements Serializable {
         return false;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -85,7 +87,8 @@ public class WaffleFqnPrincipal implements Serializable {
         return this.fqn.hashCode();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.lang.Object#toString()
      */
     @Override

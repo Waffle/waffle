@@ -45,7 +45,7 @@ public class WindowsAuthenticationProviderTests {
 
     /** The provider. */
     private WindowsAuthenticationProvider provider;
-    
+
     /** The ctx. */
     private ApplicationContext            ctx;
 

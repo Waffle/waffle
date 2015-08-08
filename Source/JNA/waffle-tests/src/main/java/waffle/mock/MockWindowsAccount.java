@@ -24,21 +24,21 @@ public class MockWindowsAccount implements IWindowsAccount {
 
     /** The Constant TEST_USER_NAME. */
     public static final String TEST_USER_NAME = "WaffleTestUser";
-    
+
     /** The Constant TEST_PASSWORD. */
     public static final String TEST_PASSWORD  = "!WAFFLEP$$Wrd0";
 
     /** The fqn. */
-    private final String             fqn;
-    
+    private final String       fqn;
+
     /** The name. */
     private String             name;
-    
+
     /** The domain. */
     private String             domain;
-    
+
     /** The sid. */
-    private final String             sid;
+    private final String       sid;
 
     /**
      * Instantiates a new mock windows account.
@@ -70,7 +70,8 @@ public class MockWindowsAccount implements IWindowsAccount {
         }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsAccount#getDomain()
      */
     @Override
@@ -78,7 +79,8 @@ public class MockWindowsAccount implements IWindowsAccount {
         return this.domain;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsAccount#getFqn()
      */
     @Override
@@ -86,7 +88,8 @@ public class MockWindowsAccount implements IWindowsAccount {
         return this.fqn;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsAccount#getName()
      */
     @Override
@@ -94,7 +97,8 @@ public class MockWindowsAccount implements IWindowsAccount {
         return this.name;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsAccount#getSidString()
      */
     @Override

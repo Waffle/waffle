@@ -46,7 +46,8 @@ public class BasicSecurityFilterTests {
     /**
      * Sets the up.
      *
-     * @throws ServletException the servlet exception
+     * @throws ServletException
+     *             the servlet exception
      */
     @Before
     public void setUp() throws ServletException {
@@ -66,8 +67,10 @@ public class BasicSecurityFilterTests {
     /**
      * Test basic auth.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws ServletException the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Test
     public void testBasicAuth() throws IOException, ServletException {

@@ -36,7 +36,7 @@ public class WindowsAuthenticationTokenTests {
 
     /** The principal. */
     private WindowsPrincipal           principal;
-    
+
     /** The token. */
     private WindowsAuthenticationToken token;
 

@@ -73,8 +73,10 @@ public class RolePrincipalTests {
     /**
      * Test is serializable.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws ClassNotFoundException the class not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ClassNotFoundException
+     *             the class not found exception
      */
     @Test
     public void testIsSerializable() throws IOException, ClassNotFoundException {

@@ -35,7 +35,7 @@ import waffle.windows.auth.WindowsAccount;
 public class GenericWindowsPrincipal extends GenericPrincipal {
 
     /** The Constant serialVersionUID. */
-    private static final long serialVersionUID = 1L;
+    private static final long                 serialVersionUID = 1L;
 
     /** The sid. */
     private final byte[]                      sid;
@@ -58,7 +58,8 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      */
     public GenericWindowsPrincipal(final IWindowsIdentity windowsIdentity, final PrincipalFormat principalFormat,
             final PrincipalFormat roleFormat) {
-        super(windowsIdentity.getFqn(), "", GenericWindowsPrincipal.getRoles(windowsIdentity, principalFormat, roleFormat));
+        super(windowsIdentity.getFqn(), "", GenericWindowsPrincipal.getRoles(windowsIdentity, principalFormat,
+                roleFormat));
         this.sid = windowsIdentity.getSid();
         this.sidString = windowsIdentity.getSidString();
         this.groups = GenericWindowsPrincipal.getGroups(windowsIdentity.getGroups());

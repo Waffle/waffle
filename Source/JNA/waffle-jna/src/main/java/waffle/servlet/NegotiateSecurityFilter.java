@@ -55,25 +55,25 @@ public class NegotiateSecurityFilter implements Filter {
     /** The Constant LOGGER. */
     private static final Logger              LOGGER              = LoggerFactory
                                                                          .getLogger(NegotiateSecurityFilter.class);
-    
+
     /** The principal format. */
     private PrincipalFormat                  principalFormat     = PrincipalFormat.FQN;
-    
+
     /** The role format. */
     private PrincipalFormat                  roleFormat          = PrincipalFormat.FQN;
-    
+
     /** The providers. */
     private SecurityFilterProviderCollection providers;
-    
+
     /** The auth. */
     private IWindowsAuthProvider             auth;
-    
+
     /** The allow guest login. */
     private boolean                          allowGuestLogin     = true;
-    
+
     /** The impersonate. */
     private boolean                          impersonate;
-    
+
     /** The Constant PRINCIPALSESSIONKEY. */
     private static final String              PRINCIPALSESSIONKEY = NegotiateSecurityFilter.class.getName()
                                                                          + ".PRINCIPAL";
@@ -85,7 +85,8 @@ public class NegotiateSecurityFilter implements Filter {
         NegotiateSecurityFilter.LOGGER.debug("[waffle.servlet.NegotiateSecurityFilter] loaded");
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.Filter#destroy()
      */
     @Override
@@ -93,8 +94,10 @@ public class NegotiateSecurityFilter implements Filter {
         NegotiateSecurityFilter.LOGGER.info("[waffle.servlet.NegotiateSecurityFilter] stopped");
     }
 
-    /* (non-Javadoc)
-     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+    /*
+     * (non-Javadoc)
+     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse,
+     * javax.servlet.FilterChain)
      */
     @Override
     public void doFilter(final ServletRequest sreq, final ServletResponse sres, final FilterChain chain)
@@ -138,7 +141,8 @@ public class NegotiateSecurityFilter implements Filter {
                     return;
                 }
 
-                NegotiateSecurityFilter.LOGGER.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
+                NegotiateSecurityFilter.LOGGER.debug("logged in user: {} ({})", windowsIdentity.getFqn(),
+                        windowsIdentity.getSidString());
 
                 final HttpSession session = request.getSession(true);
                 if (session == null) {
@@ -260,7 +264,8 @@ public class NegotiateSecurityFilter implements Filter {
         return true;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
      */
     @SuppressWarnings("unchecked")
@@ -305,7 +310,9 @@ public class NegotiateSecurityFilter implements Filter {
         if (authProvider != null) {
             try {
                 this.auth = (IWindowsAuthProvider) Class.forName(authProvider).getConstructor().newInstance();
-            } catch (final ClassNotFoundException | IllegalArgumentException | SecurityException | InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            } catch (final ClassNotFoundException | IllegalArgumentException | SecurityException
+                    | InstantiationException | IllegalAccessException | InvocationTargetException
+                    | NoSuchMethodException e) {
                 NegotiateSecurityFilter.LOGGER.error("error loading '{}': {}", authProvider, e.getMessage());
                 NegotiateSecurityFilter.LOGGER.trace("{}", e);
                 throw new ServletException(e);
@@ -332,18 +339,19 @@ public class NegotiateSecurityFilter implements Filter {
             if (classAndParameter.length == 2) {
                 try {
 
-                    NegotiateSecurityFilter.LOGGER.debug("setting {}, {}={}", classAndParameter[0], classAndParameter[1],
-                            implParameter.getValue());
+                    NegotiateSecurityFilter.LOGGER.debug("setting {}, {}={}", classAndParameter[0],
+                            classAndParameter[1], implParameter.getValue());
 
                     final SecurityFilterProvider provider = this.providers.getByClassName(classAndParameter[0]);
                     provider.initParameter(classAndParameter[1], implParameter.getValue());
 
                 } catch (final ClassNotFoundException e) {
-                    NegotiateSecurityFilter.LOGGER.error("invalid class: {} in {}", classAndParameter[0], implParameter.getKey());
+                    NegotiateSecurityFilter.LOGGER.error("invalid class: {} in {}", classAndParameter[0],
+                            implParameter.getKey());
                     throw new ServletException(e);
                 } catch (final Exception e) {
-                    NegotiateSecurityFilter.LOGGER.error("{}: error setting '{}': {}", classAndParameter[0], classAndParameter[1],
-                            e.getMessage());
+                    NegotiateSecurityFilter.LOGGER.error("{}: error setting '{}': {}", classAndParameter[0],
+                            classAndParameter[1], e.getMessage());
                     NegotiateSecurityFilter.LOGGER.trace("{}", e);
                     throw new ServletException(e);
                 }

@@ -112,7 +112,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <src.relative.loc>.</src.relative.loc>
-        <git.relative.loc>../..</git.relative.loc>
 
         <assertj.version>2.1.0</assertj.version>
         <cglib.version>3.1</cglib.version>
@@ -387,6 +386,13 @@
                     <groupId>net.revelc.code</groupId>
                     <artifactId>formatter-maven-plugin</artifactId>
                     <version>0.5.2</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.github.hazendaz</groupId>
+                            <artifactId>build-tools</artifactId>
+                            <version>1.1.1</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>com.mycila</groupId>
@@ -566,9 +572,7 @@
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
                 <configuration>
-                    <dotGitDirectory>${git.relative.loc}/.git</dotGitDirectory>
-                    <!-- Fixes occassional issue in commit id plugin - see 
-                        https://github.com/ktoso/maven-git-commit-id-plugin/issues/61 -->
+                    <!-- Prevent issues, see https://github.com/ktoso/maven-git-commit-id-plugin/issues/61 -->
                     <gitDescribe>
                         <always>true</always>
                     </gitDescribe>
@@ -989,6 +993,7 @@
                             <targetFolder>${project.basedir}/target/classes</targetFolder>
                             <fileExt>
                                 <fileExt>html</fileExt>
+                                <fileExt>jsp</fileExt>
                                 <fileExt>xhtml</fileExt>
                                 <fileExt>xml</fileExt>
                             </fileExt>
@@ -1127,7 +1132,7 @@
             <id>format</id>
             <activation>
                 <file>
-                    <exists>${src.relative.loc}/format.xml</exists>
+                    <exists>format.xml</exists>
                 </file>
             </activation>
             <build>
@@ -1136,7 +1141,7 @@
                         <groupId>net.revelc.code</groupId>
                         <artifactId>formatter-maven-plugin</artifactId>
                         <configuration>
-                            <configFile>${src.relative.loc}/format.xml</configFile>
+                           <configFile>eclipse-formatter-config.xml</configFile>
                         </configuration>
                         <executions>
                             <execution>

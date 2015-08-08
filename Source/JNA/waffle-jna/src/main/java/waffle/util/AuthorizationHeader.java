@@ -28,7 +28,7 @@ import com.google.common.io.BaseEncoding;
 public class AuthorizationHeader {
 
     /** The logger. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(AuthorizationHeader.class);
+    private static final Logger      LOGGER = LoggerFactory.getLogger(AuthorizationHeader.class);
 
     /** The request. */
     private final HttpServletRequest request;
@@ -81,7 +81,8 @@ public class AuthorizationHeader {
         throw new RuntimeException("Invalid Authorization header: " + header);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.lang.Object#toString()
      */
     @Override

@@ -48,10 +48,10 @@ public class ImpersonateTests {
 
     /** The filter. */
     private NegotiateSecurityFilter filter;
-    
+
     /** The user info. */
     private LMAccess.USER_INFO_1    userInfo;
-    
+
     /** The result of net add user. */
     private int                     resultOfNetAddUser;
 
@@ -86,21 +86,24 @@ public class ImpersonateTests {
         this.filter.destroy();
 
         if (LMErr.NERR_Success == this.resultOfNetAddUser) {
-            Assert.assertEquals(LMErr.NERR_Success, Netapi32.INSTANCE.NetUserDel(null, this.userInfo.usri1_name.toString()));
+            Assert.assertEquals(LMErr.NERR_Success,
+                    Netapi32.INSTANCE.NetUserDel(null, this.userInfo.usri1_name.toString()));
         }
     }
 
     /**
      * Test impersonate enabled.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws ServletException the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Test
     public void testImpersonateEnabled() throws IOException, ServletException {
 
-        Assert.assertFalse("Current user shouldn't be the test user prior to the test",
-                Advapi32Util.getUserName().equals(MockWindowsAccount.TEST_USER_NAME));
+        Assert.assertFalse("Current user shouldn't be the test user prior to the test", Advapi32Util.getUserName()
+                .equals(MockWindowsAccount.TEST_USER_NAME));
 
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
@@ -142,14 +145,16 @@ public class ImpersonateTests {
     /**
      * Test impersonate disabled.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws ServletException the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Test
     public void testImpersonateDisabled() throws IOException, ServletException {
 
-        Assert.assertFalse("Current user shouldn't be the test user prior to the test",
-                Advapi32Util.getUserName().equals(MockWindowsAccount.TEST_USER_NAME));
+        Assert.assertFalse("Current user shouldn't be the test user prior to the test", Advapi32Util.getUserName()
+                .equals(MockWindowsAccount.TEST_USER_NAME));
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
         final String userHeaderValue = MockWindowsAccount.TEST_USER_NAME + ":" + MockWindowsAccount.TEST_PASSWORD;
@@ -190,15 +195,17 @@ public class ImpersonateTests {
      * Filter chain that records current username.
      */
     public static class RecordUserNameFilterChain extends SimpleFilterChain {
-        
+
         /** The user name. */
         private String userName;
 
-        /* (non-Javadoc)
+        /*
+         * (non-Javadoc)
          * @see waffle.mock.http.SimpleFilterChain#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
          */
         @Override
-        public void doFilter(final ServletRequest sreq, final ServletResponse srep) throws IOException, ServletException {
+        public void doFilter(final ServletRequest sreq, final ServletResponse srep) throws IOException,
+                ServletException {
             this.userName = Advapi32Util.getUserName();
         }
 

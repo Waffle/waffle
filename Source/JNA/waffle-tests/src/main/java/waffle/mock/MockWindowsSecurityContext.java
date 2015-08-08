@@ -46,7 +46,8 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
         this.identity = new MockWindowsIdentity(username, groups);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsSecurityContext#dispose()
      */
     @Override
@@ -54,7 +55,8 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
         // Do Nothing
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsSecurityContext#isContinue()
      */
     @Override
@@ -62,7 +64,8 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
         return false;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsSecurityContext#getHandle()
      */
     @Override
@@ -70,7 +73,8 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
         return new CtxtHandle();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsSecurityContext#getIdentity()
      */
     @Override
@@ -78,7 +82,8 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
         return this.identity;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsSecurityContext#getPrincipalName()
      */
     @Override
@@ -86,7 +91,8 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
         return this.identity.getFqn();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsSecurityContext#getSecurityPackage()
      */
     @Override
@@ -94,7 +100,8 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
         return "Mock";
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsSecurityContext#getToken()
      */
     @Override
@@ -102,7 +109,8 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
         return new byte[0];
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsSecurityContext#impersonate()
      */
     @Override
@@ -117,8 +125,10 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
         // Do Nothing
     }
 
-    /* (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsSecurityContext#initialize(com.sun.jna.platform.win32.Sspi.CtxtHandle, com.sun.jna.platform.win32.Sspi.SecBufferDesc, java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsSecurityContext#initialize(com.sun.jna.platform.win32.Sspi.CtxtHandle,
+     * com.sun.jna.platform.win32.Sspi.SecBufferDesc, java.lang.String)
      */
     @Override
     public void initialize(final CtxtHandle continueCtx, final SecBufferDesc continueToken,

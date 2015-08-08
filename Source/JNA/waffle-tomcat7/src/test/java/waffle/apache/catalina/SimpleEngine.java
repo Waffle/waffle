@@ -60,7 +60,8 @@ public abstract class SimpleEngine implements Engine {
     /**
      * Set Pipeline Used By Waffle.
      *
-     * @param value the new pipeline
+     * @param value
+     *            the new pipeline
      */
     public void setPipeline(final Pipeline value) {
         this.pipeline = value;

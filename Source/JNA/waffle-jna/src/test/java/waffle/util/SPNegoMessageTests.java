@@ -28,7 +28,7 @@ public class SPNegoMessageTests {
 
     /** The Constant negTokenInitOk. */
     private static final byte[] negTokenInitOk       = { 0x60, 0x76, 0x06, 0x06, 0x2B, 0x06, 0x01, 0x05, 0x05, 0x02 };
-    
+
     /** The Constant negTokenInitTooShort. */
     private static final byte[] negTokenInitTooShort = { 0x60, 0x76, 0x06, 0x06, 0x2B, 0x06, 0x01, 0x05, 0x05 };
 

@@ -36,9 +36,9 @@ public class StartEmbeddedJetty {
      * Main method.
      * 
      * @param args
-     *          input arguments to main.
-     * @throws Exception 
-     *          Exception thrown.
+     *            input arguments to main.
+     * @throws Exception
+     *             Exception thrown.
      */
     public static void main(final String[] args) throws Exception {
         final String path = "../waffle-demo/waffle-filter";

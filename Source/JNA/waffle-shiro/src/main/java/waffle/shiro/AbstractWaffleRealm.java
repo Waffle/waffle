@@ -39,18 +39,20 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  * for subclasses to define by implementing the {@link #buildAuthorizationInfo} method.
  */
 public abstract class AbstractWaffleRealm extends AuthorizingRealm {
-    
+
     /** The Constant LOGGER. */
     private static final Logger  LOGGER     = LoggerFactory.getLogger(AbstractWaffleRealm.class);
-    
+
     /** The Constant REALM_NAME. */
     private static final String  REALM_NAME = "WAFFLE";
 
     /** The provider. */
     private IWindowsAuthProvider provider   = new WindowsAuthProviderImpl();
 
-    /* (non-Javadoc)
-     * @see org.apache.shiro.realm.AuthenticatingRealm#doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apache.shiro.realm.AuthenticatingRealm#doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)
      */
     @Override
     protected final AuthenticationInfo doGetAuthenticationInfo(final AuthenticationToken authToken) {
@@ -105,7 +107,8 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
         return authenticationInfo;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.apache.shiro.realm.AuthorizingRealm#doGetAuthorizationInfo(org.apache.shiro.subject.PrincipalCollection)
      */
     @Override

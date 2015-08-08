@@ -44,13 +44,13 @@ public class WindowsLoginModuleTest {
 
     /** The login module. */
     private WindowsLoginModule  loginModule;
-    
+
     /** The subject. */
     private Subject             subject;
-    
+
     /** The callback handler. */
     private CallbackHandler     callbackHandler;
-    
+
     /** The options. */
     private Map<String, String> options;
 
@@ -77,7 +77,8 @@ public class WindowsLoginModuleTest {
     /**
      * Commit_no principal.
      *
-     * @throws LoginException the login exception
+     * @throws LoginException
+     *             the login exception
      */
     @Test
     public void commit_noPrincipal() throws LoginException {
@@ -87,7 +88,8 @@ public class WindowsLoginModuleTest {
     /**
      * Commit_subject read only.
      *
-     * @throws LoginException the login exception
+     * @throws LoginException
+     *             the login exception
      */
     @Test(expected = LoginException.class)
     public void commit_subjectReadOnly() throws LoginException {
@@ -100,7 +102,8 @@ public class WindowsLoginModuleTest {
     /**
      * Commit_success.
      *
-     * @throws LoginException the login exception
+     * @throws LoginException
+     *             the login exception
      */
     @Test
     public void commit_success() throws LoginException {
@@ -112,7 +115,8 @@ public class WindowsLoginModuleTest {
     /**
      * Commit_with debug.
      *
-     * @throws LoginException the login exception
+     * @throws LoginException
+     *             the login exception
      */
     @Test
     public void commit_withDebug() throws LoginException {
@@ -154,7 +158,8 @@ public class WindowsLoginModuleTest {
     /**
      * Login_invalid guest login.
      *
-     * @throws LoginException the login exception
+     * @throws LoginException
+     *             the login exception
      */
     @Test(expected = LoginException.class)
     public void login_invalidGuestLogin() throws LoginException {
@@ -168,7 +173,8 @@ public class WindowsLoginModuleTest {
     /**
      * Login_null password.
      *
-     * @throws LoginException the login exception
+     * @throws LoginException
+     *             the login exception
      */
     @Test(expected = LoginException.class)
     public void login_nullPassword() throws LoginException {
@@ -182,9 +188,12 @@ public class WindowsLoginModuleTest {
     /**
      * Login_throw io exception.
      *
-     * @throws LoginException the login exception
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws UnsupportedCallbackException the unsupported callback exception
+     * @throws LoginException
+     *             the login exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws UnsupportedCallbackException
+     *             the unsupported callback exception
      */
     @Test(expected = LoginException.class)
     public void login_throwIOException() throws LoginException, IOException, UnsupportedCallbackException {
@@ -198,9 +207,12 @@ public class WindowsLoginModuleTest {
     /**
      * Login_throw unsupported callback exception.
      *
-     * @throws LoginException the login exception
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws UnsupportedCallbackException the unsupported callback exception
+     * @throws LoginException
+     *             the login exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws UnsupportedCallbackException
+     *             the unsupported callback exception
      */
     @Test(expected = LoginException.class)
     public void login_throwUnsupportedCallbackException() throws LoginException, IOException,
@@ -216,7 +228,8 @@ public class WindowsLoginModuleTest {
     /**
      * Logon_no callback handler.
      *
-     * @throws LoginException the login exception
+     * @throws LoginException
+     *             the login exception
      */
     @Test(expected = LoginException.class)
     public void logon_noCallbackHandler() throws LoginException {
@@ -226,7 +239,8 @@ public class WindowsLoginModuleTest {
     /**
      * Logout_abort no user.
      *
-     * @throws LoginException the login exception
+     * @throws LoginException
+     *             the login exception
      */
     @Test
     public void logout_abortNoUser() throws LoginException {
@@ -237,7 +251,8 @@ public class WindowsLoginModuleTest {
     /**
      * Logout_no user.
      *
-     * @throws LoginException the login exception
+     * @throws LoginException
+     *             the login exception
      */
     @Test
     public void logout_noUser() throws LoginException {
@@ -248,7 +263,8 @@ public class WindowsLoginModuleTest {
     /**
      * Logout_subject read only.
      *
-     * @throws LoginException the login exception
+     * @throws LoginException
+     *             the login exception
      */
     @Test(expected = LoginException.class)
     public void logout_subjectReadOnly() throws LoginException {
@@ -260,7 +276,8 @@ public class WindowsLoginModuleTest {
     /**
      * Logout_valid user.
      *
-     * @throws LoginException the login exception
+     * @throws LoginException
+     *             the login exception
      */
     @Test
     public void logout_validUser() throws LoginException {

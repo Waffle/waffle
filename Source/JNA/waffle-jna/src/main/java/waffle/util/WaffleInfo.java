@@ -306,16 +306,18 @@ public class WaffleInfo {
             String arg;
             for (int i = 0; i < args.length; i++) {
                 arg = args[i];
-                if (null != arg) switch (arg) {
-                    case "-show":
-                        show = true;
-                        break;
-                    case "-lookup":
-                        lookup.add(args[++i]);
-                        break;
-                    default:
-                        WaffleInfo.LOGGER.error("Unknown Argument: {}", arg);
-                        throw new RuntimeException("Unknown Argument: " + arg);
+                if (null != arg) {
+                    switch (arg) {
+                        case "-show":
+                            show = true;
+                            break;
+                        case "-lookup":
+                            lookup.add(args[++i]);
+                            break;
+                        default:
+                            WaffleInfo.LOGGER.error("Unknown Argument: {}", arg);
+                            throw new RuntimeException("Unknown Argument: " + arg);
+                    }
                 }
             }
         }

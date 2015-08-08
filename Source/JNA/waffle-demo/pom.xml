@@ -26,7 +26,6 @@
     </modules>
     <properties>
         <src.relative.loc>..</src.relative.loc>
-        <git.relative.loc>../../..</git.relative.loc>
     </properties>
     <scm>
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>

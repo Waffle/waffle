@@ -40,27 +40,27 @@ import com.google.common.base.Joiner;
 public class SimpleHttpResponse extends HttpServletResponseWrapper {
 
     /** The Constant LOGGER. */
-    private static final Logger       LOGGER  = LoggerFactory.getLogger(SimpleHttpResponse.class);
+    private static final Logger             LOGGER  = LoggerFactory.getLogger(SimpleHttpResponse.class);
 
     /** The status. */
-    private int                       status  = 500;
-    
+    private int                             status  = 500;
+
     /** The headers. */
     private final Map<String, List<String>> headers = new HashMap<>();
 
     /** The bytes. */
-    final ByteArrayOutputStream       bytes   = new ByteArrayOutputStream();
+    final ByteArrayOutputStream             bytes   = new ByteArrayOutputStream();
 
     /** The out. */
-    private final ServletOutputStream out     = new ServletOutputStream() {
-                                                  @Override
-                                                  public void write(final int b) throws IOException {
-                                                      SimpleHttpResponse.this.bytes.write(b);
-                                                  }
-                                              };
+    private final ServletOutputStream       out     = new ServletOutputStream() {
+                                                        @Override
+                                                        public void write(final int b) throws IOException {
+                                                            SimpleHttpResponse.this.bytes.write(b);
+                                                        }
+                                                    };
 
     /** The writer. */
-    private final PrintWriter         writer  = new PrintWriter(this.bytes);
+    private final PrintWriter               writer  = new PrintWriter(this.bytes);
 
     /**
      * Instantiates a new simple http response.
@@ -78,7 +78,8 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
         return this.status;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.http.HttpServletResponseWrapper#addHeader(java.lang.String, java.lang.String)
      */
     @Override
@@ -91,7 +92,8 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
         this.headers.put(headerName, current);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.http.HttpServletResponseWrapper#setHeader(java.lang.String, java.lang.String)
      */
     @Override
@@ -106,7 +108,8 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
         this.headers.put(headerName, current);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.http.HttpServletResponseWrapper#setStatus(int)
      */
     @Override
@@ -126,7 +129,8 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
         return "Unknown";
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.ServletResponseWrapper#flushBuffer()
      */
     @Override
@@ -172,7 +176,8 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
         return headerValues == null ? null : Joiner.on(", ").join(headerValues);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.http.HttpServletResponseWrapper#sendError(int, java.lang.String)
      */
     @Override
@@ -180,7 +185,8 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
         this.status = rc;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.http.HttpServletResponseWrapper#sendError(int)
      */
     @Override
@@ -188,7 +194,8 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
         this.status = rc;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.ServletResponseWrapper#getWriter()
      */
     @Override
@@ -196,7 +203,8 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
         return this.writer;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.ServletResponseWrapper#getOutputStream()
      */
     @Override

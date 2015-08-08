@@ -34,13 +34,13 @@ import com.sun.jna.platform.win32.WinNT.WELL_KNOWN_SID_TYPE;
 public class WindowsIdentityImpl implements IWindowsIdentity {
 
     /** The windows identity. */
-    private final HANDLE    windowsIdentity;
-    
+    private final HANDLE windowsIdentity;
+
     /** The user groups. */
-    private Account[] userGroups;
-    
+    private Account[]    userGroups;
+
     /** The windows account. */
-    private Account   windowsAccount;
+    private Account      windowsAccount;
 
     /**
      * Instantiates a new windows identity impl.
@@ -76,7 +76,8 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
         return this.userGroups.clone();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsIdentity#getFqn()
      */
     @Override
@@ -84,7 +85,8 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
         return this.getWindowsAccount().fqn;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsIdentity#getGroups()
      */
     @Override
@@ -101,7 +103,8 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
         return result.toArray(new IWindowsAccount[0]);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsIdentity#getSid()
      */
     @Override
@@ -109,7 +112,8 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
         return this.getWindowsAccount().sid;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsIdentity#getSidString()
      */
     @Override
@@ -117,7 +121,8 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
         return this.getWindowsAccount().sidString;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsIdentity#dispose()
      */
     @Override
@@ -127,7 +132,8 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
         }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsIdentity#impersonate()
      */
     @Override
@@ -135,7 +141,8 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
         return new WindowsIdentityImpersonationContextImpl(this.windowsIdentity);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsIdentity#isGuest()
      */
     @Override

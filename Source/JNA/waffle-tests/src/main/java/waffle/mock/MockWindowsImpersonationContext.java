@@ -22,7 +22,8 @@ import waffle.windows.auth.IWindowsImpersonationContext;
  */
 public class MockWindowsImpersonationContext implements IWindowsImpersonationContext {
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsImpersonationContext#revertToSelf()
      */
     @Override

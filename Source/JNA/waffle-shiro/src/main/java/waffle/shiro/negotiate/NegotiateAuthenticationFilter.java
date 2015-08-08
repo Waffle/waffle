@@ -14,8 +14,10 @@
 package waffle.shiro.negotiate;
 
 /**
- * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateAuthenticationFilter.
- * see: https://bitbucket.org/lothor/shiro-negotiate/src/7b25efde130b9cbcacf579b3f926c532d919aa23/src/main/java/net/skorgenes/security/jsecurity/negotiate/NegotiateAuthenticationFilter.java?at=default
+ * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateAuthenticationFilter. see:
+ * https://bitbucket.org/lothor
+ * /shiro-negotiate/src/7b25efde130b9cbcacf579b3f926c532d919aa23/src/main/java/net/skorgenes/
+ * security/jsecurity/negotiate/NegotiateAuthenticationFilter.java?at=default
  *
  * @author Dan Rollo
  */
@@ -89,8 +91,8 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
 
     /**
      * Sets the request parameter name to look for when acquiring the rememberMe boolean value. Unless overridden by
-     * calling this method, the default is <code>rememberMe</code>.
-     * <br><br>
+     * calling this method, the default is <code>rememberMe</code>. <br>
+     * <br>
      * RememberMe will be <code>true</code> if the parameter value equals any of those supported by
      * {@link org.apache.shiro.web.util.WebUtils#isTrue(javax.servlet.ServletRequest, String)
      * WebUtils.isTrue(request,value)}, <code>false</code> otherwise.
@@ -102,7 +104,8 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         this.rememberMeParam = value;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.apache.shiro.web.filter.authc.AuthenticatingFilter#isRememberMe(javax.servlet.ServletRequest)
      */
     @Override
@@ -110,8 +113,10 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         return WebUtils.isTrue(request, this.getRememberMeParam());
     }
 
-    /* (non-Javadoc)
-     * @see org.apache.shiro.web.filter.authc.AuthenticatingFilter#createToken(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+    /*
+     * (non-Javadoc)
+     * @see org.apache.shiro.web.filter.authc.AuthenticatingFilter#createToken(javax.servlet.ServletRequest,
+     * javax.servlet.ServletResponse)
      */
     @Override
     protected AuthenticationToken createToken(final ServletRequest request, final ServletResponse response) {
@@ -128,8 +133,8 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         final AuthorizationHeader authorizationHeader = new AuthorizationHeader((HttpServletRequest) request);
         final boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
 
-        NegotiateAuthenticationFilter.LOGGER.debug("security package: {}, connection id: {}, ntlmPost: {}", securityPackage, connectionId,
-                Boolean.valueOf(ntlmPost));
+        NegotiateAuthenticationFilter.LOGGER.debug("security package: {}, connection id: {}, ntlmPost: {}",
+                securityPackage, connectionId, Boolean.valueOf(ntlmPost));
 
         final boolean rememberMe = this.isRememberMe(request);
         final String host = this.getHost(request);
@@ -137,8 +142,11 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         return new NegotiateToken(inToken, new byte[0], connectionId, securityPackage, ntlmPost, rememberMe, host);
     }
 
-    /* (non-Javadoc)
-     * @see org.apache.shiro.web.filter.authc.AuthenticatingFilter#onLoginSuccess(org.apache.shiro.authc.AuthenticationToken, org.apache.shiro.subject.Subject, javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apache.shiro.web.filter.authc.AuthenticatingFilter#onLoginSuccess(org.apache.shiro.authc.AuthenticationToken,
+     * org.apache.shiro.subject.Subject, javax.servlet.ServletRequest, javax.servlet.ServletResponse)
      */
     @Override
     protected boolean onLoginSuccess(final AuthenticationToken token, final Subject subject,
@@ -147,8 +155,11 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         return true;
     }
 
-    /* (non-Javadoc)
-     * @see org.apache.shiro.web.filter.authc.AuthenticatingFilter#onLoginFailure(org.apache.shiro.authc.AuthenticationToken, org.apache.shiro.authc.AuthenticationException, javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apache.shiro.web.filter.authc.AuthenticatingFilter#onLoginFailure(org.apache.shiro.authc.AuthenticationToken,
+     * org.apache.shiro.authc.AuthenticationException, javax.servlet.ServletRequest, javax.servlet.ServletResponse)
      */
     @Override
     protected boolean onLoginFailure(final AuthenticationToken token, final AuthenticationException e,
@@ -201,8 +212,10 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         this.failureKeyAttribute = value;
     }
 
-    /* (non-Javadoc)
-     * @see org.apache.shiro.web.filter.AccessControlFilter#onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+    /*
+     * (non-Javadoc)
+     * @see org.apache.shiro.web.filter.AccessControlFilter#onAccessDenied(javax.servlet.ServletRequest,
+     * javax.servlet.ServletResponse)
      */
     @Override
     protected boolean onAccessDenied(final ServletRequest request, final ServletResponse response) throws Exception {
@@ -212,7 +225,8 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         if (this.isLoginAttempt(request)) {
             loggedIn = this.executeLogin(request, response);
         } else {
-            NegotiateAuthenticationFilter.LOGGER.debug("authorization required, supported protocols: {}", NegotiateAuthenticationFilter.PROTOCOLS);
+            NegotiateAuthenticationFilter.LOGGER.debug("authorization required, supported protocols: {}",
+                    NegotiateAuthenticationFilter.PROTOCOLS);
             this.sendChallengeInitiateNegotiate(response);
         }
         return loggedIn;

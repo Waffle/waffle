@@ -31,7 +31,7 @@ public class WindowsComputerImpl implements IWindowsComputer {
 
     /** The computer name. */
     private final String computerName;
-    
+
     /** The domain name. */
     private final String domainName;
 
@@ -46,7 +46,8 @@ public class WindowsComputerImpl implements IWindowsComputer {
         this.domainName = Netapi32Util.getDomainName(newComputerName);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsComputer#getComputerName()
      */
     @Override
@@ -54,7 +55,8 @@ public class WindowsComputerImpl implements IWindowsComputer {
         return this.computerName;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsComputer#getGroups()
      */
     @Override
@@ -67,7 +69,8 @@ public class WindowsComputerImpl implements IWindowsComputer {
         return groupNames.toArray(new String[0]);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsComputer#getJoinStatus()
      */
     @Override
@@ -87,7 +90,8 @@ public class WindowsComputerImpl implements IWindowsComputer {
         }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsComputer#getMemberOf()
      */
     @Override
