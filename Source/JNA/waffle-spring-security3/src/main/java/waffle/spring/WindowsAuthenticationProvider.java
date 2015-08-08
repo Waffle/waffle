@@ -37,22 +37,22 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
     /** The Constant LOGGER. */
     private static final Logger     LOGGER                  = LoggerFactory
                                                                     .getLogger(WindowsAuthenticationProvider.class);
-    
+
     /** The principal format. */
     private PrincipalFormat         principalFormat         = PrincipalFormat.FQN;
-    
+
     /** The role format. */
     private PrincipalFormat         roleFormat              = PrincipalFormat.FQN;
-    
+
     /** The allow guest login. */
     private boolean                 allowGuestLogin         = true;
-    
+
     /** The auth provider. */
     private IWindowsAuthProvider    authProvider;
-    
+
     /** The granted authority factory. */
     private GrantedAuthorityFactory grantedAuthorityFactory = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY_FACTORY;
-    
+
     /** The default granted authority. */
     private GrantedAuthority        defaultGrantedAuthority = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY;
 
@@ -63,15 +63,20 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
         WindowsAuthenticationProvider.LOGGER.debug("[waffle.spring.WindowsAuthenticationProvider] loaded");
     }
 
-    /* (non-Javadoc)
-     * @see org.springframework.security.authentication.AuthenticationProvider#authenticate(org.springframework.security.core.Authentication)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.springframework.security.authentication.AuthenticationProvider#authenticate(org.springframework.security.
+     * core.Authentication)
      */
     @Override
     public Authentication authenticate(final Authentication authentication) {
         final UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;
         final IWindowsIdentity windowsIdentity = this.authProvider.logonUser(auth.getName(), auth.getCredentials()
                 .toString());
-        WindowsAuthenticationProvider.LOGGER.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
+        WindowsAuthenticationProvider.LOGGER.debug("logged in user: {} ({})", windowsIdentity.getFqn(),
+                windowsIdentity.getSidString());
 
         if (!this.allowGuestLogin && windowsIdentity.isGuest()) {
             WindowsAuthenticationProvider.LOGGER.warn("guest login disabled: {}", windowsIdentity.getFqn());
