@@ -20,7 +20,6 @@ import waffle.windows.auth.IWindowsSecurityContext;
 
 import com.sun.jna.platform.win32.Secur32;
 import com.sun.jna.platform.win32.Sspi;
-import com.sun.jna.platform.win32.Sspi.CredHandle;
 import com.sun.jna.platform.win32.Sspi.CtxtHandle;
 import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 import com.sun.jna.platform.win32.Win32Exception;
@@ -36,25 +35,25 @@ import com.sun.jna.ptr.IntByReference;
 public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 
     /** The principal name. */
-    private String         principalName;
+    private String                    principalName;
 
     /** The security package. */
-    private String         securityPackage;
+    private String                    securityPackage;
 
     /** The token. */
-    private SecBufferDesc  token;
+    private SecBufferDesc             token;
 
     /** The ctx. */
-    private CtxtHandle     ctx;
+    private CtxtHandle                ctx;
 
     /** The attr. */
-    private IntByReference attr;
+    private IntByReference            attr;
 
     /** The credentials. */
-    private CredHandle     credentials;
+    private IWindowsCredentialsHandle credentials;
 
     /** The continue flag. */
-    private boolean        continueFlag;
+    private boolean                   continueFlag;
 
     /*
      * (non-Javadoc)
@@ -107,17 +106,23 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
      * @return Windows security context.
      */
     public static IWindowsSecurityContext getCurrent(final String securityPackage, final String targetName) {
-        final IWindowsCredentialsHandle credentialsHandle = WindowsCredentialsHandleImpl.getCurrent(securityPackage);
+        IWindowsCredentialsHandle credentialsHandle = WindowsCredentialsHandleImpl.getCurrent(securityPackage);
         credentialsHandle.initialize();
         try {
             final WindowsSecurityContextImpl ctx = new WindowsSecurityContextImpl();
             ctx.setPrincipalName(WindowsAccountImpl.getCurrentUsername());
-            ctx.setCredentialsHandle(credentialsHandle.getHandle());
+            ctx.setCredentialsHandle(credentialsHandle);
             ctx.setSecurityPackage(securityPackage);
             ctx.initialize(null, null, targetName);
+
+            // Starting from here ctx 'owns' the credentials handle
+            credentialsHandle = null;
+
             return ctx;
         } finally {
-            credentialsHandle.dispose();
+            if (credentialsHandle != null) {
+                credentialsHandle.dispose();
+            }
         }
     }
 
@@ -134,7 +139,7 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
         int rc;
         do {
             this.token = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, tokenSize);
-            rc = Secur32.INSTANCE.InitializeSecurityContext(this.credentials, continueCtx, targetName,
+            rc = Secur32.INSTANCE.InitializeSecurityContext(this.credentials.getHandle(), continueCtx, targetName,
                     Sspi.ISC_REQ_CONNECTION, 0, Sspi.SECURITY_NATIVE_DREP, continueToken, 0, this.ctx, this.token,
                     this.attr, null);
             switch (rc) {
@@ -160,6 +165,10 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
     @Override
     public void dispose() {
         WindowsSecurityContextImpl.dispose(this.ctx);
+
+        if (this.credentials != null) {
+            this.credentials.dispose();
+        }
     }
 
     /**
@@ -214,7 +223,7 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
      * @param handle
      *            the new credentials handle
      */
-    public void setCredentialsHandle(final CredHandle handle) {
+    public void setCredentialsHandle(final IWindowsCredentialsHandle handle) {
         this.credentials = handle;
     }
 

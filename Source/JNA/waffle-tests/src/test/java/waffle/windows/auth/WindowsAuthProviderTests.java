@@ -165,7 +165,7 @@ public class WindowsAuthProviderTests {
             // initial client security context
             clientContext = new WindowsSecurityContextImpl();
             clientContext.setPrincipalName(WindowsAccountImpl.getCurrentUsername());
-            clientContext.setCredentialsHandle(clientCredentials.getHandle());
+            clientContext.setCredentialsHandle(clientCredentials);
             clientContext.setSecurityPackage(securityPackage);
             clientContext.initialize(null, null, targetName);
             // accept on the server
@@ -232,7 +232,7 @@ public class WindowsAuthProviderTests {
             // initial client security context
             clientContext = new WindowsSecurityContextImpl();
             clientContext.setPrincipalName(WindowsAccountImpl.getCurrentUsername());
-            clientContext.setCredentialsHandle(clientCredentials.getHandle());
+            clientContext.setCredentialsHandle(clientCredentials);
             clientContext.setSecurityPackage(securityPackage);
             clientContext.initialize(null, null, WindowsAccountImpl.getCurrentUsername());
             // accept on the server
@@ -277,7 +277,7 @@ public class WindowsAuthProviderTests {
             // initial client security context
             clientContext = new WindowsSecurityContextImpl();
             clientContext.setPrincipalName(WindowsAccountImpl.getCurrentUsername());
-            clientContext.setCredentialsHandle(clientCredentials.getHandle());
+            clientContext.setCredentialsHandle(clientCredentials);
             clientContext.setSecurityPackage(securityPackage);
             clientContext.initialize(null, null, targetName);
             // accept on the server
