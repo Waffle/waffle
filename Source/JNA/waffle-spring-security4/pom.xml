@@ -19,7 +19,7 @@
         <thirdparty.dir>../../ThirdParty</thirdparty.dir>
 
         <servlet.version>3.1.0</servlet.version>
-        <spring.version>4.1.7.RELEASE</spring.version>
+        <spring.version>4.2.1.RELEASE</spring.version>
         <spring.security.version>4.0.2.RELEASE</spring.security.version>
     </properties>
     <scm>
