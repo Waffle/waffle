@@ -19,7 +19,7 @@
 
         <src.relative.loc>..</src.relative.loc>
 
-        <tomcat.version>8.0.24</tomcat.version>
+        <tomcat.version>8.0.26</tomcat.version>
     </properties>
     <scm>
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
