@@ -17,7 +17,7 @@
         <src.relative.loc>..</src.relative.loc>
 
         <servlet.version>2.5</servlet.version>
-        <shiro.version>1.2.3</shiro.version>
+        <shiro.version>1.2.4</shiro.version>
     </properties>
     <scm>
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
