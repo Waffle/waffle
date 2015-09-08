@@ -4,6 +4,7 @@
 
 * [#226](https://github.com/dblock/waffle/pull/226): Moving base to java 1.7
 * Introduction of diamond operator and try with resources
+* [#239](https://github.com/dblock/waffle/pull/239): Fix handle leak in LSASS.exe process.
 
 1.7.x Branch News (on 1.7.4)
 =================

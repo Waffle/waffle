@@ -115,7 +115,8 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
             ctx.setSecurityPackage(securityPackage);
             ctx.initialize(null, null, targetName);
 
-            // Starting from here ctx 'owns' the credentials handle
+            // Starting from here ctx 'owns' the credentials handle, so let's null out the
+            // variable. This will prevent the finally block below from disposing it right away.
             credentialsHandle = null;
 
             return ctx;
