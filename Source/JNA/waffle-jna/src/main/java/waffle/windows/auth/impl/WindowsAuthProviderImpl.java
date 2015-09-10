@@ -109,7 +109,7 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
                     pfClientContextAttr, null);
 
             sc = new WindowsSecurityContextImpl();
-            sc.setCredentialsHandle(serverCredential.getHandle());
+            sc.setCredentialsHandle(serverCredential);
             sc.setSecurityPackage(securityPackage);
             sc.setSecurityContext(phNewServerContext);
 

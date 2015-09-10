@@ -102,7 +102,7 @@ public class MixedAuthenticatorTests {
             // initial client security context
             clientContext = new WindowsSecurityContextImpl();
             clientContext.setPrincipalName(WindowsAccountImpl.getCurrentUsername());
-            clientContext.setCredentialsHandle(clientCredentials.getHandle());
+            clientContext.setCredentialsHandle(clientCredentials);
             clientContext.setSecurityPackage(securityPackage);
             clientContext.initialize(null, null, WindowsAccountImpl.getCurrentUsername());
             final SimpleHttpRequest request = new SimpleHttpRequest();
@@ -166,7 +166,7 @@ public class MixedAuthenticatorTests {
             // initial client security context
             clientContext = new WindowsSecurityContextImpl();
             clientContext.setPrincipalName(WindowsAccountImpl.getCurrentUsername());
-            clientContext.setCredentialsHandle(clientCredentials.getHandle());
+            clientContext.setCredentialsHandle(clientCredentials);
             clientContext.setSecurityPackage(securityPackage);
             clientContext.initialize(null, null, WindowsAccountImpl.getCurrentUsername());
             // negotiate
