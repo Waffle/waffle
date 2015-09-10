@@ -1,5 +1,5 @@
-1.8-SNAPSHOT (in-progress)
-==========================
+1.7.5 (10/3/2015 - pending)
+* [#239](https://github.com/dblock/waffle/pull/239): Fix handle leak in LSASS.exe process.
 
 1.7.4 (05/12/15)
 ================

@@ -100,7 +100,7 @@ public class NegotiateSecurityFilterTests {
             // initial client security context
             clientContext = new WindowsSecurityContextImpl();
             clientContext.setPrincipalName(WindowsAccountImpl.getCurrentUsername());
-            clientContext.setCredentialsHandle(clientCredentials.getHandle());
+            clientContext.setCredentialsHandle(clientCredentials);
             clientContext.setSecurityPackage(securityPackage);
             clientContext.initialize(null, null, WindowsAccountImpl.getCurrentUsername());
             SimpleHttpRequest request = new SimpleHttpRequest();
@@ -139,7 +139,7 @@ public class NegotiateSecurityFilterTests {
             // initial client security context
             clientContext = new WindowsSecurityContextImpl();
             clientContext.setPrincipalName(WindowsAccountImpl.getCurrentUsername());
-            clientContext.setCredentialsHandle(clientCredentials.getHandle());
+            clientContext.setCredentialsHandle(clientCredentials);
             clientContext.setSecurityPackage(securityPackage);
             clientContext.initialize(null, null, WindowsAccountImpl.getCurrentUsername());
             // filter chain
