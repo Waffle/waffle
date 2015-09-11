@@ -309,50 +309,49 @@
 <a class="jxr_linenumber" name="L301" href="#L301">301</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L302" href="#L302">302</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> main(<strong class="jxr_keyword">final</strong> String[] args) {
 <a class="jxr_linenumber" name="L303" href="#L303">303</a>         <strong class="jxr_keyword">boolean</strong> show = false;
-<a class="jxr_linenumber" name="L304" href="#L304">304</a>         <strong class="jxr_keyword">final</strong> List&lt;String&gt; lookup = <strong class="jxr_keyword">new</strong> ArrayList&lt;String&gt;();
+<a class="jxr_linenumber" name="L304" href="#L304">304</a>         <strong class="jxr_keyword">final</strong> List&lt;String&gt; lookup = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
 <a class="jxr_linenumber" name="L305" href="#L305">305</a>         <strong class="jxr_keyword">if</strong> (args != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L306" href="#L306">306</a>             String arg;
 <a class="jxr_linenumber" name="L307" href="#L307">307</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; args.length; i++) {
 <a class="jxr_linenumber" name="L308" href="#L308">308</a>                 arg = args[i];
-<a class="jxr_linenumber" name="L309" href="#L309">309</a>                 <strong class="jxr_keyword">if</strong> (<span class="jxr_string">"-show"</span>.equals(arg)) {
-<a class="jxr_linenumber" name="L310" href="#L310">310</a>                     show = <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L311" href="#L311">311</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (<span class="jxr_string">"-lookup"</span>.equals(arg)) {
-<a class="jxr_linenumber" name="L312" href="#L312">312</a>                     lookup.add(args[++i]);
-<a class="jxr_linenumber" name="L313" href="#L313">313</a>                 } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L314" href="#L314">314</a>                     WaffleInfo.LOGGER.error(<span class="jxr_string">"Unknown Argument: {}"</span>, arg);
-<a class="jxr_linenumber" name="L315" href="#L315">315</a>                     <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"Unknown Argument: "</span> + arg);
-<a class="jxr_linenumber" name="L316" href="#L316">316</a>                 }
-<a class="jxr_linenumber" name="L317" href="#L317">317</a>             }
-<a class="jxr_linenumber" name="L318" href="#L318">318</a>         }
-<a class="jxr_linenumber" name="L319" href="#L319">319</a> 
-<a class="jxr_linenumber" name="L320" href="#L320">320</a>         <strong class="jxr_keyword">final</strong> <a href="../../waffle/util/WaffleInfo.html">WaffleInfo</a> helper = <strong class="jxr_keyword">new</strong> <a href="../../waffle/util/WaffleInfo.html">WaffleInfo</a>();
-<a class="jxr_linenumber" name="L321" href="#L321">321</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L322" href="#L322">322</a>             <strong class="jxr_keyword">final</strong> Document info = helper.getWaffleInfo();
-<a class="jxr_linenumber" name="L323" href="#L323">323</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> String name : lookup) {
-<a class="jxr_linenumber" name="L324" href="#L324">324</a>                 info.getDocumentElement().appendChild(helper.getLookupInfo(info, name));
-<a class="jxr_linenumber" name="L325" href="#L325">325</a>             }
-<a class="jxr_linenumber" name="L326" href="#L326">326</a> 
-<a class="jxr_linenumber" name="L327" href="#L327">327</a>             <strong class="jxr_keyword">final</strong> String xml = WaffleInfo.toPrettyXML(info);
-<a class="jxr_linenumber" name="L328" href="#L328">328</a>             <strong class="jxr_keyword">final</strong> File f;
-<a class="jxr_linenumber" name="L329" href="#L329">329</a>             <strong class="jxr_keyword">if</strong> (show) {
-<a class="jxr_linenumber" name="L330" href="#L330">330</a>                 f = File.createTempFile(<span class="jxr_string">"waffle-info-"</span>, <span class="jxr_string">".xml"</span>);
-<a class="jxr_linenumber" name="L331" href="#L331">331</a>                 Files.write(xml, f, Charsets.UTF_8);
-<a class="jxr_linenumber" name="L332" href="#L332">332</a>                 Desktop.getDesktop().open(f);
-<a class="jxr_linenumber" name="L333" href="#L333">333</a>             } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L334" href="#L334">334</a>                 WaffleInfo.LOGGER.info(xml);
-<a class="jxr_linenumber" name="L335" href="#L335">335</a>             }
-<a class="jxr_linenumber" name="L336" href="#L336">336</a>         } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> IOException e) {
-<a class="jxr_linenumber" name="L337" href="#L337">337</a>             WaffleInfo.LOGGER.error(e.getMessage());
-<a class="jxr_linenumber" name="L338" href="#L338">338</a>             WaffleInfo.LOGGER.trace(<span class="jxr_string">"{}"</span>, e);
-<a class="jxr_linenumber" name="L339" href="#L339">339</a>         } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> TransformerException e) {
-<a class="jxr_linenumber" name="L340" href="#L340">340</a>             WaffleInfo.LOGGER.error(e.getMessage());
-<a class="jxr_linenumber" name="L341" href="#L341">341</a>             WaffleInfo.LOGGER.trace(<span class="jxr_string">"{}"</span>, e);
-<a class="jxr_linenumber" name="L342" href="#L342">342</a>         } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> ParserConfigurationException e) {
-<a class="jxr_linenumber" name="L343" href="#L343">343</a>             WaffleInfo.LOGGER.error(e.getMessage());
-<a class="jxr_linenumber" name="L344" href="#L344">344</a>             WaffleInfo.LOGGER.trace(<span class="jxr_string">"{}"</span>, e);
-<a class="jxr_linenumber" name="L345" href="#L345">345</a>         }
-<a class="jxr_linenumber" name="L346" href="#L346">346</a>     }
-<a class="jxr_linenumber" name="L347" href="#L347">347</a> }
+<a class="jxr_linenumber" name="L309" href="#L309">309</a>                 <strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">null</strong> != arg) {
+<a class="jxr_linenumber" name="L310" href="#L310">310</a>                     <strong class="jxr_keyword">switch</strong> (arg) {
+<a class="jxr_linenumber" name="L311" href="#L311">311</a>                         <strong class="jxr_keyword">case</strong> <span class="jxr_string">"-show"</span>:
+<a class="jxr_linenumber" name="L312" href="#L312">312</a>                             show = <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L313" href="#L313">313</a>                             <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L314" href="#L314">314</a>                         <strong class="jxr_keyword">case</strong> <span class="jxr_string">"-lookup"</span>:
+<a class="jxr_linenumber" name="L315" href="#L315">315</a>                             lookup.add(args[++i]);
+<a class="jxr_linenumber" name="L316" href="#L316">316</a>                             <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L317" href="#L317">317</a>                         <strong class="jxr_keyword">default</strong>:
+<a class="jxr_linenumber" name="L318" href="#L318">318</a>                             WaffleInfo.LOGGER.error(<span class="jxr_string">"Unknown Argument: {}"</span>, arg);
+<a class="jxr_linenumber" name="L319" href="#L319">319</a>                             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"Unknown Argument: "</span> + arg);
+<a class="jxr_linenumber" name="L320" href="#L320">320</a>                     }
+<a class="jxr_linenumber" name="L321" href="#L321">321</a>                 }
+<a class="jxr_linenumber" name="L322" href="#L322">322</a>             }
+<a class="jxr_linenumber" name="L323" href="#L323">323</a>         }
+<a class="jxr_linenumber" name="L324" href="#L324">324</a> 
+<a class="jxr_linenumber" name="L325" href="#L325">325</a>         <strong class="jxr_keyword">final</strong> <a href="../../waffle/util/WaffleInfo.html">WaffleInfo</a> helper = <strong class="jxr_keyword">new</strong> <a href="../../waffle/util/WaffleInfo.html">WaffleInfo</a>();
+<a class="jxr_linenumber" name="L326" href="#L326">326</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L327" href="#L327">327</a>             <strong class="jxr_keyword">final</strong> Document info = helper.getWaffleInfo();
+<a class="jxr_linenumber" name="L328" href="#L328">328</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> String name : lookup) {
+<a class="jxr_linenumber" name="L329" href="#L329">329</a>                 info.getDocumentElement().appendChild(helper.getLookupInfo(info, name));
+<a class="jxr_linenumber" name="L330" href="#L330">330</a>             }
+<a class="jxr_linenumber" name="L331" href="#L331">331</a> 
+<a class="jxr_linenumber" name="L332" href="#L332">332</a>             <strong class="jxr_keyword">final</strong> String xml = WaffleInfo.toPrettyXML(info);
+<a class="jxr_linenumber" name="L333" href="#L333">333</a>             <strong class="jxr_keyword">final</strong> File f;
+<a class="jxr_linenumber" name="L334" href="#L334">334</a>             <strong class="jxr_keyword">if</strong> (show) {
+<a class="jxr_linenumber" name="L335" href="#L335">335</a>                 f = File.createTempFile(<span class="jxr_string">"waffle-info-"</span>, <span class="jxr_string">".xml"</span>);
+<a class="jxr_linenumber" name="L336" href="#L336">336</a>                 Files.write(xml, f, Charsets.UTF_8);
+<a class="jxr_linenumber" name="L337" href="#L337">337</a>                 Desktop.getDesktop().open(f);
+<a class="jxr_linenumber" name="L338" href="#L338">338</a>             } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L339" href="#L339">339</a>                 WaffleInfo.LOGGER.info(xml);
+<a class="jxr_linenumber" name="L340" href="#L340">340</a>             }
+<a class="jxr_linenumber" name="L341" href="#L341">341</a>         } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> IOException | TransformerException | ParserConfigurationException e) {
+<a class="jxr_linenumber" name="L342" href="#L342">342</a>             WaffleInfo.LOGGER.error(e.getMessage());
+<a class="jxr_linenumber" name="L343" href="#L343">343</a>             WaffleInfo.LOGGER.trace(<span class="jxr_string">"{}"</span>, e);
+<a class="jxr_linenumber" name="L344" href="#L344">344</a>         }
+<a class="jxr_linenumber" name="L345" href="#L345">345</a>     }
+<a class="jxr_linenumber" name="L346" href="#L346">346</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2010&#x2013;2015 <a href="https://github.com/dblock/">com.github.dblock</a>. All rights reserved.</div>

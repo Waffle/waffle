@@ -1,0 +1,14 @@
+waffle.jaas
+waffle.servlet
+waffle.servlet.spi
+waffle.util
+waffle.windows.auth.impl
+waffle.windows.auth
+waffle.mock.http
+waffle.mock
+waffle.apache
+waffle.spring
+waffle.jetty
+waffle.shiro
+waffle.shiro.dynamic
+waffle.shiro.negotiate

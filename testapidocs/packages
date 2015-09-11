@@ -1,0 +1,12 @@
+waffle.jaas
+waffle.servlet.spi
+waffle.servlet
+waffle.util
+waffle.windows.auth
+waffle.apache.catalina
+waffle.apache
+waffle.spring
+waffle.jetty
+waffle.shiro.dynamic
+waffle.shiro
+waffle.shiro.negotiate
