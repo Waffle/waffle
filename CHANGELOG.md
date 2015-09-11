@@ -1,18 +1,19 @@
-1.8-SNAPSHOT (in-progress)
-==========================
+1.8.0 (09/10/15)
+================
 *** Java Requirement now 1.7 ***
 
+* Introduction of diamond operator and try with resources firmly requiring java 7.
+* [#187](https://github.com/dblock/waffle/pull/187): Removed Spring 2 and Tomcat 5 support.
 * [#226](https://github.com/dblock/waffle/pull/226): Moving base to java 1.7
-* Introduction of diamond operator and try with resources
 * [#239](https://github.com/dblock/waffle/pull/239): Fix handle leak in LSASS.exe process.
 
 1.7.x Branch News (on 1.7.4)
 =================
 * Created 1.7.x branch for spring 2, tomcat 5, and java 6 continued support for one year.  Only complete show stoppers to be addressed there.
+* [#239]: Fix handle leak in LSASS.exe process. PENDING BACKPORT
 
 1.7.4 (05/12/15)
 ================
-* [#187](https://github.com/dblock/waffle/pull/187): Removed Spring 2 and Tomcat 5 support.
 * [#188](https://github.com/dblock/waffle/issues/188): Added support for service provider to authorize the principal.
 * [#192](https://github.com/dblock/waffle/pull/192): Fix: Tomcat 8 MixedAuthenticator uses LoginConfig out of context.
 * [#206](https://github.com/dblock/waffle/pull/206): Fix issue [#203](https://github.com/dblock/waffle/issues/203)
