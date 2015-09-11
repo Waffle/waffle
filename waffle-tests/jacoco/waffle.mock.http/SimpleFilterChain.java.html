@@ -23,13 +23,13 @@ import javax.servlet.ServletResponse;
 /**
  * Simple filter chain.
  * 
- * @author dblock[at]dblock[dot]org
+<span class="fc" id="L26"> * @author dblock[at]dblock[dot]org</span>
  */
-<span class="fc" id="L28">public class SimpleFilterChain implements FilterChain {</span>
+public class SimpleFilterChain implements FilterChain {
 
     /** The request. */
     private ServletRequest  request;
-    
+
     /** The response. */
     private ServletResponse response;
 
@@ -37,28 +37,29 @@ import javax.servlet.ServletResponse;
      * Gets the request.
      *
      * @return the request
-     */
+<span class="fc" id="L40">     */</span>
     public ServletRequest getRequest() {
-<span class="fc" id="L42">        return this.request;</span>
+        return this.request;
     }
 
     /**
      * Gets the response.
      *
      * @return the response
-     */
+<span class="fc" id="L49">     */</span>
     public ServletResponse getResponse() {
-<span class="fc" id="L51">        return this.response;</span>
+        return this.response;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.FilterChain#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
      */
     @Override
-    public void doFilter(final ServletRequest sreq, final ServletResponse srep) throws IOException, ServletException {
-
-<span class="fc" id="L60">        this.request = sreq;</span>
-<span class="fc" id="L61">        this.response = srep;</span>
-<span class="fc" id="L62">    }</span>
+<span class="fc" id="L59">    public void doFilter(final ServletRequest sreq, final ServletResponse srep) throws IOException, ServletException {</span>
+<span class="fc" id="L60"></span>
+<span class="fc" id="L61">        this.request = sreq;</span>
+        this.response = srep;
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

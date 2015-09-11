@@ -37,93 +37,103 @@ public class MockWindowsSecurityContext implements IWindowsSecurityContext {
      * Instantiates a new mock windows security context.
      *
      * @param username
-     *            the username
-     */
+<span class="fc" id="L40">     *            the username</span>
+<span class="fc" id="L41">     */</span>
 <span class="fc" id="L42">    public MockWindowsSecurityContext(final String username) {</span>
-<span class="fc" id="L43">        final List&lt;String&gt; groups = new ArrayList&lt;String&gt;();</span>
+<span class="fc" id="L43">        final List&lt;String&gt; groups = new ArrayList&lt;&gt;();</span>
 <span class="fc" id="L44">        groups.add(&quot;Users&quot;);</span>
 <span class="fc" id="L45">        groups.add(&quot;Everyone&quot;);</span>
-<span class="fc" id="L46">        this.identity = new MockWindowsIdentity(username, groups);</span>
-<span class="fc" id="L47">    }</span>
+        this.identity = new MockWindowsIdentity(username, groups);
+    }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsSecurityContext#dispose()
      */
     @Override
-    public void dispose() {
+<span class="nc" id="L54">    public void dispose() {</span>
         // Do Nothing
-<span class="nc" id="L55">    }</span>
+    }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsSecurityContext#isContinue()
      */
-    @Override
+<span class="nc" id="L62">    @Override</span>
     public boolean isContinue() {
-<span class="nc" id="L62">        return false;</span>
+        return false;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsSecurityContext#getHandle()
      */
-    @Override
+<span class="nc" id="L71">    @Override</span>
     public CtxtHandle getHandle() {
-<span class="nc" id="L70">        return new CtxtHandle();</span>
+        return new CtxtHandle();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsSecurityContext#getIdentity()
      */
-    @Override
+<span class="fc" id="L80">    @Override</span>
     public IWindowsIdentity getIdentity() {
-<span class="fc" id="L78">        return this.identity;</span>
+        return this.identity;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsSecurityContext#getPrincipalName()
      */
-    @Override
+<span class="nc" id="L89">    @Override</span>
     public String getPrincipalName() {
-<span class="nc" id="L86">        return this.identity.getFqn();</span>
+        return this.identity.getFqn();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsSecurityContext#getSecurityPackage()
      */
-    @Override
+<span class="nc" id="L98">    @Override</span>
     public String getSecurityPackage() {
-<span class="nc" id="L94">        return &quot;Mock&quot;;</span>
+        return &quot;Mock&quot;;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsSecurityContext#getToken()
      */
-    @Override
+<span class="nc" id="L107">    @Override</span>
     public byte[] getToken() {
-<span class="nc" id="L102">        return new byte[0];</span>
+        return new byte[0];
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsSecurityContext#impersonate()
      */
-    @Override
+<span class="nc" id="L116">    @Override</span>
     public IWindowsImpersonationContext impersonate() {
-<span class="nc" id="L110">        return new MockWindowsImpersonationContext();</span>
+        return new MockWindowsImpersonationContext();
     }
 
     /**
      * Initialize.
      */
-    public void initialize() {
+<span class="nc" id="L124">    public void initialize() {</span>
         // Do Nothing
-<span class="nc" id="L118">    }</span>
+    }
 
-    /* (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsSecurityContext#initialize(com.sun.jna.platform.win32.Sspi.CtxtHandle, com.sun.jna.platform.win32.Sspi.SecBufferDesc, java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsSecurityContext#initialize(com.sun.jna.platform.win32.Sspi.CtxtHandle,
+     * com.sun.jna.platform.win32.Sspi.SecBufferDesc, java.lang.String)
      */
     @Override
     public void initialize(final CtxtHandle continueCtx, final SecBufferDesc continueToken,
-            final String targetPrincipalName) {
+<span class="nc" id="L135">            final String targetPrincipalName) {</span>
         // Do Nothing
-<span class="nc" id="L127">    }</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

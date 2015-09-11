@@ -25,152 +25,169 @@ import javax.servlet.http.HttpSessionContext;
  * Simple Http Session.
  *
  * @author dblock[at]dblock[dot]org
- */
+<span class="fc" id="L28"> */</span>
 @SuppressWarnings(&quot;deprecation&quot;)
-<span class="fc" id="L30">public class SimpleHttpSession implements HttpSession {</span>
-
+public class SimpleHttpSession implements HttpSession {
+<span class="fc" id="L31"></span>
     /** The attributes. */
-<span class="fc" id="L33">    private final Map&lt;String, Object&gt; attributes = new HashMap&lt;String, Object&gt;();</span>
+    private final Map&lt;String, Object&gt; attributes = new HashMap&lt;&gt;();
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.http.HttpSession#getAttribute(java.lang.String)
      */
-    @Override
+<span class="fc" id="L39">    @Override</span>
     public Object getAttribute(final String attributeName) {
-<span class="fc" id="L40">        return this.attributes.get(attributeName);</span>
+        return this.attributes.get(attributeName);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.http.HttpSession#getAttributeNames()
      */
-    @Override
+<span class="nc" id="L48">    @Override</span>
     public Enumeration&lt;String&gt; getAttributeNames() {
-<span class="nc" id="L48">        return null;</span>
+        return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.http.HttpSession#getCreationTime()
      */
-    @Override
+<span class="nc" id="L57">    @Override</span>
     public long getCreationTime() {
-<span class="nc" id="L56">        return 0;</span>
+        return 0;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.http.HttpSession#getId()
      */
-    @Override
+<span class="nc" id="L66">    @Override</span>
     public String getId() {
-<span class="nc" id="L64">        return null;</span>
+        return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.http.HttpSession#getLastAccessedTime()
      */
-    @Override
+<span class="nc" id="L75">    @Override</span>
     public long getLastAccessedTime() {
-<span class="nc" id="L72">        return 0;</span>
+        return 0;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.http.HttpSession#getMaxInactiveInterval()
      */
-    @Override
+<span class="nc" id="L84">    @Override</span>
     public int getMaxInactiveInterval() {
-<span class="nc" id="L80">        return 0;</span>
+        return 0;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.http.HttpSession#getServletContext()
      */
-    @Override
+<span class="nc" id="L93">    @Override</span>
     public ServletContext getServletContext() {
-<span class="nc" id="L88">        return null;</span>
+        return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.http.HttpSession#getSessionContext()
      */
     @Deprecated
-    @Override
+<span class="nc" id="L103">    @Override</span>
     public HttpSessionContext getSessionContext() {
-<span class="nc" id="L97">        return null;</span>
+        return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.http.HttpSession#getValue(java.lang.String)
      */
     @Deprecated
-    @Override
+<span class="nc" id="L113">    @Override</span>
     public Object getValue(final String arg0) {
-<span class="nc" id="L106">        return null;</span>
+        return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.http.HttpSession#getValueNames()
      */
     @Deprecated
-    @Override
+<span class="nc" id="L123">    @Override</span>
     public String[] getValueNames() {
-<span class="nc" id="L115">        return new String[0];</span>
+        return new String[0];
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.http.HttpSession#invalidate()
      */
     @Override
-    public void invalidate() {
+<span class="nc" id="L133">    public void invalidate() {</span>
         // Do Nothing
-<span class="nc" id="L124">    }</span>
-
-    /* (non-Javadoc)
-     * @see javax.servlet.http.HttpSession#isNew()
-     */
-    @Override
-    public boolean isNew() {
-<span class="nc" id="L131">        return false;</span>
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * @see javax.servlet.http.HttpSession#isNew()
+     */
+<span class="nc" id="L141">    @Override</span>
+    public boolean isNew() {
+        return false;
+    }
+
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.http.HttpSession#putValue(java.lang.String, java.lang.Object)
      */
     @Deprecated
     @Override
-    public void putValue(final String arg0, final Object arg1) {
+<span class="nc" id="L152">    public void putValue(final String arg0, final Object arg1) {</span>
         // Do Nothing
-<span class="nc" id="L141">    }</span>
+    }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.http.HttpSession#removeAttribute(java.lang.String)
      */
-    @Override
-    public void removeAttribute(final String attributeName) {
-<span class="nc" id="L148">        this.attributes.remove(attributeName);</span>
-<span class="nc" id="L149">    }</span>
+<span class="nc" id="L160">    @Override</span>
+<span class="nc" id="L161">    public void removeAttribute(final String attributeName) {</span>
+        this.attributes.remove(attributeName);
+    }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.http.HttpSession#removeValue(java.lang.String)
      */
     @Deprecated
     @Override
-    public void removeValue(final String arg0) {
+<span class="nc" id="L171">    public void removeValue(final String arg0) {</span>
         // Do Nothing
-<span class="nc" id="L158">    }</span>
+    }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.http.HttpSession#setAttribute(java.lang.String, java.lang.Object)
      */
-    @Override
-    public void setAttribute(final String attributeName, final Object attributeValue) {
-<span class="fc" id="L165">        this.attributes.put(attributeName, attributeValue);</span>
-<span class="fc" id="L166">    }</span>
+<span class="fc" id="L179">    @Override</span>
+<span class="fc" id="L180">    public void setAttribute(final String attributeName, final Object attributeValue) {</span>
+        this.attributes.put(attributeName, attributeValue);
+    }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.http.HttpSession#setMaxInactiveInterval(int)
      */
     @Override
-    public void setMaxInactiveInterval(final int arg0) {
+<span class="nc" id="L189">    public void setMaxInactiveInterval(final int arg0) {</span>
         // Do Nothing
-<span class="nc" id="L174">    }</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

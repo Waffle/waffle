@@ -35,30 +35,32 @@ public class SimpleRequestDispatcher implements RequestDispatcher {
      * Instantiates a new simple request dispatcher.
      *
      * @param newUrl
-     *            the new url
-     */
+<span class="nc" id="L38">     *            the new url</span>
+<span class="nc" id="L39">     */</span>
 <span class="nc" id="L40">    public SimpleRequestDispatcher(final String newUrl) {</span>
-<span class="nc" id="L41">        this.url = newUrl;</span>
-<span class="nc" id="L42">    }</span>
+        this.url = newUrl;
+    }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.RequestDispatcher#forward(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
      */
     @Override
-    public void forward(final ServletRequest request, final ServletResponse response) throws ServletException,
-            IOException {
-<span class="nc" id="L50">        final HttpServletResponse httpResponse = (HttpServletResponse) response;</span>
-<span class="nc" id="L51">        httpResponse.setStatus(304);</span>
-<span class="nc" id="L52">        httpResponse.addHeader(&quot;Location&quot;, this.url);</span>
-<span class="nc" id="L53">    }</span>
+<span class="nc" id="L49">    public void forward(final ServletRequest request, final ServletResponse response) throws ServletException,</span>
+<span class="nc" id="L50">            IOException {</span>
+<span class="nc" id="L51">        final HttpServletResponse httpResponse = (HttpServletResponse) response;</span>
+<span class="nc" id="L52">        httpResponse.setStatus(304);</span>
+        httpResponse.addHeader(&quot;Location&quot;, this.url);
+    }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.RequestDispatcher#include(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
      */
     @Override
     public void include(final ServletRequest request, final ServletResponse response) throws ServletException,
-            IOException {
+<span class="nc" id="L62">            IOException {</span>
         // Do Nothing
-<span class="nc" id="L62">    }</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

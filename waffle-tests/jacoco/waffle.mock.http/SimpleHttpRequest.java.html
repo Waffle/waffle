@@ -32,69 +32,69 @@ import com.google.common.collect.Iterators;
  * @author dblock[at]dblock[dot]org
  */
 public class SimpleHttpRequest extends HttpServletRequestWrapper {
-
+<span class="fc" id="L35"></span>
     /** The remote port s. */
-<span class="fc" id="L37">    private static int          remotePortS = 0;</span>
+    private static int                remotePortS = 0;
 
     /** The request uri. */
-    private String              requestURI;
-    
+    private String                    requestURI;
+
     /** The query string. */
-    private String              queryString;
-    
+    private String                    queryString;
+
     /** The remote user. */
-    private String              remoteUser;
-    
+    private String                    remoteUser;
+<span class="fc" id="L47"></span>
     /** The method. */
-<span class="fc" id="L49">    private String              method      = &quot;GET&quot;;</span>
-    
+    private String                    method      = &quot;GET&quot;;
+
     /** The remote host. */
-    private String              remoteHost;
-    
+    private String                    remoteHost;
+
     /** The remote addr. */
-    private String              remoteAddr;
-    
+    private String                    remoteAddr;
+<span class="fc" id="L56"></span>
     /** The remote port. */
-<span class="fc" id="L58">    private int                 remotePort  = -1;</span>
-    
+    private int                       remotePort  = -1;
+<span class="fc" id="L59"></span>
     /** The headers. */
-<span class="fc" id="L61">    private final Map&lt;String, String&gt; headers     = new HashMap&lt;String, String&gt;();</span>
-    
+    private final Map&lt;String, String&gt; headers     = new HashMap&lt;&gt;();
+<span class="fc" id="L62"></span>
     /** The parameters. */
-<span class="fc" id="L64">    private final Map&lt;String, String&gt; parameters  = new HashMap&lt;String, String&gt;();</span>
-    
+    private final Map&lt;String, String&gt; parameters  = new HashMap&lt;&gt;();
+
     /** The content. */
-    private byte[]              content;
-    
+    private byte[]                    content;
+<span class="fc" id="L68"></span>
     /** The session. */
-<span class="fc" id="L70">    private HttpSession         session     = new SimpleHttpSession();</span>
-    
+    private HttpSession               session     = new SimpleHttpSession();
+
     /** The principal. */
-    private Principal           principal;
+    private Principal                 principal;
 
     /**
      * Instantiates a new simple http request.
-     */
-    public SimpleHttpRequest() {
+<span class="fc" id="L77">     */</span>
+<span class="fc" id="L78">    public SimpleHttpRequest() {</span>
 <span class="fc" id="L79">        super(Mockito.mock(HttpServletRequest.class));</span>
-<span class="fc" id="L80">        this.remotePort = SimpleHttpRequest.nextRemotePort();</span>
-<span class="fc" id="L81">    }</span>
+        this.remotePort = SimpleHttpRequest.nextRemotePort();
+    }
 
     /**
      * Next remote port.
      *
      * @return the int
-     */
+<span class="fc" id="L87">     */</span>
     public static synchronized int nextRemotePort() {
-<span class="fc" id="L89">        return ++SimpleHttpRequest.remotePortS;</span>
+        return ++SimpleHttpRequest.remotePortS;
     }
 
     /**
      * Reset remote port.
-     */
-    public static synchronized void resetRemotePort() {
-<span class="fc" id="L96">        SimpleHttpRequest.remotePortS = 0;</span>
-<span class="fc" id="L97">    }</span>
+<span class="fc" id="L94">     */</span>
+<span class="fc" id="L95">    public static synchronized void resetRemotePort() {</span>
+        SimpleHttpRequest.remotePortS = 0;
+    }
 
     /**
      * Adds the header.
@@ -103,49 +103,54 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
      *            the header name
      * @param headerValue
      *            the header value
-     */
-    public void addHeader(final String headerName, final String headerValue) {
-<span class="fc" id="L108">        this.headers.put(headerName, headerValue);</span>
-<span class="fc" id="L109">    }</span>
+<span class="fc" id="L106">     */</span>
+<span class="fc" id="L107">    public void addHeader(final String headerName, final String headerValue) {</span>
+        this.headers.put(headerName, headerValue);
+    }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.http.HttpServletRequestWrapper#getHeader(java.lang.String)
      */
-    @Override
+<span class="fc" id="L115">    @Override</span>
     public String getHeader(final String headerName) {
-<span class="fc" id="L116">        return this.headers.get(headerName);</span>
+        return this.headers.get(headerName);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.http.HttpServletRequestWrapper#getHeaderNames()
      */
-    @Override
+<span class="fc" id="L124">    @Override</span>
     public Enumeration&lt;String&gt; getHeaderNames() {
-<span class="fc" id="L124">        return Iterators.asEnumeration(this.headers.keySet().iterator());</span>
+        return Iterators.asEnumeration(this.headers.keySet().iterator());
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.http.HttpServletRequestWrapper#getMethod()
      */
-    @Override
+<span class="fc" id="L133">    @Override</span>
     public String getMethod() {
-<span class="fc" id="L132">        return this.method;</span>
+        return this.method;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.ServletRequestWrapper#getContentLength()
      */
-    @Override
+<span class="fc bfc" id="L142" title="All 2 branches covered.">    @Override</span>
     public int getContentLength() {
-<span class="fc bfc" id="L140" title="All 2 branches covered.">        return this.content == null ? -1 : this.content.length;</span>
+        return this.content == null ? -1 : this.content.length;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.ServletRequestWrapper#getRemotePort()
      */
-    @Override
+<span class="fc" id="L151">    @Override</span>
     public int getRemotePort() {
-<span class="fc" id="L148">        return this.remotePort;</span>
+        return this.remotePort;
     }
 
     /**
@@ -153,64 +158,68 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
      *
      * @param methodName
      *            the new method
-     */
-    public void setMethod(final String methodName) {
-<span class="fc" id="L158">        this.method = methodName;</span>
-<span class="fc" id="L159">    }</span>
+<span class="fc" id="L161">     */</span>
+<span class="fc" id="L162">    public void setMethod(final String methodName) {</span>
+        this.method = methodName;
+    }
 
     /**
      * Sets the content length.
      *
      * @param length
      *            the new content length
-     */
-    public void setContentLength(final int length) {
-<span class="fc" id="L168">        this.content = new byte[length];</span>
-<span class="fc" id="L169">    }</span>
+<span class="fc" id="L171">     */</span>
+<span class="fc" id="L172">    public void setContentLength(final int length) {</span>
+        this.content = new byte[length];
+    }
 
     /**
      * Sets the remote user.
      *
      * @param username
      *            the new remote user
-     */
-    public void setRemoteUser(final String username) {
-<span class="nc" id="L178">        this.remoteUser = username;</span>
-<span class="nc" id="L179">    }</span>
+<span class="nc" id="L181">     */</span>
+<span class="nc" id="L182">    public void setRemoteUser(final String username) {</span>
+        this.remoteUser = username;
+    }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.http.HttpServletRequestWrapper#getRemoteUser()
      */
-    @Override
+<span class="nc" id="L190">    @Override</span>
     public String getRemoteUser() {
-<span class="nc" id="L186">        return this.remoteUser;</span>
+        return this.remoteUser;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.http.HttpServletRequestWrapper#getSession()
      */
-    @Override
+<span class="fc" id="L199">    @Override</span>
     public HttpSession getSession() {
-<span class="fc" id="L194">        return this.session;</span>
+        return this.session;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.http.HttpServletRequestWrapper#getSession(boolean)
      */
-    @Override
-    public HttpSession getSession(final boolean create) {
-<span class="pc bpc" id="L202" title="3 of 4 branches missed.">        if (this.session == null &amp;&amp; create) {</span>
-<span class="nc" id="L203">            this.session = new SimpleHttpSession();</span>
+<span class="pc bpc" id="L208" title="3 of 4 branches missed.">    @Override</span>
+<span class="nc" id="L209">    public HttpSession getSession(final boolean create) {</span>
+        if (this.session == null &amp;&amp; create) {
+<span class="fc" id="L211">            this.session = new SimpleHttpSession();</span>
         }
-<span class="fc" id="L205">        return this.session;</span>
+        return this.session;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.http.HttpServletRequestWrapper#getQueryString()
      */
-    @Override
+<span class="nc" id="L220">    @Override</span>
     public String getQueryString() {
-<span class="nc" id="L213">        return this.queryString;</span>
+        return this.queryString;
     }
 
     /**
@@ -218,42 +227,44 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
      *
      * @param query
      *            the new query string
-     */
-    public void setQueryString(final String query) {
-<span class="nc" id="L223">        this.queryString = query;</span>
-<span class="nc bnc" id="L224" title="All 2 branches missed.">        if (this.queryString != null) {</span>
-<span class="nc bnc" id="L225" title="All 2 branches missed.">            for (final String eachParameter : this.queryString.split(&quot;[&amp;]&quot;)) {</span>
-<span class="nc" id="L226">                final String[] pair = eachParameter.split(&quot;=&quot;);</span>
-<span class="nc bnc" id="L227" title="All 2 branches missed.">                final String value = (pair.length == 2) ? pair[1] : &quot;&quot;;</span>
-<span class="nc" id="L228">                this.addParameter(pair[0], value);</span>
-            }
+<span class="nc" id="L230">     */</span>
+<span class="nc bnc" id="L231" title="All 2 branches missed.">    public void setQueryString(final String query) {</span>
+<span class="nc bnc" id="L232" title="All 2 branches missed.">        this.queryString = query;</span>
+<span class="nc" id="L233">        if (this.queryString != null) {</span>
+<span class="nc bnc" id="L234" title="All 2 branches missed.">            for (final String eachParameter : this.queryString.split(&quot;[&amp;]&quot;)) {</span>
+<span class="nc" id="L235">                final String[] pair = eachParameter.split(&quot;=&quot;);</span>
+                final String value = (pair.length == 2) ? pair[1] : &quot;&quot;;
+                this.addParameter(pair[0], value);
+<span class="nc" id="L238">            }</span>
         }
-<span class="nc" id="L231">    }</span>
+    }
 
     /**
      * Sets the request uri.
      *
      * @param uri
      *            the new request uri
-     */
-    public void setRequestURI(final String uri) {
-<span class="nc" id="L240">        this.requestURI = uri;</span>
-<span class="nc" id="L241">    }</span>
-
-    /* (non-Javadoc)
-     * @see javax.servlet.http.HttpServletRequestWrapper#getRequestURI()
-     */
-    @Override
-    public String getRequestURI() {
-<span class="fc" id="L248">        return this.requestURI;</span>
+<span class="nc" id="L247">     */</span>
+<span class="nc" id="L248">    public void setRequestURI(final String uri) {</span>
+        this.requestURI = uri;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * @see javax.servlet.http.HttpServletRequestWrapper#getRequestURI()
+     */
+<span class="fc" id="L256">    @Override</span>
+    public String getRequestURI() {
+        return this.requestURI;
+    }
+
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.ServletRequestWrapper#getParameter(java.lang.String)
      */
-    @Override
+<span class="nc" id="L265">    @Override</span>
     public String getParameter(final String parameterName) {
-<span class="nc" id="L256">        return this.parameters.get(parameterName);</span>
+        return this.parameters.get(parameterName);
     }
 
     /**
@@ -263,17 +274,18 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
      *            the parameter name
      * @param parameterValue
      *            the parameter value
-     */
-    public void addParameter(final String parameterName, final String parameterValue) {
-<span class="nc" id="L268">        this.parameters.put(parameterName, parameterValue);</span>
-<span class="nc" id="L269">    }</span>
+<span class="nc" id="L277">     */</span>
+<span class="nc" id="L278">    public void addParameter(final String parameterName, final String parameterValue) {</span>
+        this.parameters.put(parameterName, parameterValue);
+    }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.ServletRequestWrapper#getRemoteHost()
      */
-    @Override
+<span class="fc" id="L286">    @Override</span>
     public String getRemoteHost() {
-<span class="fc" id="L276">        return this.remoteHost;</span>
+        return this.remoteHost;
     }
 
     /**
@@ -281,17 +293,18 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
      *
      * @param value
      *            the new remote host
-     */
-    public void setRemoteHost(final String value) {
-<span class="fc" id="L286">        this.remoteHost = value;</span>
-<span class="fc" id="L287">    }</span>
+<span class="fc" id="L296">     */</span>
+<span class="fc" id="L297">    public void setRemoteHost(final String value) {</span>
+        this.remoteHost = value;
+    }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.ServletRequestWrapper#getRemoteAddr()
      */
-    @Override
+<span class="fc" id="L305">    @Override</span>
     public String getRemoteAddr() {
-<span class="fc" id="L294">        return this.remoteAddr;</span>
+        return this.remoteAddr;
     }
 
     /**
@@ -299,17 +312,18 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
      *
      * @param value
      *            the new remote addr
-     */
-    public void setRemoteAddr(final String value) {
-<span class="fc" id="L304">        this.remoteAddr = value;</span>
-<span class="fc" id="L305">    }</span>
+<span class="fc" id="L315">     */</span>
+<span class="fc" id="L316">    public void setRemoteAddr(final String value) {</span>
+        this.remoteAddr = value;
+    }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.http.HttpServletRequestWrapper#getUserPrincipal()
      */
-    @Override
+<span class="fc" id="L324">    @Override</span>
     public Principal getUserPrincipal() {
-<span class="fc" id="L312">        return this.principal;</span>
+        return this.principal;
     }
 
     /**
@@ -317,9 +331,9 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
      *
      * @param value
      *            the new user principal
-     */
-    public void setUserPrincipal(final Principal value) {
-<span class="fc" id="L322">        this.principal = value;</span>
-<span class="fc" id="L323">    }</span>
+<span class="fc" id="L334">     */</span>
+<span class="fc" id="L335">    public void setUserPrincipal(final Principal value) {</span>
+        this.principal = value;
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

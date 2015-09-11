@@ -24,31 +24,31 @@ public class MockWindowsAccount implements IWindowsAccount {
 
     /** The Constant TEST_USER_NAME. */
     public static final String TEST_USER_NAME = &quot;WaffleTestUser&quot;;
-    
+
     /** The Constant TEST_PASSWORD. */
     public static final String TEST_PASSWORD  = &quot;!WAFFLEP$$Wrd0&quot;;
 
     /** The fqn. */
-    private final String             fqn;
-    
+    private final String       fqn;
+
     /** The name. */
     private String             name;
-    
+
     /** The domain. */
     private String             domain;
-    
+
     /** The sid. */
-    private final String             sid;
+    private final String       sid;
 
     /**
      * Instantiates a new mock windows account.
      *
      * @param newFqn
      *            the new fqn
-     */
-    public MockWindowsAccount(final String newFqn) {
-<span class="fc" id="L50">        this(newFqn, &quot;S-&quot; + newFqn.hashCode());</span>
-<span class="fc" id="L51">    }</span>
+<span class="fc" id="L48">     */</span>
+<span class="fc" id="L49">    public MockWindowsAccount(final String newFqn) {</span>
+        this(newFqn, &quot;S-&quot; + newFqn.hashCode());
+    }
 
     /**
      * Instantiates a new mock windows account.
@@ -56,50 +56,54 @@ public class MockWindowsAccount implements IWindowsAccount {
      * @param newFqn
      *            the new fqn
      * @param newSid
-     *            the new sid
-     */
+<span class="fc" id="L59">     *            the new sid</span>
+<span class="fc" id="L60">     */</span>
 <span class="fc" id="L61">    public MockWindowsAccount(final String newFqn, final String newSid) {</span>
 <span class="fc" id="L62">        this.fqn = newFqn;</span>
-<span class="fc" id="L63">        this.sid = newSid;</span>
-<span class="fc" id="L64">        final String[] userNameDomain = newFqn.split(&quot;\\\\&quot;, 2);</span>
-<span class="pc bpc" id="L65" title="1 of 2 branches missed.">        if (userNameDomain.length == 2) {</span>
-<span class="nc" id="L66">            this.name = userNameDomain[1];</span>
-<span class="nc" id="L67">            this.domain = userNameDomain[0];</span>
+<span class="pc bpc" id="L63" title="1 of 2 branches missed.">        this.sid = newSid;</span>
+<span class="nc" id="L64">        final String[] userNameDomain = newFqn.split(&quot;\\\\&quot;, 2);</span>
+<span class="nc" id="L65">        if (userNameDomain.length == 2) {</span>
+            this.name = userNameDomain[1];
+<span class="fc" id="L67">            this.domain = userNameDomain[0];</span>
         } else {
 <span class="fc" id="L69">            this.name = newFqn;</span>
         }
-<span class="fc" id="L71">    }</span>
+    }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsAccount#getDomain()
      */
-    @Override
+<span class="fc" id="L77">    @Override</span>
     public String getDomain() {
-<span class="fc" id="L78">        return this.domain;</span>
+        return this.domain;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsAccount#getFqn()
      */
-    @Override
+<span class="fc" id="L86">    @Override</span>
     public String getFqn() {
-<span class="fc" id="L86">        return this.fqn;</span>
+        return this.fqn;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsAccount#getName()
      */
-    @Override
+<span class="fc" id="L95">    @Override</span>
     public String getName() {
-<span class="fc" id="L94">        return this.name;</span>
+        return this.name;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsAccount#getSidString()
      */
-    @Override
+<span class="fc" id="L104">    @Override</span>
     public String getSidString() {
-<span class="fc" id="L102">        return this.sid;</span>
+        return this.sid;
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

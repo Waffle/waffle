@@ -29,7 +29,7 @@ public class MockWindowsIdentity implements IWindowsIdentity {
 
     /** The fqn. */
     private final String       fqn;
-    
+
     /** The groups. */
     private final List&lt;String&gt; groups;
 
@@ -39,71 +39,78 @@ public class MockWindowsIdentity implements IWindowsIdentity {
      * @param newFqn
      *            the new fqn
      * @param newGroups
-     *            the new groups
-     */
+<span class="fc" id="L42">     *            the new groups</span>
+<span class="fc" id="L43">     */</span>
 <span class="fc" id="L44">    public MockWindowsIdentity(final String newFqn, final List&lt;String&gt; newGroups) {</span>
 <span class="fc" id="L45">        this.fqn = newFqn;</span>
-<span class="fc" id="L46">        this.groups = newGroups;</span>
-<span class="fc" id="L47">    }</span>
+        this.groups = newGroups;
+    }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsIdentity#getFqn()
      */
-    @Override
+<span class="fc" id="L53">    @Override</span>
     public String getFqn() {
-<span class="fc" id="L54">        return this.fqn;</span>
+        return this.fqn;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsIdentity#getGroups()
      */
-    @Override
-    public IWindowsAccount[] getGroups() {
-<span class="fc" id="L62">        final List&lt;MockWindowsAccount&gt; groupsList = new ArrayList&lt;MockWindowsAccount&gt;();</span>
-<span class="fc bfc" id="L63" title="All 2 branches covered.">        for (final String group : this.groups) {</span>
-<span class="fc" id="L64">            groupsList.add(new MockWindowsAccount(group));</span>
-<span class="fc" id="L65">        }</span>
-<span class="fc" id="L66">        return groupsList.toArray(new IWindowsAccount[0]);</span>
+<span class="fc" id="L62">    @Override</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">    public IWindowsAccount[] getGroups() {</span>
+<span class="fc" id="L64">        final List&lt;MockWindowsAccount&gt; groupsList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L65">        for (final String group : this.groups) {</span>
+<span class="fc" id="L66">            groupsList.add(new MockWindowsAccount(group));</span>
+        }
+        return groupsList.toArray(new IWindowsAccount[0]);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsIdentity#getSid()
      */
-    @Override
+<span class="fc" id="L75">    @Override</span>
     public byte[] getSid() {
-<span class="fc" id="L74">        return new byte[0];</span>
+        return new byte[0];
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsIdentity#getSidString()
      */
-    @Override
+<span class="fc" id="L84">    @Override</span>
     public String getSidString() {
-<span class="fc" id="L82">        return &quot;S-&quot; + this.fqn.hashCode();</span>
+        return &quot;S-&quot; + this.fqn.hashCode();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsIdentity#dispose()
      */
     @Override
-    public void dispose() {
+<span class="fc" id="L94">    public void dispose() {</span>
         // Do Nothing
-<span class="fc" id="L91">    }</span>
-
-    /* (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsIdentity#isGuest()
-     */
-    @Override
-    public boolean isGuest() {
-<span class="fc" id="L98">        return this.fqn.equals(&quot;Guest&quot;);</span>
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsIdentity#isGuest()
+     */
+<span class="fc" id="L102">    @Override</span>
+    public boolean isGuest() {
+        return this.fqn.equals(&quot;Guest&quot;);
+    }
+
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsIdentity#impersonate()
      */
-    @Override
+<span class="nc" id="L111">    @Override</span>
     public IWindowsImpersonationContext impersonate() {
-<span class="nc" id="L106">        return new MockWindowsImpersonationContext();</span>
+        return new MockWindowsImpersonationContext();
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
