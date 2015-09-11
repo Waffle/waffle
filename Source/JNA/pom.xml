@@ -113,7 +113,7 @@
 
         <src.relative.loc>.</src.relative.loc>
 
-        <assertj.version>2.1.0</assertj.version>
+        <assertj.version>2.2.0</assertj.version>
         <cglib.version>3.1</cglib.version>
         <contiperf.version>2.3.4</contiperf.version>
         <jmockit.version>1.19</jmockit.version>
