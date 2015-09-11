@@ -13,6 +13,8 @@ WAFFLE is a native Windows Authentication Framework consisting of two C# and Jav
 
 Unlike many other implementations Waffle on Windows does not require any server-side Kerberos keytab setup, it's a drop-in solution. You can see it in action in [this slightly blurry video](http://www.youtube.com/watch?v=LmTwbOh0hBU) produced for [TeamShatter.com](http://www.teamshatter.com/topics/general/team-shatter-exclusive/securing-java-applications-with-smart-cards-and-single-sign-on/). 
 
+[Site Page](http://dblock.github.io/waffle/)
+
 Essentials
 ----------
 
