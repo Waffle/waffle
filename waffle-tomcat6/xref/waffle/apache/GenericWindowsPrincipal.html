@@ -45,10 +45,10 @@
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>      <em class="jxr_javadoccomment">/** The sid. */</em>
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> byte[]                      sid;
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>      
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>      <em class="jxr_javadoccomment">/** The sid string. */</em>
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> String                      sidString;
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>      
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>      <em class="jxr_javadoccomment">/** The groups. */</em>
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Map&lt;String, WindowsAccount&gt; groups;
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  
@@ -66,8 +66,8 @@
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>      <strong class="jxr_keyword">public</strong> <a href="../../waffle/apache/GenericWindowsPrincipal.html">GenericWindowsPrincipal</a>(<strong class="jxr_keyword">final</strong> IWindowsIdentity newWindowsIdentity, <strong class="jxr_keyword">final</strong> Realm newRealm,
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>              <strong class="jxr_keyword">final</strong> PrincipalFormat newPrincipalFormat, <strong class="jxr_keyword">final</strong> PrincipalFormat newRoleFormat) {
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>          <strong class="jxr_keyword">super</strong>(newRealm, newWindowsIdentity.getFqn(), <span class="jxr_string">""</span>,
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>                  GenericWindowsPrincipal.getRoles(newWindowsIdentity, newPrincipalFormat, newRoleFormat));
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>          <strong class="jxr_keyword">super</strong>(newRealm, newWindowsIdentity.getFqn(), <span class="jxr_string">""</span>, GenericWindowsPrincipal.getRoles(newWindowsIdentity,
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>                  newPrincipalFormat, newRoleFormat));
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>          <strong class="jxr_keyword">this</strong>.sid = newWindowsIdentity.getSid();
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>          <strong class="jxr_keyword">this</strong>.sidString = newWindowsIdentity.getSidString();
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>          <strong class="jxr_keyword">this</strong>.groups = GenericWindowsPrincipal.getGroups(newWindowsIdentity.getGroups());
@@ -86,7 +86,7 @@
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> List&lt;String&gt; getRoles(<strong class="jxr_keyword">final</strong> IWindowsIdentity windowsIdentity, <strong class="jxr_keyword">final</strong> PrincipalFormat principalFormat,
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>              <strong class="jxr_keyword">final</strong> PrincipalFormat roleFormat) {
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>          <strong class="jxr_keyword">final</strong> List&lt;String&gt; roles = <strong class="jxr_keyword">new</strong> ArrayList&lt;String&gt;();
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>          <strong class="jxr_keyword">final</strong> List&lt;String&gt; roles = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>          roles.addAll(GenericWindowsPrincipal.getPrincipalNames(windowsIdentity, principalFormat));
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>          <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> IWindowsAccount group : windowsIdentity.getGroups()) {
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>              roles.addAll(GenericWindowsPrincipal.getRoleNames(group, roleFormat));
@@ -102,7 +102,7 @@
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>  <em class="jxr_javadoccomment">     * @return the groups</em>
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Map&lt;String, WindowsAccount&gt; getGroups(<strong class="jxr_keyword">final</strong> IWindowsAccount[] groups) {
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>          <strong class="jxr_keyword">final</strong> Map&lt;String, WindowsAccount&gt; groupMap = <strong class="jxr_keyword">new</strong> HashMap&lt;String, WindowsAccount&gt;();
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>          <strong class="jxr_keyword">final</strong> Map&lt;String, WindowsAccount&gt; groupMap = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;();
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>          <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> IWindowsAccount group : groups) {
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>              groupMap.put(group.getFqn(), <strong class="jxr_keyword">new</strong> WindowsAccount(group));
 <a class="jxr_linenumber" name="L100" href="#L100">100</a>         }
@@ -146,7 +146,7 @@
 <a class="jxr_linenumber" name="L138" href="#L138">138</a> <em class="jxr_javadoccomment">     * @return List of role principal objects.</em>
 <a class="jxr_linenumber" name="L139" href="#L139">139</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L140" href="#L140">140</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> List&lt;String&gt; getRoleNames(<strong class="jxr_keyword">final</strong> IWindowsAccount group, <strong class="jxr_keyword">final</strong> PrincipalFormat principalFormat) {
-<a class="jxr_linenumber" name="L141" href="#L141">141</a>         <strong class="jxr_keyword">final</strong> List&lt;String&gt; principals = <strong class="jxr_keyword">new</strong> ArrayList&lt;String&gt;();
+<a class="jxr_linenumber" name="L141" href="#L141">141</a>         <strong class="jxr_keyword">final</strong> List&lt;String&gt; principals = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
 <a class="jxr_linenumber" name="L142" href="#L142">142</a>         <strong class="jxr_keyword">switch</strong> (principalFormat) {
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>             <strong class="jxr_keyword">case</strong> FQN:
 <a class="jxr_linenumber" name="L144" href="#L144">144</a>                 principals.add(group.getFqn());
@@ -177,7 +177,7 @@
 <a class="jxr_linenumber" name="L169" href="#L169">169</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L170" href="#L170">170</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> List&lt;String&gt; getPrincipalNames(<strong class="jxr_keyword">final</strong> IWindowsIdentity windowsIdentity,
 <a class="jxr_linenumber" name="L171" href="#L171">171</a>             <strong class="jxr_keyword">final</strong> PrincipalFormat principalFormat) {
-<a class="jxr_linenumber" name="L172" href="#L172">172</a>         <strong class="jxr_keyword">final</strong> List&lt;String&gt; principals = <strong class="jxr_keyword">new</strong> ArrayList&lt;String&gt;();
+<a class="jxr_linenumber" name="L172" href="#L172">172</a>         <strong class="jxr_keyword">final</strong> List&lt;String&gt; principals = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
 <a class="jxr_linenumber" name="L173" href="#L173">173</a>         <strong class="jxr_keyword">switch</strong> (principalFormat) {
 <a class="jxr_linenumber" name="L174" href="#L174">174</a>             <strong class="jxr_keyword">case</strong> FQN:
 <a class="jxr_linenumber" name="L175" href="#L175">175</a>                 principals.add(windowsIdentity.getFqn());

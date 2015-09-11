@@ -32,41 +32,41 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 /**
  * The Class WaffleAuthenticatorBase.
  *
- * @author dblock[at]dblock[dot]org
+<span class="fc" id="L35"> * @author dblock[at]dblock[dot]org</span>
  */
-<span class="fc" id="L37">abstract class WaffleAuthenticatorBase extends AuthenticatorBase {</span>
-
+abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
+<span class="fc" id="L38"></span>
     /** The Constant SUPPORTED_PROTOCOLS. */
-<span class="fc" id="L40">    private static final Set&lt;String&gt; SUPPORTED_PROTOCOLS = new LinkedHashSet&lt;String&gt;(Arrays.asList(&quot;Negotiate&quot;, &quot;NTLM&quot;));</span>
+    private static final Set&lt;String&gt; SUPPORTED_PROTOCOLS = new LinkedHashSet&lt;&gt;(Arrays.asList(&quot;Negotiate&quot;, &quot;NTLM&quot;));
 
     /** The info. */
     protected String                 info;
-    
+
     /** The log. */
     protected Logger                 log;
-    
+<span class="fc" id="L47"></span>
     /** The principal format. */
-<span class="fc" id="L49">    protected PrincipalFormat        principalFormat     = PrincipalFormat.FQN;</span>
-    
+    protected PrincipalFormat        principalFormat     = PrincipalFormat.FQN;
+<span class="fc" id="L50"></span>
     /** The role format. */
-<span class="fc" id="L52">    protected PrincipalFormat        roleFormat          = PrincipalFormat.FQN;</span>
-    
+    protected PrincipalFormat        roleFormat          = PrincipalFormat.FQN;
+<span class="fc" id="L53"></span>
     /** The allow guest login. */
-<span class="fc" id="L55">    protected boolean                allowGuestLogin     = true;</span>
-    
+    protected boolean                allowGuestLogin     = true;
+<span class="fc" id="L56"></span>
     /** The protocols. */
-<span class="fc" id="L58">    protected Set&lt;String&gt;            protocols           = WaffleAuthenticatorBase.SUPPORTED_PROTOCOLS;</span>
-
+    protected Set&lt;String&gt;            protocols           = WaffleAuthenticatorBase.SUPPORTED_PROTOCOLS;
+<span class="fc" id="L59"></span>
     /** The auth. */
-<span class="fc" id="L61">    protected IWindowsAuthProvider   auth                = new WindowsAuthProviderImpl();</span>
+    protected IWindowsAuthProvider   auth                = new WindowsAuthProviderImpl();
 
     /**
      * Windows authentication provider.
      * 
      * @return IWindowsAuthProvider.
-     */
+<span class="fc" id="L67">     */</span>
     public IWindowsAuthProvider getAuth() {
-<span class="fc" id="L69">        return this.auth;</span>
+        return this.auth;
     }
 
     /**
@@ -74,17 +74,18 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      * 
      * @param provider
      *            Class implements IWindowsAuthProvider.
-     */
-    public void setAuth(final IWindowsAuthProvider provider) {
-<span class="fc" id="L79">        this.auth = provider;</span>
-<span class="fc" id="L80">    }</span>
+<span class="fc" id="L77">     */</span>
+<span class="fc" id="L78">    public void setAuth(final IWindowsAuthProvider provider) {</span>
+        this.auth = provider;
+    }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.apache.catalina.authenticator.AuthenticatorBase#getInfo()
      */
-    @Override
+<span class="fc" id="L86">    @Override</span>
     public String getInfo() {
-<span class="fc" id="L87">        return this.info;</span>
+        return this.info;
     }
 
     /**
@@ -92,19 +93,19 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      * 
      * @param format
      *            Principal format.
-     */
-    public void setPrincipalFormat(final String format) {
-<span class="fc" id="L97">        this.principalFormat = PrincipalFormat.valueOf(format.toUpperCase(Locale.ENGLISH));</span>
-<span class="fc" id="L98">        this.log.debug(&quot;principal format: {}&quot;, this.principalFormat);</span>
-<span class="fc" id="L99">    }</span>
+<span class="fc" id="L96">     */</span>
+<span class="fc" id="L97">    public void setPrincipalFormat(final String format) {</span>
+<span class="fc" id="L98">        this.principalFormat = PrincipalFormat.valueOf(format.toUpperCase(Locale.ENGLISH));</span>
+        this.log.debug(&quot;principal format: {}&quot;, this.principalFormat);
+    }
 
     /**
      * Principal format.
      * 
      * @return Principal format.
-     */
+<span class="fc" id="L106">     */</span>
     public PrincipalFormat getPrincipalFormat() {
-<span class="fc" id="L107">        return this.principalFormat;</span>
+        return this.principalFormat;
     }
 
     /**
@@ -112,28 +113,28 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      * 
      * @param format
      *            Role format.
-     */
-    public void setRoleFormat(final String format) {
-<span class="fc" id="L117">        this.roleFormat = PrincipalFormat.valueOf(format.toUpperCase(Locale.ENGLISH));</span>
-<span class="fc" id="L118">        this.log.debug(&quot;role format: {}&quot;, this.roleFormat);</span>
-<span class="fc" id="L119">    }</span>
+<span class="fc" id="L116">     */</span>
+<span class="fc" id="L117">    public void setRoleFormat(final String format) {</span>
+<span class="fc" id="L118">        this.roleFormat = PrincipalFormat.valueOf(format.toUpperCase(Locale.ENGLISH));</span>
+        this.log.debug(&quot;role format: {}&quot;, this.roleFormat);
+    }
 
     /**
      * Principal format.
      * 
      * @return Role format.
-     */
+<span class="fc" id="L126">     */</span>
     public PrincipalFormat getRoleFormat() {
-<span class="fc" id="L127">        return this.roleFormat;</span>
+        return this.roleFormat;
     }
 
     /**
      * True if Guest login permitted.
      * 
      * @return True if Guest login permitted, false otherwise.
-     */
+<span class="fc" id="L135">     */</span>
     public boolean isAllowGuestLogin() {
-<span class="fc" id="L136">        return this.allowGuestLogin;</span>
+        return this.allowGuestLogin;
     }
 
     /**
@@ -142,33 +143,33 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      * 
      * @param value
      *            True or false.
-     */
-    public void setAllowGuestLogin(final boolean value) {
-<span class="fc" id="L147">        this.allowGuestLogin = value;</span>
-<span class="fc" id="L148">    }</span>
+<span class="fc" id="L146">     */</span>
+<span class="fc" id="L147">    public void setAllowGuestLogin(final boolean value) {</span>
+        this.allowGuestLogin = value;
+    }
 
     /**
      * Set the authentication protocols. Default is &quot;Negotiate, NTLM&quot;.
      * 
      * @param value
      *            Authentication protocols
-     */
-    public void setProtocols(final String value) {
-<span class="nc" id="L157">        this.protocols = new LinkedHashSet&lt;String&gt;();</span>
-<span class="nc" id="L158">        final String[] protocolNames = value.split(&quot;,&quot;);</span>
-<span class="nc bnc" id="L159" title="All 2 branches missed.">        for (String protocolName : protocolNames) {</span>
-<span class="nc" id="L160">            protocolName = protocolName.trim();</span>
-<span class="nc bnc" id="L161" title="All 2 branches missed.">            if (!protocolName.isEmpty()) {</span>
-<span class="nc" id="L162">                this.log.debug(&quot;init protocol: {}&quot;, protocolName);</span>
-<span class="nc bnc" id="L163" title="All 2 branches missed.">                if (WaffleAuthenticatorBase.SUPPORTED_PROTOCOLS.contains(protocolName)) {</span>
-<span class="nc" id="L164">                    this.protocols.add(protocolName);</span>
-<span class="nc" id="L165">                } else {</span>
-<span class="nc" id="L166">                    this.log.error(&quot;unsupported protocol: {}&quot;, protocolName);</span>
-<span class="nc" id="L167">                    throw new RuntimeException(&quot;Unsupported protocol: &quot; + protocolName);</span>
+<span class="nc" id="L156">     */</span>
+<span class="nc" id="L157">    public void setProtocols(final String value) {</span>
+<span class="nc bnc" id="L158" title="All 2 branches missed.">        this.protocols = new LinkedHashSet&lt;&gt;();</span>
+<span class="nc" id="L159">        final String[] protocolNames = value.split(&quot;,&quot;);</span>
+<span class="nc bnc" id="L160" title="All 2 branches missed.">        for (String protocolName : protocolNames) {</span>
+<span class="nc" id="L161">            protocolName = protocolName.trim();</span>
+<span class="nc bnc" id="L162" title="All 2 branches missed.">            if (!protocolName.isEmpty()) {</span>
+<span class="nc" id="L163">                this.log.debug(&quot;init protocol: {}&quot;, protocolName);</span>
+                if (WaffleAuthenticatorBase.SUPPORTED_PROTOCOLS.contains(protocolName)) {
+<span class="nc" id="L165">                    this.protocols.add(protocolName);</span>
+<span class="nc" id="L166">                } else {</span>
+                    this.log.error(&quot;unsupported protocol: {}&quot;, protocolName);
+                    throw new RuntimeException(&quot;Unsupported protocol: &quot; + protocolName);
                 }
-            }
+<span class="nc" id="L170">            }</span>
         }
-<span class="nc" id="L171">    }</span>
+    }
 
     /**
      * Send a 401 Unauthorized along with protocol authentication headers.
@@ -176,18 +177,18 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      * @param response
      *            HTTP Response
      */
-    protected void sendUnauthorized(final Response response) {
-        try {
-<span class="fc bfc" id="L181" title="All 2 branches covered.">            for (final String protocol : this.protocols) {</span>
-<span class="fc" id="L182">                response.addHeader(&quot;WWW-Authenticate&quot;, protocol);</span>
-            }
-<span class="fc" id="L184">            response.setHeader(&quot;Connection&quot;, &quot;close&quot;);</span>
-<span class="fc" id="L185">            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);</span>
-<span class="fc" id="L186">            response.flushBuffer();</span>
-<span class="pc" id="L187">        } catch (final IOException e) {</span>
-<span class="nc" id="L188">            throw new RuntimeException(e);</span>
+<span class="fc bfc" id="L180" title="All 2 branches covered.">    protected void sendUnauthorized(final Response response) {</span>
+<span class="fc" id="L181">        try {</span>
+<span class="fc" id="L182">            for (final String protocol : this.protocols) {</span>
+<span class="fc" id="L183">                response.addHeader(&quot;WWW-Authenticate&quot;, protocol);</span>
+<span class="fc" id="L184">            }</span>
+<span class="fc" id="L185">            response.setHeader(&quot;Connection&quot;, &quot;close&quot;);</span>
+<span class="nc" id="L186">            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);</span>
+<span class="nc" id="L187">            response.flushBuffer();</span>
+<span class="fc" id="L188">        } catch (final IOException e) {</span>
+<span class="fc" id="L189">            throw new RuntimeException(e);</span>
         }
-<span class="fc" id="L190">    }</span>
+    }
 
     /**
      * Send an error code.
@@ -197,14 +198,14 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      * @param code
      *            Error Code
      */
-    protected void sendError(final Response response, final int code) {
-        try {
-<span class="nc" id="L202">            response.sendError(code);</span>
-<span class="nc" id="L203">        } catch (final IOException e) {</span>
-<span class="nc" id="L204">            this.log.error(e.getMessage());</span>
-<span class="nc" id="L205">            this.log.trace(&quot;{}&quot;, e);</span>
-<span class="nc" id="L206">            throw new RuntimeException(e);</span>
+<span class="nc" id="L201">    protected void sendError(final Response response, final int code) {</span>
+<span class="nc" id="L202">        try {</span>
+<span class="nc" id="L203">            response.sendError(code);</span>
+<span class="nc" id="L204">        } catch (final IOException e) {</span>
+<span class="nc" id="L205">            this.log.error(e.getMessage());</span>
+<span class="nc" id="L206">            this.log.trace(&quot;{}&quot;, e);</span>
+<span class="nc" id="L207">            throw new RuntimeException(e);</span>
         }
-<span class="nc" id="L208">    }</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

@@ -41,146 +41,150 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 
     /**
      * Instantiates a new negotiate authenticator.
-     */
-    public NegotiateAuthenticator() {
+<span class="fc" id="L44">     */</span>
+<span class="fc" id="L45">    public NegotiateAuthenticator() {</span>
 <span class="fc" id="L46">        super();</span>
 <span class="fc" id="L47">        this.log = LoggerFactory.getLogger(NegotiateAuthenticator.class);</span>
 <span class="fc" id="L48">        this.info = &quot;waffle.apache.NegotiateAuthenticator/1.0&quot;;</span>
-<span class="fc" id="L49">        this.log.debug(&quot;[waffle.apache.NegotiateAuthenticator] loaded&quot;);</span>
-<span class="fc" id="L50">    }</span>
+        this.log.debug(&quot;[waffle.apache.NegotiateAuthenticator] loaded&quot;);
+    }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.apache.catalina.authenticator.AuthenticatorBase#start()
      */
-    @Override
-    public void start() {
-<span class="fc" id="L57">        this.log.info(&quot;[waffle.apache.NegotiateAuthenticator] started&quot;);</span>
-<span class="fc" id="L58">    }</span>
+<span class="fc" id="L56">    @Override</span>
+<span class="fc" id="L57">    public void start() {</span>
+        this.log.info(&quot;[waffle.apache.NegotiateAuthenticator] started&quot;);
+    }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.apache.catalina.authenticator.AuthenticatorBase#stop()
      */
-    @Override
-    public void stop() {
-<span class="fc" id="L65">        this.log.info(&quot;[waffle.apache.NegotiateAuthenticator] stopped&quot;);</span>
-<span class="fc" id="L66">    }</span>
+<span class="fc" id="L65">    @Override</span>
+<span class="fc" id="L66">    public void stop() {</span>
+        this.log.info(&quot;[waffle.apache.NegotiateAuthenticator] stopped&quot;);
+    }
 
-    /* (non-Javadoc)
-     * @see org.apache.catalina.authenticator.AuthenticatorBase#authenticate(org.apache.catalina.connector.Request, org.apache.catalina.connector.Response, org.apache.catalina.deploy.LoginConfig)
+    /*
+     * (non-Javadoc)
+     * @see org.apache.catalina.authenticator.AuthenticatorBase#authenticate(org.apache.catalina.connector.Request,
+     * org.apache.catalina.connector.Response, org.apache.catalina.deploy.LoginConfig)
      */
     @Override
-    public boolean authenticate(final Request request, final Response response, final LoginConfig loginConfig) {
+<span class="fc" id="L76">    public boolean authenticate(final Request request, final Response response, final LoginConfig loginConfig) {</span>
+<span class="fc" id="L77"></span>
+<span class="fc" id="L78">        Principal principal = request.getUserPrincipal();</span>
+        final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
+<span class="fc" id="L80">        final boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();</span>
 
-<span class="fc" id="L74">        Principal principal = request.getUserPrincipal();</span>
-<span class="fc" id="L75">        final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);</span>
-<span class="fc" id="L76">        final boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();</span>
+<span class="fc" id="L82">        this.log.debug(&quot;{} {}, contentlength: {}&quot;, request.getMethod(), request.getRequestURI(),</span>
+                Integer.valueOf(request.getContentLength()));
+<span class="pc bpc" id="L84" title="3 of 4 branches missed.">        this.log.debug(&quot;authorization: {}, ntlm post: {}&quot;, authorizationHeader, Boolean.valueOf(ntlmPost));</span>
 
-<span class="fc" id="L78">        this.log.debug(&quot;{} {}, contentlength: {}&quot;, request.getMethod(), request.getRequestURI(),</span>
-<span class="fc" id="L79">                Integer.valueOf(request.getContentLength()));</span>
-<span class="fc" id="L80">        this.log.debug(&quot;authorization: {}, ntlm post: {}&quot;, authorizationHeader, Boolean.valueOf(ntlmPost));</span>
-
-<span class="pc bpc" id="L82" title="3 of 4 branches missed.">        if (principal != null &amp;&amp; !ntlmPost) {</span>
-            // user already authenticated
-<span class="nc" id="L84">            this.log.debug(&quot;previously authenticated user: {}&quot;, principal.getName());</span>
-<span class="nc" id="L85">            return true;</span>
+<span class="nc" id="L86">        if (principal != null &amp;&amp; !ntlmPost) {</span>
+<span class="nc" id="L87">            // user already authenticated</span>
+            this.log.debug(&quot;previously authenticated user: {}&quot;, principal.getName());
+            return true;
         }
-
+<span class="fc bfc" id="L91" title="All 2 branches covered."></span>
         // authenticate user
-<span class="fc bfc" id="L89" title="All 2 branches covered.">        if (!authorizationHeader.isNull()) {</span>
+<span class="fc" id="L93">        if (!authorizationHeader.isNull()) {</span>
 
-<span class="fc" id="L91">            final String securityPackage = authorizationHeader.getSecurityPackage();</span>
+<span class="fc" id="L95">            final String securityPackage = authorizationHeader.getSecurityPackage();</span>
             // maintain a connection-based session for NTLM tokens
-<span class="fc" id="L93">            final String connectionId = NtlmServletRequest.getConnectionId(request);</span>
+<span class="fc" id="L97">            final String connectionId = NtlmServletRequest.getConnectionId(request);</span>
 
-<span class="fc" id="L95">            this.log.debug(&quot;security package: {}, connection id: {}&quot;, securityPackage, connectionId);</span>
+<span class="fc bfc" id="L99" title="All 2 branches covered.">            this.log.debug(&quot;security package: {}, connection id: {}&quot;, securityPackage, connectionId);</span>
 
-<span class="fc bfc" id="L97" title="All 2 branches covered.">            if (ntlmPost) {</span>
+<span class="fc" id="L101">            if (ntlmPost) {</span>
                 // type 1 NTLM authentication message received
-<span class="fc" id="L99">                this.auth.resetSecurityToken(connectionId);</span>
+                this.auth.resetSecurityToken(connectionId);
             }
 
             // log the user in using the token
             IWindowsSecurityContext securityContext;
-
-            try {
-<span class="fc" id="L106">                final byte[] tokenBuffer = authorizationHeader.getTokenBytes();</span>
-<span class="fc" id="L107">                this.log.debug(&quot;token buffer: {} byte(s)&quot;, Integer.valueOf(tokenBuffer.length));</span>
-                try {
-<span class="fc" id="L109">                    securityContext = this.auth.acceptSecurityToken(connectionId, tokenBuffer, securityPackage);</span>
-<span class="fc" id="L110">                } catch (final Win32Exception e) {</span>
-<span class="fc" id="L111">                    this.log.warn(&quot;error logging in user: {}&quot;, e.getMessage());</span>
-<span class="fc" id="L112">                    this.log.trace(&quot;{}&quot;, e);</span>
-<span class="fc" id="L113">                    this.sendUnauthorized(response);</span>
-<span class="fc" id="L114">                    return false;</span>
+<span class="fc" id="L108"></span>
+<span class="fc" id="L109">            try {</span>
+                final byte[] tokenBuffer = authorizationHeader.getTokenBytes();
+<span class="fc" id="L111">                this.log.debug(&quot;token buffer: {} byte(s)&quot;, Integer.valueOf(tokenBuffer.length));</span>
+<span class="fc" id="L112">                try {</span>
+<span class="fc" id="L113">                    securityContext = this.auth.acceptSecurityToken(connectionId, tokenBuffer, securityPackage);</span>
+<span class="fc" id="L114">                } catch (final Win32Exception e) {</span>
+<span class="fc" id="L115">                    this.log.warn(&quot;error logging in user: {}&quot;, e.getMessage());</span>
+<span class="fc" id="L116">                    this.log.trace(&quot;{}&quot;, e);</span>
+<span class="fc" id="L117">                    this.sendUnauthorized(response);</span>
+<span class="fc" id="L118">                    return false;</span>
                 }
-<span class="fc" id="L116">                this.log.debug(&quot;continue required: {}&quot;, Boolean.valueOf(securityContext.isContinue()));</span>
-
-<span class="fc" id="L118">                final byte[] continueTokenBytes = securityContext.getToken();</span>
-<span class="pc bpc" id="L119" title="2 of 4 branches missed.">                if (continueTokenBytes != null &amp;&amp; continueTokenBytes.length &gt; 0) {</span>
-<span class="fc" id="L120">                    final String continueToken = BaseEncoding.base64().encode(continueTokenBytes);</span>
-<span class="fc" id="L121">                    this.log.debug(&quot;continue token: {}&quot;, continueToken);</span>
-<span class="fc" id="L122">                    response.addHeader(&quot;WWW-Authenticate&quot;, securityPackage + &quot; &quot; + continueToken);</span>
-                }
-
-<span class="pc bpc" id="L125" title="1 of 4 branches missed.">                if (securityContext.isContinue() || ntlmPost) {</span>
-<span class="fc" id="L126">                    response.setHeader(&quot;Connection&quot;, &quot;keep-alive&quot;);</span>
-<span class="fc" id="L127">                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED);</span>
-<span class="fc" id="L128">                    response.flushBuffer();</span>
-<span class="fc" id="L129">                    return false;</span>
-                }
-
-<span class="nc" id="L132">            } catch (final IOException e) {</span>
-<span class="nc" id="L133">                this.log.warn(&quot;error logging in user: {}&quot;, e.getMessage());</span>
-<span class="nc" id="L134">                this.log.trace(&quot;{}&quot;, e);</span>
-<span class="nc" id="L135">                this.sendUnauthorized(response);</span>
-<span class="nc" id="L136">                return false;</span>
+<span class="fc" id="L120">                this.log.debug(&quot;continue required: {}&quot;, Boolean.valueOf(securityContext.isContinue()));</span>
+<span class="pc bpc" id="L121" title="2 of 4 branches missed."></span>
+<span class="fc" id="L122">                final byte[] continueTokenBytes = securityContext.getToken();</span>
+<span class="fc" id="L123">                if (continueTokenBytes != null &amp;&amp; continueTokenBytes.length &gt; 0) {</span>
+<span class="fc" id="L124">                    final String continueToken = BaseEncoding.base64().encode(continueTokenBytes);</span>
+                    this.log.debug(&quot;continue token: {}&quot;, continueToken);
+                    response.addHeader(&quot;WWW-Authenticate&quot;, securityPackage + &quot; &quot; + continueToken);
+<span class="pc bpc" id="L127" title="1 of 4 branches missed.">                }</span>
+<span class="fc" id="L128"></span>
+<span class="fc" id="L129">                if (securityContext.isContinue() || ntlmPost) {</span>
+<span class="fc" id="L130">                    response.setHeader(&quot;Connection&quot;, &quot;keep-alive&quot;);</span>
+<span class="fc" id="L131">                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED);</span>
+                    response.flushBuffer();
+                    return false;
+<span class="nc" id="L134">                }</span>
+<span class="nc" id="L135"></span>
+<span class="nc" id="L136">            } catch (final IOException e) {</span>
+<span class="nc" id="L137">                this.log.warn(&quot;error logging in user: {}&quot;, e.getMessage());</span>
+<span class="nc" id="L138">                this.log.trace(&quot;{}&quot;, e);</span>
+<span class="fc" id="L139">                this.sendUnauthorized(response);</span>
+                return false;
             }
-
-            // realm: fail if no realm is configured
-<span class="pc bpc" id="L140" title="2 of 4 branches missed.">            if (this.context == null || this.context.getRealm() == null) {</span>
-<span class="nc" id="L141">                this.log.warn(&quot;missing context/realm&quot;);</span>
-<span class="nc" id="L142">                this.sendError(response, HttpServletResponse.SC_SERVICE_UNAVAILABLE);</span>
-<span class="nc" id="L143">                return false;</span>
+<span class="pc bpc" id="L142" title="2 of 4 branches missed."></span>
+<span class="nc" id="L143">            // realm: fail if no realm is configured</span>
+<span class="nc" id="L144">            if (this.context == null || this.context.getRealm() == null) {</span>
+<span class="nc" id="L145">                this.log.warn(&quot;missing context/realm&quot;);</span>
+                this.sendError(response, HttpServletResponse.SC_SERVICE_UNAVAILABLE);
+                return false;
             }
-
+<span class="fc" id="L149"></span>
             // create and register the user principal with the session
-<span class="fc" id="L147">            final IWindowsIdentity windowsIdentity = securityContext.getIdentity();</span>
-
-            // disable guest login
-<span class="pc bpc" id="L150" title="3 of 4 branches missed.">            if (!this.allowGuestLogin &amp;&amp; windowsIdentity.isGuest()) {</span>
-<span class="nc" id="L151">                this.log.warn(&quot;guest login disabled: {}&quot;, windowsIdentity.getFqn());</span>
-<span class="nc" id="L152">                this.sendUnauthorized(response);</span>
-<span class="nc" id="L153">                return false;</span>
+            final IWindowsIdentity windowsIdentity = securityContext.getIdentity();
+<span class="pc bpc" id="L152" title="3 of 4 branches missed."></span>
+<span class="nc" id="L153">            // disable guest login</span>
+<span class="nc" id="L154">            if (!this.allowGuestLogin &amp;&amp; windowsIdentity.isGuest()) {</span>
+<span class="nc" id="L155">                this.log.warn(&quot;guest login disabled: {}&quot;, windowsIdentity.getFqn());</span>
+                this.sendUnauthorized(response);
+                return false;
             }
-
+<span class="fc" id="L159"></span>
             try {
-<span class="fc" id="L157">                this.log.debug(&quot;logged in user: {} ({})&quot;, windowsIdentity.getFqn(), windowsIdentity.getSidString());</span>
+<span class="fc" id="L161">                this.log.debug(&quot;logged in user: {} ({})&quot;, windowsIdentity.getFqn(), windowsIdentity.getSidString());</span>
 
-<span class="fc" id="L159">                final GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(windowsIdentity,</span>
-<span class="fc" id="L160">                        this.context.getRealm(), this.principalFormat, this.roleFormat);</span>
+                final GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(windowsIdentity,
+<span class="fc" id="L164">                        this.context.getRealm(), this.principalFormat, this.roleFormat);</span>
 
-<span class="fc" id="L162">                this.log.debug(&quot;roles: {}&quot;, windowsPrincipal.getRolesString());</span>
+<span class="fc" id="L166">                this.log.debug(&quot;roles: {}&quot;, windowsPrincipal.getRolesString());</span>
 
-<span class="fc" id="L164">                principal = windowsPrincipal;</span>
+                principal = windowsPrincipal;
+<span class="fc" id="L169"></span>
+<span class="pc bpc" id="L170" title="1 of 2 branches missed.">                // create a session associated with this request if there's none</span>
+                final HttpSession session = request.getSession(true);
+                this.log.debug(&quot;session id: {}&quot;, session == null ? &quot;null&quot; : session.getId());
+<span class="fc" id="L173"></span>
+<span class="fc" id="L174">                // register the authenticated principal</span>
+                this.register(request, response, principal, securityPackage, principal.getName(), null);
+                this.log.info(&quot;successfully logged in user: {}&quot;, principal.getName());
+<span class="pc" id="L177"></span>
+<span class="fc" id="L178">            } finally {</span>
+                windowsIdentity.dispose();
+<span class="fc" id="L180">            }</span>
 
-                // create a session associated with this request if there's none
-<span class="fc" id="L167">                final HttpSession session = request.getSession(true);</span>
-<span class="pc bpc" id="L168" title="1 of 2 branches missed.">                this.log.debug(&quot;session id: {}&quot;, session == null ? &quot;null&quot; : session.getId());</span>
-
-                // register the authenticated principal
-<span class="fc" id="L171">                this.register(request, response, principal, securityPackage, principal.getName(), null);</span>
-<span class="fc" id="L172">                this.log.info(&quot;successfully logged in user: {}&quot;, principal.getName());</span>
-
-<span class="pc" id="L174">            } finally {</span>
-<span class="pc" id="L175">                windowsIdentity.dispose();</span>
-<span class="nc" id="L176">            }</span>
-
-<span class="fc" id="L178">            return true;</span>
-        }
-
-<span class="fc" id="L181">        this.log.debug(&quot;authorization required&quot;);</span>
-<span class="fc" id="L182">        this.sendUnauthorized(response);</span>
-<span class="fc" id="L183">        return false;</span>
+            return true;
+<span class="fc" id="L183">        }</span>
+<span class="fc" id="L184"></span>
+<span class="fc" id="L185">        this.log.debug(&quot;authorization required&quot;);</span>
+        this.sendUnauthorized(response);
+        return false;
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

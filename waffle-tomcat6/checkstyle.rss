@@ -26,7 +26,7 @@ under the License.
     <copyright>&#169;2010 - 2015 com.github.dblock</copyright>
     <item>
       <title>File: 6,
-             Errors: 128,
+             Errors: 122,
              Warnings: 0,
              Infos: 0
       </title>
@@ -69,7 +69,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  25
+                  22
                 </td>
               </tr>
                           <tr>
@@ -83,7 +83,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  30
+                  31
                 </td>
               </tr>
                           <tr>
@@ -111,7 +111,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  38
+                  39
                 </td>
               </tr>
                           <tr>
@@ -125,7 +125,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  31
+                  26
                 </td>
               </tr>
                       </tbody>

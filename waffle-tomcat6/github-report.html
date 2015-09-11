@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="Date-Revision-yyyymmdd" content="20150910" />
     <meta http-equiv="Content-Language" content="en" />
-    <title>waffle-tomcat6 &#x2013; CPD Results</title>
+    <title>waffle-tomcat6 &#x2013; GitHub Report</title>
     <link rel="stylesheet" href="./css/apache-maven-fluido-1.4.min.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <link rel="stylesheet" href="./css/print.css" media="print" />
@@ -208,12 +208,10 @@
         Developer Activity</a>
             </li>
                     
-      <li>
+      <li class="active">
   
-                          <a href="github-report.html" title="GitHub Report">
-          <span class="none"></span>
-        GitHub Report</a>
-            </li>
+            <a href="#"><span class="none"></span>GitHub Report</a>
+          </li>
                     
       <li>
   
@@ -250,10 +248,12 @@
         Test Source Xref</a>
             </li>
                     
-      <li class="active">
+      <li>
   
-            <a href="#"><span class="none"></span>CPD</a>
-          </li>
+                          <a href="cpd.html" title="CPD">
+          <span class="none"></span>
+        CPD</a>
+            </li>
                     
       <li>
   
@@ -341,78 +341,8 @@
         <div id="bodyColumn"  class="span10" >
                                   
             <div class="section">
-<h2><a name="CPD_Results"></a>CPD Results</h2>
-<p>The following document contains the results of PMD's  <a class="externalLink" href="http://pmd.sourceforge.net/cpd.html">CPD</a> 5.3.2.</p></div>
-<div class="section">
-<h2><a name="Duplications"></a>Duplications</h2>
-<table border="0" class="table table-striped">
-<tr class="a">
-<th>File</th>
-<th>Line</th></tr>
-<tr class="b">
-<td>waffle\apache\MixedAuthenticator.java</td>
-<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L159">159</a></td></tr>
-<tr class="a">
-<td>waffle\apache\NegotiateAuthenticator.java</td>
-<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L120">120</a></td></tr>
-<tr class="b"><td colspan='2'>
-<div>
-<pre>            this.log.debug(&quot;continue required: {}&quot;, Boolean.valueOf(securityContext.isContinue()));
-
-            final byte[] continueTokenBytes = securityContext.getToken();
-            if (continueTokenBytes != null &amp;&amp; continueTokenBytes.length &gt; 0) {
-                final String continueToken = BaseEncoding.base64().encode(continueTokenBytes);
-                this.log.debug(&quot;continue token: {}&quot;, continueToken);
-                response.addHeader(&quot;WWW-Authenticate&quot;, securityPackage + &quot; &quot; + continueToken);
-            }
-
-            if (securityContext.isContinue() || ntlmPost) {
-                response.setHeader(&quot;Connection&quot;, &quot;keep-alive&quot;);
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-                response.flushBuffer();
-                return false;
-            }
-
-        } catch (final IOException e) {
-            this.log.warn(&quot;error logging in user: {}&quot;, e.getMessage());
-            this.log.trace(&quot;{}&quot;, e);
-            this.sendUnauthorized(response);
-            return false;
-        }</pre></div></td></tr></table>
-<table border="0" class="table table-striped">
-<tr class="a">
-<th>File</th>
-<th>Line</th></tr>
-<tr class="b">
-<td>waffle\apache\MixedAuthenticator.java</td>
-<td><a href="./xref/waffle/apache/MixedAuthenticator.html#L178">178</a></td></tr>
-<tr class="a">
-<td>waffle\apache\NegotiateAuthenticator.java</td>
-<td><a href="./xref/waffle/apache/NegotiateAuthenticator.html#L146">146</a></td></tr>
-<tr class="b"><td colspan='2'>
-<div>
-<pre>            this.sendUnauthorized(response);
-            return false;
-        }
-
-        // create and register the user principal with the session
-        final IWindowsIdentity windowsIdentity = securityContext.getIdentity();
-
-        // disable guest login
-        if (!this.allowGuestLogin &amp;&amp; windowsIdentity.isGuest()) {
-            this.log.warn(&quot;guest login disabled: {}&quot;, windowsIdentity.getFqn());
-            this.sendUnauthorized(response);
-            return false;
-        }
-
-        try {
-
-            this.log.debug(&quot;logged in user: {} ({})&quot;, windowsIdentity.getFqn(), windowsIdentity.getSidString());
-
-            final GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(windowsIdentity,
-                    this.context.getRealm(), this.principalFormat, this.roleFormat);
-
-            this.log.debug(&quot;roles: {}&quot;, windowsPrincipal.getRolesString());</pre></div></td></tr></table></div>
+<h2><a name="GitHub_Report"></a>GitHub Report</h2>
+<p>An error occured that made it impossible to generate this report. Please check the console for information on what might be the cause of this.</p></div>
                   </div>
             </div>
           </div>
