@@ -35,20 +35,20 @@ public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
      *            the new request
      * @param newPrincipal
      *            the new principal
-     */
-    public NegotiateRequestWrapper(final HttpServletRequest newRequest, final WindowsPrincipal newPrincipal) {
+<span class="nc" id="L38">     */</span>
+<span class="nc" id="L39">    public NegotiateRequestWrapper(final HttpServletRequest newRequest, final WindowsPrincipal newPrincipal) {</span>
 <span class="nc" id="L40">        super(newRequest);</span>
-<span class="nc" id="L41">        this.principal = newPrincipal;</span>
-<span class="nc" id="L42">    }</span>
+        this.principal = newPrincipal;
+    }
 
     /**
      * User principal.
      *
      * @return the user principal
      */
-    @Override
+<span class="nc" id="L49">    @Override</span>
     public Principal getUserPrincipal() {
-<span class="nc" id="L51">        return this.principal;</span>
+        return this.principal;
     }
 
     /**
@@ -56,9 +56,9 @@ public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
      *
      * @return the auth type
      */
-    @Override
+<span class="nc" id="L59">    @Override</span>
     public String getAuthType() {
-<span class="nc" id="L61">        return &quot;NEGOTIATE&quot;;</span>
+        return &quot;NEGOTIATE&quot;;
     }
 
     /**
@@ -66,9 +66,9 @@ public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
      *
      * @return the remote user
      */
-    @Override
+<span class="nc" id="L69">    @Override</span>
     public String getRemoteUser() {
-<span class="nc" id="L71">        return this.principal.getName();</span>
+        return this.principal.getName();
     }
 
     /**
@@ -78,9 +78,9 @@ public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
      *            the role
      * @return true, if is user in role
      */
-    @Override
+<span class="nc" id="L81">    @Override</span>
     public boolean isUserInRole(final String role) {
-<span class="nc" id="L83">        return this.principal.hasRole(role);</span>
+        return this.principal.hasRole(role);
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

@@ -34,13 +34,13 @@ import waffle.windows.auth.IWindowsIdentity;
  * @author dblock[at]dblock[dot]org
  */
 public class BasicSecurityFilterProvider implements SecurityFilterProvider {
-
+<span class="fc" id="L37"></span>
     /** The Constant LOGGER. */
-<span class="fc" id="L39">    private static final Logger  LOGGER = LoggerFactory.getLogger(BasicSecurityFilterProvider.class);</span>
-    
+    private static final Logger        LOGGER = LoggerFactory.getLogger(BasicSecurityFilterProvider.class);
+<span class="fc" id="L40"></span>
     /** The realm. */
-<span class="fc" id="L42">    private String               realm  = &quot;BasicSecurityFilterProvider&quot;;</span>
-    
+    private String                     realm  = &quot;BasicSecurityFilterProvider&quot;;
+
     /** The auth. */
     private final IWindowsAuthProvider auth;
 
@@ -48,60 +48,65 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
      * Instantiates a new basic security filter provider.
      *
      * @param newAuthProvider
-     *            the new auth provider
-     */
+<span class="fc" id="L51">     *            the new auth provider</span>
+<span class="fc" id="L52">     */</span>
 <span class="fc" id="L53">    public BasicSecurityFilterProvider(final IWindowsAuthProvider newAuthProvider) {</span>
-<span class="fc" id="L54">        this.auth = newAuthProvider;</span>
-<span class="fc" id="L55">    }</span>
+        this.auth = newAuthProvider;
+    }
 
-    /* (non-Javadoc)
-     * @see waffle.servlet.spi.SecurityFilterProvider#doFilter(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+    /*
+     * (non-Javadoc)
+     * @see waffle.servlet.spi.SecurityFilterProvider#doFilter(javax.servlet.http.HttpServletRequest,
+     * javax.servlet.http.HttpServletResponse)
      */
     @Override
     public IWindowsIdentity doFilter(final HttpServletRequest request, final HttpServletResponse response)
-            throws IOException {
-
-<span class="nc" id="L64">        final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);</span>
-<span class="nc" id="L65">        final String usernamePassword = new String(authorizationHeader.getTokenBytes(), Charsets.UTF_8);</span>
-<span class="nc" id="L66">        final String[] usernamePasswordArray = usernamePassword.split(&quot;:&quot;, 2);</span>
-<span class="nc bnc" id="L67" title="All 2 branches missed.">        if (usernamePasswordArray.length != 2) {</span>
-<span class="nc" id="L68">            throw new RuntimeException(&quot;Invalid username:password in Authorization header.&quot;);</span>
-        }
-<span class="nc" id="L70">        BasicSecurityFilterProvider.LOGGER.debug(&quot;logging in user: {}&quot;, usernamePasswordArray[0]);</span>
-<span class="nc" id="L71">        return this.auth.logonUser(usernamePasswordArray[0], usernamePasswordArray[1]);</span>
+<span class="nc" id="L64">            throws IOException {</span>
+<span class="nc" id="L65"></span>
+<span class="nc" id="L66">        final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">        final String usernamePassword = new String(authorizationHeader.getTokenBytes(), Charsets.UTF_8);</span>
+<span class="nc" id="L68">        final String[] usernamePasswordArray = usernamePassword.split(&quot;:&quot;, 2);</span>
+        if (usernamePasswordArray.length != 2) {
+<span class="nc" id="L70">            throw new RuntimeException(&quot;Invalid username:password in Authorization header.&quot;);</span>
+<span class="nc" id="L71">        }</span>
+        BasicSecurityFilterProvider.LOGGER.debug(&quot;logging in user: {}&quot;, usernamePasswordArray[0]);
+        return this.auth.logonUser(usernamePasswordArray[0], usernamePasswordArray[1]);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.servlet.spi.SecurityFilterProvider#isPrincipalException(javax.servlet.http.HttpServletRequest)
      */
-    @Override
+<span class="nc" id="L80">    @Override</span>
     public boolean isPrincipalException(final HttpServletRequest request) {
-<span class="nc" id="L79">        return false;</span>
+        return false;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.servlet.spi.SecurityFilterProvider#isSecurityPackageSupported(java.lang.String)
      */
-    @Override
+<span class="fc" id="L89">    @Override</span>
     public boolean isSecurityPackageSupported(final String securityPackage) {
-<span class="fc" id="L87">        return securityPackage.equalsIgnoreCase(&quot;Basic&quot;);</span>
+        return securityPackage.equalsIgnoreCase(&quot;Basic&quot;);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.servlet.spi.SecurityFilterProvider#sendUnauthorized(javax.servlet.http.HttpServletResponse)
      */
-    @Override
-    public void sendUnauthorized(final HttpServletResponse response) {
-<span class="nc" id="L95">        response.addHeader(&quot;WWW-Authenticate&quot;, &quot;Basic realm=\&quot;&quot; + this.realm + &quot;\&quot;&quot;);</span>
-<span class="nc" id="L96">    }</span>
+<span class="nc" id="L98">    @Override</span>
+<span class="nc" id="L99">    public void sendUnauthorized(final HttpServletResponse response) {</span>
+        response.addHeader(&quot;WWW-Authenticate&quot;, &quot;Basic realm=\&quot;&quot; + this.realm + &quot;\&quot;&quot;);
+    }
 
     /**
      * Protection space.
      * 
      * @return Name of the protection space.
-     */
+<span class="nc" id="L107">     */</span>
     public String getRealm() {
-<span class="nc" id="L104">        return this.realm;</span>
+        return this.realm;
     }
 
     /**
@@ -109,10 +114,10 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
      * 
      * @param value
      *            Protection space name.
-     */
-    public void setRealm(final String value) {
-<span class="nc" id="L114">        this.realm = value;</span>
-<span class="nc" id="L115">    }</span>
+<span class="nc" id="L117">     */</span>
+<span class="nc" id="L118">    public void setRealm(final String value) {</span>
+        this.realm = value;
+    }
 
     /**
      * Init configuration parameters.
@@ -122,13 +127,13 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
      * @param parameterValue
      *            the parameter value
      */
-    @Override
-    public void initParameter(final String parameterName, final String parameterValue) {
-<span class="nc bnc" id="L127" title="All 2 branches missed.">        if (parameterName.equals(&quot;realm&quot;)) {</span>
-<span class="nc" id="L128">            this.setRealm(parameterValue);</span>
+<span class="nc bnc" id="L130" title="All 2 branches missed.">    @Override</span>
+<span class="nc" id="L131">    public void initParameter(final String parameterName, final String parameterValue) {</span>
+        if (parameterName.equals(&quot;realm&quot;)) {
+<span class="nc" id="L133">            this.setRealm(parameterValue);</span>
         } else {
-<span class="nc" id="L130">            throw new InvalidParameterException(parameterName);</span>
+<span class="nc" id="L135">            throw new InvalidParameterException(parameterName);</span>
         }
-<span class="nc" id="L132">    }</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

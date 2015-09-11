@@ -31,7 +31,7 @@ public class WindowsComputerImpl implements IWindowsComputer {
 
     /** The computer name. */
     private final String computerName;
-    
+
     /** The domain name. */
     private final String domainName;
 
@@ -39,60 +39,64 @@ public class WindowsComputerImpl implements IWindowsComputer {
      * Instantiates a new windows computer impl.
      *
      * @param newComputerName
-     *            the new computer name
-     */
+<span class="fc" id="L42">     *            the new computer name</span>
+<span class="fc" id="L43">     */</span>
 <span class="fc" id="L44">    public WindowsComputerImpl(final String newComputerName) {</span>
 <span class="fc" id="L45">        this.computerName = newComputerName;</span>
-<span class="fc" id="L46">        this.domainName = Netapi32Util.getDomainName(newComputerName);</span>
-<span class="fc" id="L47">    }</span>
+        this.domainName = Netapi32Util.getDomainName(newComputerName);
+    }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsComputer#getComputerName()
      */
-    @Override
+<span class="fc" id="L53">    @Override</span>
     public String getComputerName() {
-<span class="fc" id="L54">        return this.computerName;</span>
+        return this.computerName;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsComputer#getGroups()
      */
-    @Override
-    public String[] getGroups() {
-<span class="fc" id="L62">        final List&lt;String&gt; groupNames = new ArrayList&lt;String&gt;();</span>
-<span class="fc" id="L63">        final LocalGroup[] groups = Netapi32Util.getLocalGroups(this.computerName);</span>
-<span class="fc bfc" id="L64" title="All 2 branches covered.">        for (final LocalGroup group : groups) {</span>
-<span class="fc" id="L65">            groupNames.add(group.name);</span>
+<span class="fc" id="L62">    @Override</span>
+<span class="fc" id="L63">    public String[] getGroups() {</span>
+<span class="fc bfc" id="L64" title="All 2 branches covered.">        final List&lt;String&gt; groupNames = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L65">        final LocalGroup[] groups = Netapi32Util.getLocalGroups(this.computerName);</span>
+        for (final LocalGroup group : groups) {
+<span class="fc" id="L67">            groupNames.add(group.name);</span>
         }
-<span class="fc" id="L67">        return groupNames.toArray(new String[0]);</span>
+        return groupNames.toArray(new String[0]);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsComputer#getJoinStatus()
      */
-    @Override
-    public String getJoinStatus() {
-<span class="fc" id="L75">        final int joinStatus = Netapi32Util.getJoinStatus(this.computerName);</span>
-<span class="pc bpc" id="L76" title="4 of 5 branches missed.">        switch (joinStatus) {</span>
+<span class="fc" id="L76">    @Override</span>
+<span class="pc bpc" id="L77" title="4 of 5 branches missed.">    public String getJoinStatus() {</span>
+        final int joinStatus = Netapi32Util.getJoinStatus(this.computerName);
+<span class="nc" id="L79">        switch (joinStatus) {</span>
             case LMJoin.NETSETUP_JOIN_STATUS.NetSetupDomainName:
-<span class="nc" id="L78">                return &quot;NetSetupDomainName&quot;;</span>
+<span class="nc" id="L81">                return &quot;NetSetupDomainName&quot;;</span>
             case LMJoin.NETSETUP_JOIN_STATUS.NetSetupUnjoined:
-<span class="nc" id="L80">                return &quot;NetSetupUnjoined&quot;;</span>
+<span class="fc" id="L83">                return &quot;NetSetupUnjoined&quot;;</span>
             case LMJoin.NETSETUP_JOIN_STATUS.NetSetupWorkgroupName:
-<span class="fc" id="L82">                return &quot;NetSetupWorkgroupName&quot;;</span>
+<span class="nc" id="L85">                return &quot;NetSetupWorkgroupName&quot;;</span>
             case LMJoin.NETSETUP_JOIN_STATUS.NetSetupUnknownStatus:
-<span class="nc" id="L84">                return &quot;NetSetupUnknownStatus&quot;;</span>
+<span class="nc" id="L87">                return &quot;NetSetupUnknownStatus&quot;;</span>
             default:
-<span class="nc" id="L86">                throw new RuntimeException(&quot;Unsupported join status: &quot; + joinStatus);</span>
+                throw new RuntimeException(&quot;Unsupported join status: &quot; + joinStatus);
         }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsComputer#getMemberOf()
      */
-    @Override
+<span class="fc" id="L97">    @Override</span>
     public String getMemberOf() {
-<span class="fc" id="L95">        return this.domainName;</span>
+        return this.domainName;
     }
 
 }

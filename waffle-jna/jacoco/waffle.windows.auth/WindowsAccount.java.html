@@ -24,91 +24,93 @@ public class WindowsAccount implements Serializable {
 
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
-    
+
     /** The sid string. */
-    private final String            sidString;
-    
+    private final String      sidString;
+
     /** The fqn. */
-    private final String            fqn;
-    
+    private final String      fqn;
+
     /** The name. */
-    private final String            name;
-    
+    private final String      name;
+
     /** The domain. */
-    private final String            domain;
+    private final String      domain;
 
     /**
      * Instantiates a new windows account.
      *
      * @param account
-     *            the account
-     */
+<span class="nc" id="L44">     *            the account</span>
+<span class="nc" id="L45">     */</span>
 <span class="nc" id="L46">    public WindowsAccount(final IWindowsAccount account) {</span>
 <span class="nc" id="L47">        this.sidString = account.getSidString();</span>
 <span class="nc" id="L48">        this.fqn = account.getFqn();</span>
 <span class="nc" id="L49">        this.name = account.getName();</span>
-<span class="nc" id="L50">        this.domain = account.getDomain();</span>
-<span class="nc" id="L51">    }</span>
+        this.domain = account.getDomain();
+    }
 
     /**
      * Gets the sid string.
      *
      * @return the sid string
-     */
+<span class="nc" id="L57">     */</span>
     public String getSidString() {
-<span class="nc" id="L59">        return this.sidString;</span>
+        return this.sidString;
     }
 
     /**
      * Gets the fqn.
      *
      * @return the fqn
-     */
+<span class="nc" id="L66">     */</span>
     public String getFqn() {
-<span class="nc" id="L68">        return this.fqn;</span>
+        return this.fqn;
     }
 
     /**
      * Gets the name.
      *
      * @return the name
-     */
+<span class="nc" id="L75">     */</span>
     public String getName() {
-<span class="nc" id="L77">        return this.name;</span>
+        return this.name;
     }
 
     /**
      * Gets the domain.
      *
      * @return the domain
-     */
+<span class="nc" id="L84">     */</span>
     public String getDomain() {
-<span class="nc" id="L86">        return this.domain;</span>
+        return this.domain;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
-    public boolean equals(final Object o) {
+<span class="nc bnc" id="L94" title="All 2 branches missed.">    public boolean equals(final Object o) {</span>
+<span class="nc" id="L95"></span>
+        if (this == o) {
+            return true;
+<span class="nc bnc" id="L98" title="All 2 branches missed.">        }</span>
+<span class="nc" id="L99"></span>
+        if (!(o instanceof WindowsAccount)) {
+            return false;
+<span class="nc" id="L102">        }</span>
 
-<span class="nc bnc" id="L95" title="All 2 branches missed.">        if (this == o) {</span>
-<span class="nc" id="L96">            return true;</span>
-        }
-
-<span class="nc bnc" id="L99" title="All 2 branches missed.">        if (!(o instanceof WindowsAccount)) {</span>
-<span class="nc" id="L100">            return false;</span>
-        }
-
-<span class="nc" id="L103">        return ((WindowsAccount) o).getSidString().equals(this.getSidString());</span>
+        return ((WindowsAccount) o).getSidString().equals(this.getSidString());
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.lang.Object#hashCode()
      */
-    @Override
+<span class="nc" id="L111">    @Override</span>
     public int hashCode() {
-<span class="nc" id="L111">        return this.getSidString().hashCode();</span>
+        return this.getSidString().hashCode();
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

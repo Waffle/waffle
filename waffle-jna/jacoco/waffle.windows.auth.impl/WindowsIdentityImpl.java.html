@@ -34,129 +34,131 @@ import com.sun.jna.platform.win32.WinNT.WELL_KNOWN_SID_TYPE;
 public class WindowsIdentityImpl implements IWindowsIdentity {
 
     /** The windows identity. */
-    private final HANDLE    windowsIdentity;
-    
+    private final HANDLE windowsIdentity;
+
     /** The user groups. */
-    private Account[] userGroups;
-    
+    private Account[]    userGroups;
+
     /** The windows account. */
-    private Account   windowsAccount;
+    private Account      windowsAccount;
 
     /**
      * Instantiates a new windows identity impl.
      *
      * @param newWindowsIdentity
-     *            the new windows identity
-     */
+<span class="nc" id="L49">     *            the new windows identity</span>
+<span class="nc" id="L50">     */</span>
 <span class="nc" id="L51">    public WindowsIdentityImpl(final HANDLE newWindowsIdentity) {</span>
-<span class="nc" id="L52">        this.windowsIdentity = newWindowsIdentity;</span>
-<span class="nc" id="L53">    }</span>
+        this.windowsIdentity = newWindowsIdentity;
+    }
 
     /**
      * Gets the windows account.
      *
      * @return the windows account
-     */
-    private Account getWindowsAccount() {
-<span class="nc bnc" id="L61" title="All 2 branches missed.">        if (this.windowsAccount == null) {</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">     */</span>
+<span class="nc" id="L60">    private Account getWindowsAccount() {</span>
+        if (this.windowsAccount == null) {
 <span class="nc" id="L62">            this.windowsAccount = Advapi32Util.getTokenAccount(this.windowsIdentity);</span>
         }
-<span class="nc" id="L64">        return this.windowsAccount;</span>
+        return this.windowsAccount;
     }
 
     /**
      * Gets the user groups.
      *
      * @return the user groups
-     */
-    private Account[] getUserGroups() {
-<span class="nc bnc" id="L73" title="All 2 branches missed.">        if (this.userGroups == null) {</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">     */</span>
+<span class="nc" id="L72">    private Account[] getUserGroups() {</span>
+        if (this.userGroups == null) {
 <span class="nc" id="L74">            this.userGroups = Advapi32Util.getTokenGroups(this.windowsIdentity);</span>
         }
-<span class="nc" id="L76">        return this.userGroups.clone();</span>
+        return this.userGroups.clone();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsIdentity#getFqn()
      */
-    @Override
+<span class="nc" id="L83">    @Override</span>
     public String getFqn() {
-<span class="nc" id="L84">        return this.getWindowsAccount().fqn;</span>
+        return this.getWindowsAccount().fqn;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsIdentity#getGroups()
      */
     @Override
-    public IWindowsAccount[] getGroups() {
+<span class="nc" id="L93">    public IWindowsAccount[] getGroups() {</span>
 
-<span class="nc" id="L93">        final Account[] groups = this.getUserGroups();</span>
+<span class="nc" id="L95">        final Account[] groups = this.getUserGroups();</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed."></span>
+<span class="nc" id="L97">        final List&lt;IWindowsAccount&gt; result = new ArrayList&lt;&gt;(groups.length);</span>
+<span class="nc" id="L98">        for (final Account userGroup : groups) {</span>
+            final WindowsAccountImpl account = new WindowsAccountImpl(userGroup);
+            result.add(account);
+<span class="nc" id="L101">        }</span>
 
-<span class="nc" id="L95">        final List&lt;IWindowsAccount&gt; result = new ArrayList&lt;IWindowsAccount&gt;(groups.length);</span>
-<span class="nc bnc" id="L96" title="All 2 branches missed.">        for (final Account userGroup : groups) {</span>
-<span class="nc" id="L97">            final WindowsAccountImpl account = new WindowsAccountImpl(userGroup);</span>
-<span class="nc" id="L98">            result.add(account);</span>
-        }
-
-<span class="nc" id="L101">        return result.toArray(new IWindowsAccount[0]);</span>
+        return result.toArray(new IWindowsAccount[0]);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsIdentity#getSid()
      */
-    @Override
+<span class="nc" id="L110">    @Override</span>
     public byte[] getSid() {
-<span class="nc" id="L109">        return this.getWindowsAccount().sid;</span>
+        return this.getWindowsAccount().sid;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsIdentity#getSidString()
      */
-    @Override
+<span class="nc" id="L119">    @Override</span>
     public String getSidString() {
-<span class="nc" id="L117">        return this.getWindowsAccount().sidString;</span>
+        return this.getWindowsAccount().sidString;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsIdentity#dispose()
      */
-    @Override
-    public void dispose() {
-<span class="nc bnc" id="L125" title="All 2 branches missed.">        if (this.windowsIdentity != null) {</span>
-<span class="nc" id="L126">            Kernel32.INSTANCE.CloseHandle(this.windowsIdentity);</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">    @Override</span>
+<span class="nc" id="L129">    public void dispose() {</span>
+        if (this.windowsIdentity != null) {
+<span class="nc" id="L131">            Kernel32.INSTANCE.CloseHandle(this.windowsIdentity);</span>
         }
-<span class="nc" id="L128">    }</span>
-
-    /* (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsIdentity#impersonate()
-     */
-    @Override
-    public IWindowsImpersonationContext impersonate() {
-<span class="nc" id="L135">        return new WindowsIdentityImpersonationContextImpl(this.windowsIdentity);</span>
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsIdentity#impersonate()
+     */
+<span class="nc" id="L139">    @Override</span>
+    public IWindowsImpersonationContext impersonate() {
+        return new WindowsIdentityImpersonationContextImpl(this.windowsIdentity);
+    }
+
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsIdentity#isGuest()
      */
-    @Override
-    public boolean isGuest() {
-<span class="nc bnc" id="L143" title="All 2 branches missed.">        for (final Account userGroup : this.getUserGroups()) {</span>
-<span class="nc bnc" id="L144" title="All 2 branches missed.">            if (Advapi32Util.isWellKnownSid(userGroup.sid, WELL_KNOWN_SID_TYPE.WinBuiltinGuestsSid)) {</span>
-<span class="nc" id="L145">                return true;</span>
-            }
-<span class="nc bnc" id="L147" title="All 2 branches missed.">            if (Advapi32Util.isWellKnownSid(userGroup.sid, WELL_KNOWN_SID_TYPE.WinAccountDomainGuestsSid)) {</span>
-<span class="nc" id="L148">                return true;</span>
-            }
-<span class="nc bnc" id="L150" title="All 2 branches missed.">            if (Advapi32Util.isWellKnownSid(userGroup.sid, WELL_KNOWN_SID_TYPE.WinAccountGuestSid)) {</span>
-<span class="nc" id="L151">                return true;</span>
-            }
+<span class="nc bnc" id="L148" title="All 2 branches missed.">    @Override</span>
+<span class="nc bnc" id="L149" title="All 2 branches missed.">    public boolean isGuest() {</span>
+<span class="nc" id="L150">        for (final Account userGroup : this.getUserGroups()) {</span>
+            if (Advapi32Util.isWellKnownSid(userGroup.sid, WELL_KNOWN_SID_TYPE.WinBuiltinGuestsSid)) {
+<span class="nc bnc" id="L152" title="All 2 branches missed.">                return true;</span>
+<span class="nc" id="L153">            }</span>
+            if (Advapi32Util.isWellKnownSid(userGroup.sid, WELL_KNOWN_SID_TYPE.WinAccountDomainGuestsSid)) {
+<span class="nc bnc" id="L155" title="All 2 branches missed.">                return true;</span>
+<span class="nc" id="L156">            }</span>
+            if (Advapi32Util.isWellKnownSid(userGroup.sid, WELL_KNOWN_SID_TYPE.WinAccountGuestSid)) {
+                return true;
+<span class="nc" id="L159">            }</span>
         }
-
-<span class="nc bnc" id="L155" title="All 2 branches missed.">        if (Advapi32Util.isWellKnownSid(this.getSid(), WELL_KNOWN_SID_TYPE.WinAnonymousSid)) {</span>
-<span class="nc" id="L156">            return true;</span>
-        }
-
-<span class="nc" id="L159">        return false;</span>
+        return Advapi32Util.isWellKnownSid(this.getSid(), WELL_KNOWN_SID_TYPE.WinAnonymousSid);
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

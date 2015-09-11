@@ -21,9 +21,9 @@ package waffle.util;
 public final class SPNegoMessage {
 
     // Check for NegTokenInit. It has always a special oid (&quot;spnegoOid&quot;),
-    // which makes it rather easy to detect.
+<span class="fc" id="L24">    // which makes it rather easy to detect.</span>
     /** The Constant SPENGO_OID. */
-<span class="fc" id="L26">    private static final byte[] SPENGO_OID = { 0x06, 0x06, 0x2b, 0x06, 0x01, 0x05, 0x05, 0x02 };</span>
+    private static final byte[] SPENGO_OID = { 0x06, 0x06, 0x2b, 0x06, 0x01, 0x05, 0x05, 0x02 };
 
     // Check if this message is SPNEGO authentication token. There
     // are two token types, NegTokenInit and NegTokenArg.
@@ -39,14 +39,14 @@ public final class SPNegoMessage {
     public static boolean isSPNegoMessage(final byte[] message) {
 
         // Message should always contains at least some kind of
-        // id byte and length. If it is too short, it
-        // cannot be a SPNEGO message.
-<span class="pc bpc" id="L44" title="1 of 4 branches missed.">        if (message == null || message.length &lt; 2) {</span>
-<span class="fc" id="L45">            return false;</span>
+<span class="pc bpc" id="L42" title="1 of 4 branches missed.">        // id byte and length. If it is too short, it</span>
+<span class="fc" id="L43">        // cannot be a SPNEGO message.</span>
+        if (message == null || message.length &lt; 2) {
+            return false;
         }
-
+<span class="fc bfc" id="L47" title="All 4 branches covered."></span>
         // Message is SPNEGO message if it is either NegTokenInit or NegTokenArg.
-<span class="fc bfc" id="L49" title="All 4 branches covered.">        return SPNegoMessage.isNegTokenInit(message) || SPNegoMessage.isNegTokenArg(message);</span>
+        return SPNegoMessage.isNegTokenInit(message) || SPNegoMessage.isNegTokenArg(message);
     }
 
     /**
@@ -56,31 +56,31 @@ public final class SPNegoMessage {
      *            the message
      * @return true, if is neg token init
      */
-    public static boolean isNegTokenInit(final byte[] message) {
-        // First byte should always be 0x60 (Application Constructed Object)
-<span class="fc bfc" id="L61" title="All 2 branches covered.">        if (message[0] != 0x60) {</span>
-<span class="fc" id="L62">            return false;</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">    public static boolean isNegTokenInit(final byte[] message) {</span>
+<span class="fc" id="L60">        // First byte should always be 0x60 (Application Constructed Object)</span>
+        if (message[0] != 0x60) {
+            return false;
         }
 
-        // Next byte(s) contain token length, figure out
-        // how many bytes are used for length data
-<span class="fc" id="L67">        int lenBytes = 1;</span>
-<span class="pc bpc" id="L68" title="1 of 2 branches missed.">        if ((message[1] &amp; 0x80) != 0) {</span>
-<span class="nc" id="L69">            lenBytes = 1 + (message[1] &amp; 0x7f);</span>
+<span class="fc" id="L65">        // Next byte(s) contain token length, figure out</span>
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">        // how many bytes are used for length data</span>
+<span class="nc" id="L67">        int lenBytes = 1;</span>
+        if ((message[1] &amp; 0x80) != 0) {
+            lenBytes = 1 + (message[1] &amp; 0x7f);
+<span class="fc bfc" id="L70" title="All 2 branches covered.">        }</span>
+<span class="fc" id="L71"></span>
+        if (message.length &lt; SPNegoMessage.SPENGO_OID.length + 1 + lenBytes) {
+            return false;
         }
-
-<span class="fc bfc" id="L72" title="All 2 branches covered.">        if (message.length &lt; SPNegoMessage.SPENGO_OID.length + 1 + lenBytes) {</span>
-<span class="fc" id="L73">            return false;</span>
-        }
-
-        // Now check for SPNEGO OID, which should start just after length data.
-<span class="fc bfc" id="L77" title="All 2 branches covered.">        for (int i = 0; i &lt; SPNegoMessage.SPENGO_OID.length; i++) {</span>
-<span class="pc bpc" id="L78" title="1 of 2 branches missed.">            if (SPNegoMessage.SPENGO_OID[i] != message[i + 1 + lenBytes]) {</span>
-<span class="nc" id="L79">                return false;</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered."></span>
+<span class="pc bpc" id="L76" title="1 of 2 branches missed.">        // Now check for SPNEGO OID, which should start just after length data.</span>
+<span class="nc" id="L77">        for (int i = 0; i &lt; SPNegoMessage.SPENGO_OID.length; i++) {</span>
+            if (SPNegoMessage.SPENGO_OID[i] != message[i + 1 + lenBytes]) {
+                return false;
             }
-        }
+<span class="fc" id="L81">        }</span>
 
-<span class="fc" id="L83">        return true;</span>
+        return true;
     }
 
     // Check for NegTokenArg. It doesn't have oid similar to NegTokenInit.
@@ -94,37 +94,37 @@ public final class SPNegoMessage {
      *            the message
      * @return true, if is neg token arg
      */
-    public static boolean isNegTokenArg(final byte[] message) {
-        // Check if this is NegTokenArg packet, it's id is 0xa1
-<span class="fc bfc" id="L99" title="All 2 branches covered.">        if ((message[0] &amp; 0xff) != 0xa1) {</span>
-<span class="fc" id="L100">            return false;</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">    public static boolean isNegTokenArg(final byte[] message) {</span>
+<span class="fc" id="L98">        // Check if this is NegTokenArg packet, it's id is 0xa1</span>
+        if ((message[0] &amp; 0xff) != 0xa1) {
+            return false;
         }
 
         int lenBytes;
         int len;
-
-        // Get length of message for additional check.
-<span class="pc bpc" id="L107" title="1 of 2 branches missed.">        if ((message[1] &amp; 0x80) == 0) {</span>
-<span class="fc" id="L108">            len = message[1];</span>
-        } else {
+<span class="pc bpc" id="L105" title="1 of 2 branches missed."></span>
+<span class="fc" id="L106">        // Get length of message for additional check.</span>
+        if ((message[1] &amp; 0x80) == 0) {
+<span class="nc" id="L108">            len = message[1];</span>
+<span class="nc" id="L109">        } else {</span>
 <span class="nc" id="L110">            lenBytes = message[1] &amp; 0x7f;</span>
-<span class="nc" id="L111">            len = 0;</span>
+<span class="nc bnc" id="L111" title="All 2 branches missed.">            len = 0;</span>
 <span class="nc" id="L112">            final int i = 2;</span>
-<span class="nc bnc" id="L113" title="All 2 branches missed.">            while (lenBytes &gt; 0) {</span>
+<span class="nc" id="L113">            while (lenBytes &gt; 0) {</span>
 <span class="nc" id="L114">                len = len &lt;&lt; 8;</span>
-<span class="nc" id="L115">                len |= (message[i] &amp; 0xff);</span>
-<span class="nc" id="L116">                --lenBytes;</span>
+                len |= (message[i] &amp; 0xff);
+                --lenBytes;
             }
-        }
+<span class="fc bfc" id="L118" title="All 2 branches covered.">        }</span>
 
-<span class="fc bfc" id="L120" title="All 2 branches covered.">        return len + 2 == message.length;</span>
+        return len + 2 == message.length;
     }
 
     /**
-     * Instantiates a new SP nego message.
+<span class="nc" id="L124">     * Instantiates a new SP nego message.</span>
      */
 <span class="nc" id="L126">    private SPNegoMessage() {</span>
         // Prevent Instantiation of object
-<span class="nc" id="L128">    }</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

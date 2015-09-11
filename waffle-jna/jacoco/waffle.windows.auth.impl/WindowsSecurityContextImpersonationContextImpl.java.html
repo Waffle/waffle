@@ -34,26 +34,27 @@ public class WindowsSecurityContextImpersonationContextImpl implements IWindowsI
      * Instantiates a new windows security context impersonation context impl.
      *
      * @param newCtx
-     *            the new ctx
-     */
-<span class="nc" id="L39">    public WindowsSecurityContextImpersonationContextImpl(final CtxtHandle newCtx) {</span>
+<span class="nc" id="L37">     *            the new ctx</span>
+<span class="nc" id="L38">     */</span>
+<span class="nc bnc" id="L39" title="All 2 branches missed.">    public WindowsSecurityContextImpersonationContextImpl(final CtxtHandle newCtx) {</span>
 <span class="nc" id="L40">        final int rc = Secur32.INSTANCE.ImpersonateSecurityContext(newCtx);</span>
-<span class="nc bnc" id="L41" title="All 2 branches missed.">        if (rc != WinError.SEC_E_OK) {</span>
-<span class="nc" id="L42">            throw new Win32Exception(rc);</span>
-        }
+        if (rc != WinError.SEC_E_OK) {
+            throw new Win32Exception(rc);
+<span class="nc" id="L43">        }</span>
+<span class="nc" id="L44"></span>
+        this.ctx = newCtx;
+    }
 
-<span class="nc" id="L45">        this.ctx = newCtx;</span>
-<span class="nc" id="L46">    }</span>
-
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsImpersonationContext#revertToSelf()
      */
-    @Override
-    public void revertToSelf() {
-<span class="nc" id="L53">        final int rc = Secur32.INSTANCE.RevertSecurityContext(this.ctx);</span>
-<span class="nc bnc" id="L54" title="All 2 branches missed.">        if (rc != WinError.SEC_E_OK) {</span>
-<span class="nc" id="L55">            throw new Win32Exception(rc);</span>
+<span class="nc" id="L52">    @Override</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">    public void revertToSelf() {</span>
+<span class="nc" id="L54">        final int rc = Secur32.INSTANCE.RevertSecurityContext(this.ctx);</span>
+        if (rc != WinError.SEC_E_OK) {
+<span class="nc" id="L56">            throw new Win32Exception(rc);</span>
         }
-<span class="nc" id="L57">    }</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

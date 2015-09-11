@@ -45,61 +45,63 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  * A Java Security login module for Windows authentication.
  * 
  * @author dblock[at]dblock[dot]org
- * @see javax.security.auth.spi.LoginModule
+<span class="nc" id="L48"> * @see javax.security.auth.spi.LoginModule</span>
  */
-<span class="nc" id="L50">public class WindowsLoginModule implements LoginModule {</span>
-
+public class WindowsLoginModule implements LoginModule {
+<span class="nc" id="L51"></span>
     /** The Constant LOGGER. */
-<span class="nc" id="L53">    private static final Logger  LOGGER          = LoggerFactory.getLogger(WindowsLoginModule.class);</span>
+    private static final Logger  LOGGER          = LoggerFactory.getLogger(WindowsLoginModule.class);
 
     /** The username. */
     private String               username;
-    
+
     /** The debug. */
     private boolean              debug;
-    
+
     /** The subject. */
     private Subject              subject;
-    
+
     /** The callback handler. */
     private CallbackHandler      callbackHandler;
-    
+<span class="nc" id="L66"></span>
     /** The auth. */
-<span class="nc" id="L68">    private IWindowsAuthProvider auth            = new WindowsAuthProviderImpl();</span>
-    
+    private IWindowsAuthProvider auth            = new WindowsAuthProviderImpl();
+
     /** The principals. */
     private Set&lt;Principal&gt;       principals;
-    
+<span class="nc" id="L72"></span>
     /** The principal format. */
-<span class="nc" id="L74">    private PrincipalFormat      principalFormat = PrincipalFormat.FQN;</span>
-    
+    private PrincipalFormat      principalFormat = PrincipalFormat.FQN;
+<span class="nc" id="L75"></span>
     /** The role format. */
-<span class="nc" id="L77">    private PrincipalFormat      roleFormat      = PrincipalFormat.FQN;</span>
-    
+    private PrincipalFormat      roleFormat      = PrincipalFormat.FQN;
+<span class="nc" id="L78"></span>
     /** The allow guest login. */
-<span class="nc" id="L80">    private boolean              allowGuestLogin = true;</span>
+    private boolean              allowGuestLogin = true;
 
-    /* (non-Javadoc)
-     * @see javax.security.auth.spi.LoginModule#initialize(javax.security.auth.Subject, javax.security.auth.callback.CallbackHandler, java.util.Map, java.util.Map)
+    /*
+     * (non-Javadoc)
+     * @see javax.security.auth.spi.LoginModule#initialize(javax.security.auth.Subject,
+     * javax.security.auth.callback.CallbackHandler, java.util.Map, java.util.Map)
      */
     @Override
     public void initialize(final Subject initSubject, final CallbackHandler initCallbackHandler,
-            final Map&lt;String, ?&gt; initSharedState, final Map&lt;String, ?&gt; initOptions) {
-
-<span class="nc" id="L89">        this.subject = initSubject;</span>
-<span class="nc" id="L90">        this.callbackHandler = initCallbackHandler;</span>
-
-<span class="nc bnc" id="L92" title="All 2 branches missed.">        for (final Entry&lt;String, ?&gt; option : initOptions.entrySet()) {</span>
-<span class="nc bnc" id="L93" title="All 2 branches missed.">            if (option.getKey().equalsIgnoreCase(&quot;debug&quot;)) {</span>
-<span class="nc" id="L94">                this.debug = Boolean.parseBoolean((String) option.getValue());</span>
-<span class="nc bnc" id="L95" title="All 2 branches missed.">            } else if (option.getKey().equalsIgnoreCase(&quot;principalFormat&quot;)) {</span>
-<span class="nc" id="L96">                this.principalFormat = PrincipalFormat</span>
-                        .valueOf(((String) option.getValue()).toUpperCase(Locale.ENGLISH));
-<span class="nc bnc" id="L98" title="All 2 branches missed.">            } else if (option.getKey().equalsIgnoreCase(&quot;roleFormat&quot;)) {</span>
-<span class="nc" id="L99">                this.roleFormat = PrincipalFormat.valueOf(((String) option.getValue()).toUpperCase(Locale.ENGLISH));</span>
-            }
-<span class="nc" id="L101">        }</span>
-<span class="nc" id="L102">    }</span>
+<span class="nc" id="L89">            final Map&lt;String, ?&gt; initSharedState, final Map&lt;String, ?&gt; initOptions) {</span>
+<span class="nc" id="L90"></span>
+        this.subject = initSubject;
+<span class="nc bnc" id="L92" title="All 2 branches missed.">        this.callbackHandler = initCallbackHandler;</span>
+<span class="nc bnc" id="L93" title="All 2 branches missed."></span>
+<span class="nc" id="L94">        for (final Entry&lt;String, ?&gt; option : initOptions.entrySet()) {</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">            if (option.getKey().equalsIgnoreCase(&quot;debug&quot;)) {</span>
+<span class="nc" id="L96">                this.debug = Boolean.parseBoolean((String) option.getValue());</span>
+            } else if (option.getKey().equalsIgnoreCase(&quot;principalFormat&quot;)) {
+<span class="nc bnc" id="L98" title="All 2 branches missed.">                this.principalFormat = PrincipalFormat</span>
+<span class="nc" id="L99">                        .valueOf(((String) option.getValue()).toUpperCase(Locale.ENGLISH));</span>
+            } else if (option.getKey().equalsIgnoreCase(&quot;roleFormat&quot;)) {
+<span class="nc" id="L101">                this.roleFormat = PrincipalFormat.valueOf(((String) option.getValue()).toUpperCase(Locale.ENGLISH));</span>
+<span class="nc" id="L102">            }</span>
+        }
+    }
 
     /**
      * Use Windows SSPI to authenticate a username with a password.
@@ -108,67 +110,68 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      * @throws LoginException
      *             the login exception
      */
-    @Override
-    public boolean login() throws LoginException {
-<span class="nc bnc" id="L113" title="All 2 branches missed.">        if (this.callbackHandler == null) {</span>
-<span class="nc" id="L114">            throw new LoginException(&quot;Missing callback to gather information from the user.&quot;);</span>
-        }
-
-<span class="nc" id="L117">        final NameCallback usernameCallback = new NameCallback(&quot;user name: &quot;);</span>
-<span class="nc" id="L118">        final PasswordCallback passwordCallback = new PasswordCallback(&quot;password: &quot;, false);</span>
-
-<span class="nc" id="L120">        final Callback[] callbacks = new Callback[2];</span>
-<span class="nc" id="L121">        callbacks[0] = usernameCallback;</span>
-<span class="nc" id="L122">        callbacks[1] = passwordCallback;</span>
+<span class="nc bnc" id="L113" title="All 2 branches missed.">    @Override</span>
+<span class="nc" id="L114">    public boolean login() throws LoginException {</span>
+        if (this.callbackHandler == null) {
+            throw new LoginException(&quot;Missing callback to gather information from the user.&quot;);
+<span class="nc" id="L117">        }</span>
+<span class="nc" id="L118"></span>
+        final NameCallback usernameCallback = new NameCallback(&quot;user name: &quot;);
+<span class="nc" id="L120">        final PasswordCallback passwordCallback = new PasswordCallback(&quot;password: &quot;, false);</span>
+<span class="nc" id="L121"></span>
+<span class="nc" id="L122">        final Callback[] callbacks = new Callback[2];</span>
+        callbacks[0] = usernameCallback;
+        callbacks[1] = passwordCallback;
 
         final String userName;
         final String password;
-
-        try {
-<span class="nc" id="L128">            this.callbackHandler.handle(callbacks);</span>
-<span class="nc" id="L129">            userName = usernameCallback.getName();</span>
-<span class="nc bnc" id="L130" title="All 2 branches missed.">            password = passwordCallback.getPassword() == null ? &quot;&quot; : new String(passwordCallback.getPassword());</span>
-<span class="nc" id="L131">            passwordCallback.clearPassword();</span>
-<span class="nc" id="L132">        } catch (final IOException e) {</span>
-<span class="nc" id="L133">            WindowsLoginModule.LOGGER.trace(&quot;{}&quot;, e);</span>
-<span class="nc" id="L134">            throw new LoginException(e.toString());</span>
-<span class="nc" id="L135">        } catch (final UnsupportedCallbackException e) {</span>
-<span class="nc" id="L136">            WindowsLoginModule.LOGGER.trace(&quot;{}&quot;, e);</span>
-<span class="nc" id="L137">            throw new LoginException(</span>
-                    &quot;Callback {} not available to gather authentication information from the user.&quot;.replace(&quot;{}&quot;, e
+<span class="nc" id="L128"></span>
+<span class="nc" id="L129">        try {</span>
+<span class="nc bnc" id="L130" title="All 2 branches missed.">            this.callbackHandler.handle(callbacks);</span>
+<span class="nc" id="L131">            userName = usernameCallback.getName();</span>
+<span class="nc" id="L132">            password = passwordCallback.getPassword() == null ? &quot;&quot; : new String(passwordCallback.getPassword());</span>
+<span class="nc" id="L133">            passwordCallback.clearPassword();</span>
+<span class="nc" id="L134">        } catch (final IOException e) {</span>
+<span class="nc" id="L135">            WindowsLoginModule.LOGGER.trace(&quot;{}&quot;, e);</span>
+<span class="nc" id="L136">            throw new LoginException(e.toString());</span>
+<span class="nc" id="L137">        } catch (final UnsupportedCallbackException e) {</span>
+            WindowsLoginModule.LOGGER.trace(&quot;{}&quot;, e);
+            throw new LoginException(
+<span class="nc" id="L140">                    &quot;Callback {} not available to gather authentication information from the user.&quot;.replace(&quot;{}&quot;, e</span>
                             .getCallback().getClass().getName()));
-<span class="nc" id="L140">        }</span>
+        }
 
-        IWindowsIdentity windowsIdentity;
-        try {
-<span class="nc" id="L144">            windowsIdentity = this.auth.logonUser(userName, password);</span>
-<span class="nc" id="L145">        } catch (final Exception e) {</span>
-<span class="nc" id="L146">            WindowsLoginModule.LOGGER.trace(&quot;{}&quot;, e);</span>
-<span class="nc" id="L147">            throw new LoginException(e.getMessage());</span>
-<span class="nc" id="L148">        }</span>
+<span class="nc" id="L144">        IWindowsIdentity windowsIdentity;</span>
+<span class="nc" id="L145">        try {</span>
+<span class="nc" id="L146">            windowsIdentity = this.auth.logonUser(userName, password);</span>
+<span class="nc" id="L147">        } catch (final Exception e) {</span>
+<span class="nc" id="L148">            WindowsLoginModule.LOGGER.trace(&quot;{}&quot;, e);</span>
+            throw new LoginException(e.getMessage());
+        }
 
-        try {
-            // disable guest login
-<span class="nc bnc" id="L152" title="All 4 branches missed.">            if (!this.allowGuestLogin &amp;&amp; windowsIdentity.isGuest()) {</span>
-<span class="nc" id="L153">                WindowsLoginModule.LOGGER.debug(&quot;guest login disabled: {}&quot;, windowsIdentity.getFqn());</span>
-<span class="nc" id="L154">                throw new LoginException(&quot;Guest login disabled&quot;);</span>
-            }
-
-<span class="nc" id="L157">            this.principals = new LinkedHashSet&lt;Principal&gt;();</span>
-<span class="nc" id="L158">            this.principals.addAll(WindowsLoginModule.getUserPrincipals(windowsIdentity, this.principalFormat));</span>
-<span class="nc bnc" id="L159" title="All 2 branches missed.">            if (this.roleFormat != PrincipalFormat.NONE) {</span>
-<span class="nc bnc" id="L160" title="All 2 branches missed.">                for (final IWindowsAccount group : windowsIdentity.getGroups()) {</span>
-<span class="nc" id="L161">                    this.principals.addAll(WindowsLoginModule.getRolePrincipals(group, this.roleFormat));</span>
+<span class="nc bnc" id="L152" title="All 4 branches missed.">        try {</span>
+<span class="nc" id="L153">            // disable guest login</span>
+<span class="nc" id="L154">            if (!this.allowGuestLogin &amp;&amp; windowsIdentity.isGuest()) {</span>
+                WindowsLoginModule.LOGGER.debug(&quot;guest login disabled: {}&quot;, windowsIdentity.getFqn());
+                throw new LoginException(&quot;Guest login disabled&quot;);
+<span class="nc" id="L157">            }</span>
+<span class="nc" id="L158"></span>
+<span class="nc bnc" id="L159" title="All 2 branches missed.">            this.principals = new LinkedHashSet&lt;&gt;();</span>
+<span class="nc bnc" id="L160" title="All 2 branches missed.">            this.principals.addAll(WindowsLoginModule.getUserPrincipals(windowsIdentity, this.principalFormat));</span>
+<span class="nc" id="L161">            if (this.roleFormat != PrincipalFormat.NONE) {</span>
+                for (final IWindowsAccount group : windowsIdentity.getGroups()) {
+                    this.principals.addAll(WindowsLoginModule.getRolePrincipals(group, this.roleFormat));
                 }
-            }
+<span class="nc" id="L165">            }</span>
+<span class="nc" id="L166"></span>
+            this.username = windowsIdentity.getFqn();
+            WindowsLoginModule.LOGGER.debug(&quot;successfully logged in {} ({})&quot;, this.username,
+<span class="nc" id="L169">                    windowsIdentity.getSidString());</span>
+<span class="nc" id="L170">        } finally {</span>
+            windowsIdentity.dispose();
+<span class="nc" id="L172">        }</span>
 
-<span class="nc" id="L165">            this.username = windowsIdentity.getFqn();</span>
-<span class="nc" id="L166">            WindowsLoginModule.LOGGER.debug(&quot;successfully logged in {} ({})&quot;, this.username, windowsIdentity.getSidString());</span>
-        } finally {
-<span class="nc" id="L168">            windowsIdentity.dispose();</span>
-<span class="nc" id="L169">        }</span>
-
-<span class="nc" id="L171">        return true;</span>
+        return true;
     }
 
     /**
@@ -178,9 +181,9 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      * @throws LoginException
      *             the login exception
      */
-    @Override
+<span class="nc" id="L184">    @Override</span>
     public boolean abort() throws LoginException {
-<span class="nc" id="L183">        return this.logout();</span>
+        return this.logout();
     }
 
     /**
@@ -190,27 +193,28 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      * @throws LoginException
      *             the login exception
      */
-    @Override
-    public boolean commit() throws LoginException {
-<span class="nc bnc" id="L195" title="All 2 branches missed.">        if (this.principals == null) {</span>
-<span class="nc" id="L196">            return false;</span>
-        }
+<span class="nc bnc" id="L196" title="All 2 branches missed.">    @Override</span>
+<span class="nc" id="L197">    public boolean commit() throws LoginException {</span>
+        if (this.principals == null) {
+            return false;
+<span class="nc bnc" id="L200" title="All 2 branches missed.">        }</span>
+<span class="nc" id="L201"></span>
+        if (this.subject.isReadOnly()) {
+            throw new LoginException(&quot;Subject cannot be read-only.&quot;);
+<span class="nc" id="L204">        }</span>
+<span class="nc" id="L205"></span>
+        final Set&lt;Principal&gt; principalsSet = this.subject.getPrincipals();
+<span class="nc" id="L207">        principalsSet.addAll(this.principals);</span>
 
-<span class="nc bnc" id="L199" title="All 2 branches missed.">        if (this.subject.isReadOnly()) {</span>
-<span class="nc" id="L200">            throw new LoginException(&quot;Subject cannot be read-only.&quot;);</span>
-        }
+<span class="nc bnc" id="L209" title="All 2 branches missed.">        WindowsLoginModule.LOGGER.debug(&quot;committing {} principals&quot;,</span>
+<span class="nc bnc" id="L210" title="All 2 branches missed.">                Integer.valueOf(this.subject.getPrincipals().size()));</span>
+<span class="nc" id="L211">        if (this.debug) {</span>
+<span class="nc" id="L212">            for (final Principal principal : principalsSet) {</span>
+                WindowsLoginModule.LOGGER.debug(&quot; principal: {}&quot;, principal.getName());
+            }
+<span class="nc" id="L215">        }</span>
 
-<span class="nc" id="L203">        final Set&lt;Principal&gt; principalsSet = this.subject.getPrincipals();</span>
-<span class="nc" id="L204">        principalsSet.addAll(this.principals);</span>
-
-<span class="nc" id="L206">        WindowsLoginModule.LOGGER.debug(&quot;committing {} principals&quot;, Integer.valueOf(this.subject.getPrincipals().size()));</span>
-<span class="nc bnc" id="L207" title="All 2 branches missed.">        if (this.debug) {</span>
-<span class="nc bnc" id="L208" title="All 2 branches missed.">            for (final Principal principal : principalsSet) {</span>
-<span class="nc" id="L209">                WindowsLoginModule.LOGGER.debug(&quot; principal: {}&quot;, principal.getName());</span>
-<span class="nc" id="L210">            }</span>
-        }
-
-<span class="nc" id="L213">        return true;</span>
+        return true;
     }
 
     /**
@@ -220,37 +224,37 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      * @throws LoginException
      *             the login exception
      */
-    @Override
-    public boolean logout() throws LoginException {
-<span class="nc bnc" id="L225" title="All 2 branches missed.">        if (this.subject.isReadOnly()) {</span>
-<span class="nc" id="L226">            throw new LoginException(&quot;Subject cannot be read-only.&quot;);</span>
-        }
+<span class="nc bnc" id="L227" title="All 2 branches missed.">    @Override</span>
+<span class="nc" id="L228">    public boolean logout() throws LoginException {</span>
+        if (this.subject.isReadOnly()) {
+            throw new LoginException(&quot;Subject cannot be read-only.&quot;);
+<span class="nc" id="L231">        }</span>
 
-<span class="nc" id="L229">        this.subject.getPrincipals().clear();</span>
+<span class="nc bnc" id="L233" title="All 2 branches missed.">        this.subject.getPrincipals().clear();</span>
+<span class="nc" id="L234"></span>
+        if (this.username != null) {
+            WindowsLoginModule.LOGGER.debug(&quot;logging out {}&quot;, this.username);
+<span class="nc" id="L237">        }</span>
 
-<span class="nc bnc" id="L231" title="All 2 branches missed.">        if (this.username != null) {</span>
-<span class="nc" id="L232">            WindowsLoginModule.LOGGER.debug(&quot;logging out {}&quot;, this.username);</span>
-        }
-
-<span class="nc" id="L235">        return true;</span>
+        return true;
     }
 
     /**
      * True if Debug is enabled.
      * 
      * @return True or false.
-     */
+<span class="nc" id="L246">     */</span>
     public boolean isDebug() {
-<span class="nc" id="L244">        return this.debug;</span>
+        return this.debug;
     }
 
     /**
      * Windows auth provider.
      * 
      * @return IWindowsAuthProvider.
-     */
+<span class="nc" id="L255">     */</span>
     public IWindowsAuthProvider getAuth() {
-<span class="nc" id="L253">        return this.auth;</span>
+        return this.auth;
     }
 
     /**
@@ -258,10 +262,10 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      * 
      * @param provider
      *            Class implements IWindowsAuthProvider.
-     */
-    public void setAuth(final IWindowsAuthProvider provider) {
-<span class="nc" id="L263">        this.auth = provider;</span>
-<span class="nc" id="L264">    }</span>
+<span class="nc" id="L265">     */</span>
+<span class="nc" id="L266">    public void setAuth(final IWindowsAuthProvider provider) {</span>
+        this.auth = provider;
+    }
 
     /**
      * Returns a list of user principal objects.
@@ -273,26 +277,26 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      * @return A list of user principal objects.
      */
     private static List&lt;Principal&gt; getUserPrincipals(final IWindowsIdentity windowsIdentity,
-            final PrincipalFormat principalFormat) {
-
-<span class="nc" id="L278">        final List&lt;Principal&gt; principalsList = new ArrayList&lt;Principal&gt;();</span>
-<span class="nc bnc" id="L279" title="All 5 branches missed.">        switch (principalFormat) {</span>
-            case FQN:
-<span class="nc" id="L281">                principalsList.add(new UserPrincipal(windowsIdentity.getFqn()));</span>
-<span class="nc" id="L282">                break;</span>
-            case SID:
-<span class="nc" id="L284">                principalsList.add(new UserPrincipal(windowsIdentity.getSidString()));</span>
-<span class="nc" id="L285">                break;</span>
-            case BOTH:
-<span class="nc" id="L287">                principalsList.add(new UserPrincipal(windowsIdentity.getFqn()));</span>
-<span class="nc" id="L288">                principalsList.add(new UserPrincipal(windowsIdentity.getSidString()));</span>
+<span class="nc" id="L280">            final PrincipalFormat principalFormat) {</span>
+<span class="nc bnc" id="L281" title="All 5 branches missed."></span>
+        final List&lt;Principal&gt; principalsList = new ArrayList&lt;&gt;();
+<span class="nc" id="L283">        switch (principalFormat) {</span>
+<span class="nc" id="L284">            case FQN:</span>
+                principalsList.add(new UserPrincipal(windowsIdentity.getFqn()));
+<span class="nc" id="L286">                break;</span>
+<span class="nc" id="L287">            case SID:</span>
+                principalsList.add(new UserPrincipal(windowsIdentity.getSidString()));
 <span class="nc" id="L289">                break;</span>
+<span class="nc" id="L290">            case BOTH:</span>
+<span class="nc" id="L291">                principalsList.add(new UserPrincipal(windowsIdentity.getFqn()));</span>
+                principalsList.add(new UserPrincipal(windowsIdentity.getSidString()));
+<span class="nc" id="L293">                break;</span>
             case NONE:
-<span class="nc" id="L291">                break;</span>
-            default:
                 break;
+            default:
+<span class="nc" id="L297">                break;</span>
         }
-<span class="nc" id="L295">        return principalsList;</span>
+        return principalsList;
     }
 
     /**
@@ -304,35 +308,35 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      *            Principal format.
      * @return List of role principal objects.
      */
-    private static List&lt;Principal&gt; getRolePrincipals(final IWindowsAccount group, final PrincipalFormat principalFormat) {
-
-<span class="nc" id="L309">        final List&lt;Principal&gt; principalsList = new ArrayList&lt;Principal&gt;();</span>
-<span class="nc bnc" id="L310" title="All 5 branches missed.">        switch (principalFormat) {</span>
-            case FQN:
-<span class="nc" id="L312">                principalsList.add(new RolePrincipal(group.getFqn()));</span>
-<span class="nc" id="L313">                break;</span>
-            case SID:
-<span class="nc" id="L315">                principalsList.add(new RolePrincipal(group.getSidString()));</span>
-<span class="nc" id="L316">                break;</span>
-            case BOTH:
-<span class="nc" id="L318">                principalsList.add(new RolePrincipal(group.getFqn()));</span>
-<span class="nc" id="L319">                principalsList.add(new RolePrincipal(group.getSidString()));</span>
+<span class="nc" id="L311">    private static List&lt;Principal&gt; getRolePrincipals(final IWindowsAccount group, final PrincipalFormat principalFormat) {</span>
+<span class="nc bnc" id="L312" title="All 5 branches missed."></span>
+        final List&lt;Principal&gt; principalsList = new ArrayList&lt;&gt;();
+<span class="nc" id="L314">        switch (principalFormat) {</span>
+<span class="nc" id="L315">            case FQN:</span>
+                principalsList.add(new RolePrincipal(group.getFqn()));
+<span class="nc" id="L317">                break;</span>
+<span class="nc" id="L318">            case SID:</span>
+                principalsList.add(new RolePrincipal(group.getSidString()));
 <span class="nc" id="L320">                break;</span>
+<span class="nc" id="L321">            case BOTH:</span>
+<span class="nc" id="L322">                principalsList.add(new RolePrincipal(group.getFqn()));</span>
+                principalsList.add(new RolePrincipal(group.getSidString()));
+<span class="nc" id="L324">                break;</span>
             case NONE:
-<span class="nc" id="L322">                break;</span>
-            default:
                 break;
+            default:
+<span class="nc" id="L328">                break;</span>
         }
-<span class="nc" id="L326">        return principalsList;</span>
+        return principalsList;
     }
 
     /**
      * True if Guest login permitted.
      * 
      * @return True if Guest login permitted, false otherwise.
-     */
+<span class="nc" id="L337">     */</span>
     public boolean isAllowGuestLogin() {
-<span class="nc" id="L335">        return this.allowGuestLogin;</span>
+        return this.allowGuestLogin;
     }
 
     /**
@@ -341,9 +345,9 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      * 
      * @param value
      *            True or false.
-     */
-    public void setAllowGuestLogin(final boolean value) {
-<span class="nc" id="L346">        this.allowGuestLogin = value;</span>
-<span class="nc" id="L347">    }</span>
+<span class="nc" id="L348">     */</span>
+<span class="nc" id="L349">    public void setAllowGuestLogin(final boolean value) {</span>
+        this.allowGuestLogin = value;
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

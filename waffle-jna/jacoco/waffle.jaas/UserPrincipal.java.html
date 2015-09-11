@@ -25,53 +25,55 @@ public class UserPrincipal implements Principal, Serializable {
 
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
-    
+
     /** The fqn. */
-    private final String            fqn;
+    private final String      fqn;
 
     /**
      * A user principal.
      * 
      * @param newFqn
-     *            Fully qualified username.
-     */
+<span class="fc" id="L36">     *            Fully qualified username.</span>
+<span class="fc" id="L37">     */</span>
 <span class="fc" id="L38">    public UserPrincipal(final String newFqn) {</span>
-<span class="fc" id="L39">        this.fqn = newFqn;</span>
-<span class="fc" id="L40">    }</span>
+        this.fqn = newFqn;
+    }
 
     /**
      * Fully qualified username.
      *
      * @return the name
      */
-    @Override
+<span class="fc" id="L47">    @Override</span>
     public String getName() {
-<span class="fc" id="L49">        return this.fqn;</span>
+        return this.fqn;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
-    public boolean equals(final Object o) {
+<span class="fc bfc" id="L57" title="All 2 branches covered.">    public boolean equals(final Object o) {</span>
+<span class="fc" id="L58"></span>
+        if (this == o) {
+            return true;
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        }</span>
+<span class="fc" id="L62"></span>
+        if (o instanceof UserPrincipal) {
+            return this.getName().equals(((UserPrincipal) o).getName());
+<span class="fc" id="L65">        }</span>
 
-<span class="fc bfc" id="L58" title="All 2 branches covered.">        if (this == o) {</span>
-<span class="fc" id="L59">            return true;</span>
-        }
-
-<span class="fc bfc" id="L62" title="All 2 branches covered.">        if (o instanceof UserPrincipal) {</span>
-<span class="fc" id="L63">            return this.getName().equals(((UserPrincipal) o).getName());</span>
-        }
-
-<span class="fc" id="L66">        return false;</span>
+        return false;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.lang.Object#hashCode()
      */
-    @Override
+<span class="fc" id="L74">    @Override</span>
     public int hashCode() {
-<span class="fc" id="L74">        return this.getName().hashCode();</span>
+        return this.getName().hashCode();
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

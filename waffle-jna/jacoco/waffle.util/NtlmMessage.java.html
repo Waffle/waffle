@@ -20,9 +20,9 @@ package waffle.util;
  */
 public final class NtlmMessage {
 
-    // NTLM messages start with 0x4e544c4d53535000, NTLMSSP signature
+<span class="fc" id="L23">    // NTLM messages start with 0x4e544c4d53535000, NTLMSSP signature</span>
     /** The Constant NTLM_SSP_SIGNATURE. */
-<span class="fc" id="L25">    private static final byte[] NTLM_SSP_SIGNATURE = { 0x4e, 0x54, 0x4c, 0x4d, 0x53, 0x53, 0x50, 0x00 };</span>
+    private static final byte[] NTLM_SSP_SIGNATURE = { 0x4e, 0x54, 0x4c, 0x4d, 0x53, 0x53, 0x50, 0x00 };
 
     /**
      * Checks if is ntlm message.
@@ -30,19 +30,19 @@ public final class NtlmMessage {
      * @param message
      *            the message
      * @return true, if is ntlm message
-     */
-    public static boolean isNtlmMessage(final byte[] message) {
-<span class="fc bfc" id="L35" title="All 4 branches covered.">        if (message == null || message.length &lt; NtlmMessage.NTLM_SSP_SIGNATURE.length) {</span>
-<span class="fc" id="L36">            return false;</span>
-        }
-
-<span class="fc bfc" id="L39" title="All 2 branches covered.">        for (int i = 0; i &lt; NtlmMessage.NTLM_SSP_SIGNATURE.length; i++) {</span>
-<span class="fc bfc" id="L40" title="All 2 branches covered.">            if (NtlmMessage.NTLM_SSP_SIGNATURE[i] != message[i]) {</span>
-<span class="fc" id="L41">                return false;</span>
+<span class="fc bfc" id="L33" title="All 4 branches covered.">     */</span>
+<span class="fc" id="L34">    public static boolean isNtlmMessage(final byte[] message) {</span>
+        if (message == null || message.length &lt; NtlmMessage.NTLM_SSP_SIGNATURE.length) {
+            return false;
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        }</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered."></span>
+<span class="fc" id="L39">        for (int i = 0; i &lt; NtlmMessage.NTLM_SSP_SIGNATURE.length; i++) {</span>
+            if (NtlmMessage.NTLM_SSP_SIGNATURE[i] != message[i]) {
+                return false;
             }
-        }
+<span class="fc" id="L43">        }</span>
 
-<span class="fc" id="L45">        return true;</span>
+        return true;
     }
 
     /**
@@ -51,16 +51,16 @@ public final class NtlmMessage {
      * @param message
      *            Assuming a valid NTLM message.
      * @return Message type.
-     */
+<span class="fc" id="L54">     */</span>
     public static int getMessageType(final byte[] message) {
-<span class="fc" id="L56">        return message[NtlmMessage.NTLM_SSP_SIGNATURE.length];</span>
+        return message[NtlmMessage.NTLM_SSP_SIGNATURE.length];
     }
 
     /**
-     * Instantiates a new ntlm message.
+<span class="nc" id="L60">     * Instantiates a new ntlm message.</span>
      */
 <span class="nc" id="L62">    private NtlmMessage() {</span>
         // Prevent Instantiation of object
-<span class="nc" id="L64">    }</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

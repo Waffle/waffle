@@ -25,108 +25,111 @@ import com.sun.jna.platform.win32.Netapi32Util.DomainTrust;
 public class WindowsDomainImpl implements IWindowsDomain {
 
     /**
-     * The Enum TrustDirection.
+<span class="nc" id="L28">     * The Enum TrustDirection.</span>
      */
-<span class="nc" id="L30">    private enum TrustDirection {</span>
-        
+    private enum TrustDirection {
+<span class="nc" id="L31"></span>
         /** The inbound. */
-<span class="nc" id="L33">        INBOUND, </span>
- /** The outbound. */
-<span class="nc" id="L35"> OUTBOUND, </span>
- /** The bidirectional. */
-<span class="nc" id="L37"> BIDIRECTIONAL</span>
+<span class="nc" id="L33">        INBOUND,</span>
+        /** The outbound. */
+<span class="nc" id="L35">        OUTBOUND,</span>
+        /** The bidirectional. */
+        BIDIRECTIONAL
     }
 
     /**
-     * The Enum TrustType.
+<span class="nc" id="L41">     * The Enum TrustType.</span>
      */
-<span class="nc" id="L43">    private enum TrustType {</span>
-        
+    private enum TrustType {
+<span class="nc" id="L44"></span>
         /** The tree root. */
-<span class="nc" id="L46">        TREE_ROOT, </span>
- /** The parent child. */
-<span class="nc" id="L48"> PARENT_CHILD, </span>
- /** The cross link. */
-<span class="nc" id="L50"> CROSS_LINK, </span>
- /** The external. */
-<span class="nc" id="L52"> EXTERNAL, </span>
- /** The forest. */
-<span class="nc" id="L54"> FOREST, </span>
- /** The kerberos. */
-<span class="nc" id="L56"> KERBEROS, </span>
- /** The unknown. */
-<span class="nc" id="L58"> UNKNOWN</span>
+<span class="nc" id="L46">        TREE_ROOT,</span>
+        /** The parent child. */
+<span class="nc" id="L48">        PARENT_CHILD,</span>
+        /** The cross link. */
+<span class="nc" id="L50">        CROSS_LINK,</span>
+        /** The external. */
+<span class="nc" id="L52">        EXTERNAL,</span>
+        /** The forest. */
+<span class="nc" id="L54">        FOREST,</span>
+        /** The kerberos. */
+<span class="nc" id="L56">        KERBEROS,</span>
+        /** The unknown. */
+        UNKNOWN
     }
 
     /** The fqn. */
     private String         fqn;
-    
+<span class="nc" id="L63"></span>
     /** The trust direction. */
-<span class="nc" id="L65">    private TrustDirection trustDirection = TrustDirection.BIDIRECTIONAL;</span>
-    
+    private TrustDirection trustDirection = TrustDirection.BIDIRECTIONAL;
+<span class="nc" id="L66"></span>
     /** The trust type. */
-<span class="nc" id="L68">    private TrustType      trustType      = TrustType.UNKNOWN;</span>
+    private TrustType      trustType      = TrustType.UNKNOWN;
 
     /**
      * Instantiates a new windows domain impl.
      *
      * @param newFqn
-     *            the new fqn
-     */
+<span class="nc" id="L74">     *            the new fqn</span>
+<span class="nc" id="L75">     */</span>
 <span class="nc" id="L76">    public WindowsDomainImpl(final String newFqn) {</span>
-<span class="nc" id="L77">        this.fqn = newFqn;</span>
-<span class="nc" id="L78">    }</span>
+        this.fqn = newFqn;
+    }
 
     /**
      * Instantiates a new windows domain impl.
      *
      * @param trust
-     *            the trust
+<span class="nc" id="L84">     *            the trust</span>
      */
 <span class="nc" id="L86">    public WindowsDomainImpl(final DomainTrust trust) {</span>
-        // fqn
+<span class="nc bnc" id="L87" title="All 4 branches missed.">        // fqn</span>
 <span class="nc" id="L88">        this.fqn = trust.DnsDomainName;</span>
-<span class="nc bnc" id="L89" title="All 4 branches missed.">        if (this.fqn == null || this.fqn.length() == 0) {</span>
-<span class="nc" id="L90">            this.fqn = trust.NetbiosDomainName;</span>
-        }
-        // trust direction
-<span class="nc bnc" id="L93" title="All 4 branches missed.">        if (trust.isInbound() &amp;&amp; trust.isOutbound()) {</span>
+        if (this.fqn == null || this.fqn.length() == 0) {
+            this.fqn = trust.NetbiosDomainName;
+<span class="nc bnc" id="L91" title="All 4 branches missed.">        }</span>
+<span class="nc" id="L92">        // trust direction</span>
+<span class="nc bnc" id="L93" title="All 2 branches missed.">        if (trust.isInbound() &amp;&amp; trust.isOutbound()) {</span>
 <span class="nc" id="L94">            this.trustDirection = TrustDirection.BIDIRECTIONAL;</span>
 <span class="nc bnc" id="L95" title="All 2 branches missed.">        } else if (trust.isOutbound()) {</span>
 <span class="nc" id="L96">            this.trustDirection = TrustDirection.OUTBOUND;</span>
-<span class="nc bnc" id="L97" title="All 2 branches missed.">        } else if (trust.isInbound()) {</span>
-<span class="nc" id="L98">            this.trustDirection = TrustDirection.INBOUND;</span>
-        }
-        // trust type
+        } else if (trust.isInbound()) {
+            this.trustDirection = TrustDirection.INBOUND;
+<span class="nc bnc" id="L99" title="All 2 branches missed.">        }</span>
+<span class="nc" id="L100">        // trust type</span>
 <span class="nc bnc" id="L101" title="All 2 branches missed.">        if (trust.isInForest()) {</span>
 <span class="nc" id="L102">            this.trustType = TrustType.FOREST;</span>
-<span class="nc bnc" id="L103" title="All 2 branches missed.">        } else if (trust.isRoot()) {</span>
+        } else if (trust.isRoot()) {
 <span class="nc" id="L104">            this.trustType = TrustType.TREE_ROOT;</span>
         }
-<span class="nc" id="L106">    }</span>
+    }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsDomain#getFqn()
      */
-    @Override
+<span class="nc" id="L112">    @Override</span>
     public String getFqn() {
-<span class="nc" id="L113">        return this.fqn;</span>
+        return this.fqn;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsDomain#getTrustDirectionString()
      */
-    @Override
+<span class="nc" id="L121">    @Override</span>
     public String getTrustDirectionString() {
-<span class="nc" id="L121">        return this.trustDirection.toString();</span>
+        return this.trustDirection.toString();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsDomain#getTrustTypeString()
      */
-    @Override
+<span class="nc" id="L130">    @Override</span>
     public String getTrustTypeString() {
-<span class="nc" id="L129">        return this.trustType.toString();</span>
+        return this.trustType.toString();
     }
 
 }

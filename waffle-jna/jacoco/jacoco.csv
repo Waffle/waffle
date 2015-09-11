@@ -1,11 +1,11 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 waffle-jna,waffle.util,NtlmMessage,3,69,0,8,2,8,1,7,1,3
-waffle-jna,waffle.util,AuthorizationHeader,149,0,30,0,34,0,25,0,10,0
-waffle-jna,waffle.util,WaffleInfo,239,291,19,7,57,73,14,8,2,7
+waffle-jna,waffle.util,AuthorizationHeader,153,0,28,0,34,0,25,0,11,0
+waffle-jna,waffle.util,WaffleInfo,236,291,27,7,53,73,19,8,2,7
 waffle-jna,waffle.util,NtlmServletRequest,25,0,2,0,4,0,4,0,3,0
 waffle-jna,waffle.util,SPNegoMessage,39,131,6,20,11,18,6,12,1,4
 waffle-jna,waffle.servlet.spi,NegotiateSecurityFilterProvider,213,45,22,4,49,12,17,5,6,3
-waffle-jna,waffle.servlet.spi,SecurityFilterProviderCollection,253,85,12,10,53,18,11,11,5,6
+waffle-jna,waffle.servlet.spi,SecurityFilterProviderCollection,193,85,12,10,38,18,11,11,5,6
 waffle-jna,waffle.servlet.spi,BasicSecurityFilterProvider,80,17,4,0,17,6,8,3,6,3
 waffle-jna,waffle.windows.auth,WindowsAccount,52,0,4,0,16,0,9,0,7,0
 waffle-jna,waffle.windows.auth,PrincipalFormat,0,58,0,0,0,5,0,4,0,4
@@ -15,15 +15,15 @@ waffle-jna,waffle.windows.auth.impl,WindowsDomainImpl.TrustDirection,48,0,0,0,4,
 waffle-jna,waffle.windows.auth.impl,WindowsAccountImpl,0,36,0,0,0,12,0,8,0,8
 waffle-jna,waffle.windows.auth.impl,WindowsSecurityContextImpersonationContextImpl,30,0,4,0,10,0,4,0,2,0
 waffle-jna,waffle.windows.auth.impl,WindowsIdentityImpersonationContextImpl,17,0,2,0,6,0,3,0,2,0
-waffle-jna,waffle.windows.auth.impl,WindowsSecurityContextImpl,77,133,11,7,21,36,17,11,7,11
+waffle-jna,waffle.windows.auth.impl,WindowsSecurityContextImpl,77,131,11,7,21,35,17,11,7,11
 waffle-jna,waffle.windows.auth.impl,WindowsDomainImpl.TrustType,88,0,0,0,8,0,4,0,4,0
 waffle-jna,waffle.windows.auth.impl,WindowsDomainImpl,83,0,16,0,23,0,13,0,5,0
-waffle-jna,waffle.windows.auth.impl,WindowsIdentityImpl,144,0,18,0,32,0,19,0,10,0
+waffle-jna,waffle.windows.auth.impl,WindowsIdentityImpl,140,0,16,0,30,0,18,0,10,0
 waffle-jna,waffle.windows.auth.impl,WindowsCredentialsHandleImpl,10,73,4,4,2,18,4,5,0,5
 waffle-jna,waffle.servlet,WaffleInfoServlet,206,0,10,0,54,0,10,0,5,0
 waffle-jna,waffle.servlet,WindowsPrincipal,202,0,14,0,49,0,24,0,14,0
 waffle-jna,waffle.servlet,NegotiateRequestWrapper,21,0,0,0,7,0,5,0,5,0
-waffle-jna,waffle.servlet,NegotiateSecurityFilter,826,0,84,0,193,0,59,0,17,0
+waffle-jna,waffle.servlet,NegotiateSecurityFilter,754,0,98,0,169,0,71,0,17,0
 waffle-jna,waffle.servlet,WindowsPrincipal.new Object() {...},33,0,0,0,1,0,1,0,1,0
 waffle-jna,waffle.servlet,AutoDisposableWindowsPrincipal,18,0,2,0,8,0,5,0,4,0
 waffle-jna,waffle.jaas,UserPrincipal,0,30,0,4,0,10,0,6,0,4

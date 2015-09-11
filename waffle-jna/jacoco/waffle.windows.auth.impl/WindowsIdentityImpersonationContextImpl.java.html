@@ -31,20 +31,21 @@ public class WindowsIdentityImpersonationContextImpl implements IWindowsImperson
      * Impersonate a logged on user.
      * 
      * @param windowsIdentity
-     *            Windows identity obtained via LogonUser.
-     */
+<span class="nc" id="L34">     *            Windows identity obtained via LogonUser.</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">     */</span>
 <span class="nc" id="L36">    public WindowsIdentityImpersonationContextImpl(final HANDLE windowsIdentity) {</span>
-<span class="nc bnc" id="L37" title="All 2 branches missed.">        if (!Advapi32.INSTANCE.ImpersonateLoggedOnUser(windowsIdentity)) {</span>
+        if (!Advapi32.INSTANCE.ImpersonateLoggedOnUser(windowsIdentity)) {
 <span class="nc" id="L38">            throw new Win32Exception(Kernel32.INSTANCE.GetLastError());</span>
         }
-<span class="nc" id="L40">    }</span>
+    }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsImpersonationContext#revertToSelf()
      */
-    @Override
-    public void revertToSelf() {
-<span class="nc" id="L47">        Advapi32.INSTANCE.RevertToSelf();</span>
-<span class="nc" id="L48">    }</span>
+<span class="nc" id="L46">    @Override</span>
+<span class="nc" id="L47">    public void revertToSelf() {</span>
+        Advapi32.INSTANCE.RevertToSelf();
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

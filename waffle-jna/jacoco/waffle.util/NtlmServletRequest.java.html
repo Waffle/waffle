@@ -30,9 +30,9 @@ public final class NtlmServletRequest {
      * @param request
      *            Servlet request.
      * @return String.
-     */
+<span class="nc" id="L33">     */</span>
     public static String getConnectionId(final HttpServletRequest request) {
-<span class="nc" id="L35">        return Joiner.on(&quot;:&quot;).useForNull(&quot;&quot;)</span>
+        return Joiner.on(&quot;:&quot;).useForNull(&quot;&quot;)
                 .join(NtlmServletRequest.getRemoteHost(request), Integer.valueOf(request.getRemotePort()));
     }
 
@@ -42,17 +42,17 @@ public final class NtlmServletRequest {
      * @param request
      *            the request
      * @return the remote host
-     */
+<span class="nc bnc" id="L45" title="All 2 branches missed.">     */</span>
     private static String getRemoteHost(final HttpServletRequest request) {
-<span class="nc bnc" id="L47" title="All 2 branches missed.">        return request.getRemoteHost() == null ? request.getRemoteAddr() : request.getRemoteHost();</span>
+        return request.getRemoteHost() == null ? request.getRemoteAddr() : request.getRemoteHost();
     }
 
     /**
-     * Instantiates a new ntlm servlet request.
+<span class="nc" id="L51">     * Instantiates a new ntlm servlet request.</span>
      */
 <span class="nc" id="L53">    private NtlmServletRequest() {</span>
         // Prevent Instantiation of object
-<span class="nc" id="L55">    }</span>
+    }
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

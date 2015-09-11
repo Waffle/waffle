@@ -23,53 +23,61 @@ import java.security.Principal;
  */
 public class RolePrincipal implements Principal, Serializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
-    private final String            fqn;
+
+    /** The fqn. */
+    private final String      fqn;
 
     /**
      * A windows principal.
      * 
      * @param newFqn
-     *            Fully qualified name.
-     */
-<span class="fc" id="L35">    public RolePrincipal(final String newFqn) {</span>
-<span class="fc" id="L36">        this.fqn = newFqn;</span>
-<span class="fc" id="L37">    }</span>
+<span class="fc" id="L36">     *            Fully qualified name.</span>
+<span class="fc" id="L37">     */</span>
+<span class="fc" id="L38">    public RolePrincipal(final String newFqn) {</span>
+        this.fqn = newFqn;
+    }
 
     /**
      * Role name (Windows Group).
+     *
+     * @return the name
      */
-    @Override
+<span class="fc" id="L47">    @Override</span>
     public String getName() {
-<span class="fc" id="L44">        return this.fqn;</span>
+        return this.fqn;
     }
 
     /**
      * Role Principal Equals for FQN.
-     * 
+     *
      * @param o
      *            Object used for Equality Check.
+     * @return true, if successful
      */
     @Override
-    public boolean equals(final Object o) {
+<span class="fc bfc" id="L60" title="All 2 branches covered.">    public boolean equals(final Object o) {</span>
+<span class="fc" id="L61"></span>
+        if (this == o) {
+            return true;
+<span class="fc bfc" id="L64" title="All 2 branches covered.">        }</span>
+<span class="fc" id="L65"></span>
+        if (o instanceof RolePrincipal) {
+            return this.getName().equals(((RolePrincipal) o).getName());
+<span class="fc" id="L68">        }</span>
 
-<span class="fc bfc" id="L56" title="All 2 branches covered.">        if (this == o) {</span>
-<span class="fc" id="L57">            return true;</span>
-        }
-
-<span class="fc bfc" id="L60" title="All 2 branches covered.">        if (o instanceof RolePrincipal) {</span>
-<span class="fc" id="L61">            return this.getName().equals(((RolePrincipal) o).getName());</span>
-        }
-
-<span class="fc" id="L64">        return false;</span>
+        return false;
     }
 
     /**
      * Role Principal HashCode for FQN.
+     *
+     * @return the int
      */
-    @Override
+<span class="fc" id="L78">    @Override</span>
     public int hashCode() {
-<span class="fc" id="L72">        return this.getName().hashCode();</span>
+        return this.getName().hashCode();
     }
 
 }

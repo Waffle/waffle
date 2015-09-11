@@ -51,144 +51,148 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  * @author dblock[at]dblock[dot]org
  */
 public class NegotiateSecurityFilter implements Filter {
-
+<span class="nc" id="L54"></span>
     /** The Constant LOGGER. */
-<span class="nc" id="L56">    private static final Logger              LOGGER              = LoggerFactory</span>
+    private static final Logger              LOGGER              = LoggerFactory
                                                                          .getLogger(NegotiateSecurityFilter.class);
-    
+<span class="nc" id="L58"></span>
     /** The principal format. */
-<span class="nc" id="L60">    private PrincipalFormat                  principalFormat     = PrincipalFormat.FQN;</span>
-    
+    private PrincipalFormat                  principalFormat     = PrincipalFormat.FQN;
+<span class="nc" id="L61"></span>
     /** The role format. */
-<span class="nc" id="L63">    private PrincipalFormat                  roleFormat          = PrincipalFormat.FQN;</span>
-    
+    private PrincipalFormat                  roleFormat          = PrincipalFormat.FQN;
+
     /** The providers. */
     private SecurityFilterProviderCollection providers;
-    
+
     /** The auth. */
     private IWindowsAuthProvider             auth;
-    
+<span class="nc" id="L70"></span>
     /** The allow guest login. */
-<span class="nc" id="L72">    private boolean                          allowGuestLogin     = true;</span>
-    
+    private boolean                          allowGuestLogin     = true;
+
     /** The impersonate. */
     private boolean                          impersonate;
-    
+<span class="nc" id="L76"></span>
     /** The Constant PRINCIPALSESSIONKEY. */
-<span class="nc" id="L78">    private static final String              PRINCIPALSESSIONKEY = NegotiateSecurityFilter.class.getName()</span>
+    private static final String              PRINCIPALSESSIONKEY = NegotiateSecurityFilter.class.getName()
                                                                          + &quot;.PRINCIPAL&quot;;
 
     /**
-     * Instantiates a new negotiate security filter.
-     */
+<span class="nc" id="L82">     * Instantiates a new negotiate security filter.</span>
+<span class="nc" id="L83">     */</span>
 <span class="nc" id="L84">    public NegotiateSecurityFilter() {</span>
-<span class="nc" id="L85">        NegotiateSecurityFilter.LOGGER.debug(&quot;[waffle.servlet.NegotiateSecurityFilter] loaded&quot;);</span>
-<span class="nc" id="L86">    }</span>
+        NegotiateSecurityFilter.LOGGER.debug(&quot;[waffle.servlet.NegotiateSecurityFilter] loaded&quot;);
+    }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.Filter#destroy()
      */
-    @Override
-    public void destroy() {
-<span class="nc" id="L93">        NegotiateSecurityFilter.LOGGER.info(&quot;[waffle.servlet.NegotiateSecurityFilter] stopped&quot;);</span>
-<span class="nc" id="L94">    }</span>
+<span class="nc" id="L92">    @Override</span>
+<span class="nc" id="L93">    public void destroy() {</span>
+        NegotiateSecurityFilter.LOGGER.info(&quot;[waffle.servlet.NegotiateSecurityFilter] stopped&quot;);
+    }
 
-    /* (non-Javadoc)
-     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+    /*
+     * (non-Javadoc)
+     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse,
+     * javax.servlet.FilterChain)
      */
     @Override
     public void doFilter(final ServletRequest sreq, final ServletResponse sres, final FilterChain chain)
-            throws IOException, ServletException {
+<span class="nc" id="L104">            throws IOException, ServletException {</span>
+<span class="nc" id="L105"></span>
+        final HttpServletRequest request = (HttpServletRequest) sreq;
+<span class="nc" id="L107">        final HttpServletResponse response = (HttpServletResponse) sres;</span>
 
-<span class="nc" id="L103">        final HttpServletRequest request = (HttpServletRequest) sreq;</span>
-<span class="nc" id="L104">        final HttpServletResponse response = (HttpServletResponse) sres;</span>
+        NegotiateSecurityFilter.LOGGER.debug(&quot;{} {}, contentlength: {}&quot;, request.getMethod(), request.getRequestURI(),
+<span class="nc bnc" id="L110" title="All 2 branches missed.">                Integer.valueOf(request.getContentLength()));</span>
 
-<span class="nc" id="L106">        NegotiateSecurityFilter.LOGGER.debug(&quot;{} {}, contentlength: {}&quot;, request.getMethod(), request.getRequestURI(),</span>
-                Integer.valueOf(request.getContentLength()));
-
-<span class="nc bnc" id="L109" title="All 2 branches missed.">        if (this.doFilterPrincipal(request, response, chain)) {</span>
+<span class="nc" id="L112">        if (this.doFilterPrincipal(request, response, chain)) {</span>
             // previously authenticated user
-<span class="nc" id="L111">            return;</span>
-        }
+            return;
+<span class="nc" id="L115">        }</span>
 
-<span class="nc" id="L114">        final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);</span>
-
+        final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
+<span class="nc bnc" id="L118" title="All 2 branches missed."></span>
         // authenticate user
-<span class="nc bnc" id="L117" title="All 2 branches missed.">        if (!authorizationHeader.isNull()) {</span>
+        if (!authorizationHeader.isNull()) {
 
             // log the user in using the token
-            IWindowsIdentity windowsIdentity;
-            try {
-<span class="nc" id="L122">                windowsIdentity = this.providers.doFilter(request, response);</span>
-<span class="nc bnc" id="L123" title="All 2 branches missed.">                if (windowsIdentity == null) {</span>
-<span class="nc" id="L124">                    return;</span>
-                }
-<span class="nc" id="L126">            } catch (final IOException e) {</span>
-<span class="nc" id="L127">                NegotiateSecurityFilter.LOGGER.warn(&quot;error logging in user: {}&quot;, e.getMessage());</span>
-<span class="nc" id="L128">                NegotiateSecurityFilter.LOGGER.trace(&quot;{}&quot;, e);</span>
-<span class="nc" id="L129">                this.sendUnauthorized(response, true);</span>
-<span class="nc" id="L130">                return;</span>
-<span class="nc" id="L131">            }</span>
+<span class="nc" id="L123">            IWindowsIdentity windowsIdentity;</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">            try {</span>
+<span class="nc" id="L125">                windowsIdentity = this.providers.doFilter(request, response);</span>
+                if (windowsIdentity == null) {
+<span class="nc" id="L127">                    return;</span>
+<span class="nc" id="L128">                }</span>
+<span class="nc" id="L129">            } catch (final IOException e) {</span>
+<span class="nc" id="L130">                NegotiateSecurityFilter.LOGGER.warn(&quot;error logging in user: {}&quot;, e.getMessage());</span>
+<span class="nc" id="L131">                NegotiateSecurityFilter.LOGGER.trace(&quot;{}&quot;, e);</span>
+<span class="nc" id="L132">                this.sendUnauthorized(response, true);</span>
+                return;
+<span class="nc" id="L134">            }</span>
 
-<span class="nc" id="L133">            IWindowsImpersonationContext ctx = null;</span>
-            try {
-<span class="nc bnc" id="L135" title="All 4 branches missed.">                if (!this.allowGuestLogin &amp;&amp; windowsIdentity.isGuest()) {</span>
-<span class="nc" id="L136">                    NegotiateSecurityFilter.LOGGER.warn(&quot;guest login disabled: {}&quot;, windowsIdentity.getFqn());</span>
-<span class="nc" id="L137">                    this.sendUnauthorized(response, true);</span>
+<span class="nc bnc" id="L136" title="All 4 branches missed.">            IWindowsImpersonationContext ctx = null;</span>
+<span class="nc" id="L137">            try {</span>
+<span class="nc" id="L138">                if (!this.allowGuestLogin &amp;&amp; windowsIdentity.isGuest()) {</span>
+                    NegotiateSecurityFilter.LOGGER.warn(&quot;guest login disabled: {}&quot;, windowsIdentity.getFqn());
+                    this.sendUnauthorized(response, true);
                     return;
+<span class="nc" id="L142">                }</span>
+
+                NegotiateSecurityFilter.LOGGER.debug(&quot;logged in user: {} ({})&quot;, windowsIdentity.getFqn(),
+<span class="nc" id="L145">                        windowsIdentity.getSidString());</span>
+<span class="nc bnc" id="L146" title="All 2 branches missed."></span>
+<span class="nc" id="L147">                final HttpSession session = request.getSession(true);</span>
+                if (session == null) {
+                    throw new ServletException(&quot;Expected HttpSession&quot;);
+<span class="nc" id="L150">                }</span>
+<span class="nc bnc" id="L151" title="All 2 branches missed."></span>
+<span class="nc" id="L152">                Subject subject = (Subject) session.getAttribute(&quot;javax.security.auth.subject&quot;);</span>
+                if (subject == null) {
+                    subject = new Subject();
                 }
-
-<span class="nc" id="L141">                NegotiateSecurityFilter.LOGGER.debug(&quot;logged in user: {} ({})&quot;, windowsIdentity.getFqn(), windowsIdentity.getSidString());</span>
-
-<span class="nc" id="L143">                final HttpSession session = request.getSession(true);</span>
-<span class="nc bnc" id="L144" title="All 2 branches missed.">                if (session == null) {</span>
-<span class="nc" id="L145">                    throw new ServletException(&quot;Expected HttpSession&quot;);</span>
-                }
-
-<span class="nc" id="L148">                Subject subject = (Subject) session.getAttribute(&quot;javax.security.auth.subject&quot;);</span>
-<span class="nc bnc" id="L149" title="All 2 branches missed.">                if (subject == null) {</span>
-<span class="nc" id="L150">                    subject = new Subject();</span>
-                }
-
-<span class="nc" id="L153">                WindowsPrincipal windowsPrincipal = null;</span>
-<span class="nc bnc" id="L154" title="All 2 branches missed.">                if (this.impersonate) {</span>
-<span class="nc" id="L155">                    windowsPrincipal = new AutoDisposableWindowsPrincipal(windowsIdentity, this.principalFormat,</span>
-                            this.roleFormat);
+<span class="nc bnc" id="L156" title="All 2 branches missed."></span>
+<span class="nc" id="L157">                WindowsPrincipal windowsPrincipal;</span>
+                if (this.impersonate) {
+                    windowsPrincipal = new AutoDisposableWindowsPrincipal(windowsIdentity, this.principalFormat,
+<span class="nc" id="L160">                            this.roleFormat);</span>
                 } else {
-<span class="nc" id="L158">                    windowsPrincipal = new WindowsPrincipal(windowsIdentity, this.principalFormat, this.roleFormat);</span>
-                }
+                    windowsPrincipal = new WindowsPrincipal(windowsIdentity, this.principalFormat, this.roleFormat);
+<span class="nc" id="L163">                }</span>
+<span class="nc" id="L164"></span>
+<span class="nc" id="L165">                NegotiateSecurityFilter.LOGGER.debug(&quot;roles: {}&quot;, windowsPrincipal.getRolesString());</span>
+                subject.getPrincipals().add(windowsPrincipal);
+<span class="nc" id="L167">                session.setAttribute(&quot;javax.security.auth.subject&quot;, subject);</span>
 
-<span class="nc" id="L161">                NegotiateSecurityFilter.LOGGER.debug(&quot;roles: {}&quot;, windowsPrincipal.getRolesString());</span>
-<span class="nc" id="L162">                subject.getPrincipals().add(windowsPrincipal);</span>
-<span class="nc" id="L163">                session.setAttribute(&quot;javax.security.auth.subject&quot;, subject);</span>
+<span class="nc" id="L169">                NegotiateSecurityFilter.LOGGER.info(&quot;successfully logged in user: {}&quot;, windowsIdentity.getFqn());</span>
 
-<span class="nc" id="L165">                NegotiateSecurityFilter.LOGGER.info(&quot;successfully logged in user: {}&quot;, windowsIdentity.getFqn());</span>
+<span class="nc" id="L171">                request.getSession().setAttribute(NegotiateSecurityFilter.PRINCIPALSESSIONKEY, windowsPrincipal);</span>
 
-<span class="nc" id="L167">                request.getSession().setAttribute(NegotiateSecurityFilter.PRINCIPALSESSIONKEY, windowsPrincipal);</span>
+<span class="nc bnc" id="L173" title="All 2 branches missed.">                final NegotiateRequestWrapper requestWrapper = new NegotiateRequestWrapper(request, windowsPrincipal);</span>
+<span class="nc" id="L174"></span>
+<span class="nc" id="L175">                if (this.impersonate) {</span>
+                    NegotiateSecurityFilter.LOGGER.debug(&quot;impersonating user&quot;);
+                    ctx = windowsIdentity.impersonate();
+<span class="nc" id="L178">                }</span>
 
-<span class="nc" id="L169">                final NegotiateRequestWrapper requestWrapper = new NegotiateRequestWrapper(request, windowsPrincipal);</span>
-
-<span class="nc bnc" id="L171" title="All 2 branches missed.">                if (this.impersonate) {</span>
-<span class="nc" id="L172">                    NegotiateSecurityFilter.LOGGER.debug(&quot;impersonating user&quot;);</span>
-<span class="nc" id="L173">                    ctx = windowsIdentity.impersonate();</span>
-                }
-
-<span class="nc" id="L176">                chain.doFilter(requestWrapper, response);</span>
-            } finally {
-<span class="nc bnc" id="L178" title="All 12 branches missed.">                if (this.impersonate &amp;&amp; ctx != null) {</span>
-<span class="nc" id="L179">                    NegotiateSecurityFilter.LOGGER.debug(&quot;terminating impersonation&quot;);</span>
-<span class="nc" id="L180">                    ctx.revertToSelf();</span>
+<span class="nc bnc" id="L180" title="All 12 branches missed.">                chain.doFilter(requestWrapper, response);</span>
+<span class="nc" id="L181">            } finally {</span>
+<span class="nc" id="L182">                if (this.impersonate &amp;&amp; ctx != null) {</span>
+                    NegotiateSecurityFilter.LOGGER.debug(&quot;terminating impersonation&quot;);
+<span class="nc" id="L184">                    ctx.revertToSelf();</span>
                 } else {
-<span class="nc" id="L182">                    windowsIdentity.dispose();</span>
+<span class="nc" id="L186">                    windowsIdentity.dispose();</span>
                 }
-<span class="nc" id="L184">            }</span>
+<span class="nc" id="L188">            }</span>
 
-<span class="nc" id="L186">            return;</span>
-        }
-
-<span class="nc" id="L189">        NegotiateSecurityFilter.LOGGER.debug(&quot;authorization required&quot;);</span>
-<span class="nc" id="L190">        this.sendUnauthorized(response, false);</span>
-<span class="nc" id="L191">    }</span>
+            return;
+<span class="nc" id="L191">        }</span>
+<span class="nc" id="L192"></span>
+<span class="nc" id="L193">        NegotiateSecurityFilter.LOGGER.debug(&quot;authorization required&quot;);</span>
+        this.sendUnauthorized(response, false);
+    }
 
     /**
      * Filter for a previously logged on user.
@@ -205,191 +209,179 @@ public class NegotiateSecurityFilter implements Filter {
      * @throws ServletException
      *             the servlet exception
      */
-    private boolean doFilterPrincipal(final HttpServletRequest request, final HttpServletResponse response,
-            final FilterChain chain) throws IOException, ServletException {
-<span class="nc" id="L210">        Principal principal = request.getUserPrincipal();</span>
-<span class="nc bnc" id="L211" title="All 2 branches missed.">        if (principal == null) {</span>
-<span class="nc" id="L212">            final HttpSession session = request.getSession(false);</span>
-<span class="nc bnc" id="L213" title="All 2 branches missed.">            if (session != null) {</span>
-<span class="nc" id="L214">                principal = (Principal) session.getAttribute(NegotiateSecurityFilter.PRINCIPALSESSIONKEY);</span>
+<span class="nc" id="L212">    private boolean doFilterPrincipal(final HttpServletRequest request, final HttpServletResponse response,</span>
+<span class="nc bnc" id="L213" title="All 2 branches missed.">            final FilterChain chain) throws IOException, ServletException {</span>
+<span class="nc" id="L214">        Principal principal = request.getUserPrincipal();</span>
+<span class="nc bnc" id="L215" title="All 2 branches missed.">        if (principal == null) {</span>
+<span class="nc" id="L216">            final HttpSession session = request.getSession(false);</span>
+            if (session != null) {
+                principal = (Principal) session.getAttribute(NegotiateSecurityFilter.PRINCIPALSESSIONKEY);
             }
-        }
+<span class="nc bnc" id="L220" title="All 2 branches missed.">        }</span>
 
-<span class="nc bnc" id="L218" title="All 2 branches missed.">        if (principal == null) {</span>
+<span class="nc" id="L222">        if (principal == null) {</span>
             // no principal in this request
-<span class="nc" id="L220">            return false;</span>
-        }
+            return false;
+<span class="nc bnc" id="L225" title="All 2 branches missed.">        }</span>
 
-<span class="nc bnc" id="L223" title="All 2 branches missed.">        if (this.providers.isPrincipalException(request)) {</span>
+<span class="nc" id="L227">        if (this.providers.isPrincipalException(request)) {</span>
             // the providers signal to authenticate despite an existing principal, eg. NTLM post
-<span class="nc" id="L225">            return false;</span>
+            return false;
         }
 
-        // user already authenticated
+<span class="nc bnc" id="L232" title="All 2 branches missed.">        // user already authenticated</span>
+<span class="nc" id="L233"></span>
+<span class="nc" id="L234">        if (principal instanceof WindowsPrincipal) {</span>
+            NegotiateSecurityFilter.LOGGER.debug(&quot;previously authenticated Windows user: {}&quot;, principal.getName());
+<span class="nc bnc" id="L236" title="All 4 branches missed.">            final WindowsPrincipal windowsPrincipal = (WindowsPrincipal) principal;</span>
 
-<span class="nc bnc" id="L230" title="All 2 branches missed.">        if (principal instanceof WindowsPrincipal) {</span>
-<span class="nc" id="L231">            NegotiateSecurityFilter.LOGGER.debug(&quot;previously authenticated Windows user: {}&quot;, principal.getName());</span>
-<span class="nc" id="L232">            final WindowsPrincipal windowsPrincipal = (WindowsPrincipal) principal;</span>
-
-<span class="nc bnc" id="L234" title="All 4 branches missed.">            if (this.impersonate &amp;&amp; windowsPrincipal.getIdentity() == null) {</span>
+            if (this.impersonate &amp;&amp; windowsPrincipal.getIdentity() == null) {
                 // This can happen when the session has been serialized then de-serialized
-                // and because the IWindowsIdentity field is transient. In this case re-ask an
+<span class="nc" id="L240">                // and because the IWindowsIdentity field is transient. In this case re-ask an</span>
                 // authentication to get a new identity.
-<span class="nc" id="L238">                return false;</span>
-            }
+                return false;
+<span class="nc" id="L243">            }</span>
 
-<span class="nc" id="L241">            final NegotiateRequestWrapper requestWrapper = new NegotiateRequestWrapper(request, windowsPrincipal);</span>
-
-<span class="nc" id="L243">            IWindowsImpersonationContext ctx = null;</span>
-<span class="nc bnc" id="L244" title="All 2 branches missed.">            if (this.impersonate) {</span>
-<span class="nc" id="L245">                NegotiateSecurityFilter.LOGGER.debug(&quot;re-impersonating user&quot;);</span>
-<span class="nc" id="L246">                ctx = windowsPrincipal.getIdentity().impersonate();</span>
-            }
+<span class="nc" id="L245">            final NegotiateRequestWrapper requestWrapper = new NegotiateRequestWrapper(request, windowsPrincipal);</span>
+<span class="nc bnc" id="L246" title="All 2 branches missed."></span>
+<span class="nc" id="L247">            IWindowsImpersonationContext ctx = null;</span>
+<span class="nc" id="L248">            if (this.impersonate) {</span>
+                NegotiateSecurityFilter.LOGGER.debug(&quot;re-impersonating user&quot;);
+                ctx = windowsPrincipal.getIdentity().impersonate();
+<span class="nc" id="L251">            }</span>
             try {
-<span class="nc" id="L249">                chain.doFilter(requestWrapper, response);</span>
-            } finally {
-<span class="nc bnc" id="L251" title="All 8 branches missed.">                if (this.impersonate &amp;&amp; ctx != null) {</span>
-<span class="nc" id="L252">                    NegotiateSecurityFilter.LOGGER.debug(&quot;terminating impersonation&quot;);</span>
-<span class="nc" id="L253">                    ctx.revertToSelf();</span>
-                }
-            }
-<span class="nc" id="L256">        } else {</span>
-<span class="nc" id="L257">            NegotiateSecurityFilter.LOGGER.debug(&quot;previously authenticated user: {}&quot;, principal.getName());</span>
-<span class="nc" id="L258">            chain.doFilter(request, response);</span>
+<span class="nc bnc" id="L253" title="All 8 branches missed.">                chain.doFilter(requestWrapper, response);</span>
+<span class="nc" id="L254">            } finally {</span>
+<span class="nc" id="L255">                if (this.impersonate &amp;&amp; ctx != null) {</span>
+                    NegotiateSecurityFilter.LOGGER.debug(&quot;terminating impersonation&quot;);
+                    ctx.revertToSelf();
+<span class="nc" id="L258">                }</span>
+<span class="nc" id="L259">            }</span>
+<span class="nc" id="L260">        } else {</span>
+            NegotiateSecurityFilter.LOGGER.debug(&quot;previously authenticated user: {}&quot;, principal.getName());
+<span class="nc" id="L262">            chain.doFilter(request, response);</span>
         }
-<span class="nc" id="L260">        return true;</span>
+        return true;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
      */
     @SuppressWarnings(&quot;unchecked&quot;)
-    @Override
+<span class="nc" id="L272">    @Override</span>
     public void init(final FilterConfig filterConfig) throws ServletException {
-<span class="nc" id="L269">        final Map&lt;String, String&gt; implParameters = new HashMap&lt;String, String&gt;();</span>
-
-<span class="nc" id="L271">        String authProvider = null;</span>
-<span class="nc" id="L272">        String[] providerNames = null;</span>
-<span class="nc bnc" id="L273" title="All 2 branches missed.">        if (filterConfig != null) {</span>
-<span class="nc" id="L274">            final Enumeration&lt;String&gt; parameterNames = filterConfig.getInitParameterNames();</span>
-<span class="nc bnc" id="L275" title="All 2 branches missed.">            while (parameterNames.hasMoreElements()) {</span>
-<span class="nc" id="L276">                final String parameterName = parameterNames.nextElement();</span>
-<span class="nc" id="L277">                final String parameterValue = filterConfig.getInitParameter(parameterName);</span>
-<span class="nc" id="L278">                NegotiateSecurityFilter.LOGGER.debug(&quot;{}={}&quot;, parameterName, parameterValue);</span>
-<span class="nc bnc" id="L279" title="All 2 branches missed.">                if (parameterName.equals(&quot;principalFormat&quot;)) {</span>
-<span class="nc" id="L280">                    this.principalFormat = PrincipalFormat.valueOf(parameterValue.toUpperCase(Locale.ENGLISH));</span>
-<span class="nc bnc" id="L281" title="All 2 branches missed.">                } else if (parameterName.equals(&quot;roleFormat&quot;)) {</span>
-<span class="nc" id="L282">                    this.roleFormat = PrincipalFormat.valueOf(parameterValue.toUpperCase(Locale.ENGLISH));</span>
-<span class="nc bnc" id="L283" title="All 2 branches missed.">                } else if (parameterName.equals(&quot;allowGuestLogin&quot;)) {</span>
-<span class="nc" id="L284">                    this.allowGuestLogin = Boolean.parseBoolean(parameterValue);</span>
-<span class="nc bnc" id="L285" title="All 2 branches missed.">                } else if (parameterName.equals(&quot;impersonate&quot;)) {</span>
-<span class="nc" id="L286">                    this.impersonate = Boolean.parseBoolean(parameterValue);</span>
-<span class="nc bnc" id="L287" title="All 2 branches missed.">                } else if (parameterName.equals(&quot;securityFilterProviders&quot;)) {</span>
-<span class="nc" id="L288">                    providerNames = parameterValue.split(&quot;\\s+&quot;);</span>
-<span class="nc bnc" id="L289" title="All 2 branches missed.">                } else if (parameterName.equals(&quot;authProvider&quot;)) {</span>
-<span class="nc" id="L290">                    authProvider = parameterValue;</span>
-                } else {
-<span class="nc" id="L292">                    implParameters.put(parameterName, parameterValue);</span>
+<span class="nc" id="L274">        final Map&lt;String, String&gt; implParameters = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L275"></span>
+<span class="nc bnc" id="L276" title="All 2 branches missed.">        String authProvider = null;</span>
+<span class="nc" id="L277">        String[] providerNames = null;</span>
+<span class="nc bnc" id="L278" title="All 2 branches missed.">        if (filterConfig != null) {</span>
+<span class="nc" id="L279">            final Enumeration&lt;String&gt; parameterNames = filterConfig.getInitParameterNames();</span>
+<span class="nc" id="L280">            while (parameterNames.hasMoreElements()) {</span>
+<span class="nc" id="L281">                final String parameterName = parameterNames.nextElement();</span>
+<span class="nc bnc" id="L282" title="All 26 branches missed.">                final String parameterValue = filterConfig.getInitParameter(parameterName);</span>
+                NegotiateSecurityFilter.LOGGER.debug(&quot;{}={}&quot;, parameterName, parameterValue);
+<span class="nc" id="L284">                switch (parameterName) {</span>
+<span class="nc" id="L285">                    case &quot;principalFormat&quot;:</span>
+                        this.principalFormat = PrincipalFormat.valueOf(parameterValue.toUpperCase(Locale.ENGLISH));
+<span class="nc" id="L287">                        break;</span>
+<span class="nc" id="L288">                    case &quot;roleFormat&quot;:</span>
+                        this.roleFormat = PrincipalFormat.valueOf(parameterValue.toUpperCase(Locale.ENGLISH));
+<span class="nc" id="L290">                        break;</span>
+<span class="nc" id="L291">                    case &quot;allowGuestLogin&quot;:</span>
+                        this.allowGuestLogin = Boolean.parseBoolean(parameterValue);
+<span class="nc" id="L293">                        break;</span>
+<span class="nc" id="L294">                    case &quot;impersonate&quot;:</span>
+                        this.impersonate = Boolean.parseBoolean(parameterValue);
+<span class="nc" id="L296">                        break;</span>
+<span class="nc" id="L297">                    case &quot;securityFilterProviders&quot;:</span>
+                        providerNames = parameterValue.split(&quot;\\s+&quot;);
+<span class="nc" id="L299">                        break;</span>
+<span class="nc" id="L300">                    case &quot;authProvider&quot;:</span>
+                        authProvider = parameterValue;
+<span class="nc" id="L302">                        break;</span>
+                    default:
+                        implParameters.put(parameterName, parameterValue);
+<span class="nc" id="L305">                        break;</span>
                 }
-<span class="nc" id="L294">            }</span>
-        }
-
-<span class="nc bnc" id="L297" title="All 2 branches missed.">        if (authProvider != null) {</span>
-            try {
-<span class="nc" id="L299">                this.auth = (IWindowsAuthProvider) Class.forName(authProvider).getConstructor().newInstance();</span>
-<span class="nc" id="L300">            } catch (final ClassNotFoundException e) {</span>
-<span class="nc" id="L301">                NegotiateSecurityFilter.LOGGER.error(&quot;error loading '{}': {}&quot;, authProvider, e.getMessage());</span>
-<span class="nc" id="L302">                NegotiateSecurityFilter.LOGGER.trace(&quot;{}&quot;, e);</span>
-<span class="nc" id="L303">                throw new ServletException(e);</span>
-<span class="nc" id="L304">            } catch (final IllegalArgumentException e) {</span>
-<span class="nc" id="L305">                NegotiateSecurityFilter.LOGGER.error(&quot;error loading '{}': {}&quot;, authProvider, e.getMessage());</span>
-<span class="nc" id="L306">                NegotiateSecurityFilter.LOGGER.trace(&quot;{}&quot;, e);</span>
-<span class="nc" id="L307">                throw new ServletException(e);</span>
-<span class="nc" id="L308">            } catch (final SecurityException e) {</span>
-<span class="nc" id="L309">                NegotiateSecurityFilter.LOGGER.error(&quot;error loading '{}': {}&quot;, authProvider, e.getMessage());</span>
-<span class="nc" id="L310">                NegotiateSecurityFilter.LOGGER.trace(&quot;{}&quot;, e);</span>
-<span class="nc" id="L311">                throw new ServletException(e);</span>
-<span class="nc" id="L312">            } catch (final InstantiationException e) {</span>
-<span class="nc" id="L313">                NegotiateSecurityFilter.LOGGER.error(&quot;error loading '{}': {}&quot;, authProvider, e.getMessage());</span>
-<span class="nc" id="L314">                NegotiateSecurityFilter.LOGGER.trace(&quot;{}&quot;, e);</span>
-<span class="nc" id="L315">                throw new ServletException(e);</span>
-<span class="nc" id="L316">            } catch (final IllegalAccessException e) {</span>
-<span class="nc" id="L317">                NegotiateSecurityFilter.LOGGER.error(&quot;error loading '{}': {}&quot;, authProvider, e.getMessage());</span>
-<span class="nc" id="L318">                NegotiateSecurityFilter.LOGGER.trace(&quot;{}&quot;, e);</span>
-<span class="nc" id="L319">                throw new ServletException(e);</span>
-<span class="nc" id="L320">            } catch (final InvocationTargetException e) {</span>
-<span class="nc" id="L321">                NegotiateSecurityFilter.LOGGER.error(&quot;error loading '{}': {}&quot;, authProvider, e.getMessage());</span>
-<span class="nc" id="L322">                NegotiateSecurityFilter.LOGGER.trace(&quot;{}&quot;, e);</span>
-<span class="nc" id="L323">                throw new ServletException(e);</span>
-<span class="nc" id="L324">            } catch (final NoSuchMethodException e) {</span>
-<span class="nc" id="L325">                NegotiateSecurityFilter.LOGGER.error(&quot;error loading '{}': {}&quot;, authProvider, e.getMessage());</span>
-<span class="nc" id="L326">                NegotiateSecurityFilter.LOGGER.trace(&quot;{}&quot;, e);</span>
-<span class="nc" id="L327">                throw new ServletException(e);</span>
-<span class="nc" id="L328">            }</span>
-        }
-
-<span class="nc bnc" id="L331" title="All 2 branches missed.">        if (this.auth == null) {</span>
-<span class="nc" id="L332">            this.auth = new WindowsAuthProviderImpl();</span>
-        }
-
-<span class="nc bnc" id="L335" title="All 2 branches missed.">        if (providerNames != null) {</span>
-<span class="nc" id="L336">            this.providers = new SecurityFilterProviderCollection(providerNames, this.auth);</span>
-        }
-
-        // create default providers if none specified
-<span class="nc bnc" id="L340" title="All 2 branches missed.">        if (this.providers == null) {</span>
-<span class="nc" id="L341">            NegotiateSecurityFilter.LOGGER.debug(&quot;initializing default security filter providers&quot;);</span>
-<span class="nc" id="L342">            this.providers = new SecurityFilterProviderCollection(this.auth);</span>
-        }
-
-        // apply provider implementation parameters
-<span class="nc bnc" id="L346" title="All 2 branches missed.">        for (final Entry&lt;String, String&gt; implParameter : implParameters.entrySet()) {</span>
-<span class="nc" id="L347">            final String[] classAndParameter = implParameter.getKey().split(&quot;/&quot;, 2);</span>
-<span class="nc bnc" id="L348" title="All 2 branches missed.">            if (classAndParameter.length == 2) {</span>
-                try {
-
-<span class="nc" id="L351">                    NegotiateSecurityFilter.LOGGER.debug(&quot;setting {}, {}={}&quot;, classAndParameter[0], classAndParameter[1],</span>
-                            implParameter.getValue());
-
-<span class="nc" id="L354">                    final SecurityFilterProvider provider = this.providers.getByClassName(classAndParameter[0]);</span>
-<span class="nc" id="L355">                    provider.initParameter(classAndParameter[1], implParameter.getValue());</span>
-
-<span class="nc" id="L357">                } catch (final ClassNotFoundException e) {</span>
-<span class="nc" id="L358">                    NegotiateSecurityFilter.LOGGER.error(&quot;invalid class: {} in {}&quot;, classAndParameter[0], implParameter.getKey());</span>
-<span class="nc" id="L359">                    throw new ServletException(e);</span>
-<span class="nc" id="L360">                } catch (final Exception e) {</span>
-<span class="nc" id="L361">                    NegotiateSecurityFilter.LOGGER.error(&quot;{}: error setting '{}': {}&quot;, classAndParameter[0], classAndParameter[1],</span>
-                            e.getMessage());
-<span class="nc" id="L363">                    NegotiateSecurityFilter.LOGGER.trace(&quot;{}&quot;, e);</span>
-<span class="nc" id="L364">                    throw new ServletException(e);</span>
-<span class="nc" id="L365">                }</span>
-            } else {
-<span class="nc" id="L367">                NegotiateSecurityFilter.LOGGER.error(&quot;Invalid parameter: {}&quot;, implParameter.getKey());</span>
-<span class="nc" id="L368">                throw new ServletException(&quot;Invalid parameter: &quot; + implParameter.getKey());</span>
             }
-<span class="nc" id="L370">        }</span>
+<span class="nc bnc" id="L308" title="All 2 branches missed.">        }</span>
 
-<span class="nc" id="L372">        NegotiateSecurityFilter.LOGGER.info(&quot;[waffle.servlet.NegotiateSecurityFilter] started&quot;);</span>
-<span class="nc" id="L373">    }</span>
+<span class="nc" id="L310">        if (authProvider != null) {</span>
+<span class="nc" id="L311">            try {</span>
+                this.auth = (IWindowsAuthProvider) Class.forName(authProvider).getConstructor().newInstance();
+            } catch (final ClassNotFoundException | IllegalArgumentException | SecurityException
+<span class="nc" id="L314">                    | InstantiationException | IllegalAccessException | InvocationTargetException</span>
+<span class="nc" id="L315">                    | NoSuchMethodException e) {</span>
+<span class="nc" id="L316">                NegotiateSecurityFilter.LOGGER.error(&quot;error loading '{}': {}&quot;, authProvider, e.getMessage());</span>
+<span class="nc" id="L317">                NegotiateSecurityFilter.LOGGER.trace(&quot;{}&quot;, e);</span>
+                throw new ServletException(e);
+            }
+<span class="nc bnc" id="L320" title="All 2 branches missed.">        }</span>
+<span class="nc" id="L321"></span>
+        if (this.auth == null) {
+            this.auth = new WindowsAuthProviderImpl();
+<span class="nc bnc" id="L324" title="All 2 branches missed.">        }</span>
+<span class="nc" id="L325"></span>
+        if (providerNames != null) {
+            this.providers = new SecurityFilterProviderCollection(providerNames, this.auth);
+        }
+<span class="nc bnc" id="L329" title="All 2 branches missed."></span>
+<span class="nc" id="L330">        // create default providers if none specified</span>
+<span class="nc" id="L331">        if (this.providers == null) {</span>
+            NegotiateSecurityFilter.LOGGER.debug(&quot;initializing default security filter providers&quot;);
+            this.providers = new SecurityFilterProviderCollection(this.auth);
+        }
+<span class="nc bnc" id="L335" title="All 2 branches missed."></span>
+<span class="nc" id="L336">        // apply provider implementation parameters</span>
+<span class="nc bnc" id="L337" title="All 2 branches missed.">        for (final Entry&lt;String, String&gt; implParameter : implParameters.entrySet()) {</span>
+            final String[] classAndParameter = implParameter.getKey().split(&quot;/&quot;, 2);
+            if (classAndParameter.length == 2) {
+<span class="nc" id="L340">                try {</span>
+
+                    NegotiateSecurityFilter.LOGGER.debug(&quot;setting {}, {}={}&quot;, classAndParameter[0],
+<span class="nc" id="L343">                            classAndParameter[1], implParameter.getValue());</span>
+<span class="nc" id="L344"></span>
+                    final SecurityFilterProvider provider = this.providers.getByClassName(classAndParameter[0]);
+<span class="nc" id="L346">                    provider.initParameter(classAndParameter[1], implParameter.getValue());</span>
+<span class="nc" id="L347"></span>
+                } catch (final ClassNotFoundException e) {
+<span class="nc" id="L349">                    NegotiateSecurityFilter.LOGGER.error(&quot;invalid class: {} in {}&quot;, classAndParameter[0],</span>
+<span class="nc" id="L350">                            implParameter.getKey());</span>
+<span class="nc" id="L351">                    throw new ServletException(e);</span>
+                } catch (final Exception e) {
+<span class="nc" id="L353">                    NegotiateSecurityFilter.LOGGER.error(&quot;{}: error setting '{}': {}&quot;, classAndParameter[0],</span>
+<span class="nc" id="L354">                            classAndParameter[1], e.getMessage());</span>
+<span class="nc" id="L355">                    NegotiateSecurityFilter.LOGGER.trace(&quot;{}&quot;, e);</span>
+                    throw new ServletException(e);
+<span class="nc" id="L357">                }</span>
+<span class="nc" id="L358">            } else {</span>
+                NegotiateSecurityFilter.LOGGER.error(&quot;Invalid parameter: {}&quot;, implParameter.getKey());
+<span class="nc" id="L360">                throw new ServletException(&quot;Invalid parameter: &quot; + implParameter.getKey());</span>
+            }
+<span class="nc" id="L362">        }</span>
+<span class="nc" id="L363"></span>
+        NegotiateSecurityFilter.LOGGER.info(&quot;[waffle.servlet.NegotiateSecurityFilter] started&quot;);
+    }
 
     /**
      * Set the principal format.
      * 
      * @param format
      *            Principal format.
-     */
-    public void setPrincipalFormat(final String format) {
-<span class="nc" id="L382">        this.principalFormat = PrincipalFormat.valueOf(format.toUpperCase(Locale.ENGLISH));</span>
-<span class="nc" id="L383">        NegotiateSecurityFilter.LOGGER.info(&quot;principal format: {}&quot;, this.principalFormat);</span>
-<span class="nc" id="L384">    }</span>
+<span class="nc" id="L372">     */</span>
+<span class="nc" id="L373">    public void setPrincipalFormat(final String format) {</span>
+<span class="nc" id="L374">        this.principalFormat = PrincipalFormat.valueOf(format.toUpperCase(Locale.ENGLISH));</span>
+        NegotiateSecurityFilter.LOGGER.info(&quot;principal format: {}&quot;, this.principalFormat);
+    }
 
     /**
      * Principal format.
      * 
      * @return Principal format.
-     */
+<span class="nc" id="L382">     */</span>
     public PrincipalFormat getPrincipalFormat() {
-<span class="nc" id="L392">        return this.principalFormat;</span>
+        return this.principalFormat;
     }
 
     /**
@@ -397,19 +389,19 @@ public class NegotiateSecurityFilter implements Filter {
      * 
      * @param format
      *            Role format.
-     */
-    public void setRoleFormat(final String format) {
-<span class="nc" id="L402">        this.roleFormat = PrincipalFormat.valueOf(format.toUpperCase(Locale.ENGLISH));</span>
-<span class="nc" id="L403">        NegotiateSecurityFilter.LOGGER.info(&quot;role format: {}&quot;, this.roleFormat);</span>
-<span class="nc" id="L404">    }</span>
+<span class="nc" id="L392">     */</span>
+<span class="nc" id="L393">    public void setRoleFormat(final String format) {</span>
+<span class="nc" id="L394">        this.roleFormat = PrincipalFormat.valueOf(format.toUpperCase(Locale.ENGLISH));</span>
+        NegotiateSecurityFilter.LOGGER.info(&quot;role format: {}&quot;, this.roleFormat);
+    }
 
     /**
      * Principal format.
      * 
      * @return Role format.
-     */
+<span class="nc" id="L402">     */</span>
     public PrincipalFormat getRoleFormat() {
-<span class="nc" id="L412">        return this.roleFormat;</span>
+        return this.roleFormat;
     }
 
     /**
@@ -420,28 +412,28 @@ public class NegotiateSecurityFilter implements Filter {
      * @param close
      *            Close connection.
      */
-    private void sendUnauthorized(final HttpServletResponse response, final boolean close) {
-        try {
-<span class="nc" id="L425">            this.providers.sendUnauthorized(response);</span>
-<span class="nc bnc" id="L426" title="All 2 branches missed.">            if (close) {</span>
-<span class="nc" id="L427">                response.setHeader(&quot;Connection&quot;, &quot;close&quot;);</span>
+<span class="nc" id="L415">    private void sendUnauthorized(final HttpServletResponse response, final boolean close) {</span>
+<span class="nc bnc" id="L416" title="All 2 branches missed.">        try {</span>
+<span class="nc" id="L417">            this.providers.sendUnauthorized(response);</span>
+            if (close) {
+<span class="nc" id="L419">                response.setHeader(&quot;Connection&quot;, &quot;close&quot;);</span>
             } else {
-<span class="nc" id="L429">                response.setHeader(&quot;Connection&quot;, &quot;keep-alive&quot;);</span>
-            }
-<span class="nc" id="L431">            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);</span>
-<span class="nc" id="L432">            response.flushBuffer();</span>
-<span class="nc" id="L433">        } catch (final IOException e) {</span>
-<span class="nc" id="L434">            throw new RuntimeException(e);</span>
-<span class="nc" id="L435">        }</span>
-<span class="nc" id="L436">    }</span>
+<span class="nc" id="L421">                response.setHeader(&quot;Connection&quot;, &quot;keep-alive&quot;);</span>
+<span class="nc" id="L422">            }</span>
+<span class="nc" id="L423">            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);</span>
+<span class="nc" id="L424">            response.flushBuffer();</span>
+<span class="nc" id="L425">        } catch (final IOException e) {</span>
+<span class="nc" id="L426">            throw new RuntimeException(e);</span>
+        }
+    }
 
     /**
      * Windows auth provider.
      * 
      * @return IWindowsAuthProvider.
-     */
+<span class="nc" id="L434">     */</span>
     public IWindowsAuthProvider getAuth() {
-<span class="nc" id="L444">        return this.auth;</span>
+        return this.auth;
     }
 
     /**
@@ -449,18 +441,18 @@ public class NegotiateSecurityFilter implements Filter {
      * 
      * @param provider
      *            Class implements IWindowsAuthProvider.
-     */
-    public void setAuth(final IWindowsAuthProvider provider) {
-<span class="nc" id="L454">        this.auth = provider;</span>
-<span class="nc" id="L455">    }</span>
+<span class="nc" id="L444">     */</span>
+<span class="nc" id="L445">    public void setAuth(final IWindowsAuthProvider provider) {</span>
+        this.auth = provider;
+    }
 
     /**
      * True if guest login is allowed.
      * 
      * @return True if guest login is allowed, false otherwise.
-     */
+<span class="nc" id="L453">     */</span>
     public boolean isAllowGuestLogin() {
-<span class="nc" id="L463">        return this.allowGuestLogin;</span>
+        return this.allowGuestLogin;
     }
 
     /**
@@ -468,27 +460,27 @@ public class NegotiateSecurityFilter implements Filter {
      *
      * @param value
      *            true to enable impersonation, false otherwise
-     */
-    public void setImpersonate(final boolean value) {
-<span class="nc" id="L473">        this.impersonate = value;</span>
-<span class="nc" id="L474">    }</span>
+<span class="nc" id="L463">     */</span>
+<span class="nc" id="L464">    public void setImpersonate(final boolean value) {</span>
+        this.impersonate = value;
+    }
 
     /**
      * Checks if is impersonate.
      *
      * @return true if impersonation is enabled, false otherwise
-     */
+<span class="nc" id="L472">     */</span>
     public boolean isImpersonate() {
-<span class="nc" id="L482">        return this.impersonate;</span>
+        return this.impersonate;
     }
 
     /**
      * Security filter providers.
      * 
      * @return A collection of security filter providers.
-     */
+<span class="nc" id="L481">     */</span>
     public SecurityFilterProviderCollection getProviders() {
-<span class="nc" id="L491">        return this.providers;</span>
+        return this.providers;
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
