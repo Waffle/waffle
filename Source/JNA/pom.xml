@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.sonatype.oss</groupId>
-        <artifactId>oss-parent</artifactId>
-        <version>9</version>
-        <relativePath />
-    </parent>
     <groupId>com.github.dblock.waffle</groupId>
     <artifactId>waffle-parent</artifactId>
     <version>1.7.4</version>
@@ -98,6 +92,14 @@
             <name>Waffle GitHub Pages</name>
             <url>git:ssh://git@github.com/dblock/waffle.git?gh-pages#</url>
         </site>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
     </distributionManagement>
     <properties>
         <copyright>2015</copyright>
@@ -327,6 +329,9 @@
                     <version>2.5.2</version>
                     <configuration>
                         <autoVersionSubmodules>true</autoVersionSubmodules>
+                        <useReleaseProfile>false</useReleaseProfile>
+                        <releaseProfiles>release</releaseProfiles>
+                        <goals>deploy</goals>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -488,6 +493,7 @@
                     <artifactId>wagon-maven-plugin</artifactId>
                     <version>1.0</version>
                 </plugin>
+                <!-- Animal Sniffer -->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>animal-sniffer-maven-plugin</artifactId>
@@ -500,10 +506,23 @@
                         </signature>
                     </configuration>
                 </plugin>
+                <!-- Owasp Dependency Scan -->
                 <plugin>
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
                     <version>1.2.10</version>
+                </plugin>
+                <!-- Sonatype Release -->
+                <plugin>
+                    <groupId>org.sonatype.plugins</groupId>
+                    <artifactId>nexus-staging-maven-plugin</artifactId>
+                    <version>1.6.6</version>
+                    <extensions>true</extensions>
+                    <configuration>
+                        <serverId>ossrh</serverId>
+                        <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                        <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
