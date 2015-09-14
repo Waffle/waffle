@@ -4,10 +4,10 @@
     <parent>
         <groupId>com.github.dblock.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
-        <version>1.8.0-SNAPSHOT</version>
+        <version>1.8.1-SNAPSHOT</version>
     </parent>
     <artifactId>waffle-tomcat7</artifactId>
-    <version>1.8.0-SNAPSHOT</version>
+    <version>1.8.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>waffle-tomcat7</name>
     <description>Tomcat 7 integration for WAFFLE</description>

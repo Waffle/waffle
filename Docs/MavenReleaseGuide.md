@@ -86,7 +86,7 @@ The release plugin can be quite tricky.  Recently, we ran into issues trying to 
 
 If release plugin fails and versions are all essentially flagged for release version.  Simply use this then follow the remainder of the release process.
 
-   mvn deploy -Psonatype-oss-release
+   mvn deploy -Prelease
 
 After deployment in this case, make sure to set everything manually back to next snapshot release.
 

@@ -4,10 +4,10 @@
     <parent>
         <groupId>com.github.dblock.waffle.demo</groupId>
         <artifactId>waffle-demo-parent</artifactId>
-        <version>1.8.0-SNAPSHOT</version>
+        <version>1.8.1-SNAPSHOT</version>
     </parent>
     <artifactId>waffle-spring-filter</artifactId>
-    <version>1.8.0-SNAPSHOT</version>
+    <version>1.8.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>waffle-spring-filter</name>
     <description>Spring Filter Demo for WAFFLE</description>
