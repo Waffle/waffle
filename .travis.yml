@@ -30,4 +30,4 @@ before_script:
 script: if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then mvn clean install -DskipTests=true; fi
 
 after_success:
-  - mvn clean test jacoco:report coveralls:jacoco
+  - mvn clean test jacoco:report coveralls:report
