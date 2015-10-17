@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -27,20 +27,37 @@ import javax.servlet.ServletResponse;
  */
 public class SimpleFilterChain implements FilterChain {
 
+    /** The request. */
     private ServletRequest  request;
+
+    /** The response. */
     private ServletResponse response;
 
+    /*
+     * (non-Javadoc)
+     * @see javax.servlet.FilterChain#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+     */
+    @Override
+    public void doFilter(final ServletRequest sreq, final ServletResponse srep) throws IOException, ServletException {
+        this.request = sreq;
+        this.response = srep;
+    }
+
+    /**
+     * Gets the request.
+     *
+     * @return the request
+     */
     public ServletRequest getRequest() {
         return this.request;
     }
 
+    /**
+     * Gets the response.
+     *
+     * @return the response
+     */
     public ServletResponse getResponse() {
         return this.response;
-    }
-
-    @Override
-    public void doFilter(ServletRequest sreq, ServletResponse srep) throws IOException, ServletException {
-        this.request = sreq;
-        this.response = srep;
     }
 }

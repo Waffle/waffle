@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -20,15 +20,25 @@ import org.junit.Rule;
 import org.junit.Test;
 
 /**
+ * The Class WindowsAuthProviderLoadTests.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsAuthProviderLoadTests {
 
+    /** The conti perf rule. */
     @Rule
-    public ContiPerfRule             contiPerfRule = new ContiPerfRule();
+    public ContiPerfRule                   contiPerfRule = new ContiPerfRule();
 
-    private WindowsAuthProviderTests tests         = new WindowsAuthProviderTests();
+    /** The tests. */
+    private final WindowsAuthProviderTests tests         = new WindowsAuthProviderTests();
 
+    /**
+     * Test load.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     @Test
     @PerfTest(invocations = 10, threads = 10)
     public void testLoad() throws Throwable {

@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -49,26 +49,49 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  */
 public class WindowsLoginModule implements LoginModule {
 
+    /** The Constant LOGGER. */
     private static final Logger  LOGGER          = LoggerFactory.getLogger(WindowsLoginModule.class);
 
+    /** The username. */
     private String               username;
+
+    /** The debug. */
     private boolean              debug;
+
+    /** The subject. */
     private Subject              subject;
+
+    /** The callback handler. */
     private CallbackHandler      callbackHandler;
+
+    /** The auth. */
     private IWindowsAuthProvider auth            = new WindowsAuthProviderImpl();
+
+    /** The principals. */
     private Set<Principal>       principals;
+
+    /** The principal format. */
     private PrincipalFormat      principalFormat = PrincipalFormat.FQN;
+
+    /** The role format. */
     private PrincipalFormat      roleFormat      = PrincipalFormat.FQN;
+
+    /** The allow guest login. */
     private boolean              allowGuestLogin = true;
 
+    /*
+     * (non-Javadoc)
+     * @see javax.security.auth.spi.LoginModule#initialize(javax.security.auth.Subject,
+     * javax.security.auth.callback.CallbackHandler, java.util.Map, java.util.Map)
+     */
     @Override
-    public void initialize(final Subject subject, final CallbackHandler callbackHandler,
-            final Map<String, ?> sharedState, final Map<String, ?> options) {
+    public void initialize(final Subject initSubject, final CallbackHandler initCallbackHandler,
+            final Map<String, ?> initSharedState, final Map<String, ?> initOptions) {
 
-        this.subject = subject;
-        this.callbackHandler = callbackHandler;
+        this.subject = initSubject;
+        this.callbackHandler = initCallbackHandler;
 
-        for (Entry<String, ?> option : options.entrySet()) {
+        for (final Entry<String, ?> option : initOptions.entrySet()) {
             if (option.getKey().equalsIgnoreCase("debug")) {
                 this.debug = Boolean.parseBoolean((String) option.getValue());
             } else if (option.getKey().equalsIgnoreCase("principalFormat")) {
@@ -82,6 +105,10 @@ public class WindowsLoginModule implements LoginModule {
 
     /**
      * Use Windows SSPI to authenticate a username with a password.
+     *
+     * @return true, if successful
+     * @throws LoginException
+     *             the login exception
      */
     @Override
     public boolean login() throws LoginException {
@@ -104,11 +131,11 @@ public class WindowsLoginModule implements LoginModule {
             userName = usernameCallback.getName();
             password = passwordCallback.getPassword() == null ? "" : new String(passwordCallback.getPassword());
             passwordCallback.clearPassword();
-        } catch (IOException e) {
-            LOGGER.trace("{}", e);
+        } catch (final IOException e) {
+            WindowsLoginModule.LOGGER.trace("{}", e);
             throw new LoginException(e.toString());
-        } catch (UnsupportedCallbackException e) {
-            LOGGER.trace("{}", e);
+        } catch (final UnsupportedCallbackException e) {
+            WindowsLoginModule.LOGGER.trace("{}", e);
             throw new LoginException(
                     "Callback {} not available to gather authentication information from the user.".replace("{}", e
                             .getCallback().getClass().getName()));
@@ -117,28 +144,29 @@ public class WindowsLoginModule implements LoginModule {
         IWindowsIdentity windowsIdentity;
         try {
             windowsIdentity = this.auth.logonUser(userName, password);
-        } catch (Exception e) {
-            LOGGER.trace("{}", e);
+        } catch (final Exception e) {
+            WindowsLoginModule.LOGGER.trace("{}", e);
             throw new LoginException(e.getMessage());
         }
 
         try {
             // disable guest login
             if (!this.allowGuestLogin && windowsIdentity.isGuest()) {
-                LOGGER.debug("guest login disabled: {}", windowsIdentity.getFqn());
+                WindowsLoginModule.LOGGER.debug("guest login disabled: {}", windowsIdentity.getFqn());
                 throw new LoginException("Guest login disabled");
             }
 
-            this.principals = new LinkedHashSet<Principal>();
-            this.principals.addAll(getUserPrincipals(windowsIdentity, this.principalFormat));
+            this.principals = new LinkedHashSet<>();
+            this.principals.addAll(WindowsLoginModule.getUserPrincipals(windowsIdentity, this.principalFormat));
             if (this.roleFormat != PrincipalFormat.NONE) {
-                for (IWindowsAccount group : windowsIdentity.getGroups()) {
-                    this.principals.addAll(getRolePrincipals(group, this.roleFormat));
+                for (final IWindowsAccount group : windowsIdentity.getGroups()) {
+                    this.principals.addAll(WindowsLoginModule.getRolePrincipals(group, this.roleFormat));
                 }
             }
 
             this.username = windowsIdentity.getFqn();
-            LOGGER.debug("successfully logged in {} ({})", this.username, windowsIdentity.getSidString());
+            WindowsLoginModule.LOGGER.debug("successfully logged in {} ({})", this.username,
+                    windowsIdentity.getSidString());
         } finally {
             windowsIdentity.dispose();
         }
@@ -148,14 +176,22 @@ public class WindowsLoginModule implements LoginModule {
 
     /**
      * Abort a login process.
+     *
+     * @return true, if successful
+     * @throws LoginException
+     *             the login exception
      */
     @Override
     public boolean abort() throws LoginException {
-        return logout();
+        return this.logout();
     }
 
     /**
      * Commit principals to the subject.
+     *
+     * @return true, if successful
+     * @throws LoginException
+     *             the login exception
      */
     @Override
     public boolean commit() throws LoginException {
@@ -170,10 +206,11 @@ public class WindowsLoginModule implements LoginModule {
         final Set<Principal> principalsSet = this.subject.getPrincipals();
         principalsSet.addAll(this.principals);
 
-        LOGGER.debug("committing {} principals", Integer.valueOf(this.subject.getPrincipals().size()));
+        WindowsLoginModule.LOGGER.debug("committing {} principals",
+                Integer.valueOf(this.subject.getPrincipals().size()));
         if (this.debug) {
-            for (Principal principal : principalsSet) {
-                LOGGER.debug(" principal: {}", principal.getName());
+            for (final Principal principal : principalsSet) {
+                WindowsLoginModule.LOGGER.debug(" principal: {}", principal.getName());
             }
         }
 
@@ -182,6 +219,10 @@ public class WindowsLoginModule implements LoginModule {
 
     /**
      * Logout a user.
+     *
+     * @return true, if successful
+     * @throws LoginException
+     *             the login exception
      */
     @Override
     public boolean logout() throws LoginException {
@@ -192,7 +233,7 @@ public class WindowsLoginModule implements LoginModule {
         this.subject.getPrincipals().clear();
 
         if (this.username != null) {
-            LOGGER.debug("logging out {}", this.username);
+            WindowsLoginModule.LOGGER.debug("logging out {}", this.username);
         }
 
         return true;
@@ -238,7 +279,7 @@ public class WindowsLoginModule implements LoginModule {
     private static List<Principal> getUserPrincipals(final IWindowsIdentity windowsIdentity,
             final PrincipalFormat principalFormat) {
 
-        final List<Principal> principalsList = new ArrayList<Principal>();
+        final List<Principal> principalsList = new ArrayList<>();
         switch (principalFormat) {
             case FQN:
                 principalsList.add(new UserPrincipal(windowsIdentity.getFqn()));
@@ -269,7 +310,7 @@ public class WindowsLoginModule implements LoginModule {
      */
     private static List<Principal> getRolePrincipals(final IWindowsAccount group, final PrincipalFormat principalFormat) {
 
-        final List<Principal> principalsList = new ArrayList<Principal>();
+        final List<Principal> principalsList = new ArrayList<>();
         switch (principalFormat) {
             case FQN:
                 principalsList.add(new RolePrincipal(group.getFqn()));

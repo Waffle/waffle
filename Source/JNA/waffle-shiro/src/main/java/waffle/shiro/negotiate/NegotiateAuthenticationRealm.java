@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -14,12 +14,12 @@
 package waffle.shiro.negotiate;
 
 /**
- * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateAuthenticationFilter.
- * see: https://bitbucket.org/lothor/shiro-negotiate/src/7b25efde130b/src/main/java/net/skorgenes/security/jsecurity/negotiate/NegotiateAuthenticationRealm.java?at=default
+ * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateAuthenticationFilter. see:
+ * https://bitbucket.org/lothor
+ * /shiro-negotiate/src/7b25efde130b/src/main/java/net/skorgenes/security/jsecurity/negotiate
+ * /NegotiateAuthenticationRealm.java?at=default
  *
  * @author Dan Rollo
- * Date: 1/16/13
- * Time: 12:23 AM
  */
 import javax.security.auth.Subject;
 
@@ -39,6 +39,9 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
 import java.security.Principal;
 
+/**
+ * The Class NegotiateAuthenticationRealm.
+ */
 public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
 
     /**
@@ -46,17 +49,30 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
      */
     private static final Logger        LOGGER = LoggerFactory.getLogger(NegotiateAuthenticationRealm.class);
 
+    /** The windows auth provider. */
     private final IWindowsAuthProvider windowsAuthProvider;
 
+    /**
+     * Instantiates a new negotiate authentication realm.
+     */
     public NegotiateAuthenticationRealm() {
         this.windowsAuthProvider = new WindowsAuthProviderImpl();
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.apache.shiro.realm.AuthenticatingRealm#supports(org.apache.shiro.authc.AuthenticationToken)
+     */
     @Override
     public boolean supports(final AuthenticationToken token) {
         return token instanceof NegotiateToken;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apache.shiro.realm.AuthenticatingRealm#doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)
+     */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(final AuthenticationToken t) {
 
@@ -72,17 +88,18 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
         try {
             securityContext = this.windowsAuthProvider.acceptSecurityToken(token.getConnectionId(), inToken,
                     token.getSecurityPackage());
-        } catch (Exception e) {
-            LOGGER.warn("error logging in user: {}", e.getMessage());
+        } catch (final Exception e) {
+            NegotiateAuthenticationRealm.LOGGER.warn("error logging in user: {}", e.getMessage());
             throw new AuthenticationException(e);
         }
 
         final byte[] continueTokenBytes = securityContext.getToken();
         token.setOut(continueTokenBytes);
         if (continueTokenBytes != null) {
-            LOGGER.debug("continue token bytes: {}", Integer.valueOf(continueTokenBytes.length));
+            NegotiateAuthenticationRealm.LOGGER.debug("continue token bytes: {}",
+                    Integer.valueOf(continueTokenBytes.length));
         } else {
-            LOGGER.debug("no continue token bytes");
+            NegotiateAuthenticationRealm.LOGGER.debug("no continue token bytes");
         }
 
         if (securityContext.isContinue() || token.isNtlmPost()) {
@@ -92,7 +109,8 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
         final IWindowsIdentity windowsIdentity = securityContext.getIdentity();
         securityContext.dispose();
 
-        LOGGER.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
+        NegotiateAuthenticationRealm.LOGGER.debug("logged in user: {} ({})", windowsIdentity.getFqn(),
+                windowsIdentity.getSidString());
 
         final Principal principal = new WindowsPrincipal(windowsIdentity);
         token.setPrincipal(principal);

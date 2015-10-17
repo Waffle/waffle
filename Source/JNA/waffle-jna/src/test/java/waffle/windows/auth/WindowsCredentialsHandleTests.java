@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,21 +13,25 @@
  */
 package waffle.windows.auth;
 
-import static org.junit.Assert.assertNotNull;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 import waffle.windows.auth.impl.WindowsCredentialsHandleImpl;
 
 /**
+ * The Class WindowsCredentialsHandleTests.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsCredentialsHandleTests {
 
+    /**
+     * Test get current.
+     */
     @Test
     public void testGetCurrent() {
         final IWindowsCredentialsHandle handle = WindowsCredentialsHandleImpl.getCurrent("Negotiate");
-        assertNotNull(handle);
+        Assert.assertNotNull(handle);
         handle.initialize();
         handle.dispose();
     }

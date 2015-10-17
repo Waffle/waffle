@@ -1,21 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.github.dblock.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
-        <version>1.7-SNAPSHOT</version>
-        <relativePath>../waffle-parent</relativePath>
+        <version>1.8.1-SNAPSHOT</version>
     </parent>
     <artifactId>waffle-tests</artifactId>
+    <version>1.8.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>waffle-tests</name>
     <description>Tests for WAFFLE</description>
+    <url>http://dblock.github.com/waffle/</url>
     <properties>
+        <src.relative.loc>..</src.relative.loc>
+
         <servlet.version>2.5</servlet.version>
-        <mockito.version>1.9.5</mockito.version>
+        <mockito.version>1.10.19</mockito.version>
     </properties>
+    <scm>
+        <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
+        <url>https://github.com/dblock/waffle</url>
+        <tag>HEAD</tag>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -29,16 +37,13 @@
             <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
+        <!-- This is required as parent isn't managed so it needs full redefine to override -->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>${mockito.version}</version>
             <scope>compile</scope>
             <exclusions>
-                <exclusion>
-                    <artifactId>objenesis</artifactId>
-                    <groupId>org.objenesis</groupId>
-                </exclusion>
                 <exclusion>
                     <artifactId>hamcrest-core</artifactId>
                     <groupId>org.hamcrest</groupId>

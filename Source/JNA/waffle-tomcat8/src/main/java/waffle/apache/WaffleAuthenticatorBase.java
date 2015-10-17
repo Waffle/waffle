@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -15,6 +15,7 @@ package waffle.apache;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Locale;
 import java.util.Set;
@@ -30,22 +31,36 @@ import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.PrincipalFormat;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
-import static java.util.Arrays.asList;
 
 /**
+ * The Class WaffleAuthenticatorBase.
+ *
  * @author dblock[at]dblock[dot]org
  */
 abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
-    private static final Set<String> SUPPORTED_PROTOCOLS = new LinkedHashSet<String>(asList("Negotiate", "NTLM"));
+    /** The Constant SUPPORTED_PROTOCOLS. */
+    private static final Set<String> SUPPORTED_PROTOCOLS = new LinkedHashSet<>(Arrays.asList("Negotiate", "NTLM"));
 
+    /** The info. */
     protected String                 info;
-    protected Logger                 log;
-    protected PrincipalFormat        principalFormat     = PrincipalFormat.FQN;
-    protected PrincipalFormat        roleFormat          = PrincipalFormat.FQN;
-    protected boolean                allowGuestLogin     = true;
-    protected Set<String>            protocols           = SUPPORTED_PROTOCOLS;
 
+    /** The log. */
+    protected Logger                 log;
+
+    /** The principal format. */
+    protected PrincipalFormat        principalFormat     = PrincipalFormat.FQN;
+
+    /** The role format. */
+    protected PrincipalFormat        roleFormat          = PrincipalFormat.FQN;
+
+    /** The allow guest login. */
+    protected boolean                allowGuestLogin     = true;
+
+    /** The protocols. */
+    protected Set<String>            protocols           = WaffleAuthenticatorBase.SUPPORTED_PROTOCOLS;
+
+    /** The auth. */
     protected IWindowsAuthProvider   auth                = new WindowsAuthProviderImpl();
 
     /**
@@ -67,6 +82,11 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
         this.auth = provider;
     }
 
+    /**
+     * Gets the info.
+     *
+     * @return the info
+     */
     public String getInfo() {
         return this.info;
     }
@@ -77,7 +97,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      * @param format
      *            Principal format.
      */
-    public void setPrincipalFormat(String format) {
+    public void setPrincipalFormat(final String format) {
         this.principalFormat = PrincipalFormat.valueOf(format.toUpperCase(Locale.ENGLISH));
         this.log.debug("principal format: {}", this.principalFormat);
     }
@@ -97,7 +117,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      * @param format
      *            Role format.
      */
-    public void setRoleFormat(String format) {
+    public void setRoleFormat(final String format) {
         this.roleFormat = PrincipalFormat.valueOf(format.toUpperCase(Locale.ENGLISH));
         this.log.debug("role format: {}", this.roleFormat);
     }
@@ -138,13 +158,13 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      *            Authentication protocols
      */
     public void setProtocols(final String value) {
-        this.protocols = new LinkedHashSet<String>();
+        this.protocols = new LinkedHashSet<>();
         final String[] protocolNames = value.split(",");
         for (String protocolName : protocolNames) {
             protocolName = protocolName.trim();
             if (!protocolName.isEmpty()) {
                 this.log.debug("init protocol: {}", protocolName);
-                if (SUPPORTED_PROTOCOLS.contains(protocolName)) {
+                if (WaffleAuthenticatorBase.SUPPORTED_PROTOCOLS.contains(protocolName)) {
                     this.protocols.add(protocolName);
                 } else {
                     this.log.error("unsupported protocol: {}", protocolName);
@@ -162,13 +182,13 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      */
     protected void sendUnauthorized(final HttpServletResponse response) {
         try {
-            for (String protocol : this.protocols) {
+            for (final String protocol : this.protocols) {
                 response.addHeader("WWW-Authenticate", protocol);
             }
             response.setHeader("Connection", "close");
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             response.flushBuffer();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -184,18 +204,27 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
     protected void sendError(final HttpServletResponse response, final int code) {
         try {
             response.sendError(code);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             this.log.error(e.getMessage());
             this.log.trace("{}", e);
             throw new RuntimeException(e);
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.apache.catalina.authenticator.AuthenticatorBase#getAuthMethod()
+     */
     @Override
     protected String getAuthMethod() {
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.apache.catalina.authenticator.AuthenticatorBase#doLogin(org.apache.catalina.connector.Request,
+     * java.lang.String, java.lang.String)
+     */
     @Override
     protected Principal doLogin(final Request request, final String username, final String password)
             throws ServletException {
@@ -203,7 +232,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
         IWindowsIdentity windowsIdentity;
         try {
             windowsIdentity = this.auth.logonUser(username, password);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             this.log.error(e.getMessage());
             this.log.trace("{}", e);
             return super.doLogin(request, username, password);

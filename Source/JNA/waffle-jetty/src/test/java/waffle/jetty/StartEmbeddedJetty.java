@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -25,28 +25,37 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A simple embedded server that lets us run directly within Eclipse
+ * A simple embedded server that lets us run directly within Eclipse.
  */
 public class StartEmbeddedJetty {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(StartEmbeddedJetty.class);
+    /** The Constant LOGGER. */
+    private static final Logger LOGGER = LoggerFactory.getLogger(StartEmbeddedJetty.class);
 
-    public static void main(String[] args) throws Exception {
-        String path = "../waffle-demo/waffle-filter";
+    /**
+     * Main method.
+     * 
+     * @param args
+     *            input arguments to main.
+     * @throws Exception
+     *             Exception thrown.
+     */
+    public static void main(final String[] args) throws Exception {
+        final String path = "../waffle-demo/waffle-filter";
 
-        File dir = new File(path);
+        final File dir = new File(path);
         if (!dir.exists()) {
             throw new FileNotFoundException("Can not find webapp: " + dir.getAbsolutePath());
         }
 
-        Server server = new Server(8080);
-        WebAppContext context = new WebAppContext();
+        final Server server = new Server(8080);
+        final WebAppContext context = new WebAppContext();
         context.setServer(server);
         context.setContextPath("/");
         context.setWar(path);
 
         // Try adding JSP
-        ServletHolder jsp = context.addServlet(JspServlet.class, "*.jsp");
+        final ServletHolder jsp = context.addServlet(JspServlet.class, "*.jsp");
         jsp.setInitParameter("classpath", context.getClassPath());
 
         server.setHandler(context);
@@ -58,10 +67,10 @@ public class StartEmbeddedJetty {
             StartEmbeddedJetty.LOGGER.info(">>> STOPPING EMBEDDED JETTY SERVER");
             server.stop();
             server.join();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             StartEmbeddedJetty.LOGGER.error("{}", e);
             System.exit(100);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             StartEmbeddedJetty.LOGGER.error("{}", e);
             System.exit(100);
         }

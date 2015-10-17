@@ -1,3 +1,5 @@
+.idea
+
 Source/Common/GlobalAssemblyInfo.cs
 Source/Version/Version.properties
 Source/Version/Version.wxi
@@ -14,3 +16,4 @@ Thumbs.db
 Waffle.sln.cache
 Waffle.suo
 *.csproj.user
+.tern-project

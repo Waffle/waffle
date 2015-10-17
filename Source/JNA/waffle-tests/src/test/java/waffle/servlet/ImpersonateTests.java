@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,12 +13,6 @@
  */
 package waffle.servlet;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-import static org.junit.Assume.assumeTrue;
-
 import java.io.IOException;
 import java.security.Principal;
 
@@ -28,6 +22,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 import org.junit.After;
+import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -45,20 +41,31 @@ import com.sun.jna.platform.win32.LMAccess;
 import com.sun.jna.platform.win32.LMErr;
 import com.sun.jna.platform.win32.Netapi32;
 
+/**
+ * The Class ImpersonateTests.
+ */
 public class ImpersonateTests {
 
+    /** The filter. */
     private NegotiateSecurityFilter filter;
+
+    /** The user info. */
     private LMAccess.USER_INFO_1    userInfo;
+
+    /** The result of net add user. */
     private int                     resultOfNetAddUser;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         this.filter = new NegotiateSecurityFilter();
         this.filter.setAuth(new WindowsAuthProviderImpl());
         try {
             this.filter.init(null);
-        } catch (ServletException e) {
-            fail(e.getMessage());
+        } catch (final ServletException e) {
+            Assert.fail(e.getMessage());
         }
 
         this.userInfo = new LMAccess.USER_INFO_1();
@@ -68,23 +75,35 @@ public class ImpersonateTests {
 
         this.resultOfNetAddUser = Netapi32.INSTANCE.NetUserAdd(null, 1, this.userInfo, null);
         // ignore test if not able to add user (need to be administrator to do this).
-        assumeTrue(LMErr.NERR_Success == this.resultOfNetAddUser);
+        Assume.assumeTrue(LMErr.NERR_Success == this.resultOfNetAddUser);
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         this.filter.destroy();
 
         if (LMErr.NERR_Success == this.resultOfNetAddUser) {
-            assertEquals(LMErr.NERR_Success, Netapi32.INSTANCE.NetUserDel(null, this.userInfo.usri1_name.toString()));
+            Assert.assertEquals(LMErr.NERR_Success,
+                    Netapi32.INSTANCE.NetUserDel(null, this.userInfo.usri1_name.toString()));
         }
     }
 
+    /**
+     * Test impersonate enabled.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ServletException
+     *             the servlet exception
+     */
     @Test
     public void testImpersonateEnabled() throws IOException, ServletException {
 
-        assertFalse("Current user shouldn't be the test user prior to the test",
-                Advapi32Util.getUserName().equals(MockWindowsAccount.TEST_USER_NAME));
+        Assert.assertFalse("Current user shouldn't be the test user prior to the test", Advapi32Util.getUserName()
+                .equals(MockWindowsAccount.TEST_USER_NAME));
 
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
@@ -103,18 +122,18 @@ public class ImpersonateTests {
 
             final Subject subject = (Subject) request.getSession().getAttribute("javax.security.auth.subject");
             final boolean authenticated = (subject != null && subject.getPrincipals().size() > 0);
-            assertTrue("Test user should be authenticated", authenticated);
+            Assert.assertTrue("Test user should be authenticated", authenticated);
 
             if (subject == null) {
                 return;
             }
             final Principal principal = subject.getPrincipals().iterator().next();
-            assertTrue(principal instanceof AutoDisposableWindowsPrincipal);
+            Assert.assertTrue(principal instanceof AutoDisposableWindowsPrincipal);
             windowsPrincipal = (AutoDisposableWindowsPrincipal) principal;
 
-            assertEquals("Test user should be impersonated", MockWindowsAccount.TEST_USER_NAME,
+            Assert.assertEquals("Test user should be impersonated", MockWindowsAccount.TEST_USER_NAME,
                     filterChain.getUserName());
-            assertFalse("Impersonation context should have been reverted",
+            Assert.assertFalse("Impersonation context should have been reverted",
                     Advapi32Util.getUserName().equals(MockWindowsAccount.TEST_USER_NAME));
         } finally {
             if (windowsPrincipal != null) {
@@ -123,11 +142,19 @@ public class ImpersonateTests {
         }
     }
 
+    /**
+     * Test impersonate disabled.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ServletException
+     *             the servlet exception
+     */
     @Test
     public void testImpersonateDisabled() throws IOException, ServletException {
 
-        assertFalse("Current user shouldn't be the test user prior to the test",
-                Advapi32Util.getUserName().equals(MockWindowsAccount.TEST_USER_NAME));
+        Assert.assertFalse("Current user shouldn't be the test user prior to the test", Advapi32Util.getUserName()
+                .equals(MockWindowsAccount.TEST_USER_NAME));
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
         final String userHeaderValue = MockWindowsAccount.TEST_USER_NAME + ":" + MockWindowsAccount.TEST_PASSWORD;
@@ -144,18 +171,18 @@ public class ImpersonateTests {
 
             final Subject subject = (Subject) request.getSession().getAttribute("javax.security.auth.subject");
             final boolean authenticated = (subject != null && subject.getPrincipals().size() > 0);
-            assertTrue("Test user should be authenticated", authenticated);
+            Assert.assertTrue("Test user should be authenticated", authenticated);
 
             if (subject == null) {
                 return;
             }
             final Principal principal = subject.getPrincipals().iterator().next();
-            assertTrue(principal instanceof WindowsPrincipal);
+            Assert.assertTrue(principal instanceof WindowsPrincipal);
             windowsPrincipal = (WindowsPrincipal) principal;
 
-            assertFalse("Test user should not be impersonated",
+            Assert.assertFalse("Test user should not be impersonated",
                     MockWindowsAccount.TEST_USER_NAME.equals(filterChain.getUserName()));
-            assertFalse("Impersonation context should have been reverted",
+            Assert.assertFalse("Impersonation context should have been reverted",
                     Advapi32Util.getUserName().equals(MockWindowsAccount.TEST_USER_NAME));
         } finally {
             if (windowsPrincipal != null) {
@@ -165,16 +192,28 @@ public class ImpersonateTests {
     }
 
     /**
-     * Filter chain that records current username
+     * Filter chain that records current username.
      */
     public static class RecordUserNameFilterChain extends SimpleFilterChain {
+
+        /** The user name. */
         private String userName;
 
+        /*
+         * (non-Javadoc)
+         * @see waffle.mock.http.SimpleFilterChain#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+         */
         @Override
-        public void doFilter(ServletRequest sreq, ServletResponse srep) throws IOException, ServletException {
+        public void doFilter(final ServletRequest sreq, final ServletResponse srep) throws IOException,
+                ServletException {
             this.userName = Advapi32Util.getUserName();
         }
 
+        /**
+         * Gets the user name.
+         *
+         * @return the user name
+         */
         public String getUserName() {
             return this.userName;
         }

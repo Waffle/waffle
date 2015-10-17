@@ -1,8 +1,62 @@
-1.7 (8/xx/2014 - Coming Soon)
+1.8.0 (09/10/15)
 ================
+*** Java Requirement now 1.7 ***
+
+* Introduction of diamond operator and try with resources firmly requiring java 7.
+* [#187](https://github.com/dblock/waffle/pull/187): Removed Spring 2 and Tomcat 5 support.
+* [#226](https://github.com/dblock/waffle/pull/226): Moving base to java 1.7
+* [#239](https://github.com/dblock/waffle/pull/239): Fix handle leak in LSASS.exe process.
+
+1.7.x Branch News (on 1.7.4)
+=================
+* Created 1.7.x branch for spring 2, tomcat 5, and java 6 continued support for one year.  Only complete show stoppers to be addressed there.
+* [#239]: Fix handle leak in LSASS.exe process. PENDING BACKPORT
+
+1.7.4 (05/12/15)
+================
+* [#188](https://github.com/dblock/waffle/issues/188): Added support for service provider to authorize the principal.
+* [#192](https://github.com/dblock/waffle/pull/192): Fix: Tomcat 8 MixedAuthenticator uses LoginConfig out of context.
+* [#206](https://github.com/dblock/waffle/pull/206): Fix issue [#203](https://github.com/dblock/waffle/issues/203)
+  ** Tomcat negotiate filters reporting Win32Error 500 status error instead of 401.
+  ** Related to issue [#107](https://github.com/dblock/waffle/issues/107)
+* [#207](https://github.com/dblock/waffle/pull/207): Further refinement of test dependencies and now requires java 7 to compile library.
+  ** At this point, still supports java 6 runtimes.
+
+* Github gh-pages now built via mvn site plugin.
+* We use sfl4j, so use jcl-over-slf4j instead of allowing spring to bring in commons-logging.
+
+1.7.3 (12/21/2014)
+===================
+* Corrected javadoc issues in shiro package to ensure javadocs build.
+* Make some package methods private in shiro package.
+
+1.7.2 (Not Released)
+====================
+* Ensure waffle dependencies referenced in poms are against vulnerability free releases.
+* Rework java build to conform with maven standard practices.
+* Enhance distribution to build zip thus allowing maven central deployment.
+* Discovered issues with classpath / javadoc, release aborted upon push to maven central.
+
+Developer note
+--------------
+* [#164](https://github.com/dblock/waffle/issues/164): Added unit test in waffle-tests using catch-exception test library to verify the condition caught is actually expected.
+
+1.7.1 (11/30/2014 - waffle-jna only)
+====================================
+* [#164](https://github.com/dblock/waffle/issues/164): Added try/catch to authorization header base64 decode in cases of invalid or unsupported authentication header.
+  ** Throws runtimeException "Invalid authorization header."
+* [#168](https://github.com/dblock/waffle/pull/168): Exception stack trace on invalid credentials.
+  ** Change in waffle 1.7 per sonar to trap only thrown errors resulted in a regression where user enters invalid
+     creditionals and expected behaviour is to ask again but instead a stack trace was thrown.  Special thanks to
+     @gstanchev for finding and helping resolve this issue.
+* Drop legacy base64 usage previously deprecated.  We use guava for this now.
+* Small number of array object creations cleanup.
+
+1.7 (9/25/2014)
+===============
 
 Notable Feature Changes
---------
+-----------------------
 * Full Mavenized Build
 * All demos now mavenized
 * Support for Tomcat 8
@@ -14,9 +68,12 @@ Notable Feature Changes
 * Enforce Java code formatting (space based) through maven plugin
 * Enforce License information in Java code through maven plugin
 * Deprecated Base64 internal usage in favor of using Guava BaseEncoding Base64.
+* Mocking Testing of third party implementations for cleaner intent.
 
 Changes
 --------
+* [#140](https://github.com/dblock/waffle/pull/140): Mocking Unit Tests - [@hazendaz](https://github.com/hazendaz).
+  * Mock implementations used in unit tests for various features such as tomcat/shiro in order to make it clear to intention of waffle tests.
 * [#136](https://github.com/dblock/waffle/pull/136): Enable user logging when using filter [@tbenbrahim](https://github.com/tbenbrahim).
   * Added toString to WindowsPrincipal to enable logging of authenticated user when using the servlet filter, using the waffle.servlet.NegotiateSecurityFilter.PRINCIPAL session attribute.
 * [#120](https://github.com/dblock/waffle/pull/120): Application Security License - [@hazendaz](https://github.com/hazendaz).

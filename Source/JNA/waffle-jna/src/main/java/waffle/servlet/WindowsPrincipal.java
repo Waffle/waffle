@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -34,13 +34,26 @@ import waffle.windows.auth.WindowsAccount;
  */
 public class WindowsPrincipal implements Principal, Serializable {
 
-    private static final long           serialVersionUID = 1L;
-    private String                      fqn;
-    private byte[]                      sid;
-    private String                      sidString;
-    private List<String>                roles;
-    private transient IWindowsIdentity  identity;
-    private Map<String, WindowsAccount> groups;
+    /** The Constant serialVersionUID. */
+    private static final long                 serialVersionUID = 1L;
+
+    /** The fqn. */
+    private final String                      fqn;
+
+    /** The sid. */
+    private final byte[]                      sid;
+
+    /** The sid string. */
+    private final String                      sidString;
+
+    /** The roles. */
+    private final List<String>                roles;
+
+    /** The identity. */
+    private transient IWindowsIdentity        identity;
+
+    /** The groups. */
+    private final Map<String, WindowsAccount> groups;
 
     /**
      * A windows principal.
@@ -68,23 +81,41 @@ public class WindowsPrincipal implements Principal, Serializable {
         this.fqn = windowsIdentity.getFqn();
         this.sid = windowsIdentity.getSid();
         this.sidString = windowsIdentity.getSidString();
-        this.groups = getGroups(windowsIdentity.getGroups());
-        this.roles = getRoles(windowsIdentity, principalFormat, roleFormat);
+        this.groups = WindowsPrincipal.getGroups(windowsIdentity.getGroups());
+        this.roles = WindowsPrincipal.getRoles(windowsIdentity, principalFormat, roleFormat);
     }
 
+    /**
+     * Gets the roles.
+     *
+     * @param windowsIdentity
+     *            the windows identity
+     * @param principalFormat
+     *            the principal format
+     * @param roleFormat
+     *            the role format
+     * @return the roles
+     */
     private static List<String> getRoles(final IWindowsIdentity windowsIdentity, final PrincipalFormat principalFormat,
             final PrincipalFormat roleFormat) {
-        final List<String> roles = new ArrayList<String>();
-        roles.addAll(getPrincipalNames(windowsIdentity, principalFormat));
-        for (IWindowsAccount group : windowsIdentity.getGroups()) {
-            roles.addAll(getRoleNames(group, roleFormat));
+        final List<String> roles = new ArrayList<>();
+        roles.addAll(WindowsPrincipal.getPrincipalNames(windowsIdentity, principalFormat));
+        for (final IWindowsAccount group : windowsIdentity.getGroups()) {
+            roles.addAll(WindowsPrincipal.getRoleNames(group, roleFormat));
         }
         return roles;
     }
 
+    /**
+     * Gets the groups.
+     *
+     * @param groups
+     *            the groups
+     * @return the groups
+     */
     private static Map<String, WindowsAccount> getGroups(final IWindowsAccount[] groups) {
-        final Map<String, WindowsAccount> groupMap = new HashMap<String, WindowsAccount>();
-        for (IWindowsAccount group : groups) {
+        final Map<String, WindowsAccount> groupMap = new HashMap<>();
+        for (final IWindowsAccount group : groups) {
             groupMap.put(group.getFqn(), new WindowsAccount(group));
         }
         return groupMap;
@@ -127,7 +158,7 @@ public class WindowsPrincipal implements Principal, Serializable {
      * @return List of role principal objects.
      */
     private static List<String> getRoleNames(final IWindowsAccount group, final PrincipalFormat principalFormat) {
-        final List<String> principals = new ArrayList<String>();
+        final List<String> principals = new ArrayList<>();
         switch (principalFormat) {
             case FQN:
                 principals.add(group.getFqn());
@@ -158,7 +189,7 @@ public class WindowsPrincipal implements Principal, Serializable {
      */
     private static List<String> getPrincipalNames(final IWindowsIdentity windowsIdentity,
             final PrincipalFormat principalFormat) {
-        final List<String> principals = new ArrayList<String>();
+        final List<String> principals = new ArrayList<>();
         switch (principalFormat) {
             case FQN:
                 principals.add(windowsIdentity.getFqn());
@@ -217,8 +248,13 @@ public class WindowsPrincipal implements Principal, Serializable {
         return this.identity;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
     public String toString() {
-        return getName();
+        return this.getName();
     }
 
 }

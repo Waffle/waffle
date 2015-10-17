@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,8 +13,6 @@
  */
 package waffle.servlet;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.IOException;
 import java.io.StringReader;
 
@@ -22,6 +20,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,45 +35,66 @@ import waffle.mock.http.SimpleHttpRequest;
 import waffle.mock.http.SimpleHttpResponse;
 
 /**
- * Test the WaffleInfoServlet
+ * Test the WaffleInfoServlet.
  */
 public class WaffleInfoServletTests {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory.getLogger(WaffleInfoServletTests.class);
 
+    /**
+     * Test get info.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetInfo() throws Exception {
-        SimpleHttpRequest request = new SimpleHttpRequest();
+        final SimpleHttpRequest request = new SimpleHttpRequest();
         request.addHeader("hello", "waffle");
 
-        SimpleHttpResponse response = new SimpleHttpResponse();
+        final SimpleHttpResponse response = new SimpleHttpResponse();
 
-        WaffleInfoServlet servlet = new WaffleInfoServlet();
+        final WaffleInfoServlet servlet = new WaffleInfoServlet();
         servlet.doGet(request, response);
 
-        String xml = response.getOutputText();
-        Document doc = loadXMLFromString(xml);
+        final String xml = response.getOutputText();
+        final Document doc = WaffleInfoServletTests.loadXMLFromString(xml);
 
         WaffleInfoServletTests.LOGGER.info("GOT: {}", xml);
 
         // Make sure JNA Version is properly noted
-        assertEquals(Platform.class.getPackage().getImplementationVersion(),
-                doc.getDocumentElement().getAttribute("jna"));
+        Assert.assertEquals(Platform.class.getPackage().getImplementationVersion(), doc.getDocumentElement()
+                .getAttribute("jna"));
 
-        Node node = doc.getDocumentElement().getFirstChild().getNextSibling() // request
+        final Node node = doc.getDocumentElement().getFirstChild().getNextSibling() // request
                 .getFirstChild().getNextSibling() // AuthType
                 .getNextSibling().getNextSibling();
 
         // Make sure the headers were added correctly
-        assertEquals("headers", node.getNodeName());
-        Node child = node.getFirstChild().getNextSibling();
-        assertEquals("hello", child.getNodeName());
+        Assert.assertEquals("headers", node.getNodeName());
+        final Node child = node.getFirstChild().getNextSibling();
+        Assert.assertEquals("hello", child.getNodeName());
     }
 
-    public static Document loadXMLFromString(String xml) throws ParserConfigurationException, SAXException, IOException {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        InputSource is = new InputSource(new StringReader(xml));
+    /**
+     * Load xml from string.
+     *
+     * @param xml
+     *            the xml
+     * @return the document
+     * @throws ParserConfigurationException
+     *             the parser configuration exception
+     * @throws SAXException
+     *             the SAX exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
+    private static Document loadXMLFromString(final String xml) throws ParserConfigurationException, SAXException,
+            IOException {
+        final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        final DocumentBuilder builder = factory.newDocumentBuilder();
+        final InputSource is = new InputSource(new StringReader(xml));
         return builder.parse(is);
     }
 }

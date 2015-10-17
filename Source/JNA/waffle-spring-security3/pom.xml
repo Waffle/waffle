@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.github.dblock.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
-        <version>1.7-SNAPSHOT</version>
-        <relativePath>../waffle-parent</relativePath>
+        <version>1.8.1-SNAPSHOT</version>
     </parent>
     <artifactId>waffle-spring-security3</artifactId>
+    <version>1.8.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>waffle-spring-security3</name>
     <description>Spring Security 3 integration for WAFFLE</description>
+    <url>http://dblock.github.com/waffle/</url>
     <properties>
-        <spring.version>3.2.10.RELEASE</spring.version>
-        <spring.security.version>3.2.4.RELEASE</spring.security.version>
+        <src.relative.loc>..</src.relative.loc>
+
+        <servlet.version>3.0.1</servlet.version>
+        <spring.version>3.2.14.RELEASE</spring.version>
+        <spring.security.version>3.2.8.RELEASE</spring.security.version>
     </properties>
+    <scm>
+        <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
+        <url>https://github.com/dblock/waffle</url>
+        <tag>HEAD</tag>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -32,7 +41,7 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>3.0.1</version>
+            <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -52,6 +61,12 @@
             <artifactId>spring-core</artifactId>
             <version>${spring.version}</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>

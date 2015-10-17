@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,116 +13,64 @@
  */
 package waffle.apache.catalina;
 
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionContext;
 
 /**
- * Simple Http Session
+ * Simple HTTP Session.
  * 
  * @author dblock[at]dblock[dot]org
  */
-@SuppressWarnings("deprecation")
-public class SimpleHttpSession implements HttpSession {
+public abstract class SimpleHttpSession implements HttpSession {
 
-    private Map<String, Object> attributes = new HashMap<String, Object>();
+    /** The attributes. */
+    private Map<String, Object> attributes;
 
+    /*
+     * (non-Javadoc)
+     * @see javax.servlet.http.HttpSession#getAttribute(java.lang.String)
+     */
     @Override
-    public Object getAttribute(String attributeName) {
+    public Object getAttribute(final String attributeName) {
         return this.attributes.get(attributeName);
     }
 
-    @Override
-    public Enumeration<String> getAttributeNames() {
-        // Not Implemented
-        return null;
-    }
-
-    @Override
-    public long getCreationTime() {
-        // Not Implemented
-        return 0;
-    }
-
+    /*
+     * (non-Javadoc)
+     * @see javax.servlet.http.HttpSession#getId()
+     */
     @Override
     public String getId() {
-        // Not Implemented
-        return null;
+        return "WaffleId";
     }
 
+    /*
+     * (non-Javadoc)
+     * @see javax.servlet.http.HttpSession#removeAttribute(java.lang.String)
+     */
     @Override
-    public long getLastAccessedTime() {
-        // Not Implemented
-        return 0;
-    }
-
-    @Override
-    public int getMaxInactiveInterval() {
-        // Not Implemented
-        return 0;
-    }
-
-    @Override
-    public ServletContext getServletContext() {
-        // Not Implemented
-        return null;
-    }
-
-    @Override
-    public HttpSessionContext getSessionContext() {
-        // Not Implemented
-        return null;
-    }
-
-    @Override
-    public Object getValue(String arg0) {
-        // Not Implemented
-        return null;
-    }
-
-    @Override
-    public String[] getValueNames() {
-        // Not Implemented
-        return new String[0];
-    }
-
-    @Override
-    public void invalidate() {
-        // Not Implemented
-    }
-
-    @Override
-    public boolean isNew() {
-        // Not Implemented
-        return false;
-    }
-
-    @Override
-    public void putValue(String arg0, Object arg1) {
-        // Not Implemented
-    }
-
-    @Override
-    public void removeAttribute(String attributeName) {
+    public void removeAttribute(final String attributeName) {
         this.attributes.remove(attributeName);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see javax.servlet.http.HttpSession#setAttribute(java.lang.String, java.lang.Object)
+     */
     @Override
-    public void removeValue(String arg0) {
-        // Not Implemented
-    }
-
-    @Override
-    public void setAttribute(String attributeName, Object attributeValue) {
+    public void setAttribute(final String attributeName, final Object attributeValue) {
         this.attributes.put(attributeName, attributeValue);
     }
 
-    @Override
-    public void setMaxInactiveInterval(int arg0) {
-        // Not Implemented
+    /**
+     * Sets the attributes.
+     *
+     * @param value
+     *            the value
+     */
+    public void setAttributes(final Map<String, Object> value) {
+        this.attributes = value;
     }
+
 }

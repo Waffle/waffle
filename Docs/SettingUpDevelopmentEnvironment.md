@@ -25,11 +25,7 @@ Download and install the JDK from [here](http://www.oracle.com/technetwork/java/
 
 Download Maven from [here](http://maven.apache.org/download.cgi) and unzip it to a directory of your choosing, eg. `c:\maven`. Add the `bin` directory to `PATH`, eg. `c:\maven\bin`. You should be able to type `mvn` on the command prompt.
 
-### Third Party (Non Maven Central Items)
-
-After maven is installed, go into `Source/ThirdParty` and run `maven-install.bat`.  This will install third party dependencies needed for building that are not available in maven central.  This is done to allow us to avoid using system scope dependencies.
-
-### Microsoft Visual Studio 2010
+### Microsoft Visual Studio 2013
 
 Visual Studio is not required, but useful when editing .NET code. At the least, install the Windows SDK for your operating system. You should be able to run `msbuild` from the command prompt after installing sdk.
 
@@ -49,10 +45,9 @@ Download NUnit from [here](http://nunit.org).
 
 Download and install MSBuild Community Tasks from [here](https://github.com/loresoft/msbuildtasks/releases).
 
-### Wix Toolset 3.8
+### Wix Toolset 3.9
 
-Download and install the Wix toolset, specifically version 3.8 from [here](https://wix.codeplex.com/releases/view/115492).
-
+Download and install the Wix toolset, specifically version 3.9 R2 from [here](https://wix.codeplex.com/releases/view/610859).
 
 Building the Project the First Time
 -----------------------------------

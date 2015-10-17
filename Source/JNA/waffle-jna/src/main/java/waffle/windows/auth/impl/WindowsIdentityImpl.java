@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -33,14 +33,30 @@ import com.sun.jna.platform.win32.WinNT.WELL_KNOWN_SID_TYPE;
  */
 public class WindowsIdentityImpl implements IWindowsIdentity {
 
-    private HANDLE    windowsIdentity;
-    private Account[] userGroups;
-    private Account   windowsAccount;
+    /** The windows identity. */
+    private final HANDLE windowsIdentity;
 
-    public WindowsIdentityImpl(final HANDLE windowsIdentity) {
-        this.windowsIdentity = windowsIdentity;
+    /** The user groups. */
+    private Account[]    userGroups;
+
+    /** The windows account. */
+    private Account      windowsAccount;
+
+    /**
+     * Instantiates a new windows identity impl.
+     *
+     * @param newWindowsIdentity
+     *            the new windows identity
+     */
+    public WindowsIdentityImpl(final HANDLE newWindowsIdentity) {
+        this.windowsIdentity = newWindowsIdentity;
     }
 
+    /**
+     * Gets the windows account.
+     *
+     * @return the windows account
+     */
     private Account getWindowsAccount() {
         if (this.windowsAccount == null) {
             this.windowsAccount = Advapi32Util.getTokenAccount(this.windowsIdentity);
@@ -48,6 +64,11 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
         return this.windowsAccount;
     }
 
+    /**
+     * Gets the user groups.
+     *
+     * @return the user groups
+     */
     private Account[] getUserGroups() {
         if (this.userGroups == null) {
             this.userGroups = Advapi32Util.getTokenGroups(this.windowsIdentity);
@@ -55,35 +76,55 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
         return this.userGroups.clone();
     }
 
+    /*
+     * (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsIdentity#getFqn()
+     */
     @Override
     public String getFqn() {
-        return getWindowsAccount().fqn;
+        return this.getWindowsAccount().fqn;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsIdentity#getGroups()
+     */
     @Override
     public IWindowsAccount[] getGroups() {
 
-        final Account[] groups = getUserGroups();
+        final Account[] groups = this.getUserGroups();
 
-        final List<IWindowsAccount> result = new ArrayList<IWindowsAccount>(groups.length);
-        for (Account userGroup : groups) {
-            WindowsAccountImpl account = new WindowsAccountImpl(userGroup);
+        final List<IWindowsAccount> result = new ArrayList<>(groups.length);
+        for (final Account userGroup : groups) {
+            final WindowsAccountImpl account = new WindowsAccountImpl(userGroup);
             result.add(account);
         }
 
         return result.toArray(new IWindowsAccount[0]);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsIdentity#getSid()
+     */
     @Override
     public byte[] getSid() {
-        return getWindowsAccount().sid;
+        return this.getWindowsAccount().sid;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsIdentity#getSidString()
+     */
     @Override
     public String getSidString() {
-        return getWindowsAccount().sidString;
+        return this.getWindowsAccount().sidString;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsIdentity#dispose()
+     */
     @Override
     public void dispose() {
         if (this.windowsIdentity != null) {
@@ -91,14 +132,22 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsIdentity#impersonate()
+     */
     @Override
     public IWindowsImpersonationContext impersonate() {
         return new WindowsIdentityImpersonationContextImpl(this.windowsIdentity);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsIdentity#isGuest()
+     */
     @Override
     public boolean isGuest() {
-        for (Account userGroup : getUserGroups()) {
+        for (final Account userGroup : this.getUserGroups()) {
             if (Advapi32Util.isWellKnownSid(userGroup.sid, WELL_KNOWN_SID_TYPE.WinBuiltinGuestsSid)) {
                 return true;
             }
@@ -109,11 +158,6 @@ public class WindowsIdentityImpl implements IWindowsIdentity {
                 return true;
             }
         }
-
-        if (Advapi32Util.isWellKnownSid(getSid(), WELL_KNOWN_SID_TYPE.WinAnonymousSid)) {
-            return true;
-        }
-
-        return false;
+        return Advapi32Util.isWellKnownSid(this.getSid(), WELL_KNOWN_SID_TYPE.WinAnonymousSid);
     }
 }

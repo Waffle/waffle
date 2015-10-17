@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,21 +13,24 @@
  */
 package waffle.apache;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
+ * Windows Realm Tests.
+ * 
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsRealmTests {
 
+    /**
+     * Test properties.
+     */
     @Test
     public void testProperties() {
-        WindowsRealm realm = new WindowsRealm();
-        assertNull(realm.getPassword(null));
-        assertNull(realm.getPrincipal(null));
-        assertEquals("waffle.apache.WindowsRealm/1.0", realm.getName());
+        final WindowsRealm realm = new WindowsRealm();
+        Assert.assertNull(realm.getPassword(null));
+        Assert.assertNull(realm.getPrincipal(null));
+        Assert.assertEquals("waffle.apache.WindowsRealm/1.0", realm.getName());
     }
 }

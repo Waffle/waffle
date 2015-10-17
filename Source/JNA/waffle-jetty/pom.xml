@@ -1,24 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.github.dblock.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
-        <version>1.7-SNAPSHOT</version>
-        <relativePath>../waffle-parent</relativePath>
+        <version>1.8.1-SNAPSHOT</version>
     </parent>
     <artifactId>waffle-jetty</artifactId>
+    <version>1.8.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>waffle-jetty</name>
     <description>Jetty integration for WAFFLE</description>
+    <url>http://dblock.github.com/waffle/</url>
     <properties>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
-        <maven.javadoc.skip>true</maven.javadoc.skip>
-        <jetty.version>9.2.2.v20140723</jetty.version>
-        <slf4j.version>1.7.7</slf4j.version>
+        <src.relative.loc>..</src.relative.loc>
+
+        <el.version>3.0.1-b08</el.version>
+        <el-api.version>3.0.1-b04</el-api.version>
+        <jetty.version>9.3.4.v20151007</jetty.version>
+        <jdt.version>4.4.2</jdt.version>
+        <jsp.version>2.3.3-b02</jsp.version>
+        <jsp-api.version>2.3.2-b01</jsp-api.version>
+        <jstl.version>1.2.4</jstl.version>
+        <slf4j.version>1.7.12</slf4j.version>
     </properties>
+    <scm>
+        <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
+        <url>https://github.com/dblock/waffle</url>
+        <tag>HEAD</tag>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -31,41 +42,48 @@
             <artifactId>jetty-all</artifactId>
             <version>${jetty.version}</version>
             <scope>provided</scope>
+            <classifier>uber</classifier>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.jetty.orbit</groupId>
-            <artifactId>org.eclipse.jdt.core</artifactId>
-            <version>3.8.2.v20130121</version>
+            <groupId>org.eclipse.jdt.core.compiler</groupId>
+            <artifactId>ecj</artifactId>
+            <version>${jdt.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.el</groupId>
             <artifactId>javax.el-api</artifactId>
-            <version>3.0.0</version>
+            <version>${el-api.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>javax.servlet.jsp-api</artifactId>
-            <version>2.3.1</version>
+            <version>${jsp-api.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>javax.el</artifactId>
-            <version>3.0.0</version>
-            <scope>provided</scope>
-        </dependency>
-         <dependency>
-            <groupId>org.glassfish.web</groupId>
-            <artifactId>javax.servlet.jsp</artifactId>
-            <version>2.3.2</version>
+            <version>${el.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish.web</groupId>
+            <artifactId>javax.servlet.jsp</artifactId>
+            <version>${jsp.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.glassfish</groupId>
+                    <artifactId>javax.el</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
             <artifactId>javax.servlet.jsp.jstl</artifactId>
-            <version>1.2.3</version>
+            <version>${jstl.version}</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>

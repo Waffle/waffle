@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,10 +13,6 @@
  */
 package waffle.servlet;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -25,49 +21,67 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Arrays;
 
+import org.assertj.core.api.Assertions;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import waffle.mock.MockWindowsSecurityContext;
 
 /**
+ * The Class WindowsPrincipalTests.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsPrincipalTests {
 
+    /** The windows principal. */
     private WindowsPrincipal windowsPrincipal;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
-        MockWindowsSecurityContext ctx = new MockWindowsSecurityContext("Administrator");
+        final MockWindowsSecurityContext ctx = new MockWindowsSecurityContext("Administrator");
         this.windowsPrincipal = new WindowsPrincipal(ctx.getIdentity());
     }
 
+    /**
+     * Test is serializable.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     */
     @Test
     public void testIsSerializable() throws IOException, ClassNotFoundException {
         // serialize
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(out);
-        oos.writeObject(this.windowsPrincipal);
-        oos.close();
-        assertTrue(out.toByteArray().length > 0);
+        final ByteArrayOutputStream out = new ByteArrayOutputStream();
+        try (final ObjectOutputStream oos = new ObjectOutputStream(out)) {
+            oos.writeObject(this.windowsPrincipal);
+        }
+        Assertions.assertThat(out.toByteArray().length).isGreaterThan(0);
         // deserialize
-        InputStream in = new ByteArrayInputStream(out.toByteArray());
-        ObjectInputStream ois = new ObjectInputStream(in);
-        Object o = ois.readObject();
-        WindowsPrincipal copy = (WindowsPrincipal) o;
+        final InputStream in = new ByteArrayInputStream(out.toByteArray());
+        final ObjectInputStream ois = new ObjectInputStream(in);
+        final WindowsPrincipal copy = (WindowsPrincipal) ois.readObject();
         // test
-        assertEquals(this.windowsPrincipal.getName(), copy.getName());
-        assertEquals(this.windowsPrincipal.getRolesString(), copy.getRolesString());
-        assertEquals(this.windowsPrincipal.getSidString(), copy.getSidString());
-        assertEquals(Boolean.valueOf(Arrays.equals(this.windowsPrincipal.getSid(), copy.getSid())), Boolean.TRUE);
+        Assert.assertEquals(this.windowsPrincipal.getName(), copy.getName());
+        Assert.assertEquals(this.windowsPrincipal.getRolesString(), copy.getRolesString());
+        Assert.assertEquals(this.windowsPrincipal.getSidString(), copy.getSidString());
+        Assert.assertEquals(Boolean.valueOf(Arrays.equals(this.windowsPrincipal.getSid(), copy.getSid())), Boolean.TRUE);
     }
 
+    /**
+     * Test has role.
+     */
     @Test
     public void testHasRole() {
-        assertTrue(this.windowsPrincipal.hasRole("Administrator"));
-        assertTrue(this.windowsPrincipal.hasRole("Users"));
-        assertTrue(this.windowsPrincipal.hasRole("Everyone"));
-        assertFalse(this.windowsPrincipal.hasRole("RoleDoesNotExist"));
+        Assert.assertTrue(this.windowsPrincipal.hasRole("Administrator"));
+        Assert.assertTrue(this.windowsPrincipal.hasRole("Users"));
+        Assert.assertTrue(this.windowsPrincipal.hasRole("Everyone"));
+        Assert.assertFalse(this.windowsPrincipal.hasRole("RoleDoesNotExist"));
     }
 }

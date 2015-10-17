@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -15,6 +15,9 @@ package waffle.util;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.common.io.BaseEncoding;
 
 /**
@@ -24,18 +27,38 @@ import com.google.common.io.BaseEncoding;
  */
 public class AuthorizationHeader {
 
-    private HttpServletRequest request;
+    /** The logger. */
+    private static final Logger      LOGGER = LoggerFactory.getLogger(AuthorizationHeader.class);
 
+    /** The request. */
+    private final HttpServletRequest request;
+
+    /**
+     * Instantiates a new authorization header.
+     *
+     * @param httpServletRequest
+     *            the http servlet request
+     */
     public AuthorizationHeader(final HttpServletRequest httpServletRequest) {
         this.request = httpServletRequest;
     }
 
+    /**
+     * Gets the header.
+     *
+     * @return the header
+     */
     public String getHeader() {
         return this.request.getHeader("Authorization");
     }
 
+    /**
+     * Checks if is null.
+     *
+     * @return true, if is null
+     */
     public boolean isNull() {
-        return getHeader() == null || getHeader().length() == 0;
+        return this.getHeader() == null || this.getHeader().length() == 0;
     }
 
     /**
@@ -44,7 +67,7 @@ public class AuthorizationHeader {
      * @return Negotiate or NTLM.
      */
     public String getSecurityPackage() {
-        final String header = getHeader();
+        final String header = this.getHeader();
 
         if (header == null) {
             throw new RuntimeException("Missing Authorization: header");
@@ -58,25 +81,49 @@ public class AuthorizationHeader {
         throw new RuntimeException("Invalid Authorization header: " + header);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
-        return isNull() ? "<none>" : getHeader();
+        return this.isNull() ? "<none>" : this.getHeader();
     }
 
+    /**
+     * Gets the token.
+     *
+     * @return the token
+     */
     public String getToken() {
-        return getHeader().substring(getSecurityPackage().length() + 1);
+        return this.getHeader().substring(this.getSecurityPackage().length() + 1);
     }
 
+    /**
+     * Gets the token bytes.
+     *
+     * @return the token bytes
+     */
     public byte[] getTokenBytes() {
-        return BaseEncoding.base64().decode(getToken());
+        try {
+            return BaseEncoding.base64().decode(this.getToken());
+        } catch (final IllegalArgumentException e) {
+            AuthorizationHeader.LOGGER.debug("{}", e);
+            throw new RuntimeException("Invalid authorization header.");
+        }
     }
 
+    /**
+     * Checks if is ntlm type1 message.
+     *
+     * @return true, if is ntlm type1 message
+     */
     public boolean isNtlmType1Message() {
-        if (isNull()) {
+        if (this.isNull()) {
             return false;
         }
 
-        final byte[] tokenBytes = getTokenBytes();
+        final byte[] tokenBytes = this.getTokenBytes();
         if (!NtlmMessage.isNtlmMessage(tokenBytes)) {
             return false;
         }
@@ -84,18 +131,19 @@ public class AuthorizationHeader {
         return 1 == NtlmMessage.getMessageType(tokenBytes);
     }
 
+    /**
+     * Checks if is SP nego message.
+     *
+     * @return true, if is SP nego message
+     */
     public boolean isSPNegoMessage() {
 
-        if (isNull()) {
+        if (this.isNull()) {
             return false;
         }
 
-        final byte[] tokenBytes = getTokenBytes();
-        if (!SPNegoMessage.isSPNegoMessage(tokenBytes)) {
-            return false;
-        }
-
-        return true;
+        final byte[] tokenBytes = this.getTokenBytes();
+        return SPNegoMessage.isSPNegoMessage(tokenBytes);
     }
 
     /**
@@ -115,6 +163,6 @@ public class AuthorizationHeader {
             return false;
         }
 
-        return isNtlmType1Message() || isSPNegoMessage();
+        return this.isNtlmType1Message() || this.isSPNegoMessage();
     }
 }

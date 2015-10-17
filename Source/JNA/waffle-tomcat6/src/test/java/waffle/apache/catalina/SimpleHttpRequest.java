@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -20,160 +20,290 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.apache.catalina.connector.Request;
+import org.mockito.Mockito;
 
 /**
+ * Simple HTTP Request.
+ * 
  * @author dblock[at]dblock[dot]org
  */
 public class SimpleHttpRequest extends Request {
 
-    private static int          _remotePort_s;
+    /** The remote port s. */
+    private static int remotePortS;
 
-    private String              _requestURI;
-    private String              _queryString;
-    private String              _remoteUser;
-    private String              _method     = "GET";
-    private String              _remoteHost;
-    private String              _remoteAddr;
-    private int                 _remotePort = -1;
-    private Map<String, String> _headers    = new HashMap<String, String>();
-    private Map<String, String> _parameters = new HashMap<String, String>();
-    private byte[]              _content;
-    private HttpSession         _session    = new SimpleHttpSession();
-    private Principal           _principal;
+    /**
+     * Next remote port.
+     *
+     * @return the int
+     */
+    public synchronized static int nextRemotePort() {
+        return ++SimpleHttpRequest.remotePortS;
+    }
 
+    /**
+     * Reset remote port.
+     */
+    public synchronized static void resetRemotePort() {
+        SimpleHttpRequest.remotePortS = 0;
+    }
+
+    /** The request uri. */
+    private String                    requestURI;
+
+    /** The query string. */
+    private String                    queryString;
+
+    /** The remote user. */
+    private String                    remoteUser;
+
+    /** The method. */
+    private String                    method     = "GET";
+
+    /** The headers. */
+    private final Map<String, String> headers    = new HashMap<>();
+
+    /** The parameters. */
+    private final Map<String, String> parameters = new HashMap<>();
+
+    /** The content. */
+    private byte[]                    content;
+
+    /** The http session. */
+    private SimpleHttpSession         httpSession;
+
+    /** The principal. */
+    private Principal                 principal;
+
+    /**
+     * Instantiates a new simple http request.
+     */
     public SimpleHttpRequest() {
         super();
-        _remotePort = nextRemotePort();
+        this.httpSession = Mockito.mock(SimpleHttpSession.class, Mockito.CALLS_REAL_METHODS);
+        this.httpSession.setAttributes(new HashMap<String, Object>());
+        this.remotePort = SimpleHttpRequest.nextRemotePort();
     }
 
-    public synchronized static int nextRemotePort() {
-        return ++_remotePort_s;
-    }
-
-    public synchronized static void resetRemotePort() {
-        _remotePort_s = 0;
-    }
-
+    /*
+     * (non-Javadoc)
+     * @see org.apache.catalina.connector.Request#addHeader(java.lang.String, java.lang.String)
+     */
     @Override
-    public void addHeader(String headerName, String headerValue) {
-        _headers.put(headerName, headerValue);
+    public void addHeader(final String headerName, final String headerValue) {
+        this.headers.put(headerName, headerValue);
     }
 
-    @Override
-    public String getHeader(String headerName) {
-        return _headers.get(headerName);
+    /**
+     * Adds the parameter.
+     *
+     * @param parameterName
+     *            the parameter name
+     * @param parameterValue
+     *            the parameter value
+     */
+    public void addParameter(final String parameterName, final String parameterValue) {
+        this.parameters.put(parameterName, parameterValue);
     }
 
-    @Override
-    public String getMethod() {
-        return _method;
-    }
-
+    /*
+     * (non-Javadoc)
+     * @see org.apache.catalina.connector.Request#getContentLength()
+     */
     @Override
     public int getContentLength() {
-        return _content == null ? -1 : _content.length;
+        return this.content == null ? -1 : this.content.length;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.apache.catalina.connector.Request#getHeader(java.lang.String)
+     */
     @Override
-    public int getRemotePort() {
-        return _remotePort;
+    public String getHeader(final String headerName) {
+        return this.headers.get(headerName);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.apache.catalina.connector.Request#getMethod()
+     */
     @Override
-    public void setMethod(String methodName) {
-        _method = methodName;
+    public String getMethod() {
+        return this.method;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.apache.catalina.connector.Request#getParameter(java.lang.String)
+     */
     @Override
-    public void setContentLength(int length) {
-        _content = new byte[length];
+    public String getParameter(final String parameterName) {
+        return this.parameters.get(parameterName);
     }
 
-    public void setRemoteUser(String username) {
-        _remoteUser = username;
-    }
-
-    @Override
-    public String getRemoteUser() {
-        return _remoteUser;
-    }
-
-    @Override
-    public HttpSession getSession() {
-        return _session;
-    }
-
-    @Override
-    public HttpSession getSession(boolean create) {
-        if (_session == null && create) {
-            _session = new SimpleHttpSession();
-        }
-        return _session;
-    }
-
+    /*
+     * (non-Javadoc)
+     * @see org.apache.catalina.connector.Request#getQueryString()
+     */
     @Override
     public String getQueryString() {
-        return _queryString;
+        return this.queryString;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.apache.catalina.connector.Request#getRemoteAddr()
+     */
     @Override
-    public void setQueryString(String queryString) {
-        _queryString = queryString;
-        if (_queryString != null) {
-            for (String eachParameter : _queryString.split("[&]")) {
-                String[] pair = eachParameter.split("=");
-                String value = (pair.length == 2) ? pair[1] : "";
-                addParameter(pair[0], value);
+    public String getRemoteAddr() {
+        return this.remoteAddr;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.apache.catalina.connector.Request#getRemoteHost()
+     */
+    @Override
+    public String getRemoteHost() {
+        return this.remoteHost;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.apache.catalina.connector.Request#getRemotePort()
+     */
+    @Override
+    public int getRemotePort() {
+        return this.remotePort;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.apache.catalina.connector.Request#getRemoteUser()
+     */
+    @Override
+    public String getRemoteUser() {
+        return this.remoteUser;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.apache.catalina.connector.Request#getRequestURI()
+     */
+    @Override
+    public String getRequestURI() {
+        return this.requestURI;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.apache.catalina.connector.Request#getSession()
+     */
+    @Override
+    public HttpSession getSession() {
+        return this.httpSession;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.apache.catalina.connector.Request#getSession(boolean)
+     */
+    @Override
+    public HttpSession getSession(final boolean create) {
+        if (this.httpSession == null && create) {
+            this.httpSession = Mockito.mock(SimpleHttpSession.class, Mockito.CALLS_REAL_METHODS);
+            this.httpSession.setAttributes(new HashMap<String, Object>());
+        }
+        return this.httpSession;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.apache.catalina.connector.Request#getUserPrincipal()
+     */
+    @Override
+    public Principal getUserPrincipal() {
+        return this.principal;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.apache.catalina.connector.Request#setContentLength(int)
+     */
+    @Override
+    public void setContentLength(final int length) {
+        this.content = new byte[length];
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.apache.catalina.connector.Request#setMethod(java.lang.String)
+     */
+    @Override
+    public void setMethod(final String value) {
+        this.method = value;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.apache.catalina.connector.Request#setQueryString(java.lang.String)
+     */
+    @Override
+    public void setQueryString(final String queryValue) {
+        this.queryString = queryValue;
+        if (this.queryString != null) {
+            for (final String eachParameter : this.queryString.split("[&]")) {
+                final String[] pair = eachParameter.split("=");
+                final String value = pair.length == 2 ? pair[1] : "";
+                this.addParameter(pair[0], value);
             }
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.apache.catalina.connector.Request#setRemoteAddr(java.lang.String)
+     */
     @Override
-    public void setRequestURI(String uri) {
-        _requestURI = uri;
+    public void setRemoteAddr(final String value) {
+        this.remoteAddr = value;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.apache.catalina.connector.Request#setRemoteHost(java.lang.String)
+     */
     @Override
-    public String getRequestURI() {
-        return _requestURI;
+    public void setRemoteHost(final String value) {
+        this.remoteHost = value;
     }
 
-    @Override
-    public String getParameter(String parameterName) {
-        return _parameters.get(parameterName);
+    /**
+     * Sets the remote user.
+     *
+     * @param value
+     *            the new remote user
+     */
+    public void setRemoteUser(final String value) {
+        this.remoteUser = value;
     }
 
-    public void addParameter(String parameterName, String parameterValue) {
-        _parameters.put(parameterName, parameterValue);
+    /*
+     * (non-Javadoc)
+     * @see org.apache.catalina.connector.Request#setRequestURI(java.lang.String)
+     */
+    @Override
+    public void setRequestURI(final String value) {
+        this.requestURI = value;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.apache.catalina.connector.Request#setUserPrincipal(java.security.Principal)
+     */
     @Override
-    public String getRemoteHost() {
-        return _remoteHost;
-    }
-
-    @Override
-    public void setRemoteHost(String remoteHost) {
-        _remoteHost = remoteHost;
-    }
-
-    @Override
-    public String getRemoteAddr() {
-        return _remoteAddr;
-    }
-
-    @Override
-    public void setRemoteAddr(String remoteAddr) {
-        _remoteAddr = remoteAddr;
-    }
-
-    @Override
-    public Principal getUserPrincipal() {
-        return _principal;
-    }
-
-    @Override
-    public void setUserPrincipal(Principal principal) {
-        _principal = principal;
+    public void setUserPrincipal(final Principal value) {
+        this.principal = value;
     }
 }

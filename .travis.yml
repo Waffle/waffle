@@ -1,37 +1,33 @@
 language: java
+sudo: false
 
 jdk:
   - oraclejdk8
   - oraclejdk7
   - openjdk7
-  - openjdk6
 
 env:
   global:
-   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
-   #   via the "travis encrypt" command using the project repo's public key
-   - secure: "Q40p16gJIaQg6IcrmAEvOQmqTsU1QD31L+U/dTEgoCP56R1fKA8w8BRpEIPUtYyskq/tp5UTyRFHoVrseiuE+ceLddeS4RkbjyMZa4GpUnoCyXsn0yyrJn5UH1SRmZKiQBL8V3zoEa+/dcifexRuliQDjYruvKKAu+SAj5SPjzU="
+  - secure: Q40p16gJIaQg6IcrmAEvOQmqTsU1QD31L+U/dTEgoCP56R1fKA8w8BRpEIPUtYyskq/tp5UTyRFHoVrseiuE+ceLddeS4RkbjyMZa4GpUnoCyXsn0yyrJn5UH1SRmZKiQBL8V3zoEa+/dcifexRuliQDjYruvKKAu+SAj5SPjzU=
+  - secure: O6wlhzBmvZN+JaAy/E+G/h4uMajj3HEaZW+gbHJ28/FeIV1RohrjhcRKd8t+FX+o1FiGL3IdP48+kyxmMutisMDC6xo3127SD88oL+7AInFt+RLVWQ3dxl54kjLgb/2ulL3yWT/Tkci6xdy6TYqYHZenVIQoDBrI/4DmQUFJFN8=
+  - secure: VFBRoev/+APJfbMOmpQHiEwVDFeu4w4JaQJxldSIkbBUqyO8sVJs4+DxU3HkmGeUoqVMBRe4CATukwp/+Bh00fMlJmxZboB1RC/YpQgtBFAubbm/nzdtLwKGH4Iqi/sQWzb+3NpAU4D2ALTd+PDcMGyd6JoLEM78wLZfoKQJ/EE=
+  - secure: ZAhjEZpIx7l/gFsCTM1eqXNc6SmFJBaVybH6XGTBzQ0tyO4n3srLrwZm3TI9siabOWg650vX+YEhNfjN+rieo97p6eUgumMlSZMCkM4BN570kMgcEpBhOPO/jZ8dyYq8HVcN9duVmUoWPa9YLhAwecFJBCtWEuVFWvMEzaPTvY8=
 
 addons:
   coverity_scan:
     project:
-      name: "hazendaz/waffle"
-      description: "Build submitted via Travis CI"
+      name: dblock/waffle
+      description: Build submitted via Travis CI
     notification_email: jeremylandis@hotmail.com
-    build_command_prepend: "mvn clean"
-    build_command: "mvn -DskipTests=true install"
+    build_command_prepend: mvn clean
+    build_command: mvn -DskipTests=true install
     branch_pattern: coverity_scan
 
 before_script:
-- cd Source/ThirdParty
-- mvn install:install-file -Dfile=tomcat/5.5.36/catalina-5.5.36.jar -DgroupId=tomcat -DartifactId=catalina -Dversion=5.5.36 -Dpackaging=jar
-- mvn install:install-file -Dfile=tomcat/5.5.36/servlet-api-5.5.36.jar -DgroupId=tomcat -DartifactId=servlet-api -Dversion=5.5.36 -Dpackaging=jar
-- mvn install:install-file -Dfile=tomcat/5.5.36/tomcat-util-5.5.36.jar -DgroupId=tomcat -DartifactId=tomcat-util -Dversion=5.5.36 -Dpackaging=jar
-- mvn install:install-file -Dfile=spring-security/spring-security-core-4.0.0.M2.jar -DgroupId=org.springframework.security -DartifactId=spring-security-core -Dversion=4.0.0.M2 -Dpackaging=jar
-- mvn install:install-file -Dfile=spring-security/spring-security-web-4.0.0.M2.jar -DgroupId=org.springframework.security -DartifactId=spring-security-web -Dversion=4.0.0.M2 -Dpackaging=jar
-- cd ../JNA/waffle-parent
+  - cd Source/JNA
 
 script: if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then mvn clean install -DskipTests=true; fi
 
 after_success:
-  - mvn clean test jacoco:report coveralls:jacoco
+  - chmod -R 777 ../../travis/after_success.sh
+  - "../../travis/after_success.sh"

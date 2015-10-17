@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,27 +13,31 @@
  */
 package waffle.util;
 
-import static org.junit.Assert.assertEquals;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 import waffle.mock.http.SimpleHttpRequest;
 
 /**
+ * The Class NtlmServletRequestTests.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class NtlmServletRequestTests {
 
+    /**
+     * Test get connection id.
+     */
     @Test
     public void testGetConnectionId() {
         SimpleHttpRequest.resetRemotePort();
-        SimpleHttpRequest request1 = new SimpleHttpRequest();
-        assertEquals(":1", NtlmServletRequest.getConnectionId(request1));
-        SimpleHttpRequest request2 = new SimpleHttpRequest();
-        assertEquals(":2", NtlmServletRequest.getConnectionId(request2));
+        final SimpleHttpRequest request1 = new SimpleHttpRequest();
+        Assert.assertEquals(":1", NtlmServletRequest.getConnectionId(request1));
+        final SimpleHttpRequest request2 = new SimpleHttpRequest();
+        Assert.assertEquals(":2", NtlmServletRequest.getConnectionId(request2));
         request2.setRemoteAddr("192.168.1.1");
-        assertEquals("192.168.1.1:2", NtlmServletRequest.getConnectionId(request2));
+        Assert.assertEquals("192.168.1.1:2", NtlmServletRequest.getConnectionId(request2));
         request2.setRemoteHost("codeplex.com");
-        assertEquals("codeplex.com:2", NtlmServletRequest.getConnectionId(request2));
+        Assert.assertEquals("codeplex.com:2", NtlmServletRequest.getConnectionId(request2));
     }
 }

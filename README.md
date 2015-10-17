@@ -5,6 +5,8 @@ WAFFLE - Windows Authentication Framework
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/2775/badge.svg)](https://scan.coverity.com/projects/2775)
 [![Coverage Status](https://coveralls.io/repos/hazendaz/waffle/badge.png)](https://coveralls.io/r/hazendaz/waffle)
 [![Maven central](https://maven-badges.herokuapp.com/maven-central/com.github.dblock.waffle/waffle-jna/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.dblock.waffle/waffle-jna)
+[![Eclipse](http://img.shields.io/badge/license-Eclipse-blue.svg)](https://www.eclipse.org/legal/epl-v10.html)
+[![Dependency Status](https://www.versioneye.com/user/projects/55ff3de7601dd9001c000132/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55ff3de7601dd9001c000132)
 
 ![waffle](https://github.com/dblock/waffle/raw/master/waffle.jpg)
 
@@ -12,17 +14,31 @@ WAFFLE is a native Windows Authentication Framework consisting of two C# and Jav
 
 Unlike many other implementations Waffle on Windows does not require any server-side Kerberos keytab setup, it's a drop-in solution. You can see it in action in [this slightly blurry video](http://www.youtube.com/watch?v=LmTwbOh0hBU) produced for [TeamShatter.com](http://www.teamshatter.com/topics/general/team-shatter-exclusive/securing-java-applications-with-smart-cards-and-single-sign-on/). 
 
+[Site Page](http://dblock.github.io/waffle/)
+
 Essentials
 ----------
 
-* [Download Version 1.7](http://code.dblock.org/downloads/waffle/Waffle.1.7.zip)
+* [Download Version 1.7.4](https://github.com/dblock/waffle/releases/download/Waffle-1.7.4/Waffle.1.7.4.zip)
 * [Waffle in Maven Central](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.github.dblock.waffle%22)
+* [Waffle Snapshots](https://oss.sonatype.org/content/repositories/snapshots/com/github/dblock/waffle/)
 * [Get Waffle To Work in Tomcat, Jetty, WebSphere, etc.](Docs/ServletSingleSignOnSecurityFilter.md)
 * [Need Help? Google Group](http://groups.google.com/group/waffle-users)
 * [Troubleshooting](Docs/Troubleshooting.md)
 * [Frequently Asked Questions](Docs/FAQ.md)
 * [Older Versions on CodePlex](http://waffle.codeplex.com/).
 * [PlatformSDK Security Group](https://groups.google.com/group/microsoft.public.platformsdk.security)
+
+Legacy 1.7.x Branch
+-------------------
+Waffle legacy support.  From 1/3/2015 through 1/1/2016 we will continue to support the 1.7.x branch for any bug fixes to
+legacy items.
+
+Legacy is defined as...
+
+* Spring 2
+* Tomcat 5
+* Java 6
 
 Documentation
 -------------
@@ -55,7 +71,7 @@ Related and Similar Products
 
 * [Cross-Platform SPNEGO](http://spnego.sourceforge.net/)
 * [Tomcat SPNEGO](http://tomcatspnego.codeplex.com/)
-* [Quest Vintella Single-Sign-On](http://www.quest.com/single-sign-on-for-java/) (Commercial)
+* [Quest Vintela Single-Sign-On](http://www.quest.com/single-sign-on-for-java/) (Commercial)
 * [IOPlex Jespa](http://www.ioplex.com/) (Commercial)
 * [Josso](http://www.josso.org/confluence/display/JOSSO1/JOSSO+-+Java+Open+Single+Sign-On+Project+Home)
 
@@ -68,11 +84,18 @@ Contributing
 * Update [CHANGELOG](CHANGELOG.md).
 * Make pull requests. Bonus points for topic branches. 
 
+Sonar Results
+-------------
+
+Current status of sonar results for Waffle.
+
+![sonar-results](Docs/imgs/sonar-results.png)
+
 License and Copyright
 ---------------------
 
-Copyright (c) [Application Security Inc.](http://www.appsecinc.com), 2010-2014 and Contributors. 
+Copyright (c) [Application Security Inc.](http://www.appsecinc.com), 2010-2015 and Contributors. 
 
 This project is licensed under the [Eclipse Public License](https://github.com/dblock/waffle/blob/master/LICENSE).
 
-Project maintained by [Daniel Doubrovkine](https://github.com/dblock).
+Project maintained by [Daniel Doubrovkine](https://github.com/dblock) & [Jeremy Landis](https://github.com/hazendaz).

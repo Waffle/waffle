@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,9 +13,6 @@
  */
 package waffle.servlet;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.io.IOException;
 
 import javax.security.auth.Subject;
@@ -24,7 +21,9 @@ import javax.servlet.ServletException;
 
 import waffle.mock.http.*;
 
+import org.assertj.core.api.Assertions;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -35,30 +34,44 @@ import waffle.mock.MockWindowsAuthProvider;
 import waffle.windows.auth.impl.WindowsAccountImpl;
 
 /**
- * Waffle Tomcat Security Filter Tests
- * 
+ * Waffle Tomcat Security Filter Tests.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class BasicSecurityFilterTests {
 
+    /** The filter. */
     private NegotiateSecurityFilter filter;
 
+    /**
+     * Sets the up.
+     *
+     * @throws ServletException
+     *             the servlet exception
+     */
     @Before
-    public void setUp() {
+    public void setUp() throws ServletException {
         this.filter = new NegotiateSecurityFilter();
         this.filter.setAuth(new MockWindowsAuthProvider());
-        try {
-            this.filter.init(null);
-        } catch (ServletException e) {
-            fail(e.getMessage());
-        }
+        this.filter.init(null);
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         this.filter.destroy();
     }
 
+    /**
+     * Test basic auth.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ServletException
+     *             the servlet exception
+     */
     @Test
     public void testBasicAuth() throws IOException, ServletException {
         final SimpleHttpRequest request = new SimpleHttpRequest();
@@ -73,7 +86,7 @@ public class BasicSecurityFilterTests {
         final FilterChain filterChain = new SimpleFilterChain();
         this.filter.doFilter(request, response, filterChain);
         final Subject subject = (Subject) request.getSession().getAttribute("javax.security.auth.subject");
-        final boolean authenticated = (subject != null && subject.getPrincipals().size() > 0);
-        assertTrue(authenticated);
+        Assert.assertNotNull(subject);
+        Assertions.assertThat(subject.getPrincipals().size()).isGreaterThan(0);
     }
 }

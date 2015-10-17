@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -50,8 +50,12 @@ import com.sun.jna.ptr.IntByReference;
  */
 public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
 
-    private Cache<String, CtxtHandle> continueContexts;
+    /** The continue contexts. */
+    private final Cache<String, CtxtHandle> continueContexts;
 
+    /**
+     * Instantiates a new windows auth provider impl.
+     */
     public WindowsAuthProviderImpl() {
         this(30);
     }
@@ -67,6 +71,10 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
                 .build();
     }
 
+    /*
+     * (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsAuthProvider#acceptSecurityToken(java.lang.String, byte[], java.lang.String)
+     */
     @Override
     public IWindowsSecurityContext acceptSecurityToken(final String connectionId, final byte[] token,
             final String securityPackage) {
@@ -101,7 +109,7 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
                     pfClientContextAttr, null);
 
             sc = new WindowsSecurityContextImpl();
-            sc.setCredentialsHandle(serverCredential.getHandle());
+            sc.setCredentialsHandle(serverCredential);
             sc.setSecurityPackage(securityPackage);
             sc.setSecurityContext(phNewServerContext);
 
@@ -138,31 +146,49 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
         return sc;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsAuthProvider#getCurrentComputer()
+     */
     @Override
     public IWindowsComputer getCurrentComputer() {
         try {
             return new WindowsComputerImpl(InetAddress.getLocalHost().getHostName());
-        } catch (UnknownHostException e) {
+        } catch (final UnknownHostException e) {
             throw new RuntimeException(e);
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsAuthProvider#getDomains()
+     */
     @Override
     public IWindowsDomain[] getDomains() {
-        final List<IWindowsDomain> domains = new ArrayList<IWindowsDomain>();
+        final List<IWindowsDomain> domains = new ArrayList<>();
         final DomainTrust[] trusts = Netapi32Util.getDomainTrusts();
-        for (DomainTrust trust : trusts) {
+        for (final DomainTrust trust : trusts) {
             domains.add(new WindowsDomainImpl(trust));
         }
         return domains.toArray(new IWindowsDomain[0]);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsAuthProvider#logonDomainUser(java.lang.String, java.lang.String,
+     * java.lang.String)
+     */
     @Override
     public IWindowsIdentity logonDomainUser(final String username, final String domain, final String password) {
-        return logonDomainUserEx(username, domain, password, WinBase.LOGON32_LOGON_NETWORK,
+        return this.logonDomainUserEx(username, domain, password, WinBase.LOGON32_LOGON_NETWORK,
                 WinBase.LOGON32_PROVIDER_DEFAULT);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsAuthProvider#logonDomainUserEx(java.lang.String, java.lang.String,
+     * java.lang.String, int, int)
+     */
     @Override
     public IWindowsIdentity logonDomainUserEx(final String username, final String domain, final String password,
             final int logonType, final int logonProvider) {
@@ -173,22 +199,34 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
         return new WindowsIdentityImpl(phUser.getValue());
     }
 
+    /*
+     * (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsAuthProvider#logonUser(java.lang.String, java.lang.String)
+     */
     @Override
     public IWindowsIdentity logonUser(final String username, final String password) {
         // username@domain UPN format is natively supported by the
         // Windows LogonUser API process domain\\username format
         final String[] userNameDomain = username.split("\\\\", 2);
         if (userNameDomain.length == 2) {
-            return logonDomainUser(userNameDomain[1], userNameDomain[0], password);
+            return this.logonDomainUser(userNameDomain[1], userNameDomain[0], password);
         }
-        return logonDomainUser(username, null, password);
+        return this.logonDomainUser(username, null, password);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsAuthProvider#lookupAccount(java.lang.String)
+     */
     @Override
     public IWindowsAccount lookupAccount(final String username) {
         return new WindowsAccountImpl(username);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsAuthProvider#resetSecurityToken(java.lang.String)
+     */
     @Override
     public void resetSecurityToken(final String connectionId) {
         this.continueContexts.asMap().remove(connectionId);

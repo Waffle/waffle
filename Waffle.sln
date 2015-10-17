@@ -1,33 +1,13 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{1677E891-62D4-4EB7-A5AD-51FE1FF727B0}"
 	ProjectSection(SolutionItems) = preProject
 		build.cmd = build.cmd
 		Version.proj = Version.proj
 		Waffle.proj = Waffle.proj
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{D799ED43-5848-47CF-80B8-B804880E0819}"
-	ProjectSection(SolutionItems) = preProject
-		Documentation\Waffle.content = Documentation\Waffle.content
-		Documentation\Waffle.shfbproj = Documentation\Waffle.shfbproj
-		Documentation\WhatsNew.html = Documentation\WhatsNew.html
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Content", "Content", "{581579B2-97D8-4954-9687-A281F3EA2B33}"
-	ProjectSection(SolutionItems) = preProject
-		Documentation\Content\Browsers.aml = Documentation\Content\Browsers.aml
-		Documentation\Content\DevContribute.aml = Documentation\Content\DevContribute.aml
-		Documentation\Content\GettingStarted.aml = Documentation\Content\GettingStarted.aml
-		Documentation\Content\JspDemo.aml = Documentation\Content\JspDemo.aml
-		Documentation\Content\Main.aml = Documentation\Content\Main.aml
-		Documentation\Content\ServletSecurityFilter.aml = Documentation\Content\ServletSecurityFilter.aml
-		Documentation\Content\SpringSecurityAuthenticator.aml = Documentation\Content\SpringSecurityAuthenticator.aml
-		Documentation\Content\SpringSecurityFilter.aml = Documentation\Content\SpringSecurityFilter.aml
-		Documentation\Content\TomcatAuthenticator.aml = Documentation\Content\TomcatAuthenticator.aml
-		Documentation\Content\TomcatMixedAuthenticator.aml = Documentation\Content\TomcatMixedAuthenticator.aml
-		Documentation\Content\WindowsLoginModule.aml = Documentation\Content\WindowsLoginModule.aml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsAuthProvider", "Source\WindowsAuthProvider\WindowsAuthProvider.csproj", "{CD4002DB-54D8-4186-8E78-AEA1AE226D7B}"
@@ -71,8 +51,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{581579B2-97D8-4954-9687-A281F3EA2B33} = {D799ED43-5848-47CF-80B8-B804880E0819}
 	EndGlobalSection
 EndGlobal

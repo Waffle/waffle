@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -22,12 +22,27 @@ import java.io.Serializable;
  */
 public class WindowsAccount implements Serializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
-    private String            sidString;
-    private String            fqn;
-    private String            name;
-    private String            domain;
 
+    /** The sid string. */
+    private final String      sidString;
+
+    /** The fqn. */
+    private final String      fqn;
+
+    /** The name. */
+    private final String      name;
+
+    /** The domain. */
+    private final String      domain;
+
+    /**
+     * Instantiates a new windows account.
+     *
+     * @param account
+     *            the account
+     */
     public WindowsAccount(final IWindowsAccount account) {
         this.sidString = account.getSidString();
         this.fqn = account.getFqn();
@@ -35,22 +50,46 @@ public class WindowsAccount implements Serializable {
         this.domain = account.getDomain();
     }
 
+    /**
+     * Gets the sid string.
+     *
+     * @return the sid string
+     */
     public String getSidString() {
         return this.sidString;
     }
 
+    /**
+     * Gets the fqn.
+     *
+     * @return the fqn
+     */
     public String getFqn() {
         return this.fqn;
     }
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Gets the domain.
+     *
+     * @return the domain
+     */
     public String getDomain() {
         return this.domain;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object o) {
 
@@ -62,11 +101,15 @@ public class WindowsAccount implements Serializable {
             return false;
         }
 
-        return ((WindowsAccount) o).getSidString().equals(getSidString());
+        return ((WindowsAccount) o).getSidString().equals(this.getSidString());
     }
 
+    /*
+     * (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
-        return getSidString().hashCode();
+        return this.getSidString().hashCode();
     }
 }

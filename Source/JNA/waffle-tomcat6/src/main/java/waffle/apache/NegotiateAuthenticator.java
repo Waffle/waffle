@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -25,6 +25,7 @@ import org.apache.catalina.deploy.LoginConfig;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.io.BaseEncoding;
+import com.sun.jna.platform.win32.Win32Exception;
 
 import waffle.util.AuthorizationHeader;
 import waffle.util.NtlmServletRequest;
@@ -38,6 +39,9 @@ import waffle.windows.auth.IWindowsSecurityContext;
  */
 public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 
+    /**
+     * Instantiates a new negotiate authenticator.
+     */
     public NegotiateAuthenticator() {
         super();
         this.log = LoggerFactory.getLogger(NegotiateAuthenticator.class);
@@ -45,16 +49,29 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
         this.log.debug("[waffle.apache.NegotiateAuthenticator] loaded");
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.apache.catalina.authenticator.AuthenticatorBase#start()
+     */
     @Override
     public void start() {
         this.log.info("[waffle.apache.NegotiateAuthenticator] started");
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.apache.catalina.authenticator.AuthenticatorBase#stop()
+     */
     @Override
     public void stop() {
         this.log.info("[waffle.apache.NegotiateAuthenticator] stopped");
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.apache.catalina.authenticator.AuthenticatorBase#authenticate(org.apache.catalina.connector.Request,
+     * org.apache.catalina.connector.Response, org.apache.catalina.deploy.LoginConfig)
+     */
     @Override
     public boolean authenticate(final Request request, final Response response, final LoginConfig loginConfig) {
 
@@ -92,12 +109,19 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
             try {
                 final byte[] tokenBuffer = authorizationHeader.getTokenBytes();
                 this.log.debug("token buffer: {} byte(s)", Integer.valueOf(tokenBuffer.length));
-                securityContext = this.auth.acceptSecurityToken(connectionId, tokenBuffer, securityPackage);
+                try {
+                    securityContext = this.auth.acceptSecurityToken(connectionId, tokenBuffer, securityPackage);
+                } catch (final Win32Exception e) {
+                    this.log.warn("error logging in user: {}", e.getMessage());
+                    this.log.trace("{}", e);
+                    this.sendUnauthorized(response);
+                    return false;
+                }
                 this.log.debug("continue required: {}", Boolean.valueOf(securityContext.isContinue()));
 
                 final byte[] continueTokenBytes = securityContext.getToken();
                 if (continueTokenBytes != null && continueTokenBytes.length > 0) {
-                    String continueToken = BaseEncoding.base64().encode(continueTokenBytes);
+                    final String continueToken = BaseEncoding.base64().encode(continueTokenBytes);
                     this.log.debug("continue token: {}", continueToken);
                     response.addHeader("WWW-Authenticate", securityPackage + " " + continueToken);
                 }
@@ -109,17 +133,17 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
                     return false;
                 }
 
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 this.log.warn("error logging in user: {}", e.getMessage());
                 this.log.trace("{}", e);
-                sendUnauthorized(response);
+                this.sendUnauthorized(response);
                 return false;
             }
 
             // realm: fail if no realm is configured
             if (this.context == null || this.context.getRealm() == null) {
                 this.log.warn("missing context/realm");
-                sendError(response, HttpServletResponse.SC_SERVICE_UNAVAILABLE);
+                this.sendError(response, HttpServletResponse.SC_SERVICE_UNAVAILABLE);
                 return false;
             }
 
@@ -129,7 +153,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
             // disable guest login
             if (!this.allowGuestLogin && windowsIdentity.isGuest()) {
                 this.log.warn("guest login disabled: {}", windowsIdentity.getFqn());
-                sendUnauthorized(response);
+                this.sendUnauthorized(response);
                 return false;
             }
 
@@ -148,7 +172,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
                 this.log.debug("session id: {}", session == null ? "null" : session.getId());
 
                 // register the authenticated principal
-                register(request, response, principal, securityPackage, principal.getName(), null);
+                this.register(request, response, principal, securityPackage, principal.getName(), null);
                 this.log.info("successfully logged in user: {}", principal.getName());
 
             } finally {
@@ -159,7 +183,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
         }
 
         this.log.debug("authorization required");
-        sendUnauthorized(response);
+        this.sendUnauthorized(response);
         return false;
     }
 }

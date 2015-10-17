@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -27,6 +27,7 @@ import com.sun.jna.platform.win32.Secur32Util;
  */
 public class WindowsAccountImpl implements IWindowsAccount {
 
+    /** The account. */
     private final Account account;
 
     /**
@@ -80,6 +81,10 @@ public class WindowsAccountImpl implements IWindowsAccount {
         return this.account.domain;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsAccount#getFqn()
+     */
     @Override
     public String getFqn() {
         return this.account.fqn;
@@ -95,6 +100,10 @@ public class WindowsAccountImpl implements IWindowsAccount {
         return this.account.name;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsAccount#getSidString()
+     */
     @Override
     public String getSidString() {
         return this.account.sidString;

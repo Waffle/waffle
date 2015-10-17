@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -33,18 +33,29 @@ import waffle.servlet.spi.SecurityFilterProviderCollection;
  */
 public class NegotiateSecurityFilterEntryPoint implements AuthenticationEntryPoint {
 
+    /** The Constant LOGGER. */
     private static final Logger              LOGGER = LoggerFactory.getLogger(NegotiateSecurityFilterEntryPoint.class);
+
+    /** The provider. */
     private SecurityFilterProviderCollection provider;
 
+    /**
+     * Instantiates a new negotiate security filter entry point.
+     */
     public NegotiateSecurityFilterEntryPoint() {
-        LOGGER.debug("[waffle.spring.NegotiateEntryPoint] loaded");
+        NegotiateSecurityFilterEntryPoint.LOGGER.debug("[waffle.spring.NegotiateEntryPoint] loaded");
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.springframework.security.web.AuthenticationEntryPoint#commence(javax.servlet.http.HttpServletRequest,
+     * javax.servlet.http.HttpServletResponse, org.springframework.security.core.AuthenticationException)
+     */
     @Override
     public void commence(final HttpServletRequest request, final HttpServletResponse response,
             final AuthenticationException ex) throws IOException, ServletException {
 
-        LOGGER.debug("[waffle.spring.NegotiateEntryPoint] commence");
+        NegotiateSecurityFilterEntryPoint.LOGGER.debug("[waffle.spring.NegotiateEntryPoint] commence");
 
         if (this.provider == null) {
             throw new ServletException("Missing NegotiateEntryPoint.Provider");
@@ -56,10 +67,21 @@ public class NegotiateSecurityFilterEntryPoint implements AuthenticationEntryPoi
         response.flushBuffer();
     }
 
+    /**
+     * Gets the provider.
+     *
+     * @return the provider
+     */
     public SecurityFilterProviderCollection getProvider() {
         return this.provider;
     }
 
+    /**
+     * Sets the provider.
+     *
+     * @param value
+     *            the new provider
+     */
     public void setProvider(final SecurityFilterProviderCollection value) {
         this.provider = value;
     }

@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -23,8 +23,11 @@ import java.security.Principal;
  */
 public class RolePrincipal implements Principal, Serializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
-    private String            fqn;
+
+    /** The fqn. */
+    private final String      fqn;
 
     /**
      * A windows principal.
@@ -38,6 +41,8 @@ public class RolePrincipal implements Principal, Serializable {
 
     /**
      * Role name (Windows Group).
+     *
+     * @return the name
      */
     @Override
     public String getName() {
@@ -46,9 +51,10 @@ public class RolePrincipal implements Principal, Serializable {
 
     /**
      * Role Principal Equals for FQN.
-     * 
+     *
      * @param o
      *            Object used for Equality Check.
+     * @return true, if successful
      */
     @Override
     public boolean equals(final Object o) {
@@ -58,7 +64,7 @@ public class RolePrincipal implements Principal, Serializable {
         }
 
         if (o instanceof RolePrincipal) {
-            return getName().equals(((RolePrincipal) o).getName());
+            return this.getName().equals(((RolePrincipal) o).getName());
         }
 
         return false;
@@ -66,10 +72,12 @@ public class RolePrincipal implements Principal, Serializable {
 
     /**
      * Role Principal HashCode for FQN.
+     *
+     * @return the int
      */
     @Override
     public int hashCode() {
-        return getName().hashCode();
+        return this.getName().hashCode();
     }
 
 }

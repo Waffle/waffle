@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -25,6 +25,10 @@ public interface GrantedAuthorityFactory {
 
     /**
      * Creates a {@link GrantedAuthority} from the given {@link WindowsAccount}.
+     *
+     * @param windowsAccount
+     *            the windows account
+     * @return the granted authority
      */
     GrantedAuthority createGrantedAuthority(final WindowsAccount windowsAccount);
 

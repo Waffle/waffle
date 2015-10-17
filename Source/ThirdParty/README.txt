@@ -1,1 +1,0 @@
-Any dependencies here are a result of being unavailable in nexus repositories.  Run 'maven-install.cmd' file in this directory to install files into local .m2 repository.

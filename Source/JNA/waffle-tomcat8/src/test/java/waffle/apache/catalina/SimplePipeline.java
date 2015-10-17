@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,61 +13,36 @@
  */
 package waffle.apache.catalina;
 
-import org.apache.catalina.Container;
 import org.apache.catalina.Pipeline;
 import org.apache.catalina.Valve;
 
-public class SimplePipeline implements Pipeline {
+/**
+ * Simple Pipeline.
+ * 
+ * @author dblock[at]dblock[dot]org
+ */
+public abstract class SimplePipeline implements Pipeline {
 
-    private Valve[] valves = new Valve[0];
+    /** The valves. */
+    private Valve[] valves;
 
-    @Override
-    public void addValve(Valve arg0) {
-        // Not Implemented
-    }
-
-    @Override
-    public Valve getBasic() {
-        // Not Implemented
-        return null;
-    }
-
-    @Override
-    public Container getContainer() {
-        // Not Implemented
-        return null;
-    }
-
-    @Override
-    public Valve getFirst() {
-        // Not Implemented
-        return null;
-    }
-
+    /*
+     * (non-Javadoc)
+     * @see org.apache.catalina.Pipeline#getValves()
+     */
     @Override
     public Valve[] getValves() {
         return this.valves.clone();
     }
 
-    @Override
-    public boolean isAsyncSupported() {
-        // Not Implemented
-        return false;
-    }
-
-    @Override
-    public void removeValve(Valve arg0) {
-        // Not Implemented
-    }
-
-    @Override
-    public void setBasic(Valve arg0) {
-        // Not Implemented
-    }
-
-    @Override
-    public void setContainer(Container arg0) {
-        // Not Implemented
+    /**
+     * Sets the valves.
+     *
+     * @param value
+     *            the new valves
+     */
+    public void setValves(final Valve[] value) {
+        this.valves = value;
     }
 
 }

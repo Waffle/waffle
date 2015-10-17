@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,10 +13,6 @@
  */
 package waffle.apache;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -24,6 +20,8 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import org.assertj.core.api.Assertions;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,51 +29,72 @@ import waffle.mock.MockWindowsAccount;
 import waffle.windows.auth.WindowsAccount;
 
 /**
+ * Windows Account Tests.
+ * 
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsAccountTests {
 
-    private MockWindowsAccount mockWindowsAccount = new MockWindowsAccount("localhost\\Administrator");
-    private WindowsAccount     windowsAccount;
+    /** The mock windows account. */
+    private final MockWindowsAccount mockWindowsAccount = new MockWindowsAccount("localhost\\Administrator");
 
+    /** The windows account. */
+    private WindowsAccount           windowsAccount;
+
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         this.windowsAccount = new WindowsAccount(this.mockWindowsAccount);
     }
 
-    @Test
-    public void testProperties() {
-        assertEquals("localhost", this.windowsAccount.getDomain());
-        assertEquals("localhost\\Administrator", this.windowsAccount.getFqn());
-        assertEquals("Administrator", this.windowsAccount.getName());
-        assertTrue(this.windowsAccount.getSidString().startsWith("S-"));
-    }
-
+    /**
+     * Test equals.
+     */
     @Test
     public void testEquals() {
-        assertEquals(this.windowsAccount, new WindowsAccount(this.mockWindowsAccount));
-        MockWindowsAccount mockWindowsAccount2 = new MockWindowsAccount("localhost\\Administrator2");
-        assertFalse(this.windowsAccount.equals(new WindowsAccount(mockWindowsAccount2)));
+        Assert.assertEquals(this.windowsAccount, new WindowsAccount(this.mockWindowsAccount));
+        final MockWindowsAccount mockWindowsAccount2 = new MockWindowsAccount("localhost\\Administrator2");
+        Assert.assertFalse(this.windowsAccount.equals(new WindowsAccount(mockWindowsAccount2)));
     }
 
+    /**
+     * Test is serializable.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     */
     @Test
     public void testIsSerializable() throws IOException, ClassNotFoundException {
         // serialize
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(out);
-        oos.writeObject(this.windowsAccount);
-        oos.close();
-        assertTrue(out.toByteArray().length > 0);
+        final ByteArrayOutputStream out = new ByteArrayOutputStream();
+        try (final ObjectOutputStream oos = new ObjectOutputStream(out)) {
+            oos.writeObject(this.windowsAccount);
+        }
+        Assertions.assertThat(out.toByteArray().length).isGreaterThan(0);
         // deserialize
-        InputStream in = new ByteArrayInputStream(out.toByteArray());
-        ObjectInputStream ois = new ObjectInputStream(in);
-        Object o = ois.readObject();
-        WindowsAccount copy = (WindowsAccount) o;
+        final InputStream in = new ByteArrayInputStream(out.toByteArray());
+        final ObjectInputStream ois = new ObjectInputStream(in);
+        final WindowsAccount copy = (WindowsAccount) ois.readObject();
         // test
-        assertEquals(this.windowsAccount, copy);
-        assertEquals(this.windowsAccount.getDomain(), copy.getDomain());
-        assertEquals(this.windowsAccount.getFqn(), copy.getFqn());
-        assertEquals(this.windowsAccount.getName(), copy.getName());
-        assertEquals(this.windowsAccount.getSidString(), copy.getSidString());
+        Assert.assertEquals(this.windowsAccount, copy);
+        Assert.assertEquals(this.windowsAccount.getDomain(), copy.getDomain());
+        Assert.assertEquals(this.windowsAccount.getFqn(), copy.getFqn());
+        Assert.assertEquals(this.windowsAccount.getName(), copy.getName());
+        Assert.assertEquals(this.windowsAccount.getSidString(), copy.getSidString());
+    }
+
+    /**
+     * Test properties.
+     */
+    @Test
+    public void testProperties() {
+        Assert.assertEquals("localhost", this.windowsAccount.getDomain());
+        Assert.assertEquals("localhost\\Administrator", this.windowsAccount.getFqn());
+        Assert.assertEquals("Administrator", this.windowsAccount.getName());
+        Assert.assertTrue(this.windowsAccount.getSidString().startsWith("S-"));
     }
 }

@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -33,49 +33,74 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.Joiner;
 
 /**
+ * The Class SimpleHttpResponse.
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class SimpleHttpResponse extends HttpServletResponseWrapper {
 
-    private static final Logger       LOGGER  = LoggerFactory.getLogger(SimpleHttpResponse.class);
+    /** The Constant LOGGER. */
+    private static final Logger             LOGGER  = LoggerFactory.getLogger(SimpleHttpResponse.class);
 
-    private int                       status  = 500;
-    private Map<String, List<String>> headers = new HashMap<String, List<String>>();
+    /** The status. */
+    private int                             status  = 500;
 
-    final ByteArrayOutputStream       bytes   = new ByteArrayOutputStream();
+    /** The headers. */
+    private final Map<String, List<String>> headers = new HashMap<>();
 
-    private final ServletOutputStream out     = new ServletOutputStream() {
-                                                  @Override
-                                                  public void write(final int b) throws IOException {
-                                                      SimpleHttpResponse.this.bytes.write(b);
-                                                  }
-                                              };
+    /** The bytes. */
+    final ByteArrayOutputStream             bytes   = new ByteArrayOutputStream();
 
-    private final PrintWriter         writer  = new PrintWriter(this.bytes);
+    /** The out. */
+    private final ServletOutputStream       out     = new ServletOutputStream() {
+                                                        @Override
+                                                        public void write(final int b) throws IOException {
+                                                            SimpleHttpResponse.this.bytes.write(b);
+                                                        }
+                                                    };
 
+    /** The writer. */
+    private final PrintWriter               writer  = new PrintWriter(this.bytes);
+
+    /**
+     * Instantiates a new simple http response.
+     */
     public SimpleHttpResponse() {
         super(Mockito.mock(HttpServletResponse.class));
     }
 
+    /**
+     * Gets the status.
+     *
+     * @return the status
+     */
     public int getStatus() {
         return this.status;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see javax.servlet.http.HttpServletResponseWrapper#addHeader(java.lang.String, java.lang.String)
+     */
     @Override
     public void addHeader(final String headerName, final String headerValue) {
         List<String> current = this.headers.get(headerName);
         if (current == null) {
-            current = new ArrayList<String>();
+            current = new ArrayList<>();
         }
         current.add(headerValue);
         this.headers.put(headerName, current);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see javax.servlet.http.HttpServletResponseWrapper#setHeader(java.lang.String, java.lang.String)
+     */
     @Override
     public void setHeader(final String headerName, final String headerValue) {
         List<String> current = this.headers.get(headerName);
         if (current == null) {
-            current = new ArrayList<String>();
+            current = new ArrayList<>();
         } else {
             current.clear();
         }
@@ -83,11 +108,20 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
         this.headers.put(headerName, current);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see javax.servlet.http.HttpServletResponseWrapper#setStatus(int)
+     */
     @Override
     public void setStatus(final int value) {
         this.status = value;
     }
 
+    /**
+     * Gets the status string.
+     *
+     * @return the status string
+     */
     public String getStatusString() {
         if (this.status == 401) {
             return "Unauthorized";
@@ -95,12 +129,16 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
         return "Unknown";
     }
 
+    /*
+     * (non-Javadoc)
+     * @see javax.servlet.ServletResponseWrapper#flushBuffer()
+     */
     @Override
     public void flushBuffer() {
-        LOGGER.info("{}: {}", Integer.valueOf(this.status), getStatusString());
-        for (String header : this.headers.keySet()) {
-            for (String headerValue : this.headers.get(header)) {
-                LOGGER.info("{}: {}", header, headerValue);
+        SimpleHttpResponse.LOGGER.info("{}: {}", Integer.valueOf(this.status), this.getStatusString());
+        for (final String header : this.headers.keySet()) {
+            for (final String headerValue : this.headers.get(header)) {
+                SimpleHttpResponse.LOGGER.info("{}: {}", header, headerValue);
             }
         }
     }
@@ -114,42 +152,77 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
         return this.headers.size();
     }
 
+    /**
+     * Gets the header values.
+     *
+     * @param headerName
+     *            the header name
+     * @return the header values
+     */
     public String[] getHeaderValues(final String headerName) {
         final List<String> headerValues = this.headers.get(headerName);
         return headerValues == null ? null : headerValues.toArray(new String[0]);
     }
 
+    /**
+     * Gets the header.
+     *
+     * @param headerName
+     *            the header name
+     * @return the header
+     */
     public String getHeader(final String headerName) {
         final List<String> headerValues = this.headers.get(headerName);
         return headerValues == null ? null : Joiner.on(", ").join(headerValues);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see javax.servlet.http.HttpServletResponseWrapper#sendError(int, java.lang.String)
+     */
     @Override
     public void sendError(final int rc, final String message) {
         this.status = rc;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see javax.servlet.http.HttpServletResponseWrapper#sendError(int)
+     */
     @Override
     public void sendError(final int rc) {
         this.status = rc;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see javax.servlet.ServletResponseWrapper#getWriter()
+     */
     @Override
     public PrintWriter getWriter() {
         return this.writer;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see javax.servlet.ServletResponseWrapper#getOutputStream()
+     */
     @Override
     public ServletOutputStream getOutputStream() throws IOException {
         return this.out;
     }
 
+    /**
+     * Gets the output text.
+     *
+     * @return the output text
+     */
     public String getOutputText() {
         this.writer.flush();
         try {
             return this.bytes.toString("UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            LOGGER.error("{}", e);
+        } catch (final UnsupportedEncodingException e) {
+            SimpleHttpResponse.LOGGER.error("{}", e);
         }
         return null;
     }

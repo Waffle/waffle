@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
@@ -85,6 +84,7 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  */
 public class WaffleInfo {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory.getLogger(WaffleInfo.class);
 
     /**
@@ -118,11 +118,18 @@ public class WaffleInfo {
         }
 
         doc.appendChild(root);
-        root.appendChild(getAuthProviderInfo(doc));
+        root.appendChild(this.getAuthProviderInfo(doc));
 
         return doc;
     }
 
+    /**
+     * Gets the auth provider info.
+     *
+     * @param doc
+     *            the doc
+     * @return the auth provider info
+     */
     protected Element getAuthProviderInfo(final Document doc) {
         final IWindowsAuthProvider auth = new WindowsAuthProviderImpl();
 
@@ -134,13 +141,13 @@ public class WaffleInfo {
         node.appendChild(child);
 
         final String currentUsername = WindowsAccountImpl.getCurrentUsername();
-        addAccountInfo(doc, child, new WindowsAccountImpl(currentUsername));
+        this.addAccountInfo(doc, child, new WindowsAccountImpl(currentUsername));
 
         // Computer
         child = doc.createElement("computer");
         node.appendChild(child);
 
-        IWindowsComputer c = auth.getCurrentComputer();
+        final IWindowsComputer c = auth.getCurrentComputer();
         Element value = doc.createElement("computerName");
         value.setTextContent(c.getComputerName());
         child.appendChild(value);
@@ -155,7 +162,7 @@ public class WaffleInfo {
 
         value = doc.createElement("groups");
         Element g;
-        for (String s : c.getGroups()) {
+        for (final String s : c.getGroups()) {
             g = doc.createElement("group");
             g.setTextContent(s);
             value.appendChild(g);
@@ -168,7 +175,7 @@ public class WaffleInfo {
             node.appendChild(child);
 
             Element d;
-            for (IWindowsDomain domain : auth.getDomains()) {
+            for (final IWindowsDomain domain : auth.getDomains()) {
                 d = doc.createElement("domain");
                 node.appendChild(d);
 
@@ -188,6 +195,16 @@ public class WaffleInfo {
         return node;
     }
 
+    /**
+     * Adds the account info.
+     *
+     * @param doc
+     *            the doc
+     * @param node
+     *            the node
+     * @param account
+     *            the account
+     */
     protected void addAccountInfo(final Document doc, final Element node, final IWindowsAccount account) {
         Element value = doc.createElement("Name");
         value.setTextContent(account.getName());
@@ -206,18 +223,36 @@ public class WaffleInfo {
         node.appendChild(value);
     }
 
+    /**
+     * Gets the lookup info.
+     *
+     * @param doc
+     *            the doc
+     * @param lookup
+     *            the lookup
+     * @return the lookup info
+     */
     public Element getLookupInfo(final Document doc, final String lookup) {
         final IWindowsAuthProvider auth = new WindowsAuthProviderImpl();
         final Element node = doc.createElement("lookup");
         node.setAttribute("name", lookup);
         try {
-            addAccountInfo(doc, node, auth.lookupAccount(lookup));
-        } catch (Win32Exception ex) {
-            node.appendChild(getException(doc, ex));
+            this.addAccountInfo(doc, node, auth.lookupAccount(lookup));
+        } catch (final Win32Exception ex) {
+            node.appendChild(WaffleInfo.getException(doc, ex));
         }
         return node;
     }
 
+    /**
+     * Gets the exception.
+     *
+     * @param doc
+     *            the doc
+     * @param t
+     *            the t
+     * @return the exception
+     */
     public static Element getException(final Document doc, final Exception t) {
         final Element node = doc.createElement("exception");
         node.setAttribute("class", t.getClass().getName());
@@ -234,6 +269,15 @@ public class WaffleInfo {
         return node;
     }
 
+    /**
+     * To pretty xml.
+     *
+     * @param doc
+     *            the doc
+     * @return the string
+     * @throws TransformerException
+     *             the transformer exception
+     */
     public static String toPrettyXML(final Document doc) throws TransformerException {
         // set up a transformer
         final TransformerFactory transfac = TransformerFactory.newInstance();
@@ -257,18 +301,23 @@ public class WaffleInfo {
      */
     public static void main(final String[] args) {
         boolean show = false;
-        final List<String> lookup = new ArrayList<String>();
+        final List<String> lookup = new ArrayList<>();
         if (args != null) {
             String arg;
             for (int i = 0; i < args.length; i++) {
                 arg = args[i];
-                if ("-show".equals(arg)) {
-                    show = true;
-                } else if ("-lookup".equals(arg)) {
-                    lookup.add(args[++i]);
-                } else {
-                    LOGGER.error("Unknown Argument: {}", arg);
-                    throw new RuntimeException("Unknown Argument: " + arg);
+                if (null != arg) {
+                    switch (arg) {
+                        case "-show":
+                            show = true;
+                            break;
+                        case "-lookup":
+                            lookup.add(args[++i]);
+                            break;
+                        default:
+                            WaffleInfo.LOGGER.error("Unknown Argument: {}", arg);
+                            throw new RuntimeException("Unknown Argument: " + arg);
+                    }
                 }
             }
         }
@@ -276,28 +325,22 @@ public class WaffleInfo {
         final WaffleInfo helper = new WaffleInfo();
         try {
             final Document info = helper.getWaffleInfo();
-            for (String name : lookup) {
+            for (final String name : lookup) {
                 info.getDocumentElement().appendChild(helper.getLookupInfo(info, name));
             }
 
-            final String xml = toPrettyXML(info);
+            final String xml = WaffleInfo.toPrettyXML(info);
             final File f;
             if (show) {
                 f = File.createTempFile("waffle-info-", ".xml");
                 Files.write(xml, f, Charsets.UTF_8);
                 Desktop.getDesktop().open(f);
             } else {
-                LOGGER.info(xml);
+                WaffleInfo.LOGGER.info(xml);
             }
-        } catch (IOException e) {
-            LOGGER.error(e.getMessage());
-            LOGGER.trace("{}", e);
-        } catch (TransformerException e) {
-            LOGGER.error(e.getMessage());
-            LOGGER.trace("{}", e);
-        } catch (ParserConfigurationException e) {
-            LOGGER.error(e.getMessage());
-            LOGGER.trace("{}", e);
+        } catch (final IOException | TransformerException | ParserConfigurationException e) {
+            WaffleInfo.LOGGER.error(e.getMessage());
+            WaffleInfo.LOGGER.trace("{}", e);
         }
     }
 }

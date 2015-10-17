@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -28,11 +28,16 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
  * {@link org.apache.shiro.authz.permission.RolePermissionResolver}.
  */
 public class GroupMappingWaffleRealm extends AbstractWaffleRealm {
-    private final Map<String, String> groupRolesMap = new HashMap<String, String>();
+
+    /** The group roles map. */
+    private final Map<String, String> groupRolesMap = new HashMap<>();
 
     /**
      * Sets the translation from group names to role names. If not set, the map is empty, resulting in no users getting
      * roles.
+     * 
+     * @param value
+     *            the group roles map to set
      */
     public void setGroupRolesMap(final Map<String, String> value) {
         this.groupRolesMap.clear();
@@ -51,9 +56,9 @@ public class GroupMappingWaffleRealm extends AbstractWaffleRealm {
      * @see #setGroupRolesMap
      */
     protected Collection<String> getRoleNamesForGroups(final Collection<String> groupNames) {
-        final Set<String> roleNames = new HashSet<String>();
-        for (String groupName : groupNames) {
-            String roleName = this.groupRolesMap.get(groupName);
+        final Set<String> roleNames = new HashSet<>();
+        for (final String groupName : groupNames) {
+            final String roleName = this.groupRolesMap.get(groupName);
             if (roleName != null) {
                 roleNames.add(roleName);
             }
@@ -75,7 +80,7 @@ public class GroupMappingWaffleRealm extends AbstractWaffleRealm {
     @Override
     protected AuthorizationInfo buildAuthorizationInfo(final WaffleFqnPrincipal principal) {
         final SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        authorizationInfo.addRoles(getRoleNamesForGroups(principal.getGroupFqns()));
+        authorizationInfo.addRoles(this.getRoleNamesForGroups(principal.getGroupFqns()));
         return authorizationInfo;
     }
 }

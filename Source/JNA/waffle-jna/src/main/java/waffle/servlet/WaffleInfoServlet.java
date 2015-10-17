@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2014 Application Security, Inc.
+ * Copyright (c) 2010 - 2015 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -36,28 +36,62 @@ import org.w3c.dom.Element;
 import waffle.util.WaffleInfo;
 
 /**
- * A servlet that returns WaffleInfo as XML
+ * A servlet that returns WaffleInfo as XML.
  */
 public class WaffleInfoServlet extends HttpServlet {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+    /*
+     * (non-Javadoc)
+     * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest,
+     * javax.servlet.http.HttpServletResponse)
+     */
     @Override
     public void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
             IOException {
+        this.getWaffleInfoResponse(request, response);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest,
+     * javax.servlet.http.HttpServletResponse)
+     */
+    @Override
+    public void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
+            IOException {
+        this.getWaffleInfoResponse(request, response);
+    }
+
+    /**
+     * Gets the waffle info response.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ServletException
+     *             the servlet exception
+     */
+    public void getWaffleInfoResponse(final HttpServletRequest request, final HttpServletResponse response)
+            throws IOException, ServletException {
         final WaffleInfo info = new WaffleInfo();
         try {
             final Document doc = info.getWaffleInfo();
             final Element root = doc.getDocumentElement();
 
             // Add the Request Information Here
-            final Element http = getRequestInfo(doc, request);
+            final Element http = this.getRequestInfo(doc, request);
             root.insertBefore(http, root.getFirstChild());
 
             // Lookup Accounts By Name
             final String[] lookup = request.getParameterValues("lookup");
             if (lookup != null) {
-                for (String name : lookup) {
+                for (final String name : lookup) {
                     root.appendChild(info.getLookupInfo(doc, name));
                 }
             }
@@ -71,32 +105,25 @@ public class WaffleInfoServlet extends HttpServlet {
             final DOMSource source = new DOMSource(doc);
             trans.transform(source, result);
             response.setContentType("application/xml");
-        } catch (ParserConfigurationException e) {
+        } catch (final ParserConfigurationException e) {
             throw new ServletException(e);
-        } catch (TransformerConfigurationException e) {
+        } catch (final TransformerConfigurationException e) {
             throw new ServletException(e);
-        } catch (TransformerException e) {
+        } catch (final TransformerException e) {
             throw new ServletException(e);
         }
     }
 
     /**
-     * Delegate POST to GET.
-     * 
+     * Gets the request info.
+     *
+     * @param doc
+     *            the doc
      * @param request
-     *            httpServletRequest.
-     * @param response
-     *            httpServletResponse.
-     * @throws ServletException
-     *             or IOException.
-     * */
-    @Override
-    public void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-            IOException {
-        doGet(request, response);
-    }
-
-    public Element getRequestInfo(final Document doc, final HttpServletRequest request) {
+     *            the request
+     * @return the request info
+     */
+    private Element getRequestInfo(final Document doc, final HttpServletRequest request) {
         final Element node = doc.createElement("request");
 
         Element value = doc.createElement("AuthType");
@@ -105,7 +132,7 @@ public class WaffleInfoServlet extends HttpServlet {
 
         final Principal p = request.getUserPrincipal();
         if (p != null) {
-            Element child = doc.createElement("principal");
+            final Element child = doc.createElement("principal");
             child.setAttribute("class", p.getClass().getName());
 
             value = doc.createElement("name");
@@ -121,9 +148,10 @@ public class WaffleInfoServlet extends HttpServlet {
 
         final Enumeration<?> headers = request.getHeaderNames();
         if (headers.hasMoreElements()) {
-            Element child = doc.createElement("headers");
+            String name;
+            final Element child = doc.createElement("headers");
             while (headers.hasMoreElements()) {
-                String name = (String) headers.nextElement();
+                name = (String) headers.nextElement();
 
                 value = doc.createElement(name);
                 value.setTextContent(request.getHeader(name));
