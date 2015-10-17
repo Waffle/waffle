@@ -29,6 +29,11 @@ Essentials
 * [Older Versions on CodePlex](http://waffle.codeplex.com/).
 * [PlatformSDK Security Group](https://groups.google.com/group/microsoft.public.platformsdk.security)
 
+Jetty
+-----
+Jetty support is build using java 7 like everything else.  However, using the provided jetty version will require java 8 usage.
+To continue with java 7, drop back to Jetty version 9.2.13.v20150730.
+
 Legacy 1.7.x Branch
 -------------------
 Waffle legacy support.  From 1/3/2015 through 1/1/2016 we will continue to support the 1.7.x branch for any bug fixes to
