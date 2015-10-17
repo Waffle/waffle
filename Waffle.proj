@@ -69,7 +69,6 @@
     <Copy SourceFiles="@(SampleFiles)" DestinationFolder="$(ReleaseDir)\Samples" />
   </Target>
   <Target Name="jar" DependsOnTargets="version">
-    <Exec WorkingDirectory="Source\ThirdParty" Command="maven-install.cmd" />
     <Exec WorkingDirectory="Source\JNA" Command="mvn clean install" />
     <CreateItem Include="Source\JNA\waffle-distro\target\waffle-distro\**\*.*">
       <Output TaskParameter="Include" ItemName="JnaFiles"/>
