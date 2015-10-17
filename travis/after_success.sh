@@ -31,7 +31,11 @@ if [ "$waffle_repo" == "https://github.com/dblock/waffle.git" ] && [ "$TRAVIS_PU
 	echo -e "Successfully deployed Coveralls Report under Travis job ${TRAVIS_JOB_NUMBER}"
 	mvn site site:deploy -q
 	echo -e "Successfully deploy site under Travis job ${TRAVIS_JOB_NUMBER}"
+  else
+    echo "Java Version does not support additonal activity for travis CI"
   fi
 else
+  echo "Travis Pull Request: $TRAVIS_PULL_REQUEST"
+  echo "Travis Branch: $TRAVIS_BRANCH"
   echo "Travis build skipped"
 fi
