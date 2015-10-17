@@ -16,7 +16,7 @@ env:
 addons:
   coverity_scan:
     project:
-      name: dblock/waffle
+      name: hazendaz/waffle
       description: Build submitted via Travis CI
     notification_email: jeremylandis@hotmail.com
     build_command_prepend: mvn clean

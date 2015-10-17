@@ -25,7 +25,7 @@ echo "Java detected: ${VER}"
 
 if [ "$waffle_repo" == "https://github.com/dblock/waffle.git" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
   if [ $VER == "18" ]; then
-    mvn clean deploy -q --settings ./travis/settings.xml
+    mvn clean deploy -q --settings ../../travis/settings.xml
     echo -e "Successfully deployed SNAPSHOT artifacts to Sonatype under Travis job ${TRAVIS_JOB_NUMBER}"
 	mvn clean test jacoco:report coveralls:report -q
 	echo -e "Successfully deployed Coveralls Report under Travis job ${TRAVIS_JOB_NUMBER}"
