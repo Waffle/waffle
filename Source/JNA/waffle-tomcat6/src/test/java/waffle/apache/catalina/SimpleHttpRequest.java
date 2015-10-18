@@ -20,7 +20,8 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.apache.catalina.connector.Request;
-import org.mockito.Mockito;
+
+import mockit.Mocked;
 
 /**
  * Simple HTTP Request.
@@ -70,6 +71,7 @@ public class SimpleHttpRequest extends Request {
     private byte[]                    content;
 
     /** The http session. */
+    @Mocked
     private SimpleHttpSession         httpSession;
 
     /** The principal. */
@@ -80,8 +82,6 @@ public class SimpleHttpRequest extends Request {
      */
     public SimpleHttpRequest() {
         super();
-        this.httpSession = Mockito.mock(SimpleHttpSession.class, Mockito.CALLS_REAL_METHODS);
-        this.httpSession.setAttributes(new HashMap<String, Object>());
         this.remotePort = SimpleHttpRequest.nextRemotePort();
     }
 
@@ -211,10 +211,6 @@ public class SimpleHttpRequest extends Request {
      */
     @Override
     public HttpSession getSession(final boolean create) {
-        if (this.httpSession == null && create) {
-            this.httpSession = Mockito.mock(SimpleHttpSession.class, Mockito.CALLS_REAL_METHODS);
-            this.httpSession.setAttributes(new HashMap<String, Object>());
-        }
         return this.httpSession;
     }
 
