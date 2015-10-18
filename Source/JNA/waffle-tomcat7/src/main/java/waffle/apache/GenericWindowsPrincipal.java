@@ -148,7 +148,6 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
                 principals.add(group.getSidString());
                 break;
             case NONE:
-                break;
             default:
                 break;
         }
@@ -179,7 +178,6 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
                 principals.add(windowsIdentity.getSidString());
                 break;
             case NONE:
-                break;
             default:
                 break;
         }
