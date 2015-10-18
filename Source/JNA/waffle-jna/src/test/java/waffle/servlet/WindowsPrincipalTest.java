@@ -15,8 +15,9 @@ package waffle.servlet;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.Mockito;
 
+import mockit.Expectations;
+import mockit.Mocked;
 import waffle.windows.auth.IWindowsAccount;
 import waffle.windows.auth.IWindowsIdentity;
 
@@ -30,15 +31,25 @@ public class WindowsPrincipalTest {
     /** The Constant TEST_FQN. */
     private static final String TEST_FQN = "ACME\\john.smith";
 
+    /** The windows identity. */
+    @Mocked
+    IWindowsIdentity            windowsIdentity;
+
     /**
      * Test to string.
      */
     @Test
     public void testToString() {
-        final IWindowsIdentity windowsIdentity = Mockito.mock(IWindowsIdentity.class);
-        Mockito.when(windowsIdentity.getFqn()).thenReturn(WindowsPrincipalTest.TEST_FQN);
-        Mockito.when(windowsIdentity.getGroups()).thenReturn(new IWindowsAccount[0]);
-        final WindowsPrincipal principal = new WindowsPrincipal(windowsIdentity);
+        Assert.assertNotNull(new Expectations() {
+            {
+                WindowsPrincipalTest.this.windowsIdentity.getFqn();
+                this.result = WindowsPrincipalTest.TEST_FQN;
+                WindowsPrincipalTest.this.windowsIdentity.getGroups();
+                this.result = new IWindowsAccount[0];
+
+            }
+        });
+        final WindowsPrincipal principal = new WindowsPrincipal(this.windowsIdentity);
         Assert.assertEquals(WindowsPrincipalTest.TEST_FQN, principal.getName());
         Assert.assertEquals(WindowsPrincipalTest.TEST_FQN, principal.toString());
     }
