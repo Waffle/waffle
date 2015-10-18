@@ -20,13 +20,13 @@ addons:
       description: Build submitted via Travis CI
     notification_email: jeremylandis@hotmail.com
     build_command_prepend: mvn clean
-    build_command: mvn -DskipTests=true install
+    build_command: mvn clean install -DskipTests
     branch_pattern: coverity_scan
 
 before_script:
   - cd Source/JNA
 
-script: if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then mvn clean install -DskipTests=true; fi
+script: if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then mvn clean install -DskipTests; fi
 
 after_success:
   - chmod -R 777 ../../travis/after_success.sh
