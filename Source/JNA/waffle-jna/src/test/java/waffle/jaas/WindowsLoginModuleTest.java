@@ -28,12 +28,12 @@ import javax.security.auth.callback.UnsupportedCallbackException;
 import javax.security.auth.login.LoginException;
 
 import mockit.Deencapsulation;
+import mockit.Expectations;
+import mockit.Mocked;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Matchers;
-import org.mockito.Mockito;
 
 import waffle.windows.auth.PrincipalFormat;
 
@@ -49,7 +49,8 @@ public class WindowsLoginModuleTest {
     private Subject             subject;
 
     /** The callback handler. */
-    private CallbackHandler     callbackHandler;
+    @Mocked
+    CallbackHandler             callbackHandler;
 
     /** The options. */
     private Map<String, String> options;
@@ -136,7 +137,6 @@ public class WindowsLoginModuleTest {
     public void init() {
         this.loginModule = new WindowsLoginModule();
         this.subject = new Subject();
-        this.callbackHandler = Mockito.mock(CallbackHandler.class);
         this.options = new HashMap<>();
     }
 
@@ -200,7 +200,12 @@ public class WindowsLoginModuleTest {
         this.options.put("debug", "true");
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
         Assert.assertTrue(this.loginModule.isAllowGuestLogin());
-        Mockito.doThrow(new IOException()).when(this.callbackHandler).handle(Matchers.any(Callback[].class));
+        Assert.assertNotNull(new Expectations() {
+            {
+                WindowsLoginModuleTest.this.callbackHandler.handle(this.withInstanceOf(Callback[].class));
+                this.result = new IOException();
+            }
+        });
         this.loginModule.login();
     }
 
@@ -220,8 +225,12 @@ public class WindowsLoginModuleTest {
         this.options.put("debug", "true");
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
         Assert.assertTrue(this.loginModule.isAllowGuestLogin());
-        Mockito.doThrow(new UnsupportedCallbackException(new NameCallback("Callback Exception")))
-                .when(this.callbackHandler).handle(Matchers.any(Callback[].class));
+        Assert.assertNotNull(new Expectations() {
+            {
+                WindowsLoginModuleTest.this.callbackHandler.handle(this.withInstanceOf(Callback[].class));
+                this.result = new UnsupportedCallbackException(new NameCallback("Callback Exception"));
+            }
+        });
         this.loginModule.login();
     }
 

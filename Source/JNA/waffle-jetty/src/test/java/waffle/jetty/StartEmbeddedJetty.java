@@ -63,7 +63,10 @@ public class StartEmbeddedJetty {
         try {
             StartEmbeddedJetty.LOGGER.info(">>> STARTING EMBEDDED JETTY SERVER, PRESS ANY KEY TO STOP");
             server.start();
-            System.in.read();
+            if (System.in.read() == -1) {
+                StartEmbeddedJetty.LOGGER.error("End of Stream reached");
+                return;
+            }
             StartEmbeddedJetty.LOGGER.info(">>> STOPPING EMBEDDED JETTY SERVER");
             server.stop();
             server.join();

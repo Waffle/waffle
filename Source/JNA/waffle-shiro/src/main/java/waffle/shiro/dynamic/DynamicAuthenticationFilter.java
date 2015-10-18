@@ -134,6 +134,7 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
          * waffle.shiro.negotiate.NegotiateAuthenticationFilter#onLoginSuccess(org.apache.shiro.authc.AuthenticationToken
          * , org.apache.shiro.subject.Subject, javax.servlet.ServletRequest, javax.servlet.ServletResponse)
          */
+        @SuppressWarnings("synthetic-access")
         @Override
         protected boolean onLoginSuccess(final AuthenticationToken token, final Subject subject,
                 final ServletRequest request, final ServletResponse response) throws Exception {
@@ -178,6 +179,7 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
          * AuthenticationToken, org.apache.shiro.subject.Subject, javax.servlet.ServletRequest,
          * javax.servlet.ServletResponse)
          */
+        @SuppressWarnings("synthetic-access")
         @Override
         protected boolean onLoginSuccess(final AuthenticationToken token, final Subject subject,
                 final ServletRequest request, final ServletResponse response) throws Exception {
