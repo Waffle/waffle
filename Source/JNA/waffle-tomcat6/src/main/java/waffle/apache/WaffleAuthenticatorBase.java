@@ -40,6 +40,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
     private static final Set<String> SUPPORTED_PROTOCOLS = new LinkedHashSet<>(Arrays.asList("Negotiate", "NTLM"));
 
     /** The info. */
+    @SuppressWarnings("hiding")
     protected String                 info;
 
     /** The log. */
