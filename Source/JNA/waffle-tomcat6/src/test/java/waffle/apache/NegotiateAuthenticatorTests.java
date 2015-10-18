@@ -13,20 +13,17 @@
  */
 package waffle.apache;
 
+import org.apache.catalina.Context;
 import org.assertj.core.api.Assertions;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import waffle.apache.catalina.SimpleContext;
 import waffle.apache.catalina.SimpleHttpRequest;
 import waffle.apache.catalina.SimpleHttpResponse;
-import waffle.apache.catalina.SimpleRealm;
-import waffle.apache.catalina.SimpleServletContext;
 import waffle.windows.auth.IWindowsCredentialsHandle;
 import waffle.windows.auth.PrincipalFormat;
 import waffle.windows.auth.impl.WindowsAccountImpl;
@@ -37,6 +34,8 @@ import waffle.windows.auth.impl.WindowsSecurityContextImpl;
 import com.google.common.io.BaseEncoding;
 import com.sun.jna.platform.win32.Sspi;
 import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
+
+import mockit.Mocked;
 
 /**
  * Waffle Tomcat Authenticator Tests.
@@ -51,16 +50,16 @@ public class NegotiateAuthenticatorTests {
     /** The authenticator. */
     private NegotiateAuthenticator authenticator;
 
+    @Mocked
+    Context                        context;
+
     /**
      * Sets the up.
      */
     @Before
     public void setUp() {
         this.authenticator = new NegotiateAuthenticator();
-        final SimpleContext ctx = Mockito.mock(SimpleContext.class, Mockito.CALLS_REAL_METHODS);
-        ctx.setServletContext(Mockito.mock(SimpleServletContext.class, Mockito.CALLS_REAL_METHODS));
-        ctx.setRealm(Mockito.mock(SimpleRealm.class, Mockito.CALLS_REAL_METHODS));
-        this.authenticator.setContainer(ctx);
+        this.authenticator.setContainer(this.context);
         this.authenticator.start();
     }
 
