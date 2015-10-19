@@ -88,7 +88,7 @@
         <site>
             <id>gh-pages</id>
             <name>Waffle GitHub Pages</name>
-            <url>git:ssh://git@github.com/dblock/waffle.git?gh-pages#</url>
+            <url>github:http://dblock.github.io/waffle/</url>
         </site>
         <snapshotRepository>
             <id>ossrh</id>

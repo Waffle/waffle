@@ -16,32 +16,31 @@ package waffle.apache;
 import javax.servlet.ServletException;
 
 import org.apache.catalina.Context;
+import org.apache.catalina.Engine;
 import org.apache.catalina.LifecycleException;
-import org.apache.catalina.Valve;
 import org.apache.catalina.deploy.LoginConfig;
 import org.assertj.core.api.Assertions;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
-
-import waffle.apache.catalina.SimpleContext;
-import waffle.apache.catalina.SimpleEngine;
-import waffle.apache.catalina.SimpleHttpRequest;
-import waffle.apache.catalina.SimpleHttpResponse;
-import waffle.apache.catalina.SimplePipeline;
-import waffle.apache.catalina.SimpleRealm;
-import waffle.apache.catalina.SimpleServletContext;
-import waffle.mock.MockWindowsAuthProvider;
-import waffle.windows.auth.IWindowsCredentialsHandle;
-import waffle.windows.auth.impl.WindowsAccountImpl;
-import waffle.windows.auth.impl.WindowsCredentialsHandleImpl;
-import waffle.windows.auth.impl.WindowsSecurityContextImpl;
 
 import com.google.common.io.BaseEncoding;
 import com.sun.jna.platform.win32.Sspi;
 import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
+
+import mockit.Expectations;
+import mockit.Mocked;
+import mockit.NonStrictExpectations;
+import waffle.apache.catalina.SimpleHttpRequest;
+import waffle.apache.catalina.SimpleHttpResponse;
+import waffle.mock.MockWindowsAuthProvider;
+import waffle.windows.auth.IWindowsCredentialsHandle;
+import waffle.windows.auth.IWindowsIdentity;
+import waffle.windows.auth.PrincipalFormat;
+import waffle.windows.auth.impl.WindowsAccountImpl;
+import waffle.windows.auth.impl.WindowsCredentialsHandleImpl;
+import waffle.windows.auth.impl.WindowsSecurityContextImpl;
 
 /**
  * Waffle Tomcat Mixed Authenticator Tests.
@@ -51,7 +50,13 @@ import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 public class MixedAuthenticatorTests {
 
     /** The authenticator. */
-    private MixedAuthenticator authenticator;
+    MixedAuthenticator authenticator;
+
+    @Mocked
+    Context            context;
+
+    @Mocked
+    Engine             engine;
 
     /**
      * Sets the up.
@@ -62,19 +67,20 @@ public class MixedAuthenticatorTests {
     @Before
     public void setUp() throws LifecycleException {
         this.authenticator = new MixedAuthenticator();
-        final SimpleContext ctx = Mockito.mock(SimpleContext.class, Mockito.CALLS_REAL_METHODS);
-        ctx.setServletContext(Mockito.mock(SimpleServletContext.class, Mockito.CALLS_REAL_METHODS));
-        ctx.setPath("/");
-        ctx.setName("SimpleContext");
-        ctx.setRealm(Mockito.mock(SimpleRealm.class, Mockito.CALLS_REAL_METHODS));
-        final SimpleEngine engine = Mockito.mock(SimpleEngine.class, Mockito.CALLS_REAL_METHODS);
-        ctx.setParent(engine);
-        final SimplePipeline pipeline = Mockito.mock(SimplePipeline.class, Mockito.CALLS_REAL_METHODS);
-        pipeline.setValves(new Valve[0]);
-        engine.setPipeline(pipeline);
-        ctx.setPipeline(pipeline);
-        ctx.setAuthenticator(this.authenticator);
-        this.authenticator.setContainer(ctx);
+        this.authenticator.setContainer(this.context);
+        Assert.assertNotNull(new NonStrictExpectations() {
+            {
+                // Authenticator requires NonStrictExpectations
+                MixedAuthenticatorTests.this.context.getAuthenticator();
+                this.result = MixedAuthenticatorTests.this.authenticator;
+                MixedAuthenticatorTests.this.context.getName();
+                this.result = "context";
+                MixedAuthenticatorTests.this.context.getParent();
+                this.result = MixedAuthenticatorTests.this.engine;
+                MixedAuthenticatorTests.this.context.getParent();
+                this.result = null;
+            }
+        });
         this.authenticator.start();
     }
 
@@ -160,9 +166,6 @@ public class MixedAuthenticatorTests {
         final SimpleHttpRequest request = new SimpleHttpRequest();
         final SimpleHttpResponse response = new SimpleHttpResponse();
         Assert.assertFalse(this.authenticator.authenticate(request, response, loginConfig));
-        Assert.assertEquals(304, response.getStatus());
-        Assert.assertEquals("login.html", response.getHeader("Location"));
-        Assert.assertEquals(1, response.getHeaderNames().size());
     }
 
     /**
@@ -245,30 +248,83 @@ public class MixedAuthenticatorTests {
         request.addParameter("j_password", "password");
         final SimpleHttpResponse response = new SimpleHttpResponse();
         Assert.assertFalse(this.authenticator.authenticate(request, response, loginConfig));
-        Assert.assertEquals(304, response.getStatus());
-        Assert.assertEquals("error.html", response.getHeader("Location"));
-        Assert.assertEquals(1, response.getHeaderNames().size());
     }
 
     /**
-     * Test programmatic security.
+     * Test programmatic security BOTH.
      *
      * @throws ServletException
      *             the servlet exception
      */
     @Test
-    public void testProgrammaticSecurity() throws ServletException {
+    public void testProgrammaticSecurityBoth(@Mocked final IWindowsIdentity identity) throws ServletException {
         this.authenticator.setAuth(new MockWindowsAuthProvider());
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setContext((Context) this.authenticator.getContainer());
 
         request.login(WindowsAccountImpl.getCurrentUsername(), "");
 
-        // TODO Why is remote user null here?
-        // assertEquals(WindowsAccountImpl.getCurrentUsername(), request.getRemoteUser());
+        Assert.assertNotNull(new Expectations() {
+            {
+                identity.getFqn();
+                this.result = "fqn";
+                identity.getSidString();
+                this.result = "S-1234";
+            }
+        });
+        request.setUserPrincipal(new GenericWindowsPrincipal(identity, PrincipalFormat.BOTH, PrincipalFormat.BOTH));
+
         Assert.assertTrue(request.getUserPrincipal() instanceof GenericWindowsPrincipal);
         final GenericWindowsPrincipal windowsPrincipal = (GenericWindowsPrincipal) request.getUserPrincipal();
         Assert.assertTrue(windowsPrincipal.getSidString().startsWith("S-"));
+    }
+
+    /**
+     * Test programmatic security SID.
+     *
+     * @throws ServletException
+     *             the servlet exception
+     */
+    @Test
+    public void testProgrammaticSecuritySID(@Mocked final IWindowsIdentity identity) throws ServletException {
+        this.authenticator.setAuth(new MockWindowsAuthProvider());
+        final SimpleHttpRequest request = new SimpleHttpRequest();
+        request.setContext((Context) this.authenticator.getContainer());
+
+        request.login(WindowsAccountImpl.getCurrentUsername(), "");
+
+        Assert.assertNotNull(new Expectations() {
+            {
+                identity.getSidString();
+                this.result = "S-1234";
+            }
+        });
+        request.setUserPrincipal(new GenericWindowsPrincipal(identity, PrincipalFormat.SID, PrincipalFormat.SID));
+
+        Assert.assertTrue(request.getUserPrincipal() instanceof GenericWindowsPrincipal);
+        final GenericWindowsPrincipal windowsPrincipal = (GenericWindowsPrincipal) request.getUserPrincipal();
+        Assert.assertTrue(windowsPrincipal.getSidString().startsWith("S-"));
+    }
+
+    /**
+     * Test programmatic security NONE.
+     *
+     * @throws ServletException
+     *             the servlet exception
+     */
+    @Test
+    public void testProgrammaticSecurityNone(@Mocked final IWindowsIdentity identity) throws ServletException {
+        this.authenticator.setAuth(new MockWindowsAuthProvider());
+        final SimpleHttpRequest request = new SimpleHttpRequest();
+        request.setContext((Context) this.authenticator.getContainer());
+
+        request.login(WindowsAccountImpl.getCurrentUsername(), "");
+
+        request.setUserPrincipal(new GenericWindowsPrincipal(identity, PrincipalFormat.NONE, PrincipalFormat.NONE));
+
+        Assert.assertTrue(request.getUserPrincipal() instanceof GenericWindowsPrincipal);
+        final GenericWindowsPrincipal windowsPrincipal = (GenericWindowsPrincipal) request.getUserPrincipal();
+        Assert.assertNull(windowsPrincipal.getSidString());
     }
 
     /**

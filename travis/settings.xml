@@ -9,7 +9,7 @@
     </server>
     <server>
       <id>gh-pages</id>
-      <username>git</username>
+      <username>${env.CI_SITE_USERNAME}</username>
       <password>${env.CI_SITE_PASSWORD}</password>
     </server>
   </servers>

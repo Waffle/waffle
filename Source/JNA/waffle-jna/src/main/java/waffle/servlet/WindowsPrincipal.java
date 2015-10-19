@@ -171,7 +171,6 @@ public class WindowsPrincipal implements Principal, Serializable {
                 principals.add(group.getSidString());
                 break;
             case NONE:
-                break;
             default:
                 break;
         }
@@ -202,7 +201,6 @@ public class WindowsPrincipal implements Principal, Serializable {
                 principals.add(windowsIdentity.getSidString());
                 break;
             case NONE:
-                break;
             default:
                 break;
         }

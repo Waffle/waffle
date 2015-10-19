@@ -17,8 +17,6 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.Mockito;
-
 import mockit.Expectations;
 import mockit.Mocked;
 import mockit.Tested;
@@ -34,13 +32,16 @@ public final class NegotiateAuthenticationRealmTest {
     @Tested
     private NegotiateAuthenticationRealm negAuthRealm;
 
+    @Mocked
+    AuthenticationToken                  authenticationToken;
+
     /**
      * Test supports.
      */
     @Test
     public void testSupports() {
         Assert.assertFalse("Non-NegotiateToken should not be supported.",
-                this.negAuthRealm.supports(Mockito.mock(AuthenticationToken.class, Mockito.CALLS_REAL_METHODS)));
+                this.negAuthRealm.supports(this.authenticationToken));
 
         Assert.assertTrue(this.negAuthRealm.supports(new NegotiateToken(null, null, null, null, false, false, null)));
     }

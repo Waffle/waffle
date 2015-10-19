@@ -72,7 +72,7 @@ public class SimpleHttpRequest extends Request {
 
     /** The http session. */
     @Mocked
-    private SimpleHttpSession         httpSession;
+    private HttpSession               httpSession;
 
     /** The principal. */
     private Principal                 principal;

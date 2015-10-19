@@ -292,7 +292,6 @@ public class WindowsLoginModule implements LoginModule {
                 principalsList.add(new UserPrincipal(windowsIdentity.getSidString()));
                 break;
             case NONE:
-                break;
             default:
                 break;
         }
