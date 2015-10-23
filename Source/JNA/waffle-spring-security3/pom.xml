@@ -16,7 +16,7 @@
         <src.relative.loc>..</src.relative.loc>
 
         <servlet.version>3.0.1</servlet.version>
-        <spring.version>3.2.14.RELEASE</spring.version>
+        <spring.version>3.2.15.RELEASE</spring.version>
         <spring.security.version>3.2.8.RELEASE</spring.security.version>
     </properties>
     <scm>
