@@ -147,6 +147,9 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
                 case WinError.SEC_E_INSUFFICIENT_MEMORY:
                     tokenSize += Sspi.MAX_TOKEN_SIZE;
                     break;
+                case WinError.SEC_E_BUFFER_TOO_SMALL:
+                    tokenSize += Sspi.MAX_TOKEN_SIZE;
+                    break;
                 case WinError.SEC_I_CONTINUE_NEEDED:
                     this.continueFlag = true;
                     break;
@@ -156,7 +159,7 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
                 default:
                     throw new Win32Exception(rc);
             }
-        } while (rc == WinError.SEC_E_INSUFFICIENT_MEMORY);
+        } while (rc == WinError.SEC_E_INSUFFICIENT_MEMORY || rc == WinError.SEC_E_BUFFER_TOO_SMALL);
     }
 
     /*

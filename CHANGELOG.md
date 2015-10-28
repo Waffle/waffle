@@ -9,6 +9,7 @@
 * Change .net target to more modern .net 4.0 framework
 * [#296](https://github.com/dblock/waffle/pull/296): Added Tomcat 9 support.
 * [#268](https://github.com/dblock/waffle/pull/301): Cannot log in automatically on machine where Tomcat service is running
+* [#274](https://github.com/dblock/waffle/pull/274): Update WindowsSecurityContextImpl.java to handle SEC_E_BUFFER_TOO_SMALL
 
 1.8.0 (09/10/15)
 ================
