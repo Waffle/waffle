@@ -8,7 +8,7 @@
     <MSBuildCommunityTasksPath>$(ToolFolder)\MSBuildTasks\tools</MSBuildCommunityTasksPath>
   </PropertyGroup>
 
-  <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
+  <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets"/>
   <Import Project="Version.proj"/>
   <PropertyGroup Condition="'$(Configuration)'==''">
     <Configuration>Release</Configuration>
