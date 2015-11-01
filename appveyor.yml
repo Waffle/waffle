@@ -1,0 +1,6 @@
+version: 1.0.{build}
+before_build:
+- cmd: .\bootstrap.cmd
+build:
+  project: Waffle.proj
+  verbosity: minimal
