@@ -5,6 +5,8 @@ if "%~1"=="" (
  goto :EOF
 )
 
+call bootstrap.cmd
+
 pushd "%~dp0"
 setlocal ENABLEEXTENSIONS ENABLEDELAYEDEXPANSION
 
