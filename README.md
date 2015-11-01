@@ -2,6 +2,7 @@ WAFFLE - Windows Authentication Framework
 =========================================
 
 [![Build Status](https://travis-ci.org/dblock/waffle.svg?branch=master)](https://travis-ci.org/dblock/waffle)
+[![Build status](https://ci.appveyor.com/api/projects/status/8o53n6o359r7s6up?svg=true)](https://ci.appveyor.com/project/hazendaz/waffle)
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/2775/badge.svg)](https://scan.coverity.com/projects/2775)
 [![Coverage Status](https://coveralls.io/repos/hazendaz/waffle/badge.png)](https://coveralls.io/r/hazendaz/waffle)
 [![Maven central](https://maven-badges.herokuapp.com/maven-central/com.github.dblock.waffle/waffle-jna/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.dblock.waffle/waffle-jna)
