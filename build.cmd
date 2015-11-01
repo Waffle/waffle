@@ -19,7 +19,6 @@ for /D %%n in ( "%ProgramFilesDir%\NUnit*" ) do (
 )
 
 if EXIST "%NUnitDir%\bin" set NUnitBinDir=%NUnitDir%\bin
-if EXIST "%NUnitDir%\bin\net-2.0" set NUnitBinDir=%NUnitDir%\bin\net-2.0
 
 if NOT EXIST "%NUnitBinDir%" echo Missing NUnit, expected in %NUnitDir%
 if NOT EXIST "%NUnitBinDir%" exit /b -1
