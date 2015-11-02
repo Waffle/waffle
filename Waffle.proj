@@ -28,7 +28,7 @@
     <Copyright>Copyright (c) Application Security Inc. &amp; Contributors</Copyright>
     <Trademark>All Rights Reserved</Trademark>
     <MajorVersion>1</MajorVersion>
-    <MinorVersion>7</MinorVersion>
+    <MinorVersion>8</MinorVersion>
   </PropertyGroup>
   <Target Name="all" DependsOnTargets="configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
     <CallTarget Targets="clean" />
