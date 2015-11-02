@@ -1,3 +1,10 @@
+1.8.1 (11/xx/15)
+================
+
+* Rework .net build to be mostly automatic using nuget
+* Change .net target to more modern .net 4.0 framework
+
+
 1.8.0 (09/10/15)
 ================
 *** Java Requirement now 1.7 ***
