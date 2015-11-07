@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.dblock.waffle</groupId>
     <artifactId>waffle-parent</artifactId>
-    <version>1.7.5-SNAPSHOT</version>
+    <version>1.7.6-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>waffle-parent</name>
     <description>Parent POM for WAFFLE</description>

@@ -4,11 +4,11 @@
     <parent>
         <groupId>com.github.dblock.waffle.demo</groupId>
         <artifactId>waffle-demo-parent</artifactId>
-        <version>1.7.5-SNAPSHOT</version>
+        <version>1.7.6-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
     <artifactId>waffle-spring-filter</artifactId>
-    <version>1.7.5-SNAPSHOT</version>
+    <version>1.7.6-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>waffle-spring-filter</name>
     <description>Spring Filter Demo for WAFFLE</description>
@@ -35,7 +35,7 @@
         <dependency>
             <groupId>com.github.dblock.waffle</groupId>
             <artifactId>waffle-spring-security3</artifactId>
-            <version>1.7.5-SNAPSHOT</version>
+            <version>1.7.6-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

@@ -4,11 +4,11 @@
     <parent>
         <groupId>com.github.dblock.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
-        <version>1.7.5-SNAPSHOT</version>
+        <version>1.7.6-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
     <artifactId>waffle-jna</artifactId>
-    <version>1.7.5-SNAPSHOT</version>
+    <version>1.7.6-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>waffle-jna</name>
     <description>WAFFLE JNA implementation</description>
