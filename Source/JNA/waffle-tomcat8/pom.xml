@@ -4,11 +4,11 @@
     <parent>
         <groupId>com.github.dblock.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
-        <version>1.7.5-SNAPSHOT</version>
+        <version>1.7.6-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
     <artifactId>waffle-tomcat8</artifactId>
-    <version>1.7.5-SNAPSHOT</version>
+    <version>1.7.6-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>waffle-tomcat8</name>
     <description>Tomcat 8 integration for WAFFLE</description>
@@ -32,13 +32,13 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>waffle-jna</artifactId>
-            <version>1.7.5-SNAPSHOT</version>
+            <version>1.7.6-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>waffle-tests</artifactId>
-            <version>1.7.5-SNAPSHOT</version>
+            <version>1.7.6-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
         <dependency>
