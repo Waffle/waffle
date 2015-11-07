@@ -4,11 +4,11 @@
     <parent>
         <groupId>com.github.dblock.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
-        <version>1.7.4</version>
+        <version>1.7.5-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
     <artifactId>waffle-spring-security4</artifactId>
-    <version>1.7.4</version>
+    <version>1.7.5-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>waffle-spring-security4</name>
     <description>Spring Security 4 integration for WAFFLE</description>
@@ -23,26 +23,26 @@
         <thirdparty.dir>../../ThirdParty</thirdparty.dir>
 
         <servlet.version>3.1.0</servlet.version>
-        <spring.version>4.1.6.RELEASE</spring.version>
-        <spring.security.version>4.0.1.RELEASE</spring.security.version>
+        <spring.version>4.1.8.RELEASE</spring.version>
+        <spring.security.version>4.0.3.RELEASE</spring.security.version>
     </properties>
     <scm>
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
         <url>https://github.com/dblock/waffle</url>
-        <tag>waffle-parent-1.7.4</tag>
+        <tag>HEAD</tag>
     </scm>
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>waffle-jna</artifactId>
-            <version>1.7.4</version>
+            <version>1.7.5-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>waffle-tests</artifactId>
-            <version>1.7.4</version>
+            <version>1.7.5-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
         <dependency>
