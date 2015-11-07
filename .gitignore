@@ -1,3 +1,5 @@
+.idea
+
 Source/Common/GlobalAssemblyInfo.cs
 Source/Version/Version.properties
 Source/Version/Version.wxi
@@ -10,6 +12,7 @@ TestResult.xml
 Source/JNA/**/.classpath
 Source/JNA/**/.settings
 Source/JNA/**/.project
+Tools
 Thumbs.db
 Waffle.sln.cache
 Waffle.suo
