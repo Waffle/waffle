@@ -17,6 +17,7 @@
 
         <servlet.version>2.5</servlet.version>
         <mockito.version>1.10.19</mockito.version>
+        <objenesis.version>2.2</objenesis.version>
     </properties>
     <scm>
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
@@ -49,6 +50,12 @@
                     <groupId>org.hamcrest</groupId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.objenesis</groupId>
+            <artifactId>objenesis</artifactId>
+            <version>${objenesis.version}</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>
