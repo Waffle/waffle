@@ -424,7 +424,7 @@
                         <dependency>
                             <groupId>com.googlecode.javaewah</groupId>
                             <artifactId>JavaEWAH</artifactId>
-                            <version>1.1.0</version>
+                            <version>1.1.1</version>
                         </dependency>
                         <dependency>
                             <groupId>com.jcraft</groupId>
@@ -482,7 +482,7 @@
                         <dependency>
                             <groupId>com.googlecode.javaewah</groupId>
                             <artifactId>JavaEWAH</artifactId>
-                            <version>1.1.0</version>
+                            <version>1.1.1</version>
                         </dependency>
                         <dependency>
                             <groupId>com.jcraft</groupId>
