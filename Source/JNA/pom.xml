@@ -118,7 +118,7 @@
         <contiperf.version>2.3.4</contiperf.version>
         <jmockit.version>1.20</jmockit.version>
         <junit.version>4.12</junit.version>
-        <slf4j.version>1.7.12</slf4j.version>
+        <slf4j.version>1.7.13</slf4j.version>
 
         <signature.artifact>java17</signature.artifact>
         <signature.version>1.0</signature.version>
@@ -319,7 +319,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>findbugs-maven-plugin</artifactId>
-                    <version>3.0.2</version>
+                    <version>3.0.3</version>
                 </plugin>
                 <plugin>
                     <groupId>com.tunyk.mvn.plugins.htmlcompressor</groupId>
@@ -373,7 +373,7 @@
                         <dependency>
                             <groupId>com.github.hazendaz</groupId>
                             <artifactId>build-tools</artifactId>
-                            <version>1.1.1</version>
+                            <version>1.1.2</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -424,7 +424,7 @@
                         <dependency>
                             <groupId>com.googlecode.javaewah</groupId>
                             <artifactId>JavaEWAH</artifactId>
-                            <version>1.1.0</version>
+                            <version>1.1.1</version>
                         </dependency>
                         <dependency>
                             <groupId>com.jcraft</groupId>
@@ -482,7 +482,7 @@
                         <dependency>
                             <groupId>com.googlecode.javaewah</groupId>
                             <artifactId>JavaEWAH</artifactId>
-                            <version>1.1.0</version>
+                            <version>1.1.1</version>
                         </dependency>
                         <dependency>
                             <groupId>com.jcraft</groupId>
