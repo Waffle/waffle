@@ -40,7 +40,7 @@ Troubleshooting Stories
 * [Issues with servlet filter on multiple Tomcat 7 Instances Sharing WAFFLE binaries](https://groups.google.com/forum/?fromgroups#!topic/waffle-users/4_K_O7BCn-c): solved by putting filter-mapping in the application's web.xml, also answered by [Tomcat bug 51754](https://issues.apache.org/bugzilla/show_bug.cgi?id=51754#c1).
 * [Waffle returns outdated nonexistent user name after the user name was changed on domain](faq/ClearLSACacheToAvoidOutdatedPrincipalNames.md): solved by clearing the server LSA cache through the Windows registry according to MS Kbase article.
 * [Status 401 (error code 80090308) when using .NET client and HTTP 1.0 protocol](https://groups.google.com/d/msg/waffle-users/Nisu-m19_nI/HLgaNhfBEw4J): solved by using default protocol version in .NET HttpWebRequest
-
+* [Cannot log in automatically on machine where Tomcat service is running](https://github.com/dblock/waffle/issues/268): the workaround is to run Tomcat in console mode or use built-in accounts.
 
 Troubleshooting Help
 ----------------------
