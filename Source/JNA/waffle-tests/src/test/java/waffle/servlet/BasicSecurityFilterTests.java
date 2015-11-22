@@ -19,8 +19,6 @@ import javax.security.auth.Subject;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 
-import waffle.mock.http.*;
-
 import org.assertj.core.api.Assertions;
 import org.junit.After;
 import org.junit.Assert;
@@ -31,6 +29,9 @@ import com.google.common.base.Charsets;
 import com.google.common.io.BaseEncoding;
 
 import waffle.mock.MockWindowsAuthProvider;
+import waffle.mock.http.SimpleFilterChain;
+import waffle.mock.http.SimpleHttpRequest;
+import waffle.mock.http.SimpleHttpResponse;
 import waffle.windows.auth.impl.WindowsAccountImpl;
 
 /**

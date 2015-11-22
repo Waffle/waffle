@@ -161,7 +161,7 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
      *            the new out
      */
     public void setOut(final byte[] outToken) {
-        this.out = (outToken != null ? outToken.clone() : null);
+        this.out = outToken != null ? outToken.clone() : null;
     }
 
     /**

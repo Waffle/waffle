@@ -13,15 +13,16 @@
  */
 package waffle.shiro.dynamic;
 
-import waffle.shiro.negotiate.NegotiateAuthenticationFilter;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import waffle.shiro.negotiate.NegotiateAuthenticationFilter;
 
 /**
  * When combined with the {@link waffle.shiro.negotiate.NegotiateAuthenticationStrategy}, this filter can be used to

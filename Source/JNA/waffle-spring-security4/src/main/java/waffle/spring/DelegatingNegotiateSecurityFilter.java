@@ -11,9 +11,6 @@
  * Contributors:
  *     Application Security, Inc.
  */
-/**
- * 
- */
 package waffle.spring;
 
 import java.io.IOException;
@@ -34,7 +31,6 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 /**
- * 
  * 
  * <p>
  * Supports optional injection of spring security entities, allowing Waffle to act as an interface towards an identity

@@ -13,12 +13,12 @@
  */
 package waffle.windows.auth.impl;
 
-import waffle.windows.auth.IWindowsAccount;
-
 import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.Advapi32Util.Account;
 import com.sun.jna.platform.win32.Secur32.EXTENDED_NAME_FORMAT;
 import com.sun.jna.platform.win32.Secur32Util;
+
+import waffle.windows.auth.IWindowsAccount;
 
 /**
  * Windows Account.

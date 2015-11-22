@@ -27,12 +27,6 @@ import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
-import waffle.mock.MockWindowsAccount;
-import waffle.mock.http.SimpleFilterChain;
-import waffle.mock.http.SimpleHttpRequest;
-import waffle.mock.http.SimpleHttpResponse;
-import waffle.windows.auth.impl.WindowsAuthProviderImpl;
-
 import com.google.common.base.Charsets;
 import com.google.common.io.BaseEncoding;
 import com.sun.jna.WString;
@@ -40,6 +34,12 @@ import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.LMAccess;
 import com.sun.jna.platform.win32.LMErr;
 import com.sun.jna.platform.win32.Netapi32;
+
+import waffle.mock.MockWindowsAccount;
+import waffle.mock.http.SimpleFilterChain;
+import waffle.mock.http.SimpleHttpRequest;
+import waffle.mock.http.SimpleHttpResponse;
+import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
 /**
  * The Class ImpersonateTests.
@@ -121,7 +121,7 @@ public class ImpersonateTests {
             this.filter.doFilter(request, response, filterChain);
 
             final Subject subject = (Subject) request.getSession().getAttribute("javax.security.auth.subject");
-            final boolean authenticated = (subject != null && subject.getPrincipals().size() > 0);
+            final boolean authenticated = subject != null && subject.getPrincipals().size() > 0;
             Assert.assertTrue("Test user should be authenticated", authenticated);
 
             if (subject == null) {
@@ -170,7 +170,7 @@ public class ImpersonateTests {
             this.filter.doFilter(request, response, filterChain);
 
             final Subject subject = (Subject) request.getSession().getAttribute("javax.security.auth.subject");
-            final boolean authenticated = (subject != null && subject.getPrincipals().size() > 0);
+            final boolean authenticated = subject != null && subject.getPrincipals().size() > 0;
             Assert.assertTrue("Test user should be authenticated", authenticated);
 
             if (subject == null) {

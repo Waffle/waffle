@@ -13,6 +13,10 @@
  */
 package waffle.shiro.negotiate;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateAuthenticationFilter. see:
  * https://bitbucket.org/lothor
@@ -39,10 +43,6 @@ import com.google.common.io.BaseEncoding;
 
 import waffle.util.AuthorizationHeader;
 import waffle.util.NtlmServletRequest;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A authentication filter that implements the HTTP Negotiate mechanism. The current user is authenticated, providing

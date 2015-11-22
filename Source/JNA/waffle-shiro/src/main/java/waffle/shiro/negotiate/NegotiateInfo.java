@@ -29,7 +29,6 @@ import org.apache.shiro.subject.SimplePrincipalCollection;
 /**
  * Information about a user authenticated via the HTTP Negotiate authentication mechanism.
  * 
- * 
  * @author Dan Rollo
  * @since 1.0.0
  */

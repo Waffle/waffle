@@ -19,14 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import waffle.windows.auth.IWindowsAccount;
-import waffle.windows.auth.IWindowsAuthProvider;
-import waffle.windows.auth.IWindowsComputer;
-import waffle.windows.auth.IWindowsCredentialsHandle;
-import waffle.windows.auth.IWindowsDomain;
-import waffle.windows.auth.IWindowsIdentity;
-import waffle.windows.auth.IWindowsSecurityContext;
-
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.sun.jna.platform.win32.Advapi32;
@@ -42,6 +34,14 @@ import com.sun.jna.platform.win32.WinBase;
 import com.sun.jna.platform.win32.WinError;
 import com.sun.jna.platform.win32.WinNT.HANDLEByReference;
 import com.sun.jna.ptr.IntByReference;
+
+import waffle.windows.auth.IWindowsAccount;
+import waffle.windows.auth.IWindowsAuthProvider;
+import waffle.windows.auth.IWindowsComputer;
+import waffle.windows.auth.IWindowsCredentialsHandle;
+import waffle.windows.auth.IWindowsDomain;
+import waffle.windows.auth.IWindowsIdentity;
+import waffle.windows.auth.IWindowsSecurityContext;
 
 /**
  * Windows Auth Provider.

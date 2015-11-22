@@ -53,7 +53,7 @@ public class UsernamePasswordCallbackHandler implements CallbackHandler {
      */
     @Override
     public void handle(final Callback[] cb) throws IOException, UnsupportedCallbackException {
-        for (Callback cb1 : cb) {
+        for (final Callback cb1 : cb) {
             if (cb1 instanceof NameCallback) {
                 final NameCallback nc = (NameCallback) cb1;
                 nc.setName(this.username);

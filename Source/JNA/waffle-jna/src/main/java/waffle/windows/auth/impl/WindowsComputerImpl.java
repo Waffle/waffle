@@ -16,11 +16,11 @@ package waffle.windows.auth.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import waffle.windows.auth.IWindowsComputer;
-
 import com.sun.jna.platform.win32.LMJoin;
 import com.sun.jna.platform.win32.Netapi32Util;
 import com.sun.jna.platform.win32.Netapi32Util.LocalGroup;
+
+import waffle.windows.auth.IWindowsComputer;
 
 /**
  * Windows Computer.
