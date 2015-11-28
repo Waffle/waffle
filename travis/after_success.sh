@@ -37,7 +37,7 @@ if [ "$waffle_repo" == "https://github.com/dblock/waffle.git" ] && [ "$TRAVIS_PU
 	echo -e "Successfully deploy site under Travis job ${TRAVIS_JOB_NUMBER}"
     # Build Tomcat9
     cd waffle-tomcat9
-	mvn clean install deploy -DskipTests -q --settings ../../travis/settings.xml
+	mvn clean install deploy -DskipTests -q --settings ../../../travis/settings.xml
   else
     echo "Java Version does not support additonal activity for travis CI"
   fi
