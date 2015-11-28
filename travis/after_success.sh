@@ -25,13 +25,19 @@ echo "Java detected: ${VER}"
 
 if [ "$waffle_repo" == "https://github.com/dblock/waffle.git" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
   if [ $VER == "18" ]; then
-    mvn clean deploy -DskipTests -q --settings ../../travis/settings.xml
+    # Deploy to sonatype
+	mvn clean deploy -DskipTests -q --settings ../../travis/settings.xml
     echo -e "Successfully deployed SNAPSHOT artifacts to Sonatype under Travis job ${TRAVIS_JOB_NUMBER}"
+	# Deploy to coveralls
 	# Cannot run tests on linux
 	# mvn clean test jacoco:report coveralls:report -q
 	# echo -e "Successfully deployed Coveralls Report under Travis job ${TRAVIS_JOB_NUMBER}"
+	# Deploy to site
 	mvn site site:deploy -DskipTests -q
 	echo -e "Successfully deploy site under Travis job ${TRAVIS_JOB_NUMBER}"
+    # Build Tomcat9
+    cd waffle-tomcat9
+	mvn clean install deploy -DskipTests -q --settings ../../travis/settings.xml
   else
     echo "Java Version does not support additonal activity for travis CI"
   fi

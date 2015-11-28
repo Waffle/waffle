@@ -1,9 +1,13 @@
-1.8.1 (11/xx/15)
+1.7.x Branch News (on 1.7.5)
+=================
+* Branch 1.7.x for spring 2, tomcat 5, and java 6 continued support for one year ending on 1/1/2016.  Only complete show stoppers to be addressed there.
+
+1.8.1 (in progress)
 ================
 
 * Rework .net build to be mostly automatic using nuget
 * Change .net target to more modern .net 4.0 framework
-
+* [#296](https://github.com/dblock/waffle/pull/296): Added Tomcat 9 support.
 
 1.8.0 (09/10/15)
 ================
@@ -14,10 +18,9 @@
 * [#226](https://github.com/dblock/waffle/pull/226): Moving base to java 1.7
 * [#239](https://github.com/dblock/waffle/pull/239): Fix handle leak in LSASS.exe process.
 
-1.7.x Branch News (on 1.7.4)
-=================
-* Created 1.7.x branch for spring 2, tomcat 5, and java 6 continued support for one year.  Only complete show stoppers to be addressed there.
-* [#239]: Fix handle leak in LSASS.exe process. PENDING BACKPORT
+1.7.5 (11/7/15)
+===============
+* Backport [#239](https://github.com/dblock/waffle/pull/239): Fix handle leak in LSASS.exe process.
 
 1.7.4 (05/12/15)
 ================
