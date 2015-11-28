@@ -13,14 +13,14 @@
  */
 package waffle.windows.auth.impl;
 
-import waffle.windows.auth.IWindowsCredentialsHandle;
-
 import com.sun.jna.platform.win32.Secur32;
 import com.sun.jna.platform.win32.Sspi;
 import com.sun.jna.platform.win32.Sspi.CredHandle;
 import com.sun.jna.platform.win32.Sspi.TimeStamp;
 import com.sun.jna.platform.win32.Win32Exception;
 import com.sun.jna.platform.win32.WinError;
+
+import waffle.windows.auth.IWindowsCredentialsHandle;
 
 /**
  * Pre-existing credentials of a security principal. This is a handle to a previously authenticated logon data used by a

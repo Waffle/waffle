@@ -15,7 +15,6 @@ package waffle.windows.auth;
 
 import org.databene.contiperf.PerfTest;
 import org.databene.contiperf.junit.ContiPerfRule;
-
 import org.junit.Rule;
 import org.junit.Test;
 

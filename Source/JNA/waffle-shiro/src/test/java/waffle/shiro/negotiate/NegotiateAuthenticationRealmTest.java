@@ -17,6 +17,7 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.junit.Assert;
 import org.junit.Test;
+
 import mockit.Expectations;
 import mockit.Mocked;
 import mockit.Tested;

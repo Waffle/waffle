@@ -69,6 +69,8 @@
         <module>waffle-tomcat6</module>
         <module>waffle-tomcat7</module>
         <module>waffle-tomcat8</module>
+        <!-- Requires we build with java 8 -->
+        <!-- <module>waffle-tomcat9</module> -->
     </modules>
     <scm>
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
@@ -251,7 +253,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>1.9.1</version>
+                    <version>1.10</version>
                 </plugin>
                 <!-- Packaging types / tools -->
                 <plugin>

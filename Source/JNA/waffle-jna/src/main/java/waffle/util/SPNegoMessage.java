@@ -112,7 +112,7 @@ public final class SPNegoMessage {
             final int i = 2;
             while (lenBytes > 0) {
                 len = len << 8;
-                len |= (message[i] & 0xff);
+                len |= message[i] & 0xff;
                 --lenBytes;
             }
         }

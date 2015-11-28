@@ -13,9 +13,9 @@
  */
 package waffle.windows.auth.impl;
 
-import waffle.windows.auth.IWindowsDomain;
-
 import com.sun.jna.platform.win32.Netapi32Util.DomainTrust;
+
+import waffle.windows.auth.IWindowsDomain;
 
 /**
  * Windows Domain.

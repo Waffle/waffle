@@ -15,12 +15,12 @@ package waffle.shiro.dynamic;
 
 import javax.servlet.ServletRequest;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import mockit.Expectations;
 import mockit.Mocked;
 import mockit.Tested;
-
-import org.junit.Assert;
-import org.junit.Test;
 
 /**
  * The Class DynamicAuthenticationFilterTest.

@@ -13,11 +13,6 @@
  */
 package waffle.windows.auth.impl;
 
-import waffle.windows.auth.IWindowsCredentialsHandle;
-import waffle.windows.auth.IWindowsIdentity;
-import waffle.windows.auth.IWindowsImpersonationContext;
-import waffle.windows.auth.IWindowsSecurityContext;
-
 import com.sun.jna.platform.win32.Secur32;
 import com.sun.jna.platform.win32.Sspi;
 import com.sun.jna.platform.win32.Sspi.CtxtHandle;
@@ -26,6 +21,11 @@ import com.sun.jna.platform.win32.Win32Exception;
 import com.sun.jna.platform.win32.WinError;
 import com.sun.jna.platform.win32.WinNT.HANDLEByReference;
 import com.sun.jna.ptr.IntByReference;
+
+import waffle.windows.auth.IWindowsCredentialsHandle;
+import waffle.windows.auth.IWindowsIdentity;
+import waffle.windows.auth.IWindowsImpersonationContext;
+import waffle.windows.auth.IWindowsSecurityContext;
 
 /**
  * Windows Security Context.

@@ -20,6 +20,12 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.google.common.io.BaseEncoding;
+import com.sun.jna.platform.win32.Sspi;
+import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
+
+import mockit.Mocked;
 import waffle.apache.catalina.SimpleHttpRequest;
 import waffle.apache.catalina.SimpleHttpResponse;
 import waffle.mock.MockWindowsAuthProvider;
@@ -27,12 +33,6 @@ import waffle.windows.auth.IWindowsCredentialsHandle;
 import waffle.windows.auth.impl.WindowsAccountImpl;
 import waffle.windows.auth.impl.WindowsCredentialsHandleImpl;
 import waffle.windows.auth.impl.WindowsSecurityContextImpl;
-
-import com.google.common.io.BaseEncoding;
-import com.sun.jna.platform.win32.Sspi;
-import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
-
-import mockit.Mocked;
 
 /**
  * Waffle Tomcat Mixed Authenticator Tests.

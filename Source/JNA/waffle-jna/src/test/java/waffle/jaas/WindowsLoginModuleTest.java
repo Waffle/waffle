@@ -27,14 +27,13 @@ import javax.security.auth.callback.NameCallback;
 import javax.security.auth.callback.UnsupportedCallbackException;
 import javax.security.auth.login.LoginException;
 
-import mockit.Deencapsulation;
-import mockit.Expectations;
-import mockit.Mocked;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import mockit.Deencapsulation;
+import mockit.Expectations;
+import mockit.Mocked;
 import waffle.windows.auth.PrincipalFormat;
 
 /**

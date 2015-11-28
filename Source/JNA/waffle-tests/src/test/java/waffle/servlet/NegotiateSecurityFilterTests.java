@@ -25,6 +25,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.google.common.io.BaseEncoding;
+import com.sun.jna.platform.win32.Advapi32Util;
+import com.sun.jna.platform.win32.Secur32.EXTENDED_NAME_FORMAT;
+import com.sun.jna.platform.win32.Secur32Util;
+import com.sun.jna.platform.win32.Sspi;
+import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
+
 import waffle.mock.MockWindowsAuthProvider;
 import waffle.mock.MockWindowsIdentity;
 import waffle.mock.http.SimpleFilterChain;
@@ -37,13 +44,6 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 import waffle.windows.auth.impl.WindowsCredentialsHandleImpl;
 import waffle.windows.auth.impl.WindowsSecurityContextImpl;
-
-import com.google.common.io.BaseEncoding;
-import com.sun.jna.platform.win32.Advapi32Util;
-import com.sun.jna.platform.win32.Secur32.EXTENDED_NAME_FORMAT;
-import com.sun.jna.platform.win32.Secur32Util;
-import com.sun.jna.platform.win32.Sspi;
-import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 
 /**
  * Waffle Tomcat Security Filter Tests.
@@ -189,7 +189,7 @@ public class NegotiateSecurityFilterTests {
                 this.filter.doFilter(request, response, filterChain);
 
                 final Subject subject = (Subject) request.getSession().getAttribute("javax.security.auth.subject");
-                authenticated = (subject != null && subject.getPrincipals().size() > 0);
+                authenticated = subject != null && subject.getPrincipals().size() > 0;
 
                 if (authenticated) {
                     Assertions.assertThat(response.getHeaderNamesSize()).isGreaterThanOrEqualTo(0);

@@ -16,15 +16,15 @@ package waffle.windows.auth.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.jna.platform.win32.Advapi32Util;
+import com.sun.jna.platform.win32.Advapi32Util.Account;
+import com.sun.jna.platform.win32.Kernel32;
+import com.sun.jna.platform.win32.WinNT.HANDLE;
+import com.sun.jna.platform.win32.WinNT.WELL_KNOWN_SID_TYPE;
+
 import waffle.windows.auth.IWindowsAccount;
 import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.IWindowsImpersonationContext;
-
-import com.sun.jna.platform.win32.Advapi32Util;
-import com.sun.jna.platform.win32.Kernel32;
-import com.sun.jna.platform.win32.Advapi32Util.Account;
-import com.sun.jna.platform.win32.WinNT.HANDLE;
-import com.sun.jna.platform.win32.WinNT.WELL_KNOWN_SID_TYPE;
 
 /**
  * Windows Identity.

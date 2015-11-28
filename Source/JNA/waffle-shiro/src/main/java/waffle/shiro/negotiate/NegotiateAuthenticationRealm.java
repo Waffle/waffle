@@ -13,6 +13,8 @@
  */
 package waffle.shiro.negotiate;
 
+import java.security.Principal;
+
 /**
  * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateAuthenticationFilter. see:
  * https://bitbucket.org/lothor
@@ -27,7 +29,6 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.realm.AuthenticatingRealm;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,8 +37,6 @@ import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.IWindowsSecurityContext;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
-
-import java.security.Principal;
 
 /**
  * The Class NegotiateAuthenticationRealm.

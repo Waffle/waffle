@@ -25,10 +25,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import waffle.mock.MockWindowsAuthProvider;
-
 import com.sun.jna.platform.win32.Secur32.EXTENDED_NAME_FORMAT;
 import com.sun.jna.platform.win32.Secur32Util;
+
+import waffle.mock.MockWindowsAuthProvider;
 
 /**
  * The Class GroupMappingWaffleRealmTests.
