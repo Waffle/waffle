@@ -15,7 +15,7 @@
     <properties>
         <src.relative.loc>..</src.relative.loc>
 
-        <guava.version>18.0</guava.version>
+        <guava.version>19.0</guava.version>
         <jna.version>4.2.1</jna.version>
         <servlet.version>2.5</servlet.version>
         <slf4j.version>1.7.13</slf4j.version>
