@@ -189,6 +189,7 @@ namespace Waffle.Windows.AuthProvider
                 switch (rc)
                 {
                     case Secur32.SEC_E_INSUFFICIENT_MEMORY:
+                    case Secur32.SEC_E_BUFFER_TOO_SMALL:
                         tokenSize += Secur32.MAX_TOKEN_SIZE;
                         break;
                     case Secur32.SEC_E_OK:
@@ -199,7 +200,7 @@ namespace Waffle.Windows.AuthProvider
                     default:
                         throw new Win32Exception(rc);
                 }
-            } while (rc == Secur32.SEC_E_INSUFFICIENT_MEMORY);
+            } while (rc == Secur32.SEC_E_INSUFFICIENT_MEMORY || rc == Secur32.SEC_E_BUFFER_TOO_SMALL);
         }
 
         /// <summary>
