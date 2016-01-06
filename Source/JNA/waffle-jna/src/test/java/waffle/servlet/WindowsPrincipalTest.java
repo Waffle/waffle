@@ -46,12 +46,31 @@ public class WindowsPrincipalTest {
                 this.result = WindowsPrincipalTest.TEST_FQN;
                 WindowsPrincipalTest.this.windowsIdentity.getGroups();
                 this.result = new IWindowsAccount[0];
-
             }
         });
         final WindowsPrincipal principal = new WindowsPrincipal(this.windowsIdentity);
         Assert.assertEquals(WindowsPrincipalTest.TEST_FQN, principal.getName());
         Assert.assertEquals(WindowsPrincipalTest.TEST_FQN, principal.toString());
+    }
+
+    /**
+     * Test equals and hash code.
+     */
+    @Test
+    public void testEqualsAndHashCode() {
+        Assert.assertNotNull(new Expectations() {
+            {
+                WindowsPrincipalTest.this.windowsIdentity.getFqn();
+                this.result = WindowsPrincipalTest.TEST_FQN;
+                WindowsPrincipalTest.this.windowsIdentity.getGroups();
+                this.result = new IWindowsAccount[0];
+            }
+        });
+        WindowsPrincipal principal = new WindowsPrincipal(this.windowsIdentity);
+        WindowsPrincipal principal2 = new WindowsPrincipal(this.windowsIdentity);
+        Assert.assertTrue(principal.equals(principal2) && principal2.equals(principal));
+        Assert.assertEquals(principal.hashCode(), principal2.hashCode());
+        Assert.assertEquals(principal.hashCode(), WindowsPrincipalTest.TEST_FQN.hashCode());
     }
 
 }
