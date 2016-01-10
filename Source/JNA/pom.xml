@@ -237,6 +237,7 @@
                     <version>2.19</version>
                     <configuration>
                         <includes>
+                            <include>**/*Test.java</include>
                             <include>**/*Tests.java</include>
                         </includes>
                         <excludes>
