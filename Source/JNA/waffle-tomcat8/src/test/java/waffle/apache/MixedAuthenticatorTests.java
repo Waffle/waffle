@@ -51,9 +51,11 @@ public class MixedAuthenticatorTests {
     /** The authenticator. */
     MixedAuthenticator authenticator;
 
+    /** The context. */
     @Mocked
     Context            context;
 
+    /** The engine. */
     @Mocked
     Engine             engine;
 
@@ -246,6 +248,8 @@ public class MixedAuthenticatorTests {
     /**
      * Test programmatic security BOTH.
      *
+     * @param identity
+     *            the identity
      * @throws ServletException
      *             the servlet exception
      */
@@ -275,6 +279,8 @@ public class MixedAuthenticatorTests {
     /**
      * Test programmatic security SID.
      *
+     * @param identity
+     *            the identity
      * @throws ServletException
      *             the servlet exception
      */
@@ -302,6 +308,8 @@ public class MixedAuthenticatorTests {
     /**
      * Test programmatic security NONE.
      *
+     * @param identity
+     *            the identity
      * @throws ServletException
      *             the servlet exception
      */
