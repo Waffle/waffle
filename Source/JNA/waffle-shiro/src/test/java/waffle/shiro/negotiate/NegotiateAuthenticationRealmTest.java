@@ -49,6 +49,9 @@ public final class NegotiateAuthenticationRealmTest {
 
     /**
      * Test authentication info exception.
+     *
+     * @param negotiateToken
+     *            the negotiate token
      */
     @Test(expected = AuthenticationException.class)
     public void testAuthenticationInfo(@Mocked final NegotiateToken negotiateToken) {
