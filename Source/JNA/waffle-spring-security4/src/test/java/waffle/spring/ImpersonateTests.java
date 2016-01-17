@@ -11,21 +11,7 @@
  * Contributors:
  *     Application Security, Inc.
  */
-package waffle.servlet;
-
-import java.io.IOException;
-import java.security.Principal;
-
-import javax.security.auth.Subject;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Assume;
-import org.junit.Before;
-import org.junit.Test;
+package waffle.spring;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.BaseEncoding;
@@ -34,13 +20,28 @@ import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.LMAccess;
 import com.sun.jna.platform.win32.LMErr;
 import com.sun.jna.platform.win32.Netapi32;
-
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Assume;
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import waffle.mock.MockWindowsAccount;
 import waffle.mock.http.RecordUserNameFilterChain;
-import waffle.mock.http.SimpleFilterChain;
 import waffle.mock.http.SimpleHttpRequest;
 import waffle.mock.http.SimpleHttpResponse;
+import waffle.servlet.AutoDisposableWindowsPrincipal;
+import waffle.servlet.WindowsPrincipal;
+import waffle.servlet.spi.SecurityFilterProviderCollection;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
+
+import javax.servlet.ServletException;
+import java.io.IOException;
+import java.security.Principal;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.is;
 
 /**
  * The Class ImpersonateTests.
@@ -48,13 +49,13 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 public class ImpersonateTests {
 
     /** The filter. */
-    private NegotiateSecurityFilter filter;
+    private waffle.spring.NegotiateSecurityFilter filter;
 
     /** The user info. */
-    private LMAccess.USER_INFO_1    userInfo;
+    private LMAccess.USER_INFO_1                  userInfo;
 
     /** The result of net add user. */
-    private int                     resultOfNetAddUser;
+    private int                                   resultOfNetAddUser;
 
     /**
      * Sets the up.
@@ -62,12 +63,7 @@ public class ImpersonateTests {
     @Before
     public void setUp() {
         this.filter = new NegotiateSecurityFilter();
-        this.filter.setAuth(new WindowsAuthProviderImpl());
-        try {
-            this.filter.init(null);
-        } catch (final ServletException e) {
-            Assert.fail(e.getMessage());
-        }
+        this.filter.setProvider(new SecurityFilterProviderCollection(new WindowsAuthProviderImpl()));
 
         this.userInfo = new LMAccess.USER_INFO_1();
         this.userInfo.usri1_name = new WString(MockWindowsAccount.TEST_USER_NAME);
@@ -75,8 +71,8 @@ public class ImpersonateTests {
         this.userInfo.usri1_priv = LMAccess.USER_PRIV_USER;
 
         this.resultOfNetAddUser = Netapi32.INSTANCE.NetUserAdd(null, 1, this.userInfo, null);
-        // ignore test if not able to add user (need to be administrator to do this).
-        Assume.assumeTrue(LMErr.NERR_Success == this.resultOfNetAddUser);
+        Assume.assumeThat("Unable to add user (need to be administrator to do this).", this.resultOfNetAddUser,
+                is(LMErr.NERR_Success));
     }
 
     /**
@@ -103,8 +99,9 @@ public class ImpersonateTests {
     @Test
     public void testImpersonateEnabled() throws IOException, ServletException {
 
-        Assert.assertFalse("Current user shouldn't be the test user prior to the test", Advapi32Util.getUserName()
-                .equals(MockWindowsAccount.TEST_USER_NAME));
+        assertThat(Advapi32Util.getUserName())
+                .isNotEqualTo(MockWindowsAccount.TEST_USER_NAME)
+                .withFailMessage("Current user shouldn't be the test user prior to the test");
 
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
@@ -116,27 +113,24 @@ public class ImpersonateTests {
         final SimpleHttpResponse response = new SimpleHttpResponse();
         final RecordUserNameFilterChain filterChain = new RecordUserNameFilterChain();
 
-        AutoDisposableWindowsPrincipal windowsPrincipal = null;
+        this.filter.setImpersonate(true);
+        this.filter.doFilter(request, response, filterChain);
+
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Assert.assertTrue("Test user should be authenticated", authentication.isAuthenticated());
+
+        final Principal principal = (Principal) authentication.getPrincipal();
+        assertThat(principal).isInstanceOf(AutoDisposableWindowsPrincipal.class);
+        AutoDisposableWindowsPrincipal windowsPrincipal = (AutoDisposableWindowsPrincipal) principal;
         try {
-            this.filter.setImpersonate(true);
-            this.filter.doFilter(request, response, filterChain);
-
-            final Subject subject = (Subject) request.getSession().getAttribute("javax.security.auth.subject");
-            final boolean authenticated = subject != null && subject.getPrincipals().size() > 0;
-            Assert.assertTrue("Test user should be authenticated", authenticated);
-
-            final Principal principal = subject.getPrincipals().iterator().next();
-            Assert.assertTrue(principal instanceof AutoDisposableWindowsPrincipal);
-            windowsPrincipal = (AutoDisposableWindowsPrincipal) principal;
-
-            Assert.assertEquals("Test user should be impersonated", MockWindowsAccount.TEST_USER_NAME,
-                    filterChain.getUserName());
-            Assert.assertFalse("Impersonation context should have been reverted",
-                    Advapi32Util.getUserName().equals(MockWindowsAccount.TEST_USER_NAME));
+            assertThat(filterChain.getUserName())
+                    .isEqualTo(MockWindowsAccount.TEST_USER_NAME)
+                    .withFailMessage("Test user should be impersonated");
+            assertThat(Advapi32Util.getUserName())
+                    .isNotEqualTo(MockWindowsAccount.TEST_USER_NAME)
+                    .withFailMessage("Impersonation context should have been reverted");
         } finally {
-            if (windowsPrincipal != null) {
-                windowsPrincipal.getIdentity().dispose();
-            }
+            windowsPrincipal.getIdentity().dispose();
         }
     }
 
@@ -151,8 +145,9 @@ public class ImpersonateTests {
     @Test
     public void testImpersonateDisabled() throws IOException, ServletException {
 
-        Assert.assertFalse("Current user shouldn't be the test user prior to the test", Advapi32Util.getUserName()
-                .equals(MockWindowsAccount.TEST_USER_NAME));
+        assertThat(Advapi32Util.getUserName())
+                .isNotEqualTo(MockWindowsAccount.TEST_USER_NAME)
+                .withFailMessage("Current user shouldn't be the test user prior to the test");
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
         final String userHeaderValue = MockWindowsAccount.TEST_USER_NAME + ":" + MockWindowsAccount.TEST_PASSWORD;
@@ -162,27 +157,24 @@ public class ImpersonateTests {
         final SimpleHttpResponse response = new SimpleHttpResponse();
         final RecordUserNameFilterChain filterChain = new RecordUserNameFilterChain();
 
-        WindowsPrincipal windowsPrincipal = null;
+        this.filter.setImpersonate(false);
+        this.filter.doFilter(request, response, filterChain);
+
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Assert.assertTrue("Test user should be authenticated", authentication.isAuthenticated());
+
+        final Principal principal = (Principal) authentication.getPrincipal();
+        assertThat(principal).isInstanceOf(WindowsPrincipal.class);
+        WindowsPrincipal windowsPrincipal = (WindowsPrincipal) principal;
         try {
-            this.filter.setImpersonate(false);
-            this.filter.doFilter(request, response, filterChain);
-
-            final Subject subject = (Subject) request.getSession().getAttribute("javax.security.auth.subject");
-            final boolean authenticated = subject != null && subject.getPrincipals().size() > 0;
-            Assert.assertTrue("Test user should be authenticated", authenticated);
-
-            final Principal principal = subject.getPrincipals().iterator().next();
-            Assert.assertTrue(principal instanceof WindowsPrincipal);
-            windowsPrincipal = (WindowsPrincipal) principal;
-
-            Assert.assertFalse("Test user should not be impersonated",
-                    MockWindowsAccount.TEST_USER_NAME.equals(filterChain.getUserName()));
-            Assert.assertFalse("Impersonation context should have been reverted",
-                    Advapi32Util.getUserName().equals(MockWindowsAccount.TEST_USER_NAME));
+            assertThat(filterChain.getUserName())
+                    .isNotEqualTo(MockWindowsAccount.TEST_USER_NAME)
+                    .withFailMessage("Test user should not be impersonated");
+            assertThat(Advapi32Util.getUserName())
+                    .isNotEqualTo(MockWindowsAccount.TEST_USER_NAME)
+                    .withFailMessage("Impersonation context should have been reverted");
         } finally {
-            if (windowsPrincipal != null) {
-                windowsPrincipal.getIdentity().dispose();
-            }
+            windowsPrincipal.getIdentity().dispose();
         }
     }
 }
