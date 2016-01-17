@@ -255,4 +255,30 @@ public class WindowsPrincipal implements Principal, Serializable {
         return this.getName();
     }
 
+    /*
+     * (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o instanceof WindowsPrincipal) {
+            return this.getName().equals(((WindowsPrincipal) o).getName());
+        }
+
+        return false;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        return this.getName().hashCode();
+    }
+
 }

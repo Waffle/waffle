@@ -12,6 +12,7 @@
 * [#268](https://github.com/dblock/waffle/pull/301): Cannot log in automatically on machine where Tomcat service is running
 * [#274](https://github.com/dblock/waffle/pull/274): Update WindowsSecurityContextImpl.java to handle SEC_E_BUFFER_TOO_SMALL
 * [#128](https://github.com/dblock/waffle/pull/128): Update WindowsSecurityContext.cs to handle SEC_E_BUFFER_TOO_SMALL
+* [#310](https://github.com/dblock/waffle/pull/310): Add equals and hashCode to WindowsPrincipal
 
 1.8.0 (09/10/15)
 ================
