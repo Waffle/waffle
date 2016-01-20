@@ -506,9 +506,9 @@
                 </plugin>
                 <!-- Sonar -->
                 <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
+                    <groupId>org.sonarsource.scanner.maven</groupId>
                     <artifactId>sonar-maven-plugin</artifactId>
-                    <version>2.7.1</version>
+                    <version>3.0.1</version>
                 </plugin>
                 <!-- Wagon -->
                 <plugin>
