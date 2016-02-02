@@ -120,7 +120,7 @@
         <contiperf.version>2.3.4</contiperf.version>
         <jmockit.version>1.21</jmockit.version>
         <junit.version>4.12</junit.version>
-        <slf4j.version>1.7.13</slf4j.version>
+        <slf4j.version>1.7.14</slf4j.version>
 
         <signature.artifact>java17</signature.artifact>
         <signature.version>1.0</signature.version>
@@ -437,7 +437,7 @@
                         <dependency>
                             <groupId>org.eclipse.jgit</groupId>
                             <artifactId>org.eclipse.jgit</artifactId>
-                            <version>4.1.1.201511131810-r</version>
+                            <version>4.2.0.201601211800-r</version>
                         </dependency>
                         <dependency>
                             <groupId>org.codehaus.plexus</groupId>
@@ -495,7 +495,7 @@
                         <dependency>
                             <groupId>org.eclipse.jgit</groupId>
                             <artifactId>org.eclipse.jgit</artifactId>
-                            <version>4.1.1.201511131810-r</version>
+                            <version>4.2.0.201601211800-r</version>
                         </dependency>
                         <dependency>
                             <groupId>org.codehaus.plexus</groupId>
