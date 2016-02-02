@@ -437,7 +437,7 @@
                         <dependency>
                             <groupId>org.eclipse.jgit</groupId>
                             <artifactId>org.eclipse.jgit</artifactId>
-                            <version>4.1.1.201511131810-r</version>
+                            <version>4.2.0.201601211800-r</version>
                         </dependency>
                         <dependency>
                             <groupId>org.codehaus.plexus</groupId>
@@ -495,7 +495,7 @@
                         <dependency>
                             <groupId>org.eclipse.jgit</groupId>
                             <artifactId>org.eclipse.jgit</artifactId>
-                            <version>4.1.1.201511131810-r</version>
+                            <version>4.2.0.201601211800-r</version>
                         </dependency>
                         <dependency>
                             <groupId>org.codehaus.plexus</groupId>
