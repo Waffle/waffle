@@ -120,7 +120,7 @@
         <contiperf.version>2.3.4</contiperf.version>
         <jmockit.version>1.21</jmockit.version>
         <junit.version>4.12</junit.version>
-        <slf4j.version>1.7.13</slf4j.version>
+        <slf4j.version>1.7.14</slf4j.version>
 
         <signature.artifact>java17</signature.artifact>
         <signature.version>1.0</signature.version>
