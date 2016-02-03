@@ -57,6 +57,9 @@ public class NegotiateSecurityFilter implements Filter {
     /** The Constant PRINCIPALSESSIONKEY. */
     private static final String PRINCIPALSESSIONKEY = NegotiateSecurityFilter.class.getName() + ".PRINCIPAL";
 
+    /** The windows flag. */
+    private static Boolean windows;
+
     /** The principal format. */
     private PrincipalFormat principalFormat = PrincipalFormat.FQN;
 
@@ -84,6 +87,9 @@ public class NegotiateSecurityFilter implements Filter {
     /** The exclusions cors pre flight. */
     private boolean excludeCorsPreflight;
 
+    /** The disable SSO. */
+    private boolean disableSSO;
+
     /**
      * Instantiates a new negotiate security filter.
      */
@@ -105,6 +111,20 @@ public class NegotiateSecurityFilter implements Filter {
 
         NegotiateSecurityFilter.LOGGER.debug("{} {}, contentlength: {}", request.getMethod(), request.getRequestURI(),
                 Integer.valueOf(request.getContentLength()));
+
+        // If we are not in a windows environment, resume filter chain
+        if (!NegotiateSecurityFilter.isWindows()) {
+            NegotiateSecurityFilter.LOGGER.debug("Running in a non windows environment, SSO skipped");
+            chain.doFilter(request, response);
+            return;
+        }
+
+        // If sso is disabled, resume filter chain
+        if (this.disableSSO) {
+            NegotiateSecurityFilter.LOGGER.debug("SSO is disabled, resuming filter chain");
+            chain.doFilter(request, response);
+            return;
+        }
 
         // If excluded URL, resume the filter chain
         if (request.getRequestURL() != null && this.excludePatterns != null) {
@@ -253,7 +273,6 @@ public class NegotiateSecurityFilter implements Filter {
         }
 
         // user already authenticated
-
         if (principal instanceof WindowsPrincipal) {
             NegotiateSecurityFilter.LOGGER.debug("previously authenticated Windows user: {}", principal.getName());
             final WindowsPrincipal windowsPrincipal = (WindowsPrincipal) principal;
@@ -329,6 +348,9 @@ public class NegotiateSecurityFilter implements Filter {
                         break;
                     case "excludeBearerAuthorization":
                         this.excludeBearerAuthorization = Boolean.parseBoolean(parameterValue);
+                        break;
+                    case "disableSSO":
+                        this.disableSSO = Boolean.parseBoolean(parameterValue);
                         break;
                     default:
                         implParameters.put(parameterName, parameterValue);
@@ -513,6 +535,13 @@ public class NegotiateSecurityFilter implements Filter {
      */
     public SecurityFilterProviderCollection getProviders() {
         return this.providers;
+    }
+
+    private static boolean isWindows() {
+        if (NegotiateSecurityFilter.windows == null) {
+            NegotiateSecurityFilter.windows = System.getProperty("os.name").toLowerCase(Locale.ENGLISH).contains("win");
+        }
+        return NegotiateSecurityFilter.windows.booleanValue();
     }
 
 }

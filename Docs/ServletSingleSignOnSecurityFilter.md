@@ -32,6 +32,7 @@ Filter Options
 
 The filter can be configured with the following `init-param` options. 
 
+* disableSSO: Allows for the enabling/disabling of Single-SignOn Security Filter.This is useful if you require to bypass the SSO process for troubleshooting/diagnostics and provide login by some other means.
 * principalFormat: Specifies the name format for the principal.
 * roleFormat: Specifies the name format for the role.
 * allowGuestLogin: Allow guest login. When true and the system's Guest account is enabled, any invalid login succeeds as Guest. Note that while the default value of `allowGuestLogin` is true, it is recommended that you disable the system's Guest account to disallow Guest login. This option is provided for systems where you don't have administrative privileges. 
@@ -51,6 +52,10 @@ Filter Configuration Example
 <filter>
   <filter-name>SecurityFilter</filter-name>
   <filter-class>waffle.servlet.NegotiateSecurityFilter</filter-class>   
+  <init-param>
+      <param-name>disableSSO</param-name>
+      <param-value>true</param-value>
+  </init-param>
   <init-param>
       <param-name>principalFormat</param-name>
       <param-value>fqn</param-value>
