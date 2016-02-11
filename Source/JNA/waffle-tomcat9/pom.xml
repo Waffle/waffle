@@ -15,7 +15,7 @@
     <properties>
         <src.relative.loc>..</src.relative.loc>
 
-        <tomcat.version>9.0.0.M1</tomcat.version>
+        <tomcat.version>9.0.0.M3</tomcat.version>
 
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
