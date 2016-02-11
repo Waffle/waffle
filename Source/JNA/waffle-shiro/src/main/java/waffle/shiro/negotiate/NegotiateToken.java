@@ -11,6 +11,8 @@
  */
 package waffle.shiro.negotiate;
 
+import java.security.Principal;
+
 /**
  * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateToken. see:
  * https://bitbucket.org/lothor/shiro-negotiate
@@ -46,7 +48,7 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
     private Subject           subject;
 
     /** The principal. */
-    private Object            principal;
+    private Principal         principal;
 
     /** The connection id. */
     private final String      connectionId;
@@ -139,7 +141,7 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
      * @see org.apache.shiro.authc.AuthenticationToken#getPrincipal()
      */
     @Override
-    public Object getPrincipal() {
+    public Principal getPrincipal() {
         return this.principal;
     }
 
@@ -205,7 +207,7 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
      * @param value
      *            the new principal
      */
-    public void setPrincipal(final Object value) {
+    public void setPrincipal(final Principal value) {
         this.principal = value;
     }
 
