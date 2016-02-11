@@ -107,7 +107,7 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
         }
 
         CtxtHandle continueHandle = null;
-        IWindowsCredentialsHandle serverCredential = null;
+        IWindowsCredentialsHandle serverCredential;
         ContinueContext continueContext = this.continueContexts.asMap().get(connectionId);
         if (continueContext != null) {
             continueHandle = continueContext.continueHandle;
@@ -127,6 +127,7 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
             final SecBufferDesc pbClientToken = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, token);
             final IntByReference pfClientContextAttr = new IntByReference();
 
+            // TODO This is a dead store...do we have a bug?
             continueContext = this.continueContexts.asMap().get(connectionId);
 
             final CtxtHandle phNewServerContext = new CtxtHandle();
