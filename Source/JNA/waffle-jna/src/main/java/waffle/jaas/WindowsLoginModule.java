@@ -1,15 +1,13 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2015 Application Security, Inc.
+ * Copyright (c) 2010 - 2016 Application Security, Inc.
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+ * Public License v1.0 which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html.
  *
- * Contributors:
- *     Application Security, Inc.
+ * Contributors: Application Security, Inc.
  */
 package waffle.jaas;
 
@@ -132,10 +130,10 @@ public class WindowsLoginModule implements LoginModule {
             password = passwordCallback.getPassword() == null ? "" : new String(passwordCallback.getPassword());
             passwordCallback.clearPassword();
         } catch (final IOException e) {
-            WindowsLoginModule.LOGGER.trace("{}", e);
+            WindowsLoginModule.LOGGER.trace("", e);
             throw new LoginException(e.toString());
         } catch (final UnsupportedCallbackException e) {
-            WindowsLoginModule.LOGGER.trace("{}", e);
+            WindowsLoginModule.LOGGER.trace("", e);
             throw new LoginException(
                     "Callback {} not available to gather authentication information from the user.".replace("{}", e
                             .getCallback().getClass().getName()));
@@ -145,7 +143,7 @@ public class WindowsLoginModule implements LoginModule {
         try {
             windowsIdentity = this.auth.logonUser(userName, password);
         } catch (final Exception e) {
-            WindowsLoginModule.LOGGER.trace("{}", e);
+            WindowsLoginModule.LOGGER.trace("", e);
             throw new LoginException(e.getMessage());
         }
 
