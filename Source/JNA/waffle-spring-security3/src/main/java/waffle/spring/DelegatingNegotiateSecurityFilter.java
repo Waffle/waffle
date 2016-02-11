@@ -91,6 +91,14 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
     private AccessDeniedHandler          accessDeniedHandler;
 
     /**
+     * Instantiates a new delegating negotiate security filter.
+     */
+    public DelegatingNegotiateSecurityFilter() {
+        super();
+        DelegatingNegotiateSecurityFilter.LOGGER.debug("[waffle.spring.NegotiateSecurityFilter] loaded");
+    }
+
+    /**
      * Gets the access denied handler.
      *
      * @return the accessDeniedHandler
@@ -126,14 +134,6 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
      */
     public void setAuthenticationFailureHandler(final AuthenticationFailureHandler value) {
         this.authenticationFailureHandler = value;
-    }
-
-    /**
-     * Instantiates a new delegating negotiate security filter.
-     */
-    public DelegatingNegotiateSecurityFilter() {
-        super();
-        DelegatingNegotiateSecurityFilter.LOGGER.debug("[waffle.spring.NegotiateSecurityFilter] loaded");
     }
 
     /*
