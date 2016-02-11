@@ -126,7 +126,7 @@ public class NegotiateSecurityFilter implements Filter {
                 }
             } catch (final IOException e) {
                 NegotiateSecurityFilter.LOGGER.warn("error logging in user: {}", e.getMessage());
-                NegotiateSecurityFilter.LOGGER.trace("{}", e);
+                NegotiateSecurityFilter.LOGGER.trace("", e);
                 this.sendUnauthorized(response, true);
                 return;
             }
@@ -312,7 +312,7 @@ public class NegotiateSecurityFilter implements Filter {
                     | InstantiationException | IllegalAccessException | InvocationTargetException
                     | NoSuchMethodException e) {
                 NegotiateSecurityFilter.LOGGER.error("error loading '{}': {}", authProvider, e.getMessage());
-                NegotiateSecurityFilter.LOGGER.trace("{}", e);
+                NegotiateSecurityFilter.LOGGER.trace("", e);
                 throw new ServletException(e);
             }
         }
@@ -350,7 +350,7 @@ public class NegotiateSecurityFilter implements Filter {
                 } catch (final Exception e) {
                     NegotiateSecurityFilter.LOGGER.error("{}: error setting '{}': {}", classAndParameter[0],
                             classAndParameter[1], e.getMessage());
-                    NegotiateSecurityFilter.LOGGER.trace("{}", e);
+                    NegotiateSecurityFilter.LOGGER.trace("", e);
                     throw new ServletException(e);
                 }
             } else {

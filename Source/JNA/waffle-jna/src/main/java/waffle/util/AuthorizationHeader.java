@@ -106,7 +106,7 @@ public class AuthorizationHeader {
         try {
             return BaseEncoding.base64().decode(this.getToken());
         } catch (final IllegalArgumentException e) {
-            AuthorizationHeader.LOGGER.debug("{}", e);
+            AuthorizationHeader.LOGGER.debug("", e);
             throw new RuntimeException("Invalid authorization header.");
         }
     }

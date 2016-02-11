@@ -130,10 +130,10 @@ public class WindowsLoginModule implements LoginModule {
             password = passwordCallback.getPassword() == null ? "" : new String(passwordCallback.getPassword());
             passwordCallback.clearPassword();
         } catch (final IOException e) {
-            WindowsLoginModule.LOGGER.trace("{}", e);
+            WindowsLoginModule.LOGGER.trace("", e);
             throw new LoginException(e.toString());
         } catch (final UnsupportedCallbackException e) {
-            WindowsLoginModule.LOGGER.trace("{}", e);
+            WindowsLoginModule.LOGGER.trace("", e);
             throw new LoginException(
                     "Callback {} not available to gather authentication information from the user.".replace("{}", e
                             .getCallback().getClass().getName()));
@@ -143,7 +143,7 @@ public class WindowsLoginModule implements LoginModule {
         try {
             windowsIdentity = this.auth.logonUser(userName, password);
         } catch (final Exception e) {
-            WindowsLoginModule.LOGGER.trace("{}", e);
+            WindowsLoginModule.LOGGER.trace("", e);
             throw new LoginException(e.getMessage());
         }
 

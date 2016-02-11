@@ -204,7 +204,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
             response.sendError(code);
         } catch (final IOException e) {
             this.log.error(e.getMessage());
-            this.log.trace("{}", e);
+            this.log.trace("", e);
             throw new RuntimeException(e);
         }
     }
@@ -232,7 +232,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
             windowsIdentity = this.auth.logonUser(username, password);
         } catch (final Exception e) {
             this.log.error(e.getMessage());
-            this.log.trace("{}", e);
+            this.log.trace("", e);
             return super.doLogin(request, username, password);
         }
         // disable guest login

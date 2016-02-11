@@ -264,7 +264,7 @@ public class NegotiateAuthenticatorTests {
                 try {
                     authenticated = this.authenticator.authenticate(request, response);
                 } catch (final Exception e) {
-                    NegotiateAuthenticatorTests.LOGGER.error("{}", e);
+                    NegotiateAuthenticatorTests.LOGGER.error("", e);
                     return;
                 }
 

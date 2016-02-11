@@ -78,12 +78,12 @@ public class SecurityFilterProviderCollection {
                 this.providers.add(provider);
             } catch (final ClassNotFoundException e) {
                 SecurityFilterProviderCollection.LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
-                SecurityFilterProviderCollection.LOGGER.trace("{}", e);
+                SecurityFilterProviderCollection.LOGGER.trace("", e);
                 throw new RuntimeException(e);
             } catch (final SecurityException | NoSuchMethodException | IllegalArgumentException
                     | InstantiationException | IllegalAccessException | InvocationTargetException e) {
                 SecurityFilterProviderCollection.LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
-                SecurityFilterProviderCollection.LOGGER.trace("{}", e);
+                SecurityFilterProviderCollection.LOGGER.trace("", e);
             }
         }
     }

@@ -71,7 +71,7 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
                 AbstractWaffleRealm.LOGGER.debug("Successful login for user {}", username);
             } catch (final RuntimeException e) {
                 AbstractWaffleRealm.LOGGER.debug("Failed login for user {}: {}", username, e.getMessage());
-                AbstractWaffleRealm.LOGGER.trace("{}", e);
+                AbstractWaffleRealm.LOGGER.trace("", e);
                 throw new AuthenticationException("Login failed", e);
             } finally {
                 if (identity != null) {

@@ -107,7 +107,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
                 }
             } catch (final IOException e) {
                 NegotiateSecurityFilter.LOGGER.warn("error logging in user: {}", e.getMessage());
-                NegotiateSecurityFilter.LOGGER.trace("{}", e);
+                NegotiateSecurityFilter.LOGGER.trace("", e);
                 this.sendUnauthorized(response, true);
                 return;
             }

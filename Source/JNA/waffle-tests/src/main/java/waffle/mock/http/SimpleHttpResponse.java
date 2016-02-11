@@ -220,7 +220,7 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
         try {
             return this.bytes.toString("UTF-8");
         } catch (final UnsupportedEncodingException e) {
-            SimpleHttpResponse.LOGGER.error("{}", e);
+            SimpleHttpResponse.LOGGER.error("", e);
         }
         return null;
     }

@@ -69,10 +69,10 @@ public class StartEmbeddedJetty {
             server.stop();
             server.join();
         } catch (final IOException e) {
-            StartEmbeddedJetty.LOGGER.error("{}", e);
+            StartEmbeddedJetty.LOGGER.error("", e);
             System.exit(100);
         } catch (final Exception e) {
-            StartEmbeddedJetty.LOGGER.error("{}", e);
+            StartEmbeddedJetty.LOGGER.error("", e);
             System.exit(100);
         }
     }

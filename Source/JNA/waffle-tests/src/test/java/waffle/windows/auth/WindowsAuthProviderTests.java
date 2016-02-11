@@ -175,7 +175,7 @@ public class WindowsAuthProviderTests {
                     serverContext = provider.acceptSecurityToken(connectionId, clientContext.getToken(),
                             securityPackage);
                 } catch (final Exception e) {
-                    WindowsAuthProviderTests.LOGGER.error("{}", e);
+                    WindowsAuthProviderTests.LOGGER.error("", e);
                     break;
                 }
 
@@ -287,7 +287,7 @@ public class WindowsAuthProviderTests {
                     serverContext = provider.acceptSecurityToken(connectionId, clientContext.getToken(),
                             securityPackage);
                 } catch (final Exception e) {
-                    WindowsAuthProviderTests.LOGGER.error("{}", e);
+                    WindowsAuthProviderTests.LOGGER.error("", e);
                     break;
                 }
 

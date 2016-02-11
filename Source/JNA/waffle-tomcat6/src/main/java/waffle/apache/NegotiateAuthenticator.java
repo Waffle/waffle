@@ -111,7 +111,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
                     securityContext = this.auth.acceptSecurityToken(connectionId, tokenBuffer, securityPackage);
                 } catch (final Win32Exception e) {
                     this.log.warn("error logging in user: {}", e.getMessage());
-                    this.log.trace("{}", e);
+                    this.log.trace("", e);
                     this.sendUnauthorized(response);
                     return false;
                 }
@@ -133,7 +133,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 
             } catch (final IOException e) {
                 this.log.warn("error logging in user: {}", e.getMessage());
-                this.log.trace("{}", e);
+                this.log.trace("", e);
                 this.sendUnauthorized(response);
                 return false;
             }

@@ -202,7 +202,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
             response.sendError(code);
         } catch (final IOException e) {
             this.log.error(e.getMessage());
-            this.log.trace("{}", e);
+            this.log.trace("", e);
             throw new RuntimeException(e);
         }
     }

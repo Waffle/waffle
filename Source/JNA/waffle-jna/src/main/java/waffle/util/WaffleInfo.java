@@ -338,7 +338,7 @@ public class WaffleInfo {
             }
         } catch (final IOException | TransformerException | ParserConfigurationException e) {
             WaffleInfo.LOGGER.error(e.getMessage());
-            WaffleInfo.LOGGER.trace("{}", e);
+            WaffleInfo.LOGGER.trace("", e);
         }
     }
 }
