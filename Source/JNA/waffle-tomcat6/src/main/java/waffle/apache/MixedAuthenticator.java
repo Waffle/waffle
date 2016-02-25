@@ -1,15 +1,13 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2015 Application Security, Inc.
+ * Copyright (c) 2010 - 2016 Application Security, Inc.
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+ * Public License v1.0 which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html.
  *
- * Contributors:
- *     Application Security, Inc.
+ * Contributors: Application Security, Inc.
  */
 package waffle.apache;
 
@@ -174,7 +172,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 
         } catch (final IOException e) {
             this.log.warn("error logging in user: {}", e.getMessage());
-            this.log.trace("{}", e);
+            this.log.trace("", e);
             this.sendUnauthorized(response);
             return false;
         }
@@ -233,7 +231,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
             windowsIdentity = this.auth.logonUser(username, password);
         } catch (final Exception e) {
             this.log.error(e.getMessage());
-            this.log.trace("{}", e);
+            this.log.trace("", e);
             return false;
         }
 
@@ -282,7 +280,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
             disp.forward(request.getRequest(), response);
         } catch (final IOException | ServletException e) {
             this.log.error(e.getMessage());
-            this.log.trace("{}", e);
+            this.log.trace("", e);
             throw new RuntimeException(e);
         }
     }

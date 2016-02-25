@@ -1,15 +1,13 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2015 Application Security, Inc.
+ * Copyright (c) 2010 - 2016 Application Security, Inc.
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+ * Public License v1.0 which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html.
  *
- * Contributors:
- *     Application Security, Inc.
+ * Contributors: Application Security, Inc.
  */
 package waffle.jetty;
 
@@ -71,10 +69,10 @@ public class StartEmbeddedJetty {
             server.stop();
             server.join();
         } catch (final IOException e) {
-            StartEmbeddedJetty.LOGGER.error("{}", e);
+            StartEmbeddedJetty.LOGGER.error("", e);
             System.exit(100);
         } catch (final Exception e) {
-            StartEmbeddedJetty.LOGGER.error("{}", e);
+            StartEmbeddedJetty.LOGGER.error("", e);
             System.exit(100);
         }
     }

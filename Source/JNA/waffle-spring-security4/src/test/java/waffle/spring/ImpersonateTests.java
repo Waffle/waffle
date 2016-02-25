@@ -1,15 +1,13 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2015 Application Security, Inc.
+ * Copyright (c) 2010 - 2016 Application Security, Inc.
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+ * Public License v1.0 which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html.
  *
- * Contributors:
- *     Application Security, Inc.
+ * Contributors: Application Security, Inc.
  */
 package waffle.spring;
 
@@ -99,9 +97,8 @@ public class ImpersonateTests {
     @Test
     public void testImpersonateEnabled() throws IOException, ServletException {
 
-        assertThat(Advapi32Util.getUserName())
-                .isNotEqualTo(MockWindowsAccount.TEST_USER_NAME)
-                .withFailMessage("Current user shouldn't be the test user prior to the test");
+        assertThat(Advapi32Util.getUserName()).isNotEqualTo(MockWindowsAccount.TEST_USER_NAME).withFailMessage(
+                "Current user shouldn't be the test user prior to the test");
 
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
@@ -123,12 +120,10 @@ public class ImpersonateTests {
         assertThat(principal).isInstanceOf(AutoDisposableWindowsPrincipal.class);
         AutoDisposableWindowsPrincipal windowsPrincipal = (AutoDisposableWindowsPrincipal) principal;
         try {
-            assertThat(filterChain.getUserName())
-                    .isEqualTo(MockWindowsAccount.TEST_USER_NAME)
-                    .withFailMessage("Test user should be impersonated");
-            assertThat(Advapi32Util.getUserName())
-                    .isNotEqualTo(MockWindowsAccount.TEST_USER_NAME)
-                    .withFailMessage("Impersonation context should have been reverted");
+            assertThat(filterChain.getUserName()).isEqualTo(MockWindowsAccount.TEST_USER_NAME).withFailMessage(
+                    "Test user should be impersonated");
+            assertThat(Advapi32Util.getUserName()).isNotEqualTo(MockWindowsAccount.TEST_USER_NAME).withFailMessage(
+                    "Impersonation context should have been reverted");
         } finally {
             windowsPrincipal.getIdentity().dispose();
         }
@@ -145,9 +140,8 @@ public class ImpersonateTests {
     @Test
     public void testImpersonateDisabled() throws IOException, ServletException {
 
-        assertThat(Advapi32Util.getUserName())
-                .isNotEqualTo(MockWindowsAccount.TEST_USER_NAME)
-                .withFailMessage("Current user shouldn't be the test user prior to the test");
+        assertThat(Advapi32Util.getUserName()).isNotEqualTo(MockWindowsAccount.TEST_USER_NAME).withFailMessage(
+                "Current user shouldn't be the test user prior to the test");
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
         final String userHeaderValue = MockWindowsAccount.TEST_USER_NAME + ":" + MockWindowsAccount.TEST_PASSWORD;
@@ -167,12 +161,10 @@ public class ImpersonateTests {
         assertThat(principal).isInstanceOf(WindowsPrincipal.class);
         WindowsPrincipal windowsPrincipal = (WindowsPrincipal) principal;
         try {
-            assertThat(filterChain.getUserName())
-                    .isNotEqualTo(MockWindowsAccount.TEST_USER_NAME)
-                    .withFailMessage("Test user should not be impersonated");
-            assertThat(Advapi32Util.getUserName())
-                    .isNotEqualTo(MockWindowsAccount.TEST_USER_NAME)
-                    .withFailMessage("Impersonation context should have been reverted");
+            assertThat(filterChain.getUserName()).isNotEqualTo(MockWindowsAccount.TEST_USER_NAME).withFailMessage(
+                    "Test user should not be impersonated");
+            assertThat(Advapi32Util.getUserName()).isNotEqualTo(MockWindowsAccount.TEST_USER_NAME).withFailMessage(
+                    "Impersonation context should have been reverted");
         } finally {
             windowsPrincipal.getIdentity().dispose();
         }

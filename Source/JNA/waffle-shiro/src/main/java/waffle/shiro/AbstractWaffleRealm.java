@@ -1,15 +1,13 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2015 Application Security, Inc.
+ * Copyright (c) 2010 - 2016 Application Security, Inc.
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+ * Public License v1.0 which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html.
  *
- * Contributors:
- *     Application Security, Inc.
+ * Contributors: Application Security, Inc.
  */
 package waffle.shiro;
 
@@ -73,7 +71,7 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
                 AbstractWaffleRealm.LOGGER.debug("Successful login for user {}", username);
             } catch (final RuntimeException e) {
                 AbstractWaffleRealm.LOGGER.debug("Failed login for user {}: {}", username, e.getMessage());
-                AbstractWaffleRealm.LOGGER.trace("{}", e);
+                AbstractWaffleRealm.LOGGER.trace("", e);
                 throw new AuthenticationException("Login failed", e);
             } finally {
                 if (identity != null) {

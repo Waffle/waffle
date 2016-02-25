@@ -1,15 +1,13 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2015 Application Security, Inc.
+ * Copyright (c) 2010 - 2016 Application Security, Inc.
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+ * Public License v1.0 which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html.
  *
- * Contributors:
- *     Application Security, Inc.
+ * Contributors: Application Security, Inc.
  */
 package waffle.apache;
 
@@ -207,7 +205,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
             response.sendError(code);
         } catch (final IOException e) {
             this.log.error(e.getMessage());
-            this.log.trace("{}", e);
+            this.log.trace("", e);
             throw new RuntimeException(e);
         }
     }
@@ -235,7 +233,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
             windowsIdentity = this.auth.logonUser(username, password);
         } catch (final Exception e) {
             this.log.error(e.getMessage());
-            this.log.trace("{}", e);
+            this.log.trace("", e);
             return super.doLogin(request, username, password);
         }
         // disable guest login

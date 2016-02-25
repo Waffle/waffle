@@ -1,10 +1,7 @@
-1.7.x Branch News (on 1.7.5)
-=================
-* Branch 1.7.x for spring 2, tomcat 5, and java 6 continued support for one year ending on 1/1/2016.  Only complete show stoppers to be addressed there.
-
-1.8.1 (in progress)
+1.8.1 (2/10/16)
 ================
 
+* Official notification dropping long-term support on 1.7.x branch
 * Rework .net build to be mostly automatic using nuget
 * Change .net target to more modern .net 4.0 framework
 * [#309](https://github.com/dblock/waffle/pull/309): Added impersonation support on spring-security filters [@sergey-podolsky](https://github.com/sergey-podolsky).

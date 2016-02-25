@@ -1,15 +1,13 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2015 Application Security, Inc.
+ * Copyright (c) 2010 - 2016 Application Security, Inc.
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+ * Public License v1.0 which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html.
  *
- * Contributors:
- *     Application Security, Inc.
+ * Contributors: Application Security, Inc.
  */
 package waffle.windows.auth.impl;
 
@@ -109,7 +107,7 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
         }
 
         CtxtHandle continueHandle = null;
-        IWindowsCredentialsHandle serverCredential = null;
+        IWindowsCredentialsHandle serverCredential;
         ContinueContext continueContext = this.continueContexts.asMap().get(connectionId);
         if (continueContext != null) {
             continueHandle = continueContext.continueHandle;
@@ -129,6 +127,7 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
             final SecBufferDesc pbClientToken = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, token);
             final IntByReference pfClientContextAttr = new IntByReference();
 
+            // TODO This is a dead store...do we have a bug?
             continueContext = this.continueContexts.asMap().get(connectionId);
 
             final CtxtHandle phNewServerContext = new CtxtHandle();

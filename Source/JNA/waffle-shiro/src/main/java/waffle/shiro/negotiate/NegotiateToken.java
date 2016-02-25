@@ -1,17 +1,17 @@
 /**
  * Waffle (https://github.com/dblock/waffle)
  *
- * Copyright (c) 2010 - 2015 Application Security, Inc.
+ * Copyright (c) 2010 - 2016 Application Security, Inc.
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+ * Public License v1.0 which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html.
  *
- * Contributors:
- *     Application Security, Inc.
+ * Contributors: Application Security, Inc.
  */
 package waffle.shiro.negotiate;
+
+import java.security.Principal;
 
 /**
  * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateToken. see:
@@ -48,7 +48,7 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
     private Subject           subject;
 
     /** The principal. */
-    private Object            principal;
+    private Principal         principal;
 
     /** The connection id. */
     private final String      connectionId;
@@ -141,7 +141,7 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
      * @see org.apache.shiro.authc.AuthenticationToken#getPrincipal()
      */
     @Override
-    public Object getPrincipal() {
+    public Principal getPrincipal() {
         return this.principal;
     }
 
@@ -207,7 +207,7 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
      * @param value
      *            the new principal
      */
-    public void setPrincipal(final Object value) {
+    public void setPrincipal(final Principal value) {
         this.principal = value;
     }
 
