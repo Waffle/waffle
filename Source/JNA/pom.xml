@@ -116,7 +116,7 @@
 
         <src.relative.loc>.</src.relative.loc>
 
-        <assertj.version>2.2.0</assertj.version>
+        <assertj.version>2.3.0</assertj.version>
         <contiperf.version>2.3.4</contiperf.version>
         <jmockit.version>1.21</jmockit.version>
         <jsr305.version>3.0.1</jsr305.version>
@@ -214,7 +214,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>3.4</version>
+                    <version>3.5</version>
                     <dependencies>
                         <dependency>
                             <groupId>org.apache.maven.doxia</groupId>
