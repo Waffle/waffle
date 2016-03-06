@@ -18,11 +18,11 @@
         <el.version>3.0.1-b08</el.version>
         <el-api.version>3.0.1-b04</el-api.version>
         <jetty.version>9.3.7.v20160115</jetty.version>
-        <jdt.version>4.4.2</jdt.version>
+        <jdt.version>4.5.1</jdt.version>
         <jsp.version>2.3.3-b02</jsp.version>
         <jsp-api.version>2.3.2-b01</jsp-api.version>
         <jstl.version>1.2.4</jstl.version>
-        <slf4j.version>1.7.16</slf4j.version>
+        <slf4j.version>1.7.18</slf4j.version>
     </properties>
     <scm>
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
