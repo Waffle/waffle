@@ -121,7 +121,7 @@
         <jmockit.version>1.21</jmockit.version>
         <jsr305.version>3.0.1</jsr305.version>
         <junit.version>4.12</junit.version>
-        <slf4j.version>1.7.18</slf4j.version>
+        <slf4j.version>1.7.19</slf4j.version>
 
         <signature.artifact>java17</signature.artifact>
         <signature.version>1.0</signature.version>
