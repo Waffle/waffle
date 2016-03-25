@@ -17,7 +17,7 @@
 
         <el.version>3.0.1-b08</el.version>
         <el-api.version>3.0.1-b04</el-api.version>
-        <jetty.version>9.3.7.v20160115</jetty.version>
+        <jetty.version>9.3.8.v20160314</jetty.version>
         <jdt.version>4.5.1</jdt.version>
         <jsp.version>2.3.3-b02</jsp.version>
         <jsp-api.version>2.3.2-b01</jsp-api.version>
