@@ -136,7 +136,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
         NegotiateSecurityFilterProvider.LOGGER.debug("continue required: {}",
                 Boolean.valueOf(securityContext.isContinue()));
-        if (securityContext.isContinue() || ntlmPost) {
+        if (securityContext.isContinue()) {
             response.setHeader("Connection", "keep-alive");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.flushBuffer();
