@@ -94,16 +94,16 @@ public class AuthorizationHeaderTests {
      * Test is sp nego message.
      */
     @Test
-    public void testIsSPNegoMessage() {
+    public void testIsSPNegTokenInitMessage() {
         final SimpleHttpRequest request = new SimpleHttpRequest();
         final AuthorizationHeader header = new AuthorizationHeader(request);
-        Assert.assertFalse(header.isSPNegoMessage());
+        Assert.assertFalse(header.isSPNegTokenInitMessage());
         request.addHeader("Authorization", "");
-        Assert.assertFalse(header.isSPNegoMessage());
+        Assert.assertFalse(header.isSPNegTokenInitMessage());
         request.addHeader(
                 "Authorization",
                 "Negotiate YHYGBisGAQUFAqBsMGqgMDAuBgorBgEEAYI3AgIKBgkqhkiC9xIBAgIGCSqGSIb3EgECAgYKKwYBBAGCNwICHqI2BDROVExNU1NQAAEAAACXsgjiAwADADEAAAAJAAkAKAAAAAYBsR0AAAAPR0xZQ0VSSU5FU0FE");
-        Assert.assertTrue(header.isSPNegoMessage());
+        Assert.assertTrue(header.isSPNegTokenInitMessage());
     }
 
     /**
@@ -141,6 +141,7 @@ public class AuthorizationHeaderTests {
 
         final BDDSoftAssertions softly = new BDDSoftAssertions();
         softly.thenThrownBy(new ThrowingCallable() {
+
             @Override
             public void call() throws Exception {
                 header.getTokenBytes();

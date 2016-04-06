@@ -132,16 +132,16 @@ public class AuthorizationHeader {
     /**
      * Checks if is SP nego message.
      *
-     * @return true, if is SP nego message
+     * @return true, if is SP nego message that contains NegTokenInit
      */
-    public boolean isSPNegoMessage() {
+    public boolean isSPNegTokenInitMessage() {
 
         if (this.isNull()) {
             return false;
         }
 
         final byte[] tokenBytes = this.getTokenBytes();
-        return SPNegoMessage.isSPNegoMessage(tokenBytes);
+        return SPNegoMessage.isNegTokenInit(tokenBytes);
     }
 
     /**
@@ -161,6 +161,6 @@ public class AuthorizationHeader {
             return false;
         }
 
-        return this.isNtlmType1Message() || this.isSPNegoMessage();
+        return this.isNtlmType1Message() || this.isSPNegTokenInitMessage();
     }
 }
