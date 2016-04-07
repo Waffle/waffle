@@ -43,19 +43,6 @@ public class SPNegoMessageTests {
     private static final byte[] badMessage           = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 
     /**
-     * Test is sp nego message.
-     */
-    @Test
-    public void testIsSPNegoMessage() {
-        Assert.assertFalse(SPNegoMessage.isSPNegoMessage(null));
-        Assert.assertTrue(SPNegoMessage.isSPNegoMessage(SPNegoMessageTests.negTokenInitOk));
-        Assert.assertFalse(SPNegoMessage.isSPNegoMessage(SPNegoMessageTests.negTokenInitTooShort));
-        Assert.assertTrue(SPNegoMessage.isSPNegoMessage(SPNegoMessageTests.negTokenArgOk));
-        Assert.assertFalse(SPNegoMessage.isSPNegoMessage(SPNegoMessageTests.negTokenArgTooShort));
-        Assert.assertFalse(SPNegoMessage.isSPNegoMessage(SPNegoMessageTests.badMessage));
-    }
-
-    /**
      * Test is neg token init.
      */
     @Test

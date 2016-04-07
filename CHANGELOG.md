@@ -1,3 +1,8 @@
+1.8.2 (?/??/16)
+================
+
+* [#338](https://github.com/dblock/waffle/pull/338): Don't allow SPNEGO NegTokenArg to start re-authentication process [@AriSuutariST](https://github.com/AriSuutariST). 
+
 1.8.1 (2/10/16)
 ================
 
