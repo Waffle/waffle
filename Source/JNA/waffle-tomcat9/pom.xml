@@ -90,19 +90,4 @@
             <systemPath>${project.basedir}/system/jaspic-api.jar</systemPath>
         </dependency>
     </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>animal-sniffer-maven-plugin</artifactId>
-                <configuration>
-                    <signature>
-                        <groupId>org.kaazing.mojo.signature</groupId>
-                        <artifactId>${signature.artifact}</artifactId>
-                        <version>${signature.version}</version>
-                    </signature>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>
