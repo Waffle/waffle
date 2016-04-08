@@ -69,6 +69,7 @@
         <module>waffle-tomcat6</module>
         <module>waffle-tomcat7</module>
         <module>waffle-tomcat8</module>
+        <module>waffle-tomcat85</module>
         <!-- Requires we build with java 8 -->
         <!-- <module>waffle-tomcat9</module> -->
     </modules>
