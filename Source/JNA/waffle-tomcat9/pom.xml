@@ -80,6 +80,15 @@
             <version>${tomcat.version}</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- Temporary until tomcat releases this to central -->
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>jaspic-api</artifactId>
+            <version>${tomcat.version}</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/system/jaspic-api.jar</systemPath>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
