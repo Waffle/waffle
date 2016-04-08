@@ -15,7 +15,7 @@
     <properties>
         <src.relative.loc>..</src.relative.loc>
 
-        <logback.version>1.1.6</logback.version>
+        <logback.version>1.1.7</logback.version>
     </properties>
     <scm>
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>

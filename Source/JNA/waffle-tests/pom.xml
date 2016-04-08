@@ -16,7 +16,7 @@
         <src.relative.loc>..</src.relative.loc>
 
         <servlet.version>2.5</servlet.version>
-        <mockito.version>1.10.19</mockito.version>
+        <mockito.version>2.0.44-beta</mockito.version>
         <objenesis.version>2.2</objenesis.version>
     </properties>
     <scm>
