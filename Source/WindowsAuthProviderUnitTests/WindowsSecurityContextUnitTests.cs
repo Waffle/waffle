@@ -57,17 +57,21 @@ namespace Waffle.Windows.AuthProvider.UnitTests
             }
         }
 
-        [Test, ExpectedException(typeof(Win32Exception), ExpectedMessage = "The requested security package does not exist")]
+        [Test]
         public void TestGetCurrentInvalidPackage()
         {
-            using (WindowsSecurityContext context = WindowsSecurityContext.GetCurrent(Guid.NewGuid().ToString(),
-                WindowsIdentity.GetCurrent().Name, 0, 0))
-            {
-                Assert.AreNotEqual(context.Context, Secur32.SecHandle.Zero);
-                Assert.IsNotNull(context.Token);
-                Assert.IsNotEmpty(context.Token);
-                Console.WriteLine(Convert.ToBase64String(context.Token));
-            }
+            Assert.Throws(Is.TypeOf<Win32Exception>().And.Message.EqualTo("The requested security package does not exist"),
+                delegate {
+                    using (WindowsSecurityContext context = WindowsSecurityContext.GetCurrent(Guid.NewGuid().ToString(),
+                        WindowsIdentity.GetCurrent().Name, 0, 0))
+                    {
+                        Assert.AreNotEqual(context.Context, Secur32.SecHandle.Zero);
+                        Assert.IsNotNull(context.Token);
+                        Assert.IsNotEmpty(context.Token);
+                        Console.WriteLine(Convert.ToBase64String(context.Token));
+                    }
+                }
+            );
         }
     }
 }
