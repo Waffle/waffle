@@ -8,7 +8,7 @@ Configuring Tomcat
 
 The following steps are required to configure Tomcat with Waffle authenticator. 
 
-Package Waffle JARs, including `waffle-jna.jar`, `guava-18.0.jar`, `jna-4.2.0.jar`, `jna-platform-4.2.0.jar`, `slf4j*.jar` and `waffle-jaas.jar` in the application's lib directory or copy them to Tomcat's lib.
+Package Waffle JARs, including `waffle-jna-1.8.1.jar`, `guava-19.0.jar`, `jna-4.2.2.jar`, `jna-platform-4.2.2.jar`, `slf4j-1.7.21.jar` and `waffle-jaas.jar` in the application's lib directory or copy them to Tomcat's lib.
 
 Add a JAAS realm to the application context. Modify `META-INF\context.xml`.
  
