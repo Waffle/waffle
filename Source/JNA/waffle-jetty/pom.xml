@@ -43,6 +43,28 @@
             <version>${jetty.version}</version>
             <scope>provided</scope>
             <classifier>uber</classifier>
+            <exclusions>
+                <exclusion>
+                    <artifactId>javax.activation</artifactId>
+                    <groupId>org.eclipse.jetty.orbit</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>apache-jsp</artifactId>
+            <version>9.3.8.v20160314</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>apache-jsp</artifactId>
+                    <groupId>org.mortbay.jasper</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>apache-el</artifactId>
+                    <groupId>org.mortbay.jasper</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.eclipse.jdt.core.compiler</groupId>

@@ -117,7 +117,7 @@
 
         <src.relative.loc>.</src.relative.loc>
 
-        <assertj.version>2.4.0</assertj.version>
+        <assertj.version>2.4.1</assertj.version>
         <contiperf.version>2.3.4</contiperf.version>
         <jmockit.version>1.22</jmockit.version>
         <jsr305.version>3.0.1</jsr305.version>
@@ -436,7 +436,7 @@
                         <dependency>
                             <groupId>com.googlecode.javaewah</groupId>
                             <artifactId>JavaEWAH</artifactId>
-                            <version>1.1.5</version>
+                            <version>1.1.6</version>
                         </dependency>
                         <dependency>
                             <groupId>com.jcraft</groupId>
@@ -494,7 +494,7 @@
                         <dependency>
                             <groupId>com.googlecode.javaewah</groupId>
                             <artifactId>JavaEWAH</artifactId>
-                            <version>1.1.5</version>
+                            <version>1.1.6</version>
                         </dependency>
                         <dependency>
                             <groupId>com.jcraft</groupId>
@@ -581,6 +581,7 @@
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
                 <configuration>
+                    <failOnNoGitDirectory>false</failOnNoGitDirectory>
                     <!-- Prevent issues, see https://github.com/ktoso/maven-git-commit-id-plugin/issues/61 -->
                     <gitDescribe>
                         <always>true</always>
