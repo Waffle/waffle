@@ -10,7 +10,7 @@ Configuring Web Servers
 
 The following steps are required to configure a web server with the Waffle Servlet Security Filter. These instructions work for Tomcat, Jetty, WebSphere and possibly others.
 
-Package Waffle JARs, including `waffle-jna.jar`, `guava-18.0.jar`, `jna-4.2.0.jar`, `jna-platform-4.2.0.jar` and `slf4j*.jar` in the application's `lib` directory or copy them to your web server's lib. 
+Package Waffle JARs, including `waffle-jna-1.8.1.jar`, `guava-19.0.jar`, `jna-4.2.2.jar`, `jna-platform-4.2.2.jar` and `slf4j-1.7.21.jar` in the application's `lib` directory or copy them to your web server's lib. 
 
 Add a security filter to `WEB-INF\web.xml` of your application. 
 
