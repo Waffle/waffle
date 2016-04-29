@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Waffle (https://github.com/dblock/waffle)
+
+    Copyright (c) 2010-2016 Application Security, Inc.
+
+    All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+    Public License v1.0 which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html.
+
+    Contributors: Application Security, Inc.
+
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.dblock.waffle</groupId>
@@ -396,21 +409,22 @@
                     <configuration>
                         <header>${src.relative.loc}/license.txt</header>
                         <excludes>
-                            <exclude>target/**</exclude>
-                            <exclude>**/.gitignore</exclude>
-                            <exclude>**/*.txt</exclude>
-                            <exclude>**/*.xml</exclude>
-                            <exclude>**/*.properties</exclude>
-                            <exclude>**/*.html</exclude>
-                            <exclude>**/*.css</exclude>
+                            <exclude>.factorypath</exclude>
+                            <exclude>.gitattributes</exclude>
+                            <exclude>license.txt</exclude>
                         </excludes>
-                        <includes>
-                            <include>**/*.java</include>
-                        </includes>
                         <mapping>
-                            <java>JAVADOC_STYLE</java>
+                            <conf>DOUBLESLASH_STYLE</conf>
+                            <policy>DOUBLESLASH_STYLE</policy>
                         </mapping>
                     </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.mycila</groupId>
+                            <artifactId>license-maven-plugin-git</artifactId>
+                            <version>2.11</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
                 <!-- Report Only -->
                 <plugin>
@@ -1041,8 +1055,8 @@
             <build>
                 <pluginManagement>
                     <plugins>
-                        <!--This plugin's configuration is used to store 
-                            Eclipse m2e settings only. It has no influence on the Maven build itself. -->
+                        <!--This plugin's configuration is used to store Eclipse m2e settings only. It 
+                            has no influence on the Maven build itself. -->
                         <plugin>
                             <groupId>org.eclipse.m2e</groupId>
                             <artifactId>lifecycle-mapping</artifactId>
@@ -1149,7 +1163,7 @@
                         <groupId>net.revelc.code</groupId>
                         <artifactId>formatter-maven-plugin</artifactId>
                         <configuration>
-                           <configFile>eclipse-formatter-config.xml</configFile>
+                            <configFile>eclipse-formatter-config.xml</configFile>
                         </configuration>
                         <executions>
                             <execution>
