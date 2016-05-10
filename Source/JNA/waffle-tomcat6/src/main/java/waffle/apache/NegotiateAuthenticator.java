@@ -175,6 +175,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 
             } finally {
                 windowsIdentity.dispose();
+                securityContext.dispose();
             }
 
             return true;
