@@ -30,7 +30,7 @@
 
         <servlet.version>2.5</servlet.version>
         <mockito.version>2.0.52-beta</mockito.version>
-        <objenesis.version>2.2</objenesis.version>
+        <objenesis.version>2.3</objenesis.version>
     </properties>
     <scm>
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
