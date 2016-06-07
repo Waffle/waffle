@@ -18,8 +18,6 @@ import java.util.Map;
 
 import org.apache.catalina.realm.GenericPrincipal;
 
-import com.google.common.base.Joiner;
-
 import waffle.windows.auth.IWindowsAccount;
 import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.PrincipalFormat;
@@ -191,6 +189,6 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      * @return Role1, Role2, ...
      */
     public String getRolesString() {
-        return Joiner.on(", ").join(this.getRoles());
+        return String.join(", ", this.getRoles());
     }
 }
