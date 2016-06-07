@@ -15,7 +15,6 @@ import javax.xml.bind.DatatypeConverter;
 
 import org.apache.catalina.Context;
 import org.apache.catalina.deploy.LoginConfig;
-import org.apache.tomcat.util.buf.Base64;
 import org.assertj.core.api.Assertions;
 import org.junit.After;
 import org.junit.Assert;
@@ -107,7 +106,7 @@ public class MixedAuthenticatorTests {
             request.setQueryString("j_negotiate_check");
             request.setMethod("POST");
             request.setContentLength(0);
-            final String clientToken = new String(Base64.encode(clientContext.getToken()));
+            final String clientToken = DatatypeConverter.printBase64Binary(clientContext.getToken());
             request.addHeader("Authorization", securityPackage + " " + clientToken);
             final SimpleHttpResponse response = new SimpleHttpResponse();
             this.authenticator.authenticate(request, response, null);
@@ -170,7 +169,7 @@ public class MixedAuthenticatorTests {
             request.setQueryString("j_negotiate_check");
             String clientToken;
             while (true) {
-                clientToken = new String(Base64.encode(clientContext.getToken()));
+                clientToken = DatatypeConverter.printBase64Binary(clientContext.getToken());
                 request.addHeader("Authorization", securityPackage + " " + clientToken);
 
                 final SimpleHttpResponse response = new SimpleHttpResponse();

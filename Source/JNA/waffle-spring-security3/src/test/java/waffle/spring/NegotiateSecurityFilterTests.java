@@ -20,6 +20,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.xml.bind.DatatypeConverter;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -31,8 +32,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.codec.Base64;
-
 import waffle.mock.http.SimpleFilterChain;
 import waffle.mock.http.SimpleHttpRequest;
 import waffle.mock.http.SimpleHttpResponse;
@@ -133,8 +132,8 @@ public class NegotiateSecurityFilterTests {
         final SimpleFilterChain filterChain = new SimpleFilterChain();
         final SimpleHttpRequest request = new SimpleHttpRequest();
 
-        final String clientToken = new String(Base64.encode(WindowsAccountImpl.getCurrentUsername().getBytes(
-                StandardCharsets.UTF_8)));
+        final String clientToken = DatatypeConverter.printBase64Binary(WindowsAccountImpl.getCurrentUsername()
+                .getBytes(StandardCharsets.UTF_8));
         request.addHeader("Authorization", securityPackage + " " + clientToken);
 
         final SimpleHttpResponse response = new SimpleHttpResponse();
@@ -191,7 +190,7 @@ public class NegotiateSecurityFilterTests {
         final SimpleFilterChain filterChain = new SimpleFilterChain();
         final SimpleHttpRequest request = new SimpleHttpRequest();
 
-        final String clientToken = new String(Base64.encode("Guest".getBytes(StandardCharsets.UTF_8)));
+        final String clientToken = DatatypeConverter.printBase64Binary("Guest".getBytes(StandardCharsets.UTF_8));
         request.addHeader("Authorization", securityPackage + " " + clientToken);
 
         final SimpleHttpResponse response = new SimpleHttpResponse();

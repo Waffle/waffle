@@ -17,13 +17,14 @@ import java.security.Principal;
 
 import javax.security.auth.Subject;
 import javax.servlet.ServletException;
+import javax.xml.bind.DatatypeConverter;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.common.io.BaseEncoding;
 import com.sun.jna.WString;
 import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.LMAccess;
@@ -104,7 +105,7 @@ public class ImpersonateTests {
         request.setMethod("GET");
         final String userHeaderValue = MockWindowsAccount.TEST_USER_NAME + ":" + MockWindowsAccount.TEST_PASSWORD;
         final String basicAuthHeader = "Basic "
-                + BaseEncoding.base64().encode(userHeaderValue.getBytes(StandardCharsets.UTF_8));
+                + DatatypeConverter.printBase64Binary(userHeaderValue.getBytes(StandardCharsets.UTF_8));
         request.addHeader("Authorization", basicAuthHeader);
 
         final SimpleHttpResponse response = new SimpleHttpResponse();
@@ -151,7 +152,7 @@ public class ImpersonateTests {
         request.setMethod("GET");
         final String userHeaderValue = MockWindowsAccount.TEST_USER_NAME + ":" + MockWindowsAccount.TEST_PASSWORD;
         final String basicAuthHeader = "Basic "
-                + BaseEncoding.base64().encode(userHeaderValue.getBytes(StandardCharsets.UTF_8));
+                + DatatypeConverter.printBase64Binary(userHeaderValue.getBytes(StandardCharsets.UTF_8));
         request.addHeader("Authorization", basicAuthHeader);
         final SimpleHttpResponse response = new SimpleHttpResponse();
         final RecordUserNameFilterChain filterChain = new RecordUserNameFilterChain();

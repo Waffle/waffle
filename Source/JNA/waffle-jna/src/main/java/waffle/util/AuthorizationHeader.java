@@ -12,11 +12,10 @@
 package waffle.util;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.bind.DatatypeConverter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.io.BaseEncoding;
 
 /**
  * Authorization header.
@@ -104,7 +103,7 @@ public class AuthorizationHeader {
      */
     public byte[] getTokenBytes() {
         try {
-            return BaseEncoding.base64().decode(this.getToken());
+            return DatatypeConverter.parseBase64Binary(this.getToken());
         } catch (final IllegalArgumentException e) {
             AuthorizationHeader.LOGGER.debug("", e);
             throw new RuntimeException("Invalid authorization header.");

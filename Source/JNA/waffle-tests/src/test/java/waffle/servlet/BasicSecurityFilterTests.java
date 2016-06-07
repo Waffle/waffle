@@ -17,14 +17,13 @@ import java.nio.charset.StandardCharsets;
 import javax.security.auth.Subject;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.xml.bind.DatatypeConverter;
 
 import org.assertj.core.api.Assertions;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.google.common.io.BaseEncoding;
 
 import waffle.mock.MockWindowsAuthProvider;
 import waffle.mock.http.SimpleFilterChain;
@@ -78,7 +77,7 @@ public class BasicSecurityFilterTests {
 
         final String userHeaderValue = WindowsAccountImpl.getCurrentUsername() + ":password";
         final String basicAuthHeader = "Basic "
-                + BaseEncoding.base64().encode(userHeaderValue.getBytes(StandardCharsets.UTF_8));
+                + DatatypeConverter.printBase64Binary(userHeaderValue.getBytes(StandardCharsets.UTF_8));
         request.addHeader("Authorization", basicAuthHeader);
 
         final SimpleHttpResponse response = new SimpleHttpResponse();
