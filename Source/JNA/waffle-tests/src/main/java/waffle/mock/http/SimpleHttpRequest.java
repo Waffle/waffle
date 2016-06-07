@@ -12,6 +12,7 @@
 package waffle.mock.http;
 
 import java.security.Principal;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,8 +22,6 @@ import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpSession;
 
 import org.mockito.Mockito;
-
-import com.google.common.collect.Iterators;
 
 /**
  * The Class SimpleHttpRequest.
@@ -121,7 +120,7 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
      */
     @Override
     public Enumeration<String> getHeaderNames() {
-        return Iterators.asEnumeration(this.headers.keySet().iterator());
+        return Collections.enumeration(this.headers.keySet());
     }
 
     /*
