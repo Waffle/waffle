@@ -22,10 +22,9 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.connector.Request;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.apache.tomcat.util.descriptor.web.LoginConfig;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.io.BaseEncoding;
 
 import waffle.util.AuthorizationHeader;
 import waffle.util.NtlmServletRequest;
@@ -162,7 +161,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 
             final byte[] continueTokenBytes = securityContext.getToken();
             if (continueTokenBytes != null && continueTokenBytes.length > 0) {
-                final String continueToken = BaseEncoding.base64().encode(continueTokenBytes);
+                final String continueToken = Base64.encodeBase64String(continueTokenBytes);
                 this.log.debug("continue token: {}", continueToken);
                 response.addHeader("WWW-Authenticate", securityPackage + " " + continueToken);
             }
