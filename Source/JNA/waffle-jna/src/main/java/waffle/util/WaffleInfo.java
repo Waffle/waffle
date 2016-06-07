@@ -15,6 +15,7 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,7 +34,6 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 import com.sun.jna.Platform;
 import com.sun.jna.platform.WindowUtils;
@@ -331,7 +331,7 @@ public class WaffleInfo {
             final File f;
             if (show) {
                 f = File.createTempFile("waffle-info-", ".xml");
-                Files.write(xml, f, Charsets.UTF_8);
+                Files.write(xml, f, StandardCharsets.UTF_8);
                 Desktop.getDesktop().open(f);
             } else {
                 WaffleInfo.LOGGER.info(xml);

@@ -11,6 +11,8 @@
  */
 package waffle.windows.auth;
 
+import javax.xml.bind.DatatypeConverter;
+
 import org.assertj.core.api.Assertions;
 import org.junit.Assert;
 import org.junit.Assume;
@@ -19,7 +21,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.io.BaseEncoding;
 import com.sun.jna.WString;
 import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.LMAccess;
@@ -185,7 +186,7 @@ public class WindowsAuthProviderTests {
                             serverContext.getToken());
                     clientContext.initialize(clientContext.getHandle(), continueToken, targetName);
                     WindowsAuthProviderTests.LOGGER.debug("Token: {}",
-                            BaseEncoding.base64().encode(serverContext.getToken()));
+                            DatatypeConverter.printBase64Binary(serverContext.getToken()));
                 }
 
             } while (clientContext.isContinue() || serverContext != null && serverContext.isContinue());

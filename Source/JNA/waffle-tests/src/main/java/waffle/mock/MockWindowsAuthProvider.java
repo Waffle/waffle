@@ -11,10 +11,10 @@
  */
 package waffle.mock;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.common.base.Charsets;
 import com.sun.jna.platform.win32.Secur32.EXTENDED_NAME_FORMAT;
 import com.sun.jna.platform.win32.Secur32Util;
 
@@ -63,7 +63,7 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
     @Override
     public IWindowsSecurityContext acceptSecurityToken(final String connectionId, final byte[] token,
             final String securityPackage) {
-        return new MockWindowsSecurityContext(new String(token, Charsets.UTF_8));
+        return new MockWindowsSecurityContext(new String(token, StandardCharsets.UTF_8));
     }
 
     /*

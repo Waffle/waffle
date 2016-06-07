@@ -15,13 +15,11 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.shiro.codec.Base64;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-
-import com.google.common.base.Joiner;
-import com.google.common.io.BaseEncoding;
 
 import mockit.Deencapsulation;
 import mockit.Tested;
@@ -74,7 +72,7 @@ public final class NegotiateAuthenticationFilterTest {
 
         this.negAuthFilter.sendChallengeDuringNegotiate(myProtocol, this.response, this.out);
 
-        Assert.assertEquals(Joiner.on(" ").join(myProtocol, BaseEncoding.base64().encode(this.out)),
+        Assert.assertEquals(myProtocol + " " + Base64.encodeToString(this.out),
                 this.response.headers.get("WWW-Authenticate"));
 
         Assert.assertEquals("keep-alive", this.response.headers.get("Connection"));

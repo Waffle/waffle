@@ -11,8 +11,6 @@
  */
 package waffle.spring;
 
-import com.google.common.base.Charsets;
-import com.google.common.io.BaseEncoding;
 import com.sun.jna.WString;
 import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.LMAccess;
@@ -25,6 +23,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.codec.Base64;
+
 import waffle.mock.MockWindowsAccount;
 import waffle.mock.http.RecordUserNameFilterChain;
 import waffle.mock.http.SimpleHttpRequest;
@@ -36,10 +36,11 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
 import javax.servlet.ServletException;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.security.Principal;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 /**
  * The Class ImpersonateTests.
@@ -70,7 +71,7 @@ public class ImpersonateTests {
 
         this.resultOfNetAddUser = Netapi32.INSTANCE.NetUserAdd(null, 1, this.userInfo, null);
         Assume.assumeThat("Unable to add user (need to be administrator to do this).", this.resultOfNetAddUser,
-                is(LMErr.NERR_Success));
+                equalTo(LMErr.NERR_Success));
     }
 
     /**
@@ -103,8 +104,7 @@ public class ImpersonateTests {
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
         final String userHeaderValue = MockWindowsAccount.TEST_USER_NAME + ":" + MockWindowsAccount.TEST_PASSWORD;
-        final String basicAuthHeader = "Basic "
-                + BaseEncoding.base64().encode(userHeaderValue.getBytes(Charsets.UTF_8));
+        final String basicAuthHeader = "Basic " + Base64.encode(userHeaderValue.getBytes(StandardCharsets.UTF_8));
         request.addHeader("Authorization", basicAuthHeader);
 
         final SimpleHttpResponse response = new SimpleHttpResponse();
@@ -145,8 +145,7 @@ public class ImpersonateTests {
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
         final String userHeaderValue = MockWindowsAccount.TEST_USER_NAME + ":" + MockWindowsAccount.TEST_PASSWORD;
-        final String basicAuthHeader = "Basic "
-                + BaseEncoding.base64().encode(userHeaderValue.getBytes(Charsets.UTF_8));
+        final String basicAuthHeader = "Basic " + Base64.encode(userHeaderValue.getBytes(StandardCharsets.UTF_8));
         request.addHeader("Authorization", basicAuthHeader);
         final SimpleHttpResponse response = new SimpleHttpResponse();
         final RecordUserNameFilterChain filterChain = new RecordUserNameFilterChain();

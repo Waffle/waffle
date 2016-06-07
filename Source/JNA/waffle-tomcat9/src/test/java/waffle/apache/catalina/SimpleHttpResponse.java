@@ -21,8 +21,6 @@ import org.apache.catalina.connector.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Joiner;
-
 /**
  * Simple HTTP Response.
  * 
@@ -74,7 +72,7 @@ public class SimpleHttpResponse extends Response {
     @Override
     public String getHeader(final String headerName) {
         final List<String> headerValues = this.headers.get(headerName);
-        return headerValues == null ? null : Joiner.on(", ").join(headerValues);
+        return headerValues == null ? null : String.join(", ", headerValues);
     }
 
     /*

@@ -16,13 +16,13 @@ import javax.servlet.ServletException;
 import org.apache.catalina.Context;
 import org.apache.catalina.Engine;
 import org.apache.catalina.LifecycleException;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.assertj.core.api.Assertions;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.common.io.BaseEncoding;
 import com.sun.jna.platform.win32.Sspi;
 import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 
@@ -136,7 +136,7 @@ public class MixedAuthenticatorTests {
             request.setQueryString("j_negotiate_check");
             request.setMethod("POST");
             request.setContentLength(0);
-            final String clientToken = BaseEncoding.base64().encode(clientContext.getToken());
+            final String clientToken = Base64.encodeBase64String(clientContext.getToken());
             request.addHeader("Authorization", securityPackage + " " + clientToken);
             final SimpleHttpResponse response = new SimpleHttpResponse();
             this.authenticator.authenticate(request, response);
@@ -196,7 +196,7 @@ public class MixedAuthenticatorTests {
             request.setQueryString("j_negotiate_check");
             String clientToken;
             while (true) {
-                clientToken = BaseEncoding.base64().encode(clientContext.getToken());
+                clientToken = Base64.encodeBase64String(clientContext.getToken());
                 request.addHeader("Authorization", securityPackage + " " + clientToken);
 
                 final SimpleHttpResponse response = new SimpleHttpResponse();
@@ -213,7 +213,7 @@ public class MixedAuthenticatorTests {
                 Assert.assertEquals(401, response.getStatus());
                 final String continueToken = response.getHeader("WWW-Authenticate").substring(
                         securityPackage.length() + 1);
-                final byte[] continueTokenBytes = BaseEncoding.base64().decode(continueToken);
+                final byte[] continueTokenBytes = Base64.decodeBase64(continueToken);
                 Assertions.assertThat(continueTokenBytes.length).isGreaterThan(0);
                 final SecBufferDesc continueTokenBuffer = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, continueTokenBytes);
                 clientContext.initialize(clientContext.getHandle(), continueTokenBuffer,
