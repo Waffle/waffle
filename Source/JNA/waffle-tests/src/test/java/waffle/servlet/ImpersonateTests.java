@@ -17,9 +17,6 @@ import java.security.Principal;
 
 import javax.security.auth.Subject;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Assume;
@@ -35,7 +32,6 @@ import com.sun.jna.platform.win32.Netapi32;
 
 import waffle.mock.MockWindowsAccount;
 import waffle.mock.http.RecordUserNameFilterChain;
-import waffle.mock.http.SimpleFilterChain;
 import waffle.mock.http.SimpleHttpRequest;
 import waffle.mock.http.SimpleHttpResponse;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
