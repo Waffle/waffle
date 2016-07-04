@@ -29,7 +29,6 @@ import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 
 import mockit.Expectations;
 import mockit.Mocked;
-import mockit.NonStrictExpectations;
 import waffle.apache.catalina.SimpleHttpRequest;
 import waffle.apache.catalina.SimpleHttpResponse;
 import waffle.mock.MockWindowsAuthProvider;
@@ -68,11 +67,8 @@ public class MixedAuthenticatorTests {
     public void setUp() throws LifecycleException {
         this.authenticator = new MixedAuthenticator();
         this.authenticator.setContainer(this.context);
-        Assert.assertNotNull(new NonStrictExpectations() {
+        Assert.assertNotNull(new Expectations() {
             {
-                // Authenticator requires NonStrictExpectations
-                MixedAuthenticatorTests.this.context.getAuthenticator();
-                this.result = MixedAuthenticatorTests.this.authenticator;
                 MixedAuthenticatorTests.this.context.getName();
                 this.result = "context";
                 MixedAuthenticatorTests.this.context.getParent();
