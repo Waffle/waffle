@@ -11,7 +11,6 @@
  */
 package waffle.spring;
 
-import com.google.common.base.Charsets;
 import com.google.common.io.BaseEncoding;
 import com.sun.jna.WString;
 import com.sun.jna.platform.win32.Advapi32Util;
@@ -36,6 +35,7 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
 import javax.servlet.ServletException;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.security.Principal;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -104,7 +104,7 @@ public class ImpersonateTests {
         request.setMethod("GET");
         final String userHeaderValue = MockWindowsAccount.TEST_USER_NAME + ":" + MockWindowsAccount.TEST_PASSWORD;
         final String basicAuthHeader = "Basic "
-                + BaseEncoding.base64().encode(userHeaderValue.getBytes(Charsets.UTF_8));
+                + BaseEncoding.base64().encode(userHeaderValue.getBytes(StandardCharsets.UTF_8));
         request.addHeader("Authorization", basicAuthHeader);
 
         final SimpleHttpResponse response = new SimpleHttpResponse();
@@ -146,7 +146,7 @@ public class ImpersonateTests {
         request.setMethod("GET");
         final String userHeaderValue = MockWindowsAccount.TEST_USER_NAME + ":" + MockWindowsAccount.TEST_PASSWORD;
         final String basicAuthHeader = "Basic "
-                + BaseEncoding.base64().encode(userHeaderValue.getBytes(Charsets.UTF_8));
+                + BaseEncoding.base64().encode(userHeaderValue.getBytes(StandardCharsets.UTF_8));
         request.addHeader("Authorization", basicAuthHeader);
         final SimpleHttpResponse response = new SimpleHttpResponse();
         final RecordUserNameFilterChain filterChain = new RecordUserNameFilterChain();
