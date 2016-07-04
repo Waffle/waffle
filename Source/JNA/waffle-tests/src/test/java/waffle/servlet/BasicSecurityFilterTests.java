@@ -12,6 +12,7 @@
 package waffle.servlet;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import javax.security.auth.Subject;
 import javax.servlet.FilterChain;
@@ -23,7 +24,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.common.base.Charsets;
 import com.google.common.io.BaseEncoding;
 
 import waffle.mock.MockWindowsAuthProvider;
@@ -78,7 +78,7 @@ public class BasicSecurityFilterTests {
 
         final String userHeaderValue = WindowsAccountImpl.getCurrentUsername() + ":password";
         final String basicAuthHeader = "Basic "
-                + BaseEncoding.base64().encode(userHeaderValue.getBytes(Charsets.UTF_8));
+                + BaseEncoding.base64().encode(userHeaderValue.getBytes(StandardCharsets.UTF_8));
         request.addHeader("Authorization", basicAuthHeader);
 
         final SimpleHttpResponse response = new SimpleHttpResponse();
