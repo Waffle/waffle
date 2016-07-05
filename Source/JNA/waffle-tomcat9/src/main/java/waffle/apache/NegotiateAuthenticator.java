@@ -13,6 +13,7 @@ package waffle.apache;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Base64;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,7 +22,6 @@ import org.apache.catalina.LifecycleException;
 import org.apache.catalina.connector.Request;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.io.BaseEncoding;
 import com.sun.jna.platform.win32.Win32Exception;
 
 import waffle.util.AuthorizationHeader;
@@ -120,7 +120,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 
                 final byte[] continueTokenBytes = securityContext.getToken();
                 if (continueTokenBytes != null && continueTokenBytes.length > 0) {
-                    final String continueToken = BaseEncoding.base64().encode(continueTokenBytes);
+                    final String continueToken = Base64.getEncoder().encodeToString(continueTokenBytes);
                     this.log.debug("continue token: {}", continueToken);
                     response.addHeader("WWW-Authenticate", securityPackage + " " + continueToken);
                 }
