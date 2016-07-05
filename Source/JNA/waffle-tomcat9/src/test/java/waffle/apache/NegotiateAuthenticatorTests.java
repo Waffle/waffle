@@ -11,6 +11,8 @@
  */
 package waffle.apache;
 
+import java.util.Base64;
+
 import org.apache.catalina.Context;
 import org.apache.catalina.Engine;
 import org.apache.catalina.LifecycleException;
@@ -22,7 +24,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.io.BaseEncoding;
 import com.sun.jna.platform.win32.Sspi;
 import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 
@@ -138,7 +139,7 @@ public class NegotiateAuthenticatorTests {
             final SimpleHttpRequest request = new SimpleHttpRequest();
             request.setMethod("POST");
             request.setContentLength(0);
-            final String clientToken = BaseEncoding.base64().encode(clientContext.getToken());
+            final String clientToken = Base64.getEncoder().encodeToString(clientContext.getToken());
             request.addHeader("Authorization", securityPackage + " " + clientToken);
             final SimpleHttpResponse response = new SimpleHttpResponse();
             this.authenticator.authenticate(request, response);
@@ -187,7 +188,7 @@ public class NegotiateAuthenticatorTests {
             boolean authenticated = false;
             final SimpleHttpRequest request = new SimpleHttpRequest();
             while (true) {
-                final String clientToken = BaseEncoding.base64().encode(clientContext.getToken());
+                final String clientToken = Base64.getEncoder().encodeToString(clientContext.getToken());
                 request.addHeader("Authorization", securityPackage + " " + clientToken);
 
                 final SimpleHttpResponse response = new SimpleHttpResponse();
@@ -211,7 +212,7 @@ public class NegotiateAuthenticatorTests {
                 Assert.assertEquals(401, response.getStatus());
                 final String continueToken = response.getHeader("WWW-Authenticate").substring(
                         securityPackage.length() + 1);
-                final byte[] continueTokenBytes = BaseEncoding.base64().decode(continueToken);
+                final byte[] continueTokenBytes = Base64.getDecoder().decode(continueToken);
                 Assertions.assertThat(continueTokenBytes.length).isGreaterThan(0);
                 final SecBufferDesc continueTokenBuffer = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, continueTokenBytes);
                 clientContext.initialize(clientContext.getHandle(), continueTokenBuffer,
@@ -257,7 +258,7 @@ public class NegotiateAuthenticatorTests {
             SimpleHttpResponse response;
             SecBufferDesc continueTokenBuffer;
             while (true) {
-                clientToken = BaseEncoding.base64().encode(clientContext.getToken());
+                clientToken = Base64.getEncoder().encodeToString(clientContext.getToken());
                 request.addHeader("Authorization", securityPackage + " " + clientToken);
 
                 response = new SimpleHttpResponse();
@@ -285,7 +286,7 @@ public class NegotiateAuthenticatorTests {
                 Assert.assertEquals(2, response.getHeaderNames().size());
                 Assert.assertEquals(401, response.getStatus());
                 continueToken = response.getHeader("WWW-Authenticate").substring(securityPackage.length() + 1);
-                continueTokenBytes = BaseEncoding.base64().decode(continueToken);
+                continueTokenBytes = Base64.getDecoder().decode(continueToken);
                 Assertions.assertThat(continueTokenBytes.length).isGreaterThan(0);
                 continueTokenBuffer = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, continueTokenBytes);
                 clientContext.initialize(clientContext.getHandle(), continueTokenBuffer,
