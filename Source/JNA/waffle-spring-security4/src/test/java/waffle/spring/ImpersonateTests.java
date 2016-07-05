@@ -39,7 +39,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.Principal;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 /**
  * The Class ImpersonateTests.
@@ -70,7 +70,7 @@ public class ImpersonateTests {
 
         this.resultOfNetAddUser = Netapi32.INSTANCE.NetUserAdd(null, 1, this.userInfo, null);
         Assume.assumeThat("Unable to add user (need to be administrator to do this).", this.resultOfNetAddUser,
-                is(LMErr.NERR_Success));
+                equalTo(LMErr.NERR_Success));
     }
 
     /**
