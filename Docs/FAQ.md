@@ -17,7 +17,7 @@ Troubleshooting Stories
 
 * [UnsatisfiedLinkerError jnadispatch](http://waffle.codeplex.com/Thread/View.aspx?ThreadId=220195): solved by placing JNA jars in the common classloader.
 * [Browser shows BASIC authentication popup](http://waffle.codeplex.com/Thread/View.aspx?ThreadId=221324): solved by re-ordering authenticators.
-* [ClassNotFoundException on Tomcat](http://waffle.codeplex.com/Thread/View.aspx?ThreadId=223416): solved by putting `waffle-jna.jar` in `tomcat/lib`.
+* [ClassNotFoundException on Tomcat](http://waffle.codeplex.com/Thread/View.aspx?ThreadId=223416): solved by putting `waffle-tomcat[tomcat version].jar` in `tomcat/lib`.
 * [ClassNotFoundException on JBoss](http://waffle.codeplex.com/discussions/244552): solved by putt JARs in `application.ear/APP-INF/lib`.
 * [Popup asking for username/password](http://waffle.codeplex.com/Thread/View.aspx?ThreadId=227969): solved by forcing NTLM, Kerberos not working.
 * [Negotiate authentication returns 404 File Not Found](http://waffle.codeplex.com/Thread/View.aspx?ThreadId=223212): solved by creating a missing `401.html`.
