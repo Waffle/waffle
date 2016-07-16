@@ -445,7 +445,7 @@
                         <dependency>
                             <groupId>org.apache.maven.scm</groupId>
                             <artifactId>maven-scm-provider-jgit</artifactId>
-                            <version>1.9.4</version>
+                            <version>1.9.5</version>
                         </dependency>
                         <dependency>
                             <groupId>com.googlecode.javaewah</groupId>
@@ -498,12 +498,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-scm-plugin</artifactId>
-                    <version>1.9.4</version>
+                    <version>1.9.5</version>
                     <dependencies>
                         <dependency>
                             <groupId>org.apache.maven.scm</groupId>
                             <artifactId>maven-scm-provider-jgit</artifactId>
-                            <version>1.9.4</version>
+                            <version>1.9.5</version>
                         </dependency>
                         <dependency>
                             <groupId>com.googlecode.javaewah</groupId>
