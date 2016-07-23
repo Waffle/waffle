@@ -276,7 +276,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>1.10</version>
+                    <version>1.11</version>
                 </plugin>
                 <!-- Packaging types / tools -->
                 <plugin>
@@ -344,7 +344,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>findbugs-maven-plugin</artifactId>
-                    <version>3.0.3</version>
+                    <version>3.0.4</version>
                 </plugin>
                 <plugin>
                     <groupId>com.tunyk.mvn.plugins.htmlcompressor</groupId>
@@ -445,7 +445,7 @@
                         <dependency>
                             <groupId>org.apache.maven.scm</groupId>
                             <artifactId>maven-scm-provider-jgit</artifactId>
-                            <version>1.9.4</version>
+                            <version>1.9.5</version>
                         </dependency>
                         <dependency>
                             <groupId>com.googlecode.javaewah</groupId>
@@ -460,7 +460,7 @@
                         <dependency>
                             <groupId>org.eclipse.jgit</groupId>
                             <artifactId>org.eclipse.jgit</artifactId>
-                            <version>4.4.0.201606070830-r</version>
+                            <version>4.4.1.201607150455-r</version>
                         </dependency>
                         <dependency>
                             <groupId>org.codehaus.plexus</groupId>
@@ -498,12 +498,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-scm-plugin</artifactId>
-                    <version>1.9.4</version>
+                    <version>1.9.5</version>
                     <dependencies>
                         <dependency>
                             <groupId>org.apache.maven.scm</groupId>
                             <artifactId>maven-scm-provider-jgit</artifactId>
-                            <version>1.9.4</version>
+                            <version>1.9.5</version>
                         </dependency>
                         <dependency>
                             <groupId>com.googlecode.javaewah</groupId>
@@ -518,7 +518,7 @@
                         <dependency>
                             <groupId>org.eclipse.jgit</groupId>
                             <artifactId>org.eclipse.jgit</artifactId>
-                            <version>4.4.0.201606070830-r</version>
+                            <version>4.4.1.201607150455-r</version>
                         </dependency>
                         <dependency>
                             <groupId>org.codehaus.plexus</groupId>
