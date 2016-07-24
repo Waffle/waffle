@@ -14,28 +14,32 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>com.github.dblock.waffle.demo</groupId>
         <artifactId>waffle-demo-parent</artifactId>
         <version>1.8.2-SNAPSHOT</version>
     </parent>
+
     <artifactId>waffle-mixed</artifactId>
     <version>1.8.2-SNAPSHOT</version>
     <packaging>war</packaging>
+
     <name>waffle-mixed</name>
     <description>Mixed Demo for WAFFLE</description>
     <url>http://dblock.github.com/waffle/</url>
-    <properties>
-        <src.relative.loc>../..</src.relative.loc>
 
-        <servlet.version>2.5</servlet.version>
-    </properties>
     <scm>
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
         <url>https://github.com/dblock/waffle</url>
         <tag>HEAD</tag>
     </scm>
+
+    <properties>
+        <servlet.version>2.5</servlet.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>javax.servlet</groupId>

@@ -14,18 +14,22 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>com.github.dblock.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
         <version>1.8.2-SNAPSHOT</version>
     </parent>
+
     <groupId>com.github.dblock.waffle.demo</groupId>
     <artifactId>waffle-demo-parent</artifactId>
     <version>1.8.2-SNAPSHOT</version>
     <packaging>pom</packaging>
+
     <name>waffle-demo-parent</name>
     <description>Parent POM for Waffle Demo</description>
     <url>http://dblock.github.com/waffle/</url>
+
     <modules>
         <module>waffle-filter</module>
         <module>waffle-form</module>
@@ -36,15 +40,14 @@
         <module>waffle-spring-filter</module>
         <module>waffle-spring-form</module>
     </modules>
-    <properties>
-        <src.relative.loc>..</src.relative.loc>
-    </properties>
+
     <scm>
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
         <url>https://github.com/dblock/waffle</url>
         <tag>HEAD</tag>
     </scm>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -71,6 +74,7 @@
             <version>${project.version}</version>
         </dependency>
     </dependencies>
+
     <build>
         <pluginManagement>
             <plugins>

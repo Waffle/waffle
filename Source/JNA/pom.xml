@@ -14,10 +14,12 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>com.github.dblock.waffle</groupId>
     <artifactId>waffle-parent</artifactId>
     <version>1.8.2-SNAPSHOT</version>
     <packaging>pom</packaging>
+
     <name>waffle-parent</name>
     <description>Parent POM for WAFFLE</description>
     <url>http://dblock.github.com/waffle/</url>
@@ -33,6 +35,7 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+
     <developers>
         <developer>
             <id>dblock</id>
@@ -67,9 +70,11 @@
             </properties>
         </contributor>
     </contributors>
+
     <prerequisites>
         <maven>3.2.5</maven>
     </prerequisites>
+
     <modules>
         <module>waffle-demo</module>
         <module>waffle-distro</module>
@@ -86,6 +91,7 @@
         <!-- Requires we build with java 8 -->
         <!-- <module>waffle-tomcat9</module> -->
     </modules>
+
     <scm>
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
@@ -115,6 +121,7 @@
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
+
     <properties>
         <copyright>2015</copyright>
         <jacoco.minimum.coverage>0.0</jacoco.minimum.coverage>
@@ -128,8 +135,6 @@
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <src.relative.loc>.</src.relative.loc>
-
         <assertj.version>2.4.1</assertj.version>
         <contiperf.version>2.3.4</contiperf.version>
         <jmockit.version>1.25</jmockit.version>
@@ -140,6 +145,7 @@
         <signature.artifact>java17</signature.artifact>
         <signature.version>1.0</signature.version>
     </properties>
+
     <dependencies>
         <dependency>
             <!-- prevent warning: SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder". -->
@@ -182,6 +188,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
     <build>
         <pluginManagement>
             <plugins>
@@ -407,7 +414,7 @@
                     <artifactId>license-maven-plugin</artifactId>
                     <version>2.11</version>
                     <configuration>
-                        <header>${src.relative.loc}/license.txt</header>
+                        <header>${main.basedir}/license.txt</header>
                         <excludes>
                             <exclude>.factorypath</exclude>
                             <exclude>.gitattributes</exclude>
@@ -570,6 +577,12 @@
                         <autoReleaseAfterClose>true</autoReleaseAfterClose>
                     </configuration>
                 </plugin>
+                <!-- Find maven root -->
+                <plugin>
+                    <groupId>org.commonjava.maven.plugins</groupId>
+                    <artifactId>directory-maven-plugin</artifactId>
+                    <version>0.1</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -600,6 +613,7 @@
                     <gitDescribe>
                         <always>true</always>
                     </gitDescribe>
+                    <runOnlyOnce>true</runOnlyOnce>
                 </configuration>
                 <executions>
                     <execution>
@@ -807,6 +821,23 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- Find maven root -->
+            <plugin>
+                <groupId>org.commonjava.maven.plugins</groupId>
+                <artifactId>directory-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>directories</id>
+                        <goals>
+                            <goal>highest-basedir</goal>
+                        </goals>
+                        <phase>initialize</phase>
+                        <configuration>
+                            <property>main.basedir</property>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
         <extensions>
             <extension>
@@ -816,6 +847,7 @@
             </extension>
         </extensions>
     </build>
+
     <reporting>
         <plugins>
             <plugin>
@@ -890,6 +922,7 @@
             </plugin>
         </plugins>
     </reporting>
+
     <profiles>
         <profile>
             <id>checks</id>
@@ -1071,6 +1104,19 @@
                                                 <versionRange>[1.3,)</versionRange>
                                                 <goals>
                                                     <goal>html</goal>
+                                                </goals>
+                                            </pluginExecutionFilter>
+                                            <action>
+                                                <ignore />
+                                            </action>
+                                        </pluginExecution>
+                                        <pluginExecution>
+                                            <pluginExecutionFilter>
+                                                <groupId>org.commonjava.maven.plugins</groupId>
+                                                <artifactId>directory-maven-plugin</artifactId>
+                                                <versionRange>[0.1,)</versionRange>
+                                                <goals>
+                                                    <goal>highest-basedir</goal>
                                                 </goals>
                                             </pluginExecutionFilter>
                                             <action>
