@@ -26,8 +26,6 @@
     <description>Mixed Demo for WAFFLE</description>
     <url>http://dblock.github.com/waffle/</url>
     <properties>
-        <src.relative.loc>../..</src.relative.loc>
-
         <servlet.version>2.5</servlet.version>
     </properties>
     <scm>

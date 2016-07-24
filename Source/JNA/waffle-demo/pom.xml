@@ -36,9 +36,6 @@
         <module>waffle-spring-filter</module>
         <module>waffle-spring-form</module>
     </modules>
-    <properties>
-        <src.relative.loc>..</src.relative.loc>
-    </properties>
     <scm>
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>

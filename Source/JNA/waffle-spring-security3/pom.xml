@@ -26,8 +26,6 @@
     <description>Spring Security 3 integration for WAFFLE</description>
     <url>http://dblock.github.com/waffle/</url>
     <properties>
-        <src.relative.loc>..</src.relative.loc>
-
         <servlet.version>3.0.1</servlet.version>
         <spring.version>3.2.17.RELEASE</spring.version>
         <spring.security.version>3.2.9.RELEASE</spring.security.version>

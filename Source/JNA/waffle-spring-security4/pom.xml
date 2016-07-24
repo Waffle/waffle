@@ -26,10 +26,6 @@
     <description>Spring Security 4 integration for WAFFLE</description>
     <url>http://dblock.github.com/waffle/</url>
     <properties>
-        <src.relative.loc>..</src.relative.loc>
-
-        <thirdparty.dir>../../ThirdParty</thirdparty.dir>
-
         <servlet.version>3.1.0</servlet.version>
         <spring.version>4.3.1.RELEASE</spring.version>
         <spring.security.version>4.1.1.RELEASE</spring.security.version>

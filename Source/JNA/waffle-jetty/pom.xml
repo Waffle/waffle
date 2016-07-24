@@ -26,8 +26,6 @@
     <description>Jetty integration for WAFFLE</description>
     <url>http://dblock.github.com/waffle/</url>
     <properties>
-        <src.relative.loc>..</src.relative.loc>
-
         <el.version>3.0.1-b08</el.version>
         <el-api.version>3.0.1-b04</el-api.version>
         <jetty.version>9.3.10.v20160621</jetty.version>
