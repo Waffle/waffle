@@ -86,11 +86,10 @@
 
         <!-- Temporary until tomcat releases this to central -->
         <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>jaspic-api</artifactId>
-            <version>${tomcat.version}</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/system/jaspic-api.jar</systemPath>
+            <groupId>javax.security.auth.message</groupId>
+            <artifactId>javax.security.auth.message-api</artifactId>
+            <version>1.1</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>
