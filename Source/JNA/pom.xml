@@ -600,6 +600,7 @@
                     <gitDescribe>
                         <always>true</always>
                     </gitDescribe>
+                    <runOnlyOnce>true</runOnlyOnce>
                 </configuration>
                 <executions>
                     <execution>
