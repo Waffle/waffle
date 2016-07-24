@@ -22,7 +22,7 @@
 
     <name>waffle-parent</name>
     <description>Parent POM for WAFFLE</description>
-    <url>http://dblock.github.com/waffle/</url>
+    <url>https://dblock.github.com/waffle/</url>
     <inceptionYear>2010</inceptionYear>
     <organization>
         <name>com.github.dblock</name>
@@ -58,7 +58,7 @@
         <contributor>
             <name>Jeremy Landis</name>
             <email>jeremylandis@hotmail.com</email>
-            <url>http://www.linkedin.com/pub/jeremy-landis/19/b27/548/</url>
+            <url>https://www.linkedin.com/pub/jeremy-landis/19/b27/548/</url>
             <organization>hazendaz</organization>
             <organizationUrl>https://github.com/hazendaz</organizationUrl>
             <roles>
@@ -110,7 +110,7 @@
         <site>
             <id>gh-pages</id>
             <name>Waffle GitHub Pages</name>
-            <url>github:http://dblock.github.io/waffle/</url>
+            <url>github:https://dblock.github.io/waffle/</url>
         </site>
         <snapshotRepository>
             <id>ossrh</id>
