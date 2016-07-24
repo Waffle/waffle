@@ -14,17 +14,28 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>com.github.dblock.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
         <version>1.8.2-SNAPSHOT</version>
     </parent>
+
     <artifactId>waffle-tomcat9</artifactId>
     <version>1.8.2-SNAPSHOT</version>
     <packaging>jar</packaging>
+
     <name>waffle-tomcat9</name>
     <description>Tomcat 9 integration for WAFFLE</description>
     <url>http://dblock.github.com/waffle/</url>
+
+    <scm>
+        <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
+        <url>https://github.com/dblock/waffle</url>
+        <tag>HEAD</tag>
+    </scm>
+
     <properties>
         <tomcat.version>9.0.0.M8</tomcat.version>
 
@@ -36,12 +47,7 @@
         <signature.artifact>java18</signature.artifact>
         <signature.version>1.0</signature.version>
     </properties>
-    <scm>
-        <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
-        <url>https://github.com/dblock/waffle</url>
-        <tag>HEAD</tag>
-    </scm>
+
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>

@@ -14,29 +14,35 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>com.github.dblock.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
         <version>1.8.2-SNAPSHOT</version>
     </parent>
+
     <artifactId>waffle-jna</artifactId>
     <version>1.8.2-SNAPSHOT</version>
     <packaging>jar</packaging>
+
     <name>waffle-jna</name>
     <description>WAFFLE JNA implementation</description>
     <url>http://dblock.github.com/waffle/</url>
-    <properties>
-        <guava.version>19.0</guava.version>
-        <jna.version>4.2.2</jna.version>
-        <servlet.version>2.5</servlet.version>
-        <slf4j.version>1.7.21</slf4j.version>
-    </properties>
+
     <scm>
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
         <url>https://github.com/dblock/waffle</url>
         <tag>HEAD</tag>
     </scm>
+
+    <properties>
+        <guava.version>19.0</guava.version>
+        <jna.version>4.2.2</jna.version>
+        <servlet.version>2.5</servlet.version>
+        <slf4j.version>1.7.21</slf4j.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>net.java.dev.jna</groupId>

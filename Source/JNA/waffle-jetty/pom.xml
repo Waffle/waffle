@@ -14,17 +14,28 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>com.github.dblock.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
         <version>1.8.2-SNAPSHOT</version>
     </parent>
+
     <artifactId>waffle-jetty</artifactId>
     <version>1.8.2-SNAPSHOT</version>
     <packaging>jar</packaging>
+
     <name>waffle-jetty</name>
     <description>Jetty integration for WAFFLE</description>
     <url>http://dblock.github.com/waffle/</url>
+
+    <scm>
+        <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
+        <url>https://github.com/dblock/waffle</url>
+        <tag>HEAD</tag>
+    </scm>
+
     <properties>
         <el.version>3.0.1-b08</el.version>
         <el-api.version>3.0.1-b04</el-api.version>
@@ -35,12 +46,7 @@
         <jstl.version>1.2.4</jstl.version>
         <slf4j.version>1.7.21</slf4j.version>
     </properties>
-    <scm>
-        <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
-        <url>https://github.com/dblock/waffle</url>
-        <tag>HEAD</tag>
-    </scm>
+
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -52,12 +58,12 @@
             <groupId>org.eclipse.jetty.aggregate</groupId>
             <artifactId>jetty-all</artifactId>
             <version>${jetty.version}</version>
-            <scope>provided</scope>
             <classifier>uber</classifier>
+            <scope>provided</scope>
             <exclusions>
                 <exclusion>
-                    <artifactId>javax.activation</artifactId>
                     <groupId>org.eclipse.jetty.orbit</groupId>
+                    <artifactId>javax.activation</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -68,12 +74,12 @@
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
-                    <artifactId>apache-jsp</artifactId>
                     <groupId>org.mortbay.jasper</groupId>
+                    <artifactId>apache-jsp</artifactId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>apache-el</artifactId>
                     <groupId>org.mortbay.jasper</groupId>
+                    <artifactId>apache-el</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -120,12 +126,12 @@
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
-                    <artifactId>servlet-api</artifactId>
                     <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>jsp-api</artifactId>
                     <groupId>javax.servlet.jsp</groupId>
+                    <artifactId>jsp-api</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
