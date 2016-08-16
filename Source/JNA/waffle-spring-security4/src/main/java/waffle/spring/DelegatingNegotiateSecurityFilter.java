@@ -150,6 +150,8 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
                 DelegatingNegotiateSecurityFilter.LOGGER.debug("Delegating to custom authenticationmanager");
                 final Authentication customAuthentication = this.authenticationManager.authenticate(authentication);
                 SecurityContextHolder.getContext().setAuthentication(customAuthentication);
+            } else {
+                SecurityContextHolder.getContext().setAuthentication(authentication);
             }
             if (this.authenticationSuccessHandler != null) {
                 try {
