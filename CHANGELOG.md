@@ -4,6 +4,7 @@
 * [#338](https://github.com/dblock/waffle/pull/338): Don't allow SPNEGO NegTokenArg to start re-authentication process [@AriSuutariST](https://github.com/AriSuutariST). 
 * [#342](https://github.com/dblock/waffle/pull/342): Add tomcat 8.5.x support [@hazendaz](https://github.com/hazendaz). 
 * [#357](https://github.com/dblock/waffle/pull/357): Fix security token handle leak in Tomcat. Issue [#355](https://github.com/dblock/waffle/issues/355)
+* [#382](https://github.com/dblock/waffle/pull/382): Bug fix in DelegatingNegotiateSecurityFilter when no custom authentication provider was declared [@Unaor]
 
 1.8.1 (2/10/16)
 ================
