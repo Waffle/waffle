@@ -282,7 +282,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>1.11</version>
+                    <version>1.12</version>
                 </plugin>
                 <!-- Packaging types / tools -->
                 <plugin>
