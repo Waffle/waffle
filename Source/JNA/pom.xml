@@ -411,7 +411,7 @@
                 <plugin>
                     <groupId>com.mycila</groupId>
                     <artifactId>license-maven-plugin</artifactId>
-                    <version>2.11</version>
+                    <version>3.0</version>
                     <configuration>
                         <header>${main.basedir}/license.txt</header>
                         <excludes>
@@ -428,7 +428,7 @@
                         <dependency>
                             <groupId>com.mycila</groupId>
                             <artifactId>license-maven-plugin-git</artifactId>
-                            <version>2.11</version>
+                            <version>3.0</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -1141,7 +1141,7 @@
                                             <pluginExecutionFilter>
                                                 <groupId>com.mycila</groupId>
                                                 <artifactId>license-maven-plugin</artifactId>
-                                                <versionRange>[2.11,)</versionRange>
+                                                <versionRange>[3.0,)</versionRange>
                                                 <goals>
                                                     <goal>format</goal>
                                                 </goals>
