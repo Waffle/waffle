@@ -53,4 +53,15 @@
         <property name="principalFormat" value="fqn" />
         <property name="roleFormat" value="both" />
     </bean>
+
+    <bean id="waffleDelegatingNegotiateSecurityFilter" class="waffle.spring.DelegatingNegotiateSecurityFilter">
+        <property name="provider" ref="waffleSecurityFilterProviderCollection" />
+        <property name="allowGuestLogin" value="false" />
+        <property name="principalFormat" value="fqn" />
+        <property name="roleFormat" value="both" />
+        <property name="accessDeniedHandler" ref="customAccessDeniedHandler"/>
+    </bean>
+
+    <!-- custom access denied handler -->
+    <bean id="customAccessDeniedHandler" class="waffle.spring.handlers.CustomAccessDeniedHandler" />
 </beans>
