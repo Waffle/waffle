@@ -11,6 +11,7 @@ General FAQ
 * [Can Waffle be used with Atlassian JIRA?](faq/AtlassianJIRA.md)
 * [Can Waffle be used with Apache Shiro?](faq/waffleShiro.md)
 * [How can I prevent the browser from showing a login popup on failed authentication?](faq/ClientSideFailures.md)
+* [How does the Waffle Servlet Security Filter work with CORS?](faq/CORS.md)
 
 Troubleshooting Stories
 -----------------------
