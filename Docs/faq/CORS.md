@@ -45,7 +45,7 @@ The following `web.xml` fragment gives an example:
     </filter-mapping>
     <init-param>
         <param-name>allowedOrigins</param-name>
-        <param-value>http://trusted-server.example.com,http://another-server.example.com</param-value>
+        <param-value>http://trusted-server.example.com,http://another-server.example.com:8080</param-value>
     </init-param>
 ```
 
@@ -91,6 +91,6 @@ Tomcat also provides a [`CorsFilter`](http://tomcat.apache.org/tomcat-9.0-doc/co
     </filter-mapping>
     <init-param>
         <param-name>cors.allowed.origins</param-name>
-        <param-value>http://trusted-server.example.com,http://another-server.example.com</param-value>
+        <param-value>http://trusted-server.example.com,http://another-server.example.com:8080</param-value>
     </init-param>
 ```
