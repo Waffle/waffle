@@ -5,7 +5,7 @@ The Servlet Security Filter works fine with CORS. Configuring it depends on your
 ## Jetty
 If you are using Jetty, then it's a simple case of using the Jetty 
 [`CrossOriginFilter`](http://www.eclipse.org/jetty/documentation/current/cross-origin-filter.html) to configure CORS. 
-The following `web.xml` fragment gives an example;
+The following `web.xml` fragment gives an example:
 
 ```
     <!-- Configure the NegotiateSecurityFilter -->
