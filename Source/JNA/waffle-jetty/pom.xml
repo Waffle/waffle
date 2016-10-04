@@ -39,7 +39,7 @@
     <properties>
         <el.version>3.0.1-b08</el.version>
         <el-api.version>3.0.1-b04</el-api.version>
-        <jetty.version>9.3.11.v20160721</jetty.version>
+        <jetty.version>9.3.12.v20160915</jetty.version>
         <jdt.version>4.5.1</jdt.version>
         <jsp.version>2.3.3-b02</jsp.version>
         <jsp-api.version>2.3.2-b02</jsp-api.version>

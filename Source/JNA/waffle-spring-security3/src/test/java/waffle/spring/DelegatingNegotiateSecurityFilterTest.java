@@ -86,8 +86,9 @@ public class DelegatingNegotiateSecurityFilterTest {
         Assert.assertTrue(filter.getAccessDeniedHandler() instanceof CustomAccessDeniedHandler);
     }
 
-    /**		
-     * Test the delegating filter ,in case no custom authentication was passed, the filter would store the auth in the security context
+    /**
+     * Test the delegating filter ,in case no custom authentication was passed, the filter would store the auth in the
+     * security context
      */
     @Test
     public void testNegotiate() throws IOException, ServletException {
@@ -95,8 +96,8 @@ public class DelegatingNegotiateSecurityFilterTest {
         final SimpleFilterChain filterChain = new SimpleFilterChain();
         final SimpleHttpRequest request = new SimpleHttpRequest();
 
-        final String clientToken = BaseEncoding.base64()
-                .encode(WindowsAccountImpl.getCurrentUsername().getBytes(StandardCharsets.UTF_8));
+        final String clientToken = BaseEncoding.base64().encode(
+                WindowsAccountImpl.getCurrentUsername().getBytes(StandardCharsets.UTF_8));
         request.addHeader("Authorization", securityPackage + " " + clientToken);
 
         final SimpleHttpResponse response = new SimpleHttpResponse();

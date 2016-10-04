@@ -135,7 +135,7 @@
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <assertj.version>2.4.1</assertj.version>
+        <assertj.version>2.5.0</assertj.version>
         <contiperf.version>2.3.4</contiperf.version>
         <jmockit.version>1.27</jmockit.version>
         <jsr305.version>3.0.1</jsr305.version>
@@ -377,7 +377,7 @@
                 <plugin>
                     <groupId>org.eluder.coveralls</groupId>
                     <artifactId>coveralls-maven-plugin</artifactId>
-                    <version>4.2.0</version>
+                    <version>4.3.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -466,7 +466,7 @@
                         <dependency>
                             <groupId>org.eclipse.jgit</groupId>
                             <artifactId>org.eclipse.jgit</artifactId>
-                            <version>4.4.1.201607150455-r</version>
+                            <version>4.5.0.201609210915-r</version>
                         </dependency>
                         <dependency>
                             <groupId>org.codehaus.plexus</groupId>
@@ -524,7 +524,7 @@
                         <dependency>
                             <groupId>org.eclipse.jgit</groupId>
                             <artifactId>org.eclipse.jgit</artifactId>
-                            <version>4.4.1.201607150455-r</version>
+                            <version>4.5.0.201609210915-r</version>
                         </dependency>
                         <dependency>
                             <groupId>org.codehaus.plexus</groupId>
@@ -564,7 +564,7 @@
                 <plugin>
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
-                    <version>1.4.2</version>
+                    <version>1.4.3</version>
                 </plugin>
                 <!-- Sonatype Release -->
                 <plugin>

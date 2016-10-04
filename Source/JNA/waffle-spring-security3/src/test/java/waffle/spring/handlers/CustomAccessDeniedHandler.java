@@ -25,7 +25,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException ex)
             throws IOException, ServletException {
-        //here we can add custom headers or response status, data or redirect
+        // here we can add custom headers or response status, data or redirect
         response.addHeader("Custom-header", "some value");
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
 
