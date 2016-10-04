@@ -45,6 +45,11 @@ public class WaffleAuthenticatorBaseTest {
             public boolean authenticate(final Request request, final HttpServletResponse response) throws IOException {
                 return false;
             }
+
+            @Override
+            protected boolean doAuthenticate(Request request, HttpServletResponse response) throws IOException {
+                return false;
+            }
         };
     }
 
