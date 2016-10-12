@@ -1,6 +1,6 @@
 1.8.2 (?/??/16)
 ================
-
+* [#397](https://github.com/dblock/waffle/pull/397): WindowsLoginModule missing roles in Principal. [@xystra](https://github.com/xystra)
 * [#338](https://github.com/dblock/waffle/pull/338): Don't allow SPNEGO NegTokenArg to start re-authentication process [@AriSuutariST](https://github.com/AriSuutariST). 
 * [#342](https://github.com/dblock/waffle/pull/342): Add tomcat 8.5.x support [@hazendaz](https://github.com/hazendaz). 
 * [#357](https://github.com/dblock/waffle/pull/357): Fix security token handle leak in Tomcat. Issue [#355](https://github.com/dblock/waffle/issues/355)
