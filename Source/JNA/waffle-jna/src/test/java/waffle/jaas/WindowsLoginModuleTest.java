@@ -128,6 +128,24 @@ public class WindowsLoginModuleTest {
     }
 
     /**
+     * Commit_with Roles.
+     *
+     * @throws LoginException
+     *             the login exception
+     */
+    @Test
+    public void commit_withRoles() throws LoginException {
+        final Set<Principal> principals = new LinkedHashSet<>();
+        principals.add(new UserPrincipal("FQN"));
+        final GroupPrincipal group = new GroupPrincipal("Roles");
+        group.addMember(new RolePrincipal("WindowsGroup"));
+        principals.add(group);
+        Deencapsulation.setField(this.loginModule, principals);
+        this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
+        this.loginModule.commit();
+    }
+
+    /**
      * Inits the.
      */
     @Before
