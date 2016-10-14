@@ -68,7 +68,7 @@ Continuing with the changes to the `WEB-INF\web.xml` file, enable BASIC, DIGEST 
 </login-config>
 ```
 
-You will also nee to configure the security roles. The Waffle login module adds all user's security groups (including nested and domain groups) as roles during authentication. 
+You will also need to configure the security roles to be used by the web app. The Waffle login module adds all user's security groups (including nested and domain groups) as roles during authentication. 
 
 ``` xml
 <security-role>
