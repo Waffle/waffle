@@ -98,7 +98,7 @@ You will now be able to use the `isUserInRole` method within your web app, retri
 ```java
 final Principal principal = request.getUserPrincipal();
 
-if (request.isUserInRole("DOMAIN\Special")) {
+if (request.isUserInRole("DOMAIN\\Special")) {
     // Only users assigned to the group 'DOMAIN\special' will have access to this section;
 } else {
 	System.out.println("Sorry " + principal.getName() + " you don't have permission.");
