@@ -53,6 +53,7 @@ There're several semi-independent parts to Waffle. Choose the appropriate HowTo.
 * A Spring-Security Negotiate (NTLM and Kerberos) Filter. See [HowTo](https://github.com/dblock/waffle/blob/master/Docs/spring/SpringSecuritySingleSignOnFilter.md).
 * A Spring-Security Windows Authentication Manager. See [HowTo](https://github.com/dblock/waffle/blob/master/Docs/spring/SpringSecurityAuthenticationProvider.md).
 * A JAAS Login Module, useful when extending a custom Java client that already implements JAAS to support Windows SSO. See [HowTo](https://github.com/dblock/waffle/blob/master/Docs/tomcat/TomcatWindowsLoginJAASAuthenticator.md).
+* A WildFly Security Domain implementation, offering support for local Windows and Active Directory users authentication when deploying web apps on WildFly servers. See [HowTo](https://github.com/dblock/waffle/blob/master/Docs/wildfly/WildFlySecurityDomain.md).
 
 Waffle was created and is sponsored by [Application Security Inc.](http://www.appsecinc.com/). For a long story, read the [Project History](https://github.com/dblock/waffle/blob/master/HISTORY.md). Also, feel free to use [this PowerPoint presentation](http://www.slideshare.net/dblockdotorg/waffle-at-nycjavasig) from NYJavaSIG to talk about Waffle.
 
