@@ -39,7 +39,7 @@
     <properties>
         <guava.version>19.0</guava.version>
         <jna.version>4.2.2</jna.version>
-        <servlet.version>2.5</servlet.version>
+        <servlet.version>3.0.1</servlet.version>
         <slf4j.version>1.7.21</slf4j.version>
     </properties>
 
@@ -56,7 +56,7 @@
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
+            <artifactId>javax.servlet-api</artifactId>
             <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
