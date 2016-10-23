@@ -96,6 +96,20 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
+            <groupId>com.github.dblock.waffle</groupId>
+            <artifactId>waffle-tomcat85</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- Turn on when we have java 8 support
+        <dependency>
+            <groupId>com.github.dblock.waffle</groupId>
+            <artifactId>waffle-tomcat9</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        -->
+        <dependency>
             <groupId>com.github.dblock.waffle.demo</groupId>
             <artifactId>waffle-filter</artifactId>
             <version>${project.version}</version>
