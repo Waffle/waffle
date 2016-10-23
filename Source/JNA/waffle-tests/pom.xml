@@ -37,7 +37,7 @@
     </scm>
 
     <properties>
-        <servlet.version>2.5</servlet.version>
+        <servlet.version>3.0.1</servlet.version>
         <mockito.version>2.0.87-beta</mockito.version>
         <objenesis.version>2.4</objenesis.version>
     </properties>
@@ -51,7 +51,7 @@
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
+            <artifactId>javax.servlet-api</artifactId>
             <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
