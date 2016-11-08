@@ -37,7 +37,7 @@
     </scm>
 
     <properties>
-        <guava.version>19.0</guava.version>
+        <guava.version>20.0</guava.version>
         <jna.version>4.2.2</jna.version>
         <servlet.version>3.0.1</servlet.version>
         <slf4j.version>1.7.21</slf4j.version>
