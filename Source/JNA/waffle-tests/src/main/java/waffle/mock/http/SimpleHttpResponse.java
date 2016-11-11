@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.WriteListener;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
@@ -54,6 +55,16 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
                                                         @Override
                                                         public void write(final int b) throws IOException {
                                                             SimpleHttpResponse.this.bytes.write(b);
+                                                        }
+
+                                                        @Override
+                                                        public boolean isReady() {
+                                                            return false;
+                                                        }
+
+                                                        @Override
+                                                        public void setWriteListener(WriteListener writeListener) {
+                                                            // Not used
                                                         }
                                                     };
 
