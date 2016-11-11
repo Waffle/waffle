@@ -1,9 +1,11 @@
 language: java
 sudo: false
+
 jdk:
-- oraclejdk8
-- oraclejdk7
-- openjdk7
+  - oraclejdk8
+  - oraclejdk7
+  - openjdk7
+
 env:
   global:
   - secure: Q40p16gJIaQg6IcrmAEvOQmqTsU1QD31L+U/dTEgoCP56R1fKA8w8BRpEIPUtYyskq/tp5UTyRFHoVrseiuE+ceLddeS4RkbjyMZa4GpUnoCyXsn0yyrJn5UH1SRmZKiQBL8V3zoEa+/dcifexRuliQDjYruvKKAu+SAj5SPjzU=
@@ -11,18 +13,23 @@ env:
   - secure: WvP22/wPLB9LyBl8eOi4aud4+/cJHE8K+PeFB0V5+CYec4sIiFgGmhZbr+ryEKRGAuIrDgQSx1IJENT4owvw+bp1m2yQ3xENYfkg9Lyy6ZCzIwaUAmwmLixB+2F4JeqKYAw9mJW1yyurhq8Wul71wmIL4skTq5VQTZ/pPz/Fmbk=
   - secure: gQyJe1mY+7Sq3O7Dgxa01VQq4hSwODWeDGkGkEGx6JBHhYR+prZwWzDuccQCTu9ZKaQ+iSBZukaJtS2ppuIGtRlIx+cEN67f/jXfILap1XR6Kj+DbW4E9Mz0WLVaTPeFqMJv4EVK5mq59D+7ey1odrY9hmB+CEjrbaIQNxZvPG4=
   - secure: Owz4fpWP53YBusIqj5IPfTr+agtVqOnBl09HlEFS1C09oWrxMMxXYy3qxB54MHnljnCTYi2Mp+cOTa8VBGDbPYQo6Na0j5ZxSRyj+mFRY1rgQwYp/NSBXuUg/zjf1SikaQb6NRpH7p5J6sNwARwzLwRCpvYPWr+8cd8vkSK/CL8=
+
 addons:
   coverity_scan:
     project:
       name: hazendaz/waffle
       description: Build submitted via Travis CI
     notification_email: jeremylandis@hotmail.com
-    build_command_prepend: mvn clean
-    build_command: mvn clean install -DskipTests
+    build_command_prepend: ./mvnw clean
+    build_command: ./mvnw install -DskipTests -B -V
     branch_pattern: coverity_scan
-before_script:
-- cd Source/JNA
-script: if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then mvn clean install -DskipTests; fi
+
+install: true
+
+script:
+  - chmod -R 777 ./travis/script.sh
+  - ./travis/script.sh
+
 after_success:
-- chmod -R 777 ../../travis/after_success.sh
-- "../../travis/after_success.sh"
+  - chmod -R 777 ./travis/after_success.sh
+  - ./travis/after_success.sh

@@ -21,11 +21,27 @@
     <packaging>pom</packaging>
 
     <name>waffle-launcher</name>
-    <description>Launcher POM for WAFFLE - Helper only - Do not use to release</description>
+    <description>Launcher POM for WAFFLE</description>
     <url>https://dblock.github.com/waffle/</url>
 
     <modules>
         <module>Source/JNA</module>
     </modules>
 
+    <distributionManagement>
+        <site>
+            <id>gh-pages</id>
+            <name>Waffle GitHub Pages</name>
+            <url>github:https://dblock.github.io/waffle/</url>
+        </site>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+    
 </project>
