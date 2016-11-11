@@ -188,8 +188,8 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
     }
 
     /**
-     * XXX The 'doAuthenticate' is intended to replace 'authenticate' for needs like ours. In order to support
-     * old and new at this time, we will continue to have both for time being.
+     * XXX The 'doAuthenticate' is intended to replace 'authenticate' for needs like ours. In order to support old and
+     * new at this time, we will continue to have both for time being.
      */
     @Override
     protected boolean doAuthenticate(Request request, HttpServletResponse response) throws IOException {
