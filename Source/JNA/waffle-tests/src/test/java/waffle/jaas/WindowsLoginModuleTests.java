@@ -12,8 +12,8 @@
 package waffle.jaas;
 
 import java.security.Principal;
+import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import javax.security.auth.Subject;
@@ -90,9 +90,14 @@ public class WindowsLoginModuleTests {
         Assert.assertTrue(this.loginModule.login());
         Assert.assertEquals(0, subject.getPrincipals().size());
         Assert.assertTrue(this.loginModule.commit());
-        Assert.assertEquals(3, subject.getPrincipals().size());
-        Assert.assertTrue(subject.getPrincipals().contains(new RolePrincipal("Everyone")));
-        Assert.assertTrue(subject.getPrincipals().contains(new RolePrincipal("Users")));
+        Assert.assertEquals(2, subject.getPrincipals().size());
+        Assert.assertTrue(subject.getPrincipals().contains(new GroupPrincipal("Roles")));
+        for (final Principal principal : subject.getPrincipals()) {
+            if (principal instanceof GroupPrincipal) {
+                Assert.assertTrue(((GroupPrincipal) principal).isMember(new RolePrincipal("Everyone")));
+                Assert.assertTrue(((GroupPrincipal) principal).isMember(new RolePrincipal("Users")));
+            }
+        }
         Assert.assertTrue(subject.getPrincipals().contains(new UserPrincipal(WindowsAccountImpl.getCurrentUsername())));
         Assert.assertTrue(this.loginModule.logout());
         Assert.assertSame(Integer.valueOf(subject.getPrincipals().size()), Integer.valueOf(0));
@@ -166,7 +171,26 @@ public class WindowsLoginModuleTests {
         this.loginModule.initialize(subject, callbackHandler, null, options);
         Assert.assertTrue(this.loginModule.login());
         Assert.assertTrue(this.loginModule.commit());
-        Assert.assertEquals(5, subject.getPrincipals().size());
+
+        Assert.assertEquals(2, subject.getPrincipals().size());
+        Assert.assertTrue(subject.getPrincipals().contains(new GroupPrincipal("Roles")));
+        for (final Principal principal : subject.getPrincipals()) {
+            if (principal instanceof GroupPrincipal) {
+                int size = 0;
+                int sidSize = 0;
+                Enumeration<? extends Principal> groupPrincipal = ((GroupPrincipal) principal).members();
+                while (groupPrincipal.hasMoreElements()) {
+                    if (groupPrincipal.nextElement().getName().startsWith("S-")) {
+                        sidSize++;
+                    }
+                    size++;
+                }
+                Assert.assertEquals(4, size);
+                Assert.assertTrue(((GroupPrincipal) principal).isMember(new RolePrincipal("Everyone")));
+                Assert.assertTrue(((GroupPrincipal) principal).isMember(new RolePrincipal("Users")));
+                Assert.assertEquals(2, sidSize);
+            }
+        }
     }
 
     /**
@@ -207,11 +231,22 @@ public class WindowsLoginModuleTests {
         this.loginModule.initialize(subject, callbackHandler, null, options);
         Assert.assertTrue(this.loginModule.login());
         Assert.assertTrue(this.loginModule.commit());
-        Assert.assertEquals(3, subject.getPrincipals().size());
-        final Iterator<Principal> principals = subject.getPrincipals().iterator();
-        Assert.assertTrue(principals.next().getName().equals(WindowsAccountImpl.getCurrentUsername()));
-        Assert.assertTrue(principals.next().getName().startsWith("S-"));
-        Assert.assertTrue(principals.next().getName().startsWith("S-"));
+
+        Assert.assertEquals(2, subject.getPrincipals().size());
+        Assert.assertTrue(subject.getPrincipals().contains(new GroupPrincipal("Roles")));
+        for (final Principal principal : subject.getPrincipals()) {
+            if (principal instanceof GroupPrincipal) {
+                int size = 0;
+                Enumeration<? extends Principal> groupPrincipal = ((GroupPrincipal) principal).members();
+                while (groupPrincipal.hasMoreElements()) {
+                    groupPrincipal.nextElement().getName().startsWith("S-");
+                    size++;
+                }
+                Assert.assertEquals(2, size);
+            } else {
+                Assert.assertTrue(principal.getName().equals(WindowsAccountImpl.getCurrentUsername()));
+            }
+        }
     }
 
     /**
@@ -233,7 +268,23 @@ public class WindowsLoginModuleTests {
         this.loginModule.initialize(subject, callbackHandler, null, options);
         Assert.assertTrue(this.loginModule.login());
         Assert.assertTrue(this.loginModule.commit());
-        Assert.assertEquals(4, subject.getPrincipals().size());
+
+        Assert.assertEquals(2, subject.getPrincipals().size());
+        Assert.assertTrue(subject.getPrincipals().contains(new GroupPrincipal("Roles")));
+        for (final Principal principal : subject.getPrincipals()) {
+            if (principal instanceof GroupPrincipal) {
+                int size = 0;
+                Enumeration<? extends Principal> groupPrincipal = ((GroupPrincipal) principal).members();
+                while (groupPrincipal.hasMoreElements()) {
+                    groupPrincipal.nextElement();
+                    size++;
+                }
+                Assert.assertEquals(3, size);
+                Assert.assertTrue(((GroupPrincipal) principal).isMember(new RolePrincipal("Everyone")));
+                Assert.assertTrue(((GroupPrincipal) principal).isMember(new RolePrincipal("Users")));
+                Assert.assertTrue(((GroupPrincipal) principal).isMember(new RolePrincipal("Group 1")));
+            }
+        }
     }
 
     /**
@@ -253,9 +304,14 @@ public class WindowsLoginModuleTests {
         Assert.assertTrue(this.loginModule.login());
         Assert.assertEquals(0, subject.getPrincipals().size());
         Assert.assertTrue(this.loginModule.commit());
-        Assert.assertEquals(3, subject.getPrincipals().size());
-        Assert.assertTrue(subject.getPrincipals().contains(new RolePrincipal("Everyone")));
-        Assert.assertTrue(subject.getPrincipals().contains(new RolePrincipal("Users")));
+        Assert.assertEquals(2, subject.getPrincipals().size());
+        Assert.assertTrue(subject.getPrincipals().contains(new GroupPrincipal("Roles")));
+        for (final Principal principal : subject.getPrincipals()) {
+            if (principal instanceof GroupPrincipal) {
+                Assert.assertTrue(((GroupPrincipal) principal).isMember(new RolePrincipal("Everyone")));
+                Assert.assertTrue(((GroupPrincipal) principal).isMember(new RolePrincipal("Users")));
+            }
+        }
         this.loginModule.setAllowGuestLogin(false);
         Assert.assertTrue(this.loginModule.login());
         Assert.fail("expected LoginException");
