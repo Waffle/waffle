@@ -38,7 +38,7 @@ public class RolePrincipalTests {
      */
     @Test
     public void equals_otherObject() {
-        Assert.assertNotEquals(this.rolePrincipal, new String());
+        Assert.assertNotEquals(this.rolePrincipal, "");
     }
 
     /**

@@ -239,8 +239,9 @@ public class WindowsLoginModuleTests {
                 int size = 0;
                 Enumeration<? extends Principal> groupPrincipal = ((GroupPrincipal) principal).members();
                 while (groupPrincipal.hasMoreElements()) {
-                    groupPrincipal.nextElement().getName().startsWith("S-");
-                    size++;
+                    if (groupPrincipal.nextElement().getName().startsWith("S-")) {
+                        size++;
+                    }
                 }
                 Assert.assertEquals(2, size);
             } else {

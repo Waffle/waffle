@@ -38,7 +38,7 @@ public class UserPrincipalTests {
      */
     @Test
     public void equals_otherObject() {
-        Assert.assertNotEquals(this.userPrincipal, new String());
+        Assert.assertNotEquals(this.userPrincipal, "");
     }
 
     /**

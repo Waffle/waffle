@@ -38,7 +38,7 @@ public class GroupPrincipalTests {
      */
     @Test
     public void equals_otherObject() {
-        Assert.assertNotEquals(this.groupPrincipal, new String());
+        Assert.assertNotEquals(this.groupPrincipal, "");
     }
 
     /**
