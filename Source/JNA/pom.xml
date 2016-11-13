@@ -562,7 +562,7 @@
                 <plugin>
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
-                    <version>1.4.3</version>
+                    <version>1.4.4</version>
                 </plugin>
                 <!-- Sonatype Release -->
                 <plugin>
