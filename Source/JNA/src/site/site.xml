@@ -16,11 +16,11 @@
     xsi:schemaLocation="http://maven.apache.org/DECORATION/1.7.0 http://maven.apache.org/xsd/decoration-1.7.0.xsd">
     <bannerLeft>
         <src>/images/waffle.jpg</src>
-        <href>http://github.com/waffle</href>
+        <href>http://github.com/dblock/waffle</href>
     </bannerLeft>
     <bannerRight>
         <src>/images/waffle.jpg</src>
-        <href>http://github.com/waffle</href>
+        <href>http://github.com/dblock/waffle</href>
     </bannerRight>
     <skin>
         <groupId>org.apache.maven.skins</groupId>
@@ -35,7 +35,7 @@
     </custom>
     <body>
         <links>
-            <item name="waffle" href="http://github.com/waffle" />
+            <item name="waffle" href="http://github.com/dblock/waffle" />
         </links>
         <menu name="User guide">
             <item href="README.html" name="README" />
