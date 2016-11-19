@@ -320,7 +320,9 @@
                     <artifactId>maven-assembly-plugin</artifactId>
                     <version>3.0.0</version>
                     <configuration>
-                        <descriptor>${project.basedir}/src/assembly/assembly.xml</descriptor>
+                        <descriptors>
+                            <descriptor>${project.basedir}/src/assembly/assembly.xml</descriptor>
+                        </descriptors>
                     </configuration>
                 </plugin>
                 <plugin>
