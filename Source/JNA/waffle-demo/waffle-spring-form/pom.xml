@@ -7,12 +7,12 @@
 
     All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
     Public License v1.0 which accompanies this distribution, and is available at
-    http://www.eclipse.org/legal/epl-v10.html.
+    https://www.eclipse.org/legal/epl-v10.html.
 
     Contributors: Application Security, Inc.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="https://maven.apache.org/POM/4.0.0" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -27,7 +27,7 @@
 
     <name>waffle-spring-form</name>
     <description>Spring Form Demo for WAFFLE</description>
-    <url>http://dblock.github.com/waffle/</url>
+    <url>https://dblock.github.com/waffle/</url>
 
     <scm>
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
