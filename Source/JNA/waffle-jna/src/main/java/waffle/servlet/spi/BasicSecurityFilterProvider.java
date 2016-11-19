@@ -26,7 +26,7 @@ import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.IWindowsIdentity;
 
 /**
- * A Basic authentication security filter provider. http://tools.ietf.org/html/rfc2617
+ * A Basic authentication security filter provider. https://tools.ietf.org/html/rfc2617
  * 
  * @author dblock[at]dblock[dot]org
  */

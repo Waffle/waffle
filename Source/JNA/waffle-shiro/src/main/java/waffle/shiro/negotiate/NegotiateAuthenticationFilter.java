@@ -59,7 +59,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
 
     // TODO things (sometimes) break, depending on what user account is running tomcat:
     // related to setSPN and running tomcat server as NT Service account vs. as normal user account.
-    // http://waffle.codeplex.com/discussions/254748
+    // https://waffle.codeplex.com/discussions/254748
     // setspn -A HTTP/<server-fqdn> <user_tomcat_running_under>
     /** The Constant PROTOCOLS. */
     private static final List<String> PROTOCOLS           = new ArrayList<>();

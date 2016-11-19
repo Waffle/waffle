@@ -14,12 +14,12 @@
  *
  * <p>
  * <a href=
- * "http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/jetty/trunk/jetty-security/src/main/java/org/eclipse/jetty/security/Authenticator.java"
+ * "https://github.com/eclipse/jetty.project/blob/jetty-9.3.x/jetty-security/src/main/java/org/eclipse/jetty/security/Authenticator.java"
  * >org/eclipse/jetty/security/Authenticator.java</a>
  * </p>
  * <p>
  * <a href=
- * "http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/jetty/trunk/jetty-security/src/main/java/org/eclipse/jetty/security/LoginService.java"
+ * "https://github.com/eclipse/jetty.project/blob/jetty-9.3.x/jetty-security/src/main/java/org/eclipse/jetty/security/LoginService.java"
  * >org/eclipse/jetty/security/LoginService.java</a>
  * </p>
  */

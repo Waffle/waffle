@@ -26,7 +26,7 @@ public final class SPNegoMessage {
     // Check if this message is SPNEGO authentication token. There
     // are two token types, NegTokenInit and NegTokenArg.
     // For details and specification, see
-    // http://msdn.microsoft.com/en-us/library/ms995330.aspx
+    // https://msdn.microsoft.com/en-us/library/ms995330.aspx
 
     /**
      * Checks if is neg token init.

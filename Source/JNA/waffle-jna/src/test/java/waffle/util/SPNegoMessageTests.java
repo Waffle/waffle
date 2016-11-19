@@ -22,7 +22,7 @@ import org.junit.Test;
 public class SPNegoMessageTests {
 
     // Different SPNEGO messages. For details and specification,
-    // see http://msdn.microsoft.com/en-us/library/ms995330.aspx
+    // see https://msdn.microsoft.com/en-us/library/ms995330.aspx
 
     /** The Constant negTokenInitOk. */
     private static final byte[] negTokenInitOk       = { 0x60, 0x76, 0x06, 0x06, 0x2B, 0x06, 0x01, 0x05, 0x05, 0x02 };
