@@ -12,8 +12,8 @@
     Contributors: Application Security, Inc.
 
 -->
-<project name="${project.name}" xmlns="http://maven.apache.org/DECORATION/1.7.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/DECORATION/1.7.0 http://maven.apache.org/xsd/decoration-1.7.0.xsd">
+<project name="${project.name}" xmlns="https://maven.apache.org/DECORATION/1.7.0" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://maven.apache.org/DECORATION/1.7.0 https://maven.apache.org/xsd/decoration-1.7.0.xsd">
     <bannerLeft>
         <src>/images/waffle.jpg</src>
         <href>https://github.com/dblock/waffle</href>
