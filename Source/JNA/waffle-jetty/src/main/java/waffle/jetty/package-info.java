@@ -5,7 +5,7 @@
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
@@ -14,12 +14,12 @@
  *
  * <p>
  * <a href=
- * "http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/jetty/trunk/jetty-security/src/main/java/org/eclipse/jetty/security/Authenticator.java"
+ * "https://github.com/eclipse/jetty.project/blob/jetty-9.3.x/jetty-security/src/main/java/org/eclipse/jetty/security/Authenticator.java"
  * >org/eclipse/jetty/security/Authenticator.java</a>
  * </p>
  * <p>
  * <a href=
- * "http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/jetty/trunk/jetty-security/src/main/java/org/eclipse/jetty/security/LoginService.java"
+ * "https://github.com/eclipse/jetty.project/blob/jetty-9.3.x/jetty-security/src/main/java/org/eclipse/jetty/security/LoginService.java"
  * >org/eclipse/jetty/security/LoginService.java</a>
  * </p>
  */

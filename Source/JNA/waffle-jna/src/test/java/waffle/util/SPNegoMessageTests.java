@@ -5,7 +5,7 @@
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
@@ -22,7 +22,7 @@ import org.junit.Test;
 public class SPNegoMessageTests {
 
     // Different SPNEGO messages. For details and specification,
-    // see http://msdn.microsoft.com/en-us/library/ms995330.aspx
+    // see https://msdn.microsoft.com/en-us/library/ms995330.aspx
 
     /** The Constant negTokenInitOk. */
     private static final byte[] negTokenInitOk       = { 0x60, 0x76, 0x06, 0x06, 0x2B, 0x06, 0x01, 0x05, 0x05, 0x02 };
