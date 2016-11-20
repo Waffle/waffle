@@ -26,4 +26,4 @@ When the user is authenticated on the server and the Waffle reports new user nam
 
 Long story
 ---------- 
-http://support.microsoft.com/kb/946358
+https://support.microsoft.com/kb/946358
