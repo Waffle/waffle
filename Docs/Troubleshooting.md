@@ -31,15 +31,15 @@ setspn -A HTTP/machine:port username
 ```
 
 Useful Troubleshooting Resources:
-* [Enabling Kerberos Logging](http://support.microsoft.com/kb/262177/en-us)
-* [Troubleshooting Kerberos Delegation](http://www.microsoft.com/en-us/download/confirmation.aspx?id=4754)
+* [Enabling Kerberos Logging](https://support.microsoft.com/kb/262177/en-us)
+* [Troubleshooting Kerberos Delegation](https://www.microsoft.com/en-us/download/confirmation.aspx?id=4754)
 
 
 
 Troubleshooting NTLM
 --------------------
 
-* [Enabling NTLM Logging](http://blogs.technet.com/b/askds/archive/2009/10/08/ntlm-blocking-and-you-application-analysis-and-auditing-methodologies-in-windows-7.aspx)
+* [Enabling NTLM Logging](https://blogs.technet.com/b/askds/archive/2009/10/08/ntlm-blocking-and-you-application-analysis-and-auditing-methodologies-in-windows-7.aspx)
 
 
 
@@ -56,10 +56,10 @@ With new versions of Internet Explorer, Firefox or Chrome, use developer tools.
 
 With older versions of Internet Explorer, trace the HTTP request/response.
 
-1. Download and install [IEHttpHeaders](http://www.blunck.info/iehttpheaders.html).
+1. Download and install [IEHttpHeaders](https://www.blunck.info/iehttpheaders.html).
 2. Choose _Tools_, Display _IEHttpHeaders_.
 3. Make one request that ends up in a popup or failure.
 4. Copy the entire HTTP conversation.
 
-Post the http conversation with your question to the [Waffle Users Google Group](http://groups.google.com/group/waffle-users).
+Post the http conversation with your question to the [Waffle Users Google Group](https://groups.google.com/group/waffle-users).
 
