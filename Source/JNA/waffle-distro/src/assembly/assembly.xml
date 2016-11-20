@@ -29,7 +29,7 @@
             <unpack>false</unpack>
             <outputDirectory>Bin</outputDirectory>
             <useProjectArtifact>false</useProjectArtifact>
-            <useTransitiveDependencies>true</useTransitiveDependencies>
+            <useTransitiveDependencies>false</useTransitiveDependencies>
             <includes>
                 <include>*:jar</include>
             </includes>
