@@ -19,6 +19,7 @@ Waffle.suo
 *.csproj.user
 .tern-project
 *.iml
+.vs
 
 #sonarqube
 .sonar_lock
