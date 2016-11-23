@@ -13,7 +13,7 @@ setlocal ENABLEEXTENSIONS ENABLEDELAYEDEXPANSION
 set ProgramFilesDir=%ProgramFiles%
 if NOT "%ProgramFiles(x86)%"=="" set ProgramFilesDir=%ProgramFiles(x86)%
 
-set VisualStudioCmd=%ProgramFilesDir%\Microsoft Visual Studio 12.0\VC\vcvarsall.bat
+set VisualStudioCmd=%ProgramFilesDir%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat
 if EXIST "%VisualStudioCmd%" call "%VisualStudioCmd%"
 
 set NUnitDir=Tools\NUnit.ConsoleRunner
