@@ -43,7 +43,7 @@
         <jdt.version>4.6.1</jdt.version>
         <jsp.version>2.3.3-b02</jsp.version>
         <jsp-api.version>2.3.2-b02</jsp-api.version>
-        <jstl.version>1.2.4</jstl.version>
+        <jstl.version>1.2.5-b02</jstl.version>
         <slf4j.version>1.7.21</slf4j.version>
     </properties>
 
