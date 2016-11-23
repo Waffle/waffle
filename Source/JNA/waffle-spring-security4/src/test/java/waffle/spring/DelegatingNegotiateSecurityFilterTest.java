@@ -88,7 +88,12 @@ public class DelegatingNegotiateSecurityFilterTest {
 
     /**
      * Test the delegating filter ,in case no custom authentication was passed, the filter would store the auth in the
-     * security context
+     * security context.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Test
     public void testNegotiate() throws IOException, ServletException {
