@@ -58,7 +58,7 @@
             <groupId>org.eclipse.jetty.aggregate</groupId>
             <artifactId>jetty-all</artifactId>
             <version>${jetty.version}</version>
-            <classifier>uber</classifier>
+            <type>pom</type>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
