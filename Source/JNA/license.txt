@@ -1,4 +1,4 @@
-Waffle (https://github.com/dblock/waffle)
+Waffle (https://github.com/waffle/waffle)
 
 Copyright (c) ${license.git.copyrightYears} Application Security, Inc.
 
