@@ -7,6 +7,8 @@ if "%~1"=="" (
 
 call bootstrap.cmd
 
+copy README.md Source\JNA\src\site\markdown\README.md
+
 pushd "%~dp0"
 setlocal ENABLEEXTENSIONS ENABLEDELAYEDEXPANSION
 
