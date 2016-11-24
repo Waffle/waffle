@@ -89,12 +89,10 @@
             <version>${tomcat.version}</version>
             <scope>provided</scope>
         </dependency>
-
-        <!-- Temporary until tomcat releases this to central -->
         <dependency>
-            <groupId>javax.security.auth.message</groupId>
-            <artifactId>javax.security.auth.message-api</artifactId>
-            <version>1.1</version>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-jaspic-api</artifactId>
+            <version>${tomcat.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
