@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Waffle (https://github.com/waffle/waffle)
+    Waffle (https://github.com/Waffle/waffle)
 
     Copyright (c) 2010-2016 Application Security, Inc.
 
@@ -16,11 +16,11 @@
     xsi:schemaLocation="https://maven.apache.org/DECORATION/1.7.0 https://maven.apache.org/xsd/decoration-1.7.0.xsd">
     <bannerLeft>
         <src>/images/waffle.jpg</src>
-        <href>https://github.com/waffle/waffle</href>
+        <href>https://github.com/Waffle/waffle</href>
     </bannerLeft>
     <bannerRight>
         <src>/images/waffle.jpg</src>
-        <href>https://github.com/waffle/waffle</href>
+        <href>https://github.com/Waffle/waffle</href>
     </bannerRight>
     <skin>
         <groupId>org.apache.maven.skins</groupId>
@@ -35,7 +35,7 @@
     </custom>
     <body>
         <links>
-            <item name="waffle" href="https://github.com/waffle/waffle" />
+            <item name="waffle" href="https://github.com/Waffle/waffle" />
         </links>
         <menu name="User guide">
             <item href="README.html" name="README" />

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Waffle (https://github.com/waffle/waffle)
+    Waffle (https://github.com/Waffle/waffle)
 
     Copyright (c) 2010-2016 Application Security, Inc.
 
@@ -22,16 +22,16 @@
 
     <name>waffle-parent</name>
     <description>Parent POM for WAFFLE</description>
-    <url>https://dblock.github.com/waffle/</url>
+    <url>https://waffle.github.com/waffle/</url>
     <inceptionYear>2010</inceptionYear>
     <organization>
-        <name>com.github.dblock</name>
-        <url>https://github.com/dblock/</url>
+        <name>com.github.waffle</name>
+        <url>https://github.com/waffle/</url>
     </organization>
     <licenses>
         <license>
             <name>Eclipse Public License</name>
-            <url>https://raw.github.com/dblock/waffle/master/LICENSE</url>
+            <url>https://raw.github.com/Waffle/waffle/master/LICENSE</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
@@ -91,24 +91,24 @@
     </modules>
 
     <scm>
-        <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
-        <url>https://github.com/waffle/waffle</url>
+        <connection>scm:git:ssh://git@github.com/waffle/waffle.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/waffle/waffle.git</developerConnection>
+        <url>https://github.com/Waffle/waffle</url>
         <tag>HEAD</tag>
     </scm>
     <issueManagement>
         <system>Github</system>
-        <url>https://github.com/waffle/waffle/issues</url>
+        <url>https://github.com/Waffle/waffle/issues</url>
     </issueManagement>
     <ciManagement>
         <system>travis</system>
-        <url>https://travis-ci.org/dblock/waffle/</url>
+        <url>https://travis-ci.org/Waffle/waffle/</url>
     </ciManagement>
     <distributionManagement>
         <site>
             <id>gh-pages</id>
             <name>Waffle GitHub Pages</name>
-            <url>github:https://dblock.github.io/waffle/</url>
+            <url>github:https://waffle.github.io/waffle/</url>
         </site>
         <snapshotRepository>
             <id>ossrh</id>

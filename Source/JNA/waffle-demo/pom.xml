@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Waffle (https://github.com/waffle/waffle)
+    Waffle (https://github.com/Waffle/waffle)
 
     Copyright (c) 2010-2016 Application Security, Inc.
 
@@ -28,7 +28,7 @@
 
     <name>waffle-demo-parent</name>
     <description>Parent POM for Waffle Demo</description>
-    <url>https://dblock.github.com/waffle/</url>
+    <url>https://waffle.github.com/waffle/</url>
 
     <modules>
         <module>waffle-filter</module>
@@ -42,9 +42,9 @@
     </modules>
 
     <scm>
-        <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
-        <url>https://github.com/waffle/waffle</url>
+        <connection>scm:git:ssh://git@github.com/waffle/waffle.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/waffle/waffle.git</developerConnection>
+        <url>https://github.com/Waffle/waffle</url>
         <tag>HEAD</tag>
     </scm>
 
