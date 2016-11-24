@@ -32,7 +32,7 @@
     <scm>
         <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
-        <url>https://github.com/dblock/waffle</url>
+        <url>https://github.com/waffle/waffle</url>
         <tag>HEAD</tag>
     </scm>
 
