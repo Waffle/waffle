@@ -1,5 +1,5 @@
 /**
- * Waffle (https://github.com/waffle/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
  * Copyright (c) 2010-2016 Application Security, Inc.
  *
