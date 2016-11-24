@@ -171,13 +171,7 @@ public class WindowsAuthProviderTests {
             final String connectionId = "testConnection-" + Thread.currentThread().getId();
             do {
                 // accept the token on the server
-                try {
-                    serverContext = provider.acceptSecurityToken(connectionId, clientContext.getToken(),
-                            securityPackage);
-                } catch (final Exception e) {
-                    WindowsAuthProviderTests.LOGGER.error("", e);
-                    break;
-                }
+                serverContext = provider.acceptSecurityToken(connectionId, clientContext.getToken(), securityPackage);
 
                 if (serverContext != null && serverContext.isContinue()) {
                     // initialize on the client
@@ -188,7 +182,7 @@ public class WindowsAuthProviderTests {
                             BaseEncoding.base64().encode(serverContext.getToken()));
                 }
 
-            } while (clientContext.isContinue() || serverContext != null && serverContext.isContinue());
+            } while (serverContext != null && serverContext.isContinue());
 
             if (serverContext != null) {
                 Assertions.assertThat(serverContext.getIdentity().getFqn().length()).isGreaterThan(0);
@@ -283,13 +277,7 @@ public class WindowsAuthProviderTests {
             final String connectionId = "testConnection";
             do {
                 // accept the token on the server
-                try {
-                    serverContext = provider.acceptSecurityToken(connectionId, clientContext.getToken(),
-                            securityPackage);
-                } catch (final Exception e) {
-                    WindowsAuthProviderTests.LOGGER.error("", e);
-                    break;
-                }
+                serverContext = provider.acceptSecurityToken(connectionId, clientContext.getToken(), securityPackage);
 
                 if (serverContext != null && serverContext.isContinue()) {
                     // initialize on the client
@@ -298,7 +286,7 @@ public class WindowsAuthProviderTests {
                     clientContext.initialize(clientContext.getHandle(), continueToken, targetName);
                 }
 
-            } while (clientContext.isContinue() || serverContext != null && serverContext.isContinue());
+            } while (serverContext != null && serverContext.isContinue());
 
             if (serverContext != null) {
                 Assertions.assertThat(serverContext.getIdentity().getFqn().length()).isGreaterThan(0);
