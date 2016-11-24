@@ -22,7 +22,7 @@
 
     <name>waffle-parent</name>
     <description>Parent POM for WAFFLE</description>
-    <url>https://waffle.github.com/waffle/</url>
+    <url>https://waffle.github.io/waffle/</url>
     <inceptionYear>2010</inceptionYear>
     <organization>
         <name>com.github.waffle</name>

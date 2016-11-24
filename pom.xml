@@ -15,14 +15,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.dblock.waffle</groupId>
+    <groupId>com.github.waffle</groupId>
     <artifactId>waffle-launcher</artifactId>
     <version>1.8.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>waffle-launcher</name>
     <description>Launcher POM for WAFFLE</description>
-    <url>https://dblock.github.com/waffle/</url>
+    <url>https://waffle.github.io/waffle/</url>
 
     <modules>
         <module>Source/JNA</module>
@@ -32,7 +32,7 @@
         <site>
             <id>gh-pages</id>
             <name>Waffle GitHub Pages</name>
-            <url>github:https://dblock.github.io/waffle/</url>
+            <url>github:https://waffle.github.io/waffle/</url>
         </site>
         <snapshotRepository>
             <id>ossrh</id>
