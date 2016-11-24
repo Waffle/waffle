@@ -127,9 +127,6 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
             final SecBufferDesc pbClientToken = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, token);
             final IntByReference pfClientContextAttr = new IntByReference();
 
-            // TODO This is a dead store...do we have a bug?
-            continueContext = this.continueContexts.asMap().get(connectionId);
-
             final CtxtHandle phNewServerContext = new CtxtHandle();
             rc = Secur32.INSTANCE.AcceptSecurityContext(serverCredential.getHandle(), continueHandle, pbClientToken,
                     Sspi.ISC_REQ_CONNECTION, Sspi.SECURITY_NATIVE_DREP, phNewServerContext, pbServerToken,
