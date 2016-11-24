@@ -1,6 +1,6 @@
 <%--
 
-    Waffle (https://github.com/dblock/waffle)
+    Waffle (https://github.com/waffle/waffle)
 
     Copyright (c) 2010-2016 Application Security, Inc.
 
