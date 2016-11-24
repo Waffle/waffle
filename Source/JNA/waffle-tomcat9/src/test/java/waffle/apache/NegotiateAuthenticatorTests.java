@@ -21,8 +21,6 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.sun.jna.platform.win32.Sspi;
 import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
@@ -44,9 +42,6 @@ import waffle.windows.auth.impl.WindowsSecurityContextImpl;
  * @author dblock[at]dblock[dot]org
  */
 public class NegotiateAuthenticatorTests {
-
-    /** The Constant LOGGER. */
-    private static final Logger    LOGGER = LoggerFactory.getLogger(NegotiateAuthenticatorTests.class);
 
     /** The authenticator. */
     private NegotiateAuthenticator authenticator;
@@ -262,12 +257,7 @@ public class NegotiateAuthenticatorTests {
                 request.addHeader("Authorization", securityPackage + " " + clientToken);
 
                 response = new SimpleHttpResponse();
-                try {
-                    authenticated = this.authenticator.authenticate(request, response);
-                } catch (final Exception e) {
-                    NegotiateAuthenticatorTests.LOGGER.error("", e);
-                    return;
-                }
+                authenticated = this.authenticator.authenticate(request, response);
 
                 if (authenticated) {
                     Assertions.assertThat(response.getHeaderNames().size()).isGreaterThanOrEqualTo(0);
