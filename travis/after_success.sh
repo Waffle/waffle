@@ -15,7 +15,7 @@ echo "Current commit detected: ${commit_message}"
 # 4. Notify Coveralls.
 # 5. Deploy site
 
-if [ $TRAVIS_REPO_SLUG == "dblock/waffle" ] && [ $TRAVIS_PULL_REQUEST == "false" ] && [ $TRAVIS_BRANCH == "master" ] && [[ "$commit_message" != *"[maven-release-plugin]"* ]]; then
+if [ $TRAVIS_REPO_SLUG == "Waffle/waffle" ] && [ $TRAVIS_PULL_REQUEST == "false" ] && [ $TRAVIS_BRANCH == "master" ] && [[ "$commit_message" != *"[maven-release-plugin]"* ]]; then
 
   if [ $TRAVIS_JDK_VERSION == "oraclejdk8" ]; then
     # Deploy to sonatype
