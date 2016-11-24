@@ -16,7 +16,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.github.dblock.waffle.demo</groupId>
+        <groupId>com.github.waffle.demo</groupId>
         <artifactId>waffle-demo-parent</artifactId>
         <version>1.8.2-SNAPSHOT</version>
     </parent>
@@ -48,7 +48,7 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.dblock.waffle</groupId>
+            <groupId>com.github.waffle</groupId>
             <artifactId>waffle-spring-security3</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
