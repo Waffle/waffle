@@ -55,8 +55,8 @@ public class WindowsAuthProviderTests {
     public void testLogonGuestUser() {
         final IWindowsAuthProvider prov = new WindowsAuthProviderImpl();
         final IWindowsIdentity identity = prov.logonUser("garbage", "garbage");
-        WindowsAuthProviderTests.LOGGER.debug("Fqn: {}", identity.getFqn());
-        WindowsAuthProviderTests.LOGGER.debug("Guest: {}", Boolean.valueOf(identity.isGuest()));
+        WindowsAuthProviderTests.LOGGER.info("Fqn: {}", identity.getFqn());
+        WindowsAuthProviderTests.LOGGER.info("Guest: {}", Boolean.valueOf(identity.isGuest()));
         Assert.assertTrue(identity.getFqn().endsWith("\\Guest"));
         Assert.assertTrue(identity.isGuest());
         identity.dispose();
@@ -117,15 +117,15 @@ public class WindowsAuthProviderTests {
     public void testGetCurrentComputer() {
         final IWindowsAuthProvider prov = new WindowsAuthProviderImpl();
         final IWindowsComputer computer = prov.getCurrentComputer();
-        WindowsAuthProviderTests.LOGGER.debug(computer.getComputerName());
+        WindowsAuthProviderTests.LOGGER.info(computer.getComputerName());
         Assertions.assertThat(computer.getComputerName().length()).isGreaterThan(0);
-        WindowsAuthProviderTests.LOGGER.debug(computer.getJoinStatus());
-        WindowsAuthProviderTests.LOGGER.debug(computer.getMemberOf());
+        WindowsAuthProviderTests.LOGGER.info(computer.getJoinStatus());
+        WindowsAuthProviderTests.LOGGER.info(computer.getMemberOf());
         final String[] localGroups = computer.getGroups();
         Assert.assertNotNull(localGroups);
         Assertions.assertThat(localGroups.length).isGreaterThan(0);
         for (final String localGroup : localGroups) {
-            WindowsAuthProviderTests.LOGGER.debug(" {}", localGroup);
+            WindowsAuthProviderTests.LOGGER.info(" {}", localGroup);
         }
     }
 
@@ -142,7 +142,7 @@ public class WindowsAuthProviderTests {
         final IWindowsDomain[] domains = prov.getDomains();
         Assert.assertNotNull(domains);
         for (final IWindowsDomain domain : domains) {
-            WindowsAuthProviderTests.LOGGER.debug("{}: {}", domain.getFqn(), domain.getTrustDirectionString());
+            WindowsAuthProviderTests.LOGGER.info("{}: {}", domain.getFqn(), domain.getTrustDirectionString());
         }
     }
 
@@ -178,7 +178,7 @@ public class WindowsAuthProviderTests {
                     final SecBufferDesc continueToken = new SecBufferDesc(Sspi.SECBUFFER_TOKEN,
                             serverContext.getToken());
                     clientContext.initialize(clientContext.getHandle(), continueToken, targetName);
-                    WindowsAuthProviderTests.LOGGER.debug("Token: {}",
+                    WindowsAuthProviderTests.LOGGER.info("Token: {}",
                             BaseEncoding.base64().encode(serverContext.getToken()));
                 }
 
@@ -187,9 +187,9 @@ public class WindowsAuthProviderTests {
             if (serverContext != null) {
                 Assertions.assertThat(serverContext.getIdentity().getFqn().length()).isGreaterThan(0);
 
-                WindowsAuthProviderTests.LOGGER.debug(serverContext.getIdentity().getFqn());
+                WindowsAuthProviderTests.LOGGER.info(serverContext.getIdentity().getFqn());
                 for (final IWindowsAccount group : serverContext.getIdentity().getGroups()) {
-                    WindowsAuthProviderTests.LOGGER.debug(" {}", group.getFqn());
+                    WindowsAuthProviderTests.LOGGER.info(" {}", group.getFqn());
                 }
             }
         } finally {
@@ -236,7 +236,7 @@ public class WindowsAuthProviderTests {
                 serverContext = provider.acceptSecurityToken(connectionId, clientContext.getToken(), securityPackage);
                 Assertions.assertThat(provider.getContinueContextsSize()).isGreaterThan(0);
             }
-            WindowsAuthProviderTests.LOGGER.debug("Cached security contexts: {}",
+            WindowsAuthProviderTests.LOGGER.info("Cached security contexts: {}",
                     Integer.valueOf(provider.getContinueContextsSize()));
             Assert.assertFalse(max == provider.getContinueContextsSize());
         } finally {
@@ -294,9 +294,9 @@ public class WindowsAuthProviderTests {
                 final IWindowsImpersonationContext impersonationCtx = serverContext.impersonate();
                 impersonationCtx.revertToSelf();
 
-                WindowsAuthProviderTests.LOGGER.debug(serverContext.getIdentity().getFqn());
+                WindowsAuthProviderTests.LOGGER.info(serverContext.getIdentity().getFqn());
                 for (final IWindowsAccount group : serverContext.getIdentity().getGroups()) {
-                    WindowsAuthProviderTests.LOGGER.debug(" {}", group.getFqn());
+                    WindowsAuthProviderTests.LOGGER.info(" {}", group.getFqn());
                 }
             }
         } finally {
