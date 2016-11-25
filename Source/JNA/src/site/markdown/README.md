@@ -28,7 +28,7 @@ Essentials
 
 * [Download Version 1.8.0](https://github.com/Waffle/waffle/releases/download/Waffle-1.8.0/Waffle.1.8.zip)
 * [Waffle in Maven Central](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.github.dblock.waffle%22)
-* [Waffle Snapshots](https://oss.sonatype.org/content/repositories/snapshots/com/github/dblock/waffle/)
+* [Waffle Snapshots](https://oss.sonatype.org/content/repositories/snapshots/com/github/waffle/)
 * [Get Waffle To Work in Tomcat, Jetty, WebSphere, etc.](Docs/ServletSingleSignOnSecurityFilter.md)
 * [Need Help? Google Group](https://groups.google.com/group/waffle-users)
 * [Troubleshooting](Docs/Troubleshooting.md)
