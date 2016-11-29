@@ -39,7 +39,7 @@ Essentials
 Jetty
 -----
 Jetty support is built using java 7 like everything else.  However, using the provided jetty version will require java 8 usage.
-To continue with java 7, drop back to Jetty version 9.2.13.v20150730.
+To continue with java 7, drop back to Jetty version 9.2.19.v20160908.
 
 Documentation
 -------------
