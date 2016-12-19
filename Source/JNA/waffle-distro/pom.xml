@@ -39,8 +39,8 @@
     <properties>
         <guava.version>20.0</guava.version>
         <jna.version>4.2.2</jna.version>
-        <logback.version>1.1.7</logback.version>
-        <slf4j.version>1.7.21</slf4j.version>
+        <logback.version>1.1.8</logback.version>
+        <slf4j.version>1.7.22</slf4j.version>
     </properties>
 
     <dependencies>

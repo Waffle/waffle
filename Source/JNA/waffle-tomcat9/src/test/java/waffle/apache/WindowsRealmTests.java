@@ -29,6 +29,9 @@ public class WindowsRealmTests {
         final WindowsRealm realm = new WindowsRealm();
         Assert.assertNull(realm.getPassword(null));
         Assert.assertNull(realm.getPrincipal(null));
+        // To support tomcat 9.0.0.M13 and lower this will still work
         Assert.assertEquals("waffle.apache.WindowsRealm/1.0", realm.getName());
+        // In tomcat 9.0.0.M15+, this is all that will now report
+        Assert.assertEquals("WindowsRealm", WindowsRealm.class.getSimpleName());
     }
 }
