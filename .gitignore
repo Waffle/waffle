@@ -1,25 +1,31 @@
-.idea
+# Eclipse 
+.classpath
+.settings
+.project
+.tern-project
+target
 
-Source/Common/GlobalAssemblyInfo.cs
-Source/Version/Version.properties
-Source/Version/Version.wxi
+# Intellij
+.idea
+.iml
+
+# .net
+GlobalAssemblyInfo.cs
+Version.properties
+Version.wxi
 bin
 obj
 Debug
 Release
-target
 TestResult.xml
-Source/JNA/**/.classpath
-Source/JNA/**/.settings
-Source/JNA/**/.project
 Tools
-Thumbs.db
 Waffle.sln.cache
 Waffle.suo
 *.csproj.user
-.tern-project
-*.iml
 .vs
 
-#sonarqube
+# sonarqube
 .sonar_lock
+
+# windows
+Thumbs.db
