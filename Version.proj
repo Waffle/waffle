@@ -1,6 +1,6 @@
 <Project DefaultTargets="version" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" >
   <Target Name="version">
-    <Version Major="$(MajorVersion)" Minor="$(MinorVersion)">
+    <Version Major="$(MajorVersion)" Minor="$(MinorVersion)" Revision="$(RevisionVersion)">
       <Output TaskParameter="Major" PropertyName="Major" />
       <Output TaskParameter="Minor" PropertyName="Minor" />
       <Output TaskParameter="Revision" PropertyName="Revision" />

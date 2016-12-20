@@ -29,6 +29,7 @@
     <Trademark>All Rights Reserved</Trademark>
     <MajorVersion>1</MajorVersion>
     <MinorVersion>8</MinorVersion>
+    <RevisionVersion>2</RevisionVersion>
   </PropertyGroup>
   <Target Name="all" DependsOnTargets="configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
     <CallTarget Targets="clean" />
@@ -91,7 +92,7 @@
     <CreateItem Include="target\$(Configuration)\**\*" Exclude="target\$(Configuration)\*.zip">
       <Output TaskParameter="Include" ItemName="PackageFiles" />
     </CreateItem>
-    <Zip WorkingDirectory="target\$(Configuration)" ZipFileName="target\$(Configuration)\Waffle.$(Major).$(Minor).zip" Files="@(PackageFiles)" />
+    <Zip WorkingDirectory="target\$(Configuration)" ZipFileName="target\$(Configuration)\Waffle.$(Major).$(Minor).$(Revision).zip" Files="@(PackageFiles)" />
     <Message Text="Version: $(Major).$(Minor).$(Build).$(Revision)"/>
   </Target>
 </Project>
