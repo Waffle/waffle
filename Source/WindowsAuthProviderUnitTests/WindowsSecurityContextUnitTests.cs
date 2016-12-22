@@ -32,6 +32,7 @@ namespace Waffle.Windows.AuthProvider.UnitTests
             }
         }
 
+        [Test]
         public void TestGetCurrentNegotiate()
         {
             using (WindowsSecurityContext context = WindowsSecurityContext.GetCurrent("Negotiate",

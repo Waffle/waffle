@@ -93,8 +93,8 @@ namespace Waffle.Windows.AuthProvider.UnitTests
             Assert.AreEqual(_testUserFqn.ToLower(), account.Fqn.ToLower());
         }
 
-        /*
         [Test]
+        [Ignore("Ignore TestDigest")]
         public void TestDigest()
         {
             WindowsAuthIdentity identity = new WindowsAuthIdentity();
@@ -123,6 +123,6 @@ namespace Waffle.Windows.AuthProvider.UnitTests
             Assert.IsFalse(responseContext.Continue);
             Console.WriteLine(responseContext.Identity.Fqn);
         }
-        */
+
     }
 }
