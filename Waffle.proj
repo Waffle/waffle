@@ -3,10 +3,11 @@
 
   <PropertyGroup>
     <BuildFolder>$(MSBuildProjectDirectory)\Build</BuildFolder>
-    <ToolFolder>$(MSBuildProjectDirectory)\Tools</ToolFolder>
+    <PackagesFolder>$(MSBuildProjectDirectory)\.nuget\packages</PackagesFolder>
     <SourceFolder>$(MSBuildProjectDirectory)\Source</SourceFolder>
     
-    <MSBuildCommunityTasksPath>$(ToolFolder)\MSBuildTasks\tools</MSBuildCommunityTasksPath>
+    <MSBuildCommunityTasksPath>$(PackagesFolder)\MSBuildTasks.1.5.0.214\tools</MSBuildCommunityTasksPath>
+    <NUnitConsoleRunnerPath>$(PackagesFolder)\NUnit.ConsoleRunner.3.5.0\tools</NUnitConsoleRunnerPath>
   </PropertyGroup>
 
   <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets"/>
@@ -64,7 +65,7 @@
       <Output TaskParameter="Include" ItemName="UnitTestAssemblies"/>
     </CreateItem>
     <Message Text="@(UnitTestAssemblies)" />
-	<exec Command="Tools\NUnit.ConsoleRunner\tools\nunit3-console.exe &quot;@(UnitTestAssemblies)&quot;"/>
+	<exec Command="$(NUnitConsoleRunnerPath)\nunit3-console.exe &quot;@(UnitTestAssemblies)&quot;"/>
   </Target>
   <Target Name="drop" DependsOnTargets="version;configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
     <CreateItem Include="Source\**\%(Configuration.Identity)/Waffle.*.dll" Exclude="Source\**\%(Configuration.Identity)/Waffle.*UnitTests.dll">

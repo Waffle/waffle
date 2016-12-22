@@ -7,7 +7,7 @@
   <?define Configuration=Release?>
  <?endif ?>
 <?endif ?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
     <Module Id="WindowsAuthProviderMSM" Language="1033" Version="$(var.ProductVersion)">
         <Package Id="80101f8b-1c44-4c7d-969b-0731b162d54b" Manufacturer="$(var.CompanyName)" InstallerVersion="200" />
         <Directory Id="TARGETDIR" Name="SourceDir">
