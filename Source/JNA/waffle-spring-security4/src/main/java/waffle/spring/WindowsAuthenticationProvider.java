@@ -13,9 +13,11 @@ package waffle.spring;
 
 import java.util.Locale;
 
+import com.sun.jna.platform.win32.Win32Exception;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -70,8 +72,12 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(final Authentication authentication) {
         final UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;
-        final IWindowsIdentity windowsIdentity = this.authProvider.logonUser(auth.getName(), auth.getCredentials()
-                .toString());
+        IWindowsIdentity windowsIdentity;
+        try {
+            windowsIdentity = this.authProvider.logonUser(auth.getName(), auth.getCredentials().toString());
+        } catch (Win32Exception e) {
+            throw new AuthenticationServiceException(e.getMessage(), e);
+        }
         WindowsAuthenticationProvider.LOGGER.debug("logged in user: {} ({})", windowsIdentity.getFqn(),
                 windowsIdentity.getSidString());
 
