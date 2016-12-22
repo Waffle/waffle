@@ -26,6 +26,7 @@ import org.apache.catalina.deploy.LoginConfig;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.io.BaseEncoding;
+import com.sun.jna.platform.win32.Win32Exception;
 
 import waffle.util.AuthorizationHeader;
 import waffle.util.NtlmServletRequest;
@@ -147,29 +148,35 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
             this.auth.resetSecurityToken(connectionId);
         }
 
+        final byte[] tokenBuffer = authorizationHeader.getTokenBytes();
+        this.log.debug("token buffer: {} byte(s)", Integer.valueOf(tokenBuffer.length));
+
         // log the user in using the token
         IWindowsSecurityContext securityContext;
+        try {
+            securityContext = this.auth.acceptSecurityToken(connectionId, tokenBuffer, securityPackage);
+        } catch (final Win32Exception e) {
+            this.log.warn("error logging in user: {}", e.getMessage());
+            this.log.trace("", e);
+            this.sendUnauthorized(response);
+            return false;
+        }
+        this.log.debug("continue required: {}", Boolean.valueOf(securityContext.isContinue()));
+
+        final byte[] continueTokenBytes = securityContext.getToken();
+        if (continueTokenBytes != null && continueTokenBytes.length > 0) {
+            final String continueToken = BaseEncoding.base64().encode(continueTokenBytes);
+            this.log.debug("continue token: {}", continueToken);
+            response.addHeader("WWW-Authenticate", securityPackage + " " + continueToken);
+        }
 
         try {
-            final byte[] tokenBuffer = authorizationHeader.getTokenBytes();
-            this.log.debug("token buffer: {} byte(s)", Integer.valueOf(tokenBuffer.length));
-            securityContext = this.auth.acceptSecurityToken(connectionId, tokenBuffer, securityPackage);
-            this.log.debug("continue required: {}", Boolean.valueOf(securityContext.isContinue()));
-
-            final byte[] continueTokenBytes = securityContext.getToken();
-            if (continueTokenBytes != null && continueTokenBytes.length > 0) {
-                final String continueToken = BaseEncoding.base64().encode(continueTokenBytes);
-                this.log.debug("continue token: {}", continueToken);
-                response.addHeader("WWW-Authenticate", securityPackage + " " + continueToken);
-            }
-
             if (securityContext.isContinue() || ntlmPost) {
                 response.setHeader("Connection", "keep-alive");
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
                 response.flushBuffer();
                 return false;
             }
-
         } catch (final IOException e) {
             this.log.warn("error logging in user: {}", e.getMessage());
             this.log.trace("", e);
