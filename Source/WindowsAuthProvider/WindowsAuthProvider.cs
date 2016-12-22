@@ -200,10 +200,7 @@ namespace Waffle.Windows.AuthProvider
                         break;
                     case Secur32.SEC_E_OK:
 
-                        lock (_continueSecHandles)
-                        {
-                            _continueSecHandles.Remove(connectionId);
-                        }
+                        ResetSecurityToken(connectionId);
 
                         return new WindowsSecurityContext(
                             newContext,
@@ -230,11 +227,7 @@ namespace Waffle.Windows.AuthProvider
 
                     default:
 
-                        lock (_continueSecHandles)
-                        {
-                            _continueSecHandles.Remove(connectionId);
-                        }
-
+                        ResetSecurityToken(connectionId);
                         throw new Win32Exception(rc);
                 }
             } while (rc == Secur32.SEC_E_INSUFFICIENT_MEMORY);
