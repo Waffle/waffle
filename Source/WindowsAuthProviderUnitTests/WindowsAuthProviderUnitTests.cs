@@ -180,33 +180,32 @@ namespace Waffle.Windows.AuthProvider.UnitTests
         {
             string package = "Negotiate";
             WindowsAuthProviderImpl provider = new WindowsAuthProviderImpl();
-            WindowsSecurityContext initContext = WindowsSecurityContext.GetCurrent(package,
-                WindowsIdentity.GetCurrent().Name, Secur32.ISC_REQ_CONNECTION, Secur32.SECURITY_NATIVE_DREP);
-            IWindowsSecurityContext continueContext = initContext;
-            IWindowsSecurityContext responseContext = null;
+            WindowsSecurityContext clientContext = WindowsSecurityContext.GetCurrent(package,
+                WindowsIdentity.GetCurrent().Name.ToLower(), Secur32.ISC_REQ_CONNECTION, Secur32.SECURITY_NATIVE_DREP);
+            IWindowsSecurityContext serverContext = null;
             string connectionId = Guid.NewGuid().ToString();
             while(true)
             {
-                responseContext = provider.AcceptSecurityToken(connectionId, continueContext.Token, package,
+                serverContext = provider.AcceptSecurityToken(connectionId, clientContext.Token, package,
                     Secur32.ISC_REQ_CONNECTION, Secur32.SECURITY_NATIVE_DREP);
 
-                if (responseContext.Token != null)
+                if (serverContext.Token != null)
                 {
-                    Console.WriteLine("  Token: {0}", Convert.ToBase64String(responseContext.Token));
-                    Console.WriteLine("  Continue: {0}", responseContext.Continue);
+                    Console.WriteLine("  Token: {0}", Convert.ToBase64String(serverContext.Token));
+                    Console.WriteLine("  Continue: {0}", serverContext.Continue);
                 }
 
-                if (! responseContext.Continue)
+                if (!serverContext.Continue)
                 {
                     break;
                 }
 
-                continueContext = new WindowsSecurityContext(initContext, responseContext.Token,
+                clientContext = new WindowsSecurityContext(clientContext, serverContext.Token,
                     Secur32.ISC_REQ_CONNECTION, Secur32.SECURITY_NATIVE_DREP);
             }
 
-            Assert.IsFalse(responseContext.Continue);
-            Console.WriteLine(responseContext.Identity.Fqn);
+            Assert.IsFalse(serverContext.Continue);
+            Console.WriteLine(serverContext.Identity.Fqn);
         }
     }
 }
