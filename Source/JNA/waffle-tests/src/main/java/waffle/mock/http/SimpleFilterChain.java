@@ -55,7 +55,6 @@ public class SimpleFilterChain implements FilterChain {
      */
     @Override
     public void doFilter(final ServletRequest sreq, final ServletResponse srep) throws IOException, ServletException {
-
         this.request = sreq;
         this.response = srep;
     }
