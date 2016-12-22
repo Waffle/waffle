@@ -143,8 +143,6 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
                     this.attr, null);
             switch (rc) {
                 case WinError.SEC_E_INSUFFICIENT_MEMORY:
-                    tokenSize += Sspi.MAX_TOKEN_SIZE;
-                    break;
                 case WinError.SEC_E_BUFFER_TOO_SMALL:
                     tokenSize += Sspi.MAX_TOKEN_SIZE;
                     break;

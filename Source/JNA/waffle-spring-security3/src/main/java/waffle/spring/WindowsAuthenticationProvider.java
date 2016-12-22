@@ -75,7 +75,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
         IWindowsIdentity windowsIdentity;
         try {
             windowsIdentity = this.authProvider.logonUser(auth.getName(), auth.getCredentials().toString());
-        } catch (Win32Exception e) {
+        } catch (final Win32Exception e) {
             throw new AuthenticationServiceException(e.getMessage(), e);
         }
         WindowsAuthenticationProvider.LOGGER.debug("logged in user: {} ({})", windowsIdentity.getFqn(),

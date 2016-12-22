@@ -236,8 +236,8 @@ public class WaffleInfo {
         node.setAttribute("name", lookup);
         try {
             this.addAccountInfo(doc, node, auth.lookupAccount(lookup));
-        } catch (final Win32Exception ex) {
-            node.appendChild(WaffleInfo.getException(doc, ex));
+        } catch (final Win32Exception e) {
+            node.appendChild(WaffleInfo.getException(doc, e));
         }
         return node;
     }
