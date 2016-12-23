@@ -10,6 +10,7 @@ target
 .iml
 
 # .net
+.vs
 GlobalAssemblyInfo.cs
 Version.properties
 Version.wxi
@@ -17,12 +18,15 @@ bin
 obj
 Debug
 Release
-TestResult.xml
-Tools
 Waffle.sln.cache
 Waffle.suo
 *.csproj.user
-.vs
+
+# nuget
+.nuget
+
+# nunit
+TestResult.xml
 
 # sonarqube
 .sonar_lock

@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="..\..\.nuget\packages\WiX.4.0.0.4506-pre\build\wix.props" Condition="Exists('..\..\.nuget\packages\WiX.4.0.0.4506-pre\build\wix.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <ProductVersion>3.0</ProductVersion>
@@ -7,9 +8,10 @@
     <SchemaVersion>2.0</SchemaVersion>
     <OutputName>Waffle.Windows.AuthProvider</OutputName>
     <OutputType>Module</OutputType>
-    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
-    <WixToolPath>$(ProgramFiles)\WiX Toolset v3.7\bin</WixToolPath>
+    <WixToolPath>..\..\.nuget\packages\WiX.4.0.0.4506-pre\tools</WixToolPath>
     <RunWixToolsOutOfProc>true</RunWixToolsOutOfProc>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -105,7 +107,16 @@
   <ItemGroup>
     <Compile Include="WindowsAuthProviderMergeModule.wxs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\.nuget\packages\WiX.4.0.0.4506-pre\build\wix.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\.nuget\packages\WiX.4.0.0.4506-pre\build\wix.props'))" />
+  </Target>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
 	Other similar extension points exist, see Wix.targets.
