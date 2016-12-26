@@ -45,8 +45,8 @@ public class WaffleInfoTests {
         final Document info = helper.getWaffleInfo();
 
         // Make sure JNA Version is properly noted
-        Assert.assertEquals(Platform.class.getPackage().getImplementationVersion(), info.getDocumentElement()
-                .getAttribute("jna"));
+        Assert.assertEquals(Platform.class.getPackage().getImplementationVersion(),
+                info.getDocumentElement().getAttribute("jna"));
 
         // waffle auth currentUser computer
         final Node node = info.getDocumentElement().getFirstChild().getFirstChild().getNextSibling();

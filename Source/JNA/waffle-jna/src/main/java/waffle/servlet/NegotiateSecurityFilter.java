@@ -52,7 +52,7 @@ public class NegotiateSecurityFilter implements Filter {
 
     /** The Constant LOGGER. */
     private static final Logger              LOGGER              = LoggerFactory
-                                                                         .getLogger(NegotiateSecurityFilter.class);
+            .getLogger(NegotiateSecurityFilter.class);
 
     /** The principal format. */
     private PrincipalFormat                  principalFormat     = PrincipalFormat.FQN;
@@ -74,7 +74,7 @@ public class NegotiateSecurityFilter implements Filter {
 
     /** The Constant PRINCIPALSESSIONKEY. */
     private static final String              PRINCIPALSESSIONKEY = NegotiateSecurityFilter.class.getName()
-                                                                         + ".PRINCIPAL";
+            + ".PRINCIPAL";
 
     /**
      * Instantiates a new negotiate security filter.

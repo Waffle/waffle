@@ -164,8 +164,8 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
                 }
             }
         } catch (final AuthenticationException e) {
-            DelegatingNegotiateSecurityFilter.LOGGER.warn(
-                    "Error authenticating user in custom authenticationmanager: {}", e.getMessage());
+            DelegatingNegotiateSecurityFilter.LOGGER
+                    .warn("Error authenticating user in custom authenticationmanager: {}", e.getMessage());
             this.sendAuthenticationFailed(request, response, e);
             return false;
         } catch (final AccessDeniedException e) {
@@ -211,8 +211,8 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
                         e.getMessage());
                 DelegatingNegotiateSecurityFilter.LOGGER.trace("", e);
             } catch (final ServletException e) {
-                DelegatingNegotiateSecurityFilter.LOGGER.warn(
-                        "ServletException invoking authenticationFailureHandler: {}", e.getMessage());
+                DelegatingNegotiateSecurityFilter.LOGGER
+                        .warn("ServletException invoking authenticationFailureHandler: {}", e.getMessage());
                 DelegatingNegotiateSecurityFilter.LOGGER.trace("", e);
             }
         }

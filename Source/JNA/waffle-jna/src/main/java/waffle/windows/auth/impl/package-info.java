@@ -13,4 +13,3 @@
  * Waffle JNA Windows Authorization Implementation Package.
  */
 package waffle.windows.auth.impl;
-

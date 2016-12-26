@@ -13,4 +13,3 @@
  * Waffle Tomcat Package.
  */
 package waffle.apache;
-

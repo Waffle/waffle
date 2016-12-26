@@ -13,4 +13,3 @@
  * Waffle JNA Servlet SPI Package.
  */
 package waffle.servlet.spi;
-

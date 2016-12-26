@@ -183,8 +183,8 @@ public class MixedAuthenticatorTests {
                 Assert.assertEquals("keep-alive", response.getHeader("Connection"));
                 Assert.assertEquals(2, response.getHeaderNames().length);
                 Assert.assertEquals(401, response.getStatus());
-                final String continueToken = response.getHeader("WWW-Authenticate").substring(
-                        securityPackage.length() + 1);
+                final String continueToken = response.getHeader("WWW-Authenticate")
+                        .substring(securityPackage.length() + 1);
                 final byte[] continueTokenBytes = BaseEncoding.base64().decode(continueToken);
                 Assertions.assertThat(continueTokenBytes.length).isGreaterThan(0);
                 final SecBufferDesc continueTokenBuffer = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, continueTokenBytes);

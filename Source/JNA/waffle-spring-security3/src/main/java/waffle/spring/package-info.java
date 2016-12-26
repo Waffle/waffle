@@ -13,4 +13,3 @@
  * Waffle Spring Package.
  */
 package waffle.spring;
-

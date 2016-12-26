@@ -47,8 +47,8 @@ public class WaffleInfoServlet extends HttpServlet {
      * javax.servlet.http.HttpServletResponse)
      */
     @Override
-    public void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-            IOException {
+    public void doGet(final HttpServletRequest request, final HttpServletResponse response)
+            throws ServletException, IOException {
         this.getWaffleInfoResponse(request, response);
     }
 
@@ -58,8 +58,8 @@ public class WaffleInfoServlet extends HttpServlet {
      * javax.servlet.http.HttpServletResponse)
      */
     @Override
-    public void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
-            IOException {
+    public void doPost(final HttpServletRequest request, final HttpServletResponse response)
+            throws ServletException, IOException {
         this.getWaffleInfoResponse(request, response);
     }
 

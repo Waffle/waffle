@@ -76,7 +76,8 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
      * javax.servlet.http.HttpServletResponse, org.apache.catalina.deploy.LoginConfig)
      */
     @Override
-    public boolean authenticate(final Request request, final HttpServletResponse response, final LoginConfig loginConfig) {
+    public boolean authenticate(final Request request, final HttpServletResponse response,
+            final LoginConfig loginConfig) {
 
         // realm: fail if no realm is configured
         if (this.context == null || this.context.getRealm() == null) {

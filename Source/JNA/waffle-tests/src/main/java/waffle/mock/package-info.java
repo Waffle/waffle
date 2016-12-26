@@ -13,4 +13,3 @@
  * Waffle Tests Mock Package.
  */
 package waffle.mock;
-

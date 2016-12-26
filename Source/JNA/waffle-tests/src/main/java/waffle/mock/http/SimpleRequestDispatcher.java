@@ -44,8 +44,8 @@ public class SimpleRequestDispatcher implements RequestDispatcher {
      * @see javax.servlet.RequestDispatcher#forward(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
      */
     @Override
-    public void forward(final ServletRequest request, final ServletResponse response) throws ServletException,
-            IOException {
+    public void forward(final ServletRequest request, final ServletResponse response)
+            throws ServletException, IOException {
         final HttpServletResponse httpResponse = (HttpServletResponse) response;
         httpResponse.setStatus(304);
         httpResponse.addHeader("Location", this.url);
@@ -56,8 +56,8 @@ public class SimpleRequestDispatcher implements RequestDispatcher {
      * @see javax.servlet.RequestDispatcher#include(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
      */
     @Override
-    public void include(final ServletRequest request, final ServletResponse response) throws ServletException,
-            IOException {
+    public void include(final ServletRequest request, final ServletResponse response)
+            throws ServletException, IOException {
         // Do Nothing
     }
 }

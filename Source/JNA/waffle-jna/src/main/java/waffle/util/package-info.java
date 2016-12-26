@@ -13,4 +13,3 @@
  * Waffle JNA Utility Package.
  */
 package waffle.util;
-

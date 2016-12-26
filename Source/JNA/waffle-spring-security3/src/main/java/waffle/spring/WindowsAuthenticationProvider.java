@@ -36,7 +36,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
 
     /** The Constant LOGGER. */
     private static final Logger     LOGGER                  = LoggerFactory
-                                                                    .getLogger(WindowsAuthenticationProvider.class);
+            .getLogger(WindowsAuthenticationProvider.class);
 
     /** The principal format. */
     private PrincipalFormat         principalFormat         = PrincipalFormat.FQN;

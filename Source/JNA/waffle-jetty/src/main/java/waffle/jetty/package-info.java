@@ -24,4 +24,3 @@
  * </p>
  */
 package waffle.jetty;
-

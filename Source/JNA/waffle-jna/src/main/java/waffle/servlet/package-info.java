@@ -13,4 +13,3 @@
  * Waffle JNA Servlet Package.
  */
 package waffle.servlet;
-

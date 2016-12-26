@@ -55,7 +55,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      * This class's private logger.
      */
     private static final Logger       LOGGER              = LoggerFactory
-                                                                  .getLogger(NegotiateAuthenticationFilter.class);
+            .getLogger(NegotiateAuthenticationFilter.class);
 
     // TODO things (sometimes) break, depending on what user account is running tomcat:
     // related to setSPN and running tomcat server as NT Service account vs. as normal user account.

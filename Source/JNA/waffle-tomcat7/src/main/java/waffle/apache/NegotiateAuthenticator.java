@@ -73,7 +73,8 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
      * javax.servlet.http.HttpServletResponse, org.apache.catalina.deploy.LoginConfig)
      */
     @Override
-    public boolean authenticate(final Request request, final HttpServletResponse response, final LoginConfig loginConfig) {
+    public boolean authenticate(final Request request, final HttpServletResponse response,
+            final LoginConfig loginConfig) {
 
         Principal principal = request.getUserPrincipal();
         final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);

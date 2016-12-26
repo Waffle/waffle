@@ -38,7 +38,7 @@ public class SecurityFilterProviderCollection {
 
     /** The Constant LOGGER. */
     private static final Logger                LOGGER    = LoggerFactory
-                                                                 .getLogger(SecurityFilterProviderCollection.class);
+            .getLogger(SecurityFilterProviderCollection.class);
 
     /** The providers. */
     private final List<SecurityFilterProvider> providers = new ArrayList<>();
@@ -80,8 +80,8 @@ public class SecurityFilterProviderCollection {
                 SecurityFilterProviderCollection.LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
                 SecurityFilterProviderCollection.LOGGER.trace("", e);
                 throw new RuntimeException(e);
-            } catch (final SecurityException | NoSuchMethodException | IllegalArgumentException
-                    | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            } catch (final SecurityException | NoSuchMethodException | IllegalArgumentException | InstantiationException
+                    | IllegalAccessException | InvocationTargetException e) {
                 SecurityFilterProviderCollection.LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
                 SecurityFilterProviderCollection.LOGGER.trace("", e);
             }

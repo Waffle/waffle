@@ -37,14 +37,14 @@ public class WindowsAuthenticationToken implements Authentication {
      * convert the fqn to uppercase
      */
     public static final GrantedAuthorityFactory DEFAULT_GRANTED_AUTHORITY_FACTORY = new FqnGrantedAuthorityFactory(
-                                                                                          "ROLE_", true);
+            "ROLE_", true);
 
     /**
      * The {@link GrantedAuthority} that will be added to every WindowsAuthenticationToken, unless another (or null) is
      * specified.
      */
     public static final GrantedAuthority        DEFAULT_GRANTED_AUTHORITY         = new SimpleGrantedAuthority(
-                                                                                          "ROLE_USER");
+            "ROLE_USER");
 
     /** The principal. */
     private final WindowsPrincipal              principal;

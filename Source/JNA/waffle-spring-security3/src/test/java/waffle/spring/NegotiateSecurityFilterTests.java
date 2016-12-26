@@ -97,8 +97,10 @@ public class NegotiateSecurityFilterTests {
     public void testProvider() throws ClassNotFoundException {
         final SecurityFilterProviderCollection provider = this.filter.getProvider();
         Assert.assertEquals(2, provider.size());
-        Assert.assertTrue(provider.getByClassName("waffle.servlet.spi.BasicSecurityFilterProvider") instanceof BasicSecurityFilterProvider);
-        Assert.assertTrue(provider.getByClassName("waffle.servlet.spi.NegotiateSecurityFilterProvider") instanceof NegotiateSecurityFilterProvider);
+        Assert.assertTrue(provider.getByClassName(
+                "waffle.servlet.spi.BasicSecurityFilterProvider") instanceof BasicSecurityFilterProvider);
+        Assert.assertTrue(provider.getByClassName(
+                "waffle.servlet.spi.NegotiateSecurityFilterProvider") instanceof NegotiateSecurityFilterProvider);
     }
 
     /**
@@ -134,8 +136,8 @@ public class NegotiateSecurityFilterTests {
         final SimpleFilterChain filterChain = new SimpleFilterChain();
         final SimpleHttpRequest request = new SimpleHttpRequest();
 
-        final String clientToken = BaseEncoding.base64().encode(
-                WindowsAccountImpl.getCurrentUsername().getBytes(StandardCharsets.UTF_8));
+        final String clientToken = BaseEncoding.base64()
+                .encode(WindowsAccountImpl.getCurrentUsername().getBytes(StandardCharsets.UTF_8));
         request.addHeader("Authorization", securityPackage + " " + clientToken);
 
         final SimpleHttpResponse response = new SimpleHttpResponse();

@@ -69,7 +69,8 @@ public class WindowsPrincipalTests {
         Assert.assertEquals(this.windowsPrincipal.getName(), copy.getName());
         Assert.assertEquals(this.windowsPrincipal.getRolesString(), copy.getRolesString());
         Assert.assertEquals(this.windowsPrincipal.getSidString(), copy.getSidString());
-        Assert.assertEquals(Boolean.valueOf(Arrays.equals(this.windowsPrincipal.getSid(), copy.getSid())), Boolean.TRUE);
+        Assert.assertEquals(Boolean.valueOf(Arrays.equals(this.windowsPrincipal.getSid(), copy.getSid())),
+                Boolean.TRUE);
     }
 
     /**

@@ -13,4 +13,3 @@
  * Waffle Shiro Dynamic Package.
  */
 package waffle.shiro.dynamic;
-

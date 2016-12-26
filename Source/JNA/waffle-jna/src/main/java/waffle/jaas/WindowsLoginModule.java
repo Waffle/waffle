@@ -134,9 +134,8 @@ public class WindowsLoginModule implements LoginModule {
             throw new LoginException(e.toString());
         } catch (final UnsupportedCallbackException e) {
             WindowsLoginModule.LOGGER.trace("", e);
-            throw new LoginException(
-                    "Callback {} not available to gather authentication information from the user.".replace("{}", e
-                            .getCallback().getClass().getName()));
+            throw new LoginException("Callback {} not available to gather authentication information from the user."
+                    .replace("{}", e.getCallback().getClass().getName()));
         }
 
         IWindowsIdentity windowsIdentity;
@@ -313,7 +312,8 @@ public class WindowsLoginModule implements LoginModule {
      *            Principal format.
      * @return List of role principal objects.
      */
-    private static List<Principal> getRolePrincipals(final IWindowsAccount group, final PrincipalFormat principalFormat) {
+    private static List<Principal> getRolePrincipals(final IWindowsAccount group,
+            final PrincipalFormat principalFormat) {
 
         final List<Principal> principalsList = new ArrayList<>();
         switch (principalFormat) {
