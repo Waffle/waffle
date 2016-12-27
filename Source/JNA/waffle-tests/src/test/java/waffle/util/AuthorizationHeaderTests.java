@@ -100,8 +100,7 @@ public class AuthorizationHeaderTests {
         Assert.assertFalse(header.isSPNegTokenInitMessage());
         request.addHeader("Authorization", "");
         Assert.assertFalse(header.isSPNegTokenInitMessage());
-        request.addHeader(
-                "Authorization",
+        request.addHeader("Authorization",
                 "Negotiate YHYGBisGAQUFAqBsMGqgMDAuBgorBgEEAYI3AgIKBgkqhkiC9xIBAgIGCSqGSIb3EgECAgYKKwYBBAGCNwICHqI2BDROVExNU1NQAAEAAACXsgjiAwADADEAAAAJAAkAKAAAAAYBsR0AAAAPR0xZQ0VSSU5FU0FE");
         Assert.assertTrue(header.isSPNegTokenInitMessage());
     }
@@ -113,8 +112,7 @@ public class AuthorizationHeaderTests {
     public void testIsSPNegoPostAuthorizationHeader() {
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setContentLength(0);
-        request.addHeader(
-                "Authorization",
+        request.addHeader("Authorization",
                 "Negotiate YHYGBisGAQUFAqBsMGqgMDAuBgorBgEEAYI3AgIKBgkqhkiC9xIBAgIGCSqGSIb3EgECAgYKKwYBBAGCNwICHqI2BDROVExNU1NQAAEAAACXsgjiAwADADEAAAAJAAkAKAAAAAYBsR0AAAAPR0xZQ0VSSU5FU0FE");
         // GET
         request.setMethod("GET");

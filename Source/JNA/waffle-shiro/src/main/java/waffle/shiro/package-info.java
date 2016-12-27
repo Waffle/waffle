@@ -13,4 +13,3 @@
  * Waffle Shiro Package.
  */
 package waffle.shiro;
-

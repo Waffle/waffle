@@ -30,8 +30,8 @@ public final class NtlmServletRequest {
      * @return String.
      */
     public static String getConnectionId(final HttpServletRequest request) {
-        return Joiner.on(":").useForNull("")
-                .join(NtlmServletRequest.getRemoteHost(request), Integer.valueOf(request.getRemotePort()));
+        return Joiner.on(":").useForNull("").join(NtlmServletRequest.getRemoteHost(request),
+                Integer.valueOf(request.getRemotePort()));
     }
 
     /**

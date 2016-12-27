@@ -91,7 +91,7 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
 
     /** The Constant LOGGER. */
     private static final Logger LOGGER                       = LoggerFactory
-                                                                     .getLogger(DynamicAuthenticationFilter.class);
+            .getLogger(DynamicAuthenticationFilter.class);
 
     /** The Constant PARAM_NAME_AUTHTYPE. */
     public static final String  PARAM_NAME_AUTHTYPE          = "authType";

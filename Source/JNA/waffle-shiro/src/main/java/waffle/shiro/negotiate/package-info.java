@@ -13,4 +13,3 @@
  * Waffle Shiro Negotiate Package.
  */
 package waffle.shiro.negotiate;
-

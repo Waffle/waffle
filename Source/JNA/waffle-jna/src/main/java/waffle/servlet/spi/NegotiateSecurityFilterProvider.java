@@ -40,7 +40,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
     /** The Constant LOGGER. */
     private static final Logger        LOGGER           = LoggerFactory
-                                                                .getLogger(NegotiateSecurityFilterProvider.class);
+            .getLogger(NegotiateSecurityFilterProvider.class);
 
     /** The Constant WWW_AUTHENTICATE. */
     private static final String        WWW_AUTHENTICATE = "WWW-Authenticate";

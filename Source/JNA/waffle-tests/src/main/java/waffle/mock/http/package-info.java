@@ -13,4 +13,3 @@
  * Waffle Mock HTTP Package.
  */
 package waffle.mock.http;
-

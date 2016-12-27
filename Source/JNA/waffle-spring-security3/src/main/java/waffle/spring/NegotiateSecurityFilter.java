@@ -45,7 +45,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
 
     /** The Constant LOGGER. */
     private static final Logger              LOGGER                  = LoggerFactory
-                                                                             .getLogger(NegotiateSecurityFilter.class);
+            .getLogger(NegotiateSecurityFilter.class);
 
     /** The provider. */
     private SecurityFilterProviderCollection provider;
@@ -123,9 +123,9 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
                 NegotiateSecurityFilter.LOGGER.debug("logged in user: {} ({})", windowsIdentity.getFqn(),
                         windowsIdentity.getSidString());
 
-                final WindowsPrincipal principal = impersonate ? new AutoDisposableWindowsPrincipal(windowsIdentity,
-                        this.principalFormat, this.roleFormat) : new WindowsPrincipal(windowsIdentity,
-                        this.principalFormat, this.roleFormat);
+                final WindowsPrincipal principal = impersonate
+                        ? new AutoDisposableWindowsPrincipal(windowsIdentity, this.principalFormat, this.roleFormat)
+                        : new WindowsPrincipal(windowsIdentity, this.principalFormat, this.roleFormat);
 
                 NegotiateSecurityFilter.LOGGER.debug("roles: {}", principal.getRolesString());
 

@@ -101,8 +101,8 @@ public class DelegatingNegotiateSecurityFilterTest {
         final SimpleFilterChain filterChain = new SimpleFilterChain();
         final SimpleHttpRequest request = new SimpleHttpRequest();
 
-        final String clientToken = BaseEncoding.base64().encode(
-                WindowsAccountImpl.getCurrentUsername().getBytes(StandardCharsets.UTF_8));
+        final String clientToken = BaseEncoding.base64()
+                .encode(WindowsAccountImpl.getCurrentUsername().getBytes(StandardCharsets.UTF_8));
         request.addHeader("Authorization", securityPackage + " " + clientToken);
 
         final SimpleHttpResponse response = new SimpleHttpResponse();

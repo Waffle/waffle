@@ -97,8 +97,8 @@ public class ImpersonateTests {
     @Test
     public void testImpersonateEnabled() throws IOException, ServletException {
 
-        Assert.assertFalse("Current user shouldn't be the test user prior to the test", Advapi32Util.getUserName()
-                .equals(MockWindowsAccount.TEST_USER_NAME));
+        Assert.assertFalse("Current user shouldn't be the test user prior to the test",
+                Advapi32Util.getUserName().equals(MockWindowsAccount.TEST_USER_NAME));
 
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
@@ -145,8 +145,8 @@ public class ImpersonateTests {
     @Test
     public void testImpersonateDisabled() throws IOException, ServletException {
 
-        Assert.assertFalse("Current user shouldn't be the test user prior to the test", Advapi32Util.getUserName()
-                .equals(MockWindowsAccount.TEST_USER_NAME));
+        Assert.assertFalse("Current user shouldn't be the test user prior to the test",
+                Advapi32Util.getUserName().equals(MockWindowsAccount.TEST_USER_NAME));
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
         final String userHeaderValue = MockWindowsAccount.TEST_USER_NAME + ":" + MockWindowsAccount.TEST_PASSWORD;

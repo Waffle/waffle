@@ -13,4 +13,3 @@
  * Waffle JNA JAAS Package.
  */
 package waffle.jaas;
-

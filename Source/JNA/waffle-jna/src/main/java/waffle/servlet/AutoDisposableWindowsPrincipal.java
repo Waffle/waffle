@@ -45,8 +45,8 @@ public class AutoDisposableWindowsPrincipal extends WindowsPrincipal implements 
      * @param roleFormat
      *            the role format
      */
-    public AutoDisposableWindowsPrincipal(final IWindowsIdentity windowsIdentity,
-            final PrincipalFormat principalFormat, final PrincipalFormat roleFormat) {
+    public AutoDisposableWindowsPrincipal(final IWindowsIdentity windowsIdentity, final PrincipalFormat principalFormat,
+            final PrincipalFormat roleFormat) {
         super(windowsIdentity, principalFormat, roleFormat);
     }
 

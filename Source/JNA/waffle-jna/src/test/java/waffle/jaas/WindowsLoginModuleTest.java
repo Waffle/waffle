@@ -235,8 +235,8 @@ public class WindowsLoginModuleTest {
      *             the unsupported callback exception
      */
     @Test(expected = LoginException.class)
-    public void login_throwUnsupportedCallbackException() throws LoginException, IOException,
-            UnsupportedCallbackException {
+    public void login_throwUnsupportedCallbackException()
+            throws LoginException, IOException, UnsupportedCallbackException {
         this.options.put("debug", "true");
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
         Assert.assertTrue(this.loginModule.isAllowGuestLogin());

@@ -297,7 +297,8 @@ public class WindowsLoginModuleTests {
     @Test(expected = LoginException.class)
     public void testGuestLogin() throws LoginException {
         final Subject subject = new Subject();
-        final UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler("Guest", "password");
+        final UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler("Guest",
+                "password");
         final Map<String, String> options = new HashMap<>();
         options.put("debug", "true");
         this.loginModule.initialize(subject, callbackHandler, null, options);
@@ -327,7 +328,8 @@ public class WindowsLoginModuleTests {
     @Test
     public void testAbort() throws LoginException {
         final Subject subject = new Subject();
-        final UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler("Guest", "password");
+        final UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler("Guest",
+                "password");
         final Map<String, String> options = new HashMap<>();
         options.put("debug", "true");
         this.loginModule.initialize(subject, callbackHandler, null, options);

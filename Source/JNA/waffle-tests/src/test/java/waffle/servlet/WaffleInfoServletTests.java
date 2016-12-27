@@ -62,8 +62,8 @@ public class WaffleInfoServletTests {
         WaffleInfoServletTests.LOGGER.info("GOT: {}", xml);
 
         // Make sure JNA Version is properly noted
-        Assert.assertEquals(Platform.class.getPackage().getImplementationVersion(), doc.getDocumentElement()
-                .getAttribute("jna"));
+        Assert.assertEquals(Platform.class.getPackage().getImplementationVersion(),
+                doc.getDocumentElement().getAttribute("jna"));
 
         final Node node = doc.getDocumentElement().getFirstChild().getNextSibling() // request
                 .getFirstChild().getNextSibling() // AuthType
@@ -88,8 +88,8 @@ public class WaffleInfoServletTests {
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      */
-    private static Document loadXMLFromString(final String xml) throws ParserConfigurationException, SAXException,
-            IOException {
+    private static Document loadXMLFromString(final String xml)
+            throws ParserConfigurationException, SAXException, IOException {
         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         final DocumentBuilder builder = factory.newDocumentBuilder();
         final InputSource is = new InputSource(new StringReader(xml));
