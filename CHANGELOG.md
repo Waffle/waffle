@@ -1,4 +1,4 @@
-1.8.2 (?/??/16)
+1.8.2 (12/31/2016)
 ================
 * Lots of documentation updates from the community (many thanks!)
 * Moved to 'Waffle' organization with removal of 'dblock' from groupId and documentation
