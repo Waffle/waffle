@@ -72,7 +72,7 @@
     </contributors>
 
     <prerequisites>
-        <maven>3.2.5</maven>
+        <maven>${maven.min-version}</maven>
     </prerequisites>
 
     <modules>
@@ -128,7 +128,7 @@
         <maven.compiler.target>1.7</maven.compiler.target>
         <maven.compiler.testSource>1.7</maven.compiler.testSource>
         <maven.compiler.testTarget>1.7</maven.compiler.testTarget>
-        <maven.min-version>3.2.5</maven.min-version>
+        <maven.min-version>3.3.9</maven.min-version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
