@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2017 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -64,8 +64,8 @@ public class ImpersonateTests {
         }
 
         this.userInfo = new LMAccess.USER_INFO_1();
-        this.userInfo.usri1_name = new WString(MockWindowsAccount.TEST_USER_NAME);
-        this.userInfo.usri1_password = new WString(MockWindowsAccount.TEST_PASSWORD);
+        this.userInfo.usri1_name = new WString(MockWindowsAccount.TEST_USER_NAME).toString();
+        this.userInfo.usri1_password = new WString(MockWindowsAccount.TEST_PASSWORD).toString();
         this.userInfo.usri1_priv = LMAccess.USER_PRIV_USER;
 
         this.resultOfNetAddUser = Netapi32.INSTANCE.NetUserAdd(null, 1, this.userInfo, null);
