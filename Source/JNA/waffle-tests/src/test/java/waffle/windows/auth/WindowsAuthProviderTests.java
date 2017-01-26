@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2017 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -68,8 +68,8 @@ public class WindowsAuthProviderTests {
     @Test
     public void testLogonUser() {
         final LMAccess.USER_INFO_1 userInfo = new LMAccess.USER_INFO_1();
-        userInfo.usri1_name = new WString("WaffleTestUser");
-        userInfo.usri1_password = new WString("!WAFFLEP$$Wrd0");
+        userInfo.usri1_name = new WString("WaffleTestUser").toString();
+        userInfo.usri1_password = new WString("!WAFFLEP$$Wrd0").toString();
         userInfo.usri1_priv = LMAccess.USER_PRIV_USER;
         // ignore test if not able to add user (need to be administrator to do this).
         Assume.assumeTrue(LMErr.NERR_Success == Netapi32.INSTANCE.NetUserAdd(null, 1, userInfo, null));
@@ -91,8 +91,8 @@ public class WindowsAuthProviderTests {
     @Test
     public void testImpersonateLoggedOnUser() {
         final LMAccess.USER_INFO_1 userInfo = new LMAccess.USER_INFO_1();
-        userInfo.usri1_name = new WString(MockWindowsAccount.TEST_USER_NAME);
-        userInfo.usri1_password = new WString(MockWindowsAccount.TEST_PASSWORD);
+        userInfo.usri1_name = new WString(MockWindowsAccount.TEST_USER_NAME).toString();
+        userInfo.usri1_password = new WString(MockWindowsAccount.TEST_PASSWORD).toString();
         userInfo.usri1_priv = LMAccess.USER_PRIV_USER;
         // ignore test if not able to add user (need to be administrator to do this).
         Assume.assumeTrue(LMErr.NERR_Success == Netapi32.INSTANCE.NetUserAdd(null, 1, userInfo, null));
