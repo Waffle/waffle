@@ -10,6 +10,8 @@ The following steps are required to configure Tomcat with Waffle Mixed Authentic
 
 Place  `waffle-jna-1.8.2.jar`, `guava-20.0.jar`, `jna-4.2.2.jar`, `jna-platform-4.2.2.jar`, `slf4j-1.7.22.jar` and `waffle-tomcat[tomcat version]-1.8.2.jar` into your Tomcat's `lib` directory. It is *not* possible to place these files in `WEB-INF\lib`!
 
+- For latest snapshot instead use `waffle-jna-1.9.0-SNAPSHOT`, `caffeine-2.3.5.jar`, `jna-4.3.0.jar`, `jna-platform-4.3.0.jar`, `slf4j-1.7.22.jar` and `waffle-tomcat[tomcat version]-1.9.0-SNAPSHOT.jar`
+
 If you are using Eclipse, you can see which files tomcat is importing by going to Java Recources: `src / Libraries / Apache Tomcat vx.x`. If you've placed it in the tomcat directory and still don't see it, restart Eclipse.
 
 Add a valve and a realm to the application context. For an application, modify `META-INF\context.xml`. 
