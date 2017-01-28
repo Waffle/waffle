@@ -9,6 +9,7 @@
 * Lots of documentation updates from the community (many thanks!)
 * Moved to 'Waffle' organization with removal of 'dblock' from groupId and documentation
 * [#338](https://github.com/Waffle/waffle/pull/338): Don't allow SPNEGO NegTokenArg to start re-authentication process [@AriSuutariST](https://github.com/AriSuutariST). 
+* [#339](https://github.com/dblock/waffle/pull/339): Use only securityContext.isContinue() to decide if SC_UNAUTHORIZED response is needed to trigger another pass in authentication [@AriSuutariST](https://github.com/AriSuutariST). 
 * [#342](https://github.com/Waffle/waffle/pull/342): Add tomcat 8.5.x support [@hazendaz](https://github.com/hazendaz). 
 * [#357](https://github.com/Waffle/waffle/pull/357): Fix security token handle leak in Tomcat. Issue [#355](https://github.com/Waffle/waffle/issues/355)
 * [#382](https://github.com/Waffle/waffle/pull/382): Bug fix in DelegatingNegotiateSecurityFilter when no custom authentication provider was declared [@Unaor]
