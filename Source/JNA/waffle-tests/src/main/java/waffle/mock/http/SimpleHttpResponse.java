@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2017 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -29,8 +29,6 @@ import javax.servlet.http.HttpServletResponseWrapper;
 import org.mockito.Mockito;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Joiner;
 
 /**
  * The Class SimpleHttpResponse.
@@ -84,6 +82,7 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
      *
      * @return the status
      */
+    @Override
     public int getStatus() {
         return this.status;
     }
@@ -181,9 +180,10 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
      *            the header name
      * @return the header
      */
+    @Override
     public String getHeader(final String headerName) {
         final List<String> headerValues = this.headers.get(headerName);
-        return headerValues == null ? null : Joiner.on(", ").join(headerValues);
+        return headerValues == null ? null : String.join(", ", headerValues);
     }
 
     /*
