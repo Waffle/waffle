@@ -84,6 +84,7 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
      *
      * @return the status
      */
+    @Override
     public int getStatus() {
         return this.status;
     }
@@ -181,6 +182,7 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
      *            the header name
      * @return the header
      */
+    @Override
     public String getHeader(final String headerName) {
         final List<String> headerValues = this.headers.get(headerName);
         return headerValues == null ? null : Joiner.on(", ").join(headerValues);
