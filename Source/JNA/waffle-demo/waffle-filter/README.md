@@ -1,9 +1,9 @@
 Waffle Filter Setup Instructions Using Tomcat Plugins
 =====================================================
 
-Plugins currently only available for tomcat 6 and 7.
+Plugins currently only available for tomcat 7.
 
-To deploy to a local running tomcat 6 or 7 instance, make the following changes
+To deploy to a local running tomcat 7 instance, make the following changes
 
 - Add a server block to .m2/settings.xml
 
@@ -24,14 +24,12 @@ To deploy to a local running tomcat 6 or 7 instance, make the following changes
 <user username="tomcat" password="tomcat" roles="tomcat,manager-gui,manager-script,manager-jmx,manager-status" />
 ```
 
-- Start your tomcat server. You can launch a locally installed tomcat with remote debugging enabled on port 8000 using one of these
+- Start your tomcat server. You can launch a locally installed tomcat with remote debugging enabled on port 8000 using this
 
-    apache-tomcat-6.0.45$ bin/catalina.sh jpda start
-    apache-tomcat-7.0.70$ bin/catalina.sh jpda start
+    apache-tomcat-7.0.75$ bin/catalina.sh jpda start
 
-- Build and Deploy the demo application to the local tomcat 6 instance using one of these
+- Build and Deploy the demo application to the local tomcat instance using this
 
-    mvn clean package tomcat6:redeploy
     mvn clean package tomcat7:redeploy
 
 - The app will be available at:
