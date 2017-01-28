@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2017 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -17,8 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.catalina.realm.GenericPrincipal;
-
-import com.google.common.base.Joiner;
 
 import waffle.windows.auth.IWindowsAccount;
 import waffle.windows.auth.IWindowsIdentity;
@@ -188,6 +186,6 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      * @return Role1, Role2, ...
      */
     public String getRolesString() {
-        return Joiner.on(", ").join(this.getRoles());
+        return String.join(", ", this.getRoles());
     }
 }
