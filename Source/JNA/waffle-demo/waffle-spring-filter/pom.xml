@@ -49,7 +49,7 @@
         </dependency>
         <dependency>
             <groupId>com.github.waffle</groupId>
-            <artifactId>waffle-spring-security3</artifactId>
+            <artifactId>waffle-spring-security4</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
