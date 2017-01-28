@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import com.sun.jna.platform.win32.Advapi32;
 import com.sun.jna.platform.win32.Kernel32;
 import com.sun.jna.platform.win32.Netapi32Util;
@@ -89,7 +89,7 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
      *            Timeout for security contexts in seconds.
      */
     public WindowsAuthProviderImpl(final int continueContextsTimeout) {
-        this.continueContexts = CacheBuilder.newBuilder().expireAfterWrite(continueContextsTimeout, TimeUnit.SECONDS)
+        this.continueContexts = Caffeine.newBuilder().expireAfterWrite(continueContextsTimeout, TimeUnit.SECONDS)
                 .build();
     }
 

@@ -37,6 +37,7 @@
     </scm>
 
     <properties>
+        <caffeine.version>2.3.5</caffeine.version>
         <guava.version>20.0</guava.version>
         <jna.version>4.3.0</jna.version>
         <servlet.version>3.1.0</servlet.version>
@@ -80,6 +81,11 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+            <version>${caffeine.version}</version>
         </dependency>
     </dependencies>
 </project>
