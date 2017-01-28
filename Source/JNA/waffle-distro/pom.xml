@@ -37,6 +37,7 @@
     </scm>
 
     <properties>
+        <caffeine.version>2.3.5</caffeine.version>
         <guava.version>21.0</guava.version>
         <jna.version>4.3.0</jna.version>
         <logback.version>1.1.9</logback.version>
@@ -90,6 +91,12 @@
         <dependency>
             <groupId>com.github.waffle</groupId>
             <artifactId>waffle-tomcat85</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.waffle</groupId>
+            <artifactId>waffle-tomcat9</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>
@@ -171,6 +178,11 @@
             <version>${guava.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+            <version>${caffeine.version}</version>
+        </dependency>
+        <dependency>
             <groupId>net.java.dev.jna</groupId>
             <artifactId>jna</artifactId>
             <version>${jna.version}</version>
@@ -211,21 +223,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>java18</id>
-            <activation>
-                <jdk>1.8</jdk>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>com.github.waffle</groupId>
-                    <artifactId>waffle-tomcat9</artifactId>
-                    <version>${project.version}</version>
-                    <scope>runtime</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-    </profiles>
 </project>

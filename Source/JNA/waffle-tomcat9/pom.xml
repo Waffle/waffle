@@ -38,14 +38,6 @@
 
     <properties>
         <tomcat.version>9.0.0.M17</tomcat.version>
-
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.testSource>1.8</maven.compiler.testSource>
-        <maven.compiler.testTarget>1.8</maven.compiler.testTarget>
-
-        <signature.artifact>java18</signature.artifact>
-        <signature.version>1.0</signature.version>
     </properties>
 
     <dependencies>
