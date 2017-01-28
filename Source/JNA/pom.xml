@@ -120,7 +120,7 @@
     </distributionManagement>
 
     <properties>
-        <copyright>2015</copyright>
+        <copyright>2017</copyright>
         <jacoco.minimum.coverage>0.0</jacoco.minimum.coverage>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -563,7 +563,7 @@
                 <plugin>
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
-                    <version>1.4.4.1</version>
+                    <version>1.4.5</version>
                 </plugin>
                 <!-- Sonatype Release -->
                 <plugin>
@@ -1153,7 +1153,7 @@
                                             <pluginExecutionFilter>
                                                 <groupId>org.jacoco</groupId>
                                                 <artifactId>jacoco-maven-plugin</artifactId>
-                                                <versionRange>[0.7.7.201606060606,)</versionRange>
+                                                <versionRange>[0.7.8,)</versionRange>
                                                 <goals>
                                                     <goal>prepare-agent</goal>
                                                 </goals>
