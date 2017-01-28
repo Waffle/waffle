@@ -8,7 +8,7 @@ Configuring Tomcat
 
 The following steps are required to configure Tomcat with Waffle Mixed Authenticator. 
 
-Place  `waffle-jna-1.8.1.jar`, `guava-20.0.jar`, `jna-4.2.2.jar`, `jna-platform-4.2.2.jar`, `slf4j-1.7.21.jar` and `waffle-tomcat[tomcat version].jar` into your Tomcat's `lib` directory. It is *not* possible to place these files in `WEB-INF\lib`!
+Place  `waffle-jna-1.8.2.jar`, `guava-20.0.jar`, `jna-4.2.2.jar`, `jna-platform-4.2.2.jar`, `slf4j-1.7.22.jar` and `waffle-tomcat[tomcat version]-1.8.2.jar` into your Tomcat's `lib` directory. It is *not* possible to place these files in `WEB-INF\lib`!
 
 If you are using Eclipse, you can see which files tomcat is importing by going to Java Recources: `src / Libraries / Apache Tomcat vx.x`. If you've placed it in the tomcat directory and still don't see it, restart Eclipse.
 
