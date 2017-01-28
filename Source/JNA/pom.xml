@@ -86,6 +86,7 @@
         <module>waffle-tomcat7</module>
         <module>waffle-tomcat8</module>
         <module>waffle-tomcat85</module>
+        <module>waffle-tomcat9</module>
     </modules>
 
     <scm>
@@ -1259,15 +1260,6 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>
-        <profile>
-            <id>java18</id>
-            <activation>
-                <jdk>1.8</jdk>
-            </activation>
-            <modules>
-                <module>waffle-tomcat9</module>
-            </modules>
         </profile>
     </profiles>
 </project>
