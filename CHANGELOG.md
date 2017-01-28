@@ -1,11 +1,19 @@
 1.9.0 (in-progress)
 ===================
-* Java 8 only
-* Dropped Tomcat 6 and Spring 3 modules
-* [#479](https://github.com/Waffle/waffle/pull/479): Upgrade to Java 8 - using caffeine #304[@ben-manes](https://github.com/ben-manes).
-* [#482](https://github.com/Waffle/waffle/pull/482): Remove Spring Security 3 #478[@hazendaz](https://github.com/hazendaz).
-* [#483](https://github.com/Waffle/waffle/pull/483): Remove Tomcat 6 #323[@hazendaz](https://github.com/hazendaz).
-* [#486](https://github.com/Waffle/waffle/pull/487): Upgrade to Servlet 3.0 in demos #471[@hazendaz](https://github.com/hazendaz).
+* Breaking changes
+    * Requires Java 8+
+    * Dropped Tomcat 6 and Spring 3 modules
+    * Increased Examples to servlet 3.0
+    * Replaced guava with caffeine for caching
+    * All remainder guava usage uses standard java routines
+* Changes
+    * [#479](https://github.com/Waffle/waffle/pull/479): Upgrade to Java 8 - using caffeine #304[@ben-manes](https://github.com/ben-manes).
+    * [#482](https://github.com/Waffle/waffle/pull/482): Remove Spring Security 3 #478[@hazendaz](https://github.com/hazendaz).
+    * [#483](https://github.com/Waffle/waffle/pull/483): Remove Tomcat 6 #323[@hazendaz](https://github.com/hazendaz).
+    * [#486](https://github.com/Waffle/waffle/pull/486): Upgrade to Servlet 3.0 in demos #471[@hazendaz](https://github.com/hazendaz).
+    * [#487](https://github.com/Waffle/waffle/pull/487): Updated guava joiner to string.join #304[@hazendaz](https://github.com/hazendaz).
+    * [#488](https://github.com/Waffle/waffle/pull/488): Use java.util.Base64 with java 8 #304[@hazendaz](https://github.com/hazendaz).
+    * [#490](https://github.com/Waffle/waffle/pull/490): Rewrite guava Files.write to java 7 FilesWrite #304[@hazendaz](https://github.com/hazendaz).
 
 1.8.2 (12/31/2016)
 ================
