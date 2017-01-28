@@ -35,6 +35,8 @@ Getting Started in Java
 
 Add `waffle-jna-1.8.2.jar`, `jna-4.2.2.jar`, `jna-platform-4.2.2.jar`, `guava-20.0.jar`, and `slf4j-api-1.7.22.jar` to your `CLASSPATH` or, if you use Maven, add the following to your `pom.xml`.
 
+- For latest snapshot instead use `waffle-jna-1.9.0-SNAPSHOT`, `caffeine-2.3.5.jar`, `jna-4.3.0.jar`, `jna-platform-4.3.0.jar` and `slf4j-1.7.22.jar`.
+
 ``` xml
 <properties>
     <waffle.version>1.8.2</waffle.version>
