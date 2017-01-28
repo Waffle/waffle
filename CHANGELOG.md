@@ -2,14 +2,15 @@
 ==================
 * Java 8 only
 * Dropped Tomcat 6 and Spring 3 modules
-* [#479](https://github.com/Waffle/waffle/pull/479): Upgrade to Java 8 - using caffeine #479[@ben-manes](https://github.com/ben-manes).
+* [#479](https://github.com/Waffle/waffle/pull/479): Upgrade to Java 8 - using caffeine #304[@ben-manes](https://github.com/ben-manes).
+* [#482](https://github.com/Waffle/waffle/pull/482): Remove Spring Security 3 #478[@hazendaz](https://github.com/hazendaz).
 
 1.8.2 (12/31/2016)
 ================
 * Lots of documentation updates from the community (many thanks!)
 * Moved to 'Waffle' organization with removal of 'dblock' from groupId and documentation
-* [#338](https://github.com/Waffle/waffle/pull/338): Don't allow SPNEGO NegTokenArg to start re-authentication process [@AriSuutariST](https://github.com/AriSuutariST). 
-* [#342](https://github.com/Waffle/waffle/pull/342): Add tomcat 8.5.x support [@hazendaz](https://github.com/hazendaz). 
+* [#338](https://github.com/Waffle/waffle/pull/338): Don't allow SPNEGO NegTokenArg to start re-authentication process [@AriSuutariST](https://github.com/AriSuutariST).
+* [#342](https://github.com/Waffle/waffle/pull/342): Add tomcat 8.5.x support [@hazendaz](https://github.com/hazendaz).
 * [#357](https://github.com/Waffle/waffle/pull/357): Fix security token handle leak in Tomcat. Issue [#355](https://github.com/Waffle/waffle/issues/355)
 * [#382](https://github.com/Waffle/waffle/pull/382): Bug fix in DelegatingNegotiateSecurityFilter when no custom authentication provider was declared [@Unaor]
 * [#397](https://github.com/Waffle/waffle/pull/397): WindowsLoginModule missing roles in Principal. [@devnullpointer](https://github.com/devnullpointer)

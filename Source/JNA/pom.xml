@@ -81,7 +81,6 @@
         <module>waffle-jetty</module>
         <module>waffle-jna</module>
         <module>waffle-shiro</module>
-        <module>waffle-spring-security3</module>
         <module>waffle-spring-security4</module>
         <module>waffle-tests</module>
         <module>waffle-tomcat6</module>
