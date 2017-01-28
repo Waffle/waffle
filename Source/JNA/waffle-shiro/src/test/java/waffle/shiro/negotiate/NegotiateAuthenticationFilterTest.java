@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2017 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
  */
 package waffle.shiro.negotiate;
 
+import java.util.Base64;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +22,6 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.google.common.base.Joiner;
-import com.google.common.io.BaseEncoding;
 
 import mockit.Deencapsulation;
 import mockit.Tested;
@@ -74,7 +74,7 @@ public final class NegotiateAuthenticationFilterTest {
 
         this.negAuthFilter.sendChallengeDuringNegotiate(myProtocol, this.response, this.out);
 
-        Assert.assertEquals(Joiner.on(" ").join(myProtocol, BaseEncoding.base64().encode(this.out)),
+        Assert.assertEquals(Joiner.on(" ").join(myProtocol, Base64.getEncoder().encodeToString(this.out)),
                 this.response.headers.get("WWW-Authenticate"));
 
         Assert.assertEquals("keep-alive", this.response.headers.get("Connection"));

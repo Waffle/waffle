@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2017 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@ package waffle.apache;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Base64;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -25,7 +26,6 @@ import org.apache.catalina.connector.Request;
 import org.apache.tomcat.util.descriptor.web.LoginConfig;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.io.BaseEncoding;
 import com.sun.jna.platform.win32.Win32Exception;
 
 import waffle.util.AuthorizationHeader;
@@ -169,7 +169,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 
         final byte[] continueTokenBytes = securityContext.getToken();
         if (continueTokenBytes != null && continueTokenBytes.length > 0) {
-            final String continueToken = BaseEncoding.base64().encode(continueTokenBytes);
+            final String continueToken = Base64.getEncoder().encodeToString(continueTokenBytes);
             this.log.debug("continue token: {}", continueToken);
             response.addHeader("WWW-Authenticate", securityPackage + " " + continueToken);
         }

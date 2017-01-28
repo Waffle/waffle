@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2017 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -11,12 +11,12 @@
  */
 package waffle.util;
 
+import java.util.Base64;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.io.BaseEncoding;
 
 /**
  * Authorization header.
@@ -104,7 +104,7 @@ public class AuthorizationHeader {
      */
     public byte[] getTokenBytes() {
         try {
-            return BaseEncoding.base64().decode(this.getToken());
+            return Base64.getDecoder().decode(this.getToken());
         } catch (final IllegalArgumentException e) {
             AuthorizationHeader.LOGGER.debug("", e);
             throw new RuntimeException("Invalid authorization header.");

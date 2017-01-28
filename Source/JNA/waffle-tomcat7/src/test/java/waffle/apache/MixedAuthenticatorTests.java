@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2017 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -10,6 +10,8 @@
  * Contributors: Application Security, Inc.
  */
 package waffle.apache;
+
+import java.util.Base64;
 
 import javax.servlet.ServletException;
 
@@ -23,7 +25,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.common.io.BaseEncoding;
 import com.sun.jna.platform.win32.Sspi;
 import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 
@@ -133,7 +134,7 @@ public class MixedAuthenticatorTests {
             request.setQueryString("j_negotiate_check");
             request.setMethod("POST");
             request.setContentLength(0);
-            final String clientToken = BaseEncoding.base64().encode(clientContext.getToken());
+            final String clientToken = Base64.getEncoder().encodeToString(clientContext.getToken());
             request.addHeader("Authorization", securityPackage + " " + clientToken);
             final SimpleHttpResponse response = new SimpleHttpResponse();
             this.authenticator.authenticate(request, response, null);
@@ -196,7 +197,7 @@ public class MixedAuthenticatorTests {
             request.setQueryString("j_negotiate_check");
             String clientToken;
             while (true) {
-                clientToken = BaseEncoding.base64().encode(clientContext.getToken());
+                clientToken = Base64.getEncoder().encodeToString(clientContext.getToken());
                 request.addHeader("Authorization", securityPackage + " " + clientToken);
 
                 final SimpleHttpResponse response = new SimpleHttpResponse();
@@ -213,7 +214,7 @@ public class MixedAuthenticatorTests {
                 Assert.assertEquals(401, response.getStatus());
                 final String continueToken = response.getHeader("WWW-Authenticate")
                         .substring(securityPackage.length() + 1);
-                final byte[] continueTokenBytes = BaseEncoding.base64().decode(continueToken);
+                final byte[] continueTokenBytes = Base64.getDecoder().decode(continueToken);
                 Assertions.assertThat(continueTokenBytes.length).isGreaterThan(0);
                 final SecBufferDesc continueTokenBuffer = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, continueTokenBytes);
                 clientContext.initialize(clientContext.getHandle(), continueTokenBuffer,
