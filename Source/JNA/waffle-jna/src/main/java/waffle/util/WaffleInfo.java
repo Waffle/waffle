@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2017 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -16,6 +16,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -34,7 +36,6 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.google.common.io.Files;
 import com.sun.jna.Platform;
 import com.sun.jna.platform.WindowUtils;
 import com.sun.jna.platform.win32.LMJoin;
@@ -59,7 +60,7 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  * 
  * <pre>
  * <code>
- *   java -cp "jna.jar;waffle-core.jar;waffle-api.jar;jna-platform.jar;guava-17.0.jar" waffle.util.WaffleInfo
+ *   java -cp "jna.jar;jna-platform.jar;slf4j-api.jar" waffle.util.WaffleInfo
  * </code>
  * </pre>
  * 
@@ -331,7 +332,7 @@ public class WaffleInfo {
             final File f;
             if (show) {
                 f = File.createTempFile("waffle-info-", ".xml");
-                Files.write(xml, f, StandardCharsets.UTF_8);
+                Files.write(f.toPath(), xml.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
                 Desktop.getDesktop().open(f);
             } else {
                 WaffleInfo.LOGGER.info(xml);
