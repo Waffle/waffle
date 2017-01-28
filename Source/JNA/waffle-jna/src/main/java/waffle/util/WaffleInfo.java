@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2017 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -59,7 +59,7 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  * 
  * <pre>
  * <code>
- *   java -cp "jna.jar;waffle-core.jar;waffle-api.jar;jna-platform.jar;guava-17.0.jar" waffle.util.WaffleInfo
+ *   java -cp "jna.jar;waffle-core.jar;waffle-api.jar;jna-platform.jar;guava-21.0.jar" waffle.util.WaffleInfo
  * </code>
  * </pre>
  * 

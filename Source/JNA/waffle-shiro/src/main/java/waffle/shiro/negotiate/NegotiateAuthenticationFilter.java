@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2017 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@ package waffle.shiro.negotiate;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 /**
@@ -36,8 +37,6 @@ import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.io.BaseEncoding;
 
 import waffle.util.AuthorizationHeader;
 import waffle.util.NtlmServletRequest;
@@ -120,7 +119,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
     protected AuthenticationToken createToken(final ServletRequest request, final ServletResponse response) {
         final String authorization = this.getAuthzHeader(request);
         final String[] elements = authorization.split(" ");
-        final byte[] inToken = BaseEncoding.base64().decode(elements[1]);
+        final byte[] inToken = Base64.getDecoder().decode(elements[1]);
 
         // maintain a connection-based session for NTLM tokens
         // TODO see about changing this parameter to ServletRequest in waffle
@@ -392,7 +391,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
             if (out == null || out.length == 0) {
                 response.addHeader("WWW-Authenticate", protocol);
             } else {
-                response.setHeader("WWW-Authenticate", protocol + " " + BaseEncoding.base64().encode(out));
+                response.setHeader("WWW-Authenticate", protocol + " " + Base64.getEncoder().encodeToString(out));
             }
         }
     }
