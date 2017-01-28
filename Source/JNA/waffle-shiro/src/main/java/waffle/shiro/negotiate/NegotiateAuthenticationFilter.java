@@ -275,7 +275,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      */
     private String getAuthzHeaderProtocol(final ServletRequest request) {
         final String authzHeader = this.getAuthzHeader(request);
-        return authzHeader.substring(0, authzHeader.indexOf(" "));
+        return authzHeader.substring(0, authzHeader.indexOf(' '));
     }
 
     /**
