@@ -83,7 +83,6 @@
         <module>waffle-shiro</module>
         <module>waffle-spring-security4</module>
         <module>waffle-tests</module>
-        <module>waffle-tomcat6</module>
         <module>waffle-tomcat7</module>
         <module>waffle-tomcat8</module>
         <module>waffle-tomcat85</module>

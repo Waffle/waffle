@@ -43,7 +43,7 @@
     <dependencies>
         <dependency>
             <groupId>com.github.waffle</groupId>
-            <artifactId>waffle-tomcat6</artifactId>
+            <artifactId>waffle-tomcat7</artifactId>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -57,14 +57,6 @@
     <build>
         <finalName>${project.name}</finalName>
         <plugins>
-            <plugin>
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat6-maven-plugin</artifactId>
-                <configuration>
-                    <server>mylocalserver</server>
-                </configuration>
-            </plugin>
-
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>

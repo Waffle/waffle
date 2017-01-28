@@ -52,17 +52,7 @@
         <dependencies>
             <dependency>
                 <groupId>com.github.waffle</groupId>
-                <artifactId>waffle-tomcat6</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.waffle</groupId>
                 <artifactId>waffle-tomcat7</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.waffle</groupId>
-                <artifactId>waffle-tomcat8</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
@@ -80,17 +70,7 @@
             <plugins>
                 <plugin>
                     <groupId>org.apache.tomcat.maven</groupId>
-                    <artifactId>tomcat6-maven-plugin</artifactId>
-                    <version>2.2</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.tomcat.maven</groupId>
                     <artifactId>tomcat7-maven-plugin</artifactId>
-                    <version>2.2</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.tomcat.maven</groupId>
-                    <artifactId>tomcat8-maven-plugin</artifactId>
                     <version>2.2</version>
                 </plugin>
             </plugins>

@@ -1,9 +1,10 @@
-1.9.0 (in-progress
-==================
+1.9.0 (in-progress)
+===================
 * Java 8 only
 * Dropped Tomcat 6 and Spring 3 modules
 * [#479](https://github.com/Waffle/waffle/pull/479): Upgrade to Java 8 - using caffeine #304[@ben-manes](https://github.com/ben-manes).
 * [#482](https://github.com/Waffle/waffle/pull/482): Remove Spring Security 3 #478[@hazendaz](https://github.com/hazendaz).
+* [#483](https://github.com/Waffle/waffle/pull/483): Remove Tomcat 6 #323[@hazendaz](https://github.com/hazendaz).
 
 1.8.2 (12/31/2016)
 ================
