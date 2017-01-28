@@ -19,6 +19,7 @@ import waffle.windows.auth.WindowsAccount;
  * Used by {@link WindowsAuthenticationToken} to convert {@link WindowsAccount}s representing groups into
  * {@link GrantedAuthority}s.
  */
+@FunctionalInterface
 public interface GrantedAuthorityFactory {
 
     /**
