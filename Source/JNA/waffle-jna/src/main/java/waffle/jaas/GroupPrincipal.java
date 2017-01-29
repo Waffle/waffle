@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2017 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -17,7 +17,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -74,12 +73,13 @@ public class GroupPrincipal extends UserPrincipal implements Group {
         boolean isMember = members.containsKey(user);
         if (!isMember) {
             final Collection<Principal> values = members.values();
-            final Iterator<Principal> iter = values.iterator();
-            while (!isMember && iter.hasNext()) {
-                final Object next = iter.next();
-                if (next instanceof Group) {
-                    final Group group = (Group) next;
+            for (Principal principal : values) {
+                if (principal instanceof Group) {
+                    final Group group = (Group) principal;
                     isMember = group.isMember(user);
+                    if (isMember) {
+                        break;
+                    }
                 }
             }
         }
@@ -111,11 +111,10 @@ public class GroupPrincipal extends UserPrincipal implements Group {
      */
     @Override
     public String toString() {
-        final StringBuffer tmp = new StringBuffer(getName());
+        final StringBuilder tmp = new StringBuilder(getName());
         tmp.append("(members:");
-        final Iterator<Principal> iter = members.keySet().iterator();
-        while (iter.hasNext()) {
-            tmp.append(iter.next());
+        for (Principal principal : members.keySet()) {
+            tmp.append(principal);
             tmp.append(',');
         }
         tmp.setCharAt(tmp.length() - 1, ')');
