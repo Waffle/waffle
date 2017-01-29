@@ -64,7 +64,7 @@ public class NegotiateSecurityFilterEntryPoint implements AuthenticationEntryPoi
             throw new ServletException("Missing NegotiateEntryPoint.Provider");
         }
 
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         response.setHeader("Connection", "keep-alive");
         this.provider.sendUnauthorized(response);
         response.flushBuffer();

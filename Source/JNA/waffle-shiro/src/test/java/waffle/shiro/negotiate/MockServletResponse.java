@@ -77,9 +77,4 @@ public abstract class MockServletResponse implements HttpServletResponse {
         this.headers.put(name, value);
     }
 
-    @Override
-    public void setStatus(final int status) {
-        this.sc = status;
-    }
-
 }

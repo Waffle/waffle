@@ -148,7 +148,7 @@ class NegotiateSecurityFilterTest {
             this.filter.doFilter(request, response, null);
             Assertions.assertTrue(response.getHeader("WWW-Authenticate").startsWith(securityPackage + " "));
             Assertions.assertEquals("keep-alive", response.getHeader("Connection"));
-            Assertions.assertEquals(3, response.getHeaderNamesSize());
+            Assertions.assertEquals(2, response.getHeaderNamesSize());
             Assertions.assertEquals(401, response.getStatus());
         } finally {
             if (clientContext != null) {
@@ -206,26 +206,10 @@ class NegotiateSecurityFilterTest {
                     break;
                 }
 
-                Assertions.assertEquals(401, response.getStatus());
-
-                // security package requested is one negotiate continues with
                 Assertions.assertTrue(response.getHeader("WWW-Authenticate").startsWith(securityPackage + " "));
-
-                // keep-alive, NTLM is a connection-oriented protocol
                 Assertions.assertEquals("keep-alive", response.getHeader("Connection"));
-
-                // Connection: keep-alive
-                // WWW-Authenticate: ...
-                // Content-Length: ...
-                Assertions.assertEquals(3, response.getHeaderNamesSize());
-
-                // response has a body and a content length (.NET clients require this)
-                int contentLength = Integer.parseInt(response.getHeader("Content-Length"));
-                Assertions.assertTrue(contentLength > 0);
-                String content = response.getOutputText();
-                Assertions.assertEquals(contentLength, content.length());
-
-                // continue token
+                Assertions.assertEquals(2, response.getHeaderNamesSize());
+                Assertions.assertEquals(401, response.getStatus());
                 final String continueToken = response.getHeader("WWW-Authenticate")
                         .substring(securityPackage.length() + 1);
                 final byte[] continueTokenBytes = Base64.getDecoder().decode(continueToken);
@@ -303,7 +287,7 @@ class NegotiateSecurityFilterTest {
         final String[] wwwAuthenticates = response.getHeaderValues("WWW-Authenticate");
         Assertions.assertEquals(1, wwwAuthenticates.length);
         Assertions.assertTrue(wwwAuthenticates[0].startsWith("NTLM "));
-        Assertions.assertEquals(3, response.getHeaderNamesSize());
+        Assertions.assertEquals(2, response.getHeaderNamesSize());
         Assertions.assertEquals("keep-alive", response.getHeader("Connection"));
         Assertions.assertEquals(401, response.getStatus());
     }
@@ -332,7 +316,7 @@ class NegotiateSecurityFilterTest {
         final String[] wwwAuthenticates = response.getHeaderValues("WWW-Authenticate");
         Assertions.assertEquals(1, wwwAuthenticates.length);
         Assertions.assertTrue(wwwAuthenticates[0].startsWith("NTLM "));
-        Assertions.assertEquals(3, response.getHeaderNamesSize());
+        Assertions.assertEquals(2, response.getHeaderNamesSize());
         Assertions.assertEquals("keep-alive", response.getHeader("Connection"));
         Assertions.assertEquals(401, response.getStatus());
     }
