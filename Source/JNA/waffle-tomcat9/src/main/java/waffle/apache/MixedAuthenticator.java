@@ -178,7 +178,10 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
         try {
             if (securityContext.isContinue() || ntlmPost) {
                 response.setHeader("Connection", "keep-alive");
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                String body = "Unauthorized";
+                response.getWriter().write(body);
+                response.setContentLength(body.length());
                 response.flushBuffer();
                 return false;
             }
