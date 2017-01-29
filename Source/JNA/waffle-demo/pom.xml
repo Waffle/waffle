@@ -48,6 +48,10 @@
         <tag>HEAD</tag>
     </scm>
 
+    <properties>
+        <servlet.version>3.1.0</servlet.version>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -62,6 +66,12 @@
             <groupId>com.github.waffle</groupId>
             <artifactId>waffle-jna</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${servlet.version}</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
