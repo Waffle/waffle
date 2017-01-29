@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -96,9 +95,8 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
      */
     @Override
     public void sendUnauthorized(final HttpServletResponse response) {
-        final Iterator<String> protocolsIterator = this.protocols.iterator();
-        while (protocolsIterator.hasNext()) {
-            response.addHeader(NegotiateSecurityFilterProvider.WWW_AUTHENTICATE, protocolsIterator.next());
+        for (String protocol : this.protocols) {
+            response.addHeader(NegotiateSecurityFilterProvider.WWW_AUTHENTICATE, protocol);
         }
     }
 

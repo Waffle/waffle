@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2017 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -14,7 +14,6 @@ package waffle.spring;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import org.junit.After;
@@ -99,12 +98,11 @@ public class WindowsAuthenticationProviderTests {
         Assert.assertNotNull(authenticated);
         Assert.assertTrue(authenticated.isAuthenticated());
         final Collection<? extends GrantedAuthority> authorities = authenticated.getAuthorities();
-        final Iterator<? extends GrantedAuthority> authoritiesIterator = authorities.iterator();
         Assert.assertEquals(3, authorities.size());
 
         final List<String> list = new ArrayList<>();
-        while (authoritiesIterator.hasNext()) {
-            list.add(authoritiesIterator.next().getAuthority());
+        for (GrantedAuthority grantedAuthority : authorities) {
+            list.add(grantedAuthority.getAuthority());
         }
         Collections.sort(list);
         Assert.assertEquals("ROLE_EVERYONE", list.get(0));
@@ -131,12 +129,11 @@ public class WindowsAuthenticationProviderTests {
         Assert.assertNotNull(authenticated);
         Assert.assertTrue(authenticated.isAuthenticated());
         final Collection<? extends GrantedAuthority> authorities = authenticated.getAuthorities();
-        final Iterator<? extends GrantedAuthority> authoritiesIterator = authorities.iterator();
         Assert.assertEquals(2, authorities.size());
 
         final List<String> list = new ArrayList<>();
-        while (authoritiesIterator.hasNext()) {
-            list.add(authoritiesIterator.next().getAuthority());
+        for (GrantedAuthority grantedAuthority : authorities) {
+            list.add(grantedAuthority.getAuthority());
         }
         Collections.sort(list);
         Assert.assertEquals("Everyone", list.get(0));
