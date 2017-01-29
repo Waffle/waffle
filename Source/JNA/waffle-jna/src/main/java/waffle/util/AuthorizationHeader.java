@@ -153,7 +153,7 @@ public class AuthorizationHeader {
      * @return True if request is an NTLM POST or PUT with an Authorization header and no data.
      */
     public boolean isNtlmType1PostAuthorizationHeader() {
-        if (!this.request.getMethod().equals("POST") && !this.request.getMethod().equals("PUT")) {
+        if (!"POST".equals(this.request.getMethod()) && !"PUT".equals(this.request.getMethod())) {
             return false;
         }
 
