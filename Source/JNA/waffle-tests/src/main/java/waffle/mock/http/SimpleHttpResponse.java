@@ -212,4 +212,10 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
         this.writer.flush();
         return this.bytes.toString(StandardCharsets.UTF_8);
     }
+
+    @Override
+    public void setContentLength(int len) {
+        setHeader("Content-Length", Integer.toString(len));
+    }
+
 }
