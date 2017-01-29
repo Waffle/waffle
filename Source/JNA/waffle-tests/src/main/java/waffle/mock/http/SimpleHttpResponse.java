@@ -13,6 +13,7 @@ package waffle.mock.http;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
@@ -70,7 +71,8 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
                                                     };
 
     /** The writer. */
-    private final PrintWriter               writer  = new PrintWriter(this.bytes);
+    private final PrintWriter               writer  = new PrintWriter(
+            new OutputStreamWriter(this.bytes, StandardCharsets.UTF_8), true);
 
     /**
      * Instantiates a new simple http response.
