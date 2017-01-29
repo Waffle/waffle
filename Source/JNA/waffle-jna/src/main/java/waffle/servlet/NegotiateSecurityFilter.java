@@ -162,7 +162,7 @@ public class NegotiateSecurityFilter implements Filter {
 
                 NegotiateSecurityFilter.LOGGER.debug("roles: {}", windowsPrincipal.getRolesString());
                 subject.getPrincipals().add(windowsPrincipal);
-                session.setAttribute("javax.security.auth.subject", subject);
+                request.getSession().setAttribute("javax.security.auth.subject", subject);
 
                 NegotiateSecurityFilter.LOGGER.info("successfully logged in user: {}", windowsIdentity.getFqn());
 
