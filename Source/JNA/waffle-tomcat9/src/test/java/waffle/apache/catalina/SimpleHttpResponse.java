@@ -127,9 +127,4 @@ public class SimpleHttpResponse extends Response {
         this.headers.put(headerName, current);
     }
 
-    @Override
-    public void setStatus(final int value) {
-        this.status = value;
-    }
-
 }
