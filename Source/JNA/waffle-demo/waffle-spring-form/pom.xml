@@ -36,17 +36,7 @@
         <tag>HEAD</tag>
     </scm>
 
-    <properties>
-        <servlet.version>3.1.0</servlet.version>
-    </properties>
-
     <dependencies>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>${servlet.version}</version>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>com.github.waffle</groupId>
             <artifactId>waffle-spring-security3</artifactId>
