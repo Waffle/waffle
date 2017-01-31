@@ -84,7 +84,7 @@ public class BasicSecurityFilterTests {
         final SimpleHttpResponse response = new SimpleHttpResponse();
         final FilterChain filterChain = new SimpleFilterChain();
         this.filter.doFilter(request, response, filterChain);
-        final Subject subject = (Subject) request.getSession().getAttribute("javax.security.auth.subject");
+        final Subject subject = (Subject) request.getSession(false).getAttribute("javax.security.auth.subject");
         Assert.assertNotNull(subject);
         Assertions.assertThat(subject.getPrincipals().size()).isGreaterThan(0);
     }
