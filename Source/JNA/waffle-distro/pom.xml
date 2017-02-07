@@ -215,6 +215,18 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>**/*LICENSE-caffeine.txt</exclude>
+                        <exclude>**/*LICENSE-jna.txt</exclude>
+                        <exclude>**/*LICENSE-logback.txt</exclude>
+                        <exclude>**/*LICENSE-slf4j.txt</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
