@@ -1,3 +1,10 @@
+1.8.3 (2/6/2017)
+================
+* Documentation updates
+* Version Updates
+* Sonar / Coverity Cleanup
+* Added third party license files to distribution to make it easier for those requiring license certification within our distro.
+
 1.8.2 (12/31/2016)
 ================
 * Lots of documentation updates from the community (many thanks!)

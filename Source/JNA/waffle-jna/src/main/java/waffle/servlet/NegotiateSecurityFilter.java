@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2017 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -162,11 +162,11 @@ public class NegotiateSecurityFilter implements Filter {
 
                 NegotiateSecurityFilter.LOGGER.debug("roles: {}", windowsPrincipal.getRolesString());
                 subject.getPrincipals().add(windowsPrincipal);
-                session.setAttribute("javax.security.auth.subject", subject);
+                request.getSession(false).setAttribute("javax.security.auth.subject", subject);
 
                 NegotiateSecurityFilter.LOGGER.info("successfully logged in user: {}", windowsIdentity.getFqn());
 
-                request.getSession().setAttribute(NegotiateSecurityFilter.PRINCIPALSESSIONKEY, windowsPrincipal);
+                request.getSession(false).setAttribute(NegotiateSecurityFilter.PRINCIPALSESSIONKEY, windowsPrincipal);
 
                 final NegotiateRequestWrapper requestWrapper = new NegotiateRequestWrapper(request, windowsPrincipal);
 

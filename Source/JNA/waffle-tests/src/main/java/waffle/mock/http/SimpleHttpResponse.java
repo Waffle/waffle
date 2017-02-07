@@ -13,6 +13,7 @@ package waffle.mock.http;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.WriteListener;
@@ -70,7 +72,8 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
                                                     };
 
     /** The writer. */
-    private final PrintWriter               writer  = new PrintWriter(this.bytes);
+    private final PrintWriter               writer  = new PrintWriter(
+            new OutputStreamWriter(this.bytes, StandardCharsets.UTF_8), true);
 
     /**
      * Instantiates a new simple http response.
@@ -147,8 +150,8 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
     @Override
     public void flushBuffer() {
         SimpleHttpResponse.LOGGER.info("{}: {}", Integer.valueOf(this.status), this.getStatusString());
-        for (final String header : this.headers.keySet()) {
-            for (final String headerValue : this.headers.get(header)) {
+        for (final Entry<String, List<String>> header : this.headers.entrySet()) {
+            for (final String headerValue : header.getValue()) {
                 SimpleHttpResponse.LOGGER.info("{}: {}", header, headerValue);
             }
         }

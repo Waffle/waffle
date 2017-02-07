@@ -115,7 +115,7 @@ public class ImpersonateTests {
             this.filter.setImpersonate(true);
             this.filter.doFilter(request, response, filterChain);
 
-            final Subject subject = (Subject) request.getSession().getAttribute("javax.security.auth.subject");
+            final Subject subject = (Subject) request.getSession(false).getAttribute("javax.security.auth.subject");
             final boolean authenticated = subject != null && subject.getPrincipals().size() > 0;
             Assert.assertTrue("Test user should be authenticated", authenticated);
 
@@ -161,7 +161,7 @@ public class ImpersonateTests {
             this.filter.setImpersonate(false);
             this.filter.doFilter(request, response, filterChain);
 
-            final Subject subject = (Subject) request.getSession().getAttribute("javax.security.auth.subject");
+            final Subject subject = (Subject) request.getSession(false).getAttribute("javax.security.auth.subject");
             final boolean authenticated = subject != null && subject.getPrincipals().size() > 0;
             Assert.assertTrue("Test user should be authenticated", authenticated);
 
