@@ -41,7 +41,7 @@ Add `waffle-jna-1.8.2.jar`, `jna-4.2.2.jar`, `jna-platform-4.2.2.jar`, `guava-20
 </properties>
 
 <dependency>
-    <groupId>com.github.dblock.waffle</groupId>
+    <groupId>com.github.waffle</groupId>
     <artifactId>waffle-jna</artifactId>
     <version>${waffle.version}</version>
 </dependency>
