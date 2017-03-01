@@ -31,7 +31,7 @@
     <Trademark>All Rights Reserved</Trademark>
     <MajorVersion>1</MajorVersion>
     <MinorVersion>8</MinorVersion>
-    <RevisionVersion>2</RevisionVersion>
+    <RevisionVersion>3</RevisionVersion>
   </PropertyGroup>
   <Target Name="all" DependsOnTargets="configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
     <CallTarget Targets="clean" />
