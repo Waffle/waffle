@@ -17,7 +17,7 @@
 
     <groupId>com.github.waffle</groupId>
     <artifactId>waffle-launcher</artifactId>
-    <version>1.8.2-SNAPSHOT</version>
+    <version>1.8.4-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>waffle-launcher</name>
