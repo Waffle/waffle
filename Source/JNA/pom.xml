@@ -534,13 +534,11 @@
                     </dependencies>
                 </plugin>
                 <!-- Sonar -->
-                <!-- Works without it so why include it?
                 <plugin>
                     <groupId>org.sonarsource.scanner.maven</groupId>
                     <artifactId>sonar-maven-plugin</artifactId>
                     <version>3.2</version>
                 </plugin>
-                -->
                 <!-- Wagon -->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
