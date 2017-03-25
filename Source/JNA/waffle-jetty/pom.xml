@@ -44,7 +44,6 @@
         <jsp.version>2.3.3-b02</jsp.version>
         <jsp-api.version>2.3.2-b02</jsp-api.version>
         <jstl.version>1.2.5-b02</jstl.version>
-        <slf4j.version>1.7.24</slf4j.version>
     </properties>
 
     <dependencies>
