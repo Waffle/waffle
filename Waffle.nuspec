@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Waffle</id>
-    <version>1.8.4</version>
+    <id>Waffle.AD</id>
+    <version>1.8.3</version>
     <authors>Daniel Doubrovkine &amp; Jeremy Landis</authors>
     <owners>Daniel Doubrovkine</owners>
     <licenseUrl>https://github.com/Waffle/waffle/blob/master/LICENSE</licenseUrl>
-    <projectUrl>http://dblock.github.io/waffle/</projectUrl>
+    <projectUrl>https://waffle.github.io/waffle/</projectUrl>
     <iconUrl>https://github.com/Waffle/waffle/blob/master/waffle.jpg</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Enable drop-in Windows Single Sign On for popular Java web servers.</description>

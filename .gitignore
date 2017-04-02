@@ -24,6 +24,7 @@ Waffle.suo
 
 # nuget
 .nuget
+*.nupkg
 
 # nunit
 TestResult.xml
