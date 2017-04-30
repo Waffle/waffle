@@ -24,12 +24,12 @@ if [ $TRAVIS_REPO_SLUG == "Waffle/waffle" ] && [ $TRAVIS_PULL_REQUEST == "false"
 
     # Deploy to coveralls
     # Cannot run tests on linux
-    # mvn clean test jacoco:report coveralls:report -q
+    # ./mvnw clean test jacoco:report coveralls:report -q --settings ./travis/settings.xml
     # echo -e "Successfully deployed Coveralls Report under Travis job ${TRAVIS_JOB_NUMBER}"
 
     # Deploy to site
     # Cannot currently run site this way
-    # mvn site site:deploy -DskipTests -q
+    # ./mvnw site site:deploy -DskipTests -q --settings ./travis/settings.xml
     # echo -e "Successfully deploy site under Travis job ${TRAVIS_JOB_NUMBER}"
   else
     echo "Java Version does not support additonal activity for travis CI"
