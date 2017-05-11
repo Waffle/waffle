@@ -146,6 +146,9 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
                 case WinError.SEC_E_BUFFER_TOO_SMALL:
                     tokenSize += Sspi.MAX_TOKEN_SIZE;
                     break;
+                case WinError.SEC_E_BUFFER_TOO_SMALL:
+                    tokenSize += Sspi.MAX_TOKEN_SIZE;
+                    break;
                 case WinError.SEC_I_CONTINUE_NEEDED:
                     this.continueFlag = true;
                     break;
