@@ -27,7 +27,7 @@ setspn -L username
 
 To add privileges for the current user, run
 ```
-setspn -A HTTP/machine:port username
+setspn -A PROTOCOL/machine:port username
 ```
 
 Useful Troubleshooting Resources:
