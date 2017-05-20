@@ -132,7 +132,7 @@
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <assertj.version>3.6.2</assertj.version>
+        <assertj.version>3.7.0</assertj.version>
         <contiperf.version>2.3.4</contiperf.version>
         <jmockit.version>1.31</jmockit.version>
         <jsr305.version>3.0.2</jsr305.version>
