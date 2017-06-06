@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2017 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -101,9 +101,13 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
      *            SSPI package.
      * @param targetName
      *            The target of the context. The string contents are security-package specific.
+     * @param contextReq
+     *            Bit flags that indicate requests for the context. Not all packages can support all requirements.
+     *            Flags used for this parameter are prefixed with ISC_REQ_.
      * @return Windows security context.
      */
-    public static IWindowsSecurityContext getCurrent(final String securityPackage, final String targetName) {
+    public static IWindowsSecurityContext getCurrent(final String securityPackage, final String targetName,
+            final int contextReq) {
         IWindowsCredentialsHandle credentialsHandle = WindowsCredentialsHandleImpl.getCurrent(securityPackage);
         credentialsHandle.initialize();
         try {
@@ -111,7 +115,7 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
             ctx.setPrincipalName(WindowsAccountImpl.getCurrentUsername());
             ctx.setCredentialsHandle(credentialsHandle);
             ctx.setSecurityPackage(securityPackage);
-            ctx.initialize(null, null, targetName);
+            ctx.initialize(null, null, targetName, contextReq);
 
             // Starting from here ctx 'owns' the credentials handle, so let's null out the
             // variable. This will prevent the finally block below from disposing it right away.
@@ -125,13 +129,27 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
         }
     }
 
+    /**
+     * Get the current Windows security context for a given SSPI package.
+     * 
+     * @param securityPackage
+     *            SSPI package.
+     * @param targetName
+     *            The target of the context. The string contents are security-package specific.
+     * @return Windows security context.
+     */
+    public static IWindowsSecurityContext getCurrent(final String securityPackage, final String targetName) {
+        return getCurrent(securityPackage, targetName, Sspi.ISC_REQ_CONNECTION);
+    }
+
     /*
      * (non-Javadoc)
      * @see waffle.windows.auth.IWindowsSecurityContext#initialize(com.sun.jna.platform.win32.Sspi.CtxtHandle,
-     * com.sun.jna.platform.win32.Sspi.SecBufferDesc, java.lang.String)
+     * com.sun.jna.platform.win32.Sspi.SecBufferDesc, java.lang.String, int)
      */
     @Override
-    public void initialize(final CtxtHandle continueCtx, final SecBufferDesc continueToken, final String targetName) {
+    public void initialize(final CtxtHandle continueCtx, final SecBufferDesc continueToken, final String targetName,
+            final int contextReq) {
         this.attr = new IntByReference();
         this.ctx = new CtxtHandle();
         int tokenSize = Sspi.MAX_TOKEN_SIZE;
@@ -139,8 +157,7 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
         do {
             this.token = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, tokenSize);
             rc = Secur32.INSTANCE.InitializeSecurityContext(this.credentials.getHandle(), continueCtx, targetName,
-                    Sspi.ISC_REQ_CONNECTION, 0, Sspi.SECURITY_NATIVE_DREP, continueToken, 0, this.ctx, this.token,
-                    this.attr, null);
+                    contextReq, 0, Sspi.SECURITY_NATIVE_DREP, continueToken, 0, this.ctx, this.token, this.attr, null);
             switch (rc) {
                 case WinError.SEC_E_INSUFFICIENT_MEMORY:
                 case WinError.SEC_E_BUFFER_TOO_SMALL:
@@ -156,6 +173,16 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
                     throw new Win32Exception(rc);
             }
         } while (rc == WinError.SEC_E_INSUFFICIENT_MEMORY || rc == WinError.SEC_E_BUFFER_TOO_SMALL);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see waffle.windows.auth.IWindowsSecurityContext#initialize(com.sun.jna.platform.win32.Sspi.CtxtHandle,
+     * com.sun.jna.platform.win32.Sspi.SecBufferDesc, java.lang.String)
+     */
+    @Override
+    public void initialize(final CtxtHandle continueCtx, final SecBufferDesc continueToken, final String targetName) {
+        initialize(continueCtx, continueToken, targetName, Sspi.ISC_REQ_CONNECTION);
     }
 
     /*
