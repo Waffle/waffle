@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2017 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -75,6 +75,22 @@ public interface IWindowsSecurityContext {
      *            The target of the context. The string contents are security-package specific.
      */
     void initialize(final CtxtHandle continueCtx, final SecBufferDesc continueToken, final String targetName);
+
+    /**
+     * Initialize the security context, continuing from a previous one.
+     * 
+     * @param continueCtx
+     *            Continue context.
+     * @param continueToken
+     *            Continue token.
+     * @param targetName
+     *            The target of the context. The string contents are security-package specific.
+     * @param contextReq
+     *            Bit flags that indicate requests for the context. Not all packages can support all requirements.
+     *            Flags used for this parameter are prefixed with ISC_REQ_.
+     */
+    void initialize(final CtxtHandle continueCtx, final SecBufferDesc continueToken, final String targetName,
+            final int contextReq);
 
     /**
      * Impersonate this security context.
