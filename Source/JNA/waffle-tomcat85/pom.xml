@@ -37,7 +37,7 @@
     </scm>
 
     <properties>
-        <tomcat.version>8.5.15</tomcat.version>
+        <tomcat.version>8.5.16</tomcat.version>
     </properties>
 
     <dependencies>
