@@ -9,7 +9,7 @@ You don't actually need Waffle for client-side, just [JNA](https://github.com/tw
 
 In Java, a good place to start is [NegotiateSecurityFilterTests.testNegotiate](https://github.com/dblock/waffle/blob/master/Source/JNA/waffle-tests/src/test/java/waffle/servlet/NegotiateSecurityFilterTests.java#L133), that implements both the client and the server side.
 
-In C#, a good place to start is the [WindowsAuthProviderUnitTests.testNegotiate](https://github.com/dblock/waffle/blob/master/Source/WindowsAuthProviderUnitTests/WindowsAuthProviderUnitTests.cs#L157).
+In C#, a good place to start is the [WindowsAuthProviderUnitTests.testNegotiate](https://github.com/Waffle/waffle/blob/master/Source/WindowsAuthProviderUnitTests/WindowsAuthProviderUnitTests.cs#L179).
 
 There's a full example of both client and server in [github.com/dblock/ssoexample-waffle](https://github.com/dblock/ssoexample-waffle).
 
