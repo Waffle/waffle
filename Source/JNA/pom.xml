@@ -143,6 +143,9 @@
 
         <signature.artifact>java18</signature.artifact>
         <signature.version>1.0</signature.version>
+
+        <!-- Plugin Dependency Versions -->
+        <checkstyle.version>8.0</checkstyle.version>
     </properties>
 
     <dependencies>
@@ -856,6 +859,18 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <!-- Checkstyle dependencies required here or they won't be used (per maven) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>${checkstyle.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
         <extensions>
