@@ -3,11 +3,12 @@
 * Documentation Updates
 * Version Updates
 * Sonar / Coverity Cleanup
+* Spring boot support
 
 * Breaking changes
     * Requires Java 8+
     * Dropped Tomcat 6 and Spring 3 modules
-    * Increased Examples to servlet 3.0
+    * Moved servlet on Examples to servlet 3.0
     * Replaced guava with caffeine for caching
     * All remainder guava usage uses standard java routines
 * Changes
@@ -19,6 +20,7 @@
     * [#488](https://github.com/Waffle/waffle/pull/488): Use java.util.Base64 with java 8 #304[@hazendaz](https://github.com/hazendaz).
     * [#491](https://github.com/Waffle/waffle/pull/491): Rewrite guava Files.write to java 7 FilesWrite #304[@hazendaz](https://github.com/hazendaz).
     * [#498](https://github.com/Waffle/waffle/pull/498): Add third party license files[@hazendaz](https://github.com/hazendaz).
+    * [#553](https://github.com/Waffle/waffle/pull/553): Add spring boot starter and demo[@mgoldgeier](https://github.com/mgoldgeier).
     
 1.8.3 (2/6/2017)
 ================
