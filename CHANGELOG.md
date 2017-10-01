@@ -4,6 +4,7 @@
 * Version Updates
 * Sonar / Coverity Cleanup
 * Spring boot support
+* Spring / Spring Security 5 support
 
 * Breaking changes
     * Requires Java 8+
@@ -21,6 +22,7 @@
     * [#491](https://github.com/Waffle/waffle/pull/491): Rewrite guava Files.write to java 7 FilesWrite #304[@hazendaz](https://github.com/hazendaz).
     * [#498](https://github.com/Waffle/waffle/pull/498): Add third party license files[@hazendaz](https://github.com/hazendaz).
     * [#553](https://github.com/Waffle/waffle/pull/553): Add spring boot starter and demo[@mgoldgeier](https://github.com/mgoldgeier).
+    * [#557](https://github.com/Waffle/waffle/pull/558): Add initial support for spring 5 using spring security 4 still[@hazendaz](https://github.com/hazendaz).
     
 1.8.3 (2/6/2017)
 ================
