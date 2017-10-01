@@ -23,6 +23,7 @@
     * [#498](https://github.com/Waffle/waffle/pull/498): Add third party license files[@hazendaz](https://github.com/hazendaz).
     * [#553](https://github.com/Waffle/waffle/pull/553): Add spring boot starter and demo[@mgoldgeier](https://github.com/mgoldgeier).
     * [#557](https://github.com/Waffle/waffle/pull/558): Add initial support for spring 5 using spring security 4 still[@hazendaz](https://github.com/hazendaz).
+    * [#558](https://github.com/Waffle/waffle/pull/559): Add spring milestone repo and upgrade to spring security 5.0.0.M4[@hazendaz](https://github.com/hazendaz).
     
 1.8.3 (2/6/2017)
 ================
