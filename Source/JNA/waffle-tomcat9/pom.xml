@@ -37,7 +37,7 @@
     </scm>
 
     <properties>
-        <tomcat.version>9.0.0.M27</tomcat.version>
+        <tomcat.version>9.0.1</tomcat.version>
 
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
