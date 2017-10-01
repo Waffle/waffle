@@ -29,6 +29,17 @@
     <description>Spring Security 5 integration for WAFFLE</description>
     <url>https://waffle.github.com/waffle/</url>
 
+    <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/libs-milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    
     <scm>
         <connection>scm:git:ssh://git@github.com/waffle/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/waffle/waffle.git</developerConnection>
@@ -39,7 +50,7 @@
     <properties>
         <servlet.version>4.0.0</servlet.version>
         <spring.version>5.0.0.RELEASE</spring.version>
-        <spring.security.version>4.2.3.RELEASE</spring.security.version> <!-- TODO: Bump to 5.0.0 once released -->
+        <spring.security.version>5.0.0.M4</spring.security.version>
     </properties>
 
     <dependencies>
