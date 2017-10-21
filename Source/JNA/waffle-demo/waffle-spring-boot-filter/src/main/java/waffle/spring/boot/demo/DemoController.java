@@ -20,11 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DemoController {
 
-	@RequestMapping
-	public String demo(Authentication auth) {
-		return String.format("Hello, %s. You have authorities: %s",
-				auth.getPrincipal(),
-				auth.getAuthorities().stream().map(a -> a.getAuthority()).collect(Collectors.joining(", ")));
-	}
-	
+    @RequestMapping
+    public String demo(Authentication auth) {
+        return String.format("Hello, %s. You have authorities: %s", auth.getPrincipal(),
+                auth.getAuthorities().stream().map(a -> a.getAuthority()).collect(Collectors.joining(", ")));
+    }
+
 }

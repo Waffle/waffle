@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2017 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -38,19 +38,15 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
  * <i>Below mentioned entities are verified to be set before invoked, inherited entities are not.</i>
  * 
  * <ul>
- * <li>
- * The <code>AuthenticationManager</code> allows for the service provider to authorize the principal.</li>
+ * <li>The <code>AuthenticationManager</code> allows for the service provider to authorize the principal.</li>
  * 
- * <li>
- * The <code>authenticationSuccessHandler</code> allows for the service provider to further populate the
+ * <li>The <code>authenticationSuccessHandler</code> allows for the service provider to further populate the
  * {@link org.springframework.security.core.Authentication Authentication} object.</li>
  * 
- * <li>
- * The <code>AuthenticationFailureHandler</code> is called if the AuthenticationManager throws an
+ * <li>The <code>AuthenticationFailureHandler</code> is called if the AuthenticationManager throws an
  * {@link org.springframework.security.core.AuthenticationException AuthenticationException}.</li>
  * 
- * <li>
- * The <code>AccessDeniedHandler</code> is called if the AuthenticationManager throws an
+ * <li>The <code>AccessDeniedHandler</code> is called if the AuthenticationManager throws an
  * {@link org.springframework.security.access.AccessDeniedException AccessDeniedException}.</li>
  * </ul>
  * Example configuration:
