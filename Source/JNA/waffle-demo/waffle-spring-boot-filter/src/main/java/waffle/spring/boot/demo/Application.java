@@ -15,14 +15,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * This is a Spring Boot demo application that configures the WAFFLE Spring Boot
- * Starter to use Negotiate single sign on.
+ * This is a Spring Boot demo application that configures the WAFFLE Spring Boot Starter to use Negotiate single sign
+ * on.
  */
 @SpringBootApplication
 public class Application {
 
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-	}
-	
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+
 }

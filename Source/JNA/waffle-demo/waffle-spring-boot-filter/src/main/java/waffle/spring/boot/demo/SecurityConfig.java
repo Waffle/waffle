@@ -20,35 +20,31 @@ import waffle.spring.NegotiateSecurityFilter;
 import waffle.spring.NegotiateSecurityFilterEntryPoint;
 
 /**
- * Demo Spring Boot Security configuration that configures the Negotiate filter to require
- * authentication for all requests.
+ * Demo Spring Boot Security configuration that configures the Negotiate filter to require authentication for all
+ * requests.
  */
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	
-	private NegotiateSecurityFilter filter;
-	private NegotiateSecurityFilterEntryPoint entryPoint;
-	
-	/**
-	 * Autowire constructor injects bean auto-configured by Starter
-	 * 
-	 * @param filter
-	 * @param entryPoint
-	 */
-	public SecurityConfig(NegotiateSecurityFilter filter, NegotiateSecurityFilterEntryPoint entryPoint) {
-		this.filter = filter;
-		this.entryPoint = entryPoint;
-	}
-	
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http
-			.authorizeRequests()
-				.anyRequest().authenticated()
-				.and()
-			.addFilterBefore(filter, BasicAuthenticationFilter.class)
-			.exceptionHandling()
-				.authenticationEntryPoint(entryPoint);
-	}
+
+    private NegotiateSecurityFilter           filter;
+    private NegotiateSecurityFilterEntryPoint entryPoint;
+
+    /**
+     * Autowire constructor injects bean auto-configured by Starter
+     * 
+     * @param filter
+     * @param entryPoint
+     */
+    public SecurityConfig(NegotiateSecurityFilter filter, NegotiateSecurityFilterEntryPoint entryPoint) {
+        this.filter = filter;
+        this.entryPoint = entryPoint;
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests().anyRequest().authenticated().and()
+                .addFilterBefore(filter, BasicAuthenticationFilter.class).exceptionHandling()
+                .authenticationEntryPoint(entryPoint);
+    }
 
 }
