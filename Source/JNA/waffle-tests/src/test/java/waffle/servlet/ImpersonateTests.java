@@ -11,6 +11,12 @@
  */
 package waffle.servlet;
 
+import com.sun.jna.WString;
+import com.sun.jna.platform.win32.Advapi32Util;
+import com.sun.jna.platform.win32.LMAccess;
+import com.sun.jna.platform.win32.LMErr;
+import com.sun.jna.platform.win32.Netapi32;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.Principal;
@@ -18,17 +24,12 @@ import java.util.Base64;
 
 import javax.security.auth.Subject;
 import javax.servlet.ServletException;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.sun.jna.WString;
-import com.sun.jna.platform.win32.Advapi32Util;
-import com.sun.jna.platform.win32.LMAccess;
-import com.sun.jna.platform.win32.LMErr;
-import com.sun.jna.platform.win32.Netapi32;
 
 import waffle.mock.MockWindowsAccount;
 import waffle.mock.http.RecordUserNameFilterChain;

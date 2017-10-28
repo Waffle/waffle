@@ -11,9 +11,15 @@
  */
 package waffle.apache;
 
+import com.sun.jna.platform.win32.Sspi;
+import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
+
 import java.util.Base64;
 
 import javax.servlet.ServletException;
+
+import mockit.Expectations;
+import mockit.Mocked;
 
 import org.apache.catalina.Context;
 import org.apache.catalina.Engine;
@@ -25,11 +31,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.sun.jna.platform.win32.Sspi;
-import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
-
-import mockit.Expectations;
-import mockit.Mocked;
 import waffle.apache.catalina.SimpleHttpRequest;
 import waffle.apache.catalina.SimpleHttpResponse;
 import waffle.mock.MockWindowsAuthProvider;

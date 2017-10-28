@@ -11,6 +11,12 @@
  */
 package waffle.util;
 
+import com.sun.jna.Platform;
+import com.sun.jna.platform.WindowUtils;
+import com.sun.jna.platform.win32.LMJoin;
+import com.sun.jna.platform.win32.Netapi32Util;
+import com.sun.jna.platform.win32.Win32Exception;
+
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
@@ -35,12 +41,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
-import com.sun.jna.Platform;
-import com.sun.jna.platform.WindowUtils;
-import com.sun.jna.platform.win32.LMJoin;
-import com.sun.jna.platform.win32.Netapi32Util;
-import com.sun.jna.platform.win32.Win32Exception;
 
 import waffle.windows.auth.IWindowsAccount;
 import waffle.windows.auth.IWindowsAuthProvider;

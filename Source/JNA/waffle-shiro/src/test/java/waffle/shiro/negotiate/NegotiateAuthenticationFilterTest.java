@@ -16,13 +16,13 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletResponse;
 
+import mockit.Deencapsulation;
+import mockit.Tested;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-
-import mockit.Deencapsulation;
-import mockit.Tested;
 
 /**
  * The Class NegotiateAuthenticationFilterTest.
