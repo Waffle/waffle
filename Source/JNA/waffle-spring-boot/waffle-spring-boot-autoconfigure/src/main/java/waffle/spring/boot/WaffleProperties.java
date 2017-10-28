@@ -24,86 +24,183 @@ import waffle.windows.auth.PrincipalFormat;
 @ConfigurationProperties(prefix = "waffle")
 public class WaffleProperties {
 
-    /** The principal format can be any of the options specified by {@link PrincipalFormat} */
+    /** The principal format can be any of the options specified by {@link PrincipalFormat}. */
     private String                 principalFormat = "fqn";
-    /** The principal format can be any of the options specified by {@link PrincipalFormat} */
+
+    /** The principal format can be any of the options specified by {@link PrincipalFormat}. */
     private String                 roleFormat      = "fqn";
-    /** Enable or disable guest login */
+
+    /** Enable or disable guest login. */
     private boolean                allowGuestLogin = false;
-    /** Configuration properties for single-sign-on */
+
+    /** Configuration properties for single-sign-on. */
     private SingleSignOnProperties sso;
 
+    /**
+     * Gets the principal format.
+     *
+     * @return the principal format
+     */
     public String getPrincipalFormat() {
         return principalFormat;
     }
 
+    /**
+     * Sets the principal format.
+     *
+     * @param principalFormat
+     *            the new principal format
+     */
     public void setPrincipalFormat(String principalFormat) {
         this.principalFormat = principalFormat;
     }
 
+    /**
+     * Gets the role format.
+     *
+     * @return the role format
+     */
     public String getRoleFormat() {
         return roleFormat;
     }
 
+    /**
+     * Sets the role format.
+     *
+     * @param roleFormat
+     *            the new role format
+     */
     public void setRoleFormat(String roleFormat) {
         this.roleFormat = roleFormat;
     }
 
+    /**
+     * Checks if is allow guest login.
+     *
+     * @return true, if is allow guest login
+     */
     public boolean isAllowGuestLogin() {
         return allowGuestLogin;
     }
 
+    /**
+     * Sets the allow guest login.
+     *
+     * @param allowGuestLogin
+     *            the new allow guest login
+     */
     public void setAllowGuestLogin(boolean allowGuestLogin) {
         this.allowGuestLogin = allowGuestLogin;
     }
 
+    /**
+     * Gets the sso.
+     *
+     * @return the sso
+     */
     public SingleSignOnProperties getSso() {
         return sso;
     }
 
+    /**
+     * Sets the sso.
+     *
+     * @param sso
+     *            the new sso
+     */
     public void setSso(SingleSignOnProperties sso) {
         this.sso = sso;
     }
 
+    /**
+     * The Class SingleSignOnProperties.
+     */
     public static class SingleSignOnProperties {
 
-        /** Enable or disable single-sign-on using Negotiate protocol */
+        /** Enable or disable single-sign-on using Negotiate protocol. */
         private boolean      enabled      = false;
-        /** Enable fall back to Basic protocol for unsupported browsers */
+
+        /** Enable fall back to Basic protocol for unsupported browsers. */
         private boolean      basicEnabled = false;
-        /** List of protocols to support: Can be Negotiate, NTLM */
+
+        /** List of protocols to support: Can be Negotiate, NTLM. */
         private List<String> protocols    = Arrays.asList("Negotiate", "NTLM");
-        /** Enable WAFFLE impersonate option */
+
+        /** Enable WAFFLE impersonate option. */
         private boolean      impersonate  = false;
 
+        /**
+         * Checks if is enabled.
+         *
+         * @return true, if is enabled
+         */
         public boolean isEnabled() {
             return enabled;
         }
 
+        /**
+         * Sets the enabled.
+         *
+         * @param enabled
+         *            the new enabled
+         */
         public void setEnabled(boolean enabled) {
             this.enabled = enabled;
         }
 
+        /**
+         * Checks if is basic enabled.
+         *
+         * @return true, if is basic enabled
+         */
         public boolean isBasicEnabled() {
             return basicEnabled;
         }
 
+        /**
+         * Sets the basic enabled.
+         *
+         * @param basicEnabled
+         *            the new basic enabled
+         */
         public void setBasicEnabled(boolean basicEnabled) {
             this.basicEnabled = basicEnabled;
         }
 
+        /**
+         * Gets the protocols.
+         *
+         * @return the protocols
+         */
         public List<String> getProtocols() {
             return protocols;
         }
 
+        /**
+         * Sets the protocols.
+         *
+         * @param protocols
+         *            the new protocols
+         */
         public void setProtocols(List<String> protocols) {
             this.protocols = protocols;
         }
 
+        /**
+         * Checks if is impersonate.
+         *
+         * @return true, if is impersonate
+         */
         public boolean isImpersonate() {
             return impersonate;
         }
 
+        /**
+         * Sets the impersonate.
+         *
+         * @param impersonate
+         *            the new impersonate
+         */
         public void setImpersonate(boolean impersonate) {
             this.impersonate = impersonate;
         }
