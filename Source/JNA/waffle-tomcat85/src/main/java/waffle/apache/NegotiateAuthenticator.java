@@ -11,6 +11,8 @@
  */
 package waffle.apache;
 
+import com.sun.jna.platform.win32.Win32Exception;
+
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Base64;
@@ -21,8 +23,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.connector.Request;
 import org.slf4j.LoggerFactory;
-
-import com.sun.jna.platform.win32.Win32Exception;
 
 import waffle.util.AuthorizationHeader;
 import waffle.util.NtlmServletRequest;

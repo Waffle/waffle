@@ -17,9 +17,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.connector.Request;
-
 import mockit.Mocked;
+
+import org.apache.catalina.connector.Request;
 
 /**
  * Simple HTTP Request.
