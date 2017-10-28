@@ -11,6 +11,8 @@
  */
 package waffle.shiro.negotiate;
 
+import com.google.common.io.BaseEncoding;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +38,6 @@ import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.io.BaseEncoding;
 
 import waffle.util.AuthorizationHeader;
 import waffle.util.NtlmServletRequest;

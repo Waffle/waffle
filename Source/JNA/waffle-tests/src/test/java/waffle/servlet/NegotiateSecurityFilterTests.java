@@ -11,6 +11,13 @@
  */
 package waffle.servlet;
 
+import com.google.common.io.BaseEncoding;
+import com.sun.jna.platform.win32.Advapi32Util;
+import com.sun.jna.platform.win32.Secur32.EXTENDED_NAME_FORMAT;
+import com.sun.jna.platform.win32.Secur32Util;
+import com.sun.jna.platform.win32.Sspi;
+import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -22,13 +29,6 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.google.common.io.BaseEncoding;
-import com.sun.jna.platform.win32.Advapi32Util;
-import com.sun.jna.platform.win32.Secur32.EXTENDED_NAME_FORMAT;
-import com.sun.jna.platform.win32.Secur32Util;
-import com.sun.jna.platform.win32.Sspi;
-import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 
 import waffle.mock.MockWindowsAuthProvider;
 import waffle.mock.MockWindowsIdentity;

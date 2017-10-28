@@ -11,6 +11,8 @@
  */
 package waffle.servlet;
 
+import com.google.common.io.BaseEncoding;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
@@ -23,8 +25,6 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.google.common.io.BaseEncoding;
 
 import waffle.mock.MockWindowsAuthProvider;
 import waffle.mock.http.SimpleFilterChain;

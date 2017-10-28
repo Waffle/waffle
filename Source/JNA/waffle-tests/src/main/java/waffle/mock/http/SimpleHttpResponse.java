@@ -11,6 +11,8 @@
  */
 package waffle.mock.http;
 
+import com.google.common.base.Joiner;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -31,8 +33,6 @@ import javax.servlet.http.HttpServletResponseWrapper;
 import org.mockito.Mockito;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Joiner;
 
 /**
  * The Class SimpleHttpResponse.
