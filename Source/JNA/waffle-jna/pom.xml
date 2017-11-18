@@ -37,7 +37,7 @@
     </scm>
 
     <properties>
-        <caffeine.version>2.5.6</caffeine.version>
+        <caffeine.version>2.6.0</caffeine.version>
         <jna.version>4.5.0</jna.version>
         <servlet.version>4.0.0</servlet.version>
     </properties>
