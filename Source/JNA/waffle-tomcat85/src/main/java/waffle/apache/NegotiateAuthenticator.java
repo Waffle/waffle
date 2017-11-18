@@ -186,10 +186,6 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
         return false;
     }
 
-    protected GenericPrincipal createPrincipal(final IWindowsIdentity windowsIdentity) {
-        return new GenericWindowsPrincipal(windowsIdentity, this.principalFormat, this.roleFormat);
-    }
-
     /**
      * XXX The 'doAuthenticate' is intended to replace 'authenticate' for needs like ours. In order to support old and
      * new at this time, we will continue to have both for time being.

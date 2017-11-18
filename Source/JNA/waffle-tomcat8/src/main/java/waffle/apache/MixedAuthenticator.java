@@ -25,6 +25,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.connector.Request;
+import org.apache.catalina.realm.GenericPrincipal;
 import org.apache.tomcat.util.descriptor.web.LoginConfig;
 import org.slf4j.LoggerFactory;
 
@@ -255,17 +256,15 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
         try {
             this.log.debug("successfully logged in {} ({})", username, windowsIdentity.getSidString());
 
-            final GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(windowsIdentity,
-                    this.principalFormat, this.roleFormat);
+            final GenericPrincipal genericPrincipal = createPrincipal(windowsIdentity);
 
-            this.log.debug("roles: {}", windowsPrincipal.getRolesString());
-
+            this.log.debug("roles: {}",  String.join(", ", genericPrincipal.getRoles()));
             // create a session associated with this request if there's none
             final HttpSession session = request.getSession(true);
             this.log.debug("session id: {}", session == null ? "null" : session.getId());
 
-            this.register(request, response, windowsPrincipal, "FORM", windowsPrincipal.getName(), null);
-            this.log.info("successfully logged in user: {}", windowsPrincipal.getName());
+            this.register(request, response, genericPrincipal, "FORM", genericPrincipal.getName(), null);
+            this.log.info("successfully logged in user: {}", genericPrincipal.getName());
         } finally {
             windowsIdentity.dispose();
         }
