@@ -1217,6 +1217,22 @@
                                         </pluginExecution>
                                         <pluginExecution>
                                             <pluginExecutionFilter>
+                                                <groupId>net.revelc.code</groupId>
+                                                <artifactId>impsort-maven-plugin</artifactId>
+                                                <versionRange>[1.0.1,)</versionRange>
+                                                <goals>
+                                                    <goal>sort</goal>
+                                                </goals>
+                                            </pluginExecutionFilter>
+                                            <action>
+                                                <execute>
+                                                    <runOnConfiguration>true</runOnConfiguration>
+                                                    <runOnIncremental>true</runOnIncremental>
+                                                </execute>
+                                            </action>
+                                        </pluginExecution>
+                                        <pluginExecution>
+                                            <pluginExecutionFilter>
                                                 <groupId>org.apache.maven.plugins</groupId>
                                                 <artifactId>maven-enforcer-plugin</artifactId>
                                                 <versionRange>[1.4.1,)</versionRange>
