@@ -12,12 +12,7 @@
     Contributors: Application Security, Inc.
 
 -->
-<!doctype format>
-<html>
- <head></head>
- <body>
-  <format> 
-   <!-- Dummy format file -->
-  </format>
- </body>
-</html>
+<!DOCTYPE Format>
+<Format>
+ <!-- Dummy format file -->
+</Format>
