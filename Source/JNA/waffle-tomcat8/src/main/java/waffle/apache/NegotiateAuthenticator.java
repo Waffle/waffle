@@ -161,7 +161,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 
                 final GenericPrincipal genericPrincipal = createPrincipal(windowsIdentity);
 
-                this.log.debug("roles: {}",  String.join(", ", genericPrincipal.getRoles()));
+                this.log.debug("roles: {}", String.join(", ", genericPrincipal.getRoles()));
 
                 principal = genericPrincipal;
 

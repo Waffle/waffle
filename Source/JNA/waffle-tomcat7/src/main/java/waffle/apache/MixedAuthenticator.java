@@ -257,7 +257,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 
             final GenericPrincipal genericPrincipal = createPrincipal(windowsIdentity);
 
-            this.log.debug("roles: {}",  String.join(", ", genericPrincipal.getRoles()));
+            this.log.debug("roles: {}", String.join(", ", genericPrincipal.getRoles()));
             // create a session associated with this request if there's none
             final HttpSession session = request.getSession(true);
             this.log.debug("session id: {}", session == null ? "null" : session.getId());
