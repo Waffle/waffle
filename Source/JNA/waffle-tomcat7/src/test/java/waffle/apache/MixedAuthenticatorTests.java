@@ -14,7 +14,9 @@ package waffle.apache;
 import com.sun.jna.platform.win32.Sspi;
 import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 
+import java.io.IOException;
 import java.util.Base64;
+import java.util.Collections;
 
 import javax.servlet.ServletException;
 
@@ -25,6 +27,7 @@ import org.apache.catalina.Context;
 import org.apache.catalina.Engine;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.deploy.LoginConfig;
+import org.apache.catalina.realm.GenericPrincipal;
 import org.assertj.core.api.Assertions;
 import org.junit.After;
 import org.junit.Assert;
@@ -363,5 +366,34 @@ public class MixedAuthenticatorTests {
         request.addParameter("j_password", "");
         final SimpleHttpResponse response = new SimpleHttpResponse();
         Assert.assertTrue(this.authenticator.authenticate(request, response, loginConfig));
+    }
+    
+    @Test
+    public void testCustomPrincipal() throws LifecycleException, IOException {
+        final GenericPrincipal genericPrincipal = new GenericPrincipal("my-principal", "my-password", Collections.emptyList());
+        final MixedAuthenticator customAuthenticator = new MixedAuthenticator() {
+            @Override
+            protected GenericPrincipal createPrincipal(IWindowsIdentity windowsIdentity) {
+                return genericPrincipal;
+            }
+        };
+        try {
+            customAuthenticator.setContainer(this.context);
+            customAuthenticator.setAlwaysUseSession(true);
+            customAuthenticator.start();
+
+            customAuthenticator.setAuth(new MockWindowsAuthProvider());
+            final SimpleHttpRequest request = new SimpleHttpRequest();
+            request.addParameter("j_security_check", "");
+            request.addParameter("j_username", WindowsAccountImpl.getCurrentUsername());
+            request.addParameter("j_password", "");
+            final SimpleHttpResponse response = new SimpleHttpResponse();
+            Assert.assertTrue(customAuthenticator.authenticate(request, response));
+
+            Assert.assertEquals(genericPrincipal, request.getUserPrincipal());
+        } finally {
+            customAuthenticator.stop();
+        }
+ 
     }
 }
