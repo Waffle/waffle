@@ -351,10 +351,11 @@ public class MixedAuthenticatorTests {
         final SimpleHttpResponse response = new SimpleHttpResponse();
         Assert.assertTrue(this.authenticator.authenticate(request, response));
     }
-    
+
     @Test
     public void testCustomPrincipal() throws LifecycleException {
-        final GenericPrincipal genericPrincipal = new GenericPrincipal("my-principal", "my-password", Collections.emptyList());
+        final GenericPrincipal genericPrincipal = new GenericPrincipal("my-principal", "my-password",
+                Collections.emptyList());
         final MixedAuthenticator customAuthenticator = new MixedAuthenticator() {
             @Override
             protected GenericPrincipal createPrincipal(IWindowsIdentity windowsIdentity) {
@@ -378,6 +379,6 @@ public class MixedAuthenticatorTests {
         } finally {
             customAuthenticator.stop();
         }
- 
+
     }
 }
