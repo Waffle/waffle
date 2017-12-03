@@ -34,3 +34,4 @@ TestResult.xml
 
 # windows
 Thumbs.db
+*.factorypath
