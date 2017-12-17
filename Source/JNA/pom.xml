@@ -142,7 +142,7 @@
         <signature.version>1.0</signature.version>
 
         <!-- Plugin Dependency Versions -->
-        <checkstyle.version>8.4</checkstyle.version>
+        <checkstyle.version>8.5</checkstyle.version>
     </properties>
 
     <dependencies>
