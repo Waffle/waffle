@@ -16,6 +16,7 @@ import com.sun.jna.platform.win32.Win32Exception;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Arrays;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.connector.Request;
 import org.apache.catalina.deploy.LoginConfig;
+import org.apache.catalina.realm.GenericPrincipal;
 import org.slf4j.LoggerFactory;
 
 import waffle.util.AuthorizationHeader;
@@ -160,12 +162,11 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
             try {
                 this.log.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
 
-                final GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(windowsIdentity,
-                        this.principalFormat, this.roleFormat);
+                final GenericPrincipal genericPrincipal = createPrincipal(windowsIdentity);
 
-                this.log.debug("roles: {}", windowsPrincipal.getRolesString());
+                this.log.debug("roles: {}", Arrays.toString(genericPrincipal.getRoles()));
 
-                principal = windowsPrincipal;
+                principal = genericPrincipal;
 
                 // create a session associated with this request if there's none
                 final HttpSession session = request.getSession(true);
