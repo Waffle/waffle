@@ -1,5 +1,13 @@
+1.8.4 (12/24/2017)
+==================
+* More backporting from 1.9.x master
+* [#579](https://github.com/Waffle/waffle/pull/579): Applied PR #196 continueContextsTimeout for tomcats. [@hazendaz](https://github.com/hazendaz).
+* [#196](https://github.com/Waffle/waffle/pull/196): Added continueContextsTimeout property to WaffleAuthenticatorBase for tomcat(s). [@alanlavintman](https://github.com/alanlavintman).
+
 1.8.3 (2/6/2017)
 ================
+**** Mainly backporting from 1.9.x branch and this release specifically was to add third party licenses ****
+
 * Documentation updates
 * Version Updates
 * Sonar / Coverity Cleanup
