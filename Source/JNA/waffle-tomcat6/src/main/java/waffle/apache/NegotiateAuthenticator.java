@@ -54,6 +54,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
     @Override
     public void start() {
         this.log.info("[waffle.apache.NegotiateAuthenticator] started");
+        super.start();
     }
 
     /*
@@ -63,6 +64,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
     @Override
     public void stop() {
         this.log.info("[waffle.apache.NegotiateAuthenticator] stopped");
+        // Do not call tomcat 6 super.stop() as we never have and it doesn't seem to work.
     }
 
     /*
