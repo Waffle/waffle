@@ -11,6 +11,8 @@
  */
 package waffle.spring;
 
+import com.google.common.io.BaseEncoding;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -30,8 +32,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-
-import com.google.common.io.BaseEncoding;
 
 import waffle.mock.http.SimpleFilterChain;
 import waffle.mock.http.SimpleHttpRequest;

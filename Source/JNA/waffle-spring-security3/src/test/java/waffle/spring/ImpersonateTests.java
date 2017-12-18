@@ -11,12 +11,22 @@
  */
 package waffle.spring;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.equalTo;
+
 import com.google.common.io.BaseEncoding;
 import com.sun.jna.WString;
 import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.LMAccess;
 import com.sun.jna.platform.win32.LMErr;
 import com.sun.jna.platform.win32.Netapi32;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.security.Principal;
+
+import javax.servlet.ServletException;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Assume;
@@ -24,6 +34,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+
 import waffle.mock.MockWindowsAccount;
 import waffle.mock.http.RecordUserNameFilterChain;
 import waffle.mock.http.SimpleHttpRequest;
@@ -32,14 +43,6 @@ import waffle.servlet.AutoDisposableWindowsPrincipal;
 import waffle.servlet.WindowsPrincipal;
 import waffle.servlet.spi.SecurityFilterProviderCollection;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
-
-import javax.servlet.ServletException;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.security.Principal;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.CoreMatchers.equalTo;
 
 /**
  * The Class ImpersonateTests.

@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2017 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -10,6 +10,8 @@
  * Contributors: Application Security, Inc.
  */
 package waffle.apache.catalina;
+
+import com.google.common.base.Joiner;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,8 +22,6 @@ import java.util.Map;
 import org.apache.catalina.connector.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Joiner;
 
 /**
  * Simple HTTP Response.

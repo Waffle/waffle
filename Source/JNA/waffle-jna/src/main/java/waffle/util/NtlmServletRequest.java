@@ -11,9 +11,9 @@
  */
 package waffle.util;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.google.common.base.Joiner;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * The Class NtlmServletRequest.
