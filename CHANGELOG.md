@@ -24,8 +24,15 @@
     * [#553](https://github.com/Waffle/waffle/pull/553): Add spring boot starter and demo[@mgoldgeier](https://github.com/mgoldgeier).
     * [#558](https://github.com/Waffle/waffle/pull/558): Add initial support for spring 5 using spring security 4 still[@hazendaz](https://github.com/hazendaz).
     * [#559](https://github.com/Waffle/waffle/pull/559): Add spring milestone repo and upgrade to spring security 5.0.0.M4[@hazendaz](https://github.com/hazendaz).
-    * [#571](https://github.com/Waffle/waffle/pull/571): Custom instances of GenericPrincipal in WaffleAuthenticatorBase[@Snap252](https://github.com/Snap252);
-    
+    * [#571](https://github.com/Waffle/waffle/pull/571): Custom instances of GenericPrincipal in WaffleAuthenticatorBase[@Snap252](https://github.com/Snap252).
+    * [#583](https://github.com/Waffle/waffle/pull/583): Added continueContextsTimeout property to WaffleAuthenticatorBase for tomcat(s): Ported forwards (1.8.4)[@alanlavintman](https://github.com/alanlavintman).
+
+1.8.4 (12/24/2017)
+==================
+* More backporting from 1.9.x master
+* [#579](https://github.com/Waffle/waffle/pull/579): Applied PR #196 continueContextsTimeout for tomcats. [@hazendaz](https://github.com/hazendaz).
+* [#196](https://github.com/Waffle/waffle/pull/196): Added continueContextsTimeout property to WaffleAuthenticatorBase for tomcat(s). [@alanlavintman](https://github.com/alanlavintman).
+
 1.8.3 (2/6/2017)
 ================
 **** Mainly backporting from 1.9.x branch and this release specifically was to add third party licenses ****
