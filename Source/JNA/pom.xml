@@ -425,15 +425,6 @@
                     </dependencies>
                 </plugin>
                 <plugin>
-                    <groupId>net.revelc.code</groupId>
-                    <artifactId>impsort-maven-plugin</artifactId>
-                    <version>1.0.1</version>
-                    <configuration>
-                        <groups>com,java,javax,mockit,org,waffle</groups>
-                        <staticGroups>java,*</staticGroups>
-                    </configuration>
-                </plugin>
-                <plugin>
                     <groupId>com.mycila</groupId>
                     <artifactId>license-maven-plugin</artifactId>
                     <version>3.0</version>
@@ -1217,22 +1208,6 @@
                                         </pluginExecution>
                                         <pluginExecution>
                                             <pluginExecutionFilter>
-                                                <groupId>net.revelc.code</groupId>
-                                                <artifactId>impsort-maven-plugin</artifactId>
-                                                <versionRange>[1.0.1,)</versionRange>
-                                                <goals>
-                                                    <goal>sort</goal>
-                                                </goals>
-                                            </pluginExecutionFilter>
-                                            <action>
-                                                <execute>
-                                                    <runOnConfiguration>true</runOnConfiguration>
-                                                    <runOnIncremental>true</runOnIncremental>
-                                                </execute>
-                                            </action>
-                                        </pluginExecution>
-                                        <pluginExecution>
-                                            <pluginExecutionFilter>
                                                 <groupId>org.apache.maven.plugins</groupId>
                                                 <artifactId>maven-enforcer-plugin</artifactId>
                                                 <versionRange>[1.4.1,)</versionRange>
@@ -1271,17 +1246,6 @@
                             <execution>
                                 <goals>
                                     <goal>format</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>net.revelc.code</groupId>
-                        <artifactId>impsort-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>sort</goal>
                                 </goals>
                             </execution>
                         </executions>
