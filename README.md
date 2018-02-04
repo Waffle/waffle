@@ -72,7 +72,7 @@ Related and Similar Products
 * [Tomcat SPNEGO](https://tomcatspnego.codeplex.com/)
 * [Quest Vintela Single-Sign-On](http://www.quest.com/single-sign-on-for-java/) (Commercial)
 * [IOPlex Jespa](https://www.ioplex.com/) (Commercial)
-* [Josso](https://www.josso.org/) (Commercial)
+* [Josso](http://www.josso.org/) (Commercial)
 
 Contributing
 ------------
