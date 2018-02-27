@@ -303,6 +303,7 @@
                         <excludes>
                             <exclude>**/*LoadTests.java</exclude>
                         </excludes>
+                        <argLine>-Djdk.attach.allowAttachSelf</argLine>
                     </configuration>
                 </plugin>
                 <!-- Build Plugins -->
