@@ -10,6 +10,7 @@ Yes. Follow the [Servlet Filter Configuration Instructions](https://github.com/d
   * Place the 'filter-mapping' before the last filter-mapping of JIRA, i.e. `JiraLastFilter`.
 * Update `seraph-config.xml` to use a custom authenticator, [RemoteUserJiraAuth](https://marketplace.atlassian.com/plugins/anguswarren.jira.RemoteUserJiraAuth). Modification may be needed.
   * [Source](https://github.com/AngusWarren/remoteuserauth)
+  * [Modification](https://github.com/AngusWarren/remoteuserauth/pull/6/files)
 
 ## Can AD users change or reset their password?
 
