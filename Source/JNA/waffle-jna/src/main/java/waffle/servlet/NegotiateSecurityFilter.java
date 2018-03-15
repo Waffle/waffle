@@ -71,6 +71,9 @@ public class NegotiateSecurityFilter implements Filter {
     /** The impersonate. */
     private boolean impersonate;
 
+    /** The exlusion filter. */
+    private String[]                         excludePatterns;
+
     /** The Constant PRINCIPALSESSIONKEY. */
     private static final String PRINCIPALSESSIONKEY = NegotiateSecurityFilter.class.getName() + ".PRINCIPAL";
 
@@ -104,6 +107,15 @@ public class NegotiateSecurityFilter implements Filter {
 
         NegotiateSecurityFilter.LOGGER.debug("{} {}, contentlength: {}", request.getMethod(), request.getRequestURI(),
                 Integer.valueOf(request.getContentLength()));
+
+        String url = request.getRequestURL().toString();
+        for (String pattern : excludePatterns) {
+            if (url.matches(pattern)) {
+                NegotiateSecurityFilter.LOGGER.info("Pattern :{} excluded URL:{}", url, pattern);
+                chain.doFilter(sreq, sres);
+                return;
+            }
+        }
 
         if (this.doFilterPrincipal(request, response, chain)) {
             // previously authenticated user
@@ -296,6 +308,9 @@ public class NegotiateSecurityFilter implements Filter {
                     case "authProvider":
                         authProvider = parameterValue;
                         break;
+                    case "excludePatterns":
+                        excludePatterns = parameterValue.split("\\s+");
+                        break;
                     default:
                         implParameters.put(parameterName, parameterValue);
                         break;
@@ -362,7 +377,7 @@ public class NegotiateSecurityFilter implements Filter {
 
     /**
      * Set the principal format.
-     * 
+     *
      * @param format
      *            Principal format.
      */
@@ -373,7 +388,7 @@ public class NegotiateSecurityFilter implements Filter {
 
     /**
      * Principal format.
-     * 
+     *
      * @return Principal format.
      */
     public PrincipalFormat getPrincipalFormat() {
@@ -382,7 +397,7 @@ public class NegotiateSecurityFilter implements Filter {
 
     /**
      * Set the principal format.
-     * 
+     *
      * @param format
      *            Role format.
      */
@@ -393,7 +408,7 @@ public class NegotiateSecurityFilter implements Filter {
 
     /**
      * Principal format.
-     * 
+     *
      * @return Role format.
      */
     public PrincipalFormat getRoleFormat() {
@@ -402,7 +417,7 @@ public class NegotiateSecurityFilter implements Filter {
 
     /**
      * Send a 401 Unauthorized along with protocol authentication headers.
-     * 
+     *
      * @param response
      *            HTTP Response
      * @param close
@@ -425,7 +440,7 @@ public class NegotiateSecurityFilter implements Filter {
 
     /**
      * Windows auth provider.
-     * 
+     *
      * @return IWindowsAuthProvider.
      */
     public IWindowsAuthProvider getAuth() {
@@ -434,7 +449,7 @@ public class NegotiateSecurityFilter implements Filter {
 
     /**
      * Set Windows auth provider.
-     * 
+     *
      * @param provider
      *            Class implements IWindowsAuthProvider.
      */
@@ -444,7 +459,7 @@ public class NegotiateSecurityFilter implements Filter {
 
     /**
      * True if guest login is allowed.
-     * 
+     *
      * @return True if guest login is allowed, false otherwise.
      */
     public boolean isAllowGuestLogin() {
@@ -472,7 +487,7 @@ public class NegotiateSecurityFilter implements Filter {
 
     /**
      * Security filter providers.
-     * 
+     *
      * @return A collection of security filter providers.
      */
     public SecurityFilterProviderCollection getProviders() {
