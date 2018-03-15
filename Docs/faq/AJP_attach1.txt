@@ -1,0 +1,148 @@
+1) GET http://www.tst.t2wd.tele2.ru/t2wd/start HTTP/1.1
+Accept: image/jpeg, image/gif, image/pjpeg, */*
+Referer: http://www.tst.t2wd.tele2.ru/t2wd/error403.jsp
+Accept-Language: ru-RU
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727)
+Accept-Encoding: gzip, deflate
+Connection: Keep-Alive
+Cookie: JSESSIONID=3126A9CFCA7D081E5079572FF6CF78FA.T2RU-WDAPP-01
+Host: www.tst.t2wd.tele2.ru
+
+HTTP/1.1 401 Unauthorized
+Date: Wed, 02 Feb 2011 15:08:17 GMT
+Server: Apache/2.2.15 (Win32) mod_ssl/2.2.15 OpenSSL/0.9.8m mod_jk/1.2.30
+X-Powered-By: Servlet 2.5; JBoss-5.0/JBossWeb-2.1
+Set-Cookie: JSESSIONID=C3BEB5AF3983BA259524B2EFA6A1BF23.T2RU-WDAPP-01; Path=/t2wd
+Connection: keep-alive, Keep-Alive
+WWW-Authenticate: Negotiate
+WWW-Authenticate: NTLM
+WWW-Authenticate: Basic realm="BasicSecurityFilterProvider"
+Keep-Alive: timeout=5, max=98
+Transfer-Encoding: chunked
+Content-Type: text/plain
+Proxy-Support: Session-Based-Authentication
+
+------------------------------------------------------------------
+
+2) GET http://www.tst.t2wd.tele2.ru/t2wd/start HTTP/1.1
+Accept: image/jpeg, image/gif, image/pjpeg, */*
+Referer: http://www.tst.t2wd.tele2.ru/t2wd/error403.jsp
+Accept-Language: ru-RU
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727)
+Accept-Encoding: gzip, deflate
+Authorization: Negotiate TlRMT...
+Connection: Keep-Alive
+Cookie: JSESSIONID=C3BEB5AF3983BA259524B2EFA6A1BF23.T2RU-WDAPP-01
+Host: www.tst.t2wd.tele2.ru
+
+HTTP/1.1 401 Unauthorized
+Date: Wed, 02 Feb 2011 15:08:17 GMT
+Server: Apache/2.2.15 (Win32) mod_ssl/2.2.15 OpenSSL/0.9.8m mod_jk/1.2.30
+X-Powered-By: Servlet 2.5; JBoss-5.0/JBossWeb-2.1
+WWW-Authenticate: Negotiate TlRMT...
+Connection: keep-alive, Keep-Alive
+Keep-Alive: timeout=5, max=97
+Transfer-Encoding: chunked
+Content-Type: text/plain
+Proxy-Support: Session-Based-Authentication
+
+------------------------------------------------------------------
+
+3) GET http://www.tst.t2wd.tele2.ru/t2wd/start HTTP/1.1
+Accept: image/jpeg, image/gif, image/pjpeg, */*
+Referer: http://www.tst.t2wd.tele2.ru/t2wd/error403.jsp
+Accept-Language: ru-RU
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727)
+Accept-Encoding: gzip, deflate
+Cookie: JSESSIONID=C3BEB5AF3983BA259524B2EFA6A1BF23.T2RU-WDAPP-01
+Connection: Keep-Alive
+Authorization: Negotiate TlRMT...
+Host: www.tst.t2wd.tele2.ru
+
+
+HTTP/1.1 302 Moved Temporarily
+Date: Wed, 02 Feb 2011 15:08:17 GMT
+Server: Apache/2.2.15 (Win32) mod_ssl/2.2.15 OpenSSL/0.9.8m mod_jk/1.2.30
+X-Powered-By: Servlet 2.5; JBoss-5.0/JBossWeb-2.1
+Location: http://www.tst.t2wd.tele2.ru/t2wd/base3.zul?page=home
+Content-Length: 0
+Keep-Alive: timeout=5, max=96
+Connection: Keep-Alive
+Content-Type: text/plain
+
+------------------------------------------------------------------
+
+4) GET http://www.tst.t2wd.tele2.ru/t2wd/base3.zul?page=home HTTP/1.1
+Accept: image/jpeg, image/gif, image/pjpeg, */*
+Referer: http://www.tst.t2wd.tele2.ru/t2wd/error403.jsp
+Accept-Language: ru-RU
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727)
+Accept-Encoding: gzip, deflate
+Connection: Keep-Alive
+Cookie: JSESSIONID=C3BEB5AF3983BA259524B2EFA6A1BF23.T2RU-WDAPP-01
+Host: www.tst.t2wd.tele2.ru
+
+HTTP/1.1 200 OK
+Date: Wed, 02 Feb 2011 15:08:17 GMT
+Server: Apache/2.2.15 (Win32) mod_ssl/2.2.15 OpenSSL/0.9.8m mod_jk/1.2.30
+X-Powered-By: Servlet 2.5; JBoss-5.0/JBossWeb-2.1
+Pragma: no-cache
+Cache-Control: no-cache
+Cache-Control: no-store
+Expires: -1
+Content-Encoding: gzip
+Content-Language: ru-RU
+Content-Length: 3790
+Keep-Alive: timeout=5, max=95
+Connection: Keep-Alive
+Content-Type: text/html;charset=UTF-8
+
+------------------------------------------------------------------
+
+5) GET http://www.tst.t2wd.tele2.ru/t2wd/zkau/web/a5f28083/zul/css/zk.wcs HTTP/1.1
+Accept: */*
+Referer: http://www.tst.t2wd.tele2.ru/t2wd/base3.zul?page=home
+Accept-Language: ru-RU
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727)
+Accept-Encoding: gzip, deflate
+Host: www.tst.t2wd.tele2.ru
+Connection: Keep-Alive
+Cookie: JSESSIONID=C3BEB5AF3983BA259524B2EFA6A1BF23.T2RU-WDAPP-01
+
+HTTP/1.1 200 OK
+Date: Wed, 02 Feb 2011 15:08:17 GMT
+Server: Apache/2.2.15 (Win32) mod_ssl/2.2.15 OpenSSL/0.9.8m mod_jk/1.2.30
+X-Powered-By: Servlet 2.5; JBoss-5.0/JBossWeb-2.1
+Cache-Control: public, max-age=31536000
+Expires: Thu, 02 Feb 2012 15:08:17 GMT
+Last-Modified: Tue, 01 Feb 2011 20:33:39 GMT
+Content-Encoding: gzip
+Content-Language: ru-RU
+Content-Length: 16309
+Keep-Alive: timeout=5, max=94
+Connection: Keep-Alive
+Content-Type: text/css;charset=UTF-8
+
+------------------------------------------------------------------
+
+6) GET http://www.tst.t2wd.tele2.ru/t2wd/zkau/web/a5f28083/js/zk.wpd HTTP/1.1
+Accept: */*
+Referer: http://www.tst.t2wd.tele2.ru/t2wd/base3.zul?page=home
+Accept-Language: ru-RU
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727)
+Accept-Encoding: gzip, deflate
+Host: www.tst.t2wd.tele2.ru
+Connection: Keep-Alive
+Cookie: JSESSIONID=C3BEB5AF3983BA259524B2EFA6A1BF23.T2RU-WDAPP-01
+Authorization: Negotiate TlRMT...
+
+HTTP/1.1 401 Unauthorized
+Date: Wed, 02 Feb 2011 15:08:17 GMT
+Server: Apache/2.2.15 (Win32) mod_ssl/2.2.15 OpenSSL/0.9.8m mod_jk/1.2.30
+X-Powered-By: Servlet 2.5; JBoss-5.0/JBossWeb-2.1
+WWW-Authenticate: Negotiate TlRMT...
+Connection: keep-alive, Keep-Alive
+Keep-Alive: timeout=5, max=100
+Transfer-Encoding: chunked
+Content-Type: application/vnd.wordperfect
+Proxy-Support: Session-Based-Authentication
