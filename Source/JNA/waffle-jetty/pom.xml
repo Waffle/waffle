@@ -3,7 +3,7 @@
 
     Waffle (https://github.com/Waffle/waffle)
 
-    Copyright (c) 2010-2017 Application Security, Inc.
+    Copyright (c) 2010-2018 Application Security, Inc.
 
     All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
     Public License v1.0 which accompanies this distribution, and is available at
@@ -40,7 +40,7 @@
         <el.version>3.0.1-b08</el.version>
         <el-api.version>3.0.1-b04</el-api.version>
         <jetty.version>9.4.8.v20171121</jetty.version>
-        <jdt.version>3.13.50</jdt.version>
+        <jdt.version>3.13.100</jdt.version>
         <jsp.version>2.3.3-b03</jsp.version>
         <jsp-api.version>2.3.2-b02</jsp-api.version>
         <jstl.version>1.2.5-b03</jstl.version>
