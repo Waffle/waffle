@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2017 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -40,31 +40,31 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
     /** The Constant SUPPORTED_PROTOCOLS. */
-    private static final Set<String> SUPPORTED_PROTOCOLS     = new LinkedHashSet<>(Arrays.asList("Negotiate", "NTLM"));
+    private static final Set<String> SUPPORTED_PROTOCOLS = new LinkedHashSet<>(Arrays.asList("Negotiate", "NTLM"));
 
     /** The info. */
-    protected String                 info;
+    protected String info;
 
     /** The log. */
-    protected Logger                 log;
+    protected Logger log;
 
     /** The principal format. */
-    protected PrincipalFormat        principalFormat         = PrincipalFormat.FQN;
+    protected PrincipalFormat principalFormat = PrincipalFormat.FQN;
 
     /** The role format. */
-    protected PrincipalFormat        roleFormat              = PrincipalFormat.FQN;
+    protected PrincipalFormat roleFormat = PrincipalFormat.FQN;
 
     /** The allow guest login. */
-    protected boolean                allowGuestLogin         = true;
+    protected boolean allowGuestLogin = true;
 
     /** The auth continueContextsTimeout configuration */
-    protected int                    continueContextsTimeout = WindowsAuthProviderImpl.CONTINUE_CONTEXT_TIMEOUT;
+    protected int continueContextsTimeout = WindowsAuthProviderImpl.CONTINUE_CONTEXT_TIMEOUT;
 
     /** The protocols. */
-    protected Set<String>            protocols               = WaffleAuthenticatorBase.SUPPORTED_PROTOCOLS;
+    protected Set<String> protocols = WaffleAuthenticatorBase.SUPPORTED_PROTOCOLS;
 
     /** The auth. */
-    protected IWindowsAuthProvider   auth;
+    protected IWindowsAuthProvider auth;
 
     /**
      * Gets the continue context time out configuration

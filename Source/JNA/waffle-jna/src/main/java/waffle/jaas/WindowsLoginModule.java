@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -48,34 +48,34 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 public class WindowsLoginModule implements LoginModule {
 
     /** The Constant LOGGER. */
-    private static final Logger  LOGGER          = LoggerFactory.getLogger(WindowsLoginModule.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(WindowsLoginModule.class);
 
     /** The username. */
-    private String               username;
+    private String username;
 
     /** The debug. */
-    private boolean              debug;
+    private boolean debug;
 
     /** The subject. */
-    private Subject              subject;
+    private Subject subject;
 
     /** The callback handler. */
-    private CallbackHandler      callbackHandler;
+    private CallbackHandler callbackHandler;
 
     /** The auth. */
-    private IWindowsAuthProvider auth            = new WindowsAuthProviderImpl();
+    private IWindowsAuthProvider auth = new WindowsAuthProviderImpl();
 
     /** The principals. */
-    private Set<Principal>       principals;
+    private Set<Principal> principals;
 
     /** The principal format. */
-    private PrincipalFormat      principalFormat = PrincipalFormat.FQN;
+    private PrincipalFormat principalFormat = PrincipalFormat.FQN;
 
     /** The role format. */
-    private PrincipalFormat      roleFormat      = PrincipalFormat.FQN;
+    private PrincipalFormat roleFormat = PrincipalFormat.FQN;
 
     /** The allow guest login. */
-    private boolean              allowGuestLogin = true;
+    private boolean allowGuestLogin = true;
 
     /*
      * (non-Javadoc)

@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2017 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -33,10 +33,10 @@ import waffle.windows.auth.IWindowsSecurityContext;
 public class MockWindowsAuthProvider implements IWindowsAuthProvider {
 
     /** The Constant GUEST. */
-    private static final String GUEST  = "Guest";
+    private static final String GUEST = "Guest";
 
     /** The groups. */
-    private final List<String>  groups = new ArrayList<>();
+    private final List<String> groups = new ArrayList<>();
 
     /**
      * Instantiates a new mock windows auth provider.

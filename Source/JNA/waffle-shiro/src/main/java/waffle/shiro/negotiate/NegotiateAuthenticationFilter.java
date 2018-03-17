@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2017 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -53,21 +53,20 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
     /**
      * This class's private logger.
      */
-    private static final Logger       LOGGER              = LoggerFactory
-            .getLogger(NegotiateAuthenticationFilter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(NegotiateAuthenticationFilter.class);
 
     // TODO things (sometimes) break, depending on what user account is running tomcat:
     // related to setSPN and running tomcat server as NT Service account vs. as normal user account.
     // https://waffle.codeplex.com/discussions/254748
     // setspn -A HTTP/<server-fqdn> <user_tomcat_running_under>
     /** The Constant PROTOCOLS. */
-    private static final List<String> PROTOCOLS           = new ArrayList<>();
+    private static final List<String> PROTOCOLS = new ArrayList<>();
 
     /** The failure key attribute. */
-    private String                    failureKeyAttribute = FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME;
+    private String failureKeyAttribute = FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME;
 
     /** The remember me param. */
-    private String                    rememberMeParam     = FormAuthenticationFilter.DEFAULT_REMEMBER_ME_PARAM;
+    private String rememberMeParam = FormAuthenticationFilter.DEFAULT_REMEMBER_ME_PARAM;
 
     /**
      * Instantiates a new negotiate authentication filter.

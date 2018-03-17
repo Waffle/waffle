@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2017 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -31,22 +31,22 @@ import waffle.windows.auth.WindowsAccount;
 public class WindowsPrincipal implements Principal, Serializable {
 
     /** The Constant serialVersionUID. */
-    private static final long                 serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     /** The fqn. */
-    private final String                      fqn;
+    private final String fqn;
 
     /** The sid. */
-    private final byte[]                      sid;
+    private final byte[] sid;
 
     /** The sid string. */
-    private final String                      sidString;
+    private final String sidString;
 
     /** The roles. */
-    private final List<String>                roles;
+    private final List<String> roles;
 
     /** The identity. */
-    private transient IWindowsIdentity        identity;
+    private transient IWindowsIdentity identity;
 
     /** The groups. */
     private final Map<String, WindowsAccount> groups;

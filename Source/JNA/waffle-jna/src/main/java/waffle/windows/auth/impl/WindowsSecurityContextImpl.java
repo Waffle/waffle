@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -33,25 +33,25 @@ import waffle.windows.auth.IWindowsSecurityContext;
 public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 
     /** The principal name. */
-    private String                    principalName;
+    private String principalName;
 
     /** The security package. */
-    private String                    securityPackage;
+    private String securityPackage;
 
     /** The token. */
-    private SecBufferDesc             token;
+    private SecBufferDesc token;
 
     /** The ctx. */
-    private CtxtHandle                ctx;
+    private CtxtHandle ctx;
 
     /** The attr. */
-    private IntByReference            attr;
+    private IntByReference attr;
 
     /** The credentials. */
     private IWindowsCredentialsHandle credentials;
 
     /** The continue flag. */
-    private boolean                   continueFlag;
+    private boolean continueFlag;
 
     /*
      * (non-Javadoc)

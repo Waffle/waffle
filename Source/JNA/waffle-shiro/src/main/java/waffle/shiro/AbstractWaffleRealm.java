@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -39,13 +39,13 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 public abstract class AbstractWaffleRealm extends AuthorizingRealm {
 
     /** The Constant LOGGER. */
-    private static final Logger  LOGGER     = LoggerFactory.getLogger(AbstractWaffleRealm.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractWaffleRealm.class);
 
     /** The Constant REALM_NAME. */
-    private static final String  REALM_NAME = "WAFFLE";
+    private static final String REALM_NAME = "WAFFLE";
 
     /** The provider. */
-    private IWindowsAuthProvider provider   = new WindowsAuthProviderImpl();
+    private IWindowsAuthProvider provider = new WindowsAuthProviderImpl();
 
     /*
      * (non-Javadoc)

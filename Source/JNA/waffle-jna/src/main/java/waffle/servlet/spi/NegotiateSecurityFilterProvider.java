@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2017 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -37,23 +37,22 @@ import waffle.windows.auth.IWindowsSecurityContext;
 public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
     /** The Constant LOGGER. */
-    private static final Logger        LOGGER           = LoggerFactory
-            .getLogger(NegotiateSecurityFilterProvider.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(NegotiateSecurityFilterProvider.class);
 
     /** The Constant WWW_AUTHENTICATE. */
-    private static final String        WWW_AUTHENTICATE = "WWW-Authenticate";
+    private static final String WWW_AUTHENTICATE = "WWW-Authenticate";
 
     /** The Constant PROTOCOLS. */
-    private static final String        PROTOCOLS        = "protocols";
+    private static final String PROTOCOLS = "protocols";
 
     /** The Constant NEGOTIATE. */
-    private static final String        NEGOTIATE        = "Negotiate";
+    private static final String NEGOTIATE = "Negotiate";
 
     /** The Constant NTLM. */
-    private static final String        NTLM             = "NTLM";
+    private static final String NTLM = "NTLM";
 
     /** The protocols. */
-    private List<String>               protocols        = new ArrayList<>();
+    private List<String> protocols = new ArrayList<>();
 
     /** The auth. */
     private final IWindowsAuthProvider auth;

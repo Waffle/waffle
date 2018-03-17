@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -31,43 +31,43 @@ import org.mockito.Mockito;
 public class SimpleHttpRequest extends HttpServletRequestWrapper {
 
     /** The remote port s. */
-    private static int                remotePortS = 0;
+    private static int remotePortS = 0;
 
     /** The request uri. */
-    private String                    requestURI;
+    private String requestURI;
 
     /** The query string. */
-    private String                    queryString;
+    private String queryString;
 
     /** The remote user. */
-    private String                    remoteUser;
+    private String remoteUser;
 
     /** The method. */
-    private String                    method      = "GET";
+    private String method = "GET";
 
     /** The remote host. */
-    private String                    remoteHost;
+    private String remoteHost;
 
     /** The remote addr. */
-    private String                    remoteAddr;
+    private String remoteAddr;
 
     /** The remote port. */
-    private int                       remotePort  = -1;
+    private int remotePort = -1;
 
     /** The headers. */
-    private final Map<String, String> headers     = new HashMap<>();
+    private final Map<String, String> headers = new HashMap<>();
 
     /** The parameters. */
-    private final Map<String, String> parameters  = new HashMap<>();
+    private final Map<String, String> parameters = new HashMap<>();
 
     /** The content. */
-    private byte[]                    content;
+    private byte[] content;
 
     /** The session. */
-    private HttpSession               session     = new SimpleHttpSession();
+    private HttpSession session = new SimpleHttpSession();
 
     /** The principal. */
-    private Principal                 principal;
+    private Principal principal;
 
     /**
      * Instantiates a new simple http request.

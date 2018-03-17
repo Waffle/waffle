@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2017 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -28,7 +28,7 @@ import waffle.windows.auth.WindowsAccount;
 public class FqnGrantedAuthorityFactory implements GrantedAuthorityFactory {
 
     /** The prefix. */
-    private final String  prefix;
+    private final String prefix;
 
     /** The convert to upper case. */
     private final boolean convertToUpperCase;

@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -24,19 +24,19 @@ import javax.servlet.http.HttpServletResponse;
 public abstract class MockServletResponse implements HttpServletResponse {
 
     /** The is flushed. */
-    boolean                   isFlushed;
+    boolean isFlushed;
 
     /** The error code. */
-    int                       errorCode;
+    int errorCode;
 
     /** The headers. */
-    Map<String, String>       headers;
+    Map<String, String> headers;
 
     /** The headers added. */
     Map<String, List<String>> headersAdded;
 
     /** The sc. */
-    int                       sc;
+    int sc;
 
     /*
      * (non-Javadoc)

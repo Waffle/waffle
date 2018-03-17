@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -39,35 +39,35 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
     private static final long serialVersionUID = 1345343228636916781L;
 
     /** The in. */
-    private final byte[]      in;
+    private final byte[] in;
 
     /** The out. */
-    private byte[]            out;
+    private byte[] out;
 
     /** The subject. */
-    private Subject           subject;
+    private Subject subject;
 
     /** The principal. */
-    private Principal         principal;
+    private Principal principal;
 
     /** The connection id. */
-    private final String      connectionId;
+    private final String connectionId;
 
     /** The security package. */
-    private final String      securityPackage;
+    private final String securityPackage;
 
     /** The ntlm post. */
-    private final boolean     ntlmPost;
+    private final boolean ntlmPost;
 
     /**
      * Whether or not 'rememberMe' should be enabled for the corresponding login attempt; default is <code>false</code>.
      */
-    private final boolean     rememberMe;
+    private final boolean rememberMe;
 
     /**
      * The location from where the login attempt occurs, or <code>null</code> if not known or explicitly omitted.
      */
-    private final String      host;
+    private final String host;
 
     /**
      * Instantiates a new negotiate token.
