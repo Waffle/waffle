@@ -143,8 +143,8 @@
         <signature.version>1.0</signature.version>
 
         <!-- Plugin Dependency Versions -->
-        <plexus-compiler.version>2.8.2</plexus-compiler.version>
         <checkstyle.version>8.8</checkstyle.version>
+        <plexus-compiler.version>2.8.3</plexus-compiler.version>
     </properties>
 
     <dependencies>
