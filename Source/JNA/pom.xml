@@ -136,7 +136,7 @@
         <j2objc.version>1.3</j2objc.version>
         <jmockit.version>1.38</jmockit.version>
         <jsr305.version>3.0.2</jsr305.version>
-        <junit.version>4.12.2</junit.version>
+        <junit.version>5.1.0</junit.version>
         <slf4j.version>1.7.25</slf4j.version>
 
         <signature.artifact>java18</signature.artifact>
