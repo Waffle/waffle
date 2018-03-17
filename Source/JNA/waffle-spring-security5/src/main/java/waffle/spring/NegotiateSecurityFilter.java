@@ -75,11 +75,6 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
         NegotiateSecurityFilter.LOGGER.debug("[waffle.spring.NegotiateSecurityFilter] loaded");
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse,
-     * javax.servlet.FilterChain)
-     */
     @Override
     public void doFilter(final ServletRequest req, final ServletResponse res, final FilterChain chain)
             throws IOException, ServletException {
@@ -178,10 +173,6 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
         return true;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.springframework.web.filter.GenericFilterBean#afterPropertiesSet()
-     */
     @Override
     public void afterPropertiesSet() throws ServletException {
         super.afterPropertiesSet();

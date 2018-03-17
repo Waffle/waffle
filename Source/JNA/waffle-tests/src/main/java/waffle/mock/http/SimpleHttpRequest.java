@@ -105,46 +105,26 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         this.headers.put(headerName, headerValue);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpServletRequestWrapper#getHeader(java.lang.String)
-     */
     @Override
     public String getHeader(final String headerName) {
         return this.headers.get(headerName);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpServletRequestWrapper#getHeaderNames()
-     */
     @Override
     public Enumeration<String> getHeaderNames() {
         return Collections.enumeration(this.headers.keySet());
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpServletRequestWrapper#getMethod()
-     */
     @Override
     public String getMethod() {
         return this.method;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.ServletRequestWrapper#getContentLength()
-     */
     @Override
     public int getContentLength() {
         return this.content == null ? -1 : this.content.length;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.ServletRequestWrapper#getRemotePort()
-     */
     @Override
     public int getRemotePort() {
         return this.remotePort;
@@ -180,28 +160,16 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         this.remoteUser = username;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpServletRequestWrapper#getRemoteUser()
-     */
     @Override
     public String getRemoteUser() {
         return this.remoteUser;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpServletRequestWrapper#getSession()
-     */
     @Override
     public HttpSession getSession() {
         return this.session;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpServletRequestWrapper#getSession(boolean)
-     */
     @Override
     public HttpSession getSession(final boolean create) {
         if (this.session == null && create) {
@@ -210,10 +178,6 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         return this.session;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpServletRequestWrapper#getQueryString()
-     */
     @Override
     public String getQueryString() {
         return this.queryString;
@@ -246,19 +210,11 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         this.requestURI = uri;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpServletRequestWrapper#getRequestURI()
-     */
     @Override
     public String getRequestURI() {
         return this.requestURI;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.ServletRequestWrapper#getParameter(java.lang.String)
-     */
     @Override
     public String getParameter(final String parameterName) {
         return this.parameters.get(parameterName);
@@ -276,10 +232,6 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         this.parameters.put(parameterName, parameterValue);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.ServletRequestWrapper#getRemoteHost()
-     */
     @Override
     public String getRemoteHost() {
         return this.remoteHost;
@@ -295,10 +247,6 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         this.remoteHost = value;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.ServletRequestWrapper#getRemoteAddr()
-     */
     @Override
     public String getRemoteAddr() {
         return this.remoteAddr;
@@ -314,10 +262,6 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         this.remoteAddr = value;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpServletRequestWrapper#getUserPrincipal()
-     */
     @Override
     public Principal getUserPrincipal() {
         return this.principal;

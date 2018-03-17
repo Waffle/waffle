@@ -67,18 +67,19 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
     protected IWindowsAuthProvider auth;
 
     /**
-     * Gets the continue context time out configuration
-     * 
-     * @return
+     * Gets the continue context time out configuration.
+     *
+     * @return the continue contexts timeout
      */
     public int getContinueContextsTimeout() {
         return continueContextsTimeout;
     }
 
     /**
-     * Sets the continue context time out configuration
-     * 
+     * Sets the continue context time out configuration.
+     *
      * @param continueContextsTimeout
+     *            the new continue contexts timeout
      */
     public void setContinueContextsTimeout(int continueContextsTimeout) {
         this.continueContextsTimeout = continueContextsTimeout;
@@ -234,8 +235,9 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
     /**
      * Hook to the start and to set up the dependencies.
-     * 
+     *
      * @throws LifecycleException
+     *             the lifecycle exception
      */
     @Override
     public void startInternal() throws LifecycleException {
@@ -245,20 +247,11 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
         super.startInternal();
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.catalina.authenticator.AuthenticatorBase#getAuthMethod()
-     */
     @Override
     protected String getAuthMethod() {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.catalina.authenticator.AuthenticatorBase#doLogin(org.apache.catalina.connector.Request,
-     * java.lang.String, java.lang.String)
-     */
     @Override
     protected Principal doLogin(final Request request, final String username, final String password)
             throws ServletException {

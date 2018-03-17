@@ -63,12 +63,6 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
         WindowsAuthenticationProvider.LOGGER.debug("[waffle.spring.WindowsAuthenticationProvider] loaded");
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.springframework.security.authentication.AuthenticationProvider#authenticate(org.springframework.security.
-     * core.Authentication)
-     */
     @Override
     public Authentication authenticate(final Authentication authentication) {
         final UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;

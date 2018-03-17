@@ -108,118 +108,66 @@ public class SimpleHttpRequest extends Request {
         this.parameters.put(parameterName, parameterValue);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.catalina.connector.Request#getContentLength()
-     */
     @Override
     public int getContentLength() {
         return this.content == null ? -1 : this.content.length;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.catalina.connector.Request#getHeader(java.lang.String)
-     */
     @Override
     public String getHeader(final String headerName) {
         return this.headers.get(headerName);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.catalina.connector.Request#getMethod()
-     */
     @Override
     public String getMethod() {
         return this.method;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.catalina.connector.Request#getParameter(java.lang.String)
-     */
     @Override
     public String getParameter(final String parameterName) {
         return this.parameters.get(parameterName);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.catalina.connector.Request#getQueryString()
-     */
     @Override
     public String getQueryString() {
         return this.queryString;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.catalina.connector.Request#getRemoteAddr()
-     */
     @Override
     public String getRemoteAddr() {
         return this.remoteAddr;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.catalina.connector.Request#getRemoteHost()
-     */
     @Override
     public String getRemoteHost() {
         return this.remoteHost;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.catalina.connector.Request#getRemotePort()
-     */
     @Override
     public int getRemotePort() {
         return this.remotePort;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.catalina.connector.Request#getRemoteUser()
-     */
     @Override
     public String getRemoteUser() {
         return this.remoteUser;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.catalina.connector.Request#getRequestURI()
-     */
     @Override
     public String getRequestURI() {
         return this.requestURI;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.catalina.connector.Request#getSession()
-     */
     @Override
     public HttpSession getSession() {
         return this.httpSession;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.catalina.connector.Request#getSession(boolean)
-     */
     @Override
     public HttpSession getSession(final boolean create) {
         return this.httpSession;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.catalina.connector.Request#getUserPrincipal()
-     */
     @Override
     public Principal getUserPrincipal() {
         return this.principal;
@@ -262,19 +210,11 @@ public class SimpleHttpRequest extends Request {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.catalina.connector.Request#setRemoteAddr(java.lang.String)
-     */
     @Override
     public void setRemoteAddr(final String value) {
         this.remoteAddr = value;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.catalina.connector.Request#setRemoteHost(java.lang.String)
-     */
     @Override
     public void setRemoteHost(final String value) {
         this.remoteHost = value;
@@ -300,12 +240,9 @@ public class SimpleHttpRequest extends Request {
         this.requestURI = value;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.catalina.connector.Request#setUserPrincipal(java.security.Principal)
-     */
     @Override
     public void setUserPrincipal(final Principal value) {
         this.principal = value;
     }
+
 }

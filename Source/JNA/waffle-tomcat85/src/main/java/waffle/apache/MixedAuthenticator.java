@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2017 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -51,31 +51,18 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
         this.log.debug("[waffle.apache.MixedAuthenticator] loaded");
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.catalina.authenticator.AuthenticatorBase#startInternal()
-     */
     @Override
     public synchronized void startInternal() throws LifecycleException {
         this.log.info("[waffle.apache.MixedAuthenticator] started");
         super.startInternal();
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.catalina.authenticator.AuthenticatorBase#stopInternal()
-     */
     @Override
     public synchronized void stopInternal() throws LifecycleException {
         super.stopInternal();
         this.log.info("[waffle.apache.MixedAuthenticator] stopped");
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.catalina.authenticator.AuthenticatorBase#authenticate(org.apache.catalina.connector.Request,
-     * javax.servlet.http.HttpServletResponse)
-     */
     @Override
     public boolean authenticate(final Request request, final HttpServletResponse response) {
 

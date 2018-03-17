@@ -38,10 +38,6 @@ public abstract class MockServletResponse implements HttpServletResponse {
     /** The sc. */
     int sc;
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpServletResponse#addHeader(java.lang.String, java.lang.String)
-     */
     @Override
     public void addHeader(final String name, final String value) {
         if (this.headersAdded.containsKey(name)) {
@@ -54,37 +50,21 @@ public abstract class MockServletResponse implements HttpServletResponse {
         this.headersAdded.put(name, values);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.ServletResponse#flushBuffer()
-     */
     @Override
     public void flushBuffer() throws IOException {
         this.isFlushed = true;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpServletResponse#sendError(int)
-     */
     @Override
     public void sendError(final int sendError) throws IOException {
         this.errorCode = sendError;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpServletResponse#setHeader(java.lang.String, java.lang.String)
-     */
     @Override
     public void setHeader(final String name, final String value) {
         this.headers.put(name, value);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpServletResponse#setStatus(int)
-     */
     @Override
     public void setStatus(final int status) {
         this.sc = status;

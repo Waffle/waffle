@@ -112,11 +112,6 @@ public class StartEmbeddedJettyValidateNTLMGroup {
         /** The authorised groups. */
         private static final List<String> authorisedGroups = Arrays.asList("NTGroup1", "NTGroup2");
 
-        /*
-         * (non-Javadoc)
-         * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest,
-         * javax.servlet.http.HttpServletResponse)
-         */
         @Override
         public void doGet(final HttpServletRequest request, final HttpServletResponse response)
                 throws ServletException, IOException {

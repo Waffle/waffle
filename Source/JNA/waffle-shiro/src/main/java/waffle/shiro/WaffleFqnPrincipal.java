@@ -64,10 +64,6 @@ public class WaffleFqnPrincipal implements Serializable {
         return Collections.unmodifiableSet(this.groupFqns);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(final Object obj) {
         if (obj instanceof WaffleFqnPrincipal) {
@@ -76,19 +72,11 @@ public class WaffleFqnPrincipal implements Serializable {
         return false;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#hashCode()
-     */
     @Override
     public int hashCode() {
         return this.fqn.hashCode();
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
         final StringBuilder stringBuilder = new StringBuilder();

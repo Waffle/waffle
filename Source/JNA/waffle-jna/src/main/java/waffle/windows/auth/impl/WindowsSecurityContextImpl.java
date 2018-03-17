@@ -53,19 +53,11 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
     /** The continue flag. */
     private boolean continueFlag;
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsSecurityContext#impersonate()
-     */
     @Override
     public IWindowsImpersonationContext impersonate() {
         return new WindowsSecurityContextImpersonationContextImpl(this.ctx);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsSecurityContext#getIdentity()
-     */
     @Override
     public IWindowsIdentity getIdentity() {
         final HANDLEByReference phContextToken = new HANDLEByReference();
@@ -76,19 +68,11 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
         return new WindowsIdentityImpl(phContextToken.getValue());
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsSecurityContext#getSecurityPackage()
-     */
     @Override
     public String getSecurityPackage() {
         return this.securityPackage;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsSecurityContext#getToken()
-     */
     @Override
     public byte[] getToken() {
         return this.token == null || this.token.getBytes() == null ? null : this.token.getBytes().clone();
@@ -125,11 +109,6 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsSecurityContext#initialize(com.sun.jna.platform.win32.Sspi.CtxtHandle,
-     * com.sun.jna.platform.win32.Sspi.SecBufferDesc, java.lang.String)
-     */
     @Override
     public void initialize(final CtxtHandle continueCtx, final SecBufferDesc continueToken, final String targetName) {
         this.attr = new IntByReference();
@@ -158,10 +137,6 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
         } while (rc == WinError.SEC_E_INSUFFICIENT_MEMORY || rc == WinError.SEC_E_BUFFER_TOO_SMALL);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsSecurityContext#dispose()
-     */
     @Override
     public void dispose() {
         WindowsSecurityContextImpl.dispose(this.ctx);
@@ -189,10 +164,6 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
         return false;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsSecurityContext#getPrincipalName()
-     */
     @Override
     public String getPrincipalName() {
         return this.principalName;
@@ -208,10 +179,6 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
         this.principalName = value;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsSecurityContext#getHandle()
-     */
     @Override
     public CtxtHandle getHandle() {
         return this.ctx;
@@ -257,10 +224,6 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
         this.ctx = phNewServerContext;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsSecurityContext#isContinue()
-     */
     @Override
     public boolean isContinue() {
         return this.continueFlag;

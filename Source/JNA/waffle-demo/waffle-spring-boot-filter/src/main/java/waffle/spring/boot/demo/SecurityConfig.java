@@ -30,10 +30,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private NegotiateSecurityFilterEntryPoint entryPoint;
 
     /**
-     * Autowire constructor injects bean auto-configured by Starter
-     * 
+     * Autowire constructor injects bean auto-configured by Starter.
+     *
      * @param filter
+     *            the filter
      * @param entryPoint
+     *            the entry point
      */
     public SecurityConfig(NegotiateSecurityFilter filter, NegotiateSecurityFilterEntryPoint entryPoint) {
         this.filter = filter;

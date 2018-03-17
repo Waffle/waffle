@@ -42,19 +42,11 @@ public class GroupPrincipal extends UserPrincipal implements Group {
         this.members = new HashMap<>();
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.jaas.UserPrincipal#getName()
-     */
     @Override
     public String getName() {
         return fqn;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.security.acl.Group#addMember(java.security.Principal)
-     */
     @Override
     public boolean addMember(final Principal user) {
         final boolean isMember = members.containsKey(user);
@@ -64,10 +56,6 @@ public class GroupPrincipal extends UserPrincipal implements Group {
         return isMember;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.security.acl.Group#isMember(java.security.Principal)
-     */
     @Override
     public boolean isMember(final Principal user) {
         boolean isMember = members.containsKey(user);
@@ -86,29 +74,17 @@ public class GroupPrincipal extends UserPrincipal implements Group {
         return isMember;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.security.acl.Group#members()
-     */
     @Override
     public Enumeration<? extends Principal> members() {
         return Collections.enumeration(members.values());
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.security.acl.Group#removeMember(java.security.Principal)
-     */
     @Override
     public boolean removeMember(final Principal user) {
         final Object prev = members.remove(user);
         return prev != null;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
         final StringBuilder tmp = new StringBuilder(getName());

@@ -127,19 +127,11 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
         return this.ntlmPost;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.shiro.authc.AuthenticationToken#getCredentials()
-     */
     @Override
     public Object getCredentials() {
         return this.subject;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.shiro.authc.AuthenticationToken#getPrincipal()
-     */
     @Override
     public Principal getPrincipal() {
         return this.principal;

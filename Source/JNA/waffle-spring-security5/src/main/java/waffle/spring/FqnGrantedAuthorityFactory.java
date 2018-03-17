@@ -46,10 +46,6 @@ public class FqnGrantedAuthorityFactory implements GrantedAuthorityFactory {
         this.convertToUpperCase = newConvertToUpperCase;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.spring.GrantedAuthorityFactory#createGrantedAuthority(waffle.windows.auth.WindowsAccount)
-     */
     @Override
     public GrantedAuthority createGrantedAuthority(final WindowsAccount windowsAccount) {
 
@@ -65,4 +61,5 @@ public class FqnGrantedAuthorityFactory implements GrantedAuthorityFactory {
 
         return new SimpleGrantedAuthority(grantedAuthorityString);
     }
+
 }

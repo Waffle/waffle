@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -39,10 +39,6 @@ public class SimpleRequestDispatcher implements RequestDispatcher {
         this.url = newUrl;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.RequestDispatcher#forward(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
-     */
     @Override
     public void forward(final ServletRequest request, final ServletResponse response)
             throws ServletException, IOException {
@@ -51,13 +47,10 @@ public class SimpleRequestDispatcher implements RequestDispatcher {
         httpResponse.addHeader("Location", this.url);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.RequestDispatcher#include(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
-     */
     @Override
     public void include(final ServletRequest request, final ServletResponse response)
             throws ServletException, IOException {
         // Do Nothing
     }
+
 }

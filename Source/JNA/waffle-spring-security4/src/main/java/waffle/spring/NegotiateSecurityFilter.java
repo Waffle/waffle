@@ -75,11 +75,6 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
         NegotiateSecurityFilter.LOGGER.debug("[waffle.spring.NegotiateSecurityFilter] loaded");
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse,
-     * javax.servlet.FilterChain)
-     */
     @Override
     public void doFilter(final ServletRequest req, final ServletResponse res, final FilterChain chain)
             throws IOException, ServletException {
@@ -156,13 +151,9 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
         }
     }
 
-    /*
+    /**
      * Invoked when authentication towards ad was succesful to populate securitycontext Override to add service provider
      * authorization checks.
-     * @return if security context was set.
-     */
-    /**
-     * Sets the authentication.
      *
      * @param request
      *            the request
@@ -178,10 +169,6 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
         return true;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.springframework.web.filter.GenericFilterBean#afterPropertiesSet()
-     */
     @Override
     public void afterPropertiesSet() throws ServletException {
         super.afterPropertiesSet();
