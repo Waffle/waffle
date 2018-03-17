@@ -35,3 +35,4 @@ TestResult.xml
 # windows
 Thumbs.db
 *.factorypath
+.mvn/wrapper/maven-wrapper.jar
