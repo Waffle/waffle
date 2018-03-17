@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2017 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -40,38 +40,38 @@ import org.slf4j.LoggerFactory;
 public class SimpleHttpResponse extends HttpServletResponseWrapper {
 
     /** The Constant LOGGER. */
-    private static final Logger             LOGGER  = LoggerFactory.getLogger(SimpleHttpResponse.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SimpleHttpResponse.class);
 
     /** The status. */
-    private int                             status  = 500;
+    private int status = 500;
 
     /** The headers. */
     private final Map<String, List<String>> headers = new HashMap<>();
 
     /** The bytes. */
-    final ByteArrayOutputStream             bytes   = new ByteArrayOutputStream();
+    final ByteArrayOutputStream bytes = new ByteArrayOutputStream();
 
     /** The out. */
-    private final ServletOutputStream       out     = new ServletOutputStream() {
-                                                        @Override
-                                                        public void write(final int b) throws IOException {
-                                                            SimpleHttpResponse.this.bytes.write(b);
-                                                        }
+    private final ServletOutputStream out = new ServletOutputStream() {
+        @Override
+        public void write(final int b) throws IOException {
+            SimpleHttpResponse.this.bytes.write(b);
+        }
 
-                                                        @Override
-                                                        public boolean isReady() {
-                                                            return false;
-                                                        }
+        @Override
+        public boolean isReady() {
+            return false;
+        }
 
-                                                        @Override
-                                                        public void setWriteListener(WriteListener writeListener) {
-                                                            // Not used
-                                                        }
-                                                    };
+        @Override
+        public void setWriteListener(WriteListener writeListener) {
+            // Not used
+        }
+    };
 
     /** The writer. */
-    private final PrintWriter               writer  = new PrintWriter(
-            new OutputStreamWriter(this.bytes, StandardCharsets.UTF_8), true);
+    private final PrintWriter writer = new PrintWriter(new OutputStreamWriter(this.bytes, StandardCharsets.UTF_8),
+            true);
 
     /**
      * Instantiates a new simple http response.

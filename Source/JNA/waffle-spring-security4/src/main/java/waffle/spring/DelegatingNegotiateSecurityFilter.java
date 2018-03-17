@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2017 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -73,10 +73,10 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
 
     /** The Constant LOGGER. */
-    private static final Logger          LOGGER = LoggerFactory.getLogger(NegotiateSecurityFilter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(NegotiateSecurityFilter.class);
 
     /** The authentication manager. */
-    private AuthenticationManager        authenticationManager;
+    private AuthenticationManager authenticationManager;
 
     /** The authentication success handler. */
     private AuthenticationSuccessHandler authenticationSuccessHandler;
@@ -85,7 +85,7 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
     private AuthenticationFailureHandler authenticationFailureHandler;
 
     /** The access denied handler. */
-    private AccessDeniedHandler          accessDeniedHandler;
+    private AccessDeniedHandler accessDeniedHandler;
 
     /**
      * Instantiates a new delegating negotiate security filter.

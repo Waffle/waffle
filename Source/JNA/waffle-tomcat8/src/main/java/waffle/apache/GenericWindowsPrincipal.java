@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2017 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -31,13 +31,13 @@ import waffle.windows.auth.WindowsAccount;
 public class GenericWindowsPrincipal extends GenericPrincipal {
 
     /** The Constant serialVersionUID. */
-    private static final long                 serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     /** The sid. */
-    private final byte[]                      sid;
+    private final byte[] sid;
 
     /** The sid string. */
-    private final String                      sidString;
+    private final String sidString;
 
     /** The groups. */
     private final Map<String, WindowsAccount> groups;

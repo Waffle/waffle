@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2017 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -48,32 +48,32 @@ public class SimpleHttpRequest extends Request {
     }
 
     /** The request uri. */
-    private String                    requestURI;
+    private String requestURI;
 
     /** The query string. */
-    private String                    queryString;
+    private String queryString;
 
     /** The remote user. */
-    private String                    remoteUser;
+    private String remoteUser;
 
     /** The method. */
-    private String                    method     = "GET";
+    private String method = "GET";
 
     /** The headers. */
-    private final Map<String, String> headers    = new HashMap<>();
+    private final Map<String, String> headers = new HashMap<>();
 
     /** The parameters. */
     private final Map<String, String> parameters = new HashMap<>();
 
     /** The content. */
-    private byte[]                    content;
+    private byte[] content;
 
     /** The http session. */
     @Mocked
-    private HttpSession               httpSession;
+    private HttpSession httpSession;
 
     /** The principal. */
-    private Principal                 principal;
+    private Principal principal;
 
     /**
      * Instantiates a new simple http request.

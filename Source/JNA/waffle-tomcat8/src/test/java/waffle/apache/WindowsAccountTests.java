@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -37,7 +37,7 @@ public class WindowsAccountTests {
     private final MockWindowsAccount mockWindowsAccount = new MockWindowsAccount("localhost\\Administrator");
 
     /** The windows account. */
-    private WindowsAccount           windowsAccount;
+    private WindowsAccount windowsAccount;
 
     /**
      * Sets the up.

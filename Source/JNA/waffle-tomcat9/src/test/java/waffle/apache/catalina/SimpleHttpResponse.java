@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -29,10 +29,10 @@ import org.slf4j.LoggerFactory;
 public class SimpleHttpResponse extends Response {
 
     /** The Constant LOGGER. */
-    private static final Logger             LOGGER  = LoggerFactory.getLogger(SimpleHttpResponse.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SimpleHttpResponse.class);
 
     /** The status. */
-    private int                             status  = 500;
+    private int status = 500;
 
     /** The headers. */
     private final Map<String, List<String>> headers = new HashMap<>();
