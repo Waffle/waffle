@@ -116,22 +116,11 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
             this.parent = newParent;
         }
 
-        /*
-         * (non-Javadoc)
-         * @see waffle.shiro.negotiate.NegotiateAuthenticationFilter#onAccessDenied(javax.servlet.ServletRequest,
-         * javax.servlet.ServletResponse)
-         */
         @Override
         public boolean onAccessDenied(final ServletRequest request, final ServletResponse response) throws Exception {
             return super.onAccessDenied(request, response);
         }
 
-        /*
-         * (non-Javadoc)
-         * @see waffle.shiro.negotiate.NegotiateAuthenticationFilter#onLoginSuccess(org.apache.shiro.authc.
-         * AuthenticationToken , org.apache.shiro.subject.Subject, javax.servlet.ServletRequest,
-         * javax.servlet.ServletResponse)
-         */
         @SuppressWarnings("synthetic-access")
         @Override
         protected boolean onLoginSuccess(final AuthenticationToken token, final Subject subject,
@@ -161,22 +150,11 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
             this.parent = newParent;
         }
 
-        /*
-         * (non-Javadoc)
-         * @see org.apache.shiro.web.filter.authc.FormAuthenticationFilter#onAccessDenied(javax.servlet.ServletRequest,
-         * javax.servlet.ServletResponse)
-         */
         @Override
         public boolean onAccessDenied(final ServletRequest request, final ServletResponse response) throws Exception {
             return super.onAccessDenied(request, response);
         }
 
-        /*
-         * (non-Javadoc)
-         * @see org.apache.shiro.web.filter.authc.FormAuthenticationFilter#onLoginSuccess(org.apache.shiro.authc.
-         * AuthenticationToken, org.apache.shiro.subject.Subject, javax.servlet.ServletRequest,
-         * javax.servlet.ServletResponse)
-         */
         @SuppressWarnings("synthetic-access")
         @Override
         protected boolean onLoginSuccess(final AuthenticationToken token, final Subject subject,

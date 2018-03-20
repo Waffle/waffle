@@ -44,11 +44,6 @@ public class NegotiateSecurityFilterEntryPoint implements AuthenticationEntryPoi
         NegotiateSecurityFilterEntryPoint.LOGGER.debug("[waffle.spring.NegotiateEntryPoint] loaded");
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.springframework.security.web.AuthenticationEntryPoint#commence(javax.servlet.http.HttpServletRequest,
-     * javax.servlet.http.HttpServletResponse, org.springframework.security.core.AuthenticationException)
-     */
     @Override
     public void commence(final HttpServletRequest request, final HttpServletResponse response,
             final AuthenticationException ex) throws IOException, ServletException {

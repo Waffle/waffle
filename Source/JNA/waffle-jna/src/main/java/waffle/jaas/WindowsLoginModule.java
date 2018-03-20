@@ -77,11 +77,6 @@ public class WindowsLoginModule implements LoginModule {
     /** The allow guest login. */
     private boolean allowGuestLogin = true;
 
-    /*
-     * (non-Javadoc)
-     * @see javax.security.auth.spi.LoginModule#initialize(javax.security.auth.Subject,
-     * javax.security.auth.callback.CallbackHandler, java.util.Map, java.util.Map)
-     */
     @Override
     public void initialize(final Subject initSubject, final CallbackHandler initCallbackHandler,
             final Map<String, ?> initSharedState, final Map<String, ?> initOptions) {

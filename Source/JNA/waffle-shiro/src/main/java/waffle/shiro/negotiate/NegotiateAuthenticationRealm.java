@@ -56,20 +56,11 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
         this.windowsAuthProvider = new WindowsAuthProviderImpl();
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.shiro.realm.AuthenticatingRealm#supports(org.apache.shiro.authc.AuthenticationToken)
-     */
     @Override
     public boolean supports(final AuthenticationToken token) {
         return token instanceof NegotiateToken;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.apache.shiro.realm.AuthenticatingRealm#doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)
-     */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(final AuthenticationToken t) {
 

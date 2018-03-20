@@ -47,11 +47,6 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
     /** The provider. */
     private IWindowsAuthProvider provider = new WindowsAuthProviderImpl();
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.apache.shiro.realm.AuthenticatingRealm#doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)
-     */
     @Override
     protected final AuthenticationInfo doGetAuthenticationInfo(final AuthenticationToken authToken) {
         AuthenticationInfo authenticationInfo = null;
@@ -105,10 +100,6 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
         return authenticationInfo;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.shiro.realm.AuthorizingRealm#doGetAuthorizationInfo(org.apache.shiro.subject.PrincipalCollection)
-     */
     @Override
     protected final AuthorizationInfo doGetAuthorizationInfo(final PrincipalCollection principals) {
         final WaffleFqnPrincipal principal = principals.oneByType(WaffleFqnPrincipal.class);

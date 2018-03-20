@@ -90,10 +90,6 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
         return this.status;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpServletResponseWrapper#addHeader(java.lang.String, java.lang.String)
-     */
     @Override
     public void addHeader(final String headerName, final String headerValue) {
         List<String> current = this.headers.get(headerName);
@@ -104,10 +100,6 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
         this.headers.put(headerName, current);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpServletResponseWrapper#setHeader(java.lang.String, java.lang.String)
-     */
     @Override
     public void setHeader(final String headerName, final String headerValue) {
         List<String> current = this.headers.get(headerName);
@@ -120,10 +112,6 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
         this.headers.put(headerName, current);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpServletResponseWrapper#setStatus(int)
-     */
     @Override
     public void setStatus(final int value) {
         this.status = value;
@@ -141,10 +129,6 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
         return "Unknown";
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.ServletResponseWrapper#flushBuffer()
-     */
     @Override
     public void flushBuffer() {
         SimpleHttpResponse.LOGGER.info("{}: {}", Integer.valueOf(this.status), this.getStatusString());
@@ -189,37 +173,21 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
         return headerValues == null ? null : String.join(", ", headerValues);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpServletResponseWrapper#sendError(int, java.lang.String)
-     */
     @Override
     public void sendError(final int rc, final String message) {
         this.status = rc;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpServletResponseWrapper#sendError(int)
-     */
     @Override
     public void sendError(final int rc) {
         this.status = rc;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.ServletResponseWrapper#getWriter()
-     */
     @Override
     public PrintWriter getWriter() {
         return this.writer;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.ServletResponseWrapper#getOutputStream()
-     */
     @Override
     public ServletOutputStream getOutputStream() throws IOException {
         return this.out;

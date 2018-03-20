@@ -242,19 +242,11 @@ public class WindowsPrincipal implements Principal, Serializable {
         return this.identity;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
         return this.getName();
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -268,10 +260,6 @@ public class WindowsPrincipal implements Principal, Serializable {
         return false;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#hashCode()
-     */
     @Override
     public int hashCode() {
         return this.getName().hashCode();

@@ -51,11 +51,6 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
         this.auth = newAuthProvider;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.servlet.spi.SecurityFilterProvider#doFilter(javax.servlet.http.HttpServletRequest,
-     * javax.servlet.http.HttpServletResponse)
-     */
     @Override
     public IWindowsIdentity doFilter(final HttpServletRequest request, final HttpServletResponse response)
             throws IOException {
@@ -70,28 +65,16 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
         return this.auth.logonUser(usernamePasswordArray[0], usernamePasswordArray[1]);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.servlet.spi.SecurityFilterProvider#isPrincipalException(javax.servlet.http.HttpServletRequest)
-     */
     @Override
     public boolean isPrincipalException(final HttpServletRequest request) {
         return false;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.servlet.spi.SecurityFilterProvider#isSecurityPackageSupported(java.lang.String)
-     */
     @Override
     public boolean isSecurityPackageSupported(final String securityPackage) {
         return securityPackage.equalsIgnoreCase("Basic");
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.servlet.spi.SecurityFilterProvider#sendUnauthorized(javax.servlet.http.HttpServletResponse)
-     */
     @Override
     public void sendUnauthorized(final HttpServletResponse response) {
         response.addHeader("WWW-Authenticate", "Basic realm=\"" + this.realm + "\"");

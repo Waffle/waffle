@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2017 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -27,10 +27,6 @@ public class RecordUserNameFilterChain extends SimpleFilterChain {
     /** The user name. */
     private String userName;
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.mock.http.SimpleFilterChain#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
-     */
     @Override
     public void doFilter(final ServletRequest servletRequest, final ServletResponse servletResponse)
             throws IOException, ServletException {

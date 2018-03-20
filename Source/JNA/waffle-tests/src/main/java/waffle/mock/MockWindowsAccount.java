@@ -68,39 +68,24 @@ public class MockWindowsAccount implements IWindowsAccount {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsAccount#getDomain()
-     */
     @Override
     public String getDomain() {
         return this.domain;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsAccount#getFqn()
-     */
     @Override
     public String getFqn() {
         return this.fqn;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsAccount#getName()
-     */
     @Override
     public String getName() {
         return this.name;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsAccount#getSidString()
-     */
     @Override
     public String getSidString() {
         return this.sid;
     }
+
 }

@@ -88,10 +88,6 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
         this.protocols = values;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.servlet.spi.SecurityFilterProvider#sendUnauthorized(javax.servlet.http.HttpServletResponse)
-     */
     @Override
     public void sendUnauthorized(final HttpServletResponse response) {
         for (String protocol : this.protocols) {
@@ -99,10 +95,6 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.servlet.spi.SecurityFilterProvider#isPrincipalException(javax.servlet.http.HttpServletRequest)
-     */
     @Override
     public boolean isPrincipalException(final HttpServletRequest request) {
         final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
@@ -112,11 +104,6 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
         return ntlmPost;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.servlet.spi.SecurityFilterProvider#doFilter(javax.servlet.http.HttpServletRequest,
-     * javax.servlet.http.HttpServletResponse)
-     */
     @Override
     public IWindowsIdentity doFilter(final HttpServletRequest request, final HttpServletResponse response)
             throws IOException {
@@ -161,10 +148,6 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
         return identity;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.servlet.spi.SecurityFilterProvider#isSecurityPackageSupported(java.lang.String)
-     */
     @Override
     public boolean isSecurityPackageSupported(final String securityPackage) {
         for (final String protocol : this.protocols) {
@@ -175,10 +158,6 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
         return false;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.servlet.spi.SecurityFilterProvider#initParameter(java.lang.String, java.lang.String)
-     */
     @Override
     public void initParameter(final String parameterName, final String parameterValue) {
         if (parameterName.equals(NegotiateSecurityFilterProvider.PROTOCOLS)) {

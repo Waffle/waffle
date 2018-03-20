@@ -44,19 +44,11 @@ public class MockWindowsIdentity implements IWindowsIdentity {
         this.groups = newGroups;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsIdentity#getFqn()
-     */
     @Override
     public String getFqn() {
         return this.fqn;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsIdentity#getGroups()
-     */
     @Override
     public IWindowsAccount[] getGroups() {
         final List<MockWindowsAccount> groupsList = new ArrayList<>();
@@ -66,48 +58,29 @@ public class MockWindowsIdentity implements IWindowsIdentity {
         return groupsList.toArray(new IWindowsAccount[0]);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsIdentity#getSid()
-     */
     @Override
     public byte[] getSid() {
         return new byte[0];
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsIdentity#getSidString()
-     */
     @Override
     public String getSidString() {
         return "S-" + this.fqn.hashCode();
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsIdentity#dispose()
-     */
     @Override
     public void dispose() {
         // Do Nothing
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsIdentity#isGuest()
-     */
     @Override
     public boolean isGuest() {
         return "Guest".equals(this.fqn);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsIdentity#impersonate()
-     */
     @Override
     public IWindowsImpersonationContext impersonate() {
         return new MockWindowsImpersonationContext();
     }
+
 }

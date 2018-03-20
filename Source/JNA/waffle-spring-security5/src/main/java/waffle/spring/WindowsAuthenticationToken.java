@@ -93,66 +93,39 @@ public class WindowsAuthenticationToken implements Authentication {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.springframework.security.core.Authentication#getAuthorities()
-     */
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
         return this.authorities;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.springframework.security.core.Authentication#getCredentials()
-     */
     @Override
     public Object getCredentials() {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.springframework.security.core.Authentication#getDetails()
-     */
     @Override
     public Object getDetails() {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.springframework.security.core.Authentication#getPrincipal()
-     */
     @Override
     public Object getPrincipal() {
         return this.principal;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.springframework.security.core.Authentication#isAuthenticated()
-     */
     @Override
     public boolean isAuthenticated() {
         return this.principal != null;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.springframework.security.core.Authentication#setAuthenticated(boolean)
-     */
     @Override
     public void setAuthenticated(final boolean authenticated) {
         throw new IllegalArgumentException();
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.security.Principal#getName()
-     */
     @Override
     public String getName() {
         return this.principal.getName();
     }
+
 }

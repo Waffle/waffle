@@ -133,11 +133,6 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
         this.authenticationFailureHandler = value;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.spring.NegotiateSecurityFilter#setAuthentication(javax.servlet.http.HttpServletRequest,
-     * javax.servlet.http.HttpServletResponse, org.springframework.security.core.Authentication)
-     */
     @Override
     protected boolean setAuthentication(final HttpServletRequest request, final HttpServletResponse response,
             final Authentication authentication) {
@@ -173,10 +168,6 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
         return true;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.spring.NegotiateSecurityFilter#afterPropertiesSet()
-     */
     @Override
     public void afterPropertiesSet() throws ServletException {
         super.afterPropertiesSet();

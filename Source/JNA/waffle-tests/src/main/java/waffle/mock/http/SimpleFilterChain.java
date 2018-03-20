@@ -49,10 +49,6 @@ public class SimpleFilterChain implements FilterChain {
         return this.response;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.FilterChain#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
-     */
     @Override
     public void doFilter(final ServletRequest sreq, final ServletResponse srep) throws IOException, ServletException {
         this.request = sreq;

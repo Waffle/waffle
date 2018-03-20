@@ -100,20 +100,11 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         this.rememberMeParam = value;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.shiro.web.filter.authc.AuthenticatingFilter#isRememberMe(javax.servlet.ServletRequest)
-     */
     @Override
     protected boolean isRememberMe(final ServletRequest request) {
         return WebUtils.isTrue(request, this.getRememberMeParam());
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.shiro.web.filter.authc.AuthenticatingFilter#createToken(javax.servlet.ServletRequest,
-     * javax.servlet.ServletResponse)
-     */
     @Override
     protected AuthenticationToken createToken(final ServletRequest request, final ServletResponse response) {
         final String authorization = this.getAuthzHeader(request);
@@ -138,12 +129,6 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         return new NegotiateToken(inToken, new byte[0], connectionId, securityPackage, ntlmPost, rememberMe, host);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.apache.shiro.web.filter.authc.AuthenticatingFilter#onLoginSuccess(org.apache.shiro.authc.AuthenticationToken,
-     * org.apache.shiro.subject.Subject, javax.servlet.ServletRequest, javax.servlet.ServletResponse)
-     */
     @Override
     protected boolean onLoginSuccess(final AuthenticationToken token, final Subject subject,
             final ServletRequest request, final ServletResponse response) throws Exception {
@@ -151,12 +136,6 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         return true;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.apache.shiro.web.filter.authc.AuthenticatingFilter#onLoginFailure(org.apache.shiro.authc.AuthenticationToken,
-     * org.apache.shiro.authc.AuthenticationException, javax.servlet.ServletRequest, javax.servlet.ServletResponse)
-     */
     @Override
     protected boolean onLoginFailure(final AuthenticationToken token, final AuthenticationException e,
             final ServletRequest request, final ServletResponse response) {
@@ -208,11 +187,6 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         this.failureKeyAttribute = value;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.shiro.web.filter.AccessControlFilter#onAccessDenied(javax.servlet.ServletRequest,
-     * javax.servlet.ServletResponse)
-     */
     @Override
     protected boolean onAccessDenied(final ServletRequest request, final ServletResponse response) throws Exception {
         // false by default or we wouldn't be in

@@ -84,20 +84,11 @@ public class NegotiateSecurityFilter implements Filter {
         NegotiateSecurityFilter.LOGGER.debug("[waffle.servlet.NegotiateSecurityFilter] loaded");
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.Filter#destroy()
-     */
     @Override
     public void destroy() {
         NegotiateSecurityFilter.LOGGER.info("[waffle.servlet.NegotiateSecurityFilter] stopped");
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse,
-     * javax.servlet.FilterChain)
-     */
     @Override
     public void doFilter(final ServletRequest sreq, final ServletResponse sres, final FilterChain chain)
             throws IOException, ServletException {
@@ -272,10 +263,6 @@ public class NegotiateSecurityFilter implements Filter {
         return true;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
-     */
     @SuppressWarnings("unchecked")
     @Override
     public void init(final FilterConfig filterConfig) throws ServletException {

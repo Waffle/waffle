@@ -47,10 +47,6 @@ public class UserPrincipal implements Principal, Serializable {
         return this.fqn;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(final Object o) {
 
@@ -65,10 +61,6 @@ public class UserPrincipal implements Principal, Serializable {
         return false;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#hashCode()
-     */
     @Override
     public int hashCode() {
         return this.getName().hashCode();

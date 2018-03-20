@@ -79,10 +79,6 @@ public class AuthorizationHeader {
         throw new RuntimeException("Invalid Authorization header: " + header);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
         return this.isNull() ? "<none>" : this.getHeader();

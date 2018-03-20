@@ -84,10 +84,6 @@ public class WindowsAccount implements Serializable {
         return this.domain;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(final Object o) {
 
@@ -102,10 +98,6 @@ public class WindowsAccount implements Serializable {
         return ((WindowsAccount) o).getSidString().equals(this.getSidString());
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#hashCode()
-     */
     @Override
     public int hashCode() {
         return this.getSidString().hashCode();

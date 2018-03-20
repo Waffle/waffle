@@ -34,10 +34,6 @@ public class SimpleFilterConfig implements FilterConfig {
     /** The parameters. */
     private final Map<String, String> parameters = new TreeMap<>();
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.FilterConfig#getFilterName()
-     */
     @Override
     public String getFilterName() {
         return this.filterName;
@@ -53,19 +49,11 @@ public class SimpleFilterConfig implements FilterConfig {
         this.filterName = value;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.FilterConfig#getInitParameter(java.lang.String)
-     */
     @Override
     public String getInitParameter(final String s) {
         return this.parameters.get(s);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.FilterConfig#getInitParameterNames()
-     */
     @Override
     public Enumeration<String> getInitParameterNames() {
         final List<String> keys = new ArrayList<>();
@@ -73,10 +61,6 @@ public class SimpleFilterConfig implements FilterConfig {
         return Collections.enumeration(keys);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.FilterConfig#getServletContext()
-     */
     @Override
     public ServletContext getServletContext() {
         return null;

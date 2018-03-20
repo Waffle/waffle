@@ -103,28 +103,16 @@ public class WindowsDomainImpl implements IWindowsDomain {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsDomain#getFqn()
-     */
     @Override
     public String getFqn() {
         return this.fqn;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsDomain#getTrustDirectionString()
-     */
     @Override
     public String getTrustDirectionString() {
         return this.trustDirection.toString();
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsDomain#getTrustTypeString()
-     */
     @Override
     public String getTrustTypeString() {
         return this.trustType.toString();
