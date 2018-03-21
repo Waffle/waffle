@@ -9,6 +9,9 @@ waffle.shiro
 waffle.shiro.dynamic
 waffle.shiro.negotiate
 waffle.spring
+waffle.spring.boot
+waffle.spring.boot.demo
+waffle.spring.boot.starter
 waffle.util
 waffle.windows.auth
 waffle.windows.auth.impl

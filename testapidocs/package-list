@@ -3,10 +3,13 @@ waffle.apache.catalina
 waffle.jaas
 waffle.jetty
 waffle.servlet
+waffle.servlet.generated
 waffle.servlet.spi
 waffle.shiro
 waffle.shiro.dynamic
 waffle.shiro.negotiate
 waffle.spring
+waffle.spring.handlers
 waffle.util
 waffle.windows.auth
+waffle.windows.auth.generated
