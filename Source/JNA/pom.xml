@@ -143,7 +143,10 @@
         <signature.version>1.0</signature.version>
 
         <!-- Plugin Dependency Versions -->
+        <bug-pattern.version>1.4.0</bug-pattern.version>
         <checkstyle.version>8.8</checkstyle.version>
+        <fb-contrib.version>7.2.0.sb</fb-contrib.version>
+        <findsecbugs.version>1.7.1</findsecbugs.version>
         <plexus-compiler.version>2.8.3</plexus-compiler.version>
     </properties>
 
@@ -343,6 +346,9 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-pmd-plugin</artifactId>
                     <version>3.9.0</version>
+                    <configuration>
+                        <analysisCache>true</analysisCache>
+                    </configuration>
                 </plugin>
                 <!-- Tools -->
                 <plugin>
@@ -386,6 +392,25 @@
                     <groupId>com.github.spotbugs</groupId>
                     <artifactId>spotbugs-maven-plugin</artifactId>
                     <version>3.1.3</version>
+                    <configuration>
+                        <plugins>
+                            <plugin>
+                                <groupId>com.mebigfatguy.fb-contrib</groupId>
+                                <artifactId>fb-contrib</artifactId>
+                                <version>${fb-contrib.version}</version>
+                            </plugin>
+                            <plugin>
+                                <groupId>com.h3xstream.findsecbugs</groupId>
+                                <artifactId>findsecbugs-plugin</artifactId>
+                                <version>${findsecbugs.version}</version>
+                            </plugin>
+                            <plugin>
+                                <groupId>jp.skypencil.findbugs.slf4j</groupId>
+                                <artifactId>bug-pattern</artifactId>
+                                <version>${bug-pattern.version}</version>
+                            </plugin>
+                        </plugins>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>com.tunyk.mvn.plugins.htmlcompressor</groupId>
