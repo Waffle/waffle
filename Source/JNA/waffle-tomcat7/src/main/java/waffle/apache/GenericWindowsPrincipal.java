@@ -25,7 +25,7 @@ import waffle.windows.auth.WindowsAccount;
 
 /**
  * A Windows Principal.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class GenericWindowsPrincipal extends GenericPrincipal {
@@ -41,7 +41,7 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
 
     /**
      * A windows principal.
-     * 
+     *
      * @param windowsIdentity
      *            Windows identity.
      * @param principalFormat
@@ -96,7 +96,7 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
 
     /**
      * Byte representation of the SID.
-     * 
+     *
      * @return Array of bytes.
      */
     public byte[] getSid() {
@@ -105,7 +105,7 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
 
     /**
      * String representation of the SID.
-     * 
+     *
      * @return String.
      */
     public String getSidString() {
@@ -114,7 +114,7 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
 
     /**
      * Windows groups that the user is a member of.
-     * 
+     *
      * @return A map of group names to groups.
      */
     public Map<String, WindowsAccount> getGroups() {
@@ -123,7 +123,7 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
 
     /**
      * Returns a list of role principal objects.
-     * 
+     *
      * @param group
      *            Windows group.
      * @param principalFormat
@@ -152,7 +152,7 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
 
     /**
      * Returns a list of user principal objects.
-     * 
+     *
      * @param windowsIdentity
      *            Windows identity.
      * @param principalFormat
@@ -182,7 +182,7 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
 
     /**
      * Get an array of roles as a string.
-     * 
+     *
      * @return Role1, Role2, ...
      */
     public String getRolesString() {

@@ -21,7 +21,7 @@ import java.util.Map;
 
 /**
  * Group principal.
- * 
+ *
  * @author rockchip[dot]tv[at]gmail[dot]com
  */
 public class GroupPrincipal extends UserPrincipal implements Group {
@@ -44,24 +44,24 @@ public class GroupPrincipal extends UserPrincipal implements Group {
 
     @Override
     public String getName() {
-        return fqn;
+        return this.fqn;
     }
 
     @Override
     public boolean addMember(final Principal user) {
-        final boolean isMember = members.containsKey(user);
+        final boolean isMember = this.members.containsKey(user);
         if (!isMember) {
-            members.put(user, user);
+            this.members.put(user, user);
         }
         return isMember;
     }
 
     @Override
     public boolean isMember(final Principal user) {
-        boolean isMember = members.containsKey(user);
+        boolean isMember = this.members.containsKey(user);
         if (!isMember) {
-            final Collection<Principal> values = members.values();
-            for (Principal principal : values) {
+            final Collection<Principal> values = this.members.values();
+            for (final Principal principal : values) {
                 if (principal instanceof Group) {
                     final Group group = (Group) principal;
                     isMember = group.isMember(user);
@@ -76,20 +76,20 @@ public class GroupPrincipal extends UserPrincipal implements Group {
 
     @Override
     public Enumeration<? extends Principal> members() {
-        return Collections.enumeration(members.values());
+        return Collections.enumeration(this.members.values());
     }
 
     @Override
     public boolean removeMember(final Principal user) {
-        final Object prev = members.remove(user);
+        final Object prev = this.members.remove(user);
         return prev != null;
     }
 
     @Override
     public String toString() {
-        final StringBuilder tmp = new StringBuilder(getName());
+        final StringBuilder tmp = new StringBuilder(this.getName());
         tmp.append("(members:");
-        for (Principal principal : members.keySet()) {
+        for (final Principal principal : this.members.keySet()) {
             tmp.append(principal);
             tmp.append(',');
         }

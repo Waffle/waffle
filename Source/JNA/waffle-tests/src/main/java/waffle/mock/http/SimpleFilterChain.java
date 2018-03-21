@@ -20,7 +20,7 @@ import javax.servlet.ServletResponse;
 
 /**
  * Simple filter chain.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class SimpleFilterChain implements FilterChain {

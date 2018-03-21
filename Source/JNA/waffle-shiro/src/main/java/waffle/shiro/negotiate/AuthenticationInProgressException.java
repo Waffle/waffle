@@ -17,7 +17,7 @@ import org.apache.shiro.authc.AuthenticationException;
  * Thrown when the negotiate authentication is being established and requires an extra roundtrip to the client.
  *
  * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateAuthenticationFilter.
- * 
+ *
  * @author Dan Rollo
  * @since 1.0.0
  */

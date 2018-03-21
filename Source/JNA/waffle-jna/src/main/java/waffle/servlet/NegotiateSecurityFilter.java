@@ -99,9 +99,9 @@ public class NegotiateSecurityFilter implements Filter {
         NegotiateSecurityFilter.LOGGER.debug("{} {}, contentlength: {}", request.getMethod(), request.getRequestURI(),
                 Integer.valueOf(request.getContentLength()));
 
-        if (request.getRequestURL() != null && excludePatterns != null) {
-            String url = request.getRequestURL().toString();
-            for (String pattern : excludePatterns) {
+        if (request.getRequestURL() != null && this.excludePatterns != null) {
+            final String url = request.getRequestURL().toString();
+            for (final String pattern : this.excludePatterns) {
                 if (url.matches(pattern)) {
                     NegotiateSecurityFilter.LOGGER.info("Pattern :{} excluded URL:{}", url, pattern);
                     chain.doFilter(sreq, sres);
@@ -297,7 +297,7 @@ public class NegotiateSecurityFilter implements Filter {
                         authProvider = parameterValue;
                         break;
                     case "excludePatterns":
-                        excludePatterns = parameterValue.split("\\s+");
+                        this.excludePatterns = parameterValue.split("\\s+");
                         break;
                     default:
                         implParameters.put(parameterName, parameterValue);

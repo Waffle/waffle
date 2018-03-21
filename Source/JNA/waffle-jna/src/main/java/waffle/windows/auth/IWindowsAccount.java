@@ -13,35 +13,35 @@ package waffle.windows.auth;
 
 /**
  * Windows account.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public interface IWindowsAccount {
 
     /**
      * Security identifier.
-     * 
+     *
      * @return String in the S- format.
      */
     String getSidString();
 
     /**
      * Fully qualified username.
-     * 
+     *
      * @return String.
      */
     String getFqn();
 
     /**
      * User name.
-     * 
+     *
      * @return String.
      */
     String getName();
 
     /**
      * Domain name.
-     * 
+     *
      * @return String.
      */
     String getDomain();

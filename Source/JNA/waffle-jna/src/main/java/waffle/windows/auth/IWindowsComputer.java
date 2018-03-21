@@ -13,35 +13,35 @@ package waffle.windows.auth;
 
 /**
  * A Windows Computer.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public interface IWindowsComputer {
 
     /**
      * Computer name.
-     * 
+     *
      * @return String.
      */
     String getComputerName();
 
     /**
      * Member of (domain).
-     * 
+     *
      * @return String.
      */
     String getMemberOf();
 
     /**
      * Join status.
-     * 
+     *
      * @return String.
      */
     String getJoinStatus();
 
     /**
      * Groups.
-     * 
+     *
      * @return Array of group names.
      */
     String[] getGroups();

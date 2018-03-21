@@ -40,7 +40,7 @@ import waffle.windows.auth.impl.WindowsSecurityContextImpl;
 
 /**
  * Waffle Tomcat Authenticator Tests.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class NegotiateAuthenticatorTests {

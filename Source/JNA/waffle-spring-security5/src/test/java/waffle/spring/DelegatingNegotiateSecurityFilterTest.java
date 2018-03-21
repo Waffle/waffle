@@ -81,7 +81,7 @@ public class DelegatingNegotiateSecurityFilterTest {
         Assertions.assertEquals(PrincipalFormat.BOTH, this.filter.getRoleFormat());
         Assertions.assertNull(this.filter.getFilterConfig());
         Assertions.assertNotNull(this.filter.getProvider());
-        Assertions.assertTrue(filter.getAccessDeniedHandler() instanceof CustomAccessDeniedHandler);
+        Assertions.assertTrue(this.filter.getAccessDeniedHandler() instanceof CustomAccessDeniedHandler);
     }
 
     /**
@@ -113,7 +113,7 @@ public class DelegatingNegotiateSecurityFilterTest {
         Assertions.assertEquals(3, authorities.size());
 
         final List<String> list = new ArrayList<>();
-        for (GrantedAuthority grantedAuthority : authorities) {
+        for (final GrantedAuthority grantedAuthority : authorities) {
             list.add(grantedAuthority.getAuthority());
         }
         Collections.sort(list);

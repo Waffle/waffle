@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Waffle Authenticator Base Tests.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WaffleAuthenticatorBaseTest {
@@ -47,7 +47,8 @@ public class WaffleAuthenticatorBaseTest {
             }
 
             @Override
-            protected boolean doAuthenticate(Request request, HttpServletResponse response) throws IOException {
+            protected boolean doAuthenticate(final Request request, final HttpServletResponse response)
+                    throws IOException {
                 return false;
             }
         };

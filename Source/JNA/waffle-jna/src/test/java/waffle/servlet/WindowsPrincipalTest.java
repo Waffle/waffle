@@ -65,8 +65,8 @@ public class WindowsPrincipalTest {
                 this.result = new IWindowsAccount[0];
             }
         });
-        WindowsPrincipal principal = new WindowsPrincipal(this.windowsIdentity);
-        WindowsPrincipal principal2 = new WindowsPrincipal(this.windowsIdentity);
+        final WindowsPrincipal principal = new WindowsPrincipal(this.windowsIdentity);
+        final WindowsPrincipal principal2 = new WindowsPrincipal(this.windowsIdentity);
         Assertions.assertTrue(principal.equals(principal2) && principal2.equals(principal));
         Assertions.assertEquals(principal.hashCode(), principal2.hashCode());
         Assertions.assertEquals(principal.hashCode(), WindowsPrincipalTest.TEST_FQN.hashCode());

@@ -27,7 +27,7 @@ import waffle.windows.auth.IWindowsIdentity;
 
 /**
  * A Basic authentication security filter provider. https://tools.ietf.org/html/rfc2617
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class BasicSecurityFilterProvider implements SecurityFilterProvider {
@@ -82,7 +82,7 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 
     /**
      * Protection space.
-     * 
+     *
      * @return Name of the protection space.
      */
     public String getRealm() {
@@ -91,7 +91,7 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 
     /**
      * Set the protection space.
-     * 
+     *
      * @param value
      *            Protection space name.
      */

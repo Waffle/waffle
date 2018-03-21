@@ -13,7 +13,7 @@ package waffle.windows.auth;
 
 /**
  * A Windows imerpsonation context.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public interface IWindowsImpersonationContext {

@@ -108,7 +108,7 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
 
     /**
      * Assembles the appropriate authorization information for the specified principal.
-     * 
+     *
      * @param principal
      *            the principal for which to assemble authorization information
      * @return the authorization information for the specified principal
@@ -118,7 +118,7 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
     /**
      * Allow overriding the default implementation of {@link IWindowsAuthProvider} This is only needed for testing,
      * since for normal usage the default is what you want.
-     * 
+     *
      * @param value
      *            the windows authorization provider
      */

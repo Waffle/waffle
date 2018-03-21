@@ -39,7 +39,7 @@ public class WindowsAuthProviderLoadTests {
      */
     @Test
     public void launchLoadTest() throws RunnerException {
-        Options opt = new OptionsBuilder().threads(10).measurementIterations(10).build();
+        final Options opt = new OptionsBuilder().threads(10).measurementIterations(10).build();
         new Runner(opt).run();
     }
 

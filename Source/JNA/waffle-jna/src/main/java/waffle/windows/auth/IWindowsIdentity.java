@@ -13,42 +13,42 @@ package waffle.windows.auth;
 
 /**
  * A Windows Identity.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public interface IWindowsIdentity {
 
     /**
      * Sid.
-     * 
+     *
      * @return String.
      */
     String getSidString();
 
     /**
      * Sid.
-     * 
+     *
      * @return Array of bytes.
      */
     byte[] getSid();
 
     /**
      * Fully qualified name.
-     * 
+     *
      * @return String.
      */
     String getFqn();
 
     /**
      * Group memberships.
-     * 
+     *
      * @return Array of accounts.
      */
     IWindowsAccount[] getGroups();
 
     /**
      * Impersonate a logged on user.
-     * 
+     *
      * @return An impersonation context.
      */
     IWindowsImpersonationContext impersonate();
@@ -60,7 +60,7 @@ public interface IWindowsIdentity {
 
     /**
      * Returns true if the identity represents a Guest account.
-     * 
+     *
      * @return True if the identity represents a Guest account, false otherwise.
      */
     boolean isGuest();

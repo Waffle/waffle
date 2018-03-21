@@ -13,28 +13,28 @@ package waffle.windows.auth;
 
 /**
  * A Windows Domain.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public interface IWindowsDomain {
 
     /**
      * Fully qualified domain name.
-     * 
+     *
      * @return String.
      */
     String getFqn();
 
     /**
      * Trust direction.
-     * 
+     *
      * @return String.
      */
     String getTrustDirectionString();
 
     /**
      * Trust type.
-     * 
+     *
      * @return String.
      */
     String getTrustTypeString();

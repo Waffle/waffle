@@ -13,7 +13,7 @@ package waffle.util;
 
 /**
  * Rudimentary NTLM message utility.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public final class NtlmMessage {
@@ -45,7 +45,7 @@ public final class NtlmMessage {
 
     /**
      * Get NTLM message type.
-     * 
+     *
      * @param message
      *            Assuming a valid NTLM message.
      * @return Message type.

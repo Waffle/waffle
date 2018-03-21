@@ -45,7 +45,7 @@ public class NegotiateAuthenticationStrategy extends AbstractAuthenticationStrat
      * exception: {@link AuthenticationInProgressException}. This custom strategy detects this exception, and
      * immediately re-throws it so classes higher up in the call stack will allow the handshake to proceed. Without this
      * added logic, the handshake would be halted after the first connection by the existing error handling.
-     * 
+     *
      * {@inheritDoc}
      */
     @Override

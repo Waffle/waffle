@@ -29,13 +29,13 @@ public final class NtlmServletRequest {
 
     /**
      * Returns a unique connection id for a given servlet request.
-     * 
+     *
      * @param request
      *            Servlet request.
      * @return String.
      */
     public static String getConnectionId(final HttpServletRequest request) {
-        String remoteHost = NtlmServletRequest.getRemoteHost(request);
+        final String remoteHost = NtlmServletRequest.getRemoteHost(request);
         return String.join(":", remoteHost == null ? "" : remoteHost, String.valueOf(request.getRemotePort()));
     }
 

@@ -12,7 +12,6 @@
 package waffle.util;
 
 import org.assertj.core.api.BDDSoftAssertions;
-import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -138,12 +137,7 @@ public class AuthorizationHeaderTests {
         request.addHeader("Authorization", AuthorizationHeaderTests.DIGEST_HEADER);
 
         final BDDSoftAssertions softly = new BDDSoftAssertions();
-        softly.thenThrownBy(new ThrowingCallable() {
-
-            @Override
-            public void call() throws Exception {
-                header.getTokenBytes();
-            }
-        }).isInstanceOf(RuntimeException.class).hasMessageContaining("Invalid authorization header");
+        softly.thenThrownBy(() -> header.getTokenBytes()).isInstanceOf(RuntimeException.class)
+                .hasMessageContaining("Invalid authorization header");
     }
 }
