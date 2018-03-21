@@ -20,19 +20,19 @@ under the License.
 <rss version="0.91">
   <channel>
     <title>waffle-jetty - Checkstyle report</title>
-    <link>http://dblock.github.com/waffle/</link>
+    <link>https://waffle.github.com/waffle/</link>
     <description>waffle-jetty - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2010 - 2015 com.github.dblock</copyright>
+    <copyright>&#169;2010 - 2018 com.github.waffle</copyright>
     <item>
       <title>File: 2,
-             Errors: 4,
+             Errors: 6,
              Warnings: 0,
              Infos: 0
       </title>
-            <link>http://dblock.github.com/waffle//checkstyle.html</link>
+            <link>https://waffle.github.com/waffle//checkstyle.html</link>
       <description>
-        <p>Click <a href="http://dblock.github.com/waffle//checkstyle.html">here</a> for the full Checkstyle report.</p>
+        <p>Click <a href="https://waffle.github.com/waffle//checkstyle.html">here</a> for the full Checkstyle report.</p>
 
         <table summary="Files" boder="1">
           <thead>
@@ -46,7 +46,7 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.jetty.package-info.java">waffle/jetty/package-info.java</a>
+                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.jetty.package-info.java">waffle/jetty/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -55,12 +55,12 @@ under the License.
                   0
                 </td>
                 <td>
-                  3
+                  4
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.jetty.DummyClass.java">waffle/jetty/DummyClass.java</a>
+                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.jetty.DummyClass.java">waffle/jetty/DummyClass.java</a>
                 </td>
                 <td>
                   0
@@ -69,7 +69,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  2
                 </td>
               </tr>
                       </tbody>
