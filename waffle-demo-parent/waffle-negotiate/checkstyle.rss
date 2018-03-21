@@ -20,19 +20,19 @@ under the License.
 <rss version="0.91">
   <channel>
     <title>waffle-negotiate - Checkstyle report</title>
-    <link>http://dblock.github.com/waffle/</link>
+    <link>https://waffle.github.com/waffle/</link>
     <description>waffle-negotiate - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2010 - 2015 com.github.dblock</copyright>
+    <copyright>&#169;2010 - 2018 com.github.waffle</copyright>
     <item>
       <title>File: 0,
              Errors: 0,
              Warnings: 0,
              Infos: 0
       </title>
-            <link>http://dblock.github.com/waffle//checkstyle.html</link>
+            <link>https://waffle.github.com/waffle//checkstyle.html</link>
       <description>
-        <p>Click <a href="http://dblock.github.com/waffle//checkstyle.html">here</a> for the full Checkstyle report.</p>
+        <p>Click <a href="https://waffle.github.com/waffle//checkstyle.html">here</a> for the full Checkstyle report.</p>
 
         <table summary="Files" boder="1">
           <thead>
