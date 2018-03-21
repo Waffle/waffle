@@ -16,10 +16,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -49,7 +49,7 @@ public class WindowsAuthenticationProviderTests {
     /**
      * Sets the up.
      */
-    @Before
+    @BeforeEach
     public void setUp() {
         final String[] configFiles = new String[] { "springTestAuthBeans.xml" };
         this.ctx = new ClassPathXmlApplicationContext(configFiles);
@@ -59,7 +59,7 @@ public class WindowsAuthenticationProviderTests {
     /**
      * Shut down.
      */
-    @After
+    @AfterEach
     public void shutDown() {
         ((AbstractApplicationContext) this.ctx).close();
     }
@@ -69,10 +69,10 @@ public class WindowsAuthenticationProviderTests {
      */
     @Test
     public void testWindowsAuthenticationProvider() {
-        Assert.assertTrue(this.provider.isAllowGuestLogin());
-        Assert.assertTrue(this.provider.getAuthProvider() instanceof MockWindowsAuthProvider);
-        Assert.assertEquals(PrincipalFormat.SID, this.provider.getPrincipalFormat());
-        Assert.assertEquals(PrincipalFormat.BOTH, this.provider.getRoleFormat());
+        Assertions.assertTrue(this.provider.isAllowGuestLogin());
+        Assertions.assertTrue(this.provider.getAuthProvider() instanceof MockWindowsAuthProvider);
+        Assertions.assertEquals(PrincipalFormat.SID, this.provider.getPrincipalFormat());
+        Assertions.assertEquals(PrincipalFormat.BOTH, this.provider.getRoleFormat());
     }
 
     /**
@@ -80,8 +80,8 @@ public class WindowsAuthenticationProviderTests {
      */
     @Test
     public void testSupports() {
-        Assert.assertFalse(this.provider.supports(this.getClass()));
-        Assert.assertTrue(this.provider.supports(UsernamePasswordAuthenticationToken.class));
+        Assertions.assertFalse(this.provider.supports(this.getClass()));
+        Assertions.assertTrue(this.provider.supports(UsernamePasswordAuthenticationToken.class));
     }
 
     /**
@@ -95,20 +95,20 @@ public class WindowsAuthenticationProviderTests {
         final UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(principal,
                 "password");
         final Authentication authenticated = this.provider.authenticate(authentication);
-        Assert.assertNotNull(authenticated);
-        Assert.assertTrue(authenticated.isAuthenticated());
+        Assertions.assertNotNull(authenticated);
+        Assertions.assertTrue(authenticated.isAuthenticated());
         final Collection<? extends GrantedAuthority> authorities = authenticated.getAuthorities();
-        Assert.assertEquals(3, authorities.size());
+        Assertions.assertEquals(3, authorities.size());
 
         final List<String> list = new ArrayList<>();
         for (GrantedAuthority grantedAuthority : authorities) {
             list.add(grantedAuthority.getAuthority());
         }
         Collections.sort(list);
-        Assert.assertEquals("ROLE_EVERYONE", list.get(0));
-        Assert.assertEquals("ROLE_USER", list.get(1));
-        Assert.assertEquals("ROLE_USERS", list.get(2));
-        Assert.assertTrue(authenticated.getPrincipal() instanceof WindowsPrincipal);
+        Assertions.assertEquals("ROLE_EVERYONE", list.get(0));
+        Assertions.assertEquals("ROLE_USER", list.get(1));
+        Assertions.assertEquals("ROLE_USERS", list.get(2));
+        Assertions.assertTrue(authenticated.getPrincipal() instanceof WindowsPrincipal);
     }
 
     /**
@@ -126,32 +126,34 @@ public class WindowsAuthenticationProviderTests {
                 "password");
 
         final Authentication authenticated = this.provider.authenticate(authentication);
-        Assert.assertNotNull(authenticated);
-        Assert.assertTrue(authenticated.isAuthenticated());
+        Assertions.assertNotNull(authenticated);
+        Assertions.assertTrue(authenticated.isAuthenticated());
         final Collection<? extends GrantedAuthority> authorities = authenticated.getAuthorities();
-        Assert.assertEquals(2, authorities.size());
+        Assertions.assertEquals(2, authorities.size());
 
         final List<String> list = new ArrayList<>();
         for (GrantedAuthority grantedAuthority : authorities) {
             list.add(grantedAuthority.getAuthority());
         }
         Collections.sort(list);
-        Assert.assertEquals("Everyone", list.get(0));
-        Assert.assertEquals("Users", list.get(1));
-        Assert.assertTrue(authenticated.getPrincipal() instanceof WindowsPrincipal);
+        Assertions.assertEquals("Everyone", list.get(0));
+        Assertions.assertEquals("Users", list.get(1));
+        Assertions.assertTrue(authenticated.getPrincipal() instanceof WindowsPrincipal);
     }
 
     /**
      * Test guest is disabled.
      */
-    @Test(expected = GuestLoginDisabledAuthenticationException.class)
+    @Test
     public void testGuestIsDisabled() {
         final MockWindowsIdentity mockIdentity = new MockWindowsIdentity("Guest", new ArrayList<String>());
         this.provider.setAllowGuestLogin(false);
         final WindowsPrincipal principal = new WindowsPrincipal(mockIdentity);
         final UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(principal,
                 "password");
-        this.provider.authenticate(authentication);
-        Assert.fail("expected AuthenticationServiceException");
+        final Throwable exception = Assertions.assertThrows(GuestLoginDisabledAuthenticationException.class, () -> {
+            this.provider.authenticate(authentication);
+        });
+        Assertions.assertEquals("Guest", exception.getMessage());
     }
 }

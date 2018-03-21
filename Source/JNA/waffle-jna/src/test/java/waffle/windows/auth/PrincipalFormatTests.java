@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -11,8 +11,8 @@
  */
 package waffle.windows.auth;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class PrincipalFormatTests.
@@ -26,18 +26,21 @@ public class PrincipalFormatTests {
      */
     @Test
     public void testKnown() {
-        Assert.assertEquals(PrincipalFormat.FQN, PrincipalFormat.valueOf("FQN"));
-        Assert.assertEquals(PrincipalFormat.SID, PrincipalFormat.valueOf("SID"));
-        Assert.assertEquals(PrincipalFormat.BOTH, PrincipalFormat.valueOf("BOTH"));
-        Assert.assertEquals(PrincipalFormat.NONE, PrincipalFormat.valueOf("NONE"));
-        Assert.assertEquals(4, PrincipalFormat.values().length);
+        Assertions.assertEquals(PrincipalFormat.FQN, PrincipalFormat.valueOf("FQN"));
+        Assertions.assertEquals(PrincipalFormat.SID, PrincipalFormat.valueOf("SID"));
+        Assertions.assertEquals(PrincipalFormat.BOTH, PrincipalFormat.valueOf("BOTH"));
+        Assertions.assertEquals(PrincipalFormat.NONE, PrincipalFormat.valueOf("NONE"));
+        Assertions.assertEquals(4, PrincipalFormat.values().length);
     }
 
     /**
      * Test unknown.
      */
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testUnknown() {
-        PrincipalFormat.valueOf("garbage");
+        Assertions.assertThrows(RuntimeException.class, () -> {
+            PrincipalFormat.valueOf("garbage");
+        });
     }
+
 }

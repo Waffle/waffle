@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2017 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -11,8 +11,8 @@
  */
 package waffle.apache;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Windows Realm Tests.
@@ -27,11 +27,11 @@ public class WindowsRealmTests {
     @Test
     public void testProperties() {
         final WindowsRealm realm = new WindowsRealm();
-        Assert.assertNull(realm.getPassword(null));
-        Assert.assertNull(realm.getPrincipal(null));
+        Assertions.assertNull(realm.getPassword(null));
+        Assertions.assertNull(realm.getPrincipal(null));
         // To support tomcat 9.0.0.M13 and lower this will still work
-        Assert.assertEquals("waffle.apache.WindowsRealm/1.0", realm.getName());
+        Assertions.assertEquals("waffle.apache.WindowsRealm/1.0", realm.getName());
         // In tomcat 9.0.0.M15+, this is all that will now report
-        Assert.assertEquals("WindowsRealm", realm.getClass().getSimpleName());
+        Assertions.assertEquals("WindowsRealm", realm.getClass().getSimpleName());
     }
 }

@@ -14,8 +14,8 @@ package waffle.servlet;
 import mockit.Expectations;
 import mockit.Mocked;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import waffle.windows.auth.IWindowsAccount;
 import waffle.windows.auth.IWindowsIdentity;
@@ -39,7 +39,7 @@ public class WindowsPrincipalTest {
      */
     @Test
     public void testToString() {
-        Assert.assertNotNull(new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 WindowsPrincipalTest.this.windowsIdentity.getFqn();
                 this.result = WindowsPrincipalTest.TEST_FQN;
@@ -48,8 +48,8 @@ public class WindowsPrincipalTest {
             }
         });
         final WindowsPrincipal principal = new WindowsPrincipal(this.windowsIdentity);
-        Assert.assertEquals(WindowsPrincipalTest.TEST_FQN, principal.getName());
-        Assert.assertEquals(WindowsPrincipalTest.TEST_FQN, principal.toString());
+        Assertions.assertEquals(WindowsPrincipalTest.TEST_FQN, principal.getName());
+        Assertions.assertEquals(WindowsPrincipalTest.TEST_FQN, principal.toString());
     }
 
     /**
@@ -57,7 +57,7 @@ public class WindowsPrincipalTest {
      */
     @Test
     public void testEqualsAndHashCode() {
-        Assert.assertNotNull(new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 WindowsPrincipalTest.this.windowsIdentity.getFqn();
                 this.result = WindowsPrincipalTest.TEST_FQN;
@@ -67,9 +67,9 @@ public class WindowsPrincipalTest {
         });
         WindowsPrincipal principal = new WindowsPrincipal(this.windowsIdentity);
         WindowsPrincipal principal2 = new WindowsPrincipal(this.windowsIdentity);
-        Assert.assertTrue(principal.equals(principal2) && principal2.equals(principal));
-        Assert.assertEquals(principal.hashCode(), principal2.hashCode());
-        Assert.assertEquals(principal.hashCode(), WindowsPrincipalTest.TEST_FQN.hashCode());
+        Assertions.assertTrue(principal.equals(principal2) && principal2.equals(principal));
+        Assertions.assertEquals(principal.hashCode(), principal2.hashCode());
+        Assertions.assertEquals(principal.hashCode(), WindowsPrincipalTest.TEST_FQN.hashCode());
     }
 
 }

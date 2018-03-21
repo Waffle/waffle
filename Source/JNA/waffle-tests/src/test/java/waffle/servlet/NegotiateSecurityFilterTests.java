@@ -11,6 +11,8 @@
  */
 package waffle.servlet;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.Secur32.EXTENDED_NAME_FORMAT;
 import com.sun.jna.platform.win32.Secur32Util;
@@ -24,11 +26,10 @@ import java.util.Base64;
 import javax.security.auth.Subject;
 import javax.servlet.ServletException;
 
-import org.assertj.core.api.Assertions;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import waffle.mock.MockWindowsAuthProvider;
 import waffle.mock.MockWindowsIdentity;
@@ -65,7 +66,7 @@ public class NegotiateSecurityFilterTests {
      * @throws ServletException
      *             the servlet exception
      */
-    @Before
+    @BeforeEach
     public void setUp() throws ServletException {
         this.filter = new NegotiateSecurityFilter();
         this.filter.setAuth(new WindowsAuthProviderImpl());
@@ -75,7 +76,7 @@ public class NegotiateSecurityFilterTests {
     /**
      * Tear down.
      */
-    @After
+    @AfterEach
     public void tearDown() {
         this.filter.destroy();
     }
@@ -95,13 +96,13 @@ public class NegotiateSecurityFilterTests {
         final SimpleHttpResponse response = new SimpleHttpResponse();
         this.filter.doFilter(request, response, null);
         final String[] wwwAuthenticates = response.getHeaderValues("WWW-Authenticate");
-        Assert.assertEquals(3, wwwAuthenticates.length);
-        Assert.assertEquals(NegotiateSecurityFilterTests.NEGOTIATE, wwwAuthenticates[0]);
-        Assert.assertEquals(NegotiateSecurityFilterTests.NTLM, wwwAuthenticates[1]);
-        Assert.assertTrue(wwwAuthenticates[2].startsWith("Basic realm=\""));
-        Assert.assertEquals(2, response.getHeaderNamesSize());
-        Assert.assertEquals("keep-alive", response.getHeader("Connection"));
-        Assert.assertEquals(401, response.getStatus());
+        Assertions.assertEquals(3, wwwAuthenticates.length);
+        Assertions.assertEquals(NegotiateSecurityFilterTests.NEGOTIATE, wwwAuthenticates[0]);
+        Assertions.assertEquals(NegotiateSecurityFilterTests.NTLM, wwwAuthenticates[1]);
+        Assertions.assertTrue(wwwAuthenticates[2].startsWith("Basic realm=\""));
+        Assertions.assertEquals(2, response.getHeaderNamesSize());
+        Assertions.assertEquals("keep-alive", response.getHeader("Connection"));
+        Assertions.assertEquals(401, response.getStatus());
     }
 
     /**
@@ -134,10 +135,10 @@ public class NegotiateSecurityFilterTests {
             request.addHeader("Authorization", securityPackage + " " + clientToken);
             final SimpleHttpResponse response = new SimpleHttpResponse();
             this.filter.doFilter(request, response, null);
-            Assert.assertTrue(response.getHeader("WWW-Authenticate").startsWith(securityPackage + " "));
-            Assert.assertEquals("keep-alive", response.getHeader("Connection"));
-            Assert.assertEquals(2, response.getHeaderNamesSize());
-            Assert.assertEquals(401, response.getStatus());
+            Assertions.assertTrue(response.getHeader("WWW-Authenticate").startsWith(securityPackage + " "));
+            Assertions.assertEquals("keep-alive", response.getHeader("Connection"));
+            Assertions.assertEquals(2, response.getHeaderNamesSize());
+            Assertions.assertEquals(401, response.getStatus());
         } finally {
             if (clientContext != null) {
                 clientContext.dispose();
@@ -190,32 +191,32 @@ public class NegotiateSecurityFilterTests {
                 authenticated = subject != null && subject.getPrincipals().size() > 0;
 
                 if (authenticated) {
-                    Assertions.assertThat(response.getHeaderNamesSize()).isGreaterThanOrEqualTo(0);
+                    assertThat(response.getHeaderNamesSize()).isGreaterThanOrEqualTo(0);
                     break;
                 }
 
-                Assert.assertTrue(response.getHeader("WWW-Authenticate").startsWith(securityPackage + " "));
-                Assert.assertEquals("keep-alive", response.getHeader("Connection"));
-                Assert.assertEquals(2, response.getHeaderNamesSize());
-                Assert.assertEquals(401, response.getStatus());
+                Assertions.assertTrue(response.getHeader("WWW-Authenticate").startsWith(securityPackage + " "));
+                Assertions.assertEquals("keep-alive", response.getHeader("Connection"));
+                Assertions.assertEquals(2, response.getHeaderNamesSize());
+                Assertions.assertEquals(401, response.getStatus());
                 final String continueToken = response.getHeader("WWW-Authenticate")
                         .substring(securityPackage.length() + 1);
                 final byte[] continueTokenBytes = Base64.getDecoder().decode(continueToken);
-                Assertions.assertThat(continueTokenBytes.length).isGreaterThan(0);
+                assertThat(continueTokenBytes.length).isGreaterThan(0);
                 final SecBufferDesc continueTokenBuffer = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, continueTokenBytes);
                 clientContext.initialize(clientContext.getHandle(), continueTokenBuffer, "localhost");
             }
-            Assert.assertTrue(authenticated);
-            Assert.assertTrue(filterChain.getRequest() instanceof NegotiateRequestWrapper);
-            Assert.assertTrue(filterChain.getResponse() instanceof SimpleHttpResponse);
+            Assertions.assertTrue(authenticated);
+            Assertions.assertTrue(filterChain.getRequest() instanceof NegotiateRequestWrapper);
+            Assertions.assertTrue(filterChain.getResponse() instanceof SimpleHttpResponse);
             final NegotiateRequestWrapper wrappedRequest = (NegotiateRequestWrapper) filterChain.getRequest();
-            Assert.assertEquals(NegotiateSecurityFilterTests.NEGOTIATE.toUpperCase(), wrappedRequest.getAuthType());
-            Assert.assertEquals(Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible),
+            Assertions.assertEquals(NegotiateSecurityFilterTests.NEGOTIATE.toUpperCase(), wrappedRequest.getAuthType());
+            Assertions.assertEquals(Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible),
                     wrappedRequest.getRemoteUser());
-            Assert.assertTrue(wrappedRequest.getUserPrincipal() instanceof WindowsPrincipal);
+            Assertions.assertTrue(wrappedRequest.getUserPrincipal() instanceof WindowsPrincipal);
             final String everyoneGroupName = Advapi32Util.getAccountBySid("S-1-1-0").name;
-            Assert.assertTrue(wrappedRequest.isUserInRole(everyoneGroupName));
-            Assert.assertTrue(wrappedRequest.isUserInRole("S-1-1-0"));
+            Assertions.assertTrue(wrappedRequest.isUserInRole(everyoneGroupName));
+            Assertions.assertTrue(wrappedRequest.isUserInRole("S-1-1-0"));
         } finally {
             if (clientContext != null) {
                 clientContext.dispose();
@@ -243,10 +244,10 @@ public class NegotiateSecurityFilterTests {
         final SimpleFilterChain filterChain = new SimpleFilterChain();
         final SimpleHttpResponse response = new SimpleHttpResponse();
         this.filter.doFilter(request, response, filterChain);
-        Assert.assertTrue(filterChain.getRequest() instanceof NegotiateRequestWrapper);
+        Assertions.assertTrue(filterChain.getRequest() instanceof NegotiateRequestWrapper);
         final NegotiateRequestWrapper wrappedRequest = (NegotiateRequestWrapper) filterChain.getRequest();
-        Assert.assertTrue(wrappedRequest.getUserPrincipal() instanceof WindowsPrincipal);
-        Assert.assertEquals(windowsPrincipal, wrappedRequest.getUserPrincipal());
+        Assertions.assertTrue(wrappedRequest.getUserPrincipal() instanceof WindowsPrincipal);
+        Assertions.assertEquals(windowsPrincipal, wrappedRequest.getUserPrincipal());
     }
 
     /**
@@ -269,13 +270,13 @@ public class NegotiateSecurityFilterTests {
         final SimpleFilterChain filterChain = new SimpleFilterChain();
         final SimpleHttpResponse response = new SimpleHttpResponse();
         this.filter.doFilter(request, response, filterChain);
-        Assert.assertEquals(401, response.getStatus());
+        Assertions.assertEquals(401, response.getStatus());
         final String[] wwwAuthenticates = response.getHeaderValues("WWW-Authenticate");
-        Assert.assertEquals(1, wwwAuthenticates.length);
-        Assert.assertTrue(wwwAuthenticates[0].startsWith("NTLM "));
-        Assert.assertEquals(2, response.getHeaderNamesSize());
-        Assert.assertEquals("keep-alive", response.getHeader("Connection"));
-        Assert.assertEquals(401, response.getStatus());
+        Assertions.assertEquals(1, wwwAuthenticates.length);
+        Assertions.assertTrue(wwwAuthenticates[0].startsWith("NTLM "));
+        Assertions.assertEquals(2, response.getHeaderNamesSize());
+        Assertions.assertEquals("keep-alive", response.getHeader("Connection"));
+        Assertions.assertEquals(401, response.getStatus());
     }
 
     /**
@@ -298,13 +299,13 @@ public class NegotiateSecurityFilterTests {
         final SimpleFilterChain filterChain = new SimpleFilterChain();
         final SimpleHttpResponse response = new SimpleHttpResponse();
         this.filter.doFilter(request, response, filterChain);
-        Assert.assertEquals(401, response.getStatus());
+        Assertions.assertEquals(401, response.getStatus());
         final String[] wwwAuthenticates = response.getHeaderValues("WWW-Authenticate");
-        Assert.assertEquals(1, wwwAuthenticates.length);
-        Assert.assertTrue(wwwAuthenticates[0].startsWith("NTLM "));
-        Assert.assertEquals(2, response.getHeaderNamesSize());
-        Assert.assertEquals("keep-alive", response.getHeader("Connection"));
-        Assert.assertEquals(401, response.getStatus());
+        Assertions.assertEquals(1, wwwAuthenticates.length);
+        Assertions.assertTrue(wwwAuthenticates[0].startsWith("NTLM "));
+        Assertions.assertEquals(2, response.getHeaderNamesSize());
+        Assertions.assertEquals("keep-alive", response.getHeader("Connection"));
+        Assertions.assertEquals(401, response.getStatus());
     }
 
     /**
@@ -323,11 +324,11 @@ public class NegotiateSecurityFilterTests {
         filterConfig.setParameter("waffle.servlet.spi.BasicSecurityFilterProvider/realm", "DemoRealm");
         filterConfig.setParameter("authProvider", MockWindowsAuthProvider.class.getName());
         this.filter.init(filterConfig);
-        Assert.assertEquals(this.filter.getPrincipalFormat(), PrincipalFormat.SID);
-        Assert.assertEquals(this.filter.getRoleFormat(), PrincipalFormat.NONE);
-        Assert.assertTrue(this.filter.isAllowGuestLogin());
-        Assert.assertEquals(1, this.filter.getProviders().size());
-        Assert.assertTrue(this.filter.getAuth() instanceof MockWindowsAuthProvider);
+        Assertions.assertEquals(this.filter.getPrincipalFormat(), PrincipalFormat.SID);
+        Assertions.assertEquals(this.filter.getRoleFormat(), PrincipalFormat.NONE);
+        Assertions.assertTrue(this.filter.isAllowGuestLogin());
+        Assertions.assertEquals(1, this.filter.getProviders().size());
+        Assertions.assertTrue(this.filter.getAuth() instanceof MockWindowsAuthProvider);
     }
 
     /**
@@ -343,7 +344,7 @@ public class NegotiateSecurityFilterTests {
         filterConfig.setParameter("securityFilterProviders", "waffle.servlet.spi.BasicSecurityFilterProvider\n"
                 + "waffle.servlet.spi.NegotiateSecurityFilterProvider waffle.servlet.spi.BasicSecurityFilterProvider");
         this.filter.init(filterConfig);
-        Assert.assertEquals(3, this.filter.getProviders().size());
+        Assertions.assertEquals(3, this.filter.getProviders().size());
     }
 
     /**
@@ -359,10 +360,10 @@ public class NegotiateSecurityFilterTests {
         filterConfig.setParameter("waffle.servlet.spi.NegotiateSecurityFilterProvider/protocols",
                 "NTLM\nNegotiate NTLM");
         this.filter.init(filterConfig);
-        Assert.assertEquals(this.filter.getPrincipalFormat(), PrincipalFormat.FQN);
-        Assert.assertEquals(this.filter.getRoleFormat(), PrincipalFormat.FQN);
-        Assert.assertTrue(this.filter.isAllowGuestLogin());
-        Assert.assertEquals(1, this.filter.getProviders().size());
+        Assertions.assertEquals(this.filter.getPrincipalFormat(), PrincipalFormat.FQN);
+        Assertions.assertEquals(this.filter.getRoleFormat(), PrincipalFormat.FQN);
+        Assertions.assertTrue(this.filter.isAllowGuestLogin());
+        Assertions.assertEquals(1, this.filter.getProviders().size());
     }
 
     /**
@@ -375,9 +376,9 @@ public class NegotiateSecurityFilterTests {
         filterConfig.setParameter("waffle.servlet.spi.NegotiateSecurityFilterProvider/protocols", "INVALID");
         try {
             this.filter.init(filterConfig);
-            Assert.fail("expected ServletException");
+            Assertions.fail("expected ServletException");
         } catch (final ServletException e) {
-            Assert.assertEquals("java.lang.RuntimeException: Unsupported protocol: INVALID", e.getMessage());
+            Assertions.assertEquals("java.lang.RuntimeException: Unsupported protocol: INVALID", e.getMessage());
         }
     }
 
@@ -390,9 +391,9 @@ public class NegotiateSecurityFilterTests {
             final SimpleFilterConfig filterConfig = new SimpleFilterConfig();
             filterConfig.setParameter("invalidParameter", "random");
             this.filter.init(filterConfig);
-            Assert.fail("expected ServletException");
+            Assertions.fail("expected ServletException");
         } catch (final ServletException e) {
-            Assert.assertEquals("Invalid parameter: invalidParameter", e.getMessage());
+            Assertions.assertEquals("Invalid parameter: invalidParameter", e.getMessage());
         }
     }
 
@@ -405,9 +406,9 @@ public class NegotiateSecurityFilterTests {
             final SimpleFilterConfig filterConfig = new SimpleFilterConfig();
             filterConfig.setParameter("invalidClass/invalidParameter", "random");
             this.filter.init(filterConfig);
-            Assert.fail("expected ServletException");
+            Assertions.fail("expected ServletException");
         } catch (final ServletException e) {
-            Assert.assertEquals("java.lang.ClassNotFoundException: invalidClass", e.getMessage());
+            Assertions.assertEquals("java.lang.ClassNotFoundException: invalidClass", e.getMessage());
         }
     }
 }

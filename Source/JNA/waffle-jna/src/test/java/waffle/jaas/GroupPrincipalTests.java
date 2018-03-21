@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -11,6 +11,8 @@
  */
 package waffle.jaas;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -18,10 +20,9 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import org.assertj.core.api.Assertions;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class GroupPrincipalTests.
@@ -38,7 +39,7 @@ public class GroupPrincipalTests {
      */
     @Test
     public void equals_otherObject() {
-        Assert.assertNotEquals(this.groupPrincipal, "");
+        Assertions.assertNotEquals(this.groupPrincipal, "");
     }
 
     /**
@@ -46,13 +47,13 @@ public class GroupPrincipalTests {
      */
     @Test
     public void equals_sameObject() {
-        Assert.assertEquals(this.groupPrincipal, this.groupPrincipal);
+        Assertions.assertEquals(this.groupPrincipal, this.groupPrincipal);
     }
 
     /**
      * Sets the up.
      */
-    @Before
+    @BeforeEach
     public void setUp() {
         this.groupPrincipal = new GroupPrincipal("localhost\\Administrator");
     }
@@ -64,8 +65,8 @@ public class GroupPrincipalTests {
     public void testEquals_Symmetric() {
         final GroupPrincipal x = new GroupPrincipal("localhost\\Administrator");
         final GroupPrincipal y = new GroupPrincipal("localhost\\Administrator");
-        Assert.assertEquals(x, y);
-        Assert.assertEquals(x.hashCode(), y.hashCode());
+        Assertions.assertEquals(x, y);
+        Assertions.assertEquals(x.hashCode(), y.hashCode());
     }
 
     /**
@@ -83,14 +84,14 @@ public class GroupPrincipalTests {
         try (final ObjectOutputStream oos = new ObjectOutputStream(out)) {
             oos.writeObject(this.groupPrincipal);
         }
-        Assertions.assertThat(out.toByteArray().length).isGreaterThan(0);
+        assertThat(out.toByteArray().length).isGreaterThan(0);
         // deserialize
         final InputStream in = new ByteArrayInputStream(out.toByteArray());
         final ObjectInputStream ois = new ObjectInputStream(in);
         final GroupPrincipal copy = (GroupPrincipal) ois.readObject();
         // test
-        Assert.assertEquals(this.groupPrincipal, copy);
-        Assert.assertEquals(this.groupPrincipal.getName(), copy.getName());
+        Assertions.assertEquals(this.groupPrincipal, copy);
+        Assertions.assertEquals(this.groupPrincipal.getName(), copy.getName());
     }
 
 }

@@ -121,7 +121,6 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
             return super.onAccessDenied(request, response);
         }
 
-        @SuppressWarnings("synthetic-access")
         @Override
         protected boolean onLoginSuccess(final AuthenticationToken token, final Subject subject,
                 final ServletRequest request, final ServletResponse response) throws Exception {
@@ -155,7 +154,6 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
             return super.onAccessDenied(request, response);
         }
 
-        @SuppressWarnings("synthetic-access")
         @Override
         protected boolean onLoginSuccess(final AuthenticationToken token, final Subject subject,
                 final ServletRequest request, final ServletResponse response) throws Exception {

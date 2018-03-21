@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2017 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -11,9 +11,9 @@
  */
 package waffle.spring;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import waffle.mock.MockWindowsAccount;
@@ -30,7 +30,7 @@ public class FqnGrantedAuthorityFactoryTests {
     /**
      * Sets the up.
      */
-    @Before
+    @BeforeEach
     public void setUp() {
         this.group = new WindowsAccount(new MockWindowsAccount("group"));
     }
@@ -41,7 +41,7 @@ public class FqnGrantedAuthorityFactoryTests {
     @Test
     public void testPrefixAndUppercase() {
         final FqnGrantedAuthorityFactory factory = new FqnGrantedAuthorityFactory("prefix_", true);
-        Assert.assertEquals(new SimpleGrantedAuthority("PREFIX_GROUP"), factory.createGrantedAuthority(this.group));
+        Assertions.assertEquals(new SimpleGrantedAuthority("PREFIX_GROUP"), factory.createGrantedAuthority(this.group));
     }
 
     /**
@@ -50,7 +50,7 @@ public class FqnGrantedAuthorityFactoryTests {
     @Test
     public void testPrefixAndLowercase() {
         final FqnGrantedAuthorityFactory factory = new FqnGrantedAuthorityFactory("prefix_", false);
-        Assert.assertEquals(new SimpleGrantedAuthority("prefix_group"), factory.createGrantedAuthority(this.group));
+        Assertions.assertEquals(new SimpleGrantedAuthority("prefix_group"), factory.createGrantedAuthority(this.group));
     }
 
     /**
@@ -59,7 +59,7 @@ public class FqnGrantedAuthorityFactoryTests {
     @Test
     public void testNoPrefixAndUppercase() {
         final FqnGrantedAuthorityFactory factory = new FqnGrantedAuthorityFactory(null, true);
-        Assert.assertEquals(new SimpleGrantedAuthority("GROUP"), factory.createGrantedAuthority(this.group));
+        Assertions.assertEquals(new SimpleGrantedAuthority("GROUP"), factory.createGrantedAuthority(this.group));
     }
 
     /**
@@ -68,7 +68,7 @@ public class FqnGrantedAuthorityFactoryTests {
     @Test
     public void testNoPrefixAndLowercase() {
         final FqnGrantedAuthorityFactory factory = new FqnGrantedAuthorityFactory(null, false);
-        Assert.assertEquals(new SimpleGrantedAuthority("group"), factory.createGrantedAuthority(this.group));
+        Assertions.assertEquals(new SimpleGrantedAuthority("group"), factory.createGrantedAuthority(this.group));
     }
 
 }

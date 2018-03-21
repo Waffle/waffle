@@ -16,9 +16,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.security.core.GrantedAuthority;
 
 import waffle.mock.MockWindowsIdentity;
@@ -40,7 +40,7 @@ public class WindowsAuthenticationTokenTests {
     /**
      * Sets the up.
      */
-    @Before
+    @BeforeEach
     public void setUp() {
         final List<String> mockGroups = new ArrayList<>();
         mockGroups.add("group1");
@@ -55,22 +55,22 @@ public class WindowsAuthenticationTokenTests {
      */
     @Test
     public void testWindowsAuthenticationToken() {
-        Assert.assertNull(this.token.getCredentials());
-        Assert.assertNull(this.token.getDetails());
-        Assert.assertTrue(this.token.isAuthenticated());
-        Assert.assertEquals("localhost\\user1", this.token.getName());
+        Assertions.assertNull(this.token.getCredentials());
+        Assertions.assertNull(this.token.getDetails());
+        Assertions.assertTrue(this.token.isAuthenticated());
+        Assertions.assertEquals("localhost\\user1", this.token.getName());
         final Collection<GrantedAuthority> authorities = this.token.getAuthorities();
-        Assert.assertEquals(3, authorities.size());
+        Assertions.assertEquals(3, authorities.size());
 
         final List<String> list = new ArrayList<>();
         for (GrantedAuthority grantedAuthority : authorities) {
             list.add(grantedAuthority.getAuthority());
         }
         Collections.sort(list);
-        Assert.assertEquals("ROLE_GROUP1", list.get(0));
-        Assert.assertEquals("ROLE_GROUP2", list.get(1));
-        Assert.assertEquals("ROLE_USER", list.get(2));
-        Assert.assertEquals(this.principal, this.token.getPrincipal());
+        Assertions.assertEquals("ROLE_GROUP1", list.get(0));
+        Assertions.assertEquals("ROLE_GROUP2", list.get(1));
+        Assertions.assertEquals("ROLE_USER", list.get(2));
+        Assertions.assertEquals(this.principal, this.token.getPrincipal());
     }
 
     /**
@@ -82,29 +82,32 @@ public class WindowsAuthenticationTokenTests {
         final WindowsAuthenticationToken myToken = new WindowsAuthenticationToken(this.principal,
                 new FqnGrantedAuthorityFactory(null, false), null);
 
-        Assert.assertNull(myToken.getCredentials());
-        Assert.assertNull(myToken.getDetails());
-        Assert.assertTrue(myToken.isAuthenticated());
-        Assert.assertEquals("localhost\\user1", myToken.getName());
+        Assertions.assertNull(myToken.getCredentials());
+        Assertions.assertNull(myToken.getDetails());
+        Assertions.assertTrue(myToken.isAuthenticated());
+        Assertions.assertEquals("localhost\\user1", myToken.getName());
         final Collection<GrantedAuthority> authorities = myToken.getAuthorities();
-        Assert.assertEquals(2, authorities.size());
+        Assertions.assertEquals(2, authorities.size());
 
         final List<String> list = new ArrayList<>();
         for (GrantedAuthority grantedAuthority : authorities) {
             list.add(grantedAuthority.getAuthority());
         }
         Collections.sort(list);
-        Assert.assertEquals("group1", list.get(0));
-        Assert.assertEquals("group2", list.get(1));
-        Assert.assertEquals(this.principal, myToken.getPrincipal());
+        Assertions.assertEquals("group1", list.get(0));
+        Assertions.assertEquals("group2", list.get(1));
+        Assertions.assertEquals(this.principal, myToken.getPrincipal());
     }
 
     /**
      * Test authenticated.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testAuthenticated() {
-        Assert.assertTrue(this.token.isAuthenticated());
-        this.token.setAuthenticated(true);
+        Assertions.assertTrue(this.token.isAuthenticated());
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            this.token.setAuthenticated(true);
+        });
     }
+
 }
