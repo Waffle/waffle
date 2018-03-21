@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>SimpleHttpResponse.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-distro</a> &gt; <a href="../index.html" class="el_bundle">waffle-tests</a> &gt; <a href="index.source.html" class="el_package">waffle.mock.http</a> &gt; <span class="el_source">SimpleHttpResponse.java</span></div><h1>SimpleHttpResponse.java</h1><pre class="source lang-java linenums">/**
+ * Waffle (https://github.com/Waffle/waffle)
+ *
+ * Copyright (c) 2010-2018 Application Security, Inc.
+ *
+ * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+ * Public License v1.0 which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-v10.html.
+ *
+ * Contributors: Application Security, Inc.
+ */
+package waffle.mock.http;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.WriteListener;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
+
+import org.mockito.Mockito;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * The Class SimpleHttpResponse.
+ *
+ * @author dblock[at]dblock[dot]org
+ */
+public class SimpleHttpResponse extends HttpServletResponseWrapper {
+
+    /** The Constant LOGGER. */
+<span class="nc" id="L43">    private static final Logger LOGGER = LoggerFactory.getLogger(SimpleHttpResponse.class);</span>
+
+    /** The status. */
+<span class="nc" id="L46">    private int status = 500;</span>
+
+    /** The headers. */
+<span class="nc" id="L49">    private final Map&lt;String, List&lt;String&gt;&gt; headers = new HashMap&lt;&gt;();</span>
+
+    /** The bytes. */
+<span class="nc" id="L52">    final ByteArrayOutputStream bytes = new ByteArrayOutputStream();</span>
+
+    /** The out. */
+<span class="nc" id="L55">    private final ServletOutputStream out = new ServletOutputStream() {</span>
+        @Override
+        public void write(final int b) throws IOException {
+<span class="nc" id="L58">            SimpleHttpResponse.this.bytes.write(b);</span>
+<span class="nc" id="L59">        }</span>
+
+        @Override
+        public boolean isReady() {
+<span class="nc" id="L63">            return false;</span>
+        }
+
+        @Override
+        public void setWriteListener(WriteListener writeListener) {
+            // Not used
+<span class="nc" id="L69">        }</span>
+    };
+
+    /** The writer. */
+<span class="nc" id="L73">    private final PrintWriter writer = new PrintWriter(new OutputStreamWriter(this.bytes, StandardCharsets.UTF_8),</span>
+            true);
+
+    /**
+     * Instantiates a new simple http response.
+     */
+    public SimpleHttpResponse() {
+<span class="nc" id="L80">        super(Mockito.mock(HttpServletResponse.class));</span>
+<span class="nc" id="L81">    }</span>
+
+    /**
+     * Gets the status.
+     *
+     * @return the status
+     */
+    @Override
+    public int getStatus() {
+<span class="nc" id="L90">        return this.status;</span>
+    }
+
+    @Override
+    public void addHeader(final String headerName, final String headerValue) {
+<span class="nc" id="L95">        List&lt;String&gt; current = this.headers.get(headerName);</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">        if (current == null) {</span>
+<span class="nc" id="L97">            current = new ArrayList&lt;&gt;();</span>
+        }
+<span class="nc" id="L99">        current.add(headerValue);</span>
+<span class="nc" id="L100">        this.headers.put(headerName, current);</span>
+<span class="nc" id="L101">    }</span>
+
+    @Override
+    public void setHeader(final String headerName, final String headerValue) {
+<span class="nc" id="L105">        List&lt;String&gt; current = this.headers.get(headerName);</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">        if (current == null) {</span>
+<span class="nc" id="L107">            current = new ArrayList&lt;&gt;();</span>
+        } else {
+<span class="nc" id="L109">            current.clear();</span>
+        }
+<span class="nc" id="L111">        current.add(headerValue);</span>
+<span class="nc" id="L112">        this.headers.put(headerName, current);</span>
+<span class="nc" id="L113">    }</span>
+
+    @Override
+    public void setStatus(final int value) {
+<span class="nc" id="L117">        this.status = value;</span>
+<span class="nc" id="L118">    }</span>
+
+    /**
+     * Gets the status string.
+     *
+     * @return the status string
+     */
+    public String getStatusString() {
+<span class="nc bnc" id="L126" title="All 2 branches missed.">        if (this.status == 401) {</span>
+<span class="nc" id="L127">            return &quot;Unauthorized&quot;;</span>
+        }
+<span class="nc" id="L129">        return &quot;Unknown&quot;;</span>
+    }
+
+    @Override
+    public void flushBuffer() {
+<span class="nc" id="L134">        SimpleHttpResponse.LOGGER.info(&quot;{}: {}&quot;, Integer.valueOf(this.status), this.getStatusString());</span>
+<span class="nc bnc" id="L135" title="All 2 branches missed.">        for (final Entry&lt;String, List&lt;String&gt;&gt; header : this.headers.entrySet()) {</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">            for (final String headerValue : header.getValue()) {</span>
+<span class="nc" id="L137">                SimpleHttpResponse.LOGGER.info(&quot;{}: {}&quot;, header, headerValue);</span>
+<span class="nc" id="L138">            }</span>
+<span class="nc" id="L139">        }</span>
+<span class="nc" id="L140">    }</span>
+
+    /**
+     * Use this for testing the number of headers.
+     * 
+     * @return int header name size.
+     */
+    public int getHeaderNamesSize() {
+<span class="nc" id="L148">        return this.headers.size();</span>
+    }
+
+    /**
+     * Gets the header values.
+     *
+     * @param headerName
+     *            the header name
+     * @return the header values
+     */
+    public String[] getHeaderValues(final String headerName) {
+<span class="nc" id="L159">        final List&lt;String&gt; headerValues = this.headers.get(headerName);</span>
+<span class="nc bnc" id="L160" title="All 2 branches missed.">        return headerValues == null ? null : headerValues.toArray(new String[0]);</span>
+    }
+
+    /**
+     * Gets the header.
+     *
+     * @param headerName
+     *            the header name
+     * @return the header
+     */
+    @Override
+    public String getHeader(final String headerName) {
+<span class="nc" id="L172">        final List&lt;String&gt; headerValues = this.headers.get(headerName);</span>
+<span class="nc bnc" id="L173" title="All 2 branches missed.">        return headerValues == null ? null : String.join(&quot;, &quot;, headerValues);</span>
+    }
+
+    @Override
+    public void sendError(final int rc, final String message) {
+<span class="nc" id="L178">        this.status = rc;</span>
+<span class="nc" id="L179">    }</span>
+
+    @Override
+    public void sendError(final int rc) {
+<span class="nc" id="L183">        this.status = rc;</span>
+<span class="nc" id="L184">    }</span>
+
+    @Override
+    public PrintWriter getWriter() {
+<span class="nc" id="L188">        return this.writer;</span>
+    }
+
+    @Override
+    public ServletOutputStream getOutputStream() throws IOException {
+<span class="nc" id="L193">        return this.out;</span>
+    }
+
+    /**
+     * Gets the output text.
+     *
+     * @return the output text
+     */
+    public String getOutputText() {
+<span class="nc" id="L202">        this.writer.flush();</span>
+        try {
+<span class="nc" id="L204">            return this.bytes.toString(StandardCharsets.UTF_8.name());</span>
+<span class="nc" id="L205">        } catch (final UnsupportedEncodingException e) {</span>
+<span class="nc" id="L206">            SimpleHttpResponse.LOGGER.error(&quot;&quot;, e);</span>
+        }
+<span class="nc" id="L208">        return null;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>

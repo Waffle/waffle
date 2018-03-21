@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>NegotiateInfo.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-distro</a> &gt; <a href="../index.html" class="el_bundle">waffle-shiro</a> &gt; <a href="index.source.html" class="el_package">waffle.shiro.negotiate</a> &gt; <span class="el_source">NegotiateInfo.java</span></div><h1>NegotiateInfo.java</h1><pre class="source lang-java linenums">/**
+ * Waffle (https://github.com/Waffle/waffle)
+ *
+ * Copyright (c) 2010-2018 Application Security, Inc.
+ *
+ * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+ * Public License v1.0 which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-v10.html.
+ *
+ * Contributors: Application Security, Inc.
+ */
+package waffle.shiro.negotiate;
+
+import javax.security.auth.Subject;
+
+import org.apache.shiro.authc.AuthenticationInfo;
+import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.SimplePrincipalCollection;
+
+/**
+ * Information about a user authenticated via the HTTP Negotiate authentication mechanism.
+ *
+ * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateToken. see:
+ * https://bitbucket.org/lothor/shiro-negotiate
+ * /src/7b25efde130b/src/main/java/net/skorgenes/security/jsecurity/negotiate/NegotiateInfo.java?at=default
+ * 
+ * @author Dan Rollo
+ * @since 1.0.0
+ */
+public class NegotiateInfo implements AuthenticationInfo {
+
+    /** The Constant serialVersionUID. */
+    private static final long serialVersionUID = -1537448549089922914L;
+
+    /** The subject. */
+    private final Subject subject;
+
+    /** The realm name. */
+    private final String realmName;
+
+    /**
+     * Creates a new info object.
+     * 
+     * @param newSubject
+     *            a subject containing the authenticated users {@link waffle.servlet.WindowsPrincipal}.
+     * @param newRealmName
+     *            a &lt;code&gt;String&lt;/code&gt; containing the name of the authentication realm
+     */
+<span class="nc" id="L49">    public NegotiateInfo(final Subject newSubject, final String newRealmName) {</span>
+<span class="nc" id="L50">        this.subject = newSubject;</span>
+<span class="nc" id="L51">        this.realmName = newRealmName;</span>
+<span class="nc" id="L52">    }</span>
+
+    /**
+     * Creates a new principal collection using the subject as the principal.
+     * 
+     * @return a new principal collection using the subject as the principal
+     */
+    @Override
+    public PrincipalCollection getPrincipals() {
+<span class="nc" id="L61">        return new SimplePrincipalCollection(this.subject.getPrincipals(), this.realmName);</span>
+    }
+
+    /**
+     * Returns the subject.
+     * 
+     * @return the subject
+     */
+    @Override
+    public Object getCredentials() {
+<span class="nc" id="L71">        return this.subject;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>

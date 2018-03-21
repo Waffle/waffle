@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>WindowsIdentityImpersonationContextImpl.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-distro</a> &gt; <a href="../index.html" class="el_bundle">waffle-jna</a> &gt; <a href="index.source.html" class="el_package">waffle.windows.auth.impl</a> &gt; <span class="el_source">WindowsIdentityImpersonationContextImpl.java</span></div><h1>WindowsIdentityImpersonationContextImpl.java</h1><pre class="source lang-java linenums">/**
+ * Waffle (https://github.com/Waffle/waffle)
+ *
+ * Copyright (c) 2010-2018 Application Security, Inc.
+ *
+ * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+ * Public License v1.0 which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-v10.html.
+ *
+ * Contributors: Application Security, Inc.
+ */
+package waffle.windows.auth.impl;
+
+import com.sun.jna.platform.win32.Advapi32;
+import com.sun.jna.platform.win32.Kernel32;
+import com.sun.jna.platform.win32.Win32Exception;
+import com.sun.jna.platform.win32.WinNT.HANDLE;
+
+import waffle.windows.auth.IWindowsImpersonationContext;
+
+/**
+ * The Class WindowsIdentityImpersonationContextImpl.
+ *
+ * @author dblock[at]dblock[dot]org
+ */
+public class WindowsIdentityImpersonationContextImpl implements IWindowsImpersonationContext {
+
+    /**
+     * Impersonate a logged on user.
+     * 
+     * @param windowsIdentity
+     *            Windows identity obtained via LogonUser.
+     */
+<span class="nc" id="L34">    public WindowsIdentityImpersonationContextImpl(final HANDLE windowsIdentity) {</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">        if (!Advapi32.INSTANCE.ImpersonateLoggedOnUser(windowsIdentity)) {</span>
+<span class="nc" id="L36">            throw new Win32Exception(Kernel32.INSTANCE.GetLastError());</span>
+        }
+<span class="nc" id="L38">    }</span>
+
+    @Override
+    public void revertToSelf() {
+<span class="nc" id="L42">        Advapi32.INSTANCE.RevertToSelf();</span>
+<span class="nc" id="L43">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>
