@@ -105,7 +105,7 @@
         <site>
             <id>gh-pages</id>
             <name>Waffle GitHub Pages</name>
-            <url>github:https://waffle.github.io/waffle/</url>
+            <url>github:ssh://waffle.github.io/waffle/</url>
         </site>
         <snapshotRepository>
             <id>ossrh</id>
