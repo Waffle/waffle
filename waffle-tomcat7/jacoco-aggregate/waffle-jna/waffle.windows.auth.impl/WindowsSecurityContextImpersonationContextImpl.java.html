@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>WindowsSecurityContextImpersonationContextImpl.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-tomcat7</a> &gt; <a href="../index.html" class="el_bundle">waffle-jna</a> &gt; <a href="index.source.html" class="el_package">waffle.windows.auth.impl</a> &gt; <span class="el_source">WindowsSecurityContextImpersonationContextImpl.java</span></div><h1>WindowsSecurityContextImpersonationContextImpl.java</h1><pre class="source lang-java linenums">/**
+ * Waffle (https://github.com/Waffle/waffle)
+ *
+ * Copyright (c) 2010-2018 Application Security, Inc.
+ *
+ * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+ * Public License v1.0 which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-v10.html.
+ *
+ * Contributors: Application Security, Inc.
+ */
+package waffle.windows.auth.impl;
+
+import com.sun.jna.platform.win32.Secur32;
+import com.sun.jna.platform.win32.Sspi.CtxtHandle;
+import com.sun.jna.platform.win32.Win32Exception;
+import com.sun.jna.platform.win32.WinError;
+
+import waffle.windows.auth.IWindowsImpersonationContext;
+
+/**
+ * The Class WindowsSecurityContextImpersonationContextImpl.
+ *
+ * @author dblock[at]dblock[dot]org
+ */
+public class WindowsSecurityContextImpersonationContextImpl implements IWindowsImpersonationContext {
+
+    /** The ctx. */
+    private final CtxtHandle ctx;
+
+    /**
+     * Instantiates a new windows security context impersonation context impl.
+     *
+     * @param newCtx
+     *            the new ctx
+     */
+<span class="nc" id="L37">    public WindowsSecurityContextImpersonationContextImpl(final CtxtHandle newCtx) {</span>
+<span class="nc" id="L38">        final int rc = Secur32.INSTANCE.ImpersonateSecurityContext(newCtx);</span>
+<span class="nc bnc" id="L39" title="All 2 branches missed.">        if (rc != WinError.SEC_E_OK) {</span>
+<span class="nc" id="L40">            throw new Win32Exception(rc);</span>
+        }
+
+<span class="nc" id="L43">        this.ctx = newCtx;</span>
+<span class="nc" id="L44">    }</span>
+
+    @Override
+    public void revertToSelf() {
+<span class="nc" id="L48">        final int rc = Secur32.INSTANCE.RevertSecurityContext(this.ctx);</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">        if (rc != WinError.SEC_E_OK) {</span>
+<span class="nc" id="L50">            throw new Win32Exception(rc);</span>
+        }
+<span class="nc" id="L52">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>
