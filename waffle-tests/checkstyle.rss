@@ -20,19 +20,19 @@ under the License.
 <rss version="0.91">
   <channel>
     <title>waffle-tests - Checkstyle report</title>
-    <link>http://dblock.github.com/waffle/</link>
+    <link>https://waffle.github.com/waffle/</link>
     <description>waffle-tests - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2010 - 2015 com.github.dblock</copyright>
+    <copyright>&#169;2010 - 2018 com.github.waffle</copyright>
     <item>
-      <title>File: 13,
-             Errors: 139,
+      <title>File: 14,
+             Errors: 116,
              Warnings: 0,
              Infos: 0
       </title>
-            <link>http://dblock.github.com/waffle//checkstyle.html</link>
+            <link>https://waffle.github.com/waffle//checkstyle.html</link>
       <description>
-        <p>Click <a href="http://dblock.github.com/waffle//checkstyle.html">here</a> for the full Checkstyle report.</p>
+        <p>Click <a href="https://waffle.github.com/waffle//checkstyle.html">here</a> for the full Checkstyle report.</p>
 
         <table summary="Files" boder="1">
           <thead>
@@ -46,119 +46,7 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.MockWindowsSecurityContext.java">waffle/mock/MockWindowsSecurityContext.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  9
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.MockWindowsAuthProvider.java">waffle/mock/MockWindowsAuthProvider.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  21
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.http.SimpleHttpSession.java">waffle/mock/http/SimpleHttpSession.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  16
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.http.SimpleHttpResponse.java">waffle/mock/http/SimpleHttpResponse.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  32
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.http.SimpleFilterChain.java">waffle/mock/http/SimpleFilterChain.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  6
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.package-info.java">waffle/mock/package-info.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.http.SimpleRequestDispatcher.java">waffle/mock/http/SimpleRequestDispatcher.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  6
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.http.package-info.java">waffle/mock/http/package-info.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.MockWindowsImpersonationContext.java">waffle/mock/MockWindowsImpersonationContext.java</a>
+                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.mock.http.package-info.java">waffle/mock/http/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -172,7 +60,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.MockWindowsIdentity.java">waffle/mock/MockWindowsIdentity.java</a>
+                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.mock.MockWindowsIdentity.java">waffle/mock/MockWindowsIdentity.java</a>
                 </td>
                 <td>
                   0
@@ -181,12 +69,12 @@ under the License.
                   0
                 </td>
                 <td>
-                  8
+                  9
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.http.SimpleHttpRequest.java">waffle/mock/http/SimpleHttpRequest.java</a>
+                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.mock.MockWindowsSecurityContext.java">waffle/mock/MockWindowsSecurityContext.java</a>
                 </td>
                 <td>
                   0
@@ -195,12 +83,12 @@ under the License.
                   0
                 </td>
                 <td>
-                  29
+                  9
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.http.SimpleFilterConfig.java">waffle/mock/http/SimpleFilterConfig.java</a>
+                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.mock.package-info.java">waffle/mock/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -209,12 +97,82 @@ under the License.
                   0
                 </td>
                 <td>
-                  7
+                  1
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dblock.github.com/waffle//checkstyle.html#waffle.mock.MockWindowsAccount.java">waffle/mock/MockWindowsAccount.java</a>
+                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.mock.http.SimpleFilterConfig.java">waffle/mock/http/SimpleFilterConfig.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.mock.MockWindowsAccount.java">waffle/mock/MockWindowsAccount.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  5
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.mock.http.SimpleHttpSession.java">waffle/mock/http/SimpleHttpSession.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  15
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.mock.http.SimpleHttpRequest.java">waffle/mock/http/SimpleHttpRequest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  19
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.mock.MockWindowsImpersonationContext.java">waffle/mock/MockWindowsImpersonationContext.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.mock.http.SimpleFilterChain.java">waffle/mock/http/SimpleFilterChain.java</a>
                 </td>
                 <td>
                   0
@@ -224,6 +182,62 @@ under the License.
                 </td>
                 <td>
                   4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.mock.MockWindowsAuthProvider.java">waffle/mock/MockWindowsAuthProvider.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  15
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.mock.http.SimpleRequestDispatcher.java">waffle/mock/http/SimpleRequestDispatcher.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  5
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.mock.http.RecordUserNameFilterChain.java">waffle/mock/http/RecordUserNameFilterChain.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.mock.http.SimpleHttpResponse.java">waffle/mock/http/SimpleHttpResponse.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  22
                 </td>
               </tr>
                       </tbody>
