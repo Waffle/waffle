@@ -71,8 +71,8 @@ public class NegotiateSecurityFilter implements Filter {
     /** The impersonate. */
     private boolean impersonate;
 
-    /** The exlusion filter. */
-    private String[]                         excludePatterns;
+    /** The exclusion filter. */
+    private String[] excludePatterns;
 
     /** The Constant PRINCIPALSESSIONKEY. */
     private static final String PRINCIPALSESSIONKEY = NegotiateSecurityFilter.class.getName() + ".PRINCIPAL";
@@ -99,12 +99,14 @@ public class NegotiateSecurityFilter implements Filter {
         NegotiateSecurityFilter.LOGGER.debug("{} {}, contentlength: {}", request.getMethod(), request.getRequestURI(),
                 Integer.valueOf(request.getContentLength()));
 
-        String url = request.getRequestURL().toString();
-        for (String pattern : excludePatterns) {
-            if (url.matches(pattern)) {
-                NegotiateSecurityFilter.LOGGER.info("Pattern :{} excluded URL:{}", url, pattern);
-                chain.doFilter(sreq, sres);
-                return;
+        if (request.getRequestURL() != null && excludePatterns != null) {
+            String url = request.getRequestURL().toString();
+            for (String pattern : excludePatterns) {
+                if (url.matches(pattern)) {
+                    NegotiateSecurityFilter.LOGGER.info("Pattern :{} excluded URL:{}", url, pattern);
+                    chain.doFilter(sreq, sres);
+                    return;
+                }
             }
         }
 
