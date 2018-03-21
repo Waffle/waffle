@@ -1,0 +1,34 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+waffle-tomcat9/waffle-jna,waffle.servlet.spi,NegotiateSecurityFilterProvider,260,0,26,0,64,0,22,0,9,0
+waffle-tomcat9/waffle-jna,waffle.servlet.spi,BasicSecurityFilterProvider,97,0,4,0,23,0,11,0,9,0
+waffle-tomcat9/waffle-jna,waffle.servlet.spi,SecurityFilterProviderCollection,278,0,22,0,56,0,22,0,11,0
+waffle-tomcat9/waffle-jna,waffle.servlet,WindowsPrincipal,220,0,16,0,53,0,26,0,16,0
+waffle-tomcat9/waffle-jna,waffle.servlet,NegotiateRequestWrapper,21,0,0,0,7,0,5,0,5,0
+waffle-tomcat9/waffle-jna,waffle.servlet,NegotiateSecurityFilter,718,0,76,0,183,0,58,0,17,0
+waffle-tomcat9/waffle-jna,waffle.servlet,WaffleInfoServlet,206,0,10,0,54,0,10,0,5,0
+waffle-tomcat9/waffle-jna,waffle.servlet,WindowsPrincipal.new Object() {...},33,0,0,0,1,0,1,0,1,0
+waffle-tomcat9/waffle-jna,waffle.servlet,AutoDisposableWindowsPrincipal,18,0,2,0,8,0,5,0,4,0
+waffle-tomcat9/waffle-jna,waffle.jaas,GroupPrincipal,124,0,14,0,31,0,14,0,7,0
+waffle-tomcat9/waffle-jna,waffle.jaas,WindowsLoginModule.new Object() {...},33,0,0,0,1,0,1,0,1,0
+waffle-tomcat9/waffle-jna,waffle.jaas,UserPrincipal,30,0,4,0,10,0,6,0,4,0
+waffle-tomcat9/waffle-jna,waffle.jaas,WindowsLoginModule,468,0,43,0,108,0,38,0,14,0
+waffle-tomcat9/waffle-jna,waffle.jaas,RolePrincipal,30,0,4,0,10,0,6,0,4,0
+waffle-tomcat9/waffle-jna,waffle.util,WaffleInfo,536,0,34,0,126,0,27,0,9,0
+waffle-tomcat9/waffle-jna,waffle.util,NtlmMessage,69,0,8,0,8,0,7,0,3,0
+waffle-tomcat9/waffle-jna,waffle.util,AuthorizationHeader,153,0,28,0,34,0,25,0,11,0
+waffle-tomcat9/waffle-jna,waffle.util,NtlmServletRequest,31,0,4,0,3,0,4,0,2,0
+waffle-tomcat9/waffle-jna,waffle.util,SPNegoMessage,165,0,26,0,28,0,16,0,3,0
+waffle-tomcat9/waffle-jna,waffle.windows.auth,WindowsAccount,52,0,4,0,16,0,9,0,7,0
+waffle-tomcat9/waffle-jna,waffle.windows.auth,PrincipalFormat,49,0,0,0,5,0,2,0,2,0
+waffle-tomcat9/waffle-jna,waffle.windows.auth.impl,WindowsComputerImpl,77,0,7,0,18,0,10,0,5,0
+waffle-tomcat9/waffle-jna,waffle.windows.auth.impl,WindowsCredentialsHandleImpl,83,0,8,0,20,0,9,0,5,0
+waffle-tomcat9/waffle-jna,waffle.windows.auth.impl,WindowsDomainImpl.TrustDirection,39,0,0,0,4,0,2,0,2,0
+waffle-tomcat9/waffle-jna,waffle.windows.auth.impl,WindowsIdentityImpl,140,0,16,0,30,0,18,0,10,0
+waffle-tomcat9/waffle-jna,waffle.windows.auth.impl,WindowsAuthProviderImpl.ContinueContext,9,0,0,0,4,0,1,0,1,0
+waffle-tomcat9/waffle-jna,waffle.windows.auth.impl,WindowsAccountImpl,36,0,0,0,12,0,8,0,8,0
+waffle-tomcat9/waffle-jna,waffle.windows.auth.impl,WindowsSecurityContextImpl,216,0,24,0,60,0,31,0,18,0
+waffle-tomcat9/waffle-jna,waffle.windows.auth.impl,WindowsAuthProviderImpl,311,0,28,0,68,0,26,0,11,0
+waffle-tomcat9/waffle-jna,waffle.windows.auth.impl,WindowsDomainImpl.TrustType,79,0,0,0,8,0,2,0,2,0
+waffle-tomcat9/waffle-jna,waffle.windows.auth.impl,WindowsIdentityImpersonationContextImpl,17,0,2,0,6,0,3,0,2,0
+waffle-tomcat9/waffle-jna,waffle.windows.auth.impl,WindowsDomainImpl,83,0,16,0,23,0,13,0,5,0
+waffle-tomcat9/waffle-jna,waffle.windows.auth.impl,WindowsSecurityContextImpersonationContextImpl,30,0,4,0,10,0,4,0,2,0

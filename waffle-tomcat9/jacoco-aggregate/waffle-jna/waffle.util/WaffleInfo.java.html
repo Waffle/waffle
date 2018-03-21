@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>WaffleInfo.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-tomcat9</a> &gt; <a href="../index.html" class="el_bundle">waffle-jna</a> &gt; <a href="index.source.html" class="el_package">waffle.util</a> &gt; <span class="el_source">WaffleInfo.java</span></div><h1>WaffleInfo.java</h1><pre class="source lang-java linenums">/**
+ * Waffle (https://github.com/Waffle/waffle)
+ *
+ * Copyright (c) 2010-2017 Application Security, Inc.
+ *
+ * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+ * Public License v1.0 which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-v10.html.
+ *
+ * Contributors: Application Security, Inc.
+ */
+package waffle.util;
+
+import com.sun.jna.Platform;
+import com.sun.jna.platform.WindowUtils;
+import com.sun.jna.platform.win32.LMJoin;
+import com.sun.jna.platform.win32.Netapi32Util;
+import com.sun.jna.platform.win32.Win32Exception;
+
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import waffle.windows.auth.IWindowsAccount;
+import waffle.windows.auth.IWindowsAuthProvider;
+import waffle.windows.auth.IWindowsComputer;
+import waffle.windows.auth.IWindowsDomain;
+import waffle.windows.auth.impl.WindowsAccountImpl;
+import waffle.windows.auth.impl.WindowsAuthProviderImpl;
+
+/**
+ * A Utility class to read system info to help troubleshoot WAFFLE system configuration.
+ * 
+ * &lt;pre&gt;
+ * This utility class collects system information and returns it as an XML document.
+ * &lt;/pre&gt;
+ * 
+ * From the command line, you can write the info to stdout using:
+ * 
+ * &lt;pre&gt;
+ * &lt;code&gt;
+ *   java -cp &quot;jna.jar;waffle-core.jar;waffle-api.jar;jna-platform.jar;guava-21.0.jar&quot; waffle.util.WaffleInfo
+ * &lt;/code&gt;
+ * &lt;/pre&gt;
+ * 
+ * To show this information in a browser, run:
+ * 
+ * &lt;pre&gt;
+ * &lt;code&gt;
+ *   java -cp &quot;...&quot; waffle.util.WaffleInfo -show
+ * &lt;/code&gt;
+ * &lt;/pre&gt;
+ * 
+ * To lookup account names and return any listed info, run:
+ * 
+ * &lt;pre&gt;
+ * &lt;code&gt;
+ *   java -cp &quot;...&quot; waffle.util.WaffleInfo -lookup AccountName
+ * &lt;/code&gt;
+ * &lt;/pre&gt;
+ * 
+ */
+<span class="nc" id="L84">public class WaffleInfo {</span>
+
+    /** The Constant LOGGER. */
+<span class="nc" id="L87">    private static final Logger LOGGER = LoggerFactory.getLogger(WaffleInfo.class);</span>
+
+    /**
+     * Get a Document with basic system information
+     * 
+     * This uses the builtin javax.xml package even though the API is quite verbose
+     * 
+     * @return Document with waffle info.
+     * 
+     * @throws ParserConfigurationException
+     *             when getting new document builder.
+     */
+    public Document getWaffleInfo() throws ParserConfigurationException {
+<span class="nc" id="L100">        final Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();</span>
+
+        // create the root element and add it to the document
+<span class="nc" id="L103">        final Element root = doc.createElement(&quot;waffle&quot;);</span>
+
+        // Add Version Information as attributes
+<span class="nc" id="L106">        String version = WaffleInfo.class.getPackage().getImplementationVersion();</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">        if (version != null) {</span>
+<span class="nc" id="L108">            root.setAttribute(&quot;version&quot;, version);</span>
+        }
+<span class="nc" id="L110">        version = Platform.class.getPackage().getImplementationVersion();</span>
+<span class="nc bnc" id="L111" title="All 2 branches missed.">        if (version != null) {</span>
+<span class="nc" id="L112">            root.setAttribute(&quot;jna&quot;, version);</span>
+        }
+<span class="nc" id="L114">        version = WindowUtils.class.getPackage().getImplementationVersion();</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">        if (version != null) {</span>
+<span class="nc" id="L116">            root.setAttribute(&quot;jna-platform&quot;, version);</span>
+        }
+
+<span class="nc" id="L119">        doc.appendChild(root);</span>
+<span class="nc" id="L120">        root.appendChild(this.getAuthProviderInfo(doc));</span>
+
+<span class="nc" id="L122">        return doc;</span>
+    }
+
+    /**
+     * Gets the auth provider info.
+     *
+     * @param doc
+     *            the doc
+     * @return the auth provider info
+     */
+    protected Element getAuthProviderInfo(final Document doc) {
+<span class="nc" id="L133">        final IWindowsAuthProvider auth = new WindowsAuthProviderImpl();</span>
+
+<span class="nc" id="L135">        final Element node = doc.createElement(&quot;auth&quot;);</span>
+<span class="nc" id="L136">        node.setAttribute(&quot;class&quot;, auth.getClass().getName());</span>
+
+        // Current User
+<span class="nc" id="L139">        Element child = doc.createElement(&quot;currentUser&quot;);</span>
+<span class="nc" id="L140">        node.appendChild(child);</span>
+
+<span class="nc" id="L142">        final String currentUsername = WindowsAccountImpl.getCurrentUsername();</span>
+<span class="nc" id="L143">        this.addAccountInfo(doc, child, new WindowsAccountImpl(currentUsername));</span>
+
+        // Computer
+<span class="nc" id="L146">        child = doc.createElement(&quot;computer&quot;);</span>
+<span class="nc" id="L147">        node.appendChild(child);</span>
+
+<span class="nc" id="L149">        final IWindowsComputer c = auth.getCurrentComputer();</span>
+<span class="nc" id="L150">        Element value = doc.createElement(&quot;computerName&quot;);</span>
+<span class="nc" id="L151">        value.setTextContent(c.getComputerName());</span>
+<span class="nc" id="L152">        child.appendChild(value);</span>
+
+<span class="nc" id="L154">        value = doc.createElement(&quot;memberOf&quot;);</span>
+<span class="nc" id="L155">        value.setTextContent(c.getMemberOf());</span>
+<span class="nc" id="L156">        child.appendChild(value);</span>
+
+<span class="nc" id="L158">        value = doc.createElement(&quot;joinStatus&quot;);</span>
+<span class="nc" id="L159">        value.setTextContent(c.getJoinStatus());</span>
+<span class="nc" id="L160">        child.appendChild(value);</span>
+
+<span class="nc" id="L162">        value = doc.createElement(&quot;groups&quot;);</span>
+        Element g;
+<span class="nc bnc" id="L164" title="All 2 branches missed.">        for (final String s : c.getGroups()) {</span>
+<span class="nc" id="L165">            g = doc.createElement(&quot;group&quot;);</span>
+<span class="nc" id="L166">            g.setTextContent(s);</span>
+<span class="nc" id="L167">            value.appendChild(g);</span>
+        }
+<span class="nc" id="L169">        child.appendChild(value);</span>
+
+        // Only Show Domains if we are in a Domain
+<span class="nc bnc" id="L172" title="All 2 branches missed.">        if (Netapi32Util.getJoinStatus() == LMJoin.NETSETUP_JOIN_STATUS.NetSetupDomainName) {</span>
+<span class="nc" id="L173">            child = doc.createElement(&quot;domains&quot;);</span>
+<span class="nc" id="L174">            node.appendChild(child);</span>
+
+            Element d;
+<span class="nc bnc" id="L177" title="All 2 branches missed.">            for (final IWindowsDomain domain : auth.getDomains()) {</span>
+<span class="nc" id="L178">                d = doc.createElement(&quot;domain&quot;);</span>
+<span class="nc" id="L179">                node.appendChild(d);</span>
+
+<span class="nc" id="L181">                value = doc.createElement(&quot;FQN&quot;);</span>
+<span class="nc" id="L182">                value.setTextContent(domain.getFqn());</span>
+<span class="nc" id="L183">                child.appendChild(value);</span>
+
+<span class="nc" id="L185">                value = doc.createElement(&quot;TrustTypeString&quot;);</span>
+<span class="nc" id="L186">                value.setTextContent(domain.getTrustTypeString());</span>
+<span class="nc" id="L187">                child.appendChild(value);</span>
+
+<span class="nc" id="L189">                value = doc.createElement(&quot;TrustDirectionString&quot;);</span>
+<span class="nc" id="L190">                value.setTextContent(domain.getTrustDirectionString());</span>
+<span class="nc" id="L191">                child.appendChild(value);</span>
+            }
+        }
+<span class="nc" id="L194">        return node;</span>
+    }
+
+    /**
+     * Adds the account info.
+     *
+     * @param doc
+     *            the doc
+     * @param node
+     *            the node
+     * @param account
+     *            the account
+     */
+    protected void addAccountInfo(final Document doc, final Element node, final IWindowsAccount account) {
+<span class="nc" id="L208">        Element value = doc.createElement(&quot;Name&quot;);</span>
+<span class="nc" id="L209">        value.setTextContent(account.getName());</span>
+<span class="nc" id="L210">        node.appendChild(value);</span>
+
+<span class="nc" id="L212">        value = doc.createElement(&quot;FQN&quot;);</span>
+<span class="nc" id="L213">        value.setTextContent(account.getFqn());</span>
+<span class="nc" id="L214">        node.appendChild(value);</span>
+
+<span class="nc" id="L216">        value = doc.createElement(&quot;Domain&quot;);</span>
+<span class="nc" id="L217">        value.setTextContent(account.getDomain());</span>
+<span class="nc" id="L218">        node.appendChild(value);</span>
+
+<span class="nc" id="L220">        value = doc.createElement(&quot;SID&quot;);</span>
+<span class="nc" id="L221">        value.setTextContent(account.getSidString());</span>
+<span class="nc" id="L222">        node.appendChild(value);</span>
+<span class="nc" id="L223">    }</span>
+
+    /**
+     * Gets the lookup info.
+     *
+     * @param doc
+     *            the doc
+     * @param lookup
+     *            the lookup
+     * @return the lookup info
+     */
+    public Element getLookupInfo(final Document doc, final String lookup) {
+<span class="nc" id="L235">        final IWindowsAuthProvider auth = new WindowsAuthProviderImpl();</span>
+<span class="nc" id="L236">        final Element node = doc.createElement(&quot;lookup&quot;);</span>
+<span class="nc" id="L237">        node.setAttribute(&quot;name&quot;, lookup);</span>
+        try {
+<span class="nc" id="L239">            this.addAccountInfo(doc, node, auth.lookupAccount(lookup));</span>
+<span class="nc" id="L240">        } catch (final Win32Exception e) {</span>
+<span class="nc" id="L241">            node.appendChild(WaffleInfo.getException(doc, e));</span>
+<span class="nc" id="L242">        }</span>
+<span class="nc" id="L243">        return node;</span>
+    }
+
+    /**
+     * Gets the exception.
+     *
+     * @param doc
+     *            the doc
+     * @param t
+     *            the t
+     * @return the exception
+     */
+    public static Element getException(final Document doc, final Exception t) {
+<span class="nc" id="L256">        final Element node = doc.createElement(&quot;exception&quot;);</span>
+<span class="nc" id="L257">        node.setAttribute(&quot;class&quot;, t.getClass().getName());</span>
+
+<span class="nc" id="L259">        Element value = doc.createElement(&quot;message&quot;);</span>
+<span class="nc bnc" id="L260" title="All 2 branches missed.">        if (t.getMessage() != null) {</span>
+<span class="nc" id="L261">            value.setTextContent(t.getMessage());</span>
+<span class="nc" id="L262">            node.appendChild(value);</span>
+        }
+
+<span class="nc" id="L265">        value = doc.createElement(&quot;trace&quot;);</span>
+<span class="nc" id="L266">        value.setTextContent(Arrays.toString(t.getStackTrace()));</span>
+<span class="nc" id="L267">        node.appendChild(value);</span>
+<span class="nc" id="L268">        return node;</span>
+    }
+
+    /**
+     * To pretty xml.
+     *
+     * @param doc
+     *            the doc
+     * @return the string
+     * @throws TransformerException
+     *             the transformer exception
+     */
+    public static String toPrettyXML(final Document doc) throws TransformerException {
+        // set up a transformer
+<span class="nc" id="L282">        final TransformerFactory transfac = TransformerFactory.newInstance();</span>
+<span class="nc" id="L283">        final Transformer trans = transfac.newTransformer();</span>
+<span class="nc" id="L284">        trans.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, &quot;yes&quot;);</span>
+<span class="nc" id="L285">        trans.setOutputProperty(OutputKeys.INDENT, &quot;yes&quot;);</span>
+
+        // create string from xml tree
+<span class="nc" id="L288">        final StringWriter sw = new StringWriter();</span>
+<span class="nc" id="L289">        final StreamResult result = new StreamResult(sw);</span>
+<span class="nc" id="L290">        final DOMSource source = new DOMSource(doc);</span>
+<span class="nc" id="L291">        trans.transform(source, result);</span>
+<span class="nc" id="L292">        return sw.toString();</span>
+    }
+
+    /**
+     * Print system information.
+     * 
+     * @param args
+     *            variable arguments to pass to main. Valid values are &quot;-show&quot; and &quot;-lookup&quot;.
+     */
+    public static void main(final String[] args) {
+<span class="nc" id="L302">        boolean show = false;</span>
+<span class="nc" id="L303">        final List&lt;String&gt; lookup = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L304" title="All 2 branches missed.">        if (args != null) {</span>
+            String arg;
+<span class="nc bnc" id="L306" title="All 2 branches missed.">            for (int i = 0; i &lt; args.length; i++) {</span>
+<span class="nc" id="L307">                arg = args[i];</span>
+<span class="nc bnc" id="L308" title="All 2 branches missed.">                if (null != arg) {</span>
+<span class="nc bnc" id="L309" title="All 10 branches missed.">                    switch (arg) {</span>
+                        case &quot;-show&quot;:
+<span class="nc" id="L311">                            show = true;</span>
+<span class="nc" id="L312">                            break;</span>
+                        case &quot;-lookup&quot;:
+<span class="nc" id="L314">                            lookup.add(args[++i]);</span>
+<span class="nc" id="L315">                            break;</span>
+                        default:
+<span class="nc" id="L317">                            WaffleInfo.LOGGER.error(&quot;Unknown Argument: {}&quot;, arg);</span>
+<span class="nc" id="L318">                            throw new RuntimeException(&quot;Unknown Argument: &quot; + arg);</span>
+                    }
+                }
+            }
+        }
+
+<span class="nc" id="L324">        final WaffleInfo helper = new WaffleInfo();</span>
+        try {
+<span class="nc" id="L326">            final Document info = helper.getWaffleInfo();</span>
+<span class="nc bnc" id="L327" title="All 2 branches missed.">            for (final String name : lookup) {</span>
+<span class="nc" id="L328">                info.getDocumentElement().appendChild(helper.getLookupInfo(info, name));</span>
+<span class="nc" id="L329">            }</span>
+
+<span class="nc" id="L331">            final String xml = WaffleInfo.toPrettyXML(info);</span>
+            final File f;
+<span class="nc bnc" id="L333" title="All 2 branches missed.">            if (show) {</span>
+<span class="nc" id="L334">                f = File.createTempFile(&quot;waffle-info-&quot;, &quot;.xml&quot;);</span>
+<span class="nc" id="L335">                Files.write(f.toPath(), xml.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);</span>
+<span class="nc" id="L336">                Desktop.getDesktop().open(f);</span>
+            } else {
+<span class="nc" id="L338">                WaffleInfo.LOGGER.info(xml);</span>
+            }
+<span class="nc" id="L340">        } catch (final IOException | TransformerException | ParserConfigurationException e) {</span>
+<span class="nc" id="L341">            WaffleInfo.LOGGER.error(e.getMessage());</span>
+<span class="nc" id="L342">            WaffleInfo.LOGGER.trace(&quot;&quot;, e);</span>
+<span class="nc" id="L343">        }</span>
+<span class="nc" id="L344">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>

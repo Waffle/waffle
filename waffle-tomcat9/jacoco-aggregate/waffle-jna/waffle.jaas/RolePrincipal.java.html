@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>RolePrincipal.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-tomcat9</a> &gt; <a href="../index.html" class="el_bundle">waffle-jna</a> &gt; <a href="index.source.html" class="el_package">waffle.jaas</a> &gt; <span class="el_source">RolePrincipal.java</span></div><h1>RolePrincipal.java</h1><pre class="source lang-java linenums">/**
+ * Waffle (https://github.com/Waffle/waffle)
+ *
+ * Copyright (c) 2010-2018 Application Security, Inc.
+ *
+ * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+ * Public License v1.0 which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-v10.html.
+ *
+ * Contributors: Application Security, Inc.
+ */
+package waffle.jaas;
+
+import java.io.Serializable;
+import java.security.Principal;
+
+/**
+ * Role principal.
+ * 
+ * @author dblock[at]dblock[dot]org
+ */
+public class RolePrincipal implements Principal, Serializable {
+
+    /** The Constant serialVersionUID. */
+    private static final long serialVersionUID = 1L;
+
+    /** The fqn. */
+    private final String fqn;
+
+    /**
+     * A windows principal.
+     * 
+     * @param newFqn
+     *            Fully qualified name.
+     */
+<span class="nc" id="L36">    public RolePrincipal(final String newFqn) {</span>
+<span class="nc" id="L37">        this.fqn = newFqn;</span>
+<span class="nc" id="L38">    }</span>
+
+    /**
+     * Role name (Windows Group).
+     *
+     * @return the name
+     */
+    @Override
+    public String getName() {
+<span class="nc" id="L47">        return this.fqn;</span>
+    }
+
+    /**
+     * Role Principal Equals for FQN.
+     *
+     * @param o
+     *            Object used for Equality Check.
+     * @return true, if successful
+     */
+    @Override
+    public boolean equals(final Object o) {
+
+<span class="nc bnc" id="L60" title="All 2 branches missed.">        if (this == o) {</span>
+<span class="nc" id="L61">            return true;</span>
+        }
+
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        if (o instanceof RolePrincipal) {</span>
+<span class="nc" id="L65">            return this.getName().equals(((RolePrincipal) o).getName());</span>
+        }
+
+<span class="nc" id="L68">        return false;</span>
+    }
+
+    /**
+     * Role Principal HashCode for FQN.
+     *
+     * @return the int
+     */
+    @Override
+    public int hashCode() {
+<span class="nc" id="L78">        return this.getName().hashCode();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>
