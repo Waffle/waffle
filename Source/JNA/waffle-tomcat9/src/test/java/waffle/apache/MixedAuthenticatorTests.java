@@ -11,6 +11,8 @@
  */
 package waffle.apache;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.sun.jna.platform.win32.Sspi;
 import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 
@@ -26,11 +28,10 @@ import org.apache.catalina.Context;
 import org.apache.catalina.Engine;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.realm.GenericPrincipal;
-import org.assertj.core.api.Assertions;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import waffle.apache.catalina.SimpleHttpRequest;
 import waffle.apache.catalina.SimpleHttpResponse;
@@ -66,11 +67,11 @@ public class MixedAuthenticatorTests {
      * @throws LifecycleException
      *             the lifecycle exception
      */
-    @Before
+    @BeforeEach
     public void setUp() throws LifecycleException {
         this.authenticator = new MixedAuthenticator();
         this.authenticator.setContainer(this.context);
-        Assert.assertNotNull(new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 MixedAuthenticatorTests.this.context.getParent();
                 this.result = MixedAuthenticatorTests.this.engine;
@@ -87,7 +88,7 @@ public class MixedAuthenticatorTests {
      * @throws LifecycleException
      *             the lifecycle exception
      */
-    @After
+    @AfterEach
     public void tearDown() throws LifecycleException {
         this.authenticator.stop();
     }
@@ -103,13 +104,13 @@ public class MixedAuthenticatorTests {
         final SimpleHttpResponse response = new SimpleHttpResponse();
         this.authenticator.authenticate(request, response);
         final String[] wwwAuthenticates = response.getHeaderValues("WWW-Authenticate");
-        Assert.assertNotNull(wwwAuthenticates);
-        Assert.assertEquals(2, wwwAuthenticates.length);
-        Assert.assertEquals("Negotiate", wwwAuthenticates[0]);
-        Assert.assertEquals("NTLM", wwwAuthenticates[1]);
-        Assert.assertEquals("close", response.getHeader("Connection"));
-        Assert.assertEquals(2, response.getHeaderNames().size());
-        Assert.assertEquals(401, response.getStatus());
+        Assertions.assertNotNull(wwwAuthenticates);
+        Assertions.assertEquals(2, wwwAuthenticates.length);
+        Assertions.assertEquals("Negotiate", wwwAuthenticates[0]);
+        Assertions.assertEquals("NTLM", wwwAuthenticates[1]);
+        Assertions.assertEquals("close", response.getHeader("Connection"));
+        Assertions.assertEquals(2, response.getHeaderNames().size());
+        Assertions.assertEquals(401, response.getStatus());
     }
 
     /**
@@ -138,10 +139,10 @@ public class MixedAuthenticatorTests {
             request.addHeader("Authorization", securityPackage + " " + clientToken);
             final SimpleHttpResponse response = new SimpleHttpResponse();
             this.authenticator.authenticate(request, response);
-            Assert.assertTrue(response.getHeader("WWW-Authenticate").startsWith(securityPackage + " "));
-            Assert.assertEquals("keep-alive", response.getHeader("Connection"));
-            Assert.assertEquals(2, response.getHeaderNames().size());
-            Assert.assertEquals(401, response.getStatus());
+            Assertions.assertTrue(response.getHeader("WWW-Authenticate").startsWith(securityPackage + " "));
+            Assertions.assertEquals("keep-alive", response.getHeader("Connection"));
+            Assertions.assertEquals(2, response.getHeaderNames().size());
+            Assertions.assertEquals(401, response.getStatus());
         } finally {
             if (clientContext != null) {
                 clientContext.dispose();
@@ -159,7 +160,7 @@ public class MixedAuthenticatorTests {
     public void testGet() {
         final SimpleHttpRequest request = new SimpleHttpRequest();
         final SimpleHttpResponse response = new SimpleHttpResponse();
-        Assert.assertFalse(this.authenticator.authenticate(request, response));
+        Assertions.assertFalse(this.authenticator.authenticate(request, response));
     }
 
     /**
@@ -167,7 +168,7 @@ public class MixedAuthenticatorTests {
      */
     @Test
     public void testGetInfo() {
-        Assertions.assertThat(this.authenticator.getInfo().length()).isGreaterThan(0);
+        assertThat(this.authenticator.getInfo().length()).isGreaterThan(0);
     }
 
     /**
@@ -201,23 +202,23 @@ public class MixedAuthenticatorTests {
                 authenticated = this.authenticator.authenticate(request, response);
 
                 if (authenticated) {
-                    Assertions.assertThat(response.getHeaderNames().size()).isGreaterThanOrEqualTo(0);
+                    assertThat(response.getHeaderNames().size()).isGreaterThanOrEqualTo(0);
                     break;
                 }
 
-                Assert.assertTrue(response.getHeader("WWW-Authenticate").startsWith(securityPackage + " "));
-                Assert.assertEquals("keep-alive", response.getHeader("Connection"));
-                Assert.assertEquals(2, response.getHeaderNames().size());
-                Assert.assertEquals(401, response.getStatus());
+                Assertions.assertTrue(response.getHeader("WWW-Authenticate").startsWith(securityPackage + " "));
+                Assertions.assertEquals("keep-alive", response.getHeader("Connection"));
+                Assertions.assertEquals(2, response.getHeaderNames().size());
+                Assertions.assertEquals(401, response.getStatus());
                 final String continueToken = response.getHeader("WWW-Authenticate")
                         .substring(securityPackage.length() + 1);
                 final byte[] continueTokenBytes = Base64.getDecoder().decode(continueToken);
-                Assertions.assertThat(continueTokenBytes.length).isGreaterThan(0);
+                assertThat(continueTokenBytes.length).isGreaterThan(0);
                 final SecBufferDesc continueTokenBuffer = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, continueTokenBytes);
                 clientContext.initialize(clientContext.getHandle(), continueTokenBuffer,
                         WindowsAccountImpl.getCurrentUsername());
             }
-            Assert.assertTrue(authenticated);
+            Assertions.assertTrue(authenticated);
         } finally {
             if (clientContext != null) {
                 clientContext.dispose();
@@ -238,7 +239,7 @@ public class MixedAuthenticatorTests {
         request.addParameter("j_username", "username");
         request.addParameter("j_password", "password");
         final SimpleHttpResponse response = new SimpleHttpResponse();
-        Assert.assertFalse(this.authenticator.authenticate(request, response));
+        Assertions.assertFalse(this.authenticator.authenticate(request, response));
     }
 
     /**
@@ -257,7 +258,7 @@ public class MixedAuthenticatorTests {
 
         request.login(WindowsAccountImpl.getCurrentUsername(), "");
 
-        Assert.assertNotNull(new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 identity.getFqn();
                 this.result = "fqn";
@@ -267,9 +268,9 @@ public class MixedAuthenticatorTests {
         });
         request.setUserPrincipal(new GenericWindowsPrincipal(identity, PrincipalFormat.BOTH, PrincipalFormat.BOTH));
 
-        Assert.assertTrue(request.getUserPrincipal() instanceof GenericWindowsPrincipal);
+        Assertions.assertTrue(request.getUserPrincipal() instanceof GenericWindowsPrincipal);
         final GenericWindowsPrincipal windowsPrincipal = (GenericWindowsPrincipal) request.getUserPrincipal();
-        Assert.assertTrue(windowsPrincipal.getSidString().startsWith("S-"));
+        Assertions.assertTrue(windowsPrincipal.getSidString().startsWith("S-"));
     }
 
     /**
@@ -288,7 +289,7 @@ public class MixedAuthenticatorTests {
 
         request.login(WindowsAccountImpl.getCurrentUsername(), "");
 
-        Assert.assertNotNull(new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 identity.getSidString();
                 this.result = "S-1234";
@@ -296,9 +297,9 @@ public class MixedAuthenticatorTests {
         });
         request.setUserPrincipal(new GenericWindowsPrincipal(identity, PrincipalFormat.SID, PrincipalFormat.SID));
 
-        Assert.assertTrue(request.getUserPrincipal() instanceof GenericWindowsPrincipal);
+        Assertions.assertTrue(request.getUserPrincipal() instanceof GenericWindowsPrincipal);
         final GenericWindowsPrincipal windowsPrincipal = (GenericWindowsPrincipal) request.getUserPrincipal();
-        Assert.assertTrue(windowsPrincipal.getSidString().startsWith("S-"));
+        Assertions.assertTrue(windowsPrincipal.getSidString().startsWith("S-"));
     }
 
     /**
@@ -319,9 +320,9 @@ public class MixedAuthenticatorTests {
 
         request.setUserPrincipal(new GenericWindowsPrincipal(identity, PrincipalFormat.NONE, PrincipalFormat.NONE));
 
-        Assert.assertTrue(request.getUserPrincipal() instanceof GenericWindowsPrincipal);
+        Assertions.assertTrue(request.getUserPrincipal() instanceof GenericWindowsPrincipal);
         final GenericWindowsPrincipal windowsPrincipal = (GenericWindowsPrincipal) request.getUserPrincipal();
-        Assert.assertNull(windowsPrincipal.getSidString());
+        Assertions.assertNull(windowsPrincipal.getSidString());
     }
 
     /**
@@ -335,7 +336,7 @@ public class MixedAuthenticatorTests {
         request.addParameter("j_username", WindowsAccountImpl.getCurrentUsername());
         request.addParameter("j_password", "");
         final SimpleHttpResponse response = new SimpleHttpResponse();
-        Assert.assertTrue(this.authenticator.authenticate(request, response));
+        Assertions.assertTrue(this.authenticator.authenticate(request, response));
     }
 
     /**
@@ -349,7 +350,7 @@ public class MixedAuthenticatorTests {
         request.addParameter("j_username", WindowsAccountImpl.getCurrentUsername());
         request.addParameter("j_password", "");
         final SimpleHttpResponse response = new SimpleHttpResponse();
-        Assert.assertTrue(this.authenticator.authenticate(request, response));
+        Assertions.assertTrue(this.authenticator.authenticate(request, response));
     }
 
     @Test
@@ -373,9 +374,9 @@ public class MixedAuthenticatorTests {
             request.addParameter("j_username", WindowsAccountImpl.getCurrentUsername());
             request.addParameter("j_password", "");
             final SimpleHttpResponse response = new SimpleHttpResponse();
-            Assert.assertTrue(customAuthenticator.authenticate(request, response));
+            Assertions.assertTrue(customAuthenticator.authenticate(request, response));
 
-            Assert.assertEquals(genericPrincipal, request.getUserPrincipal());
+            Assertions.assertEquals(genericPrincipal, request.getUserPrincipal());
         } finally {
             customAuthenticator.stop();
         }

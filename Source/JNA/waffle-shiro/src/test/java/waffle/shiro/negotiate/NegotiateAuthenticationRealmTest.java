@@ -17,8 +17,8 @@ import mockit.Tested;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class NegotiateAuthenticationRealmTest.
@@ -39,10 +39,11 @@ public final class NegotiateAuthenticationRealmTest {
      */
     @Test
     public void testSupports() {
-        Assert.assertFalse("Non-NegotiateToken should not be supported.",
-                this.negAuthRealm.supports(this.authenticationToken));
+        Assertions.assertFalse(this.negAuthRealm.supports(this.authenticationToken),
+                "Non-NegotiateToken should not be supported.");
 
-        Assert.assertTrue(this.negAuthRealm.supports(new NegotiateToken(null, null, null, null, false, false, null)));
+        Assertions
+                .assertTrue(this.negAuthRealm.supports(new NegotiateToken(null, null, null, null, false, false, null)));
     }
 
     /**
@@ -51,14 +52,16 @@ public final class NegotiateAuthenticationRealmTest {
      * @param negotiateToken
      *            the negotiate token
      */
-    @Test(expected = AuthenticationException.class)
+    @Test
     public void testAuthenticationInfo(@Mocked final NegotiateToken negotiateToken) {
-        Assert.assertNotNull(new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 negotiateToken.getIn();
-                this.result = new Byte((byte) 0);
+                this.result = Byte.valueOf((byte) 0);
             }
         });
-        this.negAuthRealm.doGetAuthenticationInfo(negotiateToken);
+        Assertions.assertThrows(AuthenticationException.class, () -> {
+            this.negAuthRealm.doGetAuthenticationInfo(negotiateToken);
+        });
     }
 }

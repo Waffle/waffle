@@ -17,8 +17,8 @@ import mockit.Expectations;
 import mockit.Mocked;
 import mockit.Tested;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class DynamicAuthenticationFilterTest.
@@ -38,29 +38,29 @@ public class DynamicAuthenticationFilterTest {
      */
     @Test
     public void testIsAuthTypeNegotiate() {
-        Assert.assertNotNull(new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 DynamicAuthenticationFilterTest.this.request.getParameter(this.anyString);
                 this.result = null;
             }
         });
-        Assert.assertFalse(this.dynamicAuthenticationFilter.isAuthTypeNegotiate(this.request));
+        Assertions.assertFalse(this.dynamicAuthenticationFilter.isAuthTypeNegotiate(this.request));
 
-        Assert.assertNotNull(new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 DynamicAuthenticationFilterTest.this.request.getParameter(this.anyString);
                 this.result = "zzz";
             }
         });
-        Assert.assertFalse(this.dynamicAuthenticationFilter.isAuthTypeNegotiate(this.request));
+        Assertions.assertFalse(this.dynamicAuthenticationFilter.isAuthTypeNegotiate(this.request));
 
-        Assert.assertNotNull(new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 DynamicAuthenticationFilterTest.this.request.getParameter(this.anyString);
                 this.result = DynamicAuthenticationFilter.PARAM_VAL_AUTHTYPE_NEGOTIATE;
             }
         });
-        Assert.assertTrue(this.dynamicAuthenticationFilter.isAuthTypeNegotiate(this.request));
+        Assertions.assertTrue(this.dynamicAuthenticationFilter.isAuthTypeNegotiate(this.request));
     }
 
 }

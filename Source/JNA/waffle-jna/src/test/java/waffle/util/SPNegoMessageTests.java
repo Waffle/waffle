@@ -11,8 +11,8 @@
  */
 package waffle.util;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class SPNegoMessageTests.
@@ -47,9 +47,9 @@ public class SPNegoMessageTests {
      */
     @Test
     public void testIsNegTokenInit() {
-        Assert.assertTrue(SPNegoMessage.isNegTokenInit(SPNegoMessageTests.negTokenInitOk));
-        Assert.assertFalse(SPNegoMessage.isNegTokenInit(SPNegoMessageTests.negTokenInitTooShort));
-        Assert.assertFalse(SPNegoMessage.isNegTokenInit(SPNegoMessageTests.badMessage));
+        Assertions.assertTrue(SPNegoMessage.isNegTokenInit(SPNegoMessageTests.negTokenInitOk));
+        Assertions.assertFalse(SPNegoMessage.isNegTokenInit(SPNegoMessageTests.negTokenInitTooShort));
+        Assertions.assertFalse(SPNegoMessage.isNegTokenInit(SPNegoMessageTests.badMessage));
     }
 
     /**
@@ -57,8 +57,8 @@ public class SPNegoMessageTests {
      */
     @Test
     public void testIsNegTokenArg() {
-        Assert.assertTrue(SPNegoMessage.isNegTokenArg(SPNegoMessageTests.negTokenArgOk));
-        Assert.assertFalse(SPNegoMessage.isNegTokenArg(SPNegoMessageTests.negTokenArgTooShort));
-        Assert.assertFalse(SPNegoMessage.isNegTokenArg(SPNegoMessageTests.badMessage));
+        Assertions.assertTrue(SPNegoMessage.isNegTokenArg(SPNegoMessageTests.negTokenArgOk));
+        Assertions.assertFalse(SPNegoMessage.isNegTokenArg(SPNegoMessageTests.negTokenArgTooShort));
+        Assertions.assertFalse(SPNegoMessage.isNegTokenArg(SPNegoMessageTests.badMessage));
     }
 }

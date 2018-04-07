@@ -15,10 +15,10 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -42,7 +42,7 @@ public class NegotiateSecurityFilterEntryPointTests {
     /**
      * Sets the up.
      */
-    @Before
+    @BeforeEach
     public void setUp() {
         final String[] configFiles = new String[] { "springTestFilterBeans.xml" };
         this.ctx = new ClassPathXmlApplicationContext(configFiles);
@@ -52,7 +52,7 @@ public class NegotiateSecurityFilterEntryPointTests {
     /**
      * Shut down.
      */
-    @After
+    @AfterEach
     public void shutDown() {
         ((AbstractApplicationContext) this.ctx).close();
     }
@@ -72,13 +72,13 @@ public class NegotiateSecurityFilterEntryPointTests {
         final SimpleHttpResponse response = new SimpleHttpResponse();
         this.entryPoint.commence(request, response, null);
         final String[] wwwAuthenticates = response.getHeaderValues("WWW-Authenticate");
-        Assert.assertEquals(3, wwwAuthenticates.length);
-        Assert.assertEquals("NTLM", wwwAuthenticates[0]);
-        Assert.assertEquals("Negotiate", wwwAuthenticates[1]);
-        Assert.assertTrue(wwwAuthenticates[2].equals("Basic realm=\"TestRealm\""));
-        Assert.assertEquals(2, response.getHeaderNamesSize());
-        Assert.assertEquals("keep-alive", response.getHeader("Connection"));
-        Assert.assertEquals(401, response.getStatus());
+        Assertions.assertEquals(3, wwwAuthenticates.length);
+        Assertions.assertEquals("NTLM", wwwAuthenticates[0]);
+        Assertions.assertEquals("Negotiate", wwwAuthenticates[1]);
+        Assertions.assertTrue(wwwAuthenticates[2].equals("Basic realm=\"TestRealm\""));
+        Assertions.assertEquals(2, response.getHeaderNamesSize());
+        Assertions.assertEquals("keep-alive", response.getHeader("Connection"));
+        Assertions.assertEquals(401, response.getStatus());
     }
 
     /**
@@ -89,14 +89,16 @@ public class NegotiateSecurityFilterEntryPointTests {
      * @throws ServletException
      *             the servlet exception
      */
-    @Test(expected = ServletException.class)
+    @Test
     public void testGetSetProvider() throws IOException, ServletException {
-        Assert.assertNotNull(this.entryPoint.getProvider());
+        Assertions.assertNotNull(this.entryPoint.getProvider());
         this.entryPoint.setProvider(null);
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
         final SimpleHttpResponse response = new SimpleHttpResponse();
-        this.entryPoint.commence(request, response, null);
-        Assert.fail("expected ServletException");
+        final Throwable exception = Assertions.assertThrows(ServletException.class, () -> {
+            this.entryPoint.commence(request, response, null);
+        });
+        Assertions.assertEquals("Missing NegotiateEntryPoint.Provider", exception.getMessage());
     }
 }

@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -11,8 +11,8 @@
  */
 package waffle.servlet.spi;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
@@ -33,9 +33,9 @@ public class SecurityFilterProviderCollectionTests {
     public void testDefaultCollection() throws ClassNotFoundException {
         final SecurityFilterProviderCollection coll = new SecurityFilterProviderCollection(
                 new WindowsAuthProviderImpl());
-        Assert.assertEquals(2, coll.size());
-        Assert.assertNotNull(coll.getByClassName(NegotiateSecurityFilterProvider.class.getName()));
-        Assert.assertNotNull(coll.getByClassName(BasicSecurityFilterProvider.class.getName()));
+        Assertions.assertEquals(2, coll.size());
+        Assertions.assertNotNull(coll.getByClassName(NegotiateSecurityFilterProvider.class.getName()));
+        Assertions.assertNotNull(coll.getByClassName(BasicSecurityFilterProvider.class.getName()));
     }
 
     /**
@@ -44,11 +44,13 @@ public class SecurityFilterProviderCollectionTests {
      * @throws ClassNotFoundException
      *             the class not found exception
      */
-    @Test(expected = ClassNotFoundException.class)
+    @Test
     public void testGetByClassNameInvalid() throws ClassNotFoundException {
         final SecurityFilterProviderCollection coll = new SecurityFilterProviderCollection(
                 new WindowsAuthProviderImpl());
-        coll.getByClassName("classDoesNotExist");
+        Assertions.assertThrows(ClassNotFoundException.class, () -> {
+            coll.getByClassName("classDoesNotExist");
+        });
     }
 
     /**
@@ -58,10 +60,10 @@ public class SecurityFilterProviderCollectionTests {
     public void testIsSecurityPackageSupported() {
         final SecurityFilterProviderCollection coll = new SecurityFilterProviderCollection(
                 new WindowsAuthProviderImpl());
-        Assert.assertTrue(coll.isSecurityPackageSupported("NTLM"));
-        Assert.assertTrue(coll.isSecurityPackageSupported("Negotiate"));
-        Assert.assertTrue(coll.isSecurityPackageSupported("Basic"));
-        Assert.assertFalse(coll.isSecurityPackageSupported(""));
-        Assert.assertFalse(coll.isSecurityPackageSupported("Invalid"));
+        Assertions.assertTrue(coll.isSecurityPackageSupported("NTLM"));
+        Assertions.assertTrue(coll.isSecurityPackageSupported("Negotiate"));
+        Assertions.assertTrue(coll.isSecurityPackageSupported("Basic"));
+        Assertions.assertFalse(coll.isSecurityPackageSupported(""));
+        Assertions.assertFalse(coll.isSecurityPackageSupported("Invalid"));
     }
 }

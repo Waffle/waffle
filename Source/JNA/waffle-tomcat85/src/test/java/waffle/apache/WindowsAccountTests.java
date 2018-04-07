@@ -11,6 +11,8 @@
  */
 package waffle.apache;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -18,10 +20,9 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import org.assertj.core.api.Assertions;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import waffle.mock.MockWindowsAccount;
 import waffle.windows.auth.WindowsAccount;
@@ -42,7 +43,7 @@ public class WindowsAccountTests {
     /**
      * Sets the up.
      */
-    @Before
+    @BeforeEach
     public void setUp() {
         this.windowsAccount = new WindowsAccount(this.mockWindowsAccount);
     }
@@ -52,9 +53,9 @@ public class WindowsAccountTests {
      */
     @Test
     public void testEquals() {
-        Assert.assertEquals(this.windowsAccount, new WindowsAccount(this.mockWindowsAccount));
+        Assertions.assertEquals(this.windowsAccount, new WindowsAccount(this.mockWindowsAccount));
         final MockWindowsAccount mockWindowsAccount2 = new MockWindowsAccount("localhost\\Administrator2");
-        Assert.assertFalse(this.windowsAccount.equals(new WindowsAccount(mockWindowsAccount2)));
+        Assertions.assertFalse(this.windowsAccount.equals(new WindowsAccount(mockWindowsAccount2)));
     }
 
     /**
@@ -72,17 +73,17 @@ public class WindowsAccountTests {
         try (final ObjectOutputStream oos = new ObjectOutputStream(out)) {
             oos.writeObject(this.windowsAccount);
         }
-        Assertions.assertThat(out.toByteArray().length).isGreaterThan(0);
+        assertThat(out.toByteArray().length).isGreaterThan(0);
         // deserialize
         final InputStream in = new ByteArrayInputStream(out.toByteArray());
         final ObjectInputStream ois = new ObjectInputStream(in);
         final WindowsAccount copy = (WindowsAccount) ois.readObject();
         // test
-        Assert.assertEquals(this.windowsAccount, copy);
-        Assert.assertEquals(this.windowsAccount.getDomain(), copy.getDomain());
-        Assert.assertEquals(this.windowsAccount.getFqn(), copy.getFqn());
-        Assert.assertEquals(this.windowsAccount.getName(), copy.getName());
-        Assert.assertEquals(this.windowsAccount.getSidString(), copy.getSidString());
+        Assertions.assertEquals(this.windowsAccount, copy);
+        Assertions.assertEquals(this.windowsAccount.getDomain(), copy.getDomain());
+        Assertions.assertEquals(this.windowsAccount.getFqn(), copy.getFqn());
+        Assertions.assertEquals(this.windowsAccount.getName(), copy.getName());
+        Assertions.assertEquals(this.windowsAccount.getSidString(), copy.getSidString());
     }
 
     /**
@@ -90,9 +91,9 @@ public class WindowsAccountTests {
      */
     @Test
     public void testProperties() {
-        Assert.assertEquals("localhost", this.windowsAccount.getDomain());
-        Assert.assertEquals("localhost\\Administrator", this.windowsAccount.getFqn());
-        Assert.assertEquals("Administrator", this.windowsAccount.getName());
-        Assert.assertTrue(this.windowsAccount.getSidString().startsWith("S-"));
+        Assertions.assertEquals("localhost", this.windowsAccount.getDomain());
+        Assertions.assertEquals("localhost\\Administrator", this.windowsAccount.getFqn());
+        Assertions.assertEquals("Administrator", this.windowsAccount.getName());
+        Assertions.assertTrue(this.windowsAccount.getSidString().startsWith("S-"));
     }
 }

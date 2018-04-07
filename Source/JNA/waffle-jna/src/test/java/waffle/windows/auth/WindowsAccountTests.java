@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -11,9 +11,10 @@
  */
 package waffle.windows.auth;
 
-import org.assertj.core.api.Assertions;
-import org.junit.Assert;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +37,7 @@ public class WindowsAccountTests {
     public void testGetCurrentUsername() {
         final String currentUsername = WindowsAccountImpl.getCurrentUsername();
         WindowsAccountTests.LOGGER.info("Current username: {}", currentUsername);
-        Assertions.assertThat(currentUsername.length()).isGreaterThan(0);
+        assertThat(currentUsername.length()).isGreaterThan(0);
     }
 
     /**
@@ -46,18 +47,18 @@ public class WindowsAccountTests {
     public void testGetCurrentAccount() {
         final String currentUsername = WindowsAccountImpl.getCurrentUsername();
         final IWindowsAccount account = new WindowsAccountImpl(currentUsername);
-        Assertions.assertThat(account.getName().length()).isGreaterThan(0);
+        assertThat(account.getName().length()).isGreaterThan(0);
         WindowsAccountTests.LOGGER.info("Name: {}", account.getName());
-        Assertions.assertThat(account.getDomain().length()).isGreaterThan(0);
+        assertThat(account.getDomain().length()).isGreaterThan(0);
         WindowsAccountTests.LOGGER.info("Domain: {}", account.getDomain());
-        Assertions.assertThat(account.getFqn().length()).isGreaterThan(0);
+        assertThat(account.getFqn().length()).isGreaterThan(0);
         WindowsAccountTests.LOGGER.info("Fqn: {}", account.getFqn());
-        Assertions.assertThat(account.getSidString().length()).isGreaterThan(0);
+        assertThat(account.getSidString().length()).isGreaterThan(0);
         WindowsAccountTests.LOGGER.info("Sid: {}", account.getSidString());
         // To avoid errors with machine naming being all upper-case, use test in this manner
-        Assert.assertTrue(currentUsername.equalsIgnoreCase(account.getFqn()));
-        Assert.assertTrue(currentUsername.endsWith("\\" + account.getName()));
+        Assertions.assertTrue(currentUsername.equalsIgnoreCase(account.getFqn()));
+        Assertions.assertTrue(currentUsername.endsWith("\\" + account.getName()));
         // To avoid errors with machine naming being all upper-case, use test in this manner
-        Assert.assertTrue(currentUsername.toLowerCase().startsWith(account.getDomain().toLowerCase() + "\\"));
+        Assertions.assertTrue(currentUsername.toLowerCase().startsWith(account.getDomain().toLowerCase() + "\\"));
     }
 }

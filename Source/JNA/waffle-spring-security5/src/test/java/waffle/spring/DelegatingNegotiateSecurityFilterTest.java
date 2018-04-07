@@ -21,10 +21,10 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -55,7 +55,7 @@ public class DelegatingNegotiateSecurityFilterTest {
     /**
      * Sets the up.
      */
-    @Before
+    @BeforeEach
     public void setUp() {
         final String[] configFiles = new String[] { "springTestFilterBeans.xml" };
         this.ctx = new ClassPathXmlApplicationContext(configFiles);
@@ -66,7 +66,7 @@ public class DelegatingNegotiateSecurityFilterTest {
     /**
      * Shut down.
      */
-    @After
+    @AfterEach
     public void shutDown() {
         ((AbstractApplicationContext) this.ctx).close();
     }
@@ -76,12 +76,12 @@ public class DelegatingNegotiateSecurityFilterTest {
      */
     @Test
     public void testFilter() {
-        Assert.assertFalse(this.filter.isAllowGuestLogin());
-        Assert.assertEquals(PrincipalFormat.FQN, this.filter.getPrincipalFormat());
-        Assert.assertEquals(PrincipalFormat.BOTH, this.filter.getRoleFormat());
-        Assert.assertNull(this.filter.getFilterConfig());
-        Assert.assertNotNull(this.filter.getProvider());
-        Assert.assertTrue(filter.getAccessDeniedHandler() instanceof CustomAccessDeniedHandler);
+        Assertions.assertFalse(this.filter.isAllowGuestLogin());
+        Assertions.assertEquals(PrincipalFormat.FQN, this.filter.getPrincipalFormat());
+        Assertions.assertEquals(PrincipalFormat.BOTH, this.filter.getRoleFormat());
+        Assertions.assertNull(this.filter.getFilterConfig());
+        Assertions.assertNotNull(this.filter.getProvider());
+        Assertions.assertTrue(filter.getAccessDeniedHandler() instanceof CustomAccessDeniedHandler);
     }
 
     /**
@@ -107,20 +107,20 @@ public class DelegatingNegotiateSecurityFilterTest {
         this.filter.doFilter(request, response, filterChain);
 
         final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Assert.assertNotNull(auth);
+        Assertions.assertNotNull(auth);
         final Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
-        Assert.assertNotNull(authorities);
-        Assert.assertEquals(3, authorities.size());
+        Assertions.assertNotNull(authorities);
+        Assertions.assertEquals(3, authorities.size());
 
         final List<String> list = new ArrayList<>();
         for (GrantedAuthority grantedAuthority : authorities) {
             list.add(grantedAuthority.getAuthority());
         }
         Collections.sort(list);
-        Assert.assertEquals("ROLE_EVERYONE", list.get(0));
-        Assert.assertEquals("ROLE_USER", list.get(1));
-        Assert.assertEquals("ROLE_USERS", list.get(2));
-        Assert.assertEquals(0, response.getHeaderNamesSize());
+        Assertions.assertEquals("ROLE_EVERYONE", list.get(0));
+        Assertions.assertEquals("ROLE_USER", list.get(1));
+        Assertions.assertEquals("ROLE_USERS", list.get(2));
+        Assertions.assertEquals(0, response.getHeaderNamesSize());
     }
 
 }

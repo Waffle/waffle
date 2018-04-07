@@ -21,10 +21,10 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -57,7 +57,7 @@ public class NegotiateSecurityFilterTests {
     /**
      * Sets the up.
      */
-    @Before
+    @BeforeEach
     public void setUp() {
         final String[] configFiles = new String[] { "springTestFilterBeans.xml" };
         this.ctx = new ClassPathXmlApplicationContext(configFiles);
@@ -68,7 +68,7 @@ public class NegotiateSecurityFilterTests {
     /**
      * Shut down.
      */
-    @After
+    @AfterEach
     public void shutDown() {
         ((AbstractApplicationContext) this.ctx).close();
     }
@@ -78,11 +78,11 @@ public class NegotiateSecurityFilterTests {
      */
     @Test
     public void testFilter() {
-        Assert.assertFalse(this.filter.isAllowGuestLogin());
-        Assert.assertEquals(PrincipalFormat.FQN, this.filter.getPrincipalFormat());
-        Assert.assertEquals(PrincipalFormat.BOTH, this.filter.getRoleFormat());
-        Assert.assertNull(this.filter.getFilterConfig());
-        Assert.assertNotNull(this.filter.getProvider());
+        Assertions.assertFalse(this.filter.isAllowGuestLogin());
+        Assertions.assertEquals(PrincipalFormat.FQN, this.filter.getPrincipalFormat());
+        Assertions.assertEquals(PrincipalFormat.BOTH, this.filter.getRoleFormat());
+        Assertions.assertNull(this.filter.getFilterConfig());
+        Assertions.assertNotNull(this.filter.getProvider());
     }
 
     /**
@@ -94,10 +94,10 @@ public class NegotiateSecurityFilterTests {
     @Test
     public void testProvider() throws ClassNotFoundException {
         final SecurityFilterProviderCollection provider = this.filter.getProvider();
-        Assert.assertEquals(2, provider.size());
-        Assert.assertTrue(provider.getByClassName(
+        Assertions.assertEquals(2, provider.size());
+        Assertions.assertTrue(provider.getByClassName(
                 "waffle.servlet.spi.BasicSecurityFilterProvider") instanceof BasicSecurityFilterProvider);
-        Assert.assertTrue(provider.getByClassName(
+        Assertions.assertTrue(provider.getByClassName(
                 "waffle.servlet.spi.NegotiateSecurityFilterProvider") instanceof NegotiateSecurityFilterProvider);
     }
 
@@ -117,7 +117,7 @@ public class NegotiateSecurityFilterTests {
         final SimpleFilterChain chain = new SimpleFilterChain();
         this.filter.doFilter(request, response, chain);
         // unlike servlet filters, it's a passthrough
-        Assert.assertEquals(500, response.getStatus());
+        Assertions.assertEquals(500, response.getStatus());
     }
 
     /**
@@ -142,20 +142,20 @@ public class NegotiateSecurityFilterTests {
         this.filter.doFilter(request, response, filterChain);
 
         final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Assert.assertNotNull(auth);
+        Assertions.assertNotNull(auth);
         final Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
-        Assert.assertNotNull(authorities);
-        Assert.assertEquals(3, authorities.size());
+        Assertions.assertNotNull(authorities);
+        Assertions.assertEquals(3, authorities.size());
 
         final List<String> list = new ArrayList<>();
         for (GrantedAuthority grantedAuthority : authorities) {
             list.add(grantedAuthority.getAuthority());
         }
         Collections.sort(list);
-        Assert.assertEquals("ROLE_EVERYONE", list.get(0));
-        Assert.assertEquals("ROLE_USER", list.get(1));
-        Assert.assertEquals("ROLE_USERS", list.get(2));
-        Assert.assertEquals(0, response.getHeaderNamesSize());
+        Assertions.assertEquals("ROLE_EVERYONE", list.get(0));
+        Assertions.assertEquals("ROLE_USER", list.get(1));
+        Assertions.assertEquals("ROLE_USERS", list.get(2));
+        Assertions.assertEquals(0, response.getHeaderNamesSize());
     }
 
     /**
@@ -174,7 +174,7 @@ public class NegotiateSecurityFilterTests {
         final SimpleHttpResponse response = new SimpleHttpResponse();
         this.filter.doFilter(request, response, filterChain);
         // the filter should ignore authorization for an unsupported security package, ie. not return a 401
-        Assert.assertEquals(500, response.getStatus());
+        Assertions.assertEquals(500, response.getStatus());
     }
 
     /**
@@ -197,8 +197,8 @@ public class NegotiateSecurityFilterTests {
         final SimpleHttpResponse response = new SimpleHttpResponse();
         this.filter.doFilter(request, response, filterChain);
 
-        Assert.assertEquals(401, response.getStatus());
-        Assert.assertNull(SecurityContextHolder.getContext().getAuthentication());
+        Assertions.assertEquals(401, response.getStatus());
+        Assertions.assertNull(SecurityContextHolder.getContext().getAuthentication());
     }
 
     /**
@@ -207,9 +207,12 @@ public class NegotiateSecurityFilterTests {
      * @throws ServletException
      *             the servlet exception
      */
-    @Test(expected = ServletException.class)
+    @Test
     public void testAfterPropertiesSet() throws ServletException {
         this.filter.setProvider(null);
-        this.filter.afterPropertiesSet();
+        Assertions.assertThrows(ServletException.class, () -> {
+            this.filter.afterPropertiesSet();
+        });
     }
+
 }

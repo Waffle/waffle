@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2017 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -11,6 +11,8 @@
  */
 package waffle.servlet;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
@@ -19,11 +21,10 @@ import javax.security.auth.Subject;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 
-import org.assertj.core.api.Assertions;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import waffle.mock.MockWindowsAuthProvider;
 import waffle.mock.http.SimpleFilterChain;
@@ -47,7 +48,7 @@ public class BasicSecurityFilterTests {
      * @throws ServletException
      *             the servlet exception
      */
-    @Before
+    @BeforeEach
     public void setUp() throws ServletException {
         this.filter = new NegotiateSecurityFilter();
         this.filter.setAuth(new MockWindowsAuthProvider());
@@ -57,7 +58,7 @@ public class BasicSecurityFilterTests {
     /**
      * Tear down.
      */
-    @After
+    @AfterEach
     public void tearDown() {
         this.filter.destroy();
     }
@@ -84,7 +85,7 @@ public class BasicSecurityFilterTests {
         final FilterChain filterChain = new SimpleFilterChain();
         this.filter.doFilter(request, response, filterChain);
         final Subject subject = (Subject) request.getSession(false).getAttribute("javax.security.auth.subject");
-        Assert.assertNotNull(subject);
-        Assertions.assertThat(subject.getPrincipals().size()).isGreaterThan(0);
+        Assertions.assertNotNull(subject);
+        assertThat(subject.getPrincipals().size()).isGreaterThan(0);
     }
 }
