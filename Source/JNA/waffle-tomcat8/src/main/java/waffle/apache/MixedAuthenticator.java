@@ -36,7 +36,7 @@ import waffle.windows.auth.IWindowsSecurityContext;
 
 /**
  * Mixed Negotiate + Form Authenticator.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class MixedAuthenticator extends WaffleAuthenticatorBase {
@@ -243,7 +243,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
         try {
             this.log.debug("successfully logged in {} ({})", username, windowsIdentity.getSidString());
 
-            final GenericPrincipal genericPrincipal = createPrincipal(windowsIdentity);
+            final GenericPrincipal genericPrincipal = this.createPrincipal(windowsIdentity);
 
             this.log.debug("roles: {}", String.join(", ", genericPrincipal.getRoles()));
             // create a session associated with this request if there's none

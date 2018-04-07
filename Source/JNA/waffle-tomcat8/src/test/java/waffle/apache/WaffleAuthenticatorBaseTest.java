@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Waffle Authenticator Base Tests.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WaffleAuthenticatorBaseTest {

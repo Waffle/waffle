@@ -32,7 +32,7 @@ import waffle.windows.auth.IWindowsSecurityContext;
 
 /**
  * An Apache Negotiate (NTLM, Kerberos) Authenticator.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
@@ -147,7 +147,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
             try {
                 this.log.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
 
-                final GenericPrincipal genericPrincipal = createPrincipal(windowsIdentity);
+                final GenericPrincipal genericPrincipal = this.createPrincipal(windowsIdentity);
 
                 this.log.debug("roles: {}", String.join(", ", genericPrincipal.getRoles()));
 
@@ -179,7 +179,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
      * new at this time, we will continue to have both for time being.
      */
     @Override
-    protected boolean doAuthenticate(Request request, HttpServletResponse response) throws IOException {
+    protected boolean doAuthenticate(final Request request, final HttpServletResponse response) throws IOException {
         return this.authenticate(request, response);
     }
 

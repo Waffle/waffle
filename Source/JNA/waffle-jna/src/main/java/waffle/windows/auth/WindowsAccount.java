@@ -15,7 +15,7 @@ import java.io.Serializable;
 
 /**
  * A flattened Windows Account used in a Windows principal.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsAccount implements Serializable {

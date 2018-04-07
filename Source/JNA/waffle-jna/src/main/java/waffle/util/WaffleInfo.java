@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2017 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -51,35 +51,35 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
 /**
  * A Utility class to read system info to help troubleshoot WAFFLE system configuration.
- * 
+ *
  * <pre>
  * This utility class collects system information and returns it as an XML document.
  * </pre>
- * 
+ *
  * From the command line, you can write the info to stdout using:
- * 
+ *
  * <pre>
  * <code>
  *   java -cp "jna.jar;waffle-core.jar;waffle-api.jar;jna-platform.jar;guava-21.0.jar" waffle.util.WaffleInfo
  * </code>
  * </pre>
- * 
+ *
  * To show this information in a browser, run:
- * 
+ *
  * <pre>
  * <code>
  *   java -cp "..." waffle.util.WaffleInfo -show
  * </code>
  * </pre>
- * 
+ *
  * To lookup account names and return any listed info, run:
- * 
+ *
  * <pre>
  * <code>
  *   java -cp "..." waffle.util.WaffleInfo -lookup AccountName
  * </code>
  * </pre>
- * 
+ *
  */
 public class WaffleInfo {
 
@@ -88,11 +88,11 @@ public class WaffleInfo {
 
     /**
      * Get a Document with basic system information
-     * 
+     *
      * This uses the builtin javax.xml package even though the API is quite verbose
-     * 
+     *
      * @return Document with waffle info.
-     * 
+     *
      * @throws ParserConfigurationException
      *             when getting new document builder.
      */
@@ -294,7 +294,7 @@ public class WaffleInfo {
 
     /**
      * Print system information.
-     * 
+     *
      * @param args
      *            variable arguments to pass to main. Valid values are "-show" and "-lookup".
      */

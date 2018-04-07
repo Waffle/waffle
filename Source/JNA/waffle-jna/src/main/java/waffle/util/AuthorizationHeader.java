@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Authorization header.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class AuthorizationHeader {
@@ -61,7 +61,7 @@ public class AuthorizationHeader {
 
     /**
      * Returns a supported security package string.
-     * 
+     *
      * @return Negotiate or NTLM.
      */
     public String getSecurityPackage() {
@@ -145,7 +145,7 @@ public class AuthorizationHeader {
      * authentication message (without the POSTed data). The server responds with a 401, and the browser sends a Type 3
      * request with the POSTed data. This is to avoid the situation where user's credentials might be potentially
      * invalid, and all this data is being POSTed across the wire.
-     * 
+     *
      * @return True if request is an NTLM POST or PUT with an Authorization header and no data.
      */
     public boolean isNtlmType1PostAuthorizationHeader() {

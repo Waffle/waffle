@@ -27,7 +27,7 @@ public class WindowsIdentityImpersonationContextImpl implements IWindowsImperson
 
     /**
      * Impersonate a logged on user.
-     * 
+     *
      * @param windowsIdentity
      *            Windows identity obtained via LogonUser.
      */

@@ -42,7 +42,7 @@ public class WaffleProperties {
      * @return the principal format
      */
     public String getPrincipalFormat() {
-        return principalFormat;
+        return this.principalFormat;
     }
 
     /**
@@ -51,7 +51,7 @@ public class WaffleProperties {
      * @param principalFormat
      *            the new principal format
      */
-    public void setPrincipalFormat(String principalFormat) {
+    public void setPrincipalFormat(final String principalFormat) {
         this.principalFormat = principalFormat;
     }
 
@@ -61,7 +61,7 @@ public class WaffleProperties {
      * @return the role format
      */
     public String getRoleFormat() {
-        return roleFormat;
+        return this.roleFormat;
     }
 
     /**
@@ -70,7 +70,7 @@ public class WaffleProperties {
      * @param roleFormat
      *            the new role format
      */
-    public void setRoleFormat(String roleFormat) {
+    public void setRoleFormat(final String roleFormat) {
         this.roleFormat = roleFormat;
     }
 
@@ -80,7 +80,7 @@ public class WaffleProperties {
      * @return true, if is allow guest login
      */
     public boolean isAllowGuestLogin() {
-        return allowGuestLogin;
+        return this.allowGuestLogin;
     }
 
     /**
@@ -89,7 +89,7 @@ public class WaffleProperties {
      * @param allowGuestLogin
      *            the new allow guest login
      */
-    public void setAllowGuestLogin(boolean allowGuestLogin) {
+    public void setAllowGuestLogin(final boolean allowGuestLogin) {
         this.allowGuestLogin = allowGuestLogin;
     }
 
@@ -99,7 +99,7 @@ public class WaffleProperties {
      * @return the sso
      */
     public SingleSignOnProperties getSso() {
-        return sso;
+        return this.sso;
     }
 
     /**
@@ -108,7 +108,7 @@ public class WaffleProperties {
      * @param sso
      *            the new sso
      */
-    public void setSso(SingleSignOnProperties sso) {
+    public void setSso(final SingleSignOnProperties sso) {
         this.sso = sso;
     }
 
@@ -135,7 +135,7 @@ public class WaffleProperties {
          * @return true, if is enabled
          */
         public boolean isEnabled() {
-            return enabled;
+            return this.enabled;
         }
 
         /**
@@ -144,7 +144,7 @@ public class WaffleProperties {
          * @param enabled
          *            the new enabled
          */
-        public void setEnabled(boolean enabled) {
+        public void setEnabled(final boolean enabled) {
             this.enabled = enabled;
         }
 
@@ -154,7 +154,7 @@ public class WaffleProperties {
          * @return true, if is basic enabled
          */
         public boolean isBasicEnabled() {
-            return basicEnabled;
+            return this.basicEnabled;
         }
 
         /**
@@ -163,7 +163,7 @@ public class WaffleProperties {
          * @param basicEnabled
          *            the new basic enabled
          */
-        public void setBasicEnabled(boolean basicEnabled) {
+        public void setBasicEnabled(final boolean basicEnabled) {
             this.basicEnabled = basicEnabled;
         }
 
@@ -173,7 +173,7 @@ public class WaffleProperties {
          * @return the protocols
          */
         public List<String> getProtocols() {
-            return protocols;
+            return this.protocols;
         }
 
         /**
@@ -182,7 +182,7 @@ public class WaffleProperties {
          * @param protocols
          *            the new protocols
          */
-        public void setProtocols(List<String> protocols) {
+        public void setProtocols(final List<String> protocols) {
             this.protocols = protocols;
         }
 
@@ -192,7 +192,7 @@ public class WaffleProperties {
          * @return true, if is impersonate
          */
         public boolean isImpersonate() {
-            return impersonate;
+            return this.impersonate;
         }
 
         /**
@@ -201,7 +201,7 @@ public class WaffleProperties {
          * @param impersonate
          *            the new impersonate
          */
-        public void setImpersonate(boolean impersonate) {
+        public void setImpersonate(final boolean impersonate) {
             this.impersonate = impersonate;
         }
 

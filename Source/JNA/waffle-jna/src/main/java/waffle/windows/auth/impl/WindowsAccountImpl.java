@@ -20,7 +20,7 @@ import waffle.windows.auth.IWindowsAccount;
 
 /**
  * Windows Account.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsAccountImpl implements IWindowsAccount {
@@ -30,7 +30,7 @@ public class WindowsAccountImpl implements IWindowsAccount {
 
     /**
      * Windows Account.
-     * 
+     *
      * @param newAccount
      *            Account.
      */
@@ -40,7 +40,7 @@ public class WindowsAccountImpl implements IWindowsAccount {
 
     /**
      * Windows Account.
-     * 
+     *
      * @param userName
      *            Fully qualified username.
      */
@@ -50,7 +50,7 @@ public class WindowsAccountImpl implements IWindowsAccount {
 
     /**
      * Windows Account.
-     * 
+     *
      * @param accountName
      *            Username, without a domain or machine.
      * @param systemName
@@ -62,7 +62,7 @@ public class WindowsAccountImpl implements IWindowsAccount {
 
     /**
      * Get the SAM-compatible username of the currently logged-on user.
-     * 
+     *
      * @return String.
      */
     public static String getCurrentUsername() {
@@ -71,7 +71,7 @@ public class WindowsAccountImpl implements IWindowsAccount {
 
     /**
      * Account domain.
-     * 
+     *
      * @return String.
      */
     @Override
@@ -86,7 +86,7 @@ public class WindowsAccountImpl implements IWindowsAccount {
 
     /**
      * Account name.
-     * 
+     *
      * @return String.
      */
     @Override

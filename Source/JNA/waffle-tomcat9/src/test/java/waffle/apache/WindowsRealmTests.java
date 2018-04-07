@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Windows Realm Tests.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsRealmTests {

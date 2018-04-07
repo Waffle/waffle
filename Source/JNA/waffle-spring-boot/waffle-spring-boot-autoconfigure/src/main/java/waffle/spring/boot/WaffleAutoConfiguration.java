@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2017 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -42,7 +42,7 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 public class WaffleAutoConfiguration {
 
     /** The properties. */
-    private WaffleProperties properties;
+    private final WaffleProperties properties;
 
     /**
      * Instantiates a new waffle auto configuration.
@@ -50,7 +50,7 @@ public class WaffleAutoConfiguration {
      * @param properties
      *            the properties
      */
-    public WaffleAutoConfiguration(WaffleProperties properties) {
+    public WaffleAutoConfiguration(final WaffleProperties properties) {
         this.properties = properties;
     }
 
@@ -104,14 +104,14 @@ public class WaffleAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public WindowsAuthenticationProvider waffleSpringAuthenticationProvider(
-            WindowsAuthProviderImpl waffleWindowsAuthProvider,
-            @Qualifier("defaultGrantedAuthority") GrantedAuthority defaultGrantedAuthority,
-            GrantedAuthorityFactory grantedAuthorityFactory) {
-        WindowsAuthenticationProvider bean = new WindowsAuthenticationProvider();
+            final WindowsAuthProviderImpl waffleWindowsAuthProvider,
+            @Qualifier("defaultGrantedAuthority") final GrantedAuthority defaultGrantedAuthority,
+            final GrantedAuthorityFactory grantedAuthorityFactory) {
+        final WindowsAuthenticationProvider bean = new WindowsAuthenticationProvider();
         bean.setAuthProvider(waffleWindowsAuthProvider);
-        bean.setPrincipalFormat(properties.getPrincipalFormat());
-        bean.setRoleFormat(properties.getRoleFormat());
-        bean.setAllowGuestLogin(properties.isAllowGuestLogin());
+        bean.setPrincipalFormat(this.properties.getPrincipalFormat());
+        bean.setRoleFormat(this.properties.getRoleFormat());
+        bean.setAllowGuestLogin(this.properties.isAllowGuestLogin());
         bean.setDefaultGrantedAuthority(defaultGrantedAuthority);
         bean.setGrantedAuthorityFactory(grantedAuthorityFactory);
         return bean;
@@ -129,9 +129,9 @@ public class WaffleAutoConfiguration {
     @ConditionalOnProperty("waffle.sso.enabled")
     @ConditionalOnMissingBean
     public NegotiateSecurityFilterProvider negotiateSecurityFilterProvider(
-            WindowsAuthProviderImpl windowsAuthProvider) {
-        NegotiateSecurityFilterProvider bean = new NegotiateSecurityFilterProvider(windowsAuthProvider);
-        bean.setProtocols(properties.getSso().getProtocols());
+            final WindowsAuthProviderImpl windowsAuthProvider) {
+        final NegotiateSecurityFilterProvider bean = new NegotiateSecurityFilterProvider(windowsAuthProvider);
+        bean.setProtocols(this.properties.getSso().getProtocols());
         return bean;
     }
 
@@ -146,7 +146,7 @@ public class WaffleAutoConfiguration {
     @Bean
     @ConditionalOnProperty("waffle.sso.enabled")
     @ConditionalOnMissingBean
-    public BasicSecurityFilterProvider basicSecurityFilterProvider(WindowsAuthProviderImpl windowsAuthProvider) {
+    public BasicSecurityFilterProvider basicSecurityFilterProvider(final WindowsAuthProviderImpl windowsAuthProvider) {
         return new BasicSecurityFilterProvider(windowsAuthProvider);
     }
 
@@ -164,9 +164,9 @@ public class WaffleAutoConfiguration {
     @ConditionalOnProperty("waffle.sso.enabled")
     @ConditionalOnMissingBean
     public SecurityFilterProviderCollection waffleSecurityFilterProviderCollection(
-            NegotiateSecurityFilterProvider negotiateProvider, BasicSecurityFilterProvider basicProvider) {
+            final NegotiateSecurityFilterProvider negotiateProvider, final BasicSecurityFilterProvider basicProvider) {
         SecurityFilterProvider[] providers;
-        if (properties.getSso().isBasicEnabled()) {
+        if (this.properties.getSso().isBasicEnabled()) {
             providers = new SecurityFilterProvider[] { negotiateProvider, basicProvider };
         } else {
             providers = new SecurityFilterProvider[] { negotiateProvider };
@@ -186,8 +186,8 @@ public class WaffleAutoConfiguration {
     @ConditionalOnProperty("waffle.sso.enabled")
     @ConditionalOnMissingBean
     public NegotiateSecurityFilterEntryPoint negotiateSecurityFilterEntryPoint(
-            SecurityFilterProviderCollection providers) {
-        NegotiateSecurityFilterEntryPoint bean = new NegotiateSecurityFilterEntryPoint();
+            final SecurityFilterProviderCollection providers) {
+        final NegotiateSecurityFilterEntryPoint bean = new NegotiateSecurityFilterEntryPoint();
         bean.setProvider(providers);
         return bean;
     }
@@ -207,15 +207,15 @@ public class WaffleAutoConfiguration {
     @Bean
     @ConditionalOnProperty("waffle.sso.enabled")
     @ConditionalOnMissingBean
-    public NegotiateSecurityFilter waffleNegotiateSecurityFilter(SecurityFilterProviderCollection providers,
-            @Qualifier("defaultGrantedAuthority") GrantedAuthority defaultGrantedAuthority,
-            GrantedAuthorityFactory grantedAuthorityFactory) {
-        NegotiateSecurityFilter bean = new NegotiateSecurityFilter();
+    public NegotiateSecurityFilter waffleNegotiateSecurityFilter(final SecurityFilterProviderCollection providers,
+            @Qualifier("defaultGrantedAuthority") final GrantedAuthority defaultGrantedAuthority,
+            final GrantedAuthorityFactory grantedAuthorityFactory) {
+        final NegotiateSecurityFilter bean = new NegotiateSecurityFilter();
         bean.setProvider(providers);
-        bean.setPrincipalFormat(properties.getPrincipalFormat());
-        bean.setRoleFormat(properties.getRoleFormat());
-        bean.setAllowGuestLogin(properties.isAllowGuestLogin());
-        bean.setImpersonate(properties.getSso().isImpersonate());
+        bean.setPrincipalFormat(this.properties.getPrincipalFormat());
+        bean.setRoleFormat(this.properties.getRoleFormat());
+        bean.setAllowGuestLogin(this.properties.isAllowGuestLogin());
+        bean.setImpersonate(this.properties.getSso().isImpersonate());
         bean.setDefaultGrantedAuthority(defaultGrantedAuthority);
         bean.setGrantedAuthorityFactory(grantedAuthorityFactory);
         return bean;
@@ -232,8 +232,8 @@ public class WaffleAutoConfiguration {
      */
     @Bean
     @ConditionalOnProperty("waffle.sso.enabled")
-    public FilterRegistrationBean waffleNegotiateSecurityFilterRegistrationBean(NegotiateSecurityFilter filter) {
-        FilterRegistrationBean bean = new FilterRegistrationBean(filter);
+    public FilterRegistrationBean waffleNegotiateSecurityFilterRegistrationBean(final NegotiateSecurityFilter filter) {
+        final FilterRegistrationBean bean = new FilterRegistrationBean(filter);
         bean.setEnabled(false);
         return bean;
     }

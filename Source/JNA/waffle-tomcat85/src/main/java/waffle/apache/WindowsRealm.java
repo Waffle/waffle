@@ -17,7 +17,7 @@ import org.apache.catalina.realm.RealmBase;
 
 /**
  * A rudimentary Windows realm.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsRealm extends RealmBase {

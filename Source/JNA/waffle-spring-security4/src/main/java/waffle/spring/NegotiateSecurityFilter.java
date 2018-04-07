@@ -38,7 +38,7 @@ import waffle.windows.auth.PrincipalFormat;
 
 /**
  * A Spring Negotiate security filter.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class NegotiateSecurityFilter extends GenericFilterBean {
@@ -117,7 +117,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
                 NegotiateSecurityFilter.LOGGER.debug("logged in user: {} ({})", windowsIdentity.getFqn(),
                         windowsIdentity.getSidString());
 
-                final WindowsPrincipal principal = impersonate
+                final WindowsPrincipal principal = this.impersonate
                         ? new AutoDisposableWindowsPrincipal(windowsIdentity, this.principalFormat, this.roleFormat)
                         : new WindowsPrincipal(windowsIdentity, this.principalFormat, this.roleFormat);
 
@@ -133,7 +133,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
                 NegotiateSecurityFilter.LOGGER.info("successfully logged in user: {}", windowsIdentity.getFqn());
 
                 if (this.impersonate) {
-                    LOGGER.debug("impersonating user");
+                    NegotiateSecurityFilter.LOGGER.debug("impersonating user");
                     ctx = windowsIdentity.impersonate();
                 }
 
@@ -180,7 +180,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
 
     /**
      * Send a 401 Unauthorized along with protocol authentication headers.
-     * 
+     *
      * @param response
      *            HTTP Response
      * @param close

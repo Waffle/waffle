@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -33,7 +33,7 @@ public class GroupMappingWaffleRealm extends AbstractWaffleRealm {
     /**
      * Sets the translation from group names to role names. If not set, the map is empty, resulting in no users getting
      * roles.
-     * 
+     *
      * @param value
      *            the group roles map to set
      */
@@ -47,7 +47,7 @@ public class GroupMappingWaffleRealm extends AbstractWaffleRealm {
     /**
      * This method is called by to translate group names to role names. This implementation uses the groupRolesMap to
      * map group names to role names.
-     * 
+     *
      * @param groupNames
      *            the group names that apply to the current user
      * @return a collection of roles that are implied by the given role names
@@ -67,11 +67,11 @@ public class GroupMappingWaffleRealm extends AbstractWaffleRealm {
     /**
      * Builds an {@link AuthorizationInfo} object based on the user's groups. The groups are translated to roles names
      * by using the configured groupRolesMap.
-     * 
+     *
      * @param principal
      *            the principal of Subject that is being authorized
      * @return the AuthorizationInfo for the given Subject principal
-     * 
+     *
      * @see #setGroupRolesMap
      * @see #getRoleNamesForGroups
      */

@@ -23,7 +23,7 @@ import org.apache.shiro.subject.SimplePrincipalCollection;
  * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateToken. see:
  * https://bitbucket.org/lothor/shiro-negotiate
  * /src/7b25efde130b/src/main/java/net/skorgenes/security/jsecurity/negotiate/NegotiateInfo.java?at=default
- * 
+ *
  * @author Dan Rollo
  * @since 1.0.0
  */
@@ -40,7 +40,7 @@ public class NegotiateInfo implements AuthenticationInfo {
 
     /**
      * Creates a new info object.
-     * 
+     *
      * @param newSubject
      *            a subject containing the authenticated users {@link waffle.servlet.WindowsPrincipal}.
      * @param newRealmName
@@ -53,7 +53,7 @@ public class NegotiateInfo implements AuthenticationInfo {
 
     /**
      * Creates a new principal collection using the subject as the principal.
-     * 
+     *
      * @return a new principal collection using the subject as the principal
      */
     @Override
@@ -63,7 +63,7 @@ public class NegotiateInfo implements AuthenticationInfo {
 
     /**
      * Returns the subject.
-     * 
+     *
      * @return the subject
      */
     @Override

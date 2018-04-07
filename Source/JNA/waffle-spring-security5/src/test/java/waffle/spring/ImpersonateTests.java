@@ -120,7 +120,7 @@ public class ImpersonateTests {
 
         final Principal principal = (Principal) authentication.getPrincipal();
         assertThat(principal).isInstanceOf(AutoDisposableWindowsPrincipal.class);
-        AutoDisposableWindowsPrincipal windowsPrincipal = (AutoDisposableWindowsPrincipal) principal;
+        final AutoDisposableWindowsPrincipal windowsPrincipal = (AutoDisposableWindowsPrincipal) principal;
         try {
             Assertions.assertEquals(MockWindowsAccount.TEST_USER_NAME, filterChain.getUserName(),
                     "Test user should be impersonated");
@@ -161,7 +161,7 @@ public class ImpersonateTests {
 
         final Principal principal = (Principal) authentication.getPrincipal();
         assertThat(principal).isInstanceOf(WindowsPrincipal.class);
-        WindowsPrincipal windowsPrincipal = (WindowsPrincipal) principal;
+        final WindowsPrincipal windowsPrincipal = (WindowsPrincipal) principal;
         try {
             Assertions.assertNotEquals(MockWindowsAccount.TEST_USER_NAME, filterChain.getUserName(),
                     "Test user should not be impersonated");

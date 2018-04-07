@@ -25,7 +25,7 @@ import waffle.windows.auth.WindowsAccount;
 
 /**
  * A Windows Principal.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsPrincipal implements Principal, Serializable {
@@ -53,7 +53,7 @@ public class WindowsPrincipal implements Principal, Serializable {
 
     /**
      * A windows principal.
-     * 
+     *
      * @param windowsIdentity
      *            Windows identity.
      */
@@ -63,7 +63,7 @@ public class WindowsPrincipal implements Principal, Serializable {
 
     /**
      * A windows principal.
-     * 
+     *
      * @param windowsIdentity
      *            Windows identity.
      * @param principalFormat
@@ -119,7 +119,7 @@ public class WindowsPrincipal implements Principal, Serializable {
 
     /**
      * Byte representation of the SID.
-     * 
+     *
      * @return Array of bytes.
      */
     public byte[] getSid() {
@@ -128,7 +128,7 @@ public class WindowsPrincipal implements Principal, Serializable {
 
     /**
      * String representation of the SID.
-     * 
+     *
      * @return String.
      */
     public String getSidString() {
@@ -137,7 +137,7 @@ public class WindowsPrincipal implements Principal, Serializable {
 
     /**
      * Windows groups that the user is a member of.
-     * 
+     *
      * @return A map of group names to groups.
      */
     public Map<String, WindowsAccount> getGroups() {
@@ -146,7 +146,7 @@ public class WindowsPrincipal implements Principal, Serializable {
 
     /**
      * Returns a list of role principal objects.
-     * 
+     *
      * @param group
      *            Windows group.
      * @param principalFormat
@@ -175,7 +175,7 @@ public class WindowsPrincipal implements Principal, Serializable {
 
     /**
      * Returns a list of user principal objects.
-     * 
+     *
      * @param windowsIdentity
      *            Windows identity.
      * @param principalFormat
@@ -205,7 +205,7 @@ public class WindowsPrincipal implements Principal, Serializable {
 
     /**
      * Get an array of roles as a string.
-     * 
+     *
      * @return Role1, Role2, ...
      */
     public String getRolesString() {
@@ -214,7 +214,7 @@ public class WindowsPrincipal implements Principal, Serializable {
 
     /**
      * Checks whether the principal has a given role.
-     * 
+     *
      * @param role
      *            Role name.
      * @return True if the principal has a role, false otherwise.
@@ -225,7 +225,7 @@ public class WindowsPrincipal implements Principal, Serializable {
 
     /**
      * Fully qualified name.
-     * 
+     *
      * @return String.
      */
     @Override
@@ -235,7 +235,7 @@ public class WindowsPrincipal implements Principal, Serializable {
 
     /**
      * Underlying identity.
-     * 
+     *
      * @return String.
      */
     public IWindowsIdentity getIdentity() {

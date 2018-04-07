@@ -29,7 +29,7 @@ import waffle.windows.auth.WindowsAccount;
 
 /**
  * Windows Account Tests.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsAccountTests {

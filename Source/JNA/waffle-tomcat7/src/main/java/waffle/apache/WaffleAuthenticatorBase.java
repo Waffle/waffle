@@ -72,7 +72,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      * @return the continue contexts timeout
      */
     public int getContinueContextsTimeout() {
-        return continueContextsTimeout;
+        return this.continueContextsTimeout;
     }
 
     /**
@@ -81,13 +81,13 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      * @param continueContextsTimeout
      *            the new continue contexts timeout
      */
-    public void setContinueContextsTimeout(int continueContextsTimeout) {
+    public void setContinueContextsTimeout(final int continueContextsTimeout) {
         this.continueContextsTimeout = continueContextsTimeout;
     }
 
     /**
      * Windows authentication provider.
-     * 
+     *
      * @return IWindowsAuthProvider.
      */
     public IWindowsAuthProvider getAuth() {
@@ -96,7 +96,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
     /**
      * Set Windows auth provider.
-     * 
+     *
      * @param provider
      *            Class implements IWindowsAuthProvider.
      */
@@ -111,7 +111,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
     /**
      * Set the principal format.
-     * 
+     *
      * @param format
      *            Principal format.
      */
@@ -122,7 +122,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
     /**
      * Principal format.
-     * 
+     *
      * @return Principal format.
      */
     public PrincipalFormat getPrincipalFormat() {
@@ -131,7 +131,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
     /**
      * Set the principal format.
-     * 
+     *
      * @param format
      *            Role format.
      */
@@ -142,7 +142,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
     /**
      * Principal format.
-     * 
+     *
      * @return Role format.
      */
     public PrincipalFormat getRoleFormat() {
@@ -151,7 +151,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
     /**
      * True if Guest login permitted.
-     * 
+     *
      * @return True if Guest login permitted, false otherwise.
      */
     public boolean isAllowGuestLogin() {
@@ -161,7 +161,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
     /**
      * Set whether Guest login is permitted. Default is true, if the Guest account is enabled, an invalid
      * username/password results in a Guest login.
-     * 
+     *
      * @param value
      *            True or false.
      */
@@ -171,7 +171,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
     /**
      * Set the authentication protocols. Default is "Negotiate, NTLM".
-     * 
+     *
      * @param value
      *            Authentication protocols
      */
@@ -194,7 +194,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
     /**
      * Send a 401 Unauthorized along with protocol authentication headers.
-     * 
+     *
      * @param response
      *            HTTP Response
      */
@@ -213,7 +213,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
     /**
      * Send an error code.
-     * 
+     *
      * @param response
      *            HTTP Response
      * @param code
@@ -253,7 +253,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
         }
         try {
             this.log.debug("successfully logged in {} ({})", username, windowsIdentity.getSidString());
-            final GenericPrincipal genericPrincipal = createPrincipal(windowsIdentity);
+            final GenericPrincipal genericPrincipal = this.createPrincipal(windowsIdentity);
             this.log.debug("roles: {}", String.join(", ", genericPrincipal.getRoles()));
             return genericPrincipal;
         } finally {
@@ -264,7 +264,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
     /**
      * This method will create an instance of a IWindowsIdentity based GenericPrincipal. It is used for creating custom
      * implementation within subclasses.
-     * 
+     *
      * @param windowsIdentity
      *            the windows identity to initialize the principal
      * @return the Generic Principal

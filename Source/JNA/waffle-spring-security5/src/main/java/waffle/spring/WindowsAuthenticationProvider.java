@@ -30,7 +30,7 @@ import waffle.windows.auth.PrincipalFormat;
 
 /**
  * A Waffle authentication provider for Spring-security.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsAuthenticationProvider implements AuthenticationProvider {

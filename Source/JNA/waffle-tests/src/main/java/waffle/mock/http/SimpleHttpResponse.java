@@ -64,7 +64,7 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
         }
 
         @Override
-        public void setWriteListener(WriteListener writeListener) {
+        public void setWriteListener(final WriteListener writeListener) {
             // Not used
         }
     };
@@ -141,7 +141,7 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
 
     /**
      * Use this for testing the number of headers.
-     * 
+     *
      * @return int header name size.
      */
     public int getHeaderNamesSize() {

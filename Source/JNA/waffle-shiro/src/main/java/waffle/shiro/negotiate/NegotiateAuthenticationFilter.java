@@ -44,7 +44,7 @@ import waffle.util.NtlmServletRequest;
 /**
  * A authentication filter that implements the HTTP Negotiate mechanism. The current user is authenticated, providing
  * single-sign-on
- * 
+ *
  * @author Dan Rollo
  * @since 1.0.0
  */
@@ -92,7 +92,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      * RememberMe will be <code>true</code> if the parameter value equals any of those supported by
      * {@link org.apache.shiro.web.util.WebUtils#isTrue(javax.servlet.ServletRequest, String)
      * WebUtils.isTrue(request,value)}, <code>false</code> otherwise.
-     * 
+     *
      * @param value
      *            the name of the request param to check for acquiring the rememberMe boolean value.
      */
@@ -210,7 +210,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      * , and if it is not <code>null</code>, delegates to
      * {@link org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter#isLoginAttempt(String)
      * isLoginAttempt(authzHeaderValue)}. If the header is <code>null</code>, <code>false</code> is returned.
-     * 
+     *
      * @param request
      *            incoming ServletRequest
      * @return true if the incoming request is an attempt to log in based, false otherwise
@@ -228,7 +228,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      * <p/>
      * <code>HttpServletRequest httpRequest = {@link WebUtils#toHttp(javax.servlet.ServletRequest) toHttp(reaquest)};<br/>
      * return httpRequest.getHeader({@link org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter#AUTHORIZATION_HEADER AUTHORIZATION_HEADER});</code>
-     * 
+     *
      * @param request
      *            the incoming <code>ServletRequest</code>
      * @return the <code>Authorization</code> header's value.
@@ -254,7 +254,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      * Default implementation that returns <code>true</code> if the specified <code>authzHeader</code> starts with the
      * same (case-insensitive) characters specified by any of the configured protocols (Negotiate or NTLM),
      * <code>false</code> otherwise.
-     * 
+     *
      * @param authzHeader
      *            the 'Authorization' header value (guaranteed to be non-null if the
      *            {@link #isLoginAttempt(javax.servlet.ServletRequest)} method is not overriden).
@@ -273,11 +273,11 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      * Builds the challenge for authorization by setting a HTTP <code>401</code> (Unauthorized) status as well as the
      * response's {@link org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter#AUTHENTICATE_HEADER
      * AUTHENTICATE_HEADER}.
-     * 
+     *
      * @param protocols
      *            protocols for which to send a challenge. In initial cases, will be all supported protocols. In the
      *            midst of negotiation, will be only the protocol being negotiated.
-     * 
+     *
      * @param response
      *            outgoing ServletResponse
      * @param out

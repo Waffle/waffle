@@ -27,7 +27,7 @@ import waffle.windows.auth.IWindowsSecurityContext;
 
 /**
  * Windows Security Context.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
@@ -80,7 +80,7 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 
     /**
      * Get the current Windows security context for a given SSPI package.
-     * 
+     *
      * @param securityPackage
      *            SSPI package.
      * @param targetName
@@ -148,7 +148,7 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 
     /**
      * Dispose a security context.
-     * 
+     *
      * @param ctx
      *            Security context.
      * @return True if a context was disposed.

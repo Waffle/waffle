@@ -31,7 +31,7 @@ import waffle.windows.auth.IWindowsIdentity;
 
 /**
  * A collection of security filter providers.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class SecurityFilterProviderCollection {
@@ -100,7 +100,7 @@ public class SecurityFilterProviderCollection {
 
     /**
      * Tests whether a specific security package is supported by any of the underlying providers.
-     * 
+     *
      * @param securityPackage
      *            Security package.
      * @return True if the security package is supported, false otherwise.
@@ -127,7 +127,7 @@ public class SecurityFilterProviderCollection {
 
     /**
      * Filter.
-     * 
+     *
      * @param request
      *            Http Request
      * @param response
@@ -152,7 +152,7 @@ public class SecurityFilterProviderCollection {
 
     /**
      * Returns true if authentication still needs to happen despite an existing principal.
-     * 
+     *
      * @param request
      *            Http Request
      * @return True if authentication is required.
@@ -168,7 +168,7 @@ public class SecurityFilterProviderCollection {
 
     /**
      * Send authorization headers.
-     * 
+     *
      * @param response
      *            Http Response
      */
@@ -180,7 +180,7 @@ public class SecurityFilterProviderCollection {
 
     /**
      * Number of providers.
-     * 
+     *
      * @return Number of providers.
      */
     public int size() {
@@ -189,7 +189,7 @@ public class SecurityFilterProviderCollection {
 
     /**
      * Get a security provider by class name.
-     * 
+     *
      * @param name
      *            Class name.
      * @return A security provider instance.

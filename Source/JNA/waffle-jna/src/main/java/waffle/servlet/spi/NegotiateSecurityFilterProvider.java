@@ -31,7 +31,7 @@ import waffle.windows.auth.IWindowsSecurityContext;
 
 /**
  * A negotiate security filter provider.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
@@ -90,7 +90,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
     @Override
     public void sendUnauthorized(final HttpServletResponse response) {
-        for (String protocol : this.protocols) {
+        for (final String protocol : this.protocols) {
             response.addHeader(NegotiateSecurityFilterProvider.WWW_AUTHENTICATE, protocol);
         }
     }

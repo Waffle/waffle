@@ -16,7 +16,7 @@ import java.security.Principal;
 
 /**
  * User Principal.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class UserPrincipal implements Principal, Serializable {
@@ -29,7 +29,7 @@ public class UserPrincipal implements Principal, Serializable {
 
     /**
      * A user principal.
-     * 
+     *
      * @param newFqn
      *            Fully qualified username.
      */

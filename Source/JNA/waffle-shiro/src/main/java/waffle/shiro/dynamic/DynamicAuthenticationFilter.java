@@ -27,64 +27,64 @@ import waffle.shiro.negotiate.NegotiateAuthenticationFilter;
  * allow a client to choose which authentication filter is used at runtime. This filter assumes the shiro.ini is
  * configured with both the {@link waffle.shiro.negotiate.NegotiateAuthenticationRealm} and some User/Password Realm
  * like: {@link waffle.shiro.GroupMappingWaffleRealm}.
- * 
+ *
  * Requires use of {@link waffle.shiro.negotiate.NegotiateAuthenticationStrategy} when more than one realm is configured
  * in shiro.ini (which should be the case for multiple authentication type options).
- * 
+ *
  * To use {@link waffle.shiro.negotiate.NegotiateAuthenticationRealm}, the client must pass the parameter
  * {@link #PARAM_NAME_AUTHTYPE} with a value of {@link #PARAM_VAL_AUTHTYPE_NEGOTIATE}.
- * 
+ *
  * Example shiro.ini snippet below:
- * 
+ *
  * <pre>
  *  # =======================
  *  # Shiro INI configuration
  *  # =======================
- * 
+ *
  *  [main]
- * 
+ *
  *  # Setup custom AuthenticationRealm
  *  waffleRealmSSO = waffle.shiro.negotiate.NegotiateAuthenticationRealm
  *  waffleUserPass = waffle.shiro.GroupMappingWaffleRealm
  *  securityManager.realms = $waffleRealmSSO, $waffleUserPass
- * 
- * 
+ *
+ *
  *  # Use the configured native session manager:
  *  sessionManager = org.apache.shiro.web.session.mgt.DefaultWebSessionManager
  *  securityManager.sessionManager = $sessionManager
- * 
+ *
  *  # the following call is only necessary in a web-configured ShiroFilter (otherwise
  *  # a native session manager is already enabled):
  *  securityManager.sessionMode = native
- * 
- * 
+ *
+ *
  *  # cookie for single sign on
  *  cookie = org.apache.shiro.web.servlet.SimpleCookie
  *  cookie.name = SSOcookie
  *  cookie.path = /
  *  securityManager.sessionManager.sessionIdCookie = $cookie
- * 
- * 
+ *
+ *
  *  authcStrategy = waffle.shiro.negotiate.NegotiateAuthenticationStrategy
  *  securityManager.authenticator.authenticationStrategy = $authcStrategy
- * 
+ *
  *  # Waffle filter
  *  waffleFilter = waffle.shiro.dynamic.DynamicAuthenticationFilter
- * 
+ *
  *  #Configure filter chains and filter parameters
  *  authc.loginUrl = /login.jsp
  *  waffleFilter.loginUrl = /login.jsp
  *  logout.redirectUrl = login.jsp
- * 
+ *
  *  ...
- * 
+ *
  *  [urls]
  *  # The 'urls' section is used for url-based security
  *  /logout = logout
  *  /* = waffleFilter
- * 
+ *
  * </pre>
- * 
+ *
  * @author Dan Rollo Date: 2/21/13 Time: 9:08 PM
  */
 public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
@@ -168,7 +168,7 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
      * Call
      * {@link org.apache.shiro.web.filter.AccessControlFilter#onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse)}
      * for the user selected authentication type, which performs login logic.
-     * 
+     *
      * {@inheritDoc}
      */
     @Override

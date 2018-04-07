@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -45,7 +45,7 @@ public class NegotiateAuthenticationStrategy extends AbstractAuthenticationStrat
      * exception: {@link AuthenticationInProgressException}. This custom strategy detects this exception, and
      * immediately re-throws it so classes higher up in the call stack will allow the handshake to proceed. Without this
      * added logic, the handshake would be halted after the first connection by the existing error handling.
-     * 
+     *
      * {@inheritDoc}
      */
     @Override

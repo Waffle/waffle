@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2017 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -29,13 +29,13 @@ public final class NtlmServletRequest {
 
     /**
      * Returns a unique connection id for a given servlet request.
-     * 
+     *
      * @param request
      *            Servlet request.
      * @return String.
      */
     public static String getConnectionId(final HttpServletRequest request) {
-        String remoteHost = NtlmServletRequest.getRemoteHost(request);
+        final String remoteHost = NtlmServletRequest.getRemoteHost(request);
         return String.join(":", remoteHost == null ? "" : remoteHost, String.valueOf(request.getRemotePort()));
     }
 

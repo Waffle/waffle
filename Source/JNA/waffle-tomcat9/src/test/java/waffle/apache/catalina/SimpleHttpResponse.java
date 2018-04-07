@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Simple HTTP Response.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class SimpleHttpResponse extends Response {

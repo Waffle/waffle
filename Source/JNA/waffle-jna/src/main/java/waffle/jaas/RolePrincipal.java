@@ -16,7 +16,7 @@ import java.security.Principal;
 
 /**
  * Role principal.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class RolePrincipal implements Principal, Serializable {
@@ -29,7 +29,7 @@ public class RolePrincipal implements Principal, Serializable {
 
     /**
      * A windows principal.
-     * 
+     *
      * @param newFqn
      *            Fully qualified name.
      */

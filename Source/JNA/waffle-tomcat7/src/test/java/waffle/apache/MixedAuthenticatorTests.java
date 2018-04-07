@@ -47,7 +47,7 @@ import waffle.windows.auth.impl.WindowsSecurityContextImpl;
 
 /**
  * Waffle Tomcat Mixed Authenticator Tests.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class MixedAuthenticatorTests {
@@ -375,7 +375,7 @@ public class MixedAuthenticatorTests {
                 Collections.emptyList());
         final MixedAuthenticator customAuthenticator = new MixedAuthenticator() {
             @Override
-            protected GenericPrincipal createPrincipal(IWindowsIdentity windowsIdentity) {
+            protected GenericPrincipal createPrincipal(final IWindowsIdentity windowsIdentity) {
                 return genericPrincipal;
             }
         };

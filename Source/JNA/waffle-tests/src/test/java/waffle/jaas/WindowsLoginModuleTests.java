@@ -184,7 +184,7 @@ public class WindowsLoginModuleTests {
             if (principal instanceof GroupPrincipal) {
                 int size = 0;
                 int sidSize = 0;
-                Enumeration<? extends Principal> groupPrincipal = ((GroupPrincipal) principal).members();
+                final Enumeration<? extends Principal> groupPrincipal = ((GroupPrincipal) principal).members();
                 while (groupPrincipal.hasMoreElements()) {
                     if (groupPrincipal.nextElement().getName().startsWith("S-")) {
                         sidSize++;
@@ -243,7 +243,7 @@ public class WindowsLoginModuleTests {
         for (final Principal principal : subject.getPrincipals()) {
             if (principal instanceof GroupPrincipal) {
                 int size = 0;
-                Enumeration<? extends Principal> groupPrincipal = ((GroupPrincipal) principal).members();
+                final Enumeration<? extends Principal> groupPrincipal = ((GroupPrincipal) principal).members();
                 while (groupPrincipal.hasMoreElements()) {
                     if (groupPrincipal.nextElement().getName().startsWith("S-")) {
                         size++;
@@ -281,7 +281,7 @@ public class WindowsLoginModuleTests {
         for (final Principal principal : subject.getPrincipals()) {
             if (principal instanceof GroupPrincipal) {
                 int size = 0;
-                Enumeration<? extends Principal> groupPrincipal = ((GroupPrincipal) principal).members();
+                final Enumeration<? extends Principal> groupPrincipal = ((GroupPrincipal) principal).members();
                 while (groupPrincipal.hasMoreElements()) {
                     groupPrincipal.nextElement();
                     size++;

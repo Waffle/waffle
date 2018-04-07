@@ -41,7 +41,7 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
 /**
  * A Java Security login module for Windows authentication.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  * @see javax.security.auth.spi.LoginModule
  */
@@ -241,7 +241,7 @@ public class WindowsLoginModule implements LoginModule {
 
     /**
      * True if Debug is enabled.
-     * 
+     *
      * @return True or false.
      */
     public boolean isDebug() {
@@ -250,7 +250,7 @@ public class WindowsLoginModule implements LoginModule {
 
     /**
      * Windows auth provider.
-     * 
+     *
      * @return IWindowsAuthProvider.
      */
     public IWindowsAuthProvider getAuth() {
@@ -259,7 +259,7 @@ public class WindowsLoginModule implements LoginModule {
 
     /**
      * Set Windows auth provider.
-     * 
+     *
      * @param provider
      *            Class implements IWindowsAuthProvider.
      */
@@ -269,7 +269,7 @@ public class WindowsLoginModule implements LoginModule {
 
     /**
      * Returns a list of user principal objects.
-     * 
+     *
      * @param windowsIdentity
      *            Windows identity.
      * @param principalFormat
@@ -300,7 +300,7 @@ public class WindowsLoginModule implements LoginModule {
 
     /**
      * Returns a list of role principal objects.
-     * 
+     *
      * @param group
      *            Windows group.
      * @param principalFormat
@@ -332,7 +332,7 @@ public class WindowsLoginModule implements LoginModule {
 
     /**
      * True if Guest login permitted.
-     * 
+     *
      * @return True if Guest login permitted, false otherwise.
      */
     public boolean isAllowGuestLogin() {
@@ -342,7 +342,7 @@ public class WindowsLoginModule implements LoginModule {
     /**
      * Set whether Guest login is permitted. Default is true, if the Guest account is enabled, an invalid
      * username/password results in a Guest login.
-     * 
+     *
      * @param value
      *            True or false.
      */

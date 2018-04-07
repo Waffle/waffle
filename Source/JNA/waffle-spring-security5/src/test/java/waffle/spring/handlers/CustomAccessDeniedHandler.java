@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2017 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -23,8 +23,8 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override
-    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException ex)
-            throws IOException, ServletException {
+    public void handle(final HttpServletRequest request, final HttpServletResponse response,
+            final AccessDeniedException ex) throws IOException, ServletException {
         // here we can add custom headers or response status, data or redirect
         response.addHeader("Custom-header", "some value");
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
