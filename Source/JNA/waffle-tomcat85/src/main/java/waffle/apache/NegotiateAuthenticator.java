@@ -113,7 +113,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
             }
 
             try {
-                if (securityContext.isContinue() || ntlmPost) {
+                if (securityContext.isContinue()) {
                     response.setHeader("Connection", "keep-alive");
                     response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
                     response.flushBuffer();

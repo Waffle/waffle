@@ -26,6 +26,7 @@
     * [#559](https://github.com/Waffle/waffle/pull/559): Add spring milestone repo and upgrade to spring security 5.0.0.M4[@hazendaz](https://github.com/hazendaz).
     * [#571](https://github.com/Waffle/waffle/pull/571): Custom instances of GenericPrincipal in WaffleAuthenticatorBase[@Snap252](https://github.com/Snap252).
     * [#583](https://github.com/Waffle/waffle/pull/583): Added continueContextsTimeout property to WaffleAuthenticatorBase for tomcat(s): Ported forwards (1.8.4)[@alanlavintman](https://github.com/alanlavintman).
+    * [#609](https://github.com/Waffle/waffle/pull/609): Use only securityContext.isContinue() to decide if SC_UNAUTHORIZED response is needed to trigger another pass in authentication [@tjstuart on behalf @AriSuutariST](https://github.com/AriSuutariST). 
 
 1.8.4 (12/24/2017)
 ==================
