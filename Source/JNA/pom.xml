@@ -78,6 +78,7 @@
         <module>waffle-jna</module>
         <module>waffle-shiro</module>
         <module>waffle-spring-boot</module>
+        <module>waffle-spring-boot2</module>
         <module>waffle-spring-security4</module>
         <module>waffle-spring-security5</module>
         <module>waffle-tests</module>
