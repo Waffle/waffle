@@ -118,7 +118,7 @@
     </distributionManagement>
 
     <properties>
-        <copyright>2017</copyright>
+        <copyright>2018</copyright>
         <jacoco.minimum.coverage>0.0</jacoco.minimum.coverage>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
         <maven.compiler.source>1.8</maven.compiler.source>
