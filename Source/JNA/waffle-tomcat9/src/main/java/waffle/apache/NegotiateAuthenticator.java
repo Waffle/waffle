@@ -95,7 +95,6 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 
             // log the user in using the token
             IWindowsSecurityContext securityContext;
-
             try {
                 securityContext = this.auth.acceptSecurityToken(connectionId, tokenBuffer, securityPackage);
             } catch (final Win32Exception e) {

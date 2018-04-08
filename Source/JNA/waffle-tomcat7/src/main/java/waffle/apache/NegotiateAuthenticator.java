@@ -174,4 +174,5 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
         this.sendUnauthorized(response);
         return false;
     }
+
 }
