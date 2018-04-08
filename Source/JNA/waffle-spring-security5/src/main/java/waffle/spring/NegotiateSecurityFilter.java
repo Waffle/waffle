@@ -151,13 +151,9 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
         }
     }
 
-    /*
+    /**
      * Invoked when authentication towards ad was succesful to populate securitycontext Override to add service provider
      * authorization checks.
-     * @return if security context was set.
-     */
-    /**
-     * Sets the authentication.
      *
      * @param request
      *            the request

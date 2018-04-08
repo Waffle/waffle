@@ -156,4 +156,5 @@ public class WindowsAuthenticationProviderTests {
         });
         Assertions.assertEquals("Guest", exception.getMessage());
     }
+
 }
