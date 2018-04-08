@@ -38,7 +38,7 @@
 
     <properties>
         <jna.version>4.5.0</jna.version>
-        <spring-boot.version>1.5.7.RELEASE</spring-boot.version>
+        <spring-boot.version>1.5.11.RELEASE</spring-boot.version>
     </properties>
 
     <dependencyManagement>
