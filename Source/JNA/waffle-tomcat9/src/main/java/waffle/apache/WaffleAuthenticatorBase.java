@@ -57,11 +57,11 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
     /** The allow guest login. */
     protected boolean allowGuestLogin = true;
 
-    /** The auth continueContextsTimeout configuration */
-    protected int continueContextsTimeout = WindowsAuthProviderImpl.CONTINUE_CONTEXT_TIMEOUT;
-
     /** The protocols. */
     protected Set<String> protocols = WaffleAuthenticatorBase.SUPPORTED_PROTOCOLS;
+
+    /** The auth continueContextsTimeout configuration */
+    protected int continueContextsTimeout = WindowsAuthProviderImpl.CONTINUE_CONTEXT_TIMEOUT;
 
     /** The auth. */
     protected IWindowsAuthProvider auth;
@@ -233,20 +233,6 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
         }
     }
 
-    /**
-     * Hook to the start and to set up the dependencies.
-     *
-     * @throws LifecycleException
-     *             the lifecycle exception
-     */
-    @Override
-    public void startInternal() throws LifecycleException {
-        this.log.debug("Creating a windows authentication provider with continueContextsTimeout property set to: {}",
-                this.continueContextsTimeout);
-        this.auth = new WindowsAuthProviderImpl(this.continueContextsTimeout);
-        super.startInternal();
-    }
-
     @Override
     protected String getAuthMethod() {
         return null;
@@ -289,6 +275,20 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      */
     protected GenericPrincipal createPrincipal(final IWindowsIdentity windowsIdentity) {
         return new GenericWindowsPrincipal(windowsIdentity, this.principalFormat, this.roleFormat);
+    }
+
+    /**
+     * Hook to the start and to set up the dependencies.
+     *
+     * @throws LifecycleException
+     *             the lifecycle exception
+     */
+    @Override
+    public void startInternal() throws LifecycleException {
+        this.log.debug("Creating a windows authentication provider with continueContextsTimeout property set to: {}",
+                this.continueContextsTimeout);
+        this.auth = new WindowsAuthProviderImpl(this.continueContextsTimeout);
+        super.startInternal();
     }
 
 }

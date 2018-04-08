@@ -39,4 +39,5 @@ public class WindowsRealm extends RealmBase {
     protected Principal getPrincipal(final String value) {
         return null;
     }
+
 }
