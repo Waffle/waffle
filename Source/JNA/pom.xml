@@ -1217,7 +1217,7 @@
                                             <pluginExecutionFilter>
                                                 <groupId>org.commonjava.maven.plugins</groupId>
                                                 <artifactId>directory-maven-plugin</artifactId>
-                                                <versionRange>[0.1,)</versionRange>
+                                                <versionRange>[0.2,)</versionRange>
                                                 <goals>
                                                     <goal>highest-basedir</goal>
                                                 </goals>
@@ -1262,7 +1262,7 @@
                                             <pluginExecutionFilter>
                                                 <groupId>org.jacoco</groupId>
                                                 <artifactId>jacoco-maven-plugin</artifactId>
-                                                <versionRange>[0.7.9,)</versionRange>
+                                                <versionRange>[0.8.1,)</versionRange>
                                                 <goals>
                                                     <goal>prepare-agent</goal>
                                                 </goals>
@@ -1275,7 +1275,7 @@
                                             <pluginExecutionFilter>
                                                 <groupId>net.revelc.code.formatter</groupId>
                                                 <artifactId>formatter-maven-plugin</artifactId>
-                                                <versionRange>[2.7.0,)</versionRange>
+                                                <versionRange>[2.7.2,)</versionRange>
                                                 <goals>
                                                     <goal>format</goal>
                                                 </goals>
