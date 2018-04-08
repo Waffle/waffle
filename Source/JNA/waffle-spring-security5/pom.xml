@@ -38,8 +38,8 @@
 
     <properties>
         <servlet.version>4.0.0</servlet.version>
-        <spring.version>5.0.4.RELEASE</spring.version>
-        <spring.security.version>5.0.3.RELEASE</spring.security.version>
+        <spring.version>5.0.5.RELEASE</spring.version>
+        <spring.security.version>5.0.4.RELEASE</spring.security.version>
     </properties>
 
     <dependencies>

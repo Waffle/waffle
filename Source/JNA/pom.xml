@@ -77,9 +77,9 @@
         <module>waffle-jetty</module>
         <module>waffle-jna</module>
         <module>waffle-shiro</module>
+        <module>waffle-spring-boot</module>
         <module>waffle-spring-security4</module>
         <module>waffle-spring-security5</module>
-        <module>waffle-spring-boot</module>
         <module>waffle-tests</module>
         <module>waffle-tomcat7</module>
         <module>waffle-tomcat8</module>
@@ -118,14 +118,14 @@
     </distributionManagement>
 
     <properties>
-        <copyright>2017</copyright>
+        <copyright>2018</copyright>
         <jacoco.minimum.coverage>0.0</jacoco.minimum.coverage>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.testSource>1.8</maven.compiler.testSource>
         <maven.compiler.testTarget>1.8</maven.compiler.testTarget>
-        <maven.min-version>3.5.2</maven.min-version>
+        <maven.min-version>3.5.3</maven.min-version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -134,7 +134,7 @@
         <error-prone.version>2.2.0</error-prone.version>
         <j2objc.version>1.3</j2objc.version>
         <jmh.version>1.20</jmh.version>
-        <jmockit.version>1.38</jmockit.version>
+        <jmockit.version>1.39</jmockit.version>
         <jsr305.version>3.0.2</jsr305.version>
         <junit.version>5.1.0</junit.version>
         <junit-platform.version>1.1.0</junit-platform.version>
@@ -146,7 +146,7 @@
         <!-- Plugin Dependency Versions -->
         <bug-pattern.version>1.4.0</bug-pattern.version>
         <checkstyle.version>8.8</checkstyle.version>
-        <fb-contrib.version>7.2.0.sb</fb-contrib.version>
+        <fb-contrib.version>7.2.1.sb</fb-contrib.version>
         <findsecbugs.version>1.7.1</findsecbugs.version>
         <plexus-compiler.version>2.8.3</plexus-compiler.version>
     </properties>
@@ -304,7 +304,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.19.1</version>
+                    <version>2.19.1</version> <!-- Wait until 2.22.0 due to memory leaks with junit5 -->
                     <configuration>
                         <includes>
                             <include>**/*Test.java</include>
@@ -451,7 +451,7 @@
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.8.0</version>
+                    <version>0.8.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.eluder.coveralls</groupId>
@@ -478,7 +478,7 @@
                 <plugin>
                     <groupId>net.revelc.code.formatter</groupId>
                     <artifactId>formatter-maven-plugin</artifactId>
-                    <version>2.7.0</version>
+                    <version>2.7.2</version>
                     <dependencies>
                         <dependency>
                             <groupId>com.github.hazendaz</groupId>
@@ -580,7 +580,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-report-plugin</artifactId>
-                    <version>2.19.1</version>
+                    <version>2.19.1</version> <!-- Wait until 2.22.0 due to memory leaks with junit5 -->
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -654,7 +654,7 @@
                 <plugin>
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
-                    <version>3.0.2</version>
+                    <version>3.1.2</version>
                 </plugin>
                 <!-- Sonatype Release -->
                 <plugin>
@@ -1217,7 +1217,7 @@
                                             <pluginExecutionFilter>
                                                 <groupId>org.commonjava.maven.plugins</groupId>
                                                 <artifactId>directory-maven-plugin</artifactId>
-                                                <versionRange>[0.1,)</versionRange>
+                                                <versionRange>[0.2,)</versionRange>
                                                 <goals>
                                                     <goal>highest-basedir</goal>
                                                 </goals>
@@ -1262,7 +1262,7 @@
                                             <pluginExecutionFilter>
                                                 <groupId>org.jacoco</groupId>
                                                 <artifactId>jacoco-maven-plugin</artifactId>
-                                                <versionRange>[0.7.9,)</versionRange>
+                                                <versionRange>[0.8.1,)</versionRange>
                                                 <goals>
                                                     <goal>prepare-agent</goal>
                                                 </goals>
@@ -1275,7 +1275,7 @@
                                             <pluginExecutionFilter>
                                                 <groupId>net.revelc.code.formatter</groupId>
                                                 <artifactId>formatter-maven-plugin</artifactId>
-                                                <versionRange>[2.7.0,)</versionRange>
+                                                <versionRange>[2.7.2,)</versionRange>
                                                 <goals>
                                                     <goal>format</goal>
                                                 </goals>

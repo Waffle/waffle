@@ -3,7 +3,7 @@
 
     Waffle (https://github.com/Waffle/waffle)
 
-    Copyright (c) 2010-2017 Application Security, Inc.
+    Copyright (c) 2010-2018 Application Security, Inc.
 
     All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
     Public License v1.0 which accompanies this distribution, and is available at
@@ -38,7 +38,7 @@
 
     <properties>
         <servlet.version>4.0.0</servlet.version>
-        <mockito.version>2.11.0</mockito.version>
+        <mockito.version>2.18.0</mockito.version>
         <objenesis.version>2.6</objenesis.version>
     </properties>
 
