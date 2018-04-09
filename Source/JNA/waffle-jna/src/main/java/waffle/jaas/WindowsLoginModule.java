@@ -85,12 +85,12 @@ public class WindowsLoginModule implements LoginModule {
         this.callbackHandler = initCallbackHandler;
 
         for (final Entry<String, ?> option : initOptions.entrySet()) {
-            if (option.getKey().equalsIgnoreCase("debug")) {
+            if ("debug".equalsIgnoreCase(option.getKey())) {
                 this.debug = Boolean.parseBoolean((String) option.getValue());
-            } else if (option.getKey().equalsIgnoreCase("principalFormat")) {
+            } else if ("principalFormat".equalsIgnoreCase(option.getKey())) {
                 this.principalFormat = PrincipalFormat
                         .valueOf(((String) option.getValue()).toUpperCase(Locale.ENGLISH));
-            } else if (option.getKey().equalsIgnoreCase("roleFormat")) {
+            } else if ("roleFormat".equalsIgnoreCase(option.getKey())) {
                 this.roleFormat = PrincipalFormat.valueOf(((String) option.getValue()).toUpperCase(Locale.ENGLISH));
             }
         }

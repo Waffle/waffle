@@ -10,6 +10,8 @@
  * Contributors: Application Security, Inc.
  */
 /**
+ * Waffle Jetty Package.
+ *
  * Nothing for now, but in the future, this would include:
  *
  * <p>

@@ -276,7 +276,7 @@ public class NegotiateSecurityFilter implements Filter {
             while (parameterNames.hasMoreElements()) {
                 final String parameterName = parameterNames.nextElement();
                 final String parameterValue = filterConfig.getInitParameter(parameterName);
-                NegotiateSecurityFilter.LOGGER.debug("{}={}", parameterName, parameterValue);
+                NegotiateSecurityFilter.LOGGER.debug("Init Param: '{}={}'", parameterName, parameterValue);
                 switch (parameterName) {
                     case "principalFormat":
                         this.principalFormat = PrincipalFormat.valueOf(parameterValue.toUpperCase(Locale.ENGLISH));
