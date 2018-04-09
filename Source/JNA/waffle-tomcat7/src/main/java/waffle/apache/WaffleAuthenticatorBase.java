@@ -60,7 +60,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
     /** The protocols. */
     protected Set<String> protocols = WaffleAuthenticatorBase.SUPPORTED_PROTOCOLS;
 
-    /** The auth continueContextsTimeout configuration */
+    /** The auth continueContextsTimeout configuration. */
     protected int continueContextsTimeout = WindowsAuthProviderImpl.CONTINUE_CONTEXT_TIMEOUT;
 
     /** The auth. */

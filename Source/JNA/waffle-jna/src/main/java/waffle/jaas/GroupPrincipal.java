@@ -35,6 +35,11 @@ public class GroupPrincipal extends UserPrincipal implements Group {
     /** A list of fqn members for this group. */
     private final Map<Principal, Principal> members;
 
+    /**
+     * Instantiates a new group principal.
+     *
+     * @param fqn the fqn
+     */
     public GroupPrincipal(final String fqn) {
         super(fqn);
 

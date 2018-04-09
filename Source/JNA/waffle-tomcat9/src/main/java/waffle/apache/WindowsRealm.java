@@ -26,14 +26,16 @@ public class WindowsRealm extends RealmBase {
     protected static final String NAME = "waffle.apache.WindowsRealm/1.0";
 
     /**
+     * Gets the name.
+     *
+     * 'waffle.apache.WindowsRealm/1.0' will no longer be logged. We don't internally use this so we must go with
+     * standard java way that tomcat has accepted. This means, going to tomcat 9.0.0.M15+ will result simply in
+     * 'WaffleRealm' or better stated the actual simple class name. Simple class name strips off the package name with
+     * is what we were applying along with version 1.0 which is inaccurate anyways considering we are on version 1.8.1+
+     * at this point.
+     *
      * @return a short name for this Realm implementation, for use in log messages.
-     *
-     *         'waffle.apache.WindowsRealm/1.0' will no longer be logged. We don't internally use this so we must go
-     *         with standard java way that tomcat has accepted. This means, going to tomcat 9.0.0.M15+ will result
-     *         simply in 'WaffleRealm' or better stated the actual simple class name. Simple class name strips off the
-     *         package name with is what we were applying along with version 1.0 which is inaccurate anyways considering
-     *         we are on version 1.8.1+ at this point.
-     *
+     * 
      * @deprecated This will be removed in Tomcat 9 onwards. Use {@link Class#getSimpleName()} instead.
      */
     @Deprecated
