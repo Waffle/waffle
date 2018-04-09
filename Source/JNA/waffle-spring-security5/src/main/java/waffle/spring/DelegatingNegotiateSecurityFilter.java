@@ -54,19 +54,18 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
  * <pre>
  * {@code
  * <bean id="waffleNegotiateSecurityFilter"
- * 		class="waffle.spring.DelegatingNegotiateSecurityFilter"
- * 		scope="tenant">
- * 		<property name="allowGuestLogin" value="false" />
- * 		<property name="Provider" ref="waffleSecurityFilterProviderCollection" />
- * 		<property name="authenticationManager" ref="authenticationManager" />
- * 		<property name="authenticationSuccessHandler" ref="authenticationSuccessHandler" />
- * 		<property name="authenticationFailureHandler" ref="authenticationFailureHandler" />
- * 		<property name="accessDeniedHandler" ref="accessDeniedHandler" />
- * 		<property name="defaultGrantedAuthority">
- * 			<null />
- * 		</property>
- * 	</bean>
- * </code>
+ *      class="waffle.spring.DelegatingNegotiateSecurityFilter"
+ *      scope="tenant">
+ *      <property name="allowGuestLogin" value="false" />
+ *      <property name="Provider" ref="waffleSecurityFilterProviderCollection" />
+ *      <property name="authenticationManager" ref="authenticationManager" />
+ *      <property name="authenticationSuccessHandler" ref="authenticationSuccessHandler" />
+ *      <property name="authenticationFailureHandler" ref="authenticationFailureHandler" />
+ *      <property name="accessDeniedHandler" ref="accessDeniedHandler" />
+ *      <property name="defaultGrantedAuthority">
+ *          <null />
+ *      </property>
+ * </bean>
  * }
  * </pre>
  */

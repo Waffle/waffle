@@ -72,7 +72,7 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 
     @Override
     public boolean isSecurityPackageSupported(final String securityPackage) {
-        return securityPackage.equalsIgnoreCase("Basic");
+        return "Basic".equalsIgnoreCase(securityPackage);
     }
 
     @Override
@@ -109,7 +109,7 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
      */
     @Override
     public void initParameter(final String parameterName, final String parameterValue) {
-        if (parameterName.equals("realm")) {
+        if ("realm".equals(parameterName)) {
             this.setRealm(parameterValue);
         } else {
             throw new InvalidParameterException(parameterName);

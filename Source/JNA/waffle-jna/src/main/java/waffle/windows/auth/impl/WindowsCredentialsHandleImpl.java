@@ -40,9 +40,6 @@ public class WindowsCredentialsHandleImpl implements IWindowsCredentialsHandle {
     /** The handle. */
     private CredHandle handle;
 
-    /** The client lifetime. */
-    private TimeStamp clientLifetime;
-
     /**
      * A new Windows credentials handle.
      *
@@ -80,9 +77,9 @@ public class WindowsCredentialsHandleImpl implements IWindowsCredentialsHandle {
     @Override
     public void initialize() {
         this.handle = new CredHandle();
-        this.clientLifetime = new TimeStamp();
+        final TimeStamp clientLifetime = new TimeStamp();
         final int rc = Secur32.INSTANCE.AcquireCredentialsHandle(this.principalName, this.securityPackage,
-                this.credentialsType, null, null, null, null, this.handle, this.clientLifetime);
+                this.credentialsType, null, null, null, null, this.handle, clientLifetime);
         if (WinError.SEC_E_OK != rc) {
             throw new Win32Exception(rc);
         }

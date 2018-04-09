@@ -160,15 +160,15 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
     @Override
     public void initParameter(final String parameterName, final String parameterValue) {
-        if (parameterName.equals(NegotiateSecurityFilterProvider.PROTOCOLS)) {
+        if (NegotiateSecurityFilterProvider.PROTOCOLS.equals(parameterName)) {
             this.protocols = new ArrayList<>();
             final String[] protocolNames = parameterValue.split("\\s+");
             for (String protocolName : protocolNames) {
                 protocolName = protocolName.trim();
                 if (protocolName.length() > 0) {
                     NegotiateSecurityFilterProvider.LOGGER.debug("init protocol: {}", protocolName);
-                    if (protocolName.equals(NegotiateSecurityFilterProvider.NEGOTIATE)
-                            || protocolName.equals(NegotiateSecurityFilterProvider.NTLM)) {
+                    if (NegotiateSecurityFilterProvider.NEGOTIATE.equals(protocolName)
+                            || NegotiateSecurityFilterProvider.NTLM.equals(protocolName)) {
                         this.protocols.add(protocolName);
                     } else {
                         NegotiateSecurityFilterProvider.LOGGER.error("unsupported protocol: {}", protocolName);

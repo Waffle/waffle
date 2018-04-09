@@ -44,9 +44,6 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
     /** The ctx. */
     private CtxtHandle ctx;
 
-    /** The attr. */
-    private IntByReference attr;
-
     /** The credentials. */
     private IWindowsCredentialsHandle credentials;
 
@@ -111,15 +108,15 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 
     @Override
     public void initialize(final CtxtHandle continueCtx, final SecBufferDesc continueToken, final String targetName) {
-        this.attr = new IntByReference();
+        final IntByReference attr = new IntByReference();
         this.ctx = new CtxtHandle();
         int tokenSize = Sspi.MAX_TOKEN_SIZE;
         int rc;
         do {
             this.token = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, tokenSize);
             rc = Secur32.INSTANCE.InitializeSecurityContext(this.credentials.getHandle(), continueCtx, targetName,
-                    Sspi.ISC_REQ_CONNECTION, 0, Sspi.SECURITY_NATIVE_DREP, continueToken, 0, this.ctx, this.token,
-                    this.attr, null);
+                    Sspi.ISC_REQ_CONNECTION, 0, Sspi.SECURITY_NATIVE_DREP, continueToken, 0, this.ctx, this.token, attr,
+                    null);
             switch (rc) {
                 case WinError.SEC_E_INSUFFICIENT_MEMORY:
                 case WinError.SEC_E_BUFFER_TOO_SMALL:
