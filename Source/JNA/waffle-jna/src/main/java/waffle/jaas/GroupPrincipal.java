@@ -38,7 +38,8 @@ public class GroupPrincipal extends UserPrincipal implements Group {
     /**
      * Instantiates a new group principal.
      *
-     * @param fqn the fqn
+     * @param fqn
+     *            the fqn
      */
     public GroupPrincipal(final String fqn) {
         super(fqn);
