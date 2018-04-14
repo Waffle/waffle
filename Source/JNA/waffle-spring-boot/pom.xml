@@ -12,18 +12,17 @@
     Contributors: Application Security, Inc.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>com.github.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
-        <version>1.9.0-SNAPSHOT</version>
+        <version>1.9.0</version>
     </parent>
 
     <artifactId>waffle-spring-boot</artifactId>
-    <version>1.9.0-SNAPSHOT</version>
+    <version>1.9.0</version>
     <packaging>pom</packaging>
 
     <name>waffle-spring-boot</name>
@@ -34,7 +33,7 @@
         <connection>scm:git:ssh://git@github.com/waffle/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/waffle/waffle.git</developerConnection>
         <url>https://github.com/Waffle/waffle</url>
-        <tag>HEAD</tag>
+        <tag>waffle-parent-1.9.0</tag>
     </scm>
 
     <properties>
