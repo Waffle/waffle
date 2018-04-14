@@ -148,7 +148,7 @@
 
         <!-- Plugin Dependency Versions -->
         <bug-pattern.version>1.4.0</bug-pattern.version>
-        <checkstyle.version>8.8</checkstyle.version>
+        <checkstyle.version>8.9</checkstyle.version>
         <fb-contrib.version>7.2.1.sb</fb-contrib.version>
         <findsecbugs.version>1.7.1</findsecbugs.version>
         <plexus-compiler.version>2.8.4</plexus-compiler.version>
@@ -224,7 +224,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.1.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -346,7 +346,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.0.2</version>
+                    <version>3.1.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -394,7 +394,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>3.0.2</version>
+                    <version>3.1.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
