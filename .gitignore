@@ -36,3 +36,5 @@ TestResult.xml
 Thumbs.db
 *.factorypath
 .mvn/wrapper/maven-wrapper.jar
+*.releaseBackup
+Source/JNA/release.properties
