@@ -38,7 +38,7 @@
 
     <properties>
         <beanutils.version>1.9.3</beanutils.version>
-        <servlet.version>4.0.0</servlet.version>
+        <servlet.version>4.0.1</servlet.version>
         <shiro.version>1.4.0</shiro.version>
     </properties>
 

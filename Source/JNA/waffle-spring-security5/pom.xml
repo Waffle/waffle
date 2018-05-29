@@ -37,9 +37,9 @@
     </scm>
 
     <properties>
-        <servlet.version>4.0.0</servlet.version>
-        <spring.version>5.0.5.RELEASE</spring.version>
-        <spring.security.version>5.0.4.RELEASE</spring.security.version>
+        <servlet.version>4.0.1</servlet.version>
+        <spring.version>5.0.6.RELEASE</spring.version>
+        <spring.security.version>5.0.5.RELEASE</spring.security.version>
     </properties>
 
     <dependencies>
