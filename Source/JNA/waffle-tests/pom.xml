@@ -37,8 +37,8 @@
     </scm>
 
     <properties>
-        <mockito.version>2.18.0</mockito.version>
         <servlet.version>4.0.1</servlet.version>
+        <mockito.version>2.18.3</mockito.version>
         <objenesis.version>2.6</objenesis.version>
     </properties>
 
