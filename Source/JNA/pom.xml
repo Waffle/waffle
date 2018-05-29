@@ -148,8 +148,8 @@
 
         <!-- Plugin Dependency Versions -->
         <bug-pattern.version>1.4.0</bug-pattern.version>
-        <checkstyle.version>8.9</checkstyle.version>
         <fb-contrib.version>7.2.1.sb</fb-contrib.version>
+        <checkstyle.version>8.10.1</checkstyle.version>
         <findsecbugs.version>1.7.1</findsecbugs.version>
         <plexus-compiler.version>2.8.4</plexus-compiler.version>
     </properties>
