@@ -1,5 +1,5 @@
-1.9.0 (in-progress)
-===================
+1.9.0 (4/14/2018)
+=================
 * Documentation Updates
 * Version Updates
 * Sonar / Coverity Cleanup

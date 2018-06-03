@@ -6,15 +6,14 @@ WAFFLE - Windows Authentication Framework
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/2775/badge.svg)](https://scan.coverity.com/projects/2775)
 [![Coverage Status](https://coveralls.io/repos/hazendaz/waffle/badge.svg)](https://coveralls.io/r/hazendaz/waffle)
 [![Maven central](https://maven-badges.herokuapp.com/maven-central/com.github.waffle/waffle-jna/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.waffle/waffle-jna)
-[![releases](http://github-release-version.herokuapp.com/github/Waffle/waffle/release.svg?style=flat)](https://github.com/Waffle/waffle/releases/tag/waffle-1.8.2)
+[![releases](http://github-release-version.herokuapp.com/github/Waffle/waffle/release.svg?style=flat)](https://github.com/Waffle/waffle/releases/tag/waffle-1.9.0)
 [![Eclipse](https://img.shields.io/badge/license-Eclipse-blue.svg)](https://www.eclipse.org/legal/epl-v10.html)
-[![Dependency Status](https://www.versioneye.com/user/projects/55ff3de7601dd9001c000132/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55ff3de7601dd9001c000132)
 [![Project Stats](https://www.openhub.net/p/waffle/widgets/project_thin_badge.gif)](https://www.openhub.net/p/waffle)
 [![Github All Releases](https://img.shields.io/github/downloads/Waffle/waffle/total.svg)]()
 
 ![waffle](https://github.com/Waffle/waffle/raw/master/waffle.jpg)
 
-WAFFLE is a native Windows Authentication Framework consisting of two C# and Java libraries that perform functions related to Windows authentication, supporting Negotiate, NTLM and Kerberos. Waffle also includes libraries that enable drop-in Windows Single Sign On for popular Java web servers, when running on Windows. While Waffle makes it ridiculously easy to do Windows Authentication in Java, on Windows, Waffle does not work on *nix.
+WAFFLE is a native Windows Authentication Framework consisting of two C# and Java libraries that perform functions related to Windows authentication, supporting Negotiate, NTLM and Kerberos. Waffle also includes libraries that enable drop-in Windows Single Sign On for popular Java web servers, when running on Windows. While Waffle makes it ridiculously easy to do Windows Authentication in Java, on Windows, Waffle does not work on *nix(UNIX-like).
 
 Unlike many other implementations Waffle on Windows does not require any server-side Kerberos keytab setup, it's a drop-in solution. You can see it in action in [this slightly blurry video](https://www.youtube.com/watch?v=LmTwbOh0hBU) produced for [TeamShatter.com](http://www.teamshatter.com/topics/general/team-shatter-exclusive/securing-java-applications-with-smart-cards-and-single-sign-on/). 
 
@@ -22,13 +21,13 @@ Sites
 -----
 
 * [Site Page](https://waffle.github.io/waffle/)
-* [sonarqube-java](https://sonarqube.com/overview?id=com.github.dblock.waffle%3Awaffle-parent)
+* [sonarqube-java](https://sonarqube.com/dashboard?id=com.github.waffle%3Awaffle-parent)
 * [sonarqube-.net](https://sonarqube.com/dashboard/index?id=waffle)
 
 Essentials
 ----------
 
-* [Download Version 1.8.2](https://github.com/Waffle/waffle/releases/download/waffle-1.8.2/Waffle.1.8.2.zip)
+* [Download Version 1.9.0](https://github.com/Waffle/waffle/releases/download/waffle-1.9.0/Waffle.1.9.0.zip)
 * [Waffle in Maven Central](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.github.waffle%22)
 * [Waffle Snapshots](https://oss.sonatype.org/content/repositories/snapshots/com/github/waffle/)
 * [Get Waffle To Work in Tomcat, Jetty, WebSphere, etc.](Docs/ServletSingleSignOnSecurityFilter.md)
@@ -37,11 +36,6 @@ Essentials
 * [Frequently Asked Questions](Docs/FAQ.md)
 * [Older Versions on CodePlex](https://waffle.codeplex.com/).
 * [PlatformSDK Security Group](https://groups.google.com/group/microsoft.public.platformsdk.security)
-
-Jetty
------
-Jetty support is built using java 7 like everything else.  However, using the provided jetty version will require java 8 usage.
-To continue with java 7, drop back to Jetty version 9.2.19.v20160908.
 
 Documentation
 -------------
@@ -77,7 +71,7 @@ Related and Similar Products
 * [Tomcat SPNEGO](https://tomcatspnego.codeplex.com/)
 * [Quest Vintela Single-Sign-On](http://www.quest.com/single-sign-on-for-java/) (Commercial)
 * [IOPlex Jespa](https://www.ioplex.com/) (Commercial)
-* [Josso](https://www.josso.org/) (Commercial)
+* [Josso](http://www.josso.org/) (Commercial)
 
 Contributing
 ------------
@@ -91,7 +85,7 @@ Contributing
 License and Copyright
 ---------------------
 
-Copyright (c) [Application Security Inc.](https://www.trustwave.com/Company/AppSecInc-is-now-Trustwave/), 2010-2016 and Contributors. 
+Copyright (c) [Application Security Inc.](https://www.trustwave.com/Company/AppSecInc-is-now-Trustwave/), 2010-2017 and Contributors. 
 
 This project is licensed under the [Eclipse Public License](https://github.com/Waffle/waffle/blob/master/LICENSE).
 
