@@ -291,16 +291,16 @@
                             <artifactId>wagon-git</artifactId>
                             <version>2.0.3</version> <!-- Do not upgrade to 2.0.4 with ssh as it is broken -->
                         </dependency>
+                        <dependency>
+                            <groupId>org.apache.maven.wagon</groupId>
+                            <artifactId>wagon-ssh</artifactId>
+                            <version>3.1.0</version>
+                        </dependency>
                         <!-- For reporting only of versions -->
                         <dependency>
                             <groupId>org.apache.maven.skins</groupId>
                             <artifactId>maven-fluido-skin</artifactId>
                             <version>1.7</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.apache.maven.wagon</groupId>
-                            <artifactId>wagon-ssh</artifactId>
-                            <version>3.0.0</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -685,7 +685,7 @@
                     <artifactId>modernizer-maven-plugin</artifactId>
                     <version>1.6.0</version>
                     <configuration>
-                            <javaVersion>${maven.compiler.target}</javaVersion>
+                        <javaVersion>${maven.compiler.target}</javaVersion>
                     </configuration>
                 </plugin>
             </plugins>
@@ -973,7 +973,7 @@
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
                 <artifactId>wagon-ssh</artifactId>
-                <version>3.0.0</version>
+                <version>3.1.0</version>
             </extension>
         </extensions>
     </build>
