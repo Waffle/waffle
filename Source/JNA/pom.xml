@@ -149,7 +149,7 @@
         <!-- Plugin Dependency Versions -->
         <bug-pattern.version>1.4.0</bug-pattern.version>
         <checkstyle.version>8.10.1</checkstyle.version>
-        <fb-contrib.version>7.4.1.sb</fb-contrib.version>
+        <fb-contrib.version>7.4.2.sb</fb-contrib.version>
         <findsecbugs.version>1.7.1</findsecbugs.version>
         <plexus-compiler.version>2.8.4</plexus-compiler.version>
     </properties>
@@ -291,23 +291,23 @@
                             <artifactId>wagon-git</artifactId>
                             <version>2.0.3</version> <!-- Do not upgrade to 2.0.4 with ssh as it is broken -->
                         </dependency>
+                        <dependency>
+                            <groupId>org.apache.maven.wagon</groupId>
+                            <artifactId>wagon-ssh</artifactId>
+                            <version>3.1.0</version>
+                        </dependency>
                         <!-- For reporting only of versions -->
                         <dependency>
                             <groupId>org.apache.maven.skins</groupId>
                             <artifactId>maven-fluido-skin</artifactId>
                             <version>1.7</version>
                         </dependency>
-                        <dependency>
-                            <groupId>org.apache.maven.wagon</groupId>
-                            <artifactId>wagon-ssh</artifactId>
-                            <version>3.0.0</version>
-                        </dependency>
                     </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.21.0</version>
+                    <version>2.22.0</version>
                     <configuration>
                         <includes>
                             <include>**/*Test.java</include>
@@ -351,7 +351,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-war-plugin</artifactId>
-                    <version>3.2.1</version>
+                    <version>3.2.2</version>
                 </plugin>
                 <!-- Reporting plugins -->
                 <plugin>
@@ -370,7 +370,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-pmd-plugin</artifactId>
-                    <version>3.9.0</version>
+                    <version>3.10.0</version>
                     <configuration>
                         <analysisCache>true</analysisCache>
                     </configuration>
@@ -586,7 +586,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-report-plugin</artifactId>
-                    <version>2.21.0</version>
+                    <version>2.22.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -660,7 +660,7 @@
                 <plugin>
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
-                    <version>3.1.2</version>
+                    <version>3.2.1</version>
                 </plugin>
                 <!-- Sonatype Release -->
                 <plugin>
@@ -685,7 +685,7 @@
                     <artifactId>modernizer-maven-plugin</artifactId>
                     <version>1.6.0</version>
                     <configuration>
-                            <javaVersion>${maven.compiler.target}</javaVersion>
+                        <javaVersion>${maven.compiler.target}</javaVersion>
                     </configuration>
                 </plugin>
             </plugins>
@@ -973,7 +973,7 @@
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
                 <artifactId>wagon-ssh</artifactId>
-                <version>3.0.0</version>
+                <version>3.1.0</version>
             </extension>
         </extensions>
     </build>
