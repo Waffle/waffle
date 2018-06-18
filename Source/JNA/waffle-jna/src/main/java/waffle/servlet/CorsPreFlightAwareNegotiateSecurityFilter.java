@@ -27,24 +27,37 @@ public class CorsPreFlightAwareNegotiateSecurityFilter extends NegotiateSecurity
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         super.init(filterConfig);
+        CorsPreFlightAwareNegotiateSecurityFilter.LOGGER
+                .debug("[waffle.servlet.CorsPreFlightAwareNegotiateSecurityFilter] Loaded");
+
     }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
 
+        CorsPreFlightAwareNegotiateSecurityFilter.LOGGER
+                .debug("[waffle.servlet.CorsPreFlightAwareNegotiateSecurityFilter] Filtering");
+        
         final HttpServletRequest sreq = (HttpServletRequest) request;
 
         if (isPreFlightRequest(sreq)) {
+            CorsPreFlightAwareNegotiateSecurityFilter.LOGGER
+                .debug("[waffle.servlet.CorsPreFlightAwareNegotiateSecurityFilter] Authentication Skipped");
             chain.doFilter(request, response);
         } else {
             super.doFilter(request, response, chain);
+                    CorsPreFlightAwareNegotiateSecurityFilter.LOGGER
+                .debug("[waffle.servlet.CorsPreFlightAwareNegotiateSecurityFilter] Authentication Completed");
         }
     }
 
     @Override
     public void destroy() {
         super.destroy();
+        CorsPreFlightAwareNegotiateSecurityFilter.LOGGER
+                .debug("[waffle.servlet.CorsPreFlightAwareNegotiateSecurityFilter] unloaded");
+
     }
 
     private boolean isPreFlightRequest(HttpServletRequest request) {
