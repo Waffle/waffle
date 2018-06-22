@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
 import waffle.servlet.spi.SecurityFilterProvider;
 import waffle.servlet.spi.SecurityFilterProviderCollection;
 import waffle.util.AuthorizationHeader;
-import waffle.util.CorsPreFlightHelper;
+import waffle.util.CorsPreFlightCheck;
 import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.IWindowsImpersonationContext;
@@ -107,13 +107,12 @@ public class NegotiateSecurityFilter implements Filter {
 
         final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
 
-        if (CorsPreFlightHelper.isPreFlight(request)) {
+        if (CorsPreFlightCheck.isPreFlight(request)) {
             chain.doFilter(sreq, sres);
             return;
         }
         /* Check if the Authorization Header is a byte case insensitive string BEARER */
-        if (!authorizationHeader.isNull() && (this.excludeBearerAuthorization
-                && authorizationHeader.getSecurityPackage().toUpperCase().equalsIgnoreCase("BEARER"))) {
+        if (this.excludeBearerAuthorization && authorizationHeader.isBearerAuthorizationHeader() ) {
             chain.doFilter(sreq, sres);
             return;
         }

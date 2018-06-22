@@ -17,12 +17,10 @@ import static org.mockito.Mockito.when;
 
 import javax.servlet.http.HttpServletRequest;
 
-import mockit.Tested;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class CorsPreFlightHelperTests {
+class CorsPreFlightCheckTests {
 
     @Test
     void testExpectedCorsPreFlightHeadersPresent() {
@@ -37,8 +35,8 @@ class CorsPreFlightHelperTests {
         System.out.println(String.format("%s: %s", "Access-Control-Request-Headers",
                 request.getHeader("Access-Control-Request-Headers")));
         System.out.println(String.format("%s: %s", "Origin", request.getHeader("Origin")));
-        System.out.println(CorsPreFlightHelper.isPreFlight(request));
-        Assertions.assertTrue(CorsPreFlightHelper.isPreFlight(request));
+        System.out.println(CorsPreFlightCheck.isPreFlight(request));
+        Assertions.assertTrue(CorsPreFlightCheck.isPreFlight(request));
     }
 
     @Test
@@ -54,7 +52,7 @@ class CorsPreFlightHelperTests {
         System.out.println(String.format("%s: %s", "Access-Control-Request-Headers",
                 request.getHeader("Access-Control-Request-Headers")));
         System.out.println(String.format("%s: %s", "Origin", request.getHeader("Origin")));
-        System.out.println(CorsPreFlightHelper.isPreFlight(request));
-        assertFalse(CorsPreFlightHelper.isPreFlight(request));
+        System.out.println(CorsPreFlightCheck.isPreFlight(request));
+        assertFalse(CorsPreFlightCheck.isPreFlight(request));
     }
 }

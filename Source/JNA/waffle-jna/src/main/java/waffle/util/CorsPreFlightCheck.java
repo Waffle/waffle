@@ -16,13 +16,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  *
  */
-public class CorsPreFlightHelper {
+public class CorsPreFlightCheck {
 
     /** The logger. */
     private static final String preflightAttributeValue = "PRE_FLIGHT";
@@ -53,7 +50,7 @@ public class CorsPreFlightHelper {
              * it is OPTIONS and it is not an CorsFilter PRE_FLIGHT request make sure that the request contains all of
              * the CorsPreflight Headers
              */
-            for (String header : CorsPreFlightHelper.CORS_PRE_FLIGHT_HEADERS) {
+            for (String header : CorsPreFlightCheck.CORS_PRE_FLIGHT_HEADERS) {
                 if (request.getHeader(header) == null)
                     /* one of the CORS pre-flight headers is missing */
                     return false;

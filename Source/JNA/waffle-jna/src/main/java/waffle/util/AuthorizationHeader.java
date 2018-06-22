@@ -161,4 +161,11 @@ public class AuthorizationHeader {
 
         return this.isNtlmType1Message() || this.isSPNegTokenInitMessage();
     }
+
+    public boolean isBearerAuthorizationHeader(){
+        if(this.isNull())
+            return false;
+
+        return getSecurityPackage().toUpperCase().equalsIgnoreCase("BEARER");
+    }
 }
