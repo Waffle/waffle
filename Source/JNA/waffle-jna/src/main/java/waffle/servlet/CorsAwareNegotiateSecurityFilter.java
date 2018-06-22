@@ -30,15 +30,13 @@ public class CorsAwareNegotiateSecurityFilter extends NegotiateSecurityFilter im
      * Instantiates a new negotiate security filter.
      */
     public CorsAwareNegotiateSecurityFilter() {
-        CorsAwareNegotiateSecurityFilter.LOGGER
-                .info("[waffle.servlet.CorsAwareNegotiateSecurityFilter] loaded");
+        CorsAwareNegotiateSecurityFilter.LOGGER.info("[waffle.servlet.CorsAwareNegotiateSecurityFilter] loaded");
     }
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         super.init(filterConfig);
-        CorsAwareNegotiateSecurityFilter.LOGGER
-                .info("[waffle.servlet.CorsAwareNegotiateSecurityFilter] Loaded");
+        CorsAwareNegotiateSecurityFilter.LOGGER.info("[waffle.servlet.CorsAwareNegotiateSecurityFilter] Loaded");
 
     }
 
@@ -46,8 +44,7 @@ public class CorsAwareNegotiateSecurityFilter extends NegotiateSecurityFilter im
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
 
-        CorsAwareNegotiateSecurityFilter.LOGGER
-                .info("[waffle.servlet.CorsAwareNegotiateSecurityFilter] Filtering");
+        CorsAwareNegotiateSecurityFilter.LOGGER.info("[waffle.servlet.CorsAwareNegotiateSecurityFilter] Filtering");
 
         final HttpServletRequest sreq = (HttpServletRequest) request;
         final AuthorizationHeader authorizationHeader = new AuthorizationHeader(sreq);
@@ -57,11 +54,10 @@ public class CorsAwareNegotiateSecurityFilter extends NegotiateSecurityFilter im
                     .info("[waffle.servlet.CorsAwareNegotiateSecurityFilter] Request is CorsPreFlight");
             chain.doFilter(request, response);
             return;
-        }else if (authorizationHeader.isBearerAuthorizationHeader() ) {
+        } else if (authorizationHeader.isBearerAuthorizationHeader()) {
             chain.doFilter(request, response);
             return;
-        }
-        else {
+        } else {
             CorsAwareNegotiateSecurityFilter.LOGGER
                     .info("[waffle.servlet.CorsAwareNegotiateSecurityFilter] Request is Not orsPreFlight");
 
@@ -75,8 +71,7 @@ public class CorsAwareNegotiateSecurityFilter extends NegotiateSecurityFilter im
     @Override
     public void destroy() {
         super.destroy();
-        CorsAwareNegotiateSecurityFilter.LOGGER
-                .info("[waffle.servlet.CorsAwareNegotiateSecurityFilter] unloaded");
+        CorsAwareNegotiateSecurityFilter.LOGGER.info("[waffle.servlet.CorsAwareNegotiateSecurityFilter] unloaded");
 
     }
 

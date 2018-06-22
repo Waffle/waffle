@@ -112,7 +112,7 @@ public class NegotiateSecurityFilter implements Filter {
             return;
         }
         /* Check if the Authorization Header is a byte case insensitive string BEARER */
-        if (this.excludeBearerAuthorization && authorizationHeader.isBearerAuthorizationHeader() ) {
+        if (this.excludeBearerAuthorization && authorizationHeader.isBearerAuthorizationHeader()) {
             chain.doFilter(sreq, sres);
             return;
         }
