@@ -62,7 +62,9 @@ public class AuthorizationHeader {
     /**
      * Returns a supported security package string.
      *
-     * @return Negotiate or NTLM.
+     * Athorization: NTLM the_token Athorization: Negotiate the_token Authorization: Bearer the_token
+     *
+     * @return AuthenticationScheme as SecurityPackage e.g. Negotiate, NTLM, Bearer.
      */
     public String getSecurityPackage() {
         final String header = this.getHeader();

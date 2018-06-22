@@ -39,6 +39,7 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  */
 @Configuration
 @EnableConfigurationProperties(WaffleProperties.class)
+@SuppressWarnings("unchecked")
 public class WaffleAutoConfiguration {
 
     /** The properties. */

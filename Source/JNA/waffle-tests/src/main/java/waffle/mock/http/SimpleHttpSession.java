@@ -24,7 +24,6 @@ import javax.servlet.http.HttpSessionContext;
  *
  * @author dblock[at]dblock[dot]org
  */
-@SuppressWarnings("deprecation")
 public class SimpleHttpSession implements HttpSession {
 
     /** The attributes. */

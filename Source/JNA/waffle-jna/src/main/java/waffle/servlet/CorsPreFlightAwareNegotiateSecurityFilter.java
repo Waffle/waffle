@@ -1,8 +1,17 @@
+/**
+ * Waffle (https://github.com/Waffle/waffle)
+ *
+ * Copyright (c) 2010-2018 Application Security, Inc.
+ *
+ * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+ * Public License v1.0 which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-v10.html.
+ *
+ * Contributors: Application Security, Inc.
+ */
 package waffle.servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import waffle.util.CorsPreFlightHeaders;
+import waffle.util.CorsPreFlightHelper;
 
 public class CorsPreFlightAwareNegotiateSecurityFilter extends NegotiateSecurityFilter implements Filter {
     /** The Constant LOGGER. */
@@ -21,14 +30,14 @@ public class CorsPreFlightAwareNegotiateSecurityFilter extends NegotiateSecurity
      */
     public CorsPreFlightAwareNegotiateSecurityFilter() {
         CorsPreFlightAwareNegotiateSecurityFilter.LOGGER
-                .debug("[waffle.servlet.CorsPreFlightAwareNegotiateSecurityFilter] loaded");
+                .info("[waffle.servlet.CorsPreFlightAwareNegotiateSecurityFilter] loaded");
     }
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         super.init(filterConfig);
         CorsPreFlightAwareNegotiateSecurityFilter.LOGGER
-                .debug("[waffle.servlet.CorsPreFlightAwareNegotiateSecurityFilter] Loaded");
+                .info("[waffle.servlet.CorsPreFlightAwareNegotiateSecurityFilter] Loaded");
 
     }
 
@@ -37,18 +46,22 @@ public class CorsPreFlightAwareNegotiateSecurityFilter extends NegotiateSecurity
             throws IOException, ServletException {
 
         CorsPreFlightAwareNegotiateSecurityFilter.LOGGER
-                .debug("[waffle.servlet.CorsPreFlightAwareNegotiateSecurityFilter] Filtering");
-        
+                .info("[waffle.servlet.CorsPreFlightAwareNegotiateSecurityFilter] Filtering");
+
         final HttpServletRequest sreq = (HttpServletRequest) request;
 
-        if (isPreFlightRequest(sreq)) {
+        if (CorsPreFlightHelper.isPreFlight(sreq)) {
             CorsPreFlightAwareNegotiateSecurityFilter.LOGGER
-                .debug("[waffle.servlet.CorsPreFlightAwareNegotiateSecurityFilter] Authentication Skipped");
+                    .debug("[waffle.servlet.CorsPreFlightAwareNegotiateSecurityFilter] Request is CorsPreFlight");
             chain.doFilter(request, response);
         } else {
+            CorsPreFlightAwareNegotiateSecurityFilter.LOGGER
+                    .debug("[waffle.servlet.CorsPreFlightAwareNegotiateSecurityFilter] Request is Not orsPreFlight");
+
             super.doFilter(request, response, chain);
-                    CorsPreFlightAwareNegotiateSecurityFilter.LOGGER
-                .debug("[waffle.servlet.CorsPreFlightAwareNegotiateSecurityFilter] Authentication Completed");
+
+            CorsPreFlightAwareNegotiateSecurityFilter.LOGGER
+                    .info("[waffle.servlet.CorsPreFlightAwareNegotiateSecurityFilter] Authentication Completed");
         }
     }
 
@@ -56,24 +69,8 @@ public class CorsPreFlightAwareNegotiateSecurityFilter extends NegotiateSecurity
     public void destroy() {
         super.destroy();
         CorsPreFlightAwareNegotiateSecurityFilter.LOGGER
-                .debug("[waffle.servlet.CorsPreFlightAwareNegotiateSecurityFilter] unloaded");
+                .info("[waffle.servlet.CorsPreFlightAwareNegotiateSecurityFilter] unloaded");
 
     }
 
-    private boolean isPreFlightRequest(HttpServletRequest request) {
-
-        final String preflightAttributeValue = "PRE_FLIGHT";
-        final String corsRequestType = (String) request.getAttribute("cors.request.type");
-
-        // it has to be an OPTIONS Method to be a PreFlight Request
-        if (!request.getMethod().equalsIgnoreCase("OPTIONS")) {
-            return false;
-        }
-        // let an HttpServletFilter already add the Attribute "PRE_FLIGHT" for the value cors.request.type
-        if (corsRequestType != null && corsRequestType.equalsIgnoreCase(preflightAttributeValue)) {
-            return true;
-        } else {
-            return CorsPreFlightHeaders.containsAllPreFlightHeaders(request);
-        }
-    }
 }

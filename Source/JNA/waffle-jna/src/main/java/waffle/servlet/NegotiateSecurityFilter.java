@@ -37,6 +37,7 @@ import org.slf4j.LoggerFactory;
 import waffle.servlet.spi.SecurityFilterProvider;
 import waffle.servlet.spi.SecurityFilterProviderCollection;
 import waffle.util.AuthorizationHeader;
+import waffle.util.CorsPreFlightHelper;
 import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.IWindowsImpersonationContext;
@@ -74,6 +75,11 @@ public class NegotiateSecurityFilter implements Filter {
     /** The exclusion filter. */
     private String[] excludePatterns;
 
+    /** The exclusion filter. */
+    private boolean excludeBearerAuthorization;
+
+    private boolean excludeCorsPreFlight;
+
     /** The Constant PRINCIPALSESSIONKEY. */
     private static final String PRINCIPALSESSIONKEY = NegotiateSecurityFilter.class.getName() + ".PRINCIPAL";
 
@@ -99,6 +105,19 @@ public class NegotiateSecurityFilter implements Filter {
         NegotiateSecurityFilter.LOGGER.debug("{} {}, contentlength: {}", request.getMethod(), request.getRequestURI(),
                 Integer.valueOf(request.getContentLength()));
 
+        final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
+
+        if (CorsPreFlightHelper.isPreFlight(request)) {
+            chain.doFilter(sreq, sres);
+            return;
+        }
+        /* Check if the Authorization Header is a byte case insensitive string BEARER */
+        if (!authorizationHeader.isNull() && (this.excludeBearerAuthorization
+                && authorizationHeader.getSecurityPackage().toUpperCase().equalsIgnoreCase("BEARER"))) {
+            chain.doFilter(sreq, sres);
+            return;
+        }
+
         if (request.getRequestURL() != null && this.excludePatterns != null) {
             final String url = request.getRequestURL().toString();
             for (final String pattern : this.excludePatterns) {
@@ -114,8 +133,6 @@ public class NegotiateSecurityFilter implements Filter {
             // previously authenticated user
             return;
         }
-
-        final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
 
         // authenticate user
         if (!authorizationHeader.isNull()) {
@@ -298,6 +315,12 @@ public class NegotiateSecurityFilter implements Filter {
                         break;
                     case "excludePatterns":
                         this.excludePatterns = parameterValue.split("\\s+");
+                        break;
+                    case "excludeCorsPreFlight":
+                        this.excludeCorsPreFlight = Boolean.parseBoolean(parameterValue);
+                        break;
+                    case "excludeBearerAuthorized":
+                        this.excludeBearerAuthorization = Boolean.parseBoolean(parameterValue);
                         break;
                     default:
                         implParameters.put(parameterName, parameterValue);
