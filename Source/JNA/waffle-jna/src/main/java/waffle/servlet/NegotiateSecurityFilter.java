@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
 import waffle.servlet.spi.SecurityFilterProvider;
 import waffle.servlet.spi.SecurityFilterProviderCollection;
 import waffle.util.AuthorizationHeader;
-import waffle.util.CorsPreFlightCheck;
+import waffle.util.CorsPreflightCheck;
 import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.IWindowsImpersonationContext;
@@ -78,7 +78,7 @@ public class NegotiateSecurityFilter implements Filter {
     /** The exclusion filter. */
     private boolean excludeBearerAuthorization;
 
-    private boolean excludeCorsPreFlight;
+    private boolean excludeCorsPreflight;
 
     /** The Constant PRINCIPALSESSIONKEY. */
     private static final String PRINCIPALSESSIONKEY = NegotiateSecurityFilter.class.getName() + ".PRINCIPAL";
@@ -107,7 +107,7 @@ public class NegotiateSecurityFilter implements Filter {
 
         final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
 
-        if (CorsPreFlightCheck.isPreFlight(request)) {
+        if (CorsPreflightCheck.isPreflight(request)) {
             chain.doFilter(sreq, sres);
             return;
         }
@@ -315,8 +315,8 @@ public class NegotiateSecurityFilter implements Filter {
                     case "excludePatterns":
                         this.excludePatterns = parameterValue.split("\\s+");
                         break;
-                    case "excludeCorsPreFlight":
-                        this.excludeCorsPreFlight = Boolean.parseBoolean(parameterValue);
+                    case "excludeCorsPreflight":
+                        this.excludeCorsPreflight = Boolean.parseBoolean(parameterValue);
                         break;
                     case "excludeBearerAuthorized":
                         this.excludeBearerAuthorization = Boolean.parseBoolean(parameterValue);

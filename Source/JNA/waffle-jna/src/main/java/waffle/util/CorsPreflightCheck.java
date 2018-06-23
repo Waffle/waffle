@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  *
  */
-public class CorsPreFlightCheck {
+public class CorsPreflightCheck {
 
     /** The logger. */
     private static final String preflightAttributeValue = "PRE_FLIGHT";
@@ -34,23 +34,27 @@ public class CorsPreFlightCheck {
         };
     }
 
-    public static boolean isPreFlight(final HttpServletRequest request) {
+    public static boolean isPreflight(final HttpServletRequest request) {
 
         final String corsRequestType = (String) request.getAttribute("cors.request.type");
 
-        // it has to be an OPTIONS Method to be a PreFlight Request
+        /**
+         * it MUST be an OPTIONS Method to be a preflight Request
+         */
         if (!request.getMethod().equalsIgnoreCase("OPTIONS")) {
             return false;
         }
-        // support Apache CorsFilter which would already add the Attribute cors.request.type with a value "PRE_FLIGHT"
+        /**
+        support Apache CorsFilter which would already add the Attribute cors.request.type with a value "PRE_FLIGHT"
+        **/
         if (corsRequestType != null && corsRequestType.equalsIgnoreCase(preflightAttributeValue)) {
             return true;
         } else {
             /*
              * it is OPTIONS and it is not an CorsFilter PRE_FLIGHT request make sure that the request contains all of
-             * the CorsPreflight Headers
+             * the CORS preflight Headers
              */
-            for (String header : CorsPreFlightCheck.CORS_PRE_FLIGHT_HEADERS) {
+            for (String header : CorsPreflightCheck.CORS_PRE_FLIGHT_HEADERS) {
                 if (request.getHeader(header) == null)
                     /* one of the CORS pre-flight headers is missing */
                     return false;
