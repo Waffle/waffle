@@ -12,14 +12,11 @@
 package waffle.util;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-//import static org.mockito.Mockito.mock;
-//import static org.mockito.Mockito.when;
 
 import javax.servlet.http.HttpServletRequest;
 
 import mockit.Expectations;
 import mockit.Mocked;
-import mockit.Tested;
 import mockit.Verifications;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -53,8 +50,6 @@ class CorsPreflightCheckTests {
     void testExpectedCorsPreflightHeadersIncomplete() {
         new Expectations(){{
             request.getMethod(); result = "OPTIONS";
-            request.getHeader("Access-Control-Request-Method"); result = "LOGIN";
-            request.getHeader("Access-Control-Request-Headers"); result = "X-Requested-For";
             /** Origin MUST be present with Method and Headers to be a valid CORS request **/
             request.getHeader("Origin"); result = null;
         }};
