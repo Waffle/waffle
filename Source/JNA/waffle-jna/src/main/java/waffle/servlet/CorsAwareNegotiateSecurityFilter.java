@@ -1,12 +1,12 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
- * <p>
+ *
  * Copyright (c) 2010-2018 Application Security, Inc.
- * <p>
+ *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
  * https://www.eclipse.org/legal/epl-v10.html.
- * <p>
+ *
  * Contributors: Application Security, Inc.
  */
 package waffle.servlet;
@@ -49,8 +49,8 @@ public class CorsAwareNegotiateSecurityFilter extends NegotiateSecurityFilter im
         final AuthorizationHeader authorizationHeader = new AuthorizationHeader(httpServletRequest);
 
         if (CorsPreflightCheck.isPreflight(httpServletRequest)) {
-            CorsAwareNegotiateSecurityFilter.LOGGER
-                    .info("[waffle.servlet.CorsAwareNegotiateSecurityFilter] Request is CORS preflight; continue filter chain");
+            CorsAwareNegotiateSecurityFilter.LOGGER.info(
+                    "[waffle.servlet.CorsAwareNegotiateSecurityFilter] Request is CORS preflight; continue filter chain");
             chain.doFilter(request, response);
             return;
         } else if (authorizationHeader.isBearerAuthorizationHeader()) {
