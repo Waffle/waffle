@@ -149,10 +149,11 @@ public class AuthorizationHeader {
      * request with the POSTed data. This is to avoid the situation where user's credentials might be potentially
      * invalid, and all this data is being POSTed across the wire.
      *
-     * @return True if request is an NTLM POST or PUT with an Authorization header and no data.
+     * @return True if request is an NTLM POST, PUT, or DELETE with an Authorization header and no data.
      */
     public boolean isNtlmType1PostAuthorizationHeader() {
-        if (!"POST".equals(this.request.getMethod()) && !"PUT".equals(this.request.getMethod())) {
+        if (!"POST".equals(this.request.getMethod()) && !"PUT".equals(this.request.getMethod())
+                && !"DELETE".equals(this.request.getMethod())) {
             return false;
         }
 
