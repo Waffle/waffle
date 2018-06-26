@@ -14,7 +14,6 @@ package waffle.servlet;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.security.Principal;
-import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Locale;
@@ -53,54 +52,59 @@ public class NegotiateSecurityFilter implements Filter {
     /**
      * The Constant LOGGER.
      */
-    private static final Logger              LOGGER              = LoggerFactory
-                                                                         .getLogger(NegotiateSecurityFilter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(NegotiateSecurityFilter.class);
 
     /**
      * Determines if SSO has been disabled via the init-param 'enableSSO'
      */
-    private boolean                          enableSSO           = false;
+    private boolean enableSSO = false;
 
     /**
      * Stores operating system name.
      */
-    private static String                    osName              = null;
+    private static String osName = null;
 
     /**
      * The principal format.
      */
-    private PrincipalFormat                  principalFormat     = PrincipalFormat.FQN;
+    private PrincipalFormat principalFormat = PrincipalFormat.FQN;
 
     /**
      * The role format.
      */
-    private PrincipalFormat                  roleFormat          = PrincipalFormat.FQN;
+    private PrincipalFormat roleFormat = PrincipalFormat.FQN;
 
     /**
      * The providers.
      */
     private SecurityFilterProviderCollection providers;
 
-  /**
+    /**
      * The auth.
      */
-    private IWindowsAuthProvider             auth;
+    private IWindowsAuthProvider auth;
+
+    /**
+     * The exclusion filter.
+     */
+
+    private String[] excludePatterns;
 
     /**
      * The allow guest login.
      */
-    private boolean                          allowGuestLogin     = true;
+    private boolean allowGuestLogin = true;
 
     /**
      * The impersonate.
      */
-    private boolean                          impersonate;
+    private boolean impersonate;
 
     /**
      * The Constant PRINCIPALSESSIONKEY.
      */
-    private static final String              PRINCIPALSESSIONKEY = NegotiateSecurityFilter.class.getName()
-  
+    private static final String PRINCIPALSESSIONKEY = NegotiateSecurityFilter.class.getName() + ".PRINCIPAL";
+
     /**
      * Instantiates a new negotiate security filter.
      */
@@ -133,8 +137,6 @@ public class NegotiateSecurityFilter implements Filter {
             return;
         }
 
-        String url = request.getRequestURI();
-        
         LOGGER.debug("{} {}, contentlength: {}", request.getMethod(), request.getRequestURI(),
                 Integer.valueOf(request.getContentLength()));
 
@@ -330,7 +332,7 @@ public class NegotiateSecurityFilter implements Filter {
                         break;
                     case "authProvider":
                         authProvider = parameterValue;
-                        break;                    
+                        break;
                     case "enableSSO":
                         enableSSO = Boolean.parseBoolean(parameterValue);
                         break;
