@@ -321,7 +321,7 @@ public class NegotiateSecurityFilter implements Filter {
                     case "excludeCorsPreflight":
                         this.setExcludeCorsPreflight(Boolean.parseBoolean(parameterValue));
                         break;
-                    case "excludeBearerAuthorized":
+                    case "excludeBearerAuthorization":
                         this.setExcludeBearerAuthorization(Boolean.parseBoolean(parameterValue));
                         break;
                     default:
