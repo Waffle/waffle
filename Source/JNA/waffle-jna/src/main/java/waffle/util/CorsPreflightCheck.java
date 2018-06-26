@@ -28,16 +28,13 @@ public class CorsPreflightCheck {
     private static final Logger LOGGER = LoggerFactory.getLogger(CorsPreflightCheck.class);
 
     private static final String preflightAttributeValue = "PRE_FLIGHT";
-    private static final List<String> CORS_PRE_FLIGHT_HEADERS;
-    static {
-        CORS_PRE_FLIGHT_HEADERS = new ArrayList<String>() {
-            {
-                add("Access-Control-Request-Method");
-                add("Access-Control-Request-Headers");
-                add("Origin");
-            }
-        };
-    }
+    private static final List<String> CORS_PRE_FLIGHT_HEADERS = new ArrayList<String>() {
+        {
+            add("Access-Control-Request-Method");
+            add("Access-Control-Request-Headers");
+            add("Origin");
+        }
+    };
 
     public static boolean isPreflight(final HttpServletRequest request) {
 

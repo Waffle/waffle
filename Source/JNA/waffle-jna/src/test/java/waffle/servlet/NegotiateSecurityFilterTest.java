@@ -1,21 +1,7 @@
-/**
- * Waffle (https://github.com/Waffle/waffle)
- *
- * Copyright (c) 2010-2018 Application Security, Inc.
- *
- * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
- * Public License v1.0 which accompanies this distribution, and is available at
- * https://www.eclipse.org/legal/epl-v10.html.
- *
- * Contributors: Application Security, Inc.
- */
 package waffle.servlet;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.lang.reflect.Field;
 import java.util.*;
-
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.http.HttpServletRequest;
@@ -30,12 +16,23 @@ import org.junit.jupiter.api.Test;
 
 import waffle.util.CorsPreflightCheck;
 
+/**
+ * Waffle (https://github.com/Waffle/waffle)
+ *
+ * Copyright (c) 2010-2018 Application Security, Inc.
+ *
+ * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+ * Public License v1.0 which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-v10.html.
+ *
+ * Contributors: Application Security, Inc.
+ */
 class NegotiateSecurityFilterTest {
 
     @Tested
-    NegotiateSecurityFilter negotiateSecurityFilter;
+    private NegotiateSecurityFilter negotiateSecurityFilter;
 
-    Enumeration<String> initParameterNames = Collections.enumeration(new java.util.ArrayList<String>() {
+    private Enumeration<String> initParameterNames = Collections.enumeration(new java.util.ArrayList<String>() {
         {
             add("principalFormat");
             add("principalFormat");
@@ -51,7 +48,7 @@ class NegotiateSecurityFilterTest {
 
     @Test
     void testNegotiateRequestFilter_init(@Mocked FilterConfig filterConfig) throws Exception {
-
+        getClass().getClassLoader().getResource("logback.xml");
         new Expectations() {
             {
 
@@ -99,7 +96,7 @@ class NegotiateSecurityFilterTest {
     void testNegotiateRequestFilter_excludeBasicAuthorization(@Mocked HttpServletRequest request,
             @Mocked HttpServletResponse response, @Mocked FilterChain chain, @Mocked FilterConfig filterConfig)
             throws Exception {
-
+        getClass().getClassLoader().getResource("logback.xml");
         new Expectations() {
             {
                 filterConfig.getInitParameterNames();
