@@ -63,11 +63,6 @@ public class NegotiateSecurityFilter implements Filter {
     private boolean                          enableSSO           = false;
 
     /**
-     * Stores paths that should bypass this filter when encountered in the request
-     */
-    private static String[]                  excludePatterns     = null;
-
-    /**
      * Stores operating system name.
      */
     private static String                    osName              = null;
@@ -150,12 +145,7 @@ public class NegotiateSecurityFilter implements Filter {
         }
 
         String url = request.getRequestURI();
-
-        if (hasExcludePattern(url)) {
-            chain.doFilter(request, response);
-            return;
-        }
-
+        
         LOGGER.debug("{} {}, contentlength: {}", request.getMethod(), request.getRequestURI(),
                 Integer.valueOf(request.getContentLength()));
 
@@ -345,11 +335,7 @@ public class NegotiateSecurityFilter implements Filter {
                         break;
                     case "authProvider":
                         authProvider = parameterValue;
-                        break;
-                    case "excludePatterns":
-                        excludePatterns = parameterValue.split("\\s+");
-                        LOGGER.debug("Excluding url patterns: " + Arrays.toString(excludePatterns));
-                        break;
+                        break;                    
                     case "enableSSO":
                         enableSSO = Boolean.parseBoolean(parameterValue);
                         break;
@@ -542,20 +528,5 @@ public class NegotiateSecurityFilter implements Filter {
     private static boolean isWindowsBrowser(HttpServletRequest request) {
         String userAgent = request.getHeader("User-Agent");
         return userAgent.toLowerCase(Locale.ENGLISH).contains("windows");
-    }
-
-    private static boolean hasExcludePattern(String url) {
-        boolean hasPattern = false;
-
-        if (excludePatterns != null && excludePatterns.length > 0) {
-            for (String excludePattern : excludePatterns) {
-                if (url.startsWith(excludePattern)) {
-                    hasPattern = true;
-                    break;
-                }
-            }
-        }
-
-        return hasPattern;
     }
 }
