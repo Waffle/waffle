@@ -11,12 +11,8 @@
  */
 package waffle.servlet;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 import javax.servlet.FilterChain;
-import javax.servlet.ServletContext;
+import javax.servlet.FilterConfig;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -24,9 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import mockit.*;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import waffle.util.CorsPreflightCheck;
@@ -36,32 +29,38 @@ class CorsAwareNegotiateSecurityFilterTest {
     @Tested
     CorsAwareNegotiateSecurityFilter corsAwareNegotiateSecurityFilter;
 
+    @Mocked
+    HttpServletRequest preflightRequest;
+    @Mocked
+    HttpServletResponse preflightResponse;
+    @Mocked
+    FilterChain chain;
+    @Mocked
+    FilterConfig filterConfig;
+
     @Test
-    void doFilter() throws Exception {
-
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpServletResponse response = mock(HttpServletResponse.class);
-        FilterChain chain = mock(FilterChain.class);
-
-        when(request.getMethod()).thenReturn("OPTIONS");
-        when(request.getHeader("Access-Control-Request-Method")).thenReturn("LOGIN");
-        when(request.getHeader("Access-Control-Request-Headers")).thenReturn("X-Request-For");
-        when(request.getHeader("Origin")).thenReturn("https://theorigin.localhost");
+    void doFilterTestCorsPreflightRequest() throws Exception {
 
         new Expectations() {
             {
-                CorsPreflightCheck.isPreflight(request);
-                chain.doFilter(request, response);
+                preflightRequest.getMethod();
+                result = "OPTIONS";
+                preflightRequest.getHeader("Access-Control-Request-Method");
+                result = "LOGIN";
+                preflightRequest.getHeader("Access-Control-Request-Headers");
+                result = "X-Request-For";
+                preflightRequest.getHeader("Origin");
+                result = "https://theorigin.preflight";
             }
         };
 
-        // corsAwareNegotiateSecurityFilter.doFilter(request,response,chain);
+        corsAwareNegotiateSecurityFilter.doFilter(preflightRequest, preflightResponse, chain);
 
         new Verifications() {
             {
-                CorsPreflightCheck.isPreflight(request);
+                CorsPreflightCheck.isPreflight(preflightRequest);
                 times = 1;
-                chain.doFilter(request, response);
+                chain.doFilter(preflightRequest, preflightResponse);
             }
         };
 

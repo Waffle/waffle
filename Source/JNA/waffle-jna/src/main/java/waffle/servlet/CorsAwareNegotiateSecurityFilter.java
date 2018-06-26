@@ -24,7 +24,7 @@ import waffle.util.CorsPreflightCheck;
 
 public class CorsAwareNegotiateSecurityFilter extends NegotiateSecurityFilter implements Filter {
     /** The Constant LOGGER. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(NegotiateSecurityFilter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CorsAwareNegotiateSecurityFilter.class);
 
     /**
      * Instantiates a new negotiate security filter.
@@ -35,12 +35,13 @@ public class CorsAwareNegotiateSecurityFilter extends NegotiateSecurityFilter im
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
+        CorsAwareNegotiateSecurityFilter.LOGGER.info("[waffle.servlet.CorsAwareNegotiateSecurityFilter] Starting");
         super.init(filterConfig);
-        CorsAwareNegotiateSecurityFilter.LOGGER.info("[waffle.servlet.CorsAwareNegotiateSecurityFilter] Loaded");
+        CorsAwareNegotiateSecurityFilter.LOGGER.info("[waffle.servlet.CorsAwareNegotiateSecurityFilter] Started");
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+    public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
             throws IOException, ServletException {
 
         CorsAwareNegotiateSecurityFilter.LOGGER.info("[waffle.servlet.CorsAwareNegotiateSecurityFilter] Filtering");
@@ -52,12 +53,10 @@ public class CorsAwareNegotiateSecurityFilter extends NegotiateSecurityFilter im
             CorsAwareNegotiateSecurityFilter.LOGGER.info(
                     "[waffle.servlet.CorsAwareNegotiateSecurityFilter] Request is CORS preflight; continue filter chain");
             chain.doFilter(request, response);
-            return;
         } else if (authorizationHeader.isBearerAuthorizationHeader()) {
             CorsAwareNegotiateSecurityFilter.LOGGER
                     .info("[waffle.servlet.CorsAwareNegotiateSecurityFilter] Request is Bearer, continue filter chain");
             chain.doFilter(request, response);
-            return;
         } else {
             CorsAwareNegotiateSecurityFilter.LOGGER
                     .info("[waffle.servlet.CorsAwareNegotiateSecurityFilter] Request is Not CORS preflight");
