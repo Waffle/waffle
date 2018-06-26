@@ -1,11 +1,11 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
@@ -27,45 +27,34 @@ import waffle.windows.auth.IWindowsSecurityContext;
 
 /**
  * Windows Security Context.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 
     /** The principal name. */
-    private String                    principalName;
+    private String principalName;
 
     /** The security package. */
-    private String                    securityPackage;
+    private String securityPackage;
 
     /** The token. */
-    private SecBufferDesc             token;
+    private SecBufferDesc token;
 
     /** The ctx. */
-    private CtxtHandle                ctx;
-
-    /** The attr. */
-    private IntByReference            attr;
+    private CtxtHandle ctx;
 
     /** The credentials. */
     private IWindowsCredentialsHandle credentials;
 
     /** The continue flag. */
-    private boolean                   continueFlag;
+    private boolean continueFlag;
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsSecurityContext#impersonate()
-     */
     @Override
     public IWindowsImpersonationContext impersonate() {
         return new WindowsSecurityContextImpersonationContextImpl(this.ctx);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsSecurityContext#getIdentity()
-     */
     @Override
     public IWindowsIdentity getIdentity() {
         final HANDLEByReference phContextToken = new HANDLEByReference();
@@ -76,19 +65,11 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
         return new WindowsIdentityImpl(phContextToken.getValue());
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsSecurityContext#getSecurityPackage()
-     */
     @Override
     public String getSecurityPackage() {
         return this.securityPackage;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsSecurityContext#getToken()
-     */
     @Override
     public byte[] getToken() {
         return this.token == null || this.token.getBytes() == null ? null : this.token.getBytes().clone();
@@ -96,7 +77,7 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 
     /**
      * Get the current Windows security context for a given SSPI package.
-     * 
+     *
      * @param securityPackage
      *            SSPI package.
      * @param targetName
@@ -125,26 +106,19 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsSecurityContext#initialize(com.sun.jna.platform.win32.Sspi.CtxtHandle,
-     * com.sun.jna.platform.win32.Sspi.SecBufferDesc, java.lang.String)
-     */
     @Override
     public void initialize(final CtxtHandle continueCtx, final SecBufferDesc continueToken, final String targetName) {
-        this.attr = new IntByReference();
+        final IntByReference attr = new IntByReference();
         this.ctx = new CtxtHandle();
         int tokenSize = Sspi.MAX_TOKEN_SIZE;
         int rc;
         do {
             this.token = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, tokenSize);
             rc = Secur32.INSTANCE.InitializeSecurityContext(this.credentials.getHandle(), continueCtx, targetName,
-                    Sspi.ISC_REQ_CONNECTION, 0, Sspi.SECURITY_NATIVE_DREP, continueToken, 0, this.ctx, this.token,
-                    this.attr, null);
+                    Sspi.ISC_REQ_CONNECTION, 0, Sspi.SECURITY_NATIVE_DREP, continueToken, 0, this.ctx, this.token, attr,
+                    null);
             switch (rc) {
                 case WinError.SEC_E_INSUFFICIENT_MEMORY:
-                    tokenSize += Sspi.MAX_TOKEN_SIZE;
-                    break;
                 case WinError.SEC_E_BUFFER_TOO_SMALL:
                     tokenSize += Sspi.MAX_TOKEN_SIZE;
                     break;
@@ -160,10 +134,6 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
         } while (rc == WinError.SEC_E_INSUFFICIENT_MEMORY || rc == WinError.SEC_E_BUFFER_TOO_SMALL);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsSecurityContext#dispose()
-     */
     @Override
     public void dispose() {
         WindowsSecurityContextImpl.dispose(this.ctx);
@@ -175,7 +145,7 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 
     /**
      * Dispose a security context.
-     * 
+     *
      * @param ctx
      *            Security context.
      * @return True if a context was disposed.
@@ -191,10 +161,6 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
         return false;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsSecurityContext#getPrincipalName()
-     */
     @Override
     public String getPrincipalName() {
         return this.principalName;
@@ -210,10 +176,6 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
         this.principalName = value;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsSecurityContext#getHandle()
-     */
     @Override
     public CtxtHandle getHandle() {
         return this.ctx;
@@ -259,10 +221,6 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
         this.ctx = phNewServerContext;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsSecurityContext#isContinue()
-     */
     @Override
     public boolean isContinue() {
         return this.continueFlag;

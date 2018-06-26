@@ -1,24 +1,31 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
 package waffle.servlet;
 
+import java.io.IOException;
+
 import javax.servlet.ServletException;
 
-import org.databene.contiperf.PerfTest;
-import org.databene.contiperf.junit.ContiPerfRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.Level;
+import org.openjdk.jmh.annotations.Scope;
+import org.openjdk.jmh.annotations.Setup;
+import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.annotations.TearDown;
+import org.openjdk.jmh.runner.Runner;
+import org.openjdk.jmh.runner.RunnerException;
+import org.openjdk.jmh.runner.options.Options;
+import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 /**
  * The Class NegotiateSecurityFilterLoadTests.
@@ -27,41 +34,62 @@ import org.junit.Test;
  */
 public class NegotiateSecurityFilterLoadTests {
 
-    /** The conti perf rule. */
-    @Rule
-    public ContiPerfRule                       contiPerfRule = new ContiPerfRule();
-
-    /** The tests. */
-    private final NegotiateSecurityFilterTests tests         = new NegotiateSecurityFilterTests();
-
     /**
-     * Sets the up.
+     * Launch load test.
      *
-     * @throws ServletException
-     *             the servlet exception
-     */
-    @Before
-    public void setUp() throws ServletException {
-        this.tests.setUp();
-    }
-
-    /**
-     * Tear down.
-     */
-    @After
-    public void tearDown() {
-        this.tests.tearDown();
-    }
-
-    /**
-     * Test load.
-     *
-     * @throws Throwable
-     *             the throwable
+     * @throws RunnerException
+     *             the runner exception
      */
     @Test
-    @PerfTest(invocations = 10, threads = 10)
-    public void testLoad() throws Throwable {
-        this.tests.testNegotiate();
+    public void launchLoadTest() throws RunnerException {
+        final Options opt = new OptionsBuilder().threads(10).measurementIterations(10).build();
+        new Runner(opt).run();
     }
+
+    /**
+     * The Class St.
+     */
+    @State(Scope.Thread)
+    public static class St {
+
+        /** The tests. */
+        private final NegotiateSecurityFilterTests tests = new NegotiateSecurityFilterTests();
+
+        /**
+         * Initialize.
+         *
+         * @throws ServletException
+         *             the servlet exception
+         */
+        @Setup(Level.Trial)
+        public void initialize() throws ServletException {
+            this.tests.setUp();
+        }
+
+        /**
+         * Benchmark.
+         *
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         * @throws ServletException
+         *             the servlet exception
+         */
+        @Benchmark
+        public void benchmark() throws IOException, ServletException {
+            this.tests.testNegotiate();
+        }
+
+        /**
+         * Cleanup.
+         *
+         * @throws ServletException
+         *             the servlet exception
+         */
+        @TearDown(Level.Trial)
+        public void cleanup() throws ServletException {
+            this.tests.tearDown();
+        }
+
+    }
+
 }

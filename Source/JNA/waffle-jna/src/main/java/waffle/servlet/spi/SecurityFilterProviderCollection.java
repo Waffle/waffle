@@ -1,15 +1,17 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
 package waffle.servlet.spi;
+
+import com.sun.jna.platform.win32.Win32Exception;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -23,22 +25,19 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.sun.jna.platform.win32.Win32Exception;
-
 import waffle.util.AuthorizationHeader;
 import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.IWindowsIdentity;
 
 /**
  * A collection of security filter providers.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class SecurityFilterProviderCollection {
 
     /** The Constant LOGGER. */
-    private static final Logger                LOGGER    = LoggerFactory
-                                                                 .getLogger(SecurityFilterProviderCollection.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SecurityFilterProviderCollection.class);
 
     /** The providers. */
     private final List<SecurityFilterProvider> providers = new ArrayList<>();
@@ -80,8 +79,8 @@ public class SecurityFilterProviderCollection {
                 SecurityFilterProviderCollection.LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
                 SecurityFilterProviderCollection.LOGGER.trace("", e);
                 throw new RuntimeException(e);
-            } catch (final SecurityException | NoSuchMethodException | IllegalArgumentException
-                    | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            } catch (final SecurityException | NoSuchMethodException | IllegalArgumentException | InstantiationException
+                    | IllegalAccessException | InvocationTargetException e) {
                 SecurityFilterProviderCollection.LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
                 SecurityFilterProviderCollection.LOGGER.trace("", e);
             }
@@ -101,7 +100,7 @@ public class SecurityFilterProviderCollection {
 
     /**
      * Tests whether a specific security package is supported by any of the underlying providers.
-     * 
+     *
      * @param securityPackage
      *            Security package.
      * @return True if the security package is supported, false otherwise.
@@ -128,7 +127,7 @@ public class SecurityFilterProviderCollection {
 
     /**
      * Filter.
-     * 
+     *
      * @param request
      *            Http Request
      * @param response
@@ -153,7 +152,7 @@ public class SecurityFilterProviderCollection {
 
     /**
      * Returns true if authentication still needs to happen despite an existing principal.
-     * 
+     *
      * @param request
      *            Http Request
      * @return True if authentication is required.
@@ -169,7 +168,7 @@ public class SecurityFilterProviderCollection {
 
     /**
      * Send authorization headers.
-     * 
+     *
      * @param response
      *            Http Response
      */
@@ -181,7 +180,7 @@ public class SecurityFilterProviderCollection {
 
     /**
      * Number of providers.
-     * 
+     *
      * @return Number of providers.
      */
     public int size() {
@@ -190,7 +189,7 @@ public class SecurityFilterProviderCollection {
 
     /**
      * Get a security provider by class name.
-     * 
+     *
      * @param name
      *            Class name.
      * @return A security provider instance.

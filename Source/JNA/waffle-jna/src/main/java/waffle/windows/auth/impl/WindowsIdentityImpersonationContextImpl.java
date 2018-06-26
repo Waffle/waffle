@@ -1,11 +1,11 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
@@ -27,7 +27,7 @@ public class WindowsIdentityImpersonationContextImpl implements IWindowsImperson
 
     /**
      * Impersonate a logged on user.
-     * 
+     *
      * @param windowsIdentity
      *            Windows identity obtained via LogonUser.
      */
@@ -37,10 +37,6 @@ public class WindowsIdentityImpersonationContextImpl implements IWindowsImperson
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsImpersonationContext#revertToSelf()
-     */
     @Override
     public void revertToSelf() {
         Advapi32.INSTANCE.RevertToSelf();

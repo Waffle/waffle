@@ -1,11 +1,11 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
@@ -44,7 +44,7 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
     /**
      * This class's private logger.
      */
-    private static final Logger        LOGGER = LoggerFactory.getLogger(NegotiateAuthenticationRealm.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(NegotiateAuthenticationRealm.class);
 
     /** The windows auth provider. */
     private final IWindowsAuthProvider windowsAuthProvider;
@@ -56,20 +56,11 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
         this.windowsAuthProvider = new WindowsAuthProviderImpl();
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.shiro.realm.AuthenticatingRealm#supports(org.apache.shiro.authc.AuthenticationToken)
-     */
     @Override
     public boolean supports(final AuthenticationToken token) {
         return token instanceof NegotiateToken;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.apache.shiro.realm.AuthenticatingRealm#doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)
-     */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(final AuthenticationToken t) {
 

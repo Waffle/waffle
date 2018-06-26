@@ -1,20 +1,19 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
 package waffle.util;
 
 import org.assertj.core.api.BDDSoftAssertions;
-import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import waffle.mock.http.SimpleHttpRequest;
 
@@ -35,11 +34,11 @@ public class AuthorizationHeaderTests {
     public void testIsNull() {
         final SimpleHttpRequest request = new SimpleHttpRequest();
         final AuthorizationHeader header = new AuthorizationHeader(request);
-        Assert.assertTrue(header.isNull());
+        Assertions.assertTrue(header.isNull());
         request.addHeader("Authorization", "");
-        Assert.assertTrue(header.isNull());
+        Assertions.assertTrue(header.isNull());
         request.addHeader("Authorization", "12344234");
-        Assert.assertFalse(header.isNull());
+        Assertions.assertFalse(header.isNull());
     }
 
     /**
@@ -50,10 +49,10 @@ public class AuthorizationHeaderTests {
         final SimpleHttpRequest request = new SimpleHttpRequest();
         final AuthorizationHeader header = new AuthorizationHeader(request);
         request.addHeader("Authorization", "NTLM TlRMTVNTUAABAAAABzIAAAYABgArAAAACwALACAAAABXT1JLU1RBVElPTkRPTUFJTg==");
-        Assert.assertEquals("NTLM", header.getSecurityPackage());
+        Assertions.assertEquals("NTLM", header.getSecurityPackage());
         request.addHeader("Authorization",
                 "Negotiate TlRMTVNTUAABAAAABzIAAAYABgArAAAACwALACAAAABXT1JLU1RBVElPTkRPTUFJTg==");
-        Assert.assertEquals("Negotiate", header.getSecurityPackage());
+        Assertions.assertEquals("Negotiate", header.getSecurityPackage());
     }
 
     /**
@@ -63,11 +62,11 @@ public class AuthorizationHeaderTests {
     public void testIsNtlmType1Message() {
         final SimpleHttpRequest request = new SimpleHttpRequest();
         final AuthorizationHeader header = new AuthorizationHeader(request);
-        Assert.assertFalse(header.isNtlmType1Message());
+        Assertions.assertFalse(header.isNtlmType1Message());
         request.addHeader("Authorization", "");
-        Assert.assertFalse(header.isNtlmType1Message());
+        Assertions.assertFalse(header.isNtlmType1Message());
         request.addHeader("Authorization", "NTLM TlRMTVNTUAABAAAABzIAAAYABgArAAAACwALACAAAABXT1JLU1RBVElPTkRPTUFJTg==");
-        Assert.assertTrue(header.isNtlmType1Message());
+        Assertions.assertTrue(header.isNtlmType1Message());
     }
 
     /**
@@ -81,29 +80,28 @@ public class AuthorizationHeaderTests {
         // GET
         request.setMethod("GET");
         final AuthorizationHeader header = new AuthorizationHeader(request);
-        Assert.assertFalse(header.isNtlmType1PostAuthorizationHeader());
+        Assertions.assertFalse(header.isNtlmType1PostAuthorizationHeader());
         // POST
         request.setMethod("POST");
-        Assert.assertTrue(header.isNtlmType1PostAuthorizationHeader());
+        Assertions.assertTrue(header.isNtlmType1PostAuthorizationHeader());
         // PUT
         request.setMethod("PUT");
-        Assert.assertTrue(header.isNtlmType1PostAuthorizationHeader());
+        Assertions.assertTrue(header.isNtlmType1PostAuthorizationHeader());
     }
 
     /**
      * Test is sp nego message.
      */
     @Test
-    public void testIsSPNegoMessage() {
+    public void testIsSPNegTokenInitMessage() {
         final SimpleHttpRequest request = new SimpleHttpRequest();
         final AuthorizationHeader header = new AuthorizationHeader(request);
-        Assert.assertFalse(header.isSPNegoMessage());
+        Assertions.assertFalse(header.isSPNegTokenInitMessage());
         request.addHeader("Authorization", "");
-        Assert.assertFalse(header.isSPNegoMessage());
-        request.addHeader(
-                "Authorization",
+        Assertions.assertFalse(header.isSPNegTokenInitMessage());
+        request.addHeader("Authorization",
                 "Negotiate YHYGBisGAQUFAqBsMGqgMDAuBgorBgEEAYI3AgIKBgkqhkiC9xIBAgIGCSqGSIb3EgECAgYKKwYBBAGCNwICHqI2BDROVExNU1NQAAEAAACXsgjiAwADADEAAAAJAAkAKAAAAAYBsR0AAAAPR0xZQ0VSSU5FU0FE");
-        Assert.assertTrue(header.isSPNegoMessage());
+        Assertions.assertTrue(header.isSPNegTokenInitMessage());
     }
 
     /**
@@ -113,19 +111,18 @@ public class AuthorizationHeaderTests {
     public void testIsSPNegoPostAuthorizationHeader() {
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setContentLength(0);
-        request.addHeader(
-                "Authorization",
+        request.addHeader("Authorization",
                 "Negotiate YHYGBisGAQUFAqBsMGqgMDAuBgorBgEEAYI3AgIKBgkqhkiC9xIBAgIGCSqGSIb3EgECAgYKKwYBBAGCNwICHqI2BDROVExNU1NQAAEAAACXsgjiAwADADEAAAAJAAkAKAAAAAYBsR0AAAAPR0xZQ0VSSU5FU0FE");
         // GET
         request.setMethod("GET");
         final AuthorizationHeader header = new AuthorizationHeader(request);
-        Assert.assertFalse(header.isNtlmType1PostAuthorizationHeader());
+        Assertions.assertFalse(header.isNtlmType1PostAuthorizationHeader());
         // POST
         request.setMethod("POST");
-        Assert.assertTrue(header.isNtlmType1PostAuthorizationHeader());
+        Assertions.assertTrue(header.isNtlmType1PostAuthorizationHeader());
         // PUT
         request.setMethod("PUT");
-        Assert.assertTrue(header.isNtlmType1PostAuthorizationHeader());
+        Assertions.assertTrue(header.isNtlmType1PostAuthorizationHeader());
     }
 
     /**
@@ -140,11 +137,7 @@ public class AuthorizationHeaderTests {
         request.addHeader("Authorization", AuthorizationHeaderTests.DIGEST_HEADER);
 
         final BDDSoftAssertions softly = new BDDSoftAssertions();
-        softly.thenThrownBy(new ThrowingCallable() {
-            @Override
-            public void call() throws Exception {
-                header.getTokenBytes();
-            }
-        }).isInstanceOf(RuntimeException.class).hasMessageContaining("Invalid authorization header");
+        softly.thenThrownBy(() -> header.getTokenBytes()).isInstanceOf(RuntimeException.class)
+                .hasMessageContaining("Invalid authorization header");
     }
 }

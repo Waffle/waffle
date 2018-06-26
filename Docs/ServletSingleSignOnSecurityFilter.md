@@ -10,7 +10,9 @@ Configuring Web Servers
 
 The following steps are required to configure a web server with the Waffle Servlet Security Filter. These instructions work for Tomcat, Jetty, WebSphere and possibly others.
 
-Package Waffle JARs, including `waffle-jna.jar`, `guava-18.0.jar`, `jna-4.2.0.jar`, `jna-platform-4.2.0.jar` and `slf4j*.jar` in the application's `lib` directory or copy them to your web server's lib. 
+Package Waffle JARs (1.8.4), including `waffle-jna-1.8.4.jar`, `guava-20.0.jar`, `jna-4.3.0.jar`, `jna-platform-4.3.0.jar` and `slf4j-1.7.22.jar` in the application's `lib` directory or copy them to your web server's lib. 
+
+- For latest snapshot instead use `waffle-jna-1.9.0-SNAPSHOT`, `caffeine-2.3.5.jar`, `jna-4.3.0.jar`, `jna-platform-4.3.0.jar` and `slf4j-1.7.22.jar`.
 
 Add a security filter to `WEB-INF\web.xml` of your application. 
 
@@ -38,6 +40,7 @@ The filter can be configured with the following `init-param` options.
 * waffle.servlet.spi.NegotiateSecurityFilterProvider/protocols: A list of security protocols supported by the `NegotiateSecurityFilterProvider`. Can be one of or a combination of Negotiate and NTLM. 
 * waffle.servlet.spi.BasicSecurityFilterProvider/realm: The name of the Realm for BASIC authentication. 
 * impersonate: Allow impersonation. When true the remote user will be impersonated. Note that there is no mapping between the Windows native threads, under which the impersonation takes place, and the Java threads. Thus you'll need to use Windows native APIs to perform impersonated actions. Any action done in Java will still be performed with the user account running the servlet container. 
+* excludePatterns: Url patterns to exclude from the filter, uses regex for pattern matching
 
 Filter Configuration Example
 ----------------------------
@@ -61,6 +64,13 @@ Filter Configuration Example
   <init-param>
       <param-name>impersonate</param-name>
       <param-value>true</param-value>
+  </init-param>
+  <init-param>
+      <param-name>excludePatterns</param-name>
+      <param-value>
+        .*/rest/.*
+        .*/api/v2/.*
+      </param-value>
   </init-param>
   <init-param>
       <param-name>securityFilterProviders</param-name>
@@ -112,13 +122,13 @@ You can use maven to build and deploy this demo application by following the ste
 * Start your tomcat server. You can launch a locally installed tomcat with remote debugging enabled on port 8000 using:
 
 ```
-    apache-tomcat-6.0.44$ bin/catalina.sh jpda start
+    apache-tomcat-7.0.53$ bin/catalina.sh jpda start
 ```
 
 * Build and Deploy the demo application to the local tomcat 6 instance. In the waffle source tree, move to the directory: waffle/Source/JNA/waffle-demo-parent/waffle-filter, and execute the following:
 
 ```
-   mvn clean package tomcat6:redeploy
+   mvn clean package tomcat7:redeploy
 ```
 
    The app will be available at:

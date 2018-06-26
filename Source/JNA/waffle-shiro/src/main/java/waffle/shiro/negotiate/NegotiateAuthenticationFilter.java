@@ -1,11 +1,11 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
@@ -13,6 +13,7 @@ package waffle.shiro.negotiate;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 /**
@@ -37,15 +38,13 @@ import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.io.BaseEncoding;
-
 import waffle.util.AuthorizationHeader;
 import waffle.util.NtlmServletRequest;
 
 /**
  * A authentication filter that implements the HTTP Negotiate mechanism. The current user is authenticated, providing
  * single-sign-on
- * 
+ *
  * @author Dan Rollo
  * @since 1.0.0
  */
@@ -54,21 +53,20 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
     /**
      * This class's private logger.
      */
-    private static final Logger       LOGGER              = LoggerFactory
-                                                                  .getLogger(NegotiateAuthenticationFilter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(NegotiateAuthenticationFilter.class);
 
     // TODO things (sometimes) break, depending on what user account is running tomcat:
     // related to setSPN and running tomcat server as NT Service account vs. as normal user account.
-    // http://waffle.codeplex.com/discussions/254748
+    // https://waffle.codeplex.com/discussions/254748
     // setspn -A HTTP/<server-fqdn> <user_tomcat_running_under>
     /** The Constant PROTOCOLS. */
-    private static final List<String> PROTOCOLS           = new ArrayList<>();
+    private static final List<String> PROTOCOLS = new ArrayList<>();
 
     /** The failure key attribute. */
-    private String                    failureKeyAttribute = FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME;
+    private String failureKeyAttribute = FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME;
 
     /** The remember me param. */
-    private String                    rememberMeParam     = FormAuthenticationFilter.DEFAULT_REMEMBER_ME_PARAM;
+    private String rememberMeParam = FormAuthenticationFilter.DEFAULT_REMEMBER_ME_PARAM;
 
     /**
      * Instantiates a new negotiate authentication filter.
@@ -94,7 +92,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      * RememberMe will be <code>true</code> if the parameter value equals any of those supported by
      * {@link org.apache.shiro.web.util.WebUtils#isTrue(javax.servlet.ServletRequest, String)
      * WebUtils.isTrue(request,value)}, <code>false</code> otherwise.
-     * 
+     *
      * @param value
      *            the name of the request param to check for acquiring the rememberMe boolean value.
      */
@@ -102,25 +100,16 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         this.rememberMeParam = value;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.shiro.web.filter.authc.AuthenticatingFilter#isRememberMe(javax.servlet.ServletRequest)
-     */
     @Override
     protected boolean isRememberMe(final ServletRequest request) {
         return WebUtils.isTrue(request, this.getRememberMeParam());
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.shiro.web.filter.authc.AuthenticatingFilter#createToken(javax.servlet.ServletRequest,
-     * javax.servlet.ServletResponse)
-     */
     @Override
     protected AuthenticationToken createToken(final ServletRequest request, final ServletResponse response) {
         final String authorization = this.getAuthzHeader(request);
         final String[] elements = authorization.split(" ");
-        final byte[] inToken = BaseEncoding.base64().decode(elements[1]);
+        final byte[] inToken = Base64.getDecoder().decode(elements[1]);
 
         // maintain a connection-based session for NTLM tokens
         // TODO see about changing this parameter to ServletRequest in waffle
@@ -140,12 +129,6 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         return new NegotiateToken(inToken, new byte[0], connectionId, securityPackage, ntlmPost, rememberMe, host);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.apache.shiro.web.filter.authc.AuthenticatingFilter#onLoginSuccess(org.apache.shiro.authc.AuthenticationToken,
-     * org.apache.shiro.subject.Subject, javax.servlet.ServletRequest, javax.servlet.ServletResponse)
-     */
     @Override
     protected boolean onLoginSuccess(final AuthenticationToken token, final Subject subject,
             final ServletRequest request, final ServletResponse response) throws Exception {
@@ -153,12 +136,6 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         return true;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.apache.shiro.web.filter.authc.AuthenticatingFilter#onLoginFailure(org.apache.shiro.authc.AuthenticationToken,
-     * org.apache.shiro.authc.AuthenticationException, javax.servlet.ServletRequest, javax.servlet.ServletResponse)
-     */
     @Override
     protected boolean onLoginFailure(final AuthenticationToken token, final AuthenticationException e,
             final ServletRequest request, final ServletResponse response) {
@@ -210,11 +187,6 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         this.failureKeyAttribute = value;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.shiro.web.filter.AccessControlFilter#onAccessDenied(javax.servlet.ServletRequest,
-     * javax.servlet.ServletResponse)
-     */
     @Override
     protected boolean onAccessDenied(final ServletRequest request, final ServletResponse response) throws Exception {
         // false by default or we wouldn't be in
@@ -238,7 +210,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      * , and if it is not <code>null</code>, delegates to
      * {@link org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter#isLoginAttempt(String)
      * isLoginAttempt(authzHeaderValue)}. If the header is <code>null</code>, <code>false</code> is returned.
-     * 
+     *
      * @param request
      *            incoming ServletRequest
      * @return true if the incoming request is an attempt to log in based, false otherwise
@@ -256,7 +228,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      * <p/>
      * <code>HttpServletRequest httpRequest = {@link WebUtils#toHttp(javax.servlet.ServletRequest) toHttp(reaquest)};<br/>
      * return httpRequest.getHeader({@link org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter#AUTHORIZATION_HEADER AUTHORIZATION_HEADER});</code>
-     * 
+     *
      * @param request
      *            the incoming <code>ServletRequest</code>
      * @return the <code>Authorization</code> header's value.
@@ -275,14 +247,14 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      */
     private String getAuthzHeaderProtocol(final ServletRequest request) {
         final String authzHeader = this.getAuthzHeader(request);
-        return authzHeader.substring(0, authzHeader.indexOf(" "));
+        return authzHeader.substring(0, authzHeader.indexOf(' '));
     }
 
     /**
      * Default implementation that returns <code>true</code> if the specified <code>authzHeader</code> starts with the
      * same (case-insensitive) characters specified by any of the configured protocols (Negotiate or NTLM),
      * <code>false</code> otherwise.
-     * 
+     *
      * @param authzHeader
      *            the 'Authorization' header value (guaranteed to be non-null if the
      *            {@link #isLoginAttempt(javax.servlet.ServletRequest)} method is not overriden).
@@ -301,11 +273,11 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      * Builds the challenge for authorization by setting a HTTP <code>401</code> (Unauthorized) status as well as the
      * response's {@link org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter#AUTHENTICATE_HEADER
      * AUTHENTICATE_HEADER}.
-     * 
+     *
      * @param protocols
      *            protocols for which to send a challenge. In initial cases, will be all supported protocols. In the
      *            midst of negotiation, will be only the protocol being negotiated.
-     * 
+     *
      * @param response
      *            outgoing ServletResponse
      * @param out
@@ -392,7 +364,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
             if (out == null || out.length == 0) {
                 response.addHeader("WWW-Authenticate", protocol);
             } else {
-                response.setHeader("WWW-Authenticate", protocol + " " + BaseEncoding.base64().encode(out));
+                response.setHeader("WWW-Authenticate", protocol + " " + Base64.getEncoder().encodeToString(out));
             }
         }
     }

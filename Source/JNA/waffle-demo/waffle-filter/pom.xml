@@ -1,101 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Waffle (https://github.com/Waffle/waffle)
+
+    Copyright (c) 2010-2018 Application Security, Inc.
+
+    All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+    Public License v1.0 which accompanies this distribution, and is available at
+    https://www.eclipse.org/legal/epl-v10.html.
+
+    Contributors: Application Security, Inc.
+
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
-        <groupId>com.github.dblock.waffle.demo</groupId>
+        <groupId>com.github.waffle.demo</groupId>
         <artifactId>waffle-demo-parent</artifactId>
-        <version>1.8.2-SNAPSHOT</version>
+        <version>1.9.1-SNAPSHOT</version>
     </parent>
+
     <artifactId>waffle-filter</artifactId>
-    <version>1.8.2-SNAPSHOT</version>
+    <version>1.9.1-SNAPSHOT</version>
     <packaging>war</packaging>
+
     <name>waffle-filter</name>
     <description>Filter Demo for WAFFLE</description>
-    <url>http://dblock.github.com/waffle/</url>
-    <properties>
-        <src.relative.loc>../..</src.relative.loc>
+    <url>https://waffle.github.com/waffle/</url>
 
-        <servlet.version>2.5</servlet.version>
-    </properties>
     <scm>
-        <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
-        <url>https://github.com/dblock/waffle</url>
+        <connection>scm:git:ssh://git@github.com/Waffle/waffle.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/Waffle/waffle.git</developerConnection>
+        <url>https://github.com/Waffle/waffle</url>
         <tag>HEAD</tag>
     </scm>
+
     <dependencies>
         <dependency>
-            <groupId>com.github.dblock.waffle</groupId>
-            <artifactId>waffle-tomcat6</artifactId>
+            <groupId>com.github.waffle</groupId>
+            <artifactId>waffle-tomcat7</artifactId>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>${servlet.version}</version>
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
+
     <build>
         <finalName>${project.name}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat6-maven-plugin</artifactId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
                 <configuration>
-<!-- requires matching block in .m2/settings.xml:
-            <servers>
-            ...
-                <server>
-                    <id>mylocalserver</id>
-                    <username>tomcat</username>
-                    <password>tomcat</password>
-                </server>
-
-                    Also requires user/perms in tomcat/conf/tomcat-users.xml:
-
-                      <role rolename="tomcat" />
-                      <user username="tomcat" password="tomcat" roles="tomcat,manager-gui,manager-script,manager-jmx,manager-status" />
-
-                    Note: To remote debug tomcat on port 8000, use: bin/catalina.sh jpda start
--->
                     <server>mylocalserver</server>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
-<!--
-Setup
-
-* To deploy to a local running tomcat 6 instance, make the following changes:
-
- 1. Add user/perms in tomcat/conf/tomcat-users.xml:
-
-                      <role rolename="tomcat" />
-                      <user username="tomcat" password="tomcat" roles="tomcat,manager-gui,manager-script,manager-jmx,manager-status" />
-
- 2. Add a server block to .m2/settings.xml:
-
-            <servers>
-            ...
-                <server>
-                    <id>mylocalserver</id>
-                    <username>tomcat</username>
-                    <password>tomcat</password>
-                </server>
-
- 3. Start your tomcat server. You can launch a locally installed tomcat with remote debugging enabled on port 8000 using:
-
-        apache-tomcat-6.0.43$ bin/catalina.sh jpda start
-
- 4. Build and Deploy the demo application to the local tomcat 6 instance using:
-
-        mvn clean package tomcat6:redeploy
-
-   The app will be available at:
-
-        http://localhost:8080/waffle-filter-demo/
-
--->
 </project>

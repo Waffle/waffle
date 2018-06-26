@@ -1,15 +1,20 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
 package waffle.shiro;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import com.sun.jna.platform.win32.Secur32.EXTENDED_NAME_FORMAT;
+import com.sun.jna.platform.win32.Secur32Util;
 
 import java.util.Collections;
 
@@ -18,13 +23,9 @@ import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.assertj.core.api.Assertions;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
-import com.sun.jna.platform.win32.Secur32.EXTENDED_NAME_FORMAT;
-import com.sun.jna.platform.win32.Secur32Util;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import waffle.mock.MockWindowsAuthProvider;
 
@@ -34,7 +35,7 @@ import waffle.mock.MockWindowsAuthProvider;
 public class GroupMappingWaffleRealmTests {
 
     /** The Constant ROLE_NAME. */
-    private static final String     ROLE_NAME = "ShiroUsers";
+    private static final String ROLE_NAME = "ShiroUsers";
 
     /** The windows auth provider. */
     private MockWindowsAuthProvider windowsAuthProvider;
@@ -45,7 +46,7 @@ public class GroupMappingWaffleRealmTests {
     /**
      * Sets the up.
      */
-    @Before
+    @BeforeEach
     public void setUp() {
         this.windowsAuthProvider = new MockWindowsAuthProvider();
         this.realm = new GroupMappingWaffleRealm();
@@ -61,35 +62,39 @@ public class GroupMappingWaffleRealmTests {
         final AuthenticationToken token = new UsernamePasswordToken(this.getCurrentUserName(), "somePassword");
         final AuthenticationInfo authcInfo = this.realm.getAuthenticationInfo(token);
         final PrincipalCollection principals = authcInfo.getPrincipals();
-        Assert.assertFalse(principals.isEmpty());
+        Assertions.assertFalse(principals.isEmpty());
         final Object primaryPrincipal = principals.getPrimaryPrincipal();
-        Assert.assertNotNull(primaryPrincipal);
-        Assertions.assertThat(primaryPrincipal).isInstanceOf(WaffleFqnPrincipal.class);
+        Assertions.assertNotNull(primaryPrincipal);
+        assertThat(primaryPrincipal).isInstanceOf(WaffleFqnPrincipal.class);
         final WaffleFqnPrincipal fqnPrincipal = (WaffleFqnPrincipal) primaryPrincipal;
-        Assertions.assertThat(fqnPrincipal.getFqn()).isEqualTo(this.getCurrentUserName());
-        Assertions.assertThat(fqnPrincipal.getGroupFqns()).contains("Users", "Everyone");
+        assertThat(fqnPrincipal.getFqn()).isEqualTo(this.getCurrentUserName());
+        assertThat(fqnPrincipal.getGroupFqns()).contains("Users", "Everyone");
         final Object credentials = authcInfo.getCredentials();
-        Assertions.assertThat(credentials).isInstanceOf(char[].class);
-        Assertions.assertThat(credentials).isEqualTo("somePassword".toCharArray());
-        Assert.assertTrue(this.realm.hasRole(principals, GroupMappingWaffleRealmTests.ROLE_NAME));
+        assertThat(credentials).isInstanceOf(char[].class);
+        assertThat(credentials).isEqualTo("somePassword".toCharArray());
+        Assertions.assertTrue(this.realm.hasRole(principals, GroupMappingWaffleRealmTests.ROLE_NAME));
     }
 
     /**
      * Test invalid username password.
      */
-    @Test(expected = AuthenticationException.class)
+    @Test
     public void testInvalidUsernamePassword() {
         final AuthenticationToken token = new UsernamePasswordToken("InvalidUser", "somePassword");
-        this.realm.getAuthenticationInfo(token);
+        Assertions.assertThrows(AuthenticationException.class, () -> {
+            this.realm.getAuthenticationInfo(token);
+        });
     }
 
     /**
      * Test guest username password.
      */
-    @Test(expected = AuthenticationException.class)
+    @Test
     public void testGuestUsernamePassword() {
         final AuthenticationToken token = new UsernamePasswordToken("Guest", "somePassword");
-        this.realm.getAuthenticationInfo(token);
+        Assertions.assertThrows(AuthenticationException.class, () -> {
+            this.realm.getAuthenticationInfo(token);
+        });
     }
 
     /**

@@ -7,16 +7,18 @@ if "%~1"=="" (
 
 call bootstrap.cmd
 
+copy README.md Source\JNA\src\site\markdown\README.md
+
 pushd "%~dp0"
 setlocal ENABLEEXTENSIONS ENABLEDELAYEDEXPANSION
 
 set ProgramFilesDir=%ProgramFiles%
 if NOT "%ProgramFiles(x86)%"=="" set ProgramFilesDir=%ProgramFiles(x86)%
 
-set VisualStudioCmd=%ProgramFilesDir%\Microsoft Visual Studio 12.0\VC\vcvarsall.bat
+set VisualStudioCmd=%ProgramFilesDir%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat
 if EXIST "%VisualStudioCmd%" call "%VisualStudioCmd%"
 
-set NUnitDir=Tools\NUnit.Runners
+set NUnitDir=.nuget\packages\NUnit.ConsoleRunner.3.5.0
 
 if EXIST "%NUnitDir%\tools" set NUnitBinDir=%NUnitDir%\tools
 

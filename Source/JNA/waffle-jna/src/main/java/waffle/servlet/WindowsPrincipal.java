@@ -1,11 +1,11 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
@@ -18,8 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.common.base.Joiner;
-
 import waffle.windows.auth.IWindowsAccount;
 import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.PrincipalFormat;
@@ -27,35 +25,35 @@ import waffle.windows.auth.WindowsAccount;
 
 /**
  * A Windows Principal.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsPrincipal implements Principal, Serializable {
 
     /** The Constant serialVersionUID. */
-    private static final long                 serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     /** The fqn. */
-    private final String                      fqn;
+    private final String fqn;
 
     /** The sid. */
-    private final byte[]                      sid;
+    private final byte[] sid;
 
     /** The sid string. */
-    private final String                      sidString;
+    private final String sidString;
 
     /** The roles. */
-    private final List<String>                roles;
+    private final List<String> roles;
 
     /** The identity. */
-    private transient IWindowsIdentity        identity;
+    private transient IWindowsIdentity identity;
 
     /** The groups. */
     private final Map<String, WindowsAccount> groups;
 
     /**
      * A windows principal.
-     * 
+     *
      * @param windowsIdentity
      *            Windows identity.
      */
@@ -65,7 +63,7 @@ public class WindowsPrincipal implements Principal, Serializable {
 
     /**
      * A windows principal.
-     * 
+     *
      * @param windowsIdentity
      *            Windows identity.
      * @param principalFormat
@@ -121,7 +119,7 @@ public class WindowsPrincipal implements Principal, Serializable {
 
     /**
      * Byte representation of the SID.
-     * 
+     *
      * @return Array of bytes.
      */
     public byte[] getSid() {
@@ -130,7 +128,7 @@ public class WindowsPrincipal implements Principal, Serializable {
 
     /**
      * String representation of the SID.
-     * 
+     *
      * @return String.
      */
     public String getSidString() {
@@ -139,7 +137,7 @@ public class WindowsPrincipal implements Principal, Serializable {
 
     /**
      * Windows groups that the user is a member of.
-     * 
+     *
      * @return A map of group names to groups.
      */
     public Map<String, WindowsAccount> getGroups() {
@@ -148,7 +146,7 @@ public class WindowsPrincipal implements Principal, Serializable {
 
     /**
      * Returns a list of role principal objects.
-     * 
+     *
      * @param group
      *            Windows group.
      * @param principalFormat
@@ -177,7 +175,7 @@ public class WindowsPrincipal implements Principal, Serializable {
 
     /**
      * Returns a list of user principal objects.
-     * 
+     *
      * @param windowsIdentity
      *            Windows identity.
      * @param principalFormat
@@ -207,16 +205,16 @@ public class WindowsPrincipal implements Principal, Serializable {
 
     /**
      * Get an array of roles as a string.
-     * 
+     *
      * @return Role1, Role2, ...
      */
     public String getRolesString() {
-        return Joiner.on(", ").join(this.roles);
+        return String.join(", ", this.roles);
     }
 
     /**
      * Checks whether the principal has a given role.
-     * 
+     *
      * @param role
      *            Role name.
      * @return True if the principal has a role, false otherwise.
@@ -227,7 +225,7 @@ public class WindowsPrincipal implements Principal, Serializable {
 
     /**
      * Fully qualified name.
-     * 
+     *
      * @return String.
      */
     @Override
@@ -237,26 +235,18 @@ public class WindowsPrincipal implements Principal, Serializable {
 
     /**
      * Underlying identity.
-     * 
+     *
      * @return String.
      */
     public IWindowsIdentity getIdentity() {
         return this.identity;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
         return this.getName();
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -270,10 +260,6 @@ public class WindowsPrincipal implements Principal, Serializable {
         return false;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#hashCode()
-     */
     @Override
     public int hashCode() {
         return this.getName().hashCode();

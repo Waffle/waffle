@@ -1,19 +1,17 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
 package waffle.util;
 
 import javax.servlet.http.HttpServletRequest;
-
-import com.google.common.base.Joiner;
 
 /**
  * The Class NtlmServletRequest.
@@ -23,15 +21,22 @@ import com.google.common.base.Joiner;
 public final class NtlmServletRequest {
 
     /**
+     * Instantiates a new ntlm servlet request.
+     */
+    private NtlmServletRequest() {
+        // Prevent Instantiation of object
+    }
+
+    /**
      * Returns a unique connection id for a given servlet request.
-     * 
+     *
      * @param request
      *            Servlet request.
      * @return String.
      */
     public static String getConnectionId(final HttpServletRequest request) {
-        return Joiner.on(":").useForNull("")
-                .join(NtlmServletRequest.getRemoteHost(request), Integer.valueOf(request.getRemotePort()));
+        final String remoteHost = NtlmServletRequest.getRemoteHost(request);
+        return String.join(":", remoteHost == null ? "" : remoteHost, String.valueOf(request.getRemotePort()));
     }
 
     /**
@@ -43,13 +48,6 @@ public final class NtlmServletRequest {
      */
     private static String getRemoteHost(final HttpServletRequest request) {
         return request.getRemoteHost() == null ? request.getRemoteAddr() : request.getRemoteHost();
-    }
-
-    /**
-     * Instantiates a new ntlm servlet request.
-     */
-    private NtlmServletRequest() {
-        // Prevent Instantiation of object
     }
 
 }

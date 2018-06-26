@@ -1,11 +1,11 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
@@ -28,10 +28,10 @@ public class WaffleFqnPrincipal implements Serializable {
     private static final long serialVersionUID = 1;
 
     /** The fqn. */
-    private final String      fqn;
+    private final String fqn;
 
     /** The group fqns. */
-    private final Set<String> groupFqns        = new HashSet<>();
+    private final Set<String> groupFqns = new HashSet<>();
 
     /**
      * Instantiates a new waffle fqn principal.
@@ -64,10 +64,6 @@ public class WaffleFqnPrincipal implements Serializable {
         return Collections.unmodifiableSet(this.groupFqns);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(final Object obj) {
         if (obj instanceof WaffleFqnPrincipal) {
@@ -76,19 +72,11 @@ public class WaffleFqnPrincipal implements Serializable {
         return false;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#hashCode()
-     */
     @Override
     public int hashCode() {
         return this.fqn.hashCode();
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
         final StringBuilder stringBuilder = new StringBuilder();

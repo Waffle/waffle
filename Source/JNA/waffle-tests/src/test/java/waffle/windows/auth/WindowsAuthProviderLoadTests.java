@@ -1,20 +1,28 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
 package waffle.windows.auth;
 
-import org.databene.contiperf.PerfTest;
-import org.databene.contiperf.junit.ContiPerfRule;
-import org.junit.Rule;
-import org.junit.Test;
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
+import org.junit.jupiter.api.Test;
+import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.Scope;
+import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.runner.Runner;
+import org.openjdk.jmh.runner.RunnerException;
+import org.openjdk.jmh.runner.options.Options;
+import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 /**
  * The Class WindowsAuthProviderLoadTests.
@@ -23,22 +31,40 @@ import org.junit.Test;
  */
 public class WindowsAuthProviderLoadTests {
 
-    /** The conti perf rule. */
-    @Rule
-    public ContiPerfRule                   contiPerfRule = new ContiPerfRule();
-
-    /** The tests. */
-    private final WindowsAuthProviderTests tests         = new WindowsAuthProviderTests();
-
     /**
-     * Test load.
+     * Launch load test.
      *
-     * @throws Throwable
-     *             the throwable
+     * @throws RunnerException
+     *             the runner exception
      */
     @Test
-    @PerfTest(invocations = 10, threads = 10)
-    public void testLoad() throws Throwable {
-        this.tests.testAcceptSecurityToken();
+    public void launchLoadTest() throws RunnerException {
+        final Options opt = new OptionsBuilder().threads(10).measurementIterations(10).build();
+        new Runner(opt).run();
     }
+
+    /**
+     * The Class St.
+     */
+    @State(Scope.Thread)
+    public static class St {
+
+        /** The tests. */
+        private final WindowsAuthProviderTests tests = new WindowsAuthProviderTests();
+
+        /**
+         * Benchmark.
+         *
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         * @throws ServletException
+         *             the servlet exception
+         */
+        @Benchmark
+        public void benchmark() throws IOException, ServletException {
+            this.tests.testAcceptSecurityToken();
+        }
+
+    }
+
 }

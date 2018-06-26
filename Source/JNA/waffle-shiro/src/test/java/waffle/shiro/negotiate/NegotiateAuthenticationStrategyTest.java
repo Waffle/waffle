@@ -1,11 +1,11 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
@@ -13,9 +13,9 @@ package waffle.shiro.negotiate;
 
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.realm.text.IniRealm;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class NegotiateAuthenticationStrategyTest.
@@ -30,19 +30,16 @@ public class NegotiateAuthenticationStrategyTest {
     /**
      * Sets the up.
      */
-    @Before
+    @BeforeEach
     public void setUp() {
         this.authStrategy = new NegotiateAuthenticationStrategy();
     }
 
     /**
      * Test after attempt.
-     *
-     * @throws Exception
-     *             the exception
      */
-    @Test(expected = AuthenticationInProgressException.class)
-    public void testAfterAttempt() throws Exception {
+    @Test
+    public void testAfterAttempt() {
 
         final Realm otherRealm = new IniRealm();
 
@@ -52,7 +49,10 @@ public class NegotiateAuthenticationStrategyTest {
 
         this.authStrategy.afterAttempt(otherRealm, null, null, null, authInProgressException);
 
-        this.authStrategy.afterAttempt(new NegotiateAuthenticationRealm(), null, null, null, authInProgressException);
-        Assert.fail();
+        final Throwable exception = Assertions.assertThrows(AuthenticationInProgressException.class, () -> {
+            this.authStrategy.afterAttempt(new NegotiateAuthenticationRealm(), null, null, null,
+                    authInProgressException);
+        });
+        Assertions.assertNull(exception.getMessage());
     }
 }

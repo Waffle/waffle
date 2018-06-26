@@ -1,23 +1,16 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
 package waffle.shiro.negotiate;
 
-/**
- * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateToken. see:
- * https://bitbucket.org/lothor/shiro-negotiate
- * /src/7b25efde130b/src/main/java/net/skorgenes/security/jsecurity/negotiate/NegotiateInfo.java?at=default
- *
- * @author Dan Rollo Date: 1/15/13 Time: 11:00 PM
- */
 import javax.security.auth.Subject;
 
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -26,7 +19,11 @@ import org.apache.shiro.subject.SimplePrincipalCollection;
 
 /**
  * Information about a user authenticated via the HTTP Negotiate authentication mechanism.
- * 
+ *
+ * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateToken. see:
+ * https://bitbucket.org/lothor/shiro-negotiate
+ * /src/7b25efde130b/src/main/java/net/skorgenes/security/jsecurity/negotiate/NegotiateInfo.java?at=default
+ *
  * @author Dan Rollo
  * @since 1.0.0
  */
@@ -36,14 +33,14 @@ public class NegotiateInfo implements AuthenticationInfo {
     private static final long serialVersionUID = -1537448549089922914L;
 
     /** The subject. */
-    private final Subject     subject;
+    private final Subject subject;
 
     /** The realm name. */
-    private final String      realmName;
+    private final String realmName;
 
     /**
      * Creates a new info object.
-     * 
+     *
      * @param newSubject
      *            a subject containing the authenticated users {@link waffle.servlet.WindowsPrincipal}.
      * @param newRealmName
@@ -56,7 +53,7 @@ public class NegotiateInfo implements AuthenticationInfo {
 
     /**
      * Creates a new principal collection using the subject as the principal.
-     * 
+     *
      * @return a new principal collection using the subject as the principal
      */
     @Override
@@ -66,7 +63,7 @@ public class NegotiateInfo implements AuthenticationInfo {
 
     /**
      * Returns the subject.
-     * 
+     *
      * @return the subject
      */
     @Override

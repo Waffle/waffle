@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Waffle (https://github.com/Waffle/waffle)
+
+    Copyright (c) 2010-2018 Application Security, Inc.
+
+    All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+    Public License v1.0 which accompanies this distribution, and is available at
+    https://www.eclipse.org/legal/epl-v10.html.
+
+    Contributors: Application Security, Inc.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.github.waffle</groupId>
+        <artifactId>waffle-parent</artifactId>
+        <version>1.9.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>waffle-spring-boot2</artifactId>
+    <version>1.9.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>waffle-spring-boot2</name>
+    <description>Sping Boot integration for WAFFLE</description>
+    <url>https://waffle.github.com/waffle/</url>
+
+    <scm>
+        <connection>scm:git:ssh://git@github.com/waffle/waffle.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/waffle/waffle.git</developerConnection>
+        <url>https://github.com/Waffle/waffle</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <properties>
+        <spring-boot.version>2.0.2.RELEASE</spring-boot.version>
+    </properties>
+
+    <modules>
+        <module>waffle-spring-boot-autoconfigure2</module>
+        <module>waffle-spring-boot-starter2</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>waffle-spring-security4</artifactId>
+                <version>${project.version}</version>
+                <scope>compile</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

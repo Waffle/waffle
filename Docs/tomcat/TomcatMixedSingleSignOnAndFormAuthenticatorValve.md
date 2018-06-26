@@ -8,7 +8,11 @@ Configuring Tomcat
 
 The following steps are required to configure Tomcat with Waffle Mixed Authenticator. 
 
-Package Waffle JARs, including `waffle-jna.jar`, `guava-18.0.jar`, `jna-4.2.0.jar`, `jna-platform-4.2.0.jar`, `slf4j*.jar` and `waffle-tomcat[tomcat version].jar` in the application's `lib` directory or copy them to your web server's lib. If you are using Eclipse, you can see which files tomcat is importing by going to Java Recources: `src / Libraries / Apache Tomcat vx.x`. If you've placed it in the tomcat directory and still don't see it, restart Eclipse.
+Place  `waffle-jna-1.8.2.jar`, `guava-20.0.jar`, `jna-4.2.2.jar`, `jna-platform-4.2.2.jar`, `slf4j-1.7.22.jar` and `waffle-tomcat[tomcat version]-1.8.2.jar` into your Tomcat's `lib` directory. It is *not* possible to place these files in `WEB-INF\lib`!
+
+- For latest snapshot instead use `waffle-jna-1.9.0-SNAPSHOT`, `caffeine-2.3.5.jar`, `jna-4.3.0.jar`, `jna-platform-4.3.0.jar`, `slf4j-1.7.22.jar` and `waffle-tomcat[tomcat version]-1.9.0-SNAPSHOT.jar`
+
+If you are using Eclipse, you can see which files tomcat is importing by going to Java Recources: `src / Libraries / Apache Tomcat vx.x`. If you've placed it in the tomcat directory and still don't see it, restart Eclipse.
 
 Add a valve and a realm to the application context. For an application, modify `META-INF\context.xml`. 
 
@@ -106,7 +110,9 @@ Restart Tomcat and review `logs\Catalina*.log`.
 Waffle Mixed Authenticator Demo
 -------------------------------
 
-A demo application can be found in the Waffle distribution in the `Samples\waffle-mixed` directory. Copy the entire directory into Tomcat's webapps directory and navigate to http://localhost:8080/waffle-mixed/. Pick your method of login. 
+A demo application `waffle-mixed-[version].war` can be found in the Waffle distribution in the `Samples` directory. Copy the `war` file into Tomcat's webapps directory and navigate to http://localhost:8080/waffle-mixed/. Pick your method of login. 
+
+Make sure you have added the JARs to Tomcat's `lib` directory as described at the top!
 
 Valve Options
 -------------

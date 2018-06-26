@@ -1,11 +1,11 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
@@ -14,7 +14,7 @@ package waffle.servlet.spi;
 import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Base64;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,8 +22,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.io.BaseEncoding;
 
 import waffle.util.AuthorizationHeader;
 import waffle.util.NtlmServletRequest;
@@ -33,29 +31,28 @@ import waffle.windows.auth.IWindowsSecurityContext;
 
 /**
  * A negotiate security filter provider.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
     /** The Constant LOGGER. */
-    private static final Logger        LOGGER           = LoggerFactory
-                                                                .getLogger(NegotiateSecurityFilterProvider.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(NegotiateSecurityFilterProvider.class);
 
     /** The Constant WWW_AUTHENTICATE. */
-    private static final String        WWW_AUTHENTICATE = "WWW-Authenticate";
+    private static final String WWW_AUTHENTICATE = "WWW-Authenticate";
 
     /** The Constant PROTOCOLS. */
-    private static final String        PROTOCOLS        = "protocols";
+    private static final String PROTOCOLS = "protocols";
 
     /** The Constant NEGOTIATE. */
-    private static final String        NEGOTIATE        = "Negotiate";
+    private static final String NEGOTIATE = "Negotiate";
 
     /** The Constant NTLM. */
-    private static final String        NTLM             = "NTLM";
+    private static final String NTLM = "NTLM";
 
     /** The protocols. */
-    private List<String>               protocols        = new ArrayList<>();
+    private List<String> protocols = new ArrayList<>();
 
     /** The auth. */
     private final IWindowsAuthProvider auth;
@@ -91,22 +88,13 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
         this.protocols = values;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.servlet.spi.SecurityFilterProvider#sendUnauthorized(javax.servlet.http.HttpServletResponse)
-     */
     @Override
     public void sendUnauthorized(final HttpServletResponse response) {
-        final Iterator<String> protocolsIterator = this.protocols.iterator();
-        while (protocolsIterator.hasNext()) {
-            response.addHeader(NegotiateSecurityFilterProvider.WWW_AUTHENTICATE, protocolsIterator.next());
+        for (final String protocol : this.protocols) {
+            response.addHeader(NegotiateSecurityFilterProvider.WWW_AUTHENTICATE, protocol);
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.servlet.spi.SecurityFilterProvider#isPrincipalException(javax.servlet.http.HttpServletRequest)
-     */
     @Override
     public boolean isPrincipalException(final HttpServletRequest request) {
         final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
@@ -116,11 +104,6 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
         return ntlmPost;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.servlet.spi.SecurityFilterProvider#doFilter(javax.servlet.http.HttpServletRequest,
-     * javax.servlet.http.HttpServletResponse)
-     */
     @Override
     public IWindowsIdentity doFilter(final HttpServletRequest request, final HttpServletResponse response)
             throws IOException {
@@ -146,14 +129,14 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
         final byte[] continueTokenBytes = securityContext.getToken();
         if (continueTokenBytes != null && continueTokenBytes.length > 0) {
-            final String continueToken = BaseEncoding.base64().encode(continueTokenBytes);
+            final String continueToken = Base64.getEncoder().encodeToString(continueTokenBytes);
             NegotiateSecurityFilterProvider.LOGGER.debug("continue token: {}", continueToken);
             response.addHeader(NegotiateSecurityFilterProvider.WWW_AUTHENTICATE, securityPackage + " " + continueToken);
         }
 
         NegotiateSecurityFilterProvider.LOGGER.debug("continue required: {}",
                 Boolean.valueOf(securityContext.isContinue()));
-        if (securityContext.isContinue() || ntlmPost) {
+        if (securityContext.isContinue()) {
             response.setHeader("Connection", "keep-alive");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.flushBuffer();
@@ -165,10 +148,6 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
         return identity;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.servlet.spi.SecurityFilterProvider#isSecurityPackageSupported(java.lang.String)
-     */
     @Override
     public boolean isSecurityPackageSupported(final String securityPackage) {
         for (final String protocol : this.protocols) {
@@ -179,21 +158,17 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
         return false;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.servlet.spi.SecurityFilterProvider#initParameter(java.lang.String, java.lang.String)
-     */
     @Override
     public void initParameter(final String parameterName, final String parameterValue) {
-        if (parameterName.equals(NegotiateSecurityFilterProvider.PROTOCOLS)) {
+        if (NegotiateSecurityFilterProvider.PROTOCOLS.equals(parameterName)) {
             this.protocols = new ArrayList<>();
             final String[] protocolNames = parameterValue.split("\\s+");
             for (String protocolName : protocolNames) {
                 protocolName = protocolName.trim();
                 if (protocolName.length() > 0) {
                     NegotiateSecurityFilterProvider.LOGGER.debug("init protocol: {}", protocolName);
-                    if (protocolName.equals(NegotiateSecurityFilterProvider.NEGOTIATE)
-                            || protocolName.equals(NegotiateSecurityFilterProvider.NTLM)) {
+                    if (NegotiateSecurityFilterProvider.NEGOTIATE.equals(protocolName)
+                            || NegotiateSecurityFilterProvider.NTLM.equals(protocolName)) {
                         this.protocols.add(protocolName);
                     } else {
                         NegotiateSecurityFilterProvider.LOGGER.error("unsupported protocol: {}", protocolName);

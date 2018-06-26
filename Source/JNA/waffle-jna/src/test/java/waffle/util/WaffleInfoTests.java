@@ -1,26 +1,26 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
 package waffle.util;
 
+import com.sun.jna.Platform;
+
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import com.sun.jna.Platform;
 
 import waffle.windows.auth.IWindowsAccount;
 import waffle.windows.auth.IWindowsAuthProvider;
@@ -45,33 +45,33 @@ public class WaffleInfoTests {
         final Document info = helper.getWaffleInfo();
 
         // Make sure JNA Version is properly noted
-        Assert.assertEquals(Platform.class.getPackage().getImplementationVersion(), info.getDocumentElement()
-                .getAttribute("jna"));
+        Assertions.assertEquals(Platform.class.getPackage().getImplementationVersion(),
+                info.getDocumentElement().getAttribute("jna"));
 
         // waffle auth currentUser computer
         final Node node = info.getDocumentElement().getFirstChild().getFirstChild().getNextSibling();
 
-        Assert.assertEquals("computer", node.getNodeName());
+        Assertions.assertEquals("computer", node.getNodeName());
 
         final IWindowsAuthProvider auth = new WindowsAuthProviderImpl();
         final IWindowsComputer computer = auth.getCurrentComputer();
 
         final NodeList nodes = node.getChildNodes();
-        Assert.assertEquals(computer.getComputerName(), nodes.item(0).getTextContent());
-        Assert.assertEquals(computer.getMemberOf(), nodes.item(1).getTextContent());
-        Assert.assertEquals(computer.getJoinStatus(), nodes.item(2).getTextContent());
+        Assertions.assertEquals(computer.getComputerName(), nodes.item(0).getTextContent());
+        Assertions.assertEquals(computer.getMemberOf(), nodes.item(1).getTextContent());
+        Assertions.assertEquals(computer.getJoinStatus(), nodes.item(2).getTextContent());
 
         // Add Lookup Info for Various accounts
         String lookup = WindowsAccountImpl.getCurrentUsername();
         final IWindowsAccount account = new WindowsAccountImpl(lookup);
         Element elem = helper.getLookupInfo(info, lookup);
-        Assert.assertEquals(lookup, elem.getAttribute("name"));
-        Assert.assertEquals(account.getName(), elem.getFirstChild().getTextContent());
+        Assertions.assertEquals(lookup, elem.getAttribute("name"));
+        Assertions.assertEquals(account.getName(), elem.getFirstChild().getTextContent());
 
         // Report an error when unknown name
         lookup = "__UNKNOWN_ACCOUNT_NAME___";
         elem = helper.getLookupInfo(info, lookup);
-        Assert.assertEquals(lookup, elem.getAttribute("name"));
-        Assert.assertEquals("exception", elem.getFirstChild().getNodeName());
+        Assertions.assertEquals(lookup, elem.getAttribute("name"));
+        Assertions.assertEquals("exception", elem.getFirstChild().getNodeName());
     }
 }

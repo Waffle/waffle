@@ -6,11 +6,11 @@ This is a guide for WAFFLE developers hoping to publish a release to Maven Centr
 Building with Maven
 -------------------
 
-In order to build with [Maven][], you'll need Java 6+ and [Maven][] 3.2.1+.  Download and install them, and then run `mvn --version` to check that it's working.  If you don't already have it, also get Git and a clone of the WAFFLE repository.  Once you have this, run `mvn package` in the `Source/JNA/waffle-parent` directory.  This command compiles, unit tests, and JARs all of the WAFFLE components that are currently Maven-enabled.
+In order to build with [Maven][], you'll need Java 7+ and [Maven][] 3.3.9+.  Download and install them, and then run `mvn --version` to check that it's working.  If you don't already have it, also get Git and a clone of the WAFFLE repository.  Once you have this, run `mvn package` in the `Source/JNA/waffle-parent` directory.  This command compiles, unit tests, and JARs all of the WAFFLE components that are currently Maven-enabled.
 
 If you don't want to run the unit tests (which can be useful if you're trying to compile on a non-Windows platform), use `mvn package -DskipTests=true` instead.  This isn't recommended for release builds.
 
-For local testing, you can use `mvn install`.  This packages the components and installs the resulting JARs into a repository local to your machine, but doesn't publish them anywhere else.  For more information on building software with Maven, see the [Running Maven](http://maven.apache.org/run-maven/index.html).
+For local testing, you can use `mvn install`.  This packages the components and installs the resulting JARs into a repository local to your machine, but doesn't publish them anywhere else.  For more information on building software with Maven, see the [Running Maven](https://maven.apache.org/run-maven/index.html).
 
 One-Time Release Setup
 ----------------------
@@ -48,7 +48,7 @@ with error 'Could not open a connection to your authentication agent' but the ag
 Deploying Snapshots
 -------------------
 
-Snapshot versions allow sharing code that is under development (not yet released).  These versions may change over time (unlike released versions) and are not published to Maven Central.  To use a snapshot version, a user will need to configure their build tool to use the correct snapshot repository, which in this case is `https://oss.sonatype.org/content/repositories/snapshots/`.  See the [POM Syntax](http://www.sonatype.com/books/mvnref-book/reference/pom-relationships-sect-pom-syntax.html) from Maven: The Complete Reference for more information.
+Snapshot versions allow sharing code that is under development (not yet released).  These versions may change over time (unlike released versions) and are not published to Maven Central.  To use a snapshot version, a user will need to configure their build tool to use the correct snapshot repository, which in this case is `https://oss.sonatype.org/content/repositories/snapshots/`.  See the [POM Syntax](https://www.sonatype.com/books/mvnref-book/reference/pom-relationships-sect-pom-syntax.html) from Maven: The Complete Reference for more information.
 
 To publish a snapshot, run `mvn clean deploy`.  See section 7a.2 of the [Sonatype OSS Maven Repository Usage Guide][OSSGuide] for more information.
 
@@ -57,7 +57,7 @@ Releasing to Maven Central
 
 Releasing to Maven Central via the Sonatype OSS Repository is a two-phase process.  First, you assemble the desired artifacts in a staging repository, then you finalize the release.  The relevant sections of the [Sonatype OSS Maven Repository Usage Guide][OSSGuide] are 7a.3 and 8a.
 
-To build the artifacts and upload them to a new staging repository, run the following commands.  These make use of the [Maven Release Plugin][maven-release-plugin], which is rather complex.  It will prompt you for various information related to the release, modify the POM files to update the version, and perform Git operations on your behalf.  It is recommended to read its documentation before proceeding, and consider doing a dry run (as documented in the [usage page](http://maven.apache.org/plugins/maven-release-plugin/usage.html)) before proceeding with the actual release.
+To build the artifacts and upload them to a new staging repository, run the following commands.  These make use of the [Maven Release Plugin][maven-release-plugin], which is rather complex.  It will prompt you for various information related to the release, modify the POM files to update the version, and perform Git operations on your behalf.  It is recommended to read its documentation before proceeding, and consider doing a dry run (as documented in the [usage page](https://maven.apache.org/plugins/maven-release-plugin/usage.html) before proceeding with the actual release.
 
 *** DO NOT USE ECLIPSE TO RUN THESE AS IT HANGS, USE COMMAND LINE ***
 
@@ -111,7 +111,7 @@ Deploy the site pages off waffle-parent pom by running.
 Deploy will use ssh to perform the deployment.  This takes some time.  Be patient!!!
 
 [OSSGuide]: http://central.sonatype.org/pages/ossrh-guide.html
-[Maven]: http://maven.apache.org/
-[gpg]: http://www.gnupg.org/
-[maven-release-plugin]: http://maven.apache.org/plugins/maven-release-plugin/
+[Maven]: https://maven.apache.org/
+[gpg]: https://www.gnupg.org/
+[maven-release-plugin]: https://maven.apache.org/plugins/maven-release-plugin/
 [github-ssh-keys]: https://help.github.com/articles/generating-ssh-keys/

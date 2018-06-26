@@ -1,11 +1,11 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
@@ -21,8 +21,10 @@ import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.LifecycleException;
 import org.apache.catalina.authenticator.AuthenticatorBase;
 import org.apache.catalina.connector.Request;
+import org.apache.catalina.realm.GenericPrincipal;
 import org.slf4j.Logger;
 
 import waffle.windows.auth.IWindowsAuthProvider;
@@ -41,29 +43,51 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
     private static final Set<String> SUPPORTED_PROTOCOLS = new LinkedHashSet<>(Arrays.asList("Negotiate", "NTLM"));
 
     /** The info. */
-    protected String                 info;
+    protected String info;
 
     /** The log. */
-    protected Logger                 log;
+    protected Logger log;
 
     /** The principal format. */
-    protected PrincipalFormat        principalFormat     = PrincipalFormat.FQN;
+    protected PrincipalFormat principalFormat = PrincipalFormat.FQN;
 
     /** The role format. */
-    protected PrincipalFormat        roleFormat          = PrincipalFormat.FQN;
+    protected PrincipalFormat roleFormat = PrincipalFormat.FQN;
 
     /** The allow guest login. */
-    protected boolean                allowGuestLogin     = true;
+    protected boolean allowGuestLogin = true;
 
     /** The protocols. */
-    protected Set<String>            protocols           = WaffleAuthenticatorBase.SUPPORTED_PROTOCOLS;
+    protected Set<String> protocols = WaffleAuthenticatorBase.SUPPORTED_PROTOCOLS;
+
+    /** The auth continueContextsTimeout configuration. */
+    protected int continueContextsTimeout = WindowsAuthProviderImpl.CONTINUE_CONTEXT_TIMEOUT;
 
     /** The auth. */
-    protected IWindowsAuthProvider   auth                = new WindowsAuthProviderImpl();
+    protected IWindowsAuthProvider auth;
+
+    /**
+     * Gets the continue context time out configuration.
+     *
+     * @return the continue contexts timeout
+     */
+    public int getContinueContextsTimeout() {
+        return this.continueContextsTimeout;
+    }
+
+    /**
+     * Sets the continue context time out configuration.
+     *
+     * @param continueContextsTimeout
+     *            the new continue contexts timeout
+     */
+    public void setContinueContextsTimeout(final int continueContextsTimeout) {
+        this.continueContextsTimeout = continueContextsTimeout;
+    }
 
     /**
      * Windows authentication provider.
-     * 
+     *
      * @return IWindowsAuthProvider.
      */
     public IWindowsAuthProvider getAuth() {
@@ -72,7 +96,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
     /**
      * Set Windows auth provider.
-     * 
+     *
      * @param provider
      *            Class implements IWindowsAuthProvider.
      */
@@ -91,7 +115,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
     /**
      * Set the principal format.
-     * 
+     *
      * @param format
      *            Principal format.
      */
@@ -102,7 +126,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
     /**
      * Principal format.
-     * 
+     *
      * @return Principal format.
      */
     public PrincipalFormat getPrincipalFormat() {
@@ -111,7 +135,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
     /**
      * Set the principal format.
-     * 
+     *
      * @param format
      *            Role format.
      */
@@ -122,7 +146,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
     /**
      * Principal format.
-     * 
+     *
      * @return Role format.
      */
     public PrincipalFormat getRoleFormat() {
@@ -131,7 +155,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
     /**
      * True if Guest login permitted.
-     * 
+     *
      * @return True if Guest login permitted, false otherwise.
      */
     public boolean isAllowGuestLogin() {
@@ -141,7 +165,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
     /**
      * Set whether Guest login is permitted. Default is true, if the Guest account is enabled, an invalid
      * username/password results in a Guest login.
-     * 
+     *
      * @param value
      *            True or false.
      */
@@ -151,7 +175,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
     /**
      * Set the authentication protocols. Default is "Negotiate, NTLM".
-     * 
+     *
      * @param value
      *            Authentication protocols
      */
@@ -174,7 +198,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
     /**
      * Send a 401 Unauthorized along with protocol authentication headers.
-     * 
+     *
      * @param response
      *            HTTP Response
      */
@@ -193,7 +217,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 
     /**
      * Send an error code.
-     * 
+     *
      * @param response
      *            HTTP Response
      * @param code
@@ -209,20 +233,11 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.catalina.authenticator.AuthenticatorBase#getAuthMethod()
-     */
     @Override
     protected String getAuthMethod() {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.catalina.authenticator.AuthenticatorBase#doLogin(org.apache.catalina.connector.Request,
-     * java.lang.String, java.lang.String)
-     */
     @Override
     protected Principal doLogin(final Request request, final String username, final String password)
             throws ServletException {
@@ -242,13 +257,38 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
         }
         try {
             this.log.debug("successfully logged in {} ({})", username, windowsIdentity.getSidString());
-            final GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(windowsIdentity,
-                    this.principalFormat, this.roleFormat);
-            this.log.debug("roles: {}", windowsPrincipal.getRolesString());
-            return windowsPrincipal;
+            final GenericPrincipal genericPrincipal = this.createPrincipal(windowsIdentity);
+            this.log.debug("roles: {}", String.join(", ", genericPrincipal.getRoles()));
+            return genericPrincipal;
         } finally {
             windowsIdentity.dispose();
         }
+    }
+
+    /**
+     * This method will create an instance of a IWindowsIdentity based GenericPrincipal. It is used for creating custom
+     * implementation within subclasses.
+     *
+     * @param windowsIdentity
+     *            the windows identity to initialize the principal
+     * @return the Generic Principal
+     */
+    protected GenericPrincipal createPrincipal(final IWindowsIdentity windowsIdentity) {
+        return new GenericWindowsPrincipal(windowsIdentity, this.principalFormat, this.roleFormat);
+    }
+
+    /**
+     * Hook to the start and to set up the dependencies.
+     *
+     * @throws LifecycleException
+     *             the lifecycle exception
+     */
+    @Override
+    protected synchronized void startInternal() throws LifecycleException {
+        this.log.debug("Creating a windows authentication provider with continueContextsTimeout property set to: {}",
+                this.continueContextsTimeout);
+        this.auth = new WindowsAuthProviderImpl(this.continueContextsTimeout);
+        super.startInternal();
     }
 
 }

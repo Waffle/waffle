@@ -15,15 +15,15 @@ Development Environment
 
 ### Git
 
-Download Git from [here](http://git-scm.com/downloads). During the installation, the wizard will offer to adjust your `PATH` environment. Select the second option "Run Git from the Windows Command Prompt".
+Download Git from [here](https://git-scm.com/downloads). During the installation, the wizard will offer to adjust your `PATH` environment. Select the second option "Run Git from the Windows Command Prompt".
 
 ### Java
 
-Download and install the JDK from [here](http://www.oracle.com/technetwork/java/javase/downloads/index.html). Set `JAVA_HOME` to the location of the JDK in your computer's environment settings.
+Download and install the JDK from [here](https://www.oracle.com/technetwork/java/javase/downloads/index.html). Set `JAVA_HOME` to the location of the JDK in your computer's environment settings.
 
 ### Maven
 
-Download Maven from [here](http://maven.apache.org/download.cgi) and unzip it to a directory of your choosing, eg. `c:\maven`. Add the `bin` directory to `PATH`, eg. `c:\maven\bin`. You should be able to type `mvn` on the command prompt.
+Download Maven from [here](https://maven.apache.org/download.cgi) and unzip it to a directory of your choosing, eg. `c:\maven`. Add the `bin` directory to `PATH`, eg. `c:\maven\bin`. You should be able to type `mvn` on the command prompt.
 
 ### Microsoft Visual Studio 2013
 
@@ -31,23 +31,27 @@ Visual Studio is not required, but useful when editing .NET code. At the least, 
 
 ### Windows SDK (Windows 7)
 
-Windows 7 SDK can be found [here](http://www.microsoft.com/en-us/download/details.aspx?id=8279)
+Windows 7 SDK can be found [here](https://www.microsoft.com/en-us/download/details.aspx?id=8279)
 
 ### Windows SDK (Windows 8.1)
 
-Windows 8.1 SDK can be found [here](http://msdn.microsoft.com/en-us/windows/desktop/bg162891.aspx)
+Windows 8.1 SDK can be found [here](https://msdn.microsoft.com/en-us/windows/desktop/bg162891.aspx)
 
-### NUnit
+### Windows SDK (Windows 10)
 
-Download NUnit from [here](http://nunit.org).
+Windows 10 SDK can be found [here](https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk)
+
+### NUnit (3.5.0)
+
+Download NUnit from [here](https://nunit.org).
 
 ### MSBuild Community Tasks
 
 Download and install MSBuild Community Tasks from [here](https://github.com/loresoft/msbuildtasks/releases).
 
-### Wix Toolset 3.9
+### Wix Toolset 3.10.3
 
-Download and install the Wix toolset, specifically version 3.9 R2 from [here](https://wix.codeplex.com/releases/view/610859).
+Download and install the Wix toolset from [here](https://wix.codeplex.com/releases/view/624906).
 
 Building the Project the First Time
 -----------------------------------
@@ -58,7 +62,7 @@ If you are running on Windows Vista or later, you'll want to run the command pro
 c:\source\Waffle\master> build all
 ```
 
-This downloads thirdparty libraries using Maven, builds both Debug and Release .NET binaries, all Java code, runs tests and packages a release .zip in the `target` directory.
+This downloads thirdparty libraries using Maven/nuget, builds both Debug and Release .NET binaries, all Java code, runs tests and packages a release .zip in the `target` directory.
 
 Using Visual Studio
 -------------------

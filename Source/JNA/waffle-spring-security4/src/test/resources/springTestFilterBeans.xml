@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Waffle (https://github.com/Waffle/waffle)
+
+    Copyright (c) 2010-2016 Application Security, Inc.
+
+    All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+    Public License v1.0 which accompanies this distribution, and is available at
+    https://www.eclipse.org/legal/epl-v10.html.
+
+    Contributors: Application Security, Inc.
+
+-->
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
 
     <!-- windows authentication provider -->
     <bean id="waffleWindowsAuthProvider" class="waffle.mock.MockWindowsAuthProvider" />
@@ -40,4 +53,15 @@
         <property name="principalFormat" value="fqn" />
         <property name="roleFormat" value="both" />
     </bean>
+
+    <bean id="waffleDelegatingNegotiateSecurityFilter" class="waffle.spring.DelegatingNegotiateSecurityFilter">
+        <property name="provider" ref="waffleSecurityFilterProviderCollection" />
+        <property name="allowGuestLogin" value="false" />
+        <property name="principalFormat" value="fqn" />
+        <property name="roleFormat" value="both" />
+        <property name="accessDeniedHandler" ref="customAccessDeniedHandler"/>
+    </bean>
+
+    <!-- custom access denied handler -->
+    <bean id="customAccessDeniedHandler" class="waffle.spring.handlers.CustomAccessDeniedHandler" />
 </beans>

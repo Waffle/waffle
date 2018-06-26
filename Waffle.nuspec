@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Waffle.AD</id>
+    <version>1.8.3</version>
+    <authors>Daniel Doubrovkine &amp; Jeremy Landis</authors>
+    <owners>Daniel Doubrovkine</owners>
+    <licenseUrl>https://github.com/Waffle/waffle/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://waffle.github.io/waffle/</projectUrl>
+    <iconUrl>https://github.com/Waffle/waffle/blob/master/waffle.jpg</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Enable drop-in Windows Single Sign On for popular Java web servers.</description>
+    <releaseNotes>Add nuget package</releaseNotes>
+    <copyright>Copyright (c) Application Security Inc.2010-2017 and Contributors.</copyright>
+    <tags>sspi kerberos negotiate ntlm authentication</tags>
+    <dependencies>
+      <dependency id="NUnit" version="3.5.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="target\Release\Waffle\Bin\*.dll" target="lib\Waffle.Windows.AuthProvider.dll" />
+  </files>
+</package>

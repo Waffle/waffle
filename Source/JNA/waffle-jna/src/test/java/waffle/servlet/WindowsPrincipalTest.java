@@ -1,21 +1,22 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
 package waffle.servlet;
 
-import org.junit.Assert;
-import org.junit.Test;
-
 import mockit.Expectations;
 import mockit.Mocked;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import waffle.windows.auth.IWindowsAccount;
 import waffle.windows.auth.IWindowsIdentity;
 
@@ -31,14 +32,14 @@ public class WindowsPrincipalTest {
 
     /** The windows identity. */
     @Mocked
-    IWindowsIdentity            windowsIdentity;
+    IWindowsIdentity windowsIdentity;
 
     /**
      * Test to string.
      */
     @Test
     public void testToString() {
-        Assert.assertNotNull(new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 WindowsPrincipalTest.this.windowsIdentity.getFqn();
                 this.result = WindowsPrincipalTest.TEST_FQN;
@@ -47,8 +48,8 @@ public class WindowsPrincipalTest {
             }
         });
         final WindowsPrincipal principal = new WindowsPrincipal(this.windowsIdentity);
-        Assert.assertEquals(WindowsPrincipalTest.TEST_FQN, principal.getName());
-        Assert.assertEquals(WindowsPrincipalTest.TEST_FQN, principal.toString());
+        Assertions.assertEquals(WindowsPrincipalTest.TEST_FQN, principal.getName());
+        Assertions.assertEquals(WindowsPrincipalTest.TEST_FQN, principal.toString());
     }
 
     /**
@@ -56,7 +57,7 @@ public class WindowsPrincipalTest {
      */
     @Test
     public void testEqualsAndHashCode() {
-        Assert.assertNotNull(new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 WindowsPrincipalTest.this.windowsIdentity.getFqn();
                 this.result = WindowsPrincipalTest.TEST_FQN;
@@ -64,11 +65,11 @@ public class WindowsPrincipalTest {
                 this.result = new IWindowsAccount[0];
             }
         });
-        WindowsPrincipal principal = new WindowsPrincipal(this.windowsIdentity);
-        WindowsPrincipal principal2 = new WindowsPrincipal(this.windowsIdentity);
-        Assert.assertTrue(principal.equals(principal2) && principal2.equals(principal));
-        Assert.assertEquals(principal.hashCode(), principal2.hashCode());
-        Assert.assertEquals(principal.hashCode(), WindowsPrincipalTest.TEST_FQN.hashCode());
+        final WindowsPrincipal principal = new WindowsPrincipal(this.windowsIdentity);
+        final WindowsPrincipal principal2 = new WindowsPrincipal(this.windowsIdentity);
+        Assertions.assertTrue(principal.equals(principal2) && principal2.equals(principal));
+        Assertions.assertEquals(principal.hashCode(), principal2.hashCode());
+        Assertions.assertEquals(principal.hashCode(), WindowsPrincipalTest.TEST_FQN.hashCode());
     }
 
 }

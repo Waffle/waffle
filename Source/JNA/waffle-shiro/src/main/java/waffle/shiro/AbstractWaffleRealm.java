@@ -1,11 +1,11 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
@@ -39,19 +39,14 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 public abstract class AbstractWaffleRealm extends AuthorizingRealm {
 
     /** The Constant LOGGER. */
-    private static final Logger  LOGGER     = LoggerFactory.getLogger(AbstractWaffleRealm.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractWaffleRealm.class);
 
     /** The Constant REALM_NAME. */
-    private static final String  REALM_NAME = "WAFFLE";
+    private static final String REALM_NAME = "WAFFLE";
 
     /** The provider. */
-    private IWindowsAuthProvider provider   = new WindowsAuthProviderImpl();
+    private IWindowsAuthProvider provider = new WindowsAuthProviderImpl();
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.apache.shiro.realm.AuthenticatingRealm#doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)
-     */
     @Override
     protected final AuthenticationInfo doGetAuthenticationInfo(final AuthenticationToken authToken) {
         AuthenticationInfo authenticationInfo = null;
@@ -105,10 +100,6 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
         return authenticationInfo;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.shiro.realm.AuthorizingRealm#doGetAuthorizationInfo(org.apache.shiro.subject.PrincipalCollection)
-     */
     @Override
     protected final AuthorizationInfo doGetAuthorizationInfo(final PrincipalCollection principals) {
         final WaffleFqnPrincipal principal = principals.oneByType(WaffleFqnPrincipal.class);
@@ -117,7 +108,7 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
 
     /**
      * Assembles the appropriate authorization information for the specified principal.
-     * 
+     *
      * @param principal
      *            the principal for which to assemble authorization information
      * @return the authorization information for the specified principal
@@ -127,7 +118,7 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
     /**
      * Allow overriding the default implementation of {@link IWindowsAuthProvider} This is only needed for testing,
      * since for normal usage the default is what you want.
-     * 
+     *
      * @param value
      *            the windows authorization provider
      */

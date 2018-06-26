@@ -1,35 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Waffle (https://github.com/Waffle/waffle)
+
+    Copyright (c) 2010-2018 Application Security, Inc.
+
+    All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+    Public License v1.0 which accompanies this distribution, and is available at
+    https://www.eclipse.org/legal/epl-v10.html.
+
+    Contributors: Application Security, Inc.
+
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
-        <groupId>com.github.dblock.waffle</groupId>
+        <groupId>com.github.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
-        <version>1.8.2-SNAPSHOT</version>
+        <version>1.9.1-SNAPSHOT</version>
     </parent>
+
     <artifactId>waffle-jetty</artifactId>
-    <version>1.8.2-SNAPSHOT</version>
+    <version>1.9.1-SNAPSHOT</version>
     <packaging>jar</packaging>
+
     <name>waffle-jetty</name>
     <description>Jetty integration for WAFFLE</description>
-    <url>http://dblock.github.com/waffle/</url>
-    <properties>
-        <src.relative.loc>..</src.relative.loc>
+    <url>https://waffle.github.com/waffle/</url>
 
-        <el.version>3.0.1-b08</el.version>
-        <el-api.version>3.0.1-b04</el-api.version>
-        <jetty.version>9.3.7.v20160115</jetty.version>
-        <jdt.version>4.4.2</jdt.version>
-        <jsp.version>2.3.3-b02</jsp.version>
-        <jsp-api.version>2.3.2-b01</jsp-api.version>
-        <jstl.version>1.2.4</jstl.version>
-        <slf4j.version>1.7.16</slf4j.version>
-    </properties>
     <scm>
-        <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
-        <url>https://github.com/dblock/waffle</url>
+        <connection>scm:git:ssh://git@github.com/waffle/waffle.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/waffle/waffle.git</developerConnection>
+        <url>https://github.com/Waffle/waffle</url>
         <tag>HEAD</tag>
     </scm>
+
+    <properties>
+        <el.version>3.0.1-b10</el.version>
+        <el-api.version>3.0.1-b04</el-api.version>
+        <jetty.version>9.4.10.v20180503</jetty.version>
+        <jdt.version>3.13.102</jdt.version>
+        <jsp.version>2.3.3-b03</jsp.version>
+        <jsp-api.version>2.3.2-b02</jsp-api.version>
+        <jstl.version>1.2.5-b03</jstl.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -41,11 +57,33 @@
             <groupId>org.eclipse.jetty.aggregate</groupId>
             <artifactId>jetty-all</artifactId>
             <version>${jetty.version}</version>
+            <type>pom</type>
             <scope>provided</scope>
-            <classifier>uber</classifier>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.eclipse.jetty.orbit</groupId>
+                    <artifactId>javax.activation</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.jdt.core.compiler</groupId>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>apache-jsp</artifactId>
+            <version>${jetty.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.mortbay.jasper</groupId>
+                    <artifactId>apache-jsp</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.mortbay.jasper</groupId>
+                    <artifactId>apache-el</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jdt</groupId>
             <artifactId>ecj</artifactId>
             <version>${jdt.version}</version>
             <scope>provided</scope>
@@ -87,12 +125,12 @@
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
-                    <artifactId>servlet-api</artifactId>
                     <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>jsp-api</artifactId>
                     <groupId>javax.servlet.jsp</groupId>
+                    <artifactId>jsp-api</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>

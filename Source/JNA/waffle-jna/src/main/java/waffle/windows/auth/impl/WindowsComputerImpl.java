@@ -1,28 +1,28 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
 package waffle.windows.auth.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.sun.jna.platform.win32.LMJoin;
 import com.sun.jna.platform.win32.Netapi32Util;
 import com.sun.jna.platform.win32.Netapi32Util.LocalGroup;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import waffle.windows.auth.IWindowsComputer;
 
 /**
  * Windows Computer.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsComputerImpl implements IWindowsComputer {
@@ -44,19 +44,11 @@ public class WindowsComputerImpl implements IWindowsComputer {
         this.domainName = Netapi32Util.getDomainName(newComputerName);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsComputer#getComputerName()
-     */
     @Override
     public String getComputerName() {
         return this.computerName;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsComputer#getGroups()
-     */
     @Override
     public String[] getGroups() {
         final List<String> groupNames = new ArrayList<>();
@@ -67,10 +59,6 @@ public class WindowsComputerImpl implements IWindowsComputer {
         return groupNames.toArray(new String[0]);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsComputer#getJoinStatus()
-     */
     @Override
     public String getJoinStatus() {
         final int joinStatus = Netapi32Util.getJoinStatus(this.computerName);
@@ -88,10 +76,6 @@ public class WindowsComputerImpl implements IWindowsComputer {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsComputer#getMemberOf()
-     */
     @Override
     public String getMemberOf() {
         return this.domainName;

@@ -1,11 +1,11 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
@@ -20,13 +20,13 @@ import javax.servlet.ServletResponse;
 
 /**
  * Simple filter chain.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class SimpleFilterChain implements FilterChain {
 
     /** The request. */
-    private ServletRequest  request;
+    private ServletRequest request;
 
     /** The response. */
     private ServletResponse response;
@@ -49,13 +49,8 @@ public class SimpleFilterChain implements FilterChain {
         return this.response;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.FilterChain#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
-     */
     @Override
     public void doFilter(final ServletRequest sreq, final ServletResponse srep) throws IOException, ServletException {
-
         this.request = sreq;
         this.response = srep;
     }

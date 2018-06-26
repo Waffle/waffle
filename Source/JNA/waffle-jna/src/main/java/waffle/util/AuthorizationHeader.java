@@ -1,32 +1,32 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
 package waffle.util;
+
+import java.util.Base64;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.io.BaseEncoding;
-
 /**
  * Authorization header.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class AuthorizationHeader {
 
     /** The logger. */
-    private static final Logger      LOGGER = LoggerFactory.getLogger(AuthorizationHeader.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthorizationHeader.class);
 
     /** The request. */
     private final HttpServletRequest request;
@@ -61,7 +61,7 @@ public class AuthorizationHeader {
 
     /**
      * Returns a supported security package string.
-     * 
+     *
      * @return Negotiate or NTLM.
      */
     public String getSecurityPackage() {
@@ -79,10 +79,6 @@ public class AuthorizationHeader {
         throw new RuntimeException("Invalid Authorization header: " + header);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
         return this.isNull() ? "<none>" : this.getHeader();
@@ -104,7 +100,7 @@ public class AuthorizationHeader {
      */
     public byte[] getTokenBytes() {
         try {
-            return BaseEncoding.base64().decode(this.getToken());
+            return Base64.getDecoder().decode(this.getToken());
         } catch (final IllegalArgumentException e) {
             AuthorizationHeader.LOGGER.debug("", e);
             throw new RuntimeException("Invalid authorization header.");
@@ -132,16 +128,16 @@ public class AuthorizationHeader {
     /**
      * Checks if is SP nego message.
      *
-     * @return true, if is SP nego message
+     * @return true, if is SP nego message that contains NegTokenInit
      */
-    public boolean isSPNegoMessage() {
+    public boolean isSPNegTokenInitMessage() {
 
         if (this.isNull()) {
             return false;
         }
 
         final byte[] tokenBytes = this.getTokenBytes();
-        return SPNegoMessage.isSPNegoMessage(tokenBytes);
+        return SPNegoMessage.isNegTokenInit(tokenBytes);
     }
 
     /**
@@ -161,6 +157,6 @@ public class AuthorizationHeader {
             return false;
         }
 
-        return this.isNtlmType1Message() || this.isSPNegoMessage();
+        return this.isNtlmType1Message() || this.isSPNegTokenInitMessage();
     }
 }

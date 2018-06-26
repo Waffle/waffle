@@ -1,11 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="all" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" >
 
   <PropertyGroup>
     <BuildFolder>$(MSBuildProjectDirectory)\Build</BuildFolder>
-    <ToolFolder>$(MSBuildProjectDirectory)\Tools</ToolFolder>
+    <PackagesFolder>$(MSBuildProjectDirectory)\.nuget\packages</PackagesFolder>
     <SourceFolder>$(MSBuildProjectDirectory)\Source</SourceFolder>
     
-    <MSBuildCommunityTasksPath>$(ToolFolder)\MSBuildTasks\tools</MSBuildCommunityTasksPath>
+    <MSBuildCommunityTasksPath>$(PackagesFolder)\MSBuildTasks.1.5.0.214\tools</MSBuildCommunityTasksPath>
+    <NUnitConsoleRunnerPath>$(PackagesFolder)\NUnit.ConsoleRunner.3.5.0\tools</NUnitConsoleRunnerPath>
   </PropertyGroup>
 
   <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets"/>
@@ -28,7 +30,8 @@
     <Copyright>Copyright (c) Application Security Inc. &amp; Contributors</Copyright>
     <Trademark>All Rights Reserved</Trademark>
     <MajorVersion>1</MajorVersion>
-    <MinorVersion>8</MinorVersion>
+    <MinorVersion>9</MinorVersion>
+    <RevisionVersion>0</RevisionVersion>
   </PropertyGroup>
   <Target Name="all" DependsOnTargets="configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
     <CallTarget Targets="clean" />
@@ -62,7 +65,7 @@
       <Output TaskParameter="Include" ItemName="UnitTestAssemblies"/>
     </CreateItem>
     <Message Text="@(UnitTestAssemblies)" />
-	<exec Command="Tools\NUnit.Runners\tools\nunit-console.exe &quot;@(UnitTestAssemblies)&quot;"/>
+	<exec Command="$(NUnitConsoleRunnerPath)\nunit3-console.exe &quot;@(UnitTestAssemblies)&quot;"/>
   </Target>
   <Target Name="drop" DependsOnTargets="version;configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
     <CreateItem Include="Source\**\%(Configuration.Identity)/Waffle.*.dll" Exclude="Source\**\%(Configuration.Identity)/Waffle.*UnitTests.dll">
@@ -91,7 +94,7 @@
     <CreateItem Include="target\$(Configuration)\**\*" Exclude="target\$(Configuration)\*.zip">
       <Output TaskParameter="Include" ItemName="PackageFiles" />
     </CreateItem>
-    <Zip WorkingDirectory="target\$(Configuration)" ZipFileName="target\$(Configuration)\Waffle.$(Major).$(Minor).zip" Files="@(PackageFiles)" />
+    <Zip WorkingDirectory="target\$(Configuration)" ZipFileName="target\$(Configuration)\Waffle.$(Major).$(Minor).$(Revision).zip" Files="@(PackageFiles)" />
     <Message Text="Version: $(Major).$(Minor).$(Build).$(Revision)"/>
   </Target>
 </Project>

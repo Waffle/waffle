@@ -1,11 +1,11 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
@@ -15,7 +15,7 @@ import java.io.Serializable;
 
 /**
  * A flattened Windows Account used in a Windows principal.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsAccount implements Serializable {
@@ -24,16 +24,16 @@ public class WindowsAccount implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /** The sid string. */
-    private final String      sidString;
+    private final String sidString;
 
     /** The fqn. */
-    private final String      fqn;
+    private final String fqn;
 
     /** The name. */
-    private final String      name;
+    private final String name;
 
     /** The domain. */
-    private final String      domain;
+    private final String domain;
 
     /**
      * Instantiates a new windows account.
@@ -84,10 +84,6 @@ public class WindowsAccount implements Serializable {
         return this.domain;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(final Object o) {
 
@@ -102,10 +98,6 @@ public class WindowsAccount implements Serializable {
         return ((WindowsAccount) o).getSidString().equals(this.getSidString());
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#hashCode()
-     */
     @Override
     public int hashCode() {
         return this.getSidString().hashCode();

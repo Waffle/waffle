@@ -1,20 +1,29 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
 package waffle.util;
 
+import com.sun.jna.Platform;
+import com.sun.jna.platform.WindowUtils;
+import com.sun.jna.platform.win32.LMJoin;
+import com.sun.jna.platform.win32.Netapi32Util;
+import com.sun.jna.platform.win32.Win32Exception;
+
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,14 +42,6 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.google.common.base.Charsets;
-import com.google.common.io.Files;
-import com.sun.jna.Platform;
-import com.sun.jna.platform.WindowUtils;
-import com.sun.jna.platform.win32.LMJoin;
-import com.sun.jna.platform.win32.Netapi32Util;
-import com.sun.jna.platform.win32.Win32Exception;
-
 import waffle.windows.auth.IWindowsAccount;
 import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.IWindowsComputer;
@@ -50,35 +51,35 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
 /**
  * A Utility class to read system info to help troubleshoot WAFFLE system configuration.
- * 
+ *
  * <pre>
  * This utility class collects system information and returns it as an XML document.
  * </pre>
- * 
+ *
  * From the command line, you can write the info to stdout using:
- * 
+ *
  * <pre>
  * <code>
- *   java -cp "jna.jar;waffle-core.jar;waffle-api.jar;jna-platform.jar;guava-17.0.jar" waffle.util.WaffleInfo
+ *   java -cp "jna.jar;waffle-core.jar;waffle-api.jar;jna-platform.jar;guava-21.0.jar" waffle.util.WaffleInfo
  * </code>
  * </pre>
- * 
+ *
  * To show this information in a browser, run:
- * 
+ *
  * <pre>
  * <code>
  *   java -cp "..." waffle.util.WaffleInfo -show
  * </code>
  * </pre>
- * 
+ *
  * To lookup account names and return any listed info, run:
- * 
+ *
  * <pre>
  * <code>
  *   java -cp "..." waffle.util.WaffleInfo -lookup AccountName
  * </code>
  * </pre>
- * 
+ *
  */
 public class WaffleInfo {
 
@@ -87,11 +88,11 @@ public class WaffleInfo {
 
     /**
      * Get a Document with basic system information
-     * 
+     *
      * This uses the builtin javax.xml package even though the API is quite verbose
-     * 
+     *
      * @return Document with waffle info.
-     * 
+     *
      * @throws ParserConfigurationException
      *             when getting new document builder.
      */
@@ -236,8 +237,8 @@ public class WaffleInfo {
         node.setAttribute("name", lookup);
         try {
             this.addAccountInfo(doc, node, auth.lookupAccount(lookup));
-        } catch (final Win32Exception ex) {
-            node.appendChild(WaffleInfo.getException(doc, ex));
+        } catch (final Win32Exception e) {
+            node.appendChild(WaffleInfo.getException(doc, e));
         }
         return node;
     }
@@ -293,7 +294,7 @@ public class WaffleInfo {
 
     /**
      * Print system information.
-     * 
+     *
      * @param args
      *            variable arguments to pass to main. Valid values are "-show" and "-lookup".
      */
@@ -331,7 +332,7 @@ public class WaffleInfo {
             final File f;
             if (show) {
                 f = File.createTempFile("waffle-info-", ".xml");
-                Files.write(xml, f, Charsets.UTF_8);
+                Files.write(f.toPath(), xml.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
                 Desktop.getDesktop().open(f);
             } else {
                 WaffleInfo.LOGGER.info(xml);

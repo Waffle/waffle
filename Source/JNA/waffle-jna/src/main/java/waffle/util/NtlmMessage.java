@@ -1,11 +1,11 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
@@ -13,7 +13,7 @@ package waffle.util;
 
 /**
  * Rudimentary NTLM message utility.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public final class NtlmMessage {
@@ -45,7 +45,7 @@ public final class NtlmMessage {
 
     /**
      * Get NTLM message type.
-     * 
+     *
      * @param message
      *            Assuming a valid NTLM message.
      * @return Message type.

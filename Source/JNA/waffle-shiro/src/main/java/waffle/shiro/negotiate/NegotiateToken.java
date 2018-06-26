@@ -1,11 +1,11 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
@@ -29,7 +29,7 @@ import org.apache.shiro.authc.RememberMeAuthenticationToken;
 
 /**
  * An authentication token wrapping a Waffle Negotiate token.
- * 
+ *
  * @author Dan Rollo
  * @since 1.0.0
  */
@@ -39,35 +39,35 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
     private static final long serialVersionUID = 1345343228636916781L;
 
     /** The in. */
-    private final byte[]      in;
+    private final byte[] in;
 
     /** The out. */
-    private byte[]            out;
+    private byte[] out;
 
     /** The subject. */
-    private Subject           subject;
+    private Subject subject;
 
     /** The principal. */
-    private Principal         principal;
+    private Principal principal;
 
     /** The connection id. */
-    private final String      connectionId;
+    private final String connectionId;
 
     /** The security package. */
-    private final String      securityPackage;
+    private final String securityPackage;
 
     /** The ntlm post. */
-    private final boolean     ntlmPost;
+    private final boolean ntlmPost;
 
     /**
      * Whether or not 'rememberMe' should be enabled for the corresponding login attempt; default is <code>false</code>.
      */
-    private final boolean     rememberMe;
+    private final boolean rememberMe;
 
     /**
      * The location from where the login attempt occurs, or <code>null</code> if not known or explicitly omitted.
      */
-    private final String      host;
+    private final String host;
 
     /**
      * Instantiates a new negotiate token.
@@ -127,19 +127,11 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
         return this.ntlmPost;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.shiro.authc.AuthenticationToken#getCredentials()
-     */
     @Override
     public Object getCredentials() {
         return this.subject;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.shiro.authc.AuthenticationToken#getPrincipal()
-     */
     @Override
     public Principal getPrincipal() {
         return this.principal;
@@ -214,7 +206,7 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
     /**
      * Returns <tt>true</tt> if the submitting user wishes their identity (principal(s)) to be remembered across
      * sessions, <tt>false</tt> otherwise. Unless overridden, this value is <tt>false</tt> by default.
-     * 
+     *
      * @return <tt>true</tt> if the submitting user wishes their identity (principal(s)) to be remembered across
      *         sessions, <tt>false</tt> otherwise (<tt>false</tt> by default).
      * @since 0.9
@@ -228,11 +220,11 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
      * Returns the host name or IP string from where the authentication attempt occurs. May be <tt>null</tt> if the host
      * name/IP is unknown or explicitly omitted. It is up to the Authenticator implementation processing this token if
      * an authentication attempt without a host is valid or not.
-     * 
+     *
      * <p>
      * (Shiro's default Authenticator allows <tt>null</tt> hosts to support localhost and proxy server environments).
      * </p>
-     * 
+     *
      * @return the host from where the authentication attempt occurs, or <tt>null</tt> if it is unknown or explicitly
      *         omitted.
      * @since 1.0

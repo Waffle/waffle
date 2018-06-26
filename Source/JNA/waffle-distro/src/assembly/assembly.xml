@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+<!--
+
+    Waffle (https://github.com/Waffle/waffle)
+
+    Copyright (c) 2010-2017 Application Security, Inc.
+
+    All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+    Public License v1.0 which accompanies this distribution, and is available at
+    https://www.eclipse.org/legal/epl-v10.html.
+
+    Contributors: Application Security, Inc.
+
+-->
+<assembly xmlns="https://maven.apache.org/plugins/maven-assembly-plugin/assembly/2.0.0" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://maven.apache.org/plugins/maven-assembly-plugin/assembly/2.0.0 https://maven.apache.org/xsd/assembly-2.0.0.xsd">
 
     <id>distro</id>
 
@@ -16,7 +29,7 @@
             <unpack>false</unpack>
             <outputDirectory>Bin</outputDirectory>
             <useProjectArtifact>false</useProjectArtifact>
-            <useTransitiveDependencies>true</useTransitiveDependencies>
+            <useTransitiveDependencies>false</useTransitiveDependencies>
             <includes>
                 <include>*:jar</include>
             </includes>
@@ -33,6 +46,16 @@
     </dependencySets>
 
     <fileSets>
+        <fileSet>
+            <directory>${project.basedir}/src/assembly</directory>
+            <outputDirectory></outputDirectory>
+            <includes>
+                <include>LICENSE-caffeine.txt</include>
+                <include>LICENSE-logback.txt</include>
+                <include>LICENSE-jna.txt</include>
+                <include>LICENSE-slf4j.txt</include>
+            </includes>
+        </fileSet>
         <fileSet>
             <directory>../../../</directory>
             <outputDirectory>.</outputDirectory>

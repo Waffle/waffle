@@ -1,17 +1,18 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
 package waffle.servlet.spi;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidParameterException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,24 +21,22 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Charsets;
-
 import waffle.util.AuthorizationHeader;
 import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.IWindowsIdentity;
 
 /**
- * A Basic authentication security filter provider. http://tools.ietf.org/html/rfc2617
- * 
+ * A Basic authentication security filter provider. https://tools.ietf.org/html/rfc2617
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 
     /** The Constant LOGGER. */
-    private static final Logger        LOGGER = LoggerFactory.getLogger(BasicSecurityFilterProvider.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BasicSecurityFilterProvider.class);
 
     /** The realm. */
-    private String                     realm  = "BasicSecurityFilterProvider";
+    private String realm = "BasicSecurityFilterProvider";
 
     /** The auth. */
     private final IWindowsAuthProvider auth;
@@ -52,17 +51,12 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
         this.auth = newAuthProvider;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.servlet.spi.SecurityFilterProvider#doFilter(javax.servlet.http.HttpServletRequest,
-     * javax.servlet.http.HttpServletResponse)
-     */
     @Override
     public IWindowsIdentity doFilter(final HttpServletRequest request, final HttpServletResponse response)
             throws IOException {
 
         final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
-        final String usernamePassword = new String(authorizationHeader.getTokenBytes(), Charsets.UTF_8);
+        final String usernamePassword = new String(authorizationHeader.getTokenBytes(), StandardCharsets.UTF_8);
         final String[] usernamePasswordArray = usernamePassword.split(":", 2);
         if (usernamePasswordArray.length != 2) {
             throw new RuntimeException("Invalid username:password in Authorization header.");
@@ -71,28 +65,16 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
         return this.auth.logonUser(usernamePasswordArray[0], usernamePasswordArray[1]);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.servlet.spi.SecurityFilterProvider#isPrincipalException(javax.servlet.http.HttpServletRequest)
-     */
     @Override
     public boolean isPrincipalException(final HttpServletRequest request) {
         return false;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.servlet.spi.SecurityFilterProvider#isSecurityPackageSupported(java.lang.String)
-     */
     @Override
     public boolean isSecurityPackageSupported(final String securityPackage) {
-        return securityPackage.equalsIgnoreCase("Basic");
+        return "Basic".equalsIgnoreCase(securityPackage);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.servlet.spi.SecurityFilterProvider#sendUnauthorized(javax.servlet.http.HttpServletResponse)
-     */
     @Override
     public void sendUnauthorized(final HttpServletResponse response) {
         response.addHeader("WWW-Authenticate", "Basic realm=\"" + this.realm + "\"");
@@ -100,7 +82,7 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 
     /**
      * Protection space.
-     * 
+     *
      * @return Name of the protection space.
      */
     public String getRealm() {
@@ -109,7 +91,7 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 
     /**
      * Set the protection space.
-     * 
+     *
      * @param value
      *            Protection space name.
      */
@@ -127,7 +109,7 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
      */
     @Override
     public void initParameter(final String parameterName, final String parameterValue) {
-        if (parameterName.equals("realm")) {
+        if ("realm".equals(parameterName)) {
             this.setRealm(parameterValue);
         } else {
             throw new InvalidParameterException(parameterName);

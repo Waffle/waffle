@@ -1,11 +1,11 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
@@ -24,19 +24,19 @@ public class MockWindowsAccount implements IWindowsAccount {
     public static final String TEST_USER_NAME = "WaffleTestUser";
 
     /** The Constant TEST_PASSWORD. */
-    public static final String TEST_PASSWORD  = "!WAFFLEP$$Wrd0";
+    public static final String TEST_PASSWORD = "!WAFFLEP$$Wrd0";
 
     /** The fqn. */
-    private final String       fqn;
+    private final String fqn;
 
     /** The name. */
-    private String             name;
+    private String name;
 
     /** The domain. */
-    private String             domain;
+    private String domain;
 
     /** The sid. */
-    private final String       sid;
+    private final String sid;
 
     /**
      * Instantiates a new mock windows account.
@@ -68,39 +68,24 @@ public class MockWindowsAccount implements IWindowsAccount {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsAccount#getDomain()
-     */
     @Override
     public String getDomain() {
         return this.domain;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsAccount#getFqn()
-     */
     @Override
     public String getFqn() {
         return this.fqn;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsAccount#getName()
-     */
     @Override
     public String getName() {
         return this.name;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsAccount#getSidString()
-     */
     @Override
     public String getSidString() {
         return this.sid;
     }
+
 }

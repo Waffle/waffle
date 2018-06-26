@@ -1,7 +1,7 @@
 Spring Security Authentication Provider
 =======================================
 
-The Waffle Spring-Security Authenticator implements Windows authentication for Spring-Security-enabled applications. For more information about Spring-Security see [http://static.springsource.org/spring-security/site/](http://static.springsource.org/spring-security/site/). 
+The Waffle Spring-Security Authenticator implements Windows authentication for Spring-Security-enabled applications. For more information about Spring-Security see [here](https://projects.spring.io/spring-security/). 
 
 Configuring Spring Security
 ---------------------------
@@ -28,7 +28,9 @@ We'll assume that Spring-Security is configured via `web.xml` with a filter chai
 </listener>
 ```
 
-Copy Waffle JARs, including `waffle-jna.jar`, `guava-18.0.jar`, `jna-4.2.0.jar`, `jna-platform-4.2.0.jar`, `slf4j*.jar` and `waffle-spring-security-3.jar` in the application's `lib` directory along with Spring and Spring-Security JARs. Or, if you use Maven, add the following to your `pom.xml`:
+Copy Waffle JARs, including `waffle-jna-1.8.1.jar`, `guava-20.0.jar`, `jna-4.2.2.jar`, `jna-platform-4.2.2.jar`, `slf4j-1.7.21.jar` and `waffle-spring-security4-1.8.1.jar` in the application's `lib` directory along with Spring and Spring-Security JARs. Or, if you use Maven, add the following to your `pom.xml`:
+
+- For latest snapshot instead use `waffle-jna-1.9.0-SNAPSHOT`, `caffeine-2.3.5.jar`, `jna-4.3.0.jar`, `jna-platform-4.3.0.jar`, `slf4j-1.7.22.jar` and `waffle-spring-security4-1.9.0-SNAPSHOT.jar`
 
 ``` xml
 <dependency>

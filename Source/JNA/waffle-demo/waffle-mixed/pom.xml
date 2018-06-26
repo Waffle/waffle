@@ -1,34 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Waffle (https://github.com/Waffle/waffle)
+
+    Copyright (c) 2010-2018 Application Security, Inc.
+
+    All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+    Public License v1.0 which accompanies this distribution, and is available at
+    https://www.eclipse.org/legal/epl-v10.html.
+
+    Contributors: Application Security, Inc.
+
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
-        <groupId>com.github.dblock.waffle.demo</groupId>
+        <groupId>com.github.waffle.demo</groupId>
         <artifactId>waffle-demo-parent</artifactId>
-        <version>1.8.2-SNAPSHOT</version>
+        <version>1.9.1-SNAPSHOT</version>
     </parent>
+
     <artifactId>waffle-mixed</artifactId>
-    <version>1.8.2-SNAPSHOT</version>
+    <version>1.9.1-SNAPSHOT</version>
     <packaging>war</packaging>
+
     <name>waffle-mixed</name>
     <description>Mixed Demo for WAFFLE</description>
-    <url>http://dblock.github.com/waffle/</url>
-    <properties>
-        <src.relative.loc>../..</src.relative.loc>
+    <url>https://waffle.github.com/waffle/</url>
 
-        <servlet.version>2.5</servlet.version>
-    </properties>
     <scm>
-        <connection>scm:git:ssh://git@github.com/dblock/waffle.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/dblock/waffle.git</developerConnection>
-        <url>https://github.com/dblock/waffle</url>
+        <connection>scm:git:ssh://git@github.com/Waffle/waffle.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/Waffle/waffle.git</developerConnection>
+        <url>https://github.com/Waffle/waffle</url>
         <tag>HEAD</tag>
     </scm>
-    <dependencies>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>${servlet.version}</version>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
+
+    <build>
+        <finalName>${project.name}</finalName>
+    </build>
 </project>

@@ -1,11 +1,11 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
@@ -41,47 +41,42 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
 /**
  * A Java Security login module for Windows authentication.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  * @see javax.security.auth.spi.LoginModule
  */
 public class WindowsLoginModule implements LoginModule {
 
     /** The Constant LOGGER. */
-    private static final Logger  LOGGER          = LoggerFactory.getLogger(WindowsLoginModule.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(WindowsLoginModule.class);
 
     /** The username. */
-    private String               username;
+    private String username;
 
     /** The debug. */
-    private boolean              debug;
+    private boolean debug;
 
     /** The subject. */
-    private Subject              subject;
+    private Subject subject;
 
     /** The callback handler. */
-    private CallbackHandler      callbackHandler;
+    private CallbackHandler callbackHandler;
 
     /** The auth. */
-    private IWindowsAuthProvider auth            = new WindowsAuthProviderImpl();
+    private IWindowsAuthProvider auth = new WindowsAuthProviderImpl();
 
     /** The principals. */
-    private Set<Principal>       principals;
+    private Set<Principal> principals;
 
     /** The principal format. */
-    private PrincipalFormat      principalFormat = PrincipalFormat.FQN;
+    private PrincipalFormat principalFormat = PrincipalFormat.FQN;
 
     /** The role format. */
-    private PrincipalFormat      roleFormat      = PrincipalFormat.FQN;
+    private PrincipalFormat roleFormat = PrincipalFormat.FQN;
 
     /** The allow guest login. */
-    private boolean              allowGuestLogin = true;
+    private boolean allowGuestLogin = true;
 
-    /*
-     * (non-Javadoc)
-     * @see javax.security.auth.spi.LoginModule#initialize(javax.security.auth.Subject,
-     * javax.security.auth.callback.CallbackHandler, java.util.Map, java.util.Map)
-     */
     @Override
     public void initialize(final Subject initSubject, final CallbackHandler initCallbackHandler,
             final Map<String, ?> initSharedState, final Map<String, ?> initOptions) {
@@ -90,12 +85,12 @@ public class WindowsLoginModule implements LoginModule {
         this.callbackHandler = initCallbackHandler;
 
         for (final Entry<String, ?> option : initOptions.entrySet()) {
-            if (option.getKey().equalsIgnoreCase("debug")) {
+            if ("debug".equalsIgnoreCase(option.getKey())) {
                 this.debug = Boolean.parseBoolean((String) option.getValue());
-            } else if (option.getKey().equalsIgnoreCase("principalFormat")) {
+            } else if ("principalFormat".equalsIgnoreCase(option.getKey())) {
                 this.principalFormat = PrincipalFormat
                         .valueOf(((String) option.getValue()).toUpperCase(Locale.ENGLISH));
-            } else if (option.getKey().equalsIgnoreCase("roleFormat")) {
+            } else if ("roleFormat".equalsIgnoreCase(option.getKey())) {
                 this.roleFormat = PrincipalFormat.valueOf(((String) option.getValue()).toUpperCase(Locale.ENGLISH));
             }
         }
@@ -134,9 +129,8 @@ public class WindowsLoginModule implements LoginModule {
             throw new LoginException(e.toString());
         } catch (final UnsupportedCallbackException e) {
             WindowsLoginModule.LOGGER.trace("", e);
-            throw new LoginException(
-                    "Callback {} not available to gather authentication information from the user.".replace("{}", e
-                            .getCallback().getClass().getName()));
+            throw new LoginException("Callback {} not available to gather authentication information from the user."
+                    .replace("{}", e.getCallback().getClass().getName()));
         }
 
         IWindowsIdentity windowsIdentity;
@@ -155,11 +149,19 @@ public class WindowsLoginModule implements LoginModule {
             }
 
             this.principals = new LinkedHashSet<>();
+            // add the main user principal to the subject principals
             this.principals.addAll(WindowsLoginModule.getUserPrincipals(windowsIdentity, this.principalFormat));
             if (this.roleFormat != PrincipalFormat.NONE) {
+                // create the group principal and add roles as members of the group
+                final GroupPrincipal groupList = new GroupPrincipal("Roles");
                 for (final IWindowsAccount group : windowsIdentity.getGroups()) {
-                    this.principals.addAll(WindowsLoginModule.getRolePrincipals(group, this.roleFormat));
+                    for (final Principal role : WindowsLoginModule.getRolePrincipals(group, this.roleFormat)) {
+                        WindowsLoginModule.LOGGER.debug(" group: {}", role.getName());
+                        groupList.addMember(new RolePrincipal(role.getName()));
+                    }
                 }
+                // add the group and roles to the subject principals
+                this.principals.add(groupList);
             }
 
             this.username = windowsIdentity.getFqn();
@@ -239,7 +241,7 @@ public class WindowsLoginModule implements LoginModule {
 
     /**
      * True if Debug is enabled.
-     * 
+     *
      * @return True or false.
      */
     public boolean isDebug() {
@@ -248,7 +250,7 @@ public class WindowsLoginModule implements LoginModule {
 
     /**
      * Windows auth provider.
-     * 
+     *
      * @return IWindowsAuthProvider.
      */
     public IWindowsAuthProvider getAuth() {
@@ -257,7 +259,7 @@ public class WindowsLoginModule implements LoginModule {
 
     /**
      * Set Windows auth provider.
-     * 
+     *
      * @param provider
      *            Class implements IWindowsAuthProvider.
      */
@@ -267,7 +269,7 @@ public class WindowsLoginModule implements LoginModule {
 
     /**
      * Returns a list of user principal objects.
-     * 
+     *
      * @param windowsIdentity
      *            Windows identity.
      * @param principalFormat
@@ -298,14 +300,15 @@ public class WindowsLoginModule implements LoginModule {
 
     /**
      * Returns a list of role principal objects.
-     * 
+     *
      * @param group
      *            Windows group.
      * @param principalFormat
      *            Principal format.
      * @return List of role principal objects.
      */
-    private static List<Principal> getRolePrincipals(final IWindowsAccount group, final PrincipalFormat principalFormat) {
+    private static List<Principal> getRolePrincipals(final IWindowsAccount group,
+            final PrincipalFormat principalFormat) {
 
         final List<Principal> principalsList = new ArrayList<>();
         switch (principalFormat) {
@@ -329,7 +332,7 @@ public class WindowsLoginModule implements LoginModule {
 
     /**
      * True if Guest login permitted.
-     * 
+     *
      * @return True if Guest login permitted, false otherwise.
      */
     public boolean isAllowGuestLogin() {
@@ -339,7 +342,7 @@ public class WindowsLoginModule implements LoginModule {
     /**
      * Set whether Guest login is permitted. Default is true, if the Guest account is enabled, an invalid
      * username/password results in a Guest login.
-     * 
+     *
      * @param value
      *            True or false.
      */

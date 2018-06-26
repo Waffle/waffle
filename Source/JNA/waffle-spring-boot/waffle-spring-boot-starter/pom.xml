@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Waffle (https://github.com/Waffle/waffle)
+
+    Copyright (c) 2010-2018 Application Security, Inc.
+
+    All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+    Public License v1.0 which accompanies this distribution, and is available at
+    https://www.eclipse.org/legal/epl-v10.html.
+
+    Contributors: Application Security, Inc.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.github.waffle</groupId>
+        <artifactId>waffle-spring-boot</artifactId>
+        <version>1.9.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>waffle-spring-boot-starter</artifactId>
+    <version>1.9.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>waffle-spring-boot-starter</name>
+    <description>Spring Boot Starter for WAFFLE</description>
+    <url>https://waffle.github.com/waffle/</url>
+
+    <scm>
+        <connection>scm:git:ssh://git@github.com/waffle/waffle.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/waffle/waffle.git</developerConnection>
+        <url>https://github.com/Waffle/waffle</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.waffle</groupId>
+            <artifactId>waffle-spring-boot-autoconfigure</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.waffle</groupId>
+            <artifactId>waffle-spring-security4</artifactId>
+        </dependency>
+    </dependencies>
+</project>

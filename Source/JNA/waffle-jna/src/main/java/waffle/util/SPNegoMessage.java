@@ -1,11 +1,11 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
@@ -13,7 +13,7 @@ package waffle.util;
 
 /**
  * Rudimentary NTLM message utility.
- * 
+ *
  * @author ari.suutari[at]syncrontech[dot]com
  */
 public final class SPNegoMessage {
@@ -26,26 +26,7 @@ public final class SPNegoMessage {
     // Check if this message is SPNEGO authentication token. There
     // are two token types, NegTokenInit and NegTokenArg.
     // For details and specification, see
-    // http://msdn.microsoft.com/en-us/library/ms995330.aspx
-    /**
-     * Checks if is SP nego message.
-     *
-     * @param message
-     *            the message
-     * @return true, if is SP nego message
-     */
-    public static boolean isSPNegoMessage(final byte[] message) {
-
-        // Message should always contains at least some kind of
-        // id byte and length. If it is too short, it
-        // cannot be a SPNEGO message.
-        if (message == null || message.length < 2) {
-            return false;
-        }
-
-        // Message is SPNEGO message if it is either NegTokenInit or NegTokenArg.
-        return SPNegoMessage.isNegTokenInit(message) || SPNegoMessage.isNegTokenArg(message);
-    }
+    // https://msdn.microsoft.com/en-us/library/ms995330.aspx
 
     /**
      * Checks if is neg token init.
@@ -55,6 +36,14 @@ public final class SPNegoMessage {
      * @return true, if is neg token init
      */
     public static boolean isNegTokenInit(final byte[] message) {
+
+        // Message should always contains at least some kind of
+        // id byte and length. If it is too short, it
+        // cannot be a SPNEGO message.
+        if (message == null || message.length < 2) {
+            return false;
+        }
+
         // First byte should always be 0x60 (Application Constructed Object)
         if (message[0] != 0x60) {
             return false;
@@ -93,6 +82,14 @@ public final class SPNegoMessage {
      * @return true, if is neg token arg
      */
     public static boolean isNegTokenArg(final byte[] message) {
+
+        // Message should always contains at least some kind of
+        // id byte and length. If it is too short, it
+        // cannot be a SPNEGO message.
+        if (message == null || message.length < 2) {
+            return false;
+        }
+
         // Check if this is NegTokenArg packet, it's id is 0xa1
         if ((message[0] & 0xff) != 0xa1) {
             return false;

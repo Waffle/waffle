@@ -1,17 +1,18 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
 package waffle.mock.http;
 
 import java.security.Principal;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,8 +23,6 @@ import javax.servlet.http.HttpSession;
 
 import org.mockito.Mockito;
 
-import com.google.common.collect.Iterators;
-
 /**
  * The Class SimpleHttpRequest.
  *
@@ -32,43 +31,43 @@ import com.google.common.collect.Iterators;
 public class SimpleHttpRequest extends HttpServletRequestWrapper {
 
     /** The remote port s. */
-    private static int                remotePortS = 0;
+    private static int remotePortS = 0;
 
     /** The request uri. */
-    private String                    requestURI;
+    private String requestURI;
 
     /** The query string. */
-    private String                    queryString;
+    private String queryString;
 
     /** The remote user. */
-    private String                    remoteUser;
+    private String remoteUser;
 
     /** The method. */
-    private String                    method      = "GET";
+    private String method = "GET";
 
     /** The remote host. */
-    private String                    remoteHost;
+    private String remoteHost;
 
     /** The remote addr. */
-    private String                    remoteAddr;
+    private String remoteAddr;
 
     /** The remote port. */
-    private int                       remotePort  = -1;
+    private int remotePort = -1;
 
     /** The headers. */
-    private final Map<String, String> headers     = new HashMap<>();
+    private final Map<String, String> headers = new HashMap<>();
 
     /** The parameters. */
-    private final Map<String, String> parameters  = new HashMap<>();
+    private final Map<String, String> parameters = new HashMap<>();
 
     /** The content. */
-    private byte[]                    content;
+    private byte[] content;
 
     /** The session. */
-    private HttpSession               session     = new SimpleHttpSession();
+    private HttpSession session = new SimpleHttpSession();
 
     /** The principal. */
-    private Principal                 principal;
+    private Principal principal;
 
     /**
      * Instantiates a new simple http request.
@@ -106,46 +105,26 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         this.headers.put(headerName, headerValue);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpServletRequestWrapper#getHeader(java.lang.String)
-     */
     @Override
     public String getHeader(final String headerName) {
         return this.headers.get(headerName);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpServletRequestWrapper#getHeaderNames()
-     */
     @Override
     public Enumeration<String> getHeaderNames() {
-        return Iterators.asEnumeration(this.headers.keySet().iterator());
+        return Collections.enumeration(this.headers.keySet());
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpServletRequestWrapper#getMethod()
-     */
     @Override
     public String getMethod() {
         return this.method;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.ServletRequestWrapper#getContentLength()
-     */
     @Override
     public int getContentLength() {
         return this.content == null ? -1 : this.content.length;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.ServletRequestWrapper#getRemotePort()
-     */
     @Override
     public int getRemotePort() {
         return this.remotePort;
@@ -181,28 +160,16 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         this.remoteUser = username;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpServletRequestWrapper#getRemoteUser()
-     */
     @Override
     public String getRemoteUser() {
         return this.remoteUser;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpServletRequestWrapper#getSession()
-     */
     @Override
     public HttpSession getSession() {
         return this.session;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpServletRequestWrapper#getSession(boolean)
-     */
     @Override
     public HttpSession getSession(final boolean create) {
         if (this.session == null && create) {
@@ -211,10 +178,6 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         return this.session;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpServletRequestWrapper#getQueryString()
-     */
     @Override
     public String getQueryString() {
         return this.queryString;
@@ -247,19 +210,11 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         this.requestURI = uri;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpServletRequestWrapper#getRequestURI()
-     */
     @Override
     public String getRequestURI() {
         return this.requestURI;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.ServletRequestWrapper#getParameter(java.lang.String)
-     */
     @Override
     public String getParameter(final String parameterName) {
         return this.parameters.get(parameterName);
@@ -277,10 +232,6 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         this.parameters.put(parameterName, parameterValue);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.ServletRequestWrapper#getRemoteHost()
-     */
     @Override
     public String getRemoteHost() {
         return this.remoteHost;
@@ -296,10 +247,6 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         this.remoteHost = value;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.ServletRequestWrapper#getRemoteAddr()
-     */
     @Override
     public String getRemoteAddr() {
         return this.remoteAddr;
@@ -315,10 +262,6 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         this.remoteAddr = value;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpServletRequestWrapper#getUserPrincipal()
-     */
     @Override
     public Principal getUserPrincipal() {
         return this.principal;

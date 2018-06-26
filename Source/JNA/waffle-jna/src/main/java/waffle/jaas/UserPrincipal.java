@@ -1,11 +1,11 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
@@ -16,7 +16,7 @@ import java.security.Principal;
 
 /**
  * User Principal.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class UserPrincipal implements Principal, Serializable {
@@ -25,11 +25,11 @@ public class UserPrincipal implements Principal, Serializable {
     private static final long serialVersionUID = 1L;
 
     /** The fqn. */
-    private final String      fqn;
+    private final String fqn;
 
     /**
      * A user principal.
-     * 
+     *
      * @param newFqn
      *            Fully qualified username.
      */
@@ -47,10 +47,6 @@ public class UserPrincipal implements Principal, Serializable {
         return this.fqn;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(final Object o) {
 
@@ -65,10 +61,6 @@ public class UserPrincipal implements Principal, Serializable {
         return false;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#hashCode()
-     */
     @Override
     public int hashCode() {
         return this.getName().hashCode();

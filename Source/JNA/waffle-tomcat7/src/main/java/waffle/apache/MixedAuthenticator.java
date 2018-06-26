@@ -1,18 +1,21 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
 package waffle.apache;
 
+import com.sun.jna.platform.win32.Win32Exception;
+
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Base64;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -23,9 +26,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.connector.Request;
 import org.apache.catalina.deploy.LoginConfig;
+import org.apache.catalina.realm.GenericPrincipal;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.io.BaseEncoding;
 
 import waffle.util.AuthorizationHeader;
 import waffle.util.NtlmServletRequest;
@@ -34,7 +36,7 @@ import waffle.windows.auth.IWindowsSecurityContext;
 
 /**
  * Mixed Negotiate + Form Authenticator.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class MixedAuthenticator extends WaffleAuthenticatorBase {
@@ -49,33 +51,21 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
         this.log.debug("[waffle.apache.MixedAuthenticator] loaded");
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.catalina.authenticator.AuthenticatorBase#startInternal()
-     */
     @Override
     public synchronized void startInternal() throws LifecycleException {
         this.log.info("[waffle.apache.MixedAuthenticator] started");
         super.startInternal();
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.catalina.authenticator.AuthenticatorBase#stopInternal()
-     */
     @Override
     public synchronized void stopInternal() throws LifecycleException {
         super.stopInternal();
         this.log.info("[waffle.apache.MixedAuthenticator] stopped");
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.catalina.authenticator.AuthenticatorBase#authenticate(org.apache.catalina.connector.Request,
-     * javax.servlet.http.HttpServletResponse, org.apache.catalina.deploy.LoginConfig)
-     */
     @Override
-    public boolean authenticate(final Request request, final HttpServletResponse response, final LoginConfig loginConfig) {
+    public boolean authenticate(final Request request, final HttpServletResponse response,
+            final LoginConfig loginConfig) {
 
         // realm: fail if no realm is configured
         if (this.context == null || this.context.getRealm() == null) {
@@ -149,29 +139,35 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
             this.auth.resetSecurityToken(connectionId);
         }
 
+        final byte[] tokenBuffer = authorizationHeader.getTokenBytes();
+        this.log.debug("token buffer: {} byte(s)", Integer.valueOf(tokenBuffer.length));
+
         // log the user in using the token
         IWindowsSecurityContext securityContext;
+        try {
+            securityContext = this.auth.acceptSecurityToken(connectionId, tokenBuffer, securityPackage);
+        } catch (final Win32Exception e) {
+            this.log.warn("error logging in user: {}", e.getMessage());
+            this.log.trace("", e);
+            this.sendUnauthorized(response);
+            return false;
+        }
+        this.log.debug("continue required: {}", Boolean.valueOf(securityContext.isContinue()));
+
+        final byte[] continueTokenBytes = securityContext.getToken();
+        if (continueTokenBytes != null && continueTokenBytes.length > 0) {
+            final String continueToken = Base64.getEncoder().encodeToString(continueTokenBytes);
+            this.log.debug("continue token: {}", continueToken);
+            response.addHeader("WWW-Authenticate", securityPackage + " " + continueToken);
+        }
 
         try {
-            final byte[] tokenBuffer = authorizationHeader.getTokenBytes();
-            this.log.debug("token buffer: {} byte(s)", Integer.valueOf(tokenBuffer.length));
-            securityContext = this.auth.acceptSecurityToken(connectionId, tokenBuffer, securityPackage);
-            this.log.debug("continue required: {}", Boolean.valueOf(securityContext.isContinue()));
-
-            final byte[] continueTokenBytes = securityContext.getToken();
-            if (continueTokenBytes != null && continueTokenBytes.length > 0) {
-                final String continueToken = BaseEncoding.base64().encode(continueTokenBytes);
-                this.log.debug("continue token: {}", continueToken);
-                response.addHeader("WWW-Authenticate", securityPackage + " " + continueToken);
-            }
-
             if (securityContext.isContinue() || ntlmPost) {
                 response.setHeader("Connection", "keep-alive");
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
                 response.flushBuffer();
                 return false;
             }
-
         } catch (final IOException e) {
             this.log.warn("error logging in user: {}", e.getMessage());
             this.log.trace("", e);
@@ -193,17 +189,16 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 
             this.log.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
 
-            final GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(windowsIdentity,
-                    this.principalFormat, this.roleFormat);
+            final GenericPrincipal genericPrincipal = this.createPrincipal(windowsIdentity);
 
-            this.log.debug("roles: {}", windowsPrincipal.getRolesString());
+            this.log.debug("roles: {}", String.join(", ", genericPrincipal.getRoles()));
 
             // create a session associated with this request if there's none
             final HttpSession session = request.getSession(true);
             this.log.debug("session id: {}", session == null ? "null" : session.getId());
 
-            this.register(request, response, windowsPrincipal, securityPackage, windowsPrincipal.getName(), null);
-            this.log.info("successfully logged in user: {}", windowsPrincipal.getName());
+            this.register(request, response, genericPrincipal, securityPackage, genericPrincipal.getName(), null);
+            this.log.info("successfully logged in user: {}", genericPrincipal.getName());
 
         } finally {
             windowsIdentity.dispose();
@@ -246,17 +241,15 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
         try {
             this.log.debug("successfully logged in {} ({})", username, windowsIdentity.getSidString());
 
-            final GenericWindowsPrincipal windowsPrincipal = new GenericWindowsPrincipal(windowsIdentity,
-                    this.principalFormat, this.roleFormat);
+            final GenericPrincipal genericPrincipal = this.createPrincipal(windowsIdentity);
 
-            this.log.debug("roles: {}", windowsPrincipal.getRolesString());
-
+            this.log.debug("roles: {}", String.join(", ", genericPrincipal.getRoles()));
             // create a session associated with this request if there's none
             final HttpSession session = request.getSession(true);
             this.log.debug("session id: {}", session == null ? "null" : session.getId());
 
-            this.register(request, response, windowsPrincipal, "FORM", windowsPrincipal.getName(), null);
-            this.log.info("successfully logged in user: {}", windowsPrincipal.getName());
+            this.register(request, response, genericPrincipal, "FORM", genericPrincipal.getName(), null);
+            this.log.info("successfully logged in user: {}", genericPrincipal.getName());
         } finally {
             windowsIdentity.dispose();
         }

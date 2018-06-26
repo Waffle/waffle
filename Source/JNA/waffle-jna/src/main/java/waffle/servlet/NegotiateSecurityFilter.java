@@ -1,11 +1,11 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
@@ -50,7 +50,6 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  * @author dblock[at]dblock[dot]org
  */
 public class NegotiateSecurityFilter implements Filter {
-
     /**
      * The Constant LOGGER.
      */
@@ -82,7 +81,7 @@ public class NegotiateSecurityFilter implements Filter {
      */
     private SecurityFilterProviderCollection providers;
 
-    /**
+  /**
      * The auth.
      */
     private IWindowsAuthProvider             auth;
@@ -101,8 +100,7 @@ public class NegotiateSecurityFilter implements Filter {
      * The Constant PRINCIPALSESSIONKEY.
      */
     private static final String              PRINCIPALSESSIONKEY = NegotiateSecurityFilter.class.getName()
-                                                                         + ".PRINCIPAL";
-
+  
     /**
      * Instantiates a new negotiate security filter.
      */
@@ -110,20 +108,11 @@ public class NegotiateSecurityFilter implements Filter {
         LOGGER.debug("[waffle.servlet.NegotiateSecurityFilter] loaded");
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.Filter#destroy()
-     */
     @Override
     public void destroy() {
         LOGGER.info("[waffle.servlet.NegotiateSecurityFilter] stopped");
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse,
-     * javax.servlet.FilterChain)
-     */
     @Override
     public void doFilter(final ServletRequest sreq, final ServletResponse sres, final FilterChain chain)
             throws IOException, ServletException {
@@ -148,6 +137,17 @@ public class NegotiateSecurityFilter implements Filter {
         
         LOGGER.debug("{} {}, contentlength: {}", request.getMethod(), request.getRequestURI(),
                 Integer.valueOf(request.getContentLength()));
+
+        if (request.getRequestURL() != null && this.excludePatterns != null) {
+            final String url = request.getRequestURL().toString();
+            for (final String pattern : this.excludePatterns) {
+                if (url.matches(pattern)) {
+                    NegotiateSecurityFilter.LOGGER.info("Pattern :{} excluded URL:{}", url, pattern);
+                    chain.doFilter(sreq, sres);
+                    return;
+                }
+            }
+        }
 
         if (this.doFilterPrincipal(request, response, chain)) {
             // previously authenticated user
@@ -201,11 +201,11 @@ public class NegotiateSecurityFilter implements Filter {
 
                 LOGGER.debug("roles: {}", windowsPrincipal.getRolesString());
                 subject.getPrincipals().add(windowsPrincipal);
-                session.setAttribute("javax.security.auth.subject", subject);
+                request.getSession(false).setAttribute("javax.security.auth.subject", subject);
 
                 LOGGER.info("successfully logged in user: {}", windowsIdentity.getFqn());
 
-                request.getSession().setAttribute(NegotiateSecurityFilter.PRINCIPALSESSIONKEY, windowsPrincipal);
+                request.getSession(false).setAttribute(NegotiateSecurityFilter.PRINCIPALSESSIONKEY, windowsPrincipal);
 
                 final NegotiateRequestWrapper requestWrapper = new NegotiateRequestWrapper(request, windowsPrincipal);
 
@@ -300,11 +300,6 @@ public class NegotiateSecurityFilter implements Filter {
         return true;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
-     */
-    @SuppressWarnings("unchecked")
     @Override
     public void init(final FilterConfig filterConfig) throws ServletException {
         final Map<String, String> implParameters = new HashMap<>();
@@ -316,7 +311,7 @@ public class NegotiateSecurityFilter implements Filter {
             while (parameterNames.hasMoreElements()) {
                 final String parameterName = parameterNames.nextElement();
                 final String parameterValue = filterConfig.getInitParameter(parameterName);
-                LOGGER.debug("{}={}", parameterName, parameterValue);
+                LOGGER.debug("Init Param: '{}={}'", parameterName, parameterValue);
                 switch (parameterName) {
                     case "principalFormat":
                         this.principalFormat = PrincipalFormat.valueOf(parameterValue.toUpperCase(Locale.ENGLISH));
@@ -338,6 +333,9 @@ public class NegotiateSecurityFilter implements Filter {
                         break;                    
                     case "enableSSO":
                         enableSSO = Boolean.parseBoolean(parameterValue);
+                        break;
+                    case "excludePatterns":
+                        this.excludePatterns = parameterValue.split("\\s+");
                         break;
                     default:
                         implParameters.put(parameterName, parameterValue);

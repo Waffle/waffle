@@ -1,11 +1,11 @@
 /**
- * Waffle (https://github.com/dblock/waffle)
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html.
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
  * Contributors: Application Security, Inc.
  */
@@ -57,13 +57,13 @@ public class WindowsDomainImpl implements IWindowsDomain {
     }
 
     /** The fqn. */
-    private String         fqn;
+    private String fqn;
 
     /** The trust direction. */
     private TrustDirection trustDirection = TrustDirection.BIDIRECTIONAL;
 
     /** The trust type. */
-    private TrustType      trustType      = TrustType.UNKNOWN;
+    private TrustType trustType = TrustType.UNKNOWN;
 
     /**
      * Instantiates a new windows domain impl.
@@ -103,28 +103,16 @@ public class WindowsDomainImpl implements IWindowsDomain {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsDomain#getFqn()
-     */
     @Override
     public String getFqn() {
         return this.fqn;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsDomain#getTrustDirectionString()
-     */
     @Override
     public String getTrustDirectionString() {
         return this.trustDirection.toString();
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsDomain#getTrustTypeString()
-     */
     @Override
     public String getTrustTypeString() {
         return this.trustType.toString();
