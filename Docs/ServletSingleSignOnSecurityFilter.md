@@ -41,8 +41,8 @@ The filter can be configured with the following `init-param` options.
 * waffle.servlet.spi.BasicSecurityFilterProvider/realm: The name of the Realm for BASIC authentication. 
 * impersonate: Allow impersonation. When true the remote user will be impersonated. Note that there is no mapping between the Windows native threads, under which the impersonation takes place, and the Java threads. Thus you'll need to use Windows native APIs to perform impersonated actions. Any action done in Java will still be performed with the user account running the servlet container. 
 * excludePatterns: Url patterns to exclude from the filter, uses regex for pattern matching
-* excludeCorsPreflight: OPTIONS request from a Cors pre-flight request which has a 
-* excludeBearerAuthorization
+* excludeCorsPreflight: exclude CORS preflight requests. When a request is CORS preflight web security which is an OPTIONS request with 3 valid CORS preflight headers and will not include credentials i.e. credentials would be the method in a CORS preflight request @see https://fetch.spec.whatwg.org/#methods   
+* excludeBearerAuthorization:  exclude requests that include a Bearer Authorization header. if your API has a mix of Windows and OAUTH covered URIs
 
 Filter Configuration Example
 ----------------------------
@@ -80,6 +80,7 @@ Filter Configuration Example
       <param-value>
         .*/rest/.*
         .*/api/v2/.*
+        ./oauth2/basic/client_credentials.*
       </param-value>
   </init-param>
   <init-param>
