@@ -107,7 +107,7 @@ public class NegotiateSecurityFilter implements Filter {
 
         final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
 
-        if (CorsPreflightCheck.isPreflight(request)) {
+        if (this.excludeCorsPreflight && CorsPreflightCheck.isPreflight(request)) {
             chain.doFilter(sreq, sres);
             return;
         }

@@ -131,8 +131,6 @@ class NegotiateSecurityFilterTest {
         negotiateSecurityFilter.init(filterConfig);
         negotiateSecurityFilter.doFilter(request, response, chain);
 
-        assertNotNull(negotiateSecurityFilter.getAuth());
-
         new Verifications() {
             {
                 chain.doFilter(request, response);
