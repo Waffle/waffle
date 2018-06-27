@@ -1,4 +1,4 @@
-1.9.0 (6/27/2018)
+1.9.1 (6/27/2018)
 =================
 * Documentation Updates
 * Added some tests for NegotiateSecurityFilter
