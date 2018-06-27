@@ -41,6 +41,8 @@ The filter can be configured with the following `init-param` options.
 * waffle.servlet.spi.BasicSecurityFilterProvider/realm: The name of the Realm for BASIC authentication. 
 * impersonate: Allow impersonation. When true the remote user will be impersonated. Note that there is no mapping between the Windows native threads, under which the impersonation takes place, and the Java threads. Thus you'll need to use Windows native APIs to perform impersonated actions. Any action done in Java will still be performed with the user account running the servlet container. 
 * excludePatterns: Url patterns to exclude from the filter, uses regex for pattern matching
+* excludeCorsPreflight: OPTIONS request from a Cors pre-flight request which has a 
+* excludeBearerAuthorization
 
 Filter Configuration Example
 ----------------------------
@@ -65,6 +67,14 @@ Filter Configuration Example
       <param-name>impersonate</param-name>
       <param-value>true</param-value>
   </init-param>
+  <init-param>
+      <param-name>excludeCorsPreflight</param-name>
+      <param-value>true</param-value>
+  </init-param>
+  <init-param>
+      <param-name>excludeBearerAuthorization</param-name>
+      <param-value>true</param-value>
+  </init-param>  
   <init-param>
       <param-name>excludePatterns</param-name>
       <param-value>
@@ -125,7 +135,7 @@ You can use maven to build and deploy this demo application by following the ste
     apache-tomcat-7.0.53$ bin/catalina.sh jpda start
 ```
 
-* Build and Deploy the demo application to the local tomcat 6 instance. In the waffle source tree, move to the directory: waffle/Source/JNA/waffle-demo-parent/waffle-filter, and execute the following:
+* Build and Deploy the demo application to the local tomcat instance. In the waffle source tree, move to the directory: waffle/Source/JNA/waffle-demo-parent/waffle-filter, and execute the following:
 
 ```
    mvn clean package tomcat7:redeploy

@@ -1,4 +1,6 @@
 package waffle.servlet;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.lang.reflect.Field;
 import java.util.*;
@@ -47,7 +49,7 @@ class NegotiateSecurityFilterTest {
     });
 
     @Test
-    void testNegotiateRequestFilter_init(@Mocked FilterConfig filterConfig) throws Exception {
+    void testCorsAndBearerAuthorizationI_init(@Mocked FilterConfig filterConfig) throws Exception {
         getClass().getClassLoader().getResource("logback.xml");
         new Expectations() {
             {
@@ -61,7 +63,7 @@ class NegotiateSecurityFilterTest {
                 filterConfig.getInitParameter("allowGuestLogin");
                 result = "false";
                 filterConfig.getInitParameter("impersonate");
-                result = "false";
+                result = "true";
                 filterConfig.getInitParameter("securityFilterProviders");
                 result = "waffle.servlet.spi.BasicSecurityFilterProvider\nwaffle.servlet.spi.NegotiateSecurityFilterProvider";
                 filterConfig.getInitParameter("excludePatterns");
@@ -82,6 +84,8 @@ class NegotiateSecurityFilterTest {
         excludeBearerAuthorization.setAccessible(true);
         assertTrue(excludeCorsPreflight.getBoolean(negotiateSecurityFilter));
         assertTrue(excludeBearerAuthorization.getBoolean(negotiateSecurityFilter));
+        assertTrue(negotiateSecurityFilter.isImpersonate());
+        assertFalse(negotiateSecurityFilter.isAllowGuestLogin());
 
         new Verifications() {
             {
@@ -93,7 +97,7 @@ class NegotiateSecurityFilterTest {
     }
 
     @Test
-    void testNegotiateRequestFilter_excludeBasicAuthorization(@Mocked HttpServletRequest request,
+    void testExcludeCorsAndOAUTHBearerAuthorization_doFilter(@Mocked HttpServletRequest request,
             @Mocked HttpServletResponse response, @Mocked FilterChain chain, @Mocked FilterConfig filterConfig)
             throws Exception {
         getClass().getClassLoader().getResource("logback.xml");
@@ -126,6 +130,8 @@ class NegotiateSecurityFilterTest {
 
         negotiateSecurityFilter.init(filterConfig);
         negotiateSecurityFilter.doFilter(request, response, chain);
+
+        assertNotNull(negotiateSecurityFilter.getAuth());
 
         new Verifications() {
             {
