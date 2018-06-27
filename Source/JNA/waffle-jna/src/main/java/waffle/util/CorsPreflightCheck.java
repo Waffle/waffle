@@ -41,7 +41,7 @@ public class CorsPreflightCheck {
         final String corsRequestType = (String) request.getAttribute("cors.request.type");
 
         CorsPreflightCheck.LOGGER
-                .debug("[waffle.servlet.CorsPreflightCheck] Request is CORS preflight; continue filter chain");
+                .debug("[waffle.util.CorsPreflightCheck] Request is CORS preflight; continue filter chain");
 
         /**
          * it MUST be an OPTIONS Method to be a preflight Request
@@ -51,7 +51,7 @@ public class CorsPreflightCheck {
             return false;
         }
 
-        CorsPreflightCheck.LOGGER.debug("[waffle.servlet.CorsPreflightCheck] check for PRE_FLIGHT Attribute");
+        CorsPreflightCheck.LOGGER.debug("[waffle.util.CorsPreflightCheck] check for PRE_FLIGHT Attribute");
 
         /**
          * support Apache CorsFilter which would already add the Attribute cors.request.type with a value "PRE_FLIGHT"
@@ -63,17 +63,17 @@ public class CorsPreflightCheck {
              * it is OPTIONS and it is not an CorsFilter PRE_FLIGHT request make sure that the request contains all of
              * the CORS preflight Headers
              */
-            CorsPreflightCheck.LOGGER.debug("[waffle.servlet.CorsPreflightCheck] check headers");
+            CorsPreflightCheck.LOGGER.debug("[waffle.util.CorsPreflightCheck] check headers");
 
             for (String header : CorsPreflightCheck.CORS_PRE_FLIGHT_HEADERS) {
                 String headerValue = request.getHeader(header);
-                CorsPreflightCheck.LOGGER.debug("[waffle.servlet.CorsPreflightCheck] {} {} ", header);
+                CorsPreflightCheck.LOGGER.debug("[waffle.util.CorsPreflightCheck] {} {} ", header);
 
                 if (headerValue == null)
                     /* one of the CORS pre-flight headers is missing */
                     return false;
             }
-            CorsPreflightCheck.LOGGER.debug("[waffle.servlet.CorsPreflightCheck] is preflight");
+            CorsPreflightCheck.LOGGER.debug("[waffle.util.CorsPreflightCheck] is preflight");
 
             return true;
         }

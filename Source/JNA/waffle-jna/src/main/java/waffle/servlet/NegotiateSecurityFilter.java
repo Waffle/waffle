@@ -108,11 +108,13 @@ public class NegotiateSecurityFilter implements Filter {
         final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
 
         if (this.excludeCorsPreflight && CorsPreflightCheck.isPreflight(request)) {
+            NegotiateSecurityFilter.LOGGER.debug("[waffle.servlet.NegotiateSecurityFilter] CORS preflight");
             chain.doFilter(sreq, sres);
             return;
         }
         /* Check if the Authorization Header is a byte case insensitive string BEARER */
         if (this.excludeBearerAuthorization && authorizationHeader.isBearerAuthorizationHeader()) {
+            NegotiateSecurityFilter.LOGGER.debug("[waffle.servlet.NegotiateSecurityFilter] Authorization: Bearer");
             chain.doFilter(sreq, sres);
             return;
         }
