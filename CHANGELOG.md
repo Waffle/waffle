@@ -1,3 +1,9 @@
+1.9.1 (06/27/2018)
+==================
+* Add ability to disable SSO through servlet config parameter.
+* Added check for DELETE action in isNtlmType1PostAuthorizationHeader as IE will strip the body on challenge.
+* Resume filter chain when not in a windows environment OR the browser making the request is not on a windows OS
+
 1.9.0 (4/14/2018)
 =================
 * Documentation Updates

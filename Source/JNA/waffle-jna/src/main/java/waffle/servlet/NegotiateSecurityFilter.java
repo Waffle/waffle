@@ -95,16 +95,16 @@ public class NegotiateSecurityFilter implements Filter {
     }
 
     @Override
-    public void doFilter(final ServletRequest sreq, final ServletResponse sres, final FilterChain chain) throws IOException, ServletException {
+    public void doFilter(final ServletRequest sreq, final ServletResponse sres, final FilterChain chain)
+		throws IOException, ServletException {
 
         final HttpServletRequest request = (HttpServletRequest) sreq;
         final HttpServletResponse response = (HttpServletResponse) sres;
 
         // if we're not in a windows environment OR the browser making the request is
-        // not on a windows OS, resume filter
-        // chain
+        // not on a windows OS, resume filter chain
         if (!isWindows() || !isWindowsBrowser(request)) {
-            NegotiateSecurityFilter.LOGGER.info("Running in a non windows environment, SSO will abort");
+            NegotiateSecurityFilter.LOGGER.info("Running in a non windows environment, SSO will abort.");
             chain.doFilter(request, response);
             return;
         }
@@ -114,7 +114,8 @@ public class NegotiateSecurityFilter implements Filter {
             return;
         }
 
-        NegotiateSecurityFilter.LOGGER.debug("{} {}, contentlength: {}", request.getMethod(), request.getRequestURI(), Integer.valueOf(request.getContentLength()));
+        NegotiateSecurityFilter.LOGGER.debug("{} {}, contentlength: {}", request.getMethod(), 
+			request.getRequestURI(), Integer.valueOf(request.getContentLength()));
 
         if (request.getRequestURL() != null && this.excludePatterns != null) {
             final String url = request.getRequestURL().toString();
@@ -157,7 +158,8 @@ public class NegotiateSecurityFilter implements Filter {
                     return;
                 }
 
-                NegotiateSecurityFilter.LOGGER.debug("logged in user: {} ({})", windowsIdentity.getFqn(), windowsIdentity.getSidString());
+                NegotiateSecurityFilter.LOGGER.debug("logged in user: {} ({})", windowsIdentity.getFqn(),
+					windowsIdentity.getSidString());
 
                 final HttpSession session = request.getSession(true);
                 if (session == null) {
@@ -171,7 +173,8 @@ public class NegotiateSecurityFilter implements Filter {
 
                 WindowsPrincipal windowsPrincipal;
                 if (this.impersonate) {
-                    windowsPrincipal = new AutoDisposableWindowsPrincipal(windowsIdentity, this.principalFormat, this.roleFormat);
+                    windowsPrincipal = new AutoDisposableWindowsPrincipal(windowsIdentity, this.principalFormat, 
+						this.roleFormat);
                 } else {
                     windowsPrincipal = new WindowsPrincipal(windowsIdentity, this.principalFormat, this.roleFormat);
                 }
@@ -361,7 +364,8 @@ public class NegotiateSecurityFilter implements Filter {
                     provider.initParameter(classAndParameter[1], implParameter.getValue());
 
                 } catch (final ClassNotFoundException e) {
-                    NegotiateSecurityFilter.LOGGER.error("invalid class: {} in {}", classAndParameter[0], implParameter.getKey());
+                    NegotiateSecurityFilter.LOGGER.error("invalid class: {} in {}", classAndParameter[0],
+						implParameter.getKey());
                     throw new ServletException(e);
                 } catch (final Exception e) {
                     throw new ServletException(e);
