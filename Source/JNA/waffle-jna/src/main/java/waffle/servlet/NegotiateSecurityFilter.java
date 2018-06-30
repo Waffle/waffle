@@ -37,6 +37,7 @@ import org.slf4j.LoggerFactory;
 import waffle.servlet.spi.SecurityFilterProvider;
 import waffle.servlet.spi.SecurityFilterProviderCollection;
 import waffle.util.AuthorizationHeader;
+import waffle.util.CorsPreflightCheck;
 import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.IWindowsImpersonationContext;
@@ -74,6 +75,11 @@ public class NegotiateSecurityFilter implements Filter {
     /** The exclusion filter. */
     private String[] excludePatterns;
 
+    /** The exclusion filter. */
+    private boolean excludeBearerAuthorization = false;
+
+    private boolean excludeCorsPreflight = false;
+
     /** The Constant PRINCIPALSESSIONKEY. */
     private static final String PRINCIPALSESSIONKEY = NegotiateSecurityFilter.class.getName() + ".PRINCIPAL";
 
@@ -99,6 +105,20 @@ public class NegotiateSecurityFilter implements Filter {
         NegotiateSecurityFilter.LOGGER.debug("{} {}, contentlength: {}", request.getMethod(), request.getRequestURI(),
                 Integer.valueOf(request.getContentLength()));
 
+        final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
+
+        if (this.excludeCorsPreflight && CorsPreflightCheck.isPreflight(request)) {
+            NegotiateSecurityFilter.LOGGER.debug("[waffle.servlet.NegotiateSecurityFilter] CORS preflight");
+            chain.doFilter(sreq, sres);
+            return;
+        }
+        /* Check if the Authorization Header is a byte case insensitive string BEARER */
+        if (this.excludeBearerAuthorization && authorizationHeader.isBearerAuthorizationHeader()) {
+            NegotiateSecurityFilter.LOGGER.debug("[waffle.servlet.NegotiateSecurityFilter] Authorization: Bearer");
+            chain.doFilter(sreq, sres);
+            return;
+        }
+
         if (request.getRequestURL() != null && this.excludePatterns != null) {
             final String url = request.getRequestURL().toString();
             for (final String pattern : this.excludePatterns) {
@@ -114,8 +134,6 @@ public class NegotiateSecurityFilter implements Filter {
             // previously authenticated user
             return;
         }
-
-        final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
 
         // authenticate user
         if (!authorizationHeader.isNull()) {
@@ -269,10 +287,13 @@ public class NegotiateSecurityFilter implements Filter {
     public void init(final FilterConfig filterConfig) throws ServletException {
         final Map<String, String> implParameters = new HashMap<>();
 
+        NegotiateSecurityFilter.LOGGER.debug("[waffle.servlet.NegotiateSecurityFilter] starting");
+
         String authProvider = null;
         String[] providerNames = null;
         if (filterConfig != null) {
             final Enumeration<String> parameterNames = filterConfig.getInitParameterNames();
+            NegotiateSecurityFilter.LOGGER.debug("[waffle.servlet.NegotiateSecurityFilter] processing filterConfig");
             while (parameterNames.hasMoreElements()) {
                 final String parameterName = parameterNames.nextElement();
                 final String parameterValue = filterConfig.getInitParameter(parameterName);
@@ -299,6 +320,12 @@ public class NegotiateSecurityFilter implements Filter {
                     case "excludePatterns":
                         this.excludePatterns = parameterValue.split("\\s+");
                         break;
+                    case "excludeCorsPreflight":
+                        this.setExcludeCorsPreflight(Boolean.parseBoolean(parameterValue));
+                        break;
+                    case "excludeBearerAuthorization":
+                        this.setExcludeBearerAuthorization(Boolean.parseBoolean(parameterValue));
+                        break;
                     default:
                         implParameters.put(parameterName, parameterValue);
                         break;
@@ -306,6 +333,7 @@ public class NegotiateSecurityFilter implements Filter {
             }
         }
 
+        NegotiateSecurityFilter.LOGGER.debug("[waffle.servlet.NegotiateSecurityFilter] authProvider");
         if (authProvider != null) {
             try {
                 this.auth = (IWindowsAuthProvider) Class.forName(authProvider).getConstructor().newInstance();
@@ -333,6 +361,7 @@ public class NegotiateSecurityFilter implements Filter {
         }
 
         // apply provider implementation parameters
+        NegotiateSecurityFilter.LOGGER.debug("[waffle.servlet.NegotiateSecurityFilter] load provider parameters");
         for (final Entry<String, String> implParameter : implParameters.entrySet()) {
             final String[] classAndParameter = implParameter.getKey().split("/", 2);
             if (classAndParameter.length == 2) {
@@ -481,4 +510,13 @@ public class NegotiateSecurityFilter implements Filter {
     public SecurityFilterProviderCollection getProviders() {
         return this.providers;
     }
+
+    public void setExcludeBearerAuthorization(boolean excludeBearerAuthorization) {
+        this.excludeBearerAuthorization = excludeBearerAuthorization;
+    }
+
+    public void setExcludeCorsPreflight(boolean excludeCorsPreflight) {
+        this.excludeCorsPreflight = excludeCorsPreflight;
+    }
+
 }

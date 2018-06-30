@@ -1,3 +1,11 @@
+1.9.1 (6/27/2018)
+=================
+* Documentation Updates
+* Added some tests for NegotiateSecurityFilter
+* Added test for new class waffle.util.CorsPreflightCheck
+* Changes
+    * [#631](https://github.com/Waffle/waffle/pulls/631): Added excludeBearerAuthorization and excludeCorsPreflight [#627](https://github.com/Waffle/waffle/issues/627)[@pedroneil](https://github.com/PhaseEight).
+
 1.9.0 (4/14/2018)
 =================
 * Documentation Updates

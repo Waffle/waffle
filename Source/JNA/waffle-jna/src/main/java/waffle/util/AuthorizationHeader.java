@@ -12,6 +12,7 @@
 package waffle.util;
 
 import java.util.Base64;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -62,7 +63,9 @@ public class AuthorizationHeader {
     /**
      * Returns a supported security package string.
      *
-     * @return Negotiate or NTLM.
+     * Athorization: NTLM the_token Athorization: Negotiate the_token Authorization: Bearer the_token
+     *
+     * @return AuthenticationScheme as SecurityPackage e.g. Negotiate, NTLM, Bearer.
      */
     public String getSecurityPackage() {
         final String header = this.getHeader();
@@ -158,5 +161,12 @@ public class AuthorizationHeader {
         }
 
         return this.isNtlmType1Message() || this.isSPNegTokenInitMessage();
+    }
+
+    public boolean isBearerAuthorizationHeader() {
+        if (this.isNull())
+            return false;
+
+        return getSecurityPackage().toUpperCase().equalsIgnoreCase("BEARER");
     }
 }
