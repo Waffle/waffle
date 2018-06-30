@@ -39,7 +39,7 @@ Troubleshooting Stories
 * [Waffle returns outdated nonexistent user name after the user name was changed on domain](faq/ClearLSACacheToAvoidOutdatedPrincipalNames.md): solved by clearing the server LSA cache through the Windows registry according to MS Kbase article.
 * [Status 401 (error code 80090308) when using .NET client and HTTP 1.0 protocol](https://groups.google.com/d/msg/waffle-users/Nisu-m19_nI/HLgaNhfBEw4J): solved by using default protocol version in .NET HttpWebRequest
 * [Disable waffle debug log information in Tomcat server] (https://github.com/Waffle/waffle/issues/548) : solved by placing the logback configuration file in tomcat server library folder where waffle jar files are available.
-
+* [Invalid Authorization Header Problems calling OAUTH2 covered Resources using the NegotiateSecurityFilter](faq/oauth2CORSBasicAndSSO.md) : Solved using a combination of [TomcatSingleSignOnValve](tomcat/TomcatSingleSignOnValve.md) and [NegotiateSecurityFilter](ServletSingleSignOnSecurityFilter.md)
 
 Troubleshooting Help
 ----------------------
