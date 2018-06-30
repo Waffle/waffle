@@ -13,13 +13,16 @@ package waffle.shiro.negotiate;
 
 import java.security.Principal;
 
-/**
- * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateAuthenticationFilter. see:
- * https://bitbucket.org/lothor
- * /shiro-negotiate/src/7b25efde130b/src/main/java/net/skorgenes/security/jsecurity/negotiate
- * /NegotiateAuthenticationRealm.java?at=default
- *
- * @author Dan Rollo
+/**
+ * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateAuthenticationFilter. see:
+ *
+ * https://bitbucket.org/lothor
+ *
+ * /shiro-negotiate/src/7b25efde130b/src/main/java/net/skorgenes/security/jsecurity/negotiate
+ *
+ * /NegotiateAuthenticationRealm.java?at=default
+ *
+ * @author Dan Rollo
  */
 import javax.security.auth.Subject;
 
