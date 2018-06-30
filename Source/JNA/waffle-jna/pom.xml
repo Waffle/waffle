@@ -40,6 +40,7 @@
         <caffeine.version>2.6.2</caffeine.version>
         <jna.version>4.5.1</jna.version>
         <servlet.version>4.0.1</servlet.version>
+        <mockito-core.version>2.19.0</mockito-core.version>
     </properties>
 
     <dependencies>
@@ -83,7 +84,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>RELEASE</version>
+            <version>${mockito-core.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
