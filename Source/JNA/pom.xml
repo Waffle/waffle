@@ -496,10 +496,11 @@
                 <plugin>
                     <groupId>net.revelc.code</groupId>
                     <artifactId>impsort-maven-plugin</artifactId>
-                    <version>1.0.1</version>
+                    <version>1.1.0</version>
                     <configuration>
                         <groups>com,java,javax,mockit,org,waffle</groups>
                         <staticGroups>java,*</staticGroups>
+                        <!-- <removeUnused>true</removeUnused> (doesn't handle javadoc usage properly yet) -->
                     </configuration>
                 </plugin>
                 <plugin>
