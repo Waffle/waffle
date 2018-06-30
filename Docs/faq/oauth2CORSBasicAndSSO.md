@@ -127,3 +127,12 @@ Guarding API requests and OAUTH2 Server Request
       </auth-constraint>
 </security-constraint>
 ```
+
+### The net affect of this Configuration
+1. Authorization: Bearer header, the request goes to api which checks the token with the OAUTH2 Server
+2. CORS preflight checks with OPTIONS go on to the CORS Filter
+3. GET /myservlet/api/oauth-covered-resource with no Bearer and not in excludePatterns gets Negotiate/NTLM
+4. GET /myservlet/api/oauth-covered-servlet Authorization: Basic and in excludePatterns goes to OAUTH client_credentials endpoint @see 2.3.1 of [client_password for Client Authentication](https://tools.ietf.org/html/rfc6749#section-2.3)
+
+
+
