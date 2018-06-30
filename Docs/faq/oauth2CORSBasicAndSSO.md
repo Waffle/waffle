@@ -15,7 +15,7 @@ OAUTH2 uses the Basic Authentication for the client_credentials grant_type as do
 
 To work through pretty complex requirement like this you could use a combination of the Tomcat Single-SignOn Authenticator Valve and the NegotiateSecurityFilter
 
-1. Configure a [Tomcat Single SignOnValve](../tomcat/TomcatSingleSignOnValve.md)
+1. Configure context.xml with [NegotiateAuthenticator](../tomcat/TomcatSingleSignOnValve.md)
 1. Configure web.xml and add
    1. a Filter Mapping to cover requests to your api and oauth2 server using the following parameters
       1. excludePatterns that include client_credentils grant type Basic Authentication Token Requests and Bearer Authorization Requests   
