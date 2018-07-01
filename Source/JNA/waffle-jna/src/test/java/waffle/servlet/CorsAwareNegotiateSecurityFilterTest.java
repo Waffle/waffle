@@ -16,7 +16,10 @@ import javax.servlet.FilterConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import mockit.*;
+import mockit.Expectations;
+import mockit.Mocked;
+import mockit.Tested;
+import mockit.Verifications;
 
 import org.junit.jupiter.api.Test;
 
@@ -29,10 +32,13 @@ class CorsAwareNegotiateSecurityFilterTest {
 
     @Mocked
     HttpServletRequest preflightRequest;
+
     @Mocked
     HttpServletResponse preflightResponse;
+
     @Mocked
     FilterChain chain;
+
     @Mocked
     FilterConfig filterConfig;
 
@@ -41,24 +47,26 @@ class CorsAwareNegotiateSecurityFilterTest {
 
         new Expectations() {
             {
-                preflightRequest.getMethod();
-                result = "OPTIONS";
-                preflightRequest.getHeader("Access-Control-Request-Method");
-                result = "LOGIN";
-                preflightRequest.getHeader("Access-Control-Request-Headers");
-                result = "X-Request-For";
-                preflightRequest.getHeader("Origin");
-                result = "https://theorigin.preflight";
+                CorsAwareNegotiateSecurityFilterTest.this.preflightRequest.getMethod();
+                this.result = "OPTIONS";
+                CorsAwareNegotiateSecurityFilterTest.this.preflightRequest.getHeader("Access-Control-Request-Method");
+                this.result = "LOGIN";
+                CorsAwareNegotiateSecurityFilterTest.this.preflightRequest.getHeader("Access-Control-Request-Headers");
+                this.result = "X-Request-For";
+                CorsAwareNegotiateSecurityFilterTest.this.preflightRequest.getHeader("Origin");
+                this.result = "https://theorigin.preflight";
             }
         };
 
-        corsAwareNegotiateSecurityFilter.doFilter(preflightRequest, preflightResponse, chain);
+        this.corsAwareNegotiateSecurityFilter.doFilter(this.preflightRequest, this.preflightResponse, this.chain);
 
         new Verifications() {
             {
-                CorsPreflightCheck.isPreflight(preflightRequest);
-                times = 1;
-                chain.doFilter(preflightRequest, preflightResponse);
+                CorsPreflightCheck.isPreflight(CorsAwareNegotiateSecurityFilterTest.this.preflightRequest);
+                this.times = 1;
+                CorsAwareNegotiateSecurityFilterTest.this.chain.doFilter(
+                        CorsAwareNegotiateSecurityFilterTest.this.preflightRequest,
+                        CorsAwareNegotiateSecurityFilterTest.this.preflightResponse);
             }
         };
 
