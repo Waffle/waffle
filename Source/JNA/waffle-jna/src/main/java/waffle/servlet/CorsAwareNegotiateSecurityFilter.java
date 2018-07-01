@@ -27,7 +27,11 @@ import org.slf4j.LoggerFactory;
 import waffle.util.AuthorizationHeader;
 import waffle.util.CorsPreflightCheck;
 
+/**
+ * The Class CorsAwareNegotiateSecurityFilter.
+ */
 public class CorsAwareNegotiateSecurityFilter extends NegotiateSecurityFilter implements Filter {
+
     /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory.getLogger(CorsAwareNegotiateSecurityFilter.class);
 

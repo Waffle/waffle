@@ -25,23 +25,37 @@ import org.junit.jupiter.api.Test;
 
 import waffle.util.CorsPreflightCheck;
 
+/**
+ * The Class CorsAwareNegotiateSecurityFilterTest.
+ */
 class CorsAwareNegotiateSecurityFilterTest {
 
+    /** The cors aware negotiate security filter. */
     @Tested
     CorsAwareNegotiateSecurityFilter corsAwareNegotiateSecurityFilter;
 
+    /** The preflight request. */
     @Mocked
     HttpServletRequest preflightRequest;
 
+    /** The preflight response. */
     @Mocked
     HttpServletResponse preflightResponse;
 
+    /** The chain. */
     @Mocked
     FilterChain chain;
 
+    /** The filter config. */
     @Mocked
     FilterConfig filterConfig;
 
+    /**
+     * Do filter test cors preflight request.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     void doFilterTestCorsPreflightRequest() throws Exception {
 
