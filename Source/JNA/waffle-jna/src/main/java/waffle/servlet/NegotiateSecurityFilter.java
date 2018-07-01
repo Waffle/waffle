@@ -325,10 +325,10 @@ public class NegotiateSecurityFilter implements Filter {
                         this.excludePatterns = parameterValue.split("\\s+");
                         break;
                     case "excludeCorsPreflight":
-                        this.setExcludeCorsPreflight(Boolean.parseBoolean(parameterValue));
+                        this.excludeCorsPreflight = Boolean.parseBoolean(parameterValue);
                         break;
                     case "excludeBearerAuthorization":
-                        this.setExcludeBearerAuthorization(Boolean.parseBoolean(parameterValue));
+                        this.excludeBearerAuthorization = Boolean.parseBoolean(parameterValue);
                         break;
                     default:
                         implParameters.put(parameterName, parameterValue);
@@ -513,14 +513,6 @@ public class NegotiateSecurityFilter implements Filter {
      */
     public SecurityFilterProviderCollection getProviders() {
         return this.providers;
-    }
-
-    public void setExcludeBearerAuthorization(boolean excludeBearerAuthorization) {
-        this.excludeBearerAuthorization = excludeBearerAuthorization;
-    }
-
-    public void setExcludeCorsPreflight(boolean excludeCorsPreflight) {
-        this.excludeCorsPreflight = excludeCorsPreflight;
     }
 
 }
