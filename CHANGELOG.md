@@ -28,18 +28,22 @@
     * [#487](https://github.com/Waffle/waffle/pull/487): Updated guava joiner to string.join #304[@hazendaz](https://github.com/hazendaz).
     * [#488](https://github.com/Waffle/waffle/pull/488): Use java.util.Base64 with java 8 #304[@hazendaz](https://github.com/hazendaz).
     * [#491](https://github.com/Waffle/waffle/pull/491): Rewrite guava Files.write to java 7 FilesWrite #304[@hazendaz](https://github.com/hazendaz).
-    * [#498](https://github.com/Waffle/waffle/pull/498): Add third party license files[@hazendaz](https://github.com/hazendaz).
+    * [#498](https://github.com/Waffle/waffle/pull/499): Add third party license files[@hazendaz](https://github.com/hazendaz).
     * [#553](https://github.com/Waffle/waffle/pull/553): Add spring boot starter and demo[@mgoldgeier](https://github.com/mgoldgeier).
     * [#558](https://github.com/Waffle/waffle/pull/558): Add initial support for spring 5 using spring security 4 still[@hazendaz](https://github.com/hazendaz).
     * [#559](https://github.com/Waffle/waffle/pull/559): Add spring milestone repo and upgrade to spring security 5.0.0.M4[@hazendaz](https://github.com/hazendaz).
     * [#571](https://github.com/Waffle/waffle/pull/571): Custom instances of GenericPrincipal in WaffleAuthenticatorBase[@Snap252](https://github.com/Snap252).
     * [#583](https://github.com/Waffle/waffle/pull/583): Added continueContextsTimeout property to WaffleAuthenticatorBase for tomcat(s): Ported forwards (1.8.4)[@alanlavintman](https://github.com/alanlavintman).
+    * [#594](https://github.com/Waffle/waffle/pull/594): Update for use with Atlassian JIRA [@wbagdon](https://github.com/wbagdon).
+    * [#596](https://github.com/Waffle/waffle/pull/596): Pull discussion from CodePlex to markdown docs [@wbagdon](https://github.com/wbagdon).
     * [#609](https://github.com/Waffle/waffle/pull/609): Use only securityContext.isContinue() to decide if SC_UNAUTHORIZED response is needed to trigger another pass in authentication [@tjstuart on behalf @AriSuutariST](https://github.com/AriSuutariST). 
+    * [#614](https://github.com/Waffle/waffle/pull/614): [tomcat] Finish generic principal logic and sync all tomcats [@hazendaz](https://github.com/hazendaz).
 
-1.8.4 (12/24/2017)
-==================
+1.8.4 (not released)
+====================
 * More backporting from 1.9.x master
 * [#579](https://github.com/Waffle/waffle/pull/579): Applied PR #196 continueContextsTimeout for tomcats. [@hazendaz](https://github.com/hazendaz).
+* {#582](https://github.com/Waffle/waffle/pull/582): Custom instances of GenericPrincipal in WaffleAuthenticatorBase (backport from @Snap252) [@hazendaz](https://github.com/hazendaz).
 * [#196](https://github.com/Waffle/waffle/pull/196): Added continueContextsTimeout property to WaffleAuthenticatorBase for tomcat(s). [@alanlavintman](https://github.com/alanlavintman).
 
 1.8.3 (2/6/2017)
