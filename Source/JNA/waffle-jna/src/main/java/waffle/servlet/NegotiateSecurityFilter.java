@@ -54,6 +54,9 @@ public class NegotiateSecurityFilter implements Filter {
     /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory.getLogger(NegotiateSecurityFilter.class);
 
+    /** The Constant PRINCIPALSESSIONKEY. */
+    private static final String PRINCIPALSESSIONKEY = NegotiateSecurityFilter.class.getName() + ".PRINCIPAL";
+
     /** The principal format. */
     private PrincipalFormat principalFormat = PrincipalFormat.FQN;
 
@@ -66,22 +69,20 @@ public class NegotiateSecurityFilter implements Filter {
     /** The auth. */
     private IWindowsAuthProvider auth;
 
+    /** The exclusion filter. */
+    private String[] excludePatterns;
+
     /** The allow guest login. */
     private boolean allowGuestLogin = true;
 
     /** The impersonate. */
     private boolean impersonate;
 
-    /** The exclusion filter. */
-    private String[] excludePatterns;
+    /** The exclusion bearer authorization. */
+    private boolean excludeBearerAuthorization;
 
-    /** The exclusion filter. */
-    private boolean excludeBearerAuthorization = false;
-
-    private boolean excludeCorsPreflight = false;
-
-    /** The Constant PRINCIPALSESSIONKEY. */
-    private static final String PRINCIPALSESSIONKEY = NegotiateSecurityFilter.class.getName() + ".PRINCIPAL";
+    /** The exclusions cors pre flight. */
+    private boolean excludeCorsPreflight;
 
     /**
      * Instantiates a new negotiate security filter.
@@ -105,20 +106,7 @@ public class NegotiateSecurityFilter implements Filter {
         NegotiateSecurityFilter.LOGGER.debug("{} {}, contentlength: {}", request.getMethod(), request.getRequestURI(),
                 Integer.valueOf(request.getContentLength()));
 
-        final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
-
-        if (this.excludeCorsPreflight && CorsPreflightCheck.isPreflight(request)) {
-            NegotiateSecurityFilter.LOGGER.debug("[waffle.servlet.NegotiateSecurityFilter] CORS preflight");
-            chain.doFilter(sreq, sres);
-            return;
-        }
-        /* Check if the Authorization Header is a byte case insensitive string BEARER */
-        if (this.excludeBearerAuthorization && authorizationHeader.isBearerAuthorizationHeader()) {
-            NegotiateSecurityFilter.LOGGER.debug("[waffle.servlet.NegotiateSecurityFilter] Authorization: Bearer");
-            chain.doFilter(sreq, sres);
-            return;
-        }
-
+        // If excluded URL, resume the filter chain
         if (request.getRequestURL() != null && this.excludePatterns != null) {
             final String url = request.getRequestURL().toString();
             for (final String pattern : this.excludePatterns) {
@@ -128,6 +116,22 @@ public class NegotiateSecurityFilter implements Filter {
                     return;
                 }
             }
+        }
+
+        // If exclude cores pre-flight and is pre flight, resume the filter chain
+        if (this.excludeCorsPreflight && CorsPreflightCheck.isPreflight(request)) {
+            NegotiateSecurityFilter.LOGGER.debug("[waffle.servlet.NegotiateSecurityFilter] CORS preflight");
+            chain.doFilter(sreq, sres);
+            return;
+        }
+
+        final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
+
+        // If exclude bearer authorization and is bearer authorization, result the filter chain
+        if (this.excludeBearerAuthorization && authorizationHeader.isBearerAuthorizationHeader()) {
+            NegotiateSecurityFilter.LOGGER.debug("[waffle.servlet.NegotiateSecurityFilter] Authorization: Bearer");
+            chain.doFilter(sreq, sres);
+            return;
         }
 
         if (this.doFilterPrincipal(request, response, chain)) {
