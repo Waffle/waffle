@@ -1,10 +1,14 @@
-1.9.1 (6/27/2018)
-=================
+1.9.1 (7/1/2018)
+================
 * Documentation Updates
 * Added some tests for NegotiateSecurityFilter
 * Added test for new class waffle.util.CorsPreflightCheck
+* Add ability to disable SSO through servlet config parameter.
+* Added check for DELETE action in isNtlmType1PostAuthorizationHeader as IE will strip the body on challenge.
+* Resume filter chain when not in a windows environment
 * Changes
     * [#631](https://github.com/Waffle/waffle/pulls/631): Added excludeBearerAuthorization and excludeCorsPreflight [#627](https://github.com/Waffle/waffle/issues/627)[@pedroneil](https://github.com/PhaseEight).
+    * [#636](https://github.com/Waffle/waffle/pull/636): DisableSso flag, Delete option, skip when running on non windows [@MoreHeapSpace}(https://github.com/MoreHeapSpace)
 
 1.9.0 (4/14/2018)
 =================
