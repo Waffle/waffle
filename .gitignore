@@ -1,4 +1,5 @@
 # Eclipse 
+/.apt_generated_tests/
 .classpath
 .settings
 .project
