@@ -482,7 +482,7 @@
                 <plugin>
                     <groupId>net.revelc.code.formatter</groupId>
                     <artifactId>formatter-maven-plugin</artifactId>
-                    <version>2.7.3</version>
+                    <version>2.7.5</version>
                     <dependencies>
                         <dependency>
                             <groupId>com.github.hazendaz</groupId>
@@ -1302,7 +1302,7 @@
                                             <pluginExecutionFilter>
                                                 <groupId>net.revelc.code.formatter</groupId>
                                                 <artifactId>formatter-maven-plugin</artifactId>
-                                                <versionRange>[2.7.3,)</versionRange>
+                                                <versionRange>[2.7.5,)</versionRange>
                                                 <goals>
                                                     <goal>format</goal>
                                                 </goals>
