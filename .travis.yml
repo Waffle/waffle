@@ -1,10 +1,18 @@
 language: java
 sudo: false
 
-jdk:
-  - oraclejdk9
-  - oraclejdk8
-  - openjdk8
+matrix:
+  include:
+# 9
+    - env: JDK='Oracle JDK 9'
+      jdk: oraclejdk9
+    - env: JDK='OpenJDK 9'
+      install: . ./install-jdk.sh -F 9
+# 8
+    - env: JDK='Oracle JDK 8'
+      jdk: oraclejdk8
+    - env: JDK='OpenJDK 8'
+      jdk: openjdk8
 
 env:
   global:
@@ -24,6 +32,10 @@ addons:
     build_command: ./mvnw install -DskipTests -B -V
     branch_pattern: coverity_scan
 
+before_install:
+  - wget https://raw.githubusercontent.com/sormuras/bach/master/install-jdk.sh
+  - ./mvnw install -q -DskipTests=true
+    
 install: true
 
 script:

@@ -38,8 +38,8 @@
 
     <properties>
         <servlet.version>3.1.0</servlet.version>
-        <spring.version>4.3.18.RELEASE</spring.version>
-        <spring.security.version>4.2.7.RELEASE</spring.security.version>
+        <spring.version>4.3.19.RELEASE</spring.version>
+        <spring.security.version>4.2.8.RELEASE</spring.security.version>
     </properties>
 
     <dependencies>

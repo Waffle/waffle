@@ -143,14 +143,13 @@
         <checkstyle.config>checkstyle.xml</checkstyle.config>
 
         <!-- Third Party Versions -->
-        <assertj.version>3.10.0</assertj.version>
+        <assertj.version>3.11.1</assertj.version>
         <error-prone.version>2.3.1</error-prone.version>
         <j2objc.version>1.3</j2objc.version>
         <jmh.version>1.21</jmh.version>
-        <jmockit.version>1.40</jmockit.version>
+        <jmockit.version>1.41</jmockit.version>
         <jsr305.version>3.0.2</jsr305.version>
-        <junit.version>5.2.0</junit.version>
-        <junit-platform.version>1.2.0</junit-platform.version>
+        <junit.version>5.3.1</junit.version>
         <slf4j.version>1.7.25</slf4j.version>
 
         <!-- Signature Settings -->
@@ -158,11 +157,11 @@
         <signature.version>1.0</signature.version>
 
         <!-- Plugin Dependency Versions -->
-        <bug-pattern.version>1.4.0</bug-pattern.version>
-        <checkstyle.version>8.10.1</checkstyle.version>
-        <fb-contrib.version>7.4.2.sb</fb-contrib.version>
-        <findsecbugs.version>1.7.1</findsecbugs.version>
-        <plexus-compiler.version>2.8.4</plexus-compiler.version>
+        <bug-pattern.version>1.4.1</bug-pattern.version>
+        <checkstyle.version>8.12</checkstyle.version>
+        <fb-contrib.version>7.4.3.sb</fb-contrib.version>
+        <findsecbugs.version>1.8.0</findsecbugs.version>
+        <plexus-compiler.version>2.8.5</plexus-compiler.version>
     </properties>
 
     <dependencies>
@@ -240,7 +239,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.7.0</version>
+                    <version>3.8.0</version>
                     <configuration>
                         <compilerId>javac-with-errorprone</compilerId>
                         <forceJavacCompilerUse>true</forceJavacCompilerUse>
@@ -329,24 +328,12 @@
                         </excludes>
                         <argLine>-Djdk.attach.allowAttachSelf</argLine>
                     </configuration>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.junit.platform</groupId>
-                            <artifactId>junit-platform-surefire-provider</artifactId>
-                            <version>${junit-platform.version}</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.junit.jupiter</groupId>
-                            <artifactId>junit-jupiter-engine</artifactId>
-                            <version>${junit.version}</version>
-                        </dependency>
-                    </dependencies>
                 </plugin>
                 <!-- Build Plugins -->
                 <plugin>
                     <groupId>pl.project13.maven</groupId>
                     <artifactId>git-commit-id-plugin</artifactId>
-                    <version>2.2.4</version>
+                    <version>2.2.5</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -427,7 +414,7 @@
                 <plugin>
                     <groupId>com.github.spotbugs</groupId>
                     <artifactId>spotbugs-maven-plugin</artifactId>
-                    <version>3.1.5</version>
+                    <version>3.1.6</version>
                     <configuration>
                         <plugins>
                             <plugin>
@@ -468,7 +455,7 @@
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.8.1</version>
+                    <version>0.8.2</version>
                 </plugin>
                 <plugin>
                     <groupId>org.eluder.coveralls</groupId>
@@ -495,7 +482,7 @@
                 <plugin>
                     <groupId>net.revelc.code.formatter</groupId>
                     <artifactId>formatter-maven-plugin</artifactId>
-                    <version>2.7.3</version>
+                    <version>2.7.5</version>
                     <dependencies>
                         <dependency>
                             <groupId>com.github.hazendaz</groupId>
@@ -507,11 +494,11 @@
                 <plugin>
                     <groupId>net.revelc.code</groupId>
                     <artifactId>impsort-maven-plugin</artifactId>
-                    <version>1.1.0</version>
+                    <version>1.2.0</version>
                     <configuration>
                         <groups>com,java,javax,mockit,org,waffle</groups>
                         <staticGroups>java,*</staticGroups>
-                        <!-- <removeUnused>true</removeUnused> (doesn't handle javadoc usage properly yet) -->
+                        <removeUnused>true</removeUnused>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -557,7 +544,7 @@
                         <dependency>
                             <groupId>org.apache.maven.scm</groupId>
                             <artifactId>maven-scm-provider-jgit</artifactId>
-                            <version>1.10.0</version>
+                            <version>1.11.1</version>
                         </dependency>
                         <dependency>
                             <groupId>com.googlecode.javaewah</groupId>
@@ -572,7 +559,7 @@
                         <dependency>
                             <groupId>org.eclipse.jgit</groupId>
                             <artifactId>org.eclipse.jgit</artifactId>
-                            <version>4.11.0.201803080745-r</version>
+                            <version>5.1.1.201809181055-r</version>
                         </dependency>
                         <dependency>
                             <groupId>org.codehaus.plexus</groupId>
@@ -608,18 +595,18 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
-                    <version>2.5</version>
+                    <version>2.7</version>
                 </plugin>
                 <!-- SCM -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-scm-plugin</artifactId>
-                    <version>1.10.0</version>
+                    <version>1.11.1</version>
                     <dependencies>
                         <dependency>
                             <groupId>org.apache.maven.scm</groupId>
                             <artifactId>maven-scm-provider-jgit</artifactId>
-                            <version>1.10.0</version>
+                            <version>1.11.1</version>
                         </dependency>
                         <dependency>
                             <groupId>com.googlecode.javaewah</groupId>
@@ -634,7 +621,7 @@
                         <dependency>
                             <groupId>org.eclipse.jgit</groupId>
                             <artifactId>org.eclipse.jgit</artifactId>
-                            <version>4.11.0.201803080745-r</version>
+                            <version>5.1.1.201809181055-r</version>
                         </dependency>
                         <dependency>
                             <groupId>org.codehaus.plexus</groupId>
@@ -647,7 +634,7 @@
                 <plugin>
                     <groupId>org.sonarsource.scanner.maven</groupId>
                     <artifactId>sonar-maven-plugin</artifactId>
-                    <version>3.4.0.905</version>
+                    <version>3.5.0.1254</version>
                 </plugin>
                 <!-- Wagon -->
                 <plugin>
@@ -672,7 +659,7 @@
                 <plugin>
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
-                    <version>3.2.1</version>
+                    <version>3.3.2</version>
                 </plugin>
                 <!-- Sonatype Release -->
                 <plugin>
@@ -1302,7 +1289,7 @@
                                             <pluginExecutionFilter>
                                                 <groupId>org.jacoco</groupId>
                                                 <artifactId>jacoco-maven-plugin</artifactId>
-                                                <versionRange>[0.8.1,)</versionRange>
+                                                <versionRange>[0.8.2,)</versionRange>
                                                 <goals>
                                                     <goal>prepare-agent</goal>
                                                 </goals>
@@ -1315,7 +1302,7 @@
                                             <pluginExecutionFilter>
                                                 <groupId>net.revelc.code.formatter</groupId>
                                                 <artifactId>formatter-maven-plugin</artifactId>
-                                                <versionRange>[2.7.3,)</versionRange>
+                                                <versionRange>[2.7.5,)</versionRange>
                                                 <goals>
                                                     <goal>format</goal>
                                                 </goals>
@@ -1328,7 +1315,7 @@
                                             <pluginExecutionFilter>
                                                 <groupId>net.revelc.code</groupId>
                                                 <artifactId>impsort-maven-plugin</artifactId>
-                                                <versionRange>[1.1.0,)</versionRange>
+                                                <versionRange>[1.2.0,)</versionRange>
                                                 <goals>
                                                     <goal>sort</goal>
                                                 </goals>
