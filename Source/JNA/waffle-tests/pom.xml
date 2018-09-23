@@ -38,7 +38,7 @@
 
     <properties>
         <servlet.version>4.0.1</servlet.version>
-        <mockito-core.version>2.19.0</mockito-core.version>
+        <mockito-core.version>2.22.0</mockito-core.version>
         <objenesis.version>2.6</objenesis.version>
     </properties>
 
