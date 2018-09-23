@@ -157,10 +157,10 @@
         <signature.version>1.0</signature.version>
 
         <!-- Plugin Dependency Versions -->
-        <findsecbugs.version>1.7.1</findsecbugs.version>
         <bug-pattern.version>1.4.1</bug-pattern.version>
         <checkstyle.version>8.12</checkstyle.version>
         <fb-contrib.version>7.4.3.sb</fb-contrib.version>
+        <findsecbugs.version>1.8.0</findsecbugs.version>
         <plexus-compiler.version>2.8.5</plexus-compiler.version>
     </properties>
 
