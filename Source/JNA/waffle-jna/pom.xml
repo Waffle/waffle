@@ -38,7 +38,7 @@
 
     <properties>
         <caffeine.version>2.6.2</caffeine.version>
-        <jna.version>4.5.1</jna.version>
+        <jna.version>4.5.2</jna.version>
         <servlet.version>4.0.1</servlet.version>
     </properties>
 
