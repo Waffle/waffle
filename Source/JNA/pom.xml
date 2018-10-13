@@ -161,7 +161,7 @@
         <checkstyle.version>8.12</checkstyle.version>
         <fb-contrib.version>7.4.3.sb</fb-contrib.version>
         <findsecbugs.version>1.8.0</findsecbugs.version>
-        <plexus-compiler.version>2.8.5</plexus-compiler.version>
+        <javac.version>9+181-r4173-1</javac.version>
     </properties>
 
     <dependencies>
@@ -241,25 +241,25 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.8.0</version>
                     <configuration>
-                        <compilerId>javac-with-errorprone</compilerId>
-                        <forceJavacCompilerUse>true</forceJavacCompilerUse>
+                        <annotationProcessorPaths>
+                            <path>
+                                <groupId>com.google.errorprone</groupId>
+                                <artifactId>error_prone_core</artifactId>
+                                <version>${error-prone.version}</version>
+                            </path>
+                        </annotationProcessorPaths>
+
+                        <compilerArgs>
+                            <arg>-XDcompilePolicy=simple</arg>
+                            <arg>-Xplugin:ErrorProne</arg>
+                        </compilerArgs>
+
+                        <showDeprecation>true</showDeprecation>
+                        <showWarnings>true</showWarnings>
+
                         <!-- Slightly faster builds, see https://issues.apache.org/jira/browse/MCOMPILER-209 -->
                         <useIncrementalCompilation>false</useIncrementalCompilation>
                     </configuration>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.codehaus.plexus</groupId>
-                            <artifactId>plexus-compiler-javac-errorprone</artifactId>
-                            <version>${plexus-compiler.version}</version>
-                        </dependency>
-                        <!-- override plexus-compiler-javac-errorprone's dependency on
-                            Error Prone with the latest version -->
-                        <dependency>
-                            <groupId>com.google.errorprone</groupId>
-                            <artifactId>error_prone_core</artifactId>
-                            <version>${error-prone.version}</version>
-                        </dependency>
-                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -1147,6 +1147,7 @@
                 </plugins>
             </build>
         </profile>
+
         <profile>
             <id>compression</id>
             <activation>
@@ -1208,6 +1209,7 @@
                 </plugins>
             </build>
         </profile>
+
         <profile>
             <id>eclipse</id>
             <activation>
@@ -1348,6 +1350,7 @@
                 </pluginManagement>
             </build>
         </profile>
+
         <profile>
             <id>format</id>
             <activation>
@@ -1385,6 +1388,30 @@
                 </plugins>
             </build>
         </profile>
+
+        <profile>
+            <id>jdk8</id>
+            <activation>
+                <jdk>1.8</jdk>
+            </activation>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-compiler-plugin</artifactId>
+                            <configuration>
+                                <fork>true</fork>
+                                <compilerArgs combine.children="append">
+                                    <arg>-J-Xbootclasspath/p:${settings.localRepository}/com/google/errorprone/javac/${javac.version}/javac-${javac.version}.jar</arg>
+                                </compilerArgs>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+
         <profile>
             <id>sort</id>
             <build>
@@ -1404,6 +1431,7 @@
                 </plugins>
             </build>
         </profile>
+
         <profile>
             <id>release</id>
             <build>
