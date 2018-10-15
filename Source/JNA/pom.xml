@@ -133,7 +133,7 @@
         <maven.compiler.testSource>1.8</maven.compiler.testSource>
         <maven.compiler.testTarget>1.8</maven.compiler.testTarget>
 
-        <maven.min-version>3.5.3</maven.min-version>
+        <maven.min-version>3.5.4</maven.min-version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
@@ -144,7 +144,7 @@
 
         <!-- Third Party Versions -->
         <assertj.version>3.11.1</assertj.version>
-        <error-prone.version>2.3.1</error-prone.version>
+        <error-prone.version>2.3.2</error-prone.version>
         <j2objc.version>1.3</j2objc.version>
         <jmh.version>1.21</jmh.version>
         <jmockit.version>1.41</jmockit.version>
@@ -157,11 +157,11 @@
         <signature.version>1.0</signature.version>
 
         <!-- Plugin Dependency Versions -->
-        <bug-pattern.version>1.4.1</bug-pattern.version>
-        <checkstyle.version>8.12</checkstyle.version>
+        <bug-pattern.version>1.4.2</bug-pattern.version>
+        <checkstyle.version>8.13</checkstyle.version>
         <fb-contrib.version>7.4.3.sb</fb-contrib.version>
         <findsecbugs.version>1.8.0</findsecbugs.version>
-        <plexus-compiler.version>2.8.5</plexus-compiler.version>
+        <javac.version>9+181-r4173-1</javac.version>
     </properties>
 
     <dependencies>
@@ -241,30 +241,30 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.8.0</version>
                     <configuration>
-                        <compilerId>javac-with-errorprone</compilerId>
-                        <forceJavacCompilerUse>true</forceJavacCompilerUse>
+                        <annotationProcessorPaths>
+                            <path>
+                                <groupId>com.google.errorprone</groupId>
+                                <artifactId>error_prone_core</artifactId>
+                                <version>${error-prone.version}</version>
+                            </path>
+                        </annotationProcessorPaths>
+
+                        <compilerArgs>
+                            <arg>-XDcompilePolicy=simple</arg>
+                            <arg>-Xplugin:ErrorProne</arg>
+                        </compilerArgs>
+
+                        <showDeprecation>true</showDeprecation>
+                        <showWarnings>true</showWarnings>
+
                         <!-- Slightly faster builds, see https://issues.apache.org/jira/browse/MCOMPILER-209 -->
                         <useIncrementalCompilation>false</useIncrementalCompilation>
                     </configuration>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.codehaus.plexus</groupId>
-                            <artifactId>plexus-compiler-javac-errorprone</artifactId>
-                            <version>${plexus-compiler.version}</version>
-                        </dependency>
-                        <!-- override plexus-compiler-javac-errorprone's dependency on
-                            Error Prone with the latest version -->
-                        <dependency>
-                            <groupId>com.google.errorprone</groupId>
-                            <artifactId>error_prone_core</artifactId>
-                            <version>${error-prone.version}</version>
-                        </dependency>
-                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.8.2</version>
+                    <version>3.0.0-M1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -279,7 +279,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-install-plugin</artifactId>
-                    <version>2.5.2</version>
+                    <version>3.0.0-M1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -317,7 +317,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.22.0</version>
+                    <version>2.22.1</version>
                     <configuration>
                         <includes>
                             <include>**/*Test.java</include>
@@ -559,7 +559,7 @@
                         <dependency>
                             <groupId>org.eclipse.jgit</groupId>
                             <artifactId>org.eclipse.jgit</artifactId>
-                            <version>5.1.1.201809181055-r</version>
+                            <version>5.1.2.201810061102-r</version>
                         </dependency>
                         <dependency>
                             <groupId>org.codehaus.plexus</groupId>
@@ -585,7 +585,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-report-plugin</artifactId>
-                    <version>2.22.0</version>
+                    <version>2.22.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -621,7 +621,7 @@
                         <dependency>
                             <groupId>org.eclipse.jgit</groupId>
                             <artifactId>org.eclipse.jgit</artifactId>
-                            <version>5.1.1.201809181055-r</version>
+                            <version>5.1.2.201810061102-r</version>
                         </dependency>
                         <dependency>
                             <groupId>org.codehaus.plexus</groupId>
@@ -973,7 +973,7 @@
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
                 <artifactId>wagon-ssh</artifactId>
-                <version>3.1.0</version>
+                <version>3.2.0</version>
             </extension>
         </extensions>
     </build>
@@ -1147,6 +1147,7 @@
                 </plugins>
             </build>
         </profile>
+
         <profile>
             <id>compression</id>
             <activation>
@@ -1208,6 +1209,7 @@
                 </plugins>
             </build>
         </profile>
+
         <profile>
             <id>eclipse</id>
             <activation>
@@ -1348,6 +1350,7 @@
                 </pluginManagement>
             </build>
         </profile>
+
         <profile>
             <id>format</id>
             <activation>
@@ -1385,6 +1388,30 @@
                 </plugins>
             </build>
         </profile>
+
+        <profile>
+            <id>jdk8</id>
+            <activation>
+                <jdk>1.8</jdk>
+            </activation>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-compiler-plugin</artifactId>
+                            <configuration>
+                                <fork>true</fork>
+                                <compilerArgs combine.children="append">
+                                    <arg>-J-Xbootclasspath/p:${settings.localRepository}/com/google/errorprone/javac/${javac.version}/javac-${javac.version}.jar</arg>
+                                </compilerArgs>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+
         <profile>
             <id>sort</id>
             <build>
@@ -1404,6 +1431,7 @@
                 </plugins>
             </build>
         </profile>
+
         <profile>
             <id>release</id>
             <build>
