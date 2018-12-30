@@ -232,8 +232,10 @@ public class WaffleAutoConfiguration {
      */
     @Bean
     @ConditionalOnProperty("waffle.sso.enabled")
-    public FilterRegistrationBean<NegotiateSecurityFilter> waffleNegotiateSecurityFilterRegistrationBean(final NegotiateSecurityFilter filter) {
-        final FilterRegistrationBean<NegotiateSecurityFilter> bean = new FilterRegistrationBean<NegotiateSecurityFilter>(filter);
+    public FilterRegistrationBean<NegotiateSecurityFilter> waffleNegotiateSecurityFilterRegistrationBean(
+            final NegotiateSecurityFilter filter) {
+        final FilterRegistrationBean<NegotiateSecurityFilter> bean = new FilterRegistrationBean<NegotiateSecurityFilter>(
+                filter);
         bean.setEnabled(false);
         return bean;
     }

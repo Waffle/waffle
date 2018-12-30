@@ -211,7 +211,8 @@ public class NegotiateAuthenticatorTests {
                         .substring(securityPackage.length() + 1);
                 final byte[] continueTokenBytes = Base64.getDecoder().decode(continueToken);
                 assertThat(continueTokenBytes.length).isGreaterThan(0);
-                final ManagedSecBufferDesc continueTokenBuffer = new ManagedSecBufferDesc(Sspi.SECBUFFER_TOKEN, continueTokenBytes);
+                final ManagedSecBufferDesc continueTokenBuffer = new ManagedSecBufferDesc(Sspi.SECBUFFER_TOKEN,
+                        continueTokenBytes);
                 clientContext.initialize(clientContext.getHandle(), continueTokenBuffer,
                         WindowsAccountImpl.getCurrentUsername());
             }
