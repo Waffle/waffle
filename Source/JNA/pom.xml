@@ -162,6 +162,8 @@
         <fb-contrib.version>7.4.3.sb</fb-contrib.version>
         <findsecbugs.version>1.8.0</findsecbugs.version>
         <javac.version>9+181-r4173-1</javac.version>
+
+        <argLine>-javaagent:${settings.localRepository}/org/jmockit/jmockit/${jmockit.version}/jmockit-${jmockit.version}.jar -Djdk.attach.allowAttachSelf</argLine>
     </properties>
 
     <dependencies>
@@ -326,7 +328,6 @@
                         <excludes>
                             <exclude>**/*LoadTests.java</exclude>
                         </excludes>
-                        <argLine>-Djdk.attach.allowAttachSelf</argLine>
                     </configuration>
                 </plugin>
                 <!-- Build Plugins -->
