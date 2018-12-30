@@ -17,7 +17,7 @@ import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.Secur32.EXTENDED_NAME_FORMAT;
 import com.sun.jna.platform.win32.Secur32Util;
 import com.sun.jna.platform.win32.Sspi;
-import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
+import com.sun.jna.platform.win32.SspiUtil.ManagedSecBufferDesc;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -203,7 +203,8 @@ public class NegotiateSecurityFilterTests {
                         .substring(securityPackage.length() + 1);
                 final byte[] continueTokenBytes = Base64.getDecoder().decode(continueToken);
                 assertThat(continueTokenBytes.length).isGreaterThan(0);
-                final SecBufferDesc continueTokenBuffer = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, continueTokenBytes);
+                final ManagedSecBufferDesc continueTokenBuffer = new ManagedSecBufferDesc(Sspi.SECBUFFER_TOKEN,
+                        continueTokenBytes);
                 clientContext.initialize(clientContext.getHandle(), continueTokenBuffer, "localhost");
             }
             Assertions.assertTrue(authenticated);

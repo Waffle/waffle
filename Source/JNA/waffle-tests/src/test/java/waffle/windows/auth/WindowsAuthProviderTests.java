@@ -21,7 +21,7 @@ import com.sun.jna.platform.win32.LMJoin;
 import com.sun.jna.platform.win32.Netapi32;
 import com.sun.jna.platform.win32.Netapi32Util;
 import com.sun.jna.platform.win32.Sspi;
-import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
+import com.sun.jna.platform.win32.SspiUtil.ManagedSecBufferDesc;
 
 import java.util.Base64;
 
@@ -179,7 +179,7 @@ public class WindowsAuthProviderTests {
 
                 if (serverContext != null && serverContext.isContinue()) {
                     // initialize on the client
-                    final SecBufferDesc continueToken = new SecBufferDesc(Sspi.SECBUFFER_TOKEN,
+                    final ManagedSecBufferDesc continueToken = new ManagedSecBufferDesc(Sspi.SECBUFFER_TOKEN,
                             serverContext.getToken());
                     clientContext.initialize(clientContext.getHandle(), continueToken, targetName);
                     WindowsAuthProviderTests.LOGGER.info("Token: {}",
@@ -285,7 +285,7 @@ public class WindowsAuthProviderTests {
 
                 if (serverContext != null && serverContext.isContinue()) {
                     // initialize on the client
-                    final SecBufferDesc continueToken = new SecBufferDesc(Sspi.SECBUFFER_TOKEN,
+                    final ManagedSecBufferDesc continueToken = new ManagedSecBufferDesc(Sspi.SECBUFFER_TOKEN,
                             serverContext.getToken());
                     clientContext.initialize(clientContext.getHandle(), continueToken, targetName);
                 }

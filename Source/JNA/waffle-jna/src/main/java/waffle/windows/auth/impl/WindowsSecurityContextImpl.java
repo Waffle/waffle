@@ -15,6 +15,7 @@ import com.sun.jna.platform.win32.Secur32;
 import com.sun.jna.platform.win32.Sspi;
 import com.sun.jna.platform.win32.Sspi.CtxtHandle;
 import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
+import com.sun.jna.platform.win32.SspiUtil.ManagedSecBufferDesc;
 import com.sun.jna.platform.win32.Win32Exception;
 import com.sun.jna.platform.win32.WinError;
 import com.sun.jna.platform.win32.WinNT.HANDLEByReference;
@@ -39,7 +40,7 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
     private String securityPackage;
 
     /** The token. */
-    private SecBufferDesc token;
+    private ManagedSecBufferDesc token;
 
     /** The ctx. */
     private CtxtHandle ctx;
@@ -72,7 +73,8 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 
     @Override
     public byte[] getToken() {
-        return this.token == null || this.token.getBytes() == null ? null : this.token.getBytes().clone();
+        return this.token == null || this.token.getBuffer(0).getBytes() == null ? null
+                : this.token.getBuffer(0).getBytes().clone();
     }
 
     /**
@@ -113,7 +115,7 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
         int tokenSize = Sspi.MAX_TOKEN_SIZE;
         int rc;
         do {
-            this.token = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, tokenSize);
+            this.token = new ManagedSecBufferDesc(Sspi.SECBUFFER_TOKEN, tokenSize);
             rc = Secur32.INSTANCE.InitializeSecurityContext(this.credentials.getHandle(), continueCtx, targetName,
                     Sspi.ISC_REQ_CONNECTION, 0, Sspi.SECURITY_NATIVE_DREP, continueToken, 0, this.ctx, this.token, attr,
                     null);
@@ -198,7 +200,7 @@ public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
      *            the new token
      */
     public void setToken(final byte[] bytes) {
-        this.token = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, bytes);
+        this.token = new ManagedSecBufferDesc(Sspi.SECBUFFER_TOKEN, bytes);
     }
 
     /**
