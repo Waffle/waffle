@@ -32,7 +32,7 @@ import org.eclipse.jetty.servlet.ServletHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.impl.SimpleLogger;
+import org.slf4j.simple.SimpleLogger;
 
 import waffle.servlet.NegotiateSecurityFilter;
 import waffle.servlet.WindowsPrincipal;

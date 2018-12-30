@@ -14,7 +14,7 @@ package waffle.apache;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.sun.jna.platform.win32.Sspi;
-import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
+import com.sun.jna.platform.win32.SspiUtil.ManagedSecBufferDesc;
 
 import java.util.Base64;
 import java.util.Collections;
@@ -214,7 +214,8 @@ public class MixedAuthenticatorTests {
                         .substring(securityPackage.length() + 1);
                 final byte[] continueTokenBytes = Base64.getDecoder().decode(continueToken);
                 assertThat(continueTokenBytes.length).isGreaterThan(0);
-                final SecBufferDesc continueTokenBuffer = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, continueTokenBytes);
+                final ManagedSecBufferDesc continueTokenBuffer = new ManagedSecBufferDesc(Sspi.SECBUFFER_TOKEN,
+                        continueTokenBytes);
                 clientContext.initialize(clientContext.getHandle(), continueTokenBuffer,
                         WindowsAccountImpl.getCurrentUsername());
             }

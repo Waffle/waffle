@@ -64,12 +64,14 @@ public class SimpleHttpSession implements HttpSession {
         return null;
     }
 
+    // TODO Simply remove this if it is ever actually removed from servlet-api
     @Deprecated
     @Override
     public HttpSessionContext getSessionContext() {
         return null;
     }
 
+    // TODO Simply remove this if it is ever actually removed from servlet-api
     @Deprecated
     @Override
     public Object getValue(final String arg0) {

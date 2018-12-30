@@ -38,8 +38,8 @@
 
     <properties>
         <servlet.version>4.0.1</servlet.version>
-        <mockito-core.version>2.22.0</mockito-core.version>
-        <objenesis.version>2.6</objenesis.version>
+        <mockito-core.version>2.23.4</mockito-core.version>
+        <objenesis.version>3.0.1</objenesis.version>
     </properties>
 
     <dependencies>
