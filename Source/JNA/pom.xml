@@ -158,7 +158,7 @@
 
         <!-- Plugin Dependency Versions -->
         <bug-pattern.version>1.4.2</bug-pattern.version>
-        <checkstyle.version>8.13</checkstyle.version>
+        <checkstyle.version>8.15</checkstyle.version>
         <fb-contrib.version>7.4.3.sb</fb-contrib.version>
         <findsecbugs.version>1.8.0</findsecbugs.version>
         <javac.version>9+181-r4173-1</javac.version>
