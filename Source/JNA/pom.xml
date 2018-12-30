@@ -441,9 +441,9 @@
                     <version>1.3</version>
                     <dependencies>
                         <dependency>
-                            <groupId>com.googlecode.htmlcompressor</groupId>
+                            <groupId>com.github.hazendaz</groupId>
                             <artifactId>htmlcompressor</artifactId>
-                            <version>1.5.2</version>
+                            <version>1.6.5</version>
                         </dependency>
                         <dependency>
                             <groupId>com.yahoo.platform.yui</groupId>
