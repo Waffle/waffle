@@ -437,9 +437,9 @@
                     </configuration>
                 </plugin>
                 <plugin>
-                    <groupId>com.tunyk.mvn.plugins.htmlcompressor</groupId>
+                    <groupId>com.github.hazendaz.maven</groupId>
                     <artifactId>htmlcompressor-maven-plugin</artifactId>
-                    <version>1.3</version>
+                    <version>1.4.0</version>
                     <dependencies>
                         <dependency>
                             <groupId>com.github.hazendaz</groupId>
