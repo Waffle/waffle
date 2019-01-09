@@ -194,7 +194,7 @@
         <source.plugin>3.0.1</source.plugin>
         <spotbugs.plugin>3.1.10</spotbugs.plugin>
         <site.plugin>3.7.1</site.plugin>
-        <sonar.plugin>3.5.0.1254</sonar.plugin>
+        <sonar.plugin>3.6.0.1398</sonar.plugin>
         <surefire.plugin>3.0.0-M3</surefire.plugin>
         <taglist.plugin>2.4</taglist.plugin>
         <tidy.plugin>1.1.0</tidy.plugin>
