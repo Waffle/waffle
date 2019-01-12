@@ -171,7 +171,7 @@
         <dependency-check.plugin>4.0.2</dependency-check.plugin>
         <deploy.plugin>3.0.0-M1</deploy.plugin>
         <directory.plugin>0.3.1</directory.plugin>
-        <enforcer.plugin>3.0.0-M1</enforcer.plugin>
+        <enforcer.plugin>3.0.0-M2</enforcer.plugin>
         <formatter.plugin>2.8.1</formatter.plugin>
         <git-commit-id.plugin>2.2.6</git-commit-id.plugin>
         <gpg.plugin>1.6</gpg.plugin>
