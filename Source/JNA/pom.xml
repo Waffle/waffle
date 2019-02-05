@@ -184,7 +184,7 @@
         <jdepend.plugin>2.0</jdepend.plugin>
         <jxr.plugin>3.0.0</jxr.plugin>
         <license.plugin>3.0</license.plugin>
-        <modernizer.plugin>1.7.1</modernizer.plugin>
+        <modernizer.plugin>1.8.0</modernizer.plugin>
         <nexus-staging.plugin>1.6.8</nexus-staging.plugin>
         <pmd.plugin>3.11.0</pmd.plugin>
         <project-info-reports.plugin>3.0.0</project-info-reports.plugin>
