@@ -42,7 +42,7 @@
         <el-api.version>3.0.1-b06</el-api.version>
         <jetty.version>9.4.14.v20181114</jetty.version>
         <jsp.version>2.3.4</jsp.version>
-        <jsp-api.version>2.3.3</jsp-api.version>
+        <jsp-api.version>2.3.4</jsp-api.version>
         <jstl.version>1.2.6</jstl.version>
     </properties>
 
@@ -95,8 +95,8 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>javax.servlet.jsp-api</artifactId>
+            <groupId>jakarta.servlet.jsp</groupId>
+            <artifactId>jakarta.servlet.jsp-api</artifactId>
             <version>${jsp-api.version}</version>
             <scope>provided</scope>
         </dependency>
