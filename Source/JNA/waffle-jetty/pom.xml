@@ -38,12 +38,12 @@
 
     <properties>
         <ecj.version>3.16.0</ecj.version>
-        <el.version>3.0.1-b11</el.version>
-        <el-api.version>3.0.1-b06</el-api.version>
+        <el.version>3.0.2</el.version>
+        <el-api.version>3.0.2</el-api.version>
         <jetty.version>9.4.14.v20181114</jetty.version>
-        <jsp.version>2.3.4</jsp.version>
-        <jsp-api.version>2.3.3</jsp-api.version>
-        <jstl.version>1.2.5</jstl.version>
+        <jsp.version>2.3.5</jsp.version>
+        <jsp-api.version>2.3.4</jsp-api.version>
+        <jstl.version>1.2.6</jstl.version>
     </properties>
 
     <dependencies>
@@ -89,50 +89,34 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>javax.el-api</artifactId>
+            <groupId>jakarta.el</groupId>
+            <artifactId>jakarta.el-api</artifactId>
             <version>${el-api.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>javax.servlet.jsp-api</artifactId>
+            <groupId>jakarta.servlet.jsp</groupId>
+            <artifactId>jakarta.servlet.jsp-api</artifactId>
             <version>${jsp-api.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish</groupId>
-            <artifactId>javax.el</artifactId>
+            <artifactId>jakarta.el</artifactId>
             <version>${el.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish.web</groupId>
-            <artifactId>javax.servlet.jsp</artifactId>
+            <artifactId>jakarta.servlet.jsp</artifactId>
             <version>${jsp.version}</version>
             <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.glassfish</groupId>
-                    <artifactId>javax.el</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.glassfish.web</groupId>
-            <artifactId>javax.servlet.jsp.jstl</artifactId>
+            <artifactId>jakarta.servlet.jsp.jstl</artifactId>
             <version>${jstl.version}</version>
             <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>servlet-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>javax.servlet.jsp</groupId>
-                    <artifactId>jsp-api</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>

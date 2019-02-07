@@ -1,3 +1,17 @@
+2.0.0-beta2 (2/6/2019)
+======================
+* Add spring boot demos to distro
+* Add spring boot and spring security 5 modules to distro
+* Dependency Updates
+
+2.0.0-beta1 (12/31/2018)
+========================
+* JNA 5.2.0 support (breaking internal changes resulting in beta release for waffle)
+* Dependency Updates
+* Pom rework / cleanup
+* Changes
+  * [#649] (https://github.com/Waffle/waffle/pull/649): Bring dependencies up-to-date including JNA 5.x breaking changes [@hazendaz](https://github.com/hazendaz).
+
 1.9.1 (7/1/2018)
 ================
 * Documentation Updates
