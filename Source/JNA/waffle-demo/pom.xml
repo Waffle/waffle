@@ -51,7 +51,7 @@
     </scm>
 
     <properties>
-        <servlet.version>4.0.1</servlet.version>
+        <servlet.version>4.0.2</servlet.version>
     </properties>
 
     <dependencyManagement>
@@ -70,8 +70,8 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
             <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
