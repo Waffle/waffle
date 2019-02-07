@@ -64,13 +64,25 @@
         </dependency>
         <dependency>
             <groupId>com.github.waffle</groupId>
-            <artifactId>waffle-spring-boot</artifactId>
+            <artifactId>waffle-spring-boot-autoconfigure</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.github.waffle</groupId>
-            <artifactId>waffle-spring-boot2</artifactId>
+            <artifactId>waffle-spring-boot-starter</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.waffle</groupId>
+            <artifactId>waffle-spring-boot-autoconfigure2</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.waffle</groupId>
+            <artifactId>waffle-spring-boot-starter2</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>
@@ -164,14 +176,12 @@
             <groupId>com.github.waffle.demo</groupId>
             <artifactId>waffle-spring-boot-filter</artifactId>
             <version>${project.version}</version>
-            <type>war</type>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.github.waffle.demo</groupId>
             <artifactId>waffle-spring-boot-filter2</artifactId>
             <version>${project.version}</version>
-            <type>war</type>
             <scope>runtime</scope>
         </dependency>
         <dependency>
