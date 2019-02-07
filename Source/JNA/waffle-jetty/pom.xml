@@ -42,7 +42,7 @@
         <el-api.version>3.0.2</el-api.version>
         <jetty.version>9.4.14.v20181114</jetty.version>
         <jsp.version>2.3.5</jsp.version>
-        <jsp-api.version>2.3.4</jsp-api.version>
+        <jsp-api.version>2.3.5</jsp-api.version>
         <jstl.version>1.2.6</jstl.version>
     </properties>
 
