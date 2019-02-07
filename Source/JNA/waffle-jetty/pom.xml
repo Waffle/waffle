@@ -38,8 +38,8 @@
 
     <properties>
         <ecj.version>3.16.0</ecj.version>
-        <el.version>3.0.1-b11</el.version>
-        <el-api.version>3.0.1-b06</el-api.version>
+        <el.version>3.0.2</el.version>
+        <el-api.version>3.0.2</el-api.version>
         <jetty.version>9.4.14.v20181114</jetty.version>
         <jsp.version>2.3.5</jsp.version>
         <jsp-api.version>2.3.4</jsp-api.version>
@@ -89,8 +89,8 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>javax.el-api</artifactId>
+            <groupId>jakarta.el</groupId>
+            <artifactId>jakarta.el-api</artifactId>
             <version>${el-api.version}</version>
             <scope>provided</scope>
         </dependency>
@@ -102,7 +102,7 @@
         </dependency>
         <dependency>
             <groupId>org.glassfish</groupId>
-            <artifactId>javax.el</artifactId>
+            <artifactId>jakarta.el</artifactId>
             <version>${el.version}</version>
             <scope>provided</scope>
         </dependency>
