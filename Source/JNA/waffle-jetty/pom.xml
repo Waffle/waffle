@@ -43,7 +43,7 @@
         <jetty.version>9.4.14.v20181114</jetty.version>
         <jsp.version>2.3.4</jsp.version>
         <jsp-api.version>2.3.3</jsp-api.version>
-        <jstl.version>1.2.5</jstl.version>
+        <jstl.version>1.2.6</jstl.version>
     </properties>
 
     <dependencies>
@@ -120,19 +120,9 @@
         </dependency>
         <dependency>
             <groupId>org.glassfish.web</groupId>
-            <artifactId>javax.servlet.jsp.jstl</artifactId>
+            <artifactId>jakarta.servlet.jsp.jstl</artifactId>
             <version>${jstl.version}</version>
             <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>servlet-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>javax.servlet.jsp</groupId>
-                    <artifactId>jsp-api</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
