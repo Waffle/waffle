@@ -205,11 +205,23 @@
 
         <!-- Plugin Dependency Versions -->
         <bug-pattern.version>1.4.2</bug-pattern.version>
+        <build-tools.version>1.1.8</build-tools.version>
         <checkstyle.version>8.17</checkstyle.version>
+        <doxia.version>1.8</doxia.version>
         <fb-contrib.version>7.4.3.sb</fb-contrib.version>
         <findsecbugs.version>1.8.0</findsecbugs.version>
+        <fluido.version>1.7</fluido.version>
+        <htmlcompressor.version>1.6.5</htmlcompressor.version>
         <javac.version>9+181-r4173-1</javac.version>
+        <jgit.version>5.2.1.201812262042-r</jgit.version>
+        <wagon-git.version>2.0.3</wagon-git.version> <!-- Do not upgrade to 2.0.4 with ssh as it is broken -->
+        <wagon-ssh.version>3.3.1</wagon-ssh.version>
+        <yuicompressor.version>2.4.8</yuicompressor.version>
 
+        <!-- Lifecycle Mapping -->
+        <lifecycle.version>1.0.0</lifecycle.version>
+
+        <!-- Surefire args -->
         <argLine>-javaagent:${settings.localRepository}/org/jmockit/jmockit/${jmockit.version}/jmockit-${jmockit.version}.jar -Djdk.attach.allowAttachSelf</argLine>
     </properties>
 
@@ -343,23 +355,23 @@
                         <dependency>
                             <groupId>org.apache.maven.doxia</groupId>
                             <artifactId>doxia-module-markdown</artifactId>
-                            <version>1.8</version>
+                            <version>${doxia.version}</version>
                         </dependency>
                         <dependency>
                             <groupId>net.trajano.wagon</groupId>
                             <artifactId>wagon-git</artifactId>
-                            <version>2.0.3</version> <!-- Do not upgrade to 2.0.4 with ssh as it is broken -->
+                            <version>${wagon-git.version}</version>
                         </dependency>
                         <dependency>
                             <groupId>org.apache.maven.wagon</groupId>
                             <artifactId>wagon-ssh</artifactId>
-                            <version>3.3.1</version>
+                            <version>${wagon-ssh.version}</version>
                         </dependency>
                         <!-- For reporting only of versions -->
                         <dependency>
                             <groupId>org.apache.maven.skins</groupId>
                             <artifactId>maven-fluido-skin</artifactId>
-                            <version>1.7</version>
+                            <version>${fluido.version}</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -491,12 +503,12 @@
                         <dependency>
                             <groupId>com.github.hazendaz</groupId>
                             <artifactId>htmlcompressor</artifactId>
-                            <version>1.6.5</version>
+                            <version>${htmlcompressor.version}</version>
                         </dependency>
                         <dependency>
                             <groupId>com.yahoo.platform.yui</groupId>
                             <artifactId>yuicompressor</artifactId>
-                            <version>2.4.8</version>
+                            <version>${yuicompressor.version}</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -523,7 +535,7 @@
                         <dependency>
                             <groupId>com.yahoo.platform.yui</groupId>
                             <artifactId>yuicompressor</artifactId>
-                            <version>2.4.8</version>
+                            <version>${yuicompressor.version}</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -535,7 +547,7 @@
                         <dependency>
                             <groupId>com.github.hazendaz</groupId>
                             <artifactId>build-tools</artifactId>
-                            <version>1.1.8</version>
+                            <version>${build-tools.version}</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -590,29 +602,14 @@
                     <version>${changes.plugin}</version>
                     <dependencies>
                         <dependency>
-                            <groupId>org.apache.maven.scm</groupId>
-                            <artifactId>maven-scm-provider-jgit</artifactId>
-                            <version>1.11.1</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>com.googlecode.javaewah</groupId>
-                            <artifactId>JavaEWAH</artifactId>
-                            <version>1.1.6</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>com.jcraft</groupId>
-                            <artifactId>jsch</artifactId>
-                            <version>0.1.55</version>
-                        </dependency>
-                        <dependency>
                             <groupId>org.eclipse.jgit</groupId>
                             <artifactId>org.eclipse.jgit</artifactId>
-                            <version>5.2.1.201812262042-r</version>
+                            <version>${jgit.version}</version>
                         </dependency>
                         <dependency>
-                            <groupId>org.codehaus.plexus</groupId>
-                            <artifactId>plexus-utils</artifactId>
-                            <version>3.1.1</version>
+                            <groupId>org.apache.maven.scm</groupId>
+                            <artifactId>maven-scm-provider-jgit</artifactId>
+                            <version>${scm.plugin}</version>
                         </dependency>
                     </dependencies>
                     <configuration>
@@ -652,29 +649,14 @@
                     <version>${scm.plugin}</version>
                     <dependencies>
                         <dependency>
-                            <groupId>org.apache.maven.scm</groupId>
-                            <artifactId>maven-scm-provider-jgit</artifactId>
-                            <version>1.11.1</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>com.googlecode.javaewah</groupId>
-                            <artifactId>JavaEWAH</artifactId>
-                            <version>1.1.6</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>com.jcraft</groupId>
-                            <artifactId>jsch</artifactId>
-                            <version>0.1.55</version>
-                        </dependency>
-                        <dependency>
                             <groupId>org.eclipse.jgit</groupId>
                             <artifactId>org.eclipse.jgit</artifactId>
-                            <version>5.2.1.201812262042-r</version>
+                            <version>${jgit.version}</version>
                         </dependency>
                         <dependency>
-                            <groupId>org.codehaus.plexus</groupId>
-                            <artifactId>plexus-utils</artifactId>
-                            <version>3.1.1</version>
+                            <groupId>org.apache.maven.scm</groupId>
+                            <artifactId>maven-scm-provider-jgit</artifactId>
+                            <version>${scm.plugin}</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -1021,7 +1003,7 @@
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
                 <artifactId>wagon-ssh</artifactId>
-                <version>3.3.1</version>
+                <version>${wagon-ssh.version}</version>
             </extension>
         </extensions>
     </build>
@@ -1273,7 +1255,7 @@
                         <plugin>
                             <groupId>org.eclipse.m2e</groupId>
                             <artifactId>lifecycle-mapping</artifactId>
-                            <version>1.0.0</version>
+                            <version>${lifecycle.version}</version>
                             <configuration>
                                 <lifecycleMappingMetadata>
                                     <pluginExecutions>
