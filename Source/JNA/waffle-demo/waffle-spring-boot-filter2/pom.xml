@@ -36,8 +36,8 @@
     </scm>
 
     <properties>
-        <jna.version>5.2.0</jna.version>
-        <spring-boot.version>2.1.2.RELEASE</spring-boot.version>
+        <jna.version>5.3.1</jna.version>
+        <spring-boot.version>2.1.4.RELEASE</spring-boot.version>
     </properties>
 
     <dependencyManagement>

@@ -37,7 +37,7 @@
     </scm>
 
     <properties>
-        <spring-boot.version>2.1.2.RELEASE</spring-boot.version>
+        <spring-boot.version>2.1.4.RELEASE</spring-boot.version>
     </properties>
 
     <modules>
