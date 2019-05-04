@@ -190,7 +190,7 @@
         <project-info-reports.plugin>3.0.0</project-info-reports.plugin>
         <release.plugin>2.5.3</release.plugin>
         <resources.plugin>3.1.0</resources.plugin>
-        <scm.plugin>1.11.1</scm.plugin>
+        <scm.plugin>1.11.2</scm.plugin>
         <source.plugin>3.0.1</source.plugin>
         <spotbugs.plugin>3.1.11</spotbugs.plugin>
         <site.plugin>3.7.1</site.plugin>
