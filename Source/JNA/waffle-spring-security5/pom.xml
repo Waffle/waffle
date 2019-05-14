@@ -38,7 +38,7 @@
 
     <properties>
         <servlet.version>4.0.2</servlet.version>
-        <spring.version>5.1.6.RELEASE</spring.version>
+        <spring.version>5.1.7.RELEASE</spring.version>
         <spring.security.version>5.1.5.RELEASE</spring.security.version>
     </properties>
 
