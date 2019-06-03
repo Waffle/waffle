@@ -207,7 +207,7 @@
         <bug-pattern.version>1.4.2</bug-pattern.version>
         <build-tools.version>1.1.8</build-tools.version>
         <checkstyle.version>8.21</checkstyle.version>
-        <doxia.version>1.8</doxia.version>
+        <doxia.version>1.9</doxia.version>
         <fb-contrib.version>7.4.5</fb-contrib.version>
         <findsecbugs.version>1.9.0</findsecbugs.version>
         <fluido.version>1.7</fluido.version>
