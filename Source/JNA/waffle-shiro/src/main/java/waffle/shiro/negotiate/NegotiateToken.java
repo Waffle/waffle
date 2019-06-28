@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2018 Application Security, Inc.
+ * Copyright (c) 2010-2019 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -207,11 +207,11 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
     }
 
     /**
-     * Returns <tt>true</tt> if the submitting user wishes their identity (principal(s)) to be remembered across
-     * sessions, <tt>false</tt> otherwise. Unless overridden, this value is <tt>false</tt> by default.
+     * Returns <code>true</code> if the submitting user wishes their identity (principal(s)) to be remembered across
+     * sessions, <code>false</code> otherwise. Unless overridden, this value is <code>false</code> by default.
      *
-     * @return <tt>true</tt> if the submitting user wishes their identity (principal(s)) to be remembered across
-     *         sessions, <tt>false</tt> otherwise (<tt>false</tt> by default).
+     * @return <code>true</code> if the submitting user wishes their identity (principal(s)) to be remembered across
+     *         sessions, <code>false</code> otherwise (<code>false</code> by default).
      * @since 0.9
      */
     @Override
@@ -220,16 +220,17 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
     }
 
     /**
-     * Returns the host name or IP string from where the authentication attempt occurs. May be <tt>null</tt> if the host
-     * name/IP is unknown or explicitly omitted. It is up to the Authenticator implementation processing this token if
-     * an authentication attempt without a host is valid or not.
+     * Returns the host name or IP string from where the authentication attempt occurs. May be <code>null</code> if the
+     * host name/IP is unknown or explicitly omitted. It is up to the Authenticator implementation processing this token
+     * if an authentication attempt without a host is valid or not.
      *
      * <p>
-     * (Shiro's default Authenticator allows <tt>null</tt> hosts to support localhost and proxy server environments).
+     * (Shiro's default Authenticator allows <code>null</code> hosts to support localhost and proxy server
+     * environments).
      * </p>
      *
-     * @return the host from where the authentication attempt occurs, or <tt>null</tt> if it is unknown or explicitly
-     *         omitted.
+     * @return the host from where the authentication attempt occurs, or <code>null</code> if it is unknown or
+     *         explicitly omitted.
      * @since 1.0
      */
     @Override
