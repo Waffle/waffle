@@ -1,3 +1,8 @@
+2.0.0 (6/27/2019)
+=================
+* Dependency Updates
+* Stabalized Release
+
 2.0.0-beta2 (2/6/2019)
 ======================
 * Add spring boot demos to distro
