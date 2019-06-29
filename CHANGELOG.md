@@ -1,3 +1,7 @@
+2.1.0 (in-progress)
+===================
+* Remove obsolete tomcat8 from project - use tomcat 85 as a direct replacement
+
 2.0.0 (6/27/2019)
 =================
 * Dependency Updates
