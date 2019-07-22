@@ -1,4 +1,5 @@
 #!/bin/bash
+set -ev
 
 if [ "${COVERITY_SCAN_BRANCH}" != 1 ]; then
     # Standard Build
