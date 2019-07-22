@@ -1,4 +1,5 @@
 #!/bin/bash
+set -ev
 
 # Get Commit Message
 commit_message=$(git log --format=%B -n 1)
