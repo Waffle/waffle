@@ -209,7 +209,7 @@
         <doxia.version>1.9</doxia.version>
         <fb-contrib.version>7.4.6</fb-contrib.version>
         <findsecbugs.version>1.9.0</findsecbugs.version>
-        <fluido.version>1.7</fluido.version>
+        <fluido.version>1.8</fluido.version>
         <htmlcompressor.version>1.6.5</htmlcompressor.version>
         <javac.version>9+181-r4173-1</javac.version>
         <jgit.version>5.4.0.201906121030-r</jgit.version>
