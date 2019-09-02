@@ -205,7 +205,7 @@
         <!-- Plugin Dependency Versions -->
         <bug-pattern.version>1.5.0</bug-pattern.version>
         <build-tools.version>1.1.8</build-tools.version>
-        <checkstyle.version>8.23</checkstyle.version>
+        <checkstyle.version>8.24</checkstyle.version>
         <doxia.version>1.9</doxia.version>
         <fb-contrib.version>7.4.6</fb-contrib.version>
         <findsecbugs.version>1.9.0</findsecbugs.version>
