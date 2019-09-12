@@ -51,7 +51,7 @@
     </scm>
 
     <properties>
-        <servlet.version>4.0.2</servlet.version>
+        <servlet.version>4.0.3</servlet.version>
     </properties>
 
     <dependencyManagement>
