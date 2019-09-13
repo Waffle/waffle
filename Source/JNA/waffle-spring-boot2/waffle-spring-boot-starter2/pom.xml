@@ -48,7 +48,7 @@
         </dependency>
         <dependency>
             <groupId>com.github.waffle</groupId>
-            <artifactId>waffle-spring-security4</artifactId>
+            <artifactId>waffle-spring-security5</artifactId>
         </dependency>
     </dependencies>
 </project>
