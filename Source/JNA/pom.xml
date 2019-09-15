@@ -449,8 +449,10 @@
                     <version>${pmd.plugin}</version>
                     <configuration>
                         <analysisCache>true</analysisCache>
+                        <failOnViolation>false</failOnViolation>
                     </configuration>
                 </plugin>
+
                 <!-- Tools -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -603,6 +605,7 @@
                         </dependency>
                     </dependencies>
                 </plugin>
+
                 <!-- Report Only -->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -701,6 +704,7 @@
                     <artifactId>versions-maven-plugin</artifactId>
                     <version>${versions.plugin}</version>
                 </plugin>
+
                 <!-- SCM -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -719,18 +723,21 @@
                         </dependency>
                     </dependencies>
                 </plugin>
+
                 <!-- Sonar -->
                 <plugin>
                     <groupId>org.sonarsource.scanner.maven</groupId>
                     <artifactId>sonar-maven-plugin</artifactId>
                     <version>${sonar.plugin}</version>
                 </plugin>
+
                 <!-- Wagon -->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>wagon-maven-plugin</artifactId>
                     <version>${wagon.plugin}</version>
                 </plugin>
+
                 <!-- Animal Sniffer -->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -744,12 +751,14 @@
                         </signature>
                     </configuration>
                 </plugin>
+
                 <!-- Owasp Dependency Scan -->
                 <plugin>
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
                     <version>${dependency-check.plugin}</version>
                 </plugin>
+
                 <!-- Sonatype Release -->
                 <plugin>
                     <groupId>org.sonatype.plugins</groupId>
@@ -762,6 +771,7 @@
                         <autoReleaseAfterClose>true</autoReleaseAfterClose>
                     </configuration>
                 </plugin>
+
                 <!-- Find maven root -->
                 <plugin>
                     <groupId>org.commonjava.maven.plugins</groupId>
@@ -797,6 +807,7 @@
                     </filesets>
                 </configuration>
             </plugin>
+
             <!-- Build Plugins -->
             <plugin>
                 <groupId>pl.project13.maven</groupId>
@@ -992,6 +1003,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <!-- Find maven root -->
             <plugin>
                 <groupId>org.commonjava.maven.plugins</groupId>
@@ -1009,6 +1021,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <!-- Checkstyle dependencies required here or they won't be used (per maven) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -1035,6 +1048,7 @@
                 </executions>
             </plugin>
         </plugins>
+
         <extensions>
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
