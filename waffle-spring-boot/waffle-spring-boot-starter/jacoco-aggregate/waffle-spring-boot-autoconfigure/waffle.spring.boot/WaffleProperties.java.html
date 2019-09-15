@@ -16,22 +16,20 @@ import java.util.List;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import waffle.windows.auth.PrincipalFormat;
-
 /**
  * The configuration properties that can be used with Spring Boot to configure WAFFLE.
  */
 @ConfigurationProperties(prefix = &quot;waffle&quot;)
-<span class="nc" id="L25">public class WaffleProperties {</span>
+<span class="nc" id="L23">public class WaffleProperties {</span>
 
     /** The principal format can be any of the options specified by {@link PrincipalFormat}. */
-<span class="nc" id="L28">    private String principalFormat = &quot;fqn&quot;;</span>
+<span class="nc" id="L26">    private String principalFormat = &quot;fqn&quot;;</span>
 
     /** The principal format can be any of the options specified by {@link PrincipalFormat}. */
-<span class="nc" id="L31">    private String roleFormat = &quot;fqn&quot;;</span>
+<span class="nc" id="L29">    private String roleFormat = &quot;fqn&quot;;</span>
 
     /** Enable or disable guest login. */
-<span class="nc" id="L34">    private boolean allowGuestLogin = false;</span>
+<span class="nc" id="L32">    private boolean allowGuestLogin = false;</span>
 
     /** Configuration properties for single-sign-on. */
     private SingleSignOnProperties sso;
@@ -42,7 +40,7 @@ import waffle.windows.auth.PrincipalFormat;
      * @return the principal format
      */
     public String getPrincipalFormat() {
-<span class="nc" id="L45">        return principalFormat;</span>
+<span class="nc" id="L43">        return this.principalFormat;</span>
     }
 
     /**
@@ -51,9 +49,9 @@ import waffle.windows.auth.PrincipalFormat;
      * @param principalFormat
      *            the new principal format
      */
-    public void setPrincipalFormat(String principalFormat) {
-<span class="nc" id="L55">        this.principalFormat = principalFormat;</span>
-<span class="nc" id="L56">    }</span>
+    public void setPrincipalFormat(final String principalFormat) {
+<span class="nc" id="L53">        this.principalFormat = principalFormat;</span>
+<span class="nc" id="L54">    }</span>
 
     /**
      * Gets the role format.
@@ -61,7 +59,7 @@ import waffle.windows.auth.PrincipalFormat;
      * @return the role format
      */
     public String getRoleFormat() {
-<span class="nc" id="L64">        return roleFormat;</span>
+<span class="nc" id="L62">        return this.roleFormat;</span>
     }
 
     /**
@@ -70,9 +68,9 @@ import waffle.windows.auth.PrincipalFormat;
      * @param roleFormat
      *            the new role format
      */
-    public void setRoleFormat(String roleFormat) {
-<span class="nc" id="L74">        this.roleFormat = roleFormat;</span>
-<span class="nc" id="L75">    }</span>
+    public void setRoleFormat(final String roleFormat) {
+<span class="nc" id="L72">        this.roleFormat = roleFormat;</span>
+<span class="nc" id="L73">    }</span>
 
     /**
      * Checks if is allow guest login.
@@ -80,7 +78,7 @@ import waffle.windows.auth.PrincipalFormat;
      * @return true, if is allow guest login
      */
     public boolean isAllowGuestLogin() {
-<span class="nc" id="L83">        return allowGuestLogin;</span>
+<span class="nc" id="L81">        return this.allowGuestLogin;</span>
     }
 
     /**
@@ -89,9 +87,9 @@ import waffle.windows.auth.PrincipalFormat;
      * @param allowGuestLogin
      *            the new allow guest login
      */
-    public void setAllowGuestLogin(boolean allowGuestLogin) {
-<span class="nc" id="L93">        this.allowGuestLogin = allowGuestLogin;</span>
-<span class="nc" id="L94">    }</span>
+    public void setAllowGuestLogin(final boolean allowGuestLogin) {
+<span class="nc" id="L91">        this.allowGuestLogin = allowGuestLogin;</span>
+<span class="nc" id="L92">    }</span>
 
     /**
      * Gets the sso.
@@ -99,7 +97,7 @@ import waffle.windows.auth.PrincipalFormat;
      * @return the sso
      */
     public SingleSignOnProperties getSso() {
-<span class="nc" id="L102">        return sso;</span>
+<span class="nc" id="L100">        return this.sso;</span>
     }
 
     /**
@@ -108,26 +106,26 @@ import waffle.windows.auth.PrincipalFormat;
      * @param sso
      *            the new sso
      */
-    public void setSso(SingleSignOnProperties sso) {
-<span class="nc" id="L112">        this.sso = sso;</span>
-<span class="nc" id="L113">    }</span>
+    public void setSso(final SingleSignOnProperties sso) {
+<span class="nc" id="L110">        this.sso = sso;</span>
+<span class="nc" id="L111">    }</span>
 
     /**
      * The Class SingleSignOnProperties.
      */
-<span class="nc" id="L118">    public static class SingleSignOnProperties {</span>
+<span class="nc" id="L116">    public static class SingleSignOnProperties {</span>
 
         /** Enable or disable single-sign-on using Negotiate protocol. */
-<span class="nc" id="L121">        private boolean enabled = false;</span>
+<span class="nc" id="L119">        private boolean enabled = false;</span>
 
         /** Enable fall back to Basic protocol for unsupported browsers. */
-<span class="nc" id="L124">        private boolean basicEnabled = false;</span>
+<span class="nc" id="L122">        private boolean basicEnabled = false;</span>
 
         /** List of protocols to support: Can be Negotiate, NTLM. */
-<span class="nc" id="L127">        private List&lt;String&gt; protocols = Arrays.asList(&quot;Negotiate&quot;, &quot;NTLM&quot;);</span>
+<span class="nc" id="L125">        private List&lt;String&gt; protocols = Arrays.asList(&quot;Negotiate&quot;, &quot;NTLM&quot;);</span>
 
         /** Enable WAFFLE impersonate option. */
-<span class="nc" id="L130">        private boolean impersonate = false;</span>
+<span class="nc" id="L128">        private boolean impersonate = false;</span>
 
         /**
          * Checks if is enabled.
@@ -135,7 +133,7 @@ import waffle.windows.auth.PrincipalFormat;
          * @return true, if is enabled
          */
         public boolean isEnabled() {
-<span class="nc" id="L138">            return enabled;</span>
+<span class="nc" id="L136">            return this.enabled;</span>
         }
 
         /**
@@ -144,9 +142,9 @@ import waffle.windows.auth.PrincipalFormat;
          * @param enabled
          *            the new enabled
          */
-        public void setEnabled(boolean enabled) {
-<span class="nc" id="L148">            this.enabled = enabled;</span>
-<span class="nc" id="L149">        }</span>
+        public void setEnabled(final boolean enabled) {
+<span class="nc" id="L146">            this.enabled = enabled;</span>
+<span class="nc" id="L147">        }</span>
 
         /**
          * Checks if is basic enabled.
@@ -154,7 +152,7 @@ import waffle.windows.auth.PrincipalFormat;
          * @return true, if is basic enabled
          */
         public boolean isBasicEnabled() {
-<span class="nc" id="L157">            return basicEnabled;</span>
+<span class="nc" id="L155">            return this.basicEnabled;</span>
         }
 
         /**
@@ -163,9 +161,9 @@ import waffle.windows.auth.PrincipalFormat;
          * @param basicEnabled
          *            the new basic enabled
          */
-        public void setBasicEnabled(boolean basicEnabled) {
-<span class="nc" id="L167">            this.basicEnabled = basicEnabled;</span>
-<span class="nc" id="L168">        }</span>
+        public void setBasicEnabled(final boolean basicEnabled) {
+<span class="nc" id="L165">            this.basicEnabled = basicEnabled;</span>
+<span class="nc" id="L166">        }</span>
 
         /**
          * Gets the protocols.
@@ -173,7 +171,7 @@ import waffle.windows.auth.PrincipalFormat;
          * @return the protocols
          */
         public List&lt;String&gt; getProtocols() {
-<span class="nc" id="L176">            return protocols;</span>
+<span class="nc" id="L174">            return this.protocols;</span>
         }
 
         /**
@@ -182,9 +180,9 @@ import waffle.windows.auth.PrincipalFormat;
          * @param protocols
          *            the new protocols
          */
-        public void setProtocols(List&lt;String&gt; protocols) {
-<span class="nc" id="L186">            this.protocols = protocols;</span>
-<span class="nc" id="L187">        }</span>
+        public void setProtocols(final List&lt;String&gt; protocols) {
+<span class="nc" id="L184">            this.protocols = protocols;</span>
+<span class="nc" id="L185">        }</span>
 
         /**
          * Checks if is impersonate.
@@ -192,7 +190,7 @@ import waffle.windows.auth.PrincipalFormat;
          * @return true, if is impersonate
          */
         public boolean isImpersonate() {
-<span class="nc" id="L195">            return impersonate;</span>
+<span class="nc" id="L193">            return this.impersonate;</span>
         }
 
         /**
@@ -201,10 +199,10 @@ import waffle.windows.auth.PrincipalFormat;
          * @param impersonate
          *            the new impersonate
          */
-        public void setImpersonate(boolean impersonate) {
-<span class="nc" id="L205">            this.impersonate = impersonate;</span>
-<span class="nc" id="L206">        }</span>
+        public void setImpersonate(final boolean impersonate) {
+<span class="nc" id="L203">            this.impersonate = impersonate;</span>
+<span class="nc" id="L204">        }</span>
 
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>
