@@ -20,7 +20,7 @@ import waffle.windows.auth.IWindowsAccount;
 
 /**
  * Windows Account.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsAccountImpl implements IWindowsAccount {
@@ -30,74 +30,74 @@ public class WindowsAccountImpl implements IWindowsAccount {
 
     /**
      * Windows Account.
-     * 
+     *
      * @param newAccount
      *            Account.
      */
-<span class="nc" id="L37">    public WindowsAccountImpl(final Account newAccount) {</span>
-<span class="nc" id="L38">        this.account = newAccount;</span>
-<span class="nc" id="L39">    }</span>
+<span class="fc" id="L37">    public WindowsAccountImpl(final Account newAccount) {</span>
+<span class="fc" id="L38">        this.account = newAccount;</span>
+<span class="fc" id="L39">    }</span>
 
     /**
      * Windows Account.
-     * 
+     *
      * @param userName
      *            Fully qualified username.
      */
     public WindowsAccountImpl(final String userName) {
-<span class="nc" id="L48">        this(userName, null);</span>
-<span class="nc" id="L49">    }</span>
+<span class="fc" id="L48">        this(userName, null);</span>
+<span class="fc" id="L49">    }</span>
 
     /**
      * Windows Account.
-     * 
+     *
      * @param accountName
      *            Username, without a domain or machine.
      * @param systemName
      *            Machine name.
      */
     public WindowsAccountImpl(final String accountName, final String systemName) {
-<span class="nc" id="L60">        this(Advapi32Util.getAccountByName(systemName, accountName));</span>
-<span class="nc" id="L61">    }</span>
+<span class="fc" id="L60">        this(Advapi32Util.getAccountByName(systemName, accountName));</span>
+<span class="fc" id="L61">    }</span>
 
     /**
      * Get the SAM-compatible username of the currently logged-on user.
-     * 
+     *
      * @return String.
      */
     public static String getCurrentUsername() {
-<span class="nc" id="L69">        return Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);</span>
+<span class="fc" id="L69">        return Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);</span>
     }
 
     /**
      * Account domain.
-     * 
+     *
      * @return String.
      */
     @Override
     public String getDomain() {
-<span class="nc" id="L79">        return this.account.domain;</span>
+<span class="fc" id="L79">        return this.account.domain;</span>
     }
 
     @Override
     public String getFqn() {
-<span class="nc" id="L84">        return this.account.fqn;</span>
+<span class="fc" id="L84">        return this.account.fqn;</span>
     }
 
     /**
      * Account name.
-     * 
+     *
      * @return String.
      */
     @Override
     public String getName() {
-<span class="nc" id="L94">        return this.account.name;</span>
+<span class="fc" id="L94">        return this.account.name;</span>
     }
 
     @Override
     public String getSidString() {
-<span class="nc" id="L99">        return this.account.sidString;</span>
+<span class="fc" id="L99">        return this.account.sidString;</span>
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>
