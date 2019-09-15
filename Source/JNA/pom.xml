@@ -66,7 +66,7 @@
             </roles>
             <timezone>-5</timezone>
             <properties>
-                <picUrl>https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/1/000/128/174/30cff69.jpg</picUrl>
+                <picUrl>https://avatars0.githubusercontent.com/u/975267</picUrl>
             </properties>
         </contributor>
     </contributors>
@@ -521,6 +521,7 @@
                     <artifactId>maven-dependency-plugin</artifactId>
                     <version>${dependency.plugin}</version>
                 </plugin>
+                <!-- TODO: Fix release so we use the release profile properly to release site as well -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
