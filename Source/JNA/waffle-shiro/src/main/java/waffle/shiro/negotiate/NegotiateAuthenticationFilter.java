@@ -111,7 +111,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
     @Override
     protected AuthenticationToken createToken(final ServletRequest request, final ServletResponse response) {
         final String authorization = this.getAuthzHeader(request);
-        final String[] elements = authorization.split(" ");
+        final String[] elements = authorization.split(" ", -1);
         final byte[] inToken = Base64.getDecoder().decode(elements[1]);
 
         // maintain a connection-based session for NTLM tokens

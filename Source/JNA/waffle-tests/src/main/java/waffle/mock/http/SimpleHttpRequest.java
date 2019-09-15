@@ -192,8 +192,8 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
     public void setQueryString(final String query) {
         this.queryString = query;
         if (this.queryString != null) {
-            for (final String eachParameter : this.queryString.split("[&]")) {
-                final String[] pair = eachParameter.split("=");
+            for (final String eachParameter : this.queryString.split("[&]", -1)) {
+                final String[] pair = eachParameter.split("=", -1);
                 final String value = pair.length == 2 ? pair[1] : "";
                 this.addParameter(pair[0], value);
             }

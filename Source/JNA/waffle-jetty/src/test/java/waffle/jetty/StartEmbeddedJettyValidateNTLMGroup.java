@@ -176,7 +176,7 @@ public class StartEmbeddedJettyValidateNTLMGroup {
             if (domain == null || groupString == null) {
                 return "";
             }
-            return groupString.split(domain)[1].substring(1);
+            return groupString.split(domain, -1)[1].substring(1);
         }
     }
 
