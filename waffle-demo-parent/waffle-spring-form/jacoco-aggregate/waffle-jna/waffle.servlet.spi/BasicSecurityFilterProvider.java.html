@@ -27,16 +27,16 @@ import waffle.windows.auth.IWindowsIdentity;
 
 /**
  * A Basic authentication security filter provider. https://tools.ietf.org/html/rfc2617
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 
     /** The Constant LOGGER. */
-<span class="nc" id="L36">    private static final Logger LOGGER = LoggerFactory.getLogger(BasicSecurityFilterProvider.class);</span>
+<span class="fc" id="L36">    private static final Logger LOGGER = LoggerFactory.getLogger(BasicSecurityFilterProvider.class);</span>
 
     /** The realm. */
-<span class="nc" id="L39">    private String realm = &quot;BasicSecurityFilterProvider&quot;;</span>
+<span class="fc" id="L39">    private String realm = &quot;BasicSecurityFilterProvider&quot;;</span>
 
     /** The auth. */
     private final IWindowsAuthProvider auth;
@@ -47,9 +47,9 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
      * @param newAuthProvider
      *            the new auth provider
      */
-<span class="nc" id="L50">    public BasicSecurityFilterProvider(final IWindowsAuthProvider newAuthProvider) {</span>
-<span class="nc" id="L51">        this.auth = newAuthProvider;</span>
-<span class="nc" id="L52">    }</span>
+<span class="fc" id="L50">    public BasicSecurityFilterProvider(final IWindowsAuthProvider newAuthProvider) {</span>
+<span class="fc" id="L51">        this.auth = newAuthProvider;</span>
+<span class="fc" id="L52">    }</span>
 
     @Override
     public IWindowsIdentity doFilter(final HttpServletRequest request, final HttpServletResponse response)
@@ -72,17 +72,17 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 
     @Override
     public boolean isSecurityPackageSupported(final String securityPackage) {
-<span class="nc" id="L75">        return securityPackage.equalsIgnoreCase(&quot;Basic&quot;);</span>
+<span class="fc" id="L75">        return &quot;Basic&quot;.equalsIgnoreCase(securityPackage);</span>
     }
 
     @Override
     public void sendUnauthorized(final HttpServletResponse response) {
-<span class="nc" id="L80">        response.addHeader(&quot;WWW-Authenticate&quot;, &quot;Basic realm=\&quot;&quot; + this.realm + &quot;\&quot;&quot;);</span>
-<span class="nc" id="L81">    }</span>
+<span class="fc" id="L80">        response.addHeader(&quot;WWW-Authenticate&quot;, &quot;Basic realm=\&quot;&quot; + this.realm + &quot;\&quot;&quot;);</span>
+<span class="fc" id="L81">    }</span>
 
     /**
      * Protection space.
-     * 
+     *
      * @return Name of the protection space.
      */
     public String getRealm() {
@@ -91,13 +91,13 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 
     /**
      * Set the protection space.
-     * 
+     *
      * @param value
      *            Protection space name.
      */
     public void setRealm(final String value) {
-<span class="nc" id="L99">        this.realm = value;</span>
-<span class="nc" id="L100">    }</span>
+<span class="fc" id="L99">        this.realm = value;</span>
+<span class="fc" id="L100">    }</span>
 
     /**
      * Init configuration parameters.
@@ -109,11 +109,11 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
      */
     @Override
     public void initParameter(final String parameterName, final String parameterValue) {
-<span class="nc bnc" id="L112" title="All 2 branches missed.">        if (parameterName.equals(&quot;realm&quot;)) {</span>
+<span class="nc bnc" id="L112" title="All 2 branches missed.">        if (&quot;realm&quot;.equals(parameterName)) {</span>
 <span class="nc" id="L113">            this.setRealm(parameterValue);</span>
         } else {
 <span class="nc" id="L115">            throw new InvalidParameterException(parameterName);</span>
         }
 <span class="nc" id="L117">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

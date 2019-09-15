@@ -41,26 +41,26 @@ public class FqnGrantedAuthorityFactory implements GrantedAuthorityFactory {
      * @param newConvertToUpperCase
      *            the new convert to upper case
      */
-<span class="nc" id="L44">    public FqnGrantedAuthorityFactory(final String newPrefix, final boolean newConvertToUpperCase) {</span>
-<span class="nc" id="L45">        this.prefix = newPrefix;</span>
-<span class="nc" id="L46">        this.convertToUpperCase = newConvertToUpperCase;</span>
-<span class="nc" id="L47">    }</span>
+<span class="fc" id="L44">    public FqnGrantedAuthorityFactory(final String newPrefix, final boolean newConvertToUpperCase) {</span>
+<span class="fc" id="L45">        this.prefix = newPrefix;</span>
+<span class="fc" id="L46">        this.convertToUpperCase = newConvertToUpperCase;</span>
+<span class="fc" id="L47">    }</span>
 
     @Override
     public GrantedAuthority createGrantedAuthority(final WindowsAccount windowsAccount) {
 
-<span class="nc" id="L52">        String grantedAuthorityString = windowsAccount.getFqn();</span>
+<span class="fc" id="L52">        String grantedAuthorityString = windowsAccount.getFqn();</span>
 
-<span class="nc bnc" id="L54" title="All 2 branches missed.">        if (this.prefix != null) {</span>
-<span class="nc" id="L55">            grantedAuthorityString = this.prefix + grantedAuthorityString;</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        if (this.prefix != null) {</span>
+<span class="fc" id="L55">            grantedAuthorityString = this.prefix + grantedAuthorityString;</span>
         }
 
-<span class="nc bnc" id="L58" title="All 2 branches missed.">        if (this.convertToUpperCase) {</span>
-<span class="nc" id="L59">            grantedAuthorityString = grantedAuthorityString.toUpperCase();</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">        if (this.convertToUpperCase) {</span>
+<span class="fc" id="L59">            grantedAuthorityString = grantedAuthorityString.toUpperCase();</span>
         }
 
-<span class="nc" id="L62">        return new SimpleGrantedAuthority(grantedAuthorityString);</span>
+<span class="fc" id="L62">        return new SimpleGrantedAuthority(grantedAuthorityString);</span>
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>
