@@ -1,15 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SimpleHttpSession.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-tests</a> &gt; <a href="index.source.html" class="el_package">waffle.mock.http</a> &gt; <span class="el_source">SimpleHttpSession.java</span></div><h1>SimpleHttpSession.java</h1><pre class="source lang-java linenums">/**
- * Waffle (https://github.com/dblock/waffle)
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SimpleHttpSession.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-tests</a> &gt; <a href="index.source.html" class="el_package">waffle.mock.http</a> &gt; <span class="el_source">SimpleHttpSession.java</span></div><h1>SimpleHttpSession.java</h1><pre class="source lang-java linenums">/**
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2015 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+ * Public License v1.0 which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
- * Contributors:
- *     Application Security, Inc.
+ * Contributors: Application Security, Inc.
  */
 package waffle.mock.http;
 
@@ -25,169 +23,102 @@ import javax.servlet.http.HttpSessionContext;
  * Simple Http Session.
  *
  * @author dblock[at]dblock[dot]org
-<span class="fc" id="L28"> */</span>
-@SuppressWarnings(&quot;deprecation&quot;)
-public class SimpleHttpSession implements HttpSession {
-<span class="fc" id="L31"></span>
+ */
+<span class="fc" id="L27">public class SimpleHttpSession implements HttpSession {</span>
+
     /** The attributes. */
-    private final Map&lt;String, Object&gt; attributes = new HashMap&lt;&gt;();
+<span class="fc" id="L30">    private final Map&lt;String, Object&gt; attributes = new HashMap&lt;&gt;();</span>
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpSession#getAttribute(java.lang.String)
-     */
-<span class="fc" id="L39">    @Override</span>
+    @Override
     public Object getAttribute(final String attributeName) {
-        return this.attributes.get(attributeName);
+<span class="fc" id="L34">        return this.attributes.get(attributeName);</span>
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpSession#getAttributeNames()
-     */
-<span class="nc" id="L48">    @Override</span>
+    @Override
     public Enumeration&lt;String&gt; getAttributeNames() {
-        return null;
+<span class="nc" id="L39">        return null;</span>
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpSession#getCreationTime()
-     */
-<span class="nc" id="L57">    @Override</span>
+    @Override
     public long getCreationTime() {
-        return 0;
+<span class="nc" id="L44">        return 0;</span>
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpSession#getId()
-     */
-<span class="nc" id="L66">    @Override</span>
+    @Override
     public String getId() {
-        return null;
+<span class="nc" id="L49">        return null;</span>
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpSession#getLastAccessedTime()
-     */
-<span class="nc" id="L75">    @Override</span>
+    @Override
     public long getLastAccessedTime() {
-        return 0;
+<span class="nc" id="L54">        return 0;</span>
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpSession#getMaxInactiveInterval()
-     */
-<span class="nc" id="L84">    @Override</span>
+    @Override
     public int getMaxInactiveInterval() {
-        return 0;
+<span class="nc" id="L59">        return 0;</span>
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpSession#getServletContext()
-     */
-<span class="nc" id="L93">    @Override</span>
+    @Override
     public ServletContext getServletContext() {
-        return null;
+<span class="nc" id="L64">        return null;</span>
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpSession#getSessionContext()
-     */
+    // TODO Simply remove this if it is ever actually removed from servlet-api
     @Deprecated
-<span class="nc" id="L103">    @Override</span>
+    @Override
     public HttpSessionContext getSessionContext() {
-        return null;
+<span class="nc" id="L71">        return null;</span>
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpSession#getValue(java.lang.String)
-     */
+    // TODO Simply remove this if it is ever actually removed from servlet-api
     @Deprecated
-<span class="nc" id="L113">    @Override</span>
+    @Override
     public Object getValue(final String arg0) {
-        return null;
+<span class="nc" id="L78">        return null;</span>
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpSession#getValueNames()
-     */
     @Deprecated
-<span class="nc" id="L123">    @Override</span>
+    @Override
     public String[] getValueNames() {
-        return new String[0];
+<span class="nc" id="L84">        return new String[0];</span>
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpSession#invalidate()
-     */
     @Override
-<span class="nc" id="L133">    public void invalidate() {</span>
+    public void invalidate() {
         // Do Nothing
-    }
+<span class="nc" id="L90">    }</span>
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpSession#isNew()
-     */
-<span class="nc" id="L141">    @Override</span>
+    @Override
     public boolean isNew() {
-        return false;
+<span class="nc" id="L94">        return false;</span>
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpSession#putValue(java.lang.String, java.lang.Object)
-     */
     @Deprecated
     @Override
-<span class="nc" id="L152">    public void putValue(final String arg0, final Object arg1) {</span>
+    public void putValue(final String arg0, final Object arg1) {
         // Do Nothing
-    }
+<span class="nc" id="L101">    }</span>
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpSession#removeAttribute(java.lang.String)
-     */
-<span class="nc" id="L160">    @Override</span>
-<span class="nc" id="L161">    public void removeAttribute(final String attributeName) {</span>
-        this.attributes.remove(attributeName);
-    }
+    @Override
+    public void removeAttribute(final String attributeName) {
+<span class="nc" id="L105">        this.attributes.remove(attributeName);</span>
+<span class="nc" id="L106">    }</span>
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpSession#removeValue(java.lang.String)
-     */
     @Deprecated
     @Override
-<span class="nc" id="L171">    public void removeValue(final String arg0) {</span>
+    public void removeValue(final String arg0) {
         // Do Nothing
-    }
+<span class="nc" id="L112">    }</span>
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpSession#setAttribute(java.lang.String, java.lang.Object)
-     */
-<span class="fc" id="L179">    @Override</span>
-<span class="fc" id="L180">    public void setAttribute(final String attributeName, final Object attributeValue) {</span>
-        this.attributes.put(attributeName, attributeValue);
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.http.HttpSession#setMaxInactiveInterval(int)
-     */
     @Override
-<span class="nc" id="L189">    public void setMaxInactiveInterval(final int arg0) {</span>
+    public void setAttribute(final String attributeName, final Object attributeValue) {
+<span class="fc" id="L116">        this.attributes.put(attributeName, attributeValue);</span>
+<span class="fc" id="L117">    }</span>
+
+    @Override
+    public void setMaxInactiveInterval(final int arg0) {
         // Do Nothing
-    }
+<span class="nc" id="L122">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RecordUserNameFilterChain.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-tests</a> &gt; <a href="index.source.html" class="el_package">waffle.mock.http</a> &gt; <span class="el_source">RecordUserNameFilterChain.java</span></div><h1>RecordUserNameFilterChain.java</h1><pre class="source lang-java linenums">/**
+ * Waffle (https://github.com/Waffle/waffle)
+ *
+ * Copyright (c) 2010-2018 Application Security, Inc.
+ *
+ * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+ * Public License v1.0 which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-v10.html.
+ *
+ * Contributors: Application Security, Inc.
+ */
+package waffle.mock.http;
+
+import com.sun.jna.platform.win32.Advapi32Util;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+
+/**
+ * Filter chain that records current username.
+ */
+<span class="nc" id="L25">public class RecordUserNameFilterChain extends SimpleFilterChain {</span>
+
+    /** The user name. */
+    private String userName;
+
+    @Override
+    public void doFilter(final ServletRequest servletRequest, final ServletResponse servletResponse)
+            throws IOException, ServletException {
+<span class="nc" id="L33">        super.doFilter(servletRequest, servletResponse);</span>
+<span class="nc" id="L34">        this.userName = Advapi32Util.getUserName();</span>
+<span class="nc" id="L35">    }</span>
+
+    /**
+     * Gets the user name.
+     *
+     * @return the user name
+     */
+    public String getUserName() {
+<span class="nc" id="L43">        return this.userName;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

@@ -1,15 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SimpleFilterConfig.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-tests</a> &gt; <a href="index.source.html" class="el_package">waffle.mock.http</a> &gt; <span class="el_source">SimpleFilterConfig.java</span></div><h1>SimpleFilterConfig.java</h1><pre class="source lang-java linenums">/**
- * Waffle (https://github.com/dblock/waffle)
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SimpleFilterConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-tests</a> &gt; <a href="index.source.html" class="el_package">waffle.mock.http</a> &gt; <span class="el_source">SimpleFilterConfig.java</span></div><h1>SimpleFilterConfig.java</h1><pre class="source lang-java linenums">/**
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2015 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+ * Public License v1.0 which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
- * Contributors:
- *     Application Security, Inc.
+ * Contributors: Application Security, Inc.
  */
 package waffle.mock.http;
 
@@ -26,23 +24,19 @@ import javax.servlet.ServletContext;
 /**
  * The Class SimpleFilterConfig.
  *
-<span class="fc" id="L29"> * @author dblock[at]dblock[dot]org</span>
+ * @author dblock[at]dblock[dot]org
  */
-public class SimpleFilterConfig implements FilterConfig {
-<span class="fc" id="L32"></span>
-    /** The filter name. */
-    private String                    filterName = &quot;Simple Filter&quot;;
-<span class="fc" id="L35"></span>
-    /** The parameters. */
-    private final Map&lt;String, String&gt; parameters = new TreeMap&lt;&gt;();
+<span class="fc" id="L29">public class SimpleFilterConfig implements FilterConfig {</span>
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.FilterConfig#getFilterName()
-     */
-<span class="nc" id="L43">    @Override</span>
+    /** The filter name. */
+<span class="fc" id="L32">    private String filterName = &quot;Simple Filter&quot;;</span>
+
+    /** The parameters. */
+<span class="fc" id="L35">    private final Map&lt;String, String&gt; parameters = new TreeMap&lt;&gt;();</span>
+
+    @Override
     public String getFilterName() {
-        return this.filterName;
+<span class="nc" id="L39">        return this.filterName;</span>
     }
 
     /**
@@ -50,38 +44,26 @@ public class SimpleFilterConfig implements FilterConfig {
      *
      * @param value
      *            the new filter name
-<span class="nc" id="L53">     */</span>
-<span class="nc" id="L54">    public void setFilterName(final String value) {</span>
-        this.filterName = value;
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.FilterConfig#getInitParameter(java.lang.String)
      */
-<span class="fc" id="L62">    @Override</span>
+    public void setFilterName(final String value) {
+<span class="nc" id="L49">        this.filterName = value;</span>
+<span class="nc" id="L50">    }</span>
+
+    @Override
     public String getInitParameter(final String s) {
-        return this.parameters.get(s);
+<span class="fc" id="L54">        return this.parameters.get(s);</span>
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.FilterConfig#getInitParameterNames()
-     */
-<span class="fc" id="L71">    @Override</span>
-<span class="fc" id="L72">    public Enumeration&lt;String&gt; getInitParameterNames() {</span>
-<span class="fc" id="L73">        final List&lt;String&gt; keys = new ArrayList&lt;&gt;();</span>
-        keys.addAll(this.parameters.keySet());
-        return Collections.enumeration(keys);
+    @Override
+    public Enumeration&lt;String&gt; getInitParameterNames() {
+<span class="fc" id="L59">        final List&lt;String&gt; keys = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L60">        keys.addAll(this.parameters.keySet());</span>
+<span class="fc" id="L61">        return Collections.enumeration(keys);</span>
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.FilterConfig#getServletContext()
-     */
-<span class="nc" id="L82">    @Override</span>
+    @Override
     public ServletContext getServletContext() {
-        return null;
+<span class="nc" id="L66">        return null;</span>
     }
 
     /**
@@ -91,9 +73,9 @@ public class SimpleFilterConfig implements FilterConfig {
      *            the parameter name
      * @param parameterValue
      *            the parameter value
-<span class="fc" id="L94">     */</span>
-<span class="fc" id="L95">    public void setParameter(final String parameterName, final String parameterValue) {</span>
-        this.parameters.put(parameterName, parameterValue);
-    }
+     */
+    public void setParameter(final String parameterName, final String parameterValue) {
+<span class="fc" id="L78">        this.parameters.put(parameterName, parameterValue);</span>
+<span class="fc" id="L79">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>
