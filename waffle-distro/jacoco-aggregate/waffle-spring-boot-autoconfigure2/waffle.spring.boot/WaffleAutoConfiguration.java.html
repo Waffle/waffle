@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>WaffleAutoConfiguration.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-distro</a> &gt; <a href="../index.html" class="el_bundle">waffle-spring-boot-autoconfigure2</a> &gt; <a href="index.source.html" class="el_package">waffle.spring.boot</a> &gt; <span class="el_source">WaffleAutoConfiguration.java</span></div><h1>WaffleAutoConfiguration.java</h1><pre class="source lang-java linenums">/**
+ * Waffle (https://github.com/Waffle/waffle)
+ *
+ * Copyright (c) 2010-2018 Application Security, Inc.
+ *
+ * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+ * Public License v1.0 which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-v10.html.
+ *
+ * Contributors: Application Security, Inc.
+ */
+package waffle.spring.boot;
+
+import javax.servlet.Filter;
+
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.GrantedAuthority;
+
+import waffle.servlet.spi.BasicSecurityFilterProvider;
+import waffle.servlet.spi.NegotiateSecurityFilterProvider;
+import waffle.servlet.spi.SecurityFilterProvider;
+import waffle.servlet.spi.SecurityFilterProviderCollection;
+import waffle.spring.GrantedAuthorityFactory;
+import waffle.spring.NegotiateSecurityFilter;
+import waffle.spring.NegotiateSecurityFilterEntryPoint;
+import waffle.spring.WindowsAuthenticationProvider;
+import waffle.spring.WindowsAuthenticationToken;
+import waffle.windows.auth.impl.WindowsAuthProviderImpl;
+
+/**
+ * Auto configuration for Spring Boot that configures beans based on properties defined in {@link WaffleProperties}.
+ */
+@Configuration
+@EnableConfigurationProperties(WaffleProperties.class)
+public class WaffleAutoConfiguration {
+
+    /** The properties. */
+    private final WaffleProperties properties;
+
+    /**
+     * Instantiates a new waffle auto configuration.
+     *
+     * @param properties
+     *            the properties
+     */
+<span class="nc" id="L53">    public WaffleAutoConfiguration(final WaffleProperties properties) {</span>
+<span class="nc" id="L54">        this.properties = properties;</span>
+<span class="nc" id="L55">    }</span>
+
+    /**
+     * The {@link WindowsAuthProviderImpl} instance.
+     *
+     * @return the windows auth provider impl
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public WindowsAuthProviderImpl waffleWindowsAuthProvider() {
+<span class="nc" id="L65">        return new WindowsAuthProviderImpl();</span>
+    }
+
+    /**
+     * The default {@link GrantedAuthority} that is applied to all users. Default can be overridden by defining a bean
+     * of type {@link GrantedAuthority} with name &quot;defaultGrantedAuthority&quot;.
+     *
+     * @return the granted authority
+     */
+    @Bean
+    @ConditionalOnMissingBean(name = &quot;defaultGrantedAuthority&quot;)
+    public GrantedAuthority defaultGrantedAuthority() {
+<span class="nc" id="L77">        return WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY;</span>
+    }
+
+    /**
+     * The default {@link GrantedAuthorityFactory} that is used. Default can be overridden by defining a bean of type
+     * {@link GrantedAuthorityFactory}.
+     *
+     * @return the granted authority factory
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public GrantedAuthorityFactory grantedAuthorityFactory() {
+<span class="nc" id="L89">        return WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY_FACTORY;</span>
+    }
+
+    /**
+     * The {@link WindowsAuthenticationProvider} that can be used by Spring Security by an {@link AuthenticationManager}
+     * to provide authentication.
+     *
+     * @param waffleWindowsAuthProvider
+     *            the waffle windows auth provider
+     * @param defaultGrantedAuthority
+     *            the default granted authority
+     * @param grantedAuthorityFactory
+     *            the granted authority factory
+     * @return the windows authentication provider
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public WindowsAuthenticationProvider waffleSpringAuthenticationProvider(
+            final WindowsAuthProviderImpl waffleWindowsAuthProvider,
+            @Qualifier(&quot;defaultGrantedAuthority&quot;) final GrantedAuthority defaultGrantedAuthority,
+            final GrantedAuthorityFactory grantedAuthorityFactory) {
+<span class="nc" id="L110">        final WindowsAuthenticationProvider bean = new WindowsAuthenticationProvider();</span>
+<span class="nc" id="L111">        bean.setAuthProvider(waffleWindowsAuthProvider);</span>
+<span class="nc" id="L112">        bean.setPrincipalFormat(this.properties.getPrincipalFormat());</span>
+<span class="nc" id="L113">        bean.setRoleFormat(this.properties.getRoleFormat());</span>
+<span class="nc" id="L114">        bean.setAllowGuestLogin(this.properties.isAllowGuestLogin());</span>
+<span class="nc" id="L115">        bean.setDefaultGrantedAuthority(defaultGrantedAuthority);</span>
+<span class="nc" id="L116">        bean.setGrantedAuthorityFactory(grantedAuthorityFactory);</span>
+<span class="nc" id="L117">        return bean;</span>
+    }
+
+    /**
+     * The {@link NegotiateSecurityFilterProvider} that provides single-sign-on authentication using Negotiate with the
+     * configured protocols. Instantiated only when sso is enabled.
+     *
+     * @param windowsAuthProvider
+     *            the windows auth provider
+     * @return the negotiate security filter provider
+     */
+    @Bean
+    @ConditionalOnProperty(&quot;waffle.sso.enabled&quot;)
+    @ConditionalOnMissingBean
+    public NegotiateSecurityFilterProvider negotiateSecurityFilterProvider(
+            final WindowsAuthProviderImpl windowsAuthProvider) {
+<span class="nc" id="L133">        final NegotiateSecurityFilterProvider bean = new NegotiateSecurityFilterProvider(windowsAuthProvider);</span>
+<span class="nc" id="L134">        bean.setProtocols(this.properties.getSso().getProtocols());</span>
+<span class="nc" id="L135">        return bean;</span>
+    }
+
+    /**
+     * The {@link BasicSecurityFilterProvider} that provides Basic authentication fall back when using single-sign-on
+     * with unsupported browser. Instantiated only when sso is enabled.
+     *
+     * @param windowsAuthProvider
+     *            the windows auth provider
+     * @return the basic security filter provider
+     */
+    @Bean
+    @ConditionalOnProperty(&quot;waffle.sso.enabled&quot;)
+    @ConditionalOnMissingBean
+    public BasicSecurityFilterProvider basicSecurityFilterProvider(final WindowsAuthProviderImpl windowsAuthProvider) {
+<span class="nc" id="L150">        return new BasicSecurityFilterProvider(windowsAuthProvider);</span>
+    }
+
+    /**
+     * The {@link SecurityFilterProviderCollection} that includes {@link NegotiateSecurityFilterProvider} and/or
+     * {@link BasicSecurityFilterProvider} depending on configuration. Instantiated only when sso is enabled.
+     *
+     * @param negotiateProvider
+     *            the negotiate provider
+     * @param basicProvider
+     *            the basic provider
+     * @return the security filter provider collection
+     */
+    @Bean
+    @ConditionalOnProperty(&quot;waffle.sso.enabled&quot;)
+    @ConditionalOnMissingBean
+    public SecurityFilterProviderCollection waffleSecurityFilterProviderCollection(
+            final NegotiateSecurityFilterProvider negotiateProvider, final BasicSecurityFilterProvider basicProvider) {
+        SecurityFilterProvider[] providers;
+<span class="nc bnc" id="L169" title="All 2 branches missed.">        if (this.properties.getSso().isBasicEnabled()) {</span>
+<span class="nc" id="L170">            providers = new SecurityFilterProvider[] { negotiateProvider, basicProvider };</span>
+        } else {
+<span class="nc" id="L172">            providers = new SecurityFilterProvider[] { negotiateProvider };</span>
+        }
+<span class="nc" id="L174">        return new SecurityFilterProviderCollection(providers);</span>
+    }
+
+    /**
+     * The {@link NegotiateSecurityFilterEntryPoint} for use by the Spring Security {@link AuthenticationManager} when
+     * using single-sign-on. Instantiated only when sso is enabled.
+     *
+     * @param providers
+     *            the providers
+     * @return the negotiate security filter entry point
+     */
+    @Bean
+    @ConditionalOnProperty(&quot;waffle.sso.enabled&quot;)
+    @ConditionalOnMissingBean
+    public NegotiateSecurityFilterEntryPoint negotiateSecurityFilterEntryPoint(
+            final SecurityFilterProviderCollection providers) {
+<span class="nc" id="L190">        final NegotiateSecurityFilterEntryPoint bean = new NegotiateSecurityFilterEntryPoint();</span>
+<span class="nc" id="L191">        bean.setProvider(providers);</span>
+<span class="nc" id="L192">        return bean;</span>
+    }
+
+    /**
+     * The {@link NegotiateSecurityFilter} to be used by Spring Security {@link AuthenticationManager} when using
+     * single-sign-on. Instantiated only when sso is enabled.
+     *
+     * @param providers
+     *            the providers
+     * @param defaultGrantedAuthority
+     *            the default granted authority
+     * @param grantedAuthorityFactory
+     *            the granted authority factory
+     * @return the negotiate security filter
+     */
+    @Bean
+    @ConditionalOnProperty(&quot;waffle.sso.enabled&quot;)
+    @ConditionalOnMissingBean
+    public NegotiateSecurityFilter waffleNegotiateSecurityFilter(final SecurityFilterProviderCollection providers,
+            @Qualifier(&quot;defaultGrantedAuthority&quot;) final GrantedAuthority defaultGrantedAuthority,
+            final GrantedAuthorityFactory grantedAuthorityFactory) {
+<span class="nc" id="L213">        final NegotiateSecurityFilter bean = new NegotiateSecurityFilter();</span>
+<span class="nc" id="L214">        bean.setProvider(providers);</span>
+<span class="nc" id="L215">        bean.setPrincipalFormat(this.properties.getPrincipalFormat());</span>
+<span class="nc" id="L216">        bean.setRoleFormat(this.properties.getRoleFormat());</span>
+<span class="nc" id="L217">        bean.setAllowGuestLogin(this.properties.isAllowGuestLogin());</span>
+<span class="nc" id="L218">        bean.setImpersonate(this.properties.getSso().isImpersonate());</span>
+<span class="nc" id="L219">        bean.setDefaultGrantedAuthority(defaultGrantedAuthority);</span>
+<span class="nc" id="L220">        bean.setGrantedAuthorityFactory(grantedAuthorityFactory);</span>
+<span class="nc" id="L221">        return bean;</span>
+    }
+
+    /**
+     * When using Spring Boot, {@link Filter}s are automatically registered. In this case, the filter must be manually
+     * configured within an {@link AuthenticationManager} and so we must prevent Spring Boot from registering it a
+     * second time.
+     *
+     * @param filter
+     *            The filter that we will be disabling from auto registration.
+     * @return the filter registration bean
+     */
+    @Bean
+    @ConditionalOnProperty(&quot;waffle.sso.enabled&quot;)
+    public FilterRegistrationBean&lt;NegotiateSecurityFilter&gt; waffleNegotiateSecurityFilterRegistrationBean(
+            final NegotiateSecurityFilter filter) {
+<span class="nc" id="L237">        final FilterRegistrationBean&lt;NegotiateSecurityFilter&gt; bean = new FilterRegistrationBean&lt;NegotiateSecurityFilter&gt;(</span>
+                filter);
+<span class="nc" id="L239">        bean.setEnabled(false);</span>
+<span class="nc" id="L240">        return bean;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

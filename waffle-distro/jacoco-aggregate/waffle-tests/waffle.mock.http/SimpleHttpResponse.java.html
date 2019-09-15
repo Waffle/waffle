@@ -40,19 +40,19 @@ import org.slf4j.LoggerFactory;
 public class SimpleHttpResponse extends HttpServletResponseWrapper {
 
     /** The Constant LOGGER. */
-<span class="nc" id="L43">    private static final Logger LOGGER = LoggerFactory.getLogger(SimpleHttpResponse.class);</span>
+<span class="fc" id="L43">    private static final Logger LOGGER = LoggerFactory.getLogger(SimpleHttpResponse.class);</span>
 
     /** The status. */
-<span class="nc" id="L46">    private int status = 500;</span>
+<span class="fc" id="L46">    private int status = 500;</span>
 
     /** The headers. */
-<span class="nc" id="L49">    private final Map&lt;String, List&lt;String&gt;&gt; headers = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L49">    private final Map&lt;String, List&lt;String&gt;&gt; headers = new HashMap&lt;&gt;();</span>
 
     /** The bytes. */
-<span class="nc" id="L52">    final ByteArrayOutputStream bytes = new ByteArrayOutputStream();</span>
+<span class="fc" id="L52">    final ByteArrayOutputStream bytes = new ByteArrayOutputStream();</span>
 
     /** The out. */
-<span class="nc" id="L55">    private final ServletOutputStream out = new ServletOutputStream() {</span>
+<span class="fc" id="L55">    private final ServletOutputStream out = new ServletOutputStream() {</span>
         @Override
         public void write(final int b) throws IOException {
 <span class="nc" id="L58">            SimpleHttpResponse.this.bytes.write(b);</span>
@@ -64,21 +64,21 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
         }
 
         @Override
-        public void setWriteListener(WriteListener writeListener) {
+        public void setWriteListener(final WriteListener writeListener) {
             // Not used
 <span class="nc" id="L69">        }</span>
     };
 
     /** The writer. */
-<span class="nc" id="L73">    private final PrintWriter writer = new PrintWriter(new OutputStreamWriter(this.bytes, StandardCharsets.UTF_8),</span>
+<span class="fc" id="L73">    private final PrintWriter writer = new PrintWriter(new OutputStreamWriter(this.bytes, StandardCharsets.UTF_8),</span>
             true);
 
     /**
      * Instantiates a new simple http response.
      */
     public SimpleHttpResponse() {
-<span class="nc" id="L80">        super(Mockito.mock(HttpServletResponse.class));</span>
-<span class="nc" id="L81">    }</span>
+<span class="fc" id="L80">        super(Mockito.mock(HttpServletResponse.class));</span>
+<span class="fc" id="L81">    }</span>
 
     /**
      * Gets the status.
@@ -87,35 +87,35 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
      */
     @Override
     public int getStatus() {
-<span class="nc" id="L90">        return this.status;</span>
+<span class="fc" id="L90">        return this.status;</span>
     }
 
     @Override
     public void addHeader(final String headerName, final String headerValue) {
-<span class="nc" id="L95">        List&lt;String&gt; current = this.headers.get(headerName);</span>
-<span class="nc bnc" id="L96" title="All 2 branches missed.">        if (current == null) {</span>
-<span class="nc" id="L97">            current = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L95">        List&lt;String&gt; current = this.headers.get(headerName);</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">        if (current == null) {</span>
+<span class="fc" id="L97">            current = new ArrayList&lt;&gt;();</span>
         }
-<span class="nc" id="L99">        current.add(headerValue);</span>
-<span class="nc" id="L100">        this.headers.put(headerName, current);</span>
-<span class="nc" id="L101">    }</span>
+<span class="fc" id="L99">        current.add(headerValue);</span>
+<span class="fc" id="L100">        this.headers.put(headerName, current);</span>
+<span class="fc" id="L101">    }</span>
 
     @Override
     public void setHeader(final String headerName, final String headerValue) {
-<span class="nc" id="L105">        List&lt;String&gt; current = this.headers.get(headerName);</span>
-<span class="nc bnc" id="L106" title="All 2 branches missed.">        if (current == null) {</span>
-<span class="nc" id="L107">            current = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L105">        List&lt;String&gt; current = this.headers.get(headerName);</span>
+<span class="pc bpc" id="L106" title="1 of 2 branches missed.">        if (current == null) {</span>
+<span class="fc" id="L107">            current = new ArrayList&lt;&gt;();</span>
         } else {
 <span class="nc" id="L109">            current.clear();</span>
         }
-<span class="nc" id="L111">        current.add(headerValue);</span>
-<span class="nc" id="L112">        this.headers.put(headerName, current);</span>
-<span class="nc" id="L113">    }</span>
+<span class="fc" id="L111">        current.add(headerValue);</span>
+<span class="fc" id="L112">        this.headers.put(headerName, current);</span>
+<span class="fc" id="L113">    }</span>
 
     @Override
     public void setStatus(final int value) {
-<span class="nc" id="L117">        this.status = value;</span>
-<span class="nc" id="L118">    }</span>
+<span class="fc" id="L117">        this.status = value;</span>
+<span class="fc" id="L118">    }</span>
 
     /**
      * Gets the status string.
@@ -123,29 +123,29 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
      * @return the status string
      */
     public String getStatusString() {
-<span class="nc bnc" id="L126" title="All 2 branches missed.">        if (this.status == 401) {</span>
-<span class="nc" id="L127">            return &quot;Unauthorized&quot;;</span>
+<span class="pc bpc" id="L126" title="1 of 2 branches missed.">        if (this.status == 401) {</span>
+<span class="fc" id="L127">            return &quot;Unauthorized&quot;;</span>
         }
 <span class="nc" id="L129">        return &quot;Unknown&quot;;</span>
     }
 
     @Override
     public void flushBuffer() {
-<span class="nc" id="L134">        SimpleHttpResponse.LOGGER.info(&quot;{}: {}&quot;, Integer.valueOf(this.status), this.getStatusString());</span>
-<span class="nc bnc" id="L135" title="All 2 branches missed.">        for (final Entry&lt;String, List&lt;String&gt;&gt; header : this.headers.entrySet()) {</span>
-<span class="nc bnc" id="L136" title="All 2 branches missed.">            for (final String headerValue : header.getValue()) {</span>
-<span class="nc" id="L137">                SimpleHttpResponse.LOGGER.info(&quot;{}: {}&quot;, header, headerValue);</span>
-<span class="nc" id="L138">            }</span>
-<span class="nc" id="L139">        }</span>
-<span class="nc" id="L140">    }</span>
+<span class="fc" id="L134">        SimpleHttpResponse.LOGGER.info(&quot;{}: {}&quot;, Integer.valueOf(this.status), this.getStatusString());</span>
+<span class="fc bfc" id="L135" title="All 2 branches covered.">        for (final Entry&lt;String, List&lt;String&gt;&gt; header : this.headers.entrySet()) {</span>
+<span class="fc bfc" id="L136" title="All 2 branches covered.">            for (final String headerValue : header.getValue()) {</span>
+<span class="fc" id="L137">                SimpleHttpResponse.LOGGER.info(&quot;{}: {}&quot;, header, headerValue);</span>
+<span class="fc" id="L138">            }</span>
+<span class="fc" id="L139">        }</span>
+<span class="fc" id="L140">    }</span>
 
     /**
      * Use this for testing the number of headers.
-     * 
+     *
      * @return int header name size.
      */
     public int getHeaderNamesSize() {
-<span class="nc" id="L148">        return this.headers.size();</span>
+<span class="fc" id="L148">        return this.headers.size();</span>
     }
 
     /**
@@ -156,8 +156,8 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
      * @return the header values
      */
     public String[] getHeaderValues(final String headerName) {
-<span class="nc" id="L159">        final List&lt;String&gt; headerValues = this.headers.get(headerName);</span>
-<span class="nc bnc" id="L160" title="All 2 branches missed.">        return headerValues == null ? null : headerValues.toArray(new String[0]);</span>
+<span class="fc" id="L159">        final List&lt;String&gt; headerValues = this.headers.get(headerName);</span>
+<span class="pc bpc" id="L160" title="1 of 2 branches missed.">        return headerValues == null ? null : headerValues.toArray(new String[0]);</span>
     }
 
     /**
@@ -169,8 +169,8 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
      */
     @Override
     public String getHeader(final String headerName) {
-<span class="nc" id="L172">        final List&lt;String&gt; headerValues = this.headers.get(headerName);</span>
-<span class="nc bnc" id="L173" title="All 2 branches missed.">        return headerValues == null ? null : String.join(&quot;, &quot;, headerValues);</span>
+<span class="fc" id="L172">        final List&lt;String&gt; headerValues = this.headers.get(headerName);</span>
+<span class="pc bpc" id="L173" title="1 of 2 branches missed.">        return headerValues == null ? null : String.join(&quot;, &quot;, headerValues);</span>
     }
 
     @Override
@@ -180,12 +180,12 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
 
     @Override
     public void sendError(final int rc) {
-<span class="nc" id="L183">        this.status = rc;</span>
-<span class="nc" id="L184">    }</span>
+<span class="fc" id="L183">        this.status = rc;</span>
+<span class="fc" id="L184">    }</span>
 
     @Override
     public PrintWriter getWriter() {
-<span class="nc" id="L188">        return this.writer;</span>
+<span class="fc" id="L188">        return this.writer;</span>
     }
 
     @Override
@@ -199,13 +199,13 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
      * @return the output text
      */
     public String getOutputText() {
-<span class="nc" id="L202">        this.writer.flush();</span>
+<span class="fc" id="L202">        this.writer.flush();</span>
         try {
-<span class="nc" id="L204">            return this.bytes.toString(StandardCharsets.UTF_8.name());</span>
+<span class="fc" id="L204">            return this.bytes.toString(StandardCharsets.UTF_8.name());</span>
 <span class="nc" id="L205">        } catch (final UnsupportedEncodingException e) {</span>
 <span class="nc" id="L206">            SimpleHttpResponse.LOGGER.error(&quot;&quot;, e);</span>
         }
 <span class="nc" id="L208">        return null;</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

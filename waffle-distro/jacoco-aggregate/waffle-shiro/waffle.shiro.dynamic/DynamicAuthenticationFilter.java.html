@@ -27,70 +27,70 @@ import waffle.shiro.negotiate.NegotiateAuthenticationFilter;
  * allow a client to choose which authentication filter is used at runtime. This filter assumes the shiro.ini is
  * configured with both the {@link waffle.shiro.negotiate.NegotiateAuthenticationRealm} and some User/Password Realm
  * like: {@link waffle.shiro.GroupMappingWaffleRealm}.
- * 
+ *
  * Requires use of {@link waffle.shiro.negotiate.NegotiateAuthenticationStrategy} when more than one realm is configured
  * in shiro.ini (which should be the case for multiple authentication type options).
- * 
+ *
  * To use {@link waffle.shiro.negotiate.NegotiateAuthenticationRealm}, the client must pass the parameter
  * {@link #PARAM_NAME_AUTHTYPE} with a value of {@link #PARAM_VAL_AUTHTYPE_NEGOTIATE}.
- * 
+ *
  * Example shiro.ini snippet below:
- * 
+ *
  * &lt;pre&gt;
  *  # =======================
  *  # Shiro INI configuration
  *  # =======================
- * 
+ *
  *  [main]
- * 
+ *
  *  # Setup custom AuthenticationRealm
  *  waffleRealmSSO = waffle.shiro.negotiate.NegotiateAuthenticationRealm
  *  waffleUserPass = waffle.shiro.GroupMappingWaffleRealm
  *  securityManager.realms = $waffleRealmSSO, $waffleUserPass
- * 
- * 
+ *
+ *
  *  # Use the configured native session manager:
  *  sessionManager = org.apache.shiro.web.session.mgt.DefaultWebSessionManager
  *  securityManager.sessionManager = $sessionManager
- * 
+ *
  *  # the following call is only necessary in a web-configured ShiroFilter (otherwise
  *  # a native session manager is already enabled):
  *  securityManager.sessionMode = native
- * 
- * 
+ *
+ *
  *  # cookie for single sign on
  *  cookie = org.apache.shiro.web.servlet.SimpleCookie
  *  cookie.name = SSOcookie
  *  cookie.path = /
  *  securityManager.sessionManager.sessionIdCookie = $cookie
- * 
- * 
+ *
+ *
  *  authcStrategy = waffle.shiro.negotiate.NegotiateAuthenticationStrategy
  *  securityManager.authenticator.authenticationStrategy = $authcStrategy
- * 
+ *
  *  # Waffle filter
  *  waffleFilter = waffle.shiro.dynamic.DynamicAuthenticationFilter
- * 
+ *
  *  #Configure filter chains and filter parameters
  *  authc.loginUrl = /login.jsp
  *  waffleFilter.loginUrl = /login.jsp
  *  logout.redirectUrl = login.jsp
- * 
+ *
  *  ...
- * 
+ *
  *  [urls]
  *  # The 'urls' section is used for url-based security
  *  /logout = logout
  *  /* = waffleFilter
- * 
+ *
  * &lt;/pre&gt;
- * 
+ *
  * @author Dan Rollo Date: 2/21/13 Time: 9:08 PM
  */
-<span class="nc" id="L90">public class DynamicAuthenticationFilter extends FormAuthenticationFilter {</span>
+<span class="fc" id="L90">public class DynamicAuthenticationFilter extends FormAuthenticationFilter {</span>
 
     /** The Constant LOGGER. */
-<span class="nc" id="L93">    private static final Logger LOGGER = LoggerFactory.getLogger(DynamicAuthenticationFilter.class);</span>
+<span class="fc" id="L93">    private static final Logger LOGGER = LoggerFactory.getLogger(DynamicAuthenticationFilter.class);</span>
 
     /** The Constant PARAM_NAME_AUTHTYPE. */
     public static final String PARAM_NAME_AUTHTYPE = &quot;authType&quot;;
@@ -112,9 +112,9 @@ import waffle.shiro.negotiate.NegotiateAuthenticationFilter;
          * @param newParent
          *            the new parent
          */
-<span class="nc" id="L115">        WrapNegotiateAuthenticationFilter(final DynamicAuthenticationFilter newParent) {</span>
-<span class="nc" id="L116">            this.parent = newParent;</span>
-<span class="nc" id="L117">        }</span>
+<span class="fc" id="L115">        WrapNegotiateAuthenticationFilter(final DynamicAuthenticationFilter newParent) {</span>
+<span class="fc" id="L116">            this.parent = newParent;</span>
+<span class="fc" id="L117">        }</span>
 
         @Override
         public boolean onAccessDenied(final ServletRequest request, final ServletResponse response) throws Exception {
@@ -129,7 +129,7 @@ import waffle.shiro.negotiate.NegotiateAuthenticationFilter;
     }
 
     /** The filter negotiate. */
-<span class="nc" id="L132">    private final WrapNegotiateAuthenticationFilter filterNegotiate = new WrapNegotiateAuthenticationFilter(this);</span>
+<span class="fc" id="L132">    private final WrapNegotiateAuthenticationFilter filterNegotiate = new WrapNegotiateAuthenticationFilter(this);</span>
 
     /**
      * Wrapper to make protected methods in different package callable from here.
@@ -145,9 +145,9 @@ import waffle.shiro.negotiate.NegotiateAuthenticationFilter;
          * @param newParent
          *            the new parent
          */
-<span class="nc" id="L148">        WrapFormAuthenticationFilter(final DynamicAuthenticationFilter newParent) {</span>
-<span class="nc" id="L149">            this.parent = newParent;</span>
-<span class="nc" id="L150">        }</span>
+<span class="fc" id="L148">        WrapFormAuthenticationFilter(final DynamicAuthenticationFilter newParent) {</span>
+<span class="fc" id="L149">            this.parent = newParent;</span>
+<span class="fc" id="L150">        }</span>
 
         @Override
         public boolean onAccessDenied(final ServletRequest request, final ServletResponse response) throws Exception {
@@ -162,13 +162,13 @@ import waffle.shiro.negotiate.NegotiateAuthenticationFilter;
     }
 
     /** The filter form authc. */
-<span class="nc" id="L165">    private final WrapFormAuthenticationFilter filterFormAuthc = new WrapFormAuthenticationFilter(this);</span>
+<span class="fc" id="L165">    private final WrapFormAuthenticationFilter filterFormAuthc = new WrapFormAuthenticationFilter(this);</span>
 
     /**
      * Call
      * {@link org.apache.shiro.web.filter.AccessControlFilter#onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse)}
      * for the user selected authentication type, which performs login logic.
-     * 
+     *
      * {@inheritDoc}
      */
     @Override
@@ -189,9 +189,9 @@ import waffle.shiro.negotiate.NegotiateAuthenticationFilter;
      * @return true, if is auth type negotiate
      */
     boolean isAuthTypeNegotiate(final ServletRequest request) {
-<span class="nc" id="L192">        final String authType = request.getParameter(DynamicAuthenticationFilter.PARAM_NAME_AUTHTYPE);</span>
-<span class="nc bnc" id="L193" title="All 4 branches missed.">        return authType != null &amp;&amp; DynamicAuthenticationFilter.PARAM_VAL_AUTHTYPE_NEGOTIATE.equalsIgnoreCase(authType);</span>
+<span class="fc" id="L192">        final String authType = request.getParameter(DynamicAuthenticationFilter.PARAM_NAME_AUTHTYPE);</span>
+<span class="fc bfc" id="L193" title="All 4 branches covered.">        return authType != null &amp;&amp; DynamicAuthenticationFilter.PARAM_VAL_AUTHTYPE_NEGOTIATE.equalsIgnoreCase(authType);</span>
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

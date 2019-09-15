@@ -20,10 +20,10 @@ import javax.servlet.ServletResponse;
 
 /**
  * Simple filter chain.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
-<span class="nc" id="L26">public class SimpleFilterChain implements FilterChain {</span>
+<span class="fc" id="L26">public class SimpleFilterChain implements FilterChain {</span>
 
     /** The request. */
     private ServletRequest request;
@@ -37,7 +37,7 @@ import javax.servlet.ServletResponse;
      * @return the request
      */
     public ServletRequest getRequest() {
-<span class="nc" id="L40">        return this.request;</span>
+<span class="fc" id="L40">        return this.request;</span>
     }
 
     /**
@@ -46,13 +46,13 @@ import javax.servlet.ServletResponse;
      * @return the response
      */
     public ServletResponse getResponse() {
-<span class="nc" id="L49">        return this.response;</span>
+<span class="fc" id="L49">        return this.response;</span>
     }
 
     @Override
     public void doFilter(final ServletRequest sreq, final ServletResponse srep) throws IOException, ServletException {
-<span class="nc" id="L54">        this.request = sreq;</span>
-<span class="nc" id="L55">        this.response = srep;</span>
-<span class="nc" id="L56">    }</span>
+<span class="fc" id="L54">        this.request = sreq;</span>
+<span class="fc" id="L55">        this.response = srep;</span>
+<span class="fc" id="L56">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

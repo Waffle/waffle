@@ -17,39 +17,41 @@ import org.apache.catalina.realm.RealmBase;
 
 /**
  * A rudimentary Windows realm.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
-<span class="nc" id="L23">public class WindowsRealm extends RealmBase {</span>
+<span class="fc" id="L23">public class WindowsRealm extends RealmBase {</span>
 
     /** The Constant NAME. */
     protected static final String NAME = &quot;waffle.apache.WindowsRealm/1.0&quot;;
 
     /**
+     * Gets the name.
+     *
+     * 'waffle.apache.WindowsRealm/1.0' will no longer be logged. We don't internally use this so we must go with
+     * standard java way that tomcat has accepted. This means, going to tomcat 9.0.0.M15+ will result simply in
+     * 'WaffleRealm' or better stated the actual simple class name. Simple class name strips off the package name with
+     * is what we were applying along with version 1.0 which is inaccurate anyways considering we are on version 1.8.1+
+     * at this point.
+     *
      * @return a short name for this Realm implementation, for use in log messages.
-     *
-     *         'waffle.apache.WindowsRealm/1.0' will no longer be logged. We don't internally use this so we must go
-     *         with standard java way that tomcat has accepted. This means, going to tomcat 9.0.0.M15+ will result
-     *         simply in 'WaffleRealm' or better stated the actual simple class name. Simple class name strips off the
-     *         package name with is what we were applying along with version 1.0 which is inaccurate anyways considering
-     *         we are on version 1.8.1+ at this point.
-     *
+     * 
      * @deprecated This will be removed in Tomcat 9 onwards. Use {@link Class#getSimpleName()} instead.
      */
     @Deprecated
     protected String getName() {
-<span class="nc" id="L41">        return WindowsRealm.NAME;</span>
+<span class="nc" id="L43">        return WindowsRealm.NAME;</span>
     }
 
     @Override
     protected String getPassword(final String value) {
-<span class="nc" id="L46">        return null;</span>
+<span class="fc" id="L48">        return null;</span>
     }
 
     @Override
     protected Principal getPrincipal(final String value) {
-<span class="nc" id="L51">        return null;</span>
+<span class="fc" id="L53">        return null;</span>
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

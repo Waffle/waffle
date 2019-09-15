@@ -14,12 +14,25 @@ package waffle.shiro.negotiate;
 import java.security.Principal;
 
 /**
+
  * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateAuthenticationFilter. see:
- * https://bitbucket.org/lothor
- * /shiro-negotiate/src/7b25efde130b/src/main/java/net/skorgenes/security/jsecurity/negotiate
- * /NegotiateAuthenticationRealm.java?at=default
+
  *
+
+ * https://bitbucket.org/lothor
+
+ *
+
+ * /shiro-negotiate/src/7b25efde130b/src/main/java/net/skorgenes/security/jsecurity/negotiate
+
+ *
+
+ * /NegotiateAuthenticationRealm.java?at=default
+
+ *
+
  * @author Dan Rollo
+
  */
 import javax.security.auth.Subject;
 
@@ -44,7 +57,7 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
     /**
      * This class's private logger.
      */
-<span class="nc" id="L47">    private static final Logger LOGGER = LoggerFactory.getLogger(NegotiateAuthenticationRealm.class);</span>
+<span class="fc" id="L60">    private static final Logger LOGGER = LoggerFactory.getLogger(NegotiateAuthenticationRealm.class);</span>
 
     /** The windows auth provider. */
     private final IWindowsAuthProvider windowsAuthProvider;
@@ -52,62 +65,62 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
     /**
      * Instantiates a new negotiate authentication realm.
      */
-<span class="nc" id="L55">    public NegotiateAuthenticationRealm() {</span>
-<span class="nc" id="L56">        this.windowsAuthProvider = new WindowsAuthProviderImpl();</span>
-<span class="nc" id="L57">    }</span>
+<span class="fc" id="L68">    public NegotiateAuthenticationRealm() {</span>
+<span class="fc" id="L69">        this.windowsAuthProvider = new WindowsAuthProviderImpl();</span>
+<span class="fc" id="L70">    }</span>
 
     @Override
     public boolean supports(final AuthenticationToken token) {
-<span class="nc" id="L61">        return token instanceof NegotiateToken;</span>
+<span class="fc" id="L74">        return token instanceof NegotiateToken;</span>
     }
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(final AuthenticationToken t) {
 
-<span class="nc" id="L67">        final NegotiateToken token = (NegotiateToken) t;</span>
-<span class="nc" id="L68">        final byte[] inToken = token.getIn();</span>
+<span class="fc" id="L80">        final NegotiateToken token = (NegotiateToken) t;</span>
+<span class="fc" id="L81">        final byte[] inToken = token.getIn();</span>
 
-<span class="nc bnc" id="L70" title="All 2 branches missed.">        if (token.isNtlmPost()) {</span>
+<span class="pc bpc" id="L83" title="1 of 2 branches missed.">        if (token.isNtlmPost()) {</span>
             // type 2 NTLM authentication message received
-<span class="nc" id="L72">            this.windowsAuthProvider.resetSecurityToken(token.getConnectionId());</span>
+<span class="nc" id="L85">            this.windowsAuthProvider.resetSecurityToken(token.getConnectionId());</span>
         }
 
         final IWindowsSecurityContext securityContext;
         try {
-<span class="nc" id="L77">            securityContext = this.windowsAuthProvider.acceptSecurityToken(token.getConnectionId(), inToken,</span>
-<span class="nc" id="L78">                    token.getSecurityPackage());</span>
-<span class="nc" id="L79">        } catch (final Exception e) {</span>
-<span class="nc" id="L80">            NegotiateAuthenticationRealm.LOGGER.warn(&quot;error logging in user: {}&quot;, e.getMessage());</span>
-<span class="nc" id="L81">            throw new AuthenticationException(e);</span>
-<span class="nc" id="L82">        }</span>
+<span class="pc" id="L90">            securityContext = this.windowsAuthProvider.acceptSecurityToken(token.getConnectionId(), inToken,</span>
+<span class="fc" id="L91">                    token.getSecurityPackage());</span>
+<span class="fc" id="L92">        } catch (final Exception e) {</span>
+<span class="fc" id="L93">            NegotiateAuthenticationRealm.LOGGER.warn(&quot;error logging in user: {}&quot;, e.getMessage());</span>
+<span class="fc" id="L94">            throw new AuthenticationException(e);</span>
+<span class="nc" id="L95">        }</span>
 
-<span class="nc" id="L84">        final byte[] continueTokenBytes = securityContext.getToken();</span>
-<span class="nc" id="L85">        token.setOut(continueTokenBytes);</span>
-<span class="nc bnc" id="L86" title="All 2 branches missed.">        if (continueTokenBytes != null) {</span>
-<span class="nc" id="L87">            NegotiateAuthenticationRealm.LOGGER.debug(&quot;continue token bytes: {}&quot;,</span>
-<span class="nc" id="L88">                    Integer.valueOf(continueTokenBytes.length));</span>
+<span class="nc" id="L97">        final byte[] continueTokenBytes = securityContext.getToken();</span>
+<span class="nc" id="L98">        token.setOut(continueTokenBytes);</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">        if (continueTokenBytes != null) {</span>
+<span class="nc" id="L100">            NegotiateAuthenticationRealm.LOGGER.debug(&quot;continue token bytes: {}&quot;,</span>
+<span class="nc" id="L101">                    Integer.valueOf(continueTokenBytes.length));</span>
         } else {
-<span class="nc" id="L90">            NegotiateAuthenticationRealm.LOGGER.debug(&quot;no continue token bytes&quot;);</span>
+<span class="nc" id="L103">            NegotiateAuthenticationRealm.LOGGER.debug(&quot;no continue token bytes&quot;);</span>
         }
 
-<span class="nc bnc" id="L93" title="All 4 branches missed.">        if (securityContext.isContinue() || token.isNtlmPost()) {</span>
-<span class="nc" id="L94">            throw new AuthenticationInProgressException();</span>
+<span class="nc bnc" id="L106" title="All 4 branches missed.">        if (securityContext.isContinue() || token.isNtlmPost()) {</span>
+<span class="nc" id="L107">            throw new AuthenticationInProgressException();</span>
         }
 
-<span class="nc" id="L97">        final IWindowsIdentity windowsIdentity = securityContext.getIdentity();</span>
-<span class="nc" id="L98">        securityContext.dispose();</span>
+<span class="nc" id="L110">        final IWindowsIdentity windowsIdentity = securityContext.getIdentity();</span>
+<span class="nc" id="L111">        securityContext.dispose();</span>
 
-<span class="nc" id="L100">        NegotiateAuthenticationRealm.LOGGER.debug(&quot;logged in user: {} ({})&quot;, windowsIdentity.getFqn(),</span>
-<span class="nc" id="L101">                windowsIdentity.getSidString());</span>
+<span class="nc" id="L113">        NegotiateAuthenticationRealm.LOGGER.debug(&quot;logged in user: {} ({})&quot;, windowsIdentity.getFqn(),</span>
+<span class="nc" id="L114">                windowsIdentity.getSidString());</span>
 
-<span class="nc" id="L103">        final Principal principal = new WindowsPrincipal(windowsIdentity);</span>
-<span class="nc" id="L104">        token.setPrincipal(principal);</span>
+<span class="nc" id="L116">        final Principal principal = new WindowsPrincipal(windowsIdentity);</span>
+<span class="nc" id="L117">        token.setPrincipal(principal);</span>
 
-<span class="nc" id="L106">        final Subject subject = new Subject();</span>
-<span class="nc" id="L107">        subject.getPrincipals().add(principal);</span>
-<span class="nc" id="L108">        token.setSubject(subject);</span>
+<span class="nc" id="L119">        final Subject subject = new Subject();</span>
+<span class="nc" id="L120">        subject.getPrincipals().add(principal);</span>
+<span class="nc" id="L121">        token.setSubject(subject);</span>
 
-<span class="nc" id="L110">        return token.createInfo();</span>
+<span class="nc" id="L123">        return token.createInfo();</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

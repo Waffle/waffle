@@ -36,15 +36,15 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
     private static final String GUEST = &quot;Guest&quot;;
 
     /** The groups. */
-<span class="nc" id="L39">    private final List&lt;String&gt; groups = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L39">    private final List&lt;String&gt; groups = new ArrayList&lt;&gt;();</span>
 
     /**
      * Instantiates a new mock windows auth provider.
      */
-<span class="nc" id="L44">    public MockWindowsAuthProvider() {</span>
-<span class="nc" id="L45">        this.groups.add(&quot;Users&quot;);</span>
-<span class="nc" id="L46">        this.groups.add(&quot;Everyone&quot;);</span>
-<span class="nc" id="L47">    }</span>
+<span class="fc" id="L44">    public MockWindowsAuthProvider() {</span>
+<span class="fc" id="L45">        this.groups.add(&quot;Users&quot;);</span>
+<span class="fc" id="L46">        this.groups.add(&quot;Everyone&quot;);</span>
+<span class="fc" id="L47">    }</span>
 
     /**
      * Adds the group.
@@ -53,13 +53,13 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
      *            the name
      */
     public void addGroup(final String name) {
-<span class="nc" id="L56">        this.groups.add(name);</span>
-<span class="nc" id="L57">    }</span>
+<span class="fc" id="L56">        this.groups.add(name);</span>
+<span class="fc" id="L57">    }</span>
 
     @Override
     public IWindowsSecurityContext acceptSecurityToken(final String connectionId, final byte[] token,
             final String securityPackage) {
-<span class="nc" id="L62">        return new MockWindowsSecurityContext(new String(token, StandardCharsets.UTF_8));</span>
+<span class="fc" id="L62">        return new MockWindowsSecurityContext(new String(token, StandardCharsets.UTF_8));</span>
     }
 
     @Override
@@ -94,13 +94,13 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
      */
     @Override
     public IWindowsIdentity logonUser(final String username, final String password) {
-<span class="nc" id="L97">        final String currentUsername = Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);</span>
-<span class="nc bnc" id="L98" title="All 2 branches missed.">        if (username.equals(currentUsername)) {</span>
-<span class="nc" id="L99">            return new MockWindowsIdentity(currentUsername, this.groups);</span>
-<span class="nc bnc" id="L100" title="All 2 branches missed.">        } else if (username.equals(MockWindowsAuthProvider.GUEST)) {</span>
-<span class="nc" id="L101">            return new MockWindowsIdentity(MockWindowsAuthProvider.GUEST, this.groups);</span>
+<span class="fc" id="L97">        final String currentUsername = Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">        if (username.equals(currentUsername)) {</span>
+<span class="fc" id="L99">            return new MockWindowsIdentity(currentUsername, this.groups);</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">        } else if (username.equals(MockWindowsAuthProvider.GUEST)) {</span>
+<span class="fc" id="L101">            return new MockWindowsIdentity(MockWindowsAuthProvider.GUEST, this.groups);</span>
         } else {
-<span class="nc" id="L103">            throw new RuntimeException(&quot;Mock error: &quot; + username);</span>
+<span class="fc" id="L103">            throw new RuntimeException(&quot;Mock error: &quot; + username);</span>
         }
     }
 
@@ -115,4 +115,4 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
 <span class="nc" id="L115">    }</span>
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

@@ -20,7 +20,7 @@ import waffle.windows.auth.IWindowsImpersonationContext;
 
 /**
  * A Mock windows identity.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class MockWindowsIdentity implements IWindowsIdentity {
@@ -39,43 +39,43 @@ public class MockWindowsIdentity implements IWindowsIdentity {
      * @param newGroups
      *            the new groups
      */
-<span class="nc" id="L42">    public MockWindowsIdentity(final String newFqn, final List&lt;String&gt; newGroups) {</span>
-<span class="nc" id="L43">        this.fqn = newFqn;</span>
-<span class="nc" id="L44">        this.groups = newGroups;</span>
-<span class="nc" id="L45">    }</span>
+<span class="fc" id="L42">    public MockWindowsIdentity(final String newFqn, final List&lt;String&gt; newGroups) {</span>
+<span class="fc" id="L43">        this.fqn = newFqn;</span>
+<span class="fc" id="L44">        this.groups = newGroups;</span>
+<span class="fc" id="L45">    }</span>
 
     @Override
     public String getFqn() {
-<span class="nc" id="L49">        return this.fqn;</span>
+<span class="fc" id="L49">        return this.fqn;</span>
     }
 
     @Override
     public IWindowsAccount[] getGroups() {
-<span class="nc" id="L54">        final List&lt;MockWindowsAccount&gt; groupsList = new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L55" title="All 2 branches missed.">        for (final String group : this.groups) {</span>
-<span class="nc" id="L56">            groupsList.add(new MockWindowsAccount(group));</span>
-<span class="nc" id="L57">        }</span>
-<span class="nc" id="L58">        return groupsList.toArray(new IWindowsAccount[0]);</span>
+<span class="fc" id="L54">        final List&lt;MockWindowsAccount&gt; groupsList = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        for (final String group : this.groups) {</span>
+<span class="fc" id="L56">            groupsList.add(new MockWindowsAccount(group));</span>
+<span class="fc" id="L57">        }</span>
+<span class="fc" id="L58">        return groupsList.toArray(new IWindowsAccount[0]);</span>
     }
 
     @Override
     public byte[] getSid() {
-<span class="nc" id="L63">        return new byte[0];</span>
+<span class="fc" id="L63">        return new byte[0];</span>
     }
 
     @Override
     public String getSidString() {
-<span class="nc" id="L68">        return &quot;S-&quot; + this.fqn.hashCode();</span>
+<span class="fc" id="L68">        return &quot;S-&quot; + this.fqn.hashCode();</span>
     }
 
     @Override
     public void dispose() {
         // Do Nothing
-<span class="nc" id="L74">    }</span>
+<span class="fc" id="L74">    }</span>
 
     @Override
     public boolean isGuest() {
-<span class="nc" id="L78">        return &quot;Guest&quot;.equals(this.fqn);</span>
+<span class="fc" id="L78">        return &quot;Guest&quot;.equals(this.fqn);</span>
     }
 
     @Override
@@ -84,4 +84,4 @@ public class MockWindowsIdentity implements IWindowsIdentity {
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>
