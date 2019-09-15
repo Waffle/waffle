@@ -7,13 +7,13 @@
 <body>
 <div id="overview"><a href="../../../../apidocs/waffle/mock/http/SimpleHttpRequest.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> * Waffle (https://github.com/Waffle/waffle)</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> * Waffle (<a href="https://github.com/Waffle/waffle)" target="alexandria_uri">https://github.com/Waffle/waffle)</a></em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> * Copyright (c) 2010-2018 Application Security, Inc.</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment"> * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse</em>
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_javadoccomment"> * Public License v1.0 which accompanies this distribution, and is available at</em>
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> * https://www.eclipse.org/legal/epl-v10.html.</em>
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> * <a href="https://www.eclipse.org/legal/epl-v10.html." target="alexandria_uri">https://www.eclipse.org/legal/epl-v10.html.</a></em>
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment"> * Contributors: Application Security, Inc.</em>
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> */</em>
@@ -36,7 +36,7 @@
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment"> * @author dblock[at]dblock[dot]org</em>
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../waffle/mock/http/SimpleHttpRequest.html">SimpleHttpRequest</a> <strong class="jxr_keyword">extends</strong> HttpServletRequestWrapper {
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="SimpleHttpRequest" href="../../../waffle/mock/http/SimpleHttpRequest.html#SimpleHttpRequest">SimpleHttpRequest</a> <strong class="jxr_keyword">extends</strong> HttpServletRequestWrapper {
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>      <em class="jxr_javadoccomment">/** The remote port s. */</em>
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> remotePortS = 0;
@@ -72,7 +72,7 @@
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>      <strong class="jxr_keyword">private</strong> byte[] content;
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>      <em class="jxr_javadoccomment">/** The session. */</em>
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>      <strong class="jxr_keyword">private</strong> HttpSession session = <strong class="jxr_keyword">new</strong> <a href="../../../waffle/mock/http/SimpleHttpSession.html">SimpleHttpSession</a>();
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>      <strong class="jxr_keyword">private</strong> HttpSession session = <strong class="jxr_keyword">new</strong> <a name="SimpleHttpSession" href="../../../waffle/mock/http/SimpleHttpSession.html#SimpleHttpSession">SimpleHttpSession</a>();
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>      <em class="jxr_javadoccomment">/** The principal. */</em>
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>      <strong class="jxr_keyword">private</strong> Principal principal;
@@ -80,7 +80,7 @@
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>  <em class="jxr_javadoccomment">     * Instantiates a new simple http request.</em>
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>      <strong class="jxr_keyword">public</strong> <a href="../../../waffle/mock/http/SimpleHttpRequest.html">SimpleHttpRequest</a>() {
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>      <strong class="jxr_keyword">public</strong> <a name="SimpleHttpRequest" href="../../../waffle/mock/http/SimpleHttpRequest.html#SimpleHttpRequest">SimpleHttpRequest</a>() {
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>          <strong class="jxr_keyword">super</strong>(Mockito.mock(HttpServletRequest.<strong class="jxr_keyword">class</strong>));
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>          <strong class="jxr_keyword">this</strong>.remotePort = SimpleHttpRequest.nextRemotePort();
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>      }
@@ -181,7 +181,7 @@
 <a class="jxr_linenumber" name="L173" href="#L173">173</a>     @Override
 <a class="jxr_linenumber" name="L174" href="#L174">174</a>     <strong class="jxr_keyword">public</strong> HttpSession getSession(<strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> create) {
 <a class="jxr_linenumber" name="L175" href="#L175">175</a>         <strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">this</strong>.session == <strong class="jxr_keyword">null</strong> &amp;&amp; create) {
-<a class="jxr_linenumber" name="L176" href="#L176">176</a>             <strong class="jxr_keyword">this</strong>.session = <strong class="jxr_keyword">new</strong> <a href="../../../waffle/mock/http/SimpleHttpSession.html">SimpleHttpSession</a>();
+<a class="jxr_linenumber" name="L176" href="#L176">176</a>             <strong class="jxr_keyword">this</strong>.session = <strong class="jxr_keyword">new</strong> <a name="SimpleHttpSession" href="../../../waffle/mock/http/SimpleHttpSession.html#SimpleHttpSession">SimpleHttpSession</a>();
 <a class="jxr_linenumber" name="L177" href="#L177">177</a>         }
 <a class="jxr_linenumber" name="L178" href="#L178">178</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.session;
 <a class="jxr_linenumber" name="L179" href="#L179">179</a>     }
@@ -287,6 +287,6 @@
 <a class="jxr_linenumber" name="L279" href="#L279">279</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2010&#x2013;2018 <a href="https://github.com/waffle/">com.github.waffle</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2010&#x2013;2019 <a href="https://github.com/waffle/">com.github.waffle</a>. All rights reserved.</div>
 </body>
 </html>
