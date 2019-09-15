@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2018 Application Security, Inc.
+ * Copyright (c) 2010-2019 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -25,13 +25,13 @@ import javax.security.auth.callback.NameCallback;
 import javax.security.auth.callback.UnsupportedCallbackException;
 import javax.security.auth.login.LoginException;
 
-import mockit.Deencapsulation;
 import mockit.Expectations;
 import mockit.Mocked;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.powermock.reflect.Whitebox;
 
 import waffle.windows.auth.PrincipalFormat;
 
@@ -93,7 +93,7 @@ public class WindowsLoginModuleTest {
     @Test
     public void commit_subjectReadOnly() throws LoginException {
         this.subject.setReadOnly();
-        Deencapsulation.setField(this.loginModule, new LinkedHashSet<Principal>());
+        Whitebox.setInternalState(this.loginModule, new LinkedHashSet<Principal>());
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
         Assertions.assertThrows(LoginException.class, () -> {
             this.loginModule.commit();
@@ -108,7 +108,7 @@ public class WindowsLoginModuleTest {
      */
     @Test
     public void commit_success() throws LoginException {
-        Deencapsulation.setField(this.loginModule, new LinkedHashSet<Principal>());
+        Whitebox.setInternalState(this.loginModule, new LinkedHashSet<Principal>());
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
         this.loginModule.commit();
     }
@@ -125,7 +125,7 @@ public class WindowsLoginModuleTest {
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
         final Set<Principal> principals = new LinkedHashSet<>();
         principals.add(new UserPrincipal("FQN"));
-        Deencapsulation.setField(this.loginModule, principals);
+        Whitebox.setInternalState(this.loginModule, principals);
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
         this.loginModule.commit();
     }
@@ -143,7 +143,7 @@ public class WindowsLoginModuleTest {
         final GroupPrincipal group = new GroupPrincipal("Roles");
         group.addMember(new RolePrincipal("WindowsGroup"));
         principals.add(group);
-        Deencapsulation.setField(this.loginModule, principals);
+        Whitebox.setInternalState(this.loginModule, principals);
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
         this.loginModule.commit();
     }
@@ -169,8 +169,8 @@ public class WindowsLoginModuleTest {
         this.options.put("junk", "junk");
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
         Assertions.assertTrue(this.loginModule.isDebug());
-        Assertions.assertEquals(PrincipalFormat.SID, Deencapsulation.getField(this.loginModule, "principalFormat"));
-        Assertions.assertEquals(PrincipalFormat.NONE, Deencapsulation.getField(this.loginModule, "roleFormat"));
+        Assertions.assertEquals(PrincipalFormat.SID, Whitebox.getInternalState(this.loginModule, "principalFormat"));
+        Assertions.assertEquals(PrincipalFormat.NONE, Whitebox.getInternalState(this.loginModule, "roleFormat"));
     }
 
     /**
@@ -320,7 +320,7 @@ public class WindowsLoginModuleTest {
      */
     @Test
     public void logout_validUser() throws LoginException {
-        Deencapsulation.setField(this.loginModule, "username", "waffle-user");
+        Whitebox.setInternalState(this.loginModule, "username", "waffle-user");
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
         Assertions.assertTrue(this.loginModule.logout());
     }

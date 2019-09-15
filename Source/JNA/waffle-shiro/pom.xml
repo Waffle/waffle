@@ -38,6 +38,7 @@
 
     <properties>
         <beanutils.version>1.9.4</beanutils.version>
+        <powermock.version>2.0.2</powermock.version>
         <servlet.version>4.0.3</servlet.version>
         <shiro.version>1.4.1</shiro.version>
     </properties>
@@ -80,6 +81,22 @@
                 <exclusion>
                     <groupId>commons-collections</groupId>
                     <artifactId>commons-collections</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-reflect</artifactId>
+            <version>${powermock.version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>net.bytebuddy</groupId>
+                    <artifactId>byte-buddy</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>net.bytebuddy</groupId>
+                    <artifactId>byte-buddy-agent</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
