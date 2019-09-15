@@ -12,6 +12,7 @@
 package waffle.util;
 
 import java.util.Base64;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,13 +21,13 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Authorization header.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class AuthorizationHeader {
 
     /** The logger. */
-<span class="nc" id="L29">    private static final Logger LOGGER = LoggerFactory.getLogger(AuthorizationHeader.class);</span>
+<span class="fc" id="L30">    private static final Logger LOGGER = LoggerFactory.getLogger(AuthorizationHeader.class);</span>
 
     /** The request. */
     private final HttpServletRequest request;
@@ -37,9 +38,9 @@ public class AuthorizationHeader {
      * @param httpServletRequest
      *            the http servlet request
      */
-<span class="nc" id="L40">    public AuthorizationHeader(final HttpServletRequest httpServletRequest) {</span>
-<span class="nc" id="L41">        this.request = httpServletRequest;</span>
-<span class="nc" id="L42">    }</span>
+<span class="fc" id="L41">    public AuthorizationHeader(final HttpServletRequest httpServletRequest) {</span>
+<span class="fc" id="L42">        this.request = httpServletRequest;</span>
+<span class="fc" id="L43">    }</span>
 
     /**
      * Gets the header.
@@ -47,7 +48,7 @@ public class AuthorizationHeader {
      * @return the header
      */
     public String getHeader() {
-<span class="nc" id="L50">        return this.request.getHeader(&quot;Authorization&quot;);</span>
+<span class="fc" id="L51">        return this.request.getHeader(&quot;Authorization&quot;);</span>
     }
 
     /**
@@ -56,32 +57,34 @@ public class AuthorizationHeader {
      * @return true, if is null
      */
     public boolean isNull() {
-<span class="nc bnc" id="L59" title="All 4 branches missed.">        return this.getHeader() == null || this.getHeader().length() == 0;</span>
+<span class="fc bfc" id="L60" title="All 4 branches covered.">        return this.getHeader() == null || this.getHeader().length() == 0;</span>
     }
 
     /**
      * Returns a supported security package string.
-     * 
-     * @return Negotiate or NTLM.
+     *
+     * Authorization: NTLM the_token Authorization: Negotiate the_token Authorization: Bearer the_token
+     *
+     * @return AuthenticationScheme as SecurityPackage e.g. Negotiate, NTLM, Bearer.
      */
     public String getSecurityPackage() {
-<span class="nc" id="L68">        final String header = this.getHeader();</span>
+<span class="fc" id="L71">        final String header = this.getHeader();</span>
 
-<span class="nc bnc" id="L70" title="All 2 branches missed.">        if (header == null) {</span>
-<span class="nc" id="L71">            throw new RuntimeException(&quot;Missing Authorization: header&quot;);</span>
+<span class="pc bpc" id="L73" title="1 of 2 branches missed.">        if (header == null) {</span>
+<span class="nc" id="L74">            throw new RuntimeException(&quot;Missing Authorization: header&quot;);</span>
         }
 
-<span class="nc" id="L74">        final int space = header.indexOf(' ');</span>
-<span class="nc bnc" id="L75" title="All 2 branches missed.">        if (space &gt; 0) {</span>
-<span class="nc" id="L76">            return header.substring(0, space);</span>
+<span class="fc" id="L77">        final int space = header.indexOf(' ');</span>
+<span class="pc bpc" id="L78" title="1 of 2 branches missed.">        if (space &gt; 0) {</span>
+<span class="fc" id="L79">            return header.substring(0, space);</span>
         }
 
-<span class="nc" id="L79">        throw new RuntimeException(&quot;Invalid Authorization header: &quot; + header);</span>
+<span class="nc" id="L82">        throw new RuntimeException(&quot;Invalid Authorization header: &quot; + header);</span>
     }
 
     @Override
     public String toString() {
-<span class="nc bnc" id="L84" title="All 2 branches missed.">        return this.isNull() ? &quot;&lt;none&gt;&quot; : this.getHeader();</span>
+<span class="nc bnc" id="L87" title="All 2 branches missed.">        return this.isNull() ? &quot;&lt;none&gt;&quot; : this.getHeader();</span>
     }
 
     /**
@@ -90,7 +93,7 @@ public class AuthorizationHeader {
      * @return the token
      */
     public String getToken() {
-<span class="nc" id="L93">        return this.getHeader().substring(this.getSecurityPackage().length() + 1);</span>
+<span class="fc" id="L96">        return this.getHeader().substring(this.getSecurityPackage().length() + 1);</span>
     }
 
     /**
@@ -100,10 +103,10 @@ public class AuthorizationHeader {
      */
     public byte[] getTokenBytes() {
         try {
-<span class="nc" id="L103">            return Base64.getDecoder().decode(this.getToken());</span>
-<span class="nc" id="L104">        } catch (final IllegalArgumentException e) {</span>
-<span class="nc" id="L105">            AuthorizationHeader.LOGGER.debug(&quot;&quot;, e);</span>
-<span class="nc" id="L106">            throw new RuntimeException(&quot;Invalid authorization header.&quot;);</span>
+<span class="fc" id="L106">            return Base64.getDecoder().decode(this.getToken());</span>
+<span class="fc" id="L107">        } catch (final IllegalArgumentException e) {</span>
+<span class="fc" id="L108">            AuthorizationHeader.LOGGER.debug(&quot;&quot;, e);</span>
+<span class="fc" id="L109">            throw new RuntimeException(&quot;Invalid authorization header.&quot;);</span>
         }
     }
 
@@ -113,16 +116,16 @@ public class AuthorizationHeader {
      * @return true, if is ntlm type1 message
      */
     public boolean isNtlmType1Message() {
-<span class="nc bnc" id="L116" title="All 2 branches missed.">        if (this.isNull()) {</span>
-<span class="nc" id="L117">            return false;</span>
+<span class="fc bfc" id="L119" title="All 2 branches covered.">        if (this.isNull()) {</span>
+<span class="fc" id="L120">            return false;</span>
         }
 
-<span class="nc" id="L120">        final byte[] tokenBytes = this.getTokenBytes();</span>
-<span class="nc bnc" id="L121" title="All 2 branches missed.">        if (!NtlmMessage.isNtlmMessage(tokenBytes)) {</span>
-<span class="nc" id="L122">            return false;</span>
+<span class="fc" id="L123">        final byte[] tokenBytes = this.getTokenBytes();</span>
+<span class="fc bfc" id="L124" title="All 2 branches covered.">        if (!NtlmMessage.isNtlmMessage(tokenBytes)) {</span>
+<span class="fc" id="L125">            return false;</span>
         }
 
-<span class="nc bnc" id="L125" title="All 2 branches missed.">        return 1 == NtlmMessage.getMessageType(tokenBytes);</span>
+<span class="pc bpc" id="L128" title="1 of 2 branches missed.">        return 1 == NtlmMessage.getMessageType(tokenBytes);</span>
     }
 
     /**
@@ -132,12 +135,12 @@ public class AuthorizationHeader {
      */
     public boolean isSPNegTokenInitMessage() {
 
-<span class="nc bnc" id="L135" title="All 2 branches missed.">        if (this.isNull()) {</span>
-<span class="nc" id="L136">            return false;</span>
+<span class="fc bfc" id="L138" title="All 2 branches covered.">        if (this.isNull()) {</span>
+<span class="fc" id="L139">            return false;</span>
         }
 
-<span class="nc" id="L139">        final byte[] tokenBytes = this.getTokenBytes();</span>
-<span class="nc" id="L140">        return SPNegoMessage.isNegTokenInit(tokenBytes);</span>
+<span class="fc" id="L142">        final byte[] tokenBytes = this.getTokenBytes();</span>
+<span class="fc" id="L143">        return SPNegoMessage.isNegTokenInit(tokenBytes);</span>
     }
 
     /**
@@ -145,19 +148,28 @@ public class AuthorizationHeader {
      * authentication message (without the POSTed data). The server responds with a 401, and the browser sends a Type 3
      * request with the POSTed data. This is to avoid the situation where user's credentials might be potentially
      * invalid, and all this data is being POSTed across the wire.
-     * 
-     * @return True if request is an NTLM POST or PUT with an Authorization header and no data.
+     *
+     * @return True if request is an NTLM POST, PUT, or DELETE with an Authorization header and no data.
      */
     public boolean isNtlmType1PostAuthorizationHeader() {
-<span class="nc bnc" id="L152" title="All 4 branches missed.">        if (!&quot;POST&quot;.equals(this.request.getMethod()) &amp;&amp; !&quot;PUT&quot;.equals(this.request.getMethod())) {</span>
-<span class="nc" id="L153">            return false;</span>
+<span class="fc bfc" id="L155" title="All 4 branches covered.">        if (!&quot;POST&quot;.equals(this.request.getMethod()) &amp;&amp; !&quot;PUT&quot;.equals(this.request.getMethod())</span>
+<span class="pc bpc" id="L156" title="1 of 2 branches missed.">                &amp;&amp; !&quot;DELETE&quot;.equals(this.request.getMethod())) {</span>
+<span class="fc" id="L157">            return false;</span>
         }
 
-<span class="nc bnc" id="L156" title="All 2 branches missed.">        if (this.request.getContentLength() != 0) {</span>
-<span class="nc" id="L157">            return false;</span>
+<span class="pc bpc" id="L160" title="1 of 2 branches missed.">        if (this.request.getContentLength() != 0) {</span>
+<span class="nc" id="L161">            return false;</span>
         }
 
-<span class="nc bnc" id="L160" title="All 4 branches missed.">        return this.isNtlmType1Message() || this.isSPNegTokenInitMessage();</span>
+<span class="pc bpc" id="L164" title="1 of 4 branches missed.">        return this.isNtlmType1Message() || this.isSPNegTokenInitMessage();</span>
+    }
+
+    public boolean isBearerAuthorizationHeader() {
+<span class="pc bpc" id="L168" title="1 of 2 branches missed.">        if (this.isNull()) {</span>
+<span class="nc" id="L169">            return false;</span>
+        }
+
+<span class="fc" id="L172">        return this.getSecurityPackage().toUpperCase(Locale.ENGLISH).equalsIgnoreCase(&quot;BEARER&quot;);</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>
