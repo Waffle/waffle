@@ -22,7 +22,7 @@ import waffle.windows.auth.IWindowsComputer;
 
 /**
  * Windows Computer.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsComputerImpl implements IWindowsComputer {
@@ -39,36 +39,36 @@ public class WindowsComputerImpl implements IWindowsComputer {
      * @param newComputerName
      *            the new computer name
      */
-<span class="nc" id="L42">    public WindowsComputerImpl(final String newComputerName) {</span>
-<span class="nc" id="L43">        this.computerName = newComputerName;</span>
-<span class="nc" id="L44">        this.domainName = Netapi32Util.getDomainName(newComputerName);</span>
-<span class="nc" id="L45">    }</span>
+<span class="fc" id="L42">    public WindowsComputerImpl(final String newComputerName) {</span>
+<span class="fc" id="L43">        this.computerName = newComputerName;</span>
+<span class="fc" id="L44">        this.domainName = Netapi32Util.getDomainName(newComputerName);</span>
+<span class="fc" id="L45">    }</span>
 
     @Override
     public String getComputerName() {
-<span class="nc" id="L49">        return this.computerName;</span>
+<span class="fc" id="L49">        return this.computerName;</span>
     }
 
     @Override
     public String[] getGroups() {
-<span class="nc" id="L54">        final List&lt;String&gt; groupNames = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L55">        final LocalGroup[] groups = Netapi32Util.getLocalGroups(this.computerName);</span>
-<span class="nc bnc" id="L56" title="All 2 branches missed.">        for (final LocalGroup group : groups) {</span>
-<span class="nc" id="L57">            groupNames.add(group.name);</span>
+<span class="fc" id="L54">        final List&lt;String&gt; groupNames = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L55">        final LocalGroup[] groups = Netapi32Util.getLocalGroups(this.computerName);</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">        for (final LocalGroup group : groups) {</span>
+<span class="fc" id="L57">            groupNames.add(group.name);</span>
         }
-<span class="nc" id="L59">        return groupNames.toArray(new String[0]);</span>
+<span class="fc" id="L59">        return groupNames.toArray(new String[0]);</span>
     }
 
     @Override
     public String getJoinStatus() {
-<span class="nc" id="L64">        final int joinStatus = Netapi32Util.getJoinStatus(this.computerName);</span>
-<span class="nc bnc" id="L65" title="All 5 branches missed.">        switch (joinStatus) {</span>
+<span class="fc" id="L64">        final int joinStatus = Netapi32Util.getJoinStatus(this.computerName);</span>
+<span class="pc bpc" id="L65" title="4 of 5 branches missed.">        switch (joinStatus) {</span>
             case LMJoin.NETSETUP_JOIN_STATUS.NetSetupDomainName:
 <span class="nc" id="L67">                return &quot;NetSetupDomainName&quot;;</span>
             case LMJoin.NETSETUP_JOIN_STATUS.NetSetupUnjoined:
 <span class="nc" id="L69">                return &quot;NetSetupUnjoined&quot;;</span>
             case LMJoin.NETSETUP_JOIN_STATUS.NetSetupWorkgroupName:
-<span class="nc" id="L71">                return &quot;NetSetupWorkgroupName&quot;;</span>
+<span class="fc" id="L71">                return &quot;NetSetupWorkgroupName&quot;;</span>
             case LMJoin.NETSETUP_JOIN_STATUS.NetSetupUnknownStatus:
 <span class="nc" id="L73">                return &quot;NetSetupUnknownStatus&quot;;</span>
             default:
@@ -78,8 +78,8 @@ public class WindowsComputerImpl implements IWindowsComputer {
 
     @Override
     public String getMemberOf() {
-<span class="nc" id="L81">        return this.domainName;</span>
+<span class="fc" id="L81">        return this.domainName;</span>
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>
