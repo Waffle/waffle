@@ -15,7 +15,7 @@ import java.io.Serializable;
 
 /**
  * A flattened Windows Account used in a Windows principal.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsAccount implements Serializable {
@@ -41,12 +41,12 @@ public class WindowsAccount implements Serializable {
      * @param account
      *            the account
      */
-<span class="nc" id="L44">    public WindowsAccount(final IWindowsAccount account) {</span>
-<span class="nc" id="L45">        this.sidString = account.getSidString();</span>
-<span class="nc" id="L46">        this.fqn = account.getFqn();</span>
-<span class="nc" id="L47">        this.name = account.getName();</span>
-<span class="nc" id="L48">        this.domain = account.getDomain();</span>
-<span class="nc" id="L49">    }</span>
+<span class="fc" id="L44">    public WindowsAccount(final IWindowsAccount account) {</span>
+<span class="fc" id="L45">        this.sidString = account.getSidString();</span>
+<span class="fc" id="L46">        this.fqn = account.getFqn();</span>
+<span class="fc" id="L47">        this.name = account.getName();</span>
+<span class="fc" id="L48">        this.domain = account.getDomain();</span>
+<span class="fc" id="L49">    }</span>
 
     /**
      * Gets the sid string.
@@ -103,4 +103,4 @@ public class WindowsAccount implements Serializable {
 <span class="nc" id="L103">        return this.getSidString().hashCode();</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

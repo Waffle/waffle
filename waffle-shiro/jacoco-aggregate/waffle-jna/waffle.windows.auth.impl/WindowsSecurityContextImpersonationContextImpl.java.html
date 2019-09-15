@@ -34,21 +34,21 @@ public class WindowsSecurityContextImpersonationContextImpl implements IWindowsI
      * @param newCtx
      *            the new ctx
      */
-<span class="nc" id="L37">    public WindowsSecurityContextImpersonationContextImpl(final CtxtHandle newCtx) {</span>
-<span class="nc" id="L38">        final int rc = Secur32.INSTANCE.ImpersonateSecurityContext(newCtx);</span>
-<span class="nc bnc" id="L39" title="All 2 branches missed.">        if (rc != WinError.SEC_E_OK) {</span>
+<span class="fc" id="L37">    public WindowsSecurityContextImpersonationContextImpl(final CtxtHandle newCtx) {</span>
+<span class="fc" id="L38">        final int rc = Secur32.INSTANCE.ImpersonateSecurityContext(newCtx);</span>
+<span class="pc bpc" id="L39" title="1 of 2 branches missed.">        if (rc != WinError.SEC_E_OK) {</span>
 <span class="nc" id="L40">            throw new Win32Exception(rc);</span>
         }
 
-<span class="nc" id="L43">        this.ctx = newCtx;</span>
-<span class="nc" id="L44">    }</span>
+<span class="fc" id="L43">        this.ctx = newCtx;</span>
+<span class="fc" id="L44">    }</span>
 
     @Override
     public void revertToSelf() {
-<span class="nc" id="L48">        final int rc = Secur32.INSTANCE.RevertSecurityContext(this.ctx);</span>
-<span class="nc bnc" id="L49" title="All 2 branches missed.">        if (rc != WinError.SEC_E_OK) {</span>
+<span class="fc" id="L48">        final int rc = Secur32.INSTANCE.RevertSecurityContext(this.ctx);</span>
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">        if (rc != WinError.SEC_E_OK) {</span>
 <span class="nc" id="L50">            throw new Win32Exception(rc);</span>
         }
-<span class="nc" id="L52">    }</span>
+<span class="fc" id="L52">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>
