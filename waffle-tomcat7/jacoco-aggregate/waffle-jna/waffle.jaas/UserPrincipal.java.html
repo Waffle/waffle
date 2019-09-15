@@ -16,7 +16,7 @@ import java.security.Principal;
 
 /**
  * User Principal.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class UserPrincipal implements Principal, Serializable {
@@ -29,13 +29,13 @@ public class UserPrincipal implements Principal, Serializable {
 
     /**
      * A user principal.
-     * 
+     *
      * @param newFqn
      *            Fully qualified username.
      */
-<span class="nc" id="L36">    public UserPrincipal(final String newFqn) {</span>
-<span class="nc" id="L37">        this.fqn = newFqn;</span>
-<span class="nc" id="L38">    }</span>
+<span class="fc" id="L36">    public UserPrincipal(final String newFqn) {</span>
+<span class="fc" id="L37">        this.fqn = newFqn;</span>
+<span class="fc" id="L38">    }</span>
 
     /**
      * Fully qualified username.
@@ -44,26 +44,26 @@ public class UserPrincipal implements Principal, Serializable {
      */
     @Override
     public String getName() {
-<span class="nc" id="L47">        return this.fqn;</span>
+<span class="fc" id="L47">        return this.fqn;</span>
     }
 
     @Override
     public boolean equals(final Object o) {
 
-<span class="nc bnc" id="L53" title="All 2 branches missed.">        if (this == o) {</span>
-<span class="nc" id="L54">            return true;</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">        if (this == o) {</span>
+<span class="fc" id="L54">            return true;</span>
         }
 
-<span class="nc bnc" id="L57" title="All 2 branches missed.">        if (o instanceof UserPrincipal) {</span>
-<span class="nc" id="L58">            return this.getName().equals(((UserPrincipal) o).getName());</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">        if (o instanceof UserPrincipal) {</span>
+<span class="fc" id="L58">            return this.getName().equals(((UserPrincipal) o).getName());</span>
         }
 
-<span class="nc" id="L61">        return false;</span>
+<span class="fc" id="L61">        return false;</span>
     }
 
     @Override
     public int hashCode() {
-<span class="nc" id="L66">        return this.getName().hashCode();</span>
+<span class="fc" id="L66">        return this.getName().hashCode();</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

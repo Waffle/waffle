@@ -31,13 +31,13 @@ import waffle.windows.auth.IWindowsSecurityContext;
 
 /**
  * A negotiate security filter provider.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
     /** The Constant LOGGER. */
-<span class="nc" id="L40">    private static final Logger LOGGER = LoggerFactory.getLogger(NegotiateSecurityFilterProvider.class);</span>
+<span class="fc" id="L40">    private static final Logger LOGGER = LoggerFactory.getLogger(NegotiateSecurityFilterProvider.class);</span>
 
     /** The Constant WWW_AUTHENTICATE. */
     private static final String WWW_AUTHENTICATE = &quot;WWW-Authenticate&quot;;
@@ -52,7 +52,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
     private static final String NTLM = &quot;NTLM&quot;;
 
     /** The protocols. */
-<span class="nc" id="L55">    private List&lt;String&gt; protocols = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L55">    private List&lt;String&gt; protocols = new ArrayList&lt;&gt;();</span>
 
     /** The auth. */
     private final IWindowsAuthProvider auth;
@@ -63,11 +63,11 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
      * @param newAuthProvider
      *            the new auth provider
      */
-<span class="nc" id="L66">    public NegotiateSecurityFilterProvider(final IWindowsAuthProvider newAuthProvider) {</span>
-<span class="nc" id="L67">        this.auth = newAuthProvider;</span>
-<span class="nc" id="L68">        this.protocols.add(NegotiateSecurityFilterProvider.NEGOTIATE);</span>
-<span class="nc" id="L69">        this.protocols.add(NegotiateSecurityFilterProvider.NTLM);</span>
-<span class="nc" id="L70">    }</span>
+<span class="fc" id="L66">    public NegotiateSecurityFilterProvider(final IWindowsAuthProvider newAuthProvider) {</span>
+<span class="fc" id="L67">        this.auth = newAuthProvider;</span>
+<span class="fc" id="L68">        this.protocols.add(NegotiateSecurityFilterProvider.NEGOTIATE);</span>
+<span class="fc" id="L69">        this.protocols.add(NegotiateSecurityFilterProvider.NTLM);</span>
+<span class="fc" id="L70">    }</span>
 
     /**
      * Gets the protocols.
@@ -90,95 +90,95 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
     @Override
     public void sendUnauthorized(final HttpServletResponse response) {
-<span class="nc bnc" id="L93" title="All 2 branches missed.">        for (String protocol : this.protocols) {</span>
-<span class="nc" id="L94">            response.addHeader(NegotiateSecurityFilterProvider.WWW_AUTHENTICATE, protocol);</span>
-<span class="nc" id="L95">        }</span>
-<span class="nc" id="L96">    }</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">        for (final String protocol : this.protocols) {</span>
+<span class="fc" id="L94">            response.addHeader(NegotiateSecurityFilterProvider.WWW_AUTHENTICATE, protocol);</span>
+<span class="fc" id="L95">        }</span>
+<span class="fc" id="L96">    }</span>
 
     @Override
     public boolean isPrincipalException(final HttpServletRequest request) {
-<span class="nc" id="L100">        final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);</span>
-<span class="nc" id="L101">        final boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();</span>
-<span class="nc" id="L102">        NegotiateSecurityFilterProvider.LOGGER.debug(&quot;authorization: {}, ntlm post: {}&quot;, authorizationHeader,</span>
-<span class="nc" id="L103">                Boolean.valueOf(ntlmPost));</span>
-<span class="nc" id="L104">        return ntlmPost;</span>
+<span class="fc" id="L100">        final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);</span>
+<span class="fc" id="L101">        final boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();</span>
+<span class="fc" id="L102">        NegotiateSecurityFilterProvider.LOGGER.debug(&quot;authorization: {}, ntlm post: {}&quot;, authorizationHeader,</span>
+<span class="fc" id="L103">                Boolean.valueOf(ntlmPost));</span>
+<span class="fc" id="L104">        return ntlmPost;</span>
     }
 
     @Override
     public IWindowsIdentity doFilter(final HttpServletRequest request, final HttpServletResponse response)
             throws IOException {
 
-<span class="nc" id="L111">        final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);</span>
-<span class="nc" id="L112">        final boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();</span>
+<span class="fc" id="L111">        final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);</span>
+<span class="fc" id="L112">        final boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();</span>
 
         // maintain a connection-based session for NTLM tokens
-<span class="nc" id="L115">        final String connectionId = NtlmServletRequest.getConnectionId(request);</span>
-<span class="nc" id="L116">        final String securityPackage = authorizationHeader.getSecurityPackage();</span>
-<span class="nc" id="L117">        NegotiateSecurityFilterProvider.LOGGER.debug(&quot;security package: {}, connection id: {}&quot;, securityPackage,</span>
+<span class="fc" id="L115">        final String connectionId = NtlmServletRequest.getConnectionId(request);</span>
+<span class="fc" id="L116">        final String securityPackage = authorizationHeader.getSecurityPackage();</span>
+<span class="fc" id="L117">        NegotiateSecurityFilterProvider.LOGGER.debug(&quot;security package: {}, connection id: {}&quot;, securityPackage,</span>
                 connectionId);
 
-<span class="nc bnc" id="L120" title="All 2 branches missed.">        if (ntlmPost) {</span>
+<span class="fc bfc" id="L120" title="All 2 branches covered.">        if (ntlmPost) {</span>
             // type 2 NTLM authentication message received
-<span class="nc" id="L122">            this.auth.resetSecurityToken(connectionId);</span>
+<span class="fc" id="L122">            this.auth.resetSecurityToken(connectionId);</span>
         }
 
-<span class="nc" id="L125">        final byte[] tokenBuffer = authorizationHeader.getTokenBytes();</span>
-<span class="nc" id="L126">        NegotiateSecurityFilterProvider.LOGGER.debug(&quot;token buffer: {} byte(s)&quot;, Integer.valueOf(tokenBuffer.length));</span>
-<span class="nc" id="L127">        final IWindowsSecurityContext securityContext = this.auth.acceptSecurityToken(connectionId, tokenBuffer,</span>
+<span class="fc" id="L125">        final byte[] tokenBuffer = authorizationHeader.getTokenBytes();</span>
+<span class="fc" id="L126">        NegotiateSecurityFilterProvider.LOGGER.debug(&quot;token buffer: {} byte(s)&quot;, Integer.valueOf(tokenBuffer.length));</span>
+<span class="fc" id="L127">        final IWindowsSecurityContext securityContext = this.auth.acceptSecurityToken(connectionId, tokenBuffer,</span>
                 securityPackage);
 
-<span class="nc" id="L130">        final byte[] continueTokenBytes = securityContext.getToken();</span>
-<span class="nc bnc" id="L131" title="All 4 branches missed.">        if (continueTokenBytes != null &amp;&amp; continueTokenBytes.length &gt; 0) {</span>
-<span class="nc" id="L132">            final String continueToken = Base64.getEncoder().encodeToString(continueTokenBytes);</span>
-<span class="nc" id="L133">            NegotiateSecurityFilterProvider.LOGGER.debug(&quot;continue token: {}&quot;, continueToken);</span>
-<span class="nc" id="L134">            response.addHeader(NegotiateSecurityFilterProvider.WWW_AUTHENTICATE, securityPackage + &quot; &quot; + continueToken);</span>
+<span class="fc" id="L130">        final byte[] continueTokenBytes = securityContext.getToken();</span>
+<span class="pc bpc" id="L131" title="2 of 4 branches missed.">        if (continueTokenBytes != null &amp;&amp; continueTokenBytes.length &gt; 0) {</span>
+<span class="fc" id="L132">            final String continueToken = Base64.getEncoder().encodeToString(continueTokenBytes);</span>
+<span class="fc" id="L133">            NegotiateSecurityFilterProvider.LOGGER.debug(&quot;continue token: {}&quot;, continueToken);</span>
+<span class="fc" id="L134">            response.addHeader(NegotiateSecurityFilterProvider.WWW_AUTHENTICATE, securityPackage + &quot; &quot; + continueToken);</span>
         }
 
-<span class="nc" id="L137">        NegotiateSecurityFilterProvider.LOGGER.debug(&quot;continue required: {}&quot;,</span>
-<span class="nc" id="L138">                Boolean.valueOf(securityContext.isContinue()));</span>
-<span class="nc bnc" id="L139" title="All 4 branches missed.">        if (securityContext.isContinue() || ntlmPost) {</span>
-<span class="nc" id="L140">            response.setHeader(&quot;Connection&quot;, &quot;keep-alive&quot;);</span>
-<span class="nc" id="L141">            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);</span>
-<span class="nc" id="L142">            response.flushBuffer();</span>
-<span class="nc" id="L143">            return null;</span>
+<span class="fc" id="L137">        NegotiateSecurityFilterProvider.LOGGER.debug(&quot;continue required: {}&quot;,</span>
+<span class="fc" id="L138">                Boolean.valueOf(securityContext.isContinue()));</span>
+<span class="fc bfc" id="L139" title="All 2 branches covered.">        if (securityContext.isContinue()) {</span>
+<span class="fc" id="L140">            response.setHeader(&quot;Connection&quot;, &quot;keep-alive&quot;);</span>
+<span class="fc" id="L141">            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);</span>
+<span class="fc" id="L142">            response.flushBuffer();</span>
+<span class="fc" id="L143">            return null;</span>
         }
 
-<span class="nc" id="L146">        final IWindowsIdentity identity = securityContext.getIdentity();</span>
-<span class="nc" id="L147">        securityContext.dispose();</span>
-<span class="nc" id="L148">        return identity;</span>
+<span class="fc" id="L146">        final IWindowsIdentity identity = securityContext.getIdentity();</span>
+<span class="fc" id="L147">        securityContext.dispose();</span>
+<span class="fc" id="L148">        return identity;</span>
     }
 
     @Override
     public boolean isSecurityPackageSupported(final String securityPackage) {
-<span class="nc bnc" id="L153" title="All 2 branches missed.">        for (final String protocol : this.protocols) {</span>
-<span class="nc bnc" id="L154" title="All 2 branches missed.">            if (protocol.equalsIgnoreCase(securityPackage)) {</span>
-<span class="nc" id="L155">                return true;</span>
+<span class="fc bfc" id="L153" title="All 2 branches covered.">        for (final String protocol : this.protocols) {</span>
+<span class="fc bfc" id="L154" title="All 2 branches covered.">            if (protocol.equalsIgnoreCase(securityPackage)) {</span>
+<span class="fc" id="L155">                return true;</span>
             }
-<span class="nc" id="L157">        }</span>
-<span class="nc" id="L158">        return false;</span>
+<span class="fc" id="L157">        }</span>
+<span class="fc" id="L158">        return false;</span>
     }
 
     @Override
     public void initParameter(final String parameterName, final String parameterValue) {
-<span class="nc bnc" id="L163" title="All 2 branches missed.">        if (parameterName.equals(NegotiateSecurityFilterProvider.PROTOCOLS)) {</span>
-<span class="nc" id="L164">            this.protocols = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L165">            final String[] protocolNames = parameterValue.split(&quot;\\s+&quot;);</span>
-<span class="nc bnc" id="L166" title="All 2 branches missed.">            for (String protocolName : protocolNames) {</span>
-<span class="nc" id="L167">                protocolName = protocolName.trim();</span>
-<span class="nc bnc" id="L168" title="All 2 branches missed.">                if (protocolName.length() &gt; 0) {</span>
-<span class="nc" id="L169">                    NegotiateSecurityFilterProvider.LOGGER.debug(&quot;init protocol: {}&quot;, protocolName);</span>
-<span class="nc bnc" id="L170" title="All 2 branches missed.">                    if (protocolName.equals(NegotiateSecurityFilterProvider.NEGOTIATE)</span>
-<span class="nc bnc" id="L171" title="All 2 branches missed.">                            || protocolName.equals(NegotiateSecurityFilterProvider.NTLM)) {</span>
-<span class="nc" id="L172">                        this.protocols.add(protocolName);</span>
+<span class="pc bpc" id="L163" title="1 of 2 branches missed.">        if (NegotiateSecurityFilterProvider.PROTOCOLS.equals(parameterName)) {</span>
+<span class="fc" id="L164">            this.protocols = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L165">            final String[] protocolNames = parameterValue.split(&quot;\\s+&quot;);</span>
+<span class="fc bfc" id="L166" title="All 2 branches covered.">            for (String protocolName : protocolNames) {</span>
+<span class="fc" id="L167">                protocolName = protocolName.trim();</span>
+<span class="pc bpc" id="L168" title="1 of 2 branches missed.">                if (protocolName.length() &gt; 0) {</span>
+<span class="fc" id="L169">                    NegotiateSecurityFilterProvider.LOGGER.debug(&quot;init protocol: {}&quot;, protocolName);</span>
+<span class="fc bfc" id="L170" title="All 2 branches covered.">                    if (NegotiateSecurityFilterProvider.NEGOTIATE.equals(protocolName)</span>
+<span class="fc bfc" id="L171" title="All 2 branches covered.">                            || NegotiateSecurityFilterProvider.NTLM.equals(protocolName)) {</span>
+<span class="fc" id="L172">                        this.protocols.add(protocolName);</span>
                     } else {
-<span class="nc" id="L174">                        NegotiateSecurityFilterProvider.LOGGER.error(&quot;unsupported protocol: {}&quot;, protocolName);</span>
-<span class="nc" id="L175">                        throw new RuntimeException(&quot;Unsupported protocol: &quot; + protocolName);</span>
+<span class="fc" id="L174">                        NegotiateSecurityFilterProvider.LOGGER.error(&quot;unsupported protocol: {}&quot;, protocolName);</span>
+<span class="fc" id="L175">                        throw new RuntimeException(&quot;Unsupported protocol: &quot; + protocolName);</span>
                     }
                 }
             }
-<span class="nc" id="L179">        } else {</span>
+<span class="fc" id="L179">        } else {</span>
 <span class="nc" id="L180">            throw new InvalidParameterException(parameterName);</span>
         }
-<span class="nc" id="L182">    }</span>
+<span class="fc" id="L182">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

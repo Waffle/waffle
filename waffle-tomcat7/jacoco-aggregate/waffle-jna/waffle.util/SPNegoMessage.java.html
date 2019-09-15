@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>SPNegoMessage.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-tomcat7</a> &gt; <a href="../index.html" class="el_bundle">waffle-jna</a> &gt; <a href="index.source.html" class="el_package">waffle.util</a> &gt; <span class="el_source">SPNegoMessage.java</span></div><h1>SPNegoMessage.java</h1><pre class="source lang-java linenums">/**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2016 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -13,7 +13,7 @@ package waffle.util;
 
 /**
  * Rudimentary NTLM message utility.
- * 
+ *
  * @author ari.suutari[at]syncrontech[dot]com
  */
 public final class SPNegoMessage {
@@ -21,7 +21,7 @@ public final class SPNegoMessage {
     // Check for NegTokenInit. It has always a special oid (&quot;spnegoOid&quot;),
     // which makes it rather easy to detect.
     /** The Constant SPENGO_OID. */
-<span class="nc" id="L24">    private static final byte[] SPENGO_OID = { 0x06, 0x06, 0x2b, 0x06, 0x01, 0x05, 0x05, 0x02 };</span>
+<span class="fc" id="L24">    private static final byte[] SPENGO_OID = { 0x06, 0x06, 0x2b, 0x06, 0x01, 0x05, 0x05, 0x02 };</span>
 
     // Check if this message is SPNEGO authentication token. There
     // are two token types, NegTokenInit and NegTokenArg.
@@ -40,34 +40,34 @@ public final class SPNegoMessage {
         // Message should always contains at least some kind of
         // id byte and length. If it is too short, it
         // cannot be a SPNEGO message.
-<span class="nc bnc" id="L43" title="All 4 branches missed.">        if (message == null || message.length &lt; 2) {</span>
+<span class="pc bpc" id="L43" title="2 of 4 branches missed.">        if (message == null || message.length &lt; 2) {</span>
 <span class="nc" id="L44">            return false;</span>
         }
 
         // First byte should always be 0x60 (Application Constructed Object)
-<span class="nc bnc" id="L48" title="All 2 branches missed.">        if (message[0] != 0x60) {</span>
-<span class="nc" id="L49">            return false;</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        if (message[0] != 0x60) {</span>
+<span class="fc" id="L49">            return false;</span>
         }
 
         // Next byte(s) contain token length, figure out
         // how many bytes are used for length data
-<span class="nc" id="L54">        int lenBytes = 1;</span>
-<span class="nc bnc" id="L55" title="All 2 branches missed.">        if ((message[1] &amp; 0x80) != 0) {</span>
-<span class="nc" id="L56">            lenBytes = 1 + (message[1] &amp; 0x7f);</span>
+<span class="fc" id="L54">        int lenBytes = 1;</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        if ((message[1] &amp; 0x80) != 0) {</span>
+<span class="fc" id="L56">            lenBytes = 1 + (message[1] &amp; 0x7f);</span>
         }
 
-<span class="nc bnc" id="L59" title="All 2 branches missed.">        if (message.length &lt; SPNegoMessage.SPENGO_OID.length + 1 + lenBytes) {</span>
-<span class="nc" id="L60">            return false;</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">        if (message.length &lt; SPNegoMessage.SPENGO_OID.length + 1 + lenBytes) {</span>
+<span class="fc" id="L60">            return false;</span>
         }
 
         // Now check for SPNEGO OID, which should start just after length data.
-<span class="nc bnc" id="L64" title="All 2 branches missed.">        for (int i = 0; i &lt; SPNegoMessage.SPENGO_OID.length; i++) {</span>
-<span class="nc bnc" id="L65" title="All 2 branches missed.">            if (SPNegoMessage.SPENGO_OID[i] != message[i + 1 + lenBytes]) {</span>
+<span class="fc bfc" id="L64" title="All 2 branches covered.">        for (int i = 0; i &lt; SPNegoMessage.SPENGO_OID.length; i++) {</span>
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">            if (SPNegoMessage.SPENGO_OID[i] != message[i + 1 + lenBytes]) {</span>
 <span class="nc" id="L66">                return false;</span>
             }
         }
 
-<span class="nc" id="L70">        return true;</span>
+<span class="fc" id="L70">        return true;</span>
     }
 
     // Check for NegTokenArg. It doesn't have oid similar to NegTokenInit.
@@ -86,21 +86,21 @@ public final class SPNegoMessage {
         // Message should always contains at least some kind of
         // id byte and length. If it is too short, it
         // cannot be a SPNEGO message.
-<span class="nc bnc" id="L89" title="All 4 branches missed.">        if (message == null || message.length &lt; 2) {</span>
+<span class="pc bpc" id="L89" title="2 of 4 branches missed.">        if (message == null || message.length &lt; 2) {</span>
 <span class="nc" id="L90">            return false;</span>
         }
 
         // Check if this is NegTokenArg packet, it's id is 0xa1
-<span class="nc bnc" id="L94" title="All 2 branches missed.">        if ((message[0] &amp; 0xff) != 0xa1) {</span>
-<span class="nc" id="L95">            return false;</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">        if ((message[0] &amp; 0xff) != 0xa1) {</span>
+<span class="fc" id="L95">            return false;</span>
         }
 
         int lenBytes;
         int len;
 
         // Get length of message for additional check.
-<span class="nc bnc" id="L102" title="All 2 branches missed.">        if ((message[1] &amp; 0x80) == 0) {</span>
-<span class="nc" id="L103">            len = message[1];</span>
+<span class="pc bpc" id="L102" title="1 of 2 branches missed.">        if ((message[1] &amp; 0x80) == 0) {</span>
+<span class="fc" id="L103">            len = message[1];</span>
         } else {
 <span class="nc" id="L105">            lenBytes = message[1] &amp; 0x7f;</span>
 <span class="nc" id="L106">            len = 0;</span>
@@ -112,7 +112,7 @@ public final class SPNegoMessage {
             }
         }
 
-<span class="nc bnc" id="L115" title="All 2 branches missed.">        return len + 2 == message.length;</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">        return len + 2 == message.length;</span>
     }
 
     /**
@@ -122,4 +122,4 @@ public final class SPNegoMessage {
         // Prevent Instantiation of object
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>
