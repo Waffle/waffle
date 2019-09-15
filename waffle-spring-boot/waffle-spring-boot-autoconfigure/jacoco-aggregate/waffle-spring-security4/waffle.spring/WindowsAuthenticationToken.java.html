@@ -23,7 +23,7 @@ import waffle.windows.auth.WindowsAccount;
 
 /**
  * A Windows authentication token.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsAuthenticationToken implements Authentication {
@@ -36,14 +36,14 @@ public class WindowsAuthenticationToken implements Authentication {
      * {@link GrantedAuthorityFactory} is a {@link FqnGrantedAuthorityFactory} with prefix {@code &quot;ROLE_&quot;} and will
      * convert the fqn to uppercase
      */
-<span class="nc" id="L39">    public static final GrantedAuthorityFactory DEFAULT_GRANTED_AUTHORITY_FACTORY = new FqnGrantedAuthorityFactory(</span>
+<span class="fc" id="L39">    public static final GrantedAuthorityFactory DEFAULT_GRANTED_AUTHORITY_FACTORY = new FqnGrantedAuthorityFactory(</span>
             &quot;ROLE_&quot;, true);
 
     /**
      * The {@link GrantedAuthority} that will be added to every WindowsAuthenticationToken, unless another (or null) is
      * specified.
      */
-<span class="nc" id="L46">    public static final GrantedAuthority DEFAULT_GRANTED_AUTHORITY = new SimpleGrantedAuthority(&quot;ROLE_USER&quot;);</span>
+<span class="fc" id="L46">    public static final GrantedAuthority DEFAULT_GRANTED_AUTHORITY = new SimpleGrantedAuthority(&quot;ROLE_USER&quot;);</span>
 
     /** The principal. */
     private final WindowsPrincipal principal;
@@ -65,9 +65,9 @@ public class WindowsAuthenticationToken implements Authentication {
      *            the identity
      */
     public WindowsAuthenticationToken(final WindowsPrincipal identity) {
-<span class="nc" id="L68">        this(identity, WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY_FACTORY,</span>
+<span class="fc" id="L68">        this(identity, WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY_FACTORY,</span>
                 WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY);
-<span class="nc" id="L70">    }</span>
+<span class="fc" id="L70">    }</span>
 
     /**
      * Instantiates a new windows authentication token.
@@ -81,52 +81,52 @@ public class WindowsAuthenticationToken implements Authentication {
      *            if not null, this {@link GrantedAuthority} will always be added to the granted authorities list
      */
     public WindowsAuthenticationToken(final WindowsPrincipal identity,
-<span class="nc" id="L84">            final GrantedAuthorityFactory grantedAuthorityFactory, final GrantedAuthority defaultGrantedAuthority) {</span>
+<span class="fc" id="L84">            final GrantedAuthorityFactory grantedAuthorityFactory, final GrantedAuthority defaultGrantedAuthority) {</span>
 
-<span class="nc" id="L86">        this.principal = identity;</span>
-<span class="nc" id="L87">        this.authorities = new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L88" title="All 2 branches missed.">        if (defaultGrantedAuthority != null) {</span>
-<span class="nc" id="L89">            this.authorities.add(defaultGrantedAuthority);</span>
+<span class="fc" id="L86">        this.principal = identity;</span>
+<span class="fc" id="L87">        this.authorities = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">        if (defaultGrantedAuthority != null) {</span>
+<span class="fc" id="L89">            this.authorities.add(defaultGrantedAuthority);</span>
         }
-<span class="nc bnc" id="L91" title="All 2 branches missed.">        for (final WindowsAccount group : this.principal.getGroups().values()) {</span>
-<span class="nc" id="L92">            this.authorities.add(grantedAuthorityFactory.createGrantedAuthority(group));</span>
-<span class="nc" id="L93">        }</span>
-<span class="nc" id="L94">    }</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">        for (final WindowsAccount group : this.principal.getGroups().values()) {</span>
+<span class="fc" id="L92">            this.authorities.add(grantedAuthorityFactory.createGrantedAuthority(group));</span>
+<span class="fc" id="L93">        }</span>
+<span class="fc" id="L94">    }</span>
 
     @Override
     public Collection&lt;GrantedAuthority&gt; getAuthorities() {
-<span class="nc" id="L98">        return this.authorities;</span>
+<span class="fc" id="L98">        return this.authorities;</span>
     }
 
     @Override
     public Object getCredentials() {
-<span class="nc" id="L103">        return null;</span>
+<span class="fc" id="L103">        return null;</span>
     }
 
     @Override
     public Object getDetails() {
-<span class="nc" id="L108">        return null;</span>
+<span class="fc" id="L108">        return null;</span>
     }
 
     @Override
     public Object getPrincipal() {
-<span class="nc" id="L113">        return this.principal;</span>
+<span class="fc" id="L113">        return this.principal;</span>
     }
 
     @Override
     public boolean isAuthenticated() {
-<span class="nc bnc" id="L118" title="All 2 branches missed.">        return this.principal != null;</span>
+<span class="pc bpc" id="L118" title="1 of 2 branches missed.">        return this.principal != null;</span>
     }
 
     @Override
     public void setAuthenticated(final boolean authenticated) {
-<span class="nc" id="L123">        throw new IllegalArgumentException();</span>
+<span class="fc" id="L123">        throw new IllegalArgumentException();</span>
     }
 
     @Override
     public String getName() {
-<span class="nc" id="L128">        return this.principal.getName();</span>
+<span class="fc" id="L128">        return this.principal.getName();</span>
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

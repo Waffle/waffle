@@ -26,13 +26,13 @@ import waffle.servlet.spi.SecurityFilterProviderCollection;
 
 /**
  * Sends back a request for a Negotiate Authentication to the browser.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class NegotiateSecurityFilterEntryPoint implements AuthenticationEntryPoint {
 
     /** The Constant LOGGER. */
-<span class="nc" id="L35">    private static final Logger LOGGER = LoggerFactory.getLogger(NegotiateSecurityFilterEntryPoint.class);</span>
+<span class="fc" id="L35">    private static final Logger LOGGER = LoggerFactory.getLogger(NegotiateSecurityFilterEntryPoint.class);</span>
 
     /** The provider. */
     private SecurityFilterProviderCollection provider;
@@ -40,25 +40,25 @@ public class NegotiateSecurityFilterEntryPoint implements AuthenticationEntryPoi
     /**
      * Instantiates a new negotiate security filter entry point.
      */
-<span class="nc" id="L43">    public NegotiateSecurityFilterEntryPoint() {</span>
-<span class="nc" id="L44">        NegotiateSecurityFilterEntryPoint.LOGGER.debug(&quot;[waffle.spring.NegotiateEntryPoint] loaded&quot;);</span>
-<span class="nc" id="L45">    }</span>
+<span class="fc" id="L43">    public NegotiateSecurityFilterEntryPoint() {</span>
+<span class="fc" id="L44">        NegotiateSecurityFilterEntryPoint.LOGGER.debug(&quot;[waffle.spring.NegotiateEntryPoint] loaded&quot;);</span>
+<span class="fc" id="L45">    }</span>
 
     @Override
     public void commence(final HttpServletRequest request, final HttpServletResponse response,
             final AuthenticationException ex) throws IOException, ServletException {
 
-<span class="nc" id="L51">        NegotiateSecurityFilterEntryPoint.LOGGER.debug(&quot;[waffle.spring.NegotiateEntryPoint] commence&quot;);</span>
+<span class="fc" id="L51">        NegotiateSecurityFilterEntryPoint.LOGGER.debug(&quot;[waffle.spring.NegotiateEntryPoint] commence&quot;);</span>
 
-<span class="nc bnc" id="L53" title="All 2 branches missed.">        if (this.provider == null) {</span>
-<span class="nc" id="L54">            throw new ServletException(&quot;Missing NegotiateEntryPoint.Provider&quot;);</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">        if (this.provider == null) {</span>
+<span class="fc" id="L54">            throw new ServletException(&quot;Missing NegotiateEntryPoint.Provider&quot;);</span>
         }
 
-<span class="nc" id="L57">        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);</span>
-<span class="nc" id="L58">        response.setHeader(&quot;Connection&quot;, &quot;keep-alive&quot;);</span>
-<span class="nc" id="L59">        this.provider.sendUnauthorized(response);</span>
-<span class="nc" id="L60">        response.flushBuffer();</span>
-<span class="nc" id="L61">    }</span>
+<span class="fc" id="L57">        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);</span>
+<span class="fc" id="L58">        response.setHeader(&quot;Connection&quot;, &quot;keep-alive&quot;);</span>
+<span class="fc" id="L59">        this.provider.sendUnauthorized(response);</span>
+<span class="fc" id="L60">        response.flushBuffer();</span>
+<span class="fc" id="L61">    }</span>
 
     /**
      * Gets the provider.
@@ -66,7 +66,7 @@ public class NegotiateSecurityFilterEntryPoint implements AuthenticationEntryPoi
      * @return the provider
      */
     public SecurityFilterProviderCollection getProvider() {
-<span class="nc" id="L69">        return this.provider;</span>
+<span class="fc" id="L69">        return this.provider;</span>
     }
 
     /**
@@ -76,7 +76,7 @@ public class NegotiateSecurityFilterEntryPoint implements AuthenticationEntryPoi
      *            the new provider
      */
     public void setProvider(final SecurityFilterProviderCollection value) {
-<span class="nc" id="L79">        this.provider = value;</span>
-<span class="nc" id="L80">    }</span>
+<span class="fc" id="L79">        this.provider = value;</span>
+<span class="fc" id="L80">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>
