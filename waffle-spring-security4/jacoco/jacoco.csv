@@ -1,8 +1,8 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-waffle-spring-security4,waffle.spring,DelegatingNegotiateSecurityFilter,227,0,10,0,63,0,19,0,14,0
-waffle-spring-security4,waffle.spring,NegotiateSecurityFilter,48,216,4,12,15,60,8,20,4,16
-waffle-spring-security4,waffle.spring,FqnGrantedAuthorityFactory,0,36,0,4,0,10,0,4,0,2
+waffle-spring-security4,waffle.spring,NegotiateSecurityFilter,71,231,9,15,24,68,14,20,6,16
+waffle-spring-security4,waffle.spring,WindowsAuthenticationProvider,14,146,1,3,4,43,3,17,2,16
 waffle-spring-security4,waffle.spring,WindowsAuthenticationToken,1,81,1,5,0,20,1,12,0,10
-waffle-spring-security4,waffle.spring,WindowsAuthenticationProvider,6,145,1,3,2,41,3,17,2,16
+waffle-spring-security4,waffle.spring,DelegatingNegotiateSecurityFilter,155,35,7,3,59,15,13,6,8,6
+waffle-spring-security4,waffle.spring,FqnGrantedAuthorityFactory,0,36,0,4,0,10,0,4,0,2
 waffle-spring-security4,waffle.spring,NegotiateSecurityFilterEntryPoint,0,42,0,2,0,15,0,6,0,5
 waffle-spring-security4,waffle.spring,GuestLoginDisabledAuthenticationException,0,4,0,0,0,2,0,1,0,1
