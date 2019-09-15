@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>WindowsSecurityContextImpl.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-spring-boot-filter2</a> &gt; <a href="../index.html" class="el_bundle">waffle-jna</a> &gt; <a href="index.source.html" class="el_package">waffle.windows.auth.impl</a> &gt; <span class="el_source">WindowsSecurityContextImpl.java</span></div><h1>WindowsSecurityContextImpl.java</h1><pre class="source lang-java linenums">/**
+ * Waffle (https://github.com/Waffle/waffle)
+ *
+ * Copyright (c) 2010-2018 Application Security, Inc.
+ *
+ * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+ * Public License v1.0 which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-v10.html.
+ *
+ * Contributors: Application Security, Inc.
+ */
+package waffle.windows.auth.impl;
+
+import com.sun.jna.platform.win32.Secur32;
+import com.sun.jna.platform.win32.Sspi;
+import com.sun.jna.platform.win32.Sspi.CtxtHandle;
+import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
+import com.sun.jna.platform.win32.SspiUtil.ManagedSecBufferDesc;
+import com.sun.jna.platform.win32.Win32Exception;
+import com.sun.jna.platform.win32.WinError;
+import com.sun.jna.platform.win32.WinNT.HANDLEByReference;
+import com.sun.jna.ptr.IntByReference;
+
+import waffle.windows.auth.IWindowsCredentialsHandle;
+import waffle.windows.auth.IWindowsIdentity;
+import waffle.windows.auth.IWindowsImpersonationContext;
+import waffle.windows.auth.IWindowsSecurityContext;
+
+/**
+ * Windows Security Context.
+ *
+ * @author dblock[at]dblock[dot]org
+ */
+<span class="fc" id="L34">public class WindowsSecurityContextImpl implements IWindowsSecurityContext {</span>
+
+    /** The principal name. */
+    private String principalName;
+
+    /** The security package. */
+    private String securityPackage;
+
+    /** The token. */
+    private ManagedSecBufferDesc token;
+
+    /** The ctx. */
+    private CtxtHandle ctx;
+
+    /** The credentials. */
+    private IWindowsCredentialsHandle credentials;
+
+    /** The continue flag. */
+    private boolean continueFlag;
+
+    @Override
+    public IWindowsImpersonationContext impersonate() {
+<span class="nc" id="L56">        return new WindowsSecurityContextImpersonationContextImpl(this.ctx);</span>
+    }
+
+    @Override
+    public IWindowsIdentity getIdentity() {
+<span class="nc" id="L61">        final HANDLEByReference phContextToken = new HANDLEByReference();</span>
+<span class="nc" id="L62">        final int rc = Secur32.INSTANCE.QuerySecurityContextToken(this.ctx, phContextToken);</span>
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        if (WinError.SEC_E_OK != rc) {</span>
+<span class="nc" id="L64">            throw new Win32Exception(rc);</span>
+        }
+<span class="nc" id="L66">        return new WindowsIdentityImpl(phContextToken.getValue());</span>
+    }
+
+    @Override
+    public String getSecurityPackage() {
+<span class="fc" id="L71">        return this.securityPackage;</span>
+    }
+
+    @Override
+    public byte[] getToken() {
+<span class="pc bpc" id="L76" title="2 of 4 branches missed.">        return this.token == null || this.token.getBuffer(0).getBytes() == null ? null</span>
+<span class="fc" id="L77">                : this.token.getBuffer(0).getBytes().clone();</span>
+    }
+
+    /**
+     * Get the current Windows security context for a given SSPI package.
+     *
+     * @param securityPackage
+     *            SSPI package.
+     * @param targetName
+     *            The target of the context. The string contents are security-package specific.
+     * @return Windows security context.
+     */
+    public static IWindowsSecurityContext getCurrent(final String securityPackage, final String targetName) {
+<span class="fc" id="L90">        IWindowsCredentialsHandle credentialsHandle = WindowsCredentialsHandleImpl.getCurrent(securityPackage);</span>
+<span class="fc" id="L91">        credentialsHandle.initialize();</span>
+        try {
+<span class="fc" id="L93">            final WindowsSecurityContextImpl ctx = new WindowsSecurityContextImpl();</span>
+<span class="fc" id="L94">            ctx.setPrincipalName(WindowsAccountImpl.getCurrentUsername());</span>
+<span class="fc" id="L95">            ctx.setCredentialsHandle(credentialsHandle);</span>
+<span class="fc" id="L96">            ctx.setSecurityPackage(securityPackage);</span>
+<span class="fc" id="L97">            ctx.initialize(null, null, targetName);</span>
+
+            // Starting from here ctx 'owns' the credentials handle, so let's null out the
+            // variable. This will prevent the finally block below from disposing it right away.
+<span class="fc" id="L101">            credentialsHandle = null;</span>
+
+<span class="fc" id="L103">            return ctx;</span>
+        } finally {
+<span class="pc bpc" id="L105" title="1 of 2 branches missed.">            if (credentialsHandle != null) {</span>
+<span class="nc" id="L106">                credentialsHandle.dispose();</span>
+            }
+        }
+    }
+
+    @Override
+    public void initialize(final CtxtHandle continueCtx, final SecBufferDesc continueToken, final String targetName) {
+<span class="fc" id="L113">        final IntByReference attr = new IntByReference();</span>
+<span class="fc" id="L114">        this.ctx = new CtxtHandle();</span>
+<span class="fc" id="L115">        int tokenSize = Sspi.MAX_TOKEN_SIZE;</span>
+        int rc;
+        do {
+<span class="fc" id="L118">            this.token = new ManagedSecBufferDesc(Sspi.SECBUFFER_TOKEN, tokenSize);</span>
+<span class="fc" id="L119">            rc = Secur32.INSTANCE.InitializeSecurityContext(this.credentials.getHandle(), continueCtx, targetName,</span>
+                    Sspi.ISC_REQ_CONNECTION, 0, Sspi.SECURITY_NATIVE_DREP, continueToken, 0, this.ctx, this.token, attr,
+                    null);
+<span class="pc bpc" id="L122" title="3 of 4 branches missed.">            switch (rc) {</span>
+                case WinError.SEC_E_INSUFFICIENT_MEMORY:
+                case WinError.SEC_E_BUFFER_TOO_SMALL:
+<span class="nc" id="L125">                    tokenSize += Sspi.MAX_TOKEN_SIZE;</span>
+<span class="nc" id="L126">                    break;</span>
+                case WinError.SEC_I_CONTINUE_NEEDED:
+<span class="fc" id="L128">                    this.continueFlag = true;</span>
+<span class="fc" id="L129">                    break;</span>
+                case WinError.SEC_E_OK:
+<span class="nc" id="L131">                    this.continueFlag = false;</span>
+<span class="nc" id="L132">                    break;</span>
+                default:
+<span class="nc" id="L134">                    throw new Win32Exception(rc);</span>
+            }
+<span class="pc bpc" id="L136" title="2 of 4 branches missed.">        } while (rc == WinError.SEC_E_INSUFFICIENT_MEMORY || rc == WinError.SEC_E_BUFFER_TOO_SMALL);</span>
+<span class="fc" id="L137">    }</span>
+
+    @Override
+    public void dispose() {
+<span class="fc" id="L141">        WindowsSecurityContextImpl.dispose(this.ctx);</span>
+
+<span class="pc bpc" id="L143" title="1 of 2 branches missed.">        if (this.credentials != null) {</span>
+<span class="fc" id="L144">            this.credentials.dispose();</span>
+        }
+<span class="fc" id="L146">    }</span>
+
+    /**
+     * Dispose a security context.
+     *
+     * @param ctx
+     *            Security context.
+     * @return True if a context was disposed.
+     */
+    public static boolean dispose(final CtxtHandle ctx) {
+<span class="pc bpc" id="L156" title="2 of 4 branches missed.">        if (ctx != null &amp;&amp; !ctx.isNull()) {</span>
+<span class="fc" id="L157">            final int rc = Secur32.INSTANCE.DeleteSecurityContext(ctx);</span>
+<span class="pc bpc" id="L158" title="1 of 2 branches missed.">            if (WinError.SEC_E_OK != rc) {</span>
+<span class="nc" id="L159">                throw new Win32Exception(rc);</span>
+            }
+<span class="fc" id="L161">            return true;</span>
+        }
+<span class="nc" id="L163">        return false;</span>
+    }
+
+    @Override
+    public String getPrincipalName() {
+<span class="nc" id="L168">        return this.principalName;</span>
+    }
+
+    /**
+     * Sets the principal name.
+     *
+     * @param value
+     *            the new principal name
+     */
+    public void setPrincipalName(final String value) {
+<span class="fc" id="L178">        this.principalName = value;</span>
+<span class="fc" id="L179">    }</span>
+
+    @Override
+    public CtxtHandle getHandle() {
+<span class="nc" id="L183">        return this.ctx;</span>
+    }
+
+    /**
+     * Sets the credentials handle.
+     *
+     * @param handle
+     *            the new credentials handle
+     */
+    public void setCredentialsHandle(final IWindowsCredentialsHandle handle) {
+<span class="fc" id="L193">        this.credentials = handle;</span>
+<span class="fc" id="L194">    }</span>
+
+    /**
+     * Sets the token.
+     *
+     * @param bytes
+     *            the new token
+     */
+    public void setToken(final byte[] bytes) {
+<span class="nc" id="L203">        this.token = new ManagedSecBufferDesc(Sspi.SECBUFFER_TOKEN, bytes);</span>
+<span class="nc" id="L204">    }</span>
+
+    /**
+     * Sets the security package.
+     *
+     * @param value
+     *            the new security package
+     */
+    public void setSecurityPackage(final String value) {
+<span class="fc" id="L213">        this.securityPackage = value;</span>
+<span class="fc" id="L214">    }</span>
+
+    /**
+     * Sets the security context.
+     *
+     * @param phNewServerContext
+     *            the new security context
+     */
+    public void setSecurityContext(final CtxtHandle phNewServerContext) {
+<span class="nc" id="L223">        this.ctx = phNewServerContext;</span>
+<span class="nc" id="L224">    }</span>
+
+    @Override
+    public boolean isContinue() {
+<span class="fc" id="L228">        return this.continueFlag;</span>
+    }
+
+    /**
+     * Sets the continue.
+     *
+     * @param b
+     *            the new continue
+     */
+    public void setContinue(final boolean b) {
+<span class="nc" id="L238">        this.continueFlag = b;</span>
+<span class="nc" id="L239">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>
