@@ -7,13 +7,13 @@
 <body>
 <div id="overview"><a href="../../../../apidocs/waffle/servlet/spi/NegotiateSecurityFilterProvider.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> * Waffle (https://github.com/Waffle/waffle)</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> * Waffle (<a href="https://github.com/Waffle/waffle)" target="alexandria_uri">https://github.com/Waffle/waffle)</a></em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> * Copyright (c) 2010-2018 Application Security, Inc.</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment"> * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse</em>
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_javadoccomment"> * Public License v1.0 which accompanies this distribution, and is available at</em>
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> * https://www.eclipse.org/legal/epl-v10.html.</em>
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> * <a href="https://www.eclipse.org/legal/epl-v10.html." target="alexandria_uri">https://www.eclipse.org/legal/epl-v10.html.</a></em>
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment"> * Contributors: Application Security, Inc.</em>
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> */</em>
@@ -39,10 +39,10 @@
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment"> * A negotiate security filter provider.</em>
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <em class="jxr_javadoccomment"> * </em>
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_javadoccomment"> * @author dblock[at]dblock[dot]org</em>
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../waffle/servlet/spi/NegotiateSecurityFilterProvider.html">NegotiateSecurityFilterProvider</a> <strong class="jxr_keyword">implements</strong> <a href="../../../waffle/servlet/spi/SecurityFilterProvider.html">SecurityFilterProvider</a> {
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="NegotiateSecurityFilterProvider" href="../../../waffle/servlet/spi/NegotiateSecurityFilterProvider.html#NegotiateSecurityFilterProvider">NegotiateSecurityFilterProvider</a> <strong class="jxr_keyword">implements</strong> <a name="SecurityFilterProvider" href="../../../waffle/servlet/spi/SecurityFilterProvider.html#SecurityFilterProvider">SecurityFilterProvider</a> {
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>      <em class="jxr_javadoccomment">/** The Constant LOGGER. */</em>
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Logger LOGGER = LoggerFactory.getLogger(NegotiateSecurityFilterProvider.<strong class="jxr_keyword">class</strong>);
@@ -63,7 +63,7 @@
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>      <strong class="jxr_keyword">private</strong> List&lt;String&gt; protocols = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>  
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>      <em class="jxr_javadoccomment">/** The auth. */</em>
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../waffle/windows/auth/IWindowsAuthProvider.html">IWindowsAuthProvider</a> auth;
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="IWindowsAuthProvider" href="../../../waffle/windows/auth/IWindowsAuthProvider.html#IWindowsAuthProvider">IWindowsAuthProvider</a> auth;
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>  
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_javadoccomment">     * Instantiates a new negotiate security filter provider.</em>
@@ -71,7 +71,7 @@
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>  <em class="jxr_javadoccomment">     * @param newAuthProvider</em>
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_javadoccomment">     *            the new auth provider</em>
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>      <strong class="jxr_keyword">public</strong> <a href="../../../waffle/servlet/spi/NegotiateSecurityFilterProvider.html">NegotiateSecurityFilterProvider</a>(<strong class="jxr_keyword">final</strong> <a href="../../../waffle/windows/auth/IWindowsAuthProvider.html">IWindowsAuthProvider</a> newAuthProvider) {
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>      <strong class="jxr_keyword">public</strong> <a name="NegotiateSecurityFilterProvider" href="../../../waffle/servlet/spi/NegotiateSecurityFilterProvider.html#NegotiateSecurityFilterProvider">NegotiateSecurityFilterProvider</a>(<strong class="jxr_keyword">final</strong> <a name="IWindowsAuthProvider" href="../../../waffle/windows/auth/IWindowsAuthProvider.html#IWindowsAuthProvider">IWindowsAuthProvider</a> newAuthProvider) {
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>          <strong class="jxr_keyword">this</strong>.auth = newAuthProvider;
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>          <strong class="jxr_keyword">this</strong>.protocols.add(NegotiateSecurityFilterProvider.NEGOTIATE);
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>          <strong class="jxr_keyword">this</strong>.protocols.add(NegotiateSecurityFilterProvider.NTLM);
@@ -98,14 +98,14 @@
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>  
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>      @Override
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> sendUnauthorized(<strong class="jxr_keyword">final</strong> HttpServletResponse response) {
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>          <strong class="jxr_keyword">for</strong> (String protocol : <strong class="jxr_keyword">this</strong>.protocols) {
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>          <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> String protocol : <strong class="jxr_keyword">this</strong>.protocols) {
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>              response.addHeader(NegotiateSecurityFilterProvider.WWW_AUTHENTICATE, protocol);
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>          }
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>      }
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>  
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>      @Override
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isPrincipalException(<strong class="jxr_keyword">final</strong> HttpServletRequest request) {
-<a class="jxr_linenumber" name="L100" href="#L100">100</a>         <strong class="jxr_keyword">final</strong> <a href="../../../waffle/util/AuthorizationHeader.html">AuthorizationHeader</a> authorizationHeader = <strong class="jxr_keyword">new</strong> <a href="../../../waffle/util/AuthorizationHeader.html">AuthorizationHeader</a>(request);
+<a class="jxr_linenumber" name="L100" href="#L100">100</a>         <strong class="jxr_keyword">final</strong> <a name="AuthorizationHeader" href="../../../waffle/util/AuthorizationHeader.html#A<a name="AuthorizationHeader" href="../../../waffle/util/AuthorizationHeader.html#AuthorizationHeader">AuthorizationHeader</a>>AuthorizationHeader</a> authorizationHeader = <strong class="jxr_keyword">new</strong> <a name="AuthorizationHeader" href="../../../waffle/util/AuthorizationHeader.html#AuthorizationHeader">AuthorizationHeader</a>(request);
 <a class="jxr_linenumber" name="L101" href="#L101">101</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>         NegotiateSecurityFilterProvider.LOGGER.debug(<span class="jxr_string">"authorization: {}, ntlm post: {}"</span>, authorizationHeader,
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>                 Boolean.valueOf(ntlmPost));
@@ -113,10 +113,10 @@
 <a class="jxr_linenumber" name="L105" href="#L105">105</a>     }
 <a class="jxr_linenumber" name="L106" href="#L106">106</a> 
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>     @Override
-<a class="jxr_linenumber" name="L108" href="#L108">108</a>     <strong class="jxr_keyword">public</strong> <a href="../../../waffle/windows/auth/IWindowsIdentity.html">IWindowsIdentity</a> doFilter(<strong class="jxr_keyword">final</strong> HttpServletRequest request, <strong class="jxr_keyword">final</strong> HttpServletResponse response)
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>     <strong class="jxr_keyword">public</strong> <a name="IWindowsIdentity" href="../../../waffle/windows/auth/IWindowsIdentity.html#IWindowsIdentity">IWindowsIdentity</a> doFilter(<strong class="jxr_keyword">final</strong> HttpServletRequest request, <strong class="jxr_keyword">final</strong> HttpServletResponse response)
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>             <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L110" href="#L110">110</a> 
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>         <strong class="jxr_keyword">final</strong> <a href="../../../waffle/util/AuthorizationHeader.html">AuthorizationHeader</a> authorizationHeader = <strong class="jxr_keyword">new</strong> <a href="../../../waffle/util/AuthorizationHeader.html">AuthorizationHeader</a>(request);
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>         <strong class="jxr_keyword">final</strong> <a name="AuthorizationHeader" href="../../../waffle/util/AuthorizationHeader.html#A<a name="AuthorizationHeader" href="../../../waffle/util/AuthorizationHeader.html#AuthorizationHeader">AuthorizationHeader</a>>AuthorizationHeader</a> authorizationHeader = <strong class="jxr_keyword">new</strong> <a name="AuthorizationHeader" href="../../../waffle/util/AuthorizationHeader.html#AuthorizationHeader">AuthorizationHeader</a>(request);
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
 <a class="jxr_linenumber" name="L113" href="#L113">113</a> 
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>         <em class="jxr_comment">// maintain a connection-based session for NTLM tokens</em>
@@ -132,7 +132,7 @@
 <a class="jxr_linenumber" name="L124" href="#L124">124</a> 
 <a class="jxr_linenumber" name="L125" href="#L125">125</a>         <strong class="jxr_keyword">final</strong> byte[] tokenBuffer = authorizationHeader.getTokenBytes();
 <a class="jxr_linenumber" name="L126" href="#L126">126</a>         NegotiateSecurityFilterProvider.LOGGER.debug(<span class="jxr_string">"token buffer: {} byte(s)"</span>, Integer.valueOf(tokenBuffer.length));
-<a class="jxr_linenumber" name="L127" href="#L127">127</a>         <strong class="jxr_keyword">final</strong> <a href="../../../waffle/windows/auth/IWindowsSecurityContext.html">IWindowsSecurityContext</a> securityContext = <strong class="jxr_keyword">this</strong>.auth.acceptSecurityToken(connectionId, tokenBuffer,
+<a class="jxr_linenumber" name="L127" href="#L127">127</a>         <strong class="jxr_keyword">final</strong> <a name="IWindowsSecurityContext" href="../../../waffle/windows/auth/IWindowsSecurityContext.html#IWindowsSecurityContext">IWindowsSecurityContext</a> securityContext = <strong class="jxr_keyword">this</strong>.auth.acceptSecurityToken(connectionId, tokenBuffer,
 <a class="jxr_linenumber" name="L128" href="#L128">128</a>                 securityPackage);
 <a class="jxr_linenumber" name="L129" href="#L129">129</a> 
 <a class="jxr_linenumber" name="L130" href="#L130">130</a>         <strong class="jxr_keyword">final</strong> byte[] continueTokenBytes = securityContext.getToken();
@@ -144,14 +144,14 @@
 <a class="jxr_linenumber" name="L136" href="#L136">136</a> 
 <a class="jxr_linenumber" name="L137" href="#L137">137</a>         NegotiateSecurityFilterProvider.LOGGER.debug(<span class="jxr_string">"continue required: {}"</span>,
 <a class="jxr_linenumber" name="L138" href="#L138">138</a>                 Boolean.valueOf(securityContext.isContinue()));
-<a class="jxr_linenumber" name="L139" href="#L139">139</a>         <strong class="jxr_keyword">if</strong> (securityContext.isContinue() || ntlmPost) {
+<a class="jxr_linenumber" name="L139" href="#L139">139</a>         <strong class="jxr_keyword">if</strong> (securityContext.isContinue()) {
 <a class="jxr_linenumber" name="L140" href="#L140">140</a>             response.setHeader(<span class="jxr_string">"Connection"</span>, <span class="jxr_string">"keep-alive"</span>);
 <a class="jxr_linenumber" name="L141" href="#L141">141</a>             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 <a class="jxr_linenumber" name="L142" href="#L142">142</a>             response.flushBuffer();
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L144" href="#L144">144</a>         }
 <a class="jxr_linenumber" name="L145" href="#L145">145</a> 
-<a class="jxr_linenumber" name="L146" href="#L146">146</a>         <strong class="jxr_keyword">final</strong> <a href="../../../waffle/windows/auth/IWindowsIdentity.html">IWindowsIdentity</a> identity = securityContext.getIdentity();
+<a class="jxr_linenumber" name="L146" href="#L146">146</a>         <strong class="jxr_keyword">final</strong> <a name="IWindowsIdentity" href="../../../waffle/windows/auth/IWindowsIdentity.html#IWindowsIdentity">IWindowsIdentity</a> identity = securityContext.getIdentity();
 <a class="jxr_linenumber" name="L147" href="#L147">147</a>         securityContext.dispose();
 <a class="jxr_linenumber" name="L148" href="#L148">148</a>         <strong class="jxr_keyword">return</strong> identity;
 <a class="jxr_linenumber" name="L149" href="#L149">149</a>     }
@@ -168,15 +168,15 @@
 <a class="jxr_linenumber" name="L160" href="#L160">160</a> 
 <a class="jxr_linenumber" name="L161" href="#L161">161</a>     @Override
 <a class="jxr_linenumber" name="L162" href="#L162">162</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> initParameter(<strong class="jxr_keyword">final</strong> String parameterName, <strong class="jxr_keyword">final</strong> String parameterValue) {
-<a class="jxr_linenumber" name="L163" href="#L163">163</a>         <strong class="jxr_keyword">if</strong> (parameterName.equals(NegotiateSecurityFilterProvider.PROTOCOLS)) {
+<a class="jxr_linenumber" name="L163" href="#L163">163</a>         <strong class="jxr_keyword">if</strong> (NegotiateSecurityFilterProvider.PROTOCOLS.equals(parameterName)) {
 <a class="jxr_linenumber" name="L164" href="#L164">164</a>             <strong class="jxr_keyword">this</strong>.protocols = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
 <a class="jxr_linenumber" name="L165" href="#L165">165</a>             <strong class="jxr_keyword">final</strong> String[] protocolNames = parameterValue.split(<span class="jxr_string">"&#92;&#92;s+"</span>);
 <a class="jxr_linenumber" name="L166" href="#L166">166</a>             <strong class="jxr_keyword">for</strong> (String protocolName : protocolNames) {
 <a class="jxr_linenumber" name="L167" href="#L167">167</a>                 protocolName = protocolName.trim();
 <a class="jxr_linenumber" name="L168" href="#L168">168</a>                 <strong class="jxr_keyword">if</strong> (protocolName.length() &gt; 0) {
 <a class="jxr_linenumber" name="L169" href="#L169">169</a>                     NegotiateSecurityFilterProvider.LOGGER.debug(<span class="jxr_string">"init protocol: {}"</span>, protocolName);
-<a class="jxr_linenumber" name="L170" href="#L170">170</a>                     <strong class="jxr_keyword">if</strong> (protocolName.equals(NegotiateSecurityFilterProvider.NEGOTIATE)
-<a class="jxr_linenumber" name="L171" href="#L171">171</a>                             || protocolName.equals(NegotiateSecurityFilterProvider.NTLM)) {
+<a class="jxr_linenumber" name="L170" href="#L170">170</a>                     <strong class="jxr_keyword">if</strong> (NegotiateSecurityFilterProvider.NEGOTIATE.equals(protocolName)
+<a class="jxr_linenumber" name="L171" href="#L171">171</a>                             || NegotiateSecurityFilterProvider.NTLM.equals(protocolName)) {
 <a class="jxr_linenumber" name="L172" href="#L172">172</a>                         <strong class="jxr_keyword">this</strong>.protocols.add(protocolName);
 <a class="jxr_linenumber" name="L173" href="#L173">173</a>                     } <strong class="jxr_keyword">else</strong> {
 <a class="jxr_linenumber" name="L174" href="#L174">174</a>                         NegotiateSecurityFilterProvider.LOGGER.error(<span class="jxr_string">"unsupported protocol: {}"</span>, protocolName);
@@ -191,6 +191,6 @@
 <a class="jxr_linenumber" name="L183" href="#L183">183</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2010&#x2013;2018 <a href="https://github.com/waffle/">com.github.waffle</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2010&#x2013;2019 <a href="https://github.com/waffle/">com.github.waffle</a>. All rights reserved.</div>
 </body>
 </html>

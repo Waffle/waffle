@@ -1,17 +1,31 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>WindowsAuthProviderImpl.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-jna</a> &gt; <a href="index.source.html" class="el_package">waffle.windows.auth.impl</a> &gt; <span class="el_source">WindowsAuthProviderImpl.java</span></div><h1>WindowsAuthProviderImpl.java</h1><pre class="source lang-java linenums">/**
- * Waffle (https://github.com/dblock/waffle)
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>WindowsAuthProviderImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-jna</a> &gt; <a href="index.source.html" class="el_package">waffle.windows.auth.impl</a> &gt; <span class="el_source">WindowsAuthProviderImpl.java</span></div><h1>WindowsAuthProviderImpl.java</h1><pre class="source lang-java linenums">/**
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2015 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+ * Public License v1.0 which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
- * Contributors:
- *     Application Security, Inc.
+ * Contributors: Application Security, Inc.
  */
 package waffle.windows.auth.impl;
+
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.sun.jna.platform.win32.Advapi32;
+import com.sun.jna.platform.win32.Kernel32;
+import com.sun.jna.platform.win32.Netapi32Util;
+import com.sun.jna.platform.win32.Netapi32Util.DomainTrust;
+import com.sun.jna.platform.win32.Secur32;
+import com.sun.jna.platform.win32.Sspi;
+import com.sun.jna.platform.win32.Sspi.CtxtHandle;
+import com.sun.jna.platform.win32.SspiUtil.ManagedSecBufferDesc;
+import com.sun.jna.platform.win32.Win32Exception;
+import com.sun.jna.platform.win32.WinBase;
+import com.sun.jna.platform.win32.WinError;
+import com.sun.jna.platform.win32.WinNT.HANDLEByReference;
+import com.sun.jna.ptr.IntByReference;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -27,218 +41,200 @@ import waffle.windows.auth.IWindowsDomain;
 import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.IWindowsSecurityContext;
 
-import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
-import com.sun.jna.platform.win32.Advapi32;
-import com.sun.jna.platform.win32.Kernel32;
-import com.sun.jna.platform.win32.Netapi32Util;
-import com.sun.jna.platform.win32.Netapi32Util.DomainTrust;
-import com.sun.jna.platform.win32.Secur32;
-import com.sun.jna.platform.win32.Sspi;
-import com.sun.jna.platform.win32.Sspi.CtxtHandle;
-import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
-import com.sun.jna.platform.win32.Win32Exception;
-import com.sun.jna.platform.win32.WinBase;
-import com.sun.jna.platform.win32.WinError;
-import com.sun.jna.platform.win32.WinNT.HANDLEByReference;
-import com.sun.jna.ptr.IntByReference;
-
 /**
  * Windows Auth Provider.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
 
+    /** The Continue Context Timeout. */
+    public static final int CONTINUE_CONTEXT_TIMEOUT = 30;
+
+    /**
+     * The Class ContinueContext.
+     */
+    private static class ContinueContext {
+        /** The continue handle. */
+        CtxtHandle continueHandle;
+
+        /** The server credential. */
+        IWindowsCredentialsHandle serverCredential;
+
+        /**
+         * Instantiates a new continue context.
+         *
+         * @param handle
+         *            the handle
+         * @param windowsCredential
+         *            the windows credential
+         */
+<span class="nc" id="L72">        public ContinueContext(final CtxtHandle handle, final IWindowsCredentialsHandle windowsCredential) {</span>
+<span class="nc" id="L73">            this.continueHandle = handle;</span>
+<span class="nc" id="L74">            this.serverCredential = windowsCredential;</span>
+<span class="nc" id="L75">        }</span>
+    }
+
     /** The continue contexts. */
-    private final Cache&lt;String, CtxtHandle&gt; continueContexts;
+    private final Cache&lt;String, ContinueContext&gt; continueContexts;
 
     /**
      * Instantiates a new windows auth provider impl.
-<span class="fc" id="L58">     */</span>
-<span class="fc" id="L59">    public WindowsAuthProviderImpl() {</span>
-        this(30);
-    }
+     */
+    public WindowsAuthProviderImpl() {
+<span class="fc" id="L85">        this(WindowsAuthProviderImpl.CONTINUE_CONTEXT_TIMEOUT);</span>
+<span class="fc" id="L86">    }</span>
 
     /**
      * A Windows authentication provider.
-     * 
+     *
      * @param continueContextsTimeout
-<span class="fc" id="L67">     *            Timeout for security contexts in seconds.</span>
-<span class="fc" id="L68">     */</span>
-    public WindowsAuthProviderImpl(final int continueContextsTimeout) {
-<span class="fc" id="L70">        this.continueContexts = CacheBuilder.newBuilder().expireAfterWrite(continueContextsTimeout, TimeUnit.SECONDS)</span>
-                .build();
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsAuthProvider#acceptSecurityToken(java.lang.String, byte[], java.lang.String)
+     *            Timeout for security contexts in seconds.
      */
+<span class="fc" id="L94">    public WindowsAuthProviderImpl(final int continueContextsTimeout) {</span>
+<span class="fc" id="L95">        this.continueContexts = Caffeine.newBuilder().expireAfterWrite(continueContextsTimeout, TimeUnit.SECONDS)</span>
+<span class="fc" id="L96">                .build();</span>
+<span class="fc" id="L97">    }</span>
+
     @Override
     public IWindowsSecurityContext acceptSecurityToken(final String connectionId, final byte[] token,
-<span class="nc bnc" id="L80" title="All 4 branches missed.">            final String securityPackage) {</span>
-<span class="nc" id="L81"></span>
-<span class="nc" id="L82">        if (token == null || token.length == 0) {</span>
-            this.continueContexts.asMap().remove(connectionId);
-            throw new Win32Exception(WinError.SEC_E_INVALID_TOKEN);
-<span class="nc" id="L85">        }</span>
+            final String securityPackage) {
 
-<span class="nc" id="L87">        final IWindowsCredentialsHandle serverCredential = new WindowsCredentialsHandleImpl(null,</span>
-                Sspi.SECPKG_CRED_INBOUND, securityPackage);
-        serverCredential.initialize();
+<span class="nc bnc" id="L103" title="All 4 branches missed.">        if (token == null || token.length == 0) {</span>
+<span class="nc" id="L104">            this.resetSecurityToken(connectionId);</span>
+<span class="nc" id="L105">            throw new Win32Exception(WinError.SEC_E_INVALID_TOKEN);</span>
+        }
+
+<span class="nc" id="L108">        CtxtHandle continueHandle = null;</span>
+        IWindowsCredentialsHandle serverCredential;
+<span class="nc" id="L110">        ContinueContext continueContext = this.continueContexts.asMap().get(connectionId);</span>
+<span class="nc bnc" id="L111" title="All 2 branches missed.">        if (continueContext != null) {</span>
+<span class="nc" id="L112">            continueHandle = continueContext.continueHandle;</span>
+<span class="nc" id="L113">            serverCredential = continueContext.serverCredential;</span>
+        } else {
+<span class="nc" id="L115">            serverCredential = new WindowsCredentialsHandleImpl(null, Sspi.SECPKG_CRED_INBOUND, securityPackage);</span>
+<span class="nc" id="L116">            serverCredential.initialize();</span>
+        }
 
         WindowsSecurityContextImpl sc;
-<span class="nc" id="L92"></span>
+
         int rc;
-        int tokenSize = Sspi.MAX_TOKEN_SIZE;
+<span class="nc" id="L122">        int tokenSize = Sspi.MAX_TOKEN_SIZE;</span>
 
-        CtxtHandle continueContext;
-<span class="nc" id="L97">        SecBufferDesc pbServerToken;</span>
-<span class="nc" id="L98">        SecBufferDesc pbClientToken;</span>
-        final IntByReference pfClientContextAttr = new IntByReference();
-<span class="nc" id="L100">        final CtxtHandle phNewServerContext = new CtxtHandle();</span>
-<span class="nc" id="L101">        do {</span>
-            pbServerToken = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, tokenSize);
-<span class="nc" id="L103">            pbClientToken = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, token);</span>
+        do {
+<span class="nc" id="L125">            final ManagedSecBufferDesc pbServerToken = new ManagedSecBufferDesc(Sspi.SECBUFFER_TOKEN, tokenSize);</span>
+<span class="nc" id="L126">            final ManagedSecBufferDesc pbClientToken = new ManagedSecBufferDesc(Sspi.SECBUFFER_TOKEN, token);</span>
+<span class="nc" id="L127">            final IntByReference pfClientContextAttr = new IntByReference();</span>
 
-<span class="nc" id="L105">            continueContext = this.continueContexts.asMap().get(connectionId);</span>
-
-            rc = Secur32.INSTANCE.AcceptSecurityContext(serverCredential.getHandle(), continueContext, pbClientToken,
+<span class="nc" id="L129">            final CtxtHandle phNewServerContext = new CtxtHandle();</span>
+<span class="nc" id="L130">            rc = Secur32.INSTANCE.AcceptSecurityContext(serverCredential.getHandle(), continueHandle, pbClientToken,</span>
                     Sspi.ISC_REQ_CONNECTION, Sspi.SECURITY_NATIVE_DREP, phNewServerContext, pbServerToken,
-<span class="nc" id="L109">                    pfClientContextAttr, null);</span>
-<span class="nc" id="L110"></span>
-<span class="nc" id="L111">            sc = new WindowsSecurityContextImpl();</span>
-<span class="nc" id="L112">            sc.setCredentialsHandle(serverCredential.getHandle());</span>
-            sc.setSecurityPackage(securityPackage);
-<span class="nc bnc" id="L114" title="All 4 branches missed.">            sc.setSecurityContext(phNewServerContext);</span>
+                    pfClientContextAttr, null);
 
-<span class="nc" id="L116">            switch (rc) {</span>
-<span class="nc" id="L117">                case WinError.SEC_E_BUFFER_TOO_SMALL:</span>
-<span class="nc" id="L118">                    tokenSize += Sspi.MAX_TOKEN_SIZE;</span>
-<span class="nc" id="L119">                    sc.dispose();</span>
-                    WindowsSecurityContextImpl.dispose(continueContext);
-                    break;
-<span class="nc" id="L122">                case WinError.SEC_E_OK:</span>
+<span class="nc" id="L134">            sc = new WindowsSecurityContextImpl();</span>
+<span class="nc" id="L135">            sc.setCredentialsHandle(serverCredential);</span>
+<span class="nc" id="L136">            sc.setSecurityPackage(securityPackage);</span>
+<span class="nc" id="L137">            sc.setSecurityContext(phNewServerContext);</span>
+
+<span class="nc bnc" id="L139" title="All 4 branches missed.">            switch (rc) {</span>
+                case WinError.SEC_E_BUFFER_TOO_SMALL:
+<span class="nc" id="L141">                    tokenSize += Sspi.MAX_TOKEN_SIZE;</span>
+<span class="nc" id="L142">                    sc.dispose();</span>
+<span class="nc" id="L143">                    WindowsSecurityContextImpl.dispose(continueHandle);</span>
+<span class="nc" id="L144">                    break;</span>
+                case WinError.SEC_E_OK:
                     // the security context received from the client was accepted
-<span class="nc bnc" id="L124" title="All 6 branches missed.">                    this.continueContexts.asMap().remove(connectionId);</span>
+<span class="nc" id="L147">                    this.resetSecurityToken(connectionId);</span>
                     // if an output token was generated by the function, it must be sent to the client process
-<span class="nc bnc" id="L126" title="All 2 branches missed.">                    if (pbServerToken.pBuffers != null &amp;&amp; pbServerToken.cBuffers == 1</span>
-                            &amp;&amp; pbServerToken.pBuffers[0].cbBuffer &gt; 0) {
-<span class="nc" id="L128">                        sc.setToken(pbServerToken.getBytes() == null ? new byte[0] : pbServerToken.getBytes().clone());</span>
-<span class="nc" id="L129">                    }</span>
-                    sc.setContinue(false);
-                    break;
-<span class="nc" id="L132">                case WinError.SEC_I_CONTINUE_NEEDED:</span>
-<span class="nc bnc" id="L133" title="All 2 branches missed.">                    // the server must send the output token to the client and wait for a returned token</span>
-<span class="nc" id="L134">                    this.continueContexts.put(connectionId, phNewServerContext);</span>
-<span class="nc" id="L135">                    sc.setToken(pbServerToken.getBytes() == null ? new byte[0] : pbServerToken.getBytes().clone());</span>
-                    sc.setContinue(true);
-<span class="nc" id="L137">                    break;</span>
-<span class="nc" id="L138">                default:</span>
-<span class="nc" id="L139">                    sc.dispose();</span>
-<span class="nc" id="L140">                    WindowsSecurityContextImpl.dispose(continueContext);</span>
-                    this.continueContexts.asMap().remove(connectionId);
-<span class="nc bnc" id="L142" title="All 2 branches missed.">                    throw new Win32Exception(rc);</span>
+<span class="nc bnc" id="L149" title="All 4 branches missed.">                    if (pbServerToken.pBuffers != null &amp;&amp; pbServerToken.cBuffers == 1</span>
+<span class="nc bnc" id="L150" title="All 2 branches missed.">                            &amp;&amp; pbServerToken.getBuffer(0).cbBuffer &gt; 0) {</span>
+<span class="nc bnc" id="L151" title="All 2 branches missed.">                        sc.setToken(pbServerToken.getBuffer(0).getBytes() == null ? new byte[0]</span>
+<span class="nc" id="L152">                                : pbServerToken.getBuffer(0).getBytes().clone());</span>
+                    }
+<span class="nc" id="L154">                    sc.setContinue(false);</span>
+<span class="nc" id="L155">                    break;</span>
+                case WinError.SEC_I_CONTINUE_NEEDED:
+                    // the server must send the output token to the client and wait for a returned token
+<span class="nc" id="L158">                    continueContext = new ContinueContext(phNewServerContext, serverCredential);</span>
+<span class="nc" id="L159">                    this.continueContexts.put(connectionId, continueContext);</span>
+<span class="nc bnc" id="L160" title="All 2 branches missed.">                    sc.setToken(pbServerToken.getBuffer(0).getBytes() == null ? new byte[0]</span>
+<span class="nc" id="L161">                            : pbServerToken.getBuffer(0).getBytes().clone());</span>
+<span class="nc" id="L162">                    sc.setContinue(true);</span>
+<span class="nc" id="L163">                    break;</span>
+                default:
+<span class="nc" id="L165">                    sc.dispose();</span>
+<span class="nc" id="L166">                    WindowsSecurityContextImpl.dispose(continueHandle);</span>
+<span class="nc" id="L167">                    this.resetSecurityToken(connectionId);</span>
+<span class="nc" id="L168">                    throw new Win32Exception(rc);</span>
             }
-<span class="nc" id="L144">        } while (rc == WinError.SEC_E_BUFFER_TOO_SMALL);</span>
+<span class="nc bnc" id="L170" title="All 2 branches missed.">        } while (rc == WinError.SEC_E_BUFFER_TOO_SMALL);</span>
 
-        return sc;
+<span class="nc" id="L172">        return sc;</span>
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsAuthProvider#getCurrentComputer()
-     */
     @Override
-<span class="fc" id="L154">    public IWindowsComputer getCurrentComputer() {</span>
-<span class="nc" id="L155">        try {</span>
-<span class="nc" id="L156">            return new WindowsComputerImpl(InetAddress.getLocalHost().getHostName());</span>
-        } catch (final UnknownHostException e) {
-            throw new RuntimeException(e);
+    public IWindowsComputer getCurrentComputer() {
+        try {
+<span class="fc" id="L178">            return new WindowsComputerImpl(InetAddress.getLocalHost().getHostName());</span>
+<span class="nc" id="L179">        } catch (final UnknownHostException e) {</span>
+<span class="nc" id="L180">            throw new RuntimeException(e);</span>
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsAuthProvider#getDomains()
-     */
-<span class="nc" id="L166">    @Override</span>
-<span class="nc" id="L167">    public IWindowsDomain[] getDomains() {</span>
-<span class="nc bnc" id="L168" title="All 2 branches missed.">        final List&lt;IWindowsDomain&gt; domains = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L169">        final DomainTrust[] trusts = Netapi32Util.getDomainTrusts();</span>
-        for (final DomainTrust trust : trusts) {
-<span class="nc" id="L171">            domains.add(new WindowsDomainImpl(trust));</span>
+    @Override
+    public IWindowsDomain[] getDomains() {
+<span class="nc" id="L186">        final List&lt;IWindowsDomain&gt; domains = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L187">        final DomainTrust[] trusts = Netapi32Util.getDomainTrusts();</span>
+<span class="nc bnc" id="L188" title="All 2 branches missed.">        for (final DomainTrust trust : trusts) {</span>
+<span class="nc" id="L189">            domains.add(new WindowsDomainImpl(trust));</span>
         }
-        return domains.toArray(new IWindowsDomain[0]);
+<span class="nc" id="L191">        return domains.toArray(new IWindowsDomain[0]);</span>
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsAuthProvider#logonDomainUser(java.lang.String, java.lang.String,
-     * java.lang.String)
-     */
-<span class="nc" id="L181">    @Override</span>
+    @Override
     public IWindowsIdentity logonDomainUser(final String username, final String domain, final String password) {
-        return this.logonDomainUserEx(username, domain, password, WinBase.LOGON32_LOGON_NETWORK,
+<span class="nc" id="L196">        return this.logonDomainUserEx(username, domain, password, WinBase.LOGON32_LOGON_NETWORK,</span>
                 WinBase.LOGON32_PROVIDER_DEFAULT);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsAuthProvider#logonDomainUserEx(java.lang.String, java.lang.String,
-     * java.lang.String, int, int)
-     */
     @Override
-<span class="nc" id="L193">    public IWindowsIdentity logonDomainUserEx(final String username, final String domain, final String password,</span>
-<span class="nc bnc" id="L194" title="All 2 branches missed.">            final int logonType, final int logonProvider) {</span>
-<span class="nc" id="L195">        final HANDLEByReference phUser = new HANDLEByReference();</span>
-        if (!Advapi32.INSTANCE.LogonUser(username, domain, password, logonType, logonProvider, phUser)) {
-<span class="nc" id="L197">            throw new Win32Exception(Kernel32.INSTANCE.GetLastError());</span>
+    public IWindowsIdentity logonDomainUserEx(final String username, final String domain, final String password,
+            final int logonType, final int logonProvider) {
+<span class="fc" id="L203">        final HANDLEByReference phUser = new HANDLEByReference();</span>
+<span class="pc bpc" id="L204" title="1 of 2 branches missed.">        if (!Advapi32.INSTANCE.LogonUser(username, domain, password, logonType, logonProvider, phUser)) {</span>
+<span class="fc" id="L205">            throw new Win32Exception(Kernel32.INSTANCE.GetLastError());</span>
         }
-        return new WindowsIdentityImpl(phUser.getValue());
+<span class="nc" id="L207">        return new WindowsIdentityImpl(phUser.getValue());</span>
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsAuthProvider#logonUser(java.lang.String, java.lang.String)
-     */
     @Override
     public IWindowsIdentity logonUser(final String username, final String password) {
-<span class="nc" id="L208">        // username@domain UPN format is natively supported by the</span>
-<span class="nc bnc" id="L209" title="All 2 branches missed.">        // Windows LogonUser API process domain\\username format</span>
-<span class="nc" id="L210">        final String[] userNameDomain = username.split(&quot;\\\\&quot;, 2);</span>
-        if (userNameDomain.length == 2) {
-<span class="nc" id="L212">            return this.logonDomainUser(userNameDomain[1], userNameDomain[0], password);</span>
+        // username@domain UPN format is natively supported by the
+        // Windows LogonUser API process domain\\username format
+<span class="nc" id="L214">        final String[] userNameDomain = username.split(&quot;\\\\&quot;, 2);</span>
+<span class="nc bnc" id="L215" title="All 2 branches missed.">        if (userNameDomain.length == 2) {</span>
+<span class="nc" id="L216">            return this.logonDomainUser(userNameDomain[1], userNameDomain[0], password);</span>
         }
-        return this.logonDomainUser(username, null, password);
+<span class="nc" id="L218">        return this.logonDomainUser(username, null, password);</span>
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsAuthProvider#lookupAccount(java.lang.String)
-     */
-<span class="fc" id="L221">    @Override</span>
+    @Override
     public IWindowsAccount lookupAccount(final String username) {
-        return new WindowsAccountImpl(username);
+<span class="fc" id="L223">        return new WindowsAccountImpl(username);</span>
     }
 
-    /*
-     * (non-Javadoc)
-     * @see waffle.windows.auth.IWindowsAuthProvider#resetSecurityToken(java.lang.String)
-     */
-<span class="nc" id="L230">    @Override</span>
-<span class="nc" id="L231">    public void resetSecurityToken(final String connectionId) {</span>
-        this.continueContexts.asMap().remove(connectionId);
-    }
+    @Override
+    public void resetSecurityToken(final String connectionId) {
+<span class="nc" id="L228">        this.continueContexts.asMap().remove(connectionId);</span>
+<span class="nc" id="L229">    }</span>
 
     /**
      * Number of elements in the continue contexts map.
-     * 
+     *
      * @return Number of elements in the hash map.
-<span class="nc" id="L239">     */</span>
+     */
     public int getContinueContextsSize() {
-        return this.continueContexts.asMap().size();
+<span class="nc" id="L237">        return this.continueContexts.asMap().size();</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

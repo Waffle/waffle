@@ -23,11 +23,11 @@ under the License.
     <link>https://waffle.github.com/waffle/</link>
     <description>waffle-jna - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2010 - 2018 com.github.waffle</copyright>
+    <copyright>&#169;2010 - 2019 com.github.waffle</copyright>
     <item>
-      <title>File: 43,
-             Errors: 540,
-             Warnings: 0,
+      <title>File: 45,
+             Errors: 0,
+             Warnings: 136,
              Infos: 0
       </title>
             <link>https://waffle.github.com/waffle//checkstyle.html</link>
@@ -52,10 +52,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  8
+                  0
                 </td>
               </tr>
                           <tr>
@@ -66,10 +66,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  52
+                  0
                 </td>
               </tr>
                           <tr>
@@ -80,10 +80,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  5
+                  0
                 </td>
               </tr>
                           <tr>
@@ -94,10 +94,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  4
+                  0
                 </td>
               </tr>
                           <tr>
@@ -108,10 +108,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
-                  1
+                  0
                 </td>
               </tr>
                           <tr>
@@ -122,10 +122,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  4
+                  0
                 </td>
               </tr>
                           <tr>
@@ -136,10 +136,24 @@ under the License.
                   0
                 </td>
                 <td>
+                  4
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.util.CorsPreflightCheck.java">waffle/util/CorsPreflightCheck.java</a>
+                </td>
+                <td>
                   0
                 </td>
                 <td>
-                  23
+                  4
+                </td>
+                <td>
+                  0
                 </td>
               </tr>
                           <tr>
@@ -150,10 +164,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
-                  1
+                  0
                 </td>
               </tr>
                           <tr>
@@ -164,10 +178,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
-                  1
+                  0
                 </td>
               </tr>
                           <tr>
@@ -178,10 +192,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  11
+                  0
                 </td>
               </tr>
                           <tr>
@@ -192,10 +206,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  4
+                  0
                 </td>
               </tr>
                           <tr>
@@ -206,10 +220,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  17
+                  0
                 </td>
               </tr>
                           <tr>
@@ -220,10 +234,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  6
+                  0
                 </td>
               </tr>
                           <tr>
@@ -234,10 +248,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  33
+                  0
                 </td>
               </tr>
                           <tr>
@@ -248,10 +262,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  5
+                  0
                 </td>
               </tr>
                           <tr>
@@ -262,10 +276,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  5
+                  0
                 </td>
               </tr>
                           <tr>
@@ -276,10 +290,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  4
                 </td>
                 <td>
-                  13
+                  0
                 </td>
               </tr>
                           <tr>
@@ -290,10 +304,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  5
+                  0
                 </td>
               </tr>
                           <tr>
@@ -304,10 +318,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  37
+                  0
                 </td>
               </tr>
                           <tr>
@@ -318,10 +332,24 @@ under the License.
                   0
                 </td>
                 <td>
+                  3
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.servlet.CorsAwareNegotiateSecurityFilter.java">waffle/servlet/CorsAwareNegotiateSecurityFilter.java</a>
+                </td>
+                <td>
                   0
                 </td>
                 <td>
-                  26
+                  4
+                </td>
+                <td>
+                  0
                 </td>
               </tr>
                           <tr>
@@ -332,10 +360,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  16
+                  0
                 </td>
               </tr>
                           <tr>
@@ -346,10 +374,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  2
+                  0
                 </td>
               </tr>
                           <tr>
@@ -360,10 +388,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  15
+                  0
                 </td>
               </tr>
                           <tr>
@@ -374,10 +402,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  19
+                  0
                 </td>
               </tr>
                           <tr>
@@ -388,10 +416,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  26
+                  0
                 </td>
               </tr>
                           <tr>
@@ -402,10 +430,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  10
+                  0
                 </td>
               </tr>
                           <tr>
@@ -416,10 +444,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  6
+                  0
                 </td>
               </tr>
                           <tr>
@@ -430,10 +458,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  3
+                  0
                 </td>
               </tr>
                           <tr>
@@ -444,10 +472,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  28
+                  0
                 </td>
               </tr>
                           <tr>
@@ -458,10 +486,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
-                  1
+                  0
                 </td>
               </tr>
                           <tr>
@@ -472,10 +500,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  12
+                  0
                 </td>
               </tr>
                           <tr>
@@ -486,10 +514,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  8
+                  0
                 </td>
               </tr>
                           <tr>
@@ -500,10 +528,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  6
+                  0
                 </td>
               </tr>
                           <tr>
@@ -514,10 +542,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
-                  1
+                  0
                 </td>
               </tr>
                           <tr>
@@ -528,10 +556,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  3
+                  0
                 </td>
               </tr>
                           <tr>
@@ -542,10 +570,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  6
                 </td>
                 <td>
-                  13
+                  0
                 </td>
               </tr>
                           <tr>
@@ -556,10 +584,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  1
+                  0
                 </td>
               </tr>
                           <tr>
@@ -570,10 +598,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  8
                 </td>
                 <td>
-                  31
+                  0
                 </td>
               </tr>
                           <tr>
@@ -584,10 +612,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  6
+                  0
                 </td>
               </tr>
                           <tr>
@@ -598,10 +626,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  3
+                  0
                 </td>
               </tr>
                           <tr>
@@ -612,10 +640,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  4
                 </td>
                 <td>
-                  60
+                  0
                 </td>
               </tr>
                           <tr>
@@ -626,10 +654,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  8
+                  0
                 </td>
               </tr>
                           <tr>
@@ -640,10 +668,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
-                  1
+                  0
                 </td>
               </tr>
                       </tbody>

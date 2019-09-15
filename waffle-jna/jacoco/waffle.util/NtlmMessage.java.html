@@ -1,28 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>NtlmMessage.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-jna</a> &gt; <a href="index.source.html" class="el_package">waffle.util</a> &gt; <span class="el_source">NtlmMessage.java</span></div><h1>NtlmMessage.java</h1><pre class="source lang-java linenums">/**
- * Waffle (https://github.com/dblock/waffle)
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NtlmMessage.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-jna</a> &gt; <a href="index.source.html" class="el_package">waffle.util</a> &gt; <span class="el_source">NtlmMessage.java</span></div><h1>NtlmMessage.java</h1><pre class="source lang-java linenums">/**
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2015 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+ * Public License v1.0 which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
- * Contributors:
- *     Application Security, Inc.
+ * Contributors: Application Security, Inc.
  */
 package waffle.util;
 
 /**
  * Rudimentary NTLM message utility.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public final class NtlmMessage {
 
-<span class="fc" id="L23">    // NTLM messages start with 0x4e544c4d53535000, NTLMSSP signature</span>
+    // NTLM messages start with 0x4e544c4d53535000, NTLMSSP signature
     /** The Constant NTLM_SSP_SIGNATURE. */
-    private static final byte[] NTLM_SSP_SIGNATURE = { 0x4e, 0x54, 0x4c, 0x4d, 0x53, 0x53, 0x50, 0x00 };
+<span class="fc" id="L23">    private static final byte[] NTLM_SSP_SIGNATURE = { 0x4e, 0x54, 0x4c, 0x4d, 0x53, 0x53, 0x50, 0x00 };</span>
 
     /**
      * Checks if is ntlm message.
@@ -30,37 +28,37 @@ public final class NtlmMessage {
      * @param message
      *            the message
      * @return true, if is ntlm message
-<span class="fc bfc" id="L33" title="All 4 branches covered.">     */</span>
-<span class="fc" id="L34">    public static boolean isNtlmMessage(final byte[] message) {</span>
-        if (message == null || message.length &lt; NtlmMessage.NTLM_SSP_SIGNATURE.length) {
-            return false;
-<span class="fc bfc" id="L37" title="All 2 branches covered.">        }</span>
-<span class="fc bfc" id="L38" title="All 2 branches covered."></span>
-<span class="fc" id="L39">        for (int i = 0; i &lt; NtlmMessage.NTLM_SSP_SIGNATURE.length; i++) {</span>
-            if (NtlmMessage.NTLM_SSP_SIGNATURE[i] != message[i]) {
-                return false;
-            }
-<span class="fc" id="L43">        }</span>
+     */
+    public static boolean isNtlmMessage(final byte[] message) {
+<span class="fc bfc" id="L33" title="All 4 branches covered.">        if (message == null || message.length &lt; NtlmMessage.NTLM_SSP_SIGNATURE.length) {</span>
+<span class="fc" id="L34">            return false;</span>
+        }
 
-        return true;
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        for (int i = 0; i &lt; NtlmMessage.NTLM_SSP_SIGNATURE.length; i++) {</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">            if (NtlmMessage.NTLM_SSP_SIGNATURE[i] != message[i]) {</span>
+<span class="fc" id="L39">                return false;</span>
+            }
+        }
+
+<span class="fc" id="L43">        return true;</span>
     }
 
     /**
      * Get NTLM message type.
-     * 
+     *
      * @param message
      *            Assuming a valid NTLM message.
      * @return Message type.
-<span class="fc" id="L54">     */</span>
+     */
     public static int getMessageType(final byte[] message) {
-        return message[NtlmMessage.NTLM_SSP_SIGNATURE.length];
+<span class="fc" id="L54">        return message[NtlmMessage.NTLM_SSP_SIGNATURE.length];</span>
     }
 
     /**
-<span class="nc" id="L60">     * Instantiates a new ntlm message.</span>
+     * Instantiates a new ntlm message.
      */
-<span class="nc" id="L62">    private NtlmMessage() {</span>
+    private NtlmMessage() {
         // Prevent Instantiation of object
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

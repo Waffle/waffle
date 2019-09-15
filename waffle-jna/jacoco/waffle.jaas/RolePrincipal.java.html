@@ -1,15 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>RolePrincipal.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-jna</a> &gt; <a href="index.source.html" class="el_package">waffle.jaas</a> &gt; <span class="el_source">RolePrincipal.java</span></div><h1>RolePrincipal.java</h1><pre class="source lang-java linenums">/**
- * Waffle (https://github.com/dblock/waffle)
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RolePrincipal.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-jna</a> &gt; <a href="index.source.html" class="el_package">waffle.jaas</a> &gt; <span class="el_source">RolePrincipal.java</span></div><h1>RolePrincipal.java</h1><pre class="source lang-java linenums">/**
+ * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010 - 2015 Application Security, Inc.
+ * Copyright (c) 2010-2018 Application Security, Inc.
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+ * Public License v1.0 which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-v10.html.
  *
- * Contributors:
- *     Application Security, Inc.
+ * Contributors: Application Security, Inc.
  */
 package waffle.jaas;
 
@@ -18,7 +16,7 @@ import java.security.Principal;
 
 /**
  * Role principal.
- * 
+ *
  * @author dblock[at]dblock[dot]org
  */
 public class RolePrincipal implements Principal, Serializable {
@@ -27,26 +25,26 @@ public class RolePrincipal implements Principal, Serializable {
     private static final long serialVersionUID = 1L;
 
     /** The fqn. */
-    private final String      fqn;
+    private final String fqn;
 
     /**
      * A windows principal.
-     * 
+     *
      * @param newFqn
-<span class="fc" id="L36">     *            Fully qualified name.</span>
-<span class="fc" id="L37">     */</span>
-<span class="fc" id="L38">    public RolePrincipal(final String newFqn) {</span>
-        this.fqn = newFqn;
-    }
+     *            Fully qualified name.
+     */
+<span class="fc" id="L36">    public RolePrincipal(final String newFqn) {</span>
+<span class="fc" id="L37">        this.fqn = newFqn;</span>
+<span class="fc" id="L38">    }</span>
 
     /**
      * Role name (Windows Group).
      *
      * @return the name
      */
-<span class="fc" id="L47">    @Override</span>
+    @Override
     public String getName() {
-        return this.fqn;
+<span class="fc" id="L47">        return this.fqn;</span>
     }
 
     /**
@@ -57,17 +55,17 @@ public class RolePrincipal implements Principal, Serializable {
      * @return true, if successful
      */
     @Override
-<span class="fc bfc" id="L60" title="All 2 branches covered.">    public boolean equals(final Object o) {</span>
-<span class="fc" id="L61"></span>
-        if (this == o) {
-            return true;
-<span class="fc bfc" id="L64" title="All 2 branches covered.">        }</span>
-<span class="fc" id="L65"></span>
-        if (o instanceof RolePrincipal) {
-            return this.getName().equals(((RolePrincipal) o).getName());
-<span class="fc" id="L68">        }</span>
+    public boolean equals(final Object o) {
 
-        return false;
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        if (this == o) {</span>
+<span class="fc" id="L61">            return true;</span>
+        }
+
+<span class="fc bfc" id="L64" title="All 2 branches covered.">        if (o instanceof RolePrincipal) {</span>
+<span class="fc" id="L65">            return this.getName().equals(((RolePrincipal) o).getName());</span>
+        }
+
+<span class="fc" id="L68">        return false;</span>
     }
 
     /**
@@ -75,10 +73,10 @@ public class RolePrincipal implements Principal, Serializable {
      *
      * @return the int
      */
-<span class="fc" id="L78">    @Override</span>
+    @Override
     public int hashCode() {
-        return this.getName().hashCode();
+<span class="fc" id="L78">        return this.getName().hashCode();</span>
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

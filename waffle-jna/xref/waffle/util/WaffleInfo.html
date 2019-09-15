@@ -7,13 +7,13 @@
 <body>
 <div id="overview"><a href="../../../apidocs/waffle/util/WaffleInfo.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> * Waffle (https://github.com/Waffle/waffle)</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> * Waffle (<a href="https://github.com/Waffle/waffle)" target="alexandria_uri">https://github.com/Waffle/waffle)</a></em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> * Copyright (c) 2010-2017 Application Security, Inc.</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> * Copyright (c) 2010-2018 Application Security, Inc.</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment"> * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse</em>
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_javadoccomment"> * Public License v1.0 which accompanies this distribution, and is available at</em>
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> * https://www.eclipse.org/legal/epl-v10.html.</em>
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> * <a href="https://www.eclipse.org/legal/epl-v10.html." target="alexandria_uri">https://www.eclipse.org/legal/epl-v10.html.</a></em>
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment"> * Contributors: Application Security, Inc.</em>
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> */</em>
@@ -59,48 +59,48 @@
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>  
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  <em class="jxr_javadoccomment"> * A Utility class to read system info to help troubleshoot WAFFLE system configuration.</em>
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>  <em class="jxr_javadoccomment"> * </em>
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>  <em class="jxr_javadoccomment"> * &lt;pre&gt;</em>
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>  <em class="jxr_javadoccomment"> * This utility class collects system information and returns it as an XML document.</em>
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>  <em class="jxr_javadoccomment"> * &lt;/pre&gt;</em>
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>  <em class="jxr_javadoccomment"> * </em>
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>  <em class="jxr_javadoccomment"> * From the command line, you can write the info to stdout using:</em>
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>  <em class="jxr_javadoccomment"> * </em>
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_javadoccomment"> * &lt;pre&gt;</em>
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  <em class="jxr_javadoccomment"> * &lt;code&gt;</em>
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>  <em class="jxr_javadoccomment"> *   java -cp "jna.jar;waffle-core.jar;waffle-api.jar;jna-platform.jar;guava-21.0.jar" waffle.util.WaffleInfo</em>
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_javadoccomment"> * &lt;/code&gt;</em>
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  <em class="jxr_javadoccomment"> * &lt;/pre&gt;</em>
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>  <em class="jxr_javadoccomment"> * </em>
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>  <em class="jxr_javadoccomment"> * To show this information in a browser, run:</em>
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>  <em class="jxr_javadoccomment"> * </em>
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>  <em class="jxr_javadoccomment"> * &lt;pre&gt;</em>
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>  <em class="jxr_javadoccomment"> * &lt;code&gt;</em>
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>  <em class="jxr_javadoccomment"> *   java -cp "..." waffle.util.WaffleInfo -show</em>
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>  <em class="jxr_javadoccomment"> * &lt;/code&gt;</em>
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>  <em class="jxr_javadoccomment"> * &lt;/pre&gt;</em>
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>  <em class="jxr_javadoccomment"> * </em>
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>  <em class="jxr_javadoccomment"> * To lookup account names and return any listed info, run:</em>
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>  <em class="jxr_javadoccomment"> * </em>
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>  <em class="jxr_javadoccomment"> * &lt;pre&gt;</em>
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>  <em class="jxr_javadoccomment"> * &lt;code&gt;</em>
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>  <em class="jxr_javadoccomment"> *   java -cp "..." waffle.util.WaffleInfo -lookup AccountName</em>
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>  <em class="jxr_javadoccomment"> * &lt;/code&gt;</em>
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_javadoccomment"> * &lt;/pre&gt;</em>
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_javadoccomment"> * </em>
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../waffle/util/WaffleInfo.html">WaffleInfo</a> {
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="WaffleInfo" href="../../waffle/util/WaffleInfo.html#WaffleInfo">WaffleInfo</a> {
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>  
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>      <em class="jxr_javadoccomment">/** The Constant LOGGER. */</em>
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Logger LOGGER = LoggerFactory.getLogger(WaffleInfo.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>  
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>  <em class="jxr_javadoccomment">     * Get a Document with basic system information</em>
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>  <em class="jxr_javadoccomment">     * </em>
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>  <em class="jxr_javadoccomment">     * This uses the builtin javax.xml package even though the API is quite verbose</em>
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>  <em class="jxr_javadoccomment">     * </em>
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>  <em class="jxr_javadoccomment">     * @return Document with waffle info.</em>
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>  <em class="jxr_javadoccomment">     * </em>
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>  <em class="jxr_javadoccomment">     * @throws ParserConfigurationException</em>
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>  <em class="jxr_javadoccomment">     *             when getting new document builder.</em>
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>  <em class="jxr_javadoccomment">     */</em>
@@ -138,7 +138,7 @@
 <a class="jxr_linenumber" name="L130" href="#L130">130</a> <em class="jxr_javadoccomment">     * @return the auth provider info</em>
 <a class="jxr_linenumber" name="L131" href="#L131">131</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>     <strong class="jxr_keyword">protected</strong> Element getAuthProviderInfo(<strong class="jxr_keyword">final</strong> Document doc) {
-<a class="jxr_linenumber" name="L133" href="#L133">133</a>         <strong class="jxr_keyword">final</strong> <a href="../../waffle/windows/auth/IWindowsAuthProvider.html">IWindowsAuthProvider</a> auth = <strong class="jxr_keyword">new</strong> <a href="../../waffle/windows/auth/impl/WindowsAuthProviderImpl.html">WindowsAuthProviderImpl</a>();
+<a class="jxr_linenumber" name="L133" href="#L133">133</a>         <strong class="jxr_keyword">final</strong> <a name="IWindowsAuthProvider" href="../../waffle/windows/auth/IWindowsAuthProvider.html#IWindowsAuthProvider">IWindowsAuthProvider</a> auth = <strong class="jxr_keyword">new</strong> <a name="WindowsAuthProviderImpl" href="../../waffle/windows/auth/impl/WindowsAuthProviderImpl.html#WindowsAuthProviderImpl">WindowsAuthProviderImpl</a>();
 <a class="jxr_linenumber" name="L134" href="#L134">134</a> 
 <a class="jxr_linenumber" name="L135" href="#L135">135</a>         <strong class="jxr_keyword">final</strong> Element node = doc.createElement(<span class="jxr_string">"auth"</span>);
 <a class="jxr_linenumber" name="L136" href="#L136">136</a>         node.setAttribute(<span class="jxr_string">"class"</span>, auth.getClass().getName());
@@ -148,13 +148,13 @@
 <a class="jxr_linenumber" name="L140" href="#L140">140</a>         node.appendChild(child);
 <a class="jxr_linenumber" name="L141" href="#L141">141</a> 
 <a class="jxr_linenumber" name="L142" href="#L142">142</a>         <strong class="jxr_keyword">final</strong> String currentUsername = WindowsAccountImpl.getCurrentUsername();
-<a class="jxr_linenumber" name="L143" href="#L143">143</a>         <strong class="jxr_keyword">this</strong>.addAccountInfo(doc, child, <strong class="jxr_keyword">new</strong> <a href="../../waffle/windows/auth/impl/WindowsAccountImpl.html">WindowsAccountImpl</a>(currentUsername));
+<a class="jxr_linenumber" name="L143" href="#L143">143</a>         <strong class="jxr_keyword">this</strong>.addAccountInfo(doc, child, <strong class="jxr_keyword">new</strong> <a name="WindowsAccountImpl" href="../../waffle/windows/auth/impl/WindowsAccountImpl.html#WindowsAccountImpl">WindowsAccountImpl</a>(currentUsername));
 <a class="jxr_linenumber" name="L144" href="#L144">144</a> 
 <a class="jxr_linenumber" name="L145" href="#L145">145</a>         <em class="jxr_comment">// Computer</em>
 <a class="jxr_linenumber" name="L146" href="#L146">146</a>         child = doc.createElement(<span class="jxr_string">"computer"</span>);
 <a class="jxr_linenumber" name="L147" href="#L147">147</a>         node.appendChild(child);
 <a class="jxr_linenumber" name="L148" href="#L148">148</a> 
-<a class="jxr_linenumber" name="L149" href="#L149">149</a>         <strong class="jxr_keyword">final</strong> <a href="../../waffle/windows/auth/IWindowsComputer.html">IWindowsComputer</a> c = auth.getCurrentComputer();
+<a class="jxr_linenumber" name="L149" href="#L149">149</a>         <strong class="jxr_keyword">final</strong> <a name="IWindowsComputer" href="../../waffle/windows/auth/IWindowsComputer.html#IWindowsComputer">IWindowsComputer</a> c = auth.getCurrentComputer();
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>         Element value = doc.createElement(<span class="jxr_string">"computerName"</span>);
 <a class="jxr_linenumber" name="L151" href="#L151">151</a>         value.setTextContent(c.getComputerName());
 <a class="jxr_linenumber" name="L152" href="#L152">152</a>         child.appendChild(value);
@@ -182,7 +182,7 @@
 <a class="jxr_linenumber" name="L174" href="#L174">174</a>             node.appendChild(child);
 <a class="jxr_linenumber" name="L175" href="#L175">175</a> 
 <a class="jxr_linenumber" name="L176" href="#L176">176</a>             Element d;
-<a class="jxr_linenumber" name="L177" href="#L177">177</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> IWindowsDomain domain : auth.getDomains()) {
+<a class="jxr_linenumber" name="L177" href="#L177">177</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> <a name="IWindowsDomain" href="../../waffle/windows/auth/IWindowsDomain.html#IWindowsDomain">IWindowsDomain</a> domain : auth.getDomains()) {
 <a class="jxr_linenumber" name="L178" href="#L178">178</a>                 d = doc.createElement(<span class="jxr_string">"domain"</span>);
 <a class="jxr_linenumber" name="L179" href="#L179">179</a>                 node.appendChild(d);
 <a class="jxr_linenumber" name="L180" href="#L180">180</a> 
@@ -212,7 +212,7 @@
 <a class="jxr_linenumber" name="L204" href="#L204">204</a> <em class="jxr_javadoccomment">     * @param account</em>
 <a class="jxr_linenumber" name="L205" href="#L205">205</a> <em class="jxr_javadoccomment">     *            the account</em>
 <a class="jxr_linenumber" name="L206" href="#L206">206</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L207" href="#L207">207</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> addAccountInfo(<strong class="jxr_keyword">final</strong> Document doc, <strong class="jxr_keyword">final</strong> Element node, <strong class="jxr_keyword">final</strong> <a href="../../waffle/windows/auth/IWindowsAccount.html">IWindowsAccount</a> account) {
+<a class="jxr_linenumber" name="L207" href="#L207">207</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> addAccountInfo(<strong class="jxr_keyword">final</strong> Document doc, <strong class="jxr_keyword">final</strong> Element node, <strong class="jxr_keyword">final</strong> <a name="IWindowsAccount" href="../../waffle/windows/auth/IWindowsAccount.html#IWindowsAccount">IWindowsAccount</a> account) {
 <a class="jxr_linenumber" name="L208" href="#L208">208</a>         Element value = doc.createElement(<span class="jxr_string">"Name"</span>);
 <a class="jxr_linenumber" name="L209" href="#L209">209</a>         value.setTextContent(account.getName());
 <a class="jxr_linenumber" name="L210" href="#L210">210</a>         node.appendChild(value);
@@ -240,7 +240,7 @@
 <a class="jxr_linenumber" name="L232" href="#L232">232</a> <em class="jxr_javadoccomment">     * @return the lookup info</em>
 <a class="jxr_linenumber" name="L233" href="#L233">233</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L234" href="#L234">234</a>     <strong class="jxr_keyword">public</strong> Element getLookupInfo(<strong class="jxr_keyword">final</strong> Document doc, <strong class="jxr_keyword">final</strong> String lookup) {
-<a class="jxr_linenumber" name="L235" href="#L235">235</a>         <strong class="jxr_keyword">final</strong> <a href="../../waffle/windows/auth/IWindowsAuthProvider.html">IWindowsAuthProvider</a> auth = <strong class="jxr_keyword">new</strong> <a href="../../waffle/windows/auth/impl/WindowsAuthProviderImpl.html">WindowsAuthProviderImpl</a>();
+<a class="jxr_linenumber" name="L235" href="#L235">235</a>         <strong class="jxr_keyword">final</strong> <a name="IWindowsAuthProvider" href="../../waffle/windows/auth/IWindowsAuthProvider.html#IWindowsAuthProvider">IWindowsAuthProvider</a> auth = <strong class="jxr_keyword">new</strong> <a name="WindowsAuthProviderImpl" href="../../waffle/windows/auth/impl/WindowsAuthProviderImpl.html#WindowsAuthProviderImpl">WindowsAuthProviderImpl</a>();
 <a class="jxr_linenumber" name="L236" href="#L236">236</a>         <strong class="jxr_keyword">final</strong> Element node = doc.createElement(<span class="jxr_string">"lookup"</span>);
 <a class="jxr_linenumber" name="L237" href="#L237">237</a>         node.setAttribute(<span class="jxr_string">"name"</span>, lookup);
 <a class="jxr_linenumber" name="L238" href="#L238">238</a>         <strong class="jxr_keyword">try</strong> {
@@ -302,7 +302,7 @@
 <a class="jxr_linenumber" name="L294" href="#L294">294</a> 
 <a class="jxr_linenumber" name="L295" href="#L295">295</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L296" href="#L296">296</a> <em class="jxr_javadoccomment">     * Print system information.</em>
-<a class="jxr_linenumber" name="L297" href="#L297">297</a> <em class="jxr_javadoccomment">     * </em>
+<a class="jxr_linenumber" name="L297" href="#L297">297</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L298" href="#L298">298</a> <em class="jxr_javadoccomment">     * @param args</em>
 <a class="jxr_linenumber" name="L299" href="#L299">299</a> <em class="jxr_javadoccomment">     *            variable arguments to pass to main. Valid values are "-show" and "-lookup".</em>
 <a class="jxr_linenumber" name="L300" href="#L300">300</a> <em class="jxr_javadoccomment">     */</em>
@@ -329,7 +329,7 @@
 <a class="jxr_linenumber" name="L321" href="#L321">321</a>             }
 <a class="jxr_linenumber" name="L322" href="#L322">322</a>         }
 <a class="jxr_linenumber" name="L323" href="#L323">323</a> 
-<a class="jxr_linenumber" name="L324" href="#L324">324</a>         <strong class="jxr_keyword">final</strong> <a href="../../waffle/util/WaffleInfo.html">WaffleInfo</a> helper = <strong class="jxr_keyword">new</strong> <a href="../../waffle/util/WaffleInfo.html">WaffleInfo</a>();
+<a class="jxr_linenumber" name="L324" href="#L324">324</a>         <strong class="jxr_keyword">final</strong> <a name="WaffleInfo" href="../../waffle/util/WaffleInfo.html#<a name="WaffleInfo" href="../../waffle/util/WaffleInfo.html#WaffleInfo">WaffleInfo</a>">WaffleInfo</a> helper = <strong class="jxr_keyword">new</strong> <a name="WaffleInfo" href="../../waffle/util/WaffleInfo.html#WaffleInfo">WaffleInfo</a>();
 <a class="jxr_linenumber" name="L325" href="#L325">325</a>         <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L326" href="#L326">326</a>             <strong class="jxr_keyword">final</strong> Document info = helper.getWaffleInfo();
 <a class="jxr_linenumber" name="L327" href="#L327">327</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> String name : lookup) {
@@ -353,6 +353,6 @@
 <a class="jxr_linenumber" name="L345" href="#L345">345</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2010&#x2013;2018 <a href="https://github.com/waffle/">com.github.waffle</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2010&#x2013;2019 <a href="https://github.com/waffle/">com.github.waffle</a>. All rights reserved.</div>
 </body>
 </html>
