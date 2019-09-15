@@ -423,6 +423,25 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>${javadoc.plugin}</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                            </manifest>
+                            <manifestEntries>
+                                <Build-Time>${maven.build.timestamp}</Build-Time>
+                                <Copyright>${copyright}</Copyright>
+                                <Git-Revision>${git.commit.id}</Git-Revision>
+                                <Os-Name>${os.name}</Os-Name>
+                                <Os-Arch>${os.arch}</Os-Arch>
+                                <Os-Version>${os.version}</Os-Version>
+                                <X-Compile-Source-JDK>${maven.compiler.source}</X-Compile-Source-JDK>
+                                <X-Compile-Target-JDK>${maven.compiler.target}</X-Compile-Target-JDK>
+                            </manifestEntries>
+                        </archive>
+                        <quiet>true</quiet>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -809,34 +828,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-                        </manifest>
-                        <manifestEntries>
-                            <Build-Time>${maven.build.timestamp}</Build-Time>
-                            <Copyright>${copyright}</Copyright>
-                            <Git-Revision>${git.commit.id}</Git-Revision>
-                            <Os-Name>${os.name}</Os-Name>
-                            <Os-Arch>${os.arch}</Os-Arch>
-                            <Os-Version>${os.version}</Os-Version>
-                            <X-Compile-Source-JDK>${maven.compiler.source}</X-Compile-Source-JDK>
-                            <X-Compile-Target-JDK>${maven.compiler.target}</X-Compile-Target-JDK>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
                         <goals>
                             <goal>jar</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>attach-test-javadocs</id>
-                        <goals>
                             <goal>test-jar</goal>
                         </goals>
                     </execution>
@@ -1434,6 +1430,26 @@
                                 <compilerArgs combine.children="append">
                                     <arg>-J-Xbootclasspath/p:${settings.localRepository}/com/google/errorprone/javac/${javac.version}/javac-${javac.version}.jar</arg>
                                 </compilerArgs>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+
+        <profile>
+            <id>jdk9on</id>
+            <activation>
+                <jdk>[9,)</jdk>
+            </activation>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-javadoc-plugin</artifactId>
+                            <configuration>
+                                <additionalOptions>-html5</additionalOptions>
                             </configuration>
                         </plugin>
                     </plugins>
