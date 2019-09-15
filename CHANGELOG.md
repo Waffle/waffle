@@ -1,5 +1,10 @@
-2.1.0 (in-progress)
+2.1.1 (in-progress)
 ===================
+
+TBD
+
+2.1.0 (9/15/2019)
+=================
 * Remove obsolete tomcat8 from project - use tomcat 85 as a direct replacement
 * Correctly align spring boot 2 starter to spring security 5 module
 
