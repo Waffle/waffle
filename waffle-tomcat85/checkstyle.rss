@@ -23,11 +23,11 @@ under the License.
     <link>https://waffle.github.com/waffle/</link>
     <description>waffle-tomcat85 - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2010 - 2018 com.github.waffle</copyright>
+    <copyright>&#169;2010 - 2019 com.github.waffle</copyright>
     <item>
       <title>File: 6,
-             Errors: 142,
-             Warnings: 0,
+             Errors: 0,
+             Warnings: 17,
              Infos: 0
       </title>
             <link>https://waffle.github.com/waffle//checkstyle.html</link>
@@ -52,10 +52,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  4
                 </td>
                 <td>
-                  18
+                  0
                 </td>
               </tr>
                           <tr>
@@ -66,10 +66,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
-                  1
+                  0
                 </td>
               </tr>
                           <tr>
@@ -80,10 +80,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  5
+                  0
                 </td>
               </tr>
                           <tr>
@@ -94,10 +94,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  41
+                  0
                 </td>
               </tr>
                           <tr>
@@ -108,10 +108,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  33
+                  0
                 </td>
               </tr>
                           <tr>
@@ -122,10 +122,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
-                  44
+                  0
                 </td>
               </tr>
                       </tbody>
