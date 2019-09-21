@@ -37,7 +37,7 @@
     </scm>
 
     <properties>
-        <ecj.version>3.18.0</ecj.version>
+        <ecj.version>3.19.0</ecj.version>
         <el.version>3.0.3</el.version>
         <el-api.version>3.0.3</el-api.version>
         <jetty.version>9.4.20.v20190813</jetty.version>
