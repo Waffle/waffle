@@ -149,7 +149,7 @@
         <jmockit.version>1.48</jmockit.version>
         <jsr305.version>3.0.2</jsr305.version>
         <junit.version>5.5.2</junit.version>
-        <slf4j.version>2.0.0-alpha0</slf4j.version>
+        <slf4j.version>2.0.0-alpha1</slf4j.version>
 
         <!-- Signature Settings -->
         <signature.artifact>java18</signature.artifact>
