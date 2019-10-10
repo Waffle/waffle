@@ -2,6 +2,7 @@
 ===================
 
 TBD
+* Fix form authentication in tomcat MixedAuthenticator valve when getServletPath() return null 
 
 2.1.0 (9/15/2019)
 =================
