@@ -94,13 +94,20 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
             return true;
         } else if (negotiateCheck) {
             if (!authorizationHeader.isNull()) {
-                return this.negotiate(request, response, authorizationHeader);
+                boolean negociateResult = this.negotiate(request, response, authorizationHeader);
+                if (!negociateResult) {
+                    this.redirectTo(request, response, loginConfig.getErrorPage());
+                }
             }
             this.log.debug("authorization required");
             this.sendUnauthorized(response);
             return false;
         } else if (securityCheck) {
-            return this.post(request, response);
+            final boolean postResult = this.post(request, response);
+            if (!postResult) {
+                this.redirectTo(request, response, loginConfig.getErrorPage());
+            }
+            return postResult;
         } else {
             this.redirectTo(request, response, loginConfig.getLoginPage());
             return false;
