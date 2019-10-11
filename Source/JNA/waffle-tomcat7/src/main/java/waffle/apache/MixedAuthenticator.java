@@ -97,6 +97,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
                 if (!negociateResult) {
                     this.redirectTo(request, response, loginConfig.getErrorPage());
                 }
+                return negociateResult;
             }
             this.log.debug("authorization required");
             this.sendUnauthorized(response);
