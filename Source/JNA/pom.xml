@@ -177,7 +177,7 @@
         <htmlcompressor.plugin>1.4.0</htmlcompressor.plugin>
         <impsort.plugin>1.3.0</impsort.plugin>
         <install.plugin>3.0.0-M1</install.plugin>
-        <jacoco.plugin>0.8.4</jacoco.plugin>
+        <jacoco.plugin>0.8.5</jacoco.plugin>
         <jar.plugin>3.1.2</jar.plugin>
         <javadoc.plugin>3.1.1</javadoc.plugin>
         <jdepend.plugin>2.0</jdepend.plugin>
