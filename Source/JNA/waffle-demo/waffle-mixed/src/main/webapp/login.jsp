@@ -2,7 +2,7 @@
 
     Waffle (https://github.com/Waffle/waffle)
 
-    Copyright (c) 2010-2016 Application Security, Inc.
+    Copyright (c) 2010-2019 Application Security, Inc.
 
     All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
     Public License v1.0 which accompanies this distribution, and is available at
@@ -17,7 +17,7 @@
 </head>
 </html>
 <body>
-<form method="POST" name="loginform" action="index.jsp?j_security_check">
+<form method="POST" name="loginform" action="test?j_security_check">
 <table style="vertical-align: middle;">
 	<tr>
 		<td>Username:</td>
@@ -33,7 +33,7 @@
 </table>
 </form>
 <hr>
-<form method="POST" name="loginform" action="index.jsp?j_negotiate_check">
+<form method="POST" name="loginform" action="test?j_negotiate_check">
 	<input type="submit" value="Login w/ Current Windows Credentials" />
 </form>
 </body>

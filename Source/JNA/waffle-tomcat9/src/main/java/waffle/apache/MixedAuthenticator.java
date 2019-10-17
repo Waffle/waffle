@@ -94,11 +94,11 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
             return true;
         } else if (negotiateCheck) {
             if (!authorizationHeader.isNull()) {
-                boolean negociateResult = this.negotiate(request, response, authorizationHeader);
-                if (!negociateResult) {
+                boolean negotiateResult = this.negotiate(request, response, authorizationHeader);
+                if (!negotiateResult) {
                     this.redirectTo(request, response, loginConfig.getErrorPage());
                 }
-                return negociateResult;
+                return negotiateResult;
             }
             this.log.debug("authorization required");
             this.sendUnauthorized(response);
