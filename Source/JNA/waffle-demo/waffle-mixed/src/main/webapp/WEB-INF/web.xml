@@ -12,79 +12,72 @@
     Contributors: Application Security, Inc.
 
 -->
-<!-- Waffle (https://github.com/Waffle/waffle) Copyright (c) 2010-2019 Application 
-	Security, Inc. All rights reserved. This program and the accompanying materials 
-	are made available under the terms of the Eclipse Public License v1.0 which 
-	accompanies this distribution, and is available at https://www.eclipse.org/legal/epl-v10.html. 
-	Contributors: Application Security, Inc. -->
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee"
-	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-	version="3.0">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+    version="3.0">
 
-	<description>Waffle Tomcat Authenticator Demo</description>
-	<display-name>Waffle Demo</display-name>
+    <description>Waffle Tomcat Authenticator Demo</description>
+    <display-name>Waffle Demo</display-name>
 
-	<!-- System Information Helpful for debugging -->
-	<servlet>
-		<servlet-name>WaffleInfo</servlet-name>
-		<servlet-class>waffle.servlet.WaffleInfoServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>WaffleInfo</servlet-name>
-		<url-pattern>/*</url-pattern>
-	</servlet-mapping>
+    <!-- System Information Helpful for debugging -->
+    <servlet>
+        <servlet-name>WaffleInfo</servlet-name>
+        <servlet-class>waffle.servlet.WaffleInfoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>WaffleInfo</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
 
-	<servlet>
-		<servlet-name>IndexServlet</servlet-name>
-		<jsp-file>/index.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>IndexServlet</servlet-name>
-		<url-pattern>/index.jsp</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>LoginServlet</servlet-name>
-		<jsp-file>/login.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>LoginServlet</servlet-name>
-		<url-pattern>/login.jsp</url-pattern>
-	</servlet-mapping>
+    <servlet>
+        <servlet-name>IndexServlet</servlet-name>
+        <jsp-file>/index.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>IndexServlet</servlet-name>
+        <url-pattern>/index.jsp</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <jsp-file>/login.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/login.jsp</url-pattern>
+    </servlet-mapping>
 
-	<security-constraint>
-		<display-name>Waffle Security Constraint</display-name>
-		<web-resource-collection>
-			<web-resource-name>Protected Area</web-resource-name>
-			<url-pattern>/*</url-pattern>
-			<http-method>DELETE</http-method>
-			<http-method>GET</http-method>
-			<http-method>POST</http-method>
-			<http-method>PUT</http-method>
-		</web-resource-collection>
-		<auth-constraint>
-			<role-name>Everyone</role-name>
-		</auth-constraint>
-	</security-constraint>
-	<security-constraint>
-		<display-name>Login Page</display-name>
-		<web-resource-collection>
-			<web-resource-name>Unprotected Login Page</web-resource-name>
-			<url-pattern>/login.jsp</url-pattern>
-		</web-resource-collection>
-	</security-constraint>
+    <security-constraint>
+        <display-name>Waffle Security Constraint</display-name>
+        <web-resource-collection>
+            <web-resource-name>Protected Area</web-resource-name>
+            <url-pattern>/*</url-pattern>
+            <http-method>DELETE</http-method>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+            <http-method>PUT</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Everyone</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>Login Page</display-name>
+        <web-resource-collection>
+            <web-resource-name>Unprotected Login Page</web-resource-name>
+            <url-pattern>/login.jsp</url-pattern>
+        </web-resource-collection>
+    </security-constraint>
 
-	<error-page>
-		<error-code>401</error-code>
-		<location>/401.html</location>
-	</error-page>
+    <error-page>
+        <error-code>401</error-code>
+        <location>/401.html</location>
+    </error-page>
 
-	<login-config>
-		<form-login-config>
-			<form-login-page>/login.jsp</form-login-page>
-			<form-error-page>/error.html</form-error-page>
-		</form-login-config>
-	</login-config>
+    <login-config>
+        <form-login-config>
+            <form-login-page>/login.jsp</form-login-page>
+            <form-error-page>/error.html</form-error-page>
+        </form-login-config>
+    </login-config>
 
 </web-app>
