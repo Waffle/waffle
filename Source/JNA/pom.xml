@@ -214,7 +214,7 @@
         <javac.version>9+181-r4173-1</javac.version>
         <jgit.version>5.5.1.201910021850-r</jgit.version>
         <wagon-git.version>2.0.3</wagon-git.version> <!-- Do not upgrade to 2.0.4 with ssh as it is broken -->
-        <wagon-ssh.version>3.3.3</wagon-ssh.version>
+        <wagon-ssh.version>3.3.4</wagon-ssh.version>
         <yuicompressor.version>2.4.8</yuicompressor.version>
 
         <!-- Lifecycle Mapping -->
