@@ -40,7 +40,7 @@
         <beanutils.version>1.9.4</beanutils.version>
         <powermock.version>2.0.4</powermock.version>
         <servlet.version>4.0.3</servlet.version>
-        <shiro.version>1.4.1</shiro.version>
+        <shiro.version>1.4.2</shiro.version>
     </properties>
 
     <dependencies>
