@@ -521,16 +521,13 @@
                     <artifactId>maven-dependency-plugin</artifactId>
                     <version>${dependency.plugin}</version>
                 </plugin>
-                <!-- TODO: Fix release so we use the release profile properly to release site as well -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
                     <version>${release.plugin}</version>
                     <configuration>
                         <autoVersionSubmodules>true</autoVersionSubmodules>
-                        <useReleaseProfile>false</useReleaseProfile>
                         <releaseProfiles>release</releaseProfiles>
-                        <goals>deploy</goals>
                     </configuration>
                 </plugin>
                 <plugin>
