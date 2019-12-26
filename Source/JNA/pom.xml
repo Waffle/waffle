@@ -429,6 +429,7 @@
                                 <X-Compile-Target-JDK>${maven.compiler.target}</X-Compile-Target-JDK>
                             </manifestEntries>
                         </archive>
+                        <skipIfEmpty>true</skipIfEmpty>
                     </configuration>
                 </plugin>
                 <plugin>
