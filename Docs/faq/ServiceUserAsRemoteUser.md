@@ -59,7 +59,7 @@ I did not change anything in the sample applications filter:
     		NTLM
     	</param-value>
     </init-param>
-    <init-param>    
+    <init-param>
     	<param-name>waffle.servlet.spi.BasicSecurityFilterProvider/realm</param-name>
     	<param-value>WaffleFilterDemo</param-value>
     </init-param>

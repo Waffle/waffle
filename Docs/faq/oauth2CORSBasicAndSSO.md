@@ -98,7 +98,7 @@ Guarding API requests and OAUTH2 Server Request
           NTLM
       </param-value>
   </init-param>
-  <init-param>    
+  <init-param>
       <param-name>waffle.servlet.spi.BasicSecurityFilterProvider/realm</param-name>
       <param-value>WaffleFilterDemo</param-value>
   </init-param>
