@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"waffle.shiro"},{"l":"waffle.shiro.dynamic"},{"l":"waffle.shiro.negotiate"}]
