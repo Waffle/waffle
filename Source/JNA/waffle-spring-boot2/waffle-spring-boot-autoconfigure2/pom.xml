@@ -18,11 +18,11 @@
     <parent>
         <groupId>com.github.waffle</groupId>
         <artifactId>waffle-spring-boot2</artifactId>
-        <version>2.1.1-SNAPSHOT</version>
+        <version>2.1.1</version>
     </parent>
 
     <artifactId>waffle-spring-boot-autoconfigure2</artifactId>
-    <version>2.1.1-SNAPSHOT</version>
+    <version>2.1.1</version>
     <packaging>jar</packaging>
 
     <name>waffle-spring-boot-autoconfigure2</name>
@@ -33,7 +33,7 @@
         <connection>scm:git:ssh://git@github.com/waffle/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/waffle/waffle.git</developerConnection>
         <url>https://github.com/Waffle/waffle</url>
-        <tag>HEAD</tag>
+        <tag>waffle-parent-2.1.1</tag>
     </scm>
 
     <dependencies>
