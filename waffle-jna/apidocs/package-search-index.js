@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"waffle.jaas"},{"l":"waffle.servlet"},{"l":"waffle.servlet.spi"},{"l":"waffle.util"},{"l":"waffle.windows.auth"},{"l":"waffle.windows.auth.impl"}]
