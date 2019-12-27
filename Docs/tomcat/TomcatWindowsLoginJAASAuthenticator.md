@@ -1,7 +1,7 @@
 Tomcat Windows Login JAAS Authenticator
 =======================================
 
-Waffle implements a standard Java Authentication and Authorization login module that can be notably used with a JAAS realm to authenticate Windows users in Tomcat. This enables you to add a BASIC, DIGEST or FORMS login to your application and authenticate against a Windows Active Directory using Windows local or domain groups as means of authorization. 
+Waffle implements a standard Java Authentication and Authorization login module that can be notably used with a JAAS realm to authenticate Windows users in Tomcat. This enables you to add a BASIC, DIGEST or FORMS login to your application and authenticate against a Windows Active Directory using Windows local or domain groups as means of authorization.
 
 Configuring Tomcat
 ------------------
@@ -33,7 +33,7 @@ Enable BASIC, DIGEST or FORMS authentication for this realm. Modify `WEB-INF\web
 </login-config>
 ```
 
-Configure security roles in `WEB-INF\web.xml`. The Waffle login module adds all user's security groups (including nested and domain groups) as roles during authentication. 
+Configure security roles in `WEB-INF\web.xml`. The Waffle login module adds all user's security groups (including nested and domain groups) as roles during authentication.
 
 ``` xml
 <security-role>
@@ -41,7 +41,7 @@ Configure security roles in `WEB-INF\web.xml`. The Waffle login module adds all 
 </security-role>
 ```
 
-Restrict access to website resources. For example, to restrict the entire website to locally authenticated users add the following in `WEB-INF\web.xml`. 
+Restrict access to website resources. For example, to restrict the entire website to locally authenticated users add the following in `WEB-INF\web.xml`.
 
 ``` xml
 <security-constraint>
@@ -62,7 +62,7 @@ Restrict access to website resources. For example, to restrict the entire websit
 Login.conf
 ----------
 
-Create a login configuration file, `login.conf`. This configuration file specifies how to plug the Waffle Windows Login Module. 
+Create a login configuration file, `login.conf`. This configuration file specifies how to plug the Waffle Windows Login Module.
 
 ```
 Jaas {
@@ -70,28 +70,28 @@ Jaas {
 };
 ```
 
-The login.conf configuration file is passed to Java with `-Djava.security.auth.login.config=<path-to-file>/login.conf`. 
+The login.conf configuration file is passed to Java with `-Djava.security.auth.login.config=<path-to-file>/login.conf`.
 
 The following options are supported by the module. 
 
-* debug: Set to "true" to enable debug mode. In debug mode the module will output information about successful logins, including group memberships. 
+* debug: Set to "true" to enable debug mode. In debug mode the module will output information about successful logins, including group memberships.
 * principalFormat: Specifies the name format for the principal.
 * roleFormat: Specifies the name format for the role.
-* allowGuestLogin: Allow guest login. When true and the system's Guest account is enabled, any invalid login succeeds as Guest. 
+* allowGuestLogin: Allow guest login. When true and the system's Guest account is enabled, any invalid login succeeds as Guest.
 
-Note: While the default value of `allowGuestLogin` is "true", it is recommended that you disable the system's Guest account to disallow Guest login. This option is provided for systems where you don't have administrative privileges. 
+Note: While the default value of `allowGuestLogin` is "true", it is recommended that you disable the system's Guest account to disallow Guest login. This option is provided for systems where you don't have administrative privileges.
  
 The following principal and role formats are available. 
 
-* fqn: Fully qualified names, such as domain\group. When unavailable, a SID is used. This is the default. 
-* sid: Group SID in the S- format. 
-* both: Both a fully qualified name and a SID in the S- format. When a group name is not available, a SID is used. 
-* none: Available for roleFormat only. Do not retrieve roles. 
+* fqn: Fully qualified names, such as domain\group. When unavailable, a SID is used. This is the default.
+* sid: Group SID in the S- format.
+* both: Both a fully qualified name and a SID in the S- format. When a group name is not available, a SID is used.
+* none: Available for roleFormat only. Do not retrieve roles.
 
 Jaas.policy
 -----------
 
-Create JAAS policy configuration file, jaas.policy. This file specifies which identities are granted which permissions. 
+Create JAAS policy configuration file, jaas.policy. This file specifies which identities are granted which permissions.
  
 ```
 grant Principal * * {
@@ -99,12 +99,12 @@ grant Principal * * {
 };
 ```
 
-The policy file is passed to Java with `-Djava.security.auth.policy=<path-to-file>/jaas.policy`. 
+The policy file is passed to Java with `-Djava.security.auth.policy=<path-to-file>/jaas.policy`.
 
 Starting Tomcat w/ Security Manager
 -----------------------------------
 
-You must start Tomcat with Security Manager enabled (`-security`) and configure it with a login configuration and policy. For example, the following will start Tomcat using the demo `login.conf` and `jaas.policy` from the Waffle samples. 
+You must start Tomcat with Security Manager enabled (`-security`) and configure it with a login configuration and policy. For example, the following will start Tomcat using the demo `login.conf` and `jaas.policy` from the Waffle samples.
 
 ``` bat
 @echo off
@@ -117,15 +117,15 @@ endlocal
 Troubleshooting
 ---------------
 
-Most issues are caused by an incorrect JAAS configuration. Enable JAAS logging by adding the following to `conf\logging.properties` in your Tomcat installation. 
+Most issues are caused by an incorrect JAAS configuration. Enable JAAS logging by adding the following to `conf\logging.properties` in your Tomcat installation.
 
 ```
 org.apache.catalina.realm.level = FINE
 ```
 
-Restart Tomcat and review `logs\Catalina*.log`. 
+Restart Tomcat and review `logs\Catalina*.log`.
 
 Waffle JAAS Demo
 ----------------
 
-A demo application can be found in the Waffle distribution in the `Samples\waffle-jaas` directory. Copy the entire directory into Tomcat's webapps directory and navigate to http://localhost:8080/waffle-jaas/. 
+A demo application can be found in the Waffle distribution in the `Samples\waffle-jaas` directory. Copy the entire directory into Tomcat's webapps directory and navigate to http://localhost:8080/waffle-jaas/.

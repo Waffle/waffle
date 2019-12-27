@@ -110,7 +110,7 @@ Restart Tomcat and review `logs\Catalina*.log`.
 Waffle Mixed Authenticator Demo
 -------------------------------
 
-A demo application `waffle-mixed-[version].war` can be found in the Waffle distribution in the `Samples` directory. Copy the `war` file into Tomcat's webapps directory and navigate to http://localhost:8080/waffle-mixed/. Pick your method of login. 
+A demo application `waffle-mixed-[version].war` can be found in the Waffle distribution in the `Samples` directory. Copy the `war` file into Tomcat's webapps directory and navigate to http://localhost:8080/waffle-mixed/. Pick your method of login.
 
 Make sure you have added the JARs to Tomcat's `lib` directory as described at the top!
 
@@ -127,7 +127,7 @@ The following options are supported by the Valve.
 
 * principalFormat: Specifies the name format for the principal.
 * roleFormat: Specifies the name format for the role.
-* allowGuestLogin: Allow guest login. When true and the system's Guest account is enabled, any invalid login succeeds as Guest. Note that while the default value of allowGuestLogin is true, it is recommended that you disable the system's Guest account to disallow Guest login. This option is provided for systems where you don't have administrative privileges. 
+* allowGuestLogin: Allow guest login. When true and the system's Guest account is enabled, any invalid login succeeds as Guest. Note that while the default value of allowGuestLogin is true, it is recommended that you disable the system's Guest account to disallow Guest login. This option is provided for systems where you don't have administrative privileges.
 * protocols: authentication protocol(s), comma separated, default is "Negotiate,NTLM"
 
 The following principal/group formats are supported. 
