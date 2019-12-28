@@ -81,6 +81,16 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${logback.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.sun.mail</groupId>
+                    <artifactId>javax.mail</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>edu.washington.cs.types.checker</groupId>
+                    <artifactId>checker-framework</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
