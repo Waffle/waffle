@@ -51,6 +51,7 @@
     </scm>
 
     <properties>
+        <logback.version>1.3.0-alpha5</logback.version>
         <servlet.version>4.0.3</servlet.version>
     </properties>
 
@@ -74,6 +75,12 @@
             <artifactId>jakarta.servlet-api</artifactId>
             <version>${servlet.version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
         </dependency>
     </dependencies>
 
