@@ -8,9 +8,9 @@ Configuring WildFly
 
 The following steps are required to configure WildFly with Waffle authenticator.
 
-Include the Waffle JARs, `waffle-jna-2.1.0.jar`, `caffeine-2.8.0.jar`, `jna-5.5.0.jar`, `jna-platform-5.5.0.jar`, and `slf4j-api-2.0.0-alpha1.jar` in your war's `WEB-INF\lib` directory. Alternatively you may place them in the `standalone/lib/ext` folder within the wildfly installation.
+Include the Waffle JARs, `waffle-jna-2.1.1.jar`, `caffeine-2.8.0.jar`, `jna-5.5.0.jar`, `jna-platform-5.5.0.jar`, and `slf4j-api-2.0.0-alpha1.jar` in your war's `WEB-INF\lib` directory. Alternatively you may place them in the `standalone/lib/ext` folder within the wildfly installation.
 
-- For latest snapshot instead use `waffle-jna-2.1.1-SNAPSHOT`, `caffeine-2.8.0.jar`, `jna-5.5.0.jar`, `jna-platform-5.5.0.jar` and `slf4j-api-2.0.0-alpha1.jar`.
+- For latest snapshot instead use `waffle-jna-2.1.2-SNAPSHOT`, `caffeine-2.8.0.jar`, `jna-5.5.0.jar`, `jna-platform-5.5.0.jar` and `slf4j-api-2.0.0-alpha1.jar`.
 
 Create a security domain using the Waffle `WindowsLoginModule`. It is recommended you keep the principal and role formats to `fqn`. 
 ```xml
