@@ -8,9 +8,9 @@ Configuring Tomcat
 
 The following steps are required to configure Tomcat with Waffle Mixed Authenticator. 
 
-Place  `waffle-jna-2.1.0.jar`, `caffeine-2.8.0.jar`, `jna-5.5.0.jar`, `jna-platform-5.5.0.jar`, `slf4j-api-2.0.0-alpha1.jar` and `waffle-tomcat[tomcat version]-2.1.0.jar` into your Tomcat's `lib` directory. It is *not* possible to place these files in `WEB-INF\lib`!
+Place  `waffle-jna-2.1.1.jar`, `caffeine-2.8.0.jar`, `jna-5.5.0.jar`, `jna-platform-5.5.0.jar`, `slf4j-api-2.0.0-alpha1.jar` and `waffle-tomcat[tomcat version]-2.1.1.jar` into your Tomcat's `lib` directory. It is *not* possible to place these files in `WEB-INF\lib`!
 
-- For latest snapshot instead use `waffle-jna-2.1.1-SNAPSHOT`, `caffeine-2.8.0.jar`, `jna-5.5.0.jar`, `jna-platform-5.5.0.jar`, `slf4j-api-2.0.0-alpha1.jar` and `waffle-tomcat[tomcat version]-2.1.1-SNAPSHOT.jar`
+- For latest snapshot instead use `waffle-jna-2.1.2-SNAPSHOT`, `caffeine-2.8.0.jar`, `jna-5.5.0.jar`, `jna-platform-5.5.0.jar`, `slf4j-api-2.0.0-alpha1.jar` and `waffle-tomcat[tomcat version]-2.1.2-SNAPSHOT.jar`
 
 If you are using Eclipse, you can see which files tomcat is importing by going to Java Recources: `src / Libraries / Apache Tomcat vx.x`. If you've placed it in the tomcat directory and still don't see it, restart Eclipse.
 
