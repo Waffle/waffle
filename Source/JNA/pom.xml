@@ -174,7 +174,7 @@
         <formatter.plugin>2.11.0</formatter.plugin>
         <git-commit-id.plugin>4.0.0</git-commit-id.plugin>
         <gpg.plugin>1.6</gpg.plugin>
-        <htmlcompressor.plugin>1.4.0</htmlcompressor.plugin>
+        <htmlcompressor.plugin>1.4.1</htmlcompressor.plugin>
         <impsort.plugin>1.3.2</impsort.plugin>
         <install.plugin>3.0.0-M1</install.plugin>
         <jacoco.plugin>0.8.5</jacoco.plugin>
