@@ -210,7 +210,7 @@
         <sb-contrib.version>7.4.7</sb-contrib.version>
         <findsecbugs.version>1.10.1</findsecbugs.version>
         <fluido.version>1.8</fluido.version>
-        <htmlcompressor.version>1.6.5</htmlcompressor.version>
+        <htmlcompressor.version>1.6.6</htmlcompressor.version>
         <javac.version>9+181-r4173-1</javac.version>
         <jgit.version>5.6.0.201912101111-r</jgit.version>
         <wagon-git.version>2.0.3</wagon-git.version> <!-- Do not upgrade to 2.0.4 with ssh as it is broken -->
