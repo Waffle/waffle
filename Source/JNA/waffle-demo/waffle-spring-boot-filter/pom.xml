@@ -3,7 +3,7 @@
 
     Waffle (https://github.com/Waffle/waffle)
 
-    Copyright (c) 2010-2019 Application Security, Inc.
+    Copyright (c) 2010-2020 Application Security, Inc.
 
     All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
     Public License v1.0 which accompanies this distribution, and is available at
@@ -36,9 +36,13 @@
     </scm>
 
     <properties>
+        <!-- Dependencies -->
         <jna.version>5.5.0</jna.version>
         <logback.version>1.2.3</logback.version>
         <spring-boot.version>1.5.22.RELEASE</spring-boot.version>
+
+        <!-- Automatic Module Name for JPMS -->
+        <module.name>waffle.spring.boot.filter.demo</module.name>
     </properties>
 
     <dependencyManagement>
