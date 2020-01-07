@@ -119,7 +119,7 @@
 
     <properties>
         <!-- Project Level -->
-        <copyright>2019</copyright>
+        <copyright>2020</copyright>
 
         <!-- Remember to adjust this up as you add unit tests -->
         <jacoco.minimum.coverage>0.0</jacoco.minimum.coverage>
