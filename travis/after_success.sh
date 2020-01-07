@@ -18,7 +18,7 @@ echo "Current commit detected: ${commit_message}"
 
 if [ $TRAVIS_REPO_SLUG == "Waffle/waffle" ] && [ $TRAVIS_PULL_REQUEST == "false" ] && [ $TRAVIS_BRANCH == "master" ] && [[ "$commit_message" != *"[maven-release-plugin]"* ]]; then
 
-  if [ $TRAVIS_JDK_VERSION == "oraclejdk8" ]; then
+  if [ $TRAVIS_JDK_VERSION == "openjdk8" ]; then
     # Deploy to sonatype
     ./mvnw deploy -DskipTests -q --settings ./travis/settings.xml
     echo -e "Successfully deployed SNAPSHOT artifacts to Sonatype under Travis job ${TRAVIS_JOB_NUMBER}"
@@ -34,7 +34,7 @@ if [ $TRAVIS_REPO_SLUG == "Waffle/waffle" ] && [ $TRAVIS_PULL_REQUEST == "false"
     # echo -e "Successfully deploy site under Travis job ${TRAVIS_JOB_NUMBER}"
 
     # Deploy to sonar
-    ./mvnw clean -DskipTests package sonar:sonar -Dsonar.host.url=https://sonarqube.com -Dsonar.login=d0aebdf8d5ac16533aa357908eb6794dc6792d81 -q --settings ./travis/settings.xml
+    ./mvnw clean -DskipTests install sonar:sonar -Dsonar.projectKey=Waffle_waffle -q --settings ./travis/settings.xml
     echo -e "Successfully ran Sonar integration under Travis job ${TRAVIS_JOB_NUMBER}"
   else
     echo "Java Version does not support additonal activity for travis CI"

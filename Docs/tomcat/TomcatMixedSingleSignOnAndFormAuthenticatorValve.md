@@ -1,16 +1,16 @@
 Tomcat Mixed Single-SignOn and Form Authenticator Valve
 =======================================================
 
-The Waffle Tomcat Mixed Authenticator implements both the Negotiate protocol with Kerberos and NTLM single sign-on support and form-based authentication. Users can choose whether to login with current Windows credentials or with another username and password entered in a form. 
+The Waffle Tomcat Mixed Authenticator implements both the Negotiate protocol with Kerberos and NTLM single sign-on support and form-based authentication. Users can choose whether to login with current Windows credentials or with another username and password entered in a form.
 
 Configuring Tomcat
 ------------------
 
 The following steps are required to configure Tomcat with Waffle Mixed Authenticator. 
 
-Place  `waffle-jna-1.8.2.jar`, `guava-20.0.jar`, `jna-4.2.2.jar`, `jna-platform-4.2.2.jar`, `slf4j-1.7.22.jar` and `waffle-tomcat[tomcat version]-1.8.2.jar` into your Tomcat's `lib` directory. It is *not* possible to place these files in `WEB-INF\lib`!
+Place  `waffle-jna-2.1.1.jar`, `caffeine-2.8.0.jar`, `jna-5.5.0.jar`, `jna-platform-5.5.0.jar`, `slf4j-api-2.0.0-alpha1.jar` and `waffle-tomcat[tomcat version]-2.1.1.jar` into your Tomcat's `lib` directory. It is *not* possible to place these files in `WEB-INF\lib`!
 
-- For latest snapshot instead use `waffle-jna-1.9.0-SNAPSHOT`, `caffeine-2.3.5.jar`, `jna-4.3.0.jar`, `jna-platform-4.3.0.jar`, `slf4j-1.7.22.jar` and `waffle-tomcat[tomcat version]-1.9.0-SNAPSHOT.jar`
+- For latest snapshot instead use `waffle-jna-2.1.2-SNAPSHOT`, `caffeine-2.8.0.jar`, `jna-5.5.0.jar`, `jna-platform-5.5.0.jar`, `slf4j-api-2.0.0-alpha1.jar` and `waffle-tomcat[tomcat version]-2.1.2-SNAPSHOT.jar`
 
 If you are using Eclipse, you can see which files tomcat is importing by going to Java Recources: `src / Libraries / Apache Tomcat vx.x`. If you've placed it in the tomcat directory and still don't see it, restart Eclipse.
 
@@ -110,7 +110,7 @@ Restart Tomcat and review `logs\Catalina*.log`.
 Waffle Mixed Authenticator Demo
 -------------------------------
 
-A demo application `waffle-mixed-[version].war` can be found in the Waffle distribution in the `Samples` directory. Copy the `war` file into Tomcat's webapps directory and navigate to http://localhost:8080/waffle-mixed/. Pick your method of login. 
+A demo application `waffle-mixed-[version].war` can be found in the Waffle distribution in the `Samples` directory. Copy the `war` file into Tomcat's webapps directory and navigate to http://localhost:8080/waffle-mixed/. Pick your method of login.
 
 Make sure you have added the JARs to Tomcat's `lib` directory as described at the top!
 
@@ -127,7 +127,7 @@ The following options are supported by the Valve.
 
 * principalFormat: Specifies the name format for the principal.
 * roleFormat: Specifies the name format for the role.
-* allowGuestLogin: Allow guest login. When true and the system's Guest account is enabled, any invalid login succeeds as Guest. Note that while the default value of allowGuestLogin is true, it is recommended that you disable the system's Guest account to disallow Guest login. This option is provided for systems where you don't have administrative privileges. 
+* allowGuestLogin: Allow guest login. When true and the system's Guest account is enabled, any invalid login succeeds as Guest. Note that while the default value of allowGuestLogin is true, it is recommended that you disable the system's Guest account to disallow Guest login. This option is provided for systems where you don't have administrative privileges.
 * protocols: authentication protocol(s), comma separated, default is "Negotiate,NTLM"
 
 The following principal/group formats are supported. 

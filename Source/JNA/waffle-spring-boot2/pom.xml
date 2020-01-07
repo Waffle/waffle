@@ -18,11 +18,11 @@
     <parent>
         <groupId>com.github.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
-        <version>2.1.1-SNAPSHOT</version>
+        <version>2.1.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>waffle-spring-boot2</artifactId>
-    <version>2.1.1-SNAPSHOT</version>
+    <version>2.1.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>waffle-spring-boot2</name>
@@ -37,7 +37,7 @@
     </scm>
 
     <properties>
-        <spring-boot.version>2.1.8.RELEASE</spring-boot.version>
+        <spring-boot.version>2.1.11.RELEASE</spring-boot.version>
     </properties>
 
     <modules>

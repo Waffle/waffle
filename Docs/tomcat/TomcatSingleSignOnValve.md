@@ -8,11 +8,11 @@ Configuring Tomcat
 
 The following steps are required to configure Tomcat with Waffle authenticator. 
 
-Package Waffle JARs, including `waffle-jna-1.8.2.jar`, `guava-20.0.jar`, `jna-4.2.2.jar`, `jna-platform-4.2.2.jar`, `slf4j-1.7.22.jar` and `waffle-tomcat[tomcat version]-1.8.2.jar` in the application's lib directory or copy them to Tomcat's lib.
+Package Waffle JARs, including `waffle-jna-2.1.1.jar`, `caffeine-2.8.0.jar`, `jna-5.5.0.jar`, `jna-platform-5.5.0.jar`, `slf4j-api-2.0.0-alpha1.jar` and `waffle-tomcat[tomcat version]-2.1.1.jar` in the application's lib directory or copy them to Tomcat's lib.
 
-- For latest snapshot instead use `waffle-jna-1.9.0-SNAPSHOT`, `caffeine-2.3.5.jar`, `jna-4.3.0.jar`, `jna-platform-4.3.0.jar`, `slf4j-1.7.22.jar` and `waffle-tomcat[tomcat version]-1.9.0-SNAPSHOT.jar`
+- For latest snapshot instead use `waffle-jna-2.1.2-SNAPSHOT`, `caffeine-2.8.0.jar`, `jna-5.5.0.jar`, `jna-platform-5.5.0.jar`, `slf4j-api-2.0.0-alpha1.jar` and `waffle-tomcat[tomcat version]-2.1.2-SNAPSHOT.jar`
 
-Add a valve and a realm to the application context. For an application, modify `META-INF\context.xml`. 
+Add a valve and a realm to the application context. For an application, modify `META-INF\context.xml`.
 
 ``` xml
 <Context>
@@ -21,7 +21,7 @@ Add a valve and a realm to the application context. For an application, modify `
 </Context>
 ```
 
-Configure security roles in `WEB-INF\web.xml`. The Waffle authenticator adds all user's security groups, including nested and domain groups, as roles during authentication. 
+Configure security roles in `WEB-INF\web.xml`. The Waffle authenticator adds all user's security groups, including nested and domain groups, as roles during authentication.
 
 ``` xml
 <security-role>
@@ -29,7 +29,7 @@ Configure security roles in `WEB-INF\web.xml`. The Waffle authenticator adds all
 </security-role>
 ```
 
-Restrict access to website resources. For example, to restrict the entire website to locally authenticated users add the following in `WEB-INF\web.xml`. 
+Restrict access to website resources. For example, to restrict the entire website to locally authenticated users add the following in `WEB-INF\web.xml`.
 
 ``` xml
 <security-constraint>
@@ -50,23 +50,23 @@ Restrict access to website resources. For example, to restrict the entire websit
 Troubleshooting
 ---------------
 
-Enable Waffle logging. Add the following to `conf\logging.properties` in your Tomcat installation. 
+Enable Waffle logging. Add the following to `conf\logging.properties` in your Tomcat installation.
 
 ```
 waffle.apache.NegotiateAuthenticator.level = FINE
 ```
 
-Restart Tomcat and review `logs\Catalina*.log`. 
+Restart Tomcat and review `logs\Catalina*.log`.
 
 Waffle Authenticator Demo
 -------------------------
 
-A demo application can be found in the Waffle distribution in the `Samples\waffle-negotiate` directory. Copy the entire directory into Tomcat's `webapps` directory and navigate to `http://localhost:8080/waffle-negotiate/`. 
+A demo application can be found in the Waffle distribution in the `Samples\waffle-negotiate` directory. Copy the entire directory into Tomcat's `webapps` directory and navigate to `http://localhost:8080/waffle-negotiate/`.
 
 Valve Options
 -------------
 
-The following options are supported by the Valve. 
+The following options are supported by the Valve.
 
 ``` xml
 <Context>
@@ -76,14 +76,14 @@ The following options are supported by the Valve.
 
 * principalFormat: Specifies the name format for the principal.
 * roleFormat: Specifies the name format for the role.
-* allowGuestLogin Allow guest login. When true and the system's Guest account is enabled, any invalid login succeeds as Guest. 
+* allowGuestLogin Allow guest login. When true and the system's Guest account is enabled, any invalid login succeeds as Guest.
 * protocols: authentication protocol(s), comma separated, default is "Negotiate,NTLM"
 
-Note: While the default value of `allowGuestLogin` is true, it is recommended that you disable the system's "Guest" account to disallow Guest login. This option is provided for systems where you don't have administrative privileges. 
+Note: While the default value of `allowGuestLogin` is true, it is recommended that you disable the system's "Guest" account to disallow Guest login. This option is provided for systems where you don't have administrative privileges.
 
-The following principal/group formats are supported. 
+The following principal/group formats are supported.
 
-* fqn: Fully qualified names, such as `domain\username`. When unavailable, a SID is used. This is the default. 
+* fqn: Fully qualified names, such as `domain\username`. When unavailable, a SID is used. This is the default.
 * sid: SID in the S- format. 
-* both: Both a fully qualified name and a SID in the S- format. The fully qualified name is placed in the list first. Tomcat assumes that the first entry of this list is a username. 
+* both: Both a fully qualified name and a SID in the S- format. The fully qualified name is placed in the list first. Tomcat assumes that the first entry of this list is a username.
 * none Do not include a principal name. Permitted only for `roleFormat`.

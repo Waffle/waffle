@@ -18,11 +18,11 @@
     <parent>
         <groupId>com.github.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
-        <version>2.1.1-SNAPSHOT</version>
+        <version>2.1.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>waffle-tomcat7</artifactId>
-    <version>2.1.1-SNAPSHOT</version>
+    <version>2.1.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>waffle-tomcat7</name>
@@ -37,7 +37,7 @@
     </scm>
 
     <properties>
-        <tomcat.version>7.0.96</tomcat.version>
+        <tomcat.version>7.0.99</tomcat.version>
     </properties>
 
     <dependencies>

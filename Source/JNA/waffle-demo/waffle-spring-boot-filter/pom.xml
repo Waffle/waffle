@@ -17,11 +17,11 @@
     <parent>
         <groupId>com.github.waffle.demo</groupId>
         <artifactId>waffle-demo-parent</artifactId>
-        <version>2.1.1-SNAPSHOT</version>
+        <version>2.1.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>waffle-spring-boot-filter</artifactId>
-    <version>2.1.1-SNAPSHOT</version>
+    <version>2.1.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>waffle-spring-boot-filter</name>
@@ -36,7 +36,8 @@
     </scm>
 
     <properties>
-        <jna.version>5.4.0</jna.version>
+        <jna.version>5.5.0</jna.version>
+        <logback.version>1.2.3</logback.version>
         <spring-boot.version>1.5.22.RELEASE</spring-boot.version>
     </properties>
 

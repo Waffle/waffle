@@ -17,7 +17,7 @@
 
     <groupId>com.github.waffle</groupId>
     <artifactId>waffle-parent</artifactId>
-    <version>2.1.1-SNAPSHOT</version>
+    <version>2.1.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>waffle-parent</name>
@@ -142,11 +142,11 @@
         <checkstyle.config>checkstyle.xml</checkstyle.config>
 
         <!-- Third Party Versions -->
-        <assertj.version>3.13.2</assertj.version>
-        <error-prone.version>2.3.3</error-prone.version>
+        <assertj.version>3.14.0</assertj.version>
+        <error-prone.version>2.3.4</error-prone.version>
         <j2objc.version>1.3</j2objc.version>
-        <jmh.version>1.21</jmh.version>
-        <jmockit.version>1.48</jmockit.version>
+        <jmh.version>1.22</jmh.version>
+        <jmockit.version>1.49</jmockit.version>
         <jsr305.version>3.0.2</jsr305.version>
         <junit.version>5.5.2</junit.version>
         <slf4j.version>2.0.0-alpha1</slf4j.version>
@@ -158,7 +158,7 @@
         <!-- Plugins -->
         <animal-sniffer.plugin>1.18</animal-sniffer.plugin>
         <antrun.plugin>1.8</antrun.plugin>
-        <assembly.plugin>3.1.1</assembly.plugin>
+        <assembly.plugin>3.2.0</assembly.plugin>
         <build-helper.plugin>3.0.0</build-helper.plugin>
         <changelog.plugin>2.3</changelog.plugin>
         <changes.plugin>2.12.1</changes.plugin>
@@ -167,34 +167,34 @@
         <compiler.plugin>3.8.1</compiler.plugin>
         <coveralls.plugin>4.3.0</coveralls.plugin>
         <dependency.plugin>3.1.1</dependency.plugin>
-        <dependency-check.plugin>5.2.2</dependency-check.plugin>
+        <dependency-check.plugin>5.2.4</dependency-check.plugin>
         <deploy.plugin>3.0.0-M1</deploy.plugin>
         <directory.plugin>0.3.1</directory.plugin>
-        <enforcer.plugin>3.0.0-M1</enforcer.plugin>
-        <formatter.plugin>2.10.0</formatter.plugin>
-        <git-commit-id.plugin>3.0.1</git-commit-id.plugin>
+        <enforcer.plugin>3.0.0-M3</enforcer.plugin>
+        <formatter.plugin>2.11.0</formatter.plugin>
+        <git-commit-id.plugin>4.0.0</git-commit-id.plugin>
         <gpg.plugin>1.6</gpg.plugin>
-        <htmlcompressor.plugin>1.4.0</htmlcompressor.plugin>
-        <impsort.plugin>1.3.0</impsort.plugin>
+        <htmlcompressor.plugin>1.4.1</htmlcompressor.plugin>
+        <impsort.plugin>1.3.2</impsort.plugin>
         <install.plugin>3.0.0-M1</install.plugin>
-        <jacoco.plugin>0.8.4</jacoco.plugin>
-        <jar.plugin>3.1.2</jar.plugin>
+        <jacoco.plugin>0.8.5</jacoco.plugin>
+        <jar.plugin>3.2.0</jar.plugin>
         <javadoc.plugin>3.1.1</javadoc.plugin>
         <jdepend.plugin>2.0</jdepend.plugin>
         <jxr.plugin>3.0.0</jxr.plugin>
         <license.plugin>3.0</license.plugin>
-        <modernizer.plugin>1.9.0</modernizer.plugin>
+        <modernizer.plugin>2.0.0</modernizer.plugin>
         <nexus-staging.plugin>1.6.8</nexus-staging.plugin>
         <pmd.plugin>3.12.0</pmd.plugin>
         <project-info-reports.plugin>3.0.0</project-info-reports.plugin>
         <release.plugin>2.5.3</release.plugin>
         <resources.plugin>3.1.0</resources.plugin>
         <scm.plugin>1.11.2</scm.plugin>
-        <source.plugin>3.1.0</source.plugin>
+        <source.plugin>3.2.1</source.plugin>
         <spotbugs.plugin>3.1.12.2</spotbugs.plugin>
         <site.plugin>3.8.2</site.plugin>
         <sonar.plugin>3.7.0.1746</sonar.plugin>
-        <surefire.plugin>3.0.0-M3</surefire.plugin>
+        <surefire.plugin>3.0.0-M4</surefire.plugin>
         <taglist.plugin>2.4</taglist.plugin>
         <tidy.plugin>1.1.0</tidy.plugin>
         <versions.plugin>2.7</versions.plugin>
@@ -204,17 +204,17 @@
 
         <!-- Plugin Dependency Versions -->
         <bug-pattern.version>1.5.0</bug-pattern.version>
-        <build-tools.version>1.2.0</build-tools.version>
-        <checkstyle.version>8.25</checkstyle.version>
+        <build-tools.version>1.2.1</build-tools.version>
+        <checkstyle.version>8.28</checkstyle.version>
         <doxia.version>1.9</doxia.version>
-        <sb-contrib.version>7.4.6</sb-contrib.version>
-        <findsecbugs.version>1.9.0</findsecbugs.version>
+        <sb-contrib.version>7.4.7</sb-contrib.version>
+        <findsecbugs.version>1.10.1</findsecbugs.version>
         <fluido.version>1.8</fluido.version>
-        <htmlcompressor.version>1.6.5</htmlcompressor.version>
+        <htmlcompressor.version>1.6.6</htmlcompressor.version>
         <javac.version>9+181-r4173-1</javac.version>
-        <jgit.version>5.5.0.201909110433-r</jgit.version>
+        <jgit.version>5.6.0.201912101111-r</jgit.version>
         <wagon-git.version>2.0.3</wagon-git.version> <!-- Do not upgrade to 2.0.4 with ssh as it is broken -->
-        <wagon-ssh.version>3.3.3</wagon-ssh.version>
+        <wagon-ssh.version>3.3.4</wagon-ssh.version>
         <yuicompressor.version>2.4.8</yuicompressor.version>
 
         <!-- Lifecycle Mapping -->
@@ -429,6 +429,7 @@
                                 <X-Compile-Target-JDK>${maven.compiler.target}</X-Compile-Target-JDK>
                             </manifestEntries>
                         </archive>
+                        <skipIfEmpty>true</skipIfEmpty>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -521,16 +522,13 @@
                     <artifactId>maven-dependency-plugin</artifactId>
                     <version>${dependency.plugin}</version>
                 </plugin>
-                <!-- TODO: Fix release so we use the release profile properly to release site as well -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
                     <version>${release.plugin}</version>
                     <configuration>
                         <autoVersionSubmodules>true</autoVersionSubmodules>
-                        <useReleaseProfile>false</useReleaseProfile>
                         <releaseProfiles>release</releaseProfiles>
-                        <goals>deploy</goals>
                     </configuration>
                 </plugin>
                 <plugin>

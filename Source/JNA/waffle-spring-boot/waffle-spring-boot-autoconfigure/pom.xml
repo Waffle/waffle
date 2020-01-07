@@ -18,11 +18,11 @@
     <parent>
         <groupId>com.github.waffle</groupId>
         <artifactId>waffle-spring-boot</artifactId>
-        <version>2.1.1-SNAPSHOT</version>
+        <version>2.1.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>waffle-spring-boot-autoconfigure</artifactId>
-    <version>2.1.1-SNAPSHOT</version>
+    <version>2.1.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>waffle-spring-boot-autoconfigure</name>

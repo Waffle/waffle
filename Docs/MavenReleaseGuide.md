@@ -6,7 +6,7 @@ This is a guide for WAFFLE developers hoping to publish a release to Maven Centr
 Building with Maven
 -------------------
 
-In order to build with [Maven][], you'll need Java 7+ and [Maven][] 3.3.9+.  Download and install them, and then run `mvn --version` to check that it's working.  If you don't already have it, also get Git and a clone of the WAFFLE repository.  Once you have this, run `mvn package` in the `Source/JNA/waffle-parent` directory.  This command compiles, unit tests, and JARs all of the WAFFLE components that are currently Maven-enabled.
+In order to build with [Maven][], you'll need Java 8+ and [Maven][] 3.6.3+.  Download and install them, and then run `mvn --version` to check that it's working.  If you don't already have it, also get Git and a clone of the WAFFLE repository.  Once you have this, run `mvn package` in the `Source/JNA/waffle-parent` directory.  This command compiles, unit tests, and JARs all of the WAFFLE components that are currently Maven-enabled.
 
 If you don't want to run the unit tests (which can be useful if you're trying to compile on a non-Windows platform), use `mvn package -DskipTests=true` instead.  This isn't recommended for release builds.
 

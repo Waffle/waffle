@@ -28,16 +28,16 @@ We'll assume that Spring-Security is configured via `web.xml` with a filter chai
 </listener>
 ```
 
-Copy Waffle JARs, including `waffle-jna-1.8.1.jar`, `guava-20.0.jar`, `jna-4.2.2.jar`, `jna-platform-4.2.2.jar`, `slf4j-1.7.21.jar` and `waffle-spring-security4-1.8.1.jar` in the application's `lib` directory along with Spring and Spring-Security JARs. Or, if you use Maven, add the following to your `pom.xml`:
+Copy Waffle JARs, including `waffle-jna-2.1.1.jar`, `caffeine-2.8.0.jar`, `jna-5.5.0.jar`, `jna-platform-5.5.0.jar`, `slf4j-api-2.0.0-alpha1.jar` and `waffle-spring-security4-2.1.1.jar` in the application's `lib` directory along with Spring and Spring-Security JARs. Or, if you use Maven, add the following to your `pom.xml`:
 
-- For latest snapshot instead use `waffle-jna-1.9.0-SNAPSHOT`, `caffeine-2.3.5.jar`, `jna-4.3.0.jar`, `jna-platform-4.3.0.jar`, `slf4j-1.7.22.jar` and `waffle-spring-security4-1.9.0-SNAPSHOT.jar`
+- For latest snapshot instead use `waffle-jna-2.1.2-SNAPSHOT`, `caffeine-2.8.0.jar`, `jna-5.5.0.jar`, `jna-platform-5.5.0.jar`, `slf4j-api-2.0.0-alpha1.jar` and `waffle-spring-security4-2.1.2-SNAPSHOT.jar`
 
 ``` xml
 <dependency>
     <groupId>com.github.dblock.waffle</groupId>
-    <artifactId>waffle-spring-security3</artifactId>
+    <artifactId>waffle-spring-security4</artifactId>
     <version>${waffle.version}</version>
-</dependency>            
+</dependency>
 ```
 
 Declare a Windows Authentication provider. This is the link between Waffle and the operating system. 
@@ -60,8 +60,8 @@ Declare a collection of Waffle security filter providers that implement various 
 <bean id="waffleSecurityFilterProviderCollection" class="waffle.servlet.spi.SecurityFilterProviderCollection">
     <constructor-arg>
         <list>
-            <ref bean="negotiateSecurityFilterProvider" />               
-            <ref bean="basicSecurityFilterProvider" />               
+            <ref bean="negotiateSecurityFilterProvider" />
+            <ref bean="basicSecurityFilterProvider" />
         </list>
     </constructor-arg>
 </bean>
@@ -136,8 +136,8 @@ The `waffleSecurityFilterProviderCollection` bean can be constructed with a list
 <bean id="waffleSecurityFilterProviderCollection" class="waffle.servlet.spi.SecurityFilterProviderCollection">
     <constructor-arg>
         <list>
-            <ref bean="negotiateSecurityFilterProvider" />               
-            <ref bean="basicSecurityFilterProvider" />               
+            <ref bean="negotiateSecurityFilterProvider" />
+            <ref bean="basicSecurityFilterProvider" />
         </list>
     </constructor-arg>
 </bean>

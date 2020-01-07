@@ -18,11 +18,11 @@
     <parent>
         <groupId>com.github.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
-        <version>2.1.1-SNAPSHOT</version>
+        <version>2.1.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>waffle-spring-security5</artifactId>
-    <version>2.1.1-SNAPSHOT</version>
+    <version>2.1.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>waffle-spring-security5</name>
@@ -38,8 +38,8 @@
 
     <properties>
         <servlet.version>4.0.3</servlet.version>
-        <spring.version>5.1.9.RELEASE</spring.version>
-        <spring.security.version>5.1.6.RELEASE</spring.security.version>
+        <spring.version>5.1.12.RELEASE</spring.version>
+        <spring.security.version>5.1.7.RELEASE</spring.security.version>
     </properties>
 
     <dependencies>
