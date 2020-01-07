@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2018 Application Security, Inc.
+ * Copyright (c) 2010-2019 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -93,16 +93,18 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
             return true;
         } else if (negotiateCheck) {
             if (!authorizationHeader.isNull()) {
-                return this.negotiate(request, response, authorizationHeader);
+                boolean negotiateResult = this.negotiate(request, response, authorizationHeader);
+                if (!negotiateResult) {
+                    this.redirectTo(request, response, loginConfig.getErrorPage());
+                }
+                return negotiateResult;
             }
             this.log.debug("authorization required");
             this.sendUnauthorized(response);
             return false;
         } else if (securityCheck) {
             final boolean postResult = this.post(request, response);
-            if (postResult) {
-                this.redirectTo(request, response, request.getServletPath());
-            } else {
+            if (!postResult) {
                 this.redirectTo(request, response, loginConfig.getErrorPage());
             }
             return postResult;
