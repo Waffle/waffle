@@ -36,6 +36,11 @@
         <tag>HEAD</tag>
     </scm>
 
+    <properties>
+        <!-- Automatic Module Name for JPMS -->
+        <module.name>waffle.form.demo</module.name>
+    </properties>
+
     <build>
         <finalName>${project.name}</finalName>
     </build>

@@ -38,6 +38,10 @@
 
     <properties>
         <spring-boot.version>2.1.11.RELEASE</spring-boot.version>
+        <!-- Dependencies -->
+
+        <!-- Automatic Module Name for JPMS -->
+        <module.name>waffle.spring.boot2</module.name>
     </properties>
 
     <modules>

@@ -51,8 +51,12 @@
     </scm>
 
     <properties>
+        <!-- Dependencies -->
         <logback.version>1.3.0-alpha5</logback.version>
         <servlet.version>4.0.3</servlet.version>
+
+        <!-- Automatic Module Name for JPMS -->
+        <module.name>waffle.demo</module.name>
     </properties>
 
     <dependencyManagement>

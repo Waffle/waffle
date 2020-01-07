@@ -36,6 +36,11 @@
         <tag>HEAD</tag>
     </scm>
 
+    <properties>
+        <!-- Automatic Module Name for JPMS -->
+        <module.name>waffle.spring.boot.autoconfigure2</module.name>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
