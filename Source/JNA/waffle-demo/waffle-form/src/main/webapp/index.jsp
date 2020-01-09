@@ -20,19 +20,20 @@
 %>
 <%@page import="java.security.*" %>
 <%@page import="javax.security.auth.*" %>
-<html>
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
  <head>
   <title>Protected Page for Examples</title>
   <% Subject subject = Subject.getSubject(AccessController.getContext()); %>
  </head>
  <body style="background-color:white;">
-  <b>Subject</b> = <%= subject %>
-  You are logged in as remote user <b><%= request.getRemoteUser() %></b> in session <b><%= session.getId() %></b>.
+  <strong>Subject</strong> = <%= subject %>
+  You are logged in as remote user <strong><%= request.getRemoteUser() %></strong> in session <strong><%= session.getId() %></strong>.
   <br><br>
   <%
 	if (request.getUserPrincipal() != null) {
   %>
-  Your user principal name is <b><%= request.getUserPrincipal().getName() %></b>.
+  Your user principal name is <strong><%= request.getUserPrincipal().getName() %></strong>.
   <br><br>
   <%
    } else {
@@ -49,12 +50,12 @@
   if (role.length() > 0) {
     if (request.isUserInRole(role)) {
   %>
-  You have been granted role <b><%= role %></b>.
+  You have been granted role <strong><%= role %></strong>.
   <br><br>
   <%
    } else {
   %>
-  You have <i>not</i> been granted role <b><%= role %></b>.
+  You have <em>not</em> been granted role <strong><%= role %></strong>.
   <br><br>
   <%
    }
