@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2018 Application Security, Inc.
+ * Copyright (c) 2010-2020 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
 import waffle.servlet.spi.SecurityFilterProvider;
 import waffle.servlet.spi.SecurityFilterProviderCollection;
 import waffle.util.AuthorizationHeader;
-import waffle.util.CorsPreflightCheck;
+import waffle.util.CorsPreFlightCheck;
 import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.IWindowsImpersonationContext;
@@ -139,7 +139,7 @@ public class NegotiateSecurityFilter implements Filter {
         }
 
         // If exclude cores pre-flight and is pre flight, resume the filter chain
-        if (this.excludeCorsPreflight && CorsPreflightCheck.isPreflight(request)) {
+        if (this.excludeCorsPreflight && CorsPreFlightCheck.isPreflight(request)) {
             NegotiateSecurityFilter.LOGGER.debug("[waffle.servlet.NegotiateSecurityFilter] CORS preflight");
             chain.doFilter(sreq, sres);
             return;
