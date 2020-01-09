@@ -9,6 +9,8 @@
 * Add JPMS automatic module naming throughout
 * Moved onto Spring boot 2.2.x (no compatibility changes over 2.1.x)
 * Moved onto Spring 5.2.x (no compatibility changes over 5.1.x)
+* Fix sonar issues including prevention of XML entity attacks and other security related items
+* Fix spring boot modules as JNA alignment was broken
 
 2.1.1 (12/26/2019)
 ==================
