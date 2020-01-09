@@ -98,7 +98,13 @@ public class WaffleInfo {
      *             when getting new document builder.
      */
     public Document getWaffleInfo() throws ParserConfigurationException {
-        final Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+        final DocumentBuilderFactory df = DocumentBuilderFactory.newInstance();
+        df.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        df.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+        df.setAttribute(XMLConstants.FEATURE_SECURE_PROCESSING, Boolean.TRUE);
+        df.setExpandEntityReferences(false);
+
+        final Document doc = df.newDocumentBuilder().newDocument();
 
         // create the root element and add it to the document
         final Element root = doc.createElement("waffle");

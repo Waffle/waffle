@@ -1,7 +1,7 @@
 2.2.0 (1/6/2020)
 ================
 * Security Check in tomcat valves performs a redirect to servletPath when successful. This is not required to finish the chain and causes an underlying error when servletPath returns empty string. This redirect has been removed.
-* Negotiate Check in tomcat valves performs half the necessary negotiation which is resulting in popup to log into windows. By catching the negotiation result and forcing a redirect to error page as intended (simplar to security check), the browser and tomcat are able to successfully negotiate the communication without unnecessary popup to the user.
+* Negotiate Check in tomcat valves performs half the necessary negotiation which is resulting in popup to log into windows. By catching the negotiation result and forcing a redirect to error page as intended (similar to security check), the browser and tomcat are able to successfully negotiate the communication without unnecessary popup to the user. Note that first request will still require popup to get data primed but all subsequent after logging out and back in save the hit.
 * Added logback to demos.  It was defined and confirmed but not setup.
 * Cleanup documentation
 * Dependency updates
@@ -9,6 +9,8 @@
 * Add JPMS automatic module naming throughout
 * Moved onto Spring boot 2.2.x (no compatibility changes over 2.1.x)
 * Moved onto Spring 5.2.x (no compatibility changes over 5.1.x)
+* Fix sonar issues including prevention of XML entity attacks and other security related items
+* Fix spring boot modules as JNA alignment was broken
 
 2.1.1 (12/26/2019)
 ==================
