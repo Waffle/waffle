@@ -11,7 +11,8 @@
     Contributors: Application Security, Inc.
 
 --%>
-<html>
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
  <head>
   <title>Login</title>
  </head>
@@ -19,6 +20,7 @@
 <body>
  <form method="POST" action="j_spring_security_check">
   <table style="vertical-align: middle;">
+   <caption>Waffle Security Logon</caption>
    <tr>
     <td>Username:</td>
     <td><input type="text" name="j_username" /></td>
