@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2018 Application Security, Inc.
+ * Copyright (c) 2010-2020 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -19,6 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.XMLConstants;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -86,6 +87,9 @@ public class WaffleInfoServlet extends HttpServlet {
 
             // Write the XML Response
             final TransformerFactory transfac = TransformerFactory.newInstance();
+            transfac.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            transfac.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+
             final Transformer trans = transfac.newTransformer();
             trans.setOutputProperty(OutputKeys.INDENT, "yes");
 

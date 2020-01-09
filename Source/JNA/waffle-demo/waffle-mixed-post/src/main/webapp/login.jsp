@@ -2,7 +2,7 @@
 
     Waffle (https://github.com/Waffle/waffle)
 
-    Copyright (c) 2010-2016 Application Security, Inc.
+    Copyright (c) 2010-2020 Application Security, Inc.
 
     All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
     Public License v1.0 which accompanies this distribution, and is available at
@@ -11,7 +11,8 @@
     Contributors: Application Security, Inc.
 
 --%>
-<html>
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
 <head>
 <title>Login</title>
 </head>
@@ -19,6 +20,7 @@
 <body>
 <form method="POST" name="loginform" action="index.jsp">
 <table style="vertical-align: middle;">
+	<caption>Waffle Security Logon</caption>
 	<tr>
 		<td>Username:</td>
 		<td><input type="text" name="j_username" /></td>

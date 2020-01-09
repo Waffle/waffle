@@ -2,7 +2,7 @@
 
     Waffle (https://github.com/Waffle/waffle)
 
-    Copyright (c) 2010-2016 Application Security, Inc.
+    Copyright (c) 2010-2020 Application Security, Inc.
 
     All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
     Public License v1.0 which accompanies this distribution, and is available at
@@ -23,18 +23,19 @@
     return;
   }
 %>
-<html>
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
  <head>
   <title>Protected Page for Examples</title>
  </head>
  <body style="background-color:white;">
-  You are logged in as remote user <b><%= request.getRemoteUser() %></b> in session <b><%= session.getId() %></b>.<br>
-  You are impersonating user <b><%= Secur32Util.getUserNameEx(Secur32.EXTENDED_NAME_FORMAT.NameSamCompatible) %></b>.
+  You are logged in as remote user <strong><%= request.getRemoteUser() %></strong> in session <strong><%= session.getId() %></strong>.<br>
+  You are impersonating user <strong><%= Secur32Util.getUserNameEx(Secur32.EXTENDED_NAME_FORMAT.NameSamCompatible) %></strong>.
   <br><br>
   <%
 	if (request.getUserPrincipal() != null) {
   %>
-  Your user principal name is <b><%= request.getUserPrincipal().getName() %></b>.
+  Your user principal name is <strong><%= request.getUserPrincipal().getName() %></strong>.
   <br><br>
   <%
    } else {
@@ -51,12 +52,12 @@
   if (role.length() > 0) {
     if (request.isUserInRole(role)) {
   %>
-  You have been granted role <b><%= role %></b>.
+  You have been granted role <strong><%= role %></strong>.
   <br><br>
   <%
    } else {
   %>
-  You have <i>not</i> been granted role <b><%= role %></b>.
+  You have <em>not</em> been granted role <strong><%= role %></strong>.
   <br><br>
   <%
    }

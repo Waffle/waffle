@@ -38,6 +38,7 @@
 
     <properties>
         <!-- Dependencies -->
+        <jna.version>5.5.0</jna.version>
         <spring-boot.version>2.2.2.RELEASE</spring-boot.version>
 
         <!-- Automatic Module Name for JPMS -->
@@ -51,6 +52,17 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- Resolve conflict between WAFFLE and Spring Boot dependency version by forcing jna version -->
+            <dependency>
+                <groupId>net.java.dev.jna</groupId>
+                <artifactId>jna</artifactId>
+                <version>${jna.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.java.dev.jna</groupId>
+                <artifactId>jna</artifactId>
+                <version>${jna.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
