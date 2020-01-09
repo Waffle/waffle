@@ -22,15 +22,15 @@
 <table style="vertical-align: middle;">
 	<caption>Waffle Security Logon</caption>
 	<tr>
-		<td>Username:</td>
+		<th scope="row">Username:</th>
 		<td><input type="text" name="j_username" /></td>
 	</tr>
 	<tr>
-		<td>Password:</td>
+		<th scope="row">Password:</th>
 		<td><input type="password" name="j_password" /></td>
 	</tr>
 	<tr>
-		<td><input type="submit" value="Login" /></td>
+		<th scope="rowgroup"><input type="submit" value="Login" /></th>
 	</tr>
 </table>
 </form>
