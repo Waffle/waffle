@@ -21,7 +21,7 @@ Sites
 -----
 
 * [Site Page](https://waffle.github.io/waffle/)
-* [sonarqube-java](https://sonarqube.com/dashboard?id=com.github.waffle%3Awaffle-parent)
+* [sonarqube-java](https://sonarcloud.io/dashboard?id=Waffle_waffle)
 * [sonarqube-.net](https://sonarqube.com/dashboard/index?id=waffle)
 
 Essentials
