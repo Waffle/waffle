@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
@@ -280,8 +281,8 @@ public class WaffleInfo {
     public static String toPrettyXML(final Document doc) throws TransformerException {
         // set up a transformer
         final TransformerFactory transfac = TransformerFactory.newInstance();
-        factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-        factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+        transfac.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        transfac.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
 
         final Transformer trans = transfac.newTransformer();
         trans.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
