@@ -101,7 +101,6 @@ public class WaffleInfo {
         final DocumentBuilderFactory df = DocumentBuilderFactory.newInstance();
         df.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
         df.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
-        df.setAttribute(XMLConstants.FEATURE_SECURE_PROCESSING, Boolean.TRUE);
         df.setExpandEntityReferences(false);
 
         final Document doc = df.newDocumentBuilder().newDocument();
