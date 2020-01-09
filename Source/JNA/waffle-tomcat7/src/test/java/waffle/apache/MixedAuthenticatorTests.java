@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2018 Application Security, Inc.
+ * Copyright (c) 2010-2020 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -122,6 +122,10 @@ public class MixedAuthenticatorTests {
      */
     @Test
     public void testChallengePOST() {
+        final LoginConfig loginConfig = new LoginConfig();
+        loginConfig.setErrorPage("error.html");
+        loginConfig.setLoginPage("login.html");
+
         final String securityPackage = "Negotiate";
         IWindowsCredentialsHandle clientCredentials = null;
         WindowsSecurityContextImpl clientContext = null;
@@ -142,7 +146,7 @@ public class MixedAuthenticatorTests {
             final String clientToken = Base64.getEncoder().encodeToString(clientContext.getToken());
             request.addHeader("Authorization", securityPackage + " " + clientToken);
             final SimpleHttpResponse response = new SimpleHttpResponse();
-            this.authenticator.authenticate(request, response, null);
+            this.authenticator.authenticate(request, response, loginConfig);
             Assertions.assertTrue(response.getHeader("WWW-Authenticate").startsWith(securityPackage + " "));
             Assertions.assertEquals("keep-alive", response.getHeader("Connection"));
             Assertions.assertEquals(2, response.getHeaderNames().size());
@@ -183,6 +187,10 @@ public class MixedAuthenticatorTests {
      */
     @Test
     public void testNegotiate() {
+        final LoginConfig loginConfig = new LoginConfig();
+        loginConfig.setErrorPage("error.html");
+        loginConfig.setLoginPage("login.html");
+
         final String securityPackage = "Negotiate";
         IWindowsCredentialsHandle clientCredentials = null;
         WindowsSecurityContextImpl clientContext = null;
@@ -206,7 +214,7 @@ public class MixedAuthenticatorTests {
                 request.addHeader("Authorization", securityPackage + " " + clientToken);
 
                 final SimpleHttpResponse response = new SimpleHttpResponse();
-                authenticated = this.authenticator.authenticate(request, response, null);
+                authenticated = this.authenticator.authenticate(request, response, loginConfig);
 
                 if (authenticated) {
                     assertThat(response.getHeaderNames().size()).isGreaterThanOrEqualTo(0);
