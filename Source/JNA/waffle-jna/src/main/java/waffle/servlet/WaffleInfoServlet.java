@@ -23,7 +23,6 @@ import javax.xml.XMLConstants;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -97,11 +96,7 @@ public class WaffleInfoServlet extends HttpServlet {
             final DOMSource source = new DOMSource(doc);
             trans.transform(source, result);
             response.setContentType("application/xml");
-        } catch (final ParserConfigurationException e) {
-            throw new ServletException(e);
-        } catch (final TransformerConfigurationException e) {
-            throw new ServletException(e);
-        } catch (final TransformerException e) {
+        } catch (final ParserConfigurationException | TransformerException e) {
             throw new ServletException(e);
         }
     }

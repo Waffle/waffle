@@ -20,15 +20,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The Class CorsPreflightCheck.
+ * The Class CorsPrefFlightCheck.
  */
-public class CorsPreflightCheck {
+public final class CorsPreFlightCheck {
 
     /** The logger. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(CorsPreflightCheck.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CorsPreFlightCheck.class);
 
     /** The Constant preflightAttributeValue. */
-    private static final String preflightAttributeValue = "PRE_FLIGHT";
+    private static final String PRE_FLIGHT_ATTRIBUTE_VALUE = "PRE_FLIGHT";
 
     /** The Constant CORS_PRE_FLIGHT_HEADERS. */
     private static final List<String> CORS_PRE_FLIGHT_HEADERS = new ArrayList<String>() {
@@ -44,6 +44,13 @@ public class CorsPreflightCheck {
     };
 
     /**
+     * Prevent Instantiation.
+     */
+    private CorsPreFlightCheck() {
+        // Do Nothing
+    }
+
+    /**
      * Checks if is preflight.
      *
      * @param request
@@ -54,7 +61,7 @@ public class CorsPreflightCheck {
 
         final String corsRequestType = (String) request.getAttribute("cors.request.type");
 
-        CorsPreflightCheck.LOGGER
+        CorsPreFlightCheck.LOGGER
                 .debug("[waffle.util.CorsPreflightCheck] Request is CORS preflight; continue filter chain");
 
         // Method MUST be an OPTIONS Method to be a preflight Request
@@ -63,30 +70,31 @@ public class CorsPreflightCheck {
             return false;
         }
 
-        CorsPreflightCheck.LOGGER.debug("[waffle.util.CorsPreflightCheck] check for PRE_FLIGHT Attribute");
+        CorsPreFlightCheck.LOGGER.debug("[waffle.util.CorsPreflightCheck] check for PRE_FLIGHT Attribute");
 
         /**
          * Support Apache CorsFilter which would already add the Attribute cors.request.type with a value "PRE_FLIGHT"
          **/
-        if (corsRequestType != null && corsRequestType.equalsIgnoreCase(CorsPreflightCheck.preflightAttributeValue)) {
+        if (corsRequestType != null
+                && corsRequestType.equalsIgnoreCase(CorsPreFlightCheck.PRE_FLIGHT_ATTRIBUTE_VALUE)) {
             return true;
         } else {
             /*
              * it is OPTIONS and it is not an CorsFilter PRE_FLIGHT request make sure that the request contains all of
              * the CORS preflight Headers
              */
-            CorsPreflightCheck.LOGGER.debug("[waffle.util.CorsPreflightCheck] check headers");
+            CorsPreFlightCheck.LOGGER.debug("[waffle.util.CorsPreflightCheck] check headers");
 
-            for (final String header : CorsPreflightCheck.CORS_PRE_FLIGHT_HEADERS) {
+            for (final String header : CorsPreFlightCheck.CORS_PRE_FLIGHT_HEADERS) {
                 final String headerValue = request.getHeader(header);
-                CorsPreflightCheck.LOGGER.debug("[waffle.util.CorsPreflightCheck] {}", header);
+                CorsPreFlightCheck.LOGGER.debug("[waffle.util.CorsPreflightCheck] {}", header);
 
                 if (headerValue == null) {
                     /* one of the CORS pre-flight headers is missing */
                     return false;
                 }
             }
-            CorsPreflightCheck.LOGGER.debug("[waffle.util.CorsPreflightCheck] is preflight");
+            CorsPreFlightCheck.LOGGER.debug("[waffle.util.CorsPreflightCheck] is preflight");
 
             return true;
         }
