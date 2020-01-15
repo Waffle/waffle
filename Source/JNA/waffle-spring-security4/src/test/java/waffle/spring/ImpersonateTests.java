@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2018 Application Security, Inc.
+ * Copyright (c) 2010-2020 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -100,7 +100,7 @@ public class ImpersonateTests {
     public void testImpersonateEnabled() throws IOException, ServletException {
 
         Assertions.assertNotEquals("Current user shouldn't be the test user prior to the test",
-                MockWindowsAccount.TEST_USER_NAME, Advapi32Util.getUserName());
+                Advapi32Util.getUserName(), MockWindowsAccount.TEST_USER_NAME);
 
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
@@ -143,7 +143,7 @@ public class ImpersonateTests {
     public void testImpersonateDisabled() throws IOException, ServletException {
 
         Assertions.assertNotEquals("Current user shouldn't be the test user prior to the test",
-                MockWindowsAccount.TEST_USER_NAME, Advapi32Util.getUserName());
+                Advapi32Util.getUserName(), MockWindowsAccount.TEST_USER_NAME);
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
         final String userHeaderValue = MockWindowsAccount.TEST_USER_NAME + ":" + MockWindowsAccount.TEST_PASSWORD;
