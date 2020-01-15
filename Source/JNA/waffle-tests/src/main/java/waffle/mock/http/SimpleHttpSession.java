@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2018 Application Security, Inc.
+ * Copyright (c) 2010-2020 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -64,20 +64,33 @@ public class SimpleHttpSession implements HttpSession {
         return null;
     }
 
-    // TODO Simply remove this if it is ever actually removed from servlet-api
+    /**
+     * Simply remove this if it is ever actually removed from servlet-api
+     *
+     * @deprecated Remove this once servlet does.
+     */
     @Deprecated
     @Override
     public HttpSessionContext getSessionContext() {
         return null;
     }
 
-    // TODO Simply remove this if it is ever actually removed from servlet-api
+    /**
+     * Simply remove this if it is ever actually removed from servlet-api
+     *
+     * @deprecated Remove this once servlet does.
+     */
     @Deprecated
     @Override
     public Object getValue(final String arg0) {
         return null;
     }
 
+    /**
+     * Simply remove this if it is ever actually removed from servlet-api
+     *
+     * @deprecated Remove this once servlet does.
+     */
     @Deprecated
     @Override
     public String[] getValueNames() {
@@ -94,6 +107,11 @@ public class SimpleHttpSession implements HttpSession {
         return false;
     }
 
+    /**
+     * Simply remove this if it is ever actually removed from servlet-api
+     *
+     * @deprecated Remove this once servlet does.
+     */
     @Deprecated
     @Override
     public void putValue(final String arg0, final Object arg1) {
@@ -105,6 +123,11 @@ public class SimpleHttpSession implements HttpSession {
         this.attributes.remove(attributeName);
     }
 
+    /**
+     * Simply remove this if it is ever actually removed from servlet-api
+     *
+     * @deprecated Remove this once servlet does.
+     */
     @Deprecated
     @Override
     public void removeValue(final String arg0) {
