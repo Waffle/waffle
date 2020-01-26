@@ -39,7 +39,7 @@
     <properties>
         <!-- Dependencies -->
         <jna.version>5.5.0</jna.version>
-        <spring-boot.version>2.2.2.RELEASE</spring-boot.version>
+        <spring-boot.version>2.2.4.RELEASE</spring-boot.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.spring.boot2</module.name>
