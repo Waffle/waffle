@@ -47,16 +47,30 @@
         <module.name>waffle.jna</module.name>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <!-- Due to critical nature of WAFFLE jna usage, set to dependency management to help influence usage -->
+            <dependency>
+                <groupId>net.java.dev.jna</groupId>
+                <artifactId>jna</artifactId>
+                <version>${jna.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.java.dev.jna</groupId>
+                <artifactId>jna-platform</artifactId>
+                <version>${jna.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>net.java.dev.jna</groupId>
             <artifactId>jna</artifactId>
-            <version>${jna.version}</version>
         </dependency>
         <dependency>
             <groupId>net.java.dev.jna</groupId>
             <artifactId>jna-platform</artifactId>
-            <version>${jna.version}</version>
         </dependency>
         <dependency>
             <groupId>jakarta.servlet</groupId>

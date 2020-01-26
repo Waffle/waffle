@@ -39,6 +39,8 @@
     <properties>
         <!-- Dependencies -->
         <jna.version>5.5.0</jna.version>
+        <slf4j.version>1.7.26</slf4j.version>
+        <spring.version>4.3.26.RELEASE</spring.version>
         <spring-boot.version>1.5.22.RELEASE</spring-boot.version>
 
         <!-- Automatic Module Name for JPMS -->
@@ -60,8 +62,38 @@
             </dependency>
             <dependency>
                 <groupId>net.java.dev.jna</groupId>
-                <artifactId>jna</artifactId>
+                <artifactId>jna-platform</artifactId>
                 <version>${jna.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aop</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-beans</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-expression</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
