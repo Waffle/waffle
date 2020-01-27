@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>CorsAwareNegotiateSecurityFilter.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-spring-filter</a> &gt; <a href="../index.html" class="el_bundle">waffle-jna</a> &gt; <a href="index.source.html" class="el_package">waffle.servlet</a> &gt; <span class="el_source">CorsAwareNegotiateSecurityFilter.java</span></div><h1>CorsAwareNegotiateSecurityFilter.java</h1><pre class="source lang-java linenums">/**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2018 Application Security, Inc.
+ * Copyright (c) ${license.git.copyrightYears} Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -25,7 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import waffle.util.AuthorizationHeader;
-import waffle.util.CorsPreflightCheck;
+import waffle.util.CorsPreFlightCheck;
 
 /**
  * The Class CorsAwareNegotiateSecurityFilter.
@@ -58,7 +58,7 @@ public class CorsAwareNegotiateSecurityFilter extends NegotiateSecurityFilter im
 <span class="fc" id="L58">        final HttpServletRequest httpServletRequest = (HttpServletRequest) request;</span>
 <span class="fc" id="L59">        final AuthorizationHeader authorizationHeader = new AuthorizationHeader(httpServletRequest);</span>
 
-<span class="pc bpc" id="L61" title="1 of 2 branches missed.">        if (CorsPreflightCheck.isPreflight(httpServletRequest)) {</span>
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">        if (CorsPreFlightCheck.isPreflight(httpServletRequest)) {</span>
 <span class="fc" id="L62">            CorsAwareNegotiateSecurityFilter.LOGGER.info(</span>
                     &quot;[waffle.servlet.CorsAwareNegotiateSecurityFilter] Request is CORS preflight; continue filter chain&quot;);
 <span class="fc" id="L64">            chain.doFilter(request, response);</span>
