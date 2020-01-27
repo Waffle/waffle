@@ -1,8 +1,9 @@
 2.2.1 (1/26/2020)
+================
 * Fixed checkstyle configuration that failed 2.2.0 release.
 
 2.2.0 (not released)
-================
+====================
 * Security Check in tomcat valves performs a redirect to servletPath when successful. This is not required to finish the chain and causes an underlying error when servletPath returns empty string. This redirect has been removed.
 * Negotiate Check in tomcat valves performs half the necessary negotiation which is resulting in popup to log into windows. By catching the negotiation result and forcing a redirect to error page as intended (similar to security check), the browser and tomcat are able to successfully negotiate the communication without unnecessary popup to the user. Note that first request will still require popup to get data primed but all subsequent after logging out and back in save the hit.
 * Added logback to demos.  It was defined and confirmed but not setup.
