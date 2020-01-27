@@ -1,3 +1,11 @@
+2.3.0 (in-progress)
+===================
+* Introduction of waffle-tomcat10 module
+
+2.2.2 (in-progress)
+===================
+* TODO
+
 2.2.1 (1/26/2020)
 ================
 * Fixed checkstyle configuration that failed 2.2.0 release.
