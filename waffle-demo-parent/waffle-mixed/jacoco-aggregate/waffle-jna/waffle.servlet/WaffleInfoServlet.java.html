@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>WaffleInfoServlet.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-mixed</a> &gt; <a href="../index.html" class="el_bundle">waffle-jna</a> &gt; <a href="index.source.html" class="el_package">waffle.servlet</a> &gt; <span class="el_source">WaffleInfoServlet.java</span></div><h1>WaffleInfoServlet.java</h1><pre class="source lang-java linenums">/**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2018 Application Security, Inc.
+ * Copyright (c) ${license.git.copyrightYears} Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -19,10 +19,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.XMLConstants;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -86,21 +86,20 @@ import waffle.util.WaffleInfo;
 
             // Write the XML Response
 <span class="nc" id="L88">            final TransformerFactory transfac = TransformerFactory.newInstance();</span>
-<span class="nc" id="L89">            final Transformer trans = transfac.newTransformer();</span>
-<span class="nc" id="L90">            trans.setOutputProperty(OutputKeys.INDENT, &quot;yes&quot;);</span>
+<span class="nc" id="L89">            transfac.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, &quot;&quot;);</span>
+<span class="nc" id="L90">            transfac.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, &quot;&quot;);</span>
 
-<span class="nc" id="L92">            final StreamResult result = new StreamResult(response.getWriter());</span>
-<span class="nc" id="L93">            final DOMSource source = new DOMSource(doc);</span>
-<span class="nc" id="L94">            trans.transform(source, result);</span>
-<span class="nc" id="L95">            response.setContentType(&quot;application/xml&quot;);</span>
-<span class="nc" id="L96">        } catch (final ParserConfigurationException e) {</span>
-<span class="nc" id="L97">            throw new ServletException(e);</span>
-<span class="nc" id="L98">        } catch (final TransformerConfigurationException e) {</span>
-<span class="nc" id="L99">            throw new ServletException(e);</span>
-<span class="nc" id="L100">        } catch (final TransformerException e) {</span>
-<span class="nc" id="L101">            throw new ServletException(e);</span>
-<span class="nc" id="L102">        }</span>
-<span class="nc" id="L103">    }</span>
+<span class="nc" id="L92">            final Transformer trans = transfac.newTransformer();</span>
+<span class="nc" id="L93">            trans.setOutputProperty(OutputKeys.INDENT, &quot;yes&quot;);</span>
+
+<span class="nc" id="L95">            final StreamResult result = new StreamResult(response.getWriter());</span>
+<span class="nc" id="L96">            final DOMSource source = new DOMSource(doc);</span>
+<span class="nc" id="L97">            trans.transform(source, result);</span>
+<span class="nc" id="L98">            response.setContentType(&quot;application/xml&quot;);</span>
+<span class="nc" id="L99">        } catch (final ParserConfigurationException | TransformerException e) {</span>
+<span class="nc" id="L100">            throw new ServletException(e);</span>
+<span class="nc" id="L101">        }</span>
+<span class="nc" id="L102">    }</span>
 
     /**
      * Gets the request info.
@@ -112,42 +111,42 @@ import waffle.util.WaffleInfo;
      * @return the request info
      */
     private Element getRequestInfo(final Document doc, final HttpServletRequest request) {
-<span class="nc" id="L115">        final Element node = doc.createElement(&quot;request&quot;);</span>
+<span class="nc" id="L114">        final Element node = doc.createElement(&quot;request&quot;);</span>
 
-<span class="nc" id="L117">        Element value = doc.createElement(&quot;AuthType&quot;);</span>
-<span class="nc" id="L118">        value.setTextContent(request.getAuthType());</span>
-<span class="nc" id="L119">        node.appendChild(value);</span>
+<span class="nc" id="L116">        Element value = doc.createElement(&quot;AuthType&quot;);</span>
+<span class="nc" id="L117">        value.setTextContent(request.getAuthType());</span>
+<span class="nc" id="L118">        node.appendChild(value);</span>
 
-<span class="nc" id="L121">        final Principal p = request.getUserPrincipal();</span>
-<span class="nc bnc" id="L122" title="All 2 branches missed.">        if (p != null) {</span>
-<span class="nc" id="L123">            final Element child = doc.createElement(&quot;principal&quot;);</span>
-<span class="nc" id="L124">            child.setAttribute(&quot;class&quot;, p.getClass().getName());</span>
+<span class="nc" id="L120">        final Principal p = request.getUserPrincipal();</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">        if (p != null) {</span>
+<span class="nc" id="L122">            final Element child = doc.createElement(&quot;principal&quot;);</span>
+<span class="nc" id="L123">            child.setAttribute(&quot;class&quot;, p.getClass().getName());</span>
 
-<span class="nc" id="L126">            value = doc.createElement(&quot;name&quot;);</span>
-<span class="nc" id="L127">            value.setTextContent(p.getName());</span>
-<span class="nc" id="L128">            child.appendChild(value);</span>
+<span class="nc" id="L125">            value = doc.createElement(&quot;name&quot;);</span>
+<span class="nc" id="L126">            value.setTextContent(p.getName());</span>
+<span class="nc" id="L127">            child.appendChild(value);</span>
 
-<span class="nc" id="L130">            value = doc.createElement(&quot;string&quot;);</span>
-<span class="nc" id="L131">            value.setTextContent(p.toString());</span>
-<span class="nc" id="L132">            child.appendChild(value);</span>
+<span class="nc" id="L129">            value = doc.createElement(&quot;string&quot;);</span>
+<span class="nc" id="L130">            value.setTextContent(p.toString());</span>
+<span class="nc" id="L131">            child.appendChild(value);</span>
 
-<span class="nc" id="L134">            node.appendChild(child);</span>
+<span class="nc" id="L133">            node.appendChild(child);</span>
         }
 
-<span class="nc" id="L137">        final Enumeration&lt;?&gt; headers = request.getHeaderNames();</span>
-<span class="nc bnc" id="L138" title="All 2 branches missed.">        if (headers.hasMoreElements()) {</span>
+<span class="nc" id="L136">        final Enumeration&lt;?&gt; headers = request.getHeaderNames();</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">        if (headers.hasMoreElements()) {</span>
             String name;
-<span class="nc" id="L140">            final Element child = doc.createElement(&quot;headers&quot;);</span>
-<span class="nc bnc" id="L141" title="All 2 branches missed.">            while (headers.hasMoreElements()) {</span>
-<span class="nc" id="L142">                name = (String) headers.nextElement();</span>
+<span class="nc" id="L139">            final Element child = doc.createElement(&quot;headers&quot;);</span>
+<span class="nc bnc" id="L140" title="All 2 branches missed.">            while (headers.hasMoreElements()) {</span>
+<span class="nc" id="L141">                name = (String) headers.nextElement();</span>
 
-<span class="nc" id="L144">                value = doc.createElement(name);</span>
-<span class="nc" id="L145">                value.setTextContent(request.getHeader(name));</span>
-<span class="nc" id="L146">                child.appendChild(value);</span>
+<span class="nc" id="L143">                value = doc.createElement(name);</span>
+<span class="nc" id="L144">                value.setTextContent(request.getHeader(name));</span>
+<span class="nc" id="L145">                child.appendChild(value);</span>
             }
-<span class="nc" id="L148">            node.appendChild(child);</span>
+<span class="nc" id="L147">            node.appendChild(child);</span>
         }
-<span class="nc" id="L150">        return node;</span>
+<span class="nc" id="L149">        return node;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
