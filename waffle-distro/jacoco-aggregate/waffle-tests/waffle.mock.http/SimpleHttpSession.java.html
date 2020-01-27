@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>SimpleHttpSession.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-distro</a> &gt; <a href="../index.html" class="el_bundle">waffle-tests</a> &gt; <a href="index.source.html" class="el_package">waffle.mock.http</a> &gt; <span class="el_source">SimpleHttpSession.java</span></div><h1>SimpleHttpSession.java</h1><pre class="source lang-java linenums">/**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2018 Application Security, Inc.
+ * Copyright (c) ${license.git.copyrightYears} Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -64,61 +64,84 @@ import javax.servlet.http.HttpSessionContext;
 <span class="nc" id="L64">        return null;</span>
     }
 
-    // TODO Simply remove this if it is ever actually removed from servlet-api
+    /**
+     * Simply remove this if it is ever actually removed from servlet-api
+     *
+     * @deprecated Remove this once servlet does.
+     */
     @Deprecated
     @Override
     public HttpSessionContext getSessionContext() {
-<span class="nc" id="L71">        return null;</span>
+<span class="nc" id="L75">        return null;</span>
     }
 
-    // TODO Simply remove this if it is ever actually removed from servlet-api
+    /**
+     * Simply remove this if it is ever actually removed from servlet-api
+     *
+     * @deprecated Remove this once servlet does.
+     */
     @Deprecated
     @Override
     public Object getValue(final String arg0) {
-<span class="nc" id="L78">        return null;</span>
+<span class="nc" id="L86">        return null;</span>
     }
 
+    /**
+     * Simply remove this if it is ever actually removed from servlet-api
+     *
+     * @deprecated Remove this once servlet does.
+     */
     @Deprecated
     @Override
     public String[] getValueNames() {
-<span class="nc" id="L84">        return new String[0];</span>
+<span class="nc" id="L97">        return new String[0];</span>
     }
 
     @Override
     public void invalidate() {
         // Do Nothing
-<span class="nc" id="L90">    }</span>
+<span class="nc" id="L103">    }</span>
 
     @Override
     public boolean isNew() {
-<span class="nc" id="L94">        return false;</span>
+<span class="nc" id="L107">        return false;</span>
     }
 
+    /**
+     * Simply remove this if it is ever actually removed from servlet-api
+     *
+     * @deprecated Remove this once servlet does.
+     */
     @Deprecated
     @Override
     public void putValue(final String arg0, final Object arg1) {
         // Do Nothing
-<span class="nc" id="L101">    }</span>
+<span class="nc" id="L119">    }</span>
 
     @Override
     public void removeAttribute(final String attributeName) {
-<span class="nc" id="L105">        this.attributes.remove(attributeName);</span>
-<span class="nc" id="L106">    }</span>
+<span class="nc" id="L123">        this.attributes.remove(attributeName);</span>
+<span class="nc" id="L124">    }</span>
 
+    /**
+     * Simply remove this if it is ever actually removed from servlet-api
+     *
+     * @deprecated Remove this once servlet does.
+     */
     @Deprecated
     @Override
     public void removeValue(final String arg0) {
         // Do Nothing
-<span class="nc" id="L112">    }</span>
+<span class="nc" id="L135">    }</span>
 
     @Override
     public void setAttribute(final String attributeName, final Object attributeValue) {
-<span class="fc" id="L116">        this.attributes.put(attributeName, attributeValue);</span>
-<span class="fc" id="L117">    }</span>
+<span class="fc" id="L139">        this.attributes.put(attributeName, attributeValue);</span>
+<span class="fc" id="L140">    }</span>
 
     @Override
     public void setMaxInactiveInterval(final int arg0) {
         // Do Nothing
-<span class="nc" id="L122">    }</span>
+<span class="nc" id="L145">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

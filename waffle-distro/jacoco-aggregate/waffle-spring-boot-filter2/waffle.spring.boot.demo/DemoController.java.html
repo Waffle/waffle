@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>DemoController.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-distro</a> &gt; <a href="../index.html" class="el_bundle">waffle-spring-boot-filter2</a> &gt; <a href="index.source.html" class="el_package">waffle.spring.boot.demo</a> &gt; <span class="el_source">DemoController.java</span></div><h1>DemoController.java</h1><pre class="source lang-java linenums">/**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2018 Application Security, Inc.
+ * Copyright (c) ${license.git.copyrightYears} Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -14,16 +14,17 @@ package waffle.spring.boot.demo;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-<span class="nc" id="L21">public class DemoController {</span>
+<span class="nc" id="L22">public class DemoController {</span>
 
-    @RequestMapping
+    @GetMapping
     public String demo(Authentication auth) {
-<span class="nc" id="L25">        return String.format(&quot;Hello, %s. You have authorities: %s&quot;, auth.getPrincipal(),</span>
-<span class="nc" id="L26">                auth.getAuthorities().stream().map(a -&gt; a.getAuthority()).collect(Collectors.joining(&quot;, &quot;)));</span>
+<span class="nc" id="L26">        return String.format(&quot;Hello, %s. You have authorities: %s&quot;, auth.getPrincipal(),</span>
+<span class="nc" id="L27">                auth.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(&quot;, &quot;)));</span>
     }
 
 }
