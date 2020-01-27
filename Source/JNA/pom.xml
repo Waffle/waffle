@@ -17,7 +17,7 @@
 
     <groupId>com.github.waffle</groupId>
     <artifactId>waffle-parent</artifactId>
-    <version>2.1.2-SNAPSHOT</version>
+    <version>2.2.0</version>
     <packaging>pom</packaging>
 
     <name>waffle-parent</name>
@@ -91,7 +91,7 @@
         <connection>scm:git:ssh://git@github.com/waffle/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/waffle/waffle.git</developerConnection>
         <url>https://github.com/Waffle/waffle</url>
-        <tag>HEAD</tag>
+        <tag>waffle-parent-2.2.0</tag>
     </scm>
     <issueManagement>
         <system>Github</system>
