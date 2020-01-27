@@ -9,7 +9,7 @@
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> * Waffle (<a href="https://github.com/Waffle/waffle)" target="alexandria_uri">https://github.com/Waffle/waffle)</a></em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> * Copyright (c) 2010-2018 Application Security, Inc.</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> * Copyright (c) ${license.git.copyrightYears} Application Security, Inc.</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment"> * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse</em>
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_javadoccomment"> * Public License v1.0 which accompanies this distribution, and is available at</em>
@@ -36,7 +36,7 @@
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Assertions;
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">import</strong> waffle.util.CorsPreflightCheck;
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">import</strong> waffle.util.CorsPreFlightCheck;
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  <em class="jxr_javadoccomment"> * Waffle (<a href="https://github.com/Waffle/waffle)" target="alexandria_uri">https://github.com/Waffle/waffle)</a></em>
@@ -171,7 +171,7 @@
 <a class="jxr_linenumber" name="L163" href="#L163">163</a>                 <strong class="jxr_keyword">this</strong>.result = <span class="jxr_string">"true"</span>;
 <a class="jxr_linenumber" name="L164" href="#L164">164</a>                 filterConfig.getInitParameter(<span class="jxr_string">"excludeBearerAuthorization"</span>);
 <a class="jxr_linenumber" name="L165" href="#L165">165</a>                 <strong class="jxr_keyword">this</strong>.result = <span class="jxr_string">"true"</span>;
-<a class="jxr_linenumber" name="L166" href="#L166">166</a>                 CorsPreflightCheck.isPreflight(request);
+<a class="jxr_linenumber" name="L166" href="#L166">166</a>                 CorsPreFlightCheck.isPreflight(request);
 <a class="jxr_linenumber" name="L167" href="#L167">167</a>                 <strong class="jxr_keyword">this</strong>.result = <strong class="jxr_keyword">true</strong>;
 <a class="jxr_linenumber" name="L168" href="#L168">168</a>                 request.getHeader(<span class="jxr_string">"Authorization"</span>);
 <a class="jxr_linenumber" name="L169" href="#L169">169</a>                 <strong class="jxr_keyword">this</strong>.result = <span class="jxr_string">"Bearer aBase64hash"</span>;
@@ -193,6 +193,6 @@
 <a class="jxr_linenumber" name="L185" href="#L185">185</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2010&#x2013;2019 <a href="https://github.com/waffle/">com.github.waffle</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2010&#x2013;2020 <a href="https://github.com/waffle/">com.github.waffle</a>. All rights reserved.</div>
 </body>
 </html>
