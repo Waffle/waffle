@@ -11,8 +11,6 @@
  */
 package waffle.windows.auth.impl;
 
-import com.github.benmanes.caffeine.cache.Cache;
-import com.github.benmanes.caffeine.cache.Caffeine;
 import com.sun.jna.platform.win32.Advapi32;
 import com.sun.jna.platform.win32.Kernel32;
 import com.sun.jna.platform.win32.Netapi32Util;
@@ -31,8 +29,11 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+import java.util.NoSuchElementException;
+import java.util.ServiceLoader;
 
+import waffle.util.cache.Cache;
+import waffle.util.cache.CacheSupplier;
 import waffle.windows.auth.IWindowsAccount;
 import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.IWindowsComputer;
@@ -92,8 +93,19 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
      *            Timeout for security contexts in seconds.
      */
     public WindowsAuthProviderImpl(final int continueContextsTimeout) {
-        this.continueContexts = Caffeine.newBuilder().expireAfterWrite(continueContextsTimeout, TimeUnit.SECONDS)
-                .build();
+        this.continueContexts = newCache(continueContextsTimeout);
+    }
+
+    private static Cache<String, ContinueContext> newCache(int continueContextsTimeout) {
+        final NoSuchElementException exception = new NoSuchElementException();
+        for (CacheSupplier cacheSupplier : ServiceLoader.load(CacheSupplier.class)) {
+            try {
+                return cacheSupplier.newCache(continueContextsTimeout);
+            } catch (Exception e) {
+                exception.addSuppressed(e);
+            }
+        }
+        throw exception;
     }
 
     @Override
@@ -107,7 +119,7 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
 
         CtxtHandle continueHandle = null;
         IWindowsCredentialsHandle serverCredential;
-        ContinueContext continueContext = this.continueContexts.asMap().get(connectionId);
+        ContinueContext continueContext = this.continueContexts.get(connectionId);
         if (continueContext != null) {
             continueHandle = continueContext.continueHandle;
             serverCredential = continueContext.serverCredential;
@@ -225,7 +237,7 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
 
     @Override
     public void resetSecurityToken(final String connectionId) {
-        this.continueContexts.asMap().remove(connectionId);
+        this.continueContexts.remove(connectionId);
     }
 
     /**
@@ -234,6 +246,6 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
      * @return Number of elements in the hash map.
      */
     public int getContinueContextsSize() {
-        return this.continueContexts.asMap().size();
+        return this.continueContexts.size();
     }
 }
