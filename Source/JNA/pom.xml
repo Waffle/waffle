@@ -209,7 +209,7 @@
         <bug-pattern.version>1.5.0</bug-pattern.version>
         <build-tools.version>1.2.2</build-tools.version>
         <checkstyle.version>8.29</checkstyle.version>
-        <doxia.version>1.9</doxia.version>
+        <doxia.version>1.9.1</doxia.version>
         <sb-contrib.version>7.4.7</sb-contrib.version>
         <findsecbugs.version>1.10.1</findsecbugs.version>
         <fluido.version>1.8</fluido.version>
