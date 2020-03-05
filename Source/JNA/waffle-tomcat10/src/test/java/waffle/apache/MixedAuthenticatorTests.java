@@ -19,8 +19,6 @@ import com.sun.jna.platform.win32.SspiUtil.ManagedSecBufferDesc;
 import java.util.Base64;
 import java.util.Collections;
 
-import javax.servlet.ServletException;
-
 import mockit.Expectations;
 import mockit.Mocked;
 
@@ -42,6 +40,8 @@ import waffle.windows.auth.PrincipalFormat;
 import waffle.windows.auth.impl.WindowsAccountImpl;
 import waffle.windows.auth.impl.WindowsCredentialsHandleImpl;
 import waffle.windows.auth.impl.WindowsSecurityContextImpl;
+
+import jakarta.servlet.ServletException;
 
 /**
  * Waffle Tomcat Mixed Authenticator Tests.

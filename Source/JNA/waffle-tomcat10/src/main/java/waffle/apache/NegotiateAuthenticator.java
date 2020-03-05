@@ -17,9 +17,6 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.Base64;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.connector.Request;
 import org.apache.catalina.realm.GenericPrincipal;
@@ -29,6 +26,9 @@ import waffle.util.AuthorizationHeader;
 import waffle.util.NtlmServletRequest;
 import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.IWindowsSecurityContext;
+
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * An Apache Negotiate (NTLM, Kerberos) Authenticator.
