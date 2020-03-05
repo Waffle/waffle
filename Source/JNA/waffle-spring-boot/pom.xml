@@ -43,6 +43,7 @@
         <slf4j.version>1.7.26</slf4j.version>
         <spring.version>4.3.26.RELEASE</spring.version>
         <spring-boot.version>1.5.22.RELEASE</spring-boot.version>
+        <tomcat.version>8.5.51</tomcat.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.spring.boot</module.name>
@@ -117,6 +118,26 @@
                 <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat</groupId>
+                <artifactId>tomcat-annotations-api</artifactId>
+                <version>${tomcat.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-core</artifactId>
+                <version>${tomcat.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-el</artifactId>
+                <version>${tomcat.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-websocket</artifactId>
+                <version>${tomcat.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
