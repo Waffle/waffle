@@ -40,7 +40,7 @@
         <!-- Dependencies -->
         <servlet.version>4.0.3</servlet.version>
         <spring.version>5.2.3.RELEASE</spring.version>
-        <spring.security.version>5.2.1.RELEASE</spring.security.version>
+        <spring.security.version>5.2.2.RELEASE</spring.security.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.spring.security5</module.name>
