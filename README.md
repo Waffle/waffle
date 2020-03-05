@@ -64,6 +64,13 @@ Features
 * Supports Windows Identity impersonation.
 * Includes a Windows Installer Merge Module for distribution of C# binaries.
 
+How do I resolve JNA `NoClassDefFound` errors?
+----------------------------------------------
+WAFFLE uses the latest version of JNA, which may conflict with other dependencies your project (or its parent) includes. If you experience issues with `NoClassDefFound` errors for JNA artifacts, consider one or more of the following steps to resolve the conflict:
+* Listing WAFFLE earlier (or first) in your dependency list 
+* Specifying the most recent version of JNA as a dependency
+* If you are using a parent (e.g., Spring Boot) that includes JNA as a dependency, override the `jna.version` property
+
 Related and Similar Products
 ----------------------------
 
