@@ -39,3 +39,4 @@ Thumbs.db
 .mvn/wrapper/maven-wrapper.jar
 *.releaseBackup
 Source/JNA/release.properties
+.sts4-cache/
