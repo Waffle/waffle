@@ -85,7 +85,8 @@
         <module>waffle-tomcat7</module>
         <module>waffle-tomcat85</module>
         <module>waffle-tomcat9</module>
-        <module>waffle-tomcat10</module>
+        <!-- TODO: Work in Progress -->
+        <!--<module>waffle-tomcat10</module>-->
     </modules>
 
     <scm>
