@@ -26,7 +26,7 @@ To deploy to a local running tomcat 7 instance, make the following changes
 
 - Start your tomcat server. You can launch a locally installed tomcat with remote debugging enabled on port 8000 using this
 
-    apache-tomcat-7.0.75$ bin/catalina.sh jpda start
+    apache-tomcat-7.0.100$ bin/catalina.sh jpda start
 
 - Build and Deploy the demo application to the local tomcat instance using this
 

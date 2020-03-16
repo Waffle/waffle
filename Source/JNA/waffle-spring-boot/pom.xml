@@ -38,10 +38,12 @@
 
     <properties>
         <!-- Dependencies -->
+        <jackson.version>2.10.3</jackson.version>
         <jna.version>5.5.0</jna.version>
-        <slf4j.version>1.7.26</slf4j.version>
+        <slf4j.version note="override from parent">1.7.26</slf4j.version>
         <spring.version>4.3.26.RELEASE</spring.version>
         <spring-boot.version>1.5.22.RELEASE</spring-boot.version>
+        <tomcat.version>8.5.51</tomcat.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.spring.boot</module.name>
@@ -54,6 +56,21 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
             <!-- Resolve conflict between WAFFLE and Spring Boot dependency version by forcing jna version -->
             <dependency>
                 <groupId>net.java.dev.jna</groupId>
@@ -101,6 +118,26 @@
                 <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat</groupId>
+                <artifactId>tomcat-annotations-api</artifactId>
+                <version>${tomcat.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-core</artifactId>
+                <version>${tomcat.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-el</artifactId>
+                <version>${tomcat.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-websocket</artifactId>
+                <version>${tomcat.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
