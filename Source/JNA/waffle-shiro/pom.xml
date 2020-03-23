@@ -39,7 +39,7 @@
     <properties>
         <!-- Dependencies -->
         <beanutils.version>1.9.4</beanutils.version>
-        <powermock.version>2.0.5</powermock.version>
+        <powermock.version>2.0.6</powermock.version>
         <servlet.version>4.0.3</servlet.version>
         <shiro.version>1.5.1</shiro.version>
 
