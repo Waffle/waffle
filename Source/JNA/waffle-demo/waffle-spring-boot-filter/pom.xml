@@ -41,7 +41,7 @@
         <jna.version>5.5.0</jna.version>
         <logback.version note="override from parent">1.1.11</logback.version>
         <slf4j.version note="override from parent">1.7.26</slf4j.version>
-        <spring.version>4.3.26.RELEASE</spring.version>
+        <spring.version>5.2.5.RELEASE</spring.version>
         <spring-boot.version>1.5.22.RELEASE</spring-boot.version>
         <tomcat.version>8.5.53</tomcat.version>
 
