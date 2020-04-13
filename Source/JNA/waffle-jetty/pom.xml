@@ -41,7 +41,7 @@
         <ecj.version>3.21.0</ecj.version>
         <el.version>3.0.3</el.version>
         <el-api.version>3.0.3</el-api.version>
-        <jetty.version>9.4.27.v20200227</jetty.version>
+        <jetty.version>9.4.28.v20200408</jetty.version>
         <jsp.version>2.3.6</jsp.version>
         <jsp-api.version>2.3.6</jsp-api.version>
         <jstl.version>1.2.6</jstl.version>
