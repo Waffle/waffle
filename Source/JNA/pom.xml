@@ -162,7 +162,7 @@
 
         <!-- Plugins -->
         <animal-sniffer.plugin>1.18</animal-sniffer.plugin>
-        <antrun.plugin>1.8</antrun.plugin>
+        <antrun.plugin>3.0.0</antrun.plugin>
         <assembly.plugin>3.2.0</assembly.plugin>
         <build-helper.plugin>3.1.0</build-helper.plugin>
         <changelog.plugin>2.3</changelog.plugin>
