@@ -28,7 +28,7 @@
 
     <name>waffle-demo-parent</name>
     <description>Parent POM for Waffle Demo</description>
-    <url>https://waffle.github.com/waffle/</url>
+    <url>https://waffle.github.io/waffle/</url>
 
     <modules>
         <module>waffle-filter</module>

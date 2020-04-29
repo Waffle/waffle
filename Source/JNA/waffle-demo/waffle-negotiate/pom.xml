@@ -27,7 +27,7 @@
 
     <name>waffle-negotiate</name>
     <description>Negotiate Demo for WAFFLE</description>
-    <url>https://waffle.github.com/waffle/</url>
+    <url>https://waffle.github.io/waffle/</url>
 
     <scm>
         <connection>scm:git:ssh://git@github.com/waffle/waffle.git</connection>

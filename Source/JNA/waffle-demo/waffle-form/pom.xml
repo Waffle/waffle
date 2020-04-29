@@ -27,7 +27,7 @@
 
     <name>waffle-form</name>
     <description>Form Demo for WAFFLE</description>
-    <url>https://waffle.github.com/waffle/</url>
+    <url>https://waffle.github.io/waffle/</url>
 
     <scm>
         <connection>scm:git:ssh://git@github.com/waffle/waffle.git</connection>

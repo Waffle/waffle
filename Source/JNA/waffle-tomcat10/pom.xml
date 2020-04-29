@@ -27,7 +27,7 @@
 
     <name>waffle-tomcat10</name>
     <description>Tomcat 10 integration for WAFFLE</description>
-    <url>https://waffle.github.com/waffle/</url>
+    <url>https://waffle.github.io/waffle/</url>
 
     <scm>
         <connection>scm:git:ssh://git@github.com/waffle/waffle.git</connection>
