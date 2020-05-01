@@ -29,11 +29,8 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.ServiceLoader;
 
 import waffle.util.cache.Cache;
-import waffle.util.cache.CacheSupplier;
 import waffle.windows.auth.IWindowsAccount;
 import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.IWindowsComputer;
@@ -93,19 +90,7 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
      *            Timeout for security contexts in seconds.
      */
     public WindowsAuthProviderImpl(final int continueContextsTimeout) {
-        this.continueContexts = newCache(continueContextsTimeout);
-    }
-
-    private static Cache<String, ContinueContext> newCache(int continueContextsTimeout) {
-        final NoSuchElementException exception = new NoSuchElementException();
-        for (CacheSupplier cacheSupplier : ServiceLoader.load(CacheSupplier.class)) {
-            try {
-                return cacheSupplier.newCache(continueContextsTimeout);
-            } catch (Exception e) {
-                exception.addSuppressed(e);
-            }
-        }
-        throw exception;
+        this.continueContexts = Cache.newCache(continueContextsTimeout);
     }
 
     @Override

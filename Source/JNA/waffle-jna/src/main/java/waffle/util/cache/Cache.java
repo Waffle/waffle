@@ -11,6 +11,9 @@
  */
 package waffle.util.cache;
 
+import java.util.NoSuchElementException;
+import java.util.ServiceLoader;
+
 /**
  * A semi-persistent mapping from keys to values.
  *
@@ -22,6 +25,35 @@ package waffle.util.cache;
  * @author Simon Legner
  */
 public interface Cache<K, V> {
+
+    /**
+     * Creates a new cache with the specified timeout.
+     *
+     * The cache implementation is obtained using {@link ServiceLoader}. To create your own implementation, implement
+     * {@link CacheSupplier} and register it using the {@code /META-INF/services/waffle.cache.CacheSupplier} file on
+     * your classpath.
+     *
+     * @param timeout
+     *            timeout in seconds
+     * @param <K>
+     *            the type of keys maintained by this cache
+     * @param <V>
+     *            the type of mapped values
+     * @return a new cache
+     * @throws NoSuchElementException
+     *             if no cache can be instantiated, use {@link Exception#getSuppressed()} to obtain details.
+     */
+    static <K, V> Cache<K, V> newCache(int timeout) throws NoSuchElementException {
+        final NoSuchElementException exception = new NoSuchElementException();
+        for (CacheSupplier cacheSupplier : ServiceLoader.load(CacheSupplier.class)) {
+            try {
+                return cacheSupplier.newCache(timeout);
+            } catch (Exception e) {
+                exception.addSuppressed(e);
+            }
+        }
+        throw exception;
+    }
 
     /**
      * Fetches the key from the cache
