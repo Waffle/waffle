@@ -126,6 +126,14 @@
             <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>
+        <!-- Tomcat 10
+        <dependency>
+            <groupId>com.github.waffle</groupId>
+            <artifactId>waffle-tomcat10</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        -->
 
         <!-- Waffle Demo Wars -->
         <dependency>
@@ -203,12 +211,28 @@
             <artifactId>logback-classic</artifactId>
             <version>${logback.version}</version>
             <scope>runtime</scope>
+            <exclusions>
+                 <exclusion>
+                      <groupId>com.sun.mail</groupId>
+                      <artifactId>javax.mail</artifactId>
+                 </exclusion>
+                 <exclusion>
+                      <groupId>edu.washington.cs.types.checker</groupId>
+                      <artifactId>checker-framework</artifactId>
+                 </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
             <version>${logback.version}</version>
             <scope>runtime</scope>
+            <exclusions>
+                 <exclusion>
+                      <groupId>edu.washington.cs.types.checker</groupId>
+                      <artifactId>checker-framework</artifactId>
+                 </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>
