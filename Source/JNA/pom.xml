@@ -72,6 +72,7 @@
     </contributors>
 
     <modules>
+        <module>waffle-bom</module>
         <module>waffle-demo</module>
         <module>waffle-distro</module>
         <module>waffle-jetty</module>
