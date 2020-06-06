@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2019 Application Security, Inc.
+ * Copyright (c) 2010-2020 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -13,16 +13,16 @@ package waffle.shiro.negotiate;
 
 import java.security.Principal;
 
-/**
- * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateToken. see:
- *
- * https://bitbucket.org/lothor/shiro-negotiate
- *
- * /src/7b25efde130b9cbcacf579b3f926c532d919aa23/src/main/java/net/skorgenes/
- *
- * security/jsecurity/negotiate/NegotiateAuthenticationFilter.java?at=default
- *
- * @author Dan Rollo
+/**
+ * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateToken. see:
+ *
+ * https://bitbucket.org/lothor/shiro-negotiate
+ *
+ * /src/7b25efde130b9cbcacf579b3f926c532d919aa23/src/main/java/net/skorgenes/
+ *
+ * security/jsecurity/negotiate/NegotiateAuthenticationFilter.java?at=default
+ *
+ * @author Dan Rollo
  */
 import javax.security.auth.Subject;
 

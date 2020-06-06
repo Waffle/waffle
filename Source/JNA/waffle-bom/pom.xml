@@ -21,12 +21,12 @@
         <version>2.2.2-SNAPSHOT</version>
     </parent>
 
-    <artifactId>waffle-distro</artifactId>
+    <artifactId>waffle-bom</artifactId>
     <version>2.2.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>waffle-distro</name>
-    <description>Distribution for WAFFLE</description>
+    <name>waffle-bom</name>
+    <description>Bill of Materials for WAFFLE</description>
     <url>https://waffle.github.io/waffle/</url>
 
     <scm>
@@ -40,10 +40,9 @@
         <!-- Dependencies -->
         <caffeine.version>2.8.4</caffeine.version>
         <jna.version>5.5.0</jna.version>
-        <logback.version>1.3.0-alpha5</logback.version>
 
         <!-- Automatic Module Name for JPMS -->
-        <module.name>waffle.distro</module.name>
+        <module.name>waffle.bom</module.name>
     </properties>
 
     <dependencies>
@@ -135,105 +134,7 @@
         </dependency>
         -->
 
-        <!-- Waffle Demo Wars -->
-        <dependency>
-            <groupId>com.github.waffle.demo</groupId>
-            <artifactId>waffle-filter</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle.demo</groupId>
-            <artifactId>waffle-form</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle.demo</groupId>
-            <artifactId>waffle-jaas</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle.demo</groupId>
-            <artifactId>waffle-mixed</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle.demo</groupId>
-            <artifactId>waffle-mixed-post</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle.demo</groupId>
-            <artifactId>waffle-negotiate</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle.demo</groupId>
-            <artifactId>waffle-spring-boot-filter</artifactId>
-            <version>${project.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle.demo</groupId>
-            <artifactId>waffle-spring-boot-filter2</artifactId>
-            <version>${project.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle.demo</groupId>
-            <artifactId>waffle-spring-filter</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle.demo</groupId>
-            <artifactId>waffle-spring-form</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
-            <scope>runtime</scope>
-        </dependency>
-
         <!-- Third Parties -->
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
-            <scope>runtime</scope>
-            <exclusions>
-                 <exclusion>
-                      <groupId>com.sun.mail</groupId>
-                      <artifactId>javax.mail</artifactId>
-                 </exclusion>
-                 <exclusion>
-                      <groupId>edu.washington.cs.types.checker</groupId>
-                      <artifactId>checker-framework</artifactId>
-                 </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-core</artifactId>
-            <version>${logback.version}</version>
-            <scope>runtime</scope>
-            <exclusions>
-                 <exclusion>
-                      <groupId>edu.washington.cs.types.checker</groupId>
-                      <artifactId>checker-framework</artifactId>
-                 </exclusion>
-            </exclusions>
-        </dependency>
         <dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>caffeine</artifactId>
@@ -261,35 +162,4 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <finalName>waffle</finalName>
-        <plugins>
-            <!-- Assembly -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>com.mycila</groupId>
-                <artifactId>license-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>**/*LICENSE-caffeine.txt</exclude>
-                        <exclude>**/*LICENSE-jna.txt</exclude>
-                        <exclude>**/*LICENSE-logback.txt</exclude>
-                        <exclude>**/*LICENSE-slf4j.txt</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>

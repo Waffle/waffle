@@ -39,11 +39,11 @@
         <!-- Dependencies -->
         <jackson.version>2.11.0</jackson.version>
         <jna.version>5.5.0</jna.version>
-        <logback.version note="override from parent">1.1.11</logback.version>
-        <slf4j.version note="override from parent">1.7.26</slf4j.version>
-        <spring.version>4.3.26.RELEASE</spring.version>
+        <logback.version note="override from parent">1.2.3</logback.version>
+        <slf4j.version note="override from parent">1.7.30</slf4j.version>
+        <spring.version>4.3.27.RELEASE</spring.version>
         <spring-boot.version>1.5.22.RELEASE</spring-boot.version>
-        <tomcat.version>8.5.53</tomcat.version>
+        <tomcat.version>8.5.55</tomcat.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.spring.boot.filter.demo</module.name>
@@ -51,6 +51,14 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.github.waffle</groupId>
+                <artifactId>waffle-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-annotations</artifactId>
@@ -144,6 +152,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.github.waffle</groupId>
+            <artifactId>waffle-spring-boot-starter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
@@ -154,11 +168,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle</groupId>
-            <artifactId>waffle-spring-boot-starter</artifactId>
-            <version>${project.version}</version>
         </dependency>
     </dependencies>
 

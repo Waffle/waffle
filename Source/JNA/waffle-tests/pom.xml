@@ -38,9 +38,10 @@
 
     <properties>
         <!-- Dependencies -->
-        <servlet.version>4.0.3</servlet.version>
+        <byte-buddy.version>1.10.11</byte-buddy.version>
         <mockito-core.version>3.3.3</mockito-core.version>
         <objenesis.version>3.1</objenesis.version>
+        <servlet.version>4.0.3</servlet.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.tests</module.name>
@@ -59,7 +60,18 @@
             <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
-        <!-- This is required as parent isn't managed so it needs full redefine to override -->
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+            <version>${byte-buddy.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy-agent</artifactId>
+            <version>${byte-buddy.version}</version>
+            <scope>compile</scope>
+        </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>

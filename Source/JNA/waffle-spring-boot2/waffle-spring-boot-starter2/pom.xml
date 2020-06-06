@@ -48,7 +48,7 @@
         </dependency>
         <dependency>
             <groupId>com.github.waffle</groupId>
-            <artifactId>waffle-spring-boot-autoconfigure</artifactId>
+            <artifactId>waffle-spring-boot-autoconfigure2</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
