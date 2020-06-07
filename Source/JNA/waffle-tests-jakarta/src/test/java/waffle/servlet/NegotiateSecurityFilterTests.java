@@ -19,12 +19,13 @@ import com.sun.jna.platform.win32.Secur32Util;
 import com.sun.jna.platform.win32.Sspi;
 import com.sun.jna.platform.win32.SspiUtil.ManagedSecBufferDesc;
 
-import javax.security.auth.Subject;
 import jakarta.servlet.ServletException;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
+
+import javax.security.auth.Subject;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;

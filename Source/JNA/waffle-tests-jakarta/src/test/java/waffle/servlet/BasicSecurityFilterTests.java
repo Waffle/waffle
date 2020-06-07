@@ -13,13 +13,14 @@ package waffle.servlet;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import javax.security.auth.Subject;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+
+import javax.security.auth.Subject;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;

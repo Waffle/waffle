@@ -17,13 +17,14 @@ import com.sun.jna.platform.win32.LMAccess;
 import com.sun.jna.platform.win32.LMErr;
 import com.sun.jna.platform.win32.Netapi32;
 
-import javax.security.auth.Subject;
 import jakarta.servlet.ServletException;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.Principal;
 import java.util.Base64;
+
+import javax.security.auth.Subject;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;

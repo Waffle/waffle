@@ -50,7 +50,7 @@
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>waffle-jna</artifactId>
+            <artifactId>waffle-jna-jakarta</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>

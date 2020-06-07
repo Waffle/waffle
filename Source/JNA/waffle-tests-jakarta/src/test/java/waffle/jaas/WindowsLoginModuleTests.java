@@ -13,13 +13,13 @@ package waffle.jaas;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import javax.security.auth.Subject;
-import javax.security.auth.login.LoginException;
-
 import java.security.Principal;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.security.auth.Subject;
+import javax.security.auth.login.LoginException;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

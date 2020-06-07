@@ -14,12 +14,13 @@ package waffle.servlet;
 import com.sun.jna.Platform;
 
 import jakarta.servlet.ServletException;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import java.io.IOException;
 import java.io.StringReader;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
