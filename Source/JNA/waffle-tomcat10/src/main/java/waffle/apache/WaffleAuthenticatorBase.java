@@ -11,6 +11,9 @@
  */
 package waffle.apache;
 
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Arrays;
@@ -28,9 +31,6 @@ import waffle.windows.auth.IWindowsAuthProvider;
 import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.PrincipalFormat;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
-
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * The Class WaffleAuthenticatorBase.

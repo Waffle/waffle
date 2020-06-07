@@ -11,6 +11,8 @@
  */
 package waffle.apache;
 
+import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 
 import org.apache.catalina.connector.Request;
@@ -18,8 +20,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
-
-import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * Waffle Authenticator Base Tests.

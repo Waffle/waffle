@@ -11,6 +11,8 @@
  */
 package waffle.apache.catalina;
 
+import jakarta.servlet.http.HttpSession;
+
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,8 +20,6 @@ import java.util.Map;
 import mockit.Mocked;
 
 import org.apache.catalina.connector.Request;
-
-import jakarta.servlet.http.HttpSession;
 
 /**
  * Simple HTTP Request.

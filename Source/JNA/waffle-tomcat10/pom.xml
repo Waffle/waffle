@@ -47,13 +47,13 @@
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>waffle-jna</artifactId>
+            <artifactId>waffle-jna-jakarta</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>waffle-tests</artifactId>
+            <artifactId>waffle-tests-jakarta</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
