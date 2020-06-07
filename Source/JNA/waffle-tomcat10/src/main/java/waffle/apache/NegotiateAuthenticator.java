@@ -13,6 +13,9 @@ package waffle.apache;
 
 import com.sun.jna.platform.win32.Win32Exception;
 
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Base64;
@@ -26,9 +29,6 @@ import waffle.util.AuthorizationHeader;
 import waffle.util.NtlmServletRequest;
 import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.IWindowsSecurityContext;
-
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 /**
  * An Apache Negotiate (NTLM, Kerberos) Authenticator.
