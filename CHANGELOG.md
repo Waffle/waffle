@@ -1,6 +1,7 @@
 2.3.0 (in-progress)
 ===================
 * Introduction of waffle-tomcat10 module
+* Introduction of waffle-jna-jakarta module for usage with jakarta package rename direct usage
 
 2.2.2 (in-progress)
 ===================
