@@ -3,6 +3,8 @@
 * Introduction of waffle-tomcat10 module
 * Introduction of waffle-jna-jakarta module for usage with jakarta package rename direct usage
 
+* [#956](https://github.com/Waffle/waffle/pull/956): Fix DelegatingNegotiateSecurityFilter [@cmolodo](https://github.com/cmolodo) - Fixes #453
+
 2.2.2 (in-progress)
 ===================
 * TODO
