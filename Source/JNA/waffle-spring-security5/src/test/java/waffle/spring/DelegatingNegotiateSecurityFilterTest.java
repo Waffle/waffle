@@ -1,7 +1,7 @@
 /**
  * Waffle (https://github.com/Waffle/waffle)
  *
- * Copyright (c) 2010-2018 Application Security, Inc.
+ * Copyright (c) 2010-2020 Application Security, Inc.
  *
  * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
@@ -35,6 +35,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+
 import waffle.mock.http.SimpleFilterChain;
 import waffle.mock.http.SimpleHttpRequest;
 import waffle.mock.http.SimpleHttpResponse;
@@ -149,7 +150,7 @@ public class DelegatingNegotiateSecurityFilterTest {
         final SimpleHttpRequest request = new SimpleHttpRequest();
 
         final String clientToken = Base64.getEncoder()
-                                         .encodeToString(WindowsAccountImpl.getCurrentUsername().getBytes(StandardCharsets.UTF_8));
+                .encodeToString(WindowsAccountImpl.getCurrentUsername().getBytes(StandardCharsets.UTF_8));
         request.addHeader("Authorization", securityPackage + " " + clientToken);
 
         final SimpleHttpResponse response = new SimpleHttpResponse();
@@ -169,8 +170,8 @@ public class DelegatingNegotiateSecurityFilterTest {
 /**
  * Provides a basic implementation that simply stores the provided Authentication so it can be checked for testing.
  *
- * Class declared here rather than in the general handlers package because it should NOT be added to the overall
- * filter configuration, but only to the specific filter instance testing its use.
+ * Class declared here rather than in the general handlers package because it should NOT be added to the overall filter
+ * configuration, but only to the specific filter instance testing its use.
  */
 class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
@@ -178,7 +179,7 @@ class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
-                                        Authentication authentication) throws IOException, ServletException {
+            Authentication authentication) throws IOException, ServletException {
         this.authentication = authentication;
     }
 
