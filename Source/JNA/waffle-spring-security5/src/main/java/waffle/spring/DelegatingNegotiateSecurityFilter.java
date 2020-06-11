@@ -136,16 +136,15 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
     protected boolean setAuthentication(final HttpServletRequest request, final HttpServletResponse response,
             final Authentication authentication) {
         try {
+            Authentication delegateAuthentication = authentication;
             if (this.authenticationManager != null) {
                 DelegatingNegotiateSecurityFilter.LOGGER.debug("Delegating to custom authenticationmanager");
-                final Authentication customAuthentication = this.authenticationManager.authenticate(authentication);
-                SecurityContextHolder.getContext().setAuthentication(customAuthentication);
-            } else {
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+                delegateAuthentication = this.authenticationManager.authenticate(authentication);
             }
+            SecurityContextHolder.getContext().setAuthentication(delegateAuthentication);
             if (this.authenticationSuccessHandler != null) {
                 try {
-                    this.authenticationSuccessHandler.onAuthenticationSuccess(request, response, authentication);
+                    this.authenticationSuccessHandler.onAuthenticationSuccess(request, response, delegateAuthentication);
                 } catch (final IOException | ServletException e) {
                     DelegatingNegotiateSecurityFilter.LOGGER.warn("Error calling authenticationSuccessHandler: {}",
                             e.getMessage());
