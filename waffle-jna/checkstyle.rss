@@ -20,7 +20,7 @@ under the License.
 <rss version="0.91">
   <channel>
     <title>waffle-jna - Checkstyle report</title>
-    <link>https://waffle.github.com/waffle/</link>
+    <link>https://waffle.github.io/waffle/</link>
     <description>waffle-jna - Checkstyle report</description>
     <language>en-us</language>
     <copyright>&#169;2010 - 2020 com.github.waffle</copyright>
@@ -30,9 +30,9 @@ under the License.
              Warnings: 183,
              Infos: 0
       </title>
-            <link>https://waffle.github.com/waffle//checkstyle.html</link>
+            <link>https://waffle.github.io/waffle//checkstyle.html</link>
       <description>
-        <p>Click <a href="https://waffle.github.com/waffle//checkstyle.html">here</a> for the full Checkstyle report.</p>
+        <p>Click <a href="https://waffle.github.io/waffle//checkstyle.html">here</a> for the full Checkstyle report.</p>
 
         <table summary="Files" boder="1">
           <thead>
@@ -46,7 +46,7 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.servlet.WaffleInfoServlet.java">waffle/servlet/WaffleInfoServlet.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.servlet.WaffleInfoServlet.java">waffle/servlet/WaffleInfoServlet.java</a>
                 </td>
                 <td>
                   0
@@ -60,7 +60,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.windows.auth.IWindowsAuthProvider.java">waffle/windows/auth/IWindowsAuthProvider.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.IWindowsAuthProvider.java">waffle/windows/auth/IWindowsAuthProvider.java</a>
                 </td>
                 <td>
                   0
@@ -74,7 +74,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsIdentityImpersonationContextImpl.java">waffle/windows/auth/impl/WindowsIdentityImpersonationContextImpl.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsIdentityImpersonationContextImpl.java">waffle/windows/auth/impl/WindowsIdentityImpersonationContextImpl.java</a>
                 </td>
                 <td>
                   0
@@ -88,7 +88,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsDomainImpl.java">waffle/windows/auth/impl/WindowsDomainImpl.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsDomainImpl.java">waffle/windows/auth/impl/WindowsDomainImpl.java</a>
                 </td>
                 <td>
                   0
@@ -102,7 +102,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.windows.auth.package-info.java">waffle/windows/auth/package-info.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.package-info.java">waffle/windows/auth/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -116,7 +116,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsSecurityContextImpersonationContextImpl.java">waffle/windows/auth/impl/WindowsSecurityContextImpersonationContextImpl.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsSecurityContextImpersonationContextImpl.java">waffle/windows/auth/impl/WindowsSecurityContextImpersonationContextImpl.java</a>
                 </td>
                 <td>
                   0
@@ -130,7 +130,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.servlet.WindowsPrincipal.java">waffle/servlet/WindowsPrincipal.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.servlet.WindowsPrincipal.java">waffle/servlet/WindowsPrincipal.java</a>
                 </td>
                 <td>
                   0
@@ -144,7 +144,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.servlet.package-info.java">waffle/servlet/package-info.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.servlet.package-info.java">waffle/servlet/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -158,7 +158,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.servlet.spi.package-info.java">waffle/servlet/spi/package-info.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.servlet.spi.package-info.java">waffle/servlet/spi/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -172,7 +172,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsCredentialsHandleImpl.java">waffle/windows/auth/impl/WindowsCredentialsHandleImpl.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsCredentialsHandleImpl.java">waffle/windows/auth/impl/WindowsCredentialsHandleImpl.java</a>
                 </td>
                 <td>
                   0
@@ -186,7 +186,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.windows.auth.WindowsAccount.java">waffle/windows/auth/WindowsAccount.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.WindowsAccount.java">waffle/windows/auth/WindowsAccount.java</a>
                 </td>
                 <td>
                   0
@@ -200,7 +200,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.servlet.spi.SecurityFilterProvider.java">waffle/servlet/spi/SecurityFilterProvider.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.servlet.spi.SecurityFilterProvider.java">waffle/servlet/spi/SecurityFilterProvider.java</a>
                 </td>
                 <td>
                   0
@@ -214,7 +214,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.util.NtlmServletRequest.java">waffle/util/NtlmServletRequest.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.util.NtlmServletRequest.java">waffle/util/NtlmServletRequest.java</a>
                 </td>
                 <td>
                   0
@@ -228,7 +228,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.jaas.WindowsLoginModule.java">waffle/jaas/WindowsLoginModule.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.jaas.WindowsLoginModule.java">waffle/jaas/WindowsLoginModule.java</a>
                 </td>
                 <td>
                   0
@@ -242,7 +242,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.jaas.UserPrincipal.java">waffle/jaas/UserPrincipal.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.jaas.UserPrincipal.java">waffle/jaas/UserPrincipal.java</a>
                 </td>
                 <td>
                   0
@@ -256,7 +256,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.servlet.AutoDisposableWindowsPrincipal.java">waffle/servlet/AutoDisposableWindowsPrincipal.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.servlet.AutoDisposableWindowsPrincipal.java">waffle/servlet/AutoDisposableWindowsPrincipal.java</a>
                 </td>
                 <td>
                   0
@@ -270,7 +270,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.util.SPNegoMessage.java">waffle/util/SPNegoMessage.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.util.SPNegoMessage.java">waffle/util/SPNegoMessage.java</a>
                 </td>
                 <td>
                   0
@@ -284,7 +284,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.windows.auth.IWindowsDomain.java">waffle/windows/auth/IWindowsDomain.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.IWindowsDomain.java">waffle/windows/auth/IWindowsDomain.java</a>
                 </td>
                 <td>
                   0
@@ -298,7 +298,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsAuthProviderImpl.java">waffle/windows/auth/impl/WindowsAuthProviderImpl.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsAuthProviderImpl.java">waffle/windows/auth/impl/WindowsAuthProviderImpl.java</a>
                 </td>
                 <td>
                   0
@@ -312,7 +312,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsSecurityContextImpl.java">waffle/windows/auth/impl/WindowsSecurityContextImpl.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsSecurityContextImpl.java">waffle/windows/auth/impl/WindowsSecurityContextImpl.java</a>
                 </td>
                 <td>
                   0
@@ -326,7 +326,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.servlet.CorsAwareNegotiateSecurityFilter.java">waffle/servlet/CorsAwareNegotiateSecurityFilter.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.servlet.CorsAwareNegotiateSecurityFilter.java">waffle/servlet/CorsAwareNegotiateSecurityFilter.java</a>
                 </td>
                 <td>
                   0
@@ -340,7 +340,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsIdentityImpl.java">waffle/windows/auth/impl/WindowsIdentityImpl.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsIdentityImpl.java">waffle/windows/auth/impl/WindowsIdentityImpl.java</a>
                 </td>
                 <td>
                   0
@@ -354,7 +354,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.windows.auth.IWindowsImpersonationContext.java">waffle/windows/auth/IWindowsImpersonationContext.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.IWindowsImpersonationContext.java">waffle/windows/auth/IWindowsImpersonationContext.java</a>
                 </td>
                 <td>
                   0
@@ -368,7 +368,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.windows.auth.IWindowsSecurityContext.java">waffle/windows/auth/IWindowsSecurityContext.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.IWindowsSecurityContext.java">waffle/windows/auth/IWindowsSecurityContext.java</a>
                 </td>
                 <td>
                   0
@@ -382,7 +382,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.servlet.spi.BasicSecurityFilterProvider.java">waffle/servlet/spi/BasicSecurityFilterProvider.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.servlet.spi.BasicSecurityFilterProvider.java">waffle/servlet/spi/BasicSecurityFilterProvider.java</a>
                 </td>
                 <td>
                   0
@@ -396,7 +396,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.servlet.spi.SecurityFilterProviderCollection.java">waffle/servlet/spi/SecurityFilterProviderCollection.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.servlet.spi.SecurityFilterProviderCollection.java">waffle/servlet/spi/SecurityFilterProviderCollection.java</a>
                 </td>
                 <td>
                   0
@@ -410,7 +410,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.jaas.GroupPrincipal.java">waffle/jaas/GroupPrincipal.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.jaas.GroupPrincipal.java">waffle/jaas/GroupPrincipal.java</a>
                 </td>
                 <td>
                   0
@@ -424,7 +424,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.windows.auth.IWindowsComputer.java">waffle/windows/auth/IWindowsComputer.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.IWindowsComputer.java">waffle/windows/auth/IWindowsComputer.java</a>
                 </td>
                 <td>
                   0
@@ -438,7 +438,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.windows.auth.IWindowsCredentialsHandle.java">waffle/windows/auth/IWindowsCredentialsHandle.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.IWindowsCredentialsHandle.java">waffle/windows/auth/IWindowsCredentialsHandle.java</a>
                 </td>
                 <td>
                   0
@@ -452,7 +452,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.util.CorsPreFlightCheck.java">waffle/util/CorsPreFlightCheck.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.util.CorsPreFlightCheck.java">waffle/util/CorsPreFlightCheck.java</a>
                 </td>
                 <td>
                   0
@@ -466,7 +466,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.servlet.spi.NegotiateSecurityFilterProvider.java">waffle/servlet/spi/NegotiateSecurityFilterProvider.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.servlet.spi.NegotiateSecurityFilterProvider.java">waffle/servlet/spi/NegotiateSecurityFilterProvider.java</a>
                 </td>
                 <td>
                   0
@@ -480,7 +480,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.jaas.package-info.java">waffle/jaas/package-info.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.jaas.package-info.java">waffle/jaas/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -494,7 +494,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsAccountImpl.java">waffle/windows/auth/impl/WindowsAccountImpl.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsAccountImpl.java">waffle/windows/auth/impl/WindowsAccountImpl.java</a>
                 </td>
                 <td>
                   0
@@ -508,7 +508,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.windows.auth.IWindowsIdentity.java">waffle/windows/auth/IWindowsIdentity.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.IWindowsIdentity.java">waffle/windows/auth/IWindowsIdentity.java</a>
                 </td>
                 <td>
                   0
@@ -522,7 +522,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.util.NtlmMessage.java">waffle/util/NtlmMessage.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.util.NtlmMessage.java">waffle/util/NtlmMessage.java</a>
                 </td>
                 <td>
                   0
@@ -536,7 +536,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.windows.auth.impl.package-info.java">waffle/windows/auth/impl/package-info.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.impl.package-info.java">waffle/windows/auth/impl/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -550,7 +550,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.servlet.NegotiateRequestWrapper.java">waffle/servlet/NegotiateRequestWrapper.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.servlet.NegotiateRequestWrapper.java">waffle/servlet/NegotiateRequestWrapper.java</a>
                 </td>
                 <td>
                   0
@@ -564,7 +564,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.util.AuthorizationHeader.java">waffle/util/AuthorizationHeader.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.util.AuthorizationHeader.java">waffle/util/AuthorizationHeader.java</a>
                 </td>
                 <td>
                   0
@@ -578,7 +578,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.windows.auth.PrincipalFormat.java">waffle/windows/auth/PrincipalFormat.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.PrincipalFormat.java">waffle/windows/auth/PrincipalFormat.java</a>
                 </td>
                 <td>
                   0
@@ -592,7 +592,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.util.WaffleInfo.java">waffle/util/WaffleInfo.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.util.WaffleInfo.java">waffle/util/WaffleInfo.java</a>
                 </td>
                 <td>
                   0
@@ -606,7 +606,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.windows.auth.IWindowsAccount.java">waffle/windows/auth/IWindowsAccount.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.IWindowsAccount.java">waffle/windows/auth/IWindowsAccount.java</a>
                 </td>
                 <td>
                   0
@@ -620,7 +620,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.jaas.RolePrincipal.java">waffle/jaas/RolePrincipal.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.jaas.RolePrincipal.java">waffle/jaas/RolePrincipal.java</a>
                 </td>
                 <td>
                   0
@@ -634,7 +634,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.servlet.NegotiateSecurityFilter.java">waffle/servlet/NegotiateSecurityFilter.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.servlet.NegotiateSecurityFilter.java">waffle/servlet/NegotiateSecurityFilter.java</a>
                 </td>
                 <td>
                   0
@@ -648,7 +648,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsComputerImpl.java">waffle/windows/auth/impl/WindowsComputerImpl.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsComputerImpl.java">waffle/windows/auth/impl/WindowsComputerImpl.java</a>
                 </td>
                 <td>
                   0
@@ -662,7 +662,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.util.package-info.java">waffle/util/package-info.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.util.package-info.java">waffle/util/package-info.java</a>
                 </td>
                 <td>
                   0
