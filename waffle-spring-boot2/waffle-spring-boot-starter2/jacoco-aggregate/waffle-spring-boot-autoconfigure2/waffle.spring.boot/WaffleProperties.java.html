@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>WaffleProperties.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-spring-boot-starter2</a> &gt; <a href="../index.html" class="el_bundle">waffle-spring-boot-autoconfigure2</a> &gt; <a href="index.source.html" class="el_package">waffle.spring.boot</a> &gt; <span class="el_source">WaffleProperties.java</span></div><h1>WaffleProperties.java</h1><pre class="source lang-java linenums">/**
+ * Waffle (https://github.com/Waffle/waffle)
+ *
+ * Copyright (c) 2010-2020 Application Security, Inc.
+ *
+ * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+ * Public License v1.0 which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-v10.html.
+ *
+ * Contributors: Application Security, Inc.
+ */
+package waffle.spring.boot;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import waffle.windows.auth.PrincipalFormat;
+
+/**
+ * The configuration properties that can be used with Spring Boot to configure WAFFLE.
+ */
+@ConfigurationProperties(prefix = &quot;waffle&quot;)
+<span class="nc" id="L25">public class WaffleProperties {</span>
+
+    /** The principal format can be any of the options specified by {@link PrincipalFormat}. */
+<span class="nc" id="L28">    private String principalFormat = &quot;fqn&quot;;</span>
+
+    /** The principal format can be any of the options specified by {@link PrincipalFormat}. */
+<span class="nc" id="L31">    private String roleFormat = &quot;fqn&quot;;</span>
+
+    /** Enable or disable guest login. */
+<span class="nc" id="L34">    private boolean allowGuestLogin = false;</span>
+
+    /** Configuration properties for single-sign-on. */
+    private SingleSignOnProperties sso;
+
+    /**
+     * Gets the principal format.
+     *
+     * @return the principal format
+     */
+    public String getPrincipalFormat() {
+<span class="nc" id="L45">        return this.principalFormat;</span>
+    }
+
+    /**
+     * Sets the principal format.
+     *
+     * @param principalFormat
+     *            the new principal format
+     */
+    public void setPrincipalFormat(final String principalFormat) {
+<span class="nc" id="L55">        this.principalFormat = principalFormat;</span>
+<span class="nc" id="L56">    }</span>
+
+    /**
+     * Gets the role format.
+     *
+     * @return the role format
+     */
+    public String getRoleFormat() {
+<span class="nc" id="L64">        return this.roleFormat;</span>
+    }
+
+    /**
+     * Sets the role format.
+     *
+     * @param roleFormat
+     *            the new role format
+     */
+    public void setRoleFormat(final String roleFormat) {
+<span class="nc" id="L74">        this.roleFormat = roleFormat;</span>
+<span class="nc" id="L75">    }</span>
+
+    /**
+     * Checks if is allow guest login.
+     *
+     * @return true, if is allow guest login
+     */
+    public boolean isAllowGuestLogin() {
+<span class="nc" id="L83">        return this.allowGuestLogin;</span>
+    }
+
+    /**
+     * Sets the allow guest login.
+     *
+     * @param allowGuestLogin
+     *            the new allow guest login
+     */
+    public void setAllowGuestLogin(final boolean allowGuestLogin) {
+<span class="nc" id="L93">        this.allowGuestLogin = allowGuestLogin;</span>
+<span class="nc" id="L94">    }</span>
+
+    /**
+     * Gets the sso.
+     *
+     * @return the sso
+     */
+    public SingleSignOnProperties getSso() {
+<span class="nc" id="L102">        return this.sso;</span>
+    }
+
+    /**
+     * Sets the sso.
+     *
+     * @param sso
+     *            the new sso
+     */
+    public void setSso(final SingleSignOnProperties sso) {
+<span class="nc" id="L112">        this.sso = sso;</span>
+<span class="nc" id="L113">    }</span>
+
+    /**
+     * The Class SingleSignOnProperties.
+     */
+<span class="nc" id="L118">    public static class SingleSignOnProperties {</span>
+
+        /** Enable or disable single-sign-on using Negotiate protocol. */
+<span class="nc" id="L121">        private boolean enabled = false;</span>
+
+        /** Enable fall back to Basic protocol for unsupported browsers. */
+<span class="nc" id="L124">        private boolean basicEnabled = false;</span>
+
+        /** List of protocols to support: Can be Negotiate, NTLM. */
+<span class="nc" id="L127">        private List&lt;String&gt; protocols = Arrays.asList(&quot;Negotiate&quot;, &quot;NTLM&quot;);</span>
+
+        /** Enable WAFFLE impersonate option. */
+<span class="nc" id="L130">        private boolean impersonate = false;</span>
+
+        /**
+         * Checks if is enabled.
+         *
+         * @return true, if is enabled
+         */
+        public boolean isEnabled() {
+<span class="nc" id="L138">            return this.enabled;</span>
+        }
+
+        /**
+         * Sets the enabled.
+         *
+         * @param enabled
+         *            the new enabled
+         */
+        public void setEnabled(final boolean enabled) {
+<span class="nc" id="L148">            this.enabled = enabled;</span>
+<span class="nc" id="L149">        }</span>
+
+        /**
+         * Checks if is basic enabled.
+         *
+         * @return true, if is basic enabled
+         */
+        public boolean isBasicEnabled() {
+<span class="nc" id="L157">            return this.basicEnabled;</span>
+        }
+
+        /**
+         * Sets the basic enabled.
+         *
+         * @param basicEnabled
+         *            the new basic enabled
+         */
+        public void setBasicEnabled(final boolean basicEnabled) {
+<span class="nc" id="L167">            this.basicEnabled = basicEnabled;</span>
+<span class="nc" id="L168">        }</span>
+
+        /**
+         * Gets the protocols.
+         *
+         * @return the protocols
+         */
+        public List&lt;String&gt; getProtocols() {
+<span class="nc" id="L176">            return this.protocols;</span>
+        }
+
+        /**
+         * Sets the protocols.
+         *
+         * @param protocols
+         *            the new protocols
+         */
+        public void setProtocols(final List&lt;String&gt; protocols) {
+<span class="nc" id="L186">            this.protocols = protocols;</span>
+<span class="nc" id="L187">        }</span>
+
+        /**
+         * Checks if is impersonate.
+         *
+         * @return true, if is impersonate
+         */
+        public boolean isImpersonate() {
+<span class="nc" id="L195">            return this.impersonate;</span>
+        }
+
+        /**
+         * Sets the impersonate.
+         *
+         * @param impersonate
+         *            the new impersonate
+         */
+        public void setImpersonate(final boolean impersonate) {
+<span class="nc" id="L205">            this.impersonate = impersonate;</span>
+<span class="nc" id="L206">        }</span>
+
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
