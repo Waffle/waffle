@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MockWindowsAuthProvider.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-tests-jakarta</a> &gt; <a href="index.source.html" class="el_package">waffle.mock</a> &gt; <span class="el_source">MockWindowsAuthProvider.java</span></div><h1>MockWindowsAuthProvider.java</h1><pre class="source lang-java linenums">/**
+ * Waffle (https://github.com/Waffle/waffle)
+ *
+ * Copyright (c) ${license.git.copyrightYears} Application Security, Inc.
+ *
+ * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
+ * Public License v1.0 which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-v10.html.
+ *
+ * Contributors: Application Security, Inc.
+ */
+package waffle.mock;
+
+import com.sun.jna.platform.win32.Secur32.EXTENDED_NAME_FORMAT;
+import com.sun.jna.platform.win32.Secur32Util;
+
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+
+import waffle.windows.auth.IWindowsAccount;
+import waffle.windows.auth.IWindowsAuthProvider;
+import waffle.windows.auth.IWindowsComputer;
+import waffle.windows.auth.IWindowsDomain;
+import waffle.windows.auth.IWindowsIdentity;
+import waffle.windows.auth.IWindowsSecurityContext;
+
+/**
+ * The Class MockWindowsAuthProvider.
+ *
+ * @author dblock[at]dblock[dot]org
+ */
+public class MockWindowsAuthProvider implements IWindowsAuthProvider {
+
+    /** The Constant GUEST. */
+    private static final String GUEST = &quot;Guest&quot;;
+
+    /** The groups. */
+<span class="fc" id="L39">    private final List&lt;String&gt; groups = new ArrayList&lt;&gt;();</span>
+
+    /**
+     * Instantiates a new mock windows auth provider.
+     */
+<span class="fc" id="L44">    public MockWindowsAuthProvider() {</span>
+<span class="fc" id="L45">        this.groups.add(&quot;Users&quot;);</span>
+<span class="fc" id="L46">        this.groups.add(&quot;Everyone&quot;);</span>
+<span class="fc" id="L47">    }</span>
+
+    /**
+     * Adds the group.
+     *
+     * @param name
+     *            the name
+     */
+    public void addGroup(final String name) {
+<span class="fc" id="L56">        this.groups.add(name);</span>
+<span class="fc" id="L57">    }</span>
+
+    @Override
+    public IWindowsSecurityContext acceptSecurityToken(final String connectionId, final byte[] token,
+            final String securityPackage) {
+<span class="nc" id="L62">        return new MockWindowsSecurityContext(new String(token, StandardCharsets.UTF_8));</span>
+    }
+
+    @Override
+    public IWindowsComputer getCurrentComputer() {
+<span class="nc" id="L67">        return null;</span>
+    }
+
+    @Override
+    public IWindowsDomain[] getDomains() {
+<span class="nc" id="L72">        return new IWindowsDomain[0];</span>
+    }
+
+    @Override
+    public IWindowsIdentity logonDomainUser(final String username, final String domain, final String password) {
+<span class="nc" id="L77">        return null;</span>
+    }
+
+    @Override
+    public IWindowsIdentity logonDomainUserEx(final String username, final String domain, final String password,
+            final int logonType, final int logonProvider) {
+<span class="nc" id="L83">        return null;</span>
+    }
+
+    /**
+     * Will login the current user with any password. Will logon a &quot;Guest&quot; user as guest.
+     *
+     * @param username
+     *            the username
+     * @param password
+     *            the password
+     * @return the i windows identity
+     */
+    @Override
+    public IWindowsIdentity logonUser(final String username, final String password) {
+<span class="fc" id="L97">        final String currentUsername = Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">        if (username.equals(currentUsername)) {</span>
+<span class="fc" id="L99">            return new MockWindowsIdentity(currentUsername, this.groups);</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">        } else if (username.equals(MockWindowsAuthProvider.GUEST)) {</span>
+<span class="fc" id="L101">            return new MockWindowsIdentity(MockWindowsAuthProvider.GUEST, this.groups);</span>
+        } else {
+<span class="fc" id="L103">            throw new RuntimeException(&quot;Mock error: &quot; + username);</span>
+        }
+    }
+
+    @Override
+    public IWindowsAccount lookupAccount(final String username) {
+<span class="nc" id="L109">        return null;</span>
+    }
+
+    @Override
+    public void resetSecurityToken(final String connectionId) {
+        // Do Nothing
+<span class="nc" id="L115">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
