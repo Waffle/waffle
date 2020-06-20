@@ -136,22 +136,22 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
     protected boolean setAuthentication(final HttpServletRequest request, final HttpServletResponse response,
             final Authentication authentication) {
         try {
-<span class="pc bpc" id="L139" title="1 of 2 branches missed.">            if (this.authenticationManager != null) {</span>
-<span class="nc" id="L140">                DelegatingNegotiateSecurityFilter.LOGGER.debug(&quot;Delegating to custom authenticationmanager&quot;);</span>
-<span class="nc" id="L141">                final Authentication customAuthentication = this.authenticationManager.authenticate(authentication);</span>
-<span class="nc" id="L142">                SecurityContextHolder.getContext().setAuthentication(customAuthentication);</span>
-<span class="nc" id="L143">            } else {</span>
-<span class="fc" id="L144">                SecurityContextHolder.getContext().setAuthentication(authentication);</span>
+<span class="fc" id="L139">            Authentication delegateAuthentication = authentication;</span>
+<span class="fc bfc" id="L140" title="All 2 branches covered.">            if (this.authenticationManager != null) {</span>
+<span class="fc" id="L141">                DelegatingNegotiateSecurityFilter.LOGGER.debug(&quot;Delegating to custom authenticationmanager&quot;);</span>
+<span class="fc" id="L142">                delegateAuthentication = this.authenticationManager.authenticate(authentication);</span>
             }
-<span class="pc bpc" id="L146" title="1 of 2 branches missed.">            if (this.authenticationSuccessHandler != null) {</span>
+<span class="fc" id="L144">            SecurityContextHolder.getContext().setAuthentication(delegateAuthentication);</span>
+<span class="fc bfc" id="L145" title="All 2 branches covered.">            if (this.authenticationSuccessHandler != null) {</span>
                 try {
-<span class="nc" id="L148">                    this.authenticationSuccessHandler.onAuthenticationSuccess(request, response, authentication);</span>
+<span class="fc" id="L147">                    this.authenticationSuccessHandler.onAuthenticationSuccess(request, response,</span>
+                            delegateAuthentication);
 <span class="nc" id="L149">                } catch (final IOException | ServletException e) {</span>
 <span class="nc" id="L150">                    DelegatingNegotiateSecurityFilter.LOGGER.warn(&quot;Error calling authenticationSuccessHandler: {}&quot;,</span>
 <span class="nc" id="L151">                            e.getMessage());</span>
 <span class="nc" id="L152">                    DelegatingNegotiateSecurityFilter.LOGGER.trace(&quot;&quot;, e);</span>
 <span class="nc" id="L153">                    return false;</span>
-<span class="nc" id="L154">                }</span>
+<span class="fc" id="L154">                }</span>
             }
 <span class="nc" id="L156">        } catch (final AuthenticationException e) {</span>
 <span class="nc" id="L157">            DelegatingNegotiateSecurityFilter.LOGGER</span>
@@ -251,8 +251,8 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
      *            the authenticationSuccessHandler to set
      */
     public void setAuthenticationSuccessHandler(final AuthenticationSuccessHandler value) {
-<span class="nc" id="L254">        this.authenticationSuccessHandler = value;</span>
-<span class="nc" id="L255">    }</span>
+<span class="fc" id="L254">        this.authenticationSuccessHandler = value;</span>
+<span class="fc" id="L255">    }</span>
 
     /**
      * Gets the authentication manager.
@@ -270,8 +270,8 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
      *            the authenticationManager to set
      */
     public void setAuthenticationManager(final AuthenticationManager value) {
-<span class="nc" id="L273">        this.authenticationManager = value;</span>
-<span class="nc" id="L274">    }</span>
+<span class="fc" id="L273">        this.authenticationManager = value;</span>
+<span class="fc" id="L274">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
