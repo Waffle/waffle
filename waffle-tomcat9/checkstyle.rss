@@ -20,7 +20,7 @@ under the License.
 <rss version="0.91">
   <channel>
     <title>waffle-tomcat9 - Checkstyle report</title>
-    <link>https://waffle.github.com/waffle/</link>
+    <link>https://waffle.github.io/waffle/</link>
     <description>waffle-tomcat9 - Checkstyle report</description>
     <language>en-us</language>
     <copyright>&#169;2010 - 2020 com.github.waffle</copyright>
@@ -30,9 +30,9 @@ under the License.
              Warnings: 32,
              Infos: 0
       </title>
-            <link>https://waffle.github.com/waffle//checkstyle.html</link>
+            <link>https://waffle.github.io/waffle//checkstyle.html</link>
       <description>
-        <p>Click <a href="https://waffle.github.com/waffle//checkstyle.html">here</a> for the full Checkstyle report.</p>
+        <p>Click <a href="https://waffle.github.io/waffle//checkstyle.html">here</a> for the full Checkstyle report.</p>
 
         <table summary="Files" boder="1">
           <thead>
@@ -46,7 +46,7 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.apache.GenericWindowsPrincipal.java">waffle/apache/GenericWindowsPrincipal.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.apache.GenericWindowsPrincipal.java">waffle/apache/GenericWindowsPrincipal.java</a>
                 </td>
                 <td>
                   0
@@ -60,7 +60,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.apache.package-info.java">waffle/apache/package-info.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.apache.package-info.java">waffle/apache/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -74,7 +74,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.apache.WindowsRealm.java">waffle/apache/WindowsRealm.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.apache.WindowsRealm.java">waffle/apache/WindowsRealm.java</a>
                 </td>
                 <td>
                   0
@@ -88,7 +88,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.apache.WaffleAuthenticatorBase.java">waffle/apache/WaffleAuthenticatorBase.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.apache.WaffleAuthenticatorBase.java">waffle/apache/WaffleAuthenticatorBase.java</a>
                 </td>
                 <td>
                   0
@@ -102,7 +102,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.apache.NegotiateAuthenticator.java">waffle/apache/NegotiateAuthenticator.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.apache.NegotiateAuthenticator.java">waffle/apache/NegotiateAuthenticator.java</a>
                 </td>
                 <td>
                   0
@@ -116,7 +116,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.apache.MixedAuthenticator.java">waffle/apache/MixedAuthenticator.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.apache.MixedAuthenticator.java">waffle/apache/MixedAuthenticator.java</a>
                 </td>
                 <td>
                   0
