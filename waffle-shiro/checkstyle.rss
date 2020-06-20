@@ -20,7 +20,7 @@ under the License.
 <rss version="0.91">
   <channel>
     <title>waffle-shiro - Checkstyle report</title>
-    <link>https://waffle.github.com/waffle/</link>
+    <link>https://waffle.github.io/waffle/</link>
     <description>waffle-shiro - Checkstyle report</description>
     <language>en-us</language>
     <copyright>&#169;2010 - 2020 com.github.waffle</copyright>
@@ -30,9 +30,9 @@ under the License.
              Warnings: 61,
              Infos: 0
       </title>
-            <link>https://waffle.github.com/waffle//checkstyle.html</link>
+            <link>https://waffle.github.io/waffle//checkstyle.html</link>
       <description>
-        <p>Click <a href="https://waffle.github.com/waffle//checkstyle.html">here</a> for the full Checkstyle report.</p>
+        <p>Click <a href="https://waffle.github.io/waffle//checkstyle.html">here</a> for the full Checkstyle report.</p>
 
         <table summary="Files" boder="1">
           <thead>
@@ -46,7 +46,7 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.package-info.java">waffle/shiro/negotiate/package-info.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.shiro.negotiate.package-info.java">waffle/shiro/negotiate/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -60,7 +60,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.shiro.package-info.java">waffle/shiro/package-info.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.shiro.package-info.java">waffle/shiro/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -74,7 +74,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.shiro.GroupMappingWaffleRealm.java">waffle/shiro/GroupMappingWaffleRealm.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.shiro.GroupMappingWaffleRealm.java">waffle/shiro/GroupMappingWaffleRealm.java</a>
                 </td>
                 <td>
                   0
@@ -88,7 +88,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.shiro.dynamic.package-info.java">waffle/shiro/dynamic/package-info.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.shiro.dynamic.package-info.java">waffle/shiro/dynamic/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -102,7 +102,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.NegotiateAuthenticationFilter.java">waffle/shiro/negotiate/NegotiateAuthenticationFilter.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.shiro.negotiate.NegotiateAuthenticationFilter.java">waffle/shiro/negotiate/NegotiateAuthenticationFilter.java</a>
                 </td>
                 <td>
                   0
@@ -116,7 +116,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.shiro.WaffleFqnPrincipal.java">waffle/shiro/WaffleFqnPrincipal.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.shiro.WaffleFqnPrincipal.java">waffle/shiro/WaffleFqnPrincipal.java</a>
                 </td>
                 <td>
                   0
@@ -130,7 +130,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.shiro.dynamic.DynamicAuthenticationFilter.java">waffle/shiro/dynamic/DynamicAuthenticationFilter.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.shiro.dynamic.DynamicAuthenticationFilter.java">waffle/shiro/dynamic/DynamicAuthenticationFilter.java</a>
                 </td>
                 <td>
                   0
@@ -144,7 +144,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.NegotiateInfo.java">waffle/shiro/negotiate/NegotiateInfo.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.shiro.negotiate.NegotiateInfo.java">waffle/shiro/negotiate/NegotiateInfo.java</a>
                 </td>
                 <td>
                   0
@@ -158,7 +158,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.NegotiateToken.java">waffle/shiro/negotiate/NegotiateToken.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.shiro.negotiate.NegotiateToken.java">waffle/shiro/negotiate/NegotiateToken.java</a>
                 </td>
                 <td>
                   0
@@ -172,7 +172,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.AuthenticationInProgressException.java">waffle/shiro/negotiate/AuthenticationInProgressException.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.shiro.negotiate.AuthenticationInProgressException.java">waffle/shiro/negotiate/AuthenticationInProgressException.java</a>
                 </td>
                 <td>
                   0
@@ -186,7 +186,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.NegotiateAuthenticationStrategy.java">waffle/shiro/negotiate/NegotiateAuthenticationStrategy.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.shiro.negotiate.NegotiateAuthenticationStrategy.java">waffle/shiro/negotiate/NegotiateAuthenticationStrategy.java</a>
                 </td>
                 <td>
                   0
@@ -200,7 +200,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.shiro.negotiate.NegotiateAuthenticationRealm.java">waffle/shiro/negotiate/NegotiateAuthenticationRealm.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.shiro.negotiate.NegotiateAuthenticationRealm.java">waffle/shiro/negotiate/NegotiateAuthenticationRealm.java</a>
                 </td>
                 <td>
                   0
@@ -214,7 +214,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.com/waffle//checkstyle.html#waffle.shiro.AbstractWaffleRealm.java">waffle/shiro/AbstractWaffleRealm.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.shiro.AbstractWaffleRealm.java">waffle/shiro/AbstractWaffleRealm.java</a>
                 </td>
                 <td>
                   0
