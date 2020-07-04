@@ -1,0 +1,122 @@
+version: 2
+updates:
+- package-ecosystem: maven
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: com.mebigfatguy.fb-contrib:fb-contrib
+    versions:
+    - "< 7.4.4"
+    - "> 7.4.3.sb"
+  - dependency-name: net.trajano.wagon:wagon-git
+    versions:
+    - "< 2.0.5"
+    - ">= 2.0.4.a"
+  - dependency-name: org.apache.tomcat:tomcat-api
+    versions:
+    - "< 9.0.14"
+    - ">= 9.0.13.a"
+  - dependency-name: org.apache.tomcat:tomcat-api
+    versions:
+    - "< 9.0.15"
+    - ">= 9.0.14.a"
+  - dependency-name: org.apache.tomcat:tomcat-catalina
+    versions:
+    - "< 9.0.14"
+    - ">= 9.0.13.a"
+  - dependency-name: org.apache.tomcat:tomcat-catalina
+    versions:
+    - "< 9.0.15"
+    - ">= 9.0.14.a"
+  - dependency-name: org.apache.tomcat:tomcat-coyote
+    versions:
+    - "< 9.0.14"
+    - ">= 9.0.13.a"
+  - dependency-name: org.apache.tomcat:tomcat-coyote
+    versions:
+    - "< 9.0.15"
+    - ">= 9.0.14.a"
+  - dependency-name: org.apache.tomcat:tomcat-juli
+    versions:
+    - "< 9.0.14"
+    - ">= 9.0.13.a"
+  - dependency-name: org.apache.tomcat:tomcat-juli
+    versions:
+    - "< 9.0.15"
+    - ">= 9.0.14.a"
+  - dependency-name: org.apache.tomcat:tomcat-servlet-api
+    versions:
+    - "< 9.0.14"
+    - ">= 9.0.13.a"
+  - dependency-name: org.apache.tomcat:tomcat-servlet-api
+    versions:
+    - "< 9.0.15"
+    - ">= 9.0.14.a"
+  - dependency-name: org.apache.tomcat:tomcat-util
+    versions:
+    - "< 9.0.14"
+    - ">= 9.0.13.a"
+  - dependency-name: org.apache.tomcat:tomcat-util
+    versions:
+    - "< 9.0.15"
+    - ">= 9.0.14.a"
+  - dependency-name: org.springframework.boot:spring-boot-dependencies
+    versions:
+    - "> 1.5.22.RELEASE"
+  - dependency-name: org.springframework.boot:spring-boot-dependencies
+    versions:
+    - "< 2.1.2"
+    - ">= 2.1.1.a"
+  - dependency-name: org.springframework.boot:spring-boot-maven-plugin
+    versions:
+    - "> 1.5.22.RELEASE"
+  - dependency-name: org.springframework.boot:spring-boot-maven-plugin
+    versions:
+    - "< 2.1.2"
+    - ">= 2.1.1.a"
+  - dependency-name: org.springframework.security:spring-security-config
+    versions:
+    - "< 5.1.2"
+    - ">= 5.1.1.a"
+  - dependency-name: org.springframework.security:spring-security-config
+    versions:
+    - "< 5.1.3"
+    - ">= 5.1.2.a"
+  - dependency-name: org.springframework.security:spring-security-core
+    versions:
+    - "< 5.1.2"
+    - ">= 5.1.1.a"
+  - dependency-name: org.springframework.security:spring-security-core
+    versions:
+    - "< 5.1.3"
+    - ">= 5.1.2.a"
+  - dependency-name: org.springframework.security:spring-security-web
+    versions:
+    - "< 5.1.2"
+    - ">= 5.1.1.a"
+  - dependency-name: org.springframework.security:spring-security-web
+    versions:
+    - "< 5.1.3"
+    - ">= 5.1.2.a"
+  - dependency-name: org.springframework:spring-beans
+    versions:
+    - "< 5.1.4"
+    - ">= 5.1.3.a"
+  - dependency-name: org.springframework:spring-context
+    versions:
+    - "< 5.1.4"
+    - ">= 5.1.3.a"
+  - dependency-name: org.springframework:spring-core
+    versions:
+    - "< 5.1.4"
+    - ">= 5.1.3.a"
+  - dependency-name: org.springframework:spring-expression
+    versions:
+    - "< 5.1.4"
+    - ">= 5.1.3.a"
+  - dependency-name: org.springframework:spring-web
+    versions:
+    - "< 5.1.4"
+    - ">= 5.1.3.a"
