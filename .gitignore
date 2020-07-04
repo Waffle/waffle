@@ -40,3 +40,4 @@ Thumbs.db
 *.releaseBackup
 Source/JNA/release.properties
 .sts4-cache/
+.cache/
