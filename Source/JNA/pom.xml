@@ -685,6 +685,8 @@
                             <exclude>.factorypath</exclude>
                             <exclude>.gitattributes</exclude>
                             <exclude>license.txt</exclude>
+                            <exclude>**/spring.factories</exclude>
+                            <exclude>**/spring.provides</exclude>
                         </excludes>
                         <mapping>
                             <conf>DOUBLESLASH_STYLE</conf>
