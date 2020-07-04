@@ -13,7 +13,8 @@ package waffle.servlet;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.Enumeration;
+import java.util.Collections;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -133,15 +134,12 @@ public class WaffleInfoServlet extends HttpServlet {
             node.appendChild(child);
         }
 
-        final Enumeration<?> headers = request.getHeaderNames();
-        if (headers.hasMoreElements()) {
-            String name;
+        final List<String> headers = Collections.list(request.getHeaderNames());
+        if (!headers.isEmpty()) {
             final Element child = doc.createElement("headers");
-            while (headers.hasMoreElements()) {
-                name = (String) headers.nextElement();
-
-                value = doc.createElement(name);
-                value.setTextContent(request.getHeader(name));
+            for (String header : headers) {
+                value = doc.createElement(header);
+                value.setTextContent(request.getHeader(header));
                 child.appendChild(value);
             }
             node.appendChild(child);
