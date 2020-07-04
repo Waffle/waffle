@@ -18,7 +18,6 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.security.auth.Subject;
 import javax.servlet.Filter;
@@ -388,7 +387,7 @@ public class NegotiateSecurityFilter implements Filter {
 
         // apply provider implementation parameters
         NegotiateSecurityFilter.LOGGER.debug("[waffle.servlet.NegotiateSecurityFilter] load provider parameters");
-        for (final Entry<String, String> implParameter : implParameters.entrySet()) {
+        for (final Map.Entry<String, String> implParameter : implParameters.entrySet()) {
             final String[] classAndParameter = implParameter.getKey().split("/", 2);
             if (classAndParameter.length == 2) {
                 try {
