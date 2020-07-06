@@ -43,7 +43,7 @@
         <slf4j.version note="override from parent">1.7.30</slf4j.version>
         <spring.version>4.3.27.RELEASE</spring.version>
         <spring-boot.version>1.5.22.RELEASE</spring-boot.version>
-        <tomcat.version>8.5.55</tomcat.version>
+        <tomcat.version>9.0.37</tomcat.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.spring.boot.filter.demo</module.name>
