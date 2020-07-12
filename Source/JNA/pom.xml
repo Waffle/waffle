@@ -690,6 +690,7 @@
                         </excludes>
                         <mapping>
                             <conf>DOUBLESLASH_STYLE</conf>
+                            <java>SLASHSTAR_STYLE</java>
                             <policy>DOUBLESLASH_STYLE</policy>
                         </mapping>
                     </configuration>
