@@ -1,4 +1,4 @@
-/**
+/*
  * Waffle (https://github.com/Waffle/waffle)
  *
  * Copyright (c) 2010-2020 Application Security, Inc.
