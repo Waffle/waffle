@@ -680,11 +680,11 @@
                     <artifactId>license-maven-plugin</artifactId>
                     <version>${license.plugin}</version>
                     <configuration>
-                        <header>${main.basedir}/license.txt</header>
+                        <header>${main.basedir}/LICENSE_HEADER</header>
                         <excludes>
                             <exclude>.factorypath</exclude>
                             <exclude>.gitattributes</exclude>
-                            <exclude>license.txt</exclude>
+                            <exclude>LICENSE_HEADER</exclude>
                             <exclude>**/spring.factories</exclude>
                             <exclude>**/spring.provides</exclude>
                         </excludes>
