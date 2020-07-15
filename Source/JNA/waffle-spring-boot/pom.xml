@@ -43,7 +43,7 @@
         <hibernate-validator.version>6.1.5.Final</hibernate-validator.version>
         <jackson.version>2.11.1</jackson.version>
         <jboss-logging.version>3.4.1.Final</jboss-logging.version>
-        <jna.version>5.5.0</jna.version>
+        <jna.version>5.6.0</jna.version>
         <logback.version>1.2.3</logback.version>
         <slf4j.version note="override from parent">1.7.30</slf4j.version>
         <snakeyaml.version>1.26</snakeyaml.version>
