@@ -40,7 +40,7 @@
         <!-- Dependencies -->
         <byte-buddy.version>1.10.13</byte-buddy.version>
         <caffeine.version>2.8.5</caffeine.version>
-        <jna.version>5.5.0</jna.version>
+        <jna.version>5.6.0</jna.version>
         <powermock.version>2.0.7</powermock.version>
         <servlet.version>5.0.0-M1</servlet.version>
 
