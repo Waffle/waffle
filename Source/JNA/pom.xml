@@ -181,7 +181,7 @@
         <directory.plugin>0.3.1</directory.plugin>
         <enforcer.plugin>3.0.0-M3</enforcer.plugin>
         <formatter.plugin>2.12.1</formatter.plugin>
-        <git-commit-id.plugin>4.0.0</git-commit-id.plugin>
+        <git-commit-id.plugin>4.0.1</git-commit-id.plugin>
         <gpg.plugin>1.6</gpg.plugin>
         <htmlcompressor.plugin>1.5.2</htmlcompressor.plugin>
         <impsort.plugin>1.4.1</impsort.plugin>
