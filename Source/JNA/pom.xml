@@ -221,7 +221,7 @@
         <fluido.version>1.9</fluido.version>
         <htmlcompressor.version>1.7.1</htmlcompressor.version>
         <javac.version>9+181-r4173-1</javac.version>
-        <jgit.version>5.8.0.202006091008-r</jgit.version>
+        <jgit.version>5.8.1.202007141445-r</jgit.version>
         <wagon-git.version note="Do not upgrade to 2.0.4 with ssh as it is broken">2.0.3</wagon-git.version>
         <wagon-ssh.version>3.4.0</wagon-ssh.version>
         <yuicompressor.version>2.4.8</yuicompressor.version>
