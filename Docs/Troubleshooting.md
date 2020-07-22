@@ -32,7 +32,7 @@ setspn -A PROTOCOL/machine:port username
 
 Useful Troubleshooting Resources:
 * [Enabling Kerberos Logging](https://support.microsoft.com/kb/262177/en-us)
-* [Troubleshooting Kerberos Delegation](https://www.microsoft.com/en-us/download/confirmation.aspx?id=4754)
+* [Troubleshooting Kerberos Delegation](http://web.archive.org/web/20141226210813/https://www.microsoft.com/en-us/download/confirmation.aspx?id=4754) (Word Document, 1.5M, Microsoft Corporation, March 2004)
 
 
 
