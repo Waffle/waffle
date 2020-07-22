@@ -7,7 +7,7 @@ If you are using Jetty, then it's a simple case of using the Jetty
 [`CrossOriginFilter`](https://www.eclipse.org/jetty/documentation/current/cross-origin-filter.html) to configure CORS. 
 The following `web.xml` fragment gives an example:
 
-```
+```xml
     <!-- Configure the NegotiateSecurityFilter -->
     <filter>
         <filter-name>NegotiateSecurityFilter</filter-name>
@@ -53,7 +53,7 @@ The following `web.xml` fragment gives an example:
 Tomcat also provides a [`CorsFilter`](https://tomcat.apache.org/tomcat-9.0-doc/config/filter.html#CORS_Filter) that should 
 (currently untested!) also allow you to use the with CORS. 
 
-```
+```xml
     <!-- Configure the NegotiateSecurityFilter -->
     <filter>
         <filter-name>NegotiateSecurityFilter</filter-name>
