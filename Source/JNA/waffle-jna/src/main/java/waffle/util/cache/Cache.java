@@ -23,6 +23,7 @@ import java.util.ServiceLoader;
  *            the type of mapped values
  *
  * @author Simon Legner
+ * @see <a href="https://github.com/Waffle/waffle/blob/master/Docs/CustomCache.md">Can I provide a custom cache implementation?</a>
  */
 public interface Cache<K, V> {
 
