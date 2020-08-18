@@ -17,7 +17,7 @@ Troubleshooting Kerberos
 Typical configurations to check are:
 
 1. The `application` is running as a `service`
-1. The `service` is running as a `user` on the same domain as the `machine`
+1. The `service` is running as a `user` on the same domain as the `machine` accessible via webserver as `virtual-host`
 1. The `user` has privileges for Kerberos delegation
 
 To check the current privileges, run:
@@ -28,6 +28,7 @@ setspn -L username
 To add privileges for the current user, run
 ```
 setspn -A PROTOCOL/machine:port username
+setspn -A PROTOCOL/virtual-host:port username
 ```
 
 Useful Troubleshooting Resources:
