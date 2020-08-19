@@ -12,6 +12,7 @@ General FAQ
 * [Can Waffle be used with Apache Shiro?](faq/waffleShiro.md)
 * [How can I prevent the browser from showing a login popup on failed authentication?](faq/ClientSideFailures.md)
 * [How does the Waffle Servlet Security Filter work with CORS?](faq/CORS.md)
+* [Can I provide a custom cache implementation?](faq/CustomCache.md)
 
 Troubleshooting Stories
 -----------------------
