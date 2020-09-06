@@ -15,7 +15,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.security.Principal;
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -186,7 +185,8 @@ public class WindowsLoginModuleTests {
             if (principal instanceof GroupPrincipal) {
                 int size = 0;
                 int sidSize = 0;
-                final List<? extends Principal> groupPrincipals = Collections.list(((GroupPrincipal) principal).members());
+                final List<? extends Principal> groupPrincipals = Collections
+                        .list(((GroupPrincipal) principal).members());
                 for (Principal groupPrincipal : groupPrincipals) {
                     if (groupPrincipal.getName().startsWith("S-")) {
                         sidSize++;
@@ -245,7 +245,8 @@ public class WindowsLoginModuleTests {
         for (final Principal principal : subject.getPrincipals()) {
             if (principal instanceof GroupPrincipal) {
                 int size = 0;
-                final List<? extends Principal> groupPrincipals = Collections.list(((GroupPrincipal) principal).members());
+                final List<? extends Principal> groupPrincipals = Collections
+                        .list(((GroupPrincipal) principal).members());
                 for (Principal groupPrincipal : groupPrincipals) {
                     if (groupPrincipal.getName().startsWith("S-")) {
                         size++;
