@@ -18,7 +18,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.security.auth.Subject;
@@ -84,7 +83,7 @@ public class WindowsLoginModule implements LoginModule {
         this.subject = initSubject;
         this.callbackHandler = initCallbackHandler;
 
-        for (final Entry<String, ?> option : initOptions.entrySet()) {
+        for (final Map.Entry<String, ?> option : initOptions.entrySet()) {
             if ("debug".equalsIgnoreCase(option.getKey())) {
                 this.debug = Boolean.parseBoolean((String) option.getValue());
             } else if ("principalFormat".equalsIgnoreCase(option.getKey())) {

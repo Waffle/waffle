@@ -24,11 +24,11 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.security.Principal;
-import java.util.Enumeration;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.security.auth.Subject;
 
@@ -316,10 +316,9 @@ public class NegotiateSecurityFilter implements Filter {
         String authProvider = null;
         String[] providerNames = null;
         if (filterConfig != null) {
-            final Enumeration<String> parameterNames = filterConfig.getInitParameterNames();
+            final List<String> parameterNames = Collections.list(filterConfig.getInitParameterNames());
             NegotiateSecurityFilter.LOGGER.debug("[waffle.servlet.NegotiateSecurityFilter] processing filterConfig");
-            while (parameterNames.hasMoreElements()) {
-                final String parameterName = parameterNames.nextElement();
+            for (String parameterName : parameterNames) {
                 final String parameterValue = filterConfig.getInitParameter(parameterName);
                 NegotiateSecurityFilter.LOGGER.debug("Init Param: '{}={}'", parameterName, parameterValue);
                 switch (parameterName) {
@@ -389,7 +388,7 @@ public class NegotiateSecurityFilter implements Filter {
 
         // apply provider implementation parameters
         NegotiateSecurityFilter.LOGGER.debug("[waffle.servlet.NegotiateSecurityFilter] load provider parameters");
-        for (final Entry<String, String> implParameter : implParameters.entrySet()) {
+        for (final Map.Entry<String, String> implParameter : implParameters.entrySet()) {
             final String[] classAndParameter = implParameter.getKey().split("/", 2);
             if (classAndParameter.length == 2) {
                 try {

@@ -9,17 +9,7 @@
  *
  * Contributors: Application Security, Inc.
  */
-package waffle.util.cache;
-
 /**
- * A {@link CacheSupplier} supplying {@link CaffeineCache}.
- *
- * @author Simon Legner
+ * Waffle JNA Cache Package.
  */
-public class CaffeineCacheSupplier implements CacheSupplier {
-
-    @Override
-    public <K, V> Cache<K, V> newCache(final long timeout) {
-        return new CaffeineCache<>(timeout);
-    }
-}
+package waffle.util.cache;
