@@ -19,7 +19,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.List;
 
 import javax.xml.XMLConstants;
