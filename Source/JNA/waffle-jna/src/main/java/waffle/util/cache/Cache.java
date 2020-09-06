@@ -1,4 +1,4 @@
-/**
+/*
  * Waffle (https://github.com/Waffle/waffle)
  *
  * Copyright (c) 2010-2020 Application Security, Inc.
@@ -23,7 +23,8 @@ import java.util.ServiceLoader;
  *            the type of mapped values
  *
  * @author Simon Legner
- * @see <a href="https://github.com/Waffle/waffle/blob/master/Docs/CustomCache.md">Can I provide a custom cache implementation?</a>
+ * @see <a href="https://github.com/Waffle/waffle/blob/master/Docs/CustomCache.md">Can I provide a custom cache
+ *      implementation?</a>
  */
 public interface Cache<K, V> {
 
