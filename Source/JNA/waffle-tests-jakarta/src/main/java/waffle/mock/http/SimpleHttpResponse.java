@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.mockito.Mockito;
 import org.slf4j.Logger;
@@ -132,7 +131,7 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
     @Override
     public void flushBuffer() {
         SimpleHttpResponse.LOGGER.info("{}: {}", Integer.valueOf(this.status), this.getStatusString());
-        for (final Entry<String, List<String>> header : this.headers.entrySet()) {
+        for (final Map.Entry<String, List<String>> header : this.headers.entrySet()) {
             for (final String headerValue : header.getValue()) {
                 SimpleHttpResponse.LOGGER.info("{}: {}", header, headerValue);
             }

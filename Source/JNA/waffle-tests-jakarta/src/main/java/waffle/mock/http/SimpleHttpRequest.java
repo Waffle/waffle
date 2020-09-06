@@ -193,7 +193,7 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
         this.queryString = query;
         if (this.queryString != null) {
             for (final String eachParameter : this.queryString.split("[&]")) {
-                final String[] pair = eachParameter.split("=");
+                final String[] pair = eachParameter.split("=", -1);
                 final String value = pair.length == 2 ? pair[1] : "";
                 this.addParameter(pair[0], value);
             }

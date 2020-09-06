@@ -322,7 +322,7 @@ public class NegotiateSecurityFilterTests {
         filterConfig.setParameter("principalFormat", "sid");
         filterConfig.setParameter("roleFormat", "none");
         filterConfig.setParameter("allowGuestLogin", "true");
-        filterConfig.setParameter("securityFilterProviders", "waffle.servlet.spi.BasicSecurityFilterProvider\n");
+        filterConfig.setParameter("securityFilterProviders", "waffle.servlet.spi.BasicSecurityFilterProvider");
         filterConfig.setParameter("waffle.servlet.spi.BasicSecurityFilterProvider/realm", "DemoRealm");
         filterConfig.setParameter("authProvider", MockWindowsAuthProvider.class.getName());
         this.filter.init(filterConfig);
@@ -358,7 +358,7 @@ public class NegotiateSecurityFilterTests {
     @Test
     public void testInitNegotiateSecurityFilterProvider() throws ServletException {
         final SimpleFilterConfig filterConfig = new SimpleFilterConfig();
-        filterConfig.setParameter("securityFilterProviders", "waffle.servlet.spi.NegotiateSecurityFilterProvider\n");
+        filterConfig.setParameter("securityFilterProviders", "waffle.servlet.spi.NegotiateSecurityFilterProvider");
         filterConfig.setParameter("waffle.servlet.spi.NegotiateSecurityFilterProvider/protocols",
                 "NTLM\nNegotiate NTLM");
         this.filter.init(filterConfig);
@@ -374,7 +374,7 @@ public class NegotiateSecurityFilterTests {
     @Test
     public void testInitNegotiateSecurityFilterProviderInvalidProtocol() {
         final SimpleFilterConfig filterConfig = new SimpleFilterConfig();
-        filterConfig.setParameter("securityFilterProviders", "waffle.servlet.spi.NegotiateSecurityFilterProvider\n");
+        filterConfig.setParameter("securityFilterProviders", "waffle.servlet.spi.NegotiateSecurityFilterProvider");
         filterConfig.setParameter("waffle.servlet.spi.NegotiateSecurityFilterProvider/protocols", "INVALID");
         try {
             this.filter.init(filterConfig);
