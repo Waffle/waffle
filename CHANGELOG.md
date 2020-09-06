@@ -1,13 +1,15 @@
-2.3.0 (in-progress)
+3.0.0 (in-progress)
 ===================
+* Support different cache solutions (default is caffeine cache) through service loader using '/META-INF/services/waffle.cache.CacheSupplier' pointing to your cache solution.
+* Remove use of Group interface and directly use our implementation to allow build on jdk14/15 (not confirmed JAAS works, just compiles)
+* Cleanup error prone code usage resulting in header treatment without training '\n'
+
+2.3.0 (6/19/2020)
+=================
 * Introduction of waffle-tomcat10 module
 * Introduction of waffle-jna-jakarta module for usage with jakarta package rename direct usage
 
 * [#956](https://github.com/Waffle/waffle/pull/956): Fix DelegatingNegotiateSecurityFilter [@cmolodo](https://github.com/cmolodo) - Fixes #453
-
-2.2.2 (in-progress)
-===================
-* TODO
 
 2.2.1 (1/26/2020)
 ================

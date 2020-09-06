@@ -12,7 +12,6 @@
 package waffle.jaas;
 
 import java.security.Principal;
-import java.security.acl.Group;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -24,9 +23,7 @@ import java.util.Map;
  *
  * @author rockchip[dot]tv[at]gmail[dot]com
  */
-// TODO: Review replacement options for 'Group' as it is officially removed from jdk 14. See
-// https://bugs.openjdk.java.net/browse/JDK-8217101?attachmentOrder=desc.
-public class GroupPrincipal extends UserPrincipal implements Group {
+public class GroupPrincipal extends UserPrincipal {
 
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
@@ -55,7 +52,6 @@ public class GroupPrincipal extends UserPrincipal implements Group {
         return this.fqn;
     }
 
-    @Override
     public boolean addMember(final Principal user) {
         final boolean isMember = this.members.containsKey(user);
         if (!isMember) {
@@ -64,14 +60,13 @@ public class GroupPrincipal extends UserPrincipal implements Group {
         return isMember;
     }
 
-    @Override
     public boolean isMember(final Principal user) {
         boolean isMember = this.members.containsKey(user);
         if (!isMember) {
             final Collection<Principal> values = this.members.values();
             for (final Principal principal : values) {
-                if (principal instanceof Group) {
-                    final Group group = (Group) principal;
+                if (principal instanceof GroupPrincipal) {
+                    final GroupPrincipal group = (GroupPrincipal) principal;
                     isMember = group.isMember(user);
                     if (isMember) {
                         break;
@@ -82,12 +77,10 @@ public class GroupPrincipal extends UserPrincipal implements Group {
         return isMember;
     }
 
-    @Override
     public Enumeration<? extends Principal> members() {
         return Collections.enumeration(this.members.values());
     }
 
-    @Override
     public boolean removeMember(final Principal user) {
         final Object prev = this.members.remove(user);
         return prev != null;
