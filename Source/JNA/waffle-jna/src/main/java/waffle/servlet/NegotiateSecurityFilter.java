@@ -334,13 +334,13 @@ public class NegotiateSecurityFilter implements Filter {
                         this.impersonate = Boolean.parseBoolean(parameterValue);
                         break;
                     case "securityFilterProviders":
-                        providerNames = parameterValue.split("\\s+");
+                        providerNames = parameterValue.split("\\s+", -1);
                         break;
                     case "authProvider":
                         authProvider = parameterValue;
                         break;
                     case "excludePatterns":
-                        this.excludePatterns = parameterValue.split("\\s+");
+                        this.excludePatterns = parameterValue.split("\\s+", -1);
                         break;
                     case "excludeCorsPreflight":
                         this.excludeCorsPreflight = Boolean.parseBoolean(parameterValue);

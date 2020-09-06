@@ -177,7 +177,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      */
     public void setProtocols(final String value) {
         this.protocols = new LinkedHashSet<>();
-        final String[] protocolNames = value.split(",");
+        final String[] protocolNames = value.split(",", -1);
         for (String protocolName : protocolNames) {
             protocolName = protocolName.trim();
             if (!protocolName.isEmpty()) {

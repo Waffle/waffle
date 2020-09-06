@@ -14,8 +14,9 @@ package waffle.jaas;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.security.Principal;
-import java.util.Enumeration;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.security.auth.Subject;
@@ -184,9 +185,10 @@ public class WindowsLoginModuleTests {
             if (principal instanceof GroupPrincipal) {
                 int size = 0;
                 int sidSize = 0;
-                final Enumeration<? extends Principal> groupPrincipal = ((GroupPrincipal) principal).members();
-                while (groupPrincipal.hasMoreElements()) {
-                    if (groupPrincipal.nextElement().getName().startsWith("S-")) {
+                final List<? extends Principal> groupPrincipals = Collections
+                        .list(((GroupPrincipal) principal).members());
+                for (Principal groupPrincipal : groupPrincipals) {
+                    if (groupPrincipal.getName().startsWith("S-")) {
                         sidSize++;
                     }
                     size++;
@@ -243,9 +245,10 @@ public class WindowsLoginModuleTests {
         for (final Principal principal : subject.getPrincipals()) {
             if (principal instanceof GroupPrincipal) {
                 int size = 0;
-                final Enumeration<? extends Principal> groupPrincipal = ((GroupPrincipal) principal).members();
-                while (groupPrincipal.hasMoreElements()) {
-                    if (groupPrincipal.nextElement().getName().startsWith("S-")) {
+                final List<? extends Principal> groupPrincipals = Collections
+                        .list(((GroupPrincipal) principal).members());
+                for (Principal groupPrincipal : groupPrincipals) {
+                    if (groupPrincipal.getName().startsWith("S-")) {
                         size++;
                     }
                 }
@@ -280,12 +283,7 @@ public class WindowsLoginModuleTests {
         Assertions.assertTrue(subject.getPrincipals().contains(new GroupPrincipal("Roles")));
         for (final Principal principal : subject.getPrincipals()) {
             if (principal instanceof GroupPrincipal) {
-                int size = 0;
-                final Enumeration<? extends Principal> groupPrincipal = ((GroupPrincipal) principal).members();
-                while (groupPrincipal.hasMoreElements()) {
-                    groupPrincipal.nextElement();
-                    size++;
-                }
+                int size = Collections.list(((GroupPrincipal) principal).members()).size();
                 Assertions.assertEquals(3, size);
                 Assertions.assertTrue(((GroupPrincipal) principal).isMember(new RolePrincipal("Everyone")));
                 Assertions.assertTrue(((GroupPrincipal) principal).isMember(new RolePrincipal("Users")));
