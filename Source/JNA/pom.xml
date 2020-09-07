@@ -207,7 +207,7 @@
         <modernizer.plugin>2.1.0</modernizer.plugin>
         <nexus-staging.plugin>1.6.8</nexus-staging.plugin>
         <pmd.plugin>3.13.0</pmd.plugin>
-        <project-info-reports.plugin>3.1.0</project-info-reports.plugin>
+        <project-info-reports.plugin>3.1.1</project-info-reports.plugin>
         <release.plugin>3.0.0-M1</release.plugin>
         <resources.plugin>3.2.0</resources.plugin>
         <scm.plugin>1.11.2</scm.plugin>
