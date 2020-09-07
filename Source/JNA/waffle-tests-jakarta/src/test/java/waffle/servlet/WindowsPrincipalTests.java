@@ -53,7 +53,7 @@ public class WindowsPrincipalTests {
      * Sets the up.
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final MockWindowsSecurityContext ctx = new MockWindowsSecurityContext("Administrator");
         this.windowsPrincipal = new WindowsPrincipal(ctx.getIdentity());
     }
@@ -67,7 +67,7 @@ public class WindowsPrincipalTests {
      *             the class not found exception
      */
     @Test
-    public void testIsSerializable() throws IOException, ClassNotFoundException {
+    void testIsSerializable() throws IOException, ClassNotFoundException {
         // serialize
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
         try (final ObjectOutputStream oos = new ObjectOutputStream(out)) {
@@ -90,7 +90,7 @@ public class WindowsPrincipalTests {
      * Test has role.
      */
     @Test
-    public void testHasRole() {
+    void testHasRole() {
         Assertions.assertTrue(this.windowsPrincipal.hasRole("Administrator"));
         Assertions.assertTrue(this.windowsPrincipal.hasRole("Users"));
         Assertions.assertTrue(this.windowsPrincipal.hasRole("Everyone"));

@@ -37,7 +37,7 @@ public class WindowsRealmTests {
      * Test properties.
      */
     @Test
-    public void testProperties() {
+    void testProperties() {
         final WindowsRealm realm = new WindowsRealm();
         Assertions.assertNull(realm.getPassword(null));
         Assertions.assertNull(realm.getPrincipal(null));

@@ -37,7 +37,7 @@ public class PrincipalFormatTests {
      * Test known.
      */
     @Test
-    public void testKnown() {
+    void testKnown() {
         Assertions.assertEquals(PrincipalFormat.FQN, PrincipalFormat.valueOf("FQN"));
         Assertions.assertEquals(PrincipalFormat.SID, PrincipalFormat.valueOf("SID"));
         Assertions.assertEquals(PrincipalFormat.BOTH, PrincipalFormat.valueOf("BOTH"));
@@ -49,7 +49,7 @@ public class PrincipalFormatTests {
      * Test unknown.
      */
     @Test
-    public void testUnknown() {
+    void testUnknown() {
         Assertions.assertThrows(RuntimeException.class, () -> {
             PrincipalFormat.valueOf("garbage");
         });

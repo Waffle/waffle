@@ -50,7 +50,7 @@ public class UserPrincipalTests {
      * Equals_other object.
      */
     @Test
-    public void equals_otherObject() {
+    void equals_otherObject() {
         Assertions.assertNotEquals("", this.userPrincipal);
     }
 
@@ -58,7 +58,7 @@ public class UserPrincipalTests {
      * Equals_same object.
      */
     @Test
-    public void equals_sameObject() {
+    void equals_sameObject() {
         Assertions.assertEquals(this.userPrincipal, this.userPrincipal);
     }
 
@@ -66,7 +66,7 @@ public class UserPrincipalTests {
      * Sets the up.
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         this.userPrincipal = new UserPrincipal("localhost\\Administrator");
     }
 
@@ -74,7 +74,7 @@ public class UserPrincipalTests {
      * Test equals_ symmetric.
      */
     @Test
-    public void testEquals_Symmetric() {
+    void testEquals_Symmetric() {
         final UserPrincipal x = new UserPrincipal("localhost\\Administrator");
         final UserPrincipal y = new UserPrincipal("localhost\\Administrator");
         Assertions.assertEquals(x, y);
@@ -90,7 +90,7 @@ public class UserPrincipalTests {
      *             the class not found exception
      */
     @Test
-    public void testIsSerializable() throws IOException, ClassNotFoundException {
+    void testIsSerializable() throws IOException, ClassNotFoundException {
         // serialize
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
         try (final ObjectOutputStream oos = new ObjectOutputStream(out)) {

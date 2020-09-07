@@ -50,7 +50,7 @@ public class GroupPrincipalTests {
      * Equals_other object.
      */
     @Test
-    public void equals_otherObject() {
+    void equals_otherObject() {
         Assertions.assertNotEquals("", this.groupPrincipal);
     }
 
@@ -58,7 +58,7 @@ public class GroupPrincipalTests {
      * Equals_same object.
      */
     @Test
-    public void equals_sameObject() {
+    void equals_sameObject() {
         Assertions.assertEquals(this.groupPrincipal, this.groupPrincipal);
     }
 
@@ -66,7 +66,7 @@ public class GroupPrincipalTests {
      * Sets the up.
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         this.groupPrincipal = new GroupPrincipal("localhost\\Administrator");
     }
 
@@ -74,7 +74,7 @@ public class GroupPrincipalTests {
      * Test equals_ symmetric.
      */
     @Test
-    public void testEquals_Symmetric() {
+    void testEquals_Symmetric() {
         final GroupPrincipal x = new GroupPrincipal("localhost\\Administrator");
         final GroupPrincipal y = new GroupPrincipal("localhost\\Administrator");
         Assertions.assertEquals(x, y);
@@ -90,7 +90,7 @@ public class GroupPrincipalTests {
      *             the class not found exception
      */
     @Test
-    public void testIsSerializable() throws IOException, ClassNotFoundException {
+    void testIsSerializable() throws IOException, ClassNotFoundException {
         // serialize
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
         try (final ObjectOutputStream oos = new ObjectOutputStream(out)) {

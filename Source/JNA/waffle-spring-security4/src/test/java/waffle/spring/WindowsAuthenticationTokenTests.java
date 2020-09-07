@@ -53,7 +53,7 @@ public class WindowsAuthenticationTokenTests {
      * Sets the up.
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final List<String> mockGroups = new ArrayList<>();
         mockGroups.add("group1");
         mockGroups.add("group2");
@@ -66,7 +66,7 @@ public class WindowsAuthenticationTokenTests {
      * Test windows authentication token.
      */
     @Test
-    public void testWindowsAuthenticationToken() {
+    void testWindowsAuthenticationToken() {
         Assertions.assertNull(this.token.getCredentials());
         Assertions.assertNull(this.token.getDetails());
         Assertions.assertTrue(this.token.isAuthenticated());
@@ -89,7 +89,7 @@ public class WindowsAuthenticationTokenTests {
      * Test custom granted authority factory.
      */
     @Test
-    public void testCustomGrantedAuthorityFactory() {
+    void testCustomGrantedAuthorityFactory() {
 
         final WindowsAuthenticationToken myToken = new WindowsAuthenticationToken(this.principal,
                 new FqnGrantedAuthorityFactory(null, false), null);
@@ -115,7 +115,7 @@ public class WindowsAuthenticationTokenTests {
      * Test authenticated.
      */
     @Test
-    public void testAuthenticated() {
+    void testAuthenticated() {
         Assertions.assertTrue(this.token.isAuthenticated());
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             this.token.setAuthenticated(true);

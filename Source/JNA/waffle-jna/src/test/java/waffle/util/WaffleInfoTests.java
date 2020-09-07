@@ -52,7 +52,7 @@ public class WaffleInfoTests {
      *             the parser configuration exception
      */
     @Test
-    public void testWaffleInfo() throws ParserConfigurationException {
+    void testWaffleInfo() throws ParserConfigurationException {
         final WaffleInfo helper = new WaffleInfo();
         final Document info = helper.getWaffleInfo();
 

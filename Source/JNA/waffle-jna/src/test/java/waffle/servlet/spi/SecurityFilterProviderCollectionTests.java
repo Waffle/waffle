@@ -42,7 +42,7 @@ public class SecurityFilterProviderCollectionTests {
      *             the class not found exception
      */
     @Test
-    public void testDefaultCollection() throws ClassNotFoundException {
+    void testDefaultCollection() throws ClassNotFoundException {
         final SecurityFilterProviderCollection coll = new SecurityFilterProviderCollection(
                 new WindowsAuthProviderImpl());
         Assertions.assertEquals(2, coll.size());
@@ -57,7 +57,7 @@ public class SecurityFilterProviderCollectionTests {
      *             the class not found exception
      */
     @Test
-    public void testGetByClassNameInvalid() throws ClassNotFoundException {
+    void testGetByClassNameInvalid() throws ClassNotFoundException {
         final SecurityFilterProviderCollection coll = new SecurityFilterProviderCollection(
                 new WindowsAuthProviderImpl());
         Assertions.assertThrows(ClassNotFoundException.class, () -> {
@@ -69,7 +69,7 @@ public class SecurityFilterProviderCollectionTests {
      * Test is security package supported.
      */
     @Test
-    public void testIsSecurityPackageSupported() {
+    void testIsSecurityPackageSupported() {
         final SecurityFilterProviderCollection coll = new SecurityFilterProviderCollection(
                 new WindowsAuthProviderImpl());
         Assertions.assertTrue(coll.isSecurityPackageSupported("NTLM"));

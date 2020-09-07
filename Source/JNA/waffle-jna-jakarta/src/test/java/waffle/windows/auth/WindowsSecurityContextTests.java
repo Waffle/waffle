@@ -42,7 +42,7 @@ public class WindowsSecurityContextTests {
      * Test negotiate.
      */
     @Test
-    public void testNegotiate() {
+    void testNegotiate() {
         final String securityPackage = "Negotiate";
         // security context
         final IWindowsSecurityContext ctx = WindowsSecurityContextImpl.getCurrent(securityPackage,

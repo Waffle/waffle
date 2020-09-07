@@ -46,7 +46,7 @@ public class WindowsAccountTests {
      * Test get current username.
      */
     @Test
-    public void testGetCurrentUsername() {
+    void testGetCurrentUsername() {
         final String currentUsername = WindowsAccountImpl.getCurrentUsername();
         WindowsAccountTests.LOGGER.info("Current username: {}", currentUsername);
         assertThat(currentUsername.length()).isGreaterThan(0);
@@ -56,7 +56,7 @@ public class WindowsAccountTests {
      * Test get current account.
      */
     @Test
-    public void testGetCurrentAccount() {
+    void testGetCurrentAccount() {
         final String currentUsername = WindowsAccountImpl.getCurrentUsername();
         final IWindowsAccount account = new WindowsAccountImpl(currentUsername);
         assertThat(account.getName().length()).isGreaterThan(0);

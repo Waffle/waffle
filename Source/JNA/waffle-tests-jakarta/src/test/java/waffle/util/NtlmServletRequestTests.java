@@ -39,7 +39,7 @@ public class NtlmServletRequestTests {
      * Test get connection id.
      */
     @Test
-    public void testGetConnectionId() {
+    void testGetConnectionId() {
         SimpleHttpRequest.resetRemotePort();
         final SimpleHttpRequest request1 = new SimpleHttpRequest();
         Assertions.assertEquals(":1", NtlmServletRequest.getConnectionId(request1));

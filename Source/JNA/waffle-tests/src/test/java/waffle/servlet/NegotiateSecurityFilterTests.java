@@ -79,7 +79,7 @@ public class NegotiateSecurityFilterTests {
      *             the servlet exception
      */
     @BeforeEach
-    public void setUp() throws ServletException {
+    void setUp() throws ServletException {
         this.filter = new NegotiateSecurityFilter();
         this.filter.setAuth(new WindowsAuthProviderImpl());
         this.filter.init(null);
@@ -89,7 +89,7 @@ public class NegotiateSecurityFilterTests {
      * Tear down.
      */
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         this.filter.destroy();
     }
 
@@ -102,7 +102,7 @@ public class NegotiateSecurityFilterTests {
      *             the servlet exception
      */
     @Test
-    public void testChallengeGET() throws IOException, ServletException {
+    void testChallengeGET() throws IOException, ServletException {
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
         final SimpleHttpResponse response = new SimpleHttpResponse();
@@ -126,7 +126,7 @@ public class NegotiateSecurityFilterTests {
      *             the servlet exception
      */
     @Test
-    public void testChallengePOST() throws IOException, ServletException {
+    void testChallengePOST() throws IOException, ServletException {
         final String securityPackage = NegotiateSecurityFilterTests.NEGOTIATE;
         IWindowsCredentialsHandle clientCredentials = null;
         WindowsSecurityContextImpl clientContext = null;
@@ -170,7 +170,7 @@ public class NegotiateSecurityFilterTests {
      *             the servlet exception
      */
     @Test
-    public void testNegotiate() throws IOException, ServletException {
+    void testNegotiate() throws IOException, ServletException {
         final String securityPackage = NegotiateSecurityFilterTests.NEGOTIATE;
         // client credentials handle
         IWindowsCredentialsHandle clientCredentials = null;
@@ -249,7 +249,7 @@ public class NegotiateSecurityFilterTests {
      *             the servlet exception
      */
     @Test
-    public void testNegotiatePreviousAuthWithWindowsPrincipal() throws IOException, ServletException {
+    void testNegotiatePreviousAuthWithWindowsPrincipal() throws IOException, ServletException {
         final MockWindowsIdentity mockWindowsIdentity = new MockWindowsIdentity("user", new ArrayList<String>());
         final SimpleHttpRequest request = new SimpleHttpRequest();
         final WindowsPrincipal windowsPrincipal = new WindowsPrincipal(mockWindowsIdentity);
@@ -272,7 +272,7 @@ public class NegotiateSecurityFilterTests {
      *             the servlet exception
      */
     @Test
-    public void testChallengeNTLMPOST() throws IOException, ServletException {
+    void testChallengeNTLMPOST() throws IOException, ServletException {
         final MockWindowsIdentity mockWindowsIdentity = new MockWindowsIdentity("user", new ArrayList<String>());
         final SimpleHttpRequest request = new SimpleHttpRequest();
         final WindowsPrincipal windowsPrincipal = new WindowsPrincipal(mockWindowsIdentity);
@@ -301,7 +301,7 @@ public class NegotiateSecurityFilterTests {
      *             the servlet exception
      */
     @Test
-    public void testChallengeNTLMPUT() throws IOException, ServletException {
+    void testChallengeNTLMPUT() throws IOException, ServletException {
         final MockWindowsIdentity mockWindowsIdentity = new MockWindowsIdentity("user", new ArrayList<String>());
         final SimpleHttpRequest request = new SimpleHttpRequest();
         final WindowsPrincipal windowsPrincipal = new WindowsPrincipal(mockWindowsIdentity);
@@ -328,7 +328,7 @@ public class NegotiateSecurityFilterTests {
      *             the servlet exception
      */
     @Test
-    public void testInitBasicSecurityFilterProvider() throws ServletException {
+    void testInitBasicSecurityFilterProvider() throws ServletException {
         final SimpleFilterConfig filterConfig = new SimpleFilterConfig();
         filterConfig.setParameter("principalFormat", "sid");
         filterConfig.setParameter("roleFormat", "none");
@@ -351,7 +351,7 @@ public class NegotiateSecurityFilterTests {
      *             the servlet exception
      */
     @Test
-    public void testInitTwoSecurityFilterProviders() throws ServletException {
+    void testInitTwoSecurityFilterProviders() throws ServletException {
         // make sure that providers can be specified separated by any kind of space
         final SimpleFilterConfig filterConfig = new SimpleFilterConfig();
         filterConfig.setParameter("securityFilterProviders", "waffle.servlet.spi.BasicSecurityFilterProvider\n"
@@ -367,7 +367,7 @@ public class NegotiateSecurityFilterTests {
      *             the servlet exception
      */
     @Test
-    public void testInitNegotiateSecurityFilterProvider() throws ServletException {
+    void testInitNegotiateSecurityFilterProvider() throws ServletException {
         final SimpleFilterConfig filterConfig = new SimpleFilterConfig();
         filterConfig.setParameter("securityFilterProviders", "waffle.servlet.spi.NegotiateSecurityFilterProvider");
         filterConfig.setParameter("waffle.servlet.spi.NegotiateSecurityFilterProvider/protocols",
@@ -383,7 +383,7 @@ public class NegotiateSecurityFilterTests {
      * Test init negotiate security filter provider invalid protocol.
      */
     @Test
-    public void testInitNegotiateSecurityFilterProviderInvalidProtocol() {
+    void testInitNegotiateSecurityFilterProviderInvalidProtocol() {
         final SimpleFilterConfig filterConfig = new SimpleFilterConfig();
         filterConfig.setParameter("securityFilterProviders", "waffle.servlet.spi.NegotiateSecurityFilterProvider");
         filterConfig.setParameter("waffle.servlet.spi.NegotiateSecurityFilterProvider/protocols", "INVALID");
@@ -399,7 +399,7 @@ public class NegotiateSecurityFilterTests {
      * Test init invalid parameter.
      */
     @Test
-    public void testInitInvalidParameter() {
+    void testInitInvalidParameter() {
         try {
             final SimpleFilterConfig filterConfig = new SimpleFilterConfig();
             filterConfig.setParameter("invalidParameter", "random");
@@ -414,7 +414,7 @@ public class NegotiateSecurityFilterTests {
      * Test init invalid class in parameter.
      */
     @Test
-    public void testInitInvalidClassInParameter() {
+    void testInitInvalidClassInParameter() {
         try {
             final SimpleFilterConfig filterConfig = new SimpleFilterConfig();
             filterConfig.setParameter("invalidClass/invalidParameter", "random");

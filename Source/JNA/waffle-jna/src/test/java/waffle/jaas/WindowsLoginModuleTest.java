@@ -69,7 +69,7 @@ public class WindowsLoginModuleTest {
      * Check auth.
      */
     @Test
-    public void checkAuth() {
+    void checkAuth() {
         Assertions.assertNotNull(this.loginModule.getAuth());
         this.loginModule.setAuth(null);
         Assertions.assertNull(this.loginModule.getAuth());
@@ -79,7 +79,7 @@ public class WindowsLoginModuleTest {
      * Check guest login.
      */
     @Test
-    public void checkGuestLogin() {
+    void checkGuestLogin() {
         Assertions.assertTrue(this.loginModule.isAllowGuestLogin());
         this.loginModule.setAllowGuestLogin(false);
         Assertions.assertFalse(this.loginModule.isAllowGuestLogin());
@@ -92,7 +92,7 @@ public class WindowsLoginModuleTest {
      *             the login exception
      */
     @Test
-    public void commit_noPrincipal() throws LoginException {
+    void commit_noPrincipal() throws LoginException {
         Assertions.assertFalse(this.loginModule.commit());
     }
 
@@ -103,7 +103,7 @@ public class WindowsLoginModuleTest {
      *             the login exception
      */
     @Test
-    public void commit_subjectReadOnly() throws LoginException {
+    void commit_subjectReadOnly() throws LoginException {
         this.subject.setReadOnly();
         Whitebox.setInternalState(this.loginModule, new LinkedHashSet<Principal>());
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
@@ -119,7 +119,7 @@ public class WindowsLoginModuleTest {
      *             the login exception
      */
     @Test
-    public void commit_success() throws LoginException {
+    void commit_success() throws LoginException {
         Whitebox.setInternalState(this.loginModule, new LinkedHashSet<Principal>());
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
         this.loginModule.commit();
@@ -132,7 +132,7 @@ public class WindowsLoginModuleTest {
      *             the login exception
      */
     @Test
-    public void commit_withDebug() throws LoginException {
+    void commit_withDebug() throws LoginException {
         this.options.put("debug", "true");
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
         final Set<Principal> principals = new LinkedHashSet<>();
@@ -149,7 +149,7 @@ public class WindowsLoginModuleTest {
      *             the login exception
      */
     @Test
-    public void commit_withRoles() throws LoginException {
+    void commit_withRoles() throws LoginException {
         final Set<Principal> principals = new LinkedHashSet<>();
         principals.add(new UserPrincipal("FQN"));
         final GroupPrincipal group = new GroupPrincipal("Roles");
@@ -164,7 +164,7 @@ public class WindowsLoginModuleTest {
      * Inits the.
      */
     @BeforeEach
-    public void init() {
+    void init() {
         this.loginModule = new WindowsLoginModule();
         this.subject = new Subject();
         this.options = new HashMap<>();
@@ -174,7 +174,7 @@ public class WindowsLoginModuleTest {
      * Initialize_with options.
      */
     @Test
-    public void initialize_withOptions() {
+    void initialize_withOptions() {
         this.options.put("debug", "true");
         this.options.put("principalFormat", "sid");
         this.options.put("roleFormat", "none");
@@ -192,7 +192,7 @@ public class WindowsLoginModuleTest {
      *             the login exception
      */
     @Test
-    public void login_invalidGuestLogin() throws LoginException {
+    void login_invalidGuestLogin() throws LoginException {
         this.callbackHandler = new UsernamePasswordCallbackHandler("Guest", "password");
         this.options.put("debug", "true");
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
@@ -209,7 +209,7 @@ public class WindowsLoginModuleTest {
      *             the login exception
      */
     @Test
-    public void login_nullPassword() throws LoginException {
+    void login_nullPassword() throws LoginException {
         this.callbackHandler = new UsernamePasswordCallbackHandler("Guest", null);
         this.options.put("debug", "true");
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
@@ -230,7 +230,7 @@ public class WindowsLoginModuleTest {
      *             the unsupported callback exception
      */
     @Test
-    public void login_throwIOException() throws LoginException, IOException, UnsupportedCallbackException {
+    void login_throwIOException() throws LoginException, IOException, UnsupportedCallbackException {
         this.options.put("debug", "true");
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
         Assertions.assertTrue(this.loginModule.isAllowGuestLogin());
@@ -256,8 +256,7 @@ public class WindowsLoginModuleTest {
      *             the unsupported callback exception
      */
     @Test
-    public void login_throwUnsupportedCallbackException()
-            throws LoginException, IOException, UnsupportedCallbackException {
+    void login_throwUnsupportedCallbackException() throws LoginException, IOException, UnsupportedCallbackException {
         this.options.put("debug", "true");
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
         Assertions.assertTrue(this.loginModule.isAllowGuestLogin());
@@ -279,7 +278,7 @@ public class WindowsLoginModuleTest {
      *             the login exception
      */
     @Test
-    public void logon_noCallbackHandler() throws LoginException {
+    void logon_noCallbackHandler() throws LoginException {
         Assertions.assertThrows(LoginException.class, () -> {
             this.loginModule.login();
         });
@@ -292,7 +291,7 @@ public class WindowsLoginModuleTest {
      *             the login exception
      */
     @Test
-    public void logout_abortNoUser() throws LoginException {
+    void logout_abortNoUser() throws LoginException {
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
         Assertions.assertTrue(this.loginModule.abort());
     }
@@ -304,7 +303,7 @@ public class WindowsLoginModuleTest {
      *             the login exception
      */
     @Test
-    public void logout_noUser() throws LoginException {
+    void logout_noUser() throws LoginException {
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
         Assertions.assertTrue(this.loginModule.logout());
     }
@@ -316,7 +315,7 @@ public class WindowsLoginModuleTest {
      *             the login exception
      */
     @Test
-    public void logout_subjectReadOnly() throws LoginException {
+    void logout_subjectReadOnly() throws LoginException {
         this.subject.setReadOnly();
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
         Assertions.assertThrows(LoginException.class, () -> {
@@ -331,7 +330,7 @@ public class WindowsLoginModuleTest {
      *             the login exception
      */
     @Test
-    public void logout_validUser() throws LoginException {
+    void logout_validUser() throws LoginException {
         Whitebox.setInternalState(this.loginModule, "username", "waffle-user");
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
         Assertions.assertTrue(this.loginModule.logout());

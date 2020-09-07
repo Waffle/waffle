@@ -56,7 +56,7 @@ public class WindowsAccountTests {
      * Sets the up.
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         this.windowsAccount = new WindowsAccount(this.mockWindowsAccount);
     }
 
@@ -64,7 +64,7 @@ public class WindowsAccountTests {
      * Test equals.
      */
     @Test
-    public void testEquals() {
+    void testEquals() {
         Assertions.assertEquals(this.windowsAccount, new WindowsAccount(this.mockWindowsAccount));
         final MockWindowsAccount mockWindowsAccount2 = new MockWindowsAccount("localhost\\Administrator2");
         Assertions.assertFalse(this.windowsAccount.equals(new WindowsAccount(mockWindowsAccount2)));
@@ -79,7 +79,7 @@ public class WindowsAccountTests {
      *             the class not found exception
      */
     @Test
-    public void testIsSerializable() throws IOException, ClassNotFoundException {
+    void testIsSerializable() throws IOException, ClassNotFoundException {
         // serialize
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
         try (final ObjectOutputStream oos = new ObjectOutputStream(out)) {
@@ -102,7 +102,7 @@ public class WindowsAccountTests {
      * Test properties.
      */
     @Test
-    public void testProperties() {
+    void testProperties() {
         Assertions.assertEquals("localhost", this.windowsAccount.getDomain());
         Assertions.assertEquals("localhost\\Administrator", this.windowsAccount.getFqn());
         Assertions.assertEquals("Administrator", this.windowsAccount.getName());

@@ -43,7 +43,7 @@ public class NegotiateAuthenticationStrategyTest {
      * Sets the up.
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         this.authStrategy = new NegotiateAuthenticationStrategy();
     }
 
@@ -51,7 +51,7 @@ public class NegotiateAuthenticationStrategyTest {
      * Test after attempt.
      */
     @Test
-    public void testAfterAttempt() {
+    void testAfterAttempt() {
 
         final Realm otherRealm = new IniRealm();
 

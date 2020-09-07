@@ -58,7 +58,7 @@ public class SPNegoMessageTests {
      * Test is neg token init.
      */
     @Test
-    public void testIsNegTokenInit() {
+    void testIsNegTokenInit() {
         Assertions.assertTrue(SPNegoMessage.isNegTokenInit(SPNegoMessageTests.negTokenInitOk));
         Assertions.assertFalse(SPNegoMessage.isNegTokenInit(SPNegoMessageTests.negTokenInitTooShort));
         Assertions.assertFalse(SPNegoMessage.isNegTokenInit(SPNegoMessageTests.badMessage));
@@ -68,7 +68,7 @@ public class SPNegoMessageTests {
      * Test is neg token arg.
      */
     @Test
-    public void testIsNegTokenArg() {
+    void testIsNegTokenArg() {
         Assertions.assertTrue(SPNegoMessage.isNegTokenArg(SPNegoMessageTests.negTokenArgOk));
         Assertions.assertFalse(SPNegoMessage.isNegTokenArg(SPNegoMessageTests.negTokenArgTooShort));
         Assertions.assertFalse(SPNegoMessage.isNegTokenArg(SPNegoMessageTests.badMessage));

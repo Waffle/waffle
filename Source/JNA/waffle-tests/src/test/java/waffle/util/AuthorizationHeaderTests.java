@@ -43,7 +43,7 @@ public class AuthorizationHeaderTests {
      * Test is null.
      */
     @Test
-    public void testIsNull() {
+    void testIsNull() {
         final SimpleHttpRequest request = new SimpleHttpRequest();
         final AuthorizationHeader header = new AuthorizationHeader(request);
         Assertions.assertTrue(header.isNull());
@@ -57,7 +57,7 @@ public class AuthorizationHeaderTests {
      * Test get security package.
      */
     @Test
-    public void testGetSecurityPackage() {
+    void testGetSecurityPackage() {
         final SimpleHttpRequest request = new SimpleHttpRequest();
         final AuthorizationHeader header = new AuthorizationHeader(request);
         request.addHeader("Authorization", "NTLM TlRMTVNTUAABAAAABzIAAAYABgArAAAACwALACAAAABXT1JLU1RBVElPTkRPTUFJTg==");
@@ -71,7 +71,7 @@ public class AuthorizationHeaderTests {
      * Test is ntlm type1 message.
      */
     @Test
-    public void testIsNtlmType1Message() {
+    void testIsNtlmType1Message() {
         final SimpleHttpRequest request = new SimpleHttpRequest();
         final AuthorizationHeader header = new AuthorizationHeader(request);
         Assertions.assertFalse(header.isNtlmType1Message());
@@ -85,7 +85,7 @@ public class AuthorizationHeaderTests {
      * Test is ntlm type1 post authorization header.
      */
     @Test
-    public void testIsNtlmType1PostAuthorizationHeader() {
+    void testIsNtlmType1PostAuthorizationHeader() {
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setContentLength(0);
         request.addHeader("Authorization", "NTLM TlRMTVNTUAABAAAABzIAAAYABgArAAAACwALACAAAABXT1JLU1RBVElPTkRPTUFJTg==");
@@ -105,7 +105,7 @@ public class AuthorizationHeaderTests {
      * Test is sp nego message.
      */
     @Test
-    public void testIsSPNegTokenInitMessage() {
+    void testIsSPNegTokenInitMessage() {
         final SimpleHttpRequest request = new SimpleHttpRequest();
         final AuthorizationHeader header = new AuthorizationHeader(request);
         Assertions.assertFalse(header.isSPNegTokenInitMessage());
@@ -120,7 +120,7 @@ public class AuthorizationHeaderTests {
      * Test is sp nego post authorization header.
      */
     @Test
-    public void testIsSPNegoPostAuthorizationHeader() {
+    void testIsSPNegoPostAuthorizationHeader() {
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setContentLength(0);
         request.addHeader("Authorization",
@@ -143,7 +143,7 @@ public class AuthorizationHeaderTests {
      * Digest which is closely related to NTLM but not supported in Waffle.
      */
     @Test
-    public void testIsDigestAuthorizationHeaderFailure() {
+    void testIsDigestAuthorizationHeaderFailure() {
         final SimpleHttpRequest request = new SimpleHttpRequest();
         final AuthorizationHeader header = new AuthorizationHeader(request);
         request.addHeader("Authorization", AuthorizationHeaderTests.DIGEST_HEADER);
