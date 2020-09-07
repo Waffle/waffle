@@ -72,7 +72,7 @@ public class DelegatingNegotiateSecurityFilterTest {
      * Sets the up.
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final String[] configFiles = new String[] { "springTestFilterBeans.xml" };
         this.ctx = new ClassPathXmlApplicationContext(configFiles);
         SecurityContextHolder.getContext().setAuthentication(null);
@@ -83,7 +83,7 @@ public class DelegatingNegotiateSecurityFilterTest {
      * Shut down.
      */
     @AfterEach
-    public void shutDown() {
+    void shutDown() {
         ((AbstractApplicationContext) this.ctx).close();
     }
 
@@ -91,7 +91,7 @@ public class DelegatingNegotiateSecurityFilterTest {
      * Test filter. and custom handlers
      */
     @Test
-    public void testFilter() {
+    void testFilter() {
         Assertions.assertFalse(this.filter.isAllowGuestLogin());
         Assertions.assertEquals(PrincipalFormat.FQN, this.filter.getPrincipalFormat());
         Assertions.assertEquals(PrincipalFormat.BOTH, this.filter.getRoleFormat());
@@ -110,7 +110,7 @@ public class DelegatingNegotiateSecurityFilterTest {
      *             the servlet exception
      */
     @Test
-    public void testNegotiate() throws IOException, ServletException {
+    void testNegotiate() throws IOException, ServletException {
         final String securityPackage = "Negotiate";
         final SimpleFilterChain filterChain = new SimpleFilterChain();
         final SimpleHttpRequest request = new SimpleHttpRequest();
@@ -149,7 +149,7 @@ public class DelegatingNegotiateSecurityFilterTest {
      *             the servlet exception
      */
     @Test
-    public void testNegotiate_CustomAuth() throws IOException, ServletException {
+    void testNegotiate_CustomAuth() throws IOException, ServletException {
         final Authentication customToken = Mockito.mock(Authentication.class);
         Mockito.when(customToken.getName()).thenReturn("Custom Token");
         this.filter.setAuthenticationManager(authentication -> customToken);

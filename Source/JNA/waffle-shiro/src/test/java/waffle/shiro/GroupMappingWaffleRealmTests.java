@@ -59,7 +59,7 @@ public class GroupMappingWaffleRealmTests {
      * Sets the up.
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         this.windowsAuthProvider = new MockWindowsAuthProvider();
         this.realm = new GroupMappingWaffleRealm();
         this.realm.setProvider(this.windowsAuthProvider);
@@ -70,7 +70,7 @@ public class GroupMappingWaffleRealmTests {
      * Test valid username password.
      */
     @Test
-    public void testValidUsernamePassword() {
+    void testValidUsernamePassword() {
         final AuthenticationToken token = new UsernamePasswordToken(this.getCurrentUserName(), "somePassword");
         final AuthenticationInfo authcInfo = this.realm.getAuthenticationInfo(token);
         final PrincipalCollection principals = authcInfo.getPrincipals();
@@ -91,7 +91,7 @@ public class GroupMappingWaffleRealmTests {
      * Test invalid username password.
      */
     @Test
-    public void testInvalidUsernamePassword() {
+    void testInvalidUsernamePassword() {
         final AuthenticationToken token = new UsernamePasswordToken("InvalidUser", "somePassword");
         Assertions.assertThrows(AuthenticationException.class, () -> {
             this.realm.getAuthenticationInfo(token);
@@ -102,7 +102,7 @@ public class GroupMappingWaffleRealmTests {
      * Test guest username password.
      */
     @Test
-    public void testGuestUsernamePassword() {
+    void testGuestUsernamePassword() {
         final AuthenticationToken token = new UsernamePasswordToken("Guest", "somePassword");
         Assertions.assertThrows(AuthenticationException.class, () -> {
             this.realm.getAuthenticationInfo(token);

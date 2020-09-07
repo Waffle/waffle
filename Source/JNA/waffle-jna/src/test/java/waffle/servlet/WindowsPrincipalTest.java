@@ -50,7 +50,7 @@ public class WindowsPrincipalTest {
      * Test to string.
      */
     @Test
-    public void testToString() {
+    void testToString() {
         Assertions.assertNotNull(new Expectations() {
             {
                 WindowsPrincipalTest.this.windowsIdentity.getFqn();
@@ -68,7 +68,7 @@ public class WindowsPrincipalTest {
      * Test equals and hash code.
      */
     @Test
-    public void testEqualsAndHashCode() {
+    void testEqualsAndHashCode() {
         Assertions.assertNotNull(new Expectations() {
             {
                 WindowsPrincipalTest.this.windowsIdentity.getFqn();

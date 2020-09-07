@@ -48,7 +48,7 @@ public class WaffleAuthenticatorBaseTest {
      * Inits the.
      */
     @BeforeEach
-    public void init() {
+    void init() {
         this.waffleAuthenticatorBase = new WaffleAuthenticatorBase() {
             {
                 this.log = LoggerFactory.getLogger(WaffleAuthenticatorBaseTest.class);
@@ -66,7 +66,7 @@ public class WaffleAuthenticatorBaseTest {
      * Should_accept_both_protocols.
      */
     @Test
-    public void should_accept_both_protocols() {
+    void should_accept_both_protocols() {
         this.waffleAuthenticatorBase.setProtocols("  NTLM , , Negotiate   ");
 
         Assertions.assertEquals(2, this.waffleAuthenticatorBase.protocols.size(), "Two protocols added");
@@ -78,7 +78,7 @@ public class WaffleAuthenticatorBaseTest {
      * Should_accept_ negotiate_protocol.
      */
     @Test
-    public void should_accept_Negotiate_protocol() {
+    void should_accept_Negotiate_protocol() {
         this.waffleAuthenticatorBase.setProtocols(" Negotiate  ");
 
         Assertions.assertEquals(1, this.waffleAuthenticatorBase.protocols.size(), "One protocol added");
@@ -89,7 +89,7 @@ public class WaffleAuthenticatorBaseTest {
      * Should_accept_ ntl m_protocol.
      */
     @Test
-    public void should_accept_NTLM_protocol() {
+    void should_accept_NTLM_protocol() {
         this.waffleAuthenticatorBase.setProtocols("  NTLM ");
 
         Assertions.assertEquals(1, this.waffleAuthenticatorBase.protocols.size(), "One protocol added");
@@ -100,7 +100,7 @@ public class WaffleAuthenticatorBaseTest {
      * Should_refuse_other_protocol.
      */
     @Test
-    public void should_refuse_other_protocol() {
+    void should_refuse_other_protocol() {
         Assertions.assertThrows(RuntimeException.class, () -> {
             this.waffleAuthenticatorBase.setProtocols("  NTLM , OTHER, Negotiate   ");
         });

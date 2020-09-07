@@ -55,7 +55,7 @@ public final class NegotiateAuthenticationFilterTest {
      * Sets the up.
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         this.response = Mockito.mock(MockServletResponse.class, Mockito.CALLS_REAL_METHODS);
         Whitebox.setInternalState(this.response, "headers", new HashMap<>());
         Whitebox.setInternalState(this.response, "headersAdded", new HashMap<>());
@@ -65,7 +65,7 @@ public final class NegotiateAuthenticationFilterTest {
      * Test is login attempt.
      */
     @Test
-    public void testIsLoginAttempt() {
+    void testIsLoginAttempt() {
         Assertions.assertFalse(this.negAuthFilter.isLoginAttempt(""));
         Assertions.assertTrue(this.negAuthFilter.isLoginAttempt("NEGOTIATe"));
         Assertions.assertTrue(this.negAuthFilter.isLoginAttempt("ntlm"));
@@ -75,7 +75,7 @@ public final class NegotiateAuthenticationFilterTest {
      * Test send challenge during negotiate.
      */
     @Test
-    public void testSendChallengeDuringNegotiate() {
+    void testSendChallengeDuringNegotiate() {
 
         final String myProtocol = "myProtocol";
 
@@ -99,7 +99,7 @@ public final class NegotiateAuthenticationFilterTest {
      * Test send challenge initiate negotiate.
      */
     @Test
-    public void testSendChallengeInitiateNegotiate() {
+    void testSendChallengeInitiateNegotiate() {
 
         this.out = new byte[1];
         this.out[0] = -1;
@@ -121,7 +121,7 @@ public final class NegotiateAuthenticationFilterTest {
      * Test send challenge on failure.
      */
     @Test
-    public void testSendChallengeOnFailure() {
+    void testSendChallengeOnFailure() {
 
         this.negAuthFilter.sendChallengeOnFailure(this.response);
 

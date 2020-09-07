@@ -49,7 +49,7 @@ public class DynamicAuthenticationFilterTest {
      * Test is auth type negotiate.
      */
     @Test
-    public void testIsAuthTypeNegotiate() {
+    void testIsAuthTypeNegotiate() {
         Assertions.assertNotNull(new Expectations() {
             {
                 DynamicAuthenticationFilterTest.this.request.getParameter(this.anyString);

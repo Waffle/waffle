@@ -58,7 +58,7 @@ public class WindowsLoginModuleTests {
      * Sets the up.
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         this.provider = new MockWindowsAuthProvider();
         this.loginModule = new WindowsLoginModule();
         this.loginModule.setAuth(this.provider);
@@ -68,7 +68,7 @@ public class WindowsLoginModuleTests {
      * Test initialize.
      */
     @Test
-    public void testInitialize() {
+    void testInitialize() {
         final Subject subject = new Subject();
         final UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler("", "");
         final Map<String, String> options = new HashMap<>();
@@ -81,7 +81,7 @@ public class WindowsLoginModuleTests {
      * Test get set auth.
      */
     @Test
-    public void testGetSetAuth() {
+    void testGetSetAuth() {
         Assertions.assertNotNull(this.loginModule.getAuth());
         this.loginModule.setAuth(null);
         Assertions.assertNull(this.loginModule.getAuth());
@@ -94,7 +94,7 @@ public class WindowsLoginModuleTests {
      *             the login exception
      */
     @Test
-    public void testLogin() throws LoginException {
+    void testLogin() throws LoginException {
         final Subject subject = new Subject();
         final UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
                 WindowsAccountImpl.getCurrentUsername(), "password");
@@ -125,7 +125,7 @@ public class WindowsLoginModuleTests {
      *             the login exception
      */
     @Test
-    public void testNoCallbackHandler() throws LoginException {
+    void testNoCallbackHandler() throws LoginException {
         final Subject subject = new Subject();
         final Map<String, String> options = new HashMap<>();
         this.loginModule.initialize(subject, null, null, options);
@@ -141,7 +141,7 @@ public class WindowsLoginModuleTests {
      *             the login exception
      */
     @Test
-    public void testLoginNoUsername() throws LoginException {
+    void testLoginNoUsername() throws LoginException {
         final Subject subject = new Subject();
         final UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler("", "");
         final Map<String, String> options = new HashMap<>();
@@ -160,7 +160,7 @@ public class WindowsLoginModuleTests {
      *             the login exception
      */
     @Test
-    public void testRoleFormatNone() throws LoginException {
+    void testRoleFormatNone() throws LoginException {
         final Subject subject = new Subject();
         final UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
                 WindowsAccountImpl.getCurrentUsername(), "password");
@@ -180,7 +180,7 @@ public class WindowsLoginModuleTests {
      *             the login exception
      */
     @Test
-    public void testRoleFormatBoth() throws LoginException {
+    void testRoleFormatBoth() throws LoginException {
         final Subject subject = new Subject();
         final UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
                 WindowsAccountImpl.getCurrentUsername(), "password");
@@ -220,7 +220,7 @@ public class WindowsLoginModuleTests {
      *             the login exception
      */
     @Test
-    public void testPrincipalFormatBoth() throws LoginException {
+    void testPrincipalFormatBoth() throws LoginException {
         final Subject subject = new Subject();
         final UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
                 WindowsAccountImpl.getCurrentUsername(), "password");
@@ -241,7 +241,7 @@ public class WindowsLoginModuleTests {
      *             the login exception
      */
     @Test
-    public void testRoleFormatSid() throws LoginException {
+    void testRoleFormatSid() throws LoginException {
         final Subject subject = new Subject();
         final UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
                 WindowsAccountImpl.getCurrentUsername(), "password");
@@ -278,7 +278,7 @@ public class WindowsLoginModuleTests {
      *             the login exception
      */
     @Test
-    public void testRoleUnique() throws LoginException {
+    void testRoleUnique() throws LoginException {
         final Subject subject = new Subject();
         // the mock has an "Everyone" group
         final UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
@@ -311,7 +311,7 @@ public class WindowsLoginModuleTests {
      *             the login exception
      */
     @Test
-    public void testGuestLogin() throws LoginException {
+    void testGuestLogin() throws LoginException {
         final Subject subject = new Subject();
         final UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler("Guest",
                 "password");
@@ -344,7 +344,7 @@ public class WindowsLoginModuleTests {
      *             the login exception
      */
     @Test
-    public void testAbort() throws LoginException {
+    void testAbort() throws LoginException {
         final Subject subject = new Subject();
         final UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler("Guest",
                 "password");

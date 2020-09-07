@@ -50,7 +50,7 @@ public final class NegotiateAuthenticationRealmTest {
      * Test supports.
      */
     @Test
-    public void testSupports() {
+    void testSupports() {
         Assertions.assertFalse(this.negAuthRealm.supports(this.authenticationToken),
                 "Non-NegotiateToken should not be supported.");
 
@@ -65,7 +65,7 @@ public final class NegotiateAuthenticationRealmTest {
      *            the negotiate token
      */
     @Test
-    public void testAuthenticationInfo(@Mocked final NegotiateToken negotiateToken) {
+    void testAuthenticationInfo(@Mocked final NegotiateToken negotiateToken) {
         Assertions.assertNotNull(new Expectations() {
             {
                 negotiateToken.getIn();

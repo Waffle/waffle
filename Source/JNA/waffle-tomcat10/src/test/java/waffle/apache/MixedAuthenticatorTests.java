@@ -80,7 +80,7 @@ public class MixedAuthenticatorTests {
      *             the lifecycle exception
      */
     @BeforeEach
-    public void setUp() throws LifecycleException {
+    void setUp() throws LifecycleException {
         this.authenticator = new MixedAuthenticator();
         this.authenticator.setContainer(this.context);
         Assertions.assertNotNull(new Expectations() {
@@ -101,7 +101,7 @@ public class MixedAuthenticatorTests {
      *             the lifecycle exception
      */
     @AfterEach
-    public void tearDown() throws LifecycleException {
+    void tearDown() throws LifecycleException {
         this.authenticator.stop();
     }
 
@@ -109,7 +109,7 @@ public class MixedAuthenticatorTests {
      * Test challenge get.
      */
     @Test
-    public void testChallengeGET() {
+    void testChallengeGET() {
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
         request.setQueryString("j_negotiate_check");
@@ -129,7 +129,7 @@ public class MixedAuthenticatorTests {
      * Test challenge post.
      */
     @Test
-    public void testChallengePOST() {
+    void testChallengePOST() {
         final String securityPackage = "Negotiate";
         IWindowsCredentialsHandle clientCredentials = null;
         WindowsSecurityContextImpl clientContext = null;
@@ -169,7 +169,7 @@ public class MixedAuthenticatorTests {
      * Test get.
      */
     @Test
-    public void testGet() {
+    void testGet() {
         final SimpleHttpRequest request = new SimpleHttpRequest();
         final SimpleHttpResponse response = new SimpleHttpResponse();
         Assertions.assertFalse(this.authenticator.authenticate(request, response));
@@ -179,7 +179,7 @@ public class MixedAuthenticatorTests {
      * Test get info.
      */
     @Test
-    public void testGetInfo() {
+    void testGetInfo() {
         assertThat(this.authenticator.getInfo().length()).isGreaterThan(0);
     }
 
@@ -187,7 +187,7 @@ public class MixedAuthenticatorTests {
      * Test negotiate.
      */
     @Test
-    public void testNegotiate() {
+    void testNegotiate() {
         final String securityPackage = "Negotiate";
         IWindowsCredentialsHandle clientCredentials = null;
         WindowsSecurityContextImpl clientContext = null;
@@ -246,7 +246,7 @@ public class MixedAuthenticatorTests {
      * Test post security check.
      */
     @Test
-    public void testPostSecurityCheck() {
+    void testPostSecurityCheck() {
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setQueryString("j_security_check");
         request.addParameter("j_username", "username");
@@ -264,7 +264,7 @@ public class MixedAuthenticatorTests {
      *             the servlet exception
      */
     @Test
-    public void testProgrammaticSecurityBoth(@Mocked final IWindowsIdentity identity) throws ServletException {
+    void testProgrammaticSecurityBoth(@Mocked final IWindowsIdentity identity) throws ServletException {
         this.authenticator.setAuth(new MockWindowsAuthProvider());
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.getMappingData().context = (Context) this.authenticator.getContainer();
@@ -295,7 +295,7 @@ public class MixedAuthenticatorTests {
      *             the servlet exception
      */
     @Test
-    public void testProgrammaticSecuritySID(@Mocked final IWindowsIdentity identity) throws ServletException {
+    void testProgrammaticSecuritySID(@Mocked final IWindowsIdentity identity) throws ServletException {
         this.authenticator.setAuth(new MockWindowsAuthProvider());
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.getMappingData().context = (Context) this.authenticator.getContainer();
@@ -324,7 +324,7 @@ public class MixedAuthenticatorTests {
      *             the servlet exception
      */
     @Test
-    public void testProgrammaticSecurityNone(@Mocked final IWindowsIdentity identity) throws ServletException {
+    void testProgrammaticSecurityNone(@Mocked final IWindowsIdentity identity) throws ServletException {
         this.authenticator.setAuth(new MockWindowsAuthProvider());
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.getMappingData().context = (Context) this.authenticator.getContainer();
@@ -342,7 +342,7 @@ public class MixedAuthenticatorTests {
      * Test security check parameters.
      */
     @Test
-    public void testSecurityCheckParameters() {
+    void testSecurityCheckParameters() {
         this.authenticator.setAuth(new MockWindowsAuthProvider());
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.addParameter("j_security_check", "");
@@ -356,7 +356,7 @@ public class MixedAuthenticatorTests {
      * Test security check query string.
      */
     @Test
-    public void testSecurityCheckQueryString() {
+    void testSecurityCheckQueryString() {
         this.authenticator.setAuth(new MockWindowsAuthProvider());
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setQueryString("j_security_check");
@@ -367,7 +367,7 @@ public class MixedAuthenticatorTests {
     }
 
     @Test
-    public void testCustomPrincipal() throws LifecycleException {
+    void testCustomPrincipal() throws LifecycleException {
         final GenericPrincipal genericPrincipal = new GenericPrincipal("my-principal", "my-password",
                 Collections.emptyList());
         final MixedAuthenticator customAuthenticator = new MixedAuthenticator() {

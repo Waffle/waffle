@@ -62,7 +62,7 @@ public class WindowsAuthenticationProviderTests {
      * Sets the up.
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final String[] configFiles = new String[] { "springTestAuthBeans.xml" };
         this.ctx = new ClassPathXmlApplicationContext(configFiles);
         this.provider = (WindowsAuthenticationProvider) this.ctx.getBean("waffleSpringAuthenticationProvider");
@@ -72,7 +72,7 @@ public class WindowsAuthenticationProviderTests {
      * Shut down.
      */
     @AfterEach
-    public void shutDown() {
+    void shutDown() {
         ((AbstractApplicationContext) this.ctx).close();
     }
 
@@ -80,7 +80,7 @@ public class WindowsAuthenticationProviderTests {
      * Test windows authentication provider.
      */
     @Test
-    public void testWindowsAuthenticationProvider() {
+    void testWindowsAuthenticationProvider() {
         Assertions.assertTrue(this.provider.isAllowGuestLogin());
         Assertions.assertTrue(this.provider.getAuthProvider() instanceof MockWindowsAuthProvider);
         Assertions.assertEquals(PrincipalFormat.SID, this.provider.getPrincipalFormat());
@@ -91,7 +91,7 @@ public class WindowsAuthenticationProviderTests {
      * Test supports.
      */
     @Test
-    public void testSupports() {
+    void testSupports() {
         Assertions.assertFalse(this.provider.supports(this.getClass()));
         Assertions.assertTrue(this.provider.supports(UsernamePasswordAuthenticationToken.class));
     }
@@ -100,7 +100,7 @@ public class WindowsAuthenticationProviderTests {
      * Test authenticate.
      */
     @Test
-    public void testAuthenticate() {
+    void testAuthenticate() {
         final MockWindowsIdentity mockIdentity = new MockWindowsIdentity(WindowsAccountImpl.getCurrentUsername(),
                 new ArrayList<String>());
         final WindowsPrincipal principal = new WindowsPrincipal(mockIdentity);
@@ -127,7 +127,7 @@ public class WindowsAuthenticationProviderTests {
      * Test authenticate with custom granted authority factory.
      */
     @Test
-    public void testAuthenticateWithCustomGrantedAuthorityFactory() {
+    void testAuthenticateWithCustomGrantedAuthorityFactory() {
         this.provider.setDefaultGrantedAuthority(null);
         this.provider.setGrantedAuthorityFactory(new FqnGrantedAuthorityFactory(null, false));
 
@@ -157,7 +157,7 @@ public class WindowsAuthenticationProviderTests {
      * Test guest is disabled.
      */
     @Test
-    public void testGuestIsDisabled() {
+    void testGuestIsDisabled() {
         final MockWindowsIdentity mockIdentity = new MockWindowsIdentity("Guest", new ArrayList<String>());
         this.provider.setAllowGuestLogin(false);
         final WindowsPrincipal principal = new WindowsPrincipal(mockIdentity);

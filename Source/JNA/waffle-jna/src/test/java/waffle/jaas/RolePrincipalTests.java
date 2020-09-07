@@ -50,7 +50,7 @@ public class RolePrincipalTests {
      * Equals_other object.
      */
     @Test
-    public void equals_otherObject() {
+    void equals_otherObject() {
         Assertions.assertNotEquals(this.rolePrincipal, "");
     }
 
@@ -58,7 +58,7 @@ public class RolePrincipalTests {
      * Equals_same object.
      */
     @Test
-    public void equals_sameObject() {
+    void equals_sameObject() {
         Assertions.assertEquals(this.rolePrincipal, this.rolePrincipal);
     }
 
@@ -66,7 +66,7 @@ public class RolePrincipalTests {
      * Sets the up.
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         this.rolePrincipal = new RolePrincipal("localhost\\Administrator");
     }
 
@@ -74,7 +74,7 @@ public class RolePrincipalTests {
      * Test equals_ symmetric.
      */
     @Test
-    public void testEquals_Symmetric() {
+    void testEquals_Symmetric() {
         final RolePrincipal x = new RolePrincipal("localhost\\Administrator");
         final RolePrincipal y = new RolePrincipal("localhost\\Administrator");
         Assertions.assertEquals(x, y);
@@ -90,7 +90,7 @@ public class RolePrincipalTests {
      *             the class not found exception
      */
     @Test
-    public void testIsSerializable() throws IOException, ClassNotFoundException {
+    void testIsSerializable() throws IOException, ClassNotFoundException {
         // serialize
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
         try (final ObjectOutputStream oos = new ObjectOutputStream(out)) {

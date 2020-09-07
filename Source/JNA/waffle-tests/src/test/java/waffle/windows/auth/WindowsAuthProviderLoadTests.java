@@ -50,7 +50,7 @@ public class WindowsAuthProviderLoadTests {
      *             the runner exception
      */
     @Test
-    public void launchLoadTest() throws RunnerException {
+    void launchLoadTest() throws RunnerException {
         final Options opt = new OptionsBuilder().threads(10).measurementIterations(10).build();
         new Runner(opt).run();
     }

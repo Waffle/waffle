@@ -37,7 +37,7 @@ public class NtlmMessageTests {
      * Test is ntlm message.
      */
     @Test
-    public void testIsNtlmMessage() {
+    void testIsNtlmMessage() {
         Assertions.assertFalse(NtlmMessage.isNtlmMessage(null));
         final byte[] ntlmSignature = { 0x4e, 0x54, 0x4c, 0x4d, 0x53, 0x53, 0x50, 0x00 };
         Assertions.assertTrue(NtlmMessage.isNtlmMessage(ntlmSignature));
@@ -53,7 +53,7 @@ public class NtlmMessageTests {
      * Test get ntlm message type.
      */
     @Test
-    public void testGetNtlmMessageType() {
+    void testGetNtlmMessageType() {
         final byte[] ntlmMessageType1 = { 0x4e, 0x54, 0x4c, 0x4d, 0x53, 0x53, 0x50, 0x00, 0x01, 0x00, 0x00, 0x00, 0x02,
                 0x02, 0x00, 0x00 };
         Assertions.assertEquals(1, NtlmMessage.getMessageType(ntlmMessageType1));

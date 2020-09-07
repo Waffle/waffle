@@ -73,7 +73,7 @@ public class NegotiateAuthenticatorTests {
      *             the lifecycle exception
      */
     @BeforeEach
-    public void setUp() throws LifecycleException {
+    void setUp() throws LifecycleException {
         this.authenticator = new NegotiateAuthenticator();
         this.authenticator.setContainer(this.context);
         Assertions.assertNotNull(new Expectations() {
@@ -96,7 +96,7 @@ public class NegotiateAuthenticatorTests {
      *             the lifecycle exception
      */
     @AfterEach
-    public void tearDown() throws LifecycleException {
+    void tearDown() throws LifecycleException {
         this.authenticator.stop();
     }
 
@@ -104,7 +104,7 @@ public class NegotiateAuthenticatorTests {
      * Test allow guest login.
      */
     @Test
-    public void testAllowGuestLogin() {
+    void testAllowGuestLogin() {
         Assertions.assertTrue(this.authenticator.isAllowGuestLogin());
         this.authenticator.setAllowGuestLogin(false);
         Assertions.assertFalse(this.authenticator.isAllowGuestLogin());
@@ -114,7 +114,7 @@ public class NegotiateAuthenticatorTests {
      * Test challenge get.
      */
     @Test
-    public void testChallengeGET() {
+    void testChallengeGET() {
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
         final SimpleHttpResponse response = new SimpleHttpResponse();
@@ -133,7 +133,7 @@ public class NegotiateAuthenticatorTests {
      * Test challenge post.
      */
     @Test
-    public void testChallengePOST() {
+    void testChallengePOST() {
         final String securityPackage = "Negotiate";
         IWindowsCredentialsHandle clientCredentials = null;
         WindowsSecurityContextImpl clientContext = null;
@@ -172,7 +172,7 @@ public class NegotiateAuthenticatorTests {
      * Test get info.
      */
     @Test
-    public void testGetInfo() {
+    void testGetInfo() {
         assertThat(this.authenticator.getInfo().length()).isGreaterThan(0);
         Assertions.assertTrue(this.authenticator.getAuth() instanceof WindowsAuthProviderImpl);
     }
@@ -181,7 +181,7 @@ public class NegotiateAuthenticatorTests {
      * Test negotiate.
      */
     @Test
-    public void testNegotiate() {
+    void testNegotiate() {
         final String securityPackage = "Negotiate";
         IWindowsCredentialsHandle clientCredentials = null;
         WindowsSecurityContextImpl clientContext = null;
@@ -245,7 +245,7 @@ public class NegotiateAuthenticatorTests {
      * Test post empty.
      */
     @Test
-    public void testPOSTEmpty() {
+    void testPOSTEmpty() {
         final String securityPackage = "Negotiate";
         IWindowsCredentialsHandle clientCredentials = null;
         WindowsSecurityContextImpl clientContext = null;
@@ -314,7 +314,7 @@ public class NegotiateAuthenticatorTests {
      * Test principal format.
      */
     @Test
-    public void testPrincipalFormat() {
+    void testPrincipalFormat() {
         Assertions.assertEquals(PrincipalFormat.FQN, this.authenticator.getPrincipalFormat());
         this.authenticator.setPrincipalFormat("both");
         Assertions.assertEquals(PrincipalFormat.BOTH, this.authenticator.getPrincipalFormat());
@@ -324,7 +324,7 @@ public class NegotiateAuthenticatorTests {
      * Test role format.
      */
     @Test
-    public void testRoleFormat() {
+    void testRoleFormat() {
         Assertions.assertEquals(PrincipalFormat.FQN, this.authenticator.getRoleFormat());
         this.authenticator.setRoleFormat("both");
         Assertions.assertEquals(PrincipalFormat.BOTH, this.authenticator.getRoleFormat());

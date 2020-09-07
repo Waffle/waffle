@@ -62,7 +62,7 @@ public class BasicSecurityFilterTests {
      *             the servlet exception
      */
     @BeforeEach
-    public void setUp() throws ServletException {
+    void setUp() throws ServletException {
         this.filter = new NegotiateSecurityFilter();
         this.filter.setAuth(new MockWindowsAuthProvider());
         this.filter.init(null);
@@ -72,7 +72,7 @@ public class BasicSecurityFilterTests {
      * Tear down.
      */
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         this.filter.destroy();
     }
 
@@ -85,7 +85,7 @@ public class BasicSecurityFilterTests {
      *             the servlet exception
      */
     @Test
-    public void testBasicAuth() throws IOException, ServletException {
+    void testBasicAuth() throws IOException, ServletException {
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
 

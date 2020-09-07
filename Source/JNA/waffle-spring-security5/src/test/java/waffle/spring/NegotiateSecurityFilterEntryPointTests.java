@@ -55,7 +55,7 @@ public class NegotiateSecurityFilterEntryPointTests {
      * Sets the up.
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final String[] configFiles = new String[] { "springTestFilterBeans.xml" };
         this.ctx = new ClassPathXmlApplicationContext(configFiles);
         this.entryPoint = (NegotiateSecurityFilterEntryPoint) this.ctx.getBean("negotiateSecurityFilterEntryPoint");
@@ -65,7 +65,7 @@ public class NegotiateSecurityFilterEntryPointTests {
      * Shut down.
      */
     @AfterEach
-    public void shutDown() {
+    void shutDown() {
         ((AbstractApplicationContext) this.ctx).close();
     }
 
@@ -78,7 +78,7 @@ public class NegotiateSecurityFilterEntryPointTests {
      *             the servlet exception
      */
     @Test
-    public void testChallengeGET() throws IOException, ServletException {
+    void testChallengeGET() throws IOException, ServletException {
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
         final SimpleHttpResponse response = new SimpleHttpResponse();
@@ -102,7 +102,7 @@ public class NegotiateSecurityFilterEntryPointTests {
      *             the servlet exception
      */
     @Test
-    public void testGetSetProvider() throws IOException, ServletException {
+    void testGetSetProvider() throws IOException, ServletException {
         Assertions.assertNotNull(this.entryPoint.getProvider());
         this.entryPoint.setProvider(null);
         final SimpleHttpRequest request = new SimpleHttpRequest();

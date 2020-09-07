@@ -73,7 +73,7 @@ public class ImpersonateTests {
      * Sets the up.
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         this.filter = new NegotiateSecurityFilter();
         this.filter.setProvider(new SecurityFilterProviderCollection(new WindowsAuthProviderImpl()));
 
@@ -91,7 +91,7 @@ public class ImpersonateTests {
      * Tear down.
      */
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         this.filter.destroy();
 
         if (LMErr.NERR_Success == this.resultOfNetAddUser) {
@@ -109,7 +109,7 @@ public class ImpersonateTests {
      *             the servlet exception
      */
     @Test
-    public void testImpersonateEnabled() throws IOException, ServletException {
+    void testImpersonateEnabled() throws IOException, ServletException {
 
         Assertions.assertNotEquals("Current user shouldn't be the test user prior to the test",
                 Advapi32Util.getUserName(), MockWindowsAccount.TEST_USER_NAME);
@@ -152,7 +152,7 @@ public class ImpersonateTests {
      *             the servlet exception
      */
     @Test
-    public void testImpersonateDisabled() throws IOException, ServletException {
+    void testImpersonateDisabled() throws IOException, ServletException {
 
         Assertions.assertNotEquals("Current user shouldn't be the test user prior to the test",
                 Advapi32Util.getUserName(), MockWindowsAccount.TEST_USER_NAME);

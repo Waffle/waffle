@@ -43,7 +43,7 @@ public class FqnGrantedAuthorityFactoryTests {
      * Sets the up.
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         this.group = new WindowsAccount(new MockWindowsAccount("group"));
     }
 
@@ -51,7 +51,7 @@ public class FqnGrantedAuthorityFactoryTests {
      * Test prefix and uppercase.
      */
     @Test
-    public void testPrefixAndUppercase() {
+    void testPrefixAndUppercase() {
         final FqnGrantedAuthorityFactory factory = new FqnGrantedAuthorityFactory("prefix_", true);
         Assertions.assertEquals(new SimpleGrantedAuthority("PREFIX_GROUP"), factory.createGrantedAuthority(this.group));
     }
@@ -60,7 +60,7 @@ public class FqnGrantedAuthorityFactoryTests {
      * Test prefix and lowercase.
      */
     @Test
-    public void testPrefixAndLowercase() {
+    void testPrefixAndLowercase() {
         final FqnGrantedAuthorityFactory factory = new FqnGrantedAuthorityFactory("prefix_", false);
         Assertions.assertEquals(new SimpleGrantedAuthority("prefix_group"), factory.createGrantedAuthority(this.group));
     }
@@ -69,7 +69,7 @@ public class FqnGrantedAuthorityFactoryTests {
      * Test no prefix and uppercase.
      */
     @Test
-    public void testNoPrefixAndUppercase() {
+    void testNoPrefixAndUppercase() {
         final FqnGrantedAuthorityFactory factory = new FqnGrantedAuthorityFactory(null, true);
         Assertions.assertEquals(new SimpleGrantedAuthority("GROUP"), factory.createGrantedAuthority(this.group));
     }
@@ -78,7 +78,7 @@ public class FqnGrantedAuthorityFactoryTests {
      * Test no prefix and lowercase.
      */
     @Test
-    public void testNoPrefixAndLowercase() {
+    void testNoPrefixAndLowercase() {
         final FqnGrantedAuthorityFactory factory = new FqnGrantedAuthorityFactory(null, false);
         Assertions.assertEquals(new SimpleGrantedAuthority("group"), factory.createGrantedAuthority(this.group));
     }

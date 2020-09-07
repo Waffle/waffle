@@ -66,7 +66,7 @@ public class WaffleInfoServletTests {
      *             the servlet exception
      */
     @Test
-    public void testGetInfo() throws ParserConfigurationException, SAXException, IOException, ServletException {
+    void testGetInfo() throws ParserConfigurationException, SAXException, IOException, ServletException {
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.addHeader("hello", "waffle");
 
