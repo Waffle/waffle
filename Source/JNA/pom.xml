@@ -161,7 +161,7 @@
         <checkstyle.config>checkstyle.xml</checkstyle.config>
 
         <!-- Third Party Versions -->
-        <assertj.version>3.17.1</assertj.version>
+        <assertj.version>3.17.2</assertj.version>
         <commons-math.version>3.6.1</commons-math.version>
         <error-prone.version>2.4.0</error-prone.version>
         <j2objc.version>1.3</j2objc.version>
