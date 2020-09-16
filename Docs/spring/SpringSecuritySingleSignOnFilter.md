@@ -171,6 +171,67 @@ The `basicSecurityFilterProvider` bean supports a custom Basic authentication Re
     <property name="realm" value="DemoRealm" />
 </bean>
 ```
+Mixed Single-SignOn and Form
+--------------------------------------
+To support both single sign-on and form-based authentication with spring security similarly to [TomcatMixedSingleSignOnAndFormAuthenticatorValve](../tomcat/TomcatMixedSingleSignOnAndFormAuthenticatorValve.md).
+
+Split single sign-on and form based authentication in dedicated entry point configurations:
+
+``` xml
+<sec:http pattern="/waffle" entry-point-ref="negotiateSecurityFilterEntryPoint">
+    <sec:intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY" />
+    <sec:custom-filter ref="waffleNegotiateSecurityFilter" position="BASIC_AUTH_FILTER" />
+</sec:http>
+
+<sec:http>
+    <sec:intercept-url pattern="/login.jsp" access="permitAll" />
+    <sec:form-login login-page="/login.jsp" authentication-failure-url="/login.jsp?error=true"/>
+    <sec:intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY" />
+</sec:http>
+
+<sec:authentication-manager alias="authenticationProvider">
+		  <sec:authentication-provider ref="waffleSpringAuthenticationProvider" />
+</sec:authentication-manager>
+
+<bean id="waffleSpringAuthenticationProvider" class="waffle.spring.WindowsAuthenticationProvider">
+    <property name="authProvider" ref="waffleWindowsAuthProvider" />
+</bean>
+```
+Create a login page based on the following code. There're two requirements for the login form. The form-based authentication must post to the login processing url location. The single sign-on link must redirect to the single sign-on entry point path.
+
+``` html
+<form method="POST" name="loginform" action="<%=request.getContextPath()%>/login">
+<table style="vertical-align: middle;">
+    <tr>
+        <td>Username:</td>
+        <td><input type="text" name="username" /></td>
+    </tr>
+    <tr>
+        <td>Password:</td>
+        <td><input type="password" name="password" /></td>
+    </tr>
+    <tr>
+        <td><input type="submit" value="Login" /></td>
+    </tr>
+</table>
+</form>
+<hr>
+<a href="<%=request.getContextPath()%>/waffle">
+   Login (Negotiate)
+</a>
+```
+Defining the redirection after a successful single sign-on authentication can be achieved by registering a redirect servlet with "/waffle" url-mapping:
+
+``` java
+@WebServlet("/waffle")
+public class RedirectServlet extends HttpServlet {
+	
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.sendRedirect(resp.encodeRedirectURL(req.getContextPath() + "/index.jsp"));
+	}
+}
+```
 
 Waffle Spring-Security Demo
 ---------------------------
