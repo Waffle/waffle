@@ -173,9 +173,9 @@ The `basicSecurityFilterProvider` bean supports a custom Basic authentication Re
 ```
 Mixed Single-SignOn and Form
 --------------------------------------
-To support both single sign-on and form-based authentication with spring security similarly to [TomcatMixedSingleSignOnAndFormAuthenticatorValve](https://github.com/Waffle/waffle/blob/master/Docs/tomcat/TomcatMixedSingleSignOnAndFormAuthenticatorValve.md)
+To support both single sign-on and form-based authentication with spring security similarly to [TomcatMixedSingleSignOnAndFormAuthenticatorValve](../tomcat/TomcatMixedSingleSignOnAndFormAuthenticatorValve.md).
 
-Split single sign-oon and form based authentication in dedicated entry point configurations
+Split single sign-on and form based authentication in dedicated entry point configurations:
 
 ``` xml
 <sec:http pattern="/waffle" entry-point-ref="negotiateSecurityFilterEntryPoint">
@@ -220,7 +220,18 @@ Create a login page based on the following code. There're two requirements for t
    Login (Negotiate)
 </a>
 ```
-Defining the redirection after a successful single sign-on authentication can be achieved by registering a redirect servlet with "/waffle" url-mapping.
+Defining the redirection after a successful single sign-on authentication can be achieved by registering a redirect servlet with "/waffle" url-mapping:
+
+``` java
+@WebServlet("/waffle")
+public class RedirectServlet extends HttpServlet {
+	
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.sendRedirect(resp.encodeRedirectURL(req.getContextPath() + "/index.jsp"));
+	}
+}
+```
 
 Waffle Spring-Security Demo
 ---------------------------
