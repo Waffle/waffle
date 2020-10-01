@@ -53,7 +53,7 @@
         <byte-buddy.version>1.10.16</byte-buddy.version>
         <mockito-core.version>3.5.13</mockito-core.version>
         <objenesis.version>3.1</objenesis.version>
-        <servlet.version>5.0.0-M1</servlet.version>
+        <servlet.version>5.0.0</servlet.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.tests.jakarta</module.name>

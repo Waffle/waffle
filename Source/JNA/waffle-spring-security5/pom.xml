@@ -50,7 +50,7 @@
 
     <properties>
         <!-- Dependencies -->
-        <servlet.version>4.0.4</servlet.version>
+        <servlet.version>5.0.0</servlet.version>
         <spring.version>5.2.7.RELEASE</spring.version>
         <spring.security.version>5.3.3.RELEASE</spring.security.version>
 
