@@ -54,7 +54,7 @@
         <logback.version note="override from parent">1.2.3</logback.version>
         <slf4j.version note="override from parent">1.7.30</slf4j.version>
         <spring.version>4.3.27.RELEASE</spring.version>
-        <spring-boot.version>1.5.22.RELEASE</spring-boot.version>
+        <spring-boot.version>2.3.4.RELEASE</spring-boot.version>
         <tomcat.version>8.5.55</tomcat.version>
 
         <!-- Automatic Module Name for JPMS -->
