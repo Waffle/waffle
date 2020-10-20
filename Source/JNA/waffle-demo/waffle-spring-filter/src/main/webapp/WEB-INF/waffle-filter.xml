@@ -52,7 +52,7 @@
 
     <!-- spring filter entry point -->
     <sec:http entry-point-ref="negotiateSecurityFilterEntryPoint">
-        <sec:intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY" />
+        <sec:intercept-url pattern="/**" access="fullyAuthenticated" />
         <sec:custom-filter ref="waffleNegotiateSecurityFilter" position="BASIC_AUTH_FILTER" />
     </sec:http>
 
