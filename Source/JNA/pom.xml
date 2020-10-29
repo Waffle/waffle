@@ -229,7 +229,7 @@
         <checkstyle.version>8.36.2</checkstyle.version>
         <doxia.version>1.9.1</doxia.version>
         <sb-contrib.version>7.4.7</sb-contrib.version>
-        <findsecbugs.version>1.10.1</findsecbugs.version>
+        <findsecbugs.version>1.11.0</findsecbugs.version>
         <fluido.version>1.9</fluido.version>
         <htmlcompressor.version>1.7.1</htmlcompressor.version>
         <javac.version>9+181-r4173-1</javac.version>
