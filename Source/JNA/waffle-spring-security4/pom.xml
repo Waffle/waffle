@@ -51,8 +51,8 @@
     <properties>
         <!-- Dependencies -->
         <servlet.version>4.0.4</servlet.version>
-        <spring.security.version>4.2.17.RELEASE</spring.security.version>
         <spring.version>4.3.29.RELEASE</spring.version>
+        <spring.security.version>4.2.19.RELEASE</spring.security.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.spring.security4</module.name>
