@@ -54,7 +54,7 @@
         <asm.version>9.0</asm.version>
         <ecj.version>3.23.0</ecj.version>
         <el.version>3.0.3</el.version>
-        <el-api.version>3.0.3</el-api.version>
+        <el-api.version>4.0.0</el-api.version>
         <jetty.version>9.4.35.v20201120</jetty.version>
         <jsp.version>2.3.6</jsp.version>
         <jsp-api.version>2.3.6</jsp-api.version>
