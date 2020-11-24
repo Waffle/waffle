@@ -2,8 +2,9 @@
 ===================
 * Relicensed project as MIT
 * Support different cache solutions (default is caffeine cache) through service loader using '/META-INF/services/waffle.cache.CacheSupplier' pointing to your cache solution.
-* Remove use of Group interface and directly use our implementation to allow build on jdk14/15 (not confirmed JAAS works, just compiles)
+* Remove use of Group interface and directly use our implementation to allow build on jdk14+ (ie 15/16) (not confirmed JAAS works, just compiles)
 * Cleanup error prone code usage resulting in header treatment without training '\n'
+* Add github actions windows builds
 
 2.3.0 (6/19/2020)
 =================
