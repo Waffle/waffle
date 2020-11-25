@@ -1,15 +1,17 @@
 WAFFLE - Windows Authentication Framework
 =========================================
 
+[![Java CI](https://github.com/Waffle/waffle/workflows/Java%20CI/badge.svg)](https://github.com/Waffle/waffle/actions?query=workflow%3A%22Java+CI%22)
 [![Build Status](https://travis-ci.org/Waffle/waffle.svg?branch=master)](https://travis-ci.org/Waffle/waffle)
 [![Build status](https://ci.appveyor.com/api/projects/status/8o53n6o359r7s6up?svg=true)](https://ci.appveyor.com/project/hazendaz/waffle)
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/2775/badge.svg)](https://scan.coverity.com/projects/2775)
 [![Coverage Status](https://coveralls.io/repos/hazendaz/waffle/badge.svg)](https://coveralls.io/r/hazendaz/waffle)
 [![Maven central](https://maven-badges.herokuapp.com/maven-central/com.github.waffle/waffle-jna/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.waffle/waffle-jna)
-[![releases](http://github-release-version.herokuapp.com/github/Waffle/waffle/release.svg?style=flat)](https://github.com/Waffle/waffle/releases/tag/waffle-1.9.0)
-[![Eclipse](https://img.shields.io/badge/license-Eclipse-blue.svg)](https://www.eclipse.org/legal/epl-v10.html)
+[![releases](https://img.shields.io/github/v/release/Waffle/waffle)](https://github.com/Waffle/waffle/releases/tag/waffle-parent-2.3.0)
+[![MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Project Stats](https://www.openhub.net/p/waffle/widgets/project_thin_badge.gif)](https://www.openhub.net/p/waffle)
-[![Github All Releases](https://img.shields.io/github/downloads/Waffle/waffle/total.svg)]()
+[![Github All Releases](https://img.shields.io/github/downloads/Waffle/waffle/total.svg)](https://github.com/Waffle/waffle/releases/tag/waffle-parent-2.3.0)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Waffle_waffle&metric=alert_status)](https://sonarcloud.io/dashboard?id=Waffle_waffle)
 
 ![waffle](https://github.com/Waffle/waffle/raw/master/waffle.jpg)
 
@@ -21,14 +23,14 @@ Sites
 -----
 
 * [Site Page](https://waffle.github.io/waffle/)
-* [sonarqube-java](https://sonarqube.com/dashboard?id=com.github.waffle%3Awaffle-parent)
+* [sonarqube-java](https://sonarcloud.io/dashboard?id=Waffle_waffle)
 * [sonarqube-.net](https://sonarqube.com/dashboard/index?id=waffle)
 
 Essentials
 ----------
 
-* [Download Version 1.9.0](https://github.com/Waffle/waffle/releases/download/waffle-1.9.0/Waffle.1.9.0.zip)
-* [Waffle in Maven Central](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.github.waffle%22)
+* [Download Version 2.3.0](https://github.com/Waffle/waffle/releases/download/waffle-parent-2.3.0/Waffle-2.3.0.zip)
+* [Waffle in Maven Central](https://search.maven.org/search?q=waffle)
 * [Waffle Snapshots](https://oss.sonatype.org/content/repositories/snapshots/com/github/waffle/)
 * [Get Waffle To Work in Tomcat, Jetty, WebSphere, etc.](Docs/ServletSingleSignOnSecurityFilter.md)
 * [Need Help? Google Group](https://groups.google.com/group/waffle-users)
@@ -64,6 +66,13 @@ Features
 * Supports Windows Identity impersonation.
 * Includes a Windows Installer Merge Module for distribution of C# binaries.
 
+How do I resolve JNA `NoClassDefFound` errors?
+----------------------------------------------
+WAFFLE uses the latest version of JNA, which may conflict with other dependencies your project (or its parent) includes. If you experience issues with `NoClassDefFound` errors for JNA artifacts, consider one or more of the following steps to resolve the conflict:
+* Listing WAFFLE earlier (or first) in your dependency list 
+* Specifying the most recent version of JNA as a dependency
+* If you are using a parent (e.g., Spring Boot) that includes JNA as a dependency, override the `jna.version` property
+
 Related and Similar Products
 ----------------------------
 
@@ -85,8 +94,8 @@ Contributing
 License and Copyright
 ---------------------
 
-Copyright (c) [Application Security Inc.](https://www.trustwave.com/Company/AppSecInc-is-now-Trustwave/), 2010-2017 and Contributors. 
+Copyright (c) [Application Security Inc.](https://www.trustwave.com/Company/AppSecInc-is-now-Trustwave/), 2010-2020 and Contributors. 
 
-This project is licensed under the [Eclipse Public License](https://github.com/Waffle/waffle/blob/master/LICENSE).
+This project is licensed under the [MIT License](https://github.com/Waffle/waffle/blob/master/LICENSE).
 
 Project maintained by [Daniel Doubrovkine](https://github.com/dblock) & [Jeremy Landis](https://github.com/hazendaz).
