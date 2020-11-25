@@ -23,4 +23,14 @@ jobs:
       - name: Test with Maven
         run: mvn test -B --file pom.xml
 
+  sonarcloud:
+    runs-on: windows-2016
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v1.4
+        with:
+          java-version: 8
+      - env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
 ...
