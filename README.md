@@ -7,7 +7,7 @@ WAFFLE - Windows Authentication Framework
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/2775/badge.svg)](https://scan.coverity.com/projects/2775)
 [![Coverage Status](https://coveralls.io/repos/hazendaz/waffle/badge.svg)](https://coveralls.io/r/hazendaz/waffle)
 [![Maven central](https://maven-badges.herokuapp.com/maven-central/com.github.waffle/waffle-jna/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.waffle/waffle-jna)
-[![releases](http://github-release-version.herokuapp.com/github/Waffle/waffle/release.svg?style=flat)](https://github.com/Waffle/waffle/releases/tag/waffle-2.2.0)
+[![releases](http://github-release-version.herokuapp.com/github/Waffle/waffle/release.svg?style=flat)](https://github.com/Waffle/waffle/releases/tag/waffle-2.3.0)
 [![Eclipse](https://img.shields.io/badge/license-Eclipse-blue.svg)](https://www.eclipse.org/legal/epl-v10.html)
 [![Project Stats](https://www.openhub.net/p/waffle/widgets/project_thin_badge.gif)](https://www.openhub.net/p/waffle)
 [![Github All Releases](https://img.shields.io/github/downloads/Waffle/waffle/total.svg)]()
@@ -28,8 +28,8 @@ Sites
 Essentials
 ----------
 
-* [Download Version 1.9.0](https://github.com/Waffle/waffle/releases/download/waffle-1.9.0/Waffle.1.9.0.zip)
 * [Waffle in Maven Central](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.github.waffle%22)
+* [Download Version 2.3.0](https://github.com/Waffle/waffle/releases/download/waffle-2.3.0/Waffle-2.3.0.zip)
 * [Waffle Snapshots](https://oss.sonatype.org/content/repositories/snapshots/com/github/waffle/)
 * [Get Waffle To Work in Tomcat, Jetty, WebSphere, etc.](Docs/ServletSingleSignOnSecurityFilter.md)
 * [Need Help? Google Group](https://groups.google.com/group/waffle-users)
