@@ -25,6 +25,12 @@ jobs:
 
   sonarcloud:
     runs-on: windows-2016
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          # Disabling shallow clone is recommended for improving relevancy of reporting
+          fetch-depth: 0
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v1.4
         with:
