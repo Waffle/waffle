@@ -16,5 +16,5 @@ jobs:
       - uses: actions/checkout@v2
       - name: Set up environment
         run: ./bootstrap.cmd
-      - name: Test with Maven
+      - name: Test with .Net
         run: ./build.cmd all
