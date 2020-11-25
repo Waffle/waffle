@@ -8,7 +8,7 @@ WAFFLE - Windows Authentication Framework
 [![Coverage Status](https://coveralls.io/repos/hazendaz/waffle/badge.svg)](https://coveralls.io/r/hazendaz/waffle)
 [![Maven central](https://maven-badges.herokuapp.com/maven-central/com.github.waffle/waffle-jna/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.waffle/waffle-jna)
 [![releases](http://github-release-version.herokuapp.com/github/Waffle/waffle/release.svg?style=flat)](https://github.com/Waffle/waffle/releases/tag/waffle-2.3.0)
-[![MIT](https://img.shields.io/badge/license-mit-blue.svg)](https://opensource.org/licenses/MIT)
+[![MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Project Stats](https://www.openhub.net/p/waffle/widgets/project_thin_badge.gif)](https://www.openhub.net/p/waffle)
 [![Github All Releases](https://img.shields.io/github/downloads/Waffle/waffle/total.svg)]()
 
