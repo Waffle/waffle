@@ -20,21 +20,21 @@ if [ $TRAVIS_REPO_SLUG == "Waffle/waffle" ] && [ $TRAVIS_PULL_REQUEST == "false"
 
   if [ $TRAVIS_JDK_VERSION == "openjdk8" ]; then
     # Deploy to sonatype
-    ./mvnw deploy -DskipTests -q --settings ./travis/settings.xml
+    ./mvnw deploy -DskipTests -q --settings ./.mvn/settings.xml
     echo -e "Successfully deployed SNAPSHOT artifacts to Sonatype under Travis job ${TRAVIS_JOB_NUMBER}"
 
     # Deploy to coveralls
     # Cannot run tests on linux
-    # ./mvnw clean test jacoco:report coveralls:report -q --settings ./travis/settings.xml
+    # ./mvnw clean test jacoco:report coveralls:report -q --settings ./.mvn/settings.xml
     # echo -e "Successfully deployed Coveralls Report under Travis job ${TRAVIS_JOB_NUMBER}"
 
     # Deploy to site
     # Cannot currently run site this way
-    # ./mvnw site site:deploy -DskipTests -q --settings ./travis/settings.xml
+    # ./mvnw site site:deploy -DskipTests -q --settings ./.mvn/settings.xml
     # echo -e "Successfully deploy site under Travis job ${TRAVIS_JOB_NUMBER}"
 
     # Deploy to sonar
-    ./mvnw clean -DskipTests install sonar:sonar -Dsonar.projectKey=Waffle_waffle -q --settings ./travis/settings.xml
+    ./mvnw clean -DskipTests install sonar:sonar -Dsonar.projectKey=Waffle_waffle -q --settings ./.mvn/settings.xml
     echo -e "Successfully ran Sonar integration under Travis job ${TRAVIS_JOB_NUMBER}"
   else
     echo "Java Version does not support additonal activity for travis CI"
