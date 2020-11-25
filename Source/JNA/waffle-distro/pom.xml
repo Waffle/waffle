@@ -138,14 +138,12 @@
             <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>
-        <!-- Tomcat 10
         <dependency>
             <groupId>com.github.waffle</groupId>
             <artifactId>waffle-tomcat10</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>
-        -->
 
         <!-- Waffle Demo Wars -->
         <dependency>
