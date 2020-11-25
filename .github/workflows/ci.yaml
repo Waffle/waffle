@@ -33,7 +33,8 @@ jobs:
           fetch-depth: 0
           java-version: 8
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v1.4
+        uses: SonarSource/sonarcloud-github-action@master
+        with:
           args: >
             -DskipTests
         env:
