@@ -7,10 +7,10 @@ WAFFLE - Windows Authentication Framework
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/2775/badge.svg)](https://scan.coverity.com/projects/2775)
 [![Coverage Status](https://coveralls.io/repos/hazendaz/waffle/badge.svg)](https://coveralls.io/r/hazendaz/waffle)
 [![Maven central](https://maven-badges.herokuapp.com/maven-central/com.github.waffle/waffle-jna/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.waffle/waffle-jna)
-[![releases](https://img.shields.io/github/v/release/Waffle/waffle)](https://github.com/Waffle/waffle/releases/tag/waffle-2.3.0)
+[![releases](https://img.shields.io/github/v/release/Waffle/waffle)](https://github.com/Waffle/waffle/releases/tag/waffle-parent-2.3.0)
 [![MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Project Stats](https://www.openhub.net/p/waffle/widgets/project_thin_badge.gif)](https://www.openhub.net/p/waffle)
-[![Github All Releases](https://img.shields.io/github/downloads/Waffle/waffle/total.svg)](https://github.com/Waffle/waffle/releases/tag/waffle-2.3.0)
+[![Github All Releases](https://img.shields.io/github/downloads/Waffle/waffle/total.svg)](https://github.com/Waffle/waffle/releases/tag/waffle-parent-2.3.0)
 
 ![waffle](https://github.com/Waffle/waffle/raw/master/waffle.jpg)
 
@@ -28,7 +28,7 @@ Sites
 Essentials
 ----------
 
-* [Download Version 2.3.0](https://github.com/Waffle/waffle/releases/download/waffle-2.3.0/Waffle-2.3.0.zip)
+* [Download Version 2.3.0](https://github.com/Waffle/waffle/releases/download/waffle-parent-2.3.0/Waffle-2.3.0.zip)
 * [Waffle in Maven Central](https://search.maven.org/search?q=waffle)
 * [Waffle Snapshots](https://oss.sonatype.org/content/repositories/snapshots/com/github/waffle/)
 * [Get Waffle To Work in Tomcat, Jetty, WebSphere, etc.](Docs/ServletSingleSignOnSecurityFilter.md)
