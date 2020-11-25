@@ -39,7 +39,7 @@
     <CallTarget Targets="build" />
     <CallTarget Targets="test" />
     <CallTarget Targets="drop" />
-    <CallTarget Targets="jar" Condition="'%(Configuration.Identity)'=='Release'" />
+    <!--<CallTarget Targets="jar" Condition="'%(Configuration.Identity)'=='Release'" />-->
     <CallTarget Targets="zip" />
   </Target>
   <Target Name="clean" DependsOnTargets="configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
@@ -81,10 +81,7 @@
     <Copy SourceFiles="@(SampleFiles)" DestinationFolder="$(ReleaseDir)\Samples" />
   </Target>
   <Target Name="jar" DependsOnTargets="version">
-    <exec Condition=" '$(APPVEYOR)' != '' "
-          WorkingDirectory="Source\JNA" Command="mvn clean install -DskipTests" />
-    <exec Condition=" '$(APPVEYOR)' == '' "
-          WorkingDirectory="Source\JNA" Command="mvn clean install" />
+    <exec WorkingDirectory="Source\JNA" Command="mvn clean install" />
     <CreateItem Include="Source\JNA\waffle-distro\target\waffle-distro\**\*.*">
       <Output TaskParameter="Include" ItemName="JnaFiles"/>
     </CreateItem>
