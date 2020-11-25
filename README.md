@@ -93,7 +93,7 @@ Contributing
 License and Copyright
 ---------------------
 
-Copyright (c) [Application Security Inc.](https://www.trustwave.com/Company/AppSecInc-is-now-Trustwave/), 2010-2017 and Contributors. 
+Copyright (c) [Application Security Inc.](https://www.trustwave.com/Company/AppSecInc-is-now-Trustwave/), 2010-2020 and Contributors. 
 
 This project is licensed under the [Eclipse Public License](https://github.com/Waffle/waffle/blob/master/LICENSE).
 
