@@ -10,7 +10,7 @@ WAFFLE - Windows Authentication Framework
 [![releases](https://img.shields.io/github/v/release/Waffle/waffle)](https://github.com/Waffle/waffle/releases/tag/waffle-2.3.0)
 [![MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Project Stats](https://www.openhub.net/p/waffle/widgets/project_thin_badge.gif)](https://www.openhub.net/p/waffle)
-[![Github All Releases](https://img.shields.io/github/downloads/Waffle/waffle/total.svg)]()
+[![Github All Releases](https://img.shields.io/github/downloads/Waffle/waffle/total.svg)](https://github.com/Waffle/waffle/releases/tag/waffle-2.3.0)
 
 ![waffle](https://github.com/Waffle/waffle/raw/master/waffle.jpg)
 
