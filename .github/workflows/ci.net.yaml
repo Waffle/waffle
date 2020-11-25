@@ -1,0 +1,20 @@
+name: Java CI
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-2016, windows-latest]
+      fail-fast: false
+      max-parallel: 4
+    name: Test .net ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up environment
+        run: ./bootstrap.cmd
+      - name: Test with Maven
+        run: ./build.cmd all
