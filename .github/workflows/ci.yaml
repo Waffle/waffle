@@ -21,19 +21,3 @@ jobs:
           java-version: ${{ matrix.java }}
       - name: Test with Maven
         run: ./mvnw test -B --file pom.xml
-
-  sonarcloud:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          # Disabling shallow clone is recommended for improving relevancy of reporting
-          fetch-depth: 0
-          java-version: 8
-      - name: Analyze with SonarCloud
-        run: ./mvnw verify sonar:sonar -B -DskipTests -Dsonar.projectKey=waffle -Dsonar.organization=Waffle_waffle -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
