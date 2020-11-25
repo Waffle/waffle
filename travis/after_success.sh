@@ -32,10 +32,6 @@ if [ $TRAVIS_REPO_SLUG == "Waffle/waffle" ] && [ $TRAVIS_PULL_REQUEST == "false"
     # Cannot currently run site this way
     # ./mvnw site site:deploy -DskipTests -q --settings ./.mvn/settings.xml
     # echo -e "Successfully deploy site under Travis job ${TRAVIS_JOB_NUMBER}"
-
-    # Deploy to sonar
-    ./mvnw clean -DskipTests install sonar:sonar -Dsonar.projectKey=Waffle_waffle -q --settings ./.mvn/settings.xml
-    echo -e "Successfully ran Sonar integration under Travis job ${TRAVIS_JOB_NUMBER}"
   else
     echo "Java Version does not support additonal activity for travis CI"
   fi

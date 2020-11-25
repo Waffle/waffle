@@ -20,10 +20,6 @@ addons:
     build_command_prepend: ./mvnw clean
     build_command: ./mvnw install -DskipTests -B -V
     branch_pattern: coverity_scan
-  sonarcloud:
-    organization: "waffle"
-    token:
-      secure: "ZX3+llPcirDU1Z4aNL9VpjkBzIOpD383C0fxKtVHIjyz71WsTQyubCQu9A7cUnFNa8OptLu/R+ofv1y4vBiQ7mtk4YlKI7IgMYu2j8C3MC001CJJi6y32dks9s08Z7sZ/WzNJWWxBkPzBvsqeWx3ZDeObqk7ZDqMVARtOBBy3EA="
 
 script:
   - chmod -R 777 ./travis/script.sh
