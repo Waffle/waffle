@@ -24,7 +24,7 @@ jobs:
         run: mvn test -B --file pom.xml
 
   sonarcloud:
-    runs-on: windows-2016
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -32,6 +32,8 @@ jobs:
           # Disabling shallow clone is recommended for improving relevancy of reporting
           fetch-depth: 0
           java-version: 8
+        args: >
+          -DskipTests
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v1.4
         env:
