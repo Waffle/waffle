@@ -17,7 +17,7 @@ jobs:
           java-version: 11
       - name: Analyze with Coverity
         run: |
-          wget https://scan.coverity.com/download/linux64 --post-data "token=${{ secrets.GITHUB_TOKEN }}&project=Waffle%2Fwaffle&md5=1" -O coverity_tool.tgz
+          wget https://scan.coverity.com/download/linux64 --post-data "token=${{ secrets.COVERITY_TOKEN }}&project=Waffle%2Fwaffle&md5=1" -O coverity_tool.tgz
           unzip -j coverity_tool.tgz -d /tmp
           /tmp/cov-analysis-linux64-*/bin/cov-build --dir cov-int mvn -DskipTests=true verify
           tar czvf waffle.tgz cov-int
@@ -28,5 +28,5 @@ jobs:
             --form description="Waffle Coverity Scan" \
             https://scan.coverity.com/builds?project=Waffle%2Fwaffle
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COVERITY_TOKEN: ${{ secrets.COVERITY_TOKEN }}
           EMAIL: ${{ secrets.EMAIL }}
