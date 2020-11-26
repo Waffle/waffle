@@ -13,7 +13,3 @@ env:
 
 script:
   - ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-
-after_success:
-  - chmod -R 777 ./travis/after_success.sh
-  - ./travis/after_success.sh
