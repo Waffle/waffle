@@ -1,13 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>SecurityFilterProviderCollection.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-bom</a> &gt; <a href="../index.html" class="el_bundle">waffle-jna</a> &gt; <a href="index.source.html" class="el_package">waffle.servlet.spi</a> &gt; <span class="el_source">SecurityFilterProviderCollection.java</span></div><h1>SecurityFilterProviderCollection.java</h1><pre class="source lang-java linenums">/**
- * Waffle (https://github.com/Waffle/waffle)
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>SecurityFilterProviderCollection.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-bom</a> &gt; <a href="../index.html" class="el_bundle">waffle-jna</a> &gt; <a href="index.source.html" class="el_package">waffle.servlet.spi</a> &gt; <span class="el_source">SecurityFilterProviderCollection.java</span></div><h1>SecurityFilterProviderCollection.java</h1><pre class="source lang-java linenums">/*
+ * MIT License
  *
- * Copyright (c) 2010-2020 Application Security, Inc.
+ * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
- * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
- * Public License v1.0 which accompanies this distribution, and is available at
- * https://www.eclipse.org/legal/epl-v10.html.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * Contributors: Application Security, Inc.
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 package waffle.servlet.spi;
 
@@ -37,10 +49,10 @@ import waffle.windows.auth.IWindowsIdentity;
 public class SecurityFilterProviderCollection {
 
     /** The Constant LOGGER. */
-<span class="fc" id="L40">    private static final Logger LOGGER = LoggerFactory.getLogger(SecurityFilterProviderCollection.class);</span>
+<span class="nc" id="L52">    private static final Logger LOGGER = LoggerFactory.getLogger(SecurityFilterProviderCollection.class);</span>
 
     /** The providers. */
-<span class="fc" id="L43">    private final List&lt;SecurityFilterProvider&gt; providers = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L55">    private final List&lt;SecurityFilterProvider&gt; providers = new ArrayList&lt;&gt;();</span>
 
     /**
      * Instantiates a new security filter provider collection.
@@ -48,12 +60,12 @@ public class SecurityFilterProviderCollection {
      * @param providerArray
      *            the provider array
      */
-<span class="fc" id="L51">    public SecurityFilterProviderCollection(final SecurityFilterProvider[] providerArray) {</span>
-<span class="fc bfc" id="L52" title="All 2 branches covered.">        for (final SecurityFilterProvider provider : providerArray) {</span>
-<span class="fc" id="L53">            SecurityFilterProviderCollection.LOGGER.info(&quot;using '{}'&quot;, provider.getClass().getName());</span>
-<span class="fc" id="L54">            this.providers.add(provider);</span>
+<span class="nc" id="L63">    public SecurityFilterProviderCollection(final SecurityFilterProvider[] providerArray) {</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        for (final SecurityFilterProvider provider : providerArray) {</span>
+<span class="nc" id="L65">            SecurityFilterProviderCollection.LOGGER.info(&quot;using '{}'&quot;, provider.getClass().getName());</span>
+<span class="nc" id="L66">            this.providers.add(provider);</span>
         }
-<span class="fc" id="L56">    }</span>
+<span class="nc" id="L68">    }</span>
 
     /**
      * Instantiates a new security filter provider collection.
@@ -64,28 +76,28 @@ public class SecurityFilterProviderCollection {
      *            the auth
      */
     @SuppressWarnings(&quot;unchecked&quot;)
-<span class="fc" id="L67">    public SecurityFilterProviderCollection(final String[] providerNames, final IWindowsAuthProvider auth) {</span>
+<span class="nc" id="L79">    public SecurityFilterProviderCollection(final String[] providerNames, final IWindowsAuthProvider auth) {</span>
         Class&lt;SecurityFilterProvider&gt; providerClass;
         Constructor&lt;SecurityFilterProvider&gt; providerConstructor;
-<span class="fc bfc" id="L70" title="All 2 branches covered.">        for (String providerName : providerNames) {</span>
-<span class="fc" id="L71">            providerName = providerName.trim();</span>
-<span class="fc" id="L72">            SecurityFilterProviderCollection.LOGGER.info(&quot;loading '{}'&quot;, providerName);</span>
+<span class="nc bnc" id="L82" title="All 2 branches missed.">        for (String providerName : providerNames) {</span>
+<span class="nc" id="L83">            providerName = providerName.trim();</span>
+<span class="nc" id="L84">            SecurityFilterProviderCollection.LOGGER.info(&quot;loading '{}'&quot;, providerName);</span>
             try {
-<span class="fc" id="L74">                providerClass = (Class&lt;SecurityFilterProvider&gt;) Class.forName(providerName);</span>
-<span class="fc" id="L75">                providerConstructor = providerClass.getConstructor(IWindowsAuthProvider.class);</span>
-<span class="fc" id="L76">                final SecurityFilterProvider provider = providerConstructor.newInstance(auth);</span>
-<span class="fc" id="L77">                this.providers.add(provider);</span>
-<span class="nc" id="L78">            } catch (final ClassNotFoundException e) {</span>
-<span class="nc" id="L79">                SecurityFilterProviderCollection.LOGGER.error(&quot;error loading '{}': {}&quot;, providerName, e.getMessage());</span>
-<span class="nc" id="L80">                SecurityFilterProviderCollection.LOGGER.trace(&quot;&quot;, e);</span>
-<span class="nc" id="L81">                throw new RuntimeException(e);</span>
-<span class="nc" id="L82">            } catch (final SecurityException | NoSuchMethodException | IllegalArgumentException | InstantiationException</span>
+<span class="nc" id="L86">                providerClass = (Class&lt;SecurityFilterProvider&gt;) Class.forName(providerName);</span>
+<span class="nc" id="L87">                providerConstructor = providerClass.getConstructor(IWindowsAuthProvider.class);</span>
+<span class="nc" id="L88">                final SecurityFilterProvider provider = providerConstructor.newInstance(auth);</span>
+<span class="nc" id="L89">                this.providers.add(provider);</span>
+<span class="nc" id="L90">            } catch (final ClassNotFoundException e) {</span>
+<span class="nc" id="L91">                SecurityFilterProviderCollection.LOGGER.error(&quot;error loading '{}': {}&quot;, providerName, e.getMessage());</span>
+<span class="nc" id="L92">                SecurityFilterProviderCollection.LOGGER.trace(&quot;&quot;, e);</span>
+<span class="nc" id="L93">                throw new RuntimeException(e);</span>
+<span class="nc" id="L94">            } catch (final SecurityException | NoSuchMethodException | IllegalArgumentException | InstantiationException</span>
                     | IllegalAccessException | InvocationTargetException e) {
-<span class="nc" id="L84">                SecurityFilterProviderCollection.LOGGER.error(&quot;error loading '{}': {}&quot;, providerName, e.getMessage());</span>
-<span class="nc" id="L85">                SecurityFilterProviderCollection.LOGGER.trace(&quot;&quot;, e);</span>
-<span class="fc" id="L86">            }</span>
+<span class="nc" id="L96">                SecurityFilterProviderCollection.LOGGER.error(&quot;error loading '{}': {}&quot;, providerName, e.getMessage());</span>
+<span class="nc" id="L97">                SecurityFilterProviderCollection.LOGGER.trace(&quot;&quot;, e);</span>
+<span class="nc" id="L98">            }</span>
         }
-<span class="fc" id="L88">    }</span>
+<span class="nc" id="L100">    }</span>
 
     /**
      * Instantiates a new security filter provider collection.
@@ -93,10 +105,10 @@ public class SecurityFilterProviderCollection {
      * @param auth
      *            the auth
      */
-<span class="fc" id="L96">    public SecurityFilterProviderCollection(final IWindowsAuthProvider auth) {</span>
-<span class="fc" id="L97">        this.providers.add(new NegotiateSecurityFilterProvider(auth));</span>
-<span class="fc" id="L98">        this.providers.add(new BasicSecurityFilterProvider(auth));</span>
-<span class="fc" id="L99">    }</span>
+<span class="nc" id="L108">    public SecurityFilterProviderCollection(final IWindowsAuthProvider auth) {</span>
+<span class="nc" id="L109">        this.providers.add(new NegotiateSecurityFilterProvider(auth));</span>
+<span class="nc" id="L110">        this.providers.add(new BasicSecurityFilterProvider(auth));</span>
+<span class="nc" id="L111">    }</span>
 
     /**
      * Tests whether a specific security package is supported by any of the underlying providers.
@@ -106,7 +118,7 @@ public class SecurityFilterProviderCollection {
      * @return True if the security package is supported, false otherwise.
      */
     public boolean isSecurityPackageSupported(final String securityPackage) {
-<span class="fc bfc" id="L109" title="All 2 branches covered.">        return this.get(securityPackage) != null;</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">        return this.get(securityPackage) != null;</span>
     }
 
     /**
@@ -117,12 +129,12 @@ public class SecurityFilterProviderCollection {
      * @return the security filter provider
      */
     private SecurityFilterProvider get(final String securityPackage) {
-<span class="fc bfc" id="L120" title="All 2 branches covered.">        for (final SecurityFilterProvider provider : this.providers) {</span>
-<span class="fc bfc" id="L121" title="All 2 branches covered.">            if (provider.isSecurityPackageSupported(securityPackage)) {</span>
-<span class="fc" id="L122">                return provider;</span>
+<span class="nc bnc" id="L132" title="All 2 branches missed.">        for (final SecurityFilterProvider provider : this.providers) {</span>
+<span class="nc bnc" id="L133" title="All 2 branches missed.">            if (provider.isSecurityPackageSupported(securityPackage)) {</span>
+<span class="nc" id="L134">                return provider;</span>
             }
-<span class="fc" id="L124">        }</span>
-<span class="fc" id="L125">        return null;</span>
+<span class="nc" id="L136">        }</span>
+<span class="nc" id="L137">        return null;</span>
     }
 
     /**
@@ -138,15 +150,15 @@ public class SecurityFilterProviderCollection {
      */
     public IWindowsIdentity doFilter(final HttpServletRequest request, final HttpServletResponse response)
             throws IOException {
-<span class="fc" id="L141">        final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);</span>
-<span class="fc" id="L142">        final SecurityFilterProvider provider = this.get(authorizationHeader.getSecurityPackage());</span>
-<span class="pc bpc" id="L143" title="1 of 2 branches missed.">        if (provider == null) {</span>
-<span class="nc" id="L144">            throw new RuntimeException(&quot;Unsupported security package: &quot; + authorizationHeader.getSecurityPackage());</span>
+<span class="nc" id="L153">        final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);</span>
+<span class="nc" id="L154">        final SecurityFilterProvider provider = this.get(authorizationHeader.getSecurityPackage());</span>
+<span class="nc bnc" id="L155" title="All 2 branches missed.">        if (provider == null) {</span>
+<span class="nc" id="L156">            throw new RuntimeException(&quot;Unsupported security package: &quot; + authorizationHeader.getSecurityPackage());</span>
         }
         try {
-<span class="fc" id="L147">            return provider.doFilter(request, response);</span>
-<span class="nc" id="L148">        } catch (final Win32Exception e) {</span>
-<span class="nc" id="L149">            throw new IOException(e);</span>
+<span class="nc" id="L159">            return provider.doFilter(request, response);</span>
+<span class="nc" id="L160">        } catch (final Win32Exception e) {</span>
+<span class="nc" id="L161">            throw new IOException(e);</span>
         }
     }
 
@@ -158,12 +170,12 @@ public class SecurityFilterProviderCollection {
      * @return True if authentication is required.
      */
     public boolean isPrincipalException(final HttpServletRequest request) {
-<span class="fc bfc" id="L161" title="All 2 branches covered.">        for (final SecurityFilterProvider provider : this.providers) {</span>
-<span class="fc bfc" id="L162" title="All 2 branches covered.">            if (provider.isPrincipalException(request)) {</span>
-<span class="fc" id="L163">                return true;</span>
+<span class="nc bnc" id="L173" title="All 2 branches missed.">        for (final SecurityFilterProvider provider : this.providers) {</span>
+<span class="nc bnc" id="L174" title="All 2 branches missed.">            if (provider.isPrincipalException(request)) {</span>
+<span class="nc" id="L175">                return true;</span>
             }
-<span class="fc" id="L165">        }</span>
-<span class="fc" id="L166">        return false;</span>
+<span class="nc" id="L177">        }</span>
+<span class="nc" id="L178">        return false;</span>
     }
 
     /**
@@ -173,10 +185,10 @@ public class SecurityFilterProviderCollection {
      *            Http Response
      */
     public void sendUnauthorized(final HttpServletResponse response) {
-<span class="fc bfc" id="L176" title="All 2 branches covered.">        for (final SecurityFilterProvider provider : this.providers) {</span>
-<span class="fc" id="L177">            provider.sendUnauthorized(response);</span>
-<span class="fc" id="L178">        }</span>
-<span class="fc" id="L179">    }</span>
+<span class="nc bnc" id="L188" title="All 2 branches missed.">        for (final SecurityFilterProvider provider : this.providers) {</span>
+<span class="nc" id="L189">            provider.sendUnauthorized(response);</span>
+<span class="nc" id="L190">        }</span>
+<span class="nc" id="L191">    }</span>
 
     /**
      * Number of providers.
@@ -184,7 +196,7 @@ public class SecurityFilterProviderCollection {
      * @return Number of providers.
      */
     public int size() {
-<span class="fc" id="L187">        return this.providers.size();</span>
+<span class="nc" id="L199">        return this.providers.size();</span>
     }
 
     /**
@@ -197,12 +209,12 @@ public class SecurityFilterProviderCollection {
      *             when class not found.
      */
     public SecurityFilterProvider getByClassName(final String name) throws ClassNotFoundException {
-<span class="fc bfc" id="L200" title="All 2 branches covered.">        for (final SecurityFilterProvider provider : this.providers) {</span>
-<span class="fc bfc" id="L201" title="All 2 branches covered.">            if (provider.getClass().getName().equals(name)) {</span>
-<span class="fc" id="L202">                return provider;</span>
+<span class="nc bnc" id="L212" title="All 2 branches missed.">        for (final SecurityFilterProvider provider : this.providers) {</span>
+<span class="nc bnc" id="L213" title="All 2 branches missed.">            if (provider.getClass().getName().equals(name)) {</span>
+<span class="nc" id="L214">                return provider;</span>
             }
-<span class="fc" id="L204">        }</span>
-<span class="fc" id="L205">        throw new ClassNotFoundException(name);</span>
+<span class="nc" id="L216">        }</span>
+<span class="nc" id="L217">        throw new ClassNotFoundException(name);</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

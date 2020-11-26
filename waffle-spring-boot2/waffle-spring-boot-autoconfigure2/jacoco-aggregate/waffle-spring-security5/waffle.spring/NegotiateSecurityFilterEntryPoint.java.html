@@ -1,13 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>NegotiateSecurityFilterEntryPoint.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-spring-boot-autoconfigure2</a> &gt; <a href="../index.html" class="el_bundle">waffle-spring-security5</a> &gt; <a href="index.source.html" class="el_package">waffle.spring</a> &gt; <span class="el_source">NegotiateSecurityFilterEntryPoint.java</span></div><h1>NegotiateSecurityFilterEntryPoint.java</h1><pre class="source lang-java linenums">/**
- * Waffle (https://github.com/Waffle/waffle)
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>NegotiateSecurityFilterEntryPoint.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-spring-boot-autoconfigure2</a> &gt; <a href="../index.html" class="el_bundle">waffle-spring-security5</a> &gt; <a href="index.source.html" class="el_package">waffle.spring</a> &gt; <span class="el_source">NegotiateSecurityFilterEntryPoint.java</span></div><h1>NegotiateSecurityFilterEntryPoint.java</h1><pre class="source lang-java linenums">/*
+ * MIT License
  *
- * Copyright (c) 2010-2020 Application Security, Inc.
+ * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
- * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
- * Public License v1.0 which accompanies this distribution, and is available at
- * https://www.eclipse.org/legal/epl-v10.html.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * Contributors: Application Security, Inc.
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 package waffle.spring;
 
@@ -32,7 +44,7 @@ import waffle.servlet.spi.SecurityFilterProviderCollection;
 public class NegotiateSecurityFilterEntryPoint implements AuthenticationEntryPoint {
 
     /** The Constant LOGGER. */
-<span class="fc" id="L35">    private static final Logger LOGGER = LoggerFactory.getLogger(NegotiateSecurityFilterEntryPoint.class);</span>
+<span class="nc" id="L47">    private static final Logger LOGGER = LoggerFactory.getLogger(NegotiateSecurityFilterEntryPoint.class);</span>
 
     /** The provider. */
     private SecurityFilterProviderCollection provider;
@@ -40,25 +52,25 @@ public class NegotiateSecurityFilterEntryPoint implements AuthenticationEntryPoi
     /**
      * Instantiates a new negotiate security filter entry point.
      */
-<span class="fc" id="L43">    public NegotiateSecurityFilterEntryPoint() {</span>
-<span class="fc" id="L44">        NegotiateSecurityFilterEntryPoint.LOGGER.debug(&quot;[waffle.spring.NegotiateEntryPoint] loaded&quot;);</span>
-<span class="fc" id="L45">    }</span>
+<span class="nc" id="L55">    public NegotiateSecurityFilterEntryPoint() {</span>
+<span class="nc" id="L56">        NegotiateSecurityFilterEntryPoint.LOGGER.debug(&quot;[waffle.spring.NegotiateEntryPoint] loaded&quot;);</span>
+<span class="nc" id="L57">    }</span>
 
     @Override
     public void commence(final HttpServletRequest request, final HttpServletResponse response,
             final AuthenticationException ex) throws IOException, ServletException {
 
-<span class="fc" id="L51">        NegotiateSecurityFilterEntryPoint.LOGGER.debug(&quot;[waffle.spring.NegotiateEntryPoint] commence&quot;);</span>
+<span class="nc" id="L63">        NegotiateSecurityFilterEntryPoint.LOGGER.debug(&quot;[waffle.spring.NegotiateEntryPoint] commence&quot;);</span>
 
-<span class="fc bfc" id="L53" title="All 2 branches covered.">        if (this.provider == null) {</span>
-<span class="fc" id="L54">            throw new ServletException(&quot;Missing NegotiateEntryPoint.Provider&quot;);</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        if (this.provider == null) {</span>
+<span class="nc" id="L66">            throw new ServletException(&quot;Missing NegotiateEntryPoint.Provider&quot;);</span>
         }
 
-<span class="fc" id="L57">        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);</span>
-<span class="fc" id="L58">        response.setHeader(&quot;Connection&quot;, &quot;keep-alive&quot;);</span>
-<span class="fc" id="L59">        this.provider.sendUnauthorized(response);</span>
-<span class="fc" id="L60">        response.flushBuffer();</span>
-<span class="fc" id="L61">    }</span>
+<span class="nc" id="L69">        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);</span>
+<span class="nc" id="L70">        response.setHeader(&quot;Connection&quot;, &quot;keep-alive&quot;);</span>
+<span class="nc" id="L71">        this.provider.sendUnauthorized(response);</span>
+<span class="nc" id="L72">        response.flushBuffer();</span>
+<span class="nc" id="L73">    }</span>
 
     /**
      * Gets the provider.
@@ -66,7 +78,7 @@ public class NegotiateSecurityFilterEntryPoint implements AuthenticationEntryPoi
      * @return the provider
      */
     public SecurityFilterProviderCollection getProvider() {
-<span class="fc" id="L69">        return this.provider;</span>
+<span class="nc" id="L81">        return this.provider;</span>
     }
 
     /**
@@ -76,7 +88,7 @@ public class NegotiateSecurityFilterEntryPoint implements AuthenticationEntryPoi
      *            the new provider
      */
     public void setProvider(final SecurityFilterProviderCollection value) {
-<span class="fc" id="L79">        this.provider = value;</span>
-<span class="fc" id="L80">    }</span>
+<span class="nc" id="L91">        this.provider = value;</span>
+<span class="nc" id="L92">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

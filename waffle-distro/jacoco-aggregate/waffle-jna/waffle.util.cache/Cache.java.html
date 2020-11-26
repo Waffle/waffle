@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>Cache.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-distro</a> &gt; <a href="../index.html" class="el_bundle">waffle-jna</a> &gt; <a href="index.source.html" class="el_package">waffle.util.cache</a> &gt; <span class="el_source">Cache.java</span></div><h1>Cache.java</h1><pre class="source lang-java linenums">/*
+ * MIT License
+ *
+ * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+package waffle.util.cache;
+
+import java.util.NoSuchElementException;
+import java.util.ServiceLoader;
+
+/**
+ * A semi-persistent mapping from keys to values.
+ *
+ * @param &lt;K&gt;
+ *            the type of keys maintained by this cache
+ * @param &lt;V&gt;
+ *            the type of mapped values
+ *
+ * @author Simon Legner
+ * @see &lt;a href=&quot;https://github.com/Waffle/waffle/blob/master/Docs/CustomCache.md&quot;&gt;Can I provide a custom cache
+ *      implementation?&lt;/a&gt;
+ */
+public interface Cache&lt;K, V&gt; {
+
+    /**
+     * Creates a new cache with the specified timeout.
+     *
+     * The cache implementation is obtained using {@link ServiceLoader}. To create your own implementation, implement
+     * {@link CacheSupplier} and register it using the {@code /META-INF/services/waffle.util.cache.CacheSupplier} file
+     * on your classpath.
+     *
+     * @param timeout
+     *            timeout in seconds
+     * @param &lt;K&gt;
+     *            the type of keys maintained by this cache
+     * @param &lt;V&gt;
+     *            the type of mapped values
+     * @return a new cache
+     * @throws NoSuchElementException
+     *             if no cache can be instantiated, use {@link Exception#getSuppressed()} to obtain details.
+     */
+    static &lt;K, V&gt; Cache&lt;K, V&gt; newCache(int timeout) throws NoSuchElementException {
+<span class="nc" id="L61">        final NoSuchElementException exception = new NoSuchElementException();</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">        for (CacheSupplier cacheSupplier : ServiceLoader.load(CacheSupplier.class)) {</span>
+            try {
+<span class="nc" id="L64">                return cacheSupplier.newCache(timeout);</span>
+<span class="nc" id="L65">            } catch (Exception e) {</span>
+<span class="nc" id="L66">                exception.addSuppressed(e);</span>
+            }
+<span class="nc" id="L68">        }</span>
+<span class="nc" id="L69">        throw exception;</span>
+    }
+
+    /**
+     * Fetches the key from the cache
+     *
+     * @param key
+     *            the key
+     * @return the corresponding value
+     * @see java.util.Map#get
+     */
+    V get(K key);
+
+    /**
+     * Stores a binding for the key and the value in the cache
+     *
+     * @param key
+     *            the key
+     * @param value
+     *            the value
+     * @see java.util.Map#put
+     */
+    void put(K key, V value);
+
+    /**
+     * Removes the binding for the key from the cache
+     *
+     * @param key
+     *            the key
+     * @see java.util.Map#remove(Object)
+     */
+    void remove(K key);
+
+    /**
+     * Returns the number of bindings in this cache
+     *
+     * @return the size
+     * @see java.util.Map#size
+     */
+    int size();
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

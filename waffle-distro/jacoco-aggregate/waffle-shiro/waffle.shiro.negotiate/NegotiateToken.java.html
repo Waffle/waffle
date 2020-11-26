@@ -1,13 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>NegotiateToken.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-distro</a> &gt; <a href="../index.html" class="el_bundle">waffle-shiro</a> &gt; <a href="index.source.html" class="el_package">waffle.shiro.negotiate</a> &gt; <span class="el_source">NegotiateToken.java</span></div><h1>NegotiateToken.java</h1><pre class="source lang-java linenums">/**
- * Waffle (https://github.com/Waffle/waffle)
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>NegotiateToken.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-distro</a> &gt; <a href="../index.html" class="el_bundle">waffle-shiro</a> &gt; <a href="index.source.html" class="el_package">waffle.shiro.negotiate</a> &gt; <span class="el_source">NegotiateToken.java</span></div><h1>NegotiateToken.java</h1><pre class="source lang-java linenums">/*
+ * MIT License
  *
- * Copyright (c) ${license.git.copyrightYears} Application Security, Inc.
+ * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
- * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
- * Public License v1.0 which accompanies this distribution, and is available at
- * https://www.eclipse.org/legal/epl-v10.html.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * Contributors: Application Security, Inc.
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 package waffle.shiro.negotiate;
 
@@ -92,16 +104,16 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
      */
     public NegotiateToken(final byte[] newIn, final byte[] newOut, final String newConnectionId,
             final String newSecurityPackage, final boolean newNtlmPost, final boolean newRememberMe,
-<span class="fc" id="L95">            final String newHost) {</span>
-<span class="fc" id="L96">        this.in = newIn;</span>
-<span class="fc" id="L97">        this.out = newOut;</span>
-<span class="fc" id="L98">        this.connectionId = newConnectionId;</span>
-<span class="fc" id="L99">        this.securityPackage = newSecurityPackage;</span>
-<span class="fc" id="L100">        this.ntlmPost = newNtlmPost;</span>
+<span class="nc" id="L107">            final String newHost) {</span>
+<span class="nc" id="L108">        this.in = newIn;</span>
+<span class="nc" id="L109">        this.out = newOut;</span>
+<span class="nc" id="L110">        this.connectionId = newConnectionId;</span>
+<span class="nc" id="L111">        this.securityPackage = newSecurityPackage;</span>
+<span class="nc" id="L112">        this.ntlmPost = newNtlmPost;</span>
 
-<span class="fc" id="L102">        this.rememberMe = newRememberMe;</span>
-<span class="fc" id="L103">        this.host = newHost;</span>
-<span class="fc" id="L104">    }</span>
+<span class="nc" id="L114">        this.rememberMe = newRememberMe;</span>
+<span class="nc" id="L115">        this.host = newHost;</span>
+<span class="nc" id="L116">    }</span>
 
     /**
      * Gets the connection id.
@@ -109,7 +121,7 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
      * @return the connection id
      */
     public String getConnectionId() {
-<span class="nc" id="L112">        return this.connectionId;</span>
+<span class="nc" id="L124">        return this.connectionId;</span>
     }
 
     /**
@@ -118,7 +130,7 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
      * @return the security package
      */
     public String getSecurityPackage() {
-<span class="nc" id="L121">        return this.securityPackage;</span>
+<span class="nc" id="L133">        return this.securityPackage;</span>
     }
 
     /**
@@ -127,17 +139,17 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
      * @return true, if is ntlm post
      */
     public boolean isNtlmPost() {
-<span class="nc" id="L130">        return this.ntlmPost;</span>
+<span class="nc" id="L142">        return this.ntlmPost;</span>
     }
 
     @Override
     public Object getCredentials() {
-<span class="nc" id="L135">        return this.subject;</span>
+<span class="nc" id="L147">        return this.subject;</span>
     }
 
     @Override
     public Principal getPrincipal() {
-<span class="nc" id="L140">        return this.principal;</span>
+<span class="nc" id="L152">        return this.principal;</span>
     }
 
     /**
@@ -146,7 +158,7 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
      * @return the out
      */
     byte[] getOut() {
-<span class="nc" id="L149">        return this.out;</span>
+<span class="nc" id="L161">        return this.out;</span>
     }
 
     /**
@@ -156,8 +168,8 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
      *            the new out
      */
     public void setOut(final byte[] outToken) {
-<span class="nc bnc" id="L159" title="All 2 branches missed.">        this.out = outToken != null ? outToken.clone() : null;</span>
-<span class="nc" id="L160">    }</span>
+<span class="nc bnc" id="L171" title="All 2 branches missed.">        this.out = outToken != null ? outToken.clone() : null;</span>
+<span class="nc" id="L172">    }</span>
 
     /**
      * Sets the subject.
@@ -166,8 +178,8 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
      *            the new subject
      */
     public void setSubject(final Subject value) {
-<span class="nc" id="L169">        this.subject = value;</span>
-<span class="nc" id="L170">    }</span>
+<span class="nc" id="L181">        this.subject = value;</span>
+<span class="nc" id="L182">    }</span>
 
     /**
      * Gets the in.
@@ -175,7 +187,7 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
      * @return the in
      */
     public byte[] getIn() {
-<span class="nc" id="L178">        return this.in.clone();</span>
+<span class="nc" id="L190">        return this.in.clone();</span>
     }
 
     /**
@@ -184,7 +196,7 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
      * @return the subject
      */
     public Subject getSubject() {
-<span class="nc" id="L187">        return this.subject;</span>
+<span class="nc" id="L199">        return this.subject;</span>
     }
 
     /**
@@ -193,7 +205,7 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
      * @return the authentication info
      */
     public AuthenticationInfo createInfo() {
-<span class="nc" id="L196">        return new NegotiateInfo(this.subject, &quot;NegotiateWaffleRealm&quot;);</span>
+<span class="nc" id="L208">        return new NegotiateInfo(this.subject, &quot;NegotiateWaffleRealm&quot;);</span>
     }
 
     /**
@@ -203,8 +215,8 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
      *            the new principal
      */
     public void setPrincipal(final Principal value) {
-<span class="nc" id="L206">        this.principal = value;</span>
-<span class="nc" id="L207">    }</span>
+<span class="nc" id="L218">        this.principal = value;</span>
+<span class="nc" id="L219">    }</span>
 
     /**
      * Returns &lt;code&gt;true&lt;/code&gt; if the submitting user wishes their identity (principal(s)) to be remembered across
@@ -216,7 +228,7 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
      */
     @Override
     public boolean isRememberMe() {
-<span class="nc" id="L219">        return this.rememberMe;</span>
+<span class="nc" id="L231">        return this.rememberMe;</span>
     }
 
     /**
@@ -235,7 +247,7 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
      */
     @Override
     public String getHost() {
-<span class="nc" id="L238">        return this.host;</span>
+<span class="nc" id="L250">        return this.host;</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

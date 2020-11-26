@@ -1,13 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>WindowsAccountImpl.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-mixed-post</a> &gt; <a href="../index.html" class="el_bundle">waffle-jna</a> &gt; <a href="index.source.html" class="el_package">waffle.windows.auth.impl</a> &gt; <span class="el_source">WindowsAccountImpl.java</span></div><h1>WindowsAccountImpl.java</h1><pre class="source lang-java linenums">/**
- * Waffle (https://github.com/Waffle/waffle)
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>WindowsAccountImpl.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-mixed-post</a> &gt; <a href="../index.html" class="el_bundle">waffle-jna</a> &gt; <a href="index.source.html" class="el_package">waffle.windows.auth.impl</a> &gt; <span class="el_source">WindowsAccountImpl.java</span></div><h1>WindowsAccountImpl.java</h1><pre class="source lang-java linenums">/*
+ * MIT License
  *
- * Copyright (c) 2010-2020 Application Security, Inc.
+ * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
- * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
- * Public License v1.0 which accompanies this distribution, and is available at
- * https://www.eclipse.org/legal/epl-v10.html.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * Contributors: Application Security, Inc.
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 package waffle.windows.auth.impl;
 
@@ -34,9 +46,9 @@ public class WindowsAccountImpl implements IWindowsAccount {
      * @param newAccount
      *            Account.
      */
-<span class="fc" id="L37">    public WindowsAccountImpl(final Account newAccount) {</span>
-<span class="fc" id="L38">        this.account = newAccount;</span>
-<span class="fc" id="L39">    }</span>
+<span class="nc" id="L49">    public WindowsAccountImpl(final Account newAccount) {</span>
+<span class="nc" id="L50">        this.account = newAccount;</span>
+<span class="nc" id="L51">    }</span>
 
     /**
      * Windows Account.
@@ -45,8 +57,8 @@ public class WindowsAccountImpl implements IWindowsAccount {
      *            Fully qualified username.
      */
     public WindowsAccountImpl(final String userName) {
-<span class="fc" id="L48">        this(userName, null);</span>
-<span class="fc" id="L49">    }</span>
+<span class="nc" id="L60">        this(userName, null);</span>
+<span class="nc" id="L61">    }</span>
 
     /**
      * Windows Account.
@@ -57,8 +69,8 @@ public class WindowsAccountImpl implements IWindowsAccount {
      *            Machine name.
      */
     public WindowsAccountImpl(final String accountName, final String systemName) {
-<span class="fc" id="L60">        this(Advapi32Util.getAccountByName(systemName, accountName));</span>
-<span class="fc" id="L61">    }</span>
+<span class="nc" id="L72">        this(Advapi32Util.getAccountByName(systemName, accountName));</span>
+<span class="nc" id="L73">    }</span>
 
     /**
      * Get the SAM-compatible username of the currently logged-on user.
@@ -66,7 +78,7 @@ public class WindowsAccountImpl implements IWindowsAccount {
      * @return String.
      */
     public static String getCurrentUsername() {
-<span class="fc" id="L69">        return Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);</span>
+<span class="nc" id="L81">        return Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);</span>
     }
 
     /**
@@ -76,12 +88,12 @@ public class WindowsAccountImpl implements IWindowsAccount {
      */
     @Override
     public String getDomain() {
-<span class="fc" id="L79">        return this.account.domain;</span>
+<span class="nc" id="L91">        return this.account.domain;</span>
     }
 
     @Override
     public String getFqn() {
-<span class="fc" id="L84">        return this.account.fqn;</span>
+<span class="nc" id="L96">        return this.account.fqn;</span>
     }
 
     /**
@@ -91,13 +103,13 @@ public class WindowsAccountImpl implements IWindowsAccount {
      */
     @Override
     public String getName() {
-<span class="fc" id="L94">        return this.account.name;</span>
+<span class="nc" id="L106">        return this.account.name;</span>
     }
 
     @Override
     public String getSidString() {
-<span class="fc" id="L99">        return this.account.sidString;</span>
+<span class="nc" id="L111">        return this.account.sidString;</span>
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

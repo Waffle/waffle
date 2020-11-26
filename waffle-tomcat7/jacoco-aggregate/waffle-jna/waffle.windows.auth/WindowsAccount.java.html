@@ -1,13 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>WindowsAccount.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-tomcat7</a> &gt; <a href="../index.html" class="el_bundle">waffle-jna</a> &gt; <a href="index.source.html" class="el_package">waffle.windows.auth</a> &gt; <span class="el_source">WindowsAccount.java</span></div><h1>WindowsAccount.java</h1><pre class="source lang-java linenums">/**
- * Waffle (https://github.com/Waffle/waffle)
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>WindowsAccount.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-tomcat7</a> &gt; <a href="../index.html" class="el_bundle">waffle-jna</a> &gt; <a href="index.source.html" class="el_package">waffle.windows.auth</a> &gt; <span class="el_source">WindowsAccount.java</span></div><h1>WindowsAccount.java</h1><pre class="source lang-java linenums">/*
+ * MIT License
  *
- * Copyright (c) 2010-2020 Application Security, Inc.
+ * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
- * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
- * Public License v1.0 which accompanies this distribution, and is available at
- * https://www.eclipse.org/legal/epl-v10.html.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * Contributors: Application Security, Inc.
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 package waffle.windows.auth;
 
@@ -41,12 +53,12 @@ public class WindowsAccount implements Serializable {
      * @param account
      *            the account
      */
-<span class="fc" id="L44">    public WindowsAccount(final IWindowsAccount account) {</span>
-<span class="fc" id="L45">        this.sidString = account.getSidString();</span>
-<span class="fc" id="L46">        this.fqn = account.getFqn();</span>
-<span class="fc" id="L47">        this.name = account.getName();</span>
-<span class="fc" id="L48">        this.domain = account.getDomain();</span>
-<span class="fc" id="L49">    }</span>
+<span class="nc" id="L56">    public WindowsAccount(final IWindowsAccount account) {</span>
+<span class="nc" id="L57">        this.sidString = account.getSidString();</span>
+<span class="nc" id="L58">        this.fqn = account.getFqn();</span>
+<span class="nc" id="L59">        this.name = account.getName();</span>
+<span class="nc" id="L60">        this.domain = account.getDomain();</span>
+<span class="nc" id="L61">    }</span>
 
     /**
      * Gets the sid string.
@@ -54,7 +66,7 @@ public class WindowsAccount implements Serializable {
      * @return the sid string
      */
     public String getSidString() {
-<span class="fc" id="L57">        return this.sidString;</span>
+<span class="nc" id="L69">        return this.sidString;</span>
     }
 
     /**
@@ -63,7 +75,7 @@ public class WindowsAccount implements Serializable {
      * @return the fqn
      */
     public String getFqn() {
-<span class="fc" id="L66">        return this.fqn;</span>
+<span class="nc" id="L78">        return this.fqn;</span>
     }
 
     /**
@@ -72,7 +84,7 @@ public class WindowsAccount implements Serializable {
      * @return the name
      */
     public String getName() {
-<span class="fc" id="L75">        return this.name;</span>
+<span class="nc" id="L87">        return this.name;</span>
     }
 
     /**
@@ -81,26 +93,26 @@ public class WindowsAccount implements Serializable {
      * @return the domain
      */
     public String getDomain() {
-<span class="fc" id="L84">        return this.domain;</span>
+<span class="nc" id="L96">        return this.domain;</span>
     }
 
     @Override
     public boolean equals(final Object o) {
 
-<span class="pc bpc" id="L90" title="1 of 2 branches missed.">        if (this == o) {</span>
-<span class="nc" id="L91">            return true;</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">        if (this == o) {</span>
+<span class="nc" id="L103">            return true;</span>
         }
 
-<span class="pc bpc" id="L94" title="1 of 2 branches missed.">        if (!(o instanceof WindowsAccount)) {</span>
-<span class="nc" id="L95">            return false;</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">        if (!(o instanceof WindowsAccount)) {</span>
+<span class="nc" id="L107">            return false;</span>
         }
 
-<span class="fc" id="L98">        return ((WindowsAccount) o).getSidString().equals(this.getSidString());</span>
+<span class="nc" id="L110">        return ((WindowsAccount) o).getSidString().equals(this.getSidString());</span>
     }
 
     @Override
     public int hashCode() {
-<span class="nc" id="L103">        return this.getSidString().hashCode();</span>
+<span class="nc" id="L115">        return this.getSidString().hashCode();</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

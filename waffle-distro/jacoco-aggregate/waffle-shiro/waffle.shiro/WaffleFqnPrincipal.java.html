@@ -1,13 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>WaffleFqnPrincipal.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-distro</a> &gt; <a href="../index.html" class="el_bundle">waffle-shiro</a> &gt; <a href="index.source.html" class="el_package">waffle.shiro</a> &gt; <span class="el_source">WaffleFqnPrincipal.java</span></div><h1>WaffleFqnPrincipal.java</h1><pre class="source lang-java linenums">/**
- * Waffle (https://github.com/Waffle/waffle)
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>WaffleFqnPrincipal.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-distro</a> &gt; <a href="../index.html" class="el_bundle">waffle-shiro</a> &gt; <a href="index.source.html" class="el_package">waffle.shiro</a> &gt; <span class="el_source">WaffleFqnPrincipal.java</span></div><h1>WaffleFqnPrincipal.java</h1><pre class="source lang-java linenums">/*
+ * MIT License
  *
- * Copyright (c) 2010-2020 Application Security, Inc.
+ * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
- * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
- * Public License v1.0 which accompanies this distribution, and is available at
- * https://www.eclipse.org/legal/epl-v10.html.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * Contributors: Application Security, Inc.
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 package waffle.shiro;
 
@@ -31,7 +43,7 @@ public class WaffleFqnPrincipal implements Serializable {
     private final String fqn;
 
     /** The group fqns. */
-<span class="fc" id="L34">    private final Set&lt;String&gt; groupFqns = new HashSet&lt;&gt;();</span>
+<span class="nc" id="L46">    private final Set&lt;String&gt; groupFqns = new HashSet&lt;&gt;();</span>
 
     /**
      * Instantiates a new waffle fqn principal.
@@ -39,12 +51,12 @@ public class WaffleFqnPrincipal implements Serializable {
      * @param identity
      *            the identity
      */
-<span class="fc" id="L42">    WaffleFqnPrincipal(final IWindowsIdentity identity) {</span>
-<span class="fc" id="L43">        this.fqn = identity.getFqn();</span>
-<span class="fc bfc" id="L44" title="All 2 branches covered.">        for (final IWindowsAccount group : identity.getGroups()) {</span>
-<span class="fc" id="L45">            this.groupFqns.add(group.getFqn());</span>
+<span class="nc" id="L54">    WaffleFqnPrincipal(final IWindowsIdentity identity) {</span>
+<span class="nc" id="L55">        this.fqn = identity.getFqn();</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">        for (final IWindowsAccount group : identity.getGroups()) {</span>
+<span class="nc" id="L57">            this.groupFqns.add(group.getFqn());</span>
         }
-<span class="fc" id="L47">    }</span>
+<span class="nc" id="L59">    }</span>
 
     /**
      * Gets the fqn.
@@ -52,7 +64,7 @@ public class WaffleFqnPrincipal implements Serializable {
      * @return the fully qualified name of the user
      */
     public String getFqn() {
-<span class="fc" id="L55">        return this.fqn;</span>
+<span class="nc" id="L67">        return this.fqn;</span>
     }
 
     /**
@@ -61,31 +73,31 @@ public class WaffleFqnPrincipal implements Serializable {
      * @return the fully qualified names of all groups that the use belongs to
      */
     public Set&lt;String&gt; getGroupFqns() {
-<span class="fc" id="L64">        return Collections.unmodifiableSet(this.groupFqns);</span>
+<span class="nc" id="L76">        return Collections.unmodifiableSet(this.groupFqns);</span>
     }
 
     @Override
     public boolean equals(final Object obj) {
-<span class="nc bnc" id="L69" title="All 2 branches missed.">        if (obj instanceof WaffleFqnPrincipal) {</span>
-<span class="nc" id="L70">            return this.fqn.equals(((WaffleFqnPrincipal) obj).fqn);</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">        if (obj instanceof WaffleFqnPrincipal) {</span>
+<span class="nc" id="L82">            return this.fqn.equals(((WaffleFqnPrincipal) obj).fqn);</span>
         }
-<span class="nc" id="L72">        return false;</span>
+<span class="nc" id="L84">        return false;</span>
     }
 
     @Override
     public int hashCode() {
-<span class="fc" id="L77">        return this.fqn.hashCode();</span>
+<span class="nc" id="L89">        return this.fqn.hashCode();</span>
     }
 
     @Override
     public String toString() {
-<span class="nc" id="L82">        final StringBuilder stringBuilder = new StringBuilder();</span>
-<span class="nc" id="L83">        stringBuilder.append(&quot;{&quot;);</span>
-<span class="nc" id="L84">        stringBuilder.append(this.getClass().getSimpleName());</span>
-<span class="nc" id="L85">        stringBuilder.append(&quot;:&quot;);</span>
-<span class="nc" id="L86">        stringBuilder.append(this.fqn);</span>
-<span class="nc" id="L87">        stringBuilder.append(&quot;}&quot;);</span>
-<span class="nc" id="L88">        return stringBuilder.toString();</span>
+<span class="nc" id="L94">        final StringBuilder stringBuilder = new StringBuilder();</span>
+<span class="nc" id="L95">        stringBuilder.append(&quot;{&quot;);</span>
+<span class="nc" id="L96">        stringBuilder.append(this.getClass().getSimpleName());</span>
+<span class="nc" id="L97">        stringBuilder.append(&quot;:&quot;);</span>
+<span class="nc" id="L98">        stringBuilder.append(this.fqn);</span>
+<span class="nc" id="L99">        stringBuilder.append(&quot;}&quot;);</span>
+<span class="nc" id="L100">        return stringBuilder.toString();</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

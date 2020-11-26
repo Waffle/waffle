@@ -1,13 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>WaffleAutoConfiguration.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-spring-boot-starter</a> &gt; <a href="../index.html" class="el_bundle">waffle-spring-boot-autoconfigure</a> &gt; <a href="index.source.html" class="el_package">waffle.spring.boot</a> &gt; <span class="el_source">WaffleAutoConfiguration.java</span></div><h1>WaffleAutoConfiguration.java</h1><pre class="source lang-java linenums">/**
- * Waffle (https://github.com/Waffle/waffle)
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>WaffleAutoConfiguration.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-spring-boot-starter</a> &gt; <a href="../index.html" class="el_bundle">waffle-spring-boot-autoconfigure</a> &gt; <a href="index.source.html" class="el_package">waffle.spring.boot</a> &gt; <span class="el_source">WaffleAutoConfiguration.java</span></div><h1>WaffleAutoConfiguration.java</h1><pre class="source lang-java linenums">/*
+ * MIT License
  *
- * Copyright (c) 2010-2020 Application Security, Inc.
+ * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
- * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
- * Public License v1.0 which accompanies this distribution, and is available at
- * https://www.eclipse.org/legal/epl-v10.html.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * Contributors: Application Security, Inc.
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 package waffle.spring.boot;
 
@@ -50,9 +62,9 @@ public class WaffleAutoConfiguration {
      * @param properties
      *            the properties
      */
-<span class="nc" id="L53">    public WaffleAutoConfiguration(final WaffleProperties properties) {</span>
-<span class="nc" id="L54">        this.properties = properties;</span>
-<span class="nc" id="L55">    }</span>
+<span class="nc" id="L65">    public WaffleAutoConfiguration(final WaffleProperties properties) {</span>
+<span class="nc" id="L66">        this.properties = properties;</span>
+<span class="nc" id="L67">    }</span>
 
     /**
      * The {@link WindowsAuthProviderImpl} instance.
@@ -62,7 +74,7 @@ public class WaffleAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public WindowsAuthProviderImpl waffleWindowsAuthProvider() {
-<span class="nc" id="L65">        return new WindowsAuthProviderImpl();</span>
+<span class="nc" id="L77">        return new WindowsAuthProviderImpl();</span>
     }
 
     /**
@@ -74,7 +86,7 @@ public class WaffleAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean(name = &quot;defaultGrantedAuthority&quot;)
     public GrantedAuthority defaultGrantedAuthority() {
-<span class="nc" id="L77">        return WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY;</span>
+<span class="nc" id="L89">        return WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY;</span>
     }
 
     /**
@@ -86,7 +98,7 @@ public class WaffleAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public GrantedAuthorityFactory grantedAuthorityFactory() {
-<span class="nc" id="L89">        return WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY_FACTORY;</span>
+<span class="nc" id="L101">        return WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY_FACTORY;</span>
     }
 
     /**
@@ -107,14 +119,14 @@ public class WaffleAutoConfiguration {
             final WindowsAuthProviderImpl waffleWindowsAuthProvider,
             @Qualifier(&quot;defaultGrantedAuthority&quot;) final GrantedAuthority defaultGrantedAuthority,
             final GrantedAuthorityFactory grantedAuthorityFactory) {
-<span class="nc" id="L110">        final WindowsAuthenticationProvider bean = new WindowsAuthenticationProvider();</span>
-<span class="nc" id="L111">        bean.setAuthProvider(waffleWindowsAuthProvider);</span>
-<span class="nc" id="L112">        bean.setPrincipalFormat(this.properties.getPrincipalFormat());</span>
-<span class="nc" id="L113">        bean.setRoleFormat(this.properties.getRoleFormat());</span>
-<span class="nc" id="L114">        bean.setAllowGuestLogin(this.properties.isAllowGuestLogin());</span>
-<span class="nc" id="L115">        bean.setDefaultGrantedAuthority(defaultGrantedAuthority);</span>
-<span class="nc" id="L116">        bean.setGrantedAuthorityFactory(grantedAuthorityFactory);</span>
-<span class="nc" id="L117">        return bean;</span>
+<span class="nc" id="L122">        final WindowsAuthenticationProvider bean = new WindowsAuthenticationProvider();</span>
+<span class="nc" id="L123">        bean.setAuthProvider(waffleWindowsAuthProvider);</span>
+<span class="nc" id="L124">        bean.setPrincipalFormat(this.properties.getPrincipalFormat());</span>
+<span class="nc" id="L125">        bean.setRoleFormat(this.properties.getRoleFormat());</span>
+<span class="nc" id="L126">        bean.setAllowGuestLogin(this.properties.isAllowGuestLogin());</span>
+<span class="nc" id="L127">        bean.setDefaultGrantedAuthority(defaultGrantedAuthority);</span>
+<span class="nc" id="L128">        bean.setGrantedAuthorityFactory(grantedAuthorityFactory);</span>
+<span class="nc" id="L129">        return bean;</span>
     }
 
     /**
@@ -130,9 +142,9 @@ public class WaffleAutoConfiguration {
     @ConditionalOnMissingBean
     public NegotiateSecurityFilterProvider negotiateSecurityFilterProvider(
             final WindowsAuthProviderImpl windowsAuthProvider) {
-<span class="nc" id="L133">        final NegotiateSecurityFilterProvider bean = new NegotiateSecurityFilterProvider(windowsAuthProvider);</span>
-<span class="nc" id="L134">        bean.setProtocols(this.properties.getSso().getProtocols());</span>
-<span class="nc" id="L135">        return bean;</span>
+<span class="nc" id="L145">        final NegotiateSecurityFilterProvider bean = new NegotiateSecurityFilterProvider(windowsAuthProvider);</span>
+<span class="nc" id="L146">        bean.setProtocols(this.properties.getSso().getProtocols());</span>
+<span class="nc" id="L147">        return bean;</span>
     }
 
     /**
@@ -147,7 +159,7 @@ public class WaffleAutoConfiguration {
     @ConditionalOnProperty(&quot;waffle.sso.enabled&quot;)
     @ConditionalOnMissingBean
     public BasicSecurityFilterProvider basicSecurityFilterProvider(final WindowsAuthProviderImpl windowsAuthProvider) {
-<span class="nc" id="L150">        return new BasicSecurityFilterProvider(windowsAuthProvider);</span>
+<span class="nc" id="L162">        return new BasicSecurityFilterProvider(windowsAuthProvider);</span>
     }
 
     /**
@@ -166,12 +178,12 @@ public class WaffleAutoConfiguration {
     public SecurityFilterProviderCollection waffleSecurityFilterProviderCollection(
             final NegotiateSecurityFilterProvider negotiateProvider, final BasicSecurityFilterProvider basicProvider) {
         SecurityFilterProvider[] providers;
-<span class="nc bnc" id="L169" title="All 2 branches missed.">        if (this.properties.getSso().isBasicEnabled()) {</span>
-<span class="nc" id="L170">            providers = new SecurityFilterProvider[] { negotiateProvider, basicProvider };</span>
+<span class="nc bnc" id="L181" title="All 2 branches missed.">        if (this.properties.getSso().isBasicEnabled()) {</span>
+<span class="nc" id="L182">            providers = new SecurityFilterProvider[] { negotiateProvider, basicProvider };</span>
         } else {
-<span class="nc" id="L172">            providers = new SecurityFilterProvider[] { negotiateProvider };</span>
+<span class="nc" id="L184">            providers = new SecurityFilterProvider[] { negotiateProvider };</span>
         }
-<span class="nc" id="L174">        return new SecurityFilterProviderCollection(providers);</span>
+<span class="nc" id="L186">        return new SecurityFilterProviderCollection(providers);</span>
     }
 
     /**
@@ -187,9 +199,9 @@ public class WaffleAutoConfiguration {
     @ConditionalOnMissingBean
     public NegotiateSecurityFilterEntryPoint negotiateSecurityFilterEntryPoint(
             final SecurityFilterProviderCollection providers) {
-<span class="nc" id="L190">        final NegotiateSecurityFilterEntryPoint bean = new NegotiateSecurityFilterEntryPoint();</span>
-<span class="nc" id="L191">        bean.setProvider(providers);</span>
-<span class="nc" id="L192">        return bean;</span>
+<span class="nc" id="L202">        final NegotiateSecurityFilterEntryPoint bean = new NegotiateSecurityFilterEntryPoint();</span>
+<span class="nc" id="L203">        bean.setProvider(providers);</span>
+<span class="nc" id="L204">        return bean;</span>
     }
 
     /**
@@ -210,15 +222,15 @@ public class WaffleAutoConfiguration {
     public NegotiateSecurityFilter waffleNegotiateSecurityFilter(final SecurityFilterProviderCollection providers,
             @Qualifier(&quot;defaultGrantedAuthority&quot;) final GrantedAuthority defaultGrantedAuthority,
             final GrantedAuthorityFactory grantedAuthorityFactory) {
-<span class="nc" id="L213">        final NegotiateSecurityFilter bean = new NegotiateSecurityFilter();</span>
-<span class="nc" id="L214">        bean.setProvider(providers);</span>
-<span class="nc" id="L215">        bean.setPrincipalFormat(this.properties.getPrincipalFormat());</span>
-<span class="nc" id="L216">        bean.setRoleFormat(this.properties.getRoleFormat());</span>
-<span class="nc" id="L217">        bean.setAllowGuestLogin(this.properties.isAllowGuestLogin());</span>
-<span class="nc" id="L218">        bean.setImpersonate(this.properties.getSso().isImpersonate());</span>
-<span class="nc" id="L219">        bean.setDefaultGrantedAuthority(defaultGrantedAuthority);</span>
-<span class="nc" id="L220">        bean.setGrantedAuthorityFactory(grantedAuthorityFactory);</span>
-<span class="nc" id="L221">        return bean;</span>
+<span class="nc" id="L225">        final NegotiateSecurityFilter bean = new NegotiateSecurityFilter();</span>
+<span class="nc" id="L226">        bean.setProvider(providers);</span>
+<span class="nc" id="L227">        bean.setPrincipalFormat(this.properties.getPrincipalFormat());</span>
+<span class="nc" id="L228">        bean.setRoleFormat(this.properties.getRoleFormat());</span>
+<span class="nc" id="L229">        bean.setAllowGuestLogin(this.properties.isAllowGuestLogin());</span>
+<span class="nc" id="L230">        bean.setImpersonate(this.properties.getSso().isImpersonate());</span>
+<span class="nc" id="L231">        bean.setDefaultGrantedAuthority(defaultGrantedAuthority);</span>
+<span class="nc" id="L232">        bean.setGrantedAuthorityFactory(grantedAuthorityFactory);</span>
+<span class="nc" id="L233">        return bean;</span>
     }
 
     /**
@@ -233,10 +245,10 @@ public class WaffleAutoConfiguration {
     @Bean
     @ConditionalOnProperty(&quot;waffle.sso.enabled&quot;)
     public FilterRegistrationBean waffleNegotiateSecurityFilterRegistrationBean(final NegotiateSecurityFilter filter) {
-<span class="nc" id="L236">        final FilterRegistrationBean bean = new FilterRegistrationBean(filter);</span>
-<span class="nc" id="L237">        bean.setEnabled(false);</span>
-<span class="nc" id="L238">        return bean;</span>
+<span class="nc" id="L248">        final FilterRegistrationBean bean = new FilterRegistrationBean(filter);</span>
+<span class="nc" id="L249">        bean.setEnabled(false);</span>
+<span class="nc" id="L250">        return bean;</span>
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

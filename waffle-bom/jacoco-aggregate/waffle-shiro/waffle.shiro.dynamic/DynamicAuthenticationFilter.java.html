@@ -1,13 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>DynamicAuthenticationFilter.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-bom</a> &gt; <a href="../index.html" class="el_bundle">waffle-shiro</a> &gt; <a href="index.source.html" class="el_package">waffle.shiro.dynamic</a> &gt; <span class="el_source">DynamicAuthenticationFilter.java</span></div><h1>DynamicAuthenticationFilter.java</h1><pre class="source lang-java linenums">/**
- * Waffle (https://github.com/Waffle/waffle)
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>DynamicAuthenticationFilter.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-bom</a> &gt; <a href="../index.html" class="el_bundle">waffle-shiro</a> &gt; <a href="index.source.html" class="el_package">waffle.shiro.dynamic</a> &gt; <span class="el_source">DynamicAuthenticationFilter.java</span></div><h1>DynamicAuthenticationFilter.java</h1><pre class="source lang-java linenums">/*
+ * MIT License
  *
- * Copyright (c) 2010-2020 Application Security, Inc.
+ * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
- * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
- * Public License v1.0 which accompanies this distribution, and is available at
- * https://www.eclipse.org/legal/epl-v10.html.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * Contributors: Application Security, Inc.
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 package waffle.shiro.dynamic;
 
@@ -87,10 +99,10 @@ import waffle.shiro.negotiate.NegotiateAuthenticationFilter;
  *
  * @author Dan Rollo Date: 2/21/13 Time: 9:08 PM
  */
-<span class="fc" id="L90">public class DynamicAuthenticationFilter extends FormAuthenticationFilter {</span>
+<span class="nc" id="L102">public class DynamicAuthenticationFilter extends FormAuthenticationFilter {</span>
 
     /** The Constant LOGGER. */
-<span class="fc" id="L93">    private static final Logger LOGGER = LoggerFactory.getLogger(DynamicAuthenticationFilter.class);</span>
+<span class="nc" id="L105">    private static final Logger LOGGER = LoggerFactory.getLogger(DynamicAuthenticationFilter.class);</span>
 
     /** The Constant PARAM_NAME_AUTHTYPE. */
     public static final String PARAM_NAME_AUTHTYPE = &quot;authType&quot;;
@@ -112,24 +124,24 @@ import waffle.shiro.negotiate.NegotiateAuthenticationFilter;
          * @param newParent
          *            the new parent
          */
-<span class="fc" id="L115">        WrapNegotiateAuthenticationFilter(final DynamicAuthenticationFilter newParent) {</span>
-<span class="fc" id="L116">            this.parent = newParent;</span>
-<span class="fc" id="L117">        }</span>
+<span class="nc" id="L127">        WrapNegotiateAuthenticationFilter(final DynamicAuthenticationFilter newParent) {</span>
+<span class="nc" id="L128">            this.parent = newParent;</span>
+<span class="nc" id="L129">        }</span>
 
         @Override
         public boolean onAccessDenied(final ServletRequest request, final ServletResponse response) throws Exception {
-<span class="nc" id="L121">            return super.onAccessDenied(request, response);</span>
+<span class="nc" id="L133">            return super.onAccessDenied(request, response);</span>
         }
 
         @Override
         protected boolean onLoginSuccess(final AuthenticationToken token, final Subject subject,
                 final ServletRequest request, final ServletResponse response) throws Exception {
-<span class="nc" id="L127">            return this.parent.onLoginSuccess(token, subject, request, response);</span>
+<span class="nc" id="L139">            return this.parent.onLoginSuccess(token, subject, request, response);</span>
         }
     }
 
     /** The filter negotiate. */
-<span class="fc" id="L132">    private final WrapNegotiateAuthenticationFilter filterNegotiate = new WrapNegotiateAuthenticationFilter(this);</span>
+<span class="nc" id="L144">    private final WrapNegotiateAuthenticationFilter filterNegotiate = new WrapNegotiateAuthenticationFilter(this);</span>
 
     /**
      * Wrapper to make protected methods in different package callable from here.
@@ -145,24 +157,24 @@ import waffle.shiro.negotiate.NegotiateAuthenticationFilter;
          * @param newParent
          *            the new parent
          */
-<span class="fc" id="L148">        WrapFormAuthenticationFilter(final DynamicAuthenticationFilter newParent) {</span>
-<span class="fc" id="L149">            this.parent = newParent;</span>
-<span class="fc" id="L150">        }</span>
+<span class="nc" id="L160">        WrapFormAuthenticationFilter(final DynamicAuthenticationFilter newParent) {</span>
+<span class="nc" id="L161">            this.parent = newParent;</span>
+<span class="nc" id="L162">        }</span>
 
         @Override
         public boolean onAccessDenied(final ServletRequest request, final ServletResponse response) throws Exception {
-<span class="nc" id="L154">            return super.onAccessDenied(request, response);</span>
+<span class="nc" id="L166">            return super.onAccessDenied(request, response);</span>
         }
 
         @Override
         protected boolean onLoginSuccess(final AuthenticationToken token, final Subject subject,
                 final ServletRequest request, final ServletResponse response) throws Exception {
-<span class="nc" id="L160">            return this.parent.onLoginSuccess(token, subject, request, response);</span>
+<span class="nc" id="L172">            return this.parent.onLoginSuccess(token, subject, request, response);</span>
         }
     }
 
     /** The filter form authc. */
-<span class="fc" id="L165">    private final WrapFormAuthenticationFilter filterFormAuthc = new WrapFormAuthenticationFilter(this);</span>
+<span class="nc" id="L177">    private final WrapFormAuthenticationFilter filterFormAuthc = new WrapFormAuthenticationFilter(this);</span>
 
     /**
      * Call
@@ -173,12 +185,12 @@ import waffle.shiro.negotiate.NegotiateAuthenticationFilter;
      */
     @Override
     protected boolean executeLogin(final ServletRequest request, final ServletResponse response) throws Exception {
-<span class="nc bnc" id="L176" title="All 2 branches missed.">        if (this.isAuthTypeNegotiate(request)) {</span>
-<span class="nc" id="L177">            DynamicAuthenticationFilter.LOGGER.debug(&quot;using filterNegotiate&quot;);</span>
-<span class="nc" id="L178">            return this.filterNegotiate.onAccessDenied(request, response);</span>
+<span class="nc bnc" id="L188" title="All 2 branches missed.">        if (this.isAuthTypeNegotiate(request)) {</span>
+<span class="nc" id="L189">            DynamicAuthenticationFilter.LOGGER.debug(&quot;using filterNegotiate&quot;);</span>
+<span class="nc" id="L190">            return this.filterNegotiate.onAccessDenied(request, response);</span>
         }
-<span class="nc" id="L180">        DynamicAuthenticationFilter.LOGGER.debug(&quot;using filterFormAuthc&quot;);</span>
-<span class="nc" id="L181">        return this.filterFormAuthc.onAccessDenied(request, response);</span>
+<span class="nc" id="L192">        DynamicAuthenticationFilter.LOGGER.debug(&quot;using filterFormAuthc&quot;);</span>
+<span class="nc" id="L193">        return this.filterFormAuthc.onAccessDenied(request, response);</span>
     }
 
     /**
@@ -189,9 +201,9 @@ import waffle.shiro.negotiate.NegotiateAuthenticationFilter;
      * @return true, if is auth type negotiate
      */
     boolean isAuthTypeNegotiate(final ServletRequest request) {
-<span class="fc" id="L192">        final String authType = request.getParameter(DynamicAuthenticationFilter.PARAM_NAME_AUTHTYPE);</span>
-<span class="fc bfc" id="L193" title="All 4 branches covered.">        return authType != null &amp;&amp; DynamicAuthenticationFilter.PARAM_VAL_AUTHTYPE_NEGOTIATE.equalsIgnoreCase(authType);</span>
+<span class="nc" id="L204">        final String authType = request.getParameter(DynamicAuthenticationFilter.PARAM_NAME_AUTHTYPE);</span>
+<span class="nc bnc" id="L205" title="All 4 branches missed.">        return authType != null &amp;&amp; DynamicAuthenticationFilter.PARAM_VAL_AUTHTYPE_NEGOTIATE.equalsIgnoreCase(authType);</span>
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

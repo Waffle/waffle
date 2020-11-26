@@ -1,1 +1,0 @@
-memberSearchIndex = [{"p":"waffle.jetty","c":"DummyClass","l":"DummyClass()","url":"%3Cinit%3E()"}]
