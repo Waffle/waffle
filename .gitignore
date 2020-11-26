@@ -42,3 +42,4 @@ Source/JNA/release.properties
 .sts4-cache/
 .cache/
 .profiler/
+.github/keys/
