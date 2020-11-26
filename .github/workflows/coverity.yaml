@@ -22,7 +22,7 @@ jobs:
           /tmp/cov-analysis-linux64-*/bin/cov-build --dir cov-int mvn -DskipTests=true verify
           tar czvf waffle.tgz cov-int
           curl --form token="${{ secrets.COVERITY_TOKEN}}" \
-            --form email=${EMAIL} \
+            --form email=${{ secrets.EMAIL }} \
             --form file=@waffle.tgz \
             --form version="waffle/coverity_scan" \
             --form description="Waffle Coverity Scan" \
