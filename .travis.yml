@@ -12,8 +12,7 @@ env:
   - secure: Owz4fpWP53YBusIqj5IPfTr+agtVqOnBl09HlEFS1C09oWrxMMxXYy3qxB54MHnljnCTYi2Mp+cOTa8VBGDbPYQo6Na0j5ZxSRyj+mFRY1rgQwYp/NSBXuUg/zjf1SikaQb6NRpH7p5J6sNwARwzLwRCpvYPWr+8cd8vkSK/CL8=
 
 script:
-  - chmod -R 777 ./travis/script.sh
-  - ./travis/script.sh
+  - ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
 after_success:
   - chmod -R 777 ./travis/after_success.sh
