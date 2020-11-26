@@ -11,16 +11,6 @@ env:
   - secure: gQyJe1mY+7Sq3O7Dgxa01VQq4hSwODWeDGkGkEGx6JBHhYR+prZwWzDuccQCTu9ZKaQ+iSBZukaJtS2ppuIGtRlIx+cEN67f/jXfILap1XR6Kj+DbW4E9Mz0WLVaTPeFqMJv4EVK5mq59D+7ey1odrY9hmB+CEjrbaIQNxZvPG4=
   - secure: Owz4fpWP53YBusIqj5IPfTr+agtVqOnBl09HlEFS1C09oWrxMMxXYy3qxB54MHnljnCTYi2Mp+cOTa8VBGDbPYQo6Na0j5ZxSRyj+mFRY1rgQwYp/NSBXuUg/zjf1SikaQb6NRpH7p5J6sNwARwzLwRCpvYPWr+8cd8vkSK/CL8=
 
-addons:
-  coverity_scan:
-    project:
-      name: hazendaz/waffle
-      description: Build submitted via Travis CI
-    notification_email: jeremylandis@hotmail.com
-    build_command_prepend: ./mvnw clean
-    build_command: ./mvnw install -DskipTests -B -V
-    branch_pattern: coverity_scan
-
 script:
   - chmod -R 777 ./travis/script.sh
   - ./travis/script.sh
