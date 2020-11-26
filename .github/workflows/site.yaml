@@ -24,7 +24,7 @@ jobs:
           CI_DEPLOY_USERNAME: ${{ secrets.CI_DEPLOY_USERNAME }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Deploy Site to gh-pages
-        uses: JamesIves/github-pages-deploy-action@master
+        uses: JamesIves/github-pages-deploy-action@dev
         with:
           SSH: true
           BRANCH: gh-pages
