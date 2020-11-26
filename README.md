@@ -3,7 +3,7 @@ WAFFLE - Windows Authentication Framework
 
 [![Java CI](https://github.com/Waffle/waffle/workflows/Java%20CI/badge.svg)](https://github.com/Waffle/waffle/actions?query=workflow%3A%22Java+CI%22)
 [![DotNET CI](https://github.com/Waffle/waffle/workflows/DotNET/badge.svg)](https://github.com/Waffle/waffle/workflows/DotNET)
-[![Coverity Scan Build Status](https://scan.coverity.com/projects/2775/badge.svg)](https://scan.coverity.com/projects/2775)
+[![Coverity Scan Build Status](https://scan.coverity.com/projects/22153/badge.svg)](https://scan.coverity.com/projects/22153)
 [![Coverage Status](https://coveralls.io/repos/hazendaz/waffle/badge.svg)](https://coveralls.io/r/hazendaz/waffle)
 [![Maven central](https://maven-badges.herokuapp.com/maven-central/com.github.waffle/waffle-jna/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.waffle/waffle-jna)
 [![releases](https://img.shields.io/github/v/release/Waffle/waffle)](https://github.com/Waffle/waffle/releases/tag/waffle-parent-2.3.0)
