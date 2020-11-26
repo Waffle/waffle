@@ -9,7 +9,6 @@
     </server>
     <server>
       <id>gh-pages</id>
-      <username>git</username>
     </server>
     <server>
       <id>github</id>
