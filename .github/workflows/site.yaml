@@ -1,0 +1,25 @@
+name: Site
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    if: github.repository_owner == 'waffle'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - uses: webfactory/ssh-agent@v0.4.1
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+      - name: Deploy Site to gh-pages
+        run: ./mvnw site site:deploy -DskipTests -B
+        env:
+          CI_DEPLOY_USERNAME: ${{ secrets.CI_DEPLOY_USERNAME }}
+          CI_DEPLOY_PASSWORD: ${{ secrets.CI_DEPLOY_PASSWORD }}
