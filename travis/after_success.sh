@@ -18,10 +18,6 @@ echo "Current commit detected: ${commit_message}"
 if [ $TRAVIS_REPO_SLUG == "Waffle/waffle" ] && [ $TRAVIS_PULL_REQUEST == "false" ] && [ $TRAVIS_BRANCH == "master" ] && [[ "$commit_message" != *"[maven-release-plugin]"* ]]; then
 
   if [ $TRAVIS_JDK_VERSION == "openjdk8" ]; then
-    # Deploy to sonatype
-    ./mvnw deploy -DskipTests -q --settings ./.mvn/settings.xml
-    echo -e "Successfully deployed SNAPSHOT artifacts to Sonatype under Travis job ${TRAVIS_JOB_NUMBER}"
-
     # Deploy to site
     # Cannot currently run site this way
     # ./mvnw site site:deploy -DskipTests -q --settings ./.mvn/settings.xml
