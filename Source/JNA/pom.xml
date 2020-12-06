@@ -186,6 +186,7 @@
         <checkstyle.plugin>3.1.1</checkstyle.plugin>
         <clean.plugin>3.1.0</clean.plugin>
         <compiler.plugin>3.8.1</compiler.plugin>
+        <coveralls.plugin>4.3.0</coveralls.plugin>
         <dependency.plugin>3.1.2</dependency.plugin>
         <dependency-check.plugin>6.0.3</dependency-check.plugin>
         <deploy.plugin>3.0.0-M1</deploy.plugin>
@@ -641,6 +642,11 @@
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>${jacoco.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.eluder.coveralls</groupId>
+                    <artifactId>coveralls-maven-plugin</artifactId>
+                    <version>${coveralls.plugin}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
