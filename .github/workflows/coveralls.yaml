@@ -30,12 +30,12 @@ jobs:
           java-version: 8
       - name: Report Coverage to Coveralls for Pull Requests
         if: github.event_name == 'pull_request'
-        run: ./mvnw test jacoco:report coveralls:report -q -D"license.skip=true" -DrepoToken=$GITHUB_TOKEN -DserviceName=github -DpullRequest=$PR_NUMBER --file Source/JNA/pom.xml
+        run: ./mvnw test coveralls:report -q -D"license.skip=true" -DrepoToken=$GITHUB_TOKEN -DserviceName=github -DpullRequest=$PR_NUMBER --file Source/JNA/pom.xml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.number }}
       - name: Report Coverage to Coveralls for General Push
         if: github.event_name == 'push'
-        run: ./mvnw test jacoco:report coveralls:report -q -D"license.skip=true" -DrepoToken=$GITHUB_TOKEN -DserviceName=github --file Source/JNA/pom.xml
+        run: ./mvnw test coveralls:report -q -D"license.skip=true" -DrepoToken=$GITHUB_TOKEN -DserviceName=github --file Source/JNA/pom.xml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
