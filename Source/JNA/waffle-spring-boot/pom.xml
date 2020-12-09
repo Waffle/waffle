@@ -61,7 +61,7 @@
         <snakeyaml.version>1.27</snakeyaml.version>
         <spring.version>4.3.29.RELEASE</spring.version>
         <spring-boot.version>1.5.22.RELEASE</spring-boot.version>
-        <tomcat.version>8.5.60</tomcat.version>
+        <tomcat.version>10.0.0</tomcat.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.spring.boot</module.name>
