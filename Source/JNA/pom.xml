@@ -224,6 +224,7 @@
         <yuicompressor.plugin>1.5.1</yuicompressor.plugin>
 
         <!-- Plugin Dependency Versions -->
+        <bind-api.version>2.3.3</bind-api.version>
         <bug-pattern.version>1.5.0</bug-pattern.version>
         <build-tools.version>1.2.4</build-tools.version>
         <checkstyle.version>8.38</checkstyle.version>
@@ -647,6 +648,13 @@
                     <groupId>org.eluder.coveralls</groupId>
                     <artifactId>coveralls-maven-plugin</artifactId>
                     <version>${coveralls.plugin}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>jakarta.xml.bind</groupId>
+                            <artifactId>jakarta.xml.bind-api</artifactId>
+                            <version>${bind-api.version}</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
