@@ -59,7 +59,7 @@
         <logback.version>1.2.3</logback.version>
         <slf4j.version note="override from parent">1.7.30</slf4j.version>
         <snakeyaml.version>1.27</snakeyaml.version>
-        <spring.version>4.3.30.RELEASE</spring.version>
+        <spring.version>5.3.2</spring.version>
         <spring-boot.version>1.5.22.RELEASE</spring-boot.version>
         <tomcat.version>8.5.61</tomcat.version>
 
