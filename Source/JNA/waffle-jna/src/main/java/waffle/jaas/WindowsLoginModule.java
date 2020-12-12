@@ -166,6 +166,7 @@ public class WindowsLoginModule implements LoginModule {
                 // create the group principal and add roles as members of the group
                 final GroupPrincipal groupList = new GroupPrincipal("Roles");
                 for (final IWindowsAccount group : windowsIdentity.getGroups()) {
+                    this.principals.addAll(getRolePrincipals(group, this.roleFormat));
                     for (final Principal role : WindowsLoginModule.getRolePrincipals(group, this.roleFormat)) {
                         WindowsLoginModule.LOGGER.debug(" group: {}", role.getName());
                         groupList.addMember(new RolePrincipal(role.getName()));
