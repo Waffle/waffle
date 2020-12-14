@@ -150,6 +150,7 @@ public class WindowsLoginModuleTest {
      */
     @Test
     void commit_withRoles() throws LoginException {
+        this.options.put("debug", "true");
         final Set<Principal> principals = new LinkedHashSet<>();
         principals.add(new UserPrincipal("FQN"));
         principals.add(new RolePrincipal("WindowsGroup"));
