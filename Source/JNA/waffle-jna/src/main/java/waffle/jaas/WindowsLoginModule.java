@@ -163,17 +163,10 @@ public class WindowsLoginModule implements LoginModule {
             // add the main user principal to the subject principals
             this.principals.addAll(WindowsLoginModule.getUserPrincipals(windowsIdentity, this.principalFormat));
             if (this.roleFormat != PrincipalFormat.NONE) {
-                // create the group principal and add roles as members of the group
-                final GroupPrincipal groupList = new GroupPrincipal("Roles");
+                // add Windows Groups as role principles
                 for (final IWindowsAccount group : windowsIdentity.getGroups()) {
-                    this.principals.addAll(WindowsLoginModule.getRolePrincipals(group, this.roleFormat));
-                    for (final Principal role : WindowsLoginModule.getRolePrincipals(group, this.roleFormat)) {
-                        WindowsLoginModule.LOGGER.debug(" group: {}", role.getName());
-                        groupList.addMember(new RolePrincipal(role.getName()));
-                    }
+                    this.principals.addAll(getRolePrincipals(group, this.roleFormat));
                 }
-                // add the group and roles to the subject principals
-                this.principals.add(groupList);
             }
 
             this.username = windowsIdentity.getFqn();
