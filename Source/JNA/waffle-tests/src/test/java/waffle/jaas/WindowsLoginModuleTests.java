@@ -189,18 +189,18 @@ public class WindowsLoginModuleTests {
         Assertions.assertEquals(5, subject.getPrincipals().size());
         Assertions.assertTrue(subject.getPrincipals().contains(new RolePrincipal("Everyone")));
         Assertions.assertTrue(subject.getPrincipals().contains(new RolePrincipal("Users")));
+        int roleSize = 0;
+        int roleSidSize = 0;
         for (final Principal principal : subject.getPrincipals()) {
-            int roleSize = 0;
-            int roleSidSize = 0;
             if (principal instanceof RolePrincipal) {
                 if (principal.getName().startsWith("S-")) {
                     roleSidSize++;
                 }
                 roleSize++;
             }
-            Assertions.assertEquals(4, roleSize);
-            Assertions.assertEquals(2, roleSidSize);
         }
+        Assertions.assertEquals(4, roleSize);
+        Assertions.assertEquals(2, roleSidSize);
     }
 
     /**
@@ -243,17 +243,17 @@ public class WindowsLoginModuleTests {
         Assertions.assertTrue(this.loginModule.commit());
 
         Assertions.assertEquals(3, subject.getPrincipals().size());
+        int size = 0;
         for (final Principal principal : subject.getPrincipals()) {
             if (principal instanceof RolePrincipal) {
-                int size = 0;
                 if (principal.getName().startsWith("S-")) {
                     size++;
                 }
-                Assertions.assertEquals(2, size);
             } else {
                 Assertions.assertTrue(principal.getName().equals(WindowsAccountImpl.getCurrentUsername()));
             }
         }
+        Assertions.assertEquals(2, size);
     }
 
     /**
