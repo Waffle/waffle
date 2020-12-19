@@ -152,11 +152,7 @@ class WindowsLoginModuleTest {
     void commit_withRoles() throws LoginException {
         final Set<Principal> principals = new LinkedHashSet<>();
         principals.add(new UserPrincipal("FQN"));
-        final GroupPrincipal group = new GroupPrincipal("Roles");
-        final RolePrincipal role = new RolePrincipal("WindowsGroup");
-        group.addMember(role);
-        principals.add(role);
-        principals.add(group);
+        principals.add(new RolePrincipal("WindowsGroup"));
         Whitebox.setInternalState(this.loginModule, principals);
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
         Assertions.assertTrue(this.loginModule.commit());
