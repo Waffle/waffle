@@ -199,7 +199,7 @@ public class WindowsLoginModuleTests {
                 roleSize++;
             }
             Assertions.assertEquals(4, roleSize);
-            Assertions.assertEquals(2, sidSize);
+            Assertions.assertEquals(2, roleSidSize);
         }
     }
 
