@@ -70,9 +70,9 @@ public class CaffeineCache&lt;K, V&gt; implements Cache&lt;K, V&gt; {
 
     private final com.github.benmanes.caffeine.cache.Cache&lt;K, V&gt; cache;
 
-<span class="nc" id="L73">    public CaffeineCache(@NonNegative final long timeout) {</span>
-<span class="nc" id="L74">        cache = Caffeine.newBuilder().expireAfterWrite(Duration.ofSeconds(timeout)).build();</span>
-<span class="nc" id="L75">    }</span>
+<span class="fc" id="L73">    public CaffeineCache(@NonNegative final long timeout) {</span>
+<span class="fc" id="L74">        cache = Caffeine.newBuilder().expireAfterWrite(Duration.ofSeconds(timeout)).build();</span>
+<span class="fc" id="L75">    }</span>
 
     @Override
     public V get(K key) {
