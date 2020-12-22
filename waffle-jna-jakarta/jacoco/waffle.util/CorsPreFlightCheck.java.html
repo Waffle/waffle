@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CorsPreFlightCheck.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-jna-jakarta</a> &gt; <a href="index.source.html" class="el_package">waffle.util</a> &gt; <span class="el_source">CorsPreFlightCheck.java</span></div><h1>CorsPreFlightCheck.java</h1><pre class="source lang-java linenums">/*
+ * MIT License
+ *
+ * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+package waffle.util;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * The Class CorsPrefFlightCheck.
+ */
+public final class CorsPreFlightCheck {
+
+    /** The logger. */
+<span class="fc" id="L40">    private static final Logger LOGGER = LoggerFactory.getLogger(CorsPreFlightCheck.class);</span>
+
+    /** The Constant preflightAttributeValue. */
+    private static final String PRE_FLIGHT_ATTRIBUTE_VALUE = &quot;PRE_FLIGHT&quot;;
+
+    /** The Constant CORS_PRE_FLIGHT_HEADERS. */
+<span class="fc" id="L46">    private static final List&lt;String&gt; CORS_PRE_FLIGHT_HEADERS = new ArrayList&lt;String&gt;() {</span>
+
+        /** The Constant serialVersionUID. */
+        private static final long serialVersionUID = 1L;
+
+        {
+<span class="fc" id="L52">            this.add(&quot;Access-Control-Request-Method&quot;);</span>
+<span class="fc" id="L53">            this.add(&quot;Access-Control-Request-Headers&quot;);</span>
+<span class="fc" id="L54">            this.add(&quot;Origin&quot;);</span>
+<span class="fc" id="L55">        }</span>
+    };
+
+    /**
+     * Prevent Instantiation.
+     */
+    private CorsPreFlightCheck() {
+        // Do Nothing
+    }
+
+    /**
+     * Checks if is preflight.
+     *
+     * @param request
+     *            the request
+     * @return true, if is preflight
+     */
+    public static boolean isPreflight(final HttpServletRequest request) {
+
+<span class="fc" id="L74">        final String corsRequestType = (String) request.getAttribute(&quot;cors.request.type&quot;);</span>
+
+<span class="fc" id="L76">        CorsPreFlightCheck.LOGGER</span>
+<span class="fc" id="L77">                .debug(&quot;[waffle.util.CorsPreflightCheck] Request is CORS preflight; continue filter chain&quot;);</span>
+
+        // Method MUST be an OPTIONS Method to be a preflight Request
+<span class="fc" id="L80">        final String method = request.getMethod();</span>
+<span class="fc bfc" id="L81" title="All 4 branches covered.">        if (method == null || !method.equalsIgnoreCase(&quot;OPTIONS&quot;)) {</span>
+<span class="fc" id="L82">            return false;</span>
+        }
+
+<span class="fc" id="L85">        CorsPreFlightCheck.LOGGER.debug(&quot;[waffle.util.CorsPreflightCheck] check for PRE_FLIGHT Attribute&quot;);</span>
+
+        /**
+         * Support Apache CorsFilter which would already add the Attribute cors.request.type with a value &quot;PRE_FLIGHT&quot;
+         **/
+<span class="pc bpc" id="L90" title="1 of 2 branches missed.">        if (corsRequestType != null</span>
+<span class="nc bnc" id="L91" title="All 2 branches missed.">                &amp;&amp; corsRequestType.equalsIgnoreCase(CorsPreFlightCheck.PRE_FLIGHT_ATTRIBUTE_VALUE)) {</span>
+<span class="nc" id="L92">            return true;</span>
+        } else {
+            /*
+             * it is OPTIONS and it is not an CorsFilter PRE_FLIGHT request make sure that the request contains all of
+             * the CORS preflight Headers
+             */
+<span class="fc" id="L98">            CorsPreFlightCheck.LOGGER.debug(&quot;[waffle.util.CorsPreflightCheck] check headers&quot;);</span>
+
+<span class="fc bfc" id="L100" title="All 2 branches covered.">            for (final String header : CorsPreFlightCheck.CORS_PRE_FLIGHT_HEADERS) {</span>
+<span class="fc" id="L101">                final String headerValue = request.getHeader(header);</span>
+<span class="fc" id="L102">                CorsPreFlightCheck.LOGGER.debug(&quot;[waffle.util.CorsPreflightCheck] {}&quot;, header);</span>
+
+<span class="fc bfc" id="L104" title="All 2 branches covered.">                if (headerValue == null) {</span>
+                    /* one of the CORS pre-flight headers is missing */
+<span class="fc" id="L106">                    return false;</span>
+                }
+<span class="fc" id="L108">            }</span>
+<span class="fc" id="L109">            CorsPreFlightCheck.LOGGER.debug(&quot;[waffle.util.CorsPreflightCheck] is preflight&quot;);</span>
+
+<span class="fc" id="L111">            return true;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
