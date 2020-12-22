@@ -58,10 +58,10 @@ public interface Cache&lt;K, V&gt; {
      *             if no cache can be instantiated, use {@link Exception#getSuppressed()} to obtain details.
      */
     static &lt;K, V&gt; Cache&lt;K, V&gt; newCache(int timeout) throws NoSuchElementException {
-<span class="nc" id="L61">        final NoSuchElementException exception = new NoSuchElementException();</span>
-<span class="nc bnc" id="L62" title="All 2 branches missed.">        for (CacheSupplier cacheSupplier : ServiceLoader.load(CacheSupplier.class)) {</span>
+<span class="fc" id="L61">        final NoSuchElementException exception = new NoSuchElementException();</span>
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">        for (CacheSupplier cacheSupplier : ServiceLoader.load(CacheSupplier.class)) {</span>
             try {
-<span class="nc" id="L64">                return cacheSupplier.newCache(timeout);</span>
+<span class="fc" id="L64">                return cacheSupplier.newCache(timeout);</span>
 <span class="nc" id="L65">            } catch (Exception e) {</span>
 <span class="nc" id="L66">                exception.addSuppressed(e);</span>
             }
