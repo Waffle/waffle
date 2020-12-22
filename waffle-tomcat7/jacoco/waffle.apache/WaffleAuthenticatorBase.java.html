@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>WaffleAuthenticatorBase.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-tomcat7</a> &gt; <a href="index.source.html" class="el_package">waffle.apache</a> &gt; <span class="el_source">WaffleAuthenticatorBase.java</span></div><h1>WaffleAuthenticatorBase.java</h1><pre class="source lang-java linenums">/*
+ * MIT License
+ *
+ * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+package waffle.apache;
+
+import java.io.IOException;
+import java.security.Principal;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.Locale;
+import java.util.Set;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.catalina.LifecycleException;
+import org.apache.catalina.authenticator.AuthenticatorBase;
+import org.apache.catalina.connector.Request;
+import org.apache.catalina.realm.GenericPrincipal;
+import org.slf4j.Logger;
+
+import waffle.windows.auth.IWindowsAuthProvider;
+import waffle.windows.auth.IWindowsIdentity;
+import waffle.windows.auth.PrincipalFormat;
+import waffle.windows.auth.impl.WindowsAuthProviderImpl;
+
+/**
+ * The Class WaffleAuthenticatorBase.
+ *
+ * @author dblock[at]dblock[dot]org
+ */
+<span class="fc" id="L52">abstract class WaffleAuthenticatorBase extends AuthenticatorBase {</span>
+
+    /** The Constant SUPPORTED_PROTOCOLS. */
+<span class="fc" id="L55">    private static final Set&lt;String&gt; SUPPORTED_PROTOCOLS = new LinkedHashSet&lt;&gt;(Arrays.asList(&quot;Negotiate&quot;, &quot;NTLM&quot;));</span>
+
+    /** The info. */
+    protected String info;
+
+    /** The log. */
+    protected Logger log;
+
+    /** The principal format. */
+<span class="fc" id="L64">    protected PrincipalFormat principalFormat = PrincipalFormat.FQN;</span>
+
+    /** The role format. */
+<span class="fc" id="L67">    protected PrincipalFormat roleFormat = PrincipalFormat.FQN;</span>
+
+    /** The allow guest login. */
+<span class="fc" id="L70">    protected boolean allowGuestLogin = true;</span>
+
+    /** The protocols. */
+<span class="fc" id="L73">    protected Set&lt;String&gt; protocols = WaffleAuthenticatorBase.SUPPORTED_PROTOCOLS;</span>
+
+    /** The auth continueContextsTimeout configuration. */
+<span class="fc" id="L76">    protected int continueContextsTimeout = WindowsAuthProviderImpl.CONTINUE_CONTEXT_TIMEOUT;</span>
+
+    /** The auth. */
+    protected IWindowsAuthProvider auth;
+
+    /**
+     * Gets the continue context time out configuration.
+     *
+     * @return the continue contexts timeout
+     */
+    public int getContinueContextsTimeout() {
+<span class="nc" id="L87">        return this.continueContextsTimeout;</span>
+    }
+
+    /**
+     * Sets the continue context time out configuration.
+     *
+     * @param continueContextsTimeout
+     *            the new continue contexts timeout
+     */
+    public void setContinueContextsTimeout(final int continueContextsTimeout) {
+<span class="nc" id="L97">        this.continueContextsTimeout = continueContextsTimeout;</span>
+<span class="nc" id="L98">    }</span>
+
+    /**
+     * Windows authentication provider.
+     *
+     * @return IWindowsAuthProvider.
+     */
+    public IWindowsAuthProvider getAuth() {
+<span class="fc" id="L106">        return this.auth;</span>
+    }
+
+    /**
+     * Set Windows auth provider.
+     *
+     * @param provider
+     *            Class implements IWindowsAuthProvider.
+     */
+    public void setAuth(final IWindowsAuthProvider provider) {
+<span class="fc" id="L116">        this.auth = provider;</span>
+<span class="fc" id="L117">    }</span>
+
+    @Override
+    public String getInfo() {
+<span class="fc" id="L121">        return this.info;</span>
+    }
+
+    /**
+     * Set the principal format.
+     *
+     * @param format
+     *            Principal format.
+     */
+    public void setPrincipalFormat(final String format) {
+<span class="fc" id="L131">        this.principalFormat = PrincipalFormat.valueOf(format.toUpperCase(Locale.ENGLISH));</span>
+<span class="fc" id="L132">        this.log.debug(&quot;principal format: {}&quot;, this.principalFormat);</span>
+<span class="fc" id="L133">    }</span>
+
+    /**
+     * Principal format.
+     *
+     * @return Principal format.
+     */
+    public PrincipalFormat getPrincipalFormat() {
+<span class="fc" id="L141">        return this.principalFormat;</span>
+    }
+
+    /**
+     * Set the principal format.
+     *
+     * @param format
+     *            Role format.
+     */
+    public void setRoleFormat(final String format) {
+<span class="fc" id="L151">        this.roleFormat = PrincipalFormat.valueOf(format.toUpperCase(Locale.ENGLISH));</span>
+<span class="fc" id="L152">        this.log.debug(&quot;role format: {}&quot;, this.roleFormat);</span>
+<span class="fc" id="L153">    }</span>
+
+    /**
+     * Principal format.
+     *
+     * @return Role format.
+     */
+    public PrincipalFormat getRoleFormat() {
+<span class="fc" id="L161">        return this.roleFormat;</span>
+    }
+
+    /**
+     * True if Guest login permitted.
+     *
+     * @return True if Guest login permitted, false otherwise.
+     */
+    public boolean isAllowGuestLogin() {
+<span class="fc" id="L170">        return this.allowGuestLogin;</span>
+    }
+
+    /**
+     * Set whether Guest login is permitted. Default is true, if the Guest account is enabled, an invalid
+     * username/password results in a Guest login.
+     *
+     * @param value
+     *            True or false.
+     */
+    public void setAllowGuestLogin(final boolean value) {
+<span class="fc" id="L181">        this.allowGuestLogin = value;</span>
+<span class="fc" id="L182">    }</span>
+
+    /**
+     * Set the authentication protocols. Default is &quot;Negotiate, NTLM&quot;.
+     *
+     * @param value
+     *            Authentication protocols
+     */
+    public void setProtocols(final String value) {
+<span class="fc" id="L191">        this.protocols = new LinkedHashSet&lt;&gt;();</span>
+<span class="fc" id="L192">        final String[] protocolNames = value.split(&quot;,&quot;, -1);</span>
+<span class="fc bfc" id="L193" title="All 2 branches covered.">        for (String protocolName : protocolNames) {</span>
+<span class="fc" id="L194">            protocolName = protocolName.trim();</span>
+<span class="fc bfc" id="L195" title="All 2 branches covered.">            if (!protocolName.isEmpty()) {</span>
+<span class="fc" id="L196">                this.log.debug(&quot;init protocol: {}&quot;, protocolName);</span>
+<span class="fc bfc" id="L197" title="All 2 branches covered.">                if (WaffleAuthenticatorBase.SUPPORTED_PROTOCOLS.contains(protocolName)) {</span>
+<span class="fc" id="L198">                    this.protocols.add(protocolName);</span>
+                } else {
+<span class="fc" id="L200">                    this.log.error(&quot;unsupported protocol: {}&quot;, protocolName);</span>
+<span class="fc" id="L201">                    throw new RuntimeException(&quot;Unsupported protocol: &quot; + protocolName);</span>
+                }
+            }
+        }
+<span class="fc" id="L205">    }</span>
+
+    /**
+     * Send a 401 Unauthorized along with protocol authentication headers.
+     *
+     * @param response
+     *            HTTP Response
+     */
+    protected void sendUnauthorized(final HttpServletResponse response) {
+        try {
+<span class="fc bfc" id="L215" title="All 2 branches covered.">            for (final String protocol : this.protocols) {</span>
+<span class="fc" id="L216">                response.addHeader(&quot;WWW-Authenticate&quot;, protocol);</span>
+<span class="fc" id="L217">            }</span>
+<span class="fc" id="L218">            response.setHeader(&quot;Connection&quot;, &quot;close&quot;);</span>
+<span class="fc" id="L219">            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);</span>
+<span class="fc" id="L220">            response.flushBuffer();</span>
+<span class="nc" id="L221">        } catch (final IOException e) {</span>
+<span class="nc" id="L222">            throw new RuntimeException(e);</span>
+<span class="fc" id="L223">        }</span>
+<span class="fc" id="L224">    }</span>
+
+    /**
+     * Send an error code.
+     *
+     * @param response
+     *            HTTP Response
+     * @param code
+     *            Error Code
+     */
+    protected void sendError(final HttpServletResponse response, final int code) {
+        try {
+<span class="nc" id="L236">            response.sendError(code);</span>
+<span class="nc" id="L237">        } catch (final IOException e) {</span>
+<span class="nc" id="L238">            this.log.error(e.getMessage());</span>
+<span class="nc" id="L239">            this.log.trace(&quot;&quot;, e);</span>
+<span class="nc" id="L240">            throw new RuntimeException(e);</span>
+<span class="nc" id="L241">        }</span>
+<span class="nc" id="L242">    }</span>
+
+    @Override
+    protected String getAuthMethod() {
+<span class="nc" id="L246">        return null;</span>
+    }
+
+    @Override
+    protected Principal doLogin(final Request request, final String username, final String password)
+            throws ServletException {
+<span class="nc" id="L252">        this.log.debug(&quot;logging in: {}&quot;, username);</span>
+        IWindowsIdentity windowsIdentity;
+        try {
+<span class="nc" id="L255">            windowsIdentity = this.auth.logonUser(username, password);</span>
+<span class="nc" id="L256">        } catch (final Exception e) {</span>
+<span class="nc" id="L257">            this.log.error(e.getMessage());</span>
+<span class="nc" id="L258">            this.log.trace(&quot;&quot;, e);</span>
+<span class="nc" id="L259">            return super.doLogin(request, username, password);</span>
+<span class="nc" id="L260">        }</span>
+        // disable guest login
+<span class="nc bnc" id="L262" title="All 4 branches missed.">        if (!this.allowGuestLogin &amp;&amp; windowsIdentity.isGuest()) {</span>
+<span class="nc" id="L263">            this.log.warn(&quot;guest login disabled: {}&quot;, windowsIdentity.getFqn());</span>
+<span class="nc" id="L264">            return super.doLogin(request, username, password);</span>
+        }
+        try {
+<span class="nc" id="L267">            this.log.debug(&quot;successfully logged in {} ({})&quot;, username, windowsIdentity.getSidString());</span>
+<span class="nc" id="L268">            final GenericPrincipal genericPrincipal = this.createPrincipal(windowsIdentity);</span>
+<span class="nc" id="L269">            this.log.debug(&quot;roles: {}&quot;, String.join(&quot;, &quot;, genericPrincipal.getRoles()));</span>
+<span class="nc" id="L270">            return genericPrincipal;</span>
+        } finally {
+<span class="nc" id="L272">            windowsIdentity.dispose();</span>
+        }
+    }
+
+    /**
+     * This method will create an instance of a IWindowsIdentity based GenericPrincipal. It is used for creating custom
+     * implementation within subclasses.
+     *
+     * @param windowsIdentity
+     *            the windows identity to initialize the principal
+     * @return the Generic Principal
+     */
+    protected GenericPrincipal createPrincipal(final IWindowsIdentity windowsIdentity) {
+<span class="fc" id="L285">        return new GenericWindowsPrincipal(windowsIdentity, this.principalFormat, this.roleFormat);</span>
+    }
+
+    /**
+     * Hook to the start and to set up the dependencies.
+     *
+     * @throws LifecycleException
+     *             the lifecycle exception
+     */
+    @Override
+    protected synchronized void startInternal() throws LifecycleException {
+<span class="fc" id="L296">        this.log.debug(&quot;Creating a windows authentication provider with continueContextsTimeout property set to: {}&quot;,</span>
+<span class="fc" id="L297">                this.continueContextsTimeout);</span>
+<span class="fc" id="L298">        this.auth = new WindowsAuthProviderImpl(this.continueContextsTimeout);</span>
+<span class="fc" id="L299">        super.startInternal();</span>
+<span class="fc" id="L300">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
