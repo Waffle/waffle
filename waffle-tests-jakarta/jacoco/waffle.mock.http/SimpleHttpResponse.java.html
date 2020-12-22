@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SimpleHttpResponse.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-tests-jakarta</a> &gt; <a href="index.source.html" class="el_package">waffle.mock.http</a> &gt; <span class="el_source">SimpleHttpResponse.java</span></div><h1>SimpleHttpResponse.java</h1><pre class="source lang-java linenums">/*
+ * MIT License
+ *
+ * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+package waffle.mock.http;
+
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.WriteListener;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponseWrapper;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.mockito.Mockito;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * The Class SimpleHttpResponse.
+ *
+ * @author dblock[at]dblock[dot]org
+ */
+public class SimpleHttpResponse extends HttpServletResponseWrapper {
+
+    /** The Constant LOGGER. */
+<span class="fc" id="L54">    private static final Logger LOGGER = LoggerFactory.getLogger(SimpleHttpResponse.class);</span>
+
+    /** The status. */
+<span class="fc" id="L57">    private int status = 500;</span>
+
+    /** The headers. */
+<span class="fc" id="L60">    private final Map&lt;String, List&lt;String&gt;&gt; headers = new HashMap&lt;&gt;();</span>
+
+    /** The bytes. */
+<span class="fc" id="L63">    final ByteArrayOutputStream bytes = new ByteArrayOutputStream();</span>
+
+    /** The out. */
+<span class="fc" id="L66">    private final ServletOutputStream out = new ServletOutputStream() {</span>
+        @Override
+        public void write(final int b) throws IOException {
+<span class="nc" id="L69">            SimpleHttpResponse.this.bytes.write(b);</span>
+<span class="nc" id="L70">        }</span>
+
+        @Override
+        public boolean isReady() {
+<span class="nc" id="L74">            return false;</span>
+        }
+
+        @Override
+        public void setWriteListener(final WriteListener writeListener) {
+            // Not used
+<span class="nc" id="L80">        }</span>
+    };
+
+    /** The writer. */
+<span class="fc" id="L84">    private final PrintWriter writer = new PrintWriter(new OutputStreamWriter(this.bytes, StandardCharsets.UTF_8),</span>
+            true);
+
+    /**
+     * Instantiates a new simple http response.
+     */
+    public SimpleHttpResponse() {
+<span class="fc" id="L91">        super(Mockito.mock(HttpServletResponse.class));</span>
+<span class="fc" id="L92">    }</span>
+
+    /**
+     * Gets the status.
+     *
+     * @return the status
+     */
+    @Override
+    public int getStatus() {
+<span class="fc" id="L101">        return this.status;</span>
+    }
+
+    @Override
+    public void addHeader(final String headerName, final String headerValue) {
+<span class="fc" id="L106">        List&lt;String&gt; current = this.headers.get(headerName);</span>
+<span class="fc bfc" id="L107" title="All 2 branches covered.">        if (current == null) {</span>
+<span class="fc" id="L108">            current = new ArrayList&lt;&gt;();</span>
+        }
+<span class="fc" id="L110">        current.add(headerValue);</span>
+<span class="fc" id="L111">        this.headers.put(headerName, current);</span>
+<span class="fc" id="L112">    }</span>
+
+    @Override
+    public void setHeader(final String headerName, final String headerValue) {
+<span class="fc" id="L116">        List&lt;String&gt; current = this.headers.get(headerName);</span>
+<span class="pc bpc" id="L117" title="1 of 2 branches missed.">        if (current == null) {</span>
+<span class="fc" id="L118">            current = new ArrayList&lt;&gt;();</span>
+        } else {
+<span class="nc" id="L120">            current.clear();</span>
+        }
+<span class="fc" id="L122">        current.add(headerValue);</span>
+<span class="fc" id="L123">        this.headers.put(headerName, current);</span>
+<span class="fc" id="L124">    }</span>
+
+    @Override
+    public void setStatus(final int value) {
+<span class="fc" id="L128">        this.status = value;</span>
+<span class="fc" id="L129">    }</span>
+
+    /**
+     * Gets the status string.
+     *
+     * @return the status string
+     */
+    public String getStatusString() {
+<span class="pc bpc" id="L137" title="1 of 2 branches missed.">        if (this.status == 401) {</span>
+<span class="fc" id="L138">            return &quot;Unauthorized&quot;;</span>
+        }
+<span class="nc" id="L140">        return &quot;Unknown&quot;;</span>
+    }
+
+    @Override
+    public void flushBuffer() {
+<span class="fc" id="L145">        SimpleHttpResponse.LOGGER.info(&quot;{}: {}&quot;, Integer.valueOf(this.status), this.getStatusString());</span>
+<span class="fc bfc" id="L146" title="All 2 branches covered.">        for (final Map.Entry&lt;String, List&lt;String&gt;&gt; header : this.headers.entrySet()) {</span>
+<span class="fc bfc" id="L147" title="All 2 branches covered.">            for (final String headerValue : header.getValue()) {</span>
+<span class="fc" id="L148">                SimpleHttpResponse.LOGGER.info(&quot;{}: {}&quot;, header, headerValue);</span>
+<span class="fc" id="L149">            }</span>
+<span class="fc" id="L150">        }</span>
+<span class="fc" id="L151">    }</span>
+
+    /**
+     * Use this for testing the number of headers.
+     *
+     * @return int header name size.
+     */
+    public int getHeaderNamesSize() {
+<span class="fc" id="L159">        return this.headers.size();</span>
+    }
+
+    /**
+     * Gets the header values.
+     *
+     * @param headerName
+     *            the header name
+     * @return the header values
+     */
+    public String[] getHeaderValues(final String headerName) {
+<span class="fc" id="L170">        final List&lt;String&gt; headerValues = this.headers.get(headerName);</span>
+<span class="pc bpc" id="L171" title="1 of 2 branches missed.">        return headerValues == null ? null : headerValues.toArray(new String[0]);</span>
+    }
+
+    /**
+     * Gets the header.
+     *
+     * @param headerName
+     *            the header name
+     * @return the header
+     */
+    @Override
+    public String getHeader(final String headerName) {
+<span class="fc" id="L183">        final List&lt;String&gt; headerValues = this.headers.get(headerName);</span>
+<span class="pc bpc" id="L184" title="1 of 2 branches missed.">        return headerValues == null ? null : String.join(&quot;, &quot;, headerValues);</span>
+    }
+
+    @Override
+    public void sendError(final int rc, final String message) {
+<span class="nc" id="L189">        this.status = rc;</span>
+<span class="nc" id="L190">    }</span>
+
+    @Override
+    public void sendError(final int rc) {
+<span class="fc" id="L194">        this.status = rc;</span>
+<span class="fc" id="L195">    }</span>
+
+    @Override
+    public PrintWriter getWriter() {
+<span class="fc" id="L199">        return this.writer;</span>
+    }
+
+    @Override
+    public ServletOutputStream getOutputStream() throws IOException {
+<span class="nc" id="L204">        return this.out;</span>
+    }
+
+    /**
+     * Gets the output text.
+     *
+     * @return the output text
+     */
+    public String getOutputText() {
+<span class="fc" id="L213">        this.writer.flush();</span>
+        try {
+<span class="fc" id="L215">            return this.bytes.toString(StandardCharsets.UTF_8.name());</span>
+<span class="nc" id="L216">        } catch (final UnsupportedEncodingException e) {</span>
+<span class="nc" id="L217">            SimpleHttpResponse.LOGGER.error(&quot;&quot;, e);</span>
+        }
+<span class="nc" id="L219">        return null;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
