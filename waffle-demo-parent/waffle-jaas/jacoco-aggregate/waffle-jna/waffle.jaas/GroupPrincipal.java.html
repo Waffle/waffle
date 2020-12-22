@@ -53,23 +53,23 @@ public class GroupPrincipal extends UserPrincipal {
      *            the fqn
      */
     public GroupPrincipal(final String fqn) {
-<span class="nc" id="L56">        super(fqn);</span>
+<span class="fc" id="L56">        super(fqn);</span>
 
-<span class="nc" id="L58">        this.fqn = fqn;</span>
-<span class="nc" id="L59">        this.members = new HashMap&lt;&gt;();</span>
-<span class="nc" id="L60">    }</span>
+<span class="fc" id="L58">        this.fqn = fqn;</span>
+<span class="fc" id="L59">        this.members = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L60">    }</span>
 
     @Override
     public String getName() {
-<span class="nc" id="L64">        return this.fqn;</span>
+<span class="fc" id="L64">        return this.fqn;</span>
     }
 
     public boolean addMember(final Principal user) {
-<span class="nc" id="L68">        final boolean isMember = this.members.containsKey(user);</span>
-<span class="nc bnc" id="L69" title="All 2 branches missed.">        if (!isMember) {</span>
-<span class="nc" id="L70">            this.members.put(user, user);</span>
+<span class="fc" id="L68">        final boolean isMember = this.members.containsKey(user);</span>
+<span class="pc bpc" id="L69" title="1 of 2 branches missed.">        if (!isMember) {</span>
+<span class="fc" id="L70">            this.members.put(user, user);</span>
         }
-<span class="nc" id="L72">        return isMember;</span>
+<span class="fc" id="L72">        return isMember;</span>
     }
 
     public boolean isMember(final Principal user) {
