@@ -51,43 +51,43 @@ public class MockWindowsIdentity implements IWindowsIdentity {
      * @param newGroups
      *            the new groups
      */
-<span class="nc" id="L54">    public MockWindowsIdentity(final String newFqn, final List&lt;String&gt; newGroups) {</span>
-<span class="nc" id="L55">        this.fqn = newFqn;</span>
-<span class="nc" id="L56">        this.groups = newGroups;</span>
-<span class="nc" id="L57">    }</span>
+<span class="fc" id="L54">    public MockWindowsIdentity(final String newFqn, final List&lt;String&gt; newGroups) {</span>
+<span class="fc" id="L55">        this.fqn = newFqn;</span>
+<span class="fc" id="L56">        this.groups = newGroups;</span>
+<span class="fc" id="L57">    }</span>
 
     @Override
     public String getFqn() {
-<span class="nc" id="L61">        return this.fqn;</span>
+<span class="fc" id="L61">        return this.fqn;</span>
     }
 
     @Override
     public IWindowsAccount[] getGroups() {
-<span class="nc" id="L66">        final List&lt;MockWindowsAccount&gt; groupsList = new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L67" title="All 2 branches missed.">        for (final String group : this.groups) {</span>
-<span class="nc" id="L68">            groupsList.add(new MockWindowsAccount(group));</span>
-<span class="nc" id="L69">        }</span>
-<span class="nc" id="L70">        return groupsList.toArray(new IWindowsAccount[0]);</span>
+<span class="fc" id="L66">        final List&lt;MockWindowsAccount&gt; groupsList = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">        for (final String group : this.groups) {</span>
+<span class="fc" id="L68">            groupsList.add(new MockWindowsAccount(group));</span>
+<span class="fc" id="L69">        }</span>
+<span class="fc" id="L70">        return groupsList.toArray(new IWindowsAccount[0]);</span>
     }
 
     @Override
     public byte[] getSid() {
-<span class="nc" id="L75">        return new byte[0];</span>
+<span class="fc" id="L75">        return new byte[0];</span>
     }
 
     @Override
     public String getSidString() {
-<span class="nc" id="L80">        return &quot;S-&quot; + this.fqn.hashCode();</span>
+<span class="fc" id="L80">        return &quot;S-&quot; + this.fqn.hashCode();</span>
     }
 
     @Override
     public void dispose() {
         // Do Nothing
-<span class="nc" id="L86">    }</span>
+<span class="fc" id="L86">    }</span>
 
     @Override
     public boolean isGuest() {
-<span class="nc" id="L90">        return &quot;Guest&quot;.equals(this.fqn);</span>
+<span class="fc" id="L90">        return &quot;Guest&quot;.equals(this.fqn);</span>
     }
 
     @Override

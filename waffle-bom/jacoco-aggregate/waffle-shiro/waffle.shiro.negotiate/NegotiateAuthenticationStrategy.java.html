@@ -49,7 +49,7 @@ import org.apache.shiro.realm.Realm;
  *      org.apache.shiro.authc.AuthenticationToken, org.apache.shiro.authc.AuthenticationInfo,
  *      org.apache.shiro.authc.AuthenticationInfo, Throwable)
  */
-<span class="nc" id="L52">public class NegotiateAuthenticationStrategy extends AbstractAuthenticationStrategy {</span>
+<span class="fc" id="L52">public class NegotiateAuthenticationStrategy extends AbstractAuthenticationStrategy {</span>
 
     /**
      * When the negotiate logic is executing, one of more round trips with the client occur. When the
@@ -64,12 +64,12 @@ import org.apache.shiro.realm.Realm;
     public AuthenticationInfo afterAttempt(final Realm realm, final AuthenticationToken token,
             final AuthenticationInfo singleRealmInfo, final AuthenticationInfo aggregateInfo, final Throwable t) {
 
-<span class="nc bnc" id="L67" title="All 4 branches missed.">        if (realm instanceof NegotiateAuthenticationRealm &amp;&amp; t instanceof AuthenticationInProgressException) {</span>
+<span class="pc bpc" id="L67" title="1 of 4 branches missed.">        if (realm instanceof NegotiateAuthenticationRealm &amp;&amp; t instanceof AuthenticationInProgressException) {</span>
             // propagate exception upward as is, to signal continue is needed
-<span class="nc" id="L69">            throw (AuthenticationInProgressException) t;</span>
+<span class="fc" id="L69">            throw (AuthenticationInProgressException) t;</span>
         }
 
-<span class="nc" id="L72">        return super.afterAttempt(realm, token, singleRealmInfo, aggregateInfo, t);</span>
+<span class="fc" id="L72">        return super.afterAttempt(realm, token, singleRealmInfo, aggregateInfo, t);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

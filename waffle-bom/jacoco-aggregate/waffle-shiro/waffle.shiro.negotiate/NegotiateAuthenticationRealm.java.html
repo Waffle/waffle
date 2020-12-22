@@ -59,7 +59,7 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
     /**
      * This class's private logger.
      */
-<span class="nc" id="L62">    private static final Logger LOGGER = LoggerFactory.getLogger(NegotiateAuthenticationRealm.class);</span>
+<span class="fc" id="L62">    private static final Logger LOGGER = LoggerFactory.getLogger(NegotiateAuthenticationRealm.class);</span>
 
     /** The windows auth provider. */
     private final IWindowsAuthProvider windowsAuthProvider;
@@ -67,33 +67,33 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
     /**
      * Instantiates a new negotiate authentication realm.
      */
-<span class="nc" id="L70">    public NegotiateAuthenticationRealm() {</span>
-<span class="nc" id="L71">        this.windowsAuthProvider = new WindowsAuthProviderImpl();</span>
-<span class="nc" id="L72">    }</span>
+<span class="fc" id="L70">    public NegotiateAuthenticationRealm() {</span>
+<span class="fc" id="L71">        this.windowsAuthProvider = new WindowsAuthProviderImpl();</span>
+<span class="fc" id="L72">    }</span>
 
     @Override
     public boolean supports(final AuthenticationToken token) {
-<span class="nc" id="L76">        return token instanceof NegotiateToken;</span>
+<span class="fc" id="L76">        return token instanceof NegotiateToken;</span>
     }
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(final AuthenticationToken t) {
 
-<span class="nc" id="L82">        final NegotiateToken token = (NegotiateToken) t;</span>
-<span class="nc" id="L83">        final byte[] inToken = token.getIn();</span>
+<span class="fc" id="L82">        final NegotiateToken token = (NegotiateToken) t;</span>
+<span class="fc" id="L83">        final byte[] inToken = token.getIn();</span>
 
-<span class="nc bnc" id="L85" title="All 2 branches missed.">        if (token.isNtlmPost()) {</span>
+<span class="pc bpc" id="L85" title="1 of 2 branches missed.">        if (token.isNtlmPost()) {</span>
             // type 2 NTLM authentication message received
 <span class="nc" id="L87">            this.windowsAuthProvider.resetSecurityToken(token.getConnectionId());</span>
         }
 
         final IWindowsSecurityContext securityContext;
         try {
-<span class="nc" id="L92">            securityContext = this.windowsAuthProvider.acceptSecurityToken(token.getConnectionId(), inToken,</span>
-<span class="nc" id="L93">                    token.getSecurityPackage());</span>
-<span class="nc" id="L94">        } catch (final Exception e) {</span>
-<span class="nc" id="L95">            NegotiateAuthenticationRealm.LOGGER.warn(&quot;error logging in user: {}&quot;, e.getMessage());</span>
-<span class="nc" id="L96">            throw new AuthenticationException(e);</span>
+<span class="pc" id="L92">            securityContext = this.windowsAuthProvider.acceptSecurityToken(token.getConnectionId(), inToken,</span>
+<span class="fc" id="L93">                    token.getSecurityPackage());</span>
+<span class="fc" id="L94">        } catch (final Exception e) {</span>
+<span class="fc" id="L95">            NegotiateAuthenticationRealm.LOGGER.warn(&quot;error logging in user: {}&quot;, e.getMessage());</span>
+<span class="fc" id="L96">            throw new AuthenticationException(e);</span>
 <span class="nc" id="L97">        }</span>
 
 <span class="nc" id="L99">        final byte[] continueTokenBytes = securityContext.getToken();</span>

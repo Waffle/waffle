@@ -48,59 +48,59 @@ import waffle.windows.auth.PrincipalFormat;
 public class WindowsAuthenticationProvider implements AuthenticationProvider {
 
     /** The Constant LOGGER. */
-<span class="nc" id="L51">    private static final Logger LOGGER = LoggerFactory.getLogger(WindowsAuthenticationProvider.class);</span>
+<span class="fc" id="L51">    private static final Logger LOGGER = LoggerFactory.getLogger(WindowsAuthenticationProvider.class);</span>
 
     /** The principal format. */
-<span class="nc" id="L54">    private PrincipalFormat principalFormat = PrincipalFormat.FQN;</span>
+<span class="fc" id="L54">    private PrincipalFormat principalFormat = PrincipalFormat.FQN;</span>
 
     /** The role format. */
-<span class="nc" id="L57">    private PrincipalFormat roleFormat = PrincipalFormat.FQN;</span>
+<span class="fc" id="L57">    private PrincipalFormat roleFormat = PrincipalFormat.FQN;</span>
 
     /** The allow guest login. */
-<span class="nc" id="L60">    private boolean allowGuestLogin = true;</span>
+<span class="fc" id="L60">    private boolean allowGuestLogin = true;</span>
 
     /** The auth provider. */
     private IWindowsAuthProvider authProvider;
 
     /** The granted authority factory. */
-<span class="nc" id="L66">    private GrantedAuthorityFactory grantedAuthorityFactory = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY_FACTORY;</span>
+<span class="fc" id="L66">    private GrantedAuthorityFactory grantedAuthorityFactory = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY_FACTORY;</span>
 
     /** The default granted authority. */
-<span class="nc" id="L69">    private GrantedAuthority defaultGrantedAuthority = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY;</span>
+<span class="fc" id="L69">    private GrantedAuthority defaultGrantedAuthority = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY;</span>
 
     /**
      * Instantiates a new windows authentication provider.
      */
-<span class="nc" id="L74">    public WindowsAuthenticationProvider() {</span>
-<span class="nc" id="L75">        WindowsAuthenticationProvider.LOGGER.debug(&quot;[waffle.spring.WindowsAuthenticationProvider] loaded&quot;);</span>
-<span class="nc" id="L76">    }</span>
+<span class="fc" id="L74">    public WindowsAuthenticationProvider() {</span>
+<span class="fc" id="L75">        WindowsAuthenticationProvider.LOGGER.debug(&quot;[waffle.spring.WindowsAuthenticationProvider] loaded&quot;);</span>
+<span class="fc" id="L76">    }</span>
 
     @Override
     public Authentication authenticate(final Authentication authentication) {
-<span class="nc" id="L80">        final UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;</span>
+<span class="fc" id="L80">        final UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;</span>
         IWindowsIdentity windowsIdentity;
         try {
-<span class="nc" id="L83">            windowsIdentity = this.authProvider.logonUser(auth.getName(), auth.getCredentials().toString());</span>
+<span class="fc" id="L83">            windowsIdentity = this.authProvider.logonUser(auth.getName(), auth.getCredentials().toString());</span>
 <span class="nc" id="L84">        } catch (final Win32Exception e) {</span>
 <span class="nc" id="L85">            throw new AuthenticationServiceException(e.getMessage(), e);</span>
-<span class="nc" id="L86">        }</span>
-<span class="nc" id="L87">        WindowsAuthenticationProvider.LOGGER.debug(&quot;logged in user: {} ({})&quot;, windowsIdentity.getFqn(),</span>
-<span class="nc" id="L88">                windowsIdentity.getSidString());</span>
+<span class="fc" id="L86">        }</span>
+<span class="fc" id="L87">        WindowsAuthenticationProvider.LOGGER.debug(&quot;logged in user: {} ({})&quot;, windowsIdentity.getFqn(),</span>
+<span class="fc" id="L88">                windowsIdentity.getSidString());</span>
 
-<span class="nc bnc" id="L90" title="All 4 branches missed.">        if (!this.allowGuestLogin &amp;&amp; windowsIdentity.isGuest()) {</span>
-<span class="nc" id="L91">            WindowsAuthenticationProvider.LOGGER.warn(&quot;guest login disabled: {}&quot;, windowsIdentity.getFqn());</span>
-<span class="nc" id="L92">            throw new GuestLoginDisabledAuthenticationException(windowsIdentity.getFqn());</span>
+<span class="pc bpc" id="L90" title="1 of 4 branches missed.">        if (!this.allowGuestLogin &amp;&amp; windowsIdentity.isGuest()) {</span>
+<span class="fc" id="L91">            WindowsAuthenticationProvider.LOGGER.warn(&quot;guest login disabled: {}&quot;, windowsIdentity.getFqn());</span>
+<span class="fc" id="L92">            throw new GuestLoginDisabledAuthenticationException(windowsIdentity.getFqn());</span>
         }
 
-<span class="nc" id="L95">        final WindowsPrincipal windowsPrincipal = new WindowsPrincipal(windowsIdentity, this.principalFormat,</span>
+<span class="fc" id="L95">        final WindowsPrincipal windowsPrincipal = new WindowsPrincipal(windowsIdentity, this.principalFormat,</span>
                 this.roleFormat);
-<span class="nc" id="L97">        WindowsAuthenticationProvider.LOGGER.debug(&quot;roles: {}&quot;, windowsPrincipal.getRolesString());</span>
+<span class="fc" id="L97">        WindowsAuthenticationProvider.LOGGER.debug(&quot;roles: {}&quot;, windowsPrincipal.getRolesString());</span>
 
-<span class="nc" id="L99">        final WindowsAuthenticationToken token = new WindowsAuthenticationToken(windowsPrincipal,</span>
+<span class="fc" id="L99">        final WindowsAuthenticationToken token = new WindowsAuthenticationToken(windowsPrincipal,</span>
                 this.grantedAuthorityFactory, this.defaultGrantedAuthority);
 
-<span class="nc" id="L102">        WindowsAuthenticationProvider.LOGGER.info(&quot;successfully logged in user: {}&quot;, windowsIdentity.getFqn());</span>
-<span class="nc" id="L103">        return token;</span>
+<span class="fc" id="L102">        WindowsAuthenticationProvider.LOGGER.info(&quot;successfully logged in user: {}&quot;, windowsIdentity.getFqn());</span>
+<span class="fc" id="L103">        return token;</span>
     }
 
     /**
@@ -112,7 +112,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      */
     @Override
     public boolean supports(final Class&lt;? extends Object&gt; authentication) {
-<span class="nc" id="L115">        return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);</span>
+<span class="fc" id="L115">        return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);</span>
     }
 
     /**
@@ -121,7 +121,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      * @return the principal format
      */
     public PrincipalFormat getPrincipalFormat() {
-<span class="nc" id="L124">        return this.principalFormat;</span>
+<span class="fc" id="L124">        return this.principalFormat;</span>
     }
 
     /**
@@ -131,8 +131,8 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      *            the new principal format enum
      */
     public void setPrincipalFormatEnum(final PrincipalFormat value) {
-<span class="nc" id="L134">        this.principalFormat = value;</span>
-<span class="nc" id="L135">    }</span>
+<span class="fc" id="L134">        this.principalFormat = value;</span>
+<span class="fc" id="L135">    }</span>
 
     /**
      * Sets the principal format.
@@ -141,8 +141,8 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      *            the new principal format
      */
     public void setPrincipalFormat(final String value) {
-<span class="nc" id="L144">        this.setPrincipalFormatEnum(PrincipalFormat.valueOf(value.toUpperCase(Locale.ENGLISH)));</span>
-<span class="nc" id="L145">    }</span>
+<span class="fc" id="L144">        this.setPrincipalFormatEnum(PrincipalFormat.valueOf(value.toUpperCase(Locale.ENGLISH)));</span>
+<span class="fc" id="L145">    }</span>
 
     /**
      * Gets the role format.
@@ -150,7 +150,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      * @return the role format
      */
     public PrincipalFormat getRoleFormat() {
-<span class="nc" id="L153">        return this.roleFormat;</span>
+<span class="fc" id="L153">        return this.roleFormat;</span>
     }
 
     /**
@@ -160,8 +160,8 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      *            the new role format enum
      */
     public void setRoleFormatEnum(final PrincipalFormat value) {
-<span class="nc" id="L163">        this.roleFormat = value;</span>
-<span class="nc" id="L164">    }</span>
+<span class="fc" id="L163">        this.roleFormat = value;</span>
+<span class="fc" id="L164">    }</span>
 
     /**
      * Sets the role format.
@@ -170,8 +170,8 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      *            the new role format
      */
     public void setRoleFormat(final String value) {
-<span class="nc" id="L173">        this.setRoleFormatEnum(PrincipalFormat.valueOf(value.toUpperCase(Locale.ENGLISH)));</span>
-<span class="nc" id="L174">    }</span>
+<span class="fc" id="L173">        this.setRoleFormatEnum(PrincipalFormat.valueOf(value.toUpperCase(Locale.ENGLISH)));</span>
+<span class="fc" id="L174">    }</span>
 
     /**
      * Checks if is allow guest login.
@@ -179,7 +179,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      * @return true, if is allow guest login
      */
     public boolean isAllowGuestLogin() {
-<span class="nc" id="L182">        return this.allowGuestLogin;</span>
+<span class="fc" id="L182">        return this.allowGuestLogin;</span>
     }
 
     /**
@@ -189,8 +189,8 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      *            the new allow guest login
      */
     public void setAllowGuestLogin(final boolean value) {
-<span class="nc" id="L192">        this.allowGuestLogin = value;</span>
-<span class="nc" id="L193">    }</span>
+<span class="fc" id="L192">        this.allowGuestLogin = value;</span>
+<span class="fc" id="L193">    }</span>
 
     /**
      * Gets the auth provider.
@@ -198,7 +198,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      * @return the auth provider
      */
     public IWindowsAuthProvider getAuthProvider() {
-<span class="nc" id="L201">        return this.authProvider;</span>
+<span class="fc" id="L201">        return this.authProvider;</span>
     }
 
     /**
@@ -208,8 +208,8 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      *            the new auth provider
      */
     public void setAuthProvider(final IWindowsAuthProvider value) {
-<span class="nc" id="L211">        this.authProvider = value;</span>
-<span class="nc" id="L212">    }</span>
+<span class="fc" id="L211">        this.authProvider = value;</span>
+<span class="fc" id="L212">    }</span>
 
     /**
      * Gets the granted authority factory.
@@ -227,8 +227,8 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      *            the new granted authority factory
      */
     public void setGrantedAuthorityFactory(final GrantedAuthorityFactory value) {
-<span class="nc" id="L230">        this.grantedAuthorityFactory = value;</span>
-<span class="nc" id="L231">    }</span>
+<span class="fc" id="L230">        this.grantedAuthorityFactory = value;</span>
+<span class="fc" id="L231">    }</span>
 
     /**
      * Gets the default granted authority.
@@ -246,7 +246,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      *            the new default granted authority
      */
     public void setDefaultGrantedAuthority(final GrantedAuthority value) {
-<span class="nc" id="L249">        this.defaultGrantedAuthority = value;</span>
-<span class="nc" id="L250">    }</span>
+<span class="fc" id="L249">        this.defaultGrantedAuthority = value;</span>
+<span class="fc" id="L250">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
