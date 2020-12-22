@@ -102,20 +102,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.util.NtlmServletRequest.java">waffle/util/NtlmServletRequest.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.servlet.spi.SecurityFilterProvider.java">waffle/servlet/spi/SecurityFilterProvider.java</a>
                 </td>
                 <td>
@@ -123,6 +109,20 @@ under the License.
                 </td>
                 <td>
                   2
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.util.NtlmServletRequest.java">waffle/util/NtlmServletRequest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
                 </td>
                 <td>
                   0
@@ -158,20 +158,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.IWindowsSecurityContext.java">waffle/windows/auth/IWindowsSecurityContext.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.servlet.CorsAwareNegotiateSecurityFilter.java">waffle/servlet/CorsAwareNegotiateSecurityFilter.java</a>
                 </td>
                 <td>
@@ -179,6 +165,20 @@ under the License.
                 </td>
                 <td>
                   4
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.IWindowsSecurityContext.java">waffle/windows/auth/IWindowsSecurityContext.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
                 </td>
                 <td>
                   0
@@ -270,7 +270,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.PrincipalFormat.java">waffle/windows/auth/PrincipalFormat.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.util.cache.package-info.java">waffle/util/cache/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -284,7 +284,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.util.cache.package-info.java">waffle/util/cache/package-info.java</a>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.PrincipalFormat.java">waffle/windows/auth/PrincipalFormat.java</a>
                 </td>
                 <td>
                   0
@@ -396,20 +396,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsCredentialsHandleImpl.java">waffle/windows/auth/impl/WindowsCredentialsHandleImpl.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.servlet.spi.package-info.java">waffle/servlet/spi/package-info.java</a>
                 </td>
                 <td>
@@ -417,6 +403,20 @@ under the License.
                 </td>
                 <td>
                   0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsCredentialsHandleImpl.java">waffle/windows/auth/impl/WindowsCredentialsHandleImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
                 </td>
                 <td>
                   0
@@ -508,20 +508,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.IWindowsImpersonationContext.java">waffle/windows/auth/IWindowsImpersonationContext.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsIdentityImpl.java">waffle/windows/auth/impl/WindowsIdentityImpl.java</a>
                 </td>
                 <td>
@@ -529,6 +515,20 @@ under the License.
                 </td>
                 <td>
                   2
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.IWindowsImpersonationContext.java">waffle/windows/auth/IWindowsImpersonationContext.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
                 </td>
                 <td>
                   0
@@ -578,20 +578,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.util.cache.CaffeineCacheSupplier.java">waffle/util/cache/CaffeineCacheSupplier.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.servlet.spi.NegotiateSecurityFilterProvider.java">waffle/servlet/spi/NegotiateSecurityFilterProvider.java</a>
                 </td>
                 <td>
@@ -599,6 +585,20 @@ under the License.
                 </td>
                 <td>
                   3
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.util.cache.CaffeineCacheSupplier.java">waffle/util/cache/CaffeineCacheSupplier.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
                 </td>
                 <td>
                   0
@@ -648,20 +648,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.util.AuthorizationHeader.java">waffle/util/AuthorizationHeader.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  5
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.servlet.NegotiateRequestWrapper.java">waffle/servlet/NegotiateRequestWrapper.java</a>
                 </td>
                 <td>
@@ -669,6 +655,20 @@ under the License.
                 </td>
                 <td>
                   1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.util.AuthorizationHeader.java">waffle/util/AuthorizationHeader.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  5
                 </td>
                 <td>
                   0
@@ -718,20 +718,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsComputerImpl.java">waffle/windows/auth/impl/WindowsComputerImpl.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  2
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.servlet.NegotiateSecurityFilter.java">waffle/servlet/NegotiateSecurityFilter.java</a>
                 </td>
                 <td>
@@ -739,6 +725,20 @@ under the License.
                 </td>
                 <td>
                   4
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.windows.auth.impl.WindowsComputerImpl.java">waffle/windows/auth/impl/WindowsComputerImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
                 </td>
                 <td>
                   0
