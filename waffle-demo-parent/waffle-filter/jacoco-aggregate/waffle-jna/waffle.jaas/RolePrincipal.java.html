@@ -45,9 +45,9 @@ public class RolePrincipal implements Principal, Serializable {
      * @param newFqn
      *            Fully qualified name.
      */
-<span class="fc" id="L48">    public RolePrincipal(final String newFqn) {</span>
-<span class="fc" id="L49">        this.fqn = newFqn;</span>
-<span class="fc" id="L50">    }</span>
+<span class="nc" id="L48">    public RolePrincipal(final String newFqn) {</span>
+<span class="nc" id="L49">        this.fqn = newFqn;</span>
+<span class="nc" id="L50">    }</span>
 
     /**
      * Role name (Windows Group).
@@ -56,7 +56,7 @@ public class RolePrincipal implements Principal, Serializable {
      */
     @Override
     public String getName() {
-<span class="fc" id="L59">        return this.fqn;</span>
+<span class="nc" id="L59">        return this.fqn;</span>
     }
 
     /**
@@ -69,15 +69,15 @@ public class RolePrincipal implements Principal, Serializable {
     @Override
     public boolean equals(final Object o) {
 
-<span class="fc bfc" id="L72" title="All 2 branches covered.">        if (this == o) {</span>
-<span class="fc" id="L73">            return true;</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">        if (this == o) {</span>
+<span class="nc" id="L73">            return true;</span>
         }
 
-<span class="fc bfc" id="L76" title="All 2 branches covered.">        if (o instanceof RolePrincipal) {</span>
-<span class="fc" id="L77">            return this.getName().equals(((RolePrincipal) o).getName());</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">        if (o instanceof RolePrincipal) {</span>
+<span class="nc" id="L77">            return this.getName().equals(((RolePrincipal) o).getName());</span>
         }
 
-<span class="fc" id="L80">        return false;</span>
+<span class="nc" id="L80">        return false;</span>
     }
 
     /**
@@ -87,7 +87,7 @@ public class RolePrincipal implements Principal, Serializable {
      */
     @Override
     public int hashCode() {
-<span class="fc" id="L90">        return this.getName().hashCode();</span>
+<span class="nc" id="L90">        return this.getName().hashCode();</span>
     }
 
 }

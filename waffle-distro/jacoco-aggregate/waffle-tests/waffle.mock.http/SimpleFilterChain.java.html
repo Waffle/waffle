@@ -35,7 +35,7 @@ import javax.servlet.ServletResponse;
  *
  * @author dblock[at]dblock[dot]org
  */
-<span class="fc" id="L38">public class SimpleFilterChain implements FilterChain {</span>
+<span class="nc" id="L38">public class SimpleFilterChain implements FilterChain {</span>
 
     /** The request. */
     private ServletRequest request;
@@ -49,7 +49,7 @@ import javax.servlet.ServletResponse;
      * @return the request
      */
     public ServletRequest getRequest() {
-<span class="fc" id="L52">        return this.request;</span>
+<span class="nc" id="L52">        return this.request;</span>
     }
 
     /**
@@ -58,13 +58,13 @@ import javax.servlet.ServletResponse;
      * @return the response
      */
     public ServletResponse getResponse() {
-<span class="fc" id="L61">        return this.response;</span>
+<span class="nc" id="L61">        return this.response;</span>
     }
 
     @Override
     public void doFilter(final ServletRequest sreq, final ServletResponse srep) throws IOException, ServletException {
-<span class="fc" id="L66">        this.request = sreq;</span>
-<span class="fc" id="L67">        this.response = srep;</span>
-<span class="fc" id="L68">    }</span>
+<span class="nc" id="L66">        this.request = sreq;</span>
+<span class="nc" id="L67">        this.response = srep;</span>
+<span class="nc" id="L68">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

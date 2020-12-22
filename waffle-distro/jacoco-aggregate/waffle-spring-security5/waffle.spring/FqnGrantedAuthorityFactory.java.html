@@ -53,25 +53,25 @@ public class FqnGrantedAuthorityFactory implements GrantedAuthorityFactory {
      * @param newConvertToUpperCase
      *            the new convert to upper case
      */
-<span class="fc" id="L56">    public FqnGrantedAuthorityFactory(final String newPrefix, final boolean newConvertToUpperCase) {</span>
-<span class="fc" id="L57">        this.prefix = newPrefix;</span>
-<span class="fc" id="L58">        this.convertToUpperCase = newConvertToUpperCase;</span>
-<span class="fc" id="L59">    }</span>
+<span class="nc" id="L56">    public FqnGrantedAuthorityFactory(final String newPrefix, final boolean newConvertToUpperCase) {</span>
+<span class="nc" id="L57">        this.prefix = newPrefix;</span>
+<span class="nc" id="L58">        this.convertToUpperCase = newConvertToUpperCase;</span>
+<span class="nc" id="L59">    }</span>
 
     @Override
     public GrantedAuthority createGrantedAuthority(final WindowsAccount windowsAccount) {
 
-<span class="fc" id="L64">        String grantedAuthorityString = windowsAccount.getFqn();</span>
+<span class="nc" id="L64">        String grantedAuthorityString = windowsAccount.getFqn();</span>
 
-<span class="fc bfc" id="L66" title="All 2 branches covered.">        if (this.prefix != null) {</span>
-<span class="fc" id="L67">            grantedAuthorityString = this.prefix + grantedAuthorityString;</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">        if (this.prefix != null) {</span>
+<span class="nc" id="L67">            grantedAuthorityString = this.prefix + grantedAuthorityString;</span>
         }
 
-<span class="fc bfc" id="L70" title="All 2 branches covered.">        if (this.convertToUpperCase) {</span>
-<span class="fc" id="L71">            grantedAuthorityString = grantedAuthorityString.toUpperCase();</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">        if (this.convertToUpperCase) {</span>
+<span class="nc" id="L71">            grantedAuthorityString = grantedAuthorityString.toUpperCase();</span>
         }
 
-<span class="fc" id="L74">        return new SimpleGrantedAuthority(grantedAuthorityString);</span>
+<span class="nc" id="L74">        return new SimpleGrantedAuthority(grantedAuthorityString);</span>
     }
 
 }

@@ -47,8 +47,8 @@ public final class NtlmServletRequest {
      * @return String.
      */
     public static String getConnectionId(final HttpServletRequest request) {
-<span class="fc" id="L50">        final String remoteHost = NtlmServletRequest.getRemoteHost(request);</span>
-<span class="pc bpc" id="L51" title="1 of 2 branches missed.">        return String.join(&quot;:&quot;, remoteHost == null ? &quot;&quot; : remoteHost, String.valueOf(request.getRemotePort()));</span>
+<span class="nc" id="L50">        final String remoteHost = NtlmServletRequest.getRemoteHost(request);</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">        return String.join(&quot;:&quot;, remoteHost == null ? &quot;&quot; : remoteHost, String.valueOf(request.getRemotePort()));</span>
     }
 
     /**
@@ -59,7 +59,7 @@ public final class NtlmServletRequest {
      * @return the remote host
      */
     private static String getRemoteHost(final HttpServletRequest request) {
-<span class="pc bpc" id="L62" title="1 of 2 branches missed.">        return request.getRemoteHost() == null ? request.getRemoteAddr() : request.getRemoteHost();</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">        return request.getRemoteHost() == null ? request.getRemoteAddr() : request.getRemoteHost();</span>
     }
 
 }

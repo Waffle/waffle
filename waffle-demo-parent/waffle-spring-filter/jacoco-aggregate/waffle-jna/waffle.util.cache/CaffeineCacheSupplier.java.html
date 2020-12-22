@@ -28,11 +28,11 @@ package waffle.util.cache;
  *
  * @author Simon Legner
  */
-<span class="fc" id="L31">public class CaffeineCacheSupplier implements CacheSupplier {</span>
+<span class="nc" id="L31">public class CaffeineCacheSupplier implements CacheSupplier {</span>
 
     @Override
     public &lt;K, V&gt; Cache&lt;K, V&gt; newCache(final long timeout) {
-<span class="fc" id="L35">        return new CaffeineCache&lt;&gt;(timeout);</span>
+<span class="nc" id="L35">        return new CaffeineCache&lt;&gt;(timeout);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

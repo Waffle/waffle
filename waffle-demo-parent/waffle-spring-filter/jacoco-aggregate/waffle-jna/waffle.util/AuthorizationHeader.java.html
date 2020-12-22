@@ -39,7 +39,7 @@ import org.slf4j.LoggerFactory;
 public class AuthorizationHeader {
 
     /** The logger. */
-<span class="fc" id="L42">    private static final Logger LOGGER = LoggerFactory.getLogger(AuthorizationHeader.class);</span>
+<span class="nc" id="L42">    private static final Logger LOGGER = LoggerFactory.getLogger(AuthorizationHeader.class);</span>
 
     /** The request. */
     private final HttpServletRequest request;
@@ -50,9 +50,9 @@ public class AuthorizationHeader {
      * @param httpServletRequest
      *            the http servlet request
      */
-<span class="fc" id="L53">    public AuthorizationHeader(final HttpServletRequest httpServletRequest) {</span>
-<span class="fc" id="L54">        this.request = httpServletRequest;</span>
-<span class="fc" id="L55">    }</span>
+<span class="nc" id="L53">    public AuthorizationHeader(final HttpServletRequest httpServletRequest) {</span>
+<span class="nc" id="L54">        this.request = httpServletRequest;</span>
+<span class="nc" id="L55">    }</span>
 
     /**
      * Gets the header.
@@ -60,7 +60,7 @@ public class AuthorizationHeader {
      * @return the header
      */
     public String getHeader() {
-<span class="fc" id="L63">        return this.request.getHeader(&quot;Authorization&quot;);</span>
+<span class="nc" id="L63">        return this.request.getHeader(&quot;Authorization&quot;);</span>
     }
 
     /**
@@ -69,7 +69,7 @@ public class AuthorizationHeader {
      * @return true, if is null
      */
     public boolean isNull() {
-<span class="pc bpc" id="L72" title="1 of 4 branches missed.">        return this.getHeader() == null || this.getHeader().length() == 0;</span>
+<span class="nc bnc" id="L72" title="All 4 branches missed.">        return this.getHeader() == null || this.getHeader().length() == 0;</span>
     }
 
     /**
@@ -80,15 +80,15 @@ public class AuthorizationHeader {
      * @return AuthenticationScheme as SecurityPackage e.g. Negotiate, NTLM, Bearer.
      */
     public String getSecurityPackage() {
-<span class="fc" id="L83">        final String header = this.getHeader();</span>
+<span class="nc" id="L83">        final String header = this.getHeader();</span>
 
-<span class="pc bpc" id="L85" title="1 of 2 branches missed.">        if (header == null) {</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">        if (header == null) {</span>
 <span class="nc" id="L86">            throw new RuntimeException(&quot;Missing Authorization: header&quot;);</span>
         }
 
-<span class="fc" id="L89">        final int space = header.indexOf(' ');</span>
-<span class="pc bpc" id="L90" title="1 of 2 branches missed.">        if (space &gt; 0) {</span>
-<span class="fc" id="L91">            return header.substring(0, space);</span>
+<span class="nc" id="L89">        final int space = header.indexOf(' ');</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">        if (space &gt; 0) {</span>
+<span class="nc" id="L91">            return header.substring(0, space);</span>
         }
 
 <span class="nc" id="L94">        throw new RuntimeException(&quot;Invalid Authorization header: &quot; + header);</span>
@@ -105,7 +105,7 @@ public class AuthorizationHeader {
      * @return the token
      */
     public String getToken() {
-<span class="fc" id="L108">        return this.getHeader().substring(this.getSecurityPackage().length() + 1);</span>
+<span class="nc" id="L108">        return this.getHeader().substring(this.getSecurityPackage().length() + 1);</span>
     }
 
     /**
@@ -115,7 +115,7 @@ public class AuthorizationHeader {
      */
     public byte[] getTokenBytes() {
         try {
-<span class="fc" id="L118">            return Base64.getDecoder().decode(this.getToken());</span>
+<span class="nc" id="L118">            return Base64.getDecoder().decode(this.getToken());</span>
 <span class="nc" id="L119">        } catch (final IllegalArgumentException e) {</span>
 <span class="nc" id="L120">            AuthorizationHeader.LOGGER.debug(&quot;&quot;, e);</span>
 <span class="nc" id="L121">            throw new RuntimeException(&quot;Invalid authorization header.&quot;);</span>
@@ -164,9 +164,9 @@ public class AuthorizationHeader {
      * @return True if request is an NTLM POST, PUT, or DELETE with an Authorization header and no data.
      */
     public boolean isNtlmType1PostAuthorizationHeader() {
-<span class="pc bpc" id="L167" title="2 of 4 branches missed.">        if (!&quot;POST&quot;.equals(this.request.getMethod()) &amp;&amp; !&quot;PUT&quot;.equals(this.request.getMethod())</span>
-<span class="pc bpc" id="L168" title="1 of 2 branches missed.">                &amp;&amp; !&quot;DELETE&quot;.equals(this.request.getMethod())) {</span>
-<span class="fc" id="L169">            return false;</span>
+<span class="nc bnc" id="L167" title="All 4 branches missed.">        if (!&quot;POST&quot;.equals(this.request.getMethod()) &amp;&amp; !&quot;PUT&quot;.equals(this.request.getMethod())</span>
+<span class="nc bnc" id="L168" title="All 2 branches missed.">                &amp;&amp; !&quot;DELETE&quot;.equals(this.request.getMethod())) {</span>
+<span class="nc" id="L169">            return false;</span>
         }
 
 <span class="nc bnc" id="L172" title="All 2 branches missed.">        if (this.request.getContentLength() != 0) {</span>
@@ -177,11 +177,11 @@ public class AuthorizationHeader {
     }
 
     public boolean isBearerAuthorizationHeader() {
-<span class="pc bpc" id="L180" title="1 of 2 branches missed.">        if (this.isNull()) {</span>
+<span class="nc bnc" id="L180" title="All 2 branches missed.">        if (this.isNull()) {</span>
 <span class="nc" id="L181">            return false;</span>
         }
 
-<span class="fc" id="L184">        return this.getSecurityPackage().toUpperCase(Locale.ENGLISH).equalsIgnoreCase(&quot;BEARER&quot;);</span>
+<span class="nc" id="L184">        return this.getSecurityPackage().toUpperCase(Locale.ENGLISH).equalsIgnoreCase(&quot;BEARER&quot;);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

@@ -43,28 +43,28 @@ public class CaffeineCache&lt;K, V&gt; implements Cache&lt;K, V&gt; {
 
     private final com.github.benmanes.caffeine.cache.Cache&lt;K, V&gt; cache;
 
-<span class="fc" id="L46">    public CaffeineCache(@NonNegative final long timeout) {</span>
-<span class="fc" id="L47">        cache = Caffeine.newBuilder().expireAfterWrite(Duration.ofSeconds(timeout)).build();</span>
-<span class="fc" id="L48">    }</span>
+<span class="nc" id="L46">    public CaffeineCache(@NonNegative final long timeout) {</span>
+<span class="nc" id="L47">        cache = Caffeine.newBuilder().expireAfterWrite(Duration.ofSeconds(timeout)).build();</span>
+<span class="nc" id="L48">    }</span>
 
     @Override
     public V get(K key) {
-<span class="fc" id="L52">        return cache.asMap().get(key);</span>
+<span class="nc" id="L52">        return cache.asMap().get(key);</span>
     }
 
     @Override
     public void put(K key, V value) {
-<span class="fc" id="L57">        cache.put(key, value);</span>
-<span class="fc" id="L58">    }</span>
+<span class="nc" id="L57">        cache.put(key, value);</span>
+<span class="nc" id="L58">    }</span>
 
     @Override
     public void remove(K key) {
-<span class="fc" id="L62">        cache.asMap().remove(key);</span>
-<span class="fc" id="L63">    }</span>
+<span class="nc" id="L62">        cache.asMap().remove(key);</span>
+<span class="nc" id="L63">    }</span>
 
     @Override
     public int size() {
-<span class="fc" id="L67">        return cache.asMap().size();</span>
+<span class="nc" id="L67">        return cache.asMap().size();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

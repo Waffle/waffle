@@ -104,16 +104,16 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
      */
     public NegotiateToken(final byte[] newIn, final byte[] newOut, final String newConnectionId,
             final String newSecurityPackage, final boolean newNtlmPost, final boolean newRememberMe,
-<span class="fc" id="L107">            final String newHost) {</span>
-<span class="fc" id="L108">        this.in = newIn;</span>
-<span class="fc" id="L109">        this.out = newOut;</span>
-<span class="fc" id="L110">        this.connectionId = newConnectionId;</span>
-<span class="fc" id="L111">        this.securityPackage = newSecurityPackage;</span>
-<span class="fc" id="L112">        this.ntlmPost = newNtlmPost;</span>
+<span class="nc" id="L107">            final String newHost) {</span>
+<span class="nc" id="L108">        this.in = newIn;</span>
+<span class="nc" id="L109">        this.out = newOut;</span>
+<span class="nc" id="L110">        this.connectionId = newConnectionId;</span>
+<span class="nc" id="L111">        this.securityPackage = newSecurityPackage;</span>
+<span class="nc" id="L112">        this.ntlmPost = newNtlmPost;</span>
 
-<span class="fc" id="L114">        this.rememberMe = newRememberMe;</span>
-<span class="fc" id="L115">        this.host = newHost;</span>
-<span class="fc" id="L116">    }</span>
+<span class="nc" id="L114">        this.rememberMe = newRememberMe;</span>
+<span class="nc" id="L115">        this.host = newHost;</span>
+<span class="nc" id="L116">    }</span>
 
     /**
      * Gets the connection id.

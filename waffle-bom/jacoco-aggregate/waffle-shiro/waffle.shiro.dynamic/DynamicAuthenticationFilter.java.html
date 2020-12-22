@@ -99,10 +99,10 @@ import waffle.shiro.negotiate.NegotiateAuthenticationFilter;
  *
  * @author Dan Rollo Date: 2/21/13 Time: 9:08 PM
  */
-<span class="fc" id="L102">public class DynamicAuthenticationFilter extends FormAuthenticationFilter {</span>
+<span class="nc" id="L102">public class DynamicAuthenticationFilter extends FormAuthenticationFilter {</span>
 
     /** The Constant LOGGER. */
-<span class="fc" id="L105">    private static final Logger LOGGER = LoggerFactory.getLogger(DynamicAuthenticationFilter.class);</span>
+<span class="nc" id="L105">    private static final Logger LOGGER = LoggerFactory.getLogger(DynamicAuthenticationFilter.class);</span>
 
     /** The Constant PARAM_NAME_AUTHTYPE. */
     public static final String PARAM_NAME_AUTHTYPE = &quot;authType&quot;;
@@ -124,9 +124,9 @@ import waffle.shiro.negotiate.NegotiateAuthenticationFilter;
          * @param newParent
          *            the new parent
          */
-<span class="fc" id="L127">        WrapNegotiateAuthenticationFilter(final DynamicAuthenticationFilter newParent) {</span>
-<span class="fc" id="L128">            this.parent = newParent;</span>
-<span class="fc" id="L129">        }</span>
+<span class="nc" id="L127">        WrapNegotiateAuthenticationFilter(final DynamicAuthenticationFilter newParent) {</span>
+<span class="nc" id="L128">            this.parent = newParent;</span>
+<span class="nc" id="L129">        }</span>
 
         @Override
         public boolean onAccessDenied(final ServletRequest request, final ServletResponse response) throws Exception {
@@ -141,7 +141,7 @@ import waffle.shiro.negotiate.NegotiateAuthenticationFilter;
     }
 
     /** The filter negotiate. */
-<span class="fc" id="L144">    private final WrapNegotiateAuthenticationFilter filterNegotiate = new WrapNegotiateAuthenticationFilter(this);</span>
+<span class="nc" id="L144">    private final WrapNegotiateAuthenticationFilter filterNegotiate = new WrapNegotiateAuthenticationFilter(this);</span>
 
     /**
      * Wrapper to make protected methods in different package callable from here.
@@ -157,9 +157,9 @@ import waffle.shiro.negotiate.NegotiateAuthenticationFilter;
          * @param newParent
          *            the new parent
          */
-<span class="fc" id="L160">        WrapFormAuthenticationFilter(final DynamicAuthenticationFilter newParent) {</span>
-<span class="fc" id="L161">            this.parent = newParent;</span>
-<span class="fc" id="L162">        }</span>
+<span class="nc" id="L160">        WrapFormAuthenticationFilter(final DynamicAuthenticationFilter newParent) {</span>
+<span class="nc" id="L161">            this.parent = newParent;</span>
+<span class="nc" id="L162">        }</span>
 
         @Override
         public boolean onAccessDenied(final ServletRequest request, final ServletResponse response) throws Exception {
@@ -174,7 +174,7 @@ import waffle.shiro.negotiate.NegotiateAuthenticationFilter;
     }
 
     /** The filter form authc. */
-<span class="fc" id="L177">    private final WrapFormAuthenticationFilter filterFormAuthc = new WrapFormAuthenticationFilter(this);</span>
+<span class="nc" id="L177">    private final WrapFormAuthenticationFilter filterFormAuthc = new WrapFormAuthenticationFilter(this);</span>
 
     /**
      * Call
@@ -201,8 +201,8 @@ import waffle.shiro.negotiate.NegotiateAuthenticationFilter;
      * @return true, if is auth type negotiate
      */
     boolean isAuthTypeNegotiate(final ServletRequest request) {
-<span class="fc" id="L204">        final String authType = request.getParameter(DynamicAuthenticationFilter.PARAM_NAME_AUTHTYPE);</span>
-<span class="fc bfc" id="L205" title="All 4 branches covered.">        return authType != null &amp;&amp; DynamicAuthenticationFilter.PARAM_VAL_AUTHTYPE_NEGOTIATE.equalsIgnoreCase(authType);</span>
+<span class="nc" id="L204">        final String authType = request.getParameter(DynamicAuthenticationFilter.PARAM_NAME_AUTHTYPE);</span>
+<span class="nc bnc" id="L205" title="All 4 branches missed.">        return authType != null &amp;&amp; DynamicAuthenticationFilter.PARAM_VAL_AUTHTYPE_NEGOTIATE.equalsIgnoreCase(authType);</span>
     }
 
 }
