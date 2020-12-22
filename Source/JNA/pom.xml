@@ -114,8 +114,8 @@
         <url>https://github.com/Waffle/waffle/issues</url>
     </issueManagement>
     <ciManagement>
-        <system>travis</system>
-        <url>https://travis-ci.org/Waffle/waffle/</url>
+        <system>github</system>
+        <url>https://github.com/Waffle/waffle/actions</url>
     </ciManagement>
     <distributionManagement>
         <site>
