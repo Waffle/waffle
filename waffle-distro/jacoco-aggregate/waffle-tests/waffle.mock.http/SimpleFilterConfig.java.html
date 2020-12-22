@@ -38,13 +38,13 @@ import javax.servlet.ServletContext;
  *
  * @author dblock[at]dblock[dot]org
  */
-<span class="nc" id="L41">public class SimpleFilterConfig implements FilterConfig {</span>
+<span class="fc" id="L41">public class SimpleFilterConfig implements FilterConfig {</span>
 
     /** The filter name. */
-<span class="nc" id="L44">    private String filterName = &quot;Simple Filter&quot;;</span>
+<span class="fc" id="L44">    private String filterName = &quot;Simple Filter&quot;;</span>
 
     /** The parameters. */
-<span class="nc" id="L47">    private final Map&lt;String, String&gt; parameters = new TreeMap&lt;&gt;();</span>
+<span class="fc" id="L47">    private final Map&lt;String, String&gt; parameters = new TreeMap&lt;&gt;();</span>
 
     @Override
     public String getFilterName() {
@@ -63,14 +63,14 @@ import javax.servlet.ServletContext;
 
     @Override
     public String getInitParameter(final String s) {
-<span class="nc" id="L66">        return this.parameters.get(s);</span>
+<span class="fc" id="L66">        return this.parameters.get(s);</span>
     }
 
     @Override
     public Enumeration&lt;String&gt; getInitParameterNames() {
-<span class="nc" id="L71">        final List&lt;String&gt; keys = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L72">        keys.addAll(this.parameters.keySet());</span>
-<span class="nc" id="L73">        return Collections.enumeration(keys);</span>
+<span class="fc" id="L71">        final List&lt;String&gt; keys = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L72">        keys.addAll(this.parameters.keySet());</span>
+<span class="fc" id="L73">        return Collections.enumeration(keys);</span>
     }
 
     @Override
@@ -87,7 +87,7 @@ import javax.servlet.ServletContext;
      *            the parameter value
      */
     public void setParameter(final String parameterName, final String parameterValue) {
-<span class="nc" id="L90">        this.parameters.put(parameterName, parameterValue);</span>
-<span class="nc" id="L91">    }</span>
+<span class="fc" id="L90">        this.parameters.put(parameterName, parameterValue);</span>
+<span class="fc" id="L91">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

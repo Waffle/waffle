@@ -47,9 +47,9 @@ public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
      *            the new principal
      */
     public NegotiateRequestWrapper(final HttpServletRequest newRequest, final WindowsPrincipal newPrincipal) {
-<span class="nc" id="L50">        super(newRequest);</span>
-<span class="nc" id="L51">        this.principal = newPrincipal;</span>
-<span class="nc" id="L52">    }</span>
+<span class="fc" id="L50">        super(newRequest);</span>
+<span class="fc" id="L51">        this.principal = newPrincipal;</span>
+<span class="fc" id="L52">    }</span>
 
     /**
      * User principal.
@@ -58,7 +58,7 @@ public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
      */
     @Override
     public Principal getUserPrincipal() {
-<span class="nc" id="L61">        return this.principal;</span>
+<span class="fc" id="L61">        return this.principal;</span>
     }
 
     /**
@@ -68,7 +68,7 @@ public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
      */
     @Override
     public String getAuthType() {
-<span class="nc" id="L71">        return &quot;NEGOTIATE&quot;;</span>
+<span class="fc" id="L71">        return &quot;NEGOTIATE&quot;;</span>
     }
 
     /**
@@ -78,7 +78,7 @@ public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
      */
     @Override
     public String getRemoteUser() {
-<span class="nc" id="L81">        return this.principal.getName();</span>
+<span class="fc" id="L81">        return this.principal.getName();</span>
     }
 
     /**
@@ -90,7 +90,7 @@ public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
      */
     @Override
     public boolean isUserInRole(final String role) {
-<span class="nc" id="L93">        return this.principal.hasRole(role);</span>
+<span class="fc" id="L93">        return this.principal.hasRole(role);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

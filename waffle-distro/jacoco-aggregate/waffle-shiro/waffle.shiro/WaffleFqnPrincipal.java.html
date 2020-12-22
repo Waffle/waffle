@@ -43,7 +43,7 @@ public class WaffleFqnPrincipal implements Serializable {
     private final String fqn;
 
     /** The group fqns. */
-<span class="nc" id="L46">    private final Set&lt;String&gt; groupFqns = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L46">    private final Set&lt;String&gt; groupFqns = new HashSet&lt;&gt;();</span>
 
     /**
      * Instantiates a new waffle fqn principal.
@@ -51,12 +51,12 @@ public class WaffleFqnPrincipal implements Serializable {
      * @param identity
      *            the identity
      */
-<span class="nc" id="L54">    WaffleFqnPrincipal(final IWindowsIdentity identity) {</span>
-<span class="nc" id="L55">        this.fqn = identity.getFqn();</span>
-<span class="nc bnc" id="L56" title="All 2 branches missed.">        for (final IWindowsAccount group : identity.getGroups()) {</span>
-<span class="nc" id="L57">            this.groupFqns.add(group.getFqn());</span>
+<span class="fc" id="L54">    WaffleFqnPrincipal(final IWindowsIdentity identity) {</span>
+<span class="fc" id="L55">        this.fqn = identity.getFqn();</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">        for (final IWindowsAccount group : identity.getGroups()) {</span>
+<span class="fc" id="L57">            this.groupFqns.add(group.getFqn());</span>
         }
-<span class="nc" id="L59">    }</span>
+<span class="fc" id="L59">    }</span>
 
     /**
      * Gets the fqn.
@@ -64,7 +64,7 @@ public class WaffleFqnPrincipal implements Serializable {
      * @return the fully qualified name of the user
      */
     public String getFqn() {
-<span class="nc" id="L67">        return this.fqn;</span>
+<span class="fc" id="L67">        return this.fqn;</span>
     }
 
     /**
@@ -73,7 +73,7 @@ public class WaffleFqnPrincipal implements Serializable {
      * @return the fully qualified names of all groups that the use belongs to
      */
     public Set&lt;String&gt; getGroupFqns() {
-<span class="nc" id="L76">        return Collections.unmodifiableSet(this.groupFqns);</span>
+<span class="fc" id="L76">        return Collections.unmodifiableSet(this.groupFqns);</span>
     }
 
     @Override
@@ -86,7 +86,7 @@ public class WaffleFqnPrincipal implements Serializable {
 
     @Override
     public int hashCode() {
-<span class="nc" id="L89">        return this.fqn.hashCode();</span>
+<span class="fc" id="L89">        return this.fqn.hashCode();</span>
     }
 
     @Override
