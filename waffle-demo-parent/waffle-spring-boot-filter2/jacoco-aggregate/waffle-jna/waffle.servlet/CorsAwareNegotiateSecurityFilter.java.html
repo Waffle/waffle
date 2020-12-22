@@ -45,14 +45,14 @@ import waffle.util.CorsPreFlightCheck;
 public class CorsAwareNegotiateSecurityFilter extends NegotiateSecurityFilter implements Filter {
 
     /** The Constant LOGGER. */
-<span class="nc" id="L48">    private static final Logger LOGGER = LoggerFactory.getLogger(CorsAwareNegotiateSecurityFilter.class);</span>
+<span class="fc" id="L48">    private static final Logger LOGGER = LoggerFactory.getLogger(CorsAwareNegotiateSecurityFilter.class);</span>
 
     /**
      * Instantiates a new negotiate security filter.
      */
-<span class="nc" id="L53">    public CorsAwareNegotiateSecurityFilter() {</span>
-<span class="nc" id="L54">        CorsAwareNegotiateSecurityFilter.LOGGER.info(&quot;[waffle.servlet.CorsAwareNegotiateSecurityFilter] loaded&quot;);</span>
-<span class="nc" id="L55">    }</span>
+<span class="fc" id="L53">    public CorsAwareNegotiateSecurityFilter() {</span>
+<span class="fc" id="L54">        CorsAwareNegotiateSecurityFilter.LOGGER.info(&quot;[waffle.servlet.CorsAwareNegotiateSecurityFilter] loaded&quot;);</span>
+<span class="fc" id="L55">    }</span>
 
     @Override
     public void init(final FilterConfig filterConfig) throws ServletException {
@@ -65,15 +65,15 @@ public class CorsAwareNegotiateSecurityFilter extends NegotiateSecurityFilter im
     public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
             throws IOException, ServletException {
 
-<span class="nc" id="L68">        CorsAwareNegotiateSecurityFilter.LOGGER.info(&quot;[waffle.servlet.CorsAwareNegotiateSecurityFilter] Filtering&quot;);</span>
+<span class="fc" id="L68">        CorsAwareNegotiateSecurityFilter.LOGGER.info(&quot;[waffle.servlet.CorsAwareNegotiateSecurityFilter] Filtering&quot;);</span>
 
-<span class="nc" id="L70">        final HttpServletRequest httpServletRequest = (HttpServletRequest) request;</span>
-<span class="nc" id="L71">        final AuthorizationHeader authorizationHeader = new AuthorizationHeader(httpServletRequest);</span>
+<span class="fc" id="L70">        final HttpServletRequest httpServletRequest = (HttpServletRequest) request;</span>
+<span class="fc" id="L71">        final AuthorizationHeader authorizationHeader = new AuthorizationHeader(httpServletRequest);</span>
 
-<span class="nc bnc" id="L73" title="All 2 branches missed.">        if (CorsPreFlightCheck.isPreflight(httpServletRequest)) {</span>
-<span class="nc" id="L74">            CorsAwareNegotiateSecurityFilter.LOGGER.info(</span>
+<span class="pc bpc" id="L73" title="1 of 2 branches missed.">        if (CorsPreFlightCheck.isPreflight(httpServletRequest)) {</span>
+<span class="fc" id="L74">            CorsAwareNegotiateSecurityFilter.LOGGER.info(</span>
                     &quot;[waffle.servlet.CorsAwareNegotiateSecurityFilter] Request is CORS preflight; continue filter chain&quot;);
-<span class="nc" id="L76">            chain.doFilter(request, response);</span>
+<span class="fc" id="L76">            chain.doFilter(request, response);</span>
 <span class="nc bnc" id="L77" title="All 2 branches missed.">        } else if (authorizationHeader.isBearerAuthorizationHeader()) {</span>
 <span class="nc" id="L78">            CorsAwareNegotiateSecurityFilter.LOGGER</span>
 <span class="nc" id="L79">                    .info(&quot;[waffle.servlet.CorsAwareNegotiateSecurityFilter] Request is Bearer, continue filter chain&quot;);</span>
@@ -87,7 +87,7 @@ public class CorsAwareNegotiateSecurityFilter extends NegotiateSecurityFilter im
 <span class="nc" id="L87">            CorsAwareNegotiateSecurityFilter.LOGGER</span>
 <span class="nc" id="L88">                    .info(&quot;[waffle.servlet.CorsAwareNegotiateSecurityFilter] Authentication Completed&quot;);</span>
         }
-<span class="nc" id="L90">    }</span>
+<span class="fc" id="L90">    }</span>
 
     @Override
     public void destroy() {
