@@ -107,6 +107,17 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <dependency>
+        	<groupId>com.github.waffle</groupId>
+        	<artifactId>waffle-jna</artifactId>
+        	<version>${project.version}</version>
+        	<exclusions>
+        		<exclusion>
+        			<groupId>org.slf4j</groupId>
+        			<artifactId>jcl-over-slf4j</artifactId>
+        		</exclusion>
+        	</exclusions>
+        </dependency>
     </dependencies>
 
     <build>
