@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SimpleHttpRequest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-tests</a> &gt; <a href="index.source.html" class="el_package">waffle.mock.http</a> &gt; <span class="el_source">SimpleHttpRequest.java</span></div><h1>SimpleHttpRequest.java</h1><pre class="source lang-java linenums">/*
+ * MIT License
+ *
+ * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+package waffle.mock.http;
+
+import java.security.Principal;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpSession;
+
+import org.mockito.Mockito;
+
+/**
+ * The Class SimpleHttpRequest.
+ *
+ * @author dblock[at]dblock[dot]org
+ */
+public class SimpleHttpRequest extends HttpServletRequestWrapper {
+
+    /** The remote port s. */
+<span class="fc" id="L46">    private static int remotePortS = 0;</span>
+
+    /** The request uri. */
+    private String requestURI;
+
+    /** The query string. */
+    private String queryString;
+
+    /** The remote user. */
+    private String remoteUser;
+
+    /** The method. */
+<span class="fc" id="L58">    private String method = &quot;GET&quot;;</span>
+
+    /** The remote host. */
+    private String remoteHost;
+
+    /** The remote addr. */
+    private String remoteAddr;
+
+    /** The remote port. */
+<span class="fc" id="L67">    private int remotePort = -1;</span>
+
+    /** The headers. */
+<span class="fc" id="L70">    private final Map&lt;String, String&gt; headers = new HashMap&lt;&gt;();</span>
+
+    /** The parameters. */
+<span class="fc" id="L73">    private final Map&lt;String, String&gt; parameters = new HashMap&lt;&gt;();</span>
+
+    /** The content. */
+    private byte[] content;
+
+    /** The session. */
+<span class="fc" id="L79">    private HttpSession session = new SimpleHttpSession();</span>
+
+    /** The principal. */
+    private Principal principal;
+
+    /**
+     * Instantiates a new simple http request.
+     */
+    public SimpleHttpRequest() {
+<span class="fc" id="L88">        super(Mockito.mock(HttpServletRequest.class));</span>
+<span class="fc" id="L89">        this.remotePort = SimpleHttpRequest.nextRemotePort();</span>
+<span class="fc" id="L90">    }</span>
+
+    /**
+     * Next remote port.
+     *
+     * @return the int
+     */
+    public static synchronized int nextRemotePort() {
+<span class="fc" id="L98">        return ++SimpleHttpRequest.remotePortS;</span>
+    }
+
+    /**
+     * Reset remote port.
+     */
+    public static synchronized void resetRemotePort() {
+<span class="fc" id="L105">        SimpleHttpRequest.remotePortS = 0;</span>
+<span class="fc" id="L106">    }</span>
+
+    /**
+     * Adds the header.
+     *
+     * @param headerName
+     *            the header name
+     * @param headerValue
+     *            the header value
+     */
+    public void addHeader(final String headerName, final String headerValue) {
+<span class="fc" id="L117">        this.headers.put(headerName, headerValue);</span>
+<span class="fc" id="L118">    }</span>
+
+    @Override
+    public String getHeader(final String headerName) {
+<span class="fc" id="L122">        return this.headers.get(headerName);</span>
+    }
+
+    @Override
+    public Enumeration&lt;String&gt; getHeaderNames() {
+<span class="fc" id="L127">        return Collections.enumeration(this.headers.keySet());</span>
+    }
+
+    @Override
+    public String getMethod() {
+<span class="fc" id="L132">        return this.method;</span>
+    }
+
+    @Override
+    public int getContentLength() {
+<span class="fc bfc" id="L137" title="All 2 branches covered.">        return this.content == null ? -1 : this.content.length;</span>
+    }
+
+    @Override
+    public int getRemotePort() {
+<span class="fc" id="L142">        return this.remotePort;</span>
+    }
+
+    /**
+     * Sets the method.
+     *
+     * @param methodName
+     *            the new method
+     */
+    public void setMethod(final String methodName) {
+<span class="fc" id="L152">        this.method = methodName;</span>
+<span class="fc" id="L153">    }</span>
+
+    /**
+     * Sets the content length.
+     *
+     * @param length
+     *            the new content length
+     */
+    public void setContentLength(final int length) {
+<span class="fc" id="L162">        this.content = new byte[length];</span>
+<span class="fc" id="L163">    }</span>
+
+    /**
+     * Sets the remote user.
+     *
+     * @param username
+     *            the new remote user
+     */
+    public void setRemoteUser(final String username) {
+<span class="nc" id="L172">        this.remoteUser = username;</span>
+<span class="nc" id="L173">    }</span>
+
+    @Override
+    public String getRemoteUser() {
+<span class="nc" id="L177">        return this.remoteUser;</span>
+    }
+
+    @Override
+    public HttpSession getSession() {
+<span class="nc" id="L182">        return this.session;</span>
+    }
+
+    @Override
+    public HttpSession getSession(final boolean create) {
+<span class="pc bpc" id="L187" title="3 of 4 branches missed.">        if (this.session == null &amp;&amp; create) {</span>
+<span class="nc" id="L188">            this.session = new SimpleHttpSession();</span>
+        }
+<span class="fc" id="L190">        return this.session;</span>
+    }
+
+    @Override
+    public String getQueryString() {
+<span class="nc" id="L195">        return this.queryString;</span>
+    }
+
+    /**
+     * Sets the query string.
+     *
+     * @param query
+     *            the new query string
+     */
+    public void setQueryString(final String query) {
+<span class="nc" id="L205">        this.queryString = query;</span>
+<span class="nc bnc" id="L206" title="All 2 branches missed.">        if (this.queryString != null) {</span>
+<span class="nc bnc" id="L207" title="All 2 branches missed.">            for (final String eachParameter : this.queryString.split(&quot;[&amp;]&quot;, -1)) {</span>
+<span class="nc" id="L208">                final String[] pair = eachParameter.split(&quot;=&quot;, -1);</span>
+<span class="nc bnc" id="L209" title="All 2 branches missed.">                final String value = pair.length == 2 ? pair[1] : &quot;&quot;;</span>
+<span class="nc" id="L210">                this.addParameter(pair[0], value);</span>
+            }
+        }
+<span class="nc" id="L213">    }</span>
+
+    /**
+     * Sets the request uri.
+     *
+     * @param uri
+     *            the new request uri
+     */
+    public void setRequestURI(final String uri) {
+<span class="nc" id="L222">        this.requestURI = uri;</span>
+<span class="nc" id="L223">    }</span>
+
+    @Override
+    public String getRequestURI() {
+<span class="fc" id="L227">        return this.requestURI;</span>
+    }
+
+    @Override
+    public String getParameter(final String parameterName) {
+<span class="nc" id="L232">        return this.parameters.get(parameterName);</span>
+    }
+
+    /**
+     * Adds the parameter.
+     *
+     * @param parameterName
+     *            the parameter name
+     * @param parameterValue
+     *            the parameter value
+     */
+    public void addParameter(final String parameterName, final String parameterValue) {
+<span class="nc" id="L244">        this.parameters.put(parameterName, parameterValue);</span>
+<span class="nc" id="L245">    }</span>
+
+    @Override
+    public String getRemoteHost() {
+<span class="fc" id="L249">        return this.remoteHost;</span>
+    }
+
+    /**
+     * Sets the remote host.
+     *
+     * @param value
+     *            the new remote host
+     */
+    public void setRemoteHost(final String value) {
+<span class="fc" id="L259">        this.remoteHost = value;</span>
+<span class="fc" id="L260">    }</span>
+
+    @Override
+    public String getRemoteAddr() {
+<span class="fc" id="L264">        return this.remoteAddr;</span>
+    }
+
+    /**
+     * Sets the remote addr.
+     *
+     * @param value
+     *            the new remote addr
+     */
+    public void setRemoteAddr(final String value) {
+<span class="fc" id="L274">        this.remoteAddr = value;</span>
+<span class="fc" id="L275">    }</span>
+
+    @Override
+    public Principal getUserPrincipal() {
+<span class="fc" id="L279">        return this.principal;</span>
+    }
+
+    /**
+     * Sets the user principal.
+     *
+     * @param value
+     *            the new user principal
+     */
+    public void setUserPrincipal(final Principal value) {
+<span class="fc" id="L289">        this.principal = value;</span>
+<span class="fc" id="L290">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
