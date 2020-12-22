@@ -5,8 +5,3 @@ updates:
   schedule:
     interval: daily
   open-pull-requests-limit: 10
-  ignore:
-  - dependency-name: net.trajano.wagon:wagon-git
-    versions:
-    - "< 2.0.5"
-    - ">= 2.0.4.a"
