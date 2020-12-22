@@ -49,7 +49,7 @@ import waffle.windows.auth.IWindowsSecurityContext;
 public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
     /** The Constant LOGGER. */
-<span class="nc" id="L52">    private static final Logger LOGGER = LoggerFactory.getLogger(NegotiateSecurityFilterProvider.class);</span>
+<span class="fc" id="L52">    private static final Logger LOGGER = LoggerFactory.getLogger(NegotiateSecurityFilterProvider.class);</span>
 
     /** The Constant WWW_AUTHENTICATE. */
     private static final String WWW_AUTHENTICATE = &quot;WWW-Authenticate&quot;;
@@ -64,7 +64,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
     private static final String NTLM = &quot;NTLM&quot;;
 
     /** The protocols. */
-<span class="nc" id="L67">    private List&lt;String&gt; protocols = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L67">    private List&lt;String&gt; protocols = new ArrayList&lt;&gt;();</span>
 
     /** The auth. */
     private final IWindowsAuthProvider auth;
@@ -75,11 +75,11 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
      * @param newAuthProvider
      *            the new auth provider
      */
-<span class="nc" id="L78">    public NegotiateSecurityFilterProvider(final IWindowsAuthProvider newAuthProvider) {</span>
-<span class="nc" id="L79">        this.auth = newAuthProvider;</span>
-<span class="nc" id="L80">        this.protocols.add(NegotiateSecurityFilterProvider.NEGOTIATE);</span>
-<span class="nc" id="L81">        this.protocols.add(NegotiateSecurityFilterProvider.NTLM);</span>
-<span class="nc" id="L82">    }</span>
+<span class="fc" id="L78">    public NegotiateSecurityFilterProvider(final IWindowsAuthProvider newAuthProvider) {</span>
+<span class="fc" id="L79">        this.auth = newAuthProvider;</span>
+<span class="fc" id="L80">        this.protocols.add(NegotiateSecurityFilterProvider.NEGOTIATE);</span>
+<span class="fc" id="L81">        this.protocols.add(NegotiateSecurityFilterProvider.NTLM);</span>
+<span class="fc" id="L82">    }</span>
 
     /**
      * Gets the protocols.
@@ -162,12 +162,12 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
     @Override
     public boolean isSecurityPackageSupported(final String securityPackage) {
-<span class="nc bnc" id="L165" title="All 2 branches missed.">        for (final String protocol : this.protocols) {</span>
-<span class="nc bnc" id="L166" title="All 2 branches missed.">            if (protocol.equalsIgnoreCase(securityPackage)) {</span>
-<span class="nc" id="L167">                return true;</span>
+<span class="fc bfc" id="L165" title="All 2 branches covered.">        for (final String protocol : this.protocols) {</span>
+<span class="fc bfc" id="L166" title="All 2 branches covered.">            if (protocol.equalsIgnoreCase(securityPackage)) {</span>
+<span class="fc" id="L167">                return true;</span>
             }
-<span class="nc" id="L169">        }</span>
-<span class="nc" id="L170">        return false;</span>
+<span class="fc" id="L169">        }</span>
+<span class="fc" id="L170">        return false;</span>
     }
 
     @Override
