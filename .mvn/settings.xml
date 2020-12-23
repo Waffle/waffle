@@ -8,7 +8,11 @@
       <password>${env.CI_DEPLOY_PASSWORD}</password>
     </server>
     <server>
-      <id>gh-pages</id>
+      <id>gh-pages-scm</id>
+      <configuration>
+        <scmVersionType>branch</scmVersionType>
+        <scmVersion>gh-pages</scmVersion>
+      </configuration>
     </server>
     <server>
       <id>github</id>

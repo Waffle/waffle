@@ -30,9 +30,9 @@
 
     <distributionManagement>
         <site>
-            <id>gh-pages</id>
+            <id>gh-pages-scm</id>
             <name>Waffle GitHub Pages</name>
-            <url>github:ssh://waffle.github.io/waffle/</url>
+            <url>scm:git:ssh://git@github.com/Waffle/waffle.git</url>
         </site>
         <snapshotRepository>
             <id>ossrh</id>

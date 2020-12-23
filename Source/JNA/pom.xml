@@ -114,14 +114,14 @@
         <url>https://github.com/Waffle/waffle/issues</url>
     </issueManagement>
     <ciManagement>
-        <system>travis</system>
-        <url>https://travis-ci.org/Waffle/waffle/</url>
+        <system>github</system>
+        <url>https://github.com/Waffle/waffle/actions</url>
     </ciManagement>
     <distributionManagement>
         <site>
-            <id>gh-pages</id>
+            <id>gh-pages-scm</id>
             <name>Waffle GitHub Pages</name>
-            <url>github:ssh://waffle.github.io/waffle/</url>
+            <url>scm:git:ssh://git@github.com/Waffle/waffle.git</url>
         </site>
         <snapshotRepository>
             <id>ossrh</id>
@@ -235,8 +235,9 @@
         <htmlcompressor.version>1.7.1</htmlcompressor.version>
         <javac.version>9+181-r4173-1</javac.version>
         <jgit.version>5.10.0.202012080955-r</jgit.version>
-        <wagon-git.version note="Do not upgrade to 2.0.4 with ssh as it is broken">2.0.3</wagon-git.version>
-        <wagon-ssh.version>3.4.2</wagon-ssh.version>
+        <plexus-utils.version>3.3.0</plexus-utils.version>
+        <scm.version>${scm.plugin}</scm.version>
+        <wagon.version>3.4.2</wagon.version>
         <yuicompressor.version>2.4.8</yuicompressor.version>
 
         <!-- Lifecycle Mapping -->
@@ -392,14 +393,34 @@
                             <version>${doxia.version}</version>
                         </dependency>
                         <dependency>
-                            <groupId>net.trajano.wagon</groupId>
-                            <artifactId>wagon-git</artifactId>
-                            <version>${wagon-git.version}</version>
+                            <groupId>org.apache.maven.wagon</groupId>
+                            <artifactId>wagon-scm</artifactId>
+                            <version>${wagon.version}</version>
                         </dependency>
                         <dependency>
                             <groupId>org.apache.maven.wagon</groupId>
                             <artifactId>wagon-ssh</artifactId>
-                            <version>${wagon-ssh.version}</version>
+                            <version>${wagon.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.apache.maven.scm</groupId>
+                            <artifactId>maven-scm-api</artifactId>
+                            <version>${scm.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.apache.maven.scm</groupId>
+                            <artifactId>maven-scm-provider-gitexe</artifactId>
+                            <version>${scm.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.apache.maven.scm</groupId>
+                            <artifactId>maven-scm-manager-plexus</artifactId>
+                            <version>${scm.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.codehaus.plexus</groupId>
+                            <artifactId>plexus-utils</artifactId>
+                            <version>${plexus-utils.version}</version>
                         </dependency>
                         <!-- For reporting only of versions -->
                         <dependency>
@@ -1109,7 +1130,7 @@
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
                 <artifactId>wagon-ssh</artifactId>
-                <version>${wagon-ssh.version}</version>
+                <version>${wagon.version}</version>
             </extension>
         </extensions>
     </build>
