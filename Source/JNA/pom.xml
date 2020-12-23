@@ -143,10 +143,16 @@
         <!-- Maven Settings -->
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
 
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.testSource>1.8</maven.compiler.testSource>
-        <maven.compiler.testTarget>1.8</maven.compiler.testTarget>
+        <!-- Maven compiler options -->
+        <java.version>1.8</java.version>
+        <java.release.version>8</java.release.version>
+        <java.test.version>${java.version}</java.test.version>
+        <java.test.release.version>${java.release.version}</java.test.release.version>
+
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.compiler.testSource>${java.test.version}</maven.compiler.testSource>
+        <maven.compiler.testTarget>${java.test.version}</maven.compiler.testTarget>
 
         <maven.min-version>3.6.3</maven.min-version>
 
@@ -1572,14 +1578,56 @@
             <activation>
                 <jdk>[9,)</jdk>
             </activation>
+            <properties>
+                <maven.compiler.release>${java.release.version}</maven.compiler.release>
+                <maven.compiler.testRelease>${java.test.release.version}</maven.compiler.testRelease>
+            </properties>
             <build>
                 <pluginManagement>
                     <plugins>
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-jar-plugin</artifactId>
+                            <configuration>
+                                <archive>
+                                    <manifestEntries>
+                                        <X-Compile-Release-JDK>${maven.compiler.release}</X-Compile-Release-JDK>
+                                    </manifestEntries>
+                                </archive>
+                            </configuration>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-javadoc-plugin</artifactId>
                             <configuration>
                                 <additionalOptions>-html5</additionalOptions>
+                                <archive>
+                                    <manifestEntries>
+                                        <X-Compile-Release-JDK>${maven.compiler.release}</X-Compile-Release-JDK>
+                                    </manifestEntries>
+                                </archive>
+                            </configuration>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-source-plugin</artifactId>
+                            <configuration>
+                                <archive>
+                                    <manifestEntries>
+                                        <X-Compile-Release-JDK>${maven.compiler.release}</X-Compile-Release-JDK>
+                                    </manifestEntries>
+                                </archive>
+                            </configuration>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-site-plugin</artifactId>
+                            <configuration>
+                                <archive>
+                                    <manifestEntries>
+                                        <X-Compile-Release-JDK>${maven.compiler.release}</X-Compile-Release-JDK>
+                                    </manifestEntries>
+                                </archive>
                             </configuration>
                         </plugin>
                     </plugins>
