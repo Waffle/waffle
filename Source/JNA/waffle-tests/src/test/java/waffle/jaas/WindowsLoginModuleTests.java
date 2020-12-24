@@ -242,15 +242,15 @@ public class WindowsLoginModuleTests {
         Assertions.assertTrue(this.loginModule.commit());
 
         Assertions.assertTrue(subject.getPrincipals().size() >= 3);
+        Assertions.assertTrue(
+                subject.getPrincipals().contains(new UserPrincipal(WindowsAccountImpl.getCurrentUsername())));
         int size = 0;
         for (final Principal principal : subject.getPrincipals()) {
             if (principal instanceof RolePrincipal) {
                 if (principal.getName().startsWith("S-")) {
                     size++;
                 }
-            } else if (principal instanceof UserPrincipal) {
-                Assertions.assertTrue(principal.getName().equals(WindowsAccountImpl.getCurrentUsername()));
-            }
+            } 
         }
         Assertions.assertEquals(2, size);
     }
