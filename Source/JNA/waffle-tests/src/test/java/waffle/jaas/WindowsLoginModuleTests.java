@@ -275,7 +275,7 @@ public class WindowsLoginModuleTests {
         Assertions.assertTrue(this.loginModule.login());
         Assertions.assertTrue(this.loginModule.commit());
 
-        Assertions.assertTrue(4, subject.getPrincipals().size() >= 4);
+        Assertions.assertTrue(subject.getPrincipals().size() >= 4);
         Assertions.assertTrue(subject.getPrincipals().contains(new RolePrincipal("Everyone")));
         Assertions.assertTrue(subject.getPrincipals().contains(new RolePrincipal("Users")));
         Assertions.assertTrue(subject.getPrincipals().contains(new RolePrincipal("Group 1")));
