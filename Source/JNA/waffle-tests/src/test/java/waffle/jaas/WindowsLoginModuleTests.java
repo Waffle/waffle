@@ -26,9 +26,7 @@ package waffle.jaas;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.security.Principal;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.security.auth.Subject;
@@ -104,6 +102,7 @@ public class WindowsLoginModuleTests {
         Assertions.assertTrue(this.loginModule.login());
         Assertions.assertEquals(0, subject.getPrincipals().size());
         Assertions.assertTrue(this.loginModule.commit());
+        Assertions.assertTrue(subject.getPrincipals().size() >= 3);
         Assertions.assertTrue(subject.getPrincipals().contains(new RolePrincipal("Everyone")));
         Assertions.assertTrue(subject.getPrincipals().contains(new RolePrincipal("Users")));
         Assertions.assertTrue(
@@ -250,7 +249,7 @@ public class WindowsLoginModuleTests {
                 if (principal.getName().startsWith("S-")) {
                     size++;
                 }
-            } 
+            }
         }
         Assertions.assertEquals(2, size);
     }
