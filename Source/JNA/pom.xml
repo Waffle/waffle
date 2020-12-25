@@ -665,15 +665,6 @@
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>${jacoco.plugin}</version>
-                    <!-- TODO: Due to coveralls having issue with jacoco line on method in this class, skip it from coverage metrics until another solution determined. -->
-                    <configuration>
-                        <excludes>
-                            <exclude>**/*MixedAuthenticator.class</exclude>
-                            <exclude>**/*NegotiateAuthenticator.class</exclude>
-                            <exclude>**/*WaffleAuthenticatorBase.class</exclude>
-                            <exclude>**/*WindowsRealm.class</exclude>
-                        </excludes>
-                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.eluder.coveralls</groupId>
@@ -1335,6 +1326,30 @@
                         </configuration>
                     </plugin>
                 </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>coveralls</id>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.jacoco</groupId>
+                            <artifactId>jacoco-maven-plugin</artifactId>
+                            <version>${jacoco.plugin}</version>
+                            <!-- TODO: Due to coveralls having issue with jacoco line on method in this class, skip it from coverage metrics until another solution determined. -->
+                            <configuration>
+                                <excludes>
+                                    <exclude>**/*MixedAuthenticator.class</exclude>
+                                    <exclude>**/*NegotiateAuthenticator.class</exclude>
+                                    <exclude>**/*WaffleAuthenticatorBase.class</exclude>
+                                    <exclude>**/*WindowsRealm.class</exclude>
+                                </excludes>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
             </build>
         </profile>
 
