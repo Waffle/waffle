@@ -3,6 +3,7 @@
 * Relicensed project as MIT
 * Support different cache solutions (default is caffeine cache) through service loader using '/META-INF/services/waffle.cache.CacheSupplier' pointing to your cache solution.
 * Remove use of Group interface and directly use our implementation to allow build on jdk14+ (ie 15/16) (not confirmed JAAS works, just compiles)
+* JAAS support was broken with attempt to use wildfly 10.  Wildfly since changed and that solution is broken.  The wildfly support for 10 is now deprecated, JAAS fixed to support both per PR #1125.
 * Cleanup error prone code usage resulting in header treatment without training '\n'
 * Add github actions windows builds
 
