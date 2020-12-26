@@ -71,4 +71,5 @@ public class NegotiateAuthenticationStrategy extends AbstractAuthenticationStrat
 
         return super.afterAttempt(realm, token, singleRealmInfo, aggregateInfo, t);
     }
+
 }

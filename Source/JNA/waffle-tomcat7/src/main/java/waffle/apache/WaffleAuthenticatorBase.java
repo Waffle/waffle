@@ -292,7 +292,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      *             the lifecycle exception
      */
     @Override
-    protected synchronized void startInternal() throws LifecycleException {
+    public synchronized void startInternal() throws LifecycleException {
         this.log.debug("Creating a windows authentication provider with continueContextsTimeout property set to: {}",
                 this.continueContextsTimeout);
         this.auth = new WindowsAuthProviderImpl(this.continueContextsTimeout);

@@ -93,4 +93,5 @@ public class GroupMappingWaffleRealm extends AbstractWaffleRealm {
         authorizationInfo.addRoles(this.getRoleNamesForGroups(principal.getGroupFqns()));
         return authorizationInfo;
     }
+
 }

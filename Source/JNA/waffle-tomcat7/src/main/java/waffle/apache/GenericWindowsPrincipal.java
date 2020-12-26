@@ -200,4 +200,5 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
     public String getRolesString() {
         return String.join(", ", this.getRoles());
     }
+
 }

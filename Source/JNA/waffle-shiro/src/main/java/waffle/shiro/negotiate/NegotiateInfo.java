@@ -82,4 +82,5 @@ public class NegotiateInfo implements AuthenticationInfo {
     public Object getCredentials() {
         return this.subject;
     }
+
 }
