@@ -40,11 +40,11 @@ import waffle.mock.MockWindowsAuthProvider;
 import waffle.windows.auth.impl.WindowsAccountImpl;
 
 /**
- * The Class WindowsLoginModuleTests.
+ * The Class WindowsLoginModuleTest.
  *
  * @author dblock[at]dblock[dot]org
  */
-public class WindowsLoginModuleTests {
+class WindowsLoginModuleTests {
 
     /** The login module. */
     WindowsLoginModule loginModule;

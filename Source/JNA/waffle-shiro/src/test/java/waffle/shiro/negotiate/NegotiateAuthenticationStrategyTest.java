@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author Dan Rollo Date: 3/18/13 Time: 3:34 PM
  */
-public class NegotiateAuthenticationStrategyTest {
+class NegotiateAuthenticationStrategyTest {
 
     /** The auth strategy. */
     private NegotiateAuthenticationStrategy authStrategy;

@@ -56,11 +56,11 @@ import waffle.windows.auth.PrincipalFormat;
 import waffle.windows.auth.impl.WindowsAccountImpl;
 
 /**
- * The Class NegotiateSecurityFilterTests.
+ * The Class NegotiateSecurityFilterTest.
  *
  * @author [unaor]
  */
-public class DelegatingNegotiateSecurityFilterTest {
+class DelegatingNegotiateSecurityFilterTest {
 
     /** The filter. */
     private DelegatingNegotiateSecurityFilter filter;

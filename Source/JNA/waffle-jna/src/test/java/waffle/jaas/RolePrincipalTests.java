@@ -37,7 +37,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * The Class RolePrincipalTests.
+ * The Class RolePrincipalTest.
  *
  * @author dblock[at]dblock[dot]org
  */

@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
 /**
- * The Class SecurityFilterProviderCollectionTests.
+ * The Class SecurityFilterProviderCollectionTest.
  *
  * @author dblock[at]dblock[dot]org
  */

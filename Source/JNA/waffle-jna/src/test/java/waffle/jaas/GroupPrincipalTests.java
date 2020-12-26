@@ -37,7 +37,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * The Class GroupPrincipalTests.
+ * The Class GroupPrincipalTest.
  *
  * @author rockchip[dot]tv[at]gmail[dot]com
  */
