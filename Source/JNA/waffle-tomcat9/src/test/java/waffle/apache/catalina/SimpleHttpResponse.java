@@ -132,4 +132,5 @@ public class SimpleHttpResponse extends Response {
     public void setStatus(final int value) {
         this.status = value;
     }
+
 }

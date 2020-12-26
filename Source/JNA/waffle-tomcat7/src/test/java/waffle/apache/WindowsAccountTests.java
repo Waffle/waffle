@@ -44,7 +44,7 @@ import waffle.windows.auth.WindowsAccount;
  *
  * @author dblock[at]dblock[dot]org
  */
-public class WindowsAccountTests {
+class WindowsAccountTests {
 
     /** The mock windows account. */
     private final MockWindowsAccount mockWindowsAccount = new MockWindowsAccount("localhost\\Administrator");

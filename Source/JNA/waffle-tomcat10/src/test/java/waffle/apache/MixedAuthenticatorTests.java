@@ -60,7 +60,7 @@ import waffle.windows.auth.impl.WindowsSecurityContextImpl;
  *
  * @author dblock[at]dblock[dot]org
  */
-public class MixedAuthenticatorTests {
+class MixedAuthenticatorTests {
 
     /** The authenticator. */
     MixedAuthenticator authenticator;
@@ -395,4 +395,5 @@ public class MixedAuthenticatorTests {
         }
 
     }
+
 }

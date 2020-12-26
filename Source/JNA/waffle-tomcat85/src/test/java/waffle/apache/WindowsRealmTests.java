@@ -43,4 +43,5 @@ public class WindowsRealmTests {
         Assertions.assertNull(realm.getPrincipal(null));
         Assertions.assertEquals("waffle.apache.WindowsRealm/1.0", realm.getName());
     }
+
 }

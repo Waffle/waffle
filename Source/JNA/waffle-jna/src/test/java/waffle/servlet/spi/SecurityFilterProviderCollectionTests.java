@@ -33,7 +33,7 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  *
  * @author dblock[at]dblock[dot]org
  */
-public class SecurityFilterProviderCollectionTests {
+class SecurityFilterProviderCollectionTests {
 
     /**
      * Test default collection.

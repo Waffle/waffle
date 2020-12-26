@@ -41,7 +41,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author dblock[at]dblock[dot]org
  */
-public class RolePrincipalTests {
+class RolePrincipalTests {
 
     /** The role principal. */
     private RolePrincipal rolePrincipal;

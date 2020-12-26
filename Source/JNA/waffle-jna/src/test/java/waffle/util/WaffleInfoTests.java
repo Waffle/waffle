@@ -43,7 +43,7 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 /**
  * Build an info document and check that it has the right values.
  */
-public class WaffleInfoTests {
+class WaffleInfoTests {
 
     /**
      * Test waffle info.

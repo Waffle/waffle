@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author dblock[at]dblock[dot]org
  */
-public class WindowsRealmTests {
+class WindowsRealmTests {
 
     /**
      * Test properties.
@@ -43,4 +43,5 @@ public class WindowsRealmTests {
         Assertions.assertNull(realm.getPrincipal(null));
         Assertions.assertEquals("waffle.apache.WindowsRealm/1.0", realm.getName());
     }
+
 }

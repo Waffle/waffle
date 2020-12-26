@@ -41,7 +41,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author rockchip[dot]tv[at]gmail[dot]com
  */
-public class GroupPrincipalTests {
+class GroupPrincipalTests {
 
     /** The group principal. */
     private GroupPrincipal groupPrincipal;

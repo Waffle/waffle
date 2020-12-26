@@ -37,7 +37,7 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
  *
  * @author dblock[at]dblock[dot]org
  */
-public class WindowsAccountTests {
+class WindowsAccountTests {
 
     /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory.getLogger(WindowsAccountTests.class);

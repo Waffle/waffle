@@ -55,7 +55,7 @@ import waffle.windows.auth.impl.WindowsSecurityContextImpl;
  *
  * @author dblock[at]dblock[dot]org
  */
-public class NegotiateAuthenticatorTests {
+class NegotiateAuthenticatorTests {
 
     /** The authenticator. */
     private NegotiateAuthenticator authenticator;
@@ -327,4 +327,5 @@ public class NegotiateAuthenticatorTests {
         this.authenticator.setRoleFormat("both");
         Assertions.assertEquals(PrincipalFormat.BOTH, this.authenticator.getRoleFormat());
     }
+
 }

@@ -39,7 +39,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author dblock[at]dblock[dot]org
  */
-public class WaffleAuthenticatorBaseTest {
+class WaffleAuthenticatorBaseTest {
 
     /** The waffle authenticator base. */
     private WaffleAuthenticatorBase waffleAuthenticatorBase;

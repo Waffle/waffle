@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author ari.suutari[at]syncrontech[dot]com
  */
-public class SPNegoMessageTests {
+class SPNegoMessageTests {
 
     // Different SPNEGO messages. For details and specification,
     // see https://msdn.microsoft.com/en-us/library/ms995330.aspx

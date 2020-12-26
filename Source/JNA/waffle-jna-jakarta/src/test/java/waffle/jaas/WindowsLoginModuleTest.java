@@ -50,7 +50,7 @@ import waffle.windows.auth.PrincipalFormat;
 /**
  * The Class WindowsLoginModuleTest.
  */
-public class WindowsLoginModuleTest {
+class WindowsLoginModuleTest {
 
     /** The login module. */
     private WindowsLoginModule loginModule;

@@ -36,7 +36,7 @@ import waffle.windows.auth.impl.WindowsSecurityContextImpl;
  *
  * @author dblock[at]dblock[dot]org
  */
-public class WindowsSecurityContextTests {
+class WindowsSecurityContextTests {
 
     /**
      * Test negotiate.

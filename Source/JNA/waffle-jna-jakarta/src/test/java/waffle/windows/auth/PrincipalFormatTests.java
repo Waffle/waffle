@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author dblock[at]dblock[dot]org
  */
-public class PrincipalFormatTests {
+class PrincipalFormatTests {
 
     /**
      * Test known.

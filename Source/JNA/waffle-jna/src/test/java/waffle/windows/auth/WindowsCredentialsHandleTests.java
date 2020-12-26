@@ -33,7 +33,7 @@ import waffle.windows.auth.impl.WindowsCredentialsHandleImpl;
  *
  * @author dblock[at]dblock[dot]org
  */
-public class WindowsCredentialsHandleTests {
+class WindowsCredentialsHandleTests {
 
     /**
      * Test get current.

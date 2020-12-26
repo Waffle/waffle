@@ -37,7 +37,7 @@ import waffle.windows.auth.IWindowsIdentity;
  *
  * @author dblock[at]dblock[dot]org
  */
-public class WindowsPrincipalTest {
+class WindowsPrincipalTest {
 
     /** The Constant TEST_FQN. */
     private static final String TEST_FQN = "ACME\\john.smith";

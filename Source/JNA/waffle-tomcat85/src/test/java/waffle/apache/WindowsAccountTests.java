@@ -44,7 +44,7 @@ import waffle.windows.auth.WindowsAccount;
  *
  * @author dblock[at]dblock[dot]org
  */
-public class WindowsAccountTests {
+class WindowsAccountTests {
 
     /** The mock windows account. */
     private final MockWindowsAccount mockWindowsAccount = new MockWindowsAccount("localhost\\Administrator");
@@ -108,4 +108,5 @@ public class WindowsAccountTests {
         Assertions.assertEquals("Administrator", this.windowsAccount.getName());
         Assertions.assertTrue(this.windowsAccount.getSidString().startsWith("S-"));
     }
+
 }
