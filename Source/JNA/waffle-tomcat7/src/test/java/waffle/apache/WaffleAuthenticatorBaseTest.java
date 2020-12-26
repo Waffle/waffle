@@ -35,11 +35,11 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
 
 /**
- * Waffle Authenticator Base Tests.
+ * Waffle Authenticator Base Test.
  *
  * @author dblock[at]dblock[dot]org
  */
-public class WaffleAuthenticatorBaseTest {
+class WaffleAuthenticatorBaseTest {
 
     /** The waffle authenticator base. */
     private WaffleAuthenticatorBase waffleAuthenticatorBase;
