@@ -85,7 +85,7 @@ class WindowsAccountTest {
         try (final ObjectOutputStream oos = new ObjectOutputStream(out)) {
             oos.writeObject(this.windowsAccount);
         }
-        assertThat(out.toByteArray().length).isGreaterThan(0);
+        assertThat(out.toByteArray().length).isPositive();
         // deserialize
         final InputStream in = new ByteArrayInputStream(out.toByteArray());
         final ObjectInputStream ois = new ObjectInputStream(in);
