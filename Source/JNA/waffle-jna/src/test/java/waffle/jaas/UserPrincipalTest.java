@@ -41,7 +41,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author dblock[at]dblock[dot]org
  */
-class UserPrincipalTests {
+class UserPrincipalTest {
 
     /** The user principal. */
     private UserPrincipal userPrincipal;
