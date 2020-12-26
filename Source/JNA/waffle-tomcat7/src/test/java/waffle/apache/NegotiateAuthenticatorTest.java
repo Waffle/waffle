@@ -173,7 +173,7 @@ class NegotiateAuthenticatorTest {
      */
     @Test
     void testGetInfo() {
-        assertThat(this.authenticator.getInfo().length()).isGreaterThan(0);
+        assertThat(this.authenticator.getInfo().length()).isPositive();
         Assertions.assertTrue(this.authenticator.getAuth() instanceof WindowsAuthProviderImpl);
     }
 
@@ -211,7 +211,7 @@ class NegotiateAuthenticatorTest {
                     final GenericWindowsPrincipal windowsPrincipal = (GenericWindowsPrincipal) request
                             .getUserPrincipal();
                     Assertions.assertTrue(windowsPrincipal.getSidString().startsWith("S-"));
-                    assertThat(windowsPrincipal.getSid().length).isGreaterThan(0);
+                    assertThat(windowsPrincipal.getSid().length).isPositive();
                     Assertions.assertTrue(windowsPrincipal.getGroups().containsKey("Everyone"));
                     assertThat(response.getHeaderNames().size()).isLessThanOrEqualTo(1);
                     break;
@@ -224,7 +224,7 @@ class NegotiateAuthenticatorTest {
                 final String continueToken = response.getHeader("WWW-Authenticate")
                         .substring(securityPackage.length() + 1);
                 final byte[] continueTokenBytes = Base64.getDecoder().decode(continueToken);
-                assertThat(continueTokenBytes.length).isGreaterThan(0);
+                assertThat(continueTokenBytes.length).isPositive();
                 final ManagedSecBufferDesc continueTokenBuffer = new ManagedSecBufferDesc(Sspi.SECBUFFER_TOKEN,
                         continueTokenBytes);
                 clientContext.initialize(clientContext.getHandle(), continueTokenBuffer,
@@ -294,7 +294,7 @@ class NegotiateAuthenticatorTest {
                 Assertions.assertEquals(401, response.getStatus());
                 continueToken = response.getHeader("WWW-Authenticate").substring(securityPackage.length() + 1);
                 continueTokenBytes = Base64.getDecoder().decode(continueToken);
-                assertThat(continueTokenBytes.length).isGreaterThan(0);
+                assertThat(continueTokenBytes.length).isPositive();
                 continueTokenBuffer = new ManagedSecBufferDesc(Sspi.SECBUFFER_TOKEN, continueTokenBytes);
                 clientContext.initialize(clientContext.getHandle(), continueTokenBuffer,
                         WindowsAccountImpl.getCurrentUsername());

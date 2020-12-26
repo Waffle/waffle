@@ -134,12 +134,12 @@ class WindowsAuthProviderTest {
         final IWindowsAuthProvider prov = new WindowsAuthProviderImpl();
         final IWindowsComputer computer = prov.getCurrentComputer();
         WindowsAuthProviderTest.LOGGER.info(computer.getComputerName());
-        assertThat(computer.getComputerName().length()).isGreaterThan(0);
+        assertThat(computer.getComputerName().length()).isPositive();
         WindowsAuthProviderTest.LOGGER.info(computer.getJoinStatus());
         WindowsAuthProviderTest.LOGGER.info(computer.getMemberOf());
         final String[] localGroups = computer.getGroups();
         Assertions.assertNotNull(localGroups);
-        assertThat(localGroups.length).isGreaterThan(0);
+        assertThat(localGroups.length).isPositive();
         for (final String localGroup : localGroups) {
             WindowsAuthProviderTest.LOGGER.info(" {}", localGroup);
         }
@@ -201,7 +201,7 @@ class WindowsAuthProviderTest {
             } while (serverContext != null && serverContext.isContinue());
 
             if (serverContext != null) {
-                assertThat(serverContext.getIdentity().getFqn().length()).isGreaterThan(0);
+                assertThat(serverContext.getIdentity().getFqn().length()).isPositive();
 
                 WindowsAuthProviderTest.LOGGER.info(serverContext.getIdentity().getFqn());
                 for (final IWindowsAccount group : serverContext.getIdentity().getGroups()) {
@@ -250,7 +250,7 @@ class WindowsAuthProviderTest {
                 Thread.sleep(25);
                 final String connectionId = "testConnection_" + i;
                 serverContext = provider.acceptSecurityToken(connectionId, clientContext.getToken(), securityPackage);
-                assertThat(provider.getContinueContextsSize()).isGreaterThan(0);
+                assertThat(provider.getContinueContextsSize()).isPositive();
             }
             WindowsAuthProviderTest.LOGGER.info("Cached security contexts: {}",
                     Integer.valueOf(provider.getContinueContextsSize()));
@@ -305,7 +305,7 @@ class WindowsAuthProviderTest {
             } while (serverContext != null && serverContext.isContinue());
 
             if (serverContext != null) {
-                assertThat(serverContext.getIdentity().getFqn().length()).isGreaterThan(0);
+                assertThat(serverContext.getIdentity().getFqn().length()).isPositive();
 
                 final IWindowsImpersonationContext impersonationCtx = serverContext.impersonate();
                 impersonationCtx.revertToSelf();

@@ -49,7 +49,7 @@ class WindowsAccountTest {
     void testGetCurrentUsername() {
         final String currentUsername = WindowsAccountImpl.getCurrentUsername();
         WindowsAccountTest.LOGGER.info("Current username: {}", currentUsername);
-        assertThat(currentUsername.length()).isGreaterThan(0);
+        assertThat(currentUsername.length()).isPositive();
     }
 
     /**
@@ -59,13 +59,13 @@ class WindowsAccountTest {
     void testGetCurrentAccount() {
         final String currentUsername = WindowsAccountImpl.getCurrentUsername();
         final IWindowsAccount account = new WindowsAccountImpl(currentUsername);
-        assertThat(account.getName().length()).isGreaterThan(0);
+        assertThat(account.getName().length()).isPositive();
         WindowsAccountTest.LOGGER.info("Name: {}", account.getName());
-        assertThat(account.getDomain().length()).isGreaterThan(0);
+        assertThat(account.getDomain().length()).isPositive();
         WindowsAccountTest.LOGGER.info("Domain: {}", account.getDomain());
-        assertThat(account.getFqn().length()).isGreaterThan(0);
+        assertThat(account.getFqn().length()).isPositive();
         WindowsAccountTest.LOGGER.info("Fqn: {}", account.getFqn());
-        assertThat(account.getSidString().length()).isGreaterThan(0);
+        assertThat(account.getSidString().length()).isPositive();
         WindowsAccountTest.LOGGER.info("Sid: {}", account.getSidString());
         // To avoid errors with machine naming being all upper-case, use test in this manner
         Assertions.assertTrue(currentUsername.equalsIgnoreCase(account.getFqn()));
