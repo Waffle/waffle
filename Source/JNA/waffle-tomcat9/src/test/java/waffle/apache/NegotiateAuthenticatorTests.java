@@ -26,7 +26,6 @@ package waffle.apache;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.sun.jna.platform.win32.Sspi;
-import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 import com.sun.jna.platform.win32.SspiUtil.ManagedSecBufferDesc;
 
 import java.util.Base64;
@@ -267,7 +266,7 @@ class NegotiateAuthenticatorTests {
             String continueToken;
             byte[] continueTokenBytes;
             SimpleHttpResponse response;
-            SecBufferDesc continueTokenBuffer;
+            ManagedSecBufferDesc continueTokenBuffer;
             while (true) {
                 clientToken = Base64.getEncoder().encodeToString(clientContext.getToken());
                 request.addHeader("Authorization", securityPackage + " " + clientToken);
