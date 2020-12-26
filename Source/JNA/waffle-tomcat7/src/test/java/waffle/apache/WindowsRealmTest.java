@@ -41,7 +41,7 @@ class WindowsRealmTest {
         final WindowsRealm realm = new WindowsRealm();
         Assertions.assertNull(realm.getPassword(null));
         Assertions.assertNull(realm.getPrincipal(null));
-        Assertions.assertEquals("waffle.apache.WindowsRealm/1.0", realm.getName());
+        Assertions.assertEquals("WindowsRealm", realm.getClass().getSimpleName());
     }
 
 }

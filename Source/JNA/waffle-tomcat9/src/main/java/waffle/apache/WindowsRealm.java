@@ -43,8 +43,7 @@ public class WindowsRealm extends RealmBase {
      * 'waffle.apache.WindowsRealm/1.0' will no longer be logged. We don't internally use this so we must go with
      * standard java way that tomcat has accepted. This means, going to tomcat 9.0.0.M15+ will result simply in
      * 'WaffleRealm' or better stated the actual simple class name. Simple class name strips off the package name which
-     * is what we were applying along with version 1.0 which is inaccurate anyways considering we are on version 1.8.1+
-     * at this point.
+     * is what we were applying along with version 1.0 which is inaccurate based on our release version.
      *
      * @return a short name for this Realm implementation, for use in log messages.
      * 

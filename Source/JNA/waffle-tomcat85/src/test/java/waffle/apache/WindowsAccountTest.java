@@ -67,7 +67,7 @@ class WindowsAccountTest {
     void testEquals() {
         Assertions.assertEquals(this.windowsAccount, new WindowsAccount(this.mockWindowsAccount));
         final MockWindowsAccount mockWindowsAccount2 = new MockWindowsAccount("localhost\\Administrator2");
-        Assertions.assertFalse(this.windowsAccount.equals(new WindowsAccount(mockWindowsAccount2)));
+        Assertions.assertNotEquals(this.windowsAccount, new WindowsAccount(mockWindowsAccount2));
     }
 
     /**
@@ -85,7 +85,7 @@ class WindowsAccountTest {
         try (final ObjectOutputStream oos = new ObjectOutputStream(out)) {
             oos.writeObject(this.windowsAccount);
         }
-        assertThat(out.toByteArray().length).isPositive();
+        assertThat(out.toByteArray()).isNotEmpty();
         // deserialize
         final InputStream in = new ByteArrayInputStream(out.toByteArray());
         final ObjectInputStream ois = new ObjectInputStream(in);

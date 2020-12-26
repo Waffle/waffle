@@ -154,4 +154,5 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
         }
         return null;
     }
+
 }

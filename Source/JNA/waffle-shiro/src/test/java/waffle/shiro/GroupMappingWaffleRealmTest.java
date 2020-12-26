@@ -117,4 +117,5 @@ class GroupMappingWaffleRealmTest {
     private String getCurrentUserName() {
         return Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);
     }
+
 }

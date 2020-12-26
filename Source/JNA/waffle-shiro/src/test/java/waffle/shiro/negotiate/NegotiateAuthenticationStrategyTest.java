@@ -67,4 +67,5 @@ class NegotiateAuthenticationStrategyTest {
         });
         Assertions.assertNull(exception.getMessage());
     }
+
 }

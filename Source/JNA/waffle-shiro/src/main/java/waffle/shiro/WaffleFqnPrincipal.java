@@ -99,4 +99,5 @@ public class WaffleFqnPrincipal implements Serializable {
         stringBuilder.append("}");
         return stringBuilder.toString();
     }
+
 }

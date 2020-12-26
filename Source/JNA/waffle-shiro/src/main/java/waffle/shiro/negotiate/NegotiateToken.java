@@ -249,4 +249,5 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
     public String getHost() {
         return this.host;
     }
+
 }
