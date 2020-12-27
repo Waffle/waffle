@@ -139,7 +139,7 @@ class WindowsAuthProviderTest {
         WindowsAuthProviderTest.LOGGER.info(computer.getMemberOf());
         final String[] localGroups = computer.getGroups();
         Assertions.assertNotNull(localGroups);
-        assertThat(localGroups.).isNotEmpty();
+        assertThat(localGroups).isNotEmpty();
         for (final String localGroup : localGroups) {
             WindowsAuthProviderTest.LOGGER.info(" {}", localGroup);
         }

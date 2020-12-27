@@ -224,7 +224,7 @@ class NegotiateAuthenticatorTest {
                 final String continueToken = response.getHeader("WWW-Authenticate")
                         .substring(securityPackage.length() + 1);
                 final byte[] continueTokenBytes = Base64.getDecoder().decode(continueToken);
-                assertThat(continueTokenBytes.).isNotEmpty();
+                assertThat(continueTokenBytes).isNotEmpty();
                 final ManagedSecBufferDesc continueTokenBuffer = new ManagedSecBufferDesc(Sspi.SECBUFFER_TOKEN,
                         continueTokenBytes);
                 clientContext.initialize(clientContext.getHandle(), continueTokenBuffer,
@@ -294,7 +294,7 @@ class NegotiateAuthenticatorTest {
                 Assertions.assertEquals(401, response.getStatus());
                 continueToken = response.getHeader("WWW-Authenticate").substring(securityPackage.length() + 1);
                 continueTokenBytes = Base64.getDecoder().decode(continueToken);
-                assertThat(continueTokenBytes.).isNotEmpty();
+                assertThat(continueTokenBytes).isNotEmpty();
                 continueTokenBuffer = new ManagedSecBufferDesc(Sspi.SECBUFFER_TOKEN, continueTokenBytes);
                 clientContext.initialize(clientContext.getHandle(), continueTokenBuffer,
                         WindowsAccountImpl.getCurrentUsername());
