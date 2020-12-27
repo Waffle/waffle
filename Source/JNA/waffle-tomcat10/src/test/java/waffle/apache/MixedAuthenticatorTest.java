@@ -214,7 +214,7 @@ class MixedAuthenticatorTest {
                 authenticated = this.authenticator.authenticate(request, response);
 
                 if (authenticated) {
-                    assertThat(response.getHeaderNames().size()).isGreaterThanOrEqualTo(0);
+                    assertThat(response.getHeaderNames().size()).isNotNegative();
                     break;
                 }
 

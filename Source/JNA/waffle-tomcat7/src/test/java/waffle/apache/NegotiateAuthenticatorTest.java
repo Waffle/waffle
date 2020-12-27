@@ -277,7 +277,7 @@ class NegotiateAuthenticatorTest {
                 authenticated = this.authenticator.authenticate(request, response, null);
 
                 if (authenticated) {
-                    assertThat(response.getHeaderNames().size()).isGreaterThanOrEqualTo(0);
+                    assertThat(response.getHeaderNames().size()).isNotNegative();
                     break;
                 }
 

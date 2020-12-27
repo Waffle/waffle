@@ -204,7 +204,7 @@ class NegotiateSecurityFilterTest {
                 authenticated = subject != null && subject.getPrincipals().size() > 0;
 
                 if (authenticated) {
-                    assertThat(response.getHeaderNamesSize()).isGreaterThanOrEqualTo(0);
+                    assertThat(response.getHeaderNamesSize()).isNotNegative();
                     break;
                 }
 
