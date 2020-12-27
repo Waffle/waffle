@@ -122,7 +122,7 @@ class WindowsLoginModuleTest {
     void commit_success() throws LoginException {
         Whitebox.setInternalState(this.loginModule, new LinkedHashSet<Principal>());
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
-        this.loginModule.commit();
+        Assertions.assertTrue(this.loginModule.commit());
     }
 
     /**
@@ -139,7 +139,7 @@ class WindowsLoginModuleTest {
         principals.add(new UserPrincipal("FQN"));
         Whitebox.setInternalState(this.loginModule, principals);
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
-        this.loginModule.commit();
+        Assertions.assertTrue(this.loginModule.commit());
     }
 
     /**
@@ -159,7 +159,7 @@ class WindowsLoginModuleTest {
         principals.add(group);
         Whitebox.setInternalState(this.loginModule, principals);
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
-        this.loginModule.commit();
+        Assertions.assertTrue(this.loginModule.commit());
     }
 
     /**
