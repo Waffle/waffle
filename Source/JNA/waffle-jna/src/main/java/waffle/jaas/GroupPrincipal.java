@@ -92,7 +92,7 @@ public class GroupPrincipal extends UserPrincipal {
         return isMember;
     }
 
-    public Enumeration<? extends Principal> members() {
+    public Enumeration<Principal> members() {
         return Collections.enumeration(this.members.values());
     }
 
