@@ -37,7 +37,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author Dan Rollo Date: 2/14/13 Time: 11:11 PM
  */
-public final class NegotiateAuthenticationRealmTest {
+class NegotiateAuthenticationRealmTest {
 
     /** The neg auth realm. */
     @Tested
