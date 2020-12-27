@@ -180,7 +180,7 @@ class MixedAuthenticatorTest {
      */
     @Test
     void testGetInfo() {
-        assertThat(this.authenticator.getInfo().length()).isPositive();
+        assertThat(this.authenticator.getInfo()).isNotEmpty();
     }
 
     /**

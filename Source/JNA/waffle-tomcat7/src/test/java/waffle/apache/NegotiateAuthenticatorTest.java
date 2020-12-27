@@ -173,7 +173,7 @@ class NegotiateAuthenticatorTest {
      */
     @Test
     void testGetInfo() {
-        assertThat(this.authenticator.getInfo().length()).isPositive();
+        assertThat(this.authenticator.getInfo()).isNotEmpty();
         Assertions.assertTrue(this.authenticator.getAuth() instanceof WindowsAuthProviderImpl);
     }
 
