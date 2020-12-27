@@ -96,7 +96,7 @@ class RolePrincipalTest {
         try (final ObjectOutputStream oos = new ObjectOutputStream(out)) {
             oos.writeObject(this.rolePrincipal);
         }
-        assertThat(out.toByteArray().length).isPositive();
+        assertThat(out.toByteArray()).isNotEmpty();
         // deserialize
         final InputStream in = new ByteArrayInputStream(out.toByteArray());
         final ObjectInputStream ois = new ObjectInputStream(in);

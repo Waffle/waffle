@@ -39,7 +39,7 @@ import org.powermock.reflect.Whitebox;
 /**
  * The Class NegotiateAuthenticationFilterTest.
  */
-public final class NegotiateAuthenticationFilterTest {
+class NegotiateAuthenticationFilterTest {
 
     /** The neg auth filter. */
     @Tested
