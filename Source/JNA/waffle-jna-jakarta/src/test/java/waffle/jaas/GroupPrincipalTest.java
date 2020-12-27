@@ -96,7 +96,7 @@ class GroupPrincipalTest {
         try (final ObjectOutputStream oos = new ObjectOutputStream(out)) {
             oos.writeObject(this.groupPrincipal);
         }
-        assertThat(out.toByteArray().).isNotEmpty();
+        assertThat(out.toByteArray()).isNotEmpty();
         // deserialize
         final InputStream in = new ByteArrayInputStream(out.toByteArray());
         final ObjectInputStream ois = new ObjectInputStream(in);

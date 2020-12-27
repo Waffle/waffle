@@ -211,7 +211,7 @@ class NegotiateAuthenticatorTest {
                     final GenericWindowsPrincipal windowsPrincipal = (GenericWindowsPrincipal) request
                             .getUserPrincipal();
                     Assertions.assertTrue(windowsPrincipal.getSidString().startsWith("S-"));
-                    assertThat(windowsPrincipal.getSid().).isNotEmpty();
+                    assertThat(windowsPrincipal.getSid()).isNotEmpty();
                     Assertions.assertTrue(windowsPrincipal.getGroups().containsKey("Everyone"));
                     assertThat(response.getHeaderNames().size()).isLessThanOrEqualTo(1);
                     break;

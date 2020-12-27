@@ -49,7 +49,7 @@ class WindowsSecurityContextTest {
                 WindowsAccountImpl.getCurrentUsername());
         Assertions.assertTrue(ctx.isContinue());
         Assertions.assertEquals(securityPackage, ctx.getSecurityPackage());
-        assertThat(ctx.getToken().).isNotEmpty();
+        assertThat(ctx.getToken()).isNotEmpty();
         ctx.dispose();
     }
 }
