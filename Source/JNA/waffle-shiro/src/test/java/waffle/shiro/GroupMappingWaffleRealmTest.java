@@ -82,8 +82,7 @@ class GroupMappingWaffleRealmTest {
         assertThat(fqnPrincipal.getFqn()).isEqualTo(this.getCurrentUserName());
         assertThat(fqnPrincipal.getGroupFqns()).contains("Users", "Everyone");
         final Object credentials = authcInfo.getCredentials();
-        assertThat(credentials).isInstanceOf(char[].class);
-        assertThat(credentials).isEqualTo("somePassword".toCharArray());
+        assertThat(credentials).isInstanceOf(char[].class).isEqualTo("somePassword".toCharArray());
         Assertions.assertTrue(this.realm.hasRole(principals, GroupMappingWaffleRealmTest.ROLE_NAME));
     }
 
