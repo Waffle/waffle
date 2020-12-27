@@ -134,7 +134,7 @@ class WindowsAuthProviderTest {
         final IWindowsAuthProvider prov = new WindowsAuthProviderImpl();
         final IWindowsComputer computer = prov.getCurrentComputer();
         WindowsAuthProviderTest.LOGGER.info(computer.getComputerName());
-        assertThat(computer.getComputerName().length()).isPositive();
+        assertThat(computer.getComputerName()).isNotEmpty();
         WindowsAuthProviderTest.LOGGER.info(computer.getJoinStatus());
         WindowsAuthProviderTest.LOGGER.info(computer.getMemberOf());
         final String[] localGroups = computer.getGroups();
@@ -201,7 +201,7 @@ class WindowsAuthProviderTest {
             } while (serverContext != null && serverContext.isContinue());
 
             if (serverContext != null) {
-                assertThat(serverContext.getIdentity().getFqn().length()).isPositive();
+                assertThat(serverContext.getIdentity().getFqn()).isNotEmpty();
 
                 WindowsAuthProviderTest.LOGGER.info(serverContext.getIdentity().getFqn());
                 for (final IWindowsAccount group : serverContext.getIdentity().getGroups()) {
@@ -305,7 +305,7 @@ class WindowsAuthProviderTest {
             } while (serverContext != null && serverContext.isContinue());
 
             if (serverContext != null) {
-                assertThat(serverContext.getIdentity().getFqn().length()).isPositive();
+                assertThat(serverContext.getIdentity().getFqn()).isNotEmpty();
 
                 final IWindowsImpersonationContext impersonationCtx = serverContext.impersonate();
                 impersonationCtx.revertToSelf();
