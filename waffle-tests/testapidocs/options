@@ -1,0 +1,30 @@
+-classpath
+'C:/Users/Jeremy/Documents/GitHub/waffle/Source/JNA/target/checkout/Source/JNA/waffle-tests/target/classes;C:/Users/Jeremy/Documents/GitHub/waffle/Source/JNA/target/checkout/Source/JNA/waffle-tests/target/test-classes;C:/Users/Jeremy/Documents/GitHub/waffle/Source/JNA/target/checkout/Source/JNA/waffle-jna/target/waffle-jna-3.0.0.jar;C:/Users/Jeremy/.m2/repository/net/java/dev/jna/jna/5.6.0/jna-5.6.0.jar;C:/Users/Jeremy/.m2/repository/net/java/dev/jna/jna-platform/5.6.0/jna-platform-5.6.0.jar;C:/Users/Jeremy/.m2/repository/org/slf4j/jcl-over-slf4j/2.0.0-alpha1/jcl-over-slf4j-2.0.0-alpha1.jar;C:/Users/Jeremy/.m2/repository/org/slf4j/slf4j-api/2.0.0-alpha1/slf4j-api-2.0.0-alpha1.jar;C:/Users/Jeremy/.m2/repository/com/github/ben-manes/caffeine/caffeine/2.8.8/caffeine-2.8.8.jar;C:/Users/Jeremy/.m2/repository/org/checkerframework/checker-qual/3.8.0/checker-qual-3.8.0.jar;C:/Users/Jeremy/.m2/repository/jakarta/servlet/jakarta.servlet-api/4.0.4/jakarta.servlet-api-4.0.4.jar;C:/Users/Jeremy/.m2/repository/net/bytebuddy/byte-buddy/1.10.19/byte-buddy-1.10.19.jar;C:/Users/Jeremy/.m2/repository/net/bytebuddy/byte-buddy-agent/1.10.19/byte-buddy-agent-1.10.19.jar;C:/Users/Jeremy/.m2/repository/org/mockito/mockito-core/3.6.28/mockito-core-3.6.28.jar;C:/Users/Jeremy/.m2/repository/org/objenesis/objenesis/3.1/objenesis-3.1.jar;C:/Users/Jeremy/.m2/repository/org/slf4j/slf4j-simple/2.0.0-alpha1/slf4j-simple-2.0.0-alpha1.jar;C:/Users/Jeremy/.m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar;C:/Users/Jeremy/.m2/repository/com/google/errorprone/error_prone_annotations/2.4.0/error_prone_annotations-2.4.0.jar;C:/Users/Jeremy/.m2/repository/com/google/j2objc/j2objc-annotations/1.3/j2objc-annotations-1.3.jar;C:/Users/Jeremy/.m2/repository/org/assertj/assertj-core/3.18.1/assertj-core-3.18.1.jar;C:/Users/Jeremy/.m2/repository/com/github/hazendaz/jmockit/jmockit/1.49.1/jmockit-1.49.1.jar;C:/Users/Jeremy/.m2/repository/com/github/spotbugs/spotbugs-annotations/4.0.0/spotbugs-annotations-4.0.0.jar;C:/Users/Jeremy/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.7.0/junit-jupiter-engine-5.7.0.jar;C:/Users/Jeremy/.m2/repository/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar;C:/Users/Jeremy/.m2/repository/org/junit/platform/junit-platform-engine/1.7.0/junit-platform-engine-1.7.0.jar;C:/Users/Jeremy/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar;C:/Users/Jeremy/.m2/repository/org/junit/platform/junit-platform-commons/1.7.0/junit-platform-commons-1.7.0.jar;C:/Users/Jeremy/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.7.0/junit-jupiter-api-5.7.0.jar;C:/Users/Jeremy/.m2/repository/org/openjdk/jmh/jmh-core/1.27/jmh-core-1.27.jar;C:/Users/Jeremy/.m2/repository/org/openjdk/jmh/jmh-generator-annprocess/1.27/jmh-generator-annprocess-1.27.jar;C:/Users/Jeremy/.m2/repository/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar;C:/Users/Jeremy/.m2/repository/net/sf/jopt-simple/jopt-simple/5.0.4/jopt-simple-5.0.4.jar'
+-encoding
+'UTF-8'
+-protected
+-quiet
+--release
+8
+-sourcepath
+'C:/Users/Jeremy/Documents/GitHub/waffle/Source/JNA/target/checkout/Source/JNA/waffle-tests/src/test/java;C:/Users/Jeremy/Documents/GitHub/waffle/Source/JNA/target/checkout/Source/JNA/waffle-tests/target/generated-test-sources/test-annotations'
+-html5
+-author
+-bottom
+'Copyright &#169; 2010&#x2013;2020 <a href="https://github.com/waffle/">com.github.waffle</a>. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/Jeremy/Documents/GitHub/waffle/Source/JNA/target/checkout/Source/JNA/waffle-tests/target/site/testapidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'waffle-tests 3.0.0 Test API'
+-link
+'../apidocs'
+-linkoffline
+'https://docs.oracle.com/javase/8/docs/api' 'C:/Users/Jeremy/Documents/GitHub/waffle/Source/JNA/target/checkout/Source/JNA/waffle-tests/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'waffle-tests 3.0.0 Test API'
