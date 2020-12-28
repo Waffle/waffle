@@ -29,11 +29,11 @@
     <parent>
         <groupId>com.github.waffle.demo</groupId>
         <artifactId>waffle-demo-parent</artifactId>
-        <version>2.3.1-SNAPSHOT</version>
+        <version>3.0.0</version>
     </parent>
 
     <artifactId>waffle-spring-boot-filter2</artifactId>
-    <version>2.3.1-SNAPSHOT</version>
+    <version>3.0.0</version>
     <packaging>jar</packaging>
 
     <name>waffle-spring-boot-filter2</name>
@@ -44,7 +44,7 @@
         <connection>scm:git:ssh://git@github.com/waffle/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/waffle/waffle.git</developerConnection>
         <url>https://github.com/Waffle/waffle</url>
-        <tag>HEAD</tag>
+        <tag>waffle-parent-3.0.0</tag>
     </scm>
 
     <properties>

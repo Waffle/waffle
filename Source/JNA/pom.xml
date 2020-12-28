@@ -29,7 +29,7 @@
 
     <groupId>com.github.waffle</groupId>
     <artifactId>waffle-parent</artifactId>
-    <version>2.3.1-SNAPSHOT</version>
+    <version>3.0.0</version>
     <packaging>pom</packaging>
 
     <name>waffle-parent</name>
@@ -107,7 +107,7 @@
         <connection>scm:git:ssh://git@github.com/waffle/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/waffle/waffle.git</developerConnection>
         <url>https://github.com/Waffle/waffle</url>
-        <tag>HEAD</tag>
+        <tag>waffle-parent-3.0.0</tag>
     </scm>
     <issueManagement>
         <system>Github</system>
