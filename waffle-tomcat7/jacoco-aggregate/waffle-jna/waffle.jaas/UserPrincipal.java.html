@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>UserPrincipal.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-tomcat7</a> &gt; <a href="../index.html" class="el_bundle">waffle-jna</a> &gt; <a href="index.source.html" class="el_package">waffle.jaas</a> &gt; <span class="el_source">UserPrincipal.java</span></div><h1>UserPrincipal.java</h1><pre class="source lang-java linenums">/*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) ${license.git.copyrightYears} The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the &quot;Software&quot;), to deal
@@ -45,9 +45,9 @@ public class UserPrincipal implements Principal, Serializable {
      * @param newFqn
      *            Fully qualified username.
      */
-<span class="nc" id="L48">    public UserPrincipal(final String newFqn) {</span>
-<span class="nc" id="L49">        this.fqn = newFqn;</span>
-<span class="nc" id="L50">    }</span>
+<span class="fc" id="L48">    public UserPrincipal(final String newFqn) {</span>
+<span class="fc" id="L49">        this.fqn = newFqn;</span>
+<span class="fc" id="L50">    }</span>
 
     /**
      * Fully qualified username.
@@ -56,26 +56,26 @@ public class UserPrincipal implements Principal, Serializable {
      */
     @Override
     public String getName() {
-<span class="nc" id="L59">        return this.fqn;</span>
+<span class="fc" id="L59">        return this.fqn;</span>
     }
 
     @Override
     public boolean equals(final Object o) {
 
-<span class="nc bnc" id="L65" title="All 2 branches missed.">        if (this == o) {</span>
-<span class="nc" id="L66">            return true;</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        if (this == o) {</span>
+<span class="fc" id="L66">            return true;</span>
         }
 
-<span class="nc bnc" id="L69" title="All 2 branches missed.">        if (o instanceof UserPrincipal) {</span>
-<span class="nc" id="L70">            return this.getName().equals(((UserPrincipal) o).getName());</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">        if (o instanceof UserPrincipal) {</span>
+<span class="fc" id="L70">            return this.getName().equals(((UserPrincipal) o).getName());</span>
         }
 
-<span class="nc" id="L73">        return false;</span>
+<span class="fc" id="L73">        return false;</span>
     }
 
     @Override
     public int hashCode() {
-<span class="nc" id="L78">        return this.getName().hashCode();</span>
+<span class="fc" id="L78">        return this.getName().hashCode();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
