@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>WindowsAccount.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-spring-form</a> &gt; <a href="../index.html" class="el_bundle">waffle-jna</a> &gt; <a href="index.source.html" class="el_package">waffle.windows.auth</a> &gt; <span class="el_source">WindowsAccount.java</span></div><h1>WindowsAccount.java</h1><pre class="source lang-java linenums">/*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) ${license.git.copyrightYears} The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the &quot;Software&quot;), to deal
@@ -53,12 +53,12 @@ public class WindowsAccount implements Serializable {
      * @param account
      *            the account
      */
-<span class="nc" id="L56">    public WindowsAccount(final IWindowsAccount account) {</span>
-<span class="nc" id="L57">        this.sidString = account.getSidString();</span>
-<span class="nc" id="L58">        this.fqn = account.getFqn();</span>
-<span class="nc" id="L59">        this.name = account.getName();</span>
-<span class="nc" id="L60">        this.domain = account.getDomain();</span>
-<span class="nc" id="L61">    }</span>
+<span class="fc" id="L56">    public WindowsAccount(final IWindowsAccount account) {</span>
+<span class="fc" id="L57">        this.sidString = account.getSidString();</span>
+<span class="fc" id="L58">        this.fqn = account.getFqn();</span>
+<span class="fc" id="L59">        this.name = account.getName();</span>
+<span class="fc" id="L60">        this.domain = account.getDomain();</span>
+<span class="fc" id="L61">    }</span>
 
     /**
      * Gets the sid string.
@@ -75,7 +75,7 @@ public class WindowsAccount implements Serializable {
      * @return the fqn
      */
     public String getFqn() {
-<span class="nc" id="L78">        return this.fqn;</span>
+<span class="fc" id="L78">        return this.fqn;</span>
     }
 
     /**
