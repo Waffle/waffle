@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>DelegatingNegotiateSecurityFilter.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-bom</a> &gt; <a href="../index.html" class="el_bundle">waffle-spring-security5</a> &gt; <a href="index.source.html" class="el_package">waffle.spring</a> &gt; <span class="el_source">DelegatingNegotiateSecurityFilter.java</span></div><h1>DelegatingNegotiateSecurityFilter.java</h1><pre class="source lang-java linenums">/*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) ${license.git.copyrightYears} The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the &quot;Software&quot;), to deal
@@ -84,7 +84,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
 
     /** The Constant LOGGER. */
-<span class="nc" id="L87">    private static final Logger LOGGER = LoggerFactory.getLogger(DelegatingNegotiateSecurityFilter.class);</span>
+<span class="fc" id="L87">    private static final Logger LOGGER = LoggerFactory.getLogger(DelegatingNegotiateSecurityFilter.class);</span>
 
     /** The authentication manager. */
     private AuthenticationManager authenticationManager;
@@ -102,9 +102,9 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
      * Instantiates a new delegating negotiate security filter.
      */
     public DelegatingNegotiateSecurityFilter() {
-<span class="nc" id="L105">        super();</span>
-<span class="nc" id="L106">        DelegatingNegotiateSecurityFilter.LOGGER.debug(&quot;[waffle.spring.NegotiateSecurityFilter] loaded&quot;);</span>
-<span class="nc" id="L107">    }</span>
+<span class="fc" id="L105">        super();</span>
+<span class="fc" id="L106">        DelegatingNegotiateSecurityFilter.LOGGER.debug(&quot;[waffle.spring.NegotiateSecurityFilter] loaded&quot;);</span>
+<span class="fc" id="L107">    }</span>
 
     /**
      * Gets the access denied handler.
@@ -112,7 +112,7 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
      * @return the accessDeniedHandler
      */
     public AccessDeniedHandler getAccessDeniedHandler() {
-<span class="nc" id="L115">        return this.accessDeniedHandler;</span>
+<span class="fc" id="L115">        return this.accessDeniedHandler;</span>
     }
 
     /**
@@ -122,8 +122,8 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
      *            the accessDeniedHandler to set
      */
     public void setAccessDeniedHandler(final AccessDeniedHandler value) {
-<span class="nc" id="L125">        this.accessDeniedHandler = value;</span>
-<span class="nc" id="L126">    }</span>
+<span class="fc" id="L125">        this.accessDeniedHandler = value;</span>
+<span class="fc" id="L126">    }</span>
 
     /**
      * Gets the authentication failure handler.
@@ -148,22 +148,22 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
     protected boolean setAuthentication(final HttpServletRequest request, final HttpServletResponse response,
             final Authentication authentication) {
         try {
-<span class="nc" id="L151">            Authentication delegateAuthentication = authentication;</span>
-<span class="nc bnc" id="L152" title="All 2 branches missed.">            if (this.authenticationManager != null) {</span>
-<span class="nc" id="L153">                DelegatingNegotiateSecurityFilter.LOGGER.debug(&quot;Delegating to custom authenticationmanager&quot;);</span>
-<span class="nc" id="L154">                delegateAuthentication = this.authenticationManager.authenticate(authentication);</span>
+<span class="fc" id="L151">            Authentication delegateAuthentication = authentication;</span>
+<span class="fc bfc" id="L152" title="All 2 branches covered.">            if (this.authenticationManager != null) {</span>
+<span class="fc" id="L153">                DelegatingNegotiateSecurityFilter.LOGGER.debug(&quot;Delegating to custom authenticationmanager&quot;);</span>
+<span class="fc" id="L154">                delegateAuthentication = this.authenticationManager.authenticate(authentication);</span>
             }
-<span class="nc" id="L156">            SecurityContextHolder.getContext().setAuthentication(delegateAuthentication);</span>
-<span class="nc bnc" id="L157" title="All 2 branches missed.">            if (this.authenticationSuccessHandler != null) {</span>
+<span class="fc" id="L156">            SecurityContextHolder.getContext().setAuthentication(delegateAuthentication);</span>
+<span class="fc bfc" id="L157" title="All 2 branches covered.">            if (this.authenticationSuccessHandler != null) {</span>
                 try {
-<span class="nc" id="L159">                    this.authenticationSuccessHandler.onAuthenticationSuccess(request, response,</span>
+<span class="fc" id="L159">                    this.authenticationSuccessHandler.onAuthenticationSuccess(request, response,</span>
                             delegateAuthentication);
 <span class="nc" id="L161">                } catch (final IOException | ServletException e) {</span>
 <span class="nc" id="L162">                    DelegatingNegotiateSecurityFilter.LOGGER.warn(&quot;Error calling authenticationSuccessHandler: {}&quot;,</span>
 <span class="nc" id="L163">                            e.getMessage());</span>
 <span class="nc" id="L164">                    DelegatingNegotiateSecurityFilter.LOGGER.trace(&quot;&quot;, e);</span>
 <span class="nc" id="L165">                    return false;</span>
-<span class="nc" id="L166">                }</span>
+<span class="fc" id="L166">                }</span>
             }
 <span class="nc" id="L168">        } catch (final AuthenticationException e) {</span>
 <span class="nc" id="L169">            DelegatingNegotiateSecurityFilter.LOGGER</span>
@@ -175,18 +175,18 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
 <span class="nc" id="L175">                    e.getMessage());</span>
 <span class="nc" id="L176">            this.sendAccessDenied(request, response, e);</span>
 <span class="nc" id="L177">            return false;</span>
-<span class="nc" id="L178">        }</span>
-<span class="nc" id="L179">        return true;</span>
+<span class="fc" id="L178">        }</span>
+<span class="fc" id="L179">        return true;</span>
     }
 
     @Override
     public void afterPropertiesSet() throws ServletException {
-<span class="nc" id="L184">        super.afterPropertiesSet();</span>
+<span class="fc" id="L184">        super.afterPropertiesSet();</span>
 
-<span class="nc bnc" id="L186" title="All 2 branches missed.">        if (this.getProvider() == null) {</span>
+<span class="pc bpc" id="L186" title="1 of 2 branches missed.">        if (this.getProvider() == null) {</span>
 <span class="nc" id="L187">            throw new ServletException(&quot;Missing NegotiateSecurityFilter.Provider&quot;);</span>
         }
-<span class="nc" id="L189">    }</span>
+<span class="fc" id="L189">    }</span>
 
     /**
      * Forward to authenticationFailureHandler.
@@ -263,8 +263,8 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
      *            the authenticationSuccessHandler to set
      */
     public void setAuthenticationSuccessHandler(final AuthenticationSuccessHandler value) {
-<span class="nc" id="L266">        this.authenticationSuccessHandler = value;</span>
-<span class="nc" id="L267">    }</span>
+<span class="fc" id="L266">        this.authenticationSuccessHandler = value;</span>
+<span class="fc" id="L267">    }</span>
 
     /**
      * Gets the authentication manager.
@@ -282,8 +282,8 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
      *            the authenticationManager to set
      */
     public void setAuthenticationManager(final AuthenticationManager value) {
-<span class="nc" id="L285">        this.authenticationManager = value;</span>
-<span class="nc" id="L286">    }</span>
+<span class="fc" id="L285">        this.authenticationManager = value;</span>
+<span class="fc" id="L286">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
