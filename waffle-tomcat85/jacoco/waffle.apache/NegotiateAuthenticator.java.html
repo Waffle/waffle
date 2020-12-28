@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NegotiateAuthenticator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-tomcat85</a> &gt; <a href="index.source.html" class="el_package">waffle.apache</a> &gt; <span class="el_source">NegotiateAuthenticator.java</span></div><h1>NegotiateAuthenticator.java</h1><pre class="source lang-java linenums">/*
+ * MIT License
+ *
+ * Copyright (c) ${license.git.copyrightYears} The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+package waffle.apache;
+
+import com.sun.jna.platform.win32.Win32Exception;
+
+import java.io.IOException;
+import java.security.Principal;
+import java.util.Base64;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.catalina.LifecycleException;
+import org.apache.catalina.connector.Request;
+import org.apache.catalina.realm.GenericPrincipal;
+import org.slf4j.LoggerFactory;
+
+import waffle.util.AuthorizationHeader;
+import waffle.util.NtlmServletRequest;
+import waffle.windows.auth.IWindowsIdentity;
+import waffle.windows.auth.IWindowsSecurityContext;
+
+/**
+ * An Apache Negotiate (NTLM, Kerberos) Authenticator.
+ *
+ * @author dblock[at]dblock[dot]org
+ */
+public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
+
+    /**
+     * Instantiates a new negotiate authenticator.
+     */
+    public NegotiateAuthenticator() {
+<span class="fc" id="L56">        super();</span>
+<span class="fc" id="L57">        this.log = LoggerFactory.getLogger(NegotiateAuthenticator.class);</span>
+<span class="fc" id="L58">        this.info = &quot;waffle.apache.NegotiateAuthenticator/1.0&quot;;</span>
+<span class="fc" id="L59">        this.log.debug(&quot;[waffle.apache.NegotiateAuthenticator] loaded&quot;);</span>
+<span class="fc" id="L60">    }</span>
+
+    @Override
+    public synchronized void startInternal() throws LifecycleException {
+<span class="fc" id="L64">        this.log.info(&quot;[waffle.apache.NegotiateAuthenticator] started&quot;);</span>
+<span class="fc" id="L65">        super.startInternal();</span>
+<span class="fc" id="L66">    }</span>
+
+    @Override
+    public synchronized void stopInternal() throws LifecycleException {
+<span class="fc" id="L70">        super.stopInternal();</span>
+<span class="fc" id="L71">        this.log.info(&quot;[waffle.apache.NegotiateAuthenticator] stopped&quot;);</span>
+<span class="fc" id="L72">    }</span>
+
+    @Override
+    public boolean authenticate(final Request request, final HttpServletResponse response) {
+
+<span class="fc" id="L77">        Principal principal = request.getUserPrincipal();</span>
+<span class="fc" id="L78">        final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);</span>
+<span class="fc" id="L79">        final boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();</span>
+
+<span class="fc" id="L81">        this.log.debug(&quot;{} {}, contentlength: {}&quot;, request.getMethod(), request.getRequestURI(),</span>
+<span class="fc" id="L82">                Integer.valueOf(request.getContentLength()));</span>
+<span class="fc" id="L83">        this.log.debug(&quot;authorization: {}, ntlm post: {}&quot;, authorizationHeader, Boolean.valueOf(ntlmPost));</span>
+
+<span class="pc bpc" id="L85" title="3 of 4 branches missed.">        if (principal != null &amp;&amp; !ntlmPost) {</span>
+            // user already authenticated
+<span class="nc" id="L87">            this.log.debug(&quot;previously authenticated user: {}&quot;, principal.getName());</span>
+<span class="nc" id="L88">            return true;</span>
+        }
+
+        // authenticate user
+<span class="fc bfc" id="L92" title="All 2 branches covered.">        if (!authorizationHeader.isNull()) {</span>
+
+<span class="fc" id="L94">            final String securityPackage = authorizationHeader.getSecurityPackage();</span>
+            // maintain a connection-based session for NTLM tokens
+<span class="fc" id="L96">            final String connectionId = NtlmServletRequest.getConnectionId(request);</span>
+
+<span class="fc" id="L98">            this.log.debug(&quot;security package: {}, connection id: {}&quot;, securityPackage, connectionId);</span>
+
+<span class="fc bfc" id="L100" title="All 2 branches covered.">            if (ntlmPost) {</span>
+                // type 1 NTLM authentication message received
+<span class="fc" id="L102">                this.auth.resetSecurityToken(connectionId);</span>
+            }
+
+<span class="fc" id="L105">            final byte[] tokenBuffer = authorizationHeader.getTokenBytes();</span>
+<span class="fc" id="L106">            this.log.debug(&quot;token buffer: {} byte(s)&quot;, Integer.valueOf(tokenBuffer.length));</span>
+
+            // log the user in using the token
+            IWindowsSecurityContext securityContext;
+            try {
+<span class="fc" id="L111">                securityContext = this.auth.acceptSecurityToken(connectionId, tokenBuffer, securityPackage);</span>
+<span class="nc" id="L112">            } catch (final Win32Exception e) {</span>
+<span class="nc" id="L113">                this.log.warn(&quot;error logging in user: {}&quot;, e.getMessage());</span>
+<span class="nc" id="L114">                this.log.trace(&quot;&quot;, e);</span>
+<span class="nc" id="L115">                this.sendUnauthorized(response);</span>
+<span class="nc" id="L116">                return false;</span>
+<span class="fc" id="L117">            }</span>
+<span class="fc" id="L118">            this.log.debug(&quot;continue required: {}&quot;, Boolean.valueOf(securityContext.isContinue()));</span>
+
+<span class="fc" id="L120">            final byte[] continueTokenBytes = securityContext.getToken();</span>
+<span class="pc bpc" id="L121" title="2 of 4 branches missed.">            if (continueTokenBytes != null &amp;&amp; continueTokenBytes.length &gt; 0) {</span>
+<span class="fc" id="L122">                final String continueToken = Base64.getEncoder().encodeToString(continueTokenBytes);</span>
+<span class="fc" id="L123">                this.log.debug(&quot;continue token: {}&quot;, continueToken);</span>
+<span class="fc" id="L124">                response.addHeader(&quot;WWW-Authenticate&quot;, securityPackage + &quot; &quot; + continueToken);</span>
+            }
+
+            try {
+<span class="fc bfc" id="L128" title="All 2 branches covered.">                if (securityContext.isContinue()) {</span>
+<span class="fc" id="L129">                    response.setHeader(&quot;Connection&quot;, &quot;keep-alive&quot;);</span>
+<span class="fc" id="L130">                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED);</span>
+<span class="fc" id="L131">                    response.flushBuffer();</span>
+<span class="fc" id="L132">                    return false;</span>
+                }
+<span class="nc" id="L134">            } catch (final IOException e) {</span>
+<span class="nc" id="L135">                this.log.warn(&quot;error logging in user: {}&quot;, e.getMessage());</span>
+<span class="nc" id="L136">                this.log.trace(&quot;&quot;, e);</span>
+<span class="nc" id="L137">                this.sendUnauthorized(response);</span>
+<span class="nc" id="L138">                return false;</span>
+<span class="fc" id="L139">            }</span>
+
+            // realm: fail if no realm is configured
+<span class="pc bpc" id="L142" title="2 of 4 branches missed.">            if (this.context == null || this.context.getRealm() == null) {</span>
+<span class="nc" id="L143">                this.log.warn(&quot;missing context/realm&quot;);</span>
+<span class="nc" id="L144">                this.sendError(response, HttpServletResponse.SC_SERVICE_UNAVAILABLE);</span>
+<span class="nc" id="L145">                return false;</span>
+            }
+
+            // create and register the user principal with the session
+<span class="fc" id="L149">            final IWindowsIdentity windowsIdentity = securityContext.getIdentity();</span>
+
+            // disable guest login
+<span class="pc bpc" id="L152" title="3 of 4 branches missed.">            if (!this.allowGuestLogin &amp;&amp; windowsIdentity.isGuest()) {</span>
+<span class="nc" id="L153">                this.log.warn(&quot;guest login disabled: {}&quot;, windowsIdentity.getFqn());</span>
+<span class="nc" id="L154">                this.sendUnauthorized(response);</span>
+<span class="nc" id="L155">                return false;</span>
+            }
+
+            try {
+<span class="fc" id="L159">                this.log.debug(&quot;logged in user: {} ({})&quot;, windowsIdentity.getFqn(), windowsIdentity.getSidString());</span>
+
+<span class="fc" id="L161">                final GenericPrincipal genericPrincipal = this.createPrincipal(windowsIdentity);</span>
+
+<span class="fc" id="L163">                this.log.debug(&quot;roles: {}&quot;, String.join(&quot;, &quot;, genericPrincipal.getRoles()));</span>
+
+<span class="fc" id="L165">                principal = genericPrincipal;</span>
+
+                // create a session associated with this request if there's none
+<span class="fc" id="L168">                final HttpSession session = request.getSession(true);</span>
+<span class="pc bpc" id="L169" title="1 of 2 branches missed.">                this.log.debug(&quot;session id: {}&quot;, session == null ? &quot;null&quot; : session.getId());</span>
+
+                // register the authenticated principal
+<span class="fc" id="L172">                this.register(request, response, principal, securityPackage, principal.getName(), null);</span>
+<span class="fc" id="L173">                this.log.info(&quot;successfully logged in user: {}&quot;, principal.getName());</span>
+
+            } finally {
+<span class="fc" id="L176">                windowsIdentity.dispose();</span>
+<span class="fc" id="L177">                securityContext.dispose();</span>
+            }
+
+<span class="fc" id="L180">            return true;</span>
+        }
+
+<span class="fc" id="L183">        this.log.debug(&quot;authorization required&quot;);</span>
+<span class="fc" id="L184">        this.sendUnauthorized(response);</span>
+<span class="fc" id="L185">        return false;</span>
+    }
+
+    /**
+     * XXX The 'doAuthenticate' is intended to replace 'authenticate' for needs like ours. In order to support old and
+     * new at this time, we will continue to have both for time being.
+     */
+    @Override
+    protected boolean doAuthenticate(final Request request, final HttpServletResponse response) throws IOException {
+<span class="nc" id="L194">        return this.authenticate(request, response);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
