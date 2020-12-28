@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NegotiateAuthenticationFilter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-shiro</a> &gt; <a href="index.source.html" class="el_package">waffle.shiro.negotiate</a> &gt; <span class="el_source">NegotiateAuthenticationFilter.java</span></div><h1>NegotiateAuthenticationFilter.java</h1><pre class="source lang-java linenums">/*
+ * MIT License
+ *
+ * Copyright (c) ${license.git.copyrightYears} The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+package waffle.shiro.negotiate;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
+
+/**
+ * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateAuthenticationFilter. see:
+ *
+ * https://bitbucket.org/lothor
+ *
+ * /shiro-negotiate/src/7b25efde130b9cbcacf579b3f926c532d919aa23/src/main/java/net/skorgenes/
+ *
+ * security/jsecurity/negotiate/NegotiateAuthenticationFilter.java?at=default
+ *
+ * @author Dan Rollo
+ */
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.subject.Subject;
+import org.apache.shiro.web.filter.authc.AuthenticatingFilter;
+import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
+import org.apache.shiro.web.util.WebUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import waffle.util.AuthorizationHeader;
+import waffle.util.NtlmServletRequest;
+
+/**
+ * A authentication filter that implements the HTTP Negotiate mechanism. The current user is authenticated, providing
+ * single-sign-on
+ *
+ * @author Dan Rollo
+ * @since 1.0.0
+ */
+public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
+
+    /**
+     * This class's private logger.
+     */
+<span class="fc" id="L71">    private static final Logger LOGGER = LoggerFactory.getLogger(NegotiateAuthenticationFilter.class);</span>
+
+    // TODO things (sometimes) break, depending on what user account is running tomcat:
+    // related to setSPN and running tomcat server as NT Service account vs. as normal user account.
+    // https://waffle.codeplex.com/discussions/254748
+    // setspn -A HTTP/&lt;server-fqdn&gt; &lt;user_tomcat_running_under&gt;
+    /** The Constant PROTOCOLS. */
+<span class="fc" id="L78">    private static final List&lt;String&gt; PROTOCOLS = new ArrayList&lt;&gt;();</span>
+
+    /** The failure key attribute. */
+<span class="fc" id="L81">    private String failureKeyAttribute = FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME;</span>
+
+    /** The remember me param. */
+<span class="fc" id="L84">    private String rememberMeParam = FormAuthenticationFilter.DEFAULT_REMEMBER_ME_PARAM;</span>
+
+    /**
+     * Instantiates a new negotiate authentication filter.
+     */
+<span class="fc" id="L89">    public NegotiateAuthenticationFilter() {</span>
+<span class="fc" id="L90">        NegotiateAuthenticationFilter.PROTOCOLS.add(&quot;Negotiate&quot;);</span>
+<span class="fc" id="L91">        NegotiateAuthenticationFilter.PROTOCOLS.add(&quot;NTLM&quot;);</span>
+<span class="fc" id="L92">    }</span>
+
+    /**
+     * Gets the remember me param.
+     *
+     * @return the remember me param
+     */
+    public String getRememberMeParam() {
+<span class="nc" id="L100">        return this.rememberMeParam;</span>
+    }
+
+    /**
+     * Sets the request parameter name to look for when acquiring the rememberMe boolean value. Unless overridden by
+     * calling this method, the default is &lt;code&gt;rememberMe&lt;/code&gt;. &lt;br&gt;
+     * &lt;br&gt;
+     * RememberMe will be &lt;code&gt;true&lt;/code&gt; if the parameter value equals any of those supported by
+     * {@link org.apache.shiro.web.util.WebUtils#isTrue(javax.servlet.ServletRequest, String)
+     * WebUtils.isTrue(request,value)}, &lt;code&gt;false&lt;/code&gt; otherwise.
+     *
+     * @param value
+     *            the name of the request param to check for acquiring the rememberMe boolean value.
+     */
+    public void setRememberMeParam(final String value) {
+<span class="nc" id="L115">        this.rememberMeParam = value;</span>
+<span class="nc" id="L116">    }</span>
+
+    @Override
+    protected boolean isRememberMe(final ServletRequest request) {
+<span class="nc" id="L120">        return WebUtils.isTrue(request, this.getRememberMeParam());</span>
+    }
+
+    @Override
+    protected AuthenticationToken createToken(final ServletRequest request, final ServletResponse response) {
+<span class="nc" id="L125">        final String authorization = this.getAuthzHeader(request);</span>
+<span class="nc" id="L126">        final String[] elements = authorization.split(&quot; &quot;, -1);</span>
+<span class="nc" id="L127">        final byte[] inToken = Base64.getDecoder().decode(elements[1]);</span>
+
+        // maintain a connection-based session for NTLM tokens
+        // TODO see about changing this parameter to ServletRequest in waffle
+<span class="nc" id="L131">        final String connectionId = NtlmServletRequest.getConnectionId((HttpServletRequest) request);</span>
+<span class="nc" id="L132">        final String securityPackage = elements[0];</span>
+
+        // TODO see about changing this parameter to ServletRequest in waffle
+<span class="nc" id="L135">        final AuthorizationHeader authorizationHeader = new AuthorizationHeader((HttpServletRequest) request);</span>
+<span class="nc" id="L136">        final boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();</span>
+
+<span class="nc" id="L138">        NegotiateAuthenticationFilter.LOGGER.debug(&quot;security package: {}, connection id: {}, ntlmPost: {}&quot;,</span>
+<span class="nc" id="L139">                securityPackage, connectionId, Boolean.valueOf(ntlmPost));</span>
+
+<span class="nc" id="L141">        final boolean rememberMe = this.isRememberMe(request);</span>
+<span class="nc" id="L142">        final String host = this.getHost(request);</span>
+
+<span class="nc" id="L144">        return new NegotiateToken(inToken, new byte[0], connectionId, securityPackage, ntlmPost, rememberMe, host);</span>
+    }
+
+    @Override
+    protected boolean onLoginSuccess(final AuthenticationToken token, final Subject subject,
+            final ServletRequest request, final ServletResponse response) throws Exception {
+<span class="nc" id="L150">        request.setAttribute(&quot;MY_SUBJECT&quot;, ((NegotiateToken) token).getSubject());</span>
+<span class="nc" id="L151">        return true;</span>
+    }
+
+    @Override
+    protected boolean onLoginFailure(final AuthenticationToken token, final AuthenticationException e,
+            final ServletRequest request, final ServletResponse response) {
+<span class="nc bnc" id="L157" title="All 2 branches missed.">        if (e instanceof AuthenticationInProgressException) {</span>
+            // negotiate is processing
+<span class="nc" id="L159">            final String protocol = this.getAuthzHeaderProtocol(request);</span>
+<span class="nc" id="L160">            NegotiateAuthenticationFilter.LOGGER.debug(&quot;Negotiation in progress for protocol: {}&quot;, protocol);</span>
+<span class="nc" id="L161">            this.sendChallengeDuringNegotiate(protocol, response, ((NegotiateToken) token).getOut());</span>
+<span class="nc" id="L162">            return false;</span>
+        }
+<span class="nc" id="L164">        NegotiateAuthenticationFilter.LOGGER.warn(&quot;login exception: {}&quot;, e.getMessage());</span>
+
+        // do not send token.out bytes, this was a login failure.
+<span class="nc" id="L167">        this.sendChallengeOnFailure(response);</span>
+
+<span class="nc" id="L169">        this.setFailureAttribute(request, e);</span>
+<span class="nc" id="L170">        return true;</span>
+    }
+
+    /**
+     * Sets the failure attribute.
+     *
+     * @param request
+     *            the request
+     * @param ae
+     *            the ae
+     */
+    protected void setFailureAttribute(final ServletRequest request, final AuthenticationException ae) {
+<span class="nc" id="L182">        final String className = ae.getClass().getName();</span>
+<span class="nc" id="L183">        request.setAttribute(this.getFailureKeyAttribute(), className);</span>
+<span class="nc" id="L184">    }</span>
+
+    /**
+     * Gets the failure key attribute.
+     *
+     * @return the failure key attribute
+     */
+    public String getFailureKeyAttribute() {
+<span class="nc" id="L192">        return this.failureKeyAttribute;</span>
+    }
+
+    /**
+     * Sets the failure key attribute.
+     *
+     * @param value
+     *            the new failure key attribute
+     */
+    public void setFailureKeyAttribute(final String value) {
+<span class="nc" id="L202">        this.failureKeyAttribute = value;</span>
+<span class="nc" id="L203">    }</span>
+
+    @Override
+    protected boolean onAccessDenied(final ServletRequest request, final ServletResponse response) throws Exception {
+        // false by default or we wouldn't be in
+<span class="nc" id="L208">        boolean loggedIn = false;</span>
+        // this method
+<span class="nc bnc" id="L210" title="All 2 branches missed.">        if (this.isLoginAttempt(request)) {</span>
+<span class="nc" id="L211">            loggedIn = this.executeLogin(request, response);</span>
+        } else {
+<span class="nc" id="L213">            NegotiateAuthenticationFilter.LOGGER.debug(&quot;authorization required, supported protocols: {}&quot;,</span>
+                    NegotiateAuthenticationFilter.PROTOCOLS);
+<span class="nc" id="L215">            this.sendChallengeInitiateNegotiate(response);</span>
+        }
+<span class="nc" id="L217">        return loggedIn;</span>
+    }
+
+    /**
+     * Determines whether the incoming request is an attempt to log in.
+     * &lt;p/&gt;
+     * The default implementation obtains the value of the request's
+     * {@link org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter#AUTHORIZATION_HEADER AUTHORIZATION_HEADER}
+     * , and if it is not &lt;code&gt;null&lt;/code&gt;, delegates to
+     * {@link org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter#isLoginAttempt(String)
+     * isLoginAttempt(authzHeaderValue)}. If the header is &lt;code&gt;null&lt;/code&gt;, &lt;code&gt;false&lt;/code&gt; is returned.
+     *
+     * @param request
+     *            incoming ServletRequest
+     * @return true if the incoming request is an attempt to log in based, false otherwise
+     */
+    private boolean isLoginAttempt(final ServletRequest request) {
+<span class="nc" id="L234">        final String authzHeader = this.getAuthzHeader(request);</span>
+<span class="nc bnc" id="L235" title="All 4 branches missed.">        return authzHeader != null &amp;&amp; this.isLoginAttempt(authzHeader);</span>
+    }
+
+    /**
+     * Returns the {@link org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter#AUTHORIZATION_HEADER
+     * AUTHORIZATION_HEADER} from the specified ServletRequest.
+     * &lt;p/&gt;
+     * This implementation merely casts the request to an &lt;code&gt;HttpServletRequest&lt;/code&gt; and returns the header:
+     * &lt;p/&gt;
+     * &lt;code&gt;HttpServletRequest httpRequest = {@link WebUtils#toHttp(javax.servlet.ServletRequest) toHttp(reaquest)};&lt;br/&gt;
+     * return httpRequest.getHeader({@link org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter#AUTHORIZATION_HEADER AUTHORIZATION_HEADER});&lt;/code&gt;
+     *
+     * @param request
+     *            the incoming &lt;code&gt;ServletRequest&lt;/code&gt;
+     * @return the &lt;code&gt;Authorization&lt;/code&gt; header's value.
+     */
+    private String getAuthzHeader(final ServletRequest request) {
+<span class="nc" id="L252">        final HttpServletRequest httpRequest = WebUtils.toHttp(request);</span>
+<span class="nc" id="L253">        return httpRequest.getHeader(&quot;Authorization&quot;);</span>
+    }
+
+    /**
+     * Gets the authz header protocol.
+     *
+     * @param request
+     *            the request
+     * @return the authz header protocol
+     */
+    private String getAuthzHeaderProtocol(final ServletRequest request) {
+<span class="nc" id="L264">        final String authzHeader = this.getAuthzHeader(request);</span>
+<span class="nc" id="L265">        return authzHeader.substring(0, authzHeader.indexOf(' '));</span>
+    }
+
+    /**
+     * Default implementation that returns &lt;code&gt;true&lt;/code&gt; if the specified &lt;code&gt;authzHeader&lt;/code&gt; starts with the
+     * same (case-insensitive) characters specified by any of the configured protocols (Negotiate or NTLM),
+     * &lt;code&gt;false&lt;/code&gt; otherwise.
+     *
+     * @param authzHeader
+     *            the 'Authorization' header value (guaranteed to be non-null if the
+     *            {@link #isLoginAttempt(javax.servlet.ServletRequest)} method is not overriden).
+     * @return &lt;code&gt;true&lt;/code&gt; if the authzHeader value matches any of the configured protocols (Negotiate or NTLM).
+     */
+    boolean isLoginAttempt(final String authzHeader) {
+<span class="fc bfc" id="L279" title="All 2 branches covered.">        for (final String protocol : NegotiateAuthenticationFilter.PROTOCOLS) {</span>
+<span class="fc bfc" id="L280" title="All 2 branches covered.">            if (authzHeader.toLowerCase().startsWith(protocol.toLowerCase())) {</span>
+<span class="fc" id="L281">                return true;</span>
+            }
+<span class="fc" id="L283">        }</span>
+<span class="fc" id="L284">        return false;</span>
+    }
+
+    /**
+     * Builds the challenge for authorization by setting a HTTP &lt;code&gt;401&lt;/code&gt; (Unauthorized) status as well as the
+     * response's {@link org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter#AUTHENTICATE_HEADER
+     * AUTHENTICATE_HEADER}.
+     *
+     * @param protocols
+     *            protocols for which to send a challenge. In initial cases, will be all supported protocols. In the
+     *            midst of negotiation, will be only the protocol being negotiated.
+     *
+     * @param response
+     *            outgoing ServletResponse
+     * @param out
+     *            token.out or null
+     */
+    private void sendChallenge(final List&lt;String&gt; protocols, final ServletResponse response, final byte[] out) {
+<span class="fc" id="L302">        final HttpServletResponse httpResponse = WebUtils.toHttp(response);</span>
+<span class="fc" id="L303">        this.sendAuthenticateHeader(protocols, out, httpResponse);</span>
+<span class="fc" id="L304">        httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);</span>
+<span class="fc" id="L305">    }</span>
+
+    /**
+     * Send challenge initiate negotiate.
+     *
+     * @param response
+     *            the response
+     */
+    void sendChallengeInitiateNegotiate(final ServletResponse response) {
+<span class="fc" id="L314">        this.sendChallenge(NegotiateAuthenticationFilter.PROTOCOLS, response, null);</span>
+<span class="fc" id="L315">    }</span>
+
+    /**
+     * Send challenge during negotiate.
+     *
+     * @param protocol
+     *            the protocol
+     * @param response
+     *            the response
+     * @param out
+     *            the out
+     */
+    void sendChallengeDuringNegotiate(final String protocol, final ServletResponse response, final byte[] out) {
+<span class="fc" id="L328">        final List&lt;String&gt; protocolsList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L329">        protocolsList.add(protocol);</span>
+<span class="fc" id="L330">        this.sendChallenge(protocolsList, response, out);</span>
+<span class="fc" id="L331">    }</span>
+
+    /**
+     * Send challenge on failure.
+     *
+     * @param response
+     *            the response
+     */
+    void sendChallengeOnFailure(final ServletResponse response) {
+<span class="fc" id="L340">        final HttpServletResponse httpResponse = WebUtils.toHttp(response);</span>
+<span class="fc" id="L341">        this.sendUnauthorized(NegotiateAuthenticationFilter.PROTOCOLS, null, httpResponse);</span>
+<span class="fc" id="L342">        httpResponse.setHeader(&quot;Connection&quot;, &quot;close&quot;);</span>
+        try {
+<span class="fc" id="L344">            httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED);</span>
+<span class="fc" id="L345">            httpResponse.flushBuffer();</span>
+<span class="nc" id="L346">        } catch (final IOException e) {</span>
+<span class="nc" id="L347">            throw new RuntimeException(e);</span>
+<span class="fc" id="L348">        }</span>
+<span class="fc" id="L349">    }</span>
+
+    /**
+     * Send authenticate header.
+     *
+     * @param protocolsList
+     *            the protocols list
+     * @param out
+     *            the out
+     * @param httpResponse
+     *            the http response
+     */
+    private void sendAuthenticateHeader(final List&lt;String&gt; protocolsList, final byte[] out,
+            final HttpServletResponse httpResponse) {
+<span class="fc" id="L363">        this.sendUnauthorized(protocolsList, out, httpResponse);</span>
+<span class="fc" id="L364">        httpResponse.setHeader(&quot;Connection&quot;, &quot;keep-alive&quot;);</span>
+<span class="fc" id="L365">    }</span>
+
+    /**
+     * Send unauthorized.
+     *
+     * @param protocols
+     *            the protocols
+     * @param out
+     *            the out
+     * @param response
+     *            the response
+     */
+    private void sendUnauthorized(final List&lt;String&gt; protocols, final byte[] out, final HttpServletResponse response) {
+<span class="fc bfc" id="L378" title="All 2 branches covered.">        for (final String protocol : protocols) {</span>
+<span class="pc bpc" id="L379" title="1 of 4 branches missed.">            if (out == null || out.length == 0) {</span>
+<span class="fc" id="L380">                response.addHeader(&quot;WWW-Authenticate&quot;, protocol);</span>
+            } else {
+<span class="fc" id="L382">                response.setHeader(&quot;WWW-Authenticate&quot;, protocol + &quot; &quot; + Base64.getEncoder().encodeToString(out));</span>
+            }
+<span class="fc" id="L384">        }</span>
+<span class="fc" id="L385">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

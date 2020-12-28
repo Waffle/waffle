@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DynamicAuthenticationFilter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-shiro</a> &gt; <a href="index.source.html" class="el_package">waffle.shiro.dynamic</a> &gt; <span class="el_source">DynamicAuthenticationFilter.java</span></div><h1>DynamicAuthenticationFilter.java</h1><pre class="source lang-java linenums">/*
+ * MIT License
+ *
+ * Copyright (c) ${license.git.copyrightYears} The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+package waffle.shiro.dynamic;
+
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.subject.Subject;
+import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import waffle.shiro.negotiate.NegotiateAuthenticationFilter;
+
+/**
+ * When combined with the {@link waffle.shiro.negotiate.NegotiateAuthenticationStrategy}, this filter can be used to
+ * allow a client to choose which authentication filter is used at runtime. This filter assumes the shiro.ini is
+ * configured with both the {@link waffle.shiro.negotiate.NegotiateAuthenticationRealm} and some User/Password Realm
+ * like: {@link waffle.shiro.GroupMappingWaffleRealm}.
+ *
+ * Requires use of {@link waffle.shiro.negotiate.NegotiateAuthenticationStrategy} when more than one realm is configured
+ * in shiro.ini (which should be the case for multiple authentication type options).
+ *
+ * To use {@link waffle.shiro.negotiate.NegotiateAuthenticationRealm}, the client must pass the parameter
+ * {@link #PARAM_NAME_AUTHTYPE} with a value of {@link #PARAM_VAL_AUTHTYPE_NEGOTIATE}.
+ *
+ * Example shiro.ini snippet below:
+ *
+ * &lt;pre&gt;
+ *  # =======================
+ *  # Shiro INI configuration
+ *  # =======================
+ *
+ *  [main]
+ *
+ *  # Setup custom AuthenticationRealm
+ *  waffleRealmSSO = waffle.shiro.negotiate.NegotiateAuthenticationRealm
+ *  waffleUserPass = waffle.shiro.GroupMappingWaffleRealm
+ *  securityManager.realms = $waffleRealmSSO, $waffleUserPass
+ *
+ *
+ *  # Use the configured native session manager:
+ *  sessionManager = org.apache.shiro.web.session.mgt.DefaultWebSessionManager
+ *  securityManager.sessionManager = $sessionManager
+ *
+ *  # the following call is only necessary in a web-configured ShiroFilter (otherwise
+ *  # a native session manager is already enabled):
+ *  securityManager.sessionMode = native
+ *
+ *
+ *  # cookie for single sign on
+ *  cookie = org.apache.shiro.web.servlet.SimpleCookie
+ *  cookie.name = SSOcookie
+ *  cookie.path = /
+ *  securityManager.sessionManager.sessionIdCookie = $cookie
+ *
+ *
+ *  authcStrategy = waffle.shiro.negotiate.NegotiateAuthenticationStrategy
+ *  securityManager.authenticator.authenticationStrategy = $authcStrategy
+ *
+ *  # Waffle filter
+ *  waffleFilter = waffle.shiro.dynamic.DynamicAuthenticationFilter
+ *
+ *  #Configure filter chains and filter parameters
+ *  authc.loginUrl = /login.jsp
+ *  waffleFilter.loginUrl = /login.jsp
+ *  logout.redirectUrl = login.jsp
+ *
+ *  ...
+ *
+ *  [urls]
+ *  # The 'urls' section is used for url-based security
+ *  /logout = logout
+ *  /* = waffleFilter
+ *
+ * &lt;/pre&gt;
+ *
+ * @author Dan Rollo Date: 2/21/13 Time: 9:08 PM
+ */
+<span class="fc" id="L102">public class DynamicAuthenticationFilter extends FormAuthenticationFilter {</span>
+
+    /** The Constant LOGGER. */
+<span class="fc" id="L105">    private static final Logger LOGGER = LoggerFactory.getLogger(DynamicAuthenticationFilter.class);</span>
+
+    /** The Constant PARAM_NAME_AUTHTYPE. */
+    public static final String PARAM_NAME_AUTHTYPE = &quot;authType&quot;;
+
+    /** The Constant PARAM_VAL_AUTHTYPE_NEGOTIATE. */
+    public static final String PARAM_VAL_AUTHTYPE_NEGOTIATE = &quot;j_negotiate&quot;;
+
+    /**
+     * Wrapper to make protected methods in different package callable from here.
+     */
+    private static final class WrapNegotiateAuthenticationFilter extends NegotiateAuthenticationFilter {
+
+        /** The parent. */
+        private final DynamicAuthenticationFilter parent;
+
+        /**
+         * Instantiates a new wrap negotiate authentication filter.
+         *
+         * @param newParent
+         *            the new parent
+         */
+<span class="fc" id="L127">        WrapNegotiateAuthenticationFilter(final DynamicAuthenticationFilter newParent) {</span>
+<span class="fc" id="L128">            this.parent = newParent;</span>
+<span class="fc" id="L129">        }</span>
+
+        @Override
+        public boolean onAccessDenied(final ServletRequest request, final ServletResponse response) throws Exception {
+<span class="nc" id="L133">            return super.onAccessDenied(request, response);</span>
+        }
+
+        @Override
+        protected boolean onLoginSuccess(final AuthenticationToken token, final Subject subject,
+                final ServletRequest request, final ServletResponse response) throws Exception {
+<span class="nc" id="L139">            return this.parent.onLoginSuccess(token, subject, request, response);</span>
+        }
+    }
+
+    /** The filter negotiate. */
+<span class="fc" id="L144">    private final WrapNegotiateAuthenticationFilter filterNegotiate = new WrapNegotiateAuthenticationFilter(this);</span>
+
+    /**
+     * Wrapper to make protected methods in different package callable from here.
+     */
+    private static final class WrapFormAuthenticationFilter extends FormAuthenticationFilter {
+
+        /** The parent. */
+        private final DynamicAuthenticationFilter parent;
+
+        /**
+         * Instantiates a new wrap form authentication filter.
+         *
+         * @param newParent
+         *            the new parent
+         */
+<span class="fc" id="L160">        WrapFormAuthenticationFilter(final DynamicAuthenticationFilter newParent) {</span>
+<span class="fc" id="L161">            this.parent = newParent;</span>
+<span class="fc" id="L162">        }</span>
+
+        @Override
+        public boolean onAccessDenied(final ServletRequest request, final ServletResponse response) throws Exception {
+<span class="nc" id="L166">            return super.onAccessDenied(request, response);</span>
+        }
+
+        @Override
+        protected boolean onLoginSuccess(final AuthenticationToken token, final Subject subject,
+                final ServletRequest request, final ServletResponse response) throws Exception {
+<span class="nc" id="L172">            return this.parent.onLoginSuccess(token, subject, request, response);</span>
+        }
+    }
+
+    /** The filter form authc. */
+<span class="fc" id="L177">    private final WrapFormAuthenticationFilter filterFormAuthc = new WrapFormAuthenticationFilter(this);</span>
+
+    /**
+     * Call
+     * {@link org.apache.shiro.web.filter.AccessControlFilter#onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse)}
+     * for the user selected authentication type, which performs login logic.
+     *
+     * {@inheritDoc}
+     */
+    @Override
+    protected boolean executeLogin(final ServletRequest request, final ServletResponse response) throws Exception {
+<span class="nc bnc" id="L188" title="All 2 branches missed.">        if (this.isAuthTypeNegotiate(request)) {</span>
+<span class="nc" id="L189">            DynamicAuthenticationFilter.LOGGER.debug(&quot;using filterNegotiate&quot;);</span>
+<span class="nc" id="L190">            return this.filterNegotiate.onAccessDenied(request, response);</span>
+        }
+<span class="nc" id="L192">        DynamicAuthenticationFilter.LOGGER.debug(&quot;using filterFormAuthc&quot;);</span>
+<span class="nc" id="L193">        return this.filterFormAuthc.onAccessDenied(request, response);</span>
+    }
+
+    /**
+     * Checks if is auth type negotiate.
+     *
+     * @param request
+     *            the request
+     * @return true, if is auth type negotiate
+     */
+    boolean isAuthTypeNegotiate(final ServletRequest request) {
+<span class="fc" id="L204">        final String authType = request.getParameter(DynamicAuthenticationFilter.PARAM_NAME_AUTHTYPE);</span>
+<span class="fc bfc" id="L205" title="All 4 branches covered.">        return authType != null &amp;&amp; DynamicAuthenticationFilter.PARAM_VAL_AUTHTYPE_NEGOTIATE.equalsIgnoreCase(authType);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

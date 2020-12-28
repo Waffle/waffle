@@ -1,0 +1,13 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+waffle-shiro,waffle.shiro,AbstractWaffleRealm,31,128,6,8,8,35,5,9,0,7
+waffle-shiro,waffle.shiro,GroupMappingWaffleRealm,0,59,1,5,0,16,1,6,0,4
+waffle-shiro,waffle.shiro,WaffleFqnPrincipal,42,46,2,2,10,9,3,5,2,4
+waffle-shiro,waffle.shiro.negotiate,NegotiateAuthenticationStrategy,0,20,1,3,0,4,1,3,0,2
+waffle-shiro,waffle.shiro.negotiate,NegotiateToken,57,24,2,0,17,9,15,1,14,1
+waffle-shiro,waffle.shiro.negotiate,NegotiateAuthenticationRealm,71,42,7,1,20,13,4,4,0,4
+waffle-shiro,waffle.shiro.negotiate,NegotiateInfo,21,0,0,0,6,0,3,0,3,0
+waffle-shiro,waffle.shiro.negotiate,NegotiateAuthenticationFilter,200,144,9,9,47,39,18,13,13,9
+waffle-shiro,waffle.shiro.negotiate,AuthenticationInProgressException,0,3,0,0,0,1,0,1,0,1
+waffle-shiro,waffle.shiro.dynamic,DynamicAuthenticationFilter.WrapFormAuthenticationFilter,13,6,0,0,2,3,2,1,2,1
+waffle-shiro,waffle.shiro.dynamic,DynamicAuthenticationFilter.WrapNegotiateAuthenticationFilter,13,6,0,0,2,3,2,1,2,1
+waffle-shiro,waffle.shiro.dynamic,DynamicAuthenticationFilter,22,33,2,4,5,6,2,5,1,3
