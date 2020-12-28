@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>WindowsAccountImpl.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-spring-security4</a> &gt; <a href="../index.html" class="el_bundle">waffle-jna</a> &gt; <a href="index.source.html" class="el_package">waffle.windows.auth.impl</a> &gt; <span class="el_source">WindowsAccountImpl.java</span></div><h1>WindowsAccountImpl.java</h1><pre class="source lang-java linenums">/*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) ${license.git.copyrightYears} The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the &quot;Software&quot;), to deal
@@ -46,9 +46,9 @@ public class WindowsAccountImpl implements IWindowsAccount {
      * @param newAccount
      *            Account.
      */
-<span class="nc" id="L49">    public WindowsAccountImpl(final Account newAccount) {</span>
-<span class="nc" id="L50">        this.account = newAccount;</span>
-<span class="nc" id="L51">    }</span>
+<span class="fc" id="L49">    public WindowsAccountImpl(final Account newAccount) {</span>
+<span class="fc" id="L50">        this.account = newAccount;</span>
+<span class="fc" id="L51">    }</span>
 
     /**
      * Windows Account.
@@ -57,8 +57,8 @@ public class WindowsAccountImpl implements IWindowsAccount {
      *            Fully qualified username.
      */
     public WindowsAccountImpl(final String userName) {
-<span class="nc" id="L60">        this(userName, null);</span>
-<span class="nc" id="L61">    }</span>
+<span class="fc" id="L60">        this(userName, null);</span>
+<span class="fc" id="L61">    }</span>
 
     /**
      * Windows Account.
@@ -69,8 +69,8 @@ public class WindowsAccountImpl implements IWindowsAccount {
      *            Machine name.
      */
     public WindowsAccountImpl(final String accountName, final String systemName) {
-<span class="nc" id="L72">        this(Advapi32Util.getAccountByName(systemName, accountName));</span>
-<span class="nc" id="L73">    }</span>
+<span class="fc" id="L72">        this(Advapi32Util.getAccountByName(systemName, accountName));</span>
+<span class="fc" id="L73">    }</span>
 
     /**
      * Get the SAM-compatible username of the currently logged-on user.
@@ -78,7 +78,7 @@ public class WindowsAccountImpl implements IWindowsAccount {
      * @return String.
      */
     public static String getCurrentUsername() {
-<span class="nc" id="L81">        return Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);</span>
+<span class="fc" id="L81">        return Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);</span>
     }
 
     /**
@@ -88,12 +88,12 @@ public class WindowsAccountImpl implements IWindowsAccount {
      */
     @Override
     public String getDomain() {
-<span class="nc" id="L91">        return this.account.domain;</span>
+<span class="fc" id="L91">        return this.account.domain;</span>
     }
 
     @Override
     public String getFqn() {
-<span class="nc" id="L96">        return this.account.fqn;</span>
+<span class="fc" id="L96">        return this.account.fqn;</span>
     }
 
     /**
@@ -103,12 +103,12 @@ public class WindowsAccountImpl implements IWindowsAccount {
      */
     @Override
     public String getName() {
-<span class="nc" id="L106">        return this.account.name;</span>
+<span class="fc" id="L106">        return this.account.name;</span>
     }
 
     @Override
     public String getSidString() {
-<span class="nc" id="L111">        return this.account.sidString;</span>
+<span class="fc" id="L111">        return this.account.sidString;</span>
     }
 
 }
