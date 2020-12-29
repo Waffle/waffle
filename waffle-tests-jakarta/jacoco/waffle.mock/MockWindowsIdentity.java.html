@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MockWindowsIdentity.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">waffle-tests-jakarta</a> &gt; <a href="index.source.html" class="el_package">waffle.mock</a> &gt; <span class="el_source">MockWindowsIdentity.java</span></div><h1>MockWindowsIdentity.java</h1><pre class="source lang-java linenums">/*
+ * MIT License
+ *
+ * Copyright (c) ${license.git.copyrightYears} The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+package waffle.mock;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import waffle.windows.auth.IWindowsAccount;
+import waffle.windows.auth.IWindowsIdentity;
+import waffle.windows.auth.IWindowsImpersonationContext;
+
+/**
+ * A Mock windows identity.
+ *
+ * @author dblock[at]dblock[dot]org
+ */
+public class MockWindowsIdentity implements IWindowsIdentity {
+
+    /** The fqn. */
+    private final String fqn;
+
+    /** The groups. */
+    private final List&lt;String&gt; groups;
+
+    /**
+     * Instantiates a new mock windows identity.
+     *
+     * @param newFqn
+     *            the new fqn
+     * @param newGroups
+     *            the new groups
+     */
+<span class="fc" id="L54">    public MockWindowsIdentity(final String newFqn, final List&lt;String&gt; newGroups) {</span>
+<span class="fc" id="L55">        this.fqn = newFqn;</span>
+<span class="fc" id="L56">        this.groups = newGroups;</span>
+<span class="fc" id="L57">    }</span>
+
+    @Override
+    public String getFqn() {
+<span class="fc" id="L61">        return this.fqn;</span>
+    }
+
+    @Override
+    public IWindowsAccount[] getGroups() {
+<span class="fc" id="L66">        final List&lt;MockWindowsAccount&gt; groupsList = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">        for (final String group : this.groups) {</span>
+<span class="fc" id="L68">            groupsList.add(new MockWindowsAccount(group));</span>
+<span class="fc" id="L69">        }</span>
+<span class="fc" id="L70">        return groupsList.toArray(new IWindowsAccount[0]);</span>
+    }
+
+    @Override
+    public byte[] getSid() {
+<span class="fc" id="L75">        return new byte[0];</span>
+    }
+
+    @Override
+    public String getSidString() {
+<span class="fc" id="L80">        return &quot;S-&quot; + this.fqn.hashCode();</span>
+    }
+
+    @Override
+    public void dispose() {
+        // Do Nothing
+<span class="fc" id="L86">    }</span>
+
+    @Override
+    public boolean isGuest() {
+<span class="fc" id="L90">        return &quot;Guest&quot;.equals(this.fqn);</span>
+    }
+
+    @Override
+    public IWindowsImpersonationContext impersonate() {
+<span class="nc" id="L95">        return new MockWindowsImpersonationContext();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
