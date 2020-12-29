@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>WaffleProperties.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-distro</a> &gt; <a href="../index.html" class="el_bundle">waffle-spring-boot-autoconfigure</a> &gt; <a href="index.source.html" class="el_package">waffle.spring.boot</a> &gt; <span class="el_source">WaffleProperties.java</span></div><h1>WaffleProperties.java</h1><pre class="source lang-java linenums">/*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) ${license.git.copyrightYears} The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the &quot;Software&quot;), to deal
@@ -28,20 +28,22 @@ import java.util.List;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import waffle.windows.auth.PrincipalFormat;
+
 /**
  * The configuration properties that can be used with Spring Boot to configure WAFFLE.
  */
 @ConfigurationProperties(prefix = &quot;waffle&quot;)
-<span class="nc" id="L35">public class WaffleProperties {</span>
+<span class="nc" id="L37">public class WaffleProperties {</span>
 
     /** The principal format can be any of the options specified by {@link PrincipalFormat}. */
-<span class="nc" id="L38">    private String principalFormat = &quot;fqn&quot;;</span>
+<span class="nc" id="L40">    private String principalFormat = &quot;fqn&quot;;</span>
 
     /** The principal format can be any of the options specified by {@link PrincipalFormat}. */
-<span class="nc" id="L41">    private String roleFormat = &quot;fqn&quot;;</span>
+<span class="nc" id="L43">    private String roleFormat = &quot;fqn&quot;;</span>
 
     /** Enable or disable guest login. */
-<span class="nc" id="L44">    private boolean allowGuestLogin = false;</span>
+<span class="nc" id="L46">    private boolean allowGuestLogin = false;</span>
 
     /** Configuration properties for single-sign-on. */
     private SingleSignOnProperties sso;
@@ -52,7 +54,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
      * @return the principal format
      */
     public String getPrincipalFormat() {
-<span class="nc" id="L55">        return this.principalFormat;</span>
+<span class="nc" id="L57">        return this.principalFormat;</span>
     }
 
     /**
@@ -62,8 +64,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
      *            the new principal format
      */
     public void setPrincipalFormat(final String principalFormat) {
-<span class="nc" id="L65">        this.principalFormat = principalFormat;</span>
-<span class="nc" id="L66">    }</span>
+<span class="nc" id="L67">        this.principalFormat = principalFormat;</span>
+<span class="nc" id="L68">    }</span>
 
     /**
      * Gets the role format.
@@ -71,7 +73,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
      * @return the role format
      */
     public String getRoleFormat() {
-<span class="nc" id="L74">        return this.roleFormat;</span>
+<span class="nc" id="L76">        return this.roleFormat;</span>
     }
 
     /**
@@ -81,8 +83,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
      *            the new role format
      */
     public void setRoleFormat(final String roleFormat) {
-<span class="nc" id="L84">        this.roleFormat = roleFormat;</span>
-<span class="nc" id="L85">    }</span>
+<span class="nc" id="L86">        this.roleFormat = roleFormat;</span>
+<span class="nc" id="L87">    }</span>
 
     /**
      * Checks if is allow guest login.
@@ -90,7 +92,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
      * @return true, if is allow guest login
      */
     public boolean isAllowGuestLogin() {
-<span class="nc" id="L93">        return this.allowGuestLogin;</span>
+<span class="nc" id="L95">        return this.allowGuestLogin;</span>
     }
 
     /**
@@ -100,8 +102,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
      *            the new allow guest login
      */
     public void setAllowGuestLogin(final boolean allowGuestLogin) {
-<span class="nc" id="L103">        this.allowGuestLogin = allowGuestLogin;</span>
-<span class="nc" id="L104">    }</span>
+<span class="nc" id="L105">        this.allowGuestLogin = allowGuestLogin;</span>
+<span class="nc" id="L106">    }</span>
 
     /**
      * Gets the sso.
@@ -109,7 +111,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
      * @return the sso
      */
     public SingleSignOnProperties getSso() {
-<span class="nc" id="L112">        return this.sso;</span>
+<span class="nc" id="L114">        return this.sso;</span>
     }
 
     /**
@@ -119,25 +121,25 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
      *            the new sso
      */
     public void setSso(final SingleSignOnProperties sso) {
-<span class="nc" id="L122">        this.sso = sso;</span>
-<span class="nc" id="L123">    }</span>
+<span class="nc" id="L124">        this.sso = sso;</span>
+<span class="nc" id="L125">    }</span>
 
     /**
      * The Class SingleSignOnProperties.
      */
-<span class="nc" id="L128">    public static class SingleSignOnProperties {</span>
+<span class="nc" id="L130">    public static class SingleSignOnProperties {</span>
 
         /** Enable or disable single-sign-on using Negotiate protocol. */
-<span class="nc" id="L131">        private boolean enabled = false;</span>
+<span class="nc" id="L133">        private boolean enabled = false;</span>
 
         /** Enable fall back to Basic protocol for unsupported browsers. */
-<span class="nc" id="L134">        private boolean basicEnabled = false;</span>
+<span class="nc" id="L136">        private boolean basicEnabled = false;</span>
 
         /** List of protocols to support: Can be Negotiate, NTLM. */
-<span class="nc" id="L137">        private List&lt;String&gt; protocols = Arrays.asList(&quot;Negotiate&quot;, &quot;NTLM&quot;);</span>
+<span class="nc" id="L139">        private List&lt;String&gt; protocols = Arrays.asList(&quot;Negotiate&quot;, &quot;NTLM&quot;);</span>
 
         /** Enable WAFFLE impersonate option. */
-<span class="nc" id="L140">        private boolean impersonate = false;</span>
+<span class="nc" id="L142">        private boolean impersonate = false;</span>
 
         /**
          * Checks if is enabled.
@@ -145,7 +147,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
          * @return true, if is enabled
          */
         public boolean isEnabled() {
-<span class="nc" id="L148">            return this.enabled;</span>
+<span class="nc" id="L150">            return this.enabled;</span>
         }
 
         /**
@@ -155,8 +157,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
          *            the new enabled
          */
         public void setEnabled(final boolean enabled) {
-<span class="nc" id="L158">            this.enabled = enabled;</span>
-<span class="nc" id="L159">        }</span>
+<span class="nc" id="L160">            this.enabled = enabled;</span>
+<span class="nc" id="L161">        }</span>
 
         /**
          * Checks if is basic enabled.
@@ -164,7 +166,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
          * @return true, if is basic enabled
          */
         public boolean isBasicEnabled() {
-<span class="nc" id="L167">            return this.basicEnabled;</span>
+<span class="nc" id="L169">            return this.basicEnabled;</span>
         }
 
         /**
@@ -174,8 +176,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
          *            the new basic enabled
          */
         public void setBasicEnabled(final boolean basicEnabled) {
-<span class="nc" id="L177">            this.basicEnabled = basicEnabled;</span>
-<span class="nc" id="L178">        }</span>
+<span class="nc" id="L179">            this.basicEnabled = basicEnabled;</span>
+<span class="nc" id="L180">        }</span>
 
         /**
          * Gets the protocols.
@@ -183,7 +185,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
          * @return the protocols
          */
         public List&lt;String&gt; getProtocols() {
-<span class="nc" id="L186">            return this.protocols;</span>
+<span class="nc" id="L188">            return this.protocols;</span>
         }
 
         /**
@@ -193,8 +195,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
          *            the new protocols
          */
         public void setProtocols(final List&lt;String&gt; protocols) {
-<span class="nc" id="L196">            this.protocols = protocols;</span>
-<span class="nc" id="L197">        }</span>
+<span class="nc" id="L198">            this.protocols = protocols;</span>
+<span class="nc" id="L199">        }</span>
 
         /**
          * Checks if is impersonate.
@@ -202,7 +204,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
          * @return true, if is impersonate
          */
         public boolean isImpersonate() {
-<span class="nc" id="L205">            return this.impersonate;</span>
+<span class="nc" id="L207">            return this.impersonate;</span>
         }
 
         /**
@@ -212,8 +214,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
          *            the new impersonate
          */
         public void setImpersonate(final boolean impersonate) {
-<span class="nc" id="L215">            this.impersonate = impersonate;</span>
-<span class="nc" id="L216">        }</span>
+<span class="nc" id="L217">            this.impersonate = impersonate;</span>
+<span class="nc" id="L218">        }</span>
 
     }
 }

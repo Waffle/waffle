@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>MockWindowsAuthProvider.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-distro</a> &gt; <a href="../index.html" class="el_bundle">waffle-tests</a> &gt; <a href="index.source.html" class="el_package">waffle.mock</a> &gt; <span class="el_source">MockWindowsAuthProvider.java</span></div><h1>MockWindowsAuthProvider.java</h1><pre class="source lang-java linenums">/*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) ${license.git.copyrightYears} The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the &quot;Software&quot;), to deal
@@ -48,15 +48,15 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
     private static final String GUEST = &quot;Guest&quot;;
 
     /** The groups. */
-<span class="nc" id="L51">    private final List&lt;String&gt; groups = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L51">    private final List&lt;String&gt; groups = new ArrayList&lt;&gt;();</span>
 
     /**
      * Instantiates a new mock windows auth provider.
      */
-<span class="nc" id="L56">    public MockWindowsAuthProvider() {</span>
-<span class="nc" id="L57">        this.groups.add(&quot;Users&quot;);</span>
-<span class="nc" id="L58">        this.groups.add(&quot;Everyone&quot;);</span>
-<span class="nc" id="L59">    }</span>
+<span class="fc" id="L56">    public MockWindowsAuthProvider() {</span>
+<span class="fc" id="L57">        this.groups.add(&quot;Users&quot;);</span>
+<span class="fc" id="L58">        this.groups.add(&quot;Everyone&quot;);</span>
+<span class="fc" id="L59">    }</span>
 
     /**
      * Adds the group.
@@ -65,13 +65,13 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
      *            the name
      */
     public void addGroup(final String name) {
-<span class="nc" id="L68">        this.groups.add(name);</span>
-<span class="nc" id="L69">    }</span>
+<span class="fc" id="L68">        this.groups.add(name);</span>
+<span class="fc" id="L69">    }</span>
 
     @Override
     public IWindowsSecurityContext acceptSecurityToken(final String connectionId, final byte[] token,
             final String securityPackage) {
-<span class="nc" id="L74">        return new MockWindowsSecurityContext(new String(token, StandardCharsets.UTF_8));</span>
+<span class="fc" id="L74">        return new MockWindowsSecurityContext(new String(token, StandardCharsets.UTF_8));</span>
     }
 
     @Override
@@ -106,13 +106,13 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
      */
     @Override
     public IWindowsIdentity logonUser(final String username, final String password) {
-<span class="nc" id="L109">        final String currentUsername = Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);</span>
-<span class="nc bnc" id="L110" title="All 2 branches missed.">        if (username.equals(currentUsername)) {</span>
-<span class="nc" id="L111">            return new MockWindowsIdentity(currentUsername, this.groups);</span>
-<span class="nc bnc" id="L112" title="All 2 branches missed.">        } else if (username.equals(MockWindowsAuthProvider.GUEST)) {</span>
-<span class="nc" id="L113">            return new MockWindowsIdentity(MockWindowsAuthProvider.GUEST, this.groups);</span>
+<span class="fc" id="L109">        final String currentUsername = Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">        if (username.equals(currentUsername)) {</span>
+<span class="fc" id="L111">            return new MockWindowsIdentity(currentUsername, this.groups);</span>
+<span class="fc bfc" id="L112" title="All 2 branches covered.">        } else if (username.equals(MockWindowsAuthProvider.GUEST)) {</span>
+<span class="fc" id="L113">            return new MockWindowsIdentity(MockWindowsAuthProvider.GUEST, this.groups);</span>
         } else {
-<span class="nc" id="L115">            throw new RuntimeException(&quot;Mock error: &quot; + username);</span>
+<span class="fc" id="L115">            throw new RuntimeException(&quot;Mock error: &quot; + username);</span>
         }
     }
 

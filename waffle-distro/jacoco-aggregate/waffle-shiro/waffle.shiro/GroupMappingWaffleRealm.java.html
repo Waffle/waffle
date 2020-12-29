@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>GroupMappingWaffleRealm.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-distro</a> &gt; <a href="../index.html" class="el_bundle">waffle-shiro</a> &gt; <a href="index.source.html" class="el_package">waffle.shiro</a> &gt; <span class="el_source">GroupMappingWaffleRealm.java</span></div><h1>GroupMappingWaffleRealm.java</h1><pre class="source lang-java linenums">/*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) ${license.git.copyrightYears} The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the &quot;Software&quot;), to deal
@@ -37,10 +37,10 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
  * users based on a mapping from their groups. To define permissions based on these roles, set a
  * {@link org.apache.shiro.authz.permission.RolePermissionResolver}.
  */
-<span class="nc" id="L40">public class GroupMappingWaffleRealm extends AbstractWaffleRealm {</span>
+<span class="fc" id="L40">public class GroupMappingWaffleRealm extends AbstractWaffleRealm {</span>
 
     /** The group roles map. */
-<span class="nc" id="L43">    private final Map&lt;String, String&gt; groupRolesMap = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L43">    private final Map&lt;String, String&gt; groupRolesMap = new HashMap&lt;&gt;();</span>
 
     /**
      * Sets the translation from group names to role names. If not set, the map is empty, resulting in no users getting
@@ -50,11 +50,11 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
      *            the group roles map to set
      */
     public void setGroupRolesMap(final Map&lt;String, String&gt; value) {
-<span class="nc" id="L53">        this.groupRolesMap.clear();</span>
-<span class="nc bnc" id="L54" title="All 2 branches missed.">        if (value != null) {</span>
-<span class="nc" id="L55">            this.groupRolesMap.putAll(value);</span>
+<span class="fc" id="L53">        this.groupRolesMap.clear();</span>
+<span class="pc bpc" id="L54" title="1 of 2 branches missed.">        if (value != null) {</span>
+<span class="fc" id="L55">            this.groupRolesMap.putAll(value);</span>
         }
-<span class="nc" id="L57">    }</span>
+<span class="fc" id="L57">    }</span>
 
     /**
      * This method is called by to translate group names to role names. This implementation uses the groupRolesMap to
@@ -66,14 +66,14 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
      * @see #setGroupRolesMap
      */
     protected Collection&lt;String&gt; getRoleNamesForGroups(final Collection&lt;String&gt; groupNames) {
-<span class="nc" id="L69">        final Set&lt;String&gt; roleNames = new HashSet&lt;&gt;();</span>
-<span class="nc bnc" id="L70" title="All 2 branches missed.">        for (final String groupName : groupNames) {</span>
-<span class="nc" id="L71">            final String roleName = this.groupRolesMap.get(groupName);</span>
-<span class="nc bnc" id="L72" title="All 2 branches missed.">            if (roleName != null) {</span>
-<span class="nc" id="L73">                roleNames.add(roleName);</span>
+<span class="fc" id="L69">        final Set&lt;String&gt; roleNames = new HashSet&lt;&gt;();</span>
+<span class="fc bfc" id="L70" title="All 2 branches covered.">        for (final String groupName : groupNames) {</span>
+<span class="fc" id="L71">            final String roleName = this.groupRolesMap.get(groupName);</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">            if (roleName != null) {</span>
+<span class="fc" id="L73">                roleNames.add(roleName);</span>
             }
-<span class="nc" id="L75">        }</span>
-<span class="nc" id="L76">        return roleNames;</span>
+<span class="fc" id="L75">        }</span>
+<span class="fc" id="L76">        return roleNames;</span>
     }
 
     /**
@@ -89,9 +89,10 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
      */
     @Override
     protected AuthorizationInfo buildAuthorizationInfo(final WaffleFqnPrincipal principal) {
-<span class="nc" id="L92">        final SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();</span>
-<span class="nc" id="L93">        authorizationInfo.addRoles(this.getRoleNamesForGroups(principal.getGroupFqns()));</span>
-<span class="nc" id="L94">        return authorizationInfo;</span>
+<span class="fc" id="L92">        final SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();</span>
+<span class="fc" id="L93">        authorizationInfo.addRoles(this.getRoleNamesForGroups(principal.getGroupFqns()));</span>
+<span class="fc" id="L94">        return authorizationInfo;</span>
     }
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

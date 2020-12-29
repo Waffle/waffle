@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>NegotiateAuthenticationFilter.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-distro</a> &gt; <a href="../index.html" class="el_bundle">waffle-shiro</a> &gt; <a href="index.source.html" class="el_package">waffle.shiro.negotiate</a> &gt; <span class="el_source">NegotiateAuthenticationFilter.java</span></div><h1>NegotiateAuthenticationFilter.java</h1><pre class="source lang-java linenums">/*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) ${license.git.copyrightYears} The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the &quot;Software&quot;), to deal
@@ -68,28 +68,28 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
     /**
      * This class's private logger.
      */
-<span class="nc" id="L71">    private static final Logger LOGGER = LoggerFactory.getLogger(NegotiateAuthenticationFilter.class);</span>
+<span class="fc" id="L71">    private static final Logger LOGGER = LoggerFactory.getLogger(NegotiateAuthenticationFilter.class);</span>
 
     // TODO things (sometimes) break, depending on what user account is running tomcat:
     // related to setSPN and running tomcat server as NT Service account vs. as normal user account.
     // https://waffle.codeplex.com/discussions/254748
     // setspn -A HTTP/&lt;server-fqdn&gt; &lt;user_tomcat_running_under&gt;
     /** The Constant PROTOCOLS. */
-<span class="nc" id="L78">    private static final List&lt;String&gt; PROTOCOLS = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L78">    private static final List&lt;String&gt; PROTOCOLS = new ArrayList&lt;&gt;();</span>
 
     /** The failure key attribute. */
-<span class="nc" id="L81">    private String failureKeyAttribute = FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME;</span>
+<span class="fc" id="L81">    private String failureKeyAttribute = FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME;</span>
 
     /** The remember me param. */
-<span class="nc" id="L84">    private String rememberMeParam = FormAuthenticationFilter.DEFAULT_REMEMBER_ME_PARAM;</span>
+<span class="fc" id="L84">    private String rememberMeParam = FormAuthenticationFilter.DEFAULT_REMEMBER_ME_PARAM;</span>
 
     /**
      * Instantiates a new negotiate authentication filter.
      */
-<span class="nc" id="L89">    public NegotiateAuthenticationFilter() {</span>
-<span class="nc" id="L90">        NegotiateAuthenticationFilter.PROTOCOLS.add(&quot;Negotiate&quot;);</span>
-<span class="nc" id="L91">        NegotiateAuthenticationFilter.PROTOCOLS.add(&quot;NTLM&quot;);</span>
-<span class="nc" id="L92">    }</span>
+<span class="fc" id="L89">    public NegotiateAuthenticationFilter() {</span>
+<span class="fc" id="L90">        NegotiateAuthenticationFilter.PROTOCOLS.add(&quot;Negotiate&quot;);</span>
+<span class="fc" id="L91">        NegotiateAuthenticationFilter.PROTOCOLS.add(&quot;NTLM&quot;);</span>
+<span class="fc" id="L92">    }</span>
 
     /**
      * Gets the remember me param.
@@ -276,12 +276,12 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      * @return &lt;code&gt;true&lt;/code&gt; if the authzHeader value matches any of the configured protocols (Negotiate or NTLM).
      */
     boolean isLoginAttempt(final String authzHeader) {
-<span class="nc bnc" id="L279" title="All 2 branches missed.">        for (final String protocol : NegotiateAuthenticationFilter.PROTOCOLS) {</span>
-<span class="nc bnc" id="L280" title="All 2 branches missed.">            if (authzHeader.toLowerCase().startsWith(protocol.toLowerCase())) {</span>
-<span class="nc" id="L281">                return true;</span>
+<span class="fc bfc" id="L279" title="All 2 branches covered.">        for (final String protocol : NegotiateAuthenticationFilter.PROTOCOLS) {</span>
+<span class="fc bfc" id="L280" title="All 2 branches covered.">            if (authzHeader.toLowerCase().startsWith(protocol.toLowerCase())) {</span>
+<span class="fc" id="L281">                return true;</span>
             }
-<span class="nc" id="L283">        }</span>
-<span class="nc" id="L284">        return false;</span>
+<span class="fc" id="L283">        }</span>
+<span class="fc" id="L284">        return false;</span>
     }
 
     /**
@@ -299,10 +299,10 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      *            token.out or null
      */
     private void sendChallenge(final List&lt;String&gt; protocols, final ServletResponse response, final byte[] out) {
-<span class="nc" id="L302">        final HttpServletResponse httpResponse = WebUtils.toHttp(response);</span>
-<span class="nc" id="L303">        this.sendAuthenticateHeader(protocols, out, httpResponse);</span>
-<span class="nc" id="L304">        httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);</span>
-<span class="nc" id="L305">    }</span>
+<span class="fc" id="L302">        final HttpServletResponse httpResponse = WebUtils.toHttp(response);</span>
+<span class="fc" id="L303">        this.sendAuthenticateHeader(protocols, out, httpResponse);</span>
+<span class="fc" id="L304">        httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);</span>
+<span class="fc" id="L305">    }</span>
 
     /**
      * Send challenge initiate negotiate.
@@ -311,8 +311,8 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      *            the response
      */
     void sendChallengeInitiateNegotiate(final ServletResponse response) {
-<span class="nc" id="L314">        this.sendChallenge(NegotiateAuthenticationFilter.PROTOCOLS, response, null);</span>
-<span class="nc" id="L315">    }</span>
+<span class="fc" id="L314">        this.sendChallenge(NegotiateAuthenticationFilter.PROTOCOLS, response, null);</span>
+<span class="fc" id="L315">    }</span>
 
     /**
      * Send challenge during negotiate.
@@ -325,10 +325,10 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      *            the out
      */
     void sendChallengeDuringNegotiate(final String protocol, final ServletResponse response, final byte[] out) {
-<span class="nc" id="L328">        final List&lt;String&gt; protocolsList = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L329">        protocolsList.add(protocol);</span>
-<span class="nc" id="L330">        this.sendChallenge(protocolsList, response, out);</span>
-<span class="nc" id="L331">    }</span>
+<span class="fc" id="L328">        final List&lt;String&gt; protocolsList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L329">        protocolsList.add(protocol);</span>
+<span class="fc" id="L330">        this.sendChallenge(protocolsList, response, out);</span>
+<span class="fc" id="L331">    }</span>
 
     /**
      * Send challenge on failure.
@@ -337,16 +337,16 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      *            the response
      */
     void sendChallengeOnFailure(final ServletResponse response) {
-<span class="nc" id="L340">        final HttpServletResponse httpResponse = WebUtils.toHttp(response);</span>
-<span class="nc" id="L341">        this.sendUnauthorized(NegotiateAuthenticationFilter.PROTOCOLS, null, httpResponse);</span>
-<span class="nc" id="L342">        httpResponse.setHeader(&quot;Connection&quot;, &quot;close&quot;);</span>
+<span class="fc" id="L340">        final HttpServletResponse httpResponse = WebUtils.toHttp(response);</span>
+<span class="fc" id="L341">        this.sendUnauthorized(NegotiateAuthenticationFilter.PROTOCOLS, null, httpResponse);</span>
+<span class="fc" id="L342">        httpResponse.setHeader(&quot;Connection&quot;, &quot;close&quot;);</span>
         try {
-<span class="nc" id="L344">            httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED);</span>
-<span class="nc" id="L345">            httpResponse.flushBuffer();</span>
+<span class="fc" id="L344">            httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED);</span>
+<span class="fc" id="L345">            httpResponse.flushBuffer();</span>
 <span class="nc" id="L346">        } catch (final IOException e) {</span>
 <span class="nc" id="L347">            throw new RuntimeException(e);</span>
-<span class="nc" id="L348">        }</span>
-<span class="nc" id="L349">    }</span>
+<span class="fc" id="L348">        }</span>
+<span class="fc" id="L349">    }</span>
 
     /**
      * Send authenticate header.
@@ -360,9 +360,9 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      */
     private void sendAuthenticateHeader(final List&lt;String&gt; protocolsList, final byte[] out,
             final HttpServletResponse httpResponse) {
-<span class="nc" id="L363">        this.sendUnauthorized(protocolsList, out, httpResponse);</span>
-<span class="nc" id="L364">        httpResponse.setHeader(&quot;Connection&quot;, &quot;keep-alive&quot;);</span>
-<span class="nc" id="L365">    }</span>
+<span class="fc" id="L363">        this.sendUnauthorized(protocolsList, out, httpResponse);</span>
+<span class="fc" id="L364">        httpResponse.setHeader(&quot;Connection&quot;, &quot;keep-alive&quot;);</span>
+<span class="fc" id="L365">    }</span>
 
     /**
      * Send unauthorized.
@@ -375,14 +375,14 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      *            the response
      */
     private void sendUnauthorized(final List&lt;String&gt; protocols, final byte[] out, final HttpServletResponse response) {
-<span class="nc bnc" id="L378" title="All 2 branches missed.">        for (final String protocol : protocols) {</span>
-<span class="nc bnc" id="L379" title="All 4 branches missed.">            if (out == null || out.length == 0) {</span>
-<span class="nc" id="L380">                response.addHeader(&quot;WWW-Authenticate&quot;, protocol);</span>
+<span class="fc bfc" id="L378" title="All 2 branches covered.">        for (final String protocol : protocols) {</span>
+<span class="pc bpc" id="L379" title="1 of 4 branches missed.">            if (out == null || out.length == 0) {</span>
+<span class="fc" id="L380">                response.addHeader(&quot;WWW-Authenticate&quot;, protocol);</span>
             } else {
-<span class="nc" id="L382">                response.setHeader(&quot;WWW-Authenticate&quot;, protocol + &quot; &quot; + Base64.getEncoder().encodeToString(out));</span>
+<span class="fc" id="L382">                response.setHeader(&quot;WWW-Authenticate&quot;, protocol + &quot; &quot; + Base64.getEncoder().encodeToString(out));</span>
             }
-<span class="nc" id="L384">        }</span>
-<span class="nc" id="L385">    }</span>
+<span class="fc" id="L384">        }</span>
+<span class="fc" id="L385">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
