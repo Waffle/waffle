@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>WaffleInfoServlet.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-tomcat10</a> &gt; <a href="../index.html" class="el_bundle">waffle-jna-jakarta</a> &gt; <a href="index.source.html" class="el_package">waffle.servlet</a> &gt; <span class="el_source">WaffleInfoServlet.java</span></div><h1>WaffleInfoServlet.java</h1><pre class="source lang-java linenums">/*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) ${license.git.copyrightYears} The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the &quot;Software&quot;), to deal
@@ -50,7 +50,7 @@ import waffle.util.WaffleInfo;
 /**
  * A servlet that returns WaffleInfo as XML.
  */
-<span class="nc" id="L53">public class WaffleInfoServlet extends HttpServlet {</span>
+<span class="fc" id="L53">public class WaffleInfoServlet extends HttpServlet {</span>
 
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
@@ -58,8 +58,8 @@ import waffle.util.WaffleInfo;
     @Override
     public void doGet(final HttpServletRequest request, final HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L61">        this.getWaffleInfoResponse(request, response);</span>
-<span class="nc" id="L62">    }</span>
+<span class="fc" id="L61">        this.getWaffleInfoResponse(request, response);</span>
+<span class="fc" id="L62">    }</span>
 
     @Override
     public void doPost(final HttpServletRequest request, final HttpServletResponse response)
@@ -81,39 +81,39 @@ import waffle.util.WaffleInfo;
      */
     public void getWaffleInfoResponse(final HttpServletRequest request, final HttpServletResponse response)
             throws IOException, ServletException {
-<span class="nc" id="L84">        final WaffleInfo info = new WaffleInfo();</span>
+<span class="fc" id="L84">        final WaffleInfo info = new WaffleInfo();</span>
         try {
-<span class="nc" id="L86">            final Document doc = info.getWaffleInfo();</span>
-<span class="nc" id="L87">            final Element root = doc.getDocumentElement();</span>
+<span class="fc" id="L86">            final Document doc = info.getWaffleInfo();</span>
+<span class="fc" id="L87">            final Element root = doc.getDocumentElement();</span>
 
             // Add the Request Information Here
-<span class="nc" id="L90">            final Element http = this.getRequestInfo(doc, request);</span>
-<span class="nc" id="L91">            root.insertBefore(http, root.getFirstChild());</span>
+<span class="fc" id="L90">            final Element http = this.getRequestInfo(doc, request);</span>
+<span class="fc" id="L91">            root.insertBefore(http, root.getFirstChild());</span>
 
             // Lookup Accounts By Name
-<span class="nc" id="L94">            final String[] lookup = request.getParameterValues(&quot;lookup&quot;);</span>
-<span class="nc bnc" id="L95" title="All 2 branches missed.">            if (lookup != null) {</span>
+<span class="fc" id="L94">            final String[] lookup = request.getParameterValues(&quot;lookup&quot;);</span>
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">            if (lookup != null) {</span>
 <span class="nc bnc" id="L96" title="All 2 branches missed.">                for (final String name : lookup) {</span>
 <span class="nc" id="L97">                    root.appendChild(info.getLookupInfo(doc, name));</span>
                 }
             }
 
             // Write the XML Response
-<span class="nc" id="L102">            final TransformerFactory transfac = TransformerFactory.newInstance();</span>
-<span class="nc" id="L103">            transfac.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, &quot;&quot;);</span>
-<span class="nc" id="L104">            transfac.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, &quot;&quot;);</span>
+<span class="fc" id="L102">            final TransformerFactory transfac = TransformerFactory.newInstance();</span>
+<span class="fc" id="L103">            transfac.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, &quot;&quot;);</span>
+<span class="fc" id="L104">            transfac.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, &quot;&quot;);</span>
 
-<span class="nc" id="L106">            final Transformer trans = transfac.newTransformer();</span>
-<span class="nc" id="L107">            trans.setOutputProperty(OutputKeys.INDENT, &quot;yes&quot;);</span>
+<span class="fc" id="L106">            final Transformer trans = transfac.newTransformer();</span>
+<span class="fc" id="L107">            trans.setOutputProperty(OutputKeys.INDENT, &quot;yes&quot;);</span>
 
-<span class="nc" id="L109">            final StreamResult result = new StreamResult(response.getWriter());</span>
-<span class="nc" id="L110">            final DOMSource source = new DOMSource(doc);</span>
-<span class="nc" id="L111">            trans.transform(source, result);</span>
-<span class="nc" id="L112">            response.setContentType(&quot;application/xml&quot;);</span>
+<span class="fc" id="L109">            final StreamResult result = new StreamResult(response.getWriter());</span>
+<span class="fc" id="L110">            final DOMSource source = new DOMSource(doc);</span>
+<span class="fc" id="L111">            trans.transform(source, result);</span>
+<span class="fc" id="L112">            response.setContentType(&quot;application/xml&quot;);</span>
 <span class="nc" id="L113">        } catch (final ParserConfigurationException | TransformerException e) {</span>
 <span class="nc" id="L114">            throw new ServletException(e);</span>
-<span class="nc" id="L115">        }</span>
-<span class="nc" id="L116">    }</span>
+<span class="fc" id="L115">        }</span>
+<span class="fc" id="L116">    }</span>
 
     /**
      * Gets the request info.
@@ -125,14 +125,14 @@ import waffle.util.WaffleInfo;
      * @return the request info
      */
     private Element getRequestInfo(final Document doc, final HttpServletRequest request) {
-<span class="nc" id="L128">        final Element node = doc.createElement(&quot;request&quot;);</span>
+<span class="fc" id="L128">        final Element node = doc.createElement(&quot;request&quot;);</span>
 
-<span class="nc" id="L130">        Element value = doc.createElement(&quot;AuthType&quot;);</span>
-<span class="nc" id="L131">        value.setTextContent(request.getAuthType());</span>
-<span class="nc" id="L132">        node.appendChild(value);</span>
+<span class="fc" id="L130">        Element value = doc.createElement(&quot;AuthType&quot;);</span>
+<span class="fc" id="L131">        value.setTextContent(request.getAuthType());</span>
+<span class="fc" id="L132">        node.appendChild(value);</span>
 
-<span class="nc" id="L134">        final Principal p = request.getUserPrincipal();</span>
-<span class="nc bnc" id="L135" title="All 2 branches missed.">        if (p != null) {</span>
+<span class="fc" id="L134">        final Principal p = request.getUserPrincipal();</span>
+<span class="pc bpc" id="L135" title="1 of 2 branches missed.">        if (p != null) {</span>
 <span class="nc" id="L136">            final Element child = doc.createElement(&quot;principal&quot;);</span>
 <span class="nc" id="L137">            child.setAttribute(&quot;class&quot;, p.getClass().getName());</span>
 
@@ -147,17 +147,17 @@ import waffle.util.WaffleInfo;
 <span class="nc" id="L147">            node.appendChild(child);</span>
         }
 
-<span class="nc" id="L150">        final List&lt;String&gt; headers = Collections.list(request.getHeaderNames());</span>
-<span class="nc bnc" id="L151" title="All 2 branches missed.">        if (!headers.isEmpty()) {</span>
-<span class="nc" id="L152">            final Element child = doc.createElement(&quot;headers&quot;);</span>
-<span class="nc bnc" id="L153" title="All 2 branches missed.">            for (String header : headers) {</span>
-<span class="nc" id="L154">                value = doc.createElement(header);</span>
-<span class="nc" id="L155">                value.setTextContent(request.getHeader(header));</span>
-<span class="nc" id="L156">                child.appendChild(value);</span>
-<span class="nc" id="L157">            }</span>
-<span class="nc" id="L158">            node.appendChild(child);</span>
+<span class="fc" id="L150">        final List&lt;String&gt; headers = Collections.list(request.getHeaderNames());</span>
+<span class="pc bpc" id="L151" title="1 of 2 branches missed.">        if (!headers.isEmpty()) {</span>
+<span class="fc" id="L152">            final Element child = doc.createElement(&quot;headers&quot;);</span>
+<span class="fc bfc" id="L153" title="All 2 branches covered.">            for (String header : headers) {</span>
+<span class="fc" id="L154">                value = doc.createElement(header);</span>
+<span class="fc" id="L155">                value.setTextContent(request.getHeader(header));</span>
+<span class="fc" id="L156">                child.appendChild(value);</span>
+<span class="fc" id="L157">            }</span>
+<span class="fc" id="L158">            node.appendChild(child);</span>
         }
-<span class="nc" id="L160">        return node;</span>
+<span class="fc" id="L160">        return node;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
