@@ -1,5 +1,10 @@
-3.0.0 (in-progress)
+3.1.0 (in-progress)
 ===================
+* todo -> drop spring 4
+* todo -> drop spring boot 1
+
+3.0.0 (12/28/2020)
+==================
 * Relicensed project as MIT
 * Support different cache solutions (default is caffeine cache) through service loader using '/META-INF/services/waffle.cache.CacheSupplier' pointing to your cache solution.
 * Remove use of Group interface and directly use our implementation to allow build on jdk14+ (ie 15/16) (not confirmed JAAS works at those higher versions, just compiles)
