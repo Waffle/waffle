@@ -51,7 +51,6 @@
         <module>waffle-negotiate</module>
         <module>waffle-spring-filter</module>
         <module>waffle-spring-form</module>
-        <module>waffle-spring-boot-filter</module>
         <module>waffle-spring-boot-filter2</module>
     </modules>
 

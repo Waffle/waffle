@@ -1,6 +1,7 @@
 3.1.0 (in-progress)
 ===================
 * Drop JAAS wildfly 10 support as previously deprecated and proper solution in place for newer wildflys.
+* Drop Spring Boot 1 support as end of life for long time and underlying spring 4 now also end of life.
 * todo -> drop spring 4
 * todo -> drop spring boot 1
 

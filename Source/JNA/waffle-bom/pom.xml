@@ -79,18 +79,6 @@
         </dependency>
         <dependency>
             <groupId>com.github.waffle</groupId>
-            <artifactId>waffle-spring-boot-autoconfigure</artifactId>
-            <version>${project.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle</groupId>
-            <artifactId>waffle-spring-boot-starter</artifactId>
-            <version>${project.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle</groupId>
             <artifactId>waffle-spring-boot-autoconfigure2</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
