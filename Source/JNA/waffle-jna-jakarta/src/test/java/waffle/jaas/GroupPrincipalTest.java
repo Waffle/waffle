@@ -90,6 +90,7 @@ class GroupPrincipalTest {
      *             the class not found exception
      */
     @Test
+    @SuppressWarnings("BanSerializableRead")
     void testIsSerializable() throws IOException, ClassNotFoundException {
         // serialize
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
