@@ -24,17 +24,17 @@
     SOFTWARE.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>com.github.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
-        <version>2.3.1-SNAPSHOT</version>
+        <version>3.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>waffle-tests-jakarta</artifactId>
-    <version>2.3.1-SNAPSHOT</version>
+    <version>3.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>waffle-tests-jakarta</name>
@@ -50,8 +50,8 @@
 
     <properties>
         <!-- Dependencies -->
-        <byte-buddy.version>1.10.18</byte-buddy.version>
-        <mockito-core.version>3.6.28</mockito-core.version>
+        <byte-buddy.version>1.10.19</byte-buddy.version>
+        <mockito-core.version>3.7.0</mockito-core.version>
         <objenesis.version>3.1</objenesis.version>
         <servlet.version>5.0.0</servlet.version>
 

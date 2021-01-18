@@ -36,7 +36,7 @@ import javax.security.auth.callback.UnsupportedCallbackException;
  *
  * @author dblock[at]dblock[dot]org
  */
-public class UsernamePasswordCallbackHandler implements CallbackHandler {
+class UsernamePasswordCallbackHandler implements CallbackHandler {
 
     /** The username. */
     private final String username;

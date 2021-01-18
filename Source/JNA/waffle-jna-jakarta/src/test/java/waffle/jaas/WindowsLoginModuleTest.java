@@ -50,7 +50,7 @@ import waffle.windows.auth.PrincipalFormat;
 /**
  * The Class WindowsLoginModuleTest.
  */
-public class WindowsLoginModuleTest {
+class WindowsLoginModuleTest {
 
     /** The login module. */
     private WindowsLoginModule loginModule;
@@ -122,7 +122,7 @@ public class WindowsLoginModuleTest {
     void commit_success() throws LoginException {
         Whitebox.setInternalState(this.loginModule, new LinkedHashSet<Principal>());
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
-        this.loginModule.commit();
+        Assertions.assertTrue(this.loginModule.commit());
     }
 
     /**
@@ -139,7 +139,7 @@ public class WindowsLoginModuleTest {
         principals.add(new UserPrincipal("FQN"));
         Whitebox.setInternalState(this.loginModule, principals);
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
-        this.loginModule.commit();
+        Assertions.assertTrue(this.loginModule.commit());
     }
 
     /**
@@ -153,11 +153,13 @@ public class WindowsLoginModuleTest {
         final Set<Principal> principals = new LinkedHashSet<>();
         principals.add(new UserPrincipal("FQN"));
         final GroupPrincipal group = new GroupPrincipal("Roles");
-        group.addMember(new RolePrincipal("WindowsGroup"));
+        final RolePrincipal role = new RolePrincipal("WindowsGroup");
+        group.addMember(role);
+        principals.add(role);
         principals.add(group);
         Whitebox.setInternalState(this.loginModule, principals);
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
-        this.loginModule.commit();
+        Assertions.assertTrue(this.loginModule.commit());
     }
 
     /**

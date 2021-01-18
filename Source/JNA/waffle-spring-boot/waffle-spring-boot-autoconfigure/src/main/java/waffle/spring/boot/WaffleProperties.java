@@ -28,6 +28,8 @@ import java.util.List;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import waffle.windows.auth.PrincipalFormat;
+
 /**
  * The configuration properties that can be used with Spring Boot to configure WAFFLE.
  */

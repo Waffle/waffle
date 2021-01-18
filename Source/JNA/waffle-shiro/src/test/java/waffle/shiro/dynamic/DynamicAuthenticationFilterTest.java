@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
 /**
  * The Class DynamicAuthenticationFilterTest.
  */
-public class DynamicAuthenticationFilterTest {
+class DynamicAuthenticationFilterTest {
 
     /** The dynamic authentication filter. */
     @Tested

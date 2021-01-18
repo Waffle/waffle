@@ -124,4 +124,5 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
 
         return token.createInfo();
     }
+
 }
