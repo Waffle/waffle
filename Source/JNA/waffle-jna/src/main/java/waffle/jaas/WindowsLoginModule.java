@@ -108,7 +108,9 @@ public class WindowsLoginModule implements LoginModule {
             } else if ("roleFormat".equalsIgnoreCase(option.getKey())) {
                 this.roleFormat = PrincipalFormat.valueOf(((String) option.getValue()).toUpperCase(Locale.ENGLISH));
             } else if ("mapRolesFromDomainGroups".equalsIgnoreCase(option.getKey())) {
-                this.domains = (String) option.getValue();
+                // Remove quotation marks as well as whitespace for robustness
+                this.domains = ((String) option.getValue()).replaceAll("(\")", "").replaceAll("(^\\s*)|(\\s*$)", "")
+                        .replaceAll("\\s*,\\s*", ",");
             }
         }
     }
@@ -168,7 +170,7 @@ public class WindowsLoginModule implements LoginModule {
             this.principals = new LinkedHashSet<>();
             Set<String> domainlist = new LinkedHashSet<>();
             if (this.domains != null)
-                domainlist.addAll(Arrays.asList(this.domains.split("\\s*,\\s*")));
+                domainlist.addAll(Arrays.asList(this.domains.split(",")));
             // add the main user principal to the subject principals
             this.principals.addAll(WindowsLoginModule.getUserPrincipals(windowsIdentity, this.principalFormat));
             if ((this.roleFormat != PrincipalFormat.NONE) || (!domainlist.isEmpty())) {

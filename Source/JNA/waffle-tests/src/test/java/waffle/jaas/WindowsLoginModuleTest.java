@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2021 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,8 +22,6 @@
  * SOFTWARE.
  */
 package waffle.jaas;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 import java.security.Principal;
 import java.util.HashMap;
@@ -274,10 +272,37 @@ class WindowsLoginModuleTest {
         Assertions.assertTrue(this.loginModule.login());
         Assertions.assertTrue(this.loginModule.commit());
 
-        Assertions.assertTrue(subject.getPrincipals().size() >= 4);
+        Assertions.assertEquals(4, subject.getPrincipals().size());
         Assertions.assertTrue(subject.getPrincipals().contains(new RolePrincipal("Everyone")));
         Assertions.assertTrue(subject.getPrincipals().contains(new RolePrincipal("Users")));
         Assertions.assertTrue(subject.getPrincipals().contains(new RolePrincipal("Group 1")));
+    }
+
+    /**
+     * Test role from domain groups.
+     *
+     * @throws LoginException
+     *             the login exception
+     */
+    @Test
+    void testRoleFromDomainGroupNames() throws LoginException {
+        final Subject subject = new Subject();
+        final UsernamePasswordCallbackHandler callbackHandler = new UsernamePasswordCallbackHandler(
+                WindowsAccountImpl.getCurrentUsername(), "password");
+        this.provider.addGroup("TestDomain\\Role 1");
+        this.provider.addGroup("TestDomain\\Role 2");
+        final Map<String, String> options = new HashMap<>();
+        options.put("debug", "true");
+        options.put("principalFormat", "fqn");
+        options.put("roleFormat", "none");
+        options.put("mapRolesFromDomainGroups", "DummyDomain, TestDomain ");
+        this.loginModule.initialize(subject, callbackHandler, null, options);
+        Assertions.assertTrue(this.loginModule.login());
+        Assertions.assertTrue(this.loginModule.commit());
+
+        Assertions.assertEquals(3, subject.getPrincipals().size());
+        Assertions.assertTrue(subject.getPrincipals().contains(new RolePrincipal("Role 1")));
+        Assertions.assertTrue(subject.getPrincipals().contains(new RolePrincipal("Role 2")));
     }
 
     /**
@@ -324,7 +349,7 @@ class WindowsLoginModuleTest {
         this.loginModule.initialize(subject, callbackHandler, null, options);
         Assertions.assertTrue(this.loginModule.login());
         this.loginModule.abort();
-        assertThat(subject.getPrincipals().size()).isEqualTo(0);
+        Assertions.assertEquals(0, subject.getPrincipals().size());
     }
 
 }

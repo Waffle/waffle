@@ -8,9 +8,9 @@ Configuring Tomcat
 
 The following steps are required to configure Tomcat with Waffle authenticator. 
 
-Package Waffle JARs, including `waffle-jna-2.1.1.jar`, `caffeine-2.8.0.jar`, `jna-5.5.0.jar`, `jna-platform-5.5.0.jar`, and `slf4j-api-2.0.0-alpha1.jar` in the application's lib directory or copy them to Tomcat's lib.
+Package Waffle JARs, including `waffle-jna-3.1.0.jar`, `caffeine-2.8.0.jar`, `jna-5.5.0.jar`, `jna-platform-5.5.0.jar`, and `slf4j-api-2.0.0-alpha1.jar` in the application's lib directory or copy them to Tomcat's lib.
 
-- For latest snapshot instead use `waffle-jna-2.1.2-SNAPSHOT`, `caffeine-2.8.0.jar`, `jna-5.5.0.jar`, `jna-platform-5.5.0.jar` and `slf4j-api-2.0.0-alpha1.jar`.
+- For latest snapshot instead use `waffle-jna-3.1.0-SNAPSHOT`, `caffeine-2.8.0.jar`, `jna-5.5.0.jar`, `jna-platform-5.5.0.jar` and `slf4j-api-2.0.0-alpha1.jar`.
 
 Add a JAAS realm to the application context. Modify `META-INF\context.xml`.
  
@@ -33,7 +33,7 @@ Enable BASIC, DIGEST or FORMS authentication for this realm. Modify `WEB-INF\web
 </login-config>
 ```
 
-Configure security roles in `WEB-INF\web.xml`. The Waffle login module adds all user's security groups (including nested and domain groups) as roles during authentication.
+Configure security roles in `WEB-INF\web.xml`. The Waffle login module adds all user's security groups (including nested and domain groups) as roles during authentication.  The security role names (where applicable) will contain the domain name in which they are maintained.
 
 ``` xml
 <security-role>
@@ -66,7 +66,7 @@ Create a login configuration file, `login.conf`. This configuration file specifi
 
 ```
 Jaas {
-    waffle.jaas.WindowsLoginModule sufficient debug=false;
+    waffle.jaas.WindowsLoginModule sufficient debug="false";
 };
 ```
 
@@ -77,6 +77,7 @@ The following options are supported by the module.
 * debug: Set to "true" to enable debug mode. In debug mode the module will output information about successful logins, including group memberships.
 * principalFormat: Specifies the name format for the principal.
 * roleFormat: Specifies the name format for the role.
+* mapRolesFromDomainGroups: Specifies domains for which security group names will be mapped to roles without including the domain in the role name.  These roles will added in addition to roles added through the roleFormat option.  In most uses cases, the need for both the roleFormat and the mapRolesFromDomainGroups should not be required.
 * allowGuestLogin: Allow guest login. When true and the system's Guest account is enabled, any invalid login succeeds as Guest.
 
 Note: While the default value of `allowGuestLogin` is "true", it is recommended that you disable the system's Guest account to disallow Guest login. This option is provided for systems where you don't have administrative privileges.
@@ -86,7 +87,7 @@ The following principal and role formats are available.
 * fqn: Fully qualified names, such as domain\group. When unavailable, a SID is used. This is the default.
 * sid: Group SID in the S- format.
 * both: Both a fully qualified name and a SID in the S- format. When a group name is not available, a SID is used.
-* none: Available for roleFormat only. Do not retrieve roles.
+* none: Available for roleFormat only. Do not retrieve roles, except if `mapRolesFromDomainGroups` is present.
 
 Jaas.policy
 -----------
