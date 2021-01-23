@@ -2,10 +2,9 @@ WAFFLE - Windows Authentication Framework
 =========================================
 
 [![Java CI](https://github.com/Waffle/waffle/workflows/Java%20CI/badge.svg)](https://github.com/Waffle/waffle/actions?query=workflow%3A%22Java+CI%22)
-[![Build Status](https://travis-ci.org/Waffle/waffle.svg?branch=master)](https://travis-ci.org/Waffle/waffle)
-[![Build status](https://ci.appveyor.com/api/projects/status/8o53n6o359r7s6up?svg=true)](https://ci.appveyor.com/project/hazendaz/waffle)
-[![Coverity Scan Build Status](https://scan.coverity.com/projects/2775/badge.svg)](https://scan.coverity.com/projects/2775)
-[![Coverage Status](https://coveralls.io/repos/hazendaz/waffle/badge.svg)](https://coveralls.io/r/hazendaz/waffle)
+[![DotNET CI](https://github.com/Waffle/waffle/workflows/DotNET/badge.svg)](https://github.com/Waffle/waffle/workflows/DotNET)
+[![Coverity Scan Status](https://scan.coverity.com/projects/22153/badge.svg)](https://scan.coverity.com/projects/22153)
+[![Coverage Status](https://sonarcloud.io/api/project_badges/measure?project=Waffle_waffle&metric=coverage)](https://sonarcloud.io/dashboard?id=Waffle_waffle)
 [![Maven central](https://maven-badges.herokuapp.com/maven-central/com.github.waffle/waffle-jna/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.waffle/waffle-jna)
 [![releases](https://img.shields.io/github/v/release/Waffle/waffle)](https://github.com/Waffle/waffle/releases/tag/waffle-parent-2.3.0)
 [![MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)

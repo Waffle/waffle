@@ -18,7 +18,7 @@ if NOT "%ProgramFiles(x86)%"=="" set ProgramFilesDir=%ProgramFiles(x86)%
 set VisualStudioCmd=%ProgramFilesDir%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat
 if EXIST "%VisualStudioCmd%" call "%VisualStudioCmd%"
 
-set NUnitDir=.nuget\packages\NUnit.ConsoleRunner.3.5.0
+set NUnitDir=.nuget\packages\NUnit.ConsoleRunner.3.12.0
 
 if EXIST "%NUnitDir%\tools" set NUnitBinDir=%NUnitDir%\tools
 
