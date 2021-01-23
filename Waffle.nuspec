@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Waffle.AD</id>
-    <version>1.8.3</version>
+    <version>3.1.0</version>
     <authors>Daniel Doubrovkine &amp; Jeremy Landis</authors>
     <owners>Daniel Doubrovkine</owners>
     <licenseUrl>https://github.com/Waffle/waffle/blob/master/LICENSE</licenseUrl>
@@ -14,7 +14,7 @@
     <copyright>Copyright (c) Application Security Inc.2010-2017 and Contributors.</copyright>
     <tags>sspi kerberos negotiate ntlm authentication</tags>
     <dependencies>
-      <dependency id="NUnit" version="3.5.0" />
+      <dependency id="NUnit" version="3.13.0" />
     </dependencies>
   </metadata>
   <files>
