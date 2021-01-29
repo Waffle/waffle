@@ -195,7 +195,7 @@
         <git-commit-id.plugin>4.0.3</git-commit-id.plugin>
         <gpg.plugin>1.6</gpg.plugin>
         <htmlcompressor.plugin>1.5.2</htmlcompressor.plugin>
-        <impsort.plugin>1.4.1</impsort.plugin>
+        <impsort.plugin>1.5.0</impsort.plugin>
         <install.plugin>3.0.0-M1</install.plugin>
         <jacoco.plugin>0.8.6</jacoco.plugin>
         <jar.plugin>3.2.0</jar.plugin>
