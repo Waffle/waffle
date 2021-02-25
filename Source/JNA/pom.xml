@@ -235,7 +235,7 @@
         <jgit.version>5.10.0.202012080955-r</jgit.version>
         <plexus-utils.version>3.3.0</plexus-utils.version>
         <scm.version>${scm.plugin}</scm.version>
-        <wagon.version>3.4.2</wagon.version>
+        <wagon.version>3.4.3</wagon.version>
         <yuicompressor.version>2.4.8</yuicompressor.version>
 
         <!-- Lifecycle Mapping -->
