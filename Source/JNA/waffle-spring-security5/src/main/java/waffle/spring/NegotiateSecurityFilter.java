@@ -118,14 +118,14 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
                 return;
             }
 
-            if (!this.allowGuestLogin && windowsIdentity.isGuest()) {
-                NegotiateSecurityFilter.LOGGER.warn("guest login disabled: {}", windowsIdentity.getFqn());
-                this.sendUnauthorized(response, true);
-                return;
-            }
-
             IWindowsImpersonationContext ctx = null;
             try {
+                if (!this.allowGuestLogin && windowsIdentity.isGuest()) {
+                    NegotiateSecurityFilter.LOGGER.warn("guest login disabled: {}", windowsIdentity.getFqn());
+                    this.sendUnauthorized(response, true);
+                    return;
+                }
+
                 NegotiateSecurityFilter.LOGGER.debug("logged in user: {} ({})", windowsIdentity.getFqn(),
                         windowsIdentity.getSidString());
 
