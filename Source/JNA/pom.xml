@@ -201,7 +201,7 @@
         <jar.plugin>3.2.0</jar.plugin>
         <javadoc.plugin>3.2.0</javadoc.plugin>
         <jdepend.plugin>2.0</jdepend.plugin>
-        <jxr.plugin>3.0.0</jxr.plugin>
+        <jxr.plugin>3.1.1</jxr.plugin>
         <license.plugin>4.0</license.plugin>
         <modernizer.plugin>2.2.0</modernizer.plugin>
         <nexus-staging.plugin>1.6.8</nexus-staging.plugin>
