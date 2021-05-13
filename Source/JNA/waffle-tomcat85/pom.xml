@@ -50,7 +50,7 @@
 
     <properties>
         <!-- Dependencies -->
-        <tomcat.version>8.5.65</tomcat.version>
+        <tomcat.version>10.0.6</tomcat.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.tomcat85</module.name>
