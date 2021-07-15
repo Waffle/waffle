@@ -26,6 +26,7 @@ package waffle.jaas;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
@@ -79,6 +80,9 @@ public class WindowsLoginModule implements LoginModule {
     /** The principals. */
     private Set<Principal> principals;
 
+    /** The domains from which to map group names to role names. */
+    private String domains;
+
     /** The principal format. */
     private PrincipalFormat principalFormat = PrincipalFormat.FQN;
 
@@ -103,6 +107,10 @@ public class WindowsLoginModule implements LoginModule {
                         .valueOf(((String) option.getValue()).toUpperCase(Locale.ENGLISH));
             } else if ("roleFormat".equalsIgnoreCase(option.getKey())) {
                 this.roleFormat = PrincipalFormat.valueOf(((String) option.getValue()).toUpperCase(Locale.ENGLISH));
+            } else if ("mapRolesFromDomainGroups".equalsIgnoreCase(option.getKey())) {
+                // Remove quotation marks as well as whitespace for robustness
+                this.domains = ((String) option.getValue()).replaceAll("(\")", "").replaceAll("(^\\s*)|(\\s*$)", "")
+                        .replaceAll("\\s*,\\s*", ",");
             }
         }
     }
@@ -160,12 +168,18 @@ public class WindowsLoginModule implements LoginModule {
             }
 
             this.principals = new LinkedHashSet<>();
+            Set<String> domainlist = new LinkedHashSet<>();
+            if (this.domains != null)
+                domainlist.addAll(Arrays.asList(this.domains.split(",")));
             // add the main user principal to the subject principals
             this.principals.addAll(WindowsLoginModule.getUserPrincipals(windowsIdentity, this.principalFormat));
-            if (this.roleFormat != PrincipalFormat.NONE) {
+            if ((this.roleFormat != PrincipalFormat.NONE) || (!domainlist.isEmpty())) {
                 // add Windows Groups as role principles
                 for (final IWindowsAccount group : windowsIdentity.getGroups()) {
                     this.principals.addAll(getRolePrincipals(group, this.roleFormat));
+                    if (domainlist.contains(group.getDomain())) {
+                        this.principals.add(new RolePrincipal(group.getName()));
+                    }
                 }
             }
 

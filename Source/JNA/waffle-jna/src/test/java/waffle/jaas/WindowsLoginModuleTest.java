@@ -178,10 +178,12 @@ class WindowsLoginModuleTest {
         this.options.put("principalFormat", "sid");
         this.options.put("roleFormat", "none");
         this.options.put("junk", "junk");
+        this.options.put("mapRolesFromDomainGroups", "\" DUMMYDOMAIN ,\t DUMMYDOMAIN2 \"  ");
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
         Assertions.assertTrue(this.loginModule.isDebug());
         Assertions.assertEquals(PrincipalFormat.SID, Whitebox.getInternalState(this.loginModule, "principalFormat"));
         Assertions.assertEquals(PrincipalFormat.NONE, Whitebox.getInternalState(this.loginModule, "roleFormat"));
+        Assertions.assertEquals("DUMMYDOMAIN,DUMMYDOMAIN2", Whitebox.getInternalState(this.loginModule, "domains"));
     }
 
     /**
