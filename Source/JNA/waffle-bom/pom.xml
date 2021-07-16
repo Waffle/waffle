@@ -50,7 +50,7 @@
 
     <properties>
         <!-- Dependencies -->
-        <caffeine.version>2.9.1</caffeine.version>
+        <caffeine.version>3.0.3</caffeine.version>
         <jna.version>5.8.0</jna.version>
 
         <!-- Automatic Module Name for JPMS -->
