@@ -174,7 +174,7 @@
         <jopt-simple.version>5.0.4</jopt-simple.version>
         <jsr305.version>3.0.2</jsr305.version>
         <junit.version>5.7.2</junit.version>
-        <slf4j.version>2.0.0-alpha2</slf4j.version>
+        <slf4j.version>2.0.0-alpha3</slf4j.version>
 
         <!-- Plugins -->
         <antrun.plugin>3.0.0</antrun.plugin>
@@ -234,7 +234,7 @@
         <htmlcompressor.version>1.7.1</htmlcompressor.version>
         <jgit.version>5.12.0.202106070339-r</jgit.version>
         <plexus-utils.version>3.4.0</plexus-utils.version>
-        <scm.version>${scm.plugin}</scm.version>
+        <scm.version>1.11.3</scm.version>
         <wagon.version>3.4.3</wagon.version>
         <yuicompressor.version>2.4.8</yuicompressor.version>
 
