@@ -174,7 +174,7 @@
         <jopt-simple.version>5.0.4</jopt-simple.version>
         <jsr305.version>3.0.2</jsr305.version>
         <junit.version>5.7.2</junit.version>
-        <slf4j.version>2.0.0-alpha2</slf4j.version>
+        <slf4j.version>2.0.0-alpha3</slf4j.version>
 
         <!-- Plugins -->
         <antrun.plugin>3.0.0</antrun.plugin>
@@ -209,7 +209,7 @@
         <project-info-reports.plugin>3.1.2</project-info-reports.plugin>
         <release.plugin>3.0.0-M4</release.plugin>
         <resources.plugin>3.2.0</resources.plugin>
-        <scm.plugin>1.11.2</scm.plugin>
+        <scm.plugin>1.11.3</scm.plugin>
         <source.plugin>3.2.1</source.plugin>
         <spotbugs.plugin>4.3.0</spotbugs.plugin>
         <site.plugin>3.9.1</site.plugin>
