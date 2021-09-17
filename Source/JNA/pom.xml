@@ -234,7 +234,7 @@
         <htmlcompressor.version>1.7.1</htmlcompressor.version>
         <jgit.version>5.13.0.202109080827-r</jgit.version>
         <plexus-utils.version>3.4.1</plexus-utils.version>
-        <scm.version>1.11.3</scm.version>
+        <scm.version>1.12.0</scm.version>
         <wagon.version>3.4.3</wagon.version>
         <yuicompressor.version>2.4.8</yuicompressor.version>
 
