@@ -51,7 +51,7 @@
     <properties>
         <!-- Dependencies -->
         <byte-buddy.version>1.11.19</byte-buddy.version>
-        <mockito-core.version>3.12.4</mockito-core.version>
+        <mockito-core.version>4.0.0</mockito-core.version>
         <objenesis.version>3.2</objenesis.version>
         <servlet.version>4.0.4</servlet.version>
 
