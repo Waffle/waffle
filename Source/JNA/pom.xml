@@ -231,7 +231,7 @@
         <sb-contrib.version>7.4.7</sb-contrib.version>
         <findsecbugs.version>1.11.0</findsecbugs.version>
         <fluido.version>1.9</fluido.version>
-        <htmlcompressor.version>1.7.1</htmlcompressor.version>
+        <htmlcompressor.version>1.7.2</htmlcompressor.version>
         <jgit.version>5.13.0.202109080827-r</jgit.version>
         <plexus-utils.version>3.4.1</plexus-utils.version>
         <scm.version>1.12.0</scm.version>
