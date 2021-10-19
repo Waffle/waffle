@@ -12,9 +12,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2
         with:
           java-version: 11
+          distribution: zulu
       - name: Analyze with Coverity
         run: |
           wget -q https://scan.coverity.com/download/linux64 --post-data "token=$COVERITY_TOKEN&project=Waffle%2Fwaffle" -O coverity_tool.tgz
