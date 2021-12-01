@@ -191,7 +191,7 @@
         <deploy.plugin>3.0.0-M1</deploy.plugin>
         <directory.plugin>1.0</directory.plugin>
         <enforcer.plugin>3.0.0</enforcer.plugin>
-        <formatter.plugin>2.16.0</formatter.plugin>
+        <formatter.plugin>2.17.1</formatter.plugin>
         <git-commit-id.plugin>4.9.10</git-commit-id.plugin>
         <gpg.plugin>3.0.1</gpg.plugin>
         <htmlcompressor.plugin>1.7.2</htmlcompressor.plugin>
