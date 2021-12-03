@@ -1,3 +1,7 @@
+3.2.0 (todo)
+============
+* Drop Tomcat 7 support as end of life
+
 3.1.0 (in-progress)
 ===================
 * Drop JAAS wildfly 10 support as previously deprecated and proper solution in place for newer wildflys.
