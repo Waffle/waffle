@@ -52,7 +52,7 @@
         <!-- Dependencies -->
         <annotation.version>1.3.5</annotation.version>
         <asm.version>9.2</asm.version>
-        <ecj.version>3.27.0</ecj.version>
+        <ecj.version>3.28.0</ecj.version>
         <el.version>3.0.4</el.version>
         <el-api.version>3.0.3</el-api.version>
         <jetty.version>9.4.44.v20210927</jetty.version>
