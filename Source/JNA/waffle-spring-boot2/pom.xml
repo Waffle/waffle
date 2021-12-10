@@ -52,7 +52,7 @@
         <!-- Dependencies -->
         <caffeine.version>2.9.3</caffeine.version>
         <jna.version>5.10.0</jna.version>
-        <log4j.version>2.14.1</log4j.version>
+        <log4j.version>2.15.0</log4j.version>
         <slf4j.version>1.7.32</slf4j.version>
         <spring-boot.version>2.6.1</spring-boot.version>
         <spring-security.version>5.6.0</spring-security.version>
