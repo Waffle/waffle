@@ -52,7 +52,7 @@
         <!-- Dependencies -->
         <caffeine.version>2.9.3</caffeine.version>
         <jna.version>5.10.0</jna.version>
-        <logback.version>1.2.7</logback.version>
+        <logback.version>1.2.8</logback.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.distro</module.name>
