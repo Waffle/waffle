@@ -63,7 +63,7 @@
 
     <properties>
         <!-- Dependencies -->
-        <logback.version>1.2.7</logback.version>
+        <logback.version>1.2.8</logback.version>
         <servlet.version>4.0.4</servlet.version>
 
         <!-- Plugins -->
