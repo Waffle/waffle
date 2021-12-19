@@ -54,10 +54,7 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
+        <!-- Internal Dependencies -->
         <dependency>
             <groupId>com.github.waffle</groupId>
             <artifactId>waffle-spring-boot-autoconfigure2</artifactId>
@@ -66,6 +63,12 @@
         <dependency>
             <groupId>com.github.waffle</groupId>
             <artifactId>waffle-spring-security5</artifactId>
+        </dependency>
+
+        <!-- External Dependencies -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
 </project>
