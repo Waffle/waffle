@@ -52,11 +52,32 @@
         <!-- Dependencies -->
         <caffeine.version>2.9.3</caffeine.version>
         <jna.version>5.10.0</jna.version>
+        <log4j2.version>2.17.0</log4j2.version>
         <logback.version>1.2.9</logback.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.distro</module.name>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>${log4j2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-to-slf4j</artifactId>
+                <version>${log4j2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.waffle</groupId>
+                <artifactId>waffle-spring-boot-starter2</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <!-- Waffle Jars -->
