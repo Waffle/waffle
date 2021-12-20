@@ -30,11 +30,11 @@
     <parent>
         <groupId>com.github.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
-        <version>3.1.1-SNAPSHOT</version>
+        <version>3.1.1</version>
     </parent>
 
     <artifactId>waffle-jna</artifactId>
-    <version>3.1.1-SNAPSHOT</version>
+    <version>3.1.1</version>
     <packaging>jar</packaging>
 
     <name>waffle-jna</name>
@@ -45,7 +45,7 @@
         <connection>scm:git:ssh://git@github.com/waffle/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/waffle/waffle.git</developerConnection>
         <url>https://github.com/Waffle/waffle</url>
-        <tag>HEAD</tag>
+        <tag>waffle-parent-3.1.1</tag>
     </scm>
 
     <properties>
