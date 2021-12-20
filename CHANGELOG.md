@@ -2,7 +2,11 @@
 ============
 * Drop Tomcat 7 support as end of life
 
-3.1.0 (in-progress)
+3.1.1 (12/19/2021)
+==================
+* Security patches to clear out any potential pull of bad log4j as well as logback updates and other libraries
+
+3.1.0 (12/7/2021)
 ===================
 * Drop JAAS wildfly 10 support as previously deprecated and proper solution in place for newer wildflys.
 * Drop Spring Boot 1 support as end of life for long time and underlying spring 4 now also end of life.

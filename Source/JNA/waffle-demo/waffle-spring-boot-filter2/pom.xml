@@ -50,7 +50,7 @@
     <properties>
         <!-- Dependencies -->
         <jna.version>5.10.0</jna.version>
-        <logback.version>1.2.7</logback.version>
+        <logback.version>1.2.9</logback.version>
         <spring-boot.version>2.6.1</spring-boot.version>
 
         <!-- Automatic Module Name for JPMS -->
@@ -91,6 +91,17 @@
     <dependencies>
         <dependency>
             <groupId>com.github.waffle</groupId>
+            <artifactId>waffle-jna</artifactId>
+            <version>${project.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>jcl-over-slf4j</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.github.waffle</groupId>
             <artifactId>waffle-spring-boot-starter2</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -106,17 +117,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle</groupId>
-            <artifactId>waffle-jna</artifactId>
-            <version>${project.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>jcl-over-slf4j</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
     </dependencies>
 

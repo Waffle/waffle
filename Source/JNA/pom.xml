@@ -152,7 +152,7 @@
         <maven.compiler.testSource>${java.test.version}</maven.compiler.testSource>
         <maven.compiler.testTarget>${java.test.version}</maven.compiler.testTarget>
 
-        <maven.min-version>3.8.3</maven.min-version>
+        <maven.min-version>3.8.4</maven.min-version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>

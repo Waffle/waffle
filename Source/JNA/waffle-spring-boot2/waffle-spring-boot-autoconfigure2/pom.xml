@@ -54,6 +54,14 @@
     </properties>
 
     <dependencies>
+        <!-- Internal Dependencies -->
+        <dependency>
+            <groupId>com.github.waffle</groupId>
+            <artifactId>waffle-spring-security5</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- External Dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot</artifactId>
@@ -75,11 +83,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle</groupId>
-            <artifactId>waffle-spring-security5</artifactId>
             <optional>true</optional>
         </dependency>
     </dependencies>

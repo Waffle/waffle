@@ -68,6 +68,15 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- Internal Dependencies -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>waffle-spring-security5</artifactId>
+                <version>${project.version}</version>
+                <scope>compile</scope>
+            </dependency>
+
+            <!-- External Dependencies -->
             <dependency>
                 <groupId>com.github.ben-manes.caffeine</groupId>
                 <artifactId>caffeine</artifactId>
@@ -115,12 +124,6 @@
                 <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>waffle-spring-security5</artifactId>
-                <version>${project.version}</version>
-                <scope>compile</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
