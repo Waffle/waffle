@@ -179,7 +179,7 @@
         <!-- Plugins -->
         <antrun.plugin>3.0.0</antrun.plugin>
         <assembly.plugin>3.3.0</assembly.plugin>
-        <build-helper.plugin>3.2.0</build-helper.plugin>
+        <build-helper.plugin>3.3.0</build-helper.plugin>
         <changelog.plugin>2.3</changelog.plugin>
         <changes.plugin>2.12.1</changes.plugin>
         <checkstyle.plugin>3.1.2</checkstyle.plugin>
