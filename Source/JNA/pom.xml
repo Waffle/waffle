@@ -174,7 +174,7 @@
         <jopt-simple.version>5.0.4</jopt-simple.version>
         <jsr305.version>3.0.2</jsr305.version>
         <junit.version>5.8.2</junit.version>
-        <slf4j.version>1.7.32</slf4j.version>
+        <slf4j.version>1.7.33</slf4j.version>
 
         <!-- Plugins -->
         <antrun.plugin>3.0.0</antrun.plugin>
