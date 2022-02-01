@@ -1536,7 +1536,7 @@
             </activation>
             <properties>
                 <!-- Plugins -->
-                <animal-sniffer.plugin>1.20</animal-sniffer.plugin>
+                <animal-sniffer.plugin>1.21</animal-sniffer.plugin>
 
                 <!-- Dependencies -->
                 <javac.version>9+181-r4173-1</javac.version>
