@@ -23,7 +23,7 @@ under the License.
     <link>https://waffle.github.io/waffle/</link>
     <description>waffle-shiro - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2010 - 2020 com.github.waffle</copyright>
+    <copyright>&#169;2010 - 2022 com.github.waffle</copyright>
     <item>
       <title>File: 13,
              Errors: 0,
@@ -88,20 +88,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.shiro.dynamic.package-info.java">waffle/shiro/dynamic/package-info.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.shiro.negotiate.NegotiateAuthenticationFilter.java">waffle/shiro/negotiate/NegotiateAuthenticationFilter.java</a>
                 </td>
                 <td>
@@ -109,6 +95,20 @@ under the License.
                 </td>
                 <td>
                   7
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.shiro.dynamic.package-info.java">waffle/shiro/dynamic/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
                 </td>
                 <td>
                   0

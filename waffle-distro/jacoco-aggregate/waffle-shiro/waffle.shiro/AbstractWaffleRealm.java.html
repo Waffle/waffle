@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>AbstractWaffleRealm.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-distro</a> &gt; <a href="../index.html" class="el_bundle">waffle-shiro</a> &gt; <a href="index.source.html" class="el_package">waffle.shiro</a> &gt; <span class="el_source">AbstractWaffleRealm.java</span></div><h1>AbstractWaffleRealm.java</h1><pre class="source lang-java linenums">/*
  * MIT License
  *
- * Copyright (c) ${license.git.copyrightYears} The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the &quot;Software&quot;), to deal
@@ -48,45 +48,45 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  * A {@link org.apache.shiro.realm.Realm} that authenticates with Active Directory using WAFFLE. Authorization is left
  * for subclasses to define by implementing the {@link #buildAuthorizationInfo} method.
  */
-<span class="fc" id="L51">public abstract class AbstractWaffleRealm extends AuthorizingRealm {</span>
+<span class="nc" id="L51">public abstract class AbstractWaffleRealm extends AuthorizingRealm {</span>
 
     /** The Constant LOGGER. */
-<span class="fc" id="L54">    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractWaffleRealm.class);</span>
+<span class="nc" id="L54">    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractWaffleRealm.class);</span>
 
     /** The Constant REALM_NAME. */
     private static final String REALM_NAME = &quot;WAFFLE&quot;;
 
     /** The provider. */
-<span class="fc" id="L60">    private IWindowsAuthProvider provider = new WindowsAuthProviderImpl();</span>
+<span class="nc" id="L60">    private IWindowsAuthProvider provider = new WindowsAuthProviderImpl();</span>
 
     @Override
     protected final AuthenticationInfo doGetAuthenticationInfo(final AuthenticationToken authToken) {
-<span class="fc" id="L64">        AuthenticationInfo authenticationInfo = null;</span>
-<span class="pc bpc" id="L65" title="1 of 2 branches missed.">        if (authToken instanceof UsernamePasswordToken) {</span>
-<span class="fc" id="L66">            final UsernamePasswordToken token = (UsernamePasswordToken) authToken;</span>
-<span class="fc" id="L67">            final String username = token.getUsername();</span>
-<span class="fc" id="L68">            IWindowsIdentity identity = null;</span>
+<span class="nc" id="L64">        AuthenticationInfo authenticationInfo = null;</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        if (authToken instanceof UsernamePasswordToken) {</span>
+<span class="nc" id="L66">            final UsernamePasswordToken token = (UsernamePasswordToken) authToken;</span>
+<span class="nc" id="L67">            final String username = token.getUsername();</span>
+<span class="nc" id="L68">            IWindowsIdentity identity = null;</span>
             try {
-<span class="fc" id="L70">                AbstractWaffleRealm.LOGGER.debug(&quot;Attempting login for user {}&quot;, username);</span>
-<span class="fc" id="L71">                identity = this.provider.logonUser(username, new String(token.getPassword()));</span>
-<span class="fc bfc" id="L72" title="All 2 branches covered.">                if (identity.isGuest()) {</span>
-<span class="fc" id="L73">                    AbstractWaffleRealm.LOGGER.debug(&quot;Guest identity for user {}; denying access&quot;, username);</span>
-<span class="fc" id="L74">                    throw new AuthenticationException(&quot;Guest identities are not allowed access&quot;);</span>
+<span class="nc" id="L70">                AbstractWaffleRealm.LOGGER.debug(&quot;Attempting login for user {}&quot;, username);</span>
+<span class="nc" id="L71">                identity = this.provider.logonUser(username, new String(token.getPassword()));</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">                if (identity.isGuest()) {</span>
+<span class="nc" id="L73">                    AbstractWaffleRealm.LOGGER.debug(&quot;Guest identity for user {}; denying access&quot;, username);</span>
+<span class="nc" id="L74">                    throw new AuthenticationException(&quot;Guest identities are not allowed access&quot;);</span>
                 }
-<span class="fc" id="L76">                final Object principal = new WaffleFqnPrincipal(identity);</span>
-<span class="fc" id="L77">                authenticationInfo = this.buildAuthenticationInfo(token, principal);</span>
-<span class="fc" id="L78">                AbstractWaffleRealm.LOGGER.debug(&quot;Successful login for user {}&quot;, username);</span>
-<span class="fc" id="L79">            } catch (final RuntimeException e) {</span>
-<span class="fc" id="L80">                AbstractWaffleRealm.LOGGER.debug(&quot;Failed login for user {}: {}&quot;, username, e.getMessage());</span>
-<span class="fc" id="L81">                AbstractWaffleRealm.LOGGER.trace(&quot;&quot;, e);</span>
-<span class="fc" id="L82">                throw new AuthenticationException(&quot;Login failed&quot;, e);</span>
+<span class="nc" id="L76">                final Object principal = new WaffleFqnPrincipal(identity);</span>
+<span class="nc" id="L77">                authenticationInfo = this.buildAuthenticationInfo(token, principal);</span>
+<span class="nc" id="L78">                AbstractWaffleRealm.LOGGER.debug(&quot;Successful login for user {}&quot;, username);</span>
+<span class="nc" id="L79">            } catch (final RuntimeException e) {</span>
+<span class="nc" id="L80">                AbstractWaffleRealm.LOGGER.debug(&quot;Failed login for user {}: {}&quot;, username, e.getMessage());</span>
+<span class="nc" id="L81">                AbstractWaffleRealm.LOGGER.trace(&quot;&quot;, e);</span>
+<span class="nc" id="L82">                throw new AuthenticationException(&quot;Login failed&quot;, e);</span>
             } finally {
-<span class="fc bfc" id="L84" title="All 2 branches covered.">                if (identity != null) {</span>
-<span class="fc" id="L85">                    identity.dispose();</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">                if (identity != null) {</span>
+<span class="nc" id="L85">                    identity.dispose();</span>
                 }
             }
         }
-<span class="fc" id="L89">        return authenticationInfo;</span>
+<span class="nc" id="L89">        return authenticationInfo;</span>
     }
 
     /**
@@ -100,22 +100,22 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      */
     private AuthenticationInfo buildAuthenticationInfo(final UsernamePasswordToken token, final Object principal) {
         AuthenticationInfo authenticationInfo;
-<span class="fc" id="L103">        final HashingPasswordService hashService = this.getHashService();</span>
-<span class="pc bpc" id="L104" title="1 of 2 branches missed.">        if (hashService != null) {</span>
+<span class="nc" id="L103">        final HashingPasswordService hashService = this.getHashService();</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">        if (hashService != null) {</span>
 <span class="nc" id="L105">            final Hash hash = hashService.hashPassword(token.getPassword());</span>
 <span class="nc" id="L106">            final ByteSource salt = hash.getSalt();</span>
 <span class="nc" id="L107">            authenticationInfo = new SimpleAuthenticationInfo(principal, hash, salt, AbstractWaffleRealm.REALM_NAME);</span>
 <span class="nc" id="L108">        } else {</span>
-<span class="fc" id="L109">            final Object creds = token.getCredentials();</span>
-<span class="fc" id="L110">            authenticationInfo = new SimpleAuthenticationInfo(principal, creds, AbstractWaffleRealm.REALM_NAME);</span>
+<span class="nc" id="L109">            final Object creds = token.getCredentials();</span>
+<span class="nc" id="L110">            authenticationInfo = new SimpleAuthenticationInfo(principal, creds, AbstractWaffleRealm.REALM_NAME);</span>
         }
-<span class="fc" id="L112">        return authenticationInfo;</span>
+<span class="nc" id="L112">        return authenticationInfo;</span>
     }
 
     @Override
     protected final AuthorizationInfo doGetAuthorizationInfo(final PrincipalCollection principals) {
-<span class="fc" id="L117">        final WaffleFqnPrincipal principal = principals.oneByType(WaffleFqnPrincipal.class);</span>
-<span class="pc bpc" id="L118" title="1 of 2 branches missed.">        return principal == null ? null : this.buildAuthorizationInfo(principal);</span>
+<span class="nc" id="L117">        final WaffleFqnPrincipal principal = principals.oneByType(WaffleFqnPrincipal.class);</span>
+<span class="nc bnc" id="L118" title="All 2 branches missed.">        return principal == null ? null : this.buildAuthorizationInfo(principal);</span>
     }
 
     /**
@@ -135,8 +135,8 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      *            the windows authorization provider
      */
     void setProvider(final IWindowsAuthProvider value) {
-<span class="fc" id="L138">        this.provider = value;</span>
-<span class="fc" id="L139">    }</span>
+<span class="nc" id="L138">        this.provider = value;</span>
+<span class="nc" id="L139">    }</span>
 
     /**
      * Gets the hash service.
@@ -144,16 +144,16 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      * @return the hash service
      */
     private HashingPasswordService getHashService() {
-<span class="fc" id="L147">        final CredentialsMatcher matcher = this.getCredentialsMatcher();</span>
-<span class="pc bpc" id="L148" title="1 of 2 branches missed.">        if (matcher instanceof PasswordMatcher) {</span>
+<span class="nc" id="L147">        final CredentialsMatcher matcher = this.getCredentialsMatcher();</span>
+<span class="nc bnc" id="L148" title="All 2 branches missed.">        if (matcher instanceof PasswordMatcher) {</span>
 <span class="nc" id="L149">            final PasswordMatcher passwordMatcher = (PasswordMatcher) matcher;</span>
 <span class="nc" id="L150">            final PasswordService passwordService = passwordMatcher.getPasswordService();</span>
 <span class="nc bnc" id="L151" title="All 2 branches missed.">            if (passwordService instanceof HashingPasswordService) {</span>
 <span class="nc" id="L152">                return (HashingPasswordService) passwordService;</span>
             }
         }
-<span class="fc" id="L155">        return null;</span>
+<span class="nc" id="L155">        return null;</span>
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

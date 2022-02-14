@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BasicSecurityFilterProvider.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-demo-parent</a> &gt; <a href="../index.html" class="el_bundle">waffle-jna</a> &gt; <a href="index.source.html" class="el_package">waffle.servlet.spi</a> &gt; <span class="el_source">BasicSecurityFilterProvider.java</span></div><h1>BasicSecurityFilterProvider.java</h1><pre class="source lang-java linenums">/*
  * MIT License
  *
- * Copyright (c) ${license.git.copyrightYears} The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the &quot;Software&quot;), to deal
@@ -45,10 +45,10 @@ import waffle.windows.auth.IWindowsIdentity;
 public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 
     /** The Constant LOGGER. */
-<span class="fc" id="L48">    private static final Logger LOGGER = LoggerFactory.getLogger(BasicSecurityFilterProvider.class);</span>
+<span class="nc" id="L48">    private static final Logger LOGGER = LoggerFactory.getLogger(BasicSecurityFilterProvider.class);</span>
 
     /** The realm. */
-<span class="fc" id="L51">    private String realm = &quot;BasicSecurityFilterProvider&quot;;</span>
+<span class="nc" id="L51">    private String realm = &quot;BasicSecurityFilterProvider&quot;;</span>
 
     /** The auth. */
     private final IWindowsAuthProvider auth;
@@ -59,9 +59,9 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
      * @param newAuthProvider
      *            the new auth provider
      */
-<span class="fc" id="L62">    public BasicSecurityFilterProvider(final IWindowsAuthProvider newAuthProvider) {</span>
-<span class="fc" id="L63">        this.auth = newAuthProvider;</span>
-<span class="fc" id="L64">    }</span>
+<span class="nc" id="L62">    public BasicSecurityFilterProvider(final IWindowsAuthProvider newAuthProvider) {</span>
+<span class="nc" id="L63">        this.auth = newAuthProvider;</span>
+<span class="nc" id="L64">    }</span>
 
     @Override
     public IWindowsIdentity doFilter(final HttpServletRequest request, final HttpServletResponse response)
@@ -84,7 +84,7 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 
     @Override
     public boolean isSecurityPackageSupported(final String securityPackage) {
-<span class="fc" id="L87">        return &quot;Basic&quot;.equalsIgnoreCase(securityPackage);</span>
+<span class="nc" id="L87">        return &quot;Basic&quot;.equalsIgnoreCase(securityPackage);</span>
     }
 
     @Override
@@ -128,4 +128,4 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
         }
 <span class="nc" id="L129">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

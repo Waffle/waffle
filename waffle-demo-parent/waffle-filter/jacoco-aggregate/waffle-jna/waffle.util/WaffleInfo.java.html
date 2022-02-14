@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>WaffleInfo.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-filter</a> &gt; <a href="../index.html" class="el_bundle">waffle-jna</a> &gt; <a href="index.source.html" class="el_package">waffle.util</a> &gt; <span class="el_source">WaffleInfo.java</span></div><h1>WaffleInfo.java</h1><pre class="source lang-java linenums">/*
  * MIT License
  *
- * Copyright (c) ${license.git.copyrightYears} The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the &quot;Software&quot;), to deal
@@ -94,10 +94,10 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  * &lt;/pre&gt;
  *
  */
-<span class="fc" id="L97">public class WaffleInfo {</span>
+<span class="nc" id="L97">public class WaffleInfo {</span>
 
     /** The Constant LOGGER. */
-<span class="fc" id="L100">    private static final Logger LOGGER = LoggerFactory.getLogger(WaffleInfo.class);</span>
+<span class="nc" id="L100">    private static final Logger LOGGER = LoggerFactory.getLogger(WaffleInfo.class);</span>
 
     /**
      * Get a Document with basic system information
@@ -110,34 +110,34 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      *             when getting new document builder.
      */
     public Document getWaffleInfo() throws ParserConfigurationException {
-<span class="fc" id="L113">        final DocumentBuilderFactory df = DocumentBuilderFactory.newInstance();</span>
-<span class="fc" id="L114">        df.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, &quot;&quot;);</span>
-<span class="fc" id="L115">        df.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, &quot;&quot;);</span>
-<span class="fc" id="L116">        df.setExpandEntityReferences(false);</span>
+<span class="nc" id="L113">        final DocumentBuilderFactory df = DocumentBuilderFactory.newInstance();</span>
+<span class="nc" id="L114">        df.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, &quot;&quot;);</span>
+<span class="nc" id="L115">        df.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, &quot;&quot;);</span>
+<span class="nc" id="L116">        df.setExpandEntityReferences(false);</span>
 
-<span class="fc" id="L118">        final Document doc = df.newDocumentBuilder().newDocument();</span>
+<span class="nc" id="L118">        final Document doc = df.newDocumentBuilder().newDocument();</span>
 
         // create the root element and add it to the document
-<span class="fc" id="L121">        final Element root = doc.createElement(&quot;waffle&quot;);</span>
+<span class="nc" id="L121">        final Element root = doc.createElement(&quot;waffle&quot;);</span>
 
         // Add Version Information as attributes
-<span class="fc" id="L124">        String version = WaffleInfo.class.getPackage().getImplementationVersion();</span>
-<span class="pc bpc" id="L125" title="1 of 2 branches missed.">        if (version != null) {</span>
+<span class="nc" id="L124">        String version = WaffleInfo.class.getPackage().getImplementationVersion();</span>
+<span class="nc bnc" id="L125" title="All 2 branches missed.">        if (version != null) {</span>
 <span class="nc" id="L126">            root.setAttribute(&quot;version&quot;, version);</span>
         }
-<span class="fc" id="L128">        version = Platform.class.getPackage().getImplementationVersion();</span>
-<span class="pc bpc" id="L129" title="1 of 2 branches missed.">        if (version != null) {</span>
-<span class="fc" id="L130">            root.setAttribute(&quot;jna&quot;, version);</span>
+<span class="nc" id="L128">        version = Platform.class.getPackage().getImplementationVersion();</span>
+<span class="nc bnc" id="L129" title="All 2 branches missed.">        if (version != null) {</span>
+<span class="nc" id="L130">            root.setAttribute(&quot;jna&quot;, version);</span>
         }
-<span class="fc" id="L132">        version = WindowUtils.class.getPackage().getImplementationVersion();</span>
-<span class="pc bpc" id="L133" title="1 of 2 branches missed.">        if (version != null) {</span>
-<span class="fc" id="L134">            root.setAttribute(&quot;jna-platform&quot;, version);</span>
+<span class="nc" id="L132">        version = WindowUtils.class.getPackage().getImplementationVersion();</span>
+<span class="nc bnc" id="L133" title="All 2 branches missed.">        if (version != null) {</span>
+<span class="nc" id="L134">            root.setAttribute(&quot;jna-platform&quot;, version);</span>
         }
 
-<span class="fc" id="L137">        doc.appendChild(root);</span>
-<span class="fc" id="L138">        root.appendChild(this.getAuthProviderInfo(doc));</span>
+<span class="nc" id="L137">        doc.appendChild(root);</span>
+<span class="nc" id="L138">        root.appendChild(this.getAuthProviderInfo(doc));</span>
 
-<span class="fc" id="L140">        return doc;</span>
+<span class="nc" id="L140">        return doc;</span>
     }
 
     /**
@@ -148,46 +148,46 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      * @return the auth provider info
      */
     protected Element getAuthProviderInfo(final Document doc) {
-<span class="fc" id="L151">        final IWindowsAuthProvider auth = new WindowsAuthProviderImpl();</span>
+<span class="nc" id="L151">        final IWindowsAuthProvider auth = new WindowsAuthProviderImpl();</span>
 
-<span class="fc" id="L153">        final Element node = doc.createElement(&quot;auth&quot;);</span>
-<span class="fc" id="L154">        node.setAttribute(&quot;class&quot;, auth.getClass().getName());</span>
+<span class="nc" id="L153">        final Element node = doc.createElement(&quot;auth&quot;);</span>
+<span class="nc" id="L154">        node.setAttribute(&quot;class&quot;, auth.getClass().getName());</span>
 
         // Current User
-<span class="fc" id="L157">        Element child = doc.createElement(&quot;currentUser&quot;);</span>
-<span class="fc" id="L158">        node.appendChild(child);</span>
+<span class="nc" id="L157">        Element child = doc.createElement(&quot;currentUser&quot;);</span>
+<span class="nc" id="L158">        node.appendChild(child);</span>
 
-<span class="fc" id="L160">        final String currentUsername = WindowsAccountImpl.getCurrentUsername();</span>
-<span class="fc" id="L161">        this.addAccountInfo(doc, child, new WindowsAccountImpl(currentUsername));</span>
+<span class="nc" id="L160">        final String currentUsername = WindowsAccountImpl.getCurrentUsername();</span>
+<span class="nc" id="L161">        this.addAccountInfo(doc, child, new WindowsAccountImpl(currentUsername));</span>
 
         // Computer
-<span class="fc" id="L164">        child = doc.createElement(&quot;computer&quot;);</span>
-<span class="fc" id="L165">        node.appendChild(child);</span>
+<span class="nc" id="L164">        child = doc.createElement(&quot;computer&quot;);</span>
+<span class="nc" id="L165">        node.appendChild(child);</span>
 
-<span class="fc" id="L167">        final IWindowsComputer c = auth.getCurrentComputer();</span>
-<span class="fc" id="L168">        Element value = doc.createElement(&quot;computerName&quot;);</span>
-<span class="fc" id="L169">        value.setTextContent(c.getComputerName());</span>
-<span class="fc" id="L170">        child.appendChild(value);</span>
+<span class="nc" id="L167">        final IWindowsComputer c = auth.getCurrentComputer();</span>
+<span class="nc" id="L168">        Element value = doc.createElement(&quot;computerName&quot;);</span>
+<span class="nc" id="L169">        value.setTextContent(c.getComputerName());</span>
+<span class="nc" id="L170">        child.appendChild(value);</span>
 
-<span class="fc" id="L172">        value = doc.createElement(&quot;memberOf&quot;);</span>
-<span class="fc" id="L173">        value.setTextContent(c.getMemberOf());</span>
-<span class="fc" id="L174">        child.appendChild(value);</span>
+<span class="nc" id="L172">        value = doc.createElement(&quot;memberOf&quot;);</span>
+<span class="nc" id="L173">        value.setTextContent(c.getMemberOf());</span>
+<span class="nc" id="L174">        child.appendChild(value);</span>
 
-<span class="fc" id="L176">        value = doc.createElement(&quot;joinStatus&quot;);</span>
-<span class="fc" id="L177">        value.setTextContent(c.getJoinStatus());</span>
-<span class="fc" id="L178">        child.appendChild(value);</span>
+<span class="nc" id="L176">        value = doc.createElement(&quot;joinStatus&quot;);</span>
+<span class="nc" id="L177">        value.setTextContent(c.getJoinStatus());</span>
+<span class="nc" id="L178">        child.appendChild(value);</span>
 
-<span class="fc" id="L180">        value = doc.createElement(&quot;groups&quot;);</span>
+<span class="nc" id="L180">        value = doc.createElement(&quot;groups&quot;);</span>
         Element g;
-<span class="fc bfc" id="L182" title="All 2 branches covered.">        for (final String s : c.getGroups()) {</span>
-<span class="fc" id="L183">            g = doc.createElement(&quot;group&quot;);</span>
-<span class="fc" id="L184">            g.setTextContent(s);</span>
-<span class="fc" id="L185">            value.appendChild(g);</span>
+<span class="nc bnc" id="L182" title="All 2 branches missed.">        for (final String s : c.getGroups()) {</span>
+<span class="nc" id="L183">            g = doc.createElement(&quot;group&quot;);</span>
+<span class="nc" id="L184">            g.setTextContent(s);</span>
+<span class="nc" id="L185">            value.appendChild(g);</span>
         }
-<span class="fc" id="L187">        child.appendChild(value);</span>
+<span class="nc" id="L187">        child.appendChild(value);</span>
 
         // Only Show Domains if we are in a Domain
-<span class="pc bpc" id="L190" title="1 of 2 branches missed.">        if (Netapi32Util.getJoinStatus() == LMJoin.NETSETUP_JOIN_STATUS.NetSetupDomainName) {</span>
+<span class="nc bnc" id="L190" title="All 2 branches missed.">        if (Netapi32Util.getJoinStatus() == LMJoin.NETSETUP_JOIN_STATUS.NetSetupDomainName) {</span>
 <span class="nc" id="L191">            child = doc.createElement(&quot;domains&quot;);</span>
 <span class="nc" id="L192">            node.appendChild(child);</span>
 
@@ -209,7 +209,7 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 <span class="nc" id="L209">                child.appendChild(value);</span>
             }
         }
-<span class="fc" id="L212">        return node;</span>
+<span class="nc" id="L212">        return node;</span>
     }
 
     /**
@@ -223,22 +223,22 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      *            the account
      */
     protected void addAccountInfo(final Document doc, final Element node, final IWindowsAccount account) {
-<span class="fc" id="L226">        Element value = doc.createElement(&quot;Name&quot;);</span>
-<span class="fc" id="L227">        value.setTextContent(account.getName());</span>
-<span class="fc" id="L228">        node.appendChild(value);</span>
+<span class="nc" id="L226">        Element value = doc.createElement(&quot;Name&quot;);</span>
+<span class="nc" id="L227">        value.setTextContent(account.getName());</span>
+<span class="nc" id="L228">        node.appendChild(value);</span>
 
-<span class="fc" id="L230">        value = doc.createElement(&quot;FQN&quot;);</span>
-<span class="fc" id="L231">        value.setTextContent(account.getFqn());</span>
-<span class="fc" id="L232">        node.appendChild(value);</span>
+<span class="nc" id="L230">        value = doc.createElement(&quot;FQN&quot;);</span>
+<span class="nc" id="L231">        value.setTextContent(account.getFqn());</span>
+<span class="nc" id="L232">        node.appendChild(value);</span>
 
-<span class="fc" id="L234">        value = doc.createElement(&quot;Domain&quot;);</span>
-<span class="fc" id="L235">        value.setTextContent(account.getDomain());</span>
-<span class="fc" id="L236">        node.appendChild(value);</span>
+<span class="nc" id="L234">        value = doc.createElement(&quot;Domain&quot;);</span>
+<span class="nc" id="L235">        value.setTextContent(account.getDomain());</span>
+<span class="nc" id="L236">        node.appendChild(value);</span>
 
-<span class="fc" id="L238">        value = doc.createElement(&quot;SID&quot;);</span>
-<span class="fc" id="L239">        value.setTextContent(account.getSidString());</span>
-<span class="fc" id="L240">        node.appendChild(value);</span>
-<span class="fc" id="L241">    }</span>
+<span class="nc" id="L238">        value = doc.createElement(&quot;SID&quot;);</span>
+<span class="nc" id="L239">        value.setTextContent(account.getSidString());</span>
+<span class="nc" id="L240">        node.appendChild(value);</span>
+<span class="nc" id="L241">    }</span>
 
     /**
      * Gets the lookup info.
@@ -250,15 +250,15 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      * @return the lookup info
      */
     public Element getLookupInfo(final Document doc, final String lookup) {
-<span class="fc" id="L253">        final IWindowsAuthProvider auth = new WindowsAuthProviderImpl();</span>
-<span class="fc" id="L254">        final Element node = doc.createElement(&quot;lookup&quot;);</span>
-<span class="fc" id="L255">        node.setAttribute(&quot;name&quot;, lookup);</span>
+<span class="nc" id="L253">        final IWindowsAuthProvider auth = new WindowsAuthProviderImpl();</span>
+<span class="nc" id="L254">        final Element node = doc.createElement(&quot;lookup&quot;);</span>
+<span class="nc" id="L255">        node.setAttribute(&quot;name&quot;, lookup);</span>
         try {
-<span class="fc" id="L257">            this.addAccountInfo(doc, node, auth.lookupAccount(lookup));</span>
-<span class="fc" id="L258">        } catch (final Win32Exception e) {</span>
-<span class="fc" id="L259">            node.appendChild(WaffleInfo.getException(doc, e));</span>
-<span class="fc" id="L260">        }</span>
-<span class="fc" id="L261">        return node;</span>
+<span class="nc" id="L257">            this.addAccountInfo(doc, node, auth.lookupAccount(lookup));</span>
+<span class="nc" id="L258">        } catch (final Win32Exception e) {</span>
+<span class="nc" id="L259">            node.appendChild(WaffleInfo.getException(doc, e));</span>
+<span class="nc" id="L260">        }</span>
+<span class="nc" id="L261">        return node;</span>
     }
 
     /**
@@ -271,19 +271,19 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      * @return the exception
      */
     public static Element getException(final Document doc, final Exception t) {
-<span class="fc" id="L274">        final Element node = doc.createElement(&quot;exception&quot;);</span>
-<span class="fc" id="L275">        node.setAttribute(&quot;class&quot;, t.getClass().getName());</span>
+<span class="nc" id="L274">        final Element node = doc.createElement(&quot;exception&quot;);</span>
+<span class="nc" id="L275">        node.setAttribute(&quot;class&quot;, t.getClass().getName());</span>
 
-<span class="fc" id="L277">        Element value = doc.createElement(&quot;message&quot;);</span>
-<span class="pc bpc" id="L278" title="1 of 2 branches missed.">        if (t.getMessage() != null) {</span>
-<span class="fc" id="L279">            value.setTextContent(t.getMessage());</span>
-<span class="fc" id="L280">            node.appendChild(value);</span>
+<span class="nc" id="L277">        Element value = doc.createElement(&quot;message&quot;);</span>
+<span class="nc bnc" id="L278" title="All 2 branches missed.">        if (t.getMessage() != null) {</span>
+<span class="nc" id="L279">            value.setTextContent(t.getMessage());</span>
+<span class="nc" id="L280">            node.appendChild(value);</span>
         }
 
-<span class="fc" id="L283">        value = doc.createElement(&quot;trace&quot;);</span>
-<span class="fc" id="L284">        value.setTextContent(Arrays.toString(t.getStackTrace()));</span>
-<span class="fc" id="L285">        node.appendChild(value);</span>
-<span class="fc" id="L286">        return node;</span>
+<span class="nc" id="L283">        value = doc.createElement(&quot;trace&quot;);</span>
+<span class="nc" id="L284">        value.setTextContent(Arrays.toString(t.getStackTrace()));</span>
+<span class="nc" id="L285">        node.appendChild(value);</span>
+<span class="nc" id="L286">        return node;</span>
     }
 
     /**
@@ -364,4 +364,4 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 <span class="nc" id="L364">        }</span>
 <span class="nc" id="L365">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

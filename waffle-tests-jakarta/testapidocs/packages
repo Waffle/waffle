@@ -1,12 +1,4 @@
-waffle.jaas
-waffle.jaas
-waffle.servlet
-waffle.servlet
-waffle.servlet
-waffle.servlet
-waffle.servlet
-waffle.servlet
 waffle.util
-waffle.util
+waffle.servlet
 waffle.windows.auth
-waffle.windows.auth
+waffle.jaas

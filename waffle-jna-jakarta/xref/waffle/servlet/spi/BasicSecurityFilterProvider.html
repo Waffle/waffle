@@ -9,7 +9,7 @@
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * MIT License</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Copyright (c) ${license.git.copyrightYears} The Waffle Project Contributors: <a href="https://github.com/Waffle/waffle/graphs/contributors" target="alexandria_uri">https://github.com/Waffle/waffle/graphs/contributors</a></em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Copyright (c) 2010-2020 The Waffle Project Contributors: <a href="https://github.com/Waffle/waffle/graphs/contributors" target="alexandria_uri">https://github.com/Waffle/waffle/graphs/contributors</a></em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_comment"> * Permission is hereby granted, free of charge, to any person obtaining a copy</em>
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_comment"> * of this software and associated documentation files (the "Software"), to deal</em>
@@ -75,7 +75,7 @@
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>      <strong class="jxr_keyword">public</strong> <a name="IWindowsIdentity" href="../../../waffle/windows/auth/IWindowsIdentity.html#IWindowsIdentity">IWindowsIdentity</a> doFilter(<strong class="jxr_keyword">final</strong> HttpServletRequest request, <strong class="jxr_keyword">final</strong> HttpServletResponse response)
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>              <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>  
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>          <strong class="jxr_keyword">final</strong> <a name="AuthorizationHeader" href="../../../waffle/util/AuthorizationHeader.html#A<a name="AuthorizationHeader" href="../../../waffle/util/AuthorizationHeader.html#AuthorizationHeader">AuthorizationHeader</a>>AuthorizationHeader</a> authorizationHeader = <strong class="jxr_keyword">new</strong> <a name="AuthorizationHeader" href="../../../waffle/util/AuthorizationHeader.html#AuthorizationHeader">AuthorizationHeader</a>(request);
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>          <strong class="jxr_keyword">final</strong> <a name="AuthorizationHeader" href="../../../waffle/util/AuthorizationHeader.html#AuthorizationHeader">AuthorizationHeader</a> authorizationHeader = <strong class="jxr_keyword">new</strong> <a name="AuthorizationHeader" href="../../../waffle/util/AuthorizationHeader.html#AuthorizationHeader">AuthorizationHeader</a>(request);
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>          <strong class="jxr_keyword">final</strong> String usernamePassword = <strong class="jxr_keyword">new</strong> String(authorizationHeader.getTokenBytes(), StandardCharsets.UTF_8);
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>          <strong class="jxr_keyword">final</strong> String[] usernamePasswordArray = usernamePassword.split(<span class="jxr_string">":"</span>, 2);
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>          <strong class="jxr_keyword">if</strong> (usernamePasswordArray.length != 2) {
@@ -138,6 +138,6 @@
 <a class="jxr_linenumber" name="L130" href="#L130">130</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2010&#x2013;2020 <a href="https://github.com/waffle/">com.github.waffle</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2010&#x2013;2022 <a href="https://github.com/waffle/">com.github.waffle</a>. All rights reserved.</div>
 </body>
 </html>

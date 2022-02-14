@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>WaffleAuthenticatorBase.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-bom</a> &gt; <a href="../index.html" class="el_bundle">waffle-tomcat85</a> &gt; <a href="index.source.html" class="el_package">waffle.apache</a> &gt; <span class="el_source">WaffleAuthenticatorBase.java</span></div><h1>WaffleAuthenticatorBase.java</h1><pre class="source lang-java linenums">/*
  * MIT License
  *
- * Copyright (c) ${license.git.copyrightYears} The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the &quot;Software&quot;), to deal
@@ -49,10 +49,10 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  *
  * @author dblock[at]dblock[dot]org
  */
-<span class="fc" id="L52">abstract class WaffleAuthenticatorBase extends AuthenticatorBase {</span>
+<span class="nc" id="L52">abstract class WaffleAuthenticatorBase extends AuthenticatorBase {</span>
 
     /** The Constant SUPPORTED_PROTOCOLS. */
-<span class="fc" id="L55">    private static final Set&lt;String&gt; SUPPORTED_PROTOCOLS = new LinkedHashSet&lt;&gt;(Arrays.asList(&quot;Negotiate&quot;, &quot;NTLM&quot;));</span>
+<span class="nc" id="L55">    private static final Set&lt;String&gt; SUPPORTED_PROTOCOLS = new LinkedHashSet&lt;&gt;(Arrays.asList(&quot;Negotiate&quot;, &quot;NTLM&quot;));</span>
 
     /** The info. */
     protected String info;
@@ -61,19 +61,19 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
     protected Logger log;
 
     /** The principal format. */
-<span class="fc" id="L64">    protected PrincipalFormat principalFormat = PrincipalFormat.FQN;</span>
+<span class="nc" id="L64">    protected PrincipalFormat principalFormat = PrincipalFormat.FQN;</span>
 
     /** The role format. */
-<span class="fc" id="L67">    protected PrincipalFormat roleFormat = PrincipalFormat.FQN;</span>
+<span class="nc" id="L67">    protected PrincipalFormat roleFormat = PrincipalFormat.FQN;</span>
 
     /** The allow guest login. */
-<span class="fc" id="L70">    protected boolean allowGuestLogin = true;</span>
+<span class="nc" id="L70">    protected boolean allowGuestLogin = true;</span>
 
     /** The protocols. */
-<span class="fc" id="L73">    protected Set&lt;String&gt; protocols = WaffleAuthenticatorBase.SUPPORTED_PROTOCOLS;</span>
+<span class="nc" id="L73">    protected Set&lt;String&gt; protocols = WaffleAuthenticatorBase.SUPPORTED_PROTOCOLS;</span>
 
     /** The auth continueContextsTimeout configuration. */
-<span class="fc" id="L76">    protected int continueContextsTimeout = WindowsAuthProviderImpl.CONTINUE_CONTEXT_TIMEOUT;</span>
+<span class="nc" id="L76">    protected int continueContextsTimeout = WindowsAuthProviderImpl.CONTINUE_CONTEXT_TIMEOUT;</span>
 
     /** The auth. */
     protected IWindowsAuthProvider auth;
@@ -103,7 +103,7 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      * @return IWindowsAuthProvider.
      */
     public IWindowsAuthProvider getAuth() {
-<span class="fc" id="L106">        return this.auth;</span>
+<span class="nc" id="L106">        return this.auth;</span>
     }
 
     /**
@@ -113,8 +113,8 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      *            Class implements IWindowsAuthProvider.
      */
     public void setAuth(final IWindowsAuthProvider provider) {
-<span class="fc" id="L116">        this.auth = provider;</span>
-<span class="fc" id="L117">    }</span>
+<span class="nc" id="L116">        this.auth = provider;</span>
+<span class="nc" id="L117">    }</span>
 
     /**
      * Gets the info.
@@ -122,7 +122,7 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      * @return the info
      */
     public String getInfo() {
-<span class="fc" id="L125">        return this.info;</span>
+<span class="nc" id="L125">        return this.info;</span>
     }
 
     /**
@@ -132,9 +132,9 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      *            Principal format.
      */
     public void setPrincipalFormat(final String format) {
-<span class="fc" id="L135">        this.principalFormat = PrincipalFormat.valueOf(format.toUpperCase(Locale.ENGLISH));</span>
-<span class="fc" id="L136">        this.log.debug(&quot;principal format: {}&quot;, this.principalFormat);</span>
-<span class="fc" id="L137">    }</span>
+<span class="nc" id="L135">        this.principalFormat = PrincipalFormat.valueOf(format.toUpperCase(Locale.ENGLISH));</span>
+<span class="nc" id="L136">        this.log.debug(&quot;principal format: {}&quot;, this.principalFormat);</span>
+<span class="nc" id="L137">    }</span>
 
     /**
      * Principal format.
@@ -142,7 +142,7 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      * @return Principal format.
      */
     public PrincipalFormat getPrincipalFormat() {
-<span class="fc" id="L145">        return this.principalFormat;</span>
+<span class="nc" id="L145">        return this.principalFormat;</span>
     }
 
     /**
@@ -152,9 +152,9 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      *            Role format.
      */
     public void setRoleFormat(final String format) {
-<span class="fc" id="L155">        this.roleFormat = PrincipalFormat.valueOf(format.toUpperCase(Locale.ENGLISH));</span>
-<span class="fc" id="L156">        this.log.debug(&quot;role format: {}&quot;, this.roleFormat);</span>
-<span class="fc" id="L157">    }</span>
+<span class="nc" id="L155">        this.roleFormat = PrincipalFormat.valueOf(format.toUpperCase(Locale.ENGLISH));</span>
+<span class="nc" id="L156">        this.log.debug(&quot;role format: {}&quot;, this.roleFormat);</span>
+<span class="nc" id="L157">    }</span>
 
     /**
      * Principal format.
@@ -162,7 +162,7 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      * @return Role format.
      */
     public PrincipalFormat getRoleFormat() {
-<span class="fc" id="L165">        return this.roleFormat;</span>
+<span class="nc" id="L165">        return this.roleFormat;</span>
     }
 
     /**
@@ -171,7 +171,7 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      * @return True if Guest login permitted, false otherwise.
      */
     public boolean isAllowGuestLogin() {
-<span class="fc" id="L174">        return this.allowGuestLogin;</span>
+<span class="nc" id="L174">        return this.allowGuestLogin;</span>
     }
 
     /**
@@ -182,8 +182,8 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      *            True or false.
      */
     public void setAllowGuestLogin(final boolean value) {
-<span class="fc" id="L185">        this.allowGuestLogin = value;</span>
-<span class="fc" id="L186">    }</span>
+<span class="nc" id="L185">        this.allowGuestLogin = value;</span>
+<span class="nc" id="L186">    }</span>
 
     /**
      * Set the authentication protocols. Default is &quot;Negotiate, NTLM&quot;.
@@ -192,21 +192,21 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      *            Authentication protocols
      */
     public void setProtocols(final String value) {
-<span class="fc" id="L195">        this.protocols = new LinkedHashSet&lt;&gt;();</span>
-<span class="fc" id="L196">        final String[] protocolNames = value.split(&quot;,&quot;, -1);</span>
-<span class="fc bfc" id="L197" title="All 2 branches covered.">        for (String protocolName : protocolNames) {</span>
-<span class="fc" id="L198">            protocolName = protocolName.trim();</span>
-<span class="fc bfc" id="L199" title="All 2 branches covered.">            if (!protocolName.isEmpty()) {</span>
-<span class="fc" id="L200">                this.log.debug(&quot;init protocol: {}&quot;, protocolName);</span>
-<span class="fc bfc" id="L201" title="All 2 branches covered.">                if (WaffleAuthenticatorBase.SUPPORTED_PROTOCOLS.contains(protocolName)) {</span>
-<span class="fc" id="L202">                    this.protocols.add(protocolName);</span>
+<span class="nc" id="L195">        this.protocols = new LinkedHashSet&lt;&gt;();</span>
+<span class="nc" id="L196">        final String[] protocolNames = value.split(&quot;,&quot;, -1);</span>
+<span class="nc bnc" id="L197" title="All 2 branches missed.">        for (String protocolName : protocolNames) {</span>
+<span class="nc" id="L198">            protocolName = protocolName.trim();</span>
+<span class="nc bnc" id="L199" title="All 2 branches missed.">            if (!protocolName.isEmpty()) {</span>
+<span class="nc" id="L200">                this.log.debug(&quot;init protocol: {}&quot;, protocolName);</span>
+<span class="nc bnc" id="L201" title="All 2 branches missed.">                if (WaffleAuthenticatorBase.SUPPORTED_PROTOCOLS.contains(protocolName)) {</span>
+<span class="nc" id="L202">                    this.protocols.add(protocolName);</span>
                 } else {
-<span class="fc" id="L204">                    this.log.error(&quot;unsupported protocol: {}&quot;, protocolName);</span>
-<span class="fc" id="L205">                    throw new RuntimeException(&quot;Unsupported protocol: &quot; + protocolName);</span>
+<span class="nc" id="L204">                    this.log.error(&quot;unsupported protocol: {}&quot;, protocolName);</span>
+<span class="nc" id="L205">                    throw new RuntimeException(&quot;Unsupported protocol: &quot; + protocolName);</span>
                 }
             }
         }
-<span class="fc" id="L209">    }</span>
+<span class="nc" id="L209">    }</span>
 
     /**
      * Send a 401 Unauthorized along with protocol authentication headers.
@@ -216,16 +216,16 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      */
     protected void sendUnauthorized(final HttpServletResponse response) {
         try {
-<span class="fc bfc" id="L219" title="All 2 branches covered.">            for (final String protocol : this.protocols) {</span>
-<span class="fc" id="L220">                response.addHeader(&quot;WWW-Authenticate&quot;, protocol);</span>
-<span class="fc" id="L221">            }</span>
-<span class="fc" id="L222">            response.setHeader(&quot;Connection&quot;, &quot;close&quot;);</span>
-<span class="fc" id="L223">            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);</span>
-<span class="fc" id="L224">            response.flushBuffer();</span>
+<span class="nc bnc" id="L219" title="All 2 branches missed.">            for (final String protocol : this.protocols) {</span>
+<span class="nc" id="L220">                response.addHeader(&quot;WWW-Authenticate&quot;, protocol);</span>
+<span class="nc" id="L221">            }</span>
+<span class="nc" id="L222">            response.setHeader(&quot;Connection&quot;, &quot;close&quot;);</span>
+<span class="nc" id="L223">            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);</span>
+<span class="nc" id="L224">            response.flushBuffer();</span>
 <span class="nc" id="L225">        } catch (final IOException e) {</span>
 <span class="nc" id="L226">            throw new RuntimeException(e);</span>
-<span class="fc" id="L227">        }</span>
-<span class="fc" id="L228">    }</span>
+<span class="nc" id="L227">        }</span>
+<span class="nc" id="L228">    }</span>
 
     /**
      * Send an error code.
@@ -286,7 +286,7 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      * @return the Generic Principal
      */
     protected GenericPrincipal createPrincipal(final IWindowsIdentity windowsIdentity) {
-<span class="fc" id="L289">        return new GenericWindowsPrincipal(windowsIdentity, this.principalFormat, this.roleFormat);</span>
+<span class="nc" id="L289">        return new GenericWindowsPrincipal(windowsIdentity, this.principalFormat, this.roleFormat);</span>
     }
 
     /**
@@ -297,11 +297,11 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      */
     @Override
     public synchronized void startInternal() throws LifecycleException {
-<span class="fc" id="L300">        this.log.debug(&quot;Creating a windows authentication provider with continueContextsTimeout property set to: {}&quot;,</span>
-<span class="fc" id="L301">                this.continueContextsTimeout);</span>
-<span class="fc" id="L302">        this.auth = new WindowsAuthProviderImpl(this.continueContextsTimeout);</span>
-<span class="fc" id="L303">        super.startInternal();</span>
-<span class="fc" id="L304">    }</span>
+<span class="nc" id="L300">        this.log.debug(&quot;Creating a windows authentication provider with continueContextsTimeout property set to: {}&quot;,</span>
+<span class="nc" id="L301">                this.continueContextsTimeout);</span>
+<span class="nc" id="L302">        this.auth = new WindowsAuthProviderImpl(this.continueContextsTimeout);</span>
+<span class="nc" id="L303">        super.startInternal();</span>
+<span class="nc" id="L304">    }</span>
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>SimpleHttpRequest.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-bom</a> &gt; <a href="../index.html" class="el_bundle">waffle-tests</a> &gt; <a href="index.source.html" class="el_package">waffle.mock.http</a> &gt; <span class="el_source">SimpleHttpRequest.java</span></div><h1>SimpleHttpRequest.java</h1><pre class="source lang-java linenums">/*
  * MIT License
  *
- * Copyright (c) ${license.git.copyrightYears} The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the &quot;Software&quot;), to deal
@@ -43,7 +43,7 @@ import org.mockito.Mockito;
 public class SimpleHttpRequest extends HttpServletRequestWrapper {
 
     /** The remote port s. */
-<span class="fc" id="L46">    private static int remotePortS = 0;</span>
+<span class="nc" id="L46">    private static int remotePortS = 0;</span>
 
     /** The request uri. */
     private String requestURI;
@@ -55,7 +55,7 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
     private String remoteUser;
 
     /** The method. */
-<span class="fc" id="L58">    private String method = &quot;GET&quot;;</span>
+<span class="nc" id="L58">    private String method = &quot;GET&quot;;</span>
 
     /** The remote host. */
     private String remoteHost;
@@ -64,19 +64,19 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
     private String remoteAddr;
 
     /** The remote port. */
-<span class="fc" id="L67">    private int remotePort = -1;</span>
+<span class="nc" id="L67">    private int remotePort = -1;</span>
 
     /** The headers. */
-<span class="fc" id="L70">    private final Map&lt;String, String&gt; headers = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L70">    private final Map&lt;String, String&gt; headers = new HashMap&lt;&gt;();</span>
 
     /** The parameters. */
-<span class="fc" id="L73">    private final Map&lt;String, String&gt; parameters = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L73">    private final Map&lt;String, String&gt; parameters = new HashMap&lt;&gt;();</span>
 
     /** The content. */
     private byte[] content;
 
     /** The session. */
-<span class="fc" id="L79">    private HttpSession session = new SimpleHttpSession();</span>
+<span class="nc" id="L79">    private HttpSession session = new SimpleHttpSession();</span>
 
     /** The principal. */
     private Principal principal;
@@ -85,9 +85,9 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
      * Instantiates a new simple http request.
      */
     public SimpleHttpRequest() {
-<span class="fc" id="L88">        super(Mockito.mock(HttpServletRequest.class));</span>
-<span class="fc" id="L89">        this.remotePort = SimpleHttpRequest.nextRemotePort();</span>
-<span class="fc" id="L90">    }</span>
+<span class="nc" id="L88">        super(Mockito.mock(HttpServletRequest.class));</span>
+<span class="nc" id="L89">        this.remotePort = SimpleHttpRequest.nextRemotePort();</span>
+<span class="nc" id="L90">    }</span>
 
     /**
      * Next remote port.
@@ -95,15 +95,15 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
      * @return the int
      */
     public static synchronized int nextRemotePort() {
-<span class="fc" id="L98">        return ++SimpleHttpRequest.remotePortS;</span>
+<span class="nc" id="L98">        return ++SimpleHttpRequest.remotePortS;</span>
     }
 
     /**
      * Reset remote port.
      */
     public static synchronized void resetRemotePort() {
-<span class="fc" id="L105">        SimpleHttpRequest.remotePortS = 0;</span>
-<span class="fc" id="L106">    }</span>
+<span class="nc" id="L105">        SimpleHttpRequest.remotePortS = 0;</span>
+<span class="nc" id="L106">    }</span>
 
     /**
      * Adds the header.
@@ -114,32 +114,32 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
      *            the header value
      */
     public void addHeader(final String headerName, final String headerValue) {
-<span class="fc" id="L117">        this.headers.put(headerName, headerValue);</span>
-<span class="fc" id="L118">    }</span>
+<span class="nc" id="L117">        this.headers.put(headerName, headerValue);</span>
+<span class="nc" id="L118">    }</span>
 
     @Override
     public String getHeader(final String headerName) {
-<span class="fc" id="L122">        return this.headers.get(headerName);</span>
+<span class="nc" id="L122">        return this.headers.get(headerName);</span>
     }
 
     @Override
     public Enumeration&lt;String&gt; getHeaderNames() {
-<span class="fc" id="L127">        return Collections.enumeration(this.headers.keySet());</span>
+<span class="nc" id="L127">        return Collections.enumeration(this.headers.keySet());</span>
     }
 
     @Override
     public String getMethod() {
-<span class="fc" id="L132">        return this.method;</span>
+<span class="nc" id="L132">        return this.method;</span>
     }
 
     @Override
     public int getContentLength() {
-<span class="fc bfc" id="L137" title="All 2 branches covered.">        return this.content == null ? -1 : this.content.length;</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">        return this.content == null ? -1 : this.content.length;</span>
     }
 
     @Override
     public int getRemotePort() {
-<span class="fc" id="L142">        return this.remotePort;</span>
+<span class="nc" id="L142">        return this.remotePort;</span>
     }
 
     /**
@@ -149,8 +149,8 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
      *            the new method
      */
     public void setMethod(final String methodName) {
-<span class="fc" id="L152">        this.method = methodName;</span>
-<span class="fc" id="L153">    }</span>
+<span class="nc" id="L152">        this.method = methodName;</span>
+<span class="nc" id="L153">    }</span>
 
     /**
      * Sets the content length.
@@ -159,8 +159,8 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
      *            the new content length
      */
     public void setContentLength(final int length) {
-<span class="fc" id="L162">        this.content = new byte[length];</span>
-<span class="fc" id="L163">    }</span>
+<span class="nc" id="L162">        this.content = new byte[length];</span>
+<span class="nc" id="L163">    }</span>
 
     /**
      * Sets the remote user.
@@ -184,10 +184,10 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
 
     @Override
     public HttpSession getSession(final boolean create) {
-<span class="pc bpc" id="L187" title="3 of 4 branches missed.">        if (this.session == null &amp;&amp; create) {</span>
+<span class="nc bnc" id="L187" title="All 4 branches missed.">        if (this.session == null &amp;&amp; create) {</span>
 <span class="nc" id="L188">            this.session = new SimpleHttpSession();</span>
         }
-<span class="fc" id="L190">        return this.session;</span>
+<span class="nc" id="L190">        return this.session;</span>
     }
 
     @Override
@@ -224,7 +224,7 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
 
     @Override
     public String getRequestURI() {
-<span class="fc" id="L227">        return this.requestURI;</span>
+<span class="nc" id="L227">        return this.requestURI;</span>
     }
 
     @Override
@@ -246,7 +246,7 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
 
     @Override
     public String getRemoteHost() {
-<span class="fc" id="L249">        return this.remoteHost;</span>
+<span class="nc" id="L249">        return this.remoteHost;</span>
     }
 
     /**
@@ -256,12 +256,12 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
      *            the new remote host
      */
     public void setRemoteHost(final String value) {
-<span class="fc" id="L259">        this.remoteHost = value;</span>
-<span class="fc" id="L260">    }</span>
+<span class="nc" id="L259">        this.remoteHost = value;</span>
+<span class="nc" id="L260">    }</span>
 
     @Override
     public String getRemoteAddr() {
-<span class="fc" id="L264">        return this.remoteAddr;</span>
+<span class="nc" id="L264">        return this.remoteAddr;</span>
     }
 
     /**
@@ -271,12 +271,12 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
      *            the new remote addr
      */
     public void setRemoteAddr(final String value) {
-<span class="fc" id="L274">        this.remoteAddr = value;</span>
-<span class="fc" id="L275">    }</span>
+<span class="nc" id="L274">        this.remoteAddr = value;</span>
+<span class="nc" id="L275">    }</span>
 
     @Override
     public Principal getUserPrincipal() {
-<span class="fc" id="L279">        return this.principal;</span>
+<span class="nc" id="L279">        return this.principal;</span>
     }
 
     /**
@@ -286,7 +286,7 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
      *            the new user principal
      */
     public void setUserPrincipal(final Principal value) {
-<span class="fc" id="L289">        this.principal = value;</span>
-<span class="fc" id="L290">    }</span>
+<span class="nc" id="L289">        this.principal = value;</span>
+<span class="nc" id="L290">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BasicSecurityFilterProvider.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-tomcat85</a> &gt; <a href="../index.html" class="el_bundle">waffle-jna</a> &gt; <a href="index.source.html" class="el_package">waffle.servlet.spi</a> &gt; <span class="el_source">BasicSecurityFilterProvider.java</span></div><h1>BasicSecurityFilterProvider.java</h1><pre class="source lang-java linenums">/*
  * MIT License
  *
- * Copyright (c) ${license.git.copyrightYears} The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the &quot;Software&quot;), to deal
@@ -45,10 +45,10 @@ import waffle.windows.auth.IWindowsIdentity;
 public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 
     /** The Constant LOGGER. */
-<span class="fc" id="L48">    private static final Logger LOGGER = LoggerFactory.getLogger(BasicSecurityFilterProvider.class);</span>
+<span class="nc" id="L48">    private static final Logger LOGGER = LoggerFactory.getLogger(BasicSecurityFilterProvider.class);</span>
 
     /** The realm. */
-<span class="fc" id="L51">    private String realm = &quot;BasicSecurityFilterProvider&quot;;</span>
+<span class="nc" id="L51">    private String realm = &quot;BasicSecurityFilterProvider&quot;;</span>
 
     /** The auth. */
     private final IWindowsAuthProvider auth;
@@ -59,38 +59,38 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
      * @param newAuthProvider
      *            the new auth provider
      */
-<span class="fc" id="L62">    public BasicSecurityFilterProvider(final IWindowsAuthProvider newAuthProvider) {</span>
-<span class="fc" id="L63">        this.auth = newAuthProvider;</span>
-<span class="fc" id="L64">    }</span>
+<span class="nc" id="L62">    public BasicSecurityFilterProvider(final IWindowsAuthProvider newAuthProvider) {</span>
+<span class="nc" id="L63">        this.auth = newAuthProvider;</span>
+<span class="nc" id="L64">    }</span>
 
     @Override
     public IWindowsIdentity doFilter(final HttpServletRequest request, final HttpServletResponse response)
             throws IOException {
 
-<span class="fc" id="L70">        final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);</span>
-<span class="fc" id="L71">        final String usernamePassword = new String(authorizationHeader.getTokenBytes(), StandardCharsets.UTF_8);</span>
-<span class="fc" id="L72">        final String[] usernamePasswordArray = usernamePassword.split(&quot;:&quot;, 2);</span>
-<span class="pc bpc" id="L73" title="1 of 2 branches missed.">        if (usernamePasswordArray.length != 2) {</span>
+<span class="nc" id="L70">        final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);</span>
+<span class="nc" id="L71">        final String usernamePassword = new String(authorizationHeader.getTokenBytes(), StandardCharsets.UTF_8);</span>
+<span class="nc" id="L72">        final String[] usernamePasswordArray = usernamePassword.split(&quot;:&quot;, 2);</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">        if (usernamePasswordArray.length != 2) {</span>
 <span class="nc" id="L74">            throw new RuntimeException(&quot;Invalid username:password in Authorization header.&quot;);</span>
         }
-<span class="fc" id="L76">        BasicSecurityFilterProvider.LOGGER.debug(&quot;logging in user: {}&quot;, usernamePasswordArray[0]);</span>
-<span class="fc" id="L77">        return this.auth.logonUser(usernamePasswordArray[0], usernamePasswordArray[1]);</span>
+<span class="nc" id="L76">        BasicSecurityFilterProvider.LOGGER.debug(&quot;logging in user: {}&quot;, usernamePasswordArray[0]);</span>
+<span class="nc" id="L77">        return this.auth.logonUser(usernamePasswordArray[0], usernamePasswordArray[1]);</span>
     }
 
     @Override
     public boolean isPrincipalException(final HttpServletRequest request) {
-<span class="fc" id="L82">        return false;</span>
+<span class="nc" id="L82">        return false;</span>
     }
 
     @Override
     public boolean isSecurityPackageSupported(final String securityPackage) {
-<span class="fc" id="L87">        return &quot;Basic&quot;.equalsIgnoreCase(securityPackage);</span>
+<span class="nc" id="L87">        return &quot;Basic&quot;.equalsIgnoreCase(securityPackage);</span>
     }
 
     @Override
     public void sendUnauthorized(final HttpServletResponse response) {
-<span class="fc" id="L92">        response.addHeader(&quot;WWW-Authenticate&quot;, &quot;Basic realm=\&quot;&quot; + this.realm + &quot;\&quot;&quot;);</span>
-<span class="fc" id="L93">    }</span>
+<span class="nc" id="L92">        response.addHeader(&quot;WWW-Authenticate&quot;, &quot;Basic realm=\&quot;&quot; + this.realm + &quot;\&quot;&quot;);</span>
+<span class="nc" id="L93">    }</span>
 
     /**
      * Protection space.
@@ -108,8 +108,8 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
      *            Protection space name.
      */
     public void setRealm(final String value) {
-<span class="fc" id="L111">        this.realm = value;</span>
-<span class="fc" id="L112">    }</span>
+<span class="nc" id="L111">        this.realm = value;</span>
+<span class="nc" id="L112">    }</span>
 
     /**
      * Init configuration parameters.
@@ -121,11 +121,11 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
      */
     @Override
     public void initParameter(final String parameterName, final String parameterValue) {
-<span class="pc bpc" id="L124" title="1 of 2 branches missed.">        if (&quot;realm&quot;.equals(parameterName)) {</span>
-<span class="fc" id="L125">            this.setRealm(parameterValue);</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">        if (&quot;realm&quot;.equals(parameterName)) {</span>
+<span class="nc" id="L125">            this.setRealm(parameterValue);</span>
         } else {
 <span class="nc" id="L127">            throw new InvalidParameterException(parameterName);</span>
         }
-<span class="fc" id="L129">    }</span>
+<span class="nc" id="L129">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

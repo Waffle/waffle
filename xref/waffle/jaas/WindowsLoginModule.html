@@ -172,7 +172,7 @@
 <a class="jxr_linenumber" name="L164" href="#L164">164</a>             <strong class="jxr_keyword">this</strong>.principals.addAll(WindowsLoginModule.getUserPrincipals(windowsIdentity, <strong class="jxr_keyword">this</strong>.principalFormat));
 <a class="jxr_linenumber" name="L165" href="#L165">165</a>             <strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">this</strong>.roleFormat != PrincipalFormat.NONE) {
 <a class="jxr_linenumber" name="L166" href="#L166">166</a>                 <em class="jxr_comment">// create the group principal and add roles as members of the group</em>
-<a class="jxr_linenumber" name="L167" href="#L167">167</a>                 <strong class="jxr_keyword">final</strong> <a name="GroupPrincipal" href="../../waffle/jaas/GroupPrincipal.html<a name="GroupPrincipal" href="../../waffle/jaas/GroupPrincipal.html#GroupPrincipal">GroupPrincipal</a>l">GroupPrincipal</a> groupList = <strong class="jxr_keyword">new</strong> <a name="GroupPrincipal" href="../../waffle/jaas/GroupPrincipal.html#GroupPrincipal">GroupPrincipal</a>(<span class="jxr_string">"Roles"</span>);
+<a class="jxr_linenumber" name="L167" href="#L167">167</a>                 <strong class="jxr_keyword">final</strong> <a name="GroupPrincipal" href="../../waffle/jaas/GroupPrincipal.html#GroupPrincipal">GroupPrincipal</a> groupList = <strong class="jxr_keyword">new</strong> <a name="GroupPrincipal" href="../../waffle/jaas/GroupPrincipal.html#GroupPrincipal">GroupPrincipal</a>(<span class="jxr_string">"Roles"</span>);
 <a class="jxr_linenumber" name="L168" href="#L168">168</a>                 <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> <a name="IWindowsAccount" href="../../waffle/windows/auth/IWindowsAccount.html#IWindowsAccount">IWindowsAccount</a> group : windowsIdentity.getGroups()) {
 <a class="jxr_linenumber" name="L169" href="#L169">169</a>                     <strong class="jxr_keyword">this</strong>.principals.addAll(WindowsLoginModule.getRolePrincipals(group, <strong class="jxr_keyword">this</strong>.roleFormat));
 <a class="jxr_linenumber" name="L170" href="#L170">170</a>                     <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> Principal role : WindowsLoginModule.getRolePrincipals(group, <strong class="jxr_keyword">this</strong>.roleFormat)) {
@@ -372,6 +372,6 @@
 <a class="jxr_linenumber" name="L364" href="#L364">364</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2010&#x2013;2020 <a href="https://github.com/waffle/">com.github.waffle</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2010&#x2013;2022 <a href="https://github.com/waffle/">com.github.waffle</a>. All rights reserved.</div>
 </body>
 </html>
