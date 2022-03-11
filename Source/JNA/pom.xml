@@ -232,7 +232,7 @@
         <findsecbugs.version>1.11.0</findsecbugs.version>
         <fluido.version>1.10.0</fluido.version>
         <htmlcompressor.version>1.7.3</htmlcompressor.version>
-        <jgit.version>6.0.0.202111291000-r</jgit.version>
+        <jgit.version>6.1.0.202203080745-r</jgit.version>
         <plexus-utils.version>3.4.1</plexus-utils.version>
         <scm.version>1.12.2</scm.version>
         <wagon.version>3.5.1</wagon.version>
