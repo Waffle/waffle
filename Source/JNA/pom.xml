@@ -364,6 +364,16 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
                     <version>${enforcer.plugin}</version>
+                    <configuration>
+                        <rules>
+                            <requireJavaVersion>
+                                <version>11,17,18,19</version>
+                            </requireJavaVersion>
+                            <requireMavenVersion>
+                                <version>[${maven.min-version},)</version>
+                            </requireMavenVersion>
+                        </rules>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -985,13 +995,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <configuration>
-                    <rules>
-                        <requireMavenVersion>
-                            <version>[${maven.min-version},)</version>
-                        </requireMavenVersion>
-                    </rules>
-                </configuration>
                 <executions>
                     <execution>
                         <id>enforce-maven</id>
