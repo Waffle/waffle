@@ -227,6 +227,7 @@
         <build-tools.version>1.2.6</build-tools.version>
         <checkstyle.version>10.0</checkstyle.version>
         <doxia.version>1.11.1</doxia.version>
+        <extra-enforcer-rules.version>1.5.1</extra-enforcer-rules.version>
         <sb-contrib.version>7.4.7</sb-contrib.version>
         <findsecbugs.version>1.11.0</findsecbugs.version>
         <fluido.version>1.10.0</fluido.version>
@@ -366,6 +367,9 @@
                     <version>${enforcer.plugin}</version>
                     <configuration>
                         <rules>
+                            <enforceBytecodeVersion>
+                                <maxJdkVersion>${java.version}</maxJdkVersion>
+                            </enforceBytecodeVersion>
                             <requireJavaVersion>
                                 <version>11,17,18,19</version>
                             </requireJavaVersion>
@@ -374,6 +378,13 @@
                             </requireMavenVersion>
                         </rules>
                     </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>extra-enforcer-rules</artifactId>
+                            <version>${extra-enforcer-rules.version}</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
