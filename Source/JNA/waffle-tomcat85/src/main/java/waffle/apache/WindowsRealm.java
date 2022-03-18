@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -46,7 +46,7 @@ public class WindowsRealm extends RealmBase {
      * is what we were applying along with version 1.0 which is inaccurate based on our release version.
      *
      * @return a short name for this Realm implementation, for use in log messages.
-     * 
+     *
      * @deprecated This will be removed in Tomcat 9 onwards. Use {@link Class#getSimpleName()} instead.
      */
     @Deprecated
