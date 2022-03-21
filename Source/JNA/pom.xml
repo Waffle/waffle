@@ -200,7 +200,7 @@
         <jacoco.plugin>0.8.7</jacoco.plugin>
         <jar.plugin>3.2.2</jar.plugin>
         <javadoc.plugin>3.3.2</javadoc.plugin>
-        <jxr.plugin>3.1.1</jxr.plugin>
+        <jxr.plugin>3.2.0</jxr.plugin>
         <license.plugin>4.1</license.plugin>
         <modernizer.plugin>2.4.0</modernizer.plugin>
         <nexus-staging.plugin>1.6.12</nexus-staging.plugin>
