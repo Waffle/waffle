@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2021 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -52,7 +52,7 @@ import waffle.windows.auth.WindowsAccount;
 
 /**
  * A simple embedded server that lets us run directly within Eclipse with added group validation
- * 
+ *
  * Browse to http://localhost:8080/ to test.
  */
 public class StartEmbeddedJettyValidateNTLMGroup {
