@@ -187,7 +187,7 @@
         <compiler.plugin>3.10.1</compiler.plugin>
         <coveralls.plugin>4.3.0</coveralls.plugin>
         <dependency.plugin>3.3.0</dependency.plugin>
-        <dependency-check.plugin>7.0.1</dependency-check.plugin>
+        <dependency-check.plugin>7.0.2</dependency-check.plugin>
         <deploy.plugin>3.0.0-M2</deploy.plugin>
         <directory.plugin>1.0</directory.plugin>
         <enforcer.plugin>3.0.0</enforcer.plugin>
