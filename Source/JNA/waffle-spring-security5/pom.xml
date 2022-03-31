@@ -51,7 +51,7 @@
     <properties>
         <!-- Dependencies -->
         <servlet.version>4.0.4</servlet.version>
-        <spring.version>5.3.17</spring.version>
+        <spring.version>5.3.18</spring.version>
         <spring.security.version>5.6.0</spring.security.version>
 
         <!-- Automatic Module Name for JPMS -->
