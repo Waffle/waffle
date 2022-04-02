@@ -10,6 +10,9 @@ updates:
     interval: daily
   open-pull-requests-limit: 10
   ignore:
+  - dependency-name: com.github.ben-manes.caffeine:caffeine
+    versions:
+    - ">= 3.0.0"
   - dependency-name: jakarta.annotation:jakarta.annotation-api
     versions:
     - ">= 2.0.0"
