@@ -229,7 +229,7 @@
         <doxia.version>1.11.1</doxia.version>
         <extra-enforcer-rules.version>1.5.1</extra-enforcer-rules.version>
         <sb-contrib.version>7.4.7</sb-contrib.version>
-        <findsecbugs.version>1.11.0</findsecbugs.version>
+        <findsecbugs.version>1.12.0</findsecbugs.version>
         <fluido.version>1.10.0</fluido.version>
         <htmlcompressor.version>1.7.3</htmlcompressor.version>
         <jgit.version>6.1.0.202203080745-r</jgit.version>
