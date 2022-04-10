@@ -15,6 +15,9 @@ updates:
     - ">= 3.0.0"
   - dependency-name: jakarta.annotation:jakarta.annotation-api
     versions:
+    - ">= 3.0.0"
+  - dependency-name: jakarta.xml.bind:jakarta.xml.bind-api
+    versions:
     - ">= 2.0.0"
   - dependency-name: org.eclipse.jdt:ecj
     versions:
