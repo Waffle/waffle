@@ -50,7 +50,7 @@
 
     <properties>
         <!-- Dependencies -->
-        <byte-buddy.version>1.12.8</byte-buddy.version>
+        <byte-buddy.version>1.12.9</byte-buddy.version>
         <caffeine.version>2.9.3</caffeine.version>
         <jna.version>5.11.0</jna.version>
         <powermock.version>2.0.9</powermock.version>
