@@ -64,7 +64,7 @@
     <properties>
         <!-- Dependencies -->
         <logback.version>1.2.11</logback.version>
-        <servlet.version>4.0.4</servlet.version>
+        <servlet.version>6.0.0</servlet.version>
 
         <!-- Plugins -->
         <tomcat.plugin>2.2</tomcat.plugin>
