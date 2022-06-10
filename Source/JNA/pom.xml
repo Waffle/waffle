@@ -185,14 +185,14 @@
         <checkstyle.plugin>3.1.2</checkstyle.plugin>
         <clean.plugin>3.2.0</clean.plugin>
         <compiler.plugin>3.10.1</compiler.plugin>
-        <coveralls.plugin>4.3.0</coveralls.plugin>
+        <coveralls.plugin>4.4.1</coveralls.plugin>
         <dependency.plugin>3.3.0</dependency.plugin>
         <dependency-check.plugin>7.1.0</dependency-check.plugin>
         <deploy.plugin>3.0.0-M2</deploy.plugin>
         <directory.plugin>1.0</directory.plugin>
         <enforcer.plugin>3.0.0</enforcer.plugin>
         <formatter.plugin>2.19.0</formatter.plugin>
-        <git-commit-id.plugin>4.9.10</git-commit-id.plugin>
+        <git-commit-id.plugin>5.0.0</git-commit-id.plugin>
         <gpg.plugin>3.0.1</gpg.plugin>
         <htmlcompressor.plugin>1.7.3</htmlcompressor.plugin>
         <impsort.plugin>1.7.0</impsort.plugin>
@@ -213,9 +213,9 @@
         <spotbugs.plugin>4.7.0.0</spotbugs.plugin>
         <site.plugin>3.12.0</site.plugin>
         <sonar.plugin>3.9.1.2184</sonar.plugin>
+        <sortpom.plugin>3.1.3</sortpom.plugin>
         <surefire.plugin>3.0.0-M7</surefire.plugin>
         <taglist.plugin>3.0.0</taglist.plugin>
-        <tidy.plugin>1.1.0</tidy.plugin>
         <versions.plugin>2.11.0</versions.plugin>
         <wagon.plugin>2.0.2</wagon.plugin>
         <war.plugin>3.3.2</war.plugin>
@@ -464,8 +464,8 @@
                 </plugin>
                 <!-- Build Plugins -->
                 <plugin>
-                    <groupId>pl.project13.maven</groupId>
-                    <artifactId>git-commit-id-plugin</artifactId>
+                    <groupId>io.github.git-commit-id</groupId>
+                    <artifactId>git-commit-id-maven-plugin</artifactId>
                     <version>${git-commit-id.plugin}</version>
                     <configuration>
                         <failOnNoGitDirectory>false</failOnNoGitDirectory>
@@ -684,7 +684,7 @@
                     <version>${jacoco.plugin}</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.eluder.coveralls</groupId>
+                    <groupId>io.jsonwebtoken.coveralls</groupId>
                     <artifactId>coveralls-maven-plugin</artifactId>
                     <version>${coveralls.plugin}</version>
                     <dependencies>
@@ -696,9 +696,9 @@
                     </dependencies>
                 </plugin>
                 <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>tidy-maven-plugin</artifactId>
-                    <version>${tidy.plugin}</version>
+                    <groupId>com.github.ekryd.sortpom</groupId>
+                    <artifactId>sortpom-maven-plugin</artifactId>
+                    <version>${sortpom.plugin}</version>
                 </plugin>
                 <plugin>
                     <groupId>net.alchim31.maven</groupId>
@@ -1633,13 +1633,13 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>tidy-maven-plugin</artifactId>
+                        <groupId>com.github.ekryd.sortpom</groupId>
+                        <artifactId>sortpom-maven-plugin</artifactId>
                         <executions>
                             <execution>
                                 <phase>verify</phase>
                                 <goals>
-                                    <goal>pom</goal>
+                                    <goal>sort</goal>
                                 </goals>
                             </execution>
                         </executions>
