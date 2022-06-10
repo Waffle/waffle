@@ -185,7 +185,7 @@
         <checkstyle.plugin>3.1.2</checkstyle.plugin>
         <clean.plugin>3.2.0</clean.plugin>
         <compiler.plugin>3.10.1</compiler.plugin>
-        <coveralls.plugin>4.3.0</coveralls.plugin>
+        <coveralls.plugin>4.4.1</coveralls.plugin>
         <dependency.plugin>3.3.0</dependency.plugin>
         <dependency-check.plugin>7.1.0</dependency-check.plugin>
         <deploy.plugin>3.0.0-M2</deploy.plugin>
@@ -684,7 +684,7 @@
                     <version>${jacoco.plugin}</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.eluder.coveralls</groupId>
+                    <groupId>io.jsonwebtoken.coveralls</groupId>
                     <artifactId>coveralls-maven-plugin</artifactId>
                     <version>${coveralls.plugin}</version>
                     <dependencies>
