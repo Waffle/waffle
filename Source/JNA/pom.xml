@@ -192,7 +192,7 @@
         <directory.plugin>1.0</directory.plugin>
         <enforcer.plugin>3.0.0</enforcer.plugin>
         <formatter.plugin>2.19.0</formatter.plugin>
-        <git-commit-id.plugin>4.9.10</git-commit-id.plugin>
+        <git-commit-id.plugin>5.0.0</git-commit-id.plugin>
         <gpg.plugin>3.0.1</gpg.plugin>
         <htmlcompressor.plugin>1.7.3</htmlcompressor.plugin>
         <impsort.plugin>1.7.0</impsort.plugin>
@@ -464,8 +464,8 @@
                 </plugin>
                 <!-- Build Plugins -->
                 <plugin>
-                    <groupId>pl.project13.maven</groupId>
-                    <artifactId>git-commit-id-plugin</artifactId>
+                    <groupId>io.github.git-commit-id</groupId>
+                    <artifactId>git-commit-id-maven-plugin</artifactId>
                     <version>${git-commit-id.plugin}</version>
                     <configuration>
                         <failOnNoGitDirectory>false</failOnNoGitDirectory>
