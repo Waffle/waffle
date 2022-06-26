@@ -1596,9 +1596,9 @@
         </profile>
 
         <profile>
-            <id>jdk16on</id>
+            <id>jdk17on</id>
             <activation>
-                <jdk>[16,)</jdk>
+                <jdk>[17,)</jdk>
             </activation>
             <build>
                 <pluginManagement>
