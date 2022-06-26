@@ -33,6 +33,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Application {
 
+    /**
+     * Spring boot main entry point.
+     *
+     * @param main arguments passed into spring boot application.
+     */
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }

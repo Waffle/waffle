@@ -30,9 +30,17 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Spring Boot Demo Rest Controller.
+ */
 @RestController
 public class DemoController {
 
+    /**
+     * Spring Boot Demo Get Mapper.
+     *
+     * @param spring security authentication object
+     */
     @GetMapping
     public String demo(Authentication auth) {
         return String.format("Hello, %s. You have authorities: %s", auth.getPrincipal(),

@@ -41,8 +41,15 @@ import org.checkerframework.checker.index.qual.NonNegative;
  */
 public class CaffeineCache<K, V> implements Cache<K, V> {
 
+    /** The cache store. */
     private final com.github.benmanes.caffeine.cache.Cache<K, V> cache;
 
+    /**
+     * Instantiate new caffeine cache with timeout.
+     *
+     * @param timeout
+     *            Specified timeout in seconds for cache.
+     */
     public CaffeineCache(@NonNegative final long timeout) {
         cache = Caffeine.newBuilder().expireAfterWrite(Duration.ofSeconds(timeout)).build();
     }

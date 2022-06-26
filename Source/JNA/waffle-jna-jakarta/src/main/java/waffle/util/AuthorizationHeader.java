@@ -176,6 +176,11 @@ public class AuthorizationHeader {
         return this.isNtlmType1Message() || this.isSPNegTokenInitMessage();
     }
 
+    /**
+     * Is Bearer Authorization Header will return true if 'BEARER' exists.
+     *
+     * @return True if header contains 'BEARER' header.
+     */
     public boolean isBearerAuthorizationHeader() {
         if (this.isNull()) {
             return false;
