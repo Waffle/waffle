@@ -9,14 +9,12 @@ To deploy using cargo plugin to tomcat 8.5.x
 
     mvn clean package
 
-- To start cargo
+- To run cargo
 
-    mvn cargo:start
-
-- To stop cargo
-
-    mvn cargo:stop
+    mvn cargo:run
 
 - The app will be available at:
 
-    http://localhost:18080/waffle-filter-demo/
+    http://localhost:8080/waffle-filter-demo/
+
+- Use 'admin' as logon without any password to test the filter
