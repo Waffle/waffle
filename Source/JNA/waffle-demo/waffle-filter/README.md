@@ -15,6 +15,6 @@ To deploy using cargo plugin to tomcat 8.5.x
 
 - The app will be available at:
 
-    http://localhost:8080/waffle-filter-demo/
+    http://localhost:8080/waffle-filter/
 
 - Use 'admin' as logon without any password to test the filter

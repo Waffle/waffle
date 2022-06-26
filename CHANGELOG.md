@@ -12,6 +12,7 @@
 * Replace tidy plugin with sort pom plugin for better support
 * Skip license plugin on releases
 * JNA base at 5.12.0
+* Replace tomcat7 plugin with cargo maven3 plugin and simplify README for waffle-filter demo for same.
 
 3.1.1 (12/19/2021)
 ==================
