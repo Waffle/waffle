@@ -111,7 +111,7 @@
         <url>https://github.com/Waffle/waffle/issues</url>
     </issueManagement>
     <ciManagement>
-        <system>github</system>
+        <system>Github</system>
         <url>https://github.com/Waffle/waffle/actions</url>
     </ciManagement>
     <distributionManagement>
