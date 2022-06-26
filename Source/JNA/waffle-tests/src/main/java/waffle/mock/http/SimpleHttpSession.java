@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,6 +22,8 @@
  * SOFTWARE.
  */
 package waffle.mock.http;
+
+import com.google.errorprone.annotations.InlineMe;
 
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -82,8 +84,9 @@ public class SimpleHttpSession implements HttpSession {
      * @deprecated Remove this once servlet does.
      */
     @Deprecated
+    @InlineMe(replacement = "null")
     @Override
-    public HttpSessionContext getSessionContext() {
+    public final HttpSessionContext getSessionContext() {
         return null;
     }
 
@@ -93,8 +96,9 @@ public class SimpleHttpSession implements HttpSession {
      * @deprecated Remove this once servlet does.
      */
     @Deprecated
+    @InlineMe(replacement = "null")
     @Override
-    public Object getValue(final String arg0) {
+    public final Object getValue(final String arg0) {
         return null;
     }
 
@@ -104,8 +108,9 @@ public class SimpleHttpSession implements HttpSession {
      * @deprecated Remove this once servlet does.
      */
     @Deprecated
+    @InlineMe(replacement = "new String[0]")
     @Override
-    public String[] getValueNames() {
+    public final String[] getValueNames() {
         return new String[0];
     }
 

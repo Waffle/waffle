@@ -23,6 +23,8 @@
  */
 package waffle.apache;
 
+import com.google.errorprone.annotations.InlineMe;
+
 import java.security.Principal;
 
 import org.apache.catalina.realm.RealmBase;
@@ -50,8 +52,9 @@ public class WindowsRealm extends RealmBase {
      * @deprecated This will be removed in Tomcat 9 onwards. Use {@link Class#getSimpleName()} instead.
      */
     @Deprecated
+    @InlineMe(replacement = "WindowsRealm.NAME", imports = "waffle.apache.WindowsRealm")
     @Override
-    protected String getName() {
+    protected final String getName() {
         return WindowsRealm.NAME;
     }
 
