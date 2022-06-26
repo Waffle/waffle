@@ -67,7 +67,13 @@
         <servlet.version>4.0.4</servlet.version>
 
         <!-- Plugins -->
-        <tomcat.plugin>2.2</tomcat.plugin>
+        <cargo.plugin>1.9.12</cargo.plugin>
+
+        <!-- Cargo Setup -->
+        <cargo.maven.containerId>tomcat${tomcat.major-version}x</cargo.maven.containerId>
+        <cargo.maven.containerUrl>https://archive.apache.org/dist/tomcat/tomcat-${tomcat.major-version}/v${tomcat.version}/bin/apache-tomcat-${tomcat.version}.zip</cargo.maven.containerUrl>
+        <tomcat.major-version>8</tomcat.major-version>
+        <tomcat.version>8.5.82</tomcat.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.demo</module.name>
@@ -77,7 +83,7 @@
         <dependencies>
             <dependency>
                 <groupId>com.github.waffle</groupId>
-                <artifactId>waffle-tomcat7</artifactId>
+                <artifactId>waffle-tomcat85</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
@@ -116,9 +122,23 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>org.apache.tomcat.maven</groupId>
-                    <artifactId>tomcat7-maven-plugin</artifactId>
-                    <version>${tomcat.plugin}</version>
+                    <groupId>org.codehaus.cargo</groupId>
+                    <artifactId>cargo-maven3-plugin</artifactId>
+                    <version>${cargo.plugin}</version>
+                    <configuration>
+                        <container>
+                            <containerId>${cargo.maven.containerId}</containerId>
+                            <zipUrlInstaller>
+                                <url>${cargo.maven.containerUrl}</url>
+                            </zipUrlInstaller>
+                        </container>
+                        <daemon>
+                            <properties>
+                                <cargo.daemon.url>http://localhost:18000</cargo.daemon.url>
+                                <cargo.daemon.handleid>${project.artifactId}</cargo.daemon.handleid>
+                            </properties>
+                        </daemon>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
