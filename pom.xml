@@ -44,6 +44,12 @@
         </repository>
     </distributionManagement>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
     <build>
         <pluginManagement>
             <plugins>
@@ -64,6 +70,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <propertiesEncoding>${project.build.resourceEncoding}</propertiesEncoding>
+                </configuration>
                 <executions>
                     <execution>
                         <id>copy-resources</id>
