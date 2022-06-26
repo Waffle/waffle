@@ -45,7 +45,6 @@
                 <include>*:jar</include>
             </includes>
             <excludes>
-                <exclude>com.github.waffle.demo:waffle-spring-boot-filter:jar</exclude>
                 <exclude>com.github.waffle.demo:waffle-spring-boot-filter2:jar</exclude>
             </excludes>
         </dependencySet>
@@ -56,7 +55,6 @@
             <useTransitiveDependencies>true</useTransitiveDependencies>
             <includes>
                 <include>*:war</include>
-                <include>com.github.waffle.demo:waffle-spring-boot-filter:jar</include>
                 <include>com.github.waffle.demo:waffle-spring-boot-filter2:jar</include>
             </includes>
         </dependencySet>
