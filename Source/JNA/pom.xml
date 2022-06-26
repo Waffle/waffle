@@ -997,8 +997,8 @@
                     <execution>
                         <id>attach-sources</id>
                         <goals>
-                            <goal>jar</goal> <!-- Change me maven 3.5.4: jar-no-fork or remove as not needed (inherits since 3.3.9)-->
-                            <goal>test-jar</goal> <!-- Change me maven 3.5.4: tests-jar-no-fork -->
+                            <goal>jar</goal>
+                            <goal>test-jar</goal>
                         </goals>
                     </execution>
                 </executions>
