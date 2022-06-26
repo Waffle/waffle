@@ -177,7 +177,9 @@ public class AuthorizationHeader {
     }
 
     /**
-     * Is Bearer Authorization Header will return 'BEARER' header when header is not null.
+     * Is Bearer Authorization Header will return true if 'BEARER' exists.
+     *
+     * @return True if header contains 'BEARER' header.
      */
     public boolean isBearerAuthorizationHeader() {
         if (this.isNull()) {

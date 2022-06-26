@@ -46,6 +46,9 @@ public class CaffeineCache<K, V> implements Cache<K, V> {
 
     /**
      * Instantiate new caffeine cache with timeout.
+     *
+     * @param timeout
+     *            Specified timeout in seconds for cache.
      */
     public CaffeineCache(@NonNegative final long timeout) {
         cache = Caffeine.newBuilder().expireAfterWrite(Duration.ofSeconds(timeout)).build();
