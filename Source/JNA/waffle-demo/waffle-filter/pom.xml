@@ -3,7 +3,7 @@
 
     MIT License
 
-    Copyright (c) 2010-2021 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+    Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -30,11 +30,11 @@
     <parent>
         <groupId>com.github.waffle.demo</groupId>
         <artifactId>waffle-demo-parent</artifactId>
-        <version>3.1.2-SNAPSHOT</version>
+        <version>3.2.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>waffle-filter</artifactId>
-    <version>3.1.2-SNAPSHOT</version>
+    <version>3.2.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>waffle-filter</name>
@@ -56,21 +56,12 @@
     <dependencies>
         <dependency>
             <groupId>com.github.waffle</groupId>
-            <artifactId>waffle-tomcat7</artifactId>
+            <artifactId>waffle-tomcat85</artifactId>
             <scope>compile</scope>
         </dependency>
     </dependencies>
 
     <build>
         <finalName>${project.name}</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat7-maven-plugin</artifactId>
-                <configuration>
-                    <server>mylocalserver</server>
-                </configuration>
-            </plugin>
-        </plugins>
     </build>
 </project>

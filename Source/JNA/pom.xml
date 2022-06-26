@@ -29,7 +29,7 @@
 
     <groupId>com.github.waffle</groupId>
     <artifactId>waffle-parent</artifactId>
-    <version>3.1.2-SNAPSHOT</version>
+    <version>3.2.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>waffle-parent</name>
@@ -95,7 +95,6 @@
         <module>waffle-spring-security5</module>
         <module>waffle-tests</module>
         <module>waffle-tests-jakarta</module>
-        <module>waffle-tomcat7</module>
         <module>waffle-tomcat85</module>
         <module>waffle-tomcat9</module>
         <module>waffle-tomcat10</module>
@@ -112,7 +111,7 @@
         <url>https://github.com/Waffle/waffle/issues</url>
     </issueManagement>
     <ciManagement>
-        <system>github</system>
+        <system>Github</system>
         <url>https://github.com/Waffle/waffle/actions</url>
     </ciManagement>
     <distributionManagement>
@@ -149,10 +148,12 @@
 
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.compiler.release>${java.release.version}</maven.compiler.release>
         <maven.compiler.testSource>${java.test.version}</maven.compiler.testSource>
         <maven.compiler.testTarget>${java.test.version}</maven.compiler.testTarget>
+        <maven.compiler.testRelease>${java.test.release.version}</maven.compiler.testRelease>
 
-        <maven.min-version>3.8.5</maven.min-version>
+        <maven.min-version>3.8.6</maven.min-version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
@@ -172,8 +173,8 @@
         <jmh.version>1.35</jmh.version>
         <jmockit.version>1.49.2</jmockit.version>
         <jopt-simple.version>5.0.4</jopt-simple.version>
-        <jsr305.version>3.0.2</jsr305.version>
         <junit.version>5.8.2</junit.version>
+        <spotbugs.version>4.7.0</spotbugs.version>
         <slf4j.version>1.7.36</slf4j.version>
 
         <!-- Plugins -->
@@ -235,7 +236,7 @@
         <jgit.version>6.2.0.202206071550-r</jgit.version>
         <plexus-utils.version>3.4.2</plexus-utils.version>
         <scm.version>1.13.0</scm.version>
-        <wagon.version>3.5.1</wagon.version>
+        <wagon.version>3.5.2</wagon.version>
         <yuicompressor.version>2.4.8</yuicompressor.version>
 
         <!-- Lifecycle Mapping -->
@@ -255,12 +256,6 @@
 
         <!-- Sonar Needs Following for Scans -->
         <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>jsr305</artifactId>
-            <version>${jsr305.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>com.google.errorprone</groupId>
             <artifactId>error_prone_annotations</artifactId>
             <version>${error-prone.version}</version>
@@ -270,6 +265,12 @@
             <groupId>com.google.j2objc</groupId>
             <artifactId>j2objc-annotations</artifactId>
             <version>${j2objc.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs-annotations</artifactId>
+            <version>${spotbugs.version}</version>
             <scope>provided</scope>
         </dependency>
  
@@ -371,7 +372,7 @@
                                 <maxJdkVersion>${java.version}</maxJdkVersion>
                             </enforceBytecodeVersion>
                             <requireJavaVersion>
-                                <version>11,17,18,19</version>
+                                <version>11,17,18,19,20</version>
                             </requireJavaVersion>
                             <requireMavenVersion>
                                 <version>[${maven.min-version},)</version>
@@ -503,6 +504,7 @@
                                 <Os-Version>${os.version}</Os-Version>
                                 <X-Compile-Source-JDK>${maven.compiler.source}</X-Compile-Source-JDK>
                                 <X-Compile-Target-JDK>${maven.compiler.target}</X-Compile-Target-JDK>
+                                <X-Compile-Release-JDK>${maven.compiler.release}</X-Compile-Release-JDK>
                             </manifestEntries>
                         </archive>
                         <skipIfEmpty>true</skipIfEmpty>
@@ -529,6 +531,7 @@
                                 <Os-Version>${os.version}</Os-Version>
                                 <X-Compile-Source-JDK>${maven.compiler.source}</X-Compile-Source-JDK>
                                 <X-Compile-Target-JDK>${maven.compiler.target}</X-Compile-Target-JDK>
+                                <X-Compile-Release-JDK>${maven.compiler.release}</X-Compile-Release-JDK>
                             </manifestEntries>
                         </archive>
                     </configuration>
@@ -548,6 +551,9 @@
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>${javadoc.plugin}</version>
                     <configuration>
+                        <additionalOptions>
+                            <option>-html5</option>
+                        </additionalOptions>
                         <archive>
                             <manifest>
                                 <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
@@ -562,6 +568,7 @@
                                 <Os-Version>${os.version}</Os-Version>
                                 <X-Compile-Source-JDK>${maven.compiler.source}</X-Compile-Source-JDK>
                                 <X-Compile-Target-JDK>${maven.compiler.target}</X-Compile-Target-JDK>
+                                <X-Compile-Release-JDK>${maven.compiler.release}</X-Compile-Release-JDK>
                             </manifestEntries>
                         </archive>
                         <quiet>true</quiet>
@@ -628,6 +635,7 @@
                                 <Os-Version>${os.version}</Os-Version>
                                 <X-Compile-Source-JDK>${maven.compiler.source}</X-Compile-Source-JDK>
                                 <X-Compile-Target-JDK>${maven.compiler.target}</X-Compile-Target-JDK>
+                                <X-Compile-Release-JDK>${maven.compiler.release}</X-Compile-Release-JDK>
                             </manifestEntries>
                         </archive>
                     </configuration>
@@ -947,8 +955,8 @@
 
             <!-- Build Plugins -->
             <plugin>
-                <groupId>pl.project13.maven</groupId>
-                <artifactId>git-commit-id-plugin</artifactId>
+                <groupId>io.github.git-commit-id</groupId>
+                <artifactId>git-commit-id-maven-plugin</artifactId>
                 <executions>
                     <execution>
                         <id>git-commit-id</id>
@@ -997,8 +1005,8 @@
                     <execution>
                         <id>attach-sources</id>
                         <goals>
-                            <goal>jar</goal> <!-- Change me maven 3.5.4: jar-no-fork or remove as not needed (inherits since 3.3.9)-->
-                            <goal>test-jar</goal> <!-- Change me maven 3.5.4: tests-jar-no-fork -->
+                            <goal>jar</goal>
+                            <goal>test-jar</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -1534,71 +1542,9 @@
         </profile>
 
         <profile>
-            <id>jdk9on</id>
+            <id>jdk17on</id>
             <activation>
-                <jdk>[9,)</jdk>
-            </activation>
-            <properties>
-                <maven.compiler.release>${java.release.version}</maven.compiler.release>
-                <maven.compiler.testRelease>${java.test.release.version}</maven.compiler.testRelease>
-            </properties>
-            <build>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-jar-plugin</artifactId>
-                            <configuration>
-                                <archive>
-                                    <manifestEntries>
-                                        <X-Compile-Release-JDK>${maven.compiler.release}</X-Compile-Release-JDK>
-                                    </manifestEntries>
-                                </archive>
-                            </configuration>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-javadoc-plugin</artifactId>
-                            <configuration>
-                                <additionalOptions>-html5</additionalOptions>
-                                <archive>
-                                    <manifestEntries>
-                                        <X-Compile-Release-JDK>${maven.compiler.release}</X-Compile-Release-JDK>
-                                    </manifestEntries>
-                                </archive>
-                            </configuration>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-source-plugin</artifactId>
-                            <configuration>
-                                <archive>
-                                    <manifestEntries>
-                                        <X-Compile-Release-JDK>${maven.compiler.release}</X-Compile-Release-JDK>
-                                    </manifestEntries>
-                                </archive>
-                            </configuration>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-site-plugin</artifactId>
-                            <configuration>
-                                <archive>
-                                    <manifestEntries>
-                                        <X-Compile-Release-JDK>${maven.compiler.release}</X-Compile-Release-JDK>
-                                    </manifestEntries>
-                                </archive>
-                            </configuration>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
-            </build>
-        </profile>
-
-        <profile>
-            <id>jdk16on</id>
-            <activation>
-                <jdk>[16,)</jdk>
+                <jdk>[17,)</jdk>
             </activation>
             <build>
                 <pluginManagement>

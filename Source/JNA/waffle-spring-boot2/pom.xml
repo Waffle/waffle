@@ -30,11 +30,11 @@
     <parent>
         <groupId>com.github.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
-        <version>3.1.2-SNAPSHOT</version>
+        <version>3.2.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>waffle-spring-boot2</artifactId>
-    <version>3.1.2-SNAPSHOT</version>
+    <version>3.2.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>waffle-spring-boot2</name>
@@ -51,9 +51,9 @@
     <properties>
         <!-- Dependencies -->
         <caffeine.version>2.9.3</caffeine.version>
-        <jna.version>5.11.0</jna.version>
+        <jna.version>5.12.0</jna.version>
         <log4j.version>2.17.2</log4j.version>
-        <slf4j.version>1.7.32</slf4j.version>
+        <slf4j.version>1.7.36</slf4j.version>
         <spring-boot.version>2.7.1</spring-boot.version>
         <spring-security.version>5.7.2</spring-security.version>
 

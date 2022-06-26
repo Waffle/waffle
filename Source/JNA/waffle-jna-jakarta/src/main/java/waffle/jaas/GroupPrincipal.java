@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -67,6 +67,12 @@ public class GroupPrincipal extends UserPrincipal {
         return this.fqn;
     }
 
+    /**
+     * Add user principal to member
+     *
+     * @param user
+     *            principal
+     */
     public boolean addMember(final Principal user) {
         final boolean isMember = this.members.containsKey(user);
         if (!isMember) {
@@ -75,6 +81,12 @@ public class GroupPrincipal extends UserPrincipal {
         return isMember;
     }
 
+    /**
+     * Is user principal a member of the group.
+     *
+     * @param user
+     *            principal
+     */
     public boolean isMember(final Principal user) {
         boolean isMember = this.members.containsKey(user);
         if (!isMember) {
@@ -92,10 +104,19 @@ public class GroupPrincipal extends UserPrincipal {
         return isMember;
     }
 
+    /**
+     * Member enumberation.
+     */
     public Enumeration<Principal> members() {
         return Collections.enumeration(this.members.values());
     }
 
+    /**
+     * Remove user from member.
+     *
+     * @param user
+     *            principal
+     */
     public boolean removeMember(final Principal user) {
         final Object prev = this.members.remove(user);
         return prev != null;

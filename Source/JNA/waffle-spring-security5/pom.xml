@@ -30,11 +30,11 @@
     <parent>
         <groupId>com.github.waffle</groupId>
         <artifactId>waffle-parent</artifactId>
-        <version>3.1.2-SNAPSHOT</version>
+        <version>3.2.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>waffle-spring-security5</artifactId>
-    <version>3.1.2-SNAPSHOT</version>
+    <version>3.2.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>waffle-spring-security5</name>
@@ -52,7 +52,7 @@
         <!-- Dependencies -->
         <servlet.version>4.0.4</servlet.version>
         <spring.version>5.3.21</spring.version>
-        <spring.security.version>5.7.1</spring.security.version>
+        <spring.security.version>5.7.2</spring.security.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.spring.security5</module.name>
@@ -100,12 +100,6 @@
             <artifactId>spring-core</artifactId>
             <version>${spring.version}</version>
             <scope>compile</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>

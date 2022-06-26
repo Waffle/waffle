@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -41,8 +41,15 @@ import org.checkerframework.checker.index.qual.NonNegative;
  */
 public class CaffeineCache<K, V> implements Cache<K, V> {
 
+    /** The cache store. */
     private final com.github.benmanes.caffeine.cache.Cache<K, V> cache;
 
+    /**
+     * Instantiate new caffeine cache with timeout.
+     *
+     * @param timeout
+     *            Specified timeout in seconds for cache.
+     */
     public CaffeineCache(@NonNegative final long timeout) {
         cache = Caffeine.newBuilder().expireAfterWrite(Duration.ofSeconds(timeout)).build();
     }
