@@ -551,6 +551,9 @@
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>${javadoc.plugin}</version>
                     <configuration>
+                        <additionalOptions>
+                            <option>-html5</option>
+                        </additionalOptions>
                         <archive>
                             <manifest>
                                 <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
