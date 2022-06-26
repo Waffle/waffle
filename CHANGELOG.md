@@ -1,6 +1,17 @@
-3.2.0 (todo)
-============
+3.2.0 (6/26/2022)
+=================
 * Drop Tomcat 7 support as end of life
+* General Build Updates
+* Build jdk 11 or better with target to jdk 8 with enforcer to ensure binary compatibility
+* Require maven 3.8.6 to build
+* Library Updates
+* Plugin Updates
+* Remove jdepend from build as no longer supported
+* Remove animal sniffer as replaced by usage of jdk 11 and enforcer
+* Dropped remainder of java 8 build profile
+* Replace tidy plugin with sort pom plugin for better support
+* Skip license plugin on releases
+* JNA base at 5.12.0
 
 3.1.1 (12/19/2021)
 ==================
