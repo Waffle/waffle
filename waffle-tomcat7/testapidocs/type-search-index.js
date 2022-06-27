@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"waffle.apache.catalina","l":"SimpleHttpRequest"},{"p":"waffle.apache.catalina","l":"SimpleHttpResponse"}]

@@ -29,9 +29,9 @@ waffle-form/waffle-jna,waffle.windows.auth.impl,WindowsDomainImpl.TrustDirection
 waffle-form/waffle-jna,waffle.windows.auth.impl,WindowsIdentityImpl,140,0,16,0,30,0,18,0,10,0
 waffle-form/waffle-jna,waffle.windows.auth.impl,WindowsAuthProviderImpl.ContinueContext,9,0,0,0,4,0,1,0,1,0
 waffle-form/waffle-jna,waffle.windows.auth.impl,WindowsAccountImpl,36,0,0,0,12,0,8,0,8,0
-waffle-form/waffle-jna,waffle.windows.auth.impl,WindowsSecurityContextImpl,218,0,24,0,61,0,31,0,18,0
-waffle-form/waffle-jna,waffle.windows.auth.impl,WindowsAuthProviderImpl,310,0,28,0,70,0,26,0,11,0
+waffle-form/waffle-jna,waffle.windows.auth.impl,WindowsSecurityContextImpl,221,0,24,0,61,0,31,0,18,0
 waffle-form/waffle-jna,waffle.windows.auth.impl,WindowsDomainImpl.TrustType,74,0,0,0,8,0,1,0,1,0
+waffle-form/waffle-jna,waffle.windows.auth.impl,WindowsAuthProviderImpl,313,0,28,0,70,0,26,0,11,0
 waffle-form/waffle-jna,waffle.windows.auth.impl,WindowsIdentityImpersonationContextImpl,17,0,2,0,6,0,3,0,2,0
 waffle-form/waffle-jna,waffle.windows.auth.impl,WindowsDomainImpl,83,0,16,0,23,0,13,0,5,0
 waffle-form/waffle-jna,waffle.windows.auth.impl,WindowsSecurityContextImpersonationContextImpl,30,0,4,0,10,0,4,0,2,0

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>DemoController.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-distro</a> &gt; <a href="../index.html" class="el_bundle">waffle-spring-boot-filter2</a> &gt; <a href="index.source.html" class="el_package">waffle.spring.boot.demo</a> &gt; <span class="el_source">DemoController.java</span></div><h1>DemoController.java</h1><pre class="source lang-java linenums">/*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the &quot;Software&quot;), to deal
@@ -30,14 +30,23 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Spring Boot Demo Rest Controller.
+ */
 @RestController
-<span class="nc" id="L34">public class DemoController {</span>
+<span class="nc" id="L37">public class DemoController {</span>
 
+    /**
+     * Spring Boot Demo Get Mapper.
+     *
+     * @param spring
+     *            security authentication object
+     */
     @GetMapping
     public String demo(Authentication auth) {
-<span class="nc" id="L38">        return String.format(&quot;Hello, %s. You have authorities: %s&quot;, auth.getPrincipal(),</span>
-<span class="nc" id="L39">                auth.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(&quot;, &quot;)));</span>
+<span class="nc" id="L47">        return String.format(&quot;Hello, %s. You have authorities: %s&quot;, auth.getPrincipal(),</span>
+<span class="nc" id="L48">                auth.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(&quot;, &quot;)));</span>
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

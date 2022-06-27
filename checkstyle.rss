@@ -27,7 +27,7 @@ under the License.
     <item>
       <title>File: 104,
              Errors: 0,
-             Warnings: 317,
+             Warnings: 304,
              Infos: 0
       </title>
             <link>https://waffle.github.io/waffle//checkstyle.html</link>
@@ -108,7 +108,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  12
+                  14
                 </td>
                 <td>
                   0
@@ -416,7 +416,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  16
+                  12
                 </td>
                 <td>
                   0
@@ -570,7 +570,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  8
+                  9
                 </td>
                 <td>
                   0
@@ -668,7 +668,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  16
+                  12
                 </td>
                 <td>
                   0
@@ -920,7 +920,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  12
+                  9
                 </td>
                 <td>
                   0
@@ -962,7 +962,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  12
+                  9
                 </td>
                 <td>
                   0
@@ -1214,7 +1214,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   0
@@ -1368,21 +1368,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  2
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.util.cache.CaffeineCacheSupplier.java">waffle/util/cache/CaffeineCacheSupplier.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
+                  1
                 </td>
                 <td>
                   0
@@ -1397,6 +1383,20 @@ under the License.
                 </td>
                 <td>
                   6
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://waffle.github.io/waffle//checkstyle.html#waffle.util.cache.CaffeineCacheSupplier.java">waffle/util/cache/CaffeineCacheSupplier.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
                 </td>
                 <td>
                   0
@@ -1438,7 +1438,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  10
+                  8
                 </td>
                 <td>
                   0
