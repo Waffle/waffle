@@ -68,10 +68,12 @@ public class GroupPrincipal extends UserPrincipal {
     }
 
     /**
-     * Add user principal to member
+     * Add user principal to member.
      *
      * @param user
      *            principal
+     *
+     * @return True if user principal is a member
      */
     public boolean addMember(final Principal user) {
         final boolean isMember = this.members.containsKey(user);
@@ -86,6 +88,8 @@ public class GroupPrincipal extends UserPrincipal {
      *
      * @param user
      *            principal
+     *
+     * @return True if user principal is a member
      */
     public boolean isMember(final Principal user) {
         boolean isMember = this.members.containsKey(user);
@@ -105,7 +109,9 @@ public class GroupPrincipal extends UserPrincipal {
     }
 
     /**
-     * Member enumberation.
+     * Member enumeration.
+     *
+     * @return enumerated members
      */
     public Enumeration<Principal> members() {
         return Collections.enumeration(this.members.values());
@@ -116,6 +122,8 @@ public class GroupPrincipal extends UserPrincipal {
      *
      * @param user
      *            principal
+     *
+     * @return True if user principal is removed
      */
     public boolean removeMember(final Principal user) {
         final Object prev = this.members.remove(user);

@@ -41,6 +41,8 @@ public class DemoController {
      *
      * @param auth
      *            security authentication object
+     *
+     * @return response text
      */
     @GetMapping
     public String demo(Authentication auth) {
