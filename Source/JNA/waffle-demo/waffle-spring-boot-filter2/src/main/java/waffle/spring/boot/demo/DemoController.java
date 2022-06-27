@@ -39,7 +39,7 @@ public class DemoController {
     /**
      * Spring Boot Demo Get Mapper.
      *
-     * @param spring
+     * @param auth
      *            security authentication object
      */
     @GetMapping

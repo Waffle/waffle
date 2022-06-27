@@ -36,7 +36,7 @@ public class Application {
     /**
      * Spring boot main entry point.
      *
-     * @param main
+     * @param args
      *            arguments passed into spring boot application.
      */
     public static void main(String[] args) {
