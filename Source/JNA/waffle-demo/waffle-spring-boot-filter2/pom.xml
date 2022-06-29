@@ -49,7 +49,7 @@
 
     <properties>
         <!-- Dependencies -->
-        <jna.version>5.12.0</jna.version>
+        <jna.version>5.12.1</jna.version>
         <logback.version>1.2.11</logback.version>
         <spring-boot.version>2.7.1</spring-boot.version>
 
