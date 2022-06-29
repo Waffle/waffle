@@ -231,7 +231,7 @@
         <extra-enforcer-rules.version>1.5.1</extra-enforcer-rules.version>
         <sb-contrib.version>7.4.7</sb-contrib.version>
         <findsecbugs.version>1.12.0</findsecbugs.version>
-        <fluido.version>1.11.0</fluido.version>
+        <fluido.version>1.11.1</fluido.version>
         <htmlcompressor.version>1.7.3</htmlcompressor.version>
         <jgit.version>6.2.0.202206071550-r</jgit.version>
         <plexus-utils.version>3.4.2</plexus-utils.version>
