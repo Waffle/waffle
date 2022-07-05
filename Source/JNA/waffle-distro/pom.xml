@@ -71,11 +71,6 @@
                 <artifactId>log4j-to-slf4j</artifactId>
                 <version>${log4j2.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.github.waffle</groupId>
-                <artifactId>waffle-spring-boot-starter2</artifactId>
-                <version>${project.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
