@@ -13,6 +13,7 @@
 * Skip license plugin on releases
 * JNA base at 5.12.0
 * Replace tomcat7 plugin with cargo maven3 plugin and simplify README for waffle-filter demo for same.
+* Retool waffle-bom into correct usage
 
 3.1.1 (12/19/2021)
 ==================
