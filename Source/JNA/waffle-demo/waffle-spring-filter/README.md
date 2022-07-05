@@ -1,7 +1,7 @@
-Waffle Filter Setup Instructions Using Tomcat Plugins
-=====================================================
+Waffle Spring Filter Setup Instructions Using Cargo Plugin
+=====================-====================================
 
-Plugins currently configured for tomcat 8.5.x.
+Cargo Plugin currently configured for tomcat 8.5.x.
 
 To deploy using cargo plugin to tomcat 8.5.x
 
@@ -15,6 +15,6 @@ To deploy using cargo plugin to tomcat 8.5.x
 
 - The app will be available at:
 
-    http://localhost:8080/waffle-filter/
+    http://localhost:8080/waffle-spring-filter/
 
 - Use 'admin' as logon without any password to test the filter

@@ -15,6 +15,7 @@
 * Replace tomcat7 plugin with cargo maven3 plugin and simplify README for waffle-filter demo for same.
 * Retool waffle-bom into correct usage
 * Cleanup the waffle-distro (note: Spring boot dependencies not additionally added here as too many and located in the sample jar)
+* Added readme to all demos with all WARs showing how to use cargo to test and spring boot denoting how to test
 
 3.1.1 (12/19/2021)
 ==================
