@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,6 @@
  */
 package waffle.servlet;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -42,6 +41,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -55,15 +56,16 @@ public class WaffleInfoServlet extends HttpServlet {
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+    /** The Constant Logger. */
+    private static final Logger logger = LoggerFactory.getLogger(WaffleInfoServlet.class);
+
     @Override
-    public void doGet(final HttpServletRequest request, final HttpServletResponse response)
-            throws ServletException, IOException {
+    public void doGet(final HttpServletRequest request, final HttpServletResponse response) {
         this.getWaffleInfoResponse(request, response);
     }
 
     @Override
-    public void doPost(final HttpServletRequest request, final HttpServletResponse response)
-            throws ServletException, IOException {
+    public void doPost(final HttpServletRequest request, final HttpServletResponse response) {
         this.getWaffleInfoResponse(request, response);
     }
 
@@ -74,13 +76,8 @@ public class WaffleInfoServlet extends HttpServlet {
      *            the request
      * @param response
      *            the response
-     * @throws IOException
-     *             Signals that an I/O exception has occurred.
-     * @throws ServletException
-     *             the servlet exception
      */
-    public void getWaffleInfoResponse(final HttpServletRequest request, final HttpServletResponse response)
-            throws IOException, ServletException {
+    public void getWaffleInfoResponse(final HttpServletRequest request, final HttpServletResponse response) {
         final WaffleInfo info = new WaffleInfo();
         try {
             final Document doc = info.getWaffleInfo();
@@ -110,8 +107,9 @@ public class WaffleInfoServlet extends HttpServlet {
             final DOMSource source = new DOMSource(doc);
             trans.transform(source, result);
             response.setContentType("application/xml");
-        } catch (final ParserConfigurationException | TransformerException e) {
-            throw new ServletException(e);
+        } catch (final ParserConfigurationException | TransformerException | IOException e) {
+            WaffleInfoServlet.logger.error("", e);
+            throw new RuntimeException("See logs for underlying error condition");
         }
     }
 
@@ -159,4 +157,5 @@ public class WaffleInfoServlet extends HttpServlet {
         }
         return node;
     }
+
 }

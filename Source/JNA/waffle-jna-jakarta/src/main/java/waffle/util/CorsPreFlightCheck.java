@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,6 +26,7 @@ package waffle.util;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -43,17 +44,8 @@ public final class CorsPreFlightCheck {
     private static final String PRE_FLIGHT_ATTRIBUTE_VALUE = "PRE_FLIGHT";
 
     /** The Constant CORS_PRE_FLIGHT_HEADERS. */
-    private static final List<String> CORS_PRE_FLIGHT_HEADERS = new ArrayList<String>() {
-
-        /** The Constant serialVersionUID. */
-        private static final long serialVersionUID = 1L;
-
-        {
-            this.add("Access-Control-Request-Method");
-            this.add("Access-Control-Request-Headers");
-            this.add("Origin");
-        }
-    };
+    private static final List<String> CORS_PRE_FLIGHT_HEADERS = new ArrayList<>(
+            Arrays.asList("Access-Control-Request-Method", "Access-Control-Request-Headers", "Origin"));
 
     /**
      * Prevent Instantiation.

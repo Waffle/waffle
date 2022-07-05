@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2021 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -51,7 +51,7 @@ class RolePrincipalTest {
      */
     @Test
     void equals_otherObject() {
-        Assertions.assertNotEquals(this.rolePrincipal, "");
+        Assertions.assertNotEquals("", this.rolePrincipal);
     }
 
     /**
@@ -90,7 +90,6 @@ class RolePrincipalTest {
      *             the class not found exception
      */
     @Test
-    @SuppressWarnings("BanSerializableRead")
     void testIsSerializable() throws IOException, ClassNotFoundException {
         // serialize
         final ByteArrayOutputStream out = new ByteArrayOutputStream();

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,9 +23,10 @@
  */
 package waffle.spring.boot.demo;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import waffle.spring.NegotiateSecurityFilter;
@@ -36,7 +37,7 @@ import waffle.spring.NegotiateSecurityFilterEntryPoint;
  * requests.
  */
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig {
 
     private NegotiateSecurityFilter filter;
     private NegotiateSecurityFilterEntryPoint entryPoint;
@@ -54,11 +55,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.entryPoint = entryPoint;
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    @Bean
+    SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().anyRequest().authenticated().and()
                 .addFilterBefore(filter, BasicAuthenticationFilter.class).exceptionHandling()
                 .authenticationEntryPoint(entryPoint);
+        return http.build();
     }
 
 }

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -77,8 +77,7 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
                 authenticationInfo = this.buildAuthenticationInfo(token, principal);
                 AbstractWaffleRealm.LOGGER.debug("Successful login for user {}", username);
             } catch (final RuntimeException e) {
-                AbstractWaffleRealm.LOGGER.debug("Failed login for user {}: {}", username, e.getMessage());
-                AbstractWaffleRealm.LOGGER.trace("", e);
+                AbstractWaffleRealm.LOGGER.debug("Failed login for user {}", username);
                 throw new AuthenticationException("Login failed", e);
             } finally {
                 if (identity != null) {

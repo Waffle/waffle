@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -239,8 +239,6 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
         try {
             response.sendError(code);
         } catch (final IOException e) {
-            this.log.error(e.getMessage());
-            this.log.trace("", e);
             throw new RuntimeException(e);
         }
     }
@@ -270,7 +268,9 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
         try {
             this.log.debug("successfully logged in {} ({})", username, windowsIdentity.getSidString());
             final GenericPrincipal genericPrincipal = this.createPrincipal(windowsIdentity);
-            this.log.debug("roles: {}", String.join(", ", genericPrincipal.getRoles()));
+            if (this.log.isDebugEnabled()) {
+                this.log.debug("roles: {}", String.join(", ", genericPrincipal.getRoles()));
+            }
             return genericPrincipal;
         } finally {
             windowsIdentity.dispose();

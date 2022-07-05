@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -87,7 +87,7 @@ class NegotiateSecurityFilterEntryPointTest {
         Assertions.assertEquals(3, wwwAuthenticates.length);
         Assertions.assertEquals("NTLM", wwwAuthenticates[0]);
         Assertions.assertEquals("Negotiate", wwwAuthenticates[1]);
-        Assertions.assertTrue(wwwAuthenticates[2].equals("Basic realm=\"TestRealm\""));
+        Assertions.assertEquals("Basic realm=\"TestRealm\"", wwwAuthenticates[2]);
         Assertions.assertEquals(2, response.getHeaderNamesSize());
         Assertions.assertEquals("keep-alive", response.getHeader("Connection"));
         Assertions.assertEquals(401, response.getStatus());

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -61,9 +61,9 @@ class NegotiateAuthenticationStrategyTest {
 
         this.authStrategy.afterAttempt(otherRealm, null, null, null, authInProgressException);
 
+        final NegotiateAuthenticationRealm realm = new NegotiateAuthenticationRealm();
         final Throwable exception = Assertions.assertThrows(AuthenticationInProgressException.class, () -> {
-            this.authStrategy.afterAttempt(new NegotiateAuthenticationRealm(), null, null, null,
-                    authInProgressException);
+            this.authStrategy.afterAttempt(realm, null, null, null, authInProgressException);
         });
         Assertions.assertNull(exception.getMessage());
     }
