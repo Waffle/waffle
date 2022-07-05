@@ -53,12 +53,25 @@
         <caffeine.version>2.9.3</caffeine.version>
         <checker-qual.version>3.22.2</checker-qual.version>
         <jna.version>5.12.1</jna.version>
-        <log4j2.version>2.18.0</log4j2.version>
+        <log4j.version>2.18.0</log4j.version>
         <logback.version>1.2.11</logback.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.distro</module.name>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Ensure latest log4j for security precaution -->
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-bom</artifactId>
+                <version>${log4j.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <!-- Waffle Jars -->
