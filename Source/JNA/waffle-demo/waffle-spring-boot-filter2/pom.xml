@@ -48,6 +48,9 @@
     </scm>
 
     <properties>
+        <!-- Dependencies -->
+        <spring-boot.version>2.7.1</spring-boot.version>
+
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.spring.boot.filter2.demo</module.name>
     </properties>
