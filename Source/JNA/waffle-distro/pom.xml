@@ -51,6 +51,7 @@
     <properties>
         <!-- Dependencies -->
         <caffeine.version>2.9.3</caffeine.version>
+        <checker-qual.version>3.22.2</checker-qual.version>
         <jna.version>5.12.1</jna.version>
         <log4j2.version>2.18.0</log4j2.version>
         <logback.version>1.2.11</logback.version>
@@ -58,26 +59,6 @@
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.distro</module.name>
     </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-api</artifactId>
-                <version>${log4j2.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-to-slf4j</artifactId>
-                <version>${log4j2.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.waffle</groupId>
-                <artifactId>waffle-spring-boot-starter2</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <!-- Waffle Jars -->
@@ -90,6 +71,12 @@
         <dependency>
             <groupId>com.github.waffle</groupId>
             <artifactId>waffle-jna</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.waffle</groupId>
+            <artifactId>waffle-jna-jakarta</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>
@@ -114,12 +101,6 @@
         <dependency>
             <groupId>com.github.waffle</groupId>
             <artifactId>waffle-spring-security5</artifactId>
-            <version>${project.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle</groupId>
-            <artifactId>waffle-tests</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>
@@ -212,33 +193,22 @@
             <artifactId>logback-classic</artifactId>
             <version>${logback.version}</version>
             <scope>runtime</scope>
-            <exclusions>
-                 <exclusion>
-                      <groupId>com.sun.mail</groupId>
-                      <artifactId>javax.mail</artifactId>
-                 </exclusion>
-                 <exclusion>
-                      <groupId>edu.washington.cs.types.checker</groupId>
-                      <artifactId>checker-framework</artifactId>
-                 </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
             <version>${logback.version}</version>
             <scope>runtime</scope>
-            <exclusions>
-                 <exclusion>
-                      <groupId>edu.washington.cs.types.checker</groupId>
-                      <artifactId>checker-framework</artifactId>
-                 </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>caffeine</artifactId>
             <version>${caffeine.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.checkerframework</groupId>
+            <artifactId>checker-qual</artifactId>
+            <version>${checker-qual.version}</version>
         </dependency>
         <dependency>
             <groupId>net.java.dev.jna</groupId>

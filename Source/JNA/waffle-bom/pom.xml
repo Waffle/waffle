@@ -50,9 +50,7 @@
 
     <properties>
         <!-- Dependencies -->
-        <caffeine.version>2.9.3</caffeine.version>
         <jna.version>5.12.1</jna.version>
-        <log4j2.version>2.18.0</log4j2.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.bom</module.name>
@@ -60,115 +58,81 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- Include JNA as critical on usage -->
             <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-api</artifactId>
-                <version>${log4j2.version}</version>
+                <groupId>net.java.dev.jna</groupId>
+                <artifactId>jna</artifactId>
+                <version>${jna.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-to-slf4j</artifactId>
-                <version>${log4j2.version}</version>
+                <groupId>net.java.dev.jna</groupId>
+                <artifactId>jna-platform</artifactId>
+                <version>${jna.version}</version>
+            </dependency>
+
+            <!-- Waffle Dependencies -->
+            <dependency>
+                <groupId>com.github.waffle</groupId>
+                <artifactId>waffle-jetty</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.waffle</groupId>
+                <artifactId>waffle-jna</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.waffle</groupId>
+                <artifactId>waffle-jna-jakarta</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.waffle</groupId>
+                <artifactId>waffle-shiro</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.waffle</groupId>
+                <artifactId>waffle-spring-boot-autoconfigure2</artifactId>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.waffle</groupId>
                 <artifactId>waffle-spring-boot-starter2</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.github.waffle</groupId>
+                <artifactId>waffle-spring-security5</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.waffle</groupId>
+                <artifactId>waffle-tomcat85</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.waffle</groupId>
+                <artifactId>waffle-tomcat9</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.waffle</groupId>
+                <artifactId>waffle-tomcat10</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
-        <!-- Waffle Jars -->
-        <dependency>
-            <groupId>com.github.waffle</groupId>
-            <artifactId>waffle-jetty</artifactId>
-            <version>${project.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle</groupId>
-            <artifactId>waffle-jna</artifactId>
-            <version>${project.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle</groupId>
-            <artifactId>waffle-shiro</artifactId>
-            <version>${project.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle</groupId>
-            <artifactId>waffle-spring-boot-autoconfigure2</artifactId>
-            <version>${project.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle</groupId>
-            <artifactId>waffle-spring-boot-starter2</artifactId>
-            <version>${project.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle</groupId>
-            <artifactId>waffle-spring-security5</artifactId>
-            <version>${project.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle</groupId>
-            <artifactId>waffle-tests</artifactId>
-            <version>${project.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle</groupId>
-            <artifactId>waffle-tomcat85</artifactId>
-            <version>${project.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle</groupId>
-            <artifactId>waffle-tomcat9</artifactId>
-            <version>${project.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <!-- Tomcat 10
-        <dependency>
-            <groupId>com.github.waffle</groupId>
-            <artifactId>waffle-tomcat10</artifactId>
-            <version>${project.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        -->
-
-        <!-- Third Parties -->
-        <dependency>
-            <groupId>com.github.ben-manes.caffeine</groupId>
-            <artifactId>caffeine</artifactId>
-            <version>${caffeine.version}</version>
-        </dependency>
+        <!-- Include JNA as critical on usage -->
         <dependency>
             <groupId>net.java.dev.jna</groupId>
             <artifactId>jna</artifactId>
-            <version>${jna.version}</version>
         </dependency>
         <dependency>
             <groupId>net.java.dev.jna</groupId>
             <artifactId>jna-platform</artifactId>
-            <version>${jna.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
         </dependency>
     </dependencies>
-
 </project>
