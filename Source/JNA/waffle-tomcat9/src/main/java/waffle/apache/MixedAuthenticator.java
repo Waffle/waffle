@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -206,7 +206,9 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 
             final GenericPrincipal genericPrincipal = this.createPrincipal(windowsIdentity);
 
-            this.log.debug("roles: {}", String.join(", ", genericPrincipal.getRoles()));
+            if (this.log.isDebugEnabled()) {
+                this.log.debug("roles: {}", String.join(", ", genericPrincipal.getRoles()));
+            }
 
             // create a session associated with this request if there's none
             final HttpSession session = request.getSession(true);
@@ -258,7 +260,10 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
 
             final GenericPrincipal genericPrincipal = this.createPrincipal(windowsIdentity);
 
-            this.log.debug("roles: {}", String.join(", ", genericPrincipal.getRoles()));
+            if (this.log.isDebugEnabled()) {
+                this.log.debug("roles: {}", String.join(", ", genericPrincipal.getRoles()));
+            }
+
             // create a session associated with this request if there's none
             final HttpSession session = request.getSession(true);
             this.log.debug("session id: {}", session == null ? "null" : session.getId());
@@ -289,8 +294,6 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
             final RequestDispatcher disp = servletContext.getRequestDispatcher(url);
             disp.forward(request.getRequest(), response);
         } catch (final IOException | ServletException e) {
-            this.log.error(e.getMessage());
-            this.log.trace("", e);
             throw new RuntimeException(e);
         }
     }
