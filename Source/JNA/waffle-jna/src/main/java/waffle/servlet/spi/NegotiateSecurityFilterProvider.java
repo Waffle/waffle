@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -64,7 +64,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
     private static final String NTLM = "NTLM";
 
     /** The protocols. */
-    private List<String> protocols = new ArrayList<>();
+    private List<String> protocolsList = new ArrayList<>();
 
     /** The auth. */
     private final IWindowsAuthProvider auth;
@@ -77,8 +77,8 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
      */
     public NegotiateSecurityFilterProvider(final IWindowsAuthProvider newAuthProvider) {
         this.auth = newAuthProvider;
-        this.protocols.add(NegotiateSecurityFilterProvider.NEGOTIATE);
-        this.protocols.add(NegotiateSecurityFilterProvider.NTLM);
+        this.protocolsList.add(NegotiateSecurityFilterProvider.NEGOTIATE);
+        this.protocolsList.add(NegotiateSecurityFilterProvider.NTLM);
     }
 
     /**
@@ -87,7 +87,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
      * @return the protocols
      */
     public List<String> getProtocols() {
-        return this.protocols;
+        return this.protocolsList;
     }
 
     /**
@@ -97,12 +97,12 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
      *            the new protocols
      */
     public void setProtocols(final List<String> values) {
-        this.protocols = values;
+        this.protocolsList = values;
     }
 
     @Override
     public void sendUnauthorized(final HttpServletResponse response) {
-        for (final String protocol : this.protocols) {
+        for (final String protocol : this.protocolsList) {
             response.addHeader(NegotiateSecurityFilterProvider.WWW_AUTHENTICATE, protocol);
         }
     }
@@ -162,7 +162,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
     @Override
     public boolean isSecurityPackageSupported(final String securityPackage) {
-        for (final String protocol : this.protocols) {
+        for (final String protocol : this.protocolsList) {
             if (protocol.equalsIgnoreCase(securityPackage)) {
                 return true;
             }
@@ -173,7 +173,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
     @Override
     public void initParameter(final String parameterName, final String parameterValue) {
         if (NegotiateSecurityFilterProvider.PROTOCOLS.equals(parameterName)) {
-            this.protocols = new ArrayList<>();
+            this.protocolsList = new ArrayList<>();
             final String[] protocolNames = parameterValue.split("\\s+", -1);
             for (String protocolName : protocolNames) {
                 protocolName = protocolName.trim();
@@ -181,7 +181,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
                     NegotiateSecurityFilterProvider.LOGGER.debug("init protocol: {}", protocolName);
                     if (NegotiateSecurityFilterProvider.NEGOTIATE.equals(protocolName)
                             || NegotiateSecurityFilterProvider.NTLM.equals(protocolName)) {
-                        this.protocols.add(protocolName);
+                        this.protocolsList.add(protocolName);
                     } else {
                         NegotiateSecurityFilterProvider.LOGGER.error("unsupported protocol: {}", protocolName);
                         throw new RuntimeException("Unsupported protocol: " + protocolName);

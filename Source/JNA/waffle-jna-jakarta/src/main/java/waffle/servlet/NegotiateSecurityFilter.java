@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -378,8 +378,6 @@ public class NegotiateSecurityFilter implements Filter {
             } catch (final ClassNotFoundException | IllegalArgumentException | SecurityException
                     | InstantiationException | IllegalAccessException | InvocationTargetException
                     | NoSuchMethodException e) {
-                NegotiateSecurityFilter.LOGGER.error("error loading '{}': {}", authProvider, e.getMessage());
-                NegotiateSecurityFilter.LOGGER.trace("", e);
                 throw new ServletException(e);
             }
         }
@@ -416,9 +414,8 @@ public class NegotiateSecurityFilter implements Filter {
                             implParameter.getKey());
                     throw new ServletException(e);
                 } catch (final Exception e) {
-                    NegotiateSecurityFilter.LOGGER.error("{}: error setting '{}': {}", classAndParameter[0],
-                            classAndParameter[1], e.getMessage());
-                    NegotiateSecurityFilter.LOGGER.trace("", e);
+                    NegotiateSecurityFilter.LOGGER.error("Error setting {} in {}", classAndParameter[0],
+                            classAndParameter[1]);
                     throw new ServletException(e);
                 }
             } else {
