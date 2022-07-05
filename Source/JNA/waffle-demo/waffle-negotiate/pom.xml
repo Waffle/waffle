@@ -53,7 +53,52 @@
         <module.name>waffle.negotiate.demo</module.name>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.github.waffle</groupId>
+            <artifactId>waffle-tomcat85</artifactId>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
     <build>
         <finalName>${project.name}</finalName>
+
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven3-plugin</artifactId>
+                <configuration>
+                    <container>
+                        <dependencies>
+                            <dependency>
+                                <groupId>com.github.ben-manes.caffeine</groupId>
+                                <artifactId>caffeine</artifactId>
+                            </dependency>
+                            <dependency>
+                                <groupId>net.java.dev.jna</groupId>
+                                <artifactId>jna</artifactId>
+                            </dependency>
+                            <dependency>
+                                <groupId>net.java.dev.jna</groupId>
+                                <artifactId>jna-platform</artifactId>
+                            </dependency>
+                            <dependency>
+                                <groupId>org.slf4j</groupId>
+                                <artifactId>slf4j-api</artifactId>
+                            </dependency>
+                            <dependency>
+                                <groupId>com.github.waffle</groupId>
+                                <artifactId>waffle-jna</artifactId>
+                            </dependency>
+                            <dependency>
+                                <groupId>com.github.waffle</groupId>
+                                <artifactId>waffle-tomcat85</artifactId>
+                            </dependency>
+                        </dependencies>
+                    </container>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 </project>
