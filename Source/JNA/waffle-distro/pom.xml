@@ -59,21 +59,6 @@
         <module.name>waffle.distro</module.name>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-api</artifactId>
-                <version>${log4j2.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-to-slf4j</artifactId>
-                <version>${log4j2.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <!-- Waffle Jars -->
         <dependency>
