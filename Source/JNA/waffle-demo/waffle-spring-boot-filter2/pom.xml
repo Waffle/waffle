@@ -48,11 +48,6 @@
     </scm>
 
     <properties>
-        <!-- Dependencies -->
-        <jna.version>5.12.1</jna.version>
-        <logback.version>1.2.11</logback.version>
-        <spring-boot.version>2.7.1</spring-boot.version>
-
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.spring.boot.filter2.demo</module.name>
     </properties>
@@ -63,25 +58,6 @@
                 <groupId>com.github.waffle</groupId>
                 <artifactId>waffle-spring-boot-starter2</artifactId>
                 <version>${project.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- Resolve conflict between WAFFLE and Spring Boot dependency version by forcing jna version -->
-            <dependency>
-                <groupId>net.java.dev.jna</groupId>
-                <artifactId>jna</artifactId>
-                <version>${jna.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.java.dev.jna</groupId>
-                <artifactId>jna-platform</artifactId>
-                <version>${jna.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
