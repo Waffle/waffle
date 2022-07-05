@@ -14,6 +14,7 @@
 * JNA base at 5.12.0
 * Replace tomcat7 plugin with cargo maven3 plugin and simplify README for waffle-filter demo for same.
 * Retool waffle-bom into correct usage
+* Cleanup the waffle-distro (note: Spring boot dependencies not additionally added here as too many and located in the sample jar)
 
 3.1.1 (12/19/2021)
 ==================
