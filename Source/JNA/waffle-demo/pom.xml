@@ -63,6 +63,7 @@
 
     <properties>
         <!-- Dependencies -->
+        <caffeine.version>2.9.3</caffeine.version>
         <logback.version>1.2.11</logback.version>
         <servlet.version>4.0.4</servlet.version>
 
@@ -83,11 +84,22 @@
         <dependencies>
             <dependency>
                 <groupId>com.github.waffle</groupId>
+                <artifactId>waffle-jna</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.waffle</groupId>
                 <artifactId>waffle-tomcat85</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.github.ben-manes.caffeine</groupId>
+                <artifactId>caffeine</artifactId>
+                <version>${caffeine.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>com.github.waffle</groupId>
@@ -105,16 +117,6 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${logback.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.sun.mail</groupId>
-                    <artifactId>javax.mail</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>edu.washington.cs.types.checker</groupId>
-                    <artifactId>checker-framework</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
     </dependencies>
 

@@ -2,7 +2,7 @@
 
     MIT License
 
-    Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+    Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -24,11 +24,10 @@
 
 --%>
 <!DOCTYPE html>
-<html lang="en" xml:lang="en">
+<html lang="en">
 <head>
 <title>Login</title>
 </head>
-</html>
 <body>
 <form method="POST" name="loginform" action="index.jsp?j_security_check">
 <table style="vertical-align: middle;">
@@ -51,3 +50,4 @@
 	<input type="submit" value="Login w/ Current Windows Credentials" />
 </form>
 </body>
+</html>
