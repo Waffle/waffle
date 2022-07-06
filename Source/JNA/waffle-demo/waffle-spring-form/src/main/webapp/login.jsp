@@ -29,7 +29,8 @@
   <title>Login</title>
  </head>
  <body>
-  <form method="POST" action="j_spring_security_check">
+  <form method="POST" action="j_spring_security_check" accept-charset="utf-8">
+   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
    <table style="vertical-align: middle;">
     <caption>Waffle Security Logon</caption>
     <tr>
