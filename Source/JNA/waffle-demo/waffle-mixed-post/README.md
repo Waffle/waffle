@@ -18,3 +18,5 @@ To deploy using cargo plugin to tomcat 8.5.x
     http://localhost:8080/waffle-mixed-post/
 
 - Use 'admin' as logon without any password to test the mixed post
+
+TODO: First 'form' gets 'An error has occurred'
