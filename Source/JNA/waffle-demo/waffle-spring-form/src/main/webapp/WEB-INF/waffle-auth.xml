@@ -33,7 +33,8 @@
         <sec:intercept-url pattern="/login.jsp" access="IS_AUTHENTICATED_ANONYMOUSLY" />
         <sec:intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY" />
         <sec:form-login login-page="/login.jsp" login-processing-url="/j_spring_security_check"
-            default-target-url="/index.jsp" authentication-failure-url="/login.jsp?login_error=1" />
+            default-target-url="/index.jsp" authentication-failure-url="/login.jsp?login_error=1"
+            username-parameter="j_username" password-parameter="j_password" />
     </sec:http>
 
     <!-- windows authentication provider -->
