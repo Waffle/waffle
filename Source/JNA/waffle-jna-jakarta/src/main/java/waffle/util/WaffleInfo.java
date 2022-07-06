@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -352,7 +352,7 @@ public class WaffleInfo {
             final String xml = WaffleInfo.toPrettyXML(info);
             final File f;
             if (show) {
-                f = File.createTempFile("waffle-info-", ".xml");
+                f = Files.createTempFile("waffle-info-", ".xml").toFile();
                 Files.write(f.toPath(), xml.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
                 Desktop.getDesktop().open(f);
             } else {
