@@ -19,4 +19,4 @@ To deploy using cargo plugin to tomcat 8.5.x
 
 - Use 'admin' as logon without any password to test the mixed
 
-TODO: Need to figure out service loader portion as it will be in 2 classloaders and errors out
+TODO: First 'form' gets 'An error has occurred'
