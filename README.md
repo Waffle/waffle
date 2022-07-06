@@ -28,7 +28,7 @@ Sites
 Essentials
 ----------
 
-* [Download Version 2.3.0](https://github.com/Waffle/waffle/releases/download/waffle-parent-2.3.0/Waffle-2.3.0.zip)
+* [Download Version 3.1.1](https://github.com/Waffle/waffle/releases/download/waffle-parent-3.1.1/Waffle-3.1.1.zip)
 * [Waffle in Maven Central](https://search.maven.org/search?q=waffle)
 * [Waffle Snapshots](https://oss.sonatype.org/content/repositories/snapshots/com/github/waffle/)
 * [Get Waffle To Work in Tomcat, Jetty, WebSphere, etc.](Docs/ServletSingleSignOnSecurityFilter.md)
@@ -71,6 +71,10 @@ WAFFLE uses the latest version of JNA, which may conflict with other dependencie
 * Listing WAFFLE earlier (or first) in your dependency list 
 * Specifying the most recent version of JNA as a dependency
 * If you are using a parent (e.g., Spring Boot) that includes JNA as a dependency, override the `jna.version` property
+
+Demos
+-----
+WAFFLE packages serveral demos.  When building from the source, you can use ```mvn cargo:run``` to bring any of the demos up.  See further README documentation in each demo.  Additionally demos are documented in various states in documentation.  This area does need some user help so feel free to contribute.
 
 Related and Similar Products
 ----------------------------
