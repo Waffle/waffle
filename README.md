@@ -74,7 +74,7 @@ WAFFLE uses the latest version of JNA, which may conflict with other dependencie
 
 Demos
 -----
-WAFFLE packages serveral demos.  When building from the source, you can use ```mvn cargo:run``` to bring any of the demos up.  See further README documentation in each demo.  Additionally demos are documented in various states in documentation.  This area does need some user help so feel free to contribute.
+WAFFLE packages serveral demos.  When building from the source, you can use ```mvn cargo:run``` to bring any of the demos up.  See further README documentation in each demo (and what doesn't quite work).  Additionally demos are documented in various states in documentation.  This area does need some user help so feel free to contribute.
 
 Related and Similar Products
 ----------------------------
