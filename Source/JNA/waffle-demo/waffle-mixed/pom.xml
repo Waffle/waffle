@@ -56,8 +56,18 @@
     <dependencies>
         <dependency>
             <groupId>com.github.waffle</groupId>
+            <artifactId>waffle-jna</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.waffle</groupId>
             <artifactId>waffle-tomcat85</artifactId>
-            <scope>compile</scope>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
