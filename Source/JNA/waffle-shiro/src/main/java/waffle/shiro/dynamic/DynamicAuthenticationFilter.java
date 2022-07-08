@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -198,6 +198,7 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
      *
      * @param request
      *            the request
+     *
      * @return true, if is auth type negotiate
      */
     boolean isAuthTypeNegotiate(final ServletRequest request) {

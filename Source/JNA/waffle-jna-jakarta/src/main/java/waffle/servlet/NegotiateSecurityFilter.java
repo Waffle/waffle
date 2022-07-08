@@ -259,7 +259,9 @@ public class NegotiateSecurityFilter implements Filter {
      *            HTTP response.
      * @param chain
      *            Filter chain.
+     *
      * @return True if a user already authenticated.
+     *
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      * @throws ServletException

@@ -54,6 +54,7 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  * A Java Security login module for Windows authentication.
  *
  * @author dblock[at]dblock[dot]org
+ *
  * @see javax.security.auth.spi.LoginModule
  */
 public class WindowsLoginModule implements LoginModule {
@@ -111,6 +112,7 @@ public class WindowsLoginModule implements LoginModule {
      * Use Windows SSPI to authenticate a username with a password.
      *
      * @return true, if successful
+     *
      * @throws LoginException
      *             the login exception
      */
@@ -183,6 +185,7 @@ public class WindowsLoginModule implements LoginModule {
      * Abort a login process.
      *
      * @return true, if successful
+     *
      * @throws LoginException
      *             the login exception
      */
@@ -195,6 +198,7 @@ public class WindowsLoginModule implements LoginModule {
      * Commit principals to the subject.
      *
      * @return true, if successful
+     *
      * @throws LoginException
      *             the login exception
      */
@@ -226,6 +230,7 @@ public class WindowsLoginModule implements LoginModule {
      * Logout a user.
      *
      * @return true, if successful
+     *
      * @throws LoginException
      *             the login exception
      */
@@ -279,6 +284,7 @@ public class WindowsLoginModule implements LoginModule {
      *            Windows identity.
      * @param principalFormat
      *            Principal format.
+     *
      * @return A list of user principal objects.
      */
     private static List<Principal> getUserPrincipals(final IWindowsIdentity windowsIdentity,
@@ -310,6 +316,7 @@ public class WindowsLoginModule implements LoginModule {
      *            Windows group.
      * @param principalFormat
      *            Principal format.
+     *
      * @return List of role principal objects.
      */
     private static List<Principal> getRolePrincipals(final IWindowsAccount group,

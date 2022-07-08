@@ -111,6 +111,7 @@ public class WaffleAutoConfiguration {
      *            the default granted authority
      * @param grantedAuthorityFactory
      *            the granted authority factory
+     *
      * @return the windows authentication provider
      */
     @Bean
@@ -135,6 +136,7 @@ public class WaffleAutoConfiguration {
      *
      * @param windowsAuthProvider
      *            the windows auth provider
+     *
      * @return the negotiate security filter provider
      */
     @Bean
@@ -153,6 +155,7 @@ public class WaffleAutoConfiguration {
      *
      * @param windowsAuthProvider
      *            the windows auth provider
+     *
      * @return the basic security filter provider
      */
     @Bean
@@ -170,6 +173,7 @@ public class WaffleAutoConfiguration {
      *            the negotiate provider
      * @param basicProvider
      *            the basic provider
+     *
      * @return the security filter provider collection
      */
     @Bean
@@ -192,6 +196,7 @@ public class WaffleAutoConfiguration {
      *
      * @param providers
      *            the providers
+     *
      * @return the negotiate security filter entry point
      */
     @Bean
@@ -214,6 +219,7 @@ public class WaffleAutoConfiguration {
      *            the default granted authority
      * @param grantedAuthorityFactory
      *            the granted authority factory
+     *
      * @return the negotiate security filter
      */
     @Bean
@@ -240,6 +246,7 @@ public class WaffleAutoConfiguration {
      *
      * @param filter
      *            The filter that we will be disabling from auto registration.
+     *
      * @return the filter registration bean
      */
     @Bean

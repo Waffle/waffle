@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -61,6 +61,7 @@ import waffle.util.NtlmServletRequest;
  * single-sign-on
  *
  * @author Dan Rollo
+ *
  * @since 1.0.0
  */
 public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
@@ -228,6 +229,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      *
      * @param request
      *            incoming ServletRequest
+     *
      * @return true if the incoming request is an attempt to log in based, false otherwise
      */
     private boolean isLoginAttempt(final ServletRequest request) {
@@ -246,6 +248,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      *
      * @param request
      *            the incoming <code>ServletRequest</code>
+     *
      * @return the <code>Authorization</code> header's value.
      */
     private String getAuthzHeader(final ServletRequest request) {
@@ -258,6 +261,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      *
      * @param request
      *            the request
+     *
      * @return the authz header protocol
      */
     private String getAuthzHeaderProtocol(final ServletRequest request) {
@@ -273,6 +277,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      * @param authzHeader
      *            the 'Authorization' header value (guaranteed to be non-null if the
      *            {@link #isLoginAttempt(javax.servlet.ServletRequest)} method is not overriden).
+     *
      * @return <code>true</code> if the authzHeader value matches any of the configured protocols (Negotiate or NTLM).
      */
     boolean isLoginAttempt(final String authzHeader) {
@@ -292,7 +297,6 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      * @param protocols
      *            protocols for which to send a challenge. In initial cases, will be all supported protocols. In the
      *            midst of negotiation, will be only the protocol being negotiated.
-     *
      * @param response
      *            outgoing ServletResponse
      * @param out

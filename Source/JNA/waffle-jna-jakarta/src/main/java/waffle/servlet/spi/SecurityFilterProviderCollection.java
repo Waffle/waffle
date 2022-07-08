@@ -113,6 +113,7 @@ public class SecurityFilterProviderCollection {
      *
      * @param securityPackage
      *            Security package.
+     *
      * @return True if the security package is supported, false otherwise.
      */
     public boolean isSecurityPackageSupported(final String securityPackage) {
@@ -124,6 +125,7 @@ public class SecurityFilterProviderCollection {
      *
      * @param securityPackage
      *            the security package
+     *
      * @return the security filter provider
      */
     private SecurityFilterProvider get(final String securityPackage) {
@@ -142,7 +144,9 @@ public class SecurityFilterProviderCollection {
      *            Http Request
      * @param response
      *            Http Response
+     *
      * @return Windows Identity or NULL.
+     *
      * @throws IOException
      *             on doFilter.
      */
@@ -165,6 +169,7 @@ public class SecurityFilterProviderCollection {
      *
      * @param request
      *            Http Request
+     *
      * @return True if authentication is required.
      */
     public boolean isPrincipalException(final HttpServletRequest request) {
@@ -202,7 +207,9 @@ public class SecurityFilterProviderCollection {
      *
      * @param name
      *            Class name.
+     *
      * @return A security provider instance.
+     *
      * @throws ClassNotFoundException
      *             when class not found.
      */

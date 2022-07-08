@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -99,7 +99,9 @@ class WaffleInfoServletTest {
      *
      * @param xml
      *            the xml
+     *
      * @return the document
+     *
      * @throws ParserConfigurationException
      *             the parser configuration exception
      * @throws SAXException

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -45,6 +45,7 @@ import org.apache.shiro.realm.Realm;
  * now, the most reliable approach is to use this strategy.
  *
  * @author Dan Rollo Date: 3/18/13 Time: 3:31 PM
+ *
  * @see NegotiateAuthenticationStrategy#afterAttempt(org.apache.shiro.realm.Realm,
  *      org.apache.shiro.authc.AuthenticationToken, org.apache.shiro.authc.AuthenticationInfo,
  *      org.apache.shiro.authc.AuthenticationInfo, Throwable)

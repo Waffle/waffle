@@ -59,6 +59,7 @@ public final class CorsPreFlightCheck {
      *
      * @param request
      *            the request
+     *
      * @return true, if is preflight
      */
     public static boolean isPreflight(final HttpServletRequest request) {

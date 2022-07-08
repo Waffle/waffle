@@ -120,6 +120,7 @@ public class WaffleInfoServlet extends HttpServlet {
      *            the doc
      * @param request
      *            the request
+     *
      * @return the request info
      */
     private Element getRequestInfo(final Document doc, final HttpServletRequest request) {

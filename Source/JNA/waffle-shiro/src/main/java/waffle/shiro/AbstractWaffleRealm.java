@@ -95,6 +95,7 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
      *            the token
      * @param principal
      *            the principal
+     *
      * @return the authentication info
      */
     private AuthenticationInfo buildAuthenticationInfo(final UsernamePasswordToken token, final Object principal) {
@@ -122,6 +123,7 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
      *
      * @param principal
      *            the principal for which to assemble authorization information
+     *
      * @return the authorization information for the specified principal
      */
     protected abstract AuthorizationInfo buildAuthorizationInfo(final WaffleFqnPrincipal principal);

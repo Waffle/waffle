@@ -92,7 +92,6 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  *   java -cp "..." waffle.util.WaffleInfo -lookup AccountName
  * </code>
  * </pre>
- *
  */
 public class WaffleInfo {
 
@@ -145,6 +144,7 @@ public class WaffleInfo {
      *
      * @param doc
      *            the doc
+     *
      * @return the auth provider info
      */
     protected Element getAuthProviderInfo(final Document doc) {
@@ -247,6 +247,7 @@ public class WaffleInfo {
      *            the doc
      * @param lookup
      *            the lookup
+     *
      * @return the lookup info
      */
     public Element getLookupInfo(final Document doc, final String lookup) {
@@ -268,6 +269,7 @@ public class WaffleInfo {
      *            the doc
      * @param t
      *            the t
+     *
      * @return the exception
      */
     public static Element getException(final Document doc, final Exception t) {
@@ -291,7 +293,9 @@ public class WaffleInfo {
      *
      * @param doc
      *            the doc
+     *
      * @return the string
+     *
      * @throws TransformerException
      *             the transformer exception
      */
