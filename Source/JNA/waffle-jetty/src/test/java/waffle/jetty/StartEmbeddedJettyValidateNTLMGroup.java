@@ -51,9 +51,9 @@ import waffle.servlet.WindowsPrincipal;
 import waffle.windows.auth.WindowsAccount;
 
 /**
- * A simple embedded server that lets us run directly within Eclipse with added group validation
- *
- * Browse to http://localhost:8080/ to test.
+ * A simple embedded server that lets us run directly within Eclipse with added group validation.
+ * <p>
+ * Browse to <code>http://localhost:8080/</code> to test.
  */
 public class StartEmbeddedJettyValidateNTLMGroup {
 

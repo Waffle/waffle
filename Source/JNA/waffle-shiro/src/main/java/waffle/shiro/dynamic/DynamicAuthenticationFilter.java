@@ -39,13 +39,13 @@ import waffle.shiro.negotiate.NegotiateAuthenticationFilter;
  * allow a client to choose which authentication filter is used at runtime. This filter assumes the shiro.ini is
  * configured with both the {@link waffle.shiro.negotiate.NegotiateAuthenticationRealm} and some User/Password Realm
  * like: {@link waffle.shiro.GroupMappingWaffleRealm}.
- *
+ * <p>
  * Requires use of {@link waffle.shiro.negotiate.NegotiateAuthenticationStrategy} when more than one realm is configured
  * in shiro.ini (which should be the case for multiple authentication type options).
- *
+ * <p>
  * To use {@link waffle.shiro.negotiate.NegotiateAuthenticationRealm}, the client must pass the parameter
  * {@link #PARAM_NAME_AUTHTYPE} with a value of {@link #PARAM_VAL_AUTHTYPE_NEGOTIATE}.
- *
+ * <p>
  * Example shiro.ini snippet below:
  *
  * <pre>
@@ -94,7 +94,6 @@ import waffle.shiro.negotiate.NegotiateAuthenticationFilter;
  *  # The 'urls' section is used for url-based security
  *  /logout = logout
  *  /* = waffleFilter
- *
  * </pre>
  *
  * @author Dan Rollo Date: 2/21/13 Time: 9:08 PM
@@ -180,7 +179,7 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
      * Call
      * {@link org.apache.shiro.web.filter.AccessControlFilter#onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse)}
      * for the user selected authentication type, which performs login logic.
-     *
+     * <p>
      * {@inheritDoc}
      */
     @Override

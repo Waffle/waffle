@@ -43,7 +43,7 @@ public interface Cache<K, V> {
 
     /**
      * Creates a new cache with the specified timeout.
-     *
+     * <p>
      * The cache implementation is obtained using {@link ServiceLoader}. To create your own implementation, implement
      * {@link CacheSupplier} and register it using the {@code /META-INF/services/waffle.util.cache.CacheSupplier} file
      * on your classpath.

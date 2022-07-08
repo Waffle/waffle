@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -41,23 +41,20 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 /**
- *
- * <p>
  * Supports optional injection of spring security entities, allowing Waffle to act as an interface towards an identity
  * provider(the AD).
- * </p>
- *
+ * <p>
  * <i>Below mentioned entities are verified to be set before invoked, inherited entities are not.</i>
- *
+ * <p>
  * <ul>
  * <li>The <code>AuthenticationManager</code> allows for the service provider to authorize the principal.</li>
- *
+ * <p>
  * <li>The <code>authenticationSuccessHandler</code> allows for the service provider to further populate the
  * {@link org.springframework.security.core.Authentication Authentication} object.</li>
- *
+ * <p>
  * <li>The <code>AuthenticationFailureHandler</code> is called if the AuthenticationManager throws an
  * {@link org.springframework.security.core.AuthenticationException AuthenticationException}.</li>
- *
+ * <p>
  * <li>The <code>AccessDeniedHandler</code> is called if the AuthenticationManager throws an
  * {@link org.springframework.security.access.AccessDeniedException AccessDeniedException}.</li>
  * </ul>

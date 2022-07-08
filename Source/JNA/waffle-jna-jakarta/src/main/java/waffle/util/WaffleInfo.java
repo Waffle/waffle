@@ -99,8 +99,8 @@ public class WaffleInfo {
     private static final Logger LOGGER = LoggerFactory.getLogger(WaffleInfo.class);
 
     /**
-     * Get a Document with basic system information
-     *
+     * Get a Document with basic system information.
+     * <p>
      * This uses the builtin jakarta.xml package even though the API is quite verbose
      *
      * @return Document with waffle info.
