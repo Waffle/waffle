@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -181,7 +181,7 @@ class DelegatingNegotiateSecurityFilterTest {
 
 /**
  * Provides a basic implementation that simply stores the provided Authentication so it can be checked for testing.
- *
+ * <p>
  * Class declared here rather than in the general handlers package because it should NOT be added to the overall filter
  * configuration, but only to the specific filter instance testing its use.
  */

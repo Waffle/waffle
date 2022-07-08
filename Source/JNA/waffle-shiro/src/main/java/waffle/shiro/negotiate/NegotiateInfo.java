@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,12 +31,13 @@ import org.apache.shiro.subject.SimplePrincipalCollection;
 
 /**
  * Information about a user authenticated via the HTTP Negotiate authentication mechanism.
- *
+ * <p>
  * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateToken. see:
  * https://bitbucket.org/lothor/shiro-negotiate
  * /src/7b25efde130b/src/main/java/net/skorgenes/security/jsecurity/negotiate/NegotiateInfo.java?at=default
  *
  * @author Dan Rollo
+ *
  * @since 1.0.0
  */
 public class NegotiateInfo implements AuthenticationInfo {

@@ -283,6 +283,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      *
      * @param windowsIdentity
      *            the windows identity to initialize the principal
+     *
      * @return the Generic Principal
      */
     protected GenericPrincipal createPrincipal(final IWindowsIdentity windowsIdentity) {

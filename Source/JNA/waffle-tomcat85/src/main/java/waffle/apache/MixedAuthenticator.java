@@ -136,6 +136,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
      *            the response
      * @param authorizationHeader
      *            the authorization header
+     *
      * @return true, if successful
      */
     private boolean negotiate(final Request request, final HttpServletResponse response,
@@ -231,6 +232,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
      *            the request
      * @param response
      *            the response
+     *
      * @return true, if successful
      */
     private boolean post(final Request request, final HttpServletResponse response) {

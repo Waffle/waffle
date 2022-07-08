@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -46,6 +46,7 @@ import org.apache.shiro.authc.RememberMeAuthenticationToken;
  * An authentication token wrapping a Waffle Negotiate token.
  *
  * @author Dan Rollo
+ *
  * @since 1.0.0
  */
 public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthenticationToken {
@@ -224,6 +225,7 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
      *
      * @return <code>true</code> if the submitting user wishes their identity (principal(s)) to be remembered across
      *         sessions, <code>false</code> otherwise (<code>false</code> by default).
+     *
      * @since 0.9
      */
     @Override
@@ -235,7 +237,6 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
      * Returns the host name or IP string from where the authentication attempt occurs. May be <code>null</code> if the
      * host name/IP is unknown or explicitly omitted. It is up to the Authenticator implementation processing this token
      * if an authentication attempt without a host is valid or not.
-     *
      * <p>
      * (Shiro's default Authenticator allows <code>null</code> hosts to support localhost and proxy server
      * environments).
@@ -243,6 +244,7 @@ public class NegotiateToken implements HostAuthenticationToken, RememberMeAuthen
      *
      * @return the host from where the authentication attempt occurs, or <code>null</code> if it is unknown or
      *         explicitly omitted.
+     *
      * @since 1.0
      */
     @Override

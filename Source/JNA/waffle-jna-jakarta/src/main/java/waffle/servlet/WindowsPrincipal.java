@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -102,6 +102,7 @@ public class WindowsPrincipal implements Principal, Serializable {
      *            the principal format
      * @param roleFormat
      *            the role format
+     *
      * @return the roles
      */
     private static List<String> getRoles(final IWindowsIdentity windowsIdentity, final PrincipalFormat principalFormat,
@@ -119,6 +120,7 @@ public class WindowsPrincipal implements Principal, Serializable {
      *
      * @param groups
      *            the groups
+     *
      * @return the groups
      */
     private static Map<String, WindowsAccount> getGroups(final IWindowsAccount[] groups) {
@@ -163,6 +165,7 @@ public class WindowsPrincipal implements Principal, Serializable {
      *            Windows group.
      * @param principalFormat
      *            Principal format.
+     *
      * @return List of role principal objects.
      */
     private static List<String> getRoleNames(final IWindowsAccount group, final PrincipalFormat principalFormat) {
@@ -192,6 +195,7 @@ public class WindowsPrincipal implements Principal, Serializable {
      *            Windows identity.
      * @param principalFormat
      *            Principal format.
+     *
      * @return A list of user principal objects.
      */
     private static List<String> getPrincipalNames(final IWindowsIdentity windowsIdentity,
@@ -229,6 +233,7 @@ public class WindowsPrincipal implements Principal, Serializable {
      *
      * @param role
      *            Role name.
+     *
      * @return True if the principal has a role, false otherwise.
      */
     public boolean hasRole(final String role) {

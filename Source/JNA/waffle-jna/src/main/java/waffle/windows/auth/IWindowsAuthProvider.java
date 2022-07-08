@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -38,6 +38,7 @@ public interface IWindowsAuthProvider {
      *            A string that specifies the name of the user in the UPN format.
      * @param password
      *            A string that specifies the plaintext password for the user account specified by username.
+     *
      * @return Windows identity.
      */
     IWindowsIdentity logonUser(final String username, final String password);
@@ -55,6 +56,7 @@ public interface IWindowsAuthProvider {
      *            is ".", the function validates the account by using only the local account database.
      * @param password
      *            A string that specifies the plaintext password for the user account specified by username.
+     *
      * @return Windows identity.
      */
     IWindowsIdentity logonDomainUser(final String username, final String domain, final String password);
@@ -77,6 +79,7 @@ public interface IWindowsAuthProvider {
      *            The type of logon operation to perform.
      * @param logonProvider
      *            Specifies the logon provider.
+     *
      * @return Windows identity.
      */
     IWindowsIdentity logonDomainUserEx(final String username, final String domain, final String password,
@@ -88,6 +91,7 @@ public interface IWindowsAuthProvider {
      *
      * @param username
      *            Fully qualified or partial username.
+     *
      * @return Windows account.
      */
     IWindowsAccount lookupAccount(final String username);
@@ -119,6 +123,7 @@ public interface IWindowsAuthProvider {
      *            The name of the security package to use. Can be any security package supported by both the client and
      *            the server. This is usually set to "Negotiate" which will use SPNEGO to determine which security
      *            package to use. Other common values are "Kerberos" and "NTLM".
+     *
      * @return Windows account.
      */
     IWindowsSecurityContext acceptSecurityToken(final String connectionId, final byte[] token,

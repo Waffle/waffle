@@ -74,8 +74,13 @@ public class AuthorizationHeader {
 
     /**
      * Returns a supported security package string.
+     * <p>
      *
-     * Authorization: NTLM the_token Authorization: Negotiate the_token Authorization: Bearer the_token
+     * <pre>
+     * Authorization: NTLM the_token
+     * Authorization: Negotiate the_token
+     * Authorization: Bearer the_token
+     * </pre>
      *
      * @return AuthenticationScheme as SecurityPackage e.g. Negotiate, NTLM, Bearer.
      */

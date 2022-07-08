@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -43,15 +43,7 @@ import org.junit.jupiter.api.Test;
 import waffle.util.CorsPreFlightCheck;
 
 /**
- * Waffle (https://github.com/Waffle/waffle)
- *
- * Copyright (c) 2010-2018 Application Security, Inc.
- *
- * All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse
- * Public License v1.0 which accompanies this distribution, and is available at
- * https://www.eclipse.org/legal/epl-v10.html.
- *
- * Contributors: Application Security, Inc.
+ * Negotiate Security Filter Test.
  */
 class NegotiateSecurityFilterTest {
 
@@ -83,6 +75,7 @@ class NegotiateSecurityFilterTest {
      *
      * @param filterConfig
      *            the filter config
+     *
      * @throws Exception
      *             the exception
      */
@@ -146,6 +139,7 @@ class NegotiateSecurityFilterTest {
      *            the chain
      * @param filterConfig
      *            the filter config
+     *
      * @throws Exception
      *             the exception
      */

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,10 +27,11 @@ import org.apache.shiro.authc.AuthenticationException;
 
 /**
  * Thrown when the negotiate authentication is being established and requires an extra roundtrip to the client.
- *
+ * <p>
  * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateAuthenticationFilter.
  *
  * @author Dan Rollo
+ *
  * @since 1.0.0
  */
 public class AuthenticationInProgressException extends AuthenticationException {

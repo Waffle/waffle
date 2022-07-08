@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -62,7 +62,9 @@ public class GroupMappingWaffleRealm extends AbstractWaffleRealm {
      *
      * @param groupNames
      *            the group names that apply to the current user
+     *
      * @return a collection of roles that are implied by the given role names
+     *
      * @see #setGroupRolesMap
      */
     protected Collection<String> getRoleNamesForGroups(final Collection<String> groupNames) {
@@ -82,6 +84,7 @@ public class GroupMappingWaffleRealm extends AbstractWaffleRealm {
      *
      * @param principal
      *            the principal of Subject that is being authorized
+     *
      * @return the AuthorizationInfo for the given Subject principal
      *
      * @see #setGroupRolesMap

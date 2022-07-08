@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -35,6 +35,7 @@ import java.util.ServiceLoader;
  *            the type of mapped values
  *
  * @author Simon Legner
+ *
  * @see <a href="https://github.com/Waffle/waffle/blob/master/Docs/CustomCache.md">Can I provide a custom cache
  *      implementation?</a>
  */
@@ -42,7 +43,7 @@ public interface Cache<K, V> {
 
     /**
      * Creates a new cache with the specified timeout.
-     *
+     * <p>
      * The cache implementation is obtained using {@link ServiceLoader}. To create your own implementation, implement
      * {@link CacheSupplier} and register it using the {@code /META-INF/services/waffle.util.cache.CacheSupplier} file
      * on your classpath.
@@ -53,7 +54,9 @@ public interface Cache<K, V> {
      *            the type of keys maintained by this cache
      * @param <V>
      *            the type of mapped values
+     *
      * @return a new cache
+     *
      * @throws NoSuchElementException
      *             if no cache can be instantiated, use {@link Exception#getSuppressed()} to obtain details.
      */
@@ -74,7 +77,9 @@ public interface Cache<K, V> {
      *
      * @param key
      *            the key
+     *
      * @return the corresponding value
+     *
      * @see java.util.Map#get
      */
     V get(K key);
@@ -86,6 +91,7 @@ public interface Cache<K, V> {
      *            the key
      * @param value
      *            the value
+     *
      * @see java.util.Map#put
      */
     void put(K key, V value);
@@ -95,6 +101,7 @@ public interface Cache<K, V> {
      *
      * @param key
      *            the key
+     *
      * @see java.util.Map#remove(Object)
      */
     void remove(K key);
@@ -103,6 +110,7 @@ public interface Cache<K, V> {
      * Returns the number of bindings in this cache
      *
      * @return the size
+     *
      * @see java.util.Map#size
      */
     int size();
