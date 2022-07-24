@@ -197,7 +197,7 @@
         <gpg.plugin>3.0.1</gpg.plugin>
         <htmlcompressor.plugin>1.7.3</htmlcompressor.plugin>
         <impsort.plugin>1.7.0</impsort.plugin>
-        <install.plugin>3.0.0</install.plugin>
+        <install.plugin>3.0.1</install.plugin>
         <jacoco.plugin>0.8.8</jacoco.plugin>
         <jar.plugin>3.2.2</jar.plugin>
         <javadoc.plugin>3.4.0</javadoc.plugin>
