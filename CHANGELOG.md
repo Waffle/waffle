@@ -1,4 +1,4 @@
-3.2.0 (6/26/2022)
+3.2.0 (7/24/2022)
 =================
 * Drop Tomcat 7 support as end of life
 * General Build Updates
