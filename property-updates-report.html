@@ -102,7 +102,7 @@
           <ul class="breadcrumb">
         <li id="publishDate">Last Published: 2022-07-24<span class="divider">|</span>
 </li>
-          <li id="projectVersion">Version: 3.2.0-SNAPSHOT</li>
+          <li id="projectVersion">Version: 3.2.0</li>
           </ul>
         </div>
       </header>
@@ -565,12 +565,12 @@
 <td></td>
 <td></td></tr>
 <tr class="a">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td><img src="images/icon_warning_sml.gif" alt="" /></td>
 <td>${scm.plugin}</td>
 <td>1.13.0</td>
 <td></td>
 <td></td>
-<td></td>
+<td><b>2.0.0-M1</b></td>
 <td></td></tr>
 <tr class="b">
 <td><img src="images/icon_warning_sml.gif" alt="" /></td>
@@ -581,12 +581,12 @@
 <td><b>2.0.0-M1</b></td>
 <td></td></tr>
 <tr class="a">
-<td><img src="images/icon_warning_sml.gif" alt="" /></td>
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
 <td>${site.plugin}</td>
 <td>3.12.0</td>
 <td></td>
 <td></td>
-<td><b>4.0.0-M2</b></td>
+<td></td>
 <td></td></tr>
 <tr class="b">
 <td><img src="images/icon_warning_sml.gif" alt="" /></td>
@@ -2115,7 +2115,7 @@
 <table border="0" class="table table-striped">
 <tr class="a">
 <th width="80%">Status</th>
-<td align="left"><img src="images/icon_success_sml.gif" alt="" />&#160;No newer versions available.</td></tr>
+<td align="left"><img src="images/icon_warning_sml.gif" alt="" />&#160;There is at least one newer minor version available. Minor updates are sometimes passive.</td></tr>
 <tr class="b">
 <th width="80%">Property</th>
 <td align="left">${scm.plugin}</td></tr>
@@ -2126,18 +2126,21 @@
 <th width="80%">Current Version</th>
 <td align="left">1.13.0</td></tr>
 <tr class="a">
+<th width="80%">Newer versions</th>
+<td align="left"><b>2.0.0-M1</b>&#160;<i>Next Minor</i></td></tr>
+<tr class="b">
 <th width="80%">Allowed version range</th>
 <td align="left">[,)</td></tr>
-<tr class="b">
+<tr class="a">
 <th width="80%">Infer associations from project</th>
 <td align="left">Yes</td></tr>
-<tr class="a">
+<tr class="b">
 <th width="80%">Only use release versions</th>
 <td align="left">No</td></tr>
-<tr class="b">
+<tr class="a">
 <th width="80%">Include projects from reactor</th>
 <td align="left">Yes</td></tr>
-<tr class="a">
+<tr class="b">
 <th width="80%">Always use reactor projects (even if older or -SNAPSHOT)</th>
 <td align="left">Yes</td></tr></table></section><section>
 <h3><a name="a.24.7Bscm.version"></a>${scm.version</h3>
@@ -2176,7 +2179,7 @@
 <table border="0" class="table table-striped">
 <tr class="a">
 <th width="80%">Status</th>
-<td align="left"><img src="images/icon_warning_sml.gif" alt="" />&#160;There is at least one newer minor version available. Minor updates are sometimes passive.</td></tr>
+<td align="left"><img src="images/icon_success_sml.gif" alt="" />&#160;No newer versions available.</td></tr>
 <tr class="b">
 <th width="80%">Property</th>
 <td align="left">${site.plugin}</td></tr>
@@ -2187,21 +2190,18 @@
 <th width="80%">Current Version</th>
 <td align="left">3.12.0</td></tr>
 <tr class="a">
-<th width="80%">Newer versions</th>
-<td align="left"><b>4.0.0-M1</b>&#160;<i>Next Minor</i><br /><b>4.0.0-M2</b>&#160;<i>Latest Minor</i></td></tr>
-<tr class="b">
 <th width="80%">Allowed version range</th>
 <td align="left">[,)</td></tr>
-<tr class="a">
+<tr class="b">
 <th width="80%">Infer associations from project</th>
 <td align="left">Yes</td></tr>
-<tr class="b">
+<tr class="a">
 <th width="80%">Only use release versions</th>
 <td align="left">No</td></tr>
-<tr class="a">
+<tr class="b">
 <th width="80%">Include projects from reactor</th>
 <td align="left">Yes</td></tr>
-<tr class="b">
+<tr class="a">
 <th width="80%">Always use reactor projects (even if older or -SNAPSHOT)</th>
 <td align="left">Yes</td></tr></table></section><section>
 <h3><a name="a.24.7Bslf4j.version"></a>${slf4j.version</h3>
