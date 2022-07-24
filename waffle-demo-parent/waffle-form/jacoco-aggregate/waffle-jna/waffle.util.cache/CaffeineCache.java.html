@@ -50,9 +50,9 @@ public class CaffeineCache&lt;K, V&gt; implements Cache&lt;K, V&gt; {
      * @param timeout
      *            Specified timeout in seconds for cache.
      */
-<span class="nc" id="L53">    public CaffeineCache(@NonNegative final long timeout) {</span>
-<span class="nc" id="L54">        cache = Caffeine.newBuilder().expireAfterWrite(Duration.ofSeconds(timeout)).build();</span>
-<span class="nc" id="L55">    }</span>
+<span class="fc" id="L53">    public CaffeineCache(@NonNegative final long timeout) {</span>
+<span class="fc" id="L54">        cache = Caffeine.newBuilder().expireAfterWrite(Duration.ofSeconds(timeout)).build();</span>
+<span class="fc" id="L55">    }</span>
 
     @Override
     public V get(K key) {

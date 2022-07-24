@@ -43,7 +43,7 @@ import waffle.windows.auth.IWindowsSecurityContext;
  *
  * @author dblock[at]dblock[dot]org
  */
-<span class="nc" id="L46">public class WindowsSecurityContextImpl implements IWindowsSecurityContext {</span>
+<span class="fc" id="L46">public class WindowsSecurityContextImpl implements IWindowsSecurityContext {</span>
 
     /** The principal name. */
     private String principalName;
@@ -80,13 +80,13 @@ import waffle.windows.auth.IWindowsSecurityContext;
 
     @Override
     public String getSecurityPackage() {
-<span class="nc" id="L83">        return this.securityPackage;</span>
+<span class="fc" id="L83">        return this.securityPackage;</span>
     }
 
     @Override
     public byte[] getToken() {
-<span class="nc bnc" id="L88" title="All 4 branches missed.">        return this.token == null || this.token.getBuffer(0).getBytes() == null ? null</span>
-<span class="nc" id="L89">                : this.token.getBuffer(0).getBytes().clone();</span>
+<span class="pc bpc" id="L88" title="2 of 4 branches missed.">        return this.token == null || this.token.getBuffer(0).getBytes() == null ? null</span>
+<span class="fc" id="L89">                : this.token.getBuffer(0).getBytes().clone();</span>
     }
 
     /**
@@ -100,22 +100,22 @@ import waffle.windows.auth.IWindowsSecurityContext;
      * @return Windows security context.
      */
     public static IWindowsSecurityContext getCurrent(final String securityPackage, final String targetName) {
-<span class="nc" id="L103">        IWindowsCredentialsHandle credentialsHandle = WindowsCredentialsHandleImpl.getCurrent(securityPackage);</span>
-<span class="nc" id="L104">        credentialsHandle.initialize();</span>
+<span class="fc" id="L103">        IWindowsCredentialsHandle credentialsHandle = WindowsCredentialsHandleImpl.getCurrent(securityPackage);</span>
+<span class="fc" id="L104">        credentialsHandle.initialize();</span>
         try {
-<span class="nc" id="L106">            final WindowsSecurityContextImpl ctx = new WindowsSecurityContextImpl();</span>
-<span class="nc" id="L107">            ctx.setPrincipalName(WindowsAccountImpl.getCurrentUsername());</span>
-<span class="nc" id="L108">            ctx.setCredentialsHandle(credentialsHandle);</span>
-<span class="nc" id="L109">            ctx.setSecurityPackage(securityPackage);</span>
-<span class="nc" id="L110">            ctx.initialize(null, null, targetName);</span>
+<span class="fc" id="L106">            final WindowsSecurityContextImpl ctx = new WindowsSecurityContextImpl();</span>
+<span class="fc" id="L107">            ctx.setPrincipalName(WindowsAccountImpl.getCurrentUsername());</span>
+<span class="fc" id="L108">            ctx.setCredentialsHandle(credentialsHandle);</span>
+<span class="fc" id="L109">            ctx.setSecurityPackage(securityPackage);</span>
+<span class="fc" id="L110">            ctx.initialize(null, null, targetName);</span>
 
             // Starting from here ctx 'owns' the credentials handle, so let's null out the
             // variable. This will prevent the finally block below from disposing it right away.
-<span class="nc" id="L114">            credentialsHandle = null;</span>
+<span class="fc" id="L114">            credentialsHandle = null;</span>
 
-<span class="nc" id="L116">            return ctx;</span>
+<span class="fc" id="L116">            return ctx;</span>
         } finally {
-<span class="nc bnc" id="L118" title="All 2 branches missed.">            if (credentialsHandle != null) {</span>
+<span class="pc bpc" id="L118" title="1 of 2 branches missed.">            if (credentialsHandle != null) {</span>
 <span class="nc" id="L119">                credentialsHandle.dispose();</span>
             }
         }
@@ -123,40 +123,40 @@ import waffle.windows.auth.IWindowsSecurityContext;
 
     @Override
     public void initialize(final CtxtHandle continueCtx, final SecBufferDesc continueToken, final String targetName) {
-<span class="nc" id="L126">        final IntByReference attr = new IntByReference();</span>
-<span class="nc" id="L127">        this.ctx = new CtxtHandle();</span>
-<span class="nc" id="L128">        int tokenSize = Sspi.MAX_TOKEN_SIZE;</span>
+<span class="fc" id="L126">        final IntByReference attr = new IntByReference();</span>
+<span class="fc" id="L127">        this.ctx = new CtxtHandle();</span>
+<span class="fc" id="L128">        int tokenSize = Sspi.MAX_TOKEN_SIZE;</span>
         int rc;
         do {
-<span class="nc" id="L131">            this.token = new ManagedSecBufferDesc(Sspi.SECBUFFER_TOKEN, tokenSize);</span>
-<span class="nc" id="L132">            rc = Secur32.INSTANCE.InitializeSecurityContext(this.credentials.getHandle(), continueCtx, targetName,</span>
+<span class="fc" id="L131">            this.token = new ManagedSecBufferDesc(Sspi.SECBUFFER_TOKEN, tokenSize);</span>
+<span class="fc" id="L132">            rc = Secur32.INSTANCE.InitializeSecurityContext(this.credentials.getHandle(), continueCtx, targetName,</span>
                     Sspi.ISC_REQ_CONNECTION, 0, Sspi.SECURITY_NATIVE_DREP, continueToken, 0, this.ctx, this.token, attr,
                     null);
-<span class="nc bnc" id="L135" title="All 4 branches missed.">            switch (rc) {</span>
+<span class="pc bpc" id="L135" title="3 of 4 branches missed.">            switch (rc) {</span>
                 case WinError.SEC_E_INSUFFICIENT_MEMORY:
                 case WinError.SEC_E_BUFFER_TOO_SMALL:
 <span class="nc" id="L138">                    tokenSize += Sspi.MAX_TOKEN_SIZE;</span>
 <span class="nc" id="L139">                    break;</span>
                 case WinError.SEC_I_CONTINUE_NEEDED:
-<span class="nc" id="L141">                    this.continueFlag = true;</span>
-<span class="nc" id="L142">                    break;</span>
+<span class="fc" id="L141">                    this.continueFlag = true;</span>
+<span class="fc" id="L142">                    break;</span>
                 case WinError.SEC_E_OK:
 <span class="nc" id="L144">                    this.continueFlag = false;</span>
 <span class="nc" id="L145">                    break;</span>
                 default:
 <span class="nc" id="L147">                    throw new Win32Exception(rc);</span>
             }
-<span class="nc bnc" id="L149" title="All 4 branches missed.">        } while (rc == WinError.SEC_E_INSUFFICIENT_MEMORY || rc == WinError.SEC_E_BUFFER_TOO_SMALL);</span>
-<span class="nc" id="L150">    }</span>
+<span class="pc bpc" id="L149" title="2 of 4 branches missed.">        } while (rc == WinError.SEC_E_INSUFFICIENT_MEMORY || rc == WinError.SEC_E_BUFFER_TOO_SMALL);</span>
+<span class="fc" id="L150">    }</span>
 
     @Override
     public void dispose() {
-<span class="nc" id="L154">        WindowsSecurityContextImpl.dispose(this.ctx);</span>
+<span class="fc" id="L154">        WindowsSecurityContextImpl.dispose(this.ctx);</span>
 
-<span class="nc bnc" id="L156" title="All 2 branches missed.">        if (this.credentials != null) {</span>
-<span class="nc" id="L157">            this.credentials.dispose();</span>
+<span class="pc bpc" id="L156" title="1 of 2 branches missed.">        if (this.credentials != null) {</span>
+<span class="fc" id="L157">            this.credentials.dispose();</span>
         }
-<span class="nc" id="L159">    }</span>
+<span class="fc" id="L159">    }</span>
 
     /**
      * Dispose a security context.
@@ -167,12 +167,12 @@ import waffle.windows.auth.IWindowsSecurityContext;
      * @return True if a context was disposed.
      */
     public static boolean dispose(final CtxtHandle ctx) {
-<span class="nc bnc" id="L170" title="All 4 branches missed.">        if (ctx != null &amp;&amp; !ctx.isNull()) {</span>
-<span class="nc" id="L171">            final int rc = Secur32.INSTANCE.DeleteSecurityContext(ctx);</span>
-<span class="nc bnc" id="L172" title="All 2 branches missed.">            if (WinError.SEC_E_OK != rc) {</span>
+<span class="pc bpc" id="L170" title="2 of 4 branches missed.">        if (ctx != null &amp;&amp; !ctx.isNull()) {</span>
+<span class="fc" id="L171">            final int rc = Secur32.INSTANCE.DeleteSecurityContext(ctx);</span>
+<span class="pc bpc" id="L172" title="1 of 2 branches missed.">            if (WinError.SEC_E_OK != rc) {</span>
 <span class="nc" id="L173">                throw new Win32Exception(rc);</span>
             }
-<span class="nc" id="L175">            return true;</span>
+<span class="fc" id="L175">            return true;</span>
         }
 <span class="nc" id="L177">        return false;</span>
     }
@@ -189,8 +189,8 @@ import waffle.windows.auth.IWindowsSecurityContext;
      *            the new principal name
      */
     public void setPrincipalName(final String value) {
-<span class="nc" id="L192">        this.principalName = value;</span>
-<span class="nc" id="L193">    }</span>
+<span class="fc" id="L192">        this.principalName = value;</span>
+<span class="fc" id="L193">    }</span>
 
     @Override
     public CtxtHandle getHandle() {
@@ -204,8 +204,8 @@ import waffle.windows.auth.IWindowsSecurityContext;
      *            the new credentials handle
      */
     public void setCredentialsHandle(final IWindowsCredentialsHandle handle) {
-<span class="nc" id="L207">        this.credentials = handle;</span>
-<span class="nc" id="L208">    }</span>
+<span class="fc" id="L207">        this.credentials = handle;</span>
+<span class="fc" id="L208">    }</span>
 
     /**
      * Sets the token.
@@ -224,8 +224,8 @@ import waffle.windows.auth.IWindowsSecurityContext;
      *            the new security package
      */
     public void setSecurityPackage(final String value) {
-<span class="nc" id="L227">        this.securityPackage = value;</span>
-<span class="nc" id="L228">    }</span>
+<span class="fc" id="L227">        this.securityPackage = value;</span>
+<span class="fc" id="L228">    }</span>
 
     /**
      * Sets the security context.
@@ -239,7 +239,7 @@ import waffle.windows.auth.IWindowsSecurityContext;
 
     @Override
     public boolean isContinue() {
-<span class="nc" id="L242">        return this.continueFlag;</span>
+<span class="fc" id="L242">        return this.continueFlag;</span>
     }
 
     /**

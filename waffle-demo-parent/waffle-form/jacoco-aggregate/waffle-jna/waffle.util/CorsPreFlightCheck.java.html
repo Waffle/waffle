@@ -38,14 +38,14 @@ import org.slf4j.LoggerFactory;
 public final class CorsPreFlightCheck {
 
     /** The logger. */
-<span class="nc" id="L41">    private static final Logger LOGGER = LoggerFactory.getLogger(CorsPreFlightCheck.class);</span>
+<span class="fc" id="L41">    private static final Logger LOGGER = LoggerFactory.getLogger(CorsPreFlightCheck.class);</span>
 
     /** The Constant preflightAttributeValue. */
     private static final String PRE_FLIGHT_ATTRIBUTE_VALUE = &quot;PRE_FLIGHT&quot;;
 
     /** The Constant CORS_PRE_FLIGHT_HEADERS. */
-<span class="nc" id="L47">    private static final List&lt;String&gt; CORS_PRE_FLIGHT_HEADERS = new ArrayList&lt;&gt;(</span>
-<span class="nc" id="L48">            Arrays.asList(&quot;Access-Control-Request-Method&quot;, &quot;Access-Control-Request-Headers&quot;, &quot;Origin&quot;));</span>
+<span class="fc" id="L47">    private static final List&lt;String&gt; CORS_PRE_FLIGHT_HEADERS = new ArrayList&lt;&gt;(</span>
+<span class="fc" id="L48">            Arrays.asList(&quot;Access-Control-Request-Method&quot;, &quot;Access-Control-Request-Headers&quot;, &quot;Origin&quot;));</span>
 
     /**
      * Prevent Instantiation.
@@ -64,23 +64,23 @@ public final class CorsPreFlightCheck {
      */
     public static boolean isPreflight(final HttpServletRequest request) {
 
-<span class="nc" id="L67">        final String corsRequestType = (String) request.getAttribute(&quot;cors.request.type&quot;);</span>
+<span class="fc" id="L67">        final String corsRequestType = (String) request.getAttribute(&quot;cors.request.type&quot;);</span>
 
-<span class="nc" id="L69">        CorsPreFlightCheck.LOGGER</span>
-<span class="nc" id="L70">                .debug(&quot;[waffle.util.CorsPreflightCheck] Request is CORS preflight; continue filter chain&quot;);</span>
+<span class="fc" id="L69">        CorsPreFlightCheck.LOGGER</span>
+<span class="fc" id="L70">                .debug(&quot;[waffle.util.CorsPreflightCheck] Request is CORS preflight; continue filter chain&quot;);</span>
 
         // Method MUST be an OPTIONS Method to be a preflight Request
-<span class="nc" id="L73">        final String method = request.getMethod();</span>
-<span class="nc bnc" id="L74" title="All 4 branches missed.">        if (method == null || !method.equalsIgnoreCase(&quot;OPTIONS&quot;)) {</span>
-<span class="nc" id="L75">            return false;</span>
+<span class="fc" id="L73">        final String method = request.getMethod();</span>
+<span class="fc bfc" id="L74" title="All 4 branches covered.">        if (method == null || !method.equalsIgnoreCase(&quot;OPTIONS&quot;)) {</span>
+<span class="fc" id="L75">            return false;</span>
         }
 
-<span class="nc" id="L78">        CorsPreFlightCheck.LOGGER.debug(&quot;[waffle.util.CorsPreflightCheck] check for PRE_FLIGHT Attribute&quot;);</span>
+<span class="fc" id="L78">        CorsPreFlightCheck.LOGGER.debug(&quot;[waffle.util.CorsPreflightCheck] check for PRE_FLIGHT Attribute&quot;);</span>
 
         /**
          * Support Apache CorsFilter which would already add the Attribute cors.request.type with a value &quot;PRE_FLIGHT&quot;
          **/
-<span class="nc bnc" id="L83" title="All 2 branches missed.">        if (corsRequestType != null</span>
+<span class="pc bpc" id="L83" title="1 of 2 branches missed.">        if (corsRequestType != null</span>
 <span class="nc bnc" id="L84" title="All 2 branches missed.">                &amp;&amp; corsRequestType.equalsIgnoreCase(CorsPreFlightCheck.PRE_FLIGHT_ATTRIBUTE_VALUE)) {</span>
 <span class="nc" id="L85">            return true;</span>
         } else {
@@ -88,20 +88,20 @@ public final class CorsPreFlightCheck {
              * it is OPTIONS and it is not an CorsFilter PRE_FLIGHT request make sure that the request contains all of
              * the CORS preflight Headers
              */
-<span class="nc" id="L91">            CorsPreFlightCheck.LOGGER.debug(&quot;[waffle.util.CorsPreflightCheck] check headers&quot;);</span>
+<span class="fc" id="L91">            CorsPreFlightCheck.LOGGER.debug(&quot;[waffle.util.CorsPreflightCheck] check headers&quot;);</span>
 
-<span class="nc bnc" id="L93" title="All 2 branches missed.">            for (final String header : CorsPreFlightCheck.CORS_PRE_FLIGHT_HEADERS) {</span>
-<span class="nc" id="L94">                final String headerValue = request.getHeader(header);</span>
-<span class="nc" id="L95">                CorsPreFlightCheck.LOGGER.debug(&quot;[waffle.util.CorsPreflightCheck] {}&quot;, header);</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">            for (final String header : CorsPreFlightCheck.CORS_PRE_FLIGHT_HEADERS) {</span>
+<span class="fc" id="L94">                final String headerValue = request.getHeader(header);</span>
+<span class="fc" id="L95">                CorsPreFlightCheck.LOGGER.debug(&quot;[waffle.util.CorsPreflightCheck] {}&quot;, header);</span>
 
-<span class="nc bnc" id="L97" title="All 2 branches missed.">                if (headerValue == null) {</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">                if (headerValue == null) {</span>
                     /* one of the CORS pre-flight headers is missing */
-<span class="nc" id="L99">                    return false;</span>
+<span class="fc" id="L99">                    return false;</span>
                 }
-<span class="nc" id="L101">            }</span>
-<span class="nc" id="L102">            CorsPreFlightCheck.LOGGER.debug(&quot;[waffle.util.CorsPreflightCheck] is preflight&quot;);</span>
+<span class="fc" id="L101">            }</span>
+<span class="fc" id="L102">            CorsPreFlightCheck.LOGGER.debug(&quot;[waffle.util.CorsPreflightCheck] is preflight&quot;);</span>
 
-<span class="nc" id="L104">            return true;</span>
+<span class="fc" id="L104">            return true;</span>
         }
     }
 }
