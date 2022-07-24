@@ -74,7 +74,6 @@ public class AuthorizationHeader {
 
     /**
      * Returns a supported security package string.
-     * <p>
      *
      * <pre>
      * Authorization: NTLM the_token
