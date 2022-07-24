@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"waffle.mock"},{"l":"waffle.mock.http"}]
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"waffle.mock"},{"l":"waffle.mock.http"}];updateSearchResults();
