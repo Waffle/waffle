@@ -66,12 +66,12 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      */
     public GenericWindowsPrincipal(final IWindowsIdentity windowsIdentity, final PrincipalFormat principalFormat,
             final PrincipalFormat roleFormat) {
-<span class="nc" id="L69">        super(windowsIdentity.getFqn(), &quot;&quot;,</span>
-<span class="nc" id="L70">                GenericWindowsPrincipal.getRoles(windowsIdentity, principalFormat, roleFormat));</span>
-<span class="nc" id="L71">        this.sid = windowsIdentity.getSid();</span>
-<span class="nc" id="L72">        this.sidString = windowsIdentity.getSidString();</span>
-<span class="nc" id="L73">        this.groups = GenericWindowsPrincipal.getGroups(windowsIdentity.getGroups());</span>
-<span class="nc" id="L74">    }</span>
+<span class="fc" id="L69">        super(windowsIdentity.getFqn(), &quot;&quot;,</span>
+<span class="fc" id="L70">                GenericWindowsPrincipal.getRoles(windowsIdentity, principalFormat, roleFormat));</span>
+<span class="fc" id="L71">        this.sid = windowsIdentity.getSid();</span>
+<span class="fc" id="L72">        this.sidString = windowsIdentity.getSidString();</span>
+<span class="fc" id="L73">        this.groups = GenericWindowsPrincipal.getGroups(windowsIdentity.getGroups());</span>
+<span class="fc" id="L74">    }</span>
 
     /**
      * Gets the roles.
@@ -87,12 +87,12 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      */
     private static List&lt;String&gt; getRoles(final IWindowsIdentity windowsIdentity, final PrincipalFormat principalFormat,
             final PrincipalFormat roleFormat) {
-<span class="nc" id="L90">        final List&lt;String&gt; roles = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L91">        roles.addAll(GenericWindowsPrincipal.getPrincipalNames(windowsIdentity, principalFormat));</span>
-<span class="nc bnc" id="L92" title="All 2 branches missed.">        for (final IWindowsAccount group : windowsIdentity.getGroups()) {</span>
-<span class="nc" id="L93">            roles.addAll(GenericWindowsPrincipal.getRoleNames(group, roleFormat));</span>
+<span class="fc" id="L90">        final List&lt;String&gt; roles = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L91">        roles.addAll(GenericWindowsPrincipal.getPrincipalNames(windowsIdentity, principalFormat));</span>
+<span class="fc bfc" id="L92" title="All 2 branches covered.">        for (final IWindowsAccount group : windowsIdentity.getGroups()) {</span>
+<span class="fc" id="L93">            roles.addAll(GenericWindowsPrincipal.getRoleNames(group, roleFormat));</span>
         }
-<span class="nc" id="L95">        return roles;</span>
+<span class="fc" id="L95">        return roles;</span>
     }
 
     /**
@@ -104,11 +104,11 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      * @return the groups
      */
     private static Map&lt;String, WindowsAccount&gt; getGroups(final IWindowsAccount[] groups) {
-<span class="nc" id="L107">        final Map&lt;String, WindowsAccount&gt; groupMap = new HashMap&lt;&gt;();</span>
-<span class="nc bnc" id="L108" title="All 2 branches missed.">        for (final IWindowsAccount group : groups) {</span>
-<span class="nc" id="L109">            groupMap.put(group.getFqn(), new WindowsAccount(group));</span>
+<span class="fc" id="L107">        final Map&lt;String, WindowsAccount&gt; groupMap = new HashMap&lt;&gt;();</span>
+<span class="fc bfc" id="L108" title="All 2 branches covered.">        for (final IWindowsAccount group : groups) {</span>
+<span class="fc" id="L109">            groupMap.put(group.getFqn(), new WindowsAccount(group));</span>
         }
-<span class="nc" id="L111">        return groupMap;</span>
+<span class="fc" id="L111">        return groupMap;</span>
     }
 
     /**
@@ -117,7 +117,7 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      * @return Array of bytes.
      */
     public byte[] getSid() {
-<span class="nc" id="L120">        return this.sid.clone();</span>
+<span class="fc" id="L120">        return this.sid.clone();</span>
     }
 
     /**
@@ -126,7 +126,7 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      * @return String.
      */
     public String getSidString() {
-<span class="nc" id="L129">        return this.sidString;</span>
+<span class="fc" id="L129">        return this.sidString;</span>
     }
 
     /**
@@ -135,7 +135,7 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      * @return A map of group names to groups.
      */
     public Map&lt;String, WindowsAccount&gt; getGroups() {
-<span class="nc" id="L138">        return this.groups;</span>
+<span class="fc" id="L138">        return this.groups;</span>
     }
 
     /**
@@ -149,11 +149,11 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      * @return List of role principal objects.
      */
     private static List&lt;String&gt; getRoleNames(final IWindowsAccount group, final PrincipalFormat principalFormat) {
-<span class="nc" id="L152">        final List&lt;String&gt; principals = new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L153" title="All 4 branches missed.">        switch (principalFormat) {</span>
+<span class="fc" id="L152">        final List&lt;String&gt; principals = new ArrayList&lt;&gt;();</span>
+<span class="pc bpc" id="L153" title="3 of 4 branches missed.">        switch (principalFormat) {</span>
             case FQN:
-<span class="nc" id="L155">                principals.add(group.getFqn());</span>
-<span class="nc" id="L156">                break;</span>
+<span class="fc" id="L155">                principals.add(group.getFqn());</span>
+<span class="fc" id="L156">                break;</span>
             case SID:
 <span class="nc" id="L158">                principals.add(group.getSidString());</span>
 <span class="nc" id="L159">                break;</span>
@@ -165,7 +165,7 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
             default:
                 break;
         }
-<span class="nc" id="L168">        return principals;</span>
+<span class="fc" id="L168">        return principals;</span>
     }
 
     /**
@@ -180,23 +180,23 @@ public class GenericWindowsPrincipal extends GenericPrincipal {
      */
     private static List&lt;String&gt; getPrincipalNames(final IWindowsIdentity windowsIdentity,
             final PrincipalFormat principalFormat) {
-<span class="nc" id="L183">        final List&lt;String&gt; principals = new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L184" title="All 4 branches missed.">        switch (principalFormat) {</span>
+<span class="fc" id="L183">        final List&lt;String&gt; principals = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L184" title="All 4 branches covered.">        switch (principalFormat) {</span>
             case FQN:
-<span class="nc" id="L186">                principals.add(windowsIdentity.getFqn());</span>
-<span class="nc" id="L187">                break;</span>
+<span class="fc" id="L186">                principals.add(windowsIdentity.getFqn());</span>
+<span class="fc" id="L187">                break;</span>
             case SID:
-<span class="nc" id="L189">                principals.add(windowsIdentity.getSidString());</span>
-<span class="nc" id="L190">                break;</span>
+<span class="fc" id="L189">                principals.add(windowsIdentity.getSidString());</span>
+<span class="fc" id="L190">                break;</span>
             case BOTH:
-<span class="nc" id="L192">                principals.add(windowsIdentity.getFqn());</span>
-<span class="nc" id="L193">                principals.add(windowsIdentity.getSidString());</span>
-<span class="nc" id="L194">                break;</span>
+<span class="fc" id="L192">                principals.add(windowsIdentity.getFqn());</span>
+<span class="fc" id="L193">                principals.add(windowsIdentity.getSidString());</span>
+<span class="fc" id="L194">                break;</span>
             case NONE:
             default:
                 break;
         }
-<span class="nc" id="L199">        return principals;</span>
+<span class="fc" id="L199">        return principals;</span>
     }
 
     /**
