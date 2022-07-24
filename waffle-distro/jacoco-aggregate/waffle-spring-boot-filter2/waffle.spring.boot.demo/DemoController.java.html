@@ -39,13 +39,15 @@ import org.springframework.web.bind.annotation.RestController;
     /**
      * Spring Boot Demo Get Mapper.
      *
-     * @param spring
+     * @param auth
      *            security authentication object
+     *
+     * @return response text
      */
     @GetMapping
     public String demo(Authentication auth) {
-<span class="nc" id="L47">        return String.format(&quot;Hello, %s. You have authorities: %s&quot;, auth.getPrincipal(),</span>
-<span class="nc" id="L48">                auth.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(&quot;, &quot;)));</span>
+<span class="nc" id="L49">        return String.format(&quot;Hello, %s. You have authorities: %s&quot;, auth.getPrincipal(),</span>
+<span class="nc" id="L50">                auth.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(&quot;, &quot;)));</span>
     }
 
 }

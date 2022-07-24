@@ -9,7 +9,7 @@
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * MIT License</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Copyright (c) 2010-2020 The Waffle Project Contributors: <a href="https://github.com/Waffle/waffle/graphs/contributors" target="alexandria_uri">https://github.com/Waffle/waffle/graphs/contributors</a></em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Copyright (c) 2010-2022 The Waffle Project Contributors: <a href="https://github.com/Waffle/waffle/graphs/contributors" target="alexandria_uri">https://github.com/Waffle/waffle/graphs/contributors</a></em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_comment"> * Permission is hereby granted, free of charge, to any person obtaining a copy</em>
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_comment"> * of this software and associated documentation files (the "Software"), to deal</em>
@@ -95,7 +95,7 @@
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>          Assertions.assertEquals(3, wwwAuthenticates.length);
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>          Assertions.assertEquals(<span class="jxr_string">"NTLM"</span>, wwwAuthenticates[0]);
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>          Assertions.assertEquals(<span class="jxr_string">"Negotiate"</span>, wwwAuthenticates[1]);
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>          Assertions.assertTrue(wwwAuthenticates[2].equals(<span class="jxr_string">"Basic realm=\&quot;TestRealm\&quot;"</span>));
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>          Assertions.assertEquals(<span class="jxr_string">"Basic realm=\&quot;TestRealm\&quot;"</span>, wwwAuthenticates[2]);
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>          Assertions.assertEquals(2, response.getHeaderNamesSize());
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>          Assertions.assertEquals(<span class="jxr_string">"keep-alive"</span>, response.getHeader(<span class="jxr_string">"Connection"</span>));
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>          Assertions.assertEquals(401, response.getStatus());

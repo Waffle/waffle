@@ -34,6 +34,7 @@ import java.util.Map;
  * Group principal.
  *
  * @author rockchip[dot]tv[at]gmail[dot]com
+ *
  * @deprecated This class is deprecated as hiding a principal inside another principal is not JAAS compliant. Use the
  *             Principals in the Subject to directly enroll groups or roles by name.
  */
@@ -56,29 +57,31 @@ public class GroupPrincipal extends UserPrincipal {
      *            the fqn
      */
     public GroupPrincipal(final String fqn) {
-<span class="nc" id="L59">        super(fqn);</span>
+<span class="nc" id="L60">        super(fqn);</span>
 
-<span class="nc" id="L61">        this.fqn = fqn;</span>
-<span class="nc" id="L62">        this.members = new HashMap&lt;&gt;();</span>
-<span class="nc" id="L63">    }</span>
+<span class="nc" id="L62">        this.fqn = fqn;</span>
+<span class="nc" id="L63">        this.members = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L64">    }</span>
 
     @Override
     public String getName() {
-<span class="nc" id="L67">        return this.fqn;</span>
+<span class="nc" id="L68">        return this.fqn;</span>
     }
 
     /**
-     * Add user principal to member
+     * Add user principal to member.
      *
      * @param user
      *            principal
+     *
+     * @return True if user principal is a member
      */
     public boolean addMember(final Principal user) {
-<span class="nc" id="L77">        final boolean isMember = this.members.containsKey(user);</span>
-<span class="nc bnc" id="L78" title="All 2 branches missed.">        if (!isMember) {</span>
-<span class="nc" id="L79">            this.members.put(user, user);</span>
+<span class="nc" id="L80">        final boolean isMember = this.members.containsKey(user);</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">        if (!isMember) {</span>
+<span class="nc" id="L82">            this.members.put(user, user);</span>
         }
-<span class="nc" id="L81">        return isMember;</span>
+<span class="nc" id="L84">        return isMember;</span>
     }
 
     /**
@@ -86,29 +89,33 @@ public class GroupPrincipal extends UserPrincipal {
      *
      * @param user
      *            principal
+     *
+     * @return True if user principal is a member
      */
     public boolean isMember(final Principal user) {
-<span class="nc" id="L91">        boolean isMember = this.members.containsKey(user);</span>
-<span class="nc bnc" id="L92" title="All 2 branches missed.">        if (!isMember) {</span>
-<span class="nc" id="L93">            final Collection&lt;Principal&gt; values = this.members.values();</span>
-<span class="nc bnc" id="L94" title="All 2 branches missed.">            for (final Principal principal : values) {</span>
-<span class="nc bnc" id="L95" title="All 2 branches missed.">                if (principal instanceof GroupPrincipal) {</span>
-<span class="nc" id="L96">                    final GroupPrincipal group = (GroupPrincipal) principal;</span>
-<span class="nc" id="L97">                    isMember = group.isMember(user);</span>
-<span class="nc bnc" id="L98" title="All 2 branches missed.">                    if (isMember) {</span>
-<span class="nc" id="L99">                        break;</span>
+<span class="nc" id="L96">        boolean isMember = this.members.containsKey(user);</span>
+<span class="nc bnc" id="L97" title="All 2 branches missed.">        if (!isMember) {</span>
+<span class="nc" id="L98">            final Collection&lt;Principal&gt; values = this.members.values();</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">            for (final Principal principal : values) {</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">                if (principal instanceof GroupPrincipal) {</span>
+<span class="nc" id="L101">                    final GroupPrincipal group = (GroupPrincipal) principal;</span>
+<span class="nc" id="L102">                    isMember = group.isMember(user);</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">                    if (isMember) {</span>
+<span class="nc" id="L104">                        break;</span>
                     }
                 }
-<span class="nc" id="L102">            }</span>
+<span class="nc" id="L107">            }</span>
         }
-<span class="nc" id="L104">        return isMember;</span>
+<span class="nc" id="L109">        return isMember;</span>
     }
 
     /**
-     * Member enumberation.
+     * Member enumeration.
+     *
+     * @return enumerated members
      */
     public Enumeration&lt;Principal&gt; members() {
-<span class="nc" id="L111">        return Collections.enumeration(this.members.values());</span>
+<span class="nc" id="L118">        return Collections.enumeration(this.members.values());</span>
     }
 
     /**
@@ -116,22 +123,24 @@ public class GroupPrincipal extends UserPrincipal {
      *
      * @param user
      *            principal
+     *
+     * @return True if user principal is removed
      */
     public boolean removeMember(final Principal user) {
-<span class="nc" id="L121">        final Object prev = this.members.remove(user);</span>
-<span class="nc bnc" id="L122" title="All 2 branches missed.">        return prev != null;</span>
+<span class="nc" id="L130">        final Object prev = this.members.remove(user);</span>
+<span class="nc bnc" id="L131" title="All 2 branches missed.">        return prev != null;</span>
     }
 
     @Override
     public String toString() {
-<span class="nc" id="L127">        final StringBuilder tmp = new StringBuilder(this.getName());</span>
-<span class="nc" id="L128">        tmp.append(&quot;(members:&quot;);</span>
-<span class="nc bnc" id="L129" title="All 2 branches missed.">        for (final Principal principal : this.members.keySet()) {</span>
-<span class="nc" id="L130">            tmp.append(principal);</span>
-<span class="nc" id="L131">            tmp.append(',');</span>
-<span class="nc" id="L132">        }</span>
-<span class="nc" id="L133">        tmp.setCharAt(tmp.length() - 1, ')');</span>
-<span class="nc" id="L134">        return tmp.toString();</span>
+<span class="nc" id="L136">        final StringBuilder tmp = new StringBuilder(this.getName());</span>
+<span class="nc" id="L137">        tmp.append(&quot;(members:&quot;);</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">        for (final Principal principal : this.members.keySet()) {</span>
+<span class="nc" id="L139">            tmp.append(principal);</span>
+<span class="nc" id="L140">            tmp.append(',');</span>
+<span class="nc" id="L141">        }</span>
+<span class="nc" id="L142">        tmp.setCharAt(tmp.length() - 1, ')');</span>
+<span class="nc" id="L143">        return tmp.toString();</span>
     }
 
 }

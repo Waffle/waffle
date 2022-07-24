@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>WaffleAuthenticatorBase.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-distro</a> &gt; <a href="../index.html" class="el_bundle">waffle-tomcat10</a> &gt; <a href="index.source.html" class="el_package">waffle.apache</a> &gt; <span class="el_source">WaffleAuthenticatorBase.java</span></div><h1>WaffleAuthenticatorBase.java</h1><pre class="source lang-java linenums">/*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the &quot;Software&quot;), to deal
@@ -239,38 +239,38 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
         try {
 <span class="nc" id="L240">            response.sendError(code);</span>
 <span class="nc" id="L241">        } catch (final IOException e) {</span>
-<span class="nc" id="L242">            this.log.error(e.getMessage());</span>
-<span class="nc" id="L243">            this.log.trace(&quot;&quot;, e);</span>
-<span class="nc" id="L244">            throw new RuntimeException(e);</span>
-<span class="nc" id="L245">        }</span>
-<span class="nc" id="L246">    }</span>
+<span class="nc" id="L242">            throw new RuntimeException(e);</span>
+<span class="nc" id="L243">        }</span>
+<span class="nc" id="L244">    }</span>
 
     @Override
     protected String getAuthMethod() {
-<span class="nc" id="L250">        return null;</span>
+<span class="nc" id="L248">        return null;</span>
     }
 
     @Override
     protected Principal doLogin(final Request request, final String username, final String password)
             throws ServletException {
-<span class="nc" id="L256">        this.log.debug(&quot;logging in: {}&quot;, username);</span>
+<span class="nc" id="L254">        this.log.debug(&quot;logging in: {}&quot;, username);</span>
         IWindowsIdentity windowsIdentity;
         try {
-<span class="nc" id="L259">            windowsIdentity = this.auth.logonUser(username, password);</span>
-<span class="nc" id="L260">        } catch (final Exception e) {</span>
-<span class="nc" id="L261">            this.log.error(e.getMessage());</span>
-<span class="nc" id="L262">            this.log.trace(&quot;&quot;, e);</span>
-<span class="nc" id="L263">            return super.doLogin(request, username, password);</span>
-<span class="nc" id="L264">        }</span>
+<span class="nc" id="L257">            windowsIdentity = this.auth.logonUser(username, password);</span>
+<span class="nc" id="L258">        } catch (final Exception e) {</span>
+<span class="nc" id="L259">            this.log.error(e.getMessage());</span>
+<span class="nc" id="L260">            this.log.trace(&quot;&quot;, e);</span>
+<span class="nc" id="L261">            return super.doLogin(request, username, password);</span>
+<span class="nc" id="L262">        }</span>
         // disable guest login
-<span class="nc bnc" id="L266" title="All 4 branches missed.">        if (!this.allowGuestLogin &amp;&amp; windowsIdentity.isGuest()) {</span>
-<span class="nc" id="L267">            this.log.warn(&quot;guest login disabled: {}&quot;, windowsIdentity.getFqn());</span>
-<span class="nc" id="L268">            return super.doLogin(request, username, password);</span>
+<span class="nc bnc" id="L264" title="All 4 branches missed.">        if (!this.allowGuestLogin &amp;&amp; windowsIdentity.isGuest()) {</span>
+<span class="nc" id="L265">            this.log.warn(&quot;guest login disabled: {}&quot;, windowsIdentity.getFqn());</span>
+<span class="nc" id="L266">            return super.doLogin(request, username, password);</span>
         }
         try {
-<span class="nc" id="L271">            this.log.debug(&quot;successfully logged in {} ({})&quot;, username, windowsIdentity.getSidString());</span>
-<span class="nc" id="L272">            final GenericPrincipal genericPrincipal = this.createPrincipal(windowsIdentity);</span>
-<span class="nc" id="L273">            this.log.debug(&quot;roles: {}&quot;, String.join(&quot;, &quot;, genericPrincipal.getRoles()));</span>
+<span class="nc" id="L269">            this.log.debug(&quot;successfully logged in {} ({})&quot;, username, windowsIdentity.getSidString());</span>
+<span class="nc" id="L270">            final GenericPrincipal genericPrincipal = this.createPrincipal(windowsIdentity);</span>
+<span class="nc bnc" id="L271" title="All 2 branches missed.">            if (this.log.isDebugEnabled()) {</span>
+<span class="nc" id="L272">                this.log.debug(&quot;roles: {}&quot;, String.join(&quot;, &quot;, genericPrincipal.getRoles()));</span>
+            }
 <span class="nc" id="L274">            return genericPrincipal;</span>
         } finally {
 <span class="nc" id="L276">            windowsIdentity.dispose();</span>
@@ -283,10 +283,11 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      *
      * @param windowsIdentity
      *            the windows identity to initialize the principal
+     *
      * @return the Generic Principal
      */
     protected GenericPrincipal createPrincipal(final IWindowsIdentity windowsIdentity) {
-<span class="nc" id="L289">        return new GenericWindowsPrincipal(windowsIdentity, this.principalFormat, this.roleFormat);</span>
+<span class="nc" id="L290">        return new GenericWindowsPrincipal(windowsIdentity, this.principalFormat, this.roleFormat);</span>
     }
 
     /**
@@ -297,11 +298,11 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
      */
     @Override
     public synchronized void startInternal() throws LifecycleException {
-<span class="nc" id="L300">        this.log.debug(&quot;Creating a windows authentication provider with continueContextsTimeout property set to: {}&quot;,</span>
-<span class="nc" id="L301">                this.continueContextsTimeout);</span>
-<span class="nc" id="L302">        this.auth = new WindowsAuthProviderImpl(this.continueContextsTimeout);</span>
-<span class="nc" id="L303">        super.startInternal();</span>
-<span class="nc" id="L304">    }</span>
+<span class="nc" id="L301">        this.log.debug(&quot;Creating a windows authentication provider with continueContextsTimeout property set to: {}&quot;,</span>
+<span class="nc" id="L302">                this.continueContextsTimeout);</span>
+<span class="nc" id="L303">        this.auth = new WindowsAuthProviderImpl(this.continueContextsTimeout);</span>
+<span class="nc" id="L304">        super.startInternal();</span>
+<span class="nc" id="L305">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

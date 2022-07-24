@@ -111,6 +111,7 @@ public class WaffleAutoConfiguration {
      *            the default granted authority
      * @param grantedAuthorityFactory
      *            the granted authority factory
+     *
      * @return the windows authentication provider
      */
     @Bean
@@ -119,14 +120,14 @@ public class WaffleAutoConfiguration {
             final WindowsAuthProviderImpl waffleWindowsAuthProvider,
             @Qualifier(&quot;defaultGrantedAuthority&quot;) final GrantedAuthority defaultGrantedAuthority,
             final GrantedAuthorityFactory grantedAuthorityFactory) {
-<span class="nc" id="L122">        final WindowsAuthenticationProvider bean = new WindowsAuthenticationProvider();</span>
-<span class="nc" id="L123">        bean.setAuthProvider(waffleWindowsAuthProvider);</span>
-<span class="nc" id="L124">        bean.setPrincipalFormat(this.properties.getPrincipalFormat());</span>
-<span class="nc" id="L125">        bean.setRoleFormat(this.properties.getRoleFormat());</span>
-<span class="nc" id="L126">        bean.setAllowGuestLogin(this.properties.isAllowGuestLogin());</span>
-<span class="nc" id="L127">        bean.setDefaultGrantedAuthority(defaultGrantedAuthority);</span>
-<span class="nc" id="L128">        bean.setGrantedAuthorityFactory(grantedAuthorityFactory);</span>
-<span class="nc" id="L129">        return bean;</span>
+<span class="nc" id="L123">        final WindowsAuthenticationProvider bean = new WindowsAuthenticationProvider();</span>
+<span class="nc" id="L124">        bean.setAuthProvider(waffleWindowsAuthProvider);</span>
+<span class="nc" id="L125">        bean.setPrincipalFormat(this.properties.getPrincipalFormat());</span>
+<span class="nc" id="L126">        bean.setRoleFormat(this.properties.getRoleFormat());</span>
+<span class="nc" id="L127">        bean.setAllowGuestLogin(this.properties.isAllowGuestLogin());</span>
+<span class="nc" id="L128">        bean.setDefaultGrantedAuthority(defaultGrantedAuthority);</span>
+<span class="nc" id="L129">        bean.setGrantedAuthorityFactory(grantedAuthorityFactory);</span>
+<span class="nc" id="L130">        return bean;</span>
     }
 
     /**
@@ -135,6 +136,7 @@ public class WaffleAutoConfiguration {
      *
      * @param windowsAuthProvider
      *            the windows auth provider
+     *
      * @return the negotiate security filter provider
      */
     @Bean
@@ -142,9 +144,9 @@ public class WaffleAutoConfiguration {
     @ConditionalOnMissingBean
     public NegotiateSecurityFilterProvider negotiateSecurityFilterProvider(
             final WindowsAuthProviderImpl windowsAuthProvider) {
-<span class="nc" id="L145">        final NegotiateSecurityFilterProvider bean = new NegotiateSecurityFilterProvider(windowsAuthProvider);</span>
-<span class="nc" id="L146">        bean.setProtocols(this.properties.getSso().getProtocols());</span>
-<span class="nc" id="L147">        return bean;</span>
+<span class="nc" id="L147">        final NegotiateSecurityFilterProvider bean = new NegotiateSecurityFilterProvider(windowsAuthProvider);</span>
+<span class="nc" id="L148">        bean.setProtocols(this.properties.getSso().getProtocols());</span>
+<span class="nc" id="L149">        return bean;</span>
     }
 
     /**
@@ -153,13 +155,14 @@ public class WaffleAutoConfiguration {
      *
      * @param windowsAuthProvider
      *            the windows auth provider
+     *
      * @return the basic security filter provider
      */
     @Bean
     @ConditionalOnProperty(&quot;waffle.sso.enabled&quot;)
     @ConditionalOnMissingBean
     public BasicSecurityFilterProvider basicSecurityFilterProvider(final WindowsAuthProviderImpl windowsAuthProvider) {
-<span class="nc" id="L162">        return new BasicSecurityFilterProvider(windowsAuthProvider);</span>
+<span class="nc" id="L165">        return new BasicSecurityFilterProvider(windowsAuthProvider);</span>
     }
 
     /**
@@ -170,6 +173,7 @@ public class WaffleAutoConfiguration {
      *            the negotiate provider
      * @param basicProvider
      *            the basic provider
+     *
      * @return the security filter provider collection
      */
     @Bean
@@ -178,12 +182,12 @@ public class WaffleAutoConfiguration {
     public SecurityFilterProviderCollection waffleSecurityFilterProviderCollection(
             final NegotiateSecurityFilterProvider negotiateProvider, final BasicSecurityFilterProvider basicProvider) {
         SecurityFilterProvider[] providers;
-<span class="nc bnc" id="L181" title="All 2 branches missed.">        if (this.properties.getSso().isBasicEnabled()) {</span>
-<span class="nc" id="L182">            providers = new SecurityFilterProvider[] { negotiateProvider, basicProvider };</span>
+<span class="nc bnc" id="L185" title="All 2 branches missed.">        if (this.properties.getSso().isBasicEnabled()) {</span>
+<span class="nc" id="L186">            providers = new SecurityFilterProvider[] { negotiateProvider, basicProvider };</span>
         } else {
-<span class="nc" id="L184">            providers = new SecurityFilterProvider[] { negotiateProvider };</span>
+<span class="nc" id="L188">            providers = new SecurityFilterProvider[] { negotiateProvider };</span>
         }
-<span class="nc" id="L186">        return new SecurityFilterProviderCollection(providers);</span>
+<span class="nc" id="L190">        return new SecurityFilterProviderCollection(providers);</span>
     }
 
     /**
@@ -192,6 +196,7 @@ public class WaffleAutoConfiguration {
      *
      * @param providers
      *            the providers
+     *
      * @return the negotiate security filter entry point
      */
     @Bean
@@ -199,9 +204,9 @@ public class WaffleAutoConfiguration {
     @ConditionalOnMissingBean
     public NegotiateSecurityFilterEntryPoint negotiateSecurityFilterEntryPoint(
             final SecurityFilterProviderCollection providers) {
-<span class="nc" id="L202">        final NegotiateSecurityFilterEntryPoint bean = new NegotiateSecurityFilterEntryPoint();</span>
-<span class="nc" id="L203">        bean.setProvider(providers);</span>
-<span class="nc" id="L204">        return bean;</span>
+<span class="nc" id="L207">        final NegotiateSecurityFilterEntryPoint bean = new NegotiateSecurityFilterEntryPoint();</span>
+<span class="nc" id="L208">        bean.setProvider(providers);</span>
+<span class="nc" id="L209">        return bean;</span>
     }
 
     /**
@@ -214,6 +219,7 @@ public class WaffleAutoConfiguration {
      *            the default granted authority
      * @param grantedAuthorityFactory
      *            the granted authority factory
+     *
      * @return the negotiate security filter
      */
     @Bean
@@ -222,15 +228,15 @@ public class WaffleAutoConfiguration {
     public NegotiateSecurityFilter waffleNegotiateSecurityFilter(final SecurityFilterProviderCollection providers,
             @Qualifier(&quot;defaultGrantedAuthority&quot;) final GrantedAuthority defaultGrantedAuthority,
             final GrantedAuthorityFactory grantedAuthorityFactory) {
-<span class="nc" id="L225">        final NegotiateSecurityFilter bean = new NegotiateSecurityFilter();</span>
-<span class="nc" id="L226">        bean.setProvider(providers);</span>
-<span class="nc" id="L227">        bean.setPrincipalFormat(this.properties.getPrincipalFormat());</span>
-<span class="nc" id="L228">        bean.setRoleFormat(this.properties.getRoleFormat());</span>
-<span class="nc" id="L229">        bean.setAllowGuestLogin(this.properties.isAllowGuestLogin());</span>
-<span class="nc" id="L230">        bean.setImpersonate(this.properties.getSso().isImpersonate());</span>
-<span class="nc" id="L231">        bean.setDefaultGrantedAuthority(defaultGrantedAuthority);</span>
-<span class="nc" id="L232">        bean.setGrantedAuthorityFactory(grantedAuthorityFactory);</span>
-<span class="nc" id="L233">        return bean;</span>
+<span class="nc" id="L231">        final NegotiateSecurityFilter bean = new NegotiateSecurityFilter();</span>
+<span class="nc" id="L232">        bean.setProvider(providers);</span>
+<span class="nc" id="L233">        bean.setPrincipalFormat(this.properties.getPrincipalFormat());</span>
+<span class="nc" id="L234">        bean.setRoleFormat(this.properties.getRoleFormat());</span>
+<span class="nc" id="L235">        bean.setAllowGuestLogin(this.properties.isAllowGuestLogin());</span>
+<span class="nc" id="L236">        bean.setImpersonate(this.properties.getSso().isImpersonate());</span>
+<span class="nc" id="L237">        bean.setDefaultGrantedAuthority(defaultGrantedAuthority);</span>
+<span class="nc" id="L238">        bean.setGrantedAuthorityFactory(grantedAuthorityFactory);</span>
+<span class="nc" id="L239">        return bean;</span>
     }
 
     /**
@@ -240,15 +246,16 @@ public class WaffleAutoConfiguration {
      *
      * @param filter
      *            The filter that we will be disabling from auto registration.
+     *
      * @return the filter registration bean
      */
     @Bean
     @ConditionalOnProperty(&quot;waffle.sso.enabled&quot;)
     public FilterRegistrationBean&lt;NegotiateSecurityFilter&gt; waffleNegotiateSecurityFilterRegistrationBean(
             final NegotiateSecurityFilter filter) {
-<span class="nc" id="L249">        final FilterRegistrationBean&lt;NegotiateSecurityFilter&gt; bean = new FilterRegistrationBean&lt;&gt;(filter);</span>
-<span class="nc" id="L250">        bean.setEnabled(false);</span>
-<span class="nc" id="L251">        return bean;</span>
+<span class="nc" id="L256">        final FilterRegistrationBean&lt;NegotiateSecurityFilter&gt; bean = new FilterRegistrationBean&lt;&gt;(filter);</span>
+<span class="nc" id="L257">        bean.setEnabled(false);</span>
+<span class="nc" id="L258">        return bean;</span>
     }
 
 }

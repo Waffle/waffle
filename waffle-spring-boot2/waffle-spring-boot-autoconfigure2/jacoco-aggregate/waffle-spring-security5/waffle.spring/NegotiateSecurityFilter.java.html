@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>NegotiateSecurityFilter.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-spring-boot-autoconfigure2</a> &gt; <a href="../index.html" class="el_bundle">waffle-spring-security5</a> &gt; <a href="index.source.html" class="el_package">waffle.spring</a> &gt; <span class="el_source">NegotiateSecurityFilter.java</span></div><h1>NegotiateSecurityFilter.java</h1><pre class="source lang-java linenums">/*
  * MIT License
  *
- * Copyright (c) 2010-2021 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the &quot;Software&quot;), to deal
@@ -173,22 +173,23 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
      *            the response
      * @param authentication
      *            the authentication
+     *
      * @return true, if successful
      */
     protected boolean setAuthentication(final HttpServletRequest request, final HttpServletResponse response,
             final Authentication authentication) {
-<span class="nc" id="L180">        SecurityContextHolder.getContext().setAuthentication(authentication);</span>
-<span class="nc" id="L181">        return true;</span>
+<span class="nc" id="L181">        SecurityContextHolder.getContext().setAuthentication(authentication);</span>
+<span class="nc" id="L182">        return true;</span>
     }
 
     @Override
     public void afterPropertiesSet() throws ServletException {
-<span class="nc" id="L186">        super.afterPropertiesSet();</span>
+<span class="nc" id="L187">        super.afterPropertiesSet();</span>
 
-<span class="nc bnc" id="L188" title="All 2 branches missed.">        if (this.provider == null) {</span>
-<span class="nc" id="L189">            throw new ServletException(&quot;Missing NegotiateSecurityFilter.Provider&quot;);</span>
+<span class="nc bnc" id="L189" title="All 2 branches missed.">        if (this.provider == null) {</span>
+<span class="nc" id="L190">            throw new ServletException(&quot;Missing NegotiateSecurityFilter.Provider&quot;);</span>
         }
-<span class="nc" id="L191">    }</span>
+<span class="nc" id="L192">    }</span>
 
     /**
      * Send a 401 Unauthorized along with protocol authentication headers.
@@ -200,18 +201,18 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
      */
     protected void sendUnauthorized(final HttpServletResponse response, final boolean close) {
         try {
-<span class="nc" id="L203">            this.provider.sendUnauthorized(response);</span>
-<span class="nc bnc" id="L204" title="All 2 branches missed.">            if (close) {</span>
-<span class="nc" id="L205">                response.setHeader(&quot;Connection&quot;, &quot;close&quot;);</span>
+<span class="nc" id="L204">            this.provider.sendUnauthorized(response);</span>
+<span class="nc bnc" id="L205" title="All 2 branches missed.">            if (close) {</span>
+<span class="nc" id="L206">                response.setHeader(&quot;Connection&quot;, &quot;close&quot;);</span>
             } else {
-<span class="nc" id="L207">                response.setHeader(&quot;Connection&quot;, &quot;keep-alive&quot;);</span>
+<span class="nc" id="L208">                response.setHeader(&quot;Connection&quot;, &quot;keep-alive&quot;);</span>
             }
-<span class="nc" id="L209">            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);</span>
-<span class="nc" id="L210">            response.flushBuffer();</span>
-<span class="nc" id="L211">        } catch (final IOException e) {</span>
-<span class="nc" id="L212">            throw new RuntimeException(e);</span>
-<span class="nc" id="L213">        }</span>
-<span class="nc" id="L214">    }</span>
+<span class="nc" id="L210">            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);</span>
+<span class="nc" id="L211">            response.flushBuffer();</span>
+<span class="nc" id="L212">        } catch (final IOException e) {</span>
+<span class="nc" id="L213">            throw new RuntimeException(e);</span>
+<span class="nc" id="L214">        }</span>
+<span class="nc" id="L215">    }</span>
 
     /**
      * Gets the principal format.
@@ -219,7 +220,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
      * @return the principal format
      */
     public PrincipalFormat getPrincipalFormat() {
-<span class="nc" id="L222">        return this.principalFormat;</span>
+<span class="nc" id="L223">        return this.principalFormat;</span>
     }
 
     /**
@@ -229,8 +230,8 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
      *            the new principal format enum
      */
     public void setPrincipalFormatEnum(final PrincipalFormat value) {
-<span class="nc" id="L232">        this.principalFormat = value;</span>
-<span class="nc" id="L233">    }</span>
+<span class="nc" id="L233">        this.principalFormat = value;</span>
+<span class="nc" id="L234">    }</span>
 
     /**
      * Sets the principal format.
@@ -239,8 +240,8 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
      *            the new principal format
      */
     public void setPrincipalFormat(final String value) {
-<span class="nc" id="L242">        this.setPrincipalFormatEnum(PrincipalFormat.valueOf(value.toUpperCase(Locale.ENGLISH)));</span>
-<span class="nc" id="L243">    }</span>
+<span class="nc" id="L243">        this.setPrincipalFormatEnum(PrincipalFormat.valueOf(value.toUpperCase(Locale.ENGLISH)));</span>
+<span class="nc" id="L244">    }</span>
 
     /**
      * Gets the role format.
@@ -248,7 +249,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
      * @return the role format
      */
     public PrincipalFormat getRoleFormat() {
-<span class="nc" id="L251">        return this.roleFormat;</span>
+<span class="nc" id="L252">        return this.roleFormat;</span>
     }
 
     /**
@@ -258,8 +259,8 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
      *            the new role format enum
      */
     public void setRoleFormatEnum(final PrincipalFormat value) {
-<span class="nc" id="L261">        this.roleFormat = value;</span>
-<span class="nc" id="L262">    }</span>
+<span class="nc" id="L262">        this.roleFormat = value;</span>
+<span class="nc" id="L263">    }</span>
 
     /**
      * Sets the role format.
@@ -268,8 +269,8 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
      *            the new role format
      */
     public void setRoleFormat(final String value) {
-<span class="nc" id="L271">        this.setRoleFormatEnum(PrincipalFormat.valueOf(value.toUpperCase(Locale.ENGLISH)));</span>
-<span class="nc" id="L272">    }</span>
+<span class="nc" id="L272">        this.setRoleFormatEnum(PrincipalFormat.valueOf(value.toUpperCase(Locale.ENGLISH)));</span>
+<span class="nc" id="L273">    }</span>
 
     /**
      * Checks if is allow guest login.
@@ -277,7 +278,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
      * @return true, if is allow guest login
      */
     public boolean isAllowGuestLogin() {
-<span class="nc" id="L280">        return this.allowGuestLogin;</span>
+<span class="nc" id="L281">        return this.allowGuestLogin;</span>
     }
 
     /**
@@ -287,8 +288,8 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
      *            the new allow guest login
      */
     public void setAllowGuestLogin(final boolean value) {
-<span class="nc" id="L290">        this.allowGuestLogin = value;</span>
-<span class="nc" id="L291">    }</span>
+<span class="nc" id="L291">        this.allowGuestLogin = value;</span>
+<span class="nc" id="L292">    }</span>
 
     /**
      * Enable/Disable impersonation.
@@ -297,8 +298,8 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
      *            true to enable impersonation, false otherwise
      */
     public void setImpersonate(final boolean value) {
-<span class="nc" id="L300">        this.impersonate = value;</span>
-<span class="nc" id="L301">    }</span>
+<span class="nc" id="L301">        this.impersonate = value;</span>
+<span class="nc" id="L302">    }</span>
 
     /**
      * Checks if is impersonate.
@@ -306,7 +307,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
      * @return true if impersonation is enabled, false otherwise
      */
     public boolean isImpersonate() {
-<span class="nc" id="L309">        return this.impersonate;</span>
+<span class="nc" id="L310">        return this.impersonate;</span>
     }
 
     /**
@@ -315,7 +316,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
      * @return the provider
      */
     public SecurityFilterProviderCollection getProvider() {
-<span class="nc" id="L318">        return this.provider;</span>
+<span class="nc" id="L319">        return this.provider;</span>
     }
 
     /**
@@ -325,8 +326,8 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
      *            the new provider
      */
     public void setProvider(final SecurityFilterProviderCollection value) {
-<span class="nc" id="L328">        this.provider = value;</span>
-<span class="nc" id="L329">    }</span>
+<span class="nc" id="L329">        this.provider = value;</span>
+<span class="nc" id="L330">    }</span>
 
     /**
      * Gets the granted authority factory.
@@ -334,7 +335,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
      * @return the granted authority factory
      */
     public GrantedAuthorityFactory getGrantedAuthorityFactory() {
-<span class="nc" id="L337">        return this.grantedAuthorityFactory;</span>
+<span class="nc" id="L338">        return this.grantedAuthorityFactory;</span>
     }
 
     /**
@@ -344,8 +345,8 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
      *            the new granted authority factory
      */
     public void setGrantedAuthorityFactory(final GrantedAuthorityFactory value) {
-<span class="nc" id="L347">        this.grantedAuthorityFactory = value;</span>
-<span class="nc" id="L348">    }</span>
+<span class="nc" id="L348">        this.grantedAuthorityFactory = value;</span>
+<span class="nc" id="L349">    }</span>
 
     /**
      * Gets the default granted authority.
@@ -353,7 +354,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
      * @return the default granted authority
      */
     public GrantedAuthority getDefaultGrantedAuthority() {
-<span class="nc" id="L356">        return this.defaultGrantedAuthority;</span>
+<span class="nc" id="L357">        return this.defaultGrantedAuthority;</span>
     }
 
     /**
@@ -363,7 +364,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
      *            the new default granted authority
      */
     public void setDefaultGrantedAuthority(final GrantedAuthority value) {
-<span class="nc" id="L366">        this.defaultGrantedAuthority = value;</span>
-<span class="nc" id="L367">    }</span>
+<span class="nc" id="L367">        this.defaultGrantedAuthority = value;</span>
+<span class="nc" id="L368">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

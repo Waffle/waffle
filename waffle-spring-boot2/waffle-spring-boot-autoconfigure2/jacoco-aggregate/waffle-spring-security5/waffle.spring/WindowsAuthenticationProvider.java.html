@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>WindowsAuthenticationProvider.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-spring-boot-autoconfigure2</a> &gt; <a href="../index.html" class="el_bundle">waffle-spring-security5</a> &gt; <a href="index.source.html" class="el_package">waffle.spring</a> &gt; <span class="el_source">WindowsAuthenticationProvider.java</span></div><h1>WindowsAuthenticationProvider.java</h1><pre class="source lang-java linenums">/*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the &quot;Software&quot;), to deal
@@ -108,11 +108,12 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      *
      * @param authentication
      *            the authentication
+     *
      * @return true, if successful
      */
     @Override
     public boolean supports(final Class&lt;? extends Object&gt; authentication) {
-<span class="nc" id="L115">        return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);</span>
+<span class="nc" id="L116">        return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);</span>
     }
 
     /**
@@ -121,7 +122,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      * @return the principal format
      */
     public PrincipalFormat getPrincipalFormat() {
-<span class="nc" id="L124">        return this.principalFormat;</span>
+<span class="nc" id="L125">        return this.principalFormat;</span>
     }
 
     /**
@@ -131,8 +132,8 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      *            the new principal format enum
      */
     public void setPrincipalFormatEnum(final PrincipalFormat value) {
-<span class="nc" id="L134">        this.principalFormat = value;</span>
-<span class="nc" id="L135">    }</span>
+<span class="nc" id="L135">        this.principalFormat = value;</span>
+<span class="nc" id="L136">    }</span>
 
     /**
      * Sets the principal format.
@@ -141,8 +142,8 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      *            the new principal format
      */
     public void setPrincipalFormat(final String value) {
-<span class="nc" id="L144">        this.setPrincipalFormatEnum(PrincipalFormat.valueOf(value.toUpperCase(Locale.ENGLISH)));</span>
-<span class="nc" id="L145">    }</span>
+<span class="nc" id="L145">        this.setPrincipalFormatEnum(PrincipalFormat.valueOf(value.toUpperCase(Locale.ENGLISH)));</span>
+<span class="nc" id="L146">    }</span>
 
     /**
      * Gets the role format.
@@ -150,7 +151,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      * @return the role format
      */
     public PrincipalFormat getRoleFormat() {
-<span class="nc" id="L153">        return this.roleFormat;</span>
+<span class="nc" id="L154">        return this.roleFormat;</span>
     }
 
     /**
@@ -160,8 +161,8 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      *            the new role format enum
      */
     public void setRoleFormatEnum(final PrincipalFormat value) {
-<span class="nc" id="L163">        this.roleFormat = value;</span>
-<span class="nc" id="L164">    }</span>
+<span class="nc" id="L164">        this.roleFormat = value;</span>
+<span class="nc" id="L165">    }</span>
 
     /**
      * Sets the role format.
@@ -170,8 +171,8 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      *            the new role format
      */
     public void setRoleFormat(final String value) {
-<span class="nc" id="L173">        this.setRoleFormatEnum(PrincipalFormat.valueOf(value.toUpperCase(Locale.ENGLISH)));</span>
-<span class="nc" id="L174">    }</span>
+<span class="nc" id="L174">        this.setRoleFormatEnum(PrincipalFormat.valueOf(value.toUpperCase(Locale.ENGLISH)));</span>
+<span class="nc" id="L175">    }</span>
 
     /**
      * Checks if is allow guest login.
@@ -179,7 +180,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      * @return true, if is allow guest login
      */
     public boolean isAllowGuestLogin() {
-<span class="nc" id="L182">        return this.allowGuestLogin;</span>
+<span class="nc" id="L183">        return this.allowGuestLogin;</span>
     }
 
     /**
@@ -189,8 +190,8 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      *            the new allow guest login
      */
     public void setAllowGuestLogin(final boolean value) {
-<span class="nc" id="L192">        this.allowGuestLogin = value;</span>
-<span class="nc" id="L193">    }</span>
+<span class="nc" id="L193">        this.allowGuestLogin = value;</span>
+<span class="nc" id="L194">    }</span>
 
     /**
      * Gets the auth provider.
@@ -198,7 +199,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      * @return the auth provider
      */
     public IWindowsAuthProvider getAuthProvider() {
-<span class="nc" id="L201">        return this.authProvider;</span>
+<span class="nc" id="L202">        return this.authProvider;</span>
     }
 
     /**
@@ -208,8 +209,8 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      *            the new auth provider
      */
     public void setAuthProvider(final IWindowsAuthProvider value) {
-<span class="nc" id="L211">        this.authProvider = value;</span>
-<span class="nc" id="L212">    }</span>
+<span class="nc" id="L212">        this.authProvider = value;</span>
+<span class="nc" id="L213">    }</span>
 
     /**
      * Gets the granted authority factory.
@@ -217,7 +218,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      * @return the granted authority factory
      */
     public GrantedAuthorityFactory getGrantedAuthorityFactory() {
-<span class="nc" id="L220">        return this.grantedAuthorityFactory;</span>
+<span class="nc" id="L221">        return this.grantedAuthorityFactory;</span>
     }
 
     /**
@@ -227,8 +228,8 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      *            the new granted authority factory
      */
     public void setGrantedAuthorityFactory(final GrantedAuthorityFactory value) {
-<span class="nc" id="L230">        this.grantedAuthorityFactory = value;</span>
-<span class="nc" id="L231">    }</span>
+<span class="nc" id="L231">        this.grantedAuthorityFactory = value;</span>
+<span class="nc" id="L232">    }</span>
 
     /**
      * Gets the default granted authority.
@@ -236,7 +237,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      * @return the default granted authority
      */
     public GrantedAuthority getDefaultGrantedAuthority() {
-<span class="nc" id="L239">        return this.defaultGrantedAuthority;</span>
+<span class="nc" id="L240">        return this.defaultGrantedAuthority;</span>
     }
 
     /**
@@ -246,7 +247,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      *            the new default granted authority
      */
     public void setDefaultGrantedAuthority(final GrantedAuthority value) {
-<span class="nc" id="L249">        this.defaultGrantedAuthority = value;</span>
-<span class="nc" id="L250">    }</span>
+<span class="nc" id="L250">        this.defaultGrantedAuthority = value;</span>
+<span class="nc" id="L251">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

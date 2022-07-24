@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>NegotiateAuthenticator.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">waffle-distro</a> &gt; <a href="../index.html" class="el_bundle">waffle-tomcat85</a> &gt; <a href="index.source.html" class="el_package">waffle.apache</a> &gt; <span class="el_source">NegotiateAuthenticator.java</span></div><h1>NegotiateAuthenticator.java</h1><pre class="source lang-java linenums">/*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the &quot;Software&quot;), to deal
@@ -160,29 +160,31 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 
 <span class="nc" id="L161">                final GenericPrincipal genericPrincipal = this.createPrincipal(windowsIdentity);</span>
 
-<span class="nc" id="L163">                this.log.debug(&quot;roles: {}&quot;, String.join(&quot;, &quot;, genericPrincipal.getRoles()));</span>
+<span class="nc bnc" id="L163" title="All 2 branches missed.">                if (this.log.isDebugEnabled()) {</span>
+<span class="nc" id="L164">                    this.log.debug(&quot;roles: {}&quot;, String.join(&quot;, &quot;, genericPrincipal.getRoles()));</span>
+                }
 
-<span class="nc" id="L165">                principal = genericPrincipal;</span>
+<span class="nc" id="L167">                principal = genericPrincipal;</span>
 
                 // create a session associated with this request if there's none
-<span class="nc" id="L168">                final HttpSession session = request.getSession(true);</span>
-<span class="nc bnc" id="L169" title="All 2 branches missed.">                this.log.debug(&quot;session id: {}&quot;, session == null ? &quot;null&quot; : session.getId());</span>
+<span class="nc" id="L170">                final HttpSession session = request.getSession(true);</span>
+<span class="nc bnc" id="L171" title="All 2 branches missed.">                this.log.debug(&quot;session id: {}&quot;, session == null ? &quot;null&quot; : session.getId());</span>
 
                 // register the authenticated principal
-<span class="nc" id="L172">                this.register(request, response, principal, securityPackage, principal.getName(), null);</span>
-<span class="nc" id="L173">                this.log.info(&quot;successfully logged in user: {}&quot;, principal.getName());</span>
+<span class="nc" id="L174">                this.register(request, response, principal, securityPackage, principal.getName(), null);</span>
+<span class="nc" id="L175">                this.log.info(&quot;successfully logged in user: {}&quot;, principal.getName());</span>
 
             } finally {
-<span class="nc" id="L176">                windowsIdentity.dispose();</span>
-<span class="nc" id="L177">                securityContext.dispose();</span>
+<span class="nc" id="L178">                windowsIdentity.dispose();</span>
+<span class="nc" id="L179">                securityContext.dispose();</span>
             }
 
-<span class="nc" id="L180">            return true;</span>
+<span class="nc" id="L182">            return true;</span>
         }
 
-<span class="nc" id="L183">        this.log.debug(&quot;authorization required&quot;);</span>
-<span class="nc" id="L184">        this.sendUnauthorized(response);</span>
-<span class="nc" id="L185">        return false;</span>
+<span class="nc" id="L185">        this.log.debug(&quot;authorization required&quot;);</span>
+<span class="nc" id="L186">        this.sendUnauthorized(response);</span>
+<span class="nc" id="L187">        return false;</span>
     }
 
     /**
@@ -191,7 +193,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
      */
     @Override
     protected boolean doAuthenticate(final Request request, final HttpServletResponse response) throws IOException {
-<span class="nc" id="L194">        return this.authenticate(request, response);</span>
+<span class="nc" id="L196">        return this.authenticate(request, response);</span>
     }
 
 }

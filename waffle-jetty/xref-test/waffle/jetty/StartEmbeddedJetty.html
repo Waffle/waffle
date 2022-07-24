@@ -55,49 +55,50 @@
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  <em class="jxr_javadoccomment">     * @param args</em>
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>  <em class="jxr_javadoccomment">     *            input arguments to main.</em>
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>  <em class="jxr_javadoccomment">     * @throws Exception</em>
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>  <em class="jxr_javadoccomment">     *             Exception thrown.</em>
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> main(<strong class="jxr_keyword">final</strong> String[] args) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>          <strong class="jxr_keyword">final</strong> String path = <span class="jxr_string">"../waffle-demo/waffle-filter"</span>;
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>  
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>          <strong class="jxr_keyword">final</strong> File dir = <strong class="jxr_keyword">new</strong> File(path);
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>          <strong class="jxr_keyword">if</strong> (!dir.exists()) {
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> FileNotFoundException(<span class="jxr_string">"Can not find webapp: "</span> + dir.getAbsolutePath());
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>          }
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>  
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>          <strong class="jxr_keyword">final</strong> Server server = <strong class="jxr_keyword">new</strong> Server(8080);
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>          <strong class="jxr_keyword">final</strong> WebAppContext context = <strong class="jxr_keyword">new</strong> WebAppContext();
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>          context.setServer(server);
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>          context.setContextPath(<span class="jxr_string">"/"</span>);
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>          context.setWar(path);
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>  
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>          <em class="jxr_comment">// Try adding JSP</em>
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>          <strong class="jxr_keyword">final</strong> ServletHolder jsp = context.addServlet(JspServlet.<strong class="jxr_keyword">class</strong>, <span class="jxr_string">"*.jsp"</span>);
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>          jsp.setInitParameter(<span class="jxr_string">"classpath"</span>, context.getClassPath());
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>  
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>          server.setHandler(context);
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>  
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>          <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>              StartEmbeddedJetty.LOGGER.info(<span class="jxr_string">"&gt;&gt;&gt; STARTING EMBEDDED JETTY SERVER, PRESS ANY KEY TO STOP"</span>);
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>              server.start();
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>              <strong class="jxr_keyword">if</strong> (System.in.read() == -1) {
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>                  StartEmbeddedJetty.LOGGER.error(<span class="jxr_string">"End of Stream reached"</span>);
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>                  <strong class="jxr_keyword">return</strong>;
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>              }
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>              StartEmbeddedJetty.LOGGER.info(<span class="jxr_string">"&gt;&gt;&gt; STOPPING EMBEDDED JETTY SERVER"</span>);
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>              server.stop();
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>              server.join();
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>          } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> IOException e) {
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>              StartEmbeddedJetty.LOGGER.error(<span class="jxr_string">""</span>, e);
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>              System.exit(100);
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>          } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> Exception e) {
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>              StartEmbeddedJetty.LOGGER.error(<span class="jxr_string">""</span>, e);
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>              System.exit(100);
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>          }
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>      }
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>  
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>  }
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>  <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>  <em class="jxr_javadoccomment">     * @throws Exception</em>
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>  <em class="jxr_javadoccomment">     *             Exception thrown.</em>
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> main(<strong class="jxr_keyword">final</strong> String[] args) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>          <strong class="jxr_keyword">final</strong> String path = <span class="jxr_string">"../waffle-demo/waffle-filter"</span>;
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>  
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>          <strong class="jxr_keyword">final</strong> File dir = <strong class="jxr_keyword">new</strong> File(path);
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>          <strong class="jxr_keyword">if</strong> (!dir.exists()) {
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> FileNotFoundException(<span class="jxr_string">"Can not find webapp: "</span> + dir.getAbsolutePath());
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>          }
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>  
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>          <strong class="jxr_keyword">final</strong> Server server = <strong class="jxr_keyword">new</strong> Server(8080);
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>          <strong class="jxr_keyword">final</strong> WebAppContext context = <strong class="jxr_keyword">new</strong> WebAppContext();
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>          context.setServer(server);
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>          context.setContextPath(<span class="jxr_string">"/"</span>);
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>          context.setWar(path);
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>  
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>          <em class="jxr_comment">// Try adding JSP</em>
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>          <strong class="jxr_keyword">final</strong> ServletHolder jsp = context.addServlet(JspServlet.<strong class="jxr_keyword">class</strong>, <span class="jxr_string">"*.jsp"</span>);
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>          jsp.setInitParameter(<span class="jxr_string">"classpath"</span>, context.getClassPath());
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>  
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>          server.setHandler(context);
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>  
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>          <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>              StartEmbeddedJetty.LOGGER.info(<span class="jxr_string">"&gt;&gt;&gt; STARTING EMBEDDED JETTY SERVER, PRESS ANY KEY TO STOP"</span>);
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>              server.start();
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>              <strong class="jxr_keyword">if</strong> (System.in.read() == -1) {
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>                  StartEmbeddedJetty.LOGGER.error(<span class="jxr_string">"End of Stream reached"</span>);
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>                  <strong class="jxr_keyword">return</strong>;
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>              }
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>              StartEmbeddedJetty.LOGGER.info(<span class="jxr_string">"&gt;&gt;&gt; STOPPING EMBEDDED JETTY SERVER"</span>);
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>              server.stop();
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>              server.join();
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>          } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> IOException e) {
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>              StartEmbeddedJetty.LOGGER.error(<span class="jxr_string">""</span>, e);
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>              System.exit(100);
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>          } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> Exception e) {
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>              StartEmbeddedJetty.LOGGER.error(<span class="jxr_string">""</span>, e);
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>              System.exit(100);
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>          }
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>      }
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>  
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2010&#x2013;2022 <a href="https://github.com/waffle/">com.github.waffle</a>. All rights reserved.</div>

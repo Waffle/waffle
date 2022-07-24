@@ -9,7 +9,7 @@
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * MIT License</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Copyright (c) 2010-2020 The Waffle Project Contributors: <a href="https://github.com/Waffle/waffle/graphs/contributors" target="alexandria_uri">https://github.com/Waffle/waffle/graphs/contributors</a></em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Copyright (c) 2010-2022 The Waffle Project Contributors: <a href="https://github.com/Waffle/waffle/graphs/contributors" target="alexandria_uri">https://github.com/Waffle/waffle/graphs/contributors</a></em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_comment"> * Permission is hereby granted, free of charge, to any person obtaining a copy</em>
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_comment"> * of this software and associated documentation files (the "Software"), to deal</em>
@@ -72,7 +72,7 @@
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String NTLM = <span class="jxr_string">"NTLM"</span>;
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>      <em class="jxr_javadoccomment">/** The protocols. */</em>
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>      <strong class="jxr_keyword">private</strong> List&lt;String&gt; protocols = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>      <strong class="jxr_keyword">private</strong> List&lt;String&gt; protocolsList = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>      <em class="jxr_javadoccomment">/** The auth. */</em>
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="IWindowsAuthProvider" href="../../../waffle/windows/auth/IWindowsAuthProvider.html#IWindowsAuthProvider">IWindowsAuthProvider</a> auth;
@@ -85,8 +85,8 @@
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>      <strong class="jxr_keyword">public</strong> <a name="NegotiateSecurityFilterProvider" href="../../../waffle/servlet/spi/NegotiateSecurityFilterProvider.html#NegotiateSecurityFilterProvider">NegotiateSecurityFilterProvider</a>(<strong class="jxr_keyword">final</strong> <a name="IWindowsAuthProvider" href="../../../waffle/windows/auth/IWindowsAuthProvider.html#IWindowsAuthProvider">IWindowsAuthProvider</a> newAuthProvider) {
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>          <strong class="jxr_keyword">this</strong>.auth = newAuthProvider;
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>          <strong class="jxr_keyword">this</strong>.protocols.add(NegotiateSecurityFilterProvider.NEGOTIATE);
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>          <strong class="jxr_keyword">this</strong>.protocols.add(NegotiateSecurityFilterProvider.NTLM);
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>          <strong class="jxr_keyword">this</strong>.protocolsList.add(NegotiateSecurityFilterProvider.NEGOTIATE);
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>          <strong class="jxr_keyword">this</strong>.protocolsList.add(NegotiateSecurityFilterProvider.NTLM);
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>      }
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>  
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>      <em class="jxr_javadoccomment">/**</em>
@@ -95,7 +95,7 @@
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>  <em class="jxr_javadoccomment">     * @return the protocols</em>
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>      <strong class="jxr_keyword">public</strong> List&lt;String&gt; getProtocols() {
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.protocols;
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.protocolsList;
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>      }
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>  
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>      <em class="jxr_javadoccomment">/**</em>
@@ -105,12 +105,12 @@
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>  <em class="jxr_javadoccomment">     *            the new protocols</em>
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setProtocols(<strong class="jxr_keyword">final</strong> List&lt;String&gt; values) {
-<a class="jxr_linenumber" name="L100" href="#L100">100</a>         <strong class="jxr_keyword">this</strong>.protocols = values;
+<a class="jxr_linenumber" name="L100" href="#L100">100</a>         <strong class="jxr_keyword">this</strong>.protocolsList = values;
 <a class="jxr_linenumber" name="L101" href="#L101">101</a>     }
 <a class="jxr_linenumber" name="L102" href="#L102">102</a> 
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>     @Override
 <a class="jxr_linenumber" name="L104" href="#L104">104</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> sendUnauthorized(<strong class="jxr_keyword">final</strong> HttpServletResponse response) {
-<a class="jxr_linenumber" name="L105" href="#L105">105</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> String protocol : <strong class="jxr_keyword">this</strong>.protocols) {
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> String protocol : <strong class="jxr_keyword">this</strong>.protocolsList) {
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>             response.addHeader(NegotiateSecurityFilterProvider.WWW_AUTHENTICATE, protocol);
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>         }
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>     }
@@ -170,7 +170,7 @@
 <a class="jxr_linenumber" name="L162" href="#L162">162</a> 
 <a class="jxr_linenumber" name="L163" href="#L163">163</a>     @Override
 <a class="jxr_linenumber" name="L164" href="#L164">164</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isSecurityPackageSupported(<strong class="jxr_keyword">final</strong> String securityPackage) {
-<a class="jxr_linenumber" name="L165" href="#L165">165</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> String protocol : <strong class="jxr_keyword">this</strong>.protocols) {
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> String protocol : <strong class="jxr_keyword">this</strong>.protocolsList) {
 <a class="jxr_linenumber" name="L166" href="#L166">166</a>             <strong class="jxr_keyword">if</strong> (protocol.equalsIgnoreCase(securityPackage)) {
 <a class="jxr_linenumber" name="L167" href="#L167">167</a>                 <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
 <a class="jxr_linenumber" name="L168" href="#L168">168</a>             }
@@ -181,7 +181,7 @@
 <a class="jxr_linenumber" name="L173" href="#L173">173</a>     @Override
 <a class="jxr_linenumber" name="L174" href="#L174">174</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> initParameter(<strong class="jxr_keyword">final</strong> String parameterName, <strong class="jxr_keyword">final</strong> String parameterValue) {
 <a class="jxr_linenumber" name="L175" href="#L175">175</a>         <strong class="jxr_keyword">if</strong> (NegotiateSecurityFilterProvider.PROTOCOLS.equals(parameterName)) {
-<a class="jxr_linenumber" name="L176" href="#L176">176</a>             <strong class="jxr_keyword">this</strong>.protocols = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
+<a class="jxr_linenumber" name="L176" href="#L176">176</a>             <strong class="jxr_keyword">this</strong>.protocolsList = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
 <a class="jxr_linenumber" name="L177" href="#L177">177</a>             <strong class="jxr_keyword">final</strong> String[] protocolNames = parameterValue.split(<span class="jxr_string">"&#92;&#92;s+"</span>, -1);
 <a class="jxr_linenumber" name="L178" href="#L178">178</a>             <strong class="jxr_keyword">for</strong> (String protocolName : protocolNames) {
 <a class="jxr_linenumber" name="L179" href="#L179">179</a>                 protocolName = protocolName.trim();
@@ -189,7 +189,7 @@
 <a class="jxr_linenumber" name="L181" href="#L181">181</a>                     NegotiateSecurityFilterProvider.LOGGER.debug(<span class="jxr_string">"init protocol: {}"</span>, protocolName);
 <a class="jxr_linenumber" name="L182" href="#L182">182</a>                     <strong class="jxr_keyword">if</strong> (NegotiateSecurityFilterProvider.NEGOTIATE.equals(protocolName)
 <a class="jxr_linenumber" name="L183" href="#L183">183</a>                             || NegotiateSecurityFilterProvider.NTLM.equals(protocolName)) {
-<a class="jxr_linenumber" name="L184" href="#L184">184</a>                         <strong class="jxr_keyword">this</strong>.protocols.add(protocolName);
+<a class="jxr_linenumber" name="L184" href="#L184">184</a>                         <strong class="jxr_keyword">this</strong>.protocolsList.add(protocolName);
 <a class="jxr_linenumber" name="L185" href="#L185">185</a>                     } <strong class="jxr_keyword">else</strong> {
 <a class="jxr_linenumber" name="L186" href="#L186">186</a>                         NegotiateSecurityFilterProvider.LOGGER.error(<span class="jxr_string">"unsupported protocol: {}"</span>, protocolName);
 <a class="jxr_linenumber" name="L187" href="#L187">187</a>                         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"Unsupported protocol: "</span> + protocolName);
