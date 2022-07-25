@@ -208,7 +208,7 @@
         <pmd.plugin>3.17.0</pmd.plugin>
         <project-info-reports.plugin>3.4.0</project-info-reports.plugin>
         <release.plugin>3.0.0-M6</release.plugin>
-        <resources.plugin>3.2.0</resources.plugin>
+        <resources.plugin>3.3.0</resources.plugin>
         <scm.plugin>1.13.0</scm.plugin>
         <source.plugin>3.2.1</source.plugin>
         <spotbugs.plugin>4.7.1.1</spotbugs.plugin>
