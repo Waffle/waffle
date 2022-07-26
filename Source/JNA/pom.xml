@@ -173,7 +173,7 @@
         <jmh.version>1.35</jmh.version>
         <jmockit.version>1.49.2</jmockit.version>
         <jopt-simple.version>5.0.4</jopt-simple.version>
-        <junit.version>5.9.0-RC1</junit.version>
+        <junit.version>5.9.0</junit.version>
         <spotbugs.version>4.7.1</spotbugs.version>
         <slf4j.version>1.7.36</slf4j.version>
 
