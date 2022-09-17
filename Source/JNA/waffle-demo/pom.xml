@@ -68,7 +68,7 @@
         <servlet.version>4.0.4</servlet.version>
 
         <!-- Plugins -->
-        <cargo.plugin>1.10.1</cargo.plugin>
+        <cargo.plugin>1.10.2</cargo.plugin>
 
         <!-- Cargo Setup -->
         <cargo.maven.containerId>tomcat${tomcat.major-version}x</cargo.maven.containerId>
