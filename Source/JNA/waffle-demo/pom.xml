@@ -65,7 +65,7 @@
         <!-- Dependencies -->
         <caffeine.version>2.9.3</caffeine.version>
         <logback.version>1.2.11</logback.version>
-        <servlet.version>4.0.4</servlet.version>
+        <servlet.version>6.0.0</servlet.version>
 
         <!-- Plugins -->
         <cargo.plugin>1.10.2</cargo.plugin>
