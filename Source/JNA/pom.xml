@@ -232,7 +232,7 @@
         <sb-contrib.version>7.4.7</sb-contrib.version>
         <findsecbugs.version>1.12.0</findsecbugs.version>
         <fluido.version>1.11.1</fluido.version>
-        <htmlcompressor.version>1.7.3</htmlcompressor.version>
+        <htmlcompressor.version>1.8.0</htmlcompressor.version>
         <jgit.version>6.3.0.202209071007-r</jgit.version>
         <plexus-utils.version>3.4.2</plexus-utils.version>
         <scm.version>1.13.0</scm.version>
