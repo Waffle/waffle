@@ -56,6 +56,10 @@
         <log4j.version>2.19.0</log4j.version>
         <logback.version>1.2.11</logback.version>
 
+        <!-- Maven compiler options -->
+        <java.version>11</java.version>
+        <java.release.version>11</java.release.version>
+
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.distro</module.name>
     </properties>

@@ -52,6 +52,10 @@
         <!-- Dependencies -->
         <tomcat.version>10.1.1</tomcat.version>
 
+        <!-- Maven compiler options -->
+        <java.version>11</java.version>
+        <java.release.version>11</java.release.version>
+
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.tomcat10</module.name>
     </properties>
