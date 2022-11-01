@@ -51,7 +51,7 @@
     <properties>
         <!-- Dependencies -->
         <caffeine.version>2.9.3</caffeine.version>
-        <checker-qual.version>3.26.0</checker-qual.version>
+        <checker-qual.version>3.27.0</checker-qual.version>
         <jna.version>5.12.1</jna.version>
         <log4j.version>2.19.0</log4j.version>
         <logback.version>1.2.11</logback.version>
