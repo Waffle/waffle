@@ -39,7 +39,7 @@ import org.slf4j.LoggerFactory;
 public class AuthorizationHeader {
 
     /** The logger. */
-<span class="fc" id="L42">    private static final Logger LOGGER = LoggerFactory.getLogger(AuthorizationHeader.class);</span>
+<span class="nc" id="L42">    private static final Logger LOGGER = LoggerFactory.getLogger(AuthorizationHeader.class);</span>
 
     /** The request. */
     private final HttpServletRequest request;
@@ -50,9 +50,9 @@ public class AuthorizationHeader {
      * @param httpServletRequest
      *            the http servlet request
      */
-<span class="fc" id="L53">    public AuthorizationHeader(final HttpServletRequest httpServletRequest) {</span>
-<span class="fc" id="L54">        this.request = httpServletRequest;</span>
-<span class="fc" id="L55">    }</span>
+<span class="nc" id="L53">    public AuthorizationHeader(final HttpServletRequest httpServletRequest) {</span>
+<span class="nc" id="L54">        this.request = httpServletRequest;</span>
+<span class="nc" id="L55">    }</span>
 
     /**
      * Gets the header.
@@ -60,7 +60,7 @@ public class AuthorizationHeader {
      * @return the header
      */
     public String getHeader() {
-<span class="fc" id="L63">        return this.request.getHeader(&quot;Authorization&quot;);</span>
+<span class="nc" id="L63">        return this.request.getHeader(&quot;Authorization&quot;);</span>
     }
 
     /**
@@ -69,7 +69,7 @@ public class AuthorizationHeader {
      * @return true, if is null
      */
     public boolean isNull() {
-<span class="pc bpc" id="L72" title="1 of 4 branches missed.">        return this.getHeader() == null || this.getHeader().length() == 0;</span>
+<span class="nc bnc" id="L72" title="All 4 branches missed.">        return this.getHeader() == null || this.getHeader().length() == 0;</span>
     }
 
     /**
@@ -84,15 +84,15 @@ public class AuthorizationHeader {
      * @return AuthenticationScheme as SecurityPackage e.g. Negotiate, NTLM, Bearer.
      */
     public String getSecurityPackage() {
-<span class="fc" id="L87">        final String header = this.getHeader();</span>
+<span class="nc" id="L87">        final String header = this.getHeader();</span>
 
-<span class="pc bpc" id="L89" title="1 of 2 branches missed.">        if (header == null) {</span>
+<span class="nc bnc" id="L89" title="All 2 branches missed.">        if (header == null) {</span>
 <span class="nc" id="L90">            throw new RuntimeException(&quot;Missing Authorization: header&quot;);</span>
         }
 
-<span class="fc" id="L93">        final int space = header.indexOf(' ');</span>
-<span class="pc bpc" id="L94" title="1 of 2 branches missed.">        if (space &gt; 0) {</span>
-<span class="fc" id="L95">            return header.substring(0, space);</span>
+<span class="nc" id="L93">        final int space = header.indexOf(' ');</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">        if (space &gt; 0) {</span>
+<span class="nc" id="L95">            return header.substring(0, space);</span>
         }
 
 <span class="nc" id="L98">        throw new RuntimeException(&quot;Invalid Authorization header: &quot; + header);</span>
@@ -109,7 +109,7 @@ public class AuthorizationHeader {
      * @return the token
      */
     public String getToken() {
-<span class="fc" id="L112">        return this.getHeader().substring(this.getSecurityPackage().length() + 1);</span>
+<span class="nc" id="L112">        return this.getHeader().substring(this.getSecurityPackage().length() + 1);</span>
     }
 
     /**
@@ -119,7 +119,7 @@ public class AuthorizationHeader {
      */
     public byte[] getTokenBytes() {
         try {
-<span class="fc" id="L122">            return Base64.getDecoder().decode(this.getToken());</span>
+<span class="nc" id="L122">            return Base64.getDecoder().decode(this.getToken());</span>
 <span class="nc" id="L123">        } catch (final IllegalArgumentException e) {</span>
 <span class="nc" id="L124">            AuthorizationHeader.LOGGER.debug(&quot;&quot;, e);</span>
 <span class="nc" id="L125">            throw new RuntimeException(&quot;Invalid authorization header.&quot;);</span>
@@ -132,13 +132,13 @@ public class AuthorizationHeader {
      * @return true, if is ntlm type1 message
      */
     public boolean isNtlmType1Message() {
-<span class="pc bpc" id="L135" title="1 of 2 branches missed.">        if (this.isNull()) {</span>
+<span class="nc bnc" id="L135" title="All 2 branches missed.">        if (this.isNull()) {</span>
 <span class="nc" id="L136">            return false;</span>
         }
 
-<span class="fc" id="L139">        final byte[] tokenBytes = this.getTokenBytes();</span>
-<span class="pc bpc" id="L140" title="1 of 2 branches missed.">        if (!NtlmMessage.isNtlmMessage(tokenBytes)) {</span>
-<span class="fc" id="L141">            return false;</span>
+<span class="nc" id="L139">        final byte[] tokenBytes = this.getTokenBytes();</span>
+<span class="nc bnc" id="L140" title="All 2 branches missed.">        if (!NtlmMessage.isNtlmMessage(tokenBytes)) {</span>
+<span class="nc" id="L141">            return false;</span>
         }
 
 <span class="nc bnc" id="L144" title="All 2 branches missed.">        return 1 == NtlmMessage.getMessageType(tokenBytes);</span>
@@ -151,12 +151,12 @@ public class AuthorizationHeader {
      */
     public boolean isSPNegTokenInitMessage() {
 
-<span class="pc bpc" id="L154" title="1 of 2 branches missed.">        if (this.isNull()) {</span>
+<span class="nc bnc" id="L154" title="All 2 branches missed.">        if (this.isNull()) {</span>
 <span class="nc" id="L155">            return false;</span>
         }
 
-<span class="fc" id="L158">        final byte[] tokenBytes = this.getTokenBytes();</span>
-<span class="fc" id="L159">        return SPNegoMessage.isNegTokenInit(tokenBytes);</span>
+<span class="nc" id="L158">        final byte[] tokenBytes = this.getTokenBytes();</span>
+<span class="nc" id="L159">        return SPNegoMessage.isNegTokenInit(tokenBytes);</span>
     }
 
     /**
@@ -168,16 +168,16 @@ public class AuthorizationHeader {
      * @return True if request is an NTLM POST, PUT, or DELETE with an Authorization header and no data.
      */
     public boolean isNtlmType1PostAuthorizationHeader() {
-<span class="pc bpc" id="L171" title="1 of 4 branches missed.">        if (!&quot;POST&quot;.equals(this.request.getMethod()) &amp;&amp; !&quot;PUT&quot;.equals(this.request.getMethod())</span>
-<span class="pc bpc" id="L172" title="1 of 2 branches missed.">                &amp;&amp; !&quot;DELETE&quot;.equals(this.request.getMethod())) {</span>
-<span class="fc" id="L173">            return false;</span>
+<span class="nc bnc" id="L171" title="All 4 branches missed.">        if (!&quot;POST&quot;.equals(this.request.getMethod()) &amp;&amp; !&quot;PUT&quot;.equals(this.request.getMethod())</span>
+<span class="nc bnc" id="L172" title="All 2 branches missed.">                &amp;&amp; !&quot;DELETE&quot;.equals(this.request.getMethod())) {</span>
+<span class="nc" id="L173">            return false;</span>
         }
 
-<span class="pc bpc" id="L176" title="1 of 2 branches missed.">        if (this.request.getContentLength() != 0) {</span>
+<span class="nc bnc" id="L176" title="All 2 branches missed.">        if (this.request.getContentLength() != 0) {</span>
 <span class="nc" id="L177">            return false;</span>
         }
 
-<span class="pc bpc" id="L180" title="1 of 4 branches missed.">        return this.isNtlmType1Message() || this.isSPNegTokenInitMessage();</span>
+<span class="nc bnc" id="L180" title="All 4 branches missed.">        return this.isNtlmType1Message() || this.isSPNegTokenInitMessage();</span>
     }
 
     /**
@@ -186,11 +186,11 @@ public class AuthorizationHeader {
      * @return True if header contains 'BEARER' header.
      */
     public boolean isBearerAuthorizationHeader() {
-<span class="pc bpc" id="L189" title="1 of 2 branches missed.">        if (this.isNull()) {</span>
+<span class="nc bnc" id="L189" title="All 2 branches missed.">        if (this.isNull()) {</span>
 <span class="nc" id="L190">            return false;</span>
         }
 
-<span class="fc" id="L193">        return this.getSecurityPackage().toUpperCase(Locale.ENGLISH).equalsIgnoreCase(&quot;BEARER&quot;);</span>
+<span class="nc" id="L193">        return this.getSecurityPackage().toUpperCase(Locale.ENGLISH).equalsIgnoreCase(&quot;BEARER&quot;);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

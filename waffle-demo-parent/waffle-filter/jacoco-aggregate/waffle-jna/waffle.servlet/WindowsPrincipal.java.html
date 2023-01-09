@@ -70,8 +70,8 @@ public class WindowsPrincipal implements Principal, Serializable {
      *            Windows identity.
      */
     public WindowsPrincipal(final IWindowsIdentity windowsIdentity) {
-<span class="fc" id="L73">        this(windowsIdentity, PrincipalFormat.FQN, PrincipalFormat.FQN);</span>
-<span class="fc" id="L74">    }</span>
+<span class="nc" id="L73">        this(windowsIdentity, PrincipalFormat.FQN, PrincipalFormat.FQN);</span>
+<span class="nc" id="L74">    }</span>
 
     /**
      * A windows principal.
@@ -84,14 +84,14 @@ public class WindowsPrincipal implements Principal, Serializable {
      *            Role format.
      */
     public WindowsPrincipal(final IWindowsIdentity windowsIdentity, final PrincipalFormat principalFormat,
-<span class="fc" id="L87">            final PrincipalFormat roleFormat) {</span>
-<span class="fc" id="L88">        this.identity = windowsIdentity;</span>
-<span class="fc" id="L89">        this.fqn = windowsIdentity.getFqn();</span>
-<span class="fc" id="L90">        this.sid = windowsIdentity.getSid();</span>
-<span class="fc" id="L91">        this.sidString = windowsIdentity.getSidString();</span>
-<span class="fc" id="L92">        this.groups = WindowsPrincipal.getGroups(windowsIdentity.getGroups());</span>
-<span class="fc" id="L93">        this.roles = WindowsPrincipal.getRoles(windowsIdentity, principalFormat, roleFormat);</span>
-<span class="fc" id="L94">    }</span>
+<span class="nc" id="L87">            final PrincipalFormat roleFormat) {</span>
+<span class="nc" id="L88">        this.identity = windowsIdentity;</span>
+<span class="nc" id="L89">        this.fqn = windowsIdentity.getFqn();</span>
+<span class="nc" id="L90">        this.sid = windowsIdentity.getSid();</span>
+<span class="nc" id="L91">        this.sidString = windowsIdentity.getSidString();</span>
+<span class="nc" id="L92">        this.groups = WindowsPrincipal.getGroups(windowsIdentity.getGroups());</span>
+<span class="nc" id="L93">        this.roles = WindowsPrincipal.getRoles(windowsIdentity, principalFormat, roleFormat);</span>
+<span class="nc" id="L94">    }</span>
 
     /**
      * Gets the roles.
@@ -107,12 +107,12 @@ public class WindowsPrincipal implements Principal, Serializable {
      */
     private static List&lt;String&gt; getRoles(final IWindowsIdentity windowsIdentity, final PrincipalFormat principalFormat,
             final PrincipalFormat roleFormat) {
-<span class="fc" id="L110">        final List&lt;String&gt; roles = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L111">        roles.addAll(WindowsPrincipal.getPrincipalNames(windowsIdentity, principalFormat));</span>
-<span class="pc bpc" id="L112" title="1 of 2 branches missed.">        for (final IWindowsAccount group : windowsIdentity.getGroups()) {</span>
+<span class="nc" id="L110">        final List&lt;String&gt; roles = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L111">        roles.addAll(WindowsPrincipal.getPrincipalNames(windowsIdentity, principalFormat));</span>
+<span class="nc bnc" id="L112" title="All 2 branches missed.">        for (final IWindowsAccount group : windowsIdentity.getGroups()) {</span>
 <span class="nc" id="L113">            roles.addAll(WindowsPrincipal.getRoleNames(group, roleFormat));</span>
         }
-<span class="fc" id="L115">        return roles;</span>
+<span class="nc" id="L115">        return roles;</span>
     }
 
     /**
@@ -124,11 +124,11 @@ public class WindowsPrincipal implements Principal, Serializable {
      * @return the groups
      */
     private static Map&lt;String, WindowsAccount&gt; getGroups(final IWindowsAccount[] groups) {
-<span class="fc" id="L127">        final Map&lt;String, WindowsAccount&gt; groupMap = new HashMap&lt;&gt;();</span>
-<span class="pc bpc" id="L128" title="1 of 2 branches missed.">        for (final IWindowsAccount group : groups) {</span>
+<span class="nc" id="L127">        final Map&lt;String, WindowsAccount&gt; groupMap = new HashMap&lt;&gt;();</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">        for (final IWindowsAccount group : groups) {</span>
 <span class="nc" id="L129">            groupMap.put(group.getFqn(), new WindowsAccount(group));</span>
         }
-<span class="fc" id="L131">        return groupMap;</span>
+<span class="nc" id="L131">        return groupMap;</span>
     }
 
     /**
@@ -200,11 +200,11 @@ public class WindowsPrincipal implements Principal, Serializable {
      */
     private static List&lt;String&gt; getPrincipalNames(final IWindowsIdentity windowsIdentity,
             final PrincipalFormat principalFormat) {
-<span class="fc" id="L203">        final List&lt;String&gt; principals = new ArrayList&lt;&gt;();</span>
-<span class="pc bpc" id="L204" title="3 of 4 branches missed.">        switch (principalFormat) {</span>
+<span class="nc" id="L203">        final List&lt;String&gt; principals = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L204" title="All 4 branches missed.">        switch (principalFormat) {</span>
             case FQN:
-<span class="fc" id="L206">                principals.add(windowsIdentity.getFqn());</span>
-<span class="fc" id="L207">                break;</span>
+<span class="nc" id="L206">                principals.add(windowsIdentity.getFqn());</span>
+<span class="nc" id="L207">                break;</span>
             case SID:
 <span class="nc" id="L209">                principals.add(windowsIdentity.getSidString());</span>
 <span class="nc" id="L210">                break;</span>
@@ -216,7 +216,7 @@ public class WindowsPrincipal implements Principal, Serializable {
             default:
                 break;
         }
-<span class="fc" id="L219">        return principals;</span>
+<span class="nc" id="L219">        return principals;</span>
     }
 
     /**
@@ -247,7 +247,7 @@ public class WindowsPrincipal implements Principal, Serializable {
      */
     @Override
     public String getName() {
-<span class="fc" id="L250">        return this.fqn;</span>
+<span class="nc" id="L250">        return this.fqn;</span>
     }
 
     /**
@@ -261,17 +261,17 @@ public class WindowsPrincipal implements Principal, Serializable {
 
     @Override
     public String toString() {
-<span class="fc" id="L264">        return this.getName();</span>
+<span class="nc" id="L264">        return this.getName();</span>
     }
 
     @Override
     public boolean equals(final Object o) {
-<span class="pc bpc" id="L269" title="1 of 2 branches missed.">        if (this == o) {</span>
+<span class="nc bnc" id="L269" title="All 2 branches missed.">        if (this == o) {</span>
 <span class="nc" id="L270">            return true;</span>
         }
 
-<span class="pc bpc" id="L273" title="1 of 2 branches missed.">        if (o instanceof WindowsPrincipal) {</span>
-<span class="fc" id="L274">            return this.getName().equals(((WindowsPrincipal) o).getName());</span>
+<span class="nc bnc" id="L273" title="All 2 branches missed.">        if (o instanceof WindowsPrincipal) {</span>
+<span class="nc" id="L274">            return this.getName().equals(((WindowsPrincipal) o).getName());</span>
         }
 
 <span class="nc" id="L277">        return false;</span>
@@ -279,7 +279,7 @@ public class WindowsPrincipal implements Principal, Serializable {
 
     @Override
     public int hashCode() {
-<span class="fc" id="L282">        return this.getName().hashCode();</span>
+<span class="nc" id="L282">        return this.getName().hashCode();</span>
     }
 
 }

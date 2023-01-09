@@ -50,28 +50,28 @@ public class CaffeineCache&lt;K, V&gt; implements Cache&lt;K, V&gt; {
      * @param timeout
      *            Specified timeout in seconds for cache.
      */
-<span class="fc" id="L53">    public CaffeineCache(@NonNegative final long timeout) {</span>
-<span class="fc" id="L54">        cache = Caffeine.newBuilder().expireAfterWrite(Duration.ofSeconds(timeout)).build();</span>
-<span class="fc" id="L55">    }</span>
+<span class="nc" id="L53">    public CaffeineCache(@NonNegative final long timeout) {</span>
+<span class="nc" id="L54">        cache = Caffeine.newBuilder().expireAfterWrite(Duration.ofSeconds(timeout)).build();</span>
+<span class="nc" id="L55">    }</span>
 
     @Override
     public V get(K key) {
-<span class="fc" id="L59">        return cache.asMap().get(key);</span>
+<span class="nc" id="L59">        return cache.asMap().get(key);</span>
     }
 
     @Override
     public void put(K key, V value) {
-<span class="fc" id="L64">        cache.put(key, value);</span>
-<span class="fc" id="L65">    }</span>
+<span class="nc" id="L64">        cache.put(key, value);</span>
+<span class="nc" id="L65">    }</span>
 
     @Override
     public void remove(K key) {
-<span class="fc" id="L69">        cache.asMap().remove(key);</span>
-<span class="fc" id="L70">    }</span>
+<span class="nc" id="L69">        cache.asMap().remove(key);</span>
+<span class="nc" id="L70">    }</span>
 
     @Override
     public int size() {
-<span class="fc" id="L74">        return cache.asMap().size();</span>
+<span class="nc" id="L74">        return cache.asMap().size();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

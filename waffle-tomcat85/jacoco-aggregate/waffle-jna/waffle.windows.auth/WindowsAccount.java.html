@@ -53,12 +53,12 @@ public class WindowsAccount implements Serializable {
      * @param account
      *            the account
      */
-<span class="fc" id="L56">    public WindowsAccount(final IWindowsAccount account) {</span>
-<span class="fc" id="L57">        this.sidString = account.getSidString();</span>
-<span class="fc" id="L58">        this.fqn = account.getFqn();</span>
-<span class="fc" id="L59">        this.name = account.getName();</span>
-<span class="fc" id="L60">        this.domain = account.getDomain();</span>
-<span class="fc" id="L61">    }</span>
+<span class="nc" id="L56">    public WindowsAccount(final IWindowsAccount account) {</span>
+<span class="nc" id="L57">        this.sidString = account.getSidString();</span>
+<span class="nc" id="L58">        this.fqn = account.getFqn();</span>
+<span class="nc" id="L59">        this.name = account.getName();</span>
+<span class="nc" id="L60">        this.domain = account.getDomain();</span>
+<span class="nc" id="L61">    }</span>
 
     /**
      * Gets the sid string.
@@ -66,7 +66,7 @@ public class WindowsAccount implements Serializable {
      * @return the sid string
      */
     public String getSidString() {
-<span class="fc" id="L69">        return this.sidString;</span>
+<span class="nc" id="L69">        return this.sidString;</span>
     }
 
     /**
@@ -75,7 +75,7 @@ public class WindowsAccount implements Serializable {
      * @return the fqn
      */
     public String getFqn() {
-<span class="fc" id="L78">        return this.fqn;</span>
+<span class="nc" id="L78">        return this.fqn;</span>
     }
 
     /**
@@ -84,7 +84,7 @@ public class WindowsAccount implements Serializable {
      * @return the name
      */
     public String getName() {
-<span class="fc" id="L87">        return this.name;</span>
+<span class="nc" id="L87">        return this.name;</span>
     }
 
     /**
@@ -93,21 +93,21 @@ public class WindowsAccount implements Serializable {
      * @return the domain
      */
     public String getDomain() {
-<span class="fc" id="L96">        return this.domain;</span>
+<span class="nc" id="L96">        return this.domain;</span>
     }
 
     @Override
     public boolean equals(final Object o) {
 
-<span class="pc bpc" id="L102" title="1 of 2 branches missed.">        if (this == o) {</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">        if (this == o) {</span>
 <span class="nc" id="L103">            return true;</span>
         }
 
-<span class="pc bpc" id="L106" title="1 of 2 branches missed.">        if (!(o instanceof WindowsAccount)) {</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">        if (!(o instanceof WindowsAccount)) {</span>
 <span class="nc" id="L107">            return false;</span>
         }
 
-<span class="fc" id="L110">        return ((WindowsAccount) o).getSidString().equals(this.getSidString());</span>
+<span class="nc" id="L110">        return ((WindowsAccount) o).getSidString().equals(this.getSidString());</span>
     }
 
     @Override

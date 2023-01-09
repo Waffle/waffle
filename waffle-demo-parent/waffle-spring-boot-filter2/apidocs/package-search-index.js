@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"waffle.spring.boot.demo"}]
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"waffle.spring.boot.demo"}];updateSearchResults();
