@@ -29,16 +29,16 @@
 
     <parent>
         <groupId>com.github.waffle</groupId>
-        <artifactId>waffle-parent</artifactId>
+        <artifactId>waffle-spring-boot3</artifactId>
         <version>3.2.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>waffle-tests</artifactId>
+    <artifactId>waffle-spring-boot-autoconfigure3</artifactId>
     <version>3.2.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>waffle-tests</name>
-    <description>Tests for WAFFLE</description>
+    <name>waffle-spring-boot-autoconfigure3</name>
+    <description>Spring Boot Autoconfigure for WAFFLE</description>
     <url>https://waffle.github.io/waffle/</url>
 
     <scm>
@@ -49,52 +49,41 @@
     </scm>
 
     <properties>
-        <!-- Dependencies -->
-        <byte-buddy.version>1.12.21</byte-buddy.version>
-        <mockito-core.version>4.11.0</mockito-core.version>
-        <objenesis.version>3.3</objenesis.version>
-        <servlet.version>4.0.4</servlet.version>
-
         <!-- Automatic Module Name for JPMS -->
-        <module.name>waffle.tests</module.name>
+        <module.name>waffle.spring.boot.autoconfigure3</module.name>
     </properties>
 
     <dependencies>
+        <!-- Internal Dependencies -->
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>waffle-jna</artifactId>
-            <version>${project.version}</version>
-            <scope>compile</scope>
+            <groupId>com.github.waffle</groupId>
+            <artifactId>waffle-spring-security6</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- External Dependencies -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
         </dependency>
         <dependency>
-            <groupId>jakarta.servlet</groupId>
-            <artifactId>jakarta.servlet-api</artifactId>
-            <version>${servlet.version}</version>
-            <scope>provided</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.bytebuddy</groupId>
-            <artifactId>byte-buddy</artifactId>
-            <version>${byte-buddy.version}</version>
-            <scope>compile</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>net.bytebuddy</groupId>
-            <artifactId>byte-buddy-agent</artifactId>
-            <version>${byte-buddy.version}</version>
-            <scope>compile</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>${mockito-core.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.objenesis</groupId>
-            <artifactId>objenesis</artifactId>
-            <version>${objenesis.version}</version>
-            <scope>compile</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 </project>

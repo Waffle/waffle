@@ -33,14 +33,14 @@
         <version>3.2.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>waffle-jna</artifactId>
+    <artifactId>waffle-spring-security6</artifactId>
     <version>3.2.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>waffle-jna</name>
-    <description>WAFFLE JNA implementation</description>
+    <name>waffle-spring-security6</name>
+    <description>Spring Security 6 integration for WAFFLE</description>
     <url>https://waffle.github.io/waffle/</url>
-
+   
     <scm>
         <connection>scm:git:ssh://git@github.com/waffle/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/waffle/waffle.git</developerConnection>
@@ -49,42 +49,37 @@
     </scm>
 
     <properties>
+        <!-- Maven compiler options -->
+        <java.version>17</java.version>
+        <java.release.version>17</java.release.version>
+
         <!-- Dependencies -->
-        <byte-buddy.version>1.12.21</byte-buddy.version>
-        <caffeine.version>2.9.3</caffeine.version>
-        <checker-qual.version>3.29.0</checker-qual.version>
-        <jna.version>5.12.1</jna.version>
-        <powermock.version>2.0.9</powermock.version>
-        <servlet.version>4.0.4</servlet.version>
+        <servlet.version>6.0.0</servlet.version>
+        <spring.version>6.0.3</spring.version>
+        <spring.security.version>6.0.1</spring.security.version>
 
         <!-- Automatic Module Name for JPMS -->
-        <module.name>waffle.jna</module.name>
+        <module.name>waffle.spring.security6</module.name>
     </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <!-- Due to critical nature of WAFFLE jna usage, set to dependency management to help influence usage -->
-            <dependency>
-                <groupId>net.java.dev.jna</groupId>
-                <artifactId>jna</artifactId>
-                <version>${jna.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.java.dev.jna</groupId>
-                <artifactId>jna-platform</artifactId>
-                <version>${jna.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <dependency>
-            <groupId>net.java.dev.jna</groupId>
-            <artifactId>jna</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>waffle-jna-jakarta</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>jcl-over-slf4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
-            <groupId>net.java.dev.jna</groupId>
-            <artifactId>jna-platform</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>waffle-tests-jakarta</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>jakarta.servlet</groupId>
@@ -93,48 +88,52 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-            <version>${slf4j.version}</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>${slf4j.version}</version>
-            <optional>true</optional>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.ben-manes.caffeine</groupId>
-            <artifactId>caffeine</artifactId>
-            <version>${caffeine.version}</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-expression</artifactId>
+            <version>${spring.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.checkerframework</groupId>
-            <artifactId>checker-qual</artifactId>
-            <version>${checker-qual.version}</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-reflect</artifactId>
-            <version>${powermock.version}</version>
-            <scope>test</scope>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.security.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>net.bytebuddy</groupId>
-            <artifactId>byte-buddy</artifactId>
-            <version>${byte-buddy.version}</version>
-            <scope>test</scope>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring.security.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>net.bytebuddy</groupId>
-            <artifactId>byte-buddy-agent</artifactId>
-            <version>${byte-buddy.version}</version>
-            <scope>test</scope>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.security.version}</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

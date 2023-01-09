@@ -3,7 +3,7 @@
 
     MIT License
 
-    Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+    Copyright (c) 2010-2023 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -92,7 +92,9 @@
         <module>waffle-jna-jakarta</module>
         <module>waffle-shiro</module>
         <module>waffle-spring-boot2</module>
+        <module>waffle-spring-boot3</module>
         <module>waffle-spring-security5</module>
+        <module>waffle-spring-security6</module>
         <module>waffle-tests</module>
         <module>waffle-tests-jakarta</module>
         <module>waffle-tomcat85</module>
