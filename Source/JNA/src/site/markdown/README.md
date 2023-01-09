@@ -28,7 +28,7 @@ Sites
 Essentials
 ----------
 
-* [Download Version 3.1.1](https://github.com/Waffle/waffle/releases/download/waffle-parent-3.1.1/Waffle-3.1.1.zip)
+* [Download Version 3.2.0](https://search.maven.org/remotecontent?filepath=com/github/waffle/waffle-distro/3.2.0/waffle-distro-3.2.0-distro.zip)
 * [Waffle in Maven Central](https://search.maven.org/search?q=waffle)
 * [Waffle Snapshots](https://oss.sonatype.org/content/repositories/snapshots/com/github/waffle/)
 * [Get Waffle To Work in Tomcat, Jetty, WebSphere, etc.](Docs/ServletSingleSignOnSecurityFilter.md)
