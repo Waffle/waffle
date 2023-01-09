@@ -17,7 +17,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
-          java-version: 11
+          java-version: 17
           distribution: zulu
       - name: Analyze with SonarCloud
         run: ./mvnw verify sonar:sonar -B -D"license.skip=true" -D"sonar.projectKey=Waffle_waffle" -D"sonar.organization=waffle" -D"sonar.host.url=https://sonarcloud.io" -D"sonar.login=$SONAR_TOKEN"
