@@ -207,7 +207,7 @@
         <license.plugin>4.2.rc3</license.plugin>
         <modernizer.plugin>2.5.0</modernizer.plugin>
         <nexus-staging.plugin>1.6.13</nexus-staging.plugin>
-        <pmd.plugin>3.19.0</pmd.plugin>
+        <pmd.plugin>3.20.0</pmd.plugin>
         <project-info-reports.plugin>3.4.2</project-info-reports.plugin>
         <release.plugin>3.0.0-M7</release.plugin>
         <resources.plugin>3.3.0</resources.plugin>
