@@ -50,7 +50,7 @@
 
     <properties>
         <!-- Dependencies -->
-        <jna.version>5.12.1</jna.version>
+        <jna.version>5.13.0</jna.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.bom</module.name>
