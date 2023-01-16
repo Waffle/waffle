@@ -3,7 +3,7 @@
 
     MIT License
 
-    Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+    Copyright (c) 2010-2023 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -37,7 +37,7 @@
     <packaging>jar</packaging>
 
     <name>waffle-spring-boot-filter2</name>
-    <description>Spring Boot Filter Demo for WAFFLE</description>
+    <description>Spring Boot Filter 2 Demo for WAFFLE</description>
     <url>https://waffle.github.io/waffle/</url>
 
     <scm>
