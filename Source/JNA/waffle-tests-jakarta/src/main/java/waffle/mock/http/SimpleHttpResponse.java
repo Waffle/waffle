@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2023 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +32,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -213,11 +212,6 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
      */
     public String getOutputText() {
         this.writer.flush();
-        try {
-            return this.bytes.toString(StandardCharsets.UTF_8.name());
-        } catch (final UnsupportedEncodingException e) {
-            SimpleHttpResponse.LOGGER.error("", e);
-        }
-        return null;
+        return this.bytes.toString(StandardCharsets.UTF_8);
     }
 }

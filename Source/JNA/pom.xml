@@ -134,7 +134,7 @@
 
     <properties>
         <!-- Project Level -->
-        <copyright>2022</copyright>
+        <copyright>2023</copyright>
 
         <!-- Remember to adjust this up as you add unit tests -->
         <jacoco.minimum.coverage>0.0</jacoco.minimum.coverage>
@@ -145,8 +145,8 @@
         <!-- Maven compiler options -->
         <java.version>8</java.version>
         <java.release.version>8</java.release.version>
-        <java.test.version>${java.version}</java.test.version>
-        <java.test.release.version>${java.release.version}</java.test.release.version>
+        <java.test.version>11</java.test.version>
+        <java.test.release.version>11</java.test.release.version>
 
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -372,9 +372,14 @@
                         <rules>
                             <enforceBytecodeVersion>
                                 <maxJdkVersion>${java.version}</maxJdkVersion>
+                                <excludes>
+                                    <exclude>org.mockito:mockito-core</exclude>
+                                    <exclude>com.github.waffle:waffle-tests</exclude>
+                                    <exclude>com.github.waffle:waffle-tests-jakarta</exclude>
+                                </excludes>
                             </enforceBytecodeVersion>
                             <requireJavaVersion>
-                                <version>[11,12),[17,18),[19,20),[20,21)</version>
+                                <version>[11,12),[17,18),[19,20),[20,21),[21,22)</version>
                             </requireJavaVersion>
                             <requireMavenVersion>
                                 <version>[${maven.min-version},)</version>

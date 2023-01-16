@@ -26,19 +26,18 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
-        <groupId>com.github.waffle</groupId>
-        <artifactId>waffle-parent</artifactId>
+        <groupId>com.github.waffle.demo</groupId>
+        <artifactId>waffle-demo-parent</artifactId>
         <version>3.2.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>waffle-tests</artifactId>
+    <artifactId>waffle-spring-boot-filter3</artifactId>
     <version>3.2.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>waffle-tests</name>
-    <description>Tests for WAFFLE</description>
+    <name>waffle-spring-boot-filter3</name>
+    <description>Spring Boot Filter 3 Demo for WAFFLE</description>
     <url>https://waffle.github.io/waffle/</url>
 
     <scm>
@@ -50,57 +49,75 @@
 
     <properties>
         <!-- Maven compiler options -->
-        <java.version>11</java.version>
-        <java.release.version>11</java.release.version>
-        <java.test.version>11</java.test.version>
-        <java.test.release.version>11</java.test.release.version>
+        <java.version>17</java.version>
+        <java.release.version>17</java.release.version>
 
         <!-- Dependencies -->
-        <byte-buddy.version>1.12.22</byte-buddy.version>
-        <mockito-core.version>5.0.0</mockito-core.version>
-        <objenesis.version>3.3</objenesis.version>
-        <servlet.version>4.0.4</servlet.version>
+        <spring-boot.version>3.0.1</spring-boot.version>
 
         <!-- Automatic Module Name for JPMS -->
-        <module.name>waffle.tests</module.name>
+        <module.name>waffle.spring.boot.filter2.demo</module.name>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.github.waffle</groupId>
+                <artifactId>waffle-spring-boot-starter3</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>waffle-jna</artifactId>
+            <groupId>com.github.waffle</groupId>
+            <artifactId>waffle-jna-jakarta</artifactId>
             <version>${project.version}</version>
-            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>jcl-over-slf4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
-            <groupId>jakarta.servlet</groupId>
-            <artifactId>jakarta.servlet-api</artifactId>
-            <version>${servlet.version}</version>
-            <scope>provided</scope>
+            <groupId>com.github.waffle</groupId>
+            <artifactId>waffle-spring-boot-starter3</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.bytebuddy</groupId>
-            <artifactId>byte-buddy</artifactId>
-            <version>${byte-buddy.version}</version>
-            <scope>compile</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.bytebuddy</groupId>
-            <artifactId>byte-buddy-agent</artifactId>
-            <version>${byte-buddy.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>${mockito-core.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.objenesis</groupId>
-            <artifactId>objenesis</artifactId>
-            <version>${objenesis.version}</version>
-            <scope>compile</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

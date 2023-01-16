@@ -3,7 +3,7 @@
 
     MIT License
 
-    Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+    Copyright (c) 2010-2023 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -52,6 +52,7 @@
         <module>waffle-spring-filter</module>
         <module>waffle-spring-form</module>
         <module>waffle-spring-boot-filter2</module>
+        <module>waffle-spring-boot-filter3</module>
     </modules>
 
     <scm>
@@ -74,7 +75,7 @@
         <cargo.maven.containerId>tomcat${tomcat.major-version}x</cargo.maven.containerId>
         <cargo.maven.containerUrl>https://archive.apache.org/dist/tomcat/tomcat-${tomcat.major-version}/v${tomcat.version}/bin/apache-tomcat-${tomcat.version}.zip</cargo.maven.containerUrl>
         <tomcat.major-version>8</tomcat.major-version>
-        <tomcat.version>8.5.81</tomcat.version>
+        <tomcat.version>8.5.84</tomcat.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.demo</module.name>
