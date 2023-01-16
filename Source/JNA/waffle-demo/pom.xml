@@ -52,6 +52,7 @@
         <module>waffle-spring-filter</module>
         <module>waffle-spring-form</module>
         <module>waffle-spring-boot-filter2</module>
+        <module>waffle-spring-boot-filter3</module>
     </modules>
 
     <scm>
