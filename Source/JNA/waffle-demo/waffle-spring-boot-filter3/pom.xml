@@ -53,7 +53,7 @@
         <java.release.version>17</java.release.version>
 
         <!-- Dependencies -->
-        <spring-boot.version>3.0.1</spring-boot.version>
+        <spring-boot.version>3.0.2</spring-boot.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.spring.boot.filter2.demo</module.name>
