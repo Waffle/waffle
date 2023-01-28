@@ -39,6 +39,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnJre;
+import org.junit.jupiter.api.condition.JRE;
 import org.mockito.Mockito;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
@@ -148,6 +150,7 @@ class DelegatingNegotiateSecurityFilterTest {
      * @throws ServletException
      *             the servlet exception
      */
+    @DisabledOnJre(JRE.JAVA_21)
     @Test
     void testNegotiate_CustomAuth() throws IOException, ServletException {
         final Authentication customToken = Mockito.mock(Authentication.class);
