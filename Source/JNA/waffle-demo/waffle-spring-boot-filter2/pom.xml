@@ -49,7 +49,10 @@
 
     <properties>
         <!-- Dependencies -->
+        <logback.version>1.2.11</logback.version>
+        <slf4j.version>1.7.36</slf4j.version>
         <spring-boot.version>2.7.8</spring-boot.version>
+        <spring-security.version>5.8.1</spring-security.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.spring.boot.filter2.demo</module.name>
@@ -57,6 +60,25 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-simple</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-bom</artifactId>
+                <version>${spring-security.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
             <dependency>
                 <groupId>com.github.waffle</groupId>
                 <artifactId>waffle-spring-boot-starter2</artifactId>

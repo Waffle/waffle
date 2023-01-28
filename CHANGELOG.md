@@ -1,3 +1,22 @@
+3.3.0 (1/28/2023)
+=================
+* Last expected support release for jdk 8.  While additonal patches could be made they are not expected as resources not available to support it.
+    * With OSS mostly moving forwards, we have made that decision as well.  The build at this point is getting rather complex with requirement only jdk 17 works to build it.
+* Introduce waffle-spring-boot3 module and requires jdk 17
+* Introduce waffle-spring-security6 module and requires jdk 17
+* Introduce waffle-spring-boot-filter3 demo module and requires jdk 17
+* Waffle-tests now compiled to jdk 11
+* Waffle-tests-jakarta now compiled to jdk 11
+* Drop Waffle-tomcat10 10.0.x support in line with tomcat drop of support in favor of 10.1.x support instead requiring jdk 11.  Code should still work with tomcat 10.0.x as long as jdk 11 used.
+* Now using slf4j 2, spring boot 2 will continue to use slf4j 1.  However, its possible to use slf4j 2 with spring boot 2 by disabling springs logging setup and using standard logback.xml.
+
+Build
+-----
+* Switched from dependabot to renovate
+* Dropped jdk 11 on build in order to build spring 6 / spring boot 3
+* Update to jdk 19 GA, add 20-ea, add 21-ea, and baseline required jdk 17 to build
+* Change test compilation to jdk 11
+
 3.2.0 (7/24/2022)
 =================
 * Drop Tomcat 7 support as end of life

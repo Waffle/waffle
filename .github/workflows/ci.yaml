@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         os: [windows-2019, windows-latest]
-        java: [17, 19, 20-ea]
+        java: [17, 19, 20-ea, 21-ea]
       fail-fast: false
       max-parallel: 4
     name: Test JDK ${{ matrix.java }}, ${{ matrix.os }}

@@ -24,6 +24,7 @@
 package waffle.spring.boot.demo;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -36,6 +37,7 @@ import waffle.spring.NegotiateSecurityFilterEntryPoint;
  * Demo Spring Boot Security configuration that configures the Negotiate filter to require authentication for all
  * requests.
  */
+@Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
@@ -56,8 +58,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    SecurityFilterChain configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().authenticated().and()
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests().anyRequest().authenticated().and()
                 .addFilterBefore(filter, BasicAuthenticationFilter.class).exceptionHandling()
                 .authenticationEntryPoint(entryPoint);
         return http.build();
