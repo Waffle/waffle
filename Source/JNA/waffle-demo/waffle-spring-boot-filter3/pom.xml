@@ -53,6 +53,7 @@
         <java.release.version>17</java.release.version>
 
         <!-- Dependencies -->
+        <logback.version>1.4.5</logback.version>
         <spring-boot.version>3.0.2</spring-boot.version>
 
         <!-- Automatic Module Name for JPMS -->
@@ -61,6 +62,12 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>com.github.waffle</groupId>
                 <artifactId>waffle-spring-boot-starter3</artifactId>

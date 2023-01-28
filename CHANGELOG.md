@@ -6,6 +6,7 @@
 * Waffle-tests now compiled to jdk 11
 * Waffle-tests-jakarta now compiled to jdk 11
 * Drop Waffle-tomcat10 10.0.x support in line with tomcat drop of support in favor of 10.1.x support instead requiring jdk 11.  Code should still work with tomcat 10.0.x as long as jdk 11 used.
+* Now using slf4j 2, spring boot 2 will continue to use slf4j 1.  However, its possible to use slf4j 2 with spring boot 2 by disabling springs logging setup and using standard logback.xml.
 
 Build
 * Switched from dependabot to renovate
