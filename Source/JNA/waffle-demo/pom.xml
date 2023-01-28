@@ -103,11 +103,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.github.waffle</groupId>
-            <artifactId>waffle-jna</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
             <version>${servlet.version}</version>
