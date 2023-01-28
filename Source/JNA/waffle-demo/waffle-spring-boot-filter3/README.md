@@ -15,4 +15,4 @@ To deploy using springboot
 
     http://localhost:8080/
 
-- Use 'user' as logon and password printed to console for testing
+- Use 'admin' as logon without any password to test the configuration
