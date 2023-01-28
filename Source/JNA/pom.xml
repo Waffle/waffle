@@ -374,6 +374,7 @@
                                 <maxJdkVersion>${java.version}</maxJdkVersion>
                                 <excludes>
                                     <exclude>org.mockito:mockito-core</exclude>
+                                    <exclude>org.mockito:mockito-inline</exclude>
                                     <exclude>com.github.waffle:waffle-tests</exclude>
                                     <exclude>com.github.waffle:waffle-tests-jakarta</exclude>
                                 </excludes>
