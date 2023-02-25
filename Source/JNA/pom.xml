@@ -1390,19 +1390,6 @@
                                     <pluginExecutions>
                                         <pluginExecution>
                                             <pluginExecutionFilter>
-                                                <groupId>com.github.hazendaz.maven</groupId>
-                                                <artifactId>htmlcompressor-maven-plugin</artifactId>
-                                                <versionRange>[${htmlcompressor.plugin},)</versionRange>
-                                                <goals>
-                                                    <goal>html</goal>
-                                                </goals>
-                                            </pluginExecutionFilter>
-                                            <action>
-                                                <ignore />
-                                            </action>
-                                        </pluginExecution>
-                                        <pluginExecution>
-                                            <pluginExecutionFilter>
                                                 <groupId>org.commonjava.maven.plugins</groupId>
                                                 <artifactId>directory-maven-plugin</artifactId>
                                                 <versionRange>[${directory.plugin},)</versionRange>
