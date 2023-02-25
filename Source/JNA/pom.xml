@@ -1390,19 +1390,6 @@
                                     <pluginExecutions>
                                         <pluginExecution>
                                             <pluginExecutionFilter>
-                                                <groupId>com.github.hazendaz.maven</groupId>
-                                                <artifactId>htmlcompressor-maven-plugin</artifactId>
-                                                <versionRange>[${htmlcompressor.plugin},)</versionRange>
-                                                <goals>
-                                                    <goal>html</goal>
-                                                </goals>
-                                            </pluginExecutionFilter>
-                                            <action>
-                                                <ignore />
-                                            </action>
-                                        </pluginExecution>
-                                        <pluginExecution>
-                                            <pluginExecutionFilter>
                                                 <groupId>org.commonjava.maven.plugins</groupId>
                                                 <artifactId>directory-maven-plugin</artifactId>
                                                 <versionRange>[${directory.plugin},)</versionRange>
@@ -1419,19 +1406,6 @@
                                         </pluginExecution>
                                         <pluginExecution>
                                             <pluginExecutionFilter>
-                                                <groupId>net.alchim31.maven</groupId>
-                                                <artifactId>yuicompressor-maven-plugin</artifactId>
-                                                <versionRange>[${yuicompressor.plugin},)</versionRange>
-                                                <goals>
-                                                    <goal>compress</goal>
-                                                </goals>
-                                            </pluginExecutionFilter>
-                                            <action>
-                                                <ignore />
-                                            </action>
-                                        </pluginExecution>
-                                        <pluginExecution>
-                                            <pluginExecutionFilter>
                                                 <groupId>com.mycila</groupId>
                                                 <artifactId>license-maven-plugin</artifactId>
                                                 <versionRange>[${license.plugin},)</versionRange>
@@ -1444,61 +1418,6 @@
                                                     <runOnConfiguration>true</runOnConfiguration>
                                                     <runOnIncremental>true</runOnIncremental>
                                                 </execute>
-                                            </action>
-                                        </pluginExecution>
-                                        <pluginExecution>
-                                            <pluginExecutionFilter>
-                                                <groupId>org.jacoco</groupId>
-                                                <artifactId>jacoco-maven-plugin</artifactId>
-                                                <versionRange>[${jacoco.plugin},)</versionRange>
-                                                <goals>
-                                                    <goal>prepare-agent</goal>
-                                                </goals>
-                                            </pluginExecutionFilter>
-                                            <action>
-                                                <ignore />
-                                            </action>
-                                        </pluginExecution>
-                                        <pluginExecution>
-                                            <pluginExecutionFilter>
-                                                <groupId>net.revelc.code.formatter</groupId>
-                                                <artifactId>formatter-maven-plugin</artifactId>
-                                                <versionRange>[${formatter.plugin},)</versionRange>
-                                                <goals>
-                                                    <goal>format</goal>
-                                                </goals>
-                                            </pluginExecutionFilter>
-                                            <action>
-                                                <ignore />
-                                            </action>
-                                        </pluginExecution>
-                                        <pluginExecution>
-                                            <pluginExecutionFilter>
-                                                <groupId>net.revelc.code</groupId>
-                                                <artifactId>impsort-maven-plugin</artifactId>
-                                                <versionRange>[${impsort.plugin},)</versionRange>
-                                                <goals>
-                                                    <goal>sort</goal>
-                                                </goals>
-                                            </pluginExecutionFilter>
-                                            <action>
-                                                <execute>
-                                                    <runOnConfiguration>true</runOnConfiguration>
-                                                    <runOnIncremental>true</runOnIncremental>
-                                                </execute>
-                                            </action>
-                                        </pluginExecution>
-                                        <pluginExecution>
-                                            <pluginExecutionFilter>
-                                                <groupId>org.apache.maven.plugins</groupId>
-                                                <artifactId>maven-enforcer-plugin</artifactId>
-                                                <versionRange>[${enforcer.plugin},)</versionRange>
-                                                <goals>
-                                                    <goal>enforce</goal>
-                                                </goals>
-                                            </pluginExecutionFilter>
-                                            <action>
-                                                <ignore />
                                             </action>
                                         </pluginExecution>
                                     </pluginExecutions>
