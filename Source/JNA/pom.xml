@@ -1422,19 +1422,6 @@
                                         </pluginExecution>
                                         <pluginExecution>
                                             <pluginExecutionFilter>
-                                                <groupId>net.revelc.code.formatter</groupId>
-                                                <artifactId>formatter-maven-plugin</artifactId>
-                                                <versionRange>[${formatter.plugin},)</versionRange>
-                                                <goals>
-                                                    <goal>format</goal>
-                                                </goals>
-                                            </pluginExecutionFilter>
-                                            <action>
-                                                <ignore />
-                                            </action>
-                                        </pluginExecution>
-                                        <pluginExecution>
-                                            <pluginExecutionFilter>
                                                 <groupId>net.revelc.code</groupId>
                                                 <artifactId>impsort-maven-plugin</artifactId>
                                                 <versionRange>[${impsort.plugin},)</versionRange>
