@@ -1384,6 +1384,7 @@
                         <plugin>
                             <groupId>org.eclipse.m2e</groupId>
                             <artifactId>lifecycle-mapping</artifactId>
+                            <!-- Keep version here as fake version and maven report info has problems defining it in dependency management -->
                             <version>${lifecycle.version}</version>
                             <configuration>
                                 <lifecycleMappingMetadata>
