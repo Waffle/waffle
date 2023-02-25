@@ -1406,19 +1406,6 @@
                                         </pluginExecution>
                                         <pluginExecution>
                                             <pluginExecutionFilter>
-                                                <groupId>net.alchim31.maven</groupId>
-                                                <artifactId>yuicompressor-maven-plugin</artifactId>
-                                                <versionRange>[${yuicompressor.plugin},)</versionRange>
-                                                <goals>
-                                                    <goal>compress</goal>
-                                                </goals>
-                                            </pluginExecutionFilter>
-                                            <action>
-                                                <ignore />
-                                            </action>
-                                        </pluginExecution>
-                                        <pluginExecution>
-                                            <pluginExecutionFilter>
                                                 <groupId>com.mycila</groupId>
                                                 <artifactId>license-maven-plugin</artifactId>
                                                 <versionRange>[${license.plugin},)</versionRange>
