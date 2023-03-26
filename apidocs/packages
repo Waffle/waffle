@@ -3,12 +3,12 @@ waffle.jetty
 waffle.jaas
 waffle.windows.auth
 waffle.windows.auth.impl
+waffle.util
+waffle.util.cache
 waffle.servlet
 waffle.servlet.spi
-waffle.util.cache
-waffle.util
-waffle.shiro.dynamic
 waffle.shiro
+waffle.shiro.dynamic
 waffle.shiro.negotiate
 waffle.spring.boot
 waffle.spring.boot.starter

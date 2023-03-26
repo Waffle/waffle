@@ -1,11 +1,11 @@
 waffle.jetty
 waffle.jaas
 waffle.windows.auth
+waffle.util
 waffle.servlet
 waffle.servlet.spi
-waffle.util
-waffle.shiro.dynamic
 waffle.shiro
+waffle.shiro.dynamic
 waffle.shiro.negotiate
 waffle.spring
 waffle.spring.handlers
