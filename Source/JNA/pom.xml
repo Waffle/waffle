@@ -428,11 +428,6 @@
                             <version>${wagon.version}</version>
                         </dependency>
                         <dependency>
-                            <groupId>org.apache.maven.wagon</groupId>
-                            <artifactId>wagon-ssh</artifactId>
-                            <version>${wagon.version}</version>
-                        </dependency>
-                        <dependency>
                             <groupId>org.apache.maven.scm</groupId>
                             <artifactId>maven-scm-api</artifactId>
                             <version>${scm.version}</version>
@@ -1119,14 +1114,6 @@
                 </executions>
             </plugin>
         </plugins>
-
-        <extensions>
-            <extension>
-                <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-ssh</artifactId>
-                <version>${wagon.version}</version>
-            </extension>
-        </extensions>
     </build>
 
     <reporting>
