@@ -185,7 +185,7 @@
         <build-helper.plugin>3.3.0</build-helper.plugin>
         <changelog.plugin>2.3</changelog.plugin>
         <changes.plugin>2.12.1</changes.plugin>
-        <checkstyle.plugin>3.2.1</checkstyle.plugin>
+        <checkstyle.plugin>3.2.2</checkstyle.plugin>
         <clean.plugin>3.2.0</clean.plugin>
         <compiler.plugin>3.11.0</compiler.plugin>
         <coveralls.plugin>4.4.1</coveralls.plugin>
