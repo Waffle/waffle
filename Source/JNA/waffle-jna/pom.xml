@@ -55,7 +55,7 @@
         <checker-qual.version>3.33.0</checker-qual.version>
         <jna.version>5.13.0</jna.version>
         <powermock.version>2.0.9</powermock.version>
-        <servlet.version>4.0.4</servlet.version>
+        <servlet.version>6.0.0</servlet.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.jna</module.name>
