@@ -64,8 +64,8 @@
 
     <properties>
         <!-- Dependencies -->
-        <caffeine.version>2.9.3</caffeine.version>
-        <logback.version>1.3.5</logback.version>
+        <caffeine.version>3.1.6</caffeine.version>
+        <logback.version>1.3.7</logback.version>
         <servlet.version>4.0.4</servlet.version>
 
         <!-- Plugins -->
@@ -75,7 +75,7 @@
         <cargo.maven.containerId>tomcat${tomcat.major-version}x</cargo.maven.containerId>
         <cargo.maven.containerUrl>https://archive.apache.org/dist/tomcat/tomcat-${tomcat.major-version}/v${tomcat.version}/bin/apache-tomcat-${tomcat.version}.zip</cargo.maven.containerUrl>
         <tomcat.major-version>8</tomcat.major-version>
-        <tomcat.version>8.5.84</tomcat.version>
+        <tomcat.version>8.5.88</tomcat.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.demo</module.name>
