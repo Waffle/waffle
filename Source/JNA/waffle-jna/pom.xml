@@ -51,7 +51,7 @@
     <properties>
         <!-- Dependencies -->
         <byte-buddy.version>1.14.4</byte-buddy.version>
-        <caffeine.version>2.9.3</caffeine.version>
+        <caffeine.version>3.1.6</caffeine.version>
         <checker-qual.version>3.33.0</checker-qual.version>
         <jna.version>5.13.0</jna.version>
         <powermock.version>2.0.9</powermock.version>
