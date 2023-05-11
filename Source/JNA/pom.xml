@@ -170,7 +170,7 @@
         <!-- Third Party Versions -->
         <assertj.version>3.24.2</assertj.version>
         <commons-math.version>3.6.1</commons-math.version>
-        <error-prone.version>2.18.0</error-prone.version>
+        <error-prone.version>2.19.1</error-prone.version>
         <j2objc.version>2.8</j2objc.version>
         <jmh.version>1.36</jmh.version>
         <jmockit.version>1.50.0</jmockit.version>
