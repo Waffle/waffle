@@ -50,7 +50,7 @@
 
     <properties>
         <!-- Dependencies -->
-        <tomcat.version>10.1.8</tomcat.version>
+        <tomcat.version>10.1.9</tomcat.version>
 
         <!-- Maven compiler options -->
         <java.version>11</java.version>
