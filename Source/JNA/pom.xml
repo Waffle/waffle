@@ -192,7 +192,7 @@
         <dependency.plugin>3.6.0</dependency.plugin>
         <dependency-check.plugin>8.4.0</dependency-check.plugin>
         <deploy.plugin>3.1.1</deploy.plugin>
-        <directory.plugin>1.0</directory.plugin>
+        <directory.plugin>1.1.0</directory.plugin>
         <enforcer.plugin>3.4.1</enforcer.plugin>
         <formatter.plugin>2.23.0</formatter.plugin>
         <git-commit-id.plugin>6.0.0</git-commit-id.plugin>
@@ -910,7 +910,7 @@
 
                 <!-- Find maven root -->
                 <plugin>
-                    <groupId>org.commonjava.maven.plugins</groupId>
+                    <groupId>com.github.hazendaz.maven</groupId>
                     <artifactId>directory-maven-plugin</artifactId>
                     <version>${directory.plugin}</version>
                 </plugin>
@@ -1061,7 +1061,7 @@
 
             <!-- Find maven root -->
             <plugin>
-                <groupId>org.commonjava.maven.plugins</groupId>
+                <groupId>com.github.hazendaz.maven</groupId>
                 <artifactId>directory-maven-plugin</artifactId>
                 <executions>
                     <execution>
@@ -1365,22 +1365,6 @@
                             <configuration>
                                 <lifecycleMappingMetadata>
                                     <pluginExecutions>
-                                        <pluginExecution>
-                                            <pluginExecutionFilter>
-                                                <groupId>org.commonjava.maven.plugins</groupId>
-                                                <artifactId>directory-maven-plugin</artifactId>
-                                                <versionRange>[${directory.plugin},)</versionRange>
-                                                <goals>
-                                                    <goal>highest-basedir</goal>
-                                                </goals>
-                                            </pluginExecutionFilter>
-                                            <action>
-                                                <execute>
-                                                    <runOnConfiguration>true</runOnConfiguration>
-                                                    <runOnIncremental>true</runOnIncremental>
-                                                </execute>
-                                            </action>
-                                        </pluginExecution>
                                         <pluginExecution>
                                             <pluginExecutionFilter>
                                                 <groupId>com.mycila</groupId>
