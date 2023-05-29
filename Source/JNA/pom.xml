@@ -207,7 +207,7 @@
         <license.plugin>4.2</license.plugin>
         <modernizer.plugin>2.6.0</modernizer.plugin>
         <pmd.plugin>3.21.0</pmd.plugin>
-        <project-info-reports.plugin>3.4.3</project-info-reports.plugin>
+        <project-info-reports.plugin>3.4.4</project-info-reports.plugin>
         <release.plugin>3.0.0</release.plugin>
         <resources.plugin>3.3.1</resources.plugin>
         <scm.plugin>2.0.1</scm.plugin>
