@@ -216,7 +216,7 @@
         <site.plugin>3.12.1</site.plugin>
         <sonar.plugin>3.9.1.2184</sonar.plugin>
         <sortpom.plugin>3.2.1</sortpom.plugin>
-        <surefire.plugin>3.1.0</surefire.plugin>
+        <surefire.plugin>3.1.2</surefire.plugin>
         <taglist.plugin>3.0.0</taglist.plugin>
         <versions.plugin>2.16.0</versions.plugin>
         <wagon.plugin>2.0.2</wagon.plugin>
