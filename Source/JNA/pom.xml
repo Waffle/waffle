@@ -205,7 +205,7 @@
         <javadoc.plugin>3.6.0</javadoc.plugin>
         <jxr.plugin>3.3.0</jxr.plugin>
         <license.plugin>4.2</license.plugin>
-        <modernizer.plugin>2.6.0</modernizer.plugin>
+        <modernizer.plugin>2.7.0</modernizer.plugin>
         <pmd.plugin>3.21.0</pmd.plugin>
         <project-info-reports.plugin>3.4.5</project-info-reports.plugin>
         <release.plugin>3.0.1</release.plugin>
