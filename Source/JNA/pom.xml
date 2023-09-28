@@ -1365,6 +1365,7 @@
                             <configuration>
                                 <lifecycleMappingMetadata>
                                     <pluginExecutions>
+                                        <!-- Continue to run license plugin with m2e, its in plugin now but disabled there so this ensures it runs. -->
                                         <pluginExecution>
                                             <pluginExecutionFilter>
                                                 <groupId>com.mycila</groupId>
