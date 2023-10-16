@@ -200,7 +200,7 @@
         <htmlcompressor.plugin>1.9.1.1</htmlcompressor.plugin>
         <impsort.plugin>1.9.0</impsort.plugin>
         <install.plugin>3.1.1</install.plugin>
-        <jacoco.plugin>0.8.10</jacoco.plugin>
+        <jacoco.plugin>0.8.11</jacoco.plugin>
         <jar.plugin>3.3.0</jar.plugin>
         <javadoc.plugin>3.6.0</javadoc.plugin>
         <jxr.plugin>3.3.0</jxr.plugin>
