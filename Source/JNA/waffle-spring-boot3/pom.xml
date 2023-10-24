@@ -55,7 +55,7 @@
 
         <!-- Dependencies -->
         <jna.version>5.13.0</jna.version>
-        <log4j.version>2.21.0</log4j.version>
+        <log4j.version>2.21.1</log4j.version>
         <spring-boot.version>3.1.5</spring-boot.version>
         <spring-security.version>6.1.5</spring-security.version>
 
