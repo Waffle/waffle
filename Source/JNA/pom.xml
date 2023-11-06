@@ -202,7 +202,7 @@
         <install.plugin>3.1.1</install.plugin>
         <jacoco.plugin>0.8.11</jacoco.plugin>
         <jar.plugin>3.3.0</jar.plugin>
-        <javadoc.plugin>3.6.0</javadoc.plugin>
+        <javadoc.plugin>3.6.2</javadoc.plugin>
         <jxr.plugin>3.3.1</jxr.plugin>
         <license.plugin>4.3</license.plugin>
         <modernizer.plugin>2.7.0</modernizer.plugin>
