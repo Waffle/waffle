@@ -212,7 +212,7 @@
         <resources.plugin>3.3.1</resources.plugin>
         <scm.plugin>2.0.1</scm.plugin>
         <source.plugin>3.3.0</source.plugin>
-        <spotbugs.plugin>4.7.3.6</spotbugs.plugin>
+        <spotbugs.plugin>4.8.1.0</spotbugs.plugin>
         <site.plugin>3.12.1</site.plugin>
         <sonar.plugin>3.10.0.2594</sonar.plugin>
         <sortpom.plugin>3.3.0</sortpom.plugin>
