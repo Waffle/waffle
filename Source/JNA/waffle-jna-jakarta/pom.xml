@@ -3,7 +3,7 @@
 
     MIT License
 
-    Copyright (c) 2010-2023 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+    Copyright (c) 2010-2024 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -55,7 +55,7 @@
         <checker-qual.version>3.42.0</checker-qual.version>
         <jna.version>5.14.0</jna.version>
         <powermock.version>2.0.9</powermock.version>
-        <servlet.version>5.0.0</servlet.version>
+        <servlet.version>6.0.0</servlet.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.jna.jakarta</module.name>

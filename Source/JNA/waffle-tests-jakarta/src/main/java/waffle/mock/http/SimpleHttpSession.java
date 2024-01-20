@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2024 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,11 +23,8 @@
  */
 package waffle.mock.http;
 
-import com.google.errorprone.annotations.InlineMe;
-
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpSession;
-import jakarta.servlet.http.HttpSessionContext;
 
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -78,42 +75,6 @@ public class SimpleHttpSession implements HttpSession {
         return null;
     }
 
-    /**
-     * Simply remove this if it is ever actually removed from servlet-api
-     *
-     * @deprecated Remove this once servlet does.
-     */
-    @Deprecated
-    @InlineMe(replacement = "null")
-    @Override
-    public final HttpSessionContext getSessionContext() {
-        return null;
-    }
-
-    /**
-     * Simply remove this if it is ever actually removed from servlet-api
-     *
-     * @deprecated Remove this once servlet does.
-     */
-    @Deprecated
-    @InlineMe(replacement = "null")
-    @Override
-    public final Object getValue(final String arg0) {
-        return null;
-    }
-
-    /**
-     * Simply remove this if it is ever actually removed from servlet-api
-     *
-     * @deprecated Remove this once servlet does.
-     */
-    @Deprecated
-    @InlineMe(replacement = "new String[0]")
-    @Override
-    public final String[] getValueNames() {
-        return new String[0];
-    }
-
     @Override
     public void invalidate() {
         // Do Nothing
@@ -124,31 +85,9 @@ public class SimpleHttpSession implements HttpSession {
         return false;
     }
 
-    /**
-     * Simply remove this if it is ever actually removed from servlet-api
-     *
-     * @deprecated Remove this once servlet does.
-     */
-    @Deprecated
-    @Override
-    public void putValue(final String arg0, final Object arg1) {
-        // Do Nothing
-    }
-
     @Override
     public void removeAttribute(final String attributeName) {
         this.attributes.remove(attributeName);
-    }
-
-    /**
-     * Simply remove this if it is ever actually removed from servlet-api
-     *
-     * @deprecated Remove this once servlet does.
-     */
-    @Deprecated
-    @Override
-    public void removeValue(final String arg0) {
-        // Do Nothing
     }
 
     @Override
