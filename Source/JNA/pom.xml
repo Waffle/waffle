@@ -744,7 +744,6 @@
                             <licenseSet>
                                 <header>${main.basedir}/LICENSE_HEADER</header>
                                 <excludes>
-                                    <exclude>**/spring.factories</exclude>
                                     <exclude>**/spring.provides</exclude>
                                 </excludes>
                             </licenseSet>
