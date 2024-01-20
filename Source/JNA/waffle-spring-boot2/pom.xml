@@ -41,11 +41,16 @@
     <description>Sping Boot integration for WAFFLE</description>
     <url>https://waffle.github.io/waffle/</url>
 
+    <modules>
+        <module>waffle-spring-boot-autoconfigure2</module>
+        <module>waffle-spring-boot-starter2</module>
+    </modules>
+
     <scm>
         <connection>scm:git:ssh://git@github.com/waffle/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/waffle/waffle.git</developerConnection>
-        <url>https://github.com/Waffle/waffle</url>
         <tag>HEAD</tag>
+        <url>https://github.com/Waffle/waffle</url>
     </scm>
 
     <properties>
@@ -59,11 +64,6 @@
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.spring.boot2</module.name>
     </properties>
-
-    <modules>
-        <module>waffle-spring-boot-autoconfigure2</module>
-        <module>waffle-spring-boot-starter2</module>
-    </modules>
 
     <dependencyManagement>
         <dependencies>

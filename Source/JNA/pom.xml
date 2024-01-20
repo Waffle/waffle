@@ -105,8 +105,8 @@
     <scm>
         <connection>scm:git:ssh://git@github.com/waffle/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/waffle/waffle.git</developerConnection>
-        <url>https://github.com/Waffle/waffle</url>
         <tag>HEAD</tag>
+        <url>https://github.com/Waffle/waffle</url>
     </scm>
     <issueManagement>
         <system>Github</system>
@@ -117,19 +117,19 @@
         <url>https://github.com/Waffle/waffle/actions</url>
     </ciManagement>
     <distributionManagement>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
         <site>
             <id>gh-pages-scm</id>
             <name>Waffle GitHub Pages</name>
             <url>scm:git:ssh://git@github.com/Waffle/waffle.git</url>
         </site>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
     </distributionManagement>
 
     <properties>
@@ -254,7 +254,8 @@
     </properties>
 
     <dependencies>
-        <dependency><!-- prevent warning: SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder". -->
+        <dependency>
+            <!-- prevent warning: SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder". -->
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>${slf4j.version}</version>
@@ -280,7 +281,7 @@
             <version>${spotbugs.version}</version>
             <scope>provided</scope>
         </dependency>
- 
+
         <!-- Test Dependencies -->
         <dependency>
             <groupId>org.assertj</groupId>
@@ -513,7 +514,7 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${surefire.plugin}</version>
                     <configuration>
-                       <excludes>
+                        <excludes>
                             <exclude>**/*LoadTest.java</exclude>
                         </excludes>
                     </configuration>
@@ -620,7 +621,8 @@
                             </manifestEntries>
                         </archive>
                         <quiet>true</quiet>
-                        <failOnError>false</failOnError> <!-- TODO: Research why we are getting a null pointer! -->
+                        <failOnError>false</failOnError>
+                        <!-- TODO: Research why we are getting a null pointer! -->
                     </configuration>
                 </plugin>
                 <plugin>
@@ -833,6 +835,10 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-changes-plugin</artifactId>
                     <version>${changes.plugin}</version>
+                    <configuration>
+                        <githubAPIScheme>https</githubAPIScheme>
+                        <githubAPIPort>443</githubAPIPort>
+                    </configuration>
                     <dependencies>
                         <dependency>
                             <groupId>org.eclipse.jgit</groupId>
@@ -845,10 +851,6 @@
                             <version>${scm.plugin}</version>
                         </dependency>
                     </dependencies>
-                    <configuration>
-                        <githubAPIScheme>https</githubAPIScheme>
-                        <githubAPIPort>443</githubAPIPort>
-                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -907,7 +909,7 @@
                                         </tag>
                                     </tags>
                                 </tagClass>
-                           </tagClasses>
+                            </tagClasses>
                         </tagListOptions>
                     </configuration>
                 </plugin>
@@ -1073,17 +1075,17 @@
                     </execution>
                     <execution>
                         <id>enforce-clean</id>
-                        <phase>pre-clean</phase>
                         <goals>
                             <goal>enforce</goal>
                         </goals>
+                        <phase>pre-clean</phase>
                     </execution>
                     <execution>
                         <id>enforce-site</id>
-                        <phase>pre-site</phase>
                         <goals>
                             <goal>enforce</goal>
                         </goals>
+                        <phase>pre-site</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -1092,10 +1094,10 @@
                 <artifactId>license-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <phase>compile</phase>
                         <goals>
                             <goal>format</goal>
                         </goals>
+                        <phase>compile</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -1184,10 +1186,10 @@
                 <executions>
                     <execution>
                         <id>modernizer</id>
-                        <phase>verify</phase>
                         <goals>
                             <goal>modernizer</goal>
                         </goals>
+                        <phase>verify</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -1348,15 +1350,6 @@
                     <plugin>
                         <groupId>com.github.hazendaz.maven</groupId>
                         <artifactId>htmlcompressor-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>default-compile</id>
-                                <phase>compile</phase>
-                                <goals>
-                                    <goal>html</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                         <configuration>
                             <compressCss>true</compressCss>
                             <compressJavaScript>true</compressJavaScript>
@@ -1372,19 +1365,19 @@
                                 <fileExt>xml</fileExt>
                             </fileExt>
                         </configuration>
+                        <executions>
+                            <execution>
+                                <id>default-compile</id>
+                                <goals>
+                                    <goal>html</goal>
+                                </goals>
+                                <phase>compile</phase>
+                            </execution>
+                        </executions>
                     </plugin>
                     <plugin>
                         <groupId>com.github.hazendaz.maven</groupId>
                         <artifactId>yuicompressor-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>default-compile</id>
-                                <phase>compile</phase>
-                                <goals>
-                                    <goal>compress</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                         <configuration>
                             <nomunge>true</nomunge>
                             <nosuffix>true</nosuffix>
@@ -1393,6 +1386,15 @@
                                 <exclude>**/*.min.css</exclude>
                             </excludes>
                         </configuration>
+                        <executions>
+                            <execution>
+                                <id>default-compile</id>
+                                <goals>
+                                    <goal>compress</goal>
+                                </goals>
+                                <phase>compile</phase>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>
@@ -1432,7 +1434,7 @@
             <build>
                 <pluginManagement>
                     <plugins>
-                        <!--This plugin's configuration is used to store Eclipse m2e settings only. It 
+                        <!--This plugin's configuration is used to store Eclipse m2e settings only. It
                             has no influence on the Maven build itself. -->
                         <plugin>
                             <groupId>org.eclipse.m2e</groupId>
@@ -1602,10 +1604,10 @@
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
-                                <phase>verify</phase>
                                 <goals>
                                     <goal>sign</goal>
                                 </goals>
+                                <phase>verify</phase>
                             </execution>
                         </executions>
                     </plugin>

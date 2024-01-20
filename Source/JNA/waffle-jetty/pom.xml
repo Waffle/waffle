@@ -44,8 +44,8 @@
     <scm>
         <connection>scm:git:ssh://git@github.com/waffle/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/waffle/waffle.git</developerConnection>
-        <url>https://github.com/Waffle/waffle</url>
         <tag>HEAD</tag>
+        <url>https://github.com/Waffle/waffle</url>
     </scm>
 
     <properties>
@@ -113,8 +113,8 @@
                     <artifactId>apache-el</artifactId>
                 </exclusion>
                 <exclusion>
-                     <groupId>javax.servlet</groupId>
-                     <artifactId>javax.servlet-api</artifactId>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>javax.servlet-api</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -154,10 +154,10 @@
             <version>${jsp.version}</version>
             <scope>provided</scope>
             <exclusions>
-                 <exclusion>
-                      <groupId>org.glassfish</groupId>
-                      <artifactId>javax.el</artifactId>
-                 </exclusion>
+                <exclusion>
+                    <groupId>org.glassfish</groupId>
+                    <artifactId>javax.el</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>

@@ -40,12 +40,12 @@
     <name>waffle-spring-security6</name>
     <description>Spring Security 6 integration for WAFFLE</description>
     <url>https://waffle.github.io/waffle/</url>
-   
+
     <scm>
         <connection>scm:git:ssh://git@github.com/waffle/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/waffle/waffle.git</developerConnection>
-        <url>https://github.com/Waffle/waffle</url>
         <tag>HEAD</tag>
+        <url>https://github.com/Waffle/waffle</url>
     </scm>
 
     <properties>
