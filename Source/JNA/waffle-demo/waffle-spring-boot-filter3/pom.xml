@@ -3,7 +3,7 @@
 
     MIT License
 
-    Copyright (c) 2010-2023 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+    Copyright (c) 2010-2024 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -44,7 +44,7 @@
         <connection>scm:git:ssh://git@github.com/waffle/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/waffle/waffle.git</developerConnection>
         <url>https://github.com/Waffle/waffle</url>
-        <tag>waffle-parent-3.3.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <properties>
