@@ -621,8 +621,8 @@
                             </manifestEntries>
                         </archive>
                         <quiet>true</quiet>
-                        <failOnError>false</failOnError>
                         <!-- TODO: Research why we are getting a null pointer! -->
+                        <failOnError>false</failOnError>
                     </configuration>
                 </plugin>
                 <plugin>
