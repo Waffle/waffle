@@ -621,8 +621,8 @@
                             </manifestEntries>
                         </archive>
                         <quiet>true</quiet>
-                        <failOnError>false</failOnError>
                         <!-- TODO: Research why we are getting a null pointer! -->
+                        <failOnError>false</failOnError>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -1415,6 +1415,7 @@
                                     <exclude>**/*MixedAuthenticator.class</exclude>
                                     <exclude>**/*NegotiateAuthenticator.class</exclude>
                                     <exclude>**/*WaffleAuthenticatorBase.class</exclude>
+                                    <exclude>**/*WindowsLoginModule.class</exclude>
                                     <exclude>**/*WindowsRealm.class</exclude>
                                 </excludes>
                             </configuration>
