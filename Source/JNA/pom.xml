@@ -213,6 +213,7 @@
         <project-info-reports.plugin>3.5.0</project-info-reports.plugin>
         <release.plugin>3.0.1</release.plugin>
         <resources.plugin>3.3.1</resources.plugin>
+        <rewrite.plugin>5.20.0</rewrite.plugin>
         <scm.plugin>2.0.1</scm.plugin>
         <site.plugin>3.12.1</site.plugin>
         <sonar.plugin>3.10.0.2594</sonar.plugin>
@@ -934,6 +935,13 @@
                     <version>${wagon.plugin}</version>
                 </plugin>
 
+                <!-- Openwrite Maven Plugins -->
+                <plugin>
+                    <groupId>org.openrewrite.maven</groupId>
+                    <artifactId>rewrite-maven-plugin</artifactId>
+                    <version>${rewrite.plugin}</version>
+                </plugin>
+
                 <!-- Owasp Dependency Scan -->
                 <plugin>
                     <groupId>org.owasp</groupId>
@@ -1476,6 +1484,23 @@
                                 <goals>
                                     <goal>sort</goal>
                                 </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.openrewrite.maven</groupId>
+                        <artifactId>rewrite-maven-plugin</artifactId>
+                        <configuration>
+                            <activeRecipes>
+                                <recipe>org.openrewrite.java.RemoveUnusedImports</recipe>
+                            </activeRecipes>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <phase>process-sources</phase>
                             </execution>
                         </executions>
                     </plugin>
