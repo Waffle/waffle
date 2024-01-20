@@ -1402,6 +1402,7 @@
 
         <profile>
             <id>coveralls</id>
+            <name>waffle</name>
             <build>
                 <pluginManagement>
                     <plugins>
