@@ -105,8 +105,8 @@
     <scm>
         <connection>scm:git:ssh://git@github.com/waffle/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/waffle/waffle.git</developerConnection>
-        <url>https://github.com/Waffle/waffle</url>
         <tag>HEAD</tag>
+        <url>https://github.com/Waffle/waffle</url>
     </scm>
     <issueManagement>
         <system>Github</system>
@@ -117,19 +117,19 @@
         <url>https://github.com/Waffle/waffle/actions</url>
     </ciManagement>
     <distributionManagement>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
         <site>
             <id>gh-pages-scm</id>
             <name>Waffle GitHub Pages</name>
             <url>scm:git:ssh://git@github.com/Waffle/waffle.git</url>
         </site>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
     </distributionManagement>
 
     <properties>
@@ -213,17 +213,20 @@
         <project-info-reports.plugin>3.5.0</project-info-reports.plugin>
         <release.plugin>3.0.1</release.plugin>
         <resources.plugin>3.3.1</resources.plugin>
+        <rewrite.plugin>5.20.0</rewrite.plugin>
         <scm.plugin>2.0.1</scm.plugin>
-        <source.plugin>3.3.0</source.plugin>
-        <spotbugs.plugin>4.8.3.0</spotbugs.plugin>
         <site.plugin>3.12.1</site.plugin>
         <sonar.plugin>3.10.0.2594</sonar.plugin>
         <sortpom.plugin>3.3.0</sortpom.plugin>
+        <source.plugin>3.3.0</source.plugin>
+        <spotbugs.plugin>4.8.3.0</spotbugs.plugin>
+        <spotless.plugin>2.42.0</spotless.plugin>
         <surefire.plugin>3.2.5</surefire.plugin>
         <taglist.plugin>3.0.0</taglist.plugin>
         <versions.plugin>2.16.2</versions.plugin>
         <wagon.plugin>2.0.2</wagon.plugin>
         <war.plugin>3.4.0</war.plugin>
+        <whitespace.plugin>1.3.1</whitespace.plugin>
         <yuicompressor.plugin>2.0.0</yuicompressor.plugin>
 
         <!-- Plugin Dependency Versions -->
@@ -251,7 +254,8 @@
     </properties>
 
     <dependencies>
-        <dependency><!-- prevent warning: SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder". -->
+        <dependency>
+            <!-- prevent warning: SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder". -->
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>${slf4j.version}</version>
@@ -277,7 +281,7 @@
             <version>${spotbugs.version}</version>
             <scope>provided</scope>
         </dependency>
- 
+
         <!-- Test Dependencies -->
         <dependency>
             <groupId>org.assertj</groupId>
@@ -329,6 +333,49 @@
     <build>
         <pluginManagement>
             <plugins>
+                <!-- Diff Plug Maven Plugins -->
+                <plugin>
+                    <groupId>com.diffplug.spotless</groupId>
+                    <artifactId>spotless-maven-plugin</artifactId>
+                    <version>${spotless.plugin}</version>
+                    <configuration>
+                        <formats>
+                            <format>
+                                <includes>
+                                    <include>**/*.sh</include>
+                                    <include>**/*.yml</include>
+                                    <include>**/*.yaml</include>
+                                </includes>
+                                <excludes>
+                                    <exclude>**/node_modules/**</exclude>
+                                    <exclude>**/target/**</exclude>
+                                </excludes>
+                                <trimTrailingWhitespace />
+                                <endWithNewline />
+                                <indent>
+                                    <spaces>true</spaces>
+                                    <spacesPerTab>2</spacesPerTab>
+                                </indent>
+                            </format>
+                            <format>
+                                <includes>
+                                    <include>**/*.xml</include>
+                                </includes>
+                                <excludes>
+                                    <exclude>**/node_modules/**</exclude>
+                                    <exclude>**/target/**</exclude>
+                                </excludes>
+                                <trimTrailingWhitespace />
+                                <endWithNewline />
+                                <indent>
+                                    <spaces>true</spaces>
+                                    <spacesPerTab>4</spacesPerTab>
+                                </indent>
+                            </format>
+                        </formats>
+                    </configuration>
+                </plugin>
+
                 <!-- Core plugins -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -467,7 +514,7 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${surefire.plugin}</version>
                     <configuration>
-                       <excludes>
+                        <excludes>
                             <exclude>**/*LoadTest.java</exclude>
                         </excludes>
                     </configuration>
@@ -574,7 +621,8 @@
                             </manifestEntries>
                         </archive>
                         <quiet>true</quiet>
-                        <failOnError>false</failOnError> <!-- TODO: Research why we are getting a null pointer! -->
+                        <failOnError>false</failOnError>
+                        <!-- TODO: Research why we are getting a null pointer! -->
                     </configuration>
                 </plugin>
                 <plugin>
@@ -687,6 +735,12 @@
                     </dependencies>
                 </plugin>
                 <plugin>
+                    <groupId>com.github.hazendaz.maven</groupId>
+                    <artifactId>whitespace-maven-plugin</artifactId>
+                    <version>${whitespace.plugin}</version>
+                </plugin>
+
+                <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>${jacoco.plugin}</version>
@@ -700,6 +754,14 @@
                     <groupId>com.github.ekryd.sortpom</groupId>
                     <artifactId>sortpom-maven-plugin</artifactId>
                     <version>${sortpom.plugin}</version>
+                    <configuration>
+                        <predefinedSortOrder>recommended_2008_06</predefinedSortOrder>
+                        <createBackupFile>false</createBackupFile>
+                        <expandEmptyElements>false</expandEmptyElements>
+                        <keepBlankLines>true</keepBlankLines>
+                        <nrOfIndentSpace>4</nrOfIndentSpace>
+                        <spaceBeforeCloseEmptyElement>true</spaceBeforeCloseEmptyElement>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>com.github.hazendaz.maven</groupId>
@@ -773,6 +835,10 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-changes-plugin</artifactId>
                     <version>${changes.plugin}</version>
+                    <configuration>
+                        <githubAPIScheme>https</githubAPIScheme>
+                        <githubAPIPort>443</githubAPIPort>
+                    </configuration>
                     <dependencies>
                         <dependency>
                             <groupId>org.eclipse.jgit</groupId>
@@ -785,10 +851,6 @@
                             <version>${scm.plugin}</version>
                         </dependency>
                     </dependencies>
-                    <configuration>
-                        <githubAPIScheme>https</githubAPIScheme>
-                        <githubAPIPort>443</githubAPIPort>
-                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -847,7 +909,7 @@
                                         </tag>
                                     </tags>
                                 </tagClass>
-                           </tagClasses>
+                            </tagClasses>
                         </tagListOptions>
                     </configuration>
                 </plugin>
@@ -888,6 +950,13 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>wagon-maven-plugin</artifactId>
                     <version>${wagon.plugin}</version>
+                </plugin>
+
+                <!-- Openwrite Maven Plugins -->
+                <plugin>
+                    <groupId>org.openrewrite.maven</groupId>
+                    <artifactId>rewrite-maven-plugin</artifactId>
+                    <version>${rewrite.plugin}</version>
                 </plugin>
 
                 <!-- Owasp Dependency Scan -->
@@ -1006,17 +1075,17 @@
                     </execution>
                     <execution>
                         <id>enforce-clean</id>
-                        <phase>pre-clean</phase>
                         <goals>
                             <goal>enforce</goal>
                         </goals>
+                        <phase>pre-clean</phase>
                     </execution>
                     <execution>
                         <id>enforce-site</id>
-                        <phase>pre-site</phase>
                         <goals>
                             <goal>enforce</goal>
                         </goals>
+                        <phase>pre-site</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -1025,10 +1094,10 @@
                 <artifactId>license-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <phase>compile</phase>
                         <goals>
                             <goal>format</goal>
                         </goals>
+                        <phase>compile</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -1117,10 +1186,10 @@
                 <executions>
                     <execution>
                         <id>modernizer</id>
-                        <phase>verify</phase>
                         <goals>
                             <goal>modernizer</goal>
                         </goals>
+                        <phase>verify</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -1281,15 +1350,6 @@
                     <plugin>
                         <groupId>com.github.hazendaz.maven</groupId>
                         <artifactId>htmlcompressor-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>default-compile</id>
-                                <phase>compile</phase>
-                                <goals>
-                                    <goal>html</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                         <configuration>
                             <compressCss>true</compressCss>
                             <compressJavaScript>true</compressJavaScript>
@@ -1305,19 +1365,19 @@
                                 <fileExt>xml</fileExt>
                             </fileExt>
                         </configuration>
+                        <executions>
+                            <execution>
+                                <id>default-compile</id>
+                                <goals>
+                                    <goal>html</goal>
+                                </goals>
+                                <phase>compile</phase>
+                            </execution>
+                        </executions>
                     </plugin>
                     <plugin>
                         <groupId>com.github.hazendaz.maven</groupId>
                         <artifactId>yuicompressor-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>default-compile</id>
-                                <phase>compile</phase>
-                                <goals>
-                                    <goal>compress</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                         <configuration>
                             <nomunge>true</nomunge>
                             <nosuffix>true</nosuffix>
@@ -1326,6 +1386,15 @@
                                 <exclude>**/*.min.css</exclude>
                             </excludes>
                         </configuration>
+                        <executions>
+                            <execution>
+                                <id>default-compile</id>
+                                <goals>
+                                    <goal>compress</goal>
+                                </goals>
+                                <phase>compile</phase>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>
@@ -1365,7 +1434,7 @@
             <build>
                 <pluginManagement>
                     <plugins>
-                        <!--This plugin's configuration is used to store Eclipse m2e settings only. It 
+                        <!--This plugin's configuration is used to store Eclipse m2e settings only. It
                             has no influence on the Maven build itself. -->
                         <plugin>
                             <groupId>org.eclipse.m2e</groupId>
@@ -1435,6 +1504,59 @@
                             </execution>
                         </executions>
                     </plugin>
+                    <plugin>
+                        <groupId>org.openrewrite.maven</groupId>
+                        <artifactId>rewrite-maven-plugin</artifactId>
+                        <configuration>
+                            <activeRecipes>
+                                <recipe>org.openrewrite.java.RemoveUnusedImports</recipe>
+                            </activeRecipes>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <phase>process-sources</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.github.ekryd.sortpom</groupId>
+                        <artifactId>sortpom-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>sort</goal>
+                                </goals>
+                                <phase>verify</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.diffplug.spotless</groupId>
+                        <artifactId>spotless-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>apply</goal>
+                                </goals>
+                                <phase>process-sources</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.github.hazendaz.maven</groupId>
+                        <artifactId>whitespace-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>trim</goal>
+                                </goals>
+                                <phase>process-sources</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
@@ -1473,26 +1595,6 @@
         </profile>
 
         <profile>
-            <id>sort</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>com.github.ekryd.sortpom</groupId>
-                        <artifactId>sortpom-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sort</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
             <id>release</id>
             <build>
                 <plugins>
@@ -1502,10 +1604,10 @@
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
-                                <phase>verify</phase>
                                 <goals>
                                     <goal>sign</goal>
                                 </goals>
+                                <phase>verify</phase>
                             </execution>
                         </executions>
                     </plugin>
