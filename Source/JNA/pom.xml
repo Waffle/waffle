@@ -32,7 +32,7 @@
     <version>3.3.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>waffle-parent</name>
+    <name>waffle</name>
     <description>Parent POM for WAFFLE</description>
     <url>https://waffle.github.io/waffle/</url>
     <inceptionYear>2010</inceptionYear>
@@ -1402,7 +1402,6 @@
 
         <profile>
             <id>coveralls</id>
-            <name>waffle</name>
             <build>
                 <pluginManagement>
                     <plugins>
