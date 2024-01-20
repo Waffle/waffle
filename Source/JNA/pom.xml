@@ -137,7 +137,7 @@
         <copyright>2024</copyright>
 
         <!-- Remember to adjust this up as you add unit tests -->
-        <jacoco.minimum.coverage>0.0</jacoco.minimum.coverage>
+        <jacoco.minimum.coverage>0.50</jacoco.minimum.coverage>
 
         <!-- Maven Settings -->
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
