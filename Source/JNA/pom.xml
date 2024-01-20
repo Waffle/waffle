@@ -137,7 +137,7 @@
         <copyright>2024</copyright>
 
         <!-- Remember to adjust this up as you add unit tests -->
-        <jacoco.minimum.coverage>0.0</jacoco.minimum.coverage>
+        <jacoco.minimum.coverage>0.50</jacoco.minimum.coverage>
 
         <!-- Maven Settings -->
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
@@ -243,7 +243,7 @@
         <lifecycle.version>1.0.0</lifecycle.version>
 
         <!-- Surefire args for jmockit -->
-        <argLine>-javaagent:${settings.localRepository}/com/github/hazendaz/jmockit/jmockit/${jmockit.version}/jmockit-${jmockit.version}.jar -Djdk.attach.allowAttachSelf</argLine>
+        <argLine>-javaagent:${settings.localRepository}/com/github/hazendaz/jmockit/jmockit/${jmockit.version}/jmockit-${jmockit.version}.jar</argLine>
     </properties>
 
     <dependencies>
@@ -739,12 +739,12 @@
                     <groupId>com.mycila</groupId>
                     <artifactId>license-maven-plugin</artifactId>
                     <version>${license.plugin}</version>
+                    <!-- TODO: Get rest of this moved to license plugin -->
                     <configuration>
                         <licenseSets>
                             <licenseSet>
                                 <header>${main.basedir}/LICENSE_HEADER</header>
                                 <excludes>
-                                    <exclude>**/spring.factories</exclude>
                                     <exclude>**/spring.provides</exclude>
                                 </excludes>
                             </licenseSet>
@@ -988,8 +988,8 @@
                     <execution>
                         <id>attach-sources</id>
                         <goals>
-                            <goal>jar</goal>
-                            <goal>test-jar</goal>
+                            <goal>jar-no-fork</goal>
+                            <goal>test-jar-no-fork</goal>
                         </goals>
                     </execution>
                 </executions>
