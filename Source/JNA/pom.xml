@@ -155,7 +155,7 @@
         <maven.compiler.testTarget>${java.test.version}</maven.compiler.testTarget>
         <maven.compiler.testRelease>${java.test.release.version}</maven.compiler.testRelease>
 
-        <maven.min-version>3.9.4</maven.min-version>
+        <maven.min-version>3.9.6</maven.min-version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
@@ -235,6 +235,7 @@
         <htmlcompressor.version>1.9.2</htmlcompressor.version>
         <jgit.version>6.8.0.202311291450-r</jgit.version>
         <plexus-utils.version>4.0.0</plexus-utils.version>
+        <plexus-xml.version>3.0.0</plexus-xml.version>
         <scm.version>2.0.1</scm.version>
         <wagon.version>3.5.3</wagon.version>
         <yuicompressor.version>2.4.8</yuicompressor.version>
@@ -444,6 +445,11 @@
                             <groupId>org.codehaus.plexus</groupId>
                             <artifactId>plexus-utils</artifactId>
                             <version>${plexus-utils.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.codehaus.plexus</groupId>
+                            <artifactId>plexus-xml</artifactId>
+                            <version>${plexus-xml.version}</version>
                         </dependency>
                         <!-- For reporting only of versions -->
                         <dependency>
