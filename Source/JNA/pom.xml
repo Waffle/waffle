@@ -1415,6 +1415,7 @@
                                     <exclude>**/*MixedAuthenticator.class</exclude>
                                     <exclude>**/*NegotiateAuthenticator.class</exclude>
                                     <exclude>**/*WaffleAuthenticatorBase.class</exclude>
+                                    <exclude>**/*WindowsLoginModule.class</exclude>
                                     <exclude>**/*WindowsRealm.class</exclude>
                                 </excludes>
                             </configuration>
