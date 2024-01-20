@@ -20,7 +20,7 @@ on: [push, pull_request]
 
 jobs:
   build:
-    if: github.repository_owner == 'waffle-OFF'
+    if: github.repository_owner == 'waffle'
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
