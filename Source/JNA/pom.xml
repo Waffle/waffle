@@ -164,6 +164,9 @@
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.parent</module.name>
 
+        <!-- Reproducible Builds -->
+        <project.build.outputTimestamp>1703630326</project.build.outputTimestamp>
+
         <!-- Checkstyle -->
         <checkstyle.config>checkstyle.xml</checkstyle.config>
 
@@ -496,18 +499,14 @@
                     <configuration>
                         <archive>
                             <manifest>
-                                <addBuildEnvironmentEntries>true</addBuildEnvironmentEntries>
+                                <addBuildEnvironmentEntries>false</addBuildEnvironmentEntries>
                                 <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                                 <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                             </manifest>
                             <manifestEntries>
                                 <Automatic-Module-Name>${module.name}</Automatic-Module-Name>
-                                <Build-Time>${maven.build.timestamp}</Build-Time>
                                 <Copyright>${copyright}</Copyright>
                                 <Git-Revision>${git.commit.id}</Git-Revision>
-                                <Os-Name>${os.name}</Os-Name>
-                                <Os-Arch>${os.arch}</Os-Arch>
-                                <Os-Version>${os.version}</Os-Version>
                                 <X-Compile-Source-JDK>${maven.compiler.source}</X-Compile-Source-JDK>
                                 <X-Compile-Target-JDK>${maven.compiler.target}</X-Compile-Target-JDK>
                                 <X-Compile-Release-JDK>${maven.compiler.release}</X-Compile-Release-JDK>
@@ -523,18 +522,15 @@
                     <configuration>
                         <archive>
                             <manifest>
-                                <addBuildEnvironmentEntries>true</addBuildEnvironmentEntries>
+                                <addBuildEnvironmentEntries>false</addBuildEnvironmentEntries>
                                 <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                                 <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                             </manifest>
                             <manifestEntries>
+                                <Automatic-Module-Name>${module.name}</Automatic-Module-Name>
                                 <Build-Number>${buildNumber}</Build-Number>
-                                <Build-Time>${maven.build.timestamp}</Build-Time>
                                 <Copyright>${copyright}</Copyright>
                                 <Git-Revision>${git.commit.id}</Git-Revision>
-                                <Os-Name>${os.name}</Os-Name>
-                                <Os-Arch>${os.arch}</Os-Arch>
-                                <Os-Version>${os.version}</Os-Version>
                                 <X-Compile-Source-JDK>${maven.compiler.source}</X-Compile-Source-JDK>
                                 <X-Compile-Target-JDK>${maven.compiler.target}</X-Compile-Target-JDK>
                                 <X-Compile-Release-JDK>${maven.compiler.release}</X-Compile-Release-JDK>
@@ -564,16 +560,14 @@
                         </additionalOptions>
                         <archive>
                             <manifest>
+                                <addBuildEnvironmentEntries>false</addBuildEnvironmentEntries>
                                 <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                                 <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                             </manifest>
                             <manifestEntries>
-                                <Build-Time>${maven.build.timestamp}</Build-Time>
+                                <Automatic-Module-Name>${module.name}</Automatic-Module-Name>
                                 <Copyright>${copyright}</Copyright>
                                 <Git-Revision>${git.commit.id}</Git-Revision>
-                                <Os-Name>${os.name}</Os-Name>
-                                <Os-Arch>${os.arch}</Os-Arch>
-                                <Os-Version>${os.version}</Os-Version>
                                 <X-Compile-Source-JDK>${maven.compiler.source}</X-Compile-Source-JDK>
                                 <X-Compile-Target-JDK>${maven.compiler.target}</X-Compile-Target-JDK>
                                 <X-Compile-Release-JDK>${maven.compiler.release}</X-Compile-Release-JDK>
@@ -631,17 +625,14 @@
                     <configuration>
                         <archive>
                             <manifest>
-                                <addBuildEnvironmentEntries>true</addBuildEnvironmentEntries>
+                                <addBuildEnvironmentEntries>false</addBuildEnvironmentEntries>
                                 <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                                 <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                             </manifest>
                             <manifestEntries>
-                                <Build-Time>${maven.build.timestamp}</Build-Time>
+                                <Automatic-Module-Name>${module.name}</Automatic-Module-Name>
                                 <Copyright>${copyright}</Copyright>
                                 <Git-Revision>${git.commit.id}</Git-Revision>
-                                <Os-Name>${os.name}</Os-Name>
-                                <Os-Arch>${os.arch}</Os-Arch>
-                                <Os-Version>${os.version}</Os-Version>
                                 <X-Compile-Source-JDK>${maven.compiler.source}</X-Compile-Source-JDK>
                                 <X-Compile-Target-JDK>${maven.compiler.target}</X-Compile-Target-JDK>
                                 <X-Compile-Release-JDK>${maven.compiler.release}</X-Compile-Release-JDK>
