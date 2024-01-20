@@ -1,24 +1,25 @@
 name: Java CI
 
-on: [push, pull_request]
+on: [workflow_dispatch, push, pull_request]
 
 jobs:
   test:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-2019, windows-latest]
-        java: [17, 21]
+        os: [macos-latest, windows-latest]
+        java: [17, 21, 22-ea]
+        distribution: ['temurin']
       fail-fast: false
       max-parallel: 4
     name: Test JDK ${{ matrix.java }}, ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v4
-      - name: Set up JDK
+      - name: Set up JDK ${{ matrix.java }} ${{ matrix.distribution }}
         uses: actions/setup-java@v4
         with:
           java-version: ${{ matrix.java }}
-          distribution: zulu
+          distribution: ${{ matrix.distribution }}
       - name: Test with Maven
-        run: ./mvnw test -B -D"license.skip=true"
+        run: ./mvnw test -B -V --no-transfer-progress -D"license.skip=true"
