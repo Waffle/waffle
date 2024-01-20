@@ -243,7 +243,7 @@
         <lifecycle.version>1.0.0</lifecycle.version>
 
         <!-- Surefire args for jmockit -->
-        <argLine>-javaagent:${settings.localRepository}/com/github/hazendaz/jmockit/jmockit/${jmockit.version}/jmockit-${jmockit.version}.jar -Djdk.attach.allowAttachSelf</argLine>
+        <argLine>-javaagent:${settings.localRepository}/com/github/hazendaz/jmockit/jmockit/${jmockit.version}/jmockit-${jmockit.version}.jar</argLine>
     </properties>
 
     <dependencies>
