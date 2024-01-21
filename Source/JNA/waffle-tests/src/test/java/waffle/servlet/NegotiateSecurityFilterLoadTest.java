@@ -91,12 +91,9 @@ class NegotiateSecurityFilterLoadTest {
 
         /**
          * Cleanup.
-         *
-         * @throws ServletException
-         *             the servlet exception
          */
         @TearDown(Level.Trial)
-        public void cleanup() throws ServletException {
+        public void cleanup() {
             this.tests.tearDown();
         }
 
