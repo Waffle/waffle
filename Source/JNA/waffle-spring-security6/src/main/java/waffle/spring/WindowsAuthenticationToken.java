@@ -35,8 +35,6 @@ import waffle.windows.auth.WindowsAccount;
 
 /**
  * A Windows authentication token.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class WindowsAuthenticationToken implements Authentication {
 

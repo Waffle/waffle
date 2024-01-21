@@ -25,8 +25,6 @@ package waffle.windows.auth;
 
 /**
  * Windows account.
- *
- * @author dblock[at]dblock[dot]org
  */
 public interface IWindowsAccount {
 

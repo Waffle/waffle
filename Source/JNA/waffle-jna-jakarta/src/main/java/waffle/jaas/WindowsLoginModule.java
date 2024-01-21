@@ -53,8 +53,6 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 /**
  * A Java Security login module for Windows authentication.
  *
- * @author dblock[at]dblock[dot]org
- *
  * @see javax.security.auth.spi.LoginModule
  */
 public class WindowsLoginModule implements LoginModule {

@@ -40,8 +40,6 @@ import waffle.windows.auth.IWindowsSecurityContext;
 
 /**
  * Windows Security Context.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class WindowsSecurityContextImpl implements IWindowsSecurityContext {
 

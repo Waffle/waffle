@@ -40,8 +40,6 @@ import waffle.mock.http.SimpleHttpResponse;
 
 /**
  * The Class NegotiateSecurityFilterEntryPointTest.
- *
- * @author dblock[at]dblock[dot]org
  */
 class NegotiateSecurityFilterEntryPointTest {
 

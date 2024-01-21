@@ -25,8 +25,6 @@ package waffle.windows.auth;
 
 /**
  * A Windows Computer.
- *
- * @author dblock[at]dblock[dot]org
  */
 public interface IWindowsComputer {
 

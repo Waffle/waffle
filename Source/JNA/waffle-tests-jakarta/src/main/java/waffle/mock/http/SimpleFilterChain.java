@@ -32,8 +32,6 @@ import java.io.IOException;
 
 /**
  * Simple filter chain.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class SimpleFilterChain implements FilterChain {
 

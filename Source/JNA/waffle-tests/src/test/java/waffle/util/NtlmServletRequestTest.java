@@ -30,8 +30,6 @@ import waffle.mock.http.SimpleHttpRequest;
 
 /**
  * The Class NtlmServletRequestTest.
- *
- * @author dblock[at]dblock[dot]org
  */
 class NtlmServletRequestTest {
 

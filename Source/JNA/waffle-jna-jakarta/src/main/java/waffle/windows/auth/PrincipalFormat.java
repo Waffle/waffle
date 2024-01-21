@@ -25,8 +25,6 @@ package waffle.windows.auth;
 
 /**
  * The Enum PrincipalFormat.
- *
- * @author dblock[at]dblock[dot]org
  */
 public enum PrincipalFormat {
 

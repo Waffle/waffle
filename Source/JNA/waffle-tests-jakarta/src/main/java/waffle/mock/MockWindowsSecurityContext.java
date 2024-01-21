@@ -35,8 +35,6 @@ import waffle.windows.auth.IWindowsSecurityContext;
 
 /**
  * The Class MockWindowsSecurityContext.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class MockWindowsSecurityContext implements IWindowsSecurityContext {
 

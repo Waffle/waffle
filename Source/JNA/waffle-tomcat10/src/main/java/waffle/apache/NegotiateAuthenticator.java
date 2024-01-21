@@ -44,8 +44,6 @@ import waffle.windows.auth.IWindowsSecurityContext;
 
 /**
  * An Apache Negotiate (NTLM, Kerberos) Authenticator.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
 

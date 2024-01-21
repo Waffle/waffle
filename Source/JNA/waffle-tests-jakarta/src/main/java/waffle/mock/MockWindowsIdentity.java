@@ -32,8 +32,6 @@ import waffle.windows.auth.IWindowsImpersonationContext;
 
 /**
  * A Mock windows identity.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class MockWindowsIdentity implements IWindowsIdentity {
 

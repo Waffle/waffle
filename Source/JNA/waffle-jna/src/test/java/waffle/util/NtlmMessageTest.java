@@ -28,8 +28,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * The Class NtlmMessageTest.
- *
- * @author dblock[at]dblock[dot]org
  */
 class NtlmMessageTest {
 

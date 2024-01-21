@@ -35,8 +35,6 @@ import java.util.TreeMap;
 
 /**
  * The Class SimpleFilterConfig.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class SimpleFilterConfig implements FilterConfig {
 

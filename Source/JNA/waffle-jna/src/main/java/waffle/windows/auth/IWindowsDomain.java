@@ -25,8 +25,6 @@ package waffle.windows.auth;
 
 /**
  * A Windows Domain.
- *
- * @author dblock[at]dblock[dot]org
  */
 public interface IWindowsDomain {
 

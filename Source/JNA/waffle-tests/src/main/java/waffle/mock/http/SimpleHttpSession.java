@@ -35,8 +35,6 @@ import javax.servlet.http.HttpSessionContext;
 
 /**
  * Simple Http Session.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class SimpleHttpSession implements HttpSession {
 

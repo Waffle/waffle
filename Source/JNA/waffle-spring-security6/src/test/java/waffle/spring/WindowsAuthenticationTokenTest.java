@@ -38,8 +38,6 @@ import waffle.servlet.WindowsPrincipal;
 
 /**
  * The Class WindowsAuthenticationTokenTest.
- *
- * @author dblock[at]dblock[dot]org
  */
 class WindowsAuthenticationTokenTest {
 

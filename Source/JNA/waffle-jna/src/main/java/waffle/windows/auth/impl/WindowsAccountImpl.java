@@ -32,8 +32,6 @@ import waffle.windows.auth.IWindowsAccount;
 
 /**
  * Windows Account.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class WindowsAccountImpl implements IWindowsAccount {
 

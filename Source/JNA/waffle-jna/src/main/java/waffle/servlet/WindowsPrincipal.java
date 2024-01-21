@@ -37,8 +37,6 @@ import waffle.windows.auth.WindowsAccount;
 
 /**
  * A Windows Principal.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class WindowsPrincipal implements Principal, Serializable {
 

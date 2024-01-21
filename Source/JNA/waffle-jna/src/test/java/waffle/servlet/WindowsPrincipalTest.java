@@ -34,8 +34,6 @@ import waffle.windows.auth.IWindowsIdentity;
 
 /**
  * The Class WindowsPrincipalTest.
- *
- * @author dblock[at]dblock[dot]org
  */
 class WindowsPrincipalTest {
 

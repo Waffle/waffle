@@ -37,8 +37,6 @@ import org.mockito.Mockito;
 
 /**
  * The Class SimpleHttpRequest.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class SimpleHttpRequest extends HttpServletRequestWrapper {
 

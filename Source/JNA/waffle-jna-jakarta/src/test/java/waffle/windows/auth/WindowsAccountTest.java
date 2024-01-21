@@ -34,8 +34,6 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
 
 /**
  * The Class WindowsAccountTest.
- *
- * @author dblock[at]dblock[dot]org
  */
 class WindowsAccountTest {
 

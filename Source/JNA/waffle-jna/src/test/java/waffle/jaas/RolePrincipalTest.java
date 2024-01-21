@@ -38,8 +38,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * The Class RolePrincipalTest.
- *
- * @author dblock[at]dblock[dot]org
  */
 class RolePrincipalTest {
 

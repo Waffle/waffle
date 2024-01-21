@@ -33,8 +33,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Authorization header.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class AuthorizationHeader {
 

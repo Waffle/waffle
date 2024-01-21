@@ -50,8 +50,6 @@ import waffle.windows.auth.PrincipalFormat;
 
 /**
  * A Spring Negotiate security filter.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class NegotiateSecurityFilter extends GenericFilterBean {
 

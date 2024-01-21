@@ -59,8 +59,6 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
 /**
  * A Negotiate (NTLM/Kerberos) Security Filter.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class NegotiateSecurityFilter implements Filter {
 

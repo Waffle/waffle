@@ -35,8 +35,6 @@ import waffle.windows.auth.IWindowsCredentialsHandle;
 /**
  * Pre-existing credentials of a security principal. This is a handle to a previously authenticated logon data used by a
  * security principal to establish its own identity, such as a password, or a Kerberos protocol ticket.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class WindowsCredentialsHandleImpl implements IWindowsCredentialsHandle {
 

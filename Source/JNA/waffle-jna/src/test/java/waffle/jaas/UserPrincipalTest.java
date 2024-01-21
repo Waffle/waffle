@@ -38,8 +38,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * The Class UserPrincipalTest.
- *
- * @author dblock[at]dblock[dot]org
  */
 class UserPrincipalTest {
 

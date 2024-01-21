@@ -28,8 +28,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Windows Realm Test.
- *
- * @author dblock[at]dblock[dot]org
  */
 class WindowsRealmTest {
 

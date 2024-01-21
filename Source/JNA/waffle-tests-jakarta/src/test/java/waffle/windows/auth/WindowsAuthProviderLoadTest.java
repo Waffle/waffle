@@ -38,8 +38,6 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 /**
  * The Class WindowsAuthProviderLoadTest.
- *
- * @author dblock[at]dblock[dot]org
  */
 class WindowsAuthProviderLoadTest {
 

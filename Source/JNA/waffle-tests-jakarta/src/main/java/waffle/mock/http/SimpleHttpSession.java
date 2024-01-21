@@ -32,8 +32,6 @@ import java.util.Map;
 
 /**
  * Simple Http Session.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class SimpleHttpSession implements HttpSession {
 
