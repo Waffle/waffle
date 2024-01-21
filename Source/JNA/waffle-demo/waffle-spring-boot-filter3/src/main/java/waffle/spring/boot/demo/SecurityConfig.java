@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2023 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2024 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -59,9 +59,9 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests().anyRequest().authenticated().and()
-                .addFilterBefore(filter, BasicAuthenticationFilter.class).exceptionHandling()
-                .authenticationEntryPoint(entryPoint);
+        http.authorizeHttpRequests(requests -> requests.anyRequest().authenticated())
+                .addFilterBefore(filter, BasicAuthenticationFilter.class)
+                .exceptionHandling(handling -> handling.authenticationEntryPoint(entryPoint));
         return http.build();
     }
 
