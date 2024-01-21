@@ -7,7 +7,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest, windows-latest]
+        os: [windows-2019, windows-latest]
         java: [17, 21, 22-ea]
         distribution: ['temurin']
       fail-fast: false
