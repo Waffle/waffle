@@ -71,6 +71,7 @@ class WindowsAccountTest {
         Assertions.assertTrue(currentUsername.equalsIgnoreCase(account.getFqn()));
         Assertions.assertTrue(currentUsername.endsWith("\\" + account.getName()));
         // To avoid errors with machine naming being all upper-case, use test in this manner
-        Assertions.assertTrue(currentUsername.toLowerCase(Locale.ENGLISH).startsWith(account.getDomain().toLowerCase(Locale.ENGLISH) + "\\"));
+        Assertions.assertTrue(currentUsername.toLowerCase(Locale.ENGLISH)
+                .startsWith(account.getDomain().toLowerCase(Locale.ENGLISH) + "\\"));
     }
 }
