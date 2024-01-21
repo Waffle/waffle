@@ -14,21 +14,17 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
-          java-version: 21
           distribution: zulu
-      - uses: webfactory/ssh-agent@master
-        with:
-          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+          java-version: 21
       - name: Build site
-        run: ./mvnw site site:stage -DskipTests -B -D"license.skip=true" --file Source/JNA/pom.xml
+        run: ./mvnw site site:stage -DskipTests -Dlicense.skip=true -B -V --no-transfer-progress --settings ./.mvn/settings.xml
         env:
           CI_DEPLOY_USERNAME: ${{ secrets.CI_DEPLOY_USERNAME }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
       - name: Deploy Site to gh-pages
-        uses: JamesIves/github-pages-deploy-action@v4.5.0
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          SSH: true
-          BRANCH: gh-pages
-          FOLDER: Source/JNA/target/staging
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          folder: target/staging
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
