@@ -1,3 +1,17 @@
+3.4.0 (1/20/2024)
+=================
+* Last expected support release for spring 2 boot modules (see https://github.com/Waffle/waffle/issues/2177)
+    * waffle-spring-boot-filter2 will be dropped
+    * waffle-spring-boot2 will be dropped
+    * This is a result of spring making patches no longer free for public usage in November 2023.
+    * For those affected, presumably you have a paid contract with spring and you can continue using this release with override patches as no compatibility changes will be introduced by spring during their paid support period.
+    * It is suggested users of Waffle consider upgrading to newer spring sooner rather than later in case new breaking features come along but the framework is otherwise very stable
+* Notice: Tomcat 8.5 will see one more release after this then it will be dropped as well as tomcat is removing all support entirely end of March 2024.  It is suggested to use newer tomcat versions 9 (javax namespace) or 10 (jakarta namespace).  (See https://github.com/Waffle/waffle/issues/1993)
+* Notice: Spring 5 will be dropped sometime after spring drops it in December 31,2024 (see https://github.com/Waffle/waffle/issues/2002)
+* Release requires jdk 11 or better
+* All libraries up-to-date
+* Jetty now on jetty 10
+
 3.3.0 (3/26/2023)
 =================
 * Last expected support release for jdk 8.  While additonal patches could be made they are not expected as resources not available to support it.
