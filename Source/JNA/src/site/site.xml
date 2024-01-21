@@ -3,7 +3,7 @@
 
     MIT License
 
-    Copyright (c) 2010-2023 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+    Copyright (c) 2010-2024 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -24,8 +24,8 @@
     SOFTWARE.
 
 -->
-<project name="${project.name}" xmlns="https://maven.apache.org/DECORATION/1.8.0" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="https://maven.apache.org/DECORATION/1.8.0 https://maven.apache.org/xsd/decoration-1.8.0.xsd">
+<project name="${project.name}" xmlns="https://maven.apache.org/DECORATION/1.8.1" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://maven.apache.org/DECORATION/1.8.1 https://maven.apache.org/xsd/decoration-1.8.1.xsd">
     <bannerLeft>
         <src>/images/waffle.jpg</src>
         <href>https://github.com/Waffle/waffle</href>
