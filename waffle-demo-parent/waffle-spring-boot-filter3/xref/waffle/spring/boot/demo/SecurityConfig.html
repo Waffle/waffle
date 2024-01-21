@@ -9,7 +9,7 @@
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * MIT License</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Copyright (c) 2010-2023 The Waffle Project Contributors: <a href="https://github.com/Waffle/waffle/graphs/contributors" target="alexandria_uri">https://github.com/Waffle/waffle/graphs/contributors</a></em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Copyright (c) 2010-2024 The Waffle Project Contributors: <a href="https://github.com/Waffle/waffle/graphs/contributors" target="alexandria_uri">https://github.com/Waffle/waffle/graphs/contributors</a></em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_comment"> * Permission is hereby granted, free of charge, to any person obtaining a copy</em>
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_comment"> * of this software and associated documentation files (the "Software"), to deal</em>
@@ -67,15 +67,15 @@
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>  
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>      @Bean
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>      SecurityFilterChain filterChain(HttpSecurity http) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>          http.authorizeHttpRequests().anyRequest().authenticated().and()
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>                  .addFilterBefore(filter, BasicAuthenticationFilter.<strong class="jxr_keyword">class</strong>).exceptionHandling()
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>                  .authenticationEntryPoint(entryPoint);
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>          http.authorizeHttpRequests(requests -&gt; requests.anyRequest().authenticated())
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>                  .addFilterBefore(filter, BasicAuthenticationFilter.<strong class="jxr_keyword">class</strong>)
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>                  .exceptionHandling(handling -&gt; handling.authenticationEntryPoint(entryPoint));
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>          <strong class="jxr_keyword">return</strong> http.build();
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>      }
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>  
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2010&#x2013;2023 <a href="https://github.com/waffle/">com.github.waffle</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2010&#x2013;2024 <a href="https://github.com/waffle/">com.github.waffle</a>. All rights reserved.</div>
 </body>
 </html>
