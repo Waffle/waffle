@@ -27,6 +27,7 @@ import jakarta.servlet.ServletException;
 
 import java.io.IOException;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Level;
@@ -53,7 +54,7 @@ class NegotiateSecurityFilterLoadTest {
     @Test
     void launchLoadTest() throws RunnerException {
         final Options opt = new OptionsBuilder().threads(10).measurementIterations(10).build();
-        new Runner(opt).run();
+        Assertions.assertNotNull(new Runner(opt).run());
     }
 
     /**

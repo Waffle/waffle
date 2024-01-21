@@ -322,7 +322,7 @@ class WindowsLoginModuleTest {
         this.loginModule.initialize(subject, callbackHandler, null, options);
         Assertions.assertTrue(this.loginModule.login());
         this.loginModule.abort();
-        assertThat(subject.getPrincipals().size()).isEqualTo(0);
+        assertThat(subject.getPrincipals().size()).isZero();
     }
 
 }
