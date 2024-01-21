@@ -95,8 +95,6 @@ import waffle.shiro.negotiate.NegotiateAuthenticationFilter;
  *  /logout = logout
  *  /* = waffleFilter
  * </pre>
- *
- * @author Dan Rollo Date: 2/21/13 Time: 9:08 PM
  */
 public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
 

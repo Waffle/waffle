@@ -44,8 +44,6 @@ import org.apache.shiro.realm.Realm;
  * does require the {@link NegotiateAuthenticationStrategy} to ensure negotiate 'continue' calls will proceed. So for
  * now, the most reliable approach is to use this strategy.
  *
- * @author Dan Rollo Date: 3/18/13 Time: 3:31 PM
- *
  * @see NegotiateAuthenticationStrategy#afterAttempt(org.apache.shiro.realm.Realm,
  *      org.apache.shiro.authc.AuthenticationToken, org.apache.shiro.authc.AuthenticationInfo,
  *      org.apache.shiro.authc.AuthenticationInfo, Throwable)

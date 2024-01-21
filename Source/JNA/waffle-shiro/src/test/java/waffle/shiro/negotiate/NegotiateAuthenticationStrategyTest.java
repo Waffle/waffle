@@ -31,8 +31,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * The Class NegotiateAuthenticationStrategyTest.
- *
- * @author Dan Rollo Date: 3/18/13 Time: 3:34 PM
  */
 class NegotiateAuthenticationStrategyTest {
 

@@ -33,8 +33,6 @@ import java.security.Principal;
  * /shiro-negotiate/src/7b25efde130b/src/main/java/net/skorgenes/security/jsecurity/negotiate
  *
  * /NegotiateAuthenticationRealm.java?at=default
- *
- * @author Dan Rollo
  */
 import javax.security.auth.Subject;
 

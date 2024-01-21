@@ -34,8 +34,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * The Class NegotiateAuthenticationRealmTest.
- *
- * @author Dan Rollo Date: 2/14/13 Time: 11:11 PM
  */
 class NegotiateAuthenticationRealmTest {
 
