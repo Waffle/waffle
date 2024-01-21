@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2024 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -89,14 +89,12 @@ class WindowsAuthProviderTest {
         Assumptions.assumeTrue(LMErr.NERR_Success == Netapi32.INSTANCE.NetUserAdd(null, 1, userInfo, null));
         try {
             final IWindowsAuthProvider prov = new WindowsAuthProviderImpl();
-            final IWindowsIdentity identity = prov.logonUser(userInfo.usri1_name.toString(),
-                    userInfo.usri1_password.toString());
-            Assertions.assertTrue(identity.getFqn().endsWith("\\" + userInfo.usri1_name.toString()));
+            final IWindowsIdentity identity = prov.logonUser(userInfo.usri1_name, userInfo.usri1_password.toString());
+            Assertions.assertTrue(identity.getFqn().endsWith("\\" + userInfo.usri1_name));
             Assertions.assertFalse(identity.isGuest());
             identity.dispose();
         } finally {
-            Assertions.assertEquals(LMErr.NERR_Success,
-                    Netapi32.INSTANCE.NetUserDel(null, userInfo.usri1_name.toString()));
+            Assertions.assertEquals(LMErr.NERR_Success, Netapi32.INSTANCE.NetUserDel(null, userInfo.usri1_name));
         }
     }
 
@@ -113,16 +111,14 @@ class WindowsAuthProviderTest {
         Assumptions.assumeTrue(LMErr.NERR_Success == Netapi32.INSTANCE.NetUserAdd(null, 1, userInfo, null));
         try {
             final IWindowsAuthProvider prov = new WindowsAuthProviderImpl();
-            final IWindowsIdentity identity = prov.logonUser(userInfo.usri1_name.toString(),
-                    userInfo.usri1_password.toString());
+            final IWindowsIdentity identity = prov.logonUser(userInfo.usri1_name, userInfo.usri1_password.toString());
             final IWindowsImpersonationContext ctx = identity.impersonate();
-            Assertions.assertTrue(userInfo.usri1_name.toString().equals(Advapi32Util.getUserName()));
+            Assertions.assertEquals(userInfo.usri1_name, Advapi32Util.getUserName());
             ctx.revertToSelf();
-            Assertions.assertFalse(userInfo.usri1_name.toString().equals(Advapi32Util.getUserName()));
+            Assertions.assertNotEquals(userInfo.usri1_name, Advapi32Util.getUserName());
             identity.dispose();
         } finally {
-            Assertions.assertEquals(LMErr.NERR_Success,
-                    Netapi32.INSTANCE.NetUserDel(null, userInfo.usri1_name.toString()));
+            Assertions.assertEquals(LMErr.NERR_Success, Netapi32.INSTANCE.NetUserDel(null, userInfo.usri1_name));
         }
     }
 
