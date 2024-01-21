@@ -57,7 +57,7 @@ public class MixedAuthenticator extends WaffleAuthenticatorBase {
     public MixedAuthenticator() {
         super();
         this.log = LoggerFactory.getLogger(MixedAuthenticator.class);
-        this.info = "waffle.apache.MixedAuthenticator/1.0";
+        this.info = MixedAuthenticator.class.getSimpleName();
         this.log.debug("[waffle.apache.MixedAuthenticator] loaded");
     }
 

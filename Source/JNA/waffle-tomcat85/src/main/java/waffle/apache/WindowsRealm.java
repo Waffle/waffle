@@ -34,26 +34,18 @@ import org.apache.catalina.realm.RealmBase;
  */
 public class WindowsRealm extends RealmBase {
 
-    /** The Constant NAME. */
-    protected static final String NAME = "waffle.apache.WindowsRealm/1.0";
-
     /**
-     * Gets the name.
-     * <p>
-     * 'waffle.apache.WindowsRealm/1.0' will no longer be logged. We don't internally use this so we must go with
-     * standard java way that tomcat has accepted. This means, going to tomcat 9.0.0.M15+ will result simply in
-     * 'WaffleRealm' or better stated the actual simple class name. Simple class name strips off the package name which
-     * is what we were applying along with version 1.0 which is inaccurate based on our release version.
+     * Gets the name simple class name.
      *
      * @return a short name for this Realm implementation, for use in log messages.
      *
      * @deprecated This will be removed in Tomcat 9 onwards. Use {@link Class#getSimpleName()} instead.
      */
     @Deprecated
-    @InlineMe(replacement = "WindowsRealm.NAME", imports = "waffle.apache.WindowsRealm")
+    @InlineMe(replacement = "WindowsRealm.class.getSimpleName()", imports = "waffle.apache.WindowsRealm")
     @Override
     protected final String getName() {
-        return WindowsRealm.NAME;
+        return WindowsRealm.class.getSimpleName();
     }
 
     @Override
