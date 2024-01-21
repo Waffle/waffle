@@ -25,6 +25,8 @@ package waffle.windows.auth;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Locale;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -69,6 +71,7 @@ class WindowsAccountTest {
         Assertions.assertTrue(currentUsername.equalsIgnoreCase(account.getFqn()));
         Assertions.assertTrue(currentUsername.endsWith("\\" + account.getName()));
         // To avoid errors with machine naming being all upper-case, use test in this manner
-        Assertions.assertTrue(currentUsername.toLowerCase().startsWith(account.getDomain().toLowerCase() + "\\"));
+        Assertions.assertTrue(currentUsername.toLowerCase(Locale.ENGLISH)
+                .startsWith(account.getDomain().toLowerCase(Locale.ENGLISH) + "\\"));
     }
 }

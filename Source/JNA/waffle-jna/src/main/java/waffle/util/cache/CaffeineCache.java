@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2024 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,7 +30,7 @@ import java.time.Duration;
 import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
- * A {@link Cache} based on {@link com.github.benmanes.caffeine.cache.Cache}
+ * A {@link Cache} based on {@link com.github.benmanes.caffeine.cache.Cache}.
  *
  * @param <K>
  *            the type of keys maintained by this cache

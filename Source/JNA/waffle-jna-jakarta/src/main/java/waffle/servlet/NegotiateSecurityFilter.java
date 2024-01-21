@@ -374,7 +374,8 @@ public class NegotiateSecurityFilter implements Filter {
         NegotiateSecurityFilter.LOGGER.debug("[waffle.servlet.NegotiateSecurityFilter] authProvider");
         if (authProvider != null) {
             try {
-                this.auth = (IWindowsAuthProvider) Class.forName(authProvider).getConstructor().newInstance();
+                this.auth = Class.forName(authProvider).asSubclass(IWindowsAuthProvider.class).getConstructor()
+                        .newInstance();
             } catch (final ClassNotFoundException | IllegalArgumentException | SecurityException
                     | InstantiationException | IllegalAccessException | InvocationTargetException
                     | NoSuchMethodException e) {

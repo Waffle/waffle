@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2024 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,6 +22,8 @@
  * SOFTWARE.
  */
 package waffle.spring;
+
+import java.util.Locale;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -68,7 +70,7 @@ public class FqnGrantedAuthorityFactory implements GrantedAuthorityFactory {
         }
 
         if (this.convertToUpperCase) {
-            grantedAuthorityString = grantedAuthorityString.toUpperCase();
+            grantedAuthorityString = grantedAuthorityString.toUpperCase(Locale.ENGLISH);
         }
 
         return new SimpleGrantedAuthority(grantedAuthorityString);

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2024 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -47,14 +48,9 @@ import waffle.util.NtlmServletRequest;
 
 /**
  * A authentication filter that implements the HTTP Negotiate mechanism. The current user is authenticated, providing
- * single-sign-on
- *
- * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateAuthenticationFilter. see:
- *
+ * single-sign-on Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateAuthenticationFilter. see:
  * https://bitbucket.org/lothor
- *
  * /shiro-negotiate/src/7b25efde130b9cbcacf579b3f926c532d919aa23/src/main/java/net/skorgenes/
- *
  * security/jsecurity/negotiate/NegotiateAuthenticationFilter.java?at=default
  *
  * @since 1.0.0
@@ -277,7 +273,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      */
     boolean isLoginAttempt(final String authzHeader) {
         for (final String protocol : NegotiateAuthenticationFilter.PROTOCOLS) {
-            if (authzHeader.toLowerCase().startsWith(protocol.toLowerCase())) {
+            if (authzHeader.toLowerCase(Locale.ENGLISH).startsWith(protocol.toLowerCase(Locale.ENGLISH))) {
                 return true;
             }
         }
