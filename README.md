@@ -17,7 +17,7 @@ WAFFLE - Windows Authentication Framework
 
 WAFFLE is a native Windows Authentication Framework consisting of two C# and Java libraries that perform functions related to Windows authentication, supporting Negotiate, NTLM and Kerberos. Waffle also includes libraries that enable drop-in Windows Single Sign On for popular Java web servers, when running on Windows. While Waffle makes it ridiculously easy to do Windows Authentication in Java, on Windows, Waffle does not work on *nix(UNIX-like).
 
-Unlike many other implementations Waffle on Windows does not require any server-side Kerberos keytab setup, it's a drop-in solution. You can see it in action in [this slightly blurry video](https://www.youtube.com/watch?v=LmTwbOh0hBU) produced for [TeamShatter.com](http://www.teamshatter.com/topics/general/team-shatter-exclusive/securing-java-applications-with-smart-cards-and-single-sign-on/). 
+Unlike many other implementations Waffle on Windows does not require any server-side Kerberos keytab setup, it's a drop-in solution. You can see it in action in [this slightly blurry video](https://www.youtube.com/watch?v=LmTwbOh0hBU) produced for [TeamShatter.com](http://www.teamshatter.com/topics/general/team-shatter-exclusive/securing-java-applications-with-smart-cards-and-single-sign-on/).
 
 Sites
 -----
@@ -69,7 +69,7 @@ Features
 How do I resolve JNA `NoClassDefFound` errors?
 ----------------------------------------------
 WAFFLE uses the latest version of JNA, which may conflict with other dependencies your project (or its parent) includes. If you experience issues with `NoClassDefFound` errors for JNA artifacts, consider one or more of the following steps to resolve the conflict:
-* Listing WAFFLE earlier (or first) in your dependency list 
+* Listing WAFFLE earlier (or first) in your dependency list
 * Specifying the most recent version of JNA as a dependency
 * If you are using a parent (e.g., Spring Boot) that includes JNA as a dependency, override the `jna.version` property
 
@@ -93,12 +93,12 @@ Contributing
 * [Set Up a Development Environment](Docs/SettingUpDevelopmentEnvironment.md).
 * Make your code changes. Don't forget tests.
 * Update [CHANGELOG](CHANGELOG.md).
-* Make pull requests. Bonus points for topic branches. 
+* Make pull requests. Bonus points for topic branches.
 
 License and Copyright
 ---------------------
 
-Copyright (c) [Application Security Inc.](https://www.trustwave.com/Company/AppSecInc-is-now-Trustwave/), 2010-2020 and Contributors. 
+Copyright (c) [Application Security Inc.](https://www.trustwave.com/Company/AppSecInc-is-now-Trustwave/), 2010-2020 and Contributors.
 
 This project is licensed under the [MIT License](https://github.com/Waffle/waffle/blob/master/LICENSE).
 

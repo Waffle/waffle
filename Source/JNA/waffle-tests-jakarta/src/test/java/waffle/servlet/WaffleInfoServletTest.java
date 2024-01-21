@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2024 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,8 +24,6 @@
 package waffle.servlet;
 
 import com.sun.jna.Platform;
-
-import jakarta.servlet.ServletException;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -63,11 +61,9 @@ class WaffleInfoServletTest {
      *             the SAX exception
      * @throws IOException
      *             Signals that an I/O exception has occurred.
-     * @throws ServletException
-     *             the servlet exception
      */
     @Test
-    void testGetInfo() throws ParserConfigurationException, SAXException, IOException, ServletException {
+    void testGetInfo() throws ParserConfigurationException, SAXException, IOException {
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.addHeader("hello", "waffle");
 

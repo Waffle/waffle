@@ -23,10 +23,6 @@
  */
 package waffle.windows.auth;
 
-import jakarta.servlet.ServletException;
-
-import java.io.IOException;
-
 import org.junit.jupiter.api.Test;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Scope;
@@ -64,14 +60,9 @@ class WindowsAuthProviderLoadTest {
 
         /**
          * Benchmark.
-         *
-         * @throws IOException
-         *             Signals that an I/O exception has occurred.
-         * @throws ServletException
-         *             the servlet exception
          */
         @Benchmark
-        public void benchmark() throws IOException, ServletException {
+        public void benchmark() {
             this.tests.testAcceptSecurityToken();
         }
 
