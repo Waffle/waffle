@@ -44,8 +44,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The Class SimpleHttpResponse.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class SimpleHttpResponse extends HttpServletResponseWrapper {
 

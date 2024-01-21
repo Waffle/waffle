@@ -28,8 +28,6 @@ import java.security.Principal;
 
 /**
  * Role principal.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class RolePrincipal implements Principal, Serializable {
 

@@ -35,8 +35,6 @@ import org.apache.catalina.connector.Request;
 
 /**
  * Simple HTTP Request.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class SimpleHttpRequest extends Request {
 

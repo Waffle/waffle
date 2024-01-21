@@ -32,8 +32,6 @@ import waffle.windows.auth.IWindowsImpersonationContext;
 
 /**
  * The Class WindowsIdentityImpersonationContextImpl.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class WindowsIdentityImpersonationContextImpl implements IWindowsImpersonationContext {
 

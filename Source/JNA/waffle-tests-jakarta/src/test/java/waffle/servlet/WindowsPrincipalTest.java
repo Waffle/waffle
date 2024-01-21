@@ -41,8 +41,6 @@ import waffle.mock.MockWindowsSecurityContext;
 
 /**
  * The Class WindowsPrincipalTest.
- *
- * @author dblock[at]dblock[dot]org
  */
 class WindowsPrincipalTest {
 

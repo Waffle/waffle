@@ -38,8 +38,6 @@ import waffle.servlet.spi.SecurityFilterProviderCollection;
 
 /**
  * Sends back a request for a Negotiate Authentication to the browser.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class NegotiateSecurityFilterEntryPoint implements AuthenticationEntryPoint {
 

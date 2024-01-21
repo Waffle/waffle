@@ -27,8 +27,6 @@ import org.springframework.security.core.AuthenticationException;
 
 /**
  * Guest login is disabled authentication exception.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class GuestLoginDisabledAuthenticationException extends AuthenticationException {
 

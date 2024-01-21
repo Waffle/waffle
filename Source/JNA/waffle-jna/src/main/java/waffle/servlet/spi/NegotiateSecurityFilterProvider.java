@@ -43,8 +43,6 @@ import waffle.windows.auth.IWindowsSecurityContext;
 
 /**
  * A negotiate security filter provider.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 

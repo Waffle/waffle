@@ -25,8 +25,6 @@ package waffle.windows.auth;
 
 /**
  * A Windows impersonation context.
- *
- * @author dblock[at]dblock[dot]org
  */
 public interface IWindowsImpersonationContext {
 

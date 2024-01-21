@@ -47,8 +47,6 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
 
 /**
  * Waffle Tomcat Security Filter Test.
- *
- * @author dblock[at]dblock[dot]org
  */
 class BasicSecurityFilterTest {
 

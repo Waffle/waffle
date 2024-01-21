@@ -25,8 +25,6 @@ package waffle.util;
 
 /**
  * Rudimentary NTLM message utility.
- *
- * @author dblock[at]dblock[dot]org
  */
 public final class NtlmMessage {
 

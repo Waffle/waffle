@@ -35,8 +35,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Waffle Authenticator Base Test.
- *
- * @author dblock[at]dblock[dot]org
  */
 class WaffleAuthenticatorBaseTest {
 

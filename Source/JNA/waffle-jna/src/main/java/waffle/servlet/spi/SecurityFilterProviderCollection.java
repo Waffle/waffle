@@ -43,8 +43,6 @@ import waffle.windows.auth.IWindowsIdentity;
 
 /**
  * A collection of security filter providers.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class SecurityFilterProviderCollection {
 

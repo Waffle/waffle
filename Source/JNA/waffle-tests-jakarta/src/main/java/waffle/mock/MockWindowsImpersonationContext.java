@@ -27,8 +27,6 @@ import waffle.windows.auth.IWindowsImpersonationContext;
 
 /**
  * The Class MockWindowsImpersonationContext.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class MockWindowsImpersonationContext implements IWindowsImpersonationContext {
 

@@ -33,8 +33,6 @@ import java.io.IOException;
 
 /**
  * The Class SimpleRequestDispatcher.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class SimpleRequestDispatcher implements RequestDispatcher {
 

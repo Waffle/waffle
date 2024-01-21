@@ -33,8 +33,6 @@ import waffle.windows.auth.impl.WindowsSecurityContextImpl;
 
 /**
  * The Class WindowsSecurityContextTest.
- *
- * @author dblock[at]dblock[dot]org
  */
 class WindowsSecurityContextTest {
 

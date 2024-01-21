@@ -35,8 +35,6 @@ import javax.servlet.ServletContext;
 
 /**
  * The Class SimpleFilterConfig.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class SimpleFilterConfig implements FilterConfig {
 

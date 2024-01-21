@@ -30,8 +30,6 @@ import javax.servlet.http.HttpServletRequestWrapper;
 
 /**
  * Negotiate Request wrapper.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class NegotiateRequestWrapper extends HttpServletRequestWrapper {
 

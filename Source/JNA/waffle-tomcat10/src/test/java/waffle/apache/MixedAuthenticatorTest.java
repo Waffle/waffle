@@ -57,8 +57,6 @@ import waffle.windows.auth.impl.WindowsSecurityContextImpl;
 
 /**
  * Waffle Tomcat Mixed Authenticator Test.
- *
- * @author dblock[at]dblock[dot]org
  */
 class MixedAuthenticatorTest {
 

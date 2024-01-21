@@ -41,8 +41,6 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 /**
  * The Class NegotiateSecurityFilterLoadTest.
- *
- * @author dblock[at]dblock[dot]org
  */
 class NegotiateSecurityFilterLoadTest {
 

@@ -34,8 +34,6 @@ import waffle.windows.auth.IWindowsComputer;
 
 /**
  * Windows Computer.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class WindowsComputerImpl implements IWindowsComputer {
 

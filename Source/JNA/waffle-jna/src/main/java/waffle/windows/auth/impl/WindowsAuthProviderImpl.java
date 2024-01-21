@@ -53,8 +53,6 @@ import waffle.windows.auth.IWindowsSecurityContext;
 
 /**
  * Windows Auth Provider.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
 

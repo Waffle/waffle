@@ -31,8 +31,6 @@ import waffle.mock.http.SimpleHttpRequest;
 
 /**
  * The Class AuthorizationHeaderTest.
- *
- * @author dblock[at]dblock[dot]org
  */
 class AuthorizationHeaderTest {
 

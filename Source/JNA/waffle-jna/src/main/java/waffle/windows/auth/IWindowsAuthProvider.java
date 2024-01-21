@@ -25,8 +25,6 @@ package waffle.windows.auth;
 
 /**
  * Implements Windows authentication functions.
- *
- * @author dblock[at]dblock[dot]org
  */
 public interface IWindowsAuthProvider {
 

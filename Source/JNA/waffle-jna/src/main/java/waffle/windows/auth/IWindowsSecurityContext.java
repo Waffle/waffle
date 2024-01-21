@@ -29,8 +29,6 @@ import com.sun.jna.platform.win32.Sspi.SecBufferDesc;
 
 /**
  * A Windows security context.
- *
- * @author dblock[at]dblock[dot]org
  */
 public interface IWindowsSecurityContext {
 

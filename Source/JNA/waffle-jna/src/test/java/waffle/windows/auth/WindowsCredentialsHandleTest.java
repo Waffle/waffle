@@ -30,8 +30,6 @@ import waffle.windows.auth.impl.WindowsCredentialsHandleImpl;
 
 /**
  * The Class WindowsCredentialsHandleTest.
- *
- * @author dblock[at]dblock[dot]org
  */
 class WindowsCredentialsHandleTest {
 

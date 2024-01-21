@@ -39,8 +39,6 @@ import waffle.windows.auth.IWindowsIdentity;
 
 /**
  * A Basic authentication security filter provider. https://tools.ietf.org/html/rfc2617
- *
- * @author dblock[at]dblock[dot]org
  */
 public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 

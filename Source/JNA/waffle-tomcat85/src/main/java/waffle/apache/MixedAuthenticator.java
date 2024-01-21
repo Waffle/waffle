@@ -48,8 +48,6 @@ import waffle.windows.auth.IWindowsSecurityContext;
 
 /**
  * Mixed Negotiate + Form Authenticator.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class MixedAuthenticator extends WaffleAuthenticatorBase {
 

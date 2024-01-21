@@ -27,8 +27,6 @@ import waffle.windows.auth.IWindowsAccount;
 
 /**
  * The Class MockWindowsAccount.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class MockWindowsAccount implements IWindowsAccount {
 

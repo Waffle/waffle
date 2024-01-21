@@ -29,8 +29,6 @@ import waffle.windows.auth.IWindowsDomain;
 
 /**
  * Windows Domain.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class WindowsDomainImpl implements IWindowsDomain {
 

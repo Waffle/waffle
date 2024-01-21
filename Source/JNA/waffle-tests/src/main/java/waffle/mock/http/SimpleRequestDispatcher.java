@@ -33,8 +33,6 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * The Class SimpleRequestDispatcher.
- *
- * @author dblock[at]dblock[dot]org
  */
 public class SimpleRequestDispatcher implements RequestDispatcher {
 

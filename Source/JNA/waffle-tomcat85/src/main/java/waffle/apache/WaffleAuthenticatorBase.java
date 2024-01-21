@@ -46,8 +46,6 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
 /**
  * The Class WaffleAuthenticatorBase.
- *
- * @author dblock[at]dblock[dot]org
  */
 abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
 

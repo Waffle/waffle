@@ -28,8 +28,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * The Class PrincipalFormatTest.
- *
- * @author dblock[at]dblock[dot]org
  */
 class PrincipalFormatTest {
 

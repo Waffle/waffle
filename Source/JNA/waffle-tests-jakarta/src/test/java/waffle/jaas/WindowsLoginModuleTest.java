@@ -41,8 +41,6 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
 
 /**
  * The Class WindowsLoginModuleTest.
- *
- * @author dblock[at]dblock[dot]org
  */
 class WindowsLoginModuleTest {
 

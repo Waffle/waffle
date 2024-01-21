@@ -30,8 +30,6 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
 /**
  * The Class SecurityFilterProviderCollectionTest.
- *
- * @author dblock[at]dblock[dot]org
  */
 class SecurityFilterProviderCollectionTest {
 

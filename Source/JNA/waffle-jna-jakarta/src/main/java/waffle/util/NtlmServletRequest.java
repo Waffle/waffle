@@ -27,8 +27,6 @@ import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * The Class NtlmServletRequest.
- *
- * @author dblock[at]dblock[dot]org
  */
 public final class NtlmServletRequest {
 
