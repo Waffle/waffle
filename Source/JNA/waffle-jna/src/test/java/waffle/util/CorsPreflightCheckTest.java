@@ -101,7 +101,7 @@ class CorsPreFlightCheckTest {
                 this.result = "LOGIN";
                 CorsPreFlightCheckTest.this.noOriginPreflightRequest.getHeader("Access-Control-Request-Headers");
                 this.result = "X-Request-For";
-                /** Origin MUST be present with Method and Headers to be a valid CORS request **/
+                // Origin MUST be present with Method and Headers to be a valid CORS request
                 CorsPreFlightCheckTest.this.noOriginPreflightRequest.getHeader("Origin");
                 this.result = null;
             }

@@ -33,8 +33,8 @@ public final class SPNegoMessage {
     /** The Constant SPENGO_OID. */
     private static final byte[] SPENGO_OID = { 0x06, 0x06, 0x2b, 0x06, 0x01, 0x05, 0x05, 0x02 };
 
-    // Check if this message is SPNEGO authentication token. There
-    // are two token types, NegTokenInit and NegTokenArg.
+    // Check if this message is SPNEGO authentication token.
+    // There are two token types, NegTokenInit and NegTokenArg.
     // For details and specification, see
     // https://msdn.microsoft.com/en-us/library/ms995330.aspx
 
