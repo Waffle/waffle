@@ -43,3 +43,6 @@ Source/JNA/release.properties
 .cache/
 .profiler/
 .github/keys/
+.checkstyle
+.pmd
+.pmdruleset.xml

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2024 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -95,8 +95,7 @@ class ImpersonateTest {
         this.filter.destroy();
 
         if (LMErr.NERR_Success == this.resultOfNetAddUser) {
-            Assertions.assertEquals(LMErr.NERR_Success,
-                    Netapi32.INSTANCE.NetUserDel(null, this.userInfo.usri1_name.toString()));
+            Assertions.assertEquals(LMErr.NERR_Success, Netapi32.INSTANCE.NetUserDel(null, this.userInfo.usri1_name));
         }
     }
 

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2024 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -94,8 +94,7 @@ class ImpersonateTest {
         this.filter.destroy();
 
         if (LMErr.NERR_Success == this.resultOfNetAddUser) {
-            Assertions.assertEquals(LMErr.NERR_Success,
-                    Netapi32.INSTANCE.NetUserDel(null, this.userInfo.usri1_name.toString()));
+            Assertions.assertEquals(LMErr.NERR_Success, Netapi32.INSTANCE.NetUserDel(null, this.userInfo.usri1_name));
         }
     }
 
@@ -110,7 +109,7 @@ class ImpersonateTest {
     @Test
     void testImpersonateEnabled() throws IOException, ServletException {
 
-        Assertions.assertFalse(Advapi32Util.getUserName().equals(MockWindowsAccount.TEST_USER_NAME),
+        Assertions.assertNotEquals(MockWindowsAccount.TEST_USER_NAME, Advapi32Util.getUserName(),
                 "Current user shouldn't be the test user prior to the test");
 
         final SimpleHttpRequest request = new SimpleHttpRequest();
@@ -138,7 +137,7 @@ class ImpersonateTest {
 
             Assertions.assertEquals(MockWindowsAccount.TEST_USER_NAME, filterChain.getUserName(),
                     "Test user should be impersonated");
-            Assertions.assertFalse(Advapi32Util.getUserName().equals(MockWindowsAccount.TEST_USER_NAME),
+            Assertions.assertNotEquals(MockWindowsAccount.TEST_USER_NAME, Advapi32Util.getUserName(),
                     "Impersonation context should have been reverted");
         } finally {
             if (windowsPrincipal != null) {
@@ -158,7 +157,7 @@ class ImpersonateTest {
     @Test
     void testImpersonateDisabled() throws IOException, ServletException {
 
-        Assertions.assertFalse(Advapi32Util.getUserName().equals(MockWindowsAccount.TEST_USER_NAME),
+        Assertions.assertNotEquals(MockWindowsAccount.TEST_USER_NAME, Advapi32Util.getUserName(),
                 "Current user shouldn't be the test user prior to the test");
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
@@ -182,9 +181,9 @@ class ImpersonateTest {
             Assertions.assertTrue(principal instanceof WindowsPrincipal);
             windowsPrincipal = (WindowsPrincipal) principal;
 
-            Assertions.assertFalse(MockWindowsAccount.TEST_USER_NAME.equals(filterChain.getUserName()),
+            Assertions.assertNotEquals(MockWindowsAccount.TEST_USER_NAME, filterChain.getUserName(),
                     "Test user should not be impersonated");
-            Assertions.assertFalse(Advapi32Util.getUserName().equals(MockWindowsAccount.TEST_USER_NAME),
+            Assertions.assertNotEquals(MockWindowsAccount.TEST_USER_NAME, Advapi32Util.getUserName(),
                     "Impersonation context should have been reverted");
         } finally {
             if (windowsPrincipal != null) {
