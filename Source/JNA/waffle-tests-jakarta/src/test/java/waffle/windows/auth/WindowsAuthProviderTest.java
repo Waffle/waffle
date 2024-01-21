@@ -127,10 +127,10 @@ class WindowsAuthProviderTest {
     void testGetCurrentComputer() {
         final IWindowsAuthProvider prov = new WindowsAuthProviderImpl();
         final IWindowsComputer computer = prov.getCurrentComputer();
-        WindowsAuthProviderTest.LOGGER.info(computer.getComputerName());
+        WindowsAuthProviderTest.LOGGER.info("{}", computer.getComputerName());
         assertThat(computer.getComputerName()).isNotEmpty();
-        WindowsAuthProviderTest.LOGGER.info(computer.getJoinStatus());
-        WindowsAuthProviderTest.LOGGER.info(computer.getMemberOf());
+        WindowsAuthProviderTest.LOGGER.info("{}", computer.getJoinStatus());
+        WindowsAuthProviderTest.LOGGER.info("{}", computer.getMemberOf());
         final String[] localGroups = computer.getGroups();
         Assertions.assertNotNull(localGroups);
         assertThat(localGroups).isNotEmpty();
