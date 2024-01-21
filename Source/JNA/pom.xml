@@ -375,6 +375,7 @@
                                 <excludes>
                                     <exclude>**/node_modules/**</exclude>
                                     <exclude>**/target/**</exclude>
+                                    <exclude>**/.pmdruleset.xml</exclude>
                                 </excludes>
                                 <trimTrailingWhitespace />
                                 <endWithNewline />
@@ -819,6 +820,9 @@
                                 <header>${main.basedir}/LICENSE_HEADER</header>
                                 <excludes>
                                     <exclude>**/spring.provides</exclude>
+                                    <exclude>**/.checkstyle</exclude>
+                                    <exclude>**/.pmd</exclude>
+                                    <exclude>**/.pmdruleset.xml</exclude>
                                 </excludes>
                             </licenseSet>
                         </licenseSets>
