@@ -36,8 +36,6 @@ import org.apache.shiro.subject.SimplePrincipalCollection;
  * https://bitbucket.org/lothor/shiro-negotiate
  * /src/7b25efde130b/src/main/java/net/skorgenes/security/jsecurity/negotiate/NegotiateInfo.java?at=default
  *
- * @author Dan Rollo
- *
  * @since 1.0.0
  */
 public class NegotiateInfo implements AuthenticationInfo {

@@ -28,8 +28,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * The Class SPNegoMessageTest.
- *
- * @author ari.suutari[at]syncrontech[dot]com
  */
 class SPNegoMessageTest {
 

@@ -36,8 +36,6 @@ import org.checkerframework.checker.index.qual.NonNegative;
  *            the type of keys maintained by this cache
  * @param <V>
  *            the type of mapped values
- *
- * @author Simon Legner
  */
 public class CaffeineCache<K, V> implements Cache<K, V> {
 

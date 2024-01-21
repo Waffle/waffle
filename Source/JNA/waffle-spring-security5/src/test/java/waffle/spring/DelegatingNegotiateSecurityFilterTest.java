@@ -59,8 +59,6 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
 
 /**
  * The Class NegotiateSecurityFilterTest.
- *
- * @author [unaor]
  */
 class DelegatingNegotiateSecurityFilterTest {
 

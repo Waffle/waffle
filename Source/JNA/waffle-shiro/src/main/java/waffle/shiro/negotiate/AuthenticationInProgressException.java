@@ -30,8 +30,6 @@ import org.apache.shiro.authc.AuthenticationException;
  * <p>
  * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateAuthenticationFilter.
  *
- * @author Dan Rollo
- *
  * @since 1.0.0
  */
 public class AuthenticationInProgressException extends AuthenticationException {

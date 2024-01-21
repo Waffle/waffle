@@ -34,8 +34,6 @@ import java.util.ServiceLoader;
  * @param <V>
  *            the type of mapped values
  *
- * @author Simon Legner
- *
  * @see <a href="https://github.com/Waffle/waffle/blob/master/Docs/CustomCache.md">Can I provide a custom cache
  *      implementation?</a>
  */

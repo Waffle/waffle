@@ -25,8 +25,6 @@ package waffle.util;
 
 /**
  * Rudimentary NTLM message utility.
- *
- * @author ari.suutari[at]syncrontech[dot]com
  */
 public final class SPNegoMessage {
 

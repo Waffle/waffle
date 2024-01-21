@@ -25,8 +25,6 @@ package waffle.util.cache;
 
 /**
  * Service interface to instantiate a new {@link Cache}.
- *
- * @author Simon Legner
  */
 public interface CacheSupplier {
 

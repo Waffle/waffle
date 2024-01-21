@@ -25,8 +25,6 @@ package waffle.util.cache;
 
 /**
  * A {@link CacheSupplier} supplying {@link CaffeineCache}.
- *
- * @author Simon Legner
  */
 public class CaffeineCacheSupplier implements CacheSupplier {
 
