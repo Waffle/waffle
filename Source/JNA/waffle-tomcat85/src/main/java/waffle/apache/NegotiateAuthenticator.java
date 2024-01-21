@@ -53,7 +53,7 @@ public class NegotiateAuthenticator extends WaffleAuthenticatorBase {
     public NegotiateAuthenticator() {
         super();
         this.log = LoggerFactory.getLogger(NegotiateAuthenticator.class);
-        this.info = "waffle.apache.NegotiateAuthenticator/1.0";
+        this.info = NegotiateAuthenticator.class.getSimpleName();
         this.log.debug("[waffle.apache.NegotiateAuthenticator] loaded");
     }
 
