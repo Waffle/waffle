@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -277,7 +278,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      */
     boolean isLoginAttempt(final String authzHeader) {
         for (final String protocol : NegotiateAuthenticationFilter.PROTOCOLS) {
-            if (authzHeader.toLowerCase().startsWith(protocol.toLowerCase())) {
+            if (authzHeader.toLowerCase(Locale.ENGLISH).startsWith(protocol.toLowerCase(Locale.ENGLISH))) {
                 return true;
             }
         }
