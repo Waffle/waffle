@@ -28,8 +28,7 @@ package waffle.util;
  */
 public final class NtlmMessage {
 
-    // NTLM messages start with 0x4e544c4d53535000, NTLMSSP signature
-    /** The Constant NTLM_SSP_SIGNATURE. */
+    /** The Constant NTLM_SSP_SIGNATURE. NTLM messages start with 0x4e544c4d53535000, NTLMSSP signature */
     private static final byte[] NTLM_SSP_SIGNATURE = { 0x4e, 0x54, 0x4c, 0x4d, 0x53, 0x53, 0x50, 0x00 };
 
     /**
