@@ -106,9 +106,9 @@ public class MockWindowsAuthProvider implements IWindowsAuthProvider {
     @Override
     public IWindowsIdentity logonUser(final String username, final String password) {
         final String currentUsername = Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);
-        if (username.equals(currentUsername)) {
+        if (currentUsername.equals(username)) {
             return new MockWindowsIdentity(currentUsername, this.groups);
-        } else if (username.equals(MockWindowsAuthProvider.GUEST)) {
+        } else if (MockWindowsAuthProvider.GUEST.equals(username)) {
             return new MockWindowsIdentity(MockWindowsAuthProvider.GUEST, this.groups);
         } else {
             throw new RuntimeException("Mock error: " + username);
