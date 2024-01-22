@@ -86,7 +86,7 @@ class WindowsAuthProviderTest {
         Assumptions.assumeTrue(LMErr.NERR_Success == Netapi32.INSTANCE.NetUserAdd(null, 1, userInfo, null));
         try {
             final IWindowsAuthProvider prov = new WindowsAuthProviderImpl();
-            final IWindowsIdentity identity = prov.logonUser(userInfo.usri1_name, userInfo.usri1_password.toString());
+            final IWindowsIdentity identity = prov.logonUser(userInfo.usri1_name, userInfo.usri1_password);
             Assertions.assertTrue(identity.getFqn().endsWith("\\" + userInfo.usri1_name));
             Assertions.assertFalse(identity.isGuest());
             identity.dispose();
