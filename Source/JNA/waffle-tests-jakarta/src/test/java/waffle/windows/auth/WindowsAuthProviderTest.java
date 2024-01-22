@@ -25,7 +25,6 @@ package waffle.windows.auth;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.sun.jna.WString;
 import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.LMAccess;
 import com.sun.jna.platform.win32.LMErr;
@@ -80,8 +79,8 @@ class WindowsAuthProviderTest {
     @Test
     void testLogonUser() {
         final LMAccess.USER_INFO_1 userInfo = new LMAccess.USER_INFO_1();
-        userInfo.usri1_name = new WString("WaffleTestUser").toString();
-        userInfo.usri1_password = new WString("!WAFFLEP$$Wrd0").toString();
+        userInfo.usri1_name = "WaffleTestUser";
+        userInfo.usri1_password = "!WAFFLEP$$Wrd0";
         userInfo.usri1_priv = LMAccess.USER_PRIV_USER;
         // ignore test if not able to add user (need to be administrator to do this).
         Assumptions.assumeTrue(LMErr.NERR_Success == Netapi32.INSTANCE.NetUserAdd(null, 1, userInfo, null));
@@ -102,8 +101,8 @@ class WindowsAuthProviderTest {
     @Test
     void testImpersonateLoggedOnUser() {
         final LMAccess.USER_INFO_1 userInfo = new LMAccess.USER_INFO_1();
-        userInfo.usri1_name = new WString(MockWindowsAccount.TEST_USER_NAME).toString();
-        userInfo.usri1_password = new WString(MockWindowsAccount.TEST_PASSWORD).toString();
+        userInfo.usri1_name = MockWindowsAccount.TEST_USER_NAME;
+        userInfo.usri1_password = MockWindowsAccount.TEST_PASSWORD;
         userInfo.usri1_priv = LMAccess.USER_PRIV_USER;
         // ignore test if not able to add user (need to be administrator to do this).
         Assumptions.assumeTrue(LMErr.NERR_Success == Netapi32.INSTANCE.NetUserAdd(null, 1, userInfo, null));
