@@ -34,6 +34,7 @@ import com.sun.jna.platform.win32.SspiUtil.ManagedSecBufferDesc;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Locale;
 
 import javax.security.auth.Subject;
 import javax.servlet.ServletException;
@@ -221,7 +222,8 @@ class NegotiateSecurityFilterTest {
             Assertions.assertTrue(filterChain.getRequest() instanceof NegotiateRequestWrapper);
             Assertions.assertTrue(filterChain.getResponse() instanceof SimpleHttpResponse);
             final NegotiateRequestWrapper wrappedRequest = (NegotiateRequestWrapper) filterChain.getRequest();
-            Assertions.assertEquals(NegotiateSecurityFilterTest.NEGOTIATE.toUpperCase(), wrappedRequest.getAuthType());
+            Assertions.assertEquals(NegotiateSecurityFilterTest.NEGOTIATE.toUpperCase(Locale.ENGLISH),
+                    wrappedRequest.getAuthType());
             Assertions.assertEquals(Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible),
                     wrappedRequest.getRemoteUser());
             Assertions.assertTrue(wrappedRequest.getUserPrincipal() instanceof WindowsPrincipal);

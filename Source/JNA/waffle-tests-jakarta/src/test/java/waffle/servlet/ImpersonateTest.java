@@ -110,7 +110,7 @@ class ImpersonateTest {
     @Test
     void testImpersonateEnabled() throws IOException, ServletException {
 
-        Assertions.assertFalse(Advapi32Util.getUserName().equals(MockWindowsAccount.TEST_USER_NAME),
+        Assertions.assertNotEquals(MockWindowsAccount.TEST_USER_NAME, Advapi32Util.getUserName(),
                 "Current user shouldn't be the test user prior to the test");
 
         final SimpleHttpRequest request = new SimpleHttpRequest();
@@ -158,7 +158,7 @@ class ImpersonateTest {
     @Test
     void testImpersonateDisabled() throws IOException, ServletException {
 
-        Assertions.assertFalse(Advapi32Util.getUserName().equals(MockWindowsAccount.TEST_USER_NAME),
+        Assertions.assertNotEquals(MockWindowsAccount.TEST_USER_NAME, Advapi32Util.getUserName(),
                 "Current user shouldn't be the test user prior to the test");
         final SimpleHttpRequest request = new SimpleHttpRequest();
         request.setMethod("GET");
@@ -182,9 +182,9 @@ class ImpersonateTest {
             Assertions.assertTrue(principal instanceof WindowsPrincipal);
             windowsPrincipal = (WindowsPrincipal) principal;
 
-            Assertions.assertFalse(MockWindowsAccount.TEST_USER_NAME.equals(filterChain.getUserName()),
+            Assertions.assertNotEquals(MockWindowsAccount.TEST_USER_NAME, filterChain.getUserName(),
                     "Test user should not be impersonated");
-            Assertions.assertFalse(Advapi32Util.getUserName().equals(MockWindowsAccount.TEST_USER_NAME),
+            Assertions.assertNotEquals(MockWindowsAccount.TEST_USER_NAME, Advapi32Util.getUserName(),
                     "Impersonation context should have been reverted");
         } finally {
             if (windowsPrincipal != null) {
