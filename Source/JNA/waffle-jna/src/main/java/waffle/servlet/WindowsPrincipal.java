@@ -27,8 +27,10 @@ import java.io.Serializable;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import waffle.windows.auth.IWindowsAccount;
 import waffle.windows.auth.IWindowsIdentity;
@@ -53,7 +55,7 @@ public class WindowsPrincipal implements Principal, Serializable {
     private final String sidString;
 
     /** The roles. */
-    private final List<String> roles;
+    private final Set<String> roles;
 
     /** The identity. */
     private transient IWindowsIdentity identity;
@@ -103,9 +105,9 @@ public class WindowsPrincipal implements Principal, Serializable {
      *
      * @return the roles
      */
-    private static List<String> getRoles(final IWindowsIdentity windowsIdentity, final PrincipalFormat principalFormat,
+    private static Set<String> getRoles(final IWindowsIdentity windowsIdentity, final PrincipalFormat principalFormat,
             final PrincipalFormat roleFormat) {
-        final List<String> roles = new ArrayList<>();
+        final Set<String> roles = new HashSet<>();
         roles.addAll(WindowsPrincipal.getPrincipalNames(windowsIdentity, principalFormat));
         for (final IWindowsAccount group : windowsIdentity.getGroups()) {
             roles.addAll(WindowsPrincipal.getRoleNames(group, roleFormat));
