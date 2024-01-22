@@ -48,7 +48,7 @@ import waffle.util.NtlmServletRequest;
 
 /**
  * A authentication filter that implements the HTTP Negotiate mechanism. The current user is authenticated, providing
- * single-sign-on Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateAuthenticationFilter. see:
+ * single-sign-on. Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateAuthenticationFilter. see:
  * https://bitbucket.org/lothor
  * /shiro-negotiate/src/7b25efde130b9cbcacf579b3f926c532d919aa23/src/main/java/net/skorgenes/
  * security/jsecurity/negotiate/NegotiateAuthenticationFilter.java?at=default

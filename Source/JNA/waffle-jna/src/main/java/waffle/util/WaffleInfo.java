@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2024 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -68,7 +68,7 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  * <pre>
  * This utility class collects system information and returns it as an XML document.
  * </pre>
- *
+ * <p>
  * From the command line, you can write the info to stdout using:
  *
  * <pre>
@@ -76,7 +76,7 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  *   java -cp "jna.jar;waffle-core.jar;waffle-api.jar;jna-platform.jar;guava-21.0.jar" waffle.util.WaffleInfo
  * </code>
  * </pre>
- *
+ * <p>
  * To show this information in a browser, run:
  *
  * <pre>
@@ -84,7 +84,7 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  *   java -cp "..." waffle.util.WaffleInfo -show
  * </code>
  * </pre>
- *
+ * <p>
  * To lookup account names and return any listed info, run:
  *
  * <pre>
