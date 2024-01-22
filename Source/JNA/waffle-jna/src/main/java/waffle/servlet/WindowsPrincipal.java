@@ -130,6 +130,15 @@ public class WindowsPrincipal implements Principal, Serializable {
     }
 
     /**
+     * Windows groups that the user is a member of.
+     *
+     * @return A map of group names to groups.
+     */
+    public Map<String, WindowsAccount> getGroups() {
+        return this.groups;
+    }
+
+    /**
      * Byte representation of the SID.
      *
      * @return Array of bytes.
@@ -145,15 +154,6 @@ public class WindowsPrincipal implements Principal, Serializable {
      */
     public String getSidString() {
         return this.sidString;
-    }
-
-    /**
-     * Windows groups that the user is a member of.
-     *
-     * @return A map of group names to groups.
-     */
-    public Map<String, WindowsAccount> getGroups() {
-        return this.groups;
     }
 
     /**
