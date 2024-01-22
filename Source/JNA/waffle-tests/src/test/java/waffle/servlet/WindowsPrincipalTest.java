@@ -68,7 +68,7 @@ class WindowsPrincipalTest {
     void testIsSerializable() throws IOException, ClassNotFoundException {
         // serialize
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
-        try (final ObjectOutputStream oos = new ObjectOutputStream(out)) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(out)) {
             oos.writeObject(this.windowsPrincipal);
         }
         assertThat(out.toByteArray()).isNotEmpty();

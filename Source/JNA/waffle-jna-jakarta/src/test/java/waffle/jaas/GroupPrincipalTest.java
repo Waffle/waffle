@@ -91,7 +91,7 @@ class GroupPrincipalTest {
     void testIsSerializable() throws IOException, ClassNotFoundException {
         // serialize
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
-        try (final ObjectOutputStream oos = new ObjectOutputStream(out)) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(out)) {
             oos.writeObject(this.groupPrincipal);
         }
         assertThat(out.toByteArray()).isNotEmpty();
