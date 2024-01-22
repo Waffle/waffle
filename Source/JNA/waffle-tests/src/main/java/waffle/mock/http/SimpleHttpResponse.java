@@ -62,7 +62,7 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
     /** The out. */
     private final ServletOutputStream out = new ServletOutputStream() {
         @Override
-        public void write(final int b) throws IOException {
+        public void write(final int b) {
             SimpleHttpResponse.this.bytes.write(b);
         }
 

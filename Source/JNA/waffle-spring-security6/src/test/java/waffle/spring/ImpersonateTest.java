@@ -25,7 +25,6 @@ package waffle.spring;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.sun.jna.WString;
 import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.LMAccess;
 import com.sun.jna.platform.win32.LMErr;
@@ -78,8 +77,8 @@ class ImpersonateTest {
         this.filter.setProvider(new SecurityFilterProviderCollection(new WindowsAuthProviderImpl()));
 
         this.userInfo = new LMAccess.USER_INFO_1();
-        this.userInfo.usri1_name = new WString(MockWindowsAccount.TEST_USER_NAME).toString();
-        this.userInfo.usri1_password = new WString(MockWindowsAccount.TEST_PASSWORD).toString();
+        this.userInfo.usri1_name = MockWindowsAccount.TEST_USER_NAME;
+        this.userInfo.usri1_password = MockWindowsAccount.TEST_PASSWORD;
         this.userInfo.usri1_priv = LMAccess.USER_PRIV_USER;
 
         this.resultOfNetAddUser = Netapi32.INSTANCE.NetUserAdd(null, 1, this.userInfo, null);
