@@ -199,7 +199,7 @@
         <directory.plugin>1.1.1</directory.plugin>
         <enforcer.plugin>3.4.1</enforcer.plugin>
         <formatter.plugin>2.23.0</formatter.plugin>
-        <git-commit-id.plugin>7.0.0</git-commit-id.plugin>
+        <git-commit-id.plugin>8.0.0</git-commit-id.plugin>
         <gpg.plugin>3.1.0</gpg.plugin>
         <htmlcompressor.plugin>1.9.2.1</htmlcompressor.plugin>
         <impsort.plugin>1.9.0</impsort.plugin>
