@@ -200,7 +200,7 @@
         <enforcer.plugin>3.4.1</enforcer.plugin>
         <formatter.plugin>2.23.0</formatter.plugin>
         <git-commit-id.plugin>8.0.1</git-commit-id.plugin>
-        <gpg.plugin>3.1.0</gpg.plugin>
+        <gpg.plugin>3.2.0</gpg.plugin>
         <htmlcompressor.plugin>1.9.3</htmlcompressor.plugin>
         <impsort.plugin>1.9.0</impsort.plugin>
         <install.plugin>3.1.1</install.plugin>
