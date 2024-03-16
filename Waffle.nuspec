@@ -14,7 +14,7 @@
     <copyright>Copyright (c) Application Security Inc.2010-2017 and Contributors.</copyright>
     <tags>sspi kerberos negotiate ntlm authentication</tags>
     <dependencies>
-      <dependency id="NUnit" version="3.13.0" />
+      <dependency id="NUnit" version="3.14.0" />
     </dependencies>
   </metadata>
   <files>
