@@ -158,9 +158,9 @@ namespace Waffle.Windows
         /// <returns></returns>
         [DllImport("Netapi32.dll")]
         public extern static int NetUserAdd(
-            [MarshalAs(UnmanagedType.LPWStr)] string servername, 
+            [MarshalAs(UnmanagedType.LPWStr)] string servername,
             int level,
-            ref USER_INFO_1 buf, 
+            ref USER_INFO_1 buf,
             int parm_err);
 
         /// <summary>
@@ -171,7 +171,7 @@ namespace Waffle.Windows
         /// <returns></returns>
         [DllImport("Netapi32.dll")]
         public extern static int NetUserDel(
-            [MarshalAs(UnmanagedType.LPWStr)] string servername, 
+            [MarshalAs(UnmanagedType.LPWStr)] string servername,
             [MarshalAs(UnmanagedType.LPWStr)] string username);
     }
 }

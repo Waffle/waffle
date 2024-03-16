@@ -79,7 +79,7 @@ namespace Waffle.Windows.AuthProvider
         /// </summary>
         public const int SECPKG_CRED_OUTBOUND = 2;
 
-        
+
         // Flags for the TargetDataRep parameter of AcceptSecurityContext and InitializeSecurityContext
 
         /// <summary>
@@ -318,7 +318,7 @@ namespace Waffle.Windows.AuthProvider
             /// Zero handle.
             /// </summary>
             public static SecHandle Zero;
-            
+
             /// <summary>
             /// Static constructor for Zero SecHandle.
             /// </summary>
@@ -439,7 +439,7 @@ namespace Waffle.Windows.AuthProvider
                 BufferType = SecBufferType.SECBUFFER_TOKEN;
                 if (secBufferBytes != null)
                 {
-                    cbBuffer = secBufferBytes.Length;                    
+                    cbBuffer = secBufferBytes.Length;
                     pvBuffer = Marshal.AllocHGlobal(cbBuffer);
                     Marshal.Copy(secBufferBytes, 0, pvBuffer, cbBuffer);
                 }
@@ -613,7 +613,7 @@ namespace Waffle.Windows.AuthProvider
             /// <returns></returns>
             public static bool operator !=(SecBufferDesc value1, SecBufferDesc value2)
             {
-                return ! value1.Equals(value2);
+                return !value1.Equals(value2);
             }
 
             /// <summary>
@@ -841,7 +841,7 @@ namespace Waffle.Windows.AuthProvider
         /// <returns>If the function succeeds, the function returns SEC_E_OK.</returns>
         [DllImport("secur32.dll", CharSet = CharSet.Auto)]
         public static extern int QuerySecurityContextToken(
-            [In] ref SecHandle phContext, 
+            [In] ref SecHandle phContext,
             [Out] out IntPtr phToken);
     }
 }

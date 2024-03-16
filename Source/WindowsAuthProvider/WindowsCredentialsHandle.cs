@@ -48,7 +48,7 @@ namespace Waffle.Windows.AuthProvider
                 IntPtr.Zero,
                 out Handle,
                 out clientLifetime);
-            
+
             if (rc != Secur32.SEC_E_OK)
             {
                 throw new Win32Exception(rc);
@@ -70,7 +70,7 @@ namespace Waffle.Windows.AuthProvider
 
             IntPtr authIdentityPtr = Marshal.AllocHGlobal(Marshal.SizeOf(authIdentity));
             Marshal.StructureToPtr(authIdentity, authIdentityPtr, false);
-            
+
             int rc = Secur32.AcquireCredentialsHandle(
                 principal,
                 package,
@@ -96,7 +96,7 @@ namespace Waffle.Windows.AuthProvider
         public void Dispose()
         {
             if (Handle != Secur32.SecHandle.Zero)
-                Secur32.FreeCredentialsHandle(ref Handle);            
+                Secur32.FreeCredentialsHandle(ref Handle);
         }
     }
 }

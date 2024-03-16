@@ -29,7 +29,7 @@ namespace Waffle.Windows.AuthProvider
                 return _identity.User.ToString();
             }
         }
-        
+
         /// <summary>
         /// Security identifier in binary form.
         /// </summary>

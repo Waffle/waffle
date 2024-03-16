@@ -219,8 +219,8 @@ namespace Waffle.Windows.AuthProvider
                 return new WindowsSecurityContext(
                     targetName,
                     credentialsHandle,
-                    package, 
-                    fContextReq, 
+                    package,
+                    fContextReq,
                     targetDataRep);
             }
         }
@@ -234,7 +234,7 @@ namespace Waffle.Windows.AuthProvider
         /// <param name="fContextReq"></param>
         /// <param name="targetDataRep"></param>
         /// <returns></returns>
-        public static WindowsSecurityContext Get(string package, string targetName, 
+        public static WindowsSecurityContext Get(string package, string targetName,
             WindowsAuthIdentity identity, int fContextReq, int targetDataRep)
         {
             using (WindowsCredentialsHandle credentialsHandle = new WindowsCredentialsHandle(
