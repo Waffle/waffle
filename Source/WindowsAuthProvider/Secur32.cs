@@ -276,9 +276,8 @@ namespace Waffle.Windows.AuthProvider
             /// <returns></returns>
             public override bool Equals(object obj)
             {
-                if (obj is SECURITY_INTEGER)
+                if (obj is SECURITY_INTEGER secHandle)
                 {
-                    SECURITY_INTEGER secHandle = (SECURITY_INTEGER)obj;
                     return secHandle.HighPart == HighPart
                         && secHandle.LowPart == LowPart;
                 }
@@ -357,9 +356,8 @@ namespace Waffle.Windows.AuthProvider
             /// <returns></returns>
             public override bool Equals(object obj)
             {
-                if (obj is SecHandle)
+                if (obj is SecHandle secHandle)
                 {
-                    SecHandle secHandle = (SecHandle) obj;
                     return secHandle.HighPart == HighPart
                         && secHandle.LowPart == LowPart;
                 }
@@ -634,9 +632,8 @@ namespace Waffle.Windows.AuthProvider
             /// <returns></returns>
             public override bool Equals(object obj)
             {
-                if (obj is SecBufferDesc)
+                if (obj is SecBufferDesc secBufferDesc)
                 {
-                    SecBufferDesc secBufferDesc = (SecBufferDesc) obj;
                     return cBuffers == secBufferDesc.cBuffers
                         && pBuffers == secBufferDesc.pBuffers
                         && ulVersion == secBufferDesc.ulVersion;

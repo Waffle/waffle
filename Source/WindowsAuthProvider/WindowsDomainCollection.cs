@@ -40,7 +40,7 @@ namespace Waffle.Windows.AuthProvider
         /// <param name="item">Domain name.</param>
         public void Add(IWindowsDomain item)
         {
-            if (! Contains(item))
+            if (!Contains(item))
             {
                 _domains.Add(item);
             }

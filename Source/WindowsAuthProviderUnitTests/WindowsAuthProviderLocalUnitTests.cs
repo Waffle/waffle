@@ -19,13 +19,15 @@ namespace Waffle.Windows.AuthProvider.UnitTests
         public void SetUp()
         {
             // test user
-            _testUser = new Netapi32.USER_INFO_1();
-            _testUser.usri1_name = "WaffleTestUser";
-            _testUser.usri1_password = Guid.NewGuid().ToString();
-            _testUser.usri1_priv = 1;
-            _testUser.usri1_home_dir = null;
-            _testUser.comment = "Waffle test user.";
-            _testUser.usri1_script_path = null;
+            _testUser = new Netapi32.USER_INFO_1
+            {
+                usri1_name = "WaffleTestUser",
+                usri1_password = Guid.NewGuid().ToString(),
+                usri1_priv = 1,
+                usri1_home_dir = null,
+                comment = "Waffle test user.",
+                usri1_script_path = null
+            };
             int rc = Netapi32.NetUserAdd(null, 1, ref _testUser, 0);
             Assert.AreEqual(0, rc, new Win32Exception(rc).Message);
             // computer
@@ -95,17 +97,19 @@ namespace Waffle.Windows.AuthProvider.UnitTests
         [Ignore("Ignore TestDigest")]
         public void TestDigest()
         {
-            WindowsAuthIdentity identity = new WindowsAuthIdentity();
-            identity.Username = _testUser.usri1_name;
-            identity.Domain = _computerName;
-            identity.Password = _testUser.usri1_password;
+            WindowsAuthIdentity identity = new WindowsAuthIdentity
+            {
+                Username = _testUser.usri1_name,
+                Domain = _computerName,
+                Password = _testUser.usri1_password
+            };
 
             string package = "WDigest";
             WindowsAuthProviderImpl provider = new WindowsAuthProviderImpl();
             WindowsSecurityContext initContext = WindowsSecurityContext.Get(package,
                 "http://localhost", identity, 0, 0);
             IWindowsSecurityContext continueContext = initContext;
-            IWindowsSecurityContext responseContext = null;
+            IWindowsSecurityContext responseContext;
             string connectionId = Guid.NewGuid().ToString();
             do
             {

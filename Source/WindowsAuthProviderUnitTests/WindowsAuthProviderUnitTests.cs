@@ -182,7 +182,7 @@ namespace Waffle.Windows.AuthProvider.UnitTests
             WindowsAuthProviderImpl provider = new WindowsAuthProviderImpl();
             WindowsSecurityContext clientContext = WindowsSecurityContext.GetCurrent(package,
                 WindowsIdentity.GetCurrent().Name.ToLower(), Secur32.ISC_REQ_CONNECTION, Secur32.SECURITY_NATIVE_DREP);
-            IWindowsSecurityContext serverContext = null;
+            IWindowsSecurityContext serverContext;
             string connectionId = Guid.NewGuid().ToString();
             while (true)
             {

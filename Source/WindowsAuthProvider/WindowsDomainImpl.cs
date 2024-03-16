@@ -71,8 +71,10 @@ namespace Waffle.Windows.AuthProvider
                 List<string> groups = new List<string>();
                 DirectoryContext domainContext = new DirectoryContext(DirectoryContextType.Domain, Fqn);
                 Domain domain = Domain.GetDomain(domainContext);
-                DirectorySearcher groupsSearcher = new DirectorySearcher(domain.GetDirectoryEntry());
-                groupsSearcher.Filter = "(|(&(objectCategory=Group)(objectClass=Group)(|(groupType=-2147483644)(groupType=-2147483646)(groupType=-2147483640))))"; 
+                DirectorySearcher groupsSearcher = new DirectorySearcher(domain.GetDirectoryEntry())
+                {
+                    Filter = "(|(&(objectCategory=Group)(objectClass=Group)(|(groupType=-2147483644)(groupType=-2147483646)(groupType=-2147483640))))"
+                };
                 SearchResultCollection results = groupsSearcher.FindAll();
                 foreach (SearchResult searchResult in results)
                 {
