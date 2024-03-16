@@ -1,9 +1,9 @@
+using NUnit.Framework;
 using System;
 using System.ComponentModel;
 using System.DirectoryServices.ActiveDirectory;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
-using NUnit.Framework;
 
 namespace Waffle.Windows.AuthProvider.UnitTests
 {
