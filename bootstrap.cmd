@@ -4,5 +4,5 @@ NuGet.exe install MSBuildTasks        -OutputDirectory .nuget\packages\ -NonInte
 NuGet.exe install NUnit               -OutputDirectory .nuget\packages\ -NonInteractive -Version 3.14.0
 NuGet.exe install NUnit.ConsoleRunner -OutputDirectory .nuget\packages\ -NonInteractive -Version 3.17.0
 
-dotnet new tool-manifest
+dotnet new tool-manifest  --force
 dotnet tool install --global wix --version 4.0.4
