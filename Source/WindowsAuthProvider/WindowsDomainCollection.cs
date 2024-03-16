@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.DirectoryServices.ActiveDirectory;
 
 namespace Waffle.Windows.AuthProvider

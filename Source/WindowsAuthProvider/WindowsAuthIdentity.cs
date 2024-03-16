@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Waffle.Windows.AuthProvider
+﻿namespace Waffle.Windows.AuthProvider
 {
     /// <summary>
     /// A Windows auth identity.

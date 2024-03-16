@@ -1,13 +1,7 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Text;
-using Waffle.Windows;
-using System.Runtime.InteropServices;
-using System.ComponentModel;
-using System.Security.Principal;
 using System.DirectoryServices;
 using System.DirectoryServices.ActiveDirectory;
+using System.Runtime.InteropServices;
 
 namespace Waffle.Windows.AuthProvider
 {
