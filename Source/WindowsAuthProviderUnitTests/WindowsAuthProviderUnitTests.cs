@@ -1,9 +1,9 @@
+using NUnit.Framework;
 using System;
 using System.ComponentModel;
 using System.DirectoryServices.ActiveDirectory;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
-using NUnit.Framework;
 
 namespace Waffle.Windows.AuthProvider.UnitTests
 {
@@ -103,8 +103,8 @@ namespace Waffle.Windows.AuthProvider.UnitTests
             byte[] clientToken = new byte[] { 1, 2, 3 };
             Assert.That(() =>
             {
-            	IWindowsSecurityContext ctx = provider.AcceptSecurityToken(Guid.NewGuid().ToString(), clientToken, "Negotiate",
-                	Secur32.ISC_REQ_CONNECTION, Secur32.SECURITY_NATIVE_DREP);	
+                IWindowsSecurityContext ctx = provider.AcceptSecurityToken(Guid.NewGuid().ToString(), clientToken, "Negotiate",
+                    Secur32.ISC_REQ_CONNECTION, Secur32.SECURITY_NATIVE_DREP);
             }, Throws.TypeOf<Win32Exception>().With.Property("NativeErrorCode").EqualTo(Secur32.SEC_E_INVALID_TOKEN));
         }
 
@@ -184,7 +184,7 @@ namespace Waffle.Windows.AuthProvider.UnitTests
                 WindowsIdentity.GetCurrent().Name.ToLower(), Secur32.ISC_REQ_CONNECTION, Secur32.SECURITY_NATIVE_DREP);
             IWindowsSecurityContext serverContext = null;
             string connectionId = Guid.NewGuid().ToString();
-            while(true)
+            while (true)
             {
                 serverContext = provider.AcceptSecurityToken(connectionId, clientContext.Token, package,
                     Secur32.ISC_REQ_CONNECTION, Secur32.SECURITY_NATIVE_DREP);

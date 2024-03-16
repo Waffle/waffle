@@ -1,9 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Security.Principal;
-using System.ComponentModel;
 using NUnit.Framework;
+using System;
+using System.ComponentModel;
+using System.Security.Principal;
 
 namespace Waffle.Windows.AuthProvider.UnitTests
 {

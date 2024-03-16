@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Waffle.Windows;
 using System.Runtime.InteropServices;
-using System.ComponentModel;
 using System.Security.Principal;
 
 namespace Waffle.Windows.AuthProvider

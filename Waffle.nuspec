@@ -11,10 +11,10 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Enable drop-in Windows Single Sign On for popular Java web servers.</description>
     <releaseNotes>Add nuget package</releaseNotes>
-    <copyright>Copyright (c) Application Security Inc.2010-2017 and Contributors.</copyright>
+    <copyright>Copyright (c) Application Security Inc.2010-2024 and Contributors.</copyright>
     <tags>sspi kerberos negotiate ntlm authentication</tags>
     <dependencies>
-      <dependency id="NUnit" version="3.13.0" />
+      <dependency id="NUnit" version="3.14.0" />
     </dependencies>
   </metadata>
   <files>

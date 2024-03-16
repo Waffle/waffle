@@ -1,12 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Runtime.InteropServices;
-using Waffle.Windows;
-using System.ComponentModel;
 using System.Security.Principal;
-using System.DirectoryServices;
-using System.DirectoryServices.ActiveDirectory;
 
 namespace Waffle.Windows.AuthProvider
 {
@@ -29,7 +23,7 @@ namespace Waffle.Windows.AuthProvider
                 return _identity.User.ToString();
             }
         }
-        
+
         /// <summary>
         /// Security identifier in binary form.
         /// </summary>

@@ -1,7 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace Waffle.Windows
 {
@@ -230,9 +229,9 @@ namespace Waffle.Windows
         /// <param name="pSID">A pointer to the SID structure to be converted.</param>
         /// <param name="ptrSid">A pointer to a variable that receives a pointer to a null-terminated SID string. To free the returned buffer, call the LocalFree function.</param>
         /// <returns>If the function succeeds, the return value is nonzero.</returns>
-        [DllImport("advapi32", CharSet=CharSet.Auto, SetLastError=true)]
+        [DllImport("advapi32", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool ConvertSidToStringSid(
-            [MarshalAs(UnmanagedType.LPArray)] byte [] pSID, 
+            [MarshalAs(UnmanagedType.LPArray)] byte[] pSID,
             out IntPtr ptrSid);
         /// <summary>
         /// The IsValidSid function validates a  security identifier (SID) by verifying

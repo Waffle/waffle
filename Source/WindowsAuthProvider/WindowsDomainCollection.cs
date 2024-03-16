@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.DirectoryServices.ActiveDirectory;
 
 namespace Waffle.Windows.AuthProvider
@@ -11,7 +9,7 @@ namespace Waffle.Windows.AuthProvider
     public class WindowsDomainCollection : ICollection<IWindowsDomain>, IEnumerable<IWindowsDomain>
     {
         private List<IWindowsDomain> _domains = new List<IWindowsDomain>();
-        
+
         #region IEnumerable<IWindowsDomain> Members
 
         /// <summary>
