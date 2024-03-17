@@ -41,15 +41,8 @@ import waffle.windows.auth.IWindowsSecurityContext;
 import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
 /**
- * The Class NegotiateAuthenticationRealm.
- *
- * Derived from net.skorgenes.security.jsecurity.negotiate.NegotiateAuthenticationFilter. see:
- *
- * https://bitbucket.org/lothor
- *
- * /shiro-negotiate/src/7b25efde130b/src/main/java/net/skorgenes/security/jsecurity/negotiate
- *
- * /NegotiateAuthenticationRealm.java?at=default
+ * The Class NegotiateAuthenticationRealm. Derived from
+ * net.skorgenes.security.jsecurity.negotiate.NegotiateAuthenticationFilter.
  */
 public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
 

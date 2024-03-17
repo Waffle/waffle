@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2024 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -36,19 +36,19 @@ import javax.servlet.http.HttpServletResponse;
 public abstract class MockServletResponse implements HttpServletResponse {
 
     /** The is flushed. */
-    private boolean isFlushed;
+    protected boolean isFlushed;
 
     /** The error code. */
-    private int errorCode;
+    protected int errorCode;
 
     /** The headers. */
-    private Map<String, String> headers;
+    protected Map<String, String> headers;
 
     /** The headers added. */
-    private Map<String, List<String>> headersAdded;
+    protected Map<String, List<String>> headersAdded;
 
     /** The sc. */
-    private int sc;
+    protected int sc;
 
     @Override
     public void addHeader(final String name, final String value) {
