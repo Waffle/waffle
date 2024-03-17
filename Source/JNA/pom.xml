@@ -88,6 +88,7 @@
         <module>waffle-demo</module>
         <module>waffle-distro</module>
         <module>waffle-jetty</module>
+        <module>waffle-jetty-jakarta</module>
         <module>waffle-jna</module>
         <module>waffle-jna-jakarta</module>
         <module>waffle-shiro</module>

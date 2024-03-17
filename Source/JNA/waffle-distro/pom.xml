@@ -90,6 +90,12 @@
         </dependency>
         <dependency>
             <groupId>com.github.waffle</groupId>
+            <artifactId>waffle-jetty-jakarta</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.waffle</groupId>
             <artifactId>waffle-jna</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
