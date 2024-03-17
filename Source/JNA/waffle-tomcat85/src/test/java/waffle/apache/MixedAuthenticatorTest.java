@@ -65,11 +65,11 @@ class MixedAuthenticatorTest {
 
     /** The context. */
     @Mocked
-    Context context;
+    private Context context;
 
     /** The engine. */
     @Mocked
-    Engine engine;
+    private Engine engine;
 
     /**
      * Sets the up.

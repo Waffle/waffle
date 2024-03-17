@@ -42,7 +42,7 @@ class WindowsPrincipalTest {
 
     /** The windows identity. */
     @Mocked
-    IWindowsIdentity windowsIdentity;
+    private IWindowsIdentity windowsIdentity;
 
     /**
      * Test to string.

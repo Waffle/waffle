@@ -61,6 +61,13 @@ public class StartEmbeddedJettyValidateNTLMGroup {
     private static final Logger LOGGER = LoggerFactory.getLogger(StartEmbeddedJettyValidateNTLMGroup.class);
 
     /**
+     * Prevents Instantiation of a new start embedded jetty validate NTLM group.
+     */
+    private StartEmbeddedJettyValidateNTLMGroup() {
+        // Do not allow instantiation
+    }
+
+    /**
      * The main method.
      *
      * @param args

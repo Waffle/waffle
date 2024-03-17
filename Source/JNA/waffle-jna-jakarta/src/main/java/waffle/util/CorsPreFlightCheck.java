@@ -77,9 +77,9 @@ public final class CorsPreFlightCheck {
 
         CorsPreFlightCheck.LOGGER.debug("[waffle.util.CorsPreflightCheck] check for PRE_FLIGHT Attribute");
 
-        /**
+        /*
          * Support Apache CorsFilter which would already add the Attribute cors.request.type with a value "PRE_FLIGHT"
-         **/
+         */
         if (corsRequestType != null
                 && corsRequestType.equalsIgnoreCase(CorsPreFlightCheck.PRE_FLIGHT_ATTRIBUTE_VALUE)) {
             return true;

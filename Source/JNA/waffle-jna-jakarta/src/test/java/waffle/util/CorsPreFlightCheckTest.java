@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2024 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -39,19 +39,19 @@ class CorsPreFlightCheckTest {
 
     /** The preflight request. */
     @Mocked
-    HttpServletRequest preflightRequest;
+    private HttpServletRequest preflightRequest;
 
     /** The no origin preflight request. */
     @Mocked
-    HttpServletRequest noOriginPreflightRequest;
+    private HttpServletRequest noOriginPreflightRequest;
 
     /** The no cors method preflight request. */
     @Mocked
-    HttpServletRequest noCorsMethodPreflightRequest;
+    private HttpServletRequest noCorsMethodPreflightRequest;
 
     /** The no cors headers preflight header request. */
     @Mocked
-    HttpServletRequest noCorsHeadersPreflightHeaderRequest;
+    private HttpServletRequest noCorsHeadersPreflightHeaderRequest;
 
     /**
      * Test expected cors preflight headers present.
@@ -101,7 +101,7 @@ class CorsPreFlightCheckTest {
                 this.result = "LOGIN";
                 CorsPreFlightCheckTest.this.noOriginPreflightRequest.getHeader("Access-Control-Request-Headers");
                 this.result = "X-Request-For";
-                /** Origin MUST be present with Method and Headers to be a valid CORS request **/
+                // Origin MUST be present with Method and Headers to be a valid CORS request
                 CorsPreFlightCheckTest.this.noOriginPreflightRequest.getHeader("Origin");
                 this.result = null;
             }

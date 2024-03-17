@@ -44,7 +44,7 @@ public class SimpleHttpResponse extends Response {
      * @param coyoteResponse
      *            the coyote response
      */
-    public SimpleHttpResponse(org.apache.coyote.Response coyoteResponse) {
+    public SimpleHttpResponse(final org.apache.coyote.Response coyoteResponse) {
         super(coyoteResponse);
     }
 

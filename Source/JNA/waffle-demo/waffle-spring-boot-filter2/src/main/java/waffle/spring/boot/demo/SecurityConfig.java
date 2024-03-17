@@ -52,13 +52,13 @@ public class SecurityConfig {
      * @param entryPoint
      *            the entry point
      */
-    public SecurityConfig(NegotiateSecurityFilter filter, NegotiateSecurityFilterEntryPoint entryPoint) {
+    public SecurityConfig(final NegotiateSecurityFilter filter, final NegotiateSecurityFilterEntryPoint entryPoint) {
         this.filter = filter;
         this.entryPoint = entryPoint;
     }
 
     @Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(requests -> requests.anyRequest().authenticated())
                 .addFilterBefore(filter, BasicAuthenticationFilter.class)
                 .exceptionHandling(handling -> handling.authenticationEntryPoint(entryPoint));

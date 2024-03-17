@@ -108,7 +108,7 @@ class WindowsAuthProviderTest {
         Assumptions.assumeTrue(LMErr.NERR_Success == Netapi32.INSTANCE.NetUserAdd(null, 1, userInfo, null));
         try {
             final IWindowsAuthProvider prov = new WindowsAuthProviderImpl();
-            final IWindowsIdentity identity = prov.logonUser(userInfo.usri1_name, userInfo.usri1_password.toString());
+            final IWindowsIdentity identity = prov.logonUser(userInfo.usri1_name, userInfo.usri1_password);
             final IWindowsImpersonationContext ctx = identity.impersonate();
             Assertions.assertEquals(userInfo.usri1_name, Advapi32Util.getUserName());
             ctx.revertToSelf();
@@ -196,7 +196,7 @@ class WindowsAuthProviderTest {
             if (serverContext != null) {
                 assertThat(serverContext.getIdentity().getFqn()).isNotEmpty();
 
-                WindowsAuthProviderTest.LOGGER.info(serverContext.getIdentity().getFqn());
+                WindowsAuthProviderTest.LOGGER.info("{}", serverContext.getIdentity().getFqn());
                 for (final IWindowsAccount group : serverContext.getIdentity().getGroups()) {
                     WindowsAuthProviderTest.LOGGER.info(" {}", group.getFqn());
                 }
@@ -303,7 +303,7 @@ class WindowsAuthProviderTest {
                 final IWindowsImpersonationContext impersonationCtx = serverContext.impersonate();
                 impersonationCtx.revertToSelf();
 
-                WindowsAuthProviderTest.LOGGER.info(serverContext.getIdentity().getFqn());
+                WindowsAuthProviderTest.LOGGER.info("{}", serverContext.getIdentity().getFqn());
                 for (final IWindowsAccount group : serverContext.getIdentity().getGroups()) {
                     WindowsAuthProviderTest.LOGGER.info(" {}", group.getFqn());
                 }

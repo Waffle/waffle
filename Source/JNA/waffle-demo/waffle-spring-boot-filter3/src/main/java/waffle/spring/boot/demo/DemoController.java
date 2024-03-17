@@ -45,7 +45,7 @@ public class DemoController {
      * @return response text
      */
     @GetMapping
-    public String demo(Authentication auth) {
+    public String demo(final Authentication auth) {
         return String.format("Hello, %s. You have authorities: %s", auth.getPrincipal(),
                 auth.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(", ")));
     }

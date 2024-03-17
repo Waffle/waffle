@@ -45,10 +45,10 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
 class WindowsLoginModuleTest {
 
     /** The login module. */
-    WindowsLoginModule loginModule;
+    private WindowsLoginModule loginModule;
 
     /** The provider. */
-    MockWindowsAuthProvider provider;
+    private MockWindowsAuthProvider provider;
 
     /**
      * Sets the up.

@@ -36,19 +36,19 @@ import javax.servlet.http.HttpServletResponse;
 public abstract class MockServletResponse implements HttpServletResponse {
 
     /** The is flushed. */
-    boolean isFlushed;
+    private boolean isFlushed;
 
     /** The error code. */
-    int errorCode;
+    private int errorCode;
 
     /** The headers. */
-    Map<String, String> headers;
+    private Map<String, String> headers;
 
     /** The headers added. */
-    Map<String, List<String>> headersAdded;
+    private Map<String, List<String>> headersAdded;
 
     /** The sc. */
-    int sc;
+    private int sc;
 
     @Override
     public void addHeader(final String name, final String value) {

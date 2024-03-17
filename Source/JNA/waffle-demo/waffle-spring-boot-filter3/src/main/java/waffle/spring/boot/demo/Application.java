@@ -39,7 +39,7 @@ public class Application {
      * @param args
      *            arguments passed into spring boot application.
      */
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         SpringApplication.run(Application.class, args);
     }
 

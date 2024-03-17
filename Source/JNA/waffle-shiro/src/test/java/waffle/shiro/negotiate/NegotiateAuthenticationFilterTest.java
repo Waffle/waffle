@@ -49,7 +49,7 @@ class NegotiateAuthenticationFilterTest {
     private NegotiateAuthenticationFilter negAuthFilter;
 
     /** The response. */
-    MockServletResponse response;
+    private MockServletResponse response;
 
     /** The out. */
     private byte[] out;

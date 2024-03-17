@@ -210,25 +210,6 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
     }
 
     /**
-     * Determines whether the incoming request is an attempt to log in.
-     * <p/>
-     * The default implementation obtains the value of the request's
-     * {@link org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter#AUTHORIZATION_HEADER AUTHORIZATION_HEADER}
-     * , and if it is not <code>null</code>, delegates to
-     * {@link org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter#isLoginAttempt(String)
-     * isLoginAttempt(authzHeaderValue)}. If the header is <code>null</code>, <code>false</code> is returned.
-     *
-     * @param request
-     *            incoming ServletRequest
-     *
-     * @return true if the incoming request is an attempt to log in based, false otherwise
-     */
-    private boolean isLoginAttempt(final ServletRequest request) {
-        final String authzHeader = this.getAuthzHeader(request);
-        return authzHeader != null && this.isLoginAttempt(authzHeader);
-    }
-
-    /**
      * Returns the {@link org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter#AUTHORIZATION_HEADER
      * AUTHORIZATION_HEADER} from the specified ServletRequest.
      * <p/>
@@ -258,6 +239,25 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
     private String getAuthzHeaderProtocol(final ServletRequest request) {
         final String authzHeader = this.getAuthzHeader(request);
         return authzHeader.substring(0, authzHeader.indexOf(' '));
+    }
+
+    /**
+     * Determines whether the incoming request is an attempt to log in.
+     * <p/>
+     * The default implementation obtains the value of the request's
+     * {@link org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter#AUTHORIZATION_HEADER AUTHORIZATION_HEADER}
+     * , and if it is not <code>null</code>, delegates to
+     * {@link org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter#isLoginAttempt(String)
+     * isLoginAttempt(authzHeaderValue)}. If the header is <code>null</code>, <code>false</code> is returned.
+     *
+     * @param request
+     *            incoming ServletRequest
+     *
+     * @return true if the incoming request is an attempt to log in based, false otherwise
+     */
+    private boolean isLoginAttempt(final ServletRequest request) {
+        final String authzHeader = this.getAuthzHeader(request);
+        return authzHeader != null && this.isLoginAttempt(authzHeader);
     }
 
     /**
