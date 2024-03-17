@@ -1375,12 +1375,12 @@
                             <removeIntertagSpaces>true</removeIntertagSpaces>
                             <srcFolder>${project.basedir}/src/main/resources</srcFolder>
                             <targetFolder>${project.basedir}/target/classes</targetFolder>
-                            <fileExt>
-                                <fileExt>html</fileExt>
-                                <fileExt>jsp</fileExt>
-                                <fileExt>xhtml</fileExt>
-                                <fileExt>xml</fileExt>
-                            </fileExt>
+                            <fileExtensions>
+                                <fileExtension>html</fileExtension>
+                                <fileExtension>jsp</fileExtension>
+                                <fileExtension>xhtml</fileExtension>
+                                <fileExtension>xml</fileExtension>
+                            </fileExtensions>
                         </configuration>
                         <executions>
                             <execution>
