@@ -49,13 +49,17 @@
     </scm>
 
     <properties>
+        <!-- Maven compiler options -->
+        <java.version>17</java.version>
+        <java.release.version>17</java.release.version>
+
         <!-- Dependencies -->
         <annotation.version>1.3.5</annotation.version>
         <asm.version>9.6</asm.version>
-        <ecj.version>3.33.0</ecj.version>
+        <ecj.version>3.37.0</ecj.version>
         <el.version>3.0.4</el.version>
         <el-api.version>3.0.3</el-api.version>
-        <jetty.version>10.0.20</jetty.version>
+        <jetty.version>12.0.7</jetty.version>
         <jsp.version>2.3.6</jsp.version>
         <jsp-api.version>2.3.6</jsp-api.version>
         <jstl.version>1.2.6</jstl.version>
@@ -84,34 +88,26 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-servlet</artifactId>
+            <groupId>org.eclipse.jetty.ee8</groupId>
+            <artifactId>jetty-ee8-servlet</artifactId>
             <version>${jetty.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-webapp</artifactId>
+            <groupId>org.eclipse.jetty.ee8</groupId>
+            <artifactId>jetty-ee8-webapp</artifactId>
             <version>${jetty.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>apache-jsp</artifactId>
+            <groupId>org.eclipse.jetty.ee8</groupId>
+            <artifactId>jetty-ee8-apache-jsp</artifactId>
             <version>${jetty.version}</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
                     <groupId>org.mortbay.jasper</groupId>
                     <artifactId>apache-jsp</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.mortbay.jasper</groupId>
-                    <artifactId>apache-el</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>javax.servlet-api</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
