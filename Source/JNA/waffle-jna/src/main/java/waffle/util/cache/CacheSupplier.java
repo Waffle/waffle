@@ -40,5 +40,5 @@ public interface CacheSupplier {
      *
      * @return a new cache
      */
-    <K, V> Cache<K, V> newCache(final long timeout);
+    <K, V> Cache<K, V> newCache(long timeout);
 }
