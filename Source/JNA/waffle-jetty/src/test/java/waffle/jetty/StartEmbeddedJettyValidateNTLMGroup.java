@@ -66,7 +66,7 @@ public class StartEmbeddedJettyValidateNTLMGroup {
      * @param args
      *            the arguments
      */
-    public static void main(final String args[]) {
+    public static void main(final String[] args) {
         System.setProperty(SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "TRACE");
 
         final Server server = new Server(8080);
