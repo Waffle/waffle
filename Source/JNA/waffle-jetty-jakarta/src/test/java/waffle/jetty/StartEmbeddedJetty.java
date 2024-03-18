@@ -28,8 +28,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.apache.jasper.servlet.JspServlet;
-import org.eclipse.jetty.ee8.servlet.ServletHolder;
-import org.eclipse.jetty.ee8.webapp.WebAppContext;
+import org.eclipse.jetty.ee10.servlet.ServletHolder;
+import org.eclipse.jetty.ee10.webapp.WebAppContext;
 import org.eclipse.jetty.server.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
