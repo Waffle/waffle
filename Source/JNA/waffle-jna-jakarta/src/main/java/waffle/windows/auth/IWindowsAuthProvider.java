@@ -39,7 +39,7 @@ public interface IWindowsAuthProvider {
      *
      * @return Windows identity.
      */
-    IWindowsIdentity logonUser(final String username, final String password);
+    IWindowsIdentity logonUser(String username, String password);
 
     /**
      * The LogonDomainUser function attempts to log a user on to the local computer using a network logon type and the
@@ -57,7 +57,7 @@ public interface IWindowsAuthProvider {
      *
      * @return Windows identity.
      */
-    IWindowsIdentity logonDomainUser(final String username, final String domain, final String password);
+    IWindowsIdentity logonDomainUser(String username, String domain, String password);
 
     /**
      * The LogonDomainUserEx function attempts to log a user on to the local computer. The local computer is the
@@ -80,8 +80,8 @@ public interface IWindowsAuthProvider {
      *
      * @return Windows identity.
      */
-    IWindowsIdentity logonDomainUserEx(final String username, final String domain, final String password,
-            final int logonType, final int logonProvider);
+    IWindowsIdentity logonDomainUserEx(String username, String domain, String password, int logonType,
+            int logonProvider);
 
     /**
      * Retrieve a security identifier (SID) for the account and the name of the domain or local computer on which the
@@ -92,7 +92,7 @@ public interface IWindowsAuthProvider {
      *
      * @return Windows account.
      */
-    IWindowsAccount lookupAccount(final String username);
+    IWindowsAccount lookupAccount(String username);
 
     /**
      * Retrieve the current computer information.
@@ -124,8 +124,7 @@ public interface IWindowsAuthProvider {
      *
      * @return Windows account.
      */
-    IWindowsSecurityContext acceptSecurityToken(final String connectionId, final byte[] token,
-            final String securityPackage);
+    IWindowsSecurityContext acceptSecurityToken(String connectionId, byte[] token, String securityPackage);
 
     /**
      * Reset a previously saved continuation security token for a given connection id.
@@ -133,5 +132,5 @@ public interface IWindowsAuthProvider {
      * @param connectionId
      *            Connection id.
      */
-    void resetSecurityToken(final String connectionId);
+    void resetSecurityToken(String connectionId);
 }
