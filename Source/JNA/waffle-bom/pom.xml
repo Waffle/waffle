@@ -136,6 +136,11 @@
                 <artifactId>waffle-tomcat10</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.github.waffle</groupId>
+                <artifactId>waffle-tomcat11</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
