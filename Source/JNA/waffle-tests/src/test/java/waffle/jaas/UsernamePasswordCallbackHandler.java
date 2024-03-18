@@ -50,7 +50,7 @@ class UsernamePasswordCallbackHandler implements CallbackHandler {
      * @param newPassword
      *            the new password
      */
-    public UsernamePasswordCallbackHandler(final String newUsername, final String newPassword) {
+    UsernamePasswordCallbackHandler(final String newUsername, final String newPassword) {
         this.username = newUsername;
         this.password = newPassword;
     }

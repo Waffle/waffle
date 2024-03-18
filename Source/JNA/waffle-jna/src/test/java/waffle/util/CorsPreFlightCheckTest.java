@@ -39,19 +39,19 @@ class CorsPreFlightCheckTest {
 
     /** The preflight request. */
     @Mocked
-    HttpServletRequest preflightRequest;
+    private HttpServletRequest preflightRequest;
 
     /** The no origin preflight request. */
     @Mocked
-    HttpServletRequest noOriginPreflightRequest;
+    private HttpServletRequest noOriginPreflightRequest;
 
     /** The no cors method preflight request. */
     @Mocked
-    HttpServletRequest noCorsMethodPreflightRequest;
+    private HttpServletRequest noCorsMethodPreflightRequest;
 
     /** The no cors headers preflight header request. */
     @Mocked
-    HttpServletRequest noCorsHeadersPreflightHeaderRequest;
+    private HttpServletRequest noCorsHeadersPreflightHeaderRequest;
 
     /**
      * Test expected cors preflight headers present.

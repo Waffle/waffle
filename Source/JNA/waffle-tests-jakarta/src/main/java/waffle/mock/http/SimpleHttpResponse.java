@@ -57,7 +57,7 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
     private final Map<String, List<String>> headers = new HashMap<>();
 
     /** The bytes. */
-    final ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    private final ByteArrayOutputStream bytes = new ByteArrayOutputStream();
 
     /** The out. */
     private final ServletOutputStream out = new ServletOutputStream() {

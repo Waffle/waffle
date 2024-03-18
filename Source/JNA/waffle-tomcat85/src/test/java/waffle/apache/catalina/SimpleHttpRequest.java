@@ -46,14 +46,14 @@ public class SimpleHttpRequest extends Request {
      *
      * @return the int
      */
-    public synchronized static int nextRemotePort() {
+    public static synchronized int nextRemotePort() {
         return ++SimpleHttpRequest.remotePortS;
     }
 
     /**
      * Reset remote port.
      */
-    public synchronized static void resetRemotePort() {
+    public static synchronized void resetRemotePort() {
         SimpleHttpRequest.remotePortS = 0;
     }
 

@@ -126,7 +126,7 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
      *
      * @return the authorization information for the specified principal
      */
-    protected abstract AuthorizationInfo buildAuthorizationInfo(final WaffleFqnPrincipal principal);
+    protected abstract AuthorizationInfo buildAuthorizationInfo(WaffleFqnPrincipal principal);
 
     /**
      * Allow overriding the default implementation of {@link IWindowsAuthProvider} This is only needed for testing,

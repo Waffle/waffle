@@ -191,8 +191,9 @@ class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler
     private Authentication authentication;
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
-            Authentication authentication) throws IOException, ServletException {
+    public void onAuthenticationSuccess(final HttpServletRequest httpServletRequest,
+            final HttpServletResponse httpServletResponse, final Authentication authentication)
+            throws IOException, ServletException {
         this.authentication = authentication;
     }
 

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2022 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2024 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -45,7 +45,7 @@ public class DemoController {
      * @return response text
      */
     @GetMapping
-    public String demo(Authentication auth) {
+    public String demo(final Authentication auth) {
         return String.format("Hello, %s. You have authorities: %s", auth.getPrincipal(),
                 auth.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(", ")));
     }

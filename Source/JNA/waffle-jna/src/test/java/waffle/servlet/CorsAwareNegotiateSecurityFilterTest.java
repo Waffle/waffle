@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2010-2020 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+ * Copyright (c) 2010-2024 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -44,23 +44,23 @@ class CorsAwareNegotiateSecurityFilterTest {
 
     /** The cors aware negotiate security filter. */
     @Tested
-    CorsAwareNegotiateSecurityFilter corsAwareNegotiateSecurityFilter;
+    private CorsAwareNegotiateSecurityFilter corsAwareNegotiateSecurityFilter;
 
     /** The preflight request. */
     @Mocked
-    HttpServletRequest preflightRequest;
+    private HttpServletRequest preflightRequest;
 
     /** The preflight response. */
     @Mocked
-    HttpServletResponse preflightResponse;
+    private HttpServletResponse preflightResponse;
 
     /** The chain. */
     @Mocked
-    FilterChain chain;
+    private FilterChain chain;
 
     /** The filter config. */
     @Mocked
-    FilterConfig filterConfig;
+    private FilterConfig filterConfig;
 
     /**
      * Do filter test cors preflight request.

@@ -43,6 +43,13 @@ public class StartEmbeddedJetty {
     private static final Logger LOGGER = LoggerFactory.getLogger(StartEmbeddedJetty.class);
 
     /**
+     * Prevents Instantiation of a new start embedded jetty.
+     */
+    private StartEmbeddedJetty() {
+        // Do not allow instantiation
+    }
+
+    /**
      * Main method.
      *
      * @param args

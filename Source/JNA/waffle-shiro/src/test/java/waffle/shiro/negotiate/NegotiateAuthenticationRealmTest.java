@@ -42,7 +42,7 @@ class NegotiateAuthenticationRealmTest {
     private NegotiateAuthenticationRealm negAuthRealm;
 
     @Mocked
-    AuthenticationToken authenticationToken;
+    private AuthenticationToken authenticationToken;
 
     /**
      * Test supports.

@@ -64,10 +64,10 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
      */
     private static class ContinueContext {
         /** The continue handle. */
-        CtxtHandle continueHandle;
+        private CtxtHandle continueHandle;
 
         /** The server credential. */
-        IWindowsCredentialsHandle serverCredential;
+        private IWindowsCredentialsHandle serverCredential;
 
         /**
          * Instantiates a new continue context.
@@ -77,7 +77,7 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
          * @param windowsCredential
          *            the windows credential
          */
-        public ContinueContext(final CtxtHandle handle, final IWindowsCredentialsHandle windowsCredential) {
+        ContinueContext(final CtxtHandle handle, final IWindowsCredentialsHandle windowsCredential) {
             this.continueHandle = handle;
             this.serverCredential = windowsCredential;
         }

@@ -30,7 +30,7 @@ import java.time.Duration;
 import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
- * A {@link Cache} based on {@link com.github.benmanes.caffeine.cache.Cache}
+ * A {@link Cache} based on {@link com.github.benmanes.caffeine.cache.Cache}.
  *
  * @param <K>
  *            the type of keys maintained by this cache
@@ -53,17 +53,17 @@ public class CaffeineCache<K, V> implements Cache<K, V> {
     }
 
     @Override
-    public V get(K key) {
+    public V get(final K key) {
         return cache.asMap().get(key);
     }
 
     @Override
-    public void put(K key, V value) {
+    public void put(final K key, final V value) {
         cache.put(key, value);
     }
 
     @Override
-    public void remove(K key) {
+    public void remove(final K key) {
         cache.asMap().remove(key);
     }
 

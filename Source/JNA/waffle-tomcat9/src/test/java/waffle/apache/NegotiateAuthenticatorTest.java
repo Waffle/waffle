@@ -59,10 +59,10 @@ class NegotiateAuthenticatorTest {
     private NegotiateAuthenticator authenticator;
 
     @Mocked
-    Context context;
+    private Context context;
 
     @Mocked
-    Engine engine;
+    private Engine engine;
 
     /**
      * Sets the up.
