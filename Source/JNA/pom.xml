@@ -440,7 +440,7 @@
                                 </excludes>
                             </enforceBytecodeVersion>
                             <requireJavaVersion>
-                                <version>[17,18),[21,22),[22,23)</version>
+                                <version>[21,22),[22,23),[23,24)</version>
                             </requireJavaVersion>
                             <requireMavenVersion>
                                 <version>[${maven.min-version},)</version>

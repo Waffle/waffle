@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         os: [windows-2019, windows-latest]
-        java: [17, 21, 22-ea]
+        java: [21, 22-ea, 23-ea]
         distribution: ['temurin']
       fail-fast: false
       max-parallel: 4
