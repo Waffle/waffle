@@ -59,7 +59,7 @@
         <ecj.version>3.37.0</ecj.version>
         <el-api.version>5.0.1</el-api.version>
         <expressly.version>5.0.0</expressly.version>
-        <jetty.version>12.0.7</jetty.version>
+        <jetty.version>12.0.8</jetty.version>
         <jsp.version>3.0.0</jsp.version>
         <jsp-api.version>3.1.1</jsp-api.version>
         <jstl.version>3.0.1</jstl.version>
