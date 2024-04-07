@@ -54,7 +54,7 @@
         <java.release.version>17</java.release.version>
 
         <!-- Dependencies -->
-        <annotation.version>2.1.1</annotation.version>
+        <annotation.version>3.0.0</annotation.version>
         <asm.version>9.7</asm.version>
         <ecj.version>3.37.0</ecj.version>
         <el-api.version>5.0.1</el-api.version>
