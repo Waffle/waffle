@@ -243,7 +243,7 @@
         <fluido.version>1.12.0</fluido.version>
         <htmlcompressor.version>1.9.3</htmlcompressor.version>
         <jgit.version>6.9.0.202403050737-r</jgit.version>
-        <plexus-utils.version>4.0.0</plexus-utils.version>
+        <plexus-utils.version>4.0.1</plexus-utils.version>
         <plexus-xml.version>3.0.0</plexus-xml.version>
         <scm.version>2.0.1</scm.version>
         <wagon.version>3.5.3</wagon.version>
