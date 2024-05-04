@@ -52,7 +52,7 @@
         <!-- Dependencies -->
         <byte-buddy.version>1.14.14</byte-buddy.version>
         <caffeine.version>3.1.8</caffeine.version>
-        <checker-qual.version>3.42.0</checker-qual.version>
+        <checker-qual.version>3.43.0</checker-qual.version>
         <jna.version>5.14.0</jna.version>
         <powermock.version>2.0.9</powermock.version>
         <servlet.version>6.0.0</servlet.version>
