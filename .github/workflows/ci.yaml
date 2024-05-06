@@ -1,5 +1,9 @@
 name: Java CI
 
+defaults:
+  run:
+    working-directory: Source/JNA
+
 on: [workflow_dispatch, push, pull_request]
 
 jobs:
