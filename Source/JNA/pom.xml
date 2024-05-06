@@ -189,8 +189,6 @@
         <antrun.plugin>3.1.0</antrun.plugin>
         <assembly.plugin>3.7.1</assembly.plugin>
         <build-helper.plugin>3.5.0</build-helper.plugin>
-        <changelog.plugin>2.3</changelog.plugin>
-        <changes.plugin>2.12.1</changes.plugin>
         <checkstyle.plugin>3.3.1</checkstyle.plugin>
         <clean.plugin>3.3.2</clean.plugin>
         <compiler.plugin>3.13.0</compiler.plugin>
@@ -845,32 +843,6 @@
                 <!-- Report Only -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-changelog-plugin</artifactId>
-                    <version>${changelog.plugin}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-changes-plugin</artifactId>
-                    <version>${changes.plugin}</version>
-                    <configuration>
-                        <githubAPIScheme>https</githubAPIScheme>
-                        <githubAPIPort>443</githubAPIPort>
-                    </configuration>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.eclipse.jgit</groupId>
-                            <artifactId>org.eclipse.jgit</artifactId>
-                            <version>${jgit.version}</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.apache.maven.scm</groupId>
-                            <artifactId>maven-scm-provider-jgit</artifactId>
-                            <version>${scm.plugin}</version>
-                        </dependency>
-                    </dependencies>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jxr-plugin</artifactId>
                     <version>${jxr.plugin}</version>
                 </plugin>
@@ -1215,21 +1187,6 @@
 
     <reporting>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-changelog-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-changes-plugin</artifactId>
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            <report>github-report</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
