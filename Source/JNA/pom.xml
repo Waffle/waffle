@@ -435,6 +435,7 @@
                                 <maxJdkVersion>${java.version}</maxJdkVersion>
                                 <excludes>
                                 </excludes>
+                                <ignoredScopes>test</ignoredScopes>
                             </enforceBytecodeVersion>
                             <requireJavaVersion>
                                 <version>[21,22),[22,23),[23,24)</version>
