@@ -7,7 +7,7 @@ WAFFLE - Windows Authentication Framework
 [![Coverage Status Sonar](https://sonarcloud.io/api/project_badges/measure?project=Waffle_waffle&metric=coverage)](https://sonarcloud.io/component_measures?id=Waffle_waffle&metric=coverage)
 [![Coverage Status Coveralls](https://coveralls.io/repos/Waffle/waffle/badge.svg?branch=master&service=github)](https://coveralls.io/github/Waffle/waffle?branch=master)
 [![Maven central](https://maven-badges.herokuapp.com/maven-central/com.github.waffle/waffle-jna/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.waffle/waffle-jna)
-[![releases](https://img.shields.io/github/v/release/Waffle/waffle)](https://github.com/Waffle/waffle/releases/tag/waffle-parent-3.3.0)
+[![releases](https://img.shields.io/github/v/release/Waffle/waffle)](https://github.com/Waffle/waffle/releases/tag/waffle-parent-3.4.0)
 [![MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Project Stats](https://www.openhub.net/p/waffle/widgets/project_thin_badge.gif)](https://www.openhub.net/p/waffle)
 [![Github All Releases](https://img.shields.io/github/downloads/Waffle/waffle/total.svg)](https://github.com/Waffle/waffle/)
@@ -29,7 +29,7 @@ Sites
 Essentials
 ----------
 
-* [Download Version 3.3.0](https://search.maven.org/remotecontent?filepath=com/github/waffle/waffle-distro/3.3.0/waffle-distro-3.3.0-distro.zip)
+* [Download Version 3.4.0](https://search.maven.org/remotecontent?filepath=com/github/waffle/waffle-distro/3.4.0/waffle-distro-3.4.0-distro.zip)
 * [Waffle in Maven Central](https://search.maven.org/search?q=waffle)
 * [Waffle Snapshots](https://oss.sonatype.org/content/repositories/snapshots/com/github/waffle/)
 * [Get Waffle To Work in Tomcat, Jetty, WebSphere, etc.](Docs/ServletSingleSignOnSecurityFilter.md)
