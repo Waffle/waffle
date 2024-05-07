@@ -30,11 +30,11 @@
     <parent>
         <groupId>com.github.waffle.demo</groupId>
         <artifactId>waffle-demo-parent</artifactId>
-        <version>3.3.1-SNAPSHOT</version>
+        <version>3.4.0</version>
     </parent>
 
     <artifactId>waffle-filter</artifactId>
-    <version>3.3.1-SNAPSHOT</version>
+    <version>3.4.0</version>
     <packaging>war</packaging>
 
     <name>waffle-filter</name>
@@ -44,7 +44,7 @@
     <scm>
         <connection>scm:git:ssh://git@github.com/waffle/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/waffle/waffle.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>waffle-3.4.0</tag>
         <url>https://github.com/Waffle/waffle</url>
     </scm>
 
