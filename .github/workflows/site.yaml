@@ -1,5 +1,9 @@
 name: Site
 
+defaults:
+  run:
+    working-directory: Source/JNA
+
 on:
   push:
     branches:

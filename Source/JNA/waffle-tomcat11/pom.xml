@@ -30,11 +30,11 @@
     <parent>
         <groupId>com.github.waffle</groupId>
         <artifactId>waffle</artifactId>
-        <version>3.3.1-SNAPSHOT</version>
+        <version>3.4.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>waffle-tomcat11</artifactId>
-    <version>3.3.1-SNAPSHOT</version>
+    <version>3.4.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>waffle-tomcat11</name>
@@ -59,14 +59,8 @@
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.tomcat11</module.name>
 
-        <!-- TODO: Skip enforcer for time being as tomcat has a class requiring jdk 22 against their documentation. -->
-        <enforcer.skip>true</enforcer.skip>
-
-        <!-- TODO: Skip impsort plugin as javaparser it uses does not support jdk 21 -->
-        <impsort.skip>true</impsort.skip>
-
-        <!-- TODO: Skip pmd as it does not yet support jdk 21 -->
-        <pmd.skip>true</pmd.skip>
+        <!-- TODO: Drop compliance on impsort plugin as javaparser it uses does not support jdk 21 -->
+        <impsort.compliance>17</impsort.compliance>
     </properties>
 
     <dependencies>
