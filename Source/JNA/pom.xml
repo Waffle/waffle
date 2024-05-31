@@ -176,7 +176,7 @@
         <assertj.version>3.26.0</assertj.version>
         <byte-buddy.version>1.14.17</byte-buddy.version>
         <commons-math.version>3.6.1</commons-math.version>
-        <error-prone.version>2.27.1</error-prone.version>
+        <error-prone.version>2.28.0</error-prone.version>
         <j2objc.version>3.0.0</j2objc.version>
         <jmh.version>1.37</jmh.version>
         <jmockit.version>1.53.0</jmockit.version>
