@@ -210,7 +210,7 @@
         <jxr.plugin>3.4.0</jxr.plugin>
         <license.plugin>4.5</license.plugin>
         <modernizer.plugin>2.9.0</modernizer.plugin>
-        <pmd.plugin>3.22.0</pmd.plugin>
+        <pmd.plugin>3.23.0</pmd.plugin>
         <project-info-reports.plugin>3.5.0</project-info-reports.plugin>
         <release.plugin>3.0.1</release.plugin>
         <resources.plugin>3.3.1</resources.plugin>
