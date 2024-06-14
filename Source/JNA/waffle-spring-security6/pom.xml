@@ -54,7 +54,7 @@
         <java.release.version>17</java.release.version>
 
         <!-- Dependencies -->
-        <servlet.version>6.0.0</servlet.version>
+        <servlet.version>6.1.0</servlet.version>
         <spring.version>6.1.9</spring.version>
         <spring.security.version>6.3.0</spring.security.version>
 
