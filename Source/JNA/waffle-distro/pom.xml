@@ -58,8 +58,8 @@
         <logback.version>1.5.6</logback.version>
 
         <!-- Maven compiler options -->
-        <java.version>17</java.version>
-        <java.release.version>17</java.release.version>
+        <java.version>21</java.version>
+        <java.release.version>21</java.release.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.distro</module.name>
