@@ -33,6 +33,7 @@
         <version>3.4.1-SNAPSHOT</version>
     </parent>
 
+    <groupId>com.github.waffle</groupId>
     <artifactId>waffle-distro</artifactId>
     <version>3.4.1-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -57,14 +58,11 @@
         <logback.version>1.5.6</logback.version>
 
         <!-- Maven compiler options -->
-        <java.version>17</java.version>
-        <java.release.version>17</java.release.version>
+        <java.version>21</java.version>
+        <java.release.version>21</java.release.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.distro</module.name>
-
-        <!-- TODO: Skip enforcer for time being as tomcat has a class requiring jdk 22 against their documentation. -->
-        <enforcer.skip>true</enforcer.skip>
     </properties>
 
     <dependencyManagement>
@@ -145,12 +143,6 @@
         <dependency>
             <groupId>com.github.waffle</groupId>
             <artifactId>waffle-spring-security6</artifactId>
-            <version>${project.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle</groupId>
-            <artifactId>waffle-tomcat85</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>
@@ -290,6 +282,27 @@
 
     <build>
         <finalName>waffle</finalName>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <configuration>
+                        <rules>
+                            <enforceBytecodeVersion>
+                                <excludes>
+                                    <!-- Openssl contains panama for jdk 22 or higher if enabled via listener 'org.apache.catalina.core.OpenSSLLifecycleListener' -->
+                                    <exclude>org.apache.tomcat:tomcat-coyote</exclude>
+                                    <exclude>org.apache.tomcat.embed:tomcat-embed-core</exclude>
+                                </excludes>
+                            </enforceBytecodeVersion>
+                        </rules>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
         <plugins>
             <!-- Assembly -->
             <plugin>

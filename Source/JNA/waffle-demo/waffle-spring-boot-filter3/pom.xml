@@ -32,9 +32,9 @@
         <version>3.4.1-SNAPSHOT</version>
     </parent>
 
+    <groupId>com.github.waffle.demo</groupId>
     <artifactId>waffle-spring-boot-filter3</artifactId>
     <version>3.4.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
 
     <name>waffle-spring-boot-filter3</name>
     <description>Spring Boot Filter 3 Demo for WAFFLE</description>
@@ -57,7 +57,7 @@
         <spring-boot.version>3.3.1</spring-boot.version>
 
         <!-- Automatic Module Name for JPMS -->
-        <module.name>waffle.spring.boot.filter2.demo</module.name>
+        <module.name>waffle.spring.boot.filter3.demo</module.name>
     </properties>
 
     <dependencyManagement>
@@ -111,6 +111,25 @@
     </dependencies>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <configuration>
+                        <rules>
+                            <enforceBytecodeVersion>
+                                <excludes>
+                                    <!-- Openssl contains panama for jdk 22 or higher if enabled via listener 'org.apache.catalina.core.OpenSSLLifecycleListener' -->
+                                    <exclude>org.apache.tomcat.embed:tomcat-embed-core</exclude>
+                                </excludes>
+                            </enforceBytecodeVersion>
+                        </rules>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

@@ -33,9 +33,9 @@
         <version>3.4.1-SNAPSHOT</version>
     </parent>
 
+    <groupId>com.github.waffle</groupId>
     <artifactId>waffle-spring-security5</artifactId>
     <version>3.4.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
 
     <name>waffle-spring-security5</name>
     <description>Spring Security 5 integration for WAFFLE</description>

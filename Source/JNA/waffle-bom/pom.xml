@@ -33,6 +33,7 @@
         <version>3.4.1-SNAPSHOT</version>
     </parent>
 
+    <groupId>com.github.waffle</groupId>
     <artifactId>waffle-bom</artifactId>
     <version>3.4.1-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -124,11 +125,6 @@
             <dependency>
                 <groupId>com.github.waffle</groupId>
                 <artifactId>waffle-spring-security6</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.waffle</groupId>
-                <artifactId>waffle-tomcat85</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

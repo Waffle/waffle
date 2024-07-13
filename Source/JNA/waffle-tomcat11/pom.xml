@@ -33,9 +33,9 @@
         <version>3.4.1-SNAPSHOT</version>
     </parent>
 
+    <groupId>com.github.waffle</groupId>
     <artifactId>waffle-tomcat11</artifactId>
     <version>3.4.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
 
     <name>waffle-tomcat11</name>
     <description>Tomcat 11 integration for WAFFLE</description>
@@ -58,9 +58,6 @@
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.tomcat11</module.name>
-
-        <!-- TODO: Drop compliance on impsort plugin as javaparser it uses does not support jdk 21 -->
-        <impsort.compliance>17</impsort.compliance>
     </properties>
 
     <dependencies>
@@ -119,4 +116,25 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <configuration>
+                        <rules>
+                            <enforceBytecodeVersion>
+                                <excludes>
+                                    <!-- Openssl contains panama for jdk 22 or higher if enabled via listener 'org.apache.catalina.core.OpenSSLLifecycleListener' -->
+                                    <exclude>org.apache.tomcat:tomcat-coyote</exclude>
+                                </excludes>
+                            </enforceBytecodeVersion>
+                        </rules>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>

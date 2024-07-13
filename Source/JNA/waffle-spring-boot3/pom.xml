@@ -33,6 +33,7 @@
         <version>3.4.1-SNAPSHOT</version>
     </parent>
 
+    <groupId>com.github.waffle</groupId>
     <artifactId>waffle-spring-boot3</artifactId>
     <version>3.4.1-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -65,7 +66,7 @@
         <spring-security.version>6.3.1</spring-security.version>
 
         <!-- Automatic Module Name for JPMS -->
-        <module.name>waffle.spring.boot2</module.name>
+        <module.name>waffle.spring.boot3</module.name>
     </properties>
 
     <dependencyManagement>
@@ -122,4 +123,25 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <configuration>
+                        <rules>
+                            <enforceBytecodeVersion>
+                                <excludes>
+                                    <!-- Openssl contains panama for jdk 22 or higher if enabled via listener 'org.apache.catalina.core.OpenSSLLifecycleListener' -->
+                                    <exclude>org.apache.tomcat.embed:tomcat-embed-core</exclude>
+                                </excludes>
+                            </enforceBytecodeVersion>
+                        </rules>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>

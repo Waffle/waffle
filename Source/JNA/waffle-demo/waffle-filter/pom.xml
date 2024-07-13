@@ -33,6 +33,7 @@
         <version>3.4.1-SNAPSHOT</version>
     </parent>
 
+    <groupId>com.github.waffle.demo</groupId>
     <artifactId>waffle-filter</artifactId>
     <version>3.4.1-SNAPSHOT</version>
     <packaging>war</packaging>
@@ -56,7 +57,7 @@
     <dependencies>
         <dependency>
             <groupId>com.github.waffle</groupId>
-            <artifactId>waffle-tomcat85</artifactId>
+            <artifactId>waffle-tomcat9</artifactId>
             <scope>compile</scope>
         </dependency>
     </dependencies>

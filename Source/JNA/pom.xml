@@ -98,7 +98,6 @@
         <module>waffle-spring-security6</module>
         <module>waffle-tests</module>
         <module>waffle-tests-jakarta</module>
-        <module>waffle-tomcat85</module>
         <module>waffle-tomcat9</module>
         <module>waffle-tomcat10</module>
         <module>waffle-tomcat11</module>
@@ -157,7 +156,7 @@
         <maven.compiler.testTarget>${java.test.version}</maven.compiler.testTarget>
         <maven.compiler.testRelease>${java.test.release.version}</maven.compiler.testRelease>
 
-        <maven.min-version>3.9.6</maven.min-version>
+        <maven.min-version>3.9.8</maven.min-version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
@@ -433,14 +432,10 @@
                         <rules>
                             <enforceBytecodeVersion>
                                 <maxJdkVersion>${java.version}</maxJdkVersion>
-                                <excludes>
-                                    <!-- Openssl contains panama for jdk 22 or higher if enabled via listener 'org.apache.catalina.core.OpenSSLLifecycleListener' -->
-                                    <exclude>org.apache.tomcat:tomcat-coyote</exclude>
-                                </excludes>
                                 <ignoredScopes>test</ignoredScopes>
                             </enforceBytecodeVersion>
                             <requireJavaVersion>
-                                <version>[21,22),[22,23),[23,24)</version>
+                                <version>[21,22),[22,23),[23,24),[24,25)</version>
                             </requireJavaVersion>
                             <requireMavenVersion>
                                 <version>[${maven.min-version},)</version>
