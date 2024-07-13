@@ -148,12 +148,6 @@
         </dependency>
         <dependency>
             <groupId>com.github.waffle</groupId>
-            <artifactId>waffle-tomcat85</artifactId>
-            <version>${project.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle</groupId>
             <artifactId>waffle-tomcat9</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>

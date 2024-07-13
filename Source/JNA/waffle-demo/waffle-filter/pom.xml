@@ -57,7 +57,7 @@
     <dependencies>
         <dependency>
             <groupId>com.github.waffle</groupId>
-            <artifactId>waffle-tomcat85</artifactId>
+            <artifactId>waffle-tomcat9</artifactId>
             <scope>compile</scope>
         </dependency>
     </dependencies>

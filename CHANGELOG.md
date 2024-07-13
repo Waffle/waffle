@@ -1,3 +1,7 @@
+3.5.0 (xx/xx/2024)
+==================
+* Drop support for tomcat 8.5 which ended support as previously noted with release 3.4.0
+
 3.4.0 (5/6/2024)
 =================
 * Last expected support release for spring 2 boot modules (see https://github.com/Waffle/waffle/issues/2177)

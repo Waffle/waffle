@@ -62,7 +62,7 @@
         </dependency>
         <dependency>
             <groupId>com.github.waffle</groupId>
-            <artifactId>waffle-tomcat85</artifactId>
+            <artifactId>waffle-tomcat9</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -104,7 +104,7 @@
                             </dependency>
                             <dependency>
                                 <groupId>com.github.waffle</groupId>
-                                <artifactId>waffle-tomcat85</artifactId>
+                                <artifactId>waffle-tomcat9</artifactId>
                             </dependency>
                         </dependencies>
                     </container>

@@ -74,8 +74,8 @@
         <!-- Cargo Setup -->
         <cargo.maven.containerId>tomcat${tomcat.major-version}x</cargo.maven.containerId>
         <cargo.maven.containerUrl>https://archive.apache.org/dist/tomcat/tomcat-${tomcat.major-version}/v${tomcat.version}/bin/apache-tomcat-${tomcat.version}.zip</cargo.maven.containerUrl>
-        <tomcat.major-version>8</tomcat.major-version>
-        <tomcat.version>8.5.88</tomcat.version>
+        <tomcat.major-version>9</tomcat.major-version>
+        <tomcat.version>9.0.91</tomcat.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.demo</module.name>
@@ -90,7 +90,7 @@
             </dependency>
             <dependency>
                 <groupId>com.github.waffle</groupId>
-                <artifactId>waffle-tomcat85</artifactId>
+                <artifactId>waffle-tomcat9</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
