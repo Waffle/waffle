@@ -33,9 +33,9 @@
         <version>3.4.1-SNAPSHOT</version>
     </parent>
 
+    <groupId>com.github.waffle</groupId>
     <artifactId>waffle-tests</artifactId>
     <version>3.4.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
 
     <name>waffle-tests</name>
     <description>Tests for WAFFLE</description>

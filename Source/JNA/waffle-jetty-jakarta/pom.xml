@@ -33,9 +33,9 @@
         <version>3.4.1-SNAPSHOT</version>
     </parent>
 
+    <groupId>com.github.waffle</groupId>
     <artifactId>waffle-jetty-jakarta</artifactId>
     <version>3.4.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
 
     <name>waffle-jetty-jakarta</name>
     <description>Jetty Jakarta integration for WAFFLE</description>

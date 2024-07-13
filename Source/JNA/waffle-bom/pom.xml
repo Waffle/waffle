@@ -33,6 +33,7 @@
         <version>3.4.1-SNAPSHOT</version>
     </parent>
 
+    <groupId>com.github.waffle</groupId>
     <artifactId>waffle-bom</artifactId>
     <version>3.4.1-SNAPSHOT</version>
     <packaging>pom</packaging>
