@@ -63,9 +63,6 @@
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.distro</module.name>
-
-        <!-- TODO: Skip enforcer for time being as tomcat has a class requiring jdk 22 against their documentation. -->
-        <enforcer.skip>true</enforcer.skip>
     </properties>
 
     <dependencyManagement>
@@ -291,6 +288,27 @@
 
     <build>
         <finalName>waffle</finalName>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <configuration>
+                        <rules>
+                            <enforceBytecodeVersion>
+                                <excludes>
+                                    <!-- Openssl contains panama for jdk 22 or higher if enabled via listener 'org.apache.catalina.core.OpenSSLLifecycleListener' -->
+                                    <exclude>org.apache.tomcat:tomcat-coyote</exclude>
+                                    <exclude>org.apache.tomcat.embed:tomcat-embed-core</exclude>
+                                </excludes>
+                            </enforceBytecodeVersion>
+                        </rules>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
         <plugins>
             <!-- Assembly -->
             <plugin>
