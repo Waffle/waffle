@@ -58,9 +58,6 @@
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.tomcat11</module.name>
-
-        <!-- TODO: Drop compliance on impsort plugin as javaparser it uses does not support jdk 21 -->
-        <impsort.compliance>17</impsort.compliance>
     </properties>
 
     <dependencies>
