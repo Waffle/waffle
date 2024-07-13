@@ -57,7 +57,7 @@
         <spring-boot.version>3.3.1</spring-boot.version>
 
         <!-- Automatic Module Name for JPMS -->
-        <module.name>waffle.spring.boot.filter2.demo</module.name>
+        <module.name>waffle.spring.boot.filter3.demo</module.name>
     </properties>
 
     <dependencyManagement>
