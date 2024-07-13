@@ -20,7 +20,6 @@
     <version>3.4.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <groupId>com.github.waffle</groupId>
     <name>waffle-launcher</name>
     <description>Launcher POM for WAFFLE</description>
     <url>https://waffle.github.io/waffle/</url>
