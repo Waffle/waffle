@@ -211,7 +211,7 @@
         <modernizer.plugin>2.9.0</modernizer.plugin>
         <pmd.plugin>3.24.0</pmd.plugin>
         <project-info-reports.plugin>3.6.2</project-info-reports.plugin>
-        <release.plugin>3.1.0</release.plugin>
+        <release.plugin>3.1.1</release.plugin>
         <resources.plugin>3.3.1</resources.plugin>
         <rewrite.plugin>5.35.0</rewrite.plugin>
         <scm.plugin>2.1.0</scm.plugin>
