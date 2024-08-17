@@ -231,7 +231,7 @@
 
         <!-- Plugin Dependency Versions -->
         <bug-pattern.version>1.5.0</bug-pattern.version>
-        <build-tools.version>1.3.1</build-tools.version>
+        <build-tools.version>1.4.0</build-tools.version>
         <checkstyle.version>10.17.0</checkstyle.version>
         <doxia.version>1.12.0</doxia.version>
         <extra-enforcer-rules.version>1.8.0</extra-enforcer-rules.version>
