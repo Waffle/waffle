@@ -215,7 +215,7 @@
         <resources.plugin>3.3.1</resources.plugin>
         <rewrite.plugin>5.39.0</rewrite.plugin>
         <scm.plugin>2.1.0</scm.plugin>
-        <site.plugin>3.12.1</site.plugin>
+        <site.plugin>3.20.0</site.plugin>
         <sonar.plugin>4.0.0.4121</sonar.plugin>
         <sortpom.plugin>4.0.0</sortpom.plugin>
         <source.plugin>3.3.1</source.plugin>
