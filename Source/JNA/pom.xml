@@ -227,7 +227,7 @@
         <wagon.plugin>2.0.2</wagon.plugin>
         <war.plugin>3.4.0</war.plugin>
         <whitespace.plugin>1.4.0</whitespace.plugin>
-        <yuicompressor.plugin>2.0.1</yuicompressor.plugin>
+        <yuicompressor.plugin>2.1.0</yuicompressor.plugin>
 
         <!-- Plugin Dependency Versions -->
         <bug-pattern.version>1.5.0</bug-pattern.version>
