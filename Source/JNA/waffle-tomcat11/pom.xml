@@ -128,7 +128,7 @@
                             <enforceBytecodeVersion>
                                 <excludes>
                                     <!-- Openssl contains panama for jdk 22 or higher if enabled via listener 'org.apache.catalina.core.OpenSSLLifecycleListener' -->
-                                    <exclude>org.apache.tomcat:tomcat-coyote</exclude>
+                                    <exclude>org.apache.tomcat:tomcat-coyote-ffm</exclude>
                                 </excludes>
                             </enforceBytecodeVersion>
                         </rules>
