@@ -25,6 +25,7 @@
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.waffle</groupId>
@@ -156,7 +157,7 @@
         <maven.compiler.testTarget>${java.test.version}</maven.compiler.testTarget>
         <maven.compiler.testRelease>${java.test.release.version}</maven.compiler.testRelease>
 
-        <maven.min-version>3.9.8</maven.min-version>
+        <maven.min-version>3.9.9</maven.min-version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
