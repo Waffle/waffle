@@ -26,6 +26,9 @@ package waffle.util.cache;
 import java.util.NoSuchElementException;
 import java.util.ServiceLoader;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * A semi-persistent mapping from keys to values.
  *
@@ -60,13 +63,22 @@ public interface Cache<K, V> {
      */
     static <K, V> Cache<K, V> newCache(int timeout) throws NoSuchElementException {
         final NoSuchElementException exception = new NoSuchElementException();
+        boolean cacheSupplierFound = false;
         for (CacheSupplier cacheSupplier : ServiceLoader.load(CacheSupplier.class)) {
+            cacheSupplierFound = true;
             try {
                 return cacheSupplier.newCache(timeout);
             } catch (Exception e) {
                 exception.addSuppressed(e);
             }
         }
+
+        if (!cacheSupplierFound) {
+            Logger logger = LoggerFactory.getLogger(Cache.class);
+            logger.warn("No CacheSupplier implementation found by ServiceLoader. Please see [site] for possible solutions. Falling back to default CaffeineCache implementation.");
+            return new CaffeineCache<>(timeout);
+        }
+
         throw exception;
     }
 
