@@ -75,7 +75,9 @@ public interface Cache<K, V> {
 
         if (!cacheSupplierFound) {
             Logger logger = LoggerFactory.getLogger(Cache.class);
-            logger.error("No CacheSupplier implementation found by ServiceLoader. Please see https://github.com/Waffle/waffle/blob/master/Docs/faq/CustomCache.md for possible solutions. Falling back to default CaffeineCache implementation.", exception);
+            logger.error(
+                    "No CacheSupplier implementation found by ServiceLoader. Please see https://github.com/Waffle/waffle/blob/master/Docs/faq/CustomCache.md for possible solutions. Falling back to default CaffeineCache implementation.",
+                    exception);
             return new CaffeineCache<>(timeout);
         }
 
