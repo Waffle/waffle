@@ -1,6 +1,12 @@
-3.5.0 (xx/xx/2024)
+3.5.0 (9/22/2024)
 ==================
 * Drop support for tomcat 8.5 which ended support as previously noted with release 3.4.0
+* Correct spring boot filter 2 logback usage
+* Fix module name in spring boot 3
+* Move demo servlet spec to 4
+* Add fallback for caffeine cache in case where service loader fails to work
+* Bump site to 2.0 (ie doxia 2)
+* Update dependencies and plugins
 
 3.4.0 (5/6/2024)
 =================
