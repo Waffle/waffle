@@ -30,12 +30,12 @@
     <parent>
         <groupId>com.github.waffle.demo</groupId>
         <artifactId>waffle-demo-parent</artifactId>
-        <version>3.4.1-SNAPSHOT</version>
+        <version>3.5.1-SNAPSHOT</version>
     </parent>
 
     <groupId>com.github.waffle.demo</groupId>
     <artifactId>waffle-negotiate</artifactId>
-    <version>3.4.1-SNAPSHOT</version>
+    <version>3.5.1-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>waffle-negotiate</name>

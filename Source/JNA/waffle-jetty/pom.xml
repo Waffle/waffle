@@ -30,12 +30,12 @@
     <parent>
         <groupId>com.github.waffle</groupId>
         <artifactId>waffle</artifactId>
-        <version>3.4.1-SNAPSHOT</version>
+        <version>3.5.1-SNAPSHOT</version>
     </parent>
 
     <groupId>com.github.waffle</groupId>
     <artifactId>waffle-jetty</artifactId>
-    <version>3.4.1-SNAPSHOT</version>
+    <version>3.5.1-SNAPSHOT</version>
 
     <name>waffle-jetty</name>
     <description>Jetty integration for WAFFLE</description>

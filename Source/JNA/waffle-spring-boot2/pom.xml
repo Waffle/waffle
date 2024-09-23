@@ -30,12 +30,12 @@
     <parent>
         <groupId>com.github.waffle</groupId>
         <artifactId>waffle</artifactId>
-        <version>3.4.1-SNAPSHOT</version>
+        <version>3.5.1-SNAPSHOT</version>
     </parent>
 
     <groupId>com.github.waffle</groupId>
     <artifactId>waffle-spring-boot2</artifactId>
-    <version>3.4.1-SNAPSHOT</version>
+    <version>3.5.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>waffle-spring-boot2</name>

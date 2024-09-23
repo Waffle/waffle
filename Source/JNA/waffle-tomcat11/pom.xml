@@ -30,12 +30,12 @@
     <parent>
         <groupId>com.github.waffle</groupId>
         <artifactId>waffle</artifactId>
-        <version>3.4.1-SNAPSHOT</version>
+        <version>3.5.1-SNAPSHOT</version>
     </parent>
 
     <groupId>com.github.waffle</groupId>
     <artifactId>waffle-tomcat11</artifactId>
-    <version>3.4.1-SNAPSHOT</version>
+    <version>3.5.1-SNAPSHOT</version>
 
     <name>waffle-tomcat11</name>
     <description>Tomcat 11 integration for WAFFLE</description>
