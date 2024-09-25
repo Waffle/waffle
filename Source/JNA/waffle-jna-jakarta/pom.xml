@@ -50,7 +50,7 @@
 
     <properties>
         <!-- Dependencies -->
-        <byte-buddy.version>1.15.1</byte-buddy.version>
+        <byte-buddy.version>1.15.2</byte-buddy.version>
         <caffeine.version>3.1.8</caffeine.version>
         <checker-qual.version>3.47.0</checker-qual.version>
         <jna.version>5.15.0</jna.version>
