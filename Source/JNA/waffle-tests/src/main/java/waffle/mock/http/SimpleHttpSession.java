@@ -96,7 +96,7 @@ public class SimpleHttpSession implements HttpSession {
     @Deprecated
     @InlineMe(replacement = "null")
     @Override
-    public final Object getValue(final String arg0) {
+    public final Object getValue(final String string) {
         return null;
     }
 
@@ -129,7 +129,7 @@ public class SimpleHttpSession implements HttpSession {
      */
     @Deprecated
     @Override
-    public void putValue(final String arg0, final Object arg1) {
+    public void putValue(final String string, final Object object) {
         // Do Nothing
     }
 
@@ -145,7 +145,7 @@ public class SimpleHttpSession implements HttpSession {
      */
     @Deprecated
     @Override
-    public void removeValue(final String arg0) {
+    public void removeValue(final String string) {
         // Do Nothing
     }
 
@@ -155,7 +155,7 @@ public class SimpleHttpSession implements HttpSession {
     }
 
     @Override
-    public void setMaxInactiveInterval(final int arg0) {
+    public void setMaxInactiveInterval(final int primativeInt) {
         // Do Nothing
     }
 }

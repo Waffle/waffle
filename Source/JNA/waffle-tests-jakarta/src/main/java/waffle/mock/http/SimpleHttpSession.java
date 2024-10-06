@@ -94,7 +94,7 @@ public class SimpleHttpSession implements HttpSession {
     }
 
     @Override
-    public void setMaxInactiveInterval(final int arg0) {
+    public void setMaxInactiveInterval(final int primativeInt) {
         // Do Nothing
     }
 }
