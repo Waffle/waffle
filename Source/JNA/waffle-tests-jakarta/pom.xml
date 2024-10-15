@@ -57,7 +57,7 @@
 
         <!-- Dependencies -->
         <byte-buddy.version>1.15.4</byte-buddy.version>
-        <mockito-core.version>5.14.1</mockito-core.version>
+        <mockito-core.version>5.14.2</mockito-core.version>
         <objenesis.version>3.4</objenesis.version>
         <servlet.version>6.1.0</servlet.version>
 
