@@ -214,7 +214,7 @@
         <project-info-reports.plugin>3.8.0</project-info-reports.plugin>
         <release.plugin>3.1.1</release.plugin>
         <resources.plugin>3.3.1</resources.plugin>
-        <rewrite.plugin>5.42.2</rewrite.plugin>
+        <rewrite.plugin>5.43.0</rewrite.plugin>
         <scm.plugin>2.1.0</scm.plugin>
         <site.plugin>3.21.0</site.plugin>
         <sonar.plugin>4.0.0.4121</sonar.plugin>
