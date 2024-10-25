@@ -207,7 +207,7 @@
         <jacoco.plugin>0.8.12</jacoco.plugin>
         <jar.plugin>3.4.2</jar.plugin>
         <javadoc.plugin>3.10.1</javadoc.plugin>
-        <jxr.plugin>3.5.0</jxr.plugin>
+        <jxr.plugin>3.6.0</jxr.plugin>
         <license.plugin>4.6</license.plugin>
         <modernizer.plugin>2.9.0</modernizer.plugin>
         <pmd.plugin>3.25.0</pmd.plugin>
