@@ -63,7 +63,7 @@
         <jna.version>5.15.0</jna.version>
         <log4j.version>2.24.1</log4j.version>
         <spring-boot.version>3.3.5</spring-boot.version>
-        <spring-security.version>6.3.4</spring-security.version>
+        <spring-security.version>6.4.0</spring-security.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.spring.boot3</module.name>
