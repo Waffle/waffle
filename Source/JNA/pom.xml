@@ -240,7 +240,7 @@
         <findsecbugs.version>1.13.0</findsecbugs.version>
         <fluido.version>2.0.0</fluido.version>
         <htmlcompressor.version>1.9.4</htmlcompressor.version>
-        <jgit.version>7.0.0.202409031743-r</jgit.version>
+        <jgit.version>7.1.0.202411261347-r</jgit.version>
         <plexus-utils.version>4.0.2</plexus-utils.version>
         <plexus-xml.version>3.0.1</plexus-xml.version>
         <scm.version>2.1.0</scm.version>
