@@ -409,8 +409,9 @@
                         </annotationProcessorPaths>
 
                         <compilerArgs>
-                            <arg>-XDcompilePolicy=simple</arg>
-                            <arg>-Xplugin:ErrorProne</arg>
+                            <compilerArg>-XDcompilePolicy=simple</compilerArg>
+                            <compilerArg>--should-stop=IfError=FLOW</compilerArg>
+                            <compilerArg>-Xplugin:ErrorProne</compilerArg>
                         </compilerArgs>
 
                         <showDeprecation>true</showDeprecation>
