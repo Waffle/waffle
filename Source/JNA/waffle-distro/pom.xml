@@ -55,7 +55,7 @@
         <checker-qual.version>3.48.3</checker-qual.version>
         <jna.version>5.15.0</jna.version>
         <log4j.version>2.24.3</log4j.version>
-        <logback.version>1.5.13</logback.version>
+        <logback.version>1.5.14</logback.version>
 
         <!-- Maven compiler options -->
         <java.version>21</java.version>
