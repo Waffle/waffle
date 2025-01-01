@@ -26,6 +26,7 @@ package waffle.jetty;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Path;
 
 import org.apache.jasper.servlet.JspServlet;
 import org.eclipse.jetty.ee8.servlet.ServletHolder;
@@ -61,7 +62,7 @@ public class StartEmbeddedJetty {
     public static void main(final String[] args) throws Exception {
         final String path = "../waffle-demo/waffle-filter";
 
-        final File dir = new File(path);
+        final File dir = Path.of(path).toFile();
         if (!dir.exists()) {
             throw new FileNotFoundException("Can not find webapp: " + dir.getAbsolutePath());
         }
