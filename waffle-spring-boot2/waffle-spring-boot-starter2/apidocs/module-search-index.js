@@ -1,1 +1,0 @@
-moduleSearchIndex = [{"l":"waffle.spring.boot.starter2"}];updateSearchResults();

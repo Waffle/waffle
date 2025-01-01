@@ -1,1 +1,0 @@
-moduleSearchIndex = [{"l":"waffle.shiro"}];updateSearchResults();

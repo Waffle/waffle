@@ -1,1 +1,0 @@
-moduleSearchIndex = [{"l":"waffle.spring.boot.autoconfigure3"}];updateSearchResults();
