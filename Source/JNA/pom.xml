@@ -984,8 +984,8 @@
                                     <exclude>**/spring.provides</exclude>
                                 </excludes>
                             </licenseSet>
-                            <prohibitLegacyUse>true</prohibitLegacyUse>
                         </licenseSets>
+                        <prohibitLegacyUse>true</prohibitLegacyUse>
                         <!-- TODO: Get rest of this moved to license plugin -->
                         <mapping>
                             <conf>DOUBLESLASH_STYLE</conf>
