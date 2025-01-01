@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"waffle.spring.security6","l":"waffle.spring"}];updateSearchResults();
