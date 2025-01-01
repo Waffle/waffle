@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"waffle.jaas","c":"UsernamePasswordCallbackHandler","l":"handle(Callback[])","u":"handle(javax.security.auth.callback.Callback[])"},{"p":"waffle.jaas","c":"UsernamePasswordCallbackHandler","l":"UsernamePasswordCallbackHandler(String, String)","u":"%3Cinit%3E(java.lang.String,java.lang.String)"}];updateSearchResults();
