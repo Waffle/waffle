@@ -30,12 +30,12 @@
     <parent>
         <groupId>com.github.waffle</groupId>
         <artifactId>waffle</artifactId>
-        <version>3.5.1</version>
+        <version>3.5.2-SNAPSHOT</version>
     </parent>
 
     <groupId>com.github.waffle</groupId>
     <artifactId>waffle-spring-security5</artifactId>
-    <version>3.5.1</version>
+    <version>3.5.2-SNAPSHOT</version>
 
     <name>waffle-spring-security5</name>
     <description>Spring Security 5 integration for WAFFLE</description>
@@ -44,7 +44,7 @@
     <scm>
         <connection>scm:git:ssh://git@github.com/waffle/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/waffle/waffle.git</developerConnection>
-        <tag>waffle-3.5.1</tag>
+        <tag>HEAD</tag>
         <url>https://github.com/Waffle/waffle</url>
     </scm>
 
