@@ -1,8 +1,0 @@
-module:waffle.jna
-waffle.jaas
-waffle.servlet
-waffle.servlet.spi
-waffle.util
-waffle.util.cache
-waffle.windows.auth
-waffle.windows.auth.impl
