@@ -1,0 +1,6 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+waffle-tomcat9,waffle.apache,WaffleAuthenticatorBase,102,195,6,8,27,47,8,19,5,15
+waffle-tomcat9,waffle.apache,WindowsRealm,0,7,0,0,0,3,0,3,0,3
+waffle-tomcat9,waffle.apache,MixedAuthenticator,110,406,17,31,25,98,15,17,1,7
+waffle-tomcat9,waffle.apache,NegotiateAuthenticator,83,228,11,15,20,57,10,8,1,4
+waffle-tomcat9,waffle.apache,GenericWindowsPrincipal,22,151,3,9,6,33,4,13,1,8
