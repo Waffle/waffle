@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"waffle.shiro","l":"waffle.shiro"},{"m":"waffle.shiro","l":"waffle.shiro.dynamic"},{"m":"waffle.shiro","l":"waffle.shiro.negotiate"}];updateSearchResults();
