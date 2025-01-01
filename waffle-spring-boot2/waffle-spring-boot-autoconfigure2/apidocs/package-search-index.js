@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"waffle.spring.boot.autoconfigure2","l":"waffle.spring.boot"}];updateSearchResults();
