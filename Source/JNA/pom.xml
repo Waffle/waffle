@@ -697,6 +697,8 @@
                                 <X-Compile-Release-JDK>${maven.compiler.release}</X-Compile-Release-JDK>
                             </manifestEntries>
                         </archive>
+                        <!-- TODO: Tests do not have public or protected items and will cause failure if not set to false here! -->
+                        <failOnError>false</failOnError>
                         <notimestamp>true</notimestamp>
                         <quiet>true</quiet>
                         <release>${javadoc.java.release.version}</release>
