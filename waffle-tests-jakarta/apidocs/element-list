@@ -1,0 +1,3 @@
+module:waffle.tests.jakarta
+waffle.mock
+waffle.mock.http

@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"waffle.tests.jakarta","l":"waffle.mock"},{"m":"waffle.tests.jakarta","l":"waffle.mock.http"}];updateSearchResults();
