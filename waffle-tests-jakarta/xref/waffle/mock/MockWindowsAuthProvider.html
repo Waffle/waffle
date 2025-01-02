@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>MockWindowsAuthProvider xref</title>
 <link type="text/css" rel="stylesheet" href="../../stylesheet.css" />
@@ -114,9 +114,9 @@
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>     @Override
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>     <strong class="jxr_keyword">public</strong> IWindowsIdentity logonUser(<strong class="jxr_keyword">final</strong> String username, <strong class="jxr_keyword">final</strong> String password) {
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>         <strong class="jxr_keyword">final</strong> String currentUsername = Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);
-<a class="jxr_linenumber" name="L109" href="#L109">109</a>         <strong class="jxr_keyword">if</strong> (username.equals(currentUsername)) {
+<a class="jxr_linenumber" name="L109" href="#L109">109</a>         <strong class="jxr_keyword">if</strong> (currentUsername.equals(username)) {
 <a class="jxr_linenumber" name="L110" href="#L110">110</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a name="MockWindowsIdentity" href="../../waffle/mock/MockWindowsIdentity.html#MockWindowsIdentity">MockWindowsIdentity</a>(currentUsername, <strong class="jxr_keyword">this</strong>.groups);
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (username.equals(MockWindowsAuthProvider.GUEST)) {
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (MockWindowsAuthProvider.GUEST.equals(username)) {
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a name="MockWindowsIdentity" href="../../waffle/mock/MockWindowsIdentity.html#MockWindowsIdentity">MockWindowsIdentity</a>(MockWindowsAuthProvider.GUEST, <strong class="jxr_keyword">this</strong>.groups);
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>         } <strong class="jxr_keyword">else</strong> {
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(<span class="jxr_string">"Mock error: "</span> + username);
@@ -136,6 +136,6 @@
 <a class="jxr_linenumber" name="L128" href="#L128">128</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2010&#x2013;2024 <a href="https://github.com/waffle/">com.github.waffle</a>. All rights reserved.</div>
+<div id="footer">© 2010–2025 <a href="https://github.com/waffle/">com.github.waffle</a></div>
 </body>
 </html>

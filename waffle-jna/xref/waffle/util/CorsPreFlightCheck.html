@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>CorsPreFlightCheck xref</title>
 <link type="text/css" rel="stylesheet" href="../../stylesheet.css" />
@@ -9,7 +9,7 @@
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * MIT License</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Copyright (c) 2010-2022 The Waffle Project Contributors: <a href="https://github.com/Waffle/waffle/graphs/contributors" target="alexandria_uri">https://github.com/Waffle/waffle/graphs/contributors</a></em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Copyright (c) 2010-2024 The Waffle Project Contributors: <a href="https://github.com/Waffle/waffle/graphs/contributors" target="alexandria_uri">https://github.com/Waffle/waffle/graphs/contributors</a></em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_comment"> * Permission is hereby granted, free of charge, to any person obtaining a copy</em>
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_comment"> * of this software and associated documentation files (the "Software"), to deal</em>
@@ -85,9 +85,9 @@
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>  
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>          CorsPreFlightCheck.LOGGER.debug(<span class="jxr_string">"[waffle.util.CorsPreflightCheck] check for PRE_FLIGHT Attribute"</span>);
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>  
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>          <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_javadoccomment">         * Support Apache CorsFilter which would already add the Attribute cors.request.type with a value "PRE_FLIGHT"</em>
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_javadoccomment">         **/</em>
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>          <em class="jxr_comment">/*</em>
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_comment">         * Support Apache CorsFilter which would already add the Attribute cors.request.type with a value "PRE_FLIGHT"</em>
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_comment">         */</em>
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>          <strong class="jxr_keyword">if</strong> (corsRequestType != <strong class="jxr_keyword">null</strong>
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>                  &amp;&amp; corsRequestType.equalsIgnoreCase(CorsPreFlightCheck.PRE_FLIGHT_ATTRIBUTE_VALUE)) {
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>              <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
@@ -115,6 +115,6 @@
 <a class="jxr_linenumber" name="L107" href="#L107">107</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2010&#x2013;2024 <a href="https://github.com/waffle/">com.github.waffle</a>. All rights reserved.</div>
+<div id="footer">© 2010–2025 <a href="https://github.com/waffle/">com.github.waffle</a></div>
 </body>
 </html>

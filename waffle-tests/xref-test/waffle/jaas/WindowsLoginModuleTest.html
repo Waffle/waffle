@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>WindowsLoginModuleTest xref</title>
 <link type="text/css" rel="stylesheet" href="../../stylesheet.css" />
@@ -53,10 +53,10 @@
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>  <strong class="jxr_keyword">class</strong> <a name="WindowsLoginModuleTest" href="../../waffle/jaas/WindowsLoginModuleTest.html#WindowsLoginModuleTest">WindowsLoginModuleTest</a> {
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>      <em class="jxr_javadoccomment">/** The login module. */</em>
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>      WindowsLoginModule loginModule;
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>      <strong class="jxr_keyword">private</strong> WindowsLoginModule loginModule;
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>  
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>      <em class="jxr_javadoccomment">/** The provider. */</em>
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>      MockWindowsAuthProvider provider;
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>      <strong class="jxr_keyword">private</strong> MockWindowsAuthProvider provider;
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  <em class="jxr_javadoccomment">     * Sets the up.</em>
@@ -330,12 +330,12 @@
 <a class="jxr_linenumber" name="L322" href="#L322">322</a>         <strong class="jxr_keyword">this</strong>.loginModule.initialize(subject, callbackHandler, <strong class="jxr_keyword">null</strong>, options);
 <a class="jxr_linenumber" name="L323" href="#L323">323</a>         Assertions.assertTrue(<strong class="jxr_keyword">this</strong>.loginModule.login());
 <a class="jxr_linenumber" name="L324" href="#L324">324</a>         <strong class="jxr_keyword">this</strong>.loginModule.abort();
-<a class="jxr_linenumber" name="L325" href="#L325">325</a>         assertThat(subject.getPrincipals().size()).isEqualTo(0);
+<a class="jxr_linenumber" name="L325" href="#L325">325</a>         assertThat(subject.getPrincipals().size()).isZero();
 <a class="jxr_linenumber" name="L326" href="#L326">326</a>     }
 <a class="jxr_linenumber" name="L327" href="#L327">327</a> 
 <a class="jxr_linenumber" name="L328" href="#L328">328</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2010&#x2013;2024 <a href="https://github.com/waffle/">com.github.waffle</a>. All rights reserved.</div>
+<div id="footer">© 2010–2025 <a href="https://github.com/waffle/">com.github.waffle</a></div>
 </body>
 </html>

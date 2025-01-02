@@ -1,4 +1,4 @@
-waffle.servlet
-waffle.windows.auth
-waffle.util
 waffle.jaas
+waffle.util
+waffle.windows.auth
+waffle.servlet

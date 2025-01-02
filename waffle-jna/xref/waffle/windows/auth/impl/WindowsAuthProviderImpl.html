@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>WindowsAuthProviderImpl xref</title>
 <link type="text/css" rel="stylesheet" href="../../../../stylesheet.css" />
@@ -72,10 +72,10 @@
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> ContinueContext {
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>          <em class="jxr_javadoccomment">/** The continue handle. */</em>
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>          CtxtHandle continueHandle;
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>          <strong class="jxr_keyword">private</strong> CtxtHandle continueHandle;
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>          <em class="jxr_javadoccomment">/** The server credential. */</em>
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>          <a name="IWindowsCredentialsHandle" href="../../../../waffle/windows/auth/IWindowsCredentialsHandle.html#IWindowsCredentialsHandle">IWindowsCredentialsHandle</a> serverCredential;
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>          <strong class="jxr_keyword">private</strong> <a name="IWindowsCredentialsHandle" href="../../../../waffle/windows/auth/IWindowsCredentialsHandle.html#IWindowsCredentialsHandle">IWindowsCredentialsHandle</a> serverCredential;
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>  
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>          <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>  <em class="jxr_javadoccomment">         * Instantiates a new continue context.</em>
@@ -85,7 +85,7 @@
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>  <em class="jxr_javadoccomment">         * @param windowsCredential</em>
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>  <em class="jxr_javadoccomment">         *            the windows credential</em>
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>  <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>          <strong class="jxr_keyword">public</strong> ContinueContext(<strong class="jxr_keyword">final</strong> CtxtHandle handle, <strong class="jxr_keyword">final</strong> <a name="IWindowsCredentialsHandle" href="../../../../waffle/windows/auth/IWindowsCredentialsHandle.html#IWindowsCredentialsHandle">IWindowsCredentialsHandle</a> windowsCredential) {
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>          ContinueContext(<strong class="jxr_keyword">final</strong> CtxtHandle handle, <strong class="jxr_keyword">final</strong> <a name="IWindowsCredentialsHandle" href="../../../../waffle/windows/auth/IWindowsCredentialsHandle.html#IWindowsCredentialsHandle">IWindowsCredentialsHandle</a> windowsCredential) {
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>              <strong class="jxr_keyword">this</strong>.continueHandle = handle;
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>              <strong class="jxr_keyword">this</strong>.serverCredential = windowsCredential;
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>          }
@@ -254,6 +254,6 @@
 <a class="jxr_linenumber" name="L246" href="#L246">246</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2010&#x2013;2024 <a href="https://github.com/waffle/">com.github.waffle</a>. All rights reserved.</div>
+<div id="footer">© 2010–2025 <a href="https://github.com/waffle/">com.github.waffle</a></div>
 </body>
 </html>

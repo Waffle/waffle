@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>UserPrincipalTest xref</title>
 <link type="text/css" rel="stylesheet" href="../../stylesheet.css" />
@@ -99,7 +99,7 @@
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>      <strong class="jxr_keyword">void</strong> testIsSerializable() <strong class="jxr_keyword">throws</strong> IOException, ClassNotFoundException {
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>          <em class="jxr_comment">// serialize</em>
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>          <strong class="jxr_keyword">final</strong> ByteArrayOutputStream out = <strong class="jxr_keyword">new</strong> ByteArrayOutputStream();
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>          <strong class="jxr_keyword">try</strong> (<strong class="jxr_keyword">final</strong> ObjectOutputStream oos = <strong class="jxr_keyword">new</strong> ObjectOutputStream(out)) {
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>          <strong class="jxr_keyword">try</strong> (ObjectOutputStream oos = <strong class="jxr_keyword">new</strong> ObjectOutputStream(out)) {
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>              oos.writeObject(<strong class="jxr_keyword">this</strong>.userPrincipal);
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>          }
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>          assertThat(out.toByteArray()).isNotEmpty();
@@ -115,6 +115,6 @@
 <a class="jxr_linenumber" name="L107" href="#L107">107</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2010&#x2013;2024 <a href="https://github.com/waffle/">com.github.waffle</a>. All rights reserved.</div>
+<div id="footer">© 2010–2025 <a href="https://github.com/waffle/">com.github.waffle</a></div>
 </body>
 </html>
