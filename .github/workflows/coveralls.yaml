@@ -23,16 +23,17 @@ defaults:
 on: [push, pull_request]
 
 jobs:
-  build:
+  coveralls:
     if: github.repository_owner == 'waffle'
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Set up JDK
+      - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          java-version: 21
+          cache: maven
           distribution: zulu
+          java-version: 21
       - name: Report Coverage to Coveralls for Pull Requests
         if: github.event_name == 'pull_request'
         run: ./mvnw -B -V test jacoco:report coveralls:report -q -D"license.skip=true" -DrepoToken=$GITHUB_TOKEN -DserviceName=github -DpullRequest=$PR_NUMBER --no-transfer-progress -Pcoveralls

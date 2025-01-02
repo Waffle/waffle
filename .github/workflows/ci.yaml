@@ -11,9 +11,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-2019, windows-latest]
-        java: [21, 23, 24-ea, 25-ea]
+        cache: [maven]
         distribution: ['temurin']
+        java: [21, 23, 24-ea, 25-ea]
+        os: [windows-2019, windows-latest]
       fail-fast: false
       max-parallel: 4
     name: Test JDK ${{ matrix.java }}, ${{ matrix.os }}
@@ -23,7 +24,8 @@ jobs:
       - name: Set up JDK ${{ matrix.java }} ${{ matrix.distribution }}
         uses: actions/setup-java@v4
         with:
-          java-version: ${{ matrix.java }}
+          cache: ${{ matrix.cache }}
           distribution: ${{ matrix.distribution }}
+          java-version: ${{ matrix.java }}
       - name: Test with Maven
         run: ./mvnw test -B -V --no-transfer-progress -D"license.skip=true" -D"net.bytebuddy.experimental=true"

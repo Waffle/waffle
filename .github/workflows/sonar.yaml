@@ -18,11 +18,12 @@ jobs:
         with:
           # Disabling shallow clone is recommended for improving relevancy of reporting
           fetch-depth: 0
-      - name: Set up JDK
+      - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          java-version: 21
+          cache: maven
           distribution: zulu
+          java-version: 21
       - name: Analyze with SonarCloud
         run: ./mvnw verify jacoco:report sonar:sonar -B -V -D"sonar.projectKey=Waffle_waffle" -D"sonar.organization=waffle" -D"sonar.host.url=https://sonarcloud.io" -D"sonar.token=$SONAR_TOKEN" -D"license.skip=true" --no-transfer-progress -D"sonar.scanner.skipJreProvisioning=true"
         env:
