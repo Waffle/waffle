@@ -36,12 +36,12 @@ jobs:
           java-version: 21
       - name: Report Coverage to Coveralls for Pull Requests
         if: github.event_name == 'pull_request'
-        run: ./mvnw -B -V test jacoco:report coveralls:report -q -D"license.skip=true" -DrepoToken=$GITHUB_TOKEN -DserviceName=github -DpullRequest=$PR_NUMBER --no-transfer-progress -Pcoveralls
+        run: ./mvnw -B -V test jacoco:report coveralls:report -D"license.skip=true" -DrepoToken=$GITHUB_TOKEN -DserviceName=github -DpullRequest=$PR_NUMBER --no-transfer-progress -Pcoveralls
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.number }}
       - name: Report Coverage to Coveralls for General Push
         if: github.event_name == 'push'
-        run: ./mvnw -B -V test jacoco:report coveralls:report -X -D"license.skip=true" -DrepoToken=$GITHUB_TOKEN -DserviceName=github --no-transfer-progress -Pcoveralls
+        run: ./mvnw -B -V test jacoco:report coveralls:report -D"license.skip=true" -DrepoToken=$GITHUB_TOKEN -DserviceName=github --no-transfer-progress -Pcoveralls
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
