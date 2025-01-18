@@ -194,7 +194,7 @@
 
         <!-- Third Party Versions -->
         <assertj.version>3.27.3</assertj.version>
-        <byte-buddy.version>1.15.11</byte-buddy.version>
+        <byte-buddy.version>1.16.0</byte-buddy.version>
         <commons-math.version>3.6.1</commons-math.version>
         <error-prone.version>2.36.0</error-prone.version>
         <j2objc.version>3.0.0</j2objc.version>
