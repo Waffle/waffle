@@ -246,7 +246,7 @@
         <taglist.plugin>3.2.1</taglist.plugin>
         <versions.plugin>2.18.0</versions.plugin>
         <war.plugin>3.4.0</war.plugin>
-        <whitespace.plugin>1.4.0</whitespace.plugin>
+        <whitespace.plugin>1.5.0</whitespace.plugin>
         <yuicompressor.plugin>2.1.0</yuicompressor.plugin>
 
         <!-- Plugin Dependency Versions -->
