@@ -56,7 +56,7 @@
         <!-- Dependencies -->
         <servlet.version>6.1.0</servlet.version>
         <spring.version>6.2.4</spring.version>
-        <spring.security.version>6.4.3</spring.security.version>
+        <spring.security.version>6.4.4</spring.security.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.spring.security6</module.name>
