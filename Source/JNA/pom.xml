@@ -257,7 +257,7 @@
         <fluido.version note="Make sure to update in site.xml">2.1.0</fluido.version>
         <htmlcompressor.version>1.9.4</htmlcompressor.version>
         <pmd.version>7.11.0</pmd.version>
-        <restrict-imports-enforcer-rule.version>2.6.0</restrict-imports-enforcer-rule.version>
+        <restrict-imports-enforcer-rule.version>2.6.1</restrict-imports-enforcer-rule.version>
         <yuicompressor.version>2.4.8</yuicompressor.version>
 
         <!-- Spotbugs Extensions -->
