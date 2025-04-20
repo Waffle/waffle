@@ -262,7 +262,7 @@
 
         <!-- Spotbugs Extensions -->
         <bug-pattern.version>1.5.0</bug-pattern.version>
-        <findsecbugs.version>1.13.0</findsecbugs.version>
+        <findsecbugs.version>1.14.0</findsecbugs.version>
         <sb-contrib.version>7.6.9</sb-contrib.version>
 
         <!-- Lifecycle Mapping -->
