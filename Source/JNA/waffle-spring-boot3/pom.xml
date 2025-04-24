@@ -62,7 +62,7 @@
         <!-- Dependencies -->
         <jna.version>5.17.0</jna.version>
         <log4j.version>2.24.3</log4j.version>
-        <spring-boot.version>3.4.4</spring-boot.version>
+        <spring-boot.version>3.4.5</spring-boot.version>
         <spring-security.version>6.4.5</spring-security.version>
 
         <!-- Automatic Module Name for JPMS -->
