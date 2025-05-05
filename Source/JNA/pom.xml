@@ -247,7 +247,7 @@
         <versions.plugin>2.18.0</versions.plugin>
         <war.plugin>3.4.0</war.plugin>
         <whitespace.plugin>1.5.0</whitespace.plugin>
-        <yuicompressor.plugin>2.1.0</yuicompressor.plugin>
+        <yuicompressor.plugin>2.2.0</yuicompressor.plugin>
 
         <!-- Plugin Dependency Versions -->
         <asm.version>9.8</asm.version>
