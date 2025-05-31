@@ -119,13 +119,9 @@
         <url>https://github.com/Waffle/waffle/actions</url>
     </ciManagement>
     <distributionManagement>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
         <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <id>central</id>
+            <url>https://central.sonatype.com/repository/maven-snapshots/</url>
         </snapshotRepository>
         <site>
             <id>gh-pages-scm</id>
@@ -209,6 +205,7 @@
         <antrun.plugin>3.1.0</antrun.plugin>
         <assembly.plugin>3.7.1</assembly.plugin>
         <build-helper.plugin>3.6.0</build-helper.plugin>
+        <central-plubishing.plugin>0.7.0</central-publishing.plugin>
         <checkstyle.plugin>3.6.0</checkstyle.plugin>
         <clean.plugin>3.5.0</clean.plugin>
         <compiler.plugin>3.14.0</compiler.plugin>
@@ -1119,6 +1116,17 @@
                         </dependency>
                     </dependencies>
                 </plugin>
+
+                <!-- Sonatype Provided Plugins -->
+                <plugin>
+                    <groupId>org.sonatype.central</groupId>
+                    <artifactId>central-publishing-maven-plugin</artifactId>
+                    <version>${central-publishing.plugin}</version>
+                    <extensions>true</extensions>
+                    <configuration>
+                        <publishingServerId>central</publishingServerId>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
 
@@ -1311,6 +1319,16 @@
                         <phase>verify</phase>
                     </execution>
                 </executions>
+            </plugin>
+
+            <!-- Sonatype Provided Plugins -->
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                </configuration>
             </plugin>
         </plugins>
     </build>
