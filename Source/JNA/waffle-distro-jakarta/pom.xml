@@ -93,12 +93,6 @@
         </dependency>
         <dependency>
             <groupId>com.github.waffle</groupId>
-            <artifactId>waffle-shiro</artifactId>
-            <version>${project.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle</groupId>
             <artifactId>waffle-spring-boot-autoconfigure3</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
@@ -131,64 +125,8 @@
         <!-- Waffle Demo Wars -->
         <dependency>
             <groupId>com.github.waffle.demo</groupId>
-            <artifactId>waffle-filter</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle.demo</groupId>
-            <artifactId>waffle-form</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle.demo</groupId>
-            <artifactId>waffle-jaas</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle.demo</groupId>
-            <artifactId>waffle-mixed</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle.demo</groupId>
-            <artifactId>waffle-mixed-post</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle.demo</groupId>
-            <artifactId>waffle-negotiate</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle.demo</groupId>
             <artifactId>waffle-spring-boot-filter3</artifactId>
             <version>${project.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle.demo</groupId>
-            <artifactId>waffle-spring-filter</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.waffle.demo</groupId>
-            <artifactId>waffle-spring-form</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
             <scope>runtime</scope>
         </dependency>
 
