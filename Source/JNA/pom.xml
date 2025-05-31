@@ -146,11 +146,11 @@
         <!-- Maven compiler options -->
         <java.version>11</java.version>
         <java.release.version>11</java.release.version>
-        <java.test.version>11</java.test.version>
-        <java.test.release.version>11</java.test.release.version>
+        <java.test.version>${java.version}</java.test.version>
+        <java.test.release.version>${java.release.version}</java.test.release.version>
 
         <!-- Javadoc Release is strict due to maven bug and automatic module naming; it needs extra help, see examples, later fixed by legacy.mode flag -->
-        <javadoc.java.release.version>11</javadoc.java.release.version>
+        <javadoc.java.release.version>${java.release.version}</javadoc.java.release.version>
         <javadoc.legacy.mode>true</javadoc.legacy.mode>
 
         <!-- Legacy compiler options source/target not really needed now (but still used by things like sonar, m2e) -->
