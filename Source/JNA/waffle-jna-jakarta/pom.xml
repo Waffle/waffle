@@ -111,6 +111,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.checkerframework</groupId>
+            <artifactId>checker-qual</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.powermock</groupId>
             <artifactId>powermock-reflect</artifactId>
             <version>${powermock.version}</version>
