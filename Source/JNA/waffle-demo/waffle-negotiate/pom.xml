@@ -65,6 +65,7 @@
             <artifactId>waffle-tomcat9</artifactId>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>caffeine</artifactId>
