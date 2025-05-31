@@ -53,8 +53,8 @@
         <tomcat.version>11.0.7</tomcat.version>
 
         <!-- Maven compiler options -->
-        <java.version>21</java.version>
-        <java.release.version>21</java.release.version>
+        <java.version>17</java.version>
+        <java.release.version>17</java.release.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.tomcat11</module.name>
