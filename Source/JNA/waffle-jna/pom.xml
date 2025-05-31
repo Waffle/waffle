@@ -51,7 +51,6 @@
     <properties>
         <!-- Dependencies -->
         <caffeine.version>3.2.0</caffeine.version>
-        <checker-qual.version>3.49.3</checker-qual.version>
         <jna.version>5.17.0</jna.version>
         <powermock.version>2.0.9</powermock.version>
         <servlet.version>4.0.4</servlet.version>
@@ -109,12 +108,6 @@
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>caffeine</artifactId>
             <version>${caffeine.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.checkerframework</groupId>
-            <artifactId>checker-qual</artifactId>
-            <version>${checker-qual.version}</version>
         </dependency>
 
         <dependency>
