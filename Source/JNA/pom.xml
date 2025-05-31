@@ -1594,6 +1594,21 @@
                                                 </execute>
                                             </action>
                                         </pluginExecution>
+
+                                      <!-- rewrite m2e in plugin missing, we will process -->
+                                        <pluginExecution>
+                                            <pluginExecutionFilter>
+                                                <groupId>org.openrewrite.maven</groupId>
+                                                <artifactId>rewrite-maven-plugin</artifactId>
+                                                <versionRange>[${rewrite.plugin},)</versionRange>
+                                                <goals>
+                                                    <goal>run</goal>
+                                                </goals>
+                                            </pluginExecutionFilter>
+                                            <action>
+                                                <ignore />
+                                            </action>
+                                        </pluginExecution>
                                     </pluginExecutions>
                                 </lifecycleMappingMetadata>
                             </configuration>
