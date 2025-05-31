@@ -491,7 +491,7 @@
                                 <maxJdkVersion>${java.version}</maxJdkVersion>
                                 <ignoredScopes>provided,test</ignoredScopes>
                             </enforceBytecodeVersion>
-                            <!-- Skip convergence due to separate parent until such time .net is moved to new repo -->
+                            <!-- TODO: Skip convergence due to separate parent until such time .net is moved to new repo -->
                             <!--<reactorModuleConvergence />-->
                             <requireJavaVersion>
                                 <message>Please upgrade java and configure 'JAVA_HOME'.</message>
