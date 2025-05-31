@@ -30,7 +30,7 @@
     "scope" : "compile",
     "type" : "jar",
     "optional" : false,
-    "integrity" : "sha512:wGBxgha/x5AjdpSVt+PJOQtFZZy9WaQb7PzmFjKCXKsnX7+uWTHBdcmgQsVB5OW8CXeAy02ezX+HXZpslepZdQ=="
+    "integrity" : "sha512:nGIFnQFjw8KumuG7ln6+go/QickmzRG3OGufXGjZ/bWSrPpUzIt9R5xTaGbfePYSBpkARxglKee3yOm7FL9NKQ=="
   }, {
     "groupId" : "com.google.code.findbugs",
     "artifactId" : "jsr305",

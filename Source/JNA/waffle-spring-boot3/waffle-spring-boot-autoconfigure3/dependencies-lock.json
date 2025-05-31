@@ -94,7 +94,7 @@
     "scope" : "compile",
     "type" : "jar",
     "optional" : true,
-    "integrity" : "sha512:wGBxgha/x5AjdpSVt+PJOQtFZZy9WaQb7PzmFjKCXKsnX7+uWTHBdcmgQsVB5OW8CXeAy02ezX+HXZpslepZdQ=="
+    "integrity" : "sha512:nGIFnQFjw8KumuG7ln6+go/QickmzRG3OGufXGjZ/bWSrPpUzIt9R5xTaGbfePYSBpkARxglKee3yOm7FL9NKQ=="
   }, {
     "groupId" : "com.github.waffle",
     "artifactId" : "waffle-spring-security6",
@@ -102,7 +102,7 @@
     "scope" : "compile",
     "type" : "jar",
     "optional" : true,
-    "integrity" : "sha512:z4byePvfovGqnQ8Y4AxoIW4CrLTBGweRrFRbL+oMrZWxaTEQhpSbMHHIBNq6n8oYUFjmxY5MqGKab1UqKKT0ew=="
+    "integrity" : "sha512:oMuFBg9v/4Vl00DblA07LPKZ30VXIgAD4Y61bQjewUVFK8jJDvUO8eIZHmPIorGfFrNN5xUIWBGeTxvS9qewLw=="
   }, {
     "groupId" : "com.google.code.findbugs",
     "artifactId" : "jsr305",
