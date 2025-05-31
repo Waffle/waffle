@@ -1597,7 +1597,7 @@
                                             </action>
                                         </pluginExecution>
 
-                                      <!-- rewrite m2e in plugin missing, we will process -->
+                                        <!-- rewrite m2e in plugin missing, we will process -->
                                         <pluginExecution>
                                             <pluginExecutionFilter>
                                                 <groupId>org.openrewrite.maven</groupId>
