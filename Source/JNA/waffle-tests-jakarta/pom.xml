@@ -49,12 +49,6 @@
     </scm>
 
     <properties>
-        <!-- Maven compiler options -->
-        <java.version>11</java.version>
-        <java.release.version>11</java.release.version>
-        <java.test.version>11</java.test.version>
-        <java.test.release.version>11</java.test.release.version>
-
         <!-- Dependencies -->
         <byte-buddy.version>1.17.5</byte-buddy.version>
         <mockito-core.version>5.18.0</mockito-core.version>
