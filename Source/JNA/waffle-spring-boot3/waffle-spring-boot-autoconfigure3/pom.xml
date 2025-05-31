@@ -49,6 +49,8 @@
     </scm>
 
     <properties>
+        <commons-logging.version>1.3.5</commons-logging.version>
+
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.spring.boot.autoconfigure3</module.name>
     </properties>
@@ -63,8 +65,20 @@
 
         <!-- External Dependencies -->
         <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>${commons-logging.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-jcl</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
