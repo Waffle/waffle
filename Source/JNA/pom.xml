@@ -205,7 +205,7 @@
         <antrun.plugin>3.1.0</antrun.plugin>
         <assembly.plugin>3.7.1</assembly.plugin>
         <build-helper.plugin>3.6.0</build-helper.plugin>
-        <central-plubishing.plugin>0.7.0</central-publishing.plugin>
+        <central-publishing.plugin>0.7.0</central-publishing.plugin>
         <checkstyle.plugin>3.6.0</checkstyle.plugin>
         <clean.plugin>3.5.0</clean.plugin>
         <compiler.plugin>3.14.0</compiler.plugin>
