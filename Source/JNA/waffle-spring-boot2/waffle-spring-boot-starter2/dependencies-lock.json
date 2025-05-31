@@ -54,7 +54,7 @@
     "scope" : "compile",
     "type" : "jar",
     "optional" : false,
-    "integrity" : "sha512:If0XXdTlsYkR2ke4dfrMJGGY9nsOw3CysE8rCG9xQakEXzTeTOgy4BCVpDprEWrkcoKkxZY3OvEW5jetdR6Mfw=="
+    "integrity" : "sha512:PFefdBZcC/bdya5nUlk+jtNvZnMLHgmWrdcx2ZxZAQgJabrRv0MPaQbROIo3mbgqIihVFZYvmczhF+PppfLwcA=="
   }, {
     "groupId" : "com.github.waffle",
     "artifactId" : "waffle-spring-security5",
