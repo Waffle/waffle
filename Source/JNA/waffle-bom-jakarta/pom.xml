@@ -34,11 +34,11 @@
     </parent>
 
     <groupId>com.github.waffle</groupId>
-    <artifactId>waffle-bom</artifactId>
+    <artifactId>waffle-bom-jakarta</artifactId>
     <version>3.5.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>waffle-bom</name>
+    <name>waffle-bom-jakarta</name>
     <description>Bill of Materials for WAFFLE</description>
     <url>https://waffle.github.io/waffle/</url>
 
@@ -54,7 +54,7 @@
         <jna.version>5.17.0</jna.version>
 
         <!-- Automatic Module Name for JPMS -->
-        <module.name>waffle.bom</module.name>
+        <module.name>waffle.bom.jakarta</module.name>
     </properties>
 
     <dependencyManagement>
@@ -74,12 +74,12 @@
             <!-- Waffle Dependencies -->
             <dependency>
                 <groupId>com.github.waffle</groupId>
-                <artifactId>waffle-jetty</artifactId>
+                <artifactId>waffle-jetty-jakarta</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.waffle</groupId>
-                <artifactId>waffle-jna</artifactId>
+                <artifactId>waffle-jna-jakarta</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -89,22 +89,27 @@
             </dependency>
             <dependency>
                 <groupId>com.github.waffle</groupId>
-                <artifactId>waffle-spring-boot-autoconfigure2</artifactId>
+                <artifactId>waffle-spring-boot-autoconfigure3</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.waffle</groupId>
-                <artifactId>waffle-spring-boot-starter2</artifactId>
+                <artifactId>waffle-spring-boot-starter3</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.waffle</groupId>
-                <artifactId>waffle-spring-security5</artifactId>
+                <artifactId>waffle-spring-security6</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.waffle</groupId>
-                <artifactId>waffle-tomcat9</artifactId>
+                <artifactId>waffle-tomcat10</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.waffle</groupId>
+                <artifactId>waffle-tomcat11</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

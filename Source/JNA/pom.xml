@@ -86,6 +86,7 @@
 
     <modules>
         <module>waffle-bom</module>
+        <module>waffle-bom-jakarta</module>
         <module>waffle-demo</module>
         <module>waffle-distro</module>
         <module>waffle-jetty</module>
