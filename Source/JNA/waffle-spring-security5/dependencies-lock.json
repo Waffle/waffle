@@ -30,7 +30,7 @@
     "scope" : "compile",
     "type" : "jar",
     "optional" : false,
-    "integrity" : "sha512:RoDC4ZPDpfombJB6GP6nFFVswdcqZFCq3yGnnebM+7Hx8uxz2/d7RWjc4DWpAjMdVIHzbHRXonh/LA+8UL4sjA=="
+    "integrity" : "sha512:2e2dfWKG/BT9cgPKaWg5UMN/sjFTt76s5Usl+zskcLmFg5GnEAwoihGig110xri4iRh5/n2xd+iUMvjEjlI18Q=="
   }, {
     "groupId" : "com.github.waffle",
     "artifactId" : "waffle-tests",
@@ -38,7 +38,7 @@
     "scope" : "test",
     "type" : "jar",
     "optional" : false,
-    "integrity" : "sha512:aFHnasm5reZG8x7zjTmmVR1JJlq5dj+ZeDWdTE/vvprzZrww8cXY+L1mtSgOY+DZfx8xlxFxsdgrRltKL+VQfg=="
+    "integrity" : "sha512:eq4JK4zyMsRm48EW2V9xl2RMFsfHDhtmWQDZyCbLHRWr9cVaYsLZomrG95hWo7BWg1uT5eBQF9Od6Mw35dmFmg=="
   }, {
     "groupId" : "com.google.code.findbugs",
     "artifactId" : "jsr305",
