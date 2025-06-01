@@ -30,12 +30,12 @@
     <parent>
         <groupId>com.github.waffle</groupId>
         <artifactId>waffle-spring-boot3</artifactId>
-        <version>3.5.2-SNAPSHOT</version>
+        <version>3.6.0-SNAPSHOT</version>
     </parent>
 
     <groupId>com.github.waffle</groupId>
     <artifactId>waffle-spring-boot-starter3</artifactId>
-    <version>3.5.2-SNAPSHOT</version>
+    <version>3.6.0-SNAPSHOT</version>
 
     <name>waffle-spring-boot-starter3</name>
     <description>Spring Boot Starter for WAFFLE</description>

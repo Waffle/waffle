@@ -25,17 +25,18 @@
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>com.github.waffle</groupId>
         <artifactId>waffle</artifactId>
-        <version>3.5.2-SNAPSHOT</version>
+        <version>3.6.0-SNAPSHOT</version>
     </parent>
 
     <groupId>com.github.waffle.demo</groupId>
     <artifactId>waffle-demo-parent</artifactId>
-    <version>3.5.2-SNAPSHOT</version>
+    <version>3.6.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>waffle-demo-parent</name>
@@ -43,16 +44,15 @@
     <url>https://waffle.github.io/waffle/</url>
 
     <modules>
-        <module>waffle-filter</module>
-        <module>waffle-form</module>
-        <module>waffle-jaas</module>
-        <module>waffle-mixed</module>
-        <module>waffle-mixed-post</module>
-        <module>waffle-negotiate</module>
-        <module>waffle-spring-filter</module>
-        <module>waffle-spring-form</module>
-        <module>waffle-spring-boot-filter2</module>
-        <module>waffle-spring-boot-filter3</module>
+        <module>waffle-demo-filter</module>
+        <module>waffle-demo-form</module>
+        <module>waffle-demo-jaas</module>
+        <module>waffle-demo-mixed</module>
+        <module>waffle-demo-mixed-post</module>
+        <module>waffle-demo-negotiate</module>
+        <module>waffle-demo-spring-boot-filter2</module>
+        <module>waffle-demo-spring-filter</module>
+        <module>waffle-demo-spring-form</module>
     </modules>
 
     <scm>
@@ -75,7 +75,7 @@
         <cargo.maven.containerId>tomcat${tomcat.major-version}x</cargo.maven.containerId>
         <cargo.maven.containerUrl>https://archive.apache.org/dist/tomcat/tomcat-${tomcat.major-version}/v${tomcat.version}/bin/apache-tomcat-${tomcat.version}.zip</cargo.maven.containerUrl>
         <tomcat.major-version>9</tomcat.major-version>
-        <tomcat.version>9.0.91</tomcat.version>
+        <tomcat.version>9.0.105</tomcat.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.demo</module.name>
@@ -85,13 +85,10 @@
         <dependencies>
             <dependency>
                 <groupId>com.github.waffle</groupId>
-                <artifactId>waffle-jna</artifactId>
+                <artifactId>waffle-bom</artifactId>
                 <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.waffle</groupId>
-                <artifactId>waffle-tomcat9</artifactId>
-                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
 
             <dependency>

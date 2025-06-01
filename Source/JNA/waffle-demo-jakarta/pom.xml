@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    MIT License
+
+    Copyright (c) 2010-2025 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.github.waffle</groupId>
+        <artifactId>waffle</artifactId>
+        <version>3.6.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.github.waffle.demo.jakarta</groupId>
+    <artifactId>waffle-demo-parent-jakarta</artifactId>
+    <version>3.6.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>waffle-demo-parent-jakarta</name>
+    <description>Parent POM for Waffle Demo</description>
+    <url>https://waffle.github.io/waffle/</url>
+
+    <modules>
+        <module>waffle-demo-filter-jakarta</module>
+        <module>waffle-demo-form-jakarta</module>
+        <module>waffle-demo-jaas-jakarta</module>
+        <module>waffle-demo-mixed-jakarta</module>
+        <module>waffle-demo-mixed-post-jakarta</module>
+        <module>waffle-demo-negotiate-jakarta</module>
+        <module>waffle-demo-spring-boot-filter3</module>
+        <module>waffle-demo-spring-filter-jakarta</module>
+        <module>waffle-demo-spring-form-jakarta</module>
+    </modules>
+
+    <scm>
+        <connection>scm:git:ssh://git@github.com/waffle/waffle.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/waffle/waffle.git</developerConnection>
+        <tag>HEAD</tag>
+        <url>https://github.com/Waffle/waffle</url>
+    </scm>
+
+    <properties>
+        <!-- Dependencies -->
+        <caffeine.version>3.2.0</caffeine.version>
+        <logback.version>1.5.18</logback.version>
+        <servlet.version>6.0.0</servlet.version>
+
+        <!-- Plugins -->
+        <cargo.plugin>1.10.19</cargo.plugin>
+
+        <!-- Cargo Setup -->
+        <cargo.maven.containerId>tomcat${tomcat.major-version}x</cargo.maven.containerId>
+        <cargo.maven.containerUrl>https://archive.apache.org/dist/tomcat/tomcat-${tomcat.major-version}/v${tomcat.version}/bin/apache-tomcat-${tomcat.version}.zip</cargo.maven.containerUrl>
+        <tomcat.major-version>10</tomcat.major-version>
+        <tomcat.version>10.1.41</tomcat.version>
+
+        <!-- Automatic Module Name for JPMS -->
+        <module.name>waffle.demo.jakarta</module.name>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.github.waffle</groupId>
+                <artifactId>waffle-bom-jakarta</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.ben-manes.caffeine</groupId>
+                <artifactId>caffeine</artifactId>
+                <version>${caffeine.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>${servlet.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.cargo</groupId>
+                    <artifactId>cargo-maven3-plugin</artifactId>
+                    <version>${cargo.plugin}</version>
+                    <configuration>
+                        <container>
+                            <containerId>${cargo.maven.containerId}</containerId>
+                            <zipUrlInstaller>
+                                <url>${cargo.maven.containerUrl}</url>
+                            </zipUrlInstaller>
+                        </container>
+                        <daemon>
+                            <properties>
+                                <cargo.daemon.url>http://localhost:18000</cargo.daemon.url>
+                                <cargo.daemon.handleid>${project.artifactId}</cargo.daemon.handleid>
+                            </properties>
+                        </daemon>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>
