@@ -64,5 +64,21 @@
 
     <build>
         <finalName>${project.name}</finalName>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.cargo</groupId>
+                    <artifactId>cargo-maven3-plugin</artifactId>
+                    <configuration>
+                        <configuration>
+                            <properties>
+                                <cargo.jvmargs>-Djava.security.auth.policy=${catalina.base}/webapps/${project.name}/jaas.policy
+                                    -Djava.security.auth.login.config=${catalina.base}/webapps/${project.name}/login.conf</cargo.jvmargs>
+                            </properties>
+                        </configuration>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 </project>
