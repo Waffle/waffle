@@ -102,7 +102,7 @@
     "scope" : "runtime",
     "type" : "jar",
     "optional" : false,
-    "integrity" : "sha512:1tJedy8YF35TuzUyK2adLKAL+lfy1yeLXC4D7vjpe//l8vPQitoMKYWx2l7lm7aMBOhZnpyMuJYdbaTsC005zw=="
+    "integrity" : "sha512:SnVp8WlBQRT6xVexyQOHDIHVYYME0oXaWws98vITQLcOgtITOCKfF/u0IvFGGWnZKu2v/3L387kNFEBSN9hBZg=="
   }, {
     "groupId" : "com.github.waffle",
     "artifactId" : "waffle-jna-jakarta",
@@ -110,7 +110,7 @@
     "scope" : "runtime",
     "type" : "jar",
     "optional" : false,
-    "integrity" : "sha512:X+6wClzYHolov738xy7bVmxPyDiV5X5pnf824zMjZgO2HkSMsND47BgYg4ZqscpDA7GSDWBchRjMY2QWwKcgXA=="
+    "integrity" : "sha512:G7AJbZnv41vHiAEUwm7OJcGZtvWIE1YibhBGIMyfbxOkmmQvA/WtLfHSUOju7erEJ8sPn3+WsWpfXzYGNyj/Hw=="
   }, {
     "groupId" : "com.github.waffle",
     "artifactId" : "waffle-spring-boot-autoconfigure3",
@@ -118,7 +118,7 @@
     "scope" : "runtime",
     "type" : "jar",
     "optional" : false,
-    "integrity" : "sha512:Hi512okLbeuLJS3LUHQ/VJ05txY9AGsZ0U/UhirXnKOWPEV3c4I80YzJniZXgxcNJb3Siptnly/btY6a9UV4wQ=="
+    "integrity" : "sha512:n+tWBC7pGcU/w+G9aQu8dS+GvQlGImYYvxDSbVbRNouZLixhrUdNwkiJDAXSZD06vM3e4ZH3cXGQfHxXOrPGfQ=="
   }, {
     "groupId" : "com.github.waffle",
     "artifactId" : "waffle-spring-boot-starter3",
@@ -126,7 +126,7 @@
     "scope" : "runtime",
     "type" : "jar",
     "optional" : false,
-    "integrity" : "sha512:dMaQGCoZXJFVvHaVxkmHWwxdxK/GWKSGxUJi4mpCwfJchY1OnMek4m6CzTFyorqJXtwJWS9AD91HcKKIAGxtUQ=="
+    "integrity" : "sha512:GkfAziscsHdTXn/30KEfKFaQcBqWH2wkUrbi+SzKfXXB45fGlOibsaNtd5kT1Nyn2ppud3ylVhWxnXKThReRwQ=="
   }, {
     "groupId" : "com.github.waffle",
     "artifactId" : "waffle-spring-security6",
@@ -134,7 +134,7 @@
     "scope" : "runtime",
     "type" : "jar",
     "optional" : false,
-    "integrity" : "sha512:3BZQxKYYma1DVnInu2KwG8pfvPlbjk/WQnZ6Z3dW+U2VCPAm7HU7PwMc6e4mo+JEJSpLGi2C4pWVO/XtXTuOpw=="
+    "integrity" : "sha512:IEEa0K6ws7oAScUJQCm3gjgi1SU35WJ2tE9LuOq8ivndAFeX1AWD78puHFHw5lMwtH42yMIumKSDrf73/Z5mOQ=="
   }, {
     "groupId" : "com.github.waffle",
     "artifactId" : "waffle-tomcat10",
@@ -142,7 +142,7 @@
     "scope" : "runtime",
     "type" : "jar",
     "optional" : false,
-    "integrity" : "sha512:TxPO7sSP/N7nrkvwGkEiyWvhBfbn1MoDnzO+5S6uIkV0RVwujRDRBfFiQtMSukBipncmy3yeArIYfwgsoK+SaA=="
+    "integrity" : "sha512:lBWusn2WCkSTvYJOGO9Rqj7O4ae0GuibIZYFw5p/9IwgGLU4XegeTZrae/lxduLPVyx++W1tZZj3OREifczV+w=="
   }, {
     "groupId" : "com.github.waffle",
     "artifactId" : "waffle-tomcat11",
@@ -150,7 +150,7 @@
     "scope" : "runtime",
     "type" : "jar",
     "optional" : false,
-    "integrity" : "sha512:UQD5MVAvBh0bf4d/qS5Q7g2xBVyKCayRsZ+PBlOw2/3qCvmP/Tb+pW39FhTKEz7baxr9cQMClXAOoh2ZZCwhSQ=="
+    "integrity" : "sha512:jqtxFHg6dpbZ4IAoPXqyILsYa4IF8zMz1TIiOaFDb1xklQVp5XmJK4TEeXr3bzqxzUX9Pyqnklyt58tgAkEE7w=="
   }, {
     "groupId" : "com.google.code.findbugs",
     "artifactId" : "jsr305",
