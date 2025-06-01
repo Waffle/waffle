@@ -50,9 +50,7 @@
 
     <properties>
         <!-- Dependencies -->
-        <byte-buddy.version>1.17.5</byte-buddy.version>
         <caffeine.version>3.2.0</caffeine.version>
-        <checker-qual.version>3.49.3</checker-qual.version>
         <jna.version>5.17.0</jna.version>
         <powermock.version>2.0.9</powermock.version>
         <servlet.version>6.1.0</servlet.version>
@@ -86,17 +84,14 @@
             <groupId>net.java.dev.jna</groupId>
             <artifactId>jna-platform</artifactId>
         </dependency>
+
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
             <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -108,32 +103,22 @@
             <version>${slf4j.version}</version>
             <optional>true</optional>
         </dependency>
+
         <dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>caffeine</artifactId>
             <version>${caffeine.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.checkerframework</groupId>
             <artifactId>checker-qual</artifactId>
-            <version>${checker-qual.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.powermock</groupId>
             <artifactId>powermock-reflect</artifactId>
             <version>${powermock.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.bytebuddy</groupId>
-            <artifactId>byte-buddy</artifactId>
-            <version>${byte-buddy.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.bytebuddy</groupId>
-            <artifactId>byte-buddy-agent</artifactId>
-            <version>${byte-buddy.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

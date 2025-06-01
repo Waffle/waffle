@@ -79,17 +79,7 @@
             </dependency>
             <dependency>
                 <groupId>com.github.waffle</groupId>
-                <artifactId>waffle-jetty-jakarta</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.waffle</groupId>
                 <artifactId>waffle-jna</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.waffle</groupId>
-                <artifactId>waffle-jna-jakarta</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -104,17 +94,7 @@
             </dependency>
             <dependency>
                 <groupId>com.github.waffle</groupId>
-                <artifactId>waffle-spring-boot-autoconfigure3</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.waffle</groupId>
                 <artifactId>waffle-spring-boot-starter2</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.waffle</groupId>
-                <artifactId>waffle-spring-boot-starter3</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -124,22 +104,7 @@
             </dependency>
             <dependency>
                 <groupId>com.github.waffle</groupId>
-                <artifactId>waffle-spring-security6</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.waffle</groupId>
                 <artifactId>waffle-tomcat9</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.waffle</groupId>
-                <artifactId>waffle-tomcat10</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.waffle</groupId>
-                <artifactId>waffle-tomcat11</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    MIT License
+
+    Copyright (c) 2010-2025 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.github.waffle</groupId>
+        <artifactId>waffle</artifactId>
+        <version>3.5.2-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.github.waffle</groupId>
+    <artifactId>waffle-distro-jakarta</artifactId>
+    <version>3.5.2-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>waffle-distro-jakarta</name>
+    <description>Distribution for WAFFLE</description>
+    <url>https://waffle.github.io/waffle/</url>
+
+    <scm>
+        <connection>scm:git:ssh://git@github.com/waffle/waffle.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/waffle/waffle.git</developerConnection>
+        <url>https://github.com/Waffle/waffle</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <properties>
+        <!-- Dependencies -->
+        <caffeine.version>3.2.0</caffeine.version>
+        <jna.version>5.17.0</jna.version>
+        <log4j.version>2.24.3</log4j.version>
+        <logback.version>1.5.18</logback.version>
+
+        <!-- Maven compiler options -->
+        <java.version>17</java.version>
+        <java.release.version>17</java.release.version>
+
+        <!-- Automatic Module Name for JPMS -->
+        <module.name>waffle.distro.jakarta</module.name>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Ensure latest log4j for security precaution -->
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-bom</artifactId>
+                <version>${log4j.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- Waffle Jars -->
+        <dependency>
+            <groupId>com.github.waffle</groupId>
+            <artifactId>waffle-jetty-jakarta</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.waffle</groupId>
+            <artifactId>waffle-jna-jakarta</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.waffle</groupId>
+            <artifactId>waffle-spring-boot-autoconfigure3</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.waffle</groupId>
+            <artifactId>waffle-spring-boot-starter3</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.waffle</groupId>
+            <artifactId>waffle-spring-security6</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.waffle</groupId>
+            <artifactId>waffle-tomcat10</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.waffle</groupId>
+            <artifactId>waffle-tomcat11</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Waffle Demo Wars -->
+        <dependency>
+            <groupId>com.github.waffle.demo</groupId>
+            <artifactId>waffle-spring-boot-filter3</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Third Parties -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${logback.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+            <version>${caffeine.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna</artifactId>
+            <version>${jna.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna-platform</artifactId>
+            <version>${jna.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>waffle</finalName>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <configuration>
+                        <rules>
+                            <enforceBytecodeVersion>
+                                <excludes>
+                                    <!-- Openssl contains panama for jdk 22 or higher if enabled via listener 'org.apache.catalina.core.OpenSSLLifecycleListener' -->
+                                    <exclude>org.apache.tomcat:tomcat-coyote-ffm</exclude>
+                                    <exclude>org.apache.tomcat.embed:tomcat-embed-core</exclude>
+                                </excludes>
+                            </enforceBytecodeVersion>
+                        </rules>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <!-- Assembly -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <configuration>
+                    <licenseSets>
+                        <licenseSet>
+                            <excludes combine.children="append">
+                                <exclude>**/*LICENSE-caffeine.txt</exclude>
+                                <exclude>**/*LICENSE-jna.txt</exclude>
+                                <exclude>**/*LICENSE-logback.txt</exclude>
+                                <exclude>**/*LICENSE-slf4j.txt</exclude>
+                            </excludes>
+                        </licenseSet>
+                    </licenseSets>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -91,10 +91,6 @@
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-                <exclusion>
                     <groupId>commons-collections</groupId>
                     <artifactId>commons-collections</artifactId>
                 </exclusion>
@@ -105,16 +101,6 @@
             <artifactId>powermock-reflect</artifactId>
             <version>${powermock.version}</version>
             <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>net.bytebuddy</groupId>
-                    <artifactId>byte-buddy</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>net.bytebuddy</groupId>
-                    <artifactId>byte-buddy-agent</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
     </dependencies>
 </project>

@@ -86,8 +86,10 @@
 
     <modules>
         <module>waffle-bom</module>
+        <module>waffle-bom-jakarta</module>
         <module>waffle-demo</module>
         <module>waffle-distro</module>
+        <module>waffle-distro-jakarta</module>
         <module>waffle-jetty</module>
         <module>waffle-jetty-jakarta</module>
         <module>waffle-jna</module>
@@ -119,13 +121,9 @@
         <url>https://github.com/Waffle/waffle/actions</url>
     </ciManagement>
     <distributionManagement>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
         <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <id>central</id>
+            <url>https://central.sonatype.com/repository/maven-snapshots/</url>
         </snapshotRepository>
         <site>
             <id>gh-pages-scm</id>
@@ -150,11 +148,11 @@
         <!-- Maven compiler options -->
         <java.version>11</java.version>
         <java.release.version>11</java.release.version>
-        <java.test.version>11</java.test.version>
-        <java.test.release.version>11</java.test.release.version>
+        <java.test.version>${java.version}</java.test.version>
+        <java.test.release.version>${java.release.version}</java.test.release.version>
 
         <!-- Javadoc Release is strict due to maven bug and automatic module naming; it needs extra help, see examples, later fixed by legacy.mode flag -->
-        <javadoc.java.release.version>11</javadoc.java.release.version>
+        <javadoc.java.release.version>${java.release.version}</javadoc.java.release.version>
         <javadoc.legacy.mode>true</javadoc.legacy.mode>
 
         <!-- Legacy compiler options source/target not really needed now (but still used by things like sonar, m2e) -->
@@ -187,7 +185,7 @@
         <timestamp>${maven.build.timestamp}</timestamp>
 
         <!-- Enforcer Jdks Allowed -->
-        <allowed.build.jdks note="Allow any 17, 21, 23, 24, 25">[17,18),[21,22),[23,24),[24,25),[25,26)</allowed.build.jdks>
+        <allowed.build.jdks note="Allow any 17, 21, 24, 25">[17,18),[21,22),[24,25),[25,26)</allowed.build.jdks>
 
         <!-- Checkstyle -->
         <checkstyle.config>checkstyle.xml</checkstyle.config>
@@ -195,6 +193,7 @@
         <!-- Third Party Versions -->
         <assertj.version>3.27.3</assertj.version>
         <byte-buddy.version>1.17.5</byte-buddy.version>
+        <checker.version>3.49.3</checker.version>
         <commons-math.version>3.6.1</commons-math.version>
         <error-prone.version>2.38.0</error-prone.version>
         <j2objc.version>3.0.0</j2objc.version>
@@ -209,6 +208,7 @@
         <antrun.plugin>3.1.0</antrun.plugin>
         <assembly.plugin>3.7.1</assembly.plugin>
         <build-helper.plugin>3.6.0</build-helper.plugin>
+        <central-publishing.plugin>0.7.0</central-publishing.plugin>
         <checkstyle.plugin>3.6.0</checkstyle.plugin>
         <clean.plugin>3.5.0</clean.plugin>
         <compiler.plugin>3.14.0</compiler.plugin>
@@ -276,6 +276,35 @@
         <argLine>-javaagent:${settings.localRepository}/com/github/hazendaz/jmockit/jmockit/${jmockit.version}/jmockit-${jmockit.version}.jar -javaagent:${settings.localRepository}/net/bytebuddy/byte-buddy-agent/${byte-buddy.version}/byte-buddy-agent-${byte-buddy.version}.jar</argLine>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy</artifactId>
+                <version>${byte-buddy.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy-agent</artifactId>
+                <version>${byte-buddy.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.checkerframework</groupId>
+                <artifactId>checker-qual</artifactId>
+                <version>${checker.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>${junit.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency>
             <!-- prevent warning: SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder". -->
@@ -313,16 +342,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>net.bytebuddy</groupId>
-            <artifactId>byte-buddy</artifactId>
-            <version>${byte-buddy.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.bytebuddy</groupId>
-            <artifactId>byte-buddy-agent</artifactId>
-            <version>${byte-buddy.version}</version>
-        </dependency>
-        <dependency>
             <groupId>com.github.hazendaz.jmockit</groupId>
             <artifactId>jmockit</artifactId>
             <version>${jmockit.version}</version>
@@ -331,7 +350,6 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -426,6 +444,7 @@
                                 </includes>
                             </fileset>
                         </filesets>
+                        <force>true</force>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -467,11 +486,13 @@
                     <configuration>
                         <rules>
                             <bannedDependencies>
-                                <message>Do not use obsolete logging libraries.  Prefer slf4j/logback and override slf4j libraries for replacements</message>
+                                <message>Do not use obsolete logging libraries.  Prefer slf4j/logback and override slf4j libraries for replacements.  Use only commons-logging when needed and no overrides from any of the major logging providers.</message>
                                 <excludes>
-                                    <exclude>commons-logging:commons-logging</exclude>
                                     <exclude>log4j:log4j</exclude>
+                                    <exclude>org.apache.logging.log4j:log4j-jcl</exclude>
+                                    <exclude>org.slf4j:jcl-over-slf4j</exclude>
                                     <exclude>org.slf4j:slf4j-log4j12</exclude>
+                                    <exclude>org.springframework:spring-jcl</exclude>
                                 </excludes>
                             </bannedDependencies>
                             <banDuplicatePomDependencyVersions />
@@ -479,7 +500,7 @@
                                 <maxJdkVersion>${java.version}</maxJdkVersion>
                                 <ignoredScopes>provided,test</ignoredScopes>
                             </enforceBytecodeVersion>
-                            <!-- Skip convergence due to separate parent until such time .net is moved to new repo -->
+                            <!-- TODO: Skip convergence due to separate parent until such time .net is moved to new repo -->
                             <!--<reactorModuleConvergence />-->
                             <requireJavaVersion>
                                 <message>Please upgrade java and configure 'JAVA_HOME'.</message>
@@ -1119,6 +1140,17 @@
                         </dependency>
                     </dependencies>
                 </plugin>
+
+                <!-- Sonatype Provided Plugins -->
+                <plugin>
+                    <groupId>org.sonatype.central</groupId>
+                    <artifactId>central-publishing-maven-plugin</artifactId>
+                    <version>${central-publishing.plugin}</version>
+                    <extensions>true</extensions>
+                    <configuration>
+                        <publishingServerId>central</publishingServerId>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
 
@@ -1311,6 +1343,16 @@
                         <phase>verify</phase>
                     </execution>
                 </executions>
+            </plugin>
+
+            <!-- Sonatype Provided Plugins -->
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -1552,6 +1594,21 @@
                                                     <runOnConfiguration>true</runOnConfiguration>
                                                     <runOnIncremental>true</runOnIncremental>
                                                 </execute>
+                                            </action>
+                                        </pluginExecution>
+
+                                        <!-- rewrite m2e in plugin missing, we will process -->
+                                        <pluginExecution>
+                                            <pluginExecutionFilter>
+                                                <groupId>org.openrewrite.maven</groupId>
+                                                <artifactId>rewrite-maven-plugin</artifactId>
+                                                <versionRange>[${rewrite.plugin},)</versionRange>
+                                                <goals>
+                                                    <goal>run</goal>
+                                                </goals>
+                                            </pluginExecutionFilter>
+                                            <action>
+                                                <ignore />
                                             </action>
                                         </pluginExecution>
                                     </pluginExecutions>
