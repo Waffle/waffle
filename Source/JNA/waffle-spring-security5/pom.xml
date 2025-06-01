@@ -51,7 +51,7 @@
     <properties>
         <!-- Dependencies -->
         <commons-logging.version>1.3.5</commons-logging.version>
-        <servlet.version>4.0.4</servlet.version>
+        <servlet.version>6.1.0</servlet.version>
         <spring.version>5.3.39</spring.version>
         <spring.security.version>5.8.16</spring.security.version>
 
