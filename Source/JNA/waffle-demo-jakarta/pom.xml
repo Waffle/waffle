@@ -139,4 +139,47 @@
             </plugins>
         </pluginManagement>
     </build>
+
+    <profiles>
+        <profile>
+            <id>compression</id>
+            <activation>
+                <file>
+                    <exists>${project.basedir}/compression.xml</exists>
+                </file>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.github.hazendaz.maven</groupId>
+                        <artifactId>htmlcompressor-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>compress-webapp</id>
+                                <goals>
+                                    <goal>html</goal>
+                                </goals>
+                                <phase>compile</phase>
+                                <configuration>
+                                    <srcFolder>${project.basedir}/src/main/webapp</srcFolder>
+                                    <targetFolder>${project.basedir}/target/webapp</targetFolder>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <configuration>
+                            <webResources>
+                                <resource>
+                                    <directory>${project.build.directory}/webapp</directory>
+                                </resource>
+                            </webResources>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
