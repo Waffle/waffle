@@ -17,6 +17,4 @@ To deploy using cargo plugin to tomcat 9.0.x
 
     http://localhost:8080/waffle-demo-jaas/
 
-- Use 'admin' as logon without any password to test the jaas
-
-TODO: JAAS needs logon setup so it will fail at the moment on cargo.
+- Use 'DOMAIN\\user' as logon with windows password to test the jaas
