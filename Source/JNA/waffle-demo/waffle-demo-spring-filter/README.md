@@ -17,4 +17,4 @@ To deploy using cargo plugin to tomcat 9.0.x
 
     http://localhost:8080/waffle-demo-spring-filter/
 
-- Use 'admin' as logon without any password to test the filter
+- Use windows user (without domain) as logon with windows password to test the filter
