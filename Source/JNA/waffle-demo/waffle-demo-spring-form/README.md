@@ -17,6 +17,4 @@ To deploy using cargo plugin to tomcat 9.0.x
 
     http://localhost:8080/waffle-demo-spring-form/
 
-- Use 'admin' as logon without any password to test the form
-
-TODO: Having issues getting this to work, look into more
+- Use 'DOMAIN\\user' as logon with windows password to test the form
