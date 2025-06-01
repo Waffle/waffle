@@ -72,7 +72,7 @@ Jaas {
 
 The login.conf configuration file is passed to Java with `-Djava.security.auth.login.config=<path-to-file>/login.conf`.
 
-The following options are supported by the module. 
+The following options are supported by the module.
 
 * debug: Set to "true" to enable debug mode. In debug mode the module will output information about successful logins, including group memberships.
 * principalFormat: Specifies the name format for the principal.
