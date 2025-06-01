@@ -14,7 +14,7 @@ jobs:
         cache: [maven]
         distribution: ['temurin']
         java: [21, 24, 25-ea]
-        os: [windows-2019, windows-latest]
+        os: [windows-2025, windows-latest]
       fail-fast: false
       max-parallel: 4
     name: Test JDK ${{ matrix.java }}, ${{ matrix.os }}
