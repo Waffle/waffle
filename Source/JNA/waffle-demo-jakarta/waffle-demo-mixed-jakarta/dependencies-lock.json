@@ -46,7 +46,7 @@
     "scope" : "provided",
     "type" : "jar",
     "optional" : false,
-    "integrity" : "sha512:X+6wClzYHolov738xy7bVmxPyDiV5X5pnf824zMjZgO2HkSMsND47BgYg4ZqscpDA7GSDWBchRjMY2QWwKcgXA=="
+    "integrity" : "sha512:G7AJbZnv41vHiAEUwm7OJcGZtvWIE1YibhBGIMyfbxOkmmQvA/WtLfHSUOju7erEJ8sPn3+WsWpfXzYGNyj/Hw=="
   }, {
     "groupId" : "com.github.waffle",
     "artifactId" : "waffle-tomcat10",
@@ -54,7 +54,7 @@
     "scope" : "provided",
     "type" : "jar",
     "optional" : false,
-    "integrity" : "sha512:TxPO7sSP/N7nrkvwGkEiyWvhBfbn1MoDnzO+5S6uIkV0RVwujRDRBfFiQtMSukBipncmy3yeArIYfwgsoK+SaA=="
+    "integrity" : "sha512:lBWusn2WCkSTvYJOGO9Rqj7O4ae0GuibIZYFw5p/9IwgGLU4XegeTZrae/lxduLPVyx++W1tZZj3OREifczV+w=="
   }, {
     "groupId" : "com.google.code.findbugs",
     "artifactId" : "jsr305",
