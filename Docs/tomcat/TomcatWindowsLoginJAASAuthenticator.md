@@ -1,14 +1,15 @@
 Tomcat Windows Login JAAS Authenticator
 =======================================
 
-Waffle implements a standard Java Authentication and Authorization login module that can be notably used with a JAAS realm to authenticate Windows users in Tomcat. This enables you to add a BASIC, DIGEST or FORMS login to your application and authenticate against a Windows Active Directory using Windows local or domain groups as means of authorization.
+Waffle implements a standard Java Authentication and Authorization login module that can be notably used with a JAAS realm to authenticate Windows users in Tomcat. This enables you to add a BASIC, DIGEST or FORMS login
+to your application and authenticate against a Windows Active Directory using Windows local or domain groups as means of authorization.
 
 Configuring Tomcat
 ------------------
 
 The following steps are required to configure Tomcat with Waffle authenticator. 
 
-Package Waffle JARs, including `waffle-jna.jar`, `caffeine.jar`, `jna.jar`, `jna-platform.jar`, and `slf4j-api.jar` in the application's lib directory or copy them to Tomcat's lib.
+Package Waffle JARs, including `waffle-jna.jar`, `caffeine.jar`, `checker-qual`, `jna.jar`, `jna-platform.jar`, `jspecify`, `slf4j-api.jar`, `logback-classic`, and `logback-core` in the application's lib directory or copy them to Tomcat's lib.
 
 - Use specific versions as bundled in waffle-distro
 
@@ -18,10 +19,10 @@ Add a JAAS realm to the application context. Modify `META-INF\context.xml`.
 <Context>
  <Realm className="org.apache.catalina.realm.JAASRealm" 
     appName="Jaas" 
-    userClassNames="waffle.jaas.UserPrincipal" 
+    userClassNames="waffle.jaas.UserPrincipal"
     roleClassNames="waffle.jaas.RolePrincipal"
-    useContextClassLoader="false" 
-    debug="false" />
+    useContextClassLoader="true"
+    debug="0" />
 </Context>
 
 Enable BASIC, DIGEST or FORMS authentication for this realm. Modify `WEB-INF\web.xml`. 
@@ -109,7 +110,7 @@ You must start Tomcat with Security Manager enabled (`-security`) and configure 
 ``` bat
 @echo off
 setlocal
-set JAVA_OPTS=-Djava.security.auth.login.config="C:/Program Files/Tomcat/webapps/waffle-jaas/login.conf" -Djava.security.auth.policy="C:/Program Files/Tomcat/webapps/waffle-jaas/jaas.policy"
+set JAVA_OPTS=-Djava.security.auth.login.config="C:/Program Files/Tomcat/webapps/waffle-demo-jaas/login.conf" -Djava.security.auth.policy="C:/Program Files/Tomcat/webapps/waffle-demo-jaas/jaas.policy"
 call bin/catalina.bat run -security
 endlocal
 ```
@@ -128,4 +129,8 @@ Restart Tomcat and review `logs\Catalina*.log`.
 Waffle JAAS Demo
 ----------------
 
-A demo application can be found in the Waffle distribution in the `Samples\waffle-jaas` directory. Copy the entire directory into Tomcat's webapps directory and navigate to http://localhost:8080/waffle-jaas/.
+A demo application can be found in the Waffle distribution in the `Samples\waffle-demo-jaas` directory. Copy the entire directory into Tomcat's webapps directory and navigate to http://localhost:8080/waffle-demo-jaas/.
+
+User for Usage
+
+DOMAIN\\user
