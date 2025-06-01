@@ -125,8 +125,64 @@
         <!-- Waffle Demo Wars -->
         <dependency>
             <groupId>com.github.waffle.demo</groupId>
-            <artifactId>waffle-spring-boot-filter3</artifactId>
+            <artifactId>waffle-demo-filter-jakarta</artifactId>
             <version>${project.version}</version>
+            <type>war</type>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.waffle.demo</groupId>
+            <artifactId>waffle-demo-form-jakarta</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.waffle.demo</groupId>
+            <artifactId>waffle-demo-jaas-jakarta</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.waffle.demo</groupId>
+            <artifactId>waffle-demo-mixed-jakarta</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.waffle.demo</groupId>
+            <artifactId>waffle-demo-mixed-post-jakarta</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.waffle.demo</groupId>
+            <artifactId>waffle-demo-negotiate-jakarta</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.waffle.demo</groupId>
+            <artifactId>waffle-demo-spring-boot-filter3</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.waffle.demo</groupId>
+            <artifactId>waffle-demo-spring-filter-jakarta</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.waffle.demo</groupId>
+            <artifactId>waffle-demo-spring-form-jakarta</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
             <scope>runtime</scope>
         </dependency>
 
@@ -148,23 +204,33 @@
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>caffeine</artifactId>
             <version>${caffeine.version}</version>
+            <scope>runtime</scope>
         </dependency>
 
         <dependency>
             <groupId>net.java.dev.jna</groupId>
             <artifactId>jna</artifactId>
             <version>${jna.version}</version>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>net.java.dev.jna</groupId>
             <artifactId>jna-platform</artifactId>
             <version>${jna.version}</version>
+            <scope>runtime</scope>
         </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
+            <artifactId>jul-to-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 

@@ -170,62 +170,62 @@
         <!-- Waffle Demo Wars -->
         <dependency>
             <groupId>com.github.waffle.demo</groupId>
-            <artifactId>waffle-filter</artifactId>
+            <artifactId>waffle-demo-filter</artifactId>
             <version>${project.version}</version>
             <type>war</type>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.github.waffle.demo</groupId>
-            <artifactId>waffle-form</artifactId>
+            <artifactId>waffle-demo-form</artifactId>
             <version>${project.version}</version>
             <type>war</type>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.github.waffle.demo</groupId>
-            <artifactId>waffle-jaas</artifactId>
+            <artifactId>waffle-demo-jaas</artifactId>
             <version>${project.version}</version>
             <type>war</type>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.github.waffle.demo</groupId>
-            <artifactId>waffle-mixed</artifactId>
+            <artifactId>waffle-demo-mixed</artifactId>
             <version>${project.version}</version>
             <type>war</type>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.github.waffle.demo</groupId>
-            <artifactId>waffle-mixed-post</artifactId>
+            <artifactId>waffle-demo-mixed-post</artifactId>
             <version>${project.version}</version>
             <type>war</type>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.github.waffle.demo</groupId>
-            <artifactId>waffle-negotiate</artifactId>
+            <artifactId>waffle-demo-negotiate</artifactId>
             <version>${project.version}</version>
             <type>war</type>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.github.waffle.demo</groupId>
-            <artifactId>waffle-spring-boot-filter2</artifactId>
+            <artifactId>waffle-demo-spring-boot-filter2</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.github.waffle.demo</groupId>
-            <artifactId>waffle-spring-filter</artifactId>
+            <artifactId>waffle-demo-spring-filter</artifactId>
             <version>${project.version}</version>
             <type>war</type>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.github.waffle.demo</groupId>
-            <artifactId>waffle-spring-form</artifactId>
+            <artifactId>waffle-demo-spring-form</artifactId>
             <version>${project.version}</version>
             <type>war</type>
             <scope>runtime</scope>
