@@ -17,6 +17,4 @@ To deploy using cargo plugin to tomcat 9.0.x
 
     http://localhost:8080/waffle-demo-mixed-post/
 
-- Use 'admin' as logon without any password to test the mixed post
-
-TODO: First 'form' gets 'An error has occurred'
+- Use 'DOMAIN\\user' as logon with windows password to test the mixed post
