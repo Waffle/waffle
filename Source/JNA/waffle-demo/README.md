@@ -1,9 +1,9 @@
 Waffle Demo Setup Instructions Using Cargo Plugin
 =================================================
 
-Cargo Plugin currently configured for tomcat 8.5.x.
+Cargo Plugin currently configured for tomcat 9.0.x.
 
-To deploy using cargo plugin to tomcat 8.5.x
+To deploy using cargo plugin to tomcat 9.0.x
 
 - Build the application
 

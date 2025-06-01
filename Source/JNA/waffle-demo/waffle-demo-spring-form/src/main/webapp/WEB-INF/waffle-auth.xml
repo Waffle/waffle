@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    MIT License
+
+    Copyright (c) 2010-2025 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:sec="http://www.springframework.org/schema/security"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/security https://www.springframework.org/schema/security/spring-security.xsd">
+
+    <sec:http auto-config="true">
+        <sec:intercept-url pattern="/login.jsp" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+        <sec:intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY" />
+        <sec:form-login login-page="/login.jsp" login-processing-url="/j_spring_security_check"
+            default-target-url="/index.jsp" authentication-failure-url="/login.jsp?login_error=1"
+            username-parameter="j_username" password-parameter="j_password" />
+    </sec:http>
+
+    <!-- windows authentication provider -->
+    <bean id="waffleWindowsAuthProvider" class="waffle.windows.auth.impl.WindowsAuthProviderImpl" />
+
+    <!-- waffle authentication provider -->
+    <bean id="waffleSpringAuthenticationProvider" class="waffle.spring.WindowsAuthenticationProvider">
+        <property name="allowGuestLogin" value="false" />
+        <property name="principalFormat" value="fqn" />
+        <property name="roleFormat" value="both" />
+        <property name="authProvider" ref="waffleWindowsAuthProvider" />
+    </bean>
+
+    <!-- spring authentication provider -->
+    <sec:authentication-manager alias="authenticationProvider">
+        <sec:authentication-provider ref="waffleSpringAuthenticationProvider" />
+    </sec:authentication-manager>
+</beans>

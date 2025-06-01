@@ -88,6 +88,7 @@
         <module>waffle-bom</module>
         <module>waffle-bom-jakarta</module>
         <module>waffle-demo</module>
+        <module>waffle-demo-jakarta</module>
         <module>waffle-distro</module>
         <module>waffle-distro-jakarta</module>
         <module>waffle-jetty</module>
@@ -95,6 +96,7 @@
         <module>waffle-jna</module>
         <module>waffle-jna-jakarta</module>
         <module>waffle-shiro</module>
+        <!-- <module>waffle-shiro-jakarta</module -->
         <module>waffle-spring-boot2</module>
         <module>waffle-spring-boot3</module>
         <module>waffle-spring-security5</module>
