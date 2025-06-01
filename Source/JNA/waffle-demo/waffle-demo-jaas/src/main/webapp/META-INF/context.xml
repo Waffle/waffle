@@ -27,5 +27,5 @@
 <!DOCTYPE Context>
 <Context>
     <Realm className="org.apache.catalina.realm.JAASRealm" appName="Jaas" userClassNames="waffle.jaas.UserPrincipal"
-        roleClassNames="waffle.jaas.RolePrincipal" useContextClassLoader="false" debug="true" />
+        roleClassNames="waffle.jaas.RolePrincipal" useContextClassLoader="true" debug="100" />
 </Context>

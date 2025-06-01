@@ -1,9 +1,9 @@
 Waffle Spring Form Setup Instructions Using Cargo Plugin
 ========================================================
 
-Cargo Plugin currently configured for tomcat 8.5.x.
+Cargo Plugin currently configured for tomcat 9.0.x.
 
-To deploy using cargo plugin to tomcat 8.5.x
+To deploy using cargo plugin to tomcat 9.0.x
 
 - Build the application
 
@@ -15,8 +15,6 @@ To deploy using cargo plugin to tomcat 8.5.x
 
 - The app will be available at:
 
-    http://localhost:8080/waffle-spring-form/
+    http://localhost:8080/waffle-demo-spring-form/
 
-- Use 'admin' as logon without any password to test the form
-
-TODO: Having issues getting this to work, look into more
+- Use 'DOMAIN\\user' as logon with windows password to test the form
