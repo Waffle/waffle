@@ -31,12 +31,12 @@
     <parent>
         <groupId>com.github.waffle.demo.jakarta</groupId>
         <artifactId>waffle-demo-parent-jakarta</artifactId>
-        <version>3.5.2-SNAPSHOT</version>
+        <version>3.6.0-SNAPSHOT</version>
     </parent>
 
     <groupId>com.github.waffle.demo.jakarta</groupId>
     <artifactId>waffle-demo-spring-boot-filter3</artifactId>
-    <version>3.5.2-SNAPSHOT</version>
+    <version>3.6.0-SNAPSHOT</version>
 
     <name>waffle-demo-spring-boot-filter3</name>
     <description>Spring Boot Filter 3 Demo for WAFFLE</description>
