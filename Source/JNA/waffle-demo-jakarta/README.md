@@ -15,6 +15,6 @@ To deploy using cargo plugin to tomcat 10.1.x
 
 - The app will be available at:
 
-    http://localhost:8080/waffle-XXX/
+    http://localhost:8080/waffle-demo-XXX-jakarta/
 
 - Use 'admin' as logon without any password to test the configuration

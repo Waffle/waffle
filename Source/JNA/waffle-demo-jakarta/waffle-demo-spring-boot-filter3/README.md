@@ -1,7 +1,7 @@
 Waffle Spring Boot Filter Setup Instructions
 ============================================
 
-To deploy using springboot
+To deploy using springboot 3.5.x using tomcat 10.1.x
 
 - Build the application
 
