@@ -60,7 +60,7 @@
         <jackson.version>2.19.1</jackson.version>
         <jna.version>5.17.0</jna.version>
         <junit.version>5.13.3</junit.version>
-        <log4j.version>2.25.0</log4j.version>
+        <log4j.version>2.25.1</log4j.version>
         <logback.version>1.2.13</logback.version>
         <slf4j.version>1.7.36</slf4j.version>
         <snakeyaml.version>2.4</snakeyaml.version>
