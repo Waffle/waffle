@@ -58,7 +58,14 @@ public class AuthorizationHeader {
      * @return the header
      */
     public String getHeader() {
-        return this.request.getHeader("Authorization");
+        Enumeration<String> headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String headerName = headerNames.nextElement();
+            if ("authorization".equalsIgnoreCase(headerName)) {
+                return request.getHeader(headerName);
+            }
+        }
+        return null;
     }
 
     /**
