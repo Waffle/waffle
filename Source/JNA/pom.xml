@@ -193,7 +193,7 @@
         <checkstyle.config>checkstyle.xml</checkstyle.config>
 
         <!-- Third Party Versions -->
-        <assertj.version>3.27.3</assertj.version>
+        <assertj.version>3.27.4</assertj.version>
         <byte-buddy.version>1.17.6</byte-buddy.version>
         <checker.version>3.49.5</checker.version>
         <commons-math.version>3.6.1</commons-math.version>
