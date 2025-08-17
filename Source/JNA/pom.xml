@@ -194,7 +194,7 @@
 
         <!-- Third Party Versions -->
         <assertj.version>3.27.4</assertj.version>
-        <byte-buddy.version>1.17.6</byte-buddy.version>
+        <byte-buddy.version>1.17.7</byte-buddy.version>
         <checker.version>3.49.5</checker.version>
         <commons-math.version>3.6.1</commons-math.version>
         <error-prone.version>2.41.0</error-prone.version>
