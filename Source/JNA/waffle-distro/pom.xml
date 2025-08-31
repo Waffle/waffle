@@ -56,7 +56,7 @@
         <jna.version>5.17.0</jna.version>
         <log4j.version>2.25.1</log4j.version>
         <logback.version>1.5.18</logback.version>
-        <snakeyaml.version>2.4</snakeyaml.version>
+        <snakeyaml.version>2.5</snakeyaml.version>
         <spring.version>5.3.39</spring.version>
         <tomcat.version>9.0.108</tomcat.version>
 
