@@ -197,7 +197,7 @@
         <byte-buddy.version>1.17.7</byte-buddy.version>
         <checker.version>3.51.0</checker.version>
         <commons-math.version>3.6.1</commons-math.version>
-        <error-prone.version>2.41.0</error-prone.version>
+        <error-prone.version>2.42.0</error-prone.version>
         <j2objc.version>3.1</j2objc.version>
         <jmh.version>1.37</jmh.version>
         <jmockit.version>1.56.0</jmockit.version>
