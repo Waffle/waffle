@@ -53,7 +53,7 @@
         <!-- Dependencies -->
         <caffeine.version>3.2.2</caffeine.version>
         <jackson.version>2.20.0</jackson.version>
-        <jna.version>5.17.0</jna.version>
+        <jna.version>5.18.0</jna.version>
         <log4j.version>2.25.1</log4j.version>
         <logback.version>1.5.18</logback.version>
         <snakeyaml.version>2.5</snakeyaml.version>
