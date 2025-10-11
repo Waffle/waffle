@@ -226,7 +226,7 @@
         <htmlcompressor.plugin>2.2.0</htmlcompressor.plugin>
         <impsort.plugin>1.12.0</impsort.plugin>
         <install.plugin>3.1.4</install.plugin>
-        <jacoco.plugin>0.8.13</jacoco.plugin>
+        <jacoco.plugin>0.8.14</jacoco.plugin>
         <jar.plugin>3.4.2</jar.plugin>
         <javadoc.plugin>3.12.0</javadoc.plugin>
         <jxr.plugin>3.6.0</jxr.plugin>
