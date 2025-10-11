@@ -232,7 +232,7 @@
         <jxr.plugin>3.6.0</jxr.plugin>
         <license.plugin>5.0.0</license.plugin>
         <modernizer.plugin>3.2.0</modernizer.plugin>
-        <pmd.plugin>3.27.0</pmd.plugin>
+        <pmd.plugin>3.28.0</pmd.plugin>
         <project-info-reports.plugin>3.9.0</project-info-reports.plugin>
         <release.plugin>3.1.1</release.plugin>
         <resources.plugin>3.3.1</resources.plugin>
