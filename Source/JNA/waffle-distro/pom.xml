@@ -51,7 +51,7 @@
 
     <properties>
         <!-- Dependencies -->
-        <caffeine.version>3.2.2</caffeine.version>
+        <caffeine.version>3.2.3</caffeine.version>
         <jackson.version>2.20.0</jackson.version>
         <jna.version>5.18.1</jna.version>
         <log4j.version>2.25.2</log4j.version>
