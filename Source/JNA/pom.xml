@@ -187,7 +187,7 @@
         <timestamp>${maven.build.timestamp}</timestamp>
 
         <!-- Enforcer Jdks Allowed -->
-        <allowed.build.jdks note="Allow any 17, 21, 24, 25">[17,18),[21,22),[24,25),[25,26)</allowed.build.jdks>
+        <allowed.build.jdks note="Allow any 21, 25, 26">[21,22),[25,26),[26,27)</allowed.build.jdks>
 
         <!-- Checkstyle -->
         <checkstyle.config>checkstyle.xml</checkstyle.config>
