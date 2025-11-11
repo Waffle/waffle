@@ -9,7 +9,7 @@ To deploy using springboot 2.7.x using tomcat 9.0.x
 
 - To run spring boot
 
-    mvn spring-boot:run
+    mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dorg.springframework.boot.logging.LoggingSystem=none"
 
 - The app will be available at:
 
