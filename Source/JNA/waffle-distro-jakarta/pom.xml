@@ -54,7 +54,7 @@
         <caffeine.version>3.2.3</caffeine.version>
         <jna.version>5.18.1</jna.version>
         <log4j.version>2.25.2</log4j.version>
-        <logback.version>1.5.18</logback.version>
+        <logback.version>1.5.21</logback.version>
 
         <!-- Maven compiler options -->
         <java.version>17</java.version>
