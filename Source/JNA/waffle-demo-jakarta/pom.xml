@@ -75,7 +75,7 @@
         <cargo.maven.containerId>tomcat${tomcat.major-version}x</cargo.maven.containerId>
         <cargo.maven.containerUrl>https://archive.apache.org/dist/tomcat/tomcat-${tomcat.major-version}/v${tomcat.version}/bin/apache-tomcat-${tomcat.version}.zip</cargo.maven.containerUrl>
         <tomcat.major-version>10</tomcat.major-version>
-        <tomcat.version>10.1.41</tomcat.version>
+        <tomcat.version>10.1.49</tomcat.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.demo.jakarta</module.name>
