@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"waffle.apache.catalina","l":"SimpleHttpRequest"},{"p":"waffle.apache.catalina","l":"SimpleHttpResponse"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html","k":"18"},{"p":"waffle.apache.catalina","l":"SimpleHttpRequest"},{"p":"waffle.apache.catalina","l":"SimpleHttpResponse"}];updateSearchResults();

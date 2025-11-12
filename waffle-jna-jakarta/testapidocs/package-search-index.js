@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"waffle.jaas"},{"l":"waffle.servlet"},{"l":"waffle.servlet.spi"},{"l":"waffle.util"},{"l":"waffle.windows.auth"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html","k":"18"},{"l":"waffle.jaas"},{"l":"waffle.servlet"},{"l":"waffle.servlet.spi"},{"l":"waffle.util"},{"l":"waffle.windows.auth"}];updateSearchResults();

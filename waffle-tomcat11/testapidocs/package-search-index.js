@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"waffle.apache"},{"l":"waffle.apache.catalina"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html","k":"18"},{"l":"waffle.apache"},{"l":"waffle.apache.catalina"}];updateSearchResults();
