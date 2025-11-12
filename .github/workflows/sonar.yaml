@@ -16,8 +16,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  SONAR_ORGANIZATION: Waffle
-  SONAR_PROJECT_KEY: waffle
+  SONAR_ORGANIZATION: waffle
+  SONAR_PROJECT_KEY: Waffle_waffle
 
 jobs:
   build:
@@ -38,7 +38,7 @@ jobs:
       - name: Set SONAR_SCANNER_JAVA_OPTS
         run: echo "SONAR_SCANNER_JAVA_OPTS=-Xmx512m" >> ${GITHUB_ENV}
       - name: Analyze with SonarCloud
-        run: ./mvnw verify jacoco:report sonar:sonar --batch-mode --no-transfer-progress --show-version -D"license.skip=true" -D"sonar.host.url=https://sonarcloud.io" -D"sonar.organization=${{ env.SONAR_ORGANIZATION }}" -D"sonar.projectKey=${{ env.SONAR_ORGANIZATION }}_${{ env.SONAR_PROJECT_KEY }}" -D"sonar.scanner.skipJreProvisioning=true" -D"sonar.token=${{ secrets.SONAR_TOKEN }}"
+        run: ./mvnw verify jacoco:report sonar:sonar --batch-mode --no-transfer-progress --show-version -D"license.skip=true" -D"sonar.host.url=https://sonarcloud.io" -D"sonar.organization=${{ env.SONAR_ORGANIZATION }}" -D"sonar.projectKey=${{ env.SONAR_PROJECT_KEY }}" -D"sonar.scanner.skipJreProvisioning=true" -D"sonar.token=${{ secrets.SONAR_TOKEN }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
