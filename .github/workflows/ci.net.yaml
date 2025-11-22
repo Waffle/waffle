@@ -13,7 +13,7 @@ jobs:
     name: Test .net ${{ matrix.os }}
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Set up environment
         run: ./bootstrap.cmd
       - name: Test with .Net
