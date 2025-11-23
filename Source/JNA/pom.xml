@@ -246,7 +246,7 @@
         <spotless.plugin>3.1.0</spotless.plugin>
         <surefire.plugin>3.5.4</surefire.plugin>
         <taglist.plugin>3.2.1</taglist.plugin>
-        <versions.plugin>2.19.1</versions.plugin>
+        <versions.plugin>2.20.0</versions.plugin>
         <war.plugin>3.5.0</war.plugin>
         <whitespace.plugin>1.5.0</whitespace.plugin>
         <yuicompressor.plugin>2.3.0</yuicompressor.plugin>
