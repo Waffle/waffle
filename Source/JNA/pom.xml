@@ -200,7 +200,7 @@
         <error-prone.version>2.45.0</error-prone.version>
         <j2objc.version>3.1</j2objc.version>
         <jmh.version>1.37</jmh.version>
-        <jmockit.version>2.0.1</jmockit.version>
+        <jmockit.version>2.1.0</jmockit.version>
         <jopt-simple.version>5.0.4</jopt-simple.version>
         <junit.version>6.0.1</junit.version>
         <spotbugs.version>4.9.8</spotbugs.version>
