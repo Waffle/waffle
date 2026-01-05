@@ -254,7 +254,7 @@
         <!-- Plugin Dependency Versions -->
         <asm.version>9.9.1</asm.version>
         <build-tools.version>1.5.0</build-tools.version>
-        <checkstyle.version>12.3.1</checkstyle.version>
+        <checkstyle.version>13.0.0</checkstyle.version>
         <extra-enforcer-rules.version>1.11.0</extra-enforcer-rules.version>
         <fluido.version note="Make sure to update in site.xml">2.1.0</fluido.version>
         <htmlcompressor.version>1.12.1</htmlcompressor.version>
