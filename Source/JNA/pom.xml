@@ -202,7 +202,7 @@
         <jmh.version>1.37</jmh.version>
         <jmockit.version>2.1.0</jmockit.version>
         <jopt-simple.version>5.0.4</jopt-simple.version>
-        <junit.version>6.0.1</junit.version>
+        <junit.version>6.0.2</junit.version>
         <spotbugs.version>4.9.8</spotbugs.version>
         <slf4j.version>2.0.17</slf4j.version>
 
