@@ -13,7 +13,7 @@ WAFFLE - Windows Authentication Framework
 
 <!-- Release / Distribution -->
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.waffle/waffle-jna)](https://central.sonatype.com/artifact/com.github.waffle/waffle-jna)
-[![releases](https://img.shields.io/github/v/release/Waffle/waffle)](https://github.com/Waffle/waffle/releases/tag/waffle-parent-3.5.1)
+[![GitHub Release](https://img.shields.io/github/v/release/Waffle/waffle)](https://github.com/Waffle/waffle/releases)
 
 <!-- License -->
 [![MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
