@@ -1,17 +1,26 @@
 WAFFLE - Windows Authentication Framework
 =========================================
 
-[![Java CI](https://github.com/Waffle/waffle/workflows/Java%20CI/badge.svg)](https://github.com/Waffle/waffle/actions?query=workflow%3A%22Java+CI%22)
+<!-- GitHub Actions -->
+[![Java CI](https://img.shields.io/github/actions/workflow/status/Waffle/waffle/java.yml?branch=master&label=Java%20CI)](https://github.com/Waffle/waffle/actions/workflows/ci.yaml)
 [![DotNET CI](https://github.com/Waffle/waffle/workflows/DotNET/badge.svg)](https://github.com/Waffle/waffle/workflows/DotNET)
-[![Coverity Scan Status](https://scan.coverity.com/projects/22153/badge.svg)](https://scan.coverity.com/projects/22153)
+
+<!-- Security / Quality -->
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Waffle_waffle&metric=alert_status)](https://sonarcloud.io/dashboard?id=Waffle_waffle)
 [![Coverage Status Sonar](https://sonarcloud.io/api/project_badges/measure?project=Waffle_waffle&metric=coverage)](https://sonarcloud.io/component_measures?id=Waffle_waffle&metric=coverage)
 [![Coverage Status Coveralls](https://coveralls.io/repos/github/Waffle/waffle/badge.svg?branch=master)](https://coveralls.io/github/Waffle/waffle?branch=master)
+[![Coverity Scan Status](https://scan.coverity.com/projects/22153/badge.svg)](https://scan.coverity.com/projects/22153)
+
+<!-- Release / Distribution -->
 [![Maven central](https://maven-badges.herokuapp.com/maven-central/com.github.waffle/waffle-jna/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.waffle/waffle-jna)
 [![releases](https://img.shields.io/github/v/release/Waffle/waffle)](https://github.com/Waffle/waffle/releases/tag/waffle-parent-3.5.1)
+
+<!-- License -->
 [![MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
+<!-- Stats -->
 [![Project Stats](https://www.openhub.net/p/waffle/widgets/project_thin_badge.gif)](https://www.openhub.net/p/waffle)
 [![Github All Releases](https://img.shields.io/github/downloads/Waffle/waffle/total.svg)](https://github.com/Waffle/waffle/)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Waffle_waffle&metric=alert_status)](https://sonarcloud.io/dashboard?id=Waffle_waffle)
 
 ![waffle](https://github.com/Waffle/waffle/raw/master/waffle.jpg)
 
