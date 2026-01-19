@@ -41,6 +41,7 @@ jobs:
       - name: Initialize CodeQL
         uses: github/codeql-action/init@cdefb33c0f6224e58673d9004f47f7cb3e328b89 # v4
         with:
+          # Required languages due to mixed .net and java in code base
           languages: ${{ matrix.language }}
           queries: +security-and-quality
 
@@ -50,4 +51,5 @@ jobs:
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@cdefb33c0f6224e58673d9004f47f7cb3e328b89 # v4
         with:
+          # Required languages due to mixed .net and java in code base
           category: "/language:${{ matrix.language }}"
