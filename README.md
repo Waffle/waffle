@@ -38,9 +38,10 @@ Sites
 Essentials
 ----------
 
-* [Download Version 3.5.1](https://search.maven.org/remotecontent?filepath=com/github/waffle/waffle-distro/3.5.1/waffle-distro-3.5.1-distro.zip)
-* [Waffle in Maven Central](https://search.maven.org/search?q=waffle)
-* [Waffle Snapshots](https://oss.sonatype.org/content/repositories/snapshots/com/github/waffle/)
+* [Download Javax Distro](https://repo1.maven.org/maven2/com/github/waffle/waffle-distro/3.5.1/waffle-distro-3.5.1-distro.zip)
+* [Download Jakarta Distro](https://repo1.maven.org/maven2/com/github/waffle/waffle-distro-jakarta/3.5.1/waffle-distro-3.5.1-distro.zip)
+* [Waffle in Maven Central](https://central.sonatype.com/search?q=waffle)
+* [Waffle Snapshots](https://central.sonatype.com/repository/maven-snapshots/com/github/waffle/)
 * [Get Waffle To Work in Tomcat, Jetty, WebSphere, etc.](Docs/ServletSingleSignOnSecurityFilter.md)
 * [Need Help? Google Group](https://groups.google.com/group/waffle-users)
 * [Troubleshooting](Docs/Troubleshooting.md)
@@ -107,7 +108,7 @@ Contributing
 License and Copyright
 ---------------------
 
-Copyright (c) [Application Security Inc.](https://www.trustwave.com/Company/AppSecInc-is-now-Trustwave/), 2010-2020 and Contributors.
+Copyright (c) [Application Security Inc.](https://www.trustwave.com/Company/AppSecInc-is-now-Trustwave/), 2010-2026 and Contributors.
 
 This project is licensed under the [MIT License](https://github.com/Waffle/waffle/blob/master/LICENSE).
 
