@@ -76,6 +76,20 @@ Features
 * Supports Windows Identity impersonation.
 * Includes a Windows Installer Merge Module for distribution of C# binaries.
 
+Supported Solutions
+-------------------
+
+* Direct for both javax and jakarta namespace where not otherwise integrated
+* Jetty 12 javax and jakarta namespace
+* Shiro javax and jakarta namespace
+* Spring Boot 2, 3, 4
+* Spring Security 5, 6, 7
+* Tomcat 9
+* Tomcat 10
+* Tomcat 11
+
+[note] Jakarta modules are listed with *-jakarta in the names.  For example, 'waffle-jna' is for javax namespace and 'waffle-jna-jakarta' is for jakarta namespace.  If a missing support consideration exists, please consider contributing support.
+
 How do I resolve JNA `NoClassDefFound` errors?
 ----------------------------------------------
 WAFFLE uses the latest version of JNA, which may conflict with other dependencies your project (or its parent) includes. If you experience issues with `NoClassDefFound` errors for JNA artifacts, consider one or more of the following steps to resolve the conflict:
