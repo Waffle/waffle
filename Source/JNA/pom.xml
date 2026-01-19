@@ -101,6 +101,7 @@
         <module>waffle-spring-boot3</module>
         <module>waffle-spring-security5</module>
         <module>waffle-spring-security6</module>
+        <module>waffle-spring-security7</module>
         <module>waffle-tests</module>
         <module>waffle-tests-jakarta</module>
         <module>waffle-tomcat9</module>
