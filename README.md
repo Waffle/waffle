@@ -3,7 +3,7 @@ WAFFLE - Windows Authentication Framework
 
 <!-- GitHub Actions -->
 [![Java CI](https://github.com/Waffle/waffle/actions/workflows/ci.yaml/badge.svg)](https://github.com/Waffle/waffle/actions/workflows/ci.yaml)
-[![DotNET CI](https://github.com/Waffle/waffle/workflows/DotNET/badge.svg)](https://github.com/Waffle/waffle/workflows/DotNET)
+[![.NET CI](https://github.com/Waffle/waffle/actions/workflows/ci.net.yaml/badge.svg)](https://github.com/Waffle/waffle/actions/workflows/ci.net.yaml)
 
 <!-- Security / Quality -->
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Waffle_waffle&metric=alert_status)](https://sonarcloud.io/dashboard?id=Waffle_waffle)
