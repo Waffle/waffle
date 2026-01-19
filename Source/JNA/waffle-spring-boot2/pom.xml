@@ -39,7 +39,7 @@
     <packaging>pom</packaging>
 
     <name>waffle-spring-boot2</name>
-    <description>Sping Boot integration for WAFFLE</description>
+    <description>Sping Boot 2 Integration for WAFFLE</description>
     <url>https://waffle.github.io/waffle/</url>
 
     <modules>

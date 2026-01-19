@@ -3,7 +3,7 @@
 
     MIT License
 
-    Copyright (c) 2010-2025 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+    Copyright (c) 2010-2026 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -39,7 +39,7 @@
     <packaging>pom</packaging>
 
     <name>waffle-spring-boot3</name>
-    <description>Sping Boot integration for WAFFLE</description>
+    <description>Sping Boot 3 Integration for WAFFLE</description>
     <url>https://waffle.github.io/waffle/</url>
 
     <modules>
