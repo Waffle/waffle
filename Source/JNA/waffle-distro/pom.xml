@@ -3,7 +3,7 @@
 
     MIT License
 
-    Copyright (c) 2010-2025 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+    Copyright (c) 2010-2026 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -51,14 +51,14 @@
 
     <properties>
         <!-- Dependencies -->
-        <caffeine.version>3.2.2</caffeine.version>
-        <jackson.version>2.19.2</jackson.version>
-        <jna.version>5.17.0</jna.version>
-        <log4j.version>2.25.1</log4j.version>
-        <logback.version>1.5.18</logback.version>
-        <snakeyaml.version>2.4</snakeyaml.version>
+        <caffeine.version>3.2.3</caffeine.version>
+        <jackson.version>2.21.0</jackson.version>
+        <jna.version>5.18.1</jna.version>
+        <log4j.version>2.25.3</log4j.version>
+        <logback.version>1.5.25</logback.version>
+        <snakeyaml.version>2.5</snakeyaml.version>
         <spring.version>5.3.39</spring.version>
-        <tomcat.version>9.0.107</tomcat.version>
+        <tomcat.version>9.0.113</tomcat.version>
 
         <!-- Maven compiler options -->
         <java.version>17</java.version>

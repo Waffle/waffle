@@ -3,7 +3,7 @@
 
     MIT License
 
-    Copyright (c) 2010-2025 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+    Copyright (c) 2010-2026 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -51,7 +51,7 @@
 
     <properties>
         <!-- Dependencies -->
-        <jna.version>5.17.0</jna.version>
+        <jna.version>5.18.1</jna.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.bom.jakarta</module.name>
@@ -84,7 +84,7 @@
             </dependency>
             <dependency>
                 <groupId>com.github.waffle</groupId>
-                <artifactId>waffle-shiro</artifactId>
+                <artifactId>waffle-shiro-jakarta</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -100,6 +100,11 @@
             <dependency>
                 <groupId>com.github.waffle</groupId>
                 <artifactId>waffle-spring-security6</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.waffle</groupId>
+                <artifactId>waffle-spring-security7</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

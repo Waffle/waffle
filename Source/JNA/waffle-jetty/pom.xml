@@ -55,11 +55,11 @@
 
         <!-- Dependencies -->
         <annotation.version>3.0.0</annotation.version>
-        <asm.version>9.8</asm.version>
-        <ecj.version>3.42.0</ecj.version>
+        <asm.version>9.9.1</asm.version>
+        <ecj.version>3.44.0</ecj.version>
         <el.version>3.0.4</el.version>
         <el-api.version>6.0.1</el-api.version>
-        <jetty.version>12.0.23</jetty.version>
+        <jetty.version>12.1.5</jetty.version>
         <jsp.version>2.3.6</jsp.version>
         <jsp-api.version>4.0.0</jsp-api.version>
         <jstl.version>1.2.6</jstl.version>

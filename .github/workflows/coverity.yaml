@@ -5,30 +5,41 @@ on:
     branches:
       - coverity_scan
 
+permissions: read-all
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  UPSTREAM_OWNER: Waffle
+  UPSTREAM_REPO: waffle
+
 jobs:
   build:
     if: github.repository_owner == 'waffle'
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
       - name: Setup Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@f2beeb24e141e01a676f977032f5a29d81c9e27e # v5
         with:
           cache: maven
           java-version: 21
           distribution: zulu
       - name: Analyze with Coverity
         run: |
-          wget -q https://scan.coverity.com/download/linux64 --post-data "token=$COVERITY_TOKEN&project=Waffle%2Fwaffle" -O coverity_tool.tgz
-          tar -xf coverity_tool.tgz
-          ./cov-analysis-linux64-*/bin/cov-build --dir cov-int ./mvnw -B -V -DskipTests=true --no-transfer-progress -D"license.skip=true" verify
-          tar czvf waffle.tgz cov-int
-          curl --form token=$COVERITY_TOKEN \
-            --form email=$EMAIL \
-            --form file=@waffle.tgz \
-            --form version="waffle/coverity_scan" \
-            --form description="Waffle Coverity Scan" \
-            https://scan.coverity.com/builds?project=Waffle%2Fwaffle
+          wget --quiet https://scan.coverity.com/download/linux64 --post-data "token=${{ env.COVERITY_TOKEN }}&project=${{ env.UPSTREAM_OWNER }}%2F${{ env.UPSTREAM_REPO }}" --output-document=coverity_tool.tgz
+          tar --extract --file=coverity_tool.tgz
+          ./cov-analysis-linux64-*/bin/cov-build --dir cov-int ./mvnw verify --batch-mode --no-transfer-progress --show-version -Dlicense.skip=true -Dmaven.compiler.fork=true -DskipTests=true
+          tar --create --gzip --verbose --file=${{ env.UPSTREAM_REPO }}.tgz cov-int
+          curl --form token=${{ env.COVERITY_TOKEN }} \
+            --form email=${{ env.EMAIL }} \
+            --form file=@${{ env.UPSTREAM_REPO }}.tgz \
+            --form version="${{ env.UPSTREAM_REPO }}/coverity_scan" \
+            --form description="${{ env.UPSTREAM_OWNER }} Coverity Scan" \
+            https://scan.coverity.com/builds?project=${{ env.UPSTREAM_OWNER }}%2F${{ env.UPSTREAM_REPO }}
         env:
           COVERITY_TOKEN: ${{ secrets.COVERITY_TOKEN }}
           EMAIL: ${{ secrets.EMAIL }}

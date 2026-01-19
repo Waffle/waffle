@@ -3,7 +3,7 @@
 
     MIT License
 
-    Copyright (c) 2010-2025 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+    Copyright (c) 2010-2026 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -64,18 +64,18 @@
 
     <properties>
         <!-- Dependencies -->
-        <caffeine.version>3.2.2</caffeine.version>
-        <logback.version>1.5.18</logback.version>
+        <caffeine.version>3.2.3</caffeine.version>
+        <logback.version>1.5.25</logback.version>
         <servlet.version>4.0.4</servlet.version>
 
         <!-- Plugins -->
-        <cargo.plugin>1.10.20</cargo.plugin>
+        <cargo.plugin>1.10.26</cargo.plugin>
 
         <!-- Cargo Setup -->
         <cargo.maven.containerId>tomcat${tomcat.major-version}x</cargo.maven.containerId>
         <cargo.maven.containerUrl>https://archive.apache.org/dist/tomcat/tomcat-${tomcat.major-version}/v${tomcat.version}/bin/apache-tomcat-${tomcat.version}.zip</cargo.maven.containerUrl>
         <tomcat.major-version>9</tomcat.major-version>
-        <tomcat.version>9.0.105</tomcat.version>
+        <tomcat.version>9.0.112</tomcat.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.demo</module.name>

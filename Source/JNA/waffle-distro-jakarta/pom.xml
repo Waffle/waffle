@@ -3,7 +3,7 @@
 
     MIT License
 
-    Copyright (c) 2010-2025 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+    Copyright (c) 2010-2026 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -51,10 +51,10 @@
 
     <properties>
         <!-- Dependencies -->
-        <caffeine.version>3.2.2</caffeine.version>
-        <jna.version>5.17.0</jna.version>
-        <log4j.version>2.25.1</log4j.version>
-        <logback.version>1.5.18</logback.version>
+        <caffeine.version>3.2.3</caffeine.version>
+        <jna.version>5.18.1</jna.version>
+        <log4j.version>2.25.3</log4j.version>
+        <logback.version>1.5.25</logback.version>
 
         <!-- Maven compiler options -->
         <java.version>17</java.version>
@@ -93,6 +93,12 @@
         </dependency>
         <dependency>
             <groupId>com.github.waffle</groupId>
+            <artifactId>waffle-shiro-jakarta</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.waffle</groupId>
             <artifactId>waffle-spring-boot-autoconfigure3</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
@@ -106,6 +112,12 @@
         <dependency>
             <groupId>com.github.waffle</groupId>
             <artifactId>waffle-spring-security6</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.waffle</groupId>
+            <artifactId>waffle-spring-security7</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>
