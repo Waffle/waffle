@@ -1,3 +1,10 @@
+3.5.1 (1/1/2025)
+================
+* Doc updates to customCache.md
+* Library updates
+* General maven pom update support
+* More NIO Path support over File IO usage
+
 3.5.0 (9/22/2024)
 ==================
 * Drop support for tomcat 8.5 which ended support as previously noted with release 3.4.0
