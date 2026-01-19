@@ -94,7 +94,17 @@
             </dependency>
             <dependency>
                 <groupId>com.github.waffle</groupId>
+                <artifactId>waffle-spring-boot-autoconfigure4</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.waffle</groupId>
                 <artifactId>waffle-spring-boot-starter3</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.waffle</groupId>
+                <artifactId>waffle-spring-boot-starter4</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

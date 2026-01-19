@@ -99,6 +99,7 @@
         <module>waffle-shiro-jakarta</module>
         <module>waffle-spring-boot2</module>
         <module>waffle-spring-boot3</module>
+        <module>waffle-spring-boot4</module>
         <module>waffle-spring-security5</module>
         <module>waffle-spring-security6</module>
         <module>waffle-spring-security7</module>

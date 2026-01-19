@@ -51,6 +51,7 @@
         <module>waffle-demo-mixed-post-jakarta</module>
         <module>waffle-demo-negotiate-jakarta</module>
         <module>waffle-demo-spring-boot-filter3</module>
+        <module>waffle-demo-spring-boot-filter4</module>
         <module>waffle-demo-spring-filter-jakarta</module>
         <module>waffle-demo-spring-form-jakarta</module>
     </modules>
