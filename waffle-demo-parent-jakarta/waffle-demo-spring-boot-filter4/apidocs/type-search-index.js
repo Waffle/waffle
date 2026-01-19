@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html","k":"18"},{"p":"waffle.spring.boot.demo","l":"Application"},{"p":"waffle.spring.boot.demo","l":"DemoController"},{"p":"waffle.spring.boot.demo","l":"SecurityConfig"}];updateSearchResults();

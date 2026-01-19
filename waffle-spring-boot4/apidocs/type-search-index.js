@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html","k":"18"},{"p":"waffle.spring.boot","l":"WaffleProperties.SingleSignOnProperties"},{"p":"waffle.spring.boot","l":"WaffleAutoConfiguration"},{"p":"waffle.spring.boot.starter","l":"WaffleDummy","k":"10"},{"p":"waffle.spring.boot","l":"WaffleProperties"}];updateSearchResults();
