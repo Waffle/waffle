@@ -39,7 +39,7 @@ Essentials
 ----------
 
 * [Download Javax Distro](https://repo1.maven.org/maven2/com/github/waffle/waffle-distro/3.5.1/waffle-distro-3.5.1-distro.zip)
-* [Download Jakarta Distro](https://repo1.maven.org/maven2/com/github/waffle/waffle-distro-jakarta/3.5.1/waffle-distro-3.5.1-distro.zip)
+* [Download Jakarta Distro](https://repo1.maven.org/maven2/com/github/waffle/waffle-distro-jakarta/3.5.1/waffle-distro-jakarta-3.5.1-distro.zip)
 * [Waffle in Maven Central](https://central.sonatype.com/search?q=waffle)
 * [Waffle Snapshots](https://central.sonatype.com/repository/maven-snapshots/com/github/waffle/)
 * [Get Waffle To Work in Tomcat, Jetty, WebSphere, etc.](Docs/ServletSingleSignOnSecurityFilter.md)
