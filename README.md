@@ -2,7 +2,7 @@ WAFFLE - Windows Authentication Framework
 =========================================
 
 <!-- GitHub Actions -->
-[![Java CI](https://img.shields.io/github/actions/workflow/status/Waffle/waffle/java.yml?branch=master&label=Java%20CI)](https://github.com/Waffle/waffle/actions/workflows/ci.yaml)
+[![Java CI](https://github.com/Waffle/waffle/actions/workflows/ci.yaml/badge.svg)](https://github.com/Waffle/waffle/actions/workflows/ci.yaml)
 [![DotNET CI](https://github.com/Waffle/waffle/workflows/DotNET/badge.svg)](https://github.com/Waffle/waffle/workflows/DotNET)
 
 <!-- Security / Quality -->
