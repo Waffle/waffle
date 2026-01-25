@@ -55,7 +55,7 @@
         <java.release.version>17</java.release.version>
 
         <!-- Dependencies -->
-        <logback.version>1.5.25</logback.version>
+        <logback.version>1.5.26</logback.version>
         <spring-boot.version>3.5.10</spring-boot.version>
 
         <!-- Automatic Module Name for JPMS -->
