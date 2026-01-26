@@ -51,7 +51,7 @@
     <properties>
         <!-- Dependencies -->
         <mockito.version>5.21.0</mockito.version>
-        <objenesis.version>3.4</objenesis.version>
+        <objenesis.version>3.5</objenesis.version>
         <servlet.version>4.0.4</servlet.version>
 
         <!-- Automatic Module Name for JPMS -->
