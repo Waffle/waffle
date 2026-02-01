@@ -1,17 +1,26 @@
 WAFFLE - Windows Authentication Framework
 =========================================
 
-[![Java CI](https://github.com/Waffle/waffle/workflows/Java%20CI/badge.svg)](https://github.com/Waffle/waffle/actions?query=workflow%3A%22Java+CI%22)
-[![DotNET CI](https://github.com/Waffle/waffle/workflows/DotNET/badge.svg)](https://github.com/Waffle/waffle/workflows/DotNET)
-[![Coverity Scan Status](https://scan.coverity.com/projects/22153/badge.svg)](https://scan.coverity.com/projects/22153)
+<!-- GitHub Actions -->
+[![Java CI](https://github.com/Waffle/waffle/actions/workflows/ci.yaml/badge.svg)](https://github.com/Waffle/waffle/actions/workflows/ci.yaml)
+[![DotNET CI](https://github.com/Waffle/waffle/actions/workflows/ci.net.yaml/badge.svg)](https://github.com/Waffle/waffle/actions/workflows/ci.net.yaml)
+
+<!-- Security / Quality -->
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Waffle_waffle&metric=alert_status)](https://sonarcloud.io/dashboard?id=Waffle_waffle)
 [![Coverage Status Sonar](https://sonarcloud.io/api/project_badges/measure?project=Waffle_waffle&metric=coverage)](https://sonarcloud.io/component_measures?id=Waffle_waffle&metric=coverage)
 [![Coverage Status Coveralls](https://coveralls.io/repos/github/Waffle/waffle/badge.svg?branch=master)](https://coveralls.io/github/Waffle/waffle?branch=master)
-[![Maven central](https://maven-badges.herokuapp.com/maven-central/com.github.waffle/waffle-jna/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.waffle/waffle-jna)
-[![releases](https://img.shields.io/github/v/release/Waffle/waffle)](https://github.com/Waffle/waffle/releases/tag/waffle-parent-3.5.1)
+[![Coverity Scan Status](https://scan.coverity.com/projects/22153/badge.svg)](https://scan.coverity.com/projects/22153)
+
+<!-- Release / Distribution -->
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.waffle/waffle-jna)](https://central.sonatype.com/artifact/com.github.waffle/waffle-jna)
+[![GitHub Release](https://img.shields.io/github/v/release/Waffle/waffle)](https://github.com/Waffle/waffle/releases)
+
+<!-- License -->
 [![MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
+<!-- Stats -->
 [![Project Stats](https://www.openhub.net/p/waffle/widgets/project_thin_badge.gif)](https://www.openhub.net/p/waffle)
 [![Github All Releases](https://img.shields.io/github/downloads/Waffle/waffle/total.svg)](https://github.com/Waffle/waffle/)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Waffle_waffle&metric=alert_status)](https://sonarcloud.io/dashboard?id=Waffle_waffle)
 
 ![waffle](https://github.com/Waffle/waffle/raw/master/waffle.jpg)
 
@@ -29,9 +38,10 @@ Sites
 Essentials
 ----------
 
-* [Download Version 3.5.1](https://search.maven.org/remotecontent?filepath=com/github/waffle/waffle-distro/3.5.1/waffle-distro-3.5.1-distro.zip)
-* [Waffle in Maven Central](https://search.maven.org/search?q=waffle)
-* [Waffle Snapshots](https://oss.sonatype.org/content/repositories/snapshots/com/github/waffle/)
+* [Download Javax Distro](https://repo1.maven.org/maven2/com/github/waffle/waffle-distro/3.5.1/waffle-distro-3.5.1-distro.zip)
+* [Download Jakarta Distro](https://repo1.maven.org/maven2/com/github/waffle/waffle-distro-jakarta/3.5.1/waffle-distro-jakarta-3.5.1-distro.zip)
+* [Waffle in Maven Central](https://central.sonatype.com/search?q=waffle)
+* [Waffle Snapshots](https://central.sonatype.com/repository/maven-snapshots/com/github/waffle/)
 * [Get Waffle To Work in Tomcat, Jetty, WebSphere, etc.](Docs/ServletSingleSignOnSecurityFilter.md)
 * [Need Help? Google Group](https://groups.google.com/group/waffle-users)
 * [Troubleshooting](Docs/Troubleshooting.md)
@@ -66,6 +76,20 @@ Features
 * Supports Windows Identity impersonation.
 * Includes a Windows Installer Merge Module for distribution of C# binaries.
 
+Supported Solutions
+-------------------
+
+* Direct for both javax and jakarta namespace where not otherwise integrated
+* Jetty 12 javax and jakarta namespace
+* Shiro javax and jakarta namespace
+* Spring Boot 2, 3, 4
+* Spring Security 5, 6, 7
+* Tomcat 9
+* Tomcat 10
+* Tomcat 11
+
+[note] Jakarta modules are listed with *-jakarta in the names.  For example, 'waffle-jna' is for javax namespace and 'waffle-jna-jakarta' is for jakarta namespace.  If a missing support consideration exists, please consider contributing support.
+
 How do I resolve JNA `NoClassDefFound` errors?
 ----------------------------------------------
 WAFFLE uses the latest version of JNA, which may conflict with other dependencies your project (or its parent) includes. If you experience issues with `NoClassDefFound` errors for JNA artifacts, consider one or more of the following steps to resolve the conflict:
@@ -98,7 +122,7 @@ Contributing
 License and Copyright
 ---------------------
 
-Copyright (c) [Application Security Inc.](https://www.trustwave.com/Company/AppSecInc-is-now-Trustwave/), 2010-2020 and Contributors.
+Copyright (c) [Application Security Inc.](https://www.trustwave.com/Company/AppSecInc-is-now-Trustwave/), 2010-2026 and Contributors.
 
 This project is licensed under the [MIT License](https://github.com/Waffle/waffle/blob/master/LICENSE).
 
