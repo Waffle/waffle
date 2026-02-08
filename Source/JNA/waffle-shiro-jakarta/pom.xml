@@ -36,7 +36,7 @@
         <beanutils.version>1.11.0</beanutils.version>
         <powermock.version>2.0.9</powermock.version>
         <servlet.version>6.1.0</servlet.version>
-        <shiro.version>2.0.6</shiro.version>
+        <shiro.version>2.1.0</shiro.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.shiro.jakarta</module.name>
