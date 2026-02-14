@@ -48,7 +48,7 @@
     <properties>
         <!-- Dependencies -->
         <caffeine.version>3.2.3</caffeine.version>
-        <logback.version>1.5.29</logback.version>
+        <logback.version>1.5.31</logback.version>
         <servlet.version>4.0.4</servlet.version>
 
         <!-- Plugins -->
