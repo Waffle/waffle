@@ -4,7 +4,7 @@
     SPDX-License-Identifier: MIT
     See LICENSE file for details.
 
-    Copyright 2010-2025 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
+    Copyright 2010-2026 The Waffle Project Contributors: https://github.com/Waffle/waffle/graphs/contributors
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
