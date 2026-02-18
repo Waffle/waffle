@@ -14,12 +14,12 @@
     <parent>
         <groupId>com.github.waffle.demo</groupId>
         <artifactId>waffle-demo-parent</artifactId>
-        <version>3.6.0</version>
+        <version>3.6.1-SNAPSHOT</version>
     </parent>
 
     <groupId>com.github.waffle.demo</groupId>
     <artifactId>waffle-demo-mixed</artifactId>
-    <version>3.6.0</version>
+    <version>3.6.1-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>waffle-demo-mixed</name>
@@ -29,7 +29,7 @@
     <scm>
         <connection>scm:git:ssh://git@github.com/waffle/waffle.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/waffle/waffle.git</developerConnection>
-        <tag>waffle-3.6.0</tag>
+        <tag>HEAD</tag>
         <url>https://github.com/Waffle/waffle</url>
     </scm>
 
