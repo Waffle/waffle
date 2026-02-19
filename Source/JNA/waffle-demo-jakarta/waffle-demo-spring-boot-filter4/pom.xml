@@ -39,7 +39,7 @@
 
         <!-- Dependencies -->
         <logback.version>1.5.32</logback.version>
-        <spring-boot.version>4.0.2</spring-boot.version>
+        <spring-boot.version>4.0.3</spring-boot.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.demo.spring.boot.filter4</module.name>
