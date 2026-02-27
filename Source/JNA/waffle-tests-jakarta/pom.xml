@@ -33,7 +33,7 @@
 
     <properties>
         <!-- Dependencies -->
-        <mockito.version>5.21.0</mockito.version>
+        <mockito.version>5.22.0</mockito.version>
         <objenesis.version>3.5</objenesis.version>
         <servlet.version>6.1.0</servlet.version>
 
