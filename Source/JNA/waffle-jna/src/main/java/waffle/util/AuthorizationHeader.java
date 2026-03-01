@@ -7,6 +7,7 @@
 package waffle.util;
 
 import java.util.Base64;
+import java.util.Enumeration;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,7 +42,20 @@ public class AuthorizationHeader {
      * @return the header
      */
     public String getHeader() {
-        return this.request.getHeader("Authorization");
+        final String header = this.request.getHeader("Authorization");
+        if (header != null) {
+            return header;
+        }
+        final Enumeration<String> headerNames = this.request.getHeaderNames();
+        if (headerNames != null) {
+            while (headerNames.hasMoreElements()) {
+                final String headerName = headerNames.nextElement();
+                if ("authorization".equalsIgnoreCase(headerName)) {
+                    return this.request.getHeader(headerName);
+                }
+            }
+        }
+        return null;
     }
 
     /**

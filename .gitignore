@@ -46,3 +46,4 @@ Source/JNA/release.properties
 .checkstyle
 .pmd
 .pmdruleset.xml
+wget-log
