@@ -9,7 +9,7 @@ package waffle.mock.http;
 import java.security.Principal;
 import java.util.Collections;
 import java.util.Enumeration;
-import java.util.HashMap;
+import java.util.TreeMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,7 +48,7 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
     private int remotePort = -1;
 
     /** The headers. */
-    private final Map<String, String> headers = new HashMap<>();
+    private final Map<String, String> headers = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 
     /** The parameters. */
     private final Map<String, String> parameters = new HashMap<>();

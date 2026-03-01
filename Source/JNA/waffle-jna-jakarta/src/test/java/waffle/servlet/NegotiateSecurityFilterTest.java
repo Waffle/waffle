@@ -154,6 +154,9 @@ class NegotiateSecurityFilterTest {
                 this.result = "true";
                 CorsPreFlightCheck.isPreflight(request);
                 this.result = true;
+                request.getHeader("Authorization");
+                this.result = "Bearer aBase64hash";
+                this.minTimes = 0;
             }
         };
 
