@@ -21,6 +21,19 @@ class AuthorizationHeaderTest {
     private static final String DIGEST_HEADER = "Digest username=\"admin\", realm=\"milton\", nonce=\"YjNjZDgxNDYtOGIwMS00NDk0LTlkMTItYzExMGJkNTcxZjli\", uri=\"/case-user-data/431b971d9e1441d381adb277de4f39f8/test\", response=\"30d2d15e89e0b7596325a12852ae6ca5\", qop=auth, nc=00000025, cnonce=\"fb2f97a275d3d9cb\"";
 
     /**
+     * Test get header with lowercase header name.
+     */
+    @Test
+    void testGetHeaderWithLowercaseHeaderName() {
+        final SimpleHttpRequest request = new SimpleHttpRequest();
+        final AuthorizationHeader header = new AuthorizationHeader(request);
+        Assertions.assertNull(header.getHeader());
+        request.addHeader("authorization", "NTLM TlRMTVNTUAABAAAABzIAAAYABgArAAAACwALACAAAABXT1JLU1RBVElPTkRPTUFJTg==");
+        Assertions.assertNotNull(header.getHeader());
+        Assertions.assertFalse(header.isNull());
+    }
+
+    /**
      * Test is null.
      */
     @Test

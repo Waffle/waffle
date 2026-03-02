@@ -156,6 +156,7 @@ class NegotiateSecurityFilterTest {
                 this.result = true;
                 request.getHeader("Authorization");
                 this.result = "Bearer aBase64hash";
+                this.minTimes = 0;
             }
         };
 

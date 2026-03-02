@@ -36,7 +36,7 @@ TestResult.xml
 # windows
 Thumbs.db
 *.factorypath
-.mvn/wrapper/maven-wrapper.jar
+**/.mvn/wrapper/maven-wrapper.jar
 *.releaseBackup
 Source/JNA/release.properties
 .sts4-cache/
@@ -46,3 +46,4 @@ Source/JNA/release.properties
 .checkstyle
 .pmd
 .pmdruleset.xml
+wget-log
