@@ -41,7 +41,7 @@
         <logback.version>1.5.32</logback.version>
         <snakeyaml.version>2.6</snakeyaml.version>
         <spring.version>5.3.39</spring.version>
-        <tomcat.version>9.0.115</tomcat.version>
+        <tomcat.version>9.0.116</tomcat.version>
 
         <!-- Maven compiler options -->
         <java.version>17</java.version>
