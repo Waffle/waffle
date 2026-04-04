@@ -33,7 +33,7 @@
 
     <properties>
         <!-- Dependencies -->
-        <tomcat.version>10.1.53</tomcat.version>
+        <tomcat.version>10.1.54</tomcat.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.tomcat10</module.name>
