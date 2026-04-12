@@ -240,4 +240,23 @@ class WindowsPrincipalTest {
         Assertions.assertNotNull(principal.getIdentity());
     }
 
+    /**
+     * Test get sid string.
+     */
+    @Test
+    void testGetSidString() {
+        Assertions.assertNotNull(new Expectations() {
+            {
+                WindowsPrincipalTest.this.windowsIdentity.getFqn();
+                this.result = WindowsPrincipalTest.TEST_FQN;
+                WindowsPrincipalTest.this.windowsIdentity.getSidString();
+                this.result = WindowsPrincipalTest.TEST_SID;
+                WindowsPrincipalTest.this.windowsIdentity.getGroups();
+                this.result = new IWindowsAccount[0];
+            }
+        });
+        final WindowsPrincipal principal = new WindowsPrincipal(this.windowsIdentity);
+        Assertions.assertEquals(WindowsPrincipalTest.TEST_SID, principal.getSidString());
+    }
+
 }
