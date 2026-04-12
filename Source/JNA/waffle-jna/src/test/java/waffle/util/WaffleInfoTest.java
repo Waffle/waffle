@@ -8,7 +8,9 @@ package waffle.util;
 
 import com.sun.jna.Platform;
 
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -68,5 +70,61 @@ class WaffleInfoTest {
         elem = helper.getLookupInfo(info, lookup);
         Assertions.assertEquals(lookup, elem.getAttribute("name"));
         Assertions.assertEquals("exception", elem.getFirstChild().getNodeName());
+    }
+
+    /**
+     * Test get exception element.
+     *
+     * @throws ParserConfigurationException
+     *             the parser configuration exception
+     */
+    @Test
+    void testGetException() throws ParserConfigurationException {
+        final Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+        final RuntimeException ex = new RuntimeException("test error message");
+        final Element exElem = WaffleInfo.getException(doc, ex);
+
+        Assertions.assertNotNull(exElem);
+        Assertions.assertEquals("exception", exElem.getNodeName());
+        Assertions.assertEquals(ex.getClass().getName(), exElem.getAttribute("class"));
+
+        // message child
+        final Node messageNode = exElem.getFirstChild();
+        Assertions.assertEquals("message", messageNode.getNodeName());
+        Assertions.assertEquals("test error message", messageNode.getTextContent());
+    }
+
+    /**
+     * Test get exception element with null message.
+     *
+     * @throws ParserConfigurationException
+     *             the parser configuration exception
+     */
+    @Test
+    void testGetExceptionWithNullMessage() throws ParserConfigurationException {
+        final Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+        final RuntimeException ex = new RuntimeException((String) null);
+        final Element exElem = WaffleInfo.getException(doc, ex);
+
+        Assertions.assertNotNull(exElem);
+        Assertions.assertEquals("exception", exElem.getNodeName());
+    }
+
+    /**
+     * Test to pretty xml.
+     *
+     * @throws ParserConfigurationException
+     *             the parser configuration exception
+     * @throws TransformerException
+     *             the transformer exception
+     */
+    @Test
+    void testToPrettyXml() throws ParserConfigurationException, TransformerException {
+        final WaffleInfo helper = new WaffleInfo();
+        final Document info = helper.getWaffleInfo();
+        final String xml = WaffleInfo.toPrettyXML(info);
+        Assertions.assertNotNull(xml);
+        Assertions.assertFalse(xml.isEmpty());
+        Assertions.assertTrue(xml.contains("waffle"));
     }
 }

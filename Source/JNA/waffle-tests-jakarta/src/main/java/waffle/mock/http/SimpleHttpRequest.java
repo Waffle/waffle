@@ -14,8 +14,8 @@ import java.security.Principal;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.TreeMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.mockito.Mockito;
 

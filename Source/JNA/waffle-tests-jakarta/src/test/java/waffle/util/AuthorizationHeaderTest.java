@@ -146,4 +146,105 @@ class AuthorizationHeaderTest {
         softly.thenThrownBy(() -> header.getTokenBytes()).isInstanceOf(RuntimeException.class)
                 .hasMessageContaining("Invalid authorization header");
     }
+
+    /**
+     * Test is bearer authorization header returns true.
+     */
+    @Test
+    void testIsBearerAuthorizationHeaderTrue() {
+        final SimpleHttpRequest request = new SimpleHttpRequest();
+        request.addHeader("Authorization", "Bearer sometoken");
+        final AuthorizationHeader header = new AuthorizationHeader(request);
+        Assertions.assertTrue(header.isBearerAuthorizationHeader());
+    }
+
+    /**
+     * Test is bearer authorization header returns false for NTLM.
+     */
+    @Test
+    void testIsBearerAuthorizationHeaderFalseForNtlm() {
+        final SimpleHttpRequest request = new SimpleHttpRequest();
+        request.addHeader("Authorization", "NTLM TlRMTVNTUAABAAAABzIAAAYABgArAAAACwALACAAAABXT1JLU1RBVElPTkRPTUFJTg==");
+        final AuthorizationHeader header = new AuthorizationHeader(request);
+        Assertions.assertFalse(header.isBearerAuthorizationHeader());
+    }
+
+    /**
+     * Test is bearer authorization header returns false when null.
+     */
+    @Test
+    void testIsBearerAuthorizationHeaderFalseWhenNull() {
+        final SimpleHttpRequest request = new SimpleHttpRequest();
+        final AuthorizationHeader header = new AuthorizationHeader(request);
+        Assertions.assertFalse(header.isBearerAuthorizationHeader());
+    }
+
+    /**
+     * Test to string when null.
+     */
+    @Test
+    void testToStringWhenNull() {
+        final SimpleHttpRequest request = new SimpleHttpRequest();
+        final AuthorizationHeader header = new AuthorizationHeader(request);
+        Assertions.assertEquals("<none>", header.toString());
+    }
+
+    /**
+     * Test to string when header present.
+     */
+    @Test
+    void testToStringWhenHeaderPresent() {
+        final SimpleHttpRequest request = new SimpleHttpRequest();
+        final String headerValue = "NTLM TlRMTVNTUAABAAAABzIAAAYABgArAAAACwALACAAAABXT1JLU1RBVElPTkRPTUFJTg==";
+        request.addHeader("Authorization", headerValue);
+        final AuthorizationHeader header = new AuthorizationHeader(request);
+        Assertions.assertEquals(headerValue, header.toString());
+    }
+
+    /**
+     * Test is ntlm type1 post authorization header with DELETE method.
+     */
+    @Test
+    void testIsNtlmType1PostAuthorizationHeaderWithDelete() {
+        final SimpleHttpRequest request = new SimpleHttpRequest();
+        request.setContentLength(0);
+        request.addHeader("Authorization", "NTLM TlRMTVNTUAABAAAABzIAAAYABgArAAAACwALACAAAABXT1JLU1RBVElPTkRPTUFJTg==");
+        request.setMethod("DELETE");
+        final AuthorizationHeader header = new AuthorizationHeader(request);
+        Assertions.assertTrue(header.isNtlmType1PostAuthorizationHeader());
+    }
+
+    /**
+     * Test is ntlm type1 post authorization header with non-zero content length.
+     */
+    @Test
+    void testIsNtlmType1PostAuthorizationHeaderWithContent() {
+        final SimpleHttpRequest request = new SimpleHttpRequest();
+        request.setContentLength(100);
+        request.addHeader("Authorization", "NTLM TlRMTVNTUAABAAAABzIAAAYABgArAAAACwALACAAAABXT1JLU1RBVElPTkRPTUFJTg==");
+        request.setMethod("POST");
+        final AuthorizationHeader header = new AuthorizationHeader(request);
+        Assertions.assertFalse(header.isNtlmType1PostAuthorizationHeader());
+    }
+
+    /**
+     * Test get security package throws when no space in header.
+     */
+    @Test
+    void testGetSecurityPackageThrowsWhenNoSpace() {
+        final SimpleHttpRequest request = new SimpleHttpRequest();
+        request.addHeader("Authorization", "NoSpaceHere");
+        final AuthorizationHeader header = new AuthorizationHeader(request);
+        Assertions.assertThrows(RuntimeException.class, header::getSecurityPackage);
+    }
+
+    /**
+     * Test get security package throws when header is null.
+     */
+    @Test
+    void testGetSecurityPackageThrowsWhenNull() {
+        final SimpleHttpRequest request = new SimpleHttpRequest();
+        final AuthorizationHeader header = new AuthorizationHeader(request);
+        Assertions.assertThrows(RuntimeException.class, header::getSecurityPackage);
+    }
 }

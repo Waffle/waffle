@@ -54,4 +54,46 @@ class SPNegoMessageTest {
         Assertions.assertFalse(SPNegoMessage.isNegTokenArg(SPNegoMessageTest.NEG_TOKEN_ARG_TOO_SHORT));
         Assertions.assertFalse(SPNegoMessage.isNegTokenArg(SPNegoMessageTest.BAD_MESSAGE));
     }
+
+    /**
+     * Test is neg token init with null returns false.
+     */
+    @Test
+    void testIsNegTokenInitNullReturnsFalse() {
+        Assertions.assertFalse(SPNegoMessage.isNegTokenInit(null));
+    }
+
+    /**
+     * Test is neg token arg with null returns false.
+     */
+    @Test
+    void testIsNegTokenArgNullReturnsFalse() {
+        Assertions.assertFalse(SPNegoMessage.isNegTokenArg(null));
+    }
+
+    /**
+     * Test is neg token init with single byte returns false.
+     */
+    @Test
+    void testIsNegTokenInitSingleByteReturnsFalse() {
+        Assertions.assertFalse(SPNegoMessage.isNegTokenInit(new byte[] { 0x60 }));
+    }
+
+    /**
+     * Test is neg token arg with single byte returns false.
+     */
+    @Test
+    void testIsNegTokenArgSingleByteReturnsFalse() {
+        Assertions.assertFalse(SPNegoMessage.isNegTokenArg(new byte[] { (byte) 0xA1 }));
+    }
+
+    /**
+     * Test is neg token init with long length encoding.
+     */
+    @Test
+    void testIsNegTokenInitWithLongLengthEncoding() {
+        // Message with multi-byte length (0x81 means 1 length byte follows), then OID
+        final byte[] msg = { 0x60, (byte) 0x81, 0x0A, 0x06, 0x06, 0x2B, 0x06, 0x01, 0x05, 0x05, 0x02, 0x00 };
+        Assertions.assertTrue(SPNegoMessage.isNegTokenInit(msg));
+    }
 }
