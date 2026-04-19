@@ -208,4 +208,81 @@ class NegotiateSecurityFilterTest {
         });
     }
 
+    /**
+     * Test property getters and setters.
+     */
+    @Test
+    void testPropertyGettersAndSetters() {
+        // principal format
+        this.filter.setPrincipalFormat("sid");
+        Assertions.assertEquals(waffle.windows.auth.PrincipalFormat.SID, this.filter.getPrincipalFormat());
+        this.filter.setPrincipalFormatEnum(waffle.windows.auth.PrincipalFormat.BOTH);
+        Assertions.assertEquals(waffle.windows.auth.PrincipalFormat.BOTH, this.filter.getPrincipalFormat());
+
+        // role format
+        this.filter.setRoleFormat("none");
+        Assertions.assertEquals(waffle.windows.auth.PrincipalFormat.NONE, this.filter.getRoleFormat());
+        this.filter.setRoleFormatEnum(waffle.windows.auth.PrincipalFormat.FQN);
+        Assertions.assertEquals(waffle.windows.auth.PrincipalFormat.FQN, this.filter.getRoleFormat());
+
+        // impersonate
+        Assertions.assertFalse(this.filter.isImpersonate());
+        this.filter.setImpersonate(true);
+        Assertions.assertTrue(this.filter.isImpersonate());
+        this.filter.setImpersonate(false);
+
+        // allow guest login
+        this.filter.setAllowGuestLogin(true);
+        Assertions.assertTrue(this.filter.isAllowGuestLogin());
+
+        // granted authority factory and default authority
+        Assertions.assertNotNull(this.filter.getGrantedAuthorityFactory());
+        final FqnGrantedAuthorityFactory factory = new FqnGrantedAuthorityFactory("TEST_", true);
+        this.filter.setGrantedAuthorityFactory(factory);
+        Assertions.assertEquals(factory, this.filter.getGrantedAuthorityFactory());
+
+        Assertions.assertNotNull(this.filter.getDefaultGrantedAuthority());
+        final org.springframework.security.core.authority.SimpleGrantedAuthority authority = new org.springframework.security.core.authority.SimpleGrantedAuthority(
+                "ROLE_TEST");
+        this.filter.setDefaultGrantedAuthority(authority);
+        Assertions.assertEquals(authority, this.filter.getDefaultGrantedAuthority());
+    }
+
+    /**
+     * Test send unauthorized with keep-alive.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ServletException
+     *             the servlet exception
+     */
+    @Test
+    void testSendUnauthorizedKeepAlive() throws IOException, ServletException {
+        final SimpleHttpRequest request = new SimpleHttpRequest();
+        request.setMethod("GET");
+        final SimpleHttpResponse response = new SimpleHttpResponse();
+        // send unauthorized without closing
+        this.filter.sendUnauthorized(response, false);
+        Assertions.assertEquals(401, response.getStatus());
+        Assertions.assertEquals("keep-alive", response.getHeader("Connection"));
+    }
+
+    /**
+     * Test send unauthorized with close.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ServletException
+     *             the servlet exception
+     */
+    @Test
+    void testSendUnauthorizedClose() throws IOException, ServletException {
+        final SimpleHttpRequest request = new SimpleHttpRequest();
+        request.setMethod("GET");
+        final SimpleHttpResponse response = new SimpleHttpResponse();
+        this.filter.sendUnauthorized(response, true);
+        Assertions.assertEquals(401, response.getStatus());
+        Assertions.assertEquals("close", response.getHeader("Connection"));
+    }
+
 }

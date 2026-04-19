@@ -170,4 +170,34 @@ class CorsPreFlightCheckTest {
         };
     }
 
+    /**
+     * Test non-OPTIONS method returns false.
+     */
+    @Test
+    void testNonOptionsMethodReturnsFalse() {
+        new Expectations() {
+            {
+                CorsPreFlightCheckTest.this.preflightRequest.getMethod();
+                this.result = "GET";
+            }
+        };
+        Assertions.assertFalse(CorsPreFlightCheck.isPreflight(this.preflightRequest));
+    }
+
+    /**
+     * Test Apache CorsFilter PRE_FLIGHT attribute short-circuits header check.
+     */
+    @Test
+    void testCorsFilterPreFlightAttributeReturnsTrue() {
+        new Expectations() {
+            {
+                CorsPreFlightCheckTest.this.preflightRequest.getMethod();
+                this.result = "OPTIONS";
+                CorsPreFlightCheckTest.this.preflightRequest.getAttribute("cors.request.type");
+                this.result = "PRE_FLIGHT";
+            }
+        };
+        Assertions.assertTrue(CorsPreFlightCheck.isPreflight(this.preflightRequest));
+    }
+
 }
