@@ -87,4 +87,94 @@ class GroupPrincipalTest {
         Assertions.assertEquals(this.groupPrincipal.getName(), copy.getName());
     }
 
+    /**
+     * Test add member.
+     */
+    @Test
+    void testAddMember() {
+        final UserPrincipal member = new UserPrincipal("localhost\\user1");
+        // addMember returns true if the user was already a member, false if it was just added
+        Assertions.assertFalse(this.groupPrincipal.addMember(member));
+        // Second add returns true (user was already a member)
+        Assertions.assertTrue(this.groupPrincipal.addMember(member));
+    }
+
+    /**
+     * Test is member.
+     */
+    @Test
+    void testIsMember() {
+        final UserPrincipal member = new UserPrincipal("localhost\\user1");
+        Assertions.assertFalse(this.groupPrincipal.isMember(member));
+        this.groupPrincipal.addMember(member);
+        Assertions.assertTrue(this.groupPrincipal.isMember(member));
+    }
+
+    /**
+     * Test is member via nested group.
+     */
+    @Test
+    void testIsMemberNestedGroup() {
+        final UserPrincipal member = new UserPrincipal("localhost\\user2");
+        final GroupPrincipal nested = new GroupPrincipal("localhost\\nested");
+        nested.addMember(member);
+        this.groupPrincipal.addMember(nested);
+        // member of nested group counts as member of parent
+        Assertions.assertTrue(this.groupPrincipal.isMember(member));
+        // a non-member is still not a member
+        Assertions.assertFalse(this.groupPrincipal.isMember(new UserPrincipal("localhost\\nobody")));
+    }
+
+    /**
+     * Test members enumeration.
+     */
+    @Test
+    void testMembers() {
+        Assertions.assertFalse(this.groupPrincipal.members().hasMoreElements());
+        final UserPrincipal member = new UserPrincipal("localhost\\user1");
+        this.groupPrincipal.addMember(member);
+        Assertions.assertTrue(this.groupPrincipal.members().hasMoreElements());
+    }
+
+    /**
+     * Test remove member.
+     */
+    @Test
+    void testRemoveMember() {
+        final UserPrincipal member = new UserPrincipal("localhost\\user1");
+        // Removing non-existent member returns false
+        Assertions.assertFalse(this.groupPrincipal.removeMember(member));
+        this.groupPrincipal.addMember(member);
+        // Removing existing member returns true
+        Assertions.assertTrue(this.groupPrincipal.removeMember(member));
+        // No longer a member
+        Assertions.assertFalse(this.groupPrincipal.isMember(member));
+    }
+
+    /**
+     * Test to string with members.
+     */
+    @Test
+    void testToStringWithMembers() {
+        final UserPrincipal member = new UserPrincipal("localhost\\user1");
+        this.groupPrincipal.addMember(member);
+        final String str = this.groupPrincipal.toString();
+        Assertions.assertNotNull(str);
+        Assertions.assertTrue(str.startsWith("localhost\\Administrator"));
+        Assertions.assertTrue(str.contains("members:"));
+    }
+
+    /**
+     * Test to string with no members.
+     */
+    @Test
+    void testToStringWithNoMembers() {
+        // GroupPrincipal with no members: toString replaces trailing comma with ')'
+        // but when empty the format is "name(members:)" - setCharAt on '(' -> ')'
+        final GroupPrincipal empty = new GroupPrincipal("emptyGroup");
+        final String str = empty.toString();
+        Assertions.assertNotNull(str);
+        Assertions.assertTrue(str.startsWith("emptyGroup"));
+    }
+
 }

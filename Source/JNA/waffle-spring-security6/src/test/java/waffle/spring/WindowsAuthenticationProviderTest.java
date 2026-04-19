@@ -150,4 +150,38 @@ class WindowsAuthenticationProviderTest {
         Assertions.assertEquals("Guest", exception.getMessage());
     }
 
+    /**
+     * Test property getters and setters.
+     */
+    @Test
+    void testPropertyGettersAndSetters() {
+        // principal format via string
+        this.provider.setPrincipalFormat("none");
+        Assertions.assertEquals(PrincipalFormat.NONE, this.provider.getPrincipalFormat());
+        this.provider.setPrincipalFormatEnum(PrincipalFormat.FQN);
+        Assertions.assertEquals(PrincipalFormat.FQN, this.provider.getPrincipalFormat());
+
+        // role format via string
+        this.provider.setRoleFormat("sid");
+        Assertions.assertEquals(PrincipalFormat.SID, this.provider.getRoleFormat());
+        this.provider.setRoleFormatEnum(PrincipalFormat.BOTH);
+        Assertions.assertEquals(PrincipalFormat.BOTH, this.provider.getRoleFormat());
+
+        // granted authority factory
+        Assertions.assertNotNull(this.provider.getGrantedAuthorityFactory());
+        final FqnGrantedAuthorityFactory factory = new FqnGrantedAuthorityFactory(null, false);
+        this.provider.setGrantedAuthorityFactory(factory);
+        Assertions.assertEquals(factory, this.provider.getGrantedAuthorityFactory());
+
+        // default granted authority
+        Assertions.assertNotNull(this.provider.getDefaultGrantedAuthority());
+        final org.springframework.security.core.authority.SimpleGrantedAuthority auth = new org.springframework.security.core.authority.SimpleGrantedAuthority(
+                "ROLE_CUSTOM");
+        this.provider.setDefaultGrantedAuthority(auth);
+        Assertions.assertEquals(auth, this.provider.getDefaultGrantedAuthority());
+
+        // auth provider
+        Assertions.assertNotNull(this.provider.getAuthProvider());
+    }
+
 }
