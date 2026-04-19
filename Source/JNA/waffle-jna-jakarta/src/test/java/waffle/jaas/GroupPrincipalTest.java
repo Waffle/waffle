@@ -93,9 +93,9 @@ class GroupPrincipalTest {
     @Test
     void testAddMember() {
         final UserPrincipal member = new UserPrincipal("localhost\\user1");
-        // First add returns false (was not a member)
+        // addMember returns true if the user was already a member, false if it was just added
         Assertions.assertFalse(this.groupPrincipal.addMember(member));
-        // Second add returns true (already a member)
+        // Second add returns true (user was already a member)
         Assertions.assertTrue(this.groupPrincipal.addMember(member));
     }
 
