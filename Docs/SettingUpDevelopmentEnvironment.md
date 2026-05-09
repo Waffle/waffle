@@ -49,9 +49,9 @@ Download NUnit from [here](https://nunit.org).
 
 Download and install MSBuild Community Tasks from [here](https://github.com/loresoft/msbuildtasks/releases).
 
-### Wix Toolset 3.10.3
+### Wix Toolset (4.0.6)
 
-Download and install the Wix toolset from [here](https://wix.codeplex.com/releases/view/624906).
+WiX is restored as a NuGet package by running `bootstrap.cmd` (or `build.cmd` which calls bootstrap).
 
 Building the Project the First Time
 -----------------------------------
@@ -123,12 +123,12 @@ MSBuild Community Tasks are missing.
 ```
 "E:\waffle\Waffle.proj" (all target) (1) ->
 "E:\waffle\Waffle.sln" (Clean target) (2) ->
-(Clean target) ->  E:\waffle\Source\WindowsAuthProviderMergeModule\WindowsAuthProviderMergeModule.wixproj(107,11):
-error MSB4019: The imported project "C:\Program Files\MSBuild\Microsoft\WiX\v3.x\Wix.targets" was not found.
+(Clean target) ->  E:\waffle\Source\WindowsAuthProviderMergeModule\WindowsAuthProviderMergeModule.wixproj(3,3):
+error MSB4019: The imported project "..\..\.nuget\packages\WixToolset.Sdk.4.0.6\tools\wix.props" was not found.
 Confirm that the path in the <Import> declaration is correct, and that the file exists on disk.
 ```
 
-Wix is missing.
+WiX package restore is missing. Re-run `bootstrap.cmd`.
 
 ### Product Version
 

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
-  <Import Project="..\..\.nuget\packages\WiX.4.0.0.5512-pre\build\wix.props" Condition="Exists('..\..\.nuget\packages\WiX.4.0.0.5512-pre\build\wix.props')" />
+  <Import Project="..\..\.nuget\packages\WixToolset.Sdk.4.0.6\tools\wix.props" Condition="Exists('..\..\.nuget\packages\WixToolset.Sdk.4.0.6\tools\wix.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <ProductVersion>3.0</ProductVersion>
@@ -8,7 +8,6 @@
     <SchemaVersion>2.0</SchemaVersion>
     <OutputName>Waffle.Windows.AuthProvider</OutputName>
     <OutputType>Module</OutputType>
-    <WixToolPath>..\..\.nuget\packages\WiX.4.0.0.5512-pre\tools</WixToolPath>
     <RunWixToolsOutOfProc>true</RunWixToolsOutOfProc>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -115,7 +114,7 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\.nuget\packages\WiX.4.0.0.5512-pre\build\wix.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\.nuget\packages\WiX.4.0.0.5512-pre\build\wix.props'))" />
+    <Error Condition="!Exists('..\..\.nuget\packages\WixToolset.Sdk.4.0.6\tools\wix.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\.nuget\packages\WixToolset.Sdk.4.0.6\tools\wix.props'))" />
   </Target>
   <!--
     To modify your build process, add your task inside one of the targets below and uncomment it.
