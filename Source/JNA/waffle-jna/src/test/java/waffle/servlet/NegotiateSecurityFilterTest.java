@@ -384,8 +384,6 @@ class NegotiateSecurityFilterTest {
      *            the chain
      * @param mockAuth
      *            the mock auth
-     * @param mockProviders
-     *            the mock providers
      *
      * @throws Exception
      *             the exception
@@ -393,8 +391,7 @@ class NegotiateSecurityFilterTest {
     @Test
     void testDoFilterOnWindowsDisableSSOCallsChain(@Mocked final HttpServletRequest request,
             @Mocked final HttpServletResponse response, @Mocked final FilterChain chain,
-            @Mocked final IWindowsAuthProvider mockAuth, @Mocked final SecurityFilterProviderCollection mockProviders)
-            throws Exception {
+            @Mocked final IWindowsAuthProvider mockAuth) throws Exception {
         // Simulate Windows environment
         final Field windowsField = NegotiateSecurityFilter.class.getDeclaredField("windows");
         windowsField.setAccessible(true);
@@ -443,8 +440,6 @@ class NegotiateSecurityFilterTest {
      *            the chain
      * @param mockAuth
      *            the mock auth
-     * @param mockProviders
-     *            the mock providers
      *
      * @throws Exception
      *             the exception
@@ -452,8 +447,7 @@ class NegotiateSecurityFilterTest {
     @Test
     void testDoFilterOnWindowsNoAuthHeaderSendsUnauthorized(@Mocked final HttpServletRequest request,
             @Mocked final HttpServletResponse response, @Mocked final FilterChain chain,
-            @Mocked final IWindowsAuthProvider mockAuth, @Mocked final SecurityFilterProviderCollection mockProviders)
-            throws Exception {
+            @Mocked final IWindowsAuthProvider mockAuth) throws Exception {
         // Simulate Windows environment
         final Field windowsField = NegotiateSecurityFilter.class.getDeclaredField("windows");
         windowsField.setAccessible(true);
@@ -596,8 +590,6 @@ class NegotiateSecurityFilterTest {
      *            the session
      * @param mockIdentity
      *            the mock identity
-     * @param mockGroup
-     *            the mock group
      *
      * @throws Exception
      *             the exception
@@ -606,8 +598,7 @@ class NegotiateSecurityFilterTest {
     void testDoFilterOnWindowsWindowsPrincipalInSessionCallsChain(@Mocked final HttpServletRequest request,
             @Mocked final HttpServletResponse response, @Mocked final FilterChain chain,
             @Mocked final IWindowsAuthProvider mockAuth, @Mocked final SecurityFilterProviderCollection mockProviders,
-            @Mocked final HttpSession session, @Mocked final IWindowsIdentity mockIdentity,
-            @Mocked final IWindowsAccount mockGroup) throws Exception {
+            @Mocked final HttpSession session, @Mocked final IWindowsIdentity mockIdentity) throws Exception {
         // Simulate Windows environment
         final Field windowsField = NegotiateSecurityFilter.class.getDeclaredField("windows");
         windowsField.setAccessible(true);
@@ -693,8 +684,6 @@ class NegotiateSecurityFilterTest {
      *            the http session
      * @param mockIdentity
      *            the windows identity
-     * @param mockGroup
-     *            the windows group
      *
      * @throws Exception
      *             the exception
@@ -703,8 +692,7 @@ class NegotiateSecurityFilterTest {
     void testDoFilterOnWindowsWithAuthHeaderAuthenticates(@Mocked final HttpServletRequest request,
             @Mocked final HttpServletResponse response, @Mocked final FilterChain chain,
             @Mocked final IWindowsAuthProvider mockAuth, @Mocked final SecurityFilterProviderCollection mockProviders,
-            @Mocked final HttpSession session, @Mocked final IWindowsIdentity mockIdentity,
-            @Mocked final IWindowsAccount mockGroup) throws Exception {
+            @Mocked final HttpSession session, @Mocked final IWindowsIdentity mockIdentity) throws Exception {
         // Simulate Windows environment
         final Field windowsField = NegotiateSecurityFilter.class.getDeclaredField("windows");
         windowsField.setAccessible(true);

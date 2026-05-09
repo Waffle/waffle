@@ -93,12 +93,12 @@ class MockWindowsAuthProviderTest {
     @Test
     void testAddGroup() {
         this.provider.addGroup("Administrators");
-        // After adding the group, a new security context from acceptSecurityToken will have 3 groups
-        // (Users, Everyone, Administrators)
+        // acceptSecurityToken creates its own hardcoded context with 2 default groups (Users, Everyone);
+        // addGroup affects logonUser, not acceptSecurityToken.
         final IWindowsSecurityContext ctx = this.provider.acceptSecurityToken("conn1",
                 "testuser".getBytes(StandardCharsets.UTF_8), "Mock");
         final IWindowsIdentity identity = ctx.getIdentity();
-        Assertions.assertEquals(3, identity.getGroups().length);
+        Assertions.assertEquals(2, identity.getGroups().length);
     }
 
     /**
