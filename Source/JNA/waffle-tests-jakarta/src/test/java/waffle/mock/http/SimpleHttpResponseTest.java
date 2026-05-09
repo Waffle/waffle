@@ -6,10 +6,10 @@
  */
 package waffle.mock.http;
 
+import jakarta.servlet.ServletOutputStream;
+
 import java.io.IOException;
 import java.io.PrintWriter;
-
-import jakarta.servlet.ServletOutputStream;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

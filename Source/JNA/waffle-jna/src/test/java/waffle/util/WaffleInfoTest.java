@@ -8,9 +8,13 @@ package waffle.util;
 
 import com.sun.jna.Platform;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
+
+import mockit.Expectations;
+import mockit.Mocked;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -127,4 +131,76 @@ class WaffleInfoTest {
         Assertions.assertFalse(xml.isEmpty());
         Assertions.assertTrue(xml.contains("waffle"));
     }
+
+    /**
+     * Test to pretty xml with a manually created document (no Windows dependency).
+     *
+     * @throws ParserConfigurationException
+     *             the parser configuration exception
+     * @throws TransformerException
+     *             the transformer exception
+     */
+    @Test
+    void testToPrettyXmlWithManualDocument() throws ParserConfigurationException, TransformerException {
+        final DocumentBuilderFactory df = DocumentBuilderFactory.newInstance();
+        df.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        df.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+        final Document doc = df.newDocumentBuilder().newDocument();
+        final Element root = doc.createElement("waffle");
+        doc.appendChild(root);
+        root.setAttribute("test", "true");
+
+        final String xml = WaffleInfo.toPrettyXML(doc);
+
+        Assertions.assertNotNull(xml);
+        Assertions.assertFalse(xml.isEmpty());
+        Assertions.assertTrue(xml.contains("waffle"));
+        Assertions.assertTrue(xml.contains("test"));
+    }
+
+    /**
+     * Test add account info populates all fields.
+     *
+     * @param account
+     *            the account
+     *
+     * @throws ParserConfigurationException
+     *             the parser configuration exception
+     */
+    @Test
+    void testAddAccountInfo(@Mocked final IWindowsAccount account) throws ParserConfigurationException {
+        final DocumentBuilderFactory df = DocumentBuilderFactory.newInstance();
+        df.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        df.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+        final Document doc = df.newDocumentBuilder().newDocument();
+        final Element node = doc.createElement("testNode");
+
+        Assertions.assertNotNull(new Expectations() {
+            {
+                account.getName();
+                this.result = "testuser";
+                account.getFqn();
+                this.result = "DOMAIN\\testuser";
+                account.getDomain();
+                this.result = "DOMAIN";
+                account.getSidString();
+                this.result = "S-1-5-21-123";
+            }
+        });
+
+        final WaffleInfo helper = new WaffleInfo();
+        helper.addAccountInfo(doc, node, account);
+
+        final NodeList children = node.getChildNodes();
+        Assertions.assertEquals(4, children.getLength());
+        Assertions.assertEquals("Name", children.item(0).getNodeName());
+        Assertions.assertEquals("testuser", children.item(0).getTextContent());
+        Assertions.assertEquals("FQN", children.item(1).getNodeName());
+        Assertions.assertEquals("DOMAIN\\testuser", children.item(1).getTextContent());
+        Assertions.assertEquals("Domain", children.item(2).getNodeName());
+        Assertions.assertEquals("DOMAIN", children.item(2).getTextContent());
+        Assertions.assertEquals("SID", children.item(3).getNodeName());
+        Assertions.assertEquals("S-1-5-21-123", children.item(3).getTextContent());
+    }
+
 }
