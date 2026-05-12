@@ -40,7 +40,7 @@
         <log4j.version>2.26.0</log4j.version>
         <logback.version>1.5.32</logback.version>
         <snakeyaml.version>2.6</snakeyaml.version>
-        <spring.version>5.3.39</spring.version>
+        <spring.version>7.0.7</spring.version>
         <tomcat.version>9.0.117</tomcat.version>
 
         <!-- Maven compiler options -->
