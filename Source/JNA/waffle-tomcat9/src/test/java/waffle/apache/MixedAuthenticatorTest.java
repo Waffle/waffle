@@ -352,8 +352,7 @@ class MixedAuthenticatorTest {
 
     @Test
     void testCustomPrincipal() throws LifecycleException {
-        final GenericPrincipal genericPrincipal = new GenericPrincipal("my-principal", "my-password",
-                List.of());
+        final GenericPrincipal genericPrincipal = new GenericPrincipal("my-principal", "my-password", List.of());
         final MixedAuthenticator customAuthenticator = new MixedAuthenticator() {
             @Override
             protected GenericPrincipal createPrincipal(final IWindowsIdentity windowsIdentity) {
