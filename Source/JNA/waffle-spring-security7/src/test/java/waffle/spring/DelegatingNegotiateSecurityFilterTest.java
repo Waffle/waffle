@@ -15,7 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collection;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
@@ -115,7 +115,7 @@ class DelegatingNegotiateSecurityFilterTest {
         for (final GrantedAuthority grantedAuthority : authorities) {
             list.add(grantedAuthority.getAuthority());
         }
-        Collections.sort(list);
+        list.sort(Comparator.naturalOrder());
         Assertions.assertEquals("ROLE_EVERYONE", list.get(0));
         Assertions.assertEquals("ROLE_USER", list.get(1));
         Assertions.assertEquals("ROLE_USERS", list.get(2));
