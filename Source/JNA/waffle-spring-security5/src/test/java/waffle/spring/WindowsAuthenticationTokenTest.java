@@ -8,7 +8,7 @@ package waffle.spring;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
@@ -59,7 +59,7 @@ class WindowsAuthenticationTokenTest {
         for (final GrantedAuthority grantedAuthority : authorities) {
             list.add(grantedAuthority.getAuthority());
         }
-        Collections.sort(list);
+        list.sort(Comparator.naturalOrder());
         Assertions.assertEquals("ROLE_GROUP1", list.get(0));
         Assertions.assertEquals("ROLE_GROUP2", list.get(1));
         Assertions.assertEquals("ROLE_USER", list.get(2));
@@ -86,7 +86,7 @@ class WindowsAuthenticationTokenTest {
         for (final GrantedAuthority grantedAuthority : authorities) {
             list.add(grantedAuthority.getAuthority());
         }
-        Collections.sort(list);
+        list.sort(Comparator.naturalOrder());
         Assertions.assertEquals("group1", list.get(0));
         Assertions.assertEquals("group2", list.get(1));
         Assertions.assertEquals(this.principal, myToken.getPrincipal());
