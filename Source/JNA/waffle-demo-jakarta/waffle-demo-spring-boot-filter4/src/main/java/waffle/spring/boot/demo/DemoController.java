@@ -29,7 +29,7 @@ public class DemoController {
      */
     @GetMapping
     public String demo(final Authentication auth) {
-        return String.format("Hello, %s. You have authorities: %s", auth.getPrincipal(),
+        return "Hello, %s. You have authorities: %s".formatted(auth.getPrincipal(),
                 auth.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(", ")));
     }
 
