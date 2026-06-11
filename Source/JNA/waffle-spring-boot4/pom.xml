@@ -45,7 +45,7 @@
         <!-- Dependencies -->
         <jna.version>5.19.0</jna.version>
         <log4j.version>2.26.0</log4j.version>
-        <spring-boot.version>4.0.6</spring-boot.version>
+        <spring-boot.version>4.1.0</spring-boot.version>
         <spring-security.version>7.1.0</spring-security.version>
 
         <!-- Automatic Module Name for JPMS -->
