@@ -189,7 +189,7 @@
         <jmockit.version>2.1.0</jmockit.version>
         <jopt-simple.version>5.0.4</jopt-simple.version>
         <junit.version>6.1.0</junit.version>
-        <spotbugs.version>4.10.1</spotbugs.version>
+        <spotbugs.version>4.10.2</spotbugs.version>
         <slf4j.version>2.0.18</slf4j.version>
 
         <!-- Plugins -->
