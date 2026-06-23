@@ -14,7 +14,7 @@ namespace Waffle.Windows.AuthProvider.UnitTests
             WindowsAccountImpl windowsAccount = new WindowsAccountImpl(WindowsIdentity.GetCurrent().Name);
             Console.WriteLine(windowsAccount.Fqn);
             Console.WriteLine(windowsAccount.SidString);
-            Assert.AreEqual(windowsAccount.Sid, WindowsIdentity.GetCurrent().User);
+            Assert.That(windowsAccount.Sid, Is.EqualTo(WindowsIdentity.GetCurrent().User));
         }
     }
 }

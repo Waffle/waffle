@@ -27,7 +27,7 @@ namespace Waffle.Windows.AuthProvider.UnitTests
             _testUser.comment = "Waffle test user.";
             _testUser.usri1_script_path = null;
             int rc = Netapi32.NetUserAdd(null, 1, ref _testUser, 0);
-            Assert.AreEqual(0, rc, new Win32Exception(rc).Message);
+            Assert.That(rc, Is.Zero, new Win32Exception(rc).Message);
             // computer
             _computerName = Environment.MachineName;
             // fqn
@@ -35,7 +35,7 @@ namespace Waffle.Windows.AuthProvider.UnitTests
             // join status 
             IntPtr pDomain = IntPtr.Zero;
             rc = Netapi32.NetGetJoinInformation(null, out pDomain, out _joinStatus);
-            Assert.AreEqual(Netapi32.NERR_Success, rc, new Win32Exception(rc).Message);
+            Assert.That(rc, Is.EqualTo(Netapi32.NERR_Success), new Win32Exception(rc).Message);
             _memberOf = Marshal.PtrToStringAuto(pDomain);
             Netapi32.NetApiBufferFree(pDomain);
         }
@@ -44,7 +44,7 @@ namespace Waffle.Windows.AuthProvider.UnitTests
         public void TearDown()
         {
             int rc = Netapi32.NetUserDel(null, _testUser.usri1_name);
-            Assert.AreEqual(0, rc, new Win32Exception(rc).Message);
+            Assert.That(rc, Is.Zero, new Win32Exception(rc).Message);
         }
 
         [Test]
@@ -55,9 +55,9 @@ namespace Waffle.Windows.AuthProvider.UnitTests
             Console.WriteLine("Sid: {0}", account.SidString);
             Console.WriteLine("Fqn: {0}", account.Fqn);
             Console.WriteLine("Guest: {0}", account.IsGuest);
-            Assert.AreEqual(account.Fqn.ToLower(), _testUserFqn.ToLower());
-            Assert.IsTrue(Advapi32.IsValidSid(account.Sid));
-            Assert.IsFalse(account.IsGuest);
+            Assert.That(account.Fqn.ToLower(), Is.EqualTo(_testUserFqn.ToLower()));
+            Assert.That(Advapi32.IsValidSid(account.Sid), Is.True);
+            Assert.That(account.IsGuest, Is.False);
             Console.WriteLine("Groups: {0}", account.Groups.Length);
         }
 
@@ -71,12 +71,12 @@ namespace Waffle.Windows.AuthProvider.UnitTests
             {
                 Console.WriteLine(account.SidString);
                 Console.WriteLine(account.Fqn);
-                Assert.AreEqual(account.Fqn, WindowsIdentity.GetCurrent().Name);
+                Assert.That(account.Fqn, Is.EqualTo(WindowsIdentity.GetCurrent().Name));
             }
             finally
             {
                 impersonationCtx.RevertToSelf();
-                Assert.AreNotEqual(account.Fqn, WindowsIdentity.GetCurrent().Name);
+                Assert.That(account.Fqn, Is.Not.EqualTo(WindowsIdentity.GetCurrent().Name));
             }
         }
 
@@ -88,7 +88,7 @@ namespace Waffle.Windows.AuthProvider.UnitTests
             IWindowsAccount account = windowsAuthProviderImpl.LookupAccount(_testUserFqn);
             Console.WriteLine(account.SidString);
             Console.WriteLine(account.Fqn);
-            Assert.AreEqual(_testUserFqn.ToLower(), account.Fqn.ToLower());
+            Assert.That(_testUserFqn.ToLower(), Is.EqualTo(account.Fqn.ToLower()));
         }
 
         [Test]
@@ -118,7 +118,7 @@ namespace Waffle.Windows.AuthProvider.UnitTests
                 continueContext = new WindowsSecurityContext(initContext, responseContext.Token, 0, 0);
             } while (responseContext.Continue);
 
-            Assert.IsFalse(responseContext.Continue);
+            Assert.That(responseContext.Continue, Is.False);
             Console.WriteLine(responseContext.Identity.Fqn);
         }
 

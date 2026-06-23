@@ -11,7 +11,7 @@ namespace Waffle.Windows.AuthProvider.UnitTests
             using (WindowsCredentialsHandle handle = new WindowsCredentialsHandle(
                 string.Empty, Secur32.SECPKG_CRED_OUTBOUND, "Negotiate"))
             {
-                Assert.AreNotEqual(handle.Handle, Secur32.SecHandle.Zero);
+                Assert.That(handle.Handle, Is.Not.EqualTo(Secur32.SecHandle.Zero));
             }
         }
     }

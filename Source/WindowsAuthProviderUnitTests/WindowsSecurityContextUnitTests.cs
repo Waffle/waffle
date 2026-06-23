@@ -22,9 +22,9 @@ namespace Waffle.Windows.AuthProvider.UnitTests
                     Secur32.ISC_REQ_CONNECTION,
                     Secur32.SECURITY_NATIVE_DREP))
                 {
-                    Assert.AreNotEqual(context.Context, Secur32.SecHandle.Zero);
-                    Assert.IsNotNull(context.Token);
-                    Assert.IsNotEmpty(context.Token);
+                    Assert.That(context.Context, Is.Not.EqualTo(Secur32.SecHandle.Zero));
+                    Assert.That(context.Token, Is.Not.Null);
+                    Assert.That(context.Token, Is.Not.Empty);
                     Console.WriteLine(Convert.ToBase64String(context.Token));
                 }
             }
@@ -36,9 +36,9 @@ namespace Waffle.Windows.AuthProvider.UnitTests
             using (WindowsSecurityContext context = WindowsSecurityContext.GetCurrent("Negotiate",
                 WindowsIdentity.GetCurrent().Name, Secur32.ISC_REQ_CONNECTION, Secur32.SECURITY_NATIVE_DREP))
             {
-                Assert.AreNotEqual(context.Context, Secur32.SecHandle.Zero);
-                Assert.IsNotNull(context.Token);
-                Assert.IsNotEmpty(context.Token);
+                Assert.That(context.Context, Is.Not.EqualTo(Secur32.SecHandle.Zero));
+                Assert.That(context.Token, Is.Not.Null);
+                Assert.That(context.Token, Is.Not.Empty);
                 Console.WriteLine(Convert.ToBase64String(context.Token));
             }
         }
@@ -49,9 +49,9 @@ namespace Waffle.Windows.AuthProvider.UnitTests
             using (WindowsSecurityContext context = WindowsSecurityContext.GetCurrent("NTLM",
                 WindowsIdentity.GetCurrent().Name, Secur32.ISC_REQ_CONNECTION, Secur32.SECURITY_NATIVE_DREP))
             {
-                Assert.AreNotEqual(context.Context, Secur32.SecHandle.Zero);
-                Assert.IsNotNull(context.Token);
-                Assert.IsNotEmpty(context.Token);
+                Assert.That(context.Context, Is.Not.EqualTo(Secur32.SecHandle.Zero));
+                Assert.That(context.Token, Is.Not.Null);
+                Assert.That(context.Token, Is.Not.Empty);
                 Console.WriteLine(Convert.ToBase64String(context.Token));
             }
         }
@@ -60,16 +60,17 @@ namespace Waffle.Windows.AuthProvider.UnitTests
         public void TestGetCurrentInvalidPackage()
         {
             Assert.Throws(Is.TypeOf<Win32Exception>().And.Message.EqualTo("The requested security package does not exist"),
-                delegate {
+                (Action)(() =>
+                {
                     using (WindowsSecurityContext context = WindowsSecurityContext.GetCurrent(Guid.NewGuid().ToString(),
                         WindowsIdentity.GetCurrent().Name, 0, 0))
                     {
-                        Assert.AreNotEqual(context.Context, Secur32.SecHandle.Zero);
-                        Assert.IsNotNull(context.Token);
-                        Assert.IsNotEmpty(context.Token);
+                        Assert.That(context.Context, Is.Not.EqualTo(Secur32.SecHandle.Zero));
+                        Assert.That(context.Token, Is.Not.Null);
+                        Assert.That(context.Token, Is.Not.Empty);
                         Console.WriteLine(Convert.ToBase64String(context.Token));
                     }
-                }
+                })
             );
         }
     }
