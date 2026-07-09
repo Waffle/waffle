@@ -180,7 +180,7 @@
 
         <!-- Third Party Versions -->
         <assertj.version>3.27.7</assertj.version>
-        <byte-buddy.version>1.18.10</byte-buddy.version>
+        <byte-buddy.version>1.18.11-jdk5</byte-buddy.version>
         <checker.version>4.2.1</checker.version>
         <commons-math.version>3.6.1</commons-math.version>
         <error-prone.version>2.50.0</error-prone.version>
