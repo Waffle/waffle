@@ -8,8 +8,7 @@
  <?endif ?>
 <?endif ?>
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
-    <Module Id="WindowsAuthProviderMSM" Language="1033" Version="$(var.ProductVersion)">
-        <Package Id="80101f8b-1c44-4c7d-969b-0731b162d54b" Manufacturer="$(var.CompanyName)" InstallerVersion="200" />
+    <Module Id="WindowsAuthProviderMSM" Guid="80101f8b-1c44-4c7d-969b-0731b162d54b" Language="1033" Version="$(var.ProductVersion)">
         <Directory Id="TARGETDIR" Name="SourceDir">
             <Directory Id="MergeRedirectFolder">
                 <Component Id="WindowsAuthProvider" Guid="74ad70ef-aa1a-4d8f-a31c-dda1716b7dd1">
