@@ -43,10 +43,10 @@
         <java.release.version>17</java.release.version>
 
         <!-- Dependencies -->
-        <jna.version>5.18.1</jna.version>
-        <log4j.version>2.26.0</log4j.version>
-        <spring-boot.version>3.5.14</spring-boot.version>
-        <spring-security.version>6.5.10</spring-security.version>
+        <jna.version>5.19.1</jna.version>
+        <log4j.version>2.26.1</log4j.version>
+        <spring-boot.version>3.5.16</spring-boot.version>
+        <spring-security.version>6.5.11</spring-security.version>
 
         <!-- Automatic Module Name for JPMS -->
         <module.name>waffle.spring.boot3</module.name>

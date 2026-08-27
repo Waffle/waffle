@@ -35,9 +35,9 @@
     <properties>
         <!-- Dependencies -->
         <caffeine.version>3.2.4</caffeine.version>
-        <jna.version>5.18.1</jna.version>
-        <log4j.version>2.26.0</log4j.version>
-        <logback.version>1.5.32</logback.version>
+        <jna.version>5.19.1</jna.version>
+        <log4j.version>2.26.1</log4j.version>
+        <logback.version>1.6.3</logback.version>
 
         <!-- Maven compiler options -->
         <java.version>17</java.version>

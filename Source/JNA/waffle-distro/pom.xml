@@ -35,13 +35,13 @@
     <properties>
         <!-- Dependencies -->
         <caffeine.version>3.2.4</caffeine.version>
-        <jackson.version>2.21.3</jackson.version>
-        <jna.version>5.18.1</jna.version>
-        <log4j.version>2.26.0</log4j.version>
-        <logback.version>1.5.32</logback.version>
+        <jackson.version>2.22.2</jackson.version>
+        <jna.version>5.19.1</jna.version>
+        <log4j.version>2.26.1</log4j.version>
+        <logback.version>1.6.3</logback.version>
         <snakeyaml.version>2.6</snakeyaml.version>
         <spring.version>5.3.39</spring.version>
-        <tomcat.version>9.0.117</tomcat.version>
+        <tomcat.version>9.0.121</tomcat.version>
 
         <!-- Maven compiler options -->
         <java.version>17</java.version>

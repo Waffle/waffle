@@ -34,7 +34,7 @@
     <properties>
         <!-- Dependencies -->
         <mockito.version>5.23.0</mockito.version>
-        <objenesis.version>3.5</objenesis.version>
+        <objenesis.version>3.6</objenesis.version>
         <servlet.version>4.0.4</servlet.version>
 
         <!-- Automatic Module Name for JPMS -->
@@ -81,4 +81,25 @@
             <scope>compile</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>report-aggregate</id>
+                        <goals>
+                            <goal>report-aggregate</goal>
+                        </goals>
+                        <phase>verify</phase>
+                        <configuration>
+                            <outputDirectory>${project.reporting.outputDirectory}/jacoco-aggregate</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

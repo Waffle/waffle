@@ -16,6 +16,7 @@ import mockit.Mocked;
 import mockit.Tested;
 import mockit.Verifications;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import waffle.util.CorsPreFlightCheck;
@@ -79,6 +80,44 @@ class CorsAwareNegotiateSecurityFilterTest {
             }
         };
 
+    }
+
+    /**
+     * Do filter test bearer authorization passes through to chain.
+     *
+     * @throws Exception
+     *             the exception
+     */
+    @Test
+    void doFilterTestBearerAuthorization() throws Exception {
+
+        new Expectations() {
+            {
+                CorsAwareNegotiateSecurityFilterTest.this.preflightRequest.getMethod();
+                this.result = "GET";
+                CorsAwareNegotiateSecurityFilterTest.this.preflightRequest.getHeader("Authorization");
+                this.result = "Bearer sometoken";
+            }
+        };
+
+        this.corsAwareNegotiateSecurityFilter.doFilter(this.preflightRequest, this.preflightResponse, this.chain);
+
+        new Verifications() {
+            {
+                CorsAwareNegotiateSecurityFilterTest.this.chain.doFilter(
+                        CorsAwareNegotiateSecurityFilterTest.this.preflightRequest,
+                        CorsAwareNegotiateSecurityFilterTest.this.preflightResponse);
+                this.times = 1;
+            }
+        };
+    }
+
+    /**
+     * Test destroy does not throw.
+     */
+    @Test
+    void testDestroy() {
+        Assertions.assertDoesNotThrow(() -> this.corsAwareNegotiateSecurityFilter.destroy());
     }
 
 }

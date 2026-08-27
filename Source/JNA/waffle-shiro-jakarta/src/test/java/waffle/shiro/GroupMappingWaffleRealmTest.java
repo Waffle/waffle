@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.sun.jna.platform.win32.Secur32.EXTENDED_NAME_FORMAT;
 import com.sun.jna.platform.win32.Secur32Util;
 
-import java.util.Collections;
+import java.util.Map;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -46,7 +46,7 @@ class GroupMappingWaffleRealmTest {
         this.windowsAuthProvider = new MockWindowsAuthProvider();
         this.realm = new GroupMappingWaffleRealm();
         this.realm.setProvider(this.windowsAuthProvider);
-        this.realm.setGroupRolesMap(Collections.singletonMap("Users", GroupMappingWaffleRealmTest.ROLE_NAME));
+        this.realm.setGroupRolesMap(Map.of("Users", GroupMappingWaffleRealmTest.ROLE_NAME));
     }
 
     /**

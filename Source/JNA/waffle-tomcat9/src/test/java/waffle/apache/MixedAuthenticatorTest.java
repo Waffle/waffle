@@ -12,7 +12,7 @@ import com.sun.jna.platform.win32.Sspi;
 import com.sun.jna.platform.win32.SspiUtil.ManagedSecBufferDesc;
 
 import java.util.Base64;
-import java.util.Collections;
+import java.util.List;
 
 import javax.servlet.ServletException;
 
@@ -352,8 +352,7 @@ class MixedAuthenticatorTest {
 
     @Test
     void testCustomPrincipal() throws LifecycleException {
-        final GenericPrincipal genericPrincipal = new GenericPrincipal("my-principal", "my-password",
-                Collections.emptyList());
+        final GenericPrincipal genericPrincipal = new GenericPrincipal("my-principal", "my-password", List.of());
         final MixedAuthenticator customAuthenticator = new MixedAuthenticator() {
             @Override
             protected GenericPrincipal createPrincipal(final IWindowsIdentity windowsIdentity) {

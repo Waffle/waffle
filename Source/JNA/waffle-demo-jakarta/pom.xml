@@ -49,11 +49,11 @@
     <properties>
         <!-- Dependencies -->
         <caffeine.version>3.2.4</caffeine.version>
-        <logback.version>1.5.32</logback.version>
+        <logback.version>1.6.3</logback.version>
         <servlet.version>6.1.0</servlet.version>
 
         <!-- Plugins -->
-        <cargo.plugin>1.10.27</cargo.plugin>
+        <cargo.plugin>1.10.28</cargo.plugin>
 
         <!-- Cargo Setup -->
         <cargo.maven.containerId>tomcat${tomcat.major-version}x</cargo.maven.containerId>

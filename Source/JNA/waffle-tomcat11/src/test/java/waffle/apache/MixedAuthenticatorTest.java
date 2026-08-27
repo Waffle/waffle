@@ -14,7 +14,7 @@ import com.sun.jna.platform.win32.SspiUtil.ManagedSecBufferDesc;
 import jakarta.servlet.ServletException;
 
 import java.util.Base64;
-import java.util.Collections;
+import java.util.List;
 
 import mockit.Expectations;
 import mockit.Mocked;
@@ -353,7 +353,7 @@ class MixedAuthenticatorTest {
 
     @Test
     void testCustomPrincipal() throws LifecycleException {
-        final GenericPrincipal genericPrincipal = new GenericPrincipal("my-principal", Collections.emptyList());
+        final GenericPrincipal genericPrincipal = new GenericPrincipal("my-principal", List.of());
         final MixedAuthenticator customAuthenticator = new MixedAuthenticator() {
             @Override
             protected GenericPrincipal createPrincipal(final IWindowsIdentity windowsIdentity) {

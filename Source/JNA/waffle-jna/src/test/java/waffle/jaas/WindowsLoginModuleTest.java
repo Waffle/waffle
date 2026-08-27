@@ -28,6 +28,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.powermock.reflect.Whitebox;
 
+import waffle.windows.auth.IWindowsAccount;
+import waffle.windows.auth.IWindowsAuthProvider;
+import waffle.windows.auth.IWindowsIdentity;
 import waffle.windows.auth.PrincipalFormat;
 
 /**
@@ -316,6 +319,394 @@ class WindowsLoginModuleTest {
         Whitebox.setInternalState(this.loginModule, "username", "waffle-user");
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
         Assertions.assertTrue(this.loginModule.logout());
+    }
+
+    /**
+     * Test login success with mocked auth provider returns true.
+     *
+     * @param mockAuth
+     *            the mocked auth provider
+     * @param mockIdentity
+     *            the mocked identity
+     * @param mockGroup
+     *            the mocked group
+     *
+     * @throws Exception
+     *             the exception
+     */
+    @Test
+    void login_successWithMockedAuth(@Mocked final IWindowsAuthProvider mockAuth,
+            @Mocked final IWindowsIdentity mockIdentity, @Mocked final IWindowsAccount mockGroup) throws Exception {
+        Assertions.assertNotNull(new Expectations() {
+            {
+                mockAuth.logonUser("testuser", "password");
+                this.result = mockIdentity;
+                mockIdentity.isGuest();
+                this.result = false;
+                this.minTimes = 0;
+                mockIdentity.getGroups();
+                this.result = new IWindowsAccount[] { mockGroup };
+                mockGroup.getFqn();
+                this.result = "DOMAIN\\Users";
+                this.minTimes = 0;
+                mockGroup.getSidString();
+                this.result = "S-1-5-32-545";
+                this.minTimes = 0;
+                mockIdentity.getFqn();
+                this.result = "DOMAIN\\testuser";
+                mockIdentity.getSidString();
+                this.result = "S-1-5-21-999-testuser";
+                this.minTimes = 0;
+                mockIdentity.dispose();
+                this.minTimes = 1;
+            }
+        });
+
+        this.loginModule.setAuth(mockAuth);
+        this.callbackHandler = callbacks -> {
+            for (final javax.security.auth.callback.Callback cb : callbacks) {
+                if (cb instanceof javax.security.auth.callback.NameCallback) {
+                    ((javax.security.auth.callback.NameCallback) cb).setName("testuser");
+                } else if (cb instanceof javax.security.auth.callback.PasswordCallback) {
+                    ((javax.security.auth.callback.PasswordCallback) cb).setPassword("password".toCharArray());
+                }
+            }
+        };
+        this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
+
+        Assertions.assertTrue(this.loginModule.login());
+    }
+
+    /**
+     * Test login with allowGuestLogin=false and guest user throws LoginException.
+     *
+     * @param mockAuth
+     *            the mocked auth provider
+     * @param mockIdentity
+     *            the mocked identity
+     *
+     * @throws Exception
+     *             the exception
+     */
+    @Test
+    void login_guestDisabledThrows(@Mocked final IWindowsAuthProvider mockAuth,
+            @Mocked final IWindowsIdentity mockIdentity) throws Exception {
+        Assertions.assertNotNull(new Expectations() {
+            {
+                mockAuth.logonUser("Guest", "password");
+                this.result = mockIdentity;
+                mockIdentity.isGuest();
+                this.result = true;
+                mockIdentity.getFqn();
+                this.result = "DOMAIN\\Guest";
+                this.minTimes = 0;
+                mockIdentity.dispose();
+                this.minTimes = 1;
+            }
+        });
+
+        this.loginModule.setAuth(mockAuth);
+        this.loginModule.setAllowGuestLogin(false);
+        this.callbackHandler = callbacks -> {
+            for (final javax.security.auth.callback.Callback cb : callbacks) {
+                if (cb instanceof javax.security.auth.callback.NameCallback) {
+                    ((javax.security.auth.callback.NameCallback) cb).setName("Guest");
+                } else if (cb instanceof javax.security.auth.callback.PasswordCallback) {
+                    ((javax.security.auth.callback.PasswordCallback) cb).setPassword("password".toCharArray());
+                }
+            }
+        };
+        this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
+
+        Assertions.assertThrows(LoginException.class, () -> this.loginModule.login());
+    }
+
+    /**
+     * Test login with SID principal format uses SID as principal name.
+     *
+     * @param mockAuth
+     *            the mocked auth provider
+     * @param mockIdentity
+     *            the mocked identity
+     *
+     * @throws Exception
+     *             the exception
+     */
+    @Test
+    void login_sidPrincipalFormat(@Mocked final IWindowsAuthProvider mockAuth,
+            @Mocked final IWindowsIdentity mockIdentity) throws Exception {
+        Assertions.assertNotNull(new Expectations() {
+            {
+                mockAuth.logonUser("testuser", "pass");
+                this.result = mockIdentity;
+                mockIdentity.isGuest();
+                this.result = false;
+                this.minTimes = 0;
+                mockIdentity.getGroups();
+                this.result = new IWindowsAccount[0];
+                mockIdentity.getFqn();
+                this.result = "DOMAIN\\testuser";
+                this.minTimes = 0;
+                mockIdentity.getSidString();
+                this.result = "S-1-5-21-sid";
+                mockIdentity.dispose();
+                this.minTimes = 1;
+            }
+        });
+
+        this.options.put("principalFormat", "sid");
+        this.loginModule.setAuth(mockAuth);
+        this.callbackHandler = callbacks -> {
+            for (final javax.security.auth.callback.Callback cb : callbacks) {
+                if (cb instanceof javax.security.auth.callback.NameCallback) {
+                    ((javax.security.auth.callback.NameCallback) cb).setName("testuser");
+                } else if (cb instanceof javax.security.auth.callback.PasswordCallback) {
+                    ((javax.security.auth.callback.PasswordCallback) cb).setPassword("pass".toCharArray());
+                }
+            }
+        };
+        this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
+
+        Assertions.assertTrue(this.loginModule.login());
+        Assertions.assertTrue(this.loginModule.commit());
+
+        final boolean hasSidPrincipal = this.subject.getPrincipals().stream()
+                .anyMatch(p -> "S-1-5-21-sid".equals(p.getName()));
+        Assertions.assertTrue(hasSidPrincipal);
+    }
+
+    /**
+     * Test login with BOTH principal format includes both FQN and SID principals.
+     *
+     * @param mockAuth
+     *            the mocked auth provider
+     * @param mockIdentity
+     *            the mocked identity
+     *
+     * @throws Exception
+     *             the exception
+     */
+    @Test
+    void login_bothPrincipalFormat(@Mocked final IWindowsAuthProvider mockAuth,
+            @Mocked final IWindowsIdentity mockIdentity) throws Exception {
+        Assertions.assertNotNull(new Expectations() {
+            {
+                mockAuth.logonUser("testuser", "pass");
+                this.result = mockIdentity;
+                mockIdentity.isGuest();
+                this.result = false;
+                this.minTimes = 0;
+                mockIdentity.getGroups();
+                this.result = new IWindowsAccount[0];
+                mockIdentity.getFqn();
+                this.result = "DOMAIN\\testuser";
+                mockIdentity.getSidString();
+                this.result = "S-1-5-21-both";
+                mockIdentity.dispose();
+                this.minTimes = 1;
+            }
+        });
+
+        this.options.put("principalFormat", "both");
+        this.loginModule.setAuth(mockAuth);
+        this.callbackHandler = callbacks -> {
+            for (final javax.security.auth.callback.Callback cb : callbacks) {
+                if (cb instanceof javax.security.auth.callback.NameCallback) {
+                    ((javax.security.auth.callback.NameCallback) cb).setName("testuser");
+                } else if (cb instanceof javax.security.auth.callback.PasswordCallback) {
+                    ((javax.security.auth.callback.PasswordCallback) cb).setPassword("pass".toCharArray());
+                }
+            }
+        };
+        this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
+
+        Assertions.assertTrue(this.loginModule.login());
+        Assertions.assertTrue(this.loginModule.commit());
+
+        Assertions.assertEquals(2, this.subject.getPrincipals().size());
+    }
+
+    /**
+     * Test login with NONE principal format adds no user principals but may add role principals.
+     *
+     * @param mockAuth
+     *            the mocked auth provider
+     * @param mockIdentity
+     *            the mocked identity
+     * @param mockGroup
+     *            the mocked group
+     *
+     * @throws Exception
+     *             the exception
+     */
+    @Test
+    void login_nonePrincipalFormat(@Mocked final IWindowsAuthProvider mockAuth,
+            @Mocked final IWindowsIdentity mockIdentity, @Mocked final IWindowsAccount mockGroup) throws Exception {
+        Assertions.assertNotNull(new Expectations() {
+            {
+                mockAuth.logonUser("testuser", "pass");
+                this.result = mockIdentity;
+                mockIdentity.isGuest();
+                this.result = false;
+                this.minTimes = 0;
+                mockIdentity.getGroups();
+                this.result = new IWindowsAccount[] { mockGroup };
+                this.minTimes = 0;
+                mockGroup.getFqn();
+                this.result = "DOMAIN\\Users";
+                this.minTimes = 0;
+                mockGroup.getSidString();
+                this.result = "S-1-5-32-545";
+                this.minTimes = 0;
+                mockIdentity.getFqn();
+                this.result = "DOMAIN\\testuser";
+                this.minTimes = 0;
+                mockIdentity.getSidString();
+                this.result = "S-1-5-21-none";
+                this.minTimes = 0;
+                mockIdentity.dispose();
+                this.minTimes = 1;
+            }
+        });
+
+        this.options.put("principalFormat", "none");
+        this.options.put("roleFormat", "none");
+        this.loginModule.setAuth(mockAuth);
+        this.callbackHandler = callbacks -> {
+            for (final javax.security.auth.callback.Callback cb : callbacks) {
+                if (cb instanceof javax.security.auth.callback.NameCallback) {
+                    ((javax.security.auth.callback.NameCallback) cb).setName("testuser");
+                } else if (cb instanceof javax.security.auth.callback.PasswordCallback) {
+                    ((javax.security.auth.callback.PasswordCallback) cb).setPassword("pass".toCharArray());
+                }
+            }
+        };
+        this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
+
+        Assertions.assertTrue(this.loginModule.login());
+        Assertions.assertTrue(this.loginModule.commit());
+        Assertions.assertEquals(0, this.subject.getPrincipals().size());
+    }
+
+    /**
+     * Test login with role format SID adds role principals with SID.
+     *
+     * @param mockAuth
+     *            the mocked auth provider
+     * @param mockIdentity
+     *            the mocked identity
+     * @param mockGroup
+     *            the mocked group
+     *
+     * @throws Exception
+     *             the exception
+     */
+    @Test
+    void login_sidRoleFormat(@Mocked final IWindowsAuthProvider mockAuth, @Mocked final IWindowsIdentity mockIdentity,
+            @Mocked final IWindowsAccount mockGroup) throws Exception {
+        Assertions.assertNotNull(new Expectations() {
+            {
+                mockAuth.logonUser("testuser", "pass");
+                this.result = mockIdentity;
+                mockIdentity.isGuest();
+                this.result = false;
+                this.minTimes = 0;
+                mockIdentity.getGroups();
+                this.result = new IWindowsAccount[] { mockGroup };
+                mockGroup.getFqn();
+                this.result = "DOMAIN\\Users";
+                this.minTimes = 0;
+                mockGroup.getSidString();
+                this.result = "S-1-5-32-545";
+                mockIdentity.getFqn();
+                this.result = "DOMAIN\\testuser";
+                this.minTimes = 0;
+                mockIdentity.getSidString();
+                this.result = "S-1-5-21-sid-role";
+                this.minTimes = 0;
+                mockIdentity.dispose();
+                this.minTimes = 1;
+            }
+        });
+
+        this.options.put("roleFormat", "sid");
+        this.loginModule.setAuth(mockAuth);
+        this.callbackHandler = callbacks -> {
+            for (final javax.security.auth.callback.Callback cb : callbacks) {
+                if (cb instanceof javax.security.auth.callback.NameCallback) {
+                    ((javax.security.auth.callback.NameCallback) cb).setName("testuser");
+                } else if (cb instanceof javax.security.auth.callback.PasswordCallback) {
+                    ((javax.security.auth.callback.PasswordCallback) cb).setPassword("pass".toCharArray());
+                }
+            }
+        };
+        this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
+
+        Assertions.assertTrue(this.loginModule.login());
+        Assertions.assertTrue(this.loginModule.commit());
+
+        final boolean hasSidRole = this.subject.getPrincipals().stream()
+                .anyMatch(p -> "S-1-5-32-545".equals(p.getName()));
+        Assertions.assertTrue(hasSidRole);
+    }
+
+    /**
+     * Test login with role format BOTH adds two role principals per group.
+     *
+     * @param mockAuth
+     *            the mocked auth provider
+     * @param mockIdentity
+     *            the mocked identity
+     * @param mockGroup
+     *            the mocked group
+     *
+     * @throws Exception
+     *             the exception
+     */
+    @Test
+    void login_bothRoleFormat(@Mocked final IWindowsAuthProvider mockAuth, @Mocked final IWindowsIdentity mockIdentity,
+            @Mocked final IWindowsAccount mockGroup) throws Exception {
+        Assertions.assertNotNull(new Expectations() {
+            {
+                mockAuth.logonUser("testuser", "pass");
+                this.result = mockIdentity;
+                mockIdentity.isGuest();
+                this.result = false;
+                this.minTimes = 0;
+                mockIdentity.getGroups();
+                this.result = new IWindowsAccount[] { mockGroup };
+                mockGroup.getFqn();
+                this.result = "DOMAIN\\Users";
+                mockGroup.getSidString();
+                this.result = "S-1-5-32-545";
+                mockIdentity.getFqn();
+                this.result = "DOMAIN\\testuser";
+                mockIdentity.getSidString();
+                this.result = "S-1-5-21-both-role";
+                this.minTimes = 0;
+                mockIdentity.dispose();
+                this.minTimes = 1;
+            }
+        });
+
+        this.options.put("roleFormat", "both");
+        this.loginModule.setAuth(mockAuth);
+        this.callbackHandler = callbacks -> {
+            for (final javax.security.auth.callback.Callback cb : callbacks) {
+                if (cb instanceof javax.security.auth.callback.NameCallback) {
+                    ((javax.security.auth.callback.NameCallback) cb).setName("testuser");
+                } else if (cb instanceof javax.security.auth.callback.PasswordCallback) {
+                    ((javax.security.auth.callback.PasswordCallback) cb).setPassword("pass".toCharArray());
+                }
+            }
+        };
+        this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
+
+        Assertions.assertTrue(this.loginModule.login());
+        Assertions.assertTrue(this.loginModule.commit());
+
+        // 1 user principal (FQN) + 2 role principals (FQN and SID) = 3 total
+        Assertions.assertEquals(3, this.subject.getPrincipals().size());
     }
 
 }
