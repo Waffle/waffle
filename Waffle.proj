@@ -63,7 +63,7 @@
       <Output TaskParameter="Include" ItemName="UnitTestAssemblies"/>
     </CreateItem>
     <Message Text="@(UnitTestAssemblies)" />
-    <exec Command="$(NUnitConsoleRunnerPath)\nunit3-console.exe &quot;@(UnitTestAssemblies)&quot;"/>
+    <exec Command="$(NUnitConsoleRunnerPath)\nunit3-console.exe &quot;@(UnitTestAssemblies)&quot; --work=target\nunit"/>
   </Target>
   <Target Name="drop" DependsOnTargets="version;configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
     <CreateItem Include="Source\**\%(Configuration.Identity)/Waffle.*.dll" Exclude="Source\**\%(Configuration.Identity)/Waffle.*UnitTests.dll">
