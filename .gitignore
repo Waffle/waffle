@@ -1,9 +1,11 @@
-# Eclipse 
+# Eclipse
+*.factorypath
 /.apt_generated_tests/
 .classpath
 .settings
 .project
 .tern-project
+.sts4-cache/
 target
 
 # Intellij
@@ -23,23 +25,20 @@ Waffle.sln.cache
 Waffle.suo
 *.csproj.user
 
+# Maven
+*.releaseBackup
+**/.mvn/wrapper/maven-wrapper.jar
+
 # nuget
 .nuget
 *.nupkg
-
-# nunit
-TestResult.xml
 
 # sonarqube
 .sonar_lock
 
 # windows
 Thumbs.db
-*.factorypath
-**/.mvn/wrapper/maven-wrapper.jar
-*.releaseBackup
 Source/JNA/release.properties
-.sts4-cache/
 .cache/
 .profiler/
 .github/keys/
