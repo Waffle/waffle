@@ -1,37 +1,31 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
-  <Import Project="..\..\.nuget\packages\WiX.4.0.0.5512-pre\build\wix.props" Condition="Exists('..\..\.nuget\packages\WiX.4.0.0.5512-pre\build\wix.props')" />
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="WixToolset.Sdk/4.0.6">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
     <ProductVersion>3.0</ProductVersion>
     <ProjectGuid>{8e2e9431-3fd1-41e9-97cf-cc96dd32386f}</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
     <OutputName>Waffle.Windows.AuthProvider</OutputName>
     <OutputType>Module</OutputType>
-    <WixToolPath>..\..\.nuget\packages\WiX.4.0.0.5512-pre\tools</WixToolPath>
     <RunWixToolsOutOfProc>true</RunWixToolsOutOfProc>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <OutputPath>bin\Debug\</OutputPath>
     <IntermediateOutputPath>obj\Debug\</IntermediateOutputPath>
     <DefineConstants>Debug</DefineConstants>
-    <IncludeSearchPaths>
-    </IncludeSearchPaths>
+    <IncludeSearchPaths />
     <Pedantic>False</Pedantic>
     <ShowSourceTrace>False</ShowSourceTrace>
     <SuppressSchemaValidation>False</SuppressSchemaValidation>
-    <SuppressSpecificWarnings>
-    </SuppressSpecificWarnings>
+    <SuppressSpecificWarnings />
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <VerboseOutput>False</VerboseOutput>
     <AllowIdenticalRows>False</AllowIdenticalRows>
-    <CabinetCachePath>
-    </CabinetCachePath>
+    <CabinetCachePath />
     <CabinetCreationThreadCount>-1</CabinetCreationThreadCount>
-    <Cultures>
-    </Cultures>
+    <Cultures />
     <LeaveTemporaryFiles>False</LeaveTemporaryFiles>
     <LinkerPedantic>False</LinkerPedantic>
     <ReuseCabinetCache>False</ReuseCabinetCache>
@@ -44,40 +38,33 @@
     <SuppressDroppingUnrealTables>False</SuppressDroppingUnrealTables>
     <SuppressFileHashAndInfo>False</SuppressFileHashAndInfo>
     <SuppressFiles>False</SuppressFiles>
-    <SuppressIces>
-    </SuppressIces>
+    <SuppressIces />
     <LinkerSuppressIntermediateFileVersionMatching>False</LinkerSuppressIntermediateFileVersionMatching>
     <SuppressLayout>False</SuppressLayout>
     <SuppressMsiAssemblyTableProcessing>False</SuppressMsiAssemblyTableProcessing>
     <LinkerSuppressSchemaValidation>False</LinkerSuppressSchemaValidation>
-    <LinkerSuppressSpecificWarnings>
-    </LinkerSuppressSpecificWarnings>
+    <LinkerSuppressSpecificWarnings />
     <SuppressValidation>False</SuppressValidation>
     <LinkerTreatWarningsAsErrors>False</LinkerTreatWarningsAsErrors>
     <LinkerVerboseOutput>False</LinkerVerboseOutput>
-    <WixVariables>
-    </WixVariables>
+    <WixVariables />
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <OutputPath>bin\Release\</OutputPath>
     <IntermediateOutputPath>obj\Release\</IntermediateOutputPath>
-    <DefineConstants>
-    </DefineConstants>
-    <IncludeSearchPaths>
-    </IncludeSearchPaths>
+    <DefineConstants />
+    <IncludeSearchPaths />
     <Pedantic>False</Pedantic>
     <ShowSourceTrace>False</ShowSourceTrace>
     <SuppressSchemaValidation>False</SuppressSchemaValidation>
-    <SuppressSpecificWarnings>
-    </SuppressSpecificWarnings>
+    <SuppressSpecificWarnings />
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <VerboseOutput>False</VerboseOutput>
     <AllowIdenticalRows>False</AllowIdenticalRows>
-    <CabinetCachePath>
-    </CabinetCachePath>
+    <CabinetCachePath />
     <CabinetCreationThreadCount>-1</CabinetCreationThreadCount>
-    <Cultures>
-    </Cultures>
+    <Cultures />
     <LeaveTemporaryFiles>False</LeaveTemporaryFiles>
     <LinkerPedantic>False</LinkerPedantic>
     <ReuseCabinetCache>False</ReuseCabinetCache>
@@ -90,39 +77,27 @@
     <SuppressDroppingUnrealTables>False</SuppressDroppingUnrealTables>
     <SuppressFileHashAndInfo>False</SuppressFileHashAndInfo>
     <SuppressFiles>False</SuppressFiles>
-    <SuppressIces>
-    </SuppressIces>
+    <SuppressIces />
     <LinkerSuppressIntermediateFileVersionMatching>False</LinkerSuppressIntermediateFileVersionMatching>
     <SuppressLayout>False</SuppressLayout>
     <SuppressMsiAssemblyTableProcessing>False</SuppressMsiAssemblyTableProcessing>
     <LinkerSuppressSchemaValidation>False</LinkerSuppressSchemaValidation>
-    <LinkerSuppressSpecificWarnings>
-    </LinkerSuppressSpecificWarnings>
+    <LinkerSuppressSpecificWarnings />
     <SuppressValidation>False</SuppressValidation>
     <LinkerTreatWarningsAsErrors>False</LinkerTreatWarningsAsErrors>
     <LinkerVerboseOutput>False</LinkerVerboseOutput>
-    <WixVariables>
-    </WixVariables>
+    <WixVariables />
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="WindowsAuthProviderMergeModule.wxs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(WixTargetsPath)" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\.nuget\packages\WiX.4.0.0.5512-pre\build\wix.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\.nuget\packages\WiX.4.0.0.5512-pre\build\wix.props'))" />
-  </Target>
+
   <!--
-    To modify your build process, add your task inside one of the targets below and uncomment it.
-    Other similar extension points exist, see Wix.targets.
+    To modify your build process, add your task inside one of the targets below
+    and uncomment it. Other similar extension points exist in Wix.targets.
+
     <Target Name="BeforeBuild">
     </Target>
+
     <Target Name="AfterBuild">
     </Target>
-    -->
+  -->
+
 </Project>
