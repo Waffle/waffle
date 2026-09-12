@@ -22,12 +22,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsAuthProviderUnitTest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Version", "Source\Version\Version.csproj", "{1DA8F5AA-2EE1-4204-A72F-0373BF541395}"
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "WindowsAuthProviderMergeModule", "Source\WindowsAuthProviderMergeModule\WindowsAuthProviderMergeModule.wixproj", "{8E2E9431-3FD1-41E9-97CF-CC96DD32386F}"
-	ProjectSection(ProjectDependencies) = postProject
-		{1DA8F5AA-2EE1-4204-A72F-0373BF541395} = {1DA8F5AA-2EE1-4204-A72F-0373BF541395}
-		{CD4002DB-54D8-4186-8E78-AEA1AE226D7B} = {CD4002DB-54D8-4186-8E78-AEA1AE226D7B}
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,10 +40,6 @@ Global
 		{1DA8F5AA-2EE1-4204-A72F-0373BF541395}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DA8F5AA-2EE1-4204-A72F-0373BF541395}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DA8F5AA-2EE1-4204-A72F-0373BF541395}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8E2E9431-3FD1-41E9-97CF-CC96DD32386F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8E2E9431-3FD1-41E9-97CF-CC96DD32386F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8E2E9431-3FD1-41E9-97CF-CC96DD32386F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8E2E9431-3FD1-41E9-97CF-CC96DD32386F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

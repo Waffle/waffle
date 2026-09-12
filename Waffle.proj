@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="all" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" >
-
   <PropertyGroup>
     <BuildFolder>$(MSBuildProjectDirectory)\Build</BuildFolder>
     <PackagesFolder>$(MSBuildProjectDirectory)\.nuget\packages</PackagesFolder>
     <SourceFolder>$(MSBuildProjectDirectory)\Source</SourceFolder>
-    
     <MSBuildCommunityTasksPath>$(PackagesFolder)\MSBuildTasks.1.5.0.235\tools</MSBuildCommunityTasksPath>
     <NUnitConsoleRunnerPath>$(PackagesFolder)\NUnit.ConsoleRunner.3.17.0\tools</NUnitConsoleRunnerPath>
   </PropertyGroup>
-
   <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets"/>
   <Import Project="Version.proj"/>
   <PropertyGroup Condition="'$(Configuration)'==''">
@@ -58,6 +55,7 @@
   <Target Name="build" DependsOnTargets="version;configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
     <Message Importance="high" Text="Compiling and linking project, %(Configuration.Identity) ..." />
     <MSBuild Projects="Waffle.sln" Targets="Build" Properties="Configuration=%(Configuration.Identity)" />
+    <Exec Command="dotnet msbuild Source\WindowsAuthProviderMergeModule\WindowsAuthProviderMergeModule.wixproj /t:Build /p:Configuration=%(Configuration.Identity)" />
   </Target>
   <Target Name="test" DependsOnTargets="configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
     <Message Importance="high" Text="Running tests, %(Configuration.Identity) ..." />
@@ -65,7 +63,7 @@
       <Output TaskParameter="Include" ItemName="UnitTestAssemblies"/>
     </CreateItem>
     <Message Text="@(UnitTestAssemblies)" />
-	<exec Command="$(NUnitConsoleRunnerPath)\nunit3-console.exe &quot;@(UnitTestAssemblies)&quot;"/>
+    <exec Command="$(NUnitConsoleRunnerPath)\nunit3-console.exe &quot;@(UnitTestAssemblies)&quot;"/>
   </Target>
   <Target Name="drop" DependsOnTargets="version;configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
     <CreateItem Include="Source\**\%(Configuration.Identity)/Waffle.*.dll" Exclude="Source\**\%(Configuration.Identity)/Waffle.*UnitTests.dll">
