@@ -89,10 +89,6 @@
     <WixVariables />
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Include="WindowsAuthProviderMergeModule.wxs" />
-  </ItemGroup>
-
   <!--
     To modify your build process, add your task inside one of the targets below
     and uncomment it. Other similar extension points exist in Wix.targets.
