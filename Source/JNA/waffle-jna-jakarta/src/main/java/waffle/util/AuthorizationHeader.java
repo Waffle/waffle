@@ -171,6 +171,6 @@ public class AuthorizationHeader {
             return false;
         }
 
-        return this.getSecurityPackage().toUpperCase(Locale.ENGLISH).equalsIgnoreCase("BEARER");
+        return this.getSecurityPackage().toUpperCase(Locale.ROOT).equalsIgnoreCase("BEARER");
     }
 }

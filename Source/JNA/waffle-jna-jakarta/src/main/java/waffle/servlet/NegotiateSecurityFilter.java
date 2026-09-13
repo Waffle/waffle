@@ -318,10 +318,10 @@ public class NegotiateSecurityFilter implements Filter {
                 NegotiateSecurityFilter.LOGGER.debug("Init Param: '{}={}'", parameterName, parameterValue);
                 switch (parameterName) {
                     case "principalFormat":
-                        this.principalFormat = PrincipalFormat.valueOf(parameterValue.toUpperCase(Locale.ENGLISH));
+                        this.principalFormat = PrincipalFormat.valueOf(parameterValue.toUpperCase(Locale.ROOT));
                         break;
                     case "roleFormat":
-                        this.roleFormat = PrincipalFormat.valueOf(parameterValue.toUpperCase(Locale.ENGLISH));
+                        this.roleFormat = PrincipalFormat.valueOf(parameterValue.toUpperCase(Locale.ROOT));
                         break;
                     case "allowGuestLogin":
                         this.allowGuestLogin = Boolean.parseBoolean(parameterValue);
@@ -418,7 +418,7 @@ public class NegotiateSecurityFilter implements Filter {
      *            Principal format.
      */
     public void setPrincipalFormat(final String format) {
-        this.principalFormat = PrincipalFormat.valueOf(format.toUpperCase(Locale.ENGLISH));
+        this.principalFormat = PrincipalFormat.valueOf(format.toUpperCase(Locale.ROOT));
         NegotiateSecurityFilter.LOGGER.info("principal format: {}", this.principalFormat);
     }
 
@@ -438,7 +438,7 @@ public class NegotiateSecurityFilter implements Filter {
      *            Role format.
      */
     public void setRoleFormat(final String format) {
-        this.roleFormat = PrincipalFormat.valueOf(format.toUpperCase(Locale.ENGLISH));
+        this.roleFormat = PrincipalFormat.valueOf(format.toUpperCase(Locale.ROOT));
         NegotiateSecurityFilter.LOGGER.info("role format: {}", this.roleFormat);
     }
 
@@ -532,7 +532,7 @@ public class NegotiateSecurityFilter implements Filter {
 
     private static boolean isWindows() {
         if (NegotiateSecurityFilter.windows == null) {
-            NegotiateSecurityFilter.windows = System.getProperty("os.name").toLowerCase(Locale.ENGLISH).contains("win");
+            NegotiateSecurityFilter.windows = System.getProperty("os.name").toLowerCase(Locale.ROOT).contains("win");
         }
         return NegotiateSecurityFilter.windows.booleanValue();
     }

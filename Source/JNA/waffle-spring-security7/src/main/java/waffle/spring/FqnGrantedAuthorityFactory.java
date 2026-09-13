@@ -53,7 +53,7 @@ public class FqnGrantedAuthorityFactory implements GrantedAuthorityFactory {
         }
 
         if (this.convertToUpperCase) {
-            grantedAuthorityString = grantedAuthorityString.toUpperCase(Locale.ENGLISH);
+            grantedAuthorityString = grantedAuthorityString.toUpperCase(Locale.ROOT);
         }
 
         return new SimpleGrantedAuthority(grantedAuthorityString);

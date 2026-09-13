@@ -113,7 +113,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      *            Principal format.
      */
     public void setPrincipalFormat(final String format) {
-        this.principalFormat = PrincipalFormat.valueOf(format.toUpperCase(Locale.ENGLISH));
+        this.principalFormat = PrincipalFormat.valueOf(format.toUpperCase(Locale.ROOT));
         this.log.debug("principal format: {}", this.principalFormat);
     }
 
@@ -133,7 +133,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
      *            Role format.
      */
     public void setRoleFormat(final String format) {
-        this.roleFormat = PrincipalFormat.valueOf(format.toUpperCase(Locale.ENGLISH));
+        this.roleFormat = PrincipalFormat.valueOf(format.toUpperCase(Locale.ROOT));
         this.log.debug("role format: {}", this.roleFormat);
     }
 
