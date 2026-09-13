@@ -33,11 +33,11 @@ Visual Studio is not required, but useful when editing .NET code. At the least, 
 
 Windows 10 SDK can be found [here](https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk)
 
-### NUnit (3.5.0)
+### NUnit (4.6.1)
 
 Download NUnit from [here](https://nunit.org).
 
-### Wix Toolset 4.0.6
+### Wix Toolset 7.0.0
 
 WiX is restored as a local .NET tool by bootstrap.cmd. The WiX MSBuild SDK is restored automatically when the WiX project is built.
 
