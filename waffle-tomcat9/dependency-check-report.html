@@ -91,9 +91,13 @@
                     }
                 });
                 $('#modal-add-header').click(function () {
-                    xml = '<?xml version="1.0" encoding="UTF-8"?>\n<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">\n   ';
-                    xml += $("#modal-text").text().replace(/\n/g,'\n   ');
-                    xml += '\n</suppressions>';
+                    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.4.xsd"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.4.xsd
+                                  https://dependency-check.github.io/DependencyCheck/dependency-suppression.1.4.xsd">
+    ${$("#modal-text").text().replace(/\n/g,'\n    ')}
+</suppressions>`;
                     $('#modal-add-header').toggleClass('active');
                     $('#modal-text').text(xml).focus().select();
                 });
@@ -139,26 +143,26 @@
             }
             function setCopyText(name, matchType, matchValue, suppressType, suppressVal) {
                 var xml =  '<suppress>\n';
-                xml += '   <notes><!'+'[CDATA[\n   file name: ' + name + '\n   ]]'+'></notes>\n';
+                xml += '    <notes><![CDATA[\n    file name: ' + name + '\n    ]]></notes>\n';
                 if (matchType=='packageUrl') {
                     var v = matchValue.match(/^[^@]+/);
                     if (v && v[0]) {
-                        xml += '   <'+matchType+' regex="true">^' + escapeRegExp(v[0]) + '@.*$</'+matchType+'>\n';
+                        xml += '    <'+matchType+' regex="true">^' + escapeRegExp(v[0]) + '@.*$</'+matchType+'>\n';
                     } else {
-                        xml += '   <'+matchType+'>' + matchValue + '</'+matchType+'>\n';
+                        xml += '    <'+matchType+'>' + matchValue + '</'+matchType+'>\n';
                     }
                 } else {
-                    xml += '   <'+matchType+'>' + matchValue + '</'+matchType+'>\n';
+                    xml += '    <'+matchType+'>' + matchValue + '</'+matchType+'>\n';
                 }
                 if (suppressType=='cpe') {
                     v = suppressVal.match(/^cpe:\/a:[^:]+:[^:]+/);
                     if (v && v[0]) {
-                        xml += '   <'+suppressType+'>' + v[0] + '</'+suppressType+'>\n';
+                        xml += '    <'+suppressType+'>' + v[0] + '</'+suppressType+'>\n';
                     } else {
-                        xml += '   <'+suppressType+'>' + suppressVal + '</'+suppressType+'>\n';
+                        xml += '    <'+suppressType+'>' + suppressVal + '</'+suppressType+'>\n';
                     }
                 } else {
-                    xml += '   <'+suppressType+'>' + suppressVal + '</'+suppressType+'>\n';
+                    xml += '    <'+suppressType+'>' + suppressVal + '</'+suppressType+'>\n';
                 }
                 xml += '</suppress>';
                 $('#modal-text').text(xml);
@@ -265,7 +269,8 @@
             }
             #modal-text {
                 border: 0;
-                overflow: hidden
+                overflow: auto;
+                white-space: pre;
             }
             #modal-text:focus {
                 outline: none;
@@ -652,8 +657,8 @@
         <div id="modal-background"></div>
         <div id="modal-content">
             <div>Press CTR-C to copy XML&nbsp;<a href="https://dependency-check.github.io/DependencyCheck/general/suppression.html" class="infolink" target="_blank" title="Help with suppressing false positives">[help]</a></div>
-                <button id="modal-suppress-change-to-packageUrl" class="modal-button suppresstype" title="Supress by Maven Group Artifact Version">Suppress By GAV</button>
-                <button id="modal-suppress-change-to-sha1" class="modal-button suppresstype" title="Supress by SHA1 hash">Suppress By SHA1</button><br/>
+                <button id="modal-suppress-change-to-packageUrl" class="modal-button suppresstype" title="Supress by Maven Group Artifact Version">Suppress by Package URL</button>
+                <button id="modal-suppress-change-to-sha1" class="modal-button suppresstype" title="Supress by SHA1 hash">Suppress by SHA1</button><br/>
                 <input type="hidden" id="suppress-name"/>
                 <input type="hidden" id="suppress-type"/><input type="hidden" id="suppress-val"/>
                 <input type="hidden" id="suppress-sha1"/><input type="hidden" id="suppress-packageUrl"/>
@@ -673,21 +678,21 @@ arising out of or in connection with the use of this tool, the analysis performe
 Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issues" target="_blank">github issues</a></h3>
 
             <h2 class="">Project:&nbsp;waffle-tomcat9</h2>
-            <h4>com.github.waffle:waffle-tomcat9:3.6.0-SNAPSHOT</h4>
+            <h4>com.github.waffle:waffle-tomcat9:3.6.1-SNAPSHOT</h4>
             <div class="">
 
                 Scan Information (<a href="#" title="Click to toggle display" id="scanInformationToggle">show all</a>):<br/>
                     <ul class="indent">
-                        <li><i>dependency-check version</i>: 12.2.0</li>
-                        <li><i>Report Generated On</i>: Mon, 19 Jan 2026 20:31:23 GMT</li>
+                        <li><i>dependency-check version</i>: 13.0.0</li>
+                        <li><i>Report Generated On</i>: Sun, 13 Sep 2026 00:20:32 GMT</li>
                         <li><i>Dependencies Scanned</i>:&nbsp;26 (20 unique)</li>
                         <li><i>Vulnerable Dependencies</i>:&nbsp;<span id="vulnerableCount">0</span></li>
                         <li><i>Vulnerabilities Found</i>:&nbsp;0</li>
                         <li><i>Vulnerabilities Suppressed</i>:&nbsp;0
                         </li>
                         <li class="scaninfo">...</li>
-                        <li class="scaninfo hidden"><i>NVD API Last Checked</i>: 2026-01-19T20:29:50Z</li>
-                        <li class="scaninfo hidden"><i>NVD API Last Modified</i>: 2026-01-19T20:15:49Z</li>
+                        <li class="scaninfo hidden"><i>NVD API Last Checked</i>: 2026-09-13T00:18:53Z</li>
+                        <li class="scaninfo hidden"><i>NVD API Last Modified</i>: 2026-09-13T00:17:07Z</li>
                     </ul><br/>
 <h2>Summary</h2>
                 <p><span id="tablecaption-plain">Summary of Vulnerable Dependencies </span><a href="#" title="Click to toggle display" id="vulnerabilityDisplayToggle">(click to show all)</a></p>
@@ -702,11 +707,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <th class="sortable" data-sort="int"    title="The count of evidence collected to identify the CPE">Evidence&nbsp;Count</th>
                     </tr></thead>
                     <tr class="notvulnerable">
-                        <td data-sort-value="CAFFEINE-3.2.3.JAR"><a href="#l1_c097f0f6d21a0e6db88ea55836e26419b30dfe19">caffeine-3.2.3.jar</a></td>
+                        <td data-sort-value="CAFFEINE-3.2.4.JAR"><a href="#l1_c63b303adf59c733d2a96125ad6670e938a2c15d">caffeine-3.2.4.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/com.github.ben-manes.caffeine/caffeine@3.2.3">
-                                pkg:maven/com.github.ben-manes.caffeine/caffeine@3.2.3
+                        <td data-sort-value="pkg:maven/com.github.ben-manes.caffeine/caffeine@3.2.4">
+                                pkg:maven/com.github.ben-manes.caffeine/caffeine@3.2.4
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -714,11 +719,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>33</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="CHECKER-QUAL-3.53.0.JAR"><a href="#l2_af1105964a03d7ed8aaf8ea2cb6ec0da7ec6c7a6">checker-qual-3.53.0.jar</a></td>
+                        <td data-sort-value="CHECKER-QUAL-4.2.3.JAR"><a href="#l2_d2a10af5c8574adfe24f5e35ff56cca92af2e916">checker-qual-4.2.3.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/org.checkerframework/checker-qual@3.53.0">
-                                pkg:maven/org.checkerframework/checker-qual@3.53.0
+                        <td data-sort-value="pkg:maven/org.checkerframework/checker-qual@4.2.3">
+                                pkg:maven/org.checkerframework/checker-qual@4.2.3
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -726,11 +731,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>44</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="COM.GITHUB.WAFFLE:WAFFLE-JNA:3.6.0-SNAPSHOT"><a href="#l3_db60b492ef5c6f447b2dbba3164a04455ad93c85">com.github.waffle:waffle-jna:3.6.0-SNAPSHOT</a></td>
+                        <td data-sort-value="COM.GITHUB.WAFFLE:WAFFLE-JNA:3.6.1-SNAPSHOT"><a href="#l3_8b44d4d1155777acf5ca607cce795724475e41f8">com.github.waffle:waffle-jna:3.6.1-SNAPSHOT</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/com.github.waffle/waffle-jna@3.6.0-SNAPSHOT">
-                                pkg:maven/com.github.waffle/waffle-jna@3.6.0-SNAPSHOT
+                        <td data-sort-value="pkg:maven/com.github.waffle/waffle-jna@3.6.1-SNAPSHOT">
+                                pkg:maven/com.github.waffle/waffle-jna@3.6.1-SNAPSHOT
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -738,11 +743,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>6</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="ERROR_PRONE_ANNOTATIONS-2.46.0.JAR"><a href="#l4_4ecb5d2392c38c46e6cb65e1bf60be708d97005d">error_prone_annotations-2.46.0.jar</a></td>
+                        <td data-sort-value="ERROR_PRONE_ANNOTATIONS-2.50.0.JAR"><a href="#l4_74ba43e49ab1184d41634af2ef0047e82c4064b0">error_prone_annotations-2.50.0.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/com.google.errorprone/error_prone_annotations@2.46.0">
-                                pkg:maven/com.google.errorprone/error_prone_annotations@2.46.0
+                        <td data-sort-value="pkg:maven/com.google.errorprone/error_prone_annotations@2.50.0">
+                                pkg:maven/com.google.errorprone/error_prone_annotations@2.50.0
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -762,20 +767,19 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>33</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="JNA-5.18.1.JAR"><a href="#l6_b27ba04287cc4abe769642fe8318d39fc89bf937">jna-5.18.1.jar</a></td>
-                        <td data-sort-value="cpe:2.3:a:oracle:java_se:5.18.1:*:*:*:*:*:*:*">
-                                cpe:2.3:a:oracle:java_se:5.18.1:*:*:*:*:*:*:*
+                        <td data-sort-value="JNA-5.19.1.JAR"><a href="#l6_ca303052cd617c1af2e2c8d344c98a706fb63143">jna-5.19.1.jar</a></td>
+                        <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/net.java.dev.jna/jna@5.18.1">
-                                pkg:maven/net.java.dev.jna/jna@5.18.1
+                        <td data-sort-value="pkg:maven/net.java.dev.jna/jna@5.19.1">
+                                pkg:maven/net.java.dev.jna/jna@5.19.1
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
-                        <td data-sort-value="3">Low</td>
+                        <td data-sort-value="0"></td>
                         <td>48</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="JNA-5.18.1.JAR: JNIDISPATCH.DLL"><a href="#l7_6b05e299ff2b3eb3b7b7aeac44263f715693607c">jna-5.18.1.jar: jnidispatch.dll</a></td>
+                        <td data-sort-value="JNA-5.19.1.JAR: JNIDISPATCH.DLL"><a href="#l7_6b05e299ff2b3eb3b7b7aeac44263f715693607c">jna-5.19.1.jar: jnidispatch.dll</a></td>
                         <td data-sort-value="">
                         </td>
                         <td data-sort-value="">
@@ -786,7 +790,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>2</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="JNA-5.18.1.JAR: JNIDISPATCH.DLL"><a href="#l8_27ff882ac271db547aee520b38e3ba9aa91e136c">jna-5.18.1.jar: jnidispatch.dll</a></td>
+                        <td data-sort-value="JNA-5.19.1.JAR: JNIDISPATCH.DLL"><a href="#l8_27ff882ac271db547aee520b38e3ba9aa91e136c">jna-5.19.1.jar: jnidispatch.dll</a></td>
                         <td data-sort-value="">
                         </td>
                         <td data-sort-value="">
@@ -797,7 +801,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>2</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="JNA-5.18.1.JAR: JNIDISPATCH.DLL"><a href="#l9_2f5e1cd82cde192905c7510ce99037b67d980640">jna-5.18.1.jar: jnidispatch.dll</a></td>
+                        <td data-sort-value="JNA-5.19.1.JAR: JNIDISPATCH.DLL"><a href="#l9_2f5e1cd82cde192905c7510ce99037b67d980640">jna-5.19.1.jar: jnidispatch.dll</a></td>
                         <td data-sort-value="">
                         </td>
                         <td data-sort-value="">
@@ -808,11 +812,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>2</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="JNA-PLATFORM-5.18.1.JAR"><a href="#l10_dd817f391efc492041c9ae91127527c13750a789">jna-platform-5.18.1.jar</a></td>
+                        <td data-sort-value="JNA-PLATFORM-5.19.1.JAR"><a href="#l10_d1e54d9231da5ca3fa730d52960deaa555475468">jna-platform-5.19.1.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/net.java.dev.jna/jna-platform@5.18.1">
-                                pkg:maven/net.java.dev.jna/jna-platform@5.18.1
+                        <td data-sort-value="pkg:maven/net.java.dev.jna/jna-platform@5.19.1">
+                                pkg:maven/net.java.dev.jna/jna-platform@5.19.1
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -844,11 +848,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>17</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="SLF4J-API-2.0.17.JAR"><a href="#l13_d9e58ac9c7779ba3bf8142aff6c830617a7fe60f">slf4j-api-2.0.17.jar</a></td>
+                        <td data-sort-value="SLF4J-API-2.0.19.JAR"><a href="#l13_efad9817997b3a6ce9e058f92e612917a744c290">slf4j-api-2.0.19.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/org.slf4j/slf4j-api@2.0.17">
-                                pkg:maven/org.slf4j/slf4j-api@2.0.17
+                        <td data-sort-value="pkg:maven/org.slf4j/slf4j-api@2.0.19">
+                                pkg:maven/org.slf4j/slf4j-api@2.0.19
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -856,11 +860,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>29</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="SPOTBUGS-ANNOTATIONS-4.9.8.JAR"><a href="#l14_ca4a2783a6123e67124fd7feb4caccd2e2ac9a73">spotbugs-annotations-4.9.8.jar</a></td>
+                        <td data-sort-value="SPOTBUGS-ANNOTATIONS-4.10.4.JAR"><a href="#l14_7eb4c58212378becfb6ea6d236ec24a2352a316e">spotbugs-annotations-4.10.4.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/com.github.spotbugs/spotbugs-annotations@4.9.8">
-                                pkg:maven/com.github.spotbugs/spotbugs-annotations@4.9.8
+                        <td data-sort-value="pkg:maven/com.github.spotbugs/spotbugs-annotations@4.10.4">
+                                pkg:maven/com.github.spotbugs/spotbugs-annotations@4.10.4
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -868,12 +872,12 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>53</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="TOMCAT-ANNOTATIONS-API-9.0.113.JAR"><a href="#l15_6c156b32284c8371adb228ae21688387627e558b">tomcat-annotations-api-9.0.113.jar</a></td>
-                        <td data-sort-value="cpe:2.3:a:www-sql_project:www-sql:9.0.113:*:*:*:*:*:*:*">
-                                cpe:2.3:a:www-sql_project:www-sql:9.0.113:*:*:*:*:*:*:*
+                        <td data-sort-value="TOMCAT-ANNOTATIONS-API-9.0.121.JAR"><a href="#l15_5281544382512e6cbc6af72ca3f6812f02876138">tomcat-annotations-api-9.0.121.jar</a></td>
+                        <td data-sort-value="cpe:2.3:a:www-sql_project:www-sql:9.0.121:*:*:*:*:*:*:*">
+                                cpe:2.3:a:www-sql_project:www-sql:9.0.121:*:*:*:*:*:*:*
                         </td>
-                        <td data-sort-value="pkg:maven/org.apache.tomcat/tomcat-annotations-api@9.0.113">
-                                pkg:maven/org.apache.tomcat/tomcat-annotations-api@9.0.113
+                        <td data-sort-value="pkg:maven/org.apache.tomcat/tomcat-annotations-api@9.0.121">
+                                pkg:maven/org.apache.tomcat/tomcat-annotations-api@9.0.121
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -881,14 +885,14 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>30</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="TOMCAT-API-9.0.113.JAR"><a href="#l16_1573227969b3f8b46d54733cf41ebad78d6f08fe">tomcat-api-9.0.113.jar</a></td>
-                        <td data-sort-value="cpe:2.3:a:apache:tomcat:9.0.113:*:*:*:*:*:*:*cpe:2.3:a:apache_tomcat:apache_tomcat:9.0.113:*:*:*:*:*:*:*">
-                                <a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A9.0.113%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:apache:tomcat:9.0.113:*:*:*:*:*:*:*</a>
+                        <td data-sort-value="TOMCAT-API-9.0.121.JAR"><a href="#l16_e0ddb6bb5ad2296e932e2b8a77a23198761e8b63">tomcat-api-9.0.121.jar</a></td>
+                        <td data-sort-value="cpe:2.3:a:apache:tomcat:9.0.121:*:*:*:*:*:*:*cpe:2.3:a:apache_tomcat:apache_tomcat:9.0.121:*:*:*:*:*:*:*">
+                                <a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A9.0.121%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:apache:tomcat:9.0.121:*:*:*:*:*:*:*</a>
                                 <br/>
-                                <a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache_tomcat%3Aapache_tomcat%3A9.0.113%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:apache_tomcat:apache_tomcat:9.0.113:*:*:*:*:*:*:*</a>
+                                <a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache_tomcat%3Aapache_tomcat%3A9.0.121%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:apache_tomcat:apache_tomcat:9.0.121:*:*:*:*:*:*:*</a>
                         </td>
-                        <td data-sort-value="pkg:maven/org.apache.tomcat/tomcat-api@9.0.113">
-                                pkg:maven/org.apache.tomcat/tomcat-api@9.0.113
+                        <td data-sort-value="pkg:maven/org.apache.tomcat/tomcat-api@9.0.121">
+                                pkg:maven/org.apache.tomcat/tomcat-api@9.0.121
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -896,11 +900,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>24</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="TOMCAT-EL-API-9.0.113.JAR"><a href="#l17_02c8c0f3720f5b5ebd5744fdaf72373093883d18">tomcat-el-api-9.0.113.jar</a></td>
+                        <td data-sort-value="TOMCAT-EL-API-9.0.121.JAR"><a href="#l17_0c2f022fecc3de1cfb5513dc9dc3cabe64793407">tomcat-el-api-9.0.121.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/org.apache.tomcat/tomcat-el-api@9.0.113">
-                                pkg:maven/org.apache.tomcat/tomcat-el-api@9.0.113
+                        <td data-sort-value="pkg:maven/org.apache.tomcat/tomcat-el-api@9.0.121">
+                                pkg:maven/org.apache.tomcat/tomcat-el-api@9.0.121
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -908,11 +912,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>25</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="TOMCAT-JNI-9.0.113.JAR"><a href="#l18_326129c9410685544b1ee00dfcdd001a20e444c0">tomcat-jni-9.0.113.jar</a></td>
+                        <td data-sort-value="TOMCAT-JNI-9.0.121.JAR"><a href="#l18_5de51bacb40e5e07dd5440eb4e799baf86854ce5">tomcat-jni-9.0.121.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/org.apache.tomcat/tomcat-jni@9.0.113">
-                                pkg:maven/org.apache.tomcat/tomcat-jni@9.0.113
+                        <td data-sort-value="pkg:maven/org.apache.tomcat/tomcat-jni@9.0.121">
+                                pkg:maven/org.apache.tomcat/tomcat-jni@9.0.121
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -920,11 +924,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>26</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="TOMCAT-JULI-9.0.113.JAR"><a href="#l19_15d9b95dd3687706d1e99fece3eec2e649487340">tomcat-juli-9.0.113.jar</a></td>
+                        <td data-sort-value="TOMCAT-JULI-9.0.121.JAR"><a href="#l19_d1b6f9effb8b4bb6b85c4f2bca500e141526208f">tomcat-juli-9.0.121.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/org.apache.tomcat/tomcat-juli@9.0.113">
-                                pkg:maven/org.apache.tomcat/tomcat-juli@9.0.113
+                        <td data-sort-value="pkg:maven/org.apache.tomcat/tomcat-juli@9.0.121">
+                                pkg:maven/org.apache.tomcat/tomcat-juli@9.0.121
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -932,11 +936,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>26</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="TOMCAT-SERVLET-API-9.0.113.JAR"><a href="#l20_aca6e4aee9671bd5b2ef7336e5b91cfd569b978e">tomcat-servlet-api-9.0.113.jar</a></td>
+                        <td data-sort-value="TOMCAT-SERVLET-API-9.0.121.JAR"><a href="#l20_24ca5e6fe80224978b66e790076db26dc474d1c8">tomcat-servlet-api-9.0.121.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/org.apache.tomcat/tomcat-servlet-api@9.0.113">
-                                pkg:maven/org.apache.tomcat/tomcat-servlet-api@9.0.113
+                        <td data-sort-value="pkg:maven/org.apache.tomcat/tomcat-servlet-api@9.0.121">
+                                pkg:maven/org.apache.tomcat/tomcat-servlet-api@9.0.121
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -945,17 +949,17 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                     </tr>
                 </table>
                 <h2 id="header-dependencies">Dependencies (vulnerable)</h2>
-                     <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l1_c097f0f6d21a0e6db88ea55836e26419b30dfe19"></a>caffeine-3.2.3.jar</h3>
+                     <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l1_c63b303adf59c733d2a96125ad6670e938a2c15d"></a>caffeine-3.2.4.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>A high performance caching library</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">Apache License, Version 2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/com/github/ben-manes/caffeine/caffeine/3.2.3/caffeine-3.2.3.jar<br/>
-                            <b>MD5:</b>&nbsp;0258f45d43968523cc11beeb01b240f2<br/>
-                            <b>SHA1:</b>&nbsp;c097f0f6d21a0e6db88ea55836e26419b30dfe19<br/>
-                            <b>SHA256:</b>ca70c90a5d1ce1511880ce9c93d4ad22108f61111d3daf91eb52762b571bd179
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/com/github/ben-manes/caffeine/caffeine/3.2.4/caffeine-3.2.4.jar<br/>
+                            <b>MD5:</b>&nbsp;04d655feb58be297a86fa2814a1f1ef8<br/>
+                            <b>SHA1:</b>&nbsp;c63b303adf59c733d2a96125ad6670e938a2c15d<br/>
+                            <b>SHA256:</b>9d9d2cfd681fd9272ded3d27c9930db12f89f732345975aa113ebc223bbf1224
                                 <br/><b>Referenced In Project/Scope:</b> waffle-tomcat9:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">caffeine-3.2.3.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-jna@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">caffeine-3.2.4.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-jna@3.6.1-SNAPSHOT
                         </p>
                         <h4 id="header1" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content1" class="subsectioncontent standardsubsection hidden">
@@ -990,32 +994,32 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>com.github.ben-manes.caffeine</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>Caffeine cache</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>ben-manes/caffeine</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>3.2.3</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>3.2.3</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>3.2.3</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>3.2.3</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>3.2.4</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>3.2.4</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>3.2.4</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>3.2.4</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header2" class="subsectionheader white">Identifiers</h4>
                         <div id="content2" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/com.github.ben-manes.caffeine/caffeine@3.2.3
+                                    <li>pkg:maven/com.github.ben-manes.caffeine/caffeine@3.2.4
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l2_af1105964a03d7ed8aaf8ea2cb6ec0da7ec6c7a6"></a>checker-qual-3.53.0.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l2_d2a10af5c8574adfe24f5e35ff56cca92af2e916"></a>checker-qual-4.2.3.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>checker-qual contains annotations (type qualifiers) that a programmerwrites to specify Java code for type-checking by the Checker Framework.</pre></p>
                         <p>
-                            <b>License:</b><pre class="indent">The MIT License: http://opensource.org/licenses/MIT</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/checkerframework/checker-qual/3.53.0/checker-qual-3.53.0.jar<br/>
-                            <b>MD5:</b>&nbsp;d1ee2a3366a19a8fff01208da2adb48e<br/>
-                            <b>SHA1:</b>&nbsp;af1105964a03d7ed8aaf8ea2cb6ec0da7ec6c7a6<br/>
-                            <b>SHA256:</b>7ca002815d92fad79e966b375c2ee7b2b4bf953024bc9a5d5e0c59df13ff5af8
+                            <b>License:</b><pre class="indent">The MIT License: https://opensource.org/licenses/MIT</pre>
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/checkerframework/checker-qual/4.2.3/checker-qual-4.2.3.jar<br/>
+                            <b>MD5:</b>&nbsp;d9e63a451931be32bd29cfc3ac5674c1<br/>
+                            <b>SHA1:</b>&nbsp;d2a10af5c8574adfe24f5e35ff56cca92af2e916<br/>
+                            <b>SHA256:</b>f868f731f6e37db3e1c2140d06016477989959a2d13fc5bed9c46760cffd5ba0
                                 <br/><b>Referenced In Project/Scope:</b> waffle-tomcat9:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">checker-qual-3.53.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-jna@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">checker-qual-4.2.3.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-jna@3.6.1-SNAPSHOT
                         </p>
                         <h4 id="header3" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content3" class="subsectioncontent standardsubsection hidden">
@@ -1061,29 +1065,29 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>org.checkerframework</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>Checker Qual</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>https://checkerframework.org/</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>3.53.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>3.53.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>3.53.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>3.53.0</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>4.2.3</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>4.2.3</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>4.2.3</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>4.2.3</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header4" class="subsectionheader white">Identifiers</h4>
                         <div id="content4" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.checkerframework/checker-qual@3.53.0
+                                    <li>pkg:maven/org.checkerframework/checker-qual@4.2.3
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l3_db60b492ef5c6f447b2dbba3164a04455ad93c85"></a>com.github.waffle:waffle-jna:3.6.0-SNAPSHOT</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l3_8b44d4d1155777acf5ca607cce795724475e41f8"></a>com.github.waffle:waffle-jna:3.6.1-SNAPSHOT</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>WAFFLE JNA implementation</pre></p>
                         <p>
-                            <b>License:</b><pre class="indent">MIT https://raw.github.com/Waffle/waffle/master/LICENSE</pre>
+                            <b>License:</b><pre class="indent">MIT https://opensource.org/licenses/MIT</pre>
                             <b>File&nbsp;Path:</b>&nbsp;/home/runner/work/waffle/waffle/Source/JNA/waffle-jna/pom.xml<br/>
                                 <br/><b>Referenced In Project/Scope:</b> waffle-tomcat9
-                                <br/><span class="tooltip"><span class="tooltiptext">com.github.waffle:waffle-jna:3.6.0-SNAPSHOT is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-tomcat9@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">com.github.waffle:waffle-jna:3.6.1-SNAPSHOT is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-tomcat9@3.6.1-SNAPSHOT
                         </p>
                         <h4 id="header5" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content5" class="subsectioncontent standardsubsection hidden">
@@ -1100,23 +1104,23 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <h4 id="header6" class="subsectionheader white">Identifiers</h4>
                         <div id="content6" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/com.github.waffle/waffle-jna@3.6.0-SNAPSHOT
+                                    <li>pkg:maven/com.github.waffle/waffle-jna@3.6.1-SNAPSHOT
                                     &nbsp;&nbsp;(<i>Confidence</i>:Highest)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l4_4ecb5d2392c38c46e6cb65e1bf60be708d97005d"></a>error_prone_annotations-2.46.0.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l4_74ba43e49ab1184d41634af2ef0047e82c4064b0"></a>error_prone_annotations-2.50.0.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Error Prone is a static analysis tool for Java that catches common programming mistakes at compile-time.</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0.txt</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/com/google/errorprone/error_prone_annotations/2.46.0/error_prone_annotations-2.46.0.jar<br/>
-                            <b>MD5:</b>&nbsp;d0dabea249c067d21d7eb997fbdf5c99<br/>
-                            <b>SHA1:</b>&nbsp;4ecb5d2392c38c46e6cb65e1bf60be708d97005d<br/>
-                            <b>SHA256:</b>b67be81ff4b956401146e14eaf1526bc435a9480f2546e91eb45b796631a8a99
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/com/google/errorprone/error_prone_annotations/2.50.0/error_prone_annotations-2.50.0.jar<br/>
+                            <b>MD5:</b>&nbsp;1ded1848cfd4f5167e00824faf9c4d3b<br/>
+                            <b>SHA1:</b>&nbsp;74ba43e49ab1184d41634af2ef0047e82c4064b0<br/>
+                            <b>SHA256:</b>4667724877f1d37a689202da191e23efa7657c62eef93ccdac406eccfe5cdd0a
                                 <br/><b>Referenced In Project/Scope:</b> waffle-tomcat9:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">error_prone_annotations-2.46.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-tomcat9@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">error_prone_annotations-2.50.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-tomcat9@3.6.1-SNAPSHOT
                         </p>
                         <h4 id="header7" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content7" class="subsectioncontent standardsubsection hidden">
@@ -1148,15 +1152,15 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>com.google.errorprone</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>error-prone annotations</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>parent-artifactid</td><td>error_prone_parent</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>2.46.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>2.46.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>2.46.0</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>2.50.0</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>2.50.0</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>2.50.0</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header8" class="subsectionheader white">Identifiers</h4>
                         <div id="content8" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/com.google.errorprone/error_prone_annotations@2.46.0
+                                    <li>pkg:maven/com.google.errorprone/error_prone_annotations@2.50.0
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
@@ -1175,7 +1179,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                             <b>SHA1:</b>&nbsp;a892ca9507839bbdb900d64310ac98256cab992f<br/>
                             <b>SHA256:</b>84d3a150518485f8140ea99b8a985656749629f6433c92b80c75b36aba3b099b
                                 <br/><b>Referenced In Project/Scope:</b> waffle-tomcat9:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">j2objc-annotations-3.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-tomcat9@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">j2objc-annotations-3.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-tomcat9@3.6.1-SNAPSHOT
                         </p>
                         <h4 id="header9" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content9" class="subsectioncontent standardsubsection hidden">
@@ -1225,18 +1229,18 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l6_b27ba04287cc4abe769642fe8318d39fc89bf937"></a>jna-5.18.1.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l6_ca303052cd617c1af2e2c8d344c98a706fb63143"></a>jna-5.19.1.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Java Native Access</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">LGPL-2.1-or-later: https://www.gnu.org/licenses/old-licenses/lgpl-2.1
 Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/java/dev/jna/jna/5.18.1/jna-5.18.1.jar<br/>
-                            <b>MD5:</b>&nbsp;cb531ec131e1c68c045b5d45fe5b9878<br/>
-                            <b>SHA1:</b>&nbsp;b27ba04287cc4abe769642fe8318d39fc89bf937<br/>
-                            <b>SHA256:</b>260c4b1e22b1db9e110ee441c4f13ce115f841fa48c41d78750986214b395557
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/java/dev/jna/jna/5.19.1/jna-5.19.1.jar<br/>
+                            <b>MD5:</b>&nbsp;cf327da3e9cf5a5d77c8a43540320929<br/>
+                            <b>SHA1:</b>&nbsp;ca303052cd617c1af2e2c8d344c98a706fb63143<br/>
+                            <b>SHA256:</b>4fb141dd8ef6b0585ffceea4bc49602fbc6312fa977e2c488794ea3e6aafecae
                                 <br/><b>Referenced In Project/Scope:</b> waffle-tomcat9:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">jna-5.18.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-jna@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">jna-5.19.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-jna@3.6.1-SNAPSHOT
                         </p>
                         <h4 id="header11" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content11" class="subsectioncontent standardsubsection hidden">
@@ -1250,7 +1254,7 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                                     <tr><td>Vendor</td><td>Manifest</td><td>automatic-module-name</td><td>com.sun.jna</td><td>Medium</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>bundle-activationpolicy</td><td>lazy</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>bundle-category</td><td>jni</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>bundle-nativecode</td><td> com/sun/jna/win32-x86/jnidispatch.dll; processor=x86;osname=win32, com/sun/jna/win32-x86-64/jnidispatch.dll; processor=x86-64;osname=win32, com/sun/jna/win32-aarch64/jnidispatch.dll; processor=aarch64;osname=win32, com/sun/jna/win32-x86/jnidispatch.dll; processor=x86;osname=win, com/sun/jna/win32-x86-64/jnidispatch.dll; processor=x86-64;osname=win, com/sun/jna/win32-aarch64/jnidispatch.dll; processor=aarch64;osname=win, com/sun/jna/w32ce-arm/jnidispatch.dll; processor=arm;osname=wince,  com/sun/jna/sunos-x86/libjnidispatch.so; processor=x86;osname=sunos, com/sun/jna/sunos-x86-64/libjnidispatch.so; processor=x86-64;osname=sunos, com/sun/jna/sunos-sparc/libjnidispatch.so; processor=sparc;osname=sunos, com/sun/jna/sunos-sparcv9/libjnidispatch.so; processor=sparcv9;osname=sunos,  com/sun/jna/aix-ppc/libjnidispatch.a; processor=ppc;osname=aix, com/sun/jna/aix-ppc64/libjnidispatch.a; processor=ppc64;osname=aix,  com/sun/jna/linux-ppc/libjnidispatch.so; processor=ppc;osname=linux, com/sun/jna/linux-ppc64/libjnidispatch.so; processor=ppc64;osname=linux, com/sun/jna/linux-ppc64le/libjnidispatch.so; processor=ppc64le;osname=linux, com/sun/jna/linux-x86/libjnidispatch.so; processor=x86;osname=linux, com/sun/jna/linux-x86-64/libjnidispatch.so; processor=x86-64;osname=linux, com/sun/jna/linux-arm/libjnidispatch.so; processor=arm;osname=linux, com/sun/jna/linux-arm/libjnidispatch.so; processor=arm_le;osname=linux, com/sun/jna/linux-armel/libjnidispatch.so; processor=armel;osname=linux, com/sun/jna/linux-aarch64/libjnidispatch.so; processor=aarch64;osname=linux, com/sun/jna/linux-ia64/libjnidispatch.so; processor=ia64;osname=linux, com/sun/jna/linux-sparcv9/libjnidispatch.so; processor=sparcv9;osname=linux, com/sun/jna/linux-mips64el/libjnidispatch.so; processor=mips64el;osname=linux, com/sun/jna/linux-s390x/libjnidispatch.so; processor=S390x;osname=linux, com/sun/jna/linux-loongarch64/libjnidispatch.so; processor=loongarch64;osname=linux, com/sun/jna/linux-riscv64/libjnidispatch.so; processor=riscv64;osname=linux,  com/sun/jna/dragonflybsd-x86-64/libjnidispatch.so; processor=x86-64;osname=dragonflybsd,  com/sun/jna/freebsd-x86/libjnidispatch.so; processor=x86;osname=freebsd, com/sun/jna/freebsd-x86-64/libjnidispatch.so; processor=x86-64;osname=freebsd, com/sun/jna/freebsd-aarch64/libjnidispatch.so; processor=aarch64;osname=freebsd, com/sun/jna/freebsd-ppc64le/libjnidispatch.so; processor=ppc64le;osname=freebsd, com/sun/jna/freebsd-ppc64/libjnidispatch.so; processor=ppc64;osname=freebsd,  com/sun/jna/openbsd-x86/libjnidispatch.so; processor=x86;osname=openbsd, com/sun/jna/openbsd-x86-64/libjnidispatch.so; processor=x86-64;osname=openbsd,  com/sun/jna/darwin-ppc/libjnidispatch.jnilib; osname=macosx;processor=ppc, com/sun/jna/darwin-ppc64/libjnidispatch.jnilib; osname=macosx;processor=ppc64, com/sun/jna/darwin-x86/libjnidispatch.jnilib; osname=macosx;processor=x86, com/sun/jna/darwin-x86-64/libjnidispatch.jnilib; osname=macosx;processor=x86-64, com/sun/jna/darwin-aarch64/libjnidispatch.jnilib; osname=macosx;processor=aarch64 </td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>bundle-nativecode</td><td> com/sun/jna/win32-x86/jnidispatch.dll; processor=x86;osname=win32, com/sun/jna/win32-x86-64/jnidispatch.dll; processor=x86-64;osname=win32, com/sun/jna/win32-aarch64/jnidispatch.dll; processor=aarch64;osname=win32, com/sun/jna/win32-x86/jnidispatch.dll; processor=x86;osname=win, com/sun/jna/win32-x86-64/jnidispatch.dll; processor=x86-64;osname=win, com/sun/jna/win32-aarch64/jnidispatch.dll; processor=aarch64;osname=win, com/sun/jna/w32ce-arm/jnidispatch.dll; processor=arm;osname=wince,  com/sun/jna/sunos-x86/libjnidispatch.so; processor=x86;osname=sunos, com/sun/jna/sunos-x86-64/libjnidispatch.so; processor=x86-64;osname=sunos, com/sun/jna/sunos-sparc/libjnidispatch.so; processor=sparc;osname=sunos, com/sun/jna/sunos-sparcv9/libjnidispatch.so; processor=sparcv9;osname=sunos,  com/sun/jna/aix-ppc/libjnidispatch.a; processor=ppc;osname=aix, com/sun/jna/aix-ppc64/libjnidispatch.a; processor=ppc64;osname=aix,  com/sun/jna/linux-ppc/libjnidispatch.so; processor=ppc;osname=linux, com/sun/jna/linux-ppc64/libjnidispatch.so; processor=ppc64;osname=linux, com/sun/jna/linux-ppc64le/libjnidispatch.so; processor=ppc64le;osname=linux, com/sun/jna/linux-x86/libjnidispatch.so; processor=x86;osname=linux, com/sun/jna/linux-x86-64/libjnidispatch.so; processor=x86-64;osname=linux, com/sun/jna/linux-arm/libjnidispatch.so; processor=arm;osname=linux, com/sun/jna/linux-arm/libjnidispatch.so; processor=arm_le;osname=linux, com/sun/jna/linux-armel/libjnidispatch.so; processor=armel;osname=linux, com/sun/jna/linux-aarch64/libjnidispatch.so; processor=aarch64;osname=linux, com/sun/jna/linux-ia64/libjnidispatch.so; processor=ia64;osname=linux, com/sun/jna/linux-sparcv9/libjnidispatch.so; processor=sparcv9;osname=linux, com/sun/jna/linux-mips64el/libjnidispatch.so; processor=mips64el;osname=linux, com/sun/jna/linux-s390x/libjnidispatch.so; processor=S390x;osname=linux, com/sun/jna/linux-loongarch64/libjnidispatch.so; processor=loongarch64;osname=linux, com/sun/jna/linux-riscv64/libjnidispatch.so; processor=riscv64;osname=linux,  com/sun/jna/dragonflybsd-x86-64/libjnidispatch.so; processor=x86-64;osname=dragonflybsd,  com/sun/jna/freebsd-x86/libjnidispatch.so; processor=x86;osname=freebsd, com/sun/jna/freebsd-x86-64/libjnidispatch.so; processor=x86-64;osname=freebsd, com/sun/jna/freebsd-aarch64/libjnidispatch.so; processor=aarch64;osname=freebsd, com/sun/jna/freebsd-ppc64le/libjnidispatch.so; processor=ppc64le;osname=freebsd, com/sun/jna/freebsd-ppc64/libjnidispatch.so; processor=ppc64;osname=freebsd,  com/sun/jna/openbsd-x86/libjnidispatch.so; processor=x86;osname=openbsd, com/sun/jna/openbsd-x86-64/libjnidispatch.so; processor=x86-64;osname=openbsd, com/sun/jna/openbsd-x86-64/libjnidispatch.so; processor=sparcv9;osname=openbsd, com/sun/jna/openbsd-x86-64/libjnidispatch.so; processor=aarch64;osname=openbsd,  com/sun/jna/darwin-ppc/libjnidispatch.jnilib; osname=macosx;processor=ppc, com/sun/jna/darwin-ppc64/libjnidispatch.jnilib; osname=macosx;processor=ppc64, com/sun/jna/darwin-x86/libjnidispatch.jnilib; osname=macosx;processor=x86, com/sun/jna/darwin-x86-64/libjnidispatch.jnilib; osname=macosx;processor=x86-64, com/sun/jna/darwin-aarch64/libjnidispatch.jnilib; osname=macosx;processor=aarch64 </td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>bundle-requiredexecutionenvironment</td><td>JavaSE-1.6</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>bundle-symbolicname</td><td>com.sun.jna</td><td>Medium</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>Implementation-Vendor</td><td>JNA Development Team</td><td>High</td></tr>
@@ -1274,7 +1278,7 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                                     <tr><td>Product</td><td>Manifest</td><td>bundle-activationpolicy</td><td>lazy</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>bundle-category</td><td>jni</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>Bundle-Name</td><td>jna</td><td>Medium</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>bundle-nativecode</td><td> com/sun/jna/win32-x86/jnidispatch.dll; processor=x86;osname=win32, com/sun/jna/win32-x86-64/jnidispatch.dll; processor=x86-64;osname=win32, com/sun/jna/win32-aarch64/jnidispatch.dll; processor=aarch64;osname=win32, com/sun/jna/win32-x86/jnidispatch.dll; processor=x86;osname=win, com/sun/jna/win32-x86-64/jnidispatch.dll; processor=x86-64;osname=win, com/sun/jna/win32-aarch64/jnidispatch.dll; processor=aarch64;osname=win, com/sun/jna/w32ce-arm/jnidispatch.dll; processor=arm;osname=wince,  com/sun/jna/sunos-x86/libjnidispatch.so; processor=x86;osname=sunos, com/sun/jna/sunos-x86-64/libjnidispatch.so; processor=x86-64;osname=sunos, com/sun/jna/sunos-sparc/libjnidispatch.so; processor=sparc;osname=sunos, com/sun/jna/sunos-sparcv9/libjnidispatch.so; processor=sparcv9;osname=sunos,  com/sun/jna/aix-ppc/libjnidispatch.a; processor=ppc;osname=aix, com/sun/jna/aix-ppc64/libjnidispatch.a; processor=ppc64;osname=aix,  com/sun/jna/linux-ppc/libjnidispatch.so; processor=ppc;osname=linux, com/sun/jna/linux-ppc64/libjnidispatch.so; processor=ppc64;osname=linux, com/sun/jna/linux-ppc64le/libjnidispatch.so; processor=ppc64le;osname=linux, com/sun/jna/linux-x86/libjnidispatch.so; processor=x86;osname=linux, com/sun/jna/linux-x86-64/libjnidispatch.so; processor=x86-64;osname=linux, com/sun/jna/linux-arm/libjnidispatch.so; processor=arm;osname=linux, com/sun/jna/linux-arm/libjnidispatch.so; processor=arm_le;osname=linux, com/sun/jna/linux-armel/libjnidispatch.so; processor=armel;osname=linux, com/sun/jna/linux-aarch64/libjnidispatch.so; processor=aarch64;osname=linux, com/sun/jna/linux-ia64/libjnidispatch.so; processor=ia64;osname=linux, com/sun/jna/linux-sparcv9/libjnidispatch.so; processor=sparcv9;osname=linux, com/sun/jna/linux-mips64el/libjnidispatch.so; processor=mips64el;osname=linux, com/sun/jna/linux-s390x/libjnidispatch.so; processor=S390x;osname=linux, com/sun/jna/linux-loongarch64/libjnidispatch.so; processor=loongarch64;osname=linux, com/sun/jna/linux-riscv64/libjnidispatch.so; processor=riscv64;osname=linux,  com/sun/jna/dragonflybsd-x86-64/libjnidispatch.so; processor=x86-64;osname=dragonflybsd,  com/sun/jna/freebsd-x86/libjnidispatch.so; processor=x86;osname=freebsd, com/sun/jna/freebsd-x86-64/libjnidispatch.so; processor=x86-64;osname=freebsd, com/sun/jna/freebsd-aarch64/libjnidispatch.so; processor=aarch64;osname=freebsd, com/sun/jna/freebsd-ppc64le/libjnidispatch.so; processor=ppc64le;osname=freebsd, com/sun/jna/freebsd-ppc64/libjnidispatch.so; processor=ppc64;osname=freebsd,  com/sun/jna/openbsd-x86/libjnidispatch.so; processor=x86;osname=openbsd, com/sun/jna/openbsd-x86-64/libjnidispatch.so; processor=x86-64;osname=openbsd,  com/sun/jna/darwin-ppc/libjnidispatch.jnilib; osname=macosx;processor=ppc, com/sun/jna/darwin-ppc64/libjnidispatch.jnilib; osname=macosx;processor=ppc64, com/sun/jna/darwin-x86/libjnidispatch.jnilib; osname=macosx;processor=x86, com/sun/jna/darwin-x86-64/libjnidispatch.jnilib; osname=macosx;processor=x86-64, com/sun/jna/darwin-aarch64/libjnidispatch.jnilib; osname=macosx;processor=aarch64 </td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>bundle-nativecode</td><td> com/sun/jna/win32-x86/jnidispatch.dll; processor=x86;osname=win32, com/sun/jna/win32-x86-64/jnidispatch.dll; processor=x86-64;osname=win32, com/sun/jna/win32-aarch64/jnidispatch.dll; processor=aarch64;osname=win32, com/sun/jna/win32-x86/jnidispatch.dll; processor=x86;osname=win, com/sun/jna/win32-x86-64/jnidispatch.dll; processor=x86-64;osname=win, com/sun/jna/win32-aarch64/jnidispatch.dll; processor=aarch64;osname=win, com/sun/jna/w32ce-arm/jnidispatch.dll; processor=arm;osname=wince,  com/sun/jna/sunos-x86/libjnidispatch.so; processor=x86;osname=sunos, com/sun/jna/sunos-x86-64/libjnidispatch.so; processor=x86-64;osname=sunos, com/sun/jna/sunos-sparc/libjnidispatch.so; processor=sparc;osname=sunos, com/sun/jna/sunos-sparcv9/libjnidispatch.so; processor=sparcv9;osname=sunos,  com/sun/jna/aix-ppc/libjnidispatch.a; processor=ppc;osname=aix, com/sun/jna/aix-ppc64/libjnidispatch.a; processor=ppc64;osname=aix,  com/sun/jna/linux-ppc/libjnidispatch.so; processor=ppc;osname=linux, com/sun/jna/linux-ppc64/libjnidispatch.so; processor=ppc64;osname=linux, com/sun/jna/linux-ppc64le/libjnidispatch.so; processor=ppc64le;osname=linux, com/sun/jna/linux-x86/libjnidispatch.so; processor=x86;osname=linux, com/sun/jna/linux-x86-64/libjnidispatch.so; processor=x86-64;osname=linux, com/sun/jna/linux-arm/libjnidispatch.so; processor=arm;osname=linux, com/sun/jna/linux-arm/libjnidispatch.so; processor=arm_le;osname=linux, com/sun/jna/linux-armel/libjnidispatch.so; processor=armel;osname=linux, com/sun/jna/linux-aarch64/libjnidispatch.so; processor=aarch64;osname=linux, com/sun/jna/linux-ia64/libjnidispatch.so; processor=ia64;osname=linux, com/sun/jna/linux-sparcv9/libjnidispatch.so; processor=sparcv9;osname=linux, com/sun/jna/linux-mips64el/libjnidispatch.so; processor=mips64el;osname=linux, com/sun/jna/linux-s390x/libjnidispatch.so; processor=S390x;osname=linux, com/sun/jna/linux-loongarch64/libjnidispatch.so; processor=loongarch64;osname=linux, com/sun/jna/linux-riscv64/libjnidispatch.so; processor=riscv64;osname=linux,  com/sun/jna/dragonflybsd-x86-64/libjnidispatch.so; processor=x86-64;osname=dragonflybsd,  com/sun/jna/freebsd-x86/libjnidispatch.so; processor=x86;osname=freebsd, com/sun/jna/freebsd-x86-64/libjnidispatch.so; processor=x86-64;osname=freebsd, com/sun/jna/freebsd-aarch64/libjnidispatch.so; processor=aarch64;osname=freebsd, com/sun/jna/freebsd-ppc64le/libjnidispatch.so; processor=ppc64le;osname=freebsd, com/sun/jna/freebsd-ppc64/libjnidispatch.so; processor=ppc64;osname=freebsd,  com/sun/jna/openbsd-x86/libjnidispatch.so; processor=x86;osname=openbsd, com/sun/jna/openbsd-x86-64/libjnidispatch.so; processor=x86-64;osname=openbsd, com/sun/jna/openbsd-x86-64/libjnidispatch.so; processor=sparcv9;osname=openbsd, com/sun/jna/openbsd-x86-64/libjnidispatch.so; processor=aarch64;osname=openbsd,  com/sun/jna/darwin-ppc/libjnidispatch.jnilib; osname=macosx;processor=ppc, com/sun/jna/darwin-ppc64/libjnidispatch.jnilib; osname=macosx;processor=ppc64, com/sun/jna/darwin-x86/libjnidispatch.jnilib; osname=macosx;processor=x86, com/sun/jna/darwin-x86-64/libjnidispatch.jnilib; osname=macosx;processor=x86-64, com/sun/jna/darwin-aarch64/libjnidispatch.jnilib; osname=macosx;processor=aarch64 </td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>bundle-requiredexecutionenvironment</td><td>JavaSE-1.6</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>bundle-symbolicname</td><td>com.sun.jna</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>Implementation-Title</td><td>com.sun.jna</td><td>High</td></tr>
@@ -1287,28 +1291,24 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>net.java.dev.jna</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>Java Native Access</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>java-native-access/jna</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>5.18.1</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>5.18.1</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>5.18.1</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>5.19.1</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>5.19.1</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>5.19.1</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header12" class="subsectionheader white">Identifiers</h4>
                         <div id="content12" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/net.java.dev.jna/jna@5.18.1
+                                    <li>pkg:maven/net.java.dev.jna/jna@5.19.1
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
-                                <li>cpe:2.3:a:oracle:java_se:5.18.1:*:*:*:*:*:*:*
-                                    &nbsp;&nbsp;(<i>Confidence</i>:Low)
-                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="jna-5.18.1.jar" data-sha1="b27ba04287cc4abe769642fe8318d39fc89bf937" data-pkgurl="pkg:maven/net.java.dev.jna/jna@5.18.1" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:oracle:java_se">suppress</button>
-                            </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l7_6b05e299ff2b3eb3b7b7aeac44263f715693607c"></a>jna-5.18.1.jar: jnidispatch.dll</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l7_6b05e299ff2b3eb3b7b7aeac44263f715693607c"></a>jna-5.19.1.jar: jnidispatch.dll</h3>
                     <div class="subsectioncontent notvulnerable">
                         <p>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/java/dev/jna/jna/5.18.1/jna-5.18.1.jar/com/sun/jna/win32-aarch64/jnidispatch.dll<br/>
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/java/dev/jna/jna/5.19.1/jna-5.19.1.jar/com/sun/jna/win32-aarch64/jnidispatch.dll<br/>
                             <b>MD5:</b>&nbsp;302945a811fd8e21bcdd5226c73b6f74<br/>
                             <b>SHA1:</b>&nbsp;6b05e299ff2b3eb3b7b7aeac44263f715693607c<br/>
                             <b>SHA256:</b>b8f98be314234cf12b5b46c29652f70c0f6abb93ae19b63d3fe2692062aa699d
@@ -1327,10 +1327,10 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                             <ul><li><b>None</b></li></ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l8_27ff882ac271db547aee520b38e3ba9aa91e136c"></a>jna-5.18.1.jar: jnidispatch.dll</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l8_27ff882ac271db547aee520b38e3ba9aa91e136c"></a>jna-5.19.1.jar: jnidispatch.dll</h3>
                     <div class="subsectioncontent notvulnerable">
                         <p>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/java/dev/jna/jna/5.18.1/jna-5.18.1.jar/com/sun/jna/win32-x86-64/jnidispatch.dll<br/>
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/java/dev/jna/jna/5.19.1/jna-5.19.1.jar/com/sun/jna/win32-x86-64/jnidispatch.dll<br/>
                             <b>MD5:</b>&nbsp;2d2475f1f026dd54e9f3e787ae4f81da<br/>
                             <b>SHA1:</b>&nbsp;27ff882ac271db547aee520b38e3ba9aa91e136c<br/>
                             <b>SHA256:</b>5a7ff949f6d93d86491eb5b26b1cfc60051168a60622650224b89995ac420023
@@ -1349,10 +1349,10 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                             <ul><li><b>None</b></li></ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l9_2f5e1cd82cde192905c7510ce99037b67d980640"></a>jna-5.18.1.jar: jnidispatch.dll</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l9_2f5e1cd82cde192905c7510ce99037b67d980640"></a>jna-5.19.1.jar: jnidispatch.dll</h3>
                     <div class="subsectioncontent notvulnerable">
                         <p>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/java/dev/jna/jna/5.18.1/jna-5.18.1.jar/com/sun/jna/win32-x86/jnidispatch.dll<br/>
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/java/dev/jna/jna/5.19.1/jna-5.19.1.jar/com/sun/jna/win32-x86/jnidispatch.dll<br/>
                             <b>MD5:</b>&nbsp;0caa1ef75a807f9dde05084fa2219a5c<br/>
                             <b>SHA1:</b>&nbsp;2f5e1cd82cde192905c7510ce99037b67d980640<br/>
                             <b>SHA256:</b>752d597cee7e95cb517327146bf42f124c0d6c0bc48b3ecc3b1b3b0531a52f44
@@ -1371,18 +1371,18 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                             <ul><li><b>None</b></li></ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l10_dd817f391efc492041c9ae91127527c13750a789"></a>jna-platform-5.18.1.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l10_d1e54d9231da5ca3fa730d52960deaa555475468"></a>jna-platform-5.19.1.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Java Native Access Platform</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">LGPL-2.1-or-later: https://www.gnu.org/licenses/old-licenses/lgpl-2.1
 Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/java/dev/jna/jna-platform/5.18.1/jna-platform-5.18.1.jar<br/>
-                            <b>MD5:</b>&nbsp;a7af00779ec98bfe22dfb07b1532830d<br/>
-                            <b>SHA1:</b>&nbsp;dd817f391efc492041c9ae91127527c13750a789<br/>
-                            <b>SHA256:</b>ad14c1b1ec4f43d396231219dfa635ebf828f738eac9f890ea1bc07795892d9a
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/java/dev/jna/jna-platform/5.19.1/jna-platform-5.19.1.jar<br/>
+                            <b>MD5:</b>&nbsp;1d97b6103a9b3b7ddb671908683f4566<br/>
+                            <b>SHA1:</b>&nbsp;d1e54d9231da5ca3fa730d52960deaa555475468<br/>
+                            <b>SHA256:</b>3b3864f5b449e9c3c24b16861524b622b086563f44e0cd8384c8efc5a6052f82
                                 <br/><b>Referenced In Project/Scope:</b> waffle-tomcat9:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">jna-platform-5.18.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-jna@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">jna-platform-5.19.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-jna@3.6.1-SNAPSHOT
                         </p>
                         <h4 id="header19" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content19" class="subsectioncontent standardsubsection hidden">
@@ -1427,15 +1427,15 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>net.java.dev.jna</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>Java Native Access Platform</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>java-native-access/jna</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>5.18.1</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>5.18.1</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>5.18.1</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>5.19.1</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>5.19.1</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>5.19.1</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header20" class="subsectionheader white">Identifiers</h4>
                         <div id="content20" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/net.java.dev.jna/jna-platform@5.18.1
+                                    <li>pkg:maven/net.java.dev.jna/jna-platform@5.19.1
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
@@ -1451,7 +1451,7 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                             <b>SHA1:</b>&nbsp;7425a601c1c7ec76645a78d22b8c6a627edee507<br/>
                             <b>SHA256:</b>1fad6e6be7557781e4d33729d49ae1cdc8fdda6fe477bb0cc68ce351eafdfbab
                                 <br/><b>Referenced In Project/Scope:</b> waffle-tomcat9:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">jspecify-1.0.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.junit.jupiter/junit-jupiter-engine@6.0.2
+                                <br/><span class="tooltip"><span class="tooltiptext">jspecify-1.0.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.junit.jupiter/junit-jupiter-engine@6.1.3
                         </p>
                         <h4 id="header21" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content21" class="subsectioncontent standardsubsection hidden">
@@ -1510,7 +1510,7 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                             <b>SHA1:</b>&nbsp;25ea2e8b0c338a877313bd4672d3fe056ea78f0d<br/>
                             <b>SHA256:</b>766ad2a0783f2687962c8ad74ceecc38a28b9f72a2d085ee438b7813e928d0c7
                                 <br/><b>Referenced In Project/Scope:</b> waffle-tomcat9:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">jsr305-3.0.2.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.spotbugs/spotbugs-annotations@4.9.8
+                                <br/><span class="tooltip"><span class="tooltiptext">jsr305-3.0.2.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.spotbugs/spotbugs-annotations@4.10.4
                         </p>
                         <h4 id="header23" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content23" class="subsectioncontent standardsubsection hidden">
@@ -1544,17 +1544,17 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l13_d9e58ac9c7779ba3bf8142aff6c830617a7fe60f"></a>slf4j-api-2.0.17.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l13_efad9817997b3a6ce9e058f92e612917a744c290"></a>slf4j-api-2.0.19.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>The slf4j API</pre></p>
                         <p>
                             <b>License:</b><pre class="indent"><a href="https://opensource.org/license/mit">https://opensource.org/license/mit</a></pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar<br/>
-                            <b>MD5:</b>&nbsp;b6480d114a23683498ac3f746f959d2f<br/>
-                            <b>SHA1:</b>&nbsp;d9e58ac9c7779ba3bf8142aff6c830617a7fe60f<br/>
-                            <b>SHA256:</b>7b751d952061954d5abfed7181c1f645d336091b679891591d63329c622eb832
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/slf4j/slf4j-api/2.0.19/slf4j-api-2.0.19.jar<br/>
+                            <b>MD5:</b>&nbsp;1ca3a2acac3d5947b37d9b5536c55829<br/>
+                            <b>SHA1:</b>&nbsp;efad9817997b3a6ce9e058f92e612917a744c290<br/>
+                            <b>SHA256:</b>e91ff6d720609e7a194ffe758c3ed5c84e798617ae07b0a0f6a4fe229741b4bb
                                 <br/><b>Referenced In Project/Scope:</b> waffle-tomcat9:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">slf4j-api-2.0.17.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-jna@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">slf4j-api-2.0.19.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-jna@3.6.1-SNAPSHOT
                         </p>
                         <h4 id="header25" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content25" class="subsectioncontent standardsubsection hidden">
@@ -1585,32 +1585,32 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>SLF4J API Module</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>parent-artifactid</td><td>slf4j-parent</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>http://www.slf4j.org</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>2.0.17</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>2.0.17</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>2.0.17</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>2.0.17</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>2.0.19</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>2.0.19</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>2.0.19</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>2.0.19</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header26" class="subsectionheader white">Identifiers</h4>
                         <div id="content26" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.slf4j/slf4j-api@2.0.17
+                                    <li>pkg:maven/org.slf4j/slf4j-api@2.0.19
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l14_ca4a2783a6123e67124fd7feb4caccd2e2ac9a73"></a>spotbugs-annotations-4.9.8.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l14_7eb4c58212378becfb6ea6d236ec24a2352a316e"></a>spotbugs-annotations-4.10.4.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Annotations the SpotBugs tool supports</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">GNU LESSER GENERAL PUBLIC LICENSE, Version 2.1: https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/com/github/spotbugs/spotbugs-annotations/4.9.8/spotbugs-annotations-4.9.8.jar<br/>
-                            <b>MD5:</b>&nbsp;d4c2e7bd090be697ad409a4e75684a94<br/>
-                            <b>SHA1:</b>&nbsp;ca4a2783a6123e67124fd7feb4caccd2e2ac9a73<br/>
-                            <b>SHA256:</b>6f69d6fe9c55a54dcb30e87d8fa2d5f52246af50d7a3445246d9539ef221be1c
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/com/github/spotbugs/spotbugs-annotations/4.10.4/spotbugs-annotations-4.10.4.jar<br/>
+                            <b>MD5:</b>&nbsp;472925cb4e5451c8f7a1aeeefe286622<br/>
+                            <b>SHA1:</b>&nbsp;7eb4c58212378becfb6ea6d236ec24a2352a316e<br/>
+                            <b>SHA256:</b>28fa4befaddce5d7b79b07c68e7c12fa27c5d9282c4229528717971606661ea3
                                 <br/><b>Referenced In Project/Scope:</b> waffle-tomcat9:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">spotbugs-annotations-4.9.8.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-tomcat9@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">spotbugs-annotations-4.10.4.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-tomcat9@3.6.1-SNAPSHOT
                         </p>
                         <h4 id="header27" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content27" class="subsectioncontent standardsubsection hidden">
@@ -1666,31 +1666,31 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>com.github.spotbugs</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>SpotBugs Annotations</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>https://spotbugs.github.io/</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>4.9.8</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>4.9.8</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>4.9.8</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>4.10.4</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>4.10.4</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>4.10.4</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header28" class="subsectionheader white">Identifiers</h4>
                         <div id="content28" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/com.github.spotbugs/spotbugs-annotations@4.9.8
+                                    <li>pkg:maven/com.github.spotbugs/spotbugs-annotations@4.10.4
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l15_6c156b32284c8371adb228ae21688387627e558b"></a>tomcat-annotations-api-9.0.113.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l15_5281544382512e6cbc6af72ca3f6812f02876138"></a>tomcat-annotations-api-9.0.121.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Annotations Package</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">Apache License, Version 2.0: http://www.apache.org/licenses/LICENSE-2.0.txt</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/apache/tomcat/tomcat-annotations-api/9.0.113/tomcat-annotations-api-9.0.113.jar<br/>
-                            <b>MD5:</b>&nbsp;c2345afe7690f32109d74d005e0602df<br/>
-                            <b>SHA1:</b>&nbsp;6c156b32284c8371adb228ae21688387627e558b<br/>
-                            <b>SHA256:</b>edf6ee7ff5a84b43b855734a485c23bbd207f097a406912eda1999c2f19737d1
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/apache/tomcat/tomcat-annotations-api/9.0.121/tomcat-annotations-api-9.0.121.jar<br/>
+                            <b>MD5:</b>&nbsp;eacf11ea4e72b9f27f2eafc415d0341b<br/>
+                            <b>SHA1:</b>&nbsp;5281544382512e6cbc6af72ca3f6812f02876138<br/>
+                            <b>SHA256:</b>868d6956d44f5933574ec44efdfb1110c975a96720b5dae0f3b8cd60cce9c5c8
                                 <br/><b>Referenced In Project/Scope:</b> waffle-tomcat9:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">tomcat-annotations-api-9.0.113.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.apache.tomcat/tomcat-catalina@9.0.113
+                                <br/><span class="tooltip"><span class="tooltiptext">tomcat-annotations-api-9.0.121.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.apache.tomcat/tomcat-catalina@9.0.121
                         </p>
                         <h4 id="header29" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content29" class="subsectioncontent standardsubsection hidden">
@@ -1723,35 +1723,35 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                                     <tr><td>Product</td><td>pom</td><td>artifactid</td><td>tomcat-annotations-api</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>org.apache.tomcat</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>https://tomcat.apache.org/</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>9.0.113</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>9.0.113</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>9.0.113</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>9.0.121</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>9.0.121</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>9.0.121</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header30" class="subsectionheader white">Identifiers</h4>
                         <div id="content30" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.apache.tomcat/tomcat-annotations-api@9.0.113
+                                    <li>pkg:maven/org.apache.tomcat/tomcat-annotations-api@9.0.121
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
-                                <li>cpe:2.3:a:www-sql_project:www-sql:9.0.113:*:*:*:*:*:*:*
+                                <li>cpe:2.3:a:www-sql_project:www-sql:9.0.121:*:*:*:*:*:*:*
                                     &nbsp;&nbsp;(<i>Confidence</i>:Low)
-                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="tomcat-annotations-api-9.0.113.jar" data-sha1="6c156b32284c8371adb228ae21688387627e558b" data-pkgurl="pkg:maven/org.apache.tomcat/tomcat-annotations-api@9.0.113" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:www-sql_project:www-sql">suppress</button>
+                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="tomcat-annotations-api-9.0.121.jar" data-sha1="5281544382512e6cbc6af72ca3f6812f02876138" data-pkgurl="pkg:maven/org.apache.tomcat/tomcat-annotations-api@9.0.121" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:www-sql_project:www-sql">suppress</button>
                             </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l16_1573227969b3f8b46d54733cf41ebad78d6f08fe"></a>tomcat-api-9.0.113.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l16_e0ddb6bb5ad2296e932e2b8a77a23198761e8b63"></a>tomcat-api-9.0.121.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Definition of interfaces shared by Catalina and Jasper</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">Apache License, Version 2.0: http://www.apache.org/licenses/LICENSE-2.0.txt</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/apache/tomcat/tomcat-api/9.0.113/tomcat-api-9.0.113.jar<br/>
-                            <b>MD5:</b>&nbsp;a1107d87f7e361a41b636d18e07c05b4<br/>
-                            <b>SHA1:</b>&nbsp;1573227969b3f8b46d54733cf41ebad78d6f08fe<br/>
-                            <b>SHA256:</b>a2535d28045aed7c880d5eff44a32d430c875dddb526a846cfee8cb47aa5a0d8
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/apache/tomcat/tomcat-api/9.0.121/tomcat-api-9.0.121.jar<br/>
+                            <b>MD5:</b>&nbsp;ad25867f1de38499521141fad581fae1<br/>
+                            <b>SHA1:</b>&nbsp;e0ddb6bb5ad2296e932e2b8a77a23198761e8b63<br/>
+                            <b>SHA256:</b>9b6c53068a14a717bd8f8ca7e4999dc00a681430d2611ca8fda22625d4618bf8
                                 <br/><b>Referenced In Project/Scope:</b> waffle-tomcat9:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">tomcat-api-9.0.113.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.apache.tomcat/tomcat-catalina@9.0.113
+                                <br/><span class="tooltip"><span class="tooltiptext">tomcat-api-9.0.121.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.apache.tomcat/tomcat-catalina@9.0.121
                         </p>
                         <h4 id="header31" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content31" class="subsectioncontent standardsubsection hidden">
@@ -1777,67 +1777,67 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                                     <tr><td>Product</td><td>pom</td><td>artifactid</td><td>tomcat-api</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>org.apache.tomcat</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>https://tomcat.apache.org/</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>9.0.113</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>9.0.113</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>9.0.113</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>9.0.113</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>9.0.121</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>9.0.121</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>9.0.121</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>9.0.121</td><td>Highest</td></tr>
                             </table>
                         </div>
                             <h4 id="header32" class="subsectionheader expandable expandablesubsection white">Related Dependencies</h4>
                             <div id="content32" class="subsectioncontent standardsubsection hidden">
                             <ul>
-                                <li>tomcat-catalina-9.0.113.jar
+                                <li>tomcat-catalina-9.0.121.jar
                                     <ul>
-                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/tomcat/tomcat-catalina/9.0.113/tomcat-catalina-9.0.113.jar</li>
-                                        <li>MD5:&nbsp;bc576903da872d890599c138aa62511e</li>
-                                        <li>SHA1:&nbsp;1ad0325274de61c8f888ee31a4ff2d37c05e79e9</li>
-                                        <li>SHA256:&nbsp;3611c483332cc81ea318295c51a5607722ebda5a8dc62817faf2489577ef1efc</li>
-                                                <li>pkg:maven/org.apache.tomcat/tomcat-catalina@9.0.113</li>
+                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/tomcat/tomcat-catalina/9.0.121/tomcat-catalina-9.0.121.jar</li>
+                                        <li>MD5:&nbsp;7e44c46dfed62d9d4d431f8c470d9ae0</li>
+                                        <li>SHA1:&nbsp;36055212f7e88d02b196cf6d458e3aa52ae713ab</li>
+                                        <li>SHA256:&nbsp;995751fd05dc757506945c7b5f0e56c37a32474d786bea0994a366252fac4fd0</li>
+                                                <li>pkg:maven/org.apache.tomcat/tomcat-catalina@9.0.121</li>
                                      </ul>
                                 </li>
-                                <li>tomcat-coyote-9.0.113.jar
+                                <li>tomcat-coyote-9.0.121.jar
                                     <ul>
-                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/tomcat/tomcat-coyote/9.0.113/tomcat-coyote-9.0.113.jar</li>
-                                        <li>MD5:&nbsp;bf162ac25cc49531fba8b115fbbf1a58</li>
-                                        <li>SHA1:&nbsp;7a26ee0c322be5ad6e995e5b1549fe4bc000563c</li>
-                                        <li>SHA256:&nbsp;e3b79cb7059099f13eb9c4bf961700ea4f14a0dd56a6bb3e6f1a1ccce94dbd57</li>
-                                                <li>pkg:maven/org.apache.tomcat/tomcat-coyote@9.0.113</li>
+                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/tomcat/tomcat-coyote/9.0.121/tomcat-coyote-9.0.121.jar</li>
+                                        <li>MD5:&nbsp;37c8afd3afdc0fc35c352052417e4939</li>
+                                        <li>SHA1:&nbsp;8de328823eeeae6bdaf6e0b46a59e9e81e44af1b</li>
+                                        <li>SHA256:&nbsp;0e18cc0a571e6efa16ee2a4e915b8daac68be6e90f5b03e72eb70d71af02a2d1</li>
+                                                <li>pkg:maven/org.apache.tomcat/tomcat-coyote@9.0.121</li>
                                      </ul>
                                 </li>
-                                <li>tomcat-jaspic-api-9.0.113.jar
+                                <li>tomcat-jaspic-api-9.0.121.jar
                                     <ul>
-                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/tomcat/tomcat-jaspic-api/9.0.113/tomcat-jaspic-api-9.0.113.jar</li>
-                                        <li>MD5:&nbsp;0f0e6dfbe40a5e379b5bfa2c5d18a5bd</li>
-                                        <li>SHA1:&nbsp;c931c988962f06c7533cafc2ca8b4b28653dd1a1</li>
-                                        <li>SHA256:&nbsp;2f197e313403b3c88107b000f902b9af81a34ed0f72b804647f9316abec16191</li>
-                                                <li>pkg:maven/org.apache.tomcat/tomcat-jaspic-api@9.0.113</li>
+                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/tomcat/tomcat-jaspic-api/9.0.121/tomcat-jaspic-api-9.0.121.jar</li>
+                                        <li>MD5:&nbsp;7627836c6193b4ba0f2da63405574ced</li>
+                                        <li>SHA1:&nbsp;0e0f8bb93937b66f21b3e90a05c2942f71da8dd5</li>
+                                        <li>SHA256:&nbsp;39d46568b167a4d021bce1afda8d1872db03e9f56ddce2114c589b82af44cac8</li>
+                                                <li>pkg:maven/org.apache.tomcat/tomcat-jaspic-api@9.0.121</li>
                                      </ul>
                                 </li>
-                                <li>tomcat-jsp-api-9.0.113.jar
+                                <li>tomcat-jsp-api-9.0.121.jar
                                     <ul>
-                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/tomcat/tomcat-jsp-api/9.0.113/tomcat-jsp-api-9.0.113.jar</li>
-                                        <li>MD5:&nbsp;6c0736aa3e47a478583627e5c09d78b8</li>
-                                        <li>SHA1:&nbsp;8a7d4de432fc91b314ad7b4ef23f2c386e686348</li>
-                                        <li>SHA256:&nbsp;9f825f6e9750fb99a1dbbb1afbcd5921e053fc4401f49d593a1728e17aefff92</li>
-                                                <li>pkg:maven/org.apache.tomcat/tomcat-jsp-api@9.0.113</li>
+                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/tomcat/tomcat-jsp-api/9.0.121/tomcat-jsp-api-9.0.121.jar</li>
+                                        <li>MD5:&nbsp;253a510203be25e7010b123a00b02608</li>
+                                        <li>SHA1:&nbsp;cc7af41e6267bb222aff60f9bba2fb0863230696</li>
+                                        <li>SHA256:&nbsp;c218d37ac99ce503cab69c000bf7a8eddb08a4845a2bca921e618dcf1e61e05f</li>
+                                                <li>pkg:maven/org.apache.tomcat/tomcat-jsp-api@9.0.121</li>
                                      </ul>
                                 </li>
-                                <li>tomcat-util-9.0.113.jar
+                                <li>tomcat-util-9.0.121.jar
                                     <ul>
-                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/tomcat/tomcat-util/9.0.113/tomcat-util-9.0.113.jar</li>
-                                        <li>MD5:&nbsp;bb7d9d08b908efa8acb02bc9bd899719</li>
-                                        <li>SHA1:&nbsp;91a0dd5feb1d6f5a5ea5f1384d958611ef8b2af1</li>
-                                        <li>SHA256:&nbsp;75cfec97a5a302a07f6d144109629294bdaeece81a73035ee04119ebbb9d55ae</li>
-                                                <li>pkg:maven/org.apache.tomcat/tomcat-util@9.0.113</li>
+                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/tomcat/tomcat-util/9.0.121/tomcat-util-9.0.121.jar</li>
+                                        <li>MD5:&nbsp;b1c3e1a2d56586ef48805e277cf41260</li>
+                                        <li>SHA1:&nbsp;311e741fe53557fcd7afb5b74379afe27e6846ca</li>
+                                        <li>SHA256:&nbsp;f17760b44c29dc368874c59ab1c6dcd047d8e577aa5b87dbe74a36e8a0280dc5</li>
+                                                <li>pkg:maven/org.apache.tomcat/tomcat-util@9.0.121</li>
                                      </ul>
                                 </li>
-                                <li>tomcat-util-scan-9.0.113.jar
+                                <li>tomcat-util-scan-9.0.121.jar
                                     <ul>
-                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/tomcat/tomcat-util-scan/9.0.113/tomcat-util-scan-9.0.113.jar</li>
-                                        <li>MD5:&nbsp;97a8808fed9d12eaf684e1124cd7c96f</li>
-                                        <li>SHA1:&nbsp;640eda5a7d5a3dc9464895f2f2aa4fbe28bd1581</li>
-                                        <li>SHA256:&nbsp;e2ea650a2fc90d2f99055992ca3f29eaf2b0473712c1df8f6410eeb17cd51cad</li>
-                                                <li>pkg:maven/org.apache.tomcat/tomcat-util-scan@9.0.113</li>
+                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/tomcat/tomcat-util-scan/9.0.121/tomcat-util-scan-9.0.121.jar</li>
+                                        <li>MD5:&nbsp;89ad139f49c57853763020c84429cc4b</li>
+                                        <li>SHA1:&nbsp;94ec50c8e413258134cbb6394be5156a3a692f14</li>
+                                        <li>SHA256:&nbsp;4027e44942c7acfeb24119d59f34980e7f56d341bb2ea54cd635d3d6cd256015</li>
+                                                <li>pkg:maven/org.apache.tomcat/tomcat-util-scan@9.0.121</li>
                                      </ul>
                                 </li>
                             </ul>
@@ -1845,31 +1845,31 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                         <h4 id="header33" class="subsectionheader white">Identifiers</h4>
                         <div id="content33" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.apache.tomcat/tomcat-api@9.0.113
+                                    <li>pkg:maven/org.apache.tomcat/tomcat-api@9.0.121
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
-                                <li><a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A9.0.113%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:apache:tomcat:9.0.113:*:*:*:*:*:*:*</a>
+                                <li><a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A9.0.121%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:apache:tomcat:9.0.121:*:*:*:*:*:*:*</a>
                                     &nbsp;&nbsp;(<i>Confidence</i>:Highest)
-                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="tomcat-api-9.0.113.jar" data-sha1="1573227969b3f8b46d54733cf41ebad78d6f08fe" data-pkgurl="pkg:maven/org.apache.tomcat/tomcat-api@9.0.113" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:apache:tomcat">suppress</button>
+                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="tomcat-api-9.0.121.jar" data-sha1="e0ddb6bb5ad2296e932e2b8a77a23198761e8b63" data-pkgurl="pkg:maven/org.apache.tomcat/tomcat-api@9.0.121" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:apache:tomcat">suppress</button>
                             </li>
-                                <li><a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache_tomcat%3Aapache_tomcat%3A9.0.113%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:apache_tomcat:apache_tomcat:9.0.113:*:*:*:*:*:*:*</a>
+                                <li><a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache_tomcat%3Aapache_tomcat%3A9.0.121%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:apache_tomcat:apache_tomcat:9.0.121:*:*:*:*:*:*:*</a>
                                     &nbsp;&nbsp;(<i>Confidence</i>:Highest)
-                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="tomcat-api-9.0.113.jar" data-sha1="1573227969b3f8b46d54733cf41ebad78d6f08fe" data-pkgurl="pkg:maven/org.apache.tomcat/tomcat-api@9.0.113" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:apache_tomcat:apache_tomcat">suppress</button>
+                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="tomcat-api-9.0.121.jar" data-sha1="e0ddb6bb5ad2296e932e2b8a77a23198761e8b63" data-pkgurl="pkg:maven/org.apache.tomcat/tomcat-api@9.0.121" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:apache_tomcat:apache_tomcat">suppress</button>
                             </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l17_02c8c0f3720f5b5ebd5744fdaf72373093883d18"></a>tomcat-el-api-9.0.113.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l17_0c2f022fecc3de1cfb5513dc9dc3cabe64793407"></a>tomcat-el-api-9.0.121.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Expression language package</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">Apache License, Version 2.0: http://www.apache.org/licenses/LICENSE-2.0.txt</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/apache/tomcat/tomcat-el-api/9.0.113/tomcat-el-api-9.0.113.jar<br/>
-                            <b>MD5:</b>&nbsp;83ffdd9597af717d1e5d02f13b61fce4<br/>
-                            <b>SHA1:</b>&nbsp;02c8c0f3720f5b5ebd5744fdaf72373093883d18<br/>
-                            <b>SHA256:</b>f3e7302f09f17a2ab5ff60b6ace0d11b1146c38b96f1ca89b91b138d0df54730
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/apache/tomcat/tomcat-el-api/9.0.121/tomcat-el-api-9.0.121.jar<br/>
+                            <b>MD5:</b>&nbsp;ee0d945df532fa5148d2de0ee958788d<br/>
+                            <b>SHA1:</b>&nbsp;0c2f022fecc3de1cfb5513dc9dc3cabe64793407<br/>
+                            <b>SHA256:</b>0180bffba911192f08b5f64d18aeba90df16343271215c967c38fde9225cd01d
                                 <br/><b>Referenced In Project/Scope:</b> waffle-tomcat9:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">tomcat-el-api-9.0.113.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.apache.tomcat/tomcat-catalina@9.0.113
+                                <br/><span class="tooltip"><span class="tooltiptext">tomcat-el-api-9.0.121.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.apache.tomcat/tomcat-catalina@9.0.121
                         </p>
                         <h4 id="header34" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content34" class="subsectioncontent standardsubsection hidden">
@@ -1897,31 +1897,31 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                                     <tr><td>Product</td><td>pom</td><td>artifactid</td><td>tomcat-el-api</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>org.apache.tomcat</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>https://tomcat.apache.org/</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>9.0.113</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>9.0.113</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>9.0.113</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>9.0.121</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>9.0.121</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>9.0.121</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header35" class="subsectionheader white">Identifiers</h4>
                         <div id="content35" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.apache.tomcat/tomcat-el-api@9.0.113
+                                    <li>pkg:maven/org.apache.tomcat/tomcat-el-api@9.0.121
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l18_326129c9410685544b1ee00dfcdd001a20e444c0"></a>tomcat-jni-9.0.113.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l18_5de51bacb40e5e07dd5440eb4e799baf86854ce5"></a>tomcat-jni-9.0.121.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Interface code to the native connector</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">Apache License, Version 2.0: http://www.apache.org/licenses/LICENSE-2.0.txt</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/apache/tomcat/tomcat-jni/9.0.113/tomcat-jni-9.0.113.jar<br/>
-                            <b>MD5:</b>&nbsp;65b5db497039ff9ae40113d7120e27b2<br/>
-                            <b>SHA1:</b>&nbsp;326129c9410685544b1ee00dfcdd001a20e444c0<br/>
-                            <b>SHA256:</b>3622cacb3aa0dae618f91408830008060cfef25b05e8999ece59938e4779c0ac
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/apache/tomcat/tomcat-jni/9.0.121/tomcat-jni-9.0.121.jar<br/>
+                            <b>MD5:</b>&nbsp;6b97e11aca11447a72ae953b4f2c5755<br/>
+                            <b>SHA1:</b>&nbsp;5de51bacb40e5e07dd5440eb4e799baf86854ce5<br/>
+                            <b>SHA256:</b>e74c1730e0cae59c94dd815c06d533f4808ce2674388865598fc9b45974ef5d6
                                 <br/><b>Referenced In Project/Scope:</b> waffle-tomcat9:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">tomcat-jni-9.0.113.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.apache.tomcat/tomcat-catalina@9.0.113
+                                <br/><span class="tooltip"><span class="tooltiptext">tomcat-jni-9.0.121.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.apache.tomcat/tomcat-catalina@9.0.121
                         </p>
                         <h4 id="header36" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content36" class="subsectioncontent standardsubsection hidden">
@@ -1949,32 +1949,32 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                                     <tr><td>Product</td><td>pom</td><td>artifactid</td><td>tomcat-jni</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>org.apache.tomcat</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>https://tomcat.apache.org/</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>9.0.113</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>9.0.113</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>9.0.113</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>9.0.113</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>9.0.121</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>9.0.121</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>9.0.121</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>9.0.121</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header37" class="subsectionheader white">Identifiers</h4>
                         <div id="content37" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.apache.tomcat/tomcat-jni@9.0.113
+                                    <li>pkg:maven/org.apache.tomcat/tomcat-jni@9.0.121
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l19_15d9b95dd3687706d1e99fece3eec2e649487340"></a>tomcat-juli-9.0.113.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l19_d1b6f9effb8b4bb6b85c4f2bca500e141526208f"></a>tomcat-juli-9.0.121.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Tomcat Core Logging Package</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">Apache License, Version 2.0: http://www.apache.org/licenses/LICENSE-2.0.txt</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/apache/tomcat/tomcat-juli/9.0.113/tomcat-juli-9.0.113.jar<br/>
-                            <b>MD5:</b>&nbsp;b393162b7848e3344dbd0671d08204a1<br/>
-                            <b>SHA1:</b>&nbsp;15d9b95dd3687706d1e99fece3eec2e649487340<br/>
-                            <b>SHA256:</b>d12f9eb9e55c1c980987b301857272bf4914d2d3967e440ee2fc073fe679f513
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/apache/tomcat/tomcat-juli/9.0.121/tomcat-juli-9.0.121.jar<br/>
+                            <b>MD5:</b>&nbsp;537b6e05caf17750b9243dfe9d97692a<br/>
+                            <b>SHA1:</b>&nbsp;d1b6f9effb8b4bb6b85c4f2bca500e141526208f<br/>
+                            <b>SHA256:</b>25d1935444a85376336d3d9e5487d9aa5ce520f3773acf886e0a2b72f2c36b44
                                 <br/><b>Referenced In Project/Scope:</b> waffle-tomcat9:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">tomcat-juli-9.0.113.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.apache.tomcat/tomcat-catalina@9.0.113
+                                <br/><span class="tooltip"><span class="tooltiptext">tomcat-juli-9.0.121.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.apache.tomcat/tomcat-catalina@9.0.121
                         </p>
                         <h4 id="header38" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content38" class="subsectioncontent standardsubsection hidden">
@@ -2002,22 +2002,22 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                                     <tr><td>Product</td><td>pom</td><td>artifactid</td><td>tomcat-juli</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>org.apache.tomcat</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>https://tomcat.apache.org/</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>9.0.113</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>9.0.113</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>9.0.113</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>9.0.113</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>9.0.121</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>9.0.121</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>9.0.121</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>9.0.121</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header39" class="subsectionheader white">Identifiers</h4>
                         <div id="content39" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.apache.tomcat/tomcat-juli@9.0.113
+                                    <li>pkg:maven/org.apache.tomcat/tomcat-juli@9.0.121
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l20_aca6e4aee9671bd5b2ef7336e5b91cfd569b978e"></a>tomcat-servlet-api-9.0.113.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l20_24ca5e6fe80224978b66e790076db26dc474d1c8"></a>tomcat-servlet-api-9.0.121.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>javax.servlet package</pre></p>
                         <p>
@@ -2026,14 +2026,14 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
         Common Development And Distribution License (CDDL) Version 1.0
       : 
         http://www.apache.org/licenses/LICENSE-2.0.txt and
-        http://www.opensource.org/licenses/cddl1.txt
+        https://opensource.org/license/CDDL-1.0 and
       </pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/apache/tomcat/tomcat-servlet-api/9.0.113/tomcat-servlet-api-9.0.113.jar<br/>
-                            <b>MD5:</b>&nbsp;a14b6e715522993b3581687df8b78653<br/>
-                            <b>SHA1:</b>&nbsp;aca6e4aee9671bd5b2ef7336e5b91cfd569b978e<br/>
-                            <b>SHA256:</b>337986c02028167e5687a1b5ef7547febc0c3ef340ade8c993a6f1ea0fa48719
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/apache/tomcat/tomcat-servlet-api/9.0.121/tomcat-servlet-api-9.0.121.jar<br/>
+                            <b>MD5:</b>&nbsp;6e4dafe99e2cd577f7541feea5f0d61b<br/>
+                            <b>SHA1:</b>&nbsp;24ca5e6fe80224978b66e790076db26dc474d1c8<br/>
+                            <b>SHA256:</b>0f159801d08e976f1a6959b8527ed3a86c7faaa5d2cb2b0bde6793e4858785f1
                                 <br/><b>Referenced In Project/Scope:</b> waffle-tomcat9:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">tomcat-servlet-api-9.0.113.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.apache.tomcat/tomcat-catalina@9.0.113
+                                <br/><span class="tooltip"><span class="tooltiptext">tomcat-servlet-api-9.0.121.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.apache.tomcat/tomcat-catalina@9.0.121
                         </p>
                         <h4 id="header40" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content40" class="subsectioncontent standardsubsection hidden">
@@ -2075,15 +2075,15 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                                     <tr><td>Product</td><td>pom</td><td>artifactid</td><td>tomcat-servlet-api</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>org.apache.tomcat</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>https://tomcat.apache.org/</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>9.0.113</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>9.0.113</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>9.0.113</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>9.0.121</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>9.0.121</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>9.0.121</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header41" class="subsectionheader white">Identifiers</h4>
                         <div id="content41" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.apache.tomcat/tomcat-servlet-api@9.0.113
+                                    <li>pkg:maven/org.apache.tomcat/tomcat-servlet-api@9.0.121
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
@@ -2104,7 +2104,7 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
             <br/>
             This report may contain data retrieved from <a href="https://retirejs.github.io/retire.js/">RetireJS</a>.
             <br/>
-            This report may contain data retrieved from the <a href="https://ossindex.sonatype.org">Sonatype OSS Index</a>.
+            This report may contain data retrieved from the <a href="https://www.sonatype.com/products/sonatype-guide/oss-index-users">Sonatype Guide OSS Index API</a>.
         </div>
     </body>
 </html>

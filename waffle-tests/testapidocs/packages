@@ -1,4 +1,6 @@
 waffle.windows.auth
-waffle.jaas
 waffle.servlet
 waffle.util
+waffle.mock.http
+waffle.mock
+waffle.jaas

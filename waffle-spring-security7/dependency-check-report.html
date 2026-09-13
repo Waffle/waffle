@@ -91,9 +91,13 @@
                     }
                 });
                 $('#modal-add-header').click(function () {
-                    xml = '<?xml version="1.0" encoding="UTF-8"?>\n<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">\n   ';
-                    xml += $("#modal-text").text().replace(/\n/g,'\n   ');
-                    xml += '\n</suppressions>';
+                    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.4.xsd"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.4.xsd
+                                  https://dependency-check.github.io/DependencyCheck/dependency-suppression.1.4.xsd">
+    ${$("#modal-text").text().replace(/\n/g,'\n    ')}
+</suppressions>`;
                     $('#modal-add-header').toggleClass('active');
                     $('#modal-text').text(xml).focus().select();
                 });
@@ -139,26 +143,26 @@
             }
             function setCopyText(name, matchType, matchValue, suppressType, suppressVal) {
                 var xml =  '<suppress>\n';
-                xml += '   <notes><!'+'[CDATA[\n   file name: ' + name + '\n   ]]'+'></notes>\n';
+                xml += '    <notes><![CDATA[\n    file name: ' + name + '\n    ]]></notes>\n';
                 if (matchType=='packageUrl') {
                     var v = matchValue.match(/^[^@]+/);
                     if (v && v[0]) {
-                        xml += '   <'+matchType+' regex="true">^' + escapeRegExp(v[0]) + '@.*$</'+matchType+'>\n';
+                        xml += '    <'+matchType+' regex="true">^' + escapeRegExp(v[0]) + '@.*$</'+matchType+'>\n';
                     } else {
-                        xml += '   <'+matchType+'>' + matchValue + '</'+matchType+'>\n';
+                        xml += '    <'+matchType+'>' + matchValue + '</'+matchType+'>\n';
                     }
                 } else {
-                    xml += '   <'+matchType+'>' + matchValue + '</'+matchType+'>\n';
+                    xml += '    <'+matchType+'>' + matchValue + '</'+matchType+'>\n';
                 }
                 if (suppressType=='cpe') {
                     v = suppressVal.match(/^cpe:\/a:[^:]+:[^:]+/);
                     if (v && v[0]) {
-                        xml += '   <'+suppressType+'>' + v[0] + '</'+suppressType+'>\n';
+                        xml += '    <'+suppressType+'>' + v[0] + '</'+suppressType+'>\n';
                     } else {
-                        xml += '   <'+suppressType+'>' + suppressVal + '</'+suppressType+'>\n';
+                        xml += '    <'+suppressType+'>' + suppressVal + '</'+suppressType+'>\n';
                     }
                 } else {
-                    xml += '   <'+suppressType+'>' + suppressVal + '</'+suppressType+'>\n';
+                    xml += '    <'+suppressType+'>' + suppressVal + '</'+suppressType+'>\n';
                 }
                 xml += '</suppress>';
                 $('#modal-text').text(xml);
@@ -265,7 +269,8 @@
             }
             #modal-text {
                 border: 0;
-                overflow: hidden
+                overflow: auto;
+                white-space: pre;
             }
             #modal-text:focus {
                 outline: none;
@@ -652,8 +657,8 @@
         <div id="modal-background"></div>
         <div id="modal-content">
             <div>Press CTR-C to copy XML&nbsp;<a href="https://dependency-check.github.io/DependencyCheck/general/suppression.html" class="infolink" target="_blank" title="Help with suppressing false positives">[help]</a></div>
-                <button id="modal-suppress-change-to-packageUrl" class="modal-button suppresstype" title="Supress by Maven Group Artifact Version">Suppress By GAV</button>
-                <button id="modal-suppress-change-to-sha1" class="modal-button suppresstype" title="Supress by SHA1 hash">Suppress By SHA1</button><br/>
+                <button id="modal-suppress-change-to-packageUrl" class="modal-button suppresstype" title="Supress by Maven Group Artifact Version">Suppress by Package URL</button>
+                <button id="modal-suppress-change-to-sha1" class="modal-button suppresstype" title="Supress by SHA1 hash">Suppress by SHA1</button><br/>
                 <input type="hidden" id="suppress-name"/>
                 <input type="hidden" id="suppress-type"/><input type="hidden" id="suppress-val"/>
                 <input type="hidden" id="suppress-sha1"/><input type="hidden" id="suppress-packageUrl"/>
@@ -673,21 +678,21 @@ arising out of or in connection with the use of this tool, the analysis performe
 Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issues" target="_blank">github issues</a></h3>
 
             <h2 class="">Project:&nbsp;waffle-spring-security7</h2>
-            <h4>com.github.waffle:waffle-spring-security7:3.6.0-SNAPSHOT</h4>
+            <h4>com.github.waffle:waffle-spring-security7:3.6.1-SNAPSHOT</h4>
             <div class="">
 
                 Scan Information (<a href="#" title="Click to toggle display" id="scanInformationToggle">show all</a>):<br/>
                     <ul class="indent">
-                        <li><i>dependency-check version</i>: 12.2.0</li>
-                        <li><i>Report Generated On</i>: Mon, 19 Jan 2026 20:49:09 GMT</li>
+                        <li><i>dependency-check version</i>: 13.0.0</li>
+                        <li><i>Report Generated On</i>: Sun, 13 Sep 2026 00:41:00 GMT</li>
                         <li><i>Dependencies Scanned</i>:&nbsp;29 (21 unique)</li>
                         <li><i>Vulnerable Dependencies</i>:&nbsp;<span id="vulnerableCount">0</span></li>
                         <li><i>Vulnerabilities Found</i>:&nbsp;0</li>
                         <li><i>Vulnerabilities Suppressed</i>:&nbsp;0
                         </li>
                         <li class="scaninfo">...</li>
-                        <li class="scaninfo hidden"><i>NVD API Last Checked</i>: 2026-01-19T20:29:50Z</li>
-                        <li class="scaninfo hidden"><i>NVD API Last Modified</i>: 2026-01-19T20:15:49Z</li>
+                        <li class="scaninfo hidden"><i>NVD API Last Checked</i>: 2026-09-13T00:18:53Z</li>
+                        <li class="scaninfo hidden"><i>NVD API Last Modified</i>: 2026-09-13T00:17:07Z</li>
                     </ul><br/>
 <h2>Summary</h2>
                 <p><span id="tablecaption-plain">Summary of Vulnerable Dependencies </span><a href="#" title="Click to toggle display" id="vulnerabilityDisplayToggle">(click to show all)</a></p>
@@ -702,11 +707,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <th class="sortable" data-sort="int"    title="The count of evidence collected to identify the CPE">Evidence&nbsp;Count</th>
                     </tr></thead>
                     <tr class="notvulnerable">
-                        <td data-sort-value="CAFFEINE-3.2.3.JAR"><a href="#l1_c097f0f6d21a0e6db88ea55836e26419b30dfe19">caffeine-3.2.3.jar</a></td>
+                        <td data-sort-value="CAFFEINE-3.2.4.JAR"><a href="#l1_c63b303adf59c733d2a96125ad6670e938a2c15d">caffeine-3.2.4.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/com.github.ben-manes.caffeine/caffeine@3.2.3">
-                                pkg:maven/com.github.ben-manes.caffeine/caffeine@3.2.3
+                        <td data-sort-value="pkg:maven/com.github.ben-manes.caffeine/caffeine@3.2.4">
+                                pkg:maven/com.github.ben-manes.caffeine/caffeine@3.2.4
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -714,11 +719,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>33</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="CHECKER-QUAL-3.53.0.JAR"><a href="#l2_af1105964a03d7ed8aaf8ea2cb6ec0da7ec6c7a6">checker-qual-3.53.0.jar</a></td>
+                        <td data-sort-value="CHECKER-QUAL-4.2.3.JAR"><a href="#l2_d2a10af5c8574adfe24f5e35ff56cca92af2e916">checker-qual-4.2.3.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/org.checkerframework/checker-qual@3.53.0">
-                                pkg:maven/org.checkerframework/checker-qual@3.53.0
+                        <td data-sort-value="pkg:maven/org.checkerframework/checker-qual@4.2.3">
+                                pkg:maven/org.checkerframework/checker-qual@4.2.3
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -726,11 +731,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>44</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="COM.GITHUB.WAFFLE:WAFFLE-JNA-JAKARTA:3.6.0-SNAPSHOT"><a href="#l3_0b8f2e119d89ac70263eefc70a4cf95bb6e1bc19">com.github.waffle:waffle-jna-jakarta:3.6.0-SNAPSHOT</a></td>
+                        <td data-sort-value="COM.GITHUB.WAFFLE:WAFFLE-JNA-JAKARTA:3.6.1-SNAPSHOT"><a href="#l3_3748b8bd6c88dfbf76fd055ffa6117b898983a33">com.github.waffle:waffle-jna-jakarta:3.6.1-SNAPSHOT</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/com.github.waffle/waffle-jna-jakarta@3.6.0-SNAPSHOT">
-                                pkg:maven/com.github.waffle/waffle-jna-jakarta@3.6.0-SNAPSHOT
+                        <td data-sort-value="pkg:maven/com.github.waffle/waffle-jna-jakarta@3.6.1-SNAPSHOT">
+                                pkg:maven/com.github.waffle/waffle-jna-jakarta@3.6.1-SNAPSHOT
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -738,11 +743,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>6</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="COMMONS-LOGGING-1.3.5.JAR"><a href="#l4_a3fcc5d3c29b2b03433aa2d2f2d2c1b1638924a1">commons-logging-1.3.5.jar</a></td>
+                        <td data-sort-value="COMMONS-LOGGING-1.4.0.JAR"><a href="#l4_e8f6313365dfa0580e49c58837afc8caa9b4ce05">commons-logging-1.4.0.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/commons-logging/commons-logging@1.3.5">
-                                pkg:maven/commons-logging/commons-logging@1.3.5
+                        <td data-sort-value="pkg:maven/commons-logging/commons-logging@1.4.0">
+                                pkg:maven/commons-logging/commons-logging@1.4.0
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -750,11 +755,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>129</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="ERROR_PRONE_ANNOTATIONS-2.46.0.JAR"><a href="#l5_4ecb5d2392c38c46e6cb65e1bf60be708d97005d">error_prone_annotations-2.46.0.jar</a></td>
+                        <td data-sort-value="ERROR_PRONE_ANNOTATIONS-2.50.0.JAR"><a href="#l5_74ba43e49ab1184d41634af2ef0047e82c4064b0">error_prone_annotations-2.50.0.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/com.google.errorprone/error_prone_annotations@2.46.0">
-                                pkg:maven/com.google.errorprone/error_prone_annotations@2.46.0
+                        <td data-sort-value="pkg:maven/com.google.errorprone/error_prone_annotations@2.50.0">
+                                pkg:maven/com.google.errorprone/error_prone_annotations@2.50.0
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -775,32 +780,30 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                     </tr>
                     <tr class="notvulnerable">
                         <td data-sort-value="JAKARTA.SERVLET-API-6.1.0.JAR"><a href="#l7_1169a246913fe3823782af7943e7a103634867c5">jakarta.servlet-api-6.1.0.jar</a></td>
-                        <td data-sort-value="cpe:2.3:a:oracle:projects:6.1.0:*:*:*:*:*:*:*">
-                                cpe:2.3:a:oracle:projects:6.1.0:*:*:*:*:*:*:*
+                        <td data-sort-value="">
                         </td>
                         <td data-sort-value="pkg:maven/jakarta.servlet/jakarta.servlet-api@6.1.0">
                                 pkg:maven/jakarta.servlet/jakarta.servlet-api@6.1.0
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
-                        <td data-sort-value="3">Low</td>
+                        <td data-sort-value="0"></td>
                         <td>44</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="JNA-5.18.1.JAR"><a href="#l8_b27ba04287cc4abe769642fe8318d39fc89bf937">jna-5.18.1.jar</a></td>
-                        <td data-sort-value="cpe:2.3:a:oracle:java_se:5.18.1:*:*:*:*:*:*:*">
-                                cpe:2.3:a:oracle:java_se:5.18.1:*:*:*:*:*:*:*
+                        <td data-sort-value="JNA-5.19.1.JAR"><a href="#l8_ca303052cd617c1af2e2c8d344c98a706fb63143">jna-5.19.1.jar</a></td>
+                        <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/net.java.dev.jna/jna@5.18.1">
-                                pkg:maven/net.java.dev.jna/jna@5.18.1
+                        <td data-sort-value="pkg:maven/net.java.dev.jna/jna@5.19.1">
+                                pkg:maven/net.java.dev.jna/jna@5.19.1
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
-                        <td data-sort-value="3">Low</td>
+                        <td data-sort-value="0"></td>
                         <td>48</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="JNA-5.18.1.JAR: JNIDISPATCH.DLL"><a href="#l9_6b05e299ff2b3eb3b7b7aeac44263f715693607c">jna-5.18.1.jar: jnidispatch.dll</a></td>
+                        <td data-sort-value="JNA-5.19.1.JAR: JNIDISPATCH.DLL"><a href="#l9_6b05e299ff2b3eb3b7b7aeac44263f715693607c">jna-5.19.1.jar: jnidispatch.dll</a></td>
                         <td data-sort-value="">
                         </td>
                         <td data-sort-value="">
@@ -811,7 +814,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>2</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="JNA-5.18.1.JAR: JNIDISPATCH.DLL"><a href="#l10_27ff882ac271db547aee520b38e3ba9aa91e136c">jna-5.18.1.jar: jnidispatch.dll</a></td>
+                        <td data-sort-value="JNA-5.19.1.JAR: JNIDISPATCH.DLL"><a href="#l10_27ff882ac271db547aee520b38e3ba9aa91e136c">jna-5.19.1.jar: jnidispatch.dll</a></td>
                         <td data-sort-value="">
                         </td>
                         <td data-sort-value="">
@@ -822,7 +825,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>2</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="JNA-5.18.1.JAR: JNIDISPATCH.DLL"><a href="#l11_2f5e1cd82cde192905c7510ce99037b67d980640">jna-5.18.1.jar: jnidispatch.dll</a></td>
+                        <td data-sort-value="JNA-5.19.1.JAR: JNIDISPATCH.DLL"><a href="#l11_2f5e1cd82cde192905c7510ce99037b67d980640">jna-5.19.1.jar: jnidispatch.dll</a></td>
                         <td data-sort-value="">
                         </td>
                         <td data-sort-value="">
@@ -833,11 +836,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>2</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="JNA-PLATFORM-5.18.1.JAR"><a href="#l12_dd817f391efc492041c9ae91127527c13750a789">jna-platform-5.18.1.jar</a></td>
+                        <td data-sort-value="JNA-PLATFORM-5.19.1.JAR"><a href="#l12_d1e54d9231da5ca3fa730d52960deaa555475468">jna-platform-5.19.1.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/net.java.dev.jna/jna-platform@5.18.1">
-                                pkg:maven/net.java.dev.jna/jna-platform@5.18.1
+                        <td data-sort-value="pkg:maven/net.java.dev.jna/jna-platform@5.19.1">
+                                pkg:maven/net.java.dev.jna/jna-platform@5.19.1
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -869,35 +872,35 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>17</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="MICROMETER-COMMONS-1.16.2.JAR"><a href="#l15_58670637cb6e0c5fc855950fed827149779da226">micrometer-commons-1.16.2.jar</a></td>
+                        <td data-sort-value="MICROMETER-COMMONS-1.16.7.JAR"><a href="#l15_ed85a2983e52358be84a6c8c3522b968ff41e500">micrometer-commons-1.16.7.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/io.micrometer/micrometer-commons@1.16.2">
-                                pkg:maven/io.micrometer/micrometer-commons@1.16.2
+                        <td data-sort-value="pkg:maven/io.micrometer/micrometer-commons@1.16.7">
+                                pkg:maven/io.micrometer/micrometer-commons@1.16.7
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
                         <td data-sort-value="0"></td>
-                        <td>65</td>
+                        <td>69</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="MICROMETER-OBSERVATION-1.16.2.JAR"><a href="#l16_c076389e612fe3702628527c21a13743acafddfc">micrometer-observation-1.16.2.jar</a></td>
+                        <td data-sort-value="MICROMETER-OBSERVATION-1.16.7.JAR"><a href="#l16_5387e97e74b61892affb7c4b4cafa9df6d6ca6d2">micrometer-observation-1.16.7.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/io.micrometer/micrometer-observation@1.16.2">
-                                pkg:maven/io.micrometer/micrometer-observation@1.16.2
+                        <td data-sort-value="pkg:maven/io.micrometer/micrometer-observation@1.16.7">
+                                pkg:maven/io.micrometer/micrometer-observation@1.16.7
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
                         <td data-sort-value="0"></td>
-                        <td>65</td>
+                        <td>69</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="SLF4J-API-2.0.17.JAR"><a href="#l17_d9e58ac9c7779ba3bf8142aff6c830617a7fe60f">slf4j-api-2.0.17.jar</a></td>
+                        <td data-sort-value="SLF4J-API-2.0.19.JAR"><a href="#l17_efad9817997b3a6ce9e058f92e612917a744c290">slf4j-api-2.0.19.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/org.slf4j/slf4j-api@2.0.17">
-                                pkg:maven/org.slf4j/slf4j-api@2.0.17
+                        <td data-sort-value="pkg:maven/org.slf4j/slf4j-api@2.0.19">
+                                pkg:maven/org.slf4j/slf4j-api@2.0.19
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -905,11 +908,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>29</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="SPOTBUGS-ANNOTATIONS-4.9.8.JAR"><a href="#l18_ca4a2783a6123e67124fd7feb4caccd2e2ac9a73">spotbugs-annotations-4.9.8.jar</a></td>
+                        <td data-sort-value="SPOTBUGS-ANNOTATIONS-4.10.4.JAR"><a href="#l18_7eb4c58212378becfb6ea6d236ec24a2352a316e">spotbugs-annotations-4.10.4.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/com.github.spotbugs/spotbugs-annotations@4.9.8">
-                                pkg:maven/com.github.spotbugs/spotbugs-annotations@4.9.8
+                        <td data-sort-value="pkg:maven/com.github.spotbugs/spotbugs-annotations@4.10.4">
+                                pkg:maven/com.github.spotbugs/spotbugs-annotations@4.10.4
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -917,16 +920,16 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>53</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="SPRING-CORE-7.0.3.JAR"><a href="#l19_2072a89e347c63567a83349eb5908131ce6ea601">spring-core-7.0.3.jar</a></td>
-                        <td data-sort-value="cpe:2.3:a:pivotal_software:spring_framework:7.0.3:*:*:*:*:*:*:*cpe:2.3:a:springsource:spring_framework:7.0.3:*:*:*:*:*:*:*cpe:2.3:a:vmware:spring_framework:7.0.3:*:*:*:*:*:*:*">
-                                <a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Apivotal_software%3Aspring_framework%3A7.0.3%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:pivotal_software:spring_framework:7.0.3:*:*:*:*:*:*:*</a>
+                        <td data-sort-value="SPRING-CORE-7.0.9.JAR"><a href="#l19_e03c619fc5b26931973277f5ba65ae47967a20e3">spring-core-7.0.9.jar</a></td>
+                        <td data-sort-value="cpe:2.3:a:pivotal_software:spring_framework:7.0.9:*:*:*:*:*:*:*cpe:2.3:a:springsource:spring_framework:7.0.9:*:*:*:*:*:*:*cpe:2.3:a:vmware:spring_framework:7.0.9:*:*:*:*:*:*:*">
+                                <a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Apivotal_software%3Aspring_framework%3A7.0.9%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:pivotal_software:spring_framework:7.0.9:*:*:*:*:*:*:*</a>
                                 <br/>
-                                <a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aspringsource%3Aspring_framework%3A7.0.3%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:springsource:spring_framework:7.0.3:*:*:*:*:*:*:*</a>
+                                <a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aspringsource%3Aspring_framework%3A7.0.9%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:springsource:spring_framework:7.0.9:*:*:*:*:*:*:*</a>
                                 <br/>
-                                <a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Avmware%3Aspring_framework%3A7.0.3%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:vmware:spring_framework:7.0.3:*:*:*:*:*:*:*</a>
+                                <a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Avmware%3Aspring_framework%3A7.0.9%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:vmware:spring_framework:7.0.9:*:*:*:*:*:*:*</a>
                         </td>
-                        <td data-sort-value="pkg:maven/org.springframework/spring-core@7.0.3">
-                                pkg:maven/org.springframework/spring-core@7.0.3
+                        <td data-sort-value="pkg:maven/org.springframework/spring-core@7.0.9">
+                                pkg:maven/org.springframework/spring-core@7.0.9
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -934,14 +937,14 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>41</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="SPRING-SECURITY-CORE-7.0.2.JAR"><a href="#l20_40317c3763917b061b912bd381bf8016e38eebde">spring-security-core-7.0.2.jar</a></td>
-                        <td data-sort-value="cpe:2.3:a:pivotal_software:spring_security:7.0.2:*:*:*:*:*:*:*cpe:2.3:a:vmware:spring_security:7.0.2:*:*:*:*:*:*:*">
-                                <a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Apivotal_software%3Aspring_security%3A7.0.2%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:pivotal_software:spring_security:7.0.2:*:*:*:*:*:*:*</a>
+                        <td data-sort-value="SPRING-SECURITY-CORE-7.1.1.JAR"><a href="#l20_c0373b564151af7a3001ccfbea589bf37dd6dc3b">spring-security-core-7.1.1.jar</a></td>
+                        <td data-sort-value="cpe:2.3:a:pivotal_software:spring_security:7.1.1:*:*:*:*:*:*:*cpe:2.3:a:vmware:spring_security:7.1.1:*:*:*:*:*:*:*">
+                                <a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Apivotal_software%3Aspring_security%3A7.1.1%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:pivotal_software:spring_security:7.1.1:*:*:*:*:*:*:*</a>
                                 <br/>
-                                <a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Avmware%3Aspring_security%3A7.0.2%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:vmware:spring_security:7.0.2:*:*:*:*:*:*:*</a>
+                                <a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Avmware%3Aspring_security%3A7.1.1%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:vmware:spring_security:7.1.1:*:*:*:*:*:*:*</a>
                         </td>
-                        <td data-sort-value="pkg:maven/org.springframework.security/spring-security-core@7.0.2">
-                                pkg:maven/org.springframework.security/spring-security-core@7.0.2
+                        <td data-sort-value="pkg:maven/org.springframework.security/spring-security-core@7.1.1">
+                                pkg:maven/org.springframework.security/spring-security-core@7.1.1
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -949,7 +952,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>38</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="SPRING-SECURITY-WEB-7.0.2.JAR: SPRING-SECURITY-WEBAUTHN.JS"><a href="#l21_7814ccd3adc2388f52b2658bf5fc30b457949ab6">spring-security-web-7.0.2.jar: spring-security-webauthn.js</a></td>
+                        <td data-sort-value="SPRING-SECURITY-WEB-7.1.1.JAR: SPRING-SECURITY-WEBAUTHN.JS"><a href="#l21_7814ccd3adc2388f52b2658bf5fc30b457949ab6">spring-security-web-7.1.1.jar: spring-security-webauthn.js</a></td>
                         <td data-sort-value="">
                         </td>
                         <td data-sort-value="">
@@ -961,17 +964,17 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                     </tr>
                 </table>
                 <h2 id="header-dependencies">Dependencies (vulnerable)</h2>
-                     <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l1_c097f0f6d21a0e6db88ea55836e26419b30dfe19"></a>caffeine-3.2.3.jar</h3>
+                     <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l1_c63b303adf59c733d2a96125ad6670e938a2c15d"></a>caffeine-3.2.4.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>A high performance caching library</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">Apache License, Version 2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/com/github/ben-manes/caffeine/caffeine/3.2.3/caffeine-3.2.3.jar<br/>
-                            <b>MD5:</b>&nbsp;0258f45d43968523cc11beeb01b240f2<br/>
-                            <b>SHA1:</b>&nbsp;c097f0f6d21a0e6db88ea55836e26419b30dfe19<br/>
-                            <b>SHA256:</b>ca70c90a5d1ce1511880ce9c93d4ad22108f61111d3daf91eb52762b571bd179
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/com/github/ben-manes/caffeine/caffeine/3.2.4/caffeine-3.2.4.jar<br/>
+                            <b>MD5:</b>&nbsp;04d655feb58be297a86fa2814a1f1ef8<br/>
+                            <b>SHA1:</b>&nbsp;c63b303adf59c733d2a96125ad6670e938a2c15d<br/>
+                            <b>SHA256:</b>9d9d2cfd681fd9272ded3d27c9930db12f89f732345975aa113ebc223bbf1224
                                 <br/><b>Referenced In Project/Scope:</b> waffle-spring-security7:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">caffeine-3.2.3.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-jna-jakarta@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">caffeine-3.2.4.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-jna-jakarta@3.6.1-SNAPSHOT
                         </p>
                         <h4 id="header1" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content1" class="subsectioncontent standardsubsection hidden">
@@ -1006,32 +1009,32 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>com.github.ben-manes.caffeine</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>Caffeine cache</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>ben-manes/caffeine</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>3.2.3</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>3.2.3</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>3.2.3</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>3.2.3</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>3.2.4</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>3.2.4</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>3.2.4</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>3.2.4</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header2" class="subsectionheader white">Identifiers</h4>
                         <div id="content2" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/com.github.ben-manes.caffeine/caffeine@3.2.3
+                                    <li>pkg:maven/com.github.ben-manes.caffeine/caffeine@3.2.4
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l2_af1105964a03d7ed8aaf8ea2cb6ec0da7ec6c7a6"></a>checker-qual-3.53.0.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l2_d2a10af5c8574adfe24f5e35ff56cca92af2e916"></a>checker-qual-4.2.3.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>checker-qual contains annotations (type qualifiers) that a programmerwrites to specify Java code for type-checking by the Checker Framework.</pre></p>
                         <p>
-                            <b>License:</b><pre class="indent">The MIT License: http://opensource.org/licenses/MIT</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/checkerframework/checker-qual/3.53.0/checker-qual-3.53.0.jar<br/>
-                            <b>MD5:</b>&nbsp;d1ee2a3366a19a8fff01208da2adb48e<br/>
-                            <b>SHA1:</b>&nbsp;af1105964a03d7ed8aaf8ea2cb6ec0da7ec6c7a6<br/>
-                            <b>SHA256:</b>7ca002815d92fad79e966b375c2ee7b2b4bf953024bc9a5d5e0c59df13ff5af8
+                            <b>License:</b><pre class="indent">The MIT License: https://opensource.org/licenses/MIT</pre>
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/checkerframework/checker-qual/4.2.3/checker-qual-4.2.3.jar<br/>
+                            <b>MD5:</b>&nbsp;d9e63a451931be32bd29cfc3ac5674c1<br/>
+                            <b>SHA1:</b>&nbsp;d2a10af5c8574adfe24f5e35ff56cca92af2e916<br/>
+                            <b>SHA256:</b>f868f731f6e37db3e1c2140d06016477989959a2d13fc5bed9c46760cffd5ba0
                                 <br/><b>Referenced In Project/Scope:</b> waffle-spring-security7:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">checker-qual-3.53.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-jna-jakarta@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">checker-qual-4.2.3.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-jna-jakarta@3.6.1-SNAPSHOT
                         </p>
                         <h4 id="header3" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content3" class="subsectioncontent standardsubsection hidden">
@@ -1077,29 +1080,29 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>org.checkerframework</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>Checker Qual</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>https://checkerframework.org/</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>3.53.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>3.53.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>3.53.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>3.53.0</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>4.2.3</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>4.2.3</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>4.2.3</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>4.2.3</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header4" class="subsectionheader white">Identifiers</h4>
                         <div id="content4" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.checkerframework/checker-qual@3.53.0
+                                    <li>pkg:maven/org.checkerframework/checker-qual@4.2.3
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l3_0b8f2e119d89ac70263eefc70a4cf95bb6e1bc19"></a>com.github.waffle:waffle-jna-jakarta:3.6.0-SNAPSHOT</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l3_3748b8bd6c88dfbf76fd055ffa6117b898983a33"></a>com.github.waffle:waffle-jna-jakarta:3.6.1-SNAPSHOT</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>WAFFLE JNA Jakarta Pakage implementation</pre></p>
                         <p>
-                            <b>License:</b><pre class="indent">MIT https://raw.github.com/Waffle/waffle/master/LICENSE</pre>
+                            <b>License:</b><pre class="indent">MIT https://opensource.org/licenses/MIT</pre>
                             <b>File&nbsp;Path:</b>&nbsp;/home/runner/work/waffle/waffle/Source/JNA/waffle-jna-jakarta/pom.xml<br/>
                                 <br/><b>Referenced In Project/Scope:</b> waffle-spring-security7
-                                <br/><span class="tooltip"><span class="tooltiptext">com.github.waffle:waffle-jna-jakarta:3.6.0-SNAPSHOT is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-spring-security7@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">com.github.waffle:waffle-jna-jakarta:3.6.1-SNAPSHOT is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-spring-security7@3.6.1-SNAPSHOT
                         </p>
                         <h4 id="header5" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content5" class="subsectioncontent standardsubsection hidden">
@@ -1116,24 +1119,24 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <h4 id="header6" class="subsectionheader white">Identifiers</h4>
                         <div id="content6" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/com.github.waffle/waffle-jna-jakarta@3.6.0-SNAPSHOT
+                                    <li>pkg:maven/com.github.waffle/waffle-jna-jakarta@3.6.1-SNAPSHOT
                                     &nbsp;&nbsp;(<i>Confidence</i>:Highest)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l4_a3fcc5d3c29b2b03433aa2d2f2d2c1b1638924a1"></a>commons-logging-1.3.5.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l4_e8f6313365dfa0580e49c58837afc8caa9b4ce05"></a>commons-logging-1.4.0.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Apache Commons Logging is a thin adapter allowing configurable bridging to other,
     well-known logging systems.</pre></p>
                         <p>
                             <b>License:</b><pre class="indent"><a href="https://www.apache.org/licenses/LICENSE-2.0.txt">https://www.apache.org/licenses/LICENSE-2.0.txt</a></pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/commons-logging/commons-logging/1.3.5/commons-logging-1.3.5.jar<br/>
-                            <b>MD5:</b>&nbsp;9ca067b073153c86c2da350c0f2cdf70<br/>
-                            <b>SHA1:</b>&nbsp;a3fcc5d3c29b2b03433aa2d2f2d2c1b1638924a1<br/>
-                            <b>SHA256:</b>6d7a744e4027649fbb50895df9497d109f98c766a637062fe8d2eabbb3140ba4
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/commons-logging/commons-logging/1.4.0/commons-logging-1.4.0.jar<br/>
+                            <b>MD5:</b>&nbsp;954e27d33e55e587a4694d5952a0c5c6<br/>
+                            <b>SHA1:</b>&nbsp;e8f6313365dfa0580e49c58837afc8caa9b4ce05<br/>
+                            <b>SHA256:</b>d175dbd751dd782a63bde28c7a039520e971f25e84b79c19b8435edc3603e0dc
                                 <br/><b>Referenced In Project/Scope:</b> waffle-spring-security7:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">commons-logging-1.3.5.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-spring-security7@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">commons-logging-1.4.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-spring-security7@3.6.1-SNAPSHOT
                         </p>
                         <h4 id="header7" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content7" class="subsectioncontent standardsubsection hidden">
@@ -1263,33 +1266,33 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                     <tr><td>Product</td><td>pom</td><td>parent-artifactid</td><td>commons-parent</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>parent-groupid</td><td>org.apache.commons</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>https://commons.apache.org/proper/commons-logging/</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>1.3.5</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>1.3.5</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>1.3.5</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>parent-version</td><td>1.3.5</td><td>Low</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>1.3.5</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>1.4.0</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>1.4.0</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>1.4.0</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>parent-version</td><td>1.4.0</td><td>Low</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>1.4.0</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header8" class="subsectionheader white">Identifiers</h4>
                         <div id="content8" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/commons-logging/commons-logging@1.3.5
+                                    <li>pkg:maven/commons-logging/commons-logging@1.4.0
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l5_4ecb5d2392c38c46e6cb65e1bf60be708d97005d"></a>error_prone_annotations-2.46.0.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l5_74ba43e49ab1184d41634af2ef0047e82c4064b0"></a>error_prone_annotations-2.50.0.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Error Prone is a static analysis tool for Java that catches common programming mistakes at compile-time.</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0.txt</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/com/google/errorprone/error_prone_annotations/2.46.0/error_prone_annotations-2.46.0.jar<br/>
-                            <b>MD5:</b>&nbsp;d0dabea249c067d21d7eb997fbdf5c99<br/>
-                            <b>SHA1:</b>&nbsp;4ecb5d2392c38c46e6cb65e1bf60be708d97005d<br/>
-                            <b>SHA256:</b>b67be81ff4b956401146e14eaf1526bc435a9480f2546e91eb45b796631a8a99
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/com/google/errorprone/error_prone_annotations/2.50.0/error_prone_annotations-2.50.0.jar<br/>
+                            <b>MD5:</b>&nbsp;1ded1848cfd4f5167e00824faf9c4d3b<br/>
+                            <b>SHA1:</b>&nbsp;74ba43e49ab1184d41634af2ef0047e82c4064b0<br/>
+                            <b>SHA256:</b>4667724877f1d37a689202da191e23efa7657c62eef93ccdac406eccfe5cdd0a
                                 <br/><b>Referenced In Project/Scope:</b> waffle-spring-security7:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">error_prone_annotations-2.46.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-spring-security7@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">error_prone_annotations-2.50.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-spring-security7@3.6.1-SNAPSHOT
                         </p>
                         <h4 id="header9" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content9" class="subsectioncontent standardsubsection hidden">
@@ -1321,15 +1324,15 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>com.google.errorprone</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>error-prone annotations</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>parent-artifactid</td><td>error_prone_parent</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>2.46.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>2.46.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>2.46.0</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>2.50.0</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>2.50.0</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>2.50.0</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header10" class="subsectionheader white">Identifiers</h4>
                         <div id="content10" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/com.google.errorprone/error_prone_annotations@2.46.0
+                                    <li>pkg:maven/com.google.errorprone/error_prone_annotations@2.50.0
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
@@ -1348,7 +1351,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                             <b>SHA1:</b>&nbsp;a892ca9507839bbdb900d64310ac98256cab992f<br/>
                             <b>SHA256:</b>84d3a150518485f8140ea99b8a985656749629f6433c92b80c75b36aba3b099b
                                 <br/><b>Referenced In Project/Scope:</b> waffle-spring-security7:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">j2objc-annotations-3.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-spring-security7@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">j2objc-annotations-3.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-spring-security7@3.6.1-SNAPSHOT
                         </p>
                         <h4 id="header11" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content11" class="subsectioncontent standardsubsection hidden">
@@ -1409,7 +1412,7 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                             <b>SHA1:</b>&nbsp;1169a246913fe3823782af7943e7a103634867c5<br/>
                             <b>SHA256:</b>8a31f465f3593bf2351531a5c952014eb839da96a605b5825b93dd54714c48c4
                                 <br/><b>Referenced In Project/Scope:</b> waffle-spring-security7:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">jakarta.servlet-api-6.1.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-spring-security7@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">jakarta.servlet-api-6.1.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-spring-security7@3.6.1-SNAPSHOT
                         </p>
                         <h4 id="header13" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content13" class="subsectioncontent standardsubsection hidden">
@@ -1467,25 +1470,21 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <li>pkg:maven/jakarta.servlet/jakarta.servlet-api@6.1.0
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
-                                <li>cpe:2.3:a:oracle:projects:6.1.0:*:*:*:*:*:*:*
-                                    &nbsp;&nbsp;(<i>Confidence</i>:Low)
-                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="jakarta.servlet-api-6.1.0.jar" data-sha1="1169a246913fe3823782af7943e7a103634867c5" data-pkgurl="pkg:maven/jakarta.servlet/jakarta.servlet-api@6.1.0" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:oracle:projects">suppress</button>
-                            </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l8_b27ba04287cc4abe769642fe8318d39fc89bf937"></a>jna-5.18.1.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l8_ca303052cd617c1af2e2c8d344c98a706fb63143"></a>jna-5.19.1.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Java Native Access</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">LGPL-2.1-or-later: https://www.gnu.org/licenses/old-licenses/lgpl-2.1
 Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/java/dev/jna/jna/5.18.1/jna-5.18.1.jar<br/>
-                            <b>MD5:</b>&nbsp;cb531ec131e1c68c045b5d45fe5b9878<br/>
-                            <b>SHA1:</b>&nbsp;b27ba04287cc4abe769642fe8318d39fc89bf937<br/>
-                            <b>SHA256:</b>260c4b1e22b1db9e110ee441c4f13ce115f841fa48c41d78750986214b395557
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/java/dev/jna/jna/5.19.1/jna-5.19.1.jar<br/>
+                            <b>MD5:</b>&nbsp;cf327da3e9cf5a5d77c8a43540320929<br/>
+                            <b>SHA1:</b>&nbsp;ca303052cd617c1af2e2c8d344c98a706fb63143<br/>
+                            <b>SHA256:</b>4fb141dd8ef6b0585ffceea4bc49602fbc6312fa977e2c488794ea3e6aafecae
                                 <br/><b>Referenced In Project/Scope:</b> waffle-spring-security7:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">jna-5.18.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-jna-jakarta@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">jna-5.19.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-jna-jakarta@3.6.1-SNAPSHOT
                         </p>
                         <h4 id="header15" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content15" class="subsectioncontent standardsubsection hidden">
@@ -1499,7 +1498,7 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                                     <tr><td>Vendor</td><td>Manifest</td><td>automatic-module-name</td><td>com.sun.jna</td><td>Medium</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>bundle-activationpolicy</td><td>lazy</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>bundle-category</td><td>jni</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>bundle-nativecode</td><td> com/sun/jna/win32-x86/jnidispatch.dll; processor=x86;osname=win32, com/sun/jna/win32-x86-64/jnidispatch.dll; processor=x86-64;osname=win32, com/sun/jna/win32-aarch64/jnidispatch.dll; processor=aarch64;osname=win32, com/sun/jna/win32-x86/jnidispatch.dll; processor=x86;osname=win, com/sun/jna/win32-x86-64/jnidispatch.dll; processor=x86-64;osname=win, com/sun/jna/win32-aarch64/jnidispatch.dll; processor=aarch64;osname=win, com/sun/jna/w32ce-arm/jnidispatch.dll; processor=arm;osname=wince,  com/sun/jna/sunos-x86/libjnidispatch.so; processor=x86;osname=sunos, com/sun/jna/sunos-x86-64/libjnidispatch.so; processor=x86-64;osname=sunos, com/sun/jna/sunos-sparc/libjnidispatch.so; processor=sparc;osname=sunos, com/sun/jna/sunos-sparcv9/libjnidispatch.so; processor=sparcv9;osname=sunos,  com/sun/jna/aix-ppc/libjnidispatch.a; processor=ppc;osname=aix, com/sun/jna/aix-ppc64/libjnidispatch.a; processor=ppc64;osname=aix,  com/sun/jna/linux-ppc/libjnidispatch.so; processor=ppc;osname=linux, com/sun/jna/linux-ppc64/libjnidispatch.so; processor=ppc64;osname=linux, com/sun/jna/linux-ppc64le/libjnidispatch.so; processor=ppc64le;osname=linux, com/sun/jna/linux-x86/libjnidispatch.so; processor=x86;osname=linux, com/sun/jna/linux-x86-64/libjnidispatch.so; processor=x86-64;osname=linux, com/sun/jna/linux-arm/libjnidispatch.so; processor=arm;osname=linux, com/sun/jna/linux-arm/libjnidispatch.so; processor=arm_le;osname=linux, com/sun/jna/linux-armel/libjnidispatch.so; processor=armel;osname=linux, com/sun/jna/linux-aarch64/libjnidispatch.so; processor=aarch64;osname=linux, com/sun/jna/linux-ia64/libjnidispatch.so; processor=ia64;osname=linux, com/sun/jna/linux-sparcv9/libjnidispatch.so; processor=sparcv9;osname=linux, com/sun/jna/linux-mips64el/libjnidispatch.so; processor=mips64el;osname=linux, com/sun/jna/linux-s390x/libjnidispatch.so; processor=S390x;osname=linux, com/sun/jna/linux-loongarch64/libjnidispatch.so; processor=loongarch64;osname=linux, com/sun/jna/linux-riscv64/libjnidispatch.so; processor=riscv64;osname=linux,  com/sun/jna/dragonflybsd-x86-64/libjnidispatch.so; processor=x86-64;osname=dragonflybsd,  com/sun/jna/freebsd-x86/libjnidispatch.so; processor=x86;osname=freebsd, com/sun/jna/freebsd-x86-64/libjnidispatch.so; processor=x86-64;osname=freebsd, com/sun/jna/freebsd-aarch64/libjnidispatch.so; processor=aarch64;osname=freebsd, com/sun/jna/freebsd-ppc64le/libjnidispatch.so; processor=ppc64le;osname=freebsd, com/sun/jna/freebsd-ppc64/libjnidispatch.so; processor=ppc64;osname=freebsd,  com/sun/jna/openbsd-x86/libjnidispatch.so; processor=x86;osname=openbsd, com/sun/jna/openbsd-x86-64/libjnidispatch.so; processor=x86-64;osname=openbsd,  com/sun/jna/darwin-ppc/libjnidispatch.jnilib; osname=macosx;processor=ppc, com/sun/jna/darwin-ppc64/libjnidispatch.jnilib; osname=macosx;processor=ppc64, com/sun/jna/darwin-x86/libjnidispatch.jnilib; osname=macosx;processor=x86, com/sun/jna/darwin-x86-64/libjnidispatch.jnilib; osname=macosx;processor=x86-64, com/sun/jna/darwin-aarch64/libjnidispatch.jnilib; osname=macosx;processor=aarch64 </td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>bundle-nativecode</td><td> com/sun/jna/win32-x86/jnidispatch.dll; processor=x86;osname=win32, com/sun/jna/win32-x86-64/jnidispatch.dll; processor=x86-64;osname=win32, com/sun/jna/win32-aarch64/jnidispatch.dll; processor=aarch64;osname=win32, com/sun/jna/win32-x86/jnidispatch.dll; processor=x86;osname=win, com/sun/jna/win32-x86-64/jnidispatch.dll; processor=x86-64;osname=win, com/sun/jna/win32-aarch64/jnidispatch.dll; processor=aarch64;osname=win, com/sun/jna/w32ce-arm/jnidispatch.dll; processor=arm;osname=wince,  com/sun/jna/sunos-x86/libjnidispatch.so; processor=x86;osname=sunos, com/sun/jna/sunos-x86-64/libjnidispatch.so; processor=x86-64;osname=sunos, com/sun/jna/sunos-sparc/libjnidispatch.so; processor=sparc;osname=sunos, com/sun/jna/sunos-sparcv9/libjnidispatch.so; processor=sparcv9;osname=sunos,  com/sun/jna/aix-ppc/libjnidispatch.a; processor=ppc;osname=aix, com/sun/jna/aix-ppc64/libjnidispatch.a; processor=ppc64;osname=aix,  com/sun/jna/linux-ppc/libjnidispatch.so; processor=ppc;osname=linux, com/sun/jna/linux-ppc64/libjnidispatch.so; processor=ppc64;osname=linux, com/sun/jna/linux-ppc64le/libjnidispatch.so; processor=ppc64le;osname=linux, com/sun/jna/linux-x86/libjnidispatch.so; processor=x86;osname=linux, com/sun/jna/linux-x86-64/libjnidispatch.so; processor=x86-64;osname=linux, com/sun/jna/linux-arm/libjnidispatch.so; processor=arm;osname=linux, com/sun/jna/linux-arm/libjnidispatch.so; processor=arm_le;osname=linux, com/sun/jna/linux-armel/libjnidispatch.so; processor=armel;osname=linux, com/sun/jna/linux-aarch64/libjnidispatch.so; processor=aarch64;osname=linux, com/sun/jna/linux-ia64/libjnidispatch.so; processor=ia64;osname=linux, com/sun/jna/linux-sparcv9/libjnidispatch.so; processor=sparcv9;osname=linux, com/sun/jna/linux-mips64el/libjnidispatch.so; processor=mips64el;osname=linux, com/sun/jna/linux-s390x/libjnidispatch.so; processor=S390x;osname=linux, com/sun/jna/linux-loongarch64/libjnidispatch.so; processor=loongarch64;osname=linux, com/sun/jna/linux-riscv64/libjnidispatch.so; processor=riscv64;osname=linux,  com/sun/jna/dragonflybsd-x86-64/libjnidispatch.so; processor=x86-64;osname=dragonflybsd,  com/sun/jna/freebsd-x86/libjnidispatch.so; processor=x86;osname=freebsd, com/sun/jna/freebsd-x86-64/libjnidispatch.so; processor=x86-64;osname=freebsd, com/sun/jna/freebsd-aarch64/libjnidispatch.so; processor=aarch64;osname=freebsd, com/sun/jna/freebsd-ppc64le/libjnidispatch.so; processor=ppc64le;osname=freebsd, com/sun/jna/freebsd-ppc64/libjnidispatch.so; processor=ppc64;osname=freebsd,  com/sun/jna/openbsd-x86/libjnidispatch.so; processor=x86;osname=openbsd, com/sun/jna/openbsd-x86-64/libjnidispatch.so; processor=x86-64;osname=openbsd, com/sun/jna/openbsd-x86-64/libjnidispatch.so; processor=sparcv9;osname=openbsd, com/sun/jna/openbsd-x86-64/libjnidispatch.so; processor=aarch64;osname=openbsd,  com/sun/jna/darwin-ppc/libjnidispatch.jnilib; osname=macosx;processor=ppc, com/sun/jna/darwin-ppc64/libjnidispatch.jnilib; osname=macosx;processor=ppc64, com/sun/jna/darwin-x86/libjnidispatch.jnilib; osname=macosx;processor=x86, com/sun/jna/darwin-x86-64/libjnidispatch.jnilib; osname=macosx;processor=x86-64, com/sun/jna/darwin-aarch64/libjnidispatch.jnilib; osname=macosx;processor=aarch64 </td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>bundle-requiredexecutionenvironment</td><td>JavaSE-1.6</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>bundle-symbolicname</td><td>com.sun.jna</td><td>Medium</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>Implementation-Vendor</td><td>JNA Development Team</td><td>High</td></tr>
@@ -1523,7 +1522,7 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                                     <tr><td>Product</td><td>Manifest</td><td>bundle-activationpolicy</td><td>lazy</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>bundle-category</td><td>jni</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>Bundle-Name</td><td>jna</td><td>Medium</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>bundle-nativecode</td><td> com/sun/jna/win32-x86/jnidispatch.dll; processor=x86;osname=win32, com/sun/jna/win32-x86-64/jnidispatch.dll; processor=x86-64;osname=win32, com/sun/jna/win32-aarch64/jnidispatch.dll; processor=aarch64;osname=win32, com/sun/jna/win32-x86/jnidispatch.dll; processor=x86;osname=win, com/sun/jna/win32-x86-64/jnidispatch.dll; processor=x86-64;osname=win, com/sun/jna/win32-aarch64/jnidispatch.dll; processor=aarch64;osname=win, com/sun/jna/w32ce-arm/jnidispatch.dll; processor=arm;osname=wince,  com/sun/jna/sunos-x86/libjnidispatch.so; processor=x86;osname=sunos, com/sun/jna/sunos-x86-64/libjnidispatch.so; processor=x86-64;osname=sunos, com/sun/jna/sunos-sparc/libjnidispatch.so; processor=sparc;osname=sunos, com/sun/jna/sunos-sparcv9/libjnidispatch.so; processor=sparcv9;osname=sunos,  com/sun/jna/aix-ppc/libjnidispatch.a; processor=ppc;osname=aix, com/sun/jna/aix-ppc64/libjnidispatch.a; processor=ppc64;osname=aix,  com/sun/jna/linux-ppc/libjnidispatch.so; processor=ppc;osname=linux, com/sun/jna/linux-ppc64/libjnidispatch.so; processor=ppc64;osname=linux, com/sun/jna/linux-ppc64le/libjnidispatch.so; processor=ppc64le;osname=linux, com/sun/jna/linux-x86/libjnidispatch.so; processor=x86;osname=linux, com/sun/jna/linux-x86-64/libjnidispatch.so; processor=x86-64;osname=linux, com/sun/jna/linux-arm/libjnidispatch.so; processor=arm;osname=linux, com/sun/jna/linux-arm/libjnidispatch.so; processor=arm_le;osname=linux, com/sun/jna/linux-armel/libjnidispatch.so; processor=armel;osname=linux, com/sun/jna/linux-aarch64/libjnidispatch.so; processor=aarch64;osname=linux, com/sun/jna/linux-ia64/libjnidispatch.so; processor=ia64;osname=linux, com/sun/jna/linux-sparcv9/libjnidispatch.so; processor=sparcv9;osname=linux, com/sun/jna/linux-mips64el/libjnidispatch.so; processor=mips64el;osname=linux, com/sun/jna/linux-s390x/libjnidispatch.so; processor=S390x;osname=linux, com/sun/jna/linux-loongarch64/libjnidispatch.so; processor=loongarch64;osname=linux, com/sun/jna/linux-riscv64/libjnidispatch.so; processor=riscv64;osname=linux,  com/sun/jna/dragonflybsd-x86-64/libjnidispatch.so; processor=x86-64;osname=dragonflybsd,  com/sun/jna/freebsd-x86/libjnidispatch.so; processor=x86;osname=freebsd, com/sun/jna/freebsd-x86-64/libjnidispatch.so; processor=x86-64;osname=freebsd, com/sun/jna/freebsd-aarch64/libjnidispatch.so; processor=aarch64;osname=freebsd, com/sun/jna/freebsd-ppc64le/libjnidispatch.so; processor=ppc64le;osname=freebsd, com/sun/jna/freebsd-ppc64/libjnidispatch.so; processor=ppc64;osname=freebsd,  com/sun/jna/openbsd-x86/libjnidispatch.so; processor=x86;osname=openbsd, com/sun/jna/openbsd-x86-64/libjnidispatch.so; processor=x86-64;osname=openbsd,  com/sun/jna/darwin-ppc/libjnidispatch.jnilib; osname=macosx;processor=ppc, com/sun/jna/darwin-ppc64/libjnidispatch.jnilib; osname=macosx;processor=ppc64, com/sun/jna/darwin-x86/libjnidispatch.jnilib; osname=macosx;processor=x86, com/sun/jna/darwin-x86-64/libjnidispatch.jnilib; osname=macosx;processor=x86-64, com/sun/jna/darwin-aarch64/libjnidispatch.jnilib; osname=macosx;processor=aarch64 </td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>bundle-nativecode</td><td> com/sun/jna/win32-x86/jnidispatch.dll; processor=x86;osname=win32, com/sun/jna/win32-x86-64/jnidispatch.dll; processor=x86-64;osname=win32, com/sun/jna/win32-aarch64/jnidispatch.dll; processor=aarch64;osname=win32, com/sun/jna/win32-x86/jnidispatch.dll; processor=x86;osname=win, com/sun/jna/win32-x86-64/jnidispatch.dll; processor=x86-64;osname=win, com/sun/jna/win32-aarch64/jnidispatch.dll; processor=aarch64;osname=win, com/sun/jna/w32ce-arm/jnidispatch.dll; processor=arm;osname=wince,  com/sun/jna/sunos-x86/libjnidispatch.so; processor=x86;osname=sunos, com/sun/jna/sunos-x86-64/libjnidispatch.so; processor=x86-64;osname=sunos, com/sun/jna/sunos-sparc/libjnidispatch.so; processor=sparc;osname=sunos, com/sun/jna/sunos-sparcv9/libjnidispatch.so; processor=sparcv9;osname=sunos,  com/sun/jna/aix-ppc/libjnidispatch.a; processor=ppc;osname=aix, com/sun/jna/aix-ppc64/libjnidispatch.a; processor=ppc64;osname=aix,  com/sun/jna/linux-ppc/libjnidispatch.so; processor=ppc;osname=linux, com/sun/jna/linux-ppc64/libjnidispatch.so; processor=ppc64;osname=linux, com/sun/jna/linux-ppc64le/libjnidispatch.so; processor=ppc64le;osname=linux, com/sun/jna/linux-x86/libjnidispatch.so; processor=x86;osname=linux, com/sun/jna/linux-x86-64/libjnidispatch.so; processor=x86-64;osname=linux, com/sun/jna/linux-arm/libjnidispatch.so; processor=arm;osname=linux, com/sun/jna/linux-arm/libjnidispatch.so; processor=arm_le;osname=linux, com/sun/jna/linux-armel/libjnidispatch.so; processor=armel;osname=linux, com/sun/jna/linux-aarch64/libjnidispatch.so; processor=aarch64;osname=linux, com/sun/jna/linux-ia64/libjnidispatch.so; processor=ia64;osname=linux, com/sun/jna/linux-sparcv9/libjnidispatch.so; processor=sparcv9;osname=linux, com/sun/jna/linux-mips64el/libjnidispatch.so; processor=mips64el;osname=linux, com/sun/jna/linux-s390x/libjnidispatch.so; processor=S390x;osname=linux, com/sun/jna/linux-loongarch64/libjnidispatch.so; processor=loongarch64;osname=linux, com/sun/jna/linux-riscv64/libjnidispatch.so; processor=riscv64;osname=linux,  com/sun/jna/dragonflybsd-x86-64/libjnidispatch.so; processor=x86-64;osname=dragonflybsd,  com/sun/jna/freebsd-x86/libjnidispatch.so; processor=x86;osname=freebsd, com/sun/jna/freebsd-x86-64/libjnidispatch.so; processor=x86-64;osname=freebsd, com/sun/jna/freebsd-aarch64/libjnidispatch.so; processor=aarch64;osname=freebsd, com/sun/jna/freebsd-ppc64le/libjnidispatch.so; processor=ppc64le;osname=freebsd, com/sun/jna/freebsd-ppc64/libjnidispatch.so; processor=ppc64;osname=freebsd,  com/sun/jna/openbsd-x86/libjnidispatch.so; processor=x86;osname=openbsd, com/sun/jna/openbsd-x86-64/libjnidispatch.so; processor=x86-64;osname=openbsd, com/sun/jna/openbsd-x86-64/libjnidispatch.so; processor=sparcv9;osname=openbsd, com/sun/jna/openbsd-x86-64/libjnidispatch.so; processor=aarch64;osname=openbsd,  com/sun/jna/darwin-ppc/libjnidispatch.jnilib; osname=macosx;processor=ppc, com/sun/jna/darwin-ppc64/libjnidispatch.jnilib; osname=macosx;processor=ppc64, com/sun/jna/darwin-x86/libjnidispatch.jnilib; osname=macosx;processor=x86, com/sun/jna/darwin-x86-64/libjnidispatch.jnilib; osname=macosx;processor=x86-64, com/sun/jna/darwin-aarch64/libjnidispatch.jnilib; osname=macosx;processor=aarch64 </td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>bundle-requiredexecutionenvironment</td><td>JavaSE-1.6</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>bundle-symbolicname</td><td>com.sun.jna</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>Implementation-Title</td><td>com.sun.jna</td><td>High</td></tr>
@@ -1536,28 +1535,24 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>net.java.dev.jna</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>Java Native Access</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>java-native-access/jna</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>5.18.1</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>5.18.1</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>5.18.1</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>5.19.1</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>5.19.1</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>5.19.1</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header16" class="subsectionheader white">Identifiers</h4>
                         <div id="content16" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/net.java.dev.jna/jna@5.18.1
+                                    <li>pkg:maven/net.java.dev.jna/jna@5.19.1
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
-                                <li>cpe:2.3:a:oracle:java_se:5.18.1:*:*:*:*:*:*:*
-                                    &nbsp;&nbsp;(<i>Confidence</i>:Low)
-                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="jna-5.18.1.jar" data-sha1="b27ba04287cc4abe769642fe8318d39fc89bf937" data-pkgurl="pkg:maven/net.java.dev.jna/jna@5.18.1" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:oracle:java_se">suppress</button>
-                            </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l9_6b05e299ff2b3eb3b7b7aeac44263f715693607c"></a>jna-5.18.1.jar: jnidispatch.dll</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l9_6b05e299ff2b3eb3b7b7aeac44263f715693607c"></a>jna-5.19.1.jar: jnidispatch.dll</h3>
                     <div class="subsectioncontent notvulnerable">
                         <p>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/java/dev/jna/jna/5.18.1/jna-5.18.1.jar/com/sun/jna/win32-aarch64/jnidispatch.dll<br/>
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/java/dev/jna/jna/5.19.1/jna-5.19.1.jar/com/sun/jna/win32-aarch64/jnidispatch.dll<br/>
                             <b>MD5:</b>&nbsp;302945a811fd8e21bcdd5226c73b6f74<br/>
                             <b>SHA1:</b>&nbsp;6b05e299ff2b3eb3b7b7aeac44263f715693607c<br/>
                             <b>SHA256:</b>b8f98be314234cf12b5b46c29652f70c0f6abb93ae19b63d3fe2692062aa699d
@@ -1576,10 +1571,10 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                             <ul><li><b>None</b></li></ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l10_27ff882ac271db547aee520b38e3ba9aa91e136c"></a>jna-5.18.1.jar: jnidispatch.dll</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l10_27ff882ac271db547aee520b38e3ba9aa91e136c"></a>jna-5.19.1.jar: jnidispatch.dll</h3>
                     <div class="subsectioncontent notvulnerable">
                         <p>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/java/dev/jna/jna/5.18.1/jna-5.18.1.jar/com/sun/jna/win32-x86-64/jnidispatch.dll<br/>
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/java/dev/jna/jna/5.19.1/jna-5.19.1.jar/com/sun/jna/win32-x86-64/jnidispatch.dll<br/>
                             <b>MD5:</b>&nbsp;2d2475f1f026dd54e9f3e787ae4f81da<br/>
                             <b>SHA1:</b>&nbsp;27ff882ac271db547aee520b38e3ba9aa91e136c<br/>
                             <b>SHA256:</b>5a7ff949f6d93d86491eb5b26b1cfc60051168a60622650224b89995ac420023
@@ -1598,10 +1593,10 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                             <ul><li><b>None</b></li></ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l11_2f5e1cd82cde192905c7510ce99037b67d980640"></a>jna-5.18.1.jar: jnidispatch.dll</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l11_2f5e1cd82cde192905c7510ce99037b67d980640"></a>jna-5.19.1.jar: jnidispatch.dll</h3>
                     <div class="subsectioncontent notvulnerable">
                         <p>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/java/dev/jna/jna/5.18.1/jna-5.18.1.jar/com/sun/jna/win32-x86/jnidispatch.dll<br/>
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/java/dev/jna/jna/5.19.1/jna-5.19.1.jar/com/sun/jna/win32-x86/jnidispatch.dll<br/>
                             <b>MD5:</b>&nbsp;0caa1ef75a807f9dde05084fa2219a5c<br/>
                             <b>SHA1:</b>&nbsp;2f5e1cd82cde192905c7510ce99037b67d980640<br/>
                             <b>SHA256:</b>752d597cee7e95cb517327146bf42f124c0d6c0bc48b3ecc3b1b3b0531a52f44
@@ -1620,18 +1615,18 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                             <ul><li><b>None</b></li></ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l12_dd817f391efc492041c9ae91127527c13750a789"></a>jna-platform-5.18.1.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l12_d1e54d9231da5ca3fa730d52960deaa555475468"></a>jna-platform-5.19.1.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Java Native Access Platform</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">LGPL-2.1-or-later: https://www.gnu.org/licenses/old-licenses/lgpl-2.1
 Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/java/dev/jna/jna-platform/5.18.1/jna-platform-5.18.1.jar<br/>
-                            <b>MD5:</b>&nbsp;a7af00779ec98bfe22dfb07b1532830d<br/>
-                            <b>SHA1:</b>&nbsp;dd817f391efc492041c9ae91127527c13750a789<br/>
-                            <b>SHA256:</b>ad14c1b1ec4f43d396231219dfa635ebf828f738eac9f890ea1bc07795892d9a
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/java/dev/jna/jna-platform/5.19.1/jna-platform-5.19.1.jar<br/>
+                            <b>MD5:</b>&nbsp;1d97b6103a9b3b7ddb671908683f4566<br/>
+                            <b>SHA1:</b>&nbsp;d1e54d9231da5ca3fa730d52960deaa555475468<br/>
+                            <b>SHA256:</b>3b3864f5b449e9c3c24b16861524b622b086563f44e0cd8384c8efc5a6052f82
                                 <br/><b>Referenced In Project/Scope:</b> waffle-spring-security7:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">jna-platform-5.18.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-jna-jakarta@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">jna-platform-5.19.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-jna-jakarta@3.6.1-SNAPSHOT
                         </p>
                         <h4 id="header23" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content23" class="subsectioncontent standardsubsection hidden">
@@ -1676,15 +1671,15 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>net.java.dev.jna</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>Java Native Access Platform</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>java-native-access/jna</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>5.18.1</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>5.18.1</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>5.18.1</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>5.19.1</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>5.19.1</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>5.19.1</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header24" class="subsectionheader white">Identifiers</h4>
                         <div id="content24" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/net.java.dev.jna/jna-platform@5.18.1
+                                    <li>pkg:maven/net.java.dev.jna/jna-platform@5.19.1
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
@@ -1700,7 +1695,7 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                             <b>SHA1:</b>&nbsp;7425a601c1c7ec76645a78d22b8c6a627edee507<br/>
                             <b>SHA256:</b>1fad6e6be7557781e4d33729d49ae1cdc8fdda6fe477bb0cc68ce351eafdfbab
                                 <br/><b>Referenced In Project/Scope:</b> waffle-spring-security7:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">jspecify-1.0.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.springframework/spring-core@7.0.3
+                                <br/><span class="tooltip"><span class="tooltiptext">jspecify-1.0.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.springframework/spring-core@7.0.9
                         </p>
                         <h4 id="header25" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content25" class="subsectioncontent standardsubsection hidden">
@@ -1759,7 +1754,7 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                             <b>SHA1:</b>&nbsp;25ea2e8b0c338a877313bd4672d3fe056ea78f0d<br/>
                             <b>SHA256:</b>766ad2a0783f2687962c8ad74ceecc38a28b9f72a2d085ee438b7813e928d0c7
                                 <br/><b>Referenced In Project/Scope:</b> waffle-spring-security7:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">jsr305-3.0.2.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.spotbugs/spotbugs-annotations@4.9.8
+                                <br/><span class="tooltip"><span class="tooltiptext">jsr305-3.0.2.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.spotbugs/spotbugs-annotations@4.10.4
                         </p>
                         <h4 id="header27" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content27" class="subsectioncontent standardsubsection hidden">
@@ -1793,17 +1788,17 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l15_58670637cb6e0c5fc855950fed827149779da226"></a>micrometer-commons-1.16.2.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l15_ed85a2983e52358be84a6c8c3522b968ff41e500"></a>micrometer-commons-1.16.7.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Module containing common code</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">The Apache Software License, Version 2.0: http://www.apache.org/licenses/LICENSE-2.0.txt</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/io/micrometer/micrometer-commons/1.16.2/micrometer-commons-1.16.2.jar<br/>
-                            <b>MD5:</b>&nbsp;88a7a0a883e27eb8b12a744968d55c9a<br/>
-                            <b>SHA1:</b>&nbsp;58670637cb6e0c5fc855950fed827149779da226<br/>
-                            <b>SHA256:</b>0ba6c40a25d7779c1162d54dd0b39ef7aabc9c20214238f0c28036c9099901d7
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/io/micrometer/micrometer-commons/1.16.7/micrometer-commons-1.16.7.jar<br/>
+                            <b>MD5:</b>&nbsp;952b8470311050de186bed6c354dadea<br/>
+                            <b>SHA1:</b>&nbsp;ed85a2983e52358be84a6c8c3522b968ff41e500<br/>
+                            <b>SHA256:</b>cd1ad64a94650a2ed3988a4ab48c9a7fad40c4986a81e328194dd757b5170273
                                 <br/><b>Referenced In Project/Scope:</b> waffle-spring-security7:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">micrometer-commons-1.16.2.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.springframework/spring-context@7.0.3
+                                <br/><span class="tooltip"><span class="tooltiptext">micrometer-commons-1.16.7.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.springframework/spring-context@7.0.9
                         </p>
                         <h4 id="header29" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content29" class="subsectioncontent standardsubsection hidden">
@@ -1814,88 +1809,92 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                                     <tr><td>Vendor</td><td>jar</td><td>package name</td><td>io</td><td>Highest</td></tr>
                                     <tr><td>Vendor</td><td>jar</td><td>package name</td><td>micrometer</td><td>Highest</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>automatic-module-name</td><td>micrometer.commons</td><td>Medium</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>branch</td><td>HEAD</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>build-date</td><td>2026-01-12_20:19:47</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>build-date-utc</td><td>2026-01-12T20:19:47.493449647Z</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>build-host</td><td>075035fb996f</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>build-job</td><td>deploy</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>build-number</td><td>61465</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>branch</td><td>release/1.16.7</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>build-date</td><td>2026-08-17_07:25:36</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>build-date-utc</td><td>2026-08-17T07:25:36.552419142Z</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>build-host</td><td>https://github.com</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>build-job</td><td>build-release</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>build-number</td><td>49</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>build-timezone</td><td>Etc/UTC</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>build-url</td><td>https://circleci.com/gh/micrometer-metrics/micrometer/61465</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>build-url</td><td>https://github.com/micrometer-metrics/micrometer-commercial/actions/runs/32005689840</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>built-os</td><td>Linux</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>built-status</td><td>release</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>built-status</td><td>integration</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>bundle-symbolicname</td><td>micrometer-commons</td><td>Medium</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>change</td><td>6286e85</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>full-change</td><td>6286e854f943bce9a2daf1214ce3cef6c7aad84d</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>module-email</td><td>tludwig@vmware.com</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>module-origin</td><td>micrometer-metrics/micrometer.git</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>module-owner</td><td>tludwig@vmware.com</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>module-source</td><td>/micrometer-commons</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>change</td><td>2109514</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>full-change</td><td>21095149cbb82b914bd9c0688a1622a4a3220f85</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>module-email</td><td>tludwig@vmware.com,jivanov@vmware.com</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>module-origin</td><td>https://github.com/micrometer-metrics/micrometer-commercial.git</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>module-owner</td><td>tludwig@vmware.com,jivanov@vmware.com</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>artifactid</td><td>micrometer-commons</td><td>Highest</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>artifactid</td><td>micrometer-commons</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>pom</td><td>developer email</td><td>jivanov@vmware.com</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>developer email</td><td>tludwig@vmware.com</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>pom</td><td>developer id</td><td>jonatan-ivanov</td><td>Medium</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>developer id</td><td>shakuzen</td><td>Medium</td></tr>
+                                    <tr><td>Vendor</td><td>pom</td><td>developer name</td><td>Jonatan Ivanov</td><td>Medium</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>developer name</td><td>Tommy Ludwig</td><td>Medium</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>groupid</td><td>io.micrometer</td><td>Highest</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>name</td><td>micrometer-commons</td><td>High</td></tr>
-                                    <tr><td>Vendor</td><td>pom</td><td>url</td><td>micrometer-metrics/micrometer</td><td>Highest</td></tr>
+                                    <tr><td>Vendor</td><td>pom</td><td>url</td><td>micrometer-metrics/micrometer-commercial</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>file</td><td>name</td><td>micrometer-commons</td><td>High</td></tr>
                                     <tr><td>Product</td><td>jar</td><td>package name</td><td>common</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>jar</td><td>package name</td><td>io</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>jar</td><td>package name</td><td>micrometer</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>automatic-module-name</td><td>micrometer.commons</td><td>Medium</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>branch</td><td>HEAD</td><td>Low</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>build-date</td><td>2026-01-12_20:19:47</td><td>Low</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>build-date-utc</td><td>2026-01-12T20:19:47.493449647Z</td><td>Low</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>build-host</td><td>075035fb996f</td><td>Low</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>build-job</td><td>deploy</td><td>Low</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>build-number</td><td>61465</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>branch</td><td>release/1.16.7</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>build-date</td><td>2026-08-17_07:25:36</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>build-date-utc</td><td>2026-08-17T07:25:36.552419142Z</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>build-host</td><td>https://github.com</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>build-job</td><td>build-release</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>build-number</td><td>49</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>build-timezone</td><td>Etc/UTC</td><td>Low</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>build-url</td><td>https://circleci.com/gh/micrometer-metrics/micrometer/61465</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>build-url</td><td>https://github.com/micrometer-metrics/micrometer-commercial/actions/runs/32005689840</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>built-os</td><td>Linux</td><td>Low</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>built-status</td><td>release</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>built-status</td><td>integration</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>Bundle-Name</td><td>micrometer-commons</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>bundle-symbolicname</td><td>micrometer-commons</td><td>Medium</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>change</td><td>6286e85</td><td>Low</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>full-change</td><td>6286e854f943bce9a2daf1214ce3cef6c7aad84d</td><td>Low</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>Implementation-Title</td><td>io.micrometer#micrometer-commons;1.16.2</td><td>High</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>module-email</td><td>tludwig@vmware.com</td><td>Low</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>module-origin</td><td>micrometer-metrics/micrometer.git</td><td>Low</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>module-owner</td><td>tludwig@vmware.com</td><td>Low</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>module-source</td><td>/micrometer-commons</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>change</td><td>2109514</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>full-change</td><td>21095149cbb82b914bd9c0688a1622a4a3220f85</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>Implementation-Title</td><td>io.micrometer#micrometer-commons;1.16.7</td><td>High</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>module-email</td><td>tludwig@vmware.com,jivanov@vmware.com</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>module-origin</td><td>https://github.com/micrometer-metrics/micrometer-commercial.git</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>module-owner</td><td>tludwig@vmware.com,jivanov@vmware.com</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>artifactid</td><td>micrometer-commons</td><td>Highest</td></tr>
+                                    <tr><td>Product</td><td>pom</td><td>developer email</td><td>jivanov@vmware.com</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>developer email</td><td>tludwig@vmware.com</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>pom</td><td>developer id</td><td>jonatan-ivanov</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>developer id</td><td>shakuzen</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>pom</td><td>developer name</td><td>Jonatan Ivanov</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>developer name</td><td>Tommy Ludwig</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>io.micrometer</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>micrometer-commons</td><td>High</td></tr>
-                                    <tr><td>Product</td><td>pom</td><td>url</td><td>micrometer-metrics/micrometer</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>1.16.2</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>1.16.2</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>1.16.2</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>1.16.2</td><td>Highest</td></tr>
+                                    <tr><td>Product</td><td>pom</td><td>url</td><td>micrometer-metrics/micrometer-commercial</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>1.16.7</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>1.16.7</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>1.16.7</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>1.16.7</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header30" class="subsectionheader white">Identifiers</h4>
                         <div id="content30" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/io.micrometer/micrometer-commons@1.16.2
+                                    <li>pkg:maven/io.micrometer/micrometer-commons@1.16.7
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l16_c076389e612fe3702628527c21a13743acafddfc"></a>micrometer-observation-1.16.2.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l16_5387e97e74b61892affb7c4b4cafa9df6d6ca6d2"></a>micrometer-observation-1.16.7.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Module containing Observation related code</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">The Apache Software License, Version 2.0: http://www.apache.org/licenses/LICENSE-2.0.txt</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/io/micrometer/micrometer-observation/1.16.2/micrometer-observation-1.16.2.jar<br/>
-                            <b>MD5:</b>&nbsp;1413f8bded8e76ee94f9b7e0e7e26b23<br/>
-                            <b>SHA1:</b>&nbsp;c076389e612fe3702628527c21a13743acafddfc<br/>
-                            <b>SHA256:</b>d75994254246410ddb9a712c48215c8a400ae63af0b7b14cbefaccf79b87f9e1
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/io/micrometer/micrometer-observation/1.16.7/micrometer-observation-1.16.7.jar<br/>
+                            <b>MD5:</b>&nbsp;ff4722ca94dde41f70801dbdf5f77c9b<br/>
+                            <b>SHA1:</b>&nbsp;5387e97e74b61892affb7c4b4cafa9df6d6ca6d2<br/>
+                            <b>SHA256:</b>74f9e4d51ef30c141de8a2409879282e572eef98665e033e8922c2fbee16862d
                                 <br/><b>Referenced In Project/Scope:</b> waffle-spring-security7:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">micrometer-observation-1.16.2.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.springframework/spring-context@7.0.3
+                                <br/><span class="tooltip"><span class="tooltiptext">micrometer-observation-1.16.7.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.springframework/spring-context@7.0.9
                         </p>
                         <h4 id="header31" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content31" class="subsectioncontent standardsubsection hidden">
@@ -1906,88 +1905,92 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                                     <tr><td>Vendor</td><td>jar</td><td>package name</td><td>micrometer</td><td>Highest</td></tr>
                                     <tr><td>Vendor</td><td>jar</td><td>package name</td><td>observation</td><td>Highest</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>automatic-module-name</td><td>micrometer.observation</td><td>Medium</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>branch</td><td>HEAD</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>build-date</td><td>2026-01-12_20:19:47</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>build-date-utc</td><td>2026-01-12T20:19:47.858920430Z</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>build-host</td><td>075035fb996f</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>build-job</td><td>deploy</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>build-number</td><td>61465</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>branch</td><td>release/1.16.7</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>build-date</td><td>2026-08-17_07:25:36</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>build-date-utc</td><td>2026-08-17T07:25:36.994453332Z</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>build-host</td><td>https://github.com</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>build-job</td><td>build-release</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>build-number</td><td>49</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>build-timezone</td><td>Etc/UTC</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>build-url</td><td>https://circleci.com/gh/micrometer-metrics/micrometer/61465</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>build-url</td><td>https://github.com/micrometer-metrics/micrometer-commercial/actions/runs/32005689840</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>built-os</td><td>Linux</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>built-status</td><td>release</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>built-status</td><td>integration</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>bundle-symbolicname</td><td>micrometer-observation</td><td>Medium</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>change</td><td>6286e85</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>full-change</td><td>6286e854f943bce9a2daf1214ce3cef6c7aad84d</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>module-email</td><td>tludwig@vmware.com</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>module-origin</td><td>micrometer-metrics/micrometer.git</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>module-owner</td><td>tludwig@vmware.com</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>module-source</td><td>/micrometer-observation</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>change</td><td>2109514</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>full-change</td><td>21095149cbb82b914bd9c0688a1622a4a3220f85</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>module-email</td><td>tludwig@vmware.com,jivanov@vmware.com</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>module-origin</td><td>https://github.com/micrometer-metrics/micrometer-commercial.git</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>module-owner</td><td>tludwig@vmware.com,jivanov@vmware.com</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>artifactid</td><td>micrometer-observation</td><td>Highest</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>artifactid</td><td>micrometer-observation</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>pom</td><td>developer email</td><td>jivanov@vmware.com</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>developer email</td><td>tludwig@vmware.com</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>pom</td><td>developer id</td><td>jonatan-ivanov</td><td>Medium</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>developer id</td><td>shakuzen</td><td>Medium</td></tr>
+                                    <tr><td>Vendor</td><td>pom</td><td>developer name</td><td>Jonatan Ivanov</td><td>Medium</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>developer name</td><td>Tommy Ludwig</td><td>Medium</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>groupid</td><td>io.micrometer</td><td>Highest</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>name</td><td>micrometer-observation</td><td>High</td></tr>
-                                    <tr><td>Vendor</td><td>pom</td><td>url</td><td>micrometer-metrics/micrometer</td><td>Highest</td></tr>
+                                    <tr><td>Vendor</td><td>pom</td><td>url</td><td>micrometer-metrics/micrometer-commercial</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>file</td><td>name</td><td>micrometer-observation</td><td>High</td></tr>
                                     <tr><td>Product</td><td>jar</td><td>package name</td><td>io</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>jar</td><td>package name</td><td>micrometer</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>jar</td><td>package name</td><td>observation</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>automatic-module-name</td><td>micrometer.observation</td><td>Medium</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>branch</td><td>HEAD</td><td>Low</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>build-date</td><td>2026-01-12_20:19:47</td><td>Low</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>build-date-utc</td><td>2026-01-12T20:19:47.858920430Z</td><td>Low</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>build-host</td><td>075035fb996f</td><td>Low</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>build-job</td><td>deploy</td><td>Low</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>build-number</td><td>61465</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>branch</td><td>release/1.16.7</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>build-date</td><td>2026-08-17_07:25:36</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>build-date-utc</td><td>2026-08-17T07:25:36.994453332Z</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>build-host</td><td>https://github.com</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>build-job</td><td>build-release</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>build-number</td><td>49</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>build-timezone</td><td>Etc/UTC</td><td>Low</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>build-url</td><td>https://circleci.com/gh/micrometer-metrics/micrometer/61465</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>build-url</td><td>https://github.com/micrometer-metrics/micrometer-commercial/actions/runs/32005689840</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>built-os</td><td>Linux</td><td>Low</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>built-status</td><td>release</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>built-status</td><td>integration</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>Bundle-Name</td><td>micrometer-observation</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>bundle-symbolicname</td><td>micrometer-observation</td><td>Medium</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>change</td><td>6286e85</td><td>Low</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>full-change</td><td>6286e854f943bce9a2daf1214ce3cef6c7aad84d</td><td>Low</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>Implementation-Title</td><td>io.micrometer#micrometer-observation;1.16.2</td><td>High</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>module-email</td><td>tludwig@vmware.com</td><td>Low</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>module-origin</td><td>micrometer-metrics/micrometer.git</td><td>Low</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>module-owner</td><td>tludwig@vmware.com</td><td>Low</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>module-source</td><td>/micrometer-observation</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>change</td><td>2109514</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>full-change</td><td>21095149cbb82b914bd9c0688a1622a4a3220f85</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>Implementation-Title</td><td>io.micrometer#micrometer-observation;1.16.7</td><td>High</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>module-email</td><td>tludwig@vmware.com,jivanov@vmware.com</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>module-origin</td><td>https://github.com/micrometer-metrics/micrometer-commercial.git</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>module-owner</td><td>tludwig@vmware.com,jivanov@vmware.com</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>artifactid</td><td>micrometer-observation</td><td>Highest</td></tr>
+                                    <tr><td>Product</td><td>pom</td><td>developer email</td><td>jivanov@vmware.com</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>developer email</td><td>tludwig@vmware.com</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>pom</td><td>developer id</td><td>jonatan-ivanov</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>developer id</td><td>shakuzen</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>pom</td><td>developer name</td><td>Jonatan Ivanov</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>developer name</td><td>Tommy Ludwig</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>io.micrometer</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>micrometer-observation</td><td>High</td></tr>
-                                    <tr><td>Product</td><td>pom</td><td>url</td><td>micrometer-metrics/micrometer</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>1.16.2</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>1.16.2</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>1.16.2</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>1.16.2</td><td>Highest</td></tr>
+                                    <tr><td>Product</td><td>pom</td><td>url</td><td>micrometer-metrics/micrometer-commercial</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>1.16.7</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>1.16.7</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>1.16.7</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>1.16.7</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header32" class="subsectionheader white">Identifiers</h4>
                         <div id="content32" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/io.micrometer/micrometer-observation@1.16.2
+                                    <li>pkg:maven/io.micrometer/micrometer-observation@1.16.7
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l17_d9e58ac9c7779ba3bf8142aff6c830617a7fe60f"></a>slf4j-api-2.0.17.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l17_efad9817997b3a6ce9e058f92e612917a744c290"></a>slf4j-api-2.0.19.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>The slf4j API</pre></p>
                         <p>
                             <b>License:</b><pre class="indent"><a href="https://opensource.org/license/mit">https://opensource.org/license/mit</a></pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar<br/>
-                            <b>MD5:</b>&nbsp;b6480d114a23683498ac3f746f959d2f<br/>
-                            <b>SHA1:</b>&nbsp;d9e58ac9c7779ba3bf8142aff6c830617a7fe60f<br/>
-                            <b>SHA256:</b>7b751d952061954d5abfed7181c1f645d336091b679891591d63329c622eb832
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/slf4j/slf4j-api/2.0.19/slf4j-api-2.0.19.jar<br/>
+                            <b>MD5:</b>&nbsp;1ca3a2acac3d5947b37d9b5536c55829<br/>
+                            <b>SHA1:</b>&nbsp;efad9817997b3a6ce9e058f92e612917a744c290<br/>
+                            <b>SHA256:</b>e91ff6d720609e7a194ffe758c3ed5c84e798617ae07b0a0f6a4fe229741b4bb
                                 <br/><b>Referenced In Project/Scope:</b> waffle-spring-security7:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">slf4j-api-2.0.17.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-jna-jakarta@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">slf4j-api-2.0.19.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-jna-jakarta@3.6.1-SNAPSHOT
                         </p>
                         <h4 id="header33" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content33" class="subsectioncontent standardsubsection hidden">
@@ -2018,32 +2021,32 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>SLF4J API Module</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>parent-artifactid</td><td>slf4j-parent</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>http://www.slf4j.org</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>2.0.17</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>2.0.17</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>2.0.17</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>2.0.17</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>2.0.19</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>2.0.19</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>2.0.19</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>2.0.19</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header34" class="subsectionheader white">Identifiers</h4>
                         <div id="content34" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.slf4j/slf4j-api@2.0.17
+                                    <li>pkg:maven/org.slf4j/slf4j-api@2.0.19
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l18_ca4a2783a6123e67124fd7feb4caccd2e2ac9a73"></a>spotbugs-annotations-4.9.8.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l18_7eb4c58212378becfb6ea6d236ec24a2352a316e"></a>spotbugs-annotations-4.10.4.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Annotations the SpotBugs tool supports</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">GNU LESSER GENERAL PUBLIC LICENSE, Version 2.1: https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/com/github/spotbugs/spotbugs-annotations/4.9.8/spotbugs-annotations-4.9.8.jar<br/>
-                            <b>MD5:</b>&nbsp;d4c2e7bd090be697ad409a4e75684a94<br/>
-                            <b>SHA1:</b>&nbsp;ca4a2783a6123e67124fd7feb4caccd2e2ac9a73<br/>
-                            <b>SHA256:</b>6f69d6fe9c55a54dcb30e87d8fa2d5f52246af50d7a3445246d9539ef221be1c
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/com/github/spotbugs/spotbugs-annotations/4.10.4/spotbugs-annotations-4.10.4.jar<br/>
+                            <b>MD5:</b>&nbsp;472925cb4e5451c8f7a1aeeefe286622<br/>
+                            <b>SHA1:</b>&nbsp;7eb4c58212378becfb6ea6d236ec24a2352a316e<br/>
+                            <b>SHA256:</b>28fa4befaddce5d7b79b07c68e7c12fa27c5d9282c4229528717971606661ea3
                                 <br/><b>Referenced In Project/Scope:</b> waffle-spring-security7:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">spotbugs-annotations-4.9.8.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-spring-security7@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">spotbugs-annotations-4.10.4.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-spring-security7@3.6.1-SNAPSHOT
                         </p>
                         <h4 id="header35" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content35" class="subsectioncontent standardsubsection hidden">
@@ -2099,31 +2102,31 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>com.github.spotbugs</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>SpotBugs Annotations</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>https://spotbugs.github.io/</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>4.9.8</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>4.9.8</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>4.9.8</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>4.10.4</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>4.10.4</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>4.10.4</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header36" class="subsectionheader white">Identifiers</h4>
                         <div id="content36" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/com.github.spotbugs/spotbugs-annotations@4.9.8
+                                    <li>pkg:maven/com.github.spotbugs/spotbugs-annotations@4.10.4
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l19_2072a89e347c63567a83349eb5908131ce6ea601"></a>spring-core-7.0.3.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l19_e03c619fc5b26931973277f5ba65ae47967a20e3"></a>spring-core-7.0.9.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Spring Core</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">Apache License, Version 2.0: https://www.apache.org/licenses/LICENSE-2.0</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/springframework/spring-core/7.0.3/spring-core-7.0.3.jar<br/>
-                            <b>MD5:</b>&nbsp;4da41c194463d6521d6c4ace955417db<br/>
-                            <b>SHA1:</b>&nbsp;2072a89e347c63567a83349eb5908131ce6ea601<br/>
-                            <b>SHA256:</b>78d85d69a8e71f28996c7062cc91d9ce63fd1f01e9b8b87b21363ae325c9347b
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/springframework/spring-core/7.0.9/spring-core-7.0.9.jar<br/>
+                            <b>MD5:</b>&nbsp;f87ba857b1fb00b125568d966aa66058<br/>
+                            <b>SHA1:</b>&nbsp;e03c619fc5b26931973277f5ba65ae47967a20e3<br/>
+                            <b>SHA256:</b>5195f4722699b39878d99a832549fe65df2890b159d063b88fff31b1ca65ae36
                                 <br/><b>Referenced In Project/Scope:</b> waffle-spring-security7:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">spring-core-7.0.3.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-spring-security7@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">spring-core-7.0.9.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-spring-security7@3.6.1-SNAPSHOT
                         </p>
                         <h4 id="header37" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content37" class="subsectioncontent standardsubsection hidden">
@@ -2167,57 +2170,57 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                                     <tr><td>Product</td><td>pom</td><td>organization name</td><td>Spring IO</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>organization url</td><td>https://spring.io/projects/spring-framework</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>spring-projects/spring-framework</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>7.0.3</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>7.0.3</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>7.0.3</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>7.0.9</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>7.0.9</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>7.0.9</td><td>Highest</td></tr>
                             </table>
                         </div>
                             <h4 id="header38" class="subsectionheader expandable expandablesubsection white">Related Dependencies</h4>
                             <div id="content38" class="subsectioncontent standardsubsection hidden">
                             <ul>
-                                <li>spring-aop-7.0.3.jar
+                                <li>spring-aop-7.0.9.jar
                                     <ul>
-                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/springframework/spring-aop/7.0.3/spring-aop-7.0.3.jar</li>
-                                        <li>MD5:&nbsp;11103d798fc0606c24fea2b77ea2cad7</li>
-                                        <li>SHA1:&nbsp;b5eb117b9e8a84075a3db6e7e52ef2bc7b54163f</li>
-                                        <li>SHA256:&nbsp;5d6f2c77b041edb424156561f843578669dd15519f045b16061b856a6fb38175</li>
-                                                <li>pkg:maven/org.springframework/spring-aop@7.0.3</li>
+                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/springframework/spring-aop/7.0.9/spring-aop-7.0.9.jar</li>
+                                        <li>MD5:&nbsp;1766c086d944229fdca3c052bd133735</li>
+                                        <li>SHA1:&nbsp;35f68fd8cdf30444e18835cec152f2619c4c46c7</li>
+                                        <li>SHA256:&nbsp;b8c5d6bfcb1f4993f2cc124f7ab7fac40edf5256b9e43c2f7250a733cb5510e9</li>
+                                                <li>pkg:maven/org.springframework/spring-aop@7.0.9</li>
                                      </ul>
                                 </li>
-                                <li>spring-beans-7.0.3.jar
+                                <li>spring-beans-7.0.9.jar
                                     <ul>
-                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/springframework/spring-beans/7.0.3/spring-beans-7.0.3.jar</li>
-                                        <li>MD5:&nbsp;73a09979913146a2c41a6f9372ff4b7a</li>
-                                        <li>SHA1:&nbsp;b3b43093088fe139d78643bcfe8ee9374a0dd892</li>
-                                        <li>SHA256:&nbsp;3d7cc670630cde2475eb079c2b5b6a85d9a2422888d6213da1aed1c0337500d6</li>
-                                                <li>pkg:maven/org.springframework/spring-beans@7.0.3</li>
+                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/springframework/spring-beans/7.0.9/spring-beans-7.0.9.jar</li>
+                                        <li>MD5:&nbsp;4472076f5c22297927d129768a54119d</li>
+                                        <li>SHA1:&nbsp;2bee42fa948a5f32761fd0838de3baa1f51c0225</li>
+                                        <li>SHA256:&nbsp;ff218b827a25c9e8929b0cd56dfb56916cea9d5b669ed97dc7cb262508ff548b</li>
+                                                <li>pkg:maven/org.springframework/spring-beans@7.0.9</li>
                                      </ul>
                                 </li>
-                                <li>spring-context-7.0.3.jar
+                                <li>spring-context-7.0.9.jar
                                     <ul>
-                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/springframework/spring-context/7.0.3/spring-context-7.0.3.jar</li>
-                                        <li>MD5:&nbsp;139a9427688223b46f51ace2e8fac516</li>
-                                        <li>SHA1:&nbsp;cea94cbc6244f0b4632cb4bb7608a1e4fab8afea</li>
-                                        <li>SHA256:&nbsp;2c0ae4976261ad2ea16d6f5bd314e6ee13ffbaf7d8b6a4867b9a161e211a41a9</li>
-                                                <li>pkg:maven/org.springframework/spring-context@7.0.3</li>
+                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/springframework/spring-context/7.0.9/spring-context-7.0.9.jar</li>
+                                        <li>MD5:&nbsp;4528f937c5eadd30458a0f19a977e3b8</li>
+                                        <li>SHA1:&nbsp;7eb8e01ecf1633ddd4d64ca184194f967b6bc0aa</li>
+                                        <li>SHA256:&nbsp;7552a2fcfa30cea53eb14d7a65a7a8e1b1dd82e832a7164fb7e6fb105f438858</li>
+                                                <li>pkg:maven/org.springframework/spring-context@7.0.9</li>
                                      </ul>
                                 </li>
-                                <li>spring-expression-7.0.3.jar
+                                <li>spring-expression-7.0.9.jar
                                     <ul>
-                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/springframework/spring-expression/7.0.3/spring-expression-7.0.3.jar</li>
-                                        <li>MD5:&nbsp;7676fb033b76ef6c84d613a2fc095974</li>
-                                        <li>SHA1:&nbsp;3fbdf8dc6a84d1f2c43c48c97e8220f29fab19d6</li>
-                                        <li>SHA256:&nbsp;e4f53c026e281b79c268a4b2071938785a15606921ef5f3d2a0edc7a76566934</li>
-                                                <li>pkg:maven/org.springframework/spring-expression@7.0.3</li>
+                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/springframework/spring-expression/7.0.9/spring-expression-7.0.9.jar</li>
+                                        <li>MD5:&nbsp;46931226190dcd4ab0dd8862cd7f4986</li>
+                                        <li>SHA1:&nbsp;9452ece85b97fa3e208046cc3a7e985c314b0034</li>
+                                        <li>SHA256:&nbsp;046434c40f43819729b9b1db0e6c659dfa68184c1c2c2efa5f7b3a5b27c4e2e2</li>
+                                                <li>pkg:maven/org.springframework/spring-expression@7.0.9</li>
                                      </ul>
                                 </li>
-                                <li>spring-web-7.0.3.jar
+                                <li>spring-web-7.0.9.jar
                                     <ul>
-                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/springframework/spring-web/7.0.3/spring-web-7.0.3.jar</li>
-                                        <li>MD5:&nbsp;c075825340a9f74890412dc04b66e75c</li>
-                                        <li>SHA1:&nbsp;3bcdb4075e17a56b148f69fe0d83a4c0662d9258</li>
-                                        <li>SHA256:&nbsp;85bb88a14a26ac8fa72af463e6dfb364114f28c82f36fce427f2077580d6958c</li>
-                                                <li>pkg:maven/org.springframework/spring-web@7.0.3</li>
+                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/springframework/spring-web/7.0.9/spring-web-7.0.9.jar</li>
+                                        <li>MD5:&nbsp;3ad4a5d872c4094ab34b16980aedafa9</li>
+                                        <li>SHA1:&nbsp;c42f4ce0cded1526527296726c4ed30335dfaa10</li>
+                                        <li>SHA256:&nbsp;941ced476427bde2533872f293da535fd0258de3f3a650a7f1bfe01ed2927302</li>
+                                                <li>pkg:maven/org.springframework/spring-web@7.0.9</li>
                                      </ul>
                                 </li>
                             </ul>
@@ -2225,35 +2228,35 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                         <h4 id="header39" class="subsectionheader white">Identifiers</h4>
                         <div id="content39" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.springframework/spring-core@7.0.3
+                                    <li>pkg:maven/org.springframework/spring-core@7.0.9
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
-                                <li><a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Apivotal_software%3Aspring_framework%3A7.0.3%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:pivotal_software:spring_framework:7.0.3:*:*:*:*:*:*:*</a>
+                                <li><a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Apivotal_software%3Aspring_framework%3A7.0.9%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:pivotal_software:spring_framework:7.0.9:*:*:*:*:*:*:*</a>
                                     &nbsp;&nbsp;(<i>Confidence</i>:Highest)
-                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="spring-core-7.0.3.jar" data-sha1="2072a89e347c63567a83349eb5908131ce6ea601" data-pkgurl="pkg:maven/org.springframework/spring-core@7.0.3" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:pivotal_software:spring_framework">suppress</button>
+                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="spring-core-7.0.9.jar" data-sha1="e03c619fc5b26931973277f5ba65ae47967a20e3" data-pkgurl="pkg:maven/org.springframework/spring-core@7.0.9" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:pivotal_software:spring_framework">suppress</button>
                             </li>
-                                <li><a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aspringsource%3Aspring_framework%3A7.0.3%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:springsource:spring_framework:7.0.3:*:*:*:*:*:*:*</a>
+                                <li><a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aspringsource%3Aspring_framework%3A7.0.9%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:springsource:spring_framework:7.0.9:*:*:*:*:*:*:*</a>
                                     &nbsp;&nbsp;(<i>Confidence</i>:Highest)
-                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="spring-core-7.0.3.jar" data-sha1="2072a89e347c63567a83349eb5908131ce6ea601" data-pkgurl="pkg:maven/org.springframework/spring-core@7.0.3" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:springsource:spring_framework">suppress</button>
+                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="spring-core-7.0.9.jar" data-sha1="e03c619fc5b26931973277f5ba65ae47967a20e3" data-pkgurl="pkg:maven/org.springframework/spring-core@7.0.9" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:springsource:spring_framework">suppress</button>
                             </li>
-                                <li><a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Avmware%3Aspring_framework%3A7.0.3%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:vmware:spring_framework:7.0.3:*:*:*:*:*:*:*</a>
+                                <li><a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Avmware%3Aspring_framework%3A7.0.9%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:vmware:spring_framework:7.0.9:*:*:*:*:*:*:*</a>
                                     &nbsp;&nbsp;(<i>Confidence</i>:Highest)
-                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="spring-core-7.0.3.jar" data-sha1="2072a89e347c63567a83349eb5908131ce6ea601" data-pkgurl="pkg:maven/org.springframework/spring-core@7.0.3" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:vmware:spring_framework">suppress</button>
+                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="spring-core-7.0.9.jar" data-sha1="e03c619fc5b26931973277f5ba65ae47967a20e3" data-pkgurl="pkg:maven/org.springframework/spring-core@7.0.9" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:vmware:spring_framework">suppress</button>
                             </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l20_40317c3763917b061b912bd381bf8016e38eebde"></a>spring-security-core-7.0.2.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l20_c0373b564151af7a3001ccfbea589bf37dd6dc3b"></a>spring-security-core-7.1.1.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Spring Security</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">Apache License, Version 2.0: https://www.apache.org/licenses/LICENSE-2.0</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/springframework/security/spring-security-core/7.0.2/spring-security-core-7.0.2.jar<br/>
-                            <b>MD5:</b>&nbsp;9fbe37f425d92d5ef1503dc887ffbb80<br/>
-                            <b>SHA1:</b>&nbsp;40317c3763917b061b912bd381bf8016e38eebde<br/>
-                            <b>SHA256:</b>771adf6de0e761c9a5f3ed4e506822ad13a8a1de699799df5fe9a34824748bc3
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/springframework/security/spring-security-core/7.1.1/spring-security-core-7.1.1.jar<br/>
+                            <b>MD5:</b>&nbsp;e9c072aeb1ab83fb92dd5a0bc556a857<br/>
+                            <b>SHA1:</b>&nbsp;c0373b564151af7a3001ccfbea589bf37dd6dc3b<br/>
+                            <b>SHA256:</b>98a5011baa78df36fb184e6ce0e8e086ca9a64fcdd8f161c0a96475a3a0907bd
                                 <br/><b>Referenced In Project/Scope:</b> waffle-spring-security7:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">spring-security-core-7.0.2.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-spring-security7@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">spring-security-core-7.1.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-spring-security7@3.6.1-SNAPSHOT
                         </p>
                         <h4 id="header40" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content40" class="subsectioncontent standardsubsection hidden">
@@ -2294,39 +2297,39 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                                     <tr><td>Product</td><td>pom</td><td>organization name</td><td>Pivotal Software, Inc.</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>organization url</td><td>https://spring.io</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>https://spring.io/projects/spring-security</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>7.0.2</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>7.0.2</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>7.0.2</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>7.1.1</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>7.1.1</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>7.1.1</td><td>Highest</td></tr>
                             </table>
                         </div>
                             <h4 id="header41" class="subsectionheader expandable expandablesubsection white">Related Dependencies</h4>
                             <div id="content41" class="subsectioncontent standardsubsection hidden">
                             <ul>
-                                <li>spring-security-config-7.0.2.jar
+                                <li>spring-security-config-7.1.1.jar
                                     <ul>
-                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/springframework/security/spring-security-config/7.0.2/spring-security-config-7.0.2.jar</li>
-                                        <li>MD5:&nbsp;9f924bf7498fe14ee0d655e151775df1</li>
-                                        <li>SHA1:&nbsp;d15ffd7762c07248e43ee153e27362e89ff8c6b4</li>
-                                        <li>SHA256:&nbsp;84f0532af906e60d3a9eddc596152a7f0cc522b2ba665a9d909782851fb2b4f9</li>
-                                                <li>pkg:maven/org.springframework.security/spring-security-config@7.0.2</li>
+                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/springframework/security/spring-security-config/7.1.1/spring-security-config-7.1.1.jar</li>
+                                        <li>MD5:&nbsp;08ebfc196ab56b26cd5d36ebb5497f70</li>
+                                        <li>SHA1:&nbsp;06aadefb4acc552578b28f0b95908158861bea08</li>
+                                        <li>SHA256:&nbsp;1f947c853f14cab76563464ee22e72f6672f3913db52647d2f5d1df5f2b1e5a5</li>
+                                                <li>pkg:maven/org.springframework.security/spring-security-config@7.1.1</li>
                                      </ul>
                                 </li>
-                                <li>spring-security-crypto-7.0.2.jar
+                                <li>spring-security-crypto-7.1.1.jar
                                     <ul>
-                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/springframework/security/spring-security-crypto/7.0.2/spring-security-crypto-7.0.2.jar</li>
-                                        <li>MD5:&nbsp;39f1efd59135d39ab606f4a8ee9bb9f7</li>
-                                        <li>SHA1:&nbsp;8cec3433f111e21d6349a9788a1efcf547b8db03</li>
-                                        <li>SHA256:&nbsp;ad909c728a4a293981742e31e9f0e4c72d5800595632f402f831c5f7c737c43d</li>
-                                                <li>pkg:maven/org.springframework.security/spring-security-crypto@7.0.2</li>
+                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/springframework/security/spring-security-crypto/7.1.1/spring-security-crypto-7.1.1.jar</li>
+                                        <li>MD5:&nbsp;cd2777efdf4d91dd0b264f608af574ef</li>
+                                        <li>SHA1:&nbsp;5356e8056e4dcb18b12550c422fb12e0c8e742ae</li>
+                                        <li>SHA256:&nbsp;6e8bb2337faccabd30626f917ed1d2bfa9dde982229b6b373b644d1a01635403</li>
+                                                <li>pkg:maven/org.springframework.security/spring-security-crypto@7.1.1</li>
                                      </ul>
                                 </li>
-                                <li>spring-security-web-7.0.2.jar
+                                <li>spring-security-web-7.1.1.jar
                                     <ul>
-                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/springframework/security/spring-security-web/7.0.2/spring-security-web-7.0.2.jar</li>
-                                        <li>MD5:&nbsp;d71ac1888336260436f5767ccd1afc80</li>
-                                        <li>SHA1:&nbsp;8d55b2164a866d932031b77ce21fed35a4a3bfe0</li>
-                                        <li>SHA256:&nbsp;564bb85e5c2d0606de83670b2d4257d6c9e43ea518e2e820a1c19f19ef562535</li>
-                                                <li>pkg:maven/org.springframework.security/spring-security-web@7.0.2</li>
+                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/springframework/security/spring-security-web/7.1.1/spring-security-web-7.1.1.jar</li>
+                                        <li>MD5:&nbsp;cc76d1f39558ef5eeaee80997caac280</li>
+                                        <li>SHA1:&nbsp;449685cf2be4029b1200f1d0860a15caa5c2d05b</li>
+                                        <li>SHA256:&nbsp;dece134a2332c976a2c94ecf13f816c64e8ea7f2139795485afe655fba0408f3</li>
+                                                <li>pkg:maven/org.springframework.security/spring-security-web@7.1.1</li>
                                      </ul>
                                 </li>
                             </ul>
@@ -2334,24 +2337,24 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                         <h4 id="header42" class="subsectionheader white">Identifiers</h4>
                         <div id="content42" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.springframework.security/spring-security-core@7.0.2
+                                    <li>pkg:maven/org.springframework.security/spring-security-core@7.1.1
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
-                                <li><a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Apivotal_software%3Aspring_security%3A7.0.2%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:pivotal_software:spring_security:7.0.2:*:*:*:*:*:*:*</a>
+                                <li><a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Apivotal_software%3Aspring_security%3A7.1.1%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:pivotal_software:spring_security:7.1.1:*:*:*:*:*:*:*</a>
                                     &nbsp;&nbsp;(<i>Confidence</i>:Highest)
-                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="spring-security-core-7.0.2.jar" data-sha1="40317c3763917b061b912bd381bf8016e38eebde" data-pkgurl="pkg:maven/org.springframework.security/spring-security-core@7.0.2" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:pivotal_software:spring_security">suppress</button>
+                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="spring-security-core-7.1.1.jar" data-sha1="c0373b564151af7a3001ccfbea589bf37dd6dc3b" data-pkgurl="pkg:maven/org.springframework.security/spring-security-core@7.1.1" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:pivotal_software:spring_security">suppress</button>
                             </li>
-                                <li><a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Avmware%3Aspring_security%3A7.0.2%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:vmware:spring_security:7.0.2:*:*:*:*:*:*:*</a>
+                                <li><a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Avmware%3Aspring_security%3A7.1.1%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:vmware:spring_security:7.1.1:*:*:*:*:*:*:*</a>
                                     &nbsp;&nbsp;(<i>Confidence</i>:Highest)
-                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="spring-security-core-7.0.2.jar" data-sha1="40317c3763917b061b912bd381bf8016e38eebde" data-pkgurl="pkg:maven/org.springframework.security/spring-security-core@7.0.2" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:vmware:spring_security">suppress</button>
+                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="spring-security-core-7.1.1.jar" data-sha1="c0373b564151af7a3001ccfbea589bf37dd6dc3b" data-pkgurl="pkg:maven/org.springframework.security/spring-security-core@7.1.1" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:vmware:spring_security">suppress</button>
                             </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l21_7814ccd3adc2388f52b2658bf5fc30b457949ab6"></a>spring-security-web-7.0.2.jar: spring-security-webauthn.js</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l21_7814ccd3adc2388f52b2658bf5fc30b457949ab6"></a>spring-security-web-7.1.1.jar: spring-security-webauthn.js</h3>
                     <div class="subsectioncontent notvulnerable">
                         <p>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/springframework/security/spring-security-web/7.0.2/spring-security-web-7.0.2.jar/org/springframework/security/spring-security-webauthn.js<br/>
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/springframework/security/spring-security-web/7.1.1/spring-security-web-7.1.1.jar/org/springframework/security/spring-security-webauthn.js<br/>
                             <b>MD5:</b>&nbsp;d8d90d854a23d021c2e758b3eebce213<br/>
                             <b>SHA1:</b>&nbsp;7814ccd3adc2388f52b2658bf5fc30b457949ab6<br/>
                             <b>SHA256:</b>044a2b8d7e995bff815565678631a2d3a5cc0aa96ef8ac35cfacb579307f77a9
@@ -2383,7 +2386,7 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
             <br/>
             This report may contain data retrieved from <a href="https://retirejs.github.io/retire.js/">RetireJS</a>.
             <br/>
-            This report may contain data retrieved from the <a href="https://ossindex.sonatype.org">Sonatype OSS Index</a>.
+            This report may contain data retrieved from the <a href="https://www.sonatype.com/products/sonatype-guide/oss-index-users">Sonatype Guide OSS Index API</a>.
         </div>
     </body>
 </html>

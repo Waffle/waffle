@@ -91,9 +91,13 @@
                     }
                 });
                 $('#modal-add-header').click(function () {
-                    xml = '<?xml version="1.0" encoding="UTF-8"?>\n<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">\n   ';
-                    xml += $("#modal-text").text().replace(/\n/g,'\n   ');
-                    xml += '\n</suppressions>';
+                    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.4.xsd"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.4.xsd
+                                  https://dependency-check.github.io/DependencyCheck/dependency-suppression.1.4.xsd">
+    ${$("#modal-text").text().replace(/\n/g,'\n    ')}
+</suppressions>`;
                     $('#modal-add-header').toggleClass('active');
                     $('#modal-text').text(xml).focus().select();
                 });
@@ -139,26 +143,26 @@
             }
             function setCopyText(name, matchType, matchValue, suppressType, suppressVal) {
                 var xml =  '<suppress>\n';
-                xml += '   <notes><!'+'[CDATA[\n   file name: ' + name + '\n   ]]'+'></notes>\n';
+                xml += '    <notes><![CDATA[\n    file name: ' + name + '\n    ]]></notes>\n';
                 if (matchType=='packageUrl') {
                     var v = matchValue.match(/^[^@]+/);
                     if (v && v[0]) {
-                        xml += '   <'+matchType+' regex="true">^' + escapeRegExp(v[0]) + '@.*$</'+matchType+'>\n';
+                        xml += '    <'+matchType+' regex="true">^' + escapeRegExp(v[0]) + '@.*$</'+matchType+'>\n';
                     } else {
-                        xml += '   <'+matchType+'>' + matchValue + '</'+matchType+'>\n';
+                        xml += '    <'+matchType+'>' + matchValue + '</'+matchType+'>\n';
                     }
                 } else {
-                    xml += '   <'+matchType+'>' + matchValue + '</'+matchType+'>\n';
+                    xml += '    <'+matchType+'>' + matchValue + '</'+matchType+'>\n';
                 }
                 if (suppressType=='cpe') {
                     v = suppressVal.match(/^cpe:\/a:[^:]+:[^:]+/);
                     if (v && v[0]) {
-                        xml += '   <'+suppressType+'>' + v[0] + '</'+suppressType+'>\n';
+                        xml += '    <'+suppressType+'>' + v[0] + '</'+suppressType+'>\n';
                     } else {
-                        xml += '   <'+suppressType+'>' + suppressVal + '</'+suppressType+'>\n';
+                        xml += '    <'+suppressType+'>' + suppressVal + '</'+suppressType+'>\n';
                     }
                 } else {
-                    xml += '   <'+suppressType+'>' + suppressVal + '</'+suppressType+'>\n';
+                    xml += '    <'+suppressType+'>' + suppressVal + '</'+suppressType+'>\n';
                 }
                 xml += '</suppress>';
                 $('#modal-text').text(xml);
@@ -265,7 +269,8 @@
             }
             #modal-text {
                 border: 0;
-                overflow: hidden
+                overflow: auto;
+                white-space: pre;
             }
             #modal-text:focus {
                 outline: none;
@@ -652,8 +657,8 @@
         <div id="modal-background"></div>
         <div id="modal-content">
             <div>Press CTR-C to copy XML&nbsp;<a href="https://dependency-check.github.io/DependencyCheck/general/suppression.html" class="infolink" target="_blank" title="Help with suppressing false positives">[help]</a></div>
-                <button id="modal-suppress-change-to-packageUrl" class="modal-button suppresstype" title="Supress by Maven Group Artifact Version">Suppress By GAV</button>
-                <button id="modal-suppress-change-to-sha1" class="modal-button suppresstype" title="Supress by SHA1 hash">Suppress By SHA1</button><br/>
+                <button id="modal-suppress-change-to-packageUrl" class="modal-button suppresstype" title="Supress by Maven Group Artifact Version">Suppress by Package URL</button>
+                <button id="modal-suppress-change-to-sha1" class="modal-button suppresstype" title="Supress by SHA1 hash">Suppress by SHA1</button><br/>
                 <input type="hidden" id="suppress-name"/>
                 <input type="hidden" id="suppress-type"/><input type="hidden" id="suppress-val"/>
                 <input type="hidden" id="suppress-sha1"/><input type="hidden" id="suppress-packageUrl"/>
@@ -673,21 +678,21 @@ arising out of or in connection with the use of this tool, the analysis performe
 Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issues" target="_blank">github issues</a></h3>
 
             <h2 class="">Project:&nbsp;waffle-shiro</h2>
-            <h4>com.github.waffle:waffle-shiro:3.6.0-SNAPSHOT</h4>
+            <h4>com.github.waffle:waffle-shiro:3.6.1-SNAPSHOT</h4>
             <div class="">
 
                 Scan Information (<a href="#" title="Click to toggle display" id="scanInformationToggle">show all</a>):<br/>
                     <ul class="indent">
-                        <li><i>dependency-check version</i>: 12.2.0</li>
-                        <li><i>Report Generated On</i>: Mon, 19 Jan 2026 20:55:54 GMT</li>
+                        <li><i>dependency-check version</i>: 13.0.0</li>
+                        <li><i>Report Generated On</i>: Sun, 13 Sep 2026 00:48:14 GMT</li>
                         <li><i>Dependencies Scanned</i>:&nbsp;31 (20 unique)</li>
-                        <li><i>Vulnerable Dependencies</i>:&nbsp;<span id="vulnerableCount">0</span></li>
-                        <li><i>Vulnerabilities Found</i>:&nbsp;0</li>
+                        <li><i>Vulnerable Dependencies</i>:&nbsp;<span id="vulnerableCount">1</span></li>
+                        <li><i>Vulnerabilities Found</i>:&nbsp;1</li>
                         <li><i>Vulnerabilities Suppressed</i>:&nbsp;0
                         </li>
                         <li class="scaninfo">...</li>
-                        <li class="scaninfo hidden"><i>NVD API Last Checked</i>: 2026-01-19T20:29:50Z</li>
-                        <li class="scaninfo hidden"><i>NVD API Last Modified</i>: 2026-01-19T20:15:49Z</li>
+                        <li class="scaninfo hidden"><i>NVD API Last Checked</i>: 2026-09-13T00:18:53Z</li>
+                        <li class="scaninfo hidden"><i>NVD API Last Modified</i>: 2026-09-13T00:17:07Z</li>
                     </ul><br/>
 <h2>Summary</h2>
                 <p><span id="tablecaption-plain">Summary of Vulnerable Dependencies </span><a href="#" title="Click to toggle display" id="vulnerabilityDisplayToggle">(click to show all)</a></p>
@@ -702,12 +707,12 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <th class="sortable" data-sort="int"    title="The count of evidence collected to identify the CPE">Evidence&nbsp;Count</th>
                     </tr></thead>
                     <tr class="notvulnerable">
-                        <td data-sort-value="BCPROV-JDK18ON-1.82.JAR"><a href="#l1_e1118397395d21909a1b7b15120d0c2a68d7fd0c">bcprov-jdk18on-1.82.jar</a></td>
-                        <td data-sort-value="cpe:2.3:a:bouncycastle:bouncy_castle_for_java:1.82:*:*:*:*:*:*:*">
-                                <a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Abouncycastle%3Abouncy_castle_for_java%3A1.82%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:bouncycastle:bouncy_castle_for_java:1.82:*:*:*:*:*:*:*</a>
+                        <td data-sort-value="BCPROV-JDK18ON-1.84.JAR"><a href="#l1_2d5651789941d2f8ae9b8771f23356de6b61e96b">bcprov-jdk18on-1.84.jar</a></td>
+                        <td data-sort-value="cpe:2.3:a:bouncycastle:bouncy_castle_for_java:1.84:*:*:*:*:*:*:*">
+                                <a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Abouncycastle%3Abouncy_castle_for_java%3A1.84%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:bouncycastle:bouncy_castle_for_java:1.84:*:*:*:*:*:*:*</a>
                         </td>
-                        <td data-sort-value="pkg:maven/org.bouncycastle/bcprov-jdk18on@1.82">
-                                pkg:maven/org.bouncycastle/bcprov-jdk18on@1.82
+                        <td data-sort-value="pkg:maven/org.bouncycastle/bcprov-jdk18on@1.84">
+                                pkg:maven/org.bouncycastle/bcprov-jdk18on@1.84
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -715,11 +720,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>49</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="CAFFEINE-3.2.3.JAR"><a href="#l2_c097f0f6d21a0e6db88ea55836e26419b30dfe19">caffeine-3.2.3.jar</a></td>
+                        <td data-sort-value="CAFFEINE-3.2.4.JAR"><a href="#l2_c63b303adf59c733d2a96125ad6670e938a2c15d">caffeine-3.2.4.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/com.github.ben-manes.caffeine/caffeine@3.2.3">
-                                pkg:maven/com.github.ben-manes.caffeine/caffeine@3.2.3
+                        <td data-sort-value="pkg:maven/com.github.ben-manes.caffeine/caffeine@3.2.4">
+                                pkg:maven/com.github.ben-manes.caffeine/caffeine@3.2.4
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -727,11 +732,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>33</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="CHECKER-QUAL-3.53.0.JAR"><a href="#l3_af1105964a03d7ed8aaf8ea2cb6ec0da7ec6c7a6">checker-qual-3.53.0.jar</a></td>
+                        <td data-sort-value="CHECKER-QUAL-4.2.3.JAR"><a href="#l3_d2a10af5c8574adfe24f5e35ff56cca92af2e916">checker-qual-4.2.3.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/org.checkerframework/checker-qual@3.53.0">
-                                pkg:maven/org.checkerframework/checker-qual@3.53.0
+                        <td data-sort-value="pkg:maven/org.checkerframework/checker-qual@4.2.3">
+                                pkg:maven/org.checkerframework/checker-qual@4.2.3
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -739,11 +744,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>44</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="COM.GITHUB.WAFFLE:WAFFLE-JNA:3.6.0-SNAPSHOT"><a href="#l4_db60b492ef5c6f447b2dbba3164a04455ad93c85">com.github.waffle:waffle-jna:3.6.0-SNAPSHOT</a></td>
+                        <td data-sort-value="COM.GITHUB.WAFFLE:WAFFLE-JNA:3.6.1-SNAPSHOT"><a href="#l4_8b44d4d1155777acf5ca607cce795724475e41f8">com.github.waffle:waffle-jna:3.6.1-SNAPSHOT</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/com.github.waffle/waffle-jna@3.6.0-SNAPSHOT">
-                                pkg:maven/com.github.waffle/waffle-jna@3.6.0-SNAPSHOT
+                        <td data-sort-value="pkg:maven/com.github.waffle/waffle-jna@3.6.1-SNAPSHOT">
+                                pkg:maven/com.github.waffle/waffle-jna@3.6.1-SNAPSHOT
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -776,23 +781,23 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>129</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="ENCODER-1.3.1.JAR"><a href="#l7_1ebf20e19ddc3fa952f4e2af220a20b085ce87ba">encoder-1.3.1.jar</a></td>
+                        <td data-sort-value="ENCODER-1.4.0.JAR"><a href="#l7_41560c4db1cae2290402eee6ea0db544e8d48b7f">encoder-1.4.0.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/org.owasp.encoder/encoder@1.3.1">
-                                pkg:maven/org.owasp.encoder/encoder@1.3.1
+                        <td data-sort-value="pkg:maven/org.owasp.encoder/encoder@1.4.0">
+                                pkg:maven/org.owasp.encoder/encoder@1.4.0
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
                         <td data-sort-value="0"></td>
-                        <td>31</td>
+                        <td>33</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="ERROR_PRONE_ANNOTATIONS-2.46.0.JAR"><a href="#l8_4ecb5d2392c38c46e6cb65e1bf60be708d97005d">error_prone_annotations-2.46.0.jar</a></td>
+                        <td data-sort-value="ERROR_PRONE_ANNOTATIONS-2.50.0.JAR"><a href="#l8_74ba43e49ab1184d41634af2ef0047e82c4064b0">error_prone_annotations-2.50.0.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/com.google.errorprone/error_prone_annotations@2.46.0">
-                                pkg:maven/com.google.errorprone/error_prone_annotations@2.46.0
+                        <td data-sort-value="pkg:maven/com.google.errorprone/error_prone_annotations@2.50.0">
+                                pkg:maven/com.google.errorprone/error_prone_annotations@2.50.0
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -813,32 +818,30 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                     </tr>
                     <tr class="notvulnerable">
                         <td data-sort-value="JAKARTA.SERVLET-API-4.0.4.JAR"><a href="#l10_b8a1142e04838fe54194049c6e7a18dae8f9b960">jakarta.servlet-api-4.0.4.jar</a></td>
-                        <td data-sort-value="cpe:2.3:a:oracle:projects:4.0.4:*:*:*:*:*:*:*">
-                                cpe:2.3:a:oracle:projects:4.0.4:*:*:*:*:*:*:*
+                        <td data-sort-value="">
                         </td>
                         <td data-sort-value="pkg:maven/jakarta.servlet/jakarta.servlet-api@4.0.4">
                                 pkg:maven/jakarta.servlet/jakarta.servlet-api@4.0.4
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
-                        <td data-sort-value="3">Low</td>
+                        <td data-sort-value="0"></td>
                         <td>43</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="JNA-5.18.1.JAR"><a href="#l11_b27ba04287cc4abe769642fe8318d39fc89bf937">jna-5.18.1.jar</a></td>
-                        <td data-sort-value="cpe:2.3:a:oracle:java_se:5.18.1:*:*:*:*:*:*:*">
-                                cpe:2.3:a:oracle:java_se:5.18.1:*:*:*:*:*:*:*
+                        <td data-sort-value="JNA-5.19.1.JAR"><a href="#l11_ca303052cd617c1af2e2c8d344c98a706fb63143">jna-5.19.1.jar</a></td>
+                        <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/net.java.dev.jna/jna@5.18.1">
-                                pkg:maven/net.java.dev.jna/jna@5.18.1
+                        <td data-sort-value="pkg:maven/net.java.dev.jna/jna@5.19.1">
+                                pkg:maven/net.java.dev.jna/jna@5.19.1
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
-                        <td data-sort-value="3">Low</td>
+                        <td data-sort-value="0"></td>
                         <td>48</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="JNA-5.18.1.JAR: JNIDISPATCH.DLL"><a href="#l12_6b05e299ff2b3eb3b7b7aeac44263f715693607c">jna-5.18.1.jar: jnidispatch.dll</a></td>
+                        <td data-sort-value="JNA-5.19.1.JAR: JNIDISPATCH.DLL"><a href="#l12_6b05e299ff2b3eb3b7b7aeac44263f715693607c">jna-5.19.1.jar: jnidispatch.dll</a></td>
                         <td data-sort-value="">
                         </td>
                         <td data-sort-value="">
@@ -849,7 +852,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>2</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="JNA-5.18.1.JAR: JNIDISPATCH.DLL"><a href="#l13_27ff882ac271db547aee520b38e3ba9aa91e136c">jna-5.18.1.jar: jnidispatch.dll</a></td>
+                        <td data-sort-value="JNA-5.19.1.JAR: JNIDISPATCH.DLL"><a href="#l13_27ff882ac271db547aee520b38e3ba9aa91e136c">jna-5.19.1.jar: jnidispatch.dll</a></td>
                         <td data-sort-value="">
                         </td>
                         <td data-sort-value="">
@@ -860,7 +863,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>2</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="JNA-5.18.1.JAR: JNIDISPATCH.DLL"><a href="#l14_2f5e1cd82cde192905c7510ce99037b67d980640">jna-5.18.1.jar: jnidispatch.dll</a></td>
+                        <td data-sort-value="JNA-5.19.1.JAR: JNIDISPATCH.DLL"><a href="#l14_2f5e1cd82cde192905c7510ce99037b67d980640">jna-5.19.1.jar: jnidispatch.dll</a></td>
                         <td data-sort-value="">
                         </td>
                         <td data-sort-value="">
@@ -871,11 +874,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>2</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="JNA-PLATFORM-5.18.1.JAR"><a href="#l15_dd817f391efc492041c9ae91127527c13750a789">jna-platform-5.18.1.jar</a></td>
+                        <td data-sort-value="JNA-PLATFORM-5.19.1.JAR"><a href="#l15_d1e54d9231da5ca3fa730d52960deaa555475468">jna-platform-5.19.1.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/net.java.dev.jna/jna-platform@5.18.1">
-                                pkg:maven/net.java.dev.jna/jna-platform@5.18.1
+                        <td data-sort-value="pkg:maven/net.java.dev.jna/jna-platform@5.19.1">
+                                pkg:maven/net.java.dev.jna/jna-platform@5.19.1
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -906,25 +909,25 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td data-sort-value="0"></td>
                         <td>17</td>
                     </tr>
-                    <tr class="notvulnerable">
-                        <td data-sort-value="SHIRO-CORE-2.0.6.JAR"><a href="#l18_cd7aaf8c3caf0b62d9cacd87aa8461eac18ed58f">shiro-core-2.0.6.jar</a></td>
-                        <td data-sort-value="cpe:2.3:a:apache:shiro:2.0.6:*:*:*:*:*:*:*">
-                                <a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Ashiro%3A2.0.6%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:apache:shiro:2.0.6:*:*:*:*:*:*:*</a>
+                    <tr class=" vulnerable">
+                        <td data-sort-value="SHIRO-CORE-2.2.1.JAR"><a href="#l18_23d29cf0f69bd91049780b4d3b77e028a505abd3">shiro-core-2.2.1.jar</a></td>
+                        <td data-sort-value="cpe:2.3:a:apache:shiro:2.2.1:*:*:*:*:*:*:*">
+                                <a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Ashiro%3A2.2.1%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:apache:shiro:2.2.1:*:*:*:*:*:*:*</a>
                         </td>
-                        <td data-sort-value="pkg:maven/org.apache.shiro/shiro-core@2.0.6">
-                                pkg:maven/org.apache.shiro/shiro-core@2.0.6
+                        <td data-sort-value="pkg:maven/org.apache.shiro/shiro-core@2.2.1">
+                                pkg:maven/org.apache.shiro/shiro-core@2.2.1
 </td>
-                        <td data-sort-value="-10">&nbsp;</td>
-                        <td>0</td>
+                                                                                <td data-sort-value="59.0">MEDIUM</td>
+                        <td>1</td>
                         <td data-sort-value="0">Highest</td>
                         <td>33</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="SLF4J-API-2.0.17.JAR"><a href="#l19_d9e58ac9c7779ba3bf8142aff6c830617a7fe60f">slf4j-api-2.0.17.jar</a></td>
+                        <td data-sort-value="SLF4J-API-2.0.19.JAR"><a href="#l19_efad9817997b3a6ce9e058f92e612917a744c290">slf4j-api-2.0.19.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/org.slf4j/slf4j-api@2.0.17">
-                                pkg:maven/org.slf4j/slf4j-api@2.0.17
+                        <td data-sort-value="pkg:maven/org.slf4j/slf4j-api@2.0.19">
+                                pkg:maven/org.slf4j/slf4j-api@2.0.19
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -932,11 +935,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>29</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="SPOTBUGS-ANNOTATIONS-4.9.8.JAR"><a href="#l20_ca4a2783a6123e67124fd7feb4caccd2e2ac9a73">spotbugs-annotations-4.9.8.jar</a></td>
+                        <td data-sort-value="SPOTBUGS-ANNOTATIONS-4.10.4.JAR"><a href="#l20_7eb4c58212378becfb6ea6d236ec24a2352a316e">spotbugs-annotations-4.10.4.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/com.github.spotbugs/spotbugs-annotations@4.9.8">
-                                pkg:maven/com.github.spotbugs/spotbugs-annotations@4.9.8
+                        <td data-sort-value="pkg:maven/com.github.spotbugs/spotbugs-annotations@4.10.4">
+                                pkg:maven/com.github.spotbugs/spotbugs-annotations@4.10.4
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -945,17 +948,17 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                     </tr>
                 </table>
                 <h2 id="header-dependencies">Dependencies (vulnerable)</h2>
-                     <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l1_e1118397395d21909a1b7b15120d0c2a68d7fd0c"></a>bcprov-jdk18on-1.82.jar</h3>
+                     <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l1_2d5651789941d2f8ae9b8771f23356de6b61e96b"></a>bcprov-jdk18on-1.84.jar</h3>
                     <div class="subsectioncontent notvulnerable">
-                            <p><b>Description:</b><pre>The Bouncy Castle Crypto package is a Java implementation of cryptographic algorithms. This jar contains the  JCA/JCE provider and low-level API for the BC Java version 1.82 for Java 1.8 and later.</pre></p>
+                            <p><b>Description:</b><pre>The Bouncy Castle Crypto package is a Java implementation of cryptographic algorithms. This jar contains the  JCA/JCE provider and low-level API for the BC Java version 1.84 for Java 1.8 and later.</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">Bouncy Castle Licence: https://www.bouncycastle.org/licence.html</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/bouncycastle/bcprov-jdk18on/1.82/bcprov-jdk18on-1.82.jar<br/>
-                            <b>MD5:</b>&nbsp;73520ba13118979db17136db32a8c401<br/>
-                            <b>SHA1:</b>&nbsp;e1118397395d21909a1b7b15120d0c2a68d7fd0c<br/>
-                            <b>SHA256:</b>14cde2fdfaa8890480a8e5b67aceef0c90f96682c1e23c133bafdc9e0b3255ce
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/bouncycastle/bcprov-jdk18on/1.84/bcprov-jdk18on-1.84.jar<br/>
+                            <b>MD5:</b>&nbsp;19523b0cbcbce2fdeb98e3eaf68f602e<br/>
+                            <b>SHA1:</b>&nbsp;2d5651789941d2f8ae9b8771f23356de6b61e96b<br/>
+                            <b>SHA256:</b>64d6c5a6121fcd927152dd182cbed39afe0fda641a970d9bcc0c9cb1858b2731
                                 <br/><b>Referenced In Project/Scope:</b> waffle-shiro:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">bcprov-jdk18on-1.82.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.apache.shiro/shiro-web@2.0.6
+                                <br/><span class="tooltip"><span class="tooltiptext">bcprov-jdk18on-1.84.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.apache.shiro/shiro-web@2.2.1
                         </p>
                         <h4 id="header1" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content1" class="subsectioncontent standardsubsection hidden">
@@ -1007,35 +1010,35 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>org.bouncycastle</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>Bouncy Castle Provider</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>https://www.bouncycastle.org/download/bouncy-castle-java/</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>1.82</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>1.82</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>1.82</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>1.84</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>1.84</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>1.84</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header2" class="subsectionheader white">Identifiers</h4>
                         <div id="content2" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.bouncycastle/bcprov-jdk18on@1.82
+                                    <li>pkg:maven/org.bouncycastle/bcprov-jdk18on@1.84
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
-                                <li><a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Abouncycastle%3Abouncy_castle_for_java%3A1.82%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:bouncycastle:bouncy_castle_for_java:1.82:*:*:*:*:*:*:*</a>
+                                <li><a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Abouncycastle%3Abouncy_castle_for_java%3A1.84%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:bouncycastle:bouncy_castle_for_java:1.84:*:*:*:*:*:*:*</a>
                                     &nbsp;&nbsp;(<i>Confidence</i>:Highest)
-                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="bcprov-jdk18on-1.82.jar" data-sha1="e1118397395d21909a1b7b15120d0c2a68d7fd0c" data-pkgurl="pkg:maven/org.bouncycastle/bcprov-jdk18on@1.82" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:bouncycastle:bouncy_castle_for_java">suppress</button>
+                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="bcprov-jdk18on-1.84.jar" data-sha1="2d5651789941d2f8ae9b8771f23356de6b61e96b" data-pkgurl="pkg:maven/org.bouncycastle/bcprov-jdk18on@1.84" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:bouncycastle:bouncy_castle_for_java">suppress</button>
                             </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l2_c097f0f6d21a0e6db88ea55836e26419b30dfe19"></a>caffeine-3.2.3.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l2_c63b303adf59c733d2a96125ad6670e938a2c15d"></a>caffeine-3.2.4.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>A high performance caching library</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">Apache License, Version 2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/com/github/ben-manes/caffeine/caffeine/3.2.3/caffeine-3.2.3.jar<br/>
-                            <b>MD5:</b>&nbsp;0258f45d43968523cc11beeb01b240f2<br/>
-                            <b>SHA1:</b>&nbsp;c097f0f6d21a0e6db88ea55836e26419b30dfe19<br/>
-                            <b>SHA256:</b>ca70c90a5d1ce1511880ce9c93d4ad22108f61111d3daf91eb52762b571bd179
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/com/github/ben-manes/caffeine/caffeine/3.2.4/caffeine-3.2.4.jar<br/>
+                            <b>MD5:</b>&nbsp;04d655feb58be297a86fa2814a1f1ef8<br/>
+                            <b>SHA1:</b>&nbsp;c63b303adf59c733d2a96125ad6670e938a2c15d<br/>
+                            <b>SHA256:</b>9d9d2cfd681fd9272ded3d27c9930db12f89f732345975aa113ebc223bbf1224
                                 <br/><b>Referenced In Project/Scope:</b> waffle-shiro:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">caffeine-3.2.3.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-jna@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">caffeine-3.2.4.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-jna@3.6.1-SNAPSHOT
                         </p>
                         <h4 id="header3" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content3" class="subsectioncontent standardsubsection hidden">
@@ -1070,32 +1073,32 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>com.github.ben-manes.caffeine</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>Caffeine cache</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>ben-manes/caffeine</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>3.2.3</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>3.2.3</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>3.2.3</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>3.2.3</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>3.2.4</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>3.2.4</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>3.2.4</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>3.2.4</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header4" class="subsectionheader white">Identifiers</h4>
                         <div id="content4" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/com.github.ben-manes.caffeine/caffeine@3.2.3
+                                    <li>pkg:maven/com.github.ben-manes.caffeine/caffeine@3.2.4
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l3_af1105964a03d7ed8aaf8ea2cb6ec0da7ec6c7a6"></a>checker-qual-3.53.0.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l3_d2a10af5c8574adfe24f5e35ff56cca92af2e916"></a>checker-qual-4.2.3.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>checker-qual contains annotations (type qualifiers) that a programmerwrites to specify Java code for type-checking by the Checker Framework.</pre></p>
                         <p>
-                            <b>License:</b><pre class="indent">The MIT License: http://opensource.org/licenses/MIT</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/checkerframework/checker-qual/3.53.0/checker-qual-3.53.0.jar<br/>
-                            <b>MD5:</b>&nbsp;d1ee2a3366a19a8fff01208da2adb48e<br/>
-                            <b>SHA1:</b>&nbsp;af1105964a03d7ed8aaf8ea2cb6ec0da7ec6c7a6<br/>
-                            <b>SHA256:</b>7ca002815d92fad79e966b375c2ee7b2b4bf953024bc9a5d5e0c59df13ff5af8
+                            <b>License:</b><pre class="indent">The MIT License: https://opensource.org/licenses/MIT</pre>
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/checkerframework/checker-qual/4.2.3/checker-qual-4.2.3.jar<br/>
+                            <b>MD5:</b>&nbsp;d9e63a451931be32bd29cfc3ac5674c1<br/>
+                            <b>SHA1:</b>&nbsp;d2a10af5c8574adfe24f5e35ff56cca92af2e916<br/>
+                            <b>SHA256:</b>f868f731f6e37db3e1c2140d06016477989959a2d13fc5bed9c46760cffd5ba0
                                 <br/><b>Referenced In Project/Scope:</b> waffle-shiro:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">checker-qual-3.53.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-jna@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">checker-qual-4.2.3.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-jna@3.6.1-SNAPSHOT
                         </p>
                         <h4 id="header5" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content5" class="subsectioncontent standardsubsection hidden">
@@ -1141,29 +1144,29 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>org.checkerframework</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>Checker Qual</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>https://checkerframework.org/</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>3.53.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>3.53.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>3.53.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>3.53.0</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>4.2.3</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>4.2.3</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>4.2.3</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>4.2.3</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header6" class="subsectionheader white">Identifiers</h4>
                         <div id="content6" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.checkerframework/checker-qual@3.53.0
+                                    <li>pkg:maven/org.checkerframework/checker-qual@4.2.3
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l4_db60b492ef5c6f447b2dbba3164a04455ad93c85"></a>com.github.waffle:waffle-jna:3.6.0-SNAPSHOT</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l4_8b44d4d1155777acf5ca607cce795724475e41f8"></a>com.github.waffle:waffle-jna:3.6.1-SNAPSHOT</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>WAFFLE JNA implementation</pre></p>
                         <p>
-                            <b>License:</b><pre class="indent">MIT https://raw.github.com/Waffle/waffle/master/LICENSE</pre>
+                            <b>License:</b><pre class="indent">MIT https://opensource.org/licenses/MIT</pre>
                             <b>File&nbsp;Path:</b>&nbsp;/home/runner/work/waffle/waffle/Source/JNA/waffle-jna/pom.xml<br/>
                                 <br/><b>Referenced In Project/Scope:</b> waffle-shiro
-                                <br/><span class="tooltip"><span class="tooltiptext">com.github.waffle:waffle-jna:3.6.0-SNAPSHOT is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-shiro@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">com.github.waffle:waffle-jna:3.6.1-SNAPSHOT is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-shiro@3.6.1-SNAPSHOT
                         </p>
                         <h4 id="header7" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content7" class="subsectioncontent standardsubsection hidden">
@@ -1180,7 +1183,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <h4 id="header8" class="subsectionheader white">Identifiers</h4>
                         <div id="content8" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/com.github.waffle/waffle-jna@3.6.0-SNAPSHOT
+                                    <li>pkg:maven/com.github.waffle/waffle-jna@3.6.1-SNAPSHOT
                                     &nbsp;&nbsp;(<i>Confidence</i>:Highest)
                                 </li>
                             </ul>
@@ -1196,7 +1199,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                             <b>SHA1:</b>&nbsp;ac03ea606d13de04c2e4508227680faff151f491<br/>
                             <b>SHA256:</b>9e44ba68ec9a3f21286fa2a8bbb003b735c0f69101bb43144b79f4f8aaa74709
                                 <br/><b>Referenced In Project/Scope:</b> waffle-shiro:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">commons-beanutils-1.11.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-shiro@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">commons-beanutils-1.11.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-shiro@3.6.1-SNAPSHOT
                         </p>
                         <h4 id="header9" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content9" class="subsectioncontent standardsubsection hidden">
@@ -1544,7 +1547,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l7_1ebf20e19ddc3fa952f4e2af220a20b085ce87ba"></a>encoder-1.3.1.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l7_41560c4db1cae2290402eee6ea0db544e8d48b7f"></a>encoder-1.4.0.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>
         The OWASP Encoders package is a collection of high-performance low-overhead
@@ -1554,12 +1557,12 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
     </pre></p>
                         <p>
                             <b>License:</b><pre class="indent"><a href="http://www.opensource.org/licenses/BSD-3-Clause">http://www.opensource.org/licenses/BSD-3-Clause</a></pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/owasp/encoder/encoder/1.3.1/encoder-1.3.1.jar<br/>
-                            <b>MD5:</b>&nbsp;c826f7776c4d03adcbf1a2bceef84627<br/>
-                            <b>SHA1:</b>&nbsp;1ebf20e19ddc3fa952f4e2af220a20b085ce87ba<br/>
-                            <b>SHA256:</b>c9c56c8970c7cb11b231913ba5190ce930f8fd4fac2bd918810642dc3848e757
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/owasp/encoder/encoder/1.4.0/encoder-1.4.0.jar<br/>
+                            <b>MD5:</b>&nbsp;d26a36885af1fd62e8a3c18ec51ed39c<br/>
+                            <b>SHA1:</b>&nbsp;41560c4db1cae2290402eee6ea0db544e8d48b7f<br/>
+                            <b>SHA256:</b>90f9860925905dd97f313cffae065835eb02acc3e2e9b0051621693efd09025c
                                 <br/><b>Referenced In Project/Scope:</b> waffle-shiro:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">encoder-1.3.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.apache.shiro/shiro-web@2.0.6
+                                <br/><span class="tooltip"><span class="tooltiptext">encoder-1.4.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.apache.shiro/shiro-web@2.2.1
                         </p>
                         <h4 id="header13" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content13" class="subsectioncontent standardsubsection hidden">
@@ -1574,6 +1577,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                     <tr><td>Vendor</td><td>Manifest</td><td>bundle-docurl</td><td>https://www.owasp.org/</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>bundle-symbolicname</td><td>org.owasp.encoder</td><td>Medium</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>multi-release</td><td>true</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>originally-created-by</td><td>Apache Maven Bundle Plugin</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>artifactid</td><td>encoder</td><td>Highest</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>artifactid</td><td>encoder</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>groupid</td><td>org.owasp.encoder</td><td>Highest</td></tr>
@@ -1589,35 +1593,36 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                     <tr><td>Product</td><td>Manifest</td><td>Bundle-Name</td><td>Java Encoder</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>bundle-symbolicname</td><td>org.owasp.encoder</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>multi-release</td><td>true</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>originally-created-by</td><td>Apache Maven Bundle Plugin</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>artifactid</td><td>encoder</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>org.owasp.encoder</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>Java Encoder</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>parent-artifactid</td><td>encoder-parent</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>1.3.1</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>1.3.1</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>1.3.1</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>1.4.0</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>1.4.0</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>1.4.0</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header14" class="subsectionheader white">Identifiers</h4>
                         <div id="content14" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.owasp.encoder/encoder@1.3.1
+                                    <li>pkg:maven/org.owasp.encoder/encoder@1.4.0
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l8_4ecb5d2392c38c46e6cb65e1bf60be708d97005d"></a>error_prone_annotations-2.46.0.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l8_74ba43e49ab1184d41634af2ef0047e82c4064b0"></a>error_prone_annotations-2.50.0.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Error Prone is a static analysis tool for Java that catches common programming mistakes at compile-time.</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0.txt</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/com/google/errorprone/error_prone_annotations/2.46.0/error_prone_annotations-2.46.0.jar<br/>
-                            <b>MD5:</b>&nbsp;d0dabea249c067d21d7eb997fbdf5c99<br/>
-                            <b>SHA1:</b>&nbsp;4ecb5d2392c38c46e6cb65e1bf60be708d97005d<br/>
-                            <b>SHA256:</b>b67be81ff4b956401146e14eaf1526bc435a9480f2546e91eb45b796631a8a99
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/com/google/errorprone/error_prone_annotations/2.50.0/error_prone_annotations-2.50.0.jar<br/>
+                            <b>MD5:</b>&nbsp;1ded1848cfd4f5167e00824faf9c4d3b<br/>
+                            <b>SHA1:</b>&nbsp;74ba43e49ab1184d41634af2ef0047e82c4064b0<br/>
+                            <b>SHA256:</b>4667724877f1d37a689202da191e23efa7657c62eef93ccdac406eccfe5cdd0a
                                 <br/><b>Referenced In Project/Scope:</b> waffle-shiro:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">error_prone_annotations-2.46.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-shiro@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">error_prone_annotations-2.50.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-shiro@3.6.1-SNAPSHOT
                         </p>
                         <h4 id="header15" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content15" class="subsectioncontent standardsubsection hidden">
@@ -1649,15 +1654,15 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>com.google.errorprone</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>error-prone annotations</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>parent-artifactid</td><td>error_prone_parent</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>2.46.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>2.46.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>2.46.0</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>2.50.0</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>2.50.0</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>2.50.0</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header16" class="subsectionheader white">Identifiers</h4>
                         <div id="content16" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/com.google.errorprone/error_prone_annotations@2.46.0
+                                    <li>pkg:maven/com.google.errorprone/error_prone_annotations@2.50.0
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
@@ -1676,7 +1681,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                             <b>SHA1:</b>&nbsp;a892ca9507839bbdb900d64310ac98256cab992f<br/>
                             <b>SHA256:</b>84d3a150518485f8140ea99b8a985656749629f6433c92b80c75b36aba3b099b
                                 <br/><b>Referenced In Project/Scope:</b> waffle-shiro:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">j2objc-annotations-3.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-shiro@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">j2objc-annotations-3.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-shiro@3.6.1-SNAPSHOT
                         </p>
                         <h4 id="header17" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content17" class="subsectioncontent standardsubsection hidden">
@@ -1737,7 +1742,7 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                             <b>SHA1:</b>&nbsp;b8a1142e04838fe54194049c6e7a18dae8f9b960<br/>
                             <b>SHA256:</b>586e27706c21258f5882f43be06904f49b02db9ac54e345d393fe4a32494d127
                                 <br/><b>Referenced In Project/Scope:</b> waffle-shiro:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">jakarta.servlet-api-4.0.4.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-shiro@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">jakarta.servlet-api-4.0.4.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-shiro@3.6.1-SNAPSHOT
                         </p>
                         <h4 id="header19" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content19" class="subsectioncontent standardsubsection hidden">
@@ -1794,25 +1799,21 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <li>pkg:maven/jakarta.servlet/jakarta.servlet-api@4.0.4
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
-                                <li>cpe:2.3:a:oracle:projects:4.0.4:*:*:*:*:*:*:*
-                                    &nbsp;&nbsp;(<i>Confidence</i>:Low)
-                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="jakarta.servlet-api-4.0.4.jar" data-sha1="b8a1142e04838fe54194049c6e7a18dae8f9b960" data-pkgurl="pkg:maven/jakarta.servlet/jakarta.servlet-api@4.0.4" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:oracle:projects">suppress</button>
-                            </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l11_b27ba04287cc4abe769642fe8318d39fc89bf937"></a>jna-5.18.1.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l11_ca303052cd617c1af2e2c8d344c98a706fb63143"></a>jna-5.19.1.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Java Native Access</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">LGPL-2.1-or-later: https://www.gnu.org/licenses/old-licenses/lgpl-2.1
 Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/java/dev/jna/jna/5.18.1/jna-5.18.1.jar<br/>
-                            <b>MD5:</b>&nbsp;cb531ec131e1c68c045b5d45fe5b9878<br/>
-                            <b>SHA1:</b>&nbsp;b27ba04287cc4abe769642fe8318d39fc89bf937<br/>
-                            <b>SHA256:</b>260c4b1e22b1db9e110ee441c4f13ce115f841fa48c41d78750986214b395557
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/java/dev/jna/jna/5.19.1/jna-5.19.1.jar<br/>
+                            <b>MD5:</b>&nbsp;cf327da3e9cf5a5d77c8a43540320929<br/>
+                            <b>SHA1:</b>&nbsp;ca303052cd617c1af2e2c8d344c98a706fb63143<br/>
+                            <b>SHA256:</b>4fb141dd8ef6b0585ffceea4bc49602fbc6312fa977e2c488794ea3e6aafecae
                                 <br/><b>Referenced In Project/Scope:</b> waffle-shiro:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">jna-5.18.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-jna@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">jna-5.19.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-jna@3.6.1-SNAPSHOT
                         </p>
                         <h4 id="header21" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content21" class="subsectioncontent standardsubsection hidden">
@@ -1826,7 +1827,7 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                                     <tr><td>Vendor</td><td>Manifest</td><td>automatic-module-name</td><td>com.sun.jna</td><td>Medium</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>bundle-activationpolicy</td><td>lazy</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>bundle-category</td><td>jni</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>bundle-nativecode</td><td> com/sun/jna/win32-x86/jnidispatch.dll; processor=x86;osname=win32, com/sun/jna/win32-x86-64/jnidispatch.dll; processor=x86-64;osname=win32, com/sun/jna/win32-aarch64/jnidispatch.dll; processor=aarch64;osname=win32, com/sun/jna/win32-x86/jnidispatch.dll; processor=x86;osname=win, com/sun/jna/win32-x86-64/jnidispatch.dll; processor=x86-64;osname=win, com/sun/jna/win32-aarch64/jnidispatch.dll; processor=aarch64;osname=win, com/sun/jna/w32ce-arm/jnidispatch.dll; processor=arm;osname=wince,  com/sun/jna/sunos-x86/libjnidispatch.so; processor=x86;osname=sunos, com/sun/jna/sunos-x86-64/libjnidispatch.so; processor=x86-64;osname=sunos, com/sun/jna/sunos-sparc/libjnidispatch.so; processor=sparc;osname=sunos, com/sun/jna/sunos-sparcv9/libjnidispatch.so; processor=sparcv9;osname=sunos,  com/sun/jna/aix-ppc/libjnidispatch.a; processor=ppc;osname=aix, com/sun/jna/aix-ppc64/libjnidispatch.a; processor=ppc64;osname=aix,  com/sun/jna/linux-ppc/libjnidispatch.so; processor=ppc;osname=linux, com/sun/jna/linux-ppc64/libjnidispatch.so; processor=ppc64;osname=linux, com/sun/jna/linux-ppc64le/libjnidispatch.so; processor=ppc64le;osname=linux, com/sun/jna/linux-x86/libjnidispatch.so; processor=x86;osname=linux, com/sun/jna/linux-x86-64/libjnidispatch.so; processor=x86-64;osname=linux, com/sun/jna/linux-arm/libjnidispatch.so; processor=arm;osname=linux, com/sun/jna/linux-arm/libjnidispatch.so; processor=arm_le;osname=linux, com/sun/jna/linux-armel/libjnidispatch.so; processor=armel;osname=linux, com/sun/jna/linux-aarch64/libjnidispatch.so; processor=aarch64;osname=linux, com/sun/jna/linux-ia64/libjnidispatch.so; processor=ia64;osname=linux, com/sun/jna/linux-sparcv9/libjnidispatch.so; processor=sparcv9;osname=linux, com/sun/jna/linux-mips64el/libjnidispatch.so; processor=mips64el;osname=linux, com/sun/jna/linux-s390x/libjnidispatch.so; processor=S390x;osname=linux, com/sun/jna/linux-loongarch64/libjnidispatch.so; processor=loongarch64;osname=linux, com/sun/jna/linux-riscv64/libjnidispatch.so; processor=riscv64;osname=linux,  com/sun/jna/dragonflybsd-x86-64/libjnidispatch.so; processor=x86-64;osname=dragonflybsd,  com/sun/jna/freebsd-x86/libjnidispatch.so; processor=x86;osname=freebsd, com/sun/jna/freebsd-x86-64/libjnidispatch.so; processor=x86-64;osname=freebsd, com/sun/jna/freebsd-aarch64/libjnidispatch.so; processor=aarch64;osname=freebsd, com/sun/jna/freebsd-ppc64le/libjnidispatch.so; processor=ppc64le;osname=freebsd, com/sun/jna/freebsd-ppc64/libjnidispatch.so; processor=ppc64;osname=freebsd,  com/sun/jna/openbsd-x86/libjnidispatch.so; processor=x86;osname=openbsd, com/sun/jna/openbsd-x86-64/libjnidispatch.so; processor=x86-64;osname=openbsd,  com/sun/jna/darwin-ppc/libjnidispatch.jnilib; osname=macosx;processor=ppc, com/sun/jna/darwin-ppc64/libjnidispatch.jnilib; osname=macosx;processor=ppc64, com/sun/jna/darwin-x86/libjnidispatch.jnilib; osname=macosx;processor=x86, com/sun/jna/darwin-x86-64/libjnidispatch.jnilib; osname=macosx;processor=x86-64, com/sun/jna/darwin-aarch64/libjnidispatch.jnilib; osname=macosx;processor=aarch64 </td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>bundle-nativecode</td><td> com/sun/jna/win32-x86/jnidispatch.dll; processor=x86;osname=win32, com/sun/jna/win32-x86-64/jnidispatch.dll; processor=x86-64;osname=win32, com/sun/jna/win32-aarch64/jnidispatch.dll; processor=aarch64;osname=win32, com/sun/jna/win32-x86/jnidispatch.dll; processor=x86;osname=win, com/sun/jna/win32-x86-64/jnidispatch.dll; processor=x86-64;osname=win, com/sun/jna/win32-aarch64/jnidispatch.dll; processor=aarch64;osname=win, com/sun/jna/w32ce-arm/jnidispatch.dll; processor=arm;osname=wince,  com/sun/jna/sunos-x86/libjnidispatch.so; processor=x86;osname=sunos, com/sun/jna/sunos-x86-64/libjnidispatch.so; processor=x86-64;osname=sunos, com/sun/jna/sunos-sparc/libjnidispatch.so; processor=sparc;osname=sunos, com/sun/jna/sunos-sparcv9/libjnidispatch.so; processor=sparcv9;osname=sunos,  com/sun/jna/aix-ppc/libjnidispatch.a; processor=ppc;osname=aix, com/sun/jna/aix-ppc64/libjnidispatch.a; processor=ppc64;osname=aix,  com/sun/jna/linux-ppc/libjnidispatch.so; processor=ppc;osname=linux, com/sun/jna/linux-ppc64/libjnidispatch.so; processor=ppc64;osname=linux, com/sun/jna/linux-ppc64le/libjnidispatch.so; processor=ppc64le;osname=linux, com/sun/jna/linux-x86/libjnidispatch.so; processor=x86;osname=linux, com/sun/jna/linux-x86-64/libjnidispatch.so; processor=x86-64;osname=linux, com/sun/jna/linux-arm/libjnidispatch.so; processor=arm;osname=linux, com/sun/jna/linux-arm/libjnidispatch.so; processor=arm_le;osname=linux, com/sun/jna/linux-armel/libjnidispatch.so; processor=armel;osname=linux, com/sun/jna/linux-aarch64/libjnidispatch.so; processor=aarch64;osname=linux, com/sun/jna/linux-ia64/libjnidispatch.so; processor=ia64;osname=linux, com/sun/jna/linux-sparcv9/libjnidispatch.so; processor=sparcv9;osname=linux, com/sun/jna/linux-mips64el/libjnidispatch.so; processor=mips64el;osname=linux, com/sun/jna/linux-s390x/libjnidispatch.so; processor=S390x;osname=linux, com/sun/jna/linux-loongarch64/libjnidispatch.so; processor=loongarch64;osname=linux, com/sun/jna/linux-riscv64/libjnidispatch.so; processor=riscv64;osname=linux,  com/sun/jna/dragonflybsd-x86-64/libjnidispatch.so; processor=x86-64;osname=dragonflybsd,  com/sun/jna/freebsd-x86/libjnidispatch.so; processor=x86;osname=freebsd, com/sun/jna/freebsd-x86-64/libjnidispatch.so; processor=x86-64;osname=freebsd, com/sun/jna/freebsd-aarch64/libjnidispatch.so; processor=aarch64;osname=freebsd, com/sun/jna/freebsd-ppc64le/libjnidispatch.so; processor=ppc64le;osname=freebsd, com/sun/jna/freebsd-ppc64/libjnidispatch.so; processor=ppc64;osname=freebsd,  com/sun/jna/openbsd-x86/libjnidispatch.so; processor=x86;osname=openbsd, com/sun/jna/openbsd-x86-64/libjnidispatch.so; processor=x86-64;osname=openbsd, com/sun/jna/openbsd-x86-64/libjnidispatch.so; processor=sparcv9;osname=openbsd, com/sun/jna/openbsd-x86-64/libjnidispatch.so; processor=aarch64;osname=openbsd,  com/sun/jna/darwin-ppc/libjnidispatch.jnilib; osname=macosx;processor=ppc, com/sun/jna/darwin-ppc64/libjnidispatch.jnilib; osname=macosx;processor=ppc64, com/sun/jna/darwin-x86/libjnidispatch.jnilib; osname=macosx;processor=x86, com/sun/jna/darwin-x86-64/libjnidispatch.jnilib; osname=macosx;processor=x86-64, com/sun/jna/darwin-aarch64/libjnidispatch.jnilib; osname=macosx;processor=aarch64 </td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>bundle-requiredexecutionenvironment</td><td>JavaSE-1.6</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>bundle-symbolicname</td><td>com.sun.jna</td><td>Medium</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>Implementation-Vendor</td><td>JNA Development Team</td><td>High</td></tr>
@@ -1850,7 +1851,7 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                                     <tr><td>Product</td><td>Manifest</td><td>bundle-activationpolicy</td><td>lazy</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>bundle-category</td><td>jni</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>Bundle-Name</td><td>jna</td><td>Medium</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>bundle-nativecode</td><td> com/sun/jna/win32-x86/jnidispatch.dll; processor=x86;osname=win32, com/sun/jna/win32-x86-64/jnidispatch.dll; processor=x86-64;osname=win32, com/sun/jna/win32-aarch64/jnidispatch.dll; processor=aarch64;osname=win32, com/sun/jna/win32-x86/jnidispatch.dll; processor=x86;osname=win, com/sun/jna/win32-x86-64/jnidispatch.dll; processor=x86-64;osname=win, com/sun/jna/win32-aarch64/jnidispatch.dll; processor=aarch64;osname=win, com/sun/jna/w32ce-arm/jnidispatch.dll; processor=arm;osname=wince,  com/sun/jna/sunos-x86/libjnidispatch.so; processor=x86;osname=sunos, com/sun/jna/sunos-x86-64/libjnidispatch.so; processor=x86-64;osname=sunos, com/sun/jna/sunos-sparc/libjnidispatch.so; processor=sparc;osname=sunos, com/sun/jna/sunos-sparcv9/libjnidispatch.so; processor=sparcv9;osname=sunos,  com/sun/jna/aix-ppc/libjnidispatch.a; processor=ppc;osname=aix, com/sun/jna/aix-ppc64/libjnidispatch.a; processor=ppc64;osname=aix,  com/sun/jna/linux-ppc/libjnidispatch.so; processor=ppc;osname=linux, com/sun/jna/linux-ppc64/libjnidispatch.so; processor=ppc64;osname=linux, com/sun/jna/linux-ppc64le/libjnidispatch.so; processor=ppc64le;osname=linux, com/sun/jna/linux-x86/libjnidispatch.so; processor=x86;osname=linux, com/sun/jna/linux-x86-64/libjnidispatch.so; processor=x86-64;osname=linux, com/sun/jna/linux-arm/libjnidispatch.so; processor=arm;osname=linux, com/sun/jna/linux-arm/libjnidispatch.so; processor=arm_le;osname=linux, com/sun/jna/linux-armel/libjnidispatch.so; processor=armel;osname=linux, com/sun/jna/linux-aarch64/libjnidispatch.so; processor=aarch64;osname=linux, com/sun/jna/linux-ia64/libjnidispatch.so; processor=ia64;osname=linux, com/sun/jna/linux-sparcv9/libjnidispatch.so; processor=sparcv9;osname=linux, com/sun/jna/linux-mips64el/libjnidispatch.so; processor=mips64el;osname=linux, com/sun/jna/linux-s390x/libjnidispatch.so; processor=S390x;osname=linux, com/sun/jna/linux-loongarch64/libjnidispatch.so; processor=loongarch64;osname=linux, com/sun/jna/linux-riscv64/libjnidispatch.so; processor=riscv64;osname=linux,  com/sun/jna/dragonflybsd-x86-64/libjnidispatch.so; processor=x86-64;osname=dragonflybsd,  com/sun/jna/freebsd-x86/libjnidispatch.so; processor=x86;osname=freebsd, com/sun/jna/freebsd-x86-64/libjnidispatch.so; processor=x86-64;osname=freebsd, com/sun/jna/freebsd-aarch64/libjnidispatch.so; processor=aarch64;osname=freebsd, com/sun/jna/freebsd-ppc64le/libjnidispatch.so; processor=ppc64le;osname=freebsd, com/sun/jna/freebsd-ppc64/libjnidispatch.so; processor=ppc64;osname=freebsd,  com/sun/jna/openbsd-x86/libjnidispatch.so; processor=x86;osname=openbsd, com/sun/jna/openbsd-x86-64/libjnidispatch.so; processor=x86-64;osname=openbsd,  com/sun/jna/darwin-ppc/libjnidispatch.jnilib; osname=macosx;processor=ppc, com/sun/jna/darwin-ppc64/libjnidispatch.jnilib; osname=macosx;processor=ppc64, com/sun/jna/darwin-x86/libjnidispatch.jnilib; osname=macosx;processor=x86, com/sun/jna/darwin-x86-64/libjnidispatch.jnilib; osname=macosx;processor=x86-64, com/sun/jna/darwin-aarch64/libjnidispatch.jnilib; osname=macosx;processor=aarch64 </td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>bundle-nativecode</td><td> com/sun/jna/win32-x86/jnidispatch.dll; processor=x86;osname=win32, com/sun/jna/win32-x86-64/jnidispatch.dll; processor=x86-64;osname=win32, com/sun/jna/win32-aarch64/jnidispatch.dll; processor=aarch64;osname=win32, com/sun/jna/win32-x86/jnidispatch.dll; processor=x86;osname=win, com/sun/jna/win32-x86-64/jnidispatch.dll; processor=x86-64;osname=win, com/sun/jna/win32-aarch64/jnidispatch.dll; processor=aarch64;osname=win, com/sun/jna/w32ce-arm/jnidispatch.dll; processor=arm;osname=wince,  com/sun/jna/sunos-x86/libjnidispatch.so; processor=x86;osname=sunos, com/sun/jna/sunos-x86-64/libjnidispatch.so; processor=x86-64;osname=sunos, com/sun/jna/sunos-sparc/libjnidispatch.so; processor=sparc;osname=sunos, com/sun/jna/sunos-sparcv9/libjnidispatch.so; processor=sparcv9;osname=sunos,  com/sun/jna/aix-ppc/libjnidispatch.a; processor=ppc;osname=aix, com/sun/jna/aix-ppc64/libjnidispatch.a; processor=ppc64;osname=aix,  com/sun/jna/linux-ppc/libjnidispatch.so; processor=ppc;osname=linux, com/sun/jna/linux-ppc64/libjnidispatch.so; processor=ppc64;osname=linux, com/sun/jna/linux-ppc64le/libjnidispatch.so; processor=ppc64le;osname=linux, com/sun/jna/linux-x86/libjnidispatch.so; processor=x86;osname=linux, com/sun/jna/linux-x86-64/libjnidispatch.so; processor=x86-64;osname=linux, com/sun/jna/linux-arm/libjnidispatch.so; processor=arm;osname=linux, com/sun/jna/linux-arm/libjnidispatch.so; processor=arm_le;osname=linux, com/sun/jna/linux-armel/libjnidispatch.so; processor=armel;osname=linux, com/sun/jna/linux-aarch64/libjnidispatch.so; processor=aarch64;osname=linux, com/sun/jna/linux-ia64/libjnidispatch.so; processor=ia64;osname=linux, com/sun/jna/linux-sparcv9/libjnidispatch.so; processor=sparcv9;osname=linux, com/sun/jna/linux-mips64el/libjnidispatch.so; processor=mips64el;osname=linux, com/sun/jna/linux-s390x/libjnidispatch.so; processor=S390x;osname=linux, com/sun/jna/linux-loongarch64/libjnidispatch.so; processor=loongarch64;osname=linux, com/sun/jna/linux-riscv64/libjnidispatch.so; processor=riscv64;osname=linux,  com/sun/jna/dragonflybsd-x86-64/libjnidispatch.so; processor=x86-64;osname=dragonflybsd,  com/sun/jna/freebsd-x86/libjnidispatch.so; processor=x86;osname=freebsd, com/sun/jna/freebsd-x86-64/libjnidispatch.so; processor=x86-64;osname=freebsd, com/sun/jna/freebsd-aarch64/libjnidispatch.so; processor=aarch64;osname=freebsd, com/sun/jna/freebsd-ppc64le/libjnidispatch.so; processor=ppc64le;osname=freebsd, com/sun/jna/freebsd-ppc64/libjnidispatch.so; processor=ppc64;osname=freebsd,  com/sun/jna/openbsd-x86/libjnidispatch.so; processor=x86;osname=openbsd, com/sun/jna/openbsd-x86-64/libjnidispatch.so; processor=x86-64;osname=openbsd, com/sun/jna/openbsd-x86-64/libjnidispatch.so; processor=sparcv9;osname=openbsd, com/sun/jna/openbsd-x86-64/libjnidispatch.so; processor=aarch64;osname=openbsd,  com/sun/jna/darwin-ppc/libjnidispatch.jnilib; osname=macosx;processor=ppc, com/sun/jna/darwin-ppc64/libjnidispatch.jnilib; osname=macosx;processor=ppc64, com/sun/jna/darwin-x86/libjnidispatch.jnilib; osname=macosx;processor=x86, com/sun/jna/darwin-x86-64/libjnidispatch.jnilib; osname=macosx;processor=x86-64, com/sun/jna/darwin-aarch64/libjnidispatch.jnilib; osname=macosx;processor=aarch64 </td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>bundle-requiredexecutionenvironment</td><td>JavaSE-1.6</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>bundle-symbolicname</td><td>com.sun.jna</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>Implementation-Title</td><td>com.sun.jna</td><td>High</td></tr>
@@ -1863,28 +1864,24 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>net.java.dev.jna</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>Java Native Access</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>java-native-access/jna</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>5.18.1</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>5.18.1</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>5.18.1</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>5.19.1</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>5.19.1</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>5.19.1</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header22" class="subsectionheader white">Identifiers</h4>
                         <div id="content22" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/net.java.dev.jna/jna@5.18.1
+                                    <li>pkg:maven/net.java.dev.jna/jna@5.19.1
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
-                                <li>cpe:2.3:a:oracle:java_se:5.18.1:*:*:*:*:*:*:*
-                                    &nbsp;&nbsp;(<i>Confidence</i>:Low)
-                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="jna-5.18.1.jar" data-sha1="b27ba04287cc4abe769642fe8318d39fc89bf937" data-pkgurl="pkg:maven/net.java.dev.jna/jna@5.18.1" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:oracle:java_se">suppress</button>
-                            </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l12_6b05e299ff2b3eb3b7b7aeac44263f715693607c"></a>jna-5.18.1.jar: jnidispatch.dll</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l12_6b05e299ff2b3eb3b7b7aeac44263f715693607c"></a>jna-5.19.1.jar: jnidispatch.dll</h3>
                     <div class="subsectioncontent notvulnerable">
                         <p>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/java/dev/jna/jna/5.18.1/jna-5.18.1.jar/com/sun/jna/win32-aarch64/jnidispatch.dll<br/>
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/java/dev/jna/jna/5.19.1/jna-5.19.1.jar/com/sun/jna/win32-aarch64/jnidispatch.dll<br/>
                             <b>MD5:</b>&nbsp;302945a811fd8e21bcdd5226c73b6f74<br/>
                             <b>SHA1:</b>&nbsp;6b05e299ff2b3eb3b7b7aeac44263f715693607c<br/>
                             <b>SHA256:</b>b8f98be314234cf12b5b46c29652f70c0f6abb93ae19b63d3fe2692062aa699d
@@ -1903,10 +1900,10 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                             <ul><li><b>None</b></li></ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l13_27ff882ac271db547aee520b38e3ba9aa91e136c"></a>jna-5.18.1.jar: jnidispatch.dll</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l13_27ff882ac271db547aee520b38e3ba9aa91e136c"></a>jna-5.19.1.jar: jnidispatch.dll</h3>
                     <div class="subsectioncontent notvulnerable">
                         <p>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/java/dev/jna/jna/5.18.1/jna-5.18.1.jar/com/sun/jna/win32-x86-64/jnidispatch.dll<br/>
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/java/dev/jna/jna/5.19.1/jna-5.19.1.jar/com/sun/jna/win32-x86-64/jnidispatch.dll<br/>
                             <b>MD5:</b>&nbsp;2d2475f1f026dd54e9f3e787ae4f81da<br/>
                             <b>SHA1:</b>&nbsp;27ff882ac271db547aee520b38e3ba9aa91e136c<br/>
                             <b>SHA256:</b>5a7ff949f6d93d86491eb5b26b1cfc60051168a60622650224b89995ac420023
@@ -1925,10 +1922,10 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                             <ul><li><b>None</b></li></ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l14_2f5e1cd82cde192905c7510ce99037b67d980640"></a>jna-5.18.1.jar: jnidispatch.dll</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l14_2f5e1cd82cde192905c7510ce99037b67d980640"></a>jna-5.19.1.jar: jnidispatch.dll</h3>
                     <div class="subsectioncontent notvulnerable">
                         <p>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/java/dev/jna/jna/5.18.1/jna-5.18.1.jar/com/sun/jna/win32-x86/jnidispatch.dll<br/>
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/java/dev/jna/jna/5.19.1/jna-5.19.1.jar/com/sun/jna/win32-x86/jnidispatch.dll<br/>
                             <b>MD5:</b>&nbsp;0caa1ef75a807f9dde05084fa2219a5c<br/>
                             <b>SHA1:</b>&nbsp;2f5e1cd82cde192905c7510ce99037b67d980640<br/>
                             <b>SHA256:</b>752d597cee7e95cb517327146bf42f124c0d6c0bc48b3ecc3b1b3b0531a52f44
@@ -1947,18 +1944,18 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                             <ul><li><b>None</b></li></ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l15_dd817f391efc492041c9ae91127527c13750a789"></a>jna-platform-5.18.1.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l15_d1e54d9231da5ca3fa730d52960deaa555475468"></a>jna-platform-5.19.1.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Java Native Access Platform</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">LGPL-2.1-or-later: https://www.gnu.org/licenses/old-licenses/lgpl-2.1
 Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/java/dev/jna/jna-platform/5.18.1/jna-platform-5.18.1.jar<br/>
-                            <b>MD5:</b>&nbsp;a7af00779ec98bfe22dfb07b1532830d<br/>
-                            <b>SHA1:</b>&nbsp;dd817f391efc492041c9ae91127527c13750a789<br/>
-                            <b>SHA256:</b>ad14c1b1ec4f43d396231219dfa635ebf828f738eac9f890ea1bc07795892d9a
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/java/dev/jna/jna-platform/5.19.1/jna-platform-5.19.1.jar<br/>
+                            <b>MD5:</b>&nbsp;1d97b6103a9b3b7ddb671908683f4566<br/>
+                            <b>SHA1:</b>&nbsp;d1e54d9231da5ca3fa730d52960deaa555475468<br/>
+                            <b>SHA256:</b>3b3864f5b449e9c3c24b16861524b622b086563f44e0cd8384c8efc5a6052f82
                                 <br/><b>Referenced In Project/Scope:</b> waffle-shiro:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">jna-platform-5.18.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-jna@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">jna-platform-5.19.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-jna@3.6.1-SNAPSHOT
                         </p>
                         <h4 id="header29" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content29" class="subsectioncontent standardsubsection hidden">
@@ -2003,15 +2000,15 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>net.java.dev.jna</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>Java Native Access Platform</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>java-native-access/jna</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>5.18.1</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>5.18.1</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>5.18.1</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>5.19.1</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>5.19.1</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>5.19.1</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header30" class="subsectionheader white">Identifiers</h4>
                         <div id="content30" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/net.java.dev.jna/jna-platform@5.18.1
+                                    <li>pkg:maven/net.java.dev.jna/jna-platform@5.19.1
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
@@ -2027,7 +2024,7 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                             <b>SHA1:</b>&nbsp;7425a601c1c7ec76645a78d22b8c6a627edee507<br/>
                             <b>SHA256:</b>1fad6e6be7557781e4d33729d49ae1cdc8fdda6fe477bb0cc68ce351eafdfbab
                                 <br/><b>Referenced In Project/Scope:</b> waffle-shiro:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">jspecify-1.0.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.junit.jupiter/junit-jupiter-engine@6.0.2
+                                <br/><span class="tooltip"><span class="tooltiptext">jspecify-1.0.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.junit.jupiter/junit-jupiter-engine@6.1.3
                         </p>
                         <h4 id="header31" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content31" class="subsectioncontent standardsubsection hidden">
@@ -2086,7 +2083,7 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                             <b>SHA1:</b>&nbsp;25ea2e8b0c338a877313bd4672d3fe056ea78f0d<br/>
                             <b>SHA256:</b>766ad2a0783f2687962c8ad74ceecc38a28b9f72a2d085ee438b7813e928d0c7
                                 <br/><b>Referenced In Project/Scope:</b> waffle-shiro:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">jsr305-3.0.2.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.spotbugs/spotbugs-annotations@4.9.8
+                                <br/><span class="tooltip"><span class="tooltiptext">jsr305-3.0.2.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.spotbugs/spotbugs-annotations@4.10.4
                         </p>
                         <h4 id="header33" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content33" class="subsectioncontent standardsubsection hidden">
@@ -2120,17 +2117,17 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l18_cd7aaf8c3caf0b62d9cacd87aa8461eac18ed58f"></a>shiro-core-2.0.6.jar</h3>
-                    <div class="subsectioncontent notvulnerable">
+                    <h3 class="subsectionheader standardsubsection"><a name="l18_23d29cf0f69bd91049780b4d3b77e028a505abd3"></a>shiro-core-2.2.1.jar</h3>
+                    <div class="subsectioncontent">
                             <p><b>Description:</b><pre>Apache Shiro is a powerful and flexible open-source security framework that cleanly handles        authentication, authorization, enterprise session management, single sign-on and cryptography services.</pre></p>
                         <p>
                             <b>License:</b><pre class="indent"><a href="https://www.apache.org/licenses/LICENSE-2.0.txt">https://www.apache.org/licenses/LICENSE-2.0.txt</a></pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/apache/shiro/shiro-core/2.0.6/shiro-core-2.0.6.jar<br/>
-                            <b>MD5:</b>&nbsp;871ecbaf423e1bca627a48e408c64a3c<br/>
-                            <b>SHA1:</b>&nbsp;cd7aaf8c3caf0b62d9cacd87aa8461eac18ed58f<br/>
-                            <b>SHA256:</b>608d062c214c06d917bf65dd4155bdcbe45a058562c73341b50455d50e1d3af7
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/apache/shiro/shiro-core/2.2.1/shiro-core-2.2.1.jar<br/>
+                            <b>MD5:</b>&nbsp;3b83eaa1cf9fff4febadafc3a8dd1ea9<br/>
+                            <b>SHA1:</b>&nbsp;23d29cf0f69bd91049780b4d3b77e028a505abd3<br/>
+                            <b>SHA256:</b>688489d58e00d40476e67be2cae8f349a6d51a21c0d16e4d856bcc6f6c9c2001
                                 <br/><b>Referenced In Project/Scope:</b> waffle-shiro:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">shiro-core-2.0.6.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.apache.shiro/shiro-web@2.0.6
+                                <br/><span class="tooltip"><span class="tooltiptext">shiro-core-2.2.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.apache.shiro/shiro-web@2.2.1
                         </p>
                         <h4 id="header35" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content35" class="subsectioncontent standardsubsection hidden">
@@ -2165,112 +2162,112 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>org.apache.shiro</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>Apache Shiro :: Core</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>parent-artifactid</td><td>shiro-root</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>2.0.6</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>2.0.6</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>2.0.6</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>2.0.6</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>2.2.1</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>2.2.1</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>2.2.1</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>2.2.1</td><td>Highest</td></tr>
                             </table>
                         </div>
                             <h4 id="header36" class="subsectionheader expandable expandablesubsection white">Related Dependencies</h4>
                             <div id="content36" class="subsectioncontent standardsubsection hidden">
                             <ul>
-                                <li>shiro-cache-2.0.6.jar
+                                <li>shiro-cache-2.2.1.jar
                                     <ul>
-                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/shiro/shiro-cache/2.0.6/shiro-cache-2.0.6.jar</li>
-                                        <li>MD5:&nbsp;a324753678a847344061eb86d04f4de6</li>
-                                        <li>SHA1:&nbsp;74b6f5b67e9fe4f3bdd4d588b9d5b7da4a3c4526</li>
-                                        <li>SHA256:&nbsp;9af4ce3a891486a34abadbcf95226cba7364d3c6c7f009abf1b07218c01104ac</li>
-                                                <li>pkg:maven/org.apache.shiro/shiro-cache@2.0.6</li>
+                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/shiro/shiro-cache/2.2.1/shiro-cache-2.2.1.jar</li>
+                                        <li>MD5:&nbsp;ac83e76d184dfb62204010de1c10b6cb</li>
+                                        <li>SHA1:&nbsp;2ad75e4aea6921cadfb35ecc734a58ddf712ea42</li>
+                                        <li>SHA256:&nbsp;cf5bb8a3349165b34773abb17cc0e2e926cc292ce0a2f9b26af095ee2d376c8e</li>
+                                                <li>pkg:maven/org.apache.shiro/shiro-cache@2.2.1</li>
                                      </ul>
                                 </li>
-                                <li>shiro-config-core-2.0.6.jar
+                                <li>shiro-config-core-2.2.1.jar
                                     <ul>
-                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/shiro/shiro-config-core/2.0.6/shiro-config-core-2.0.6.jar</li>
-                                        <li>MD5:&nbsp;6dd6aa0acd6f085d702381f261449e78</li>
-                                        <li>SHA1:&nbsp;8ff308869ff5f678cf5078942e604ecb8491f564</li>
-                                        <li>SHA256:&nbsp;3c6b46747f9530a73c3423d028c75c8341b783a2a1e9fccb35182271218dbc80</li>
-                                                <li>pkg:maven/org.apache.shiro/shiro-config-core@2.0.6</li>
+                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/shiro/shiro-config-core/2.2.1/shiro-config-core-2.2.1.jar</li>
+                                        <li>MD5:&nbsp;21a7545ab9f9cf1b7b0c843ff0a84979</li>
+                                        <li>SHA1:&nbsp;b25e12bdc24183e3a9a896009e97305b43ad0701</li>
+                                        <li>SHA256:&nbsp;7f64fe07e75d3afb48222d1020c6ab0e91445aa918fa852dd744802e3da2c72d</li>
+                                                <li>pkg:maven/org.apache.shiro/shiro-config-core@2.2.1</li>
                                      </ul>
                                 </li>
-                                <li>shiro-config-ogdl-2.0.6.jar
+                                <li>shiro-config-ogdl-2.2.1.jar
                                     <ul>
-                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/shiro/shiro-config-ogdl/2.0.6/shiro-config-ogdl-2.0.6.jar</li>
-                                        <li>MD5:&nbsp;6c9a4fa85a15b824811df87471017d36</li>
-                                        <li>SHA1:&nbsp;4f129c67d095c192dfe107856586b257a541bacf</li>
-                                        <li>SHA256:&nbsp;bb7792c72f76e3b39e2fb67c603db7d829d489ad6449db89c0ea6fd296ef56a5</li>
-                                                <li>pkg:maven/org.apache.shiro/shiro-config-ogdl@2.0.6</li>
+                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/shiro/shiro-config-ogdl/2.2.1/shiro-config-ogdl-2.2.1.jar</li>
+                                        <li>MD5:&nbsp;d0ba74ab0251da2c538cf704d1b00658</li>
+                                        <li>SHA1:&nbsp;5c10320334302891036e816daf951e040c63426f</li>
+                                        <li>SHA256:&nbsp;411b983dee3c7b7256c5140a1a4cd86b1004966e62029ec6e4a7795418bdb31a</li>
+                                                <li>pkg:maven/org.apache.shiro/shiro-config-ogdl@2.2.1</li>
                                      </ul>
                                 </li>
-                                <li>shiro-crypto-cipher-2.0.6.jar
+                                <li>shiro-crypto-cipher-2.2.1.jar
                                     <ul>
-                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/shiro/shiro-crypto-cipher/2.0.6/shiro-crypto-cipher-2.0.6.jar</li>
-                                        <li>MD5:&nbsp;04c44dee1f7d83e75beea8ba64ab32e2</li>
-                                        <li>SHA1:&nbsp;66565b81e59123b38aab8f5e4ab09f38ac154915</li>
-                                        <li>SHA256:&nbsp;5fc0efc0027fd80e1b5db8d8d4d69e27969aeb105bd24cbac10c7b5710295629</li>
-                                                <li>pkg:maven/org.apache.shiro/shiro-crypto-cipher@2.0.6</li>
+                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/shiro/shiro-crypto-cipher/2.2.1/shiro-crypto-cipher-2.2.1.jar</li>
+                                        <li>MD5:&nbsp;2b9854b97d52a833217160d34aeb84f2</li>
+                                        <li>SHA1:&nbsp;8dfe26beeb309d89d2dfbf2b8cce2d63d6882f32</li>
+                                        <li>SHA256:&nbsp;f2c083d03eef731772b97728718d5ffeb71107ac0850c79b78283f8b1f29a193</li>
+                                                <li>pkg:maven/org.apache.shiro/shiro-crypto-cipher@2.2.1</li>
                                      </ul>
                                 </li>
-                                <li>shiro-crypto-core-2.0.6.jar
+                                <li>shiro-crypto-core-2.2.1.jar
                                     <ul>
-                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/shiro/shiro-crypto-core/2.0.6/shiro-crypto-core-2.0.6.jar</li>
-                                        <li>MD5:&nbsp;03cbe403fd7ed5dc9d625739b8f9d2f9</li>
-                                        <li>SHA1:&nbsp;88ac372ac0423f994bdbe4419dc0138ec583611d</li>
-                                        <li>SHA256:&nbsp;48315ef810d73edad778ecb872de794ef32cf97e8f6a3b9d3e6104dc71609a80</li>
-                                                <li>pkg:maven/org.apache.shiro/shiro-crypto-core@2.0.6</li>
+                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/shiro/shiro-crypto-core/2.2.1/shiro-crypto-core-2.2.1.jar</li>
+                                        <li>MD5:&nbsp;ccd62661f070a04684877e895e1f09f0</li>
+                                        <li>SHA1:&nbsp;8a1f005293319a68010203482a5d4d838f71f821</li>
+                                        <li>SHA256:&nbsp;e8ac7be2365397dbc5f2b9dfad2a98941670202c612fd7e535afcefa7a503feb</li>
+                                                <li>pkg:maven/org.apache.shiro/shiro-crypto-core@2.2.1</li>
                                      </ul>
                                 </li>
-                                <li>shiro-crypto-hash-2.0.6.jar
+                                <li>shiro-crypto-hash-2.2.1.jar
                                     <ul>
-                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/shiro/shiro-crypto-hash/2.0.6/shiro-crypto-hash-2.0.6.jar</li>
-                                        <li>MD5:&nbsp;395cc6f3d14ceb4b98bee06e237dcd1a</li>
-                                        <li>SHA1:&nbsp;904c0e02fb51b0ecdcd0e438d08f3544830f7f07</li>
-                                        <li>SHA256:&nbsp;77f85d8afb628bc2753a175622a02dde2224781fed1595007c351072034cda23</li>
-                                                <li>pkg:maven/org.apache.shiro/shiro-crypto-hash@2.0.6</li>
+                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/shiro/shiro-crypto-hash/2.2.1/shiro-crypto-hash-2.2.1.jar</li>
+                                        <li>MD5:&nbsp;bca90022c90dc05914e8401c4b0b1f4b</li>
+                                        <li>SHA1:&nbsp;525e45a85f809d021674558fcbe84c16c6df9390</li>
+                                        <li>SHA256:&nbsp;2ae3b681f6618ba56ff928255091d3ba72a364acdf0deebd55d4c4e093c3d7e8</li>
+                                                <li>pkg:maven/org.apache.shiro/shiro-crypto-hash@2.2.1</li>
                                      </ul>
                                 </li>
-                                <li>shiro-event-2.0.6.jar
+                                <li>shiro-event-2.2.1.jar
                                     <ul>
-                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/shiro/shiro-event/2.0.6/shiro-event-2.0.6.jar</li>
-                                        <li>MD5:&nbsp;438fc8f37f5f6bf26e1979bb0326a615</li>
-                                        <li>SHA1:&nbsp;3e9afc9932538773d06d3817292f13c49723fa7f</li>
-                                        <li>SHA256:&nbsp;bac2adb0caa353c526b00908f9006cc015f1c63e33f5505997ca61a42ef5cab5</li>
-                                                <li>pkg:maven/org.apache.shiro/shiro-event@2.0.6</li>
+                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/shiro/shiro-event/2.2.1/shiro-event-2.2.1.jar</li>
+                                        <li>MD5:&nbsp;df65381eb06c8d41057ab29bd0ebbc8f</li>
+                                        <li>SHA1:&nbsp;64a739820ef775d4b5d05ae8ef639c05d7d72058</li>
+                                        <li>SHA256:&nbsp;739446ee8581e13e670b8a27310e35902b8b8258e363e7bdd5f37758abbd86d7</li>
+                                                <li>pkg:maven/org.apache.shiro/shiro-event@2.2.1</li>
                                      </ul>
                                 </li>
-                                <li>shiro-hashes-argon2-2.0.6.jar
+                                <li>shiro-hashes-argon2-2.2.1.jar
                                     <ul>
-                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/shiro/crypto/shiro-hashes-argon2/2.0.6/shiro-hashes-argon2-2.0.6.jar</li>
-                                        <li>MD5:&nbsp;e2d7040994d3bbfa8de375f8e827af4b</li>
-                                        <li>SHA1:&nbsp;ce2b0a02f807ce2628946b496b564dc578f946b3</li>
-                                        <li>SHA256:&nbsp;f5332823be5eb176d57eb4d5aa4e401290ab1ea145c8dce5c635c2b4991346d9</li>
-                                                <li>pkg:maven/org.apache.shiro.crypto/shiro-hashes-argon2@2.0.6</li>
+                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/shiro/crypto/shiro-hashes-argon2/2.2.1/shiro-hashes-argon2-2.2.1.jar</li>
+                                        <li>MD5:&nbsp;2154316b03025bfbaa9ed98b66428c7a</li>
+                                        <li>SHA1:&nbsp;ecb3e06966527c96e71466a5750fbe968b66853e</li>
+                                        <li>SHA256:&nbsp;2556fbf8ae5477679730a5cc1ba4aff223cc59d15879d64d43efd7cfdeb356cf</li>
+                                                <li>pkg:maven/org.apache.shiro.crypto/shiro-hashes-argon2@2.2.1</li>
                                      </ul>
                                 </li>
-                                <li>shiro-hashes-bcrypt-2.0.6.jar
+                                <li>shiro-hashes-bcrypt-2.2.1.jar
                                     <ul>
-                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/shiro/crypto/shiro-hashes-bcrypt/2.0.6/shiro-hashes-bcrypt-2.0.6.jar</li>
-                                        <li>MD5:&nbsp;f4a6dde4613251920b5d78dce7f7332b</li>
-                                        <li>SHA1:&nbsp;f601cccf83770c5a7f1cc7eda8fd00e83129c67a</li>
-                                        <li>SHA256:&nbsp;2bf0bb5f313899cf6901802481cd72365b3ed64a46d6b190dfb5d7688bd30a7b</li>
-                                                <li>pkg:maven/org.apache.shiro.crypto/shiro-hashes-bcrypt@2.0.6</li>
+                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/shiro/crypto/shiro-hashes-bcrypt/2.2.1/shiro-hashes-bcrypt-2.2.1.jar</li>
+                                        <li>MD5:&nbsp;713956c7dd61cea72b74e0f5ec7a701a</li>
+                                        <li>SHA1:&nbsp;6eab5fb8d63fb2aeeac0a70285ea94ec26ecc6a1</li>
+                                        <li>SHA256:&nbsp;a876b5934b74eac2ed0d4ca30fe8ed79052c1357c68ea36974dce32be15e77ec</li>
+                                                <li>pkg:maven/org.apache.shiro.crypto/shiro-hashes-bcrypt@2.2.1</li>
                                      </ul>
                                 </li>
-                                <li>shiro-lang-2.0.6.jar
+                                <li>shiro-lang-2.2.1.jar
                                     <ul>
-                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/shiro/shiro-lang/2.0.6/shiro-lang-2.0.6.jar</li>
-                                        <li>MD5:&nbsp;f230014b0bc57d02efec7212d20dd27f</li>
-                                        <li>SHA1:&nbsp;8254ec6dbcfa756d38344e9e94d34185d7186aa9</li>
-                                        <li>SHA256:&nbsp;7c7a9911c95b3487c70651b3915d609da378f8be1467bc1cd3c89cb02fed84e0</li>
-                                                <li>pkg:maven/org.apache.shiro/shiro-lang@2.0.6</li>
+                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/shiro/shiro-lang/2.2.1/shiro-lang-2.2.1.jar</li>
+                                        <li>MD5:&nbsp;96a1747b0a95d8b7a08e339b3b87082b</li>
+                                        <li>SHA1:&nbsp;da71729d2a052bd9dbecbc4df3e5931a839b98cd</li>
+                                        <li>SHA256:&nbsp;a803f62e597b05d9550f0fd11943738442e4aa0d3f8432a430cd9bf3aef39ea9</li>
+                                                <li>pkg:maven/org.apache.shiro/shiro-lang@2.2.1</li>
                                      </ul>
                                 </li>
-                                <li>shiro-web-2.0.6.jar
+                                <li>shiro-web-2.2.1.jar
                                     <ul>
-                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/shiro/shiro-web/2.0.6/shiro-web-2.0.6.jar</li>
-                                        <li>MD5:&nbsp;f119d96bf9da72b47a4c15289ca03c55</li>
-                                        <li>SHA1:&nbsp;8ec998d8f59e4cebb7b93378b48fc3fa445d2d3d</li>
-                                        <li>SHA256:&nbsp;5a376ba40fa0bb6169816707a0630cb2172f95ce20396b5e82d08fd05e0185cc</li>
-                                                <li>pkg:maven/org.apache.shiro/shiro-web@2.0.6</li>
+                                        <li>File Path:&nbsp;/home/runner/.m2/repository/org/apache/shiro/shiro-web/2.2.1/shiro-web-2.2.1.jar</li>
+                                        <li>MD5:&nbsp;7ea1be5665e3cfa9fd5c42f936051322</li>
+                                        <li>SHA1:&nbsp;96cf3cd3cd9e5173e9a33eaf22a4bc4704019a51</li>
+                                        <li>SHA256:&nbsp;1129af8565d0bd9fe203a2894814ec937fa9230e0d04c6ab7b2f884b58fedcd7</li>
+                                                <li>pkg:maven/org.apache.shiro/shiro-web@2.2.1</li>
                                      </ul>
                                 </li>
                             </ul>
@@ -2278,30 +2275,54 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                         <h4 id="header37" class="subsectionheader white">Identifiers</h4>
                         <div id="content37" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.apache.shiro/shiro-core@2.0.6
+                                    <li>pkg:maven/org.apache.shiro/shiro-core@2.2.1
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
-                                <li><a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Ashiro%3A2.0.6%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:apache:shiro:2.0.6:*:*:*:*:*:*:*</a>
+                                <li><a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Ashiro%3A2.2.1%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:apache:shiro:2.2.1:*:*:*:*:*:*:*</a>
                                     &nbsp;&nbsp;(<i>Confidence</i>:Highest)
-                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="shiro-core-2.0.6.jar" data-sha1="cd7aaf8c3caf0b62d9cacd87aa8461eac18ed58f" data-pkgurl="pkg:maven/org.apache.shiro/shiro-core@2.0.6" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:apache:shiro">suppress</button>
+                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="shiro-core-2.2.1.jar" data-sha1="23d29cf0f69bd91049780b4d3b77e028a505abd3" data-pkgurl="pkg:maven/org.apache.shiro/shiro-core@2.2.1" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:apache:shiro">suppress</button>
                             </li>
                             </ul>
                         </div>
+                    <h4 id="header38" class="subsectionheader collapsed collaspablesubsection white">Published Vulnerabilities</h4>
+                    <div id="content38" class="subsectioncontent standardsubsection">
+                                <p><b><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2026-58301">CVE-2026-58301</a></b>&nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for this CVE for this file" data-display-name="shiro-core-2.2.1.jar" data-sha1="23d29cf0f69bd91049780b4d3b77e028a505abd3" data-pkgurl="pkg:maven/org.apache.shiro/shiro-core@2.2.1" data-type-to-suppress="cve" data-id-to-suppress="CVE-2026-58301">suppress</button></p>
+                            <p>                            <pre>When Apache Shiro is used with the Jakarta EE integration module, a low-privileged user can craft an HTTP request that causes the server to initiate a connection to an attacker-controlled URL and transmit attacker-controlled data. This vulnerability affects Apache Shiro versions 2.x through 3.0.0 only in deployments that use the Jakarta EE integration module.
+
+Mitigation: Upgrade to version 3.0.1 or later, which fixes the issue. +
+Alternatively, you can set the `org.apache.shiro.form-resubmit-host` (String) and `org.apache.shiro.form-resubmit-port` (Integer) system properties to restrict the host and port that Shiro will connect to when resubmitting a form.</pre>
+
+                                CWE-918 Server-Side Request Forgery (SSRF)<br/><br/>
+                                CVSSv4:
+                                <ul><li>Base Score: MEDIUM (5.9)</li>
+                                    <li>Vector: CVSS:4.0/AV:N/AC:L/AT:P/PR:L/UI:P/VC:L/VI:H/VA:N/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:P/AU:Y/R:U/V:D/RE:L/U:Amber</li></ul>
+                            CVSSv3:
+                            <ul><li>Base Score: MEDIUM (6.5)</li>
+                                <li>Vector: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N/E:P/RC:R/MAV:A</li></ul>
+                                <br/>References:<ul>
+                                    <li>af854a3a-2127-422b-91ae-364da2661108 - <a target="_blank" href="http://www.openwall.com/lists/oss-security/2026/08/30/2">MAILING_LIST,THIRD_PARTY_ADVISORY</a></li>
+                                    <li>security@apache.org - <a target="_blank" href="https://lists.apache.org/thread/g1g84ovof5fnonvc5o89wym2jzt77fww">MAILING_LIST,VENDOR_ADVISORY</a></li>
+                                </ul>
+                            </p>
+                                    <p>Vulnerable Software &amp; Versions:<ul>
+                                        <li class="vs1"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Ashiro%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:shiro:*:*:*:*:*:*:*:* versions from (including) 2.0.0; versions up to (excluding) 3.0.1</a></li>
+                                    </ul></p>
+                    </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l19_d9e58ac9c7779ba3bf8142aff6c830617a7fe60f"></a>slf4j-api-2.0.17.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l19_efad9817997b3a6ce9e058f92e612917a744c290"></a>slf4j-api-2.0.19.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>The slf4j API</pre></p>
                         <p>
                             <b>License:</b><pre class="indent"><a href="https://opensource.org/license/mit">https://opensource.org/license/mit</a></pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar<br/>
-                            <b>MD5:</b>&nbsp;b6480d114a23683498ac3f746f959d2f<br/>
-                            <b>SHA1:</b>&nbsp;d9e58ac9c7779ba3bf8142aff6c830617a7fe60f<br/>
-                            <b>SHA256:</b>7b751d952061954d5abfed7181c1f645d336091b679891591d63329c622eb832
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/slf4j/slf4j-api/2.0.19/slf4j-api-2.0.19.jar<br/>
+                            <b>MD5:</b>&nbsp;1ca3a2acac3d5947b37d9b5536c55829<br/>
+                            <b>SHA1:</b>&nbsp;efad9817997b3a6ce9e058f92e612917a744c290<br/>
+                            <b>SHA256:</b>e91ff6d720609e7a194ffe758c3ed5c84e798617ae07b0a0f6a4fe229741b4bb
                                 <br/><b>Referenced In Project/Scope:</b> waffle-shiro:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">slf4j-api-2.0.17.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-jna@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">slf4j-api-2.0.19.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-jna@3.6.1-SNAPSHOT
                         </p>
-                        <h4 id="header38" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content38" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header39" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content39" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>slf4j-api</td><td>High</td></tr>
@@ -2329,35 +2350,35 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>SLF4J API Module</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>parent-artifactid</td><td>slf4j-parent</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>http://www.slf4j.org</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>2.0.17</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>2.0.17</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>2.0.17</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>2.0.17</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>2.0.19</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>2.0.19</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>2.0.19</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>2.0.19</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header39" class="subsectionheader white">Identifiers</h4>
-                        <div id="content39" class="subsectioncontent standardsubsection">
+                        <h4 id="header40" class="subsectionheader white">Identifiers</h4>
+                        <div id="content40" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.slf4j/slf4j-api@2.0.17
+                                    <li>pkg:maven/org.slf4j/slf4j-api@2.0.19
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l20_ca4a2783a6123e67124fd7feb4caccd2e2ac9a73"></a>spotbugs-annotations-4.9.8.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l20_7eb4c58212378becfb6ea6d236ec24a2352a316e"></a>spotbugs-annotations-4.10.4.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Annotations the SpotBugs tool supports</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">GNU LESSER GENERAL PUBLIC LICENSE, Version 2.1: https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/com/github/spotbugs/spotbugs-annotations/4.9.8/spotbugs-annotations-4.9.8.jar<br/>
-                            <b>MD5:</b>&nbsp;d4c2e7bd090be697ad409a4e75684a94<br/>
-                            <b>SHA1:</b>&nbsp;ca4a2783a6123e67124fd7feb4caccd2e2ac9a73<br/>
-                            <b>SHA256:</b>6f69d6fe9c55a54dcb30e87d8fa2d5f52246af50d7a3445246d9539ef221be1c
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/com/github/spotbugs/spotbugs-annotations/4.10.4/spotbugs-annotations-4.10.4.jar<br/>
+                            <b>MD5:</b>&nbsp;472925cb4e5451c8f7a1aeeefe286622<br/>
+                            <b>SHA1:</b>&nbsp;7eb4c58212378becfb6ea6d236ec24a2352a316e<br/>
+                            <b>SHA256:</b>28fa4befaddce5d7b79b07c68e7c12fa27c5d9282c4229528717971606661ea3
                                 <br/><b>Referenced In Project/Scope:</b> waffle-shiro:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">spotbugs-annotations-4.9.8.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-shiro@3.6.0-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">spotbugs-annotations-4.10.4.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.waffle/waffle-shiro@3.6.1-SNAPSHOT
                         </p>
-                        <h4 id="header40" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content40" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header41" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content41" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>spotbugs-annotations</td><td>High</td></tr>
@@ -2410,15 +2431,15 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>com.github.spotbugs</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>SpotBugs Annotations</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>https://spotbugs.github.io/</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>4.9.8</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>4.9.8</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>4.9.8</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>4.10.4</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>4.10.4</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>4.10.4</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header41" class="subsectionheader white">Identifiers</h4>
-                        <div id="content41" class="subsectioncontent standardsubsection">
+                        <h4 id="header42" class="subsectionheader white">Identifiers</h4>
+                        <div id="content42" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/com.github.spotbugs/spotbugs-annotations@4.9.8
+                                    <li>pkg:maven/com.github.spotbugs/spotbugs-annotations@4.10.4
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
@@ -2439,7 +2460,7 @@ Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
             <br/>
             This report may contain data retrieved from <a href="https://retirejs.github.io/retire.js/">RetireJS</a>.
             <br/>
-            This report may contain data retrieved from the <a href="https://ossindex.sonatype.org">Sonatype OSS Index</a>.
+            This report may contain data retrieved from the <a href="https://www.sonatype.com/products/sonatype-guide/oss-index-users">Sonatype Guide OSS Index API</a>.
         </div>
     </body>
 </html>
