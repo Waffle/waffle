@@ -56,7 +56,7 @@ public class WaffleAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public WindowsAuthProviderImpl waffleWindowsAuthProvider() {
+    WindowsAuthProviderImpl waffleWindowsAuthProvider() {
         return new WindowsAuthProviderImpl();
     }
 
@@ -68,7 +68,7 @@ public class WaffleAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean(name = "defaultGrantedAuthority")
-    public GrantedAuthority defaultGrantedAuthority() {
+    GrantedAuthority defaultGrantedAuthority() {
         return WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY;
     }
 
@@ -80,7 +80,7 @@ public class WaffleAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public GrantedAuthorityFactory grantedAuthorityFactory() {
+    GrantedAuthorityFactory grantedAuthorityFactory() {
         return WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY_FACTORY;
     }
 
@@ -99,7 +99,7 @@ public class WaffleAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public WindowsAuthenticationProvider waffleSpringAuthenticationProvider(
+    WindowsAuthenticationProvider waffleSpringAuthenticationProvider(
             final WindowsAuthProviderImpl waffleWindowsAuthProvider,
             @Qualifier("defaultGrantedAuthority") final GrantedAuthority defaultGrantedAuthority,
             final GrantedAuthorityFactory grantedAuthorityFactory) {
@@ -125,8 +125,7 @@ public class WaffleAutoConfiguration {
     @Bean
     @ConditionalOnProperty("waffle.sso.enabled")
     @ConditionalOnMissingBean
-    public NegotiateSecurityFilterProvider negotiateSecurityFilterProvider(
-            final WindowsAuthProviderImpl windowsAuthProvider) {
+    NegotiateSecurityFilterProvider negotiateSecurityFilterProvider(final WindowsAuthProviderImpl windowsAuthProvider) {
         final NegotiateSecurityFilterProvider bean = new NegotiateSecurityFilterProvider(windowsAuthProvider);
         bean.setProtocols(this.properties.getSso().getProtocols());
         return bean;
@@ -144,7 +143,7 @@ public class WaffleAutoConfiguration {
     @Bean
     @ConditionalOnProperty("waffle.sso.enabled")
     @ConditionalOnMissingBean
-    public BasicSecurityFilterProvider basicSecurityFilterProvider(final WindowsAuthProviderImpl windowsAuthProvider) {
+    BasicSecurityFilterProvider basicSecurityFilterProvider(final WindowsAuthProviderImpl windowsAuthProvider) {
         return new BasicSecurityFilterProvider(windowsAuthProvider);
     }
 
@@ -162,7 +161,7 @@ public class WaffleAutoConfiguration {
     @Bean
     @ConditionalOnProperty("waffle.sso.enabled")
     @ConditionalOnMissingBean
-    public SecurityFilterProviderCollection waffleSecurityFilterProviderCollection(
+    SecurityFilterProviderCollection waffleSecurityFilterProviderCollection(
             final NegotiateSecurityFilterProvider negotiateProvider, final BasicSecurityFilterProvider basicProvider) {
         SecurityFilterProvider[] providers;
         if (this.properties.getSso().isBasicEnabled()) {
@@ -185,7 +184,7 @@ public class WaffleAutoConfiguration {
     @Bean
     @ConditionalOnProperty("waffle.sso.enabled")
     @ConditionalOnMissingBean
-    public NegotiateSecurityFilterEntryPoint negotiateSecurityFilterEntryPoint(
+    NegotiateSecurityFilterEntryPoint negotiateSecurityFilterEntryPoint(
             final SecurityFilterProviderCollection providers) {
         final NegotiateSecurityFilterEntryPoint bean = new NegotiateSecurityFilterEntryPoint();
         bean.setProvider(providers);
@@ -208,7 +207,7 @@ public class WaffleAutoConfiguration {
     @Bean
     @ConditionalOnProperty("waffle.sso.enabled")
     @ConditionalOnMissingBean
-    public NegotiateSecurityFilter waffleNegotiateSecurityFilter(final SecurityFilterProviderCollection providers,
+    NegotiateSecurityFilter waffleNegotiateSecurityFilter(final SecurityFilterProviderCollection providers,
             @Qualifier("defaultGrantedAuthority") final GrantedAuthority defaultGrantedAuthority,
             final GrantedAuthorityFactory grantedAuthorityFactory) {
         final NegotiateSecurityFilter bean = new NegotiateSecurityFilter();
@@ -234,7 +233,7 @@ public class WaffleAutoConfiguration {
      */
     @Bean
     @ConditionalOnProperty("waffle.sso.enabled")
-    public FilterRegistrationBean<NegotiateSecurityFilter> waffleNegotiateSecurityFilterRegistrationBean(
+    FilterRegistrationBean<NegotiateSecurityFilter> waffleNegotiateSecurityFilterRegistrationBean(
             final NegotiateSecurityFilter filter) {
         final FilterRegistrationBean<NegotiateSecurityFilter> bean = new FilterRegistrationBean<>(filter);
         bean.setEnabled(false);
