@@ -108,7 +108,7 @@ namespace Waffle.Windows.AuthProvider
                         Netapi32.LOCALGROUP_USERS_INFO_0 group = new Netapi32.LOCALGROUP_USERS_INFO_0();
                         group = (Netapi32.LOCALGROUP_USERS_INFO_0)Marshal.PtrToStructure(iter, typeof(Netapi32.LOCALGROUP_USERS_INFO_0));
                         groups[i] = string.Format(@"{0}\{1}", _computerName, group.name);
-                        iter = (IntPtr)((int)iter + Marshal.SizeOf(typeof(Netapi32.LOCALGROUP_USERS_INFO_0)));
+                        iter = IntPtr.Add(iter, Marshal.SizeOf(typeof(Netapi32.LOCALGROUP_USERS_INFO_0)));
                     }
                     return groups;
                 }
