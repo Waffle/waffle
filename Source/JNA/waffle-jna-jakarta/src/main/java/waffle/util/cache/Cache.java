@@ -68,7 +68,7 @@ public interface Cache<K, V> {
     }
 
     /**
-     * Fetches the key from the cache
+     * Fetches the key from the cache.
      *
      * @param key
      *            the key
@@ -80,7 +80,7 @@ public interface Cache<K, V> {
     V get(K key);
 
     /**
-     * Stores a binding for the key and the value in the cache
+     * Stores a binding for the key and the value in the cache.
      *
      * @param key
      *            the key
@@ -92,7 +92,7 @@ public interface Cache<K, V> {
     void put(K key, V value);
 
     /**
-     * Removes the binding for the key from the cache
+     * Removes the binding for the key from the cache.
      *
      * @param key
      *            the key
@@ -102,7 +102,7 @@ public interface Cache<K, V> {
     void remove(K key);
 
     /**
-     * Returns the number of bindings in this cache
+     * Returns the number of bindings in this cache.
      *
      * @return the size
      *

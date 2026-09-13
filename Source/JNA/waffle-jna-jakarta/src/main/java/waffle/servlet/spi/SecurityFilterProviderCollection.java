@@ -69,6 +69,7 @@ public class SecurityFilterProviderCollection {
                 final SecurityFilterProvider provider = providerConstructor.newInstance(auth);
                 this.providers.add(provider);
             } catch (final ClassNotFoundException e) {
+                SecurityFilterProviderCollection.LOGGER.error("error loading '{}'", providerName);
                 throw new RuntimeException(e);
             } catch (final SecurityException | NoSuchMethodException | IllegalArgumentException | InstantiationException
                     | IllegalAccessException | InvocationTargetException e) {

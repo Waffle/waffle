@@ -12,7 +12,7 @@ package waffle.util.cache;
 public interface CacheSupplier {
 
     /**
-     * Creates a new cache with the specified timeout
+     * Creates a new cache with the specified timeout.
      *
      * @param timeout
      *            timeout in seconds

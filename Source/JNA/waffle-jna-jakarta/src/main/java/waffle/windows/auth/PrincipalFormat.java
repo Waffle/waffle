@@ -22,4 +22,5 @@ public enum PrincipalFormat {
 
     /** The none. */
     NONE;
+
 }
