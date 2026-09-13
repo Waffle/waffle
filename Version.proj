@@ -1,44 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="version" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" >
   <Target Name="version">
-    <Version Major="$(MajorVersion)" Minor="$(MinorVersion)" Revision="$(RevisionVersion)">
-      <Output TaskParameter="Major" PropertyName="Major" />
-      <Output TaskParameter="Minor" PropertyName="Minor" />
-      <Output TaskParameter="Revision" PropertyName="Revision" />
-    </Version>
-    <Time>
-      <Output TaskParameter="Month" PropertyName="Month" />
-      <Output TaskParameter="Day" PropertyName="Day" />
-      <Output TaskParameter="Year" PropertyName="Year" />
-      <Output TaskParameter="Hour" PropertyName="Hour" />
-      <Output TaskParameter="Minute" PropertyName="Minute" />
-      <Output TaskParameter="Second" PropertyName="Second" />
-    </Time>
-    <CreateProperty Value="$(Month)$(Day)">
-      <Output TaskParameter="Value" PropertyName="Build" />
-    </CreateProperty>
-    <CreateItem Include="Major" AdditionalMetadata="ReplacementValue=$(Major)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>
-    <CreateItem Include="Minor" AdditionalMetadata="ReplacementValue=$(Minor)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>
-    <CreateItem Include="SchemaRevision" AdditionalMetadata="ReplacementValue=$(SchemaRevision)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>
-    <CreateItem Include="Build" AdditionalMetadata="ReplacementValue=$(Build)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>
-    <CreateItem Include="Revision" AdditionalMetadata="ReplacementValue=$(Revision)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>
-    <CreateItem Include="ProductName" AdditionalMetadata="ReplacementValue=$(ProductName)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>
-    <CreateItem Include="CompanyName" AdditionalMetadata="ReplacementValue=$(CompanyName)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>
-    <CreateItem Include="Copyright" AdditionalMetadata="ReplacementValue=$(Copyright)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>
-    <CreateItem Include="Trademark" AdditionalMetadata="ReplacementValue=$(Trademark)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>
-    <CreateItem Include="ProductId" AdditionalMetadata="ReplacementValue=$(ProductId)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>
-    <CreateItem Include="MSBuildProjectDirectory" AdditionalMetadata="ReplacementValue=$(MSBuildProjectDirectory)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>
-    <CreateItem Include="UserName" AdditionalMetadata="ReplacementValue=$(UserName)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>
-    <CreateItem Include="ComputerName" AdditionalMetadata="ReplacementValue=$(ComputerName)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>
-    <CreateItem Include="Date" AdditionalMetadata="ReplacementValue=$(Month)/$(Day)/$(Year)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>
-    <Message Text="Version: $(Major).$(Minor).$(Build).$(Revision)"/>
-    <AssemblyInfo CodeLanguage="CS" OutputFile="Source\Common\GlobalAssemblyInfo.cs"
-       AssemblyCompany="$(CompanyName)" AssemblyProduct="$(ProductName)"
-       AssemblyCopyright="$(Copyright)" AssemblyTrademark="$(Trademark)" ComVisible="false"
-       CLSCompliant="false" AssemblyDelaySign="false" AssemblyKeyName="" AssemblyCulture=""
-       AssemblyVersion="$(Major).$(Minor).$(Build).$(Revision)"
-       AssemblyFileVersion="$(Major).$(Minor).$(Build).$(Revision)" />
-    <TemplateFile Template="Source\Version\Version.wxi.template" OutputFilename="Version.wxi" Tokens="@(AssemblyInfoTokens)" />
-    <TemplateFile Template="Source\Version\Version.properties.template" OutputFilename="Version.properties" Tokens="@(AssemblyInfoTokens)" />
+    <PropertyGroup>
+      <Version>$(MajorVersion).$(MinorVersion).$(RevisionVersion)</Version>
+    </PropertyGroup>
+
+    <Message Text="Version: $(Version).0"/>
+
+    <ItemGroup>
+      <AssemblyInfoLines Include="[assembly: System.Reflection.AssemblyCompany(&quot;$(CompanyName)&quot;)]" />
+      <AssemblyInfoLines Include="[assembly: System.Reflection.AssemblyProduct(&quot;$(ProductName)&quot;)]" />
+      <AssemblyInfoLines Include="[assembly: System.Reflection.AssemblyCopyright(&quot;$(Copyright)&quot;)]" />
+      <AssemblyInfoLines Include="[assembly: System.Reflection.AssemblyTrademark(&quot;$(Trademark)&quot;)]" />
+      <AssemblyInfoLines Include="[assembly: System.Runtime.InteropServices.ComVisible(false)]" />
+      <AssemblyInfoLines Include="[assembly: System.CLSCompliant(false)]" />
+      <AssemblyInfoLines Include="[assembly: System.Reflection.AssemblyVersion(&quot;$(Version).0&quot;)]" />
+      <AssemblyInfoLines Include="[assembly: System.Reflection.AssemblyFileVersion(&quot;$(Version).0&quot;)]" />
+    </ItemGroup>
+
+    <WriteLinesToFile
+      File="Source\Common\GlobalAssemblyInfo.cs"
+      Lines="@(AssemblyInfoLines)"
+      Overwrite="true" />
+
+    <ItemGroup>
+      <VersionWxiLines Include="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;" />
+      <VersionWxiLines Include="&lt;Include&gt;" />
+      <VersionWxiLines Include=" &lt;?define ProductVersion=&quot;$(Version).0&quot; ?&gt;" />
+      <VersionWxiLines Include=" &lt;?define CompanyName=&quot;$(CompanyName)&quot; ?&gt;" />
+      <VersionWxiLines Include=" &lt;?define Copyright=&quot;$(Copyright)&quot; ?&gt;" />
+      <VersionWxiLines Include=" &lt;?define Trademark=&quot;$(Trademark)&quot; ?&gt;" />
+      <VersionWxiLines Include=" &lt;?define ProductName=&quot;$(ProductName)&quot; ?&gt;" />
+      <VersionWxiLines Include=" &lt;?define MSBuildProjectDirectory=&quot;$(MSBuildProjectDirectory)&quot; ?&gt;" />
+      <VersionWxiLines Include=" &lt;?ifndef Configuration ?&gt;" />
+      <VersionWxiLines Include="  &lt;?define Configuration=&quot;$(Configuration)&quot; ?&gt;" />
+      <VersionWxiLines Include=" &lt;?endif?&gt;" />
+      <VersionWxiLines Include="&lt;/Include&gt;" />
+    </ItemGroup>
+
+    <WriteLinesToFile
+      File="Source\Version\Version.wxi"
+      Lines="@(VersionWxiLines)"
+      Overwrite="true" />
+
+    <ItemGroup>
+      <VersionPropertiesLines Include="product.name=$(ProductName)" />
+      <VersionPropertiesLines Include="product.version=$(Version).0" />
+      <VersionPropertiesLines Include="company.name=$(CompanyName)" />
+      <VersionPropertiesLines Include="copyright.text=$(Copyright)" />
+      <VersionPropertiesLines Include="trademark.text=$(Trademark)" />
+    </ItemGroup>
+
+    <WriteLinesToFile
+      File="Source\Version\Version.properties"
+      Lines="@(VersionPropertiesLines)"
+      Overwrite="true" />
   </Target>
 </Project>

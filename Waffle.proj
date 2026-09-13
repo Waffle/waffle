@@ -4,10 +4,8 @@
     <BuildFolder>$(MSBuildProjectDirectory)\Build</BuildFolder>
     <PackagesFolder>$(MSBuildProjectDirectory)\.nuget\packages</PackagesFolder>
     <SourceFolder>$(MSBuildProjectDirectory)\Source</SourceFolder>
-    <MSBuildCommunityTasksPath>$(PackagesFolder)\MSBuildTasks.1.5.0.235\tools</MSBuildCommunityTasksPath>
     <NUnitConsoleRunnerPath>$(PackagesFolder)\NUnit.ConsoleRunner.3.22.0\tools</NUnitConsoleRunnerPath>
   </PropertyGroup>
-  <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets"/>
   <Import Project="Version.proj"/>
   <PropertyGroup Condition="'$(Configuration)'==''">
     <Configuration>Release</Configuration>
@@ -26,9 +24,9 @@
     <CompanyName>Application Security Inc.</CompanyName>
     <Copyright>Copyright (c) Application Security Inc. &amp; Contributors</Copyright>
     <Trademark>All Rights Reserved</Trademark>
-    <MajorVersion>1</MajorVersion>
-    <MinorVersion>9</MinorVersion>
-    <RevisionVersion>0</RevisionVersion>
+    <MajorVersion>3</MajorVersion>
+    <MinorVersion>6</MinorVersion>
+    <RevisionVersion>1</RevisionVersion>
   </PropertyGroup>
   <Target Name="all" DependsOnTargets="configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
     <CallTarget Targets="clean" />
@@ -41,13 +39,13 @@
   </Target>
   <Target Name="clean" DependsOnTargets="configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
     <Message Importance="high" Text="Cleaning project, %(Configuration.Identity) ..." />
-    <DeleteTree Directories="target" Recursive="true" />
-    <DeleteTree Directories="Source\**\bin" Recursive="true" />
-    <DeleteTree Directories="Source\**\obj" Recursive="true" />
-    <DeleteTree Directories="Source\**\target" Recursive="true" />
+    <RemoveDir Directories="target" />
+    <RemoveDir Directories="Source\**\bin" />
+    <RemoveDir Directories="Source\**\obj" />
+    <RemoveDir Directories="Source\**\target" />
     <MSBuild Projects="Waffle.sln" Targets="Clean" Properties="Configuration=%(Configuration.Identity)" />
     <!-- This directory is getting recreated from MSBuild above, Delete it again -->
-    <DeleteTree Directories="Source\**\obj" Recursive="true" />
+    <RemoveDir  Directories="Source\**\obj" />
     <Delete Files="Source\Common\GlobalAssemblyInfo.cs" />
     <Delete Files="Source\Version\Version.properties" />
     <Delete Files="Source\Version\Version.wxi" />
@@ -89,7 +87,7 @@
     <CreateItem Include="target\$(Configuration)\**\*" Exclude="target\$(Configuration)\*.zip">
       <Output TaskParameter="Include" ItemName="PackageFiles" />
     </CreateItem>
-    <Zip WorkingDirectory="target\$(Configuration)" ZipFileName="target\$(Configuration)\Waffle.$(Major).$(Minor).$(Revision).zip" Files="@(PackageFiles)" />
+    <Exec Command="powershell.exe -NoProfile -ExecutionPolicy Bypass -Command &quot;Compress-Archive -Path 'target\Release\Waffle\*' -DestinationPath 'target\Release\Waffle.zip' -Force&quot;" />
     <Message Text="Version: $(Major).$(Minor).$(Build).$(Revision)"/>
   </Target>
 </Project>
