@@ -128,7 +128,7 @@
         <github.global.server>github</github.global.server>
 
         <!-- Remember to adjust this up as you add unit tests -->
-        <jacoco.minimum.coverage>0.50</jacoco.minimum.coverage>
+        <jacoco.minimum.coverage>0.60</jacoco.minimum.coverage>
 
         <!-- Maven Settings -->
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
@@ -156,7 +156,7 @@
         <maven.compiler.parameters>true</maven.compiler.parameters>
 
         <!-- Maven minimum version -->
-        <maven.min-version>3.9.12</maven.min-version>
+        <maven.min-version>3.9.16</maven.min-version>
 
         <!-- Project Encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -173,14 +173,14 @@
         <timestamp>${maven.build.timestamp}</timestamp>
 
         <!-- Enforcer Jdks Allowed -->
-        <allowed.build.jdks note="Allow any 21, 25, 26, 27">[21,22),[25,26),[26,27),[27,28)</allowed.build.jdks>
+        <allowed.build.jdks note="Allow any 21, 25, 26, 27, 28">[21,22),[25,26),[26,27),[27,28),[28,29)</allowed.build.jdks>
 
         <!-- Checkstyle -->
         <checkstyle.config>checkstyle.xml</checkstyle.config>
 
         <!-- Third Party Versions -->
         <assertj.version>3.27.7</assertj.version>
-        <byte-buddy.version>1.18.13-jdk5</byte-buddy.version>
+        <byte-buddy.version>1.18.13</byte-buddy.version>
         <checker.version>4.2.3</checker.version>
         <commons-math.version>3.6.1</commons-math.version>
         <error-prone.version>2.50.0</error-prone.version>
