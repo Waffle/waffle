@@ -45,10 +45,6 @@ Windows 10 SDK can be found [here](https://developer.microsoft.com/en-us/windows
 
 Download NUnit from [here](https://nunit.org).
 
-### MSBuild Community Tasks
-
-Download and install MSBuild Community Tasks from [here](https://github.com/loresoft/msbuildtasks/releases).
-
 ### Wix Toolset 4.0.6
 
 WiX is restored as a local .NET tool by bootstrap.cmd. The WiX MSBuild SDK is restored automatically when the WiX project is built.
@@ -107,16 +103,6 @@ Trobleshooting
 ```
 
 Git is missing.
-
-### MSBuild Community Tasks
-
-```
-E:\Waffle.proj(2,11): error MSB4019: The imported project
-"C:\Program Files\MSBuild\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" was not found.
-Confirm that the path in the <Import> declaration is correct, and that the file exists on disk.
-```
-
-MSBuild Community Tasks are missing.
 
 ### Wix
 
