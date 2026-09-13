@@ -205,7 +205,7 @@ class NegotiateSecurityFilterTest {
             Assertions.assertTrue(filterChain.getRequest() instanceof NegotiateRequestWrapper);
             Assertions.assertTrue(filterChain.getResponse() instanceof SimpleHttpResponse);
             final NegotiateRequestWrapper wrappedRequest = (NegotiateRequestWrapper) filterChain.getRequest();
-            Assertions.assertEquals(NegotiateSecurityFilterTest.NEGOTIATE.toUpperCase(Locale.ENGLISH),
+            Assertions.assertEquals(NegotiateSecurityFilterTest.NEGOTIATE.toUpperCase(Locale.ROOT),
                     wrappedRequest.getAuthType());
             Assertions.assertEquals(Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible),
                     wrappedRequest.getRemoteUser());

@@ -123,7 +123,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      *            the new principal format
      */
     public void setPrincipalFormat(final String value) {
-        this.setPrincipalFormatEnum(PrincipalFormat.valueOf(value.toUpperCase(Locale.ENGLISH)));
+        this.setPrincipalFormatEnum(PrincipalFormat.valueOf(value.toUpperCase(Locale.ROOT)));
     }
 
     /**
@@ -152,7 +152,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      *            the new role format
      */
     public void setRoleFormat(final String value) {
-        this.setRoleFormatEnum(PrincipalFormat.valueOf(value.toUpperCase(Locale.ENGLISH)));
+        this.setRoleFormatEnum(PrincipalFormat.valueOf(value.toUpperCase(Locale.ROOT)));
     }
 
     /**

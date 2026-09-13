@@ -256,7 +256,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      */
     boolean isLoginAttempt(final String authzHeader) {
         for (final String protocol : NegotiateAuthenticationFilter.PROTOCOLS) {
-            if (authzHeader.toLowerCase(Locale.ENGLISH).startsWith(protocol.toLowerCase(Locale.ENGLISH))) {
+            if (authzHeader.toLowerCase(Locale.ROOT).startsWith(protocol.toLowerCase(Locale.ROOT))) {
                 return true;
             }
         }
