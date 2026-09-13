@@ -181,6 +181,7 @@
         <!-- Third Party Versions -->
         <assertj.version>3.27.7</assertj.version>
         <byte-buddy.version>1.18.13</byte-buddy.version>
+        <caffeine.version>3.2.4</caffeine.version>
         <checker.version>4.2.3</checker.version>
         <commons-math.version>3.6.1</commons-math.version>
         <error-prone.version>2.50.0</error-prone.version>
@@ -1109,6 +1110,13 @@
                     <groupId>org.openrewrite.maven</groupId>
                     <artifactId>rewrite-maven-plugin</artifactId>
                     <version>${rewrite.plugin}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.github.ben-manes.caffeine</groupId>
+                            <artifactId>caffeine</artifactId>
+                            <version>${caffeine.version}</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
 
                 <!-- Owasp Dependency Scan -->
