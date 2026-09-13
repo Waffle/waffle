@@ -81,8 +81,7 @@ public class WindowsLoginModule implements LoginModule {
             if ("debug".equalsIgnoreCase(option.getKey())) {
                 this.debug = Boolean.parseBoolean((String) option.getValue());
             } else if ("principalFormat".equalsIgnoreCase(option.getKey())) {
-                this.principalFormat = PrincipalFormat
-                        .valueOf(((String) option.getValue()).toUpperCase(Locale.ROOT));
+                this.principalFormat = PrincipalFormat.valueOf(((String) option.getValue()).toUpperCase(Locale.ROOT));
             } else if ("roleFormat".equalsIgnoreCase(option.getKey())) {
                 this.roleFormat = PrincipalFormat.valueOf(((String) option.getValue()).toUpperCase(Locale.ROOT));
             }
