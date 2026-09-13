@@ -29,23 +29,15 @@ Download Maven from [here](https://maven.apache.org/download.cgi) and unzip it t
 
 Visual Studio is not required, but useful when editing .NET code. At the least, install the Windows SDK for your operating system. You should be able to run `msbuild` from the command prompt after installing sdk.
 
-### Windows SDK (Windows 7)
-
-Windows 7 SDK can be found [here](https://www.microsoft.com/en-us/download/details.aspx?id=8279)
-
-### Windows SDK (Windows 8.1)
-
-Windows 8.1 SDK can be found [here](https://msdn.microsoft.com/en-us/windows/desktop/bg162891.aspx)
-
 ### Windows SDK (Windows 10)
 
 Windows 10 SDK can be found [here](https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk)
 
-### NUnit (3.5.0)
+### NUnit (4.6.1)
 
 Download NUnit from [here](https://nunit.org).
 
-### Wix Toolset 4.0.6
+### Wix Toolset 7.0.0
 
 WiX is restored as a local .NET tool by bootstrap.cmd. The WiX MSBuild SDK is restored automatically when the WiX project is built.
 
