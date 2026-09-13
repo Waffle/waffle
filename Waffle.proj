@@ -5,7 +5,7 @@
     <PackagesFolder>$(MSBuildProjectDirectory)\.nuget\packages</PackagesFolder>
     <SourceFolder>$(MSBuildProjectDirectory)\Source</SourceFolder>
     <MSBuildCommunityTasksPath>$(PackagesFolder)\MSBuildTasks.1.5.0.235\tools</MSBuildCommunityTasksPath>
-    <NUnitConsoleRunnerPath>$(PackagesFolder)\NUnit.ConsoleRunner.3.17.0\tools</NUnitConsoleRunnerPath>
+    <NUnitConsoleRunnerPath>$(PackagesFolder)\NUnit.ConsoleRunner.3.22.0\tools</NUnitConsoleRunnerPath>
   </PropertyGroup>
   <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets"/>
   <Import Project="Version.proj"/>
