@@ -77,14 +77,14 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
      *
      * @return the int
      */
-    public static synchronized int nextRemotePort() {
+    public static int nextRemotePort() {
         return SimpleHttpRequest.REMOTE_PORT.incrementAndGet();
     }
 
     /**
      * Reset remote port.
      */
-    public static synchronized void resetRemotePort() {
+    public static void resetRemotePort() {
         SimpleHttpRequest.REMOTE_PORT.set(0);
     }
 
