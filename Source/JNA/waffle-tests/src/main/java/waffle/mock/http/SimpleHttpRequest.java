@@ -12,6 +12,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
@@ -23,9 +24,6 @@ import org.mockito.Mockito;
  * The Class SimpleHttpRequest.
  */
 public class SimpleHttpRequest extends HttpServletRequestWrapper {
-
-    /** The remote port s. */
-    private static int remotePortS = 0;
 
     /** The request uri. */
     private String requestURI;
@@ -54,6 +52,9 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
     /** The parameters. */
     private final Map<String, String> parameters = new HashMap<>();
 
+    /** The Constant REMOTE_PORT. */
+    private static final AtomicInteger REMOTE_PORT = new AtomicInteger();
+
     /** The content. */
     private byte[] content;
 
@@ -77,14 +78,14 @@ public class SimpleHttpRequest extends HttpServletRequestWrapper {
      * @return the int
      */
     public static synchronized int nextRemotePort() {
-        return ++SimpleHttpRequest.remotePortS;
+        return SimpleHttpRequest.REMOTE_PORT.incrementAndGet();
     }
 
     /**
      * Reset remote port.
      */
     public static synchronized void resetRemotePort() {
-        SimpleHttpRequest.remotePortS = 0;
+        SimpleHttpRequest.REMOTE_PORT.set(0);
     }
 
     /**
