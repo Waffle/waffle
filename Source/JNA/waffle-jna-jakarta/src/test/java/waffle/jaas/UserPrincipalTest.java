@@ -72,19 +72,23 @@ class UserPrincipalTest {
      */
     @Test
     void testIsSerializable() throws IOException, ClassNotFoundException {
-        // serialize
-        final ByteArrayOutputStream out = new ByteArrayOutputStream();
-        try (ObjectOutputStream oos = new ObjectOutputStream(out)) {
+        try (ByteArrayOutputStream out = new ByteArrayOutputStream();
+                ObjectOutputStream oos = new ObjectOutputStream(out)) {
             oos.writeObject(this.userPrincipal);
+
+            // test serialize
+            assertThat(out.toByteArray()).isNotEmpty();
+
+            try (InputStream in = new ByteArrayInputStream(out.toByteArray());
+                ObjectInputStream ois = new ObjectInputStream(in)) {
+
+                UserPrincipal copy = (UserPrincipal) ois.readObject();
+
+                // test deserialize
+                Assertions.assertEquals(this.userPrincipal, copy);
+                Assertions.assertEquals(this.userPrincipal.getName(), copy.getName());
+            }
         }
-        assertThat(out.toByteArray()).isNotEmpty();
-        // deserialize
-        final InputStream in = new ByteArrayInputStream(out.toByteArray());
-        final ObjectInputStream ois = new ObjectInputStream(in);
-        final UserPrincipal copy = (UserPrincipal) ois.readObject();
-        // test
-        Assertions.assertEquals(this.userPrincipal, copy);
-        Assertions.assertEquals(this.userPrincipal.getName(), copy.getName());
     }
 
 }

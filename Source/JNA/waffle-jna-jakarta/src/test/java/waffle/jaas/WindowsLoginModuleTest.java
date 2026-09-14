@@ -6,6 +6,8 @@
  */
 package waffle.jaas;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.io.IOException;
 import java.security.Principal;
 import java.util.HashMap;
@@ -17,6 +19,7 @@ import javax.security.auth.Subject;
 import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.callback.NameCallback;
+import javax.security.auth.callback.PasswordCallback;
 import javax.security.auth.callback.UnsupportedCallbackException;
 import javax.security.auth.login.LoginException;
 
@@ -36,6 +39,8 @@ import waffle.windows.auth.PrincipalFormat;
 /**
  * The Class WindowsLoginModuleTest.
  */
+// Spotbugs ignores for behaviour handling within jmockit
+@SuppressFBWarnings({ "CT_CONSTRUCTOR_THROW", "HARD_CODE_PASSWORD", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT" })
 class WindowsLoginModuleTest {
 
     /** The login module. */
@@ -342,7 +347,7 @@ class WindowsLoginModuleTest {
                 mockAuth.logonUser("testuser", "password");
                 this.result = mockIdentity;
                 mockIdentity.isGuest();
-                this.result = false;
+                this.result = Boolean.FALSE;
                 this.minTimes = 0;
                 mockIdentity.getGroups();
                 this.result = new IWindowsAccount[] { mockGroup };
@@ -364,11 +369,11 @@ class WindowsLoginModuleTest {
 
         this.loginModule.setAuth(mockAuth);
         this.callbackHandler = callbacks -> {
-            for (final javax.security.auth.callback.Callback cb : callbacks) {
-                if (cb instanceof javax.security.auth.callback.NameCallback) {
-                    ((javax.security.auth.callback.NameCallback) cb).setName("testuser");
-                } else if (cb instanceof javax.security.auth.callback.PasswordCallback) {
-                    ((javax.security.auth.callback.PasswordCallback) cb).setPassword("password".toCharArray());
+            for (final Callback cb : callbacks) {
+                if (cb instanceof NameCallback) {
+                    ((NameCallback) cb).setName("testuser");
+                } else if (cb instanceof PasswordCallback) {
+                    ((PasswordCallback) cb).setPassword("password".toCharArray());
                 }
             }
         };
@@ -494,7 +499,7 @@ class WindowsLoginModuleTest {
                 mockAuth.logonUser("testuser", "pass");
                 this.result = mockIdentity;
                 mockIdentity.isGuest();
-                this.result = false;
+                this.result = Boolean.FALSE;
                 this.minTimes = 0;
                 mockIdentity.getGroups();
                 this.result = new IWindowsAccount[0];
@@ -547,7 +552,7 @@ class WindowsLoginModuleTest {
                 mockAuth.logonUser("testuser", "pass");
                 this.result = mockIdentity;
                 mockIdentity.isGuest();
-                this.result = false;
+                this.result = Boolean.FALSE;
                 this.minTimes = 0;
                 mockIdentity.getGroups();
                 this.result = new IWindowsAccount[] { mockGroup };
@@ -609,7 +614,7 @@ class WindowsLoginModuleTest {
                 mockAuth.logonUser("testuser", "pass");
                 this.result = mockIdentity;
                 mockIdentity.isGuest();
-                this.result = false;
+                this.result = Boolean.FALSE;
                 this.minTimes = 0;
                 mockIdentity.getGroups();
                 this.result = new IWindowsAccount[] { mockGroup };
@@ -671,7 +676,7 @@ class WindowsLoginModuleTest {
                 mockAuth.logonUser("testuser", "pass");
                 this.result = mockIdentity;
                 mockIdentity.isGuest();
-                this.result = false;
+                this.result = Boolean.FALSE;
                 this.minTimes = 0;
                 mockIdentity.getGroups();
                 this.result = new IWindowsAccount[] { mockGroup };

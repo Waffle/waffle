@@ -73,18 +73,23 @@ class RolePrincipalTest {
     @Test
     void testIsSerializable() throws IOException, ClassNotFoundException {
         // serialize
-        final ByteArrayOutputStream out = new ByteArrayOutputStream();
-        try (ObjectOutputStream oos = new ObjectOutputStream(out)) {
+        try (ByteArrayOutputStream out = new ByteArrayOutputStream();
+                ObjectOutputStream oos = new ObjectOutputStream(out)) {
             oos.writeObject(this.rolePrincipal);
+
+            assertThat(out.toByteArray()).isNotEmpty();
+
+            // deserialize
+            try (InputStream in = new ByteArrayInputStream(out.toByteArray());
+                    ObjectInputStream ois = new ObjectInputStream(in)) {
+
+                final RolePrincipal copy = (RolePrincipal) ois.readObject();
+
+                // test
+                Assertions.assertEquals(this.rolePrincipal, copy);
+                Assertions.assertEquals(this.rolePrincipal.getName(), copy.getName());
+            }
         }
-        assertThat(out.toByteArray()).isNotEmpty();
-        // deserialize
-        final InputStream in = new ByteArrayInputStream(out.toByteArray());
-        final ObjectInputStream ois = new ObjectInputStream(in);
-        final RolePrincipal copy = (RolePrincipal) ois.readObject();
-        // test
-        Assertions.assertEquals(this.rolePrincipal, copy);
-        Assertions.assertEquals(this.rolePrincipal.getName(), copy.getName());
     }
 
 }

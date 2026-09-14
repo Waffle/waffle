@@ -555,7 +555,7 @@ class NegotiateSecurityFilterTest {
                 this.result = principal;
                 this.minTimes = 0;
                 mockProviders.isPrincipalException(request);
-                this.result = false;
+                this.result = Boolean.FALSE;
                 this.minTimes = 0;
                 principal.getName();
                 this.result = "testuser";
@@ -652,7 +652,7 @@ class NegotiateSecurityFilterTest {
                 this.result = windowsPrincipal;
                 this.minTimes = 0;
                 mockProviders.isPrincipalException(request);
-                this.result = false;
+                this.result = Boolean.FALSE;
                 this.minTimes = 0;
             }
         });
@@ -716,7 +716,7 @@ class NegotiateSecurityFilterTest {
                 mockIdentity.getGroups();
                 this.result = new IWindowsAccount[0];
                 mockIdentity.isGuest();
-                this.result = false;
+                this.result = Boolean.FALSE;
                 this.minTimes = 0;
                 mockIdentity.dispose();
                 this.minTimes = 0;
@@ -742,7 +742,7 @@ class NegotiateSecurityFilterTest {
                 this.result = null;
                 this.minTimes = 0;
                 mockProviders.isPrincipalException(request);
-                this.result = false;
+                this.result = Boolean.FALSE;
                 this.minTimes = 0;
                 request.getHeader("Authorization");
                 this.result = "Negotiate dGVzdA==";

@@ -6,6 +6,8 @@
  */
 package waffle.windows.auth;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import mockit.Expectations;
 import mockit.Mocked;
 
@@ -16,6 +18,8 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests for the {@link WindowsAccount} value object.
  */
+// Spotbugs ignores for behaviour handling within jmockit
+@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
 class WindowsAccountValueTest {
 
     /** The windows account mock. */

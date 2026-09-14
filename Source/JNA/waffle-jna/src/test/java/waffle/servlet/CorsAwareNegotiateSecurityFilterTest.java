@@ -6,6 +6,8 @@
  */
 package waffle.servlet;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +26,8 @@ import waffle.util.CorsPreFlightCheck;
 /**
  * The Class CorsAwareNegotiateSecurityFilterTest.
  */
+// Spotbugs ignores for behaviour handling within jmockit
+@SuppressFBWarnings({ "CT_CONSTRUCTOR_THROW", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT" })
 class CorsAwareNegotiateSecurityFilterTest {
 
     /** The cors aware negotiate security filter. */
