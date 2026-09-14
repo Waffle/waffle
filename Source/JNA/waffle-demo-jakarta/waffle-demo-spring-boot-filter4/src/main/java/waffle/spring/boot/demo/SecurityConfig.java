@@ -24,8 +24,8 @@ import waffle.spring.NegotiateSecurityFilterEntryPoint;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private NegotiateSecurityFilter filter;
-    private NegotiateSecurityFilterEntryPoint entryPoint;
+    private final NegotiateSecurityFilter filter;
+    private final NegotiateSecurityFilterEntryPoint entryPoint;
 
     /**
      * Autowire constructor injects bean auto-configured by Starter.
