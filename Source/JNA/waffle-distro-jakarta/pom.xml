@@ -180,6 +180,12 @@
         </dependency>
         <dependency>
             <groupId>com.github.waffle.demo.jakarta</groupId>
+            <artifactId>waffle-demo-spring-boot-filter4</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.waffle.demo.jakarta</groupId>
             <artifactId>waffle-demo-spring-filter-jakarta</artifactId>
             <version>${project.version}</version>
             <type>war</type>
