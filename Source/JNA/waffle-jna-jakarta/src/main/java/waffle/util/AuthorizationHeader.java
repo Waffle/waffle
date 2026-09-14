@@ -9,7 +9,6 @@ package waffle.util;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.Base64;
-import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -171,6 +170,6 @@ public class AuthorizationHeader {
             return false;
         }
 
-        return this.getSecurityPackage().toUpperCase(Locale.ROOT).equalsIgnoreCase("BEARER");
+        return "BEARER".equalsIgnoreCase(this.getSecurityPackage());
     }
 }
