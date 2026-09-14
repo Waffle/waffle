@@ -50,7 +50,7 @@ public class AuthorizationHeader {
      * @return true, if is null
      */
     public boolean isNull() {
-        return this.getHeader() == null || this.getHeader().length() == 0;
+        return this.getHeader() == null || this.getHeader().isEmpty();
     }
 
     /**

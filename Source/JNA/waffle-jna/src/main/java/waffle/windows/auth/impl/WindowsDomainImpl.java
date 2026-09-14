@@ -77,7 +77,7 @@ public class WindowsDomainImpl implements IWindowsDomain {
     public WindowsDomainImpl(final DomainTrust trust) {
         // fqn
         this.fqn = trust.DnsDomainName;
-        if (this.fqn == null || this.fqn.length() == 0) {
+        if (this.fqn == null || this.fqn.isEmpty()) {
             this.fqn = trust.NetbiosDomainName;
         }
         // trust direction
