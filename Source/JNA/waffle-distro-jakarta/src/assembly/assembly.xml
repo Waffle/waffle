@@ -28,7 +28,8 @@
                 <include>*:jar</include>
             </includes>
             <excludes>
-                <exclude>com.github.waffle.demo:waffle-spring-boot-filter3:jar</exclude>
+                <exclude>com.github.waffle.demo.jakarta:waffle-demo-spring-boot-filter3:jar</exclude>
+                <exclude>com.github.waffle.demo.jakarta:waffle-demo-spring-boot-filter4:jar</exclude>
             </excludes>
         </dependencySet>
         <dependencySet>
@@ -38,7 +39,8 @@
             <useTransitiveDependencies>true</useTransitiveDependencies>
             <includes>
                 <include>*:war</include>
-                <include>com.github.waffle.demo:waffle-spring-boot-filter3:jar</include>
+                <include>com.github.waffle.demo.jakarta:waffle-demo-spring-boot-filter3:jar</include>
+                <include>com.github.waffle.demo.jakarta:waffle-demo-spring-boot-filter4:jar</include>
             </includes>
         </dependencySet>
     </dependencySets>
