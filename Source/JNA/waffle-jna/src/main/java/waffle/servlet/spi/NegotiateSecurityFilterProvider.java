@@ -158,7 +158,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
             final String[] protocolNames = parameterValue.split("\\s+", -1);
             for (String protocolName : protocolNames) {
                 protocolName = protocolName.trim();
-                if (protocolName.length() > 0) {
+                if (!protocolName.isEmpty()) {
                     NegotiateSecurityFilterProvider.LOGGER.debug("init protocol: {}", protocolName);
                     if (NegotiateSecurityFilterProvider.NEGOTIATE.equals(protocolName)
                             || NegotiateSecurityFilterProvider.NTLM.equals(protocolName)) {
