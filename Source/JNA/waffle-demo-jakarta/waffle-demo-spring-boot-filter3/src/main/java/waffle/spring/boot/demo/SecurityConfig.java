@@ -6,6 +6,8 @@
  */
 package waffle.spring.boot.demo;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,24 +26,25 @@ import waffle.spring.NegotiateSecurityFilterEntryPoint;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private NegotiateSecurityFilter filter;
-    private NegotiateSecurityFilterEntryPoint entryPoint;
-
     /**
-     * Autowire constructor injects bean auto-configured by Starter.
+     * Filter chain.
      *
+     * @param http
+     *            the http
      * @param filter
      *            the filter
      * @param entryPoint
      *            the entry point
+     *
+     * @return the security filter chain
+     *
+     * @throws Exception
+     *             the exception
      */
-    public SecurityConfig(final NegotiateSecurityFilter filter, final NegotiateSecurityFilterEntryPoint entryPoint) {
-        this.filter = filter;
-        this.entryPoint = entryPoint;
-    }
-
+    @SuppressFBWarnings("OCP_OVERLY_CONCRETE_PARAMETER")
     @Bean
-    SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
+    SecurityFilterChain filterChain(final HttpSecurity http, final NegotiateSecurityFilter filter,
+            final NegotiateSecurityFilterEntryPoint entryPoint) throws Exception {
         http.authorizeHttpRequests(requests -> requests.anyRequest().authenticated())
                 .addFilterBefore(filter, BasicAuthenticationFilter.class)
                 .exceptionHandling(handling -> handling.authenticationEntryPoint(entryPoint));
