@@ -150,7 +150,7 @@ class BasicSecurityFilterProviderTest {
     }
 
     /**
-     * Test send unauthorized with empty realm expectation.
+     * Test send unauthorized with realm set via init.
      */
     @Test
     void testSendUnauthorizedWithRealmViaInit() {

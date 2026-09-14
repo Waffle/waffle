@@ -82,4 +82,42 @@ class CorsAwareNegotiateSecurityFilterTest {
 
     }
 
+    /**
+     * Do filter test bearer authorization passes through to chain.
+     *
+     * @throws Exception
+     *             the exception
+     */
+    @Test
+    void doFilterTestBearerAuthorization() throws Exception {
+
+        Assertions.assertNotNull(new Expectations() {
+            {
+                CorsAwareNegotiateSecurityFilterTest.this.preflightRequest.getMethod();
+                this.result = "GET";
+                CorsAwareNegotiateSecurityFilterTest.this.preflightRequest.getHeader("Authorization");
+                this.result = "Bearer sometoken";
+            }
+        });
+
+        this.corsAwareNegotiateSecurityFilter.doFilter(this.preflightRequest, this.preflightResponse, this.chain);
+
+        Assertions.assertNotNull(new Verifications() {
+            {
+                CorsAwareNegotiateSecurityFilterTest.this.chain.doFilter(
+                        CorsAwareNegotiateSecurityFilterTest.this.preflightRequest,
+                        CorsAwareNegotiateSecurityFilterTest.this.preflightResponse);
+                this.times = 1;
+            }
+        });
+    }
+
+    /**
+     * Test destroy does not throw.
+     */
+    @Test
+    void testDestroy() {
+        Assertions.assertDoesNotThrow(() -> this.corsAwareNegotiateSecurityFilter.destroy());
+    }
+
 }
