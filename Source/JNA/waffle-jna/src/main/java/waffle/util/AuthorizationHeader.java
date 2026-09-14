@@ -7,7 +7,6 @@
 package waffle.util;
 
 import java.util.Base64;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -171,6 +170,6 @@ public class AuthorizationHeader {
             return false;
         }
 
-        return this.getSecurityPackage().toUpperCase(Locale.ROOT).equalsIgnoreCase("BEARER");
+        return "BEARER".equalsIgnoreCase(this.getSecurityPackage());
     }
 }
