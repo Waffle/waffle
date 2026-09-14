@@ -128,7 +128,7 @@
         <github.global.server>github</github.global.server>
 
         <!-- Remember to adjust this up as you add unit tests -->
-        <jacoco.minimum.coverage>0.60</jacoco.minimum.coverage>
+        <jacoco.minimum.coverage>0.65</jacoco.minimum.coverage>
 
         <!-- Maven Settings -->
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
