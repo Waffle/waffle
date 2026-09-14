@@ -86,13 +86,13 @@ class SecurityFilterProviderCollectionTest {
     void testSendUnauthorized() {
         final SecurityFilterProviderCollection coll = new SecurityFilterProviderCollection(this.mockAuth);
         coll.sendUnauthorized(this.response);
-        new Verifications() {
+        Assertions.assertNotNull(new Verifications() {
             {
                 // Both negotiate and basic providers should add headers
                 SecurityFilterProviderCollectionTest.this.response.addHeader("WWW-Authenticate", anyString);
                 this.minTimes = 1;
             }
-        };
+        });
     }
 
     /**

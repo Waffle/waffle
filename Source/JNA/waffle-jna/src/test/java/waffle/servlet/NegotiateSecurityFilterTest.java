@@ -6,6 +6,8 @@
  */
 package waffle.servlet;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.lang.reflect.Field;
 import java.security.Principal;
 import java.util.Collections;
@@ -35,6 +37,8 @@ import waffle.windows.auth.PrincipalFormat;
 /**
  * Negotiate Security Filter Test.
  */
+// Spotbugs ignores for behaviour handling within jmockit
+@SuppressFBWarnings({ "CT_CONSTRUCTOR_THROW", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT" })
 class NegotiateSecurityFilterTest {
 
     /** The negotiate security filter. */
@@ -86,7 +90,7 @@ class NegotiateSecurityFilterTest {
     void testCorsAndBearerAuthorizationI_init(@Mocked final FilterConfig filterConfig) throws Exception {
         this.getClass().getClassLoader().getResource("logback.xml");
 
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 filterConfig.getInitParameterNames();
                 this.result = NegotiateSecurityFilterTest.this.initParameterNames;
@@ -107,7 +111,7 @@ class NegotiateSecurityFilterTest {
                 filterConfig.getInitParameter("excludeBearerAuthorization");
                 this.result = "true";
             }
-        };
+        });
 
         this.negotiateSecurityFilter.init(filterConfig);
 
@@ -122,12 +126,12 @@ class NegotiateSecurityFilterTest {
         Assertions.assertTrue(this.negotiateSecurityFilter.isImpersonate());
         Assertions.assertFalse(this.negotiateSecurityFilter.isAllowGuestLogin());
 
-        new Verifications() {
+        Assertions.assertNotNull(new Verifications() {
             {
                 filterConfig.getInitParameter(this.withInstanceOf(String.class));
                 this.minTimes = 8;
             }
-        };
+        });
 
     }
 
@@ -152,7 +156,7 @@ class NegotiateSecurityFilterTest {
             @Mocked final FilterConfig filterConfig) throws Exception {
         this.getClass().getClassLoader().getResource("logback.xml");
 
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 filterConfig.getInitParameterNames();
                 this.result = NegotiateSecurityFilterTest.this.initParameterNames;
@@ -182,17 +186,17 @@ class NegotiateSecurityFilterTest {
                 this.result = "Bearer aBase64hash";
                 this.minTimes = 0;
             }
-        };
+        });
 
         this.negotiateSecurityFilter.init(filterConfig);
         this.negotiateSecurityFilter.doFilter(request, response, chain);
 
-        new Verifications() {
+        Assertions.assertNotNull(new Verifications() {
             {
                 chain.doFilter(request, response);
                 this.times = 1;
             }
-        };
+        });
 
     }
 
@@ -313,7 +317,7 @@ class NegotiateSecurityFilterTest {
         this.negotiateSecurityFilter.init(null);
 
         // Mock minimum needed for non-Windows path
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 request.getMethod();
                 this.result = "GET";
@@ -325,16 +329,16 @@ class NegotiateSecurityFilterTest {
                 this.result = 0;
                 this.minTimes = 0;
             }
-        };
+        });
 
         this.negotiateSecurityFilter.doFilter(request, response, chain);
 
-        new Verifications() {
+        Assertions.assertNotNull(new Verifications() {
             {
                 chain.doFilter(request, response);
                 this.times = 1;
             }
-        };
+        });
     }
 
     /**
@@ -354,7 +358,7 @@ class NegotiateSecurityFilterTest {
         final Enumeration<String> paramNames = Collections
                 .enumeration(java.util.Arrays.asList("disableSSO", "securityFilterProviders"));
 
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 filterConfig.getInitParameterNames();
                 this.result = paramNames;
@@ -363,7 +367,7 @@ class NegotiateSecurityFilterTest {
                 filterConfig.getInitParameter("securityFilterProviders");
                 this.result = "waffle.servlet.spi.BasicSecurityFilterProvider\nwaffle.servlet.spi.NegotiateSecurityFilterProvider";
             }
-        };
+        });
 
         this.negotiateSecurityFilter.setAuth(mockAuth);
         this.negotiateSecurityFilter.init(filterConfig);
@@ -405,7 +409,7 @@ class NegotiateSecurityFilterTest {
         disableSSOField.setAccessible(true);
         disableSSOField.set(this.negotiateSecurityFilter, Boolean.TRUE);
 
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 request.getMethod();
                 this.result = "GET";
@@ -417,16 +421,16 @@ class NegotiateSecurityFilterTest {
                 this.result = 0;
                 this.minTimes = 0;
             }
-        };
+        });
 
         this.negotiateSecurityFilter.doFilter(request, response, chain);
 
-        new Verifications() {
+        Assertions.assertNotNull(new Verifications() {
             {
                 chain.doFilter(request, response);
                 this.times = 1;
             }
-        };
+        });
     }
 
     /**
@@ -456,7 +460,7 @@ class NegotiateSecurityFilterTest {
         this.negotiateSecurityFilter.setAuth(mockAuth);
         this.negotiateSecurityFilter.init(null);
 
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 request.getMethod();
                 this.result = "GET";
@@ -480,11 +484,11 @@ class NegotiateSecurityFilterTest {
                 this.result = null;
                 this.minTimes = 0;
             }
-        };
+        });
 
         this.negotiateSecurityFilter.doFilter(request, response, chain);
 
-        new Verifications() {
+        Assertions.assertNotNull(new Verifications() {
             {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
                 this.times = 1;
@@ -492,7 +496,7 @@ class NegotiateSecurityFilterTest {
                         this.withInstanceOf(HttpServletResponse.class));
                 this.times = 0;
             }
-        };
+        });
     }
 
     /**
@@ -531,7 +535,7 @@ class NegotiateSecurityFilterTest {
 
         final String sessionKey = NegotiateSecurityFilter.class.getName() + ".PRINCIPAL";
 
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 request.getMethod();
                 this.result = "GET";
@@ -555,22 +559,22 @@ class NegotiateSecurityFilterTest {
                 this.result = principal;
                 this.minTimes = 0;
                 mockProviders.isPrincipalException(request);
-                this.result = false;
+                this.result = Boolean.FALSE;
                 this.minTimes = 0;
                 principal.getName();
                 this.result = "testuser";
                 this.minTimes = 0;
             }
-        };
+        });
 
         this.negotiateSecurityFilter.doFilter(request, response, chain);
 
-        new Verifications() {
+        Assertions.assertNotNull(new Verifications() {
             {
                 chain.doFilter(request, response);
                 this.times = 1;
             }
-        };
+        });
     }
 
     /**
@@ -609,7 +613,7 @@ class NegotiateSecurityFilterTest {
 
         final String sessionKey = NegotiateSecurityFilter.class.getName() + ".PRINCIPAL";
 
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 mockIdentity.getFqn();
                 this.result = "DOMAIN\\testuser";
@@ -623,12 +627,12 @@ class NegotiateSecurityFilterTest {
                 this.result = new IWindowsAccount[0];
                 this.minTimes = 0;
             }
-        };
+        });
 
         final WindowsPrincipal windowsPrincipal = new WindowsPrincipal(mockIdentity, PrincipalFormat.FQN,
                 PrincipalFormat.FQN);
 
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 request.getMethod();
                 this.result = "GET";
@@ -652,19 +656,19 @@ class NegotiateSecurityFilterTest {
                 this.result = windowsPrincipal;
                 this.minTimes = 0;
                 mockProviders.isPrincipalException(request);
-                this.result = false;
+                this.result = Boolean.FALSE;
                 this.minTimes = 0;
             }
-        };
+        });
 
         this.negotiateSecurityFilter.doFilter(request, response, chain);
 
-        new Verifications() {
+        Assertions.assertNotNull(new Verifications() {
             {
                 chain.doFilter(this.withInstanceOf(NegotiateRequestWrapper.class), response);
                 this.times = 1;
             }
-        };
+        });
     }
 
     /**
@@ -703,7 +707,7 @@ class NegotiateSecurityFilterTest {
 
         final String sessionKey = NegotiateSecurityFilter.class.getName() + ".PRINCIPAL";
 
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 mockIdentity.getFqn();
                 this.result = "DOMAIN\\testuser";
@@ -716,7 +720,7 @@ class NegotiateSecurityFilterTest {
                 mockIdentity.getGroups();
                 this.result = new IWindowsAccount[0];
                 mockIdentity.isGuest();
-                this.result = false;
+                this.result = Boolean.FALSE;
                 this.minTimes = 0;
                 mockIdentity.dispose();
                 this.minTimes = 0;
@@ -742,7 +746,7 @@ class NegotiateSecurityFilterTest {
                 this.result = null;
                 this.minTimes = 0;
                 mockProviders.isPrincipalException(request);
-                this.result = false;
+                this.result = Boolean.FALSE;
                 this.minTimes = 0;
                 request.getHeader("Authorization");
                 this.result = "Negotiate dGVzdA==";
@@ -759,16 +763,16 @@ class NegotiateSecurityFilterTest {
                 session.setAttribute(this.withInstanceOf(String.class), this.withInstanceOf(Object.class));
                 this.minTimes = 0;
             }
-        };
+        });
 
         this.negotiateSecurityFilter.doFilter(request, response, chain);
 
-        new Verifications() {
+        Assertions.assertNotNull(new Verifications() {
             {
                 chain.doFilter(this.withInstanceOf(NegotiateRequestWrapper.class), response);
                 this.times = 1;
             }
-        };
+        });
     }
 
 }

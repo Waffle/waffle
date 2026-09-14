@@ -100,14 +100,14 @@ class NegotiateSecurityFilterProviderTest {
     @Test
     void testSendUnauthorized() {
         this.provider.sendUnauthorized(this.response);
-        new Verifications() {
+        Assertions.assertNotNull(new Verifications() {
             {
                 NegotiateSecurityFilterProviderTest.this.response.addHeader("WWW-Authenticate", "Negotiate");
                 this.times = 1;
                 NegotiateSecurityFilterProviderTest.this.response.addHeader("WWW-Authenticate", "NTLM");
                 this.times = 1;
             }
-        };
+        });
     }
 
     /**
@@ -117,14 +117,14 @@ class NegotiateSecurityFilterProviderTest {
     void testSendUnauthorizedWithCustomProtocols() {
         this.provider.setProtocols(Arrays.asList("Negotiate"));
         this.provider.sendUnauthorized(this.response);
-        new Verifications() {
+        Assertions.assertNotNull(new Verifications() {
             {
                 NegotiateSecurityFilterProviderTest.this.response.addHeader("WWW-Authenticate", "Negotiate");
                 this.times = 1;
                 NegotiateSecurityFilterProviderTest.this.response.addHeader("WWW-Authenticate", "NTLM");
                 this.times = 0;
             }
-        };
+        });
     }
 
     /**

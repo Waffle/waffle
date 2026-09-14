@@ -6,6 +6,8 @@
  */
 package waffle.servlet;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +26,8 @@ import waffle.util.CorsPreFlightCheck;
 /**
  * The Class CorsAwareNegotiateSecurityFilterTest.
  */
+// Spotbugs ignores for behaviour handling within jmockit
+@SuppressFBWarnings({ "CT_CONSTRUCTOR_THROW", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT" })
 class CorsAwareNegotiateSecurityFilterTest {
 
     /** The cors aware negotiate security filter. */
@@ -55,7 +59,7 @@ class CorsAwareNegotiateSecurityFilterTest {
     @Test
     void doFilterTestCorsPreflightRequest() throws Exception {
 
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 CorsAwareNegotiateSecurityFilterTest.this.preflightRequest.getMethod();
                 this.result = "OPTIONS";
@@ -66,11 +70,11 @@ class CorsAwareNegotiateSecurityFilterTest {
                 CorsAwareNegotiateSecurityFilterTest.this.preflightRequest.getHeader("Origin");
                 this.result = "https://theorigin.preflight";
             }
-        };
+        });
 
         this.corsAwareNegotiateSecurityFilter.doFilter(this.preflightRequest, this.preflightResponse, this.chain);
 
-        new Verifications() {
+        Assertions.assertNotNull(new Verifications() {
             {
                 CorsPreFlightCheck.isPreflight(CorsAwareNegotiateSecurityFilterTest.this.preflightRequest);
                 this.times = 1;
@@ -78,7 +82,7 @@ class CorsAwareNegotiateSecurityFilterTest {
                         CorsAwareNegotiateSecurityFilterTest.this.preflightRequest,
                         CorsAwareNegotiateSecurityFilterTest.this.preflightResponse);
             }
-        };
+        });
 
     }
 
@@ -91,25 +95,25 @@ class CorsAwareNegotiateSecurityFilterTest {
     @Test
     void doFilterTestBearerAuthorization() throws Exception {
 
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 CorsAwareNegotiateSecurityFilterTest.this.preflightRequest.getMethod();
                 this.result = "GET";
                 CorsAwareNegotiateSecurityFilterTest.this.preflightRequest.getHeader("Authorization");
                 this.result = "Bearer sometoken";
             }
-        };
+        });
 
         this.corsAwareNegotiateSecurityFilter.doFilter(this.preflightRequest, this.preflightResponse, this.chain);
 
-        new Verifications() {
+        Assertions.assertNotNull(new Verifications() {
             {
                 CorsAwareNegotiateSecurityFilterTest.this.chain.doFilter(
                         CorsAwareNegotiateSecurityFilterTest.this.preflightRequest,
                         CorsAwareNegotiateSecurityFilterTest.this.preflightResponse);
                 this.times = 1;
             }
-        };
+        });
     }
 
     /**

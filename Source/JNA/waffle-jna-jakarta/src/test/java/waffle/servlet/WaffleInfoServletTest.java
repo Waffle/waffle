@@ -8,13 +8,14 @@ package waffle.servlet;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.security.Principal;
 import java.util.Collections;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
 

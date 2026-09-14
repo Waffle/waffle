@@ -6,7 +6,7 @@
  */
 package waffle.util;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import mockit.Expectations;
 import mockit.Mocked;

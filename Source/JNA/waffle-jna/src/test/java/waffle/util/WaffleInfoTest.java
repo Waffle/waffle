@@ -8,6 +8,8 @@ package waffle.util;
 
 import com.sun.jna.Platform;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -32,6 +34,8 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 /**
  * Build an info document and check that it has the right values.
  */
+// Spotbugs ignores for behaviour handling within jmockit
+@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
 class WaffleInfoTest {
 
     /**

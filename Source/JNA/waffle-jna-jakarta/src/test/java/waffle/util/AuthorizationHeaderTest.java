@@ -8,7 +8,7 @@ package waffle.util;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import mockit.Expectations;
 import mockit.Mocked;

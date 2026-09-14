@@ -6,6 +6,8 @@
  */
 package waffle.servlet;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,6 +18,7 @@ import mockit.Mocked;
 import mockit.Tested;
 import mockit.Verifications;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import waffle.util.CorsPreFlightCheck;
@@ -23,6 +26,8 @@ import waffle.util.CorsPreFlightCheck;
 /**
  * The Class CorsAwareNegotiateSecurityFilterTest.
  */
+// Spotbugs ignores for behaviour handling within jmockit
+@SuppressFBWarnings({ "CT_CONSTRUCTOR_THROW", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT" })
 class CorsAwareNegotiateSecurityFilterTest {
 
     /** The cors aware negotiate security filter. */
@@ -54,7 +59,7 @@ class CorsAwareNegotiateSecurityFilterTest {
     @Test
     void doFilterTestCorsPreflightRequest() throws Exception {
 
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 CorsAwareNegotiateSecurityFilterTest.this.preflightRequest.getMethod();
                 this.result = "OPTIONS";
@@ -65,11 +70,11 @@ class CorsAwareNegotiateSecurityFilterTest {
                 CorsAwareNegotiateSecurityFilterTest.this.preflightRequest.getHeader("Origin");
                 this.result = "https://theorigin.preflight";
             }
-        };
+        });
 
         this.corsAwareNegotiateSecurityFilter.doFilter(this.preflightRequest, this.preflightResponse, this.chain);
 
-        new Verifications() {
+        Assertions.assertNotNull(new Verifications() {
             {
                 CorsPreFlightCheck.isPreflight(CorsAwareNegotiateSecurityFilterTest.this.preflightRequest);
                 this.times = 1;
@@ -77,8 +82,46 @@ class CorsAwareNegotiateSecurityFilterTest {
                         CorsAwareNegotiateSecurityFilterTest.this.preflightRequest,
                         CorsAwareNegotiateSecurityFilterTest.this.preflightResponse);
             }
-        };
+        });
 
+    }
+
+    /**
+     * Do filter test bearer authorization passes through to chain.
+     *
+     * @throws Exception
+     *             the exception
+     */
+    @Test
+    void doFilterTestBearerAuthorization() throws Exception {
+
+        Assertions.assertNotNull(new Expectations() {
+            {
+                CorsAwareNegotiateSecurityFilterTest.this.preflightRequest.getMethod();
+                this.result = "GET";
+                CorsAwareNegotiateSecurityFilterTest.this.preflightRequest.getHeader("Authorization");
+                this.result = "Bearer sometoken";
+            }
+        });
+
+        this.corsAwareNegotiateSecurityFilter.doFilter(this.preflightRequest, this.preflightResponse, this.chain);
+
+        Assertions.assertNotNull(new Verifications() {
+            {
+                CorsAwareNegotiateSecurityFilterTest.this.chain.doFilter(
+                        CorsAwareNegotiateSecurityFilterTest.this.preflightRequest,
+                        CorsAwareNegotiateSecurityFilterTest.this.preflightResponse);
+                this.times = 1;
+            }
+        });
+    }
+
+    /**
+     * Test destroy does not throw.
+     */
+    @Test
+    void testDestroy() {
+        Assertions.assertDoesNotThrow(() -> this.corsAwareNegotiateSecurityFilter.destroy());
     }
 
 }
