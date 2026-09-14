@@ -6,6 +6,8 @@
  */
 package waffle.servlet;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -30,6 +32,8 @@ import waffle.util.WaffleInfo;
 /**
  * Tests for {@link WaffleInfoServlet}.
  */
+// Spotbugs ignores for behaviour handling within jmockit
+@SuppressFBWarnings({ "CT_CONSTRUCTOR_THROW", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT" })
 class WaffleInfoServletTest {
 
     /** The mocked WaffleInfo (intercepts all WaffleInfo instances). */

@@ -80,7 +80,7 @@ class UserPrincipalTest {
             assertThat(out.toByteArray()).isNotEmpty();
 
             try (InputStream in = new ByteArrayInputStream(out.toByteArray());
-                ObjectInputStream ois = new ObjectInputStream(in)) {
+                    ObjectInputStream ois = new ObjectInputStream(in)) {
 
                 UserPrincipal copy = (UserPrincipal) ois.readObject();
 

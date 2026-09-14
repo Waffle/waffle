@@ -6,6 +6,8 @@
  */
 package waffle.util;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import jakarta.servlet.http.HttpServletRequest;
 
 import mockit.Expectations;
@@ -17,6 +19,8 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests for {@link AuthorizationHeader}.
  */
+// Spotbugs ignores for behaviour handling within jmockit
+@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
 class AuthorizationHeaderTest {
 
     /** Valid NTLM Type 1 token (base64-encoded). */

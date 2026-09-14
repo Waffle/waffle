@@ -6,6 +6,8 @@
  */
 package waffle.servlet;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,6 +37,8 @@ import waffle.windows.auth.PrincipalFormat;
 /**
  * Negotiate Security Filter Test.
  */
+// Spotbugs ignores for behaviour handling within jmockit
+@SuppressFBWarnings({ "CT_CONSTRUCTOR_THROW", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT" })
 class NegotiateSecurityFilterTest {
 
     /** The negotiate security filter. */
