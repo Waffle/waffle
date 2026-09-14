@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
  * The Class CorsPreflightCheckTest.
  */
 // Spotbugs ignores for behaviour handling within jmockit
-@SuppressFBWarnings({ "CT_CONSTRUCTOR_THROW", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT" })
+@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
 class CorsPreFlightCheckTest {
 
     /** The preflight request. */

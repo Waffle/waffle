@@ -38,7 +38,7 @@ import waffle.windows.auth.PrincipalFormat;
  * Negotiate Security Filter Test.
  */
 // Spotbugs ignores for behaviour handling within jmockit
-@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
+@SuppressFBWarnings({ "CT_CONSTRUCTOR_THROW", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT" })
 class NegotiateSecurityFilterTest {
 
     /** The negotiate security filter. */
