@@ -55,7 +55,7 @@ class CorsAwareNegotiateSecurityFilterTest {
     @Test
     void doFilterTestCorsPreflightRequest() throws Exception {
 
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 CorsAwareNegotiateSecurityFilterTest.this.preflightRequest.getMethod();
                 this.result = "OPTIONS";
@@ -66,11 +66,11 @@ class CorsAwareNegotiateSecurityFilterTest {
                 CorsAwareNegotiateSecurityFilterTest.this.preflightRequest.getHeader("Origin");
                 this.result = "https://theorigin.preflight";
             }
-        };
+        });
 
         this.corsAwareNegotiateSecurityFilter.doFilter(this.preflightRequest, this.preflightResponse, this.chain);
 
-        new Verifications() {
+        Assertions.assertNotNull(new Verifications() {
             {
                 CorsPreFlightCheck.isPreflight(CorsAwareNegotiateSecurityFilterTest.this.preflightRequest);
                 this.times = 1;
@@ -78,7 +78,7 @@ class CorsAwareNegotiateSecurityFilterTest {
                         CorsAwareNegotiateSecurityFilterTest.this.preflightRequest,
                         CorsAwareNegotiateSecurityFilterTest.this.preflightResponse);
             }
-        };
+        });
 
     }
 
@@ -91,25 +91,25 @@ class CorsAwareNegotiateSecurityFilterTest {
     @Test
     void doFilterTestBearerAuthorization() throws Exception {
 
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 CorsAwareNegotiateSecurityFilterTest.this.preflightRequest.getMethod();
                 this.result = "GET";
                 CorsAwareNegotiateSecurityFilterTest.this.preflightRequest.getHeader("Authorization");
                 this.result = "Bearer sometoken";
             }
-        };
+        });
 
         this.corsAwareNegotiateSecurityFilter.doFilter(this.preflightRequest, this.preflightResponse, this.chain);
 
-        new Verifications() {
+        Assertions.assertNotNull(new Verifications() {
             {
                 CorsAwareNegotiateSecurityFilterTest.this.chain.doFilter(
                         CorsAwareNegotiateSecurityFilterTest.this.preflightRequest,
                         CorsAwareNegotiateSecurityFilterTest.this.preflightResponse);
                 this.times = 1;
             }
-        };
+        });
     }
 
     /**

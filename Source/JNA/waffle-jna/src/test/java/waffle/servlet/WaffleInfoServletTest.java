@@ -73,7 +73,7 @@ class WaffleInfoServletTest {
         final StringWriter sw = new StringWriter();
         final PrintWriter pw = new PrintWriter(sw);
 
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 WaffleInfoServletTest.this.waffleInfo.getWaffleInfo();
                 this.result = doc;
@@ -88,7 +88,7 @@ class WaffleInfoServletTest {
                 response.getWriter();
                 this.result = pw;
             }
-        };
+        });
 
         final WaffleInfoServlet servlet = new WaffleInfoServlet();
         servlet.doGet(request, response);
@@ -117,7 +117,7 @@ class WaffleInfoServletTest {
         final StringWriter sw = new StringWriter();
         final PrintWriter pw = new PrintWriter(sw);
 
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 WaffleInfoServletTest.this.waffleInfo.getWaffleInfo();
                 this.result = doc;
@@ -132,7 +132,7 @@ class WaffleInfoServletTest {
                 response.getWriter();
                 this.result = pw;
             }
-        };
+        });
 
         final WaffleInfoServlet servlet = new WaffleInfoServlet();
         servlet.doPost(request, response);
@@ -159,7 +159,7 @@ class WaffleInfoServletTest {
         final StringWriter sw = new StringWriter();
         final PrintWriter pw = new PrintWriter(sw);
 
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 WaffleInfoServletTest.this.waffleInfo.getWaffleInfo();
                 this.result = doc;
@@ -174,7 +174,7 @@ class WaffleInfoServletTest {
                 response.getWriter();
                 this.result = pw;
             }
-        };
+        });
 
         final WaffleInfoServlet servlet = new WaffleInfoServlet();
         servlet.doGet(request, response);
@@ -203,7 +203,7 @@ class WaffleInfoServletTest {
         final StringWriter sw = new StringWriter();
         final PrintWriter pw = new PrintWriter(sw);
 
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 WaffleInfoServletTest.this.waffleInfo.getWaffleInfo();
                 this.result = doc;
@@ -222,7 +222,7 @@ class WaffleInfoServletTest {
                 response.getWriter();
                 this.result = pw;
             }
-        };
+        });
 
         final WaffleInfoServlet servlet = new WaffleInfoServlet();
         servlet.doGet(request, response);
@@ -249,7 +249,7 @@ class WaffleInfoServletTest {
         final StringWriter sw = new StringWriter();
         final PrintWriter pw = new PrintWriter(sw);
 
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 WaffleInfoServletTest.this.waffleInfo.getWaffleInfo();
                 this.result = doc;
@@ -268,7 +268,7 @@ class WaffleInfoServletTest {
                 response.getWriter();
                 this.result = pw;
             }
-        };
+        });
 
         final WaffleInfoServlet servlet = new WaffleInfoServlet();
         servlet.doGet(request, response);
@@ -298,7 +298,7 @@ class WaffleInfoServletTest {
         final StringWriter sw = new StringWriter();
         final PrintWriter pw = new PrintWriter(sw);
 
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 WaffleInfoServletTest.this.waffleInfo.getWaffleInfo();
                 this.result = doc;
@@ -315,7 +315,7 @@ class WaffleInfoServletTest {
                 response.getWriter();
                 this.result = pw;
             }
-        };
+        });
 
         final WaffleInfoServlet servlet = new WaffleInfoServlet();
         servlet.doGet(request, response);

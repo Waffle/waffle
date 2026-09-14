@@ -16,6 +16,7 @@ import mockit.Mocked;
 import mockit.Tested;
 import mockit.Verifications;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import waffle.util.CorsPreFlightCheck;
@@ -54,7 +55,7 @@ class CorsAwareNegotiateSecurityFilterTest {
     @Test
     void doFilterTestCorsPreflightRequest() throws Exception {
 
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 CorsAwareNegotiateSecurityFilterTest.this.preflightRequest.getMethod();
                 this.result = "OPTIONS";
@@ -65,11 +66,11 @@ class CorsAwareNegotiateSecurityFilterTest {
                 CorsAwareNegotiateSecurityFilterTest.this.preflightRequest.getHeader("Origin");
                 this.result = "https://theorigin.preflight";
             }
-        };
+        });
 
         this.corsAwareNegotiateSecurityFilter.doFilter(this.preflightRequest, this.preflightResponse, this.chain);
 
-        new Verifications() {
+        Assertions.assertNotNull(new Verifications() {
             {
                 CorsPreFlightCheck.isPreflight(CorsAwareNegotiateSecurityFilterTest.this.preflightRequest);
                 this.times = 1;
@@ -77,7 +78,7 @@ class CorsAwareNegotiateSecurityFilterTest {
                         CorsAwareNegotiateSecurityFilterTest.this.preflightRequest,
                         CorsAwareNegotiateSecurityFilterTest.this.preflightResponse);
             }
-        };
+        });
 
     }
 

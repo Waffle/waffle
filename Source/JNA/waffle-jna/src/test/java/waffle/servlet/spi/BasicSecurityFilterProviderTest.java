@@ -106,13 +106,13 @@ class BasicSecurityFilterProviderTest {
     @Test
     void testSendUnauthorized() {
         this.provider.sendUnauthorized(this.response);
-        new Verifications() {
+        Assertions.assertNotNull(new Verifications() {
             {
                 BasicSecurityFilterProviderTest.this.response.addHeader("WWW-Authenticate",
                         "Basic realm=\"BasicSecurityFilterProvider\"");
                 this.times = 1;
             }
-        };
+        });
     }
 
     /**
@@ -122,13 +122,13 @@ class BasicSecurityFilterProviderTest {
     void testSendUnauthorizedWithCustomRealm() {
         this.provider.setRealm("CustomRealm");
         this.provider.sendUnauthorized(this.response);
-        new Verifications() {
+        Assertions.assertNotNull(new Verifications() {
             {
                 BasicSecurityFilterProviderTest.this.response.addHeader("WWW-Authenticate",
                         "Basic realm=\"CustomRealm\"");
                 this.times = 1;
             }
-        };
+        });
     }
 
     /**
@@ -154,19 +154,19 @@ class BasicSecurityFilterProviderTest {
      */
     @Test
     void testSendUnauthorizedWithRealmViaInit() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 // No expectations for response - just verifying via Verifications
             }
-        };
+        });
         this.provider.initParameter("realm", "InitRealm");
         this.provider.sendUnauthorized(this.response);
-        new Verifications() {
+        Assertions.assertNotNull(new Verifications() {
             {
                 BasicSecurityFilterProviderTest.this.response.addHeader("WWW-Authenticate",
                         "Basic realm=\"InitRealm\"");
                 this.times = 1;
             }
-        };
+        });
     }
 }

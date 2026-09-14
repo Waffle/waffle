@@ -28,14 +28,14 @@ class NtlmServletRequestTest {
      */
     @Test
     void testGetConnectionIdUsesRemoteHost() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 NtlmServletRequestTest.this.request.getRemoteHost();
                 this.result = "hostname.example.com";
                 NtlmServletRequestTest.this.request.getRemotePort();
                 this.result = 8080;
             }
-        };
+        });
         Assertions.assertEquals("hostname.example.com:8080", NtlmServletRequest.getConnectionId(this.request));
     }
 
@@ -44,7 +44,7 @@ class NtlmServletRequestTest {
      */
     @Test
     void testGetConnectionIdFallsBackToRemoteAddr() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 NtlmServletRequestTest.this.request.getRemoteHost();
                 this.result = null;
@@ -53,7 +53,7 @@ class NtlmServletRequestTest {
                 NtlmServletRequestTest.this.request.getRemotePort();
                 this.result = 12345;
             }
-        };
+        });
         Assertions.assertEquals("192.168.1.100:12345", NtlmServletRequest.getConnectionId(this.request));
     }
 
@@ -62,7 +62,7 @@ class NtlmServletRequestTest {
      */
     @Test
     void testGetConnectionIdWithBothHostAndAddrNull() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 NtlmServletRequestTest.this.request.getRemoteHost();
                 this.result = null;
@@ -71,7 +71,7 @@ class NtlmServletRequestTest {
                 NtlmServletRequestTest.this.request.getRemotePort();
                 this.result = 9000;
             }
-        };
+        });
         Assertions.assertEquals(":9000", NtlmServletRequest.getConnectionId(this.request));
     }
 
@@ -80,14 +80,14 @@ class NtlmServletRequestTest {
      */
     @Test
     void testGetConnectionIdFormat() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 NtlmServletRequestTest.this.request.getRemoteHost();
                 this.result = "client.local";
                 NtlmServletRequestTest.this.request.getRemotePort();
                 this.result = 4321;
             }
-        };
+        });
         final String connectionId = NtlmServletRequest.getConnectionId(this.request);
         Assertions.assertTrue(connectionId.contains(":"));
         Assertions.assertTrue(connectionId.startsWith("client.local"));

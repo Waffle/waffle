@@ -34,12 +34,12 @@ class AuthorizationHeaderTest {
      */
     @Test
     void testGetHeader() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 AuthorizationHeaderTest.this.request.getHeader("Authorization");
                 this.result = "NTLM token123";
             }
-        };
+        });
         final AuthorizationHeader header = new AuthorizationHeader(this.request);
         Assertions.assertEquals("NTLM token123", header.getHeader());
     }
@@ -49,12 +49,12 @@ class AuthorizationHeaderTest {
      */
     @Test
     void testIsNullWhenAbsent() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 AuthorizationHeaderTest.this.request.getHeader("Authorization");
                 this.result = null;
             }
-        };
+        });
         final AuthorizationHeader header = new AuthorizationHeader(this.request);
         Assertions.assertTrue(header.isNull());
     }
@@ -64,12 +64,12 @@ class AuthorizationHeaderTest {
      */
     @Test
     void testIsNullWhenEmpty() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 AuthorizationHeaderTest.this.request.getHeader("Authorization");
                 this.result = "";
             }
-        };
+        });
         final AuthorizationHeader header = new AuthorizationHeader(this.request);
         Assertions.assertTrue(header.isNull());
     }
@@ -79,12 +79,12 @@ class AuthorizationHeaderTest {
      */
     @Test
     void testIsNullFalseWhenPresent() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 AuthorizationHeaderTest.this.request.getHeader("Authorization");
                 this.result = "NTLM " + AuthorizationHeaderTest.NTLM_TYPE1_TOKEN;
             }
-        };
+        });
         final AuthorizationHeader header = new AuthorizationHeader(this.request);
         Assertions.assertFalse(header.isNull());
     }
@@ -94,12 +94,12 @@ class AuthorizationHeaderTest {
      */
     @Test
     void testGetSecurityPackageNtlm() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 AuthorizationHeaderTest.this.request.getHeader("Authorization");
                 this.result = "NTLM " + AuthorizationHeaderTest.NTLM_TYPE1_TOKEN;
             }
-        };
+        });
         final AuthorizationHeader header = new AuthorizationHeader(this.request);
         Assertions.assertEquals("NTLM", header.getSecurityPackage());
     }
@@ -109,12 +109,12 @@ class AuthorizationHeaderTest {
      */
     @Test
     void testGetSecurityPackageNegotiate() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 AuthorizationHeaderTest.this.request.getHeader("Authorization");
                 this.result = "Negotiate " + AuthorizationHeaderTest.SPNEGO_TOKEN;
             }
-        };
+        });
         final AuthorizationHeader header = new AuthorizationHeader(this.request);
         Assertions.assertEquals("Negotiate", header.getSecurityPackage());
     }
@@ -124,12 +124,12 @@ class AuthorizationHeaderTest {
      */
     @Test
     void testGetSecurityPackageBearer() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 AuthorizationHeaderTest.this.request.getHeader("Authorization");
                 this.result = "Bearer sometoken";
             }
-        };
+        });
         final AuthorizationHeader header = new AuthorizationHeader(this.request);
         Assertions.assertEquals("Bearer", header.getSecurityPackage());
     }
@@ -139,12 +139,12 @@ class AuthorizationHeaderTest {
      */
     @Test
     void testGetSecurityPackageThrowsWhenNull() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 AuthorizationHeaderTest.this.request.getHeader("Authorization");
                 this.result = null;
             }
-        };
+        });
         final AuthorizationHeader header = new AuthorizationHeader(this.request);
         Assertions.assertThrows(RuntimeException.class, header::getSecurityPackage);
     }
@@ -154,12 +154,12 @@ class AuthorizationHeaderTest {
      */
     @Test
     void testGetSecurityPackageThrowsWhenNoSpace() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 AuthorizationHeaderTest.this.request.getHeader("Authorization");
                 this.result = "NoSpaceToken";
             }
-        };
+        });
         final AuthorizationHeader header = new AuthorizationHeader(this.request);
         Assertions.assertThrows(RuntimeException.class, header::getSecurityPackage);
     }
@@ -169,12 +169,12 @@ class AuthorizationHeaderTest {
      */
     @Test
     void testToStringWhenNull() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 AuthorizationHeaderTest.this.request.getHeader("Authorization");
                 this.result = null;
             }
-        };
+        });
         final AuthorizationHeader header = new AuthorizationHeader(this.request);
         Assertions.assertEquals("<none>", header.toString());
     }
@@ -185,12 +185,12 @@ class AuthorizationHeaderTest {
     @Test
     void testToStringWhenPresent() {
         final String headerValue = "NTLM " + AuthorizationHeaderTest.NTLM_TYPE1_TOKEN;
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 AuthorizationHeaderTest.this.request.getHeader("Authorization");
                 this.result = headerValue;
             }
-        };
+        });
         final AuthorizationHeader header = new AuthorizationHeader(this.request);
         Assertions.assertEquals(headerValue, header.toString());
     }
@@ -200,12 +200,12 @@ class AuthorizationHeaderTest {
      */
     @Test
     void testGetToken() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 AuthorizationHeaderTest.this.request.getHeader("Authorization");
                 this.result = "NTLM " + AuthorizationHeaderTest.NTLM_TYPE1_TOKEN;
             }
-        };
+        });
         final AuthorizationHeader header = new AuthorizationHeader(this.request);
         Assertions.assertEquals(AuthorizationHeaderTest.NTLM_TYPE1_TOKEN, header.getToken());
     }
@@ -215,12 +215,12 @@ class AuthorizationHeaderTest {
      */
     @Test
     void testGetTokenBytes() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 AuthorizationHeaderTest.this.request.getHeader("Authorization");
                 this.result = "NTLM " + AuthorizationHeaderTest.NTLM_TYPE1_TOKEN;
             }
-        };
+        });
         final AuthorizationHeader header = new AuthorizationHeader(this.request);
         final byte[] bytes = header.getTokenBytes();
         Assertions.assertNotNull(bytes);
@@ -232,12 +232,12 @@ class AuthorizationHeaderTest {
      */
     @Test
     void testGetTokenBytesThrowsOnInvalidBase64() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 AuthorizationHeaderTest.this.request.getHeader("Authorization");
                 this.result = "NTLM not-valid-base64!!!";
             }
-        };
+        });
         final AuthorizationHeader header = new AuthorizationHeader(this.request);
         Assertions.assertThrows(RuntimeException.class, header::getTokenBytes);
     }
@@ -247,12 +247,12 @@ class AuthorizationHeaderTest {
      */
     @Test
     void testIsNtlmType1MessageTrue() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 AuthorizationHeaderTest.this.request.getHeader("Authorization");
                 this.result = "NTLM " + AuthorizationHeaderTest.NTLM_TYPE1_TOKEN;
             }
-        };
+        });
         final AuthorizationHeader header = new AuthorizationHeader(this.request);
         Assertions.assertTrue(header.isNtlmType1Message());
     }
@@ -262,12 +262,12 @@ class AuthorizationHeaderTest {
      */
     @Test
     void testIsNtlmType1MessageFalseWhenNull() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 AuthorizationHeaderTest.this.request.getHeader("Authorization");
                 this.result = null;
             }
-        };
+        });
         final AuthorizationHeader header = new AuthorizationHeader(this.request);
         Assertions.assertFalse(header.isNtlmType1Message());
     }
@@ -277,12 +277,12 @@ class AuthorizationHeaderTest {
      */
     @Test
     void testIsNtlmType1MessageFalseForSpnego() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 AuthorizationHeaderTest.this.request.getHeader("Authorization");
                 this.result = "Negotiate " + AuthorizationHeaderTest.SPNEGO_TOKEN;
             }
-        };
+        });
         final AuthorizationHeader header = new AuthorizationHeader(this.request);
         Assertions.assertFalse(header.isNtlmType1Message());
     }
@@ -292,12 +292,12 @@ class AuthorizationHeaderTest {
      */
     @Test
     void testIsSPNegTokenInitMessageTrue() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 AuthorizationHeaderTest.this.request.getHeader("Authorization");
                 this.result = "Negotiate " + AuthorizationHeaderTest.SPNEGO_TOKEN;
             }
-        };
+        });
         final AuthorizationHeader header = new AuthorizationHeader(this.request);
         Assertions.assertTrue(header.isSPNegTokenInitMessage());
     }
@@ -307,12 +307,12 @@ class AuthorizationHeaderTest {
      */
     @Test
     void testIsSPNegTokenInitMessageFalseWhenNull() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 AuthorizationHeaderTest.this.request.getHeader("Authorization");
                 this.result = null;
             }
-        };
+        });
         final AuthorizationHeader header = new AuthorizationHeader(this.request);
         Assertions.assertFalse(header.isSPNegTokenInitMessage());
     }
@@ -322,12 +322,12 @@ class AuthorizationHeaderTest {
      */
     @Test
     void testIsSPNegTokenInitMessageFalseForNtlm() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 AuthorizationHeaderTest.this.request.getHeader("Authorization");
                 this.result = "NTLM " + AuthorizationHeaderTest.NTLM_TYPE1_TOKEN;
             }
-        };
+        });
         final AuthorizationHeader header = new AuthorizationHeader(this.request);
         Assertions.assertFalse(header.isSPNegTokenInitMessage());
     }
@@ -337,7 +337,7 @@ class AuthorizationHeaderTest {
      */
     @Test
     void testIsNtlmType1PostAuthorizationHeaderPostNoContent() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 AuthorizationHeaderTest.this.request.getHeader("Authorization");
                 this.result = "NTLM " + AuthorizationHeaderTest.NTLM_TYPE1_TOKEN;
@@ -346,7 +346,7 @@ class AuthorizationHeaderTest {
                 AuthorizationHeaderTest.this.request.getContentLength();
                 this.result = 0;
             }
-        };
+        });
         final AuthorizationHeader header = new AuthorizationHeader(this.request);
         Assertions.assertTrue(header.isNtlmType1PostAuthorizationHeader());
     }
@@ -356,7 +356,7 @@ class AuthorizationHeaderTest {
      */
     @Test
     void testIsNtlmType1PostAuthorizationHeaderPut() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 AuthorizationHeaderTest.this.request.getHeader("Authorization");
                 this.result = "NTLM " + AuthorizationHeaderTest.NTLM_TYPE1_TOKEN;
@@ -365,7 +365,7 @@ class AuthorizationHeaderTest {
                 AuthorizationHeaderTest.this.request.getContentLength();
                 this.result = 0;
             }
-        };
+        });
         final AuthorizationHeader header = new AuthorizationHeader(this.request);
         Assertions.assertTrue(header.isNtlmType1PostAuthorizationHeader());
     }
@@ -375,7 +375,7 @@ class AuthorizationHeaderTest {
      */
     @Test
     void testIsNtlmType1PostAuthorizationHeaderDelete() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 AuthorizationHeaderTest.this.request.getHeader("Authorization");
                 this.result = "NTLM " + AuthorizationHeaderTest.NTLM_TYPE1_TOKEN;
@@ -384,7 +384,7 @@ class AuthorizationHeaderTest {
                 AuthorizationHeaderTest.this.request.getContentLength();
                 this.result = 0;
             }
-        };
+        });
         final AuthorizationHeader header = new AuthorizationHeader(this.request);
         Assertions.assertTrue(header.isNtlmType1PostAuthorizationHeader());
     }
@@ -395,7 +395,7 @@ class AuthorizationHeaderTest {
      */
     @Test
     void testIsNtlmType1PostAuthorizationHeaderGetReturnsFalse() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 AuthorizationHeaderTest.this.request.getMethod();
                 this.result = "GET";
@@ -403,7 +403,7 @@ class AuthorizationHeaderTest {
                 this.result = "NTLM " + AuthorizationHeaderTest.NTLM_TYPE1_TOKEN;
                 this.minTimes = 0;
             }
-        };
+        });
         final AuthorizationHeader header = new AuthorizationHeader(this.request);
         Assertions.assertFalse(header.isNtlmType1PostAuthorizationHeader());
     }
@@ -414,7 +414,7 @@ class AuthorizationHeaderTest {
      */
     @Test
     void testIsNtlmType1PostAuthorizationHeaderWithContentReturnsFalse() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 AuthorizationHeaderTest.this.request.getMethod();
                 this.result = "POST";
@@ -424,7 +424,7 @@ class AuthorizationHeaderTest {
                 this.result = "NTLM " + AuthorizationHeaderTest.NTLM_TYPE1_TOKEN;
                 this.minTimes = 0;
             }
-        };
+        });
         final AuthorizationHeader header = new AuthorizationHeader(this.request);
         Assertions.assertFalse(header.isNtlmType1PostAuthorizationHeader());
     }
@@ -434,7 +434,7 @@ class AuthorizationHeaderTest {
      */
     @Test
     void testIsNtlmType1PostAuthorizationHeaderSpnegoPost() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 AuthorizationHeaderTest.this.request.getHeader("Authorization");
                 this.result = "Negotiate " + AuthorizationHeaderTest.SPNEGO_TOKEN;
@@ -443,7 +443,7 @@ class AuthorizationHeaderTest {
                 AuthorizationHeaderTest.this.request.getContentLength();
                 this.result = 0;
             }
-        };
+        });
         final AuthorizationHeader header = new AuthorizationHeader(this.request);
         Assertions.assertTrue(header.isNtlmType1PostAuthorizationHeader());
     }
@@ -453,12 +453,12 @@ class AuthorizationHeaderTest {
      */
     @Test
     void testIsBearerAuthorizationHeaderTrue() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 AuthorizationHeaderTest.this.request.getHeader("Authorization");
                 this.result = "Bearer sometoken";
             }
-        };
+        });
         final AuthorizationHeader header = new AuthorizationHeader(this.request);
         Assertions.assertTrue(header.isBearerAuthorizationHeader());
     }
@@ -468,12 +468,12 @@ class AuthorizationHeaderTest {
      */
     @Test
     void testIsBearerAuthorizationHeaderTrueUpperCase() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 AuthorizationHeaderTest.this.request.getHeader("Authorization");
                 this.result = "BEARER sometoken";
             }
-        };
+        });
         final AuthorizationHeader header = new AuthorizationHeader(this.request);
         Assertions.assertTrue(header.isBearerAuthorizationHeader());
     }
@@ -483,12 +483,12 @@ class AuthorizationHeaderTest {
      */
     @Test
     void testIsBearerAuthorizationHeaderFalseForNtlm() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 AuthorizationHeaderTest.this.request.getHeader("Authorization");
                 this.result = "NTLM " + AuthorizationHeaderTest.NTLM_TYPE1_TOKEN;
             }
-        };
+        });
         final AuthorizationHeader header = new AuthorizationHeader(this.request);
         Assertions.assertFalse(header.isBearerAuthorizationHeader());
     }
@@ -498,12 +498,12 @@ class AuthorizationHeaderTest {
      */
     @Test
     void testIsBearerAuthorizationHeaderFalseWhenNull() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 AuthorizationHeaderTest.this.request.getHeader("Authorization");
                 this.result = null;
             }
-        };
+        });
         final AuthorizationHeader header = new AuthorizationHeader(this.request);
         Assertions.assertFalse(header.isBearerAuthorizationHeader());
     }

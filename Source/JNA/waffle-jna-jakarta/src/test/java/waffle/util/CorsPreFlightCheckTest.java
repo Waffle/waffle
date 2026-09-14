@@ -42,7 +42,7 @@ class CorsPreFlightCheckTest {
     @Test
     void testExpectedCorsPreflightHeadersPresent() {
 
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 CorsPreFlightCheckTest.this.preflightRequest.getMethod();
                 this.result = "OPTIONS";
@@ -53,11 +53,11 @@ class CorsPreFlightCheckTest {
                 CorsPreFlightCheckTest.this.preflightRequest.getHeader("Origin");
                 this.result = "https://theorigin.localhost";
             }
-        };
+        });
 
         Assertions.assertTrue(CorsPreFlightCheck.isPreflight(this.preflightRequest));
 
-        new Verifications() {
+        Assertions.assertNotNull(new Verifications() {
             {
                 CorsPreFlightCheckTest.this.preflightRequest.getMethod();
                 this.times = 1;
@@ -68,7 +68,7 @@ class CorsPreFlightCheckTest {
                 CorsPreFlightCheckTest.this.preflightRequest.getHeader("Origin");
                 this.times = 1;
             }
-        };
+        });
     }
 
     /**
@@ -76,7 +76,7 @@ class CorsPreFlightCheckTest {
      */
     @Test
     void testNoCorsPreflightOriginPresent() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 CorsPreFlightCheckTest.this.noOriginPreflightRequest.getMethod();
                 this.result = "OPTIONS";
@@ -88,11 +88,11 @@ class CorsPreFlightCheckTest {
                 CorsPreFlightCheckTest.this.noOriginPreflightRequest.getHeader("Origin");
                 this.result = null;
             }
-        };
+        });
 
         Assertions.assertFalse(CorsPreFlightCheck.isPreflight(this.noOriginPreflightRequest));
 
-        new Verifications() {
+        Assertions.assertNotNull(new Verifications() {
             {
                 CorsPreFlightCheckTest.this.noOriginPreflightRequest.getMethod();
                 this.times = 1;
@@ -103,7 +103,7 @@ class CorsPreFlightCheckTest {
                 CorsPreFlightCheckTest.this.noOriginPreflightRequest.getHeader("Origin");
                 this.times = 1;
             }
-        };
+        });
 
     }
 
@@ -112,25 +112,25 @@ class CorsPreFlightCheckTest {
      */
     @Test
     void testCorsMethodPreflightHeadersPresent() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 CorsPreFlightCheckTest.this.noCorsMethodPreflightRequest.getMethod();
                 this.result = "OPTIONS";
                 CorsPreFlightCheckTest.this.noCorsMethodPreflightRequest.getHeader("Access-Control-Request-Method");
                 this.result = "LOGIN";
             }
-        };
+        });
 
         Assertions.assertFalse(CorsPreFlightCheck.isPreflight(this.noCorsMethodPreflightRequest));
 
-        new Verifications() {
+        Assertions.assertNotNull(new Verifications() {
             {
                 CorsPreFlightCheckTest.this.noCorsMethodPreflightRequest.getMethod();
                 this.times = 1;
                 CorsPreFlightCheckTest.this.noCorsMethodPreflightRequest.getHeader("Access-Control-Request-Method");
                 this.times = 1;
             }
-        };
+        });
 
     }
 
@@ -140,7 +140,7 @@ class CorsPreFlightCheckTest {
     @Test
     void testNoCorsHeadersPreflightHeaderPresent() {
 
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 CorsPreFlightCheckTest.this.noCorsHeadersPreflightHeaderRequest.getMethod();
                 this.result = "OPTIONS";
@@ -152,11 +152,11 @@ class CorsPreFlightCheckTest {
                 this.result = null;
                 this.result = "https://theorigin.localhost";
             }
-        };
+        });
 
         Assertions.assertFalse(CorsPreFlightCheck.isPreflight(this.noCorsHeadersPreflightHeaderRequest));
 
-        new Verifications() {
+        Assertions.assertNotNull(new Verifications() {
             {
                 CorsPreFlightCheckTest.this.noCorsHeadersPreflightHeaderRequest.getMethod();
                 this.times = 1;
@@ -167,7 +167,7 @@ class CorsPreFlightCheckTest {
                         .getHeader("Access-Control-Request-Headers");
                 this.times = 1;
             }
-        };
+        });
     }
 
     /**
@@ -175,12 +175,12 @@ class CorsPreFlightCheckTest {
      */
     @Test
     void testNonOptionsMethodReturnsFalse() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 CorsPreFlightCheckTest.this.preflightRequest.getMethod();
                 this.result = "GET";
             }
-        };
+        });
         Assertions.assertFalse(CorsPreFlightCheck.isPreflight(this.preflightRequest));
     }
 
@@ -189,14 +189,14 @@ class CorsPreFlightCheckTest {
      */
     @Test
     void testCorsFilterPreFlightAttributeReturnsTrue() {
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 CorsPreFlightCheckTest.this.preflightRequest.getMethod();
                 this.result = "OPTIONS";
                 CorsPreFlightCheckTest.this.preflightRequest.getAttribute("cors.request.type");
                 this.result = "PRE_FLIGHT";
             }
-        };
+        });
         Assertions.assertTrue(CorsPreFlightCheck.isPreflight(this.preflightRequest));
     }
 

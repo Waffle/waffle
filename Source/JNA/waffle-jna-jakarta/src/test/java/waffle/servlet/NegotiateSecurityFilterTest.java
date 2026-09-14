@@ -66,7 +66,7 @@ class NegotiateSecurityFilterTest {
     void testCorsAndBearerAuthorizationI_init(@Mocked final FilterConfig filterConfig) throws Exception {
         this.getClass().getClassLoader().getResource("logback.xml");
 
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 filterConfig.getInitParameterNames();
                 this.result = NegotiateSecurityFilterTest.this.initParameterNames;
@@ -87,7 +87,7 @@ class NegotiateSecurityFilterTest {
                 filterConfig.getInitParameter("excludeBearerAuthorization");
                 this.result = "true";
             }
-        };
+        });
 
         this.negotiateSecurityFilter.init(filterConfig);
 
@@ -102,12 +102,12 @@ class NegotiateSecurityFilterTest {
         Assertions.assertTrue(this.negotiateSecurityFilter.isImpersonate());
         Assertions.assertFalse(this.negotiateSecurityFilter.isAllowGuestLogin());
 
-        new Verifications() {
+        Assertions.assertNotNull(new Verifications() {
             {
                 filterConfig.getInitParameter(this.withInstanceOf(String.class));
                 this.minTimes = 8;
             }
-        };
+        });
 
     }
 
@@ -132,7 +132,7 @@ class NegotiateSecurityFilterTest {
             @Mocked final FilterConfig filterConfig) throws Exception {
         this.getClass().getClassLoader().getResource("logback.xml");
 
-        new Expectations() {
+        Assertions.assertNotNull(new Expectations() {
             {
                 filterConfig.getInitParameterNames();
                 this.result = NegotiateSecurityFilterTest.this.initParameterNames;
@@ -158,17 +158,17 @@ class NegotiateSecurityFilterTest {
                 this.result = "Bearer aBase64hash";
                 this.minTimes = 0;
             }
-        };
+        });
 
         this.negotiateSecurityFilter.init(filterConfig);
         this.negotiateSecurityFilter.doFilter(request, response, chain);
 
-        new Verifications() {
+        Assertions.assertNotNull(new Verifications() {
             {
                 chain.doFilter(request, response);
                 this.times = 1;
             }
-        };
+        });
 
     }
 
