@@ -8,7 +8,6 @@ package waffle.jetty;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.nio.file.Path;
 
 import org.apache.jasper.servlet.JspServlet;
@@ -72,9 +71,6 @@ public class StartEmbeddedJetty {
             StartEmbeddedJetty.LOGGER.info(">>> STOPPING EMBEDDED JETTY SERVER");
             server.stop();
             server.join();
-        } catch (final IOException e) {
-            StartEmbeddedJetty.LOGGER.error("", e);
-            System.exit(100);
         } catch (final Exception e) {
             StartEmbeddedJetty.LOGGER.error("", e);
             System.exit(100);

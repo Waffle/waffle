@@ -139,7 +139,7 @@ public class StartEmbeddedJettyValidateNTLMGroup {
          *
          * @return true, if is user authorised
          */
-        private boolean isUserAuthorised(final HttpServletRequest request, final List<String> authorizedGroups) {
+        private boolean isUserAuthorised(final HttpServletRequest request, final Collection<String> authorizedGroups) {
             final Collection<String> usersGroups = this.getUsersGroups(request);
 
             final boolean noOverlappingGroups = Collections.disjoint(authorizedGroups, usersGroups);
