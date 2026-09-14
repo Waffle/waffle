@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
@@ -139,7 +140,7 @@ public class StartEmbeddedJettyValidateNTLMGroup {
          * @return true, if is user authorised
          */
         private boolean isUserAuthorised(final HttpServletRequest request, final List<String> authorizedGroups) {
-            final List<String> usersGroups = this.getUsersGroups(request);
+            final Collection<String> usersGroups = this.getUsersGroups(request);
 
             final boolean noOverlappingGroups = Collections.disjoint(authorizedGroups, usersGroups);
             return !noOverlappingGroups;
