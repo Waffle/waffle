@@ -173,8 +173,8 @@ public class WindowsAuthProviderImpl implements IWindowsAuthProvider {
 
     @Override
     public IWindowsDomain[] getDomains() {
-        final List<IWindowsDomain> domains = new ArrayList<>();
         final DomainTrust[] trusts = Netapi32Util.getDomainTrusts();
+        final List<IWindowsDomain> domains = new ArrayList<>(trusts.length);
         for (final DomainTrust trust : trusts) {
             domains.add(new WindowsDomainImpl(trust));
         }
