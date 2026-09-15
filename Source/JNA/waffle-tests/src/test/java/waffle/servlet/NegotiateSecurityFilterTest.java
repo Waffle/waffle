@@ -320,8 +320,8 @@ class NegotiateSecurityFilterTest {
         filterConfig.setParameter("waffle.servlet.spi.BasicSecurityFilterProvider/realm", "DemoRealm");
         filterConfig.setParameter("authProvider", MockWindowsAuthProvider.class.getName());
         this.filter.init(filterConfig);
-        Assertions.assertEquals(this.filter.getPrincipalFormat(), PrincipalFormat.SID);
-        Assertions.assertEquals(this.filter.getRoleFormat(), PrincipalFormat.NONE);
+        Assertions.assertEquals(PrincipalFormat.SID, this.filter.getPrincipalFormat());
+        Assertions.assertEquals(PrincipalFormat.NONE, this.filter.getRoleFormat());
         Assertions.assertTrue(this.filter.isAllowGuestLogin());
         Assertions.assertEquals(1, this.filter.getProviders().size());
         Assertions.assertTrue(this.filter.getAuth() instanceof MockWindowsAuthProvider);
@@ -356,8 +356,8 @@ class NegotiateSecurityFilterTest {
         filterConfig.setParameter("waffle.servlet.spi.NegotiateSecurityFilterProvider/protocols",
                 "NTLM\nNegotiate NTLM");
         this.filter.init(filterConfig);
-        Assertions.assertEquals(this.filter.getPrincipalFormat(), PrincipalFormat.FQN);
-        Assertions.assertEquals(this.filter.getRoleFormat(), PrincipalFormat.FQN);
+        Assertions.assertEquals(PrincipalFormat.FQN, this.filter.getPrincipalFormat());
+        Assertions.assertEquals(PrincipalFormat.FQN, this.filter.getRoleFormat());
         Assertions.assertTrue(this.filter.isAllowGuestLogin());
         Assertions.assertEquals(1, this.filter.getProviders().size());
     }
@@ -370,12 +370,11 @@ class NegotiateSecurityFilterTest {
         final SimpleFilterConfig filterConfig = new SimpleFilterConfig();
         filterConfig.setParameter("securityFilterProviders", "waffle.servlet.spi.NegotiateSecurityFilterProvider");
         filterConfig.setParameter("waffle.servlet.spi.NegotiateSecurityFilterProvider/protocols", "INVALID");
-        try {
-            this.filter.init(filterConfig);
-            Assertions.fail("expected ServletException");
-        } catch (final ServletException e) {
-            Assertions.assertEquals("java.lang.RuntimeException: Unsupported protocol: INVALID", e.getMessage());
-        }
+
+        final ServletException exception = Assertions.assertThrows(ServletException.class,
+                () -> this.filter.init(filterConfig));
+
+        Assertions.assertEquals("java.lang.RuntimeException: Unsupported protocol: INVALID", exception.getMessage());
     }
 
     /**
@@ -383,14 +382,13 @@ class NegotiateSecurityFilterTest {
      */
     @Test
     void testInitInvalidParameter() {
-        try {
-            final SimpleFilterConfig filterConfig = new SimpleFilterConfig();
-            filterConfig.setParameter("invalidParameter", "random");
-            this.filter.init(filterConfig);
-            Assertions.fail("expected ServletException");
-        } catch (final ServletException e) {
-            Assertions.assertEquals("Invalid parameter: invalidParameter", e.getMessage());
-        }
+        final SimpleFilterConfig filterConfig = new SimpleFilterConfig();
+        filterConfig.setParameter("invalidParameter", "random");
+
+        final ServletException exception = Assertions.assertThrows(ServletException.class,
+                () -> this.filter.init(filterConfig));
+
+        Assertions.assertEquals("Invalid parameter: invalidParameter", exception.getMessage());
     }
 
     /**
@@ -398,13 +396,13 @@ class NegotiateSecurityFilterTest {
      */
     @Test
     void testInitInvalidClassInParameter() {
-        try {
-            final SimpleFilterConfig filterConfig = new SimpleFilterConfig();
-            filterConfig.setParameter("invalidClass/invalidParameter", "random");
-            this.filter.init(filterConfig);
-            Assertions.fail("expected ServletException");
-        } catch (final ServletException e) {
-            Assertions.assertEquals("java.lang.ClassNotFoundException: invalidClass", e.getMessage());
-        }
+        final SimpleFilterConfig filterConfig = new SimpleFilterConfig();
+        filterConfig.setParameter("invalidClass/invalidParameter", "random");
+
+        final ServletException exception = Assertions.assertThrows(ServletException.class,
+                () -> this.filter.init(filterConfig));
+
+        Assertions.assertEquals("java.lang.ClassNotFoundException: invalidClass", exception.getMessage());
     }
+
 }
