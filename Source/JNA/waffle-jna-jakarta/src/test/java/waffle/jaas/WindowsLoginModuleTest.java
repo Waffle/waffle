@@ -40,7 +40,8 @@ import waffle.windows.auth.PrincipalFormat;
  * The Class WindowsLoginModuleTest.
  */
 // Spotbugs ignores for behaviour handling within jmockit
-@SuppressFBWarnings({ "CT_CONSTRUCTOR_THROW", "ITC_INHERITANCE_TYPE_CHECKING", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT" })
+@SuppressFBWarnings({ "CT_CONSTRUCTOR_THROW", "ITC_INHERITANCE_TYPE_CHECKING",
+        "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT" })
 class WindowsLoginModuleTest {
 
     /** The login module. */
