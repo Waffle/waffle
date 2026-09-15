@@ -383,27 +383,27 @@ public class NegotiateSecurityFilter implements Filter {
         NegotiateSecurityFilter.LOGGER.debug("[waffle.servlet.NegotiateSecurityFilter] load provider parameters");
         for (final Map.Entry<String, String> implParameter : implParameters.entrySet()) {
             final String[] classAndParameter = implParameter.getKey().split("/", 2);
-            if (classAndParameter.length == 2) {
-                try {
-
-                    NegotiateSecurityFilter.LOGGER.debug("setting {}, {}={}", classAndParameter[0],
-                            classAndParameter[1], implParameter.getValue());
-
-                    final SecurityFilterProvider provider = this.providers.getByClassName(classAndParameter[0]);
-                    provider.initParameter(classAndParameter[1], implParameter.getValue());
-
-                } catch (final ClassNotFoundException e) {
-                    NegotiateSecurityFilter.LOGGER.error("invalid class: {} in {}", classAndParameter[0],
-                            implParameter.getKey());
-                    throw new ServletException(e);
-                } catch (final Exception e) {
-                    NegotiateSecurityFilter.LOGGER.error("Error setting {} in {}", classAndParameter[0],
-                            classAndParameter[1]);
-                    throw new ServletException(e);
-                }
-            } else {
+            if (classAndParameter.length != 2) {
                 NegotiateSecurityFilter.LOGGER.error("Invalid parameter: {}", implParameter.getKey());
                 throw new ServletException("Invalid parameter: " + implParameter.getKey());
+            }
+
+            final String className = classAndParameter[0];
+            final String parameterName = classAndParameter[1];
+
+            try {
+                NegotiateSecurityFilter.LOGGER.debug("setting {}, {}={}", className, parameterName,
+                        implParameter.getValue());
+
+                final SecurityFilterProvider provider = this.providers.getByClassName(className);
+                provider.initParameter(parameterName, implParameter.getValue());
+
+            } catch (final ClassNotFoundException e) {
+                NegotiateSecurityFilter.LOGGER.error("invalid class: {} in {}", className, implParameter.getKey());
+                throw new ServletException(e);
+            } catch (final Exception e) {
+                NegotiateSecurityFilter.LOGGER.error("Error setting {} in {}", className, parameterName);
+                throw new ServletException(e);
             }
         }
 
