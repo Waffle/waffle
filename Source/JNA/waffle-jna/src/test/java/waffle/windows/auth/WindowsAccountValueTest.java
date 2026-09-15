@@ -116,7 +116,7 @@ class WindowsAccountValueTest {
      */
     @Test
     void testNotEqualsNull() {
-        Assertions.assertNotEquals(null, this.windowsAccount);
+        Assertions.assertNotNull(this.windowsAccount);
     }
 
     /**
