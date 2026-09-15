@@ -8,6 +8,8 @@ package waffle.jaas;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -70,6 +72,7 @@ class UserPrincipalTest {
      * @throws ClassNotFoundException
      *             the class not found exception
      */
+    @SuppressFBWarnings("OBJECT_DESERIALIZATION")
     @Test
     void testIsSerializable() throws IOException, ClassNotFoundException {
         try (ByteArrayOutputStream out = new ByteArrayOutputStream();

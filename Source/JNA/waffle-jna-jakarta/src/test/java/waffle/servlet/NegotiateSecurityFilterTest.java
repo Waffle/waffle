@@ -396,10 +396,7 @@ class NegotiateSecurityFilterTest {
     void testDoFilterOnWindowsDisableSSOCallsChain(@Mocked final HttpServletRequest request,
             @Mocked final HttpServletResponse response, @Mocked final FilterChain chain,
             @Mocked final IWindowsAuthProvider mockAuth) throws Exception {
-        // Simulate Windows environment
-        final Field windowsField = NegotiateSecurityFilter.class.getDeclaredField("windows");
-        windowsField.setAccessible(true);
-        windowsField.set(null, Boolean.TRUE);
+        NegotiateSecurityFilterTest.simulateWindowsEnvironment();
 
         this.negotiateSecurityFilter.setAuth(mockAuth);
         this.negotiateSecurityFilter.init(null);
@@ -452,10 +449,7 @@ class NegotiateSecurityFilterTest {
     void testDoFilterOnWindowsNoAuthHeaderSendsUnauthorized(@Mocked final HttpServletRequest request,
             @Mocked final HttpServletResponse response, @Mocked final FilterChain chain,
             @Mocked final IWindowsAuthProvider mockAuth) throws Exception {
-        // Simulate Windows environment
-        final Field windowsField = NegotiateSecurityFilter.class.getDeclaredField("windows");
-        windowsField.setAccessible(true);
-        windowsField.set(null, Boolean.TRUE);
+        NegotiateSecurityFilterTest.simulateWindowsEnvironment();
 
         this.negotiateSecurityFilter.setAuth(mockAuth);
         this.negotiateSecurityFilter.init(null);
@@ -525,10 +519,7 @@ class NegotiateSecurityFilterTest {
             @Mocked final HttpServletResponse response, @Mocked final FilterChain chain,
             @Mocked final IWindowsAuthProvider mockAuth, @Mocked final SecurityFilterProviderCollection mockProviders,
             @Mocked final HttpSession session, @Mocked final Principal principal) throws Exception {
-        // Simulate Windows environment
-        final Field windowsField = NegotiateSecurityFilter.class.getDeclaredField("windows");
-        windowsField.setAccessible(true);
-        windowsField.set(null, Boolean.TRUE);
+        NegotiateSecurityFilterTest.simulateWindowsEnvironment();
 
         this.negotiateSecurityFilter.setAuth(mockAuth);
         this.negotiateSecurityFilter.init(null);
@@ -603,10 +594,7 @@ class NegotiateSecurityFilterTest {
             @Mocked final HttpServletResponse response, @Mocked final FilterChain chain,
             @Mocked final IWindowsAuthProvider mockAuth, @Mocked final SecurityFilterProviderCollection mockProviders,
             @Mocked final HttpSession session, @Mocked final IWindowsIdentity mockIdentity) throws Exception {
-        // Simulate Windows environment
-        final Field windowsField = NegotiateSecurityFilter.class.getDeclaredField("windows");
-        windowsField.setAccessible(true);
-        windowsField.set(null, Boolean.TRUE);
+        NegotiateSecurityFilterTest.simulateWindowsEnvironment();
 
         this.negotiateSecurityFilter.setAuth(mockAuth);
         this.negotiateSecurityFilter.init(null);
@@ -697,10 +685,7 @@ class NegotiateSecurityFilterTest {
             @Mocked final HttpServletResponse response, @Mocked final FilterChain chain,
             @Mocked final IWindowsAuthProvider mockAuth, @Mocked final SecurityFilterProviderCollection mockProviders,
             @Mocked final HttpSession session, @Mocked final IWindowsIdentity mockIdentity) throws Exception {
-        // Simulate Windows environment
-        final Field windowsField = NegotiateSecurityFilter.class.getDeclaredField("windows");
-        windowsField.setAccessible(true);
-        windowsField.set(null, Boolean.TRUE);
+        NegotiateSecurityFilterTest.simulateWindowsEnvironment();
 
         this.negotiateSecurityFilter.setAuth(mockAuth);
         this.negotiateSecurityFilter.init(null);
@@ -773,6 +758,19 @@ class NegotiateSecurityFilterTest {
                 this.times = 1;
             }
         });
+    }
+
+    /**
+     * Simulate windows environment.
+     *
+     * @throws Exception
+     *             the exception
+     */
+    private static void simulateWindowsEnvironment() throws Exception {
+        // Simulate Windows environment
+        final Field windowsField = NegotiateSecurityFilter.class.getDeclaredField("windows");
+        windowsField.setAccessible(true);
+        windowsField.set(null, Boolean.TRUE);
     }
 
 }

@@ -19,6 +19,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * The Class RolePrincipalTest.
  */
@@ -70,6 +72,7 @@ class RolePrincipalTest {
      * @throws ClassNotFoundException
      *             the class not found exception
      */
+    @SuppressFBWarnings("OBJECT_DESERIALIZATION")
     @Test
     void testIsSerializable() throws IOException, ClassNotFoundException {
         // serialize

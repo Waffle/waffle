@@ -6,6 +6,8 @@
  */
 package waffle.jaas;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.io.IOException;
 
 import javax.security.auth.callback.Callback;
@@ -38,14 +40,13 @@ public class UsernamePasswordCallbackHandler implements CallbackHandler {
         this.password = newPassword;
     }
 
+    @SuppressFBWarnings("ITC_INHERITANCE_TYPE_CHECKING")
     @Override
     public void handle(final Callback[] cb) throws IOException, UnsupportedCallbackException {
         for (final Callback element : cb) {
-            if (element instanceof NameCallback) {
-                final NameCallback nc = (NameCallback) element;
+            if (element instanceof NameCallback nc) {
                 nc.setName(this.username);
-            } else if (element instanceof PasswordCallback) {
-                final PasswordCallback pc = (PasswordCallback) element;
+            } else if (element instanceof PasswordCallback pc) {
                 pc.setPassword(this.password == null ? null : this.password.toCharArray());
             } else {
                 throw new UnsupportedCallbackException(element, "UsernamePasswordCallbackHandler");
