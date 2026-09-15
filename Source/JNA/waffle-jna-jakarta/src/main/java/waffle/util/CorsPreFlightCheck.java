@@ -68,8 +68,8 @@ public final class CorsPreFlightCheck {
         }
 
         /*
-         * it is OPTIONS and it is not an CorsFilter PRE_FLIGHT request make sure that the request contains all of
-         * the CORS preflight Headers
+         * it is OPTIONS and it is not an CorsFilter PRE_FLIGHT request make sure that the request contains all of the
+         * CORS preflight Headers
          */
         CorsPreFlightCheck.LOGGER.debug("[waffle.util.CorsPreflightCheck] check headers");
 

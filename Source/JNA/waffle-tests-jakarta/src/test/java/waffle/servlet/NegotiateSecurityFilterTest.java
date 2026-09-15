@@ -369,18 +369,14 @@ class NegotiateSecurityFilterTest {
     @Test
     void testInitNegotiateSecurityFilterProviderInvalidProtocol() {
         final SimpleFilterConfig filterConfig = new SimpleFilterConfig();
-        filterConfig.setParameter("securityFilterProviders",
-                "waffle.servlet.spi.NegotiateSecurityFilterProvider");
-        filterConfig.setParameter(
-                "waffle.servlet.spi.NegotiateSecurityFilterProvider/protocols", "INVALID");
+        filterConfig.setParameter("securityFilterProviders", "waffle.servlet.spi.NegotiateSecurityFilterProvider");
+        filterConfig.setParameter("waffle.servlet.spi.NegotiateSecurityFilterProvider/protocols", "INVALID");
 
         final ServletException exception = Assertions.assertThrows(ServletException.class,
                 () -> this.filter.init(filterConfig));
 
-        Assertions.assertEquals("java.lang.RuntimeException: Unsupported protocol: INVALID",
-                exception.getMessage());
+        Assertions.assertEquals("java.lang.RuntimeException: Unsupported protocol: INVALID", exception.getMessage());
     }
-
 
     /**
      * Test init invalid parameter.
