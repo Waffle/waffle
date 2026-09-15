@@ -44,8 +44,8 @@ public class WindowsComputerImpl implements IWindowsComputer {
 
     @Override
     public String[] getGroups() {
-        final List<String> groupNames = new ArrayList<>();
         final LocalGroup[] groups = Netapi32Util.getLocalGroups(this.computerName);
+        final List<String> groupNames = new ArrayList<>(groups.length);
         for (final LocalGroup group : groups) {
             groupNames.add(group.name);
         }
