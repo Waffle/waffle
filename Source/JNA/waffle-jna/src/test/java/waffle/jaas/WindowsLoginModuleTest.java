@@ -40,7 +40,8 @@ import waffle.windows.auth.PrincipalFormat;
  * The Class WindowsLoginModuleTest.
  */
 // Spotbugs ignores for behaviour handling within jmockit
-@SuppressFBWarnings({ "CT_CONSTRUCTOR_THROW", "HARD_CODE_PASSWORD", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT" })
+@SuppressFBWarnings({ "CT_CONSTRUCTOR_THROW", "ITC_INHERITANCE_TYPE_CHECKING",
+        "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT" })
 class WindowsLoginModuleTest {
 
     /** The login module. */
@@ -368,15 +369,7 @@ class WindowsLoginModuleTest {
         });
 
         this.loginModule.setAuth(mockAuth);
-        this.callbackHandler = callbacks -> {
-            for (final Callback cb : callbacks) {
-                if (cb instanceof NameCallback) {
-                    ((NameCallback) cb).setName("testuser");
-                } else if (cb instanceof PasswordCallback) {
-                    ((PasswordCallback) cb).setPassword("password".toCharArray());
-                }
-            }
-        };
+        this.callbackHandler = WindowsLoginModuleTest.callbackHandler("testuser", "password");
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
 
         Assertions.assertTrue(this.loginModule.login());
@@ -412,15 +405,7 @@ class WindowsLoginModuleTest {
 
         this.loginModule.setAuth(mockAuth);
         this.loginModule.setAllowGuestLogin(false);
-        this.callbackHandler = callbacks -> {
-            for (final javax.security.auth.callback.Callback cb : callbacks) {
-                if (cb instanceof javax.security.auth.callback.NameCallback) {
-                    ((javax.security.auth.callback.NameCallback) cb).setName("Guest");
-                } else if (cb instanceof javax.security.auth.callback.PasswordCallback) {
-                    ((javax.security.auth.callback.PasswordCallback) cb).setPassword("password".toCharArray());
-                }
-            }
-        };
+        this.callbackHandler = WindowsLoginModuleTest.callbackHandler("Guest", "password");
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
 
         Assertions.assertThrows(LoginException.class, () -> this.loginModule.login());
@@ -461,15 +446,7 @@ class WindowsLoginModuleTest {
 
         this.options.put("principalFormat", "sid");
         this.loginModule.setAuth(mockAuth);
-        this.callbackHandler = callbacks -> {
-            for (final javax.security.auth.callback.Callback cb : callbacks) {
-                if (cb instanceof javax.security.auth.callback.NameCallback) {
-                    ((javax.security.auth.callback.NameCallback) cb).setName("testuser");
-                } else if (cb instanceof javax.security.auth.callback.PasswordCallback) {
-                    ((javax.security.auth.callback.PasswordCallback) cb).setPassword("pass".toCharArray());
-                }
-            }
-        };
+        this.callbackHandler = WindowsLoginModuleTest.callbackHandler("testuser", "pass");
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
 
         Assertions.assertTrue(this.loginModule.login());
@@ -514,15 +491,7 @@ class WindowsLoginModuleTest {
 
         this.options.put("principalFormat", "both");
         this.loginModule.setAuth(mockAuth);
-        this.callbackHandler = callbacks -> {
-            for (final javax.security.auth.callback.Callback cb : callbacks) {
-                if (cb instanceof javax.security.auth.callback.NameCallback) {
-                    ((javax.security.auth.callback.NameCallback) cb).setName("testuser");
-                } else if (cb instanceof javax.security.auth.callback.PasswordCallback) {
-                    ((javax.security.auth.callback.PasswordCallback) cb).setPassword("pass".toCharArray());
-                }
-            }
-        };
+        this.callbackHandler = WindowsLoginModuleTest.callbackHandler("testuser", "pass");
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
 
         Assertions.assertTrue(this.loginModule.login());
@@ -577,15 +546,7 @@ class WindowsLoginModuleTest {
         this.options.put("principalFormat", "none");
         this.options.put("roleFormat", "none");
         this.loginModule.setAuth(mockAuth);
-        this.callbackHandler = callbacks -> {
-            for (final javax.security.auth.callback.Callback cb : callbacks) {
-                if (cb instanceof javax.security.auth.callback.NameCallback) {
-                    ((javax.security.auth.callback.NameCallback) cb).setName("testuser");
-                } else if (cb instanceof javax.security.auth.callback.PasswordCallback) {
-                    ((javax.security.auth.callback.PasswordCallback) cb).setPassword("pass".toCharArray());
-                }
-            }
-        };
+        this.callbackHandler = WindowsLoginModuleTest.callbackHandler("testuser", "pass");
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
 
         Assertions.assertTrue(this.loginModule.login());
@@ -636,15 +597,7 @@ class WindowsLoginModuleTest {
 
         this.options.put("roleFormat", "sid");
         this.loginModule.setAuth(mockAuth);
-        this.callbackHandler = callbacks -> {
-            for (final javax.security.auth.callback.Callback cb : callbacks) {
-                if (cb instanceof javax.security.auth.callback.NameCallback) {
-                    ((javax.security.auth.callback.NameCallback) cb).setName("testuser");
-                } else if (cb instanceof javax.security.auth.callback.PasswordCallback) {
-                    ((javax.security.auth.callback.PasswordCallback) cb).setPassword("pass".toCharArray());
-                }
-            }
-        };
+        this.callbackHandler = WindowsLoginModuleTest.callbackHandler("testuser", "pass");
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
 
         Assertions.assertTrue(this.loginModule.login());
@@ -696,15 +649,7 @@ class WindowsLoginModuleTest {
 
         this.options.put("roleFormat", "both");
         this.loginModule.setAuth(mockAuth);
-        this.callbackHandler = callbacks -> {
-            for (final javax.security.auth.callback.Callback cb : callbacks) {
-                if (cb instanceof javax.security.auth.callback.NameCallback) {
-                    ((javax.security.auth.callback.NameCallback) cb).setName("testuser");
-                } else if (cb instanceof javax.security.auth.callback.PasswordCallback) {
-                    ((javax.security.auth.callback.PasswordCallback) cb).setPassword("pass".toCharArray());
-                }
-            }
-        };
+        this.callbackHandler = WindowsLoginModuleTest.callbackHandler("testuser", "pass");
         this.loginModule.initialize(this.subject, this.callbackHandler, null, this.options);
 
         Assertions.assertTrue(this.loginModule.login());
@@ -712,6 +657,28 @@ class WindowsLoginModuleTest {
 
         // 1 user principal (FQN) + 2 role principals (FQN and SID) = 3 total
         Assertions.assertEquals(3, this.subject.getPrincipals().size());
+    }
+
+    /**
+     * Callback handler.
+     *
+     * @param name
+     *            the name
+     * @param password
+     *            the password
+     *
+     * @return the callback handler
+     */
+    private static CallbackHandler callbackHandler(final String name, final String password) {
+        return callbacks -> {
+            for (final Callback callback : callbacks) {
+                if (callback instanceof NameCallback nameCallback) {
+                    nameCallback.setName(name);
+                } else if (callback instanceof PasswordCallback passwordCallback) {
+                    passwordCallback.setPassword(password.toCharArray());
+                }
+            }
+        };
     }
 
 }

@@ -136,8 +136,8 @@
         <!-- Maven compiler options -->
         <java.version>11</java.version>
         <java.release.version>11</java.release.version>
-        <java.test.version>${java.version}</java.test.version>
-        <java.test.release.version>${java.release.version}</java.test.release.version>
+        <java.test.version>21</java.test.version>
+        <java.test.release.version>21</java.test.release.version>
 
         <!-- Javadoc Release is strict due to maven bug and automatic module naming; it needs extra help, see examples, later fixed by legacy.mode flag -->
         <javadoc.java.release.version>${java.release.version}</javadoc.java.release.version>
@@ -995,6 +995,7 @@
                     <artifactId>impsort-maven-plugin</artifactId>
                     <version>${impsort.plugin}</version>
                     <configuration>
+                        <compliance>${maven.compiler.testRelease}</compliance>
                         <groups>au,ch,com,de,dev,edu,io,jakarta,java,javassist,javax,lombok,mockit,net,nl,ognl,oracle,org,oshi,waffle</groups>
                         <staticGroups>java,*</staticGroups>
                         <removeUnused>true</removeUnused>
