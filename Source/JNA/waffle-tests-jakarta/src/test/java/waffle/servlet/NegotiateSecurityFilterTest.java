@@ -182,7 +182,7 @@ class NegotiateSecurityFilterTest {
                 final SimpleHttpResponse response = new SimpleHttpResponse();
                 this.filter.doFilter(request, response, filterChain);
 
-                final Subject subject = (Subject) request.getSession(false).getAttribute("javax.security.auth.subject");
+                final Subject subject = (Subject) request.getSession(false).getAttribute(Subject.class.getName());
                 authenticated = subject != null && subject.getPrincipals().size() > 0;
 
                 if (authenticated) {
