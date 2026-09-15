@@ -6,7 +6,6 @@
  */
 package waffle.servlet.spi;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -60,7 +59,7 @@ class NegotiateSecurityFilterProviderTest {
      */
     @Test
     void testSetProtocols() {
-        final List<String> newProtocols = Arrays.asList("NTLM");
+        final List<String> newProtocols = List.of("NTLM");
         this.provider.setProtocols(newProtocols);
         Assertions.assertEquals(1, this.provider.getProtocols().size());
         Assertions.assertTrue(this.provider.getProtocols().contains("NTLM"));
@@ -115,7 +114,7 @@ class NegotiateSecurityFilterProviderTest {
      */
     @Test
     void testSendUnauthorizedWithCustomProtocols() {
-        this.provider.setProtocols(Arrays.asList("Negotiate"));
+        this.provider.setProtocols(List.of("Negotiate"));
         this.provider.sendUnauthorized(this.response);
         Assertions.assertNotNull(new Verifications() {
             {
