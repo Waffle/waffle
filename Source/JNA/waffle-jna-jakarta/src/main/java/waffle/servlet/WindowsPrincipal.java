@@ -107,7 +107,7 @@ public class WindowsPrincipal implements Principal, Serializable {
      * @return the groups
      */
     private static Map<String, WindowsAccount> getGroups(final IWindowsAccount[] groups) {
-        final Map<String, WindowsAccount> groupMap = new HashMap<>();
+        final Map<String, WindowsAccount> groupMap = new HashMap<>(groups.length);
         for (final IWindowsAccount group : groups) {
             groupMap.put(group.getFqn(), new WindowsAccount(group));
         }
