@@ -13,7 +13,6 @@ import com.sun.jna.platform.win32.Netapi32Util;
 import com.sun.jna.platform.win32.Win32Exception;
 
 import java.awt.Desktop;
-import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
