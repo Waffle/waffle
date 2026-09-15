@@ -62,8 +62,7 @@ public final class CorsPreFlightCheck {
         /*
          * Support Apache CorsFilter which would already add the Attribute cors.request.type with a value "PRE_FLIGHT"
          */
-        if (corsRequestType != null
-                && corsRequestType.equalsIgnoreCase(CorsPreFlightCheck.PRE_FLIGHT_ATTRIBUTE_VALUE)) {
+        if (CorsPreFlightCheck.PRE_FLIGHT_ATTRIBUTE_VALUE.equalsIgnoreCase(corsRequestType)) {
             return true;
         }
 

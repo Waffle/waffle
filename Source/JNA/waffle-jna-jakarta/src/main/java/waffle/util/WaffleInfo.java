@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -337,13 +338,13 @@ public class WaffleInfo {
             }
 
             final String xml = WaffleInfo.toPrettyXML(info);
-            final File f;
+            final Path path;
             if (show) {
-                f = Files.createTempFile("waffle-info-", ".xml").toFile();
-                Files.write(f.toPath(), xml.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
-                Desktop.getDesktop().open(f);
+                path = Files.createTempFile("waffle-info-", ".xml");
+                Files.write(path, xml.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
+                Desktop.getDesktop().open(path.toFile());
             } else {
-                WaffleInfo.LOGGER.info(xml);
+                WaffleInfo.LOGGER.info("{}", xml);
             }
         } catch (final IOException | TransformerException | ParserConfigurationException e) {
             WaffleInfo.LOGGER.error(e.getMessage());
