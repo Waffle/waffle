@@ -19,6 +19,8 @@ import java.security.Principal;
 import java.util.Collections;
 import java.util.Enumeration;
 
+import javax.security.auth.Subject;
+
 import mockit.Expectations;
 import mockit.Mocked;
 import mockit.Tested;
@@ -742,7 +744,7 @@ class NegotiateSecurityFilterTest {
                 request.getSession(true);
                 this.result = session;
                 this.minTimes = 0;
-                session.getAttribute("javax.security.auth.subject");
+                session.getAttribute(Subject.class.getName());
                 this.result = null;
                 this.minTimes = 0;
                 session.setAttribute(this.withInstanceOf(String.class), this.withInstanceOf(Object.class));

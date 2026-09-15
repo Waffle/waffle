@@ -78,7 +78,7 @@ class BasicSecurityFilterTest {
         final SimpleHttpResponse response = new SimpleHttpResponse();
         final FilterChain filterChain = new SimpleFilterChain();
         this.filter.doFilter(request, response, filterChain);
-        final Subject subject = (Subject) request.getSession(false).getAttribute("javax.security.auth.subject");
+        final Subject subject = (Subject) request.getSession(false).getAttribute(Subject.class.getName());
         Assertions.assertNotNull(subject);
         assertThat(subject.getPrincipals().size()).isPositive();
     }

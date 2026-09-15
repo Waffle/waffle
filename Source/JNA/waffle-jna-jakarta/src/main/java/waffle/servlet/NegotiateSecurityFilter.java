@@ -186,7 +186,7 @@ public class NegotiateSecurityFilter implements Filter {
                     throw new ServletException("Expected HttpSession");
                 }
 
-                Subject subject = (Subject) session.getAttribute("javax.security.auth.subject");
+                Subject subject = (Subject) session.getAttribute(Subject.class.getName());
                 if (subject == null) {
                     subject = new Subject();
                 }
@@ -201,7 +201,7 @@ public class NegotiateSecurityFilter implements Filter {
 
                 NegotiateSecurityFilter.LOGGER.debug("roles: {}", windowsPrincipal.getRolesString());
                 subject.getPrincipals().add(windowsPrincipal);
-                request.getSession(false).setAttribute("javax.security.auth.subject", subject);
+                request.getSession(false).setAttribute(Subject.class.getName(), subject);
 
                 NegotiateSecurityFilter.LOGGER.info("successfully logged in user: {}", windowsIdentity.getFqn());
 
