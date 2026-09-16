@@ -42,7 +42,7 @@ import waffle.windows.auth.WindowsAccount;
 public class StartEmbeddedJettyValidateNTLMGroup {
 
     /** The logger. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(StartEmbeddedJettyValidateNTLMGroup.class);
+    private static final Logger logger = LoggerFactory.getLogger(StartEmbeddedJettyValidateNTLMGroup.class);
 
     /**
      * Prevents Instantiation of a new start embedded jetty validate NTLM group.
@@ -80,7 +80,7 @@ public class StartEmbeddedJettyValidateNTLMGroup {
         try {
             server.start();
         } catch (final Exception e) {
-            StartEmbeddedJettyValidateNTLMGroup.LOGGER.trace("", e);
+            StartEmbeddedJettyValidateNTLMGroup.logger.trace("", e);
         }
     }
 

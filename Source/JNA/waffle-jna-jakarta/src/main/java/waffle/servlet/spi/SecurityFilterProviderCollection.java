@@ -29,8 +29,8 @@ import waffle.windows.auth.IWindowsIdentity;
  */
 public class SecurityFilterProviderCollection {
 
-    /** The Constant LOGGER. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(SecurityFilterProviderCollection.class);
+    /** The Constant logger. */
+    private static final Logger logger = LoggerFactory.getLogger(SecurityFilterProviderCollection.class);
 
     /** The providers. */
     private final List<SecurityFilterProvider> providers = new ArrayList<>();
@@ -43,7 +43,7 @@ public class SecurityFilterProviderCollection {
      */
     public SecurityFilterProviderCollection(final SecurityFilterProvider[] providerArray) {
         for (final SecurityFilterProvider provider : providerArray) {
-            SecurityFilterProviderCollection.LOGGER.info("using '{}'", provider.getClass().getName());
+            SecurityFilterProviderCollection.logger.info("using '{}'", provider.getClass().getName());
             this.providers.add(provider);
         }
     }
@@ -62,19 +62,19 @@ public class SecurityFilterProviderCollection {
         Constructor<SecurityFilterProvider> providerConstructor;
         for (String providerName : providerNames) {
             providerName = providerName.trim();
-            SecurityFilterProviderCollection.LOGGER.info("loading '{}'", providerName);
+            SecurityFilterProviderCollection.logger.info("loading '{}'", providerName);
             try {
                 providerClass = (Class<SecurityFilterProvider>) Class.forName(providerName);
                 providerConstructor = providerClass.getConstructor(IWindowsAuthProvider.class);
                 final SecurityFilterProvider provider = providerConstructor.newInstance(auth);
                 this.providers.add(provider);
             } catch (final ClassNotFoundException e) {
-                SecurityFilterProviderCollection.LOGGER.error("error loading '{}'", providerName);
+                SecurityFilterProviderCollection.logger.error("error loading '{}'", providerName);
                 throw new RuntimeException(e);
             } catch (final SecurityException | NoSuchMethodException | IllegalArgumentException | InstantiationException
                     | IllegalAccessException | InvocationTargetException e) {
-                SecurityFilterProviderCollection.LOGGER.error("error loading '{}': {}", providerName, e.getMessage());
-                SecurityFilterProviderCollection.LOGGER.trace("", e);
+                SecurityFilterProviderCollection.logger.error("error loading '{}': {}", providerName, e.getMessage());
+                SecurityFilterProviderCollection.logger.trace("", e);
             }
         }
     }

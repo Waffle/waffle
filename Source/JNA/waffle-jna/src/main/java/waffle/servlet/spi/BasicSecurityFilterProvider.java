@@ -25,8 +25,8 @@ import waffle.windows.auth.IWindowsIdentity;
  */
 public class BasicSecurityFilterProvider implements SecurityFilterProvider {
 
-    /** The Constant LOGGER. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(BasicSecurityFilterProvider.class);
+    /** The Constant logger. */
+    private static final Logger logger = LoggerFactory.getLogger(BasicSecurityFilterProvider.class);
 
     /** The realm. */
     private String realm = "BasicSecurityFilterProvider";
@@ -54,7 +54,7 @@ public class BasicSecurityFilterProvider implements SecurityFilterProvider {
         if (usernamePasswordArray.length != 2) {
             throw new RuntimeException("Invalid username:password in Authorization header.");
         }
-        BasicSecurityFilterProvider.LOGGER.debug("logging in user: {}", usernamePasswordArray[0]);
+        BasicSecurityFilterProvider.logger.debug("logging in user: {}", usernamePasswordArray[0]);
         return this.auth.logonUser(usernamePasswordArray[0], usernamePasswordArray[1]);
     }
 

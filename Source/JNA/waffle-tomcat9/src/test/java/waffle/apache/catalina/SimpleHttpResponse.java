@@ -21,8 +21,8 @@ import org.slf4j.LoggerFactory;
  */
 public class SimpleHttpResponse extends Response {
 
-    /** The Constant LOGGER. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(SimpleHttpResponse.class);
+    /** The Constant logger. */
+    private static final Logger logger = LoggerFactory.getLogger(SimpleHttpResponse.class);
 
     /** The status. */
     private int status = 500;
@@ -42,10 +42,10 @@ public class SimpleHttpResponse extends Response {
 
     @Override
     public void flushBuffer() {
-        SimpleHttpResponse.LOGGER.info("{} {}", Integer.valueOf(this.status), this.getStatusString());
+        SimpleHttpResponse.logger.info("{} {}", Integer.valueOf(this.status), this.getStatusString());
         for (final String header : this.headers.keySet()) {
             for (final String headerValue : this.headers.get(header)) {
-                SimpleHttpResponse.LOGGER.info("{}: {}", header, headerValue);
+                SimpleHttpResponse.logger.info("{}: {}", header, headerValue);
             }
         }
     }

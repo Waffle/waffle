@@ -43,7 +43,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
     /**
      * This class's private logger.
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(NegotiateAuthenticationFilter.class);
+    private static final Logger logger = LoggerFactory.getLogger(NegotiateAuthenticationFilter.class);
 
     // TODO things (sometimes) break, depending on what user account is running tomcat:
     // related to setSPN and running tomcat server as NT Service account vs. as normal user account.
@@ -110,7 +110,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         final AuthorizationHeader authorizationHeader = new AuthorizationHeader((HttpServletRequest) request);
         final boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
 
-        NegotiateAuthenticationFilter.LOGGER.debug("security package: {}, connection id: {}, ntlmPost: {}",
+        NegotiateAuthenticationFilter.logger.debug("security package: {}, connection id: {}, ntlmPost: {}",
                 securityPackage, connectionId, Boolean.valueOf(ntlmPost));
 
         final boolean rememberMe = this.isRememberMe(request);
@@ -132,11 +132,11 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         if (e instanceof AuthenticationInProgressException) {
             // negotiate is processing
             final String protocol = this.getAuthzHeaderProtocol(request);
-            NegotiateAuthenticationFilter.LOGGER.debug("Negotiation in progress for protocol: {}", protocol);
+            NegotiateAuthenticationFilter.logger.debug("Negotiation in progress for protocol: {}", protocol);
             this.sendChallengeDuringNegotiate(protocol, response, ((NegotiateToken) token).getOut());
             return false;
         }
-        NegotiateAuthenticationFilter.LOGGER.warn("login exception: {}", e.getMessage());
+        NegotiateAuthenticationFilter.logger.warn("login exception: {}", e.getMessage());
 
         // do not send token.out bytes, this was a login failure.
         this.sendChallengeOnFailure(response);
@@ -185,7 +185,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
         if (this.isLoginAttempt(request)) {
             loggedIn = this.executeLogin(request, response);
         } else {
-            NegotiateAuthenticationFilter.LOGGER.debug("authorization required, supported protocols: {}",
+            NegotiateAuthenticationFilter.logger.debug("authorization required, supported protocols: {}",
                     NegotiateAuthenticationFilter.PROTOCOLS);
             this.sendChallengeInitiateNegotiate(response);
         }

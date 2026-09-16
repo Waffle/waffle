@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 public class AuthorizationHeader {
 
     /** The logger. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(AuthorizationHeader.class);
+    private static final Logger logger = LoggerFactory.getLogger(AuthorizationHeader.class);
 
     /** The request. */
     private final HttpServletRequest request;
@@ -101,7 +101,7 @@ public class AuthorizationHeader {
         try {
             return Base64.getDecoder().decode(this.getToken());
         } catch (final IllegalArgumentException e) {
-            AuthorizationHeader.LOGGER.debug("", e);
+            AuthorizationHeader.logger.debug("", e);
             throw new RuntimeException("Invalid authorization header.");
         }
     }

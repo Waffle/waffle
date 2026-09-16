@@ -34,8 +34,8 @@ import waffle.mock.http.SimpleHttpResponse;
  */
 class WaffleInfoServletTest {
 
-    /** The Constant LOGGER. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(WaffleInfoServletTest.class);
+    /** The Constant logger. */
+    private static final Logger logger = LoggerFactory.getLogger(WaffleInfoServletTest.class);
 
     /**
      * Test get info.
@@ -62,7 +62,7 @@ class WaffleInfoServletTest {
         final String xml = response.getOutputText();
         final Document doc = WaffleInfoServletTest.loadXMLFromString(xml);
 
-        WaffleInfoServletTest.LOGGER.info("GOT: {}", xml);
+        WaffleInfoServletTest.logger.info("GOT: {}", xml);
 
         // Make sure JNA Version is properly noted
         Assertions.assertEquals(Platform.class.getPackage().getImplementationVersion(),

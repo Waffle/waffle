@@ -32,7 +32,7 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
     /**
      * This class's private logger.
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(NegotiateAuthenticationRealm.class);
+    private static final Logger logger = LoggerFactory.getLogger(NegotiateAuthenticationRealm.class);
 
     /** The windows auth provider. */
     private final IWindowsAuthProvider windowsAuthProvider;
@@ -65,17 +65,17 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
             securityContext = this.windowsAuthProvider.acceptSecurityToken(token.getConnectionId(), inToken,
                     token.getSecurityPackage());
         } catch (final Exception e) {
-            NegotiateAuthenticationRealm.LOGGER.warn("error logging in user");
+            NegotiateAuthenticationRealm.logger.warn("error logging in user");
             throw new AuthenticationException(e);
         }
 
         final byte[] continueTokenBytes = securityContext.getToken();
         token.setOut(continueTokenBytes);
         if (continueTokenBytes != null) {
-            NegotiateAuthenticationRealm.LOGGER.debug("continue token bytes: {}",
+            NegotiateAuthenticationRealm.logger.debug("continue token bytes: {}",
                     Integer.valueOf(continueTokenBytes.length));
         } else {
-            NegotiateAuthenticationRealm.LOGGER.debug("no continue token bytes");
+            NegotiateAuthenticationRealm.logger.debug("no continue token bytes");
         }
 
         if (securityContext.isContinue() || token.isNtlmPost()) {
@@ -85,7 +85,7 @@ public class NegotiateAuthenticationRealm extends AuthenticatingRealm {
         final IWindowsIdentity windowsIdentity = securityContext.getIdentity();
         securityContext.dispose();
 
-        NegotiateAuthenticationRealm.LOGGER.debug("logged in user: {} ({})", windowsIdentity.getFqn(),
+        NegotiateAuthenticationRealm.logger.debug("logged in user: {} ({})", windowsIdentity.getFqn(),
                 windowsIdentity.getSidString());
 
         final Principal principal = new WindowsPrincipal(windowsIdentity);

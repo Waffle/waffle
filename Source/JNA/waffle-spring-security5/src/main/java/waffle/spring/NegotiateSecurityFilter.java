@@ -36,8 +36,8 @@ import waffle.windows.auth.PrincipalFormat;
  */
 public class NegotiateSecurityFilter extends GenericFilterBean {
 
-    /** The Constant LOGGER. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(NegotiateSecurityFilter.class);
+    /** The Constant logger. */
+    private static final Logger logger = LoggerFactory.getLogger(NegotiateSecurityFilter.class);
 
     /** The provider. */
     private SecurityFilterProviderCollection provider;
@@ -65,7 +65,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
      */
     public NegotiateSecurityFilter() {
         super();
-        NegotiateSecurityFilter.LOGGER.debug("[waffle.spring.NegotiateSecurityFilter] loaded");
+        NegotiateSecurityFilter.logger.debug("[waffle.spring.NegotiateSecurityFilter] loaded");
     }
 
     @Override
@@ -75,7 +75,7 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
         final HttpServletRequest request = (HttpServletRequest) req;
         final HttpServletResponse response = (HttpServletResponse) res;
 
-        NegotiateSecurityFilter.LOGGER.debug("{} {}, contentlength: {}", request.getMethod(), request.getRequestURI(),
+        NegotiateSecurityFilter.logger.debug("{} {}, contentlength: {}", request.getMethod(), request.getRequestURI(),
                 Integer.valueOf(request.getContentLength()));
 
         final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
@@ -93,8 +93,8 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
                     return;
                 }
             } catch (final IOException e) {
-                NegotiateSecurityFilter.LOGGER.warn("error logging in user: {}", e.getMessage());
-                NegotiateSecurityFilter.LOGGER.trace("", e);
+                NegotiateSecurityFilter.logger.warn("error logging in user: {}", e.getMessage());
+                NegotiateSecurityFilter.logger.trace("", e);
                 this.sendUnauthorized(response, true);
                 return;
             }
@@ -102,19 +102,19 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
             IWindowsImpersonationContext ctx = null;
             try {
                 if (!this.allowGuestLogin && windowsIdentity.isGuest()) {
-                    NegotiateSecurityFilter.LOGGER.warn("guest login disabled: {}", windowsIdentity.getFqn());
+                    NegotiateSecurityFilter.logger.warn("guest login disabled: {}", windowsIdentity.getFqn());
                     this.sendUnauthorized(response, true);
                     return;
                 }
 
-                NegotiateSecurityFilter.LOGGER.debug("logged in user: {} ({})", windowsIdentity.getFqn(),
+                NegotiateSecurityFilter.logger.debug("logged in user: {} ({})", windowsIdentity.getFqn(),
                         windowsIdentity.getSidString());
 
                 final WindowsPrincipal principal = this.impersonate
                         ? new AutoDisposableWindowsPrincipal(windowsIdentity, this.principalFormat, this.roleFormat)
                         : new WindowsPrincipal(windowsIdentity, this.principalFormat, this.roleFormat);
 
-                NegotiateSecurityFilter.LOGGER.debug("roles: {}", principal.getRolesString());
+                NegotiateSecurityFilter.logger.debug("roles: {}", principal.getRolesString());
 
                 final Authentication authentication = new WindowsAuthenticationToken(principal,
                         this.grantedAuthorityFactory, this.defaultGrantedAuthority);
@@ -123,17 +123,17 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
                     return;
                 }
 
-                NegotiateSecurityFilter.LOGGER.info("successfully logged in user: {}", windowsIdentity.getFqn());
+                NegotiateSecurityFilter.logger.info("successfully logged in user: {}", windowsIdentity.getFqn());
 
                 if (this.impersonate) {
-                    NegotiateSecurityFilter.LOGGER.debug("impersonating user");
+                    NegotiateSecurityFilter.logger.debug("impersonating user");
                     ctx = windowsIdentity.impersonate();
                 }
 
                 chain.doFilter(request, response);
             } finally {
                 if (this.impersonate && ctx != null) {
-                    NegotiateSecurityFilter.LOGGER.debug("terminating impersonation");
+                    NegotiateSecurityFilter.logger.debug("terminating impersonation");
                     ctx.revertToSelf();
                 } else {
                     windowsIdentity.dispose();

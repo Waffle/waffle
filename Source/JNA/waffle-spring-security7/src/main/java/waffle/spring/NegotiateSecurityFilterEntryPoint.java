@@ -24,8 +24,8 @@ import waffle.servlet.spi.SecurityFilterProviderCollection;
  */
 public class NegotiateSecurityFilterEntryPoint implements AuthenticationEntryPoint {
 
-    /** The Constant LOGGER. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(NegotiateSecurityFilterEntryPoint.class);
+    /** The Constant logger. */
+    private static final Logger logger = LoggerFactory.getLogger(NegotiateSecurityFilterEntryPoint.class);
 
     /** The provider. */
     private SecurityFilterProviderCollection provider;
@@ -34,14 +34,14 @@ public class NegotiateSecurityFilterEntryPoint implements AuthenticationEntryPoi
      * Instantiates a new negotiate security filter entry point.
      */
     public NegotiateSecurityFilterEntryPoint() {
-        NegotiateSecurityFilterEntryPoint.LOGGER.debug("[waffle.spring.NegotiateEntryPoint] loaded");
+        NegotiateSecurityFilterEntryPoint.logger.debug("[waffle.spring.NegotiateEntryPoint] loaded");
     }
 
     @Override
     public void commence(final HttpServletRequest request, final HttpServletResponse response,
             final AuthenticationException ex) throws IOException, ServletException {
 
-        NegotiateSecurityFilterEntryPoint.LOGGER.debug("[waffle.spring.NegotiateEntryPoint] commence");
+        NegotiateSecurityFilterEntryPoint.logger.debug("[waffle.spring.NegotiateEntryPoint] commence");
 
         if (this.provider == null) {
             throw new ServletException("Missing NegotiateEntryPoint.Provider");

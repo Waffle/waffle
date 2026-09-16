@@ -29,8 +29,8 @@ import waffle.windows.auth.IWindowsSecurityContext;
  */
 public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
 
-    /** The Constant LOGGER. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(NegotiateSecurityFilterProvider.class);
+    /** The Constant logger. */
+    private static final Logger logger = LoggerFactory.getLogger(NegotiateSecurityFilterProvider.class);
 
     /** The Constant WWW_AUTHENTICATE. */
     private static final String WWW_AUTHENTICATE = "WWW-Authenticate";
@@ -92,7 +92,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
     public boolean isPrincipalException(final HttpServletRequest request) {
         final AuthorizationHeader authorizationHeader = new AuthorizationHeader(request);
         final boolean ntlmPost = authorizationHeader.isNtlmType1PostAuthorizationHeader();
-        NegotiateSecurityFilterProvider.LOGGER.debug("authorization: {}, ntlm post: {}", authorizationHeader,
+        NegotiateSecurityFilterProvider.logger.debug("authorization: {}, ntlm post: {}", authorizationHeader,
                 Boolean.valueOf(ntlmPost));
         return ntlmPost;
     }
@@ -107,7 +107,7 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
         // maintain a connection-based session for NTLM tokens
         final String connectionId = NtlmServletRequest.getConnectionId(request);
         final String securityPackage = authorizationHeader.getSecurityPackage();
-        NegotiateSecurityFilterProvider.LOGGER.debug("security package: {}, connection id: {}", securityPackage,
+        NegotiateSecurityFilterProvider.logger.debug("security package: {}, connection id: {}", securityPackage,
                 connectionId);
 
         if (ntlmPost) {
@@ -116,18 +116,18 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
         }
 
         final byte[] tokenBuffer = authorizationHeader.getTokenBytes();
-        NegotiateSecurityFilterProvider.LOGGER.debug("token buffer: {} byte(s)", Integer.valueOf(tokenBuffer.length));
+        NegotiateSecurityFilterProvider.logger.debug("token buffer: {} byte(s)", Integer.valueOf(tokenBuffer.length));
         final IWindowsSecurityContext securityContext = this.auth.acceptSecurityToken(connectionId, tokenBuffer,
                 securityPackage);
 
         final byte[] continueTokenBytes = securityContext.getToken();
         if (continueTokenBytes != null && continueTokenBytes.length > 0) {
             final String continueToken = Base64.getEncoder().encodeToString(continueTokenBytes);
-            NegotiateSecurityFilterProvider.LOGGER.debug("continue token: {}", continueToken);
+            NegotiateSecurityFilterProvider.logger.debug("continue token: {}", continueToken);
             response.addHeader(NegotiateSecurityFilterProvider.WWW_AUTHENTICATE, securityPackage + " " + continueToken);
         }
 
-        NegotiateSecurityFilterProvider.LOGGER.debug("continue required: {}",
+        NegotiateSecurityFilterProvider.logger.debug("continue required: {}",
                 Boolean.valueOf(securityContext.isContinue()));
         if (securityContext.isContinue()) {
             response.setHeader("Connection", "keep-alive");
@@ -159,12 +159,12 @@ public class NegotiateSecurityFilterProvider implements SecurityFilterProvider {
             for (String protocolName : protocolNames) {
                 protocolName = protocolName.trim();
                 if (!protocolName.isEmpty()) {
-                    NegotiateSecurityFilterProvider.LOGGER.debug("init protocol: {}", protocolName);
+                    NegotiateSecurityFilterProvider.logger.debug("init protocol: {}", protocolName);
                     if (NegotiateSecurityFilterProvider.NEGOTIATE.equals(protocolName)
                             || NegotiateSecurityFilterProvider.NTLM.equals(protocolName)) {
                         this.protocolsList.add(protocolName);
                     } else {
-                        NegotiateSecurityFilterProvider.LOGGER.error("unsupported protocol: {}", protocolName);
+                        NegotiateSecurityFilterProvider.logger.error("unsupported protocol: {}", protocolName);
                         throw new RuntimeException("Unsupported protocol: " + protocolName);
                     }
                 }

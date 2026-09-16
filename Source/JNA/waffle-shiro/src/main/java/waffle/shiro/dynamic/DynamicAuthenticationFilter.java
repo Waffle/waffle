@@ -81,8 +81,8 @@ import waffle.shiro.negotiate.NegotiateAuthenticationFilter;
  */
 public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
 
-    /** The Constant LOGGER. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(DynamicAuthenticationFilter.class);
+    /** The Constant logger. */
+    private static final Logger logger = LoggerFactory.getLogger(DynamicAuthenticationFilter.class);
 
     /** The Constant PARAM_NAME_AUTHTYPE. */
     public static final String PARAM_NAME_AUTHTYPE = "authType";
@@ -166,10 +166,10 @@ public class DynamicAuthenticationFilter extends FormAuthenticationFilter {
     @Override
     protected boolean executeLogin(final ServletRequest request, final ServletResponse response) throws Exception {
         if (this.isAuthTypeNegotiate(request)) {
-            DynamicAuthenticationFilter.LOGGER.debug("using filterNegotiate");
+            DynamicAuthenticationFilter.logger.debug("using filterNegotiate");
             return this.filterNegotiate.onAccessDenied(request, response);
         }
-        DynamicAuthenticationFilter.LOGGER.debug("using filterFormAuthc");
+        DynamicAuthenticationFilter.logger.debug("using filterFormAuthc");
         return this.filterFormAuthc.onAccessDenied(request, response);
     }
 

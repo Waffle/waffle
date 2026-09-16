@@ -40,8 +40,8 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  */
 public class WindowsLoginModule implements LoginModule {
 
-    /** The Constant LOGGER. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(WindowsLoginModule.class);
+    /** The Constant logger. */
+    private static final Logger logger = LoggerFactory.getLogger(WindowsLoginModule.class);
 
     /** The username. */
     private String username;
@@ -118,10 +118,10 @@ public class WindowsLoginModule implements LoginModule {
             password = passwordCallback.getPassword() == null ? "" : new String(passwordCallback.getPassword());
             passwordCallback.clearPassword();
         } catch (final IOException e) {
-            WindowsLoginModule.LOGGER.trace("", e);
+            WindowsLoginModule.logger.trace("", e);
             throw new LoginException(e.toString());
         } catch (final UnsupportedCallbackException e) {
-            WindowsLoginModule.LOGGER.trace("", e);
+            WindowsLoginModule.logger.trace("", e);
             throw new LoginException("Callback {} not available to gather authentication information from the user."
                     .replace("{}", e.getCallback().getClass().getName()));
         }
@@ -130,14 +130,14 @@ public class WindowsLoginModule implements LoginModule {
         try {
             windowsIdentity = this.auth.logonUser(userName, password);
         } catch (final Exception e) {
-            WindowsLoginModule.LOGGER.trace("", e);
+            WindowsLoginModule.logger.trace("", e);
             throw new LoginException(e.getMessage());
         }
 
         try {
             // disable guest login
             if (!this.allowGuestLogin && windowsIdentity.isGuest()) {
-                WindowsLoginModule.LOGGER.debug("guest login disabled: {}", windowsIdentity.getFqn());
+                WindowsLoginModule.logger.debug("guest login disabled: {}", windowsIdentity.getFqn());
                 throw new LoginException("Guest login disabled");
             }
 
@@ -152,7 +152,7 @@ public class WindowsLoginModule implements LoginModule {
             }
 
             this.username = windowsIdentity.getFqn();
-            WindowsLoginModule.LOGGER.debug("successfully logged in {} ({})", this.username,
+            WindowsLoginModule.logger.debug("successfully logged in {} ({})", this.username,
                     windowsIdentity.getSidString());
         } finally {
             windowsIdentity.dispose();
@@ -195,11 +195,11 @@ public class WindowsLoginModule implements LoginModule {
         final Set<Principal> principalsSet = this.subject.getPrincipals();
         principalsSet.addAll(this.principals);
 
-        WindowsLoginModule.LOGGER.debug("committing {} principals",
+        WindowsLoginModule.logger.debug("committing {} principals",
                 Integer.valueOf(this.subject.getPrincipals().size()));
         if (this.debug) {
             for (final Principal principal : principalsSet) {
-                WindowsLoginModule.LOGGER.debug(" principal: {}", principal.getName());
+                WindowsLoginModule.logger.debug(" principal: {}", principal.getName());
             }
         }
 
@@ -223,7 +223,7 @@ public class WindowsLoginModule implements LoginModule {
         this.subject.getPrincipals().clear();
 
         if (this.username != null) {
-            WindowsLoginModule.LOGGER.debug("logging out {}", this.username);
+            WindowsLoginModule.logger.debug("logging out {}", this.username);
         }
 
         return true;
