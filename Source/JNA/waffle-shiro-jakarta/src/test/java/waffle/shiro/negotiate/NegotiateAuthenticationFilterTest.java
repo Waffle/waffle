@@ -34,9 +34,6 @@ class NegotiateAuthenticationFilterTest {
     /** The response. */
     private MockServletResponse response;
 
-    /** The out. */
-    private byte[] out;
-
     /**
      * Sets the up.
      */
@@ -65,12 +62,12 @@ class NegotiateAuthenticationFilterTest {
 
         final String myProtocol = "myProtocol";
 
-        this.out = new byte[1];
-        this.out[0] = -1;
+        byte[] out = new byte[1];
+        out[0] = -1;
 
-        this.negAuthFilter.sendChallengeDuringNegotiate(myProtocol, this.response, this.out);
+        this.negAuthFilter.sendChallengeDuringNegotiate(myProtocol, this.response, out);
 
-        Assertions.assertEquals(String.join(" ", myProtocol, Base64.getEncoder().encodeToString(this.out)),
+        Assertions.assertEquals(String.join(" ", myProtocol, Base64.getEncoder().encodeToString(out)),
                 this.response.headers.get("WWW-Authenticate"));
 
         Assertions.assertEquals("keep-alive", this.response.headers.get("Connection"));
@@ -86,9 +83,6 @@ class NegotiateAuthenticationFilterTest {
      */
     @Test
     void testSendChallengeInitiateNegotiate() {
-
-        this.out = new byte[1];
-        this.out[0] = -1;
 
         this.negAuthFilter.sendChallengeInitiateNegotiate(this.response);
 

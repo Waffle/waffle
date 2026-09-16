@@ -276,7 +276,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      * @param out
      *            token.out or null
      */
-    private void sendChallenge(final List<String> protocols, final ServletResponse response, final byte[] out) {
+    private void sendChallenge(final Iterable<String> protocols, final ServletResponse response, final byte[] out) {
         final HttpServletResponse httpResponse = WebUtils.toHttp(response);
         this.sendAuthenticateHeader(protocols, out, httpResponse);
         httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -336,7 +336,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      * @param httpResponse
      *            the http response
      */
-    private void sendAuthenticateHeader(final List<String> protocolsList, final byte[] out,
+    private void sendAuthenticateHeader(final Iterable<String> protocolsList, final byte[] out,
             final HttpServletResponse httpResponse) {
         this.sendUnauthorized(protocolsList, out, httpResponse);
         httpResponse.setHeader("Connection", "keep-alive");
@@ -352,7 +352,8 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
      * @param response
      *            the response
      */
-    private void sendUnauthorized(final List<String> protocols, final byte[] out, final HttpServletResponse response) {
+    private void sendUnauthorized(final Iterable<String> protocols, final byte[] out,
+            final HttpServletResponse response) {
         for (final String protocol : protocols) {
             if (out == null || out.length == 0) {
                 response.addHeader("WWW-Authenticate", protocol);
