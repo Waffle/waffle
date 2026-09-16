@@ -111,7 +111,7 @@ class DelegatingNegotiateSecurityFilterTest {
         Assertions.assertNotNull(authorities);
         Assertions.assertEquals(3, authorities.size());
 
-        final List<String> list = new ArrayList<>();
+        final List<String> list = new ArrayList<>(authorities.size());
         for (final GrantedAuthority grantedAuthority : authorities) {
             list.add(grantedAuthority.getAuthority());
         }
@@ -171,6 +171,7 @@ class DelegatingNegotiateSecurityFilterTest {
  */
 class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
+    /** The authentication. */
     private Authentication authentication;
 
     @Override
@@ -180,6 +181,11 @@ class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler
         this.authentication = authentication;
     }
 
+    /**
+     * Gets the authentication.
+     *
+     * @return the authentication
+     */
     public Authentication getAuthentication() {
         return authentication;
     }
