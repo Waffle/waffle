@@ -75,11 +75,11 @@ public class WaffleFqnPrincipal implements Serializable {
     @Override
     public String toString() {
         final StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("{");
+        stringBuilder.append('{');
         stringBuilder.append(this.getClass().getSimpleName());
-        stringBuilder.append(":");
+        stringBuilder.append(':');
         stringBuilder.append(this.fqn);
-        stringBuilder.append("}");
+        stringBuilder.append('}');
         return stringBuilder.toString();
     }
 

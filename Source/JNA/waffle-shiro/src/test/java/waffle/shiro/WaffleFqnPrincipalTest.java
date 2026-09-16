@@ -89,7 +89,7 @@ class WaffleFqnPrincipalTest {
      */
     @Test
     void testNotEqualsNull() {
-        Assertions.assertNotEquals(null, this.principal);
+        Assertions.assertNotNull(this.principal);
     }
 
     /**
