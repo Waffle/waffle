@@ -6,7 +6,6 @@
  */
 package waffle.spring.boot;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
@@ -174,7 +173,7 @@ class WafflePropertiesTest {
     @Test
     void testSsoSetProtocols() {
         final WaffleProperties.SingleSignOnProperties sso = new WaffleProperties.SingleSignOnProperties();
-        sso.setProtocols(Arrays.asList("Negotiate"));
+        sso.setProtocols(List.of("Negotiate"));
         Assertions.assertEquals(1, sso.getProtocols().size());
         Assertions.assertTrue(sso.getProtocols().contains("Negotiate"));
     }
