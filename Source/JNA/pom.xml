@@ -1213,8 +1213,19 @@
                         <id>attach-javadocs</id>
                         <goals>
                             <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <release>${maven.compiler.release}</release>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>attach-test-javadocs</id>
+                        <goals>
                             <goal>test-jar</goal>
                         </goals>
+                        <configuration>
+                            <release>${maven.compiler.testRelease}</release>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
