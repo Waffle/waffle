@@ -55,7 +55,7 @@ class WindowsAuthenticationTokenTest {
         final Collection<GrantedAuthority> authorities = this.token.getAuthorities();
         Assertions.assertEquals(3, authorities.size());
 
-        final List<String> list = new ArrayList<>();
+        final List<String> list = new ArrayList<>(authorities.size());
         for (final GrantedAuthority grantedAuthority : authorities) {
             list.add(grantedAuthority.getAuthority());
         }
@@ -82,7 +82,7 @@ class WindowsAuthenticationTokenTest {
         final Collection<GrantedAuthority> authorities = myToken.getAuthorities();
         Assertions.assertEquals(2, authorities.size());
 
-        final List<String> list = new ArrayList<>();
+        final List<String> list = new ArrayList<>(authorities.size());
         for (final GrantedAuthority grantedAuthority : authorities) {
             list.add(grantedAuthority.getAuthority());
         }
