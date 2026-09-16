@@ -195,9 +195,9 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
     /**
      * Returns the {@link org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter#AUTHORIZATION_HEADER
      * AUTHORIZATION_HEADER} from the specified ServletRequest.
-     * <p/>
+     * <p>
      * This implementation merely casts the request to an <code>HttpServletRequest</code> and returns the header:
-     * <p/>
+     * <p>
      * <code>HttpServletRequest httpRequest = {@link WebUtils#toHttp(javax.servlet.ServletRequest) toHttp(reaquest)};<br/>
      * return httpRequest.getHeader({@link org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter#AUTHORIZATION_HEADER AUTHORIZATION_HEADER});</code>
      *
@@ -226,7 +226,7 @@ public class NegotiateAuthenticationFilter extends AuthenticatingFilter {
 
     /**
      * Determines whether the incoming request is an attempt to log in.
-     * <p/>
+     * <p>
      * The default implementation obtains the value of the request's
      * {@link org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter#AUTHORIZATION_HEADER AUTHORIZATION_HEADER}
      * , and if it is not <code>null</code>, delegates to
