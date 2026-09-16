@@ -725,11 +725,10 @@
                                 <X-Compile-Release-JDK>${maven.compiler.release}</X-Compile-Release-JDK>
                             </manifestEntries>
                         </archive>
-                        <!-- TODO: Tests do not have public or protected items and will cause failure if not set to false here! -->
-                        <failOnError>false</failOnError>
                         <notimestamp>true</notimestamp>
                         <quiet>true</quiet>
                         <release>${javadoc.java.release.version}</release>
+                        <show>private</show>
                         <source>${javadoc.java.release.version}</source>
                     </configuration>
                 </plugin>
@@ -1214,8 +1213,19 @@
                         <id>attach-javadocs</id>
                         <goals>
                             <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <release>${maven.compiler.release}</release>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>attach-test-javadocs</id>
+                        <goals>
                             <goal>test-jar</goal>
                         </goals>
+                        <configuration>
+                            <release>${maven.compiler.testRelease}</release>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
