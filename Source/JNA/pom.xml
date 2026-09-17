@@ -139,9 +139,8 @@
         <java.test.version>21</java.test.version>
         <java.test.release.version>21</java.test.release.version>
 
-        <!-- Javadoc Release is strict due to maven bug and automatic module naming; it needs extra help, see examples, later fixed by legacy.mode flag -->
+        <!-- Javadoc Release for automatic module naming. -->
         <javadoc.java.release.version>${java.release.version}</javadoc.java.release.version>
-        <javadoc.legacy.mode>true</javadoc.legacy.mode>
 
         <!-- Legacy compiler options source/target not really needed now (but still used by things like sonar, m2e) -->
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -1411,6 +1410,13 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>javadoc</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
