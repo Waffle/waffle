@@ -237,7 +237,7 @@ abstract class WaffleAuthenticatorBase extends AuthenticatorBase {
         try {
             windowsIdentity = this.auth.logonUser(username, password);
         } catch (final Exception e) {
-            this.log.error(e.getMessage());
+            this.log.error("{}", e.getMessage());
             this.log.trace("", e);
             return super.doLogin(request, username, password);
         }

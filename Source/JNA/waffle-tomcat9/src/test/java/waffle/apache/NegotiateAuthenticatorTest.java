@@ -41,9 +41,11 @@ class NegotiateAuthenticatorTest {
     /** The authenticator. */
     private NegotiateAuthenticator authenticator;
 
+    /** The context. */
     @Mocked
     private Context context;
 
+    /** The engine. */
     @Mocked
     private Engine engine;
 
