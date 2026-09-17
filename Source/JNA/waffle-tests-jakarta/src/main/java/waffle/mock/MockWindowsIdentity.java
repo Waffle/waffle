@@ -44,7 +44,7 @@ public class MockWindowsIdentity implements IWindowsIdentity {
 
     @Override
     public IWindowsAccount[] getGroups() {
-        final List<MockWindowsAccount> groupsList = new ArrayList<>();
+        final List<MockWindowsAccount> groupsList = new ArrayList<>(this.groups.size());
         for (final String group : this.groups) {
             groupsList.add(new MockWindowsAccount(group));
         }

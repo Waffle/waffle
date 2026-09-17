@@ -7,6 +7,7 @@
 package waffle.mock;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
@@ -132,7 +133,7 @@ class MockWindowsAuthProviderTest {
         final IWindowsSecurityContext ctx = this.provider.acceptSecurityToken("conn3",
                 "anyuser".getBytes(StandardCharsets.UTF_8), "NTLM");
         final IWindowsIdentity identity = ctx.getIdentity();
-        final List<String> groupNames = new java.util.ArrayList<>();
+        final List<String> groupNames = new ArrayList<>(identity.getGroups().length);
         for (final waffle.windows.auth.IWindowsAccount g : identity.getGroups()) {
             groupNames.add(g.getFqn());
         }
