@@ -22,8 +22,8 @@ import org.slf4j.LoggerFactory;
  */
 public class StartEmbeddedJetty {
 
-    /** The Constant LOGGER. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(StartEmbeddedJetty.class);
+    /** The Constant logger. */
+    private static final Logger logger = LoggerFactory.getLogger(StartEmbeddedJetty.class);
 
     /**
      * Prevents Instantiation of a new start embedded jetty.
@@ -62,17 +62,17 @@ public class StartEmbeddedJetty {
         server.setHandler(context);
 
         try {
-            StartEmbeddedJetty.LOGGER.info(">>> STARTING EMBEDDED JETTY SERVER, PRESS ANY KEY TO STOP");
+            StartEmbeddedJetty.logger.info(">>> STARTING EMBEDDED JETTY SERVER, PRESS ANY KEY TO STOP");
             server.start();
             if (System.in.read() == -1) {
-                StartEmbeddedJetty.LOGGER.error("End of Stream reached");
+                StartEmbeddedJetty.logger.error("End of Stream reached");
                 return;
             }
-            StartEmbeddedJetty.LOGGER.info(">>> STOPPING EMBEDDED JETTY SERVER");
+            StartEmbeddedJetty.logger.info(">>> STOPPING EMBEDDED JETTY SERVER");
             server.stop();
             server.join();
         } catch (final Exception e) {
-            StartEmbeddedJetty.LOGGER.error("", e);
+            StartEmbeddedJetty.logger.error("", e);
             System.exit(100);
         }
     }

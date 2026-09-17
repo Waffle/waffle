@@ -33,8 +33,8 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  */
 public abstract class AbstractWaffleRealm extends AuthorizingRealm {
 
-    /** The Constant LOGGER. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractWaffleRealm.class);
+    /** The Constant logger. */
+    private static final Logger logger = LoggerFactory.getLogger(AbstractWaffleRealm.class);
 
     /** The Constant REALM_NAME. */
     private static final String REALM_NAME = "WAFFLE";
@@ -50,17 +50,17 @@ public abstract class AbstractWaffleRealm extends AuthorizingRealm {
             final String username = token.getUsername();
             IWindowsIdentity identity = null;
             try {
-                AbstractWaffleRealm.LOGGER.debug("Attempting login for user {}", username);
+                AbstractWaffleRealm.logger.debug("Attempting login for user {}", username);
                 identity = this.provider.logonUser(username, new String(token.getPassword()));
                 if (identity.isGuest()) {
-                    AbstractWaffleRealm.LOGGER.debug("Guest identity for user {}; denying access", username);
+                    AbstractWaffleRealm.logger.debug("Guest identity for user {}; denying access", username);
                     throw new AuthenticationException("Guest identities are not allowed access");
                 }
                 final Object principal = new WaffleFqnPrincipal(identity);
                 authenticationInfo = this.buildAuthenticationInfo(token, principal);
-                AbstractWaffleRealm.LOGGER.debug("Successful login for user {}", username);
+                AbstractWaffleRealm.logger.debug("Successful login for user {}", username);
             } catch (final RuntimeException e) {
-                AbstractWaffleRealm.LOGGER.debug("Failed login for user {}", username);
+                AbstractWaffleRealm.logger.debug("Failed login for user {}", username);
                 throw new AuthenticationException("Login failed", e);
             } finally {
                 if (identity != null) {

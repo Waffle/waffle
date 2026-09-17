@@ -78,8 +78,8 @@ import waffle.windows.auth.impl.WindowsAuthProviderImpl;
  */
 public class WaffleInfo {
 
-    /** The Constant LOGGER. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(WaffleInfo.class);
+    /** The Constant logger. */
+    private static final Logger logger = LoggerFactory.getLogger(WaffleInfo.class);
 
     /**
      * Get a Document with basic system information.
@@ -322,7 +322,7 @@ public class WaffleInfo {
                             lookup.add(args[++i]);
                             break;
                         default:
-                            WaffleInfo.LOGGER.error("Unknown Argument: {}", arg);
+                            WaffleInfo.logger.error("Unknown Argument: {}", arg);
                             throw new RuntimeException("Unknown Argument: " + arg);
                     }
                 }
@@ -343,11 +343,11 @@ public class WaffleInfo {
                 Files.write(path, xml.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
                 Desktop.getDesktop().open(path.toFile());
             } else {
-                WaffleInfo.LOGGER.info("{}", xml);
+                WaffleInfo.logger.info("{}", xml);
             }
         } catch (final IOException | TransformerException | ParserConfigurationException e) {
-            WaffleInfo.LOGGER.error(e.getMessage());
-            WaffleInfo.LOGGER.trace("", e);
+            WaffleInfo.logger.error(e.getMessage());
+            WaffleInfo.logger.trace("", e);
         }
     }
 }

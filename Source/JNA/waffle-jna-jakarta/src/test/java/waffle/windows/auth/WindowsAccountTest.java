@@ -22,8 +22,8 @@ import waffle.windows.auth.impl.WindowsAccountImpl;
  */
 class WindowsAccountTest {
 
-    /** The Constant LOGGER. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(WindowsAccountTest.class);
+    /** The Constant logger. */
+    private static final Logger logger = LoggerFactory.getLogger(WindowsAccountTest.class);
 
     /**
      * Test get current username.
@@ -31,7 +31,7 @@ class WindowsAccountTest {
     @Test
     void testGetCurrentUsername() {
         final String currentUsername = WindowsAccountImpl.getCurrentUsername();
-        WindowsAccountTest.LOGGER.info("Current username: {}", currentUsername);
+        WindowsAccountTest.logger.info("Current username: {}", currentUsername);
         assertThat(currentUsername).isNotEmpty();
     }
 
@@ -43,13 +43,13 @@ class WindowsAccountTest {
         final String currentUsername = WindowsAccountImpl.getCurrentUsername();
         final IWindowsAccount account = new WindowsAccountImpl(currentUsername);
         assertThat(account.getName()).isNotEmpty();
-        WindowsAccountTest.LOGGER.info("Name: {}", account.getName());
+        WindowsAccountTest.logger.info("Name: {}", account.getName());
         assertThat(account.getDomain()).isNotEmpty();
-        WindowsAccountTest.LOGGER.info("Domain: {}", account.getDomain());
+        WindowsAccountTest.logger.info("Domain: {}", account.getDomain());
         assertThat(account.getFqn()).isNotEmpty();
-        WindowsAccountTest.LOGGER.info("Fqn: {}", account.getFqn());
+        WindowsAccountTest.logger.info("Fqn: {}", account.getFqn());
         assertThat(account.getSidString()).isNotEmpty();
-        WindowsAccountTest.LOGGER.info("Sid: {}", account.getSidString());
+        WindowsAccountTest.logger.info("Sid: {}", account.getSidString());
         // To avoid errors with machine naming being all upper-case, use test in this manner
         Assertions.assertTrue(currentUsername.equalsIgnoreCase(account.getFqn()));
         Assertions.assertTrue(currentUsername.endsWith("\\" + account.getName()));

@@ -59,8 +59,8 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
  */
 public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
 
-    /** The Constant LOGGER. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(DelegatingNegotiateSecurityFilter.class);
+    /** The Constant logger. */
+    private static final Logger logger = LoggerFactory.getLogger(DelegatingNegotiateSecurityFilter.class);
 
     /** The authentication manager. */
     private AuthenticationManager authenticationManager;
@@ -79,7 +79,7 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
      */
     public DelegatingNegotiateSecurityFilter() {
         super();
-        DelegatingNegotiateSecurityFilter.LOGGER.debug("[waffle.spring.NegotiateSecurityFilter] loaded");
+        DelegatingNegotiateSecurityFilter.logger.debug("[waffle.spring.NegotiateSecurityFilter] loaded");
     }
 
     /**
@@ -126,7 +126,7 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
         try {
             Authentication delegateAuthentication = authentication;
             if (this.authenticationManager != null) {
-                DelegatingNegotiateSecurityFilter.LOGGER.debug("Delegating to custom authenticationmanager");
+                DelegatingNegotiateSecurityFilter.logger.debug("Delegating to custom authenticationmanager");
                 delegateAuthentication = this.authenticationManager.authenticate(authentication);
             }
             SecurityContextHolder.getContext().setAuthentication(delegateAuthentication);
@@ -135,19 +135,19 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
                     this.authenticationSuccessHandler.onAuthenticationSuccess(request, response,
                             delegateAuthentication);
                 } catch (final IOException | ServletException e) {
-                    DelegatingNegotiateSecurityFilter.LOGGER.warn("Error calling authenticationSuccessHandler: {}",
+                    DelegatingNegotiateSecurityFilter.logger.warn("Error calling authenticationSuccessHandler: {}",
                             e.getMessage());
-                    DelegatingNegotiateSecurityFilter.LOGGER.trace("", e);
+                    DelegatingNegotiateSecurityFilter.logger.trace("", e);
                     return false;
                 }
             }
         } catch (final AuthenticationException e) {
-            DelegatingNegotiateSecurityFilter.LOGGER
+            DelegatingNegotiateSecurityFilter.logger
                     .warn("Error authenticating user in custom authenticationmanager: {}", e.getMessage());
             this.sendAuthenticationFailed(request, response, e);
             return false;
         } catch (final AccessDeniedException e) {
-            DelegatingNegotiateSecurityFilter.LOGGER.warn("Error authorizing user in custom authenticationmanager: {}",
+            DelegatingNegotiateSecurityFilter.logger.warn("Error authorizing user in custom authenticationmanager: {}",
                     e.getMessage());
             this.sendAccessDenied(request, response, e);
             return false;
@@ -181,13 +181,13 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
                 this.authenticationFailureHandler.onAuthenticationFailure(request, response, ae);
                 return;
             } catch (final IOException e) {
-                DelegatingNegotiateSecurityFilter.LOGGER.warn("IOException invoking authenticationFailureHandler: {}",
+                DelegatingNegotiateSecurityFilter.logger.warn("IOException invoking authenticationFailureHandler: {}",
                         e.getMessage());
-                DelegatingNegotiateSecurityFilter.LOGGER.trace("", e);
+                DelegatingNegotiateSecurityFilter.logger.trace("", e);
             } catch (final ServletException e) {
-                DelegatingNegotiateSecurityFilter.LOGGER
+                DelegatingNegotiateSecurityFilter.logger
                         .warn("ServletException invoking authenticationFailureHandler: {}", e.getMessage());
-                DelegatingNegotiateSecurityFilter.LOGGER.trace("", e);
+                DelegatingNegotiateSecurityFilter.logger.trace("", e);
             }
         }
         super.sendUnauthorized(response, true);
@@ -210,13 +210,13 @@ public class DelegatingNegotiateSecurityFilter extends NegotiateSecurityFilter {
                 this.accessDeniedHandler.handle(request, response, ae);
                 return;
             } catch (final IOException e) {
-                DelegatingNegotiateSecurityFilter.LOGGER.warn("IOException invoking accessDeniedHandler: {}",
+                DelegatingNegotiateSecurityFilter.logger.warn("IOException invoking accessDeniedHandler: {}",
                         e.getMessage());
-                DelegatingNegotiateSecurityFilter.LOGGER.trace("", e);
+                DelegatingNegotiateSecurityFilter.logger.trace("", e);
             } catch (final ServletException e) {
-                DelegatingNegotiateSecurityFilter.LOGGER.warn("ServletException invoking accessDeniedHandler: {}",
+                DelegatingNegotiateSecurityFilter.logger.warn("ServletException invoking accessDeniedHandler: {}",
                         e.getMessage());
-                DelegatingNegotiateSecurityFilter.LOGGER.trace("", e);
+                DelegatingNegotiateSecurityFilter.logger.trace("", e);
             }
         }
         // fallback

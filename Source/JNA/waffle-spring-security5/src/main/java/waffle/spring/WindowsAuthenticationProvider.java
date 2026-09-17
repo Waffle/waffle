@@ -28,8 +28,8 @@ import waffle.windows.auth.PrincipalFormat;
  */
 public class WindowsAuthenticationProvider implements AuthenticationProvider {
 
-    /** The Constant LOGGER. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(WindowsAuthenticationProvider.class);
+    /** The Constant logger. */
+    private static final Logger logger = LoggerFactory.getLogger(WindowsAuthenticationProvider.class);
 
     /** The principal format. */
     private PrincipalFormat principalFormat = PrincipalFormat.FQN;
@@ -53,7 +53,7 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
      * Instantiates a new windows authentication provider.
      */
     public WindowsAuthenticationProvider() {
-        WindowsAuthenticationProvider.LOGGER.debug("[waffle.spring.WindowsAuthenticationProvider] loaded");
+        WindowsAuthenticationProvider.logger.debug("[waffle.spring.WindowsAuthenticationProvider] loaded");
     }
 
     @Override
@@ -65,22 +65,22 @@ public class WindowsAuthenticationProvider implements AuthenticationProvider {
         } catch (final Win32Exception e) {
             throw new AuthenticationServiceException(e.getMessage(), e);
         }
-        WindowsAuthenticationProvider.LOGGER.debug("logged in user: {} ({})", windowsIdentity.getFqn(),
+        WindowsAuthenticationProvider.logger.debug("logged in user: {} ({})", windowsIdentity.getFqn(),
                 windowsIdentity.getSidString());
 
         if (!this.allowGuestLogin && windowsIdentity.isGuest()) {
-            WindowsAuthenticationProvider.LOGGER.warn("guest login disabled: {}", windowsIdentity.getFqn());
+            WindowsAuthenticationProvider.logger.warn("guest login disabled: {}", windowsIdentity.getFqn());
             throw new GuestLoginDisabledAuthenticationException(windowsIdentity.getFqn());
         }
 
         final WindowsPrincipal windowsPrincipal = new WindowsPrincipal(windowsIdentity, this.principalFormat,
                 this.roleFormat);
-        WindowsAuthenticationProvider.LOGGER.debug("roles: {}", windowsPrincipal.getRolesString());
+        WindowsAuthenticationProvider.logger.debug("roles: {}", windowsPrincipal.getRolesString());
 
         final WindowsAuthenticationToken token = new WindowsAuthenticationToken(windowsPrincipal,
                 this.grantedAuthorityFactory, this.defaultGrantedAuthority);
 
-        WindowsAuthenticationProvider.LOGGER.info("successfully logged in user: {}", windowsIdentity.getFqn());
+        WindowsAuthenticationProvider.logger.info("successfully logged in user: {}", windowsIdentity.getFqn());
         return token;
     }
 

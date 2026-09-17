@@ -30,8 +30,8 @@ import org.slf4j.LoggerFactory;
  */
 public class SimpleHttpResponse extends HttpServletResponseWrapper {
 
-    /** The Constant LOGGER. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(SimpleHttpResponse.class);
+    /** The Constant logger. */
+    private static final Logger logger = LoggerFactory.getLogger(SimpleHttpResponse.class);
 
     /** The status. */
     private int status = 500;
@@ -122,10 +122,10 @@ public class SimpleHttpResponse extends HttpServletResponseWrapper {
 
     @Override
     public void flushBuffer() {
-        SimpleHttpResponse.LOGGER.info("{}: {}", Integer.valueOf(this.status), this.getStatusString());
+        SimpleHttpResponse.logger.info("{}: {}", Integer.valueOf(this.status), this.getStatusString());
         for (final Map.Entry<String, List<String>> header : this.headers.entrySet()) {
             for (final String headerValue : header.getValue()) {
-                SimpleHttpResponse.LOGGER.info("{}: {}", header, headerValue);
+                SimpleHttpResponse.logger.info("{}: {}", header, headerValue);
             }
         }
     }
