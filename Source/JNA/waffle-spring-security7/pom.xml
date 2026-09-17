@@ -36,6 +36,9 @@
         <java.version>17</java.version>
         <java.release.version>17</java.release.version>
 
+        <!-- Remember to adjust this up as you add unit tests -->
+        <jacoco.minimum.coverage>0.81</jacoco.minimum.coverage>
+
         <!-- Dependencies -->
         <commons-logging.version>1.4.0</commons-logging.version>
         <servlet.version>6.1.0</servlet.version>

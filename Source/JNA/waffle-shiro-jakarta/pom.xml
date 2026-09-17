@@ -32,6 +32,9 @@
     </scm>
 
     <properties>
+        <!-- Remember to adjust this up as you add unit tests -->
+        <jacoco.minimum.coverage>0.65</jacoco.minimum.coverage>
+
         <!-- Dependencies -->
         <beanutils.version>1.11.0</beanutils.version>
         <powermock.version>2.0.9</powermock.version>

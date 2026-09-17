@@ -179,7 +179,7 @@ class WindowsAuthProviderTest {
             if (serverContext != null) {
                 assertThat(serverContext.getIdentity().getFqn()).isNotEmpty();
 
-                WindowsAuthProviderTest.logger.info(serverContext.getIdentity().getFqn());
+                WindowsAuthProviderTest.logger.info("{}", serverContext.getIdentity().getFqn());
                 for (final IWindowsAccount group : serverContext.getIdentity().getGroups()) {
                     WindowsAuthProviderTest.logger.info(" {}", group.getFqn());
                 }
@@ -286,7 +286,7 @@ class WindowsAuthProviderTest {
                 final IWindowsImpersonationContext impersonationCtx = serverContext.impersonate();
                 impersonationCtx.revertToSelf();
 
-                WindowsAuthProviderTest.logger.info(serverContext.getIdentity().getFqn());
+                WindowsAuthProviderTest.logger.info("{}", serverContext.getIdentity().getFqn());
                 for (final IWindowsAccount group : serverContext.getIdentity().getGroups()) {
                     WindowsAuthProviderTest.logger.info(" {}", group.getFqn());
                 }
