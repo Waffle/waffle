@@ -350,6 +350,12 @@ class MixedAuthenticatorTest {
         Assertions.assertTrue(this.authenticator.authenticate(request, response));
     }
 
+    /**
+     * Test custom principal.
+     *
+     * @throws LifecycleException
+     *             the lifecycle exception
+     */
     @Test
     void testCustomPrincipal() throws LifecycleException {
         final GenericPrincipal genericPrincipal = new GenericPrincipal("my-principal", List.of());

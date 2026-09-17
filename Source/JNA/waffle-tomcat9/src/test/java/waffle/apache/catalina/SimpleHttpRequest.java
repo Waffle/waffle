@@ -9,6 +9,7 @@ package waffle.apache.catalina;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.servlet.http.HttpSession;
 
@@ -21,23 +22,23 @@ import org.apache.catalina.connector.Request;
  */
 public class SimpleHttpRequest extends Request {
 
-    /** The remote port s. */
-    private static int remotePortS;
+    /** The Constant REMOTE_PORT. */
+    private static final AtomicInteger REMOTE_PORT = new AtomicInteger();
 
     /**
      * Next remote port.
      *
      * @return the int
      */
-    public static synchronized int nextRemotePort() {
-        return ++SimpleHttpRequest.remotePortS;
+    public static int nextRemotePort() {
+        return SimpleHttpRequest.REMOTE_PORT.incrementAndGet();
     }
 
     /**
      * Reset remote port.
      */
-    public static synchronized void resetRemotePort() {
-        SimpleHttpRequest.remotePortS = 0;
+    public static void resetRemotePort() {
+        SimpleHttpRequest.REMOTE_PORT.set(0);
     }
 
     /** The request uri. */
