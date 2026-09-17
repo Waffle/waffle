@@ -120,7 +120,7 @@ class ImpersonateTest {
 
             Assertions.assertEquals(MockWindowsAccount.TEST_USER_NAME, filterChain.getUserName(),
                     "Test user should be impersonated");
-            Assertions.assertFalse(Advapi32Util.getUserName().equals(MockWindowsAccount.TEST_USER_NAME),
+            Assertions.assertNotEquals(MockWindowsAccount.TEST_USER_NAME, Advapi32Util.getUserName(),
                     "Impersonation context should have been reverted");
         } finally {
             if (windowsPrincipal != null) {

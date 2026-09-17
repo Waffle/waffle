@@ -32,6 +32,9 @@
     </scm>
 
     <properties>
+        <!-- Remember to adjust this up as you add unit tests -->
+        <jacoco.minimum.coverage>0.61</jacoco.minimum.coverage>
+
         <!-- Dependencies -->
         <tomcat.version>9.0.122</tomcat.version>
 

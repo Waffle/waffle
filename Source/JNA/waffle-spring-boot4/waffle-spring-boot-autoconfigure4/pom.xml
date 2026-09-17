@@ -32,6 +32,10 @@
     </scm>
 
     <properties>
+        <!-- Remember to adjust this up as you add unit tests -->
+        <jacoco.minimum.coverage>0.60</jacoco.minimum.coverage>
+
+        <!-- Dependencies -->
         <commons-logging.version>1.4.0</commons-logging.version>
 
         <!-- Automatic Module Name for JPMS -->

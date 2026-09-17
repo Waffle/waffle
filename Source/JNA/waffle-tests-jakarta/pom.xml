@@ -32,6 +32,9 @@
     </scm>
 
     <properties>
+        <!-- Remember to adjust this up as you add unit tests -->
+        <jacoco.minimum.coverage>0.93</jacoco.minimum.coverage>
+
         <!-- Dependencies -->
         <mockito.version>5.23.0</mockito.version>
         <objenesis.version>3.6</objenesis.version>

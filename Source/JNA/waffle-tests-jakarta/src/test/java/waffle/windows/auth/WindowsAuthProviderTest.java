@@ -230,7 +230,7 @@ class WindowsAuthProviderTest {
             }
             WindowsAuthProviderTest.logger.info("Cached security contexts: {}",
                     Integer.valueOf(provider.getContinueContextsSize()));
-            Assertions.assertFalse(max == provider.getContinueContextsSize());
+            Assertions.assertNotEquals(max, provider.getContinueContextsSize());
         } finally {
             if (serverContext != null) {
                 serverContext.dispose();

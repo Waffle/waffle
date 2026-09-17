@@ -9,6 +9,8 @@ package waffle.mock.http;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.ServletOutputStream;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -140,7 +142,7 @@ class SimpleHttpResponseTest {
      */
     @Test
     void testGetOutputStream() throws IOException {
-        final javax.servlet.ServletOutputStream out = this.response.getOutputStream();
+        final ServletOutputStream out = this.response.getOutputStream();
         Assertions.assertNotNull(out);
         out.write('A');
         Assertions.assertTrue(this.response.getOutputText().contains("A"));

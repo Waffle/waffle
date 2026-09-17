@@ -32,6 +32,9 @@
     </scm>
 
     <properties>
+        <!-- Remember to adjust this up as you add unit tests -->
+        <jacoco.minimum.coverage>0.63</jacoco.minimum.coverage>
+
         <!-- Dependencies -->
         <caffeine.version>3.2.4</caffeine.version>
         <jna.version>5.19.1</jna.version>

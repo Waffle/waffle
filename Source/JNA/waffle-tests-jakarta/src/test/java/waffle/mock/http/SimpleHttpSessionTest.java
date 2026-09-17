@@ -124,4 +124,5 @@ class SimpleHttpSessionTest {
     void testSetMaxInactiveIntervalDoesNotThrow() {
         Assertions.assertDoesNotThrow(() -> this.session.setMaxInactiveInterval(300));
     }
+
 }

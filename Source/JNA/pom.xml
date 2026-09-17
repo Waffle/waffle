@@ -128,7 +128,7 @@
         <github.global.server>github</github.global.server>
 
         <!-- Remember to adjust this up as you add unit tests -->
-        <jacoco.minimum.coverage>0.65</jacoco.minimum.coverage>
+        <jacoco.minimum.coverage>1.00</jacoco.minimum.coverage>
 
         <!-- Maven Settings -->
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
@@ -178,7 +178,7 @@
         <!-- Checkstyle -->
         <checkstyle.config>checkstyle.xml</checkstyle.config>
 
-        <!-- Third Party Versions -->
+        <!-- Dependencies -->
         <assertj.version>3.27.7</assertj.version>
         <byte-buddy.version>1.18.14</byte-buddy.version>
         <caffeine.version>3.2.4</caffeine.version>
@@ -1298,6 +1298,12 @@
                             <goal>report</goal>
                         </goals>
                     </execution>
+                    <execution>
+                        <id>check</id>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
                 </executions>
             </plugin>
 
@@ -1476,18 +1482,6 @@
             <build>
                 <plugins>
                     <!-- Reporting Plugins -->
-                    <plugin>
-                        <groupId>org.jacoco</groupId>
-                        <artifactId>jacoco-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>check</id>
-                                <goals>
-                                    <goal>check</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
                     <plugin>
                         <groupId>org.owasp</groupId>
                         <artifactId>dependency-check-maven</artifactId>
