@@ -36,7 +36,7 @@
         <jacoco.minimum.coverage>0.93</jacoco.minimum.coverage>
 
         <!-- Dependencies -->
-        <mockito.version>5.23.0</mockito.version>
+        <mockito.version>5.24.0</mockito.version>
         <objenesis.version>3.6</objenesis.version>
         <servlet.version>6.1.0</servlet.version>
 
