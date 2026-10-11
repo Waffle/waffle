@@ -239,7 +239,7 @@
         <yuicompressor.plugin>2.4.0</yuicompressor.plugin>
 
         <!-- Plugin Dependency Versions -->
-        <asm.version>9.10.1</asm.version>
+        <asm.version>9.11</asm.version>
         <build-tools.version>1.6.0</build-tools.version>
         <checkstyle.version>14.3.0</checkstyle.version>
         <extra-enforcer-rules.version>1.12.1</extra-enforcer-rules.version>
