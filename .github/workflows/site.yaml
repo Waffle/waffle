@@ -28,7 +28,7 @@ jobs:
         with:
           cache: maven
           distribution: temurin
-          java-version: 27.0.1+0
+          java-version: 27.0.1+1
       - name: Build site
         run: ./mvnw site site:stage --batch-mode --no-transfer-progress --settings ./.mvn/settings.xml --show-version -Dlicense.skip=true -DskipTests
         env:
