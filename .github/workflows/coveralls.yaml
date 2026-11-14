@@ -6,7 +6,8 @@ defaults:
 
 on: [workflow_dispatch, push, pull_request]
 
-permissions: read-all
+permissions:
+  contents: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -24,17 +25,17 @@ jobs:
         with:
           cache: maven
           distribution: temurin
-          java-version: 27
+          java-version: '27'
       - name: Run the build
-        run: ./mvnw install --batch-mode --no-transfer-progress --quiet --show-version -D"license.skip=true"
+        run: ./mvnw install --batch-mode --no-transfer-progress --show-version -D"license.skip=true"
       - name: Report Coverage to Coveralls for Pull Requests
         if: github.event_name == 'pull_request'
-        run: ./mvnw generate-sources jacoco:report coveralls:report --batch-mode --no-transfer-progress -DpullRequest=${{ env.PR_NUMBER }} -DrepoToken=${{ env.GITHUB_TOKEN }} -DserviceName=github -Pcoveralls
+        run: ./mvnw generate-sources jacoco:report coveralls:report --batch-mode --no-transfer-progress -D"pullRequest=$env:PR_NUMBER" -D"repoToken=$env:GITHUB_TOKEN" -D"serviceName=github" -Pcoveralls
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.number }}
       - name: Report Coverage to Coveralls for General Push
-        if: github.event_name == 'push'
-        run: ./mvnw generate-sources jacoco:report coveralls:report --batch-mode --no-transfer-progress -DrepoToken=${{ env.GITHUB_TOKEN }} -DserviceName=github -Pcoveralls -X
+        if: github.event_name != 'pull_request'
+        run: ./mvnw generate-sources jacoco:report coveralls:report --batch-mode --no-transfer-progress -D"repoToken=$env:GITHUB_TOKEN" -D"serviceName=github" -Pcoveralls
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
