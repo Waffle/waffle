@@ -155,7 +155,7 @@
         <maven.compiler.parameters>true</maven.compiler.parameters>
 
         <!-- Maven minimum version -->
-        <maven.min-version>3.9.16</maven.min-version>
+        <maven.min-version>3.10.0</maven.min-version>
 
         <!-- Project Encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -172,7 +172,7 @@
         <timestamp>${maven.build.timestamp}</timestamp>
 
         <!-- Enforcer Jdks Allowed -->
-        <allowed.build.jdks note="Allow any 21, 25, 26, 27, 28">[21,22),[25,26),[26,27),[27,28),[28,29)</allowed.build.jdks>
+        <allowed.build.jdks note="Allow any 25, 27, 28">[25,26),[27,28),[28,29)</allowed.build.jdks>
 
         <!-- Checkstyle -->
         <checkstyle.config>checkstyle.xml</checkstyle.config>
