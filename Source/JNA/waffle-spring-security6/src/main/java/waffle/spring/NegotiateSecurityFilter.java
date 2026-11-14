@@ -20,7 +20,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.context.DelegatingSecurityContextRepository;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.security.web.context.RequestAttributeSecurityContextRepository;
+import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.web.filter.GenericFilterBean;
 
 import waffle.servlet.AutoDisposableWindowsPrincipal;
@@ -59,6 +64,10 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
 
     /** The default granted authority. */
     private GrantedAuthority defaultGrantedAuthority = WindowsAuthenticationToken.DEFAULT_GRANTED_AUTHORITY;
+
+    /** The security context repository. */
+    private SecurityContextRepository securityContextRepository = new DelegatingSecurityContextRepository(
+            new RequestAttributeSecurityContextRepository(), new HttpSessionSecurityContextRepository());
 
     /**
      * Instantiates a new negotiate security filter.
@@ -159,7 +168,10 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
      */
     protected boolean setAuthentication(final HttpServletRequest request, final HttpServletResponse response,
             final Authentication authentication) {
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        final SecurityContext context = SecurityContextHolder.getContext();
+        context.setAuthentication(authentication);
+        this.securityContextRepository.saveContext(context, request, response);
+
         return true;
     }
 
@@ -289,6 +301,25 @@ public class NegotiateSecurityFilter extends GenericFilterBean {
      */
     public boolean isImpersonate() {
         return this.impersonate;
+    }
+
+    /**
+     * Gets the security context repository.
+     *
+     * @return the security context repository
+     */
+    public SecurityContextRepository getSecurityContextRepository() {
+        return this.securityContextRepository;
+    }
+
+    /**
+     * Sets the security context repository.
+     *
+     * @param value
+     *            the security context repository
+     */
+    public void setSecurityContextRepository(final SecurityContextRepository value) {
+        this.securityContextRepository = value;
     }
 
     /**
