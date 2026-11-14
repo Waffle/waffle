@@ -4,7 +4,7 @@ defaults:
   run:
     working-directory: Source/JNA
 
-on: [push, pull_request]
+on: [workflow_dispatch, push, pull_request]
 
 permissions: read-all
 
