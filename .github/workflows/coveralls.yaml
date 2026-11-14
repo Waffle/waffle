@@ -4,9 +4,10 @@ defaults:
   run:
     working-directory: Source/JNA
 
-on: [push, pull_request]
+on: [workflow_dispatch, push, pull_request]
 
-permissions: read-all
+permissions:
+  contents: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -20,21 +21,21 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Setup Java
-        uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
+        uses: actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880 # v6.3.0
         with:
           cache: maven
           distribution: temurin
-          java-version: 27.0.1+1
+          java-version: '25'
       - name: Run the build
-        run: ./mvnw install --batch-mode --no-transfer-progress --quiet --show-version -D"license.skip=true"
+        run: ./mvnw install --batch-mode --no-transfer-progress --show-version -D"license.skip=true"
       - name: Report Coverage to Coveralls for Pull Requests
         if: github.event_name == 'pull_request'
-        run: ./mvnw generate-sources jacoco:report coveralls:report --batch-mode --no-transfer-progress -DpullRequest=${{ env.PR_NUMBER }} -DrepoToken=${{ env.GITHUB_TOKEN }} -DserviceName=github -Pcoveralls
+        run: ./mvnw generate-sources jacoco:report coveralls:report --batch-mode --no-transfer-progress -D"pullRequest=$env:PR_NUMBER" -D"repoToken=$env:GITHUB_TOKEN" -D"serviceName=github" -Pcoveralls
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.number }}
       - name: Report Coverage to Coveralls for General Push
-        if: github.event_name == 'push'
-        run: ./mvnw generate-sources jacoco:report coveralls:report --batch-mode --no-transfer-progress -DrepoToken=${{ env.GITHUB_TOKEN }} -DserviceName=github -Pcoveralls -X
+        if: github.event_name != 'pull_request'
+        run: ./mvnw generate-sources jacoco:report coveralls:report --batch-mode --no-transfer-progress -D"repoToken=$env:GITHUB_TOKEN" -D"serviceName=github" -Pcoveralls
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,20 +1,21 @@
 name: DotNET
 
-on: [push, pull_request]
+on: [workflow_dispatch, push, pull_request]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [windows-latest]
-      fail-fast: false
-      max-parallel: 4
-    name: Test .net ${{ matrix.os }}
+    runs-on: windows-latest
+    timeout-minutes: 30
+    name: Test .NET
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - name: Set up environment
-        run: ./bootstrap.cmd
       - name: Test with .Net
         run: ./build.cmd all

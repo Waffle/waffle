@@ -6,7 +6,8 @@ defaults:
 
 on: [workflow_dispatch, push, pull_request]
 
-permissions: read-all
+permissions:
+  contents: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -14,25 +15,24 @@ concurrency:
 
 jobs:
   test:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.entry.os }}
     timeout-minutes: 30
     strategy:
       matrix:
-        cache: [maven]
-        distribution: [temurin]
-        java: [27]
-        os: [windows-latest]
+        entry:
+          - { java: '21', os: windows-latest }
+          - { java: '25', os: windows-latest }
+          - { java: '27', os: windows-latest }
       fail-fast: false
-      max-parallel: 6
-    name: Test JDK ${{ matrix.java }}, ${{ matrix.os }}
+    name: Test JDK ${{ matrix.entry.java }}, ${{ matrix.entry.os }}
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - name: Setup Java ${{ matrix.java }} ${{ matrix.distribution }}
-        uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
+      - name: Setup Java ${{ matrix.entry.java }}
+        uses: actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880 # v6.3.0
         with:
-          cache: ${{ matrix.cache }}
-          distribution: ${{ matrix.distribution }}
-          java-version: ${{ matrix.java }}
+          cache: maven
+          distribution: temurin
+          java-version: ${{ matrix.entry.java }}
       - name: Test with Maven
         run: ./mvnw test --batch-mode --no-transfer-progress --show-version -D"license.skip=true"
