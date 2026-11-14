@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - coverity_scan
+  workflow_dispatch:
 
 permissions: read-all
 
