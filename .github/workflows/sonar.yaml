@@ -36,7 +36,7 @@ jobs:
         with:
           cache: maven
           distribution: temurin
-          java-version: '25'
+          java-version: '27'
       - name: Analyze with SonarCloud
         run: ./mvnw verify jacoco:report sonar:sonar --batch-mode --no-transfer-progress --show-version -D"license.skip=true" -D"sonar.host.url=https://sonarcloud.io" -D"sonar.organization=$env:SONAR_ORGANIZATION" -D"sonar.projectKey=$env:SONAR_PROJECT_KEY" -D"sonar.scanner.skipJreProvisioning=true" -D"sonar.token=$env:SONAR_TOKEN"
         env:
