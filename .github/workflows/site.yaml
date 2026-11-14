@@ -8,6 +8,7 @@ on:
   push:
     branches:
       - site
+  workflow_dispatch:
 
 permissions:
   contents: write
